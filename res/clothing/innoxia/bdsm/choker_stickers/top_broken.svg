@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg cursor="default" version="1.1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <text x="162.32295" y="206.1396" font-family="Bahnschrift" font-size="10.667px" letter-spacing="0px" text-align="center" text-anchor="middle" word-spacing="0px" style="line-height:1.2" xml:space="preserve"><tspan x="162.32295" y="206.1396"/></text>
+ <g fill="none" stroke="#ff7f2a" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="matrix(.729 0 0 .729 34.942 55.796)" stroke-width="1.5">
+   <path d="m107.9 209.66-0.14382-7.143c4.6981-1.0289 6.5438 3.0478 0.2397 3.4037 8.0734-1.4947 4.3523 5.1206-0.0959 3.7393z"/>
+   <path d="m125.25 202.57c4.5871-0.25418 2.6214 7.2193-0.81497 7.1909-5.9539-0.0492-2.6512-6.9989 0.81497-7.1909z"/>
+   <g transform="translate(-13.496,31.246)">
+    <path d="m155.78 171.12c-1.5422 0.13355-3.0379 0.33231-4.3559 0.77967 0.01 2.1525-0.0841 4.3051-0.38983 6.4576 1.9738-0.22895 3.9944-0.46832 5.5763-0.61017"/>
+    <path d="m155.37 174.12c-1.3432 0.023-2.6842 0.0632-3.983 0.44068"/>
+   </g>
+  </g>
+  <g transform="matrix(.729 0 0 .729 -.59745 78.574)" stroke-width="1.5">
+   <path d="m179.37 171.02c-0.39446 2.435-0.56466 4.87-0.64407 7.3051"/>
+   <path d="m184.88 170.93c-1.9323 1.53-3.8221 3.4854-5.8814 3.7458 2.719-0.5545 4.2694 2.2006 5.1695 3.9322"/>
+  </g>
+  <path d="m140.89 208.42c-0.11956-1.5769-0.20898-3.2705-0.0988-4.7817 0.88253 1.7898 2.1076 3.4779 3.5833 4.8064-0.0114-1.7166 0.10054-3.4421-0.34597-5.1277" stroke-width="1.0935"/>
+  <path d="m118.64 208.45c0.40714-1.8132 0.0576-3.4039-0.0494-5.066 1.7454-1.2251 6.393 0.70669 0.40773 2.6071 2.0071-0.26074 2.3883 1.5862 2.743 2.4959" stroke-width="1.0935"/>
+ </g>
+</svg>

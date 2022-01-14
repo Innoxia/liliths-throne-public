@@ -46,7 +46,7 @@ public class MilkingStall {
 			if(MilkingRoom.getActualMilkPerHour(milker)>0
 					&& milker.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_MILK)
 					&& milker.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, false)
-					&& Main.sex.isClothingEquipAvailable(milker, InventorySlot.NIPPLE)) {
+					&& Main.sex.isClothingEquipAvailable(milker, InventorySlot.NIPPLE, null)) {
 				if(milker.getClothingInSlot(InventorySlot.NIPPLE)==null) {
 					list.add(InventorySlot.NIPPLE);
 				}
@@ -54,7 +54,7 @@ public class MilkingStall {
 			if(MilkingRoom.getActualCrotchMilkPerHour(milker)>0
 					&& milker.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_MILK_CROTCH)
 					&& milker.isAbleToAccessCoverableArea(CoverableArea.STOMACH, false)
-					&& Main.sex.isClothingEquipAvailable(milker, InventorySlot.STOMACH)) {
+					&& Main.sex.isClothingEquipAvailable(milker, InventorySlot.STOMACH, null)) {
 				if(milker.getClothingInSlot(InventorySlot.STOMACH)==null) {
 					list.add(InventorySlot.STOMACH);
 				}
@@ -62,7 +62,7 @@ public class MilkingStall {
 			if(MilkingRoom.getActualCumPerHour(milker)>0
 					&& milker.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_CUM)
 					&& milker.isAbleToAccessCoverableArea(CoverableArea.PENIS, false)
-					&& Main.sex.isClothingEquipAvailable(milker, InventorySlot.PENIS)) {
+					&& Main.sex.isClothingEquipAvailable(milker, InventorySlot.PENIS, null)) {
 				if(milker.getClothingInSlot(InventorySlot.PENIS)==null) {
 					list.add(InventorySlot.PENIS);
 				}
@@ -71,7 +71,7 @@ public class MilkingStall {
 					&& milker.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_GIRLCUM)
 					&& (!milker.hasHymen() || milker.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_TEAR_HYMEN))
 					&& milker.isAbleToAccessCoverableArea(CoverableArea.VAGINA, false)
-					&& Main.sex.isClothingEquipAvailable(milker, InventorySlot.VAGINA)) {
+					&& Main.sex.isClothingEquipAvailable(milker, InventorySlot.VAGINA, null)) {
 				if(milker.getClothingInSlot(InventorySlot.VAGINA)==null) {
 					list.add(InventorySlot.VAGINA);
 				}

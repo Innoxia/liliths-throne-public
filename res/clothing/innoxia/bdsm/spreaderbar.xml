@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>450</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[spreader bar]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[spreader bars]]></namePlural>
+		<description><![CDATA[A pair of ankle restraints, attached to one another by a long metal pole. When worn, the wearer's legs are forced open.]]></description>
+		<physicalResistance>0</physicalResistance> 
+		<femininity>ANDROGYNOUS</femininity> 
+		<slot>ANKLE</slot>
+		<rarity>EPIC</rarity> 
+		<clothingSet>innoxia_bdsm</clothingSet>
+		<imageName>spreaderbar.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		
+		<effects> 
+			<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SEALING" timer="0"/>
+			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="STRENGTH" timer="0"/>
+		</effects>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
+					<clothingAccess>CALVES</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked>
+					<clothingAccess>LEGS_UP_TO_GROIN_LOW_LEVEL</clothingAccess>
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+					<clothingAccess>CALVES</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		<incompatibleSlots/> 
+		<primaryColours values="ALL"/> 
+		<primaryColoursDye/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		<itemTags> 
+			<tag>SPREADS_FEET</tag>
+			<tag>HINDERS_LEG_MOVEMENT</tag>
+			<tag>SOLD_BY_FINCH</tag>
+			<tag>REVEALS_CONCEALABLE_SLOT</tag>
+			<tag>PROVIDES_KEY</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(wrap)] the spreader bar's restraints around [npc.her] ankles and [npc.verb(fasten)] the straps, leaving [npc.her] [npc.legs] spread wide open.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(wrap)] the spreader bar's restraints around [npc2.namePos] ankles and [npc.verb(fasten)] the straps, leaving [npc2.her] [npc2.legs] spread wide open.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(wrap)] the spreader bar's restraints around [npc2.namePos] ankles and tightly [npc.verb(fasten)] the straps, leaving [npc2.her] [npc2.legs] spread wide open.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] the spreader bar's restraints and [npc.verb(remove)] it from around [npc.her] ankles.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] the restraints on [npc2.namePos] spreader bar and [npc.verb(remove)] it from around [npc2.her] ankles.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] the restraints on [npc2.namePos] spreader bar and quickly [npc.verb(remove)] it from around [npc2.her] ankles.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

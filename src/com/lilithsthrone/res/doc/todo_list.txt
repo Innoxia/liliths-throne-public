@@ -18,204 +18,207 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Patch notes:
 	
 	Contributors:
-		Fixed issue where characters without vaginas would spawn with the pure virgin fetish. (by Maxis)
-		Implemented new way of handling offspring who haven't yet been met, significantly improving turn time performance and save file size in games in which you have a lot of unmet offspring. (PR#1622 by AceXP)
+		Fixed issue where offspring from demons and non-demons were being generated as the wrong subspecies. (by AceXP)
+		Added 'equipClothingFromOutfitId()' method to CharacterUtils.java, making it easier to equip outfits on npcs in xml files via calls to game.getCharacterUtils().equipClothingFromOutfitId(). (by AceXP)
 	
 	Engine/Modding:
-		Added new BodyPartTag values 'TAIL_ATTACK' and 'TAIL_VENOMOUS_STING' for future use in bee/scorpion/etc. tails.
-		Added several 'CAFFEINATED_' ItemTags for use in defining consumable items as being caffeinated (so that they can apply intoxication effects to spider-morphs).
+		Converted all hard-coded BDSM-set, stomach-slot, and 'women's fashionable leather jacket' clothing files to external xml files.
+		Fixed incorrect documentation for the 'sexClothingEquippable' attribute in the commented sex manager, 'meraxis/duel/masturbation.xml'. (This variable defines whether or not the character can equip sex toys on others, while the old, incorrect documentation stated that it defined whether the character could have toys equipped on them.)
+		Added 'clothing' and 'npc' parsing targets for the 'sexClothingEquippable' attribute in xml-defined sex managers.
+		Added 'ROPE' and 'CHAINS' as new immobilisation types (in ImmobilisationType.enum) for use during sex, along with associated status effects.
 	
 	Gameplay:
-		Added characters and basic trading actions for the last remaining shops in Elis's shopping precint, Wall's End. (More content for each store will be added later.)
-		Added a new 'raptor' race which includes the subspecies: falcons (default); eagles; bald eagles (converted from harpy race); and owls.
-		Added 'Raptor energy drink' and 'Raptor energy bar' as new drink and food items for the new raptor race.
-		Added a new 'mouse' race which includes just one 'mouse' subspecies.
-		Added 'Harvest Mouse's barley water' and 'Harvest Mouse's cheese' as new drink and food items for the new mouse race.
+		Added sex content for Penelope's spa 'Woolly Heaven', which can be found in Elis's shopping precinct. (There's still some placeholder dialogue in Penelope's scenes, which will be filled in for the next update.)
+		Added 'arctic-wolf-morph' as a subspecies of the wolf-morph race. (To be classified as an arctic-wolf-morph, be detected as a wolf-morph and have white fur.)
 	
 	Clothing:
-		Added 'safety glasses' (scientist set, eye slot, androgynous, sold by Nyan).
+		The 'wrist restraints' clothing item from the BDSM set can now be equipped to the ankle slot in addition to the wrists slot.
+		Added stickers to the 'tagged choker' BDSM clothing item to allow you to customise the text on the tag.
+		Added secondary dye colours to 'overbust corset' and 'underbust corset', and secondary and tertiary dye colours to 'fashionable women's leather jacket'.
 	
 	Sex:
-		NPCs will now only use the orgasm denial action during sex if they have the orgasm denial fetish. (Previously, all that they needed was to have a positive desire towards that fetish.)
+		You can now equip condoms onto unique NPCs in most of their sex scenes. (A few special sex scenes prevent this behaviour, such as Lyssieth's demon TF sex scenes.)
+		Condoms can now be equipped onto a character's penis even if their penis is involved in an ongoing action, so you no longer need to stop ongoing action, apply condom, then restart the action.
+		NPCs now remove condoms that were equipped during sex when sex ends.
+		All speech actions are now available while being immobilised in sex scenes for both the player and NPCs.
 	
 	Other:
-		Changed references to beer and cider bottles to being on tap in the two pubs in Elis.
-		Changed Mintallys's Sunday milk flavour/theme from grape/purple to cherry/red.
-		Gave Amber a lore-friendly demonic surname.
-		Lyssieth's dominant and submissive sex options are no longer tied to her using her pussy or growing a cock, and instead you can request that she use her pussy or grow her cock for both dominant and submissive sex scenes.
+		The 'Random race transformation' potion effect (added via enchanting food with 'core' + 'transformative I' modifiers) no longer tries to apply transformations which have already been applied to the target, so potions with 16 of these effects will now always fully transform a target into the potion's race.
+		'Woolly heaven' is no longer closed during weekends.
+		Standardised hyphenations in the names of several subspecies.
 	
 	Bugs:
-		Parsing fixes.
-		Fixed issue where you could use orgasmic level drain during bad end sex scenes.
-		Fixed (harmless) background errors being thrown when starting a new game, caused by failing to parse vagina types before the game had fully initialised.
-		Your offspring who have been incubated by someone else are now correctly counted as part of the 'Total offspring' count in the phone menu's pregnancy stats screen.
-		Fixed issue where you could ask Dale about Monica's milker before even having started Monica's quest.
-		Fixed issue with several attributes in xml-defined responses (such as for fetish/perk requirements, sex, combat, and trading), where the first definition of these attributes would be used for all subsequent responses.
+		Added missing sex actions for the 'humping' sex slot while in the 'over desk' sex position.
+		Fixed issue where you could have vaginal sex with Kazik even if you had no vagina.
+		Fixed issue where in some sex scenes you could swap positions with a character who should have been blocked from accessing your position.
+		Fixed the 'orgasmCumTarget' element in sex managers not working correctly and throwing background errors.
 	
 	
+	[x] Improve random racial TF potion to filter out TFs which will do nothing
+	[x] convert bdsm gear to external files
+		[x] check chastity belt clothing block/conceals
+	[x] tagged choker stickers for text
+		[x] Prefix
+			[x] bound
+			[x] good
+			[x] bad
+			[x] obedient
+			[x] broken
+			[x] worthless
+			[x] cheap
+			[x] dumb
+		[x] Postfix
+			[x] bitch
+			[x] dog
+			[x] pet
+			[x] slut
+			[x] stud
+			[x] cunt
+			[x] whore
+			[x] toy
+	[x] Over desk humping has no sex actions
+	[x] Allow condom-equipping on unique characters
+		[x] remove after sex for them
+	[x] condom greyed out in inventory even though could equip onto partner
+	[x] Can start kazik sex even if have no vagina
 	
-	[x] 'underside of your feral a spider's body'
-	[x] fix incubation total offspring count
-	[x] parsing issues in encourage creampie/pullout
-	[x] once again able to use some basic telek
-	[x] Change description of beer and ale in pubs to be on tap
-	[x] Minotallys grape milk
-	[x] Amber needs correct surname
-	[-] Improve random racial TF potion to filter out TFs which will do nothing
-	[-] cannot egg spinnerets?
-		com/lilithsthrone/game/sex/sexActions/baseActionsMisc/GenericOrgasms.java:3611
-		Disabled action, and I'm fairly sure that some of the dialog for spinneret sex is missing
-	[x] Doggy-style you: "he grips your womanly hips and pulls his rump back against his groin, groaning"
-	[x] Wanting to check the new Dairy content I went there and noticed that when interacting with Dale, the option to ask about the milker was present, even though I hadn't started the quest or even met Monika.
-		I got the milker, and went to the clothing store and sure enough, the Monika NPC introduced herself to me and eventually introduced the quest. I was able to complete it on the spot because I had the milker
-	[x] decouple pussy/cock to sub/dom for Lyssieth sex
-		[x] sex dom/sub actions
-			[x] grow penis option
-	[x] NPCs denying orgasms even without fetish?
-	[x] Bird-morph rework:
-		Split harpy race to add Raptors
-			[x] Items
-				[x] Food - chicken wings
-				[x] Drink - energy drink
-			[x] Coverings
-			[x] Parts
-				[x] Check for boldRaptor
-			[x] Subspecies 
-				[x] Falcon: standard
-				[x] Eagle: Large feet
-					[x] Powerful legs
-				[x] Owl
-					[x] Large eyes
-			[x] Book entries
-		[x] Convert bald eagle
-	[x] Need caffeinated tag for drinks
-		[x] Apply to squirrel, spider, raptor
-		[x] Convert spider
-		[x] Item view doesn't show text for special effects from item tags
-	[x] Mice
-		[x] Icon
-		[x] Items
-			[x] Barley water
-			[x] Cheese
-		[x] Race/body
-		[x] Coverings
-		[x] Parts
-		[x] Subspecies
-		[x] Book entries
-		[x] testing
-	[x] MAKE A POST!!!
-	[x] owl subspecies not being applied...
-		if(this.isFromExternalFile() && Main.game.isStarted()) {
-	[x] owl/eagle colours
-	[x] Add body size to eagles
-	[x] bald-eagle to eagle should change hair colour to feather colour
+	[] Woolly Heaven
+		[] Spa treatment
+			[x] Spa relaxation
+			[x] Massage
+				[x] Sheep (250)
+					[x] add all to parser targets and to game init
+					[x] Belle Lamb
+						- 19, B-cup boobs, energetic/masochistic, white wool
+						[x] 100 finger you/jerk you off
+						[x] 250 performs oral
+						[x] 500 sex
+						[x] 750 special sex: Table bondage
+							[x] Add a generic bondage immobilisation type
+					[x] Daphne Hogget
+						- 29, D-cup boobs, sensual/eager sub, brown wool
+						[x] 100 finger you/jerk you off
+						[x] 250 performs oral
+						[x] 500 sex
+						[x] 750 special sex: Pet-play
+							[x] Dirty talk override
+					[x] Farah Mutton
+						- 44, F-cup boobs, motherly/gentle dom, black wool
+						[x] 100 finger you/jerk you off
+						[x] 250 performs oral
+						[x] 500 sex
+						[x] 750 special sex: Knock-up
+							[x] She takes a breeder pill
+					[x] Make sure all are taking sterility pills
+				[x] Penelope (1000)
+					[x] As sub:
+						[x] 200 finger you/jerk you off
+						[x] 500 performs oral
+						[x] 1000 sex
+						[x] 1500 special sex: catwalk
+							[x] Can choose from catalogue and then Penelope shows off in front of you before letting you dominantly fuck her
+								[x] 'At the ball' -> Elegant ballgown
+								[x] 'About town' -> Fashionable attire
+								[x] 'Drunken alley' -> Clubbing dress
+								[x] 'Less is more' -> lingerie
+								[x] 'Indulgence' -> latex fetish gear
+					[x] As dom:
+						[x] Reverse massage (no sex)
+						[x] 200 finger you/jerk you off
+						[x] 500 performs oral
+						[x] 1000 sex
+						[x] 1500 special sex: double facial
+							[x] she fucks player's face -> she cums & squirts on face
+					[x] sex managers
+				[x] Add conditionals to all sex options
+					[x] Genital access
+					[x] Mouth access for double facial
+				[x] Test all scenes
+					[x] Penelope massage action name
+					[x] Belle bondage error
+					[x] slot name error
+					[x] txt path incorrect
+					[x] Belle no dirty talk in bondage scene
+						remove UNIQUE_MAX
+						add isAllowedInImmobilisation() method and default to type is speech
+							add override in quick/end sex actions
+					[x] Prevent slot over table for player in Belle bondage &  all fours for player in Daphne pet play
+						[x] Add detection in position change menu for slot limitations
+					[x] need sterility pill at spawn
+					[x] need sex preference reversal for player in handjob & oral scenes
+						[x] test
+					[x] tooltip text bugged for handjob & oral
+					[x] all need to clean selves after sex
+					[x] Belle
+					[x] Daphne
+						[x] Need submissive talk override
+						[x] pet-play should include outfit change
+					[x] Farah
+						[x] position slot bug
+						[x] take sterility after sex
+						[x] After sex she uses preg tester to let you know if you got her pregnant
+							[x] test
+						[x] grey-out fertile sex if pregnant
+						[x] massage variation for if pregnant
+						[x] no corset if pregnant
+						[x] fertile sex preferences
+						[x] orgasmEncourageBehaviours value
+							[x] test
+					[x] Penelope
+						[x] money not subtracted
+						[x] OVER_DESK_ON_BACK error
+						[x] dominant sex options actions not showing
+						[x] money formatting for catwalk option
+						[x] double facial orgasmCumTarget broken
+						[x] need sex highlight for catwalk action
+						[x] give penelope massaged SE for reverse
+						[x] Penelope is rough as dom
+						[x] Double facial player shouldn't have start/stop control
+						[x] need double facial unique orgasm sex action
+							[x] needs to stop ongoing blowjob -> apply applyGenericPullOutEffects(
+					[x] Test handjobs/oral area restrictions (use tail)
+					[x] 'jerking off' change
+				[x] Keep open until midnight
+				[x] Massage options should have extended intro for the first time to fully introduce each sheep-girl
+					[x] Improve Penelope futa reveal
+						[x] Flahes player
+					[x] Intro Farah
+						[x] chubby
+						[x] no corset if pregnant
+			[] Fill in all placeholder text
+				[x] test written scenes for consistency
+				[x] talk topics
+				[x] relaxation
+				[] massage
+					[x] intro
+					[x] belle
+						[x] test
+					[x] daphne
+						[x] test
+					[x] farah
+						[x] test
+						[x] pregnant intro variations
+					[] penelope
+						[] test
 	
-	[] Wall's End
-		[x] Move Monica's content to a new file
-		[x] Add files for each shop
-		[] The Barn
-				[x] Staffed by generic mouse-boys in day, and a greater female owl-harpy at night
-				[x] Add owl subspecies (large eyes)
-				[x] Add mice
-			[x] Owl-girl
-			[x] Ceridwen is tired during day, alert at night
-			[x] Enter
-				[x] Repeat, she stalks you
-				[x] First time, she silently ambushes you and comments on the player's demon/unique appearance
-					[x] After introduction, she starts stalking you
-			[x] Trade
-			[x] Talk
-				[x] 'The Barn' name
-					[x] Named after where she used to live out in the fields
-				[x] Selection of goods
-					[x] She gets them from Dominion - her less sociable sisters fly there to pick up goods, avoiding the marauders on their way
-				[x] Mouse-morphs
-					[x] They were a family of farmers near her old home, and after Lunette's marauders burnt down their farm, she offered to employ them
-					[x] They're very timid when Ceridwen isn't around, so she stays in the store 24/7 to make them feel at ease
-					[x] Says that she wishes she could go home, but she puts her friends first
-			[x] TEST
-		[x] The Ninth Strike
-			[x] 2 greater furry male baphomets who hold a serious grudge against Lunette.
-				[x] Imsu Lisophiamartu
-					- black fur/red eyes
-					- melee weapons
-				[x] Hale Loviennemartu
-					- grey fur/yellow eyes
-					- ranged weapons
-			[x] Trade
-				[x] Give them arcane hammers to sell
-			[x] Talk
-				[x] History
-					They were competing blacksmiths in two villages (making ), who were extremely well-renowned and always in high demand
-					Their villages were the first to be destroyed by Lunette, and they lost everything
-					Managed to escape and forged a pact to get their revenge on Lunette
-				[x] Ninth Strike
-					They are trying to discover the technique which the Youko are said to possess, whereby working an enchantment into a weapon in nine strikes (hence the name) can make a weapon powerful enough to defeat Lunette
-					Need to find a nine-tailed youko to teach them this technique
-				[x] Quest action
-		[] Woolly Heaven
-			[x] Beauticians/Spa/brothel
-				[x] Penelope: border-collie-girl futa (described as being extremely attractive - her effortless beauty reminds you of the same sort of aura that Helena has)
-					- posh accent
-					- feminine sweater and skirt
-				[x] Employees are all sheep-girls
-			[x] Covering change/piercings/tattoos (kate services)
-				[x] Move Kate's dialogues to a generic class
-				[x] add support for accessing these dialogues from xml
-				[x] test
-					[x] Issue with tattoo menu
-					[x] post-enchanting tattoos leads into Kate scenes
-					[x] coverings errors
-					[x] need action grey-out when in associated dialogue
-			[x] Talk
-				[x] Pix's sister
-				[x] Did some modelling in Dominion for a while, then left to open this shop
-			[] Spa treatment
-				[x] Spa relaxation
-				[] Massage/Intimate
-					[] Sheep (250)
-						[] Belle
-							- 19, average boobs, energetic, white wool
-						[] Daphne
-							- 29, big boobs, sensual, brown wool
-						[] Farah
-							- 44, huge boobs, motherly, black wool
-						[] intimate massage 500
-							[] finger you/jerk you off
-							[] sex
-					[] Penelope (1000)
-						[] intimate massage 1500
-							[] finger you/jerk you off
-						[] double facial (she cums & squirts on face)
-						[] ass/pussy focus
-							[] hotdogging/intercrural
-							[] fucked
-						[] oral
-							[] blowjob/cunnilingus
-						[] titjob
-						[] sex
 	
-	[] tagged choker stickers for text
-		[] Prefix
-			[] bound
-			[] good
-			[] bad
-			[] obedient
-			[] broken
-			[] worthless
-			[] cheap
-			[] dumb
-		[] Postfix
-			[] bitch
-			[] slut
-			[] cunt
-			[] pet
-			[] whore
-			[] toy
-			[] stud
-			[] dog
+	[x] add secondary colour:
+		[x] women's fashionable leather jacket (daphne)
+		[x] corset
+		[x] overbust corset
+	[x] arctic wolf subspecies
+	
+	[] Nipple piercings
+		[] rounded
+		[] square
 	
 	[] Would fully removing offspring interfere with the count of total met and unmet offspring? Not looked fully into that
+	
+	[] Ace PR
+	
+	[] Ace content
+	
+	[] condoms should display name of cum provider and quantity in description
 	
 	[] Wall's End quests:
 		[] Ceridwen
@@ -296,10 +299,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] if an npc has toeless stockings on during a footjob it describes them pushing the stocking up against the dick
 	
+	[] NPC modding support
 	
 	[] Natalya encounter without needing Helena quest
-	
-	[] Ace content
 	
 	[] boxing gloves mod
 	[] latex leggings

@@ -56,10 +56,13 @@ import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
 import com.lilithsthrone.game.character.npc.fields.Arion;
 import com.lilithsthrone.game.character.npc.fields.Astrapi;
+import com.lilithsthrone.game.character.npc.fields.Belle;
 import com.lilithsthrone.game.character.npc.fields.Ceridwen;
 import com.lilithsthrone.game.character.npc.fields.Dale;
+import com.lilithsthrone.game.character.npc.fields.Daphne;
 import com.lilithsthrone.game.character.npc.fields.Evelyx;
 import com.lilithsthrone.game.character.npc.fields.Fae;
+import com.lilithsthrone.game.character.npc.fields.Farah;
 import com.lilithsthrone.game.character.npc.fields.Flash;
 import com.lilithsthrone.game.character.npc.fields.Hale;
 import com.lilithsthrone.game.character.npc.fields.HeadlessHorseman;
@@ -1322,6 +1325,36 @@ public class ParserTarget {
 		@Override
 		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Penelope.class);
+		}
+	};
+
+	public static AbstractParserTarget BELLE = new AbstractParserTarget(Util.newArrayListOfValues("belle"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Belle.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Belle.class);
+		}
+	};
+
+	public static AbstractParserTarget DAPHNE = new AbstractParserTarget(Util.newArrayListOfValues("daphne"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Daphne.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Daphne.class);
+		}
+	};
+
+	public static AbstractParserTarget FARAH = new AbstractParserTarget(Util.newArrayListOfValues("farah"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Farah.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Farah.class);
 		}
 	};
 	

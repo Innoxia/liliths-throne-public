@@ -181,6 +181,7 @@ import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.game.settings.ForcedFetishTendency;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.sex.GenericSexFlag;
+import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -9963,6 +9964,10 @@ public class UtilText {
 		for(SexPace pace : SexPace.values()) {
 			engine.put("SEX_PACE_"+pace.toString(), pace);
 		}
+		for(OrgasmCumTarget oct : OrgasmCumTarget.values()) {
+			engine.put("OCT_"+oct.toString(), oct);
+		}
+		
 		
 		// Other:
 		for(Season season : Season.values()) {

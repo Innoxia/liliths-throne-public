@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexManager>
+	<deskName><![CDATA[massage table]]></deskName>
+	<title/>
+	<consensual><![CDATA[true]]></consensual>
+	<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+	<canSkipSex><![CDATA[true]]></canSkipSex>
+	<washingScene><![CDATA[false]]></washingScene>
+	<sadisticActionsAllowed><![CDATA[true]]></sadisticActionsAllowed>
+	<canItemsBeUsed><![CDATA[true]]></canItemsBeUsed>
+	<exposingReactions><![CDATA[false]]></exposingReactions>
+	<positionsAvailable exclusive="false">
+		<position><![CDATA[ALL_FOURS]]></position>
+	</positionsAvailable>
+	<publicSex>
+		<isPublic><![CDATA[false]]></isPublic>
+		<startingDescription/>
+		<randomDescriptions/>
+	</publicSex>
+	<characterInformationContainer>
+		<characterInformation>
+			<characterId>pc</characterId>
+			<slotsAvailable/>
+			<canStopSex><![CDATA[true]]></canStopSex>
+			<canChangePositions><![CDATA[true]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace/>
+			<canSelfTransform><![CDATA[true]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control/>
+			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[true]]></partnerClothingRemoval>
+			<startNaked><![CDATA[true]]></startNaked>
+			<exposeAtStart/>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmCumTargetsBlocked/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<preferences/>
+			<uniqueSexActions/>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk/>
+		</characterInformation>
+		
+		<characterInformation>
+			<characterId>daphne</characterId>
+			<slotsAvailable excluded="false">
+				<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+			</slotsAvailable>
+			<canStopSex><![CDATA[false]]></canStopSex>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace/>
+			<startingImmobilisation/>
+			<canSelfTransform><![CDATA[true]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control><![CDATA[ONGOING_ONLY]]></control>
+			<sexClothingEquippable><![CDATA[false]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[false]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart/>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmCumTargetsBlocked/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<preferences/>
+			<uniqueSexActions/>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk>
+				<character id="pc">
+					<standard additionToDefault="false">
+						<line extraNoises="false"><![CDATA[~Baa!~]]></line>
+						<line extraNoises="false"><![CDATA[I'm your good little sheep! ~Baa!~]]></line>
+						<line extraNoises="false"><![CDATA[~Baa!~ Yes, give it to me!]]></line>
+						<line extraNoises="false"><![CDATA[~Baa!~]]></line>
+					</standard>
+					<submissive additionToDefault="false">
+						<line extraNoises="false"><![CDATA[~Aah!~ Yes! Treat me like your dirty little sheep! ~Baa!~]]></line>
+						<line extraNoises="false"><![CDATA[~Baa!~ Fuck me like the dumb little sheep I am!]]></line>
+						<line extraNoises="false"><![CDATA[Put me in my place! ~Baa!~ Yes, I'm your dirty little sheep!]]></line>
+						<line extraNoises="false"><![CDATA[~Baa!~ Yes, I'm a dumb little sheep who needs to be fucked! ~Baa!~]]></line>
+					</submissive>
+				</character>
+			</dirtyTalk>
+		</characterInformation>
+		
+	</characterInformationContainer>
+		
+</sexManager>

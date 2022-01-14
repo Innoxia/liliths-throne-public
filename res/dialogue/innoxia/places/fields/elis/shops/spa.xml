@@ -11,14 +11,14 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Enter]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<17)
+					#IF(game.isHourBetween(9, 24))
 						Push open the door and enter 'Woolly Heaven'.
 					#ELSE
 						As 'Woolly Heaven' is currently closed, you'll have to come back at another time...
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
-					#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<17)
+					#IF(game.isHourBetween(9, 24))
 						innoxia_places_fields_elis_shops_spa_enter
 					#ELSE
 						null
@@ -72,22 +72,34 @@
 					<nextDialogue><![CDATA[#IF(pc.getMoney()>=150)innoxia_places_fields_elis_shops_spa_relax#ELSEnull#ENDIF]]></nextDialogue>
 					<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 					<effects><![CDATA[
-						[#game.appendToTextStartStringBuilder(pc.incrementMoney(-150))]
+						[#game.appendToTextEndStringBuilder(pc.incrementMoney(-150))]
 					]]></effects>
 				</response>
 				<response>
 					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_spa_visited)]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[3]]></index>
-					<responseTitle><![CDATA[Massage ([style.moneyFormatUncoloured(250, span)])]]></responseTitle>
-					<responseTooltip><![CDATA[
-						#IF(pc.getMoney()>=250) Give Penelope two hundred and fifty flames in exchange for receiving a massage. #ELSE You can't afford to get a massage... #ENDIF
-						<br/>[style.italicsMinorBad(This will be added soon!)]
-					]]></responseTooltip>
-					<nextDialogue><![CDATA[null]]></nextDialogue>
+					<responseTitle><![CDATA[Massage (#IF(pc.getMoney()>=250)[style.moneyFormat(250, span)]#ELSE[style.moneyFormatUncoloured(250, span)]#ENDIF)]]></responseTitle>
+					<responseTooltip><![CDATA[#IF(pc.getMoney()>=250) Give Penelope two hundred and fifty flames in exchange for receiving a massage. #ELSE You can't afford to get a massage... #ENDIF]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(pc.getMoney()>=250)
+							#IF(!flags.hasFlag(FLAG_innoxia_spa_sheep_introduced))
+								innoxia_places_fields_elis_shops_spa_massage_intro
+							#ELSE
+								innoxia_places_fields_elis_shops_spa_massage
+							#ENDIF
+						#ELSE
+							null
+						#ENDIF
+					]]></nextDialogue>
 					<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 					<effects><![CDATA[
-						[#game.appendToTextStartStringBuilder(pc.incrementMoney(-250))]
+						[#game.appendToTextEndStringBuilder(pc.incrementMoney(-250))]
+						#IF(flags.hasFlag(FLAG_innoxia_spa_sheep_introduced))
+							[#belle.setLocation(pc)]
+							[#daphne.setLocation(pc)]
+							[#farah.setLocation(pc)]
+						#ENDIF
 					]]></effects>
 				</response>
 				<!-- Talk: -->
@@ -202,7 +214,7 @@
 				<responseTooltip><![CDATA[Take some time to relax in the spa...]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_relax_end]]></nextDialogue>
 				<effects><![CDATA[
-					[#pc.applyWash(true, true, SE_CLEANED_SPA, 300)]
+					[#pc.applyWash(true, false, SE_CLEANED_SPA, 240+120)]
 				]]></effects>
 			</response>
 		</responses>
@@ -210,10 +222,84 @@
 	
 	<scene id="relax_end">
 		<content folderPath="txt/places/fields/elis/shops/spa">RELAX_END</content>
-		<secondsPassed minutes="true"><![CDATA[60]]></secondsPassed>
-		<continuesDialogue>false</continuesDialogue>
+		<secondsPassed minutes="true"><![CDATA[120]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
 		<responses copyFromDialogueId="innoxia_places_fields_elis_shops_spa_enter"/>
+	</scene>
+	
+	<scene id="massage_intro">
+		<preParsingEffects><![CDATA[
+			[#belle.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_INTRO</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Daphne]]></responseTitle>
+				<responseTooltip><![CDATA[The next sheep-girl enters the reception area...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_intro_next]]></nextDialogue>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="massage_intro_next">
+		<preParsingEffects><![CDATA[
+			[#daphne.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_INTRO_NEXT</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Farah]]></responseTitle>
+				<responseTooltip><![CDATA[The last of the three sheep-girls enters the reception area...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_intro_final]]></nextDialogue>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="massage_intro_final">
+		<preParsingEffects><![CDATA[
+			[#farah.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_INTRO_FINAL</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Penelope]]></responseTitle>
+				<responseTooltip><![CDATA[With the three sheep-girls introduced, Penelope lets you know what you'll be in for if you choose her...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_intro_final_penelope]]></nextDialogue>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="massage_intro_final_penelope">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_spa_sheep_introduced, true)]
+			[#penelope.setAreaKnownByCharacter(CA_VAGINA, pc, true)]
+			[#penelope.setAreaKnownByCharacter(CA_PENIS, pc, true)]
+			[#penelope.setAreaKnownByCharacter(CA_ANUS, pc, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_INTRO_FINAL_PENELOPE</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_shops_spa_massage"/>
 	</scene>
 	
 	<scene id="massage">
@@ -225,14 +311,1767 @@
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Relax]]></responseTitle>
-				<responseTooltip><![CDATA[Take some time to relax in the spa...]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_relax_end]]></nextDialogue>
+				<responseTitle><![CDATA[Belle]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Belle that you'd like to receive a massage from her.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_belle_start]]></nextDialogue>
 				<effects><![CDATA[
-					[#pc.applyWash(true, true, SE_CLEANED_SPA, 300)]
+					[#pc.addStatusEffect(SE_CLEANED_MASSAGED, 260*60)]
+					[#daphne.returnToHome()]
+					[#farah.returnToHome()]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Daphne]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Daphne that you'd like to receive a massage from her.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_daphne_start]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.addStatusEffect(SE_CLEANED_MASSAGED, 260*60)]
+					[#belle.returnToHome()]
+					[#farah.returnToHome()]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Farah]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Farah that you'd like to receive a massage from her.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_farah_start]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.addStatusEffect(SE_CLEANED_MASSAGED, 260*60)]
+					[#belle.returnToHome()]
+					[#daphne.returnToHome()]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+					<responseTitle><![CDATA[Penelope (#IF(pc.getMoney()>=750)[style.moneyFormat(750, span)]#ELSE[style.moneyFormatUncoloured(750, span)]#ENDIF)]]></responseTitle>
+					<responseTooltip><![CDATA[#IF(pc.getMoney()>=750) Give Penelope an additional seven hundred and fifty flames in exchange for receiving a massage from her. #ELSE You can't afford to get a massage from Penelope... #ENDIF]]></responseTooltip>
+					<nextDialogue><![CDATA[#IF(pc.getMoney()>=750)innoxia_places_fields_elis_shops_spa_massage_penelope_start#ELSEnull#ENDIF]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-750))]
+					[#pc.addStatusEffect(SE_CLEANED_MASSAGED, 260*60)]
+					[#belle.returnToHome()]
+					[#daphne.returnToHome()]
+					[#farah.returnToHome()]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Back ([style.moneyFormat(+250, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Penelope that you've changed your mind and don't want a massage after all...<br/>[style.italicsGood(You will be refunded your two hundred and fifty flames.)]]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_back]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(250))]
+					[#belle.returnToHome()]
+					[#daphne.returnToHome()]
+					[#farah.returnToHome()]
 				]]></effects>
 			</response>
 		</responses>
+	</scene>
+	
+	<scene id="massage_back">
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_BACK</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_shops_spa_enter"/>
+	</scene>
+	
+	<!-- Belle scenes: -->
+	
+	<scene id="massage_belle_start">
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_BELLE_START</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Massage]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Belle that you just want her to continue with the massage.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_belle_continue_massage]]></nextDialogue>
+				<effects/>
+			</response>
+			<!-- Fingering/handjob -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<100 || ((!pc.hasPenisIgnoreDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && (!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Groin 'massage' ([style.moneyFormatUncoloured(100, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<100)
+						You don't have enough money to pay for a special groin 'massage'.
+					#ELSEIF(!pc.hasPenisIgnoreDildo() && !pc.hasVagina())
+						As you do not have any genitals, you cannot receive a special groin 'massage'.
+					#ELSE
+						As you're unable to access your groin, you cannot receive a special 'massage'.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=100 && ((pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)) || (pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Groin 'massage' ([style.moneyFormat(100, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Belle a hundred flames in exchange for receiving a special groin 'massage'.
+					<br/>
+					#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+						#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+							[style.italicsSex(This will result in Belle giving you a handjob and fingering you.)]
+						#ELSE
+							[style.italicsSex(This will result in Belle giving you a handjob.)]
+						#ENDIF
+					#ELSE
+						[style.italicsSex(This will result in Belle fingering you.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-100))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_belle_hands]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>belle</id>
+							<slot><![CDATA[OVER_DESK_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_belle_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_BELLE_HANDS</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[[#pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></condition>
+							<id><![CDATA[FingerPenis_COCK_MASTURBATING_START]]></id>
+							<performer><![CDATA[belle]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
+							<id><![CDATA[FingerVagina_FINGERING_START]]></id>
+							<performer><![CDATA[belle]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Oral -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<250 || ((!pc.hasPenisIgnoreDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && (!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Oral 'massage' ([style.moneyFormatUncoloured(250, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<250)
+						You don't have enough money to pay for an oral 'massage'.
+					#ELSEIF(!pc.hasPenisIgnoreDildo() && !pc.hasVagina())
+						As you do not have any genitals, you cannot receive an oral 'massage'.
+					#ELSE
+						As you're unable to access your groin, you cannot receive an oral 'massage'.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=250 && ((pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)) || (pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Oral 'massage' ([style.moneyFormat(250, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Belle two hundred and fifty flames in exchange for receiving an oral 'massage'.
+					<br/>
+					#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+						[style.italicsSex(This will result in Belle giving you a blowjob.)]
+					#ELSE
+						[style.italicsSex(This will result in Belle eating you out.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-250))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_belle_oral]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>belle</id>
+							<slot><![CDATA[OVER_DESK_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_belle_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_BELLE_ORAL</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[[#pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></condition>
+							<id><![CDATA[PenisMouth_GIVING_BLOWJOB_START]]></id>
+							<performer><![CDATA[belle]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#!(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
+							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[belle]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Sex -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<500]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Sex ([style.moneyFormatUncoloured(500, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[You don't have enough money to pay for sex with Belle.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=500]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Sex ([style.moneyFormat(500, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Belle five hundred flames in exchange for having sex with her.
+					<br/>[style.italicsSex(This will result in having sex with Belle.)]
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-500))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_belle_sex]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>belle</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_belle_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_BELLE_SEX</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Bondage sex -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<750]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Bondage ([style.moneyFormatUncoloured(750, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[You don't have enough money to pay for bondage sex with Belle.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=750]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Bondage ([style.moneyFormat(750, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Belle seven hundred and fifty flames in exchange for having bondage sex with her.
+					<br/>[style.italicsSex(This will result in binding Belle to the massage table and having sex with her.)]
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-750))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_belle_bondage]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>belle</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_belle_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_BELLE_BONDAGE</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="massage_belle_continue_massage">
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_BELLE_CONTINUE_MASSAGE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that Belle has finished giving you your massage, there's nothing left to do except continue on out into the reception area.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_finished]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_BELLE_FINISHED'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_BELLE_FINISHED_END'))]
+					[#belle.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="massage_belle_after_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Belle has finished giving you your special service...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_BELLE_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that Belle has finished giving you your special service, there's nothing left to do except continue on out into the reception area.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_finished]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_BELLE_FINISHED_END'))]
+					[#belle.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Daphne scenes: -->
+	
+	<scene id="massage_daphne_start">
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_DAPHNE_START</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Massage]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Daphne that you just want her to continue with the massage.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_daphne_continue_massage]]></nextDialogue>
+				<effects><![CDATA[
+				]]></effects>
+			</response>
+			<!-- Fingering/handjob -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<100 || ((!pc.hasPenisIgnoreDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && (!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Groin 'massage' ([style.moneyFormatUncoloured(100, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<100)
+						You don't have enough money to pay for a special groin 'massage'.
+					#ELSEIF(!pc.hasPenisIgnoreDildo() && !pc.hasVagina())
+						As you do not have any genitals, you cannot receive a special groin 'massage'.
+					#ELSE
+						As you're unable to access your groin, you cannot receive a special 'massage'.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=100 && ((pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)) || (pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Groin 'massage' ([style.moneyFormat(100, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Daphne a hundred flames in exchange for receiving a special groin 'massage'.
+					<br/>
+					#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+						#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+							[style.italicsSex(This will result in Daphne giving you a handjob and fingering you.)]
+						#ELSE
+							[style.italicsSex(This will result in Daphne giving you a handjob.)]
+						#ENDIF
+					#ELSE
+						[style.italicsSex(This will result in Daphne fingering you.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-100))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_daphne_hands]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>daphne</id>
+							<slot><![CDATA[OVER_DESK_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_daphne_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_DAPHNE_HANDS</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[[#pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></condition>
+							<id><![CDATA[FingerPenis_COCK_MASTURBATING_START]]></id>
+							<performer><![CDATA[daphne]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
+							<id><![CDATA[FingerVagina_FINGERING_START]]></id>
+							<performer><![CDATA[daphne]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Oral -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<250 || ((!pc.hasPenisIgnoreDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && (!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Oral 'massage' ([style.moneyFormatUncoloured(250, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<250)
+						You don't have enough money to pay for an oral 'massage'.
+					#ELSEIF(!pc.hasPenisIgnoreDildo() && !pc.hasVagina())
+						As you do not have any genitals, you cannot receive an oral 'massage'.
+					#ELSE
+						As you're unable to access your groin, you cannot receive an oral 'massage'.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=250 && ((pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)) || (pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Oral 'massage' ([style.moneyFormat(250, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Daphne two hundred and fifty flames in exchange for receiving an oral 'massage'.
+					<br/>
+					#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+						[style.italicsSex(This will result in Daphne giving you a blowjob.)]
+					#ELSE
+						[style.italicsSex(This will result in Daphne eating you out.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-250))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_daphne_oral]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>daphne</id>
+							<slot><![CDATA[OVER_DESK_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_daphne_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_DAPHNE_ORAL</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[[#pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></condition>
+							<id><![CDATA[PenisMouth_GIVING_BLOWJOB_START]]></id>
+							<performer><![CDATA[daphne]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#!(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
+							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[daphne]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Sex -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<500]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Sex ([style.moneyFormatUncoloured(500, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[You don't have enough money to pay for sex with Daphne.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=500]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Sex ([style.moneyFormat(500, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Daphne five hundred flames in exchange for having sex with her.
+					<br/>[style.italicsSex(This will result in having sex with Daphne.)]
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-500))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_daphne_sex]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>daphne</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_daphne_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_DAPHNE_SEX</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Pet-play sex -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<750]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Pet-play ([style.moneyFormatUncoloured(750, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[You don't have enough money to pay for pet-play sex with Daphne.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=750]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Pet-play ([style.moneyFormat(750, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Daphne seven hundred and fifty flames in exchange for having pet-play sex with her.
+					<br/>[style.italicsSex(This will result in Daphne pretending to be a feral sheep and only being able to be fucked in the all-fours position.)]
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#daphne.equipOutfitSheep()]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-750))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_daphne_pet_play]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>daphne</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_daphne_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_DAPHNE_PET_PLAY</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="massage_daphne_continue_massage">
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_DAPHNE_CONTINUE_MASSAGE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that Daphne has finished giving you your massage, there's nothing left to do except continue on out into the reception area.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_finished]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_DAPHNE_FINISHED'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_DAPHNE_FINISHED_END'))]
+					[#daphne.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="massage_daphne_after_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Daphne has finished giving you your special service...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_DAPHNE_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that Daphne has finished giving you your special service, there's nothing left to do except continue on out into the reception area.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_finished]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_DAPHNE_FINISHED_END'))]
+					[#daphne.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Farah scenes: -->
+	
+	<scene id="massage_farah_start">
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_FARAH_START</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Massage]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Farah that you just want her to continue with the massage.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_farah_continue_massage]]></nextDialogue>
+				<effects><![CDATA[
+				]]></effects>
+			</response>
+			<!-- Fingering/handjob -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<100 || ((!pc.hasPenisIgnoreDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && (!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Groin 'massage' ([style.moneyFormatUncoloured(100, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<100)
+						You don't have enough money to pay for a special groin 'massage'.
+					#ELSEIF(!pc.hasPenisIgnoreDildo() && !pc.hasVagina())
+						As you do not have any genitals, you cannot receive a special groin 'massage'.
+					#ELSE
+						As you're unable to access your groin, you cannot receive a special 'massage'.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=100 && ((pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)) || (pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Groin 'massage' ([style.moneyFormat(100, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Farah a hundred flames in exchange for receiving a special groin 'massage'.
+					<br/>
+					#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+						#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+							[style.italicsSex(This will result in Farah dominantly giving you a handjob and fingering you.)]
+						#ELSE
+							[style.italicsSex(This will result in Farah dominantly giving you a handjob.)]
+						#ENDIF
+					#ELSE
+						[style.italicsSex(This will result in Farah dominantly fingering you.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-100))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_farah_hands]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>farah</id>
+							<slot><![CDATA[OVER_DESK_PERFORMING_ORAL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_farah_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_FARAH_HANDS</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[[#pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></condition>
+							<id><![CDATA[FingerPenis_COCK_MASTURBATING_START]]></id>
+							<performer><![CDATA[farah]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
+							<id><![CDATA[FingerVagina_FINGERING_START]]></id>
+							<performer><![CDATA[farah]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Oral -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<250 || ((!pc.hasPenisIgnoreDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && (!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Oral 'massage' ([style.moneyFormatUncoloured(250, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<250)
+						You don't have enough money to pay for an oral 'massage'.
+					#ELSEIF(!pc.hasPenisIgnoreDildo() && !pc.hasVagina())
+						As you do not have any genitals, you cannot receive an oral 'massage'.
+					#ELSE
+						As you're unable to access your groin, you cannot receive an oral 'massage'.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=250 && ((pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)) || (pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Oral 'massage' ([style.moneyFormat(250, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Farah two hundred and fifty flames in exchange for receiving an oral 'massage'.
+					<br/>
+					#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+						[style.italicsSex(This will result in Farah dominantly giving you a blowjob.)]
+					#ELSE
+						[style.italicsSex(This will result in Farah dominantly eating you out.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-250))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_farah_oral]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>farah</id>
+							<slot><![CDATA[OVER_DESK_PERFORMING_ORAL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_farah_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_FARAH_ORAL</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[[#pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></condition>
+							<id><![CDATA[PenisMouth_GIVING_BLOWJOB_START]]></id>
+							<performer><![CDATA[farah]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#!(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
+							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[farah]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Sex -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<500]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Sex ([style.moneyFormatUncoloured(500, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[You don't have enough money to pay for sex with Farah.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=500]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Sex ([style.moneyFormat(500, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Farah five hundred flames in exchange for having sex with her.
+					<br/>[style.italicsSex(This will result in having sex with Farah.)]
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-500))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_farah_sex]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>farah</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_farah_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_FARAH_SEX</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Fertile sex -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<750 || farah.isPregnant()]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Fertile sex ([style.moneyFormatUncoloured(750, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(farah.isPregnant())
+						Farah is already pregnant, so she can't offer you the option of having fertile sex with her.
+					#ELSE
+						You don't have enough money to pay for fertile sex with Farah.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=750 && !farah.isPregnant()]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Fertile sex ([style.moneyFormat(750, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Farah seven hundred and fifty flames in exchange for having fertile sex with her.
+					<br/>[style.italicsSex(This will result in Farah taking a fertility pill, thereby giving you the chance to impregnate her during sex.)]
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-750))]
+					[#game.appendToTextEndStringBuilder(farah.useItem(game.getItemGen().generateItem('innoxia_pills_fertility'), farah, false, true))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_farah_fertile_sex]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>farah</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_farah_after_sex_fertile]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_FARAH_FERTILE_SEX</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="massage_farah_continue_massage">
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_FARAH_CONTINUE_MASSAGE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that Farah has finished giving you your massage, there's nothing left to do except continue on out into the reception area.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_finished]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_FARAH_FINISHED'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_FARAH_FINISHED_END'))]
+					[#farah.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="massage_farah_after_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Farah has finished giving you your special service...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_FARAH_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that Farah has finished giving you your special service, there's nothing left to do except continue on out into the reception area.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_finished]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_FARAH_FINISHED_END'))]
+					[#farah.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="massage_farah_after_sex_fertile">
+		<preParsingEffects><![CDATA[
+			#IF(farah.hasStatusEffect(SE_PREGNANT_0))
+				[#game.appendToTextEndStringBuilder(farah.useItem(game.getItemGen().generateItem(ITEM_PREGNANCY_TEST), farah, false, true))]
+				[#farah.setCharacterReactedToPregnancy(pc, true)]
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_FARAH_AFTER_SEX_FERTILE_RESULT'))]
+			#ENDIF
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Farah has finished giving you your special service...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_FARAH_AFTER_SEX_FERTILE</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that Farah has finished giving you your special service, there's nothing left to do except continue on out into the reception area.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_finished]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_FARAH_FINISHED_END'))]
+					[#farah.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Penelope scenes: -->
+	
+	<scene id="massage_penelope_start">
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_PENELOPE_START</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Penelope as sub: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Massage]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Penelope that you just want her to continue with the massage.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_continue_massage]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_PENELOPE_CONTINUE'))]
+				]]></effects>
+			</response>
+			<!-- Fingering/handjob -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<200 || ((!pc.hasPenisIgnoreDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && (!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Groin 'massage' ([style.moneyFormatUncoloured(200, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<200)
+						You don't have enough money to pay for a special groin 'massage'.
+					#ELSEIF(!pc.hasPenisIgnoreDildo() && !pc.hasVagina())
+						As you do not have any genitals, you cannot receive a special groin 'massage'.
+					#ELSE
+						As you're unable to access your groin, you cannot receive a special 'massage'.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=200 && ((pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)) || (pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Groin 'massage' ([style.moneyFormat(200, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Penelope two hundred flames in exchange for receiving a special groin 'massage'.
+					<br/>
+					#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+						#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+							[style.italicsSex(This will result in Penelope submissively giving you a handjob and fingering you.)]
+						#ELSE
+							[style.italicsSex(This will result in Penelope submissively giving you a handjob.)]
+						#ENDIF
+					#ELSE
+						[style.italicsSex(This will result in Penelope submissively fingering you.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-200))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_penelope_hands]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>penelope</id>
+							<slot><![CDATA[OVER_DESK_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_PENELOPE_HANDS</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[[#pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></condition>
+							<id><![CDATA[FingerPenis_COCK_MASTURBATING_START]]></id>
+							<performer><![CDATA[penelope]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
+							<id><![CDATA[FingerVagina_FINGERING_START]]></id>
+							<performer><![CDATA[penelope]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Oral -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<500 || ((!pc.hasPenisIgnoreDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && (!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Oral 'massage' ([style.moneyFormatUncoloured(500, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<500)
+						You don't have enough money to pay for an oral 'massage'.
+					#ELSEIF(!pc.hasPenisIgnoreDildo() && !pc.hasVagina())
+						As you do not have any genitals, you cannot receive an oral 'massage'.
+					#ELSE
+						As you're unable to access your groin, you cannot receive an oral 'massage'.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=500 && ((pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)) || (pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Oral 'massage' ([style.moneyFormat(500, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Penelope five hundred flames in exchange for receiving an oral 'massage'.
+					<br/>
+					#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+						[style.italicsSex(This will result in Penelope submissively giving you a blowjob.)]
+					#ELSE
+						[style.italicsSex(This will result in Penelope submissively eating you out.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-500))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_penelope_oral]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>penelope</id>
+							<slot><![CDATA[OVER_DESK_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_PENELOPE_ORAL</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[[#pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></condition>
+							<id><![CDATA[PenisMouth_GIVING_BLOWJOB_START]]></id>
+							<performer><![CDATA[penelope]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#!(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
+							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[penelope]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Sex -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<1000]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Sex ([style.moneyFormatUncoloured(1000, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[You don't have enough money to pay for sex with Penelope.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=1000]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Sex ([style.moneyFormat(1000, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Penelope a thousand flames in exchange for having sex with her.
+					<br/>[style.italicsSex(This will result in having dominant sex with Penelope.)]
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-1000))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_penelope_sex]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>penelope</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_PENELOPE_SEX</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Fashion show sex -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<1500]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Fashion show ([style.moneyFormatUncoloured(1500, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[You don't have enough money to pay for fashion show sex with Penelope.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=1500]
+				]]></availabilityConditional>
+				<colour><![CDATA[GENERIC_SEX_AS_DOM]]></colour>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Fashion show ([style.moneyFormat(1500, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Penelope one thousand five hundred flames in exchange for having fashion show sex with her.
+					<br/>[style.italicsSex(This will result in Penelope changing into an outfit of your choice and performing a mock fashion show, before either submissively or dominantly having sex with you.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_fashion_show]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-1500))]
+				]]></effects>
+			</response>
+			<!-- Penelope as dom: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Reverse massage]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Penelope that you want to swap things around and give her a massage.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_continue_massage]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_PENELOPE_CONTINUE_REVERSAL'))]
+					[#penelope.addStatusEffect(SE_CLEANED_MASSAGED, 250*60)]
+				]]></effects>
+			</response>
+			<!-- Fingering/handjob -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<200 || ((!pc.hasPenisIgnoreDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && (!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Groin 'massage' ([style.moneyFormatUncoloured(200, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<200)
+						You don't have enough money to pay for a special groin 'massage'.
+					#ELSEIF(!pc.hasPenisIgnoreDildo() && !pc.hasVagina())
+						As you do not have any genitals, you cannot receive a special groin 'massage'.
+					#ELSE
+						As you're unable to access your groin, you cannot receive a special 'massage'.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=200 && ((pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)) || (pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Groin 'massage' ([style.moneyFormat(200, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Penelope two hundred flames in exchange for receiving a special groin 'massage'.
+					<br/>
+					#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+						#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+							[style.italicsSex(This will result in Penelope dominantly giving you a handjob and fingering you.)]
+						#ELSE
+							[style.italicsSex(This will result in Penelope dominantly giving you a handjob.)]
+						#ENDIF
+					#ELSE
+						[style.italicsSex(This will result in Penelope dominantly fingering you.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-200))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_penelope_hands]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>penelope</id>
+							<slot><![CDATA[OVER_DESK_PERFORMING_ORAL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_PENELOPE_HANDS_AS_DOM</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[[#pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></condition>
+							<id><![CDATA[FingerPenis_COCK_MASTURBATING_START]]></id>
+							<performer><![CDATA[penelope]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
+							<id><![CDATA[FingerVagina_FINGERING_START]]></id>
+							<performer><![CDATA[penelope]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Oral -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<500 || ((!pc.hasPenisIgnoreDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && (!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Oral 'massage' ([style.moneyFormatUncoloured(500, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<500)
+						You don't have enough money to pay for an oral 'massage'.
+					#ELSEIF(!pc.hasPenisIgnoreDildo() && !pc.hasVagina())
+						As you do not have any genitals, you cannot receive an oral 'massage'.
+					#ELSE
+						As you're unable to access your groin, you cannot receive an oral 'massage'.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=500 && ((pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)) || (pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Oral 'massage' ([style.moneyFormat(500, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Penelope five hundred flames in exchange for receiving an oral 'massage'.
+					<br/>
+					#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+						[style.italicsSex(This will result in Penelope dominantly giving you a blowjob.)]
+					#ELSE
+						[style.italicsSex(This will result in Penelope dominantly eating you out.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-500))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_penelope_oral]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>penelope</id>
+							<slot><![CDATA[OVER_DESK_PERFORMING_ORAL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_PENELOPE_ORAL_AS_DOM</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[[#pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></condition>
+							<id><![CDATA[PenisMouth_GIVING_BLOWJOB_START]]></id>
+							<performer><![CDATA[penelope]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#!(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
+							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[penelope]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Sex -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<1000]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[9]]></index>
+				<responseTitle><![CDATA[Sex ([style.moneyFormatUncoloured(1000, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[You don't have enough money to pay for sex with Penelope.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=1000]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[9]]></index>
+				<responseTitle><![CDATA[Sex ([style.moneyFormat(1000, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Penelope a thousand flames in exchange for having sex with her.
+					<br/>[style.italicsSex(This will result in having submissive sex with Penelope.)]
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-1000))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_penelope_sex]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>penelope</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_PENELOPE_SEX_AS_DOM</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Double facial sex -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()<1500 || !pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[Double facial ([style.moneyFormatUncoloured(1500, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						You cannot access your mouth, and so cannot receive a double facial from Penelope.
+					#ELSE
+						You don't have enough money to pay for a double facial from Penelope.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getMoney()>=1500 && pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[Double facial ([style.moneyFormat(1500, span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Give Penelope one thousand five hundred flames in exchange for getting a double facial from her.
+					<br/>[style.italicsSex(This will result in Penelope dominantly making you suck her cock, before cumming and squirting over your face.)]
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-1500))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_penelope_double_facial]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>penelope</id>
+							<slot><![CDATA[OVER_DESK_RECEIVING_ORAL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_PENELOPE_DOUBLE_FACIAL</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition/>
+							<id><![CDATA[TongueVagina_RECEIVING_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[penelope]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="massage_penelope_continue_massage">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that Penelope has finished giving you your massage, there's nothing left to do except continue on out into the reception area.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_finished]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_PENELOPE_FINISHED'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_PENELOPE_FINISHED_END'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="massage_penelope_fashion_show">
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_PENELOPE_FASHION_SHOW</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<responseTitle><![CDATA[At the ball]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Ask Penelope to wear her 'At the ball' outfit for her fashion show.
+					</br>[style.italicsPinkLight(Penelope will wear an elegant outfit consisting of a flowing ballgown, elbow-length gloves, and expensive jewellery.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_fashion_show_show]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_PENELOPE_FASHION_SHOW_BALL'))]
+					[#penelope.equipOutfitBall()]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<responseTitle><![CDATA[About town]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Ask Penelope to wear her 'About town' outfit for her fashion show.
+					</br>[style.italicsPinkLight(Penelope will wear a stylish, casual outfit consisting of a blouse, cardigan, and tight-fitting jeans.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_fashion_show_show]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_PENELOPE_FASHION_SHOW_TOWN'))]
+					[#penelope.equipOutfitTown()]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<responseTitle><![CDATA[Drunken alley]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Ask Penelope to wear her 'Drunken alley' outfit for her fashion show.
+					</br>[style.italicsPinkLight(Penelope will wear a daring, bright-pink outfit consisting of a clubbing dress, strappy sandals, and plenty of accessories.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_fashion_show_show]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_PENELOPE_FASHION_SHOW_ALLEY'))]
+					[#penelope.equipOutfitAlley()]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<responseTitle><![CDATA[Less is more]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Ask Penelope to wear her 'Less is more' outfit for her fashion show.
+					</br>[style.italicsPinkLight(Penelope will wear dark-purple lingerie consisting of a chemise, thong, and stockings with garter belt.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_fashion_show_show]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_PENELOPE_FASHION_SHOW_LINGERIE'))]
+					[#penelope.equipOutfitLingerie()]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<responseTitle><![CDATA[Latex indulgence]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Ask Penelope to wear her 'Latex indulgence' outfit for her fashion show.
+					</br>[style.italicsPinkLight(Penelope will wear a bright-red latex outfit including a corset, stiletto heels, and an insertable dildo.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_fashion_show_show]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_PENELOPE_FASHION_SHOW_LATEX'))]
+					[#penelope.equipOutfitLatex()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="massage_penelope_fashion_show_show">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fuck her]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Fuck Penelope while she's wearing the outfit you've chosen for her.
+				]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_penelope_sex]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>penelope</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_PENELOPE_FASHION_SHOW_SEX_START</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Submit]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Submit to Penelope and ask her to fuck you while she's wearing the outfit you've chosen for her.
+				]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_penelope_sex]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>penelope</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/shops/spa">MASSAGE_PENELOPE_FASHION_SHOW_SEX_START_AS_SUB</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="massage_penelope_after_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Penelope has finished giving you your special service...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_PENELOPE_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that Penelope has finished giving you your special service, there's nothing left to do except continue on out into the reception area.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_finished]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_PENELOPE_FINISHED_END'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Generic end massage shared for all characters -->
+	
+	<scene id="massage_finished">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_shops_spa_enter"/>
 	</scene>
 	
 </dialogueNodes>

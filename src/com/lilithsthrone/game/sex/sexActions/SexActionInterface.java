@@ -65,6 +65,10 @@ public interface SexActionInterface {
 	public default boolean isSadisticAction() {
 		return false;
 	}
+
+	public default boolean isAvailableDuringImmobilisation() {
+		return this.getActionType()==SexActionType.SPEECH || this.getActionType()==SexActionType.SPEECH_WITH_ALTERNATIVE;
+	}
 	
 	/**
 	 * @return true if you want this sex action to always be shown in the available list of actions, even if it is unavailable (in which case it will be greyed-out).
@@ -467,6 +471,10 @@ public interface SexActionInterface {
 				&& (!Main.getProperties().hasValue(PropertyValue.sadisticSexContent)
 						|| !Main.sex.isSadisticActionsAllowed()
 						|| !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST))) {
+			return false;
+		}
+		
+		if(Main.sex.isCharacterImmobilised(Main.sex.getCharacterPerformingAction()) && !isAvailableDuringImmobilisation()) {
 			return false;
 		}
 		

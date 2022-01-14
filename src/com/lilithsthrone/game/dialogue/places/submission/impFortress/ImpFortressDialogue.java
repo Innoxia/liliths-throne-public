@@ -3891,7 +3891,7 @@ public class ImpFortressDialogue {
 							FortressAlphaLeader boss = (FortressAlphaLeader) Main.game.getNpc(FortressAlphaLeader.class);
 							
 							if((boss).isAbleToEquipGag(Main.game.getPlayer())) {
-								AbstractClothing ringGag = Main.game.getItemGen().generateClothing(ClothingType.BDSM_RINGGAG, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GOLD, effects);
+								AbstractClothing ringGag = Main.game.getItemGen().generateClothing("innoxia_bdsm_ringgag", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GOLD, effects);
 								ringGag.setName(UtilText.parse(boss,"[npc.NamePos] 'Cock-Sucker' Ring gag"));
 								Main.game.getPlayer().equipClothingFromNowhere(ringGag, true, boss);
 								Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+UtilText.parse(boss,"[npc.Name]")+" has forced you to wear:<br/>"
@@ -3900,7 +3900,7 @@ public class ImpFortressDialogue {
 							
 							if(ImpFortressDialogue.getMainCompanion()!=null && Main.sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())
 									&& (boss).isAbleToEquipGag(ImpFortressDialogue.getMainCompanion())) {
-								AbstractClothing ringGag = Main.game.getItemGen().generateClothing(ClothingType.BDSM_RINGGAG, PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_BROWN_DARK, PresetColour.CLOTHING_BLACK_STEEL, effects);
+								AbstractClothing ringGag = Main.game.getItemGen().generateClothing("innoxia_bdsm_ringgag", PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_BROWN_DARK, PresetColour.CLOTHING_BLACK_STEEL, effects);
 								ringGag.setName(UtilText.parse(boss,"[npc.NamePos] 'Cock-Sucker' Ring gag"));
 								ImpFortressDialogue.getMainCompanion().equipClothingFromNowhere(ringGag, true, boss);
 								Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+UtilText.parse(boss,"[npc.Name]")+" has forced "
