@@ -331,14 +331,14 @@ public abstract class GameCharacter implements XMLSaving {
 	protected int ageAppearanceDifference;
 	
 	protected Occupation occupation;
-	protected Set<Occupation> desiredJobs;
-	protected Set<PersonalityTrait> personalityTraits;
+	protected EnumSet<Occupation> desiredJobs;
+	protected EnumSet<PersonalityTrait> personalityTraits;
 	protected SexualOrientation sexualOrientation;
 	private float obedience;
 
 	private int experience;
 	private int perkPoints;
-	private Map<PerkCategory, Integer> perkCategoryPoints;
+	private EnumMap<PerkCategory, Integer> perkCategoryPoints;
 
 	protected List<Artwork> artworkList;
 	private int artworkIndex = -1;
@@ -357,19 +357,19 @@ public abstract class GameCharacter implements XMLSaving {
 	// Body:
 	protected Body body;
 	protected Gender genderIdentity; // What gender this character prefers to be. Used to determine NPC demonic transformations (i.e. a demon who identifies as a female will transform back into a female whenever possible.)
-	protected Map<CoverableArea, Set<String>> areasKnownByCharactersMap;
-	protected Map<SexAreaOrifice, List<FluidStored>> fluidsStoredMap;
+	protected EnumMap<CoverableArea, Set<String>> areasKnownByCharactersMap;
+	protected EnumMap<SexAreaOrifice, List<FluidStored>> fluidsStoredMap;
 	protected AbstractSubspecies fleshSubspecies;
 	
 	
 	// Inventory:
 	protected CharacterInventory inventory;
 	private List<Outfit> savedOutfits;
-	private Map<InventorySlot, Scar> scars;
-	private Map<InventorySlot, Tattoo> tattoos;
-	private Map<InventorySlot, SizedStack<Covering>> lipstickMarks;
+	private EnumMap<InventorySlot, Scar> scars;
+	private EnumMap<InventorySlot, Tattoo> tattoos;
+	private EnumMap<InventorySlot, SizedStack<Covering>> lipstickMarks;
 	/** Clothing which has been temporarily unequipped as part of a scene which requires this character to be naked. */
-	private Map<InventorySlot, AbstractClothing> holdingClothing;
+	private EnumMap<InventorySlot, AbstractClothing> holdingClothing;
 	
 	
 	// Attributes, perks & status effects:
@@ -379,11 +379,11 @@ public abstract class GameCharacter implements XMLSaving {
 	protected List<AbstractPerk> traits;
 	protected Map<Integer, Set<AbstractPerk>> perks;
 	protected Set<AbstractPerk> specialPerks;
-	protected Set<Fetish> fetishes;
-	protected Map<Fetish, FetishDesire> fetishDesireMap;
-	protected Map<Fetish, Integer> clothingFetishDesireModifiersMap;
+	protected EnumSet<Fetish> fetishes;
+	protected EnumMap<Fetish, FetishDesire> fetishDesireMap;
+	protected EnumMap<Fetish, Integer> clothingFetishDesireModifiersMap;
 	protected List<Fetish> fetishesFromClothing;
-	protected Map<Fetish, Integer> fetishExperienceMap;
+	protected EnumMap<Fetish, Integer> fetishExperienceMap;
 	protected List<AppliedStatusEffect> statusEffects;
 	/** Maps seconds passed to Maps of StatusEffect-descriptions. */
 	protected Map<Long, Map<AbstractStatusEffect, String>> statusEffectDescriptions;
@@ -399,11 +399,11 @@ public abstract class GameCharacter implements XMLSaving {
 	// Pregnancy:
 	protected List<String> pregnancyReactions;
 	protected long timeProgressedToFinalPregnancyStage;
-	protected Map<SexAreaOrifice, Long> timeProgressedToFinalIncubationStage;
+	protected EnumMap<SexAreaOrifice, Long> timeProgressedToFinalIncubationStage;
 	protected List<PregnancyPossibility> potentialPartnersAsMother;
 	protected List<PregnancyPossibility> potentialPartnersAsFather;
 	protected Litter pregnantLitter;
-	protected Map<SexAreaOrifice, Litter> incubatingLitters;
+	protected EnumMap<SexAreaOrifice, Litter> incubatingLitters;
 	protected List<Litter> littersBirthed;
 	protected List<Litter> littersFathered;
 	protected List<Litter> implantedLitters; // Ovipositors
@@ -436,10 +436,10 @@ public abstract class GameCharacter implements XMLSaving {
 	protected DialogueNode enslavementDialogue;
 	protected AbstractClothing enslavementClothing;
 	
-	protected Map<SlavePermission, Set<SlavePermissionSetting>> slavePermissionSettings;
+	protected EnumMap<SlavePermission, EnumSet<SlavePermissionSetting>> slavePermissionSettings;
 	
 	protected SlaveJob[] workHours;
-	protected Map<SlaveJob, Set<SlaveJobSetting>> slaveJobSettings;
+	protected EnumMap<SlaveJob, EnumSet<SlaveJobSetting>> slaveJobSettings;
 	
 	
 	//Companion
@@ -458,13 +458,13 @@ public abstract class GameCharacter implements XMLSaving {
 	protected List<Value<GameCharacter, AbstractCombatMove>> selectedMoves;
 	protected List<Boolean> selectedMovesDisruption;
 	protected List<String> movesToDisrupt;
-	protected Map<CombatMoveType, Integer> moveTypeDisruptionMap;
-	protected Map<DamageType, Integer> shields;
+	protected EnumMap<CombatMoveType, Integer> moveTypeDisruptionMap;
+	protected EnumMap<DamageType, Integer> shields;
 	protected Map<String, Integer> moveCooldowns;
 	protected int remainingAP;
 	protected List<Spell> spells;
-	protected Set<SpellUpgrade> spellUpgrades;
-	protected Map<SpellSchool, Integer> spellUpgradePoints;
+	protected EnumSet<SpellUpgrade> spellUpgrades;
+	protected EnumMap<SpellSchool, Integer> spellUpgradePoints;
 	
 	protected float health;
 	protected float mana;
@@ -557,7 +557,7 @@ public abstract class GameCharacter implements XMLSaving {
 		globalLocation = Main.game.getWorlds().get(WorldType.WORLD_MAP).getCell(worldLocation.getGlobalMapLocation()).getLocation();
 		
 		// Set up personality:
-		personalityTraits = new HashSet<>();
+		personalityTraits = EnumSet.noneOf(PersonalityTrait.class);
 		sexualOrientation = SexualOrientation.AMBIPHILIC; 
 
 		affectionMap = new HashMap<>();
@@ -570,26 +570,35 @@ public abstract class GameCharacter implements XMLSaving {
 		enslavementDialogue = null;
 
 		workHours = new SlaveJob[24];
-		for(int i=0; i<workHours.length; i++) {
-			workHours[i] = SlaveJob.IDLE;
-		}
+        Arrays.fill(workHours, SlaveJob.IDLE);
 		
-		slaveJobSettings = new HashMap<>();
+		slaveJobSettings = new EnumMap<>(SlaveJob.class);
+
 		for(SlaveJob job : SlaveJob.values()) {
-			slaveJobSettings.putIfAbsent(job, new HashSet<>());
+			slaveJobSettings.putIfAbsent(job,
+                    job.getDefaultMutuallyExclusiveSettings()
+                            .stream()
+                            .collect(Collectors.toCollection(
+                                    () -> EnumSet.noneOf(SlaveJobSetting.class))
+            ));
+			/*
 			for(SlaveJobSetting jobSetting : job.getDefaultMutuallyExclusiveSettings()) {
 				addSlaveJobSettings(job, jobSetting);
 			}
+			 */
 		}
-		
-		slavePermissionSettings = new HashMap<>();
+
+		slavePermissionSettings = new EnumMap<>(SlavePermission.class);
+
+
+
 		for(SlavePermission permission : SlavePermission.values()) {
-			slavePermissionSettings.put(permission, new HashSet<>());
-			for(SlavePermissionSetting setting : permission.getSettings()) {
-				if(setting.isDefaultValue()) {
-					slavePermissionSettings.get(permission).add(setting);
-				}
-			}
+		    slavePermissionSettings.put(
+		            permission,
+                    permission.getSettings().stream()
+                                    .filter(s -> s.isDefaultValue())
+                    .collect(Collectors.toCollection(() -> EnumSet.noneOf(SlavePermissionSetting.class))));
+			// slavePermissionSettings.put(permission, EnumSet.noneOf(SlavePermissionSetting.class));
 		}
 		
 		motherId = "";
@@ -607,13 +616,13 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		savedOutfits = new ArrayList<>();
 		
-		scars = new HashMap<>();
-		tattoos = new HashMap<>();
-		lipstickMarks = new HashMap<>();
+		scars = new EnumMap<>(InventorySlot.class);
+		tattoos = new EnumMap<>(InventorySlot.class);
+		lipstickMarks = new EnumMap<>(InventorySlot.class);
 		
-		holdingClothing = new HashMap<>();
+		holdingClothing = new EnumMap<>(InventorySlot.class);
 
-		shields = new HashMap<>();
+		shields = new EnumMap<>(DamageType.class);
 		attributes = new HashMap<>();
 		bonusAttributes = new HashMap<>();
 		
@@ -621,11 +630,11 @@ public abstract class GameCharacter implements XMLSaving {
 		perks = new HashMap<>();
 		specialPerks = new HashSet<>();//new TreeSet<>((p1, p2) -> p1.getRenderingPriority()-p2.getRenderingPriority());
 		
-		fetishes = new HashSet<>();
-		fetishDesireMap = new HashMap<>();
-		clothingFetishDesireModifiersMap = new HashMap<>();
+		fetishes = EnumSet.noneOf(Fetish.class);
+		fetishDesireMap = new EnumMap<>(Fetish.class);
+		clothingFetishDesireModifiersMap = new EnumMap<>(Fetish.class);
 		fetishesFromClothing = new ArrayList<>();
-		fetishExperienceMap = new HashMap<>();
+		fetishExperienceMap = new EnumMap<>(Fetish.class);
 		statusEffectDescriptions = new TreeMap<>(); // TreeMaps keep their natural key ordering
 		statusEffects = new ArrayList<>();
 		
@@ -644,28 +653,28 @@ public abstract class GameCharacter implements XMLSaving {
 		movesToDisrupt = new ArrayList<>();
 		spells = new ArrayList<>();
 		spellUpgrades = EnumSet.noneOf(SpellUpgrade.class);
-		spellUpgradePoints = new HashMap<>();
+		spellUpgradePoints = new EnumMap<>(SpellSchool.class);
 		
-		perkCategoryPoints = new HashMap<>();
+		perkCategoryPoints = new EnumMap<>(PerkCategory.class);
 		
 		totalOrgasmCount = 0;
 		daysOrgasmCount = 0;
 		daysOrgasmCountRecord = 0;
 		
 		// Coverable area knowledge:
-		areasKnownByCharactersMap = new HashMap<>();
+		areasKnownByCharactersMap = new EnumMap<>(CoverableArea.class);
 		for(CoverableArea area : CoverableArea.values()) {
 			areasKnownByCharactersMap.put(area, new HashSet<>());
 		}
 		
-		fluidsStoredMap = new HashMap<>();
+		fluidsStoredMap = new EnumMap<>(SexAreaOrifice.class);
 		
 		pregnancyReactions = new ArrayList<>();
 		
 		timeProgressedToFinalPregnancyStage = 1;
-		timeProgressedToFinalIncubationStage = new HashMap<>();
+		timeProgressedToFinalIncubationStage = new EnumMap<>(SexAreaOrifice.class);
 		pregnantLitter = null;
-		incubatingLitters = new HashMap<>();
+		incubatingLitters = new EnumMap<>(SexAreaOrifice.class);
 		implantedLitters = new ArrayList<>();
 		incubatedLitters = new ArrayList<>();
 		littersBirthed = new ArrayList<>();
@@ -699,7 +708,7 @@ public abstract class GameCharacter implements XMLSaving {
 			bonusAttributes.put(a, 0f);
 		}
 		
-		desiredJobs = new HashSet<>();
+		desiredJobs = EnumSet.noneOf(Occupation.class);
 		
 		if(this.isPlayer()) {
 			setHistory(Occupation.UNEMPLOYED);
@@ -1298,7 +1307,7 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			Element slavePermissionSettings = doc.createElement("slavePermissionSettings");
 			slaveryElement.appendChild(slavePermissionSettings);
-			for(Entry<SlavePermission, Set<SlavePermissionSetting>> entry : this.getSlavePermissionSettings().entrySet()) {
+			for(Entry<SlavePermission, EnumSet<SlavePermissionSetting>> entry : this.getSlavePermissionSettings().entrySet()) {
 				Element element = doc.createElement("permission");
 				slavePermissionSettings.appendChild(element);
 	
@@ -1880,7 +1889,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		if(element.getElementsByTagName("perkCategoryPoints").item(0)!=null) {
-			character.perkCategoryPoints = new HashMap<>();
+			character.perkCategoryPoints = new EnumMap<>(PerkCategory.class);
 			Element perkCategoryElement = (Element) element.getElementsByTagName("perkCategoryPoints").item(0);
 			
 			NodeList entryList = perkCategoryElement.getElementsByTagName("points");
@@ -2057,7 +2066,7 @@ public abstract class GameCharacter implements XMLSaving {
 		element = (Element) nodes.item(0);
 		
 		
-		character.holdingClothing = new HashMap<>();
+		character.holdingClothing = new EnumMap<>(InventorySlot.class);
 		element = (Element) parentElement.getElementsByTagName("holdingClothing").item(0);
 		if(element!=null) {
 			NodeList holdingClothingNodeList = element.getElementsByTagName("clothing");
@@ -4632,7 +4641,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return false;
 	}
 	
-	public Map<SlavePermission, Set<SlavePermissionSetting>> getSlavePermissionSettings() {
+	public EnumMap<SlavePermission, EnumSet<SlavePermissionSetting>> getSlavePermissionSettings() {
 		return slavePermissionSettings;
 	}
 	
@@ -23208,7 +23217,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	/** <b>Be careful when using this!</b> */
-	public Map<InventorySlot, AbstractClothing> getHoldingClothing() {
+	public EnumMap<InventorySlot, AbstractClothing> getHoldingClothing() {
 		return holdingClothing;
 	}
 	
@@ -23225,7 +23234,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 
-	public Map<InventorySlot, AbstractClothing> unequipAllClothing(GameCharacter remover, boolean includePiercings, boolean removeSeals) {
+	public EnumMap<InventorySlot, AbstractClothing> unequipAllClothing(GameCharacter remover, boolean includePiercings, boolean removeSeals) {
 		return unequipAllClothing(remover, includePiercings, removeSeals, new ArrayList<>());
 	}
 	/**
@@ -23234,10 +23243,10 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @param remover The character who is removing the clothing.
 	 * @return A map containing all of the clothing that was unequipped, mapped to the slot it was removed from.
 	 */
-	public Map<InventorySlot, AbstractClothing> unequipAllClothing(GameCharacter remover, boolean includePiercings, boolean removeSeals, List<InventorySlot> slotsToExclude) {
+	public EnumMap<InventorySlot, AbstractClothing> unequipAllClothing(GameCharacter remover, boolean includePiercings, boolean removeSeals, List<InventorySlot> slotsToExclude) {
 		unequipAllClothingSB.setLength(0);
 		List<AbstractClothing> clothingEquipped = new ArrayList<>(this.getClothingCurrentlyEquipped());
-		Map<InventorySlot, AbstractClothing> clothingRemoved = new HashMap<>();
+		EnumMap<InventorySlot, AbstractClothing> clothingRemoved = new EnumMap<>(InventorySlot.class);
 		
 		clothingEquipped.sort((c1, c2) -> c1.getSlotEquippedTo().getZLayer() - c2.getSlotEquippedTo().getZLayer());
 		
