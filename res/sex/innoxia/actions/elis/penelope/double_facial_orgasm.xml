@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+
+	<buttonPriority>0</buttonPriority>
+	
+	<actionConditional><![CDATA[
+		[#!npc.isPlayer()]
+	]]></actionConditional>
+	
+	<type>ORGASM</type>
+	
+	<pace/>
+	
+	<endsSex><![CDATA[false]]></endsSex>
+	
+	<participantType>NORMAL</participantType>
+	
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_ORAL_RECEIVING</fetish>
+			<fetish>FETISH_CUM_STUD</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_ORAL_GIVING</fetish>
+			<fetish>FETISH_CUM_ADDICT</fetish>
+		</target>
+	</associatedFetishes>
+	
+	<performingArea>PENETRATION_PENIS</performingArea>
+	<targetedArea>ORIFICE_MOUTH</targetedArea>
+	
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	
+	<applyEffects><![CDATA[
+		[##sex.applyGenericPullOutEffects()]
+	]]></applyEffects>
+	
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	
+	<areasCummedIn/>
+	
+	<areasCummedOn>
+		<area>MOUTH</area>
+	</areasCummedOn>
+	
+	<!-- Information displayed to the player: -->
+	
+	<title><![CDATA[
+		Double facial
+	]]></title>
+	
+	<tooltip><![CDATA[
+		Cum all over [pc.namePos] face before positioning your cunt over [pc.her] mouth and squirting all over [pc.herHim].
+	]]></tooltip>
+	
+	<descriptions>
+		<description>
+			<descriptionConditional/>
+			<text><![CDATA[
+				Penelope's moans and sighs start to get louder and more frantic as she continues to thrust her hot, throbbing bitch-cock down your throat. With one final, desperate squeal, she suddenly pulls back, and after quickly sliding the entire length of her scarlet dick out of your mouth, she points it down at your face and moans, [penelope.speechNoEffects(~Aah!~ Get ready for your facial!)]
+				<br/><br/>
+				With that, the border-collie-girl gives her twitching cock a few quick strokes, before sliding her [penelope.fingers+] down to squeeze the rapidly-swelling knot at its base. Before you have any time to react, Penelope lets out a shuddering, high-pitched moan, and the next moment thick spurts of hot, musky dog-jizz are squirting out to messily land all over your face. After spending a few moments emptying her balls in this manner, she dominantly presses the tapered tip of her animalistic cock against your mouth, and as her final spurt of cum oozes out to coat your [pc.lips], she demands, [penelope.speechNoEffects(Kiss it! ~Mmm!~ That'll set me off so that I can give you your second facial!)]
+				<br/><br/>
+				Doing as you're told, you deliver a wet, passionate kiss to the tip of Penelope's hot dog-cock. As you pull back with an audible smack of your [pc.lips+], the border-collie-girl lets out another desperate, shuddering moan, before quickly moving forwards and positioning her feminine sex right over your face. Looking up at her canine cunt, you watch as Penelope reaches down with one hand and sinks her paw-like fingers into her slimy pussy. As she parts her labia, she squeals, [penelope.speechNoEffects(~Ooh!~ I'm- ~Aah!~ I'm cumming!)]
+				<br/><br/>
+				A split second later, and the dominant dog-girl's cunt starts to spasm and tremble. Before you can react, a huge spurt of female ejaculate squirts out from her sopping-wet twat to splatter all over your cum-covered face. Frantically moaning and squealing as her feminine climax crashes over her, Penelope cries out, [penelope.speechNoEffects(~Aah!~ Yes! ~Ooh!~ Here's your double facial! ~Mmm!~ Take it all!)]
+				<br/><br/>
+				Left with little other option but to do as she says, you lie still and take it as Penelope continues to orgasm right over your face. Her climax lasts for quite some time, but eventually after releasing one final high-pitched squeal, she starts to calm down. Heavily panting, she moves back and grins down at your cum-coated face, before teasing, [penelope.speechNoEffects(I hope you enjoyed that... ~Mmm!~ I love it when my clients ask for a double facial... That was so much fun...)]
+			]]></text>
+		</description>
+	</descriptions>
+	
+</sexAction>

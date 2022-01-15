@@ -3808,10 +3808,10 @@ public class InventoryDialogue {
 								InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-6);
 								if(clothing.isCanBeEquipped(Main.game.getPlayer(), slot)) {
 									if(clothing.isAbleToBeEquippedDuringSex(slot).getKey()) {
-										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer())) {
+										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer(), Main.game.getPlayer(), clothing)) {
 											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "As this is a special sex scene, you cannot equip clothing during it!", null);
 										}
-										if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot)) {
+										if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot, clothing)) {
 											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "This slot is involved with an ongoing sex action, so you cannot equip clothing into it!", null);
 										}
 										if(Main.game.getPlayer().isAbleToEquip(clothing, slot, false, Main.game.getPlayer())) {
@@ -4336,10 +4336,10 @@ public class InventoryDialogue {
 								InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-6);
 								if(clothing.isCanBeEquipped(Main.game.getPlayer(), slot)) {
 									if(clothing.isAbleToBeEquippedDuringSex(slot).getKey()) {
-										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer())) {
+										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer(), Main.game.getPlayer(), clothing)) {
 											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "As this is a special sex scene, you cannot equip clothing during it!", null);
 										}
-										if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot)) {
+										if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot, clothing)) {
 											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "This slot is involved with an ongoing sex action, so you cannot equip clothing into it!", null);
 										}
 										if (Main.game.getPlayer().isAbleToEquip(clothing, slot, false, Main.game.getPlayer())) {
@@ -4386,13 +4386,13 @@ public class InventoryDialogue {
 								}
 								if(clothing.isCanBeEquipped(inventoryNPC, slot)) {
 									if(clothing.isAbleToBeEquippedDuringSex(slot).getKey()) {
-										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(inventoryNPC)) {
+										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer(), inventoryNPC, clothing)) {
 											return new Response(
 													UtilText.parse(inventoryNPC, "Equip: "+Util.capitaliseSentence(slot.getName())+" ([npc.HerHim])"),
 													"As this is a special sex scene, you cannot equip clothing during it!",
 													null);
 										}
-										if(!Main.sex.isClothingEquipAvailable(inventoryNPC, slot)) {
+										if(!Main.sex.isClothingEquipAvailable(inventoryNPC, slot, clothing)) {
 											return new Response(
 													UtilText.parse(inventoryNPC, "Equip: "+Util.capitaliseSentence(slot.getName())+" ([npc.HerHim])"),
 													"This slot is involved with an ongoing sex action, so you cannot equip clothing into it!",
@@ -4712,10 +4712,10 @@ public class InventoryDialogue {
 							InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-6);
 							if(clothing.isCanBeEquipped(Main.game.getPlayer(), slot)) {
 								if(clothing.isAbleToBeEquippedDuringSex(slot).getKey()) {
-									if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer())) {
+									if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer(), Main.game.getPlayer(), clothing)) {
 										return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "As this is a special sex scene, you cannot equip clothing during it!", null);
 									}
-									if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot)) {
+									if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot, clothing)) {
 										return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "This slot is involved with an ongoing sex action, so you cannot equip clothing into it!", null);
 									}
 									if (Main.game.getPlayer().isAbleToEquip(clothing, slot, false, Main.game.getPlayer())) {
@@ -5072,10 +5072,10 @@ public class InventoryDialogue {
 								InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-6);
 								if(clothing.isCanBeEquipped(Main.game.getPlayer(), slot)) {
 									if(clothing.isAbleToBeEquippedDuringSex(slot).getKey() && !inventoryNPC.isTrader()) {
-										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer())) {
+										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer(), Main.game.getPlayer(), clothing)) {
 											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "As this is a special sex scene, you cannot equip clothing during it!", null);
 										}
-										if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot)) {
+										if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot, clothing)) {
 											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "This slot is involved with an ongoing sex action, so you cannot equip clothing into it!", null);
 										}
 										if (Main.game.getPlayer().isAbleToEquip(clothing, slot, false, Main.game.getPlayer())) {
@@ -5116,13 +5116,13 @@ public class InventoryDialogue {
 								}
 								if(clothing.isCanBeEquipped(inventoryNPC, slot)) {
 									if(clothing.isAbleToBeEquippedDuringSex(slot).getKey() && !inventoryNPC.isTrader()) {
-										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(inventoryNPC)) {
+										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer(), inventoryNPC, clothing)) {
 											return new Response(
 													UtilText.parse(inventoryNPC, "Equip: "+Util.capitaliseSentence(slot.getName())+" ([npc.HerHim])"),
 													"As this is a special sex scene, you cannot equip clothing during it!",
 													null);
 										}
-										if(!Main.sex.isClothingEquipAvailable(inventoryNPC, slot)) {
+										if(!Main.sex.isClothingEquipAvailable(inventoryNPC, slot, clothing)) {
 											return new Response(
 													UtilText.parse(inventoryNPC, "Equip: "+Util.capitaliseSentence(slot.getName())+" ([npc.HerHim])"), 
 													"This slot is involved with an ongoing sex action, so you cannot equip clothing into it!",

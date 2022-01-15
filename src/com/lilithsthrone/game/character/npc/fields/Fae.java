@@ -240,7 +240,7 @@ public class Fae extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_ankle_anklet", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD, null, false), true, this);
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("TonyJC_one_strap_crop_tank_top", PresetColour.CLOTHING_RED_BURGUNDY, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_OVER_WOMENS_LEATHER_JACKET, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torsoOver_womens_leather_jacket", PresetColour.CLOTHING_BLACK, false), true, this);
 		AbstractClothing jacket = this.getClothingInSlot(InventorySlot.TORSO_OVER);
 		this.isAbleToBeDisplaced(jacket, DisplacementType.UNZIPS, true, true, this);
 		

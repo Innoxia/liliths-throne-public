@@ -241,7 +241,7 @@ public class SlaverAlleyDialogue {
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_ORAL, true);
 			if (Math.random()<0.5f) {
-				slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_RINGGAG, false), true, Main.game.getNpc(Finch.class));
+				slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_ringgag", false), true, Main.game.getNpc(Finch.class));
 			}
 			Main.game.getNpc(Finch.class).addSlave(slave);
 
@@ -519,8 +519,8 @@ public class SlaverAlleyDialogue {
 				return super.isAbleToRemoveOthersClothing(character, clothing);
 			}
 			@Override
-			public boolean isAbleToEquipSexClothing(GameCharacter character) {
-				return !character.isPlayer();
+			public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
+				return !equippingCharacter.isPlayer();
 			}
 			@Override
 			public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
@@ -1925,8 +1925,8 @@ public class SlaverAlleyDialogue {
 								return super.isAbleToRemoveOthersClothing(character, clothing);
 							}
 							@Override
-							public boolean isAbleToEquipSexClothing(GameCharacter character) {
-								return !character.isPlayer();
+							public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
+								return !equippingCharacter.isPlayer();
 							}
 							@Override
 							public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
@@ -2096,8 +2096,8 @@ public class SlaverAlleyDialogue {
 								return super.isAbleToRemoveOthersClothing(character, clothing);
 							}
 							@Override
-							public boolean isAbleToEquipSexClothing(GameCharacter character) {
-								return !character.isPlayer();
+							public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
+								return !equippingCharacter.isPlayer();
 							}
 							@Override
 							public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
@@ -2871,8 +2871,8 @@ public class SlaverAlleyDialogue {
 									return super.isAbleToRemoveOthersClothing(character, clothing);
 								}
 								@Override
-								public boolean isAbleToEquipSexClothing(GameCharacter character) {
-									return !character.isPlayer();
+								public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
+									return !equippingCharacter.isPlayer();
 								}
 								@Override
 								public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
@@ -3091,8 +3091,8 @@ public class SlaverAlleyDialogue {
 									return super.isAbleToRemoveOthersClothing(character, clothing);
 								}
 								@Override
-								public boolean isAbleToEquipSexClothing(GameCharacter character) {
-									return !character.isPlayer();
+								public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
+									return !equippingCharacter.isPlayer();
 								}
 								@Override
 								public boolean isAbleToRemoveSelfClothing(GameCharacter character) {

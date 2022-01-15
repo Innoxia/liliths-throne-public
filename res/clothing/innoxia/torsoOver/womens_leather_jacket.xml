@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>800</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[women's fashionable leather jacket]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[women's fashionable leather jacket]]></namePlural>
+		<description><![CDATA[A fashionable feminine leather jacket, able to be worn both open and, by means of a zip, closed.]]></description>
+		<physicalResistance>1</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>TORSO_OVER</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>womens_leather_jacket.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>UNZIPS</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_FULL_TORSO"/>
+			</blockedParts>
+		</blockedPartsList>
+		<incompatibleSlots/>
+		<primaryColours values="LEATHER"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours>
+			<colour>CLOTHING_GREY</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL"/>
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(pull)] on the leather jacket.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(guide)] [npc2.namePos] [npc2.arms] through the leather jacket's sleeves as [npc.she] [npc.verb(pull)] it on [npc2.herHim].
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(force)] [npc2.namePos] [npc2.arms] through the leather jacket's sleeves as [npc.she] [npc.verb(pull)] it on [npc2.herHim].
+		]]></otherRough>
+	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(take)] off [npc.her] leather jacket.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(take)] off [npc2.namePos] leather jacket.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] leather jacket.
+		]]></otherRough>
+	</displacementText>
+</clothing>

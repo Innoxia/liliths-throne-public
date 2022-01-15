@@ -30,10 +30,10 @@
 	</p>
 	<p>
 		Beneath this brief overview, you see that the business's opening hours are 
-		#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<17 && !game.isWeekend())
-			'[style.colourMinorGood([units.time(9)]-[units.time(17), weekdays only])]', meaning that it's currently [style.colourGood(open)]. If you wanted to make use of any of the three services which this business provides, there's nothing stopping you from heading inside... 
+		#IF(game.isHourBetween(9, 24))
+			'[style.colourMinorGood([units.time(9)]-[units.time(0)])]', meaning that it's currently [style.colourGood(open)]. If you wanted to make use of any of the three services which this business provides, there's nothing stopping you from heading inside... 
 		#ELSE
-			'[style.colourMinorBad([units.time(9)]-[units.time(17), weekdays only])]', meaning that it's currently [style.colourBad(closed)]. If you wanted to make use of any of the three services which this business provides, then you'll have to come back during its opening hours...
+			'[style.colourMinorBad([units.time(9)]-[units.time(0)])]', meaning that it's currently [style.colourBad(closed)]. If you wanted to make use of any of the three services which this business provides, then you'll have to come back during its opening hours...
 		#ENDIF
 	</p>
 	]]>
@@ -42,26 +42,26 @@
 	<htmlContent tag="ENTER"><![CDATA[
 	#IF(!flags.hasFlag(FLAG_innoxia_elis_spa_visited))
 		<p>
-			Wanting to find out what's inside this 'Woolly Heaven' establishment, you push open the front door and [pc.step] inside. Within, you find yourself standing in a large, modern-looking reception area, with polished wooden floorboards underfoot and trendy oversized light bulbs hanging from the high ceiling. Standing behind a long, tall counter that's been roughly hewn from the trunk of a large tree and topped with frosted glass, a border-collie-girl is giving you a warm smile. As the door swings shut behind you, she calls out in a very posh accent, [penelope.speech(Good [style.afternoon], [pc.sir], and welcome to 'Woolly Heaven'. My name is Penelope Fear, and I'm the manager and owner of this establishment.)]
+			Wanting to find out what's inside this 'Woolly Heaven' establishment, you push open the front door and [pc.step] inside. Within, you find yourself standing in a large, modern-looking reception area, with polished wooden floorboards underfoot and trendy oversized light bulbs hanging from the high ceiling. Standing behind a long, tall counter that's been roughly hewn from the trunk of a large tree and topped with frosted glass, a border collie-girl is giving you a warm smile. As the door swings shut behind you, she calls out in a very posh accent, [penelope.speech(Good [style.afternoon], [pc.sir], and welcome to 'Woolly Heaven'. My name is Penelope Fear, and I'm the manager and owner of this establishment.)]
 		</p>
 		<p>
-			As she's been saying this, you've taken stock of the fact that Penelope is wearing a very suggestive, burgundy 'virgin-killer' sweater, and is sporting several pieces of gold jewellery. It's not her manner of dress that catches you attention, however, but rather the fact that she's absolutely beautiful. Her anthropomorphic, border-collie-like face is perfectly proportioned, and as she bats her large, [penelope.eyeColour] eyes at you, she leans forwards a little in order to flaunt her [penelope.cupSize]-cup breasts.
+			As you return her greeting, you see that Penelope is wearing a very suggestive, burgundy 'virgin-killer' sweater, and is sporting several pieces of gold jewellery. While this eye-catching outfit would undoubtedly look too daring on most people, Penelope's beautiful features and perfectly proportioned body allow her to carry it off. Her anthropomorphic, border collie-like face is absolutely gorgeous, and as she bats her large, [penelope.eyeColour] eyes at you, she leans forwards a little in order to flaunt her [penelope.cupSize]-cup breasts.
 		</p>
 		<p>
-			Her gorgeous features and effortless beauty remind you strongly of the sort of aura that the harpy matriarch, Helena, radiates, and just like that swan-harpy, Penelope also appears to have spent some time pursuing a career in modelling. Posters and pages from fashionable magazines have been framed and hung all over the walls of this reception area, with each one showing Penelope posing in a different outfit. There are even a couple from what look to be soft-core pornography magazines, in which the border-collie-girl is baring her naked breasts and making suggestive expressions at the viewer.
+			Her effortless beauty grants her the same sort of aura that's radiated by the harpy matriarch, Helena, and just like that swan-harpy, Penelope also appears to have spent some time pursuing a career in modelling. Posters and pages from fashion magazines have been framed and hung all over the walls of this reception area, with each one showing Penelope posing in a different outfit. There are even a couple from what look to be soft-core pornography publications, in which the border collie-girl is baring her naked breasts and making suggestive expressions at the viewer.
 		</p>
 		<p>
 			[penelope.speech(Unless I'm mistaken, I haven't had the pleasure of meeting you before. May I ask for your name?)] Penelope asks, before resting her chin on her interlaced hands and giving you a delightful smile.
 		</p>
 	#ELSE
 		<p>
-			Deciding to once again pay a visit to this 'Woolly Heaven' establishment, you push open the front door and [pc.step] inside. Within, you find yourself standing in a large, modern-looking reception area, with polished wooden floorboards underfoot and trendy oversized light bulbs hanging from the high ceiling. Standing behind a long, tall counter that's been roughly hewn from the trunk of a large tree and topped with frosted glass, the familiar, beautiful figure of Penelope is giving you a warm smile. As the door swings shut behind you, the border-collie-girl calls out in her posh accent, [penelope.speech(Good [style.afternoon], [pc.sir], and welcome once again to 'Woolly Heaven'.)]
+			Deciding to once again pay a visit to this 'Woolly Heaven' establishment, you push open the front door and [pc.step] inside. Within, you find yourself standing in a large, modern-looking reception area, with polished wooden floorboards underfoot and trendy oversized light bulbs hanging from the high ceiling. Standing behind a long, tall counter that's been roughly hewn from the trunk of a large tree and topped with frosted glass, the familiar, beautiful figure of Penelope is giving you a warm smile. As the door swings shut behind you, the border collie-girl calls out in her posh accent, [penelope.speech(Good [style.afternoon], [pc.sir], and welcome once again to 'Woolly Heaven'.)]
 		</p>
 		<p>
-			As she's been saying this, you've taken stock of the fact that Penelope is wearing a very suggestive, burgundy 'virgin-killer' sweater, and is sporting several pieces of gold jewellery. It's not her manner of dress that catches you attention, however, but rather the fact that she's absolutely beautiful. Her anthropomorphic, border-collie-like face is perfectly proportioned, and as she bats her large, [penelope.eyeColour] eyes at you, she leans forwards a little in order to flaunt her [penelope.cupSize]-cup breasts.
+			As you return her greeting, you see that Penelope is wearing a very suggestive, burgundy 'virgin-killer' sweater, and is sporting several pieces of gold jewellery. While this eye-catching outfit would undoubtedly look too daring on most people, Penelope's beautiful features and perfectly proportioned body allow her to carry it off. Her anthropomorphic, border collie-like face is absolutely gorgeous, and as she bats her large, [penelope.eyeColour] eyes at you, she leans forwards a little in order to flaunt her [penelope.cupSize]-cup breasts.
 		</p>
 		<p>
-			Her gorgeous features and effortless beauty remind you strongly of the sort of aura that the harpy matriarch, Helena, radiates, and just like that swan-harpy, Penelope also appears to have spent some time pursuing a career in modelling. Posters and pages from fashionable magazines have been framed and hung all over the walls of this reception area, with each one showing Penelope posing in a different outfit. There are even a couple from what look to be soft-core pornography magazines, in which the border-collie-girl is baring her naked breasts and making suggestive expressions at the viewer.
+			Her effortless beauty grants her the same sort of aura that's radiated by the harpy matriarch, Helena, and just like that swan-harpy, Penelope also appears to have spent some time pursuing a career in modelling. Posters and pages from fashion magazines have been framed and hung all over the walls of this reception area, with each one showing Penelope posing in a different outfit. There are even a couple from what look to be soft-core pornography publications, in which the border collie-girl is baring her naked breasts and making suggestive expressions at the viewer.
 		</p>
 		<p>
 			As you approach her counter, Penelope states in her posh voice, [penelope.speech(Please let me know which of our services you require, [pc.sir]. Oh, and remember that my sheep-girls and I all have prostitution licenses, so paying for sex once you're in a massage room is all completely legal and above board.)]
@@ -75,33 +75,54 @@
 		You tell Penelope that you'd like to make use of her services as an arcane beautician. Guiding you over to one side of the large reception area, she asks you to take a seat in front of a stylish mirror, before asking, [penelope.speech(So, what'll it be, [pc.sir]? Would you like to try a new hair style, or were you thinking of something a little more adventurous than that?)]
 	</p>
 	<p>
-		Gesturing over to a jewellery display cabinet situated a short distance from where you're sitting, the beautiful border-collie-girl reminds you, [penelope.speech(I also have several items of jewellery for sale, so please don't hestiate to ask if you'd like to try anything on.)]
+		Gesturing over to a jewellery display cabinet situated a short distance from where you're sitting, the beautiful border collie-girl reminds you, [penelope.speech(I also have several items of jewellery for sale, so please don't hestiate to ask if you'd like to try anything on.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="TALK_POSTERS"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
+		Gesturing to the framed posters and pages from fashion magazines which have been hung on the surrounding walls, you ask Penelope if she's still pursuing a career in modelling.
 	</p>
 	<p>
-		You ask about the posters. Penelope talks a little about her past of modelling in Dominion.
+		[penelope.speech(Oh, no, I left all of that behind me when I departed from Dominion,)] she replies. Taking a moment to look around at the posters, she smiles and reveals, [penelope.speech(I was a model for almost ten years, and by the end I'd had enough of it. Don't get me wrong, it was a lot of fun to be doing all of that travelling around and getting to model all of the latest designer outfits, but after almost a decade of doing it I really felt like I needed a change.)]
 	</p>
 	<p>
-		She goes on to say that she enjoyed modelling, but she decided to leave Dominion and set up her own store largely to get away from her sister, Pix, who kept on nagging her to come and work at her gym.
+		With that, Penelope pauses for a moment, allowing you to ask if that's when she decided to move here to Elis.
 	</p>
 	<p>
-		If you've met Pix, dialogue variation talking about her.
+		[penelope.speech(That's right,)] she says, [penelope.speech(I'd always wanted to have my own spa, and thanks to the money I'd made from being a top model, I was able to purchase this building and have it converted into 'Woolly Heaven'. I'd actually always planned to open this place in the middle of Dominion, but I felt like I had to leave the city to get away from my twin sister, Pix. I don't know if you've ever had the pleasure of meeting her; she runs a gym in Dominion's Shopping Arcade.)]
 	</p>
+	#IF(flags.hasFlag(FLAG_gymIntroduced))
+		<p>
+			Having visited Pix's gym, you tell Penelope that you have indeed met her, but you don't recall her mentioning that she had a twin sister.
+		</p>
+		<p>
+			[penelope.speech(Oh, that'd be because we didn't part on the best of terms,)] Penelope sighs, [penelope.speech(No matter how many times I told her that I had no interest in such an arrangement, she kept on insisting that I come and work at her gym. When I told her that I'd be leaving Dominion to set up a business in Elis, she started ranting about me betraying her... Oh, pardon me, I didn't mean to bore you with my silly family feud. Is there anything else I can do for you today, [pc.name]?)]
+		</p>
+	#ELSE
+		<p>
+			Having not visited Pix's gym in Dominion, you tell Penelope that you haven't met her twin sister.
+		</p>
+		<p>
+			[penelope.speech(Ah, well if you do meet her, it might be best to not mention me. We didn't part on the best of terms, and she might get annoyed if you ask her about me,)] Penelope sighs, before continuing, [penelope.speech(You see, no matter how many times I told her that I had no interest in such an arrangement, she kept on insisting that I come and work at her gym. When I told her that I'd be leaving Dominion to set up a business in Elis, she started ranting about me betraying her... Oh, pardon me, I didn't mean to bore you with my silly family feud. Is there anything else I can do for you today, [pc.sir]?)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="TALK_SHEEP"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
+		Curious to find out why all of Penelope's employees are sheep-morphs, you ask her if that was a concious choice to fit with the name of her spa, or if it came about naturally and the name 'Woolly Heaven' was chosen afterwards.
 	</p>
 	<p>
-		You ask why all of Penelope's employees are sheep-morphs. Penelope says that she finds it easy to manage them, and although she can't explain exactly why, she supposes that it's due to her instincts as a border-collie-morph.
+		[penelope.speech(I'd always planned to hire only sheep-morphs,)] Penelope reveals, before stating, [penelope.speech(I find sheep-girls to be particularly easy to manage and control, and clients seem to really love their woolly bodies. Unlike feral sheep, the wool which covers a sheep-morph is soft and luxurious to the touch, doubly so after it's been treated with the right shampoo and conditioner.)]
+	</p>
+	<p>
+		Wondering why she finds sheep-morphs easy to manage, you ask Penelope what the reason for this is.
+	</p>
+	<p>
+		[penelope.speech(I honestly couldn't say,)] she replies, before taking a moment to think and then ponder out loud, [penelope.speech(I suppose it must be due to my instincts as a border collie-morph... Every time I see a sheep-morph I get this strong desire to tell them what to do... Well, whatever the case may be, having sheep-morphs as my employees makes it very easy for me to manage my spa. Now, can I interest you in any of our services, [pc.sir]?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -118,43 +139,972 @@
 		[pc.Stepping] up to the counter, you give Penelope your name, to which she happily replies in her posh accent, [penelope.speech(It's a pleasure to meet you, [pc.name]. Would you like to hear what services we offer here at Woolly Heaven?)]
 	</p>
 	<p>
-		Replying in the positive, you listen as the border-collie reels off a sales pitch that she's no doubt repeated many dozens of times before, [penelope.speech(Our main attraction is our indoor spa; we have steam rooms, saunas, a pool, and both cold and heated baths. Entry to the spa costs one hundred and fifty flames. I'm also trained and fully qualified as an arcane beautician, so I can alter almost any aspect of your appearance, including applying, removing, and even enchanting tattoos. I also have several items of jewellery for sale at our cosmetics station, if you're interested in that.)]
+		Replying in the positive, you listen as the border collie-girl reels off a sales pitch that she's no doubt repeated many dozens of times before, [penelope.speech(Our main attraction is our indoor spa; we have steam rooms, saunas, a pool, and both cold and heated baths. Entry to the spa costs one hundred and fifty flames. I'm also trained and fully qualified as an arcane beautician, so I can alter almost any aspect of your appearance, including applying, removing, and even enchanting tattoos. I also have several items of jewellery for sale at our cosmetics station, if you're interested in that.)]
 	</p>
 	<p>
-		Although she's not yet finished with her recitation of offered services, Penelope pauses for a moment to flash you a flirtatious grin. Slightly altering the tone of her voice so as to grant her posh accent an air of seduction, she continues, [penelope.speech(We also offer massages, which start at two hundred and fifty flames for a session with one of my sheep-girls. If you've got the cash, I'll personally give you your massage, but my services start at one thousand five hundred flames. Of course, once your massage has started, you'll be able to purchase some more... <i>exciting</i> services from your masseuse.)]
+		Although she's not yet finished with her recitation of offered services, Penelope pauses for a moment to flash you a flirtatious grin. Slightly altering the tone of her voice so as to grant her posh accent an air of seduction, she continues, [penelope.speech(We also offer massages, which start at two hundred and fifty flames for a session with one of my sheep-girls. For an extra seven hundred and fifty flames, I'll personally give you your massage. If you choose to receive a massage, then once it's started you'll be able to purchase some more... <i>exciting</i> services from your masseuse.)]
 	</p>
 	<p>
-		As you take a moment to think about what services, if any, you'd like to use, Penelope smirks and bluntly states in her posh voice, [penelope.speech(My sheep-girls and I all have prostitution licenses, so paying for sex once you're in a massage room is all completely legal and above board. So, what'll it be, [pc.sir]?)]
+		As you take a moment to think about what services, if any, you'd like to use, Penelope smirks and bluntly states in her posh voice, [penelope.speech(Just so that I've made myself clear, my sheep-girls and I all have prostitution licenses, so you can pay for sex once you're in a massage room. So, what'll it be, [pc.sir]?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="POST_COSMETICS"><![CDATA[
 	<p>
-		Having got everything you wanted from Penelope's arcane cosmetics service, you tell her that you're happy with how you look, and that you don't need anything more from her. Flashing you a warm smile, the border-collie-girl leads you back over to her desk, before asking, [penelope.speech(Is there anything else I can do for you today, [pc.sir]?)]
+		Having got everything you wanted from Penelope's arcane cosmetics service, you tell her that you're happy with how you look, and that you don't need anything more from her. Flashing you a warm smile, the border collie-girl leads you back over to her desk, before asking, [penelope.speech(Is there anything else I can do for you today, [pc.sir]?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="RELAX"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
+		Feeling as though you're in need of some time in which to relax and unwind, you tell Penelope that you'd like to have a session in the spa. After you've handed over the one hundred and fifty flames which she asks for, Penelope leads you over to a doorway on the far side of the reception area. Standing to one side, she gestures towards it and says, [penelope.speech(You'll find the changing rooms and lockers in the room beyond. Please spend as much time as you'd like in the spa, and if there's any issue please don't hesitate to report it to a member of staff.)]
 	</p>
 	<p>
-		You pay Penelope and gain access to the spa. Stripping out of your clothes, you sink down into the pool and relax...
+		Thanking Penelope, you [pc.step] forwards through the doorway, and after turning a corner, find yourself in a large, unisex changing room. A politely-worded sign fixed to a nearby wall informs you that there's no dress code, and so you're free to wear as much or as little as you like while in the spa. Stripping out of your clothes, you make use of one of the lockers in which to store your personal belongings, before proceeding into the showers beyond.
+	</p>
+	<p>
+		A quick wash later, and you're [pc.stepping] out into the main area of the spa, which contains a couple of large pools surrounded by dozens of loungers. Signs around the edge of this cavernous interior offer directions to the steam rooms, saunas, and baths. Looking around, you see that there are several clients making use of the spa facilities, and a sheep-girl member of staff is watching over the area to make sure that everything remains calm and under control. None of the people who are present show any sign of being interested in anything other than quietly relaxing, and so with your only real option being to follow their example, you prepare to spend some alone time in which to relax and unwind...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="RELAX_END"><![CDATA[
 	<p>
+		For the next couple of hours you make your way around the spa, using all of the facilities which it has to offer. Eventually, having had your fill of the pool, steam room, sauna, and baths, you feel like you're as relaxed and calm as you've ever been. Deciding that you've had enough of the spa for now, you head on back to the changing rooms.
+	</p>
+	<p>
+		Retrieve your belongings from your locker, you get dressed and return to the reception area, where you see the beautiful border collie-girl, Penelope, standing behind the counter. Looking over at you as you [pc.step] over towards her, she smiles and asks in her posh accent, [penelope.speech(I trust everything was to your satisfaction in the spa, [pc.sir]?)]
+	</p>
+	<p>
+		Responding in the positive, you tell Penelope that you enjoyed using the facilities, and that you're now feeling well and truly relaxed and refreshed. Leaning forwards over her counter, the border collie-girl pushes out her chest to show off her [penelope.cupSize]-cup breasts and teases, [penelope.speech(Perhaps after that you're feeling in the mood for fucking one of my sheep-girls? Or perhaps even myself? How about you have a nice massage and see where it leads...)]
+	</p>
+	<p>
+		Playfully winking at you, Penelope waits to hear if you'll take her up on her offer, or perhaps ask for soemthing else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_INTRO"><![CDATA[
+	<p>
+		Wanting to have the tension worked out of your muscles, you tell Penelope that you'd like to have a massage, and then proceed to give her the two hundred and fifty flames which she asks for. Giving you a warm smile, she states, [penelope.speech(I have many sheep-girls who work for me, but there are three who are undoubtedly my best. As it so happens, all three are available at the moment, so you'll be free to choose any one of them.)]
+	</p>
+	<p>
+		With that, the border collie-girl reaches down under her counter and presses three buttons, one after the other. As each of these buttons are pressed, you hear three faint chimes – each one of which having a slightly different pitch – ring out from down the corridor which leads off from behind where Penelope is standing. Just a moment later, and one of the corridor's many doors swings open. After looking back to see who's the first sheep-girl to appear, Penelope turns to smile at you and say in her posh accent, [penelope.speech(It seems as though the first masseuse to arrive is Belle...)]
+	</p>
+	<p>
+		Looking past Penelope, you see a beautiful, white-woollen sheep-girl, who looks to be in her late teens, excitedly skipping down the corridor towards you. As she approaches, you see that her light-pink outfit consists of a microskirt, crotchless thong, and a conspicuously-untied croptop. As such, this sheep-girl's tight pussy and small, [belle.cupSize]-cup breasts are completely exposed. Coming to a halt in front of you, she lewdly squeezes her tits, before teasing her fingers over her exposed pussy and giggling, [belle.speech(Heya! You lookin' for a massage, or are you here to fuck this hot little cunt of mine?)]
+	</p>
+	<p>
+		Before you can respond to this blunt question, Belle leans forwards and reaches up to her neck, drawing your attention to the restraints around her wrists and ankles as she does so. Taking hold of the metal tag that's fixed to the front of her leather choker, she lifts it up so that you can see that it bears the words 'Worthless Cunt'. Letting out another giggle, she moves her hands to start playfully tugging on the silver rings which have been fitted to her large, pierced nipples, before locking her light blue eyes on yours and moaning, [belle.speech(As a special service, I let my clients tie me up and punish me like the dirty slut that I am! I want you to make me scream like a filthy whore!)]
+	</p>
+	<p>
+		At that moment, another door down the corridor swings open, and Penelope sharply orders Belle to quieten down before announcing, [penelope.speech(It looks as though Daphne is the second masseuse to answer her summons...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_INTRO_NEXT"><![CDATA[
+	<p>
+		Once again looking past Penelope, you see that this Daphne takes the form of a brown-woollen sheep-girl, who looks to be in her early thirties. Equally as attractive as Belle, although in a more mature way, this masseuse is wearing a dark brown outfit, which consists of a microskirt, crotchless panties, and an unzipped leather jacket. Just like with Belle, these items of clothing leave her slightly-loose pussy and [daphne.cupSize]-cup breasts completely exposed. The bell collar which is fitted around her neck softly jingles as she comes to a halt beside her younger co-worker, and after submissively batting her eyelids at you, she teases, [daphne.speech(I'm not into the rough stuff like Belle, but I do enjoy being dominated... After your massage, I'd like it if you'd give me a good fuck.)]
+	</p>
+	<p>
+		[belle.speech(No way, Daph! [pc.SheIs] going to pick me!)] Belle objects.
+	</p>
+	<p>
+		[daphne.speech(Well, that's only if [pc.sheIs] not interested in a sheep-girl who has some real assets,)] Daphne teases as she steps forwards and presses her comparatively huge breasts against Belle's. The younger sheep-girl lets out an annoyed huff in response to Daphne's move, which the brown-woollen masseuse takes as a sign of surrender. Patronisingly patting Belle on the head, she states, [daphne.speech(Besides, not everybody's into the sort of masochism which you love.)]
+	</p>
+	<p>
+		Stepping back from the muttering Belle, Daphne reaches down to tease her fingers over her dark labia, before moving up beside you and lowering her voice to whisper into your ear, [daphne.speech(I've got a very special service for my clients. I love doing a little pet-play, you see, and so if you choose me, I can pretend to be a dumb sheep as you fuck me like an animal...)]
+	</p>
+	<p>
+		At that moment a third door down the corridor begins to slowly swing open, and Penelope issues yet another sharp order to silence both Belle and Daphne before saying, [penelope.speech(The last masseuse which I have for you is our dear Farah...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_INTRO_FINAL"><![CDATA[
+	<p>
+		For the final time, you look past Penelope to see a black-woollen sheep-girl, who looks to be in her late forties, walking down the corridor towards you. Just like the other two sheep-girls, she's very attractive, although in a much more mature way than Belle or Farah. The only items of clothing which she's wearing are some gold jewellery and a black corset, which she might have chosen to wear to help conceal the fact that she's a little on the chubby side. Swaying her womanly hips as she advances to stand in front of you, this mature sheep-girl smiles and says in a soft voice, [farah.speech(Hello there, sugar. If you're looking for an experienced masseuse, then I'm the one for you.)]
+	</p>
+	<p>
+		Jealously glancing at Farah's exposed, [farah.cupSize]-cup breasts, Daphne mutters, [daphne.speech(You don't let the clients have any fun though...)]
+	</p>
+	<p>
+		[farah.speech(That's not true at all,)] Farah responds, before dominantly stepping forwards and pressing her huge breasts up against your torso. Locking her big, hazel eyes onto yours, she gently strokes one of her hands up your [pc.leg(true)] and reveals, [farah.speech(What Daphne means is that I insist on always being the one in charge. We can have plenty of gentle fun together, but I'm not going to be your submissive little fuck-toy. Choose one of these younger girls if you want that sort of thing.)]
+	</p>
+	<p>
+		As if to demonstrate her commitment to being the dominant partner, Farah takes hold of your [pc.hand] and gets you to tease your fingers over her [farah.labia+] as she leans forwards to softly moan, [farah.speech(If you like risky sex or trying to get girls pregnant, then my special service is for you. After giving you your massage, I'll be willing to take a fertility pill and give you the chance to knock me up...)]
+	</p>
+	<p>
+		With Farah having completed her introduction, Penelope sharply orders her to step back. Letting out a soft sigh, the black-woollen sheep-girl does as she's told and falls back to stand in line with Belle and Daphne, allowing Penelope to move forwards and address you once again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_INTRO_FINAL_PENELOPE"><![CDATA[
+	<p>
+		[penelope.speech(So there you have it,)] the border collie-girl states, [penelope.speech(Belle's into being used and abused, Daphne loves being a submissive little sheep, and Farah always demands to be in charge. If you've got an extra seven hundred and fifty flames, then you can always pay to personally receive a massage from me instead. If you've got the cash, then we can fuck after your massage as well, but first you should see what you'll be in for...)]
+	</p>
+	<p>
+		With that, Penelope quickly steps around to your side of the counter, before suddenly hiking up the bottom of her virgin-killer sweater and hooking her thumbs into her lacy panties. A moment later, and she's pulled down her underwear so as to fully expose her genitals to you. Looking down, you see that this border collie-girl not only has the dog-pussy that you expected between her legs, but she also has a sheathed canine cock. Teasing her fingers over her hermaphroditic groin, Penelope lewdly sighs, [penelope.speech(I like having both my cock and pussy used, so whatever you're into will be fine with me. Oh, and I'm a bit of a switch, so if you want me to submit or take charge, then I'm happy to do either.)]
+	</p>
+	<p>
+		[belle.speech(Her cock feels amazing,)] Belle teases.
+	</p>
+	<p>
+		[daphne.speech(Yeah, taking her knot makes me orgasm every time,)] Daphne confirms.
+	</p>
+	<p>
+		[farah.speech(I prefer her pussy, myself,)] Farah states, letting you know that all three of these sheep-girls have had sex with Penelope.
+	</p>
+	<p>
+		Pulling her underwear back up and moving her sweater back down into its previous position, Penelope ignores her masseuses' comments and addresses you once again, [penelope.speech(I offer a couple of special post-massage services. I can either dress up in one of my old outfits and do a little fashion show for you, or I can use both my cock and pussy to give you what I like to call a 'double facial'. So, what would you like for your first massage, [pc.sir]?)]
+	</p>
+	<p>
+		With that, Penelope joins the three sheep-girls in waiting to hear who you'll choose for your first massage...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE"><![CDATA[
+	<p>
+		Wanting to have the tension worked out of your muscles, you tell Penelope that you'd like to have a massage, and then proceed to give her the two hundred and fifty flames which she asks for. Giving you a warm smile, she states, [penelope.speech(Belle, Daphne, and Farah are once again available at the moment. Please wait one moment while I call them here for you.)]
+	</p>
+	<p>
+		With that, the border collie-girl reaches down under her counter and presses three buttons, one after the other. As each of these buttons are pressed, you hear three faint chimes – each one of which having a slightly different pitch – ring out from down the corridor which leads off from behind where Penelope is standing. Just a moment later, and three of the corridor's many doors swing open, one after the other. Looking past Penelope, you see the familiar figures of Belle, Daphne, and Farah walking towards you.
+	</p>
+	<p>
+		[belle.speech(Heya, [pc.name]!)] the white-woollen Belle teases calls out as she rushes up to where you're standing. Drawing your attention to the words 'Worthless Cunt' which are stamped on the metallic tag of her choker, she grins and teases, [belle.speech(After your massage, you can tie me up and fuck me as hard as you want!)]
+	</p>
+	<p>
+		[daphne.speech(If you fancy something a little gentler than what Belle has in mind, then we could do a bit of pet-play together,)] Daphne suggests as she steps up beside Belle, before seductively pinching her exposed nipples and biting her lip.
+	</p>
+	<p>
+		[farah.speech(I'll leave those submissive games to the younger sheep,)] Farah says with a smirk as she approaches.
+		#IF(farah.isPregnant())
+			 Rubbing her hands over her
+			#IF(farah.isVisiblyPregnant())
+				 visibly-pregnant
+			#ENDIF
+			 belly, she winks at you and teases, [farah.speech(As you've already got me knocked up, my special service obviously isn't available, but we can still have a nice, gentle fuck after your massage.)]
+		#ELSE
+			 Placing one hand on her hip, she uses her other to stroke her pussy as she teases, [farah.speech(Remember that I'll be the one who's in charge if you want a nice, gentle fuck with me.)]
+		#ENDIF
+	</p>
+	<p>
+		[penelope.speech(So there you have it,)] Penelope states, [penelope.speech(Belle's into being used and abused, Daphne loves being a submissive little sheep, and Farah always demands to be in charge. If you've got an extra seven hundred and fifty flames, then you can always pay to personally receive a massage from me instead. If you've got the cash, then we can fuck after your massage as well, but just remember that I'm packing a cock as well as a cunt, so if that's not your thing then don't waste my time.)]
+	</p>
+	<p>
+		With that, Penelope joins the three sheep-girls in waiting to hear who you'll choose for your first massage...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_BACK"><![CDATA[
+	<p>
+		Changing your mind, you tell Penelope that you don't want a massage after all. The three sheep-girls each let out dissapointed whines and sighs as they hear this, before turning around and walking off back to their rooms. Giving you a polite smile, Penelope hands you back your flames and states, [penelope.speech(Very well, [pc.sir]. Here's your two hundred and fifty flames. Please let me know if there's anything else I can do for you today.)]
+	</p>
+	<p>
+		Thanking the border collie-girl, you wonder what to ask of her next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Belle massage: -->
+	
+	<htmlContent tag="MASSAGE_BELLE_START"><![CDATA[
+	<p>
+		Deciding that you'd like a massage from Belle, you tell the young, white-woollen sheep-girl that you've chosen her. Happily jumping up and down on the spot, she exclaims, [belle.speech(Hooray! Hey, after your massage, you're gonna want to wreck my hot little cunt, aren't you?)]
+	</p>
+	<p>
+		[penelope.speech(There'll be plenty of time to discuss that once you've started giving [pc.name] [pc.her] massage,)] Penelope reprimands her excitable employee, before addressing you in her calm, posh accent, [penelope.speech(Please follow Belle to her massage room, and I hope that you'll enjoy your time with her.)]
+	</p>
+	<p>
+		With Penelope's admonishment having done very little to calm the excitable sheep-girl, Belle eagerly grabs hold of your [pc.hand] and impatiently pulls you along after her as she leads you down the corridor to her room. A moment later, and she's closing the door behind you as you take a look around the room in which you're to receive your massage. 
+	</p>
+	<p>
+		Just like the reception area, this massage room has been furnished in a modern, trendy style. The floor consists of the same polished wooden floorboards which are found throughout the rest of the establishment, and on all four sides the pale pink walls are illuminated via oversized light bulbs which hang down from the high ceiling. Industrial-style shelving covers one wall, and is filled with all manner of potted plants, miscellaneous ornaments, and beauty products. Wooden blinds cover the window that's set into the opposite wall, granting you and Belle total privacy for what's about to happen on the large, modular massage table that's located right in the centre of the room.
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			[belle.speech(Hold on one moment; I'll just adjust the table to fit your body type,)]
+		#ELSE
+			[belle.speech(Hold on one moment; I'll just adjust the table to fit your height,)]
+		#ENDIF
+		 Belle happily says, before skipping over to the massage table and adjusting some of its padded surfaces. After she's finished, she gestures to the table and smiles at you as she says, [belle.speech(If you'll just strip naked and then lie down on here, I'll begin your massage straight away!)]
+	</p>
+	<p>
+		Doing as Belle asks, you strip naked for her, and after you've lain down on the massage table, she places her soft hands on your torso and starts to give you a firm, enthusiastic massage. Despite her young age, she's extremely proficient at her job, and you find yourself melting in pleasure under the pressure which she applies to every part of your body.
+	</p>
+	<p>
+		After almost ten minutes have flown by in this manner, your masseuse lets out a cheeky little giggle, before asking, [belle.speech(So, would you like me to continue with the rest of your massage, or would you prefer one of my special services? I can give you a nice groin 'massage' for a hundred flames, an oral 'massage' for two hundred and fifty, or we can get right on to fucking for five hundred. If you'd like to indulge me in my favourite fetish, then for seven hundred and fifty flames you can tie me up to this table and fuck me senseless... So, what'll it be?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_BELLE_HANDS"><![CDATA[
+	<p>
+		Liking the sound of having Belle's hands focused on your
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				 cock and pussy,
+			#ELSE
+				 cock,
+			#ENDIF
+		#ELSE
+			 pussy,
+		#ENDIF
+		 you tell her that you want her special groin 'massage', before handing over the hundred flames which she's asked for. Letting out an excited squeal, the sheep-girl quickly stores your money in a nearby cabinet, before hastily returning to kneel down before your groin. Teasing her fingers down towards your genitals, she bites her lip and lustfully moans, [belle.speech(I'll make you cum in no time... Just lie back and enjoy this...)]
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				Gripping your hard cock in one hand, the sheep-girl starts to slide her fingers up and down around your throbbing length, letting out hungry little moans as she does so. After a few strokes, she starts to move her free hand towards your pussy, and once it's there, she quickly slides her fingers into your cunt and starts to finger you while simultaneously continuing to give you a handjob. With both of your sexual organs being stimulated in this manner, you quickly find yourself letting out a series of [pc.moans+], much to the delight of Belle, who teases, [belle.speech(That's it, let yourself go! ~Mmm!~ You'll be climaxing soon enough...)]
+			#ELSE
+				Gripping your hard cock in one hand, the sheep-girl starts to slide her fingers up and down around your throbbing length, letting out hungry little moans as she does so. With your [pc.cock+] being stimulated in this manner, you quickly find yourself letting out a series of [pc.moans+], much to the delight of Belle, who teases, [belle.speech(That's it, let yourself go! ~Mmm!~ You'll be cumming soon enough...)]
+			#ENDIF
+		#ELSE
+			After teasing her fingers up and down over your [pc.labia+], the sheep-girl pauses for a moment to play with your clit, before suddenly sliding her fingers into your cunt and starting to finger you. With your [pc.pussy+] being stimulated in this manner, you quickly find yourself letting out a series of [pc.moans+], much to the delight of Belle, who teases, [belle.speech(That's it, let yourself go! ~Mmm!~ You'll be climaxing soon enough...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_BELLE_ORAL"><![CDATA[
+	<p>
+		Liking the sound of having Belle continue her massage with her mouth, you tell her that you want her special oral 'massage', before handing over the two hundred and fifty flames which she's asked for. Letting out an excited squeal, the sheep-girl quickly stores your money in a nearby cabinet, before hastily returning to kneel down before your groin. Leaning forwards so that you can feel her hot breath on your
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				 cock and pussy, Belle bites her lip and lustfully moans, [belle.speech(I'll make you cum in no time... Just lie back and enjoy this... Oh, and just let me know whenever you want me to switch to eating you out...)]
+			#ELSE
+				 cock, Belle bites her lip and lustfully moans, [belle.speech(I'll make you cum in no time... Just lie back and enjoy this...)]
+			#ENDIF
+		#ELSE
+			 pussy, Belle bites her lip and lustfully moans, [belle.speech(I'll make you climax in no time... Just lie back and enjoy this...)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			Parting her lips, the sheep-girl darts out her tongue and delivers a long, wet lick up the underside of your hard cock, before opening wide and taking your [pc.cockHead+] into her mouth. Letting out hungry, muffled moans, she starts enthusiastically bobbing her head up and down as she gives you a blowjob. As you feel your [pc.cock+] being taken deep down the sheep-girl's tight, wet throat, you quickly find yourself letting out a series of [pc.moans+], which encourages Belle to suddenly deepthroat you. After gazing longingly up into your eyes for a moment, she pulls her head up and wetly sucks the [pc.cockHead+] of your [pc.cock+], before continuing to give you head...
+		#ELSE
+			After leaning in to plant a big, wet kiss on your [pc.clit+], the sheep-girl darts out her tongue and delivers a series of long, wet licks to your [pc.labia+]. Letting out hungry, muffled moans, she then presses her face into your groin and starts enthusiastically darting her tongue into your [pc.pussy+]. As the sheep-girl starts to perform cunnilingus, you quickly find yourself letting out a series of [pc.moans+], which encourages Belle to grind her face into your cunt and thrust her tongue as deep as possible into your hot, wet pussy. After gazing longingly up into your eyes for a moment, she pulls back and lifts her head up to wetly suck on your [pc.clit+], before continuing to eat you out...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_BELLE_SEX"><![CDATA[
+	<p>
+		Wanting to have a session of full-on sex with Belle, you give her five hundred flames and tell her that you're going to fuck her. Letting out an excited squeal, the sheep-girl quickly stores your money in a nearby cabinet as you get up from the massage table and prepare to get started.
+	</p>
+	<p>
+		[belle.speech(You can fuck me like this if you want,)] Belle teases as she lies back on the table that you've just vacated. Spreading her legs, she reaches down to her exposed pussy and uses two of her digits to spread her [belle.labia+]. Lewdly presenting her tight cunt to you, she bites her lip and whines, [belle.speech(I love getting a good, hard fuck, so be as rough with me as you want! I'll be your good little bitch!)]
+	</p>
+	<p>
+		[pc.Stepping] forwards and preparing to take advantage of Belle's submissive position, you wonder how best to start...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_BELLE_BONDAGE"><![CDATA[
+	<p>
+		Liking the sound of getting to tie Belle to the table and fuck her as hard as you want, you give her seven hundred and fifty flames and tell her that you're going to bind her up tight. Letting out an excited squeal, the sheep-girl quickly stores your money in a nearby cabinet, before producing a length of rope and instructing you to trade places with her.
+	</p>
+	<p>
+		[belle.speech(Tie it up nice and tight around my legs and arms,)] Belle tells you as she hands you the rope and lies back on the massage table. Spreading her legs, she reaches down to her exposed pussy and uses two of her digits to spread her [belle.labia+]. Lewdly presenting her tight cunt to you, she bites her lip and whines, [belle.speech(Tie me up and then show my dirty little pussy no mercy!)]
+	</p>
+	<p>
+		More than happy to do as she asks, you start by tying Belle's legs to the massage table, and thanks to the leather restraints which she's wearing around her ankles, you're able to tightly bind her lower limbs to the table's legs. Moving up, you then take hold of the sheep-girl's arms, and one after the other, you securely tie them down to a pair of metal struts which seem to have been added to the table for just such a binding. Finding herself now securely tied down, Belle pouts at you and struggle a little to show that she's unable to escape, before passionately moaning, [belle.speech(Yes! ~Mmm!~ Come on, give me a hard, rough fuck! Abuse me as much as you want! ~Aah!~ I'm your good little fuck-toy! Break me!)] 
+	</p>
+	<p>
+		[pc.Stepping] forwards and preparing to take advantage of Belle's immobility, you wonder how best to start...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_BELLE_CONTINUE_MASSAGE"><![CDATA[
+	<p>
+		Not wanting this massage session to turn into anything sexual, you tell Belle that you don't want to purchase any of her special services. Letting out a disappointed whine, she teases, [belle.speech(Aww, fine... Well, maybe next time you'll be in the mood for something fun!)]
+	</p>
+	<p>
+		With that, the sheep-girl lets out a little laugh, before pressing her hands down into your torso and continuing to give you your massage. Working her hands all over your body, she once again demonstrates her proficiency at her job, and within just a matter of moments you find yourself letting out a steady stream of satisfied hums and sighs...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_BELLE_FINISHED"><![CDATA[
+	<p>
+		Ten minutes later, and with your body feeling well and truly relaxed, Belle steps back and happily announces, [belle.speech(There we go, we're all finished for this session!)]
+	</p>
+	<p>
+		Getting up off the massage table and getting dressed, you thank Belle for her service and tell her what an excellent job she's done. Giving you a big grin as she hears your praise, the sheep-girl happily claps her hands together and replies, [belle.speech(You're welcome! Maybe next time you'll be in the mood for some other services as well, and then you can see how good I am at those, too!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_BELLE_FINISHED_END"><![CDATA[
+	<p>
+		With that, Belle asks you to accompany her back to reception, and so after exiting the room, you follow her down the corridor and find yourself once again standing before Penelope's counter. Smiling at the two of you, the border collie-girl asks, [penelope.speech(I trust that Belle was able to satisfy you, [pc.sir]?)]
+	</p>
+	<p>
+		After you've responded in the positive, Penelope tells Belle that she's done a good job, before dismissing the sheep-girl and turning her attention back to you. Leaning forwards over her counter and playfully pushing her large, [penelope.cupSize]-cup breasts towards you, she asks in her posh accent, [penelope.speech(Is there anything else which I can do for you today, [pc.sir]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_BELLE_AFTER_SEX"><![CDATA[
+	<p>
+		Having finished giving you her special service, Belle lets out one last passionate moan, before informing you that the fun's over. Disentangling yourself from the panting sheep-girl, you set about getting your things back in order while Belle proceeds to clean herself up.
+	</p>
+	<p>
+		[belle.speech(That was a lot of fun! Thanks for choosing me, [pc.name], and for buying one of my special services,)] Belle says as she steps over to unlock the door. Telling her that you had a lot of fun too, you make sure that you've retrieved all of your possessions before preparing to head back to reception...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Daphne massage: -->
+	
+	<htmlContent tag="MASSAGE_DAPHNE_START"><![CDATA[
+	<p>
+		Deciding that you'd like a massage from Daphne, you tell the brown-woollen sheep-girl that you've chosen her. Letting out a happy little laugh, she flashes you a submissive smile and says, [daphne.speech(Thank you for choosing me. If you'll please follow me to my room, we can get started on your massage right away... And then after that, you can fuck me...)]
+	</p>
+	<p>
+		Gesturing for you to follow her, Daphne sets off down the corridor, and you fall in behind her as she leads you to her room. A moment later, and she's closing the door behind you as you take a look around the room in which you're to receive your massage. 
+	</p>
+	<p>
+		Just like the reception area, this massage room has been furnished in a modern, trendy style. The floor consists of the same polished wooden floorboards which are found throughout the rest of the establishment, and on all four sides the pale pink walls are illuminated via oversized light bulbs which hang down from the high ceiling. Industrial-style shelving covers one wall, and is filled with all manner of potted plants, miscellaneous ornaments, and beauty products. Wooden blinds cover the window that's set into the opposite wall, granting you and Daphne total privacy for what's about to happen on the large, modular massage table that's located right in the centre of the room.
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			[daphne.speech(Please wait for just one moment; I'll just adjust the table to fit your body type,)]
+		#ELSE
+			[daphne.speech(Please wait for just one moment; I'll just adjust the table to fit your height,)]
+		#ENDIF
+		 Daphne says, before hurrying over to the massage table and adjusting some of its padded surfaces. After she's finished, she gestures to the table and smiles at you as she says, [daphne.speech(If you'll just strip naked and then lie down on here, I'll begin your massage straight away!)]
+	</p>
+	<p>
+		Doing as Daphne asks, you strip naked for her, and after you've lain down on the massage table, she places her soft hands on your torso and starts to firmly massage your muscles. It very quickly becomes apparent that Daphne is exceptionally proficient at her job, as you soon find yourself melting in pleasure under the pressure which she applies to every part of your body.
+	</p>
+	<p>
+		After almost ten minutes have flown by in this manner, your masseuse lets out a quiet, hungry moan, before asking, [daphne.speech(Should I continue with the rest of your massage, or would you prefer one of my special services? I can offer you a groin 'massage' for a hundred flames, an oral 'massage' for two hundred and fifty, or you can dominantly fuck me for five hundred. If you'd like to indulge me in my favourite fetish, then for seven hundred and fifty flames I'll pretend to be a dumb, horny little sheep for you to fuck... So, what'll it be?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_DAPHNE_HANDS"><![CDATA[
+	<p>
+		Liking the sound of having Daphne's hands focused on your
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				 cock and pussy,
+			#ELSE
+				 cock,
+			#ENDIF
+		#ELSE
+			 pussy,
+		#ENDIF
+		 you tell her that you want her special groin 'massage', before handing over the hundred flames which she's asked for. Letting out an excited moan, the sheep-girl quickly stores your money in a nearby cabinet, before hastily returning to kneel down before your groin. Teasing her fingers down towards your genitals, she bites her lip and lustfully sighs, [daphne.speech(I'll be a good girl and make you cum... Please lie back and enjoy this...)]
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				Gripping your hard cock in one hand, the sheep-girl starts to slide her fingers up and down around your throbbing length, letting out hungry little moans as she does so. After a few strokes, she starts to move her free hand towards your pussy, and once it's there, she quickly slides her fingers into your cunt and starts to finger you while simultaneously continuing to give you a handjob. With both of your sexual organs being stimulated in this manner, you quickly find yourself letting out a series of [pc.moans+], much to the delight of Daphne, who happily pants, [daphne.speech(That's it, let your good little sheep pleasure you... ~Mmm!~ You'll be climaxing soon enough...)]
+			#ELSE
+				Gripping your hard cock in one hand, the sheep-girl starts to slide her fingers up and down around your throbbing length, letting out hungry little moans as she does so. With your [pc.cock+] being stimulated in this manner, you quickly find yourself letting out a series of [pc.moans+], much to the delight of Daphne, who happily pants, [daphne.speech(That's it, let your good little sheep pleasure you... ~Mmm!~ You'll be cumming soon enough...)]
+			#ENDIF
+		#ELSE
+			After teasing her fingers up and down over your [pc.labia+], the sheep-girl pauses for a moment to play with your clit, before suddenly sliding her fingers into your cunt and starting to finger you. With your [pc.pussy+] being stimulated in this manner, you quickly find yourself letting out a series of [pc.moans+], much to the delight of Daphne, who happily pants, [daphne.speech(That's it, let your good little sheep pleasure you... ~Mmm!~ You'll be climaxing soon enough...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_DAPHNE_ORAL"><![CDATA[
+	<p>
+		Liking the sound of having Daphne continue her massage with her mouth, you tell her that you want her special oral 'massage', before handing over the two hundred and fifty flames which she's asked for. Letting out an excited moan, the sheep-girl quickly stores your money in a nearby cabinet, before hastily returning to kneel down before your groin. Leaning forwards so that you can feel her hot breath on your
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				 cock and pussy, Daphne bites her lip and lustfully moans, [daphne.speech(I'll be a good little sheep and make you cum in no time... Please lie back and enjoy this... Oh, and please let me know whenever you want me to switch to eating you out...)]
+			#ELSE
+				 cock, Daphne bites her lip and lustfully moans, [daphne.speech(I'll be a good little sheep and make you cum in no time... Please lie back and enjoy this...)]
+			#ENDIF
+		#ELSE
+			 pussy, Daphne bites her lip and lustfully moans, [daphne.speech(I'll be a good little sheep and make you climax in no time... Please lie back and enjoy this...)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			Parting her lips, the sheep-girl darts out her tongue and delivers a long, wet lick up the underside of your hard cock, before opening wide and taking your [pc.cockHead+] into her mouth. Letting out hungry, muffled moans, she starts enthusiastically bobbing her head up and down as she gives you a blowjob. As you feel your [pc.cock+] being taken deep down the sheep-girl's tight, wet throat, you quickly find yourself letting out a series of [pc.moans+], which encourages Daphne to suddenly deepthroat you. After gazing longingly up into your eyes for a moment, she pulls her head up and wetly sucks the [pc.cockHead+] of your [pc.cock+], before continuing to give you head...
+		#ELSE
+			After leaning in to plant a big, wet kiss on your [pc.clit+], the sheep-girl darts out her tongue and delivers a series of long, wet licks to your [pc.labia+]. Letting out hungry, muffled moans, she then presses her face into your groin and starts enthusiastically darting her tongue into your [pc.pussy+]. As the sheep-girl starts to perform cunnilingus, you quickly find yourself letting out a series of [pc.moans+], which encourages Daphne to grind her face into your cunt and thrust her tongue as deep as possible into your hot, wet pussy. After gazing longingly up into your eyes for a moment, she pulls back and lifts her head up to wetly suck on your [pc.clit+], before continuing to eat you out...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_DAPHNE_SEX"><![CDATA[
+	<p>
+		Wanting to have a session of full-on sex with Daphne, you give her five hundred flames and tell her that you're going to dominantly fuck her. Letting out an excited squeal, the sheep-girl quickly stores your money in a nearby cabinet as you get up from the massage table and prepare to get started.
+	</p>
+	<p>
+		[daphne.speech(I'll be your good little sheep,)] Daphne moans as she lies back on the table that you've just vacated. Spreading her legs, she reaches down to her exposed pussy and uses two of her digits to spread her [daphne.labia+]. Lewdly presenting her [daphne.pussyCapacity] cunt to you, she bites her lip and whines, [daphne.speech(Come on... ~Mmm!~ Dominate me!)]
+	</p>
+	<p>
+		[pc.Stepping] forwards and preparing to take advantage of Daphne's submissive position, you wonder how best to start...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_DAPHNE_PET_PLAY"><![CDATA[
+	<p>
+		Liking the sound of getting Daphne to engage in a little pet-play, you stand up, hand over seven hundred and fifty flames, and tell her that you want to fuck her while she's pretending to be a dumb sheep. Your masseuse's eyes light up as she hears what it is that you want, and after letting out an extremely horny moan, she hurries to store your money in a nearby cabinet. Rushing to take off all of her clothing and jewellery, with the exception of the bell collar around her neck, Daphne bites her lip and breathlessly sighs, [daphne.speech(Yes... I'll be your good, horny little sheep...)]
+	</p>
+	<p>
+		With that, the sheep-girl drops down onto all fours and slowly crawls forwards, before turning around and presenting her rear-end to you. Submissively raising her ass, she turns back to give you an innocent look and lets out a surprisingly-convincing, [daphne.speech(~Baa!~)]
+	</p>
+	<p>
+		Finding yourself quickly getting aroused at the sight of Daphne's commitment to acting like a dumb sheep, you [pc.step] forwards and prepare to fuck her. Turning her head back once more to watch your approach, Daphne spreads her legs a little and pushes her ass even further up into the air, and as she presents you with her
+		#IF(game.isAnalContentEnabled())
+			 [daphne.pussy+] and [daphne.asshole+],
+		#ELSE
+			 [daphne.pussy+],
+		#ENDIF
+		 she allows her sheep impersonation to take on a more lustful tone as she bleats once more, [daphne.speech(~Baa!~ ~Baa!~)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_DAPHNE_CONTINUE_MASSAGE"><![CDATA[
+	<p>
+		Not wanting this massage session to turn into anything sexual, you tell Daphne that you don't want to purchase any of her special services. Letting out a disappointed sigh, she states, [daphne.speech(As you wish... Maybe next time you'll be in the mood for something a little more fun...)]
+	</p>
+	<p>
+		With that, the sheep-girl flashes you a warm smile, before pressing her hands down into your torso and continuing to give you your massage. Working her hands all over your body, she once again demonstrates her proficiency at her job, and within just a matter of moments you find yourself letting out a steady stream of satisfied hums and sighs...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_DAPHNE_FINISHED"><![CDATA[
+	<p>
+		Ten minutes later, and with your body feeling well and truly relaxed, Daphne steps back and announces with a slight note of satisfaction in her voice, [daphne.speech(Your massage is complete. I trust that it was enjoyable for you?)]
+	</p>
+	<p>
+		Getting up off the massage table and getting dressed, you thank Daphne for her service and tell her what an excellent job she's done. Giving you a big smile as she hears your praise, the sheep-girl happily bows her head a little and replies, [daphne.speech(You're very welcome. Maybe next time you'll be in the mood for some other services as well, and then you can really see what a good, submissive little sheep I am...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_DAPHNE_FINISHED_END"><![CDATA[
+	<p>
+		With that, Daphne asks you to accompany her back to reception, and so after exiting the room, you follow her down the corridor and find yourself once again standing before Penelope's counter. Smiling at the two of you, the border collie-girl asks, [penelope.speech(I trust that Daphne was able to satisfy you, [pc.sir]?)]
+	</p>
+	<p>
+		After you've responded in the positive, Penelope tells Daphne that she's done a good job, before dismissing the sheep-girl and turning her attention back to you. Leaning forwards over her counter and playfully pushing her large, [penelope.cupSize]-cup breasts towards you, she asks in her posh accent, [penelope.speech(Is there anything else which I can do for you today, [pc.sir]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_DAPHNE_AFTER_SEX"><![CDATA[
+	<p>
+		Having finished giving you her special service, Daphne lets out one last passionate moan, before informing you that the fun's over. Disentangling yourself from the panting sheep-girl, you set about getting your things back in order while Daphne proceeds to clean herself up.
+	</p>
+	<p>
+		[daphne.speech(That was a lot of fun... Thank you for choosing me, [pc.name], and for buying one of my special services,)] Daphne says as she steps over to unlock the door. Telling her that you had a lot of fun too, you make sure that you've retrieved all of your possessions before preparing to head back to reception...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Farah massage: -->
+	
+	<htmlContent tag="MASSAGE_FARAH_START"><![CDATA[
+	<p>
+		Deciding that you'd like a massage from Farah, you tell the mature, black-woollen sheep-girl that you've chosen her.
+		#IF(farah.isPregnant())
+			#IF(farah.isVisiblyPregnant())
+				 Letting out an amused chuckle, she strokes her swollen belly and teases, [farah.speech(You just want me to fuck you while I'm pregnant, don't you, sugar?)]
+			#ELSE
+				 Letting out an amused chuckle, she strokes her belly and teases, [farah.speech(You just want me to fuck you while knowing that I'm pregnant, don't you, sugar?)]
+			#ENDIF
+		#ELSE
+			 Letting out a soft chuckle, she flashes you a sly grin and teases, [farah.speech(What are you really wanting, sugar? A massage, or for to me to fuck you?)]
+		#ENDIF
+	</p>
+	<p>
+		[penelope.speech(There'll be plenty of time to discuss whether or not [pc.name] wants sex after you've started [pc.her] massage,)] Penelope reprimands her employee, before addressing you in her calm, posh accent, [penelope.speech(Please follow Farah to her massage room, and I hope that you'll enjoy your time with her.)]
+	</p>
+	<p>
+		Clearly not wanting to get into Penelope's bad books, Farah offers the border collie-girl a polite nod, before gesturing for you to follow along after her. Doing as she instructs, you tag along behind the black-woollen sheep-girl, and can't help but watch her exposed ass sway from side to side as she slowly struts down the corridor to her room. A moment later, and she's closing the door behind you as you take a look around the room in which you're to receive your massage. 
+	</p>
+	<p>
+		Just like the reception area, this massage room has been furnished in a modern, trendy style. The floor consists of the same polished wooden floorboards which are found throughout the rest of the establishment, and on all four sides the pale pink walls are illuminated via oversized light bulbs which hang down from the high ceiling. Industrial-style shelving covers one wall, and is filled with all manner of potted plants, miscellaneous ornaments, and beauty products. Wooden blinds cover the window that's set into the opposite wall, granting you and Farah total privacy for what's about to happen on the large, modular massage table that's located right in the centre of the room.
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			[farah.speech(I know you were staring at my ass just now, sugar. You be a good [pc.girl] and keep watching while I adjust the table to fit your body type,)]
+		#ELSE
+			[farah.speech(I know you were staring at my ass just now, sugar. You be a good [pc.girl] and keep watching while I adjust the table to fit your height,)]
+		#ENDIF
+		 Farah teases, before sauntering over to the massage table and pushing her ass out towards you as she bends over to adjust some of its padded surfaces. After she's finished, she gestures to the table and smiles at you as she softly orders, [farah.speech(Strip naked and then lie down on here, sugar. I'm as keen to get this massage started as you are.)]
+	</p>
+	<p>
+		Doing as Farah asks, you strip naked for her, and after you've lain down on the massage table, she places her soft hands on your torso and starts to firmly massage your muscles. It very quickly becomes apparent that Farah is absolutely exceptional at her job, as you almost immediately find yourself melting in pleasure under the pressure which she applies to every part of your body.
+	</p>
+	<p>
+		After almost ten minutes have flown by in this manner, your masseuse lets out a soft, horny moan, before asking, [farah.speech(Should I continue with the rest of your massage, sugar, or would you prefer one of my special services? I can offer you a groin 'massage' for a hundred flames, an oral 'massage' for two hundred and fifty, or I can fuck you for five hundred.
+		#IF(farah.isPregnant())
+			 Seeing as you've already got me pregnant, I can't offer you my fertile sex special, so it'll have to be one of the other options if you're looking for some fun.
+		#ELSE
+			 If you were looking for something a little extra, and if you've got a thing for risky sex or knocking girls up, then for seven hundred and fifty flames I'll take a breeder pill and give you a shot at getting me pregnant.
+		#ENDIF
+		 So, what'll it be?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_FARAH_HANDS"><![CDATA[
+	<p>
+		Liking the sound of having Farah's hands focused on your
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				 cock and pussy,
+			#ELSE
+				 cock,
+			#ENDIF
+		#ELSE
+			 pussy,
+		#ENDIF
+		 you tell her that you want her special groin 'massage', before handing over the hundred flames which she's asked for. Letting out a soft moan, the sheep-girl takes her time as she safely stores your money in a nearby cabinet, before stepping back towards you and kneeling down before your groin. Teasing her fingers down towards your genitals, she gives you a sly look and lustfully sighs, [farah.speech(Be a good [pc.girl] for me and relax... I'll make this good for you...)]
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				Dominantly taking hold of your hard cock in one hand, the sheep-girl starts to slide her fingers up and down around your throbbing length, letting out deep, quiet moans as she does so. After a few strokes, she starts to move her free hand towards your pussy, and once it's there, she slowly slides her fingers into your cunt and starts to gently finger you while simultaneously continuing to give you a handjob. With both of your sexual organs being stimulated in this manner, you quickly find yourself letting out a series of [pc.moans+], much to the delight of Farah, who happily teases, [farah.speech(That's it, sugar, let me take care of you... ~Mmm!~ You'll be climaxing for me soon enough...)]
+			#ELSE
+				Dominantly taking hold of your hard cock in one hand, the sheep-girl starts to gently slide her fingers up and down around your throbbing length, letting out deep, quiet moans as she does so. With your [pc.cock+] being stimulated in this manner, you quickly find yourself letting out a series of [pc.moans+], much to the delight of Farah, who happily teases, [farah.speech(That's it, sugar, let me take care of you... ~Mmm!~ You'll be cumming soon enough...)]
+			#ENDIF
+		#ELSE
+			After dominantly teasing her fingers up and down over your [pc.labia+], the sheep-girl pauses for a moment to play with your clit, before slowly sliding her fingers into your cunt and starting to gently finger you. With your [pc.pussy+] being stimulated in this manner, you quickly find yourself letting out a series of [pc.moans+], much to the delight of Farah, who happily teases, [farah.speech(That's it, sugar, let me take care of you... ~Mmm!~ You'll be climaxing soon enough...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_FARAH_ORAL"><![CDATA[
+	<p>
+		Liking the sound of having Farah continue her massage with her mouth, you tell her that you want her special oral 'massage', before handing over the two hundred and fifty flames which she's asked for. Letting out a soft moan, the sheep-girl takes her time as she safely stores your money in a nearby cabinet, before stepping back towards you and kneeling down before your groin. Leaning forwards so that you can feel her hot breath on your
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				 cock and pussy, Farah gives you a sly look and lustfully sighs, [farah.speech(Be a good [pc.girl] for me and relax... I'll make this good for you, sugar... Oh, and do let me know if you want me to switch to eating you out...)]
+			#ELSE
+				 cock, Farah gives you a sly look and lustfully sighs, [farah.speech(Be a good [pc.girl] for me and relax... I'll make this good for you, sugar...)]
+			#ENDIF
+		#ELSE
+			 pussy, Farah gives you a sly look and lustfully sighs, [farah.speech(Be a good [pc.girl] for me and relax... I'll make this good for you, sugar...)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			Parting her lips, the sheep-girl darts out her tongue and delivers a long, wet lick up the underside of your hard cock, before opening wide and taking your [pc.cockHead+] into her mouth. Letting out soft, muffled moans, she starts slowly bobbing her head up and down as she gives you a dominant blowjob. As you feel your [pc.cock+] being taken deep down the sheep-girl's tight, wet throat, you quickly find yourself letting out a series of [pc.moans+], which encourages Farah to suddenly deepthroat you. After gazing lovingly up into your eyes for a moment, she pulls her head up and wetly sucks the [pc.cockHead+] of your [pc.cock+], before continuing to give you head...
+		#ELSE
+			After leaning in to plant a big, wet kiss on your [pc.clit+], the sheep-girl darts out her tongue and delivers a series of long, wet licks to your [pc.labia+]. Letting out soft, muffled moans, she then presses her face into your groin and starts slowly pushing her tongue into your [pc.pussy+]. As the sheep-girl starts to dominantly perform cunnilingus, you quickly find yourself letting out a series of [pc.moans+], which encourages Farah to press her face into your cunt and slide her tongue as deep as possible into your hot, wet pussy. After gazing lovingly up into your eyes for a moment, she pulls back and lifts her head up to wetly suck on your [pc.clit+], before continuing to eat you out...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_FARAH_SEX"><![CDATA[
+	<p>
+		Wanting to have a session of full-on sex with Farah, you give her five hundred flames and tell her that you want to fuck her. Letting out a soft moan, the sheep-girl safely stores your money in a nearby cabinet as you get up from the massage table and prepare to get started.
+	</p>
+	<p>
+		[farah.speech(Remember, sugar, I'm the one in charge here,)] Farah confidently states as she steps over to lie back on the table that you've just vacated. Spreading her legs, she reaches down to her exposed pussy and uses two of her digits to spread her [farah.labia+]. Lewdly presenting her [farah.pussyCapacity] cunt to you, she flashes you a sly smirk and says, [farah.speech(Come here, sugar. This pussy's been getting hot and wet at the thought of getting you to fuck it...)]
+	</p>
+	<p>
+		Doing as you're told, you [pc.step] forwards and prepare to follow Farah's further instructions as she starts to dominantly have sex with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_FARAH_FERTILE_SEX"><![CDATA[
+	<p>
+		Wanting to have a session of full-on sex with Farah, and eager to have the chance to get her pregnant, you give her seven hundred and fifty flames and tell her that you want to knock her up. Letting out a soft moan, the sheep-girl safely stores your money in a nearby cabinet as you get up from the massage table and prepare to get started.
+	</p>
+	<p>
+		[farah.speech(Remember, sugar, I'm the one in charge here,)] Farah confidently states as she steps over to lie back on the table that you've just vacated. Producing a breeder pill, she pops it out of its protective packaging and swallows it, before spreading her legs she reaching down to use two of her digits to spread her [farah.labia+]. Lewdly presenting her [farah.pussyCapacity] cunt to you, she flashes you a sly smirk and says, [farah.speech(Come here, sugar. This pussy's getting hot and wet at the thought of being fertile and ready to receive a big creampie...)]
+	</p>
+	<p>
+		Doing as you're told, you [pc.step] forwards and prepare to follow Farah's further instructions as she starts to dominantly have sex with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="MASSAGE_FARAH_CONTINUE_MASSAGE"><![CDATA[
+	<p>
+		Not wanting this massage session to turn into anything sexual, you tell Farah that you don't want to purchase any of her special services. Letting out a disappointed sigh, she states, [farah.speech(Suit yourself, sugar... Maybe next time you'll be in the mood for something a little more fun...)]
+	</p>
+	<p>
+		With that, the sheep-girl flashes you a warm smile, before pressing her hands down into your torso and continuing to give you your massage. Working her hands all over your body, she once again demonstrates her proficiency at her job, and within just a matter of moments you find yourself letting out a steady stream of satisfied hums and sighs...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_FARAH_FINISHED"><![CDATA[
+	<p>
+		Ten minutes later, and with your body feeling well and truly relaxed, Farah steps back and announces with a soft sigh, [farah.speech(Your massage is complete, sugar. Did you enjoy it?)]
+	</p>
+	<p>
+		Getting up off the massage table and getting dressed, you thank Farah for her service and tell her what an excellent job she's done. Giving you a warm smile as she hears your praise, the sheep-girl replies, [farah.speech(You're very welcome, sugar. Maybe next time you'll be in the mood for some other services as well...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_FARAH_FINISHED_END"><![CDATA[
+	<p>
+		With that, Farah asks you to accompany her back to reception, and so after exiting the room, you follow her down the corridor and find yourself once again standing before Penelope's counter. Smiling at the two of you, the border collie-girl asks, [penelope.speech(I trust that Farah was able to satisfy you, [pc.sir]?)]
+	</p>
+	<p>
+		After you've responded in the positive, Penelope tells Farah that she's done a good job, before dismissing the sheep-girl and turning her attention back to you. Leaning forwards over her counter and playfully pushing her large, [penelope.cupSize]-cup breasts towards you, she asks in her posh accent, [penelope.speech(Is there anything else which I can do for you today, [pc.sir]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_FARAH_AFTER_SEX"><![CDATA[
+	<p>
+		Having finished giving you her special service, Farah lets out one last soft moan, before informing you that the fun's over. Disentangling yourself from the panting sheep-girl, you set about getting your things back in order while Farah proceeds to clean herself up.
+	</p>
+	<p>
+		[farah.speech(Thanks for the fun, sugar,)] Farah says as she steps over to unlock the door. Telling her that you had a lot of fun too, you make sure that you've retrieved all of your possessions before preparing to head back to reception...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_FARAH_AFTER_SEX_FERTILE"><![CDATA[
+	#IF(farah.hasStatusEffect(SE_PREGNANT_0))
+		<p>
+			Having finished giving you her special service, Farah lets out one last soft moan, before informing you that the fun's over. Disentangling yourself from the panting sheep-girl, you set about getting your things back in order while Farah produces an arcane pregnancy tester and declares, [farah.speech(I'm not one to wait around and find out if I'm pregnant or not. Hold on a moment, sugar, and I'll let you know if you've gone and made me a mother...)]
+		</p>
+		<p>
+			Not giving you any chance to object, the sheep-girl quickly swipes the pregnancy tester down over her belly...
+		</p>
+	#ELSE
+		<p>
+			Having finished giving you her special service, Farah lets out one last soft moan, before informing you that the fun's over. Disentangling yourself from the panting sheep-girl, you set about getting your things back in order while Farah proceeds to clean herself up.
+		</p>
+		<p>
+			[farah.speech(Thanks for the fun, sugar, although I'm a little disappointed that you didn't even try to get me pregnant,)] Farah says as she steps over to unlock the door. Telling her that you had a lot of fun too, you make sure that you've retrieved all of your possessions before preparing to head back to reception...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_FARAH_AFTER_SEX_FERTILE_RESULT"><![CDATA[
+	#IF(farah.isPregnant())
+		<p>
+			[farah.speech(Well, how about that, sugar? You've gone and got me pregnant,)] Farah states with a big grin on her face. Rubbing her hands over her slightly-chubby belly, she says, [farah.speech(I don't bother using any arcane tricks to speed up my pregnancies, so there'll be plenty of time for you to come back and fuck me while I'm pregnant, if that's something you're into. Oh, and before you ask, no, I don't need anything from you; this isn't the first time I've had kids, and I can handle myself just fine.)]
+		</p>
+		<p>
+			With Farah telling you that she doesn't need any help with the pregnancy, all there is for you to do is wish her well and prepare to leave. Telling you to come back and see her again soon, the sheep-girl helps to make sure that you've retrieved all of your possessions before preparing to lead you back to reception...
+		</p>
+	#ELSE
+		<p>
+			[farah.speech(Well, sugar, looks like you didn't manage to get me pregnant,)] Farah states. Rubbing her hands over her slightly-chubby belly, she says, [farah.speech(There's always next time, I suppose... You will come back and try again, won't you?)]
+		</p>
+		<p>
+			Telling Farah that you'll come back if you get the chance, you make sure that you've retrieved all of your possessions before preparing to head back to reception...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Penelope massage: -->
+	
+	<htmlContent tag="MASSAGE_PENELOPE_START"><![CDATA[
+	<p>
 		[style.italicsBad(Placeholder dialogue!)]
 	</p>
 	<p>
-		After spending an hour relaxing in the pool, you get out of the water and retrieve your freshly-cleaned clothes, before returning to the reception area.
+		You choose Penelope and pay her the extra 750 flames she's asked for. She leads you into a massage room and asks you to strip and lie back on the massage table (variation for if player is taur).
 	</p>
 	<p>
-		Penelope asks if you'd like anything else today.
+		You do as Penelope asks, after which she starts giving you a massage. After a few minutes, she informs you of her special services, which includes a handjob/fingering, giving you oral, or having full sex, each of which either as the dom or sub. Continuing to massage your body, she tells you of her two special services; she gets you to perform oral on her and then cums and squirts over your face for a 'double facial'; she performs a mock fashion show for you while wearing one of five outfits of your choice, after which you can fuck her while she's still wearing that outfit.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_CONTINUE"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You tell Penelope that you only want a massage. She is disappointed, but continues.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_HANDS"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You tell Penelope that you want her to give you a special groin 'massage'. She smirks and teases her hands down to your genitals.
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				Gripping your hard cock in one hand, she slides her other down to your cunt, before pushing her fingers into your twat and starting to finger you while simultaneously giving you a handjob.
+			#ELSE
+				Gripping your hard cock in one hand, she lets out an eager moan and starts giving you a handjob.
+			#ENDIF
+		#ELSE
+			She slides her hand down to your cunt, before pushing her fingers into your twat and letting out an eager moan as she starts to finger you. 
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_ORAL"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You tell Penelope that you want her to give you a special oral 'massage'. She smirks and drops her head down to your genitals.
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				After telling you that she'll switch to eating you out whenever you want, she opens wide and takes your cock into her mouth, before starting to give you a blowjob.
+			#ELSE
+				She opens wide and takes your cock into her mouth, before starting to give you a blowjob.
+			#ENDIF
+		#ELSE
+			She leans forwards and gives your clit a quick kiss, before pushing her tongue into your twat and starting to eat you out. 
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_SEX"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You tell Penelope that you want to fuck her. She smirks and gets you to trade places with her. Submissively lying back on the massage table, she tells you to give her a good fuck. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_CONTINUE_REVERSAL"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You tell Penelope that you want the massage to continue, but you want to be the one massaging her. She smirks and assumes a dominant personality, before ordering you to switch places with her. You obey and proceed to give her a massage.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_HANDS_AS_DOM"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You tell Penelope that you want her to give you a special groin 'massage'. She smirks and teases her hands down to your genitals.
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				Dominantly gripping your hard cock in one hand, she slides her other down to your cunt, before pushing her fingers into your twat and starting to finger you while simultaneously giving you a handjob.
+			#ELSE
+				Dominantly gripping your hard cock in one hand, she lets out an eager moan and starts giving you a handjob.
+			#ENDIF
+		#ELSE
+			She slides her hand down to your cunt, before pushing her fingers into your twat and letting out an eager moan as she starts to dominantly finger you. 
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_ORAL_AS_DOM"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You tell Penelope that you want her to give you a special oral 'massage'. She smirks and drops her head down to your genitals.
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				After telling you that she'll switch to eating you out whenever you want, she opens wide and takes your cock into her mouth, before starting to dominantly give you a blowjob.
+			#ELSE
+				She opens wide and dominantly takes your cock into her mouth, before starting to give you a blowjob.
+			#ENDIF
+		#ELSE
+			She leans forwards and gives your clit a quick kiss, before pushing her tongue into your twat and starting to dominantly eat you out. 
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_SEX_AS_DOM"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You tell Penelope that you want to fuck her. She smirks and gets you to trade places with her. Lying back on the massage table, she dominantly tells you to get started and to make it good for her. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_DOUBLE_FACIAL"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You tell Penelope that you want to receive a double facial form her. She lifts up her virgin-killer sweater and exposes her dog-like pussy and cock.
+	</p>
+	<p>
+		Penelope steps around to loom over your head, before planting her cunt don over your [pc.lips+] and telling you to start eating her out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_FINISHED"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You finish receiving your massage. Penelope says to come again and pay for some fun the next time.
+	</p>
+	<p>
+		You head back into the reception area. Penelope greets you and asks if you require any more services.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_FINISHED_END"><![CDATA[
+	<p>
+		With that, Belle asks you to accompany her back to reception, and so after exiting the room, you follow her down the corridor and find yourself once again standing before Penelope's counter. Smiling at the two of you, the border collie-girl asks, [penelope.speech(I trust that Belle was able to satisfy you, [pc.sir]?)]
+	</p>
+	<p>
+		After you've responded in the positive, Penelope tells Belle that she's done a good job, before dismissing the sheep-girl and turning her attention back to you. Leaning forwards over her counter and playfully pushing her large, [penelope.cupSize]-cup breasts towards you, she asks in her posh accent, [penelope.speech(Is there anything else which I can do for you today, [pc.sir]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_FASHION_SHOW"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You tell Penelope that you want her to change into a special outfit and do a mock fashion show for you. Happily taking your flames, she tells you that she's got five outfits for you to choose from, and she gives you a sales pitch for each of them.
+	</p>
+	<p>
+		[penelope.speech(First of all, I have a little outfit which I like to call 'At the ball'. As the name suggests, this involves me donning a ballgown, a pair of elbow-length gloves, and some pieces of expensive jewellery,)] she says in her posh accent. Moving swiftly on, she continue, [penelope.speech(If you'd prefer something a little more casual, then my 'About town' outfit might be for you. It's stylish in its simplicity, and includes a blouse, cardigan, and tight-fitting jeans.)]
+	</p>
+	<p>
+		After giving you these two options, the border collie-girl flashes you a dirty look, and with a smirk settling on her beautiful face, she teases, [penelope.speech(If those two sound too boring, then I've got some more risqué choices for you. First up is what I like to call 'Drunken alley', which takes the form of a daring, bright-pink outfit consisting of a clubbing dress, strappy sandals, and plenty of accessories. I like to pretend that I've drunkenly stumbled out of a nightclub and been pulled into some dirty backalley while I'm getting fucked in this little getup.)]
+	</p>
+	<p>
+		It's clear from Penelope's sultry tone of voice that she's getting turned on at the thought of playing out this slutty fantasy of hers, but before you have the chance to make a comment on this, she quickly continues, [penelope.speech(I've also got an outfit which I like to call 'Less is more', which basically just consists of me wearing some revealing lingerie. It's not the most imaginative of my outfits, but it's nevertheless a very popular choice. Anyway, that leads me on to my final offering, which I call 'Latex indulgence'. As you might guess, this consists of me squeezing into several pieces of bright-red latex gear. It also includes a little surprise which I have fun with during my strip-tease... So, which outfit would you like to fuck me in?)] 
+	</p>
+	<p>
+		With that, Penelope seems to have finished explaining her outfit choices to you, and she seductively bites her lip and gives you a playful wink as she waits to hear what your choice will be...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_FASHION_SHOW_BALL"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You tell Penelope that you'd like to see her 'At the ball' outfit. She smirks and exits the room, reappearing a few minutes later wearing a flowing ballgown. She does a little strut up and down the length of the room in front of you, before playfully teasing, [penelope.speech(So, do you want to put me in my place and give me a good, hard fuck, or should I take the lead?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_FASHION_SHOW_TOWN"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You tell Penelope that you'd like to see her 'About town' outfit. She smirks and exits the room, reappearing a few minutes later wearing a blouse, cardigan, and tight-fitting jeans. She does a little strut up and down the length of the room in front of you, before lifting her gold aviator sunglasses and playfully teasing, [penelope.speech(So, do you want to put me in my place and give me a good, hard fuck, or should I take the lead?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_FASHION_SHOW_ALLEY"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You tell Penelope that you'd like to see her 'Drunken alley' outfit. She smirks and exits the room, reappearing a few minutes later wearing a bright pink clubbing dress, with matching stiletto heels and choker. She does a little strut up and down the length of the room in front of you, before playfully teasing, [penelope.speech(So, do you want to put me in my place and give me a good, hard fuck, or should I take the lead?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_FASHION_SHOW_LINGERIE"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You tell Penelope that you'd like to see her 'Less is more' outfit. She smirks and exits the room, reappearing a few minutes later wearing dark purple lingerie, which leaves her dog-cock, pussy, and asshole completely exposed. She does a little strut up and down the length of the room in front of you, before playfully teasing, [penelope.speech(So, do you want to put me in my place and give me a good, hard fuck, or should I take the lead?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_FASHION_SHOW_LATEX"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You tell Penelope that you'd like to see her 'latex indulgence' outfit. She smirks and exits the room, reappearing a few minutes later wearing a set of bright red latex gear. She does a little strut up and down the length of the room in front of you, before unzipping her latex bra and panties and tossing them to one side of the room, leaving her dog-cock, pussy, and asshole completely exposed.
+	</p>
+	<p>
+		Teasing her fingers over her pussy, she starts to pull on something, and you watch in amazement as she slides a full-sized realistic purple dildo out of her dripping cunt. Lifting it to her lips, she slides it down her throat, and then after lewdly sucking on it for a few moments, she slides it out of her mouth and pushes the slimy, saliva-coated toy back into her hot twat.
+	</p>
+	<p>
+		Letting out a deeply erotic moan, she teases, [penelope.speech(So, do you want to put me in my place and give me a good, hard fuck, or should I take the lead?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_FASHION_SHOW_SEX_START"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You [pc.step] forwards and take the lead, and after dominantly pulling Penelope into your [pc.arms], you prepare to fuck her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_FASHION_SHOW_SEX_START_AS_SUB"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		You tell Penelope that you want her to take the lead, and so after she's dominantly taken a step forwards and pulled you into her arms, she prepares to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_AFTER_SEX"><![CDATA[
+	<p>
+		[style.italicsBad(Placeholder dialogue!)]
+	</p>
+	<p>
+		As the two of you finish having your fun together, Penelope thanks you for choosing her, and for buying a special service from her. 
+	</p>
+	<p>
+		After she's quickly helped you retrieve your possessions, she leads you over to the door of the massage room and says that she hopes to see you again soon.
 	</p>
 	]]>
 	</htmlContent>

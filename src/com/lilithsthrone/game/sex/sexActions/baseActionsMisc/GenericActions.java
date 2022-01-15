@@ -348,12 +348,16 @@ public class GenericActions {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+//		@Override
+//		public SexActionPriority getPriority() {
+//			if(Main.sex.isCharacterImmobilised(Main.sex.getCharacterPerformingAction())) {
+//				return SexActionPriority.UNIQUE_MAX; // So that this action is available with the 'Cocooned!' action.
+//			}
+//			return super.getPriority();
+//		}
 		@Override
-		public SexActionPriority getPriority() {
-			if(Main.sex.isCharacterImmobilised(Main.sex.getCharacterPerformingAction())) {
-				return SexActionPriority.UNIQUE_MAX; // So that this action is available with the 'Cocooned!' action.
-			}
-			return super.getPriority();
+		public boolean isAvailableDuringImmobilisation() {
+			return true;
 		}
 		@Override
 		public Colour getHighlightColour() {
@@ -2048,6 +2052,84 @@ public class GenericActions {
 			return "";
 		}
 	};
+
+	public static final SexAction ROPE_BOUND = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ZERO_NONE,
+			ArousalIncrease.ZERO_NONE,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+
+		@Override
+		public boolean isAvailableDuringImmobilisation() {
+			return true;
+		}
+		@Override
+		public String getActionTitle() {
+			return "[style.boldBad(Bound!)]";
+		}
+		@Override
+		public String getActionDescription() {
+			return "The ropes tied around your body are preventing you from making a move!";
+		}
+		@Override
+		public boolean isBaseRequirementsMet() {
+			Value<ImmobilisationType, GameCharacter> value = Main.sex.getImmobilisationType(Main.sex.getCharacterPerformingAction());
+			return value!=null && value.getKey()==ImmobilisationType.ROPE;
+		}
+		@Override
+		public String getDescription() {
+			return UtilText.returnStringAtRandom(
+					"[npc.Name] [npc.verb(try)] to make a move, but the ropes binding [npc.herHim] in place are too strong, and [npc.she] [npc.verb(collapse)] back down, stunned.");
+		}
+		@Override
+		public List<Fetish> getExtraFetishes(GameCharacter character) {
+			if(character.equals(Main.sex.getCharacterPerformingAction())) {
+				return Util.newArrayListOfValues(Fetish.FETISH_BONDAGE_VICTIM);
+			}
+			return null;
+		}
+	};
+
+	public static final SexAction CHAINS_BOUND = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ZERO_NONE,
+			ArousalIncrease.ZERO_NONE,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+
+		@Override
+		public boolean isAvailableDuringImmobilisation() {
+			return true;
+		}
+		@Override
+		public String getActionTitle() {
+			return "[style.boldBad(Bound!)]";
+		}
+		@Override
+		public String getActionDescription() {
+			return "The chains tied around your body are preventing you from making a move!";
+		}
+		@Override
+		public boolean isBaseRequirementsMet() {
+			Value<ImmobilisationType, GameCharacter> value = Main.sex.getImmobilisationType(Main.sex.getCharacterPerformingAction());
+			return value!=null && value.getKey()==ImmobilisationType.CHAINS;
+		}
+		@Override
+		public String getDescription() {
+			return UtilText.returnStringAtRandom(
+					"[npc.Name] [npc.verb(try)] to make a move, but the chains binding [npc.herHim] in place are too strong, and [npc.she] [npc.verb(collapse)] back down, stunned.");
+		}
+		@Override
+		public List<Fetish> getExtraFetishes(GameCharacter character) {
+			if(character.equals(Main.sex.getCharacterPerformingAction())) {
+				return Util.newArrayListOfValues(Fetish.FETISH_BONDAGE_VICTIM);
+			}
+			return null;
+		}
+	};
 	
 	// Spinneret:
 	
@@ -2075,7 +2157,7 @@ public class GenericActions {
 			return (Main.sex.getCharacterPerformingAction().isPlayer()
 						|| ((NPC) Main.sex.getCharacterPerformingAction()).isWantingToEquipCondom(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction())))
 					&& Main.sex.getCharacterPerformingAction().hasPenisIgnoreDildo()
-					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterPerformingAction(), InventorySlot.PENIS)
+					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterPerformingAction(), InventorySlot.PENIS, null)
 					&& Main.sex.getCharacterPerformingAction().getClothingInSlot(InventorySlot.PENIS)==null;
 		}
 		@Override
@@ -2117,7 +2199,7 @@ public class GenericActions {
 			return (Main.sex.getCharacterPerformingAction().isPlayer()
 						|| ((NPC) Main.sex.getCharacterPerformingAction()).isWantingToEquipCondomOnPartner(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction())))
 					&& Main.sex.getCharacterTargetedForSexAction(this).hasPenisIgnoreDildo()
-					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.PENIS)
+					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.PENIS, null)
 					&& Main.sex.getCharacterTargetedForSexAction(this).getClothingInSlot(InventorySlot.PENIS)==null;
 		}
 		@Override
@@ -2157,7 +2239,7 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {//TODO add behaviour for NPCs too
 			return Main.sex.getCharacterPerformingAction().isPlayer()
-					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.VAGINA)
+					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.VAGINA, null)
 					&& Main.sex.getCharacterTargetedForSexAction(this).getClothingInSlot(InventorySlot.VAGINA)==null;
 		}
 		@Override
@@ -2206,7 +2288,7 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {//TODO add behaviour for NPCs too
 			return Main.sex.getCharacterPerformingAction().isPlayer()
-					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.ANUS)
+					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.ANUS, null)
 					&& Main.sex.getCharacterTargetedForSexAction(this).getClothingInSlot(InventorySlot.ANUS)==null;
 		}
 		@Override
@@ -2255,7 +2337,7 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {//TODO add behaviour for NPCs too
 			return Main.sex.getCharacterPerformingAction().isPlayer()
-					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.NIPPLE)
+					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.NIPPLE, null)
 					&& Main.sex.getCharacterTargetedForSexAction(this).getClothingInSlot(InventorySlot.NIPPLE)==null;
 		}
 		@Override
@@ -2304,7 +2386,7 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {//TODO add behaviour for NPCs too
 			return Main.sex.getCharacterPerformingAction().isPlayer()
-					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.MOUTH)
+					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.MOUTH, null)
 					&& Main.sex.getCharacterTargetedForSexAction(this).getClothingInSlot(InventorySlot.MOUTH)==null;
 		}
 		@Override
@@ -2438,9 +2520,10 @@ public class GenericActions {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+
 		@Override
-		public SexActionPriority getPriority() {
-			return SexActionPriority.UNIQUE_MAX;
+		public boolean isAvailableDuringImmobilisation() {
+			return true;
 		}
 		@Override
 		public String getActionTitle() {
@@ -2699,9 +2782,10 @@ public class GenericActions {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+
 		@Override
-		public SexActionPriority getPriority() {
-			return SexActionPriority.UNIQUE_MAX;
+		public boolean isAvailableDuringImmobilisation() {
+			return true;
 		}
 		@Override
 		public String getActionTitle() {
@@ -3113,8 +3197,8 @@ public class GenericActions {
 			null,
 			SexParticipantType.NORMAL) {
 		@Override
-		public SexActionPriority getPriority() {
-			return SexActionPriority.UNIQUE_MAX;
+		public boolean isAvailableDuringImmobilisation() {
+			return true;
 		}
 		@Override
 		public String getActionTitle() {

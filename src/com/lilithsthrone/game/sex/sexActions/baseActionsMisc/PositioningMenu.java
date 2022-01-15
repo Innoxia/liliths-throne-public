@@ -640,6 +640,16 @@ public class PositioningMenu {
 				if(!position.isSlotUnlocked(targetedCharacter, slot, positioningSlots).getKey()) {
 					return new Response(Util.capitaliseSentence(slot.getDescription()), position.isSlotUnlocked(targetedCharacter, slot, positioningSlots).getValue(), null);
 				}
+
+				if(!Main.sex.getInitialSexManager().isSlotAvailable(targetedCharacter, slot)) {
+					return new Response(Util.capitaliseSentence(slot.getDescription()), UtilText.parse(targetedCharacter, "[npc.Name] cannot access this slot in this sex scene..."), null);
+				}
+				
+				if(characterInSlot!=null && !Main.sex.getInitialSexManager().isSlotAvailable(characterInSlot, Main.sex.getSexPositionSlot(targetedCharacter))) {
+					return new Response(Util.capitaliseSentence(slot.getDescription()),
+							UtilText.parse(characterInSlot, targetedCharacter, "[npc.Name] cannot access [npc2.namePos] slot in this sex scene, so [npc2.name] cannot swap with [npc.herHim]..."),
+							null);
+				}
 				
 				return new Response(
 						characterInSlot!=null && slot!=SexSlotGeneric.MISC_WATCHING

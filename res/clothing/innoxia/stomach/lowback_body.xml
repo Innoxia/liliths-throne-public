@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>450</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[lowback bodysuit]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[lowback bodysuits]]></namePlural> 
+		<description><![CDATA[A bodysuit with a scooped low back and removable straps.]]></description> 
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity> 
+		<slot>STOMACH</slot> 
+		<rarity>COMMON</rarity> 
+		<clothingSet/> 
+		<imageName>lowback_body.svg</imageName>
+		<imageEquippedName/>
+		<stickers/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_STOMACH"/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>SHIFTS_ASIDE</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_GENITALS"/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_DOWN</displacementType> 
+				<clothingAccessRequired>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>NIPPLES</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_BREASTS"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots>
+			<slot>GROIN</slot>
+			<slot>CHEST</slot>
+		</incompatibleSlots> 
+		
+		<primaryColours values="LINGERIE"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(step)] into the lowback bodysuit and [npc.verb(pull)] it up to cover [npc.her] torso, before sliding the straps into place around [npc.her] shoulders.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(get)] [npc2.name] to [npc2.step] into the lowback bodysuit and [npc.verb(pull)] it up to cover [npc2.her] torso, before sliding the straps into place around [npc2.her] shoulders.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(force)] [npc2.name] to [npc2.step] into the lowback bodysuit and [npc.verb(yank)] it up to cover [npc2.her] torso, before sliding the straps into place around [npc2.her] shoulders.
+		]]></otherRough>
+	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(slide)] [npc.her] bodysuit's straps from off of [npc.her] shoulders before tugging it all the way down [npc.her] [npc.legs] and [npc.stepping] out of it.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(slide)] the straps of [npc2.namePos] bodysuit from off of [npc2.her] shoulders before tugging it all the way down [npc2.her] [npc2.legs] and making [npc2.herHim] [npc2.step] out of it.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(yank)] the straps of [npc2.namePos] bodysuit from off of [npc2.her] shoulders before forcefully tugging it all the way down [npc2.her] [npc2.legs] and making [npc2.herHim] [npc2.step] out of it.
+		]]></otherRough>
+	</displacementText>
+	
+	<replacementText type="SHIFTS_ASIDE">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(slide)] the lower part of [npc.her] bodysuit to one side in order to gain access to [npc.her] groin.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(slide)] the lower part of [npc2.namePos] bodysuit to one side in order to gain access to [npc2.her] groin.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] impatiently [npc.verb(yank)] the lower part of [npc2.namePos] bodysuit to one side in order to gain access to [npc2.her] groin.
+		]]></otherRough>
+	</replacementText>
+	<displacementText type="SHIFTS_ASIDE">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(slide)] the lower part of [npc.her] bodysuit back into its correct position so that [npc.her] groin is covered.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(slide)] the lower part of [npc2.namePos] bodysuit back into its correct position so that [npc2.her] groin is covered.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(yank)] the lower part of [npc2.namePos] bodysuit back into its correct position so that [npc2.her] groin is covered.
+		]]></otherRough>
+	</displacementText>
+	
+	<replacementText type="PULLS_DOWN">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(pull)] down the top half of [npc.her] bodysuit.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(pull)] down the top half of [npc2.namePos] bodysuit.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(pull)] down the top half of [npc2.namePos] bodysuit.
+		]]></otherRough>
+	</replacementText>
+	<displacementText type="PULLS_DOWN">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(pull)] the top part of [npc.her] bodysuit up into its correct position.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(pull)] the top part of [npc2.namePos] bodysuit up into its correct position.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(yank)] the top part of [npc2.namePos] bodysuit up into its correct position.
+		]]></otherRough>
+	</displacementText>
+	
+</clothing>

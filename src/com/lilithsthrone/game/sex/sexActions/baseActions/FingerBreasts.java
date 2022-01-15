@@ -404,7 +404,7 @@ public class FingerBreasts {
 						break;
 					case DOM_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"Taking [npc2.namePos] [npc2.hands] in [npc.hers], [npc.name] [npc.verb(guide)] them up to [npc.namePos] chest,"
+								"Taking [npc2.namePos] [npc2.hands] in [npc.hers], [npc.name] [npc.verb(guide)] them up to [npc.her] chest,"
 										+ " letting out [npc.a_moan+] as [npc.she] eagerly [npc.verb(press)] them into [npc.her] [npc.breasts+],"
 										+ " forcing [npc.her] [npc.lowClothing(NIPPLES)] down against [npc.her] [npc.nipples+] in the process.",
 
@@ -416,7 +416,7 @@ public class FingerBreasts {
 						break;
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"Taking [npc2.namePos] [npc2.hands] in [npc.hers], [npc.name] yank them up to [npc.namePos] chest,"
+								"Taking [npc2.namePos] [npc2.hands] in [npc.hers], [npc.name] yank them up to [npc.her] chest,"
 										+ " letting out [npc.a_moan+] as [npc.she] roughly [npc.verb(press)] them into [npc.her] [npc.breasts+],"
 										+ " forcing [npc.her] [npc.lowClothing(NIPPLES)] down against [npc.her] [npc.nipples+] in the process.",
 
@@ -428,7 +428,7 @@ public class FingerBreasts {
 						break;
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"Taking [npc2.namePos] [npc2.hands] in [npc.hers], [npc.name] [npc.verb(guide)] them up to [npc.namePos] chest,"
+								"Taking [npc2.namePos] [npc2.hands] in [npc.hers], [npc.name] [npc.verb(guide)] them up to [npc.her] chest,"
 										+ " letting out [npc.a_moan+] as [npc.she] eagerly [npc.verb(press)] them into [npc.her] [npc.breasts+],"
 										+ " forcing [npc.her] [npc.lowClothing(NIPPLES)] down against [npc.her] [npc.nipples+] in the process.",
 
@@ -440,7 +440,7 @@ public class FingerBreasts {
 						break;
 					case SUB_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"Taking [npc2.namePos] [npc2.hands] in [npc.hers], [npc.name] [npc.verb(guide)] them up to [npc.namePos] chest,"
+								"Taking [npc2.namePos] [npc2.hands] in [npc.hers], [npc.name] [npc.verb(guide)] them up to [npc.her] chest,"
 										+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(press)] them into [npc.her] [npc.breasts+],"
 										+ " forcing [npc.her] [npc.lowClothing(NIPPLES)] down against [npc.her] [npc.nipples+] in the process.",
 
