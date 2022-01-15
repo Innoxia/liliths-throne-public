@@ -2569,14 +2569,14 @@ public class UtilText {
 				if(arguments!=null && Boolean.valueOf(arguments)) {
 					boolean pronoun = parseAddPronoun;
 					parseAddPronoun = false;
-					String name = character.isRaceConcealed()?"unknown race":character.getSubspecies().getFeralName(character);
+					String name = character.isRaceConcealed()?"unknown race":character.getSubspecies().getFeralName(character.getBody());
 					return "<span style='color:"+(character.isRaceConcealed()?PresetColour.TEXT_GREY:character.getSubspecies().getColour(character)).toWebHexString()+";'>"
 							+ (parseCapitalise
 									?Util.capitaliseSentence((pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
 									:(pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
 							+"</span>";
 				}
-				return character.getSubspecies().getFeralName(character);
+				return character.getSubspecies().getFeralName(character.getBody());
 			}
 		});
 
@@ -2597,7 +2597,7 @@ public class UtilText {
 				Elemental elemental = ((Elemental)character);
 				String name = elemental.getPassiveForm()==null
 						?"wisp"
-						:elemental.getPassiveForm().getFeralName(elemental);
+						:elemental.getPassiveForm().getFeralName(elemental.getBody());
 				if(arguments!=null && Boolean.valueOf(arguments)) {
 					boolean pronoun = parseAddPronoun;
 					parseAddPronoun = false;
@@ -10162,7 +10162,7 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				try {
-					return getBodyPartFromType(bodyPart,character).getType().getRace().getName(character, getBodyPartFromType(bodyPart, character).isFeral(character));
+					return getBodyPartFromType(bodyPart,character).getType().getRace().getName(character.getBody(), getBodyPartFromType(bodyPart, character).isFeral(character));
 				} catch(Exception ex) {
 					return "null_body_part";
 				}
@@ -10602,9 +10602,9 @@ public class UtilText {
 		}
 		
 		if (character.isFeminine()) {
-			return subspecies.getSingularFemaleName(character);
+			return subspecies.getSingularFemaleName(character.getBody());
 		} else {
-			return subspecies.getSingularMaleName(character);
+			return subspecies.getSingularMaleName(character.getBody());
 		}
 	}
 	
@@ -10612,9 +10612,9 @@ public class UtilText {
 		if(race==null)
 			return "";
 		if (character.isFeminine()) {
-			return race.getPluralFemaleName(character);
+			return race.getPluralFemaleName(character.getBody());
 		} else {
-			return race.getPluralMaleName(character);
+			return race.getPluralMaleName(character.getBody());
 		}
 	}
 	

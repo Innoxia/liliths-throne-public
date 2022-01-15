@@ -359,8 +359,7 @@ public abstract class GameCharacter implements XMLSaving {
 	protected Gender genderIdentity; // What gender this character prefers to be. Used to determine NPC demonic transformations (i.e. a demon who identifies as a female will transform back into a female whenever possible.)
 	protected Map<CoverableArea, Set<String>> areasKnownByCharactersMap;
 	protected Map<SexAreaOrifice, List<FluidStored>> fluidsStoredMap;
-	protected AbstractSubspecies fleshSubspecies;
-	
+
 	
 	// Inventory:
 	protected CharacterInventory inventory;
@@ -3984,10 +3983,10 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			
 			if(isFeminine()) {
-				return getSubspecies().getSingularFemaleName(this);
+				return getSubspecies().getSingularFemaleName(this.getBody());
 				
 			} else {
-				return getSubspecies().getSingularMaleName(this);
+				return getSubspecies().getSingularMaleName(this.getBody());
 			}
 			
 		} else {
@@ -23742,7 +23741,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if(!subspecies.getFeralAttributes().isBreastsPresent()
 				&& this.hasIncubationLitter(SexAreaOrifice.NIPPLE)) {
 			this.endIncubationPregnancy(SexAreaOrifice.NIPPLE, true);
-			System.err.println("Warning: Nipple egg pregnancy was ended (with birth) as feral form '"+subspecies.getFeralName(this)+"' was applied, which does not have breasts.");
+			System.err.println("Warning: Nipple egg pregnancy was ended (with birth) as feral form '"+subspecies.getFeralName(this.getBody())+"' was applied, which does not have breasts.");
 		}
 		body.setFeral(subspecies);
 		postTransformationCalculation();
@@ -23764,8 +23763,8 @@ public abstract class GameCharacter implements XMLSaving {
 			if(Main.game.isStarted()) { // Only print warnings after the game has started, as all characters' bodies have their subspecies calculated at the end of game start, to avoid errors from pre-initialisation of external res subspecies.
 				System.err.println("Warning: getFeralAttributes() for "+this.getNameIgnoresPlayerKnowledge()+" (ID:"+this.getId()+", subspecies: "+Subspecies.getIdFromSubspecies(this.getSubspecies())+") is returning null!");
 			}
-			att = new FeralAttributes(this.getSubspecies().getName(this),
-					this.getSubspecies().getNamePlural(this),
+			att = new FeralAttributes(this.getSubspecies().getName(this.getBody()),
+					this.getSubspecies().getNamePlural(this.getBody()),
 					this.getLegConfiguration(),
 					this.getHeightValue(),
 					this.getBreastRows(),
@@ -24553,21 +24552,6 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getSubspecies();
 	}
 
-	/**
-	 * This is reset to null after every transformation, and is then recalculated in AbstractSubspecies.
-	 * @return The subspecies which this character appears to be if they were made of flesh.
-	 *  Use getTrueSubspecies() or do some checks with getSubspeciesOverride() to get their true Subspecies, but for 99.9% of the time, that won't be necessary and this method is fine to use.
-	 */
-	public AbstractSubspecies getFleshSubspecies() {
-		if(fleshSubspecies==null) {
-			fleshSubspecies = AbstractSubspecies.getSubspeciesFromBody(this.getBody(), this.getBody().getRaceFromPartWeighting());
-		}
-		return fleshSubspecies;
-	}
-	
-	public void setFleshSubspecies(AbstractSubspecies fleshSubspecies) {
-		this.fleshSubspecies = fleshSubspecies;
-	}
 
 	/**
 	 * @return This character's true subspecies. If this character does not have a subspecies override, this will be the same as getSubspecies(). If they do have an override, however, it will return that override.
@@ -24714,7 +24698,7 @@ public abstract class GameCharacter implements XMLSaving {
 		updateInventoryListeners();
 		updateAttributeListeners(true);
 		
-		this.fleshSubspecies = null;
+		this.getBody().setFleshSubspecies(null);
 		
 		return postTFSB.toString();
 	}

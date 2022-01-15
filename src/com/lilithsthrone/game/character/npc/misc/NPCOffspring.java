@@ -66,7 +66,11 @@ public class NPCOffspring extends NPC {
 		this.incubatorName = os.getIncubatorName();
 		this.incubatorFemininity = os.getIncubatorFemininity();
 		this.incubatorSubspecies = os.getIncubatorSubspecies();
-		
+
+		// The body should be copied from the one generated earlier
+		this.body = os.getBody();
+		this.body.calculateRace(this);
+
 		// Set random level from 1 to 3:
 		setLevel(Util.random.nextInt(3) + 1);
 		
