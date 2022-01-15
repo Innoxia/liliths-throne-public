@@ -3512,10 +3512,82 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Random "+race.getName(false)+" transformation") {
 							@Override
 							public String applyEffect() {
-								TFModifier mod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
+								List<TFModifier> availableModifiers = new ArrayList<>();
 								
-								// If race does not have horns, tail, wings, or crotch-boobs, make sure that the TF is to remove:
-								if((mod==TFModifier.TF_HORNS && race.getRacialBody().getHornTypes(false).size()==1 && race.getRacialBody().getHornTypes(false).contains(HornType.NONE))
+								// Only add TFModifiers which will do something:
+								for(TFModifier tfMod : TFModifier.getTFRacialBodyPartsList()) {
+									boolean add = false;
+									switch(tfMod) {
+										case TF_ANTENNA:
+											add = target.getAntennaType() != race.getRacialBody().getAntennaTypes(false).get(0);
+											break;
+										case TF_ARMS:
+											add = target.getArmType() != race.getRacialBody().getArmType();
+											break;
+										case TF_ASS:
+											add = target.getAssType() != race.getRacialBody().getAssType();
+											break;
+										case TF_BREASTS:
+											add = target.getBreastType() != race.getRacialBody().getBreastType();
+											break;
+										case TF_BREASTS_CROTCH:
+											add = target.hasBreastsCrotch() && target.getBreastCrotchType() != race.getRacialBody().getBreastCrotchType();
+											break;
+										case TF_CORE:
+											break;
+										case TF_EARS:
+											add = target.getEarType() != race.getRacialBody().getEarType();
+											break;
+										case TF_EYES:
+											add = target.getEyeType() != race.getRacialBody().getEyeType();
+											break;
+										case TF_FACE:
+											add = target.getFaceType() != race.getRacialBody().getFaceType();
+											break;
+										case TF_HAIR:
+											add = target.getHairType() != race.getRacialBody().getHairType();
+											break;
+										case TF_HORNS:
+											add = target.getHornType() != race.getRacialBody().getHornTypes(false).get(0);
+											break;
+										case TF_LEGS:
+											add = target.getLegType() != race.getRacialBody().getLegType();
+											break;
+										case TF_PENIS:
+											add = target.hasPenisIgnoreDildo() && target.getPenisType() != race.getRacialBody().getPenisType();
+											break;
+										case TF_SKIN:
+											add = target.getTorsoType() != race.getRacialBody().getTorsoType();
+											break;
+										case TF_TAIL:
+											add = target.getTailType() != race.getRacialBody().getTailType().get(0);
+											break;
+										case TF_TENTACLE:
+											break;
+										case TF_VAGINA:
+											add = target.hasVagina() && target.getVaginaType() != race.getRacialBody().getVaginaType();
+											break;
+										case TF_WINGS:
+											add = target.getWingType() != race.getRacialBody().getWingTypes().get(0);
+											break;
+										default:
+											break;
+									}
+									if(add) {
+										availableModifiers.add(tfMod);
+									}
+								}
+								
+								if(availableModifiers.isEmpty()) {
+									return UtilText.parse(target, "<p style='text-align:center'>[style.italicsDisabled([npc.NameHasFull] no more random "+race.getName(true)+" transformations available, so nothing happens...)]</p>");
+								}
+								
+								
+								TFModifier mod = availableModifiers.get(Util.random.nextInt(availableModifiers.size()));
+								
+								// If race does not have antenna, horns, tail, wings, or crotch-boobs, make sure that the TF is to remove:
+								if((mod==TFModifier.TF_ANTENNA && race.getRacialBody().getAntennaTypes(false).size()==1 && race.getRacialBody().getAntennaTypes(false).contains(AntennaType.NONE))
+										|| (mod==TFModifier.TF_HORNS && race.getRacialBody().getHornTypes(false).size()==1 && race.getRacialBody().getHornTypes(false).contains(HornType.NONE))
 										|| (mod==TFModifier.TF_TAIL && race.getRacialBody().getTailType().size()==1 && race.getRacialBody().getTailType().contains(TailType.NONE))
 										|| (mod==TFModifier.TF_WINGS && race.getRacialBody().getWingTypes().size()==1 && race.getRacialBody().getWingTypes().contains(WingType.NONE))
 										|| ((mod==TFModifier.TF_BREASTS_CROTCH && race.getRacialBody().getBreastCrotchType()==BreastType.NONE))) {

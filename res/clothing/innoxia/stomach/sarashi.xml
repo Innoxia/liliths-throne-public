@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>200</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[stomach sarashi]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[stomach sarashis]]></namePlural> 
+		<description><![CDATA[A long strip of thick cotton, wrapped around the stomach as an added layer of protection, or to gain a slim figure.]]></description> 
+		<physicalResistance>0</physicalResistance> 
+		<femininity>ANDROGYNOUS</femininity> 
+		<slot>STOMACH</slot> 
+		<rarity>COMMON</rarity> 
+		<clothingSet/> 
+		<imageName>sarashi.svg</imageName>
+		<imageEquippedName/>
+		<stickers/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_STOMACH"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="LINGERIE"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(wrap)] the sarashi around [npc.her] stomach.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(wrap)] the sarashi around [npc2.namePos] stomach.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(bind)] the sarashi around [npc2.namePos] stomach.
+		]]></otherRough>
+	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(unwrap)] the sarashi from around [npc.her] stomach and [npc.verb(take)] it off.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(unwrap)] the sarashi from around [npc2.namePos] stomach and [npc.verb(take)] it off.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(unwrap)] the sarashi from around [npc2.namePos] stomach and [npc.verb(yank)] it off.
+		]]></otherRough>
+	</displacementText>
+	
+</clothing>

@@ -1089,8 +1089,8 @@ public class RatWarrensDialogue {
 				return super.isAbleToRemoveOthersClothing(character, clothing);
 			}
 			@Override
-			public boolean isAbleToEquipSexClothing(GameCharacter character) {
-				return !character.isPlayer() && !character.equals(getMainCompanion());
+			public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
+				return !equippingCharacter.isPlayer() && !equippingCharacter.equals(getMainCompanion());
 			}
 			@Override
 			public boolean isAbleToRemoveSelfClothing(GameCharacter character) {

@@ -202,6 +202,7 @@ public interface SexManagerInterface {
 	public default boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return character.isPlayer()
 				&& isPositionChangingAllowed(character)
+				&& Main.sex.getInitialSexManager().isSlotAvailable(character, Main.sex.getSexPositionSlot(target))
 				&& Main.sex.getInitialSexManager().isSlotAvailable(target, Main.sex.getSexPositionSlot(character));
 	}
 	
@@ -340,7 +341,7 @@ public interface SexManagerInterface {
 		return true;
 	}
 	
-	public default boolean isAbleToEquipSexClothing(GameCharacter character){
+	public default boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
 		return true;
 	}
 	
