@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<antenna>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractAntennaType.java -->
+	
+	<!-- The id of the race which this antenna belongs to.
+	This will almost always be the id of the race in which this type is found (in this case hyena). -->
+	<race>mintychip_bee</race>
+	
+	<!-- The name that will be used when referring to transformations related to this type (such as when changing body parts in the self-TF menu). -->
+	<transformationName><![CDATA[bee]]></transformationName>
+	
+	<!-- The id of the material covering this antenna.
+	The id will typically take the form of 'innoxia_hyena'.
+	For antennae, this should most likely be left as 'ANTENNA'.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>ANTENNA</coveringType>
+	
+	<!-- How many antennae are in each 'row' by default. -->
+	<defaultAntennaePerRow>2</defaultAntennaePerRow>
+	
+	<!-- The singular name of this antenna. -->
+	<name><![CDATA[antenna]]></name>
+	
+	<!-- The plural name of this antenna. -->
+	<namePlural><![CDATA[antennae]]></namePlural> 
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's antenna of this type.
+	Can be left blank. -->
+	<descriptorsMasculine>
+		<descriptor>insect-like</descriptor>
+		<descriptor>thick</descriptor>
+	</descriptorsMasculine>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine>
+		<descriptor>insect-like</descriptor>
+		<descriptor>delicate</descriptor>
+	</descriptorsFeminine>
+	
+	<!-- The description which is shown when a character transforms to obtain a this antenna type.
+	This description immediately follows the text:
+		' Hard nubs suddenly push out from the sides of [npc.her] head, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.verb(feel)] them quickly grow out into '-->
+	<transformationDescription><![CDATA[
+	[style.boldBee(sleek, bee-like [npc.antennae])].
+	<br/>[npc.Name] now [npc.has] [npc.antennaeDeterminer] [style.boldBee(bee-like [npc.antennae])].
+	]]></transformationDescription>
+	
+	<!-- How these antennae are described in a character's description page. -->
+	<bodyDescription><![CDATA[
+	[npc.AntennaeDeterminer] [npc.antennaSize], [npc.antennaColour(true)] [npc.antennae] #IF(npc.getTotalHorns()==1)grows#ELSEgrow#ENDIF out of the #IF(npc.getHornsPerRow()==1)middle#ELSEsides#ENDIF of [npc.her] forehead.
+	]]></bodyDescription>
+	
+</antenna>

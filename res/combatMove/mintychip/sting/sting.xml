@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<combatMove>
+	<category>SPECIAL</category>
+	
+	<type>ATTACK</type>
+	
+	<equipWeighting>2</equipWeighting>
+	
+	<!-- The name of this move.
+	The character using this move is passed in as the 'npc' target for parsing, so commands such as [npc.name] will work. -->
+	<name><![CDATA[Sting]]></name>
+	
+	<description><![CDATA[
+		Use [npc.her] stinger to inject venom into [npc.her] target, dealing formattedDamageInflicted damage.
+	]]></description>
+	
+	<damageType><![CDATA[POISON]]></damageType>
+	
+	<baseDamage><![CDATA[
+		40
+	]]></baseDamage>
+	
+	<blockAmount><![CDATA[
+		0
+	]]></blockAmount>
+	
+	<cooldown><![CDATA[
+		3
+	]]></cooldown>
+	
+	<APcost><![CDATA[
+		2
+	]]></APcost>
+	
+	<!-- These three values set whether or not the move can target enemies, allies, or the performer of the move themselves. -->
+	<canTargetEnemies>true</canTargetEnemies>
+	<canTargetAllies>false</canTargetAllies>
+	<canTargetSelf>false</canTargetSelf>
+	
+	<!-- The name of the icon which should be used to represent this combat move. The icon must be an svg file, and must be placed in the same folder as this XML file. -->
+	<imageName>sting.svg</imageName>
+	
+	<colourPrimary>DAMAGE_TYPE_POISON</colourPrimary>
+	<colourSecondary/>
+	<colourTertiary/>
+	
+	<statusEffects>
+		<effect turnLength="3" onCrit="true">POISONED</effect>
+	</statusEffects>
+	
+	
+	<!-- Effect logic -->
+	
+	<availabilityCondition><![CDATA[
+		[#npc.getBody().getTail().getType().getTags().contains(BODY_PART_TAG_TAIL_VENOMOUS_STING)]
+	]]>
+	</availabilityCondition>
+	
+	<!-- A short description to let the player know what the conditions are for this move being available to them. -->
+	<availabilityDescription><![CDATA[
+		Available to characters who have a stinger on their tail.
+	]]></availabilityDescription>
+	
+	<weighting><![CDATA[
+		1.0
+	]]></weighting>
+	
+	<criticalCondition><![CDATA[
+		[#npc.getHealth() < npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)*0.3]
+	]]></criticalCondition>
+	
+	<!-- A short description to let the player know what the conditions are for this move to inflict a critical hit. -->
+	<criticalDescription><![CDATA[
+		Attacker's health is below 30%.
+	]]></criticalDescription>
+	
+	<movePredictionDescriptionWithTarget><![CDATA[
+		Use [npc.her] stinger to inject venom into [npc2.name], dealing formattedDamageInflicted damage.
+	]]></movePredictionDescriptionWithTarget>
+	
+	<!-- This is almost identical to the defined description above, with the difference being that there is no targeted character. As such, the description cannot use any 'npc2' parsing. -->
+	<movePredictionDescriptionNoTarget><![CDATA[
+		Use [npc.her] stinger to inject venom into [npc.her] target, dealing formattedDamageInflicted damage.
+	]]></movePredictionDescriptionNoTarget>
+	
+	<performMove>
+		<execute><![CDATA[
+			[npc.Name] [npc.verb(rush)] forward and [npc.verb(twist)] [npc.her] body, using [npc.her] momentum to lunge [npc.her] tail at [npc2.name], stinging [npc2.her]!
+			formattedHealthDamage
+		]]></execute>
+		<critDescription><![CDATA[
+			[npc.NamePos] desperation enhanced the venom's effects!
+		]]></critDescription>
+		<critEffectDescription><![CDATA[
+			[npc2.Name] [npc2.has] been poisoned by the attack!
+		]]></critEffectDescription>
+	</performMove>
+	
+</combatMove>

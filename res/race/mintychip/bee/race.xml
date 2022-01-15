@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<race>
+	<racialBody>mintychip_bee</racialBody>
+	<applyRaceChanges><![CDATA[
+		[##npc.getCovering(BODY_COVERING_TYPE_CUM).setPrimaryColour(COLOUR_COVERING_AMBER)]
+		[##npc.getCovering(BODY_COVERING_TYPE_GIRL_CUM).setPrimaryColour(COLOUR_COVERING_AMBER)]
+		[##npc.getCovering(BODY_COVERING_TYPE_MILK).setPrimaryColour(COLOUR_COVERING_AMBER)]
+		#IF(RND.nextInt(100)<20 || targetedBody.getRaceStage()==RACE_STAGE_GREATER)
+			[#targetedBody.getArm().setArmRows(null, 2)]
+		#ENDIF
+		#IF((targetedBody.hasPenis()) && (RND.nextInt(100)<90))
+				[#targetedBody.setMuscle(targetedBody.getMuscle()*0.75)]
+				[#targetedBody.setBodySize(targetedBody.getBodySize()*0.75)]
+				[#targetedBody.setHeight(targetedBody.getHeightValue()*0.97)]
+		#ENDIF
+		#IF(targetedBody.hasVagina() && targetedBody.hasPenis())
+			[#targetedBody.addPenisModifier(PENETRATION_MODIFIER_OVIPOSITOR)]
+		#ENDIF
+	]]></applyRaceChanges>
+	<name><![CDATA[bee-morph]]></name>
+	<namePlural><![CDATA[bee-morphs]]></namePlural>
+	<nameFeral>
+		<name legConfiguration="BIPEDAL"><![CDATA[bee]]></name>
+	</nameFeral>
+	<nameFeralPlural>
+		<name legConfiguration="BIPEDAL"><![CDATA[bees]]></name>
+	</nameFeralPlural>
+	<defaultTransformName><![CDATA[bee]]></defaultTransformName>
+	<colour>mintychip_beeYellow</colour>
+	<disposition>NEUTRAL</disposition>
+	<racialClass>INSECT</racialClass>
+	<feralPartsAvailable>true</feralPartsAvailable>
+	<ableToSelfTransform>false</ableToSelfTransform>
+	<flyingRace>TRUE</flyingRace>
+	<combatBehaviour>BALANCED</combatBehaviour>
+	<chanceForMaleOffspring>0.15</chanceForMaleOffspring>
+	<numberOfOffspringLow>2</numberOfOffspringLow>
+	<numberOfOffspringHigh>5</numberOfOffspringHigh>
+	<defaultFemininePreference>NORMAL</defaultFemininePreference>
+	<defaultMasculinePreference>NORMAL</defaultMasculinePreference>
+	<affectedByFurryPreference>true</affectedByFurryPreference>
+</race>
