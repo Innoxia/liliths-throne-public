@@ -421,10 +421,11 @@ public class ItemEffectType {
 					}
 				}
 				
-				return "<p>"
-						+ "The digital readout lights up with two parallel red lines, with flashing pink text next to that displaying: '[style.italicsArcane(Pregnant!)]'"
+				return "<p style='text-align:center;'>"
+						+ "The digital readout lights up with two parallel red lines, with flashing pink text next to that displaying:"
+						+ "<br/><b>'[style.italicsArcane(Pregnant!)]'</b>"
 					+ "</p>"
-					+ "<p>"
+					+ "<p style='text-align:center;'>"
 						+ "Underneath the flashing pregnancy confirmation, there's some extra information, which reads:<br/>"
 						+ "<i>"
 						+ "Father: "+(father!=null
@@ -437,8 +438,9 @@ public class ItemEffectType {
 					+ "</p>";
 				
 			} else {
-				return "<p>"
-					+ "The digital readout lights up with a single red line, with solid black text next to that displaying: '<i>Not Pregnant.</i>'"
+				return "<p style='text-align:center;'>"
+					+ "The digital readout lights up with a single red line, with solid black text next to that displaying:"
+					+ "<br/><b>'<i>Not Pregnant.</i>'</b>"
 				+ "</p>";
 			}
 		}

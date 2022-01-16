@@ -568,19 +568,32 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		
 		// Try to load colours:
 		if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.8")) {
+			boolean applySecondaryLoad = true;
+			boolean applyTertiaryLoad = true;
+			if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2.6")) {
+				if(clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_torsoOver_womens_leather_jacket"))
+						|| clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_stomach_overbust_corset"))
+						|| clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_stomach_underbust_corset"))) {
+					applySecondaryLoad = false;
+					applyTertiaryLoad = false;
+				}
+			}
+			
 			Element colourElement = (Element) parentElement.getElementsByTagName("colours").item(0);
 			if(colourElement!=null) {
 				NodeList nodes = colourElement.getElementsByTagName("colour");
 				for(int i=0; i<nodes.getLength(); i++) {
-					Element cElement = (Element) nodes.item(i);
-					clothing.setColour(Integer.valueOf(cElement.getAttribute("i")), PresetColour.getColourFromId(cElement.getTextContent()));
+					if((i!=1 || applySecondaryLoad) && (i!=2 || applyTertiaryLoad)) {
+						Element cElement = (Element) nodes.item(i);
+						clothing.setColour(Integer.valueOf(cElement.getAttribute("i")), PresetColour.getColourFromId(cElement.getTextContent()));
+					}
 				}
 			}
 			
 		} else if((!Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.4") || !clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_scientist_safety_goggles")))
 					&& !clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_rainbow_gloves"))
 					&& !clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_rainbow_stockings"))) {
-			
+
 			if((clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("BDSM_CHOKER")) && Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.6"))
 					|| (clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_ankle_shin_guards")) && Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6"))
 					|| (clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("FOOT_TRAINERS")) && Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.2"))

@@ -1,0 +1,51 @@
+<h2>v0.4.2.9</h2>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Fixed issue where offspring from demons and non-demons were being generated as the wrong subspecies. (by AceXP)</li>
+	<li>Added 'equipClothingFromOutfitId()' method to CharacterUtils.java, making it easier to equip outfits on npcs in xml files via calls to game.getCharacterUtils().equipClothingFromOutfitId(). (by AceXP)</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Converted all hard-coded BDSM-set, stomach-slot, and 'women's fashionable leather jacket' clothing files to external xml files.</li>
+	<li>Fixed incorrect documentation for the 'sexClothingEquippable' attribute in the commented sex manager, 'meraxis/duel/masturbation.xml'. (This variable defines whether or not the character can equip sex toys on others, while the old, incorrect documentation stated that it defined whether the character could have toys equipped on them.)</li>
+	<li>Added 'clothing' and 'npc' parsing targets for the 'sexClothingEquippable' attribute in xml-defined sex managers.</li>
+	<li>Added 'ROPE' and 'CHAINS' as new immobilisation types (in ImmobilisationType.enum) for use during sex, along with associated status effects.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Added sex content for Penelope's spa 'Woolly Heaven', which can be found in Elis's shopping precinct. (There's still some placeholder dialogue in Penelope's scenes, which will be filled in for the next update.)</li>
+	<li>Added 'arctic-wolf-morph' as a subspecies of the wolf-morph race. (To be classified as an arctic-wolf-morph, be detected as a wolf-morph and have white fur.)</li>
+</ul>
+
+<h3>Clothing:</h3>
+<ul>
+	<li>The 'wrist restraints' clothing item from the BDSM set can now be equipped to the ankle slot in addition to the wrists slot.</li>
+	<li>Added stickers to the 'tagged choker' BDSM clothing item to allow you to customise the text on the tag.</li>
+	<li>Added secondary dye colours to 'overbust corset' and 'underbust corset', and secondary and tertiary dye colours to 'fashionable women's leather jacket'.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>You can now equip condoms onto unique NPCs in most of their sex scenes. (A few special sex scenes prevent this behaviour, such as Lyssieth's demon TF sex scenes.)</li>
+	<li>Condoms can now be equipped onto a character's penis even if their penis is involved in an ongoing action, so you no longer need to stop ongoing action, apply condom, then restart the action.</li>
+	<li>NPCs now remove condoms that were equipped during sex when sex ends.</li>
+	<li>All speech actions are now available while being immobilised in sex scenes for both the player and NPCs.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>The 'Random race transformation' potion effect (added via enchanting food with 'core' + 'transformative I' modifiers) no longer tries to apply transformations which have already been applied to the target, so potions with 16 of these effects will now always fully transform a target into the potion's race.</li>
+	<li>'Woolly heaven' is no longer closed during weekends.</li>
+	<li>Standardised hyphenations in the names of several subspecies.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Added missing sex actions for the 'humping' sex slot while in the 'over desk' sex position.</li>
+	<li>Fixed issue where you could have vaginal sex with Kazik even if you had no vagina.</li>
+	<li>Fixed issue where in some sex scenes you could swap positions with a character who should have been blocked from accessing your position.</li>
+	<li>Fixed the 'orgasmCumTarget' element in sex managers not working correctly and throwing background errors.</li>
+</ul>

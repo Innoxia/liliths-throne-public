@@ -2678,6 +2678,10 @@ public class CharacterUtils {
 	}
 	
 
+	public void equipClothingFromOutfitId(GameCharacter character, String outfitId) {
+        equipClothingFromOutfit(character, OutfitType.getOutfitTypeFromId(outfitId), EquipClothingSetting.getAllClothingSettings());
+    }
+	
 	public void equipClothingFromOutfitFolderId(GameCharacter character, OutfitType outfitType, String folderId, List<EquipClothingSetting> settings) {
 		equipClothingFromOutfits(character, OutfitType.getOutfitsFromIdStart(folderId), outfitType, settings);
 	}

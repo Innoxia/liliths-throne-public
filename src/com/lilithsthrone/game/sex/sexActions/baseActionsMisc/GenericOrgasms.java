@@ -4831,7 +4831,9 @@ public class GenericOrgasms {
 	};
 	
 	public static void applyGenericPullOutEffects(SexActionInterface sexAction, OrgasmCumTarget orgasmCumTarget) {
-		Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(sexAction, orgasmCumTarget, true).applyEffects();
+		if(sexAction!=null && orgasmCumTarget!=null) { // null check for external SexActions using this method via Sex.java
+			Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(sexAction, orgasmCumTarget, true).applyEffects();
+		}
 		GameCharacter characterPenetrated = null;
 		SexAreaInterface areaContacted = null;
 		if(!Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {

@@ -234,6 +234,13 @@ public class ItemGeneration {
 	/**
 	 * Generates clothing with the provided enchantments.
 	 */
+	public AbstractClothing generateClothing(String clothingTypeId, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, List<ItemEffect> effects) {
+		return generateClothing(ClothingType.getClothingTypeFromId(clothingTypeId), Util.newArrayListOfValues(primaryColour, secondaryColour, tertiaryColour), effects);
+	}
+	
+	/**
+	 * Generates clothing with the provided enchantments.
+	 */
 	public AbstractClothing generateClothing(AbstractClothingType clothingType, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, List<ItemEffect> effects) {
 		return generateClothing(clothingType, Util.newArrayListOfValues(primaryColour, secondaryColour, tertiaryColour), effects);
 	}

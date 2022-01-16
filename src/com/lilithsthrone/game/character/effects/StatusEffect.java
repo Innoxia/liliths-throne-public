@@ -8721,6 +8721,64 @@ public class StatusEffect {
 		}
 	};
 
+	public static AbstractStatusEffect ROPE_BOUND_SEX = new AbstractStatusEffect(10,
+			"Bound in rope",
+			"immobilised_rope",
+			PresetColour.GENERIC_BAD,
+			false,
+			null,
+			Util.newArrayListOfValues("[style.colourTerrible(Cannot move!)]")) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "Strong ropes tied around [npc.namePos] body are holding [npc.herHim] firmly in place, preventing [npc.herHim] from taking any action!");
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			if(!Main.game.isInSex()) {
+				return false;
+			}
+			Value<ImmobilisationType, GameCharacter> type = Main.sex.getImmobilisationType(target);
+			return type!=null && type.getKey()==ImmobilisationType.ROPE;
+		}
+		@Override
+		public boolean isRemoveAtEndOfSex() {
+			return true;
+		}
+	};
+
+	public static AbstractStatusEffect CHAINS_BOUND_SEX = new AbstractStatusEffect(10,
+			"Bound in chains",
+			"immobilised_chains",
+			PresetColour.GENERIC_BAD,
+			false,
+			null,
+			Util.newArrayListOfValues("[style.colourTerrible(Cannot move!)]")) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "Strong chains tied around [npc.namePos] body are holding [npc.herHim] firmly in place, preventing [npc.herHim] from taking any action!");
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			if(!Main.game.isInSex()) {
+				return false;
+			}
+			Value<ImmobilisationType, GameCharacter> type = Main.sex.getImmobilisationType(target);
+			return type!=null && type.getKey()==ImmobilisationType.CHAINS;
+		}
+		@Override
+		public boolean isRemoveAtEndOfSex() {
+			return true;
+		}
+	};
+	
 	public static AbstractStatusEffect WEBBED_1 = new AbstractStatusEffect(10,
 			"Webbed",
 			"restrain_webbed_1",

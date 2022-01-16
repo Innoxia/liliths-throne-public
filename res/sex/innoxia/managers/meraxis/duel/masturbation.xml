@@ -209,8 +209,11 @@
 				PARSER: Initial -->
 			<control><![CDATA[SELF]]></control>
 			
-			<!-- Whether or not this character is able to have sex toys equipped onto them during this sex scene.
-				OPTIONAL: Default true
+			<!-- Whether or not this character is able to equip sex toys onto other characters during this sex scene.
+				You can use the optional parser tag 'clothing' in this section to get a handle on the clothing *type* which is being equipped to the target.
+					Please note that 'clothing' might be null, so always handle a potential null when using the 'clothing' tag.
+				The parser tag 'npc' targets the character who's having the clothing equipped onto them.
+				OPTIONAL: Default true (note that unique NPCs can only have condoms equipped onto them, even if this is true)
 				PARSER: Initial -->
 			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
 			
@@ -274,9 +277,9 @@
 			
 			<!-- Where this character will prefer to direct their cum when pulling out at the moment of orgasm, defined as an OrgasmCumTarget.
 				The 'id' attribute of each target corresponds to the id of the character.
-					<orgasmCumTargets>
+					<orgasmCumTarget>
 						<target id="meraxis"><![CDATA[FACE]]></target>
-					</orgasmCumTargets>
+					</orgasmCumTarget>
 				OPTIONAL: Default is null, in which case the character will use a pull out action corresponding to their fetishes or determined via random chance
 				PARSER: Every check -->
 			<orgasmCumTarget/>

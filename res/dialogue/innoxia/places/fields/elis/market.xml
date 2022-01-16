@@ -3322,9 +3322,8 @@
 				<index><![CDATA[5]]></index>
 				<responseTitle><![CDATA[Arcane spell]]></responseTitle>
 				<responseTooltip><![CDATA[Ask Kazik why he can't demonstrate the spell he knows from the school of the arcane.]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_trinkets_spells]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_trinkets_spells_arcane_reveal]]></nextDialogue>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TRINKETS_SPELLS_ARCANE_REVEAL'))]
 					[#flags.setFlag(FLAG_innoxia_elis_market_kazik_arcane, true)]
 				]]></effects>
 			</response>
@@ -3361,6 +3360,13 @@
 				]]></effects>
 			</response>
 		</responses>
+	</scene>
+	
+	<scene id="trinkets_spells_arcane_reveal">
+		<content folderPath="txt/places/fields/elis/market">TRINKETS_SPELLS_ARCANE_REVEAL</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_market_trinkets_spells"/>
 	</scene>
 	
 	<scene id="trinkets_spells_finished">
@@ -3463,7 +3469,7 @@
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
-					#IF(pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+					#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 						innoxia_places_fields_elis_market_trinkets_sex_vaginal
 					#ELSE
 						null

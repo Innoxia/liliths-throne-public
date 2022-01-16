@@ -269,9 +269,9 @@ public class FortressAlphaLeader extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_THONG, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_leg_distressed_jeans"), PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GREY, PresetColour.CLOTHING_BRASS, false), true, this);
-		AbstractClothing jacket = Main.game.getItemGen().generateClothing(ClothingType.TORSO_OVER_WOMENS_LEATHER_JACKET, PresetColour.CLOTHING_BLACK, false);
+		AbstractClothing jacket = Main.game.getItemGen().generateClothing("innoxia_torsoOver_womens_leather_jacket", PresetColour.CLOTHING_BLACK, false);
 		this.equipClothingFromNowhere(jacket, true, this);
-		this.isAbleToBeDisplaced(this.getClothingInSlot(ClothingType.TORSO_OVER_WOMENS_LEATHER_JACKET.getEquipSlots().get(0)), DisplacementType.UNZIPS, true, true, this);
+		this.isAbleToBeDisplaced(this.getClothingInSlot(ClothingType.getClothingTypeFromId("innoxia_torsoOver_womens_leather_jacket").getEquipSlots().get(0)), DisplacementType.UNZIPS, true, true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_foot_goth_boots_fem"), false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_fishnet_gloves", PresetColour.CLOTHING_BLACK, false), true, this);
 		
@@ -359,7 +359,7 @@ public class FortressAlphaLeader extends NPC {
 	}
 	
 	public boolean isAbleToEquipGag(GameCharacter target) {
-		AbstractClothing ringGag = Main.game.getItemGen().generateClothing(ClothingType.BDSM_RINGGAG, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GOLD, null);
+		AbstractClothing ringGag = Main.game.getItemGen().generateClothing("innoxia_bdsm_ringgag", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GOLD, null);
 		return target.isAbleToEquip(ringGag, true, this) && (target.getClothingInSlot(InventorySlot.MOUTH)==null || !target.getClothingInSlot(InventorySlot.MOUTH).getName().contains(UtilText.parse(this,"[npc.Name]")));	
 	}
 	

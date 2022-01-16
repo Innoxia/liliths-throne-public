@@ -187,6 +187,7 @@
 		<!-- Penelope -->
 		<flag dailyReset="true">spa_talk_posters</flag>
 		<flag dailyReset="true">spa_talk_sheep</flag>
+		<flag dailyReset="false">spa_sheep_introduced</flag>
 	
 	
 	<!-- You can ignore this section, I just use it to track the ids of saved long values (using [flags.setSavedLong(id, value)] calls)

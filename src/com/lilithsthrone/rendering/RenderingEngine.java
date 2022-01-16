@@ -1057,7 +1057,10 @@ public enum RenderingEngine {
 				AbstractClothing clothing = (AbstractClothing)item;
 				if (Main.game.isInCombat()
 						|| (Main.game.isInSex()
-								&& (isTraderInv || !clothing.isAbleToBeEquippedDuringSex(clothing.getClothingType().getEquipSlots().get(0)).getKey() || !Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer())))) {
+								&& (isTraderInv
+										|| !clothing.isAbleToBeEquippedDuringSex(clothing.getClothingType().getEquipSlots().get(0)).getKey()
+										|| (!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer(), Main.game.getPlayer(), clothing)
+												&& (InventoryDialogue.getInventoryNPC()==null || !Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer(), InventoryDialogue.getInventoryNPC(), clothing)))))) {
 					overlay += " disabled";
 				}
 				

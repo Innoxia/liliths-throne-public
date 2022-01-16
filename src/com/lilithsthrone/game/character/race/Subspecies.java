@@ -1040,19 +1040,19 @@ public class Subspecies {
 			"innoxia_race_dog_canine_crunch",
 			"statusEffects/race/raceDogMorph",
 			"statusEffects/race/raceBackground",
-			"border-collie-morph",
-			"border-collie-morphs",
-			"border-collie-boy",
-			"border-collie-girl",
-			"border-collie-boys",
-			"border-collie-girls",
+			"border collie-morph",
+			"border collie-morphs",
+			"border collie-boy",
+			"border collie-girl",
+			"border collie-boys",
+			"border collie-girls",
 			new FeralAttributes(
-					"border-collie",
-					"border-collies",
-					"border-collie dog",
-					"border-collie bitch",
-					"border-collie dogs",
-					"border-collie bitches",
+					"border collie",
+					"border collies",
+					"border collie dog",
+					"border collie bitch",
+					"border collie dogs",
+					"border collie bitches",
 					LegConfiguration.QUADRUPEDAL,
 					65,
 					0,
@@ -1083,9 +1083,9 @@ public class Subspecies {
 					new Value<>(PerkCategory.LUST, 1),
 					new Value<>(PerkCategory.ARCANE, 1)),
 			PresetColour.RACE_DOG_MORPH,
-			SubspeciesPreference.TWO_AVERAGE, "A particularly energetic and intelligent dog-morph, which resembles an anthropomorphised border-collie."
-							+ " They are known as 'border-collie-morphs' when bipedal, and 'border-collie-taurs' when the lower body is that of an oversized feral border-collie."
-							+ " To be identified as a border-collie-morph, a character must be a dog-morph that has either upright or folded ears, and fluffy, black fur with white markings.",
+			SubspeciesPreference.TWO_AVERAGE, "A particularly energetic and intelligent dog-morph, which resembles an anthropomorphised border collie."
+							+ " They are known as 'border collie-morphs' when bipedal, and 'border collie-taurs' when the lower body is that of an oversized feral border collie."
+							+ " To be identified as a border collie-morph, a character must be a dog-morph that has either upright or folded ears, and fluffy, black fur with white markings.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
 					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE_UNCOMMON),
@@ -1584,19 +1584,19 @@ public class Subspecies {
 			"innoxia_race_fox_chicken_pot_pie",
 			"statusEffects/race/raceFoxMorph",
 			"statusEffects/race/raceBackground",
-			"arctic-fox-morph",
-			"arctic-fox-morphs",
-			"arctic-fox-boy",
-			"arctic-fox-girl",
-			"arctic-fox-boys",
-			"arctic-fox-girls",
+			"arctic fox-morph",
+			"arctic fox-morphs",
+			"arctic fox-boy",
+			"arctic fox-girl",
+			"arctic fox-boys",
+			"arctic fox-girls",
 			new FeralAttributes(
-					"arctic-fox",
-					"arctic-foxes",
-					"arctic-fox",
-					"arctic-vixen",
-					"arctic-foxes",
-					"arctic-vixens",
+					"arctic fox",
+					"arctic foxes",
+					"arctic fox",
+					"arctic vixen",
+					"arctic foxes",
+					"arctic vixens",
 					LegConfiguration.QUADRUPEDAL,
 					30,
 					0,
@@ -1628,7 +1628,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 1)),
 			PresetColour.RACE_FOX_MORPH_ARCTIC,
 			SubspeciesPreference.ONE_LOW,
-			"An anthropomorphic fox with white fur, known as an 'arctic-fox-morph' when bipedal, and an 'arctic-foxtaur' when the lower body is that of a typically-oversized feral fox.",
+			"An anthropomorphic fox with white fur, known as an 'arctic fox-morph' when bipedal, and an 'arctic foxtaur' when the lower body is that of a typically-oversized feral fox.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
 					new Value<>(WorldRegion.SNOW, SubspeciesSpawnRarity.TWO_RARE)),
@@ -1900,19 +1900,19 @@ public class Subspecies {
 			"innoxia_race_fox_chicken_pot_pie",
 			"statusEffects/race/raceFoxMorph",
 			"statusEffects/race/raceBackground",
-			"arctic-youko",
-			"arctic-youko",
-			"arctic-youko-boy",
-			"arctic-youko-girl",
-			"arctic-youko-boys",
-			"arctic-youko-girls",
+			"arctic youko",
+			"arctic youko",
+			"arctic youko-boy",
+			"arctic youko-girl",
+			"arctic youko-boys",
+			"arctic youko-girls",
 			new FeralAttributes(
-					"arctic-youko-fox",
-					"arctic-youko-foxes",
-					"arctic-youko-fox",
-					"arctic-youko-vixen",
-					"arctic-youko-foxes",
-					"arctic-youko-vixens",
+					"arctic youko-fox",
+					"arctic youko-foxes",
+					"arctic youko-fox",
+					"arctic youko-vixen",
+					"arctic youko-foxes",
+					"arctic youko-vixens",
 					LegConfiguration.QUADRUPEDAL,
 					40,
 					0,
@@ -1936,7 +1936,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 5)),
 			PresetColour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"An arctic-fox-morph, empowered by the gifts of a Lilin.",
+			"An arctic fox-morph, empowered by the gifts of a Lilin.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.ONE_VERY_RARE)),
 			Util.newHashMapOfValues(),
@@ -1972,9 +1972,9 @@ public class Subspecies {
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
 			if(character.getMaxTailCount()<9) {
-				return UtilText.parse(character, "[npc.NameIsFull] an arctic-fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailMaxCount] arcane tail"+(character.getMaxTailCount()==1?"":"s")+".");
+				return UtilText.parse(character, "[npc.NameIsFull] an arctic fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailMaxCount] arcane tail"+(character.getMaxTailCount()==1?"":"s")+".");
 			} else {
-				return UtilText.parse(character, "[npc.NameIsFull] an arctic-fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
+				return UtilText.parse(character, "[npc.NameIsFull] an arctic fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
 			}
 		}
 
