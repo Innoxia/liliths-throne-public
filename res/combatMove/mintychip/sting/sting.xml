@@ -17,7 +17,7 @@
 	<damageType><![CDATA[POISON]]></damageType>
 	
 	<baseDamage><![CDATA[
-		40
+		30
 	]]></baseDamage>
 	
 	<blockAmount><![CDATA[
@@ -45,14 +45,14 @@
 	<colourTertiary/>
 	
 	<statusEffects>
-		<effect turnLength="3" onCrit="true">POISONED</effect>
+		<effect turnLength="5" onCrit="true">POISONED</effect>
 	</statusEffects>
 	
 	
 	<!-- Effect logic -->
 	
 	<availabilityCondition><![CDATA[
-		[#npc.getBody().getTail().getType().getTags().contains(BODY_PART_TAG_TAIL_VENOMOUS_STING)]
+		[#npc.getTailType.getTags().contains(BODY_PART_TAG_TAIL_VENOMOUS_STING)]
 	]]>
 	</availabilityCondition>
 	
