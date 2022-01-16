@@ -19,7 +19,7 @@
 	]]></damageType>
 	
 	<baseDamage><![CDATA[
-		40
+		30
 	]]></baseDamage>
 	
 	<blockAmount><![CDATA[
@@ -47,14 +47,14 @@
 	<colourTertiary/>
 	
 	<statusEffects>
-		<effect turnLength="3" onCrit="true">POISONED_LUST</effect>
+		<effect turnLength="5" onCrit="true">POISONED_LUST</effect>
 	</statusEffects>
 	
 	
 	<!-- Effect logic -->
 	
 	<availabilityCondition><![CDATA[
-		[#npc.getBody().getTail().getType().getTags().contains(BODY_PART_TAG_TAIL_VENOMOUS_STING_LUST)]
+		[#npc.getTailType.contains(BODY_PART_TAG_TAIL_VENOMOUS_STING_LUST)]
 	]]></availabilityCondition>
 	
 	<!-- A short description to let the player know what the conditions are for this move being available to them. -->
