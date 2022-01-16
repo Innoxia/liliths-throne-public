@@ -1040,19 +1040,19 @@ public class Subspecies {
 			"innoxia_race_dog_canine_crunch",
 			"statusEffects/race/raceDogMorph",
 			"statusEffects/race/raceBackground",
-			"border-collie-morph",
-			"border-collie-morphs",
-			"border-collie-boy",
-			"border-collie-girl",
-			"border-collie-boys",
-			"border-collie-girls",
+			"border collie-morph",
+			"border collie-morphs",
+			"border collie-boy",
+			"border collie-girl",
+			"border collie-boys",
+			"border collie-girls",
 			new FeralAttributes(
-					"border-collie",
-					"border-collies",
-					"border-collie dog",
-					"border-collie bitch",
-					"border-collie dogs",
-					"border-collie bitches",
+					"border collie",
+					"border collies",
+					"border collie dog",
+					"border collie bitch",
+					"border collie dogs",
+					"border collie bitches",
 					LegConfiguration.QUADRUPEDAL,
 					65,
 					0,
@@ -1083,9 +1083,9 @@ public class Subspecies {
 					new Value<>(PerkCategory.LUST, 1),
 					new Value<>(PerkCategory.ARCANE, 1)),
 			PresetColour.RACE_DOG_MORPH,
-			SubspeciesPreference.TWO_AVERAGE, "A particularly energetic and intelligent dog-morph, which resembles an anthropomorphised border-collie."
-							+ " They are known as 'border-collie-morphs' when bipedal, and 'border-collie-taurs' when the lower body is that of an oversized feral border-collie."
-							+ " To be identified as a border-collie-morph, a character must be a dog-morph that has either upright or folded ears, and fluffy, black fur with white markings.",
+			SubspeciesPreference.TWO_AVERAGE, "A particularly energetic and intelligent dog-morph, which resembles an anthropomorphised border collie."
+							+ " They are known as 'border collie-morphs' when bipedal, and 'border collie-taurs' when the lower body is that of an oversized feral border collie."
+							+ " To be identified as a border collie-morph, a character must be a dog-morph that has either upright or folded ears, and fluffy, black fur with white markings.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
 					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE_UNCOMMON),
@@ -1584,19 +1584,19 @@ public class Subspecies {
 			"innoxia_race_fox_chicken_pot_pie",
 			"statusEffects/race/raceFoxMorph",
 			"statusEffects/race/raceBackground",
-			"arctic-fox-morph",
-			"arctic-fox-morphs",
-			"arctic-fox-boy",
-			"arctic-fox-girl",
-			"arctic-fox-boys",
-			"arctic-fox-girls",
+			"arctic fox-morph",
+			"arctic fox-morphs",
+			"arctic fox-boy",
+			"arctic fox-girl",
+			"arctic fox-boys",
+			"arctic fox-girls",
 			new FeralAttributes(
-					"arctic-fox",
-					"arctic-foxes",
-					"arctic-fox",
-					"arctic-vixen",
-					"arctic-foxes",
-					"arctic-vixens",
+					"arctic fox",
+					"arctic foxes",
+					"arctic fox",
+					"arctic vixen",
+					"arctic foxes",
+					"arctic vixens",
 					LegConfiguration.QUADRUPEDAL,
 					30,
 					0,
@@ -1628,7 +1628,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 1)),
 			PresetColour.RACE_FOX_MORPH_ARCTIC,
 			SubspeciesPreference.ONE_LOW,
-			"An anthropomorphic fox with white fur, known as an 'arctic-fox-morph' when bipedal, and an 'arctic-foxtaur' when the lower body is that of a typically-oversized feral fox.",
+			"An anthropomorphic fox with white fur, known as an 'arctic fox-morph' when bipedal, and an 'arctic foxtaur' when the lower body is that of a typically-oversized feral fox.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
 					new Value<>(WorldRegion.SNOW, SubspeciesSpawnRarity.TWO_RARE)),
@@ -1900,19 +1900,19 @@ public class Subspecies {
 			"innoxia_race_fox_chicken_pot_pie",
 			"statusEffects/race/raceFoxMorph",
 			"statusEffects/race/raceBackground",
-			"arctic-youko",
-			"arctic-youko",
-			"arctic-youko-boy",
-			"arctic-youko-girl",
-			"arctic-youko-boys",
-			"arctic-youko-girls",
+			"arctic youko",
+			"arctic youko",
+			"arctic youko-boy",
+			"arctic youko-girl",
+			"arctic youko-boys",
+			"arctic youko-girls",
 			new FeralAttributes(
-					"arctic-youko-fox",
-					"arctic-youko-foxes",
-					"arctic-youko-fox",
-					"arctic-youko-vixen",
-					"arctic-youko-foxes",
-					"arctic-youko-vixens",
+					"arctic youko-fox",
+					"arctic youko-foxes",
+					"arctic youko-fox",
+					"arctic youko-vixen",
+					"arctic youko-foxes",
+					"arctic youko-vixens",
 					LegConfiguration.QUADRUPEDAL,
 					40,
 					0,
@@ -1936,7 +1936,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 5)),
 			PresetColour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"An arctic-fox-morph, empowered by the gifts of a Lilin.",
+			"An arctic fox-morph, empowered by the gifts of a Lilin.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.ONE_VERY_RARE)),
 			Util.newHashMapOfValues(),
@@ -1972,9 +1972,9 @@ public class Subspecies {
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
 			if(character.getMaxTailCount()<9) {
-				return UtilText.parse(character, "[npc.NameIsFull] an arctic-fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailMaxCount] arcane tail"+(character.getMaxTailCount()==1?"":"s")+".");
+				return UtilText.parse(character, "[npc.NameIsFull] an arctic fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailMaxCount] arcane tail"+(character.getMaxTailCount()==1?"":"s")+".");
 			} else {
-				return UtilText.parse(character, "[npc.NameIsFull] an arctic-fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
+				return UtilText.parse(character, "[npc.NameIsFull] an arctic fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
 			}
 		}
 
@@ -4959,121 +4959,121 @@ public class Subspecies {
 			return 0;
 		}
 	};
-
-	public static AbstractSubspecies HARPY_BALD_EAGLE = new AbstractSubspecies(false,
-			16000,
-			"innoxia_race_harpy_harpy_perfume",
-			"innoxia_race_harpy_bubblegum_lollipop",
-			"statusEffects/race/raceHarpy",
-			"statusEffects/race/raceBackground",
-			"bald-eagle-harpy",
-			"bald-eagle-harpies",
-			"bald-eagle-harpy",
-			"bald-eagle-harpy",
-			"bald-eagle-harpies",
-			"bald-eagle-harpies",
-			new FeralAttributes(
-					"bald-eagle",
-					"bald-eagles",
-					LegConfiguration.AVIAN,
-					90,
-					0,
-					1,
-					0,
-					1,
-					true) {
-				public boolean isArmsOrWingsPresent() {
-					return true;
-				}
-			},
-			"[npc.NameIsFull] obsessed with [npc.her] appearance, and wouldn't think it unusual for someone to want to spend at least half of their waking hours preening themselves in order to look as attractive as possible.",
-			Util.newHashMapOfValues(
-					new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
-					new Value<>(Attribute.MAJOR_ARCANE, 0f),
-					new Value<>(Attribute.MAJOR_CORRUPTION, 5f),
-					new Value<>(Attribute.DAMAGE_LUST, 15f)),
-			null,
-			"All About Harpies",
-			"All About Harpies'",
-			"HARPY_BASIC",
-			"HARPY_ADVANCED",
-			Race.HARPY,
-			Util.newHashMapOfValues(
-					new Value<>(PerkCategory.PHYSICAL, 2),
-					new Value<>(PerkCategory.LUST, 5),
-					new Value<>(PerkCategory.ARCANE, 0)),
-			Util.newHashMapOfValues(
-					new Value<>(PerkCategory.PHYSICAL, 2),
-					new Value<>(PerkCategory.LUST, 5),
-					new Value<>(PerkCategory.ARCANE, 0)),
-			PresetColour.BASE_GREY_LIGHT,
-			SubspeciesPreference.ONE_LOW,
-			"An anthropomorphic, bipedal bald eagle, dark brown feathers covering their body and white feathers on their head. Typically only possessing non-human arms, legs, eyes, ears, and hair.",
-			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
-			Util.newHashMapOfValues(
-					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			null, Util.newArrayListOfValues(
-					SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN_DARK, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN_DARK, false));
-			body.getCoverings().put(BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_YELLOW, false, PresetColour.SKIN_YELLOW, false));
-		}
-		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
-			String[] names = new String[] {
-					"fury",
-					"furies",
-					"fury",
-					"fury",
-					"furies",
-					"furies"};
-			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
-				names = new String[] {
-					applyNonBipedNameChange(character, "fury", false, false),
-					applyNonBipedNameChange(character, "fury", false, true),
-					applyNonBipedNameChange(character, "fury", false, false),
-					applyNonBipedNameChange(character, "fury", true, false),
-					applyNonBipedNameChange(character, "fury", false, true),
-					applyNonBipedNameChange(character, "fury", true, true)
-				};
-			}
-			
-			return names;
-		}
-		@Override
-		public int getSubspeciesWeighting(Body body, AbstractRace race) {
-			if(race==Race.HARPY) {
-				AbstractBodyCoveringType feathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FEATHER):BodyCoveringType.FEATHERS;
-				AbstractBodyCoveringType headFeathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.HAIR):BodyCoveringType.HAIR_HARPY;
-				
-				if(body.getCoverings().get(feathers).getPrimaryColour()==PresetColour.COVERING_BROWN_DARK
-						&& body.getCoverings().get(headFeathers).getPrimaryColour()==PresetColour.COVERING_WHITE) {
-					return 150;
-				}
-			}
-			return 0;
-		}
-		@Override
-		public String getPathName() {
-			return "res/race/neverLucky/harpy/eagle";
-		}
-		@Override
-		public Colour getSecondaryColour() {
-			return PresetColour.BASE_PITCH_BLACK;
-		}
-		@Override
-		public Colour getTertiaryColour() {
-			return PresetColour.BASE_YELLOW;
-		}
-	};
+	
+//	public static AbstractSubspecies HARPY_BALD_EAGLE = new AbstractSubspecies(false,
+//			16000,
+//			"innoxia_race_harpy_harpy_perfume",
+//			"innoxia_race_harpy_bubblegum_lollipop",
+//			"statusEffects/race/raceHarpy",
+//			"statusEffects/race/raceBackground",
+//			"bald-eagle-harpy",
+//			"bald-eagle-harpies",
+//			"bald-eagle-harpy",
+//			"bald-eagle-harpy",
+//			"bald-eagle-harpies",
+//			"bald-eagle-harpies",
+//			new FeralAttributes(
+//					"bald-eagle",
+//					"bald-eagles",
+//					LegConfiguration.AVIAN,
+//					90,
+//					0,
+//					1,
+//					0,
+//					1,
+//					true) {
+//				public boolean isArmsOrWingsPresent() {
+//					return true;
+//				}
+//			},
+//			"[npc.NameIsFull] obsessed with [npc.her] appearance, and wouldn't think it unusual for someone to want to spend at least half of their waking hours preening themselves in order to look as attractive as possible.",
+//			Util.newHashMapOfValues(
+//					new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
+//					new Value<>(Attribute.MAJOR_ARCANE, 0f),
+//					new Value<>(Attribute.MAJOR_CORRUPTION, 5f),
+//					new Value<>(Attribute.DAMAGE_LUST, 15f)),
+//			null,
+//			"All About Harpies",
+//			"All About Harpies'",
+//			"HARPY_BASIC",
+//			"HARPY_ADVANCED",
+//			Race.HARPY,
+//			Util.newHashMapOfValues(
+//					new Value<>(PerkCategory.PHYSICAL, 2),
+//					new Value<>(PerkCategory.LUST, 5),
+//					new Value<>(PerkCategory.ARCANE, 0)),
+//			Util.newHashMapOfValues(
+//					new Value<>(PerkCategory.PHYSICAL, 2),
+//					new Value<>(PerkCategory.LUST, 5),
+//					new Value<>(PerkCategory.ARCANE, 0)),
+//			PresetColour.BASE_GREY_LIGHT,
+//			SubspeciesPreference.ONE_LOW,
+//			"An anthropomorphic, bipedal bald eagle, dark brown feathers covering their body and white feathers on their head. Typically only possessing non-human arms, legs, eyes, ears, and hair.",
+//			Util.newHashMapOfValues(
+//					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE_UNCOMMON),
+//					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON),
+//					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+//			Util.newHashMapOfValues(
+//					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ONE_VERY_RARE),
+//					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+//			null, Util.newArrayListOfValues(
+//					SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN_DARK, false));
+//			body.getCoverings().put(BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
+//			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN_DARK, false));
+//			body.getCoverings().put(BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_YELLOW, false, PresetColour.SKIN_YELLOW, false));
+//		}
+//		@Override
+//		public String[] getHalfDemonName(GameCharacter character) {
+//			String[] names = new String[] {
+//					"fury",
+//					"furies",
+//					"fury",
+//					"fury",
+//					"furies",
+//					"furies"};
+//			
+//			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+//				names = new String[] {
+//					applyNonBipedNameChange(character, "fury", false, false),
+//					applyNonBipedNameChange(character, "fury", false, true),
+//					applyNonBipedNameChange(character, "fury", false, false),
+//					applyNonBipedNameChange(character, "fury", true, false),
+//					applyNonBipedNameChange(character, "fury", false, true),
+//					applyNonBipedNameChange(character, "fury", true, true)
+//				};
+//			}
+//			
+//			return names;
+//		}
+//		@Override
+//		public int getSubspeciesWeighting(Body body, AbstractRace race) {
+//			if(race==Race.HARPY) {
+//				AbstractBodyCoveringType feathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FEATHER):BodyCoveringType.FEATHERS;
+//				AbstractBodyCoveringType headFeathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.HAIR):BodyCoveringType.HAIR_HARPY;
+//				
+//				if(body.getCoverings().get(feathers).getPrimaryColour()==PresetColour.COVERING_BROWN_DARK
+//						&& body.getCoverings().get(headFeathers).getPrimaryColour()==PresetColour.COVERING_WHITE) {
+//					return 150;
+//				}
+//			}
+//			return 0;
+//		}
+//		@Override
+//		public String getPathName() {
+//			return "res/race/neverLucky/harpy/bald_eagle";
+//		}
+//		@Override
+//		public Colour getSecondaryColour() {
+//			return PresetColour.BASE_PITCH_BLACK;
+//		}
+//		@Override
+//		public Colour getTertiaryColour() {
+//			return PresetColour.BASE_YELLOW;
+//		}
+//	};
 
 	public static AbstractSubspecies HARPY_PHOENIX = new AbstractSubspecies(false,
 			50000,
@@ -5604,6 +5604,8 @@ public class Subspecies {
 			id = "innoxia_panther_subspecies_lion";
 		} else if(id.equalsIgnoreCase("CAT_MORPH_TIGER")) {
 			id = "innoxia_panther_subspecies_tiger";
+		} else if(id.equalsIgnoreCase("HARPY_BALD_EAGLE")) {
+			id = "innoxia_raptor_subspecies_bald_eagle";
 		}
 		id = Util.getClosestStringMatch(id, idToSubspeciesMap.keySet());
 		return idToSubspeciesMap.get(id);

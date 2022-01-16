@@ -43,7 +43,7 @@
 			<canSelfTransform><![CDATA[false]]></canSelfTransform>
 			<hidden><![CDATA[false]]></hidden>
 			<control><![CDATA[ONGOING_ONLY]]></control>
-			<sexClothingEquippable><![CDATA[false]]></sexClothingEquippable>
+			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
 			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
 			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
 			<startNaked><![CDATA[false]]></startNaked>

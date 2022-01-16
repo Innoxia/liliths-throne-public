@@ -4831,7 +4831,9 @@ public class GenericOrgasms {
 	};
 	
 	public static void applyGenericPullOutEffects(SexActionInterface sexAction, OrgasmCumTarget orgasmCumTarget) {
-		Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(sexAction, orgasmCumTarget, true).applyEffects();
+		if(sexAction!=null && orgasmCumTarget!=null) { // null check for external SexActions using this method via Sex.java
+			Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(sexAction, orgasmCumTarget, true).applyEffects();
+		}
 		GameCharacter characterPenetrated = null;
 		SexAreaInterface areaContacted = null;
 		if(!Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
@@ -7781,7 +7783,7 @@ public class GenericOrgasms {
 				} else {
 					return !Main.sex.isDom(Main.sex.getCharacterTargetedForSexAction(this)) // Doms will not deny other doms.
 							&& Main.sex.isReadyToOrgasm(Main.sex.getCharacterTargetedForSexAction(this)) // check if really orgasming
-							&& Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_DENIAL).isPositive();
+							&& Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_DENIAL); // Only allow denial fetishists to use this action
 				}
 			}
 			return false;
@@ -7789,9 +7791,9 @@ public class GenericOrgasms {
 		
 		@Override
 		public SexActionPriority getPriority() {
-			if(Main.sex.getCharacterPerformingAction().isPlayer() || !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_DENIAL)) {
-				return SexActionPriority.LOW;
-			}
+//			if(Main.sex.getCharacterPerformingAction().isPlayer() || !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_DENIAL)) {
+//				return SexActionPriority.LOW;
+//			}
 			return SexActionPriority.HIGH;
 		}
 		

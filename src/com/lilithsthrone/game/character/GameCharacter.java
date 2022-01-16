@@ -14718,6 +14718,10 @@ public abstract class GameCharacter implements XMLSaving {
 			if(Main.game.isInSex() && Main.sex.isCharacterImmobilised(characterReacting)) {
 				Value<ImmobilisationType, GameCharacter> immobilisation = Main.sex.getImmobilisationType(characterReacting);
 				switch(immobilisation.getKey()) {
+					case CHAINS:
+						return UtilText.parse(characterReacting, "[npc.Name] tries to make a move as your [pc.asshole+] is revealed, but the chains binding [npc.her] body in place keep [npc.herHim] immobilised.");
+					case ROPE:
+						return UtilText.parse(characterReacting, "[npc.Name] tries to make a move as your [pc.asshole+] is revealed, but the ropes binding [npc.her] body in place keep [npc.herHim] immobilised.");
 					case COCOON:
 						return UtilText.parse(characterReacting, "[npc.Name] tries to make a move as your [pc.asshole+] is revealed, but [npc.her] cocoon's strong webbing keeps [npc.herHim] locked in place.");
 					case TAIL_CONSTRICTION:
@@ -14761,6 +14765,12 @@ public abstract class GameCharacter implements XMLSaving {
 			if(Main.game.isInSex() && Main.sex.isCharacterImmobilised(characterReacting)) {
 				Value<ImmobilisationType, GameCharacter> immobilisation = Main.sex.getImmobilisationType(characterReacting);
 				switch(immobilisation.getKey()) {
+					case CHAINS:
+						return UtilText.parse(characterReacting, characterBeingRevealed,
+								"[npc.Name] [npc.verb(try)] to make a move as [npc2.namePos] [npc2.asshole+] is revealed, but the chains binding [npc.her] body in place keep [npc.herHim] immobilised.");
+					case ROPE:
+						return UtilText.parse(characterReacting, characterBeingRevealed,
+								"[npc.Name] [npc.verb(try)] to make a move as [npc2.namePos] [npc2.asshole+] is revealed, but the ropes binding [npc.her] body in place keep [npc.herHim] immobilised.");
 					case COCOON:
 						return UtilText.parse(characterReacting, characterBeingRevealed,
 								"[npc.Name] [npc.verb(try)] to make a move as [npc2.namePos] [npc2.asshole+] is revealed, but [npc.her] cocoon's strong webbing keeps [npc.herHim] locked in place.");
@@ -14793,6 +14803,10 @@ public abstract class GameCharacter implements XMLSaving {
 			if(Main.game.isInSex() && Main.sex.isCharacterImmobilised(characterReacting)) {
 				Value<ImmobilisationType, GameCharacter> immobilisation = Main.sex.getImmobilisationType(characterReacting);
 				switch(immobilisation.getKey()) {
+					case CHAINS:
+						return UtilText.parse(characterReacting, "[npc.Name] [npc.verb(try)] to make a move as your [pc.breasts+] are revealed, but the chains binding [npc.her] body in place keep [npc.herHim] immobilised.");
+					case ROPE:
+						return UtilText.parse(characterReacting, "[npc.Name] [npc.verb(try)] to make a move as your [pc.breasts+] are revealed, but the ropes binding [npc.her] body in place keep [npc.herHim] immobilised.");
 					case COCOON:
 						return UtilText.parse(characterReacting, "[npc.Name] tries to make a move as your [pc.breasts+] are revealed, but [npc.her] cocoon's strong webbing keeps [npc.herHim] locked in place.");
 					case TAIL_CONSTRICTION:
@@ -15030,6 +15044,12 @@ public abstract class GameCharacter implements XMLSaving {
 			if(Main.game.isInSex() && Main.sex.isCharacterImmobilised(characterReacting)) {
 				Value<ImmobilisationType, GameCharacter> immobilisation = Main.sex.getImmobilisationType(characterReacting);
 				switch(immobilisation.getKey()) {
+					case CHAINS:
+						return UtilText.parse(characterReacting, characterBeingRevealed,
+								"[npc.Name] [npc.verb(try)] to make a move as [npc2.namePos] [npc2.breasts+] are revealed, but the chains binding [npc.her] body in place keep [npc.herHim] immobilised.");
+					case ROPE:
+						return UtilText.parse(characterReacting, characterBeingRevealed,
+								"[npc.Name] [npc.verb(try)] to make a move as [npc2.namePos] [npc2.breasts+] are revealed, but the ropes binding [npc.her] body in place keep [npc.herHim] immobilised.");
 					case COCOON:
 						return UtilText.parse(characterReacting, characterBeingRevealed,
 								"[npc.Name] [npc.verb(try)] to make a move as [npc2.namePos] [npc2.breasts+] are revealed, but [npc.her] cocoon's strong webbing keeps [npc.herHim] locked in place.");
@@ -15064,6 +15084,10 @@ public abstract class GameCharacter implements XMLSaving {
 			if(Main.game.isInSex() && Main.sex.isCharacterImmobilised(characterReacting)) {
 				Value<ImmobilisationType, GameCharacter> immobilisation = Main.sex.getImmobilisationType(characterReacting);
 				switch(immobilisation.getKey()) {
+					case CHAINS:
+						return UtilText.parse(characterReacting, "[npc.Name] [npc.verb(try)] to make a move as [npc.her] [npc.crotchBoobs+] are revealed, but the chains binding [npc.her] body in place keep [npc.herHim] immobilised.");
+					case ROPE:
+						return UtilText.parse(characterReacting, "[npc.Name] [npc.verb(try)] to make a move as [npc.her] [npc.crotchBoobs+] are revealed, but the ropes binding [npc.her] body in place keep [npc.herHim] immobilised.");
 					case COCOON:
 						return UtilText.parse(characterReacting, "[npc.Name] tries to make a move as [npc.her] [npc.crotchBoobs+] are revealed, but [npc.her] cocoon's strong webbing keeps [npc.herHim] locked in place.");
 					case TAIL_CONSTRICTION:
@@ -15102,6 +15126,12 @@ public abstract class GameCharacter implements XMLSaving {
 			if(Main.game.isInSex() && Main.sex.isCharacterImmobilised(characterReacting)) {
 				Value<ImmobilisationType, GameCharacter> immobilisation = Main.sex.getImmobilisationType(characterReacting);
 				switch(immobilisation.getKey()) {
+					case CHAINS:
+						return UtilText.parse(characterReacting, characterBeingRevealed,
+								"[npc.Name] [npc.verb(try)] to make a move as [npc2.namePos] [npc2.crotchBoobs+] are revealed, but the chains binding [npc.her] body in place keep [npc.herHim] immobilised.");
+					case ROPE:
+						return UtilText.parse(characterReacting, characterBeingRevealed,
+								"[npc.Name] [npc.verb(try)] to make a move as [npc2.namePos] [npc2.crotchBoobs+] are revealed, but the ropes binding [npc.her] body in place keep [npc.herHim] immobilised.");
 					case COCOON:
 						return UtilText.parse(characterReacting, characterBeingRevealed,
 								"[npc.Name] [npc.verb(try)] to make a move as [npc2.namePos] [npc2.crotchBoobs+] are revealed, but [npc.her] cocoon's strong webbing keeps [npc.herHim] locked in place.");
@@ -15156,6 +15186,12 @@ public abstract class GameCharacter implements XMLSaving {
 		if(Main.game.isInSex() && Main.sex.isCharacterImmobilised(characterReacting)) {
 			Value<ImmobilisationType, GameCharacter> immobilisation = Main.sex.getImmobilisationType(characterReacting);
 			switch(immobilisation.getKey()) {
+				case CHAINS:
+					return UtilText.parse(characterReacting, characterBeingRevealed,
+							"[npc.Name] [npc.verb(try)] to make a move as [npc2.namePos] [npc2.cock+] is revealed, but the chains binding [npc.her] body in place keep [npc.herHim] immobilised.");
+				case ROPE:
+					return UtilText.parse(characterReacting, characterBeingRevealed,
+							"[npc.Name] [npc.verb(try)] to make a move as [npc2.namePos] [npc2.cock+] is revealed, but the ropes binding [npc.her] body in place keep [npc.herHim] immobilised.");
 				case COCOON:
 					return UtilText.parse(characterReacting, characterBeingRevealed,
 							"[npc.Name] [npc.verb(try)] to make a move as [npc2.namePos] [npc2.cock+] is revealed, but [npc.her] cocoon's strong webbing keeps [npc.herHim] locked in place.");
@@ -15507,6 +15543,12 @@ public abstract class GameCharacter implements XMLSaving {
 		if(Main.game.isInSex() && Main.sex.isCharacterImmobilised(characterReacting)) {
 			Value<ImmobilisationType, GameCharacter> immobilisation = Main.sex.getImmobilisationType(characterReacting);
 			switch(immobilisation.getKey()) {
+				case CHAINS:
+					return UtilText.parse(characterReacting, characterBeingRevealed,
+							"[npc.Name] [npc.verb(try)] to make a move as [npc2.namePos] [npc2.pussy+] is revealed, but the chains binding [npc.her] body in place keep [npc.herHim] immobilised.");
+				case ROPE:
+					return UtilText.parse(characterReacting, characterBeingRevealed,
+							"[npc.Name] [npc.verb(try)] to make a move as [npc2.namePos] [npc2.pussy+] is revealed, but the ropes binding [npc.her] body in place keep [npc.herHim] immobilised.");
 				case COCOON:
 					return UtilText.parse(characterReacting, characterBeingRevealed,
 							"[npc.Name] [npc.verb(try)] to make a move as [npc2.namePos] [npc2.pussy+] is revealed, but [npc.her] cocoon's strong webbing keeps [npc.herHim] locked in place.");
@@ -15655,6 +15697,12 @@ public abstract class GameCharacter implements XMLSaving {
 		if(Main.game.isInSex() && Main.sex.isCharacterImmobilised(characterReacting)) {
 			Value<ImmobilisationType, GameCharacter> immobilisation = Main.sex.getImmobilisationType(characterReacting);
 			switch(immobilisation.getKey()) {
+				case CHAINS:
+					return UtilText.parse(characterReacting, characterBeingRevealed,
+							"[npc.Name] [npc.verb(try)] to make a move as [npc2.namePos] genderless mound is revealed, but the chains binding [npc.her] body in place keep [npc.herHim] immobilised.");
+				case ROPE:
+					return UtilText.parse(characterReacting, characterBeingRevealed,
+							"[npc.Name] [npc.verb(try)] to make a move as [npc2.namePos] genderless mound is revealed, but the ropes binding [npc.her] body in place keep [npc.herHim] immobilised.");
 				case COCOON:
 					return UtilText.parse(characterReacting, characterBeingRevealed,
 							"[npc.Name] [npc.verb(try)] to make a move as [npc2.namePos] genderless mound is revealed, but [npc.her] cocoon's strong webbing keeps [npc.herHim] locked in place.");
@@ -26763,6 +26811,10 @@ public abstract class GameCharacter implements XMLSaving {
 	// Misc:
 	public boolean hasBreastsCrotch() {
 		return  body.getBreastCrotch().getType()!=BreastType.NONE;
+	}
+	/** Based on character's leg configuration and crotch breast setting in properties. */
+	public boolean isCanGrowBreastsCrotch() {
+		return (this.isTaur() && Main.getProperties().udders>=1) || Main.getProperties().udders==2;
 	}
 	public boolean isBreastsCrotchVisibleThroughClothing() {
 		return body.getBreastCrotch().isVisibleThroughClothing(this);

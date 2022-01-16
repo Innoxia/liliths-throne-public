@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>75</value> 
+		<determiner><![CDATA[a wedge of]]></determiner>
+		<name><![CDATA[Harvest Mouse's cheese]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Harvest Mouse's cheeses]]></namePlural>
+		<description><![CDATA[A wedge of holey cheese, wrapped in plastic and bearing a 'Harvest Mouse'-branded label. Another label on the underside of the cheese displays a graphic scene of a mouse-girl receiving a creampie while in the missionary position.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/innoxia/mouse/subspecies/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="70">mouse_cheese.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>innoxia_mouse</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[mouse]]></potionDescriptor>
+		<associatedRace>innoxia_mouse</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_ARCANE.getFormattedValue(3)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel [npc.her] arcane power increasing...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_ARCANE, 3)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+			Tearing off the plastic wrapper, [npc.name] [npc.verb(take)] a big bite out of the wedge of Harvest Mouse's cheese. Happy to discover that it has a mild, delicious taste, [npc.she] quickly [npc.verb(finish)] it off, after which [npc2.she] [npc.verb(let)] out a satisfied sigh.
+		]]></selfUse>
+		<otherUse><![CDATA[
+			Tearing off the plastic wrapper, [npc.name] [npc.verb(make)] [npc2.name] take a big bite out of the wedge of Harvest Mouse's cheese. Happy to discover that it has a mild, delicious taste, [npc2.name] quickly [npc2.verb(finish)] it off, after which [npc2.she] [npc2.verb(let)] out a satisfied sigh.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

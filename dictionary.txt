@@ -475,3 +475,5 @@ malevolent
 stallholder
 stallholders
 potions
+caffeine
+masseuse

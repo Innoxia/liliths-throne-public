@@ -227,7 +227,7 @@ public class Loppy extends NPC {
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, PresetColour.CLOTHING_PURPLE, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_micro_skirt_pleated", PresetColour.CLOTHING_PURPLE, false), true, this);
 		} else {
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.STOMACH_LOWBACK_BODY, PresetColour.CLOTHING_PURPLE, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_stomach_lowback_body", PresetColour.CLOTHING_PURPLE, false), true, this);
 		}
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_pantyhose", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_stiletto_heels", PresetColour.CLOTHING_PURPLE, false), true, this);
@@ -249,7 +249,7 @@ public class Loppy extends NPC {
 	@Override
 	public void turnUpdate() {
 		if(this.isVisiblyPregnant()) {
-			if(this.getClothingInSlot(InventorySlot.STOMACH)!=null && this.getClothingInSlot(InventorySlot.STOMACH).getClothingType()==ClothingType.STOMACH_LOWBACK_BODY) {
+			if(this.getClothingInSlot(InventorySlot.STOMACH)!=null && this.getClothingInSlot(InventorySlot.STOMACH).getClothingType()==ClothingType.getClothingTypeFromId("innoxia_stomach_lowback_body")) {
 				this.setPendingClothingDressing(true);
 			}
 		} else {

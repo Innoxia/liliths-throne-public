@@ -328,7 +328,7 @@ public class EyeType {
 			"eyes",
 			Util.newArrayListOfValues(""),
 			Util.newArrayListOfValues(""),
-			"By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into bird-like eyes, with large irises and horizontal pupils."
+			"By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into bird-like eyes, with large irises and pupils."
 				+ "<br/>"
 				+ "[npc.Name] now [npc.has] [style.boldHarpy(bird-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
 			"[npc.SheHasFull] [npc.eyePairs] bird-like eyes, the irises and pupils of which are larger than a regular human's."

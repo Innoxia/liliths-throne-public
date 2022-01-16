@@ -161,6 +161,8 @@ import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.AbstractDialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.AbstractEncounter;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.inventory.AbstractSetBonus;
@@ -179,6 +181,7 @@ import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.game.settings.ForcedFetishTendency;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.sex.GenericSexFlag;
+import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -9730,6 +9733,9 @@ public class UtilText {
 		for(Colour colour : PresetColour.getAllPresetColours()) {
 			engine.put("COLOUR_"+PresetColour.getIdFromColour(colour), colour);
 		}
+		for(Entry<DialogueNode, String> dn: DialogueManager.getDialogueToIdMap().entrySet()) {
+			engine.put("DN_"+dn.getValue(), dn.getKey());
+		}
 		
 		// Bodies:
 		for(AbstractRace race : Race.getAllRaces()) {
@@ -9958,6 +9964,10 @@ public class UtilText {
 		for(SexPace pace : SexPace.values()) {
 			engine.put("SEX_PACE_"+pace.toString(), pace);
 		}
+		for(OrgasmCumTarget oct : OrgasmCumTarget.values()) {
+			engine.put("OCT_"+oct.toString(), oct);
+		}
+		
 		
 		// Other:
 		for(Season season : Season.values()) {

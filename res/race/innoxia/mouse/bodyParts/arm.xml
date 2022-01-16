@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<arm>
+	<race>innoxia_mouse</race>
+	
+	<transformationName><![CDATA[mouse]]></transformationName>
+	
+	<coveringType>innoxia_mouse_fur</coveringType>
+	
+	<allowsFlight>false</allowsFlight>
+	
+	<tags>
+		<tag>ARM_STANDARD</tag>
+	</tags>
+	
+	<name><![CDATA[arm]]></name>
+	<namePlural><![CDATA[arms]]></namePlural> 
+	
+	<descriptorsMasculine>
+		<descriptor>furry</descriptor>
+		<descriptor>fur-coated</descriptor>
+	</descriptorsMasculine>
+	
+	<descriptorsFeminine>
+		<descriptor>furry</descriptor>
+		<descriptor>fur-coated</descriptor>
+	</descriptorsFeminine>
+	
+	<handName><![CDATA[hand]]></handName>
+	<handNamePlural><![CDATA[hands]]></handNamePlural>
+	<handDescriptorsMasculine>
+		<descriptor>mouse-like</descriptor>
+		<descriptor>furry</descriptor>
+		<descriptor>claw-like</descriptor>
+		<descriptor>rodent</descriptor>
+	</handDescriptorsMasculine>
+	<handDescriptorsFeminine>
+		<descriptor>soft</descriptor>
+		<descriptor>feminine</descriptor>
+		<descriptor>mouse-like</descriptor>
+		<descriptor>furry</descriptor>
+		<descriptor>claw-like</descriptor>
+		<descriptor>rodent</descriptor>
+	</handDescriptorsFeminine>
+	
+	<fingerName><![CDATA[finger]]></fingerName>
+	<fingerNamePlural><![CDATA[fingers]]></fingerNamePlural>
+	<fingerDescriptorsMasculine>
+		<descriptor>mouse-like</descriptor>
+		<descriptor>claw-like</descriptor>
+		<descriptor>furry</descriptor>
+		<descriptor>rodent</descriptor>
+	</fingerDescriptorsMasculine>
+	<fingerDescriptorsFeminine>
+		<descriptor>soft</descriptor>
+		<descriptor>feminine</descriptor>
+		<descriptor>mouse-like</descriptor>
+		<descriptor>claw-like</descriptor>
+		<descriptor>furry</descriptor>
+		<descriptor>rodent</descriptor>
+	</fingerDescriptorsFeminine>
+	
+	<transformationDescription><![CDATA[
+		Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down, [npc.she] [npc.verb(see)] [npc.her] fur growing over the backs of [npc.her] hands as sharp little claws push out to replace [npc.her] fingernails. [npc.Her] palms rapidly transform to be [npc.materialDescriptor] little pink pads, and at [npc.her] upper-biceps, [npc.her] new fur smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] body.
+		<br/>As the transformation comes to an end, [npc.nameIsFull] left with anthropomorphic, [style.boldMouse(mouse-like arms and hands)], which are [npc.materialDescriptor] [npc.armFullDescription].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		[npc.She] [npc.has] [npc.armRows] arms, which are [npc.materialCompositionDescriptor] [npc.armFullDescription(true)]. [npc.Her] hands are formed into anthropomorphic, mouse-like hands, complete with claws.
+	]]></bodyDescription>
+	
+</arm>

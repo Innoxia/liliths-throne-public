@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.lilithsthrone.game.character.body.valueEnums.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -22,8 +21,10 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractAssType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractEyeType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
@@ -58,6 +59,39 @@ import com.lilithsthrone.game.character.body.types.TentacleType;
 import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
+import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
+import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
+import com.lilithsthrone.game.character.body.valueEnums.BodyShape;
+import com.lilithsthrone.game.character.body.valueEnums.BodySize;
+import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
+import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
+import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
+import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
+import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
+import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
+import com.lilithsthrone.game.character.body.valueEnums.HairLength;
+import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
+import com.lilithsthrone.game.character.body.valueEnums.Height;
+import com.lilithsthrone.game.character.body.valueEnums.HornLength;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
+import com.lilithsthrone.game.character.body.valueEnums.StartingSkinTone;
+import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
+import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -822,7 +856,7 @@ public class Body implements XMLSaving {
 		if(element.getAttribute("bodyMaterial") != null && !element.getAttribute("bodyMaterial").isEmpty()) {
 			importedBodyMaterial = BodyMaterial.valueOf(element.getAttribute("bodyMaterial"));
 		}
-
+		
 		boolean feralBody = false;
 		if(element.getAttribute("feral") != null && !element.getAttribute("feral").isEmpty()) {
 			feralBody = Boolean.valueOf(element.getAttribute("feral"));
@@ -1947,7 +1981,7 @@ public class Body implements XMLSaving {
 			}
 		}
 		
-
+		
 		try {
 			Element heavyMakeupElement = (Element)element.getElementsByTagName("heavyMakeup").item(0);
 			
@@ -1958,18 +1992,89 @@ public class Body implements XMLSaving {
 			}
 		} catch(Exception ex) {	
 		}
-
+		
 		body.feral = feralBody;
 		
 		body.addDiscoveredBodyCoveringsFromMaterial(importedBodyMaterial);
 		
 		body.calculateRace(null);
 		
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.5")) {
+		// Converting harpy bald eagles to raptor bald eagles:
+		if(Main.isVersionOlderThan(version, "0.4.2.5")) {
+			if(body.getRace()==Race.HARPY) {
+				AbstractBodyCoveringType feathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FEATHER):BodyCoveringType.FEATHERS;
+				AbstractBodyCoveringType headFeathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.HAIR):BodyCoveringType.HAIR_HARPY;
+				
+				if(body.getCoverings().get(feathers).getPrimaryColour()==PresetColour.COVERING_BROWN_DARK && body.getCoverings().get(headFeathers).getPrimaryColour()==PresetColour.COVERING_WHITE) {
+
+					if(body.getArmType().getRace()==Race.HARPY) {
+						body.setArmType(null, ArmType.getArmTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					if(body.getAssType().getRace()==Race.HARPY) {
+						body.setAssType(null, AssType.getAssTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					if(body.getBreastType().getRace()==Race.HARPY) {
+						body.setBreastType(null, BreastType.getBreastTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					if(body.getBreastCrotchType().getRace()==Race.HARPY) {
+						body.setBreastCrotchType(null, BreastType.getBreastTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					if(body.getFaceType().getRace()==Race.HARPY) {
+						body.setFaceType(null, FaceType.getFaceTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					if(body.getEyeType().getRace()==Race.HARPY) {
+						body.setEyeType(null, EyeType.getEyeTypeFromId("innoxia_raptor_eye"));
+					}
+					if(body.getEarType().getRace()==Race.HARPY) {
+						body.setEarType(null, EarType.getEarTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					if(body.getHairType().getRace()==Race.HARPY) {
+						body.setHairType(null, HairType.getHairTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					if(body.getLegType().getRace()==Race.HARPY) {
+						body.setLegType(null, LegType.getLegTypeFromId("innoxia_raptor_leg_large"));
+					}
+					if(body.getTorsoType().getRace()==Race.HARPY) {
+						body.setTorsoType(null, TorsoType.getTorsoTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					
+					if(body.getVaginaType().getRace()==Race.HARPY) {
+						body.setVaginaType(null, VaginaType.getVaginaTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					if(body.getPenisType().getRace()==Race.HARPY) {
+						body.setPenisType(null, PenisType.getPenisTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					if(body.getTailType().getRace()==Race.HARPY) {
+						body.setTailType(null, TailType.getTailTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					
+					// coverings:
+					coveringCopyConversion(body, BodyCoveringType.FEATHERS, BodyCoveringType.getBodyCoveringTypeFromId("innoxia_raptor_feathers"));
+					coveringCopyConversion(body, BodyCoveringType.HARPY_SKIN, BodyCoveringType.getBodyCoveringTypeFromId("innoxia_raptor_skin"));
+					coveringCopyConversion(body, BodyCoveringType.BODY_HAIR_HARPY, BodyCoveringType.getBodyCoveringTypeFromId("innoxia_raptor_body_hair"));
+					coveringCopyConversion(body, BodyCoveringType.EYE_HARPY, BodyCoveringType.getBodyCoveringTypeFromId("innoxia_raptor_eye"));
+					coveringCopyConversion(body, BodyCoveringType.HAIR_HARPY, BodyCoveringType.getBodyCoveringTypeFromId("innoxia_raptor_hair"));
+				}
+			}
+		}
+		
+		if(Main.isVersionOlderThan(version, "0.3.0.5")) {
 			body.updateNippleCrotchColouring();
 		}
 		
 		return body;
+	}
+	
+	private static void coveringCopyConversion(Body body, AbstractBodyCoveringType coveringTypeToCopy, AbstractBodyCoveringType newCoveringType) {
+		Covering covering = body.getCovering(coveringTypeToCopy, false);
+		body.setBodyCoveringForXMLImport(newCoveringType,
+				covering.getPattern(),
+				covering.getModifier(),
+				covering.getPrimaryColour(),
+				covering.isPrimaryGlowing(),
+				covering.getSecondaryColour(),
+				covering.isSecondaryGlowing());
+		body.addBodyCoveringTypesDiscovered(newCoveringType);
 	}
 
 	static <T extends Enum<T>> void handleLoadingOfModifiers(T[] enumValues, StringBuilder log, Element modifiersElement, Collection<T> modifiers) {
@@ -3372,12 +3477,24 @@ public class Body implements XMLSaving {
 		return ass;
 	}
 
+	public AbstractAssType getAssType() {
+		return ass.getType();
+	}
+	
 	public Breast getBreast() {
 		return breast;
 	}
 
+	public AbstractBreastType getBreastType() {
+		return breast.getType();
+	}
+	
 	public BreastCrotch getBreastCrotch() {
 		return breastCrotch;
+	}
+
+	public AbstractBreastType getBreastCrotchType() {
+		return breastCrotch.getType();
 	}
 
 	public Face getFace() {
@@ -3390,6 +3507,10 @@ public class Body implements XMLSaving {
 	
 	public Eye getEye() {
 		return eye;
+	}
+
+	public AbstractEyeType getEyeType() {
+		return eye.getType();
 	}
 
 	public Ear getEar() {
@@ -3524,12 +3645,24 @@ public class Body implements XMLSaving {
 		this.ass = ass;
 	}
 
+	public String setAssType(GameCharacter owner, AbstractAssType type) {
+		return this.ass.setType(owner, type);
+	}
+	
 	public void setBreast(Breast breast) {
 		this.breast = breast;
 	}
 
+	public String setBreastType(GameCharacter owner, AbstractBreastType type) {
+		return this.breast.setType(owner, type);
+	}
+
 	public void setBreastCrotch(BreastCrotch breastCrotch) {
 		this.breastCrotch = breastCrotch;
+	}
+
+	public String setBreastCrotchType(GameCharacter owner, AbstractBreastType type) {
+		return this.breastCrotch.setType(owner, type);
 	}
 
 	public void setFace(Face face) {
@@ -3546,6 +3679,10 @@ public class Body implements XMLSaving {
 
 	public void setEye(Eye eye) {
 		this.eye = eye;
+	}
+
+	public String setEyeType(GameCharacter owner, AbstractEyeType type) {
+		return this.eye.setType(owner, type);
 	}
 
 	public void setEar(Ear ear) {

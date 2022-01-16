@@ -2811,7 +2811,7 @@ public class PlaceType {
 	public static final AbstractPlaceType SHOPPING_ARCADE_PIXS_GYM = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Pix's Playground",
-			"A huge, multi-story gym, 'Pix's Playground' is both owned and run by a particularly energetic border-collie-girl.",
+			"A huge, multi-story gym, 'Pix's Playground' is both owned and run by a particularly energetic border collie-girl.",
 			"dominion/shoppingArcade/gym",
 			PresetColour.BASE_GOLD,
 			PixsPlayground.GYM_EXTERIOR,

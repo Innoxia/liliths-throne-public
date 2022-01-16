@@ -2483,8 +2483,8 @@ public class ImpCitadelDialogue {
 						if(isPrisonerFemale()) {
 							c = PresetColour.CLOTHING_BLACK;
 						}
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_CHOKER, c, false), true, getOwner()));
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_choker", c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_wrist_restraints", c, false), true, getOwner()));
 						
 						//TODO siren wants to watch them fuck your face(s)
 						if(getOwner() instanceof FortressFemalesLeader) {
@@ -2535,8 +2535,8 @@ public class ImpCitadelDialogue {
 						if(isPrisonerFemale()) {
 							c = PresetColour.CLOTHING_BROWN_DARK;
 						}
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_CHOKER, c, false), true, getOwner()));
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_choker", c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_wrist_restraints", c, false), true, getOwner()));
 						
 					}
 				};

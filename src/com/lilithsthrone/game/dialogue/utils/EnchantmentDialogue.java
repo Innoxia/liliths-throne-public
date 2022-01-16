@@ -51,6 +51,7 @@ import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.7
@@ -484,7 +485,11 @@ public class EnchantmentDialogue {
 							
 						} else if(ingredient instanceof Tattoo){
 							if(BodyChanging.getTarget().isPlayer()) {
-								return SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS;
+								if(Main.game.getPlayer().getLocationPlaceType()==PlaceType.SHOPPING_ARCADE_KATES_SHOP) {
+									return SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS;
+								} else {
+									return CosmeticsDialogue.BEAUTICIAN_TATTOOS;
+								}
 							} else {
 								return CompanionManagement.SLAVE_MANAGEMENT_TATTOOS;
 							}
@@ -534,7 +539,11 @@ public class EnchantmentDialogue {
 								
 							} else if(previousIngredient instanceof Tattoo) {
 								if(BodyChanging.getTarget().isPlayer()) {
-									Main.game.setContent(new Response("", "", SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS));
+									if(Main.game.getPlayer().getLocationPlaceType()==PlaceType.SHOPPING_ARCADE_KATES_SHOP) {
+										Main.game.setContent(new Response("", "", SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS));
+									} else {
+										Main.game.setContent(new Response("", "", CosmeticsDialogue.BEAUTICIAN_TATTOOS));
+									}
 								} else {
 									Main.game.setContent(new Response("", "", CompanionManagement.SLAVE_MANAGEMENT_TATTOOS));
 								}

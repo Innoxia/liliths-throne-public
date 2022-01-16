@@ -173,7 +173,13 @@ public class OffspringSeed implements XMLSaving {
 			this.body = Main.game.getCharacterUtils().generateBody(template, gender, mother, father);
 		}
 
-		this.subspecies = body.getSubspecies();
+		AbstractRace race;
+		if(this.body.getBodyMaterial()==BodyMaterial.SLIME) {
+        	race = Race.SLIME;
+		} else {
+			race = this.body.getRaceFromPartWeighting();
+		}
+		this.subspecies = AbstractSubspecies.getSubspeciesFromBody(this.body, race);
 
 		//For Imps, don't use any of the demon surnames but just a regular surname
 		if (this.surname.contains("martu") && (this.subspecies==Subspecies.IMP || this.subspecies==Subspecies.IMP_ALPHA)) {

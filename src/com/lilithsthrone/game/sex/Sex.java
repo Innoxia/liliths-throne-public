@@ -893,7 +893,7 @@ public class Sex {
 		// Restore clothes:
 		for(Entry<GameCharacter, Map<InventorySlot, Map<AbstractClothing, List<DisplacementType>>>> entry : clothingPreSexMap.entrySet()) {
 			GameCharacter character = entry.getKey();
-			
+			boolean preWornCondomFound = false;
 			for (Entry<InventorySlot, Map<AbstractClothing, List<DisplacementType>>> entry2 : entry.getValue().entrySet()) {
 				for (AbstractClothing c : entry2.getValue().keySet()) {
 					if(!c.isDiscardedOnUnequip(entry2.getKey()) || c.isMilkingEquipment()) { // Special case for pumps, which are normally discarded on unequip
@@ -930,8 +930,14 @@ public class Sex {
 						} else if(character.getCell().getInventory().hasClothing(dirtyClone) && clothingEquipped==null) { // Try to pick up their clothing if it's still on the floor:
 							character.addClothing(dirtyClone, true);
 						}
+						
+					} else {
+						preWornCondomFound = c.isCondom();
 					}
 				}
+			}
+			if(!preWornCondomFound && character.getClothingInSlot(InventorySlot.PENIS)!=null && character.getClothingInSlot(InventorySlot.PENIS).isCondom()) { // Remove condom if this character was not wearing one when starting sex
+				character.forceUnequipClothingIntoVoid(character, character.getClothingInSlot(InventorySlot.PENIS));
 			}
 		}
 
@@ -6011,9 +6017,13 @@ public class Sex {
 	
 	/**
 	 * This method does <b>not</b> take into account whether the the slot is accessible or not. It only checks for ongoing actions involving the specified slot.<br/>
-	 * It also only accounts for the following slots: <b>ANUS</b>, <b>MOUTH</b>, <b>NIPPLE</b>, <b>PENIS</b>, <b>VAGINA</b>, <b>STOMACH</b>.
+	 * It also only accounts for the following slots: <b>ANUS</b>, <b>MOUTH</b>, <b>NIPPLE</b>, <b>PENIS</b>, <b>VAGINA</b>, <b>STOMACH</b>.<br/>
+	 * Condoms are treated as always being able to be equipped.
 	 */
-	public boolean isClothingEquipAvailable(GameCharacter character, InventorySlot slot) {
+	public boolean isClothingEquipAvailable(GameCharacter character, InventorySlot slot, AbstractClothing clothing) {
+		if(clothing!=null && clothing.isCondom()) {
+			return true;
+		}
 		switch(slot) {
 			case ANUS:
 				return Main.sex.getCharactersHavingOngoingActionWith(character, SexAreaOrifice.ANUS).isEmpty();
@@ -6068,5 +6078,9 @@ public class Sex {
 	
 	public SexType newSexType(SexAreaInterface performingSexArea, SexAreaInterface targetedSexArea) {
 		return new SexType(SexParticipantType.NORMAL, performingSexArea, targetedSexArea);
+	}
+	
+	public void applyGenericPullOutEffects() {
+		GenericOrgasms.applyGenericPullOutEffects(null, null);
 	}
 }

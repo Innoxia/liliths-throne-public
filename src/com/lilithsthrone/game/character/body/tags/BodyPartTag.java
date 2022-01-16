@@ -106,6 +106,12 @@ public enum BodyPartTag {
 	
 	/** Whether this tail unlocks the 'tail swipe' special attack (e.g. alligator or dragon tails) */
 	TAIL_ATTACK,
+
+	/** Whether this tail unlocks poison sting attacks. (Not yet implemented) */
+	TAIL_VENOMOUS_STING,
+
+	/** Whether this tail unlocks lust-applying sting attacks. (Not yet implemented) */
+	TAIL_VENOMOUS_STING_LUST,
 	
 	// Tail types:
 	/** Of a type which is covered in skin. Used for girth descriptors and descriptions. Examples would be demonic, rat.*/

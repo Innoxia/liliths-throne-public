@@ -18,50 +18,278 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Patch notes:
 	
 	Contributors:
-		Fixed issue where characters without vaginas would spawn with the pure virgin fetish. (by Maxis)
-		Implemented new way of handling offspring who haven't yet been met, significantly improving turn time performance and save file size in games in which you have a lot of unmet offspring. (PR#1622 by AceXP)
+		Fixed issue where offspring from demons and non-demons were being generated as the wrong subspecies. (by AceXP)
+		Added 'equipClothingFromOutfitId()' method to CharacterUtils.java, making it easier to equip outfits on npcs in xml files via calls to game.getCharacterUtils().equipClothingFromOutfitId(). (by AceXP)
+	
+	Engine/Modding:
+		Converted all hard-coded BDSM-set, stomach-slot, and 'women's fashionable leather jacket' clothing files to external xml files.
+		Fixed incorrect documentation for the 'sexClothingEquippable' attribute in the commented sex manager, 'meraxis/duel/masturbation.xml'. (This variable defines whether or not the character can equip sex toys on others, while the old, incorrect documentation stated that it defined whether the character could have toys equipped on them.)
+		Added 'clothing' and 'npc' parsing targets for the 'sexClothingEquippable' attribute in xml-defined sex managers.
+		Added 'ROPE' and 'CHAINS' as new immobilisation types (in ImmobilisationType.enum) for use during sex, along with associated status effects.
+	
+	Gameplay:
+		Added sex content for Penelope's spa 'Woolly Heaven', which can be found in Elis's shopping precinct. (There's still some placeholder dialogue in Penelope's scenes, which will be filled in for the next update.)
+		Added 'arctic-wolf-morph' as a subspecies of the wolf-morph race. (To be classified as an arctic-wolf-morph, be detected as a wolf-morph and have white fur.)
+	
+	Clothing:
+		The 'wrist restraints' clothing item from the BDSM set can now be equipped to the ankle slot in addition to the wrists slot.
+		Added stickers to the 'tagged choker' BDSM clothing item to allow you to customise the text on the tag.
+		Added secondary dye colours to 'overbust corset' and 'underbust corset', and secondary and tertiary dye colours to 'fashionable women's leather jacket'.
+	
+	Sex:
+		You can now equip condoms onto unique NPCs in most of their sex scenes. (A few special sex scenes prevent this behaviour, such as Lyssieth's demon TF sex scenes.)
+		Condoms can now be equipped onto a character's penis even if their penis is involved in an ongoing action, so you no longer need to stop ongoing action, apply condom, then restart the action.
+		NPCs now remove condoms that were equipped during sex when sex ends.
+		All speech actions are now available while being immobilised in sex scenes for both the player and NPCs.
+	
+	Other:
+		The 'Random race transformation' potion effect (added via enchanting food with 'core' + 'transformative I' modifiers) no longer tries to apply transformations which have already been applied to the target, so potions with 16 of these effects will now always fully transform a target into the potion's race.
+		'Woolly heaven' is no longer closed during weekends.
+		Standardised hyphenations in the names of several subspecies.
 	
 	Bugs:
-		Parsing fixes.
-		Fixed issue where you could use orgasmic level drain during bad end sex scenes.
-		Fixed (harmless) background errors being thrown when starting a new game, caused by failing to parse vagina types before the game had fully initialised.
-		Your offspring who have been incubated by someone else are now correctly counted as part of the 'Total offspring' count in the phone menu's pregnancy stats screen.
+		Added missing sex actions for the 'humping' sex slot while in the 'over desk' sex position.
+		Fixed issue where you could have vaginal sex with Kazik even if you had no vagina.
+		Fixed issue where in some sex scenes you could swap positions with a character who should have been blocked from accessing your position.
+		Fixed the 'orgasmCumTarget' element in sex managers not working correctly and throwing background errors.
 	
 	
-	[x] Offspring seed PR testing
-		[x] Pre-PR pregnancy save conversion
-			[x] check load, save, load, birth
-		[x] Lilaya birthing
-		[x] Debug offspring screen
-		[x] Encounters
-		[x] Incubation
-			[x] Offspring map check
-		[x] Incubating
-			[x] Offspring map check
-		[x] Offspring starting at 19 instead of 18
-		[x] Slight formatting error at "Rest" when incubation birth
+	[x] Improve random racial TF potion to filter out TFs which will do nothing
+	[x] convert bdsm gear to external files
+		[x] check chastity belt clothing block/conceals
+	[x] tagged choker stickers for text
+		[x] Prefix
+			[x] bound
+			[x] good
+			[x] bad
+			[x] obedient
+			[x] broken
+			[x] worthless
+			[x] cheap
+			[x] dumb
+		[x] Postfix
+			[x] bitch
+			[x] dog
+			[x] pet
+			[x] slut
+			[x] stud
+			[x] cunt
+			[x] whore
+			[x] toy
+	[x] Over desk humping has no sex actions
+	[x] Allow condom-equipping on unique characters
+		[x] remove after sex for them
+	[x] condom greyed out in inventory even though could equip onto partner
+	[x] Can start kazik sex even if have no vagina
+	
+	[] Woolly Heaven
+		[] Spa treatment
+			[x] Spa relaxation
+			[x] Massage
+				[x] Sheep (250)
+					[x] add all to parser targets and to game init
+					[x] Belle Lamb
+						- 19, B-cup boobs, energetic/masochistic, white wool
+						[x] 100 finger you/jerk you off
+						[x] 250 performs oral
+						[x] 500 sex
+						[x] 750 special sex: Table bondage
+							[x] Add a generic bondage immobilisation type
+					[x] Daphne Hogget
+						- 29, D-cup boobs, sensual/eager sub, brown wool
+						[x] 100 finger you/jerk you off
+						[x] 250 performs oral
+						[x] 500 sex
+						[x] 750 special sex: Pet-play
+							[x] Dirty talk override
+					[x] Farah Mutton
+						- 44, F-cup boobs, motherly/gentle dom, black wool
+						[x] 100 finger you/jerk you off
+						[x] 250 performs oral
+						[x] 500 sex
+						[x] 750 special sex: Knock-up
+							[x] She takes a breeder pill
+					[x] Make sure all are taking sterility pills
+				[x] Penelope (1000)
+					[x] As sub:
+						[x] 200 finger you/jerk you off
+						[x] 500 performs oral
+						[x] 1000 sex
+						[x] 1500 special sex: catwalk
+							[x] Can choose from catalogue and then Penelope shows off in front of you before letting you dominantly fuck her
+								[x] 'At the ball' -> Elegant ballgown
+								[x] 'About town' -> Fashionable attire
+								[x] 'Drunken alley' -> Clubbing dress
+								[x] 'Less is more' -> lingerie
+								[x] 'Indulgence' -> latex fetish gear
+					[x] As dom:
+						[x] Reverse massage (no sex)
+						[x] 200 finger you/jerk you off
+						[x] 500 performs oral
+						[x] 1000 sex
+						[x] 1500 special sex: double facial
+							[x] she fucks player's face -> she cums & squirts on face
+					[x] sex managers
+				[x] Add conditionals to all sex options
+					[x] Genital access
+					[x] Mouth access for double facial
+				[x] Test all scenes
+					[x] Penelope massage action name
+					[x] Belle bondage error
+					[x] slot name error
+					[x] txt path incorrect
+					[x] Belle no dirty talk in bondage scene
+						remove UNIQUE_MAX
+						add isAllowedInImmobilisation() method and default to type is speech
+							add override in quick/end sex actions
+					[x] Prevent slot over table for player in Belle bondage &  all fours for player in Daphne pet play
+						[x] Add detection in position change menu for slot limitations
+					[x] need sterility pill at spawn
+					[x] need sex preference reversal for player in handjob & oral scenes
+						[x] test
+					[x] tooltip text bugged for handjob & oral
+					[x] all need to clean selves after sex
+					[x] Belle
+					[x] Daphne
+						[x] Need submissive talk override
+						[x] pet-play should include outfit change
+					[x] Farah
+						[x] position slot bug
+						[x] take sterility after sex
+						[x] After sex she uses preg tester to let you know if you got her pregnant
+							[x] test
+						[x] grey-out fertile sex if pregnant
+						[x] massage variation for if pregnant
+						[x] no corset if pregnant
+						[x] fertile sex preferences
+						[x] orgasmEncourageBehaviours value
+							[x] test
+					[x] Penelope
+						[x] money not subtracted
+						[x] OVER_DESK_ON_BACK error
+						[x] dominant sex options actions not showing
+						[x] money formatting for catwalk option
+						[x] double facial orgasmCumTarget broken
+						[x] need sex highlight for catwalk action
+						[x] give penelope massaged SE for reverse
+						[x] Penelope is rough as dom
+						[x] Double facial player shouldn't have start/stop control
+						[x] need double facial unique orgasm sex action
+							[x] needs to stop ongoing blowjob -> apply applyGenericPullOutEffects(
+					[x] Test handjobs/oral area restrictions (use tail)
+					[x] 'jerking off' change
+				[x] Keep open until midnight
+				[x] Massage options should have extended intro for the first time to fully introduce each sheep-girl
+					[x] Improve Penelope futa reveal
+						[x] Flahes player
+					[x] Intro Farah
+						[x] chubby
+						[x] no corset if pregnant
+			[] Fill in all placeholder text
+				[x] test written scenes for consistency
+				[x] talk topics
+				[x] relaxation
+				[] massage
+					[x] intro
+					[x] belle
+						[x] test
+					[x] daphne
+						[x] test
+					[x] farah
+						[x] test
+						[x] pregnant intro variations
+					[] penelope
+						[] test
 	
 	
-	[x] 'underside of your feral a spider's body'
-	[x] fix incubation total offspring count
-	[x] parsing issues in encourage creampie/pullout
+	[x] add secondary colour:
+		[x] women's fashionable leather jacket (daphne)
+		[x] corset
+		[x] overbust corset
+	[x] arctic wolf subspecies
 	
-	[] Improve random racial TF potion to filter out TFs which will do nothing
+	[] Nipple piercings
+		[] rounded
+		[] square
+	
+	[] Would fully removing offspring interfere with the count of total met and unmet offspring? Not looked fully into that
+	
+	[] Ace PR
+	
+	[] Ace content
+	
+	[] condoms should display name of cum provider and quantity in description
+	
+	[] Wall's End quests:
+		[] Ceridwen
+			[] Offer to help
+				[] She says that she had a succubus security guard who all the mice liked who used to cover the day shift, but she disappeared a while ago
+				[] Asks if you could find out what happened to her
+			[] Quest
+				[] Succubus known to be a heavy drinker in shady tavern
+				[] Add shady tavern
+					[] beer bitches - barrels behind bar have portraits on them
+					[] tile encounter opportunity to start fight (turns into huge brawl)
+						[] lose, can present self and get fucked
+						[] win, can fuck person who started it
+					[] alley tiles mugging encounters
+						[] after beating them, can take them to the shady tavern to be a beer bitch
+						[] can also take to Enforcer station to remove them
+				[] Go there and find out that she'd racked up a huge bill that she couldn't pay (after getting very drunk and fighting a gang who were bragging about mugging people in the alleyways - destroying a lot of the bar in the process)
+				[] She (and the gang) are paying off their bills by being locked up in barrels; their tits are transformed and milked for beer (out of pump-tap); their asses & pussies are stuck out of rear of barrel, and customers who order their 5th pint get to fuck them
+				[] Can either:
+					[] Pay off her tab
+					[] Join her in a barrel to be milked & fucked (for a week)
+					[] Intimidate (leads into fight)
+				[] Succubus thanks you and says that she'll be back at The Barn for tomorrow's shift
+					[] Can find her in the shady tavern again after this
+						[] She gets player to drink with her
+						[] She says how cute mouse-morphs are
+						[] Hits on player (with variation if player is mouse)
+						[] If drink with her too much, she smashes the table and chooses to be a beer bitch rather than pay for it
+			[] Post-quest
+				[] Ceridwen invites player to home (in wood tile in Elis)
+				[] Can have sex
+		[] The Ninth Strike
+			[] Side Quest - The Youko's Secret
+				- Find Youko smith
+				- Convince to teach ninth strike technique to Hale & Imsu
+					- Can make part of the training to have Imsu and Hale TF to female
+			[] Armpit worship (they lick player's armpits before fucking them)
+	
+	
+	[] Gym
+		[] Extremely fit hellhound
+		[] Talk
+			[] Pix's daughter (Pix got carried away while riding an exhausted succubus's cock and got knocked up)
+			[] Worked with Pix for a while, then left to work for aunt at Wall's End, but didn't last long and then opened this gym
+		[] Sex
+			[] sex with cock/pussy focus (can request to grow cock)
+		[] exercise together
+			[] face-fucked/sitting after doing bench press
+			[] eat out/blowjob after sit-ups
+			[] ride cock after squats
+			[] wrestle
+				[] if hellhound wins, she fucks pussy or rides cock
+					[] mating press
+					[] cowgirl
+				[] if player wins, can choose what to do
+					[] mating press
+					[] cowgirl
+	
+	[] Monica milking cow roleplay
+		[] She has old milk maid uniform
+		[] Wears it and can milk/fuck her
+	
+	[] Horse/Pony paraphernalia. All sorts of tack and harnesses are available. Bridles/Halters for the head slot, a Bit and Reins for the mouth, Harness for stomach slot, Blinders for the eye slot, a Feathered Headdress for the head.
+	 tauric bodies, a saddle for the stomach slot, Hoof Boots or Fancy Metal Horse Shoes (in silver, gold, white gold, etc... basically dyable horse shoes for syle purposes) for the foot slot, Splint Boots or Polo Wraps for the calves
 	
 	[] Just have NPCs pick rough, neutral, or gentle based on their sadism preferences.
 	
 	[] Add more NPCs wanting to use condom on player
 	
-	[] cannot egg spinnerets?
-		com/lilithsthrone/game/sex/sexActions/baseActionsMisc/GenericOrgasms.java:3611
-		Disabled action, and I'm fairly sure that some of the dialog for spinneret sex is missing
-	
 	[] adding a milk lover variant to the yummy meal modifier
 		aura-regen rate might be a nifty benefit
-	
-	[] decouple pussy/cock to sub/dom for Lilaya sex
-	
-	[] cannot get blowjob but can get cunnilingus as arachnid in oral behind
 	
 	[] <enchantmentLimit>1000</enchantmentLimit> This does not work. (PR)
 	
@@ -69,22 +297,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		This is because AbstractCombatMove::getBlock is never called for any modded combat moves, it only ever is called for the built-in Block and Resist moves.
 		The bug has apparently been present since 0.3.10, which is when combat move modding was first made available.
 	
-	[] The Barn
-			[] Staffed by generic mouse-boys in day, and a greater female owl-harpy at night (who acts a bit creepy like silently approaching you and asking if you've found what you're after, and turning her head to follow you around the store)
-			[] Add mice
-		[] Owl-girl
-		[] Trade
-		[] Talk
-		[] Work
+	[] if an npc has toeless stockings on during a footjob it describes them pushing the stocking up against the dick
 	
-	
-	
-	[] adding a milk lover variant to the yummy meal modifier
-		aura-regen rate might be a nifty benefit
+	[] NPC modding support
 	
 	[] Natalya encounter without needing Helena quest
-	
-	[] Ace content
 	
 	[] boxing gloves mod
 	[] latex leggings
@@ -99,32 +316,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] requires player to have already finished main quest up to leaving Dominion
 		[] apply minimal completion
 	
-	[] Wall's End
-		[] Woolly Heaven
-				Border-collie-girl (described as being extremely attractive) gave up modelling in Dominion to open this shop.
-					Pix's sister(?)
-				Employees are twin greater sheep-girls
-					They have an annoying habit of starting and finishing one another's sentences
-			[] Sheep-girl twins
-			[] Covering change (kate services)
-			[] Talk
-			[] Spa treatment
-		[] The Ninth Strike
-				2 greater furry male baphomets who hold a serious grudge against Lunette. (Not related to one another)
-					They were competing blacksmiths in two villages, who were extremely well-renowned and always in high demand
-					Their villages were the first to be destroyed by Lunette, and they lost everything
-					Managed to escape and forged a pact to get their revenge on Lunette
-				They are trying to discover the technique which the Youko are said to possess, whereby working an enchantment into a weapon in nine strikes (hence the name) can make a weapon powerful enough to defeat Lunette
-			[] Imsu & Hale
-			[] Trade
-			[] Talk
-			[] Side Quest - The Youko's Secret
-				- Find Youko smith
-				- Convince to teach ninth strike technique to Hale & Imsu
-				- Youko moves to Elis shop
-				- Can get baphomets TF'd to female
-			[] Armpit worship (they lick player's armpits before fucking them)
-	
 	[] Add consumable item 'Amazonian's Secret': For 24 hours, when orgasming during a tribbing action, there's a chance to impregnate your partner (chance uses fertility instead of virility)
 	
 	[] hand holding sex action
@@ -136,6 +327,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] Need a place to deliver pregnancy in Elis
 		[] Medical centre
 			[] Incubus & succubus doctors
+	
+	[] expand pregnancy content for slaves and friendly occupants
 	
 	[] Sex additions:
 		[] Finger urethra insertion

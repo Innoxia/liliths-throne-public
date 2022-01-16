@@ -183,7 +183,7 @@
 	
 	<htmlContent tag="BAR_DRINK_BEER"><![CDATA[
 	<p>
-		Feeling thirsty, you ask Kheiron for a pint of beer. Grabbing a clean glass, he opens one of the arcane fridges positioned behind the bar and produces a bottle of 'Canine Crush'. Using his large fingers to operate a bottle opener, he pops off the cap and pours the alcoholic beverage into the glass, saying, [kheiron.speech(That'll be forty flames, please.)]
+		Feeling thirsty, you ask Kheiron for a pint of beer. Grabbing a clean glass, he places it under the tap and pours the alcoholic beverage, 'Canine Crush', into it, before placing your pint down on the bar and saying, [kheiron.speech(That'll be forty flames, please.)]
 	</p>
 	<p>
 		Handing over the forty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
@@ -193,7 +193,7 @@
 	
 	<htmlContent tag="BAR_DRINK_CIDER"><![CDATA[
 	<p>
-		Feeling thirsty, you ask Kheiron for a pint of cider. Grabbing a clean glass, he opens one of the arcane fridges positioned behind the bar and produces a bottle of 'Equine Cider'. Using his large fingers to operate a bottle opener, he pops off the cap and pours the alcoholic beverage into the glass, saying, [kheiron.speech(That'll be forty flames, please.)]
+		Feeling thirsty, you ask Kheiron for a pint of cider. Grabbing a clean glass, he places it under the tap and pours the alcoholic beverage, 'Equine Cider', into it, before placing your pint down on the bar and saying, [kheiron.speech(That'll be forty flames, please.)]
 	</p>
 	<p>
 		Handing over the forty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
