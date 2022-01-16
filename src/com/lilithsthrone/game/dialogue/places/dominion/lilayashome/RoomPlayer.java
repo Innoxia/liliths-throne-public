@@ -889,7 +889,7 @@ public class RoomPlayer {
 					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
 						sb.append("an impressively-endowed "+Subspecies.HORSE_MORPH.getSingularMaleName(null)+", who's flexing his muscles as he presents his fully-erect flared cock to you.");
 					} else {
-						sb.append("a fit "+Subspecies.HORSE_MORPH.getPluralFemaleName(null)+", who's leaning against a fence, flicking her tail to one side in order to present her animalistic-pussy to you.");
+						sb.append("a fit "+Subspecies.HORSE_MORPH.getSingularFemaleName(null)+", who's leaning against a fence, flicking her tail to one side in order to present her animalistic-pussy to you.");
 					}
 					break;
 				case AUGUST:
@@ -920,7 +920,7 @@ public class RoomPlayer {
 					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
 						sb.append("an energetic-looking "+Subspecies.DOG_MORPH.getSingularMaleName(null)+", who's smiling at you as he strokes his erect, knotted dog-cock.");
 					} else {
-						sb.append("an excited-looking "+Subspecies.DOG_MORPH.getPluralFemaleName(null)+", who's down on all fours, raising her hips in order to present you with her wet pussy.");
+						sb.append("an excited-looking "+Subspecies.DOG_MORPH.getSingularFemaleName(null)+", who's down on all fours, raising her hips in order to present you with her wet pussy.");
 					}
 					break;
 				case DECEMBER:

@@ -822,7 +822,7 @@ public class DebugDialogue {
 			}
 			for(OffspringSeed os : Main.game.getOffspringNotSpawned(os -> true,true)) {
 				UtilText.nodeContentSB.append("Not yet"+(os.isBorn()?" met ":" born ")+"<span style='color:"+os.getFemininity().getColour().toWebHexString()+";'>"+os.getName()+"</span>"
-						+ " ("+os.getSubspecies().getName(null)+" | "+os.getHalfDemonSubspecies().getName(null)+")"
+						+ " ("+os.getSubspecies().getName(os.getBody())+" | "+os.getHalfDemonSubspecies().getName(os.getBody())+")"
 						+ " M:"+(os.getMother()!=null?os.getMother().getName(true):"Deleted NPC")
 						+ " F:"+(os.getFather()!=null?os.getFather().getName(true):"Deleted NPC")+"<br/>");
 			}

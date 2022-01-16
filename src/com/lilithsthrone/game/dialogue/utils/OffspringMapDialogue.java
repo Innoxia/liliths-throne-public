@@ -85,7 +85,7 @@ public class OffspringMapDialogue {
 						unknownFatherName = os.getFatherName();
 					}
 					
-					UtilText.nodeContentSB.append(" (<span style='color:"+os.getSubspecies().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(os.getSubspecies().getName(null))+"</span>)"
+					UtilText.nodeContentSB.append(" (<span style='color:"+os.getSubspecies().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(os.getSubspecies().getName(os.getBody()))+"</span>)"
 							+ " Mother: "+(os.getMother()==null?unknownMotherName:(os.getMother().isPlayer()?"[style.colourExcellent(You)]":os.getMother().getName(true)))
 							+ " Father: "+(os.getFather()==null?unknownFatherName:(os.getFather().isPlayer()?"[style.colourExcellent(You)]":os.getFather().getName(true)))
 							+ "<br/>");
@@ -110,7 +110,7 @@ public class OffspringMapDialogue {
 						unknownFatherName = os.getFatherName();
 					}
 					
-					UtilText.nodeContentSB.append(" (<span style='color:"+os.getSubspecies().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(os.getSubspecies().getName(null))+"</span>)"
+					UtilText.nodeContentSB.append(" (<span style='color:"+os.getSubspecies().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(os.getSubspecies().getName(os.getBody()))+"</span>)"
 							+ " Mother: "+(os.getMother()==null?unknownMotherName:(os.getMother().isPlayer()?"[style.colourExcellent(You)]":os.getMother().getName(true)))
 							+ " Father: "+(os.getFather()==null?unknownFatherName:(os.getFather().isPlayer()?"[style.colourExcellent(You)]":os.getFather().getName(true)))
 							+ "<br/>");
