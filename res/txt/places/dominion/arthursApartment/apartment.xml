@@ -6,7 +6,7 @@
 	<htmlContent tag="DEMON_HOME_ARTHURS_APARTMENT"><![CDATA[
 	#IF(pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_B_DEMON_HOME)
 		<p>
-			Following Lilaya's instructions, you soon find yourself standing outside the building which houses Arthur's apartment. Carved into the stone edifice just above the entrance are the words 'Sawlty Towers' which you assume must be the name of this building Although it's just as impressive as most of the other buildings in Demon Home, it's nothing compared to Lilaya's house, and as you walk up to the entrance, you find yourself reflecting on how lucky you were to have ended up living with this reality's version of your aunt Lily.
+			Following Lilaya's instructions, you soon find yourself standing outside the building which houses Arthur's apartment. Carved into the stone edifice just above the entrance are the words 'Sawlty Towers' which you assume must be the name of this building. Although it's just as impressive as most of the other buildings in Demon Home, it's nothing compared to Lilaya's house, and as you walk up to the entrance, you find yourself reflecting on how lucky you were to have ended up living with this reality's version of your aunt Lily.
 		</p>
 		<p>
 			The front door is unlocked, and as you step into the foyer, you see that this place looks more like a five-star hotel than an apartment building. The luxurious carpeting, fine paintings and crystal chandeliers all contribute to giving the impression that the apartments here are very exclusive, and very expensive. Although there's a front desk, the place seems to be deserted, but fortunately there's a sign on a nearby wall that lists the building's occupants  and their respective room numbers. You see that Arthur lives on the first floor, in room five.
