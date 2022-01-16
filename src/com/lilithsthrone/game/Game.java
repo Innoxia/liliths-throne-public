@@ -4600,6 +4600,19 @@ public class Game implements XMLSaving {
 				npc.removeSlave(c);
 			}
 		}
+		// Use separate loops so that we only check if the banished npc isUnique once
+		if(npc.isUnique()) {
+			for(NPC loopNpc : Main.game.getAllNPCs()) {
+				loopNpc.setAllAreasKnownByCharacter(npc, false);
+			}
+		} else {
+			for(NPC loopNpc : Main.game.getAllNPCs()) {
+				loopNpc.setAllAreasKnownByCharacter(npc, false);
+				if(loopNpc.isUnique()) {
+					loopNpc.setAffection(npc, 0f);
+				}
+			}
+		}
 		
 		// TODO This needs more thorough testing...
 //				Main.game.getPlayer().getTotalTimesHadSex(npc) > 0
@@ -4615,6 +4628,12 @@ public class Game implements XMLSaving {
 			// Remove unnecessary data from banished NPCs
 			npc.resetInventory(true);
 			npc.resetAllPregnancyReactions();
+			npc.resetPerksMap(false);
+			npc.clearFetishes();
+			npc.clearFetishDesires();
+			npc.clearEquippedMoves();
+			npc.clearAddictions();
+			npc.clearAllLipstickMarkings();
 			for(CoverableArea area : CoverableArea.values()) {
 				npc.resetAreaKnownByCharacters(area);
 			}

@@ -4707,7 +4707,11 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void setAffection(String id, float affection) {
-		affectionMap.put(id, Math.max(-100, Math.min(100, affection)));
+		if(affection == 0f) {
+			affectionMap.remove(id);
+		} else {
+			affectionMap.put(id, Math.max(-100, Math.min(100, affection)));
+		}
 	}
 
 	public String incrementAffection(GameCharacter character, float affectionIncrement) {
@@ -6688,8 +6692,12 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String setFetishDesire(Fetish fetish, FetishDesire desire, boolean shortDescription) {
-		if(fetishDesireMap.get(fetish)!=desire) {
-			fetishDesireMap.put(fetish, desire);
+		if(fetishDesireMap.getOrDefault(fetish, FetishDesire.TWO_NEUTRAL)!=desire) {
+			if(desire==FetishDesire.TWO_NEUTRAL) {
+				fetishDesireMap.remove(fetish);
+			} else {
+				fetishDesireMap.put(fetish, desire);
+			}
 			if(!Main.game.isStarted() || this.getBody()==null) {
 				return "";
 			}
