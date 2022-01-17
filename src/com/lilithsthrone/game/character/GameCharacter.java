@@ -3303,7 +3303,11 @@ public abstract class GameCharacter implements XMLSaving {
 					"See error.log for details"), false);
 		}
 	}
-	
+
+    public void updateImages() {
+            loadImages(true);
+    }
+
 	public abstract boolean isUnique();
 
 	public boolean isElemental() {
@@ -3407,6 +3411,7 @@ public abstract class GameCharacter implements XMLSaving {
 										? ""
 										: "<p style='margin-top:50%; font-weight:bold; color:"+PresetColour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
 								+ "</div>"
+                                + (artwork.getArtist().getName().equals("Custom")?"<div class='title-button' id='ARTWORK_DELETE' style='background:transparent; left:auto; right:52px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div>":"")
 								+ "<div class='title-button' id='ARTWORK_ADD' style='background:transparent; left:auto; right:28px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getAddIcon()+"</div>"
 								+ "<div class='title-button' id='ARTWORK_INFO' style='background:transparent; left:auto; right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
 							+ "</div>"
