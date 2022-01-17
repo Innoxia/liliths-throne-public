@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tail>
+	<race>innoxia_panther</race>
+	
+	<transformationName><![CDATA[manticore]]></transformationName>
+	
+	<coveringType>mintychip_panther_chitin</coveringType>
+	
+	<spinneret>false</spinneret>
+	
+	<defaultGirth>3</defaultGirth>
+	
+	<defaultLengthAsPercentageOfHeight>0.6</defaultLengthAsPercentageOfHeight>
+	
+	<tags>
+		<tag>TAIL_NEVER_SUITABLE_FOR_PENETRATION</tag>
+		<tag>TAIL_PREHENSILE</tag>
+		<tag>TAIL_TAPERING_NONE</tag>
+		<tag>TAIL_TYPE_GENERIC</tag>
+		<tag>TAIL_SLEEP_HUGGING</tag>
+		<tag>TAIL_VENOMOUS_STING_LUST</tag>
+	</tags>
+	
+	<determiner><![CDATA[]]></determiner>
+	<determinerPlural><![CDATA[]]></determinerPlural> 
+	
+	<name><![CDATA[tail]]></name>
+	<namePlural><![CDATA[tails]]></namePlural> 
+	
+	<descriptorsMasculine>
+		<descriptor>manticore</descriptor>
+		<descriptor>chitinous</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>manticore</descriptor>
+		<descriptor>chitinous</descriptor>
+	</descriptorsFeminine>
+	
+	<tipName><![CDATA[tip]]></tipName>
+	<tipNamePlural><![CDATA[tips]]></tipNamePlural>
+	<tipDescriptorsMasculine>
+		<descriptor>venomous</descriptor>
+	</tipDescriptorsMasculine>
+	<tipDescriptorsFeminine>
+		<descriptor>venomous</descriptor>
+	</tipDescriptorsFeminine>
+	
+	<transformationDescription><![CDATA[
+		#IF(npc.getTailCount()==1)
+			A chitinous, manticore-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about [npc.tailLength] long. [npc.She] quickly [npc.verb(realise)] that the stinger is venomous.
+			<br/>[npc.Name] now [npc.has] a [style.boldPanther(manticore-like tail)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+		#ELSE
+			[npc.TailCount] chitinous, manticore-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about [npc.tailLength] long. [npc.She] quickly [npc.verb(realise)] that the stingers are venomous.
+			<br/>[npc.Name] now [npc.has] [npc.tailCount] [style.boldPanther(manticore-like tails)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+		#ENDIF
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		Growing out from just above [npc.her] ass, [npc.sheHasFull]
+		#IF(npc.getTailCount()==1)
+			 a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] manticore tail, which is tipped with a stinger almost dripping with aphrodisiac vemon.
+		#ELSE
+			 [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] manticore tails, which are tipped with stingers almost dripping with aphrodisiac venom.
+		#ENDIF
+	]]></bodyDescription>
+	
+</tail>

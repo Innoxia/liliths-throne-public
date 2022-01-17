@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<bookText>
+	
+	<htmlContent tag="CHIMERA_BASIC"><![CDATA[
+	<p>
+		While mostly similar to other panther-morphs, chimeras, as they are colloquially known, differ by having disticntly non-feline-like features. Sphinx-morphs have great, bird-like wings while manticore-morphs have a venomous, scorpion-like tail and usually bat-like wings.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="CHIMERA_ADVANCED"><![CDATA[
+	<p>
+		While chimeras' personalities vary wildly from person to person, they do have some typical characteristics. Like panther-morphs, they are usually quite dominant in their mannerisms, and although they often try to hide it, they can get extremely curious about things they haven't encountered before. Most chimeras will not back away from a fight, and are willing to use force to settle arguements if necessary.
+	</p>
+	<p>
+		While sphinx-morphs might have enough arcane stength to resist arcane storms, manticore-morphs will likely fall prey to the same urges as most other panther-morphs.
+	</p>
+	<p>
+		A chimera's offspring will be a mixture of chimeras and offspring of their partner's race.
+	</p>
+	]]>
+	</htmlContent>
+	
+</bookText>
