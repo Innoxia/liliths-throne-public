@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<bookText>
+	
+	<htmlContent tag="DEER_BASIC"><![CDATA[
+	<p>
+		Deer-morphs are mainly found in the fields and woodlands of the Lilith's Realm while moose-morphs tend to stick to the cold mountains. However, it is not uncommon for one to be seen in Dominion or Elis. Rounded ears, doe-eyed faces, and a fluffy tail are usually enough to identify a person as a cervid-morph.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEER_ADVANCED"><![CDATA[
+	<p>
+		Cervid-morphs are split into two distinct subspecies: deer-morphs and moose-morphs. Though they have a reputation for skittishness, deer-morphs are, for the most part, very friendly to those they don't find threatening. 
+	</p>
+	<p>
+		By contrast, moose-morphs are generally solitary people and will often stick to rural areas rather than the larger cities. 
+	</p>
+	<p>
+		Like most other races, cervid-morphs get affected by arcane storms. However, due to the fact that most of them live far away from Dominion's epicentre of such storms, they typically only experience mild effects. Those that are within range will enter eithe rut or heat depending on their sex.
+	</p>
+	<p>
+		A cervid-morph's offspring will be a mixture of cervid-morphs and offspring of their partner's race.
+	</p>
+	]]>
+	</htmlContent>
+	
+</bookText>
