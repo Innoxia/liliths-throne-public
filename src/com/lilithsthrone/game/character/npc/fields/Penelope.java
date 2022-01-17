@@ -391,7 +391,11 @@ public class Penelope extends NPC {
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_eye_aviators", PresetColour.CLOTHING_GOLD, false), true, this);
 
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_hair_accessories_hair_scrunchie", PresetColour.CLOTHING_WHITE, false), true, this);
+		if(Main.game.isFurryHairEnabled()) {
+			AbstractClothing scrunchie = Main.game.getItemGen().generateClothing("norin_hair_accessories_hair_scrunchie", PresetColour.CLOTHING_WHITE, false);
+			scrunchie.setPattern(Pattern.getPatternIdByName("none"));
+			this.equipClothingFromNowhere(scrunchie, true, this);
+		}
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_blouse", PresetColour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_tight_jeans", PresetColour.CLOTHING_BLUE_GREY, false), true, this);
@@ -450,8 +454,10 @@ public class Penelope extends NPC {
 	public void equipOutfitLatex() {
 		this.unequipAllClothingIntoVoid(true, true);
 		this.setHairStyle(HairStyle.BUN);
-		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_hair_accessories_hair_sticks", PresetColour.CLOTHING_RED_BRIGHT, false), true, this);
+
+		if(Main.game.isFurryHairEnabled()) {
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_hair_accessories_hair_sticks", PresetColour.CLOTHING_RED_BRIGHT, false), true, this);
+		}
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_croptop", PresetColour.CLOTHING_RED_BRIGHT, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_corset", PresetColour.CLOTHING_RED_BRIGHT, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_stiletto_heels", PresetColour.CLOTHING_RED_BRIGHT, false), true, this);

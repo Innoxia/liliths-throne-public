@@ -827,43 +827,70 @@
 	
 	<htmlContent tag="MASSAGE_PENELOPE_START"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
+		Wanting to personally receive a massage from Penelope herself, you hand the beautiful border collie-girl the seven hundred and fifty flames which she's asked for and tell her that you've chosen her. Telling Daphne to take over at the reception desk, Penelope dismisses the other two sheep-girls with a wave of her paw-like hand, before smiling at you and teasing, [penelope.speech(You've got a thing for girls with cocks, huh? Or maybe it's my pussy you're after...)]
 	</p>
 	<p>
-		You choose Penelope and pay her the extra 750 flames she's asked for. She leads you into a massage room and asks you to strip and lie back on the massage table (variation for if player is taur).
+		Not giving you a chance to respond, the border collie-girl turns around and sets off down the corridor behind the counter, gesturing for you to follow along after her as she does so. [pc.Stepping] past Penelope, you tag along behind the spa's owner, and can't help but watch her ass and tail sway from side to side as she struts down the corridor to her room. A moment later, and she's closing the door behind you as you take a look around the room in which you're to receive your massage. 
 	</p>
 	<p>
-		You do as Penelope asks, after which she starts giving you a massage. After a few minutes, she informs you of her special services, which includes a handjob/fingering, giving you oral, or having full sex, each of which either as the dom or sub. Continuing to massage your body, she tells you of her two special services; she gets you to perform oral on her and then cums and squirts over your face for a 'double facial'; she performs a mock fashion show for you while wearing one of five outfits of your choice, after which you can fuck her while she's still wearing that outfit.
+		Just like the reception area, this massage room has been furnished in a modern, trendy style. The floor consists of the same polished wooden floorboards which are found throughout the rest of the establishment, and on all four sides the pale pink walls are illuminated via oversized light bulbs which hang down from the high ceiling. Industrial-style shelving covers one wall, and is filled with all manner of potted plants, miscellaneous ornaments, and beauty products. Wooden blinds cover the window that's set into the opposite wall, granting you and Penelope total privacy for what's about to happen on the large, modular massage table that's located right in the centre of the room.
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			[penelope.speech(Please wait for one moment while I adjust the table to fit your body type,)]
+		#ELSE
+			[penelope.speech(Please wait for one moment while I adjust the table to fit your height,)]
+		#ENDIF
+		 Penelope asks, before stepping over to the massage table and bending over to adjust some of its padded surfaces. After she's finished, she gestures to the table and smiles at you as she instructs, [penelope.speech(If you'll please strip naked and lie down on here, then I'll start your massage right away.)]
+	</p>
+	<p>
+		Doing as Penelope asks, you strip naked for her, and after you've lain down on the massage table, she places her soft hands on your torso and starts to firmly massage your muscles. It very quickly becomes apparent that Penelope is an outstanding masseuse, as you almost immediately find yourself melting in pleasure under the pressure which she applies to every part of your body.
+	</p>
+	<p>
+		After almost ten minutes have flown by in this manner, the border collie-girl lets out a quiet, horny moan, before asking, [penelope.speech(So, do you want the rest of your massage, or would you prefer to purchase one of my special services instead? I can offer you a groin 'massage' for two hundred flames, an oral 'massage' for five hundred, or we can fuck for a thousand. I'm a bit of a switch, so just let me know if you'd prefer me to be submissive or to take control...)]
+	</p>
+	<p>
+		Pausing your massage for a moment, Penelope playfully teases her paw-like fingers over your body and offers, [penelope.speech(I can also give you one of my other very special services, both of which cost one thousand five hundred flames. One of these is where I give you what I like to call a double facial; I get you to eat me out then suck my cock, and then I cum and squirt all over your face...)]
+	</p>
+	<p>
+		Letting out a playfully laugh as she pointedly traces her fingers down over the growing bulge that's poking out beneath the bottom of her virgin-killer sweater, the border collie-girl finishes by explaining, [penelope.speech(The final thing I offer is to give you a little mock fashion show. I've got five of my favourite outfits from my time working as a model, and I can show one of these off to you before letting you fuck me while I'm still wearing it... So, what'll it be?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MASSAGE_PENELOPE_CONTINUE"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
+		Not wanting this massage session to turn into anything sexual, you tell Penelope that you don't want to purchase any of her special services. Professionally nodding as she hears you say this, she states, [penelope.speech(Very good, [pc.sir]. Now please relax while I give you the rest of your massage...)]
 	</p>
 	<p>
-		You tell Penelope that you only want a massage. She is disappointed, but continues.
+		With that, the beautiful border collie-girl flashes you a warm smile, before pressing her hands down into your torso and continuing to give you your massage. Working her hands all over your body, she once again demonstrates her proficiency at her job, and within just a matter of moments you find yourself letting out a steady stream of satisfied hums and sighs...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MASSAGE_PENELOPE_HANDS"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
-	</p>
-	<p>
-		You tell Penelope that you want her to give you a special groin 'massage'. She smirks and teases her hands down to your genitals.
+		Liking the sound of having Penelope's hands focused on your
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				 cock and pussy,
+			#ELSE
+				 cock,
+			#ENDIF
+		#ELSE
+			 pussy,
+		#ENDIF
+		 you tell her that you want her to give you a submissive groin 'massage', before handing over the two hundred flames which she's asked for. Letting out a horny moan, the beautiful border collie-girl safely stores your money in a nearby cabinet, before stepping back towards you and kneeling down before your groin. Teasing her fingers down towards your genitals, she gives you a sly look and lustfully sighs, [penelope.speech(Please relax and enjoy this, [pc.sir]... I'll make this good for you...)]
 	</p>
 	<p>
 		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
 			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-				Gripping your hard cock in one hand, she slides her other down to your cunt, before pushing her fingers into your twat and starting to finger you while simultaneously giving you a handjob.
+				Taking hold of your hard cock in one hand, Penelope starts to slide her fingers up and down around your throbbing length, letting out erotic moans as she does so. After a few strokes, she starts to move her free hand towards your pussy, and once it's there, she eagerly slides her fingers into your cunt and starts to finger you while simultaneously continuing to give you a handjob. With both of your sexual organs being stimulated in this manner, you quickly find yourself letting out a series of [pc.moans+], much to the delight of the border collie-girl, who happily teases, [penelope.speech(That's it, let me take care of you... ~Mmm!~ You'll be climaxing for me soon enough...)]
 			#ELSE
-				Gripping your hard cock in one hand, she lets out an eager moan and starts giving you a handjob.
+				Taking hold of your hard cock in one hand, Penelope starts to eagerly slide her fingers up and down around your throbbing length, letting out erotic moans as she does so. With your [pc.cock+] being stimulated in this manner, you quickly find yourself letting out a series of [pc.moans+], much to the delight of the border collie-girl, who happily teases, [penelope.speech(That's it, let me take care of you... ~Mmm!~ You'll be cumming soon enough...)]
 			#ENDIF
 		#ELSE
-			She slides her hand down to your cunt, before pushing her fingers into your twat and letting out an eager moan as she starts to finger you. 
+			After teasing her fingers up and down over your [pc.labia+], Penelope pauses for a moment to play with your clit, before sliding her fingers into your cunt and starting to eagerly finger you. With your [pc.pussy+] being stimulated in this manner, you quickly find yourself letting out a series of [pc.moans+], much to the delight of the border collie-girl, who happily teases, [penelope.speech(That's it, let me take care of you... ~Mmm!~ You'll be climaxing soon enough...)]
 		#ENDIF
 	</p>
 	]]>
@@ -871,20 +898,22 @@
 	
 	<htmlContent tag="MASSAGE_PENELOPE_ORAL"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
-	</p>
-	<p>
-		You tell Penelope that you want her to give you a special oral 'massage'. She smirks and drops her head down to your genitals.
+		Liking the sound of having Penelope continue her massage with her mouth, you tell her that you want her to give you a submissive oral 'massage', before handing over the five hundred flames which she's asked for. Letting out an excited moan, the beautiful border collie-girl safely stores your money in a nearby cabinet, before stepping back towards you and kneeling down before your groin. Leaning forwards so that you can feel her hot breath on your
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				 cock and pussy, Penelope gives you a sly look and lustfully sighs, [penelope.speech(Please relax and enjoy this, [pc.sir]... I'll make this good for you... Oh, and do let me know if you want me to switch to eating you out...)]
+			#ELSE
+				 cock, Penelope gives you a sly look and lustfully sighs, [penelope.speech(Please relax and enjoy this, [pc.sir]... I'll make this good for you...)]
+			#ENDIF
+		#ELSE
+			 pussy, Penelope gives you a sly look and lustfully sighs, [penelope.speech(Please relax and enjoy this, [pc.sir]... I'll make this good for you...)]
+		#ENDIF
 	</p>
 	<p>
 		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
-			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-				After telling you that she'll switch to eating you out whenever you want, she opens wide and takes your cock into her mouth, before starting to give you a blowjob.
-			#ELSE
-				She opens wide and takes your cock into her mouth, before starting to give you a blowjob.
-			#ENDIF
+			Parting her lips, Penelope darts out her tongue and delivers a long, wet lick up the underside of your hard cock, before opening wide and taking your [pc.cockHead+] into her mouth. Letting out horny, muffled moans, she starts rapidly bobbing her head up and down as she gives you a submissive blowjob. As you feel your [pc.cock+] being taken deep down the beautiful beautiful border collie-girl's tight, wet throat, you quickly find yourself letting out a series of [pc.moans+], which encourages her to suddenly deepthroat you. After gazing lovingly up into your eyes for a moment, she pulls her head up and wetly sucks the [pc.cockHead+] of your [pc.cock+], before continuing to give you head...
 		#ELSE
-			She leans forwards and gives your clit a quick kiss, before pushing her tongue into your twat and starting to eat you out. 
+			After leaning in to plant a big, wet kiss on your [pc.clit+], Penelope darts out her tongue and delivers a series of long, wet licks to your [pc.labia+]. Letting out horny, muffled moans, she then presses her face into your groin and starts greedily pushing her tongue into your [pc.pussy+]. As the beautiful border collie-girl starts to submissively perform cunnilingus, you quickly find yourself letting out a series of [pc.moans+], which encourages her to press her face into your cunt and slide her tongue as deep as possible into your hot, wet pussy. After gazing lovingly up into your eyes for a moment, she pulls back and lifts her head up to wetly suck on your [pc.clit+], before continuing to eat you out...
 		#ENDIF
 	</p>
 	]]>
@@ -892,40 +921,53 @@
 	
 	<htmlContent tag="MASSAGE_PENELOPE_SEX"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
+		Wanting to have a session of full-on sex with Penelope, you give her a thousand flames and tell her that you're going to dominantly fuck her. Letting out a hungry moan, the beautiful border collie-girl safely stores your money in a nearby cabinet as you get up from the massage table and prepare to get started.
 	</p>
 	<p>
-		You tell Penelope that you want to fuck her. She smirks and gets you to trade places with her. Submissively lying back on the massage table, she tells you to give her a good fuck. 
+		[penelope.speech(I'll be a good girl for you,)] Penelope moans as she lies back on the table that you've just vacated. Spreading her legs, she reaches down to her exposed pussy and uses two of her digits to spread her [penelope.labia+]. Lewdly presenting her [penelope.pussyCapacity] cunt to you, she uses her other hand to tease her rapidly-hardening dog-cock, before biting her lip and submissively whining, [penelope.speech(My pussy's getting hot and wet at the thought of getting you to fuck it... ~Mmm!~ My cock's desperate to be used as well... Please, [pc.sir], fuck me!)]
+	</p>
+	<p>
+		[pc.Stepping] forwards and preparing to take advantage of Penelope's submissive position, you wonder how best to start...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MASSAGE_PENELOPE_CONTINUE_REVERSAL"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
+		Wanting to submit to Penelope, you tell her that you want the massage to continue, but that you want to reverse the roles and be the one massaging her. Smirking as she hears this, the beautiful border collie-girl teases, [penelope.speech(You want to feel me up, huh? Sure, that's fine with me. Get up then, so that we can swap places.)]
 	</p>
 	<p>
-		You tell Penelope that you want the massage to continue, but you want to be the one massaging her. She smirks and assumes a dominant personality, before ordering you to switch places with her. You obey and proceed to give her a massage.
+		Hurrying to obey, you stand up and vacate the massage table, allowing Penelope to take your place and lie down on the padded surface. Letting out a soft sigh, she dominantly commands, [penelope.speech(Get started then; I don't have all day.)]
+	</p>
+	<p>
+		Once more hastening to carry out Penelope's orders, you press your [pc.hands] down on her furry body and start to give her a massage...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MASSAGE_PENELOPE_HANDS_AS_DOM"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
-	</p>
-	<p>
-		You tell Penelope that you want her to give you a special groin 'massage'. She smirks and teases her hands down to your genitals.
+		Liking the sound of having Penelope's hands focused on your
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				 cock and pussy,
+			#ELSE
+				 cock,
+			#ENDIF
+		#ELSE
+			 pussy,
+		#ENDIF
+		 you tell her that you want her to give you a dominant groin 'massage', before handing over the two hundred flames which she's asked for. Letting out a horny moan, the beautiful border collie-girl safely stores your money in a nearby cabinet, before stepping back towards you and kneeling down before your groin. Teasing her fingers down towards your genitals, she gives you a sly look and lustfully sighs, [penelope.speech(Please relax and enjoy this, [pc.sir]... I'll make this good for you...)]
 	</p>
 	<p>
 		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
 			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-				Dominantly gripping your hard cock in one hand, she slides her other down to your cunt, before pushing her fingers into your twat and starting to finger you while simultaneously giving you a handjob.
+				Dominantly taking hold of your hard cock in one hand, the sheep-girl starts to slide her fingers up and down around your throbbing length, letting out erotic moans as she does so. After a few strokes, she starts to move her free hand towards your pussy, and once it's there, she eagerly slides her fingers into your cunt and starts to finger you while simultaneously continuing to give you a handjob. With both of your sexual organs being stimulated in this manner, you quickly find yourself letting out a series of [pc.moans+], much to the delight of Penelope, who happily teases, [penelope.speech(That's it, let me take care of you... ~Mmm!~ You'll be climaxing for me soon enough...)]
 			#ELSE
-				Dominantly gripping your hard cock in one hand, she lets out an eager moan and starts giving you a handjob.
+				Dominantly taking hold of your hard cock in one hand, the sheep-girl starts to eagerly slide her fingers up and down around your throbbing length, letting out erotic moans as she does so. With your [pc.cock+] being stimulated in this manner, you quickly find yourself letting out a series of [pc.moans+], much to the delight of Penelope, who happily teases, [penelope.speech(That's it, let me take care of you... ~Mmm!~ You'll be cumming soon enough...)]
 			#ENDIF
 		#ELSE
-			She slides her hand down to your cunt, before pushing her fingers into your twat and letting out an eager moan as she starts to dominantly finger you. 
+			After dominantly teasing her fingers up and down over your [pc.labia+], the sheep-girl pauses for a moment to play with your clit, before eagerly sliding her fingers into your cunt and starting to finger you. With your [pc.pussy+] being stimulated in this manner, you quickly find yourself letting out a series of [pc.moans+], much to the delight of Penelope, who happily teases, [penelope.speech(That's it, let me take care of you... ~Mmm!~ You'll be climaxing soon enough...)]
 		#ENDIF
 	</p>
 	]]>
@@ -933,20 +975,22 @@
 	
 	<htmlContent tag="MASSAGE_PENELOPE_ORAL_AS_DOM"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
-	</p>
-	<p>
-		You tell Penelope that you want her to give you a special oral 'massage'. She smirks and drops her head down to your genitals.
+		Liking the sound of having Penelope continue her massage with her mouth, you tell her that you want her to give you a dominant oral 'massage', before handing over the five hundred flames which she's asked for. Letting out an excited moan, the beautiful border collie-girl safely stores your money in a nearby cabinet, before stepping back towards you and kneeling down before your groin. Leaning forwards so that you can feel her hot breath on your
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				 cock and pussy, Penelope gives you a sly look and lustfully sighs, [penelope.speech(Please relax and enjoy this, [pc.sir]... I'll make this good for you... Oh, and do let me know if you want me to switch to eating you out...)]
+			#ELSE
+				 cock, Penelope gives you a sly look and lustfully sighs, [penelope.speech(Please relax and enjoy this, [pc.sir]... I'll make this good for you...)]
+			#ENDIF
+		#ELSE
+			 pussy, Penelope gives you a sly look and lustfully sighs, [penelope.speech(Please relax and enjoy this, [pc.sir]... I'll make this good for you...)]
+		#ENDIF
 	</p>
 	<p>
 		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
-			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-				After telling you that she'll switch to eating you out whenever you want, she opens wide and takes your cock into her mouth, before starting to dominantly give you a blowjob.
-			#ELSE
-				She opens wide and dominantly takes your cock into her mouth, before starting to give you a blowjob.
-			#ENDIF
+			Parting her lips, Penelope darts out her tongue and delivers a long, wet lick up the underside of your hard cock, before opening wide and taking your [pc.cockHead+] into her mouth. Letting out horny, muffled moans, she starts rapidly bobbing her head up and down as she gives you a dominant blowjob. As you feel your [pc.cock+] being taken deep down the beautiful beautiful border collie-girl's tight, wet throat, you quickly find yourself letting out a series of [pc.moans+], which encourages her to suddenly deepthroat you. After gazing lovingly up into your eyes for a moment, she pulls her head up and wetly sucks the [pc.cockHead+] of your [pc.cock+], before continuing to give you head...
 		#ELSE
-			She leans forwards and gives your clit a quick kiss, before pushing her tongue into your twat and starting to dominantly eat you out. 
+			After leaning in to plant a big, wet kiss on your [pc.clit+], Penelope darts out her tongue and delivers a series of long, wet licks to your [pc.labia+]. Letting out horny, muffled moans, she then presses her face into your groin and starts greedily pushing her tongue into your [pc.pussy+]. As the beautiful border collie-girl starts to dominantly perform cunnilingus, you quickly find yourself letting out a series of [pc.moans+], which encourages her to press her face into your cunt and slide her tongue as deep as possible into your hot, wet pussy. After gazing lovingly up into your eyes for a moment, she pulls back and lifts her head up to wetly suck on your [pc.clit+], before continuing to eat you out...
 		#ENDIF
 	</p>
 	]]>
@@ -954,157 +998,165 @@
 	
 	<htmlContent tag="MASSAGE_PENELOPE_SEX_AS_DOM"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
+		Wanting to have a session of full-on sex with Penelope, you give her a thousand flames and tell her that you want her to dominantly fuck you. Letting out a hungry moan, the beautiful border collie-girl safely stores your money in a nearby cabinet as you get up from the massage table and prepare to get started.
 	</p>
 	<p>
-		You tell Penelope that you want to fuck her. She smirks and gets you to trade places with her. Lying back on the massage table, she dominantly tells you to get started and to make it good for her. 
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="MASSAGE_PENELOPE_DOUBLE_FACIAL"><![CDATA[
-	<p>
-		[style.italicsBad(Placeholder dialogue!)]
+		[penelope.speech(Don't forget that I'm the one in charge now,)] Penelope confidently states as she strips out of her clothing and steps over to lie back on the table that you've just vacated. Spreading her legs, she reaches down to her exposed pussy and uses two of her digits to spread her [penelope.labia+]. Lewdly presenting her [penelope.pussyCapacity] cunt to you, she uses her other hand to tease her rapidly-hardening dog-cock, before flashing you a sly smirk and dominantly ordering, [penelope.speech(Get over here. My pussy's getting hot and wet at the thought of getting you to fuck it, and my cock's desperate to get hilted deep inside of you...)]
 	</p>
 	<p>
-		You tell Penelope that you want to receive a double facial form her. She lifts up her virgin-killer sweater and exposes her dog-like pussy and cock.
-	</p>
-	<p>
-		Penelope steps around to loom over your head, before planting her cunt don over your [pc.lips+] and telling you to start eating her out.
+		Doing as you're told, you [pc.step] forwards and prepare to follow Penelope's further instructions as she starts to dominantly have sex with you...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MASSAGE_PENELOPE_FINISHED"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
+		Ten minutes later, and with your body feeling well and truly relaxed, Penelope steps back and announces in her posh accent, [penelope.speech(Your massage is complete, [pc.sir]. I trust that you're satisfied?)]
 	</p>
 	<p>
-		You finish receiving your massage. Penelope says to come again and pay for some fun the next time.
+		Getting up off the massage table and getting dressed, you thank Penelope for her service and tell her what an excellent job she's done. Giving you a warm smile as she hears your praise, the beautiful border collie-girl replies, [penelope.speech(I'm happy to hear that you're pleased with your massage. Perhaps next time you'll also choose to purchase one of my special services...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_FINISHED_REVERSAL"><![CDATA[
+	<p>
+		Ten minutes later, and you've given Penelope's body a thorough massage. Letting out a satisfied sigh, the border collie-girl stands up and announces in her posh accent, [penelope.speech(That'll be enough for one day, [pc.sir]. I trust that you're satisfied?)]
 	</p>
 	<p>
-		You head back into the reception area. Penelope greets you and asks if you require any more services.
+		[pc.Stepping] back and starting to get dressed, you thank Penelope for allowing you to massage her, and express your pleasure at the massage she gave to you before that. Giving you a warm smile as she hears your praise, the beautiful border collie-girl replies, [penelope.speech(I'm happy to hear that you're pleased with your massage. Perhaps next time you'll also choose to purchase one of my special services...)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MASSAGE_PENELOPE_FINISHED_END"><![CDATA[
 	<p>
-		With that, Belle asks you to accompany her back to reception, and so after exiting the room, you follow her down the corridor and find yourself once again standing before Penelope's counter. Smiling at the two of you, the border collie-girl asks, [penelope.speech(I trust that Belle was able to satisfy you, [pc.sir]?)]
+		With that, Penelope asks you to accompany her back to reception, and so after exiting the room, you follow her down the corridor and find yourself once again standing before the reception's counter. After dismissing Daphne, the border collie-girl leans forwards over her counter and playfully pushes her large, [penelope.cupSize]-cup breasts towards you, before asking, [penelope.speech(Is there anything else which I can do for you today, [pc.sir]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MASSAGE_PENELOPE_DOUBLE_FACIAL"><![CDATA[
+	<p>
+		Liking the sound of orally servicing Penelope's cunt and cock, you tell her that you want to receive a double facial form her and hand over the one thousand five hundred flames which she's asked for. After smirking down at you and letting out a horny moan, the beautiful border collie-girl steps over to a nearby cabinet and safely stores your money in it, before returning to the massage table. After pulling off her virgin-killer sweater, she hooks her thumbs into her lacy panties and slides them all the way down her legs, before kicking them off and leaving her dog-like pussy and cock fully exposed.
 	</p>
 	<p>
-		After you've responded in the positive, Penelope tells Belle that she's done a good job, before dismissing the sheep-girl and turning her attention back to you. Leaning forwards over her counter and playfully pushing her large, [penelope.cupSize]-cup breasts towards you, she asks in her posh accent, [penelope.speech(Is there anything else which I can do for you today, [pc.sir]?)]
+		[penelope.speech(Let's start by putting that tongue of yours to work,)] she states in her posh accent, before stepping over your face and dropping her wet cunt down onto your mouth. Eager to get started, you immediately part your [pc.lips] and push your [pc.tongue+] into Penelope's wet, canine cunt. Dominantly grinding her pussy down, the beautiful border collie-girl moans, [penelope.speech(~Mmm!~ That's it! ~Aah!~ Eat me out... You'll be getting a taste of my cock soon enough...)]
+	</p>
+	<p>
+		As you eagerly obey the dominant dog-girl and keep thrusting your tongue deep into her hot cunt, she starts stroking her rapidly-hardening dog-cock in order to get it fully erect for the blowjob you're soon to be giving her...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MASSAGE_PENELOPE_FASHION_SHOW"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
+		Wanting to have sex with Penelope while she's wearing one of her special outfits, you tell her that you want her to do a mock fashion show for you and hand over the one thousand five hundred flames which she's asked for. Happily taking your flames, the beautiful border collie-girl steps over to a nearby cabinet and safely stores your money in it, before beginning to run through a description of each of her five outfits.
 	</p>
 	<p>
-		You tell Penelope that you want her to change into a special outfit and do a mock fashion show for you. Happily taking your flames, she tells you that she's got five outfits for you to choose from, and she gives you a sales pitch for each of them.
+		[penelope.speech(First of all, I have a little number which I like to call 'At the ball'. As the name suggests, this involves me donning a ballgown, a pair of elbow-length gloves, and some pieces of expensive jewellery,)] Penelope says in her posh accent. Moving swiftly on, she continues, [penelope.speech(If you'd prefer something a little more casual, then my 'About town' outfit might be for you. It's stylish in its simplicity, and includes a blouse, cardigan, and tight-fitting jeans.)]
 	</p>
 	<p>
-		[penelope.speech(First of all, I have a little outfit which I like to call 'At the ball'. As the name suggests, this involves me donning a ballgown, a pair of elbow-length gloves, and some pieces of expensive jewellery,)] she says in her posh accent. Moving swiftly on, she continue, [penelope.speech(If you'd prefer something a little more casual, then my 'About town' outfit might be for you. It's stylish in its simplicity, and includes a blouse, cardigan, and tight-fitting jeans.)]
+		After giving you these two options, the border collie-girl flashes you a dirty look, and with a smirk settling on her beautiful face, she teases, [penelope.speech(If those two sound too boring, then I've got some more risqué choices for you. First up is what I like to call 'Drunken alley', which takes the form of a daring, bright-pink outfit consisting of a clubbing dress, strappy sandals, and plenty of accessories. It's the sort of thing you'd see some drunken slut wearing while she's getting fucked in a dirty backalley.)]
 	</p>
 	<p>
-		After giving you these two options, the border collie-girl flashes you a dirty look, and with a smirk settling on her beautiful face, she teases, [penelope.speech(If those two sound too boring, then I've got some more risqué choices for you. First up is what I like to call 'Drunken alley', which takes the form of a daring, bright-pink outfit consisting of a clubbing dress, strappy sandals, and plenty of accessories. I like to pretend that I've drunkenly stumbled out of a nightclub and been pulled into some dirty backalley while I'm getting fucked in this little getup.)]
+		It's clear from Penelope's sultry tone of voice that she's getting turned on at the thought of wearing such a slutty getup, but before you have the chance to make a comment on this, she quickly continues, [penelope.speech(I've also got an outfit which I like to call 'Less is more', which basically just consists of me wearing some revealing lingerie. It's not the most imaginative of my outfits, but it's nevertheless a very popular choice. Anyway, that leads me on to my final offering, which I call 'Latex indulgence'. As you might guess, this consists of me squeezing into several pieces of bright-red latex gear. It also includes a little surprise which I have fun with during my strip-tease... So, which outfit would you like to fuck me in?)] 
 	</p>
 	<p>
-		It's clear from Penelope's sultry tone of voice that she's getting turned on at the thought of playing out this slutty fantasy of hers, but before you have the chance to make a comment on this, she quickly continues, [penelope.speech(I've also got an outfit which I like to call 'Less is more', which basically just consists of me wearing some revealing lingerie. It's not the most imaginative of my outfits, but it's nevertheless a very popular choice. Anyway, that leads me on to my final offering, which I call 'Latex indulgence'. As you might guess, this consists of me squeezing into several pieces of bright-red latex gear. It also includes a little surprise which I have fun with during my strip-tease... So, which outfit would you like to fuck me in?)] 
-	</p>
-	<p>
-		With that, Penelope seems to have finished explaining her outfit choices to you, and she seductively bites her lip and gives you a playful wink as she waits to hear what your choice will be...
+		With that, Penelope finishes explaining her outfit choices to you, and she seductively bites her lip and gives you a playful wink as she waits to hear what your choice will be...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MASSAGE_PENELOPE_FASHION_SHOW_BALL"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
+		Wanting to see and have sex with Penelope while she's wearing a ballgown, you tell her that you'd like to see her 'At the ball' outfit. Flashing you a sly smile, she steps over to the door and says, [penelope.speech(I'll get changed as quickly as I can, but it will still take me several minutes. Please wait here until I return.)]
 	</p>
 	<p>
-		You tell Penelope that you'd like to see her 'At the ball' outfit. She smirks and exits the room, reappearing a few minutes later wearing a flowing ballgown. She does a little strut up and down the length of the room in front of you, before playfully teasing, [penelope.speech(So, do you want to put me in my place and give me a good, hard fuck, or should I take the lead?)]
+		With that, the border collie-girl exits the room, leaving you waiting on the massage table for her return. Thankfully, her time estimate was accurate, and after just a few minutes the door opens once again, and in steps Penelope. Just as you requested, she's wearing a flowing ballgown, which along with a pair of elbow-length gloves and high heels, is a pretty shade of light blue. A silver tiara sits atop her head, and you see that she's also wearing a diamond necklace and pair of pearl earrings. Performing a little curtsy as she enters, this gorgeous dog-girl slowly walks up to you, before doing a little roleplay by teasing in her posh accent, [penelope.speech(Good [style.afternoon], [pc.sir]. Would you care for a dance? Or perhaps you'd rather I hike my gown up so that we can have a good fuck?)]
+	</p>
+	<p>
+		Letting out a playful laugh after asking this lewd question, Penelope does a little spin on the spot, before pulling up her gown and flashing you the lacy burgundy thong which she's wearing. Allowing her gown to fall back into position, she asks, [penelope.speech(So, would you like me to be a good, submissive little doggy for you, or should I take charge?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MASSAGE_PENELOPE_FASHION_SHOW_TOWN"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
+		Wanting to see and have sex with Penelope while she's wearing a casual outfit, you tell her that you'd like to see her 'About town' outfit. Flashing you a quick smile, she steps over to the door and says, [penelope.speech(I'll get changed as quickly as I can, but it will still take me several minutes. Please wait here until I return.)]
 	</p>
 	<p>
-		You tell Penelope that you'd like to see her 'About town' outfit. She smirks and exits the room, reappearing a few minutes later wearing a blouse, cardigan, and tight-fitting jeans. She does a little strut up and down the length of the room in front of you, before lifting her gold aviator sunglasses and playfully teasing, [penelope.speech(So, do you want to put me in my place and give me a good, hard fuck, or should I take the lead?)]
+		With that, the border collie-girl exits the room, leaving you waiting on the massage table for her return. Thankfully, her time estimate was accurate, and after just a few minutes the door opens once again, and in steps Penelope. Just as you requested, she's wearing a stylish, casual outfit, consisting of a white blouse, tight, blue jeans, and a tan cardigan. A pair of aviators, gold jewellery, and a white watch make up her accessories. Blowing you a little kiss as she enters, this gorgeous dog-girl slowly walks up to you, before doing a little roleplay by teasing in her posh accent, [penelope.speech(Hey there, #IF(pc.isFeminine())beautiful#ELSEhandsome#ENDIF. I haven't seen you in this part of town before. How about we go and get a drink, or perhaps you'd rather we go straight over to my place and have a good fuck?)]
+	</p>
+	<p>
+		Letting out a playful laugh after asking this lewd question, Penelope steps forwards and takes hold of you hand, before planting it on her chest and getting you to fondle her [penelope.cupSize]-cup breasts. Letting out an erotic sigh, she asks, [penelope.speech(So, would you like me to be a good, submissive little doggy for you, or should I take charge?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MASSAGE_PENELOPE_FASHION_SHOW_ALLEY"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
+		Wanting to see and have sex with Penelope while she's wearing a slutty clubbing outfit, you tell her that you'd like to see her 'Drunken alley' outfit. Flashing you a dirty smirk, she steps over to the door and says, [penelope.speech(I'll get changed as quickly as I can, but it will still take me several minutes. Please wait here until I return.)]
 	</p>
 	<p>
-		You tell Penelope that you'd like to see her 'Drunken alley' outfit. She smirks and exits the room, reappearing a few minutes later wearing a bright pink clubbing dress, with matching stiletto heels and choker. She does a little strut up and down the length of the room in front of you, before playfully teasing, [penelope.speech(So, do you want to put me in my place and give me a good, hard fuck, or should I take the lead?)]
+		With that, the border collie-girl exits the room, leaving you waiting on the massage table for her return. Thankfully, her time estimate was accurate, and after just a few minutes the door opens once again, and in steps Penelope. Just as you requested, she's wearing a slutty clubbing dress, choker and strappy heels, each of which are an offensively-bright shade of pink. Her accessories take the form of a significant amount of rose gold jewellery, which includes hoop earrings, a nose ring, and a pair of nipple barbells which can be seen pushing out beneath the fabric of her dress. Licking her lips as she enters, this gorgeous dog-girl puts on a drunken swagger as she steps up to you, before doing a little roleplay by teasing, [penelope.speech(Hey babe, I'm feeling, like, totally wasted... How about you take me down that alley, pull down my thong, and give me a good, hard fuck?)]
+	</p>
+	<p>
+		Breaking her roleplay to let out a playful laugh after asking this lewd question, Penelope shamelessly lifts the bottom of her dress and flashes you the trashy, tiger-striped v-string panties which are just barely managing to cover her cunt and sheathed cock. Letting out an erotic moan, she asks, [penelope.speech(So, would you like me to be a good, submissive little doggy for you, or should I take charge?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MASSAGE_PENELOPE_FASHION_SHOW_LINGERIE"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
+		Wanting to see and have sex with Penelope while she's wearing nothing but lingerie, you tell her that you'd like to see her 'Less is more' outfit. Biting her lip and flashing you a playful smirk, she steps over to the door and says, [penelope.speech(I'll get changed as quickly as I can, but it will still take me several minutes. Please wait here until I return.)]
 	</p>
 	<p>
-		You tell Penelope that you'd like to see her 'Less is more' outfit. She smirks and exits the room, reappearing a few minutes later wearing dark purple lingerie, which leaves her dog-cock, pussy, and asshole completely exposed. She does a little strut up and down the length of the room in front of you, before playfully teasing, [penelope.speech(So, do you want to put me in my place and give me a good, hard fuck, or should I take the lead?)]
+		With that, the border collie-girl exits the room, leaving you waiting on the massage table for her return. Thankfully, her time estimate was accurate, and after just a few minutes the door opens once again, and in steps Penelope. Just as you requested, she's wearing nothing but a set of dark purple lingerie, which consists of a chemise, a crotchless thong, and a pair of toeless stockings which are held up by a suspender belt. Dropping her hand down to tease over her exposed cock and cunt as she enters, this gorgeous dog-girl slowly walks up to you, before doing a little roleplay by teasing in her posh accent, [penelope.speech(I thought that we could have some fun before going to bed... You know that you can't resist me when I wear this... You want to fuck me, don't you?)]
+	</p>
+	<p>
+		Breaking her roleplay to let out a playful laugh after asking this lewd question, Penelope shamelessly reaches down to spread her [penelope.labia+] and flash you her [penelope.pussy+]. Letting out an erotic moan, she asks, [penelope.speech(So, would you like me to be a good, submissive little doggy for you, or should I take charge?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MASSAGE_PENELOPE_FASHION_SHOW_LATEX"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
+		Wanting to see and have sex with Penelope while she's wearing latex gear, you tell her that you'd like to see her 'Latex indulgence' outfit. Biting her lip and flashing you a dirty smirk, she steps over to the door and says, [penelope.speech(I'll get changed as quickly as I can, but it will still take me several minutes. Please wait here until I return.)]
 	</p>
 	<p>
-		You tell Penelope that you'd like to see her 'latex indulgence' outfit. She smirks and exits the room, reappearing a few minutes later wearing a set of bright red latex gear. She does a little strut up and down the length of the room in front of you, before unzipping her latex bra and panties and tossing them to one side of the room, leaving her dog-cock, pussy, and asshole completely exposed.
+		With that, the border collie-girl exits the room, leaving you waiting on the massage table for her return. Thankfully, her time estimate was accurate, and after just a few minutes the door opens once again, and in steps Penelope. Just as you requested, she's wearing a set of bright-red latex gear, consisting of a long-sleeved crop top, a corset, stocking, bra, panties, and stiletto heels. Letting out a sensual moan as she enters, this gorgeous dog-girl slowly struts up to you, before doing a little roleplay by teasing in her posh accent, [penelope.speech(You be a good [pc.girl] now and sit still while I make myself more comfortable...)]
+	</p>
+	
+	<p>
+		With that, Penelope slowly unzips her latex bra, before shrugging out of it to fully expose her big, [penelope.cupSize]-cup breasts. Teasing her paw-like hands over her tits, she gives her erect nipples a playful pinch, before letting out a sensual moan and sliding her fingers down over her corset towards her groin. Unzipping her latex panties, she tosses them over to join her bra on the floor, leaving her dog-cock, pussy, and asshole completely exposed. It's at this moment that you find out what the 'little surprise' which she alluded to earlier is, for as she teases her fingers down over her pussy, she starts to pull on something, and you watch in amazement as she slides a full-sized, realistic purple dildo out of her dripping cunt. Lifting it to her lips, she pushes it into her mouth, before letting out a wet gagging noise as she hilts it fully down her throat. After lewdly sucking and choking on it for a few moments, Penelope slides the dildo out of her mouth, before pushing the slimy, saliva-coated toy back into her hot twat.
 	</p>
 	<p>
-		Teasing her fingers over her pussy, she starts to pull on something, and you watch in amazement as she slides a full-sized realistic purple dildo out of her dripping cunt. Lifting it to her lips, she slides it down her throat, and then after lewdly sucking on it for a few moments, she slides it out of her mouth and pushes the slimy, saliva-coated toy back into her hot twat.
-	</p>
-	<p>
-		Letting out a deeply erotic moan, she teases, [penelope.speech(So, do you want to put me in my place and give me a good, hard fuck, or should I take the lead?)]
+		[penelope.speech(i do so love playing with toys while wearing this outfit,)] she sighs, before letting out a deeply erotic moan and asking, [penelope.speech(So, would you like me to be a good, submissive little doggy for you, or should I take charge?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MASSAGE_PENELOPE_FASHION_SHOW_SEX_START"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
-	</p>
-	<p>
-		You [pc.step] forwards and take the lead, and after dominantly pulling Penelope into your [pc.arms], you prepare to fuck her...
+		Responding to Penelope's query with action, you [pc.step] forwards and dominantly pull the beautiful border collie-girl into your [pc.arms]. Letting out a submissive moan, she looks lovingly into your eyes as you prepare to fuck her...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MASSAGE_PENELOPE_FASHION_SHOW_SEX_START_AS_SUB"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
-	</p>
-	<p>
-		You tell Penelope that you want her to take the lead, and so after she's dominantly taken a step forwards and pulled you into her arms, she prepares to fuck you...
+		Wanting Penelope to take the lead, you tell her that you'd prefer to be the submissive partner. Letting out a hungry moan, the beautiful border collie-girl responds to your declaration by stepping forwards and dominantly pulling you into her arms before preparing to fuck you...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MASSAGE_PENELOPE_AFTER_SEX"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue!)]
+		Having finished giving you her special service, Penelope lets out one last passionate moan, before informing you that the fun's over. Disentangling yourself from the beautiful border collie-girl, you set about getting your things back in order while Penelope proceeds to clean herself up.
 	</p>
 	<p>
-		As the two of you finish having your fun together, Penelope thanks you for choosing her, and for buying a special service from her. 
-	</p>
-	<p>
-		After she's quickly helped you retrieve your possessions, she leads you over to the door of the massage room and says that she hopes to see you again soon.
+		[penelope.speech(That was a lot of fun... Thank you for purchasing one of my special services, [pc.sir],)] Penelope says as she steps over to unlock the door. Telling her that you had a lot of fun too, you make sure that you've retrieved all of your possessions before preparing to head back to reception...
 	</p>
 	]]>
 	</htmlContent>
