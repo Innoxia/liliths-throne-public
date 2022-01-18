@@ -4,9 +4,11 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.events.EventTarget;
@@ -552,6 +554,42 @@ public class MainControllerInitMethod {
 			}
 		}
 		
+		if(Main.game.getCurrentDialogueNode().equals(DebugDialogue.SEX_MENU)) {
+			for (GameCharacter npc : DebugDialogue.presentList) {
+				id = npc.getId()+"_DOM";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						
+						DebugDialogue.sexDomList.add(npc);
+						DebugDialogue.sexSubList.remove(npc);
+
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+
+				id = npc.getId()+"_SUB";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						
+						DebugDialogue.sexSubList.add(npc);
+						DebugDialogue.sexDomList.remove(npc);
+
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+			}
+
+			id = "CONSENT_TOGGLE";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					
+					DebugDialogue.consent = !DebugDialogue.consent;
+
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+
+		}
 		
 		
 		if(Main.game.getCurrentDialogueNode() == CharacterCreation.BACKGROUND_SELECTION_MENU) {

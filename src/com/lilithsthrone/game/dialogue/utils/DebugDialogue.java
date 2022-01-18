@@ -3,7 +3,9 @@ package com.lilithsthrone.game.dialogue.utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
@@ -120,6 +122,12 @@ public class DebugDialogue {
 					@Override
 					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogue(false);
+					}
+					@Override
+					public void effects() {
+						presentList.clear();
+						sexDomList.clear();
+						sexSubList.clear();
 					}
 				};
 			}
@@ -410,24 +418,9 @@ public class DebugDialogue {
 						};
 						
 				}
-//				else if (index == 5) {
-//					if(!Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.DOMINION_BACK_ALLEYS)) {
-//						return new Response("Lumi test", "Lumi can only be spawned in alleyway tiles.", null);
-//						
-//					} else if(!Main.game.getNonCompanionCharactersPresent().isEmpty()) {
-//						return new Response("Lumi test", "Lumi can only be spawned into empty tiles!", null);
-//						
-//					}  else if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-//						return new Response("Lumi test", "Lumi can not be spawned during an arcane storm.", null);
-//					}
-//					return new ResponseEffectsOnly("Lumi test", "Spawn Lumi to test her dialogue and scenes."){
-//						@Override
-//						public void effects() {
-//							Main.game.setContent(new Response("", "", LumiDialogue.LUMI_APPEARS));
-//						}
-//					};
-//					
-//				} 
+				else if (index == 5) {
+					return new Response("Sex Menu", "Set up a sex scene with the characters present", SEX_MENU);
+				} 
 				else if (index == 6) {
 					return new Response("Brax's revenge", "Brax cums in your vagina!", DEBUG_MENU){
 						@Override
@@ -2111,6 +2104,79 @@ public class DebugDialogue {
 		public String getResponseTabTitle(int index) {
 			return DEBUG_MENU.getResponseTabTitle(index);
 		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return DEBUG_MENU.getResponse(responseTab, index);
+		}
+	};
+	
+
+	public static Set<GameCharacter> presentList = new HashSet<GameCharacter>();
+	public static Set<GameCharacter> sexDomList = new HashSet<GameCharacter>();
+	public static Set<GameCharacter> sexSubList = new HashSet<GameCharacter>();
+	public static boolean consent = true;
+	public static final DialogueNode SEX_MENU = new DialogueNode("", "", false) {
+		@Override
+		public String getAuthor() {return "Amarok909";}
+		
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			UtilText.nodeContentSB.append(""
+					+ "<div class='container-full-width' style='text-align:center;'>"
+							+ "<i>Selects characters and their roles for a custom sex scene.</i>"
+					+ "</div>"
+					+ "<div class='container-half-width' style='text-align:center;'>"
+							+ "<i>PARTICIPANTS</i>");
+			
+			presentList.addAll(Main.game.getCharactersPresent());
+			presentList.add((GameCharacter) Main.game.getPlayer());
+			for(GameCharacter npc : presentList) {
+				UtilText.nodeContentSB.append(""
+							+ "<div class='container-full-width' style='background:#547691;'>"
+									+ "<div style='width:calc(100% - 176px); float:left; margin:0; padding:0; background:#436580; border-radius:5px;'>"
+							//				+ "<i>your name is: "
+							//				+ npc.getName()
+							//				+ ", you are a character</i>"
+											+ "<b style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</b>"
+									+ "</div>"
+							//		+ "<div style='width:10%; float:left; font-weight:bold; margin:0 5% 0 5%; padding:0; background:#324569;'>"
+							//				+ "TEST"
+							//		+ "</div>"
+									+ "<div style='width:176px; float:left; font-weight:bold; padding:0; margin:0; background:#324569;'>"
+							//				+ "TEST"
+											+ "<div id='"+npc.getId()+"_DOM"+"' class='preference-button"+(sexDomList.contains(npc)?" selected":"")+"'>Dom</div>"
+											+ "<div id='"+npc.getId()+"_SUB"+"' class='preference-button"+(sexSubList.contains(npc)?" selected":"")+"'>Sub</div>"
+									+ "</div>"
+							+ "</div>");
+			}
+			
+			UtilText.nodeContentSB.append(""
+					+ "</div>"
+					+ "<div class='container-half-width' style='text-align:center;'>"
+							+ "<i>CONSENT</i>"
+					+ "</div>"
+					+ "<div class='container-half-width' style='text-align:center;'>"
+							+ "<i>INFO</i>"
+					+ "</div>"
+					+ "<div class='container-full-width' style='text-align:center;'>"
+							+ "<i>MOAR</i>"
+					+ "</div>"
+					);
+					
+			
+			return UtilText.nodeContentSB.toString();
+			/**
+			 * Doms and Subs
+			 * Consent
+			 */
+		}
+		
+		@Override
+		public String getResponseTabTitle(int index) {
+			return DEBUG_MENU.getResponseTabTitle(index);
+		}
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return DEBUG_MENU.getResponse(responseTab, index);
