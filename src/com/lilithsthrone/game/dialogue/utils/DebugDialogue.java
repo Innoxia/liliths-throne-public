@@ -419,7 +419,42 @@ public class DebugDialogue {
 						
 				}
 				else if (index == 5) {
-					return new Response("Sex Menu", "Set up a sex scene with the characters present", SEX_MENU);
+					if(Main.game.getCurrentDialogueNode()!=SEX_MENU) return new Response("Sex Menu", "Set up a sex scene with the characters present", SEX_MENU);
+					
+					if(!sexDomList.contains(Main.game.getPlayer()) && !sexSubList.contains(Main.game.getPlayer())) return new Response("Start Sex",
+							"You haven't assigned yourself, so the scene can't start", null);
+					
+					List<String> names = new ArrayList<>();
+					for(GameCharacter npc : sexDomList) {
+						if(npc!=Main.game.getPlayer()) names.add("<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName()+"</span>");
+					} for(GameCharacter npc : sexSubList) {
+						if(npc!=Main.game.getPlayer()) names.add("<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName()+"</span>");
+					}
+					
+					return new ResponseSex(
+							"[style.boldGood(Start Sex)]",
+							"Start having sex with "+Util.stringsToStringList(names, false),
+							consent,
+							equality,
+							new SMGeneric(
+									new ArrayList<>(sexDomList),
+									new ArrayList<>(sexSubList),
+									null,
+									null),
+							DebugDialogue.POST_SEX_MENU,
+							(sexDomList.contains(Main.game.getPlayer())
+								? "<p>"
+								+ "Deciding that you want to dominate this [npc.race] who just magically appeared before you, you step up to [npc.herHim] and growl,"
+								+ " [pc.speech(It's time to put you in your place!)]"
+								+ "</p>"
+
+								: "<p>"
+								+ "Deciding that you want to get dominated by this [npc.race] who just magically appeared before you, you step up to [npc.herHim] and growl,"
+								+ " [pc.speech(It's time you put me in my place!)]"
+								+ "</p>"
+							)
+					);
+					
 				} 
 				else if (index == 6) {
 					return new Response("Brax's revenge", "Brax cums in your vagina!", DEBUG_MENU){
@@ -2115,6 +2150,7 @@ public class DebugDialogue {
 	public static Set<GameCharacter> sexDomList = new HashSet<GameCharacter>();
 	public static Set<GameCharacter> sexSubList = new HashSet<GameCharacter>();
 	public static boolean consent = true;
+	public static boolean equality = true;
 	public static final DialogueNode SEX_MENU = new DialogueNode("", "", false) {
 		@Override
 		public String getAuthor() {return "Amarok909";}
@@ -2129,47 +2165,80 @@ public class DebugDialogue {
 					+ "<div class='container-half-width' style='text-align:center;'>"
 							+ "<i>PARTICIPANTS</i>");
 			
-			presentList.addAll(Main.game.getCharactersPresent());
 			presentList.add((GameCharacter) Main.game.getPlayer());
+			presentList.addAll(Main.game.getCharactersPresent());
 			for(GameCharacter npc : presentList) {
 				UtilText.nodeContentSB.append(""
-							+ "<div class='container-full-width' style='background:#547691;'>"
-									+ "<div style='width:calc(100% - 176px); float:left; margin:0; padding:0; background:#436580; border-radius:5px;'>"
-							//				+ "<i>your name is: "
-							//				+ npc.getName()
-							//				+ ", you are a character</i>"
+							+ "<div class='container-full-width inner' style='margin:4px 8px 4px 8px;'>"
+									+ "<div style='width:calc(100% - 176px); float:left; margin:0; padding:0; border-radius:5px;'>"
 											+ "<b style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</b>"
 									+ "</div>"
-							//		+ "<div style='width:10%; float:left; font-weight:bold; margin:0 5% 0 5%; padding:0; background:#324569;'>"
-							//				+ "TEST"
-							//		+ "</div>"
-									+ "<div style='width:176px; float:left; font-weight:bold; padding:0; margin:0; background:#324569;'>"
-							//				+ "TEST"
+									+ "<div style='width:176px; float:left; font-weight:bold; padding:0; margin:0;'>"
 											+ "<div id='"+npc.getId()+"_DOM"+"' class='preference-button"+(sexDomList.contains(npc)?" selected":"")+"'>Dom</div>"
 											+ "<div id='"+npc.getId()+"_SUB"+"' class='preference-button"+(sexSubList.contains(npc)?" selected":"")+"'>Sub</div>"
 									+ "</div>"
 							+ "</div>");
 			}
 			
+			// Consent
 			UtilText.nodeContentSB.append(""
 					+ "</div>"
 					+ "<div class='container-half-width' style='text-align:center;'>"
-							+ "<i>CONSENT</i>"
+							+ "<i>CONSENT</i></br>");
+			
+			if(!consent) {
+				UtilText.nodeContentSB.append(
+							"<div id='CONSENT_ON' class='cosmetics-button'>"
+									+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>On</span>"
+							+ "</div>"
+							+"<div class='cosmetics-button active'>"
+									+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>Off</span>"
+							+ "</div>");
+			} else {
+				UtilText.nodeContentSB.append(
+							"<div class='cosmetics-button active'>"
+									+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>On</span>"
+							+ "</div>"
+							+"<div id='CONSENT_OFF' class='cosmetics-button'>"
+									+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>Off</span>"
+							+ "</div>");
+			}
+			
+			// Sub equal control
+			UtilText.nodeContentSB.append(""
+					+ "</div>"
+					+ "<div class='container-half-width' style='text-align:center;'>"
+							+ "<i>EQUAL CONTROL</i></br>");
+			
+			if(!equality) {
+				UtilText.nodeContentSB.append(
+							"<div id='EQUALITY_ON' class='cosmetics-button'>"
+									+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>On</span>"
+							+ "</div>"
+							+"<div class='cosmetics-button active'>"
+									+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>Off</span>"
+							+ "</div>");
+			} else {
+				UtilText.nodeContentSB.append(
+							"<div class='cosmetics-button active'>"
+									+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>On</span>"
+							+ "</div>"
+							+"<div id='EQUALITY_OFF' class='cosmetics-button'>"
+									+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>Off</span>"
+							+ "</div>");
+			}
+			
+			UtilText.nodeContentSB.append(""
 					+ "</div>"
 					+ "<div class='container-half-width' style='text-align:center;'>"
 							+ "<i>INFO</i>"
 					+ "</div>"
 					+ "<div class='container-full-width' style='text-align:center;'>"
 							+ "<i>MOAR</i>"
-					+ "</div>"
-					);
+					+ "</div>");
 					
 			
 			return UtilText.nodeContentSB.toString();
-			/**
-			 * Doms and Subs
-			 * Consent
-			 */
 		}
 		
 		@Override
@@ -2180,6 +2249,25 @@ public class DebugDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return DEBUG_MENU.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode POST_SEX_MENU = new DialogueNode("", "", true) {
+		@Override
+		public String getContent() {
+			if(Main.sex.isDom(Main.game.getPlayer())) {
+				GameCharacter target = Main.sex.getSubmissiveParticipants(false).entrySet().iterator().next().getKey();
+				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_CENTAUR", target);
+			} else {
+				GameCharacter target = Main.sex.getDominantParticipants(false).entrySet().iterator().next().getKey();
+				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_CENTAUR_AS_SUB", target);
+			}
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) return new Response("Continue", "Now that you've put this [npc.race] in [npc.her] place, you can continue with what you were doing...", Main.game.getDefaultDialogue(false));
+			return null;
 		}
 	};
 

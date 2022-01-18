@@ -4,11 +4,9 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.events.EventTarget;
@@ -579,12 +577,34 @@ public class MainControllerInitMethod {
 				}
 			}
 
-			id = "CONSENT_TOGGLE";
+			id = "CONSENT_ON";
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					
-					DebugDialogue.consent = !DebugDialogue.consent;
+					DebugDialogue.consent = true;
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
 
+			id = "CONSENT_OFF";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					DebugDialogue.consent = false;
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+
+			id = "EQUALITY_ON";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					DebugDialogue.equality = true;
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+
+			id = "EQUALITY_OFF";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					DebugDialogue.equality = false;
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
