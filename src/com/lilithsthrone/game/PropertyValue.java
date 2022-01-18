@@ -25,6 +25,7 @@ public enum PropertyValue {
 	tattooRemovalConfirmations(true),
 	sillyMode(false),
 	weatherInterruptions(true),
+	automaticDialogueCopy(false),
 
 	autoLocale(true),
 	metricSizes(true),
@@ -41,33 +42,36 @@ public enum PropertyValue {
 	badEndContent(true),
 	ageContent(true),
 	furryTailPenetrationContent(false),
-	sadisticSexContent(false),
+	sadisticSexContent(true),
 	inflationContent(true),
 
 	lipstickMarkingContent(true),
 	facialHairContent(true),
 	pubicHairContent(true),
-	bodyHairContent(false),
+	bodyHairContent(true),
 	assHairContent(false),
 	feminineBeardsContent(false),
-	furryHairContent(false),
+	furryHairContent(true),
 	scalyHairContent(false),
 	
-	nonConContent(false, true),
-	incestContent(false, true),
+	nonConContent(true, true),
+	incestContent(true, true),
 	lactationContent(true, true),
 	urethralContent(false, true),
 	analContent(true, true),
 	footContent(true, true),
+	armpitContent(true, true),
 	nipplePenContent(true, true),
 	gapeContent(true, true),
+	feralContent(true, true),
 	
 	cumRegenerationContent(true),
 	penetrationLimitations(true),
-	elasticityAffectDepth(false), // Added in PR#1413
+	elasticityAffectDepth(true), // Added in PR#1413
 	
 	futanariTesticles(true),
 	bipedalCloaca(true),
+	vestigialMultiBreasts(true),
 	
 	// I know a lot of people hate NTR, but this 'voluntary NTR' setting is just giving the player the option to give their companion to other people, rather than having their companion taken against their will.
 	// For this reason, it's on by default (to give the player more options), but involutary NTR will always be off by default.
@@ -75,8 +79,9 @@ public enum PropertyValue {
 	involuntaryNTR(false),
 
 	spittingEnabled(true),
-	opportunisticAttackers(false),
-
+	opportunisticAttackers(true),
+	
+	// Game properties:
 	levelUpHightlight(false),
 	sharedEncyclopedia(false),
 	newWeaponDiscovered(false),

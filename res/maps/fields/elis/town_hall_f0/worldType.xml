@@ -5,7 +5,8 @@
 	<colour>BASE_INDIGO</colour>
 	<sexBlockedReason><![CDATA[[npc.Name] cannot have sex here!]]></sexBlockedReason> 
 	<furniturePresent>true</furniturePresent>
-	<loiteringEnabled>true</loiteringEnabled>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>false</loiteringEnabled>
 	<flightEnabled>false</flightEnabled>
 	<visibleFromStart>true</visibleFromStart>
 	<fullyRevealedFromStart>false</fullyRevealedFromStart>

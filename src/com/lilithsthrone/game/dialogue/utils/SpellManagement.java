@@ -67,7 +67,7 @@ public class SpellManagement {
     	return SPELL_CAST_DIALOGUE;
     }
     
-    private static Response getResponses1To6(int index) {
+    private static Response getResponses1To9(int index) {
     	if(index==1) {
     		if(Main.game.getCurrentDialogueNode()==CHARACTER_SPELLS_EARTH) {
     			return new Response("Earth", UtilText.parse(getSpellOwner(), "You are already viewing [npc.namePos] Earth spells!"), null);
@@ -99,6 +99,12 @@ public class SpellManagement {
 			return new Response("Arcane", UtilText.parse(getSpellOwner(), "View [npc.namePos] spells and upgrades in the school of Arcane."), CHARACTER_SPELLS_ARCANE);
 			
 		} else if(index==6) {
+    		if(Main.game.getCurrentDialogueNode()==CHARACTER_SPELLS_MISC) {
+    			return new Response("Misc.", UtilText.parse(getSpellOwner(), "You are already viewing [npc.namePos] miscellaneous spells!"), null);
+    		}
+			return new Response("Misc.", UtilText.parse(getSpellOwner(), "View [npc.namePos] miscellaneous spells which [npc.sheHas] gained from weapons or special events."), CHARACTER_SPELLS_MISC);
+			
+		} else if(index==9) {
 			return new ResponseEffectsOnly(
 					UtilText.parse(getSpellTarget(), "Target: <b style='color:"+getSpellTarget().getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b>"),
 					"Cycle the targeted character for casting spells on.") {
@@ -158,10 +164,10 @@ public class SpellManagement {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index>=1 && index<=6) {
-				return getResponses1To6(index);
+			if(index>=1 && index<=9) {
+				return getResponses1To9(index);
 				
-			} else if(index==11) {
+			} else if(index==10) {
 				return new Response("Reset Arcane", UtilText.parse(getSpellOwner(), "Reset [npc.namePos] Arcane upgrades, refunding all points spent. [npc.Her] spells will not be reset."), CHARACTER_SPELLS_ARCANE) {
 					@Override
 					public void effects() {
@@ -219,10 +225,10 @@ public class SpellManagement {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index>=1 && index<=6) {
-				return getResponses1To6(index);
+			if(index>=1 && index<=9) {
+				return getResponses1To9(index);
 				
-			}  else if(index==11) {
+			}  else if(index==10) {
 				return new Response("Reset Earth", UtilText.parse(getSpellOwner(), "Reset [npc.namePos] Earth upgrades, refunding all points spent. [npc.Her] spells will not be reset."), CHARACTER_SPELLS_EARTH) {
 					@Override
 					public void effects() {
@@ -280,10 +286,10 @@ public class SpellManagement {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index>=1 && index<=6) {
-				return getResponses1To6(index);
+			if(index>=1 && index<=9) {
+				return getResponses1To9(index);
 				
-			} else if(index==11) {
+			} else if(index==10) {
 				return new Response("Reset Water", UtilText.parse(getSpellOwner(), "Reset [npc.namePos] Water upgrades, refunding all points spent. [npc.Her] spells will not be reset."), CHARACTER_SPELLS_WATER) {
 					@Override
 					public void effects() {
@@ -341,10 +347,10 @@ public class SpellManagement {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index>=1 && index<=6) {
-				return getResponses1To6(index);
+			if(index>=1 && index<=9) {
+				return getResponses1To9(index);
 				
-			}  else if(index==11) {
+			}  else if(index==10) {
 				return new Response("Reset Air", UtilText.parse(getSpellOwner(), "Reset [npc.namePos] Air upgrades, refunding all points spent. [npc.Her] spells will not be reset."), CHARACTER_SPELLS_AIR) {
 					@Override
 					public void effects() {
@@ -401,16 +407,69 @@ public class SpellManagement {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index>=1 && index<=6) {
-				return getResponses1To6(index);
+			if(index>=1 && index<=9) {
+				return getResponses1To9(index);
 				
-			} else if(index==11) {
+			} else if(index==10) {
 				return new Response("Reset Fire", UtilText.parse(getSpellOwner(), "Reset [npc.namePos] Fire upgrades, refunding all points spent. [npc.Her] spells will not be reset."), CHARACTER_SPELLS_FIRE) {
 					@Override
 					public void effects() {
 						getSpellOwner().resetSpellUpgrades(SpellSchool.FIRE);
 					}
 				};
+				
+			} else if (index == 0) {
+				return new Response("Back", "Return to the previous screen.", dialogueReturn);
+			
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			if(getSpellOwner().isPlayer()) {
+				return DialogueNodeType.PHONE;
+			}
+			return DialogueNodeType.OCCUPANT_MANAGEMENT;
+		}
+	};
+
+	public static final DialogueNode CHARACTER_SPELLS_MISC = new DialogueNode("Miscellaneous Spells", "", true) {
+
+		@Override
+		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width' style='width:100%; padding:0; margin:0;'>"
+						+"<div class='container-full-width' style='width:50%; padding:0; margin:0;'>"
+							+Spell.getSpellMiscTreeDisplay(getSpellOwner(), getSpellTarget())
+						+"</div>"
+						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
+							+ "While there are many spells explained in great detail in relatively easy-to-obtain spell books, there are also those which have eluded the process of being catalogued and committed to text."
+							+ " Although these elusive spells all fall into one of the five main schools of the arcane, they are typically categorised as 'miscellaneous' in the few books which make brief reference to them."
+							+ "<br/><br/>"
+							+ "Although they cannot be learned from a book, these spells can harnessed by equipping specially-enchanted weapons."
+							+ " There's also the possibility of obtaining these spells via unique events..."
+						+"</div>"
+						+ "<div class='container-full-width inner' style='text-align:center;'>"
+							+ "[style.boldSpell(Miscellaneous spells)] are obtained from special weapons and unique events."
+						+ "</div>"
+					+"</div>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public String getContent(){
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index>=1 && index<=9) {
+				return getResponses1To9(index);
 				
 			} else if (index == 0) {
 				return new Response("Back", "Return to the previous screen.", dialogueReturn);

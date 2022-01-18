@@ -2,7 +2,7 @@
 <placeType>
 	<worldRegion>FIELD_CITY</worldRegion>
 	<name><![CDATA[Farmer's Market]]></name>
-	<tooltipDescription><![CDATA[The focal point of the entire town of Elis, the farmer's market is held twice a week, and is the best place in all of the Foloi Fields for purchasing livestock.]]></tooltipDescription>
+	<tooltipDescription><![CDATA[The focal point of the entire town of Elis, the farmer's market is open every day, and on Saturdays and Wednesdays hosts a livestock market.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the Farmer's Market in Elis]]></virginityLossDescription>
 	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>

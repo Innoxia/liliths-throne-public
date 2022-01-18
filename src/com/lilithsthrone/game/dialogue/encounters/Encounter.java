@@ -24,6 +24,7 @@ import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNestsAttacker;
 import com.lilithsthrone.game.character.npc.dominion.Lumi;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
+import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.npc.submission.BatCavernLurkerAttacker;
 import com.lilithsthrone.game.character.npc.submission.BatCavernSlimeAttacker;
 import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
@@ -61,6 +62,7 @@ import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -77,7 +79,7 @@ public class Encounter {
 					(Main.game.getCharactersPresent().isEmpty()
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null),
-					(getSlaveUsingOtherSlaveInLilayaCorridor()!=null && Main.game.getCharactersPresent().isEmpty()
+					(Main.game.getCharactersPresent().isEmpty()
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USING_OTHER_SLAVE, 5f)
 						:null));
 		}
@@ -121,8 +123,8 @@ public class Encounter {
 				
 			} else if(node==EncounterType.SLAVE_USING_OTHER_SLAVE) {
 				Value<NPC, NPC> slaves = getSlaveUsingOtherSlaveInLilayaCorridor();
-				if(slaves.getKey()==null || slaves.getValue()==null) {
-					return null;
+				if(slaves==null || slaves.getKey()==null || slaves.getValue()==null) {
+					return null; // Return a null Encounter here instead of checking in getDialogues() due to performance issues
 				}
 				return SlaveEncountersDialogue.getSlaveUsingOtherSlaveLilayaCorridor(slaves);
 				
@@ -171,9 +173,7 @@ public class Encounter {
 					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f)
 						:null,
-					getSlaveWantingToUseYouInDominion()!=null
-						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
-						:null,
+					new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f),
 					wesQuestAvailable
 						?new Value<EncounterType, Float>(EncounterType.WES_QUEST_START, 50f)
 						:null,
@@ -254,9 +254,7 @@ public class Encounter {
 					new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_RENTAL_MOMMY, 10f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_PILL_HANDOUT, 5f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f),
-					getSlaveWantingToUseYouInDominion()!=null
-						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
-						:null);
+					new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f));
 		}
 		
 		@Override
@@ -320,10 +318,10 @@ public class Encounter {
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_ITEM, 3f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_CLOTHING, 2f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_WEAPON, 1f),
-					(getSlaveWantingToUseYouInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+					(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null),
-					(getSlaveUsingOtherSlaveInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+					(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USING_OTHER_SLAVE, 5f)
 						:null));
 			
@@ -357,14 +355,14 @@ public class Encounter {
 				}
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
-					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-						npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS))
-								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS)
-										|| npc.getSubspecies()==Subspecies.ANGEL
-										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT
-										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
-										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)));
+					List<OffspringSeed> offspringAvailable = Main.game.getOffspringNotSpawned(
+						os-> (os.getSubspecies()==Subspecies.HALF_DEMON
+								?(os.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS))
+								:(os.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS)
+										|| os.getSubspecies()==Subspecies.ANGEL
+										|| os.getSubspecies()==Subspecies.FOX_ASCENDANT
+										|| os.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
+										|| os.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)));
 					
 					if(!offspringAvailable.isEmpty()) {
 //						for(NPC npc : offspringAvailable) {
@@ -439,7 +437,7 @@ public class Encounter {
 				
 			} else if(node==EncounterType.SLAVE_USING_OTHER_SLAVE) {
 				Value<NPC, NPC> slaves = getSlaveUsingOtherSlaveInDominion();
-				if(slaves.getKey()==null || slaves.getValue()==null) {
+				if(slaves==null || slaves.getKey()==null || slaves.getValue()==null) {
 					return null;
 				}
 				return SlaveEncountersDialogue.getSlaveUsingOtherSlaveAlleyway(slaves);
@@ -452,13 +450,13 @@ public class Encounter {
 	public static AbstractEncounter DOMINION_DARK_ALLEY = new AbstractEncounter() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
-                    Map<EncounterType, Float> map = new HashMap<>();
+            Map<EncounterType, Float> map = new HashMap<>();
 
-                    map.put(EncounterType.DOMINION_ALLEY_ATTACK, 15f);
-                    
-                    return map;
-                }
-                @Override
+            map.put(EncounterType.DOMINION_ALLEY_ATTACK, 15f);
+            
+            return map;
+        }
+        @Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 				
 			// Prioritise re-encountering the NPC on this tile:
@@ -492,7 +490,7 @@ public class Encounter {
 							&& (!Main.game.getDialogueFlags().hasSavedLong("enforcer_encounter_minutes") || Main.game.getDialogueFlags().getSavedLong("enforcer_encounter_minutes")+(4*60)<Main.game.getMinutesPassed())
 						?new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ENFORCERS, 2.5f)
 						:null,
-					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null);
 		}
@@ -509,16 +507,16 @@ public class Encounter {
 				}
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
-					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_CANAL)
-										|| npc.getHalfDemonSubspecies()==Subspecies.SLIME
-										|| npc.getHalfDemonSubspecies()==Subspecies.ALLIGATOR_MORPH
-										|| npc.getHalfDemonSubspecies()==Subspecies.RAT_MORPH)
-								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_CANAL)
-										|| npc.getSubspecies()==Subspecies.SLIME
-										|| npc.getSubspecies()==Subspecies.ALLIGATOR_MORPH
-										|| npc.getSubspecies()==Subspecies.RAT_MORPH)));
+					List<OffspringSeed> offspringAvailable = Main.game.getOffspringNotSpawned(
+							os-> (os.getSubspecies()==Subspecies.HALF_DEMON
+								?(os.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_CANAL)
+										|| os.getHalfDemonSubspecies()==Subspecies.SLIME
+										|| os.getHalfDemonSubspecies()==Subspecies.ALLIGATOR_MORPH
+										|| os.getHalfDemonSubspecies()==Subspecies.RAT_MORPH)
+								:(os.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_CANAL)
+										|| os.getSubspecies()==Subspecies.SLIME
+										|| os.getSubspecies()==Subspecies.ALLIGATOR_MORPH
+										|| os.getSubspecies()==Subspecies.RAT_MORPH)));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -629,10 +627,10 @@ public class Encounter {
 				}
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
-					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().getRace()==Race.HARPY)
-								:(npc.getSubspecies().getRace()==Race.HARPY)));
+					List<OffspringSeed> offspringAvailable = Main.game.getOffspringNotSpawned(
+							os-> (os.getSubspecies()==Subspecies.HALF_DEMON
+								?(os.getHalfDemonSubspecies().getRace()==Race.HARPY)
+								:(os.getSubspecies().getRace()==Race.HARPY)));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -689,10 +687,10 @@ public class Encounter {
 				}
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
-					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().getRace()==Race.HARPY)
-								:(npc.getSubspecies().getRace()==Race.HARPY)));
+					List<OffspringSeed> offspringAvailable = Main.game.getOffspringNotSpawned(
+							os-> (os.getSubspecies()==Subspecies.HALF_DEMON
+								?(os.getHalfDemonSubspecies().getRace()==Race.HARPY)
+								:(os.getSubspecies().getRace()==Race.HARPY)));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -938,10 +936,10 @@ public class Encounter {
 				}
 				
 				if(Math.random()<IncestEncounterRate()) {
-					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS))
-								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS))));
+					List<OffspringSeed> offspringAvailable = Main.game.getOffspringNotSpawned(
+							os-> (os.getSubspecies()==Subspecies.HALF_DEMON
+								?(os.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS))
+								:(os.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS))));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -1000,20 +998,24 @@ public class Encounter {
                     && !Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE)
                     && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_HANDLE_REFUSED)
                     && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_COMPLETE)) {
-            	// The player needs to find one password from a dark tile and one from a light tile, so if already found the password in their tile, do not enable Encounter
-            	boolean alreadyFound = (Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_DARK) && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.rebelBaseDarkPassFound))
-            			|| (Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_LIGHT) && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.rebelBaseLightPassFound));
-            	
-            	if(!alreadyFound) {
-	            	EncounterType nextEncounter = EncounterType.BAT_CAVERN_REBEL_PASSWORD_TWO;
-	            	if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
-	                	nextEncounter = EncounterType.BAT_CAVERN_REBEL_PASSWORD_ONE;
+            	AbstractPlaceType playerPlaceType = Main.game.getPlayerCell().getPlace().getPlaceType();
+            	// Limit encounters for passwords to dark, light, and HLF base entrance tiles only:
+            	if(playerPlaceType.equals(PlaceType.BAT_CAVERN_DARK) || playerPlaceType.equals(PlaceType.BAT_CAVERN_LIGHT) || playerPlaceType.equals(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR)) {
+	            	// The player needs to find one password from a dark tile and one from a light tile, so if already found the password in their tile, do not enable Encounter
+	            	boolean alreadyFound = (playerPlaceType.equals(PlaceType.BAT_CAVERN_DARK) && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.rebelBaseDarkPassFound))
+	            			|| (playerPlaceType.equals(PlaceType.BAT_CAVERN_LIGHT) && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.rebelBaseLightPassFound));
+	            	
+	            	if(!alreadyFound) {
+		            	EncounterType nextEncounter = EncounterType.BAT_CAVERN_REBEL_PASSWORD_TWO;
+		            	if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
+		                	nextEncounter = EncounterType.BAT_CAVERN_REBEL_PASSWORD_ONE;
+		            	}
+		                if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)){
+		                    map.put(nextEncounter, 5f);
+		                } else {
+		                    map.put(nextEncounter, 1f);
+		                }
 	            	}
-	                if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)){
-	                    map.put(nextEncounter, 5f);
-	                } else {
-	                    map.put(nextEncounter, 1f);
-	                }
             	}
             }
             
@@ -1260,6 +1262,10 @@ public class Encounter {
 	public static String getIdFromEncounter(AbstractEncounter encounter) {
 		return encounterToIdMap.get(encounter);
 	}
+	
+	public static List<AbstractEncounter> getAllEncounters() {
+		return allEncounters;
+	}
 
 	static {
 		allEncounters = new ArrayList<>();
@@ -1350,9 +1356,5 @@ public class Encounter {
 				}
 			}
 		}
-	}
-	
-	public static List<AbstractEncounter> getAllEncounters() {
-		return allEncounters;
 	}
 }

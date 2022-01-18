@@ -82,6 +82,8 @@ public class LilayaHomeGeneric {
 				if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_ROOM_PLAYER) {
 					return "Bathroom";
 				}
+				break;
+				
 		}
 		return null;
 	}
@@ -472,7 +474,7 @@ public class LilayaHomeGeneric {
 								" As you've instructed [npc.herHim] to crawl, [npc.sheIs] down on all fours, "));
 					} else {
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								" [npc.sheIs] currently "));
+								" [npc.SheIs] currently "));
 					}
 					
 					switch(slave.getObedience()) {

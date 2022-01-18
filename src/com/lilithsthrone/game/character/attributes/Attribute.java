@@ -601,19 +601,25 @@ public class Attribute {
 		oldConversionMapping.put("RESISTANCE_MANA", Attribute.RESISTANCE_LUST);
 		oldConversionMapping.put("RESISTANCE_PURE", Attribute.ENERGY_SHIELDING);
 	}
-	
+
+	/**
+	 * @return The Attribute that has an id closest to the supplied attributeId.
+	 *  <b>Will return null</b> if the matching distance is greater than 3 (which typically will be more than enough to catch spelling errors, indicating that the flag has been removed).
+	 */
 	public static AbstractAttribute getAttributeFromId(String attributeId) {
 		if(attributeId.startsWith("RESISTANCE_ELEMENTAL")) {
 			attributeId = "RESISTANCE_ELEMENTAL";
 		} else if(attributeId.startsWith("DAMAGE_ELEMENTAL")) {
 			attributeId = "DAMAGE_ELEMENTAL";
+		} else if(attributeId.startsWith("CRITICAL_CHANCE")) { // Critical chance was removed, so return damage instead as a replacement for old saves
+			attributeId = "CRITICAL_DAMAGE";
 		}
 		
 		if(oldConversionMapping.containsKey(attributeId)) {
 			return oldConversionMapping.get(attributeId);
 		}
 
-		attributeId = Util.getClosestStringMatch(attributeId, idToAttributeMap.keySet());
+		attributeId = Util.getClosestStringMatch(attributeId, idToAttributeMap.keySet(), 3);
 		
 		return idToAttributeMap.get(attributeId);
 	}

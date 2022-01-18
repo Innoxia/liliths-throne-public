@@ -47,7 +47,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.4
+ * @version 0.4.2
  * @author Innoxia
  */
 public class DominionPlaces {
@@ -649,52 +649,15 @@ public class DominionPlaces {
 	};
 
 	
-	public static final DialogueNode DOMINION_PLAZA = new DialogueNode("Lilith's Plaza", ".", false) {
-
+	public static final DialogueNode DOMINION_PLAZA = new DialogueNode("Lilith's Plaza", "", false) {
 		@Override
 		public int getSecondsPassed() {
 			return 3*60;
 		}
-
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append("<p>"
-						+ "You find yourself standing in the very centre of Dominion, where an expansive public square is situated."
-						+ " Large residential and commercial buildings flank the plaza on each of its four sides; their white marble facades decorated with countless dark-purple flags bearing the black pentagram of Lilith."
-					+ "</p>"
-					+ "<p>"
-						+ "Numerous grandiose statues and extravagantly-detailed water fountains, all carved from polished white marble, reside within this large area."
-						+ " Each one of these sculptures appears to represent a demon or Lilin, and although they're each a marvellous work of art, the one in the very middle of the square is quite simply breathtaking."
-						+ " On top of a plinth of at least [unit.lSizes(3000)] in height, stands a gigantic marble statue of Lilith herself;"
-							+ " with wings fully unfurled, and with her hands resting on her wide hips, she smirks down with a visage of manic delight at the crowds below."
-						+ " Completely naked, every [unit.size] of the effigy's subject is on display for all to see, and you find yourself looking straight up at Lilith's tight pussy as you marvel at the workmanship that went into this astounding piece of art."
-					+ "</p>");
-			
-			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
-							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted plaza."
-							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
-						+ "</p>");
-			} else {
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "Being the central meeting place for Dominion's citizens, this plaza is the busiest location in all of Dominion."
-							+ " Throngs of people, of all different races and appearances, fill the square."
-							+ " Some appear to be simply passing through the area, while others lounge about on the many wooden benches and marble steps at the base of each statue."
-						+ "</p>"
-						+ "<p>"
-							+ "On raised platforms, well-spoken orators address the crowds, relaying news and important announcements to the many citizens who pass by."
-							+ " Pamphlets and newspapers are handed out beside each one of these stands, and you realise that this is the only place where you've seen any form of news being distributed to the population."
-						+ "</p>");
-			}
-			
-			return UtilText.nodeContentSB.toString();
+			return UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "DOMINION_PLAZA");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
@@ -1126,9 +1089,6 @@ public class DominionPlaces {
 				return "<p>"
 						+ "A pair of elite demon Enforcers are keeping a close watch on everyone who enters or leaves the city."
 						+ " Now that you have a map, as well as business out there in the world beyond Dominion, there's nothing stopping you from leaving right now."
-					+ "</p>"
-					+ "<p>"
-						+ "[style.italicsMinorBad(Innoxia's note: World map travel has been temporarily disabled until the next version so that I can get the Elis & Fields content into a presentable state!)]" //TODO remove for 0.4.1
 					+ "</p>";
 				
 			} else {
@@ -1146,15 +1106,13 @@ public class DominionPlaces {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(Main.game.getPlayer().isDiscoveredWorldMap()) {
-					 //TODO revert for 0.4.1
-					return new Response("World travel", "Exit Dominion and head out into the wide world...<br/>[style.italicsBad(This has been temporarily disabled until the next version so that Elis/Fields content can be finished!)]", null);
-//					return new ResponseEffectsOnly("World travel", "Exit Dominion and head out into the wide world...") {
-//						@Override
-//						public void effects() {
-//							Main.game.getPlayer().setLocation(WorldType.WORLD_MAP, Main.game.getPlayer().getGlobalLocation(), false);
-//							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
-//						}
-//					};
+					return new ResponseEffectsOnly("World travel", "Exit Dominion and head out into the wide world...") {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.WORLD_MAP, Main.game.getPlayer().getGlobalLocation(), false);
+							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
+						}
+					};
 					
 				} else {
 					return new Response("World travel", "You don't know what the rest of the world looks like, and, for now, your business is within the city.", null);

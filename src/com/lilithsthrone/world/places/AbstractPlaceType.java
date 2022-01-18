@@ -65,8 +65,14 @@ public class AbstractPlaceType {
 	protected boolean itemsDisappear;
 	private boolean furniturePresentOverride;
 	private boolean furniturePresent;
+	private boolean deskNameOverride;
+	private String deskName;
 	private boolean loiteringEnabledOverride;
 	private boolean loiteringEnabled;
+	private boolean wallsPresentOverride;
+	private boolean wallsPresent;
+	private boolean wallNameOverride;
+	private String wallName;
 	
 	private String sexBlockedReason;
 	private boolean sexBlockedFromCharacterPresent;
@@ -127,6 +133,10 @@ public class AbstractPlaceType {
 
 		this.loiteringEnabledOverride = false;
 		this.loiteringEnabled = false;
+
+		this.wallsPresentOverride = false;
+		this.wallsPresent = false;
+		this.wallName = "wall";
 		
 		this.sexBlockedReason = "";
 		this.sexBlockedFromCharacterPresent = true;
@@ -313,9 +323,15 @@ public class AbstractPlaceType {
 				if(coreElement.getOptionalFirstOf("furniturePresent").isPresent()) {
 					this.furniturePresentOverride = true;
 					this.furniturePresent = Boolean.valueOf(coreElement.getMandatoryFirstOf("furniturePresent").getTextContent().trim());
+					if(!coreElement.getMandatoryFirstOf("furniturePresent").getAttribute("deskName").isEmpty()) {
+						this.deskNameOverride = true;
+						this.deskName = coreElement.getMandatoryFirstOf("furniturePresent").getAttribute("deskName");
+					}
 				} else {
 					this.furniturePresentOverride = false;
 					this.furniturePresent = false;
+					this.deskNameOverride = false;
+					this.deskName = "desk";
 				}
 				
 				if(coreElement.getOptionalFirstOf("loiteringEnabled").isPresent()) {
@@ -325,14 +341,32 @@ public class AbstractPlaceType {
 					this.loiteringEnabledOverride = false;
 					this.loiteringEnabled = false;
 				}
+
+				if(coreElement.getOptionalFirstOf("wallsPresent").isPresent()) {
+					this.wallsPresentOverride = true;
+					this.wallsPresent = Boolean.valueOf(coreElement.getMandatoryFirstOf("wallsPresent").getTextContent().trim());
+					if(!coreElement.getMandatoryFirstOf("wallsPresent").getAttribute("wallName").isEmpty()) {
+						this.wallNameOverride = true;
+						this.wallName = coreElement.getMandatoryFirstOf("wallsPresent").getAttribute("wallName");
+					}
+				} else {
+					this.wallsPresentOverride = false;
+					this.wallsPresent = false;
+					this.wallNameOverride = false;
+					this.wallName = "wall";
+				}
 				
 				this.globalMapTile = Boolean.valueOf(coreElement.getMandatoryFirstOf("globalMapTile").getTextContent().trim());
 				this.dangerousString = coreElement.getMandatoryFirstOf("dangerous").getTextContent().trim();
 				this.itemsDisappearString = coreElement.getMandatoryFirstOf("itemsDisappear").getTextContent().trim();
 				this.aquaticString = coreElement.getMandatoryFirstOf("aquatic").getTextContent().trim();
 				this.darknessString = coreElement.getMandatoryFirstOf("darkness").getTextContent().trim();
-				
-				this.teleportPermissions = TeleportPermissions.valueOf(coreElement.getMandatoryFirstOf("teleportPermissions").getTextContent());
+
+				if(coreElement.getOptionalFirstOf("teleportPermissions").isPresent() && !coreElement.getMandatoryFirstOf("teleportPermissions").getTextContent().isEmpty()) {
+					this.teleportPermissions = TeleportPermissions.valueOf(coreElement.getMandatoryFirstOf("teleportPermissions").getTextContent());
+				} else {
+					this.teleportPermissions = TeleportPermissions.BOTH;
+				}
 				
 				this.weatherImmunities = new ArrayList<>();
 				if(coreElement.getOptionalFirstOf("weatherImmunities").isPresent()) {
@@ -487,22 +521,29 @@ public class AbstractPlaceType {
 		}
 		return backgroundColour;
 	}
-
+	
 	public AbstractEncounter getEncounterType() {
-		List<AbstractEncounter> possibleEncounters = new ArrayList<>();
+		Map<AbstractEncounter, Float> possibleEncountersMap = new HashMap<>();
 		
 		if(encounterType!=null) {
-			possibleEncounters.add(encounterType);
+			possibleEncountersMap.put(encounterType, encounterType.getTotalChanceValue());
 		}
-		possibleEncounters.addAll(Encounter.getAddedEncounters(this.getId()));
+		for(AbstractEncounter enc : Encounter.getAddedEncounters(this.getId())) {
+			possibleEncountersMap.put(enc, enc.getTotalChanceValue());
+		}
 		
-		if(possibleEncounters.isEmpty()) {
+		if(possibleEncountersMap.isEmpty()) {
 			return null;
 		}
 		
-		// Need to always return the same encounter in case it gets triggered multiple times in logic somewhere
-		Util.random.setSeed(Main.game.getSecondsPassed());
-		return Util.randomItemFrom(possibleEncounters);
+		// If a value of >100 is used for the encounter chance, then all other encounters with chances of <=100 are discarded
+		if(possibleEncountersMap.keySet().stream().anyMatch(en->en.isAnyBaseTriggerChanceOverOneHundred())) {
+			possibleEncountersMap.keySet().removeIf(en->!en.isAnyBaseTriggerChanceOverOneHundred());
+		}
+		
+		AbstractEncounter ae = Util.getRandomObjectFromWeightedFloatMap(possibleEncountersMap);
+		
+		return ae;
 	}
 	
 	protected DialogueNode getBaseDialogue(Cell cell) {
@@ -518,10 +559,13 @@ public class AbstractPlaceType {
 	}
 	
 	public DialogueNode getDialogue(Cell cell, boolean withRandomEncounter, boolean forceEncounter) {
-		if(getEncounterType()!=null && withRandomEncounter) {
-			DialogueNode dn = getEncounterType().getRandomEncounter(forceEncounter);
-			if (dn != null) {
-				return dn;
+		if(withRandomEncounter) {
+			AbstractEncounter encounterType = getEncounterType();
+			if(encounterType!=null) {
+				DialogueNode dn = encounterType.getRandomEncounter(forceEncounter);
+				if (dn != null) {
+					return dn;
+				}
 			}
 		}
 		return getBaseDialogue(cell);
@@ -592,7 +636,11 @@ public class AbstractPlaceType {
 
 	public Darkness getDarkness() {
 		if(this.isFromExternalFile()) {
-			return Darkness.valueOf(UtilText.parse(darknessString));
+			String parsedDarkness = UtilText.parse(darknessString);
+			if(parsedDarkness.isEmpty()) {
+				return Darkness.DAYLIGHT;
+			}
+			return Darkness.valueOf(parsedDarkness);
 		}
 		return darkness;
 	}
@@ -724,6 +772,20 @@ public class AbstractPlaceType {
 	}
 
 	/**
+	 * @return true if this place type's getDeskName() method should be used instead of the parent world type's.
+	 */
+	public boolean isDeskNameOverride() {
+		return deskNameOverride;
+	}
+	
+	/**
+	 * @return The name which should be used in the against desk sex position, in the X place in: 'Against X'. This overrides AbstractWorldType's method of the same name.
+	 */
+	public String getDeskName() {
+		return deskName;
+	}
+	
+	/**
 	 * @return true if this place type's isLoiteringEnabled() method should be used instead of the parent world type's.
 	 */
 	public boolean isLoiteringEnabledOverride() {
@@ -739,5 +801,33 @@ public class AbstractPlaceType {
 
 	public boolean isSexBlockedFromCharacterPresent() {
 		return sexBlockedFromCharacterPresent;
+	}
+
+	/**
+	 * @return true if this place type's isWallsPresent() method should be used instead of the parent world type's.
+	 */
+	public boolean isWallsPresentOverride() {
+		return wallsPresentOverride;
+	}
+
+	/**
+	 * @return true if against wall position is available in this location. This overrides AbstractWorldType's method of the same name.
+	 */
+	public boolean isWallsPresent() {
+		return wallsPresent;
+	}
+	
+	/**
+	 * @return true if this place type's getWallName() method should be used instead of the parent world type's.
+	 */
+	public boolean isWallNameOverride() {
+		return wallNameOverride;
+	}
+	
+	/**
+	 * @return The name which should be used in the against wall sex position, in the X place in: 'Against X'. This overrides AbstractWorldType's method of the same name.
+	 */
+	public String getWallName() {
+		return wallName;
 	}
 }

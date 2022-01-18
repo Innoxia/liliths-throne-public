@@ -191,6 +191,30 @@ public class Pathing {
 		return path;
 	}
 	
+	/**
+	 * Walks the character down the path to the destination provided. <b>Make sure that the character is already in the worldType you define!</b>
+	 */
+	public static void walkPathNoEffects(GameCharacter character, AbstractWorldType worldType, Vector2i end, boolean preferSafe, float percentageTravel) {
+		walkPathNoEffects(character,
+				Main.game.getWorlds().get(worldType).getCellGrid(),
+				end,
+				preferSafe,
+				percentageTravel);
+	}
+	
+	private static void walkPathNoEffects(GameCharacter character, Cell[][] grid, Vector2i end, boolean preferSafe, float percentageTravel) {
+		List<Cell> cells = aStarPathing(grid, character.getLocation(), end, preferSafe);
+		int cellsToTravel = Math.max(1, (int)(cells.size()*percentageTravel));
+		int cellsTravelled = 0;
+		for(Cell c : cells) {
+			character.setLocation(c.getType(), c.getLocation(), false);
+			cellsTravelled++;
+			if(cellsTravelled>cellsToTravel) {
+				break;
+			}
+		}
+	}
+	
 	public static Response walkPath(MapTravelType travelType) {
 		int totalTimePassed = 0;
 		for(Cell c : getPathingCells()) {

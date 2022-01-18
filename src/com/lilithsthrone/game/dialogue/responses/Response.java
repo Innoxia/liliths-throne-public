@@ -66,7 +66,7 @@ public class Response {
 	
 	// For use when loaded from external files
 	
-	private boolean fromExternalFile = false;
+	protected boolean fromExternalFile = false;
 	
 	private String conditional;
 	
@@ -293,7 +293,10 @@ public class Response {
 			if(colourId.startsWith("#")) {
 				return new Colour(false, Util.newColour(colourId), Util.newColour(colourId), "");
 			} else {
-				return PresetColour.getColourFromId(colourId);
+				String colourParsed = UtilText.parse(colourId).trim();
+				if(!colourParsed.isEmpty()) {
+					return PresetColour.getColourFromId(colourParsed);
+				}
 			}
 		}
 		

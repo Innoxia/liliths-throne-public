@@ -92,6 +92,14 @@ public class HairType {
 				+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldWolfMorph(wolf hair)].",
 			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], wolf-like hair",
 			Util.newArrayListOfValues(BodyPartTag.HAIR_HANDLES_IN_SEX)) {
+		@Override
+		public boolean isNeckFluffRequiresGreater() {
+			return true;
+		}
+		@Override
+		public double getNeckFluffChance() {
+			return 0.25f;
+		}
 	};
 
 	public static AbstractHairType FOX_MORPH = new AbstractHairType(BodyCoveringType.HAIR_FOX_FUR,
@@ -105,6 +113,14 @@ public class HairType {
 				+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldFoxMorph(fox hair)].",
 			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], fox-like hair",
 			Util.newArrayListOfValues(BodyPartTag.HAIR_HANDLES_IN_SEX)) {
+		@Override
+		public boolean isNeckFluffRequiresGreater() {
+			return true;
+		}
+		@Override
+		public double getNeckFluffChance() {
+			return 0.25f;
+		}
 	};
 
 	public static AbstractHairType CAT_MORPH = new AbstractHairType(BodyCoveringType.HAIR_FELINE_FUR, //TODO change to cat

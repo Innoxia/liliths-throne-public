@@ -226,7 +226,7 @@ public class RoomPlayer {
 		} else if(responseTab==2) {
 			if (index == 1) {
 				return new Response("Quick shower",
-						"Use your room's ensuite to take a bath or shower."
+						"Use your room's ensuite to take a quick shower."
 								+ "<br/>[style.italicsGood(Cleans <b>a maximum of "+Units.fluid(500)+"</b> of fluids from all orifices.)]"
 								+ "<br/>[style.italicsGood(This will clean <b>only</b> your currently equipped clothing.)]",
 //								+ "<br/>[style.italicsMinorBad(This does <b>not</b> clean companions.)]",
@@ -236,7 +236,7 @@ public class RoomPlayer {
 						List<NPC> charactersPresent = LilayaHomeGeneric.getSlavesAndOccupantsPresent();
 						slavesWashing = charactersPresent.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_HELP_WASH)).collect(Collectors.toList());
 						for(GameCharacter npc : slavesWashing) {
-							npc.applyWash(true, true, null, 240+30);
+							npc.applyWash(true, true, StatusEffect.CLEANED_SHOWER, 120+30);
 						}
 
 						Main.game.getTextEndStringBuilder().append("<p style='text-align:center'><i>You leave your clothes outside of your bathroom so that they can be cleaned while you wash yourself...</i></p>");
@@ -2095,7 +2095,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR = new DialogueNode("Your Room", "", false) {
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR = new DialogueNode("Calendar", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
 			StringBuilder sb = new StringBuilder();
@@ -2151,16 +2151,16 @@ public class RoomPlayer {
 			return "";
 		}
 
-		@Override
-		public String getResponseTabTitle(int index) {
-			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
-		}
+//		@Override
+//		public String getResponseTabTitle(int index) {
+//			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+//		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(responseTab==1) {
-				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
-			}
+//			if(responseTab==1) {
+//				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+//			}
 			if (index == 0) {
 				return new Response("Back", "Step away from the calendar.", ROOM);
 			} else if(index==1) {
@@ -2194,7 +2194,7 @@ public class RoomPlayer {
 	};
 	
 	
-	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY = new DialogueNode("Your Room", "", false) {
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY = new DialogueNode("Calendar", "", true) {
 
 		@Override
 		public String getContent() {
@@ -2230,7 +2230,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_JUNE = new DialogueNode("Your Room", "", false) {
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_JUNE = new DialogueNode("Calendar", "", true) {
 
 		@Override
 		public String getContent() {
@@ -2266,7 +2266,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER = new DialogueNode("Your Room", "", false) {
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER = new DialogueNode("Calendar", "", true) {
 
 		@Override
 		public String getContent() {
@@ -2308,7 +2308,7 @@ public class RoomPlayer {
 		}
 	};
 	
-	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER = new DialogueNode("Your Room", "", false) {
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER = new DialogueNode("Calendar", "", true) {
 
 		@Override
 		public String getContent() {

@@ -35,6 +35,8 @@ public class DialogueFlagValue {
 	
 	// Misc.:
 	public static AbstractDialogueFlagValue quickTrade = new AbstractDialogueFlagValue();
+	/** This is reset to false every time a transaction occurs, and should only be set to true in an NPC's applyItemTransactionEffects() method to prevent their default getTraderDescription() text from being displayed. */
+	public static AbstractDialogueFlagValue removeTraderDescription = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue stormTextUpdateRequired = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue hasSnowedThisWinter = new AbstractDialogueFlagValue();
 	
@@ -375,6 +377,7 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue lyssiethQuestionAsked4 = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue lyssiethQuestionAsked5 = new AbstractDialogueFlagValue();
 
+	public static AbstractDialogueFlagValue lyssiethNoCockDemonTF = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue meraxisRepeatDemonTF = new AbstractDialogueFlagValue();
 	
 	
@@ -440,6 +443,18 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue murkSpanked = new AbstractDialogueFlagValue(true);
 	
 	
+	//Felicia
+	public static AbstractDialogueFlagValue feliciaAskedArthurPersonality = new AbstractDialogueFlagValue(false);
+	public static AbstractDialogueFlagValue feliciaAskedArthurHobbies = new AbstractDialogueFlagValue(false);
+	public static AbstractDialogueFlagValue feliciaAskedAboutHerSurname = new AbstractDialogueFlagValue(false);
+	public static AbstractDialogueFlagValue feliciaAskedAboutHerPlace = new AbstractDialogueFlagValue(false);
+	public static AbstractDialogueFlagValue feliciaAskedAboutHerFur = new AbstractDialogueFlagValue(false);
+	public static AbstractDialogueFlagValue feliciaAskedAboutHerFavoriteStore = new AbstractDialogueFlagValue(false);
+	public static AbstractDialogueFlagValue feliciaToldAboutArthur = new AbstractDialogueFlagValue(false);
+	public static AbstractDialogueFlagValue feliciaLewdTalkAborted = new AbstractDialogueFlagValue(false);
+	public static AbstractDialogueFlagValue feliciaRejectedPlayer = new AbstractDialogueFlagValue(false);
+	
+	
 	// Fields area:
 	
 	public static AbstractDialogueFlagValue leftDominionFirstTime = new AbstractDialogueFlagValue();
@@ -461,10 +476,17 @@ public class DialogueFlagValue {
 	
 	/**
 	 * @param id Will be in the format of: 'innoxia_elis_berries_found'.
+	 * @return The flag that has an id closest to the supplied id. <b>Will return null</b> if the matching distance is greater than 3 (which typically will be more than enough to catch spelling errors, indicating that the flag has been removed).
 	 */
 	public static AbstractDialogueFlagValue getDialogueFlagValueFromId(String id) {
-		id = Util.getClosestStringMatch(id, idToDialogueFlagValueMap.keySet());
+		// Removed flags:
+		if(id.equals("ratWarrensRaid")
+				|| id.equals("suppliersTriedConvincing")) {
+			return null;
+		}
 		
+		id = Util.getClosestStringMatch(id, idToDialogueFlagValueMap.keySet(), 3);
+				
 		return idToDialogueFlagValueMap.get(id);
 	}
 	
@@ -487,7 +509,7 @@ public class DialogueFlagValue {
 						allDialogueFlagValues.add(loadedFlag);
 						dialogueFlagValueToIdMap.put(loadedFlag, loadedFlag.getId());
 						idToDialogueFlagValueMap.put(loadedFlag.getId(), loadedFlag);
-//						System.out.println("modded DFV: "+innerEntry.getKey());
+//						System.out.println("modded DFV: "+innerEntry.getKey()+" "+loadedFlag.getId());
 					}
 				} catch(Exception ex) {
 					System.err.println("Loading modded dialogueFlagValue failed at 'DialogueFlagValue'. File path: "+innerEntry.getValue().getAbsolutePath());

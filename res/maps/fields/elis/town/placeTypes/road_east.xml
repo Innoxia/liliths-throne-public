@@ -2,7 +2,7 @@
 <placeType>
 	<worldRegion>FIELD_CITY</worldRegion>
 	<name><![CDATA[Eastern road]]></name>
-	<tooltipDescription><![CDATA[This road leads out of the eastern gate of Elis, and after a few miles it links up with the well-maintained highway which runs alongside the river Huber.]]></tooltipDescription>
+	<tooltipDescription><![CDATA[This road leads out of the eastern gate of Elis, and after a few miles it links up with the well-maintained highway which runs alongside the river Hubur.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[on the eastern road leading out of Elis]]></virginityLossDescription>
 	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>

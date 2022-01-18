@@ -21,6 +21,7 @@ import org.w3c.dom.NodeList;
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderNames;
@@ -49,8 +50,8 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.3.8.9
- * @author Innoxia
+ * @version 0.4.2
+ * @author Innoxia, Maxis
  */
 public class Properties {
 	
@@ -164,6 +165,7 @@ public class Properties {
 	public Map<Gender, Integer> genderPreferencesMap;
 	
 	public Map<SexualOrientation, Integer> orientationPreferencesMap;
+	public EnumMap<Fetish, Integer> fetishPreferencesMap;
 
 	public Map<PronounType, Map<AgeCategory, Integer>> agePreferencesMap;
 	
@@ -221,11 +223,10 @@ public class Properties {
 		
 		resetGenderPreferences();
 
-		orientationPreferencesMap = new EnumMap<>(SexualOrientation.class);
-		for(SexualOrientation o : SexualOrientation.values()) {
-			orientationPreferencesMap.put(o, o.getOrientationPreferenceDefault().getValue());
-		}
+		resetOrientationPreferences();
 		
+		resetFetishPreferences();
+
 		resetAgePreferences();
 		
 		forcedTFPreference = FurryPreference.NORMAL;
@@ -448,6 +449,22 @@ public class Properties {
 				element.setAttributeNode(value);
 			}
 			
+			// Fetish preferences:
+			Element fetishPreferences = doc.createElement("fetishPreferences");
+			properties.appendChild(fetishPreferences);
+			for (Fetish f : Fetish.values()) {
+				Element element = doc.createElement("preference");
+				fetishPreferences.appendChild(element);
+				
+				Attr fetish = doc.createAttribute("fetish");
+				fetish.setValue(f.toString());
+				element.setAttributeNode(fetish);
+				
+				Attr value = doc.createAttribute("value");
+				value.setValue(String.valueOf(fetishPreferencesMap.get(f).intValue()));
+				element.setAttributeNode(value);
+			}
+
 			// Age preferences:
 			Element agePreferences = doc.createElement("agePreferences");
 			properties.appendChild(agePreferences);
@@ -662,6 +679,9 @@ public class Properties {
 					if(Main.isVersionOlderThan(versionNumber, "0.3.8.9")) {
 						values.add(PropertyValue.badEndContent);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.4.0.5")) {
+						values.add(PropertyValue.armpitContent);
+					}
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
 						
@@ -670,6 +690,10 @@ public class Properties {
 						} catch(Exception ex) {
 						}
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.4.1.5")) {
+						values.add(PropertyValue.vestigialMultiBreasts);
+					}
+					
 					
 				} else {
 					// Old values support:
@@ -972,6 +996,23 @@ public class Properties {
 							}
 						} catch(IllegalArgumentException ex){
 							System.err.println("loadPropertiesFromXML() error: orientationPreferences preference");
+						}
+					}
+				}
+				
+				// Fetish preferences:
+				nodes = doc.getElementsByTagName("fetishPreferences");
+				element = (Element) nodes.item(0);
+				if(element!=null && element.getElementsByTagName("preference")!=null) {
+					for(int i=0; i<element.getElementsByTagName("preference").getLength(); i++){
+						Element e = ((Element)element.getElementsByTagName("preference").item(i));
+						
+						try {
+							if(!e.getAttribute("fetish").isEmpty()) {
+								fetishPreferencesMap.put(Fetish.valueOf(e.getAttribute("fetish")), Integer.valueOf(e.getAttribute("value")));
+							}
+						} catch(IllegalArgumentException ex){
+							System.err.println("loadPropertiesFromXML() error: fetishPreferences preference");
 						}
 					}
 				}
@@ -1452,6 +1493,20 @@ public class Properties {
 			genderPreferencesMap.put(g, g.getGenderPreferenceDefault().getValue());
 		}
 	}
+
+	public void resetOrientationPreferences() {
+		orientationPreferencesMap = new EnumMap<>(SexualOrientation.class);
+		for(SexualOrientation o : SexualOrientation.values()) {
+			orientationPreferencesMap.put(o, o.getOrientationPreferenceDefault().getValue());
+		}
+	}
+
+	public void resetFetishPreferences() {
+		fetishPreferencesMap = new EnumMap<>(Fetish.class);
+		for(Fetish f : Fetish.values()) {
+			fetishPreferencesMap.put(f, f.getFetishPreferenceDefault().getValue());
+		}
+	}
 	
 	public void resetAgePreferences() {
 		agePreferencesMap = new HashMap<>();
@@ -1490,7 +1545,8 @@ public class Properties {
 	public float getRandomRacePercentage() {
 		return randomRacePercentage;
 	}
-
+	
+	/** 0=off, 1=taur-only, 2=on*/
 	public int getUddersLevel() {
 		return udders;
 	}

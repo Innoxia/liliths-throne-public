@@ -6,7 +6,7 @@
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[gemstone ring]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[gemstone rings]]></namePlural>
-		<description><![CDATA[A band of metal, housing a cut and polished gemstone, which slides down onto a person's finger.]]></description>
+		<description><![CDATA[A band of metal, housing a cut and polished gemstone, which slides down onto a person's finger. Its slender, delicate shape makes it suitable only for feminine characters to wear.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
 		<slot>FINGER</slot>
@@ -31,10 +31,25 @@
 		
 		<incompatibleSlots/>
 		
-		<primaryColours values="ALL_METAL"/>
-		<primaryColoursDye values="ALL"/>
-		<secondaryColours values="ALL"/>
-		<secondaryColoursDye/>
+		<primaryColours>
+			<colour>CLOTHING_GOLD</colour>
+			<colour>CLOTHING_SILVER</colour>
+			<colour>CLOTHING_BRONZE</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_RED_DARK</colour>
+			<colour>CLOTHING_RED</colour>
+			<colour>CLOTHING_ORANGE_DARK</colour>
+			<colour>CLOTHING_YELLOW</colour>
+			<colour>CLOTHING_GREEN</colour>
+			<colour>CLOTHING_GREEN_DARK</colour>
+			<colour>CLOTHING_TURQUOISE</colour>
+			<colour>CLOTHING_BLUE_LIGHT</colour>
+			<colour>CLOTHING_PURPLE_LIGHT</colour>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
 	
@@ -48,10 +63,10 @@
       <![CDATA[[npc.Name] [npc.verb(slide)] the gemstone ring onto [npc.her] [npc.finger].]]>
     </self>
     <other>
-      <![CDATA[[npc.Name] [npc.verb(slide)] the gemstone ring onto [npc2.namePos] [npc.finger].]]>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the gemstone ring onto [npc2.namePos] [npc2.finger].]]>
     </other>
     <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(push)] the gemstone ring onto [npc2.namePos] [npc.finger].]]>
+      <![CDATA[[npc.Name] roughly [npc.verb(push)] the gemstone ring onto [npc2.namePos] [npc2.finger].]]>
     </otherRough>
   </replacementText>
 
@@ -60,10 +75,10 @@
       <![CDATA[[npc.Name] [npc.verb(slide)] the gemstone ring off [npc.her] [npc.finger].]]>
     </self>
     <other>
-      <![CDATA[[npc.Name] [npc.verb(slide)] the gemstone ring off [npc2.namePos] [npc.finger].]]>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the gemstone ring off [npc2.namePos] [npc2.finger].]]>
     </other>
     <otherRough>
-      <![CDATA[[npc.Name] [npc.verb(snatch)] the gemstone ring off [npc2.namePos] [npc.finger].]]>
+      <![CDATA[[npc.Name] [npc.verb(snatch)] the gemstone ring off [npc2.namePos] [npc2.finger].]]>
     </otherRough>
   </displacementText>
   

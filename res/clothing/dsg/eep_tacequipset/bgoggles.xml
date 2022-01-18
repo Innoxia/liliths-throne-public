@@ -109,7 +109,7 @@
 			<![CDATA[[npc.Name] [npc.verb(put)] on the ballistic goggles and [npc.verb(adjust)] the headband until they're comfortable.]]>
 		</self>
 		<other>
-			<![CDATA[[npc.Name] [npc.verb(slide)] the ballistic goggles onto [npc2.namePos] [npc.face] and [npc.verb(help)] [npc2.her] [npc2.verb(adjust)] the headband until they're comfortable.]]>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the ballistic goggles onto [npc2.namePos] [npc2.face] and [npc.verb(help)] [npc2.her] [npc2.verb(adjust)] the headband until they're comfortable.]]>
 		</other>
 		<otherRough>
 			<![CDATA[[npc.Name] [npc.verb(force)] the ballistic goggles onto [npc2.namePos] [npc2.face] and [npc.verb(tighten)] the headband as much as possible.]]>

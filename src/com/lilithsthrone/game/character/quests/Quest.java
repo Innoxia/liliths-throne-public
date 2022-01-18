@@ -65,7 +65,7 @@ public enum Quest {
 		public String getDescription() {
 			return "Lilaya has informed you that her old colleague, Arthur, would know more about the type of magic used in the portal."
 					+ " However, she seems to have an intense dislike of him, and you've ended up being tasked to go and get him to apologise to Lilaya before she'll allow him to" + " come and work with her."
-					+ " Arthur lives in a district of the city called 'Demon Home', so you can find him there.";
+					+ " Arthur lives in an apartment building called 'Sawlty Towers', in the district of the city known as 'Demon Home', so you can find him there.";
 		}
 
 		@Override
@@ -296,7 +296,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_3_ELIS(QuestType.MAIN, 20, 250) {
+	MAIN_3_ELIS(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
 			return "Destination Elis";
@@ -304,25 +304,80 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.4!)]<br/>"
-					+ "Lyssieth told you that in order to defeat the elder lilin pegataur, Lunette, you'll need to obtain the help of Minotallys; the lilin who rules the town of Elis."
+			return "Lyssieth told you that in order to defeat the elder lilin pegataur, Lunette, you'll need to obtain the help of Minotallys; the lilin who rules the town of Elis."
 					+ " Meraxis additionally mentioned enlisting the aid of the youko, but that can wait until after you've arrived in Elis itself.";
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "After encountering a particularly aggressive demonic centaur, you once again met Meraxis and then finally made it to Elis, where you introduced yourself to the lilin, Minotallys.";
+			return "Lyssieth told you that in order to defeat the elder lilin pegataur, Lunette, you'll need to obtain the help of Minotallys; the lilin who rules the town of Elis."
+					+ " To this end, you left Dominion for the first time...";
 		}
 	},
 	
-	MAIN_3_B_DEBTS_PAID(QuestType.MAIN, 1, 100) {//TODO
+	MAIN_3_B_MEETING_MERAXIS(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
-			return "-";
+			return "To The Red Dragon";
 		}
 
 		@Override
 		public String getDescription() {
-			return "-";
+			return "As you left Elis, you were approached by Meraxis, who told you to meet her in the tavern 'The Red Dragon' at Elis, which is apparently near to the town's eastern gate."
+					+ " Meraxis also said that she'll set up a meeting with Minotallys when you arrive, and that she'll have secured accommodation for you.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You met Meraxis in 'The Red Dragon' tavern, where she's managed to secure accommodation for you in the form of a rented room on the tavern's first floor.";
+		}
+	},
+	
+	MAIN_3_C_MEETING_MINOTALLYS(QuestType.MAIN, 1, 25) {
+		@Override
+		public String getName() {
+			return "Meeting Minotallys";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Meraxis has arranged for you to meet with Minotallys concerning the threat of Lunette to the town of Elis."
+					+ " Tell Meraxis that you're ready for the meeting at any time between [units.time(9)]-[units.time(18)].";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You and Meraxis travelled to Elis's town hall to meet Minotallys, where you also met with her personal assistant, Arion."
+					+ " Minotallys is in a state of denial about the current state of affairs in the Foloi Fields, and stated that she would only consider taking action if the town of Themiscyra was somehow being threatened.";
+		}
+	},
+	
+	MAIN_3_D_TO_THEMISCYRA(QuestType.MAIN, 1, 25) {
+		@Override
+		public String getName() {
+			return "To Themiscyra";
+		}
+
+		@Override
+		public String getDescription() {
+			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in future updates!)]<br/>"
+					+ "You agreed to travel to Themiscyra with Meraxis and find out whether or not the town is being threatened by Lunette's army of demonic centaurs.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "-";//TODO
+		}
+	},
+	
+	MAIN_3_E_TODO(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "TODO";
+		}
+
+		@Override
+		public String getDescription() {
+			return "";
 		}
 
 		@Override
@@ -565,6 +620,43 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "The Hypno-Watch appeared to work, although Lilaya stopped the test before it had a permanent effect."
 					+ " She warned that it will have a strong corruptive effect upon the mind of the whoever is targeted, and disenchanted it for good measure, before handing it over to you.";
+		}
+	},
+	
+	
+	LIGHTNING_SPELL_1_PAYMENT(QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "The Price Of Power";
+		}
+		@Override
+		public String getDescription() {
+			return "After showing Arthur the arcane lightning globe which you found in the Enforcer warehouse, you were told that it would be possible to learn the secrets of the lightning spells within it."
+					+ " Although the resulting spells will be more powerful than what the globe is capable of,"
+						+ " Arthur has explained to you that such an extraction will not only require an immense amount of arcane essences, but will also permanently remove the globe's innate spells."
+					+ "<br/>When you're willing and able to do so, give Arthur the arcane lightning globe and let him extract 500 arcane essences from your aura.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You gave Arthur the arcane lightning globe which you found in the Enforcer warehouse, and also let him extract 500 arcane essences from your aura."
+					+ " In exchange, you've been promised that a powerful arcane lightning spell shall soon be yours.";
+		}
+	},
+	
+	LIGHTNING_SPELL_2_WAITING(QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Lightning Extraction";
+		}
+		@Override
+		public String getDescription() {
+			return "Arthur informed you that it will take some time to extract the secrets of the arcane lightning from within the globe."
+					+ " You'll have to return to him after two weeks to find out what the results of his research are...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Arthur excitedly informed you that he'd not only been able to extract the secrets of two arcane lightning spells from the globe,"
+					+ " but that he'd also been able to transfer its remaining power into a smaller crystal, which he's had fitted onto a ring for you.";
 		}
 	},
 	
@@ -1441,7 +1533,7 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "The firebombs you got from the mysterious cave could come in handy, if only you had a way to get more.";
+			return "The firebombs you got from the mysterious cave could come in handy in a fight. You'll need to find someone who can either make or acquire more.";
 		}
 		@Override
 		public String getCompletedDescription() {
@@ -1866,6 +1958,53 @@ public enum Quest {
 			return "After performing anilingus on a centaur slave and then being mounted and anally fucked by them, Natalya declared that your filly training is complete.";
 		}
 	},
+
+	ROMANCE_MONICA_1_TO_THE_FARM(QuestType.RELATIONSHIP, 1, 10) {
+		@Override
+		public String getName() {
+			return "To The Farm";
+		}
+		@Override
+		public String getDescription() {
+			return "After you'd offered to help recover her personalised breast pump, Monica told you that it could be found at her old workplace; a farm located to the North-East of Elis named 'Evelyx's Dairy'."
+					+ " You'll have to go to this farm and ask for Monica's breast pump...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Having found the farm which is Monica's old workplace, you asked for the cow-girl's personalised breast pump, and were granted a meeting with the farm's owner...";
+		}
+	},
+
+	ROMANCE_MONICA_2_UNREASONABLE_DEMAND(QuestType.RELATIONSHIP, 1, 10) {
+		@Override
+		public String getName() {
+			return "An Unreasonable Demand";
+		}
+		@Override
+		public String getDescription() {
+			return "You managed to get a meeting with the farm's owner, Evelyx, who takes the form of an arrogant, greedy succubus."
+					+ " Although admitting that the breast pump was worthless, she's demanding that you either give her a huge sum of flames, or sign a suspicious contract, in exchange for it...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You managed to obtain Monica's personalised breast pump from Evelyx.";
+		}
+	},
+
+	ROMANCE_MONICA_3_THE_JOURNEY_HOME(QuestType.RELATIONSHIP, 1, 10) {
+		@Override
+		public String getName() {
+			return "The Journey Home";
+		}
+		@Override
+		public String getDescription() {
+			return "Now that Monica's personalised breast pump is in your possession, all that's left to do is to return it to its rightful owner.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You returned Monica's personalised breast pump to her, much to her surprise and delight.";
+		}
+	},
 	;
 
 	private int level, experienceReward;
@@ -1899,6 +2038,9 @@ public enum Quest {
 	public static Quest getQuestFromId(String quest) {
 		if(quest.equalsIgnoreCase("MAIN_3_A_FINDING_THE_YOUKO")) {
 			return Quest.MAIN_3_ELIS;
+		}
+		if(quest.equalsIgnoreCase("MAIN_3_D_TO_THEMISCRYA")) {
+			return Quest.MAIN_3_D_TO_THEMISCYRA;
 		}
 		
 		return Quest.valueOf(quest);

@@ -25,8 +25,20 @@
 	<!-- Whether or not there is furniture present in this area.
 	This value determines whether or not 'over-desk' and 'on chair' sex positions are available in this world type.
 	This value can be overridden by a value defined in the cell's place type, so this value should be treated just as a default value for the world type's average tile.
-	Use either 'true' or 'false' as values. -->
+	Use either 'true' or 'false' as values (will default to false if omitted).
+	You can add the optional attribute 'deskName' to change the name of what's acting as the desk in this place type (it will be used in the context 'Over X' and '... push her over the X.' where X is the value of the deskName attribute).
+	The default name is 'desk'.
+		e.g. <furniturePresent deskName="boulder">true</furniturePresent> -->
 	<furniturePresent>false</furniturePresent>
+	
+	<!-- Whether or not there are walls present in this area.
+	This value determines whether or not the 'against wall' sex position is available in this  world type.
+	This value can be overridden by a value defined in the cell's place type, so this value should be treated just as a default value for the world type's average tile.
+	Use either 'true' or 'false' as values (will default to false if omitted).
+	You can add the optional attribute 'wallName' to change the name of what's acting as the wall in this world type (it will be used in contexts such as 'Against X' and '... push her up against a nearby X.' where X is the value of the wallName attribute).
+	The default name is 'wall'.
+		e.g. <wallsPresent wallName="tree">true</wallsPresent> -->
+	<wallsPresent>true</wallsPresent>
 	
 	<!-- Whether or not the player can loiter (pass time without encountering anything) in this map.
 	Use either 'true' or 'false' as values.
@@ -84,6 +96,8 @@
 		<place colour="#b13300">innoxia_fields_elis_town_entry_west</place>
 		<place colour="#996980">innoxia_fields_elis_town_road_west</place>
 		<place colour="#674756">innoxia_fields_elis_town_gatehouse_west</place>
+		
+		<place colour="#365f85">innoxia_fields_elis_town_centaur_transport</place>
 		
 		<place colour="#404040">innoxia_fields_elis_town_wall</place>
 		<place colour="#854040">innoxia_fields_elis_town_tower</place>

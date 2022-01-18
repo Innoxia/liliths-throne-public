@@ -293,7 +293,7 @@ public class Library {
 					return new Response("Ancient Ones", "A section of the library dedicated to books concerning demonic and angelic races.", ELDER_RACES);
 
 				} else if (index == 2) {
-					return new Response("Races of Dominion", "A section of the library dedicated to books concerning the predominate races within the city.", DOMINION_RACES);
+					return new Response("Races of Dominion", "A section of the library dedicated to books concerning the predominant races within the city.", DOMINION_RACES);
 
 				} else if (index == 3) {
 					return new Response("Foloi Fields", "A section of the library dedicated to books about the area known as the Foloi Fields.", FIELDS_BOOKS);
@@ -532,7 +532,7 @@ public class Library {
 					+ "<p>"
 					+ "<p>"
 						+ "The second alarming fact contained within these pages is related to the development of children."
-						+ " It only takes a few minutes for new-borns to develop and mature into adults, and will inherit all of the common knowledge held by their parents."
+						+ " It only takes a few minutes for new-borns to develop and mature into adults, and they will inherit all of the common knowledge held by their parents."
 						+ " This doesn't include specific memories, so for example, if a child's mother knows how to read and write, they will too, but they won't have the memory of their mother learning this information."
 					+ "</p>"
 					+ "<p>"
@@ -682,7 +682,7 @@ public class Library {
 					+ "</p>"
 					+ "<p>"
 						+ "At first glance, they look to be crafted from blocks of sod, but upon closer inspection, you see that it's actually masterfully-engraved pieces of wood."
-						+ " One shelf looks like the sod is covered in snow, you can feel the cold wafting off of it"
+						+ " One shelf looks like the sod is covered in snow, and you can feel the cold wafting off of it."
 						+ " The books that they hold all seem to be related to the Foloi Fields and the many races found there, which would explain the pastoral scent and appearance of this particular section."
 					+ "</p>";
 		}
@@ -804,7 +804,7 @@ public class Library {
 		public String getContent() {
 			return "<p>"
 						+ "The faint sound of waves lapping on the shore can be heard as you [pc.walk] down one of the many aisles of books in Lilaya's library."
-						+ " breathing in the refreshing, salty smell of the sea, you realise that this section has had an arcane enchantment placed upon it."
+						+ " Breathing in the refreshing, salty smell of the sea, you realise that this section has had an arcane enchantment placed upon it."
 						+ " With the shelves made out of what appears to be living coral and pieces of driftwood, you're given all the clues you need to deduce that this aisle is dedicated to books on the topic of the sea."
 					+ "</p>"
 					+ "<p>"
@@ -884,7 +884,7 @@ public class Library {
 	
 	private static Response bookResponse(DialogueNode nodeToReturnTo, AbstractSubspecies subspecies) {
 		AbstractItemType book = ItemType.getLoreBook(subspecies);
-		
+
 		if(Main.getProperties().isAdvancedRaceKnowledgeDiscovered(subspecies)) {
 			return new Response(book.getName(false), book.getDescription(), nodeToReturnTo) {
 				@Override
@@ -892,6 +892,7 @@ public class Library {
 					Main.game.getTextEndStringBuilder().append(book.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
 				}
 			};
+			
 		} else {
 			return new Response(book.getName(false), "You haven't discovered this book yet!", null);
 		}

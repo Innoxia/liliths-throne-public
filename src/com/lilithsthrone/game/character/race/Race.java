@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -241,11 +242,11 @@ public class Race {
 	};
 
 	// BOVINES:
-	public static AbstractRace COW_MORPH = new AbstractRace("cow-morph",
-				"cow-morphs",
-				"cow",
-				"cows",
-				"cow",
+	public static AbstractRace COW_MORPH = new AbstractRace("cattle-morph",
+				"cattle-morphs",
+				"cattle",
+				"cattle",
+				"cattle",
 				PresetColour.RACE_COW_MORPH,
 				Disposition.CIVILIZED,
 				RacialClass.MAMMAL,
@@ -259,6 +260,15 @@ public class Race {
 		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.COW_MORPH;
+		}
+		
+		@Override
+		public Map<Fetish, Map<String, Integer>> getRacialFetishModifiers() {
+			return Util.newHashMapOfValues(
+					new Value<>(Fetish.FETISH_BREASTS_SELF,
+							Util.newHashMapOfValues(
+									new Value<>("love", 5),
+									new Value<>("like", 5))));
 		}
 	};
 
@@ -564,6 +574,19 @@ public class Race {
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.RABBIT_MORPH;
 		}
+		
+		@Override
+		public Map<Fetish, Map<String, Integer>> getRacialFetishModifiers() {
+			return Util.newHashMapOfValues(
+					new Value<>(Fetish.FETISH_IMPREGNATION,
+							Util.newHashMapOfValues(
+									new Value<>("love", 5),
+									new Value<>("like", 5))),
+					new Value<>(Fetish.FETISH_PREGNANCY,
+							Util.newHashMapOfValues(
+									new Value<>("love", 5),
+									new Value<>("like", 5))));
+		}
 	};
 	
 	public static AbstractRace BAT_MORPH = new AbstractRace("bat-morph",
@@ -649,7 +672,7 @@ public class Race {
 			RacialClass.BIRD,
 			CombatBehaviour.SEDUCE,
 			0.5f,
-			3,
+			2,
 			4,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,

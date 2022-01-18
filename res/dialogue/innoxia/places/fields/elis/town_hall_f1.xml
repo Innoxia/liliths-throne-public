@@ -44,14 +44,180 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Knock]]></responseTitle>
-				<responseTooltip><![CDATA[
-					Knock on the door and wait for an answer.
-					<br/>[style.italicsMinorBad(This will be added soon!)]
-				]]></responseTooltip>
-				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<responseTooltip><![CDATA[Knock on the door to get Minotallys's attention.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_town_hall_f1_minotallys_office_start]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_minotallys_talk_milk, false)]
+				]]></effects>
 			</response>
 		</responses>
 	</scene>
+	
+	<scene id="minotallys_office_start">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/town_hall_f1">MINOTALLYS_OFFICE_START</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- History: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[History]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_talk_history))
+						You've already spent some time today asking Minotallys about her history of ruling Elis...
+					#ELSE
+						Ask Minotallys about her history of ruling Elis.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_talk_history))
+						null
+					#ELSE
+						innoxia_places_fields_elis_town_hall_f1_minotallys_office_talking
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/town_hall_f1', 'MINOTALLYS_OFFICE_TALK_HISTORY'))]
+					[#flags.setFlag(FLAG_innoxia_minotallys_talk_history, true)]
+					#IF(minotallys.getAffection(pc)<40)
+						[#game.appendToTextEndStringBuilder(minotallys.incrementAffection(pc, 2))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<!-- Arion: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Arion]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_talk_arion))
+						You've already spent some time today asking Minotallys about her relationship with Arion...
+					#ELSE
+						Ask Minotallys about her relationship with Arion.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_talk_arion))
+						null
+					#ELSE
+						innoxia_places_fields_elis_town_hall_f1_minotallys_office_talking
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/town_hall_f1', 'MINOTALLYS_OFFICE_TALK_ARION'))]
+					[#flags.setFlag(FLAG_innoxia_minotallys_talk_arion, true)]
+					#IF(minotallys.getAffection(pc)<40)
+						[#game.appendToTextEndStringBuilder(minotallys.incrementAffection(pc, 2))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<!-- Work: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Work]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_talk_work))
+						You've already spent some time today asking Minotallys about the nature of her work...
+					#ELSE
+						Ask Minotallys about the nature of her work.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_talk_work))
+						null
+					#ELSE
+						innoxia_places_fields_elis_town_hall_f1_minotallys_office_talking
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/town_hall_f1', 'MINOTALLYS_OFFICE_TALK_WORK'))]
+					[#flags.setFlag(FLAG_innoxia_minotallys_talk_work, true)]
+					#IF(minotallys.getAffection(pc)<40)
+						[#game.appendToTextEndStringBuilder(minotallys.incrementAffection(pc, 2))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<!-- Lilith: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Lilith]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_talk_lilith))
+						You've already spent some time today asking Minotallys about her opinion of Lilith...
+					#ELSE
+						Ask Minotallys about her opinion of Lilith.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_talk_lilith))
+						null
+					#ELSE
+						innoxia_places_fields_elis_town_hall_f1_minotallys_office_talking
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/town_hall_f1', 'MINOTALLYS_OFFICE_TALK_LILITH'))]
+					[#flags.setFlag(FLAG_innoxia_minotallys_talk_lilith, true)]
+					#IF(minotallys.getAffection(pc)<40)
+						[#game.appendToTextEndStringBuilder(minotallys.incrementAffection(pc, 2))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<!-- Drink milk: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Drink milk]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_talk_milk))
+						You've already drunk your daily offering of Minotallys's milk...
+					#ELSE
+						Accept Minotallys's offer and drink the glass of what is quite clearly her breast milk.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_talk_milk))
+						null
+					#ELSE
+						innoxia_places_fields_elis_town_hall_f1_minotallys_office_talking
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/town_hall_f1', 'MINOTALLYS_OFFICE_TALK_MILK'))]
+					[#flags.setFlag(FLAG_innoxia_minotallys_talk_milk, true)]
+					#IF(minotallys.getAffection(pc)<60)
+						[#game.appendToTextEndStringBuilder(minotallys.incrementAffection(pc, 5))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<!-- Leave: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Say goodbye and exit Minotallys's office.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_town_hall_f1_corridor]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.setNearestLocation(WORLD_TYPE_innoxia_fields_elis_town_hall_f1, PLACE_TYPE_innoxia_fields_elis_town_hall_f1_corridor)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/town_hall_f1', 'MINOTALLYS_OFFICE_EXIT'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="minotallys_office_talking">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_town_hall_f1_minotallys_office_start"/>
+	</scene>
+	
 	
 	<!-- Place type id: innoxia_fields_elis_town_hall_f1_minotallys_room -->
 	<scene id="minotallys_room">

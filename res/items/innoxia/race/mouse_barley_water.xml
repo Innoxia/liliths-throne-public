@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>50</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Harvest Mouse's barley water]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Harvest Mouse's barley waters]]></namePlural>
+		<description><![CDATA[A bottle of barley water, bearing the brand of 'Harvest Mouse'. On the reverse label, there's a lewd image of a mouse-girl hiking up her skirt to show off her tight, wet pussy.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">mouse_barley_water.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_ARCANE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_ARCANE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldMana([#ATTRIBUTE_MANA_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_ARCANE.getFormattedValue(1)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementMana(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM)/20)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A cool wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_ARCANE, 1)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(unscrew)] the cap from the bottle of Harvest Mouse's barley water, before tilting [npc.her] head back and bringing it up to [npc.her] waiting [npc.lips]. Gulping down the cool liquid, [npc.sheIs] pleased to discover that it has a mild, refreshing taste of barley.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(unscrew)] the cap from the bottle of Harvest Mouse's barley water, before bringing it up to [npc2.namePos] waiting [npc2.lips]. Gulping down the cool liquid, [npc2.sheIs] pleased to discover that it has a mild, refreshing taste of barley.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

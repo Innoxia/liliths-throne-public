@@ -21,7 +21,7 @@ import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
-import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist;
+import com.lilithsthrone.game.character.npc.submission.Takahashi;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
@@ -125,7 +125,7 @@ public class ImpCitadelDialogue {
 		for(GameCharacter character : getBossGroup(false)) {
 			character.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 		}
-		Main.game.getNpc(SubmissionCitadelArcanist.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+		Main.game.getNpc(Takahashi.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 		
 		// Sort out boss:
 		getBoss().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
@@ -149,6 +149,8 @@ public class ImpCitadelDialogue {
 				character.returnToHome();
 			}
 		}
+		
+		getArcanist().equipClothing(EquipClothingSetting.getAllClothingSettings()); // Remove lab coat
 	}
 	
 	private static void banishImps() {
@@ -297,8 +299,8 @@ public class ImpCitadelDialogue {
 		return Main.game.getNpc(DarkSiren.class);
 	}
 	
-	public static GameCharacter getArcanist() {
-		return Main.game.getNpc(SubmissionCitadelArcanist.class);
+	public static Takahashi getArcanist() {
+		return (Takahashi) Main.game.getNpc(Takahashi.class);
 	}
 
 	public static GameCharacter getMainCompanion() {
@@ -2481,8 +2483,8 @@ public class ImpCitadelDialogue {
 						if(isPrisonerFemale()) {
 							c = PresetColour.CLOTHING_BLACK;
 						}
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_CHOKER, c, false), true, getOwner()));
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_choker", c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_wrist_restraints", c, false), true, getOwner()));
 						
 						//TODO siren wants to watch them fuck your face(s)
 						if(getOwner() instanceof FortressFemalesLeader) {
@@ -2533,8 +2535,8 @@ public class ImpCitadelDialogue {
 						if(isPrisonerFemale()) {
 							c = PresetColour.CLOTHING_BROWN_DARK;
 						}
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_CHOKER, c, false), true, getOwner()));
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_choker", c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_wrist_restraints", c, false), true, getOwner()));
 						
 					}
 				};

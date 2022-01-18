@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>500</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[chastity belt]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[chastity belts]]></namePlural>
+		<description><![CDATA[A chastity belt, designed to deny access to the wearer's vagina. A hole in the rear strap provides access to the wearer's asshole.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>GROIN</slot>
+		<rarity>EPIC</rarity> 
+		<clothingSet>innoxia_bdsm</clothingSet>
+		<imageName>chastity_belt.svg</imageName> 
+		<imageEquippedName/> 
+		<enchantmentLimit/>
+		
+		<effects> 
+			<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SEALING" timer="0"/>
+			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="STRENGTH" timer="0"/>
+		</effects>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_GENITALS_NO_ANUS"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/> 
+		<primaryColoursDye/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<tertiaryColours values="JUST_GOLD"/>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_FINCH</tag>
+			<tag>RIGID_MATERIAL</tag>
+			<tag>CHASTITY</tag>
+			<tag>PROVIDES_KEY</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] on the chastity belt and [npc.verb(clip)] the locks into place.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the chastity belt up around [npc2.namePos] groin, before clipping the locks into place.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] the chastity belt up around [npc2.namePos] groin, before forcefully clipping the locks into place.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(unfasten)] the chastity belt's locks and [npc.verb(take)] it off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(unfasten)] the locks on [npc2.namePos] chastity belt and [npc.verb(take)] it off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] hastily [npc.verb(unfasten)] the locks on [npc2.namePos] chastity belt and [npc.verb(yank)] it off.]]>
+		</otherRough>
+	</displacementText>
+</clothing>

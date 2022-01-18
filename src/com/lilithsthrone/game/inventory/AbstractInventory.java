@@ -72,6 +72,10 @@ class AbstractInventory<T extends AbstractCoreItem, U extends AbstractCoreType> 
 		return Collections.unmodifiableMap(duplicateCounts);
 	}
 
+	int getUniqueItemCount(){
+		return duplicateCounts.size();
+	}
+
 	int getQuestEntryCount() {
 		return (int) duplicateCounts.keySet().stream().filter(e -> e.getRarity().equals(Rarity.QUEST)).count();
 	}
@@ -133,7 +137,12 @@ class AbstractInventory<T extends AbstractCoreItem, U extends AbstractCoreType> 
 		return removed;
 	}
 
-	boolean removeItemByType(U itemType) {
-		return getItemByType(itemType).map(this::removeItem).orElse(false);
+	boolean removeItemByType(U itemType, int count) {
+		Optional<T> itemFound = getItemByType(itemType);
+		if(!itemFound.isPresent()) {
+			return false;
+		}
+		return removeItem(itemFound.get(), count);
+//		return getItemByType(itemType).map(this::removeItem).orElse(false);
 	}
 }

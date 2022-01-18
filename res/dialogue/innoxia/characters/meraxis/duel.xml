@@ -1,0 +1,2196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Remember to set one of the following prior to using these dialogues:
+		[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, true)]
+		[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, true)]
+	-->
+
+	<scene id="start">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_meraxis_duel_reward_money, false)]
+			[#flags.setFlag(FLAG_innoxia_meraxis_duel_reward_transform, false)]
+			[#flags.setFlag(FLAG_innoxia_meraxis_duel_reward_sex, false)]
+		]]></preParsingEffects>
+		<content folderPath="txt/characters/meraxis/duel">START</content>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Nothing]]></responseTitle>
+				<colour><![CDATA[GENERIC_COMBAT]]></colour>
+				<responseTooltip><![CDATA[Tell Meraxis that you don't want any reward; the satisfaction of beating her will be enough.]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_reward_selected</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'REWARD_NONE'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Money]]></responseTitle>
+				<colour><![CDATA[GENERIC_COMBAT]]></colour>
+				<responseTooltip><![CDATA[Tell Meraxis that if you win you want her to give you all the money she has on her.]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_reward_selected</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'REWARD_MONEY'))]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_reward_money, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Transform]]></responseTitle>
+				<colour><![CDATA[GENERIC_COMBAT]]></colour>
+				<responseTooltip><![CDATA[Tell Meraxis that if you win she'll be the one who's transformed, and must permanently transform a part of herself in the manner of your choosing.]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_reward_selected</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'REWARD_TRANSFORM'))]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_reward_transform, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Sex]]></responseTitle>
+				<colour><![CDATA[GENERIC_COMBAT]]></colour>
+				<responseTooltip><![CDATA[
+					Tell Meraxis that if you win she'll have to have sex with you.
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_any_sex_unlocked))
+						 Although she'll undoubtedly make a fuss of refusing this proposition, you know that she'll be eager to grant you a sexual favour should you win...
+					#ELSE
+						 Although she'll definitely refuse this proposition, you think that you'll be able to at least get her to perform a small sexual favour...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_reward_selected</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'REWARD_SEX'))]
+					[#game.appendToTextEndStringBuilder(meraxis.incrementLust(10, false))]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_reward_sex, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Back out]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Meraxis that you've changed your mind and don't want to fight her after all.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_dominion))
+						default
+					#ELSE
+						innoxia_places_fields_elis_tavern_f0_meraxis_approach
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_dominion))
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/leaving_dominion', 'BACK_OUT'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/leaving_dominion', 'MERAXIS_END'))]
+						[#game.appendToTextStartStringBuilder(pc.setQuestProgress(QUEST_LINE_MAIN, QUEST_MAIN_3_B_MEETING_MERAXIS))]
+						[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
+					#ELSE
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'BACK_OUT'))]
+					#ENDIF
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="reward_selected">
+		<preParsingEffects><![CDATA[
+			#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_elis))
+				[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_centaur_transport)]
+				[#pc.moveLocation(0, -2)]
+				[#meraxis.setLocation(pc, false)]
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'DUEL_START_ELIS'))]
+			#ELSE
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'DUEL_START_DOMINION'))]
+			#ENDIF
+			[#meraxis.applyScythe(true)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[
+			#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_dominion))
+				2
+			#ELSE
+				10
+			#ENDIF
+		]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fight]]></responseTitle>
+				<responseTooltip><![CDATA[Having declared what you want your reward to be, you're ready to fight Meraxis!]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<combatVariables enabled="true">
+					<nextDialoguePlayerVictory><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_reward_money))
+						innoxia_characters_meraxis_duel_won_money
+					#ELSEIF(flags.hasFlag(FLAG_innoxia_meraxis_duel_reward_transform))
+						innoxia_characters_meraxis_duel_won_transform
+					#ELSEIF(flags.hasFlag(FLAG_innoxia_meraxis_duel_reward_sex))
+						innoxia_characters_meraxis_duel_won_sex
+					#ELSE
+						innoxia_characters_meraxis_duel_won
+					#ENDIF]]></nextDialoguePlayerVictory>
+					<nextDialoguePlayerDefeat><![CDATA[innoxia_characters_meraxis_duel_lost]]></nextDialoguePlayerDefeat>
+					<allies companionsAreAllies="false"/>
+					<enemies>
+						<enemy leader="true"><![CDATA[meraxis]]></enemy>
+					</enemies>
+					<openingDescriptions>
+						<combatant id="meraxis"><![CDATA[Meraxis swirls her scythe around in a large circle, before pointing it at you and declaring, [meraxis.speech(Prepare to be vanquished! I, the Dark Siren, shall soon be victorious!)]]]></combatant>
+					</openingDescriptions>
+				</combatVariables>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="lost">
+		<preParsingEffects><![CDATA[
+			#IF(flags.hasSavedLong('meraxis_duel_player_losses'))
+				[#flags.incrementSavedLong('meraxis_duel_player_losses', 1)]
+			#ELSE
+				[#flags.setSavedLong('meraxis_duel_player_losses', 1)]
+			#ENDIF
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'LOST'))]
+			[#pc.removeSealsFromBlockingClothing(CA_MOUTH)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Drink]]></responseTitle>
+				<responseTooltip><![CDATA[You have no choice but to drink the transformative potion!]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_lost_transform</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'LOST_DRINK'))]
+					#IF(pc.isFeminine())
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'LOST_TF_BREASTS'))]
+						[#game.appendToTextStartStringBuilder(pc.incrementBreastSize(3))]
+						[#game.appendToTextStartStringBuilder(pc.incrementNippleSize(1))]
+						[#game.appendToTextStartStringBuilder(pc.incrementAreolaeSize(1))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'LOST_TF_BREASTS_END'))]
+					#ELSE
+						#IF(pc.hasPenisIgnoreDildo())
+							[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'LOST_TF_COCK'))]
+							[#game.appendToTextStartStringBuilder(pc.incrementPenisSize(8))]
+							[#game.appendToTextStartStringBuilder(pc.incrementPenisGirth(1))]
+							[#game.appendToTextStartStringBuilder(pc.incrementTesticleSize(1))]
+							[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'LOST_TF_COCK_END'))]
+						#ELSE
+							[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'LOST_TF_FEMINISE'))]
+							#IF(pc.getFemininityValue()<40)
+								[#game.appendToTextStartStringBuilder(pc.setFemininity(75))]
+							#ELSE
+								[#game.appendToTextStartStringBuilder(pc.incrementFemininity(25))]
+							#ENDIF
+							#IF(pc.hasBreasts())
+								[#game.appendToTextStartStringBuilder(pc.incrementBreastSize(3))]
+								[#game.appendToTextStartStringBuilder(pc.incrementNippleSize(1))]
+								[#game.appendToTextStartStringBuilder(pc.incrementAreolaeSize(1))]
+							#ELSE
+								[#game.appendToTextStartStringBuilder(pc.setBreastSize(8))]
+								[#game.appendToTextStartStringBuilder(pc.setNippleSize(3))]
+								[#game.appendToTextStartStringBuilder(pc.setAreolaeSize(3))]
+							#ENDIF
+							[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'LOST_TF_FEMINISE_END'))]
+						#ENDIF
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!game.isSpittingDisabled()]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Spit]]></responseTitle>
+				<responseTooltip><![CDATA[Spit out the transformative fluid. By breaking your agreement with Meraxis in this manner, you can be sure that she'll be very annoyed with you!]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_lost_spit</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(meraxis.incrementAffection(pc, -25))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="lost_transform">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Wait]]></responseTitle>
+				<responseTooltip><![CDATA[Wait for Meraxis to finish gloating so that you can continue on your way...]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_dominion))
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/leaving_dominion', 'LOST_END'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/leaving_dominion', 'MERAXIS_END'))]
+						[#game.appendToTextStartStringBuilder(pc.setQuestProgress(QUEST_LINE_MAIN, QUEST_MAIN_3_B_MEETING_MERAXIS))]
+					#ELSE
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'LOST_END'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'MERAXIS_END'))]
+					#ENDIF
+					[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_daily_complete, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="lost_spit">
+		<content folderPath="txt/characters/meraxis/duel">LOST_SPIT</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Wait]]></responseTitle>
+				<responseTooltip><![CDATA[Wait for Meraxis to finish scolding you so that you can continue on your way...]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_dominion))
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/leaving_dominion', 'LOST_END_SPIT'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/leaving_dominion', 'MERAXIS_END'))]
+						[#game.appendToTextStartStringBuilder(pc.setQuestProgress(QUEST_LINE_MAIN, QUEST_MAIN_3_B_MEETING_MERAXIS))]
+					#ELSE
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'LOST_END_SPIT'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'MERAXIS_END'))]
+					#ENDIF
+					[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_daily_complete, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Winning having said that you don't want a reward -->
+	
+	<scene id="won">
+		<preParsingEffects><![CDATA[
+			#IF(flags.hasSavedLong('meraxis_duel_player_wins'))
+				[#flags.incrementSavedLong('meraxis_duel_player_wins', 1)]
+			#ELSE
+				[#flags.setSavedLong('meraxis_duel_player_wins', 1)]
+			#ENDIF
+			[#meraxis.applyScythe(false)]
+		]]></preParsingEffects>
+		<content folderPath="txt/characters/meraxis/duel">WON</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Listen]]></responseTitle>
+				<responseTooltip><![CDATA[Listen to what Meraxis has to say.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_dominion))
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/leaving_dominion', 'WON_NO_TF'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/leaving_dominion', 'MERAXIS_END'))]
+						[#game.appendToTextStartStringBuilder(pc.setQuestProgress(QUEST_LINE_MAIN, QUEST_MAIN_3_B_MEETING_MERAXIS))]
+					#ELSE
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_NO_TF'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'MERAXIS_END'))]
+					#ENDIF
+					[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_daily_complete, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Winning having said that you want money as the reward -->
+	
+	<scene id="won_money">
+		<preParsingEffects><![CDATA[
+			#IF(flags.hasSavedLong('meraxis_duel_player_wins'))
+				[#flags.incrementSavedLong('meraxis_duel_player_wins', 1)]
+			#ELSE
+				[#flags.setSavedLong('meraxis_duel_player_wins', 1)]
+			#ENDIF
+			[#meraxis.applyScythe(false)]
+		]]></preParsingEffects>
+		<content folderPath="txt/characters/meraxis/duel">WON_MONEY</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave it]]></responseTitle>
+				<responseTooltip><![CDATA[You don't want Meraxis to be upset, so you decide to let her keep her money.]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_won_money_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_MONEY_LEAVE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.incrementAffection(pc, 10))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Take money]]></responseTitle>
+				<responseTooltip><![CDATA[You have no sympathy for someone who was planning on transforming you if you'd lost the duel! Ignore Meraxis's pleas and take her money.]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_won_money_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_MONEY_TAKE'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(5000))]
+					#IF(meraxis.getAffection(pc)>=5)
+						[#game.appendToTextStartStringBuilder(meraxis.incrementAffection(pc, -5))]
+					#ENDIF
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="won_money_end">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Listen]]></responseTitle>
+				<responseTooltip><![CDATA[Listen to what Meraxis has to say.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_dominion))
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/leaving_dominion', 'MONEY_END'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/leaving_dominion', 'MERAXIS_END'))]
+						[#game.appendToTextStartStringBuilder(pc.setQuestProgress(QUEST_LINE_MAIN, QUEST_MAIN_3_B_MEETING_MERAXIS))]
+					#ELSE
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'MONEY_END'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'MERAXIS_END'))]
+					#ENDIF
+					[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_daily_complete, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Winning having said that you want to transform Meraxis as the reward -->
+	
+	<scene id="won_transform">
+		<preParsingEffects><![CDATA[
+			#IF(flags.hasSavedLong('meraxis_duel_player_wins'))
+				[#flags.incrementSavedLong('meraxis_duel_player_wins', 1)]
+			#ELSE
+				[#flags.setSavedLong('meraxis_duel_player_wins', 1)]
+			#ENDIF
+			[#meraxis.applyScythe(false)]
+		]]></preParsingEffects>
+		<content folderPath="txt/characters/meraxis/duel">WON_TRANSFORM</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<!-- TF options:
+		0 Nothing
+		Small ass (sets ass/hips to girly)
+		Big ass (sets ass/hips to womanly)
+		Small breasts (sets to AA)
+		Big breasts (sets to DD)
+		Lactation toggle
+		Normal mouth (lip size to average, normal throat)
+		Cock-sucker (lip size to plump, wet throat)
+		Cute pussy (sets to tight, moist, 0 labia)
+		Lewd pussy (sets to somewhat tight, sloppy, large labia)
+		Squirter toggle
+		-->
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Nothing]]></responseTitle>
+				<responseTooltip><![CDATA[Decide against transforming Meraxis after all.]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_won_transform_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_NOTHING'))]
+				]]></effects>
+			</response>
+			<!-- Ass: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Small ass]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis to transform her ass back to the small size she used to have.
+					#IF(meraxis.isAssChanged())
+						<br/>[style.italicsTfSex(Meraxis will regain her small ass and girly hips from this.)]
+					#ELSE
+						<br/>[style.italicsMinorBad(Meraxis's ass is already small! This option will be available after your next victorious duel if you choose to increase Meraxis's ass size now.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(meraxis.isAssChanged())
+						innoxia_characters_meraxis_duel_won_transform_end
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_ASS_REVERSE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.duelAssChange(false))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_ASS_REVERSE_DONE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.incrementAffection(pc, 2))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Big ass]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis to transform her ass and hips into a much larger size.
+					#IF(meraxis.isAssChanged())
+						<br/>[style.italicsMinorBad(Meraxis's ass is already large! This option will be available after your next victorious duel if you choose to decrease Meraxis's ass size now.)]
+					#ELSE
+						<br/>[style.italicsTfSex(Meraxis will gain a large ass and very wide hips from this.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(meraxis.isAssChanged())
+						null
+					#ELSE
+						innoxia_characters_meraxis_duel_won_transform_end
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_ASS'))]
+					[#game.appendToTextStartStringBuilder(meraxis.duelAssChange(true))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_ASS_DONE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.incrementAffection(pc, -5))]
+				]]></effects>
+			</response>
+			<!-- Breasts: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Small breasts]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis to transform her breasts back to the small ones she used to have.
+					#IF(meraxis.isBreastsChanged())
+						<br/>[style.italicsTfSex(Meraxis will shrink down to having AA-cup breasts, along with big nipples and areolae from this.)]
+					#ELSE
+						<br/>[style.italicsMinorBad(Meraxis already has AA-cups! This option will be available after your next victorious duel if you choose to increase Meraxis's breast size now.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(meraxis.isBreastsChanged())
+						innoxia_characters_meraxis_duel_won_transform_end
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_BREASTS_REVERSE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.duelBreastChange(false))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_BREASTS_REVERSE_DONE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.incrementAffection(pc, 2))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Big breasts]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis to transform her breasts to make them much bigger.
+					#IF(meraxis.isBreastsChanged())
+						<br/>[style.italicsMinorBad(Meraxis's breasts are already big! This option will be available after your next victorious duel if you choose to shrink Meraxis's breast size now.)]
+					#ELSE
+						<br/>[style.italicsTfSex(Meraxis will gain DD-cup breasts, along with large nipples and areolae from this.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(meraxis.isBreastsChanged())
+						null
+					#ELSE
+						innoxia_characters_meraxis_duel_won_transform_end
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_BREASTS'))]
+					[#game.appendToTextStartStringBuilder(meraxis.duelBreastChange(true))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_BREASTS_DONE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.incrementAffection(pc, -5))]
+				]]></effects>
+			</response>
+			<!-- Lactation: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!meraxis.isLactating()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Start lactating]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis to transform her breasts so that she's lactating.<br/>[style.italicsTfSex(Meraxis will gain [style.fluid(250)] of milk storage from this.)]
+				]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_won_transform_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_LACTATION'))]
+					[#game.appendToTextStartStringBuilder(meraxis.duelLactation(true))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_LACTATION_DONE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.incrementAffection(pc, -5))]
+					[#meraxis.setKnowsCharacterArea(CA_BREASTS, pc, true)]
+					[#meraxis.setKnowsCharacterArea(CA_NIPPLES, pc, true)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#meraxis.isLactating()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Stop lactating]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis to transform her breasts so that she's no longer lactating.<br/>[style.italicsTfSex(Meraxis will return to having [style.fluid(0)] of milk storage from this.)]
+				]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_won_transform_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_LACTATION_REVERSE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.duelLactation(false))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_LACTATION_REVERSE_DONE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.incrementAffection(pc, 2))]
+				]]></effects>
+			</response>
+			<!-- Mouth: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Normal mouth]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis to transform her mouth back to how it used to be.
+					#IF(meraxis.isMouthChanged())
+						<br/>[style.italicsTfSex(Meraxis will regain average lips, a normal sized tongue, and a wet throat from this.)]
+					#ELSE
+						<br/>[style.italicsMinorBad(Meraxis already has her normal mouth! This option will be available after your next victorious duel if you choose to give Meraxis the 'Lewd mouth' transformation now.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(meraxis.isMouthChanged())
+						innoxia_characters_meraxis_duel_won_transform_end
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_LIPS_REVERSE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.duelMouthChange(false))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_LIPS_REVERSE_DONE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.incrementAffection(pc, 2))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Lewd mouth]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis to transform her lips, throat, and tongue to make her look like a lewd oral-obsessed slut.
+					#IF(meraxis.isMouthChanged())
+						<br/>[style.italicsMinorBad(Meraxis already has a lewd mouth! This option will be available after your next victorious duel if you choose to return Meraxis's mouth to normal now.)]
+					#ELSE
+						<br/>[style.italicsTfSex(Meraxis will gain huge, puffy lips, a long tongue, and a sopping-wet throat from this.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(meraxis.isMouthChanged())
+						null
+					#ELSE
+						innoxia_characters_meraxis_duel_won_transform_end
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_LIPS'))]
+					[#game.appendToTextStartStringBuilder(meraxis.duelMouthChange(true))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_LIPS_DONE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.incrementAffection(pc, -5))]
+				]]></effects>
+			</response>
+			<!-- Pussy: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Cute pussy]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis to transform her pussy into a cute-looking one.
+					#IF(meraxis.isPussyChanged())
+						<br/>[style.italicsTfSex(Meraxis will regain tiny labia, along with making her pussy extremely tight and wet from this.)]
+					#ELSE
+						<br/>[style.italicsMinorBad(Meraxis already has what she considers to be a cute pussy! This option will be available after your next victorious duel if you choose to give Meraxis the 'Lewd pussy' transformation now.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(meraxis.isPussyChanged())
+						innoxia_characters_meraxis_duel_won_transform_end
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_PUSSY_REVERSE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.duelPussyChange(false))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_PUSSY_REVERSE_DONE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.incrementAffection(pc, 2))]
+					[#meraxis.setKnowsCharacterArea(CA_VAGINA, pc, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[9]]></index>
+				<responseTitle><![CDATA[Lewd pussy]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis to transform her pussy into one that looks especially lewd.
+					#IF(meraxis.isPussyChanged())
+						<br/>[style.italicsMinorBad(Meraxis already has a lewd pussy! This option will be available after your next victorious duel if you choose to give Meraxis the 'Cute pussy' transformation now.)]
+					#ELSE
+						<br/>[style.italicsTfSex(Meraxis will gain large labia, along with making her pussy slightly loose and sloppy from this.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(meraxis.isPussyChanged())
+						null
+					#ELSE
+						innoxia_characters_meraxis_duel_won_transform_end
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_PUSSY'))]
+					[#game.appendToTextStartStringBuilder(meraxis.duelPussyChange(true))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_PUSSY_DONE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.incrementAffection(pc, -5))]
+					[#meraxis.setKnowsCharacterArea(CA_VAGINA, pc, true)]
+				]]></effects>
+			</response>
+			<!-- Squirter: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!meraxis.isVaginaSquirter()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[Squirter]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis to transform her pussy so that it squirts female ejaculate whenever she orgasms.
+					<br/>[style.italicsTfSex(Meraxis will become a squirter from this.)]
+				]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_won_transform_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_SQUIRTER'))]
+					[#game.appendToTextStartStringBuilder(meraxis.duelSquirter(true))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_SQUIRTER_DONE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.incrementAffection(pc, -5))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#meraxis.isVaginaSquirter()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[Stop squirting]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis to transform her pussy so that it no longer squirts female ejaculate whenever she orgasms.
+					<br/>[style.italicsTfSex(Meraxis will no longer be a squirter after this.)]
+				]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_won_transform_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_SQUIRTER_REVERSE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.duelSquirter(false))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_TRANSFORM_SQUIRTER_REVERSE_DONE'))]
+					[#game.appendToTextStartStringBuilder(meraxis.incrementAffection(pc, 2))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="won_transform_end">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Listen]]></responseTitle>
+				<responseTooltip><![CDATA[Listen to what Meraxis has to say.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_dominion))
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/leaving_dominion', 'TRANSFORMATION_END'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/leaving_dominion', 'MERAXIS_END'))]
+						[#game.appendToTextStartStringBuilder(pc.setQuestProgress(QUEST_LINE_MAIN, QUEST_MAIN_3_B_MEETING_MERAXIS))]
+					#ELSE
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'TRANSFORMATION_END'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'MERAXIS_END'))]
+					#ENDIF
+					[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_daily_complete, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Winning having said that you want sex as the reward -->
+	
+	<scene id="won_sex">
+		<preParsingEffects><![CDATA[
+			#IF(flags.hasSavedLong('meraxis_duel_player_wins'))
+				[#flags.incrementSavedLong('meraxis_duel_player_wins', 1)]
+			#ELSE
+				[#flags.setSavedLong('meraxis_duel_player_wins', 1)]
+			#ENDIF
+			[#meraxis.applyScythe(false)]
+		]]></preParsingEffects>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Hold hands]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis that you'd like to hold her hand and take a walk together.
+					<br/>[style.italicsSex(This action leads into being able to increase Meraxis's affection towards you, as well as fingering and handjobs.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_hold_hands]]></nextDialogue>
+				<effects/>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Hug]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis that you'd like to hug her.
+					<br/>[style.italicsSex(This action leads into being able to increase Meraxis's affection towards
+					#IF(game.isAnalContentEnabled())
+						 you, as well as anal actions.
+					#ELSE
+						 you.
+					#ENDIF
+					)]
+					]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_hug]]></nextDialogue>
+				<effects/>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Kiss]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis that you'd like to kiss her.
+					#IF(meraxis.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_TWO_LIKE))
+						<br/>[style.italicsMinorBad(Meraxis needs an affection level of at least '[#AFFECTION_POSITIVE_TWO_LIKE.getName()]' towards you before she'd agree to let you kiss her!)]
+						<br/><i>Her current affection towards you is '[#meraxis.getAffectionLevel(pc).getName()]'.</i>
+					#ELSE
+						<br/>[style.italicsSex(This action leads into being able to increase Meraxis's affection towards you, as well as oral sex.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(meraxis.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_TWO_LIKE))
+						null
+					#ELSE
+						innoxia_characters_meraxis_duel_won_sex_kiss
+					#ENDIF
+				]]></nextDialogue>
+				<effects/>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Flash boobs]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis that you'd like to see her naked boobs.
+					#IF(meraxis.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_THREE_CARING))
+						<br/>[style.italicsMinorBad(Meraxis needs an affection level of at least '[#AFFECTION_POSITIVE_THREE_CARING.getName()]' towards you before she'd agree to flash you her boobs!)]
+						<br/><i>Her current affection towards you is '[#meraxis.getAffectionLevel(pc).getName()]'.</i>
+					#ELSE
+						<br/>[style.italicsSex(This action leads into being able to increase Meraxis's affection towards you, as well as breast-related sex.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(meraxis.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_THREE_CARING))
+						null
+					#ELSE
+						innoxia_characters_meraxis_duel_won_sex_flash_breasts
+					#ENDIF
+				]]></nextDialogue>
+				<effects/>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Flash pussy]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis that you'd like to see her naked pussy.
+					#IF(meraxis.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
+						<br/>[style.italicsMinorBad(Meraxis needs an affection level of at least '[#AFFECTION_POSITIVE_FOUR_LOVE.getName()]' towards you before she'd agree to flash you her pussy!)]
+						<br/><i>Her current affection towards you is '[#meraxis.getAffectionLevel(pc).getName()]'.</i>
+					#ELSE
+						<br/>[style.italicsSex(This action leads into being able to increase Meraxis's affection towards you, as well as vaginal sex.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(meraxis.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
+						null
+					#ELSE
+						innoxia_characters_meraxis_duel_won_sex_flash_pussy
+					#ENDIF
+				]]></nextDialogue>
+				<effects/>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Nothing]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Meraxis that you don't want a sexual favour from her after all. You can tell from how she's acting that she'll be disappointed by this.]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_won_sex_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_NOTHING'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Sex masturbation -->
+	
+	<scene id="won_sex_hold_hands">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(meraxis.incrementLust(10, false))]
+			[#game.appendToTextEndStringBuilder(meraxis.incrementAffection(pc, 5))]
+		]]></preParsingEffects>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_HOLD_HANDS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Compliment]]></responseTitle>
+				<responseTooltip><![CDATA[Simply tell Meraxis how pretty she is.]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_won_sex_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_HOLD_HANDS_FINISHED'))]
+					[#game.appendToTextEndStringBuilder(meraxis.incrementAffection(pc, 5))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Grope]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Let Meraxis guide your hand down between her legs and grope her.
+					#IF(!flags.hasFlag(FLAG_innoxia_meraxis_handjobs_unlocked))
+						 [style.italicsSex(This will unlock fingering and handjob actions with Meraxis for the next time you're in this situation!)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_won_sex_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_HOLD_HANDS_GROPE'))]
+					[#game.appendToTextEndStringBuilder(meraxis.incrementLust(5, false))]
+					#IF(!flags.hasFlag(FLAG_innoxia_meraxis_handjobs_unlocked))
+						[#flags.setFlag(FLAG_innoxia_meraxis_any_sex_unlocked, true)]
+						[#flags.setFlag(FLAG_innoxia_meraxis_handjobs_unlocked, true)]
+						[#game.appendToTextEndStringBuilder(meraxis.setFetishDesire(FETISH_MASTURBATION, FETISH_DESIRE_THREE_LIKE, true))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<!-- 3 -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_meraxis_handjobs_unlocked)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Finger her]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Meraxis doesn't feel comfortable enough to let you finger her!
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_meraxis_handjobs_unlocked)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Finger her]]></responseTitle>
+				<responseTooltip><![CDATA[Slide your [pc.hand] down into Meraxis's panties and start fingering her.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_meraxis_duel_fingering]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_fingering]]></postSexDialogue>
+					<sexStartContent folderPath="txt/characters/meraxis/duel">WON_SEX_FINGERING</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[FingerVagina_FINGERING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[meraxis]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 4 -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_meraxis_handjobs_unlocked) || !pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Fingered]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasVagina())
+						You don't have a vagina, so Meraxis couldn't finger you even if she wanted to!
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+						You can't gain access to your vagina, so Meraxis couldn't finger you even if she wanted to!
+					#ELSE
+						Meraxis doesn't feel comfortable enough to finger you!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_meraxis_handjobs_unlocked) && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Fingered]]></responseTitle>
+				<responseTooltip><![CDATA[Guide Meraxis's hand down to your groin and get her to start fingering you.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_meraxis_duel_fingered]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+							#IF(pc.isTaur())
+								STANDING_STANDING_DOMINANT
+							#ELSE
+								STANDING_STANDING_DOMINANT
+							#ENDIF
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[
+								#IF(pc.isTaur())
+									STANDING_PERFORMING_ORAL_BEHIND
+								#ELSE
+									STANDING_STANDING_SUBMISSIVE
+								#ENDIF
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_fingered]]></postSexDialogue>
+					<sexStartContent folderPath="txt/characters/meraxis/duel">WON_SEX_FINGERED</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[FingerVagina_FINGERING_START]]></id>
+							<performer><![CDATA[meraxis]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 5 -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_meraxis_handjobs_unlocked) || !pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Handjob]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenis())
+						You don't have a penis, so Meraxis couldn't give you a handjob even if she wanted to!
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+						You can't gain access to your penis, so Meraxis couldn't give you a handjob even if she wanted to!
+					#ELSE
+						Meraxis doesn't feel comfortable enough to give you a handjob!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_meraxis_handjobs_unlocked) && pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Handjob]]></responseTitle>
+				<responseTooltip><![CDATA[Get Meraxis to give you a handjob.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_meraxis_duel_handjob]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+							#IF(pc.isTaur())
+								STANDING_STANDING_DOMINANT
+							#ELSE
+								STANDING_STANDING_DOMINANT
+							#ENDIF
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[
+								#IF(pc.isTaur())
+									STANDING_PERFORMING_ORAL_BEHIND
+								#ELSE
+									STANDING_STANDING_SUBMISSIVE
+								#ENDIF
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_handjob]]></postSexDialogue>
+					<sexStartContent folderPath="txt/characters/meraxis/duel">WON_SEX_HANDJOB</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[FingerPenis_COCK_MASTURBATING_START]]></id>
+							<performer><![CDATA[meraxis]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="won_sex_post_fingering">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_FINGERING</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_characters_meraxis_duel_won_sex_end"/>
+	</scene>
+	
+	<scene id="won_sex_post_fingered">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_FINGERED</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_characters_meraxis_duel_won_sex_end"/>
+	</scene>
+	
+	<scene id="won_sex_post_handjob">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_HANDJOB</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_characters_meraxis_duel_won_sex_end"/>
+	</scene>
+	
+	<!-- Sex anal -->
+	
+	<scene id="won_sex_hug">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(meraxis.incrementLust(10, false))]
+			[#game.appendToTextEndStringBuilder(meraxis.incrementAffection(pc, 5))]
+		]]></preParsingEffects>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_HUG</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Compliment]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Meraxis how cute she is.]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_won_sex_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_HUG_FINISHED'))]
+					[#game.appendToTextEndStringBuilder(meraxis.incrementAffection(pc, 5))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Grab ass]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Reach down and give Meraxis's ass a good grope.
+					#IF(!flags.hasFlag(FLAG_innoxia_meraxis_anal_unlocked) && game.isAnalContentEnabled())
+						 [style.italicsSex(This will unlock anal actions with Meraxis for the next time you're in this situation!)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_won_sex_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_HUG_ASS_GRAB'))]
+					[#game.appendToTextEndStringBuilder(meraxis.incrementLust(5, false))]
+					#IF(!flags.hasFlag(FLAG_innoxia_meraxis_anal_unlocked) && game.isAnalContentEnabled())
+						[#flags.setFlag(FLAG_innoxia_meraxis_any_sex_unlocked, true)]
+						[#flags.setFlag(FLAG_innoxia_meraxis_anal_unlocked, true)]
+						[#game.appendToTextEndStringBuilder(meraxis.setFetishDesire(FETISH_ANAL_RECEIVING, FETISH_DESIRE_THREE_LIKE, true))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<!-- 3 -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && (!flags.hasFlag(FLAG_innoxia_meraxis_anal_unlocked) || !pc.isAbleToAccessCoverableArea(CA_MOUTH, true))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Anilingus]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						You can't gain access to your mouth, so can't perform anilingus on Meraxis even if she'd let you!
+					#ELSE
+						Meraxis doesn't feel comfortable enough to let you perform anilingus on her!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && flags.hasFlag(FLAG_innoxia_meraxis_anal_unlocked) && pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Anilingus]]></responseTitle>
+				<responseTooltip><![CDATA[Get Meraxis to turn around and hike up her dress so that you can perform anilingus on her.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_meraxis_duel_anilingus]]></id>
+					<startingPosition><![CDATA[AGAINST_WALL]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[AGAINST_WALL_PERFORMING_ORAL_WALL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[AGAINST_WALL_FACE_TO_WALL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_anilingus]]></postSexDialogue>
+					<sexStartContent folderPath="txt/characters/meraxis/duel">WON_SEX_ANILINGUS</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueAnus_ANILINGUS_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[meraxis]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 4 -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && (!flags.hasFlag(FLAG_innoxia_meraxis_anal_unlocked) || !pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Hotdogging]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenis())
+						You don't have a penis so couldn't hotdog Meraxis even if she'd let you!
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+						You can't gain access to your penis, so can't hotdog Meraxis even if she'd let you!
+					#ELSE
+						Meraxis doesn't feel comfortable enough to let you hotdog her!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && flags.hasFlag(FLAG_innoxia_meraxis_anal_unlocked) && pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Hotdogging]]></responseTitle>
+				<responseTooltip><![CDATA[Get Meraxis to turn around and hike up her dress so that you can slide your cock up and down between her ass cheeks.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_meraxis_duel_hotdogging]]></id>
+					<startingPosition><![CDATA[
+						#IF(pc.isTaur())
+							ALL_FOURS
+						#ELSE
+							AGAINST_WALL
+						#ENDIF
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								#IF(pc.isTaur())
+									ALL_FOURS_BEHIND
+								#ELSE
+									AGAINST_WALL_STANDING_WALL
+								#ENDIF
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[
+								#IF(pc.isTaur())
+									ALL_FOURS_ALL_FOURS
+								#ELSE
+									AGAINST_WALL_FACE_TO_WALL
+								#ENDIF
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_hotdogging]]></postSexDialogue>
+					<sexStartContent folderPath="txt/characters/meraxis/duel">WON_SEX_HOTDOGGING</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisAss_ASS_FUCKING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[meraxis]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 5 -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && (!flags.hasFlag(FLAG_innoxia_meraxis_anal_unlocked) || !pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Anal]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenis())
+						You don't have a penis so couldn't fuck Meraxis's ass even if she'd let you!
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+						You can't gain access to your penis, so can't fuck Meraxis's ass even if she'd let you!
+					#ELSE
+						Meraxis doesn't feel comfortable enough to let you fuck her ass!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && flags.hasFlag(FLAG_innoxia_meraxis_anal_unlocked) && pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Anal]]></responseTitle>
+				<responseTooltip><![CDATA[Get Meraxis to turn around and hike up her dress so that you can fuck her ass.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_meraxis_duel_anal]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_anal]]></postSexDialogue>
+					<sexStartContent folderPath="txt/characters/meraxis/duel">WON_SEX_ANAL</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[meraxis]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="won_sex_post_anilingus">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_ANILINGUS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_characters_meraxis_duel_won_sex_end"/>
+	</scene>
+	
+	<scene id="won_sex_post_hotdogging">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_HOTDOGGING</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_characters_meraxis_duel_won_sex_end"/>
+	</scene>
+	
+	<scene id="won_sex_post_anal">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_ANAL</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_characters_meraxis_duel_won_sex_end"/>
+	</scene>
+	
+	<!-- Sex oral -->
+	
+	<scene id="won_sex_kiss">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(meraxis.incrementLust(15, false))]
+			[#game.appendToTextEndStringBuilder(meraxis.incrementAffection(pc, 10))]
+		]]></preParsingEffects>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_KISS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Compliment]]></responseTitle>
+				<responseTooltip><![CDATA[Put an end to the kiss and compliment Meraxis on how pretty she is.]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_won_sex_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_KISS_FINISHED'))]
+					[#game.appendToTextEndStringBuilder(meraxis.incrementAffection(pc, 5))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Make out]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Start passionately kissing Meraxis.
+					#IF(!flags.hasFlag(FLAG_innoxia_meraxis_oral_unlocked))
+						 [style.italicsSex(This will unlock oral actions with Meraxis for the next time you're in this situation!)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_won_sex_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_KISS_MAKE_OUT'))]
+					[#game.appendToTextEndStringBuilder(meraxis.incrementLust(5, false))]
+					#IF(!flags.hasFlag(FLAG_innoxia_meraxis_oral_unlocked))
+						[#flags.setFlag(FLAG_innoxia_meraxis_any_sex_unlocked, true)]
+						[#flags.setFlag(FLAG_innoxia_meraxis_oral_unlocked, true)]
+						[#game.appendToTextEndStringBuilder(meraxis.setFetishDesire(FETISH_ORAL_RECEIVING, FETISH_DESIRE_THREE_LIKE, true))]
+						[#game.appendToTextEndStringBuilder(meraxis.setFetishDesire(FETISH_ORAL_GIVING, FETISH_DESIRE_THREE_LIKE, true))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<!-- 3 -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_meraxis_oral_unlocked) || !pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Cunnilingus]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						You can't gain access to your mouth, so can't perform cunnilingus on Meraxis even if she'd let you!
+					#ELSE
+						Meraxis doesn't feel comfortable enough to let you perform cunnilingus on her!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_meraxis_oral_unlocked) && pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Cunnilingus]]></responseTitle>
+				<responseTooltip><![CDATA[Get Meraxis to hike up her dress so that you can perform cunnilingus on her.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_meraxis_duel_cunnilingus]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_cunnilingus]]></postSexDialogue>
+					<sexStartContent folderPath="txt/characters/meraxis/duel">WON_SEX_CUNNILINGUS</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[meraxis]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 4 -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_meraxis_oral_unlocked) || !pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Receive cunnilingus]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasVagina())
+						You don't have a vagina, so Meraxis couldn't perform cunnilingus on you even if she wanted to!
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+						You can't gain access to your vagina, so Meraxis couldn't perform cunnilingus on you even if she wanted to!
+					#ELSE
+						Meraxis doesn't feel comfortable enough to perform cunnilingus on you!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_meraxis_oral_unlocked) && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Receive cunnilingus]]></responseTitle>
+				<responseTooltip><![CDATA[Get Meraxis to drop down and start eating you out.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_meraxis_duel_cunnilingus_receive]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[
+							#IF(pc.isTaur())
+								STANDING_PERFORMING_ORAL_BEHIND
+							#ELSE
+								STANDING_PERFORMING_ORAL
+							#ENDIF
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_cunnilingus_receive]]></postSexDialogue>
+					<sexStartContent folderPath="txt/characters/meraxis/duel">WON_SEX_CUNNILINGUS_RECEIVE</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[meraxis]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 5 -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_meraxis_oral_unlocked) || !pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Blowjob]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenis())
+						You don't have a penis, so Meraxis couldn't give you a blowjob even if she wanted to!
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+						You can't gain access to your penis, so Meraxis couldn't give you a blowjob even if she wanted to!
+					#ELSE
+						Meraxis doesn't feel comfortable enough to give you a blowjob!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_meraxis_oral_unlocked) && pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Blowjob]]></responseTitle>
+				<responseTooltip><![CDATA[Get Meraxis to drop down and start sucking your cock.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_meraxis_duel_blowjob]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_blowjob]]></postSexDialogue>
+					<sexStartContent folderPath="txt/characters/meraxis/duel">WON_SEX_BLOWJOB</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_GIVING_BLOWJOB_START]]></id>
+							<performer><![CDATA[meraxis]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="won_sex_post_cunnilingus">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_CUNNILINGUS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_characters_meraxis_duel_won_sex_end"/>
+	</scene>
+	
+	<scene id="won_sex_post_cunnilingus_receive">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_CUNNILINGUS_RECEIVE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_characters_meraxis_duel_won_sex_end"/>
+	</scene>
+	
+	<scene id="won_sex_post_blowjob">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_BLOWJOB</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_characters_meraxis_duel_won_sex_end"/>
+	</scene>
+	
+	<!-- Sex breasts -->
+	
+	<scene id="won_sex_flash_breasts">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(meraxis.incrementLust(25, false))]
+			[#meraxis.unequipClothingIntoInventory(meraxis.getClothingInSlot(IS_TORSO_OVER), true, meraxis)]
+			[#meraxis.unequipClothingIntoInventory(meraxis.getClothingInSlot(IS_TORSO_UNDER), true, meraxis)]
+			[#meraxis.unequipClothingIntoInventory(meraxis.getClothingInSlot(IS_CHEST), true, meraxis)]
+			[#meraxis.setAreaKnownByCharacter(CA_NIPPLES, pc, true)]
+			[#meraxis.setAreaKnownByCharacter(CA_BREASTS, pc, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_FLASH_BREASTS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Compliment]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Meraxis how sexy her breasts are.]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_won_sex_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_FLASH_BREASTS_FINISHED'))]
+					[#game.appendToTextEndStringBuilder(meraxis.incrementAffection(pc, 5))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Start playing]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis to start playing with her breasts for you.
+					#IF(!flags.hasFlag(FLAG_innoxia_meraxis_paizuri_unlocked))
+						 [style.italicsSex(This will unlock breast-related sex actions with Meraxis for the next time you're in this situation!)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_won_sex_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_FLASH_BREASTS_PLAY'))]
+					[#game.appendToTextEndStringBuilder(meraxis.incrementLust(5, false))]
+					#IF(!flags.hasFlag(FLAG_innoxia_meraxis_paizuri_unlocked))
+						[#flags.setFlag(FLAG_innoxia_meraxis_any_sex_unlocked, true)]
+						[#flags.setFlag(FLAG_innoxia_meraxis_paizuri_unlocked, true)]
+						[#game.appendToTextEndStringBuilder(meraxis.setFetishDesire(FETISH_BREASTS_SELF, FETISH_DESIRE_THREE_LIKE, true))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<!-- 3 -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_meraxis_paizuri_unlocked)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Masturbate]]></responseTitle>
+				<responseTooltip><![CDATA[Meraxis doesn't feel comfortable enough to let you masturbate to the sight of her breasts!]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_meraxis_paizuri_unlocked)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Masturbate]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Meraxis to continue playing with her breasts while you masturbate to the sight of them.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_meraxis_duel_masturbation]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_masturbation_breasts]]></postSexDialogue>
+					<sexStartContent folderPath="txt/characters/meraxis/duel">WON_SEX_PLAY_BREASTS_MASTURBATE</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 4 -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_meraxis_paizuri_unlocked) || !pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Kiss breasts]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_meraxis_paizuri_unlocked))
+						Meraxis doesn't feel comfortable enough to let you kiss her breasts!
+					#ELSE
+						You can't gain access to your mouth, so cannot kiss Meraxis's breasts!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_meraxis_paizuri_unlocked) && pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Kiss breasts]]></responseTitle>
+				<responseTooltip><![CDATA[Start kissing Meraxis's breasts.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_meraxis_duel_breasts_oral]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_breast_kissing]]></postSexDialogue>
+					<sexStartContent folderPath="txt/characters/meraxis/duel">WON_SEX_PLAY_BREASTS_KISSING</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueNipple_SUCKLE_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[meraxis]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 5 -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_meraxis_paizuri_unlocked) || !pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[[meraxis.Paizuri]]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenis())
+						You don't have a penis, so couldn't fuck Meraxis's breasts even if she'd let you!
+					#ELSEIF(!flags.hasFlag(FLAG_innoxia_meraxis_paizuri_unlocked))
+						Meraxis doesn't feel comfortable enough to let you fuck her breasts!
+					#ELSE
+						You can't gain access to your penis, so cannot fuck Meraxis's breasts even if she'd let you!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_meraxis_paizuri_unlocked) && pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[[meraxis.Paizuri]]]></responseTitle>
+				<responseTooltip><![CDATA[Get Meraxis to drop down and let you fuck her breasts.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_meraxis_duel_breasts_fuck]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_breast_fuck]]></postSexDialogue>
+					<sexStartContent folderPath="txt/characters/meraxis/duel">WON_SEX_PLAY_BREASTS_FUCK</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisBreasts_FUCKING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[meraxis]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="won_sex_post_masturbation_breasts">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_MASTURBATION_BREASTS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_characters_meraxis_duel_won_sex_end"/>
+	</scene>
+	
+	<scene id="won_sex_post_breast_kissing">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_BREASTS_KISSING</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_characters_meraxis_duel_won_sex_end"/>
+	</scene>
+	
+	<scene id="won_sex_post_breast_fuck">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_BREAST_FUCK</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_characters_meraxis_duel_won_sex_end"/>
+	</scene>
+	
+	<!-- Sex pussy -->
+	
+	<scene id="won_sex_flash_pussy">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(meraxis.incrementLust(25, false))]
+			[#meraxis.unequipClothingIntoInventory(meraxis.getClothingInSlot(IS_GROIN), true, meraxis)]
+			[#meraxis.displaceClothingForAccess(CA_VAGINA, null)]
+			[#meraxis.setAreaKnownByCharacter(CA_VAGINA, pc, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_FLASH_PUSSY</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Compliment]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Meraxis how sexy her pussy is.]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_won_sex_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_FLASH_PUSSY_FINISHED'))]
+					[#game.appendToTextEndStringBuilder(meraxis.incrementAffection(pc, 5))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Start playing]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis to start playing with her pussy for you.
+					#IF(!flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked))
+						 [style.italicsSex(This will unlock pussy-related sex actions with Meraxis for the next time you're in this situation!)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>innoxia_characters_meraxis_duel_won_sex_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_FLASH_PUSSY_PLAY'))]
+					[#game.appendToTextEndStringBuilder(meraxis.incrementLust(5, false))]
+					#IF(!flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked))
+						[#flags.setFlag(FLAG_innoxia_meraxis_any_sex_unlocked, true)]
+						[#flags.setFlag(FLAG_innoxia_meraxis_vaginal_unlocked, true)]
+						[#game.appendToTextEndStringBuilder(meraxis.setFetishDesire(FETISH_VAGINAL_RECEIVING, FETISH_DESIRE_THREE_LIKE, true))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<!-- 3 -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked) || !pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Intercrural]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenis())
+						You don't have a penis, so couldn't fuck Meraxis's thighs even if she'd let you!
+					#ELSEIF(!flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked))
+						Meraxis doesn't feel comfortable enough to let you fuck her thighs!
+					#ELSE
+						You can't gain access to your penis, so cannot fuck Meraxis's thighs even if she'd let you!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked) && pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Intercrural]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Meraxis to push her legs together so that you can slide your cock under her pussy and fuck her thighs.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_meraxis_duel_intercrural]]></id>
+					<startingPosition><![CDATA[
+						#IF(pc.isTaur())
+							ALL_FOURS
+						#ELSE
+							STANDING
+						#ENDIF
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								#IF(pc.isTaur())
+									ALL_FOURS_BEHIND
+								#ELSE
+									STANDING_STANDING_DOMINANT
+								#ENDIF
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[
+								#IF(pc.isTaur())
+									ALL_FOURS_ALL_FOURS
+								#ELSE
+									STANDING_STANDING_SUBMISSIVE
+								#ENDIF
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_intercrural]]></postSexDialogue>
+					<sexStartContent folderPath="txt/characters/meraxis/duel">WON_SEX_INTERCRURAL</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisThighs_THIGH_FUCKING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[meraxis]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 4 -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked) || !pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Fuck her]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenis())
+						You don't have a penis, so couldn't fuck Meraxis even if she'd let you!
+					#ELSEIF(!flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked))
+						Meraxis doesn't feel comfortable enough to let you fuck her!
+					#ELSE
+						You can't gain access to your penis, so cannot fuck Meraxis even if she'd let you!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked) && pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Fuck her]]></responseTitle>
+				<responseTooltip><![CDATA[Get Meraxis to present her pussy to you so that you can fuck her.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_meraxis_duel_vaginal]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_fuck]]></postSexDialogue>
+					<sexStartContent folderPath="txt/characters/meraxis/duel">WON_SEX_FUCK</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[meraxis]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- 5 -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked) || pc.isTaur() || !pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Scissor]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasVagina())
+						You don't have a vagina, so couldn't scissor with Meraxis even if she'd let you!
+					#ELSEIF(!flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked))
+						Meraxis doesn't feel comfortable enough to let you scissor with her!
+					#ELSEIF(pc.isTaur())
+						Due to the configuration of your lower body, you're unable to get into a suitable position in which to scissor with Meraxis!
+					#ELSE
+						You can't gain access to your pussy, so cannot scissor with Meraxis even if she'd let you!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked) && !pc.isTaur() && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Scissor]]></responseTitle>
+				<responseTooltip><![CDATA[Get Meraxis to lie back and spread her legs so that you can scissor with her.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_meraxis_duel_scissor]]></id>
+					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[LYING_DOWN_SCISSORING]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[LYING_DOWN_LYING_DOWN]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_characters_meraxis_duel_won_sex_post_scissor]]></postSexDialogue>
+					<sexStartContent folderPath="txt/characters/meraxis/duel">WON_SEX_SCISSOR</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[ClitClit_TRIBBING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[meraxis]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="won_sex_post_intercrural">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_INTERCRURAL</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_characters_meraxis_duel_won_sex_end"/>
+	</scene>
+	
+	<scene id="won_sex_post_fuck">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_FUCK</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_characters_meraxis_duel_won_sex_end"/>
+	</scene>
+	
+	<scene id="won_sex_post_scissor">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_POST_END'))]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Meraxis looks like she's about to explode from embarrassment...]]></tooltip>
+		<content folderPath="txt/characters/meraxis/duel">WON_SEX_POST_SCISSOR</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_characters_meraxis_duel_won_sex_end"/>
+	</scene>
+	
+	<!-- Ending dialogue which all post-sex dialogues lead to -->
+	
+	<scene id="won_sex_end">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Listen]]></responseTitle>
+				<responseTooltip><![CDATA[Listen to what Meraxis has to say.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_dominion))
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/leaving_dominion', 'POST_SEX_END'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/leaving_dominion', 'MERAXIS_END'))]
+						[#game.appendToTextStartStringBuilder(pc.setQuestProgress(QUEST_LINE_MAIN, QUEST_MAIN_3_B_MEETING_MERAXIS))]
+					#ELSE
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'POST_SEX_END'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'MERAXIS_END'))]
+					#ENDIF
+					[#meraxis.returnToHome()]
+					[#meraxis.hourlyUpdate()]
+					[#meraxis.equipClothing()]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_daily_complete, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

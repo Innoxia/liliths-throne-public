@@ -36,6 +36,9 @@ public abstract class AbstractHairType implements BodyPartTypeInterface {
 	private AbstractRace race;
 
 	private String transformationName;
+	
+	private double neckFluffChance;
+	private boolean neckFluffRequiresGreater;
 
 	private boolean defaultPlural;
 	private String determiner;
@@ -76,6 +79,9 @@ public abstract class AbstractHairType implements BodyPartTypeInterface {
 		this.coveringType = skinType;
 		this.race = race;
 		
+		this.neckFluffRequiresGreater = true;
+		this.neckFluffChance = 0;
+		
 		this.transformationName = transformationName;
 		
 		this.defaultPlural = false;
@@ -113,11 +119,21 @@ public abstract class AbstractHairType implements BodyPartTypeInterface {
 				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
 
 				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
-
+				
+				this.neckFluffRequiresGreater = true;
+				if(coreElement.getOptionalFirstOf("neckFluffChance").isPresent()) {
+					neckFluffRequiresGreater = Boolean.valueOf(coreElement.getMandatoryFirstOf("neckFluffChance").getAttribute("requiresGreaterMorph"));
+				}
+				
+				neckFluffChance = 0;
+				if(coreElement.getOptionalFirstOf("neckFluffChance").isPresent()) {
+					neckFluffChance = Float.valueOf(coreElement.getMandatoryFirstOf("neckFluffChance").getTextContent())/100d;
+				}
+				
 				this.tags = new ArrayList<>();
 				if(coreElement.getOptionalFirstOf("tags").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("tags").getAllOf("tag")) {
-						tags.add(BodyPartTag.valueOf(e.getTextContent()));
+						tags.add(BodyPartTag.getBodyPartTagFromId(e.getTextContent()));
 					}
 				}
 				
@@ -159,6 +175,20 @@ public abstract class AbstractHairType implements BodyPartTypeInterface {
 	
 	public boolean isAbleToBeGrabbedInSex() {
 		return this.getTags().contains(BodyPartTag.HAIR_HANDLES_IN_SEX);
+	}
+	
+	/**
+	 * @return Chance for this hair type to spawn with neck fluff, from 0->1.0 representing 0->100%
+	 */
+	public double getNeckFluffChance() {
+		return neckFluffChance;
+	}
+
+	/**
+	 * @return true if neck fluff is only applied on spawn if the character is a greater morph.
+	 */
+	public boolean isNeckFluffRequiresGreater() {
+		return neckFluffRequiresGreater;
 	}
 	
 	@Override

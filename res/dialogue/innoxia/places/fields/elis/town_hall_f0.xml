@@ -44,6 +44,7 @@
 		<travelDisabled>false</travelDisabled>
 		<responses>
 			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(7, 21)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Minotallys]]></responseTitle>
@@ -103,6 +104,15 @@
 		<travelDisabled>false</travelDisabled>
 		<responses>
 			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_elis_minotallys_introduced)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Upstairs]]></responseTitle>
+				<responseTooltip><![CDATA[You don't have permission to go upstairs...]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_minotallys_introduced)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Upstairs]]></responseTitle>

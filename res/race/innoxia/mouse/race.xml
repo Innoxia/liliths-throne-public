@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<race>
+	<racialBody>innoxia_mouse</racialBody>
+	
+	<applyRaceChanges/>
+	
+	<name><![CDATA[mouse-morph]]></name>
+	<namePlural><![CDATA[mouse-morphs]]></namePlural>
+	
+	<nameFeral>
+		<name legConfiguration="QUADRUPEDAL"><![CDATA[mouse]]></name>
+	</nameFeral>
+	<nameFeralPlural>
+		<name legConfiguration="QUADRUPEDAL"><![CDATA[mouse]]></name>
+	</nameFeralPlural>
+	
+	<defaultTransformName><![CDATA[mouse]]></defaultTransformName>
+	
+	<colour>innoxia_mouse</colour>
+	
+	<disposition>CIVILIZED</disposition>
+	
+	<racialClass>MAMMAL</racialClass>
+	
+	<feralPartsAvailable>true</feralPartsAvailable>
+	
+	<ableToSelfTransform>false</ableToSelfTransform>
+	
+	<flyingRace>false</flyingRace>
+	
+	<combatBehaviour>BALANCED</combatBehaviour>
+	
+	<chanceForMaleOffspring>0.5</chanceForMaleOffspring>
+	
+	<numberOfOffspringLow>1</numberOfOffspringLow>
+	<numberOfOffspringHigh>4</numberOfOffspringHigh>
+	
+	<defaultFemininePreference>NORMAL</defaultFemininePreference>
+	<defaultMasculinePreference>NORMAL</defaultMasculinePreference>
+	
+	<affectedByFurryPreference>true</affectedByFurryPreference>
+</race>

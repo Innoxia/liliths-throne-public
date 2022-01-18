@@ -19,7 +19,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.3.7.7
- * @version 0.3.7.7
+ * @version 0.4.2.2
  * @author Innoxia
  */
 public class SMDominionExpressEncounter extends SexManagerDefault {
@@ -45,11 +45,14 @@ public class SMDominionExpressEncounter extends SexManagerDefault {
 	}
 	@Override
 	public SexControl getSexControl(GameCharacter character) {
-		return SexControl.ONGOING_ONLY; // So the slave doesn't start anything else.
+		if(!Main.sex.isDom(character)) {
+			return SexControl.ONGOING_ONLY; // So the player can't start anything else.
+		}
+		return super.getSexControl(character);
 	}
 	@Override
-	public boolean isAbleToEquipSexClothing(GameCharacter character){
-		return false;
+	public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip){
+		return clothingToEquip.isCondom();
 	}
 	@Override
 	public boolean isAbleToRemoveSelfClothing(GameCharacter character){
@@ -106,7 +109,7 @@ public class SMDominionExpressEncounter extends SexManagerDefault {
 								"A centauress slave hastily trots past, too busy to pay you any attention.",
 								"A group of centaur slaves take a moment to stop and comment on your performance, before continuing on their way to the stables.",
 								"You hear a centauress letting out an amused laugh from somewhere behind you.",
-								"You hear a centuar letting out an amused grunt from somewhere behind you.",
+								"You hear a centaur letting out an amused grunt from somewhere behind you.",
 								"You glance across to see a bronze-ranked filly curiously watching to see how you service centaurs.",
 								"A muscular centaur slave pauses to comment on your lewd display, before trotting off on his way to work.",
 								"A busty centauress slave pauses to comment on your lewd display, before trotting off on her way to work."))

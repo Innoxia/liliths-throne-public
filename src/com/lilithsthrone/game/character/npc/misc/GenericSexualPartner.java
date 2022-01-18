@@ -41,11 +41,12 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.2
- * @version 0.3.5.5
+ * @version 0.4.1
  * @author Innoxia
  */
 public class GenericSexualPartner extends NPC {
@@ -57,10 +58,13 @@ public class GenericSexualPartner extends NPC {
 	public GenericSexualPartner(boolean isImported) {
 		this(Gender.F_V_B_FEMALE, WorldType.EMPTY, new Vector2i(0, 0), isImported);
 	}
-	
 
 	public GenericSexualPartner(Gender gender, AbstractWorldType worldLocation, Vector2i location, boolean isImported) {
 		this(gender, worldLocation, location, isImported, null);
+	}
+
+	public GenericSexualPartner(Gender gender, AbstractWorldType worldLocation, AbstractPlaceType placeType, boolean isImported, Predicate<AbstractSubspecies> subspeciesRemovalFilter) {
+		this(gender, worldLocation, Main.game.getWorlds().get(worldLocation).getCell(placeType).getLocation(), isImported, subspeciesRemovalFilter);
 	}
 	
 	public GenericSexualPartner(Gender gender, AbstractWorldType worldLocation, Vector2i location, boolean isImported, Predicate<AbstractSubspecies> subspeciesRemovalFilter) {
@@ -257,7 +261,7 @@ public class GenericSexualPartner extends NPC {
 					sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+] to tear your hymen and claim your virginity, you can't help but let out a lewd, masochistic scream."
 							+ " The agonising pain of having your hymen torn by a person you've never even seen or spoken to before completely overwhelms you, and you can't help but squeal and moan in a delightful haze of overwhelming ecstasy.");
 				} else {
-					sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+] claim your virginity, you can't help but let out a desperate, shuddering wail."
+					sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+] to claim your virginity, you can't help but let out a desperate, shuddering wail."
 							+ " The agonising pain of having your hymen torn by a person you've never even seen or spoken to before completely overwhelms you, and you squirm about on the table as you try to endure this terrible experience.");
 				}
 			sb.append("</p>");

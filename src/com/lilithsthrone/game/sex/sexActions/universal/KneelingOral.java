@@ -17,7 +17,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.2.8
- * @version 0.3.1
+ * @version 0.4.2
  * @author Innoxia
  */
 public class KneelingOral {
@@ -32,7 +32,7 @@ public class KneelingOral {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.PERFORMING_ORAL);
+			return Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.PERFORMING_ORAL) && Main.sex.getCharacterPerformingAction().hasLegs();
 		}
 		
 		@Override
@@ -115,9 +115,18 @@ public class KneelingOral {
 					+ "After a few moments of grinding down on [npc2.namePos] face, [npc.namePos] overwhelming orgasm starts to fade, and [npc.she] [npc.verb(stand)] up on shaky [npc.legs],"
 							+ " grinning down at [npc2.name] as [npc.she] [npc.verb(feel)] a slick stream of saliva and [npc.girlCum] drooling down from [npc.her] [npc.pussy+].");
 			
-			return UtilText.nodeContentSB.toString();
+			return Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, Main.sex.getAvailableCumTargets(Main.sex.getCharacterPerformingAction()).get(0), false, UtilText.nodeContentSB.toString()).getDescription();
 		}
 		
+		@Override
+		public void applyEffects() {
+			Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, Main.sex.getAvailableCumTargets(Main.sex.getCharacterPerformingAction()).get(0), true).applyEffects();
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, Main.sex.getAvailableCumTargets(Main.sex.getCharacterPerformingAction()).get(0), false).isEndsSex();
+		}
 	};
 	
 }

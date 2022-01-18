@@ -316,10 +316,10 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_NORMAL:
 								case DOM_ROUGH:
 									sb.append(" [npc2.SexPaceVerb] bucking [npc2.her] [npc2.hips] back against [npc.herHim],"
-											+ " [npc2.name] let out a series of [npc2.moans+] as [npc2.she] helped to sink [npc.namePos] [npc.cock+] deep into [npc2.her] [npc.asshole].");
+											+ " [npc2.name] let out a series of [npc2.moans+] as [npc2.she] helped to sink [npc.namePos] [npc.cock+] deep into [npc2.her] [npc2.asshole].");
 									break;
 								case SUB_RESISTING:
-									sb.append(" [npc2.Name] tried to pull away, but [npc.name] [npc.was] able to keep [npc2.herHim] in place even while [npc.her] [npc.cock+] thrust in and out of [npc2.her] [npc.asshole+].");
+									sb.append(" [npc2.Name] tried to pull away, but [npc.name] [npc.was] able to keep [npc2.herHim] in place even while [npc.her] [npc.cock+] thrust in and out of [npc2.her] [npc2.asshole+].");
 									break;
 							}
 							
@@ -356,6 +356,37 @@ public enum SexAreaPenetration implements SexAreaInterface {
 							
 						} else {
 							sb.append("[npc.NameIs] [npc.sexPaceVerb] hotdogging [npc2.namePos] ass.");
+						}
+						break;
+					case ARMPITS:
+						if(pastTense) {
+							switch(performerPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append("Getting [npc2.name] to hold [npc2.her] [npc2.arm] up, [npc.name] [npc.was] able to slide [npc.her] [npc.cock+] up and down over [npc2.her] armpit.");
+									break;
+								case SUB_RESISTING:
+									sb.append("Although [npc.she] tried to resist, [npc.name] [npc.was] forced to slide [npc.her] [npc.cock+] up and down over [npc2.namePos] armpit.");
+									break;
+							}
+							switch(targetPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append(" Holding [npc2.her] [npc2.arm] up, [npc2.name] [npc2.was] soon [npc2.moaning] as [npc2.she] [npc.sexPaceVerb] forced [npc.namePos] [npc.cock] over [npc2.her] [npc2.armpit+].");
+									break;
+								case SUB_RESISTING:
+									sb.append(" Sobbing and crying, [npc2.name] did [npc2.her] best to pull away from [npc.name], but ended up being held in place and having [npc2.her] [npc2.armpits] fucked against [npc2.her] will.");
+									break;
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] sliding [npc.her] [npc.cock+] over [npc2.namePos] armpit.");
 						}
 						break;
 					case BREAST:
@@ -810,6 +841,8 @@ public enum SexAreaPenetration implements SexAreaInterface {
 				
 			} else {
 				switch((SexAreaOrifice)targetArea) {
+					case ARMPITS:
+						break;
 					case ANUS:
 						if(pastTense) {
 							switch(performerPace) {
@@ -832,10 +865,10 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_NORMAL:
 								case DOM_ROUGH:
 									sb.append(" [npc2.SexPaceVerb] bucking [npc2.her] [npc2.hips] back against [npc.herHim],"
-											+ " [npc2.name] let out a series of [npc2.moans+] as [npc2.she] helped to sink [npc.namePos] [npc.clit+] deep into [npc2.her] [npc.asshole].");
+											+ " [npc2.name] let out a series of [npc2.moans+] as [npc2.she] helped to sink [npc.namePos] [npc.clit+] deep into [npc2.her] [npc2.asshole].");
 									break;
 								case SUB_RESISTING:
-									sb.append(" [npc2.Name] tried to pull away, but [npc.name] [npc.was] able to keep [npc2.herHim] in place even while [npc.her] [npc.clit+] thrust in and out of [npc2.her] [npc.asshole+].");
+									sb.append(" [npc2.Name] tried to pull away, but [npc.name] [npc.was] able to keep [npc2.herHim] in place even while [npc.her] [npc.clit+] thrust in and out of [npc2.her] [npc2.asshole+].");
 									break;
 							}
 							
@@ -1293,6 +1326,37 @@ public enum SexAreaPenetration implements SexAreaInterface {
 				
 			} else {
 				switch((SexAreaOrifice)targetArea) {
+					case ARMPITS:
+						if(pastTense) {
+							switch(performerPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append("[npc.Name] pressed [npc.her] [npc.lips+] against [npc2.namePos] [npc2.armpits+], before starting to [npc.sexPaceVerb] kiss and lick them.");
+									break;
+								case SUB_RESISTING:
+									sb.append("[npc.Name] tried to resist, but [npc.was] unable to stop [npc2.name] from pulling [npc.herHim] into [npc2.her] [npc2.armpits+] and forcing [npc.herHim] to kiss and lick them.");
+									break;
+							}
+							switch(targetPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append(" Letting out muffled [npc2.moans], [npc2.name] [npc2.sexPaceVerb] pushed [npc2.her] [npc2.armpits] into [npc.namePos] [npc.face] and encouraged [npc.herHim] to continue orally pleasuring them.");
+									break;
+								case SUB_RESISTING:
+									sb.append(" [npc2.Name] tried to pull away, but [npc2.was] unable to stop [npc.name] from pressing [npc.her] [npc.face] into [npc2.her] [npc2.armpits].");
+									break;
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] kissing [npc2.namePos] [npc2.armpits].");
+						}
+						break;
 					case ANUS:
 						if(pastTense) {
 							switch(performerPace) {
@@ -1653,6 +1717,8 @@ public enum SexAreaPenetration implements SexAreaInterface {
 				
 			} else {
 				switch((SexAreaOrifice)targetArea) {
+					case ARMPITS:
+						break;
 					case ANUS:
 						if(pastTense) {
 							switch(performerPace) {
@@ -1661,7 +1727,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_EAGER:
 								case SUB_NORMAL:
 								case DOM_ROUGH:
-									sb.append("Grabbing [npc2.namePos] [npc2.ass], [npc.name] ran [npc.her] [npc.fingers+] down to [npc2.her] [npc2.asshole+] and, slipping them inside, started to [npc.sexPaceVerb] finger [npc2.her] [npc.ass].");
+									sb.append("Grabbing [npc2.namePos] [npc2.ass], [npc.name] ran [npc.her] [npc.fingers+] down to [npc2.her] [npc2.asshole+] and, slipping them inside, started to [npc.sexPaceVerb] finger [npc2.her] [npc2.ass].");
 									break;
 								case SUB_RESISTING:
 									sb.append("[npc.Name] struggled and cried as [npc2.name] grabbed hold of [npc.her] [npc.hand] and forced [npc.her] [npc.fingers] into [npc2.her] [npc2.asshole+].");
@@ -1988,6 +2054,8 @@ public enum SexAreaPenetration implements SexAreaInterface {
 				
 			} else {
 				switch((SexAreaOrifice)targetArea) {
+					case ARMPITS:
+						break;
 					case ANUS:
 						break;
 					case ASS:
@@ -2174,6 +2242,8 @@ public enum SexAreaPenetration implements SexAreaInterface {
 				
 			} else {
 				switch((SexAreaOrifice)targetArea) {
+					case ARMPITS:
+						break;
 					case ANUS:
 						if(pastTense) {
 							switch(performerPace) {
@@ -2195,10 +2265,10 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_NORMAL:
 								case DOM_ROUGH:
 									sb.append(" [npc2.SexPaceVerb] bucking [npc2.her] [npc2.hips] back against [npc.herHim],"
-											+ " [npc2.name] let out a series of [npc2.moans+] as [npc2.she] helped to sink [npc.namePos] [npc.tail+] deep into [npc2.her] [npc.asshole].");
+											+ " [npc2.name] let out a series of [npc2.moans+] as [npc2.she] helped to sink [npc.namePos] [npc.tail+] deep into [npc2.her] [npc2.asshole].");
 									break;
 								case SUB_RESISTING:
-									sb.append(" [npc2.Name] tried to pull away, but [npc.name] [npc.was] able to keep [npc2.herHim] in place even while [npc.her] [npc.tail+] thrust in and out of [npc2.her] [npc.asshole+].");
+									sb.append(" [npc2.Name] tried to pull away, but [npc.name] [npc.was] able to keep [npc2.herHim] in place even while [npc.her] [npc.tail+] thrust in and out of [npc2.her] [npc2.asshole+].");
 									break;
 							}
 							
@@ -2567,6 +2637,8 @@ public enum SexAreaPenetration implements SexAreaInterface {
 				
 			} else {
 				switch((SexAreaOrifice)targetArea) {
+					case ARMPITS:
+						break;
 					case ANUS:
 						if(pastTense) {
 							switch(performerPace) {
@@ -2588,10 +2660,10 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_NORMAL:
 								case DOM_ROUGH:
 									sb.append(" [npc2.SexPaceVerb] bucking [npc2.her] [npc2.hips] back against [npc.herHim],"
-											+ " [npc2.name] let out a series of [npc2.moans+] as [npc2.she] helped to sink [npc.namePos] [npc.tentacle+] deep into [npc2.her] [npc.asshole].");
+											+ " [npc2.name] let out a series of [npc2.moans+] as [npc2.she] helped to sink [npc.namePos] [npc.tentacle+] deep into [npc2.her] [npc2.asshole].");
 									break;
 								case SUB_RESISTING:
-									sb.append(" [npc2.Name] tried to pull away, but [npc.name] [npc.was] able to keep [npc2.herHim] in place even while [npc.her] [npc.tentacle+] thrust in and out of [npc2.her] [npc.asshole+].");
+									sb.append(" [npc2.Name] tried to pull away, but [npc.name] [npc.was] able to keep [npc2.herHim] in place even while [npc.her] [npc.tentacle+] thrust in and out of [npc2.her] [npc2.asshole+].");
 									break;
 							}
 							
@@ -2917,10 +2989,10 @@ public enum SexAreaPenetration implements SexAreaInterface {
 //								case SUB_NORMAL:
 //								case DOM_ROUGH:
 //									sb.append(" [npc2.SexPaceVerb] bucking [npc2.her] [npc2.hips] back against [npc.herHim],"
-//											+ " [npc2.name] let out a series of [npc2.moans+] as [npc2.she] helped to sink the toy deep into [npc2.her] [npc.asshole].");
+//											+ " [npc2.name] let out a series of [npc2.moans+] as [npc2.she] helped to sink the toy deep into [npc2.her] [npc2.asshole].");
 //									break;
 //								case SUB_RESISTING:
-//									sb.append(" [npc2.Name] tried to pull away, but [npc.name] [npc.was] able to keep [npc2.herHim] in place while [npc.she] thrust the toy in and out of [npc2.her] [npc.asshole+].");
+//									sb.append(" [npc2.Name] tried to pull away, but [npc.name] [npc.was] able to keep [npc2.herHim] in place while [npc.she] thrust the toy in and out of [npc2.her] [npc2.asshole+].");
 //									break;
 //							}
 //							

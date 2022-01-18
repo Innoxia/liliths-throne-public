@@ -194,8 +194,7 @@ public class EnforcerWarehouse {
 		if(Main.game.getNpc(Claire.class).getLust()>75) {
 			return new ResponseSex(
 					"Offer help",
-					"There's a suitable place behind some nearby crates where you could help Claire get some relief...<br/>"
-							+ "[style.italicsSex(Claire will be unwilling to perform any more sexual actions after doing this.)]",
+					"There's a suitable place behind some nearby crates where you could help Claire get some relief...",
 					true,
 					true,
 					new SMClaireWarehouse(
@@ -1270,8 +1269,8 @@ public class EnforcerWarehouse {
 								return super.isAbleToRemoveOthersClothing(character, clothing);
 							}
 							@Override
-							public boolean isAbleToEquipSexClothing(GameCharacter character) {
-								return !character.isPlayer();
+							public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
+								return !equippingCharacter.isPlayer();
 							}
 							@Override
 							public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
@@ -1369,8 +1368,8 @@ public class EnforcerWarehouse {
 								return super.isAbleToRemoveOthersClothing(character, clothing);
 							}
 							@Override
-							public boolean isAbleToEquipSexClothing(GameCharacter character) {
-								return !character.isPlayer();
+							public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
+								return !equippingCharacter.isPlayer();
 							}
 							@Override
 							public boolean isAbleToRemoveSelfClothing(GameCharacter character) {

@@ -363,7 +363,7 @@ public class BodyChanging {
 		return !debugMenu
 				&& !isDemonTFMenu()
 				&& BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.SLIME
-				&& BodyChanging.getTarget().getSubspeciesOverride().isAbleToSelfTransform();
+				&& BodyChanging.getTarget().getTrueSubspecies().isAbleToSelfTransform();
 	}
 
 	private static boolean isHalfDemon() {
@@ -939,9 +939,11 @@ public class BodyChanging {
 
 			if(ScarlettsShop.isSlaveCustomisationMenu()) {
 				UtilText.nodeContentSB.append(
-						"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformHairChoiceDiv(getSlaveCustomisationRaceOptions())
+						CharacterModificationUtils.getSelfTransformHairChoiceDiv(getSlaveCustomisationRaceOptions())
+						
+						+ "<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformHairLengthDiv()
+							+ CharacterModificationUtils.getNeckFluffDiv()
 						+"</div>"
 						
 						+ CharacterModificationUtils.getSelfDivHairStyles("Hair Style", UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] hair style."))
@@ -957,9 +959,11 @@ public class BodyChanging {
 								:UtilText.parse(BodyChanging.getTarget(), "<i>Get [npc.name] to focus [npc.her] efforts on changing aspects of [npc.her] hair.</i>"))
 						+ "</div>"
 						
-						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformHairChoiceDiv(allRaces)
+						+ CharacterModificationUtils.getSelfTransformHairChoiceDiv(allRaces)
+						
+						+ "<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformHairLengthDiv()
+							+ CharacterModificationUtils.getNeckFluffDiv()
 						+"</div>"
 						
 						+ CharacterModificationUtils.getSelfDivHairStyles("Hair Style", UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] hair style."))
@@ -977,10 +981,11 @@ public class BodyChanging {
 								:UtilText.parse(BodyChanging.getTarget(), "<i>Get [npc.name] to focus [npc.her] "+getPowers()+" on changing aspects of [npc.her] hair.</i>"))
 						+ "</div>"
 						
-						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformHairChoiceDiv(
-									(getMinorPartsDemonRaces(true)))
+						+ CharacterModificationUtils.getSelfTransformHairChoiceDiv((getMinorPartsDemonRaces(true)))
+						
+						+ "<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformHairLengthDiv()
+							+ CharacterModificationUtils.getNeckFluffDiv()
 						+"</div>"
 						
 						+ CharacterModificationUtils.getSelfDivHairStyles("Hair Style", UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] hair style."))
@@ -1000,9 +1005,11 @@ public class BodyChanging {
 								:UtilText.parse(BodyChanging.getTarget(), "<i>Get [npc.name] to focus [npc.her] efforts on changing aspects of [npc.her] slimy hair.</i>"))
 						+ "</div>"
 						
-						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformHairChoiceDiv(allRaces)
+						+ CharacterModificationUtils.getSelfTransformHairChoiceDiv(allRaces)
+						
+						+ "<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformHairLengthDiv()
+							+ CharacterModificationUtils.getNeckFluffDiv()
 						+"</div>"
 						
 						+ CharacterModificationUtils.getSelfDivHairStyles("Hair Style", UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] hair style."))

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>500</value>
+		<determiner><![CDATA[]]></determiner>
+		<name><![CDATA[lips ring]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[lips rings]]></namePlural>
+		<description><![CDATA[This ring consists of a thin band of metal, with a stylised pair of metallic lips attached to one side of it.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>FINGER</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>lips_ring.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>FINGERS</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_RED_BURGUNDY</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_ROSE_GOLD</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+	
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the ring onto [npc.her] [npc.finger].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the ring onto [npc2.namePos] [npc2.finger].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(push)] the ring onto [npc2.namePos] [npc2.finger].]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the ring off [npc.her] [npc.finger].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the ring off [npc2.namePos] [npc2.finger].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(snatch)] the ring off [npc2.namePos] [npc2.finger].]]>
+    </otherRough>
+  </displacementText>
+  
+</clothing>

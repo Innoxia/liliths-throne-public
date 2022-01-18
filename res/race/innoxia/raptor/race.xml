@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<race>
+	<racialBody>innoxia_raptor</racialBody>
+	
+	<applyRaceChanges/>
+	
+	<name><![CDATA[raptor-morph]]></name>
+	<namePlural><![CDATA[raptor-morphs]]></namePlural>
+	
+	<nameFeral>
+		<name legConfiguration="QUADRUPEDAL"><![CDATA[raptor]]></name>
+	</nameFeral>
+	<nameFeralPlural>
+		<name legConfiguration="QUADRUPEDAL"><![CDATA[raptor]]></name>
+	</nameFeralPlural>
+	
+	<defaultTransformName><![CDATA[raptor]]></defaultTransformName>
+	
+	<colour>innoxia_raptor</colour>
+	
+	<disposition>UNPREDICTABLE</disposition>
+	
+	<racialClass>BIRD</racialClass>
+	
+	<feralPartsAvailable>true</feralPartsAvailable>
+	
+	<ableToSelfTransform>false</ableToSelfTransform>
+	
+	<flyingRace>true</flyingRace>
+	
+	<combatBehaviour>ATTACK</combatBehaviour>
+	
+	<chanceForMaleOffspring>0.5</chanceForMaleOffspring>
+	
+	<numberOfOffspringLow>1</numberOfOffspringLow>
+	<numberOfOffspringHigh>3</numberOfOffspringHigh>
+	
+	<defaultFemininePreference>NORMAL</defaultFemininePreference>
+	<defaultMasculinePreference>NORMAL</defaultMasculinePreference>
+	
+	<affectedByFurryPreference>true</affectedByFurryPreference>
+</race>

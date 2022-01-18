@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexManager>
+	<title/>
+	<wallName><![CDATA[wall]]></wallName>
+	<deskName><![CDATA[table]]></deskName>
+	<consensual><![CDATA[true]]></consensual>
+	<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+	<canSkipSex><![CDATA[true]]></canSkipSex>
+	<washingScene><![CDATA[false]]></washingScene>
+	<sadisticActionsAllowed><![CDATA[true]]></sadisticActionsAllowed>
+	<canItemsBeUsed><![CDATA[false]]></canItemsBeUsed>
+	<exposingReactions><![CDATA[false]]></exposingReactions>
+	<positionsAvailable/>
+	<publicSex>
+		<isPublic><![CDATA[false]]></isPublic>
+		<startingDescription/>
+		<randomDescriptions/>
+	</publicSex>
+	<characterInformationContainer>
+		<characterInformation>
+			<characterId>pc</characterId>
+			<slotsAvailable/>
+			<canStopSex><![CDATA[true]]></canStopSex>
+			<canChangePositions><![CDATA[true]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace/>
+			<canSelfTransform><![CDATA[true]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control/>
+			<sexClothingEquippable><![CDATA[false]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[true]]></partnerClothingRemoval>
+			<canRemoveClothingSeals><![CDATA[false]]></canRemoveClothingSeals>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart preferRemoval="false">
+				<coverableArea><![CDATA[
+					#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+						PENIS
+					#ELSE
+						VAGINA
+					#ENDIF
+				]]></coverableArea>
+			</exposeAtStart>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmCumTargetsBlocked/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<preferences>
+				<character id="pc">
+					<foreplay copyForMain="true">
+						<performing><![CDATA[
+							#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+								PENETRATION_PENIS
+							#ELSE
+								ORIFICE_VAGINA
+							#ENDIF
+						]]></performing>
+						<targeted><![CDATA[
+							#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+								ORIFICE_MOUTH
+							#ELSE
+								PENETRATION_TONGUE
+							#ENDIF
+						]]></targeted>
+					</foreplay>
+				</character>
+			</preferences>
+			<uniqueSexActions/>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk/>
+		</characterInformation>
+		
+		<characterInformation>
+			<characterId>heather</characterId>
+			<slotsAvailable/>
+			<canStopSex><![CDATA[true]]></canStopSex>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace/>
+			<canSelfTransform><![CDATA[true]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control/>
+			<sexClothingEquippable><![CDATA[false]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[false]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart preferRemoval="false">
+				<coverableArea><![CDATA[MOUTH]]></coverableArea>
+			</exposeAtStart>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmCumTargetsBlocked/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<preferences>
+				<character id="pc">
+					<foreplay copyForMain="true">
+						<performing><![CDATA[
+							#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+								ORIFICE_MOUTH
+							#ELSE
+								PENETRATION_TONGUE
+							#ENDIF
+						]]></performing>
+						<targeted><![CDATA[
+							#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+								PENETRATION_PENIS
+							#ELSE
+								ORIFICE_VAGINA
+							#ENDIF
+						]]></targeted>
+					</foreplay>
+				</character>
+			</preferences>
+			<uniqueSexActions/>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk/>
+		</characterInformation>
+		
+	</characterInformationContainer>
+		
+</sexManager>
