@@ -254,7 +254,7 @@
 	<htmlContent tag="PROPOSE_ANILINGUS"><![CDATA[
 	#IF(callie.isAttractedTo(pc))
 		<p>
-			Smiling at Callie, you tell her that you'd like to taste another kind of doughnut, one that is unfortunately not displayed on the counter, to which she raises an eyebrow and eyebrow, smiles, and teases, [callie.speech(Oh do you now? Hmm, let me think...)]
+			Smiling at Callie, you tell her that you'd like to taste another kind of doughnut, one that is unfortunately not displayed on the counter, to which she raises an eyebrow, smiles, and teases, [callie.speech(Oh do you now? Hmm, let me think...)]
 		</p>
 		<p>
 			#IF(flags.hasFlag(FLAG_nnxx_callie_sex_is_free))

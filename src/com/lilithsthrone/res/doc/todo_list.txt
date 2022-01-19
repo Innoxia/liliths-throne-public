@@ -32,8 +32,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] Penelope sex clothing displacement
 	[x] imps "lack the demon's ability to shape-shift their bodies at will", but they can self-TF?
 	[x] Penelope shouldn't start fashion show sex naked
-	
-	[] Callie
+	[x] Callie
 		[x] Dominion place
 		[x] Small internal map
 		[x] Add Callie
@@ -46,19 +45,19 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] sex vaginal or anal over desk
 		[x] Add txt
 		[x] Edit repeat entry
-		[] Full test
+		[x] Full test
 			[x] parsing flag errors
 			[x] money formatting
 			[x] tooltip 'ELSIF' formatting errors
 			[x] callie clean after sex
 			[x] make sex ongoing only
 			[x] add donation tracking info
-			[] need travel diabled for sex menu
-	[] Feedback on:
+			[x] need travel diabled for sex menu
+	[x] Feedback on:
 		[x] Callie
-		[] dialogue edits
-		[] tile colour
-		[] map
+		[x] dialogue edits
+		[x] tile colour
+		[x] map
 		
 	
 	[] are demon spawns on pink alley tiles still only allowed to be full female or male?
