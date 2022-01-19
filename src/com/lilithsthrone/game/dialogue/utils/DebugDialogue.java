@@ -2272,18 +2272,30 @@ public class DebugDialogue {
 		public String getContent() {
 			if(Main.sex.isDom(Main.game.getPlayer())) {
 				GameCharacter target = Main.sex.getSubmissiveParticipants(false).entrySet().iterator().next().getKey();
-				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_CENTAUR", target);
+				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_"+(sexSubList.size()==1?"2KOMA":"MENU"), target);
 			} else {
 				GameCharacter target = Main.sex.getDominantParticipants(false).entrySet().iterator().next().getKey();
-				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_CENTAUR_AS_SUB", target);
+				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_"+(sexDomList.size()==1?"2KOMA":"MENU")+"_AS_SUB", target);
 			}
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) return new Response("Continue", "Now that you've put this [npc.race] in [npc.her] place, you can continue with what you were doing...", Main.game.getDefaultDialogue(false));
+			if(index==1) {
+				if(Main.sex.isDom(Main.game.getPlayer())) return new Response("Continue",
+						"Now that "+(sexSubList.size()==1
+								? "you've put this [npc.race] in [npc.her] place"
+								: "you've put these people in their places"
+						)+", you can continue with what you were doing...", Main.game.getDefaultDialogue(false));
+				return new Response("Continue",
+						"Now that "+(sexDomList.size()==1
+								? "this [npc.race] has put you in your place"
+								: "these people have put you in your place"
+						)+", you can continue with what you were doing...", Main.game.getDefaultDialogue(false));
+			}
 			return null;
 		}
+		
 	};
 
 }
