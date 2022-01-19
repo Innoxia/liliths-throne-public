@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -422,12 +423,17 @@ public class DebugDialogue {
 					if(Main.game.getCurrentDialogueNode()!=SEX_MENU) return new Response("Sex Menu", "Set up a sex scene with the characters present", SEX_MENU);
 					
 					if(!sexDomList.contains(Main.game.getPlayer()) && !sexSubList.contains(Main.game.getPlayer())) return new Response("Start Sex",
-							"You haven't assigned yourself, so the scene can't start", null);
+					"You haven't assigned yourself, so the scene can't start!", null);
+
+					if(sexDomList.size()==0) return new Response("Start Sex", "At least one dominant participant is needed!", null);
+
+					if(sexSubList.size()==0) return new Response("Start Sex", "At least one submissive participant is needed!", null);
 					
 					List<String> names = new ArrayList<>();
 					for(GameCharacter npc : sexDomList) {
 						if(npc!=Main.game.getPlayer()) names.add("<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName()+"</span>");
-					} for(GameCharacter npc : sexSubList) {
+					}
+					for(GameCharacter npc : sexSubList) {
 						if(npc!=Main.game.getPlayer()) names.add("<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName()+"</span>");
 					}
 					
@@ -444,12 +450,16 @@ public class DebugDialogue {
 							DebugDialogue.POST_SEX_MENU,
 							(sexDomList.contains(Main.game.getPlayer())
 								? "<p>"
-								+ "Deciding that you want to dominate this [npc.race] who just magically appeared before you, you step up to [npc.herHim] and growl,"
+								+ "Deciding that you want to dominate "+(sexSubList.size()==1
+										?"this [npc.race] who stands before you, you step up to [npc.herHim] and growl,"
+										:"this group who stands before you, you step up to them and growl,")
 								+ " [pc.speech(It's time to put you in your place!)]"
 								+ "</p>"
 
 								: "<p>"
-								+ "Deciding that you want to get dominated by this [npc.race] who just magically appeared before you, you step up to [npc.herHim] and growl,"
+								+ "Deciding that you want to get dominated by "+(sexDomList.size()==1
+										?"this [npc.race] who stands before you, you step up to [npc.herHim] and growl,"
+										:"this group who stands before you, you step up to them and growl,")
 								+ " [pc.speech(It's time you put me in my place!)]"
 								+ "</p>"
 							)
@@ -2153,7 +2163,7 @@ public class DebugDialogue {
 	public static boolean equality = true;
 	public static final DialogueNode SEX_MENU = new DialogueNode("", "", false) {
 		@Override
-		public String getAuthor() {return "Amarok909";}
+		public String getAuthor() {return "Amarok";}
 		
 		@Override
 		public String getContent() {
@@ -2162,9 +2172,15 @@ public class DebugDialogue {
 					+ "<div class='container-full-width' style='text-align:center;'>"
 							+ "<i>Selects characters and their roles for a custom sex scene.</i>"
 					+ "</div>"
-					+ "<div class='container-half-width' style='text-align:center;'>"
-							+ "<i>PARTICIPANTS</i>");
+					+ "<div class='container-half-width' style='text-align:center; position:relative;'>"
+							+ "<p style='margin:0; padding:0;'>"
+									+ CharacterModificationUtils.getInformationDiv("PARTICIPANTS", new TooltipInformationEventListener().setInformation("Participants",
+											"Set the role for each sexual participant.</br>"
+											+ "If no role is assigned for a character, then they will not participate in the scene."))
+									+ "<b>Participants</b>"
+							+"</p>");
 			
+			// List of participants
 			presentList.add((GameCharacter) Main.game.getPlayer());
 			presentList.addAll(Main.game.getCharactersPresent());
 			for(GameCharacter npc : presentList) {
@@ -2183,8 +2199,11 @@ public class DebugDialogue {
 			// Consent
 			UtilText.nodeContentSB.append(""
 					+ "</div>"
-					+ "<div class='container-half-width' style='text-align:center;'>"
-							+ "<i>CONSENT</i></br>");
+					+ "<div class='container-half-width' style='text-align:center; position:relative;'>"
+							+ "<p style='margin:0; padding:0;'>"
+									+ CharacterModificationUtils.getInformationDiv("CONSENT", new TooltipInformationEventListener().setInformation("Consent", "Set whether the scene is consensual."))
+									+ "<b>Consent</b>"
+							+"</p>");
 			
 			if(!consent) {
 				UtilText.nodeContentSB.append(
@@ -2207,8 +2226,11 @@ public class DebugDialogue {
 			// Sub equal control
 			UtilText.nodeContentSB.append(""
 					+ "</div>"
-					+ "<div class='container-half-width' style='text-align:center;'>"
-							+ "<i>EQUAL CONTROL</i></br>");
+					+ "<div class='container-half-width' style='text-align:center; position:relative;'>"
+							+ "<p style='margin:0; padding:0;'>"
+									+ CharacterModificationUtils.getInformationDiv("EQUALITY", new TooltipInformationEventListener().setInformation("Sub Equal Control", "Set whether subs have equal control."))
+									+ "<b>Sub Equal Control</b>"
+							+"</p>");
 			
 			if(!equality) {
 				UtilText.nodeContentSB.append(
@@ -2229,15 +2251,8 @@ public class DebugDialogue {
 			}
 			
 			UtilText.nodeContentSB.append(""
-					+ "</div>"
-					+ "<div class='container-half-width' style='text-align:center;'>"
-							+ "<i>INFO</i>"
-					+ "</div>"
-					+ "<div class='container-full-width' style='text-align:center;'>"
-							+ "<i>MOAR</i>"
 					+ "</div>");
 					
-			
 			return UtilText.nodeContentSB.toString();
 		}
 		

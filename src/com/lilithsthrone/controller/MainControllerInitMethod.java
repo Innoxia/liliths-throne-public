@@ -557,9 +557,11 @@ public class MainControllerInitMethod {
 				id = npc.getId()+"_DOM";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						
-						DebugDialogue.sexDomList.add(npc);
-						DebugDialogue.sexSubList.remove(npc);
+
+						if(!DebugDialogue.sexDomList.remove(npc)) {
+							DebugDialogue.sexDomList.add(npc);
+							DebugDialogue.sexSubList.remove(npc);
+						}
 
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
@@ -569,8 +571,10 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						
-						DebugDialogue.sexSubList.add(npc);
-						DebugDialogue.sexDomList.remove(npc);
+						if(!DebugDialogue.sexSubList.remove(npc)) {
+							DebugDialogue.sexSubList.add(npc);
+							DebugDialogue.sexDomList.remove(npc);
+						}
 
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
