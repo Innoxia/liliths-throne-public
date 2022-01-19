@@ -82,6 +82,7 @@ import com.lilithsthrone.game.character.npc.dominion.Jules;
 import com.lilithsthrone.game.character.npc.dominion.Kalahari;
 import com.lilithsthrone.game.character.npc.dominion.Kate;
 import com.lilithsthrone.game.character.npc.dominion.Kay;
+import com.lilithsthrone.game.character.npc.dominion.Callie;
 import com.lilithsthrone.game.character.npc.dominion.Kruger;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Loppy;
@@ -1496,7 +1497,7 @@ public class Game implements XMLSaving {
 					}
 				}
 
-				if(Main.isVersionOlderThan(loadingVersion, "0.3.7")) { // This map update is loacted here as the character present in the new alleyway tile needs to have been initialised.
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.7")) { // This map update is located here as the character present in the new alleyway tile needs to have been initialised.
 					// Add safe alleyway:
 					Vector2i vec = Main.game.getWorlds().get(WorldType.DOMINION).getCell(PlaceType.DOMINION_SLAVER_ALLEY).getLocation();
 					vec.setY(vec.getY()+1);
@@ -1704,7 +1705,13 @@ public class Game implements XMLSaving {
 					Main.game.getNpc(Ashley.class).clearAffectionMap();
 					Main.game.getNpc(Ashley.class).setAffection(Main.game.getNpc(Nyan.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 				}
-
+				
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.3.1")) { // Update Dominion to add Callie's bakery:
+					Vector2i vec = new Vector2i(2, 18);
+					Main.game.getWorlds().get(WorldType.DOMINION).getCell(vec).getPlace().setPlaceType(PlaceType.DOMINION_CALLIE_BAKERY);
+					Main.game.getWorlds().get(WorldType.DOMINION).getCell(vec).getPlace().setName(PlaceType.DOMINION_CALLIE_BAKERY.getName());
+				}
+				
 				Main.game.pendingSlaveInStocksReset = false;
 				
 				
@@ -1866,6 +1873,7 @@ public class Game implements XMLSaving {
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Lumi.class))) { addNPC(new Lumi(), false); addedNpcs.add(Lumi.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Pazu.class))) { addNPC(new Pazu(), false); addedNpcs.add(Pazu.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Ashley.class))) { addNPC(new Ashley(), false); addedNpcs.add(Ashley.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Callie.class))) { addNPC(new Callie(), false); addedNpcs.add(Callie.class); }
 			
 			// Story:
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Rose.class))) { addNPC(new Rose(), false); addedNpcs.add(Rose.class); }
