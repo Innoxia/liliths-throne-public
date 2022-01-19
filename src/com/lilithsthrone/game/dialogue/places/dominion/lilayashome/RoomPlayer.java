@@ -812,7 +812,7 @@ public class RoomPlayer {
 	
 	/** Calendar's associated animal-morphs are based on the twelve animals of the Chinese zodiac, with the Monkey being replaced with a demon, the Rooster with a harpy, and the Snake with a lamia.
 	 *  The ordering of the demon and harpy have also been switched, so that October has demons.<br/>
-	 *  There is also a 20% chance of giving a different, random animal-morph for each month.<br/>
+	 *  There is also a 15% chance of giving a different, random animal-morph for each month.<br/>
 	 * Animals are:<br/>
 	 * Rat, Cow, Tiger, Rabbit, Dragon, Lamia (Snake), Horse, Sheep/Goat, Harpy (Rooster), Demon (Monkey), Dog, Pig
 	 */
@@ -2386,7 +2386,7 @@ public class RoomPlayer {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 
-			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.APRIL));
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.AUGUST));
 
 			UtilText.nodeContentSB.append(
 					"<h6 style='text-align:center;'>"
