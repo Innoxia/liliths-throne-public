@@ -2286,12 +2286,26 @@ public class DebugDialogue {
 						"Now that "+(sexSubList.size()==1
 								? "you've put this [npc.race] in [npc.her] place"
 								: "you've put these people in their places"
-						)+", you can continue with what you were doing...", Main.game.getDefaultDialogue(false));
+						)+", you can continue with what you were doing...", Main.game.getDefaultDialogue(false)) {
+					@Override
+					public void effects() {
+						presentList.clear();
+						sexDomList.clear();
+						sexSubList.clear();
+					}
+				};
 				return new Response("Continue",
 						"Now that "+(sexDomList.size()==1
 								? "this [npc.race] has put you in your place"
 								: "these people have put you in your place"
-						)+", you can continue with what you were doing...", Main.game.getDefaultDialogue(false));
+						)+", you can continue with what you were doing...", Main.game.getDefaultDialogue(false)) {
+					@Override
+					public void effects() {
+						presentList.clear();
+						sexDomList.clear();
+						sexSubList.clear();
+					}
+				};
 			}
 			return null;
 		}
