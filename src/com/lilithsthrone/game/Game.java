@@ -936,72 +936,85 @@ public class Game implements XMLSaving {
 				}
 				
 				// Add missing world types:
-				for(AbstractWorldType wt : WorldType.getAllWorldTypes()) {
-					Generation gen = new Generation();
+				Generation gen = new Generation();
 //					if(Main.isVersionOlderThan(loadingVersion, "0.1.99.5")) { 
 //						Main.game.getWorlds().put(WorldType.SHOPPING_ARCADE, gen.worldGeneration(WorldType.SHOPPING_ARCADE));
 //					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.1.5")) {
-						Main.game.getWorlds().put(WorldType.HARPY_NEST, gen.worldGeneration(WorldType.HARPY_NEST));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.10.8")) {
-						Main.game.getWorlds().put(WorldType.SUBMISSION, gen.worldGeneration(WorldType.SUBMISSION));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.11")) {
-						Main.game.getWorlds().put(WorldType.IMP_FORTRESS_ALPHA, gen.worldGeneration(WorldType.IMP_FORTRESS_ALPHA));
-						Main.game.getWorlds().put(WorldType.IMP_FORTRESS_FEMALES, gen.worldGeneration(WorldType.IMP_FORTRESS_FEMALES));
-						Main.game.getWorlds().put(WorldType.IMP_FORTRESS_MALES, gen.worldGeneration(WorldType.IMP_FORTRESS_MALES));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.12.5")) {
-						Main.game.getWorlds().put(WorldType.IMP_FORTRESS_DEMON, gen.worldGeneration(WorldType.IMP_FORTRESS_DEMON));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.2")) {
-						Main.game.getWorlds().put(WorldType.DOMINION, gen.worldGeneration(WorldType.DOMINION));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.3.5")) {
-						Main.game.getWorlds().put(WorldType.BAT_CAVERNS, gen.worldGeneration(WorldType.BAT_CAVERNS));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.8")) {
-						Main.game.getWorlds().put(WorldType.NIGHTLIFE_CLUB, gen.worldGeneration(WorldType.NIGHTLIFE_CLUB));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.8.1")) {
-						Main.game.getWorlds().put(WorldType.EMPTY, gen.worldGeneration(WorldType.EMPTY));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3")) {
-						Main.game.getWorlds().put(WorldType.LYSSIETH_PALACE, gen.worldGeneration(WorldType.LYSSIETH_PALACE));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3.2.2")) {
-						Main.game.getWorlds().put(WorldType.CITY_HALL, gen.worldGeneration(WorldType.CITY_HALL));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3.4.9")) {
-						Main.game.getWorlds().put(WorldType.ENFORCER_WAREHOUSE, gen.worldGeneration(WorldType.ENFORCER_WAREHOUSE));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3.5.4")) {
-						Main.game.getWorlds().put(WorldType.GAMBLING_DEN, gen.worldGeneration(WorldType.GAMBLING_DEN));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3.5.6")) {
-						Main.game.getWorlds().put(WorldType.RAT_WARRENS, gen.worldGeneration(WorldType.RAT_WARRENS));
-						Main.game.getWorlds().put(WorldType.SLAVER_ALLEY, gen.worldGeneration(WorldType.SLAVER_ALLEY));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3.7")) {
-						Main.game.getWorlds().put(WorldType.HELENAS_APARTMENT, gen.worldGeneration(WorldType.HELENAS_APARTMENT));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3.7.9")) {
-						Main.game.getWorlds().put(WorldType.DOMINION_EXPRESS, gen.worldGeneration(WorldType.DOMINION_EXPRESS));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3.9.4")) {
-						Main.game.getWorlds().put(WorldType.ENFORCER_HQ, gen.worldGeneration(WorldType.ENFORCER_HQ));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.4.0.5")) {
-						Main.game.getWorlds().put(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), gen.worldGeneration(WorldType.getWorldTypeFromId("innoxia_fields_elis_town")));
-						Main.game.getWorlds().put(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), gen.worldGeneration(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1")));
-					}
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.1.5")) {
+					Main.game.getWorlds().put(WorldType.HARPY_NEST, gen.worldGeneration(WorldType.HARPY_NEST));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.10.8")) {
+					Main.game.getWorlds().put(WorldType.SUBMISSION, gen.worldGeneration(WorldType.SUBMISSION));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.11")) {
+					Main.game.getWorlds().put(WorldType.IMP_FORTRESS_ALPHA, gen.worldGeneration(WorldType.IMP_FORTRESS_ALPHA));
+					Main.game.getWorlds().put(WorldType.IMP_FORTRESS_FEMALES, gen.worldGeneration(WorldType.IMP_FORTRESS_FEMALES));
+					Main.game.getWorlds().put(WorldType.IMP_FORTRESS_MALES, gen.worldGeneration(WorldType.IMP_FORTRESS_MALES));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.12.5")) {
+					Main.game.getWorlds().put(WorldType.IMP_FORTRESS_DEMON, gen.worldGeneration(WorldType.IMP_FORTRESS_DEMON));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.2")) {
+					Main.game.getWorlds().put(WorldType.DOMINION, gen.worldGeneration(WorldType.DOMINION));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.3.5")) {
+					Main.game.getWorlds().put(WorldType.BAT_CAVERNS, gen.worldGeneration(WorldType.BAT_CAVERNS));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.8")) {
+					Main.game.getWorlds().put(WorldType.NIGHTLIFE_CLUB, gen.worldGeneration(WorldType.NIGHTLIFE_CLUB));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.8.1")) {
+					Main.game.getWorlds().put(WorldType.EMPTY, gen.worldGeneration(WorldType.EMPTY));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3")) {
+					Main.game.getWorlds().put(WorldType.LYSSIETH_PALACE, gen.worldGeneration(WorldType.LYSSIETH_PALACE));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.2.2")) {
+					Main.game.getWorlds().put(WorldType.CITY_HALL, gen.worldGeneration(WorldType.CITY_HALL));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.4.9")) {
+					Main.game.getWorlds().put(WorldType.ENFORCER_WAREHOUSE, gen.worldGeneration(WorldType.ENFORCER_WAREHOUSE));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.5.4")) {
+					Main.game.getWorlds().put(WorldType.GAMBLING_DEN, gen.worldGeneration(WorldType.GAMBLING_DEN));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.5.6")) {
+					Main.game.getWorlds().put(WorldType.RAT_WARRENS, gen.worldGeneration(WorldType.RAT_WARRENS));
+					Main.game.getWorlds().put(WorldType.SLAVER_ALLEY, gen.worldGeneration(WorldType.SLAVER_ALLEY));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.7")) {
+					Main.game.getWorlds().put(WorldType.HELENAS_APARTMENT, gen.worldGeneration(WorldType.HELENAS_APARTMENT));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.7.9")) {
+					Main.game.getWorlds().put(WorldType.DOMINION_EXPRESS, gen.worldGeneration(WorldType.DOMINION_EXPRESS));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.9.4")) {
+					Main.game.getWorlds().put(WorldType.ENFORCER_HQ, gen.worldGeneration(WorldType.ENFORCER_HQ));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.0.5")) {
+					Main.game.getWorlds().put(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), gen.worldGeneration(WorldType.getWorldTypeFromId("innoxia_fields_elis_town")));
+					Main.game.getWorlds().put(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), gen.worldGeneration(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1")));
+				}
+				
+				for(AbstractWorldType wt : WorldType.getAllWorldTypes()) {
+					Generation gen2 = new Generation();
+					
 					if(Main.game.worlds.get(wt)==null) {
-						Main.game.getWorlds().put(wt, gen.worldGeneration(wt));
+						Main.game.getWorlds().put(wt, gen2.worldGeneration(wt));
+						if(debug) System.out.println("Flagged "+wt.getName()+" for generation");
 						//System.out.println(WorldType.getIdFromWorldType(wt));
+						continue;
 					}
 					//System.out.println("Hmmmmmmmmmmmm "+WorldType.getIdFromWorldType(wt));
-					
+					// if any world has a null getCell() issue, this code will regenerate that world
+					wt.getPlacesMap().entrySet().stream().forEach(e -> {
+							AbstractPlaceType pt = e.getValue();
+							if(Main.game.getWorlds().get(wt).getCell(pt)==null || Main.game.getWorlds().get(wt).getCells(pt).size()==0) {
+								Main.game.getWorlds().put(wt, gen2.worldGeneration(wt));
+								if(debug) System.out.println("Flagged "+wt.getName()+" for reconstruction");
+							}
+						}
+					);
 				}
 				
 				if(Main.isVersionOlderThan(loadingVersion, "0.3.6.9")) {
