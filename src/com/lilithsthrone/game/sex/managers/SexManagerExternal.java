@@ -391,22 +391,30 @@ public class SexManagerExternal extends SexManagerDefault {
 			foreplayPreferences = new HashMap<>();
 			if(foreplayPreferenceIds!=null) {
 				for(Entry<String, Value<String, String>> entry : foreplayPreferenceIds.entrySet()) {
-					foreplayPreferences.put(
-							UtilText.findFirstCharacterFromParserTarget(entry.getKey()),
-							new SexType(SexParticipantType.NORMAL,
-									getSexArea(UtilText.parse(entry.getValue().getKey()).trim()),
-									getSexArea(UtilText.parse(entry.getValue().getValue()).trim())));
+					String performing = UtilText.parse(entry.getValue().getKey()).trim();
+					String targeted = UtilText.parse(entry.getValue().getValue()).trim();
+					if(!performing.isEmpty() && !targeted.isEmpty()) {
+						foreplayPreferences.put(
+								UtilText.findFirstCharacterFromParserTarget(entry.getKey()),
+								new SexType(SexParticipantType.NORMAL,
+										getSexArea(performing),
+										getSexArea(targeted)));
+					}
 				}
 			}
 			
 			sexPreferences = new HashMap<>();
 			if(sexPreferenceIds!=null) {
 				for(Entry<String, Value<String, String>> entry : sexPreferenceIds.entrySet()) {
-					sexPreferences.put(
-							UtilText.findFirstCharacterFromParserTarget(entry.getKey()),
-							new SexType(SexParticipantType.NORMAL,
-									getSexArea(UtilText.parse(entry.getValue().getKey()).trim()),
-									getSexArea(UtilText.parse(entry.getValue().getValue()).trim())));
+					String performing = UtilText.parse(entry.getValue().getKey()).trim();
+					String targeted = UtilText.parse(entry.getValue().getValue()).trim();
+					if(!performing.isEmpty() && !targeted.isEmpty()) {
+						sexPreferences.put(
+								UtilText.findFirstCharacterFromParserTarget(entry.getKey()),
+								new SexType(SexParticipantType.NORMAL,
+										getSexArea(performing),
+										getSexArea(targeted)));
+					}
 				}
 			}
 			
@@ -414,10 +422,14 @@ public class SexManagerExternal extends SexManagerDefault {
 			sexTypesBanned = new ArrayList<>();
 			if(sexTypesBannedIds!=null) {
 				for(Entry<String, String> entry : sexTypesBannedIds.entrySet()) {
-					sexTypesBanned.add(
-							new SexType(SexParticipantType.NORMAL,
-									getSexArea(UtilText.parse(entry.getKey()).trim()),
-									getSexArea(UtilText.parse(entry.getValue()).trim())));
+					String performing = UtilText.parse(entry.getKey()).trim();
+					String targeted = UtilText.parse(entry.getValue()).trim();
+					if(!performing.isEmpty() && !targeted.isEmpty()) {
+						sexTypesBanned.add(
+								new SexType(SexParticipantType.NORMAL,
+										getSexArea(performing),
+										getSexArea(targeted)));
+					}
 				}
 			}
 

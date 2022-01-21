@@ -19121,6 +19121,8 @@ public abstract class GameCharacter implements XMLSaving {
 		this.calculateStatusEffects(0); // Second calculation removes low intelligence effect
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+		
+		setLustNoText(getRestingLust()); // Sometimes starting lust is still zero for newly spawned encounters. This should fix that.
 	}
 	
 	public float getHealth() {

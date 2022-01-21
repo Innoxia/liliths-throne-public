@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+
+    <additionalPlaceTypeTriggers>
+        <placeType>ANGELS_KISS_OFFICE</placeType>
+    </additionalPlaceTypeTriggers>
+
+    <possibleEncounters>
+        <encounter>
+            <name><![CDATA[Horny Angel]]></name>
+            <chanceToTrigger opportunisticEncounter="false"><![CDATA[
+   				#IF(!game.isStarted() || flags.hasFlag(FLAG_acexp_horny_angel_found) || !flags.hasFlag(FLAG_angelsOfficeIntroduced) || !flags.hasFlag(FLAG_prostitutionLicenseObtained))
+	        		0
+        		#ELSE
+                    100
+			    #ENDIF
+            ]]></chanceToTrigger>
+            <dialogueReturned><![CDATA[acexp_dominion_angel_office_horny_angel]]></dialogueReturned>
+        </encounter>
+    </possibleEncounters>
+</encounterRoot>

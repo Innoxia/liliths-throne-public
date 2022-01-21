@@ -65,10 +65,15 @@ public class DominionSuccubusAttacker extends NPC {
 		if(!isImported) {
 			this.setLocation(Main.game.getPlayer(), true);
 			
-			if(!Gender.getGenderFromUserPreferences(false, false).isFeminine()) {
-				this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, true);
-				this.setGenderIdentity(Gender.M_P_MALE);
-			}
+//			if(!Gender.getGenderFromUserPreferences(false, false).isFeminine()) {
+//				this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, true);
+//				this.setGenderIdentity(Gender.M_P_MALE);
+//			}
+			
+			Gender gender = Gender.getGenderFromUserPreferences(false, false);
+			this.setBody(gender, Subspecies.DEMON, RaceStage.GREATER, true);
+			this.setGenderIdentity(gender);
+			
 			
 			Main.game.getCharacterUtils().randomiseBody(this, true);
 
