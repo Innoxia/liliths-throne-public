@@ -129,7 +129,7 @@ public class OffspringSeed implements XMLSaving {
 			e.printStackTrace();
 		}
 		Main.game.getOffspring().remove(npc);
-		Main.game.removeNPC(npc);
+		Main.game.banishNPC(npc);
 	}
 	
 	public OffspringSeed(GameCharacter mother, GameCharacter father) {

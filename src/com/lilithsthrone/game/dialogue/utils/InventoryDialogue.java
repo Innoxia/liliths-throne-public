@@ -6831,7 +6831,7 @@ public class InventoryDialogue {
 							dyedClothing.setPatternColours(dyePreviewPatterns);
 							dyedClothing.setStickersAsObjects(dyePreviewStickers);
 							owner.addClothing(dyedClothing, false);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeClothing(clothing);
@@ -6841,7 +6841,7 @@ public class InventoryDialogue {
 							dyedClothing.setPatternColours(dyePreviewPatterns);
 							dyedClothing.setStickersAsObjects(dyePreviewStickers);
 							Main.game.getPlayerCell().getInventory().addClothing(dyedClothing);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
 						}
 						
 					}
@@ -6928,7 +6928,7 @@ public class InventoryDialogue {
 							dyedClothing.setPatternColours(dyePreviewPatterns);
 							dyedClothing.setStickersAsObjects(dyePreviewStickers);
 							owner.addClothing(dyedClothing, finalCount, false, false);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeClothing(clothing, finalCount);
@@ -6938,7 +6938,7 @@ public class InventoryDialogue {
 							dyedClothing.setPatternColours(dyePreviewPatterns);
 							dyedClothing.setStickersAsObjects(dyePreviewStickers);
 							Main.game.getPlayerCell().getInventory().addClothing(dyedClothing, finalCount);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
 						}
 					}
 				};
@@ -7037,7 +7037,7 @@ public class InventoryDialogue {
 								dyedClothing.setPatternColours(dyePreviewPatterns);
 								dyedClothing.setStickersAsObjects(dyePreviewStickers);
 								owner.addClothing(dyedClothing, clothingCount, false, false);
-								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
+								Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
 							}
 							
 						} else {
@@ -7050,7 +7050,7 @@ public class InventoryDialogue {
 								dyedClothing.setPatternColours(dyePreviewPatterns);
 								dyedClothing.setStickersAsObjects(dyePreviewStickers);
 								Main.game.getPlayerCell().getInventory().addClothing(dyedClothing, clothingCount);
-								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
+								Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
 							}
 						}
 					}
@@ -7125,7 +7125,7 @@ public class InventoryDialogue {
 						clothing.setPatternColours(dyePreviewPatterns);
 						clothing.setStickersAsObjects(dyePreviewStickers);
 						
-						Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", clothing.getDisplayName(true)), false);
+						Main.game.addEvent(new EventLogEntry("Dyed", clothing.getDisplayName(true)), false);
 					}
 				};
 
@@ -7294,14 +7294,14 @@ public class InventoryDialogue {
 							AbstractWeapon dyedWeapon = Main.game.getItemGen().generateWeapon(weapon);
 							dyedWeapon.setColours(dyePreviews);
 							owner.addWeapon(dyedWeapon, false);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon);
 							AbstractWeapon dyedWeapon = Main.game.getItemGen().generateWeapon(weapon);
 							dyedWeapon.setColours(dyePreviews);
 							Main.game.getPlayerCell().getInventory().addWeapon(dyedWeapon);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
 						}
 					}
 				};
@@ -7358,7 +7358,7 @@ public class InventoryDialogue {
 							modifiedWeapon.setDamageType(damageTypePreview);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), false);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", modifiedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Reforged", modifiedWeapon.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon);
@@ -7366,7 +7366,7 @@ public class InventoryDialogue {
 							modifiedWeapon.setDamageType(damageTypePreview);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							Main.game.getPlayerCell().getInventory().addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon));
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", modifiedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Reforged", modifiedWeapon.getDisplayName(true)), false);
 						}
 					}
 				};
@@ -7438,7 +7438,7 @@ public class InventoryDialogue {
 							modifiedWeapon.setColours(dyePreviews);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), false);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon);
@@ -7447,7 +7447,7 @@ public class InventoryDialogue {
 							modifiedWeapon.setColours(dyePreviews);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							Main.game.getPlayerCell().getInventory().addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon));
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
 						}
 					}
 				};
@@ -7527,14 +7527,14 @@ public class InventoryDialogue {
 							AbstractWeapon dyedWeapon = Main.game.getItemGen().generateWeapon(weapon);
 							dyedWeapon.setColours(dyePreviews);
 							owner.addWeapon(dyedWeapon, finalCount, false, false);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon, finalCount);
 							AbstractWeapon dyedWeapon = Main.game.getItemGen().generateWeapon(weapon);
 							dyedWeapon.setColours(dyePreviews);
 							Main.game.getPlayerCell().getInventory().addWeapon(dyedWeapon, finalCount);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
 						}
 					}
 				};
@@ -7615,7 +7615,7 @@ public class InventoryDialogue {
 							modifiedWeapon.setDamageType(damageTypePreview);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), finalCount, false, false);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", modifiedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Reforged", modifiedWeapon.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon, finalCount);
@@ -7623,7 +7623,7 @@ public class InventoryDialogue {
 							modifiedWeapon.setDamageType(damageTypePreview);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							Main.game.getPlayerCell().getInventory().addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), finalCount);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", modifiedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Reforged", modifiedWeapon.getDisplayName(true)), false);
 						}
 					}
 				};
@@ -7724,7 +7724,7 @@ public class InventoryDialogue {
 							modifiedWeapon.setColours(dyePreviews);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), finalCount, false, false);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon, finalCount);
@@ -7733,7 +7733,7 @@ public class InventoryDialogue {
 							modifiedWeapon.setColours(dyePreviews);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							Main.game.getPlayerCell().getInventory().addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), finalCount);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
 						}
 					}
 				};
@@ -7827,7 +7827,7 @@ public class InventoryDialogue {
 								AbstractWeapon dyedWeapon = Main.game.getItemGen().generateWeapon(w);
 								dyedWeapon.setColours(dyePreviews);
 								owner.addWeapon(dyedWeapon, weaponCount, false, false);
-								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
+								Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
 							}
 							
 						} else {
@@ -7837,7 +7837,7 @@ public class InventoryDialogue {
 								AbstractWeapon dyedWeapon = Main.game.getItemGen().generateWeapon(w);
 								dyedWeapon.setColours(dyePreviews);
 								Main.game.getPlayerCell().getInventory().addWeapon(dyedWeapon, weaponCount);
-								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
+								Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
 							}
 						}
 					}
@@ -7932,7 +7932,7 @@ public class InventoryDialogue {
 								modifiedWeapon.setDamageType(damageTypePreview);
 								// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 								owner.addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), weaponCount, false, false);
-								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", modifiedWeapon.getDisplayName(true)), false);
+								Main.game.addEvent(new EventLogEntry("Reforged", modifiedWeapon.getDisplayName(true)), false);
 							}
 
 						} else {
@@ -7943,7 +7943,7 @@ public class InventoryDialogue {
 								modifiedWeapon.setDamageType(damageTypePreview);
 								// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 								Main.game.getPlayerCell().getInventory().addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), weaponCount);
-								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", modifiedWeapon.getDisplayName(true)), false);
+								Main.game.addEvent(new EventLogEntry("Reforged", modifiedWeapon.getDisplayName(true)), false);
 							}
 						}
 					}
@@ -8056,7 +8056,7 @@ public class InventoryDialogue {
 								modifiedWeapon.setColours(dyePreviews);
 								// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 								owner.addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), weaponCount, false, false);
-								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
+								Main.game.addEvent(new EventLogEntry("Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
 							}
 							
 						} else {
@@ -8068,7 +8068,7 @@ public class InventoryDialogue {
 								modifiedWeapon.setColours(dyePreviews);
 								// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 								Main.game.getPlayerCell().getInventory().addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), weaponCount);
-								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
+								Main.game.addEvent(new EventLogEntry("Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
 							}
 						}
 					}
@@ -8161,7 +8161,7 @@ public class InventoryDialogue {
 
 //						weapon.setPrimaryColour(dyePreviewPrimary);
 //						weapon.setSecondaryColour(dyePreviewSecondary);
-						Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", weapon.getDisplayName(true)), false);
+						Main.game.addEvent(new EventLogEntry("Dyed", weapon.getDisplayName(true)), false);
 					}
 				};
 
@@ -8225,7 +8225,7 @@ public class InventoryDialogue {
 							owner.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon(modifiedWeapon));
 						}
 						
-						Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", weapon.getDisplayName(true)), false);
+						Main.game.addEvent(new EventLogEntry("Reforged", weapon.getDisplayName(true)), false);
 					}
 				};
 
@@ -8308,7 +8308,7 @@ public class InventoryDialogue {
 //						weapon.setDamageType(damageTypePreview);
 //						weapon.setPrimaryColour(dyePreviewPrimary);
 //						weapon.setSecondaryColour(dyePreviewSecondary);
-						Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", weapon.getDisplayName(true)), false);
+						Main.game.addEvent(new EventLogEntry("Dyed & Reforged", weapon.getDisplayName(true)), false);
 					}
 				};
 
@@ -8594,20 +8594,14 @@ public class InventoryDialogue {
 			}
 			
 			if(from.isPlayer()) {
-				Main.game.addEvent(
-						new EventLogEntry(
-								Main.game.getMinutesPassed(),
-								"Sold",
+				Main.game.addEvent(new EventLogEntry("Sold",
 								count+"x <span style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+(count==1?item.getName():item.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
 						false);
 			}
 			
 			if(to.isPlayer()) {
 				//((NPC) from).handleSellingEffects(item, count, itemPrice); // Delete: This was replaced by applyItemTransactionEffects
-				Main.game.addEvent(
-						new EventLogEntry(
-								Main.game.getMinutesPassed(),
-								"Bought",
+				Main.game.addEvent(new EventLogEntry("Bought",
 								count+"x <span style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+(count==1?item.getName():item.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
 						false);
 			}
@@ -8672,20 +8666,14 @@ public class InventoryDialogue {
 			}
 			
 			if(from.isPlayer()) {
-				Main.game.addEvent(
-						new EventLogEntry(
-								Main.game.getMinutesPassed(),
-								"Sold",
+				Main.game.addEvent(new EventLogEntry("Sold",
 								count+"x <span style='color:"+weapon.getRarity().getColour().toWebHexString()+";'>"+(count==1?weapon.getName():weapon.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
 						false);
 			}
 			
 			if(to.isPlayer()) {
 				//((NPC) from).handleSellingEffects(weapon, count, itemPrice); // Delete: This was replaced by applyItemTransactionEffects
-				Main.game.addEvent(
-						new EventLogEntry(
-								Main.game.getMinutesPassed(),
-								"Bought",
+				Main.game.addEvent(new EventLogEntry("Bought",
 								count+"x <span style='color:"+weapon.getRarity().getColour().toWebHexString()+";'>"+(count==1?weapon.getName():weapon.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
 						false);
 			}
@@ -8758,20 +8746,14 @@ public class InventoryDialogue {
 			}
 			
 			if(from.isPlayer()) {
-				Main.game.addEvent(
-						new EventLogEntry(
-								Main.game.getMinutesPassed(),
-								"Sold",
+				Main.game.addEvent(new EventLogEntry("Sold",
 								count+"x <span style='color:"+clothing.getRarity().getColour().toWebHexString()+";'>"+(count==1?clothing.getName():clothing.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
 						false);
 			}
 			
 			if(to.isPlayer()) {
 				//((NPC) from).handleSellingEffects(clothing, count, itemPrice); // Delete: This was replaced by applyItemTransactionEffects
-				Main.game.addEvent(
-						new EventLogEntry(
-								Main.game.getMinutesPassed(),
-								"Bought",
+				Main.game.addEvent(new EventLogEntry("Bought",
 								count+"x <span style='color:"+clothing.getRarity().getColour().toWebHexString()+";'>"+(count==1?clothing.getName():clothing.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
 						false);
 			}

@@ -905,7 +905,7 @@ public class GamblingDenDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Talk", "You're already talking to [axel.name].", null);
+				return new Response("Business", "You're already talking to [axel.name].", null);
 			}
 			return AXEL.getResponse(responseTab, index);
 		}
