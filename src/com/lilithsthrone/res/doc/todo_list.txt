@@ -31,6 +31,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where sometimes starting lust would be zero for newly spawned encounters instead of at their resting lust level. (by AceXP)
 		Fixed bug where if a character was immobilised then no orgasm options would be available for them to choose from, which led to a blank action grid being displayed to the immobilised player when a character reached orgasm. (PR#1638 by miome)
 		Added support for instantiating all NPC classes via the addNPC(String npcGenerationId, String parserTarget) method by using predefined names (like FieldsBandit) or qualified names (like dominion.DominionAlleywayAttacker). Also updated the default (no parameter) NPC constructors to make use of gender preferences. (PR#1615 by AceXP)
+		Fixed issue where offspring subspecies names weren't being generated correctly, fixed issue where offspring between demons and non-demons were not being generated as the correct subspecies, and added previously unused dialogue for all calendar months in the player's room. (PR#1634 by AceXP)
 		
 	Gameplay:
 		Filled in all placeholder dialogue in Penelope's spa, 'Woolly Heaven'.
@@ -126,7 +127,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] PRs
 		[x] 1615 - Ace NPC generation fixes
-		[] 1634 - Ace species name detection improvements
+		[x] 1634 - Ace species name detection improvements
 		[x] 1638 - Allow orgasm actions while player is immobilized
 		[] 1635 - DSG bug fix
 		[] 1631 - maxis elder lilin perks
@@ -134,8 +135,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] Would fully removing offspring interfere with the count of total met and unmet offspring? Not looked fully into that
 	
-	[] Unmet offspring use getSingularFemaleName or getSingularMaleName to determine the name to show for their species name, in the birth description and the list of offspring. This works OK for simple cases, but not for more complicated ones like taurs or demonic ones. This is because then you need to call the function with a GameCharacter, and with the offspringseed there is no GameCharacter (yet).
-		But I've been looking at this and it seems to me that a full GameCharacter is not really needed for this, and just a Body should be enough. As it's things like getLegConfiguration, isFeral or isNonBiped that are used. And these are determined from the body.
+	[x] Unmet offspring use getSingularFemaleName or getSingularMaleName to determine the name to show for their species name, in the birth description and the list of offspring.
+	 This works OK for simple cases, but not for more complicated ones like taurs or demonic ones. This is because then you need to call the function with a GameCharacter, and with the offspringseed there is no GameCharacter (yet).
+		But I've been looking at this and it seems to me that a full GameCharacter is not really needed for this, and just a Body should be enough. As it's things like getLegConfiguration, isFeral or isNonBiped that are used.
+		 And these are determined from the body.
 	
 	
 	
