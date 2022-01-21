@@ -4496,7 +4496,7 @@ public class Game implements XMLSaving {
 	 * Generates and instantly adds a new NPC of the type 'npcGenerationId'.
 	 * The game does not wait until the NPC Update Loop has finished, and will immediately add this NPC.
 	 *
-	 * @param npcGenerationId The ID of the NPC class to spawn.
+	 * @param npcGenerationId The ID of the NPC class to spawn. Use one of the names below, or use a qualified name (like dominion.DominionAlleywayAttacker) for any other NPC class.
 	 * @param parserTarget The parser id to assign to this NPC, which can then be used in the parsing engine. Pass in an empty String or a null to not assign a parserTarget to this NPC.
 	 * @return The ID of the NPC which is spawned as a result of calling this method.
 	 */
@@ -4518,16 +4518,20 @@ public class Game implements XMLSaving {
 		} else if(npcGenerationId.equalsIgnoreCase("EvelyxMilker")) {
 			npc = new EvelyxMilker();
 		}
-		if(npc!=null) {
-			String idGenerated = addNPC(npc, false, forceImmediateAddition);
-			if(parserTarget!=null && !parserTarget.isEmpty()) {
-				ParserTarget.addAdditionalParserTarget(parserTarget, npc);
+		if(npc==null) {
+			try {
+				npc = (NPC) Class.forName("com.lilithsthrone.game.character.npc."+npcGenerationId).newInstance();
+			} catch (Exception ex) {
+				System.err.println("Failed to add NPC: "+npcGenerationId);
+				ex.printStackTrace();
+				return "";
 			}
-			return idGenerated;
 		}
-		System.err.println("Failed to add NPC: "+npcGenerationId);
-		new Exception().printStackTrace();
-		return "";
+		String idGenerated = addNPC(npc, false, forceImmediateAddition);
+		if(parserTarget!=null && !parserTarget.isEmpty()) {
+			ParserTarget.addAdditionalParserTarget(parserTarget, npc);
+		}
+		return idGenerated;
 	}
 	
 	// Alaco : Methods in lambdas can't throw exceptions, so we have to wrap addNPC

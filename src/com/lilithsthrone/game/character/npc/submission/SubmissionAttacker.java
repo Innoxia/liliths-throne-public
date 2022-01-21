@@ -50,7 +50,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class SubmissionAttacker extends NPC {
 
 	public SubmissionAttacker() {
-		this(Gender.F_V_B_FEMALE, false);
+		this(Gender.getGenderFromUserPreferences(false, false), false);
 	}
 	
 	public SubmissionAttacker(Gender gender) {
