@@ -840,9 +840,9 @@ public class Main extends Application {
 			properties.money = game.getPlayer().getMoney();
 			properties.arcaneEssences = game.getPlayer().getEssenceCount();
 			if (game.getPlayer().isFeminine()) {
-				properties.race = game.getPlayer().getSubspecies().getSingularFemaleName(game.getPlayer());
+				properties.race = game.getPlayer().getSubspecies().getSingularFemaleName(game.getPlayer().getBody());
 			} else {
-				properties.race = game.getPlayer().getSubspecies().getSingularMaleName(game.getPlayer());
+				properties.race = game.getPlayer().getSubspecies().getSingularMaleName(game.getPlayer().getBody());
 			}
 			properties.quest = game.getPlayer().getQuest(QuestLine.MAIN).getName();
 

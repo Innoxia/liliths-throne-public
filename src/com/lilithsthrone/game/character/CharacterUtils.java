@@ -1829,7 +1829,7 @@ public class CharacterUtils {
 		String adjective = Util.randomItemFrom(characterAdjectives);
 		
 		if(baseName==null || baseName.isEmpty()) {
-			character.setGenericName(adjective+" "+character.getSubspecies().getName(character));
+			character.setGenericName(adjective+" "+character.getSubspecies().getName(character.getBody()));
 		} else {
 			character.setGenericName(adjective+" "+baseName);
 		}

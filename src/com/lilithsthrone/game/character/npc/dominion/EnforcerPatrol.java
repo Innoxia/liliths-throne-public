@@ -94,7 +94,7 @@ public class EnforcerPatrol extends NPC {
 			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, false);
 			
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f) { // Half-demon spawn rate
-				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getFleshSubspecies(), true), true);
+				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getBody().getFleshSubspecies(), true), true);
 			}
 			
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f

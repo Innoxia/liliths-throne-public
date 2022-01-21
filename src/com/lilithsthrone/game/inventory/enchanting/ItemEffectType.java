@@ -429,8 +429,8 @@ public class ItemEffectType {
 						+ "Underneath the flashing pregnancy confirmation, there's some extra information, which reads:<br/>"
 						+ "<i>"
 						+ "Father: "+(father!=null
-										?father.getNameIgnoresPlayerKnowledge()+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(father))+")"
-										:unknownFatherName+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(Main.game.getNpc(GenericAndrogynousNPC.class)))+")")+"<br/>"
+										?father.getNameIgnoresPlayerKnowledge()+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(father.getBody()))+")"
+										:unknownFatherName+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(Main.game.getNpc(GenericAndrogynousNPC.class).getBody()))+")")+"<br/>"
 						+ "Litter size: " +target.getPregnantLitter().getTotalLitterCount()+"<br/>"
 						+ "[style.colourFeminine(Daughters)]: " +(target.getPregnantLitter().getDaughtersFromFather()+target.getPregnantLitter().getDaughtersFromMother())+"<br/>"
 						+ "[style.colourMasculine(Sons)]: " +(target.getPregnantLitter().getSonsFromFather()+target.getPregnantLitter().getSonsFromMother())+"<br/>"
@@ -2137,7 +2137,7 @@ public class ItemEffectType {
 				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on non-slave unique characters...)]</p>";
 			}
 			
-			AbstractSubspecies sub = target.getFleshSubspecies();
+			AbstractSubspecies sub = target.getBody().getFleshSubspecies();
 			if(sub.getRace()!=Race.DEMON) {
 				target.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(target, target.getGender(), sub, true), false);
 				return UtilText.parse(target, "<p style='text-align:center; color:"+PresetColour.RACE_DEMON.toWebHexString()+";'><i>[npc.Name] is now [npc.a_race]!</i></p>");

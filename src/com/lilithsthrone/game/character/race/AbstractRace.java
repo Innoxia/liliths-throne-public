@@ -7,7 +7,6 @@ import java.util.Map;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
-import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Body;
@@ -327,9 +326,9 @@ public abstract class AbstractRace {
 		return ableToSelfTransform;
 	}
 	
-	public String getName(GameCharacter character, boolean feral) {
+	public String getName(Body body, boolean feral) {
 		if(feral) {
-			return getFeralName(character!=null?character.getLegConfiguration():LegConfiguration.BIPEDAL, false);
+			return getFeralName(body !=null? body.getLegConfiguration():LegConfiguration.BIPEDAL, false);
 		}
 		if(Main.game!=null && Main.game.isSillyMode()) {
 			return nameSillyMode;
@@ -341,9 +340,9 @@ public abstract class AbstractRace {
 		return getName(null, feral);
 	}
 	
-	public String getNamePlural(GameCharacter character, boolean feral) {
+	public String getNamePlural(Body body, boolean feral) {
 		if(feral) {
-			return getFeralName(character!=null?character.getLegConfiguration():LegConfiguration.BIPEDAL, true);
+			return getFeralName(body !=null? body.getLegConfiguration():LegConfiguration.BIPEDAL, true);
 		}
 		if(Main.game!=null && Main.game.isSillyMode()) {
 			return namePluralSillyMode;

@@ -80,7 +80,7 @@ public class SlaveForSale extends NPC {
 			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
 			
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f && this.getSubspecies()!=Subspecies.SLIME) {
-				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getFleshSubspecies(), true), true);
+				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getBody().getFleshSubspecies(), true), true);
 			}
 			
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f
