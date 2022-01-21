@@ -204,7 +204,6 @@ import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
-
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
@@ -1287,7 +1286,27 @@ public class UtilText {
 			}
 			
 			if (startIndex != 0) {
-				System.err.println("Error in parsing: StartIndex:"+startIndex+" ("+target+", "+command+") - "+input.substring(startIndex, Math.min(input.length()-1, startIndex+20)));
+				StringBuilder errMsg = new StringBuilder("Error in parsing: ");
+				switch(input.charAt(startIndex)) {
+					case '#':
+						errMsg.append("Missing #ENDIF for #IF at ");
+						break;
+					case '[':
+						errMsg.append("Missing ] for [ at ");
+						break;
+					default:
+						errMsg.append("Non-fatal error at ");
+						break;
+				}
+				errMsg.append(startIndex);
+				if(target != null) {
+					errMsg.append(" Target: "+target);
+				}
+				if(command != null) {
+					errMsg.append(" Command: "+command);
+				}
+				errMsg.append(" "+input.substring(startIndex, Math.min(input.length()-1, startIndex+20)));
+				System.err.println(errMsg);
 				parsingCharactersForSpeech = parsingCharactersForSpeechSaved;
 				return input;
 			}

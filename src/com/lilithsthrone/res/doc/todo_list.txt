@@ -33,6 +33,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added support for instantiating all NPC classes via the addNPC(String npcGenerationId, String parserTarget) method by using predefined names (like FieldsBandit) or qualified names (like dominion.DominionAlleywayAttacker). Also updated the default (no parameter) NPC constructors to make use of gender preferences. (PR#1615 by AceXP)
 		Fixed issue where offspring subspecies names weren't being generated correctly, fixed issue where offspring between demons and non-demons were not being generated as the correct subspecies, and added previously unused dialogue for all calendar months in the player's room. (PR#1634 by AceXP)
 		Fixed issue where a player wearing the correct patrol uniform would auto-fail the uniform check during Enforcer alleyway encounters. (PR#1635 by DSG)
+		Maxis010's bugfix PR#1630:
+			Default penis and vagina values should now always respect the default values drawn from the character's race upon generation.
+			Event log entries are now capped at 50 to address a potential memory leak issue.
+			Stopped gear resealing onto the character upon loading if it had already been unsealed.
+			Multiple dialog & tooltip fixes (with contribution from Phlarx).
+			Moved QUEST rarity clothing checks to banishNPC method as previously calling it in the unequipClothingIntoVoid method was causing a duplication bug.
+			Changed all removeNPC method calls to banishNPC method calls so that all NPC removal checks are applied.
+			If the player's offspring are being incubated in an NPC which is removed, then the offspring are no longer deleted.
 		
 	Gameplay:
 		Filled in all placeholder dialogue in Penelope's spa, 'Woolly Heaven'.
@@ -128,13 +136,12 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					[] options need cost displayed
 		------
 	
-	[] PRs
+	[x] PRs
 		[x] 1615 - Ace NPC generation fixes
 		[x] 1634 - Ace species name detection improvements
 		[x] 1638 - Allow orgasm actions while player is immobilized
 		[x] 1635 - DSG bug fix
-		[] 1631 - maxis elder lilin perks
-		[] 1630 - Maxis bug fixes
+		[x] 1630 - Maxis bug fixes
 	
 	[] Would fully removing offspring interfere with the count of total met and unmet offspring? Not looked fully into that
 	
