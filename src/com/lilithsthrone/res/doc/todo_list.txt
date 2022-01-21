@@ -17,14 +17,19 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	Callie's bakery content contribution (by Nnxx):
-		Added a new shop in the north-west of Dominion, called 'The Creamy Bakey'.
+	AceXp's content contributions:
+		Added a scene for watching Lilaya and Rose have sex in Lilaya's lab.
+		Added repeatable sex content for Angel, which is unlocked after visiting her after purchasing a prostitution license.
+	
+	Nnxx's content contribution:
+		Added a bakery in the north-west of Dominion, called 'The Creamy Bakey'.
 		Added a new horse-girl character, Callie, who runs this shop, and added some sex content for her.
 		Added three new doughnut food items which can be purchased from Callie.
 	
 	Contributors:
 		Fixed issue where newly generated offspring would be of a random subspecies if they were meant to be a half-demon. (by AceXP)
 		Fixed issue where sometimes starting lust would be zero for newly spawned encounters instead of at their resting lust level. (by AceXP)
+		Fixed bug where if a character was immobilised then no orgasm options would be available for them to choose from, which led to a blank action grid being displayed to the immobilised player when a character reached orgasm. (PR#1638 by miome)
 		
 	Gameplay:
 		Filled in all placeholder dialogue in Penelope's spa, 'Woolly Heaven'.
