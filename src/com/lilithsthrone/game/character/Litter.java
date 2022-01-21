@@ -434,11 +434,11 @@ public class Litter implements XMLSaving {
 				OffspringSeed character = Main.game.getOffspringSeedById(id);
 				AbstractSubspecies subspecies = character.getSubspecies();
 				if(character.isFeminine()) {
-					String nameId = subspecies.getSingularFemaleName(null)+"|"+subspecies.getPluralFemaleName(null);
+					String nameId = subspecies.getSingularFemaleName(character.getBody())+"|"+subspecies.getPluralFemaleName(character.getBody());
 					daughters.putIfAbsent(nameId, 0);
 					daughters.put(nameId, daughters.get(nameId)+1);
 				} else {
-					String nameId = subspecies.getSingularMaleName(null)+"|"+subspecies.getPluralMaleName(null);
+					String nameId = subspecies.getSingularMaleName(character.getBody())+"|"+subspecies.getPluralMaleName(character.getBody());
 					sons.putIfAbsent(nameId, 0);
 					sons.put(nameId, sons.get(nameId)+1);
 				}

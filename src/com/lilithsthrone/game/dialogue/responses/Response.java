@@ -588,7 +588,7 @@ public class Response {
 
 			SB.append(" (Subspecies): ");
 			for(AbstractSubspecies subspecies : getSubspeciesRequired()) {
-				SB.append("<span style='color:"+subspecies.getColour(Main.game.getPlayer()).toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName(Main.game.getPlayer()))+"</span>");
+				SB.append("<span style='color:"+subspecies.getColour(Main.game.getPlayer()).toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName(Main.game.getPlayer().getBody()))+"</span>");
 			}
 		}
 		

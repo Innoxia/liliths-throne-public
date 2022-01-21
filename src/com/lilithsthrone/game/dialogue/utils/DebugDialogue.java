@@ -816,13 +816,13 @@ public class DebugDialogue {
 					isBorn = false;
 				}
 				UtilText.nodeContentSB.append((isBorn?"":"(Not born yet) ")+"<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</span>"
-						+ " ("+npc.getSubspecies().getName(npc)+" | "+npc.getHalfDemonSubspecies().getName(npc)+")"
+						+ " ("+npc.getSubspecies().getName(npc.getBody())+" | "+npc.getHalfDemonSubspecies().getName(npc.getBody())+")"
 						+ " M:"+(npc.getMother()!=null?npc.getMother().getName(true):"Deleted NPC")
 						+ " F:"+(npc.getFather()!=null?npc.getFather().getName(true):"Deleted NPC")+"<br/>");
 			}
 			for(OffspringSeed os : Main.game.getOffspringNotSpawned(os -> true,true)) {
 				UtilText.nodeContentSB.append("Not yet"+(os.isBorn()?" met ":" born ")+"<span style='color:"+os.getFemininity().getColour().toWebHexString()+";'>"+os.getName()+"</span>"
-						+ " ("+os.getSubspecies().getName(null)+" | "+os.getHalfDemonSubspecies().getName(null)+")"
+						+ " ("+os.getSubspecies().getName(os.getBody())+" | "+os.getHalfDemonSubspecies().getName(os.getBody())+")"
 						+ " M:"+(os.getMother()!=null?os.getMother().getName(true):"Deleted NPC")
 						+ " F:"+(os.getFather()!=null?os.getFather().getName(true):"Deleted NPC")+"<br/>");
 			}
@@ -1327,7 +1327,7 @@ public class DebugDialogue {
 					+ "<p>"
 					+ "<b>IDs:</b><br/>");
 			for(AbstractSubspecies sub : Subspecies.getAllSubspecies()) {
-				sb.append("<span style='color:"+sub.getColour(Main.game.getPlayer()).toWebHexString()+";'>"+Util.capitaliseSentence(sub.getName(Main.game.getPlayer()))+"</span>: "+Subspecies.getIdFromSubspecies(sub));
+				sb.append("<span style='color:"+sub.getColour(Main.game.getPlayer()).toWebHexString()+";'>"+Util.capitaliseSentence(sub.getName(Main.game.getPlayer().getBody()))+"</span>: "+Subspecies.getIdFromSubspecies(sub));
 				sb.append("</br>");
 			}
 			
