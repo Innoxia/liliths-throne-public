@@ -3,7 +3,6 @@ package com.lilithsthrone.game.character.npc.misc;
 import java.time.Month;
 import java.util.List;
 
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

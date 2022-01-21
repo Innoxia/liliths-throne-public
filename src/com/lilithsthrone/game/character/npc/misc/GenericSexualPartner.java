@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
