@@ -13,7 +13,6 @@ import java.time.Month;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -82,6 +81,7 @@ import com.lilithsthrone.game.character.npc.dominion.Jules;
 import com.lilithsthrone.game.character.npc.dominion.Kalahari;
 import com.lilithsthrone.game.character.npc.dominion.Kate;
 import com.lilithsthrone.game.character.npc.dominion.Kay;
+import com.lilithsthrone.game.character.npc.dominion.Callie;
 import com.lilithsthrone.game.character.npc.dominion.Kruger;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Loppy;
@@ -215,6 +215,7 @@ import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ItemGeneration;
+import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
@@ -344,7 +345,7 @@ public class Game implements XMLSaving {
 	public static Map<String, TooltipInformationEventListener> informationTooltips = new HashMap<>();
 	
 	// Logs:
-	private List<EventLogEntry> eventLog = new ArrayList<>();
+	private SizedStack<EventLogEntry> eventLog = new SizedStack<>(50);
 	private SizedStack<Value<Integer, List<SlaveryEventLogEntry>>> slaveryEventLog = new SizedStack<>(7);
 	
 	// Slavery:
@@ -625,7 +626,7 @@ public class Game implements XMLSaving {
 				Main.game.getOccupancyUtil().saveAsXML(game, doc);
 			}catch(Exception ex) {
 				System.err.println("SlaveryUtil saving failed!");
-				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "SlaveryUtil failure"), false);
+				Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "SlaveryUtil failure"), false);
 			}
 
 			Element dateNode = doc.createElement("date");
@@ -637,7 +638,7 @@ public class Game implements XMLSaving {
 			XMLUtil.addAttribute(doc, dateNode, "minute", String.valueOf(Main.game.startingDate.getMinute()));
 		} catch(Exception ex) {
 			System.err.println("coreInfo saving failed!");
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "coreInfo failure"), false);
+			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "coreInfo failure"), false);
 		}
 
 		Main.game.dialogueFlags.saveAsXML(game, doc);
@@ -645,12 +646,12 @@ public class Game implements XMLSaving {
 		try {
 			Element eventLogNode = doc.createElement("eventLog");
 			game.appendChild(eventLogNode);
-			for(EventLogEntry event : Main.game.getEventLog().subList(Math.max(0, Main.game.getEventLog().size()-50), Main.game.getEventLog().size())) {
+			for(EventLogEntry event : Main.game.getEventLog()) {
 				event.saveAsXML(eventLogNode, doc);
 			}
 		} catch(Exception ex) {
 			System.err.println("eventLog saving failed!");
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "eventLog failure"), false);
+			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "eventLog failure"), false);
 		}
 
 		try {
@@ -666,7 +667,7 @@ public class Game implements XMLSaving {
 			}
 		} catch(Exception ex) {
 			System.err.println("slaveryEventLog saving failed!");
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "slaveryEventLog failure"), false);
+			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "slaveryEventLog failure"), false);
 		}
 
 		// Add maps:
@@ -680,7 +681,7 @@ public class Game implements XMLSaving {
 			}
 		} catch(Exception ex) {
 			System.err.println("maps saving failed!");
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "maps failure"), false);
+			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "maps failure"), false);
 		}
 
 		// Add player:
@@ -690,7 +691,7 @@ public class Game implements XMLSaving {
 			Main.game.getPlayer().saveAsXML(characterNode, doc);
 		} catch(Exception ex) {
 			System.err.println("playerCharacter saving failed!");
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "playerCharacter failure"), false);
+			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "playerCharacter failure"), false);
 		}
 
 		// Add all NPCs:
@@ -703,7 +704,7 @@ public class Game implements XMLSaving {
 		} catch(Exception ex) {
 			System.err.println("NPC saving failed!");
 			ex.printStackTrace();
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "NPC failure"), false);
+			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "NPC failure"), false);
 		}
 
 		// Add all offspringSeed:
@@ -716,7 +717,7 @@ public class Game implements XMLSaving {
 		} catch(Exception ex) {
 			System.err.println("offspringSeed saving failed!");
 			ex.printStackTrace();
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "offspringSeed failure"), false);
+			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "offspringSeed failure"), false);
 		}
 
 		// Ending stuff:
@@ -740,17 +741,17 @@ public class Game implements XMLSaving {
 
 			if(!exportFileName.startsWith("AutoSave")) {
 				if(overwrite) {
-					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game saved)]", saveLocation), false);
+					Main.game.addEvent(new EventLogEntry("[style.colourGood(Game saved)]", saveLocation), false);
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), false, PresetColour.GENERIC_GOOD, "Save game overwritten!");
 				} else {
-					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game saved)]", saveLocation), false);
+					Main.game.addEvent(new EventLogEntry("[style.colourGood(Game saved)]", saveLocation), false);
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), false, PresetColour.GENERIC_GOOD, "Game saved!");
 				}
 			}
 		} catch(Exception ex) {
 			System.err.println("XML writing failed!");
 			ex.printStackTrace();
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail</span>", "XML writing failure"), false);
+			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail</span>", "XML writing failure"), false);
 		}
 
 		if(timeLog) {
@@ -875,9 +876,8 @@ public class Game implements XMLSaving {
 				NodeList eventLogEntryElements = ((Element) gameElement.getElementsByTagName("eventLog").item(0)).getElementsByTagName("eventLogEntry");
 				for(int i = 0; i < eventLogEntryElements.getLength(); i++){
 					Element e = (Element) eventLogEntryElements.item(i);
-					Main.game.eventLog.add(EventLogEntry.loadFromXML(e, doc));
+					Main.game.addEvent(EventLogEntry.loadFromXML(e, doc), false);
 				}
-				Main.game.eventLog.sort(Comparator.comparingLong(EventLogEntry::getTime).reversed());
 				
 				
 				NodeList nodes = gameElement.getElementsByTagName("slaveryEventLog");
@@ -1189,7 +1189,7 @@ public class Game implements XMLSaving {
 					if(npc!=null
 						&& npc.getLocationPlace().getPlaceType() == PlaceType.GENERIC_EMPTY_TILE
 						&& npc.isReadyToBeDeleted()) {
-						Main.game.removeNPC(npc);
+						Main.game.banishNPC(npc);
 						System.out.println("Deleted NPC: "+npc.getId());
 					}
 				}
@@ -1497,7 +1497,7 @@ public class Game implements XMLSaving {
 					}
 				}
 
-				if(Main.isVersionOlderThan(loadingVersion, "0.3.7")) { // This map update is loacted here as the character present in the new alleyway tile needs to have been initialised.
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.7")) { // This map update is located here as the character present in the new alleyway tile needs to have been initialised.
 					// Add safe alleyway:
 					Vector2i vec = Main.game.getWorlds().get(WorldType.DOMINION).getCell(PlaceType.DOMINION_SLAVER_ALLEY).getLocation();
 					vec.setY(vec.getY()+1);
@@ -1705,7 +1705,13 @@ public class Game implements XMLSaving {
 					Main.game.getNpc(Ashley.class).clearAffectionMap();
 					Main.game.getNpc(Ashley.class).setAffection(Main.game.getNpc(Nyan.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 				}
-
+				
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.3.1")) { // Update Dominion to add Callie's bakery:
+					Vector2i vec = new Vector2i(2, 18);
+					Main.game.getWorlds().get(WorldType.DOMINION).getCell(vec).getPlace().setPlaceType(PlaceType.DOMINION_CALLIE_BAKERY);
+					Main.game.getWorlds().get(WorldType.DOMINION).getCell(vec).getPlace().setName(PlaceType.DOMINION_CALLIE_BAKERY.getName());
+				}
+				
 				Main.game.pendingSlaveInStocksReset = false;
 				
 				
@@ -1734,7 +1740,7 @@ public class Game implements XMLSaving {
 		Main.game.setRequestAutosave(false);
 		
 		DialogueNode startingDialogueNode = Main.game.getPlayerCell().getDialogue(false);
-		Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game loaded)]", "data/saves/"+Util.getFileName(file)+".xml"), false);
+		Main.game.addEvent(new EventLogEntry("[style.colourGood(Game loaded)]", "data/saves/"+Util.getFileName(file)+".xml"), false);
 		Main.game.setStarted(true); // Set started before setting content so that it parses correctly (as the scripting engine is initialised fully in the setStarted() method).
 		Main.game.setContent(new Response("", startingDialogueNode.getDescription(), startingDialogueNode), false);
 		
@@ -1867,6 +1873,7 @@ public class Game implements XMLSaving {
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Lumi.class))) { addNPC(new Lumi(), false); addedNpcs.add(Lumi.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Pazu.class))) { addNPC(new Pazu(), false); addedNpcs.add(Pazu.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Ashley.class))) { addNPC(new Ashley(), false); addedNpcs.add(Ashley.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Callie.class))) { addNPC(new Callie(), false); addedNpcs.add(Callie.class); }
 			
 			// Story:
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Rose.class))) { addNPC(new Rose(), false); addedNpcs.add(Rose.class); }
@@ -2628,7 +2635,7 @@ public class Game implements XMLSaving {
 		}
 		isInNPCUpdateLoop = false;
 		for(NPC npc : npcsToRemove) {
-			removeNPC(npc);
+			banishNPC(npc);
 		}
 		for(NPC npc : npcsToAdd) {
 			NPCMap.put(npc.getId(), npc);
@@ -4490,7 +4497,7 @@ public class Game implements XMLSaving {
 	 * Generates and instantly adds a new NPC of the type 'npcGenerationId'.
 	 * The game does not wait until the NPC Update Loop has finished, and will immediately add this NPC.
 	 *
-	 * @param npcGenerationId The ID of the NPC class to spawn.
+	 * @param npcGenerationId The ID of the NPC class to spawn. Use one of the names below, or use a qualified name (like dominion.DominionAlleywayAttacker) for any other NPC class.
 	 * @param parserTarget The parser id to assign to this NPC, which can then be used in the parsing engine. Pass in an empty String or a null to not assign a parserTarget to this NPC.
 	 * @return The ID of the NPC which is spawned as a result of calling this method.
 	 */
@@ -4512,16 +4519,20 @@ public class Game implements XMLSaving {
 		} else if(npcGenerationId.equalsIgnoreCase("EvelyxMilker")) {
 			npc = new EvelyxMilker();
 		}
-		if(npc!=null) {
-			String idGenerated = addNPC(npc, false, forceImmediateAddition);
-			if(parserTarget!=null && !parserTarget.isEmpty()) {
-				ParserTarget.addAdditionalParserTarget(parserTarget, npc);
+		if(npc==null) {
+			try {
+				npc = (NPC) Class.forName("com.lilithsthrone.game.character.npc."+npcGenerationId).newInstance();
+			} catch (Exception ex) {
+				System.err.println("Failed to add NPC: "+npcGenerationId);
+				ex.printStackTrace();
+				return "";
 			}
-			return idGenerated;
 		}
-		System.err.println("Failed to add NPC: "+npcGenerationId);
-		new Exception().printStackTrace();
-		return "";
+		String idGenerated = addNPC(npc, false, forceImmediateAddition);
+		if(parserTarget!=null && !parserTarget.isEmpty()) {
+			ParserTarget.addAdditionalParserTarget(parserTarget, npc);
+		}
+		return idGenerated;
 	}
 	
 	// Alaco : Methods in lambdas can't throw exceptions, so we have to wrap addNPC
@@ -4596,7 +4607,11 @@ public class Game implements XMLSaving {
 	 */
 	public boolean banishNPC(NPC npc) {
 		Main.game.getPlayer().removeCompanion(npc);
-		npc.deleteAllEquippedClothing(true); // To cut down on save size and return unique items to the player.
+		for (AbstractClothing clothing : npc.getClothingCurrentlyEquipped()) {
+			if (clothing.getRarity() == Rarity.QUEST) { // Return any unique clothing to the player
+				Main.game.getPlayer().addClothing(clothing, false);
+			}
+		}
 		
 		if(npc.isSlave()) {
 			npc.getOwner().removeSlave(npc);
@@ -4604,6 +4619,19 @@ public class Game implements XMLSaving {
 		if(npc.hasSlaves()) {
 			for(GameCharacter c : new ArrayList<>(npc.getSlavesOwnedAsCharacters())) {
 				npc.removeSlave(c);
+			}
+		}
+		// Use separate loops so that we only check if the banished npc isUnique once
+		if(npc.isUnique()) {
+			for(NPC loopNpc : Main.game.getAllNPCs()) {
+				loopNpc.setAllAreasKnownByCharacter(npc, false);
+			}
+		} else {
+			for(NPC loopNpc : Main.game.getAllNPCs()) {
+				loopNpc.setAllAreasKnownByCharacter(npc, false);
+				if(loopNpc.isUnique()) {
+					loopNpc.setAffection(npc, 0f);
+				}
 			}
 		}
 		
@@ -4618,6 +4646,19 @@ public class Game implements XMLSaving {
 		} else {
 			ParserTarget.removeAdditionalParserTarget(npc);
 			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+			// Remove unnecessary data from banished NPCs
+			npc.resetInventory(true);
+			npc.resetAllPregnancyReactions();
+			npc.resetPerksMap(false);
+			npc.clearFetishes();
+			npc.clearFetishDesires();
+			npc.clearEquippedMoves();
+			npc.clearAddictions();
+			npc.clearAllLipstickMarkings();
+			for(CoverableArea area : CoverableArea.values()) {
+				npc.resetAreaKnownByCharacters(area);
+			}
+			npc.resetFluidsStored();
 			return false;
 		}
 	}
@@ -4635,19 +4676,7 @@ public class Game implements XMLSaving {
 		}
 	}
 
-	public void removeNPC(String id) {
-		try {
-			removeNPC((NPC)Main.game.getNPCById(id));
-		} catch (Exception e) {
-			System.err.println("Trying to remove an NPC that doesn't exist?");
-			e.printStackTrace();
-		}
-	}
-	
-	public void removeNPC(NPC npc) {
-		Main.game.getPlayer().removeCompanion(npc);
-		
-		npc.resetFluidsStored();
+	private void removeNPC(NPC npc) {
 		if(npc.isPregnant()) {
 			// End with birth if father is player
 			npc.endPregnancy(npc.getPregnantLitter().getFather()!=null && npc.getPregnantLitter().getFather().isPlayer());
@@ -4658,7 +4687,7 @@ public class Game implements XMLSaving {
 		
 		if(!npc.getIncubatingLitters().isEmpty()) {
 			for(SexAreaOrifice orifice : new ArrayList<>(npc.getIncubatingLitters().keySet())) {
-				npc.endIncubationPregnancy(orifice, false);
+				npc.endIncubationPregnancy(orifice, ((npc.getPregnantLitter().getFather()!=null && npc.getIncubationLitter(orifice).getFather().isPlayer()) || (npc.getPregnantLitter().getMother()!=null && npc.getIncubationLitter(orifice).getMother().isPlayer())));
 			}
 		}
 		
@@ -5174,18 +5203,18 @@ public class Game implements XMLSaving {
 		return this.getPlayer().getLocationPlace().getPlaceType().isGlobalMapTile();
 	}
 
-	public List<EventLogEntry> getEventLog() {
+	public SizedStack<EventLogEntry> getEventLog() {
 		return eventLog;
 	}
 	
 	public void addEvent(EventLogEntry event, boolean appendAdditionTextToMainDialogue) {
-		eventLog.add(event);
+		eventLog.push(event);
 		if(appendAdditionTextToMainDialogue) {
 			Main.game.getTextEndStringBuilder().append(event.getMainDialogueDescription());
 		}
 	}
 	
-	public void setEventLog(List<EventLogEntry> eventLog) {
+	public void setEventLog(SizedStack<EventLogEntry> eventLog) {
 		this.eventLog = eventLog;
 	}
 	

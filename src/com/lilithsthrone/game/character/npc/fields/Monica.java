@@ -484,6 +484,6 @@ public class Monica extends NPC {
 	
 	@Override
 	public String getTraderDescription() {
-		return UtilText.parseFromXMLFile("places/fields/elis/shops", "CLOTHING_TRANSACTION_START");
+		return UtilText.parseFromXMLFile("places/fields/elis/shops/clothing", "CLOTHING_TRANSACTION_START");
 	}
 }

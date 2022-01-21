@@ -17,25 +17,143 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
+	AceXP's content contributions:
+		Added a scene for watching Lilaya and Rose have sex in Lilaya's lab.
+		Added repeatable sex content for Angel, which is unlocked after visiting her after purchasing a prostitution license.
+	
+	Nnxx's content contribution:
+		Added a bakery in the north-west of Dominion, called 'The Creamy Bakey'.
+		Added a new horse-girl character, Callie, who runs this shop, and added some sex content for her.
+		Added three new doughnut food items which can be purchased from Callie.
+	
 	Contributors:
 		Fixed issue where newly generated offspring would be of a random subspecies if they were meant to be a half-demon. (by AceXP)
+		Fixed issue where sometimes starting lust would be zero for newly spawned encounters instead of at their resting lust level. (by AceXP)
+		Fixed bug where if a character was immobilised then no orgasm options would be available for them to choose from, which led to a blank action grid being displayed to the immobilised player when a character reached orgasm. (PR#1638 by miome)
+		Added support for instantiating all NPC classes via the addNPC(String npcGenerationId, String parserTarget) method by using predefined names (like FieldsBandit) or qualified names (like dominion.DominionAlleywayAttacker). Also updated the default (no parameter) NPC constructors to make use of gender preferences. (PR#1615 by AceXP)
+		Fixed issue where offspring subspecies names weren't being generated correctly, fixed issue where offspring between demons and non-demons were not being generated as the correct subspecies, and added previously unused dialogue for all calendar months in the player's room. (PR#1634 by AceXP)
+		Fixed issue where a player wearing the correct patrol uniform would auto-fail the uniform check during Enforcer alleyway encounters. (PR#1635 by DSG)
+		Maxis010's bugfix PR#1630:
+			Default penis and vagina values should now always respect the default values drawn from the character's race upon generation.
+			Event log entries are now capped at 50 to address a potential memory leak issue.
+			Stopped gear resealing onto the character upon loading if it had already been unsealed.
+			Multiple dialog & tooltip fixes (with contribution from Phlarx).
+			Moved QUEST rarity clothing checks to banishNPC method as previously calling it in the unequipClothingIntoVoid method was causing a duplication bug.
+			Changed all removeNPC method calls to banishNPC method calls so that all NPC removal checks are applied.
+			If the player's offspring are being incubated in an NPC which is removed, then the offspring are no longer deleted.
 		
 	Gameplay:
 		Filled in all placeholder dialogue in Penelope's spa, 'Woolly Heaven'.
 		
+	Other:
+		The succubus/incubus attackers in Dominion's alleyways now draw on your gender preferences to generate their gender, instead of always being either male or female.
+		
 	Bugs:
+		Parsing fixes.
 		Corrected imp lore description incorrectly stating that imps could not self-transform.
+		Fixed issue where externally-defined sex managers would throw errors if a preference returned an empty String.
+		
 		
 		
 	[x] Woolly Heaven penelope placeholders
 		[x] Penelope sex clothing displacement
 	[x] imps "lack the demon's ability to shape-shift their bodies at will", but they can self-TF?
 	[x] Penelope shouldn't start fashion show sex naked
-	
-	[] Kayla
-	
-	[] are demon spawns on pink alley tiles still only allowed to be full female or male?
+	[x] Callie
+		[x] Dominion place
+		[x] Small internal map
+		[x] Add Callie
+		[x] Add dialogue
+			[x] logic conversions
+		[x] Add doughnut
+			[x] plain
+			[x] icing
+			[x] icing + sprinkles
+		[x] sex vaginal or anal over desk
+		[x] Add txt
+		[x] Edit repeat entry
+		[x] Full test
+			[x] parsing flag errors
+			[x] money formatting
+			[x] tooltip 'ELSIF' formatting errors
+			[x] callie clean after sex
+			[x] make sex ongoing only
+			[x] add donation tracking info
+			[x] need travel diabled for sex menu
+	[x] Feedback on:
+		[x] Callie
+		[x] dialogue edits
+		[x] tile colour
+		[x] map
+	[x] are demon spawns on pink alley tiles still only allowed to be full female or male?
 		if(!Gender.getGenderFromUserPreferences(false, false).isFeminine()) {
+	
+	
+	[] Ace content
+		--- For v0.4.3: ---
+			[x] file name formatting
+			[x] replace pc.getLastCell() calls (in case the player teleported into the cell)
+			[x] Dominion
+				[x] Lilaya's lab
+					[x] Change encounter `game.isExtendedWorkTime()` to if Lilaya & Rose are present
+					[x] make sure player is set to be hidden
+					[x] Rose preferences are affected by her class definitions
+						[x] check Lilaya for this too
+					[x] Need quick sex
+					[x] consider changing trigger chance, frequency, or actions?
+					[x] txt edits
+						[x] add rose dirty talk to start scene
+						[x] start with Lilaya already fingering Rose
+					[x] restore daily limit
+					[x] final testing
+						[x] parsing bug
+					[-] Rose does not switch to oral...
+				[x] Angel
+					[x] Action needs money
+					[x] Check sex preferences - blowjob/cunnilingus
+					[x] No quick sex?
+					[x] Unlock repeat sex with her after first encounter instead of repeat encounter
+					[x] Instead of encounter, change to dialogue after obtaining prostitution license. Next time enter office, trigger scene
+					[x] test all
+					[x] add dialogue variation for entry after sex unlocked
+					[x] txt edits
+			[x] Final test
+				[x] Sex managers need to be able to handle empty preference Strings
+		--- For v0.4.3.1: ---
+			[] Dominion
+				[] Dungeon
+					[] txt edits
+					[] stocks dialogue should grey-out when talking about that subject
+					[] unlock cell use after talking to Rose about it
+					[] manage cell dialogue should be straight into manage room
+				[] Harpy Nests
+					[] Is this just extra sex options?
+			[] Submission
+				[] Elizabeth
+					[] talk options +affection?
+					[] check each option
+				[] Walkways
+					[] options need cost displayed
+		------
+	
+	[x] PRs
+		[x] 1615 - Ace NPC generation fixes
+		[x] 1634 - Ace species name detection improvements
+		[x] 1638 - Allow orgasm actions while player is immobilized
+		[x] 1635 - DSG bug fix
+		[x] 1630 - Maxis bug fixes
+	
+	[] Would fully removing offspring interfere with the count of total met and unmet offspring? Not looked fully into that
+	
+	[x] Unmet offspring use getSingularFemaleName or getSingularMaleName to determine the name to show for their species name, in the birth description and the list of offspring.
+	 This works OK for simple cases, but not for more complicated ones like taurs or demonic ones. This is because then you need to call the function with a GameCharacter, and with the offspringseed there is no GameCharacter (yet).
+		But I've been looking at this and it seems to me that a full GameCharacter is not really needed for this, and just a Body should be enough. As it's things like getLegConfiguration, isFeral or isNonBiped that are used.
+		 And these are determined from the body.
+	
+	
+	
+	
+	[] GameCharacter.java#19512 is possibly redundant, as it's covered in Game.java#4448
 	
 	[] Add TF presets
 	
@@ -43,16 +161,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] rounded
 		[] square
 	[] tail cuffs/rings
-	
-	
-	[] Would fully removing offspring interfere with the count of total met and unmet offspring? Not looked fully into that
-	
-	[] Unmet offspring use getSingularFemaleName or getSingularMaleName to determine the name to show for their species name, in the birth description and the list of offspring. This works OK for simple cases, but not for more complicated ones like taurs or demonic ones. This is because then you need to call the function with a GameCharacter, and with the offspringseed there is no GameCharacter (yet).
-		But I've been looking at this and it seems to me that a full GameCharacter is not really needed for this, and just a Body should be enough. As it's things like getLegConfiguration, isFeral or isNonBiped that are used. And these are determined from the body.
-	
-	[] Ace PR
-	
-	[] Ace content
 	
 	
 	[] add 'Request knot' sex action

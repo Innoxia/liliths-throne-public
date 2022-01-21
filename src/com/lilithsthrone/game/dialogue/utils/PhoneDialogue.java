@@ -83,8 +83,8 @@ public class PhoneDialogue {
 			this.child_name = npc.getName(true);
 			this.race_color = npc.getRace().getColour().toWebHexString();
 			this.species_name = this.female
-					? Util.capitaliseSentence(npc.getSubspecies().getSingularFemaleName(npc))
-					: Util.capitaliseSentence(npc.getSubspecies().getSingularMaleName(npc));
+					? Util.capitaliseSentence(npc.getSubspecies().getSingularFemaleName(npc.getBody()))
+					: Util.capitaliseSentence(npc.getSubspecies().getSingularMaleName(npc.getBody()));
 			this.mother = (npc.getMother() == null ? "???" : (npc.getMother().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getMother().getName(true))));
 			if(npc.getMother()==null && !npc.getMotherName().equals("???")) {
 				mother = npc.getMotherName();
@@ -126,8 +126,8 @@ public class PhoneDialogue {
 			this.child_name = "Unknown";
 			this.race_color = os.getRace().getColour().toWebHexString();
 			this.species_name = this.female
-					? Util.capitaliseSentence(os.getSubspecies().getSingularFemaleName(null))
-					: Util.capitaliseSentence(os.getSubspecies().getSingularMaleName(null));
+					? Util.capitaliseSentence(os.getSubspecies().getSingularFemaleName(os.getBody()))
+					: Util.capitaliseSentence(os.getSubspecies().getSingularMaleName(os.getBody()));
 			this.mother = (os.getMother() == null ? "???" : (os.getMother().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(os.getMother().getName(true))));
 			if(os.getMother()==null && !os.getMotherName().equals("???")) {
 				mother = os.getMotherName();
@@ -691,7 +691,7 @@ public class PhoneDialogue {
 						UtilText.nodeContentSB.append("<br/>"
 								+ Util.capitaliseSentence(UtilText.generateSingularDeterminer(descriptor))+" "+descriptor
 								+ " <i style='color:"+offspring.getGender().getColour().toWebHexString()+";'>"+offspring.getGenderName()+"</i>"
-								+ " <i style='color:"+offspring.getSubspecies().getColour(null).toWebHexString()+";'>"+offspring.getSubspecies().getName(null)+"</i>");
+								+ " <i style='color:"+offspring.getSubspecies().getColour(null).toWebHexString()+";'>"+offspring.getSubspecies().getName(offspring.getBody())+"</i>");
 					} catch(Exception ex) {
 					}
 				}
@@ -2277,8 +2277,8 @@ public class PhoneDialogue {
 										:"")
 								+ "<span style='color:"+pp.getFather().getRace().getColour().toWebHexString()+";'>"
 								+ (pp.getFather().getGender().isFeminine()
-										?Util.capitaliseSentence(pp.getFather().getSubspecies().getSingularFemaleName(pp.getFather()))
-										:Util.capitaliseSentence(pp.getFather().getSubspecies().getSingularMaleName(pp.getFather())))
+										?Util.capitaliseSentence(pp.getFather().getSubspecies().getSingularFemaleName(pp.getFather().getBody()))
+										:Util.capitaliseSentence(pp.getFather().getSubspecies().getSingularMaleName(pp.getFather().getBody())))
 								+ "</span>) Probability: "));
 					
 					if (pp.getProbability() <= 0) {
@@ -2460,8 +2460,8 @@ public class PhoneDialogue {
 								:"")
 						+ "<span style='color:"+pp.getMother().getRace().getColour().toWebHexString()+";'>"
 						+ (pp.getMother().getGender().isFeminine()
-								?Util.capitaliseSentence(pp.getMother().getSubspecies().getSingularFemaleName(pp.getMother()))
-								:Util.capitaliseSentence(pp.getMother().getSubspecies().getSingularMaleName(pp.getMother())))
+								?Util.capitaliseSentence(pp.getMother().getSubspecies().getSingularFemaleName(pp.getMother().getBody()))
+								:Util.capitaliseSentence(pp.getMother().getSubspecies().getSingularMaleName(pp.getMother().getBody())))
 						+ "</span>)";
 				
 				contentSB.append(pregnancyRow("[style.boldBad(Ongoing Pregnancy)]", "[style.italicsSex('"+Util.capitaliseSentence(stage)+"')]", motherName, impregnationChance));

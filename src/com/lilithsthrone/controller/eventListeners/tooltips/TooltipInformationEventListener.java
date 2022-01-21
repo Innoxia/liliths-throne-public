@@ -876,8 +876,8 @@ public class TooltipInformationEventListener implements EventListener {
 								:"")
 							+ "<b style='color:"+owner.getSubspecies().getColour(owner).toWebHexString()+";'>"
 								+ (owner.isFeminine()
-										?Util.capitaliseSentence(owner.getSubspecies().getSingularFemaleName(owner))
-										:Util.capitaliseSentence(owner.getSubspecies().getSingularMaleName(owner)))
+										?Util.capitaliseSentence(owner.getSubspecies().getSingularFemaleName(owner.getBody()))
+										:Util.capitaliseSentence(owner.getSubspecies().getSingularMaleName(owner.getBody())))
 							+ "</b>"
 							+ "</div>");
 					
@@ -1547,7 +1547,7 @@ public class TooltipInformationEventListener implements EventListener {
 	
 	private String getBodyPartDiv(GameCharacter character, String name, AbstractRace race, Covering covering, boolean feral, String size) {
 		String raceName;
-		raceName = race.getName(character, feral);
+		raceName = race.getName(character.getBody(), feral);
 
 		Colour primaryColour = covering.getPrimaryColour();
 		Colour secondaryColour = covering.getSecondaryColour();
@@ -1565,7 +1565,7 @@ public class TooltipInformationEventListener implements EventListener {
 					raceName = ((Elemental)character).getCurrentSchool().getName()+"-wisp";
 					elementalFeral = false;
 				} else {
-					raceName = ((Elemental)character).getPassiveForm().getFeralName(character);
+					raceName = ((Elemental)character).getPassiveForm().getFeralName(character.getBody());
 				}
 			}
 		}

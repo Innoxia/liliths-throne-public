@@ -319,7 +319,7 @@ public class Jess extends NPC {
 					this.calculateGenericSexEffects(dom, true, npc, st, GenericSexFlag.NO_DESCRIPTION_NEEDED, GenericSexFlag.PREVENT_LEVEL_DRAIN);
 					this.endSex();
 				}
-				Main.game.removeNPC(npc);
+				Main.game.banishNPC(npc);
 			}
 		}
 	}

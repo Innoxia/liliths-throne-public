@@ -1834,9 +1834,9 @@ public class StatusEffect {
 				return "Concealed subspecies bonus";
 			}
 			if(target.getSubspeciesOverride()!=null && target.getSubspeciesOverride()!=target.getSubspecies()) {
-				return target.getSubspeciesOverride().getName(null)+" ("+target.getSubspecies().getName(target)+")";
+				return target.getSubspeciesOverride().getName(null)+" ("+target.getSubspecies().getName(target.getBody())+")";
 			}
-			return (target.isFeral()?"[style.colourFeral(Feral)] ":"")+target.getSubspecies().getName(target);
+			return (target.isFeral()?"[style.colourFeral(Feral)] ":"")+target.getSubspecies().getName(target.getBody());
 		}
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -1855,7 +1855,7 @@ public class StatusEffect {
 			
 			// Add subspecies appearance change:
 			if(target.getSubspeciesOverride()!=null && target.getSubspeciesOverride()!=target.getSubspecies()) {
-				String subspeciesName = target.getSubspecies().getName(target);
+				String subspeciesName = target.getSubspecies().getName(target.getBody());
 				additionalDescriptions.add(
 						new Value<>(2,
 								UtilText.parse(target,
