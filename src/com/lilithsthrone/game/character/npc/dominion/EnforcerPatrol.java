@@ -57,7 +57,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class EnforcerPatrol extends NPC {
 
 	public EnforcerPatrol() {
-		this(Occupation.NPC_ENFORCER_PATROL_CONSTABLE, Gender.F_V_B_FEMALE, false);
+		this(Occupation.NPC_ENFORCER_PATROL_CONSTABLE, Gender.getGenderFromUserPreferences(false, false), false);
 	}
 	
 	public EnforcerPatrol(boolean isImported) {

@@ -17,7 +17,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	AceXp's content contributions:
+	AceXP's content contributions:
 		Added a scene for watching Lilaya and Rose have sex in Lilaya's lab.
 		Added repeatable sex content for Angel, which is unlocked after visiting her after purchasing a prostitution license.
 	
@@ -30,6 +30,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where newly generated offspring would be of a random subspecies if they were meant to be a half-demon. (by AceXP)
 		Fixed issue where sometimes starting lust would be zero for newly spawned encounters instead of at their resting lust level. (by AceXP)
 		Fixed bug where if a character was immobilised then no orgasm options would be available for them to choose from, which led to a blank action grid being displayed to the immobilised player when a character reached orgasm. (PR#1638 by miome)
+		Added support for instantiating all NPC classes via the addNPC(String npcGenerationId, String parserTarget) method by using predefined names (like FieldsBandit) or qualified names (like dominion.DominionAlleywayAttacker). Also updated the default (no parameter) NPC constructors to make use of gender preferences. (PR#1615 by AceXP)
 		
 	Gameplay:
 		Filled in all placeholder dialogue in Penelope's spa, 'Woolly Heaven'.
@@ -124,12 +125,12 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		------
 	
 	[] PRs
-		1615 - Ace NPC generation fixes
-		1634 - Ace species name detection improvements
-		1638 - Allow orgasm actions while player is immobilized
-		1635 - DSG bug fix
-		1613 - maxis elder lilin perks
-		1630 - Maxis bug fixes
+		[x] 1615 - Ace NPC generation fixes
+		[] 1634 - Ace species name detection improvements
+		[x] 1638 - Allow orgasm actions while player is immobilized
+		[] 1635 - DSG bug fix
+		[] 1631 - maxis elder lilin perks
+		[] 1630 - Maxis bug fixes
 	
 	[] Would fully removing offspring interfere with the count of total met and unmet offspring? Not looked fully into that
 	

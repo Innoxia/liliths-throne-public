@@ -36,7 +36,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class BatCavernSlimeAttacker extends NPC {
 
 	public BatCavernSlimeAttacker() {
-		this(Gender.F_V_B_FEMALE, false);
+		this(Gender.getGenderFromUserPreferences(false, false), false);
 	}
 	
 	public BatCavernSlimeAttacker(Gender gender) {

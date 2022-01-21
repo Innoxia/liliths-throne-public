@@ -4,6 +4,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -59,7 +60,7 @@ public class DominionSuccubusAttacker extends NPC {
 	public DominionSuccubusAttacker(boolean isImported) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(50)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				5, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.GREATER,
+				5, Gender.getGenderFromUserPreferences(Femininity.FEMININE), Subspecies.DEMON, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
