@@ -288,9 +288,10 @@ public class EnforcerAlleywayDialogue {
 			}			   
 		}
 		
-		//check for unique stabvests
+		//check for a stabvest
 		else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER) != null &&
 				Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getId().startsWith("dsg_eep_ptrlequipset_stpvest")) {
+			//check for nameplates			
 			if(!Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().isEmpty()) {
 				switch (Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().get("name_plate")){
 					case "claire":
@@ -311,8 +312,14 @@ public class EnforcerAlleywayDialogue {
 							impersonatingSean = -1;
 						}
 						break;
+					case "enforcer":
+					    uniformPassable = 1;
+					    break;
 						
 				}
+			}
+			else {
+				uniformPassable = 0;
 			}
 		}
 		
