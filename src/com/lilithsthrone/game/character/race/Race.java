@@ -144,18 +144,18 @@ public class Race {
 			return true;
 		}
 		@Override
-		public String getName(GameCharacter character, boolean feral) {
-			if(feral && character!=null && character.getHalfDemonSubspecies()!=null && character.getHalfDemonSubspecies()!=Subspecies.HUMAN) {
-				return "demonic-"+character.getHalfDemonSubspecies().getFeralName(character);
+		public String getName(Body body, boolean feral) {
+			if(feral && body !=null && body.getHalfDemonSubspecies()!=null && body.getHalfDemonSubspecies()!=Subspecies.HUMAN) {
+				return "demonic-"+ body.getHalfDemonSubspecies().getFeralName(body);
 			}
-			return super.getName(character, feral);
+			return super.getName(body, feral);
 		}
 		@Override
-		public String getNamePlural(GameCharacter character, boolean feral) {
-			if(feral && character!=null && character.getHalfDemonSubspecies()!=null && character.getHalfDemonSubspecies()!=Subspecies.HUMAN) {
-				return "demonic-"+character.getHalfDemonSubspecies().getFeralNamePlural(character);
+		public String getNamePlural(Body body, boolean feral) {
+			if(feral && body !=null && body.getHalfDemonSubspecies()!=null && body.getHalfDemonSubspecies()!=Subspecies.HUMAN) {
+				return "demonic-"+ body.getHalfDemonSubspecies().getFeralNamePlural(body);
 			}
-			return super.getNamePlural(character, feral);
+			return super.getNamePlural(body, feral);
 		}
 //		// This is the same as what's found in Subspecies.DEMON
 //		@Override
@@ -317,24 +317,24 @@ public class Race {
 				FurryPreference.NORMAL,
 				true) {
 		@Override
-		public String getName(GameCharacter character, boolean feral) {
+		public String getName(Body body, boolean feral) {
 			if(Main.game!=null && Main.game.isSillyModeEnabled()) {
 				if(feral) {
 					return "awoo";
 				}
 				return "awoo-morph";
 			}
-			return super.getName(character, feral);
+			return super.getName(body, feral);
 		}
 		@Override
-		public String getNamePlural(GameCharacter character, boolean feral) {
+		public String getNamePlural(Body body, boolean feral) {
 			if(Main.game!=null && Main.game.isSillyModeEnabled()) {
 				if(feral) {
 					return "awoos";
 				}
 				return "awoo-morphs";
 			}
-			return super.getNamePlural(character, feral);
+			return super.getNamePlural(body, feral);
 		}
 		@Override
 		public void applyRaceChanges(Body body) {
@@ -395,24 +395,24 @@ public class Race {
 				FurryPreference.NORMAL,
 				true) {
 		@Override
-		public String getName(GameCharacter character, boolean feral) {
+		public String getName(Body body, boolean feral) {
 			if(Main.game!=null && Main.game.isSillyModeEnabled()) {
 				if(feral) {
 					return "catte";
 				}
 				return "catte-morph";
 			}
-			return super.getName(character, feral);
+			return super.getName(body, feral);
 		}
 		@Override
-		public String getNamePlural(GameCharacter character, boolean feral) {
+		public String getNamePlural(Body body, boolean feral) {
 			if(Main.game!=null && Main.game.isSillyModeEnabled()) {
 				if(feral) {
 					return "cattes";
 				}
 				return "catte-morphs";
 			}
-			return super.getNamePlural(character, feral);
+			return super.getNamePlural(body, feral);
 		}
 		@Override
 		public AbstractRacialBody getRacialBody() {
@@ -678,18 +678,18 @@ public class Race {
 			FurryPreference.NORMAL,
 			false) {
 		@Override
-		public String getName(GameCharacter character, boolean feral) {
+		public String getName(Body body, boolean feral) {
 			if(Main.game!=null && Main.game.isSillyModeEnabled()) {
 				return "birb";
 			}
-			return super.getName(character, feral);
+			return super.getName(body, feral);
 		}
 		@Override
-		public String getNamePlural(GameCharacter character, boolean feral) {
+		public String getNamePlural(Body body, boolean feral) {
 			if(Main.game!=null && Main.game.isSillyModeEnabled()) {
 				return "birbs";
 			}
-			return super.getNamePlural(character, feral);
+			return super.getNamePlural(body, feral);
 		}
 		@Override
 		public boolean isFlyingRace() {

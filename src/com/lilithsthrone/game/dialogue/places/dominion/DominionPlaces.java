@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.CultistDialogue;
@@ -74,6 +75,11 @@ public class DominionPlaces {
 								?"Nyan lives in this area, and so if you wanted to, you could head over to her apartment building and pay her a visit..."
 								:"Nyan lives in this area, although you know that she'll be at work at this hour, so there's not much point in heading over to her apartment building...")
 						+ "</p>");
+		}
+		
+		if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.DOMINION_CALLIE_BAKERY) {
+			mommySB.append("<p>[style.boldBrown(The Creamy Bakey:)]</p>");
+			mommySB.append(UtilText.parseFromXMLFile("nnxx/callie_bakery", "EXTERIOR"));
 		}
 		
 		for(NPC npc : characters) {
@@ -274,6 +280,28 @@ public class DominionPlaces {
 								+" in order to take Nyan out for a date!",
 							null));
 				}
+			}
+		}
+		
+		if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.DOMINION_CALLIE_BAKERY) {
+			if(Main.game.isWorkTime()) {
+				mommyResponses.add(new Response("The Creamy Bakey",
+						"Head over to the nearby bakery, 'The Creamy Bakey', and take a look inside."
+								+ "<br/><i>The bakery is open from [style.italicsMinorGood([unit.time(9)]-[unit.time(17)])].</i>",
+						Main.game.getDialogueFlags().hasFlag("nnxx_callie_introduced")
+							?DialogueManager.getDialogueFromId("nnxx_callie_bakery_entry")
+							:DialogueManager.getDialogueFromId("nnxx_callie_bakery_entry_first_time")) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(WorldType.getWorldTypeFromId("nnxx_callie_bakery"), PlaceType.getPlaceTypeFromId("nnxx_callie_bakery_counter"));
+					}
+				});
+				
+			} else {
+				mommyResponses.add(new Response("The Creamy Bakey",
+						"The nearby bakery, 'The Creamy Bakey', is closed at this time of day."
+								+ "<br/><i>You'll have to come back between [style.italicsMinorBad([unit.time(9)]-[unit.time(17)])].</i>",
+						null));
 			}
 		}
 		

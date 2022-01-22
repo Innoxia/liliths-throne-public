@@ -67,7 +67,7 @@ public interface SexActionInterface {
 	}
 
 	public default boolean isAvailableDuringImmobilisation() {
-		return this.getActionType()==SexActionType.SPEECH || this.getActionType()==SexActionType.SPEECH_WITH_ALTERNATIVE;
+		return this.getActionType()==SexActionType.SPEECH || this.getActionType()==SexActionType.SPEECH_WITH_ALTERNATIVE || this.getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM || this.getActionType()==SexActionType.ORGASM;
 	}
 	
 	/**

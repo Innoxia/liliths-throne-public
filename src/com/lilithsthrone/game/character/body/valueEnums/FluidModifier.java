@@ -73,7 +73,7 @@ public enum FluidModifier {
 						"<p style='padding:0; margin:0; text-align:center;'>"
 							+ "Due to the addictive properties of "+(fluidProvider==null?"":(fluidProvider.equals(target)?"[npc.her]":UtilText.parse(fluidProvider, "[npc.namePos]")))+" "+fluid.getName(fluidProvider)
 								+", [npc.name] [npc.verb(find)] [npc.herself] [style.colourArcane(craving)]"
-								+ " <span style='color:"+fluid.getType().getRace().getColour().toWebHexString()+";'>"+fluid.getType().getRace().getName(fluidProvider, fluid.isFeral(fluidProvider))+"</span> "+fluid.getName(fluidProvider)+"!"
+								+ " <span style='color:"+fluid.getType().getRace().getColour().toWebHexString()+";'>"+fluid.getType().getRace().getName(fluidProvider.getBody(), fluid.isFeral(fluidProvider))+"</span> "+fluid.getName(fluidProvider)+"!"
 						+ "</p>");
 				
 				
@@ -83,7 +83,7 @@ public enum FluidModifier {
 					return UtilText.parse(target, fluidProvider,
 							"<p style='padding:0; margin:0; text-align:center;'>"
 								+ "[npc.NamePos] [style.colourArcane(craving)] for <span style='color:"+fluid.getType().getRace().getColour().toWebHexString()+";'>"
-									+fluid.getType().getRace().getName(fluidProvider, fluid.isFeral(fluidProvider))
+									+fluid.getType().getRace().getName(fluidProvider.getBody(), fluid.isFeral(fluidProvider))
 								+"</span> "+fluid.getName(fluidProvider)
 									+" has been satisfied!"
 								+ (curedWithdrawal

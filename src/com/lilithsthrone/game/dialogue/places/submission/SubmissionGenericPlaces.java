@@ -293,7 +293,7 @@ public class SubmissionGenericPlaces {
 						
 						for(NPC npc : gamblersPresent) {
 							if(npc instanceof GamblingDenPatron) {
-								Main.game.removeNPC(npc);
+								Main.game.banishNPC(npc);
 							}
 						}
 						

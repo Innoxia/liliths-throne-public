@@ -86,7 +86,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4.3";
+	public static final String VERSION_NUMBER = "0.4.3.1";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -840,9 +840,9 @@ public class Main extends Application {
 			properties.money = game.getPlayer().getMoney();
 			properties.arcaneEssences = game.getPlayer().getEssenceCount();
 			if (game.getPlayer().isFeminine()) {
-				properties.race = game.getPlayer().getSubspecies().getSingularFemaleName(game.getPlayer());
+				properties.race = game.getPlayer().getSubspecies().getSingularFemaleName(game.getPlayer().getBody());
 			} else {
-				properties.race = game.getPlayer().getSubspecies().getSingularMaleName(game.getPlayer());
+				properties.race = game.getPlayer().getSubspecies().getSingularMaleName(game.getPlayer().getBody());
 			}
 			properties.quest = game.getPlayer().getQuest(QuestLine.MAIN).getName();
 
