@@ -226,6 +226,16 @@ h6{
 	border-radius:5px;
 }
 
+.item-count{
+	font-size:14px;
+	line-height:14px;
+	position:absolute;
+	text-align: right;
+	right:2px;
+	top:0;
+	pointer-events: none;
+	text-shadow: 2px 0 0 #19191a, -2px 0 0 #19191a, 0 2px 0 #19191a, 0 -2px 0 #19191a, 1px 1px #19191a, -1px -1px 0 #19191a, 1px -1px 0 #19191a, -1px 1px 0 #19191a;
+}
 
 /***********************************************************/
 /*EVENT LOG*/

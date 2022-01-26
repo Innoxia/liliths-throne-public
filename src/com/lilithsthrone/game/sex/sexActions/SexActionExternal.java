@@ -190,7 +190,11 @@ public class SexActionExternal extends SexAction {
 				Element descriptionsContainerElement = coreElement.getMandatoryFirstOf("descriptions");
 				for(Element descriptionsElement : descriptionsContainerElement.getAllOf("description")) {
 					DescriptionContainer descriptionContainer = new DescriptionContainer();
-					descriptionContainer.conditional = descriptionsElement.getMandatoryFirstOf("descriptionConditional").getTextContent().trim();
+					if(descriptionsElement.getOptionalFirstOf("descriptionConditional").isPresent()) {
+						descriptionContainer.conditional = descriptionsElement.getMandatoryFirstOf("descriptionConditional").getTextContent().trim();
+					} else {
+						descriptionContainer.conditional = "true";
+					}
 					descriptionContainer.descriptions = new ArrayList<>();
 					for(Element textElement : descriptionsElement.getAllOf("text")) {
 						descriptionContainer.descriptions.add(textElement.getTextContent().trim());

@@ -104,7 +104,7 @@ public class World implements XMLSaving {
 	
 	/**
 	 * @param place The AbstractPlaceType to find a Cell of.
-	 * @return A Cell of the PlaceType defined by the argument 'place'. If there are multiple Cells with the same PlaceType, the first one that is found is returned.
+	 * @return A Cell of the PlaceType defined by the argument 'place'. If there are multiple Cells with the same PlaceType, the first one that is found is returned. Returns null if place type does not exist.
 	 */
 	public Cell getCell(AbstractPlaceType place) {
 		for(int i=0; i<grid.length; i++) {

@@ -388,7 +388,7 @@ public class TooltipInformationEventListener implements EventListener {
 			boolean coreMove = owner.getEquippedMoves().contains(move);
 			
 			tooltipSB.append("<div class='subTitle' style='width:46%; margin:2% 2% 0% 2%;'>"+(coreMove?"[style.colourMinorGood(Core)]":"[style.colourMinorBad(Non-core)]")+"</div>");
-			tooltipSB.append("<div class='subTitle' style='color:"+move.getColourByDamageType(owner).toWebHexString()+"; width:46%; margin:2% 2% 0% 2%;'>"+move.getType().getName()+"</div>");
+			tooltipSB.append("<div class='subTitle' style='color:"+move.getColourByDamageType(0, owner).toWebHexString()+"; width:46%; margin:2% 2% 0% 2%;'>"+move.getType().getName()+"</div>");
 			
 			if(currentCooldown>0) {
 				tooltipSB.append("<div class='subTitle'><span style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>On cooldown</span>: "+currentCooldown+(currentCooldown==1?" turn":" turns")+"</div>");
@@ -430,7 +430,7 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append(
 					"<div class='description'>"
 						+"<span style='color:"+(availableValue.getKey()?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_MINOR_BAD).toWebHexString()+";'>"+availableValue.getValue()+"</span> "
-						+ move.getDescription(owner)
+						+ move.getDescription(!Main.game.isInCombat()?0:owner.getSelectedMoves().size(), owner)
 					+ "</div>");
 			
 
@@ -876,8 +876,8 @@ public class TooltipInformationEventListener implements EventListener {
 								:"")
 							+ "<b style='color:"+owner.getSubspecies().getColour(owner).toWebHexString()+";'>"
 								+ (owner.isFeminine()
-										?Util.capitaliseSentence(owner.getSubspecies().getSingularFemaleName(owner))
-										:Util.capitaliseSentence(owner.getSubspecies().getSingularMaleName(owner)))
+										?Util.capitaliseSentence(owner.getSubspecies().getSingularFemaleName(owner.getBody()))
+										:Util.capitaliseSentence(owner.getSubspecies().getSingularMaleName(owner.getBody())))
 							+ "</b>"
 							+ "</div>");
 					
@@ -1547,7 +1547,7 @@ public class TooltipInformationEventListener implements EventListener {
 	
 	private String getBodyPartDiv(GameCharacter character, String name, AbstractRace race, Covering covering, boolean feral, String size) {
 		String raceName;
-		raceName = race.getName(character, feral);
+		raceName = race.getName(character.getBody(), feral);
 
 		Colour primaryColour = covering.getPrimaryColour();
 		Colour secondaryColour = covering.getSecondaryColour();
@@ -1565,7 +1565,7 @@ public class TooltipInformationEventListener implements EventListener {
 					raceName = ((Elemental)character).getCurrentSchool().getName()+"-wisp";
 					elementalFeral = false;
 				} else {
-					raceName = ((Elemental)character).getPassiveForm().getFeralName(character);
+					raceName = ((Elemental)character).getPassiveForm().getFeralName(character.getBody());
 				}
 			}
 		}

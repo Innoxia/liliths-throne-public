@@ -233,7 +233,7 @@ public class LunetteMelee extends NPC {
 	
 	@Override
 	public String getDescription() {
-		return UtilText.parse(this, "This demonic centaur is a member of the faction 'Lunette's Maruaders', and loves nothing more than to break anything and anyone who gets in [npc.her] way.");
+		return UtilText.parse(this, "This demonic centaur is a member of the faction 'Lunette's Marauders', and loves nothing more than to break anything and anyone who gets in [npc.her] way.");
 	}
 	
 	@Override

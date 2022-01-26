@@ -59,7 +59,7 @@ public class RebelBaseInsaneSurvivor extends NPC {
     public static final int RECRUITMENT_YEAR = 1990;
     
     public RebelBaseInsaneSurvivor() {
-        this(Gender.M_P_MALE, false);
+        this(Gender.getGenderFromUserPreferences(false, false), false);
     }
     
     public RebelBaseInsaneSurvivor(Gender gender) {
@@ -199,7 +199,7 @@ public class RebelBaseInsaneSurvivor extends NPC {
         
         this.setMoney(0);
         
-        this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.STOMACH_SARASHI, PresetColour.CLOTHING_WHITE, false), true, this);
+        this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_stomach_sarashi", PresetColour.CLOTHING_WHITE, false), true, this);
         this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_WHITE, false), true, this);
         
         AbstractClothing tunic = Main.game.getItemGen().generateClothing("dsg_hlf_equip_rtunic", false);

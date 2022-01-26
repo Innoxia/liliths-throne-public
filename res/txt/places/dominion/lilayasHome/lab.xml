@@ -4,13 +4,20 @@
 	<!-- LAB -->
 	
 	<htmlContent tag="LAB"><![CDATA[
-	<p>
-		#IF(game.isExtendedWorkTime())
+	#IF(lilaya.getLocationPlaceType()==PLACE_TYPE_LILAYA_HOME_LAB)
+		<p>
 			Lilaya's laboratory is located in this particular corner of the house, and as you approach it, you see that the door has been left wide [style.colourGood(open)]. With no physical barrier blocking your way, you could simply step forwards and enter the lab, or continue on your way and choose to come back at another time.
-		#ELSE
-			Lilaya's laboratory is located in this particular corner of the house, and as you approach it, you see that the door has been firmly [style.colourBad(closed)]. Considering the current hour, it's most likely that your [lilaya.relation(pc)] and and her cat-girl maid have both retired to their rooms in order to get a good night's sleep. If you wanted to discuss something with Lilaya, you'll have to come back later during the day.
+		</p>
+		#IF(!flags.hasFlag(FLAG_acexp_lilaya_daily_voyeurism))
+			<p>
+				As you stand before the door to Lilaya's laboratory, a lewd idea forms in your mind. Your demonic aunt and her cat-girl maid are always up to something whenever you enter, and you could try to sneak up on them and see for yourself what they're doing. All it would take is to move very quietly, and once you're inside, you're sure that you could find a good spot from which to observe them...
+			</p>
 		#ENDIF
-	</p>
+	#ELSE
+		<p>
+			Lilaya's laboratory is located in this particular corner of the house, and as you approach it, you see that the door has been firmly [style.colourBad(closed)]. Considering the current hour, it's most likely that your [lilaya.relation(pc)] and and her cat-girl maid have both retired to their rooms in order to get a good night's sleep. If you wanted to discuss something with Lilaya, you'll have to come back later during the day.
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -19,8 +26,7 @@
 		As you approach the door to Lilaya's lab, you notice that it's been firmly pulled shut. A little piece of paper has been stuck on it, and you see that your demonic [lilaya.relation(pc)] has left you a handwritten note:
 	</p>
 	<p style='text-align:center;'>
-		#IF lilaya.isCondomBroke()
-		#THEN
+		#IF(lilaya.isCondomBroke())
 			<i>Hey [pc.name], I know the condom breaking wasn't your fault, but I need some time alone. I don't want anyone seeing me pregnant. Come back later after I've given birth.</i>
 		#ELSE
 			<i>Hey [pc.name], would you kindly fuck off and give me some time alone? I don't want anyone seeing me pregnant, especially not you! Come back later after I've given birth.</i>
@@ -40,8 +46,7 @@
 		As you approach the door to Lilaya's lab, you notice that it's been firmly pulled shut. A little piece of paper has been stuck on it, and you see that demonic [lilaya.relation(pc)] has left you a handwritten note:
 	</p>
 	<p style='text-align:center;'>
-		#IF lilaya.isCondomBroke()
-		#THEN
+		#IF(lilaya.isCondomBroke())
 			<i>Hey [pc.name], I may have overreacted a little, but this really is all your fault for buying cheap crappy condoms. I'm keeping this door locked until I know if I'm pregnant or not.</i>
 		#ELSE
 			<i>Hey [pc.name], I thought you could do with taking some time to think about what 'pull out next time you fucking asshole' could possibly mean. I'm keeping this door locked until I know if I'm pregnant or not. You'd better hope I'm not.</i>
@@ -124,9 +129,10 @@
 	</p>
 	<p>
 		[lilaya.speech(Yes, that's right!)] she angrily shouts, before marching over towards you.
-		#IF lilaya.isCondomBroke()
-		#THEN [lilaya.speech(You ended up getting me pregnant! This is all your fault for using such cheap, crappy condoms! Why couldn't you have just pulled out instead?!)]
-		#ELSE [lilaya.speech(You ended up getting me pregnant! I <i>told</i> you to pull out! I knew this would happen!)]		
+		#IF(lilaya.isCondomBroke())
+			 [lilaya.speech(You ended up getting me pregnant! This is all your fault for using such cheap, crappy condoms! Why couldn't you have just pulled out instead?!)]
+		#ELSE
+			 [lilaya.speech(You ended up getting me pregnant! I <i>told</i> you to pull out! I knew this would happen!)]		
 		#ENDIF
 	</p>
 	<p>
@@ -155,8 +161,7 @@
 		[lilaya.speech(You're a very lucky [pc.girl],)] she firmly states as she approaches, [lilaya.speech(As you can see, I'm not pregnant. You'd have been in so much trouble if I was!)]
 	</p>
 	<p>
-		#IF lilaya.isCondomBroke()
-		#THEN
+		#IF(lilaya.isCondomBroke())
 			[pc.speech(Well, it wasn't my fault the condom broke. Everything worked out fine in the end anyway,)] you say, sensing that Lilaya's anger won't last.
 		#ELSE
 			[pc.speech(Everything worked out fine in the end then,)] you say, sensing that Lilaya's anger won't last.
@@ -167,9 +172,10 @@
 	</p>
 	<p>
 		Reassuring your [lilaya.relation(pc)] that everything's ok, you walk her back over to her lab table, where she lets out one final sigh and says that she forgives you for not pulling out like she asked. As her thoughts turn back to the sex which the two of you had, Lilaya starts hungrily staring at your body, and, with a sultry tone in her voice, she traces a finger over your chest and asks,
-		#IF lilaya.isCondomBroke()
-		#THEN [lilaya.speech(Now that you're here, would you like me to run some more <i>tests</i>? With the condition that you've got a proper condom this time, or that you'll be sure to pull out...)]
-		#ELSE [lilaya.speech(Now that you're here, would you like me to run some more <i>tests</i>? With the condition that you'll be sure to pull out, of course...)]
+		#IF(lilaya.isCondomBroke())
+			 [lilaya.speech(Now that you're here, would you like me to run some more <i>tests</i>? With the condition that you've got a proper condom this time, or that you'll be sure to pull out...)]
+		#ELSE
+			 [lilaya.speech(Now that you're here, would you like me to run some more <i>tests</i>? With the condition that you'll be sure to pull out, of course...)]
 		#ENDIF
 	</p>
 	<p>
@@ -192,8 +198,7 @@
 		[pc.speech(Sorry for the trouble,)] you say.
 	</p>
 	<p>
-		#IF lilaya.isCondomBroke()
-		#THEN
+		#IF(lilaya.isCondomBroke())
 			Your [lilaya.relation(pc)] lets out a resigned sigh as you say that, and, lowering her voice, she continues, [lilaya.speech(Yes, well, I've already forgiven you. It wasn't really your fault that the condom broke. Just know now that I <i>hate</i> being pregnant, so don't let this happen again.)]
 		#ELSE
 			Your [lilaya.relation(pc)] lets out a resigned sigh as you say that, and, lowering her voice, she continues, [lilaya.speech(Yes, well, I've already forgiven you. Just know now that I <i>hate</i> being pregnant, so when I say pull out, I mean it.)]
@@ -201,9 +206,10 @@
 	</p>
 	<p>
 		Reassuring your [lilaya.relation(pc)] that you now appreciate how much she dislikes being pregnant, you walk her back over to her lab table, where she lets out one final sigh and says that she really did try to warn you about pulling out. As her thoughts turn back to the sex which the two of you had, Lilaya starts hungrily staring at your body, and, with a sultry tone in her voice, she traces a finger over your chest and asks,
-		#IF lilaya.isCondomBroke()
-		#THEN [lilaya.speech(Now that you're here, and that whole business is behind us, would you like me to run some more <i>tests</i>? With the condition that you've got a proper condom this time, or that you'll be sure to pull out...)]
-		#ELSE [lilaya.speech(Now that you're here, and that whole business is behind us, would you like me to run some more <i>tests</i>? With the condition that you'll be sure to pull out, of course...)]
+		#IF(lilaya.isCondomBroke())
+			 [lilaya.speech(Now that you're here, and that whole business is behind us, would you like me to run some more <i>tests</i>? With the condition that you've got a proper condom this time, or that you'll be sure to pull out...)]
+		#ELSE
+			 [lilaya.speech(Now that you're here, and that whole business is behind us, would you like me to run some more <i>tests</i>? With the condition that you'll be sure to pull out, of course...)]
 		#ENDIF
 	</p>
 	<p>
@@ -1539,11 +1545,16 @@
 		#IF(pc.hasFetish(FETISH_INCEST))
 			 As you've got a serious kink for incestuous sex, you can't help but find this fact immensely arousing, and buck your groin even harder into your demonic [lilaya.relation(pc)]'s hand.
 		#ELSE
-			 Then again, she <i>is</i> a half-demon in this reality, so there's no real relation between the two of you... right?
+			 Then again, she <i>is</i> [lilaya.a_race] in this reality, so there's no real relation between the two of you... right?
 		#ENDIF
 	</p>
 	<p>
-		At that moment, Lilaya leans in to whisper one last thing in your ear, [lilaya.speech(You know, I'm all-demon where it counts... You want to see what a demon's pussy looks like, don't you?)]
+		At that moment, Lilaya leans in to whisper one last thing in your ear,
+		#IF(lilaya.getSubspecies()==SUBSPECIES_DEMON)
+			 [lilaya.speech(You want to see what my hot little demon pussy looks like, don't you?)]
+		#ELSE
+			 [lilaya.speech(You know, I'm all-demon where it counts... You want to see what a demon's pussy looks like, don't you?)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>

@@ -26,6 +26,8 @@ import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
+ * This class is used for the customisable slave available from Helena's slave shop.
+ * 
  * @since 0.3.7
  * @version 0.3.7
  * @author Innoxia
@@ -33,7 +35,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class BasicSlave extends NPC {
 
 	public BasicSlave() {
-		this(Gender.F_V_B_FEMALE, false);
+		this(Gender.getGenderFromUserPreferences(false, false), false);
 	}
 	
 	public BasicSlave(Gender gender) {

@@ -91,7 +91,14 @@ public class GenericActions {
 				sexTypesBanned.add(st.getReversedSexType());
 			}
 		}
-		
+		if(preference!=null) {
+			if(domBanned.contains(preference.getPerformingSexArea())
+					|| subBanned.contains(preference.getTargetedSexArea())
+					|| !dom.isAbleToAccessCoverableArea(preference.getPerformingSexArea().getRelatedCoverableArea(dom), true)
+					|| !sub.isAbleToAccessCoverableArea(preference.getTargetedSexArea().getRelatedCoverableArea(sub), true)) {
+				preference = null;
+			}
+		}
 		if(preference==null && dom.isAbleToAccessCoverableArea(CoverableArea.MOUTH, true) && !domBanned.contains(SexAreaOrifice.MOUTH)) {
 			if(sub.hasPenis() && !subBanned.contains(SexAreaPenetration.PENIS) && sub.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
 				preference = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS);
@@ -138,7 +145,14 @@ public class GenericActions {
 				sexTypesBanned.add(st.getReversedSexType());
 			}
 		}
-		
+		if(preference!=null) {
+			if(domBanned.contains(preference.getPerformingSexArea())
+					|| subBanned.contains(preference.getTargetedSexArea())
+					|| !dom.isAbleToAccessCoverableArea(preference.getPerformingSexArea().getRelatedCoverableArea(dom), true)
+					|| !sub.isAbleToAccessCoverableArea(preference.getTargetedSexArea().getRelatedCoverableArea(sub), true)) {
+				preference = null;
+			}
+		}
 		if(preference==null && dom.hasPenis() && !domBanned.contains(SexAreaPenetration.PENIS) && dom.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
 			if(sub.hasVagina() && !subBanned.contains(SexAreaOrifice.VAGINA) && sub.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 				preference = new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
@@ -282,6 +296,11 @@ public class GenericActions {
 						?(dom.getOrgasmsBeforeSatisfied()-Main.sex.getNumberOfOrgasms(dom))
 						:Math.max((sub.getOrgasmsBeforeSatisfied()-Main.sex.getNumberOfOrgasms(sub)), (dom.getOrgasmsBeforeSatisfied()-Main.sex.getNumberOfOrgasms(dom)));
 				for(int i=0; i<orgamsNeeded; i++) {
+					// Regenerate cum by 5 minutes' worth of cum, so that there's cum for the next orgasm:
+					// Moved before orgasm so the first quick sex orgasm isn't dry
+					dom.incrementPenisStoredCum((5*60) * dom.getCumRegenerationPerSecond());
+					sub.incrementPenisStoredCum((5*60) * sub.getCumRegenerationPerSecond());
+
 					if(dom instanceof NPC) {
 						Value<AbstractClothing, String> clothingValue = ((NPC)dom).getSexClothingToSelfEquip(sub, true);
 						while(clothingValue!=null) {
@@ -293,10 +312,6 @@ public class GenericActions {
 					sb.append("[style.boldPurple(Sex)] ([style.colourSexDom("+Util.capitaliseSentence(preference.getPerformingSexArea().getName(dom, true))+")]-[style.colourSexSub("+preference.getTargetedSexArea().getName(sub, true)+")]): ");
 					sb.append(dom.calculateGenericSexEffects(true, true, sub, preference, GenericSexFlag.EXTENDED_DESCRIPTION_NEEDED, (preventCreampie?GenericSexFlag.PREVENT_CREAMPIE:null))); // This increments orgasms
 					sb.append("</p>");
-					
-					// Regenerate cum by 5 minutes' worth of cum after orgasm, so that there's cum for the next orgasm:
-					dom.incrementPenisStoredCum((5*60) * dom.getCumRegenerationPerSecond());
-					sub.incrementPenisStoredCum((5*60) * sub.getCumRegenerationPerSecond());
 					
 					if(orgamsNeeded>1) {
 						dom.generateSexChoices(false, sub);
@@ -333,12 +348,16 @@ public class GenericActions {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+//		@Override
+//		public SexActionPriority getPriority() {
+//			if(Main.sex.isCharacterImmobilised(Main.sex.getCharacterPerformingAction())) {
+//				return SexActionPriority.UNIQUE_MAX; // So that this action is available with the 'Cocooned!' action.
+//			}
+//			return super.getPriority();
+//		}
 		@Override
-		public SexActionPriority getPriority() {
-			if(Main.sex.isCharacterImmobilised(Main.sex.getCharacterPerformingAction())) {
-				return SexActionPriority.UNIQUE_MAX; // So that this action is available with the 'Cocooned!' action.
-			}
-			return super.getPriority();
+		public boolean isAvailableDuringImmobilisation() {
+			return true;
 		}
 		@Override
 		public Colour getHighlightColour() {
@@ -535,7 +554,7 @@ public class GenericActions {
 			} else if (Main.game.getPlayer().isYouko()){
 				sb.append(Main.game.getPlayer().setPenisType(PenisType.FOX_MORPH));
 			} else {
-				sb.append(Main.game.getPlayer().setPenisType(RacialBody.valueOfRace(Main.game.getPlayer().getFleshSubspecies().getRace()).getPenisType()));
+				sb.append(Main.game.getPlayer().setPenisType(RacialBody.valueOfRace(Main.game.getPlayer().getBody().getFleshSubspecies().getRace()).getPenisType()));
 			}
 			if(Main.game.getPlayer().getPenisRawCumStorageValue() < 150) {
 				sb.append(Main.game.getPlayer().setPenisCumStorage(150));
@@ -640,7 +659,7 @@ public class GenericActions {
 			} else if(Main.sex.getCharacterTargetedForSexAction(this).isYouko()) {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(PenisType.FOX_MORPH));
 			} else {
-				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(RacialBody.valueOfRace(Main.sex.getCharacterTargetedForSexAction(this).getFleshSubspecies().getRace()).getPenisType()));
+				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(RacialBody.valueOfRace(Main.sex.getCharacterTargetedForSexAction(this).getBody().getFleshSubspecies().getRace()).getPenisType()));
 			}
 			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisRawCumStorageValue() < 150) {
 				Main.sex.getCharacterTargetedForSexAction(this).setPenisCumStorage(150);
@@ -2033,6 +2052,84 @@ public class GenericActions {
 			return "";
 		}
 	};
+
+	public static final SexAction ROPE_BOUND = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ZERO_NONE,
+			ArousalIncrease.ZERO_NONE,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+
+		@Override
+		public boolean isAvailableDuringImmobilisation() {
+			return true;
+		}
+		@Override
+		public String getActionTitle() {
+			return "[style.boldBad(Bound!)]";
+		}
+		@Override
+		public String getActionDescription() {
+			return "The ropes tied around your body are preventing you from making a move!";
+		}
+		@Override
+		public boolean isBaseRequirementsMet() {
+			Value<ImmobilisationType, GameCharacter> value = Main.sex.getImmobilisationType(Main.sex.getCharacterPerformingAction());
+			return value!=null && value.getKey()==ImmobilisationType.ROPE;
+		}
+		@Override
+		public String getDescription() {
+			return UtilText.returnStringAtRandom(
+					"[npc.Name] [npc.verb(try)] to make a move, but the ropes binding [npc.herHim] in place are too strong, and [npc.she] [npc.verb(collapse)] back down, stunned.");
+		}
+		@Override
+		public List<Fetish> getExtraFetishes(GameCharacter character) {
+			if(character.equals(Main.sex.getCharacterPerformingAction())) {
+				return Util.newArrayListOfValues(Fetish.FETISH_BONDAGE_VICTIM);
+			}
+			return null;
+		}
+	};
+
+	public static final SexAction CHAINS_BOUND = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ZERO_NONE,
+			ArousalIncrease.ZERO_NONE,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+
+		@Override
+		public boolean isAvailableDuringImmobilisation() {
+			return true;
+		}
+		@Override
+		public String getActionTitle() {
+			return "[style.boldBad(Bound!)]";
+		}
+		@Override
+		public String getActionDescription() {
+			return "The chains tied around your body are preventing you from making a move!";
+		}
+		@Override
+		public boolean isBaseRequirementsMet() {
+			Value<ImmobilisationType, GameCharacter> value = Main.sex.getImmobilisationType(Main.sex.getCharacterPerformingAction());
+			return value!=null && value.getKey()==ImmobilisationType.CHAINS;
+		}
+		@Override
+		public String getDescription() {
+			return UtilText.returnStringAtRandom(
+					"[npc.Name] [npc.verb(try)] to make a move, but the chains binding [npc.herHim] in place are too strong, and [npc.she] [npc.verb(collapse)] back down, stunned.");
+		}
+		@Override
+		public List<Fetish> getExtraFetishes(GameCharacter character) {
+			if(character.equals(Main.sex.getCharacterPerformingAction())) {
+				return Util.newArrayListOfValues(Fetish.FETISH_BONDAGE_VICTIM);
+			}
+			return null;
+		}
+	};
 	
 	// Spinneret:
 	
@@ -2060,7 +2157,7 @@ public class GenericActions {
 			return (Main.sex.getCharacterPerformingAction().isPlayer()
 						|| ((NPC) Main.sex.getCharacterPerformingAction()).isWantingToEquipCondom(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction())))
 					&& Main.sex.getCharacterPerformingAction().hasPenisIgnoreDildo()
-					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterPerformingAction(), InventorySlot.PENIS)
+					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterPerformingAction(), InventorySlot.PENIS, null)
 					&& Main.sex.getCharacterPerformingAction().getClothingInSlot(InventorySlot.PENIS)==null;
 		}
 		@Override
@@ -2102,7 +2199,7 @@ public class GenericActions {
 			return (Main.sex.getCharacterPerformingAction().isPlayer()
 						|| ((NPC) Main.sex.getCharacterPerformingAction()).isWantingToEquipCondomOnPartner(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction())))
 					&& Main.sex.getCharacterTargetedForSexAction(this).hasPenisIgnoreDildo()
-					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.PENIS)
+					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.PENIS, null)
 					&& Main.sex.getCharacterTargetedForSexAction(this).getClothingInSlot(InventorySlot.PENIS)==null;
 		}
 		@Override
@@ -2142,7 +2239,7 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {//TODO add behaviour for NPCs too
 			return Main.sex.getCharacterPerformingAction().isPlayer()
-					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.VAGINA)
+					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.VAGINA, null)
 					&& Main.sex.getCharacterTargetedForSexAction(this).getClothingInSlot(InventorySlot.VAGINA)==null;
 		}
 		@Override
@@ -2191,7 +2288,7 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {//TODO add behaviour for NPCs too
 			return Main.sex.getCharacterPerformingAction().isPlayer()
-					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.ANUS)
+					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.ANUS, null)
 					&& Main.sex.getCharacterTargetedForSexAction(this).getClothingInSlot(InventorySlot.ANUS)==null;
 		}
 		@Override
@@ -2240,7 +2337,7 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {//TODO add behaviour for NPCs too
 			return Main.sex.getCharacterPerformingAction().isPlayer()
-					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.NIPPLE)
+					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.NIPPLE, null)
 					&& Main.sex.getCharacterTargetedForSexAction(this).getClothingInSlot(InventorySlot.NIPPLE)==null;
 		}
 		@Override
@@ -2289,7 +2386,7 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {//TODO add behaviour for NPCs too
 			return Main.sex.getCharacterPerformingAction().isPlayer()
-					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.MOUTH)
+					&& Main.sex.isClothingEquipAvailable(Main.sex.getCharacterTargetedForSexAction(this), InventorySlot.MOUTH, null)
 					&& Main.sex.getCharacterTargetedForSexAction(this).getClothingInSlot(InventorySlot.MOUTH)==null;
 		}
 		@Override
@@ -2423,9 +2520,10 @@ public class GenericActions {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+
 		@Override
-		public SexActionPriority getPriority() {
-			return SexActionPriority.UNIQUE_MAX;
+		public boolean isAvailableDuringImmobilisation() {
+			return true;
 		}
 		@Override
 		public String getActionTitle() {
@@ -2684,9 +2782,10 @@ public class GenericActions {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+
 		@Override
-		public SexActionPriority getPriority() {
-			return SexActionPriority.UNIQUE_MAX;
+		public boolean isAvailableDuringImmobilisation() {
+			return true;
 		}
 		@Override
 		public String getActionTitle() {
@@ -3098,8 +3197,8 @@ public class GenericActions {
 			null,
 			SexParticipantType.NORMAL) {
 		@Override
-		public SexActionPriority getPriority() {
-			return SexActionPriority.UNIQUE_MAX;
+		public boolean isAvailableDuringImmobilisation() {
+			return true;
 		}
 		@Override
 		public String getActionTitle() {

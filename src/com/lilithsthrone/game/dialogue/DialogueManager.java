@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.places.submission.LyssiethPalaceDialogue;
+import com.lilithsthrone.game.dialogue.utils.CosmeticsDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -26,6 +27,14 @@ public class DialogueManager {
 	private static List<DialogueNode> allDialogues = new ArrayList<>();
 	private static Map<DialogueNode, String> dialogueToIdMap = new HashMap<>();
 	private static Map<String, DialogueNode> idToDialogueMap = new HashMap<>();
+
+	public static Map<DialogueNode, String> getDialogueToIdMap() {
+		return dialogueToIdMap;
+	}
+
+	public static Map<String, DialogueNode> getIdToDialogueMap() {
+		return idToDialogueMap;
+	}
 
 	/**
 	 * For use in external res files as a way to get a hook to UtilText.parseFromXMLFile
@@ -70,6 +79,12 @@ public class DialogueManager {
 		allDialogues.add(LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START);
 		dialogueToIdMap.put(LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START, id);
 		idToDialogueMap.put(id, LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START);
+		
+		id = "BEAUTICIAN_START";
+		allDialogues.add(CosmeticsDialogue.BEAUTICIAN_START);
+		dialogueToIdMap.put(CosmeticsDialogue.BEAUTICIAN_START, id);
+		idToDialogueMap.put(id, CosmeticsDialogue.BEAUTICIAN_START);
+		
 		
 		// Modded dialogue types:
 		

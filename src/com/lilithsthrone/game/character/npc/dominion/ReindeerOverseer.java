@@ -47,7 +47,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class ReindeerOverseer extends NPC {
 	
 	public ReindeerOverseer() {
-		this(Gender.F_V_B_FEMALE, false);
+		this(Gender.getGenderFromUserPreferences(false, false), false);
 	}
 	
 	public ReindeerOverseer(Gender gender) {
@@ -157,7 +157,7 @@ public class ReindeerOverseer extends NPC {
 	@Override
 	public void dailyUpdate() {
 		
-		if(!this.isSlave()) {
+		if(!this.isSlave() && !Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())) {
 			if(Main.game.getCurrentWeather()!=Weather.SNOW && Main.game.getSeason()!=Season.WINTER) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.hasSnowedThisWinter);
 				if(this.getLocation()!=Main.game.getPlayer().getLocation()) {

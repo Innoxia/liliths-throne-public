@@ -5,40 +5,94 @@
 	Please note that the final id of the flags defined below will have the parent folder's name appended to the front of them.
 		i.e. 'elis_berries_found' will be identified as 'innoxia_elis_berries_found' during the game's runtime. -->
 	
-	<!-- Meraxis -->
-		<flag dailyReset="false">meraxis_any_sex_unlocked</flag>
-		<flag dailyReset="false">meraxis_handjobs_unlocked</flag>
-		<flag dailyReset="false">meraxis_oral_unlocked</flag>
-		<flag dailyReset="false">meraxis_anal_unlocked</flag>
-		<flag dailyReset="false">meraxis_paizuri_unlocked</flag>
-		<flag dailyReset="false">meraxis_vaginal_unlocked</flag>
-		<flag dailyReset="false">meraxis_demon_tf_teleported</flag>
-		<flag dailyReset="true">meraxis_daily_sex</flag>
-	<!-- Meraxis Duels -->
-		<flag dailyReset="true">meraxis_duel_daily_complete</flag>
-		<flag dailyReset="false">meraxis_duel_place_dominion</flag>
-		<flag dailyReset="false">meraxis_duel_place_elis</flag>
-		<flag dailyReset="false">meraxis_duel_reward_money</flag>
-		<flag dailyReset="false">meraxis_duel_reward_transform</flag>
-		<flag dailyReset="false">meraxis_duel_reward_sex</flag>
+	<!-- Meraxis: -->
+	
+		<!-- Sex flags -->
+			<flag dailyReset="false">meraxis_any_sex_unlocked</flag>
+			<flag dailyReset="false">meraxis_handjobs_unlocked</flag>
+			<flag dailyReset="false">meraxis_oral_unlocked</flag>
+			<flag dailyReset="false">meraxis_anal_unlocked</flag>
+			<flag dailyReset="false">meraxis_paizuri_unlocked</flag>
+			<flag dailyReset="false">meraxis_vaginal_unlocked</flag>
+			<flag dailyReset="false">meraxis_demon_tf_teleported</flag>
+			<flag dailyReset="true">meraxis_daily_sex</flag>
+			
+		<!-- Duels -->
+			<flag dailyReset="true">meraxis_duel_daily_complete</flag>
+			<flag dailyReset="false">meraxis_duel_place_dominion</flag>
+			<flag dailyReset="false">meraxis_duel_place_elis</flag>
+			<flag dailyReset="false">meraxis_duel_reward_money</flag>
+			<flag dailyReset="false">meraxis_duel_reward_transform</flag>
+			<flag dailyReset="false">meraxis_duel_reward_sex</flag>
 	
 	
-	<!-- Astrapi and Vronti -->
-		<flag dailyReset="false">centaur_transport_introduced</flag>
-		<flag dailyReset="true">centaur_transport_setup_in_progress</flag>
-		<flag dailyReset="false">centaur_travel_to_elis</flag>
-		<flag dailyReset="false">vronti_handjob_given</flag>
-		<flag dailyReset="false">vronti_blowjob_given</flag>
-		<flag dailyReset="false">vronti_sex_given</flag>
-		<flag dailyReset="false">vronti_anilingus_given</flag>
-		<flag dailyReset="false">vronti_anal_sex_given</flag>
-		<flag dailyReset="false">astrapi_not_shaving</flag>
+	<!-- Foloi Fields: -->
+		
+		<!-- Field attacker and encounters: -->
+			<flag dailyReset="false">fields_centaur_attacker_talked</flag>
+			<flag dailyReset="false">fields_bandit_talked</flag>
+			<flag dailyReset="false">fields_headless_horseman_encountered</flag>
 	
-	<!-- Field attackers: -->
-		<flag dailyReset="false">fields_centaur_attacker_talked</flag>
-		<flag dailyReset="false">fields_bandit_talked</flag>
+		<!-- Astrapi and Vronti -->
+			<flag dailyReset="false">centaur_transport_introduced</flag>
+			<flag dailyReset="true">centaur_transport_setup_in_progress</flag>
+			<flag dailyReset="false">centaur_travel_to_elis</flag>
+			<flag dailyReset="false">vronti_handjob_given</flag>
+			<flag dailyReset="false">vronti_blowjob_given</flag>
+			<flag dailyReset="false">vronti_sex_given</flag>
+			<flag dailyReset="false">vronti_anilingus_given</flag>
+			<flag dailyReset="false">vronti_anal_sex_given</flag>
+			<flag dailyReset="false">astrapi_not_shaving</flag>
+			
+		<!-- Evelyx's Dairy: -->
+			<flag dailyReset="true">dale_talk_himself</flag>
+			<flag dailyReset="true">dale_talk_work</flag>
+			<flag dailyReset="true">dale_talk_evelyx</flag>
+			<flag dailyReset="true">dale_talk_farm</flag>
+			<flag dailyReset="true">dale_talk_lunette</flag>
+			<flag dailyReset="false">evelyx_cow_search_furry</flag>
+			<flag dailyReset="false">evelyx_cow_search_taur</flag>
+			<flag dailyReset="false">evelyx_cow_search_pregnant</flag>
+			<flag dailyReset="false">evelyx_cow_search_high_mileage</flag>
+			<flag dailyReset="false">evelyx_reception_sex</flag>
+			<flag dailyReset="false">evelyx_dorm_sex</flag>
+			<flag dailyReset="false">evelyx_work_started</flag>
+			<flag dailyReset="false">evelyx_work_offered</flag>
+			<flag dailyReset="false">evelyx_work_accessories_trainee</flag>
+			<flag dailyReset="false">evelyx_work_accessories_heifer</flag>
+			<flag dailyReset="false">evelyx_work_accessories_cow</flag>
+			<flag dailyReset="false">evelyx_work_sex_scene_just_ended</flag>
+			<flag dailyReset="false">evelyx_work_fucked</flag>
+			<flag dailyReset="false">evelyx_work_not_pregnant_at_start</flag>
+			<flag dailyReset="false">evelyx_work_impregnated</flag>
+			<flag dailyReset="false">evelyx_work_promotion1</flag>
+			<flag dailyReset="false">evelyx_work_promotion2</flag>
+			<flag dailyReset="false">evelyx_work_promotion3</flag>
+			<flag dailyReset="false">evelyx_work_promotion_meeting</flag>
+			<flag dailyReset="false">evelyx_work_promotion_meeting_happened</flag>
+			<flag dailyReset="true">evelyx_work_promotion_meeting_didnt_sign</flag>
+			<flag dailyReset="false">evelyx_finished_no_bad_end</flag>
+			<flag dailyReset="true">evelyx_no_bad_end_daily_fuck</flag>
+			<flag dailyReset="false">evelyx_monica_meeting</flag>
+			<flag dailyReset="true">evelyx_monica_meeting_refused</flag>
+			<flag dailyReset="false">evelyx_monica_ring_questions_failed</flag>
+			<flag dailyReset="false">evelyx_daily_fuck_unlocked</flag>
+			<flag dailyReset="false">evelyx_daily_fuck_gaped</flag>
+			<flag dailyReset="true">evelyx_daily_fuck</flag>
+			<!-- Bad end: -->
+			<flag dailyReset="true">evelyx_bad_end_pussy</flag>
+			<flag dailyReset="true">evelyx_bad_end_oral</flag>
+			<flag dailyReset="true">evelyx_bad_end_anal</flag>
+			<flag dailyReset="true">evelyx_bad_end_flavours</flag>
+			<flag dailyReset="true">evelyx_bad_end_hyper</flag>
+			<flag dailyReset="true">evelyx_bad_end_multi</flag>
+			<flag dailyReset="true">evelyx_bad_end_bondage</flag>
+			<flag dailyReset="true">evelyx_bad_end_bimbo</flag>
+			<flag dailyReset="true">evelyx_bad_end_feral</flag>
+		
+		
+	<!-- Elis: -->
 	
-	<!-- Elis -->
 		<!-- Woods -->
 		<flag dailyReset="true">elis_berries_found</flag>
 		<flag dailyReset="false">elis_berries_eaten</flag>
@@ -48,6 +102,7 @@
 		<flag dailyReset="false">elis_blacksmith_visited</flag>
 		<flag dailyReset="false">elis_clothing_visited</flag>
 		<flag dailyReset="false">elis_convenience_visited</flag>
+		<flag dailyReset="false">elis_spa_visited</flag>
 		<flag dailyReset="false">elis_toilets_hole_ever_made</flag>
 		<flag dailyReset="true">elis_toilets_hole_made</flag>
 		
@@ -109,13 +164,43 @@
 		<flag dailyReset="true">minotallys_talk_lilith</flag>
 		<flag dailyReset="true">minotallys_talk_milk</flag>
 	
+		<!-- Monica -->
+		<flag dailyReset="true">monica_talk_small</flag>
+		<flag dailyReset="true">monica_talk_business</flag>
+		<flag dailyReset="true">monica_talk_elis</flag>
+		<flag dailyReset="true">monica_talk_history</flag>
+		<flag dailyReset="false">monica_talk_milker_unlocked</flag>
+		<flag dailyReset="true">monica_talk_boobies</flag>
+		<flag dailyReset="true">monica_milked</flag>
 	
+		<!-- Ceridwen -->
+		<flag dailyReset="true">ceridwen_talk_name</flag>
+		<flag dailyReset="true">ceridwen_talk_sources</flag>
+		<flag dailyReset="true">ceridwen_talk_mice</flag>
+		<flag dailyReset="false">ceridwen_side_quest_available</flag>
 	
+		<!-- Imsu & Hale -->
+		<flag dailyReset="true">blacksmith_talk_history</flag>
+		<flag dailyReset="true">blacksmith_talk_name</flag>
+		<flag dailyReset="false">blacksmith_side_quest_available</flag>
+	
+		<!-- Penelope -->
+		<flag dailyReset="true">spa_talk_posters</flag>
+		<flag dailyReset="true">spa_talk_sheep</flag>
+		<flag dailyReset="false">spa_sheep_introduced</flag>
 	
 	
 	<!-- You can ignore this section, I just use it to track the ids of saved long values (using [flags.setSavedLong(id, value)] calls)
 	meraxis_duel_player_wins (Meraxis duel player wins)
 	meraxis_duel_player_losses (Meraxis duel player losses)
+	
+	evelyx_work_level (The level of the player when working for Evelyx, from 0 to 2)
+	evelyx_work_hours (The number of hours that the player has worked in the current session during Evelyx milking)
+	evelyx_total_milked (The total millilitres milked from the player)
+	evelyx_player_number (The number which is given to the player when working as a cow for Evelyx)
+	
+	headless_horseman_year_warning (The year in which the headless horseman warning was encountered, used so that the warning is given each year)
+	headless_horseman_attack_minutes (The game.getMinutesPassed() at which the headless horseman was last encountered)
 	-->
 	
 </dialogueFlags>

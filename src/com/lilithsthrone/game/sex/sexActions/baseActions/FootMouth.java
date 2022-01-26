@@ -119,7 +119,7 @@ public class FootMouth {
 								" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc2.roughly] [npc2.verb(rub)] [npc2.her] hard hoofs up and down over [npc.namePos] [npc.face+],"
 										+ " not caring in the least about how uncomfortable it must be for [npc.herHim].",
 								" [npc2.Moaning] in delight, [npc2.name] [npc2.eagerly] [npc2.verb(push)] [npc2.her] hard hoofs against [npc.namePos] mouth,"
-										+ " laughing derisively at [npc.herHim] as [npc2.she] [npc2.has] [npc.her] [npc2.feet] worshipped."));
+										+ " laughing derisively at [npc.herHim] as [npc2.she] [npc2.has] [npc2.her] [npc2.feet] worshipped."));
 						
 					} else if(Main.sex.getCharacterTargetedForSexAction(action).getLegType().getFootType().equals(FootType.TALONS)) {
 						foundFootType = true;
@@ -473,7 +473,7 @@ public class FootMouth {
 			case DOM_GENTLE:
 			case DOM_ROUGH:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						" [npc2.Name] [npc.eagerly] [npc2.verb(lick)] and [npc2.verb(suck)] on [npc.namePos] [npc.toes+], letting out [npc2.a_moan+] as [npc2.she] [npc.eagerly] [npc2.verb(worship)] [npc.her] [npc.feet+].",
+						" [npc2.Name] [npc.eagerly] [npc2.verb(lick)] and [npc2.verb(suck)] on [npc.namePos] [npc.toes+], letting out [npc2.a_moan+] as [npc2.she] [npc2.eagerly] [npc2.verb(worship)] [npc.her] [npc.feet+].",
 						" [npc2.A_moan+] bursts out from [npc2.namePos] mouth as [npc2.she] [npc2.verb(continue)] [npc.eagerly] licking and kissing [npc.namePos] [npc.feet+].",
 						" [npc2.Moaning] in delight, [npc2.name] [npc.eagerly] [npc2.verb(worship)] [npc.namePos] [npc.feet+] by planting a series of passionate kisses on them."));
 				break;

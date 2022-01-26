@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testicle>
+	<race>innoxia_raptor</race>
+	
+	<coveringType>innoxia_raptor_feathers</coveringType>
+	
+	<fluidType>innoxia_raptor_cum</fluidType>
+	
+	<internal>true</internal>
+	
+	<names/>
+	<namesPlural/>
+	
+	<descriptors/>
+</testicle>

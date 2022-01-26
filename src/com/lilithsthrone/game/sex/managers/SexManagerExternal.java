@@ -209,7 +209,6 @@ public class SexManagerExternal extends SexManagerDefault {
 		public boolean hiddenBool;
 		
 		public String sexClothingEquippable;
-		public boolean sexClothingEquippableBool;
 
 		public String selfClothingRemoval;
 		public boolean selfClothingRemovalBool;
@@ -240,7 +239,6 @@ public class SexManagerExternal extends SexManagerDefault {
 		public Value<String, String> startingImmobilisation;
 
 		public String orgasmBehaviour;
-		public OrgasmBehaviour orgasmBehaviourParsed;
 		
 		
 		// Other values which need to be parsed on every check:
@@ -320,7 +318,6 @@ public class SexManagerExternal extends SexManagerDefault {
 			canSelfTransformBool = initBool(canSelfTransform, true);
 			hiddenBool = initBool(hidden, false);
 			sadisticActionsAllowed = initBool(sadisticActionsAllowedString, true);
-			sexClothingEquippableBool = initBool(sexClothingEquippable, true);
 			selfClothingRemovalBool = initBool(selfClothingRemoval, true);
 			canRemoveClothingSealsBool = initBool(canRemoveClothingSeals, true);
 			startNakedBool = initBool(startNaked, false);
@@ -332,10 +329,6 @@ public class SexManagerExternal extends SexManagerDefault {
 			
 			if(control!=null && !control.isEmpty()) {
 				controlParsed = SexControl.valueOf(control);
-			}
-			
-			if(orgasmBehaviour!=null && !orgasmBehaviour.isEmpty()) {
-				orgasmBehaviourParsed = OrgasmBehaviour.valueOf(orgasmBehaviour);
 			}
 			
 			
@@ -398,22 +391,30 @@ public class SexManagerExternal extends SexManagerDefault {
 			foreplayPreferences = new HashMap<>();
 			if(foreplayPreferenceIds!=null) {
 				for(Entry<String, Value<String, String>> entry : foreplayPreferenceIds.entrySet()) {
-					foreplayPreferences.put(
-							UtilText.findFirstCharacterFromParserTarget(entry.getKey()),
-							new SexType(SexParticipantType.NORMAL,
-									getSexArea(UtilText.parse(entry.getValue().getKey()).trim()),
-									getSexArea(UtilText.parse(entry.getValue().getValue()).trim())));
+					String performing = UtilText.parse(entry.getValue().getKey()).trim();
+					String targeted = UtilText.parse(entry.getValue().getValue()).trim();
+					if(!performing.isEmpty() && !targeted.isEmpty()) {
+						foreplayPreferences.put(
+								UtilText.findFirstCharacterFromParserTarget(entry.getKey()),
+								new SexType(SexParticipantType.NORMAL,
+										getSexArea(performing),
+										getSexArea(targeted)));
+					}
 				}
 			}
 			
 			sexPreferences = new HashMap<>();
 			if(sexPreferenceIds!=null) {
 				for(Entry<String, Value<String, String>> entry : sexPreferenceIds.entrySet()) {
-					sexPreferences.put(
-							UtilText.findFirstCharacterFromParserTarget(entry.getKey()),
-							new SexType(SexParticipantType.NORMAL,
-									getSexArea(UtilText.parse(entry.getValue().getKey()).trim()),
-									getSexArea(UtilText.parse(entry.getValue().getValue()).trim())));
+					String performing = UtilText.parse(entry.getValue().getKey()).trim();
+					String targeted = UtilText.parse(entry.getValue().getValue()).trim();
+					if(!performing.isEmpty() && !targeted.isEmpty()) {
+						sexPreferences.put(
+								UtilText.findFirstCharacterFromParserTarget(entry.getKey()),
+								new SexType(SexParticipantType.NORMAL,
+										getSexArea(performing),
+										getSexArea(targeted)));
+					}
 				}
 			}
 			
@@ -421,10 +422,14 @@ public class SexManagerExternal extends SexManagerDefault {
 			sexTypesBanned = new ArrayList<>();
 			if(sexTypesBannedIds!=null) {
 				for(Entry<String, String> entry : sexTypesBannedIds.entrySet()) {
-					sexTypesBanned.add(
-							new SexType(SexParticipantType.NORMAL,
-									getSexArea(UtilText.parse(entry.getKey()).trim()),
-									getSexArea(UtilText.parse(entry.getValue()).trim())));
+					String performing = UtilText.parse(entry.getKey()).trim();
+					String targeted = UtilText.parse(entry.getValue()).trim();
+					if(!performing.isEmpty() && !targeted.isEmpty()) {
+						sexTypesBanned.add(
+								new SexType(SexParticipantType.NORMAL,
+										getSexArea(performing),
+										getSexArea(targeted)));
+					}
 				}
 			}
 
@@ -550,10 +555,6 @@ public class SexManagerExternal extends SexManagerDefault {
 			return hiddenBool;
 		}
 
-		public boolean isSexClothingEquippableBool() {
-			return sexClothingEquippableBool;
-		}
-
 		public boolean isSelfClothingRemovalBool() {
 			return selfClothingRemovalBool;
 		}
@@ -581,6 +582,12 @@ public class SexManagerExternal extends SexManagerDefault {
 			
 			return Boolean.valueOf(UtilText.parse(target, partnerClothingRemoval).trim());
 		}
+
+		public boolean isSexClothingEquippable(GameCharacter target, AbstractClothing clothing) {
+			UtilText.setClothingTypeForParsing(clothing==null?null:clothing.getClothingType());
+			
+			return Boolean.valueOf(UtilText.parse(target, sexClothingEquippable).trim());
+		}
 		
 		// Pre-parsed other values:
 		
@@ -598,10 +605,6 @@ public class SexManagerExternal extends SexManagerDefault {
 
 		public Value<String, String> getStartingImmobilisation() {
 			return startingImmobilisation;
-		}
-		
-		public OrgasmBehaviour getOrgasmBehaviour() {
-			return orgasmBehaviourParsed;
 		}
 
 		public List<SexSlot> getSlotsAvailable() {
@@ -652,6 +655,13 @@ public class SexManagerExternal extends SexManagerDefault {
 		
 		// Parse on check other values:
 
+		public OrgasmBehaviour getOrgasmBehaviour() {
+			if(Main.game.isInSex() && orgasmBehaviour!=null && !orgasmBehaviour.isEmpty()) {
+				return OrgasmBehaviour.valueOf(UtilText.parse(orgasmBehaviour).trim());
+			}
+			return null;
+		}
+		
 		public OrgasmCumTarget getOrgasmCumTarget(GameCharacter targetedCharacter) {
 			if(orgasmCumTargets.containsKey(targetedCharacter.getId())) {
 				return OrgasmCumTarget.valueOf(UtilText.parse(orgasmCumTargets.get(targetedCharacter.getId())).trim());
@@ -889,7 +899,7 @@ public class SexManagerExternal extends SexManagerDefault {
 						behaviour.orgasmCumTargets = new HashMap<>();
 						if(characterElement.getOptionalFirstOf("orgasmCumTarget").isPresent()) {
 							for(Element targetElement : characterElement.getMandatoryFirstOf("orgasmCumTarget").getAllOf("target")) {
-								behaviour.orgasmCumTargets.put(targetElement.getAttribute("id"), characterElement.getTextContent());
+								behaviour.orgasmCumTargets.put(targetElement.getAttribute("id"), targetElement.getTextContent());
 							}
 						}
 
@@ -1318,11 +1328,11 @@ public class SexManagerExternal extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isAbleToEquipSexClothing(GameCharacter character){
-		if(characterBehaviours.containsKey(character.getId())) {
-			return characterBehaviours.get(character.getId()).isSexClothingEquippableBool();
+	public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip){
+		if(characterBehaviours.containsKey(equippingCharacter.getId())) {
+			return characterBehaviours.get(equippingCharacter.getId()).isSexClothingEquippable(targetedCharacter, clothingToEquip);
 		}
-		return super.isAbleToEquipSexClothing(character);
+		return super.isAbleToEquipSexClothing(equippingCharacter, targetedCharacter, clothingToEquip);
 	}
 
 	@Override

@@ -542,7 +542,7 @@ public class OptionsDialogue {
 		if(name!=null){
 			String baseName = Util.getFileName(name);
 			String identifierName = Util.getFileIdentifier(name);
-			
+
 			return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";":"")+"'>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px); background:transparent;'>"
 							+ date
@@ -1379,6 +1379,15 @@ public class OptionsDialogue {
 			 if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", OPTIONS);
 				
+			} else if (index == 1) {
+				return new Response("Defaults", "Restore all orientation preferences to their default values.", ORIENTATION_PREFERENCE) {
+					@Override
+					public void effects() {
+						Main.getProperties().resetOrientationPreferences();
+						Main.getProperties().savePropertiesAsXML();
+					}
+				};
+				
 			} else {
 				return null;
 			}
@@ -1428,12 +1437,8 @@ public class OptionsDialogue {
 				return new Response("Defaults", "Reset all fetish preferences to their default settings.", FETISH_PREFERENCE) {
 					@Override
 					public void effects() {
-						for(Fetish fetish : Fetish.values()) {
-							if(fetish.getFetishesForAutomaticUnlock().isEmpty()) {
-								Main.getProperties().fetishPreferencesMap.put(fetish, FetishPreference.THREE_NEUTRAL.getValue());
-							}
-						}
-						Main.saveProperties();
+						Main.getProperties().resetFetishPreferences();
+						Main.getProperties().savePropertiesAsXML();
 					}
 				};
 			} else {
@@ -1989,7 +1994,7 @@ public class OptionsDialogue {
 				
 			sb.append("</div>");
 
-			sb.append("<div class='title-button no-select' id='SUBSPECIES_PREFERNCE_INFO_"+subspeciesId+"' style='position:absolute; margin:0; padding:0; left:1%; right:auto; top:auto; bottom:auto;'>"
+			sb.append("<div class='title-button no-select' id='SUBSPECIES_PREFERENCE_INFO_"+subspeciesId+"' style='position:absolute; margin:0; padding:0; left:1%; right:auto; top:auto; bottom:auto;'>"
 							+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()
 						+"</div>");
 		sb.append("</div>");
@@ -2183,6 +2188,13 @@ public class OptionsDialogue {
 							"This unlocks 'sadistic' sex actions, such as choking, slapping, and spitting on partners in sex.",
 							Main.getProperties().hasValue(PropertyValue.sadisticSexContent)));
 
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
+							"FERAL",
+							PresetColour.BASE_TAN,
+							"Feral",
+							"This enables feral content, which contains sexual and non-sexual interactions with sapient characters who have fully-animal bodies.",
+							Main.getProperties().hasValue(PropertyValue.feralContent)));
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"LIPSTICK_MARKING",
 							PresetColour.BASE_RED_DARK,
@@ -2326,11 +2338,11 @@ public class OptionsDialogue {
 							Main.getProperties().hasValue(PropertyValue.footContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
-					"ARMPIT",
-					PresetColour.BASE_PINK_LIGHT,
-					"Armpit Content",
-					"When disabled, removes all armpit-related actions from being available during sex.",
-					Main.getProperties().hasValue(PropertyValue.armpitContent)));
+							"ARMPIT",
+							PresetColour.BASE_PINK_LIGHT,
+							"Armpit Content",
+							"When disabled, removes all armpit-related actions from being available during sex.",
+							Main.getProperties().hasValue(PropertyValue.armpitContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"FURRY_TAIL_PENETRATION",
@@ -2960,6 +2972,7 @@ public class OptionsDialogue {
 					+ "<b style='color:#21bfc5;'>NoStepOnSnek</b></br>"
 					+ "<b style='color:#21bfc5;'>Phlarx</b></br>"
 					+ "<b style='color:#21bfc5;'>Pimgd</b></br>"
+					+ "<b style='color:#21bfc5;'>PoyntFury</b></br>"
 					+ "<b style='color:#21bfc5;'>Rfpnj</b></br>"
 					+ "<b style='color:#21bfc5;'>Tukaima</b></br>");
 			

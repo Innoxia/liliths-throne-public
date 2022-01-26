@@ -718,6 +718,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				character.addItem(Main.game.getItemGen().generateItem(ItemType.NATALYA_BUSINESS_CARD), false);
 			}
 		}
+		
+		if(Main.isVersionOlderThan(version, "0.4.1.8")) {
+			if(!character.hasItemType("innoxia_quest_clothing_keys")) {
+				character.addItem(Main.game.getItemGen().generateItem("innoxia_quest_clothing_keys"), false);
+			}
+		}
 
 		if(debug) {
 			System.out.println("Player loading finished: "+((System.nanoTime()-time)/1000000000d));
@@ -822,7 +828,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				}
 			}
 			
-		} else if(this.getWorldLocation()==WorldType.SUBMISSION) {
+		} else if(worldLocation==WorldType.SUBMISSION) {
 			super.setLocation(worldLocation, location, setAsHomeLocation);
 			
 			AbstractPlaceType place = Main.game.getWorlds().get(WorldType.SUBMISSION).getCell(location).getPlace().getPlaceType();
@@ -975,7 +981,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		quests.get(questLine).add(0, quest);
 		
-		Main.game.getEventLog().add(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Optional Task Complete)]", quest.getName()));
+		Main.game.addEvent(new EventLogEntry("[style.colourGood(Optional Task Complete)]", quest.getName()), false);
 		return "<p style='text-align:center;'>"
 				+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b><br/>"
 				+ "<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Optional Task Completed: " + quest.getName() + "</b><br/>"
@@ -1007,7 +1013,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			quests.get(questLine).add(quest);
 			
 			if (questLine.getQuestTree().getFirstNodeWithData(quest).getChildren().isEmpty()) { // QuestLine complete (No more children in the tree)
-				Main.game.getEventLog().add(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Quest Complete)]", questLine.getName()));
+				Main.game.addEvent(new EventLogEntry("[style.colourExcellent(Quest Complete)]", questLine.getName()), false);
 				return "<p style='text-align:center;'>"
 						+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b><br/>"
 						+ "<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Task Completed</b><b> - "+currentQuest.getName()+"</b><br/>"
@@ -1015,7 +1021,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 						+ experienceUpdate;
 				
 			} else {
-				Main.game.getEventLog().add(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourMinorGood(New Task)]", quest.getName()));
+				Main.game.addEvent(new EventLogEntry("[style.colourMinorGood(New Task)]", quest.getName()), false);
 				return "<p style='text-align:center;'>"
 						+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b><br/>"
 						+ "<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Task Completed - "+currentQuest.getName()+"</b><br/>"
@@ -1027,7 +1033,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			quests.put(questLine, new ArrayList<>());
 			quests.get(questLine).add(quest);
 			
-			Main.game.getEventLog().add(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Quest Started)]", questLine.getName()));
+			Main.game.addEvent(new EventLogEntry("[style.colourGood(Quest Started)]", questLine.getName()), false);
 			
 			return "<p style='text-align:center;'>"
 					+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>New Quest - " + questLine.getName() + "</b><br/>"

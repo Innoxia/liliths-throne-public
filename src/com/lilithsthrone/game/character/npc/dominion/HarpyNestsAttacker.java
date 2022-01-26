@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -21,7 +22,7 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.character.race.SubspeciesPreference;
+import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyAttackerDialogue;
@@ -36,13 +37,13 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.3.5.5
+ * @version 0.4.2.1
  * @author Innoxia
  */
 public class HarpyNestsAttacker extends NPC {
 
 	public HarpyNestsAttacker() {
-		this(Gender.F_V_B_FEMALE, false);
+		this(Gender.getGenderFromUserPreferences(Femininity.FEMININE), false);
 	}
 	
 	public HarpyNestsAttacker(Gender gender) {
@@ -69,16 +70,22 @@ public class HarpyNestsAttacker extends NPC {
 			// RACE & NAME:
 			
 			Map<AbstractSubspecies, Integer> subspeciesMap = new HashMap<>();
-			for(Entry<AbstractSubspecies, SubspeciesPreference> entry : gender.getGenderName().isHasPenis()?Main.getProperties().getSubspeciesMasculinePreferencesMap().entrySet():Main.getProperties().getSubspeciesFemininePreferencesMap().entrySet()) {
-				if(entry.getKey().getRace()==Race.HARPY && Subspecies.getWorldSpecies(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false).containsKey(entry.getKey())) {
-					AbstractSubspecies.addToSubspeciesMap((int) (1000*Subspecies.getWorldSpecies(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false).get(entry.getKey()).getChanceMultiplier()), gender, entry.getKey(), subspeciesMap);
+//			for(Entry<AbstractSubspecies, SubspeciesPreference> entry : gender.getGenderName().isHasPenis()?Main.getProperties().getSubspeciesMasculinePreferencesMap().entrySet():Main.getProperties().getSubspeciesFemininePreferencesMap().entrySet()) {
+//				if(entry.getKey().getRace()==Race.HARPY && Subspecies.getWorldSpecies(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false).containsKey(entry.getKey())) {
+//					AbstractSubspecies.addToSubspeciesMap((int) (1000*Subspecies.getWorldSpecies(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false).get(entry.getKey()).getChanceMultiplier()), gender, entry.getKey(), subspeciesMap);
+//				}
+//			}
+			
+			for(Entry<AbstractSubspecies, SubspeciesSpawnRarity> entry : Subspecies.getWorldSpecies(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false).entrySet()) {
+				if(entry.getKey().getRace()==Race.HARPY) {
+					AbstractSubspecies.addToSubspeciesMap((int) (1000*entry.getValue().getChanceMultiplier()), gender, entry.getKey(), subspeciesMap);
 				}
 			}
 			
 			this.setBodyFromSubspeciesPreference(gender, subspeciesMap, true, false);
 
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f) { // Half-demon spawn rate
-				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, this.getGender(), this.getFleshSubspecies(), true), true);
+				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, this.getGender(), this.getBody().getFleshSubspecies(), true), true);
 			}
 			
 			setName(Name.getRandomTriplet(Race.HARPY));
@@ -133,19 +140,20 @@ public class HarpyNestsAttacker extends NPC {
 		if(!subspeciesMap.isEmpty() && total>0) {
 			species = Util.getRandomObjectFromWeightedMap(subspeciesMap);
 		}
-		if(gender.getGenderName().isHasPenis()) {
-			if(gender.getGenderName().isHasBreasts()) {
-				setBody(Gender.F_P_B_SHEMALE, species, RaceStage.LESSER, true);
-			} else {
-				setBody(Gender.F_P_TRAP, species, RaceStage.LESSER, true);
-			}
-		} else {
-			if(gender.getGenderName().isHasBreasts()) {
-				setBody(Gender.F_V_B_FEMALE, species, RaceStage.LESSER, true);
-			} else {
-				setBody(Gender.F_V_FEMALE, species, RaceStage.LESSER, true);
-			}
-		}
+		setBody(gender, species, RaceStage.LESSER, true);
+//		if(gender.getGenderName().isHasPenis()) {
+//			if(gender.getGenderName().isHasBreasts()) {
+//				setBody(Gender.F_P_B_SHEMALE, species, RaceStage.LESSER, true);
+//			} else {
+//				setBody(Gender.F_P_TRAP, species, RaceStage.LESSER, true);
+//			}
+//		} else {
+//			if(gender.getGenderName().isHasBreasts()) {
+//				setBody(Gender.F_V_B_FEMALE, species, RaceStage.LESSER, true);
+//			} else {
+//				setBody(Gender.F_V_FEMALE, species, RaceStage.LESSER, true);
+//			}
+//		}
 	}
 	
 	@Override

@@ -273,11 +273,13 @@ public class Rose extends NPC {
 			return null;
 		}
 		
-		if(target.hasVagina() && target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
-			
-		} else if(target.isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
-			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
+		if(this.hasPenis()) { // Only if Rose has a dildo equipped
+			if(target.hasVagina() && target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+				
+			} else if(target.isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
+				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
+			}
 		}
 		
 		return super.getMainSexPreference(target);
@@ -289,7 +291,7 @@ public class Rose extends NPC {
 			return super.calculateSexTypeWeighting(type, target, request, lustOrArousalCalculation);
 		}
 		
-		if(type.getPerformingSexArea()!=null && type.getPerformingSexArea().isOrifice()) { // Do not get penetrated:
+		if(target.isPlayer() && type.getPerformingSexArea()!=null && type.getPerformingSexArea().isOrifice()) { // Do not get penetrated:
 			return -10_000;
 		}
 		

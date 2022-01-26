@@ -42,7 +42,7 @@
 					<clothingAccess>CHEST</clothingAccess>
 					<clothingAccess>WAIST</clothingAccess>
 				</clothingAccessBlocked>
-				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+				<concealedSlots values="CONCEALED_FULL_TORSO"/>
 			</blockedParts>
 			<blockedParts>
 				<displacementType>PULLS_UP</displacementType>

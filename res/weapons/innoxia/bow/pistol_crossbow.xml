@@ -35,7 +35,9 @@
 		
 		<enchantmentLimit>10</enchantmentLimit>
 		
-		<effects/>
+		<effects> 
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_RANGED_WEAPON" timer="0"/>
+		</effects>
 		
 		<primaryColours>
 			<colour>CLOTHING_BLACK_STEEL</colour>

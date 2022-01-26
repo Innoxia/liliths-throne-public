@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fluid>
+	<race>innoxia_raptor</race>
+	
+	<transformationName><![CDATA[raptor]]></transformationName>
+	
+	<baseFluidType>CUM</baseFluidType>
+	
+	<flavour>CUM</flavour>
+	
+	<namesMasculine>
+		<name><![CDATA[raptor-]]></name>
+	</namesMasculine>
+	
+	<namesFeminine>
+		<name><![CDATA[raptor-]]></name>
+	</namesFeminine>
+	
+	<descriptorsMasculine/>
+	
+	<descriptorsFeminine/>
+	
+	<defaultFluidModifiers>
+		<modifier>STICKY</modifier>
+		<modifier>SLIMY</modifier>
+	</defaultFluidModifiers>
+</fluid>

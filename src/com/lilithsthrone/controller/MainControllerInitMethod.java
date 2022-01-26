@@ -161,6 +161,7 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
+import com.lilithsthrone.game.dialogue.utils.CosmeticsDialogue;
 import com.lilithsthrone.game.dialogue.utils.DebugDialogue;
 import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
@@ -4812,7 +4813,6 @@ public class MainControllerInitMethod {
 					}
 					
 					
-					
 					id = BodyCoveringType.getIdFromBodyCoveringType(bct)+"_PRIMARY_GLOW_OFF";
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						
@@ -5223,7 +5223,8 @@ public class MainControllerInitMethod {
 			
 			if(Main.game.getCurrentDialogueNode()==SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS
 					|| Main.game.getCurrentDialogueNode()==CompanionManagement.SLAVE_MANAGEMENT_TATTOOS
-					|| Main.game.getCurrentDialogueNode()==CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS) {
+					|| Main.game.getCurrentDialogueNode()==CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS
+					|| Main.game.getCurrentDialogueNode()==CosmeticsDialogue.BEAUTICIAN_TATTOOS) {
 				for(InventorySlot invSlot : InventorySlot.getClothingSlots()) {
 					id = "TATTOO_INFO_"+invSlot.toString();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -5247,7 +5248,9 @@ public class MainControllerInitMethod {
 										Main.game.isInNewWorld()
 											?(Main.game.getCurrentDialogueNode()==SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS
 												?SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS_ADD
-												:CompanionManagement.SLAVE_MANAGEMENT_TATTOOS_ADD)
+												:(Main.game.getCurrentDialogueNode()==CosmeticsDialogue.BEAUTICIAN_TATTOOS
+													?CosmeticsDialogue.BEAUTICIAN_TATTOOS_ADD
+													:CompanionManagement.SLAVE_MANAGEMENT_TATTOOS_ADD))
 											:CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS_ADD){
 									@Override
 									public void effects() {
@@ -5306,7 +5309,8 @@ public class MainControllerInitMethod {
 
 			if(Main.game.getCurrentDialogueNode()==SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS_ADD
 					|| Main.game.getCurrentDialogueNode()==CompanionManagement.SLAVE_MANAGEMENT_TATTOOS_ADD
-					|| Main.game.getCurrentDialogueNode()==CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS_ADD) {
+					|| Main.game.getCurrentDialogueNode()==CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS_ADD
+					|| Main.game.getCurrentDialogueNode()==CosmeticsDialogue.BEAUTICIAN_TATTOOS_ADD) {
 				id = "NEW_TATTOO_INFO";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
@@ -5566,13 +5570,13 @@ public class MainControllerInitMethod {
 
 				// Clothing pattern selection:
 				for(Pattern pattern : Pattern.getAllPatterns()) {
-					id = "ITEM_PATTERN_"+pattern.getName();
+					id = "ITEM_PATTERN_"+pattern.getId();
 					
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							if(InventoryDialogue.dyePreviewPattern != pattern.getName()){
-								InventoryDialogue.dyePreviewPattern = pattern.getName();
+							if(!InventoryDialogue.dyePreviewPattern.equals(pattern.getId())){
+								InventoryDialogue.dyePreviewPattern = pattern.getId();
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}
 						}, false);
@@ -6184,7 +6188,7 @@ public class MainControllerInitMethod {
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.FURRY_PREFERENCE) {
 			
 			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
-				id="SUBSPECIES_PREFERNCE_INFO_"+Subspecies.getIdFromSubspecies(s);
+				id="SUBSPECIES_PREFERENCE_INFO_"+Subspecies.getIdFromSubspecies(s);
 
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
@@ -6667,6 +6671,7 @@ public class MainControllerInitMethod {
 					new Value<>("AUTO_SEX_CLOTHING_MANAGEMENT", PropertyValue.autoSexClothingManagement),
 					new Value<>("NON_CON", PropertyValue.nonConContent),
 					new Value<>("SADISTIC_SEX", PropertyValue.sadisticSexContent),
+					new Value<>("FERAL", PropertyValue.feralContent),
 					new Value<>("VOLUNTARY_NTR", PropertyValue.voluntaryNTR),
 					new Value<>("INVOLUNTARY_NTR", PropertyValue.involuntaryNTR),
 					new Value<>("INCEST", PropertyValue.incestContent),
@@ -7234,10 +7239,11 @@ public class MainControllerInitMethod {
 				id = "delete_saved_" + fileIdentifier;
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || OptionsDialogue.deleteConfirmationName.equals(f.getName())) {
 							OptionsDialogue.deleteConfirmationName = "";
 							Main.deleteGame(fileName);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							
 						} else {
 							OptionsDialogue.overwriteConfirmationName = "";
 							OptionsDialogue.loadConfirmationName = "";
@@ -7462,9 +7468,6 @@ public class MainControllerInitMethod {
 							AbstractCoreItem abstractItem = lEnch.getSuitableItem();
 							EnchantmentDialogue.initModifiers(abstractItem);
 							EnchantmentDialogue.getEffects().clear();
-							for(ItemEffect ie : abstractItem.getEffects()) {
-								EnchantmentDialogue.addEffect(ie);
-							}
 							for(ItemEffect ie : lEnch.getEffects()) {
 								EnchantmentDialogue.addEffect(ie);
 							}

@@ -18,7 +18,7 @@
 		
 		<acceptableLegConfigurations/>
 		
-		<conditional><![CDATA[npc.getRace()!=RACE_DEMON]]></conditional>
+		<conditional><![CDATA[npc.getRace()!=RACE_DEMON || npc.getSubspecies()==SUBSPECIES_HALF_DEMON]]></conditional>
 		
 		<weight>100</weight>
 	</coreAttributes>
