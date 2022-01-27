@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<racialBody>
+	<personalityChances/>
+	
+	
+	<orientationFeminineGynephilic>30</orientationFeminineGynephilic>
+	<orientationFeminineAmbiphilic>50</orientationFeminineAmbiphilic>
+	<orientationFeminineAndrophilic>20</orientationFeminineAndrophilic>
+	
+	<orientationMasculineGynephilic>50</orientationMasculineGynephilic>
+	<orientationMasculineAmbiphilic>40</orientationMasculineAmbiphilic>
+	<orientationMasculineAndrophilic>10</orientationMasculineAndrophilic>
+	
+	
+	<!-- Core body info: -->
+	<bodyMaterial>FLESH</bodyMaterial>
+	
+	<bodyHair>mintychip_bee_body_hair</bodyHair>
+	
+	<genitalArrangement>NORMAL</genitalArrangement>
+	<maleHeight>180</maleHeight>
+	<maleFemininity>35</maleFemininity>
+	<maleBodySize>50</maleBodySize>
+	<maleMuscle>60</maleMuscle>
+	<femaleHeight>175</femaleHeight>
+	<femaleFemininity>85</femaleFemininity>
+	<femaleBodySize>50</femaleBodySize>
+	<femaleMuscle>60</femaleMuscle>
+	
+	
+	<!-- Antenna: -->
+	<antennaTypes>
+		<type>mintychip_bee_antenna</type>
+	</antennaTypes>
+	
+	<maleAntennaLength>12</maleAntennaLength>
+	<femaleAntennaLength>13</femaleAntennaLength>
+	
+	
+	<!-- Arms: -->
+	<armType>mintychip_bee_arm</armType>
+	<armRows>1</armRows>
+	
+	
+	<!-- Ass: -->
+	<assType>mintychip_bee_ass</assType>
+	
+	<maleAssSize>2</maleAssSize>
+	<femaleAssSize>4</femaleAssSize>
+	
+	<maleHipSize>2</maleHipSize>
+	<femaleHipSize>4</femaleHipSize>
+	
+	<anusCapacity>1.5</anusCapacity>
+	<anusDepth>2</anusDepth>
+	<anusWetness>0</anusWetness>
+	<anusElasticity>3</anusElasticity>
+	<anusPlasticity>3</anusPlasticity>
+	
+	
+	<!-- Breasts: -->
+	<breastType>mintychip_bee_breast</breastType>
+	
+	<breastShapes>
+		<shape>ROUND</shape>
+		<shape>POINTY</shape>
+		<shape>PERKY</shape>
+		<shape>SIDE_SET</shape>
+		<shape>WIDE</shape>
+		<shape>NARROW</shape>
+	</breastShapes>
+	
+	<maleBreastSize>0</maleBreastSize>
+	<maleBreastRows>1</maleBreastRows>
+	<maleNippleSize>0</maleNippleSize>
+	<maleNippleShape>NORMAL</maleNippleShape>
+	<maleAreolaeSize>0</maleAreolaeSize>
+	<maleAreolaeShape>NORMAL</maleAreolaeShape>
+	<maleNippleCountPerBreast>1</maleNippleCountPerBreast>
+	<maleLactationRate>0</maleLactationRate>
+	<maleBreastCapacity>0</maleBreastCapacity>
+	<maleBreastDepth>2</maleBreastDepth>
+	<maleBreastElasticity>3</maleBreastElasticity>
+	<maleBreastPlasticity>3</maleBreastPlasticity>
+
+	<femaleBreastSize>7</femaleBreastSize>
+	<femaleBreastRows>1</femaleBreastRows>
+	<femaleNippleSize>2</femaleNippleSize>
+	<femaleNippleShape>NORMAL</femaleNippleShape>
+	<femaleAreolaeSize>2</femaleAreolaeSize>
+	<femaleAreolaeShape>NORMAL</femaleAreolaeShape>
+	<femaleNippleCountPerBreast>1</femaleNippleCountPerBreast>
+	<femaleLactationRate>300</femaleLactationRate>
+	<femaleBreastCapacity>0</femaleBreastCapacity>
+	<femaleBreastDepth>2</femaleBreastDepth>
+	<femaleBreastElasticity>3</femaleBreastElasticity>
+	<femaleBreastPlasticity>3</femaleBreastPlasticity>
+	
+	
+	<!-- Crotch-boobs/udders: -->
+	<breastCrotchType>NONE</breastCrotchType>
+	<breastCrotchShapes udderShapes="false"/>
+	<breastCrotchSize>6</breastCrotchSize>
+	<breastCrotchRows>2</breastCrotchRows>
+	<breastCrotchNippleSize>2</breastCrotchNippleSize>
+	<breastCrotchNippleShape>NORMAL</breastCrotchNippleShape>
+	<breastCrotchAreolaeSize>2</breastCrotchAreolaeSize>
+	<breastCrotchAreolaeShape>NORMAL</breastCrotchAreolaeShape>
+	<nippleCountPerBreastCrotch>1</nippleCountPerBreastCrotch>
+	<breastCrotchLactationRate>0</breastCrotchLactationRate>
+	<breastCrotchCapacity>0</breastCrotchCapacity>
+	<breastCrotchDepth>2</breastCrotchDepth>
+	<breastCrotchElasticity>3</breastCrotchElasticity>
+	<breastCrotchPlasticity>3</breastCrotchPlasticity>
+	
+	
+
+	
+	<faceType>mintychip_bee_face</faceType>
+	<eyeType>mintychip_bee_eye</eyeType>
+	<earType>mintychip_bee_ear</earType>
+	<maleLipSize>1</maleLipSize>
+	<femaleLipSize>2</femaleLipSize>
+	
+	
+	<hairType>mintychip_bee_hair</hairType>
+	<maleHairLength>12</maleHairLength>
+	<femaleHairLength>25</femaleHairLength>
+	
+	
+	<hornTypes>
+		<type>NONE</type>
+	</hornTypes>
+	<maleHornLength>0</maleHornLength>
+	<femaleHornLength>0</femaleHornLength>
+	
+	
+
+	
+	<legType>mintychip_bee_leg</legType>
+	<legConfiguration>BIPEDAL</legConfiguration>
+	
+	
+	<penisType>mintychip_bee_penis</penisType>
+	<penisLength>10</penisLength>
+	<penisGirth>3</penisGirth>
+	<testicleSize>2</testicleSize>
+	<testicleQuantity>2</testicleQuantity>
+	<cumProduction>60</cumProduction>
+	
+	
+	<tailTypes>
+		<type>mintychip_bee_tail</type>
+	</tailTypes>
+	
+	
+	<tentacleType>NONE</tentacleType>
+	
+	
+	<torsoType>mintychip_bee_torso</torsoType>
+	
+	
+	<vaginaType>mintychip_bee_vagina</vaginaType>
+	
+	<clitSize>0</clitSize> 
+	<clitGirth>3</clitGirth>
+	
+	<vaginaCapacity>2.5</vaginaCapacity>
+	<vaginaDepth>2</vaginaDepth>
+	<vaginaWetness>2</vaginaWetness>
+	<vaginaElasticity>4</vaginaElasticity>
+	<vaginaPlasticity>3</vaginaPlasticity>
+	
+	
+	<wingTypes>
+		<type>mintychip_bee_wing</type>
+	</wingTypes>
+	
+	<maleWingSize>3</maleWingSize>
+	<femaleWingSize>3</femaleWingSize>
+	
+</racialBody>

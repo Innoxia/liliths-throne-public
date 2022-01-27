@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<arm>
+	<race>mintychip_bee</race>
+	
+	<transformationName><![CDATA[bee]]></transformationName>
+	
+	<coveringType>mintychip_bee_chitin</coveringType>
+	
+	<underarmHairAllowed>true</underarmHairAllowed>
+	
+	<allowsFlight>false</allowsFlight>
+	
+	<tags>
+		<tag>ARM_STANDARD</tag>
+	</tags>
+	
+	<!-- The singular and plural name of this arm type.
+	These should be left as 'arm' and 'arms' for standard arm types, and changed to 'wing' and 'wings' if your arm type are wings (such as those found on harpies or bat-morphs). -->
+	<name><![CDATA[arm]]></name>
+	<namePlural><![CDATA[arms]]></namePlural> 
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's arm of this type.
+	Can be left blank. -->
+	<descriptorsMasculine>
+		<descriptor>shiny</descriptor>
+		<descriptor>armoured</descriptor>
+		<descriptor>chitinous</descriptor>
+	</descriptorsMasculine>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine>
+		<descriptor>shiny</descriptor>
+		<descriptor>armoured</descriptor>
+		<descriptor>chitinous</descriptor>
+	</descriptorsFeminine>
+	
+	<!-- Same naming formats as those for the arm type above, but these describe the arm's hands: -->
+	<handName><![CDATA[hand]]></handName>
+	<handNamePlural><![CDATA[hands]]></handNamePlural>
+	<handDescriptorsMasculine>
+		<descriptor>bee-like</descriptor>
+		<descriptor>shiny</descriptor>
+		<descriptor>armoured</descriptor>
+		<descriptor>chitinous</descriptor>
+	</handDescriptorsMasculine>
+	<handDescriptorsFeminine>
+		<descriptor>feminine</descriptor>
+		<descriptor>bee-like</descriptor>
+		<descriptor>shiny</descriptor>
+		<descriptor>armoured</descriptor>
+		<descriptor>chitinous</descriptor>
+	</handDescriptorsFeminine>
+	
+	<!-- Same naming formats as those for the arm type above, but these describe the arm's fingers: -->
+	<fingerName><![CDATA[finger]]></fingerName>
+	<fingerNamePlural><![CDATA[fingers]]></fingerNamePlural>
+	<fingerDescriptorsMasculine>
+		<descriptor>armoured</descriptor>
+		<descriptor>chitinous</descriptor>
+		<descriptor>shiny</descriptor>
+	</fingerDescriptorsMasculine>
+	<fingerDescriptorsFeminine>
+		<descriptor>feminine</descriptor>
+		<descriptor>shiny</descriptor>
+		<descriptor>armoured</descriptor>
+		<descriptor>chitinous</descriptor>
+	</fingerDescriptorsFeminine>
+	
+	<!-- The description which is shown when a character transforms to obtain this arm type.
+	This description immediately follows a brief description of the arm type beginning to transform. -->
+	<transformationDescription><![CDATA[
+		Within a matter of moments, a layer of [npc.armFullDescription] has quickly emerged over them, and, looking down, [npc.she] [npc.verb(see)] new plates growing over the fronts and backs of [npc.her] hands. The plates stop their advance at [npc.her] upper-biceps, [npc.her] chitin abruptly transitioning into the [npc.skin] that's covering the rest of [npc.her] body.
+		<br/>As the transformation comes to an end, [npc.nameIsFull] left with anthropomorphic, [style.boldTfGeneric(bee-like arms and hands)], which are [npc.materialDescriptor] [npc.armFullDescription].
+	]]></transformationDescription>
+	
+	<!-- How these arms are described in a character's description page. -->
+	<bodyDescription><![CDATA[
+	[npc.She] [npc.has] [npc.armRows] arms, which are [npc.materialCompositionDescriptor] [npc.armFullDescription(true)]. [npc.Her] hands are formed into anthropomorphic, bee-like hands, complete with shiny chitin.
+	]]></bodyDescription>
+	
+</arm>

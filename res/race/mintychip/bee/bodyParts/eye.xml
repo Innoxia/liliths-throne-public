@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<eye>
+	<race>mintychip_bee</race>
+	
+	<transformationName><![CDATA[bee]]></transformationName>
+	
+	<coveringType>mintychip_bee_eye</coveringType>
+	
+	<tags/>
+	
+	<defaultPairCount>2</defaultPairCount>
+	
+	<defaultIrisShape>ROUND</defaultIrisShape>
+	
+	<defaultPupilShape>ROUND</defaultPupilShape>
+	
+	<name><![CDATA[eye]]></name>
+	<namePlural><![CDATA[eyes]]></namePlural>
+	
+	<descriptorsMasculine>
+		<descriptor><![CDATA[bee-like]]></descriptor>
+	</descriptorsMasculine>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine>
+		<descriptor><![CDATA[bee-like]]></descriptor>
+	</descriptorsFeminine>
+	
+	<transformationDescription><![CDATA[
+		By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed and doubled into bee-like eyes, with the two largest located where [npc.her] former eyes were in the centre of [npc.her] face.
+		<br/>[npc.Name] now [npc.has] [style.boldBee(bee-like eyes)] of a solid [npc.irisColour(true)] colour.
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.eyePairs] bee-like eyes. They are a reflective, solid [npc.irisColour(true)] colour.
+	]]></bodyDescription>
+	
+</eye>
