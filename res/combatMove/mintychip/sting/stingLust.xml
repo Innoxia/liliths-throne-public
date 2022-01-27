@@ -54,7 +54,7 @@
 	<!-- Effect logic -->
 	
 	<availabilityCondition><![CDATA[
-		[#npc.getTailType.contains(BODY_PART_TAG_TAIL_VENOMOUS_STING_LUST)]
+		[#npc.getTailType().getTags().contains(BODY_PART_TAG_TAIL_VENOMOUS_STING_LUST)]
 	]]></availabilityCondition>
 	
 	<!-- A short description to let the player know what the conditions are for this move being available to them. -->

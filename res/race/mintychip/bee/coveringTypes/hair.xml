@@ -30,10 +30,20 @@
 		<pattern weighting="1">OMBRE</pattern>
 	</extraPatterns>
 	
-	<naturalColoursPrimary values="naturalHairColours"/> 
+	<naturalColoursPrimary>
+		<colour>COVERING_BLONDE</colour>
+		<colour>COVERING_DIRTY_BLONDE</colour>
+		<colour>COVERING_BLEACH_BLONDE</colour>
+		<colour>COVERING_SANDY</colour>
+	</naturalColoursPrimary> 
 	<extraColoursPrimary values="allCoveringColours"/>
 	
-	<naturalColoursSecondary values="naturalHairColours"/>
+	<naturalColoursPrimary>
+		<colour>COVERING_BLONDE</colour>
+		<colour>COVERING_DIRTY_BLONDE</colour>
+		<colour>COVERING_BLEACH_BLONDE</colour>
+		<colour>COVERING_SANDY</colour>
+	</naturalColoursPrimary>
 	<extraColoursSecondary values="allCoveringColours"/>
 	
 </coveringType>

@@ -52,7 +52,7 @@
 	<!-- Effect logic -->
 	
 	<availabilityCondition><![CDATA[
-		[#npc.getTailType.getTags().contains(BODY_PART_TAG_TAIL_VENOMOUS_STING)]
+		[#npc.getTailType().getTags().contains(BODY_PART_TAG_TAIL_VENOMOUS_STING)]
 	]]>
 	</availabilityCondition>
 	

@@ -18,7 +18,7 @@
 	
 	<naturalPatterns>
 		<pattern weighting="1">NONE</pattern>
-		<pattern weighting="1">STRIPED</pattern>
+		<pattern weighting="3">STRIPED</pattern>
 	</naturalPatterns>
 	
 	<extraPatterns>
