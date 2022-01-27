@@ -5,15 +5,17 @@
 		[##npc.getCovering(BODY_COVERING_TYPE_CUM).setPrimaryColour(COLOUR_COVERING_AMBER)]
 		[##npc.getCovering(BODY_COVERING_TYPE_GIRL_CUM).setPrimaryColour(COLOUR_COVERING_AMBER)]
 		[##npc.getCovering(BODY_COVERING_TYPE_MILK).setPrimaryColour(COLOUR_COVERING_AMBER)]
-		#IF(RND.nextInt(100)<10 || targetedBody.getRaceStage()==RACE_STAGE_GREATER)
+		#IF(RND.nextInt(100)<20 || targetedBody.getRaceStage()==RACE_STAGE_GREATER)
 			[#targetedBody.getArm().setArmRows(null, 2)]
 		#ENDIF
 		#IF((targetedBody.hasPenis()) && (RND.nextInt(100)<90))
-			[#targetedBody.setMuscle(targetedBody.getMuscle()*0.75)]
-			[#targetedBody.setBodySize(targetedBody.getBodySize()*0.75)]
-			[#targetedBody.setHeight(targetedBody.getHeightValue()*0.97)]
+				[#targetedBody.setMuscle(targetedBody.getMuscle()*0.75)]
+				[#targetedBody.setBodySize(targetedBody.getBodySize()*0.75)]
+				[#targetedBody.setHeight(targetedBody.getHeightValue()*0.97)]
 		#ENDIF
-		[#targetedBody.getVagina().getClitoris().addClitorisModifier(PENETRATION_MODIFIER_OVIPOSITOR)]
+		#IF(targetedBody.hasVagina() && targetedBody.hasPenis())
+			[#targetedBody.addPenisModifier(PENETRATION_MODIFIER_OVIPOSITOR)]
+		#ENDIF
 	]]></applyRaceChanges>
 	<name><![CDATA[bee-morph]]></name>
 	<namePlural><![CDATA[bee-morphs]]></namePlural>
