@@ -50,5 +50,248 @@
 	]]>
 	</htmlContent>
 
+	<htmlContent tag="HARPY_NEST_DOMINANT_APPROACH"><![CDATA[
+	#IF(flags.hasFlag(FLAG_dominantEncountered))
+		#IF(flags.hasFlag(FLAG_dominantPacified))
+			<p>
+				Deciding to pay [harpyDominant.Name] another visit, you set off towards the centre podium. As you make your way towards the dominant matriarch, you get a good look at the harpies that make up her flock. Just as you've seen before, there's a red-and-black-feathered harpy sitting on top of each of the small podiums that are scattered about the area.
+			</p>
+			<p>
+				The groups that are huddled around each one of these podiums are, unlike their apparent leaders, made up of all sorts of differently coloured harpies. Most of them are on their knees, preening each other's feathers, or talking in hushed tones to one another. Those that aren't on their knees are found at the very base of these podiums, and as you pass, you get yet another look at these unfortunate few.
+			</p>
+			<p>
+				Obviously having displeased their leader in some way, these harpies have been stripped naked and locked into wooden stocks. Some of the flock are taking full advantage of their compromised position, and as you pass each podium, you see all manner of public humiliation taking place. From light spanking and tickling, all the way up to rough group sex, these harpies are being used and abused by rest of their flock.
+			</p>
+			<p>
+				You don't have much time to dwell on any thoughts about this, however, as before you know it, you've reached the centre of the platform. Although larger and made up solely of the red-and-black 'leader' harpies, the group surrounding [harpyDominant.NamePos] podium is similar to all those that you've previously passed. Most are on their knees, talking to one another, but there are several others, not all of them red-and-black, who are locked up in this podium's stocks.
+			</p>
+			<p>
+				As you approach [harpyDominant.Name], your eyes are drawn to the latest of [harpyDominantCompanion.namePos] victims in the stocks in front of you. She's moaning and squealing out loud; the cause of her erotic noises taking the form of a very feminine-looking harpy thrusting away at her exposed rear end. Coming to a halt in front of the podium, you hear [harpyDominantCompanion.name] growling out, [harpyDominantCompanion.speech(Fucking slut! That's right! Moan for me, whore!)]
+			</p>
+			<p>
+				Just as you're about to say something, [harpyDominant.Name], only just noticing your presence, calls out, [harpyDominant.speech([pc.Mistress]! You're back!)]
+			</p>
+			<p>
+				Jumping down off of her podium, [harpyDominant.name] falls to her knees before you. Noticing what's going on, [harpyDominantCompanion.name] lets out a little squeak, and, pulling out of her fuck-toy, jumps down onto her knees beside her matriarch. Shuffling forwards, [harpyDominant.Name] bows her head, before asking, [harpyDominant.speech(What can I do for you [pc.mistress]?!)]
+			</p>
+		#ELSE
+			<p>
+				Deciding to pay [harpyDominant.Name] another visit, you set off towards the centre podium. As you make your way towards the dominant matriarch, you get a good look at the harpies that make up her flock. Just as you've seen before, there's a red-and-black-feathered harpy sitting on top of each of the small podiums that are scattered about the area.
+			</p>
+			<p>
+				The groups that are huddled around each one of these podiums are, unlike their apparent leaders, made up of all sorts of differently coloured harpies. Most of them are on their knees, preening each other's feathers, or talking in hushed tones to one another. Those that aren't on their knees are found at the very base of these podiums, and as you pass, you get yet another look at these unfortunate few.
+			</p>
+			<p>
+				Obviously having displeased their leader in some way, these harpies have been stripped naked and locked into wooden stocks. Some of the flock are taking full advantage of their compromised position, and as you pass each podium, you see all manner of public humiliation taking place. From light spanking and tickling, all the way up to rough group sex, these harpies are being used and abused by rest of their flock.
+			</p>
+			<p>
+				You don't have much time to dwell on any thoughts about this, however, as before you know it, you've reached the centre of the platform. Although larger and made up solely of the red-and-black 'leader' harpies, the group surrounding [harpyDominant.NamePos] podium is similar to all those that you've previously passed. Most are on their knees, talking to one another, but there are several others, not all of them red-and-black, who are locked up in this podium's stocks.
+			</p>
+			<p>
+				As you approach [harpyDominant.Name], your eyes are drawn to the latest of [harpyDominantCompanion.namePos] victims in the stocks in front of you. She's moaning and squealing out loud; the cause of her erotic noises taking the form of a very feminine-looking harpy thrusting away at her exposed rear end. Coming to a halt in front of the podium, you hear [harpyDominantCompanion.name] growling out, [harpyDominantCompanion.speech(Fucking slut! That's right! Moan for me, whore!)]
+			</p>
+			<p>
+				Just as you're about to say something, [harpyDominant.Name], up until now having ignored your presence, calls out,
+				#IF(pc.getFemininityValue()>FEMININITY_FEMININE_STRONG.getMinimumFemininity())
+					 [harpyDominant.speech([harpyDominantCompanion.Name]! That hungry slut is back for more of our attention!)]
+				#ELSE
+					 [harpyDominant.speech([harpyDominantCompanion.Name]! That bitch is back for more of our attention!)]
+				#ENDIF
+			</p>
+			<p>
+				[harpyDominantCompanion.speech(Yes, [harpyDominant.name]!)] the harpy calls out, before growling at her victim. [harpyDominantCompanion.speech(Once I'm done with this, I'm using your ass next!)]
+			</p>
+			<p>
+				Standing up on top of her podium, [harpyDominant.name] growls down at you, 
+				#IF(pc.getFemininityValue()>FEMININITY_FEMININE_STRONG.getMinimumFemininity())
+					 [harpyDominant.speech(So?! What do you want, whore?!)]
+				#ELSE
+					 [harpyDominant.speech(So?! What do you want, bitch?!)]
+				#ENDIF
+			</p>
+		#ENDIF
+	#ELSE
+		 <p>
+			Recognising this as one of the nests that you agreed to pacify, you start walking towards the centre podium. As you make your way towards the matriarch, you get a good look at the harpies that reside in this particular nest. Just as you saw from the outskirts, there's a red-feathered harpy sitting on top of each of the small podiums that are scattered about the area. Each one has a plume of jet-black feathers on top of their heads, and the skin that covers their human parts is invariably a light olive colour.
+		</p>
+		<p>
+			The groups that are huddled around each one of these podiums are, unlike their apparent leaders, made up of all sorts of differently coloured harpies. Most of them are on their knees, preening each other's feathers, or talking in hushed tones to one another. Those that aren't on their knees are found at the very base of these podiums, and as you get closer, you find yourself staring, wide-eyed, at these unfortunate few.
+		</p>
+		<p>
+			Obviously having displeased their leader in some way, these harpies have been stripped naked and locked into wooden stocks. Some of the flock are taking full advantage of their compromised position, and as you pass each podium, you see all manner of public humiliation taking place. From light spanking and tickling, all the way up to rough group sex, these harpies are being used and abused by rest of their flock.
+		</p>
+		<p>
+			You don't have much time to dwell on any thoughts about this, however, as before you know it, you've reached the centre of the platform. Although larger and made up solely of the red-and-black 'leader' harpies, the group surrounding the matriarch's podium is similar to all those that you've previously passed. Most are on their knees, talking to one another, but there are several others, not all of them red-and-black, who are locked up in this podium's stocks.
+		</p>
+		<p>
+			As you approach the matriarch, your eyes are drawn to a particular pink-feathered harpy in the stocks in front of you. She's moaning and squealing out loud; the cause of her erotic noises taking the form of a very feminine-looking harpy thrusting away at her exposed rear end. Coming to a halt in front of the podium, you hear the dominant harpy growling out, [harpyDominantCompanion.speech(That's right, bitch! I knew you'd end up loving it eventually!)]
+		</p>
+		<p>
+			Just as you're about to say something, the matriarch, up until now having ignored your presence, calls out,
+			#IF(pc.getFemininityValue()>FEMININITY_FEMININE_STRONG.getMinimumFemininity())
+				 [harpyDominant.speech([harpyDominantCompanion.Name]! You can finish with your fuck-toy later! There's another hungry slut right here that needs our attention!)]
+			#ELSE
+				 [harpyDominant.speech([harpyDominantCompanion.Name]! You can finish with your fuck-toy later! There's some bitch here that needs our attention!)]
+			#ENDIF
+		</p>
+		<p>
+			[harpyDominantCompanion.speech(Yes, [harpyDominant.name]!)] the harpy calls out, before growling at her victim. [harpyDominantCompanion.speech(Don't think this is over whore! I'm gonna use your ass next time!)]
+		</p>
+		<p>
+			As the matriarch, [harpyDominant.Name], stands up on top of her podium, you finally get a good look at her. Just like the other harpy leaders that you've seen, the feathers covering [harpyDominant.NamePos] wings and tail-feathers are bright red, and instead of hair, she's got a long plume of jet-black feathers on top of her head. Her face, one the most beautiful that you've ever seen, is covered in flawless, olive skin, just like the rest of her human body parts. She has average-sized breasts for a harpy, being B-cups, which are covered by her silky black plunge dress.
+		</p>
+		<p>
+			As you're taking in her gorgeous appearance, she growls down at you, 
+			#IF(pc.getFemininityValue()>FEMININITY_FEMININE_STRONG.getMinimumFemininity())
+				 [harpyDominant.speech(So?! What do you want, whore?!)]
+			#ELSE
+				 [harpyDominant.speech(So?! What do you want, bitch?!)]
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- Angry scenes: -->
+	
+    <htmlContent tag="DOMINANT_LEAVE"><![CDATA[
+    <p>
+        Deciding that now isn't the best time to be confronting [harpyDominant.name], you turn around and hurry away from the podium. You hear [harpyDominant.name] growling to [harpyDominantCompanion.name] as you leave, [harpyDominant.speechNoEffects(What the fuck was that all about?! Whatever! [harpyDominantCompanion.Name], you can carry on playing with your fuck-toy now...)]
+    </p>
+    <p>
+        Ignoring her words, you continue down the steps and back across the main platform, quickly finding yourself back on the outskirts of the nest.
+    </p>
+	]]>
+    </htmlContent>
+	
+	<!-- Pacified scenes: -->
+	
+    <htmlContent tag="PACIFIED_DOMINANT_LEAVE"><![CDATA[
+    <p>
+        Deciding that you don't want to talk to [harpyDominant.name] right now, you turn around and take your leave. You hear [harpyDominant.name] sighing to [harpyDominantCompanion.name] as you walk away, [harpyDominant.speechNoEffects(Aww! I was hoping for some fun...)]
+    </p>
+    <p>
+        Ignoring her words, you continue down the steps and back across the main platform, quickly finding yourself back on the outskirts of the nest.
+    </p>
+	]]>
+    </htmlContent>
+	
+    <htmlContent tag="PACIFIED_DOMINANT_SEX_START"><![CDATA[
+    <p>
+        Eager to put [harpyDominant.name] in her place in front of her inner-circle, you reach down and grab her by her wings. Pulling her to her feet, you [pc.step] forwards, before planting a deep kiss on her [harpyDominant.lips+].
+    </p>
+    <p>
+        [harpyDominant.Name] responds to your dominant move by letting out a submissive little whine, and, wrapping her wings around your back, she passionately starts returning your kiss...
+    </p>
+	]]>
+    </htmlContent>
+	
+    <htmlContent tag="DOMINANT_SEX_START_ORAL"><![CDATA[
+    <p>
+        Eager to put [harpyDominant.name] and [harpyDominantCompanion.name] in their place in front of their nest's inner-circle, you reach down and grab the dominant matriarch's wings. Pulling her to her feet, you [pc.step] forwards and plant a deep kiss on her [harpyDominant.lips+], drawing a series of lustful moans from the surrounding harpies as you do so.
+    </p>
+	#IF(!harpyDominantCompanion.isAttractedTo(pc))
+		<p>
+			[harpyDominant.Name] responds to your dominant move by wrapping her wings around your back, grinding herself up against you, and passionately returning your kiss. Letting out an angry tut, [harpyDominantCompanion.name] sneers, [harpyDominantCompanion.speech(I can't believe [harpyDominant.name] is submitting to you... There's no way I'd let you kiss me like that...)]
+		</p>
+		<p>
+			Breaking off your kiss with [harpyDominant.Name], you tell [harpyDominantCompanion.name] that as you're in charge of this next, she doesn't have any say in the matter. Grabbing the matriarch's subordinate, you pull her into your embrace and give her a taste of your [pc.tongue+]. As the shocked harpy lets out a muffled cry of protest into your mouth, nervous laughter breaks out amongst the surrounding harpies.
+		</p>
+		<p>
+			Wanting the matriarch's and her subordinate's lips to be employed elsewhere, you break off your kiss, before taking hold of both of the harpies' shoulders and pushing them to their knees before you. Realising what it is you want, [harpyDominant.Name] eagerly shuffles forwards towards your groin, pulling [harpyDominantCompanion.name] along beside her as she does so. Gazing up into your eyes, she moans, [harpyDominant.speech(Don't worry about [harpyDominantCompanion.name]. She'll do what I tell her to.)]
+		</p>
+		<p>
+			[harpyDominantCompanion.speech(Eugh... Yes, I'll do what you say, Mistress...)] [harpyDominantCompanion.name] groans as her matriarch forcer her to join in with performing oral on you...
+		</p>
+	#ELSE
+		<p>
+			[harpyDominant.Name] responds to your dominant move by wrapping her wings around your back, grinding herself up against you as she passionately returns your kiss. Letting out a hungry moan, [harpyDominantCompanion.name] eagerly asks, [harpyDominantCompanion.speech(You're not going to leave me to stand back and watch, are you?)]
+		</p>
+		<p>
+			With [harpyDominant.name] continuing to desperately kiss you, you motion for [harpyDominantCompanion.name] to step forwards and join in. As she happily strides forwards, you pull back from [harpyDominant.namePos] lips, before swiftly grabbing [harpyDominant.namePos] head and giving her a taste of your [pc.tongue+]. As the lustful harpy leans heavily into you, subdued chatter breaks out amongst the surrounding dominant harpies.
+		</p>
+		<p>
+			Wanting the matriarch's and her subordinate's lips to be employed elsewhere, you break off your kiss, before taking hold of both of the harpies' shoulders and pushing them to their knees before you. Realising what it is you want, they both eagerly shuffle forwards towards your groin. Looking up at you, [harpyDominant.name] hungrily moans, [harpyDominant.speech(We'll take good care of you... Isn't that right, [harpyDominantCompanion.name]?)]
+		</p>
+		<p>
+			[harpyDominantCompanion.speech(Yes, Mistress...)] [harpyDominantCompanion.name] replies, and you can't help but grin as she and her matriarch eagerly prepare to perform oral on you...
+		</p>
+	#ENDIF
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="DOMINANT_SEX_START_DOGGY"><![CDATA[
+    <p>
+        Eager to put [harpyDominant.name] and [harpyDominantCompanion.name] in their place in front of their nest's inner-circle, you grab hold of both of them and push them down onto their hands and knees before you. As you drop down behind them, [harpyDominant.name] passionately moans, [harpyDominant.speech(Come on, give the two of us a real good fuck! Use me and [harpyDominantCompanion.name] as much as you want!)]
+    </p>
+	#IF(!harpyDominantCompanion.isAttractedTo(pc))
+		<p>
+			Letting out a disgusted groan, the matriarch's subordinate looks back over her shoulder and grunts in disapproval, [harpyDominantCompanion.speech(Eugh... I'm only doing this because I have no other choice!)]
+		</p>
+		<p>
+			Ignoring her words, you lustfully gaze down at [harpyDominantCompanion.name] and her matriarch as you prepare to fuck them side-by-side...
+		</p>
+	#ELSE
+		<p>
+			Letting out a hungry moan, the matriarch's subordinate looks back over her shoulder and cries out, [harpyDominantCompanion.speech(Yes! Please, fuck me!)]
+		</p>
+		<p>
+			Pleased to hear that she's more than happy to be involved in this threesome, you lustfully gaze down at [harpyDominantCompanion.name] and her matriarch as you prepare to fuck them side-by-side...
+		</p>
+	#ENDIF
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="DOMINANT_AFTER_SEX"><![CDATA[
+	#IF(sex.isSatisfiedFromOrgasms(harpyDominant, true))
+		<p>
+			As you [pc.step] back from [harpyDominant.name], she sinks to the floor, totally worn out from her
+			#IF(sex.getNumberOfOrgasms(harpyDominant)>1)
+				orgasms.
+			#ELSE
+				orgasm.
+			#ENDIF
+			 Biting her lip and flashing you a dirty look, she teases, [harpyDominant.speech(I could get used to this, you know...)]
+		</p>
+	#ELSE
+		<p>
+			As you [pc.step] back from [harpyDominant.name], she sinks to the floor, letting out a desperate whine as she realises that you've finished with her. Her feathered hands dart down between her legs, and she frantically starts masturbating as she seeks to finish what you started.
+		</p>
+	#ENDIF
+	#IF(sex.getAllParticipants(false).contains(harpyDominantCompanion))
+		#IF(sex.isSatisfiedFromOrgasms(harpyDominantCompanion, true))
+			<p>
+				Letting out a deeply satisfied sigh, [harpyDominantCompanion.name] looks to be completely exhausted from the
+				#IF(sex.getNumberOfOrgasms(harpyDominantCompanion)>1)
+					orgasms
+				#ELSE
+					orgasm
+				#ENDIF
+				 you gave her. Panting and looking up into your eyes, she moans, [harpyDominantCompanion.speech(That was... Wow...)]
+			</p>
+		#ELSE
+			<p>
+				Not being satisfied from this sexual experience, [harpyDominantCompanion.name] looks over at her matriarch, and as she watches [harpyDominant.namePos] [harpyDominant.breasts+] rise and fall, she starts shamelessly masturbating right there in front of the rest of the surrounding harpies.
+			</p>
+		#ENDIF
+	#ENDIF
+	<p>
+		[harpyDominant.NamePos] inner-circle of harpies, having watched the whole thing, kneel down in submission as you finish with their matriarch. Excitedly chattering amongst themselves, they talk about your performance and wonder aloud how long it will be before you're back for more...
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="DOMINANT_LEAVE_AFTER_SEX"><![CDATA[
+	#IF(sex.getAllParticipants(false).contains(harpyDominantCompanion))
+		<p>
+			Having shown these harpies their place, you set off down the staircase, and after walking back across the lower platform, you quickly find yourself on the outskirts of [harpyDominant.namePos] nest once again.
+		</p>
+	#ELSE
+		<p>
+			Having shown [harpyDominant.name] her place, you set off down the staircase, and after walking back across the lower platform, you quickly find yourself on the outskirts of [harpyDominant.namePos] nest once again.
+		</p>
+	#ENDIF
+    ]]>
+    </htmlContent>
 	
 </dialogue>

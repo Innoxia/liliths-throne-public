@@ -8413,12 +8413,16 @@ public class InventoryDialogue {
 				}
 			};
 		} else {
-			return new Response("Buyback", "Switch to viewing the buyback menu.", INVENTORY_MENU){
-				@Override
-				public void effects(){
-					buyback = !buyback;
-				}
-			};
+			if(Main.game.getPlayer().getBuybackStack()==null || Main.game.getPlayer().getBuybackStack().isEmpty()) {
+				return new Response("Buyback", "You have not sold any items, so cannot buy anything back...", null);
+			} else {
+				return new Response("Buyback", "Switch to viewing the buyback menu.", INVENTORY_MENU){
+					@Override
+					public void effects(){
+						buyback = !buyback;
+					}
+				};
+			}
 		}
 	}
 	

@@ -490,7 +490,8 @@ public class Lyssieth extends NPC {
 			};
 			
 		} else if(Main.sex.getSexManager() instanceof SMLyssiethDemonTF) { // Demon TF scene:
-			StringBuilder sb = new StringBuilder();if(description!=null) {
+			StringBuilder sb = new StringBuilder();
+			if(description!=null) {
 				sb.append(description);
 			} else {
 				sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
@@ -649,7 +650,7 @@ public class Lyssieth extends NPC {
 						@Override
 						public void applyEndEffects() {
 							if(applyExtraEffects) {
-								Main.sex.setCreampieLockedBy(new Value<>(Main.game.getNpc(Lyssieth.class), Leg.class));
+								Main.sex.setCreampieLockedBy(Main.game.getPlayer(), new Value<>(Main.game.getNpc(Lyssieth.class), Leg.class));
 							}
 						}
 					};
@@ -702,9 +703,9 @@ public class Lyssieth extends NPC {
 						public void applyEndEffects() {
 							if(applyExtraEffects) {
 								if(Main.sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotLyingDown.MATING_PRESS) {
-									Main.sex.setCreampieLockedBy(new Value<>(Main.game.getNpc(Lyssieth.class), Leg.class));
+									Main.sex.setCreampieLockedBy(Main.game.getPlayer(), new Value<>(Main.game.getNpc(Lyssieth.class), Leg.class));
 								} else {
-									Main.sex.setCreampieLockedBy(new Value<>(Main.game.getNpc(Lyssieth.class), Tail.class));
+									Main.sex.setCreampieLockedBy(Main.game.getPlayer(), new Value<>(Main.game.getNpc(Lyssieth.class), Tail.class));
 								}
 							}
 						}

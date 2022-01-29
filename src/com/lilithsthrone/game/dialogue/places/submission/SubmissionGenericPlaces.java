@@ -187,7 +187,7 @@ public class SubmissionGenericPlaces {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR) || Main.game.getPlayer().getQuest(QuestLine.SIDE_VENGAR)==Quest.VENGAR_THREE_END) {
+			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR) && Main.game.getPlayer().getQuest(QuestLine.SIDE_VENGAR)!=Quest.VENGAR_THREE_END) {
 				if(index==1) {
 					return new Response("Knock",
 							"Knock on the door and wait to see if anyone answers.",

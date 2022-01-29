@@ -768,7 +768,7 @@ public class EnforcerAlleywayDialogue {
 									new Value<>(getEnforcerSubordinate(), UtilText.parse(getEnforcerSubordinate(), "[npc.speech(Now we've got you!)] [npc.name] exclaims."))));
 				}
 				
-			} else if (Main.game.getPlayer().hasAnyEnforcerStatusEffect() && uniformPassable < 0) {
+			} else if (Main.game.getPlayer().hasAnyEnforcerStatusEffect() && uniformPassable < 0 && !searched) {
 				if(index==1) {
 					return new ResponseCombat("Defend yourself",
 							"The Enforcers are determined to beat you!"

@@ -20,7 +20,7 @@
 		[#targetedBody.setCovering(BODY_COVERING_TYPE_innoxia_raptor_hair, COVERING_PATTERN_NONE, COLOUR_COVERING_WHITE, false, COLOUR_COVERING_WHITE, false)]
 		[#targetedBody.setCovering(BODY_COVERING_TYPE_innoxia_raptor_body_hair, COVERING_PATTERN_NONE, COLOUR_COVERING_BROWN_DARK, false, COLOUR_COVERING_BROWN_DARK, false)]
 		[#targetedBody.setCovering(BODY_COVERING_TYPE_innoxia_raptor_skin, COVERING_PATTERN_NONE, COLOUR_SKIN_YELLOW, false, COLOUR_SKIN_YELLOW, false)]
-		[#targetedBody.setHeight(targetedBody.getHeightValue()*1.15)]
+		[#targetedBody.setHeight(targetedBody.getHeightValue()*1.05)]
 		#IF(targetedBody.getBodySize()<30)
 			[#targetedBody.setBodySize(targetedBody.getBodySize()+10)]
 		#ENDIF

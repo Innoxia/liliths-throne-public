@@ -13,7 +13,35 @@
 		<clothingSet/> 
 		<imageName>lowback_body.svg</imageName>
 		<imageEquippedName/>
-		<stickers/>
+		
+		<stickers>
+			<category id="straps" priority="1">
+				<categoryName><![CDATA[Shoulder Straps]]></categoryName>
+				<sticker id="attached" priority="1" defaultSticker="true" zLayer="-1">
+					<stickerName><![CDATA[Attached]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="3"><![CDATA[ The shoulder straps are currently attached to the body suit.]]></descriptionModification>
+					<imageName>lowback_body_straps.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="removed" priority="0" defaultSticker="false" zLayer="1">
+					<stickerName><![CDATA[Removed]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="3"><![CDATA[ The shoulder straps have been removed from the body suit.]]></descriptionModification>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+			</category>
+		</stickers>
+		
 		<enchantmentLimit/>
 		<effects/>
 		
