@@ -2327,15 +2327,29 @@ public class Perk {
 			"perks/fitness_nymphomaniac",
 			PresetColour.GENERIC_SEX,
 			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_LUST, 5),
 					new Value<>(Attribute.RESISTANCE_LUST, -2)),
 			Util.newArrayListOfValues("Doubles <span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You are completely and hopelessly addicted to sex.";
-			else
-				return UtilText.parse(owner, "[npc.Name] is completely and hopelessly addicted to sex.");
+			return UtilText.parse(owner, "[npc.NameIsFull] completely and hopelessly addicted to sex.");
+		}
+	};
+	
+	public static AbstractPerk AHEGAO = new AbstractPerk(20,
+			true,
+			"ahegao",
+			PerkCategory.LUST,
+			"perks/ahegao",
+			PresetColour.GENERIC_SEX,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_LUST, 15),
+					new Value<>(Attribute.RESISTANCE_LUST, -5)),
+			Util.newArrayListOfValues("Goes [style.colourSex(ahegao)] upon orgasming")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NamePos] orgasms are particularly intense, and [npc.she] can't help but make an exaggerated facial expression every time [npc.she] [npc.verb(climax)].");
 		}
 	};
 

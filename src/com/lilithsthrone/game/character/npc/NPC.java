@@ -1030,8 +1030,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 
 	/**
 	 * By default, NPCs can't be impregnated.
-	 * 
-	 * @return
 	 */
 	@Override
 	public boolean isAbleToBeImpregnated() {

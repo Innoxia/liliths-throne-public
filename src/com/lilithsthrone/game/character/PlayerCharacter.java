@@ -1810,7 +1810,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					+ "</p>"
 					+ "<p style='text-align:center;'>"
 						+ "[pc.thought(This is how I lose my virginity?!<br/>"
-								+ "To... <i>[npc.a_race]</i>?!<br/>"
+								+ "To...<i>"
+								+ (characterPenetrating.isSlave() && characterPenetrating.getOwner().isPlayer()
+										?" my own slave"
+										:" [npc.a_race]")
+								+ "</i>?!<br/>"
 								+ "This can't be happening!)]"
 					+ "</p>"
 					+ "<p>"

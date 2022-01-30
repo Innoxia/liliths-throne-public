@@ -73,7 +73,6 @@ public class Callie extends NPC {
 				WorldType.getWorldTypeFromId("nnxx_callie_bakery"), PlaceType.getPlaceTypeFromId("nnxx_callie_bakery_counter"),
 				true);
 		if(!isImported) {
-			this.hourlyUpdate();
 			this.dailyUpdate();
 		}
 	}
@@ -81,13 +80,33 @@ public class Callie extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+
+		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.4.3.2")) {
+			 // Fix for incorrect covering colours:
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, PresetColour.EYE_AQUA));
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_LIGHT), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_JET_BLACK), true);
+			
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, PresetColour.COVERING_JET_BLACK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, PresetColour.COVERING_JET_BLACK), true);
+			
+			this.setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_EBONY), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_EBONY), false);
+	
+			this.setSkinCovering(new Covering(BodyCoveringType.BODY_HAIR_HORSE_HAIR, PresetColour.COVERING_JET_BLACK), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, PresetColour.COVERING_JET_BLACK), false);
+			
+			// Add firing blanks to avoid impregnating player:
+			setupPerks(true);
+		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
 		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(),
+				Util.newArrayListOfValues(
+						Perk.FIRING_BLANKS),
 				Util.newHashMapOfValues(
 						new Value<>(PerkCategory.PHYSICAL, 1),
 						new Value<>(PerkCategory.LUST, 1),
@@ -130,16 +149,18 @@ public class Callie extends NPC {
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, PresetColour.EYE_AQUA));
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_LIGHT), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_JET_BLACK), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_EBONY), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_EBONY), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_JET_BLACK), true);
 		
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, PresetColour.COVERING_JET_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, PresetColour.COVERING_JET_BLACK), true);
 		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
 		this.setHairStyle(HairStyle.WAVY);
+		
+		this.setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_EBONY), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_EBONY), false);
 
-		this.setSkinCovering(new Covering(BodyCoveringType.BODY_HAIR_HORSE_HAIR, PresetColour.COVERING_JET_BLACK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, PresetColour.COVERING_JET_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.BODY_HAIR_HORSE_HAIR, PresetColour.COVERING_JET_BLACK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, PresetColour.COVERING_JET_BLACK), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.ZERO_NONE);
 		this.setPubicHair(BodyHair.THREE_TRIMMED);
@@ -248,13 +269,6 @@ public class Callie extends NPC {
 		}
 	}
 	
-	@Override
-	public void hourlyUpdate() {
-		if(!Main.game.isInSex()) {
-			this.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), this, false);
-		}
-	}
-
 	@Override
 	public boolean isAbleToBeImpregnated() {
 		return false;

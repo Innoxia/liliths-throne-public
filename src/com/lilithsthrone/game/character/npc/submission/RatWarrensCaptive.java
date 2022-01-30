@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.body.valueEnums.*;
+import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
+import com.lilithsthrone.game.character.effects.PerkManager;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -39,6 +43,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -114,8 +119,22 @@ public class RatWarrensCaptive extends NPC {
 			setStartingBody(true);
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.3.3")) {
+			this.resetPerksMap(true);
+		}
 	}
 
+	@Override
+	public void setupPerks(boolean autoSelectPerks) {
+		PerkManager.initialisePerks(this,
+				Util.newArrayListOfValues(
+						Perk.AHEGAO),
+				Util.newHashMapOfValues(
+						new Value<>(PerkCategory.PHYSICAL, 0),
+						new Value<>(PerkCategory.LUST, 1),
+						new Value<>(PerkCategory.ARCANE, 0)));
+	}
+	
 	@Override
 	public void setStartingBody(boolean setPersona) {
 		if(setPersona) {

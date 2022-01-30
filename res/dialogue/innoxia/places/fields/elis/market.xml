@@ -2570,7 +2570,7 @@
 				<responseTooltip><![CDATA[
 					#IF(!pc.hasItemType('innoxia_quest_faire_ticket'))
 						You need at least one Faire ticket to be able to get a demonstration from Yui...
-					#ELSEIF(!pc.isAbleToEquip(itemGen.generateClothing(CLOTHING_BDSM_BALLGAG), true, yui))
+					#ELSEIF(!pc.isAbleToEquip(itemGen.generateClothing(CLOTHING_innoxia_bdsm_ballgag), true, yui))
 						As you cannot equip a ball gag, you cannot receive Yui's demonstration...
 					#ELSE
 						Give Yui one of your Faire tickets in exchange for a ball gag demonstration, which will involve [style.colourSex(being gagged and whipped)].
@@ -2581,7 +2581,7 @@
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
-					#IF(flags.hasFlag(FLAG_innoxia_elis_market_yui_demonstration_complete) || !pc.hasItemType('innoxia_quest_faire_ticket') || !pc.isAbleToEquip(itemGen.generateClothing(CLOTHING_BDSM_BALLGAG), true, yui))
+					#IF(flags.hasFlag(FLAG_innoxia_elis_market_yui_demonstration_complete) || !pc.hasItemType('innoxia_quest_faire_ticket') || !pc.isAbleToEquip(itemGen.generateClothing(CLOTHING_innoxia_bdsm_ballgag), true, yui))
 						null
 					#ELSE
 						innoxia_places_fields_elis_market_toys_demonstration_ballgag
@@ -2960,7 +2960,7 @@
 	
 	<scene id="toys_demonstration_ballgag">
 		<preParsingEffects><![CDATA[
-			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_BDSM_BALLGAG, COLOUR_CLOTHING_PINK_HOT, false), true, yui)]
+			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_innoxia_bdsm_ballgag, COLOUR_CLOTHING_PINK_HOT, false), true, yui)]
 			[#pc.getClothingInSlot(IS_MOUTH).setName("Yui's demo ball gag")]
 		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/elis/market">TOYS_DEMONSTRATION_BALLGAG</content>

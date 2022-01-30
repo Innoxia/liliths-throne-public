@@ -2289,6 +2289,13 @@ position:relative;
 	bottom:2px;
 	left:2px;
 }
+.response-icon-rightTop{
+	position:absolute;
+	height:11px;
+	width:11px;
+	bottom:2px;
+	right:2px;
+}
 .response-icon-leftBottom{
 	position:absolute;
 	height:11px;

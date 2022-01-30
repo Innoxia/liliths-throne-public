@@ -936,72 +936,69 @@ public class Game implements XMLSaving {
 				}
 				
 				// Add missing world types:
+				Generation gen = new Generation();
+//				if(Main.isVersionOlderThan(loadingVersion, "0.1.99.5")) { 
+//					Main.game.getWorlds().put(WorldType.SHOPPING_ARCADE, gen.worldGeneration(WorldType.SHOPPING_ARCADE));
+//				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.1.5")) {
+					Main.game.getWorlds().put(WorldType.HARPY_NEST, gen.worldGeneration(WorldType.HARPY_NEST));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.10.8")) {
+					Main.game.getWorlds().put(WorldType.SUBMISSION, gen.worldGeneration(WorldType.SUBMISSION));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.11")) {
+					Main.game.getWorlds().put(WorldType.IMP_FORTRESS_ALPHA, gen.worldGeneration(WorldType.IMP_FORTRESS_ALPHA));
+					Main.game.getWorlds().put(WorldType.IMP_FORTRESS_FEMALES, gen.worldGeneration(WorldType.IMP_FORTRESS_FEMALES));
+					Main.game.getWorlds().put(WorldType.IMP_FORTRESS_MALES, gen.worldGeneration(WorldType.IMP_FORTRESS_MALES));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.12.5")) {
+					Main.game.getWorlds().put(WorldType.IMP_FORTRESS_DEMON, gen.worldGeneration(WorldType.IMP_FORTRESS_DEMON));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.2")) {
+					Main.game.getWorlds().put(WorldType.DOMINION, gen.worldGeneration(WorldType.DOMINION));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.3.5")) {
+					Main.game.getWorlds().put(WorldType.BAT_CAVERNS, gen.worldGeneration(WorldType.BAT_CAVERNS));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.8")) {
+					Main.game.getWorlds().put(WorldType.NIGHTLIFE_CLUB, gen.worldGeneration(WorldType.NIGHTLIFE_CLUB));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.2.8.1")) {
+					Main.game.getWorlds().put(WorldType.EMPTY, gen.worldGeneration(WorldType.EMPTY));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3")) {
+					Main.game.getWorlds().put(WorldType.LYSSIETH_PALACE, gen.worldGeneration(WorldType.LYSSIETH_PALACE));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.2.2")) {
+					Main.game.getWorlds().put(WorldType.CITY_HALL, gen.worldGeneration(WorldType.CITY_HALL));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.4.9")) {
+					Main.game.getWorlds().put(WorldType.ENFORCER_WAREHOUSE, gen.worldGeneration(WorldType.ENFORCER_WAREHOUSE));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.5.4")) {
+					Main.game.getWorlds().put(WorldType.GAMBLING_DEN, gen.worldGeneration(WorldType.GAMBLING_DEN));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.5.6")) {
+					Main.game.getWorlds().put(WorldType.RAT_WARRENS, gen.worldGeneration(WorldType.RAT_WARRENS));
+					Main.game.getWorlds().put(WorldType.SLAVER_ALLEY, gen.worldGeneration(WorldType.SLAVER_ALLEY));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.7")) {
+					Main.game.getWorlds().put(WorldType.HELENAS_APARTMENT, gen.worldGeneration(WorldType.HELENAS_APARTMENT));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.7.9")) {
+					Main.game.getWorlds().put(WorldType.DOMINION_EXPRESS, gen.worldGeneration(WorldType.DOMINION_EXPRESS));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.9.4")) {
+					Main.game.getWorlds().put(WorldType.ENFORCER_HQ, gen.worldGeneration(WorldType.ENFORCER_HQ));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.0.5")) {
+					Main.game.getWorlds().put(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), gen.worldGeneration(WorldType.getWorldTypeFromId("innoxia_fields_elis_town")));
+					Main.game.getWorlds().put(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), gen.worldGeneration(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1")));
+				}
 				for(AbstractWorldType wt : WorldType.getAllWorldTypes()) {
-					Generation gen = new Generation();
-//					if(Main.isVersionOlderThan(loadingVersion, "0.1.99.5")) { 
-//						Main.game.getWorlds().put(WorldType.SHOPPING_ARCADE, gen.worldGeneration(WorldType.SHOPPING_ARCADE));
-//					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.1.5")) {
-						Main.game.getWorlds().put(WorldType.HARPY_NEST, gen.worldGeneration(WorldType.HARPY_NEST));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.10.8")) {
-						Main.game.getWorlds().put(WorldType.SUBMISSION, gen.worldGeneration(WorldType.SUBMISSION));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.11")) {
-						Main.game.getWorlds().put(WorldType.IMP_FORTRESS_ALPHA, gen.worldGeneration(WorldType.IMP_FORTRESS_ALPHA));
-						Main.game.getWorlds().put(WorldType.IMP_FORTRESS_FEMALES, gen.worldGeneration(WorldType.IMP_FORTRESS_FEMALES));
-						Main.game.getWorlds().put(WorldType.IMP_FORTRESS_MALES, gen.worldGeneration(WorldType.IMP_FORTRESS_MALES));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.12.5")) {
-						Main.game.getWorlds().put(WorldType.IMP_FORTRESS_DEMON, gen.worldGeneration(WorldType.IMP_FORTRESS_DEMON));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.2")) {
-						Main.game.getWorlds().put(WorldType.DOMINION, gen.worldGeneration(WorldType.DOMINION));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.3.5")) {
-						Main.game.getWorlds().put(WorldType.BAT_CAVERNS, gen.worldGeneration(WorldType.BAT_CAVERNS));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.8")) {
-						Main.game.getWorlds().put(WorldType.NIGHTLIFE_CLUB, gen.worldGeneration(WorldType.NIGHTLIFE_CLUB));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.8.1")) {
-						Main.game.getWorlds().put(WorldType.EMPTY, gen.worldGeneration(WorldType.EMPTY));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3")) {
-						Main.game.getWorlds().put(WorldType.LYSSIETH_PALACE, gen.worldGeneration(WorldType.LYSSIETH_PALACE));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3.2.2")) {
-						Main.game.getWorlds().put(WorldType.CITY_HALL, gen.worldGeneration(WorldType.CITY_HALL));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3.4.9")) {
-						Main.game.getWorlds().put(WorldType.ENFORCER_WAREHOUSE, gen.worldGeneration(WorldType.ENFORCER_WAREHOUSE));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3.5.4")) {
-						Main.game.getWorlds().put(WorldType.GAMBLING_DEN, gen.worldGeneration(WorldType.GAMBLING_DEN));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3.5.6")) {
-						Main.game.getWorlds().put(WorldType.RAT_WARRENS, gen.worldGeneration(WorldType.RAT_WARRENS));
-						Main.game.getWorlds().put(WorldType.SLAVER_ALLEY, gen.worldGeneration(WorldType.SLAVER_ALLEY));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3.7")) {
-						Main.game.getWorlds().put(WorldType.HELENAS_APARTMENT, gen.worldGeneration(WorldType.HELENAS_APARTMENT));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3.7.9")) {
-						Main.game.getWorlds().put(WorldType.DOMINION_EXPRESS, gen.worldGeneration(WorldType.DOMINION_EXPRESS));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3.9.4")) {
-						Main.game.getWorlds().put(WorldType.ENFORCER_HQ, gen.worldGeneration(WorldType.ENFORCER_HQ));
-					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.4.0.5")) {
-						Main.game.getWorlds().put(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), gen.worldGeneration(WorldType.getWorldTypeFromId("innoxia_fields_elis_town")));
-						Main.game.getWorlds().put(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), gen.worldGeneration(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1")));
-					}
 					if(Main.game.worlds.get(wt)==null) {
 						Main.game.getWorlds().put(wt, gen.worldGeneration(wt));
-						//System.out.println(WorldType.getIdFromWorldType(wt));
 					}
-					//System.out.println("Hmmmmmmmmmmmm "+WorldType.getIdFromWorldType(wt));
-					
 				}
 				
 				if(Main.isVersionOlderThan(loadingVersion, "0.3.6.9")) {
@@ -3645,14 +3642,15 @@ public class Game implements XMLSaving {
 		String style="";
 		String iconLeftBottom="";
 		String iconLeftTop="";
-		String iconRight="";
+		String iconRightBottom="";
+		String iconRightTop="";
 		boolean responseDisabled = false;
 		
 		if(response.disabledOnNullDialogue() && response.getNextDialogue()==null) {
 			responseDisabled = true;
 			
 		} else if (response.isActionCorrupting()) {
-			if(response.isAvailableFromFetishes()) {
+			if(response.isAvailableFromFetishes()) {// Isn't this never triggered, as if it's available then it's not corrupting???
 				iconLeftBottom = "<div class='response-icon-leftBottom' style='filter:grayscale(100%);opacity:0.5;'>" + SVGImages.SVG_IMAGE_PROVIDER.getResponseCorruptionBypass() + "</div>";
 			} else {
 				iconLeftBottom = "<div class='response-icon-leftBottom'>" + SVGImages.SVG_IMAGE_PROVIDER.getResponseCorruptionBypass() + "</div>";
@@ -3688,12 +3686,16 @@ public class Game implements XMLSaving {
 					break;
 			}
 		}
-
+		
+		if(response instanceof ResponseSex && ((ResponseSex)response).isNonConWarning()) {
+			iconRightTop = "<div class='response-icon-rightTop'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseSubResist()+"</div>";
+		}
+		
 		if(response.isSexActionSwitch()) {
-			iconRight = "<div class='response-icon-rightBottom'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseSexSwitch()+"</div>";
+			iconRightBottom = "<div class='response-icon-rightBottom'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseSexSwitch()+"</div>";
 			
 		} else if(response.getSexActionType()==SexActionType.START_ADDITIONAL_ONGOING) {
-			iconRight = "<div class='response-icon-rightBottom'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseSexAdditional()+"</div>";
+			iconRightBottom = "<div class='response-icon-rightBottom'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseSexAdditional()+"</div>";
 		}
 		
 		float fontSize = 1;
@@ -3721,7 +3723,8 @@ public class Game implements XMLSaving {
 						+ "<p class='response-text"+(responsePointer==option?" selected":"")+"' "+style+">" + (!responseDisabled ? titleText : UtilText.getDisabledResponse(titleText)) + "</p>"
 						+ iconLeftTop
 						+ iconLeftBottom
-						+ iconRight
+						+ iconRightTop
+						+ iconRightBottom
 					+ "</div>";
 			
 		} else {
@@ -3732,7 +3735,8 @@ public class Game implements XMLSaving {
 						+ (!responseDisabled ? titleText : UtilText.getDisabledResponse(titleText)) + "</p>"
 						+ iconLeftTop
 						+ iconLeftBottom
-						+ iconRight
+						+ iconRightTop
+						+ iconRightBottom
 					+ "</div>";
 			} else {
 				return "<div class='response-box"+(responsePointer-(responsePage*MainController.RESPONSE_COUNT)+1==(option)?" selected":"")+"' id='option_" + option + "'>"
@@ -3741,7 +3745,8 @@ public class Game implements XMLSaving {
 						+ (!responseDisabled ? titleText : UtilText.getDisabledResponse(titleText)) + "</p>"
 						+ iconLeftTop
 						+ iconLeftBottom
-						+ iconRight
+						+ iconRightTop
+						+ iconRightBottom
 					+ "</div>";
 			}
 		}
@@ -4422,7 +4427,7 @@ public class Game implements XMLSaving {
 		List<OffspringSeed> offspringAvailable = new ArrayList<>();
 		
 		for(OffspringSeed os : OffspringSeedMap.values()) {
-			if(os.isFromPlayer() && (includeUnborn || (os.isBorn()))) {
+			if(os.isFromPlayer() && (includeUnborn || os.isBorn())) {
 				offspringAvailable.add(os);
 			}
 		}
@@ -5305,7 +5310,7 @@ public class Game implements XMLSaving {
 //		System.out.println("Saved: "+character.getName());
 	}
 	
-	public void initCosmeticsDialogue(NPC beautician, DialogueNode returnToNode) {
-		CosmeticsDialogue.initDialogue(beautician, returnToNode);
+	public void initCosmeticsDialogue(NPC beautician, GameCharacter target, DialogueNode returnToNode) {
+		CosmeticsDialogue.initDialogue(beautician, target, returnToNode);
 	}
 }

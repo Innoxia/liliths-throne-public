@@ -2444,9 +2444,7 @@ public class GenericActions {
 		}
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Main.sex.getCharacterPerformingAction().isPlayer()
-						|| (Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_DOMINANT)
-								&& (Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST) || Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_DOM))))
+			return (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_BONDAGE_APPLIER))
 					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()>=SexControl.FULL.getValue()
 					&& !Main.sex.isCharacterImmobilised(Main.sex.getCharacterTargetedForSexAction(this));
 		}
@@ -2583,9 +2581,7 @@ public class GenericActions {
 		}
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Main.sex.getCharacterPerformingAction().isPlayer()
-						|| (Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_DOMINANT)
-								&& (Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST) || Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_DOM))))
+			return (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_BONDAGE_APPLIER))
 					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()>=SexControl.FULL.getValue()
 					&& !Main.sex.isCharacterImmobilised(Main.sex.getCharacterTargetedForSexAction(this));
 		}
@@ -2997,9 +2993,7 @@ public class GenericActions {
 				return false; // If performing character is engaged in ongoing long-tail constriction, return false (as can only restrict one at a time).
 			}
 			return Main.sex.getCharacterPerformingAction().getLegConfiguration()==LegConfiguration.TAIL_LONG
-					&& (Main.sex.getCharacterPerformingAction().isPlayer()
-						|| (Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_DOMINANT)
-								&& (Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST) || Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_DOM))))
+					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_BONDAGE_APPLIER))
 					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()>=SexControl.FULL.getValue()
 					&& !Main.sex.isCharacterImmobilised(Main.sex.getCharacterTargetedForSexAction(this));
 		}
