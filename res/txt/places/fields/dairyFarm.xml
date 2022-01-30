@@ -463,7 +463,7 @@
 	<p>
 		Stepping around to one side of the trainee, Dale reaches down and takes hold of her exposed ass, before pulling her cheeks apart and using his thumbs to spread her [cow.labiaSize] [cow.labia]. As he presents [cow.namePos] [cow.pussyCapacity] cunt to you, the donkey-boy
 		#IF(cow.isVaginaVirgin())
-			 flashes you a grin and sighs, [cow.speech(I wish I were you right now... There's nothing better than getting to take a trainee's virginity like this. So, you're up for it, right?)]
+			 flashes you a grin and sighs, [dale.speech(I wish I were you right now... There's nothing better than getting to take a trainee's virginity like this. So, you're up for it, right?)]
 		#ELSE
 			 smiles and asks, [dale.speech(So, is she to your liking?)]
 		#ENDIF

@@ -1467,7 +1467,6 @@ public class Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			List<Colour> naturalWolfFurColours = Util.newArrayListOfValues(
-					PresetColour.COVERING_WHITE,
 					PresetColour.COVERING_GREY,
 					PresetColour.COVERING_BLACK,
 					PresetColour.COVERING_JET_BLACK);

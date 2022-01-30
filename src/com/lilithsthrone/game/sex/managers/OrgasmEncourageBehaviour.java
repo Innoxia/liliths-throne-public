@@ -2,7 +2,7 @@ package com.lilithsthrone.game.sex.managers;
 
 /**
  * @since 0.3.4
- * @version 0.3.4
+ * @version 0.4.3.2
  * @author Innoxia
  */
 public enum OrgasmEncourageBehaviour {
@@ -13,5 +13,7 @@ public enum OrgasmEncourageBehaviour {
 	
 	PULL_OUT,
 	
-	CREAMPIE;
+	CREAMPIE,
+	
+	KNOT;
 }

@@ -59,7 +59,7 @@
 					<nextDialogue><![CDATA[BEAUTICIAN_START]]></nextDialogue>
 					<effects><![CDATA[
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'COSMETICS_START'))]
-						[#game.initCosmeticsDialogue(penelope, DN_innoxia_places_fields_elis_shops_spa_post_cosmetics)]
+						[#game.initCosmeticsDialogue(penelope, pc, DN_innoxia_places_fields_elis_shops_spa_post_cosmetics)]
 					]]></effects>
 				</response>
 				<!-- Spa services: -->
