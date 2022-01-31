@@ -438,16 +438,25 @@ public class Util {
 		return mergedMap;
 	}
 	
+	/**
+	 * Check a weighted Integer map for validity.
+	 * A valid map has no negative weights, and at least one positive weight.
+	 * 
+	 * @param map The weighted map to check
+	 * @param printWarning If true, print a warning to {@link System#err}
+	 * @return True if the map is valid; false otherwise
+	 */
 	public static <T> boolean checkWeightedMap(Map<T, Integer> map, boolean printWarning) {
 		if(map.isEmpty()) {
 			return true;
 		}
+		boolean hasPositiveValue = false;
 		for(Integer weight : map.values()) {
 			if(weight > 0) {
-				return true;
+				hasPositiveValue = true;
 			} else if(weight < 0) {
 				if(printWarning) {
-					System.err.println("Warning: negative values within weighted map!\nFirst 10 elements: "
+					System.err.println("Warning: negative weights within weighted map!\nFirst 10 elements: "
 							+ map.entrySet().stream().limit(10)
 							.map(e -> e.getKey().toString() + "=" + e.getValue().toString())
 							.collect(Collectors.joining(", ")));
@@ -458,7 +467,7 @@ public class Util {
 				return false;
 			}
 		}
-		if(printWarning) {
+		if(printWarning && !hasPositiveValue) {
 			System.err.println("Warning: all weights are zero in weighted map!\nFirst 10 elements: "
 					+ map.entrySet().stream().limit(10)
 					.map(e -> e.getKey().toString() + "=" + e.getValue().toString())
@@ -467,19 +476,28 @@ public class Util {
 				new IllegalArgumentException().printStackTrace();
 			}
 		}
-		return true;
+		return hasPositiveValue;
 	}
 
+	/**
+	 * Check a weighted Float map for validity.
+	 * A valid map has no negative weights, and at least one positive weight.
+	 * 
+	 * @param map The weighted map to check
+	 * @param printWarning If true, print a warning to {@link System#err}
+	 * @return True if the map is valid; false otherwise
+	 */
 	public static <T> boolean checkWeightedFloatMap(Map<T, Float> map, boolean printWarning) {
 		if(map.isEmpty()) {
 			return true;
 		}
+		boolean hasPositiveValue = false;
 		for(Float weight : map.values()) {
 			if(weight > 0f) {
-				return true;
+				hasPositiveValue = true;
 			} else if(weight < 0f) {
 				if(printWarning) {
-					System.err.println("Warning: negative values within weighted map!\nFirst 10 elements: "
+					System.err.println("Warning: negative weights within weighted map!\nFirst 10 elements: "
 							+ map.entrySet().stream().limit(10)
 							.map(e -> e.getKey().toString() + "=" + e.getValue().toString())
 							.collect(Collectors.joining(", ")));
@@ -490,7 +508,7 @@ public class Util {
 				return false;
 			}
 		}
-		if(printWarning) {
+		if(printWarning && !hasPositiveValue) {
 			System.err.println("Warning: all weights are zero in weighted map!\nFirst 10 elements: "
 					+ map.entrySet().stream().limit(10)
 					.map(e -> e.getKey().toString() + "=" + e.getValue().toString())
@@ -499,7 +517,7 @@ public class Util {
 				new IllegalArgumentException().printStackTrace();
 			}
 		}
-		return true;
+		return hasPositiveValue;
 	}
 
 	public static <T> T getHighestProbabilityEntryFromWeightedMap(Map<T, Integer> map) {
