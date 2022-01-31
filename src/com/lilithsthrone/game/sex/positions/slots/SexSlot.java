@@ -82,7 +82,7 @@ public class SexSlot {
 	/**
 	 * @return A generic orgasm description, based on who the character in this slot is targeting. Will be returned if orgasmDescription is null.
 	 */
-	public String getGenericOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
+	private String getGenericOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
 		if(orgasmingCharacter.equals(targetedCharacter)) {
 			return UtilText.parse(orgasmingCharacter, targetedCharacter,
 					"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.");
@@ -155,7 +155,7 @@ public class SexSlot {
 			}
 		}
 		
-		 // Check for the opposite interactions (i.e. the targeted slot interacting with this slot):
+		// Check for the opposite interactions (i.e. the targeted slot interacting with this slot):
 		
 		if(targetedSlot==null) { // If no targeted slot, check all available slots:
 			for(Entry<SexSlot, Map<SexSlot, SexActionInteractions>> value : position.getSlotTargets().entrySet()) {

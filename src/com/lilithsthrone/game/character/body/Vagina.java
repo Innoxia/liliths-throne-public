@@ -122,7 +122,7 @@ public class Vagina implements BodyPartInterface {
 		
 		descriptorList.add(Capacity.getCapacityFromValue(orificeVagina.getStretchedCapacity()).getDescriptor().replaceAll(" ", "-"));
 
-		descriptorList.removeIf(d->d.isEmpty());
+		descriptorList.removeIf(d->d==null || d.isEmpty());
 		if(descriptorList.isEmpty()) {
 			return "";
 		}
@@ -294,13 +294,15 @@ public class Vagina implements BodyPartInterface {
 		
 		sb.append("</p>");
 
-		sb.append("<p style='text-align:center;'>");
-			if(this.eggLayer) {
-				sb.append(UtilText.parse(owner,"<i>Instead of giving birth to live young, [npc.name] now [style.colourEgg([npc.verb(lay)] eggs)]!</i>"));
-			} else {
-				sb.append(UtilText.parse(owner,"<i>[npc.Name] now [style.colourSex([npc.verb(give)] birth to live young)]!</i>"));
-			}
-		sb.append("</p>");
+		if(this.type != VaginaType.NONE) {
+			sb.append("<p style='text-align:center;'>");
+				if(this.eggLayer) {
+					sb.append(UtilText.parse(owner,"<i>Instead of giving birth to live young, [npc.name] now [style.colourEgg([npc.verb(lay)] eggs)]!</i>"));
+				} else {
+					sb.append(UtilText.parse(owner,"<i>[npc.Name] now [style.colourSex([npc.verb(give)] birth to live young)]!</i>"));
+				}
+			sb.append("</p>");
+		}
 		
 		orificeVagina.getOrificeModifiers().clear();
 		for(OrificeModifier om : type.getDefaultRacialOrificeModifiers()) {

@@ -20,6 +20,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.ImmobilisationType;
+import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -69,6 +70,9 @@ public class SexManagerExternal extends SexManagerDefault {
 
 	public String sadisticActionsAllowedString;
 	public boolean sadisticActionsAllowed;
+
+	public String lovingActionsAllowedString;
+	public boolean lovingActionsAllowed;
 	
 	private String canItemsBeUsedString;
 	private boolean canItemsBeUsed;
@@ -87,6 +91,9 @@ public class SexManagerExternal extends SexManagerDefault {
 	private Map<GameCharacter, List<SexAreaInterface>> areasBannedMap;
 	
 	private Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> startingCharactersImmobilised;
+
+	/**Maps: character who is lubricated -> Map of areas -> Map of owner of lubrication -> lubrications*/
+	private Map<GameCharacter, Map<SexAreaInterface, Map<GameCharacter, Set<LubricationType>>>> startingWetAreas;
 	
 	// Public sex:
 	
@@ -209,7 +216,6 @@ public class SexManagerExternal extends SexManagerDefault {
 		public boolean hiddenBool;
 		
 		public String sexClothingEquippable;
-		public boolean sexClothingEquippableBool;
 
 		public String selfClothingRemoval;
 		public boolean selfClothingRemovalBool;
@@ -238,6 +244,7 @@ public class SexManagerExternal extends SexManagerDefault {
 		public SexControl controlParsed;
 		
 		public Value<String, String> startingImmobilisation;
+		public Map<String, Map<String, Set<String>>> startingWetAreas;
 
 		public String orgasmBehaviour;
 		
@@ -297,6 +304,14 @@ public class SexManagerExternal extends SexManagerDefault {
 		public boolean submissiveTalkInitCompleted = false;
 		public boolean additionToDefaultSubmissiveTalk = true;
 		public Map<String, List<DirtyTalkLine>> submissiveTalk;
+
+		public boolean lovingTalkInitCompleted = false;
+		public boolean additionToDefaultLovingTalk = true;
+		public Map<String, List<DirtyTalkLine>> lovingTalk;
+
+		public boolean lovingResponseTalkInitCompleted = false;
+		public boolean additionToDefaultLovingResponseTalk = true;
+		public Map<String, List<DirtyTalkLine>> lovingResponseTalk;
 		
 		public String preferredTarget;
 		
@@ -319,7 +334,7 @@ public class SexManagerExternal extends SexManagerDefault {
 			canSelfTransformBool = initBool(canSelfTransform, true);
 			hiddenBool = initBool(hidden, false);
 			sadisticActionsAllowed = initBool(sadisticActionsAllowedString, true);
-			sexClothingEquippableBool = initBool(sexClothingEquippable, true);
+			lovingActionsAllowed = initBool(lovingActionsAllowedString, true);
 			selfClothingRemovalBool = initBool(selfClothingRemoval, true);
 			canRemoveClothingSealsBool = initBool(canRemoveClothingSeals, true);
 			startNakedBool = initBool(startNaked, false);
@@ -393,22 +408,30 @@ public class SexManagerExternal extends SexManagerDefault {
 			foreplayPreferences = new HashMap<>();
 			if(foreplayPreferenceIds!=null) {
 				for(Entry<String, Value<String, String>> entry : foreplayPreferenceIds.entrySet()) {
-					foreplayPreferences.put(
-							UtilText.findFirstCharacterFromParserTarget(entry.getKey()),
-							new SexType(SexParticipantType.NORMAL,
-									getSexArea(UtilText.parse(entry.getValue().getKey()).trim()),
-									getSexArea(UtilText.parse(entry.getValue().getValue()).trim())));
+					String performing = UtilText.parse(entry.getValue().getKey()).trim();
+					String targeted = UtilText.parse(entry.getValue().getValue()).trim();
+					if(!performing.isEmpty() && !targeted.isEmpty()) {
+						foreplayPreferences.put(
+								UtilText.findFirstCharacterFromParserTarget(entry.getKey()),
+								new SexType(SexParticipantType.NORMAL,
+										getSexArea(performing),
+										getSexArea(targeted)));
+					}
 				}
 			}
 			
 			sexPreferences = new HashMap<>();
 			if(sexPreferenceIds!=null) {
 				for(Entry<String, Value<String, String>> entry : sexPreferenceIds.entrySet()) {
-					sexPreferences.put(
-							UtilText.findFirstCharacterFromParserTarget(entry.getKey()),
-							new SexType(SexParticipantType.NORMAL,
-									getSexArea(UtilText.parse(entry.getValue().getKey()).trim()),
-									getSexArea(UtilText.parse(entry.getValue().getValue()).trim())));
+					String performing = UtilText.parse(entry.getValue().getKey()).trim();
+					String targeted = UtilText.parse(entry.getValue().getValue()).trim();
+					if(!performing.isEmpty() && !targeted.isEmpty()) {
+						sexPreferences.put(
+								UtilText.findFirstCharacterFromParserTarget(entry.getKey()),
+								new SexType(SexParticipantType.NORMAL,
+										getSexArea(performing),
+										getSexArea(targeted)));
+					}
 				}
 			}
 			
@@ -416,10 +439,14 @@ public class SexManagerExternal extends SexManagerDefault {
 			sexTypesBanned = new ArrayList<>();
 			if(sexTypesBannedIds!=null) {
 				for(Entry<String, String> entry : sexTypesBannedIds.entrySet()) {
-					sexTypesBanned.add(
-							new SexType(SexParticipantType.NORMAL,
-									getSexArea(UtilText.parse(entry.getKey()).trim()),
-									getSexArea(UtilText.parse(entry.getValue()).trim())));
+					String performing = UtilText.parse(entry.getKey()).trim();
+					String targeted = UtilText.parse(entry.getValue()).trim();
+					if(!performing.isEmpty() && !targeted.isEmpty()) {
+						sexTypesBanned.add(
+								new SexType(SexParticipantType.NORMAL,
+										getSexArea(performing),
+										getSexArea(targeted)));
+					}
 				}
 			}
 
@@ -486,6 +513,22 @@ public class SexManagerExternal extends SexManagerDefault {
 				}
 				submissiveTalkInitCompleted = true;
 			}
+			if(!lovingTalkInitCompleted) {
+				Map<String, List<DirtyTalkLine>> tempDirtyTalkMap = new HashMap<>(lovingTalk);
+				lovingTalk = new HashMap<>();
+				for(Entry<String, List<DirtyTalkLine>> entry : tempDirtyTalkMap.entrySet()) {
+					lovingTalk.put(UtilText.findFirstCharacterFromParserTarget(entry.getKey()).getId(), entry.getValue());
+				}
+				lovingTalkInitCompleted = true;
+			}
+			if(!lovingResponseTalkInitCompleted) {
+				Map<String, List<DirtyTalkLine>> tempDirtyTalkMap = new HashMap<>(lovingResponseTalk);
+				lovingResponseTalk = new HashMap<>();
+				for(Entry<String, List<DirtyTalkLine>> entry : tempDirtyTalkMap.entrySet()) {
+					lovingResponseTalk.put(UtilText.findFirstCharacterFromParserTarget(entry.getKey()).getId(), entry.getValue());
+				}
+				lovingResponseTalkInitCompleted = true;
+			}
 			
 			sexClasses = new ArrayList<>();
 			if(sexClassesIds!=null) {
@@ -509,14 +552,6 @@ public class SexManagerExternal extends SexManagerDefault {
 				return defaultValue;
 			}
 			return Boolean.valueOf(UtilText.parse(input).trim());
-		}
-		
-		private SexAreaInterface getSexArea(String areaId) {
-			if(areaId.startsWith("ORIFICE_")) {
-				return SexAreaOrifice.valueOf(areaId.replace("ORIFICE_", ""));
-			} else {
-				return SexAreaPenetration.valueOf(areaId.replace("PENETRATION_", ""));
-			}
 		}
 		
 		// Pre-parsed booleans:
@@ -543,10 +578,6 @@ public class SexManagerExternal extends SexManagerDefault {
 
 		public boolean isHiddenBool() {
 			return hiddenBool;
-		}
-
-		public boolean isSexClothingEquippableBool() {
-			return sexClothingEquippableBool;
 		}
 
 		public boolean isSelfClothingRemovalBool() {
@@ -576,6 +607,12 @@ public class SexManagerExternal extends SexManagerDefault {
 			
 			return Boolean.valueOf(UtilText.parse(target, partnerClothingRemoval).trim());
 		}
+
+		public boolean isSexClothingEquippable(GameCharacter target, AbstractClothing clothing) {
+			UtilText.setClothingTypeForParsing(clothing==null?null:clothing.getClothingType());
+			
+			return Boolean.valueOf(UtilText.parse(target, sexClothingEquippable).trim());
+		}
 		
 		// Pre-parsed other values:
 		
@@ -593,6 +630,10 @@ public class SexManagerExternal extends SexManagerDefault {
 
 		public Value<String, String> getStartingImmobilisation() {
 			return startingImmobilisation;
+		}
+		
+		public Map<String, Map<String, Set<String>>> getStartingWetAreas() {
+			return startingWetAreas;
 		}
 
 		public List<SexSlot> getSlotsAvailable() {
@@ -734,6 +775,12 @@ public class SexManagerExternal extends SexManagerDefault {
 				} else {
 					sadisticActionsAllowedString = "true";
 				}
+
+				if(elementPresentAndNotEmpty(sexManagerElement, "lovingActionsAllowed")) {
+					lovingActionsAllowedString = sexManagerElement.getMandatoryFirstOf("lovingActionsAllowed").getTextContent();
+				} else {
+					lovingActionsAllowedString = "true";
+				}
 				
 				if(elementPresentAndNotEmpty(sexManagerElement, "canItemsBeUsed")) {
 					canItemsBeUsedString = sexManagerElement.getMandatoryFirstOf("canItemsBeUsed").getTextContent();
@@ -843,6 +890,21 @@ public class SexManagerExternal extends SexManagerDefault {
 									characterElement.getMandatoryFirstOf("startingImmobilisation").getMandatoryFirstOf("applierId").getTextContent(),
 									characterElement.getMandatoryFirstOf("startingImmobilisation").getMandatoryFirstOf("type").getTextContent());
 						}
+
+						if(elementPresentAndNotEmpty(characterElement, "startingLubrications")) {
+							behaviour.startingWetAreas = new HashMap<>();
+							for(Element areaElement : characterElement.getMandatoryFirstOf("startingLubrications").getAllOf("lubedArea")) {
+								Map<String, Set<String>> innerMap = new HashMap<>();
+								behaviour.startingWetAreas.put(areaElement.getAttribute("area"), innerMap);
+								for(Element lubricationElement : areaElement.getAllOf("lubrication")) {
+									Set<String> innerLubeSet = new HashSet<>();
+									innerMap.put(lubricationElement.getMandatoryFirstOf("luberId").getTextContent(), innerLubeSet);
+									for(Element lubricationTypeElement : lubricationElement.getAllOf("type")) {
+										innerLubeSet.add(lubricationTypeElement.getTextContent());
+									}
+								}
+							}
+						}
 						
 						if(characterElement.getOptionalFirstOf("sexClothingEquippable").isPresent()) {
 							behaviour.sexClothingEquippable = characterElement.getMandatoryFirstOf("sexClothingEquippable").getTextContent();
@@ -887,7 +949,7 @@ public class SexManagerExternal extends SexManagerDefault {
 						behaviour.orgasmCumTargets = new HashMap<>();
 						if(characterElement.getOptionalFirstOf("orgasmCumTarget").isPresent()) {
 							for(Element targetElement : characterElement.getMandatoryFirstOf("orgasmCumTarget").getAllOf("target")) {
-								behaviour.orgasmCumTargets.put(targetElement.getAttribute("id"), characterElement.getTextContent());
+								behaviour.orgasmCumTargets.put(targetElement.getAttribute("id"), targetElement.getTextContent());
 							}
 						}
 
@@ -967,6 +1029,8 @@ public class SexManagerExternal extends SexManagerDefault {
 						behaviour.dirtyTalk = new HashMap<>();
 						behaviour.submissiveTalk = new HashMap<>();
 						behaviour.roughTalk = new HashMap<>();
+						behaviour.lovingTalk = new HashMap<>();
+						behaviour.lovingResponseTalk = new HashMap<>();
 						if(characterElement.getOptionalFirstOf("dirtyTalk").isPresent()) {
 							for(Element dirtyTalkCharacterElement : characterElement.getMandatoryFirstOf("dirtyTalk").getAllOf("character")) {
 								String dirtyTalkId = dirtyTalkCharacterElement.getAttribute("id");
@@ -978,8 +1042,8 @@ public class SexManagerExternal extends SexManagerDefault {
 									}
 									List<DirtyTalkLine> lines = new ArrayList<>();
 									for(Element lineElement : standardTalkElement.getAllOf("line")) {
-										SexAreaInterface performing = lineElement.getAttribute("performing").isEmpty()?null:behaviour.getSexArea(lineElement.getAttribute("performing"));
-										SexAreaInterface targeted = lineElement.getAttribute("targeted").isEmpty()?null:behaviour.getSexArea(lineElement.getAttribute("targeted"));
+										SexAreaInterface performing = lineElement.getAttribute("performing").isEmpty()?null:getSexArea(lineElement.getAttribute("performing"));
+										SexAreaInterface targeted = lineElement.getAttribute("targeted").isEmpty()?null:getSexArea(lineElement.getAttribute("targeted"));
 										boolean performingAnyPenetration = Boolean.valueOf(lineElement.getAttribute("performingAnyPenetration"));
 										boolean takingAnyPenetration = Boolean.valueOf(lineElement.getAttribute("takingAnyPenetration"));
 										boolean extraNoises = lineElement.getAttribute("extraNoises").isEmpty()?true:Boolean.valueOf(lineElement.getAttribute("extraNoises"));
@@ -996,8 +1060,8 @@ public class SexManagerExternal extends SexManagerDefault {
 									}
 									List<DirtyTalkLine> lines = new ArrayList<>();
 									for(Element lineElement : submissiveTalkElement.getAllOf("line")) {
-										SexAreaInterface performing = lineElement.getAttribute("performing").isEmpty()?null:behaviour.getSexArea(lineElement.getAttribute("performing"));
-										SexAreaInterface targeted = lineElement.getAttribute("targeted").isEmpty()?null:behaviour.getSexArea(lineElement.getAttribute("targeted"));
+										SexAreaInterface performing = lineElement.getAttribute("performing").isEmpty()?null:getSexArea(lineElement.getAttribute("performing"));
+										SexAreaInterface targeted = lineElement.getAttribute("targeted").isEmpty()?null:getSexArea(lineElement.getAttribute("targeted"));
 										boolean performingAnyPenetration = Boolean.valueOf(lineElement.getAttribute("performingAnyPenetration"));
 										boolean takingAnyPenetration = Boolean.valueOf(lineElement.getAttribute("takingAnyPenetration"));
 										boolean extraNoises = lineElement.getAttribute("extraNoises").isEmpty()?true:Boolean.valueOf(lineElement.getAttribute("extraNoises"));
@@ -1014,8 +1078,8 @@ public class SexManagerExternal extends SexManagerDefault {
 									}
 									List<DirtyTalkLine> lines = new ArrayList<>();
 									for(Element lineElement : roughTalkElement.getAllOf("line")) {
-										SexAreaInterface performing = lineElement.getAttribute("performing").isEmpty()?null:behaviour.getSexArea(lineElement.getAttribute("performing"));
-										SexAreaInterface targeted = lineElement.getAttribute("targeted").isEmpty()?null:behaviour.getSexArea(lineElement.getAttribute("targeted"));
+										SexAreaInterface performing = lineElement.getAttribute("performing").isEmpty()?null:getSexArea(lineElement.getAttribute("performing"));
+										SexAreaInterface targeted = lineElement.getAttribute("targeted").isEmpty()?null:getSexArea(lineElement.getAttribute("targeted"));
 										boolean performingAnyPenetration = Boolean.valueOf(lineElement.getAttribute("performingAnyPenetration"));
 										boolean takingAnyPenetration = Boolean.valueOf(lineElement.getAttribute("takingAnyPenetration"));
 										boolean extraNoises = lineElement.getAttribute("extraNoises").isEmpty()?true:Boolean.valueOf(lineElement.getAttribute("extraNoises"));
@@ -1023,6 +1087,42 @@ public class SexManagerExternal extends SexManagerDefault {
 										lines.add(new DirtyTalkLine(performing, targeted, performingAnyPenetration, takingAnyPenetration, extraNoises, lineElement.getTextContent()));
 									}
 									behaviour.roughTalk.put(dirtyTalkId, lines);
+								}
+								// Loving talk:
+								if(dirtyTalkCharacterElement.getOptionalFirstOf("loving").isPresent()) {
+									Element lovingTalkElement = dirtyTalkCharacterElement.getMandatoryFirstOf("loving");
+									if(!lovingTalkElement.getAttribute("additionToDefault").isEmpty()) {
+										behaviour.additionToDefaultLovingTalk = Boolean.valueOf(lovingTalkElement.getAttribute("additionToDefault"));
+									}
+									List<DirtyTalkLine> lines = new ArrayList<>();
+									for(Element lineElement : lovingTalkElement.getAllOf("line")) {
+										SexAreaInterface performing = lineElement.getAttribute("performing").isEmpty()?null:getSexArea(lineElement.getAttribute("performing"));
+										SexAreaInterface targeted = lineElement.getAttribute("targeted").isEmpty()?null:getSexArea(lineElement.getAttribute("targeted"));
+										boolean performingAnyPenetration = Boolean.valueOf(lineElement.getAttribute("performingAnyPenetration"));
+										boolean takingAnyPenetration = Boolean.valueOf(lineElement.getAttribute("takingAnyPenetration"));
+										boolean extraNoises = lineElement.getAttribute("extraNoises").isEmpty()?true:Boolean.valueOf(lineElement.getAttribute("extraNoises"));
+										
+										lines.add(new DirtyTalkLine(performing, targeted, performingAnyPenetration, takingAnyPenetration, extraNoises, lineElement.getTextContent()));
+									}
+									behaviour.lovingTalk.put(dirtyTalkId, lines);
+								}
+								// Loving response talk:
+								if(dirtyTalkCharacterElement.getOptionalFirstOf("lovingResponse").isPresent()) {
+									Element lovingTalkElement = dirtyTalkCharacterElement.getMandatoryFirstOf("lovingResponse");
+									if(!lovingTalkElement.getAttribute("additionToDefault").isEmpty()) {
+										behaviour.additionToDefaultLovingResponseTalk = Boolean.valueOf(lovingTalkElement.getAttribute("additionToDefault"));
+									}
+									List<DirtyTalkLine> lines = new ArrayList<>();
+									for(Element lineElement : lovingTalkElement.getAllOf("line")) {
+										SexAreaInterface performing = lineElement.getAttribute("performing").isEmpty()?null:getSexArea(lineElement.getAttribute("performing"));
+										SexAreaInterface targeted = lineElement.getAttribute("targeted").isEmpty()?null:getSexArea(lineElement.getAttribute("targeted"));
+										boolean performingAnyPenetration = Boolean.valueOf(lineElement.getAttribute("performingAnyPenetration"));
+										boolean takingAnyPenetration = Boolean.valueOf(lineElement.getAttribute("takingAnyPenetration"));
+										boolean extraNoises = lineElement.getAttribute("extraNoises").isEmpty()?true:Boolean.valueOf(lineElement.getAttribute("extraNoises"));
+										
+										lines.add(new DirtyTalkLine(performing, targeted, performingAnyPenetration, takingAnyPenetration, extraNoises, lineElement.getTextContent()));
+									}
+									behaviour.lovingResponseTalk.put(dirtyTalkId, lines);
 								}
 							}
 						}
@@ -1107,22 +1207,45 @@ public class SexManagerExternal extends SexManagerDefault {
 		sexTypesBannedMap = new HashMap<>();
 		areasBannedMap =  new HashMap<>();
 		startingCharactersImmobilised = new HashMap<>();
+		startingWetAreas = new HashMap<>();
 		
 		characterBehaviours = new HashMap<>();
 		for(Entry<String, CharacterBehaviour> entry : characterBehavioursWithParserIds.entrySet()) {
 			GameCharacter character = UtilText.findFirstCharacterFromParserTarget(entry.getKey());
+			// SexTypes banned:
 			if(entry.getValue().getSexTypesBanned()!=null) {
 				sexTypesBannedMap.put(character, entry.getValue().getSexTypesBanned());
 			}
+			// Areas banned:
 			if(entry.getValue().getAreasBanned()!=null) {
 				areasBannedMap.put(character, entry.getValue().getAreasBanned());
 			}
+			// Starting immobilisations:
 			if(entry.getValue().getStartingImmobilisation()!=null) {
 				ImmobilisationType type = ImmobilisationType.valueOf(UtilText.parse(entry.getValue().getStartingImmobilisation().getValue()).trim());
 				GameCharacter applier = UtilText.findFirstCharacterFromParserTarget(UtilText.parse(entry.getValue().getStartingImmobilisation().getKey()).trim());
 				startingCharactersImmobilised.putIfAbsent(type, new HashMap<>());
 				startingCharactersImmobilised.get(type).putIfAbsent(applier, new HashSet<>());
 				startingCharactersImmobilised.get(type).get(applier).add(character);
+			}
+			// Starting wet areas:
+			if(entry.getValue().getStartingWetAreas()!=null) {
+				for(Entry<String, Map<String, Set<String>>> wetAreaEntry : entry.getValue().getStartingWetAreas().entrySet()) {
+					SexAreaInterface type = getSexArea(UtilText.parse(wetAreaEntry.getKey()).trim());
+					for(Entry<String, Set<String>> innerWetAreaEntry : wetAreaEntry.getValue().entrySet()) {
+						GameCharacter applier = UtilText.findFirstCharacterFromParserTarget(UtilText.parse(innerWetAreaEntry.getKey()).trim());
+						Set<LubricationType> lubes = new HashSet<>();
+						for(String lubeString : innerWetAreaEntry.getValue()) {
+							String parsedLube = UtilText.parse(lubeString).trim();
+							if(!parsedLube.isEmpty()) {
+								lubes.add(LubricationType.valueOf(parsedLube));
+							}
+						}
+						startingWetAreas.putIfAbsent(character, new HashMap<>());
+						startingWetAreas.get(character).putIfAbsent(type, new HashMap<>());
+						startingWetAreas.get(character).get(type).putIfAbsent(applier, lubes);
+					}
+				}
 			}
 			characterBehaviours.put(character.getId(), entry.getValue());
 		}
@@ -1165,7 +1288,7 @@ public class SexManagerExternal extends SexManagerDefault {
 	public boolean isWashingScene() {
 		return washingScene;
 	}
-
+	
 	@Override
 	public String getDeskName() {
 		return deskName;
@@ -1179,6 +1302,11 @@ public class SexManagerExternal extends SexManagerDefault {
 	@Override
 	public boolean isSadisticActionsAllowed() {
 		return sadisticActionsAllowed;
+	}
+	
+	@Override
+	public boolean isLovingActionsAllowed() {
+		return lovingActionsAllowed;
 	}
 	
 	@Override
@@ -1314,13 +1442,18 @@ public class SexManagerExternal extends SexManagerDefault {
 	public Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
 		return startingCharactersImmobilised;
 	}
+
+	@Override
+	public Map<GameCharacter, Map<SexAreaInterface, Map<GameCharacter, Set<LubricationType>>>> getStartingWetAreas() {
+		return startingWetAreas;
+	}
 	
 	@Override
-	public boolean isAbleToEquipSexClothing(GameCharacter character){
-		if(characterBehaviours.containsKey(character.getId())) {
-			return characterBehaviours.get(character.getId()).isSexClothingEquippableBool();
+	public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip){
+		if(characterBehaviours.containsKey(equippingCharacter.getId())) {
+			return characterBehaviours.get(equippingCharacter.getId()).isSexClothingEquippable(targetedCharacter, clothingToEquip);
 		}
-		return super.isAbleToEquipSexClothing(character);
+		return super.isAbleToEquipSexClothing(equippingCharacter, targetedCharacter, clothingToEquip);
 	}
 
 	@Override
@@ -1522,6 +1655,46 @@ public class SexManagerExternal extends SexManagerDefault {
 		}
 		return character.getSubmissiveTalk();
 	}
+
+	@Override
+	public String getLovingTalk(GameCharacter character) {
+		if(characterBehaviours.containsKey(character.getId())) {
+			GameCharacter target = Main.sex.getTargetedPartner(character);
+			if(target!=null && characterBehaviours.get(character.getId()).lovingTalk.containsKey(target.getId())) {
+				List<String> lines = new ArrayList<>();
+				for(DirtyTalkLine line : characterBehaviours.get(character.getId()).lovingTalk.get(target.getId())) {
+					if(line.isConditionalMet(character)) {
+						lines.add(line.getParsedContent(character));
+					}
+				}
+				lines.removeIf(l->l.isEmpty());
+				if(!lines.isEmpty() && (!characterBehaviours.get(character.getId()).additionToDefaultLovingTalk || Math.random()<0.5f)) {
+					return Util.randomItemFrom(lines);
+				}
+			}
+		}
+		return character.getLovingTalk();
+	}
+
+	@Override
+	public String getLovingResponseTalk(GameCharacter character) {
+		if(characterBehaviours.containsKey(character.getId())) {
+			GameCharacter target = Main.sex.getTargetedPartner(character);
+			if(target!=null && characterBehaviours.get(character.getId()).lovingResponseTalk.containsKey(target.getId())) {
+				List<String> lines = new ArrayList<>();
+				for(DirtyTalkLine line : characterBehaviours.get(character.getId()).lovingResponseTalk.get(target.getId())) {
+					if(line.isConditionalMet(character)) {
+						lines.add(line.getParsedContent(character));
+					}
+				}
+				lines.removeIf(l->l.isEmpty());
+				if(!lines.isEmpty() && (!characterBehaviours.get(character.getId()).additionToDefaultLovingResponseTalk || Math.random()<0.5f)) {
+					return Util.randomItemFrom(lines);
+				}
+			}
+		}
+		return character.getLovingTalk();
+	}
 	
 	@Override
 	public GameCharacter getPreferredSexTarget(NPC character) {
@@ -1550,5 +1723,15 @@ public class SexManagerExternal extends SexManagerDefault {
 			return characterBehaviours.get(character.getId()).bannedOrgasmCumTargets.get(target.getId());
 		}
 		return new ArrayList<>();
+	}
+	
+	// Utility Methods:
+
+	protected SexAreaInterface getSexArea(String areaId) {
+		if(areaId.startsWith("ORIFICE_")) {
+			return SexAreaOrifice.valueOf(areaId.replace("ORIFICE_", ""));
+		} else {
+			return SexAreaPenetration.valueOf(areaId.replace("PENETRATION_", ""));
+		}
 	}
 }

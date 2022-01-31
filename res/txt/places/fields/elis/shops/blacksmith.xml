@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="IMSU_TRANSACTION_START"><![CDATA[
+	<p>
+		[imsu.speech(I make the finest blades in all the Realm,)] Imsu proudly states as you take a look at [imsu.his] wares.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="IMSU_BUY_TRANSACTION_COMPLETE"><![CDATA[
+	<p>
+		[imsu.speech(You won't regret buying that,)] Imsu states as [imsu.he] takes your flames in exchange for the [#SPECIAL_PARSE_0].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMSU_SELL_TRANSACTION_COMPLETE"><![CDATA[
+	<p>
+		After agreeing to buy your [#SPECIAL_PARSE_0] in exchange for [#SPECIAL_PARSE_1] flames, Imsu asks, [imsu.speech(Would you like to buy something?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HALE_TRANSACTION_START"><![CDATA[
+	<p>
+		[hale.speech(You won't find better ranged weaponry anywhere else,)] Hale boasts as you take a look at the goods [imsu.heHas] got for sale.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="HALE_BUY_TRANSACTION_COMPLETE"><![CDATA[
+	<p>
+		[hale.speech(A good choice,)] Hale states as [hale.he] takes your flames in exchange for the [#SPECIAL_PARSE_0].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HALE_SELL_TRANSACTION_COMPLETE"><![CDATA[
+	<p>
+		After agreeing to buy your [#SPECIAL_PARSE_0] in exchange for [#SPECIAL_PARSE_1] flames, Hale asks, [hale.speech(Are you interested in buying anything?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- All of these are linked to the 'dialogue/innoxia/places/fields/elis/shops/blacksmith.xml' dialogue nodes. -->
+	
+	<htmlContent tag="EXTERIOR"><![CDATA[
+	<p>
+		The structure before you is the only one in the shopping precinct that's of a single-story, and is also unique in the fact that it's set back from the street and separated from where you're standing by means of a paved courtyard. An extension to the building's roof has been constructed so as to shelter most of this courtyard from the rain, and it's beneath this cover that several furnaces and anvils are situated. A hand-crafted metal sign has been fixed to the edge of this roof extension, and bears the words: 'The Ninth Strike; Arcane Forge'
+	</p>
+	#IF(game.getHourOfDay()>=7 && game.getHourOfDay()<20)
+		<p>
+			An additional sign nailed to the closest of the wooden beams lets you know that the business's opening hours are from [style.colourMinorGood([units.time(7)]-[units.time(20)])]. You really don't need this sign to tell you that the blacksmith is open, however, as not only are all of the furnaces lit,
+			#IF(!game.getDialogueFlags().hasFlag(FLAG_innoxia_elis_blacksmith_visited))
+				 but two muscular baphomets can quite clearly be seen using one of the anvils. The grey-furred one is using a pair of tongs to hold and turn a piece of red-hot metal, while his black-furred companion is tirelessly hammering it into what looks like the shape of a sword. The two of them are so engrossed in their work that they haven't noticed you yet, and you wonder whether you should interrupt them and inquire about what they have for sale or instead leave them to their smithing and come back at another time...
+			#ELSE
+				 but the familiar forms of two muscular baphomets can quite clearly be seen using two of the anvils. Both the black-furred Imsu and the grey-furred Hale are each hammering their own pieces of red-hot metal into some kind of useful object, exchanging argumentative words as they do so. As usual, the two of them are so engrossed in their work and argument that they haven't notice your approach, and you wonder whether you should interrupt them and inquire about what they have for sale or instead leave them to their smithing and come back at another time...
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			An additional sign nailed to the closest of the wooden beams lets you know that the business's opening hours are from [style.colourMinorBad([units.time(7)]-[units.time(20)])]. As it's currently outside of working hours, the forge is shut up, leaving you with little choice but to leave and come back at another time...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTER"><![CDATA[
+	#IF(!flags.hasFlag(FLAG_innoxia_elis_blacksmith_visited))
+		<p>
+			Deciding to approach these baphomets and see what they have for sale, you [pc.step] forwards and begin to approach their forge. As you draw near, you see that the piece of metal which the black-furred one is hammering is starting to take the form of a sword. As the grey-furred baphomet turns this piece of metal over for his colleague to strike, you hear him grunt, [hale.speech(You're doing it all wrong. This is never going to turn out right.)]
+		</p>
+		<p>
+			[imsu.speech(It'll be a damn sight better than any sword you've ever made,)] the black-furred baphomet replies. After striking the red-hot metal a couple more times, he takes a step back and states, [imsu.speech(That'll about do it. I'll finish this one off later.)]
+		</p>
+		<p>
+			With their work now at an end, the two baphomets suddenly notice your approach, and after plunging the red-hot blade into a barrel of water, and causing a hissing cloud of steam to bellow up into the rafters of the overhead wooden canopy, the grey-furred individual states in a deep voice, [hale.speech(I haven't seen you around here before. I'm Hale, descendent of Lovienne; the best blacksmith and the finest bowyer in all of the Foloi Fields.)]
+		</p>
+		<p>
+			[imsu.speech(And I'm Imsu, descendent of Lisophia,)] the black-furred baphomet cuts in, [imsu.speech(I'm the best bladesmith the Fields have ever seen, as well as being the real best blacksmith around.)]
+		</p>
+		<p>
+			[hale.speech(I don't think so,)] Hale grunts as he hears this, [hale.speech(Everyone knows that <i>I'm</i> the best blacksmith.)]
+		</p>
+		<p>
+			With that, the two baphomets fall into a pointless argument with one another over who's the better blacksmith. As they take turns boasting of their skills, and stubbornly refusing to acknowledge the words the other has just said, you take a moment to get a good look at these two quarrelsome smiths.
+		</p>
+		<p>
+			Thanks to the fact that each of them are wearing nothing but a pair of jeans and safety glasses, you're able to see that both Imsu and Hale have large, muscular chests and arms, which have no doubt been built up over many years working at their forge. Both of them look to be in their early forties, and you notice that Imsu, whose large horns are curled into circles, stands ever so slightly taller than Hale, whose equally-large horns are only slightly curved. Although their fur-covered bodies and anthropomorphic, goat-like faces look just the same as any ordinary goat-morph, you were able to instantly tell that these two smiths were demonic in nature due to the appearance of their glowing eyes, with Imsu's being coloured a vivid red and Hale's a bright shade of yellow.
+		</p>
+		<p>
+			Suddenly remembering that you're still here, the two baphomets agree to disagree on who's the better blacksmith and turn their attention to you once again. Gesturing to the assortment of blades and other items arranged on a large table to one side of the forge, Imsu asks, [imsu.speech(Would you like to buy any of my goods?)]
+		</p>
+		<p>
+			Clearing his throat, Hale draws your attention and motions towards his own table, which holds numerous items of ranged weaponry and other miscellaneous items, and asks, [hale.speech(You'd prefer to take a look at what I've made, would you not?)]
+		</p>
+		<p>
+			Turning to face one another and then exchanging a glare through narrowed eyes, the two baphomets look like they're about to start arguing once again, but before any words of hostility can be uttered, the two of them suddenly start grinning, and then a moment later they're letting out a good natured laugh. Clearly being good friends, the two of them appear to have completely forgotten their conflict from moments ago, and after you've taken this moment to finally introduce yourself to them, they again ask if you'd like to buy anything.
+		</p>
+	#ELSE
+		<p>
+			Deciding to once again approach the two baphomets and see what they have for sale, you [pc.step] forwards and begin to approach their forge. As you draw near, you hear the black-furred Imsu grunting at Hale, [imsu.speech(You need to put more force into your strikes. It's going to turn out all wrong if you keep on working the metal like that.)]
+		</p>
+		<p>
+			[hale.speech(You need more finesse,)] Hale replies, [hale.speech(You're going to ruin it if you keep on mindlessly bashing away like that.)]
+		</p>
+		<p>
+			As the two of them stop to take a break and exchange good-natured grins with one another, Imsu and Hale suddenly notice your approach. As they place their hammers and tongs down on their respective workbenches, Imsu calls out, [imsu.speech([pc.Name]! Back to buy some of my blades, are you?)]
+		</p>
+		<p>
+			[hale.speech(No, [pc.sheIs] here to buy some of the best ranged weapons to be found anywhere in the Realm,)] Hale states.
+		</p>
+		<p>
+			With that, the two baphomets pause to hear what it is you'd like to ask of them...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TALK_HISTORY"><![CDATA[
+	<p>
+		Curious to find out the story behind how these two baphomets came to be running this forge together, you ask them where they learned to become blacksmiths, and for how long they've been working here in Elis. As the two smiths hear your question, a troubled look settles on each of their faces, and after a brief moment of silence, Imsu reveals, [imsu.speech(For many years the two of us used to be rival blacksmiths in two villages out in the Foloi Fields.)]
+	</p>
+	<p>
+		[hale.speech(Everyone in the Fields knew that we were the best,)] Hale adds, before angrily grunting, [hale.speech(That's why that bitch sent her daughters to attack us first.)]
+	</p>
+	<p>
+		[imsu.speech(Lunette... One day she'll pay for what she did,)] Imsu says, clearing up who Hale meant by 'that bitch'. Clenching his fists in anger, he grunts, [imsu.speech(They came to my village in the middle of the night... It all happened so fast... They wanted to take me back to their camp and force me to make weapons for them, but they didn't know that I can cast a spell or two. I managed to blind them for a moment with a flash of light, and somehow managed to escape into the woods.)]
+	</p>
+	<p>
+		[hale.speech(Another band did the same thing to my village at the same time,)] Hale adds. Shaking his head as though to clear out some troubling memories, he simply states, [hale.speech(I wasn't able to escape right away, and they had me working in their camp for almost a month. I took an opportunity one night and managed to give them the slip. I didn't stop running until I got here to Elis.)]
+	</p>
+	<p>
+		[imsu.speech(They took our friends, our homes, and everything we'd worked to build, but they couldn't take our skills,)] Imsu concludes. [imsu.speech(I met up with Hale here in Elis, and we decided to work together until we can find a way to help serve justice to Lunette.)]
+	</p>
+	<p>
+		[hale.speech(And to every one of her daughters!)] Hale exclaims, before taking a deep breath to calm down and say, [hale.speech(So that's how we ended up working here together. Anyway, there's no use in dwelling on the past like this. Is there anything else you wanted, [pc.name]?)]
+	</p>
+	<p>
+		With your question as to how the two baphomets came to be working together now comprehensively answered, you wonder what to ask of them next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TALK_NAME"><![CDATA[
+	<p>
+		Wanting to know the story behind the forge's name, you ask the two baphoments why they chose to call this place 'The Ninth Strike'.
+	</p>
+	<p>
+		[imsu.speech(It represents our ultimate goal,)] Imsu explains, [imsu.speech(Hale and I are trying to discover the secret to the arcane forging technique which nine-tailed youkos are capable of using.)]
+	</p>
+	<p>
+		[hale.speech(If you can somehow use the arcane to hammer a piece of raw metal into its finished product in just nine strikes, then it can be imbued with unbelievable power,)] Hale adds. [hale.speech(We want to make a weapon powerful enough to strike down Lunette, but after trying about a thousand different techniques, the youkos' secret seems impossible to discover.)]
+	</p>
+	<p>
+		Voicing the obvious question, you ask the two baphomets if they've tried finding a nine-tailed youko smith who could teach them this technique.
+	</p>
+	<p>
+		[imsu.speech(We've been up into the Shinrin Highlands dozens of times,)] Imsu sighs, [imsu.speech(but even simply finding a nine-tailed youko has proven to be impossible, let alone convincing one to teach us their secrets.)]
+	</p>
+	<p>
+		[hale.speech(The last time we went up there, we almost never made it out. One of those trickster youko found us. A seven-tailed beauty, she was, but there was nothing pretty about what she had planned for us,)] Hale says, and despite being standing near to a burning furnace, he visibly shivers at the recollection of what happened.
+	</p>
+	<p>
+		 Leaving a heavy silence to hang in the air for a few moments, Imsu simply states, [imsu.speech(We were damn lucky to get out of there... Anyway, now that you know the story behind our forge's name, is there anything else we can do for you, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LEAVE"><![CDATA[
+	<p>
+		Thanking Imsu and hale for their time, you tell them that you've got to be leaving now, before taking a [pc.step] back and preparing to leave the forge. Picking up his hammer to resume his work, Imsu smiles and grunts, [imsu.speech(I hope to see you again soon, [pc.name]!)]
+	</p>
+	<p>
+		[hale.speech(If ever you're in need of a new weapon, you know where to find us,)] Hale adds.
+	</p>
+	<p>
+		Saying a final goodbye, you [pc.walk] back out into Wall's End, and with the sound of hammer-on-metal starting to ring out from the forge that's now behind you, you look around and wonder where to go next...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

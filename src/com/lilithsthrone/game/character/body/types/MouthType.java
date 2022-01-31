@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractMouthType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.race.AbstractRace;
@@ -59,8 +60,15 @@ public class MouthType {
 			Util.newArrayListOfValues("beaks"),
 			Util.newArrayListOfValues(""),
 			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues("beak-lip"),
+			Util.newArrayListOfValues("beak-lips"),
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
 			null,
 			Util.newArrayListOfValues()) {
+		public boolean isLipsDescriptorSizeAllowed(GameCharacter gc) {
+			return false;
+		}
 	};
 	
 	private static List<AbstractMouthType> allMouthTypes;

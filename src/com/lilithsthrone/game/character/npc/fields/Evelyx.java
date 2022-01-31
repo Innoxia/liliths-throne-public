@@ -44,6 +44,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
+import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
@@ -80,6 +81,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -94,6 +96,11 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -132,7 +139,7 @@ public class Evelyx extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.3")) {
 			this.setStartingBody(true);
 			this.equipClothing();
 		}
@@ -175,6 +182,7 @@ public class Evelyx extends NPC {
 			this.setFetishDesire(Fetish.FETISH_FOOT_GIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_TRANSFORMATION_RECEIVING, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_INCEST, FetishDesire.THREE_LIKE);
 
 			this.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.ONE_DISLIKE);
 			
@@ -337,6 +345,7 @@ public class Evelyx extends NPC {
 		if(addCock) {
 			this.setVaginaType(VaginaType.NONE);
 			this.setPenisType(PenisType.DEMON_COMMON);
+			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, PresetColour.COVERING_ORANGE, false, PresetColour.COVERING_ORANGE, false), false);
 			this.setTesticleCount(4);
 			this.setInternalTesticles(false);
 			this.setPenisVirgin(false);
@@ -688,7 +697,7 @@ public class Evelyx extends NPC {
 		if(cow.getTailType().getRace()!=Race.COW_MORPH) {
 			sb.append(cow.setTailType(TailType.COW_MORPH));
 		}
-		if(!cow.hasHorns()) {
+		if(!cow.hasHorns() || cow.getHornType().getRace()!=HornType.STRAIGHT.getRace()) {
 			sb.append(cow.setHornType(HornType.STRAIGHT));
 			cow.setHornLength(HornLength.ONE_SMALL.getMedianValue());
 		}
@@ -711,7 +720,7 @@ public class Evelyx extends NPC {
 		if(cow.getTailType().getRace()!=Race.COW_MORPH) {
 			sb.append(cow.setTailType(TailType.COW_MORPH));
 		}
-		if(!cow.hasHorns()) {
+		if(!cow.hasHorns() || cow.getHornType().getRace()!=HornType.STRAIGHT.getRace()) {
 			sb.append(cow.setHornType(HornType.STRAIGHT));
 			cow.setHornLength(HornLength.ONE_SMALL.getMedianValue());
 		}
@@ -1010,6 +1019,9 @@ public class Evelyx extends NPC {
 		for(String placeId : placesToReveal) {
 			for(Cell c : dairy.getCells(PlaceType.getPlaceTypeFromId(placeId))) {
 				c.setDiscovered(true);
+				if(barn==3) {
+					c.setTravelledTo(true);
+				}
 			}
 		}
 	}
@@ -1095,6 +1107,7 @@ public class Evelyx extends NPC {
 		int clothingValue = Main.game.getPlayer().getInventoryNonEquippedValue();
 		int flames = Main.game.getPlayer().getMoney();
 		
+		// Clothing removal:
 		List<AbstractClothing> clothingToRemove = new ArrayList<>();
 		for(AbstractClothing clothing : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
 			if(clothing.getClothingType().getClothingSet()!=SetBonus.getSetBonusFromId("innoxia_cattle")
@@ -1111,8 +1124,25 @@ public class Evelyx extends NPC {
 			Main.game.getPlayer().forceUnequipClothingIntoVoid(this, clothing);
 		}
 		
+		
+		// Weapon removal:
+		for(AbstractWeapon weapon : Main.game.getPlayer().getMainWeaponArray()) {
+			if(weapon!=null) {
+				clothingValue += weapon.getValue();
+			}
+		}
+		for(AbstractWeapon weapon : Main.game.getPlayer().getOffhandWeaponArray()) {
+			if(weapon!=null) {
+				clothingValue += weapon.getValue();
+			}
+		}
+		Main.game.getPlayer().unequipAllWeaponsIntoVoid(true);
+		
+		
+		// Item removal:
 		Main.game.getPlayer().clearNonEquippedInventory(true);
 		
+		// Generating the content based on the value of inventory stripped:
 		UtilText.addSpecialParsingString(Util.intToString((flames/100) * 100), true);
 		if(flames > 10_000_000) {
 			sb.append(UtilText.parseFromXMLFile("badEnds/evelyx", "STRIP_FLAMES_TOP"));
@@ -1144,6 +1174,199 @@ public class Evelyx extends NPC {
 		}
 		
 		return sb.toString();
+	}
+	
+	/**
+	 * Takes in 'Princess', who is an instance of the NPC class 'LunetteMelee', and applies changes to make her consistent across all playthroughs.
+	 * I didn't add her as an instanced character due to her only appearing in this one bad end.
+	 */
+	public void badEndInitPrincess(NPC princess) {
+		princess.setGenericName("Princess");
+		
+		princess.addSpecialPerk(Perk.SPECIAL_MEGA_SLUT);
+		princess.addSpecialPerk(Perk.SPECIAL_MELEE_EXPERT);
+		princess.addSpecialPerk(Perk.SPECIAL_HEALTH_FANATIC);
+		princess.addSpecialPerk(Perk.SPECIAL_ARCANE_TRAINING);
+		
+		PerkManager.initialisePerks(princess,
+				Util.newArrayListOfValues(Perk.CLOTHING_ENCHANTER),
+				Util.newHashMapOfValues(
+						new Value<>(PerkCategory.PHYSICAL, 5),
+						new Value<>(PerkCategory.LUST, 0),
+						new Value<>(PerkCategory.ARCANE, 1)));
+		
+		princess.setSpeechColour(PresetColour.BASE_RED.toWebHexString());
+		
+		// Persona:
+		princess.setPersonalityTraits(
+				PersonalityTrait.CONFIDENT,
+				PersonalityTrait.BRAVE,
+				PersonalityTrait.SELFISH,
+				PersonalityTrait.LEWD);
+		
+		princess.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		
+		princess.setHistory(Occupation.NPC_LUNETTE_HERD);
+
+		princess.clearFetishes();
+		princess.clearFetishDesires();
+		
+		princess.addFetish(Fetish.FETISH_DOMINANT);
+		princess.addFetish(Fetish.FETISH_SADIST);
+
+		princess.addFetish(Fetish.FETISH_ANAL_GIVING);
+		princess.addFetish(Fetish.FETISH_VAGINAL_GIVING);
+		princess.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+		princess.addFetish(Fetish.FETISH_PENIS_GIVING);
+		princess.addFetish(Fetish.FETISH_NON_CON_DOM);
+		
+		princess.setFetishDesire(Fetish.FETISH_TRANSFORMATION_GIVING, FetishDesire.THREE_LIKE);
+		princess.setFetishDesire(Fetish.FETISH_BONDAGE_APPLIER, FetishDesire.THREE_LIKE);
+		princess.setFetishDesire(Fetish.FETISH_IMPREGNATION, FetishDesire.THREE_LIKE);
+		princess.setFetishDesire(Fetish.FETISH_CUM_STUD, FetishDesire.THREE_LIKE);
+		princess.setFetishDesire(Fetish.FETISH_BREASTS_OTHERS, FetishDesire.THREE_LIKE);
+		
+		princess.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.ZERO_HATE);
+		princess.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ZERO_HATE);
+		
+		// Body:
+		princess.setAgeAppearanceDifferenceToAppearAsAge(32);
+		princess.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, false);
+		princess.setWingType(WingType.NONE);
+		princess.setHornType(HornType.CURVED);
+		princess.setHornLength(HornLength.THREE_HUGE.getMedianValue());
+		princess.setLegType(LegType.DEMON_HORSE_HOOFED);
+		princess.setLegConfiguration(LegType.DEMON_HORSE_HOOFED, LegConfiguration.QUADRUPEDAL, true);
+		princess.setArmRows(2);
+		
+		// Core:
+		princess.setHeight(244); // 8 feet tall
+		princess.setFemininity(75);
+		princess.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+		princess.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+		
+		// Coverings:
+		princess.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, PresetColour.EYE_YELLOW));
+		princess.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.SKIN_RED_DARK), true);
+		princess.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_BLACK), true);
+
+		princess.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, PresetColour.SKIN_EBONY), false);
+		princess.setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_EBONY), false);
+		princess.setSkinCovering(new Covering(BodyCoveringType.PENIS, CoveringPattern.OMBRE, PresetColour.SKIN_RED_DARK, false, PresetColour.SKIN_EBONY, false), false);
+		princess.setSkinCovering(new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, PresetColour.SKIN_EBONY, false, PresetColour.ORIFICE_INTERIOR, false), false);
+		princess.setSkinCovering(new Covering(BodyCoveringType.MOUTH, PresetColour.SKIN_EBONY), false);
+		princess.setSkinCovering(new Covering(BodyCoveringType.HORN, PresetColour.COVERING_BLACK), false);
+		
+		princess.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, PresetColour.COVERING_BLACK), true);
+		princess.setHairLength(HairLength.TWO_SHORT.getMedianValue());
+		princess.setHairStyle(HairStyle.PIXIE);
+		
+		princess.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, PresetColour.COVERING_BLACK), false);
+		princess.setUnderarmHair(BodyHair.ZERO_NONE);
+		princess.setAssHair(BodyHair.ZERO_NONE);
+		princess.setPubicHair(BodyHair.ZERO_NONE);
+		princess.setFacialHair(BodyHair.ZERO_NONE);
+
+//		princess.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_PURPLE));
+		princess.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_BLACK));
+//		princess.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_BLACK));
+		princess.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_BLACK));
+		princess.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
+//		princess.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_PURPLE));
+		
+		// Face:
+		princess.setFaceVirgin(false);
+		princess.setLipSize(LipSize.TWO_FULL);
+		princess.setFaceCapacity(Capacity.FIVE_ROOMY, true);
+		// Throat settings and modifiers
+		princess.setTongueLength(TongueLength.ONE_LONG.getMedianValue());
+		// Tongue modifiers
+		
+		// Chest:
+		princess.setNippleVirgin(false);
+		princess.setBreastSize(CupSize.F.getMeasurement());
+		princess.setBreastShape(BreastShape.ROUND);
+		princess.setNippleSize(NippleSize.THREE_LARGE);
+		princess.setAreolaeSize(AreolaeSize.THREE_LARGE);
+		// Nipple settings and modifiers
+		
+		// Ass:
+		princess.setAssVirgin(false);
+		princess.setAssBleached(false);
+		princess.setAssSize(AssSize.FIVE_HUGE);
+		princess.setHipSize(HipSize.FIVE_VERY_WIDE);
+		princess.setAssCapacity(Capacity.ONE_EXTREMELY_TIGHT, true);
+		princess.setAssWetness(Wetness.ZERO_DRY);
+		// Horse-like modifiers:
+		princess.addAssOrificeModifier(OrificeModifier.PUFFY);
+		princess.addAssOrificeModifier(OrificeModifier.RIBBED);
+		princess.addAssOrificeModifier(OrificeModifier.MUSCLE_CONTROL);
+		
+		// Penis:
+		princess.setPenisVirgin(false);
+		princess.setPenisGirth(PenetrationGirth.SEVEN_FAT);
+		princess.setPenisSize(62); // 2 foot
+		princess.setTesticleSize(TesticleSize.FIVE_MASSIVE);
+		princess.setPenisCumStorage(5000);
+		princess.setPenisCumExpulsion(50);
+		princess.setPenisCumProductionRegeneration(FluidRegeneration.FOUR_VERY_RAPID.getMedianRegenerationValuePerDay());
+		princess.fillCumToMaxStorage();
+		princess.setTesticleCount(2);
+		// Horse-like modifiers:
+		princess.clearPenisModifiers();
+		princess.addPenisModifier(PenetrationModifier.FLARED);
+		princess.addPenisModifier(PenetrationModifier.VEINY);
+		princess.addPenisModifier(PenetrationModifier.SHEATHED);
+		princess.addCumModifier(FluidModifier.MUSKY);
+		
+		// Vagina:
+		princess.setVaginaVirgin(false);
+		princess.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
+		princess.setVaginaLabiaSize(LabiaSize.ZERO_TINY);
+		princess.setVaginaSquirter(true);
+		princess.setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT, true);
+		princess.setVaginaWetness(Wetness.FOUR_SLIMY);
+		princess.setVaginaElasticity(OrificeElasticity.TWO_FIRM.getValue());
+		princess.setVaginaPlasticity(OrificePlasticity.ONE_SPRINGY.getValue());
+		princess.addGirlcumModifier(FluidModifier.MUSKY);
+		
+		// Feet:
+		// Foot shape
+		
+		
+		// --- Init Inventory ---
+
+		princess.unequipAllClothingIntoVoid(true, true);
+		princess.setEssenceCount(10_000);
+		princess.setMoney(150_000);
+
+		princess.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_axe_battle", DamageType.FIRE));
+		princess.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_axe_battle", DamageType.FIRE));
+		
+		princess.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_velvet_choker", PresetColour.CLOTHING_BLACK, false), true, princess);
+		princess.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.NIPPLE_TAPE_CROSSES, PresetColour.CLOTHING_BLACK, false), true, princess);
+		princess.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_BLACK, false), true, princess);
+		
+		AbstractClothing ring = Main.game.getItemGen().generateClothing("innoxia_finger_gemstone_ring_unisex", PresetColour.CLOTHING_PLATINUM, PresetColour.CLOTHING_RED_VERY_DARK, null, false);
+		for(int i=0;i<3;i++) {
+			ring.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.HEALTH_MAXIMUM, TFPotency.MAJOR_BOOST, 0));
+			ring.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0));
+			ring.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.INTELLIGENCE, TFPotency.MAJOR_BOOST, 0));
+		}
+		ring.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.HEALTH_MAXIMUM, TFPotency.MINOR_BOOST, 0));
+		ring.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MINOR_BOOST, 0));
+		ring.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.INTELLIGENCE, TFPotency.MINOR_BOOST, 0));
+		ring.setName("Lunette's Gift");
+		princess.equipClothingFromNowhere(ring, true, princess);
+
+		princess.setPiercedNose(true);
+		princess.setPiercedNipples(true);
+		princess.setPiercedEar(true);
+		princess.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_PLATINUM, false), true, princess);
+		princess.setPiercedNavel(true);
+		princess.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_PLATINUM, PresetColour.CLOTHING_RED_VERY_DARK, null, false), true, princess);
+		princess.setPiercedTongue(true);
+		princess.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_basic_barbell", PresetColour.CLOTHING_PLATINUM, false), InventorySlot.PIERCING_TONGUE, true, princess);
 	}
 	
 	// Stage 1:
@@ -1218,21 +1441,30 @@ public class Evelyx extends NPC {
 
 	// Stage 3:
 	public void applyBadEndBondage() {
-		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_BALLGAG, PresetColour.CLOTHING_PURPLE_ROYAL, PresetColour.CLOTHING_PURPLE_ROYAL, PresetColour.CLOTHING_IRON, false), true, this);
-		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_blindfold", PresetColour.CLOTHING_PURPLE_ROYAL, PresetColour.CLOTHING_IRON, null, false), true, this);
-		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_croptop", PresetColour.CLOTHING_PURPLE_ROYAL, PresetColour.CLOTHING_IRON, null, false), true, this);
-		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_bra", PresetColour.CLOTHING_PURPLE_ROYAL, PresetColour.CLOTHING_IRON, null, false), true, this);
-		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_corset", PresetColour.CLOTHING_PURPLE_ROYAL, PresetColour.CLOTHING_IRON, null, false), true, this);
-		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, PresetColour.CLOTHING_PURPLE_ROYAL, PresetColour.CLOTHING_IRON, null, false), true, this);
-		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_SPREADER_BAR, PresetColour.CLOTHING_PURPLE_ROYAL, PresetColour.CLOTHING_IRON, null, false), true, this);
+		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_ballgag", PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_IRON, false), true, this);
+		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_blindfold", PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_IRON, null, false), true, this);
+		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_croptop", PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_IRON, null, false), true, this);
+		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_bra", PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_IRON, null, false), true, this);
+		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_corset", PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_IRON, null, false), true, this);
+		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_wrist_restraints", PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_IRON, null, false), true, this);
+		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_spreaderbar", PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_IRON, null, false), true, this);
 	}
 	
 	public void applyBadEndBimbo() {
 		Main.game.getPlayer().addFetish(Fetish.FETISH_BIMBO);
 	}
 	
-	public void applyBadEndFeral() {
+	public void applyBadEndFeral(NPC princess) {
 		Main.game.getPlayer().setFeral(Subspecies.COW_MORPH);
+		
+		Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), princess, " in Evelyx's slave barn as you were transformed into a feral cow");
+		Main.game.getPlayer().setVaginaVirgin(false);
+		
+		Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS), princess, " in Evelyx's slave barn soon after you were transformed into a feral cow");
+		Main.game.getPlayer().setAssVirgin(false);
+		
+		Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS), princess, " in Evelyx's slave barn soon after you were transformed into a feral cow");
+		Main.game.getPlayer().setFaceVirgin(false);
 		
 		if(Main.game.getDialogueFlags().hasFlag("innoxia_evelyx_bad_end_pussy")) {
 			applyBadEndPussy();

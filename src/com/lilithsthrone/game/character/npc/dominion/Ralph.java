@@ -87,7 +87,6 @@ public class Ralph extends NPC {
 			
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 35);
 		}
-		
 	}
 	
 	@Override

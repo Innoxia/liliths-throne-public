@@ -72,6 +72,10 @@ public class PopulationType {
 	public static AbstractPopulationType STALL_HOLDER = new AbstractPopulationType("stallholder", "stallholders") {};
 
 	public static AbstractPopulationType MILKER = new AbstractPopulationType("milker", "milkers") {};
+	
+	public static AbstractPopulationType CASHIER = new AbstractPopulationType("cashier", "cashiers") {};
+	
+	public static AbstractPopulationType MASSEUSE = new AbstractPopulationType("masseuse", "masseuses") {};
 
 	private static List<AbstractPopulationType> allPopulationTypes = new ArrayList<>();
 	private static Map<AbstractPopulationType, String> populationToIdMap = new HashMap<>();

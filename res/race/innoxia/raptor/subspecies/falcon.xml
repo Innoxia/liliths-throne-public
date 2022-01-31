@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<subspecies>
+	<race>innoxia_raptor</race>
+	<colour>innoxia_raptor</colour>
+	<secondaryColour>innoxia_raptor</secondaryColour>
+	<tertiaryColour>innoxia_raptor</tertiaryColour>
+	<mainSubspecies>true</mainSubspecies>
+	<baseSlaveValue>14000</baseSlaveValue>
+	<attributeItemId>innoxia_race_raptor_energy_drink</attributeItemId>
+	<transformativeItemId>innoxia_race_raptor_energy_bar</transformativeItemId>
+	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<shortStature>false</shortStature>
+	<bipedalSubspecies>true</bipedalSubspecies>
+	<aquatic>false</aquatic>
+	<applySubspeciesChanges/>
+	<subspeciesWeighting><![CDATA[
+		#IF(targetedRace==RACE_innoxia_raptor)
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></subspeciesWeighting>
+	<iconName displaySize="80">icon</iconName>
+	<backgroundName>background</backgroundName>
+	<bookIconName>icon</bookIconName>
+	<bookName>The Sharpest Talons</bookName>
+	<basicDescriptionId>RAPTOR_BASIC</basicDescriptionId>
+	<advancedDescriptionId>RAPTOR_ADVANCED</advancedDescriptionId>
+	<defaultPreference>TWO_AVERAGE</defaultPreference>
+	<name><![CDATA[falcon-morph]]></name>
+	<namePlural><![CDATA[falcon-morphs]]></namePlural>
+	<singularMaleName><![CDATA[falcon-boy]]></singularMaleName>
+	<singularFemaleName><![CDATA[falcon-girl]]></singularFemaleName>
+	<pluralMaleName><![CDATA[falcon-boys]]></pluralMaleName>
+	<pluralFemaleName><![CDATA[falcon-girls]]></pluralFemaleName>
+	<description><![CDATA[An anthropomorphic falcon, known as a 'falcon-morph' when bipedal, and a 'falcon-taur' when the lower body is that of a feral falcon.]]></description>
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[tengu]]></name>
+			<namePlural><![CDATA[tengu]]></namePlural>
+			<singularMaleName><![CDATA[tengu]]></singularMaleName>
+			<singularFemaleName><![CDATA[tengu]]></singularFemaleName>
+			<pluralMaleName><![CDATA[tengu]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[tengu]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
+	<feralAttributes>
+		<feralName><![CDATA[falcon]]></feralName>
+		<feralNamePlural><![CDATA[falcons]]></feralNamePlural>
+		<feralSingularMaleName><![CDATA[falcon]]></feralSingularMaleName>
+		<feralSingularFemaleName><![CDATA[falcon]]></feralSingularFemaleName>
+		<feralPluralMaleName><![CDATA[falcons]]></feralPluralMaleName>
+		<feralPluralFemaleName><![CDATA[falcons]]></feralPluralFemaleName>
+		<legConfiguration>AVIAN</legConfiguration>
+		<sizeHeight>true</sizeHeight>
+		<size>56</size>
+		<breastRowCount>0</breastRowCount>
+		<nipplesPerBreastCount>1</nipplesPerBreastCount>
+		<crotchBreastRowCount>0</crotchBreastRowCount>
+		<nipplesPerCrotchBreastCount>2</nipplesPerCrotchBreastCount>
+		<armsOrWingsPresent>true</armsOrWingsPresent>
+		<fingerActionsAvailable>false</fingerActionsAvailable>
+		<hairPresent>false</hairPresent>
+	</feralAttributes>
+	<statusEffectDescription><![CDATA[
+		[npc.NamePos] speed and agility helps [npc.herHim] to land particularly hard-hitting strikes in combat.
+	]]></statusEffectDescription>
+	<statusEffectAttributeModifiers>
+		<attribute value="5">MAJOR_PHYSIQUE</attribute>
+		<attribute value="0">MAJOR_ARCANE</attribute> 
+		<attribute value="0">MAJOR_CORRUPTION</attribute>
+		<attribute value="25">CRITICAL_DAMAGE</attribute>
+	</statusEffectAttributeModifiers>
+	<extraEffects/>
+	<perkWeightings>
+		<category masculineWeighting="5" feminineWeighting="5">PHYSICAL</category>
+		<category masculineWeighting="1" feminineWeighting="2">LUST</category>
+		<category masculineWeighting="0" feminineWeighting="0">ARCANE</category>
+	</perkWeightings>
+	<regionLocations>
+		<region rarity="TWO_RARE">DOMINION</region>
+		<region rarity="FOUR_COMMON">FIELDS</region>
+		<region rarity="FOUR_COMMON">FIELD_CITY</region>
+	</regionLocations>
+	<worldLocations>
+		<world rarity="TWO_RARE">NIGHTLIFE_CLUB</world>
+	</worldLocations>
+	<flags/>
+</subspecies>

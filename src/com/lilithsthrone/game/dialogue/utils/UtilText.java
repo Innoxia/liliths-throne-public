@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.utils;
 import java.io.File;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
@@ -160,6 +161,8 @@ import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.AbstractDialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.AbstractEncounter;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.inventory.AbstractSetBonus;
@@ -178,6 +181,7 @@ import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.game.settings.ForcedFetishTendency;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.sex.GenericSexFlag;
+import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -200,7 +204,6 @@ import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
-
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
@@ -1283,7 +1286,27 @@ public class UtilText {
 			}
 			
 			if (startIndex != 0) {
-				System.err.println("Error in parsing: StartIndex:"+startIndex+" ("+target+", "+command+") - "+input.substring(startIndex, Math.min(input.length()-1, startIndex+20)));
+				StringBuilder errMsg = new StringBuilder("Error in parsing: ");
+				switch(input.charAt(startIndex)) {
+					case '#':
+						errMsg.append("Missing #ENDIF for #IF at ");
+						break;
+					case '[':
+						errMsg.append("Missing ] for [ at ");
+						break;
+					default:
+						errMsg.append("Non-fatal error at ");
+						break;
+				}
+				errMsg.append(startIndex);
+				if(target != null) {
+					errMsg.append(" Target: "+target);
+				}
+				if(command != null) {
+					errMsg.append(" Command: "+command);
+				}
+				errMsg.append(" "+input.substring(startIndex, Math.min(input.length()-1, startIndex+20)));
+				System.err.println(errMsg);
 				parsingCharactersForSpeech = parsingCharactersForSpeechSaved;
 				return input;
 			}
@@ -1938,6 +1961,36 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						"jobTimeStart",
+						"jobStartTime"),
+				true,
+				true,
+				"",
+				"Returns the locale-adapted start time for this character's job. Does not work for slave jobs."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return Units.time(LocalTime.of(character.getHistory().getWorkHourStart(), 0, 0));
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"jobTimeEnd",
+						"jobEndTime",
+						"jobTimeFinish",
+						"jobFinishTime"),
+				true,
+				true,
+				"",
+				"Returns the locale-adapted end time for this character's job. Does not work for slave jobs."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return Units.time(LocalTime.of(character.getHistory().getWorkHourEnd(), 0, 0));
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						"jobDayStart",
 						"jobStartDay"),
 				true,
@@ -2535,14 +2588,14 @@ public class UtilText {
 				if(arguments!=null && Boolean.valueOf(arguments)) {
 					boolean pronoun = parseAddPronoun;
 					parseAddPronoun = false;
-					String name = character.isRaceConcealed()?"unknown race":character.getSubspecies().getFeralName(character);
+					String name = character.isRaceConcealed()?"unknown race":character.getSubspecies().getFeralName(character.getBody());
 					return "<span style='color:"+(character.isRaceConcealed()?PresetColour.TEXT_GREY:character.getSubspecies().getColour(character)).toWebHexString()+";'>"
 							+ (parseCapitalise
 									?Util.capitaliseSentence((pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
 									:(pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
 							+"</span>";
 				}
-				return character.getSubspecies().getFeralName(character);
+				return character.getSubspecies().getFeralName(character.getBody());
 			}
 		});
 
@@ -2563,7 +2616,7 @@ public class UtilText {
 				Elemental elemental = ((Elemental)character);
 				String name = elemental.getPassiveForm()==null
 						?"wisp"
-						:elemental.getPassiveForm().getFeralName(elemental);
+						:elemental.getPassiveForm().getFeralName(elemental.getBody());
 				if(arguments!=null && Boolean.valueOf(arguments)) {
 					boolean pronoun = parseAddPronoun;
 					parseAddPronoun = false;
@@ -4359,7 +4412,7 @@ public class UtilText {
 				true,
 				"(real pronoun)",
 				"Returns the correct pronoun for this character (you, him, her). By default, returns 'you' for player character."
-				+ " If you need the regular third-person player character pronoun, passin 'true' as an argument."){
+				+ " If you need the regular third-person player character pronoun, pass in 'true' as an argument."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(arguments==null && isPlayer(target, character)) {
@@ -5514,7 +5567,7 @@ public class UtilText {
 				if(character.getCovering(character.getArmCovering()).getModifier().isFurryModifier()) {
 					descriptors.add("furry");
 				} else {
-					if(character.getUnderarmHair()!=BodyHair.ZERO_NONE) {
+					if(Main.game.isBodyHairEnabled() && character.getUnderarmHair()!=BodyHair.ZERO_NONE) {
 						descriptors.add("hairy");
 					} else {
 						descriptors.add("smooth");
@@ -9699,6 +9752,9 @@ public class UtilText {
 		for(Colour colour : PresetColour.getAllPresetColours()) {
 			engine.put("COLOUR_"+PresetColour.getIdFromColour(colour), colour);
 		}
+		for(Entry<DialogueNode, String> dn: DialogueManager.getDialogueToIdMap().entrySet()) {
+			engine.put("DN_"+dn.getValue(), dn.getKey());
+		}
 		
 		// Bodies:
 		for(AbstractRace race : Race.getAllRaces()) {
@@ -9752,6 +9808,10 @@ public class UtilText {
 		for(BodyPartTag bpt : BodyPartTag.values()) {
 			engine.put("BODY_PART_TAG_"+bpt.toString(), bpt);
 		}
+		// Spelling errors which were corrected in PR#1603 but which now need correct parser references for old mod version support:
+		engine.put("BODY_PART_TAG_TAIL_SUTABLE_FOR_PENETRATION", BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION);
+		engine.put("BODY_PART_TAG_TAIL_NEVER_SUTABLE_FOR_PENETRATION", BodyPartTag.TAIL_NEVER_SUITABLE_FOR_PENETRATION);
+		
 		for(PenetrationModifier penMod : PenetrationModifier.values()) {
 			engine.put("PENETRATION_MODIFIER_"+penMod.toString(), penMod);
 		}
@@ -9920,6 +9980,13 @@ public class UtilText {
 		for(GenericSexFlag flag : GenericSexFlag.values()) {
 			engine.put("SEX_FLAG_"+flag.toString(), flag);
 		}
+		for(SexPace pace : SexPace.values()) {
+			engine.put("SEX_PACE_"+pace.toString(), pace);
+		}
+		for(OrgasmCumTarget oct : OrgasmCumTarget.values()) {
+			engine.put("OCT_"+oct.toString(), oct);
+		}
+		
 		
 		// Other:
 		for(Season season : Season.values()) {
@@ -10114,7 +10181,7 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				try {
-					return getBodyPartFromType(bodyPart,character).getType().getRace().getName(character, getBodyPartFromType(bodyPart, character).isFeral(character));
+					return getBodyPartFromType(bodyPart,character).getType().getRace().getName(character.getBody(), getBodyPartFromType(bodyPart, character).isFeral(character));
 				} catch(Exception ex) {
 					return "null_body_part";
 				}
@@ -10554,9 +10621,9 @@ public class UtilText {
 		}
 		
 		if (character.isFeminine()) {
-			return subspecies.getSingularFemaleName(character);
+			return subspecies.getSingularFemaleName(character.getBody());
 		} else {
-			return subspecies.getSingularMaleName(character);
+			return subspecies.getSingularMaleName(character.getBody());
 		}
 	}
 	
@@ -10564,9 +10631,9 @@ public class UtilText {
 		if(race==null)
 			return "";
 		if (character.isFeminine()) {
-			return race.getPluralFemaleName(character);
+			return race.getPluralFemaleName(character.getBody());
 		} else {
-			return race.getPluralMaleName(character);
+			return race.getPluralMaleName(character.getBody());
 		}
 	}
 	
@@ -10681,6 +10748,9 @@ public class UtilText {
 		engine.put(tag, getInventoryForParsing());
 	}
 	
+	
+	// Memoization improvement attempts follow from here:
+	
 //	private static final Map<String, CompiledScript> memo = new HashMap<>();
 //	private static final int memo_limit = 500;
 	// NOTE: This was causing a bug where upon loading a saved game, the player's race wasn't being recalculated properly for some reason.
@@ -10712,8 +10782,10 @@ public class UtilText {
 //			script = memo.get(command);
 //		}
 //		return script.eval(((NashornScriptEngine)engine).getContext());
-////		return script.eval();
-
+//		//return script.eval();
+		
+		
+		// This is the old code which works but is slow:
 		CompiledScript script = ((NashornScriptEngine)engine).compile(command);
 		return script.eval();
 	}

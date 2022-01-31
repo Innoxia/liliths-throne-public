@@ -286,8 +286,8 @@ public class RatWarrensCaptiveDialogue {
 						return super.isAbleToRemoveOthersClothing(character, clothing);
 					}
 					@Override
-					public boolean isAbleToEquipSexClothing(GameCharacter character) {
-						return !character.isPlayer();
+					public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
+						return !equippingCharacter.isPlayer();
 					}
 					@Override
 					public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
@@ -407,7 +407,7 @@ public class RatWarrensCaptiveDialogue {
 				return false;
 			}
 			@Override
-			public boolean isAbleToEquipSexClothing(GameCharacter character) {
+			public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
 				return false;
 			}
 			@Override
@@ -2919,18 +2919,18 @@ public class RatWarrensCaptiveDialogue {
 				};
 				
 			} else if(index==2) {
-				if(!Main.game.getPlayer().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS) && !isPlayerObeyingOrders(false)) {
+				if(!Main.game.getPlayer().hasTraitActivated(Perk.CONVINCING_REQUESTS) && !isPlayerObeyingOrders(false)) {
 					return new Response("Seduce",
 							UtilText.parse(getMurk(),
 									"You aren't convincing enough at seduction to attempt to trick [npc.name] into taking your collar off..."
-									+ "<br/>[style.italicsMinorBad(Requires the '"+Perk.CONVINCING_REQUESTS.getName(Main.game.getPlayer())+"' perk.)]"),
+									+ "<br/>[style.italicsMinorBad(Requires the '"+Perk.CONVINCING_REQUESTS.getName(Main.game.getPlayer())+"' trait to be active.)]"),
 							null);
 				}
 				return new Response("Seduce",
 						isPlayerObeyingOrders(false)
 							?"Tell Murk that you're so desperate for sex that you can't sleep..."
 							:"Tell Murk that you're desperate for sex in an attempt to trick him into taking your collar off..."
-								+ "<br/>[style.italicsMinorGood(Unlocked from having the '"+Perk.CONVINCING_REQUESTS.getName(Main.game.getPlayer())+"' perk.)]",
+								+ "<br/>[style.italicsMinorGood(Unlocked from having the '"+Perk.CONVINCING_REQUESTS.getName(Main.game.getPlayer())+"' trait activated.)]",
 						CAPTIVE_CALL_OUT_RELEASED) {
 					@Override
 					public void effects() {
@@ -3246,7 +3246,7 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Follow", "Join Shadow and SIlence in following Constable Adams to the nearest Enforcer post.", RatWarrensDialogue.POST_CAPTIVITY_SWORD_RAID) {
+				return new Response("Follow", "Join Shadow and Silence in following Constable Adams to the nearest Enforcer post.", RatWarrensDialogue.POST_CAPTIVITY_SWORD_RAID) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);

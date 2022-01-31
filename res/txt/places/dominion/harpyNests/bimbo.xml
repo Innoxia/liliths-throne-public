@@ -53,6 +53,217 @@
 	#ENDIF
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="HARPY_NEST_BIMBO_APPROACH"><![CDATA[
+	#IF(flags.hasFlag(FLAG_bimboEncountered))
+		#IF(flags.hasFlag(FLAG_bimboPacified))
+			<p>
+				Deciding that you should go and pay [bimboHarpy.name] another visit, you set off across the nest. Most of the bimbo harpies recognise you as [bimboHarpy.namePos] [pc.mistress], and submissively bow their heads or drop to their knees as you pass. Reaching the staircase that leads to the upper platform, you quickly scale the stairs, and as you reach the top, you're greeted by a familiar sight.
+			</p>
+			<p>
+				[bimboHarpy.Name] is lying down on a sunbed, surrounded by her inner-circle of harpy bimbos. [bimboHarpyCompanion.Name] is obediently grooming her matriarch's beautiful bleach-blonde feathers, giggling and whispering with her mistress as she works. As you approach, she suddenly notices you, and cries out, [bimboHarpyCompanion.speechNoEffects(Mistress! Like, [pc.name] is back!)]
+			</p>
+			<p>
+				[bimboHarpy.Name] instantly jumps up off the sunbed, and, rushing forwards, she throws herself to her knees at your [pc.feet]. Looking up with her big [bimboHarpy.eyeColour] eyes, she pushes out her chest and bites her lip.
+			</p>
+			<p>
+				[bimboHarpy.speechNoEffects(Ah! [pc.Mistress]! I've been, like, super good and stuff!)] she happily squeals, [bimboHarpy.speechNoEffects(We've all been, like, super chilled out and stuff, right girls?!)]
+			</p>
+			<p>
+				A chorus of eager voices cry out in agreement, and you can't help but smile down at [bimboHarpy.name] as she shuffles a little closer to you.
+			</p>
+			<p>
+				[bimboHarpy.speechNoEffects(Like, erm, I wanna, like, show my girls how good I am!)] she moans, barely able to contain the excitement in her voice. [bimboHarpy.speechNoEffects(I mean, like, only if you want to and stuff!)]
+			</p>
+			<p>
+				One of her feathered hands sinks down between her legs, and she leans back on her knees, presenting her panties to you as she starts rubbing at the fabric. Several members of her inner-circle start mimicking her behaviour, and, shuffling ever closer, [bimboHarpy.name] moans out loud, [bimboHarpy.speechNoEffects(Ah! Please! Fuck me!)]
+			</p>
+		#ELSE
+			<p>
+				Deciding that you should go and pay [bimboHarpy.name] another visit, you set off across the nest. A couple of the bimbo harpies that you pass recognise you from before, and start whispering to one another as you pass. Reaching the staircase that leads to the upper platform, you quickly scale the stairs, and as you reach the top, you're greeted by a familiar sight.
+			</p>
+			<p>
+				[bimboHarpy.Name] is lying down on a sunbed, surrounded by her inner-circle of harpy bimbos. [bimboHarpyCompanion.Name] is obediently grooming her matriarch's beautiful bleach-blonde feathers, giggling and whispering with her mistress as she works. As you approach, she suddenly notices you, and cries out, [bimboHarpyCompanion.speechNoEffects(Mistress! Like, that [pc.race] is back!)]
+			</p>
+			<p>
+				#IF(pc.getFemininityValue()>=FEMININITY_FEMININE_STRONG.getMinimumFemininity())
+					Letting out an annoyed sigh, [bimboHarpy.name] props herself up on the sunbed, and, raising her aviators to look you up-and-down, she makes a dismissive gesture. [bimboHarpy.speechNoEffects(Eugh! Like, what are <i>you</i> doin' here again? Why don't you, like go get your own flock or something! You're, like, being super rude and stuff comin' here and flaunting yourself in front of my girls!)]
+				#ELSE
+					Letting out an annoyed sigh, [bimboHarpy.name] props herself up on the sunbed, and, raising her aviators to look you up-and-down, she makes a dismissive gesture. [bimboHarpy.speechNoEffects(Eugh! Like, what are <i>you</i> doin' here again? Y'know, you're like, super annoying and stuff!)]
+				#ENDIF
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+				This nest looks like the home of one of the matriarchs you agreed to try and calm down. Deciding that you should do as the Enforcer sergeant asked, you set off across the nest towards the staircase leading to the upper platform.
+			</p>
+			<p>
+				As you walk through the nest, you take a closer look at this peculiar, bleach-blonde flock. Just as you saw from the outskirts, most of these harpies have larger-than-average breasts, hips, and asses, but it's the snippets of conversation that you overhear that reveal their true nature,<br/>
+				[style.speechFeminine(...yeah, and, like, she was soooo not pretty...)]<br/>
+				[style.speechFeminineStrong(...uh-huh, and, like, her feathers were like, totally blech!...)]<br/>
+				[style.speechFeminine(...and he was, like, 'I'll do whatever you say!', and I was like, 'Uhh, duh!'...)]
+			</p>
+			<p>
+				Combined with their large assets and choice of feather colour, you're left with no doubt as to what's going on here. Every single one of this nest's occupants is a bimbo. Before you know it, you've reached the staircase that leads to the upper platform, and, taking one look back at the crowd of bimbos, you set off up the the stairs, and quickly reach the top.
+			</p>
+			<p>
+				You'd already seen a picture of [bimboHarpy.name] in the Enforcer's papers, but even if you hadn't, it's clearly obvious who the matriarch is. With large, perfectly shaped breasts, the body of a super-model, and one of the most gorgeous faces you've ever seen, [bimboHarpy.name] is the centre of attention. Her inner-circle of bimbo harpies are gathered around her, vying for their leader's attention as they giggle and agree with every word she speaks. One harpy in particular seems to be the closest to her, and it's this particular bimbo who's the first one to notice your approach.
+			</p>
+			<p>
+				[bimboHarpyCompanion.speechNoEffects([bimboHarpy.Name]! There's, like, some [pc.race] over there!)]
+			</p>
+			<p>
+				Instantly, all eyes are on you, and [bimboHarpy.Name] stand up from the sunbed upon which she was lying. Stepping forwards, she rests one of her feathered hands on her hips, striking a pose as she speaks,
+				#IF(pc.getFemininityValue()>=FEMININITY_FEMININE_STRONG.getMinimumFemininity())
+					 [bimboHarpy.speechNoEffects(Like, who do you think you are?! I hope you're not, like, thinkin' of tryin' to steal girls from my flock! You, like, might have the looks, but they aren't gonna listen to some stupid slut like you! What do you, like, even want? Coming up here uninvited is, like, super rude y'know?!)]
+				#ELSE
+					 [bimboHarpy.speechNoEffects(Like, who do you think you are?! Coming up here uninvited is, like, super rude y'know?!)]
+				#ENDIF
+			</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- Angry scenes: -->
+	
+    <htmlContent tag="BIMBO_LEAVE"><![CDATA[
+    <p>
+        Deciding that now isn't the best time to be doing this, you turn around and head back down the stairs. You hear [bimboHarpy.name] complaining to her harpies as you leave, [bimboHarpy.speechNoEffects(Eugh! Like, what was all that about?!)]
+    </p>
+    <p>
+        Ignoring her words, you continue down the steps and back across the main platform, quickly finding yourself back on the outskirts of the nest.
+    </p>
+	]]>
+    </htmlContent>
+	
+	<!-- Pacified scenes: -->
+	
+    <htmlContent tag="PACIFIED_BIMBO_LEAVE"><![CDATA[
+    <p>
+        Deciding that now isn't the best time to be doing this, you turn around and head back down the stairs. You hear [harpyBimbo.name] moaning to her harpies as you leave, [harpyBimbo.speechNoEffects(Awww! Like, I just wanna get fucked in front of you all!)]
+    </p>
+    <p>
+        Ignoring her words, you continue down the steps and back across the main platform, quickly finding yourself back on the outskirts of the nest.
+    </p>
+	]]>
+    </htmlContent>
+	
+    <htmlContent tag="PACIFIED_BIMBO_SEX_START"><![CDATA[
+    <p>
+        Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings. Pulling her to her feet, you [pc.step] forwards and plant a deep kiss on her [harpyBimbo.lips+], drawing a series of excited giggles from the surrounding bimbo harpies in the process.
+    </p>
+    <p>
+        [harpyBimbo.Name] responds to your dominant move by wrapping her wings around your back, grinding herself up against you as she passionately returns your kiss...
+    </p>
+	]]>
+    </htmlContent>
+	
+    <htmlContent tag="BIMBO_SEX_START_ORAL"><![CDATA[
+    <p>
+        Eager to put [harpyBimbo.name] and [harpyBimboCompanion.name] in their place in front of their nest's inner-circle, you reach down and grab the bimbo matriarch's wings. Pulling her to her feet, you [pc.step] forwards, before planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies.
+    </p>
+	#IF(!harpyBimboCompanion.isAttractedTo(pc))
+		<p>
+			[harpyBimbo.Name] responds to your dominant move by wrapping her wings around your back, grinding herself up against you, and passionately returning your kiss. Letting out a disapproving groan, [harpyBimboCompanion.name] sneers, [harpyBimboCompanion.speechNoEffects(Can't you, like, just leave [harpyBimbo.name] alone? I'm, like, so not into watching this!)]
+		</p>
+		<p>
+			Breaking off your kiss with [harpyBimbo.Name], you tell [harpyBimboCompanion.name] that you have no intention of letting her simply stand back and watch. Grabbing the matriarch's subordinate, you pull her into your embrace and give her a taste of your [pc.tongue+]. As the shocked harpy lets out a muffled cry of protest into your mouth, more excited giggles break out amongst the surrounding bimbo harpies.
+		</p>
+		<p>
+			Wanting the matriarch's and her subordinate's lips to be employed elsewhere, you break off your kiss, before taking hold of both of the harpies' shoulders and pushing them to their knees before you. Realising what it is you want, [harpyBimbo.Name] eagerly shuffles forwards towards your groin, pulling [harpyBimboCompanion.name] along beside her as she does so. Gazing up into your eyes, she moans, [harpyBimbo.speechNoEffects(We're, like, the best in the whole nests at, like, using our mouths and stuff. Ain't that right, [harpyBimboCompanion.name]?)]
+		</p>
+		<p>
+			[harpyBimboCompanion.speechNoEffects(You're, like, really going to make me do this? Eugh... I'm <i>so</i> not happy about this!)] [harpyBimboCompanion.name] groans as her matriarch prepares to perform oral on you...
+		</p>
+	#ELSE
+		<p>
+			[harpyBimbo.Name] responds to your dominant move by wrapping her wings around your back, grinding herself up against you, and passionately returning your kiss. Letting out a hungry moan, [harpyBimboCompanion.name] eagerly asks, [harpyBimboCompanion.speechNoEffects(You're not, like, just going to leave me out of this, right?)]
+		</p>
+		<p>
+			With [harpyBimbo.name] continuing to desperately kiss you, you motion for [harpyBimboCompanion.name] to step forwards and join in. As she happily skips forwards, you pull back from [harpyBimbo.namePos] lips, before swiftly grabbing [harpyBimbo.namePos] head and giving her a taste of your [pc.tongue+]. As the lustful harpy leans heavily into you, more excited giggles break out amongst the surrounding bimbo harpies.
+		</p>
+		<p>
+			Wanting the matriarch's and her subordinate's lips to be employed elsewhere, you break off your kiss, before taking hold of both of the harpies' shoulders and pushing them to their knees before you. Realising what it is you want, they both eagerly shuffle forwards towards your groin. Looking up at you, [harpyBimbo.name] hungrily moans, [harpyBimbo.speechNoEffects(We're, like, the best in the whole nests at, like, using our mouths and stuff. Ain't that right, [harpyBimboCompanion.name]?)]
+		</p>
+		<p>
+			[harpyBimboCompanion.speechNoEffects(That's, like, super true! Let us take care of you...)] [harpyBimboCompanion.name] replies, and you can't help but grin as she and her matriarch eagerly prepare to perform oral on you...
+		</p>
+	#ENDIF
+	]]>
+    </htmlContent>
 
+    <htmlContent tag="BIMBO_SEX_START_MISSIONARY"><![CDATA[
+    <p>
+        Eager to put [harpyBimbo.name] and [harpyBimboCompanion.name] in their place in front of their nest's inner-circle, you grab hold of both of them and push them down onto their backs before you. As you drop down between their legs, [harpyBimbo.name] passionately moans, [harpyBimbo.speechNoEffects(Come on, like, give us both a real good fuck! We're, like, super into this stuff, aren't we, [harpyBimboCompanion.name]?)]
+    </p>
+	#IF(!harpyBimboCompanion.isAttractedTo(pc))
+		<p>
+			Letting out a disgusted groan, the matriarch's subordinate looks straight up into your eyes and cries out, [harpyBimboCompanion.speechNoEffects(You're, like, really going to make me do this? Eugh... I'm <i>so</i> not happy about this!)]
+		</p>
+		<p>
+			Ignoring her words, you lustfully gaze down at [harpyBimboCompanion.name] and her matriarch as you prepare to fuck them side-by-side...
+		</p>
+	#ELSE
+		<p>
+			Letting out a hungry moan, the matriarch's subordinate looks straight up into your eyes and cries out, [harpyBimboCompanion.speechNoEffects(Yes! Like, I love getting fucked beside [harpyBimbo.name]! Come on and, like, get started and stuff!)]
+		</p>
+		<p>
+			Pleased to hear that she's more than happy to be involved in this threesome, you lustfully gaze down at [harpyBimboCompanion.name] and her matriarch as you prepare to fuck them side-by-side...
+		</p>
+	#ENDIF
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="BIMBO_AFTER_SEX"><![CDATA[
+	#IF(sex.isSatisfiedFromOrgasms(harpyBimbo, true))
+		<p>
+			As you [pc.step] back from [harpyBimbo.name], she sinks to the floor, totally worn out from her
+			#IF(sex.getNumberOfOrgasms(harpyBimbo)>1)
+				orgasms.
+			#ELSE
+				orgasm.
+			#ENDIF
+			 Biting her lip and flashing you a dirty look, she teases, [harpyBimbo.speechNoEffects(You, like, made me cum so much! You're, like, real good at fuckin' harpies...)]
+		</p>
+	#ELSE
+		<p>
+			As you [pc.step] back from [harpyBimbo.name], she sinks to the floor, letting out a desperate whine as she realises that you've finished with her. Her feathered hands dart down between her legs, and she frantically starts masturbating as she seeks to finish what you started.
+		</p>
+	#ENDIF
+	#IF(sex.getAllParticipants(false).contains(harpyBimboCompanion))
+		#IF(sex.isSatisfiedFromOrgasms(harpyBimboCompanion, true))
+			<p>
+				Letting out a deeply satisfied sigh, [harpyBimboCompanion.name] looks to be completely exhausted from the
+				#IF(sex.getNumberOfOrgasms(harpyBimboCompanion)>1)
+					orgasms
+				#ELSE
+					orgasm
+				#ENDIF
+				 you gave her. Panting and looking up into your eyes, she moans, [harpyBimboCompanion.speechNoEffects(That was, like... Wow...)]
+			</p>
+		#ELSE
+			<p>
+				Not being satisfied from this sexual experience, [harpyBimboCompanion.name] looks over at her matriarch, and as she watches [harpyBimbo.namePos] [harpyBimbo.breasts+] rise and fall, she starts shamelessly masturbating right there in front of the rest of the surrounding harpies.
+			</p>
+		#ENDIF
+	#ENDIF
+	<p>
+		[harpyBimbo.NamePos] inner-circle of harpies, having watched the whole thing, kneel down in submission as you finish with their matriarch. Excitedly chattering amongst themselves, they talk about your performance and wonder aloud how long it will be before you're back for more...
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="BIMBO_LEAVE_AFTER_SEX"><![CDATA[
+	#IF(sex.getAllParticipants(false).contains(harpyBimboCompanion))
+		<p>
+			Having shown these harpies their place, you set off down the staircase, and after walking back across the lower platform, you quickly find yourself on the outskirts of [harpyBimbo.namePos] nest once again.
+		</p>
+	#ELSE
+		<p>
+			Having shown [harpyBimbo.name] her place, you set off down the staircase, and after walking back across the lower platform, you quickly find yourself on the outskirts of [harpyBimbo.namePos] nest once again.
+		</p>
+	#ENDIF
+    ]]>
+    </htmlContent>
 	
 </dialogue>

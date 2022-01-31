@@ -41,7 +41,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class DominionExpressCentaur extends NPC {
 
 	public DominionExpressCentaur() {
-		this(Gender.F_V_B_FEMALE, PresetColour.CLOTHING_STEEL, false);
+		this(Gender.getGenderFromUserPreferences(false, false), PresetColour.CLOTHING_STEEL, false);
 	}
 	
 	public DominionExpressCentaur(boolean isImported) {

@@ -42,7 +42,7 @@ public class GamblingDenPatron extends NPC {
 	private DicePokerTable table;
 	
 	public GamblingDenPatron() {
-		this(Gender.F_V_B_FEMALE, DicePokerTable.COPPER, false);
+		this(Gender.getGenderFromUserPreferences(false, false), DicePokerTable.COPPER, false);
 	}
 	
 	public GamblingDenPatron(Gender gender) {

@@ -45,6 +45,14 @@ public class PenisBreasts {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
+			// Special check for NPCs, as this action can hit penis, breast, and oral fetishes.
+			// Positive penis + breast desires can outweigh a negative oral one and thus make NPCs use this action, even though it makes no sense if they hate the oral fetish
+			if(!Main.sex.getCharacterPerformingAction().isPlayer()) {
+				if(Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_ORAL_RECEIVING).isNegative()) {
+					return false;
+				}
+			}
+			
 			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& Main.sex.getCharacterPerformingAction().getPenisRawSizeValue()>=6
 					&& Main.sex.isOrificeFree(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH)
@@ -179,6 +187,14 @@ public class PenisBreasts {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
+			// Special check for NPCs, as this action can hit penis, breast, and oral fetishes.
+			// Positive penis + breast desires can outweigh a negative oral one and thus make NPCs use this action, even though it makes no sense if they hate the oral fetish
+			if(!Main.sex.getCharacterPerformingAction().isPlayer()) {
+				if(Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_ORAL_GIVING).isNegative()) {
+					return false;
+				}
+			}
+			
 			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& Main.sex.getCharacterTargetedForSexAction(this).getPenisRawSizeValue()>=6
 					&& Main.sex.isOrificeFree(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH)

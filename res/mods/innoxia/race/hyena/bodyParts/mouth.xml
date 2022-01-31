@@ -42,6 +42,34 @@
 	</descriptorsMasculine>
 	-->
 	
+	<!-- The singular names of the lips associated with this mouth.
+	One of the defined names will be chosen at random every time the name is displayed to the player. 
+	This will most often just be 'lip', but for bird-faces, such as harpies, you will most likely want to define it as 'beak-lip'.
+	If left blank or omitted, then a default value of 'lip' will be used. -->
+	<lipNames>
+		<name><![CDATA[lip]]></name>
+	</lipNames>
+	
+	<!-- The plural names of the lips associated with this mouth.
+	One of the defined names will be chosen at random every time the name is displayed to the player.
+	This will most often just be 'lips', but for bird-faces, such as harpies, you will most likely want to define it as 'beak-lips'.
+	If left blank or omitted, then a default value of 'lips' will be used. -->
+	<lipNamesPlural>
+		<name><![CDATA[lips]]></name>
+	</lipNamesPlural>
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's lips of this type.
+	If the attribute 'allowSizeDescriptors' is set to true (which is the default value), then the lip size will be used as a descriptor.
+	If omitted, then default descriptors will be used. -->
+	<lipDescriptorsMasculine allowSizeDescriptors="true"/>
+	<!-- Same as above, but for feminine characters. -->
+	<lipDescriptorsFeminine allowSizeDescriptors="true"/>
+	<!-- Hyena lips do not need any racial descriptors, but if you wanted to add some, use this format:
+	<descriptorsMasculine allowSizeDescriptors="true">
+		<descriptor><![CDATA[firm]]></descriptor>
+	</descriptorsMasculine>
+	-->
+	
 	<!-- How this mouth is described in a character's description page. -->
 	<bodyDescription><![CDATA[
 		[npc.SheHasFull] [npc.lipSize], [npc.mouthColourPrimary(true)] [npc.lips]

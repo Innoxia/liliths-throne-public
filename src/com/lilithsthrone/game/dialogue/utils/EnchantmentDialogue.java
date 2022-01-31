@@ -51,6 +51,7 @@ import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.7
@@ -484,7 +485,11 @@ public class EnchantmentDialogue {
 							
 						} else if(ingredient instanceof Tattoo){
 							if(BodyChanging.getTarget().isPlayer()) {
-								return SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS;
+								if(Main.game.getPlayer().getLocationPlaceType()==PlaceType.SHOPPING_ARCADE_KATES_SHOP) {
+									return SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS;
+								} else {
+									return CosmeticsDialogue.BEAUTICIAN_TATTOOS;
+								}
 							} else {
 								return CompanionManagement.SLAVE_MANAGEMENT_TATTOOS;
 							}
@@ -534,7 +539,11 @@ public class EnchantmentDialogue {
 								
 							} else if(previousIngredient instanceof Tattoo) {
 								if(BodyChanging.getTarget().isPlayer()) {
-									Main.game.setContent(new Response("", "", SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS));
+									if(Main.game.getPlayer().getLocationPlaceType()==PlaceType.SHOPPING_ARCADE_KATES_SHOP) {
+										Main.game.setContent(new Response("", "", SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS));
+									} else {
+										Main.game.setContent(new Response("", "", CosmeticsDialogue.BEAUTICIAN_TATTOOS));
+									}
 								} else {
 									Main.game.setContent(new Response("", "", CompanionManagement.SLAVE_MANAGEMENT_TATTOOS));
 								}
@@ -596,7 +605,7 @@ public class EnchantmentDialogue {
 			Main.game.getPlayer().removeItem((AbstractItem) ingredient);
 			AbstractItem craftedItem = EnchantingUtils.craftItem(ingredient, effects);
 			Main.game.getPlayer().addItem(craftedItem, false);
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Item Enchanted)]", Util.capitaliseSentence(craftedItem.getName(false, true))), false);
+			Main.game.addEvent(new EventLogEntry("[style.colourExcellent(Item Enchanted)]", Util.capitaliseSentence(craftedItem.getName(false, true))), false);
 			finaliseCrafting(ingredient, effects);
 			return craftedItem;
 			
@@ -604,7 +613,7 @@ public class EnchantmentDialogue {
 			Main.game.getPlayer().removeClothing((AbstractClothing) ingredient);
 			AbstractClothing craftedClothing = EnchantingUtils.craftClothing(ingredient, effects);
 			Main.game.getPlayer().addClothing(craftedClothing, false);
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Clothing Enchanted)]", Util.capitaliseSentence(craftedClothing.getName(false, true))), false);
+			Main.game.addEvent(new EventLogEntry("[style.colourExcellent(Clothing Enchanted)]", Util.capitaliseSentence(craftedClothing.getName(false, true))), false);
 			finaliseCrafting(ingredient, effects);
 			return craftedClothing;
 			
@@ -612,7 +621,7 @@ public class EnchantmentDialogue {
 			Main.game.getPlayer().removeWeapon((AbstractWeapon) ingredient);
 			AbstractWeapon craftedWeapon = EnchantingUtils.craftWeapon(ingredient, effects);
 			Main.game.getPlayer().addWeapon(craftedWeapon, false);
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Weapon Enchanted)]", Util.capitaliseSentence(craftedWeapon.getName(false, true))), false);
+			Main.game.addEvent(new EventLogEntry("[style.colourExcellent(Weapon Enchanted)]", Util.capitaliseSentence(craftedWeapon.getName(false, true))), false);
 			finaliseCrafting(ingredient, effects);
 			return craftedWeapon;
 			
@@ -627,7 +636,7 @@ public class EnchantmentDialogue {
 				System.err.println("craftAndApplyFullInventoryEffects() error: Tattoo is not equipped?");
 				tattoo = EnchantingUtils.craftTattoo(ingredient, effects);
 			}
-			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Tattoo Enchanted)]", Util.capitaliseSentence(((Tattoo)ingredient).getName())), false);
+			Main.game.addEvent(new EventLogEntry("[style.colourExcellent(Tattoo Enchanted)]", Util.capitaliseSentence(((Tattoo)ingredient).getName())), false);
 			finaliseCrafting(ingredient, effects);
 			return tattoo;
 		}
@@ -927,16 +936,8 @@ public class EnchantmentDialogue {
 	}
 
 	public static void saveEnchant(String name, boolean allowOverwrite) {
-		if (name.length()==0) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too short!");
-			return;
-		}
-		if (name.length() > 32) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too long!");
-			return;
-		}
-		if (name.contains("\"")) {//!name.matches("[a-zA-Z0-9]+[a-zA-Z0-9' _]*")) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Incompatible characters!");
+		name = Main.checkFileName(name);
+		if(name.isEmpty()) {
 			return;
 		}
 		

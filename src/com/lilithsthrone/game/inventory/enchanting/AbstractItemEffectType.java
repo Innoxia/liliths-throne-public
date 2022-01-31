@@ -176,23 +176,31 @@ public abstract class AbstractItemEffectType {
 		return getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod());
 	}
 	
-	public static String getBookEffect(GameCharacter reader, AbstractSubspecies subspecies, boolean withDescription) {
-		Main.getProperties().addRaceDiscovered(subspecies);
-		if(Main.getProperties().addAdvancedRaceKnowledge(subspecies) && ItemType.getLoreBook(subspecies)!=null) {
-			Main.game.addEvent(new EventLogEntryBookAddedToLibrary(ItemType.getLoreBook(subspecies)), true);
+	public static String getBookEffect(GameCharacter reader, AbstractSubspecies mainSubspecies, List<AbstractSubspecies> additionalUnlockSubspecies, boolean withDescription) {
+		List<AbstractSubspecies> subsPlusMain = new ArrayList<>();
+		subsPlusMain.add(mainSubspecies);
+		if(additionalUnlockSubspecies!=null) {
+			subsPlusMain.addAll(additionalUnlockSubspecies);
 		}
-
-		AbstractPerk perk = Perk.getSubspeciesRelatedPerk(subspecies);
-		if(!reader.isPlayer() || ((PlayerCharacter) reader).addRaceDiscoveredFromBook(subspecies) || !reader.hasPerkAnywhereInTree(perk)) {
+		
+		for(AbstractSubspecies subspecies : subsPlusMain) {
+			Main.getProperties().addRaceDiscovered(subspecies);
+			if(Main.getProperties().addAdvancedRaceKnowledge(subspecies) && ItemType.getLoreBook(subspecies)!=null) {
+				Main.game.addEvent(new EventLogEntryBookAddedToLibrary(ItemType.getLoreBook(subspecies)), true);
+			}
+		}
+		
+		AbstractPerk perk = Perk.getSubspeciesRelatedPerk(mainSubspecies);
+		if(!reader.isPlayer() || ((PlayerCharacter) reader).addRaceDiscoveredFromBook(mainSubspecies) || !reader.hasPerkAnywhereInTree(perk)) {
 			return (withDescription
-						?subspecies.getBasicDescription(null)
-								+subspecies.getAdvancedDescription(null)
+						?mainSubspecies.getBasicDescription(null)
+								+mainSubspecies.getAdvancedDescription(null)
 						:"")
 					+reader.addSpecialPerk(perk);
 			
 		} else {
-			return subspecies.getBasicDescription(null)
-					+subspecies.getAdvancedDescription(null)
+			return mainSubspecies.getBasicDescription(null)
+					+mainSubspecies.getAdvancedDescription(null)
 					+"<p style='text-align:center; color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"
 						+ "Nothing further can be gained from re-reading this book..."
 					+ "</p>";
@@ -618,7 +626,7 @@ public abstract class AbstractItemEffectType {
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "lactation", Units.fluid(limit, Units.ValueType.PRECISE, Units.UnitType.SHORT)));
 						break;
 					case TF_MOD_REGENERATION:
-						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "milk regeneration", String.valueOf(limit)));
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "milk regeneration", Units.fluid(limit, Units.ValueType.PRECISE, Units.UnitType.SHORT)+" per day"));
 						break;
 					case TF_MOD_ORIFICE_PUFFY:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "nipples puffy", "nipple puffyness"));
@@ -651,7 +659,7 @@ public abstract class AbstractItemEffectType {
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "lactation (crotch)", Units.fluid(limit, Units.ValueType.PRECISE, Units.UnitType.SHORT)));
 						break;
 					case TF_MOD_REGENERATION:
-						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "milk regeneration (crotch)", String.valueOf(limit)));
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "milk regeneration (crotch)", Units.fluid(limit, Units.ValueType.PRECISE, Units.UnitType.SHORT)+" per day"));
 						break;
 					case TF_MOD_ORIFICE_PUFFY:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "nipples puffy (crotch)", "nipple puffyness"));
@@ -816,7 +824,7 @@ public abstract class AbstractItemEffectType {
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "cum expulsion", limit+"%"));
 						break;
 					case TF_MOD_REGENERATION:
-						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "cum regeneration", String.valueOf(limit)));
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "cum regeneration", Units.fluid(limit, Units.ValueType.PRECISE, Units.UnitType.SHORT)+" per day"));
 						break;
 					case TF_MOD_ORIFICE_PUFFY:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "urethra puffy", "puffy urethra"));
@@ -2467,7 +2475,9 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_REGENERATION, TFPotency.getAllPotencies());
+				if(Main.game.isCumRegenerationEnabled()) {
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_REGENERATION, TFPotency.getAllPotencies());
+				}
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_CUM_EXPULSION, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_INTERNAL, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				
@@ -3504,7 +3514,87 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Random "+race.getName(false)+" transformation") {
 							@Override
 							public String applyEffect() {
-								TFModifier mod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
+								List<TFModifier> availableModifiers = new ArrayList<>();
+								
+								// Only add TFModifiers which will do something:
+								for(TFModifier tfMod : TFModifier.getTFRacialBodyPartsList()) {
+									boolean add = false;
+									switch(tfMod) {
+										case TF_ANTENNA:
+											add = target.getAntennaType() != race.getRacialBody().getAntennaTypes(false).get(0);
+											break;
+										case TF_ARMS:
+											add = target.getArmType() != race.getRacialBody().getArmType();
+											break;
+										case TF_ASS:
+											add = target.getAssType() != race.getRacialBody().getAssType();
+											break;
+										case TF_BREASTS:
+											add = target.getBreastType() != race.getRacialBody().getBreastType();
+											break;
+										case TF_BREASTS_CROTCH:
+											add = target.hasBreastsCrotch() && target.getBreastCrotchType() != race.getRacialBody().getBreastCrotchType();
+											break;
+										case TF_CORE:
+											break;
+										case TF_EARS:
+											add = target.getEarType() != race.getRacialBody().getEarType();
+											break;
+										case TF_EYES:
+											add = target.getEyeType() != race.getRacialBody().getEyeType();
+											break;
+										case TF_FACE:
+											add = target.getFaceType() != race.getRacialBody().getFaceType();
+											break;
+										case TF_HAIR:
+											add = target.getHairType() != race.getRacialBody().getHairType();
+											break;
+										case TF_HORNS:
+											add = target.getHornType() != race.getRacialBody().getHornTypes(false).get(0);
+											break;
+										case TF_LEGS:
+											add = target.getLegType() != race.getRacialBody().getLegType();
+											break;
+										case TF_PENIS:
+											add = target.hasPenisIgnoreDildo() && target.getPenisType() != race.getRacialBody().getPenisType();
+											break;
+										case TF_SKIN:
+											add = target.getTorsoType() != race.getRacialBody().getTorsoType();
+											break;
+										case TF_TAIL:
+											add = target.getTailType() != race.getRacialBody().getTailType().get(0);
+											break;
+										case TF_TENTACLE:
+											break;
+										case TF_VAGINA:
+											add = target.hasVagina() && target.getVaginaType() != race.getRacialBody().getVaginaType();
+											break;
+										case TF_WINGS:
+											add = target.getWingType() != race.getRacialBody().getWingTypes().get(0);
+											break;
+										default:
+											break;
+									}
+									if(add) {
+										availableModifiers.add(tfMod);
+									}
+								}
+								
+								if(availableModifiers.isEmpty()) {
+									return UtilText.parse(target, "<p style='text-align:center'>[style.italicsDisabled([npc.NameHasFull] no more random "+race.getName(true)+" transformations available, so nothing happens...)]</p>");
+								}
+								
+								
+								TFModifier mod = availableModifiers.get(Util.random.nextInt(availableModifiers.size()));
+								
+								// If race does not have antenna, horns, tail, wings, or crotch-boobs, make sure that the TF is to remove:
+								if((mod==TFModifier.TF_ANTENNA && race.getRacialBody().getAntennaTypes(false).size()==1 && race.getRacialBody().getAntennaTypes(false).contains(AntennaType.NONE))
+										|| (mod==TFModifier.TF_HORNS && race.getRacialBody().getHornTypes(false).size()==1 && race.getRacialBody().getHornTypes(false).contains(HornType.NONE))
+										|| (mod==TFModifier.TF_TAIL && race.getRacialBody().getTailType().size()==1 && race.getRacialBody().getTailType().contains(TailType.NONE))
+										|| (mod==TFModifier.TF_WINGS && race.getRacialBody().getWingTypes().size()==1 && race.getRacialBody().getWingTypes().contains(WingType.NONE))
+										|| ((mod==TFModifier.TF_BREASTS_CROTCH && race.getRacialBody().getBreastCrotchType()==BreastType.NONE))) {
+									return getRacialEffect(race, mod, TFModifier.REMOVAL, potency, user, target).applyEffect();
+								}
 								
 								return getRacialEffect(race, mod, secondaryModifier, potency, user, target).applyEffect();
 							}

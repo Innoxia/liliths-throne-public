@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<hair>
+	<race>innoxia_raptor</race>
+	
+	<transformationName><![CDATA[raptor]]></transformationName>
+	
+	<coveringType>innoxia_raptor_hair</coveringType>
+	
+	<tags>
+		<tag>HAIR_HANDLES_IN_SEX</tag>
+	</tags>
+	
+	<determiner><![CDATA[a crest of]]></determiner>
+	
+	<name><![CDATA[head-feather]]></name>
+	<namePlural pluralByDefault="true"><![CDATA[head-feathers]]></namePlural> 
+	
+	<descriptorsMasculine>
+		<descriptor>raptor-like</descriptor>
+	</descriptorsMasculine>
+	
+	<descriptorsFeminine>
+		<descriptor>raptor-like</descriptor>
+	</descriptorsFeminine>
+	
+	<transformationDescription><![CDATA[
+		The transformation only lasts a matter of moments, leaving [npc.herHim] with a crest of feathers in place of hair.
+		<br/>[npc.Name] now [npc.has] [npc.hairColour], bird-like [style.boldRaptor(raptor feathers)].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], bird-like raptor feathers
+	]]></bodyDescription>
+</hair>

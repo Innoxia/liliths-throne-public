@@ -33,7 +33,6 @@
 		<effectTooltipLines>
 			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
 			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(2)] to 'potion effects']]></line>
-			<line><![CDATA[[style.boldMinorBad(Adds)] 40% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)].]]></line>
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
@@ -43,29 +42,21 @@
 				[npc.Name] [npc.verb(start)] to feel stronger...
 			</p>
 			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 2)]
-			#IF(npc.getRace()==RACE_charisma_spider)
-				[#npc.incrementAlcoholLevel(0.40)]
-			#ENDIF
 		]]></applyEffects>
 		
 		<itemTags>
 			<tag>RACIAL_TF_ITEM</tag>
 			<tag>SOLD_BY_RALPH</tag>
+			<tag>CAFFEINATED_040</tag>
 		</itemTags>
 	</coreAttributes>
 
 	<useDescriptions>
 		<selfUse><![CDATA[
 		[npc.Name] [npc.verb(take)] a handful of chocolate coated coffee beans and [npc.verb(crush)] it in [npc.her] [npc.mouth]. Unable to control [npc.herself], [npc.she] quickly [npc.verb(finish)] the entire tin.
-		#IF(npc.getRace()==RACE_charisma_spider)
-			Due to [npc.her] spider physiology, [npc.verb(start)] to feel [style.boldMinorBad(extremely drunk)].
-		#ENDIF
 		]]></selfUse>
 		<otherUse><![CDATA[
 		[npc.Name] [npc.verb(take)] a handful of chocolate coated coffee beans and [npc.verb(hold)] it out to [npc2.name], who [npc.verb(crush)] it in [npc2.her] [npc2.mouth]. Unable to control [npc2.herself], [npc2.she] quickly [npc2.verb(finish)] the entire tin.
-		#IF(npc2.getRace()==RACE_charisma_spider)
-			Due to [npc2.her] spider physiology, [npc2.verb(start)] to feel [style.boldMinorBad(extremely drunk)].
-		#ENDIF
 		]]></otherUse>
 	</useDescriptions>
 
