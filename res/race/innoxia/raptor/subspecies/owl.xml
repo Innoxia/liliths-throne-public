@@ -13,10 +13,14 @@
 	<bipedalSubspecies>true</bipedalSubspecies>
 	<aquatic>false</aquatic>
 	<applySubspeciesChanges><![CDATA[
-		[#targetedBody.setEyeType(null, EYE_TYPE_innoxia_raptor_eye_nocturnal)]
+		#IF(targetedBody.getEyeType()==EYE_TYPE_DEMON_COMMON)
+			[#targetedBody.setEyeType(null, EYE_TYPE_DEMON_OWL)]
+		#ELSE
+			[#targetedBody.setEyeType(null, EYE_TYPE_innoxia_raptor_eye_nocturnal)]
+		#ENDIF
 	]]></applySubspeciesChanges>
 	<subspeciesWeighting><![CDATA[
-		#IF(targetedRace==RACE_innoxia_raptor && targetedBody.getEye().getType()==EYE_TYPE_innoxia_raptor_eye_nocturnal)
+		#IF((targetedRace==RACE_innoxia_raptor && targetedBody.getEye().getType()==EYE_TYPE_innoxia_raptor_eye_nocturnal) || targetedBody.getEye().getType()==EYE_TYPE_DEMON_OWL)
 			105
 		#ELSE
 			0

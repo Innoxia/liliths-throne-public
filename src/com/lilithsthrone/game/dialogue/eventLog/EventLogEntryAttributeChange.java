@@ -16,8 +16,7 @@ public class EventLogEntryAttributeChange extends EventLogEntry {
 	private float change;
 	
 	public EventLogEntryAttributeChange(AbstractAttribute attribute, float change, boolean isCore) {
-		super(Main.game.getMinutesPassed(),
-				(isCore
+		super((isCore
 						?"<span style='color:"+attribute.getColour().toWebHexString()+";'>Core "+Util.capitaliseSentence(attribute.getName())+"</span>"
 						:"<span style='color:"+attribute.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(attribute.getName())+"</span>"),
 				(isCore

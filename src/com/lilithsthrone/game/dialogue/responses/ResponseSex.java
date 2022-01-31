@@ -632,6 +632,22 @@ public class ResponseSex extends Response {
 		}
 	}
 	
+	/**
+	 * @return true if any subs are not attracted to any doms
+	 */
+	public boolean isNonConWarning() {
+		if(Main.game.isNonConEnabled()) {
+			for(GameCharacter dom : sexManager.getDominants().keySet()) {
+				for(GameCharacter sub : sexManager.getSubmissives().keySet()) {
+					if(!sub.isAttractedTo(dom) && (sexManager.getForcedSexPace(sub)==null || sexManager.getForcedSexPace(sub)==SexPace.SUB_RESISTING)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
 	public List<InitialSexActionInformation> getInitialSexActions() {
 		return new ArrayList<>();
 	}

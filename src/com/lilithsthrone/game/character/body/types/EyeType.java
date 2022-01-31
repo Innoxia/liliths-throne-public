@@ -82,6 +82,25 @@ public class EyeType {
 		}
 	};
 
+	public static AbstractEyeType DEMON_OWL = new AbstractEyeType(BodyCoveringType.EYE_DEMON_COMMON,
+			Race.DEMON,
+			1,
+			EyeShape.ROUND,
+			EyeShape.ROUND,
+			"demonic-owl",
+			"eye",
+			"eyes",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into demonic, owl-like eyes, which provide [npc.herHim] with excellent night vision."
+				+ "<br/>[npc.Name] now [npc.has] [style.boldDemon(demonic-owl eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
+			"[npc.SheHasFull] [npc.eyePairs] demonic-owl eyes, with [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+		@Override
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.NIGHT_VISION);
+		}
+	};
+
 	public static AbstractEyeType CAT_MORPH = new AbstractEyeType(BodyCoveringType.EYE_FELINE,
 			Race.CAT_MORPH,
 			1,

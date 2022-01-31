@@ -51,7 +51,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class EnforcerWarehouseGuard extends NPC {
 
 	public EnforcerWarehouseGuard() {
-		this(Occupation.NPC_ENFORCER_SWORD_SERGEANT, Subspecies.WOLF_MORPH, RaceStage.GREATER, Gender.F_V_B_FEMALE, false);
+		this(Occupation.NPC_ENFORCER_SWORD_SERGEANT, Subspecies.WOLF_MORPH, RaceStage.GREATER, Gender.getGenderFromUserPreferences(false, false), false);
 	}
 	
 	public EnforcerWarehouseGuard(boolean isImported) {

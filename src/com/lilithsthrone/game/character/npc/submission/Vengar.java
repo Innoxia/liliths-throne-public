@@ -308,7 +308,7 @@ public class Vengar extends NPC {
 			this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_knuckleDusters_knuckle_dusters", DamageType.PHYSICAL));
 			
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_BLUE_GREY, false), true, this);
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.STOMACH_SARASHI, PresetColour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_stomach_sarashi", PresetColour.CLOTHING_BLACK, false), true, this);
 			
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_fingerless_gloves", PresetColour.CLOTHING_DESATURATED_BROWN, false), true, this);
 			

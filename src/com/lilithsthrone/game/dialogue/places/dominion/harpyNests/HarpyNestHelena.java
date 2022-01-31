@@ -112,8 +112,8 @@ public class HarpyNestHelena {
 				return super.getSexControl(character);
 			}
 			@Override
-			public boolean isAbleToEquipSexClothing(GameCharacter character){
-				return false;
+			public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip){
+				return clothingToEquip.isCondom();
 			}
 			@Override
 			public boolean isAbleToRemoveSelfClothing(GameCharacter character){

@@ -577,7 +577,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Completely broken from being betrayed by the only friend [npc.she] ever had, [npc.name] lets out a miserable sob, tears running down [npc.her] face as [npc.she] mumbles, [npc.speechNoEffects(I-I can't... W-Why would say that? J-Just l-leave me alone! I-I don't ever w-want to see you again!)]
+		Completely broken from being betrayed by the only friend [npc.she] ever had, [npc.name] lets out a miserable sob, tears running down [npc.her] face as [npc.she] mumbles, [npc.speechNoEffects(I-I can't... W-Why would you say that? J-Just l-leave me alone! I-I don't ever w-want to see you again!)]
 	</p>
 	<p>
 		[pc.speech(I don't think so. I'm not letting you go until I've taught you a lesson!)] you say, grinning at [npc.name] as you prepare to attack [npc.herHim].

@@ -241,7 +241,7 @@ public class FortressMalesLeader extends NPC {
 		
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.STOMACH_SARASHI, PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_stomach_sarashi", PresetColour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_leg_mens_hakama"), PresetColour.CLOTHING_BLACK, false), true, this);
