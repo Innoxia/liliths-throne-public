@@ -28,7 +28,6 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMAmberDoggyFucked;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMPetMounting;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMPetOral;
@@ -1818,7 +1817,7 @@ public class ZaranixHomeGroundFloorRepeat {
 							pet.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 							pet.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", false), true, owner);
 							if(Math.random()>0.5f) {
-								pet.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_BALLGAG), true, owner);
+								pet.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_ballgag", false), true, owner);
 							}
 							owner.setAffection(pet, (float) (10 + Math.random()*90));
 							owner.setPlayerKnowsName(true);

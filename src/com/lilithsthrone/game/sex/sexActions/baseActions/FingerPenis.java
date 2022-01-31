@@ -37,6 +37,7 @@ public class FingerPenis {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Main.sex.getCharacterTargetedForSexAction(this).isInternalTesticles()
+					&& Main.sex.getCharacterTargetedForSexAction(this).hasPenisIgnoreDildo()
 					&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
 		}
 		@Override

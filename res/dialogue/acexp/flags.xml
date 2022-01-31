@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueFlags>
+
+	<!-- Dominion: -->
+		<!-- Angel: -->
+		<flag dailyReset="false">horny_angel_found</flag>
+		<flag dailyReset="true">angel_daily_sex</flag>
+		
+		<!-- Lilaya & Rose voyeurism: -->
+		<flag dailyReset="true">lilaya_daily_voyeurism</flag>
+		
+</dialogueFlags>

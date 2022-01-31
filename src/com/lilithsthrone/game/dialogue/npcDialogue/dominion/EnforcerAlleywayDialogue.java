@@ -288,9 +288,10 @@ public class EnforcerAlleywayDialogue {
 			}			   
 		}
 		
-		//check for unique stabvests
+		//check for a stabvest
 		else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER) != null &&
 				Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getId().startsWith("dsg_eep_ptrlequipset_stpvest")) {
+			//check for nameplates			
 			if(!Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().isEmpty()) {
 				switch (Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().get("name_plate")){
 					case "claire":
@@ -311,8 +312,14 @@ public class EnforcerAlleywayDialogue {
 							impersonatingSean = -1;
 						}
 						break;
+					case "enforcer":
+					    uniformPassable = 1;
+					    break;
 						
 				}
+			}
+			else {
+				uniformPassable = 0;
 			}
 		}
 		
@@ -429,8 +436,8 @@ public class EnforcerAlleywayDialogue {
 				domSlots,
 				subSlots) {
 			@Override
-			public boolean isAbleToEquipSexClothing(GameCharacter character){
-				return false;
+			public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip){
+				return clothingToEquip.isCondom();
 			}
 			@Override
 			public boolean isAbleToRemoveSelfClothing(GameCharacter character){
@@ -761,7 +768,7 @@ public class EnforcerAlleywayDialogue {
 									new Value<>(getEnforcerSubordinate(), UtilText.parse(getEnforcerSubordinate(), "[npc.speech(Now we've got you!)] [npc.name] exclaims."))));
 				}
 				
-			} else if (Main.game.getPlayer().hasAnyEnforcerStatusEffect() && uniformPassable < 0) {
+			} else if (Main.game.getPlayer().hasAnyEnforcerStatusEffect() && uniformPassable < 0 && !searched) {
 				if(index==1) {
 					return new ResponseCombat("Defend yourself",
 							"The Enforcers are determined to beat you!"

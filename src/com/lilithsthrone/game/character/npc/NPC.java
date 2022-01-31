@@ -413,7 +413,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			// Can also always equip anything onto owned slaves
 			return new Value<>(true, ""); 
 		}
-		if(this.isUnique()) {
+		if(this.isUnique() && !clothing.isCondom(slotToEquipTo)) {
 			return new Value<>(false, "As [npc.name] is a unique character, who is not your slave, you cannot force [npc.herHim] to equip the "+clothing.getName()+"!");
 		}
 		if(Main.game.isInSex() && (Main.sex.isDom(this) || Main.sex.isSubHasEqualControl())) {
@@ -1018,8 +1018,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 
 	/**
 	 * By default, NPCs can't be impregnated.
-	 * 
-	 * @return
 	 */
 	@Override
 	public boolean isAbleToBeImpregnated() {
@@ -1178,7 +1176,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			boolean vaginaUrethraVirgin = this.isVaginaUrethraVirgin();
 			
 			BodyMaterial material = this.getBodyMaterial();
-			this.setBody(this.getGenderIdentity(), this.getFleshSubspecies(), this.getBody().getRaceStageFromPartWeighting(), false);
+			this.setBody(this.getGenderIdentity(), this.getBody().getFleshSubspecies(), this.getBody().getRaceStageFromPartWeighting(), false);
 			this.setBodyMaterial(material);
 			Main.game.getCharacterUtils().randomiseBody(this, false);
 			
@@ -1191,7 +1189,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			this.setVaginaUrethraVirgin(vaginaUrethraVirgin);
 			
 		} else {
-			AbstractRacialBody racialBody = RacialBody.valueOfRace(this.getFleshSubspecies().getRace());
+			AbstractRacialBody racialBody = RacialBody.valueOfRace(this.getBody().getFleshSubspecies().getRace());
 			if(this.getGenderIdentity().getType()==PronounType.FEMININE) {
 				this.setFemininity(racialBody.getFemaleFemininity());
 				

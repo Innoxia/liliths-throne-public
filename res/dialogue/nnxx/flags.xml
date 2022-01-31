@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueFlags>
+	
+	<flag dailyReset="false">callie_introduced</flag>
+	<flag dailyReset="true">callie_daily_fucked</flag>
+	<flag dailyReset="false">callie_sex_is_free</flag>
+	
+	<flag dailyReset="false">callie_upgrade_reaction_pending</flag>
+	<flag dailyReset="false">callie_upgrade_1</flag>
+	<flag dailyReset="false">callie_upgrade_2</flag>
+	<flag dailyReset="false">callie_upgrade_3</flag>
+	
+	
+	<!-- For tracking the ids of saved long values (using [flags.setSavedLong(id, value)] calls):
+	
+		callie_total_donated - How many flames the player has donated to Callie
+	-->
+	
+</dialogueFlags>

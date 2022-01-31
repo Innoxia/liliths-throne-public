@@ -2960,6 +2960,7 @@ public class OptionsDialogue {
 					+ "<b style='color:#21bfc5;'>NoStepOnSnek</b></br>"
 					+ "<b style='color:#21bfc5;'>Phlarx</b></br>"
 					+ "<b style='color:#21bfc5;'>Pimgd</b></br>"
+					+ "<b style='color:#21bfc5;'>PoyntFury</b></br>"
 					+ "<b style='color:#21bfc5;'>Rfpnj</b></br>"
 					+ "<b style='color:#21bfc5;'>Tukaima</b></br>");
 			

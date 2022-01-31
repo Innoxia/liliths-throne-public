@@ -56,7 +56,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.8
- * @version 0.2.11
+ * @version 0.4.3.2
  * @author Innoxia
  */
 public class HarpyNymphoCompanion extends NPC {
@@ -85,6 +85,9 @@ public class HarpyNymphoCompanion extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.resetPerksMap(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.3.3")) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
 	}
 
 	@Override
@@ -106,7 +109,7 @@ public class HarpyNymphoCompanion extends NPC {
 
 		if(setPersona) {
 			
-			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
 			this.setHistory(Occupation.NPC_HARPY_FLOCK_MEMBER);
 	

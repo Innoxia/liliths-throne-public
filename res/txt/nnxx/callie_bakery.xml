@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- Trade & misc. dialogues: -->
+	
+	<htmlContent tag="TRANSACTION_START"><![CDATA[
+	<p>
+		[callie.speech(Let me know which doughnut you like the look of,)] Callie says as she gestures to the doughnuts behind the counter's glass.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRANSACTION_COMPLETE"><![CDATA[
+	<p>
+		Taking your flames in exchange for the [#SPECIAL_PARSE_0], Callie says, [callie.speech(Thanks for your business, [pc.name]. I hope that you enjoy your doughnut.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DONATION_PROGRESS"><![CDATA[
+	<p style='text-align:center;'>
+		You have donated a total of [style.moneyFormat([#flags.getSavedLong('nnxx_callie_total_donated')], b)] to Callie!
+		<br/>
+		#IF(flags.getSavedLong('nnxx_callie_total_donated')>=100000)
+			#IF(flags.hasFlag(FLAG_nnxx_callie_upgrade_3))
+				[style.italicsExcellent(You've donated so much that future sex will be free!)]
+			#ELSE
+				[style.italicsExcellent(You've donated so much that, starting from tomorrow, future sex will be free!)]
+			#ENDIF
+			<br/>[style.italics(This is the maximum donation level...)]
+		#ELSEIF(flags.getSavedLong('nnxx_callie_total_donated')>=50000)
+			#IF(flags.hasFlag(FLAG_nnxx_callie_upgrade_2))
+				[style.italicsGood(You've donated enough for Callie to give you a 20% discount and stock more doughnuts!)]
+			#ELSE
+				[style.italicsGood(You've donated enough for Callie to give you a 20% discount and stock more doughnuts, starting from tomorrow!)]
+			#ENDIF
+			<br/>[style.italics(The next donation level is 100,000 flames...)]
+		#ELSEIF(flags.getSavedLong('nnxx_callie_total_donated')>=3000)
+			#IF(flags.hasFlag(FLAG_nnxx_callie_upgrade_1))
+				[style.italicsMinorGood(You've donated enough for Callie to start stocking more doughnuts!)]
+			#ELSE
+				[style.italicsMinorGood(You've donated enough for Callie to start stocking more doughnuts by tomorrow!)]
+			#ENDIF
+			<br/>[style.italics(The next donation level is 50,000 flames...)]
+		#ELSE
+			[style.italics(You haven't yet donated enough for Callie to make any changes to her store...)]
+			<br/>[style.italics(The next donation level is 3,000 flames...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Callie dialogues: -->
+	
+	<htmlContent tag="EXTERIOR"><![CDATA[
+	#IF(!flags.hasFlag(FLAG_nnxx_callie_upgrade_2))
+		<p>
+			Situated on the intersection of the road and a nearby alleyway stands what appears at first to be a plain looking boutique, but upon closer inspection it bears several signs of being in a state of disrepair. Pausing to take note of the peeling paintwork and the door's rusty hinges, you wonder what kind of owner would care so little for their business. Glancing through the nearest window, which is cracked and adjacent to one that's been completely broken and boarded up, you see a bored-looking horse-girl wearily polishing her nails behind the store's counter.
+		</p>
+		<p>
+			Above the door shyly stands an old wooden sign with 'The Creamy Bakey' written on it in the most simple way possible. Resting against the window beside the front door is a sign which indicates that the shop is open from 
+			#IF(game.isWorkTime())
+				[style.colourMinorGood([unit.time(9)] to [unit.time(17)])]
+			#ELSE
+				[style.colourMinorBad([unit.time(9)] to [unit.time(17)])]
+			#ENDIF
+			 from
+			#IF(game.getDayOfWeek()==DOW_SUNDAY)
+				 [style.colourMinorBad(Monday to Saturday)].
+			#ELSE
+				 [style.colourMinorGood(Monday to Saturday)].
+			#ENDIF
+			#IF(game.getDayOfWeek()==DOW_SUNDAY || !game.isWorkTime())
+				 As the store is currently [style.colourBad(closed)], you'll have to come back later if you wanted to go inside...
+			#ELSE
+				 As the store is currently [style.colourGood(open)], you wonder if you should head inside...
+			#ENDIF
+		</p>
+	#ELSE
+		 <p>
+			Situated on the intersection of the road and a nearby alleyway stands Callie's bakery. Far from how it was the first time you saw it, this once-shabby establishment now looks like a proper shop. In place of the old wooden one, a hand-crafted oak sign has been  painted in candy pink to proudly bear the name 'The Creamy Bakey'. The door frame has been replaced and sculpted to look like candy cane, while the door itself has been painted so as to look like it's made of marzipan. Through the clean new windows, you can see that the interior has been completely refurbished; new tables and chairs offer comfortable places for the establishment's modest clientèle to sit and eat, while the bakery's glass counter holds a variety of bakery and sweets.  
+		 </p>
+		 <p>
+			Resting against the window beside the front door is a sign which indicates that the shop is open from 
+			#IF(game.isWorkTime())
+				[style.colourMinorGood([unit.time(9)] to [unit.time(17)])]
+			#ELSE
+				[style.colourMinorBad([unit.time(9)] to [unit.time(17)])]
+			#ENDIF
+			 from
+			#IF(game.getDayOfWeek()==DOW_SUNDAY)
+				 [style.colourMinorBad(Monday to Saturday)].
+			#ELSE
+				 [style.colourMinorGood(Monday to Saturday)].
+			#ENDIF
+			#IF(game.getDayOfWeek()==DOW_SUNDAY || !game.isWorkTime())
+				 As the store is currently [style.colourBad(closed)], you'll have to come back later if you wanted to go inside...
+			#ELSE
+				 As the store is currently [style.colourGood(open)], you wonder if you should head inside...
+			#ENDIF
+		</p>
+	#ENDIF
+	]]></htmlContent>
+
+	<htmlContent tag="ENTRY_FIRST_TIME"><![CDATA[
+	<p>
+		Deciding to pay a visit to 'The Creamy Bakey', you push open the shop's front door and [pc.step] inside. Looking around, you see that the interior is decorated with fake candies and baked goods of every sort. On the counter before you stands a scented candle giving off an aroma of vanilla which tenderly mixes with the scent of a dozen doughnuts that are displayed behind the counter's glass top. Sitting right next to this candle is a tip jar which looks to be as empty as the shop itself.
+	</p>
+	<p>
+		[callie.speech(Hello and welcome to 'The Creamy Bakey',)] the horse-girl behind the counter calls out as she sees you enter, before scoffing, [callie.speech(I'm Callie, the owner of this shop, and as you can see, this place is bustling with people so be careful not to get lost in the crowd.)]
+	</p>
+	<p>
+		With that, the horse-girl turns her attention back to her nail polishing, allowing you to pause and take a good look at her. Although mostly human in appearance, you can see that Callie has a pair of horse-ears and a horse-tail, which are as pitch-black as her long, wavy hair. The dark-red, short-sleeved shirt which she's wearing has had its top few buttons left undone, granting you a plunging view of her light-skinned, [callie.cupSize]-cup bust. As the counter is partially open on the bottom, you're able to see that she's wearing a pair of simple, off-white jeans, and after moving your gaze up from her pair of horse-like hoofs, you see that there's quite the bulge in her crotch. Noticing that you haven't left after her introduction, the horse-girl looks at you once again, before sighing, [callie.speech(Sorry about that; I tend to become sarcastic when I'm bored. So what will it be champ, want a doughnut? That's all I have to be honest.)]
+	</p>
+	<p>
+		Clearly feeling a little self-concious about the fact that her bakery only sells doughnuts, Callie doesn't wait for you to respond and quickly goes on to explain, [callie.speech(I barely make any money at all from this dump, and so I only have enough to make doughnuts. That's what sells the best out of what I've tried. So, do you want to try one...)]
+	</p>
+	<p>
+		Callie allows her question to trail off in a manner to suggest that she's asking for your name. Picking up on the hint, you give the horse-girl your name, after which she repeats her question by asking, [callie.speech(So, do you want to buy a doughnut, [pc.name]?)]
+	</p>
+	]]></htmlContent>
+
+	<htmlContent tag="ENTRY_REPEAT"><![CDATA[
+	#IF(flags.hasFlag(FLAG_nnxx_callie_upgrade_3))
+		<p>
+			Deciding to pay a visit to 'The Creamy Bakey', you push open the shop's front door and [pc.step] inside. Looking around, you see that the interior looks like a real paradise for any sweet lover; a pink carpet leads you to the various shelves containing dozens of various types of sweets, while the glass-topped counter holds a huge variety of pastries, including most prominently several types of doughnuts. The entire store is brightly lit via a chandelier that's made to look like a wedding cake, while the whole room is enveloped with a soothing aroma of freshly baked bread.
+		</p>
+		#IF(flags.hasFlag(FLAG_nnxx_callie_upgrade_reaction_pending))
+			<p>
+				Upon seeing you enter her shop, Callie immediately rushes out from behind her counter to give you a warm hug, exclaiming as she does so, [callie.speech(Oh, [pc.name]! You can't even start to comprehend how much all of this means to me! It's all thanks to you; I'll never be able to thank you enough or to repay your kindness!)]
+			</p>
+			<p>
+				#IF(callie.isAttractedTo(pc))
+					Squeezing you into her [callie.cupSize]-cup breasts, the horse-girl slowly slides a hand around to grope your [pc.ass] and teases, [callie.speech(If you want to fuck again, then it'll be totally free of any donation... Just say the word...)]
+				#ELSE
+					After giving you a big hug, the horse-girl steps back and says, [callie.speech(If you transform back to being feminine, then I'd be more than happy to fuck you again, and this time there'll be no need for any donation!)]
+				#ENDIF
+			</p>
+			<p>
+				Smiling at Callie as she then skips back to her side of the counter, you wonder what to ask of her...
+			</p>
+		#ELSE
+			#IF(callie.isAttractedTo(pc))
+				<p>
+					[callie.speech(If it isn't my favourite customer! Hello, [pc.name], are you here to buy something?)] Callie calls out to you as she sees you enter her shop.
+					#IF(flags.hasFlag(FLAG_nnxx_callie_daily_fucked))
+						 Before you can respond, she gives you a wink and teases, [callie.speech(I'm still tired from the fun we had earlier, but if you come back tomorrow then I'd be happy to give you a taste of my doughnut or baguette again...)]
+					#ELSE
+						 Before you can respond, she drops one of her hands down to start stroking the bulge between her legs, and after giving you a wink, she teases, [callie.speech(Or perhaps you'd like a taste of my doughnut or baguette again? After all you've done, there's no need for any donation...)]
+					#ENDIF
+				</p>
+			#ELSE
+				<p>
+					Upon seeing you enter her shop, Callie gives you a warm smile and happily calls out, [callie.speech(If it isn't my favourite customer! Hello, [pc.name], what can I do for you today?)]
+				</p>
+			#ENDIF
+			<p>
+				Smiling at Callie as she leans forwards over her counter, you wonder what to ask of her...
+			</p>
+		#ENDIF
+	#ELSEIF(flags.hasFlag(FLAG_nnxx_callie_upgrade_2))
+		<p>
+			Deciding to pay a visit to 'The Creamy Bakey', you push open the shop's front door and [pc.step] inside. Looking around, you see that the interior looks like a real paradise for any sweet lover; a pink carpet leads you to the various shelves containing dozens of various types of sweets, while the glass-topped counter holds a huge variety of pastries, including most prominently several types of doughnuts. The entire store is brightly lit via a chandelier that's made to look like a wedding cake, while the whole room is enveloped with a soothing aroma of freshly baked bread.
+		</p>
+		#IF(flags.hasFlag(FLAG_nnxx_callie_upgrade_reaction_pending))
+			<p>
+				Upon seeing you enter her shop, Callie immediately rushes out from behind her counter to give you a warm hug, exclaiming as she does so, [callie.speech([pc.Name]! Look! Thanks to you, I was finally able to get my shop redecorated to make it look like how I always wanted it to! As thanks, I'll give you a 20% discount from now on!)]
+			</p>
+			<p>
+				#IF(callie.isAttractedTo(pc))
+					Squeezing you into her [callie.cupSize]-cup breasts, the horse-girl slowly slides a hand around to grope your [pc.ass], before grinding the bulge between her legs into you and teasing, [callie.speech(Now then, you'd like another taste of my 'doughnut' or 'baguette', wouldn't you?)]
+				#ELSE
+					After giving you a big hug, the horse-girl steps back and says, [callie.speech(If you transform back to being feminine, then I'd be more than happy to give you another taste of my 'doughnut' or 'baguette'...)]
+				#ENDIF
+			</p>
+			<p>
+				Smiling at Callie as she then skips back to her side of the counter, you wonder what to ask of her...
+			</p>
+		#ELSE
+			#IF(callie.isAttractedTo(pc))
+				<p>
+					[callie.speech(If it isn't my favourite customer! Hello, [pc.name], are you here to buy something?)] Callie calls out to you as she sees you enter her shop.
+					#IF(flags.hasFlag(FLAG_nnxx_callie_daily_fucked))
+						 Before you can respond, she gives you a wink and teases, [callie.speech(I'm still tired from the 'donation' you gave to me earlier, but if you come back tomorrow then I'd be happy to give you a taste of my doughnut or baguette again...)]
+					#ELSE
+						 Before you can respond, she drops one of her hands down to start stroking the bulge between her legs, and after giving you a wink, she teases, [callie.speech(Or perhaps you'd like to make another donation?)]
+					#ENDIF
+				</p>
+			#ELSE
+				<p>
+					Upon seeing you enter her shop, Callie gives you a warm smile and happily calls out, [callie.speech(If it isn't my favourite customer! Hello, [pc.name], what can I do for you today?)]
+				</p>
+			#ENDIF
+			<p>
+				Smiling at Callie as she leans forwards over her counter, you wonder what to ask of her...
+			</p>
+		#ENDIF
+	#ELSEIF(flags.hasFlag(FLAG_nnxx_callie_upgrade_1))
+		<p>
+			Deciding to pay another visit to 'The Creamy Bakey', you push open the shop's front door and [pc.step] inside. Looking around, you see that the interior of the shop is almost the same as it was the first time you were here, with the most noticeable change being that everything looks to have been tidied up and cleaned. Callie seems to have been encouraged from your various donations to start to take care of her business, and you see that apart from giving everything a good clean, she's made a few adjustments to make the place more presentable, including decorating the room with a few extra scented candles.
+		</p>
+		#IF(flags.hasFlag(FLAG_nnxx_callie_upgrade_reaction_pending))
+			<p>
+				Upon seeing you enter her shop, Callie smiles and calls out a warm welcome, [callie.speech(Greetings, [pc.name]! I hope you like the few adjustments I made! Your generous donations have given me the kick I needed to start to turn this shack into a proper establishment! I've even started to stock iced doughnuts. Would you like to buy one?)]
+			</p>
+			#IF(callie.isAttractedTo(pc))
+				<p>
+					Before you can respond, the horse-girl drops one of her hands down to start stroking the bulge between her legs, and after giving you a wink, she teases, [callie.speech(Or perhaps you'd like to make another donation?)]
+				</p>
+			#ELSE
+				<p>
+					Smiling at Callie as she leans forwards over her counter, you wonder what to ask of her...
+				</p>
+			#ENDIF
+		#ELSE
+			#IF(callie.isAttractedTo(pc))
+				<p>
+					[callie.speech(Greetings, [pc.name]! Would you like to buy something?)] Callie calls out to you as she sees you enter her shop.
+					#IF(flags.hasFlag(FLAG_nnxx_callie_daily_fucked))
+						 Before you can respond, she gives you a wink and teases, [callie.speech(I'm still tired from the 'donation' you gave to me earlier, but if you come back tomorrow then I'd be happy to give you a taste of my doughnut or baguette again...)]
+					#ELSE
+						 Before you can respond, she drops one of her hands down to start stroking the bulge between her legs, and after giving you a wink, she teases, [callie.speech(Or perhaps you'd like to make another donation?)]
+					#ENDIF
+				</p>
+			#ELSE
+				<p>
+					Upon seeing you enter her shop, Callie smiles and calls out a warm welcome, [callie.speech(Greetings, [pc.name]! Would you like to buy something?)]
+				</p>
+			#ENDIF
+			<p>
+				Smiling at Callie as she leans forwards over her counter, you wonder what to ask of her...
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Deciding to pay another visit to 'The Creamy Bakey', you push open the shop's front door and [pc.step] inside. Looking around, you see that the interior is decorated with fake candies and baked goods of every sort. On the counter before you stands a scented candle giving off an aroma of vanilla which tenderly mixes with the scent of a dozen doughnuts that are displayed behind the counter's glass top. Sitting right next to this candle is a tip jar which looks to be as empty as the shop itself.
+		</p>
+		<p>
+			Upon glancing up and seeing you enter, Callie lifts her head and offers a greeting, [callie.speech(Oh, [pc.name], it's you again. Welcome, do you want to buy something, or did you come to chat?)]
+		</p>
+	#ENDIF
+	]]></htmlContent>
+
+	<htmlContent tag="COUNTER"><![CDATA[
+	<p>
+		[pc.Stepping] back over to where Callie is standing behind her counter, you pause to take a look down at what baked goods are on display. Looking up from polishing her nails, the horse-girl asks, [callie.speech(Can I get you anything, [pc.name]?)]
+	</p>
+	]]></htmlContent>
+
+	
+	<!-- Anilingus: -->
+	
+	<htmlContent tag="PROPOSE_ANILINGUS"><![CDATA[
+	#IF(callie.isAttractedTo(pc))
+		<p>
+			Smiling at Callie, you tell her that you'd like to taste another kind of doughnut, one that is unfortunately not displayed on the counter, to which she raises an eyebrow, smiles, and teases, [callie.speech(Oh do you now? Hmm, let me think...)]
+		</p>
+		<p>
+			#IF(flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+				After playfully pausing for a few seconds, the horse-girl bites her lip and moans, [callie.speech(I suppose that if you ask nicely, I could let you have a taste of my doughnut.)]
+			#ELSE
+				After pausing for a few seconds, the horse-girl taps on the nearby tip jar with her finger, before stating, [callie.speech(I'm fine with giving you what you want, but given my current situation I can't afford to lose a potential customer walking in while you're at it. So, in exchange for, let's say... a thousand flames, I'll let you get a taste of my doughnut.)]
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Moving towards Callie, you tell her that you'd like to taste another kind of doughnut, one that is unfortunately not displayed on the counter.
+		</p>
+		<p>
+			[callie.speech(Ehm, sorry but you're not really my type. I prefer my partners to be a bit more... Y'know, feminine...)] she apologises as she looks away, slightly embarrassed about the atmosphere that's now set in. Trying to change the subject, she quickly goes on to ask, [callie.speech(Anyway, would you like something else? Like, I don't know... A doughnut?)]
+		</p>
+	#ENDIF
+	]]></htmlContent>
+
+	<htmlContent tag="ANILINGUS_START"><![CDATA[
+	<p>
+		#IF(flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+			Playing along with the horse-girl, you ask her if you could please get a taste of her delicious, puffy doughnut.
+		#ELSE
+			Not breaking eye contact with the horse-girl, you drop a thousand flames in the tip jar and start [pc.stepping] towards the back of the counter.
+		#ENDIF
+		 With a big smirk on her face, Callie steps over to the store's front door, before locking it and flipping the sign to show that her establishment is closed. After dropping the blinds to give you some privacy, Callie returns to stand beside her counter, before pulling down her jeans and revealing both her huge horse-cock and puffy asshole. Turning around to present you with her exposed ass, she moans, [callie.speech(You've no idea how much I need this... You're not leaving until I'm satisfied, understand?)]
+	</p>
+	<p>
+		Agreeing to Callie's terms, you take your place and drop down behind the horse-girl. Reaching up to spread her ass cheeks, you find yourself staring directly at her ebony, horse-like asshole. Leaning in, you give her hot asshole a quick kiss, which causes her to bend forwards, grip the edge of her counter with both hands, and erotically moan, [callie.speech(That's it... ~Mmm!~ Now eat my doughnut...)]
+	</p>
+	<p>
+		More than happy to do as she says, you press your [pc.lips+] against Callie's ass and slide your [pc.tongue+] over her puffy, doughnut-like asshole, giving it the love it deserves...
+	</p>
+	]]></htmlContent>
+
+	<htmlContent tag="ANILINGUS_BACK_OUT"><![CDATA[
+	<p>
+		#IF(callie.isAttractedTo(pc))
+			#IF(flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+				Having second thoughts about this, you tell Callie that you've changed your mind about getting a taste of her ass.
+			#ELSE
+				Finding the asking price of a thousand flames to be too steep, you tell Callie that you've changed your mind about paying for a taste of her ass.
+			#ENDIF
+			 Upon hearing this, the horse-girl drops her head and sighs, [callie.speech(Well, I can't say I'm not disappointed. Alright then, do you want something else?)]
+		#ELSE
+			As Callie isn't attracted to you, there's no way that you're going to be able to have sex with her. Letting out a disappointed sigh, you wonder what to do next...
+		#ENDIF
+	</p>
+	]]></htmlContent>
+
+	<htmlContent tag="AFTER_SEX_ANILINGUS"><![CDATA[
+	<p>
+		Having had her fun, and with her puffy doughnut now nicely glazed from your saliva, Callie sighs, [callie.speech(One more kiss, then I think you've had enough.)]
+	</p>
+	<p>
+		As the horse-girl pushes her puffy, ebony doughnut back towards your face, you find yourself unable to resist doing as she says, and lean in to give it one last kiss...
+	</p>
+	]]></htmlContent>
+
+	<htmlContent tag="AFTER_SEX_ANILINGUS_CONTINUE"><![CDATA[
+	<p>
+		Leaning forwards, you press your [pc.lips+] against Callie's hot asshole, before delivering one last big, wet kiss to it. Smiling to yourself as you hear the horse-girl let out a satisfied moan, you lean back, allowing her to pull up her jeans as she sighs, [callie.speech(You're good at eating horse-ass...)]
+	</p>
+	<p>
+		As Callie moves over to pull up the blinds and unlock the front door,
+		#IF(pc.getClothingInSlot(IS_NECK)!=null && pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker'))
+			 you point to the choker around your neck, before telling Callie that you've been well trained as one of Natalya's fillies, and that performing anilingus on horse-asses is one of your favourite parts of the job.
+		#ELSE
+			 you tell Callie that it was easy to satisfy her thanks to how delicious her perfect, puffy asshole is.
+		#ENDIF
+		 Smiling as she hears you say this, the horse-girl returns to the other side of the counter and offers, [callie.speech(Well, seeing as you love it so much, you can come back and get another taste of my doughnut tomorrow... Now, is there anything else I can get you today? A real doughnut, perhaps?)]
+	</p>
+	]]></htmlContent>
+	
+	
+	<!-- Vaginal/anal sex: -->
+	
+	<htmlContent tag="PROPOSE_SEX_RECEIVING"><![CDATA[
+	#IF(callie.isAttractedTo(pc))
+		#IF(flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+			<p>
+				Winking at Callie, you say that you'd like to place an order for her big, fat baguette. Smirking and looking you up and down, the horse-girl laughs and exclaims, [callie.speech(My, my, how direct! How could I say no to such a lovely [pc.race]... Now, which hole were your hoping to have my 'baguette' stuffed into, I wonder?)] 
+			</p>
+		#ELSE
+			<p>
+				Winking at Callie, you say that you'd like to place an order for her big, fat baguette. Smirking and looking you up and down, the horse-girl laughs and exclaims, [callie.speech(My, my, how direct! How could I say no to such a lovely [pc.race]... But there is the small matter of my shop having to be temporarily closed because of this. If you were to drop, let's say, ten thousand flames in the tip jar, I suppose that would cover the potential loss of business...)] 
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Winking at Callie, you say that you'd like to place an order for her big, fat baguette.
+		</p>
+		<p>
+			[callie.speech(Ehm, sorry but you're not really my type. I prefer my partners to be a bit more... Y'know, feminine...)] she apologises as she looks away, slightly embarrassed about the atmosphere that's now set in. Trying to change the subject, she quickly goes on to ask, [callie.speech(Anyway, would you like something else? Like, I don't know... A doughnut?)]
+		</p>
+	#ENDIF
+	]]></htmlContent>
+
+	<htmlContent tag="SEX_START"><![CDATA[
+	<p>
+		#IF(flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+			Letting out a horny moan, you tell the horse-girl that you want her to stuff her fat baguette deep into your hot cunt.
+		#ELSE
+			Telling Callie that she's definitely worth it, you drop the ten thousand flames which she's asked for into her tip jar.
+		#ENDIF
+		 With a big smirk on her face, Callie steps over to the store's front door, before locking it and flipping the sign to show that her establishment is closed. After dropping the blinds to give you some privacy, Callie returns to stand beside her counter, before pulling down her jeans and revealing both her huge horse-cock and puffy asshole. Teasing her fingers over her rapidly-hardening, ebony shaft, she commands with a moan, [callie.speech(~Mmm!~ Go on then, bend over the counter and show me your pussy.)]
+	</p>
+	<p>
+		Doing as you're told, you bend down over the counter in front of Callie, presenting her with your [pc.pussy+]. Immediately, the horny horse-girl steps forwards and presses the flared head of her animalistic cock up against your [pc.labia+]. Playfully rubbing her throbbing dick up and down over your hungry cunt, she teases, [callie.speech(We're not stopping until I'm satisfied... Now go on, beg for it...)]
+	</p>
+	<p>
+		Failing to suppress a horny squeal, you push your [pc.hips+] back and desperately beg for Callie to start fucking you. Half-way through your frantic plea, the horse-girl suddenly gives you what you want, and you find yourself moaning in ecstasy as Callie thrusts forwards and sinks her fat, hot horse-cock into your pussy, before starting to buck her hips and fuck you over her counter...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SEX_ANAL_START"><![CDATA[
+	<p>
+		#IF(flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+			Letting out a horny moan, you tell the horse-girl that you want her to stuff her fat baguette deep into your hot asshole.
+		#ELSE
+			Telling Callie that she's definitely worth it, you drop the ten thousand flames which she's asked for into her tip jar.
+		#ENDIF
+		 With a big smirk on her face, Callie steps over to the store's front door, before locking it and flipping the sign to show that her establishment is closed. After dropping the blinds to give you some privacy, Callie returns to stand beside her counter, before pulling down her jeans and revealing both her huge horse-cock and puffy asshole. Teasing her fingers over her rapidly-hardening, ebony shaft, she commands with a moan, [callie.speech(~Mmm!~ Go on then, bend over the counter and show me your ass.)]
+	</p>
+	<p>
+		Doing as you're told, you bend down over the counter in front of Callie, presenting her with your [pc.ass+]. Immediately, the horny horse-girl steps forwards and presses the flared head of her animalistic cock up against your [pc.asshole+]. Playfully rubbing her throbbing dick up and down over your hungry hole, she teases, [callie.speech(We're not stopping until I'm satisfied... Now go on, beg for it...)]
+	</p>
+	<p>
+		Failing to suppress a horny squeal, you push your [pc.hips+] back and desperately beg for Callie to start fucking your ass. Half-way through your frantic plea, the horse-girl suddenly gives you what you want, and you find yourself moaning in ecstasy as Callie thrusts forwards and sinks her fat, hot horse-cock into your asshole, before starting to buck her hips and fuck you over her counter...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SEX_BACK_OUT"><![CDATA[
+	<p>
+		#IF(callie.isAttractedTo(pc))
+			#IF(flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+				Having second thoughts about this, you tell Callie that you've changed your mind about getting stuffed with her baguette.
+			#ELSE
+				Finding the asking price of ten thousand flames to be too steep, you tell Callie that you've changed your mind about paying to get stuffed with her baguette.
+			#ENDIF
+			 Upon hearing this, the horse-girl lets out a disappointed huff and sighs, [callie.speech(Aww, that's a pity... I was already starting to get all hot and bothered from the idea of turning you into my personal cock-sleeve... I guess it will have to wait.)]
+		#ELSE
+			As Callie isn't attracted to you, there's no way that you're going to be able to have sex with her. Letting out a disappointed sigh, you wonder what to do next...
+		#ENDIF
+	</p>
+	]]></htmlContent>
+
+	<htmlContent tag="AFTER_SEX"><![CDATA[
+	<p>
+		Having had her fun, and with her fat horse-cock starting to soften, Callie steps back and sighs, [callie.speech(I think you've had enough for today...)]
+	</p>
+	<p>
+		As the horse-girl pulls up her jeans, you let out a deep sigh and prepare to get your things back in order...
+	</p>
+	]]></htmlContent>
+
+	<htmlContent tag="AFTER_SEX_CONTINUE"><![CDATA[
+	<p>
+		As you quickly get your things back in order, Callie moves over to pull up the blinds and unlock the front door. Turning to face you after performing this task, she smiles and states, [callie.speech(You're good at taking horse-cock...)]
+	</p>
+	<p>
+		As the horse-girl then walks over to return to her side of the counter,
+		#IF(pc.getClothingInSlot(IS_NECK)!=null && pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker'))
+			 you point to the choker around your neck, before telling Callie that you've been well trained as one of Natalya's fillies, and that getting fucked by big horse-cocks is one of your favourite parts of the job.
+		#ELSE
+			 you tell Callie that it was easy to satisfy her thanks to how perfect her big, throbbing horse-cock is.
+		#ENDIF
+		 Smiling as she hears you say this, the horse-girl offers, [callie.speech(Well, seeing as you love it so much, you can come back and get stuffed by my baguette again tomorrow... Now, is there anything else I can get you today? A doughnut, perhaps?)]
+	</p>
+	]]></htmlContent>
+	
+	
+	<!-- Seating area: -->
+	
+	<htmlContent tag="SEATING"><![CDATA[
+	<p>
+		Although Callie's bakery is quite small, there's still enough room in this seating area to hold several tables and chairs. There's nobody making use of them, however, as all of the customers you've seen so far choose to order their doughnuts as takeouts.
+	</p>
+	<p>
+		There's really not much for you to do here except turn around and head back over to Callie's counter...
+	</p>
+	]]></htmlContent>
+	
+</dialogue>

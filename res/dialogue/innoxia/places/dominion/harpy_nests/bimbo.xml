@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+    <!-- Most of these scenes are copied from the original ones by Innoxia, with additions by AceXP. -->
+	
+    <!-- Updated harpy nests encounters: Bimbo -->
+
+    <scene id ="exterior">
+        <author><![CDATA[Innoxia]]></author>
+        <title><![CDATA[[harpyBimbo.NamePos] nest]]></title>
+        <content folderPath="txt/places/dominion/harpyNests/bimbo">HARPY_NEST_BIMBO</content>
+        <secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+        <continuesDialogue>false</continuesDialogue>
+        <travelDisabled>false</travelDisabled>
+        <responses>
+            <response>
+                <availabilityConditional><![CDATA[[#!game.isExtendedWorkTime()]]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[
+					#IF(flags.hasFlag(FLAG_bimboEncountered))
+						Approach [harpyBimbo.name]
+					#ELSE
+						Approach matriarch
+					#ENDIF
+				]]></responseTitle>
+                <responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_bimboEncountered))
+						Both [harpyBimbo.name] and her flock are sleeping in the buildings below her nest. You'll have to come back during the day if you want to speak with her.
+					#ELSE
+						The matriarch and her flock are sleeping in the buildings below her nest. You'll have to come back during the day if you want to speak with her.
+					#ENDIF
+				]]></responseTooltip>
+                <nextDialogue><![CDATA[null]]></nextDialogue>
+            </response>
+            <response>
+                <availabilityConditional><![CDATA[[#game.getCurrentWeather()==WEATHER_MAGIC_STORM]]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[
+					#IF(flags.hasFlag(FLAG_bimboEncountered))
+						Approach [harpyBimbo.name]
+					#ELSE
+						Approach matriarch
+					#ENDIF
+				]]></responseTitle>
+                <responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_bimboEncountered))
+						If you want to talk to [bimboHarpy.name], you'll have to come back after the arcane storm has passed.
+					#ELSE
+						If you want to talk to the matriarch, you'll have to come back after the arcane storm has passed.
+					#ENDIF
+				]]></responseTooltip>
+                <nextDialogue><![CDATA[null]]></nextDialogue>
+            </response>
+            <response>
+                <availabilityConditional><![CDATA[[#!pc.hasQuest(QUEST_LINE_SIDE_HARPY_PACIFICATION)]]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Approach matriarch]]></responseTitle>
+                <responseTooltip><![CDATA[You have no need to talk to the matriarch of this nest.]]></responseTooltip>
+                <nextDialogue><![CDATA[null]]></nextDialogue>
+                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+                <effects/>
+            </response>
+            <response>
+                <availabilityConditional><![CDATA[[#game.isExtendedWorkTime() && game.getCurrentWeather()!=WEATHER_MAGIC_STORM && pc.hasQuest(QUEST_LINE_SIDE_HARPY_PACIFICATION)]]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[
+					#IF(flags.hasFlag(FLAG_bimboEncountered))
+						Approach [harpyBimbo.name]
+					#ELSE
+						Approach matriarch
+					#ENDIF
+				]]></responseTitle>
+                <responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_bimboEncountered))
+						[pc.Walk] to the centre of the nest and talk to [bimboHarpy.name].
+					#ELSE
+						Walk to the centre of the nest and talk to the matriarch.
+					#ENDIF
+				]]></responseTooltip>
+                <nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_bimbo_approach]]></nextDialogue>
+            </response>
+        </responses>
+    </scene>
+
+    <scene id ="approach">
+        <author><![CDATA[AceXp]]></author>
+        <title><![CDATA[[harpyBimbo.NamePos] nest]]></title>
+        <preParsingEffects/>
+        <content folderPath="txt/places/dominion/harpyNests/bimbo">HARPY_NEST_BIMBO_APPROACH</content>
+        <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+        <continuesDialogue>false</continuesDialogue>
+        <travelDisabled>true</travelDisabled>
+        <responses>
+			<!-- Angry nest responses: -->
+            <response>
+                <availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_bimboPacified)]]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[0]]></index>
+                <responseTitle><![CDATA[Leave]]></responseTitle>
+                <responseTooltip><![CDATA[Tell [bimboHarpy.name] that you'll be back later.]]></responseTooltip>
+                <nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_bimbo_exterior]]></nextDialogue>
+                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+                <effects><![CDATA[
+					[#flags.setFlag(FLAG_bimboEncountered, true)]
+                    [#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/bimbo', 'BIMBO_LEAVE'))]
+				]]></effects>
+            </response>
+            <response>
+                <availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_bimboPacified)]]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Talk]]></responseTitle>
+                <responseTooltip><![CDATA[Try to convince [bimboHarpy.name] to calm down.]]></responseTooltip>
+                <nextDialogue><![CDATA[HARPY_NEST_BIMBO_TALK]]></nextDialogue>
+                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+                <effects><![CDATA[
+					[#flags.setFlag(FLAG_bimboEncountered, true)]
+				]]></effects>
+            </response>
+            <response>
+                <availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_bimboPacified)]]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[2]]></index>
+                <responseTitle><![CDATA[Bimbo queen]]></responseTitle>
+                <responseTooltip><![CDATA[This bitch is, like, super not cool. You should totally convince the nest that you should be their queen!]]></responseTooltip>
+                <nextDialogue><![CDATA[HARPY_NEST_BIMBO_QUEEN]]></nextDialogue>
+                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_BIMBO]]></fetish>
+				</requiredFetishes>
+				<requiredFemininity><![CDATA[FEMININE_STRONG]]></requiredFemininity>
+                <effects><![CDATA[
+					[#flags.setFlag(FLAG_bimboEncountered, true)]
+					[#flags.setFlag(FLAG_bimboPacified, true)]
+                    [#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_HARPY_MATRIARCH_BIMBO_LOLLIPOP), false, true))]
+					
+					#IF(pc.getQuest(QUEST_LINE_SIDE_HARPY_PACIFICATION)==QUEST_HARPY_PACIFICATION_ONE)
+						[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_HARPY_PACIFICATION, QUEST_HARPY_PACIFICATION_TWO))]
+					#ELSEIF(pc.getQuest(QUEST_LINE_SIDE_HARPY_PACIFICATION)==QUEST_HARPY_PACIFICATION_TWO)
+						[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_HARPY_PACIFICATION, QUEST_HARPY_PACIFICATION_THREE))]
+					#ELSEIF(pc.getQuest(QUEST_LINE_SIDE_HARPY_PACIFICATION)==QUEST_HARPY_PACIFICATION_THREE)
+						[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_HARPY_PACIFICATION, QUEST_HARPY_PACIFICATION_REWARD))]
+					#ENDIF
+				]]></effects>
+            </response>
+            <response>
+                <availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_bimboPacified)]]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[3]]></index>
+				<colour><![CDATA[GENERIC_COMBAT]]></colour>
+                <responseTitle><![CDATA[Call her ugly]]></responseTitle>
+                <responseTooltip><![CDATA[You know that this would be a terrible idea...]]></responseTooltip>
+                <nextDialogue><![CDATA[HARPY_NEST_BIMBO_UGLY]]></nextDialogue>
+                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+                <effects><![CDATA[
+					[#flags.setFlag(FLAG_bimboEncountered, true)]
+				]]></effects>
+            </response>
+		
+			<!-- Pacified nest responses: -->
+            <response>
+                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_bimboPacified)]]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[0]]></index>
+                <responseTitle><![CDATA[Leave]]></responseTitle>
+                <responseTooltip><![CDATA[Tell [bimboHarpy.name] that you'll be back later.]]></responseTooltip>
+                <nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_bimbo_exterior]]></nextDialogue>
+                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+                <effects><![CDATA[
+                    [#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/bimbo', 'PACIFIED_BIMBO_LEAVE'))]
+                ]]></effects>
+            </response>
+            <response>
+                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_bimboPacified)]]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Sex]]></responseTitle>
+                <responseTooltip><![CDATA[Have dominant sex with [harpyBimbo.name].]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+                <effects/>
+                <sexVariables enabled="true">
+                    <conditional><![CDATA[false]]></conditional>
+                    <consensual><![CDATA[true]]></consensual>
+                    <subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+                    <dominants>
+                        <character><![CDATA[pc]]></character>
+                    </dominants>
+                    <submissives>
+                        <character><![CDATA[harpyBimbo]]></character>
+                    </submissives>
+                    <dominantSpectators/>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_bimbo_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/places/dominion/harpyNests/bimbo">PACIFIED_BIMBO_SEX_START</sexStartContent>
+                </sexVariables>
+            </response>
+			<!-- Threesome sex -->
+            <response>
+                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_bimboPacified) && !harpyBimboCompanion.isAttractedTo(pc) && !game.isNonConEnabled()]]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[2]]></index>
+                <responseTitle><![CDATA[Threesome (oral)]]></responseTitle>
+                <responseTooltip><![CDATA[As [harpyBimboCompanion.name] is not attracted to you, she's unwilling to take part in a threesome with you and [harpyBimbo.name]...]]></responseTooltip>
+                <nextDialogue><![CDATA[null]]></nextDialogue>
+            </response>
+            <response>
+                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_bimboPacified) && (harpyBimboCompanion.isAttractedTo(pc) || game.isNonConEnabled())]]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[2]]></index>
+                <responseTitle><![CDATA[Threesome (oral)]]></responseTitle>
+                <responseTooltip><![CDATA[
+                    Have [harpyBimbo.name] and [harpyBimboCompanion.name] service you with their mouths.
+                    #IF(!harpyBimboCompanion.isAttractedTo(pc))
+                        <br/>[style.italicsBad([harpyBimboCompanion.Name] will not like this!)]
+                    #ENDIF
+                ]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+                <effects/>
+                <sexVariables enabled="true">
+                    <conditional><![CDATA[false]]></conditional>
+                    <consensual><![CDATA[true]]></consensual>
+                    <subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+                    <dominants>
+                        <character><![CDATA[pc]]></character>
+                    </dominants>
+                    <submissives>
+                        <character><![CDATA[harpyBimbo]]></character>
+                        <character><![CDATA[harpyBimboCompanion]]></character>
+                    </submissives>
+                    <dominantSpectators/>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_bimbo_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/places/dominion/harpyNests/bimbo">BIMBO_SEX_START_ORAL</sexStartContent>
+                    <tags>
+                        <tag>PREFER_ORAL</tag>
+                    </tags>
+                </sexVariables>
+            </response>
+            <response>
+                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_bimboPacified) && !harpyBimboCompanion.isAttractedTo(pc) && !game.isNonConEnabled()]]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[3]]></index>
+                <responseTitle><![CDATA[Threesome (missionary)]]></responseTitle>
+                <responseTooltip><![CDATA[As [harpyBimboCompanion.name] is not attracted to you, she's unwilling to take part in a threesome with you and [harpyBimbo.name]...]]></responseTooltip>
+                <nextDialogue><![CDATA[null]]></nextDialogue>
+            </response>
+            <response>
+                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_bimboPacified) && (harpyBimboCompanion.isAttractedTo(pc) || game.isNonConEnabled())]]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[3]]></index>
+                <responseTitle><![CDATA[Threesome (missionary)]]></responseTitle>
+                <responseTooltip><![CDATA[
+                    Fuck [harpyBimbo.name] and [harpyBimboCompanion.name] side by side in the missionary position.
+                    #IF(!harpyBimboCompanion.isAttractedTo(pc))
+                        <br/>[style.italicsBad([harpyBimboCompanion.Name] will not like this!)]
+                    #ENDIF
+                ]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+                <effects/>
+                <sexVariables enabled="true">
+                    <conditional><![CDATA[false]]></conditional>
+                    <consensual><![CDATA[true]]></consensual>
+                    <subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+                    <dominants>
+                        <character><![CDATA[pc]]></character>
+                    </dominants>
+                    <submissives>
+                        <character><![CDATA[harpyBimbo]]></character>
+                        <character><![CDATA[harpyBimboCompanion]]></character>
+                    </submissives>
+                    <dominantSpectators/>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_bimbo_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/places/dominion/harpyNests/bimbo">BIMBO_SEX_START_MISSIONARY</sexStartContent>
+                    <tags>
+                        <tag>PREFER_MISSIONARY</tag>
+                    </tags>
+                </sexVariables>
+            </response>
+        </responses>
+    </scene>
+
+    <scene id ="after_sex">
+        <author><![CDATA[Innoxia]]></author>
+        <title><![CDATA[[harpyBimbo.NamePos] nest]]></title>
+        <preParsingEffects/>
+        <content folderPath="txt/places/dominion/harpyNests/bimbo">BIMBO_AFTER_SEX</content>
+        <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+        <continuesDialogue>false</continuesDialogue>
+        <travelDisabled>true</travelDisabled>
+        <responses>
+            <response>
+                <availabilityConditional><![CDATA[true]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[0]]></index>
+                <responseTitle><![CDATA[Leave]]></responseTitle>
+                <responseTooltip><![CDATA[Having had your fun, you decide to leave.]]></responseTooltip>
+                <nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_bimbo_exterior]]></nextDialogue>
+                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+                <effects><![CDATA[
+                    [#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/bimbo', 'BIMBO_LEAVE_AFTER_SEX'))]
+                ]]></effects>
+            </response>
+        </responses>
+    </scene>
+
+</dialogueNodes>

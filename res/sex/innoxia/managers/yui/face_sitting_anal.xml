@@ -85,6 +85,14 @@
 			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
 			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
 			<sexPace/>
+			<startingLubrications>
+				<lubedArea area="ORIFICE_ANUS">
+					<lubrication>
+						<luberId><![CDATA[yui]]></luberId>
+						<type><![CDATA[GIRLCUM]]></type>
+					</lubrication>
+				</lubedArea>
+			</startingLubrications>
 			<canSelfTransform><![CDATA[true]]></canSelfTransform>
 			<hidden><![CDATA[false]]></hidden>
 			<control/>
