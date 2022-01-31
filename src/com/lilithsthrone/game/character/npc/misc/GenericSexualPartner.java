@@ -52,7 +52,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class GenericSexualPartner extends NPC {
 
 	public GenericSexualPartner() {
-		this(Gender.F_V_B_FEMALE, WorldType.EMPTY, new Vector2i(0, 0), false);
+		this(Gender.getGenderFromUserPreferences(false, false), WorldType.EMPTY, new Vector2i(0, 0), false);
 	}
 	
 	public GenericSexualPartner(boolean isImported) {

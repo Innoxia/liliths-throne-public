@@ -142,7 +142,9 @@ public enum PerkManager {
 		rightMidA = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.SEDUCTION_DEFENCE_BOOST, leftMidA);
 
 		leftMidB = addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.SEDUCTION_BOOST, leftMidB);
+		connectorMid = addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.AHEGAO, leftMidB);
 		rightMidA = addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.SEDUCTION_DEFENCE_BOOST, rightMidA);
+		rightMidA.addLink(connectorMid);
 
 //		leftA = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.VIRILITY_BOOST);
 		rightMidA = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.CRITICAL_BOOST_ALT, leftMidB, rightMidA);
@@ -173,7 +175,7 @@ public enum PerkManager {
 		leftMidB.addLink(leftMidA);
 		addPerkEntry(perkTree, PerkCategory.LUST, 8, Perk.OBJECT_OF_DESIRE, leftMidA);
 		leftMidA = addPerkEntry(perkTree, PerkCategory.LUST, 9, Perk.SEDUCTION_BOOST_ALT, leftMidA);
-		leftMidA = addPerkEntry(perkTree, PerkCategory.LUST, 10, Perk.NYMPHOMANIAC, leftMidA);
+		addPerkEntry(perkTree, PerkCategory.LUST, 10, Perk.NYMPHOMANIAC, leftMidA);
 
 		rightA = addPerkEntry(perkTree, PerkCategory.LUST, 7, Perk.SEDUCTION_DEFENCE_BOOST, connectorMid);
 		rightA = addPerkEntry(perkTree, PerkCategory.LUST, 8, Perk.SEDUCTION_DEFENCE_BOOST, rightA);

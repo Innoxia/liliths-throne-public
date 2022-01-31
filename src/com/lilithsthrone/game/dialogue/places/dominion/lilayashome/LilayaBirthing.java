@@ -298,11 +298,11 @@ public class LilayaBirthing {
 					GameCharacter offspring = Main.game.getNPCById(offspringId);
 					if(offspring.isFeminine()) {
 						UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
-									+offspring.getSubspecies().getSingularFemaleName(offspring)
+									+offspring.getSubspecies().getSingularFemaleName(offspring.getBody())
 									+" bending down over you, who gives you a loving hug and a kiss on your cheek before departing...");
 					} else {
 						UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
-									+offspring.getSubspecies().getSingularMaleName(offspring)
+									+offspring.getSubspecies().getSingularMaleName(offspring.getBody())
 									+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 					}
 					
@@ -310,11 +310,11 @@ public class LilayaBirthing {
 					OffspringSeed offspring = Main.game.getOffspringSeedById(offspringId);
 					if(offspring.isFeminine()) {
 						UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
-									+offspring.getSubspecies().getName(null)
+									+offspring.getSubspecies().getSingularFemaleName(offspring.getBody())
 									+" bending down over you, who gives you a loving hug and a kiss on your cheek before departing...");
 					} else {
 						UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
-									+offspring.getSubspecies().getName(null)
+									+offspring.getSubspecies().getSingularMaleName(offspring.getBody())
 									+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 					}
 				}
@@ -482,22 +482,22 @@ public class LilayaBirthing {
 				if(offspringId.contains("NPCOffspring")) { // If the offspring is from the pre-offspring seed PR, handle them in the old way:
 					GameCharacter offspring = Main.game.getNPCById(offspringId);
 					if(offspring.isFeminine()) {
-						UtilText.addSpecialParsingString(offspring.getSubspecies().getSingularFemaleName(offspring), true);
+						UtilText.addSpecialParsingString(offspring.getSubspecies().getSingularFemaleName(offspring.getBody()), true);
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayaBirthing", "LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS_FEMININE_HATCHING"));
 						
 					} else {
-						UtilText.addSpecialParsingString(offspring.getSubspecies().getSingularMaleName(offspring), true);
+						UtilText.addSpecialParsingString(offspring.getSubspecies().getSingularMaleName(offspring.getBody()), true);
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayaBirthing", "LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS_MASCULINE_HATCHING"));
 					}
 					
 				} else {
 					OffspringSeed offspring = Main.game.getOffspringSeedById(offspringId);
 					if(offspring.isFeminine()) {
-						UtilText.addSpecialParsingString(offspring.getSubspecies().getName(null), true);
+						UtilText.addSpecialParsingString(offspring.getSubspecies().getSingularFemaleName(offspring.getBody()), true);
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayaBirthing", "LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS_FEMININE_HATCHING"));
 						
 					} else {
-						UtilText.addSpecialParsingString(offspring.getSubspecies().getName(null), true);
+						UtilText.addSpecialParsingString(offspring.getSubspecies().getSingularMaleName(offspring.getBody()), true);
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayaBirthing", "LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS_MASCULINE_HATCHING"));
 					}
 				}
@@ -560,7 +560,7 @@ public class LilayaBirthing {
 						String descriptor = getOffspringDescriptor(offspring);
 						UtilText.nodeContentSB.append("<br/>"
 								+ Util.capitaliseSentence(UtilText.generateSingularDeterminer(descriptor))+" "+descriptor
-								+ " <i style='color:"+offspring.getSubspecies().getColour(null).toWebHexString()+";'>"+offspring.getSubspecies().getName(null)+"</i>"
+								+ " <i style='color:"+offspring.getSubspecies().getColour(null).toWebHexString()+";'>"+offspring.getSubspecies().getName(offspring.getBody())+"</i>"
 								+ " <i style='color:"+offspring.getGender().getColour().toWebHexString()+";'>"+offspring.getGenderName()+"</i>");
 					}
 				} catch(Exception ex) {

@@ -126,12 +126,6 @@ public class Takahashi extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) {
 			this.setTailCount(3, true);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
-			this.resetPerksMap(true);
-		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4")) {
-			this.addSpecialPerk(Perk.THREE_TAILED_YOUKO);
-		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.0.11")) {
 			this.setBody(Gender.F_V_B_FEMALE, Subspecies.FOX_ASCENDANT, RaceStage.PARTIAL_FULL, false);
 			this.setStartingBody(true);
@@ -144,6 +138,9 @@ public class Takahashi extends NPC {
 			this.setPlayerKnowsName(true);
 			Main.game.getPlayer().addCharacterEncountered(this);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.3.3")) {
+			this.resetPerksMap(true);
+		}
 	}
 
 	@Override
@@ -153,7 +150,8 @@ public class Takahashi extends NPC {
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(
-						Perk.WEAPON_ENCHANTER),
+						Perk.WEAPON_ENCHANTER,
+						Perk.AHEGAO),
 				Util.newHashMapOfValues(
 						new Value<>(PerkCategory.PHYSICAL, 1),
 						new Value<>(PerkCategory.LUST, 1),

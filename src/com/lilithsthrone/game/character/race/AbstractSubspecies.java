@@ -1094,8 +1094,8 @@ public abstract class AbstractSubspecies {
 		return getFeralName(null).charAt(getFeralName(null).length()-1)=='t'?"-taur":"taur";
 	}
 	
-	protected String applyNonBipedNameChange(GameCharacter character, String baseName, boolean applyFeminineForm, boolean plural) {
-		switch(character.getLegConfiguration()) {
+	protected String applyNonBipedNameChange(Body body, String baseName, boolean applyFeminineForm, boolean plural) {
+		switch(body.getLegConfiguration()) {
 			case ARACHNID:
 				return baseName+"-arachne"+(plural?"s":"");
 			case AVIAN:
@@ -1125,19 +1125,20 @@ public abstract class AbstractSubspecies {
  	
 	/**
 	 * @param   The character whose subspecies's name is to be returned. Can pass in null.
+	 * @param body
 	 * @return  The singular name of this character's subspecies.
 	 */
-	public String getName(GameCharacter character) {
-		if(character!=null) {
-			if(this.isFeralConfigurationAvailable() && character.isFeral()) {
+	public String getName(Body body) {
+		if(body !=null) {
+			if(this.isFeralConfigurationAvailable() && body.isFeral()) {
 				return getFeralAttributes().getFeralName();
 			}
-			LegConfiguration conf = character.getLegConfiguration();
+			LegConfiguration conf = body.getLegConfiguration();
 			if(getAnthroNamesMap().containsKey(conf)) {
 				return getAnthroNamesMap().get(conf)[0];
 			}
-			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-				return applyNonBipedNameChange(character, getNonBipedRaceName(character), character.isFeminine(), false);
+			if(body.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+				return applyNonBipedNameChange(body, getNonBipedRaceName(body), body.isFeminine(), false);
 			}
 		}
 		return getAnthroNamesMap().get(null)[0];
@@ -1145,19 +1146,20 @@ public abstract class AbstractSubspecies {
 
 	/**
 	 * @param   The character whose subspecies's pluralised name is to be returned. Can pass in null.
+	 * @param body
 	 * @return  The plural name of this character's subspecies.
 	 */
-	public String getNamePlural(GameCharacter character) {
-		if(character!=null) {
-			if(this.isFeralConfigurationAvailable() && character.isFeral()) {
+	public String getNamePlural(Body body) {
+		if(body !=null) {
+			if(this.isFeralConfigurationAvailable() && body.isFeral()) {
 				return getFeralAttributes().getFeralNamePlural();
 			}
-			LegConfiguration conf = character.getLegConfiguration();
+			LegConfiguration conf = body.getLegConfiguration();
 			if(getAnthroNamesMap().containsKey(conf)) {
 				return getAnthroNamesMap().get(conf)[1];
 			}
-			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-				return applyNonBipedNameChange(character, getNonBipedRaceName(character), character.isFeminine(), true);
+			if(body.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+				return applyNonBipedNameChange(body, getNonBipedRaceName(body), body.isFeminine(), true);
 			}
 		}
 		return getAnthroNamesMap().get(null)[1];
@@ -1165,19 +1167,20 @@ public abstract class AbstractSubspecies {
 	
 	/**
 	 * @param   The character whose male subspecies name is to be returned. Can pass in null.
+	 * @param body
 	 * @return  The singular male name of this character's subspecies.
 	 */
-	public String getSingularMaleName(GameCharacter character) {
-		if(character!=null) {
-			if(this.isFeralConfigurationAvailable() && character.isFeral()) {
+	public String getSingularMaleName(Body body) {
+		if(body !=null) {
+			if(this.isFeralConfigurationAvailable() && body.isFeral()) {
 				return getFeralAttributes().getFeralSingularMaleName();
 			}
-			LegConfiguration conf = character.getLegConfiguration();
+			LegConfiguration conf = body.getLegConfiguration();
 			if(getAnthroNamesMap().containsKey(conf)) {
 				return getAnthroNamesMap().get(conf)[2];
 			}
-			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, false);
+			if(body.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+				return applyNonBipedNameChange(body, getNonBipedRaceName(body), false, false);
 			}
 		}
 		return getAnthroNamesMap().get(null)[2];
@@ -1185,19 +1188,20 @@ public abstract class AbstractSubspecies {
 
 	/**
 	 * @param   The character whose female subspecies name is to be returned. Can pass in null.
+	 * @param body
 	 * @return  The singular female name of this character's subspecies.
 	 */
-	public String getSingularFemaleName(GameCharacter character) {
-		if(character!=null) {
-			if(this.isFeralConfigurationAvailable() && character.isFeral()) {
+	public String getSingularFemaleName(Body body) {
+		if(body !=null) {
+			if(this.isFeralConfigurationAvailable() && body.isFeral()) {
 				return getFeralAttributes().getFeralSingularFemaleName();
 			}
-			LegConfiguration conf = character.getLegConfiguration();
+			LegConfiguration conf = body.getLegConfiguration();
 			if(getAnthroNamesMap().containsKey(conf)) {
 				return getAnthroNamesMap().get(conf)[3];
 			}
-			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-				return applyNonBipedNameChange(character, getNonBipedRaceName(character), true, false);
+			if(body.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+				return applyNonBipedNameChange(body, getNonBipedRaceName(body), true, false);
 			}
 		}
 		return getAnthroNamesMap().get(null)[3];
@@ -1205,19 +1209,20 @@ public abstract class AbstractSubspecies {
 
 	/**
 	 * @param   The character whose male subspecies's pluralised name is to be returned. Can pass in null.
+	 * @param body
 	 * @return  The plural male name of this character's subspecies.
 	 */
-	public String getPluralMaleName(GameCharacter character) {
-		if(character!=null) {
-			if(this.isFeralConfigurationAvailable() && character.isFeral()) {
+	public String getPluralMaleName(Body body) {
+		if(body !=null) {
+			if(this.isFeralConfigurationAvailable() && body.isFeral()) {
 				return getFeralAttributes().getFeralPluralMaleName();
 			}
-			LegConfiguration conf = character.getLegConfiguration();
+			LegConfiguration conf = body.getLegConfiguration();
 			if(getAnthroNamesMap().containsKey(conf)) {
 				return getAnthroNamesMap().get(conf)[4];
 			}
-			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, true);
+			if(body.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+				return applyNonBipedNameChange(body, getNonBipedRaceName(body), false, true);
 			}
 		}
 		return getAnthroNamesMap().get(null)[4];
@@ -1225,36 +1230,37 @@ public abstract class AbstractSubspecies {
 
 	/**
 	 * @param   The character whose female subspecies's pluralised name is to be returned. Can pass in null.
+	 * @param body
 	 * @return  The plural female name of this character's subspecies.
 	 */
-	public String getPluralFemaleName(GameCharacter character) {
-		if(character!=null) {
-			if(this.isFeralConfigurationAvailable() && character.isFeral()) {
+	public String getPluralFemaleName(Body body) {
+		if(body !=null) {
+			if(this.isFeralConfigurationAvailable() && body.isFeral()) {
 				return getFeralAttributes().getFeralPluralFemaleName();
 			}
-			LegConfiguration conf = character.getLegConfiguration();
+			LegConfiguration conf = body.getLegConfiguration();
 			if(getAnthroNamesMap().containsKey(conf)) {
 				return getAnthroNamesMap().get(conf)[5];
 			}
-			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-				return applyNonBipedNameChange(character, getNonBipedRaceName(character), true, true);
+			if(body.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+				return applyNonBipedNameChange(body, getNonBipedRaceName(body), true, true);
 			}
 		}
 		return getAnthroNamesMap().get(null)[5];
 	}
 
-	public String getNonBipedRaceName(GameCharacter character) {
-		return getFeralName(character);
+	public String getNonBipedRaceName(Body body) {
+		return getFeralName(body);
 	}
 	
-	public String getFeralName(GameCharacter character) {
+	public String getFeralName(Body body) {
 		if(isFeralConfigurationAvailable()) {
 			return getFeralAttributes().getFeralName();
 		}
 		return getAnthroNamesMap().get(null)[0];
 	}
 	
-	public String getFeralNamePlural(GameCharacter character) {
+	public String getFeralNamePlural(Body body) {
 		if(isFeralConfigurationAvailable()) {
 			return getFeralAttributes().getFeralNamePlural();
 		}
@@ -1682,15 +1688,16 @@ public abstract class AbstractSubspecies {
 	 * <b>[3]:</b> Singular female demon name<br/>
 	 * <b>[4]:</b> Plural male demon name<br/>
 	 * <b>[5]:</b> Plural female demon name<br/>
+	 * @param body
 	 */
-	public String[] getHalfDemonName(GameCharacter character) {
+	public String[] getHalfDemonName(Body body) {
 		String[] names = null;
 		
 		if(this.getRace()==Race.DEMON
 				|| this.getRace()==Race.ELEMENTAL
 				|| this.getRace()==Race.HUMAN) {
 			
-			String[] demonNames = demonLegConfigurationNames.get(character==null?LegConfiguration.BIPEDAL:character.getLegConfiguration());
+			String[] demonNames = demonLegConfigurationNames.get(body ==null?LegConfiguration.BIPEDAL: body.getLegConfiguration());
 			
 			names = new String[] {
 				"half-"+demonNames[0],
@@ -1702,13 +1709,13 @@ public abstract class AbstractSubspecies {
 		}
 		
 		if(names==null) {
-			if(character!=null && halfDemonNames.containsKey(character.getLegConfiguration())) {
-				return halfDemonNames.get(character.getLegConfiguration());
+			if(body !=null && halfDemonNames.containsKey(body.getLegConfiguration())) {
+				return halfDemonNames.get(body.getLegConfiguration());
 				
 			} else if(!halfDemonNames.isEmpty()) {
 				return halfDemonNames.get(null);
 				
-			} else if(character==null) {
+			} else if(body ==null) {
 				names = new String[] {
 						"demonic-"+getAnthroNamesMap().get(null)[0],
 						"demonic-"+getAnthroNamesMap().get(null)[1],
@@ -1719,12 +1726,12 @@ public abstract class AbstractSubspecies {
 				
 			} else {
 				names = new String[] {
-						"demonic-"+this.getName(character),
-						"demonic-"+this.getNamePlural(character),
-						"demonic-"+this.getSingularMaleName(character),
-						"demonic-"+this.getSingularFemaleName(character),
-						"demonic-"+this.getPluralMaleName(character),
-						"demonic-"+this.getPluralFemaleName(character)};
+						"demonic-"+this.getName(body),
+						"demonic-"+this.getNamePlural(body),
+						"demonic-"+this.getSingularMaleName(body),
+						"demonic-"+this.getSingularFemaleName(body),
+						"demonic-"+this.getPluralMaleName(body),
+						"demonic-"+this.getPluralFemaleName(body)};
 			}
 		}
 		

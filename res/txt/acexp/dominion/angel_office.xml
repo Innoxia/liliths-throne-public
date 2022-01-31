@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+    <!-- Meeting Angel encounter: -->
+
+    <htmlContent tag="MEET_ANGEL"><![CDATA[
+   	<p>
+		Once again, you find that the door to Angel's office is wide open, and the familiar little sign hanging outside her door still reads: <i>'For all Administrative Enquiries, please knock and enter!'</i>
+	</p>
+	<p>
+		Although Angel's office is now a familiar location to you, there's something different about it this time, as lewd moaning sounds can be heard coming from within. Following the sign's instructions, you knock the door and push it open as you [pc.step] inside. The room that you find yourself walking into is stacked high with mountains of ledgers and piles of papers. A snaking path has been left to link the doorway with a desk on the far side of the room, and it's behind this that you spot Angel. Leaning back in her chair with her eyes closed, her hands are frantically moving underneath her desk, while lewd moans continue to escape from between her full lips. Preoccupied with her masturbation session, she clearly didn't hear your knock, for as she catches sight of you out of the corner of her eye, she suddenly looks up and exclaims in surprise, [angel.speech(Oh, [pc.name]! You caught me in quite a state! Didn't you learn to knock before entering?!)]
+	</p>
+	<p>
+		After you've quickly explained that you did knock but that she didn't hear you, Angel laughs and admits, [angel.speech(Well, yeah, I was procrastinating a little... I've been so bored with all of my paperwork, and after you bought that prostitution license, I can't stop fantasising about how hot it would be to whore myself out to you... I don't know what it is, but I keep on fantasising about you; there's something about you that just makes me so horny! It must be your aura or something... Anyway, would you like to help me out? For you I'd only charge ten thousand flames...)]
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="LEAVE"><![CDATA[
+	<p>
+		Deciding that you'd rather not pay Angel to have sex with her, you tell her that you might take her up on her offer another time, but not now. Playfully pouting at you, she teases, [angel.speech(Fine... Well, if you don't mind, I need to finish myself off here, so I'll see you later.)]
+	</p>
+	<p>
+		Taking the hint, you turn around and head out of Angel's office, allowing her to pick up from where she left off. As you [pc.step] back out into the corridor, you hear Angel starting to moan again, and within just a few moments, she's letting out a frantic, high-pitched squeal. Realising that she must have been on the edge of an orgasm when you entered her office, and that she must have just climaxed, you wonder whether to head back into her office or instead head off somewhere else...
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="SEX_START"><![CDATA[
+	<p>
+		Producing the ten thousand flames which she's asked for, you place the money on Angel's desk and tell her that you'll take her up on her offer. A lewd smile quickly settles on Angel's face, and after first taking your money, she swivels around in her chair, stands up, and steps over to drop to her knees before you.
+		#IF(pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true) && !pc.isSexAreaExposed(PENETRATION_PENIS))
+	         With a few quick, well trained motions, she sets your [pc.cock+] free, and brings her face next to it, ready to start giving you a blowjob.
+    	#ELSEIF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true) && !pc.isSexAreaExposed(ORIFICE_VAGINA) && !pc.hasPenis())
+			 With a few quick, well trained motions, she removes the clothing from your [pc.pussy+] and brings her face next to it, ready to start eating you out.
+		#ENDIF
+		 Her hot breath falls on your groin as she teases, [angel.speech(I'll warm you up a little bit first...)]
+	</p>
+	<p>
+		Impressed with how eager she is, you tell Angel that you're looking forwards to seeing what she can do. Looking up into your [pc.eyes+], she lets out an erotic moan and sensually sighs, [angel.speech(Use me however you want... ~Mmm!~ I'll be a good little human whore for you...)]
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="AFTER_SEX"><![CDATA[
+	<p>
+		Seeing that you're satisfied, Angel stands up and steps back, and as she starts to pull her clothing back on, she lets out a happy sigh and declares, [angel.speech(Oh, [pc.Name]... That was amazing! Even after all of my years working as a whore, I've never had sex that good before...)]
+	</p>
+	<p>
+	    #IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_NAIVE))
+			Delighted to hear Angel's feedback, you tell her that you might be back to give her another good time some other day. Biting her lip and letting out a happy little moan as she hears your response, Angel sits back down on her chair and teases, [angel.speech(Oh, [pc.name], I'd love that! Please do come back soon; my pussy hasn't felt this good in years!)]
+	    #ELSEIF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_CYNICAL))
+			Being quite a cynic, you scoff at Angel's words, before telling her that she doesn't need to lie about how good it was. Smirking at you as she hears your response, Angel sits back down on her chair and laughs, [angel.speech(Well, I wasn't being totally insincere; you were a pretty good fuck!)]
+		#ELSE
+		    She doesn't sound completely sincere as she says this, and you realise that old habits die hard and she's just being a pro. Giving her a knowing grin, you tell Angel that it was fun for you too, and as she sits back down on her chair, she teases, [angel.speech(You really were a pretty good fuck, you know!)]
+		#ENDIF
+	</p>
+	<p>
+		As you gather your things and head towards the door to make your exit, Angel calls out after you, [angel.speech(I'm going to be busy for the rest of today, but if you want to do this again, then come back tomorrow! See you later, [pc.name]!)]
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		Returning Angel's farewell, you [pc.walk] on over to the door of her office and make your exit. Continuing on out into the corridor beyond, you look around and wonder where to go next...
+	</p>
+	]]>
+    </htmlContent>
+	
+</dialogue>

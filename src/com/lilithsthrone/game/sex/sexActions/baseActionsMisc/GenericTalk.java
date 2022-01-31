@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -261,6 +262,143 @@ public class GenericTalk {
 			} else {
 				return null;
 			}
+		}
+	};
+	
+	public static final SexAction LOVING_TALK = new SexAction(
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
+			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.THREE_NORMAL,
+			CorruptionLevel.THREE_DIRTY,
+			null,
+			SexParticipantType.NORMAL,
+			null) {
+		@Override
+		public boolean isLovingAction() {
+			return true;
+		}
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
+					&& (Main.sex.getCharacterPerformingAction().isPlayer()
+						|| (Main.sex.getCharacterPerformingAction().getAffectionLevel(Main.sex.getCharacterTargetedForSexAction(this)).isGreaterThan(AffectionLevel.POSITIVE_TWO_LIKE)
+								&& !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST)));
+		}
+		
+		@Override
+		public String getActionTitle() {
+			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
+				return "Loving sigh";
+			}
+			return "Loving confession";
+		}
+
+		@Override
+		public String getActionDescription() {
+			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
+				return "As your mouth is blocked, you're not able to tell [npc2.name] that you love [npc2.herHim], but you can still make a loving humming noise to let [npc2.her] know what your feelings are.";
+			}
+			return "Gently tell [npc2.name] that you love [npc2.herHim].";
+		}
+
+		@Override
+		public String getDescription() {
+			StringBuilder sb = new StringBuilder();
+
+			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
+				sb.append(
+						UtilText.returnStringAtRandom(
+						"As [npc.namePos] mouth is blocked, [npc.sheIs] not able to speak, but, still wanting to give [npc2.name] a reminder of [npc.her] feelings, [npc.she] [npc.verb(let)] out a particularly loving sigh.",
+						"Due to [npc.her] mouth currently being blocked, [npc.nameIsFull] not able to speak, and instead decides to let out a soft, whimsical sigh to let [npc2.name] know that [npc.she] [npc.verb(love)] [npc2.herHim].",
+						"Not being deterred by [npc.her] current lack of ability to speak, [npc.name] [npc.verb(let)] out a gentle, pining sigh, letting [npc2.name] know that [npc.she] [npc.verb(love)] [npc2.herHim]."));
+				
+			} else {
+				sb.append(UtilText.returnStringAtRandom(
+						"With a loving smile on [npc.her] face,",
+						"Lovingly gazing at [npc2.name],"));
+				sb.append(UtilText.returnStringAtRandom(
+						" [npc.name] softly",
+						" [npc.name] gently"));
+				sb.append(UtilText.returnStringAtRandom(
+						" [npc.verb(sigh)], ",
+						" [npc.verb(whisper)], "));
+				
+				sb.append(Main.sex.getLovingTalk(Main.sex.getCharacterPerformingAction()));
+			}
+			
+			return sb.toString();
+		}
+	};
+	
+	public static final SexAction LOVING_REPLY = new SexAction(
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
+			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.THREE_NORMAL,
+			CorruptionLevel.THREE_DIRTY,
+			null,
+			SexParticipantType.NORMAL,
+			null) {
+		@Override
+		public boolean isLovingAction() {
+			return true;
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !Main.sex.isSpectator(Main.sex.getCharacterPerformingAction())
+					&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
+					&& Main.sex.getLastUsedSexAction(Main.sex.getCharacterTargetedForSexAction(this))==LOVING_TALK
+					&& (Main.sex.getCharacterPerformingAction().isPlayer()
+							|| (Main.sex.getCharacterPerformingAction().getAffectionLevel(Main.sex.getCharacterTargetedForSexAction(this)).isGreaterThan(AffectionLevel.POSITIVE_TWO_LIKE)
+									&& !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST)));
+		}
+		@Override
+		public String getActionTitle() {
+			return "Loving response";
+		}
+		@Override
+		public SexActionPriority getPriority() {
+			if(!Main.sex.getCharacterPerformingAction().isPlayer() && Math.random()<0.8f) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
+		}
+		
+		@Override
+		public String getActionDescription() {
+			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
+				return "As your mouth is blocked, you're not able to tell [npc2.name] that you love [npc2.herHim] too, but you can still make a gentle sigh to let [npc2.her] know your feelings.";
+			}
+			return "Tell [npc2.name] that you love [npc2.herHim] too.";
+		}
+
+		@Override
+		public String getDescription() {
+			StringBuilder sb = new StringBuilder();
+
+			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
+				sb.append(
+						UtilText.returnStringAtRandom(
+						"As [npc.namePos] mouth is blocked, [npc.sheIs] not able to speak, but, still wanting to tell [npc2.name] that [npc2.her] feelings are reciprocated, [npc.she] [npc.verb(let)] out a deeply loving moan.",
+						"Due to [npc.her] mouth currently being blocked, [npc.nameIsFull] not able to speak, and instead decides to let out a loving moan to let [npc2.name] know that [npc.she] [npc.verb(love)] [npc2.herHim] too.",
+						"Not being deterred by [npc.her] current lack of ability to speak, [npc.name] [npc.verb(let)] out a loving moan, letting [npc2.name] know that [npc.she] [npc.verb(love)] [npc2.herHim] too."));
+				
+			} else {
+				sb.append(UtilText.returnStringAtRandom(
+						"Happily smiling at [npc2.name],",
+						"Letting out a happy moan,"));
+				sb.append(UtilText.returnStringAtRandom(
+						" [npc.name] lovingly",
+						" [npc.name] passionately"));
+				sb.append(UtilText.returnStringAtRandom(
+						" [npc.verb(reply)], ",
+						" [npc.verb(respond)], "));
+				
+				sb.append(Main.sex.getLovingResponseTalk(Main.sex.getCharacterPerformingAction()));
+			}
+			
+			return sb.toString();
 		}
 	};
 	

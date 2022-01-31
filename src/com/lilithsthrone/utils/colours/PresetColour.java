@@ -65,6 +65,7 @@ public class PresetColour {
 	public static Colour BASE_TAN = new Colour(false, BaseColour.TAN, "tan", Util.newArrayListOfValues("tan")) {};
 	public static Colour BASE_BROWN = new Colour(false, BaseColour.BROWN, "brown", Util.newArrayListOfValues("brown")) {};
 	public static Colour BASE_BROWN_DARK = new Colour(false, BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues("darkBrown", "brownDark")) {};
+	public static Colour BASE_BROWN_LIGHT= new Colour(false, BaseColour.BROWN_LIGHT, "light brown", Util.newArrayListOfValues("lightBrown", "brownLight")) {};
 
 	public static Colour BASE_COPPER = new Colour(false, BaseColour.COPPER, "copper", Util.newArrayListOfValues("baseCopper")) {};
 	public static Colour BASE_ORANGE = new Colour(false, BaseColour.ORANGE, "orange", Util.newArrayListOfValues("orange")) {};
