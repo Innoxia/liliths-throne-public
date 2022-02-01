@@ -36,7 +36,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Moved more dialogue out of hard-coded Lilaya's lab and library classes into external xml dialogue files.
 	
 	Gameplay:
-		Added 'Ahegao' as a new trait (located beside 'Nymphomaniac' in the lust tree), which grants +15% lust damage, -5 lust shielding, and adds an extra paragraph to orgasm descriptions.
+		Added 'Ahegao' as a new trait (located in the lust tree), which grants +15% lust damage, -5 lust shielding, and adds an extra paragraph to orgasm descriptions.
 	
 	Clothing:
 		Added sticker support for the 'lowback bodysuit' clothing item, allowing you to remove/attach the shoulder straps.
