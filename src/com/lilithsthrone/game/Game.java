@@ -3652,7 +3652,7 @@ public class Game implements XMLSaving {
 			responseDisabled = true;
 			
 		} else if (response.isActionCorrupting()) {
-			if(response.isAvailableFromFetishes()) {// Isn't this never triggered, as if it's available then it's not corrupting???
+			if(response.isAvailableFromFetishes()) {
 				iconLeftBottom = "<div class='response-icon-leftBottom' style='filter:grayscale(100%);opacity:0.5;'>" + SVGImages.SVG_IMAGE_PROVIDER.getResponseCorruptionBypass() + "</div>";
 			} else {
 				iconLeftBottom = "<div class='response-icon-leftBottom'>" + SVGImages.SVG_IMAGE_PROVIDER.getResponseCorruptionBypass() + "</div>";

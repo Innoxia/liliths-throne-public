@@ -9,4 +9,11 @@
 		<!-- Lilaya & Rose voyeurism: -->
 		<flag dailyReset="true">lilaya_daily_voyeurism</flag>
 		
+		<!-- Lilaya's dungeon: -->
+		<flag dailyReset="false">dungeon_found</flag>
+		<flag dailyReset="false">dungeon_explored</flag>
+		<flag dailyReset="false">dungeon_sounds_heard</flag>
+		<flag dailyReset="false">dungeon_garden_access_found</flag>
+		<flag dailyReset="true">dungeon_sex</flag>
+		
 </dialogueFlags>

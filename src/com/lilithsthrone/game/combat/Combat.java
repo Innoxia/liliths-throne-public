@@ -1167,9 +1167,8 @@ public class Combat {
 		if(move.getStatusEffects(Main.game.getPlayer(), moveTarget, isCrit)!=null && !move.getStatusEffects(Main.game.getPlayer(), moveTarget, isCrit).isEmpty()) {
 			for(Entry<AbstractStatusEffect, Integer> entry : move.getStatusEffects(Main.game.getPlayer(), moveTarget, isCrit).entrySet()) {
 				moveStatblock.append("Applies <b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName(moveTarget))+"</b>"
-						+ " for <b>"+entry.getValue()+(entry.getValue()==1?" turn":" turns")+"</b>");
+						+ " for <b>"+entry.getValue()+(entry.getValue()==1?" turn":" turns")+"</b><br/>");
 			}
-			moveStatblock.append("<br/>");
 		}
 		
 		StringBuilder critText = new StringBuilder();

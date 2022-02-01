@@ -2386,16 +2386,44 @@ public class MainController implements Initializable {
 			webEngine.loadContent(content);
 		}
 	}
-	
-	public void setTooltipContent(String content) {
+
+	/**
+	 * Sets the tooltip content, and returns the pixel height
+	 * of the resultant tooltip content.
+	 * 
+	 * To calculate height, wraps the content in a #sizing-box
+	 * div, and checks that element's height.
+	 * 
+	 * This does not set the tooltip height, but only measures
+	 * the content height. The tooltip must be manually
+	 * resized as needed.
+	 * 
+	 * Additionally, this should be called before setting the
+	 * tooltip position, if that requires knowledge of the
+	 * final height.
+	 * 
+	 * @param content HTML content to display in the tooltip
+	 * @return the calculated height of the tooltip content
+	 */
+	public int setTooltipContent(String content) {
 		if (Main.getProperties().hasValue(PropertyValue.fadeInText)) {
 			content = "<div class='tooltip-animation' style='width: 100%;'>" + content + "</div>";
 		}
+		content = "<div id='sizing-box' style='width: 100%;'>" + content + "</div>";
 		if(useJavascriptToSetContent) {
 			setWebEngineContent(webEngineTooltip, content);
 		} else {
 			webEngineTooltip.loadContent(content);
 		}
+		int height = 0;
+		try {
+			// add 8 + 8 to account for the top + bottom margins
+			height = 16 + (int)Main.mainController.getWebEngineTooltip().executeScript("document.getElementById('sizing-box').scrollHeight");
+		} catch(Exception e) {
+			System.err.println("Failed to locate the tooltip sizing box!");
+			e.printStackTrace();
+		}
+		return height;
 	}
 	
 	public void setAttributePanelContent(String content) {
