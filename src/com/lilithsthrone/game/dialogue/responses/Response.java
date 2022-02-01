@@ -66,7 +66,7 @@ public class Response {
 	
 	// For use when loaded from external files
 	
-	private boolean fromExternalFile = false;
+	protected boolean fromExternalFile = false;
 	
 	private String conditional;
 	
@@ -293,7 +293,10 @@ public class Response {
 			if(colourId.startsWith("#")) {
 				return new Colour(false, Util.newColour(colourId), Util.newColour(colourId), "");
 			} else {
-				return PresetColour.getColourFromId(colourId);
+				String colourParsed = UtilText.parse(colourId).trim();
+				if(!colourParsed.isEmpty()) {
+					return PresetColour.getColourFromId(colourParsed);
+				}
 			}
 		}
 		
@@ -585,7 +588,7 @@ public class Response {
 
 			SB.append(" (Subspecies): ");
 			for(AbstractSubspecies subspecies : getSubspeciesRequired()) {
-				SB.append("<span style='color:"+subspecies.getColour(Main.game.getPlayer()).toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName(Main.game.getPlayer()))+"</span>");
+				SB.append("<span style='color:"+subspecies.getColour(Main.game.getPlayer()).toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName(Main.game.getPlayer().getBody()))+"</span>");
 			}
 		}
 		

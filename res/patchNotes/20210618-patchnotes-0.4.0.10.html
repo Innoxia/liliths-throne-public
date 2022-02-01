@@ -1,0 +1,76 @@
+<h2>v0.4.0.10</h2>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Replaced depreciated hashmaps with active hashmaps in AbstractClothingType. (PR#1542 by Maxis010)</li>
+	<li>Increased script performance by adding a memoization cache to compile scripting engine scripts. (PR#1442 by CognitiveMist)</li>
+	<li>Fixed several instances of the 'wall' parser tag not being correctly applied in several sex classes. (by AceXP)</li>
+	<li>Fixed parsing errors in TongueVagina sex action class. (by AceXP)</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Added 'applyItemTransactionEffects()' method to NPC.java class which can be overridden to define special behaviour during item/weapon/clothing transactions.</li>
+	<li>When defining a 'copyFromDialogueId' element in an external DialogueNode's 'responses' element, the game will now prioritise any responses/tabs you've defined within the 'responses' element, and then fall back on those from the 'copyFromDialogueId' element (i.e. you can now override responses/tabs from the copied dialogue node).</li>
+	<li>Added a 'wallName' element to xml sex managers so that you can set the name of walls in sex scenes.</li>
+	<li>Moved all kimono clothing into external res files.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Added a small side quest for unlocking the spells from the arcane lightning globe (which is found in the warehouse during Claire's teleportation quest). If you have the globe in your inventory, you'll be able to ask Arthur about it to start this quest.</li>
+	<li>Filled in all of Meraxis's placeholder content, and added the option to have sex in her room after you've unlocked vaginal, oral, and anal (if anal content is enabled) actions with her.</li>
+	<li>Added an internal map for the Farmer's Market in Elis. (It's all placeholders at the moment, but will be filled in for the next update.)</li>
+	<li>Added demonic centaur encounters which can be triggered in the Foloi fields, Hubur river, and grassland wilderness tiles in the world map. (These encounters are quite basic and will be expanded upon in future updates.)</li>
+</ul>
+
+<h3>Items:</h3>
+<ul>
+	<li>Added 'battle axe' weapon (two-handed, all damage types, sold by Vicky).</li>
+	<li>The 'dory' spear is now sold by Vicky.</li>
+	<li>Added 'short kimono' as a short-skirt variation of the kimono. Also made the flowers on the kimono into a 'sticker', which can be removed so as to make a plain kimono. Also added a new 'blossom' pattern for the kimono.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>Tagged 'tentacle-squeeze' and 'tail-squeeze' as being sadistic actions, and added non-sadistic actions 'tentacle-massage' and 'tail-massage' as an alternative for non-sadistic characters. (These 'massage' actions are available to sadistic characters in addition to the 'squeeze' actions.)</li>
+	<li>Enabled availability of forcing creampies and asking for pull-out or creampie for when a character's spinneret was the orifice being penetrated by their partner's cock.</li>
+	<li>Added sex actions to cast and dispel the immobilising effects of the spell 'Witch's Seal' on your sexual partners, so long as you know the spell (obtained from equipping a Witch's broom) and have full control in the sex scene.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Added 'spinneret creampie' status effect, so cum now correctly leaks out of a creampied spinneret over time.</li>
+	<li>Added correct tracking of spinneret virginity loss, and added spinneret penetration/virginity loss descriptions to sex.</li>
+	<li>Added 'Automatic text copying' as a new option (disabled by default). When enabled, the current scene's text will automatically be copied to your system's clipboard every time a new scene is loaded. This option is so that you can easily paste the game's text into text readers without needing to select and copy the scene's text every time.</li>
+	<li>NPCs will now have more variance in the following body parts: ass and hip sizes, femininity, muscle, body size, nipple and areolae size, crotch nipple and areolae size, and lip size.</li>
+	<li>Quests are now ordered in the phone menu based on whether they're completed or not.</li>
+	<li>Added additional menu 'Misc. spells' in the spell menu to see what spells are available from weapons/unique events.</li>
+	<li>Renamed the race & subspecies of 'cow-morph' to 'cattle-morph', and changed the male name from 'cow-boy' to 'bull-boy'.</li>
+	<li>Greatly increased lust resistance for characters with low levels of corruption: 'pure' level 5->25; 'vanilla' level 0->15; 'dirty' 0->5.</li>
+	<li>Lyssieth's sex scenes are no longer locked to the 'over desk' position, and instead start in the 'standing' position, from which normal positioning options are now available.</li>
+	<li>Added variation to the demon TF scene with Lyssieth so that you can prevent her from growing a cock.</li>
+	<li>The Foloi Fields and Hubur river tiles in the world map are now classified as dangerous, due to the new demonic centaur encounters being in these areas.</li>
+	<li>Added 'Explore' action to the Foloi fields, river Hubur, and the grassland wilderness, which just provides a more convenient method of trying to trigger a random encounter instead of having to travel back and forth.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Typos and parsing bugs fixed.</li>
+	<li>Fixed bug where the count of total unique sex partners would always start at 1. </li>
+	<li>Fixed issue where Vengar would get stuck on the Milking Room tile after losing the fight to him.</li>
+	<li>Fixed bugs where loitering or sleeping for multiple hours at a time could cause multiple generic NPCs to spawn and get stuck in Angel's Kiss and on Dominion alleyway tiles occupied by a prostitute.</li>
+	<li>Bat-morphs in the bat caverns will no longer spawn without having bat-morph arms.</li>
+	<li>Fixed issue where Meraxis would sometimes not move to the tile she was supposed to be in.</li>
+	<li>Fixed the spell 'Witch's Seal' being classed as an air school spell instead of arcane.</li>
+	<li>Sadist fetish text now correctly indicates that it unlocks sex actions.</li>
+	<li>Fixed issue where Lyssieth would not return to her human form after having lilin-form sex.</li>
+	<li>Fixed issue where the post-Lyssieth sex scene in Meraxis's office indicated that Meraxis was present, even if she had relocated to Elis.</li>
+	<li>Elis internal maps now correctly have 'against wall' sex position available in them.</li>
+	<li>Added ability to stop Rose's hand-holding sex scene to prevent you from getting stuck in it if you weren't able to orgasm.</li>
+	<li>The 'Grow cock' sex actions now correctly give larger penises to leg configurations which have large genitals.</li>
+	<li>Fixed bug where the 'companionsAreAllies' element in a response's 'combatVariables' element would not work correctly and throw background errors when set to true.</li>
+	<li>NPCs who have sexual histories with the player are now fully deleted when removed from the game, instead of simply being moved to the generic holding tile. This will retroactively apply when loading into this version, and should help to cut down on save file size and end turn lag.</li>
+	<li>Fixed bug in sex managers defined in external files where repeat instances of using the sex manager with non-unique NPCs would throw background errors.</li>
+	<li>Fixed issue where the 'incubated offspring' list in the pregnancy stats screen was showing all non-incubated offspring instead of incubated offspring.</li>
+</ul>

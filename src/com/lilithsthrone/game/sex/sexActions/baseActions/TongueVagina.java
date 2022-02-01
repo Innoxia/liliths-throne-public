@@ -283,8 +283,8 @@ public class TongueVagina {
 					&& Main.sex.getPenetrationTypeFreeCount(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)>=2
 					&& !Main.sex.getCharacterTargetedForSexAction(this).getInventorySlotsConcealed(Main.sex.getCharacterPerformingAction()).containsKey(InventorySlot.HAIR)
 					&& !Main.sex.getCharacterPerformingAction().getInventorySlotsConcealed(Main.sex.getCharacterTargetedForSexAction(this)).containsKey(InventorySlot.HAND)
-					&& (Main.sex.getCharacterTargetedForSexAction(this).getHairStyle()==HairStyle.TWIN_TAILS
-							|| Main.sex.getCharacterTargetedForSexAction(this).getHairStyle()==HairStyle.TWIN_BRAIDS)
+					&& (Main.sex.getCharacterTargetedForSexAction(this).getHairStyle()==HairStyle.TWIN_TAILS || Main.sex.getCharacterTargetedForSexAction(this).getHairStyle()==HairStyle.TWIN_BRAIDS)
+					&& Main.sex.getCharacterTargetedForSexAction(this).getHairLength().isSuitableForPulling()
 					&& Main.sex.getCharacterTargetedForSexAction(this).getHairType().isAbleToBeGrabbedInSex();
 		}
 		@Override
@@ -1716,7 +1716,7 @@ public class TongueVagina {
 			if(TongueVagina.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).size()>1 && !primary.equals(target)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Getting "+TongueVagina.getOngoingNames(Main.sex.getCharacterPerformingAction(), target)+" to move aside a little,"
-									+ " [npc.name] gently [npc.verb(pull)] [npc2.namePos] head forwards until [npc2.her] [npc2.lips+] are pressed against [npc.her] [npc.labai+],"
+									+ " [npc.name] gently [npc.verb(pull)] [npc2.namePos] head forwards until [npc2.her] [npc2.lips+] are pressed against [npc.her] [npc.labia+],"
 									+ " before letting out a soft [npc.moan] and steadily grinding [npc.her] [npc.pussy+] into [npc2.her] [npc2.face].",
 							"Gently instructing "+TongueVagina.getOngoingNames(Main.sex.getCharacterPerformingAction(), target)+" to let [npc2.name] take the lead,"
 									+ " [npc.name] slowly [npc.verb(push)] [npc.her] [npc.hips] into [npc2.her] [npc2.face], letting out a soft [npc.moan] as [npc.she] [npc.verb(get)] [npc2.herHim] to eat [npc.herHim] out.",
@@ -1768,7 +1768,7 @@ public class TongueVagina {
 			if(TongueVagina.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).size()>1 && !primary.equals(target)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Getting "+TongueVagina.getOngoingNames(Main.sex.getCharacterPerformingAction(), target)+" to move aside a little,"
-									+ " [npc.name] eagerly [npc.verb(pull)] [npc2.namePos] head forwards until [npc2.her] [npc2.lips+] are pressed against [npc.her] [npc.labai+],"
+									+ " [npc.name] eagerly [npc.verb(pull)] [npc2.namePos] head forwards until [npc2.her] [npc2.lips+] are pressed against [npc.her] [npc.labia+],"
 									+ " before letting out [npc.a_moan+] and frantically grinding [npc.her] [npc.pussy+] into [npc2.her] [npc2.face].",
 							"Firmly instructing "+TongueVagina.getOngoingNames(Main.sex.getCharacterPerformingAction(), target)+" to let [npc2.name] take the lead,"
 									+ " [npc.name] eagerly [npc.verb(push)] [npc.her] [npc.hips] into [npc2.her] [npc2.face], letting out [npc.a_moan+] as [npc.she] [npc.verb(get)] [npc2.herHim] to eat [npc.herHim] out.",
@@ -1820,7 +1820,7 @@ public class TongueVagina {
 			if(TongueVagina.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).size()>1 && !primary.equals(target)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Ordering "+TongueVagina.getOngoingNames(Main.sex.getCharacterPerformingAction(), target)+" to move aside a little,"
-									+ " [npc.name] roughly [npc.verb(pull)] [npc2.namePos] head forwards until [npc2.her] [npc2.lips+] are pressed against [npc.her] [npc.labai+],"
+									+ " [npc.name] roughly [npc.verb(pull)] [npc2.namePos] head forwards until [npc2.her] [npc2.lips+] are pressed against [npc.her] [npc.labia+],"
 									+ " before letting out [npc.a_moan+] and forcefully grinding [npc.her] [npc.pussy+] into [npc2.her] [npc2.face].",
 							"Firmly instructing "+TongueVagina.getOngoingNames(Main.sex.getCharacterPerformingAction(), target)+" to let [npc2.name] take the lead,"
 									+ " [npc.name] roughly [npc.verb(push)] [npc.her] [npc.hips] into [npc2.her] [npc2.face], letting out [npc.a_moan+] as [npc.she] [npc.verb(make)] [npc2.herHim] to eat [npc.herHim] out.",
@@ -1933,7 +1933,7 @@ public class TongueVagina {
 			if(TongueVagina.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).size()>1 && !primary.equals(target)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Getting "+TongueVagina.getOngoingNames(Main.sex.getCharacterPerformingAction(), target)+" to move aside a little,"
-									+ " [npc.name] [npc.verb(pull)] [npc2.namePos] head forwards until [npc2.her] [npc2.lips+] are pressed against [npc.her] [npc.labai+],"
+									+ " [npc.name] [npc.verb(pull)] [npc2.namePos] head forwards until [npc2.her] [npc2.lips+] are pressed against [npc.her] [npc.labia+],"
 									+ " before letting out [npc.a_moan+] and grinding [npc.her] [npc.pussy+] into [npc2.her] [npc2.face].",
 							"Asking "+TongueVagina.getOngoingNames(Main.sex.getCharacterPerformingAction(), target)+" to let [npc2.name] take the lead,"
 									+ " [npc.name] [npc.verb(push)] [npc.her] [npc.hips] into [npc2.her] [npc2.face], letting out [npc.a_moan+] as [npc.she] [npc.verb(get)] [npc2.herHim] to eat [npc.herHim] out.",
@@ -1982,7 +1982,7 @@ public class TongueVagina {
 			if(TongueVagina.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).size()>1 && !primary.equals(target)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Getting "+TongueVagina.getOngoingNames(Main.sex.getCharacterPerformingAction(), target)+" to move aside a little,"
-									+ " [npc.name] eagerly [npc.verb(pull)] [npc2.namePos] head forwards until [npc2.her] [npc2.lips+] are pressed against [npc.her] [npc.labai+],"
+									+ " [npc.name] eagerly [npc.verb(pull)] [npc2.namePos] head forwards until [npc2.her] [npc2.lips+] are pressed against [npc.her] [npc.labia+],"
 									+ " before letting out [npc.a_moan+] and frantically grinding [npc.her] [npc.pussy+] into [npc2.her] [npc2.face].",
 							"Firmly instructing "+TongueVagina.getOngoingNames(Main.sex.getCharacterPerformingAction(), target)+" to let [npc2.name] take the lead,"
 									+ " [npc.name] eagerly [npc.verb(push)] [npc.her] [npc.hips] into [npc2.her] [npc2.face], letting out [npc.a_moan+] as [npc.she] [npc.verb(get)] [npc2.herHim] to eat [npc.herHim] out.",

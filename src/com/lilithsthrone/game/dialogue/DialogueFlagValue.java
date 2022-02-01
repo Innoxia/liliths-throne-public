@@ -152,6 +152,7 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue readBook2 = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue readBook3 = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue readBook4 = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue readBookSlavery = new AbstractDialogueFlagValue();
 	
 	public static AbstractDialogueFlagValue arthursPackageObtained = new AbstractDialogueFlagValue();
 	
@@ -377,6 +378,7 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue lyssiethQuestionAsked4 = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue lyssiethQuestionAsked5 = new AbstractDialogueFlagValue();
 
+	public static AbstractDialogueFlagValue lyssiethNoCockDemonTF = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue meraxisRepeatDemonTF = new AbstractDialogueFlagValue();
 	
 	
@@ -442,6 +444,18 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue murkSpanked = new AbstractDialogueFlagValue(true);
 	
 	
+	//Felicia
+	public static AbstractDialogueFlagValue feliciaAskedArthurPersonality = new AbstractDialogueFlagValue(false);
+	public static AbstractDialogueFlagValue feliciaAskedArthurHobbies = new AbstractDialogueFlagValue(false);
+	public static AbstractDialogueFlagValue feliciaAskedAboutHerSurname = new AbstractDialogueFlagValue(false);
+	public static AbstractDialogueFlagValue feliciaAskedAboutHerPlace = new AbstractDialogueFlagValue(false);
+	public static AbstractDialogueFlagValue feliciaAskedAboutHerFur = new AbstractDialogueFlagValue(false);
+	public static AbstractDialogueFlagValue feliciaAskedAboutHerFavoriteStore = new AbstractDialogueFlagValue(false);
+	public static AbstractDialogueFlagValue feliciaToldAboutArthur = new AbstractDialogueFlagValue(false);
+	public static AbstractDialogueFlagValue feliciaLewdTalkAborted = new AbstractDialogueFlagValue(false);
+	public static AbstractDialogueFlagValue feliciaRejectedPlayer = new AbstractDialogueFlagValue(false);
+	
+	
 	// Fields area:
 	
 	public static AbstractDialogueFlagValue leftDominionFirstTime = new AbstractDialogueFlagValue();
@@ -467,16 +481,13 @@ public class DialogueFlagValue {
 	 */
 	public static AbstractDialogueFlagValue getDialogueFlagValueFromId(String id) {
 		// Removed flags:
-		if(id.equals("ratWarrensRaid")) {
+		if(id.equals("ratWarrensRaid")
+				|| id.equals("suppliersTriedConvincing")) {
 			return null;
 		}
 		
-		id = Util.getClosestStringMatch(id, idToDialogueFlagValueMap.keySet());
-		
-		if(Util.getLastStringMatchDistance()>3) {
-			return null;
-		}
-		
+		id = Util.getClosestStringMatch(id, idToDialogueFlagValueMap.keySet(), 3);
+				
 		return idToDialogueFlagValueMap.get(id);
 	}
 	
@@ -499,7 +510,7 @@ public class DialogueFlagValue {
 						allDialogueFlagValues.add(loadedFlag);
 						dialogueFlagValueToIdMap.put(loadedFlag, loadedFlag.getId());
 						idToDialogueFlagValueMap.put(loadedFlag.getId(), loadedFlag);
-//						System.out.println("modded DFV: "+innerEntry.getKey());
+//						System.out.println("modded DFV: "+innerEntry.getKey()+" "+loadedFlag.getId());
 					}
 				} catch(Exception ex) {
 					System.err.println("Loading modded dialogueFlagValue failed at 'DialogueFlagValue'. File path: "+innerEntry.getValue().getAbsolutePath());

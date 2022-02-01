@@ -45,7 +45,7 @@
 				[##npc.setSubspeciesOverride(SUBSPECIES_DEMON)]
 				[style.italicsDemon([npc.NameIsFull] now [npc.a_race]!)]
 			#ELSE
-				[##npc.setBody(game.getCharacterUtils().generateHalfDemonBody(npc, npc.getGender(), npc.getFleshSubspecies(), true), false)]
+				[##npc.setBody(game.getCharacterUtils().generateHalfDemonBody(npc, npc.getGender(), npc.getBody().getFleshSubspecies(), true), false)]
 				[style.italicsDemon([npc.NameIsFull] now [npc.a_race]!)]
 			#ENDIF
 		</p>

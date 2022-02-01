@@ -1,0 +1,74 @@
+<h2>v0.4.1.5</h2>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Added Felicia (Arthur's neighbour) as a unique character who can be met after completing the first stage of the main quest (more content for her will be added later). (by Rick Docket and DSG)</li>
+	<li>Added samoyed-morph subspecies to the dog-morph race. (by DSG)</li>
+	<li>Added a new fetish preference menu to the options menu, which allows you to set values for influencing the fetishes and desires random NPCs will be generated with. (PR#1553 by Maxis)</li>
+	<li>Prevented patch notes from being run through the parsing engine, which was occasionally causing null pointer exceptions. (PR#1567 by Stadler76)</li>
+	<li>Removed the hasSexCountWith() method and replaced all of its uses with the getTotalTimesHadSex() method to fix issues with inconsistencies in dialogues. (PR#1568 by AceXP)</li>
+	<li>Added a new setting for outfit files which makes it possible to apply an outfit to an entire region (i.e. collection of world types). (PR#1569 by AceXP)</li>
+	<li>Created a new character class for slaves which can be bought in Slaver Alley, thereby fixing an issue where slaves generated while the player was not in Dominion/Submission would be of unexpected race types. (PR#1570 by AceXP)</li>
+	<li>Removed unnecessary copy when accessing the unique item count of an inventory, greatly reducing inventory lag and load on the garbage collector. (PR#1573 by AtelierAmber)</li>
+	<li>NPCs will no longer perform orgasm reactions or denials in response to the player orgasming when the player is hidden. (PR#1578 by AceXP)</li>
+	<li>If a corruptive action is bypassed by fetish, the pink '!' icon will now be recoloured to grey to signify that no corruption will be gained. (PR#1583 by CognitiveMist)</li>
+	<li>When the player does not have enough flames to use 'Buy (All)', but has enough to buy at least one item, the game will now offer 'Buy (Max NN)' in the 'Buy (All)' slot, where NN is the amount that will be purchased. (PR#1584 by CognitiveMist)</li>
+	<li>Fixed issue where characters that the player had never met were getting added to the contact list when loading a game. (by AceXP)</li>
+	<li>Fixed soft lock with the fields bandit encounter where if the bandit was willing to rape but not attracted to the player, no dialogue options would be given to continue the scene. (by AceXP)</li>
+	<li>Fixed an rare stack overflow error when loading a saved game in which the player had slaves or followers. (PR#1590 by Jtecx and CognitiveMist)</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Hair types now have a 'neckFluffChance' value to determine how likely they are to spawn with neck fluff (see the hyena's hair.xml file for a modding example).</li>
+</ul>
+
+<h3>Artwork:</h3>
+<ul>
+	<li>Added artwork for Catherine (the Slime Queen), drawn by Jam (https://twitter.com/JamDrawers).</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Added the next stage of the main quest, where you meet Minotallys.</li>
+</ul>
+
+<h3>Body:</h3>
+<ul>
+	<li>Added 'neck hair/fur' as a purely cosmetic transformation tied to a character's hair, which can be applied via potion or clothing TFs.</li>
+	<li>Chances to spawn with neck fur are: 25% for greater fox and wolf morphs, 100% for male lion morphs, 10% for greater female rabbit-morphs.</li>
+</ul>
+
+<h3>Clothing:</h3>
+<ul>
+	<li>Added 'heavy gemstone ring' (finger slot, unisex, sold by Nyan). Also limited the default colours that these rings can spawn in with.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Added a 'Vestigial Multi-breast' content setting to the 'Body' category (on by default), which affects whether multiple rows of breasts are described as being 'vestigial' or 'one cup size smaller than the one above' in size.</li>
+	<li>Increased level of fields bandits from 5-10 to 10-20.</li>
+	<li>Added ability to reset your elemental's perks. (Action appears when viewing their perk screen.)</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Parsing fixes.</li>
+	<li>Fixed bug where characters without hair could still be targeted for the 'Twintail pull' sex action.</li>
+	<li>Fixed bug in the 'Rogue Enforcer' quest, where completing the quest would sometimes lock you in a travel-disabled dialogue screen with no responses to choose from.</li>
+	<li>Fixed bug where some sex scenes with Scarlett, such as those encountered during Helena's romance quest, would never come to an end.</li>
+	<li>Bandits in the Foloi Fields will no longer remain on their tile if you escape from combat against them. Any bandits which have persisted on these tiles will be removed from your game upon loading into this version.</li>
+	<li>The racial transformative effects of the items from the three harpy bosses (the lollipops and perfume) will no longer work on characters whose race is immune to racial transformations.</li>
+	<li>Takahashi is now added to your phone's contacts list after meeting her. (She ill be added to your contacts when loading into this version if you are past the 'Destination Elis' section of the main quest.)</li>
+	<li>Fixed bug where the first stage of the status effect for wearing chastity clothing ('Forced chastity (calm)') would not be removed when removing the chastity clothing.</li>
+	<li>When encountering an Enforcer patrol, the actions to be searched will no longer incorrectly be coloured red and reference having your items confiscated if you are in possession of Elle's or Wes's contractor pass.</li>
+	<li>Elementals will no longer reset their inventories at the turn of midnight every day.</li>
+	<li>The player character's elemental will no longer have their level scaled to a higher value based on the game's difficulty.</li>
+	<li>Fixed issue where you could give your elemental infinite perks, and fixed a related issue where your elemental's perk screen was showing that they had 2 perk points available for the physical and arcane categories.</li>
+	<li>The 'Thigh squeeze' orgasm action can no longer be used by characters who don't have legs.</li>
+	<li>Fixed issue where Jhortax and Fyrsia would both be missing their weapons when (and if) you fought them in Meraxis's citadel.</li>
+	<li>Fixed issue where bandits in the fields were always being generated as females.</li>
+	<li>Dragon Draft consumables now restore the percentage of total health and aura which their tooltips say they will.</li>
+	<li>Fixed issue with NPCs' descriptions not being updated after freeing them from slavery.</li>
+	<li>Fixed issue where if you had companions enabled and started sex with one while there were NPCs present in the tile, the NPCs would be added as submissive spectators who could then be brought into the sex scene.</li>
+</ul>

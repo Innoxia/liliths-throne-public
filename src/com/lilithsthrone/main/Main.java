@@ -86,7 +86,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4.0.9";
+	public static final String VERSION_NUMBER = "0.4.3.4";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -171,7 +171,11 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Ace Morris", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Zyrodil", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Vorst", "", 0, 0, 0, 0, Subspecies.DEMON));
-		 
+		credits.add(new CreditsSlot("MegaJank", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Fox-Sama", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Riaten", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("John Guardian", "", 0, 0, 0, 0, Subspecies.DEMON));
+		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Akira", "", 0, 0, 0, 2));
@@ -525,6 +529,7 @@ public class Main extends Application {
 			Alert a = new Alert(AlertType.WARNING,
 					"Could not find the 'res' folder ("+dir.getAbsolutePath()+"). This WILL cause errors and present sections of missing text."
 							+ "\nMake sure that you've extracted the game from the zip file, and that the file has write permissions."
+							+ "\nIf you use the command line or a batch/script file to start the game, please try starting it in the game folder to prevent this error."
 							+ "\n(Please read section 'MISSING FOLDERS' in the README.txt file.)"
 							+ "\nContinue?",
 					ButtonType.YES, ButtonType.NO);
@@ -801,21 +806,11 @@ public class Main extends Application {
 	}
 	
 	public static void quickSaveGame() {
-		if (Main.game.isInCombat()) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot quicksave while in combat!");
-			
-		} else if (Main.game.isInSex()) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot quicksave while in sex!");
-			
-		} else if (Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.NORMAL) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Can only quicksave in a normal scene!");
-			
-		} else if (!Main.game.isStarted() || !Main.game.isInNeutralDialogue()) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot save in this scene!");
-			
-		} else {
+		if(isQuickSaveAvailable()){
 			Main.getProperties().lastQuickSaveName = getQuickSaveName();
 			saveGame(getQuickSaveName(), true);
+		} else {
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, getQuickSaveUnavailabilityDescription());
 		}
 	}
 
@@ -830,16 +825,8 @@ public class Main extends Application {
 	}
 	
 	public static void saveGame(String name, boolean allowOverwrite) {
-		if (name.length()==0) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too short!");
-			return;
-		}
-		if (name.length() > 64) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too long!");
-			return;
-		}
-		if (name.contains("\"")) {//!name.matches("[a-zA-Z0-9]+[a-zA-Z0-9' _]*")) {
-			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Incompatible characters!");
+		name = Main.checkFileName(name);
+		if(name.isEmpty()) {
 			return;
 		}
 		
@@ -853,9 +840,9 @@ public class Main extends Application {
 			properties.money = game.getPlayer().getMoney();
 			properties.arcaneEssences = game.getPlayer().getEssenceCount();
 			if (game.getPlayer().isFeminine()) {
-				properties.race = game.getPlayer().getSubspecies().getSingularFemaleName(game.getPlayer());
+				properties.race = game.getPlayer().getSubspecies().getSingularFemaleName(game.getPlayer().getBody());
 			} else {
-				properties.race = game.getPlayer().getSubspecies().getSingularMaleName(game.getPlayer());
+				properties.race = game.getPlayer().getSubspecies().getSingularMaleName(game.getPlayer().getBody());
 			}
 			properties.quest = game.getPlayer().getQuest(QuestLine.MAIN).getName();
 
@@ -864,6 +851,19 @@ public class Main extends Application {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+
+	public static String checkFileName(String name) {
+		name = name.replace(" ", "_").replaceAll("[^\\w]+", "");
+		if (name.length()==0) {
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too short!");
+			return "";
+		}
+		if (name.length() > 64) {
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too long!");
+			return "";
+		}
+		return name;
 	}
 
 	public static boolean isLoadGameAvailable(String name) {
@@ -894,12 +894,12 @@ public class Main extends Application {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-			
+
 		} else {
 			Main.game.flashMessage(PresetColour.GENERIC_BAD, "File not found...");
 		}
 	}
-	
+
 	public static void deleteExportedGame(String name) {
 		File file = new File("data/saves/"+name+".xml");
 
@@ -910,12 +910,12 @@ public class Main extends Application {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-			
+
 		} else {
 			Main.game.flashMessage(PresetColour.GENERIC_BAD, "File not found...");
 		}
 	}
-	
+
 	public static void deleteExportedCharacter(String name) {
 		File file = new File("data/characters/"+name+".xml");
 

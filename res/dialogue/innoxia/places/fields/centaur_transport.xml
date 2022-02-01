@@ -825,7 +825,7 @@
 					<submissives>
 						<character>
 							<id>astrapi</id>
-							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_post_sex]]></postSexDialogue>
@@ -1000,7 +1000,7 @@
 				]]></effects>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#!astrapi.hasSexCountWith(pc)]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#(astrapi.getTotalTimesHadSex(pc)==0)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Offer clean]]></responseTitle>
@@ -1008,7 +1008,7 @@
 				<nextDialogue><![CDATA[null]]></nextDialogue>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#astrapi.hasSexCountWith(pc)]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#(astrapi.getTotalTimesHadSex(pc)>0)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Offer clean]]></responseTitle>
@@ -1049,6 +1049,10 @@
 				<responseTitle><![CDATA[Lick armpits]]></responseTitle>
 				<responseTooltip><![CDATA[As Astrapi is clearly getting turned on, you're certain that she'll consent to letting you lick the sweat from her armpits.]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_clean_armpits]]></nextDialogue>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_ARMPIT_GIVING]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
 			</response>
 		</responses>
 	</scene>

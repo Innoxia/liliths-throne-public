@@ -119,7 +119,8 @@ public class WorldType {
 					new Value<>(new Color(0x4bff00), PlaceType.DOMINION_PARK),
 					new Value<>(new Color(0xff4000), PlaceType.DOMINION_RED_LIGHT_DISTRICT),
 					new Value<>(new Color(0xffbf00), PlaceType.DOMINION_HOME_IMPROVEMENT),
-					new Value<>(new Color(0xff0080), PlaceType.DOMINION_WAREHOUSES))) {
+					new Value<>(new Color(0xff0080), PlaceType.DOMINION_WAREHOUSES),
+					new Value<>(new Color(0x8d454e), PlaceType.DOMINION_CALLIE_BAKERY))) {
 	};
 	
 	public static AbstractWorldType EMPTY = new AbstractWorldType(WorldRegion.MISC,
@@ -679,6 +680,35 @@ public class WorldType {
 		}
 	};
 	
+	public static AbstractWorldType FELICIA_APARTMENT = new AbstractWorldType(
+			WorldRegion.DOMINION,
+			"Small apartment",
+			PresetColour.BASE_YELLOW_PALE,
+			false,
+			false,
+			TeleportPermissions.NONE,
+			"/com/lilithsthrone/res/map/dominion/feliciaApartment/feliciaApartment.png",
+			PlaceType.WORLD_MAP_DOMINION,
+			PlaceType.FELICIA_APARTMENT_ENTRYWAY,
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0xd7d7d7), PlaceType.FELICIA_APARTMENT_HALLWAY),
+					new Value<>(new Color(0xff3f13), PlaceType.FELICIA_APARTMENT_ENTRYWAY),
+					new Value<>(new Color(0x4cecf5), PlaceType.FELICIA_APARTMENT_DINING_AREA),
+					new Value<>(new Color(0x2df907), PlaceType.FELICIA_APARTMENT_KITCHEN),
+					new Value<>(new Color(0xfff900), PlaceType.FELICIA_APARTMENT_BATHROOM),
+					new Value<>(new Color(0x909090), PlaceType.FELICIA_APARTMENT_LIVING_AREA),
+					new Value<>(new Color(0x0051f4), PlaceType.FELICIA_APARTMENT_BEDROOM))) {
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "You can't have sex while in Felicia's apartment!";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
+	
 	public static AbstractWorldType HELENAS_APARTMENT = new AbstractWorldType(WorldRegion.DOMINION,
 			"Helena's apartment",
 			PresetColour.BASE_GOLD,
@@ -1083,10 +1113,11 @@ public class WorldType {
 	private static Map<String, AbstractWorldType> idToWorldMap = new HashMap<>();
 
 	public static List<AbstractWorldType> getAllWorldTypes() {
-		return allWorldTypes;
+		return new ArrayList<>(allWorldTypes);
 	}
 	
 	public static AbstractWorldType getWorldTypeFromId(String id) {
+		id = id.replace("_worldType", "");
 		id.replaceAll("SEWERS", "SUBMISSION");
 		if(id.equals("SUPPLIER_DEN")) {
 			return TEXTILES_WAREHOUSE;
@@ -1107,9 +1138,10 @@ public class WorldType {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
 				try {
 					AbstractWorldType worldType = new AbstractWorldType(innerEntry.getValue(), entry.getKey(), true) {};
+					String id = innerEntry.getKey().replace("_worldType", "");
 					allWorldTypes.add(worldType);
-					worldToIdMap.put(worldType, innerEntry.getKey());
-					idToWorldMap.put(innerEntry.getKey(), worldType);
+					worldToIdMap.put(worldType, id);
+					idToWorldMap.put(id, worldType);
 //					System.out.println("modded WT: "+innerEntry.getKey());
 				} catch(Exception ex) {
 					System.err.println("Loading modded world type failed at 'WorldType'. File path: "+innerEntry.getValue().getAbsolutePath());
@@ -1126,7 +1158,7 @@ public class WorldType {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
 				try {
 					AbstractWorldType worldType = new AbstractWorldType(innerEntry.getValue(), entry.getKey(), false) {};
-					String id = "innoxia_"+innerEntry.getKey().replace("_worldType", "");
+					String id = innerEntry.getKey().replace("_worldType", "");
 					allWorldTypes.add(worldType);
 					worldToIdMap.put(worldType, id);
 					idToWorldMap.put(id, worldType);

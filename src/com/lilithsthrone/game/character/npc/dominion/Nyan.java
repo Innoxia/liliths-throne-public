@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.rendering.Pattern;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -226,7 +227,12 @@ public class Nyan extends NPC {
 				for(int i=0; i < nodeList.getLength(); i++){
 					Element e = (Element) nodeList.item(i);
 					try {
-						entry.getValue().add(AbstractClothing.loadFromXML(e, doc));
+						AbstractClothing c = AbstractClothing.loadFromXML(e, doc);
+						if(c!=null) {
+							entry.getValue().add(c);
+						} else {
+							System.err.println("Warning: loaded clothing is null in Nyan's loadFromXML() method!");
+						}
 					} catch(Exception ex) {
 					}
 				}
@@ -500,7 +506,7 @@ public class Nyan extends NPC {
 					PresetColour.CLOTHING_PURPLE_VERY_DARK,
 					PresetColour.CLOTHING_YELLOW));
 			dress = Main.game.getItemGen().generateClothing("phlarx_dresses_vintage_dress", dressColour, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_STEEL, false);
-			dress.setPattern("polka_dots_small");
+			dress.setPattern(Pattern.getPatternIdByName("polka_dots_small"));
 			dress.setPatternColour(0, PresetColour.CLOTHING_BLACK);
 			dress.setPatternColour(1, PresetColour.CLOTHING_WHITE);
 			
@@ -695,21 +701,23 @@ public class Nyan extends NPC {
 	}
 	
 	@Override
-	public void handleSellingEffects(AbstractCoreItem item, int count, int itemPrice){
-		for(int i=0; i<count; i++) {
-			commonFemaleClothing.remove(item);
-			commonFemaleUnderwear.remove(item);
-			commonFemaleAccessories.remove(item);
-			
-			commonMaleClothing.remove(item);
-			commonMaleLingerie.remove(item);
-			commonMaleAccessories.remove(item);
-			
-			commonAndrogynousClothing.remove(item);
-			commonAndrogynousLingerie.remove(item);
-			commonAndrogynousAccessories.remove(item);
-			
-			specials.remove(item);
+	public void applyItemTransactionEffects(AbstractCoreItem itemSold, int quantity, int individualPrice, boolean soldToPlayer) {
+		if(soldToPlayer) {
+			for(int i=0; i<quantity; i++) {
+				commonFemaleClothing.remove(itemSold);
+				commonFemaleUnderwear.remove(itemSold);
+				commonFemaleAccessories.remove(itemSold);
+				
+				commonMaleClothing.remove(itemSold);
+				commonMaleLingerie.remove(itemSold);
+				commonMaleAccessories.remove(itemSold);
+				
+				commonAndrogynousClothing.remove(itemSold);
+				commonAndrogynousLingerie.remove(itemSold);
+				commonAndrogynousAccessories.remove(itemSold);
+				
+				specials.remove(itemSold);
+			}
 		}
 	}
 	
@@ -811,8 +819,8 @@ public class Nyan extends NPC {
 //
 //		if(withBirth) {
 //			// Nyan's children can't be encountered as her mother finds them jobs elsewhere in the Realm:
-//			for(String npc : offspringIds) {
-//				Main.game.removeNPC(npc);
+//			for(String os : offspringIds) {
+//				Main.game.removeOffspringSeed(os);
 //			}
 //		}
 //	}

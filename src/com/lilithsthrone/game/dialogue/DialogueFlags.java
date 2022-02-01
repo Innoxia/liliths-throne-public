@@ -353,6 +353,14 @@ public class DialogueFlags implements XMLSaving {
 	public boolean hasFlag(String flagId) {
 		return values.contains(DialogueFlagValue.getDialogueFlagValueFromId(flagId));
 	}
+
+	public void setFlag(String flagId, boolean flagMarker) {
+		if(flagMarker) {
+			values.add(DialogueFlagValue.getDialogueFlagValueFromId(flagId));
+		} else {
+			values.remove(DialogueFlagValue.getDialogueFlagValueFromId(flagId));
+		}
+	}
 	
 	public void setFlag(AbstractDialogueFlagValue flag, boolean flagMarker) {
 		if(flagMarker) {

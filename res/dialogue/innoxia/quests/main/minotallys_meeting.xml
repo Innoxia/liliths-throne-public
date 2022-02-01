@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id="start">
+		<title><![CDATA[Meeting Minotallys]]></title>
+		<content folderPath="txt/quests/main/minotallys_meeting">START</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Town hall]]></responseTitle>
+				<responseTooltip><![CDATA[Accompany Meraxis to the town hall.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_quests_main_minotallys_meeting_town_hall]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="town_hall">
+		<title><![CDATA[Meeting Minotallys]]></title>
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_town_hall)]
+			[#meraxis.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/quests/main/minotallys_meeting">TOWN_HALL</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[Follow Meraxis into the town hall.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_quests_main_minotallys_meeting_town_hall_entry]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="town_hall_entry">
+		<title><![CDATA[Meeting Minotallys]]></title>
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town_hall_f0, PLACE_TYPE_innoxia_fields_elis_town_hall_f0_info)]
+			[#meraxis.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/quests/main/minotallys_meeting">TOWN_HALL_ENTRY</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Head over towards the staircase which leads up to Minotallys's office.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_quests_main_minotallys_meeting_town_hall_stairs]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="town_hall_stairs">
+		<title><![CDATA[Meeting Minotallys]]></title>
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town_hall_f0, PLACE_TYPE_innoxia_fields_elis_town_hall_f0_stairs)]
+			[#meraxis.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/quests/main/minotallys_meeting">TOWN_HALL_STAIRS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Upstairs]]></responseTitle>
+				<responseTooltip><![CDATA[Head up the stairs to finally meet Minotallys.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_quests_main_minotallys_meeting_town_hall_upstairs]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="town_hall_upstairs">
+		<title><![CDATA[Meeting Minotallys]]></title>
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town_hall_f1, PLACE_TYPE_innoxia_fields_elis_town_hall_f1_stairs)]
+			[#meraxis.setLocation(pc)]
+			[#arion.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/quests/main/minotallys_meeting">TOWN_HALL_UPSTAIRS</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- 1: Intro -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Introduction]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_introduced))
+						You've already introduced yourself to Arion.
+					#ELSE
+						Tell Arion who you are.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_introduced))
+						null
+					#ELSE
+						innoxia_quests_main_minotallys_meeting_arion_talking
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_minotallys_arion_talk_introduced, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/quests/main/minotallys_meeting', 'ARION_INTRO'))]
+				]]></effects>
+			</response>
+			<!-- 2: Duties -->
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_introduced)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Duties]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_duties))
+						You've already asked Arion about what he and Minotallys do here.
+					#ELSE
+						Ask Arion what he and Minotallys do here.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_duties))
+						null
+					#ELSE
+						innoxia_quests_main_minotallys_meeting_arion_talking
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_minotallys_arion_talk_duties, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/quests/main/minotallys_meeting', 'ARION_DUTIES'))]
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_duties) && flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_paintings) && flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_rooms))
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/quests/main/minotallys_meeting', 'ARION_MINOTALLYS_READY'))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<!-- 3: Paintings -->
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_introduced)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Paintings]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_paintings))
+						You've already asked Arion about the paintings which hang on the walls around you.
+					#ELSE
+						Ask Arion about the paintings which hang on the walls around you.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_paintings))
+						null
+					#ELSE
+						innoxia_quests_main_minotallys_meeting_arion_talking
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_minotallys_arion_talk_paintings, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/quests/main/minotallys_meeting', 'ARION_PAINTINGS'))]
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_duties) && flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_paintings) && flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_rooms))
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/quests/main/minotallys_meeting', 'ARION_MINOTALLYS_READY'))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<!-- 4: Rooms -->
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_introduced)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Rooms]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_rooms))
+						You've already asked Arion about the rooms found in this tower.
+					#ELSE
+						Ask Arion what all of the rooms are for on this level of the tower.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_rooms))
+						null
+					#ELSE
+						innoxia_quests_main_minotallys_meeting_arion_talking
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_minotallys_arion_talk_rooms, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/quests/main/minotallys_meeting', 'ARION_ROOMS'))]
+					#IF(flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_duties) && flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_paintings) && flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_rooms))
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/quests/main/minotallys_meeting', 'ARION_MINOTALLYS_READY'))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<!-- 5: Continue -->
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_introduced)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_duties) || !flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_paintings) || !flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_rooms))
+						You need to wait for Minotallys to finish her business before being able to meet her, so you should spend the time talking with Arion.
+					#ELSE
+						Now that Minotallys has finished her business, you can finally meet her...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_duties) || !flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_paintings) || !flags.hasFlag(FLAG_innoxia_minotallys_arion_talk_rooms))
+						null
+					#ELSE
+						innoxia_quests_main_minotallys_meeting_minotallys_start
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="arion_talking">
+		<title><![CDATA[Meeting Minotallys]]></title>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[3]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_quests_main_minotallys_meeting_town_hall_upstairs"/>
+	</scene>
+	
+	<scene id="minotallys_start">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town_hall_f1, PLACE_TYPE_innoxia_fields_elis_town_hall_f1_minotallys_office)]
+			[#meraxis.setLocation(pc)]
+			[#arion.setLocation(pc)]
+			[#minotallys.setLocation(pc)]
+		]]></preParsingEffects>
+		<title><![CDATA[Meeting Minotallys]]></title>
+		<content folderPath="txt/quests/main/minotallys_meeting">MINOTALLYS_START</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Decline]]></responseTitle>
+				<responseTooltip><![CDATA[Politely decline Minotallys's offer.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_quests_main_minotallys_meeting_minotallys_drink]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/quests/main/minotallys_meeting', 'MINOTALLYS_START_DECLINE'))]
+					[#game.appendToTextEndStringBuilder(minotallys.incrementAffection(meraxis, 5))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Drink]]></responseTitle>
+				<responseTooltip><![CDATA[Drink the glass of what is quite clearly Minotallys's breast milk.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_quests_main_minotallys_meeting_minotallys_drink]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/quests/main/minotallys_meeting', 'MINOTALLYS_START_DRINK'))]
+					[#game.appendToTextEndStringBuilder(minotallys.incrementAffection(pc, 5))]
+					[#game.appendToTextEndStringBuilder(minotallys.incrementAffection(meraxis, 5))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="minotallys_drink">
+		<title><![CDATA[Meeting Minotallys]]></title>
+		<content folderPath="txt/quests/main/minotallys_meeting">MINOTALLYS_START_DRINK_END</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Confirm]]></responseTitle>
+				<responseTooltip><![CDATA[Confirm Meraxis's explanation by telling Minotallys and Arion that Lyssieth has sent you to help deal with Lunette.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_quests_main_minotallys_meeting_minotallys_explain]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="minotallys_explain">
+		<title><![CDATA[Meeting Minotallys]]></title>
+		<content folderPath="txt/quests/main/minotallys_meeting">MINOTALLYS_EXPLAIN</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Themiscyra?]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Minotallys what's so important about this town of 'Themiscyra'.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_quests_main_minotallys_meeting_minotallys_themiscyra]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="minotallys_themiscyra">
+		<title><![CDATA[Meeting Minotallys]]></title>
+		<content folderPath="txt/quests/main/minotallys_meeting">MINOTALLYS_THEMISCRYA</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Agree]]></responseTitle>
+				<responseTooltip><![CDATA[Agree to Arion's suggestion and say that you and Meraxis will travel to Themiscyra to see how they're faring against Lunette.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_quests_main_minotallys_meeting_minotallys_themiscyra_agree]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_MAIN, QUEST_MAIN_3_D_TO_THEMISCYRA))]
+					[#flags.setFlag(FLAG_innoxia_elis_minotallys_introduced, true)]
+					[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_quest_minotallys_pass), false, true))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="minotallys_themiscyra_agree">
+		<title><![CDATA[Meeting Minotallys]]></title>
+		<content folderPath="txt/quests/main/minotallys_meeting">MINOTALLYS_THEMISCRYA_AGREE</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Downstairs]]></responseTitle>
+				<responseTooltip><![CDATA[Head back down to the ground floor.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_quests_main_minotallys_meeting_minotallys_end]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="minotallys_end">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town_hall_f0, PLACE_TYPE_innoxia_fields_elis_town_hall_f0_stairs)]
+			[#meraxis.returnToHome()]
+			[#meraxis.hourlyUpdate()]
+		]]></preParsingEffects>
+		<title><![CDATA[Meeting Minotallys]]></title>
+		<content folderPath="txt/quests/main/minotallys_meeting">MINOTALLYS_END</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that your meeting with Minotallys is over, you wonder where to go to next...]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

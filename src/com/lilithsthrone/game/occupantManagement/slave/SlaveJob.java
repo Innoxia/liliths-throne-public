@@ -94,10 +94,6 @@ public enum SlaveJob {
 					SlaveJobFlag.INTERACTION_BONDING,
 					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_CORRIDOR) {
-		@Override
-		public EventLogEntry getHourlyEvent(long hour, NPC slave, List<NPC> otherNPCsPresent) {
-			return new EventLogEntry(Main.game.getDayNumber()-1*24l+hour, "[style.colourDisabled(Nothing)]", "");
-		}
 		
 		@Override
 		public void sendToWorkLocation(int hour, GameCharacter slave) {

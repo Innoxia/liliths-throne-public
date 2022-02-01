@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.CultistDialogue;
@@ -47,7 +48,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.4
+ * @version 0.4.2
  * @author Innoxia
  */
 public class DominionPlaces {
@@ -74,6 +75,11 @@ public class DominionPlaces {
 								?"Nyan lives in this area, and so if you wanted to, you could head over to her apartment building and pay her a visit..."
 								:"Nyan lives in this area, although you know that she'll be at work at this hour, so there's not much point in heading over to her apartment building...")
 						+ "</p>");
+		}
+		
+		if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.DOMINION_CALLIE_BAKERY) {
+			mommySB.append("<p>[style.boldBrown(The Creamy Bakey:)]</p>");
+			mommySB.append(UtilText.parseFromXMLFile("nnxx/callie_bakery", "EXTERIOR"));
 		}
 		
 		for(NPC npc : characters) {
@@ -274,6 +280,35 @@ public class DominionPlaces {
 								+" in order to take Nyan out for a date!",
 							null));
 				}
+			}
+		}
+		
+		if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.DOMINION_CALLIE_BAKERY) {
+			if(Main.game.isWorkTime() && Main.game.getDayOfWeek()!=DayOfWeek.SUNDAY) {
+				mommyResponses.add(new Response("The Creamy Bakey",
+						"Head over to the nearby bakery, 'The Creamy Bakey', and take a look inside."
+								+ "<br/><i>The bakery is open from [style.italicsMinorGood([unit.time(9)]-[unit.time(17)])].</i>",
+						Main.game.getDialogueFlags().hasFlag("nnxx_callie_introduced")
+							?DialogueManager.getDialogueFromId("nnxx_callie_bakery_entry")
+							:DialogueManager.getDialogueFromId("nnxx_callie_bakery_entry_first_time")) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(WorldType.getWorldTypeFromId("nnxx_callie_bakery"), PlaceType.getPlaceTypeFromId("nnxx_callie_bakery_counter"));
+					}
+				});
+				
+			} else {
+				mommyResponses.add(new Response("The Creamy Bakey",
+						"The nearby bakery, 'The Creamy Bakey', is closed at this time of day."
+								+ "<br/><i>You'll have to come back between"
+								+ (Main.game.isWorkTime()
+										?" [style.italicsMinorGood([unit.time(9)]-[unit.time(17)])],"
+										:" [style.italicsMinorBad([unit.time(9)]-[unit.time(17)])],")
+								+ (Main.game.getDayOfWeek()!=DayOfWeek.SUNDAY
+										?" [style.italicsMinorGood(Monday to Saturday)]"
+										:" [style.italicsMinorBad(Monday to Saturday)]")
+								+ ".</i>",
+						null));
 			}
 		}
 		
@@ -649,52 +684,15 @@ public class DominionPlaces {
 	};
 
 	
-	public static final DialogueNode DOMINION_PLAZA = new DialogueNode("Lilith's Plaza", ".", false) {
-
+	public static final DialogueNode DOMINION_PLAZA = new DialogueNode("Lilith's Plaza", "", false) {
 		@Override
 		public int getSecondsPassed() {
 			return 3*60;
 		}
-
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append("<p>"
-						+ "You find yourself standing in the very centre of Dominion, where an expansive public square is situated."
-						+ " Large residential and commercial buildings flank the plaza on each of its four sides; their white marble facades decorated with countless dark-purple flags bearing the black pentagram of Lilith."
-					+ "</p>"
-					+ "<p>"
-						+ "Numerous grandiose statues and extravagantly-detailed water fountains, all carved from polished white marble, reside within this large area."
-						+ " Each one of these sculptures appears to represent a demon or Lilin, and although they're each a marvellous work of art, the one in the very middle of the square is quite simply breathtaking."
-						+ " On top of a plinth of at least [unit.lSizes(3000)] in height, stands a gigantic marble statue of Lilith herself;"
-							+ " with wings fully unfurled, and with her hands resting on her wide hips, she smirks down with a visage of manic delight at the crowds below."
-						+ " Completely naked, every [unit.size] of the effigy's subject is on display for all to see, and you find yourself looking straight up at Lilith's tight pussy as you marvel at the workmanship that went into this astounding piece of art."
-					+ "</p>");
-			
-			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
-							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted plaza."
-							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
-						+ "</p>");
-			} else {
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "Being the central meeting place for Dominion's citizens, this plaza is the busiest location in all of Dominion."
-							+ " Throngs of people, of all different races and appearances, fill the square."
-							+ " Some appear to be simply passing through the area, while others lounge about on the many wooden benches and marble steps at the base of each statue."
-						+ "</p>"
-						+ "<p>"
-							+ "On raised platforms, well-spoken orators address the crowds, relaying news and important announcements to the many citizens who pass by."
-							+ " Pamphlets and newspapers are handed out beside each one of these stands, and you realise that this is the only place where you've seen any form of news being distributed to the population."
-						+ "</p>");
-			}
-			
-			return UtilText.nodeContentSB.toString();
+			return UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "DOMINION_PLAZA");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {

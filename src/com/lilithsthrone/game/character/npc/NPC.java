@@ -22,6 +22,8 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.Litter;
+import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -54,6 +56,14 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.PronounType;
+import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
+import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
+import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
+import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
+import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
+import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
+import com.lilithsthrone.game.character.npc.misc.PrologueMale;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
@@ -142,8 +152,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			NPCGenerationFlag... generationFlags) {
 		super(nameTriplet, surname, description, level,
 				age<MINIMUM_AGE
-					?LocalDateTime.of(Main.game.getStartingDate().getYear()-age, birthMonth, birthDay, 12, 0)
-					:LocalDateTime.of(Main.game.getStartingDate().getYear()-(age-MINIMUM_AGE), birthMonth, birthDay, 12, 0),
+					?LocalDateTime.of(Main.game.getStartingDate().getYear()-age, birthMonth, (birthMonth==Month.FEBRUARY&&birthDay==29?28:birthDay), 12, 0)
+					:LocalDateTime.of(Main.game.getStartingDate().getYear()-(age-MINIMUM_AGE), birthMonth, (birthMonth==Month.FEBRUARY&&birthDay==29?28:birthDay), 12, 0),
 				startingGender, startingSubspecies, stage, inventory, worldLocation, startingPlace);
 		
 		List<NPCGenerationFlag> flags = Arrays.asList(generationFlags);
@@ -415,8 +425,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			// Can also always equip anything onto owned slaves
 			return new Value<>(true, ""); 
 		}
-		if(this.isUnique()) {
-			return new Value<>(false, "As [npc.name] is a unique character, who is not your slave, you cannot force [npc.herHim] to wear the "+clothing.getName()+"!");
+		if(this.isUnique() && !clothing.isCondom(slotToEquipTo)) {
+			return new Value<>(false, "As [npc.name] is a unique character, who is not your slave, you cannot force [npc.herHim] to equip the "+clothing.getName()+"!");
+		}
+		if(Main.game.isInSex() && (Main.sex.isDom(this) || Main.sex.isSubHasEqualControl())) {
+			return new Value<>(false, "[npc.Name] is not interested in equipping the "+clothing.getName()+"!");
 		}
 		return new Value<>(true, "");
 	}
@@ -462,7 +475,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		
 		// Sex:
-		if(this.hasSexCountWith(Main.game.getPlayer())) {
+		if(this.getTotalTimesHadSex(Main.game.getPlayer()) > 0) {
 			
 			if(this.getSexAsDomCount(Main.game.getPlayer())>0) {
 				tileSB.append("<br/>");
@@ -652,13 +665,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 
 	public boolean willBuy(AbstractCoreItem item) {
 		return false;
-	}
-	
-	/**
-	 * Handles any extra effects that need to be taken into account when selling an item to the player.
-	 * @param item
-	 */
-	public void handleSellingEffects(AbstractCoreItem item, int count, int itemPrice) {
 	}
 
 	public float getBuyModifier() {
@@ -893,11 +899,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 * Handles the behaviour when the player escapes from this enemy in combat.
 	 */
 	public void applyEscapeCombatEffects() {
-	};
+	}
 	
 	public Response endCombat(boolean applyEffects, boolean playerVictory) {
 		return null;
-	};
+	}
 
 	/**
 	 * If this character has special scenes which interrupt combat at a certain point, then use this method to add them.
@@ -905,7 +911,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 */
 	public Response interruptCombatSpecialCase() {
 		return null;
-	};
+	}
 	
 	/**
 	 * @return The chance of enemies managing to escape from this NPC. Defined as an int from 0-100, representing percentage.
@@ -1024,8 +1030,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 
 	/**
 	 * By default, NPCs can't be impregnated.
-	 * 
-	 * @return
 	 */
 	@Override
 	public boolean isAbleToBeImpregnated() {
@@ -1038,6 +1042,67 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	@Override
 	public boolean isAbleToBeEgged() {
 		return !this.isUnique() || (this.isSlave() && this.getOwner().isPlayer());
+	}
+
+	public boolean isReadyToBeDeleted() {
+		if (this.isUnique()
+		 	|| this instanceof Elemental
+			|| this instanceof ReindeerOverseer
+			|| this instanceof GenericFemaleNPC
+			|| this instanceof GenericMaleNPC
+			|| this instanceof GenericAndrogynousNPC
+			|| this instanceof PrologueFemale
+			|| this instanceof PrologueMale
+			|| this	instanceof NPCOffspring) {
+			return false;
+		}
+
+		for(Litter litter : this.getIncubatingLitters().values()) {
+			if((litter.getMother()!=null && litter.getMother().isPlayer()) || (litter.getFather()!=null && litter.getFather().isPlayer())) {
+				return false;
+			}
+		}
+
+		for(Litter litter : Main.game.getPlayer().getIncubatingLitters().values()) {
+			if((litter.getMother()!=null && litter.getMother().equals(this)) || (litter.getFather()!=null && litter.getFather().equals(this))) {
+				return false;
+			}
+		}
+
+		if((this.getPregnantLitter()!=null && this.getPregnantLitter().getFather()!=null && this.getPregnantLitter().getFather().isPlayer()) // NPC needs to birth litter where player is father
+			|| (Main.game.getPlayer().getPregnantLitter()!=null && Main.game.getPlayer().getPregnantLitter().getFather()!=null && Main.game.getPlayer().getPregnantLitter().getFather().equals(this))) { // player needs to birth litter where NPC is father
+			return false;
+		}
+
+		for (PregnancyPossibility possibility : this.getPotentialPartnersAsMother()) {
+			if(possibility.getMother()!=null && possibility.getMother().isPlayer()
+				|| possibility.getFather()!=null && possibility.getFather().isPlayer()) {
+				return false;
+			}
+		}
+
+		for (PregnancyPossibility possibility : this.getPotentialPartnersAsFather()) {
+			if(possibility.getMother()!=null && possibility.getMother().isPlayer()
+				|| possibility.getFather()!=null && possibility.getFather().isPlayer()) {
+				return false;
+			}
+		}
+
+		for (PregnancyPossibility possibility : Main.game.getPlayer().getPotentialPartnersAsMother()) {
+			if(possibility.getMother()!=null && possibility.getMother().equals(this)
+				|| possibility.getFather()!=null && possibility.getFather().equals(this)) {
+				return false;
+			}
+		}
+
+		for (PregnancyPossibility possibility : Main.game.getPlayer().getPotentialPartnersAsFather()) {
+			if(possibility.getMother()!=null && possibility.getMother().equals(this)
+				|| possibility.getFather()!=null && possibility.getFather().equals(this)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public boolean hasFlag(NPCFlagValue flag) {
@@ -1121,7 +1186,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			boolean vaginaUrethraVirgin = this.isVaginaUrethraVirgin();
 			
 			BodyMaterial material = this.getBodyMaterial();
-			this.setBody(this.getGenderIdentity(), this.getFleshSubspecies(), this.getBody().getRaceStageFromPartWeighting(), false);
+			this.setBody(this.getGenderIdentity(), this.getBody().getFleshSubspecies(), this.getBody().getRaceStageFromPartWeighting(), false);
 			this.setBodyMaterial(material);
 			Main.game.getCharacterUtils().randomiseBody(this, false);
 			
@@ -1134,7 +1199,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			this.setVaginaUrethraVirgin(vaginaUrethraVirgin);
 			
 		} else {
-			AbstractRacialBody racialBody = RacialBody.valueOfRace(this.getFleshSubspecies().getRace());
+			AbstractRacialBody racialBody = RacialBody.valueOfRace(this.getBody().getFleshSubspecies().getRace());
 			if(this.getGenderIdentity().getType()==PronounType.FEMININE) {
 				this.setFemininity(racialBody.getFemaleFemininity());
 				
@@ -1184,6 +1249,18 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		this.lastTimeEncountered = minutesPassed;
 	}
 
+	@Override
+	public void setPlayerKnowsName(boolean playerKnowsName) {
+		super.setPlayerKnowsName(playerKnowsName);
+		if(isAddedToContacts()
+	            && playerKnowsName
+	            && Main.game.isStarted()
+	            && Main.game.getPlayer()!=null
+	            && !Main.game.getPlayer().getCharactersEncountered().contains(this.getId())) {
+	            Main.game.getPlayer().addCharacterEncountered(this);
+	        }
+	}
+	
 	public boolean isAddedToContacts() {
 		return addedToContacts;
 	}
@@ -1281,7 +1358,30 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			body = Main.game.getCharacterUtils().generateBody(null, this.getGenderPreference(), target.getSubspecies(), target.getRaceStage());
 			
 		} else {
-			body = Main.game.getCharacterUtils().generateBody(null, this.getGenderPreference(), this.getSubspeciesPreference(), this.getRaceStagePreference());
+			RaceStage targetedRaceStage = this.getRaceStagePreference();
+			// Make sure that the generated body preference is respecting the player's content settings.
+			// Otherwise, NPC's potion will attempt to apply changes as though the end body would be a greater stage than allowed.
+				// e.g. Removing hair thinking that the player will end up greater, while preferences were set to less than greater.
+			switch(Main.getProperties().getForcedTFPreference()) {
+				case HUMAN:
+					targetedRaceStage = RaceStage.HUMAN;
+					break;
+				case MINIMUM:
+					if(targetedRaceStage!=RaceStage.HUMAN) {
+						targetedRaceStage = RaceStage.PARTIAL_FULL;
+					}
+					break;
+				case REDUCED:
+					if(targetedRaceStage!=RaceStage.HUMAN && targetedRaceStage!=RaceStage.PARTIAL_FULL) {
+						targetedRaceStage = RaceStage.LESSER;
+					}
+					break;
+				case NORMAL:
+				case MAXIMUM:
+					break;
+			}
+			
+			body = Main.game.getCharacterUtils().generateBody(null, this.getGenderPreference(), this.getSubspeciesPreference(), targetedRaceStage);
 		}
 		Util.random = new Random();
 
@@ -1428,10 +1528,15 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							"Your arms could do with a change!"));
 					}
 					// TODO: Add separate chunks for LegConfiguration and LegType if more races have multiple leg types
-					if(target.getLegType() != body.getLeg().getType() || target.getLegConfiguration() != body.getLeg().getLegConfiguration()) {
+					if(target.getLegType() != body.getLeg().getType()) {
+						possibleEffects.add(new PossibleItemEffect(
+							new ItemEffect(getItemEnchantmentEffect(itemType, body.getLeg()), TFModifier.TF_LEGS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+							"Your legs need changing as well!"));
+					}
+					if(target.getLegConfiguration() != body.getLeg().getLegConfiguration()) {
 						possibleEffects.add(new PossibleItemEffect(
 							new ItemEffect(getItemEnchantmentEffect(itemType, body.getLeg()), TFModifier.TF_LEGS, body.getLeg().getLegConfiguration().getTFModifier(), TFPotency.MINOR_BOOST, 1),
-							"I'm sure you'll love getting some new legs!"));
+							"I want you with "+UtilText.generateSingularDeterminer(body.getLeg().getLegConfiguration().getName())+" "+body.getLeg().getLegConfiguration().getName()+" body!"));
 					}
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); } // Apply arms & legs at the same time
 				}
@@ -1663,15 +1768,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		// Hair length:
 		// Same as with breast size, since target hair size might be 0cm (= no hair) and steps reduced to 5cm from 15cm.
+		boolean majorChange = Math.abs(target.getHairRawLengthValue() - body.getHair().getRawLengthValue()) > 15;
 		if(target.getHairRawLengthValue() + 6 < body.getHair().getRawLengthValue()) {
 			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, majorChange?TFPotency.MAJOR_BOOST:TFPotency.BOOST, 1),
 				"Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural(target)?"are":"is")+" too short!"));
 			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 			
 		} else if(target.getHairRawLengthValue() > body.getHair().getRawLengthValue()) {
 			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, majorChange?TFPotency.MAJOR_DRAIN:TFPotency.DRAIN, 1),
 				"Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural(target)?"are":"is")+" too long!"));
 			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 		}
@@ -2060,7 +2166,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		pairedFetishMap.put(Fetish.FETISH_BREASTS_OTHERS, Fetish.FETISH_BREASTS_SELF);
 		pairedFetishMap.put(Fetish.FETISH_ORAL_RECEIVING, Fetish.FETISH_ORAL_GIVING);
 		pairedFetishMap.put(Fetish.FETISH_LEG_LOVER, Fetish.FETISH_STRUTTER);
-		
+		pairedFetishMap.put(Fetish.FETISH_ARMPIT_GIVING, Fetish.FETISH_ARMPIT_RECEIVING);
+
+		pairedFetishMap.put(Fetish.FETISH_BONDAGE_APPLIER, Fetish.FETISH_BONDAGE_VICTIM);
 		pairedFetishMap.put(Fetish.FETISH_DOMINANT, Fetish.FETISH_SUBMISSIVE);
 		pairedFetishMap.put(Fetish.FETISH_CUM_STUD, Fetish.FETISH_CUM_ADDICT);
 //		pairedFetishMap.put(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_PURE_VIRGIN); // Do not give deflowering if pure virgin fetish...
@@ -2474,7 +2582,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_BREASTS_SELF, "Wouldn't you love to put your breasts to good use?");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_BREASTS_SELF, "You're way too into your breasts.");
 		
-		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_ORAL_GIVING, "That beautiful mouth of yours is about to get a lot more use");
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_ORAL_GIVING, "That beautiful mouth of yours is about to get a lot more use.");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_ORAL_GIVING, "You don't really need to suck every cock you come across, do you?");
 		
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_ORAL_RECEIVING, "Don't you just love getting head?");
@@ -2489,8 +2597,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_LEG_LOVER, "A nice pair of stems makes all the difference, right?");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_LEG_LOVER, "Maybe focus a bit more on what's above the waist -- or at least around the hips?");
 		
-		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_STRUTTER, "You've got legs that don't quit -- you really ought to use them");
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_STRUTTER, "You've got legs that don't quit -- you really ought to use them.");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_STRUTTER, "Maybe focus a bit more on what's above your waist -- or at least around the hips?");
+
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_ARMPIT_RECEIVING, "You're going to want to have your armpits used all the time.");
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_ARMPIT_RECEIVING, "Forget about using your armpits.");
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_ARMPIT_GIVING, "Armpits are far better than ass, pussy, or cock. At least, that's what you're going to think.");
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_ARMPIT_GIVING, "You don't need to be so obsessed with armpits.");
 		
 		// Behavioral
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_DOMINANT, "Don't you think you deserve to be the one in charge?");
@@ -2532,14 +2646,20 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_DENIAL, "The only thing better than coming is telling your partner they can't, right?");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_DENIAL, "If they're willing to fuck you, at least let them come once in a while.");
 		
-		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_DENIAL_SELF, "Where's the fun in coming right away? Wouldn't you rather savor the experience?");
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_DENIAL_SELF, "Where's the fun in coming right away? Wouldn't you rather savour the experience?");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_DENIAL_SELF, "What's the point if you aren't getting off?");
 		
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_VOYEURIST, "Sometimes it's just fun to watch, isn't it?");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_VOYEURIST, "Privacy is a thing worth respecting.");
 		
-		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_EXHIBITIONIST, "You've got it -- you should flaunt it");
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_EXHIBITIONIST, "You've got it -- you should flaunt it.");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_EXHIBITIONIST, "Not everyone wants to see what you've got to offer.");
+
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_BONDAGE_APPLIER, "It's fun to see others tied up and at your mercy, isn't it?");
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_BONDAGE_APPLIER, "Not everybody likes to be tied up, you know.");
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_BONDAGE_VICTIM, "You're going to want nothing more than to be locked up and have the key thrown away.");
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_BONDAGE_VICTIM, "Things are a lot more fun if you're able to move.");
 		
 		// Behavioral unpaired
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_BIMBO, "I think it's time you embraced your inner braindead slut.");
@@ -2841,9 +2961,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		return null;
 	}
+
+	/**
+	 * Generic version of getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest)
+	 */
+	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter) {
+		return getSexBehaviourDeniesRequests(requestingCharacter, null);
+	}
 	
 	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest) {
-		if(requestingCharacter.hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)) {
+		if(requestingCharacter.hasTraitActivated(Perk.CONVINCING_REQUESTS)) {
 			return false;
 		}
 		
@@ -2853,7 +2980,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			return true;
 		}
 		
-		int weight = calculateSexTypeWeighting(sexTypeRequest, requestingCharacter, null);
+		int weight = 0;
+		if(sexTypeRequest!=null) {
+			weight = calculateSexTypeWeighting(sexTypeRequest, requestingCharacter, null);
+		}
 		
 		return weight<0 || this.hasFetish(Fetish.FETISH_SADIST);
 	}

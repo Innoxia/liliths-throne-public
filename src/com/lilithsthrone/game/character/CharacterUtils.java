@@ -20,6 +20,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.lilithsthrone.game.character.fetishes.FetishPreference;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -133,8 +134,8 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.67
- * @version 0.3.4.5
- * @author Innoxia, tukaima
+ * @version 0.4.2
+ * @author Innoxia, tukaima, Maxis
  */
 public class CharacterUtils {
 	
@@ -971,11 +972,15 @@ public class CharacterUtils {
 	}
 
 	public Body generateHalfDemonBody(GameCharacter linkedCharacter, Gender startingGender, AbstractSubspecies halfSubspecies, boolean applyHalfDemonAttributeChanges) {
+		return generateHalfDemonBody(linkedCharacter, startingGender, halfSubspecies, applyHalfDemonAttributeChanges, null);
+	}
+	
+	public Body generateHalfDemonBody(GameCharacter linkedCharacter, Gender startingGender, AbstractSubspecies halfSubspecies, boolean applyHalfDemonAttributeChanges, RaceStage overrideStage) {
 //		Gender startingGender;
 		if(startingGender==null) {
 			startingGender = Math.random()>0.5f?Gender.F_V_B_FEMALE:Gender.M_P_MALE;
 		}
-		RaceStage stage = getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(halfSubspecies), startingGender, halfSubspecies);
+		RaceStage stage = overrideStage!=null?overrideStage:getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(halfSubspecies), startingGender, halfSubspecies);
 		AbstractRacialBody demonBody = RacialBody.DEMON;
 		
 		if(linkedCharacter!=null) {
@@ -1070,7 +1075,8 @@ public class CharacterUtils {
 		if(halfSubspecies==Subspecies.HUMAN) {
 			body.setHair(new Hair(HairType.DEMON,
 					(startingGender.isFeminine() ? demonBody.getFemaleHairLength() : demonBody.getMaleHairLength()),
-					HairStyle.getRandomHairStyle(body.isFeminine(), (startingGender.isFeminine() ? demonBody.getFemaleHairLength() : demonBody.getMaleHairLength()))));
+					HairStyle.getRandomHairStyle(body.isFeminine(), (startingGender.isFeminine() ? demonBody.getFemaleHairLength() : demonBody.getMaleHairLength())),
+					stage));
 		}
 		
 		body.setHorn(new Horn(demonBody.getRandomHornType(false),
@@ -1251,7 +1257,8 @@ public class CharacterUtils {
 							:(startingGender.isFeminine()
 								? startingBodyType.getFemaleHairLength()
 								: startingBodyType.getMaleHairLength())),
-						HairStyle.getRandomHairStyle(startingGender.isFeminine(), (startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()))),
+						HairStyle.getRandomHairStyle(startingGender.isFeminine(), (startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())),
+						stage),
 				new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN, startingBodyType.getLegConfiguration()),
 				new Torso(stage.isSkinFurry()?startingBodyType.getTorsoType():TorsoType.HUMAN),
 						startingBodyType.getBodyMaterial(),
@@ -1260,27 +1267,23 @@ public class CharacterUtils {
 						startingGender.getType()==PronounType.NEUTRAL?50:(startingGender.isFeminine() ? startingBodyType.getFemaleFemininity() : startingBodyType.getMaleFemininity()),
 						(startingGender.isFeminine() ? startingBodyType.getFemaleBodySize() : startingBodyType.getMaleBodySize()),
 						(startingGender.isFeminine() ? startingBodyType.getFemaleMuscle() : startingBodyType.getMaleMuscle()))
-				.vagina(hasVagina
-						? new Vagina(stage.isVaginaFurry()?startingBodyType.getVaginaType():VaginaType.HUMAN,
-								LabiaSize.getRandomLabiaSize().getValue(),
-								startingBodyType.getClitSize(),
-								startingBodyType.getClitGirth(),
-								startingBodyType.getVaginaWetness(),
-								startingBodyType.getVaginaCapacity(),
-								startingBodyType.getVaginaDepth(),
-								startingBodyType.getVaginaElasticity(),
-								startingBodyType.getVaginaPlasticity(),
-								true)
-						: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 0, 2, 3, 3, true))
-				.penis(hasPenis
-						? new Penis(stage.isPenisFurry()?startingBodyType.getPenisType():PenisType.HUMAN,
-							startingBodyType.getPenisSize(),
-							true,
-							startingBodyType.getPenisGirth(),
-							startingBodyType.getTesticleSize(),
-							startingBodyType.getCumProduction(),
-							startingBodyType.getTesticleQuantity())
-						: new Penis(PenisType.NONE, 0, false, 0, 0, 0, 2))
+				.vagina(new Vagina(hasVagina?stage.isVaginaFurry()?startingBodyType.getVaginaType():VaginaType.HUMAN:VaginaType.NONE,
+						LabiaSize.getRandomLabiaSize().getValue(),
+						startingBodyType.getClitSize(),
+						startingBodyType.getClitGirth(),
+						startingBodyType.getVaginaWetness(),
+						startingBodyType.getVaginaCapacity(),
+						startingBodyType.getVaginaDepth(),
+						startingBodyType.getVaginaElasticity(),
+						startingBodyType.getVaginaPlasticity(),
+						true))
+				.penis(new Penis(hasPenis?stage.isPenisFurry()?startingBodyType.getPenisType():PenisType.HUMAN:PenisType.NONE,
+						startingBodyType.getPenisSize(),
+						true,
+						startingBodyType.getPenisGirth(),
+						startingBodyType.getTesticleSize(),
+						startingBodyType.getCumProduction(),
+						startingBodyType.getTesticleQuantity()))
 				.horn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())))
 				.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getRandomrAntennaType(false):AntennaType.NONE, (startingGender.isFeminine() ? startingBodyType.getFemaleAntennaLength() : startingBodyType.getMaleAntennaLength())))
 				.tail(new Tail(stage.isTailFurry()?startingBodyType.getRandomTailType(false):TailType.NONE))
@@ -1341,6 +1344,9 @@ public class CharacterUtils {
 		return body;
 	}
 	
+	/**
+	 * If you are wanting to change a newly-spawned NPC's body, then <b>you should consider using GameCharacter.setBody() instead</b>, as that method can also apply personality changes.
+	 */
 	public Body reassignBody(GameCharacter linkedCharacter, Body body, Gender startingGender, AbstractSubspecies species, RaceStage stage, boolean removeDemonOverride) {
 		
 		if(removeDemonOverride) {
@@ -1418,7 +1424,8 @@ public class CharacterUtils {
 						:(startingGender.isFeminine()
 							? startingBodyType.getFemaleHairLength()
 							: startingBodyType.getMaleHairLength())),
-					HairStyle.getRandomHairStyle(startingGender.isFeminine(), (startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()))));
+					HairStyle.getRandomHairStyle(startingGender.isFeminine(), (startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())),
+					stage));
 		
 		body.setLeg(new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN, startingBodyType.getLegConfiguration()));
 		
@@ -1818,7 +1825,7 @@ public class CharacterUtils {
 		String adjective = Util.randomItemFrom(characterAdjectives);
 		
 		if(baseName==null || baseName.isEmpty()) {
-			character.setGenericName(adjective+" "+character.getSubspecies().getName(character));
+			character.setGenericName(adjective+" "+character.getSubspecies().getName(character.getBody()));
 		} else {
 			character.setGenericName(adjective+" "+baseName);
 		}
@@ -1870,6 +1877,13 @@ public class CharacterUtils {
 			}
 		}
 		
+		// Body parts:
+		
+		// Randomise skin colour if not greater:
+		if(character.getRaceStage()!=RaceStage.GREATER && character.getRaceStage()!=RaceStage.FERAL) {
+			character.setSkinCovering(BodyCoveringType.HUMAN, Util.randomItemFrom(BodyCoveringType.HUMAN.getNaturalColoursPrimary()), true);
+		}
+		
 		// Ass:
 		if(character.hasFetish(Fetish.FETISH_ANAL_RECEIVING) || character.getHistory()==Occupation.NPC_PROSTITUTE) {
 			character.setAssVirgin(false);
@@ -1899,15 +1913,15 @@ public class CharacterUtils {
 		
 		switch(character.getFemininity()) { // Do not move out of masculine/feminine/androgynous zones:
 			case ANDROGYNOUS:
-				character.incrementFemininity(Math.max(Femininity.ANDROGYNOUS.getMinimumFemininity(), Math.min(Femininity.ANDROGYNOUS.getMaximumFemininity(), character.getFemininityValue()+femininityVariation)));
+				character.setFemininity(Math.max(Femininity.ANDROGYNOUS.getMinimumFemininity(), Math.min(Femininity.ANDROGYNOUS.getMaximumFemininity(), character.getFemininityValue()+femininityVariation)));
 				break;
 			case FEMININE:
 			case FEMININE_STRONG:
-				character.incrementFemininity(Math.max(Femininity.FEMININE.getMinimumFemininity(), character.getFemininityValue()+femininityVariation));
+				character.setFemininity(Math.max(Femininity.FEMININE.getMinimumFemininity(), character.getFemininityValue()+femininityVariation));
 				break;
 			case MASCULINE:
 			case MASCULINE_STRONG:
-				character.incrementFemininity(Math.min(Femininity.MASCULINE.getMaximumFemininity(), character.getFemininityValue()+femininityVariation));
+				character.setFemininity(Math.min(Femininity.MASCULINE.getMaximumFemininity(), character.getFemininityValue()+femininityVariation));
 				break;
 		}
 		
@@ -2403,46 +2417,66 @@ public class CharacterUtils {
 		List<Fetish> allowedFetishes = new ArrayList<>();
 		
 		for(Fetish f : Fetish.values()) {
-			if (f==Fetish.FETISH_PURE_VIRGIN) {
-				if(character.hasVagina() && (character.getHistory()==Occupation.NPC_PROSTITUTE?Math.random()<=0.25f:true)) // 25% chance for prostitutes, as when drawn from amongst all the other fetishes, the actual chance will be much lower.
-					allowedFetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_BIMBO) {
-				if(character.isFeminine())
-					allowedFetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_PREGNANCY || f==Fetish.FETISH_VAGINAL_RECEIVING) {
-				if(character.hasVagina())
-					allowedFetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_IMPREGNATION) {
-				if(character.hasPenis() && character.sexualOrientation!=SexualOrientation.ANDROPHILIC)
-					allowedFetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_CUM_STUD || f==Fetish.FETISH_PENIS_GIVING) {
-				if(character.hasPenis())
-					allowedFetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_BREASTS_SELF) {
-				if(character.hasBreasts())
-					allowedFetishes.add(f);
-				
-			// Fetishes for content locks:
-			} else if (f==Fetish.FETISH_NON_CON_DOM || f==Fetish.FETISH_NON_CON_SUB) {
-				if(Main.game.isNonConEnabled()) {
-					allowedFetishes.add(f);
-				}
-				
-			} else if (f==Fetish.FETISH_INCEST) {
-				if(Main.getProperties().hasValue(PropertyValue.incestContent))
-					allowedFetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_LACTATION_OTHERS || f==Fetish.FETISH_LACTATION_SELF) {
-				if(Main.game.isLactationContentEnabled())
-					allowedFetishes.add(f);
-				
-			} else if (f.getFetishesForAutomaticUnlock().isEmpty()){
-				allowedFetishes.add(f);
+			switch(f) {
+				case FETISH_PURE_VIRGIN:
+					if(character.hasVagina()&&(character.getHistory()!=Occupation.NPC_PROSTITUTE||Math.random()<=0.25f))
+						allowedFetishes.add(f);
+					break;
+				case FETISH_PREGNANCY:
+				case FETISH_VAGINAL_RECEIVING:
+					if(character.hasVagina())
+						allowedFetishes.add(f);
+					break;
+				case FETISH_IMPREGNATION:
+					if(character.hasPenis() && character.sexualOrientation!=SexualOrientation.ANDROPHILIC)
+						allowedFetishes.add(f);
+					break;
+				case FETISH_CUM_STUD:
+				case FETISH_PENIS_GIVING:
+					if(character.hasPenis())
+						allowedFetishes.add(f);
+					break;
+				case FETISH_BREASTS_SELF:
+					if(character.hasBreasts())
+						allowedFetishes.add(f);
+					break;
+				case FETISH_NON_CON_DOM:
+				case FETISH_NON_CON_SUB:
+					if(Main.game.isNonConEnabled())
+						allowedFetishes.add(f);
+					break;
+				case FETISH_INCEST:
+					if(Main.game.isIncestEnabled())
+						allowedFetishes.add(f);
+					break;
+				case FETISH_LACTATION_OTHERS:
+				case FETISH_LACTATION_SELF:
+					if(Main.game.isLactationContentEnabled())
+						allowedFetishes.add(f);
+					break;
+				case FETISH_ANAL_GIVING:
+				case FETISH_ANAL_RECEIVING:
+					if(Main.game.isAnalContentEnabled())
+						allowedFetishes.add(f);
+					break;
+				case FETISH_FOOT_GIVING:
+				case FETISH_FOOT_RECEIVING:
+					if(Main.game.isFootContentEnabled())
+						allowedFetishes.add(f);
+					break;
+				case FETISH_SIZE_QUEEN:
+					if(Main.game.isPenetrationLimitationsEnabled())
+						allowedFetishes.add(f);
+					break;
+				case FETISH_ARMPIT_GIVING:
+				case FETISH_ARMPIT_RECEIVING:
+					if(Main.game.isArmpitContentEnabled())
+						allowedFetishes.add(f);
+					break;
+				default:
+					if (f.getFetishesForAutomaticUnlock().isEmpty())
+						allowedFetishes.add(f);
+					break;
 			}
 		}
 		
@@ -2486,40 +2520,25 @@ public class CharacterUtils {
 			availableFetishes.remove(Fetish.FETISH_KINK_GIVING);
 		}
 		
-		if(character.getRace()==Race.COW_MORPH && availableFetishes.contains(Fetish.FETISH_BREASTS_SELF)) {
-			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
-			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
-			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
-			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
-			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
+		Map<Fetish, Integer> fetishMap = new HashMap<>();
+		Map<Fetish, Map<String, Integer>> raceModifiers = character.getRace().getRacialFetishModifiers();
+		for(Fetish fetish : availableFetishes) {
+			int weight = 0;
+			if(raceModifiers.containsKey(fetish)) {
+				// Racial modifier acts as a multiplier so fetishes can be disabled by race or player preferences
+				weight = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLove() * raceModifiers.get(fetish).getOrDefault("love", 1);
+			} else {
+				weight = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLove();
+			}
+			if(weight!=0) {
+				fetishMap.put(fetish, weight);
+			}
 		}
-		
-		if(!Main.getProperties().hasValue(PropertyValue.analContent)) {
-			availableFetishes.remove(Fetish.FETISH_ANAL_GIVING);
-			availableFetishes.remove(Fetish.FETISH_ANAL_RECEIVING);
-		}
-
-		if(!Main.game.isPenetrationLimitationsEnabled()) {
-			availableFetishes.remove(Fetish.FETISH_SIZE_QUEEN);
-		}
-		
-		if(!Main.getProperties().hasValue(PropertyValue.footContent)) {
-			availableFetishes.remove(Fetish.FETISH_FOOT_GIVING);
-			availableFetishes.remove(Fetish.FETISH_FOOT_RECEIVING);
-		}
-		
-		while(fetishesAssigned < numberOfFetishes && !availableFetishes.isEmpty()) {
-			Fetish f = Util.randomItemFrom(availableFetishes);
+		while(fetishesAssigned < numberOfFetishes && !fetishMap.isEmpty()) {
+			Fetish f = Util.getRandomObjectFromWeightedMap(fetishMap);
 			character.addFetish(f);
-			while(availableFetishes.remove(f)) {}
+			fetishMap.remove(f);
 			fetishesAssigned++;
-		}
-		
-		if(character.getRace()==Race.RABBIT_MORPH && Math.random()<0.8f && character.hasVagina()) {
-			character.addFetish(Fetish.FETISH_PREGNANCY);
-		}
-		if(character.getRace()==Race.RABBIT_MORPH && Math.random()<0.8f && character.hasPenis()) {
-			character.addFetish(Fetish.FETISH_IMPREGNATION);
 		}
 		
 		generateDesires(character);
@@ -2529,7 +2548,6 @@ public class CharacterUtils {
 		
 		List<Fetish> availableFetishes = getAllowedFetishes(character);
 		availableFetishes.removeAll(character.getFetishes(false));
-		availableFetishes.removeIf((f) -> !f.getFetishesForAutomaticUnlock().isEmpty()); //Do not allow derived fetishes
 		for(Fetish f : character.getFetishes(false)) {
 			switch(f) {
 				default:
@@ -2544,16 +2562,6 @@ public class CharacterUtils {
 			}
 		}
 
-		if(!Main.getProperties().hasValue(PropertyValue.analContent)) {
-			availableFetishes.remove(Fetish.FETISH_ANAL_GIVING);
-			availableFetishes.remove(Fetish.FETISH_ANAL_RECEIVING);
-		}
-
-		if(!Main.getProperties().hasValue(PropertyValue.footContent)) {
-			availableFetishes.remove(Fetish.FETISH_FOOT_GIVING);
-			availableFetishes.remove(Fetish.FETISH_FOOT_RECEIVING);
-		}
-		
 		// Desires:
 		int[] posDesireProb = new int[] {1, 1, 2, 2, 2, 3, 3};
 		int[] negDesireProb = new int[] {3, 3, 4, 4, 4, 5, 5};
@@ -2562,21 +2570,29 @@ public class CharacterUtils {
 		
 		int desiresAssigned = 0;
 		List<Fetish> fetishesLiked = new ArrayList<>(character.getFetishes(false));
-		while(desiresAssigned < numberOfPositiveDesires && !availableFetishes.isEmpty()) {
-			Fetish f = Util.randomItemFrom(availableFetishes);
+		
+		Map<Fetish, Integer> desireMap = new HashMap<>();
+		Map<Fetish, Map<String, Integer>> raceModifiers = character.getRace().getRacialFetishModifiers();
+		for(Fetish fetish : availableFetishes) {
+			int weight = 0;
+			if(raceModifiers.containsKey(fetish)) {
+				// Racial modifier acts as a multiplier so fetishes can be disabled by race or player preferences
+				weight = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLike() * raceModifiers.get(fetish).getOrDefault("like", 1);
+			} else {
+				weight = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLike();
+			}
+			if(weight!=0) {
+				desireMap.put(fetish, weight);
+			}
+		}
+		while(desiresAssigned < numberOfPositiveDesires && !desireMap.isEmpty()) {
+			Fetish f = Util.getRandomObjectFromWeightedMap(desireMap);
 			character.setFetishDesire(f, FetishDesire.THREE_LIKE);
 			availableFetishes.remove(f);
+			desireMap.remove(f);
 			fetishesLiked.add(f);
 			desiresAssigned++;
 		}
-		
-		if(character.getRace()==Race.RABBIT_MORPH && Math.random()<0.8f && character.hasVagina() && availableFetishes.contains(Fetish.FETISH_PREGNANCY)) {
-			character.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.THREE_LIKE);
-		}
-		if(character.getRace()==Race.RABBIT_MORPH && Math.random()<0.8f && character.hasPenis() && availableFetishes.contains(Fetish.FETISH_IMPREGNATION)) {
-			character.setFetishDesire(Fetish.FETISH_IMPREGNATION, FetishDesire.THREE_LIKE);
-		}
-		
 		
 		// Disliked fetishes:
 		// Related fetishes cannot be liked and disliked at the same time:
@@ -2617,31 +2633,51 @@ public class CharacterUtils {
 			availableFetishes.remove(Fetish.FETISH_VAGINAL_GIVING);
 			availableFetishes.remove(Fetish.FETISH_BREASTS_OTHERS);
 		}
-		if(character.getRace()==Race.RABBIT_MORPH) {
-			availableFetishes.remove(Fetish.FETISH_PREGNANCY);
-			availableFetishes.remove(Fetish.FETISH_IMPREGNATION);
-		}
 		
 		// Remove 'natural' fetish dislikes:
 		availableFetishes.remove(Fetish.FETISH_CUM_STUD);
 		availableFetishes.remove(Fetish.FETISH_PENIS_GIVING);
 		availableFetishes.remove(Fetish.FETISH_VAGINAL_RECEIVING);
 		
-		while(desiresAssigned < numberOfNegativeDesires && !availableFetishes.isEmpty()) {
-			Fetish f = Util.randomItemFrom(availableFetishes);
-			character.setFetishDesire(f, Math.random()>0.5?FetishDesire.ONE_DISLIKE:FetishDesire.ZERO_HATE);
+		Map<Fetish, Integer> negativeMap = new HashMap<>();
+		for(Fetish fetish : availableFetishes) {
+			int weight = 0;
+			FetishPreference fp = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish));
+			if(raceModifiers.containsKey(fetish)) {
+				// Racial modifier acts as a multiplier so fetishes can be disabled by race or player preferences
+				weight = fp.getDislike() * raceModifiers.get(fetish).getOrDefault("dislike", 1);
+				weight += fp.getHate() * raceModifiers.get(fetish).getOrDefault("hate", 1);
+			} else {
+				weight = fp.getDislike() + fp.getHate();
+			}
+			if(weight!=0) {
+				negativeMap.put(fetish, weight);
+			}
+		}
+		while(desiresAssigned < numberOfNegativeDesires && !negativeMap.isEmpty()) {
+			Fetish f = Util.getRandomObjectFromWeightedMap(negativeMap);
+			int rnd = Util.random.nextInt(negativeMap.get(f))+1;
+			int weight = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(f)).getHate();
+			if(raceModifiers.containsKey(f)) {
+				weight *= raceModifiers.get(f).getOrDefault("hate", 1);
+			}
+			character.setFetishDesire(f, rnd>weight?FetishDesire.ONE_DISLIKE:FetishDesire.ZERO_HATE);
 			if(f == Fetish.FETISH_DOMINANT) {
-				availableFetishes.remove(Fetish.FETISH_SUBMISSIVE);
+				negativeMap.remove(Fetish.FETISH_SUBMISSIVE);
 			}
 			if(f == Fetish.FETISH_SUBMISSIVE) {
-				availableFetishes.remove(Fetish.FETISH_DOMINANT);
+				negativeMap.remove(Fetish.FETISH_DOMINANT);
 			}
-			availableFetishes.remove(f);
+			negativeMap.remove(f);
 			desiresAssigned++;
 		}
 	}
 	
 
+	public void equipClothingFromOutfitId(GameCharacter character, String outfitId) {
+        equipClothingFromOutfit(character, OutfitType.getOutfitTypeFromId(outfitId), EquipClothingSetting.getAllClothingSettings());
+    }
+	
 	public void equipClothingFromOutfitFolderId(GameCharacter character, OutfitType outfitType, String folderId, List<EquipClothingSetting> settings) {
 		equipClothingFromOutfits(character, OutfitType.getOutfitsFromIdStart(folderId), outfitType, settings);
 	}
@@ -2892,6 +2928,10 @@ public class CharacterUtils {
 	}
 	
 	public void applyMakeup(GameCharacter character, boolean overrideExistingMakeup) {
+		if(!character.getBodyMaterial().isAbleToWearMakeup()) {
+			return;
+		}
+
 		if((character.isFeminine() && !character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) || (!character.isFeminine() && character.hasFetish(Fetish.FETISH_CROSS_DRESSER))) {
 			List<Colour> colours = Util.newArrayListOfValues(
 					PresetColour.COVERING_NONE,

@@ -117,7 +117,15 @@ public class DominionEncounterDialogue {
 	};
 
 
-	public static final DialogueNode DOMINION_STREET_PILL_HANDOUT = new DialogueNode("Mother's Week Gift", "", true) {
+	public static final DialogueNode DOMINION_STREET_PILL_HANDOUT = new DialogueNode("", "", true) {
+		@Override
+		public String getLabel() {
+			if(Main.game.getDateNow().getMonth()==Month.MAY) {
+				return "Mother's Week Gift";
+			} else {
+				return "Father's Week Gift";
+			}
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;

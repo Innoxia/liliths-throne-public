@@ -70,6 +70,8 @@ public class EnchantingUtils {
 		craftedClothing.setName(EnchantmentDialogue.getOutputName());
 		
 		craftedClothing.setEnchantmentKnown(null, true);
+		
+		craftedClothing.setStickers(((AbstractClothing)ingredient).getStickers());
 
 //		System.out.println("Has clothing: "+Main.game.getPlayer().hasClothing(craftedClothing));
 //		for(char c : EnchantmentDialogue.getOutputName().toCharArray()) {
@@ -199,8 +201,16 @@ public class EnchantingUtils {
 		return freePrimaryModifiers.contains(effect.getPrimaryModifier())
 				|| freeSecondaryModifiers.contains(effect.getSecondaryModifier());
 	}
+
+	private static boolean isEffectFreeForBondageApplier(ItemEffect effect) {
+		return Main.game.getPlayer().hasFetish(Fetish.FETISH_BONDAGE_APPLIER)
+				&& (effect.getSecondaryModifier()==TFModifier.CLOTHING_SEALING || effect.getSecondaryModifier()==TFModifier.CLOTHING_ENSLAVEMENT || effect.getSecondaryModifier()==TFModifier.CLOTHING_SERVITUDE);
+	}
 	
 	private static boolean isEffectFreeForRemovingPositiveAttribute(ItemEffect effect) {
+		if(isEffectFreeForBondageApplier(effect)) {
+			return true;
+		}
 		if(effect.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE || effect.getPrimaryModifier()==TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
 			return !effect.getPotency().isNegative();
 		}
@@ -234,7 +244,13 @@ public class EnchantingUtils {
 			return 0;
 		}
 		
-		return applyDiscountsForPerksAndFetishes(ingredient, effect.getCost());
+		int cost = effect.getCost();
+		
+		if(addingEffect && isEffectFreeForBondageApplier(effect)) {
+			return 0;
+		}
+		
+		return applyDiscountsForPerksAndFetishes(ingredient, cost);
 	}
 	
 	public static int getCost(AbstractCoreItem ingredient, List<ItemEffect> effects) {
@@ -256,6 +272,10 @@ public class EnchantingUtils {
 		
 		if (!(ingredient instanceof Tattoo) && Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)) {
 			effectCount.keySet().removeIf(EnchantingUtils::isEffectFreeForWaterSchool);
+		}
+
+		if (!(ingredient instanceof Tattoo)) {
+			effectCount.keySet().removeIf(EnchantingUtils::isEffectFreeForBondageApplier);
 		}
 		
 		int cost = 0;

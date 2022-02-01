@@ -21,7 +21,7 @@ import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
-import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist;
+import com.lilithsthrone.game.character.npc.submission.Takahashi;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
@@ -125,7 +125,7 @@ public class ImpCitadelDialogue {
 		for(GameCharacter character : getBossGroup(false)) {
 			character.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 		}
-		Main.game.getNpc(SubmissionCitadelArcanist.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+		Main.game.getNpc(Takahashi.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 		
 		// Sort out boss:
 		getBoss().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
@@ -149,6 +149,8 @@ public class ImpCitadelDialogue {
 				character.returnToHome();
 			}
 		}
+		
+		getArcanist().equipClothing(EquipClothingSetting.getAllClothingSettings()); // Remove lab coat
 	}
 	
 	private static void banishImps() {
@@ -297,8 +299,8 @@ public class ImpCitadelDialogue {
 		return Main.game.getNpc(DarkSiren.class);
 	}
 	
-	public static GameCharacter getArcanist() {
-		return Main.game.getNpc(SubmissionCitadelArcanist.class);
+	public static Takahashi getArcanist() {
+		return (Takahashi) Main.game.getNpc(Takahashi.class);
 	}
 
 	public static GameCharacter getMainCompanion() {
@@ -927,7 +929,7 @@ public class ImpCitadelDialogue {
 						return new ResponseSex(
 								"Sex",
 								isCompanionDialogue() && !spectators.contains(getMainCompanion())
-									?UtilText.parse(getArcanist(), getMainCompanion(), "Accept the price of your defeat, and, alongside [pc2.name], prepare to perform oral on [npc.name].")
+									?UtilText.parse(getArcanist(), getMainCompanion(), "Accept the price of your defeat, and alongside [com.name], prepare to perform oral on [npc.name].")
 									:UtilText.parse(getArcanist(), "Accept the price of your defeat, and prepare to perform oral on [npc.name]."),
 								false,
 								false,
@@ -941,7 +943,7 @@ public class ImpCitadelDialogue {
 						return new ResponseSex(
 								"Eager sex",
 								isCompanionDialogue() && !spectators.contains(getMainCompanion())
-									?UtilText.parse(getArcanist(), getMainCompanion(), "Happily accept what's being demanded of you, and, alongside [pc2.name], eagerly prepare to perform oral on [npc.name].")
+									?UtilText.parse(getArcanist(), getMainCompanion(), "Happily accept what's being demanded of you, and alongside [com.name], eagerly prepare to perform oral on [npc.name].")
 									:UtilText.parse(getArcanist(), "Happily accept what's being demanded of you, and eagerly prepare to perform oral on [npc.name]."),
 								false,
 								false,
@@ -2240,7 +2242,7 @@ public class ImpCitadelDialogue {
 					return new ResponseSex(
 							"Sex",
 							isCompanionDialogue()
-								?UtilText.parse(getArcanist(), getMainCompanion(), "Accept the price of your defeat, and, alongside [pc2.name], prepare to get fucked by the three demons.")
+								?UtilText.parse(getArcanist(), getMainCompanion(), "Accept the price of your defeat, and alongside [com.name], prepare to get fucked by the three demons.")
 								:UtilText.parse(getArcanist(), "Accept the price of your defeat, and prepare to get fucked by the three demons."),
 							false,
 							false,
@@ -2254,7 +2256,7 @@ public class ImpCitadelDialogue {
 					return new ResponseSex(
 							"Eager sex",
 							isCompanionDialogue()
-								?UtilText.parse(getArcanist(), getMainCompanion(), "Happily accept what's about to happen, and, alongside [pc2.name], eagerly prepare to get fucked by the three demons.")
+								?UtilText.parse(getArcanist(), getMainCompanion(), "Happily accept what's about to happen, and alongside [com.name], eagerly prepare to get fucked by the three demons.")
 								:UtilText.parse(getArcanist(), "Happily accept the price of your defeat, and eagerly prepare to get fucked by the three demons."),
 							false,
 							false,
@@ -2481,8 +2483,8 @@ public class ImpCitadelDialogue {
 						if(isPrisonerFemale()) {
 							c = PresetColour.CLOTHING_BLACK;
 						}
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_CHOKER, c, false), true, getOwner()));
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_choker", c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_wrist_restraints", c, false), true, getOwner()));
 						
 						//TODO siren wants to watch them fuck your face(s)
 						if(getOwner() instanceof FortressFemalesLeader) {
@@ -2533,8 +2535,8 @@ public class ImpCitadelDialogue {
 						if(isPrisonerFemale()) {
 							c = PresetColour.CLOTHING_BROWN_DARK;
 						}
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_CHOKER, c, false), true, getOwner()));
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_choker", c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_wrist_restraints", c, false), true, getOwner()));
 						
 					}
 				};
@@ -2591,7 +2593,7 @@ public class ImpCitadelDialogue {
 				return new ResponseSex(
 						"Oral",
 						isCompanionDialogue()
-							?UtilText.parse(getOwner(), getMainCompanion(), "Accept the price of your defeat, and, alongside [pc2.name], prepare to perform oral on [npc.name].")
+							?UtilText.parse(getOwner(), getMainCompanion(), "Accept the price of your defeat, and alongside [com.name], prepare to perform oral on [npc.name].")
 							:UtilText.parse(getOwner(), "Accept the price of your defeat, and prepare to perform oral on [npc.name]."),
 						false,
 						false,
@@ -2605,7 +2607,7 @@ public class ImpCitadelDialogue {
 				return new ResponseSex(
 						"Eager oral",
 						isCompanionDialogue()
-							?UtilText.parse(getOwner(), getMainCompanion(), "Happily accept what's being demanded of you, and, alongside [pc2.name], eagerly prepare to perform oral on [npc.name].")
+							?UtilText.parse(getOwner(), getMainCompanion(), "Happily accept what's being demanded of you, and alongside [com.name], eagerly prepare to perform oral on [npc.name].")
 							:UtilText.parse(getOwner(), "Happily accept what's being demanded of you, and eagerly prepare to perform oral on [npc.name]."),
 						false,
 						false,

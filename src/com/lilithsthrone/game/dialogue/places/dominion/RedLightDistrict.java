@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.npc.dominion.Loppy;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -1063,9 +1064,6 @@ public class RedLightDistrict {
 							Main.game.updateResponses();
 						}
 					};
-					
-				} else {
-					return null;
 				}
 				
 			} else {
@@ -1075,23 +1073,27 @@ public class RedLightDistrict {
 				} else if (index == 2) {
 					return new Response("Background", "Ask Angel about her background, and how she ended up owning Angel's Kiss.", ANGELS_KISS_OFFICE_BACKGROUND);
 					
-				} else if (index == 3 && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.prostitutionLicenseObtained)) {
-					if(Main.game.getPlayer().getMoney()<5000) {
-						return new Response("License ("+UtilText.formatAsMoney(5000, "span")+")", "You don't have enough money to purchase a prostitution license!", null);
-					} else {
-						return new Response("License ("+UtilText.formatAsMoney(5000, "span")+")", "Agree to Angel's deal and purchase a prostitution license.", ANGELS_KISS_OFFICE_LICENSE_PURCHASE) {
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.prostitutionLicenseObtained, true);
-								Main.game.getPlayer().incrementMoney(-5000);
-							}
-						};
+				} else if (index == 3) {
+					if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.prostitutionLicenseObtained)) {
+						if(Main.game.getPlayer().getMoney()<5000) {
+							return new Response("License ("+UtilText.formatAsMoney(5000, "span")+")", "You don't have enough money to purchase a prostitution license!", null);
+						} else {
+							return new Response("License ("+UtilText.formatAsMoney(5000, "span")+")", "Agree to Angel's deal and purchase a prostitution license.", ANGELS_KISS_OFFICE_LICENSE_PURCHASE) {
+								@Override
+								public void effects() {
+									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.prostitutionLicenseObtained, true);
+									Main.game.getPlayer().incrementMoney(-5000);
+								}
+							};
+						}
+						
+					} else if(Main.game.getDialogueFlags().hasFlag("acexp_horny_angel_found")) {
+						return DialogueManager.getDialogueFromId("acexp_dominion_angel_office_misc_sex_access_node").getResponse(0, 1);
 					}
 					
-				} else {
-					return null;
 				}
 			}
+			return null;
 		}
 	};
 	

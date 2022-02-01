@@ -117,7 +117,7 @@
 			[npc1.Name] guides [npc2.name]'s [npc2.feet] into the foot wraps.
 		]]></NPCOtherNPC>
 		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces the foot wraps onto [npc2.her] [npc.feet].
+			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces the foot wraps onto [npc2.her] [npc2.feet].
 		]]></NPCOtherNPCRough>
 	</replacementText>
 	

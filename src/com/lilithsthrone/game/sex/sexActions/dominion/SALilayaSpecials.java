@@ -46,7 +46,7 @@ public class SALilayaSpecials {
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS).contains(Main.sex.getCharacterTargetedForSexAction(this))
 					&& Main.sex.getCharacterTargetedForSexAction(this).getArousal() >= ArousalLevel.FOUR_PASSIONATE.getMinimumValue()
-					&& !Main.sex.getCharactersRequestingPullout().contains(Main.sex.getCharacterPerformingAction())
+					&& !Main.sex.getCharactersRequestingPullout().keySet().contains(Main.sex.getCharacterPerformingAction())
 					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
 					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 					&& Main.sex.getCharacterPerformingAction().equals(Main.game.getNpc(Lilaya.class))
@@ -74,7 +74,7 @@ public class SALilayaSpecials {
 		}
 		@Override
 		public void applyEffects() {
-			Main.sex.getCharactersRequestingPullout().add(Main.sex.getCharacterPerformingAction());
+			Main.sex.getCharactersRequestingPullout().put(Main.sex.getCharacterPerformingAction(), null);
 		}
 	};
 	
@@ -182,7 +182,7 @@ public class SALilayaSpecials {
 
 		@Override
 		public void applyEffects() {
-			Main.sex.getCharactersRequestingPullout().add(Main.sex.getCharacterPerformingAction());
+			Main.sex.getCharactersRequestingPullout().put(Main.sex.getCharacterPerformingAction(), null);
 		}
 	};
 	

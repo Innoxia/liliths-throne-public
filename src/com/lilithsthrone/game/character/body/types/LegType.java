@@ -753,9 +753,9 @@ public class LegType {
 			"A layer of scaly, bird-like leather quickly grows over [npc.her] legs as they shift into a new form."
 				+ " As [npc.her] new leathery skin spreads down to the ends of [npc.her] toes, [npc.her] feet start to undergo an extreme transformation."
 				+ " [npc.Her] toes combine together and re-shape themselves into three forward-facing talons, as a fourth, thumb-like talon branches out behind them."
-				+ " As the transformation ends, this leathery skin sharply transitions into [npc.her] body's [helena.skinColour] [npc.skin] at [npc.her] upper-thigh.<br/>"
+				+ " As the transformation ends, this leathery skin sharply transitions into [npc.her] body's [npc.skinColour] [npc.skin] at [npc.her] upper-thigh.<br/>"
 				+ "[npc.Name] now [npc.has] anthropomorphic, [style.boldHarpy(bird-like legs and talons in place of feet)], which are [npc.materialDescriptor] [npc.legFullDescription].",
-			"[npc.Her] bird-like legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], which sharply transitions into [npc.her] body's [helena.skinColour] [npc.skin] at [npc.her] upper-thigh."
+			"[npc.Her] bird-like legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], which sharply transitions into [npc.her] body's [npc.skinColour] [npc.skin] at [npc.her] upper-thigh."
 				+ " At the end of each of [npc.her] [npc.legs], [npc.she] [npc.has] sharp, bird-like talons.",
 				Util.newArrayListOfValues(
 						LegConfiguration.BIPEDAL,

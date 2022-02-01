@@ -2449,7 +2449,18 @@ public class InventoryDialogue {
 									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "Your inventory is already full!", null);
 								}
 								if(Main.game.getPlayer().getMoney() < sellPrice*count) {
-									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "You can't afford to buy this!", null);
+									int affordableCount = Main.game.getPlayer().getMoney() / sellPrice;
+									if(affordableCount > 0) {
+										return new Response("Buy (Max " + affordableCount + ") (" + UtilText.formatAsMoney(sellPrice * affordableCount, "span") + ")",
+												"Buy the " + item.getName() + " for " + UtilText.formatAsMoney(sellPrice * affordableCount) + ".", INVENTORY_MENU) {
+											@Override
+											public void effects() {
+												sellItems(inventoryNPC, Main.game.getPlayer(), item, affordableCount, sellPrice);
+											}
+										};
+									} else {
+										return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "You can't afford to buy this!", null);
+									}
 								}
 								return new Response("Buy (All) (" + UtilText.formatAsMoney(sellPrice*count, "span") + ")",
 										"Buy the " + item.getName() + " for " + UtilText.formatAsMoney(sellPrice*count) + ".", INVENTORY_MENU){
@@ -2530,7 +2541,7 @@ public class InventoryDialogue {
 				sb.append("</p>");
 			}
 			return getItemDisplayPanel(weapon.getSVGString(),
-					weapon.getDisplayName(true),
+					Util.capitaliseSentence(weapon.getDisplayName(true)),
 					weapon.getDescription(owner)
 					+ sb.toString()
 					+ (owner!=null && owner.isPlayer()
@@ -2975,7 +2986,7 @@ public class InventoryDialogue {
 //								}
 
 								InventorySlot slot = InventorySlot.mainWeaponSlots[inventoryNPC.getMainWeaponIndexToEquipTo(weapon)];
-								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+								if(weapon.isCanBeEquipped(inventoryNPC, slot)) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip Main ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+weapon.getName()+" as [npc.her] main weapon."), INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -3002,7 +3013,7 @@ public class InventoryDialogue {
 											null);
 								}
 								InventorySlot slot = InventorySlot.offhandWeaponSlots[inventoryNPC.getOffhandWeaponIndexToEquipTo(weapon)];
-								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+								if(weapon.isCanBeEquipped(inventoryNPC, slot)) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+weapon.getName()+" as [npc.her] offhand weapon."), INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -3313,17 +3324,27 @@ public class InventoryDialogue {
 								return new Response("Enchant", "You can't enchant weapons on the ground!", null);
 								
 							} else if(index == 6) {
-								return new Response("Equip Main (Self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
-									@Override
-									public void effects(){
-										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-											+ Main.game.getPlayer().equipMainWeaponFromFloor(weapon)
-											+ "</p>");
-										resetPostAction();
-									}
-								};
-									
+								InventorySlot slot = InventorySlot.mainWeaponSlots[Main.game.getPlayer().getMainWeaponIndexToEquipTo(weapon)];
+								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+									return new Response("Equip Main (Self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
+										@Override
+										public void effects(){
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
+												+ Main.game.getPlayer().equipMainWeaponFromFloor(weapon)
+												+ "</p>");
+											resetPostAction();
+										}
+									};
+								} else {
+									return new Response("Equip Main (Self)", weapon.getCannotBeEquippedText(Main.game.getPlayer(), slot), null);
+								}
+								
 							} else if(index == 7) {
+								InventorySlot slot = InventorySlot.mainWeaponSlots[Main.game.getPlayer().getMainWeaponIndexToEquipTo(weapon)];
+								if(!weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+									return new Response("Equip Offhand (Self)", weapon.getCannotBeEquippedText(Main.game.getPlayer(), slot), null);
+								}
+								
 								if(weapon.getWeaponType().isTwoHanded()) {
 									return new Response("Equip Offhand (Self)",
 											(weapon.getWeaponType().isPlural()
@@ -3501,7 +3522,7 @@ public class InventoryDialogue {
 								
 							} else if(index == 11) {
 								InventorySlot slot = InventorySlot.mainWeaponSlots[inventoryNPC.getMainWeaponIndexToEquipTo(weapon)];
-								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+								if(weapon.isCanBeEquipped(inventoryNPC, slot)) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip Main ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Get [npc.name] to equip the " + weapon.getName() + " as [npc.her] main weapon."), INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -3525,7 +3546,7 @@ public class InventoryDialogue {
 								}
 								
 								InventorySlot slot = InventorySlot.offhandWeaponSlots[Main.game.getPlayer().getOffhandWeaponIndexToEquipTo(weapon)];
-								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+								if(weapon.isCanBeEquipped(inventoryNPC, slot)) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Get [npc.name] to equip the " + weapon.getName() + " as [npc.her] offhand weapon."), INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -3622,7 +3643,18 @@ public class InventoryDialogue {
 									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "Your inventory is already full!", null);
 								}
 								if(Main.game.getPlayer().getMoney() < sellPrice*count) {
-									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "You can't afford to buy this!", null);
+									int affordableCount = Main.game.getPlayer().getMoney() / sellPrice;
+									if(affordableCount > 0) {
+										return new Response("Buy (Max " + affordableCount + ") (" + UtilText.formatAsMoney(sellPrice * affordableCount, "span") + ")",
+												"Buy the " + weapon.getName() + " for " + UtilText.formatAsMoney(sellPrice * affordableCount) + ".", INVENTORY_MENU) {
+											@Override
+											public void effects() {
+												sellWeapons(inventoryNPC, Main.game.getPlayer(), weapon, affordableCount, sellPrice);
+											}
+										};
+									} else {
+										return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "You can't afford to buy this!", null);
+									}
 								}
 								return new Response("Buy (All) (" + UtilText.formatAsMoney(sellPrice*count, "span") + ")",
 										"Buy the " + weapon.getName() + " for " + UtilText.formatAsMoney(sellPrice*count) + ".", INVENTORY_MENU){
@@ -3776,10 +3808,10 @@ public class InventoryDialogue {
 								InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-6);
 								if(clothing.isCanBeEquipped(Main.game.getPlayer(), slot)) {
 									if(clothing.isAbleToBeEquippedDuringSex(slot).getKey()) {
-										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer())) {
+										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer(), Main.game.getPlayer(), clothing)) {
 											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "As this is a special sex scene, you cannot equip clothing during it!", null);
 										}
-										if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot)) {
+										if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot, clothing)) {
 											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "This slot is involved with an ongoing sex action, so you cannot equip clothing into it!", null);
 										}
 										if(Main.game.getPlayer().isAbleToEquip(clothing, slot, false, Main.game.getPlayer())) {
@@ -4304,10 +4336,10 @@ public class InventoryDialogue {
 								InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-6);
 								if(clothing.isCanBeEquipped(Main.game.getPlayer(), slot)) {
 									if(clothing.isAbleToBeEquippedDuringSex(slot).getKey()) {
-										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer())) {
+										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer(), Main.game.getPlayer(), clothing)) {
 											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "As this is a special sex scene, you cannot equip clothing during it!", null);
 										}
-										if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot)) {
+										if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot, clothing)) {
 											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "This slot is involved with an ongoing sex action, so you cannot equip clothing into it!", null);
 										}
 										if (Main.game.getPlayer().isAbleToEquip(clothing, slot, false, Main.game.getPlayer())) {
@@ -4354,13 +4386,13 @@ public class InventoryDialogue {
 								}
 								if(clothing.isCanBeEquipped(inventoryNPC, slot)) {
 									if(clothing.isAbleToBeEquippedDuringSex(slot).getKey()) {
-										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(inventoryNPC)) {
+										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer(), inventoryNPC, clothing)) {
 											return new Response(
 													UtilText.parse(inventoryNPC, "Equip: "+Util.capitaliseSentence(slot.getName())+" ([npc.HerHim])"),
 													"As this is a special sex scene, you cannot equip clothing during it!",
 													null);
 										}
-										if(!Main.sex.isClothingEquipAvailable(inventoryNPC, slot)) {
+										if(!Main.sex.isClothingEquipAvailable(inventoryNPC, slot, clothing)) {
 											return new Response(
 													UtilText.parse(inventoryNPC, "Equip: "+Util.capitaliseSentence(slot.getName())+" ([npc.HerHim])"),
 													"This slot is involved with an ongoing sex action, so you cannot equip clothing into it!",
@@ -4680,10 +4712,10 @@ public class InventoryDialogue {
 							InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-6);
 							if(clothing.isCanBeEquipped(Main.game.getPlayer(), slot)) {
 								if(clothing.isAbleToBeEquippedDuringSex(slot).getKey()) {
-									if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer())) {
+									if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer(), Main.game.getPlayer(), clothing)) {
 										return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "As this is a special sex scene, you cannot equip clothing during it!", null);
 									}
-									if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot)) {
+									if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot, clothing)) {
 										return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "This slot is involved with an ongoing sex action, so you cannot equip clothing into it!", null);
 									}
 									if (Main.game.getPlayer().isAbleToEquip(clothing, slot, false, Main.game.getPlayer())) {
@@ -5040,10 +5072,10 @@ public class InventoryDialogue {
 								InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-6);
 								if(clothing.isCanBeEquipped(Main.game.getPlayer(), slot)) {
 									if(clothing.isAbleToBeEquippedDuringSex(slot).getKey() && !inventoryNPC.isTrader()) {
-										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer())) {
+										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer(), Main.game.getPlayer(), clothing)) {
 											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "As this is a special sex scene, you cannot equip clothing during it!", null);
 										}
-										if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot)) {
+										if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot, clothing)) {
 											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "This slot is involved with an ongoing sex action, so you cannot equip clothing into it!", null);
 										}
 										if (Main.game.getPlayer().isAbleToEquip(clothing, slot, false, Main.game.getPlayer())) {
@@ -5084,13 +5116,13 @@ public class InventoryDialogue {
 								}
 								if(clothing.isCanBeEquipped(inventoryNPC, slot)) {
 									if(clothing.isAbleToBeEquippedDuringSex(slot).getKey() && !inventoryNPC.isTrader()) {
-										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(inventoryNPC)) {
+										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer(), inventoryNPC, clothing)) {
 											return new Response(
 													UtilText.parse(inventoryNPC, "Equip: "+Util.capitaliseSentence(slot.getName())+" ([npc.HerHim])"),
 													"As this is a special sex scene, you cannot equip clothing during it!",
 													null);
 										}
-										if(!Main.sex.isClothingEquipAvailable(inventoryNPC, slot)) {
+										if(!Main.sex.isClothingEquipAvailable(inventoryNPC, slot, clothing)) {
 											return new Response(
 													UtilText.parse(inventoryNPC, "Equip: "+Util.capitaliseSentence(slot.getName())+" ([npc.HerHim])"), 
 													"This slot is involved with an ongoing sex action, so you cannot equip clothing into it!",
@@ -5180,7 +5212,18 @@ public class InventoryDialogue {
 									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "Your inventory is already full!", null);
 								}
 								if(Main.game.getPlayer().getMoney() < sellPrice*count) {
-									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "You can't afford to buy this!", null);
+									int affordableCount = Main.game.getPlayer().getMoney() / sellPrice;
+									if(affordableCount > 0) {
+										return new Response("Buy (Max " + affordableCount + ") (" + UtilText.formatAsMoney(sellPrice * affordableCount, "span") + ")",
+												"Buy the " + clothing.getName() + " for " + UtilText.formatAsMoney(sellPrice * affordableCount) + ".", INVENTORY_MENU) {
+											@Override
+											public void effects() {
+												sellClothing(inventoryNPC, Main.game.getPlayer(), clothing, affordableCount, sellPrice);
+											}
+										};
+									} else {
+										return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "You can't afford to buy this!", null);
+									}
 								}
 								return new Response("Buy (All) (" + UtilText.formatAsMoney(sellPrice*count, "span") + ")",
 										"Buy the " + clothing.getName() + " for " + UtilText.formatAsMoney(sellPrice*count) + ".", INVENTORY_MENU){
@@ -5261,7 +5304,7 @@ public class InventoryDialogue {
 				sb.append("</p>");
 			}
 			return getItemDisplayPanel(weapon.getSVGEquippedString(owner),
-					weapon.getDisplayName(true),
+					Util.capitaliseSentence(weapon.getDisplayName(true)),
 					weapon.getDescription(owner)
 					 	+sb.toString());
 		}
@@ -5681,10 +5724,11 @@ public class InventoryDialogue {
 			StringBuilder sb = new StringBuilder();
 			sb.append(clothing.getDescription());
 			sb.append("<p>");
-				for(String s : clothing.getExtraDescriptions((Main.game.isInSex()?owner:Main.game.getPlayer()), null, true)) {
+				GameCharacter descriptionTarget = owner; //Main.game.isInSex()?owner:Main.game.getPlayer()
+				for(String s : clothing.getExtraDescriptions(descriptionTarget, null, true)) {
 					sb.append(s+"<br/>");
 				}
-				for(String s : clothing.getExtraDescriptions((Main.game.isInSex()?owner:Main.game.getPlayer()), clothing.getSlotEquippedTo(), true)) {
+				for(String s : clothing.getExtraDescriptions(descriptionTarget, clothing.getSlotEquippedTo(), true)) {
 					sb.append(s+"<br/>");
 				}
 			sb.append("</p>");
@@ -5725,7 +5769,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								return getJinxRemovalResponse();
+								return getJinxRemovalResponse(true);
 									
 							} else {
 								if(clothing.isCondom()) {
@@ -5814,7 +5858,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								return getJinxRemovalResponse();
+								return getJinxRemovalResponse(true);
 								
 							} else {
 								if(clothing.isCondom()) {
@@ -5998,7 +6042,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								return getJinxRemovalResponse();
+								return getJinxRemovalResponse(true);
 								
 							} else {
 								if(clothing.isCondom()) {
@@ -6094,7 +6138,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								return getJinxRemovalResponse();
+								return getJinxRemovalResponse(false);
 								
 							} else {
 								if(clothing.isCondom()) {
@@ -6212,7 +6256,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								return getJinxRemovalResponse();
+								return getJinxRemovalResponse(false);
 								
 							} else {
 								if(clothing.isCondom()) {
@@ -6352,7 +6396,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								return getJinxRemovalResponse();
+								return getJinxRemovalResponse(false);
 								
 							} else {
 								if(clothing.isCondom()) {
@@ -6600,14 +6644,14 @@ public class InventoryDialogue {
 					+ "Pattern:<br/>");
 	 
 			for (Pattern pattern : Pattern.getAllPatterns()) {
-				if (dyePreviewPattern.equals(pattern.getName())) {
+				if (dyePreviewPattern.equals(pattern.getId())) {
 					inventorySB.append(
 							"<div class='cosmetics-button active'>"
 								+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</b>"
 							+ "</div>");
 				} else {
 					inventorySB.append(
-							"<div id='ITEM_PATTERN_"+pattern.getName()+"' class='cosmetics-button'>"
+							"<div id='ITEM_PATTERN_"+pattern.getId()+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</span>"
 							+ "</div>");
 				}
@@ -6787,7 +6831,7 @@ public class InventoryDialogue {
 							dyedClothing.setPatternColours(dyePreviewPatterns);
 							dyedClothing.setStickersAsObjects(dyePreviewStickers);
 							owner.addClothing(dyedClothing, false);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeClothing(clothing);
@@ -6797,7 +6841,7 @@ public class InventoryDialogue {
 							dyedClothing.setPatternColours(dyePreviewPatterns);
 							dyedClothing.setStickersAsObjects(dyePreviewStickers);
 							Main.game.getPlayerCell().getInventory().addClothing(dyedClothing);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
 						}
 						
 					}
@@ -6884,7 +6928,7 @@ public class InventoryDialogue {
 							dyedClothing.setPatternColours(dyePreviewPatterns);
 							dyedClothing.setStickersAsObjects(dyePreviewStickers);
 							owner.addClothing(dyedClothing, finalCount, false, false);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeClothing(clothing, finalCount);
@@ -6894,7 +6938,7 @@ public class InventoryDialogue {
 							dyedClothing.setPatternColours(dyePreviewPatterns);
 							dyedClothing.setStickersAsObjects(dyePreviewStickers);
 							Main.game.getPlayerCell().getInventory().addClothing(dyedClothing, finalCount);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
 						}
 					}
 				};
@@ -6993,7 +7037,7 @@ public class InventoryDialogue {
 								dyedClothing.setPatternColours(dyePreviewPatterns);
 								dyedClothing.setStickersAsObjects(dyePreviewStickers);
 								owner.addClothing(dyedClothing, clothingCount, false, false);
-								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
+								Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
 							}
 							
 						} else {
@@ -7006,7 +7050,7 @@ public class InventoryDialogue {
 								dyedClothing.setPatternColours(dyePreviewPatterns);
 								dyedClothing.setStickersAsObjects(dyePreviewStickers);
 								Main.game.getPlayerCell().getInventory().addClothing(dyedClothing, clothingCount);
-								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
+								Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
 							}
 						}
 					}
@@ -7081,7 +7125,7 @@ public class InventoryDialogue {
 						clothing.setPatternColours(dyePreviewPatterns);
 						clothing.setStickersAsObjects(dyePreviewStickers);
 						
-						Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", clothing.getDisplayName(true)), false);
+						Main.game.addEvent(new EventLogEntry("Dyed", clothing.getDisplayName(true)), false);
 					}
 				};
 
@@ -7250,14 +7294,14 @@ public class InventoryDialogue {
 							AbstractWeapon dyedWeapon = Main.game.getItemGen().generateWeapon(weapon);
 							dyedWeapon.setColours(dyePreviews);
 							owner.addWeapon(dyedWeapon, false);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon);
 							AbstractWeapon dyedWeapon = Main.game.getItemGen().generateWeapon(weapon);
 							dyedWeapon.setColours(dyePreviews);
 							Main.game.getPlayerCell().getInventory().addWeapon(dyedWeapon);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
 						}
 					}
 				};
@@ -7314,7 +7358,7 @@ public class InventoryDialogue {
 							modifiedWeapon.setDamageType(damageTypePreview);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), false);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", modifiedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Reforged", modifiedWeapon.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon);
@@ -7322,7 +7366,7 @@ public class InventoryDialogue {
 							modifiedWeapon.setDamageType(damageTypePreview);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							Main.game.getPlayerCell().getInventory().addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon));
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", modifiedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Reforged", modifiedWeapon.getDisplayName(true)), false);
 						}
 					}
 				};
@@ -7394,7 +7438,7 @@ public class InventoryDialogue {
 							modifiedWeapon.setColours(dyePreviews);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), false);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon);
@@ -7403,7 +7447,7 @@ public class InventoryDialogue {
 							modifiedWeapon.setColours(dyePreviews);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							Main.game.getPlayerCell().getInventory().addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon));
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
 						}
 					}
 				};
@@ -7483,14 +7527,14 @@ public class InventoryDialogue {
 							AbstractWeapon dyedWeapon = Main.game.getItemGen().generateWeapon(weapon);
 							dyedWeapon.setColours(dyePreviews);
 							owner.addWeapon(dyedWeapon, finalCount, false, false);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon, finalCount);
 							AbstractWeapon dyedWeapon = Main.game.getItemGen().generateWeapon(weapon);
 							dyedWeapon.setColours(dyePreviews);
 							Main.game.getPlayerCell().getInventory().addWeapon(dyedWeapon, finalCount);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
 						}
 					}
 				};
@@ -7571,7 +7615,7 @@ public class InventoryDialogue {
 							modifiedWeapon.setDamageType(damageTypePreview);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), finalCount, false, false);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", modifiedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Reforged", modifiedWeapon.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon, finalCount);
@@ -7579,7 +7623,7 @@ public class InventoryDialogue {
 							modifiedWeapon.setDamageType(damageTypePreview);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							Main.game.getPlayerCell().getInventory().addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), finalCount);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", modifiedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Reforged", modifiedWeapon.getDisplayName(true)), false);
 						}
 					}
 				};
@@ -7680,7 +7724,7 @@ public class InventoryDialogue {
 							modifiedWeapon.setColours(dyePreviews);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), finalCount, false, false);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon, finalCount);
@@ -7689,7 +7733,7 @@ public class InventoryDialogue {
 							modifiedWeapon.setColours(dyePreviews);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							Main.game.getPlayerCell().getInventory().addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), finalCount);
-							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
+							Main.game.addEvent(new EventLogEntry("Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
 						}
 					}
 				};
@@ -7783,7 +7827,7 @@ public class InventoryDialogue {
 								AbstractWeapon dyedWeapon = Main.game.getItemGen().generateWeapon(w);
 								dyedWeapon.setColours(dyePreviews);
 								owner.addWeapon(dyedWeapon, weaponCount, false, false);
-								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
+								Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
 							}
 							
 						} else {
@@ -7793,7 +7837,7 @@ public class InventoryDialogue {
 								AbstractWeapon dyedWeapon = Main.game.getItemGen().generateWeapon(w);
 								dyedWeapon.setColours(dyePreviews);
 								Main.game.getPlayerCell().getInventory().addWeapon(dyedWeapon, weaponCount);
-								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
+								Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
 							}
 						}
 					}
@@ -7888,7 +7932,7 @@ public class InventoryDialogue {
 								modifiedWeapon.setDamageType(damageTypePreview);
 								// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 								owner.addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), weaponCount, false, false);
-								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", modifiedWeapon.getDisplayName(true)), false);
+								Main.game.addEvent(new EventLogEntry("Reforged", modifiedWeapon.getDisplayName(true)), false);
 							}
 
 						} else {
@@ -7899,7 +7943,7 @@ public class InventoryDialogue {
 								modifiedWeapon.setDamageType(damageTypePreview);
 								// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 								Main.game.getPlayerCell().getInventory().addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), weaponCount);
-								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", modifiedWeapon.getDisplayName(true)), false);
+								Main.game.addEvent(new EventLogEntry("Reforged", modifiedWeapon.getDisplayName(true)), false);
 							}
 						}
 					}
@@ -8012,7 +8056,7 @@ public class InventoryDialogue {
 								modifiedWeapon.setColours(dyePreviews);
 								// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 								owner.addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), weaponCount, false, false);
-								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
+								Main.game.addEvent(new EventLogEntry("Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
 							}
 							
 						} else {
@@ -8024,7 +8068,7 @@ public class InventoryDialogue {
 								modifiedWeapon.setColours(dyePreviews);
 								// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 								Main.game.getPlayerCell().getInventory().addWeapon(Main.game.getItemGen().generateWeapon(modifiedWeapon), weaponCount);
-								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
+								Main.game.addEvent(new EventLogEntry("Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
 							}
 						}
 					}
@@ -8117,7 +8161,7 @@ public class InventoryDialogue {
 
 //						weapon.setPrimaryColour(dyePreviewPrimary);
 //						weapon.setSecondaryColour(dyePreviewSecondary);
-						Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", weapon.getDisplayName(true)), false);
+						Main.game.addEvent(new EventLogEntry("Dyed", weapon.getDisplayName(true)), false);
 					}
 				};
 
@@ -8181,7 +8225,7 @@ public class InventoryDialogue {
 							owner.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon(modifiedWeapon));
 						}
 						
-						Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", weapon.getDisplayName(true)), false);
+						Main.game.addEvent(new EventLogEntry("Reforged", weapon.getDisplayName(true)), false);
 					}
 				};
 
@@ -8264,7 +8308,7 @@ public class InventoryDialogue {
 //						weapon.setDamageType(damageTypePreview);
 //						weapon.setPrimaryColour(dyePreviewPrimary);
 //						weapon.setSecondaryColour(dyePreviewSecondary);
-						Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", weapon.getDisplayName(true)), false);
+						Main.game.addEvent(new EventLogEntry("Dyed & Reforged", weapon.getDisplayName(true)), false);
 					}
 				};
 
@@ -8369,12 +8413,16 @@ public class InventoryDialogue {
 				}
 			};
 		} else {
-			return new Response("Buyback", "Switch to viewing the buyback menu.", INVENTORY_MENU){
-				@Override
-				public void effects(){
-					buyback = !buyback;
-				}
-			};
+			if(Main.game.getPlayer().getBuybackStack()==null || Main.game.getPlayer().getBuybackStack().isEmpty()) {
+				return new Response("Buyback", "You have not sold any items, so cannot buy anything back...", null);
+			} else {
+				return new Response("Buyback", "Switch to viewing the buyback menu.", INVENTORY_MENU){
+					@Override
+					public void effects(){
+						buyback = !buyback;
+					}
+				};
+			}
 		}
 	}
 	
@@ -8416,15 +8464,22 @@ public class InventoryDialogue {
 //		}
 	}
 	
-	private static Response getJinxRemovalResponse() {
+	private static Response getJinxRemovalResponse(boolean selfUnseal) {
 		boolean ownsKey = Main.game.getPlayer().getUnlockKeyMap().containsKey(owner.getId()) && Main.game.getPlayer().getUnlockKeyMap().get(owner.getId()).contains(clothing.getSlotEquippedTo());
-		int removalCost = clothing.getJinxRemovalCost();
+		int removalCost = clothing.getJinxRemovalCost(Main.game.getPlayer(), selfUnseal);
 		
 		if(interactionType==InventoryInteraction.COMBAT) {
 			return new Response("Unseal"+(ownsKey?"(Use key)":"(<i>"+removalCost+" Essences</i>)"),
 					"You can't unseal clothing in combat!",
 					null);
 		}
+
+		if(interactionType==InventoryInteraction.SEX && !Main.sex.getInitialSexManager().isAbleToRemoveClothingSeals(Main.game.getPlayer())) {
+			return new Response("Unseal"+(ownsKey?"(Use key)":"(<i>"+removalCost+" Essences</i>)"),
+					"You can't unseal clothing in this sex scene!",
+					null);
+		}
+		
 		
 		if(!ownsKey) {
 			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
@@ -8543,30 +8598,24 @@ public class InventoryDialogue {
 			}
 			
 			if(from.isPlayer()) {
-				Main.game.addEvent(
-						new EventLogEntry(
-								Main.game.getMinutesPassed(),
-								"Sold",
+				Main.game.addEvent(new EventLogEntry("Sold",
 								count+"x <span style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+(count==1?item.getName():item.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
 						false);
 			}
 			
 			if(to.isPlayer()) {
-				((NPC) from).handleSellingEffects(item, count, itemPrice);
-				Main.game.addEvent(
-						new EventLogEntry(
-								Main.game.getMinutesPassed(),
-								"Bought",
+				//((NPC) from).handleSellingEffects(item, count, itemPrice); // Delete: This was replaced by applyItemTransactionEffects
+				Main.game.addEvent(new EventLogEntry("Bought",
 								count+"x <span style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+(count==1?item.getName():item.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
 						false);
 			}
-		}
-		
-		if(!from.isPlayer()) {
-			((NPC)from).applyItemTransactionEffects(item, count, itemPrice, true);
 			
-		} else {
-			((NPC)to).applyItemTransactionEffects(item, count, itemPrice, false);
+			if(!from.isPlayer()) {
+				((NPC)from).applyItemTransactionEffects(item, count, itemPrice, true);
+				
+			} else {
+				((NPC)to).applyItemTransactionEffects(item, count, itemPrice, false);
+			}
 		}
 		
 		resetPostAction();
@@ -8621,31 +8670,26 @@ public class InventoryDialogue {
 			}
 			
 			if(from.isPlayer()) {
-				Main.game.addEvent(
-						new EventLogEntry(
-								Main.game.getMinutesPassed(),
-								"Sold",
+				Main.game.addEvent(new EventLogEntry("Sold",
 								count+"x <span style='color:"+weapon.getRarity().getColour().toWebHexString()+";'>"+(count==1?weapon.getName():weapon.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
 						false);
 			}
 			
 			if(to.isPlayer()) {
-				((NPC) from).handleSellingEffects(weapon, count, itemPrice);
-				Main.game.addEvent(
-						new EventLogEntry(
-								Main.game.getMinutesPassed(),
-								"Bought",
+				//((NPC) from).handleSellingEffects(weapon, count, itemPrice); // Delete: This was replaced by applyItemTransactionEffects
+				Main.game.addEvent(new EventLogEntry("Bought",
 								count+"x <span style='color:"+weapon.getRarity().getColour().toWebHexString()+";'>"+(count==1?weapon.getName():weapon.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
 						false);
 			}
+			
+			if(!from.isPlayer()) {
+				((NPC)from).applyItemTransactionEffects(weapon, count, itemPrice, true);
+				
+			} else {
+				((NPC)to).applyItemTransactionEffects(weapon, count, itemPrice, false);
+			}
 		}
 		
-		if(!from.isPlayer()) {
-			((NPC)from).applyItemTransactionEffects(weapon, count, itemPrice, true);
-			
-		} else {
-			((NPC)to).applyItemTransactionEffects(weapon, count, itemPrice, false);
-		}
 		
 		resetPostAction();
 	}
@@ -8686,7 +8730,6 @@ public class InventoryDialogue {
 	private static void sellClothing(GameCharacter from, GameCharacter to, AbstractClothing clothing, int count, int itemPrice) {
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.removeTraderDescription, false);
 		if (!to.isPlayer() || !to.isInventoryFull() || to.hasClothing(clothing) || clothing.getRarity()==Rarity.QUEST) {
-
 			from.incrementMoney(itemPrice*count);
 			to.incrementMoney(-itemPrice*count);
 			
@@ -8707,30 +8750,24 @@ public class InventoryDialogue {
 			}
 			
 			if(from.isPlayer()) {
-				Main.game.addEvent(
-						new EventLogEntry(
-								Main.game.getMinutesPassed(),
-								"Sold",
+				Main.game.addEvent(new EventLogEntry("Sold",
 								count+"x <span style='color:"+clothing.getRarity().getColour().toWebHexString()+";'>"+(count==1?clothing.getName():clothing.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
 						false);
 			}
 			
 			if(to.isPlayer()) {
-				((NPC) from).handleSellingEffects(clothing, count, itemPrice);
-				Main.game.addEvent(
-						new EventLogEntry(
-								Main.game.getMinutesPassed(),
-								"Bought",
+				//((NPC) from).handleSellingEffects(clothing, count, itemPrice); // Delete: This was replaced by applyItemTransactionEffects
+				Main.game.addEvent(new EventLogEntry("Bought",
 								count+"x <span style='color:"+clothing.getRarity().getColour().toWebHexString()+";'>"+(count==1?clothing.getName():clothing.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
 						false);
 			}
-		}
-		
-		if(!from.isPlayer()) {
-			((NPC)from).applyItemTransactionEffects(clothing, count, itemPrice, true);
 			
-		} else {
-			((NPC)to).applyItemTransactionEffects(clothing, count, itemPrice, false);
+			if(!from.isPlayer()) {
+				((NPC)from).applyItemTransactionEffects(clothing, count, itemPrice, true);
+				
+			} else {
+				((NPC)to).applyItemTransactionEffects(clothing, count, itemPrice, false);
+			}
 		}
 		
 		resetPostAction();

@@ -1480,18 +1480,61 @@
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_VIP_KRUGER_SEX_AS_SUB"><![CDATA[
-	<p>
-		Desperate to have sex with Kruger, you lean into him, before tilting your head to one side and pressing your lips against his. The two of you share a passionate kiss for a moment, before you pull back, and moan, [pc.speech(Please, Kruger, fuck me...)]
-	</p>
-	<p>
-		Kruger lets out a deep, rumbling growl of approval as he hears your request, and, reaching up to take hold of your shoulders, he pushes you down onto your knees in front of him. Glaring down at you with a hungry look in his eyes, he growls, [kruger.speech(You can start by sucking my cock, then I'll give you a good fuck!)]
-	</p>
-	<p>
-		One of the zebra-girls to your right lets out a giggle, before leaning forwards and softly moaning in your ear, [genericFemale.speech(Lucky you, about to get fucked in front of all of us...)]
-	</p>
-	<p>
-		Biting your lip, you look up at Kruger as he spreads his legs a little, getting ready for you to take his cock into your mouth...
-	</p>
+	#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+		<p>
+			Desperate to have sex with Kruger, you lean into him, before tilting your head to one side and pressing your lips against his. The two of you share a passionate kiss for a moment, before you pull back and desperately plead for him to fuck you. The lion-boy lets out a deep, rumbling growl of approval as he hears your request, and after reaching up to take hold of your shoulders, he pushes you down onto your knees in front of him. Glaring down at you with a hungry look in his eyes, he growls, [kruger.speech(You can start by sucking my cock, then I'll give you a good fuck!)]
+		</p>
+		<p>
+			One of the zebra-girls to your right lets out a giggle and leans over towards you, then with a level of ease suggesting that she's done this countless times before, she swiftly pulls down both Kruger's trousers and underwear. Thanks to this, you suddenly find yourself presented with the lion-boy's [kruger.cockLengthValue], ebony cock, which rapidly rises to full erection. Just like the rest of Kruger's body, his throbbing dick has an anthropomorphic, feline quality to it, and you can't help but let out an eager, submissive whine as you see a series of soft, backwards-facing barbs lining its length. The surrounding lion and zebra-girls let out a chorus of giggles as they hear your reaction, and before you can make a move, the zebra-girl who exposed Kruger's cock suddenly pushes your face into the lion-boy's groin and commands, [genericFemale.speech(Show Kruger some respect, slut. Start licking.)]
+		</p>
+		<p>
+			Letting out yet another deep, rumbling groan, Kruger spreads his legs a little and impatiently pushes his hips into your face, causing his hot cock to grind up against your [pc.lips+]. Turned on by what's happening, and eager to do as you're told, you dart out your [pc.tongue+] and start licking the lion-boy's hard, ebony shaft. Working your way up to the [kruger.cockHead+], you open wide and take him into your mouth, and with the lion-boy's harem excitedly commenting on your performance, you start to give Kruger a blowjob...
+		</p>
+	#ELSEIF(pc.isTaur())
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			<p>
+				Wanting nothing more than to have sex with Kruger right here and now, you lean into him and desperately plead for him to fuck you. The lion-boy lets out a deep, rumbling growl of approval as he hears your request, and after reaching up to take hold of your shoulders, he gives you a firm push and growls, [kruger.speech(I can't get a blowjob from you, so get your pussy down in my lap!)]
+			</p>
+			<p>
+				One of the zebra-girls to your right lets out a giggle and leans over towards the lion-boy, then with a level of ease suggesting that she's done this countless times before, she swiftly pulls down both Kruger's trousers and underwear. Thanks to this, the lion-boy's [kruger.cockLengthValue], ebony cock is suddenly fully exposed, and you watch in delight as it rapidly rises to full erection. Just like the rest of Kruger's body, his throbbing dick has an anthropomorphic, feline quality to it, and you can't help but let out an eager, submissive whine as you see a series of soft, backwards-facing barbs lining its length. The surrounding lion and zebra-girls let out a chorus of giggles as they hear your reaction, and before you can make a move, the zebra-girl who exposed Kruger's cock suddenly pulls your [pc.legRace] lower body around to face the lion-boy, before exposing your [pc.pussy+] and pushing you down into his groin. Giving your rump a quick smack, she commands, [genericFemale.speech(Show Kruger some respect, slut. Rub that horny little [pc.legRace]-cunt over his cock and beg for him to fuck you!)]
+			</p>
+			<p>
+				Letting out yet another deep, rumbling groan, Kruger spreads his legs a little and impatiently bucks his hips, causing his hot cock to grind up against your [pc.labia+]. Turned on by what's happening, and eager to do as you're told, you start gyrating your [pc.hips+] back into the lion-boy, and as his hard, ebony shaft slides up over your [pc.pussy+], you desperately beg for him to fuck you. Clearly eager to get started, the lion-boy responds to your request by giving you what you want, and you can't help but let out [pc.a_moan+] as you feel his cock push its way into your [pc.pussy+]. The moment he penetrates you, Kruger's harem starts excitedly commenting on your performance, and you continue to let out a stream of erotic [pc.moans] as you get fucked in front of them...
+			</p>
+		#ELSE
+			<p>
+				Wanting nothing more than to have sex with Kruger right here and now, you lean into him and desperately plead for him to fuck you. The lion-boy lets out a deep, rumbling growl of approval as he hears your request, and after reaching up to take hold of your shoulders, he gives you a firm push and growls, [kruger.speech(I can't get a blowjob from you, so get your ass down in my lap!)]
+			</p>
+			<p>
+				One of the zebra-girls to your right lets out a giggle and leans over towards the lion-boy, then with a level of ease suggesting that she's done this countless times before, she swiftly pulls down both Kruger's trousers and underwear. Thanks to this, the lion-boy's [kruger.cockLengthValue], ebony cock is suddenly fully exposed, and you watch in delight as it rapidly rises to full erection. Just like the rest of Kruger's body, his throbbing dick has an anthropomorphic, feline quality to it, and you can't help but let out an eager, submissive whine as you see a series of soft, backwards-facing barbs lining its length. The surrounding lion and zebra-girls let out a chorus of giggles as they hear your reaction, and before you can make a move, the zebra-girl who exposed Kruger's cock suddenly pulls your [pc.legRace] lower body around to face the lion-boy, before exposing your [pc.asshole+] and pushing you down into his groin. Giving your rump a quick smack, she commands, [genericFemale.speech(Show Kruger some respect, slut. Rub that horny little [pc.legRace]-asshole over his cock and beg for him to fuck you!)]
+			</p>
+			<p>
+				Letting out yet another deep, rumbling groan, Kruger spreads his legs a little and impatiently bucks his hips, causing his hot cock to grind up against your [pc.ass+]. Turned on by what's happening, and eager to do as you're told, you start gyrating your [pc.hips+] back into the lion-boy, and as his hard, ebony shaft slides up over your [pc.asshole+], you desperately beg for him to fuck you. Clearly eager to get started, the lion-boy responds to your request by giving you what you want, and you can't help but let out [pc.a_moan+] as you feel his cock push its way into your [pc.asshole+]. The moment he penetrates you, Kruger's harem starts excitedly commenting on your performance, and you continue to let out a stream of erotic [pc.moans] as you get fucked in front of them...
+			</p>
+		#ENDIF
+	#ELSE
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			<p>
+				Wanting nothing more than to have sex with Kruger right here and now, you lean into him and desperately plead for him to fuck you. The lion-boy lets out a deep, rumbling growl of approval as he hears your request, and while dominantly reaching down between your [pc.legs] to give your [pc.pussy+] a good grope, he growls, [kruger.speech(I can't get a blowjob from you, so get this hot cunt of yours in my lap!)]
+			</p>
+			<p>
+				Upon hearing this, one of the zebra-girls to your right quickly leans over towards the lion-boy, then with a level of ease suggesting that she's done this countless times before, she swiftly pulls down both Kruger's trousers and underwear. Thanks to this, the lion-boy's [kruger.cockLengthValue], ebony cock is suddenly fully exposed, and you watch in delight as it rapidly rises to full erection. Just like the rest of Kruger's body, his throbbing dick has an anthropomorphic, feline quality to it, and you can't help but let out an eager, submissive whine as you see a series of soft, backwards-facing barbs lining its length. The surrounding lion and zebra-girls let out a chorus of giggles as they hear your reaction, and before you can make a move, the zebra-girl who exposed Kruger's cock suddenly pulls you to your [pc.feet], and after making sure that your [pc.pussy+] is fully exposed, she pushes you down into the lion-boy's lap. Giving your rump a quick smack, she commands, [genericFemale.speech(Show Kruger some respect, slut. Rub that horny little cunt over his cock and beg for him to fuck you!)]
+			</p>
+			<p>
+				Letting out yet another deep, rumbling groan, Kruger spreads his legs a little and impatiently bucks his hips, causing his hot cock to grind up against your [pc.labia+]. Turned on by what's happening, and eager to do as you're told, you start gyrating your [pc.hips+] into the lion-boy, and as his hard, ebony shaft slides up over your [pc.pussy+], you look into his [kruger.eyes+] and desperately beg for him to fuck you. Clearly eager to get started, the lion-boy responds to your request by taking hold of your [pc.hips+] and pulling you down, and you can't help but let out [pc.a_moan+] as you feel his cock push its way into your [pc.pussy+]. The moment he penetrates you, Kruger's harem starts excitedly commenting on your performance, and you continue to let out a stream of erotic [pc.moans] as you get fucked in front of them...
+			</p>
+		#ELSE
+			<p>
+				Wanting nothing more than to have sex with Kruger right here and now, you lean into him and desperately plead for him to fuck you. The lion-boy lets out a deep, rumbling growl of approval as he hears your request, and while dominantly reaching around to give your [pc.ass+] a good grope, he growls, [kruger.speech(I can't get a blowjob from you, so get this hot ass of yours in my lap!)]
+			</p>
+			<p>
+				Upon hearing this, one of the zebra-girls to your right quickly leans over towards the lion-boy, then with a level of ease suggesting that she's done this countless times before, she swiftly pulls down both Kruger's trousers and underwear. Thanks to this, the lion-boy's [kruger.cockLengthValue], ebony cock is suddenly fully exposed, and you watch in delight as it rapidly rises to full erection. Just like the rest of Kruger's body, his throbbing dick has an anthropomorphic, feline quality to it, and you can't help but let out an eager, submissive whine as you see a series of soft, backwards-facing barbs lining its length. The surrounding lion and zebra-girls let out a chorus of giggles as they hear your reaction, and before you can make a move, the zebra-girl who exposed Kruger's cock suddenly pulls you to your [pc.feet], and after making sure that your [pc.asshole+] is fully exposed, she pushes you down into the lion-boy's lap. Giving your rump a quick smack, she commands, [genericFemale.speech(Show Kruger some respect, slut. Rub that horny little asshole over his cock and beg for him to fuck you!)]
+			</p>
+			<p>
+				Letting out yet another deep, rumbling groan, Kruger spreads his legs a little and impatiently bucks his hips, causing his hot cock to grind up against your [pc.ass+]. Turned on by what's happening, and eager to do as you're told, you start gyrating your [pc.hips+] into the lion-boy, and as his hard, ebony shaft slides up over your [pc.ass+], you look into his [kruger.eyes+] and desperately beg for him to fuck you. Clearly eager to get started, the lion-boy responds to your request by taking hold of your [pc.hips+] and pulling you down, and you can't help but let out [pc.a_moan+] as you feel his cock push its way into your [pc.asshole+]. The moment he penetrates you, Kruger's harem starts excitedly commenting on your performance, and you continue to let out a stream of erotic [pc.moans] as you get fucked in front of them...
+			</p>
+		#ENDIF
+	#ENDIF
 	]]>
 	</htmlContent>
 	

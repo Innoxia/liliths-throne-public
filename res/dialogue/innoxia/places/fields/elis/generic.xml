@@ -318,7 +318,7 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Enter]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF(game.isHourBetween(8, 17))
+					#IF(game.isHourBetween(8, 18))
 						Enter the Farmer's Market and take a look around the stalls...
 					#ELSEIF(game.getHourOfDay()==7)
 						As the stalls of the Farmer's Market are currently being set up, there's not yet a reason to start taking a look around. You should return in an hour if you wanted to do some shopping...
@@ -329,15 +329,24 @@
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
-					#IF(game.isHourBetween(8, 17))
-						innoxia_places_fields_elis_market_centre
+					#IF(game.isHourBetween(8, 18))
+						innoxia_places_fields_elis_market_exit
 					#ELSE
 						null
 					#ENDIF
 				]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 				<effects><![CDATA[
-					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_market, PLACE_TYPE_innoxia_fields_elis_market_centre)]
+					#IF(flags.hasFlag(FLAG_innoxia_elis_market_entry_north))
+						[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_market, PLACE_TYPE_innoxia_fields_elis_market_exit_north)]
+					#ELSEIF(flags.hasFlag(FLAG_innoxia_elis_market_entry_east))
+						[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_market, PLACE_TYPE_innoxia_fields_elis_market_exit_east)]
+					#ELSEIF(flags.hasFlag(FLAG_innoxia_elis_market_entry_south))
+						[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_market, PLACE_TYPE_innoxia_fields_elis_market_exit_south)]
+					#ELSE
+						[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_market, PLACE_TYPE_innoxia_fields_elis_market_exit_west)]
+					#ENDIF
+					
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/generic', 'MARKET_ENTER'))]
 				]]></effects>
 			</response>
@@ -450,7 +459,24 @@
 		<author><![CDATA[Innoxia]]></author>
 		<title/>
 		<tooltip/>
-		<preParsingEffects/>
+		<preParsingEffects><![CDATA[
+			#IF(!pc.isAtMapEdge())
+				[#flags.setFlag(FLAG_innoxia_elis_market_entry_north, false)]
+				[#flags.setFlag(FLAG_innoxia_elis_market_entry_east, false)]
+				[#flags.setFlag(FLAG_innoxia_elis_market_entry_south, false)]
+				[#flags.setFlag(FLAG_innoxia_elis_market_entry_west, false)]
+					
+				#IF(pc.getCellFromLocation(0, -1).getPlace().getPlaceType()==PLACE_TYPE_innoxia_fields_elis_town_market)
+					[#flags.setFlag(FLAG_innoxia_elis_market_entry_north, true)]
+				#ELSEIF(pc.getCellFromLocation(-1, 0).getPlace().getPlaceType()==PLACE_TYPE_innoxia_fields_elis_town_market)
+					[#flags.setFlag(FLAG_innoxia_elis_market_entry_east, true)]
+				#ELSEIF(pc.getCellFromLocation(0, 1).getPlace().getPlaceType()==PLACE_TYPE_innoxia_fields_elis_town_market)
+					[#flags.setFlag(FLAG_innoxia_elis_market_entry_south, true)]
+				#ELSEIF(pc.getCellFromLocation(1, 0).getPlace().getPlaceType()==PLACE_TYPE_innoxia_fields_elis_town_market)
+					[#flags.setFlag(FLAG_innoxia_elis_market_entry_west, true)]
+				#ENDIF
+			#ENDIF
+		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/elis/generic">STREET</content>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
@@ -527,7 +553,20 @@
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>false</travelDisabled>
-		<responses/>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[Use one of the tavern's entrances to head inside.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_tavern_taur_exit"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setRandomLocation(WORLD_TYPE_innoxia_fields_elis_tavern_taur, PLACE_TYPE_innoxia_fields_elis_tavern_taur_exit)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/generic', 'TAVERN_TAUR_ENTER'))]
+				]]></effects>
+			</response>
+		</responses>
 	</scene>
 	
 	<!-- Place type id: innoxia_fields_elis_town_tower -->
@@ -577,12 +616,14 @@
 				<responseTooltip><![CDATA[
 					#IF(game.getHourOfDay()>=7 && game.getHourOfDay()<21)
 						Use the door marked as the 'public entrance' to head inside Elis's town hall.
+					#ELSEIF(flags.hasFlag(FLAG_innoxia_elis_minotallys_introduced))
+						Show the Enforcer your pass and enter the town hall.
 					#ELSE
 						As the town hall is closed at this hour, you're unable to head inside...
 					#ENDIF
 					]]></responseTooltip>
 				<nextDialogue><![CDATA[
-					#IF(game.getHourOfDay()>=7 && game.getHourOfDay()<21)
+					#IF((game.getHourOfDay()>=7 && game.getHourOfDay()<21) || flags.hasFlag(FLAG_innoxia_elis_minotallys_introduced))
 						innoxia_places_fields_elis_town_hall_f0_exit
 					#ELSE
 						null

@@ -48,6 +48,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.main.Main;
@@ -59,7 +60,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.2
- * @version 0.3.9.3
+ * @version 0.4.3.5
  * @author Innoxia
  */
 public class Bunny extends NPC {
@@ -93,6 +94,9 @@ public class Bunny extends NPC {
 			this.setPersonalityTraits(
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.LEWD);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.3.2")) {
+			this.equipClothing();
 		}
 	}
 
@@ -214,7 +218,9 @@ public class Bunny extends NPC {
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_micro_skirt_pleated", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
 		} else {
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.STOMACH_LOWBACK_BODY, PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+			AbstractClothing bodysuit = Main.game.getItemGen().generateClothing("innoxia_stomach_lowback_body", PresetColour.CLOTHING_PINK_LIGHT, false);
+			bodysuit.setSticker("straps", "removed");
+			this.equipClothingFromNowhere(bodysuit, true, this);
 		}
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_pantyhose", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_stiletto_heels", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
@@ -236,7 +242,7 @@ public class Bunny extends NPC {
 	@Override
 	public void turnUpdate() {
 		if(this.isVisiblyPregnant()) {
-			if(this.getClothingInSlot(InventorySlot.STOMACH)!=null && this.getClothingInSlot(InventorySlot.STOMACH).getClothingType()==ClothingType.STOMACH_LOWBACK_BODY) {
+			if(this.getClothingInSlot(InventorySlot.STOMACH)!=null && this.getClothingInSlot(InventorySlot.STOMACH).getClothingType()==ClothingType.getClothingTypeFromId("innoxia_stomach_lowback_body")) {
 				this.setPendingClothingDressing(true);
 			}
 		} else {

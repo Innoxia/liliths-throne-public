@@ -362,7 +362,7 @@ public class ElementalDialogue {
 			}
 			
 			for(AbstractSubspecies sub : subspecies) {
-				String feralName = sub.getFeralName(getElemental());
+				String feralName = sub.getFeralName(getElemental().getBody());
 				if(getElemental().getPassiveForm()==sub) {
 					responses.add(new Response(Util.capitaliseSentence(feralName), "[el.Name] is already assuming the passive form of a small, feral "+feralName+"!", null));
 					
@@ -419,6 +419,14 @@ public class ElementalDialogue {
 			if(ELEMENTAL_START.getResponse(responseTab, index)!=null
 					&& ELEMENTAL_START.getResponse(responseTab, index).getNextDialogue()==ELEMENTAL_PERKS) {
 				return new Response("Perks", "You are already assigning [el.namePos] perk points!", null);
+			}
+			if(responseTab==1 && index==9) {
+				return new Response("Reset perks", "Reset all perks and traits, refunding all points spent. (This is a temporary action while the perk tree is still under development.)", ELEMENTAL_PERKS) {
+					@Override
+					public void effects() {
+						getElemental().resetPerksMap(false, false);
+					}
+				};
 			}
 			return ELEMENTAL_START.getResponse(responseTab, index);
 		}

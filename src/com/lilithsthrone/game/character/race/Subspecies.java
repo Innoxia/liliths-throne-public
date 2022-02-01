@@ -43,6 +43,7 @@ import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -225,7 +226,7 @@ public class Subspecies {
 			return 10;
 		}
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
 					"fallen angel",
 					"fallen angels",
@@ -234,14 +235,14 @@ public class Subspecies {
 					"fallen angels",
 					"fallen angels"};
 			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+			if(body !=null && !body.getHalfDemonSubspecies().isNonBiped()) {
 				names = new String[] {
-					applyNonBipedNameChange(character, "fallen angel", false, false),
-					applyNonBipedNameChange(character, "fallen angel", false, true),
-					applyNonBipedNameChange(character, "fallen angel", false, false),
-					applyNonBipedNameChange(character, "fallen angel", true, false),
-					applyNonBipedNameChange(character, "fallen angel", false, true),
-					applyNonBipedNameChange(character, "fallen angel", true, true)
+					applyNonBipedNameChange(body, "fallen angel", false, false),
+					applyNonBipedNameChange(body, "fallen angel", false, true),
+					applyNonBipedNameChange(body, "fallen angel", false, false),
+					applyNonBipedNameChange(body, "fallen angel", true, false),
+					applyNonBipedNameChange(body, "fallen angel", false, true),
+					applyNonBipedNameChange(body, "fallen angel", true, true)
 				};
 			}
 			
@@ -435,11 +436,11 @@ public class Subspecies {
 			return 20;
 		}
 		@Override
-		public String getFeralName(GameCharacter character) {
-			AbstractRace r = character.getLegType().getRace();
-			LegConfiguration legConfiguration = character.getLegConfiguration();
+		public String getFeralName(Body body) {
+			AbstractRace r = body.getLegType().getRace();
+			LegConfiguration legConfiguration = body.getLegConfiguration();
 			
-			switch(character.getLegConfiguration()) {
+			switch(body.getLegConfiguration()) {
 				case BIPEDAL:
 					return "demon";
 				case ARACHNID:
@@ -451,7 +452,7 @@ public class Subspecies {
 				case WINGED_BIPED:
 					return r==Race.HUMAN || r==Race.DEMON
 							?Race.DEMON.getFeralName(legConfiguration, false)
-							:"demonic-"+r.getName(character, true);
+							:"demonic-"+r.getName(body, true);
 			}
 			
 			return "demon";
@@ -467,69 +468,69 @@ public class Subspecies {
 		}
 		
 		@Override
-		public String getName(GameCharacter character) {
-			if(character==null || character.getRaceStage()==RaceStage.GREATER) {
-				if(character!=null) {
-					return demonLegConfigurationNames.get(character.getLegConfiguration())[0];
+		public String getName(Body body) {
+			if(body ==null || body.getRaceStage()==RaceStage.GREATER) {
+				if(body !=null) {
+					return demonLegConfigurationNames.get(body.getLegConfiguration())[0];
 				}
-				return super.getName(character);
+				return super.getName(body);
 			}
-			return HALF_DEMON.getName(character);
+			return HALF_DEMON.getName(body);
 		}
 		
 		@Override
-		public String getNamePlural(GameCharacter character) {
-			if(character==null || character.getRaceStage()==RaceStage.GREATER) {
-				if(character!=null) {
-					return demonLegConfigurationNames.get(character.getLegConfiguration())[1];
+		public String getNamePlural(Body body) {
+			if(body ==null || body.getRaceStage()==RaceStage.GREATER) {
+				if(body !=null) {
+					return demonLegConfigurationNames.get(body.getLegConfiguration())[1];
 				}
-				return super.getNamePlural(character);
+				return super.getNamePlural(body);
 			}
-			return HALF_DEMON.getNamePlural(character);
+			return HALF_DEMON.getNamePlural(body);
 		}
 
 		@Override
-		public String getSingularMaleName(GameCharacter character) {
-			if(character==null || character.getRaceStage()==RaceStage.GREATER) {
-				if(character!=null) {
-					return demonLegConfigurationNames.get(character.getLegConfiguration())[2];
+		public String getSingularMaleName(Body body) {
+			if(body ==null || body.getRaceStage()==RaceStage.GREATER) {
+				if(body !=null) {
+					return demonLegConfigurationNames.get(body.getLegConfiguration())[2];
 				}
-				return super.getSingularMaleName(character);
+				return super.getSingularMaleName(body);
 			}
-			return HALF_DEMON.getSingularMaleName(character);
+			return HALF_DEMON.getSingularMaleName(body);
 		}
 
 		@Override
-		public String getSingularFemaleName(GameCharacter character) {
-			if(character==null || character.getRaceStage()==RaceStage.GREATER) {
-				if(character!=null) {
-					return demonLegConfigurationNames.get(character.getLegConfiguration())[3];
+		public String getSingularFemaleName(Body body) {
+			if(body ==null || body.getRaceStage()==RaceStage.GREATER) {
+				if(body !=null) {
+					return demonLegConfigurationNames.get(body.getLegConfiguration())[3];
 				}
-				return super.getSingularFemaleName(character);
+				return super.getSingularFemaleName(body);
 			}
-			return HALF_DEMON.getSingularFemaleName(character);
+			return HALF_DEMON.getSingularFemaleName(body);
 		}
 
 		@Override
-		public String getPluralMaleName(GameCharacter character) {
-			if(character==null || character.getRaceStage()==RaceStage.GREATER) {
-				if(character!=null) {
-					return demonLegConfigurationNames.get(character.getLegConfiguration())[4];
+		public String getPluralMaleName(Body body) {
+			if(body ==null || body.getRaceStage()==RaceStage.GREATER) {
+				if(body !=null) {
+					return demonLegConfigurationNames.get(body.getLegConfiguration())[4];
 				}
-				return super.getPluralMaleName(character);
+				return super.getPluralMaleName(body);
 			}
-			return HALF_DEMON.getPluralMaleName(character);
+			return HALF_DEMON.getPluralMaleName(body);
 		}
 
 		@Override
-		public String getPluralFemaleName(GameCharacter character) {
-			if(character==null || character.getRaceStage()==RaceStage.GREATER) {
-				if(character!=null) {
-					return demonLegConfigurationNames.get(character.getLegConfiguration())[5];
+		public String getPluralFemaleName(Body body) {
+			if(body ==null || body.getRaceStage()==RaceStage.GREATER) {
+				if(body !=null) {
+					return demonLegConfigurationNames.get(body.getLegConfiguration())[5];
 				}
-				return super.getPluralFemaleName(character);
+				return super.getPluralFemaleName(body);
 			}
-			return HALF_DEMON.getPluralFemaleName(character);
+			return HALF_DEMON.getPluralFemaleName(body);
 		}
 
 		@Override
@@ -617,59 +618,59 @@ public class Subspecies {
 		}
 
 		@Override
-		public String getFeralName(GameCharacter character) {
-			if(character.getHalfDemonSubspecies()!=null) {
-				return character.getHalfDemonSubspecies().getFeralName(character);
+		public String getFeralName(Body body) {
+			if(body.getHalfDemonSubspecies()!=null) {
+				return body.getHalfDemonSubspecies().getFeralName(body);
 			}
-			return DEMON.getFeralName(character);
+			return DEMON.getFeralName(body);
 		}
 		
 		@Override
-		public String getName(GameCharacter character) {
-			if(character==null || character.getHalfDemonSubspecies()==null) {
-				return super.getName(character);
+		public String getName(Body body) {
+			if(body ==null || body.getHalfDemonSubspecies()==null) {
+				return super.getName(body);
 			}
-			return character.getHalfDemonSubspecies().getHalfDemonName(character)[0];
+			return body.getHalfDemonSubspecies().getHalfDemonName(body)[0];
 		}
 		
 		@Override
-		public String getNamePlural(GameCharacter character) {
-			if(character==null || character.getHalfDemonSubspecies()==null) {
-				return super.getNamePlural(character);
+		public String getNamePlural(Body body) {
+			if(body ==null || body.getHalfDemonSubspecies()==null) {
+				return super.getNamePlural(body);
 			}
-			return character.getHalfDemonSubspecies().getHalfDemonName(character)[1];
+			return body.getHalfDemonSubspecies().getHalfDemonName(body)[1];
 		}
 
 		@Override
-		public String getSingularMaleName(GameCharacter character) {
-			if(character==null || character.getHalfDemonSubspecies()==null) {
-				return super.getSingularMaleName(character);
+		public String getSingularMaleName(Body body) {
+			if(body ==null || body.getHalfDemonSubspecies()==null) {
+				return super.getSingularMaleName(body);
 			}
-			return character.getHalfDemonSubspecies().getHalfDemonName(character)[2];
+			return body.getHalfDemonSubspecies().getHalfDemonName(body)[2];
 		}
 
 		@Override
-		public String getSingularFemaleName(GameCharacter character) {
-			if(character==null || character.getHalfDemonSubspecies()==null) {
-				return super.getSingularFemaleName(character);
+		public String getSingularFemaleName(Body body) {
+			if(body ==null || body.getHalfDemonSubspecies()==null) {
+				return super.getSingularFemaleName(body);
 			}
-			return character.getHalfDemonSubspecies().getHalfDemonName(character)[3];
+			return body.getHalfDemonSubspecies().getHalfDemonName(body)[3];
 		}
 
 		@Override
-		public String getPluralMaleName(GameCharacter character) {
-			if(character==null || character.getHalfDemonSubspecies()==null) {
-				return super.getPluralMaleName(character);
+		public String getPluralMaleName(Body body) {
+			if(body ==null || body.getHalfDemonSubspecies()==null) {
+				return super.getPluralMaleName(body);
 			}
-			return character.getHalfDemonSubspecies().getHalfDemonName(character)[4];
+			return body.getHalfDemonSubspecies().getHalfDemonName(body)[4];
 		}
 
 		@Override
-		public String getPluralFemaleName(GameCharacter character) {
-			if(character==null || character.getHalfDemonSubspecies()==null) {
-				return super.getPluralFemaleName(character);
+		public String getPluralFemaleName(Body body) {
+			if(body ==null || body.getHalfDemonSubspecies()==null) {
+				return super.getPluralFemaleName(body);
 			}
-			return character.getHalfDemonSubspecies().getHalfDemonName(character)[5];
+			return body.getHalfDemonSubspecies().getHalfDemonName(body)[5];
 		}
 
 		@Override
@@ -901,7 +902,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.LUST, 1),
 					new Value<>(PerkCategory.ARCANE, 0)),
 			PresetColour.RACE_COW_MORPH,
-			SubspeciesPreference.FOUR_ABUNDANT, "An anthropomorphic cow, known as a 'cow-morph' when bipedal, and a 'cowtaur' when the lower body is that of a feral cow.",
+			SubspeciesPreference.FOUR_ABUNDANT, "An anthropomorphic cow, known as a 'cattle-morph' when bipedal, and a 'cowtaur'/'bulltaur' when the lower body is that of a feral cow or bull.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
 					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
@@ -911,7 +912,7 @@ public class Subspecies {
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE)),
 			null, null) {
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			return new String[] {
 					"minotaur",
 					"minotaurs",
@@ -920,7 +921,15 @@ public class Subspecies {
 					"minotaurs",
 					"minotaurs"};
 		}
-
+		@Override
+		protected String applyNonBipedNameChange(Body body, String baseName, boolean applyFeminineForm, boolean plural) {
+			if(body.getLegConfiguration()==LegConfiguration.QUADRUPEDAL) {
+				return applyFeminineForm
+						?("cowtaur"+(plural?"s":""))
+						:("bulltaur"+(plural?"s":""));
+			}
+			return super.applyNonBipedNameChange(body, baseName, applyFeminineForm, plural);
+		}
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.COW_MORPH) {
@@ -993,7 +1002,7 @@ public class Subspecies {
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 			null, null) {
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
 					"hellhound",
 					"hellhounds",
@@ -1002,14 +1011,14 @@ public class Subspecies {
 					"hellhounds",
 					"hellhounds"};
 			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+			if(body !=null && !body.getHalfDemonSubspecies().isNonBiped()) {
 				names = new String[] {
-					applyNonBipedNameChange(character, "hellhound", false, false),
-					applyNonBipedNameChange(character, "hellhound", false, true),
-					applyNonBipedNameChange(character, "hellhound", false, false),
-					applyNonBipedNameChange(character, "hellhound", true, false),
-					applyNonBipedNameChange(character, "hellhound", false, true),
-					applyNonBipedNameChange(character, "hellhound", true, true)
+					applyNonBipedNameChange(body, "hellhound", false, false),
+					applyNonBipedNameChange(body, "hellhound", false, true),
+					applyNonBipedNameChange(body, "hellhound", false, false),
+					applyNonBipedNameChange(body, "hellhound", true, false),
+					applyNonBipedNameChange(body, "hellhound", false, true),
+					applyNonBipedNameChange(body, "hellhound", true, true)
 				};
 			}
 			
@@ -1031,19 +1040,19 @@ public class Subspecies {
 			"innoxia_race_dog_canine_crunch",
 			"statusEffects/race/raceDogMorph",
 			"statusEffects/race/raceBackground",
-			"border-collie-morph",
-			"border-collie-morphs",
-			"border-collie-boy",
-			"border-collie-girl",
-			"border-collie-boys",
-			"border-collie-girls",
+			"border collie-morph",
+			"border collie-morphs",
+			"border collie-boy",
+			"border collie-girl",
+			"border collie-boys",
+			"border collie-girls",
 			new FeralAttributes(
-					"border-collie",
-					"border-collies",
-					"border-collie dog",
-					"border-collie bitch",
-					"border-collie dogs",
-					"border-collie bitches",
+					"border collie",
+					"border collies",
+					"border collie dog",
+					"border collie bitch",
+					"border collie dogs",
+					"border collie bitches",
 					LegConfiguration.QUADRUPEDAL,
 					65,
 					0,
@@ -1074,9 +1083,9 @@ public class Subspecies {
 					new Value<>(PerkCategory.LUST, 1),
 					new Value<>(PerkCategory.ARCANE, 1)),
 			PresetColour.RACE_DOG_MORPH,
-			SubspeciesPreference.TWO_AVERAGE, "A particularly energetic and intelligent dog-morph, which resembles an anthropomorphised border-collie."
-							+ " They are known as 'border-collie-morphs' when bipedal, and 'border-collie-taurs' when the lower body is that of an oversized feral border-collie."
-							+ " To be identified as a border-collie-morph, a character must be a dog-morph that has either upright or folded ears, and fluffy, black fur with white markings.",
+			SubspeciesPreference.TWO_AVERAGE, "A particularly energetic and intelligent dog-morph, which resembles an anthropomorphised border collie."
+							+ " They are known as 'border collie-morphs' when bipedal, and 'border collie-taurs' when the lower body is that of an oversized feral border collie."
+							+ " To be identified as a border collie-morph, a character must be a dog-morph that has either upright or folded ears, and fluffy, black fur with white markings.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
 					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE_UNCOMMON),
@@ -1096,7 +1105,7 @@ public class Subspecies {
 			}
 		}
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
 					"hellhound",
 					"hellhounds",
@@ -1105,14 +1114,14 @@ public class Subspecies {
 					"hellhounds",
 					"hellhounds"};
 			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+			if(body !=null && !body.getHalfDemonSubspecies().isNonBiped()) {
 				names = new String[] {
-					applyNonBipedNameChange(character, "hellhound", false, false),
-					applyNonBipedNameChange(character, "hellhound", false, true),
-					applyNonBipedNameChange(character, "hellhound", false, false),
-					applyNonBipedNameChange(character, "hellhound", true, false),
-					applyNonBipedNameChange(character, "hellhound", false, true),
-					applyNonBipedNameChange(character, "hellhound", true, true)
+					applyNonBipedNameChange(body, "hellhound", false, false),
+					applyNonBipedNameChange(body, "hellhound", false, true),
+					applyNonBipedNameChange(body, "hellhound", false, false),
+					applyNonBipedNameChange(body, "hellhound", true, false),
+					applyNonBipedNameChange(body, "hellhound", false, true),
+					applyNonBipedNameChange(body, "hellhound", true, true)
 				};
 			}
 			
@@ -1220,7 +1229,7 @@ public class Subspecies {
 			}
 		}
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
 					"hellhound",
 					"hellhounds",
@@ -1229,14 +1238,14 @@ public class Subspecies {
 					"hellhounds",
 					"hellhounds"};
 			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+			if(body !=null && !body.getHalfDemonSubspecies().isNonBiped()) {
 				names = new String[] {
-					applyNonBipedNameChange(character, "hellhound", false, false),
-					applyNonBipedNameChange(character, "hellhound", false, true),
-					applyNonBipedNameChange(character, "hellhound", false, false),
-					applyNonBipedNameChange(character, "hellhound", true, false),
-					applyNonBipedNameChange(character, "hellhound", false, true),
-					applyNonBipedNameChange(character, "hellhound", true, true)
+					applyNonBipedNameChange(body, "hellhound", false, false),
+					applyNonBipedNameChange(body, "hellhound", false, true),
+					applyNonBipedNameChange(body, "hellhound", false, false),
+					applyNonBipedNameChange(body, "hellhound", true, false),
+					applyNonBipedNameChange(body, "hellhound", false, true),
+					applyNonBipedNameChange(body, "hellhound", true, true)
 				};
 			}
 			
@@ -1330,7 +1339,7 @@ public class Subspecies {
 			}
 		}
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
 					"hellhound",
 					"hellhounds",
@@ -1339,14 +1348,14 @@ public class Subspecies {
 					"hellhounds",
 					"hellhounds"};
 			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+			if(body !=null && !body.getHalfDemonSubspecies().isNonBiped()) {
 				names = new String[] {
-					applyNonBipedNameChange(character, "hellhound", false, false),
-					applyNonBipedNameChange(character, "hellhound", false, true),
-					applyNonBipedNameChange(character, "hellhound", false, false),
-					applyNonBipedNameChange(character, "hellhound", true, false),
-					applyNonBipedNameChange(character, "hellhound", false, true),
-					applyNonBipedNameChange(character, "hellhound", true, true)
+					applyNonBipedNameChange(body, "hellhound", false, false),
+					applyNonBipedNameChange(body, "hellhound", false, true),
+					applyNonBipedNameChange(body, "hellhound", false, false),
+					applyNonBipedNameChange(body, "hellhound", true, false),
+					applyNonBipedNameChange(body, "hellhound", false, true),
+					applyNonBipedNameChange(body, "hellhound", true, true)
 				};
 			}
 			
@@ -1428,37 +1437,36 @@ public class Subspecies {
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 			null, null) {
 		@Override
-		public String getName(GameCharacter character) {
-			if(Main.game!=null && Main.game.isSillyModeEnabled() && (character==null || (!character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
+		public String getName(Body body) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && (body ==null || (!body.isFeral() && body.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
 				return "awoo-morph";
 			}
-			return super.getName(character);
+			return super.getName(body);
 		}
 		@Override
-		public String getNamePlural(GameCharacter character) {
-			if(Main.game!=null && Main.game.isSillyModeEnabled() && (character==null || (!character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
+		public String getNamePlural(Body body) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && (body ==null || (!body.isFeral() && body.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
 				return "awoo-morphs";
 			}
-			return super.getNamePlural(character);
+			return super.getNamePlural(body);
 		}
 		@Override
-		public String getSingularMaleName(GameCharacter character) {
-			if(Main.game!=null && Main.game.isSillyModeEnabled() && character!=null && !character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL) {
+		public String getSingularMaleName(Body body) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && body !=null && !body.isFeral() && body.getLegConfiguration()==LegConfiguration.BIPEDAL) {
 				return "awoo-boi";
 			}
-			return super.getSingularMaleName(character);
+			return super.getSingularMaleName(body);
 		}
 		@Override
-		public String getSingularFemaleName(GameCharacter character) {
-			if(Main.game!=null && Main.game.isSillyModeEnabled() && character!=null && !character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL) {
+		public String getSingularFemaleName(Body body) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && body !=null && !body.isFeral() && body.getLegConfiguration()==LegConfiguration.BIPEDAL) {
 				return "awoo-girl";
 			}
-			return super.getSingularFemaleName(character);
+			return super.getSingularFemaleName(body);
 		}
 		@Override
 		public void applySpeciesChanges(Body body) {
 			List<Colour> naturalWolfFurColours = Util.newArrayListOfValues(
-					PresetColour.COVERING_WHITE,
 					PresetColour.COVERING_GREY,
 					PresetColour.COVERING_BLACK,
 					PresetColour.COVERING_JET_BLACK);
@@ -1468,7 +1476,7 @@ public class Subspecies {
 			body.getCoverings().put(BodyCoveringType.HAIR_LYCAN_FUR, new Covering(BodyCoveringType.HAIR_LYCAN_FUR, c));
 			body.getCoverings().put(BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, c));
 		}
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
 					"vargr",
 					"vargar",
@@ -1477,14 +1485,14 @@ public class Subspecies {
 					"vargar",
 					"vargar"};
 			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+			if(body !=null && !body.getHalfDemonSubspecies().isNonBiped()) {
 				names = new String[] {
-					applyNonBipedNameChange(character, "vargr", false, false),
-					applyNonBipedNameChange(character, "vargr", false, true),
-					applyNonBipedNameChange(character, "vargr", false, false),
-					applyNonBipedNameChange(character, "vargr", true, false),
-					applyNonBipedNameChange(character, "vargr", false, true),
-					applyNonBipedNameChange(character, "vargr", true, true)
+					applyNonBipedNameChange(body, "vargr", false, false),
+					applyNonBipedNameChange(body, "vargr", false, true),
+					applyNonBipedNameChange(body, "vargr", false, false),
+					applyNonBipedNameChange(body, "vargr", true, false),
+					applyNonBipedNameChange(body, "vargr", false, true),
+					applyNonBipedNameChange(body, "vargr", true, true)
 				};
 			}
 			
@@ -1575,19 +1583,19 @@ public class Subspecies {
 			"innoxia_race_fox_chicken_pot_pie",
 			"statusEffects/race/raceFoxMorph",
 			"statusEffects/race/raceBackground",
-			"arctic-fox-morph",
-			"arctic-fox-morphs",
-			"arctic-fox-boy",
-			"arctic-fox-girl",
-			"arctic-fox-boys",
-			"arctic-fox-girls",
+			"arctic fox-morph",
+			"arctic fox-morphs",
+			"arctic fox-boy",
+			"arctic fox-girl",
+			"arctic fox-boys",
+			"arctic fox-girls",
 			new FeralAttributes(
-					"arctic-fox",
-					"arctic-foxes",
-					"arctic-fox",
-					"arctic-vixen",
-					"arctic-foxes",
-					"arctic-vixens",
+					"arctic fox",
+					"arctic foxes",
+					"arctic fox",
+					"arctic vixen",
+					"arctic foxes",
+					"arctic vixens",
 					LegConfiguration.QUADRUPEDAL,
 					30,
 					0,
@@ -1619,7 +1627,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 1)),
 			PresetColour.RACE_FOX_MORPH_ARCTIC,
 			SubspeciesPreference.ONE_LOW,
-			"An anthropomorphic fox with white fur, known as an 'arctic-fox-morph' when bipedal, and an 'arctic-foxtaur' when the lower body is that of a typically-oversized feral fox.",
+			"An anthropomorphic fox with white fur, known as an 'arctic fox-morph' when bipedal, and an 'arctic foxtaur' when the lower body is that of a typically-oversized feral fox.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
 					new Value<>(WorldRegion.SNOW, SubspeciesSpawnRarity.TWO_RARE)),
@@ -1891,19 +1899,19 @@ public class Subspecies {
 			"innoxia_race_fox_chicken_pot_pie",
 			"statusEffects/race/raceFoxMorph",
 			"statusEffects/race/raceBackground",
-			"arctic-youko",
-			"arctic-youko",
-			"arctic-youko-boy",
-			"arctic-youko-girl",
-			"arctic-youko-boys",
-			"arctic-youko-girls",
+			"arctic youko",
+			"arctic youko",
+			"arctic youko-boy",
+			"arctic youko-girl",
+			"arctic youko-boys",
+			"arctic youko-girls",
 			new FeralAttributes(
-					"arctic-youko-fox",
-					"arctic-youko-foxes",
-					"arctic-youko-fox",
-					"arctic-youko-vixen",
-					"arctic-youko-foxes",
-					"arctic-youko-vixens",
+					"arctic youko-fox",
+					"arctic youko-foxes",
+					"arctic youko-fox",
+					"arctic youko-vixen",
+					"arctic youko-foxes",
+					"arctic youko-vixens",
 					LegConfiguration.QUADRUPEDAL,
 					40,
 					0,
@@ -1927,7 +1935,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 5)),
 			PresetColour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"An arctic-fox-morph, empowered by the gifts of a Lilin.",
+			"An arctic fox-morph, empowered by the gifts of a Lilin.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.ONE_VERY_RARE)),
 			Util.newHashMapOfValues(),
@@ -1963,9 +1971,9 @@ public class Subspecies {
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
 			if(character.getMaxTailCount()<9) {
-				return UtilText.parse(character, "[npc.NameIsFull] an arctic-fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailMaxCount] arcane tail"+(character.getMaxTailCount()==1?"":"s")+".");
+				return UtilText.parse(character, "[npc.NameIsFull] an arctic fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailMaxCount] arcane tail"+(character.getMaxTailCount()==1?"":"s")+".");
 			} else {
-				return UtilText.parse(character, "[npc.NameIsFull] an arctic-fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
+				return UtilText.parse(character, "[npc.NameIsFull] an arctic fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
 			}
 		}
 
@@ -2216,32 +2224,32 @@ public class Subspecies {
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 			null, null) {
 		@Override
-		public String getName(GameCharacter character) {
-			if(Main.game!=null && Main.game.isSillyModeEnabled() && (character==null || (!character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
+		public String getName(Body body) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && (body ==null || (!body.isFeral() && body.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
 				return "catte-morph";
 			}
-			return super.getName(character);
+			return super.getName(body);
 		}
 		@Override
-		public String getNamePlural(GameCharacter character) {
-			if(Main.game!=null && Main.game.isSillyModeEnabled() && (character==null || (!character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
+		public String getNamePlural(Body body) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && (body ==null || (!body.isFeral() && body.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
 				return "catte-morphs";
 			}
-			return super.getNamePlural(character);
+			return super.getNamePlural(body);
 		}
 		@Override
-		public String getSingularMaleName(GameCharacter character) {
-			if(Main.game!=null && Main.game.isSillyModeEnabled() && character!=null && !character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL) {
+		public String getSingularMaleName(Body body) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && body !=null && !body.isFeral() && body.getLegConfiguration()==LegConfiguration.BIPEDAL) {
 				return "catte-boi";
 			}
-			return super.getSingularMaleName(character);
+			return super.getSingularMaleName(body);
 		}
 		@Override
-		public String getSingularFemaleName(GameCharacter character) {
-			if(Main.game!=null && Main.game.isSillyModeEnabled() && character!=null && !character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL) {
+		public String getSingularFemaleName(Body body) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && body !=null && !body.isFeral() && body.getLegConfiguration()==LegConfiguration.BIPEDAL) {
 				return "catte-girl";
 			}
-			return super.getSingularFemaleName(character);
+			return super.getSingularFemaleName(body);
 		}
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -3006,7 +3014,7 @@ public class Subspecies {
 			}
 		}
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
 					"nightmare",
 					"nightmares",
@@ -3015,14 +3023,14 @@ public class Subspecies {
 					"nightmares",
 					"nightmares"};
 			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+			if(body !=null && !body.getHalfDemonSubspecies().isNonBiped()) {
 				names = new String[] {
-					applyNonBipedNameChange(character, "nightmare", false, false),
-					applyNonBipedNameChange(character, "nightmare", false, true),
-					applyNonBipedNameChange(character, "nightmare", false, false),
-					applyNonBipedNameChange(character, "nightmare", true, false),
-					applyNonBipedNameChange(character, "nightmare", false, true),
-					applyNonBipedNameChange(character, "nightmare", true, true)
+					applyNonBipedNameChange(body, "nightmare", false, false),
+					applyNonBipedNameChange(body, "nightmare", false, true),
+					applyNonBipedNameChange(body, "nightmare", false, false),
+					applyNonBipedNameChange(body, "nightmare", true, false),
+					applyNonBipedNameChange(body, "nightmare", false, true),
+					applyNonBipedNameChange(body, "nightmare", true, true)
 				};
 			}
 			
@@ -3107,7 +3115,7 @@ public class Subspecies {
 			}
 		}
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
 					"unicorn-nightmare",
 					"unicorn-nightmares",
@@ -3116,14 +3124,14 @@ public class Subspecies {
 					"unicorn-nightmares",
 					"unicorn-nightmares"};
 			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+			if(body !=null && !body.getHalfDemonSubspecies().isNonBiped()) {
 				names = new String[] {
-					applyNonBipedNameChange(character, "unicorn-nightmare", false, false),
-					applyNonBipedNameChange(character, "unicorn-nightmare", false, true),
-					applyNonBipedNameChange(character, "unicorn-nightmare", false, false),
-					applyNonBipedNameChange(character, "unicorn-nightmare", true, false),
-					applyNonBipedNameChange(character, "unicorn-nightmare", false, true),
-					applyNonBipedNameChange(character, "unicorn-nightmare", true, true)
+					applyNonBipedNameChange(body, "unicorn-nightmare", false, false),
+					applyNonBipedNameChange(body, "unicorn-nightmare", false, true),
+					applyNonBipedNameChange(body, "unicorn-nightmare", false, false),
+					applyNonBipedNameChange(body, "unicorn-nightmare", true, false),
+					applyNonBipedNameChange(body, "unicorn-nightmare", false, true),
+					applyNonBipedNameChange(body, "unicorn-nightmare", true, true)
 				};
 			}
 			
@@ -3165,13 +3173,13 @@ public class Subspecies {
 					1,
 					1,
 					true),
-			"Although physically weaker than a regular horse-morph, [npc.nameIsFull] a lot more agile, allowing [npc.herHim] to avoid incoming damage.",
+			"Although physically weaker than a regular horse-morph, [npc.nameIsFull] a lot more agile, allowing [npc.herHim] to strike at [npc.her] enemies' weak points.",
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MAJOR_PHYSIQUE, 15f),
 					new Value<>(Attribute.MAJOR_ARCANE, 0f),
 					new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<>(Attribute.DAMAGE_PHYSICAL, 10f),
-					new Value<>(Attribute.CRITICAL_DAMAGE, 10f)),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 30f)),
 			null,
 			"Equine Encyclopedia",
 			"Equine Encyclopedias",
@@ -3205,7 +3213,7 @@ public class Subspecies {
 			}
 		}
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
 					"pegasus-nightmare",
 					"pegasus-nightmares",
@@ -3214,14 +3222,14 @@ public class Subspecies {
 					"pegasus-nightmares",
 					"pegasus-nightmares"};
 			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+			if(body !=null && !body.getHalfDemonSubspecies().isNonBiped()) {
 				names = new String[] {
-					applyNonBipedNameChange(character, "pegasus-nightmare", false, false),
-					applyNonBipedNameChange(character, "pegasus-nightmare", false, true),
-					applyNonBipedNameChange(character, "pegasus-nightmare", false, false),
-					applyNonBipedNameChange(character, "pegasus-nightmare", true, false),
-					applyNonBipedNameChange(character, "pegasus-nightmare", false, true),
-					applyNonBipedNameChange(character, "pegasus-nightmare", true, true)
+					applyNonBipedNameChange(body, "pegasus-nightmare", false, false),
+					applyNonBipedNameChange(body, "pegasus-nightmare", false, true),
+					applyNonBipedNameChange(body, "pegasus-nightmare", false, false),
+					applyNonBipedNameChange(body, "pegasus-nightmare", true, false),
+					applyNonBipedNameChange(body, "pegasus-nightmare", false, true),
+					applyNonBipedNameChange(body, "pegasus-nightmare", true, true)
 				};
 			}
 			
@@ -3306,7 +3314,7 @@ public class Subspecies {
 			}
 		}
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
 					"alicorn-nightmare",
 					"alicorn-nightmares",
@@ -3315,14 +3323,14 @@ public class Subspecies {
 					"alicorn-nightmares",
 					"alicorn-nightmares"};
 			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+			if(body !=null && !body.getHalfDemonSubspecies().isNonBiped()) {
 				names = new String[] {
-					applyNonBipedNameChange(character, "alicorn-nightmare", false, false),
-					applyNonBipedNameChange(character, "alicorn-nightmare", false, true),
-					applyNonBipedNameChange(character, "alicorn-nightmare", false, false),
-					applyNonBipedNameChange(character, "alicorn-nightmare", true, false),
-					applyNonBipedNameChange(character, "alicorn-nightmare", false, true),
-					applyNonBipedNameChange(character, "alicorn-nightmare", true, true)
+					applyNonBipedNameChange(body, "alicorn-nightmare", false, false),
+					applyNonBipedNameChange(body, "alicorn-nightmare", false, true),
+					applyNonBipedNameChange(body, "alicorn-nightmare", false, false),
+					applyNonBipedNameChange(body, "alicorn-nightmare", true, false),
+					applyNonBipedNameChange(body, "alicorn-nightmare", false, true),
+					applyNonBipedNameChange(body, "alicorn-nightmare", true, true)
 				};
 			}
 			
@@ -3406,7 +3414,7 @@ public class Subspecies {
 			body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
 		}
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			return new String[] {
 					"demonic-centaur",
 					"demonic-centaurs",
@@ -3484,7 +3492,7 @@ public class Subspecies {
 			body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
 		}
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			return new String[] {
 					"demonic-pegataur",
 					"demonic-pegataurs",
@@ -3568,7 +3576,7 @@ public class Subspecies {
 			body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
 		}
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			return new String[] {
 					"demonic-unitaur",
 					"demonic-unitaurs",
@@ -3651,7 +3659,7 @@ public class Subspecies {
 			body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
 		}
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			return new String[] {
 					"demonic-alitaur",
 					"demonic-alitaurs",
@@ -3673,7 +3681,7 @@ public class Subspecies {
 			return 0;
 		}
 	};
-
+	
 	public static AbstractSubspecies HORSE_MORPH_ZEBRA = new AbstractSubspecies(false,
 			18000,
 			"innoxia_race_horse_equine_cider",
@@ -3752,23 +3760,23 @@ public class Subspecies {
 			}
 		}
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
-					"nightmare",
-					"nightmares",
-					"nightmare",
-					"nightmare",
-					"nightmares",
-					"nightmares"};
+					"zebra-nightmare",
+					"zebra-nightmares",
+					"zebra-nightmare",
+					"zebra-nightmare",
+					"zebra-nightmares",
+					"zebra-nightmares"};
 			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+			if(body !=null && !body.getHalfDemonSubspecies().isNonBiped()) {
 				names = new String[] {
-					applyNonBipedNameChange(character, "nightmare", false, false),
-					applyNonBipedNameChange(character, "nightmare", false, true),
-					applyNonBipedNameChange(character, "nightmare", false, false),
-					applyNonBipedNameChange(character, "nightmare", true, false),
-					applyNonBipedNameChange(character, "nightmare", false, true),
-					applyNonBipedNameChange(character, "nightmare", true, true)
+					applyNonBipedNameChange(body, "zebra-nightmare", false, false),
+					applyNonBipedNameChange(body, "zebra-nightmare", false, true),
+					applyNonBipedNameChange(body, "zebra-nightmare", false, false),
+					applyNonBipedNameChange(body, "zebra-nightmare", true, false),
+					applyNonBipedNameChange(body, "zebra-nightmare", false, true),
+					applyNonBipedNameChange(body, "zebra-nightmare", true, true)
 				};
 			}
 			
@@ -3783,13 +3791,137 @@ public class Subspecies {
 				if((((zebraPrimary==PresetColour.COVERING_BLACK || zebraPrimary==PresetColour.COVERING_JET_BLACK) && zebraSecondary==PresetColour.COVERING_WHITE)
 						|| (zebraPrimary==PresetColour.COVERING_WHITE && (zebraSecondary==PresetColour.COVERING_BLACK || zebraSecondary==PresetColour.COVERING_JET_BLACK)))
 					&& body.getTail().getType()==TailType.HORSE_MORPH_ZEBRA) {
-						return 125;
+//						return 125;
+						return 1500;// Zebra-morphs should override centaur types
 					}
 			}
 			return 0;
 		}
 	};
 
+	public static AbstractSubspecies HORSE_MORPH_DONKEY = new AbstractSubspecies(false,
+			12000,
+			"innoxia_race_horse_equine_cider",
+			"innoxia_race_horse_sugar_carrot_cube",
+			"statusEffects/race/raceHorseMorph",
+			"statusEffects/race/raceBackground",
+			"donkey-morph",
+			"donkey-morphs",
+			"donkey-boy",
+			"donkey-girl",
+			"donkey-boys",
+			"donkey-girls",
+			new FeralAttributes(
+					"donkey",
+					"donkeys",
+					"donkey-stallion",
+					"donkey-mare",
+					"donkey-stallions",
+					"donkey-mares",
+					LegConfiguration.QUADRUPEDAL,
+					120,
+					0,
+					1,
+					1,
+					1,
+					true),
+			"While [npc.namePos] body possesses an impressive level of both strength and endurance, [npc.she] [npc.verb(struggle)] more than most when it comes to harnessing the arcane."
+					+ " [npc.She] also [npc.has] an innate knowledge of how best to fight against canines.",
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 25f),
+					new Value<>(Attribute.MAJOR_ARCANE, -5f),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, -10f),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 10f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 20f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.DOG_MORPH), 25f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.WOLF_MORPH), 25f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.FOX_MORPH), 25f)),
+			null,
+			"Equine Encyclopedia",
+			"Equine Encyclopedias",
+			"HORSE_MORPH_BASIC",
+			"HORSE_MORPH_ADVANCED",
+			Race.HORSE_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 15),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			PresetColour.CLOTHING_DESATURATED_BROWN,
+			SubspeciesPreference.ONE_LOW,
+			"An anthropomorphic donkey, known as a 'donkey-morph' when bipedal, and a 'donkeytaur' when the lower body is that of a feral donkey."
+					+" To be identified as a donkey-morph, a character must be a horse-morph that has tall, upright ears.",
+			Util.newHashMapOfValues(
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE)),
+			null, null) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			body.getHorn().setType(null, HornType.NONE);
+			body.getWing().setType(null, WingType.NONE);
+			if(Math.random()<0.75f) { // 75% of donkey morphs are the classic brown with white markings:
+				body.getCoverings().put(BodyCoveringType.HORSE_HAIR, new Covering(BodyCoveringType.HORSE_HAIR, CoveringPattern.MARKED, CoveringModifier.SHORT, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_WHITE, false));
+				body.getCoverings().put(BodyCoveringType.HAIR_HORSE_HAIR, new Covering(BodyCoveringType.HAIR_HORSE_HAIR, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_WHITE, false));
+				body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_DARK, false, PresetColour.SKIN_DARK, false));
+			}
+			body.updateCoverings(true, true, true, true);
+			
+			if(body.getEar().getType()==EarType.HORSE_MORPH) {
+				body.getEar().setType(null, EarType.HORSE_MORPH_UPRIGHT);
+			}
+			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
+				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
+			}
+		}
+		@Override
+		public String[] getHalfDemonName(Body body) {
+			String[] names = new String[] {
+					"donkey-nightmare",
+					"donkey-nightmares",
+					"donkey-nightmare",
+					"donkey-nightmare",
+					"donkey-nightmares",
+					"donkey-nightmares"};
+			
+			if(body !=null && !body.getHalfDemonSubspecies().isNonBiped()) {
+				names = new String[] {
+					applyNonBipedNameChange(body, "donkey-nightmare", false, false),
+					applyNonBipedNameChange(body, "donkey-nightmare", false, true),
+					applyNonBipedNameChange(body, "donkey-nightmare", false, false),
+					applyNonBipedNameChange(body, "donkey-nightmare", true, false),
+					applyNonBipedNameChange(body, "donkey-nightmare", false, true),
+					applyNonBipedNameChange(body, "donkey-nightmare", true, true)
+				};
+			}
+			
+			return names;
+		}
+		@Override
+		public int getSubspeciesWeighting(Body body, AbstractRace race) {
+			if(race==Race.HORSE_MORPH) {
+				if(body.getEar().getType()==EarType.HORSE_MORPH_UPRIGHT) {
+//					return 110; // Less than zebra
+					return 1400;// Donkey-morphs should override centaur types
+				}
+			}
+			return 0;
+		}
+		@Override
+		public Map<PersonalityTrait, Float> getPersonalityTraitChances() {
+			Map<PersonalityTrait, Float> map = super.getPersonalityTraitChances();
+			map.put(PersonalityTrait.BRAVE, 0.5f);// Donkeys do not act like typical prey animals
+			return map;
+		}
+	};
+	
 	public static AbstractSubspecies REINDEER_MORPH = new AbstractSubspecies(true,
 			18000,
 			"innoxia_race_reindeer_rudolphs_egg_nog",
@@ -3931,7 +4063,7 @@ public class Subspecies {
 			"slime-boys",
 			"slime-girls",
 			null,
-			"Due to [npc.her] soft, slimy body, [npc.nameIsFull] almost completely immune to physical damage, but [npc.she] is also unable to inflict any significant damage while unarmed."
+			"Due to [npc.her] soft, slimy body, [npc.nameIsFull] almost completely immune to physical damage, but [npc.sheIs] also unable to inflict any significant damage while unarmed."
 					+ " [npc.She] can also morph [npc.her] body at will, allowing [npc.herHim] to take on any form that [npc.she] [npc.verb(desire)].",
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MAJOR_PHYSIQUE, 0f),
@@ -3979,7 +4111,7 @@ public class Subspecies {
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
 			if(character!=null) {
-				AbstractSubspecies coreSubspecies = character.getFleshSubspecies();
+				AbstractSubspecies coreSubspecies = character.getBody().getFleshSubspecies();
 				if(character.getSubspeciesOverrideRace()==Race.DEMON) {
 					return UtilText.parse(character,
 							"Due to [npc.her] soft, slimy body, [npc.nameIsFull] almost completely immune to physical damage, but [npc.she] is also unable to inflict any serious unarmed damage."
@@ -3994,87 +4126,87 @@ public class Subspecies {
 		}
 		
 		@Override
-		public String getName(GameCharacter character) {
-			if(character==null) {
-				return super.getName(character);
+		public String getName(Body body) {
+			if(body ==null) {
+				return super.getName(body);
 			}
-			AbstractSubspecies coreSubspecies = character.getFleshSubspecies();
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
 			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getName(character);
-			} else if(coreSubspecies==Subspecies.DEMON && character.getSubspeciesOverride()==null) {
-				return coreSubspecies.getName(character)+"-mimic-slime";
+				return super.getName(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return coreSubspecies.getName(body)+"-mimic-slime";
 			}
-			return coreSubspecies.getName(character)+"-slime";
+			return coreSubspecies.getName(body)+"-slime";
 		}
 		
 		@Override
-		public String getNamePlural(GameCharacter character) {
-			if(character==null) {
-				return super.getNamePlural(character);
+		public String getNamePlural(Body body) {
+			if(body ==null) {
+				return super.getNamePlural(body);
 			}
-			AbstractSubspecies coreSubspecies = character.getFleshSubspecies();
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
 			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getNamePlural(character);
-			} else if(coreSubspecies==Subspecies.DEMON && character.getSubspeciesOverride()==null) {
-				return coreSubspecies.getName(character)+"-mimic-slimes";
+				return super.getNamePlural(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return coreSubspecies.getName(body)+"-mimic-slimes";
 			}
-			return coreSubspecies.getName(character)+"-slimes";
+			return coreSubspecies.getName(body)+"-slimes";
 		}
 
 		@Override
-		public String getSingularMaleName(GameCharacter character) {
-			if(character==null) {
-				return super.getSingularMaleName(character);
+		public String getSingularMaleName(Body body) {
+			if(body ==null) {
+				return super.getSingularMaleName(body);
 			}
-			AbstractSubspecies coreSubspecies = character.getFleshSubspecies();
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
 			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getSingularMaleName(character);
-			} else if(coreSubspecies==Subspecies.DEMON && character.getSubspeciesOverride()==null) {
-				return coreSubspecies.getSingularMaleName(character)+"-mimic-slime";
+				return super.getSingularMaleName(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return coreSubspecies.getSingularMaleName(body)+"-mimic-slime";
 			}
-			return coreSubspecies.getSingularMaleName(character)+"-slime";
+			return coreSubspecies.getSingularMaleName(body)+"-slime";
 		}
 
 		@Override
-		public String getSingularFemaleName(GameCharacter character) {
-			if(character==null) {
-				return super.getSingularFemaleName(character);
+		public String getSingularFemaleName(Body body) {
+			if(body ==null) {
+				return super.getSingularFemaleName(body);
 			}
-			AbstractSubspecies coreSubspecies = character.getFleshSubspecies();
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
 			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getSingularFemaleName(character);
-			} else if(coreSubspecies==Subspecies.DEMON && character.getSubspeciesOverride()==null) {
-				return coreSubspecies.getSingularFemaleName(character)+"-mimic-slime";
+				return super.getSingularFemaleName(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return coreSubspecies.getSingularFemaleName(body)+"-mimic-slime";
 			}
-			return coreSubspecies.getSingularFemaleName(character)+"-slime";
+			return coreSubspecies.getSingularFemaleName(body)+"-slime";
 		}
 
 		@Override
-		public String getPluralMaleName(GameCharacter character) {
-			if(character==null) {
-				return super.getPluralMaleName(character);
+		public String getPluralMaleName(Body body) {
+			if(body ==null) {
+				return super.getPluralMaleName(body);
 			}
-			AbstractSubspecies coreSubspecies = character.getFleshSubspecies();
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
 			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getPluralMaleName(character);
-			} else if(coreSubspecies==Subspecies.DEMON && character.getSubspeciesOverride()==null) {
-				return coreSubspecies.getSingularMaleName(character)+"-mimic-slimes";
+				return super.getPluralMaleName(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return coreSubspecies.getSingularMaleName(body)+"-mimic-slimes";
 			}
-			return coreSubspecies.getSingularMaleName(character)+"-slimes";
+			return coreSubspecies.getSingularMaleName(body)+"-slimes";
 		}
 
 		@Override
-		public String getPluralFemaleName(GameCharacter character) {
-			if(character==null) {
-				return super.getPluralFemaleName(character);
+		public String getPluralFemaleName(Body body) {
+			if(body ==null) {
+				return super.getPluralFemaleName(body);
 			}
-			AbstractSubspecies coreSubspecies = character.getFleshSubspecies();
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
 			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getPluralFemaleName(character);
-			} else if(coreSubspecies==Subspecies.DEMON && character.getSubspeciesOverride()==null) {
-				return coreSubspecies.getSingularFemaleName(character)+"-mimic-slimes";
+				return super.getPluralFemaleName(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return coreSubspecies.getSingularFemaleName(body)+"-mimic-slimes";
 			}
-			return coreSubspecies.getSingularFemaleName(character)+"-slimes";
+			return coreSubspecies.getSingularFemaleName(body)+"-slimes";
 		}
 
 		@Override
@@ -4082,7 +4214,7 @@ public class Subspecies {
 			if(character==null) {
 				return Subspecies.HUMAN.getSlimeSVGString(null);
 			}
-			return character.getFleshSubspecies().getSlimeSVGString(character);
+			return character.getBody().getFleshSubspecies().getSlimeSVGString(character);
 		}
 
 		@Override
@@ -4090,7 +4222,7 @@ public class Subspecies {
 			if(character==null) {
 				return Subspecies.HUMAN.getSVGStringDesaturated(null);
 			}
-			return character.getFleshSubspecies().getSVGStringDesaturated(character);
+			return character.getBody().getFleshSubspecies().getSVGStringDesaturated(character);
 		}
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
@@ -4285,7 +4417,13 @@ public class Subspecies {
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 			null, null) {
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public void applySpeciesChanges(Body body) {
+			if(body.isFeminine() && body.getRaceStage()==RaceStage.GREATER) {
+				body.getHair().setNeckFluff(null, Math.random()<0.1f);
+			}
+		}
+		@Override
+		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
 					"jackalope",
 					"jackalopes",
@@ -4294,20 +4432,19 @@ public class Subspecies {
 					"jackalopes",
 					"jackalopes"};
 			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+			if(body !=null && !body.getHalfDemonSubspecies().isNonBiped()) {
 				names = new String[] {
-					applyNonBipedNameChange(character, "jackalope", false, false),
-					applyNonBipedNameChange(character, "jackalope", false, true),
-					applyNonBipedNameChange(character, "jackalope", false, false),
-					applyNonBipedNameChange(character, "jackalope", true, false),
-					applyNonBipedNameChange(character, "jackalope", false, true),
-					applyNonBipedNameChange(character, "jackalope", true, true)
+					applyNonBipedNameChange(body, "jackalope", false, false),
+					applyNonBipedNameChange(body, "jackalope", false, true),
+					applyNonBipedNameChange(body, "jackalope", false, false),
+					applyNonBipedNameChange(body, "jackalope", true, false),
+					applyNonBipedNameChange(body, "jackalope", false, true),
+					applyNonBipedNameChange(body, "jackalope", true, true)
 				};
 			}
 			
 			return names;
 		}
-
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.RABBIT_MORPH) {
@@ -4378,9 +4515,12 @@ public class Subspecies {
 			if(body.getEar().getType()==EarType.RABBIT_MORPH) {
 				body.getEar().setType(null, EarType.RABBIT_MORPH_FLOPPY);
 			}
+			if(body.isFeminine() && body.getRaceStage()==RaceStage.GREATER) {
+				body.getHair().setNeckFluff(null, Math.random()<0.1f);
+			}
 		}
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
 					"jackalope",
 					"jackalopes",
@@ -4389,14 +4529,14 @@ public class Subspecies {
 					"jackalopes",
 					"jackalopes"};
 			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+			if(body !=null && !body.getHalfDemonSubspecies().isNonBiped()) {
 				names = new String[] {
-					applyNonBipedNameChange(character, "jackalope", false, false),
-					applyNonBipedNameChange(character, "jackalope", false, true),
-					applyNonBipedNameChange(character, "jackalope", false, false),
-					applyNonBipedNameChange(character, "jackalope", true, false),
-					applyNonBipedNameChange(character, "jackalope", false, true),
-					applyNonBipedNameChange(character, "jackalope", true, true)
+					applyNonBipedNameChange(body, "jackalope", false, false),
+					applyNonBipedNameChange(body, "jackalope", false, true),
+					applyNonBipedNameChange(body, "jackalope", false, false),
+					applyNonBipedNameChange(body, "jackalope", true, false),
+					applyNonBipedNameChange(body, "jackalope", false, true),
+					applyNonBipedNameChange(body, "jackalope", true, true)
 				};
 			}
 			
@@ -4548,35 +4688,35 @@ public class Subspecies {
 				SubspeciesFlag.DISABLE_SPAWN_PREFERENCE,
 				SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
-		public String getName(GameCharacter character) {
-			if(Main.game!=null && Main.game.isSillyModeEnabled() && (character==null || (!character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
+		public String getName(Body body) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && (body ==null || (!body.isFeral() && body.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
 				return "birb";
 			}
-			return super.getName(character);
+			return super.getName(body);
 		}
 		@Override
-		public String getNamePlural(GameCharacter character) {
-			if(Main.game!=null && Main.game.isSillyModeEnabled() && (character==null || (!character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
+		public String getNamePlural(Body body) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && (body ==null || (!body.isFeral() && body.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
 				return "birbs";
 			}
-			return super.getNamePlural(character);
+			return super.getNamePlural(body);
 		}
 		@Override
-		public String getSingularMaleName(GameCharacter character) {
-			if(Main.game!=null && Main.game.isSillyModeEnabled() && character!=null && !character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL) {
+		public String getSingularMaleName(Body body) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && body !=null && !body.isFeral() && body.getLegConfiguration()==LegConfiguration.BIPEDAL) {
 				return "birb";
 			}
-			return super.getSingularMaleName(character);
+			return super.getSingularMaleName(body);
 		}
 		@Override
-		public String getSingularFemaleName(GameCharacter character) {
-			if(Main.game!=null && Main.game.isSillyModeEnabled() && character!=null && !character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL) {
+		public String getSingularFemaleName(Body body) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && body !=null && !body.isFeral() && body.getLegConfiguration()==LegConfiguration.BIPEDAL) {
 				return "birb";
 			}
-			return super.getSingularFemaleName(character);
+			return super.getSingularFemaleName(body);
 		}
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
 					"fury",
 					"furies",
@@ -4585,21 +4725,21 @@ public class Subspecies {
 					"furies",
 					"furies"};
 			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+			if(body !=null && !body.getHalfDemonSubspecies().isNonBiped()) {
 				names = new String[] {
-					applyNonBipedNameChange(character, "fury", false, false),
-					applyNonBipedNameChange(character, "fury", false, true),
-					applyNonBipedNameChange(character, "fury", false, false),
-					applyNonBipedNameChange(character, "fury", true, false),
-					applyNonBipedNameChange(character, "fury", false, true),
-					applyNonBipedNameChange(character, "fury", true, true)
+					applyNonBipedNameChange(body, "fury", false, false),
+					applyNonBipedNameChange(body, "fury", false, true),
+					applyNonBipedNameChange(body, "fury", false, false),
+					applyNonBipedNameChange(body, "fury", true, false),
+					applyNonBipedNameChange(body, "fury", false, true),
+					applyNonBipedNameChange(body, "fury", true, true)
 				};
 			}
 			
 			return names;
 		}
 		@Override
-		public String getNonBipedRaceName(GameCharacter character) {
+		public String getNonBipedRaceName(Body body) {
 			return "harpy";
 		}
 		@Override
@@ -4680,7 +4820,7 @@ public class Subspecies {
 			body.getCoverings().put(BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false));
 		}
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
 					"fury",
 					"furies",
@@ -4689,14 +4829,14 @@ public class Subspecies {
 					"furies",
 					"furies"};
 			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+			if(body !=null && !body.getHalfDemonSubspecies().isNonBiped()) {
 				names = new String[] {
-					applyNonBipedNameChange(character, "fury", false, false),
-					applyNonBipedNameChange(character, "fury", false, true),
-					applyNonBipedNameChange(character, "fury", false, false),
-					applyNonBipedNameChange(character, "fury", true, false),
-					applyNonBipedNameChange(character, "fury", false, true),
-					applyNonBipedNameChange(character, "fury", true, true)
+					applyNonBipedNameChange(body, "fury", false, false),
+					applyNonBipedNameChange(body, "fury", false, true),
+					applyNonBipedNameChange(body, "fury", false, false),
+					applyNonBipedNameChange(body, "fury", true, false),
+					applyNonBipedNameChange(body, "fury", false, true),
+					applyNonBipedNameChange(body, "fury", true, true)
 				};
 			}
 			
@@ -4781,7 +4921,7 @@ public class Subspecies {
 			body.getCoverings().put(BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false));
 		}
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
 					"fury",
 					"furies",
@@ -4790,14 +4930,14 @@ public class Subspecies {
 					"furies",
 					"furies"};
 			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+			if(body !=null && !body.getHalfDemonSubspecies().isNonBiped()) {
 				names = new String[] {
-					applyNonBipedNameChange(character, "fury", false, false),
-					applyNonBipedNameChange(character, "fury", false, true),
-					applyNonBipedNameChange(character, "fury", false, false),
-					applyNonBipedNameChange(character, "fury", true, false),
-					applyNonBipedNameChange(character, "fury", false, true),
-					applyNonBipedNameChange(character, "fury", true, true)
+					applyNonBipedNameChange(body, "fury", false, false),
+					applyNonBipedNameChange(body, "fury", false, true),
+					applyNonBipedNameChange(body, "fury", false, false),
+					applyNonBipedNameChange(body, "fury", true, false),
+					applyNonBipedNameChange(body, "fury", false, true),
+					applyNonBipedNameChange(body, "fury", true, true)
 				};
 			}
 			
@@ -4818,121 +4958,121 @@ public class Subspecies {
 			return 0;
 		}
 	};
-
-	public static AbstractSubspecies HARPY_BALD_EAGLE = new AbstractSubspecies(false,
-			16000,
-			"innoxia_race_harpy_harpy_perfume",
-			"innoxia_race_harpy_bubblegum_lollipop",
-			"statusEffects/race/raceHarpy",
-			"statusEffects/race/raceBackground",
-			"bald-eagle-harpy",
-			"bald-eagle-harpies",
-			"bald-eagle-harpy",
-			"bald-eagle-harpy",
-			"bald-eagle-harpies",
-			"bald-eagle-harpies",
-			new FeralAttributes(
-					"bald-eagle",
-					"bald-eagles",
-					LegConfiguration.AVIAN,
-					90,
-					0,
-					1,
-					0,
-					1,
-					true) {
-				public boolean isArmsOrWingsPresent() {
-					return true;
-				}
-			},
-			"[npc.NameIsFull] obsessed with [npc.her] appearance, and wouldn't think it unusual for someone to want to spend at least half of their waking hours preening themselves in order to look as attractive as possible.",
-			Util.newHashMapOfValues(
-					new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
-					new Value<>(Attribute.MAJOR_ARCANE, 0f),
-					new Value<>(Attribute.MAJOR_CORRUPTION, 5f),
-					new Value<>(Attribute.DAMAGE_LUST, 15f)),
-			null,
-			"All About Harpies",
-			"All About Harpies'",
-			"HARPY_BASIC",
-			"HARPY_ADVANCED",
-			Race.HARPY,
-			Util.newHashMapOfValues(
-					new Value<>(PerkCategory.PHYSICAL, 2),
-					new Value<>(PerkCategory.LUST, 5),
-					new Value<>(PerkCategory.ARCANE, 0)),
-			Util.newHashMapOfValues(
-					new Value<>(PerkCategory.PHYSICAL, 2),
-					new Value<>(PerkCategory.LUST, 5),
-					new Value<>(PerkCategory.ARCANE, 0)),
-			PresetColour.BASE_GREY_LIGHT,
-			SubspeciesPreference.ONE_LOW,
-			"An anthropomorphic, bipedal bald eagle, dark brown feathers covering their body and white feathers on their head. Typically only possessing non-human arms, legs, eyes, ears, and hair.",
-			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
-			Util.newHashMapOfValues(
-					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			null, Util.newArrayListOfValues(
-					SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN_DARK, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN_DARK, false));
-			body.getCoverings().put(BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_YELLOW, false, PresetColour.SKIN_YELLOW, false));
-		}
-		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
-			String[] names = new String[] {
-					"fury",
-					"furies",
-					"fury",
-					"fury",
-					"furies",
-					"furies"};
-			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
-				names = new String[] {
-					applyNonBipedNameChange(character, "fury", false, false),
-					applyNonBipedNameChange(character, "fury", false, true),
-					applyNonBipedNameChange(character, "fury", false, false),
-					applyNonBipedNameChange(character, "fury", true, false),
-					applyNonBipedNameChange(character, "fury", false, true),
-					applyNonBipedNameChange(character, "fury", true, true)
-				};
-			}
-			
-			return names;
-		}
-		@Override
-		public int getSubspeciesWeighting(Body body, AbstractRace race) {
-			if(race==Race.HARPY) {
-				AbstractBodyCoveringType feathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FEATHER):BodyCoveringType.FEATHERS;
-				AbstractBodyCoveringType headFeathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.HAIR):BodyCoveringType.HAIR_HARPY;
-				
-				if(body.getCoverings().get(feathers).getPrimaryColour()==PresetColour.COVERING_BROWN_DARK
-						&& body.getCoverings().get(headFeathers).getPrimaryColour()==PresetColour.COVERING_WHITE) {
-					return 150;
-				}
-			}
-			return 0;
-		}
-		@Override
-		public String getPathName() {
-			return "res/race/neverLucky/harpy/eagle";
-		}
-		@Override
-		public Colour getSecondaryColour() {
-			return PresetColour.BASE_PITCH_BLACK;
-		}
-		@Override
-		public Colour getTertiaryColour() {
-			return PresetColour.BASE_YELLOW;
-		}
-	};
+	
+//	public static AbstractSubspecies HARPY_BALD_EAGLE = new AbstractSubspecies(false,
+//			16000,
+//			"innoxia_race_harpy_harpy_perfume",
+//			"innoxia_race_harpy_bubblegum_lollipop",
+//			"statusEffects/race/raceHarpy",
+//			"statusEffects/race/raceBackground",
+//			"bald-eagle-harpy",
+//			"bald-eagle-harpies",
+//			"bald-eagle-harpy",
+//			"bald-eagle-harpy",
+//			"bald-eagle-harpies",
+//			"bald-eagle-harpies",
+//			new FeralAttributes(
+//					"bald-eagle",
+//					"bald-eagles",
+//					LegConfiguration.AVIAN,
+//					90,
+//					0,
+//					1,
+//					0,
+//					1,
+//					true) {
+//				public boolean isArmsOrWingsPresent() {
+//					return true;
+//				}
+//			},
+//			"[npc.NameIsFull] obsessed with [npc.her] appearance, and wouldn't think it unusual for someone to want to spend at least half of their waking hours preening themselves in order to look as attractive as possible.",
+//			Util.newHashMapOfValues(
+//					new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
+//					new Value<>(Attribute.MAJOR_ARCANE, 0f),
+//					new Value<>(Attribute.MAJOR_CORRUPTION, 5f),
+//					new Value<>(Attribute.DAMAGE_LUST, 15f)),
+//			null,
+//			"All About Harpies",
+//			"All About Harpies'",
+//			"HARPY_BASIC",
+//			"HARPY_ADVANCED",
+//			Race.HARPY,
+//			Util.newHashMapOfValues(
+//					new Value<>(PerkCategory.PHYSICAL, 2),
+//					new Value<>(PerkCategory.LUST, 5),
+//					new Value<>(PerkCategory.ARCANE, 0)),
+//			Util.newHashMapOfValues(
+//					new Value<>(PerkCategory.PHYSICAL, 2),
+//					new Value<>(PerkCategory.LUST, 5),
+//					new Value<>(PerkCategory.ARCANE, 0)),
+//			PresetColour.BASE_GREY_LIGHT,
+//			SubspeciesPreference.ONE_LOW,
+//			"An anthropomorphic, bipedal bald eagle, dark brown feathers covering their body and white feathers on their head. Typically only possessing non-human arms, legs, eyes, ears, and hair.",
+//			Util.newHashMapOfValues(
+//					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE_UNCOMMON),
+//					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON),
+//					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+//			Util.newHashMapOfValues(
+//					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ONE_VERY_RARE),
+//					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+//			null, Util.newArrayListOfValues(
+//					SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN_DARK, false));
+//			body.getCoverings().put(BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
+//			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN_DARK, false));
+//			body.getCoverings().put(BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_YELLOW, false, PresetColour.SKIN_YELLOW, false));
+//		}
+//		@Override
+//		public String[] getHalfDemonName(GameCharacter character) {
+//			String[] names = new String[] {
+//					"fury",
+//					"furies",
+//					"fury",
+//					"fury",
+//					"furies",
+//					"furies"};
+//			
+//			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+//				names = new String[] {
+//					applyNonBipedNameChange(character, "fury", false, false),
+//					applyNonBipedNameChange(character, "fury", false, true),
+//					applyNonBipedNameChange(character, "fury", false, false),
+//					applyNonBipedNameChange(character, "fury", true, false),
+//					applyNonBipedNameChange(character, "fury", false, true),
+//					applyNonBipedNameChange(character, "fury", true, true)
+//				};
+//			}
+//			
+//			return names;
+//		}
+//		@Override
+//		public int getSubspeciesWeighting(Body body, AbstractRace race) {
+//			if(race==Race.HARPY) {
+//				AbstractBodyCoveringType feathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FEATHER):BodyCoveringType.FEATHERS;
+//				AbstractBodyCoveringType headFeathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.HAIR):BodyCoveringType.HAIR_HARPY;
+//				
+//				if(body.getCoverings().get(feathers).getPrimaryColour()==PresetColour.COVERING_BROWN_DARK
+//						&& body.getCoverings().get(headFeathers).getPrimaryColour()==PresetColour.COVERING_WHITE) {
+//					return 150;
+//				}
+//			}
+//			return 0;
+//		}
+//		@Override
+//		public String getPathName() {
+//			return "res/race/neverLucky/harpy/bald_eagle";
+//		}
+//		@Override
+//		public Colour getSecondaryColour() {
+//			return PresetColour.BASE_PITCH_BLACK;
+//		}
+//		@Override
+//		public Colour getTertiaryColour() {
+//			return PresetColour.BASE_YELLOW;
+//		}
+//	};
 
 	public static AbstractSubspecies HARPY_PHOENIX = new AbstractSubspecies(false,
 			50000,
@@ -5005,7 +5145,7 @@ public class Subspecies {
 			body.getCoverings().put(BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_ORANGE, false, PresetColour.SKIN_ORANGE, false));
 		}
 		@Override
-		public String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
 					"phoenix-fury",
 					"phoenix-furies",
@@ -5014,14 +5154,14 @@ public class Subspecies {
 					"phoenix-furies",
 					"phoenix-furies"};
 			
-			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+			if(body !=null && !body.getHalfDemonSubspecies().isNonBiped()) {
 				names = new String[] {
-					applyNonBipedNameChange(character, "phoenix-fury", false, false),
-					applyNonBipedNameChange(character, "phoenix-fury", false, true),
-					applyNonBipedNameChange(character, "phoenix-fury", false, false),
-					applyNonBipedNameChange(character, "phoenix-fury", true, false),
-					applyNonBipedNameChange(character, "phoenix-fury", false, true),
-					applyNonBipedNameChange(character, "phoenix-fury", true, true)
+					applyNonBipedNameChange(body, "phoenix-fury", false, false),
+					applyNonBipedNameChange(body, "phoenix-fury", false, true),
+					applyNonBipedNameChange(body, "phoenix-fury", false, false),
+					applyNonBipedNameChange(body, "phoenix-fury", true, false),
+					applyNonBipedNameChange(body, "phoenix-fury", false, true),
+					applyNonBipedNameChange(body, "phoenix-fury", true, true)
 				};
 			}
 			
@@ -5463,6 +5603,8 @@ public class Subspecies {
 			id = "innoxia_panther_subspecies_lion";
 		} else if(id.equalsIgnoreCase("CAT_MORPH_TIGER")) {
 			id = "innoxia_panther_subspecies_tiger";
+		} else if(id.equalsIgnoreCase("HARPY_BALD_EAGLE")) {
+			id = "innoxia_raptor_subspecies_bald_eagle";
 		}
 		id = Util.getClosestStringMatch(id, idToSubspeciesMap.keySet());
 		return idToSubspeciesMap.get(id);

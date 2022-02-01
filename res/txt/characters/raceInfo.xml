@@ -149,7 +149,7 @@
 
 	<htmlContent tag="IMP_ADVANCED"><![CDATA[
 	<p>
-		Just like demons, imps are immune to all racial transformations, and, while they're still affected by non-racial transformation potions, they lack the demon's ability to shape-shift their own bodies at will.
+		Just like demons, imps are able to self-transform at will, and while they are affected by non-racial transformation potions, they are immune to all racial transformations.
 		 Again, in similarity to demons, there's no way to transform someone into an imp through use of standard potions.
 		 The only way that an imp is created is by being the offspring of the resulting pregnancy between a demon and a non-Lilin.
 	</p>
@@ -169,7 +169,7 @@
 
 	<htmlContent tag="COW_MORPH_BASIC"><![CDATA[
 	<p>
-		Although cow-morphs can often be found in Dominion, they're far more common and numerous out in the Foloi Fields, where their primary occupation is working in the many farms that litter the landscape.
+		Although cattle-morphs can often be found in Dominion, they're far more common and numerous out in the Foloi Fields, where their primary occupation is working in the many farms that litter the landscape.
 		 The females of this race, called cow-girls, tend to be quite docile and submissive, which is in stark contrast to their male counterparts (bull-boys), who are typically very dominant and territorial.
 	</p>
 	]]>
@@ -182,11 +182,11 @@
 	</p>
 	<p>
 		Cow-girls have strong herding instincts, and will naturally seek out a bull-boy to submit to.
-		 As a result of this, harems are a common part of cow-morph society, with some of the stronger and more dominant bull-boys leading herds of up to fifty females.
+		 As a result of this, harems are a common part of cattle-morph society, with some of the stronger and more dominant bull-boys leading herds of up to fifty females.
 		 Cow-boys are usually the owners of the many farms out in the Foloi Fields, and will assign their herd to be responsible for tending to their crops, as well as for providing milk for the farm's dairy.
 	</p>
 	<p>
-		A cow-morph's offspring will be a mixture of more cow-morphs and offspring of their partner's race.
+		A cattle-morph's offspring will be a mixture of more cattle-morphs and offspring of their partner's race.
 	</p>
 	]]>
 	</htmlContent>
@@ -438,26 +438,20 @@
 
 	<htmlContent tag="RAT_MORPH_BASIC"><![CDATA[
 	<p>
-		In terms of sheer numbers, rat-morphs can be counted as a very common anthropomorphic race.
-		 Despite their significant population, however, the vast majority of rat-morphs choose to live in the undercity of Submission, making them a rare sight in all other parts of the world.
-		 Their long, naked tails, twitching nose, and rounded, rodent-like ears are usually enough to identify a rat-morph.
+		In terms of sheer numbers, rat-morphs can be counted as a very common anthropomorphic race. Despite their significant population, however, the vast majority of rat-morphs choose to live in the undercity of Submission, making them a rare sight in all other parts of the world. Their long, naked tails, twitching nose, and rounded, rodent-like ears are usually enough to identify a rat-morph.
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="RAT_MORPH_ADVANCED"><![CDATA[
 	<p>
-		Rat-morphs have a rather poor reputation, and are often accused of being criminals or troublemakers.
-		 There is more than a little truth in these accusations, as Submission's rat-morph society regards thievery, skulduggery, and subterfuge as highly desirable traits.
-		 Their immense fondness for these characteristics has resulted in the most notorious of Submission's thieves being regarded as folk heroes among the rat-morph population.
+		Rat-morphs have a rather poor reputation, and are often accused of being criminals or troublemakers. There is more than a little truth in these accusations, as Submission's rat-morph society regards thievery, skulduggery, and subterfuge as highly desirable traits. Their immense fondness for these characteristics has resulted in the most notorious of Submission's thieves being regarded as folk heroes among the rat-morph population.
 	</p>
 	<p>
-		Rat-morphs, like the other common races, get heavily affected by arcane storms.
-		 Being exposed to arcane thunder will make rat-boys enter a potent rut, while rat-girls will go into an intense heat; seeking to be bred by the first suitable partner that they can find.
+		Rat-morphs, like the other common races, get heavily affected by arcane storms. Being exposed to arcane thunder will make rat-boys enter a potent rut, while rat-girls will go into an intense heat; seeking to be bred by the first suitable partner that they can find.
 	</p>
 	<p>
-		Rat-morphs will give birth to up to four offspring at once.
-		 Their pregnancies work in exactly the same way as a normal human one.
+		Rat-morphs will give birth to up to four offspring at once. Their pregnancies work in exactly the same way as a normal human one.
 	</p>
 	]]>
 	</htmlContent>

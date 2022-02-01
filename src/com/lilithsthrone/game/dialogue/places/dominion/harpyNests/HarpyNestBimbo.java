@@ -7,284 +7,24 @@ import com.lilithsthrone.game.character.npc.dominion.HarpyBimboCompanion;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.world.Weather;
 
 /**
  * @since 0.1.8
- * @version 0.3.5.5
+ * @version 0.4.3.2
  * @author Innoxia
  */
 public class HarpyNestBimbo {
 
-	public static final DialogueNode HARPY_NEST_BIMBO = new DialogueNode("Harpy nest", ".", false) {
-
-		@Override
-		public int getSecondsPassed() {
-			return 60;
-		}
-		
-		@Override
-		public String getLabel() {
-			return "[harpyBimbo.NamePos] nest";
-		}
-
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/harpyNests/bimbo", "HARPY_NEST_BIMBO");
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				 if(!Main.game.isExtendedWorkTime()) {
-					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
-						return new Response("Approach [bimboHarpy.name]", "Both [bimboHarpy.name] and her flock are sleeping in the buildings below her nest. You'll have to come back during the day if you want to speak with her.", null);
-					} else {
-						return new Response("Approach matriarch", "The matriarch and her flock are sleeping in the buildings below her nest. You'll have to come back during the day if you want to speak with her.", null);
-					}
-						
-				} else if (Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
-						return new Response("Approach [bimboHarpy.name]", "If you want to talk to [bimboHarpy.name], you'll have to come back after the arcane storm has passed.", null);
-					} else {
-						return new Response("Approach matriarch", "If you want to talk to the matriarch, you'll have to come back after the arcane storm has passed.", null);
-					}
-					
-				} else if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_HARPY_PACIFICATION)) {
-					return new Response("Approach [bimboHarpy.name]", "You have no need to talk to the matriarch of this nest.", null);
-					
-				} else {
-					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
-						return new Response("Approach [bimboHarpy.name]", "Walk to the centre of the nest and talk to [bimboHarpy.name].", HARPY_NEST_BIMBO_APPROACH);
-					} else {
-						return new Response("Approach matriarch", "Walk to the centre of the nest and talk to the matriarch.", HARPY_NEST_BIMBO_APPROACH);
-					}
-				}
-					
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNode HARPY_NEST_BIMBO_APPROACH = new DialogueNode("Harpy nest", ".", true) {
-
-		@Override
-		public String getLabel() {
-			return "[harpyBimbo.NamePos] nest";
-		}
-		
-		@Override
-		public String getContent() {
-			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboPacified)) {
-					return "<p>"
-								+ "Deciding that you should go and pay [bimboHarpy.name] another visit, you set off across the nest."
-								+ " Most of the bimbo harpies recognise you as [bimboHarpy.namePos] "+(Main.game.getPlayer().isFeminine()?"mistress":"master")+", and submissively bow their heads or drop to their knees as you pass."
-								+ " Reaching the staircase that leads to the upper platform, you quickly scale the stairs, and as you reach the top, you're greeted by a familiar sight."
-							+ "</p>"
-							+ "<p>"
-								+ "[bimboHarpy.Name] is lying down on a sunbed, surrounded by her inner-circle of harpy bimbos."
-								+ " [bimboHarpyCompanion.Name] is obediently grooming her matriarch's beautiful bleach-blonde feathers, giggling and whispering with her mistress as she works."
-								+ " As you approach, she suddenly notices you, and cries out,"
-								+ " [bimboHarpyCompanion.speechNoEffects(Mistress! Like, [pc.name] is back!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[bimboHarpy.Name] instantly jumps up off the sunbed, and, rushing forwards, she throws herself to her knees at your [pc.feet]."
-								+ " Looking up with her big [bimboHarpy.eyeColour] eyes, she pushes out her chest and bites her lip."
-							+ "</p>"
-							+ "<p>"
-								+ "[bimboHarpy.speechNoEffects(Ah! "+(Main.game.getPlayer().isFeminine()?"Mistress":"Master")+"! I've been, like, super good and stuff!)] she happily squeals."
-										+ " [bimboHarpy.speechNoEffects(We've all been, like, super chilled out and stuff, right girls?!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "A chorus of eager voices cry out in agreement, and you can't help but smile down at [bimboHarpy.name] as she shuffles a little closer to you."
-							+ "</p>"
-							+ "<p>"
-								+ "[bimboHarpy.speechNoEffects(Like, erm, I wanna, like, show my girls how good I am!)] she moans, barely able to contain the excitement in her voice."
-										+ " [bimboHarpy.speechNoEffects(I mean, like, only if you want to and stuff!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "One of her feathered hands sinks down between her legs, and she leans back on her knees, presenting her panties to you as she starts rubbing at the fabric."
-								+ " Several members of her inner-circle start mimicking her behaviour, and, shuffling ever closer, [bimboHarpy.name] moans out loud,"
-								+ " [bimboHarpy.speechNoEffects(Ah! Please! Fuck me!)]"
-							+ "</p>";
-					
-				} else {
-					return "<p>"
-							+ "Deciding that you should go and pay [bimboHarpy.name] another visit, you set off across the nest."
-							+ " A couple of the bimbo harpies that you pass recognise you from before, and start whispering to one another as you pass."
-							+ " Reaching the staircase that leads to the upper platform, you quickly scale the stairs, and as you reach the top, you're greeted by a familiar sight."
-						+ "</p>"
-						+ "<p>"
-							+ "[bimboHarpy.Name] is lying down on a sunbed, surrounded by her inner-circle of harpy bimbos."
-							+ " [bimboHarpyCompanion.Name] is obediently grooming her matriarch's beautiful bleach-blonde feathers, giggling and whispering with her mistress as she works."
-							+ " As you approach, she suddenly notices you, and cries out,"
-							+ " [bimboHarpyCompanion.speechNoEffects(Mistress! Like, that [pc.race] is back!)]"
-						+ "</p>"
-						+ "<p>"
-						+ (Main.game.getPlayer().getFemininityValue()>=Femininity.FEMININE_STRONG.getMinimumFemininity()
-							?"Letting out an annoyed sigh, [bimboHarpy.name] props herself up on the sunbed, and, raising her aviators to look you up-and-down, she makes a dismissive gesture."
-								+ " [bimboHarpy.speechNoEffects(Eugh! Like, what are <i>you</i> doin' here again? Why don't you, like go get your own flock or something!"
-								+ " You're, like, being super rude and stuff comin' here and flaunting yourself in front of my girls!)]"
-							:"Letting out an annoyed sigh, [bimboHarpy.name] props herself up on the sunbed, and, raising her aviators to look you up-and-down, she makes a dismissive gesture."
-								+ " [bimboHarpy.speechNoEffects(Eugh! Like, what are <i>you</i> doin' here again? Y'know, you're like, super annoying and stuff!)]")
-						+ "</p>";
-				}
-			
-			} else {
-				return "<p>"
-						+ "This nest looks like the home of one of the matriarchs you agreed to try and calm down."
-						+ " Deciding that you should do as the Enforcer sergeant asked, you set off across the nest towards the staircase leading to the upper platform."
-					+ "</p>"
-					+ "<p>"
-						+ "As you walk through the nest, you take a closer look at this peculiar, bleach-blonde flock."
-						+ " Just as you saw from the outskirts, most of these harpies have larger-than-average breasts, hips, and asses, but it's the snippets of conversation that you overhear that reveal their true nature."
-					+ "</p>"
-					+ "<p>"
-						+ "[style.speechFeminine(...yeah, and, like, she was soooo not pretty...)]<br/>"
-						+ "[style.speechFeminine(...uh-huh, and, like, her feathers were like, totally blech!...)]<br/>"
-						+ "[style.speechFeminine(...and he was, like, 'I'll do whatever you say!', and I was like, 'Uhh, duh!'...)]<br/>"
-					+ "</p>"
-					+ "<p>"
-						+ "Combined with their large assets and choice of feather colour, you're left with no doubt as to what's going on here."
-						+ " Every single one of this nest's occupants is a bimbo."
-						+ " Before you know it, you've reached the staircase that leads to the upper platform, and, taking one look back at the crowd of bimbos, you set off up the the stairs, and quickly reach the top."
-					+ "</p>"
-					+ "<p>"
-						+ "You'd already seen a picture of [bimboHarpy.name] in the Enforcer's papers, but even if you hadn't, it's clearly obvious who the matriarch is."
-						+ " With large, perfectly shaped breasts, the body of a super-model, and one of the most gorgeous faces you've ever seen, [bimboHarpy.name] is the centre of attention."
-						+ " Her inner-circle of bimbo harpies are gathered around her, vying for their leader's attention as they giggle and agree with every word she speaks."
-						+ " One harpy in particular seems to be the closest to her, and it's this particular bimbo who's the first one to notice your approach."
-					+ "</p>"
-					+ "<p>"
-						+ "[bimboHarpyCompanion.speechNoEffects([bimboHarpy.Name]! There's, like, some [pc.race] over there!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Instantly, all eyes are on you, and [bimboHarpy.Name] stand up from the sunbed upon which she was lying."
-						+ " Stepping forwards, she rests one of her feathered hands on her hips, striking a pose as she speaks,"
-						+ (Main.game.getPlayer().getFemininityValue()>=Femininity.FEMININE_STRONG.getMinimumFemininity()
-							?" [bimboHarpy.speechNoEffects(Like, who do you think you are?! I hope you're not, like, thinkin' of tryin' to steal girls from my flock!"
-									+ " You, like, might have the looks, but they aren't gonna listen to some stupid slut like you! What do you, like, even want? Coming up here uninvited is, like, super rude y'know?!)]"
-							:" [bimboHarpy.speechNoEffects(Like, who do you think you are?! Coming up here uninvited is, like, super rude y'know?!)]")
-					+ "</p>";
-			}
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboPacified)) {
-				if (index == 1) {
-					return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name].",
-							true, false,
-							new SMGeneric(
-									Util.newArrayListOfValues(Main.game.getPlayer()),
-									Util.newArrayListOfValues(Main.game.getNpc(HarpyBimbo.class)),
-							null,
-							null), HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
-								+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
-								+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
-							+ "</p>"
-							+ "<p>"
-								+ "[harpyBimbo.Name] responds to your dominant move by wrapping her wings around your back, grinding herself up against you as she passionately returns your kiss..."
-							+ "</p>");
-						
-				} else if (index == 0) {
-					return new Response("Leave", "Tell [bimboHarpy.name] that you'll be back later.", HARPY_NEST_BIMBO) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(
-									"<p>"
-										+ "Deciding that now isn't the best time to be doing this, you turn around and head back down the stairs."
-										+ " You hear [bimboHarpy.name] moaning to her harpies as you leave,"
-										+ " [bimboHarpy.speechNoEffects(Awww! Like, I just wanna get fucked in front of you all!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "Ignoring her words, you continue down the steps and back across the main platform, quickly finding yourself back on the outskirts of the nest."
-									+ "</p>");
-						}
-					};
-						
-				} else {
-					return null;
-				}
-				
-			} else {
-				if (index == 1) {
-					return new Response("Talk", "Try to convince [bimboHarpy.name] to calm down.", HARPY_NEST_BIMBO_TALK) {
-						@Override
-						public void effects() {
-							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboEncountered);
-						}
-					};
-						
-				} else if (index == 2) {
-					return new Response("Bimbo queen", "This bitch is, like, super not cool. You should totally convince the nest that you should be their queen!", HARPY_NEST_BIMBO_QUEEN,
-							Util.newArrayListOfValues(Fetish.FETISH_BIMBO), null, null, Femininity.FEMININE_STRONG, null) {
-						@Override
-						public void effects() {
-							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboEncountered);
-							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboPacified);
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.HARPY_MATRIARCH_BIMBO_LOLLIPOP), false, true));
-							
-							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_ONE) {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_TWO));
-								
-							} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_TWO) {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_THREE));
-								
-							} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_THREE) {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_REWARD));
-							}
-						}
-					};
-						
-				} else if (index == 3) {
-					return new Response("Call her ugly", "You know that this would be a terrible idea...", HARPY_NEST_BIMBO_UGLY) {
-						@Override
-						public void effects() {
-							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboEncountered);
-						}
-						@Override
-						public boolean isCombatHighlight() {
-							return true;
-						}
-					};
-	
-				} else if (index == 0) {
-					return new Response("Leave", "Tell [bimboHarpy.name] that you'll be back later.", HARPY_NEST_BIMBO) {
-						@Override
-						public void effects() {
-							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboEncountered);
-							Main.game.getTextStartStringBuilder().append(
-									"<p>"
-										+ "Deciding that now isn't the best time to be doing this, you turn around and head back down the stairs."
-										+ " You hear [bimboHarpy.name] complaining to her harpies as you leave,"
-										+ " [bimboHarpy.speechNoEffects(Eugh! Like, what was all that about?!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "Ignoring her words, you continue down the steps and back across the main platform, quickly finding yourself back on the outskirts of the nest."
-									+ "</p>");
-						}
-					};
-						
-				} else {
-					return null;
-				}
-			}
-		}
-	};
-	
 	public static final DialogueNode HARPY_NEST_BIMBO_TALK = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
@@ -340,7 +80,7 @@ public class HarpyNestBimbo {
 				};
 					
 			} else if (index == 0) {
-				return new Response("Leave", "Tell [bimboHarpy.name] that you'll be back later.", HARPY_NEST_BIMBO) {
+				return new Response("Leave", "Tell [bimboHarpy.name] that you'll be back later.", DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_bimbo_exterior")) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(
@@ -473,7 +213,7 @@ public class HarpyNestBimbo {
 						+ "</p>");
 						
 			} else if (index == 0) {
-				return new Response("Leave", "Tell [bimboHarpy.name] that you'll be back later.", HARPY_NEST_BIMBO) {
+				return new Response("Leave", "Tell [bimboHarpy.name] that you'll be back later.", DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_bimbo_exterior")) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(
@@ -779,7 +519,7 @@ public class HarpyNestBimbo {
 						+ "</p>");
 						
 			} else if (index == 0) {
-				return new Response("Leave", "Tell [bimboHarpy.name] that you'll be back later.", HARPY_NEST_BIMBO) {
+				return new Response("Leave", "Tell [bimboHarpy.name] that you'll be back later.", DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_bimbo_exterior")) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(
@@ -840,7 +580,7 @@ public class HarpyNestBimbo {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Thrown out", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_BIMBO) {
+				return new Response("Thrown out", "Having had their fun, you're quickly thrown out of the nest.", DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_bimbo_exterior")) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(
@@ -901,7 +641,7 @@ public class HarpyNestBimbo {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Thrown out", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_BIMBO) {
+				return new Response("Thrown out", "Having had their fun, you're quickly thrown out of the nest.", DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_bimbo_exterior")) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(
@@ -944,7 +684,7 @@ public class HarpyNestBimbo {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
-				return new Response("Leave", "Having had your fun, you decide to leave.", HARPY_NEST_BIMBO) {
+				return new Response("Leave", "Having had your fun, you decide to leave.", DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_bimbo_exterior")) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(

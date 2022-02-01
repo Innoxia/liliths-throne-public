@@ -320,7 +320,7 @@
 	
 	<htmlContent tag="BAR_DRINK_BEER"><![CDATA[
 	<p>
-		Feeling thirsty, you get Flash's attention and ask him for a pint of beer. Grabbing a clean glass, he opens one of the arcane fridges positioned beneath the bar and produces a bottle of 'Canine Crush'. Using his big, furry fingers to operate a bottle opener, he pops off the cap and pours the alcoholic beverage into the glass, saying, [flash.speech(That'll be forty flames. Just leave the glass on the bar once you've finished.)]
+		Feeling thirsty, you get Flash's attention and ask him for a pint of beer. Grabbing a clean glass, he places it under the tap and pours the alcoholic beverage, 'Canine Crush', into it, before placing your pint down on the bar and saying, [flash.speech(That'll be forty flames. Just leave the glass on the bar once you've finished.)]
 	</p>
 	<p>
 		Handing over the forty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
@@ -330,7 +330,7 @@
 	
 	<htmlContent tag="BAR_DRINK_CIDER"><![CDATA[
 	<p>
-		Feeling thirsty, you get Flash's attention and ask him for a pint of cider. Grabbing a clean glass, he opens one of the arcane fridges positioned beneath the bar and produces a bottle of 'Qquine Cider'. Using his big, furry fingers to operate a bottle opener, he pops off the cap and pours the alcoholic beverage into the glass, saying, [flash.speech(That'll be forty flames. Just leave the glass on the bar once you've finished.)]
+		Feeling thirsty, you get Flash's attention and ask him for a pint of cider. Grabbing a clean glass, he places it under the tap and pours the alcoholic beverage, 'Equine Cider', into it, before placing your pint down on the bar and saying, [flash.speech(That'll be forty flames. Just leave the glass on the bar once you've finished.)]
 	</p>
 	<p>
 		Handing over the forty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
@@ -798,26 +798,76 @@
 		<p>
 			As you approach Meraxis, you hear that she's just finished the story which she was telling to her minions, allowing you to make a dramatic entrance without interrupting her. [pc.Stepping] forwards so as to stand right in front of your nemesis, you strike an intimidating pose and ask, [pc.speech(What dark acts of sorcery have you prepared for me this time, my arch-nemesis?)]
 		</p>
-		<p>
-			[meraxis.speech(Mwhahaha!)] Meraxis laughs, before jumping up to her feet and matching your pose with one of her own. Flashing you a sinister smirk, she exclaims,
-			#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_daily_complete))
-				 [meraxis.speech(I would never reveal my secret techniques to you! Now, as much as I would love to challenge you to yet another duel, my awesome powers are at risk of being fully unleashed upon this world if I were to do so! To avoid a cataclysm the likes of which this universe has never seen, I shall need time to seal away my powers. We can duel again tomorrow... Unless there's something else you were here for?)]
+		#IF(siren.isVisiblyPregnant())
+			[meraxis.speech(Mwhahaha!)] Meraxis laughs, before jumping up to her feet and matching your pose with one of her own. As she moves, you see that she's using one hand to cradle her conspicuously-swollen belly, and she sighs,
+			#IF(!siren.isCharacterReactedToPregnancy(pc))
+				#IF(siren.getPregnantLitter().getFather().equals(pc))
+					 [siren.speech(Yeah, that's right, you ended up getting me pregnant... I <i>knew</i> you were gonna get me knocked up... B-But this doesn't mean you're not my nemesis anymore! Now, what do you want?!)]
+				#ELSE
+					#IF(siren.getPregnantLitter().getFather().equals(lilaya))
+						 [siren.speech(Yeah, that's right, Lilaya ended up getting her own sister pregnant... I <i>knew</i> she was gonna get me knocked up...  I-I'm no less capable like this, by the way! I could still annihilate you with ease! Now, what do you want?!)]
+					#ELSE
+						 [siren.speech(Yeah, that's right, mommy ended up getting her own daughter pregnant... I <i>knew</i> she was gonna get me knocked up... I-I'm no less capable like this, by the way! I could still annihilate you with ease! Now, what do you want?!)]
+					#ENDIF
+				#ENDIF
 			#ELSE
-				 [meraxis.speech(I would never reveal my secret techniques to you! Now, I formally challenge you to a duel; let us decide once and for all who the supreme ruler of this universe shall be! That is, unless there's something else you were here for?)]
+				#IF(siren.getPregnantLitter().getFather().equals(pc))
+					 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to you... Getting your own sister pregnant... B-But this doesn't mean you're not my nemesis anymore! Now, what do you want?!)]
+				#ELSE
+					#IF(siren.getPregnantLitter().getFather().equals(lilaya))
+						 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to Lilaya... D-Don't think I'm any less capable like this! I could still destroy you with a snap of my fingers! Now, what do you want?!)]
+					#ELSE
+						 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to mommy... D-Don't think I'm any less capable like this! I could still destroy you with a snap of my fingers! Now, what do you want?!)]
+					#ENDIF
+				#ENDIF
 			#ENDIF
-		</p>
+		#ELSE
+			<p>
+				[meraxis.speech(Mwhahaha!)] Meraxis laughs, before jumping up to her feet and matching your pose with one of her own. Flashing you a sinister smirk, she exclaims,
+				#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_daily_complete))
+					 [meraxis.speech(I would never reveal my secret techniques to you! Now, as much as I would love to challenge you to yet another duel, my awesome powers are at risk of being fully unleashed upon this world if I were to do so! To avoid a cataclysm the likes of which this universe has never seen, I shall need time to seal away my powers. We can duel again tomorrow... Unless there's something else you were here for?)]
+				#ELSE
+					 [meraxis.speech(I would never reveal my secret techniques to you! Now, I formally challenge you to a duel; let us decide once and for all who the supreme ruler of this universe shall be! That is, unless there's something else you were here for?)]
+				#ENDIF
+			</p>
+		#ENDIF
 	#ELSE
 		<p>
 			As you approach Meraxis, you hear that she's just finished the story which she was telling to her minions, allowing you to make your entrance without interrupting her. [pc.Stepping] forwards so as to catch her attention, you offer Meraxis a friendly greeting and ask her if she has a moment to talk.
 		</p>
-		<p>
-			[meraxis.speech(Mwhahaha!)] Meraxis laughs, before jumping up to her feet and striking what she must think is an intimidating pose. Flashing you a sinister smirk, she exclaims,
-			#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_daily_complete))
-				 [meraxis.speech(I would never reveal my secret techniques to you! Now, as much as I would love to challenge you to yet another duel, my awesome powers are at risk of being fully unleashed upon this world if I were to do so! To avoid a cataclysm the likes of which this universe has never seen, I shall need time to seal away my powers. We can duel again tomorrow... Unless there's something else you were here for?)]
+		#IF(siren.isVisiblyPregnant())
+			[meraxis.speech(Mwhahaha!)] Meraxis laughs, before jumping up to her feet and striking what she must think is an intimidating pose. As she moves, you see that she's using one hand to cradle her conspicuously-swollen belly, and she sighs,
+			#IF(!siren.isCharacterReactedToPregnancy(pc))
+				#IF(siren.getPregnantLitter().getFather().equals(pc))
+					 [siren.speech(Yeah, that's right, you ended up getting me pregnant... I <i>knew</i> you were gonna get me knocked up... B-But this doesn't mean you're not my nemesis anymore! Now, what do you want?!)]
+				#ELSE
+					#IF(siren.getPregnantLitter().getFather().equals(lilaya))
+						 [siren.speech(Yeah, that's right, Lilaya ended up getting her own sister pregnant... I <i>knew</i> she was gonna get me knocked up...  I-I'm no less capable like this, by the way! I could still annihilate you with ease! Now, what do you want?!)]
+					#ELSE
+						 [siren.speech(Yeah, that's right, mommy ended up getting her own daughter pregnant... I <i>knew</i> she was gonna get me knocked up... I-I'm no less capable like this, by the way! I could still annihilate you with ease! Now, what do you want?!)]
+					#ENDIF
+				#ENDIF
 			#ELSE
-				 [meraxis.speech(I would never reveal my secret techniques to you! Now, I formally challenge you to a duel; let us decide once and for all who the supreme ruler of this universe shall be! That is, unless there's something else you were here for?)]
+				#IF(siren.getPregnantLitter().getFather().equals(pc))
+					 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to you... Getting your own sister pregnant... B-But this doesn't mean you're not my nemesis anymore! Now, what do you want?!)]
+				#ELSE
+					#IF(siren.getPregnantLitter().getFather().equals(lilaya))
+						 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to Lilaya... D-Don't think I'm any less capable like this! I could still destroy you with a snap of my fingers! Now, what do you want?!)]
+					#ELSE
+						 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to mommy... D-Don't think I'm any less capable like this! I could still destroy you with a snap of my fingers! Now, what do you want?!)]
+					#ENDIF
+				#ENDIF
 			#ENDIF
-		</p>
+		#ELSE
+			<p>
+				[meraxis.speech(Mwhahaha!)] Meraxis laughs, before jumping up to her feet and striking what she must think is an intimidating pose. Flashing you a sinister smirk, she exclaims,
+				#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_daily_complete))
+					 [meraxis.speech(I would never reveal my secret techniques to you! Now, as much as I would love to challenge you to yet another duel, my awesome powers are at risk of being fully unleashed upon this world if I were to do so! To avoid a cataclysm the likes of which this universe has never seen, I shall need time to seal away my powers. We can duel again tomorrow... Unless there's something else you were here for?)]
+				#ELSE
+					 [meraxis.speech(I would never reveal my secret techniques to you! Now, I formally challenge you to a duel; let us decide once and for all who the supreme ruler of this universe shall be! That is, unless there's something else you were here for?)]
+				#ENDIF
+			</p>
+		#ENDIF
 	#ENDIF
 	<p>
 		Both Meraxis and her succubi followers all wait to hear your response...
@@ -897,6 +947,68 @@
 	#ENDIF
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_ROOM_SEX"><![CDATA[
+	<p>
+		#IF(pc.hasTraitActivated(PERK_CHUUNI))
+			Striking an impressive pose, you point at Meraxis and declare, [pc.speech(My nemesis, I challenge you to the ultimate form of duel; let us discover who can last the longest in the bedroom!)]
+		#ELSE
+			Wanting to speak in terms that Meraxis will understand, you ask her if she'd want to join you for a special type of 'duel' in her bedroom.
+		#ENDIF
+	</p>
+	<p>
+		Meraxis's cheeks turn a bright shade of red as she hears you say this, and as her succubi 'minions' do their best to stifle their amused giggles, the chuuni [meraxis.race] stands up and loudly declares, [meraxis.speech(I will not back down from your challenge, my ultimate nemesis! You shall soon discover how foolish you were to challenge me in such a fashion!)]
+	</p>
+	<p>
+		Stepping forwards, Meraxis grabs you by the [pc.hand(true)] and hastily pulls you along after her as she heads towards the stairs which lead to the upper floor. After a quick ascent, the two of you head down the corridor and find yourselves standing before the door to Meraxis's room. Producing a key, the [meraxis.race] unlocks this door and pulls you inside, before locking it after you and declaring, [meraxis.speech(Now you are in my lair! You stand no chance against me in here!)] 
+	</p>
+	<p>
+		Looking around at the interior of Meraxis's room, you immediately take note of how incredibly messy it is. All manner of arcane instruments and dangerous-looking weapons are haphazardly piled up on top of every piece of furniture, while the floor is strewn with dirty clothing and pieces of paper. Jumping onto her bed, Meraxis playfully kicks a pillow towards you and laughs, [meraxis.speech(Mwhahaha! So then, [pc.name], you dare to challenge a daughter of an elder lilin to... to...)]
+	</p>
+	<p>
+		Despite her confident start, the shy [meraxis.race] blushes and stalls at this critical moment. Averting her eyes, she mutters, [meraxis.speech(S-So you want to... you know... have sex?)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_ROOM_SEX_AS_DOM"><![CDATA[
+	<p>
+		Realising that you're going to have to take the dominant role, you join Meraxis on her bed and pull her into a deep, passionate kiss. The cute [meraxis.race] practically falls into your [pc.arms], and after desperately returning your kiss for a few moments, she pulls back and breathlessly pants, [meraxis.speech(Come on then, [pc.name]... Let's do it...)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_ROOM_SEX_AS_SUB"><![CDATA[
+	<p>
+		Not wanting to take the dominant role, you join Meraxis on her bed and tell her that you'll whatever she likes. Regaining her confidence as she hears that you want to submit to her, she lets out another of her theatrical laughs, before suddenly moving forwards and pulling you into a deep, passionate kiss. After you've desperately returned her kiss for a few moments, she pulls back and eagerly pants, [meraxis.speech(Get ready, [pc.name]... I'll show you how it's done...)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_ROOM_AFTER_SEX"><![CDATA[
+	<p>
+		#IF(meraxis.isSatisfiedFromLastSex())
+			Letting out a deep sigh, Meraxis collapses back onto her bed and pants, [meraxis.speech(That was... So good...)]
+		#ELSE
+			Letting out a frustrated sigh, Meraxis collapses back onto her bed and pants, [meraxis.speech(You didn't even... Managed to satisfy me...)]
+		#ENDIF
+	</p>
+	<p>
+		Waiting for you to quickly clean yourself up and get your things back in order, the chuuni [meraxis.race] falls back into her usual manner of speaking and exclaims, [meraxis.speech(I must harness the power of the whirlpool and cleanse my body! I shall see you later, my nemesis!)]
+	</p>
+	<p>
+		Realising that Meraxis means that she wants to wash herself in her ensuite bathroom, you head to the door of her room and take your leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		Heading back out into the corridor, you leave Meraxis's room behind and wonder what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<htmlContent tag="SEATING"><![CDATA[
 	<p>
@@ -1085,7 +1197,7 @@
 	
 	<htmlContent tag="JESS_LEAVE"><![CDATA[
 	<p>
-		Deciding that you've had enough of Jess's company for now, you thank her for the enjoyable time and say goodbye. Playfully pouting at you, she teases, [jess.speech(I hope that next time we'll take things all the way up to my bedroom... See you around, [pc.name!])]
+		Deciding that you've had enough of Jess's company for now, you thank her for the enjoyable time and say goodbye. Playfully pouting at you, she teases, [jess.speech(I hope that next time we'll take things all the way up to my bedroom... See you around, [pc.name]!)]
 	</p>
 	<p>
 		Smiling at the promiscuous fox-girl, you [pc.step] away form her table and wonder where to go to next...

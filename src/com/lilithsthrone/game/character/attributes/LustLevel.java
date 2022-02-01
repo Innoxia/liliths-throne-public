@@ -131,6 +131,13 @@ public enum LustLevel {
 		return sexPaceDominant;
 	}
 	
+	public boolean isResistingFromRapePlay(GameCharacter character) {
+		return !Main.sex.isDom(character)
+				&& (character.hasFetish(Fetish.FETISH_NON_CON_SUB) && !Main.sex.isCharacterBannedFromRapePlay(character))
+				&& !((character instanceof NPC) && ((NPC)character).hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer))
+				&& getSexPaceSubmissive()!=SexPace.SUB_RESISTING;
+	}
+	
 	public SexPace getSexPace(boolean consensual, GameCharacter character) {
 		SexPace pace;
 		if(Main.sex.isDom(character)) {
@@ -156,7 +163,8 @@ public enum LustLevel {
 			
 		} else {
 			pace = getSexPaceSubmissive();
-			if(character.hasFetish(Fetish.FETISH_NON_CON_SUB) || ((character instanceof NPC) && ((NPC)character).hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer))) {
+			if((character.hasFetish(Fetish.FETISH_NON_CON_SUB) && !Main.sex.isCharacterBannedFromRapePlay(character))
+					|| ((character instanceof NPC) && ((NPC)character).hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer))) {
 				pace = SexPace.SUB_RESISTING;
 			}
 		}

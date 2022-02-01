@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <sexAction>
-	<buttonPriority>0</buttonPriority>
+	<buttonPriority>-1</buttonPriority>
 	<actionConditional><![CDATA[
 		[#npc.isPlayer()
 		&& !meraxis.hasFetish(FETISH_MASTURBATION)
 		&& (sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_VAGINA, PENETRATION_FINGER).contains(pc)
 			|| sex.getOngoingCharactersUsingAreas(pc, ORIFICE_VAGINA, PENETRATION_FINGER).contains(meraxis)
+			|| sex.getOngoingCharactersUsingAreas(pc, ORIFICE_ANUS, PENETRATION_FINGER).contains(meraxis)
 			|| sex.getOngoingCharactersUsingAreas(pc, PENETRATION_PENIS, PENETRATION_FINGER).contains(meraxis))]
 	]]></actionConditional>
 	<type>PREPARE_FOR_PARTNER_ORGASM</type>
@@ -35,14 +36,18 @@
 	]]></applyEndEffects>
 	<areasCummedIn/>
 	<areasCummedOn/>
-	<title><![CDATA[Push her]]></title>
+	<title><![CDATA[
+		[style.colourFetish(Push her)]
+	]]></title>
 	<tooltip><![CDATA[
 		#IF(sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_VAGINA, PENETRATION_FINGER).contains(pc))
 			Make Meraxis admit to you that she loves being fingered as you frantically tease her clit and make her cum.
 		#ELSEIF(sex.getOngoingCharactersUsingAreas(pc, PENETRATION_FINGER, ORIFICE_VAGINA).contains(meraxis))
-			Make Meraxis admit that she loves fingering you as tease her fingers over your cunt and make her cum.
+			Make Meraxis admit that she loves fingering you as she orgasms from it.
+		#ELSEIF(sex.getOngoingCharactersUsingAreas(pc, PENETRATION_FINGER, ORIFICE_ANUS).contains(meraxis))
+			Make Meraxis admit that she loves fingering your ass as she orgasms from it.
 		#ELSE
-			Make Meraxis admit that she loves stroking your cock you as tease her fingers up and down your throbbing length and make her cum.
+			Make Meraxis admit that she loves stroking your cock as she orgasms from it.
 		#ENDIF
 		<br/>[style.italicsSex(Meraxis will gain the '[#FETISH_MASTURBATION.getName(meraxis)]' fetish from this!)]
 	]]></tooltip>
@@ -52,7 +57,19 @@
 				[#sex.getOngoingCharactersUsingAreas(meraxis, ORIFICE_VAGINA, PENETRATION_FINGER).contains(pc)]
 			]]></descriptionConditional>
 			<text><![CDATA[
-				Make Meraxis admit to you that she loves being fingered as you frantically tease her clit and make her cum. 
+				Realising that she's about to reach her climax, and wanting to leave a lasting impression on her, you move your [pc.fingers+] up to start stroking Meraxis's [meraxis.clit+] as you tease, [pc.speech(You like this, Meraxis?)]
+				<br/><br/>
+				[meraxis.speechNoEffects(~Aah!~ Yes! ~Ooh!~ I-I'm going to cum!)]
+				<br/><br/>
+				Upon hearing that, you stop stimulating the [meraxis.race]'s pussy, causing her to let out a desperate, frustrated whine. Knowing that this is your chance to permanently influence Meraxis's sexual preferences, you demand, [pc.speech(Go on, beg for it! Tell me that you're a horny slut who loves to get off from having her dirty pussy fingered!)]
+				<br/><br/>
+				Although she furiously blushes as she hears you say this, Meraxis nevertheless does as you say and squeals, [meraxis.speechNoEffects(~Ooh!~ Yes, I'm a horny slut! Please, let me orgasm! Come on, keep on fingering me!)]
+				<br/><br/>
+				Teasing your [pc.fingers+] over her [meraxis.labia+], you cement the idea of loving to be fingered in Meraxis's mind by saying, [pc.speech(Once more. Tell me how much you like being fingered...)]
+				<br/><br/>
+				[meraxis.speechNoEffects(Please, [pc.name]! ~Mmm!~ I <i>need</i> this! Come on, just finger me already and let me cum!)]
+				<br/><br/>
+				Confident that you've done enough to give Meraxis a permanent love for being fingered, you slide your [pc.fingers+] into her [meraxis.pussy+] and continue where you left off. As the panting [meraxis.race] starts to once again let out a stream of horny moans, you realise that she's about to reach her climax...
 			]]></text>
 		</description>
 		<description>
@@ -60,15 +77,59 @@
 				[#sex.getOngoingCharactersUsingAreas(pc, PENETRATION_FINGER, ORIFICE_VAGINA).contains(meraxis)]
 			]]></descriptionConditional>
 			<text><![CDATA[
-				Make Meraxis admit that she loves fingering you as tease her fingers over your cunt and make her cum.
+				Realising that she's about to reach her climax, and wanting to leave a lasting impression on her, you push your [pc.pussy+] out against Meraxis's [meraxis.fingers+] as you tease, [pc.speech(You like this, Meraxis?)]
+				<br/><br/>
+				[meraxis.speechNoEffects(~Aah!~ Yes! ~Ooh!~ I-I think I'm going to cum!)]
+				<br/><br/>
+				Upon hearing that, you pull your [pc.pussy+] away from the [meraxis.race]'s hand, causing her to let out a desperate, frustrated whine. Knowing that this is your chance to permanently influence Meraxis's sexual preferences, you demand, [pc.speech(Go on, beg for it! Tell me that you're a horny slut who loves to get off from fingering my pussy!)]
+				<br/><br/>
+				Although she furiously blushes as she hears you say this, Meraxis nevertheless does as you say and squeals, [meraxis.speechNoEffects(~Ooh!~ Yes, I'm a horny slut! Please, let me orgasm! Come on, let me finger you!)]
+				<br/><br/>
+				Allowing her to tease her fingers over your [pc.labia+], you cement the idea of loving to finger others in Meraxis's mind by saying, [pc.speech(Once more. Tell me how much you like this...)]
+				<br/><br/>
+				[meraxis.speechNoEffects(Please, [pc.name]! ~Mmm!~ I <i>need</i> this! Come on, just let me finger you already and let me cum!)]
+				<br/><br/>
+				Confident that you've done enough to give Meraxis a permanent love for fingering you, you allow her to slide her [meraxis.fingers+] into your [pc.pussy+] and continue where she left off. As the panting [meraxis.race] starts to once again let out a stream of horny moans, you realise that she's about to reach her climax...
 			]]></text>
 		</description>
 		<description>
 			<descriptionConditional><![CDATA[
-				[#sex.getOngoingCharactersUsingAreas(pc, PENETRATION_FINGER, PENETRATION_PENIS).contains(meraxis)]
+				[#sex.getOngoingCharactersUsingAreas(pc, PENETRATION_FINGER, ORIFICE_ANUS).contains(meraxis) && !sex.getOngoingCharactersUsingAreas(pc, PENETRATION_FINGER, ORIFICE_VAGINA).contains(meraxis)]
 			]]></descriptionConditional>
 			<text><![CDATA[
-				Make Meraxis admit that she loves stroking your cock you as tease her fingers up and down your throbbing length and make her cum.
+				Realising that she's about to reach her climax, and wanting to leave a lasting impression on her, you push your [pc.assCloaca+] out against Meraxis's [meraxis.fingers+] as you tease, [pc.speech(You like this, Meraxis?)]
+				<br/><br/>
+				[meraxis.speechNoEffects(~Aah!~ Yes! ~Ooh!~ I-I think I'm going to cum!)]
+				<br/><br/>
+				Upon hearing that, you pull your [pc.asshole+] away from the [meraxis.race]'s hand, causing her to let out a desperate, frustrated whine. Knowing that this is your chance to permanently influence Meraxis's sexual preferences, you demand, [pc.speech(Go on, beg for it! Tell me that you're a horny slut who loves to get off from fingering my asshole!)]
+				<br/><br/>
+				Although she furiously blushes as she hears you say this, Meraxis nevertheless does as you say and squeals, [meraxis.speechNoEffects(~Ooh!~ Yes, I'm a horny slut! Please, let me orgasm! Come on, let me finger your ass!)]
+				<br/><br/>
+				Allowing her to tease her fingers over your [pc.assCloaca+], you cement the idea of loving to finger others in Meraxis's mind by saying, [pc.speech(Once more. Tell me how much you like this...)]
+				<br/><br/>
+				[meraxis.speechNoEffects(Please, [pc.name]! ~Mmm!~ I <i>need</i> this! Come on, just let me finger you already and let me cum!)]
+				<br/><br/>
+				Confident that you've done enough to give Meraxis a permanent love for fingering your ass, you allow her to slide her [meraxis.fingers+] into your [pc.asshole+] and continue where she left off. As the panting [meraxis.race] starts to once again let out a stream of horny moans, you realise that she's about to reach her climax...
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getOngoingCharactersUsingAreas(pc, PENETRATION_PENIS, PENETRATION_FINGER).contains(meraxis)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Realising that she's about to reach her climax, and wanting to leave a lasting impression on her, you push your [pc.cock+] out against Meraxis's [meraxis.fingers+] as you tease, [pc.speech(You like this, Meraxis?)]
+				<br/><br/>
+				[meraxis.speechNoEffects(~Aah!~ Yes! ~Ooh!~ I-I think I'm going to cum!)]
+				<br/><br/>
+				Upon hearing that, you pull your [pc.cock+] away from the [meraxis.race]'s hand, causing her to let out a desperate, frustrated whine. Knowing that this is your chance to permanently influence Meraxis's sexual preferences, you demand, [pc.speech(Go on, beg for it! Tell me that you're a horny slut who loves to get off from giving me a handjob!)]
+				<br/><br/>
+				Although she furiously blushes as she hears you say this, Meraxis nevertheless does as you say and squeals, [meraxis.speechNoEffects(~Ooh!~ Yes, I'm a horny slut! Please, let me orgasm! Come on, let me stroke your cock!)]
+				<br/><br/>
+				Allowing her to tease her fingers over the [pc.cockHead+] of your throbbing shaft, you cement the idea of loving to stroke cocks in Meraxis's mind by saying, [pc.speech(Once more. Tell me how much you like this...)]
+				<br/><br/>
+				[meraxis.speechNoEffects(Please, [pc.name]! ~Mmm!~ I <i>need</i> this! Come on, just let me jerk you off already and let me cum!)]
+				<br/><br/>
+				Confident that you've done enough to give Meraxis a permanent love for performing handjobs, you allow her to slide her [meraxis.fingers+] around your [pc.cock+] and continue where she left off. As the panting [meraxis.race] starts to once again let out a stream of horny moans, you realise that she's about to reach her climax...
 			]]></text>
 		</description>
 	</descriptions>

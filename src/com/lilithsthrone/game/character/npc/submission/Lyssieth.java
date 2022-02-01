@@ -157,6 +157,9 @@ public class Lyssieth extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
 			this.setTesticleCount(2);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.0.10")) {
+			this.setStartingBody(false);
+		}
 	}
 
 	@Override
@@ -456,10 +459,14 @@ public class Lyssieth extends NPC {
 	}
 	
 	@Override
-	public SexActionOrgasmOverride getSexActionOrgasmOverride(SexActionInterface sexAction, OrgasmCumTarget target, boolean applyExtraEffects) {
+	public SexActionOrgasmOverride getSexActionOrgasmOverride(SexActionInterface sexAction, OrgasmCumTarget target, boolean applyExtraEffects, String description) {
 		if(!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN)) { // Vision scene:
 			StringBuilder sb = new StringBuilder();
-			sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
+			if(description!=null) {
+				sb.append(description);
+			} else {
+				sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
+			}
 			
 			Main.sex.addRemoveEndSexAffection(Main.game.getNpc(Lyssieth.class));
 			
@@ -484,8 +491,12 @@ public class Lyssieth extends NPC {
 			
 		} else if(Main.sex.getSexManager() instanceof SMLyssiethDemonTF) { // Demon TF scene:
 			StringBuilder sb = new StringBuilder();
-			sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
-
+			if(description!=null) {
+				sb.append(description);
+			} else {
+				sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
+			}
+			
 			Main.sex.addRemoveEndSexAffection(Main.game.getNpc(Lyssieth.class));
 			
 			if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==0) {
@@ -513,7 +524,31 @@ public class Lyssieth extends NPC {
 							}
 						}
 					};
-	
+					
+				// Stage 1) Player is eating Lyssieth out:
+				} else if(Main.sex.getOngoingSexAreas(this, SexAreaOrifice.VAGINA, Main.game.getPlayer()).contains(SexAreaPenetration.TONGUE)) {
+					sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_1_PC_GIVING_LYSSIETH_CUNNILINGUS"));
+					return new SexActionOrgasmOverride(false) {
+						@Override
+						public String getDescription() {
+							return sb.toString();
+						}
+						@Override
+						public void applyEffects() {
+							if(applyExtraEffects) {
+								setPlayerToPartialDemon();
+								if(Main.game.getPlayer().isFeminine()) {
+									Main.game.getPlayer().incrementFemininity(20);
+								} else if(Main.game.getPlayer().getFemininityValue()<Femininity.MASCULINE.getMaximumFemininity()){
+									Main.game.getPlayer().setFemininity(Femininity.MASCULINE.getMaximumFemininity());
+								} else if(Main.game.getPlayer().getFemininityValue()<Femininity.ANDROGYNOUS.getMaximumFemininity()){
+									Main.game.getPlayer().setFemininity(Femininity.ANDROGYNOUS.getMaximumFemininity());
+								}
+								Main.game.getPlayer().setArousal(100, true);
+							}
+						}
+					};
+						
 				// Stage 1) Lyssieth is sucking player's cock:
 				} else if(Main.sex.getOngoingSexAreas(this, SexAreaOrifice.MOUTH, Main.game.getPlayer()).contains(SexAreaPenetration.PENIS)) {
 					sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_1_PC_GETTING_BLOWJOB_FROM_LYSSIETH"));
@@ -615,7 +650,30 @@ public class Lyssieth extends NPC {
 						@Override
 						public void applyEndEffects() {
 							if(applyExtraEffects) {
-								Main.sex.setCreampieLockedBy(new Value<>(Main.game.getNpc(Lyssieth.class), Leg.class));
+								Main.sex.setCreampieLockedBy(Main.game.getPlayer(), new Value<>(Main.game.getNpc(Lyssieth.class), Leg.class));
+							}
+						}
+					};
+
+				// Stage 2) Scissoring:
+				} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.CLIT, Main.game.getPlayer()).contains(SexAreaPenetration.CLIT)) {
+					if(Main.sex.getSexPositionSlot(this)==SexSlotLyingDown.SCISSORING) {
+						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_SCISSOR_PC_BOTTOM"));
+					} else {
+						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_SCISSOR_PC_TOP"));
+					}
+					
+					return new SexActionOrgasmOverride(false) {
+						@Override
+						public String getDescription() {
+							return sb.toString();
+						}
+						@Override
+						public void applyEffects() {
+							if(applyExtraEffects) {
+								Main.game.getPlayer().setArmType(ArmType.DEMON_COMMON);
+								Main.game.getPlayer().getLegConfiguration().setLegsToDemon(Main.game.getPlayer());
+								Main.game.getPlayer().setArousal(100, true);
 							}
 						}
 					};
@@ -645,9 +703,9 @@ public class Lyssieth extends NPC {
 						public void applyEndEffects() {
 							if(applyExtraEffects) {
 								if(Main.sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotLyingDown.MATING_PRESS) {
-									Main.sex.setCreampieLockedBy(new Value<>(Main.game.getNpc(Lyssieth.class), Leg.class));
+									Main.sex.setCreampieLockedBy(Main.game.getPlayer(), new Value<>(Main.game.getNpc(Lyssieth.class), Leg.class));
 								} else {
-									Main.sex.setCreampieLockedBy(new Value<>(Main.game.getNpc(Lyssieth.class), Tail.class));
+									Main.sex.setCreampieLockedBy(Main.game.getPlayer(), new Value<>(Main.game.getNpc(Lyssieth.class), Tail.class));
 								}
 							}
 						}
@@ -687,9 +745,15 @@ public class Lyssieth extends NPC {
 						}
 					};
 					
-				// Stage 3) Lyssieth is sucking player's cock:
+				// Stage 3) oral:
 				} else if(Main.sex.getOngoingSexAreas(this, SexAreaOrifice.MOUTH, Main.game.getPlayer()).contains(SexAreaPenetration.PENIS)) {
-					sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_PC_GETTING_BLOWJOB_FROM_LYSSIETH"));
+					if(Main.sex.getSexPositionSlot(this)==SexSlotLyingDown.SIXTY_NINE) {
+						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_SIXTY_NINE_BLOWJOB_LYSSIETH_TOP"));
+					} else if(Main.sex.getSexPositionSlot(this)==SexSlotLyingDown.LYING_DOWN) {
+						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_SIXTY_NINE_BLOWJOB_LYSSIETH_BOTTOM"));
+					} else {
+						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_PC_GETTING_BLOWJOB_FROM_LYSSIETH"));
+					}
 					
 					return new SexActionOrgasmOverride(false) {
 						@Override
@@ -706,7 +770,13 @@ public class Lyssieth extends NPC {
 	
 				// Stage 3) Lyssieth is eating the player out:
 				} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.TONGUE, Main.game.getPlayer()).contains(SexAreaOrifice.VAGINA)) {
-					sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_PC_GETTING_CUNNILINGUS_FROM_LYSSIETH"));
+					if(Main.sex.getSexPositionSlot(this)==SexSlotLyingDown.SIXTY_NINE) {
+						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_SIXTY_NINE_CUNNILINGUS_LYSSIETH_TOP"));
+					} else if(Main.sex.getSexPositionSlot(this)==SexSlotLyingDown.LYING_DOWN) {
+						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_SIXTY_NINE_CUNNILINGUS_LYSSIETH_BOTTOM"));
+					} else {
+						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_PC_GETTING_CUNNILINGUS_FROM_LYSSIETH"));
+					}
 					
 					return new SexActionOrgasmOverride(false) {
 						@Override
@@ -725,7 +795,11 @@ public class Lyssieth extends NPC {
 			
 		} else if(Main.sex.getSexManager() instanceof SMLilayaDemonTF) { // TF Lilaya or Meraxis into full demons
 			StringBuilder sb = new StringBuilder();
-			sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
+			if(description!=null) {
+				sb.append(description);
+			} else {
+				sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
+			}
 
 			Main.sex.addRemoveEndSexAffection(Main.game.getNpc(Lyssieth.class));
 			
@@ -798,7 +872,7 @@ public class Lyssieth extends NPC {
 			}
 		}
 
-		return super.getSexActionOrgasmOverride(sexAction, target, applyExtraEffects); // Normal scene
+		return super.getSexActionOrgasmOverride(sexAction, target, applyExtraEffects, description); // Normal scene
 	}
 	
 	@Override
@@ -813,6 +887,13 @@ public class Lyssieth extends NPC {
 					} else {
 						return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
 					}
+				}
+			} else if((Main.sex.getSexPositionSlot(this)==SexSlotLyingDown.SIXTY_NINE || Main.sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotLyingDown.SIXTY_NINE)
+					&& !this.hasPenis()) {
+				if(Main.sex.getTurn()%2==0) {
+					return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
+				} else {
+					return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
 				}
 			}
 		}

@@ -1089,8 +1089,8 @@ public class RatWarrensDialogue {
 				return super.isAbleToRemoveOthersClothing(character, clothing);
 			}
 			@Override
-			public boolean isAbleToEquipSexClothing(GameCharacter character) {
-				return !character.isPlayer() && !character.equals(getMainCompanion());
+			public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
+				return !equippingCharacter.isPlayer() && !equippingCharacter.equals(getMainCompanion());
 			}
 			@Override
 			public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
@@ -2652,12 +2652,12 @@ public class RatWarrensDialogue {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensHostile)) {
 						return new Response("Seduce", "Vengar considers you to be an enemy, so he isn't going to pay attention to any attempts at seducing him...", null);
 					}
-					if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)
+					if(Main.game.getPlayer().hasTraitActivated(Perk.CONVINCING_REQUESTS)
 							|| Main.game.getPlayer().hasSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_3)
 							|| Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_LUST)>=75) {
 						return new Response("Seduce",
 								"Seduce Vengar in an attempt to convince him to stop extorting protection money from Axel."
-										+ "<br/>[style.italicsMinorGood(Unlocked from having the '"+Perk.CONVINCING_REQUESTS.getName(Main.game.getPlayer())+"' perk.)]"
+										+ "<br/>[style.italicsMinorGood(Unlocked from having the '"+Perk.CONVINCING_REQUESTS.getName(Main.game.getPlayer())+"' trait activated.)]"
 										+getCooperationWarning(),
 								VENGARS_HALL_APPROACH_SEDUCE) {
 							@Override
@@ -2676,7 +2676,7 @@ public class RatWarrensDialogue {
 					}
 					return new Response("Seduce",
 							"You aren't skilled enough in the art of seduction to convince Vengar to stop extorting protection money from Axel in this manner."
-									+ "<br/>[style.italicsMinorBad(Requires the '"+Perk.CONVINCING_REQUESTS.getName(Main.game.getPlayer())+"' perk,"
+									+ "<br/>[style.italicsMinorBad(Requires the '"+Perk.CONVINCING_REQUESTS.getName(Main.game.getPlayer())+"' trait to be active,"
 											+ " at least 75 lust damage, or the '"+SpellUpgrade.TELEPATHIC_COMMUNICATION_3.getName()+"' upgrade for the '"+Spell.TELEPATHIC_COMMUNICATION.getName()+"' spell.)]",
 							null);
 				}
@@ -3475,7 +3475,7 @@ public class RatWarrensDialogue {
 						Main.game.getNpc(Vengar.class));
 				
 			} else if(index==2) {
-				if(Main.game.getPlayer().hasTrait(Perk.UNARMED_TRAINING, true)
+				if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.UNARMED_TRAINING)
 						|| Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_UNARMED)>=75
 						|| Main.game.getPlayer().hasSpellUpgrade(SpellUpgrade.SLAM_3)) {
 					return new Response("Knock out",
@@ -3483,7 +3483,7 @@ public class RatWarrensDialogue {
 									+ "<br/>[style.italicsMinorGood("
 									+(Main.game.getPlayer().hasSpellUpgrade(SpellUpgrade.SLAM_3)
 										?"Unlocked from having the '"+SpellUpgrade.SLAM_3.getName()+"' upgrade to the '"+Spell.SLAM.getName()+"' spell."
-										:(Main.game.getPlayer().hasTrait(Perk.UNARMED_TRAINING, true)
+										:(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.UNARMED_TRAINING)
 											?"Unlocked from having the '"+Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())+"' trait."
 											:"Unlocked from having over 75 unarmed damage."))
 									+ ")]",

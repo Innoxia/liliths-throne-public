@@ -95,6 +95,10 @@ public interface SexManagerInterface {
 	public default boolean isSadisticActionsAllowed() {
 		return true;
 	}
+
+	public default boolean isLovingActionsAllowed() {
+		return true;
+	}
 	
 	public default String getStartSexDescription() {
 		return "";
@@ -119,6 +123,20 @@ public interface SexManagerInterface {
 	 */
 	public default boolean isHidden(GameCharacter character) {
 		return false;
+	}
+
+	/**
+	 * @return The name of the desk over which sex will be taking place during this manager's sex scene. Leave as null or an empty String if not used.
+	 */
+	public default String getDeskName() {
+		return null;
+	}
+	
+	/**
+	 * @return The name of the wall against which sex will be taking place during this manager's sex scene. Leave as null or an empty String if not used.
+	 */
+	public default String getWallName() {
+		return null;
 	}
 	
 	public default SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
@@ -186,7 +204,10 @@ public interface SexManagerInterface {
 	}
 	
 	public default boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
-		return character.isPlayer() && isPositionChangingAllowed(character);
+		return character.isPlayer()
+				&& isPositionChangingAllowed(character)
+				&& Main.sex.getInitialSexManager().isSlotAvailable(character, Main.sex.getSexPositionSlot(target))
+				&& Main.sex.getInitialSexManager().isSlotAvailable(target, Main.sex.getSexPositionSlot(character));
 	}
 	
 	/**
@@ -215,6 +236,7 @@ public interface SexManagerInterface {
 		boolean domsSatisfied = true;
 		boolean subsResisting = true;
 		boolean subsDenied = true;
+		boolean subsStillInForeplay = true;
 		
 		if(!isCharacterAbleToStopSex(partner)) {
 			return false;
@@ -251,10 +273,19 @@ public interface SexManagerInterface {
 			if(Main.sex.getNumberOfDeniedOrgasms(character)==0) {
 				subsDenied = false;
 			}
+			if(!Main.sex.isInForeplay(character)) {
+				subsStillInForeplay = false;
+			}
 		}
 		
-		if(Main.sex.isDom(partner) && (!Main.sex.isConsensual() || subsResisting || !Main.sex.isSubHasEqualControl() || (partner.getFetishDesire(Fetish.FETISH_DENIAL).isPositive() && subsDenied))) {
-			if(Main.sex.getNumberOfOrgasms(partner)>partner.getOrgasmsBeforeSatisfied()*2) {
+		boolean gettingBored = Main.sex.getNumberOfOrgasms(partner)>partner.getOrgasmsBeforeSatisfied()+1;
+		
+		if(Main.sex.isDom(partner)
+				&& (!Main.sex.isConsensual()
+						|| subsResisting
+						|| (subsStillInForeplay && gettingBored)
+						|| (partner.getFetishDesire(Fetish.FETISH_DENIAL).isPositive() && subsDenied))) {
+			if(gettingBored) {
 				return true;
 			}
 			return domsSatisfied;
@@ -314,7 +345,7 @@ public interface SexManagerInterface {
 		return true;
 	}
 	
-	public default boolean isAbleToEquipSexClothing(GameCharacter character){
+	public default boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
 		return true;
 	}
 	
@@ -329,6 +360,10 @@ public interface SexManagerInterface {
 	 */
 	public default boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
 		// The only thing that should limit this is overridden special conditions:
+		return true;
+	}
+
+	public default boolean isAbleToRemoveClothingSeals(GameCharacter character){
 		return true;
 	}
 	
@@ -410,9 +445,22 @@ public interface SexManagerInterface {
 	
 	/**
 	 * @return The OrgasmCumTarget for when this character is orgasming in an interaction with the target.
-	 *  Determines where they want to cum <b>only if they choose to pull out</b>, with a return of null signifying that there are no special targeting priorities.
+	 * <br/>Determines where they want to cum <b>only if they choose to pull out</b>, with a return of null signifying that there are no special targeting priorities.
+	 * <br/><b>Note:</b> This also limits the player's orgasm actions.
 	 */
 	public default OrgasmCumTarget getCharacterPullOutOrgasmCumTarget(GameCharacter character, GameCharacter target) {
+		if(character.isPlayer()) {
+			return null;
+		}
+		List<OrgasmCumTarget> orgasmTargets = new ArrayList<>();
+		for(Entry<GameCharacter, OrgasmCumTarget> entry : Main.sex.getCharactersRequestingPullout().entrySet()) {
+			if(entry.getValue()!=null && (character.isPlayer() || !((NPC)character).getSexBehaviourDeniesRequests(entry.getKey()))) {
+				orgasmTargets.add(entry.getValue());
+			}
+		}
+		if(!orgasmTargets.isEmpty()) {
+			return Util.randomItemFrom(orgasmTargets);
+		}
 		return null;
 	}
 	
@@ -717,6 +765,14 @@ public interface SexManagerInterface {
 	
 	public default String getRoughTalk(GameCharacter character) {
 		return character.getRoughTalk();
+	}
+
+	public default String getLovingTalk(GameCharacter character) {
+		return character.getLovingTalk();
+	}
+
+	public default String getLovingResponseTalk(GameCharacter character) {
+		return character.getLovingResponseTalk();
 	}
 	
 	public default String getSubmissiveTalk(GameCharacter character) {

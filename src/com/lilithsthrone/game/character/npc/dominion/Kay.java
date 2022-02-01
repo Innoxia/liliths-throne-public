@@ -249,10 +249,10 @@ public class Kay extends NPC {
 			}
 			
 			if(isFeminine()) {
-				return getSubspecies().getSingularFemaleName(this);
+				return getSubspecies().getSingularFemaleName(this.getBody());
 				
 			} else {
-				return getSubspecies().getSingularMaleName(this);
+				return getSubspecies().getSingularMaleName(this.getBody());
 			}
 			
 		} else {
@@ -264,6 +264,14 @@ public class Kay extends NPC {
 		}
 	}
 
+	@Override
+	public String getArtworkFolderName() {
+		if(this.isFeminine()) {
+			return "KayFeminine";
+		}
+		return "Kay";
+	}
+	
 	@Override
 	public boolean isFeminine() {
 		return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kayFeminised);

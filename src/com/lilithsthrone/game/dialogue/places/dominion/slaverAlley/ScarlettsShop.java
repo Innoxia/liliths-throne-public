@@ -184,8 +184,8 @@ public class ScarlettsShop {
 				return SexControl.ONGOING_ONLY; // So Scarlett doesn't start anything else.
 			}
 			@Override
-			public boolean isAbleToEquipSexClothing(GameCharacter character){
-				return false;
+			public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip){
+				return clothingToEquip.isCondom();
 			}
 			@Override
 			public boolean isAbleToRemoveSelfClothing(GameCharacter character){
@@ -235,7 +235,7 @@ public class ScarlettsShop {
 			@Override
 			public boolean isPartnerWantingToStopSex(GameCharacter partner) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaScarlettSleepoverSex)) { // If this is the morning oral scene, Scarlett stops after cumming.
-					return super.isPartnerWantingToStopSex(partner);
+					return Main.sex.isSatisfiedFromOrgasms(partner, true);
 				}
 				return Main.sex.isSatisfiedFromOrgasms(partner, true) && (Main.sex.isOrgasmCountMet(Main.game.getPlayer(), 1, true) || Main.sex.getNumberOfOrgasms(partner)>=3);
 			}
@@ -276,8 +276,8 @@ public class ScarlettsShop {
 				return SexControl.ONGOING_ONLY; // So Scarlett doesn't start anything else.
 			}
 			@Override
-			public boolean isAbleToEquipSexClothing(GameCharacter character){
-				return false;
+			public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip){
+				return clothingToEquip.isCondom();
 			}
 			@Override
 			public boolean isAbleToRemoveSelfClothing(GameCharacter character){
@@ -312,6 +312,10 @@ public class ScarlettsShop {
 					return getForeplayPreference(character, targetedCharacter);
 				}
 				return character.getMainSexPreference(targetedCharacter);
+			}
+			@Override
+			public boolean isPartnerWantingToStopSex(GameCharacter partner) {
+				return Main.sex.isSatisfiedFromOrgasms(partner, true);
 			}
 			@Override
 			public OrgasmBehaviour getCharacterOrgasmBehaviour(GameCharacter character) {
@@ -579,7 +583,7 @@ public class ScarlettsShop {
 							AbstractClothing collar = Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false);
 							collar.setSealed(true);
 							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(collar, true, Main.game.getNpc(Helena.class));
-							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_BALLGAG, PresetColour.CLOTHING_PINK, false), true, Main.game.getNpc(Helena.class));
+							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_ballgag", PresetColour.CLOTHING_PINK, false), true, Main.game.getNpc(Helena.class));
 						}
 					};
 					

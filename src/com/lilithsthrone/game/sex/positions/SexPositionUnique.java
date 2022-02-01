@@ -24,7 +24,7 @@ import com.lilithsthrone.game.sex.sexActions.dominion.PetMounting;
 import com.lilithsthrone.game.sex.sexActions.dominion.PetOral;
 import com.lilithsthrone.game.sex.sexActions.dominion.PixShower;
 import com.lilithsthrone.game.sex.sexActions.dominion.RalphOral;
-import com.lilithsthrone.game.sex.sexActions.universal.HandHolding;
+import com.lilithsthrone.game.sex.sexActions.dominion.RoseHandHolding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -133,7 +133,7 @@ public class SexPositionUnique {
 	public static final AbstractSexPosition HANDS_ROSE = new AbstractSexPosition("Hand-holding",
 			2,
 			false,
-			null, Util.newArrayListOfValues(HandHolding.class, GenericOrgasms.class)) {
+			null, Util.newArrayListOfValues(RoseHandHolding.class, GenericOrgasms.class)) {
 		@Override
 		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return "You and the cat-girl maid, Rose, are standing facing one another, ready to perform lewd acts with one another's hands.";

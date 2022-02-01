@@ -32,7 +32,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class DominionClubNPC extends NPC {
 
 	public DominionClubNPC() {
-		this(Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER, false);
+		this(Gender.getGenderFromUserPreferences(false, false), Subspecies.DOG_MORPH, RaceStage.GREATER, false);
 	}
 	
 	public DominionClubNPC(boolean isImported) {
