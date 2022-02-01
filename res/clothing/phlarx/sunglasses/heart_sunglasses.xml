@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<clothingAuthorTag><![CDATA[A logo subtly printed along the inside of the temples informs you that it was designed by 'Phlarx'.]]></clothingAuthorTag>
+		<value>750</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[heart sunglasses]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[heart sunglasses]]></namePlural>
+		<description><![CDATA[A pair of novelty heart-shaped sunglasses.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>EYES</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>heart_sunglasses.svg</imageName> 
+		<imageEquippedName/>
+		<effects/>
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>EYES</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		<incompatibleSlots/>
+		<primaryColours values="ALL_METAL"/>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLUE_DARK</colour>
+			<colour>CLOTHING_RED_BURGUNDY</colour>
+			<colour>CLOTHING_BLACK_JET</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours>
+			<colour>CLOTHING_GREEN_DARK</colour>
+			<colour>CLOTHING_PINK_DARK</colour>
+			<colour>CLOTHING_GREY_DARK</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL_WITH_METALS"/>
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+		</itemTags>
+	</coreAttributes>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(remove)] [npc.her] sunglasses.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(remove)] [npc2.namePos] sunglasses.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] aggressively [npc.verb(remove)] [npc2.namePos] sunglasses.]]>
+		</otherRough>
+	</displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(put)] on [npc.her] sunglasses.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(put)] on [npc2.namePos] sunglasses.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] aggressively [npc.verb(put)] on [npc2.namePos] sunglasses.]]>
+		</otherRough>
+	</replacementText>
+</clothing>
