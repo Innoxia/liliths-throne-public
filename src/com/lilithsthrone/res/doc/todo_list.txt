@@ -19,6 +19,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	AceXP's content contributions:
 		Added more sex actions in each of the harpy matriarch's nests, which are available after having pacified those nests (as part of the 'Angry harpies' side quest).
+		Added a new area, 'Lilaya's Dungeon', beneath Lilaya's mansion. You can access this area from reading the 'People as Property' book in the mansion's library, which unlocks after obtaining Lilaya's recommendation for a slaver license.
 	
 	Contributors:
 		Fixed issue where the Innoxia's Gift debug item wouldn't work correctly. (by AceXP)
@@ -29,6 +30,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added catch for passing in a null character argument for the setNippleSize(), setNippleShape(), setAreolaeSize(), and setAreolaeShape() methods, making it safe to call these methods with a null character in modded race's 'applyRaceChanges' and 'applySubspeciesChanges' elements.
 		For race modding, support has been added for defining lip names and descriptors in mouth type xml files (see 'res/mods/innoxia/race/hyena/bodyParts/mouth.xml' for a commented example).
 		Added support to mod in 'Loving confession' and 'Loving response' lines to sex managers in the same way that submissive and rough lines can be added (see 'res/sex/innoxia/managers/meraxis/duel/masturbation.xml' for a commented example).
+		Moved more dialogue out of hard-coded Lilaya's lab and library classes into external xml dialogue files.
 	
 	Gameplay:
 		Added 'Ahegao' as a new trait (located beside 'Nymphomaniac' in the lust tree), which grants +15% lust damage, -5 lust shielding, and adds an extra paragraph to orgasm descriptions.
@@ -84,6 +86,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where if character1 was being forced to cum inside character2 during the same turn that character3 was also orgasming, then character1 would sometimes incorrectly be treated as orgasming inside character3.
 		Fixed issue where the 'Service ass' action which was displayed after flirting with Astrapi wasn't working.
 		Using the 'Quick sex' action will no longer result in characters being able to perform actions which should have been prevented due to limits on available positions or positioning slots.
+		Fixed issue with incorrect dialogue flow in several parts of Lilaya's lab.
 	
 	
 	
@@ -189,10 +192,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] give to Murk's milkers
 	[x] non con button
 		[x] not attracted, non con on, no forced non-resist sex pace
-	
-	[] Ace content:
-		[] replace pc.getLastCell() calls (in case the player teleported into the cell)
-		[] Dominion
+	[x] Ace content:
+		[x] Dominion
 			[x] Harpy Nests
 				[x] Incorporate into existing hard-coded dialogue
 					[x] bimbo
@@ -207,17 +208,31 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					[x] nympho
 						[x] perk requirement missing
 						[x] sex parsing errors
-			[] Dungeon
-				[] Make entry point harder to find
-					[] library dungeon book
-				[] txt edits
-				[] stocks dialogue should grey-out when talking about that subject
-				[] unlock cell use after talking to Rose about it
-				[] manage cell dialogue should be straight into manage room
-				[] add new place type 'dungeon cell'
-					[] make new upgrades
+			[x] Dungeon
+				[x] add and rename files
+				[x] add new place type 'dungeon cell'
+					[x] make new upgrades
+						[x] chains/ropes
+							[x] interaction limitation
+							[x] sex manager support
+							[x] add description to start of sex
+				[x] manage cell dialogue should be straight into manage room
+				[x] Make entry point harder to find
+					[x] library slavery dungeon book (available after getting slaver license)
+					[x] unlocks suspicious book
+					[x] add slavery dialogue for book reference
+				[x] remove dungeon keys item
+				[x] add slave ambush to this area too
+					[x] fix immobilisation encounters
+					[x] add text variation
+				[x] garden access
+					[x] from dungeon
+					[x] from garden
+				[x] stocks dialogue should grey-out when talking about that subject
+				[x] allow Rose quick sex
+				[x] txt edits
 				
-		
+	[] increase use of 'bound' sex action while immobilised NPCs are resisting
 	
 	[] Also, Reindeer offspring can't spawn anymore, even in winter. This worked before, but something was changed. Maybe this was intentional?
 	
@@ -245,6 +260,12 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				- transformed, fucked, kept in nest for 24 hours and made to serve matriarch
 				- bad end: transformed, kept in nest and become part of harpy society
 	
+	[] dungeon additions
+		[] slave job 'dungeon master/mistress'
+		[] You suggest inviting Lilaya down to use the bedroom again
+			[] Alternate paths:
+				[] Both you and Rose having Lilaya as a pet
+				[] Rose makes the PC her sub maid/pet
 	
 	
 	[] PRs:
@@ -254,6 +275,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Would fully removing offspring interfere with the count of total met and unmet offspring? Not looked fully into that
 	
 	[] Ace content:
+		[] replace pc.getLastCell() calls (in case the player teleported into the cell)
 		[] Submission
 			[] Elizabeth
 				[] talk options +affection?
