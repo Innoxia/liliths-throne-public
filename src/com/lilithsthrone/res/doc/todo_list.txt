@@ -24,6 +24,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Contributors:
 		Fixed issue where the Innoxia's Gift debug item wouldn't work correctly. (by AceXP)
 		Added a new 'Strapless bodysuit' clothing item, which is sold by Nyan/Monica. (by C4MG1RL)
+		Added support for dynamically-resizing action tooltips. (PR#1617 by CognitiveMist)
 	
 	Engine/Modding:
 		Added support to define pre-lubed areas at the start of sex via a new 'startingLubrications' element in external sex managers (see 'res/sex/innoxia/managers/meraxis/duel/masturbation.xml' for a commented example).
@@ -245,8 +246,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			Transformer <-> Test Subject
 	
 	[] PRs:
-		[] tattoo tooltip doens't expand to show all text
-			[] PR#1617
+		[x] PR#1617
 			
 			
 			
