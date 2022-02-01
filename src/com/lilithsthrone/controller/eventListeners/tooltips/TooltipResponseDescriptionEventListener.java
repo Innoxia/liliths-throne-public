@@ -260,12 +260,12 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 				 */
 				int realHeight = Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 				
-				if(false) {
-					// for every response tooltip, print the height values
-					// very spammy
-					System.out.println("predicted: " + boxHeight);
-					System.out.println("measured:  " + realHeight);
-				}
+//				if(false) {
+//					// for every response tooltip, print the height values
+//					// very spammy
+//					System.out.println("predicted: " + boxHeight);
+//					System.out.println("measured:  " + realHeight);
+//				}
 				
 				boxHeight = realHeight;
 
