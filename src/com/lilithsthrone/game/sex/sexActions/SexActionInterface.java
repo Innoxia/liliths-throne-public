@@ -69,6 +69,14 @@ public interface SexActionInterface {
 	public default boolean isLovingAction() {
 		return false;
 	}
+
+	/**
+	 * Default is false, meaning that only actions of SexPace.SUB_RESISTING are available to resisting characters.
+	 * <br/>Override to return true if this action should be available to resisting characters.
+	 */
+	public default boolean isOverrideAvailableDuringResisting() {
+		return false;
+	}
 	
 	/**
 	 * If the performing character is immobilised, then this action is only available if it's a SexActionType of: SPEECH, SPEECH_WITH_ALTERNATIVE, PREPARE_FOR_PARTNER_ORGASM, or ORGASM.

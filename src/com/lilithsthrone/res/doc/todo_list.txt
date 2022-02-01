@@ -50,6 +50,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added 'Encourage knot' and 'Request knot' orgasm preparation actions for when the orgasming character has a knotted penis, which result in the orgasming character using the 'Knot them' action instead of 'Creampie them' (so long as the orgasming character is not ignoring requests).
 		Added NPC reaction to a creampie or knotting request to let you know if they're willing to do as you ask or not.
 		Orgasming characters no longer require a penis to have their orgasm description start with a small sentence describing the orgasming character's position.
+		NPCs are now able to use immobilisation-related 'struggle' actions while in the resisting sex pace.
 	
 	Other:
 		Yui's anilingus scene now correctly starts with her asshole lubed by her girlcum, as the scne's intro describes.
@@ -63,6 +64,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added +5% lust damage to the 'Nymphomaniac' trait.
 		Added small offspring encounter dialogue variations for if the player was the offspring's incubator.
 		Added icon indication on sex-start actions for if the sex will involved non-con.
+		Set reindeer-morphs to have an extremely low chance to spawn in Dominion, which enables your reindeer offspring to be encountered in Dominion's alleyways.
+		NPCs who use fetish-altering potions will now generate potions that can alter penis, lactation, and foot related fetishes (provided the relevant lactation and foot content toggles are turned on).
 	
 	Bugs:
 		Typo and parsing fixes.
@@ -231,24 +234,29 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[x] stocks dialogue should grey-out when talking about that subject
 				[x] allow Rose quick sex
 				[x] txt edits
-				
-	[] increase use of 'bound' sex action while immobilised NPCs are resisting
+	[x] increase use of 'bound' sex action while immobilised NPCs are resisting
+	[x] Also, Reindeer offspring can't spawn anymore, even in winter. This worked before, but something was changed. Maybe this was intentional?
+	[x] There was also some early work done on the Fetish system were some Fetishes were moved to a restricted sub-category, where an NPC could have those Fetishes, but could not "inflict" them on the player (assuming that the NPC had Kink Advocate).
+			 Given that the Fetish system has been expanded, nominally giving the player more control over what Fetishes are common in the game, I think it would be nice if the sub-category restriction could be removed.
+			In particular, the following are all in the restricted sub-category:
+			Milk Lover <-> Lactation
+			Cock Addict <-> Cock Stud
+			Kink Advocate <-> Kink Curious
+			Transformer <-> Test Subject
 	
-	[] Also, Reindeer offspring can't spawn anymore, even in winter. This worked before, but something was changed. Maybe this was intentional?
-	
-	There was also some early work done on the Fetish system were some Fetishes were moved to a restricted sub-category, where an NPC could have those Fetishes, but could not "inflict" them on the player (assuming that the NPC had Kink Advocate).
-	 Given that the Fetish system has been expanded, nominally giving the player more control over what Fetishes are common in the game, I think it would be nice if the sub-category restriction could be removed.
-	In particular, the following are all in the restricted sub-category:
-	Milk Lover <-> Lactation
-	Cock Addict <-> Cock Stud
-	Deflowering <-> Vaginal Virginity
-	Kink Advocate <-> Kink Curious
-	Transformer <-> Test Subject
-	
-	[] cuddle actions?
-	
+	[] PRs:
+		[] tattoo tooltip doens't expand to show all text
+			[] PR#1617
+			
+			
+			
+			
 	[] rat morph lore
 		[] add support for author for books
+	
+	[] Would fully removing offspring interfere with the count of total met and unmet offspring? Not looked fully into that
+	
+	[] cuddle actions?
 	
 	[] harpy nests
 		[] add option to be dominated by Diana
@@ -266,13 +274,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] Alternate paths:
 				[] Both you and Rose having Lilaya as a pet
 				[] Rose makes the PC her sub maid/pet
-	
-	
-	[] PRs:
-		[] tattoo tooltip doens't expand to show all text
-			[] PR#1617
-			
-		[] Would fully removing offspring interfere with the count of total met and unmet offspring? Not looked fully into that
 	
 	[] Ace content:
 		[] replace pc.getLastCell() calls (in case the player teleported into the cell)
