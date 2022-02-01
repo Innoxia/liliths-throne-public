@@ -1644,4 +1644,52 @@
 	]]>
 	</htmlContent>
 	
+	
+	<htmlContent tag="LILAYA_SLAVER_RECOMMENDATION"><![CDATA[
+	<p>
+		You tell Lilaya that you're trying to obtain a slaver license, and that during your attempts to acquire one you were informed that you'd need a letter of recommendation from someone who's already got a license. With that, you lead into asking your [lilaya.relation(pc)] if she could write a letter of recommendation for you.
+	</p>
+	<p>
+		Lilaya lets out a little sigh and raises her eyebrow as she hears this. Leaning back in her chair, she asks, [lilaya.speech(I'm fine with writing a letter for you, but have you thought about where you're going to keep your slaves?)]
+	</p>
+	<p>
+		Realising that you hadn't thought about the logistics of owning slaves, you tell Lilaya that you haven't got a plan for that yet.
+	</p>
+	<p>
+		[lilaya.speech(I thought not,)] Lilaya responds, before instructing Rose to bring her a piece of paper and a pen. After the cat-girl maid has quickly carried out this order, Lilaya starts writing your letter, speaking to you as she does so, [lilaya.speech(You're going to need a place to keep your slaves. No doubt they'll tell you all this when you receive your license, but the Slavery Administration is only for holding your new slaves until their relocation. It's <i>not</i> a permanent place to keep them. So, you'll be needing somewhere to house your slaves, won't you?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_SLAVER_RECOMMENDATION_SLAVE_ACCOMMODATION"><![CDATA[
+	<p>
+		Replying to Lilaya's question in the affirmative, you brace yourself to be on the receiving end of one of your [lilaya.relation(pc)]'s scoldings.
+	</p>
+	<p>
+		[lilaya.speech(Well, luckily for you, I think I can help,)] Lilaya responds, putting your fears of having to endure one of her lectures to rest. Standing up from behind her desk with the completed letter of recommendation in her hand, she states, [lilaya.speech(I'm sure you've noticed, but this house is extremely large, which also means that it's an extremely time-consuming job to keep clean. Isn't that right, Rose?)]
+	</p>
+	<p>
+		[rose.speech(Yes, Mistress!)] Rose's voice calls out from one side of the room.
+	</p>
+	<p>
+		[lilaya.speech(So, I've got a deal to make. I only ever use my lab and my bedroom, and as you've probably seen, all the other rooms in this house are left empty and unused. I'm willing to let you use those empty rooms as accommodation for your slaves, but only on the condition that you either pay a daily upkeep for each room that you use, or you assign some of your slaves to help with the cleaning. Deal?)] Lilaya offers, tightly holding on to the letter of recommendation as she awaits your answer. 
+	</p>
+	<p>
+		Thinking that her deal sounds fair enough, you nod in agreement and thank Lilaya for her offer.
+	</p>
+	<p>
+		[lilaya.speech(Great!)] Lilaya responds, beaming at you as she gives you the letter. [lilaya.speech(If you want to use any of the rooms to house slaves, just go into the one you'd like and ring the bell-pull. Rose will handle all the necessary arrangements. Oh, and if you'd like to get Rose to manage your slaves for you, she's more than capable. Just ring the little bell beside her room's door, and she'll come running, won't you, Rose?)]
+	</p>
+	<p>
+		[rose.speech(Yes, Mistress! I'd love to help,)] Rose obediently replies.
+	</p>
+	<p>
+		At that moment your demonic [lilaya.relation(pc)] suddenly seems to recall something, and after raising her finger, she states, [lilaya.speech(I've just remembered that we have several books in the library about slavery. You might want to read up on things. Rose, tell [pc.name] exactly where those slavery books are, will you?)]
+	</p>
+	<p>
+		Rushing forwards to obey, Rose tells you in which of the library's many aisles the books on slavery can be found. After thanking both Rose and Lilaya for their help, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
 </dialogue>

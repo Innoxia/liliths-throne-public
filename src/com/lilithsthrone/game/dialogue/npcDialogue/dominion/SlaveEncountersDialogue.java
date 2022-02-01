@@ -45,6 +45,13 @@ public class SlaveEncountersDialogue {
 		return SLAVE_USES_YOU;
 	}
 
+	public static DialogueNode getSlaveUsesYouDungeon(NPC targetedSlave) {
+		slave = targetedSlave;
+		Main.game.setActiveNPC(targetedSlave);
+		targetedSlave.setLocation(Main.game.getPlayer(), false);
+		return SLAVE_USES_YOU_DUNGEON;
+	}
+	
 	public static DialogueNode getSlaveUsesYouStreet(NPC targetedSlave) {
 		slave = targetedSlave;
 		Main.game.setActiveNPC(targetedSlave);
@@ -166,6 +173,78 @@ public class SlaveEncountersDialogue {
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_POST_SEX", slave);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 1) {
+				return new Response("Continue", "Continue on your way.", Main.game.getDefaultDialogue(false)) {
+					@Override
+					public void effects() {
+						getSlave().returnToHome();
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	private static final DialogueNode SLAVE_USES_YOU_DUNGEON = new DialogueNode("Ambushed", "", true) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_DUNGEON", slave);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 1) {
+				return new ResponseSex("Sex",
+						"[npc.Name] forces [npc.herself] on you...",
+						false, false,
+						new SMGeneric(
+								Util.newArrayListOfValues(getSlave()),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								null),
+						SLAVE_USES_YOU_DUNGEON_POST_SEX,
+						UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_DUNGEON_SEX", slave));
+				
+			} else if(index == 2) {
+				return new ResponseSex("Eager Sex",
+						"[npc.Name] forces [npc.herself] on you...",
+						false, false,
+						new SMGeneric(
+								Util.newArrayListOfValues(getSlave()),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								null,
+								ResponseTag.START_PACE_PLAYER_SUB_EAGER),
+						SLAVE_USES_YOU_DUNGEON_POST_SEX,
+						UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_DUNGEON_SEX_EAGER", slave));
+				
+			} else if(index == 3 && Main.game.isNonConEnabled()) {
+				return new ResponseSex("Resist Sex",
+						"[npc.Name] forces [npc.herself] on you...",
+						false, false,
+						new SMGeneric(
+								Util.newArrayListOfValues(getSlave()),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								null,
+								ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
+						SLAVE_USES_YOU_DUNGEON_POST_SEX,
+						UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_DUNGEON_SEX_RESIST", slave));
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode SLAVE_USES_YOU_DUNGEON_POST_SEX = new DialogueNode("Used", "", true) {
+		@Override
+		public String getDescription(){
+			return UtilText.parse(slave, "Now that [npc.sheHas] had [npc.her] fun, [npc.name] starts to step back...");
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_DUNGEON_POST_SEX", slave);
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {

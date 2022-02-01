@@ -178,7 +178,7 @@ h6{
 .description{
 	margin:8px 8px 0 8px;
 	padding:8px;
-	height:106px;
+	min-height:106px;
 	background-color:#19191a;
 	box-sizing: border-box;
 	width: calc(100% - 16px);
