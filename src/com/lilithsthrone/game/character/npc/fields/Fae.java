@@ -340,14 +340,16 @@ public class Fae extends NPC {
 
 	@Override
 	public void applyItemTransactionEffects(AbstractCoreItem itemSold, int quantity, int individualPrice, boolean soldToPlayer) {
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.removeTraderDescription, true);
-		UtilText.addSpecialParsingString(itemSold.getName(), true);
-		
-		if(individualPrice>500) {
-			Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/fields/elis/market", "CLOTHING_TRANSACTION_TICKET"));
-			Main.game.appendToTextStartStringBuilder(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_quest_faire_ticket"), false, true));
-		} else {
-			Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/fields/elis/market", "CLOTHING_TRANSACTION_NO_TICKET"));
+		if(soldToPlayer) {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.removeTraderDescription, true);
+			UtilText.addSpecialParsingString(itemSold.getName(), true);
+			
+			if(individualPrice>500) {
+				Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/fields/elis/market", "CLOTHING_TRANSACTION_TICKET"));
+				Main.game.appendToTextStartStringBuilder(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_quest_faire_ticket"), false, true));
+			} else {
+				Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/fields/elis/market", "CLOTHING_TRANSACTION_NO_TICKET"));
+			}
 		}
 	}
 	

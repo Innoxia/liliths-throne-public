@@ -821,6 +821,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 						?AssType.DEMON_COMMON
 						:startingBodyType.getAssType()));
 			} else {
+				boolean virgin = body.getAss().getAnus().getOrificeAnus().isVirgin();
 				body.setAss(
 						new Ass(
 							(demon
@@ -834,6 +835,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 							startingBodyType.getAnusElasticity(),
 							startingBodyType.getAnusPlasticity(),
 							true));
+				body.getAss().getAnus().getOrificeAnus().setVirgin(virgin);
 			}
 		}
 		if(legConfiguration.getFeralParts().contains(BreastCrotch.class)) { // Crotch-boobs:

@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.npc.misc;
 import java.time.Month;
 import java.util.List;
 
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -32,7 +33,7 @@ public class GenericFemaleNPC extends NPC {
 	public GenericFemaleNPC(boolean isImported) {
 		super(isImported, new NameTriplet("unknown female"), null, "Unknown.",
 				25, Month.JUNE, 15,
-				1, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN,
+				1, Gender.getGenderFromUserPreferences(Femininity.FEMININE), Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 	}
 	

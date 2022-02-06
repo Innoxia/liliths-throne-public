@@ -47,7 +47,7 @@ public class SexSlotStanding {
 		}
 		@Override
 		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
-			return STANDING_DOMINANT.getGenericOrgasmDescription(orgasmingCharacter, targetedCharacter);
+			return STANDING_DOMINANT.getOrgasmDescription(orgasmingCharacter, targetedCharacter);
 		}
 	};
 	public static final SexSlot STANDING_DOMINANT_THREE = new SexSlot(STANDING_DOMINANT) {
@@ -57,7 +57,7 @@ public class SexSlotStanding {
 		}
 		@Override
 		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
-			return STANDING_DOMINANT.getGenericOrgasmDescription(orgasmingCharacter, targetedCharacter);
+			return STANDING_DOMINANT.getOrgasmDescription(orgasmingCharacter, targetedCharacter);
 		}
 	};
 	public static final SexSlot STANDING_DOMINANT_FOUR = new SexSlot(STANDING_DOMINANT) {
@@ -67,7 +67,7 @@ public class SexSlotStanding {
 		}
 		@Override
 		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
-			return STANDING_DOMINANT.getGenericOrgasmDescription(orgasmingCharacter, targetedCharacter);
+			return STANDING_DOMINANT.getOrgasmDescription(orgasmingCharacter, targetedCharacter);
 		}
 	};
 

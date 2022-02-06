@@ -68,7 +68,7 @@
 			<selfClothingRemoval><![CDATA[false]]></selfClothingRemoval>
 			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
 			<startNaked><![CDATA[false]]></startNaked>
-			<exposeAtStart preferRemoval="false">
+			<exposeAtStart preferRemoval="true">
 				<coverableArea><![CDATA[PENIS]]></coverableArea>
 				<coverableArea><![CDATA[VAGINA]]></coverableArea>
 			</exposeAtStart>

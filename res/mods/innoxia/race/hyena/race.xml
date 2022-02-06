@@ -98,7 +98,7 @@
 	<!-- The weighting of this race's fetishes.
 		Newly-spawned characters of this race will have their starting fetishes affected by the weightings defined in this section. -->
 	<racialFetishModifiers>
-		<!-- You can define the attributes 'love', 'like', 'dislike', and 'hate' to have weightings, with those omitted having a default weighting of 0.
+		<!-- You can define the attributes 'love', 'like', 'dislike', and 'hate' to have weightings, with those omitted having a default weighting of 1.
 			In this example, hyenas are more likely to like or love the dominant fetish than dislike or hate it. -->
 		<fetish love="3" like="5" dislike="2" hate="1">FETISH_DOMINANT</fetish>
 	</racialFetishModifiers>

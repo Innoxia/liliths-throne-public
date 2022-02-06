@@ -58,7 +58,7 @@ public enum MapTravelType {
 			PresetColour.SPELL_SCHOOL_AIR) {
 				@Override
 				public boolean isAvailable(Cell c, GameCharacter character) {
-					return !character.isCaptive() && character.isPartyAbleToFly();
+					return !character.isCaptive() && character.isPartyAbleToFly() && character.getWorldLocation().isFlightEnabled();
 				}
 
 				@Override
@@ -66,11 +66,11 @@ public enum MapTravelType {
 					if(character.isCaptive()) {
 						return "You cannot use fast travel while you are a captive!";
 					}
-					if(!character.isAbleToFly()) {
-						return "You are not able to fly!";
-					}
 					if(!character.getWorldLocation().isFlightEnabled()) {
 						return "You cannot fly in this area!";
+					}
+					if(!character.isAbleToFly()) {
+						return "You are not able to fly!";
 					}
 					return "Not all of your companions are able to fly!";
 				}

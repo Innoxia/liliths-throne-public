@@ -66,8 +66,33 @@ public interface SexActionInterface {
 		return false;
 	}
 
+	public default boolean isLovingAction() {
+		return false;
+	}
+
+	/**
+	 * Default is false, meaning that only actions of SexPace.SUB_RESISTING are available to resisting characters.
+	 * <br/>Override to return true if this action should be available to resisting characters.
+	 */
+	public default boolean isOverrideAvailableDuringResisting() {
+		return false;
+	}
+	
+	/**
+	 * If the performing character is immobilised, then this action is only available if it's a SexActionType of: SPEECH, SPEECH_WITH_ALTERNATIVE, PREPARE_FOR_PARTNER_ORGASM, or ORGASM.
+	 * <br/>ONGOING SexActionTypes are also available, but only so long as the performing areas doesn't include a virginity-taking penetration type.
+	 * @return
+	 */
 	public default boolean isAvailableDuringImmobilisation() {
-		return this.getActionType()==SexActionType.SPEECH || this.getActionType()==SexActionType.SPEECH_WITH_ALTERNATIVE;
+		if(this.getActionType()==SexActionType.ONGOING) {
+			for(SexAreaInterface sa : this.getPerformingCharacterAreas()) {
+				if(sa.isPenetration() && ((SexAreaPenetration)sa).isTakesVirginity()) {
+					return false;
+				}
+			}
+			return true;
+		}
+		return this.getActionType()==SexActionType.SPEECH || this.getActionType()==SexActionType.SPEECH_WITH_ALTERNATIVE || this.getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM || this.getActionType()==SexActionType.ORGASM;
 	}
 	
 	/**
@@ -474,6 +499,10 @@ public interface SexActionInterface {
 			return false;
 		}
 		
+		if(this.isLovingAction() && !Main.sex.isLovingActionsAllowed()) {
+			return false;
+		}
+		
 		if(Main.sex.isCharacterImmobilised(Main.sex.getCharacterPerformingAction()) && !isAvailableDuringImmobilisation()) {
 			return false;
 		}
@@ -595,8 +624,9 @@ public interface SexActionInterface {
 	}
 	
 	public default boolean isSwitchOngoingActionAvailable() {
-		if(Main.sex.getCharacterPerformingAction().isPlayer()
-				&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()) {
+		if(
+				Main.sex.getCharacterPerformingAction().isPlayer() && //TODO test commenting this out to allow NPCs to switch actions
+				Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()) {
 			List<GameCharacter> ongoingTargetedAreaCharacters = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterTargetedForSexAction(this), this.getTargetedCharacterAreas().get(0));
 			List<GameCharacter> ongoingPerformingAreaCharacters = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), this.getPerformingCharacterAreas().get(0));
 			
@@ -609,6 +639,28 @@ public interface SexActionInterface {
 					&& !ongoingTargetedAreaCharacters.contains(Main.game.getPlayer())) {
 				return false;
 			}
+//			//TODO needs more testing, and needs checks for tongue<->mouth, nipple<->breast, urethra/clit<->vagina
+			// I added this to try and address the very rare issue of:
+			// NPCs who are targeting c1 but have an ongoing with c2 will not switch ongoing to c1, repeatedly preparing to do so (stopping handjob) then reverting (starting handjob)	
+//			// If NPCs are using ongoing parts in their action preference, do not allow switching to disrupt this
+//			if(!Main.sex.getCharacterPerformingAction().isPlayer()) {
+//				for(GameCharacter character : Main.sex.getAllParticipants(false)) {
+//					if(!character.equals(Main.sex.getCharacterPerformingAction())) {
+//						SexType preference = Main.sex.getCharacterPerformingAction().getCurrentSexPreference(character);
+//						if(preference!=null && Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), preference.getPerformingSexArea(), preference.getTargetedSexArea()).contains(character)) {
+//							System.out.println("x1a "+preference.getPerformingSexArea()+" | "+preference.getTargetedSexArea());
+//							System.out.println("x1b "+this.getPerformingCharacterAreas().get(0)+" | "+this.getTargetedCharacterAreas().get(0));
+//							if(this.getPerformingCharacterAreas().contains(preference.getPerformingSexArea()) || this.getTargetedCharacterAreas().contains(preference.getTargetedSexArea())) {
+//								System.out.println("x2");
+//								if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) { // Allow switching from preference if targeted character is not the same as the one who is involved with the preference
+//									System.out.println("x3");
+//									return false;
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
 			
 			try {
 				return !Main.sex.getOngoingActionsMap(Main.sex.getCharacterPerformingAction()).get(this.getPerformingCharacterAreas().get(0)).get(Main.sex.getCharacterTargetedForSexAction(this)).contains(this.getTargetedCharacterAreas().get(0));

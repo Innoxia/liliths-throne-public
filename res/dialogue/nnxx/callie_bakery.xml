@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+	
+	<scene id="entry_first_time">
+		<preParsingEffects><![CDATA[
+			[#flags.setSavedLong('nnxx_callie_total_donated', 0)]
+			[#flags.setFlag(FLAG_nnxx_callie_introduced, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/nnxx/callie_bakery">ENTRY_FIRST_TIME</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="nnxx_callie_bakery_counter"/>
+	</scene>
+	
+	<scene id="entry">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/nnxx/callie_bakery', 'ENTRY_REPEAT'))]
+			[#flags.setFlag(FLAG_nnxx_callie_upgrade_reaction_pending, false)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="nnxx_callie_bakery_counter"/>
+	</scene>
+	
+	<scene id="counter">
+		<content folderPath="txt/nnxx/callie_bakery">COUNTER</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Doughnuts]]></responseTitle>
+				<responseTooltip><![CDATA[Take a look at the doughnuts which Callie has for sale...]]></responseTooltip>
+				<nextDialogue/>
+				<tradingVariables enabled="true">
+					<tradePartner><![CDATA[callie]]></tradePartner>
+				</tradingVariables>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Her 'doughnut']]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!game.isAnalContentEnabled())
+						[style.italicsBad(This involves anal content, which you have turned off in your settings!)]
+						<br/>If you want to access this scene, you'll have to turn on anal content first.
+					#ELSEIF(flags.hasFlag(FLAG_nnxx_callie_daily_fucked))
+						You've already had sex with Callie today. You'll have to wait until tomorrow before she's ready for another round...
+					#ELSE
+						Wanting to give Callie a rimjob, you tell her that you're hungry for a different type of doughnut...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.isAnalContentEnabled() && !flags.hasFlag(FLAG_nnxx_callie_daily_fucked))
+						nnxx_callie_bakery_anilingus
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Her 'baguette']]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_nnxx_callie_daily_fucked))
+						You've already had sex with Callie today. You'll have to wait until tomorrow before she's ready for another round...
+					#ELSEIF((!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (!game.isAnalContentEnabled() || !pc.isAbleToAccessCoverableArea(CA_ANUS, true)))
+						Callie needs to be able to fuck either your pussy or asshole...
+					#ELSE
+						Wanting to get fucked by Callie's big horse-cock, you ask her for a taste of her 'baguette'...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_nnxx_callie_daily_fucked) || (!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (!game.isAnalContentEnabled() || !pc.isAbleToAccessCoverableArea(CA_ANUS, true)))
+						null
+					#ELSE
+						nnxx_callie_bakery_sex
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<!-- Leave: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Say goodbye to Callie and exit her store.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="DOMINION_CALLIE_BAKERY"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setNearestLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_CALLIE_BAKERY)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="anilingus">
+		<content folderPath="txt/nnxx/callie_bakery">PROPOSE_ANILINGUS</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!callie.isAttractedTo(pc) || (pc.getMoney()<1000 && !flags.hasFlag(FLAG_nnxx_callie_sex_is_free)) || !pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
+					#IF(flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+						Get started
+					#ELSE
+						Donate ([style.moneyFormatUncoloured(1000, span)])
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!callie.isAttractedTo(pc))
+						As Callie is not attracted to you, she's unwilling to let you 'eat' her doughnut.
+					#ELSEIF(pc.getMoney()<1000 && !flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+						You don't have enough money to donate to Callie's bakery in order to 'eat' her doughnut.
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						As you're unable to access your mouth, you cannot 'eat' Callie's doughnut.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#callie.isAttractedTo(pc) && (pc.getMoney()>=1000 || flags.hasFlag(FLAG_nnxx_callie_sex_is_free)) && pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
+					#IF(flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+						Get started
+					#ELSE
+						Donate ([style.moneyFormat(1000, span)])
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Make a donation of a thousand flames to Callie's bakery in exchange for being allowed to 'eat' her doughnut.
+					<br/>[style.italicsSex(This will result in giving Callie a rimjob.)]
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					#IF(!flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+						[#game.appendToTextEndStringBuilder(pc.incrementMoney(-1000))]
+						[#flags.incrementSavedLong('nnxx_callie_total_donated', 1000)]
+						[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/nnxx/callie_bakery', 'DONATION_PROGRESS'))]
+					#ENDIF
+					[#flags.setFlag(FLAG_nnxx_callie_daily_fucked, true)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[nnxx_callie_anilingus]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>callie</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL_BEHIND]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[nnxx_callie_bakery_after_anilingus]]></postSexDialogue>
+					<sexStartContent folderPath="txt/nnxx/callie_bakery">ANILINGUS_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition/>
+							<id><![CDATA[TongueAnus_ANILINGUS_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[callie]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[
+					#IF(!callie.isAttractedTo(pc))
+						Continue
+					#ELSE
+						Back out
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!callie.isAttractedTo(pc))
+						As Callie isn't attracted to you, it seems as though giving her a rimjob is off the cards...
+					#ELSE
+						Tell Callie that you've changed your mind for now...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[nnxx_callie_bakery_counter]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/nnxx/callie_bakery', 'ANILINGUS_BACK_OUT'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="after_anilingus">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Callie has had enough of having her doughnut eaten...]]></tooltip>
+		<content folderPath="txt/nnxx/callie_bakery">AFTER_SEX_ANILINGUS</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<responseTitle><![CDATA[Kiss]]></responseTitle>
+				<responseTooltip><![CDATA[Give Callie's ass one last kiss...]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[nnxx_callie_bakery_counter]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/nnxx/callie_bakery', 'AFTER_SEX_ANILINGUS_CONTINUE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sex">
+		<content folderPath="txt/nnxx/callie_bakery">PROPOSE_SEX_RECEIVING</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Vaginal sex: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!callie.isAttractedTo(pc) || (pc.getMoney()<10000 && !flags.hasFlag(FLAG_nnxx_callie_sex_is_free)) || !pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
+					#IF(flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+						Present pussy
+					#ELSE
+						Present pussy ([style.moneyFormatUncoloured(10000, span)])
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+						You need to have a vagina and be able to access it for Callie to fuck you over her counter!
+					#ELSEIF(!callie.isAttractedTo(pc))
+						As Callie is not attracted to you, she's unwilling to have sex with you.
+					#ELSEIF(pc.getMoney()<10000 && !flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+						You don't have enough money to donate to Callie's bakery in order to have sex with her.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#callie.isAttractedTo(pc) && (pc.getMoney()>=10000 || flags.hasFlag(FLAG_nnxx_callie_sex_is_free)) && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
+					#IF(flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+						Present pussy
+					#ELSE
+						Present pussy ([style.moneyFormat(10000, span)])
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Make a donation of ten thousand flames to Callie's bakery in exchange for getting fucked over her counter.
+					<br/>[style.italicsSex(This will result in giving Callie dominantly fucking your pussy.)]
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					#IF(!flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+						[#game.appendToTextEndStringBuilder(pc.incrementMoney(-10000))]
+						[#flags.incrementSavedLong('nnxx_callie_total_donated', 10000)]
+						[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/nnxx/callie_bakery', 'DONATION_PROGRESS'))]
+					#ENDIF
+					[#flags.setFlag(FLAG_nnxx_callie_daily_fucked, true)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[nnxx_callie_sex]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>callie</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_FRONT]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[nnxx_callie_bakery_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/nnxx/callie_bakery">SEX_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition/>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[callie]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Anal sex: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#!callie.isAttractedTo(pc) || (pc.getMoney()<10000 && !flags.hasFlag(FLAG_nnxx_callie_sex_is_free)) || !game.isAnalContentEnabled() || !pc.isAbleToAccessCoverableArea(CA_ANUS, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[
+					#IF(flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+						Present ass
+					#ELSE
+						Present ass ([style.moneyFormatUncoloured(10000, span)])
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!game.isAnalContentEnabled())
+						This involves anal sex content, which you have turned off in your content settings...
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+						You need to be able to access your asshole for Callie to anally fuck you over her counter!
+					#ELSEIF(!callie.isAttractedTo(pc))
+						As Callie is not attracted to you, she's unwilling to have sex with you.
+					#ELSEIF(pc.getMoney()<10000 && !flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+						You don't have enough money to donate to Callie's bakery in order to have sex with her.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#callie.isAttractedTo(pc) && (pc.getMoney()>=10000 || flags.hasFlag(FLAG_nnxx_callie_sex_is_free)) && game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[
+					#IF(flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+						Present ass
+					#ELSE
+						Present ass ([style.moneyFormat(10000, span)])
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Make a donation of ten thousand flames to Callie's bakery in exchange for getting anally fucked over her counter.
+					<br/>[style.italicsSex(This will result in giving Callie dominantly fucking your asshole.)]
+				]]></responseTooltip>
+				<nextDialogue/><effects><![CDATA[
+					#IF(!flags.hasFlag(FLAG_nnxx_callie_sex_is_free))
+						[#game.appendToTextEndStringBuilder(pc.incrementMoney(-10000))]
+						[#flags.incrementSavedLong('nnxx_callie_total_donated', 10000)]
+						[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/nnxx/callie_bakery', 'DONATION_PROGRESS'))]
+					#ENDIF
+					[#flags.setFlag(FLAG_nnxx_callie_daily_fucked, true)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[nnxx_callie_sex_anal]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>callie</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_FRONT]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[nnxx_callie_bakery_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/nnxx/callie_bakery">SEX_ANAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition/>
+							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[callie]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Back: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Back out]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!callie.isAttractedTo(pc))
+						As Callie isn't attracted to you, it seems as though having sex with her is off the cards...
+					#ELSE
+						Tell Callie that you've changed your mind for now...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[nnxx_callie_bakery_counter]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/nnxx/callie_bakery', 'SEX_BACK_OUT'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="after_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Callie has had enough and brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/nnxx/callie_bakery">AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Having finished having sex with Callie, you wonder what to do next...]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[nnxx_callie_bakery_counter]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/nnxx/callie_bakery', 'AFTER_SEX_CONTINUE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="seating">
+		<content folderPath="txt/nnxx/callie_bakery">SEATING</content>
+		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+</dialogueNodes>

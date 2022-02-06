@@ -59,7 +59,7 @@
 					<nextDialogue><![CDATA[BEAUTICIAN_START]]></nextDialogue>
 					<effects><![CDATA[
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'COSMETICS_START'))]
-						[#game.initCosmeticsDialogue(penelope, DN_innoxia_places_fields_elis_shops_spa_post_cosmetics)]
+						[#game.initCosmeticsDialogue(penelope, pc, DN_innoxia_places_fields_elis_shops_spa_post_cosmetics)]
 					]]></effects>
 				</response>
 				<!-- Spa services: -->
@@ -1602,7 +1602,7 @@
 				<index><![CDATA[6]]></index>
 				<responseTitle><![CDATA[Reverse massage]]></responseTitle>
 				<responseTooltip><![CDATA[Tell Penelope that you want to swap things around and give her a massage.]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_continue_massage]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_penelope_continue_massage_reversal]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_PENELOPE_CONTINUE_REVERSAL'))]
 					[#penelope.addStatusEffect(SE_CLEANED_MASSAGED, 250*60)]
@@ -1892,9 +1892,30 @@
 		</responses>
 	</scene>
 	
+	<scene id="massage_penelope_continue_massage_reversal">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that you've finished giving Penelope a massage, there's nothing left to do except continue on out into the reception area.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_spa_massage_finished]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_PENELOPE_FINISHED_REVERSAL'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/spa', 'MASSAGE_PENELOPE_FINISHED_END'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
 	<scene id="massage_penelope_fashion_show">
 		<content folderPath="txt/places/fields/elis/shops/spa">MASSAGE_PENELOPE_FASHION_SHOW</content>
-		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
 		<responses>
@@ -1991,7 +2012,7 @@
 				]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_elis_penelope_sex]]></id>
+					<id><![CDATA[innoxia_elis_penelope_sex_fashion]]></id>
 					<startingPosition><![CDATA[STANDING]]></startingPosition>
 					<dominants>
 						<character>
@@ -2019,7 +2040,7 @@
 				]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_elis_penelope_sex]]></id>
+					<id><![CDATA[innoxia_elis_penelope_sex_fashion]]></id>
 					<startingPosition><![CDATA[STANDING]]></startingPosition>
 					<dominants>
 						<character>

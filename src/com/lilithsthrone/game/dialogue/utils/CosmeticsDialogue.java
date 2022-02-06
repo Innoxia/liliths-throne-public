@@ -39,10 +39,10 @@ public class CosmeticsDialogue {
 	private static NPC beautician;
 	private static DialogueNode returnToNode;
 	
-	public static void initDialogue(NPC beautician, DialogueNode returnToNode) {
+	public static void initDialogue(NPC beautician, GameCharacter target, DialogueNode returnToNode) {
 		CosmeticsDialogue.beautician = beautician;
 		CosmeticsDialogue.returnToNode = returnToNode;
-		
+		BodyChanging.setTarget(target);
 	}
 	
 	private static Response getMainResponse(int index) {

@@ -16,6 +16,17 @@
 	<descriptorsMasculine/>
 	<descriptorsFeminine/>
 	
+	<lipNames>
+		<name><![CDATA[beak-lip]]></name>
+	</lipNames>
+	<lipNamesPlural>
+		<name><![CDATA[beak-lips]]></name>
+	</lipNamesPlural>
+	
+	<lipDescriptorsMasculine allowSizeDescriptors="false"/>
+	
+	<lipDescriptorsFeminine allowSizeDescriptors="false"/>
+	
 	<bodyDescription><![CDATA[
 		[npc.SheHasFull] [npc.lipSize], [npc.mouthColourPrimary(true)] [npc.lips],
 		#IF(npc.isWearingLipstick())
