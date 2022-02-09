@@ -1,0 +1,179 @@
+<h2>v0.3.18</h2>
+<h3>Charisma's spider-morph contribution:</h3>
+<ul>
+	<li>Added spider-morph race.</li>
+	<li>Added spider-morph and tarantula-morph subspecies.</li>
+	<li>Added 'Jet Black Coffee' and 'Chocolate Coated Cocoa Beans' for the spider-related attribute and TF items.</li>
+</ul>
+
+<h3>DSG's race's updates (PR#1500):</h3>
+<ul>
+	<li>Non-mythical race bonuses were adjusted so that the total more closely matches the magnitude of the game's other non-mythical races.</li>
+	<li>Total of race bonus values for mythical races (dragons, gryphons) were aligned to the same range as demons and alicorns (demons/dragons at 180, alicorns at 165, gryphons at 150).</li>
+	<li>Fixed a tertiary color issue with dragon overlays, tweaked shark finned ear description.</li>
+</ul>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Added option for the bandana to be worn in the neck slot. (by DSG)</li>
+	<li>Fixed huge issue with performance, making turn times roughly 30-50% faster. (by AceXP)</li>
+	<li>Fixed incorrect inventory contents of attackers spawned via the debug menu. (by AceXP)</li>
+	<li>Fixed issue with clit size not being able to be changed in character creation. (by AceXP)</li>
+	<li>Fixed issue with modified fluid colours being saved. (by AceXP)</li>
+	<li>Fixed issue with Gryphons (and other low spawn rate subspecies) not spawning as Enforcers. (by Stadler76)</li>
+	<li>Fixed issue where 'Warning: getClosestStringMatch()' entries would be shown when there was just a difference in capitalisation. (by AceXP)</li>
+	<li>Slimes and bats in the bat caverns will now correctly spawn with weapons. (by AceXP)</li>
+	<li>Added expanded hyena-morph lore in the 'Laughing Hyenas' lore book. (by Manwhore)</li>
+	<li>Added unique icon for border-collie morphs and gave bald-eagle harpy icon a coloured beak. (by NeverLucky)</li>
+	<li>In subspecies XMLs, if secondaryColour or tertiaryColour elements are empty they now default to colour. (PR#1503 by Stadler76)</li>
+	<li>Added several new methods in Body.java and BodyPartTypeInterface.java and used these methods to tidy up xml race files. (PR#1498 by Stadler76)</li>
+	<li>Fixed issue where becoming a demon didn't work for several LegConfigurations since the setLegsToDemon() method for those LegConfigurations wasn't implemented. (PR#1496 by Stadler76)</li>
+	<li>Fixed the body tooltip information for antenna to reflect changes to the number of antenna per row. (PR#1494 by debouchere)</li>
+	<li>Fixed arms appearance for feral harpies and bats mentioning that they had fingers. (PR#1456 by Stadler76)</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Added 'NEGATIVE_ONE_LEGENDARY', 'NEGATIVE_TWO_MYTHICAL', and 'NEGATIVE_THREE_ZERO' as new SubspeciesSpawnRarity values (for subspecies which should be extremely rare).</li>
+	<li>Added support for use of spaced 'ELSE IF' in conditional statements (although you should probably still continue to use 'ELSEIF' for style conformity).</li>
+	<li>Added 'Sticker unlocks' button to the debug menu, which bypasses all clothing sticker requirements when turned on (for ease of testing clothing stickers).</li>
+	<li>Added functionality for characters to gain category-locked perk points.</li>
+	<li>Added 'TAIL_NEVER_SUITABLE_FOR_PENETRATION' BodyPartTag so that you can prevent prehensile tails from ever being used in sex.</li>
+	<li>Added BodyPartTags 'FACE_VENOMOUS_TEETH' and 'FACE_VENOMOUS_TEETH_LUST', which causes the 'BITE' special attack to apply 'poisoned' or 'lust-poisoned' status effects to the target.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Added Nyan content up to the point where you can repeatedly go on weekend dates with her (and her mother).</li>
+	<li>Added 'aristocrat' as a background choice during character creation.</li>
+	<li>Reworked Pix's gym so that exercising no longer drains health, and instead applies a 'post-workout fatigue' status effect. Exercising in the gym now also grants progress towards unlocking physical perk points.</li>
+	<li>You can now free your slaves by purchasing a Freedom Certification from Finch and then choosing the 'Set Free' action in your slave's management dialogue. If your slave likes you and you have a free guest room, you can have your slave become a guest after freeing them.</li>
+	<li>You can now import characters as guests in the same way that you can import them as slaves. To do so, go to the waiting room in City Hall and use the 'Lodgers' action. Importing guests requires you to have a free guest room in Lilaya's mansion for them to move into.</li>
+	<li>Snake-morphs now have venomous fangs, applying 'poisoned' to enemies which they bite in combat.</li>
+</ul>
+
+<h3>Body:</h3>
+<ul>
+	<li>The property of a vagina to birth live young or lay eggs can now be modified via the self-TF menu and/or by crafting TF potions.</li>
+	<li>The orifice plasticity value of 'accommodating' now results in the orifice returning to 98% of its original tightness after being stretched, instead of 100%. (So the bottom 4 plasticity values now return to 100%, while the top 4 progressively return to lesser percentages.)</li>
+	<li>Alligator tails are no longer marked as 'prehensile', and panther tails are marked as 'prehensile' (so that they can be used in sex if you have furry tail penetration turned on).</li>
+	<li>Tails which are marked as suitable for penetration, but which are not prehensile, can now be used in sex so long as they are greater than 50% of the owner's height.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>Characters in a 'performing oral' or 'missionary' slot in the 'lying down' sex position can now interact with the characters lying to either side of their target.</li>
+	<li>Characters who are reverse face-sitting can now interact with characters who are scissoring the person whose face they are on.</li>
+	<li>When using quick-sex, characters will no longer lose their vaginal virginity while tribbing with a clit that's not large enough to act as a pseudo penis.</li>
+	<li>Characters with a positive desire towards the self-denial fetish no longer lose affection if they end sex without any orgasms, so long as they have been denied at least once (ending sex with no orgasms or denials still incurs an affection hit).</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Added indication of the covering's race to covering recolouring menus.</li>
+	<li>Brax now starts with 150 essences, so he can use his pistol a lot more.</li>
+	<li>Updated the minimap's night-time gradient effects.</li>
+	<li>When searching for a partner in the club, subspecies are now ordered by race. You can also now select the race stage of your partner.</li>
+	<li>The elemental dispel button is now displayed in both the interaction and management tabs.</li>
+	<li>Changed maximum affection name from 'worships' to 'adores'.</li>
+	<li>The drunk speech modifier now only takes affect starting at the 'drunk' level, instead of 'tipsy'.</li>
+	<li>Body hair on furry morphs is now simply referred to as 'fur' instead of 'fur-like hair'.</li>
+	<li>When choosing your name in character creation, and changing it at city hall, you can now set your masculine/androgynous/feminine name triplet, which causes your first name to change based on your femininity.</li>
+	<li>Lyssieth now gains a lot of affection towards you after transforming you into a demon (will be retroactively applied if you are already a demon when loading into this version).</li>
+	<li>Added 'orgasm prevention' enchantment for clothing that's either marked as a sex toy or which fits into the groin slot. While under this effect, characters can never gain more than 95 arousal, effectively preventing them from ever orgasming.</li>
+	<li>Updated the icon for the 'desperate for sex' status effect.</li>
+	<li>When purchasing or otherwise gaining ownership of a slave, you now gain keys to all of their equipped clothing which provides a key (such as their slave collar).</li>
+	<li>If anal or lactation content is disabled, the enchantment menu will no longer show you secondary modifiers related to the anal orifice or lactation values.</li>
+	<li>Kate will now let you use pregnancy testers on her during sex.</li>
+	<li>The 'American tourist' background now grants doubled effects from eating burgers.</li>
+	<li>Added spider-morph race.</li>
+	<li>Added spider-morph and tarantula-morph subspecies.</li>
+	<li>Added 'Jet Black Coffee' and 'Chocolate Coated Cocoa Beans' for the spider-related attribute and TF items.</li>
+	<li>Non-mythical race bonuses were adjusted so that the total more closely matches the magnitude of the game's other non-mythical races.</li>
+	<li>Total of race bonus values for mythical races (dragons, gryphons) were aligned to the same range as demons and alicorns (demons/dragons at 180, alicorns at 165, gryphons at 150).</li>
+	<li>Fixed a tertiary color issue with dragon overlays, tweaked shark finned ear description.</li>
+	<li>Added option for the bandana to be worn in the neck slot. (by DSG)</li>
+	<li>Fixed huge issue with performance, making turn times roughly 30-50% faster. (by AceXP)</li>
+	<li>Fixed incorrect inventory contents of attackers spawned via the debug menu. (by AceXP)</li>
+	<li>Fixed issue with clit size not being able to be changed in character creation. (by AceXP)</li>
+	<li>Fixed issue with modified fluid colours being saved. (by AceXP)</li>
+	<li>Fixed issue with Gryphons (and other low spawn rate subspecies) not spawning as Enforcers. (by Stadler76)</li>
+	<li>Fixed issue where 'Warning: getClosestStringMatch()' entries would be shown when there was just a difference in capitalisation. (by AceXP)</li>
+	<li>Slimes and bats in the bat caverns will now correctly spawn with weapons. (by AceXP)</li>
+	<li>Added expanded hyena-morph lore in the 'Laughing Hyenas' lore book. (by Manwhore)</li>
+	<li>Added unique icon for border-collie morphs and gave bald-eagle harpy icon a coloured beak. (by NeverLucky)</li>
+	<li>In subspecies XMLs, if secondaryColour or tertiaryColour elements are empty they now default to colour. (PR#1503 by Stadler76)</li>
+	<li>Added several new methods in Body.java and BodyPartTypeInterface.java and used these methods to tidy up xml race files. (PR#1498 by Stadler76)</li>
+	<li>Fixed issue where becoming a demon didn't work for several LegConfigurations since the setLegsToDemon() method for those LegConfigurations wasn't implemented. (PR#1496 by Stadler76)</li>
+	<li>Fixed the body tooltip information for antenna to reflect changes to the number of antenna per row. (PR#1494 by debouchere)</li>
+	<li>Fixed arms appearance for feral harpies and bats mentioning that they had fingers. (PR#1456 by Stadler76)</li>
+	<li>Added 'NEGATIVE_ONE_LEGENDARY', 'NEGATIVE_TWO_MYTHICAL', and 'NEGATIVE_THREE_ZERO' as new SubspeciesSpawnRarity values (for subspecies which should be extremely rare).</li>
+	<li>Added support for use of spaced 'ELSE IF' in conditional statements (although you should probably still continue to use 'ELSEIF' for style conformity).</li>
+	<li>Added 'Sticker unlocks' button to the debug menu, which bypasses all clothing sticker requirements when turned on (for ease of testing clothing stickers).</li>
+	<li>Added functionality for characters to gain category-locked perk points.</li>
+	<li>Added 'TAIL_NEVER_SUITABLE_FOR_PENETRATION' BodyPartTag so that you can prevent prehensile tails from ever being used in sex.</li>
+	<li>Added BodyPartTags 'FACE_VENOMOUS_TEETH' and 'FACE_VENOMOUS_TEETH_LUST', which causes the 'BITE' special attack to apply 'poisoned' or 'lust-poisoned' status effects to the target.</li>
+	<li>Added Nyan content up to the point where you can repeatedly go on weekend dates with her (and her mother).</li>
+	<li>Added 'aristocrat' as a background choice during character creation.</li>
+	<li>Reworked Pix's gym so that exercising no longer drains health, and instead applies a 'post-workout fatigue' status effect. Exercising in the gym now also grants progress towards unlocking physical perk points.</li>
+	<li>You can now free your slaves by purchasing a Freedom Certification from Finch and then choosing the 'Set Free' action in your slave's management dialogue. If your slave likes you and you have a free guest room, you can have your slave become a guest after freeing them.</li>
+	<li>You can now import characters as guests in the same way that you can import them as slaves. To do so, go to the waiting room in City Hall and use the 'Lodgers' action. Importing guests requires you to have a free guest room in Lilaya's mansion for them to move into.</li>
+	<li>Snake-morphs now have venomous fangs, applying 'poisoned' to enemies which they bite in combat.</li>
+	<li>The property of a vagina to birth live young or lay eggs can now be modified via the self-TF menu and/or by crafting TF potions.</li>
+	<li>The orifice plasticity value of 'accommodating' now results in the orifice returning to 98% of its original tightness after being stretched, instead of 100%. (So the bottom 4 plasticity values now return to 100%, while the top 4 progressively return to lesser percentages.)</li>
+	<li>Alligator tails are no longer marked as 'prehensile', and panther tails are marked as 'prehensile' (so that they can be used in sex if you have furry tail penetration turned on).</li>
+	<li>Tails which are marked as suitable for penetration, but which are not prehensile, can now be used in sex so long as they are greater than 50% of the owner's height.</li>
+	<li>Characters in a 'performing oral' or 'missionary' slot in the 'lying down' sex position can now interact with the characters lying to either side of their target.</li>
+	<li>Characters who are reverse face-sitting can now interact with characters who are scissoring the person whose face they are on.</li>
+	<li>When using quick-sex, characters will no longer lose their vaginal virginity while tribbing with a clit that's not large enough to act as a pseudo penis.</li>
+	<li>Characters with a positive desire towards the self-denial fetish no longer lose affection if they end sex without any orgasms, so long as they have been denied at least once (ending sex with no orgasms or denials still incurs an affection hit).</li>
+	<li>Added indication of the covering's race to covering recolouring menus.</li>
+	<li>Brax now starts with 150 essences, so he can use his pistol a lot more.</li>
+	<li>Updated the minimap's night-time gradient effects.</li>
+	<li>When searching for a partner in the club, subspecies are now ordered by race. You can also now select the race stage of your partner.</li>
+	<li>The elemental dispel button is now displayed in both the interaction and management tabs.</li>
+	<li>Changed maximum affection name from 'worships' to 'adores'.</li>
+	<li>The drunk speech modifier now only takes affect starting at the 'drunk' level, instead of 'tipsy'.</li>
+	<li>Body hair on furry morphs is now simply referred to as 'fur' instead of 'fur-like hair'.</li>
+	<li>When choosing your name in character creation, and changing it at city hall, you can now set your masculine/androgynous/feminine name triplet, which causes your first name to change based on your femininity.</li>
+	<li>Lyssieth now gains a lot of affection towards you after transforming you into a demon (will be retroactively applied if you are already a demon when loading into this version).</li>
+	<li>Added 'orgasm prevention' enchantment for clothing that's either marked as a sex toy or which fits into the groin slot. While under this effect, characters can never gain more than 95 arousal, effectively preventing them from ever orgasming.</li>
+	<li>Updated the icon for the 'desperate for sex' status effect.</li>
+	<li>When purchasing or otherwise gaining ownership of a slave, you now gain keys to all of their equipped clothing which provides a key (such as their slave collar).</li>
+	<li>If anal or lactation content is disabled, the enchantment menu will no longer show you secondary modifiers related to the anal orifice or lactation values.</li>
+	<li>Kate will now let you use pregnancy testers on her during sex.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Parsing and description fixes.</li>
+	<li>Fixed issue where you could encounter egg-incubated offspring before they'd been laid and hatched.</li>
+	<li>To fix an issue with dragons spawning in unintended places. Only subspecies which naturally spawn in Dominion or Submission will now be used as custom-order slaves from Helena and as generic sex partners (which are used in glory holes and a few other places).</li>
+	<li>Fixed issue with breast stats not showing in the phone's stats menu if your cup size was less than AA-cups.</li>
+	<li>Kate's covering recolouring options now correctly include lips, tongue, nipples, and anus. Also fixed incorrect covering options for when sending a slave to Kate.</li>
+	<li>Custom-ordered slaves from Helena now have correct wing options available to them, and the colour of nipples/anus no longer resets when changing their human skin colouring.</li>
+	<li>Fixed bug where horn transformations were missing from demon self-TF menu options.</li>
+	<li>Fixed issue with the self-TF menu not working for recolouring slime fluids.</li>
+	<li>Brax will now correctly have his weapons equipped when first encountering him in a new game.</li>
+	<li>Fixed issue with Enforcer pepperball pistol's and rifle's 'Seven Rounds Rapid' and 'Mag Dump' moves throwing a background error.</li>
+	<li>Fixed issue with NPCs sometimes having their home location set to seemingly-random tiles. This was mainly affecting Enforcer patrols (who had their home set to Candi's desk) and Wes and Elle (who had their home set to the HQ's waiting area).</li>
+	<li>Fixed bug where error log could get spammed with null pointer exception warnings at the start of sex.</li>
+	<li>Fixed issue where you needed both the 'Minx' and 'Object of desire' perks in order to seduce Wolfgang/Karl, instead of just one of the two.</li>
+	<li>Fixed issue with feral demonic parts being referred to as 'feral Demonic-human'.</li>
+	<li>Pregnant characters will no longer have their stomachs bulged from large penetrations.</li>
+	<li>Fixed issue where human NPCs were spawning at a far higher frequency than what you set their spawn preference to be.</li>
+	<li>Characters who are hidden during a sex scene (such as when you encounter and watch two of your slaves having sex) can no longer have their levels drained upon orgasm by any of the participants.</li>
+	<li>Made fennec fox icon slightly smaller so that it fits in the icon background a little better.</li>
+	<li>Fixed some issues with incorrect slime subspecies identification.</li>
+	<li>Bunny and Loppy no longer act as though they didn't previously know what the other's genitals looked like the first time they're revealed in sex.</li>
+	<li>Fixed incorrect descriptions for the chastity status effects (and increased lust resistance drain from -25 to -50 for the final stage).</li>
+	<li>Fixed bug where very old save games would break when trying to load & save them in a newer version.</li>
+	<li>Fixed bug where clothing would sometimes spawn with its sticker prefix applied twice and its color prefix missing.</li>
+	<li>Fixed issue where changing Kay's makeup would change the player's makeup instead.</li>
+	<li>Fixed issue where covering recolouring buttons would stop working after inspecting a character and then returning to a covering recolouring screen (such as when using the arcane makeup kit).</li>
+	<li>Weapon descriptions now correctly list their special tags when you click on them in the inventory.</li>
+	<li>Fixed some missing dialogue issues in the scenes with Wolfgang and Karl in 'The Rusty Collar'.</li>
+	<li>Unemployed guests can no longer gain the 'stable mistress' job.</li>
+	<li>Fixed bug where elementals would not have any of their status effects updated nor regenerate health/aura over time.</li>
+	<li>Fixed issue with both lamia and melusine being tagged as the main race of snake-morphs, instead of just lamia.</li>
+</ul>

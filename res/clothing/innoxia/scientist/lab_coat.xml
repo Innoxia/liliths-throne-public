@@ -29,6 +29,7 @@
 				</clothingAccessRequired>
 				<blockedBodyParts>
 					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
 				</blockedBodyParts>
 				<clothingAccessBlocked/>
 				<concealedSlots/>
@@ -106,7 +107,7 @@
 			<![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] lab coat.]]>
 		</other>
 		<otherRough>
-			<![CDATA[[npc.Name] [npc.verb(grabs)] [npc2.namePos] lab coat and roughly [npc.verb(pull)] it off.]]>
+			<![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] lab coat and roughly [npc.verb(pull)] it off.]]>
 		</otherRough>
 	</displacementText>
 	

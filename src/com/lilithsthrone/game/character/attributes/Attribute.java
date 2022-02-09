@@ -510,6 +510,13 @@ public class Attribute {
 			return "Increases damage vs lilin.";
 		}
 	};
+
+	public static AbstractAttribute DAMAGE_ELDER_LILIN = new AbstractAttribute(true, 0, -100, 100, "elder lilin damage", "Elder lilin damage", "swordIcon", PresetColour.RACE_LILIN, "elder-lilin-obliteration", "elder-lilin-mercy", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases damage vs elder lilin.";
+		}
+	};
 //	public static AbstractAttribute DAMAGE_REINDEER_MORPH = new AbstractAttribute(true, 0, -100, 100, "reindeer-morph damage", "Reindeer-morph damage", "swordIcon", PresetColour.RACE_REINDEER_MORPH, "reindeer-morph-obliteration", "reindeer-morph-mercy", null) {
 //		@Override
 //		public String getDescription(GameCharacter owner) {
@@ -594,19 +601,25 @@ public class Attribute {
 		oldConversionMapping.put("RESISTANCE_MANA", Attribute.RESISTANCE_LUST);
 		oldConversionMapping.put("RESISTANCE_PURE", Attribute.ENERGY_SHIELDING);
 	}
-	
+
+	/**
+	 * @return The Attribute that has an id closest to the supplied attributeId.
+	 *  <b>Will return null</b> if the matching distance is greater than 3 (which typically will be more than enough to catch spelling errors, indicating that the flag has been removed).
+	 */
 	public static AbstractAttribute getAttributeFromId(String attributeId) {
 		if(attributeId.startsWith("RESISTANCE_ELEMENTAL")) {
 			attributeId = "RESISTANCE_ELEMENTAL";
 		} else if(attributeId.startsWith("DAMAGE_ELEMENTAL")) {
 			attributeId = "DAMAGE_ELEMENTAL";
+		} else if(attributeId.startsWith("CRITICAL_CHANCE")) { // Critical chance was removed, so return damage instead as a replacement for old saves
+			attributeId = "CRITICAL_DAMAGE";
 		}
 		
 		if(oldConversionMapping.containsKey(attributeId)) {
 			return oldConversionMapping.get(attributeId);
 		}
 
-		attributeId = Util.getClosestStringMatch(attributeId, idToAttributeMap.keySet());
+		attributeId = Util.getClosestStringMatch(attributeId, idToAttributeMap.keySet(), 3);
 		
 		return idToAttributeMap.get(attributeId);
 	}

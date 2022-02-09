@@ -742,7 +742,7 @@
 		Once again, you find that the door to Angel's office is wide open, and the familiar little sign hanging outside her door still reads: <i>'For all Administrative Enquiries, please knock and enter!'</i>
 	</p>
 	<p>
-		Following the sign's instructions, you knock the open door as you step inside. The room that you find yourself walking into is stacked high with mountains of ledgers and piles of papers. A snaking path has been left to link the doorway with a desk on the far side of the room, and it's behind this that you spot Angel busily signing and stamping her way through a stack of official-looking forms. As she hears you knock, she looks up and smiles. [angel.speech(Ah, [pc.name]! Come in! Have you thought about my offer any more? Remember, five-thousand flames, and you get the use of the first floor both for yourself and for your slaves!)]
+		Following the sign's instructions, you knock the open door as you step inside. The room that you find yourself walking into is stacked high with mountains of ledgers and piles of papers. A snaking path has been left to link the doorway with a desk on the far side of the room, and it's behind this that you spot Angel busily signing and stamping her way through a stack of official-looking forms. As she hears you knock, she looks up and smiles. [angel.speech(Ah, [pc.name]! Come in! Have you given my offer any more thought? Remember, five-thousand flames, and you get the use of the first floor both for yourself and for your slaves!)]
 	</p>
 	<p>
 		Carefully weaving your way past precariously balanced towers of paperwork, you quickly find yourself standing before Angel's desk. You could ask her about the laws regarding prostitution in Dominion, or perhaps you could ask her about her past. Her offer of an enhanced license, plus the use of the first floor for your slaves, in exchange for five-thousand flames and the promise to send any prostitutes you encounter her way is still open as well...
@@ -758,7 +758,19 @@
 		Following the sign's instructions, you knock the open door as you step inside. The room that you find yourself walking into is stacked high with mountains of ledgers and piles of papers. A snaking path has been left to link the doorway with a desk on the far side of the room, and it's behind this that you spot Angel busily signing and stamping her way through a stack of official-looking forms. As she hears you knock, she looks up and smiles. [angel.speech(Ah, [pc.name]! Come in! How are you doing? I hope the first floor's rooms are being maintained to your satisfaction.)]
 	</p>
 	<p>
-		Carefully weaving your way past precariously balanced towers of paperwork, you quickly find yourself standing before Angel's desk. You could ask her about the laws regarding prostitution in Dominion, or perhaps you could ask her about her past.
+		Carefully weaving your way past precariously balanced towers of paperwork, you quickly find yourself standing before Angel's desk. As you approach, she flashes you a dirty look and teases,
+		#IF(flags.hasFlag(FLAG_acexp_angel_daily_sex))
+			 [angel.speech(I can't stop thinking about the fun we had earlier... I don't have any more time today, but perhaps tomorrow you'd like to come back and pay to fuck me again?)]
+		#ELSE
+			 [angel.speech(I keep on getting so turned on whenever you're around... For ten thousand flames, I'll let you do anything you want to me... How about it, [pc.name]? Want to pay to fuck me like the dirty whore that I am?)]
+		#ENDIF					
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_acexp_angel_daily_sex))
+			With Angel not having any more time in which to have sex with you today, all that's left for you to do here is ask her either about the laws regarding prostitution in Dominion or about her past...
+		#ELSE
+			With Angel continuing to give you a dirty, horny look, you wonder whether you should take her up on her offer or instead ask her about something...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -806,19 +818,28 @@
 	
 	<htmlContent tag="OFFICE_LICENSE_PURCHASE"><![CDATA[
 	<p>
-		Producing five-thousand flames, you place them on the desk in front of Angel. [pc.speech(I'll take you up on your offer.)]
+		Producing five thousand flames, you place them on the desk in front of Angel and tell her that you'll take her up on her offer.
 	</p>
 	<p>
-		A huge smile breaks out over Angel's face, and, first taking the money, she then reaches over to grab a pink-coloured piece of paper. Placing it down before her, she starts filling it out. [angel.speech(Ok, so here's your enhanced license... I'll need you to sign here... and here...)]
+		A huge smile breaks out over Angel's face, and after first taking the money, she reaches over to grab a pink-coloured piece of paper. Placing it down before her, she quickly fills out several blank fields, before sliding it over the desk towards you and instructing, [angel.speech(Ok, so I'll need you to sign here... and here...)]
 	</p>
 	<p>
-		Pushing the paper towards you, Angel waits patiently while you sign in the places that she pointed to, before picking up the form and handing it over to you. [angel.speech(And there you are! You're now the owner of an enhanced prostitution license! As per our agreement, both you and your slaves can work out of the first floor of my brothel, and you'll send any prostitutes that you encounter in the alleyways to me, ok?)]
+		With that, Angel waits patiently while you sign in the places that she pointed to, before picking up the form and handing it over to you. Still smiling, she happily exclaims, [angel.speech(And there you are! You're now the owner of an enhanced prostitution license! As per our agreement, both you and your slaves can work out of the first floor of my brothel, and you'll send any prostitutes that you encounter in the alleyways to me, ok?)]
 	</p>
 	<p>
-		[pc.speech(Agreed,)] you reply, shaking Angel's offered hand to seal your agreement.
+		Agreeing to do as Angel asks, you put your new prostitution license safely away.
 	</p>
 	<p>
-		[angel.speech(Excellent! Well, don't let me keep you! Thank you for your business, and I look forward to seeing who you send my way!)]
+		[angel.speech(This brings back memories,)] Angel wistfully sighs, before leaning back in her chair and lewdly revealing, [angel.speech(The official who gave me my prostitution license was the first to pay me for my services... He bent me over his desk and fucked me good and hard... I was still clutching my license when he started, and by the time he'd finished it was a crumpled mess. He was kind enough to give me a new one when he saw the state of it, then after that he paid to fuck me again!)]
+	</p>
+	<p>
+		Clearly getting turned on as she revisits these memories, Angel lets out a horny little whine, before musing quietly to herself, [angel.speech(Perhaps it wouldn't be a bad idea to whore myself out again... But I've got too much paperwork to do these days, and never get time to leave my office...)]
+	</p>
+	<p>
+		Suddenly seeming to remember that you're still here, Angel looks up and flashes you a dirty look for a split second, before quickly regaining her professional attitude and saying, [angel.speech(Well, don't let me keep you, [pc.name]. Thank you for your business, and I look forward to seeing the whores that you'll be sending my way!)]
+	</p>
+	<p>
+		As you wonder what to do next, you see Angel flash you another lustful glance. Perhaps if you were to come back a little later, she'd be desperate enough to proposition you for sex... 
 	</p>
 	]]>
 	</htmlContent>

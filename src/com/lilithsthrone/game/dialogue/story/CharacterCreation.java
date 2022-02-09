@@ -128,8 +128,7 @@ public class CharacterCreation {
 		
 		@Override
 		public String getContent() {
-			return Main.patchNotes;
-			
+			return Main.getPatchNotes();
 		}
 
 		@Override
@@ -617,7 +616,7 @@ public class CharacterCreation {
 				
 				generateClothingOnFloor("innoxia_head_cap", PresetColour.CLOTHING_BLUE);
 				
-				generateClothingOnFloor(ClothingType.STOMACH_UNDERBUST_CORSET, PresetColour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_stomach_underbust_corset", PresetColour.CLOTHING_BLACK);
 
 				generateClothingOnFloor("innoxia_torso_tshirt", PresetColour.CLOTHING_BLUE_LIGHT);
 				generateClothingOnFloor("innoxia_torso_blouse", PresetColour.CLOTHING_BLUE_LIGHT);
@@ -677,7 +676,7 @@ public class CharacterCreation {
 				
 				generateClothingOnFloor("innoxia_neck_scarf", PresetColour.CLOTHING_RED);
 				
-				generateClothingOnFloor(ClothingType.STOMACH_UNDERBUST_CORSET, PresetColour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_stomach_underbust_corset", PresetColour.CLOTHING_BLACK);
 
 				generateClothingOnFloor(ClothingType.getClothingTypeFromId("innoxia_torso_feminine_short_sleeve_shirt"), PresetColour.CLOTHING_BLUE_LIGHT);
 				generateClothingOnFloor("innoxia_torso_blouse", PresetColour.CLOTHING_BLUE_LIGHT);
@@ -1944,6 +1943,8 @@ public class CharacterCreation {
 		Main.game.setWeatherInSeconds(Weather.MAGIC_STORM, 5*60*60);
 		
 		Main.game.getPlayerCell().resetInventory();
+
+		Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_quest_clothing_keys"), false);
 	}
 
 	private static void applySkipPrologueStart(boolean imported) {

@@ -1,7 +1,11 @@
 package com.lilithsthrone.game.dialogue.companions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -31,6 +35,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
+import com.lilithsthrone.game.sex.ImmobilisationType;
 import com.lilithsthrone.game.sex.managers.dominion.SMMilkingStall;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMilkingStall;
@@ -40,6 +45,7 @@ import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
 
@@ -137,14 +143,115 @@ public class SlaveDialogue {
 	public static void setFollowupEnslavementDialogue(DialogueNode followupEnslavementDialogue) {
 		SlaveDialogue.followupEnslavementDialogue = followupEnslavementDialogue;
 	}
-
+	
+	private static SMGeneric getGenericSlaveSexManager(
+			List<GameCharacter> dominantParticipants,
+			List<GameCharacter> submissiveParticipants,
+			List<ResponseTag> tags) {
+		return new SMGeneric(
+				dominantParticipants,
+				submissiveParticipants,
+				getDominantSpectators(),
+				getSubmissiveSpectators(),
+				tags) {
+			@Override
+			public boolean isPublicSex() {
+				return isCompanionSexPublic();
+			}
+			@Override
+			public Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
+				ImmobilisationType immobilisationType = null;
+				for(AbstractPlaceUpgrade upgrade : Main.game.getPlayer().getLocationPlace().getPlaceUpgrades()) {
+					immobilisationType = upgrade.getImmobilisationType();
+					if(immobilisationType!=null) {
+						break;
+					}
+				}
+				
+				Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> map = new HashMap<>();
+				map.put(immobilisationType, new HashMap<>());
+				map.get(immobilisationType).put(dominantParticipants.get(0), new HashSet<>());
+				if(immobilisationType!=null) {
+					for(GameCharacter character : submissiveParticipants) {
+						if(character.isSlave()) {
+							map.get(immobilisationType).get(dominantParticipants.get(0)).add(character);
+						}
+					}
+				}
+				return map;
+			}
+		};
+	}
+	
+	private static void applyImmobilisationText(List<GameCharacter> submissiveParticipants) {
+		ImmobilisationType immobilisationType = null;
+		for(AbstractPlaceUpgrade upgrade : Main.game.getPlayer().getLocationPlace().getPlaceUpgrades()) {
+			immobilisationType = upgrade.getImmobilisationType();
+			if(immobilisationType!=null) {
+				break;
+			}
+		}
+		if(immobilisationType!=null) {
+			List<GameCharacter> slaveSubs = new ArrayList<>(submissiveParticipants);
+			slaveSubs.removeIf(s->!s.isSlave());
+			if(!slaveSubs.isEmpty()) {
+				List<String> names = new ArrayList<>();
+				for(GameCharacter slave : slaveSubs) {
+					names.add(UtilText.parse(slave, "[npc.name]"));
+				}
+				StringBuilder sb = new StringBuilder();
+				sb.append("<p style='text-align:center;'>[style.italicsTerrible(");
+					switch(immobilisationType) {
+						case CHAINS:
+							sb.append("Thanks to the chains which have been added to this cell, ");
+							break;
+						case ROPE:
+							sb.append("Thanks to the ropes which have been added to this cell, ");
+							break;
+						case COCOON:
+						case TAIL_CONSTRICTION:
+						case TENTACLE_RESTRICTION:
+						case WITCH_SEAL:
+							break;
+					}
+					sb.append(Util.stringsToStringList(names, false));
+					if(names.size()>1) {
+						sb.append(" are");
+					} else {
+						sb.append(" is");
+					}
+					sb.append(" bound and unable to move!");
+				sb.append(")]</p>");
+				
+				Main.game.appendToTextEndStringBuilder(sb.toString());
+			}
+		}
+	}
+	
 	private static List<GameCharacter> getDominantSpectators() {
 		return Main.game.getPlayer().getCompanions();
 	}
 
 	private static List<GameCharacter> getSubmissiveSpectators() {
-		List<NPC> characters = Main.game.getCharactersPresent();
-		characters.removeAll(Main.game.getPlayer().getCompanions());
+		// Removed in 0.4.1.5, as this was allowing sex with random characters who were on the tile that shouldn't have been involved in sex
+//		List<NPC> characters = Main.game.getCharactersPresent();
+//		characters.removeAll(Main.game.getPlayer().getCompanions());
+//		return new ArrayList<>(characters);
+		
+//		List<NPC> characters = Main.game.getCharactersPresent();
+//		characters.removeAll(Main.game.getPlayer().getCompanions());
+//		characters.removeIf(c ->
+//			(!c.isSlave() || !c.getOwner().isPlayer()) // Character is not a slave or is a slave that doesn't belong to the player
+//			&& (!Main.game.getPlayer().getFriendlyOccupants().contains(c.getId()) || !c.isAttractedTo(Main.game.getPlayer()))); // AND is not a friend or is not attracted to the player
+		
+		List<NPC> characters = new ArrayList<>();
+		for(NPC character : Main.game.getCharactersPresent()) {
+			if((character.isSlave() && character.getOwner().isPlayer()) // Add if character is player's slave
+					|| (Main.game.getPlayer().getFriendlyOccupants().contains(character.getId()) && character.isAttractedTo(Main.game.getPlayer()))) { // OR character is friend who is attracted to player
+				characters.add(character);
+				
+			}
+		}
 		return new ArrayList<>(characters);
 	}
 	
@@ -827,14 +934,12 @@ public class SlaveDialogue {
 						} else if(Main.game.isNonConEnabled() && !characterForSex.isAttractedTo(Main.game.getPlayer())) {
 							return new ResponseSex("Rape", UtilText.parse(characterForSex, "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.sheHasFull] a choice in the matter..."), 
 									false, false,
-									new SMGeneric(
+									getGenericSlaveSexManager(
 											Util.newArrayListOfValues(Main.game.getPlayer()),
 											Util.newArrayListOfValues(characterForSex),
-									getDominantSpectators(),
-									getSubmissiveSpectators(),
-									(characterForSex.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
-										?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
-										:new ArrayList<>())),
+											(characterForSex.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
+												?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
+												:new ArrayList<>())),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getTextFilePath(), "RAPE_START", characterForSex)) {
 								@Override
@@ -845,26 +950,26 @@ public class SlaveDialogue {
 									} else {
 										Main.game.getTextEndStringBuilder().append(characterForSex.incrementAffection(Main.game.getPlayer(), -25));
 									}
+									applyImmobilisationText(Util.newArrayListOfValues(characterForSex));
 								}
 							};
 						
 						} else {
 							return new ResponseSex("Sex", UtilText.parse(characterForSex, "Have sex with [npc.name]."), 
 									true, false,
-									new SMGeneric(
+									getGenericSlaveSexManager(
 											Util.newArrayListOfValues(Main.game.getPlayer()),
 											Util.newArrayListOfValues(characterForSex),
-									getDominantSpectators(),
-									getSubmissiveSpectators(),
-									(characterForSex.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
-											?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
-											:new ArrayList<>())),
+											(characterForSex.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
+													?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
+													:new ArrayList<>())),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getTextFilePath(), "SEX_START", characterForSex)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
 									Main.game.getTextEndStringBuilder().append(characterForSex.incrementAffection(Main.game.getPlayer(), 5));
+									applyImmobilisationText(Util.newArrayListOfValues(characterForSex));
 								}
 							};
 						}
@@ -903,22 +1008,16 @@ public class SlaveDialogue {
 									UtilText.parse(characterForSex, characterForSexSecondary, "Move around in front of [npc.name] so that you can use [npc.her] mouth while [npc2.name] takes [npc.her] rear."),
 									null, null, null, null, null, null,
 									!isRape, false,
-									new SMGeneric(
+									getGenericSlaveSexManager(
 											Util.newArrayListOfValues(characterForSexSecondary, Main.game.getPlayer()),
 											Util.newArrayListOfValues(characterForSex),
-											getDominantSpectators(),
-											getSubmissiveSpectators(),
-											ResponseTag.PREFER_DOGGY) {
-										@Override
-										public boolean isPublicSex() {
-											return isCompanionSexPublic();
-										}
-									},
+											Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROAST_FRONT_START", characterForSex, characterForSexSecondary)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
+									applyImmobilisationText(Util.newArrayListOfValues(characterForSex));
 								}
 							};
 						}
@@ -959,22 +1058,16 @@ public class SlaveDialogue {
 										UtilText.parse(characterForSex, characterForSexSecondary, "Move around behind [npc.name] so that you can use [npc.her] rear while [npc2.name] takes [npc.her] mouth."),
 										null, null, null, null, null, null,
 										!isRape, false,
-										new SMGeneric(
+										getGenericSlaveSexManager(
 												Util.newArrayListOfValues(Main.game.getPlayer(), characterForSexSecondary),
 												Util.newArrayListOfValues(characterForSex),
-												getDominantSpectators(),
-												getSubmissiveSpectators(),
-												ResponseTag.PREFER_DOGGY) {
-											@Override
-											public boolean isPublicSex() {
-												return isCompanionSexPublic();
-											}
-										},
+												Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)),
 										getAfterSexDialogue(),
 										UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROAST_BEHIND_START", characterForSex, characterForSexSecondary)) {
 									@Override
 									public void effects() {
 										applyReactionReset();
+										applyImmobilisationText(Util.newArrayListOfValues(characterForSex));
 									}
 								};
 							}
@@ -1008,22 +1101,16 @@ public class SlaveDialogue {
 									UtilText.parse(characterForSex, characterForSexSecondary, "Push [npc.name] and [npc2.name] down onto all fours, before kneeling behind [npc.name], ready to fuck them both side-by-side."),
 									null, null, null, null, null, null,
 									!isRape, false,
-									new SMGeneric(
+									getGenericSlaveSexManager(
 											Util.newArrayListOfValues(Main.game.getPlayer()),
 											Util.newArrayListOfValues(characterForSex, characterForSexSecondary),
-											getDominantSpectators(),
-											getSubmissiveSpectators(),
-											ResponseTag.PREFER_DOGGY) {
-										@Override
-										public boolean isPublicSex() {
-											return isCompanionSexPublic();
-										}
-									},
+											Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SIDE_BY_SIDE_START", characterForSex, characterForSexSecondary)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
+									applyImmobilisationText(Util.newArrayListOfValues(characterForSex, characterForSexSecondary));
 								}
 							};
 						}
@@ -1043,20 +1130,19 @@ public class SlaveDialogue {
 									UtilText.parse(characterForSex, "Have submissive sex with [npc.name]."), 
 									Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 									true, true,
-									new SMGeneric(
-											Util.newArrayListOfValues(characterForSex),
-											Util.newArrayListOfValues(Main.game.getPlayer()),
-											getDominantSpectators(),
-											getSubmissiveSpectators(),
-									(characterForSex.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
-											?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
-											:new ArrayList<>())),
-										getAfterSexDialogue(),
-										UtilText.parseFromXMLFile(getTextFilePath(), "SEX_AS_SUB_START", characterForSex)) {
+									getGenericSlaveSexManager(
+										Util.newArrayListOfValues(characterForSex),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										(characterForSex.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
+												?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
+												:new ArrayList<>())),
+									getAfterSexDialogue(),
+									UtilText.parseFromXMLFile(getTextFilePath(), "SEX_AS_SUB_START", characterForSex)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
 									Main.game.getTextEndStringBuilder().append(characterForSex.incrementAffection(Main.game.getPlayer(), 5));
+									applyImmobilisationText(Util.newArrayListOfValues(Main.game.getPlayer()));
 								}
 							};
 						}
@@ -1102,22 +1188,16 @@ public class SlaveDialogue {
 									UtilText.parse(characterForSex, characterForSexSecondary, "Get down on all fours facing [npc.name], so that [npc.she] can use your mouth while [npc2.name] takes your rear."),
 									null, null, null, null, null, null,
 									true, true,
-									new SMGeneric(
-											Util.newArrayListOfValues(characterForSexSecondary, characterForSex),
-											Util.newArrayListOfValues(Main.game.getPlayer()),
-											getDominantSpectators(),
-											getSubmissiveSpectators(),
-											ResponseTag.PREFER_DOGGY) {
-										@Override
-										public boolean isPublicSex() {
-											return isCompanionSexPublic();
-										}
-									},
+									getGenericSlaveSexManager(
+										Util.newArrayListOfValues(characterForSexSecondary, characterForSex),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROASTED_START", characterForSex, characterForSexSecondary)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
+									applyImmobilisationText(Util.newArrayListOfValues(Main.game.getPlayer()));
 								}
 							};
 						}
@@ -1164,22 +1244,16 @@ public class SlaveDialogue {
 									UtilText.parse(characterForSex, characterForSexSecondary, "Get down on all fours and present your rear to [npc.name], so that [npc.she] can fuck you while [npc2.name] uses your mouth."),
 									null, null, null, null, null, null,
 									true, true,
-									new SMGeneric(
+									getGenericSlaveSexManager(
 											Util.newArrayListOfValues(characterForSex, characterForSexSecondary),
 											Util.newArrayListOfValues(Main.game.getPlayer()),
-											getDominantSpectators(),
-											getSubmissiveSpectators(),
-											ResponseTag.PREFER_DOGGY) {
-										@Override
-										public boolean isPublicSex() {
-											return isCompanionSexPublic();
-										}
-									},
+											Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROASTED_START", characterForSexSecondary, characterForSex)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
+									applyImmobilisationText(Util.newArrayListOfValues(Main.game.getPlayer()));
 								}
 							};
 						}
@@ -1216,22 +1290,16 @@ public class SlaveDialogue {
 									UtilText.parse(characterForSex, characterForSexSecondary, "Get down on all fours beside [npc2.name], so that [npc.name] can kneel down behind the two of you, ready to fuck you both side-by-side."),
 									null, null, null, null, null, null,
 									true, false,
-									new SMGeneric(
+									getGenericSlaveSexManager(
 											Util.newArrayListOfValues(characterForSex),
 											Util.newArrayListOfValues(Main.game.getPlayer(), characterForSexSecondary),
-											getDominantSpectators(),
-											getSubmissiveSpectators(),
-											ResponseTag.PREFER_DOGGY) {
-										@Override
-										public boolean isPublicSex() {
-											return isCompanionSexPublic();
-										}
-									},
+											Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SIDE_BY_SIDE_AS_SUB_START", characterForSex, characterForSexSecondary)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
+									applyImmobilisationText(Util.newArrayListOfValues(Main.game.getPlayer(), characterForSexSecondary));
 								}
 							};
 						}

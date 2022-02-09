@@ -256,9 +256,9 @@ public class CharacterInventory implements XMLSaving {
 	public static CharacterInventory loadFromXML(Element parentElement, Document doc) {
 		CharacterInventory inventory = new CharacterInventory(0);
 		
-		if(parentElement.getElementsByTagName("maxInventorySpace").item(0)!=null) {
-			inventory.setMaximumInventorySpace(Integer.valueOf(((Element)parentElement.getElementsByTagName("maxInventorySpace").item(0)).getAttribute("value")));
-		}
+//		if(parentElement.getElementsByTagName("maxInventorySpace").item(0)!=null) {
+//			inventory.setMaximumInventorySpace(Integer.valueOf(((Element)parentElement.getElementsByTagName("maxInventorySpace").item(0)).getAttribute("value")));
+//		}
 		inventory.setMoney(Integer.valueOf(((Element)parentElement.getElementsByTagName("money").item(0)).getAttribute("value")));
 		
 		if(parentElement.getElementsByTagName("essences").item(0)!=null) { // Old version support.
@@ -498,7 +498,6 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public int getMaximumInventorySpace() {
-//		return maxInventorySpace;
 		return RenderingEngine.INVENTORY_PAGES * RenderingEngine.ITEMS_PER_PAGE;
 	}
 	
@@ -511,9 +510,9 @@ public class CharacterInventory implements XMLSaving {
 		}
 	}
 	
-	public void setMaximumInventorySpace(int maxInventorySpace) {
-		this.maxInventorySpace = maxInventorySpace;
-	}
+//	public void setMaximumInventorySpace(int maxInventorySpace) {
+//		this.maxInventorySpace = maxInventorySpace;
+//	}
 	
 	public boolean isInventoryFull() {
 		return getInventorySlotsTaken() >= getMaximumInventorySpace();
@@ -617,7 +616,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public int getUniqueItemCount() {
-		return getAllItemsInInventory().size();
+		return itemSubInventory.getUniqueItemCount();
 	}
 	
 	public int getUniqueQuestItemCount() {
@@ -702,7 +701,11 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public boolean removeItemByType(AbstractItemType itemType) {
-		return itemSubInventory.removeItemByType(itemType);
+		return removeItemByType(itemType, 1);
+	}
+
+	public boolean removeItemByType(AbstractItemType itemType, int count) {
+		return itemSubInventory.removeItemByType(itemType, count);
 	}
 	
 	public boolean removeAllItemsByRarity(Rarity rarity) {
@@ -739,7 +742,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 
 	public int getUniqueWeaponCount() {
-		return getAllWeaponsInInventory().size();
+		return weaponSubInventory.getUniqueItemCount();
 	}
 	
 	public int getUniqueQuestWeaponCount() {
@@ -813,7 +816,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public boolean removeWeaponByType(AbstractWeaponType weaponType) {
-		return weaponSubInventory.removeItemByType(weaponType);
+		return weaponSubInventory.removeItemByType(weaponType, 1);
 	}
 	
 	public boolean removeAllWeaponsByRarity(Rarity rarity) {
@@ -899,7 +902,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 
 	public int getUniqueClothingCount() {
-		return getAllClothingInInventory().size();
+		return clothingSubInventory.getUniqueItemCount();
 	}
 
 	public int getUniqueQuestClothingCount() {
@@ -977,7 +980,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public boolean removeClothingByType(AbstractClothingType clothingType) {
-		return clothingSubInventory.removeItemByType(clothingType);
+		return clothingSubInventory.removeItemByType(clothingType, 1);
 	}
 	
 	public boolean removeAllClothingByRarity(Rarity rarity) {

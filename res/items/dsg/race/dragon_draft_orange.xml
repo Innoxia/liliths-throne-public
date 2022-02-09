@@ -35,8 +35,8 @@
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
-			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/30)]
-			[##npc.incrementMana(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM)/30)]
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM) * 0.2)]
+			[##npc.incrementMana(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM) * 0.4)]
 		]]></applyEffects>
 		
 		<itemTags>

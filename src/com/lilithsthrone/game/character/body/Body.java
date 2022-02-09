@@ -21,8 +21,10 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractAssType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractEyeType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
@@ -57,6 +59,7 @@ import com.lilithsthrone.game.character.body.types.TentacleType;
 import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
@@ -133,6 +136,7 @@ public class Body implements XMLSaving {
 	private Leg leg;
 	private Torso torso;
 	private BodyMaterial bodyMaterial;
+	protected AbstractSubspecies fleshSubspecies;
 
 	// Optional:
 	private Antenna antenna;
@@ -225,11 +229,6 @@ public class Body implements XMLSaving {
 		
 		public BodyBuilder breastCrotch(BreastCrotch breastCrotch) {
 			this.breastCrotch = breastCrotch;
-			return this;
-		}
-		
-		public BodyBuilder breast(Antenna antenna) {
-			this.antenna = antenna;
 			return this;
 		}
 
@@ -675,6 +674,7 @@ public class Body implements XMLSaving {
 			XMLUtil.addAttribute(doc, bodyHair, "type", HairType.getIdFromHairType(this.hair.type));
 			XMLUtil.addAttribute(doc, bodyHair, "length", String.valueOf(this.hair.length));
 			XMLUtil.addAttribute(doc, bodyHair, "hairStyle", this.hair.style.toString());
+			XMLUtil.addAttribute(doc, bodyHair, "neckFluff", String.valueOf(this.hair.neckFluff));
 		
 		// Horn:
 		Element bodyHorn = doc.createElement("horn");
@@ -857,7 +857,7 @@ public class Body implements XMLSaving {
 		if(element.getAttribute("bodyMaterial") != null && !element.getAttribute("bodyMaterial").isEmpty()) {
 			importedBodyMaterial = BodyMaterial.valueOf(element.getAttribute("bodyMaterial"));
 		}
-
+		
 		boolean feralBody = false;
 		if(element.getAttribute("feral") != null && !element.getAttribute("feral").isEmpty()) {
 			feralBody = Boolean.valueOf(element.getAttribute("feral"));
@@ -1220,7 +1220,12 @@ public class Body implements XMLSaving {
 			hairTypeFromSave = hairTypeConverterMap.get(hairTypeFromSave);
 		}
 		
-		Hair importedHair = new Hair(HairType.getHairTypeFromId(hairTypeFromSave), Integer.valueOf(hair.getAttribute("length")), HairStyle.valueOf(hair.getAttribute("hairStyle")));
+		Hair importedHair = new Hair(HairType.getHairTypeFromId(hairTypeFromSave),
+				Integer.valueOf(hair.getAttribute("length")),
+				HairStyle.valueOf(hair.getAttribute("hairStyle")),
+				null);
+		
+		importedHair.neckFluff = Boolean.valueOf(hair.getAttribute("neckFluff"));
 		
 		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Hair: "
 				+ "<br/>type: "+importedHair.getType()
@@ -1442,11 +1447,12 @@ public class Body implements XMLSaving {
 		if(spinneret!=null) {
 			importedSpinneret.wetness = Integer.valueOf(spinneret.getAttribute("wetness"));
 			importedSpinneret.capacity = handleCapacityLoading(Float.valueOf(spinneret.getAttribute("capacity")));
-			importedSpinneret.depth = OrificeDepth.TWO_AVERAGE.getValue();
+			depth = OrificeDepth.TWO_AVERAGE.getValue();
 			depthAttribute = spinneret.getAttribute("depth");
 			if(!depthAttribute.isEmpty()) {
 				depth = Integer.valueOf(depthAttribute);
 			}
+			importedSpinneret.depth = depth;
 			importedSpinneret.elasticity = Integer.valueOf(spinneret.getAttribute("elasticity"));
 			importedSpinneret.plasticity = Integer.valueOf(spinneret.getAttribute("plasticity"));
 			importedSpinneret.virgin = Boolean.valueOf(spinneret.getAttribute("virgin"));
@@ -1976,7 +1982,7 @@ public class Body implements XMLSaving {
 			}
 		}
 		
-
+		
 		try {
 			Element heavyMakeupElement = (Element)element.getElementsByTagName("heavyMakeup").item(0);
 			
@@ -1987,18 +1993,89 @@ public class Body implements XMLSaving {
 			}
 		} catch(Exception ex) {	
 		}
-
+		
 		body.feral = feralBody;
 		
 		body.addDiscoveredBodyCoveringsFromMaterial(importedBodyMaterial);
 		
 		body.calculateRace(null);
 		
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.5")) {
+		// Converting harpy bald eagles to raptor bald eagles:
+		if(Main.isVersionOlderThan(version, "0.4.2.5")) {
+			if(body.getRace()==Race.HARPY) {
+				AbstractBodyCoveringType feathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FEATHER):BodyCoveringType.FEATHERS;
+				AbstractBodyCoveringType headFeathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.HAIR):BodyCoveringType.HAIR_HARPY;
+				
+				if(body.getCoverings().get(feathers).getPrimaryColour()==PresetColour.COVERING_BROWN_DARK && body.getCoverings().get(headFeathers).getPrimaryColour()==PresetColour.COVERING_WHITE) {
+
+					if(body.getArmType().getRace()==Race.HARPY) {
+						body.setArmType(null, ArmType.getArmTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					if(body.getAssType().getRace()==Race.HARPY) {
+						body.setAssType(null, AssType.getAssTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					if(body.getBreastType().getRace()==Race.HARPY) {
+						body.setBreastType(null, BreastType.getBreastTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					if(body.getBreastCrotchType().getRace()==Race.HARPY) {
+						body.setBreastCrotchType(null, BreastType.getBreastTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					if(body.getFaceType().getRace()==Race.HARPY) {
+						body.setFaceType(null, FaceType.getFaceTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					if(body.getEyeType().getRace()==Race.HARPY) {
+						body.setEyeType(null, EyeType.getEyeTypeFromId("innoxia_raptor_eye"));
+					}
+					if(body.getEarType().getRace()==Race.HARPY) {
+						body.setEarType(null, EarType.getEarTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					if(body.getHairType().getRace()==Race.HARPY) {
+						body.setHairType(null, HairType.getHairTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					if(body.getLegType().getRace()==Race.HARPY) {
+						body.setLegType(null, LegType.getLegTypeFromId("innoxia_raptor_leg_large"));
+					}
+					if(body.getTorsoType().getRace()==Race.HARPY) {
+						body.setTorsoType(null, TorsoType.getTorsoTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					
+					if(body.getVaginaType().getRace()==Race.HARPY) {
+						body.setVaginaType(null, VaginaType.getVaginaTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					if(body.getPenisType().getRace()==Race.HARPY) {
+						body.setPenisType(null, PenisType.getPenisTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					if(body.getTailType().getRace()==Race.HARPY) {
+						body.setTailType(null, TailType.getTailTypes(Race.getRaceFromId("innoxia_raptor")).get(0));
+					}
+					
+					// coverings:
+					coveringCopyConversion(body, BodyCoveringType.FEATHERS, BodyCoveringType.getBodyCoveringTypeFromId("innoxia_raptor_feathers"));
+					coveringCopyConversion(body, BodyCoveringType.HARPY_SKIN, BodyCoveringType.getBodyCoveringTypeFromId("innoxia_raptor_skin"));
+					coveringCopyConversion(body, BodyCoveringType.BODY_HAIR_HARPY, BodyCoveringType.getBodyCoveringTypeFromId("innoxia_raptor_body_hair"));
+					coveringCopyConversion(body, BodyCoveringType.EYE_HARPY, BodyCoveringType.getBodyCoveringTypeFromId("innoxia_raptor_eye"));
+					coveringCopyConversion(body, BodyCoveringType.HAIR_HARPY, BodyCoveringType.getBodyCoveringTypeFromId("innoxia_raptor_hair"));
+				}
+			}
+		}
+		
+		if(Main.isVersionOlderThan(version, "0.3.0.5")) {
 			body.updateNippleCrotchColouring();
 		}
 		
 		return body;
+	}
+	
+	private static void coveringCopyConversion(Body body, AbstractBodyCoveringType coveringTypeToCopy, AbstractBodyCoveringType newCoveringType) {
+		Covering covering = body.getCovering(coveringTypeToCopy, false);
+		body.setBodyCoveringForXMLImport(newCoveringType,
+				covering.getPattern(),
+				covering.getModifier(),
+				covering.getPrimaryColour(),
+				covering.isPrimaryGlowing(),
+				covering.getSecondaryColour(),
+				covering.isSecondaryGlowing());
+		body.addBodyCoveringTypesDiscovered(newCoveringType);
 	}
 
 	static <T extends Enum<T>> void handleLoadingOfModifiers(T[] enumValues, StringBuilder log, Element modifiersElement, Collection<T> modifiers) {
@@ -2105,11 +2182,11 @@ public class Body implements XMLSaving {
 			case ARACHNID:
 				if(owner.isFeral()) {
 					sb.append(" [style.colourFeral([npc.Her] entire body has transformed into that of a feral [npc.legRace]."
-							+ " [npc.Her] genitals are located on the underside of [npc.her] feral [npc.a_assRace]'s body, while [npc.her] asshole is located near to the end of [npc.her] feral abdomen.)]");
+							+ " [npc.Her] genitals are located on the underside of [npc.her] feral [npc.assRace]'s body, while [npc.her] asshole is located near to the end of [npc.her] feral abdomen.)]");
 				} else {
 					sb.append(" [style.colourFeral([npc.Her] entire lower body, from the waist down, has transformed into that of a huge [npc.legRace]."
 							+ " [npc.Her] legs and genitals are completely feral in nature, and are extremely similar to that of [npc.a_assRace]'s."
-							+ " [npc.Her] genitals are located on the underside of [npc.her] feral [npc.a_assRace]'s body, while [npc.her] asshole is located near to the end of [npc.her] feral abdomen.)]");
+							+ " [npc.Her] genitals are located on the underside of [npc.her] feral [npc.assRace]'s body, while [npc.her] asshole is located near to the end of [npc.her] feral abdomen.)]");
 				}
 				break;
 			case AVIAN:
@@ -2171,7 +2248,9 @@ public class Body implements XMLSaving {
 		}
 		
 		if(Main.getProperties().hasValue(PropertyValue.ageContent)) {
-			sb.append(" [npc.She] [npc.verb(appear)] to be in [npc.her] <span style='color:"+owner.getAppearsAsAge().getColour().toWebHexString()+";'>"+owner.getAppearsAsAge().getName()+"</span>.");
+			sb.append(" [npc.She] [npc.verb(appear)] to be "+
+					(owner.getAppearsAsAge()==AgeCategory.SIXTIES_PLUS?"":"in [npc.her] ")+
+					"<span style='color:"+owner.getAppearsAsAge().getColour().toWebHexString()+";'>"+owner.getAppearsAsAge().getName()+"</span>.");
 		}
 		sb.append("</p>");
 		
@@ -2207,7 +2286,6 @@ public class Body implements XMLSaving {
 		}
 		
 		// Hair:
-
 		if (hair.getRawLengthValue() == 0) {
 			if(face.isBaldnessNatural() || owner.isFeral()) {
 				sb.append(" [npc.Her] head is [npc.materialDescriptor] [npc.faceFullDescription(true)].");
@@ -2304,6 +2382,9 @@ public class Body implements XMLSaving {
 					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been tied up into a chignon.");
 					break;
 			}
+		}
+		if (hair.isNeckFluff()) {
+			sb.append(" A large amount of [npc.hair(true)] "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" grown around [npc.her] neck and upper chest.");
 		}
 		
 		// Horns:
@@ -2659,7 +2740,12 @@ public class Body implements XMLSaving {
 				sb.append(" <i style='color:"+PresetColour.PSYCHOACTIVE.toWebHexString()+";'>The psychoactive milk you recently ingested is causing your view of "+(owner.isPlayer()?"your":"[npc.namePos]")+" breasts to be distorted!</i>");
 			}
 			if(viewedBreast.getRawSizeValue()>0){
-				sb.append(" [npc.SheHasFull] " + Util.intToString(owner.getBreastRows()) + " pair" + (owner.getBreastRows() == 1 ? "" : "s") + " of "+viewedBreast.getSize().getDescriptor()+" [npc.breasts]");
+				sb.append(" [npc.SheHasFull] " + Util.intToString(owner.getBreastRows()) + " pair" + (owner.getBreastRows() == 1 ? "" : "s") + " of ");
+				if(Main.game.isVestigialMultiBreastsEnabled() && owner.getBreastRows()>1) {
+					sb.append("[npc.breasts]");
+				} else {
+					sb.append(viewedBreast.getSize().getDescriptor()+" [npc.breasts]");
+				}
 				
 				if(owner.getBreastRows()==1) {
 					if (viewedBreast.getSize().isTrainingBraSize()) {
@@ -2670,18 +2756,30 @@ public class Body implements XMLSaving {
 					
 				} else if(owner.getBreastRows()==2) {
 					if (viewedBreast.getSize().isTrainingBraSize()) {
-						sb.append(", with [npc.her] top pair fitting comfortably into a training bra, and the pair below being slightly smaller.");
+						sb.append(", with [npc.her] top pair fitting comfortably into a training bra,"
+								+(Main.game.isVestigialMultiBreastsEnabled()
+									?" and the pair below being vestigial in size."
+									:" and the pair below being slightly smaller."));
 					} else {
 						sb.append(", with [npc.her] top pair fitting comfortably into "
-								+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra, and the pair below being slightly smaller.");
+								+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra,"
+										+(Main.game.isVestigialMultiBreastsEnabled()
+												?" and the pair below being vestigial in size."
+												:" and the pair below being slightly smaller."));
 					}
 					
 				} else if(owner.getBreastRows()>2) {
 					if (viewedBreast.getSize().isTrainingBraSize()) {
-						sb.append(", with [npc.her] top pair fitting comfortably into a training bra, and the pairs below each being slightly smaller than the ones above.");
+						sb.append(", with [npc.her] top pair fitting comfortably into a training bra,"
+								+(Main.game.isVestigialMultiBreastsEnabled()
+										?" and the pairs below being vestigial in size."
+										:" and the pairs below each being slightly smaller than the ones above."));
 					} else {
 						sb.append(", with [npc.her] top pair fitting comfortably into "
-									+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra, and the pairs below each being slightly smaller than the ones above.");
+									+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra,"
+											+(Main.game.isVestigialMultiBreastsEnabled()
+													?" and the pairs below being vestigial in size."
+													:" and the pairs below each being slightly smaller than the ones above."));
 					}
 				}
 				
@@ -2843,7 +2941,7 @@ public class Body implements XMLSaving {
 						break;
 					case TAIL_SLEEP_HUGGING:
 						break;
-					case TAIL_SUTABLE_FOR_PENETRATION:
+					case TAIL_SUITABLE_FOR_PENETRATION:
 						sb.append(" Each of them can be used as a penetrative object during sex, and when used to penetrate an orifice, a maximum of [npc.tentaclePenetrationLength(true)] can be inserted.");
 						break;
 					case TAIL_TAPERING_EXPONENTIAL:
@@ -3380,12 +3478,24 @@ public class Body implements XMLSaving {
 		return ass;
 	}
 
+	public AbstractAssType getAssType() {
+		return ass.getType();
+	}
+	
 	public Breast getBreast() {
 		return breast;
 	}
 
+	public AbstractBreastType getBreastType() {
+		return breast.getType();
+	}
+	
 	public BreastCrotch getBreastCrotch() {
 		return breastCrotch;
+	}
+
+	public AbstractBreastType getBreastCrotchType() {
+		return breastCrotch.getType();
 	}
 
 	public Face getFace() {
@@ -3398,6 +3508,10 @@ public class Body implements XMLSaving {
 	
 	public Eye getEye() {
 		return eye;
+	}
+
+	public AbstractEyeType getEyeType() {
+		return eye.getType();
 	}
 
 	public Ear getEar() {
@@ -3532,12 +3646,24 @@ public class Body implements XMLSaving {
 		this.ass = ass;
 	}
 
+	public String setAssType(GameCharacter owner, AbstractAssType type) {
+		return this.ass.setType(owner, type);
+	}
+	
 	public void setBreast(Breast breast) {
 		this.breast = breast;
 	}
 
+	public String setBreastType(GameCharacter owner, AbstractBreastType type) {
+		return this.breast.setType(owner, type);
+	}
+
 	public void setBreastCrotch(BreastCrotch breastCrotch) {
 		this.breastCrotch = breastCrotch;
+	}
+
+	public String setBreastCrotchType(GameCharacter owner, AbstractBreastType type) {
+		return this.breastCrotch.setType(owner, type);
 	}
 
 	public void setFace(Face face) {
@@ -3554,6 +3680,10 @@ public class Body implements XMLSaving {
 
 	public void setEye(Eye eye) {
 		this.eye = eye;
+	}
+
+	public String setEyeType(GameCharacter owner, AbstractEyeType type) {
+		return this.eye.setType(owner, type);
 	}
 
 	public void setEar(Ear ear) {
@@ -4225,7 +4355,7 @@ public class Body implements XMLSaving {
 			if(owner.getNippleCrotchCountPerBreast()>1) {
 				descriptionSB.append(" [npc.crotchNipples],");
 			} else {
-				descriptionSB.append(" [npc.crotchNipple],");
+				descriptionSB.append(" [npc.crotchNipple(true)],");
 			}
 			
 			switch(owner.getAreolaeCrotchShape()) {
@@ -5706,6 +5836,7 @@ public class Body implements XMLSaving {
 							stage = " [npc.Her] belly is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.sheHasFull]n't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] womb just yet.";
 						}
 						break;
+					case ARMPITS:
 					case ASS:
 					case BREAST:
 					case BREAST_CROTCH:
@@ -5739,20 +5870,21 @@ public class Body implements XMLSaving {
 			sectionAdded = true;
 				descriptionSB.append(
 						"<span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>"
-							+ "[npc.Name] has incubated and laid eggs "+Util.intToString(owner.getLittersBirthed().size())+" "+(owner.getLittersBirthed().size()==1?"time":"times")+"."
+							+ "[npc.Name] has incubated and laid eggs "+Util.intToString(owner.getLittersIncubated().size())+" "+(owner.getLittersIncubated().size()==1?"time":"times")+"."
 						+ "</span>");
-				
+
+				//Litter.getMother is the character who passed on the eggs to the incubator
 				for(Litter litter : owner.getLittersIncubated()) {
-					if(litter.getFather()==null) {
+					if(litter.getMother()==null) {
 						descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)
 								+", [npc.she] was implanted with "+litter.getTotalLitterCount()+" eggs, and then on "+Units.date(litter.getBirthDate(), Units.DateType.LONG)+", [npc.she] laid and birthed ");
 						
-					} else if(litter.getFather().isPlayer()) {
+					} else if(litter.getMother().isPlayer()) {
 						descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)
 								+", you implanted [npc.herHim] with "+litter.getTotalLitterCount()+" eggs, and then on "+Units.date(litter.getBirthDate(), Units.DateType.LONG)+", [npc.she] laid and birthed ");
 						
 					} else {
-						descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)+", "+litter.getFather().getName(true)
+						descriptionSB.append("<br/>On "+Units.date(litter.getConceptionDate(), Units.DateType.LONG)+", "+litter.getMother().getName(true)
 								+" implanted [npc.herHim] with "+litter.getTotalLitterCount()+" eggs, and then on "+Units.date(litter.getBirthDate(), Units.DateType.LONG)+", [npc.she] laid and birthed ");
 					}
 					
@@ -5787,6 +5919,7 @@ public class Body implements XMLSaving {
 						case VAGINA:
 							areaEgged = "womb";
 							break;
+						case ARMPITS:
 						case ASS:
 						case BREAST:
 						case BREAST_CROTCH:
@@ -6146,7 +6279,7 @@ public class Body implements XMLSaving {
 	}
 	
 	/**
-	 * @param feralAttributes Pass in the AbstractSubspecies to which this character should be transformed into a feral version of. Pass in null to transform back from feral to a standard anthro.
+	 * @param subspecies Pass in the AbstractSubspecies to which this character should be transformed into a feral version of. Pass in null to transform back from feral to a standard anthro.
 	 */
 	public void setFeral(AbstractSubspecies subspecies) {
 		this.feral = subspecies!=null;
@@ -6491,4 +6624,21 @@ public class Body implements XMLSaving {
 	public BodyPartTypeInterface randomTypeFrom(BodyPartTypeInterface... values) {
 		return Util.randomItemFrom(Util.newArrayListOfValues(values));
 	}
+
+	/**
+	 * This is reset to null after every transformation, and is then recalculated in AbstractSubspecies.
+	 * @return The subspecies which this character appears to be if they were made of flesh.
+	 *  Use getTrueSubspecies() or do some checks with getSubspeciesOverride() to get their true Subspecies, but for 99.9% of the time, that won't be necessary and this method is fine to use.
+	 */
+	public AbstractSubspecies getFleshSubspecies() {
+		if(fleshSubspecies==null) {
+			fleshSubspecies = AbstractSubspecies.getSubspeciesFromBody(this, this.getRaceFromPartWeighting());
+		}
+		return fleshSubspecies;
+	}
+
+	public void setFleshSubspecies(AbstractSubspecies fleshSubspecies) {
+		this.fleshSubspecies = fleshSubspecies;
+	}
+
 }

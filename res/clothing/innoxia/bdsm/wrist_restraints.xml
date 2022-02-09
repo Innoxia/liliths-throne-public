@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>400</value> 
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[wrist restraint]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[wrist restraints]]></namePlural> 
+		<description><![CDATA[A pair of leather wrist restraints, which are linked by a metal chain. The straps can be adjusted to fit the thickest of limbs, which even allows them to be fastened around someone's ankles.]]></description> 
+		<physicalResistance>0</physicalResistance> 
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+			<slot>WRIST</slot>
+			<slot>ANKLE</slot>
+		</equipSlots>
+		<rarity>EPIC</rarity> 
+		<clothingSet>innoxia_bdsm</clothingSet>
+		<imageName>wrist_restraints.svg</imageName>
+		<imageEquippedName slot="WRIST">wrist_restraints.svg</imageEquippedName>
+		<imageEquippedName slot="ANKLE">wrist_restraints.svg</imageEquippedName>
+		<enchantmentLimit/>
+		
+		<effects> 
+			<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SEALING" timer="0"/>
+			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="STRENGTH" timer="0"/>
+		</effects>
+		
+		<blockedPartsList slot="WRIST"> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired>
+					<clothingAccess>WRISTS</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked>
+					<clothingAccess>WRISTS</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+
+		<blockedPartsList slot="ANKLE">
+		  <blockedParts>
+			<displacementType>REMOVE_OR_EQUIP</displacementType>
+			<clothingAccessRequired>
+			  <clothingAccess>CALVES</clothingAccess>
+			</clothingAccessRequired>
+			<blockedBodyParts/>
+			<clothingAccessBlocked>
+			  <clothingAccess>CALVES</clothingAccess>
+			</clothingAccessBlocked>
+			<concealedSlots/>
+		  </blockedParts>
+		</blockedPartsList>
+			
+		<incompatibleSlots slot="WRIST"/>
+		<incompatibleSlots slot="ANKLE"/>
+
+		<primaryColours values="ALL"/> 
+		<primaryColoursDye/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>FITS_ARM_WINGS</tag>
+			<tag>SOLD_BY_FINCH</tag>
+			<tag>PROVIDES_KEY</tag>
+		</itemTags>
+		<itemTags slot="WRIST">
+			<tag>HINDERS_ARM_MOVEMENT</tag>
+		</itemTags>
+		<itemTags slot="ANKLE">
+			<tag>HINDERS_LEG_MOVEMENT</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText slot="WRIST" type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(wrap)] the leather restraints around [npc.her] wrists, before fastening the straps in place.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(wrap)] the leather restraints around [npc2.namePos] wrists, before fastening the straps in place.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(force)] the leather restraints around [npc2.namePos] wrists, before firmly fastening the straps in place.]]>
+	  </otherRough>
+	</replacementText>
+	<displacementText slot="WRIST" type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unfasten)] the leather restraints from around [npc.her] wrists, before taking them off.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unfasten)] the leather restraints from around [npc2.namePos] wrists, before taking them off.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] the leather restraints from around [npc2.namePos] wrists, before yanking them off.]]>
+		</otherRough>
+	</displacementText>
+
+  <replacementText slot="ANKLE" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(wrap)] the leather restraints around [npc.her] ankles, before fastening the straps in place.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(wrap)] the leather restraints around [npc2.namePos] ankles, before fastening the straps in place.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(force)] the leather restraints around [npc2.namePos] ankles, before firmly fastening the straps in place.]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="ANKLE" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] the leather restraints from around [npc.her] ankles, before taking them off.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] the leather restraints from around [npc2.namePos] ankles, before taking them off.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] the leather restraints from around [npc2.namePos] ankles, before yanking them off.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

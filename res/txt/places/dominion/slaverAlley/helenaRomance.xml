@@ -50,7 +50,7 @@
 		Pushing open the front door and entering Helena's shop, you once again see the gorgeous harpy sitting behind the shop's counter. With a mild look of satisfaction on her angelic face, she offers you some rare praise, [helena.speech(I was most pleased to see that you'd done as I asked when I arrived here this morning. Well done, [pc.name].)]
 	</p>
 	<p>
-		By now knowing what's expecting of you, and not wanting to do anything to ruin the haughty matriarch's apparent good mood, you quickly reply, [pc.speech(Thank you, Helena.)]
+		By now knowing what's expected of you, and not wanting to do anything to ruin the haughty matriarch's apparent good mood, you quickly reply, [pc.speech(Thank you, Helena.)]
 	</p>
 	<p>
 		[helena.speech(I suppose I should inform you that I am not planning on stocking any more slaves until after all this renovation work has been completed,)] she reveals, [helena.speech(If you were still in the market for purchasing slaves of your own, then you have my permission to buy them from someone other than me.)]
@@ -531,7 +531,7 @@
 		Once more following Helena's instructions, you move over towards the entrance and place the can of golden paint down on the floor beside the supplies you've already unpacked. As you then turn to face the beautiful harpy, you see that she's stood up from behind her desk, and after quickly checking to make sure that all of her feathers are straight, she gracefully paces across the room to come to a halt in front of you.
 	</p>
 	<p>
-		[helena.speech(I have discovered that the first order of business in decorating a shop's frontage is to have the previous layers of paint stripped,)] Helena proudly declares, acting as though she's doing a great service to you by revealing this information. With one of her feathered fingers, she points down to the sandpaper lying next to the cans of paint and proclaims, [helena.speech(You will use those perform the paint stripping. Now, if you would be so kind as to pick them up and move outside...)]
+		[helena.speech(I have discovered that the first order of business in decorating a shop's frontage is to have the previous layers of paint stripped,)] Helena proudly declares, acting as though she's doing a great service to you by revealing this information. With one of her feathered fingers, she points down to the sandpaper lying next to the cans of paint and proclaims, [helena.speech(You will use those to perform the paint stripping. Now, if you would be so kind as to pick them up and move outside...)]
 	</p>
 	<p>
 		Doing as Helena asks, you pick up the thick stack of sandpaper and exit her shop. Following you out, she surprisingly locks the door behind her, before turning to you and saying, [helena.speech(I haven't visited my favourite spa for a few days, so I've decided that I shall take the rest of the day off and have several of my followers accompany me there. When I return tomorrow morning, I expect to see the entire frontage stripped of paint, do you understand?)]
@@ -935,10 +935,10 @@
 	
 	<htmlContent tag="ROMANCE_PAINTING_C"><![CDATA[
 	<p>
-		With Helena following in your wake, you do as you're told and carry the can of golden paint outside. As the two of you exit the store, the squirrel-girl who was staring through the window nervously walks up to the the harpy and asks, [style.speechFeminine(A-Are you Helena?)]
+		With Helena following in your wake, you do as you're told and carry the can of golden paint outside. As the two of you exit the store, the squirrel-girl who was staring through the window nervously walks up to the harpy and asks, [style.speechFeminine(A-Are you Helena?)]
 	</p>
 	<p>
-		Showing no sign of emotion, Helena calms turns to fact this stranger and confirms, [helena.speech(That is correct. Is there something I may help you with?)]
+		Showing no sign of emotion, Helena calmly turns to face this stranger and confirms, [helena.speech(That is correct. Is there something I may help you with?)]
 	</p>
 	<p>
 		[style.speechFeminine(P-Please could you sign this?)] the squirrel-girl replies, thrusting a small notepad and pen towards the harpy. Allowing the slightest of smiles to cross her face, the noble matriarch takes this fan's offering, and after inscribing her flowing signature on the cover of the notebook, she hands it back. Barely managing to contain her excitement, the squirrel-girl practically jumps up and down on the spot as she squeaks, [style.speechFeminine(Thank you, thank you so much! I-I've got a copy of every magazine you've modelled for; I'm a huge fan of yours!)]
@@ -958,7 +958,7 @@
 	<htmlContent tag="ROMANCE_PAINTING_C_PAINT_SIGN"><![CDATA[
 	<p>
 		#IF(pc.isSpellSchoolSpecialAbilityUnlocked(SPELL_SCHOOL_EARTH))
-			Thanks to your mastery of the arcane school of Earth, you're once again able to use some basic telekinesis to get the job done, and under the harpy's instruction, you set about painting the words 'Helena's Boutique' in flowing gold lettering above the entrance to her shop. While you're sometimes interrupted by the matriarch's commentary and decidedly-unhelpful tips, you're able to completely finish the task in just ten minutes.
+			Thanks to your mastery of the arcane school of Earth, you're able to use some basic telekinesis to get the job done, and under the harpy's instruction, you set about painting the words 'Helena's Boutique' in flowing gold lettering above the entrance to her shop. While you're sometimes interrupted by the matriarch's commentary and decidedly-unhelpful tips, you're able to completely finish the task in just ten minutes.
 		#ELSE
 			#IF(pc.isTaur())
 				Retrieving the ladders from the alleyway beside Helena's store, you do your best to overcome the hindrance of having the lower body of [pc.a_legRace] and somehow manage to haphazardly climb up high enough to reach the space above the front door.
@@ -1079,7 +1079,7 @@
 	#IF(scarlett.isSlave() && scarlett.getOwner().isPlayer())
 		#IF(pc.hasCompanion(scarlett))
 			<p>
-				As you set the letter back down on the coffee table, Helena lets out a small sigh and confirms what you've just read, [helena.speech(Yes, my dear Scarlett here is the sister of my old etiquette tutor. If I am to ever to realise my plans, I must once again take her under my wing, which necessitates this ultimatum; either you will accept my generous offer of [#SPECIAL_PARSE_0] flames in exchange for selling Scarlett to me, or else I will have no choice but to close this business down.)]
+				As you set the letter back down on the coffee table, Helena lets out a small sigh and confirms what you've just read, [helena.speech(Yes, my dear Scarlett here is the sister of my old etiquette tutor. If I ever am to realise my plans, I must once again take her under my wing, which necessitates this ultimatum; either you will accept my generous offer of [#SPECIAL_PARSE_0] flames in exchange for selling Scarlett to me, or else I will have no choice but to close this business down.)]
 			</p>
 			<p>
 				#IF(scarlett.isLikesPlayer())
@@ -1093,7 +1093,7 @@
 			</p>
 		#ELSE
 			<p>
-				As you set the letter back down on the coffee table, Helena lets out a small sigh and confirms what you've just read, [helena.speech(Yes, my dear Scarlett is the sister of my old etiquette tutor. If I am to ever to realise my plans, I must once again take that insolent harpy under my wing...)]
+				As you set the letter back down on the coffee table, Helena lets out a small sigh and confirms what you've just read, [helena.speech(Yes, my dear Scarlett is the sister of my old etiquette tutor. If I ever am to realise my plans, I must once again take that insolent harpy under my wing...)]
 			</p>
 			<p>
 				[pc.speech(So you'd like to buy [scarlett.herHim] from me?)] you ask, knowing what Helena is leading up to.
@@ -1107,7 +1107,7 @@
 		#ENDIF
 	#ELSEIF(scarlett.getHomeWorldLocation()==WORLD_TYPE_HARPY_NEST)
 		<p>
-			As you set the letter back down on the coffee table, Helena lets out a small sigh and confirms what you've just read, [helena.speech(Yes, my dear Scarlett is the sister of my old etiquette tutor. If I am to ever to realise my plans, I must once again take that insolent harpy under my wing...)]
+			As you set the letter back down on the coffee table, Helena lets out a small sigh and confirms what you've just read, [helena.speech(Yes, my dear Scarlett is the sister of my old etiquette tutor. If I ever am to realise my plans, I must once again take that insolent harpy under my wing...)]
 		</p>
 		<p>
 			[pc.speech(So you'd like for me to go and fetch her?)] you ask, knowing what Helena is leading up to.
@@ -1120,7 +1120,7 @@
 		</p>
 	#ELSE
 		<p>
-			As you set the letter back down on the coffee table, Helena lets out a small sigh and confirms what you've just read, [helena.speech(Yes, my dear Scarlett is the sister of my old etiquette tutor. If I am to ever to realise my plans, I must once again take that insolent harpy under my wing...)]
+			As you set the letter back down on the coffee table, Helena lets out a small sigh and confirms what you've just read, [helena.speech(Yes, my dear Scarlett is the sister of my old etiquette tutor. If I ever am to realise my plans, I must once again take that insolent harpy under my wing...)]
 		</p>
 		<p>
 			[pc.speech(I've already sold her, though...)] you admit, knowing that it would be best to be honest with the harpy matriarch.
@@ -1143,7 +1143,7 @@
 	
 	<htmlContent tag="ROMANCE_SCARLETT_OWNED_FETCH"><![CDATA[
 	<p>
-		Not wanting to let all of your hard work go to waste, you tell Helena that you're willing to do as she asks, and will return to sell [scarlett.name] to her as soon as you can. Flashing you another of her slight slimes, the harpy matriarch replies, [helena.speech(Thank you, [pc.name]. I expect to see both you and my dear Scarlett again very soon.)]
+		Not wanting to let all of your hard work go to waste, you tell Helena that you're willing to do as she asks, and will return to sell [scarlett.name] to her as soon as you can. Flashing you another of her slight smiles, the harpy matriarch replies, [helena.speech(Thank you, [pc.name]. I expect to see both you and my dear Scarlett again very soon.)]
 	</p>
 	<p>
 		Not wanting to keep Helena waiting, you stand up and bid her farewell, before [pc.walking] over to the front entrance and heading back out into Slaver Alley. Despite the fact that you've drawn the blinds, there's still a small crowd loitering about in front of the large glass windows, obviously hoping to catch a glimpse of the beautiful matriarch they know to be inside. Ignoring several of their presumptuous questions, you set out on your way to retrieve your slave and return here with [scarlett.herHim] by your side...
@@ -1885,7 +1885,7 @@
 	</p>
 	<p>
 		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true) && game.getDialogueFlags().hasFlag(FLAG_helenaScarlettSleepoverSex))
-			Yawning and rubbing the sleep from your eyes as you stand up, you notice that Scarlett's bra and boyshorts are still lying in the same spot as where they were hastily discarded last night. Remembering her order to wake up her by performing oral on her, you wonder if you should kneel down and duck under her blankets to do just that, or simply shake her awake instead...
+			Yawning and rubbing the sleep from your eyes as you stand up, you notice that Scarlett's bra and boyshorts are still lying in the same spot as where they were hastily discarded last night. Remembering her order to wake her up by performing oral on her, you wonder if you should kneel down and duck under her blankets to do just that, or simply shake her awake instead...
 		#ELSE
 			Yawning and rubbing the sleep from your eyes as you stand up, you feel as though it'd be a shame to wake the sleeping harpy and risk being on the receiving end of yet another of her foul rants. Letting out a sigh, you remind yourself that Helena is due to arrive sometime soon, and so you really have little choice but to go ahead and get it over with...
 		#ENDIF
@@ -1977,9 +1977,9 @@
 	</p>
 	<p>
 		#IF(scarlett.isLikesPlayer())
-			[scarlett.speech(You mean I'm going to be spending more time with [pc.name]?)] Scarlett asks, having returned from the back room to overhear the what it is Helena's asking of you.
+			[scarlett.speech(You mean I'm going to be spending more time with [pc.name]?)] Scarlett asks, having returned from the back room to overhear what it is Helena's asking of you.
 		#ELSE
-			[scarlett.speech(You mean I've got to spend more time with this cunt?)] Scarlett asks, having returned from the back room to overhear the what it is Helena's asking of you.
+			[scarlett.speech(You mean I've got to spend more time with this cunt?)] Scarlett asks, having returned from the back room to overhear what it is Helena's asking of you.
 		#ENDIF
 	</p>
 	<p>
@@ -2044,7 +2044,7 @@
 		Pretending to do as you're told, you close your [pc.eyes], before slightly opening one of them and peeking out to see what it is Helena's up to. As you watch, you see her cheeks flushing a bright scarlet, and after taking a deep breath, she starts slowly stepping towards you. Even without being able to see her, her loud, laboured breathing would be enough to inform anyone that she's getting excited about what's about to happen.
 	</p>
 	<p>
-		Coming to a halt in front of you, Helena nervously licks her lips, before leaning forwards so close that you can feel her hot breath on your face. Suddenly craning her neck forwards, she plants her plump, wet lips press against your cheek and gives you an affectionate kiss. Before you can react, she quickly pulls away, and you fully open your eyes to see her spin around on the spot and turn her back on you.
+		Coming to a halt in front of you, Helena nervously licks her lips, before leaning forwards so close that you can feel her hot breath on your face. Suddenly craning her neck forwards, she plants her plump, wet lips against your cheek and gives you an affectionate kiss. Before you can react, she quickly pulls away, and you fully open your eyes to see her spin around on the spot and turn her back on you.
 	</p>
 	]]>
 	</htmlContent>

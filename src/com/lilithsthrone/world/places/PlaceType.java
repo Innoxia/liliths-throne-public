@@ -1,23 +1,28 @@
 package com.lilithsthrone.world.places;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.npc.dominion.Elle;
 import com.lilithsthrone.game.character.npc.dominion.Helena;
 import com.lilithsthrone.game.character.npc.dominion.Wes;
+import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.encounters.AbstractEncounter;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.DemonHome;
@@ -31,10 +36,8 @@ import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemograp
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallProperty;
 import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.BraxOffice;
 import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.EnforcerHQDialogue;
-import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
-import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
+import com.lilithsthrone.game.dialogue.places.dominion.feliciaApartment.FeliciaApartment;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestHelena;
-import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestsDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.helenaHotel.HelenaApartment;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Lab;
@@ -64,7 +67,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFi
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFirstFloorRepeat;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloorRepeat;
-import com.lilithsthrone.game.dialogue.places.global.GlobalFoloiFields;
+import com.lilithsthrone.game.dialogue.places.fields.FieldsDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.BatCaverns;
 import com.lilithsthrone.game.dialogue.places.submission.LyssiethPalaceDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.SlimeQueensLair;
@@ -315,7 +318,6 @@ public class PlaceType {
 			PresetColour.BASE_PINK_LIGHT,
 			DominionPlaces.BOULEVARD,
 			Darkness.ALWAYS_LIGHT, Encounter.DOMINION_BOULEVARD, "in the streets of Dominion") {
-
 		@Override
 		public List<Population> getPopulation() {
 			return DOMINION_PLAZA.getPopulation();
@@ -385,13 +387,13 @@ public class PlaceType {
 	
 	public static final AbstractPlaceType DOMINION_DEMON_HOME_ARTHUR = new AbstractPlaceType(
 			WorldRegion.DOMINION,
-			"Demon Home (Arthur)",
-			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are of all manner of different races.",
-			"dominion/demonHomeArthurIcon",
+			"Sawlty Towers",
+			"A large stone building ornately decorated in the Victorian style, it resembles a five-star hotel more than an apartment complex.",
+			"dominion/demonHomeSawltyTowersIcon",
 			PresetColour.RACE_HUMAN,
 			DemonHome.DEMON_HOME_STREET_ARTHUR,
 			Darkness.ALWAYS_LIGHT,
-			null, "in the streets of Demon Home") {
+			null, "in the streets of Demon Home outside Sawlty Towers") {
 		@Override
 		public String getName() {
 			if(Main.game.isStarted()) {
@@ -488,6 +490,26 @@ public class PlaceType {
 			"As she's shown you where she lives, you know that Nyan's Apartment building is in this area of Dominion.",
 			"dominion/homeNyanIcon",
 			PresetColour.BASE_PINK_LIGHT,
+			DominionPlaces.STREET,
+			Darkness.ALWAYS_LIGHT,
+			Encounter.DOMINION_STREET,
+			"in the streets of Dominion") {
+		@Override
+		public boolean isDangerous() {
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
+		}
+		@Override
+		public List<Population> getPopulation() {
+			return DOMINION_STREET.getPopulation();
+		}
+	};
+
+	public static final AbstractPlaceType DOMINION_CALLIE_BAKERY = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"The Creamy Bakey",
+			"This bakery is owned by a horse-girl named Callie.",
+			"dominion/callieBakeryIcon",
+			PresetColour.BASE_BROWN,
 			DominionPlaces.STREET,
 			Darkness.ALWAYS_LIGHT,
 			Encounter.DOMINION_STREET,
@@ -631,7 +653,7 @@ public class PlaceType {
 
 	public static final AbstractPlaceType DOMINION_RED_LIGHT_DISTRICT = new AbstractPlaceType(
 			WorldRegion.DOMINION,
-			"Red Light District",
+			"Red-Light District",
 			"As easy as sex is to come by in Dominion, there's no guarantee that a partner has any skill in the bedroom. It's in this area that professional, obligation-free lovers can be hired.",
 			"dominion/brothel",
 			PresetColour.BASE_MAGENTA,
@@ -737,7 +759,8 @@ public class PlaceType {
 			PresetColour.BASE_BLACK,
 			DominionPlaces.BACK_ALLEYS,
 			Darkness.DAYLIGHT, Encounter.DOMINION_ALLEY, "in one of Dominion's backalleys"
-			).initDangerous();
+			).initDangerous()
+			.initSexNotBlockedFromCharacterPresent();
 
 	public static final AbstractPlaceType DOMINION_DARK_ALLEYS = new AbstractPlaceType(
 			WorldRegion.DOMINION,
@@ -747,19 +770,20 @@ public class PlaceType {
 			PresetColour.BASE_PURPLE,
 			DominionPlaces.DARK_ALLEYS,
 			Darkness.DAYLIGHT, Encounter.DOMINION_DARK_ALLEY, "in one of Dominion's dark alleyways"
-			).initDangerous();
+			).initDangerous()
+			.initSexNotBlockedFromCharacterPresent();
 	
 	public static final AbstractPlaceType DOMINION_ALLEYS_CANAL_CROSSING = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Canal Crossing",
-			"These alleyway crossings over the city's canal are considered to be very dangerous, and have the reputation as being the favourite haunts of dangerous desperados.",
+			"These alleyway crossings over the city's canal are considered to be very dangerous, and have the reputation as being the favourite haunts of dangerous desperadoes.",
 			"dominion/bridge",
 			PresetColour.BASE_BLUE_LIGHT,
 			DominionPlaces.BACK_ALLEYS_CANAL,
 			Darkness.DAYLIGHT, Encounter.DOMINION_ALLEY, "in one of Dominion's backalleys"
 			).initDangerous()
 			.initAquatic(Aquatic.MIXED);
-	
+	       
 	// Canals:
 	
 	public static final AbstractPlaceType DOMINION_CANAL = new AbstractPlaceType(
@@ -906,7 +930,7 @@ public class PlaceType {
 	public static final AbstractPlaceType ENFORCER_HQ_STAIRS = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Guarded Staircase",
-			"A staircase leaduing up to the next floor is guarded by a vigilant Enforcer.",
+			"A staircase leading up to the next floor is guarded by a vigilant Enforcer.",
 			"dominion/enforcerHQ/stairs",
 			PresetColour.BASE_GREEN,
 			EnforcerHQDialogue.STAIRCASE,
@@ -1094,7 +1118,7 @@ public class PlaceType {
 
 	public static final AbstractPlaceType ENFORCER_HQ_REQUISITIONS = new AbstractPlaceType(
 			WorldRegion.DOMINION,
-			"Requisions Desk",
+			"Requisitions Desk",
 			"Specialist or replacement Enforcer equipment is checked out of this area.",
 			"dominion/enforcerHQ/requisitions",
 			PresetColour.BASE_TAN,
@@ -1114,7 +1138,7 @@ public class PlaceType {
 	public static final AbstractPlaceType ENFORCER_HQ_OFFICE_QUARTERMASTER = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Quartermaster's Office",
-			"Responsible for the management of Enforcer equipment, the HQ's quartermaster has their office conveniently positioned opposite to the Requisions Desk.",
+			"Responsible for the management of Enforcer equipment, the HQ's quartermaster has their office conveniently positioned opposite to the Requisitions Desk.",
 			"dominion/enforcerHQ/office",
 			PresetColour.BASE_ORANGE,
 			EnforcerHQDialogue.OFFICE_QUARTERMASTER,
@@ -1122,9 +1146,92 @@ public class PlaceType {
 			null, "")
 			.initWeatherImmune();
 	
-	
-	
-	
+        //Felicia's Apartment       
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_ENTRYWAY = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Entrance Hall",
+			"The entryway in [felicia.NamePos] apartment has a coat closet off to the side.",
+			"dominion/feliciaApartment/entranceHall",
+			PresetColour.BASE_RED,
+			FeliciaApartment.ENTRYWAY,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the entrance hall of [felicia.NamePos] apartment"
+        ).initWeatherImmune();
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_BEDROOM = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Bedroom",
+			"PLACEHOLDER_FELICIA_APARTMENT_BEDROOM",
+			"dominion/feliciaApartment/feliciaBedroom",
+			PresetColour.BASE_YELLOW_PALE,
+			FeliciaApartment.FELICIA_BEDROOM,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in [felicia.NamePos] bedroom"
+        ).initWeatherImmune();
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_BATHROOM = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Bathroom",
+			"PLACEHOLDER_FELICIA_APARTMENT_BATHROOM",
+			"dominion/feliciaApartment/toilet",
+			PresetColour.BASE_BLUE_LIGHT,
+			FeliciaApartment.BATHROOM,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the bathroom in Felicia's apartment"
+        ).initWeatherImmune();
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_KITCHEN = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Kitchen",
+			"The barren kitchen is open to both the hallway and the dining area.",
+			"dominion/feliciaApartment/kitchen",
+			PresetColour.BASE_ORANGE,
+			FeliciaApartment.KITCHEN,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the kitchen in [felicia.NamePos] apartment"
+        ).initWeatherImmune();
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_DINING_AREA = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Dining Area",
+			"The dining area in [felicia.NamePos] apartment is cramped despite being equipped to only seat one.",
+			"dominion/feliciaApartment/diningArea",
+			PresetColour.BASE_BLUE_STEEL,
+			FeliciaApartment.DINING_AREA,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the dining area in [felicia.NamePos] apartment"
+        ).initWeatherImmune();
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_LIVING_AREA = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Living Area",
+			"[felicia.Name]'s living room is sparsely decorated but has a view of Dominion's streets.",
+			"dominion/feliciaApartment/livingArea",
+			PresetColour.BASE_INDIGO,
+			FeliciaApartment.LIVING_AREA,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the living area in [felicia.NamePos] apartment"
+        ).initWeatherImmune();
+        
+        public static final AbstractPlaceType FELICIA_APARTMENT_HALLWAY = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Hallway",
+			"The hallway is totally void of decoration or furniture.",
+			null,
+			PresetColour.BASE_BLACK,
+			FeliciaApartment.HALLWAY,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the hallway in [felicia.NamePos] apartment"
+        ).initWeatherImmune();
+        
 	// Enforcer warehouse:
 	
 	public static final AbstractPlaceType ENFORCER_WAREHOUSE_ENTRANCE = new AbstractPlaceType(
@@ -1633,7 +1740,7 @@ public class PlaceType {
 				return Util.newArrayListOfValues(new Population(true, PopulationType.HARPY, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.HARPY_NEST, this, false, false)));
 			}
 		}
-	};
+	}.initSexNotBlockedFromCharacterPresent();
 	
 	public static final AbstractPlaceType HARPY_NESTS_WALKWAYS_BRIDGE = new AbstractPlaceType(
 			WorldRegion.HARPY_NESTS,
@@ -1651,7 +1758,7 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			return HARPY_NESTS_WALKWAYS.getPopulation();
 		}
-	};
+	}.initSexNotBlockedFromCharacterPresent();
 
 	public static final AbstractPlaceType HARPY_NESTS_ENTRANCE_ENFORCER_POST = new AbstractPlaceType(
 			WorldRegion.DOMINION,
@@ -1689,12 +1796,16 @@ public class PlaceType {
 			"Diana's nest consists primarily of angry red harpies; their feather colour an attempt to mimic the appearance of their sadistic leader.",
 			"dominion/harpyNests/nestRed",
 			PresetColour.BASE_CRIMSON,
-			HarpyNestDominant.HARPY_NEST_DOMINANT,
+			null,
 			Darkness.ALWAYS_LIGHT,
 			null, "in Diana's nest"){
 		@Override
 		public List<Population> getPopulation() {
 			return HARPY_NESTS_WALKWAYS.getPopulation();
+		}
+		@Override
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			return DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_dominant_exterior");
 		}
 	};
 	
@@ -1704,12 +1815,16 @@ public class PlaceType {
 			"Lexi's nest contains a disproportionate amount of harpy males, each of whom hangs around in the hopes of getting to fuck their sex-loving matriarch.",
 			"dominion/harpyNests/nestPink",
 			PresetColour.BASE_PINK_LIGHT,
-			HarpyNestNympho.HARPY_NEST_NYMPHO,
+			null,
 			Darkness.ALWAYS_LIGHT,
 			null, "in Lexi's nest"){
 		@Override
 		public List<Population> getPopulation() {
 			return HARPY_NESTS_WALKWAYS.getPopulation();
+		}
+		@Override
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			return DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_nympho_exterior");
 		}
 	};
 	
@@ -1719,12 +1834,16 @@ public class PlaceType {
 			"Brittany's nest has a considerable population of bleach-blonde-feathered, big-busted, bimbo harpies.",
 			"dominion/harpyNests/nestYellow",
 			PresetColour.BASE_YELLOW_LIGHT,
-			HarpyNestBimbo.HARPY_NEST_BIMBO,
+			null,
 			Darkness.ALWAYS_LIGHT,
 			null, "in Brittany's nest"){
 		@Override
 		public List<Population> getPopulation() {
 			return HARPY_NESTS_WALKWAYS.getPopulation();
+		}
+		@Override
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			return DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_bimbo_exterior");
 		}
 	};
 	
@@ -1916,6 +2035,46 @@ public class PlaceType {
 		@Override
 		public String getPlaceNameAppendFormat(int count) {
 			return " FG-"+String.format("%02d", count);
+		}
+	}.initItemsPersistInTile()
+	.initWeatherImmune();
+	
+	public static final AbstractPlaceType LILAYA_HOME_DUNGEON_CELL = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Dungeon cell",
+			"The cells within Lilaya's dungeon are designed to be cramped and uncomfortable.",
+			"dominion/lilayasHome/roomSlave",
+			PresetColour.BASE_GREY,//BASE_MAGENTA
+			LilayaHomeGeneric.DUNGEON_CELL,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in Lilaya's dungeon") {
+		@Override
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			if(cell!=null) {
+				for(AbstractPlaceUpgrade pu : cell.getPlace().getPlaceUpgrades()) {
+					if(pu.getRoomDialogue(cell)!=null) {
+						return pu.getRoomDialogue(cell);
+					}
+				}
+			}
+			return LilayaHomeGeneric.DUNGEON_CELL;
+		}
+		@Override
+		public ArrayList<AbstractPlaceUpgrade> getStartingPlaceUpgrades() {
+			return Util.newArrayListOfValues(PlaceUpgrade.LILAYA_DUNGEON_CELL);
+		}
+		@Override
+		public ArrayList<AbstractPlaceUpgrade> getAvailablePlaceUpgrades(Set<AbstractPlaceUpgrade> upgrades) {
+			return PlaceUpgrade.getDungeonCellUpgrades();
+		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
+		}
+		@Override
+		public String getPlaceNameAppendFormat(int count) {
+			return " D-"+String.format("%02d", count);
 		}
 	}.initItemsPersistInTile()
 	.initWeatherImmune();
@@ -2579,7 +2738,7 @@ public class PlaceType {
 	public static final AbstractPlaceType ANGELS_KISS_OFFICE = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Angel's Office",
-			"The room in which Angel does all of the paperwork required of her as the red light district's 'Enforcer-sanctioned administration centre'.",
+			"The room in which Angel does all of the paperwork required of her as the red-light district's 'Enforcer-sanctioned administration centre'.",
 			"dominion/angelsKiss/office",
 			PresetColour.BASE_BLUE_LIGHT,
 			RedLightDistrict.ANGELS_KISS_OFFICE,
@@ -2721,7 +2880,7 @@ public class PlaceType {
 	public static final AbstractPlaceType SHOPPING_ARCADE_PIXS_GYM = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Pix's Playground",
-			"A huge, multi-story gym, 'Pix's Playground' is both owned and run by a particularly energetic border-collie-girl.",
+			"A huge, multi-story gym, 'Pix's Playground' is both owned and run by a particularly energetic border collie-girl.",
 			"dominion/shoppingArcade/gym",
 			PresetColour.BASE_GOLD,
 			PixsPlayground.GYM_EXTERIOR,
@@ -3315,7 +3474,7 @@ public class PlaceType {
 	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_SEATING = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Recessed seating",
-			"Around the edges of the taven's main floor, there are several recessed seating areas.",
+			"Around the edges of the tavern's main floor, there are several recessed seating areas.",
 			"dominion/slaverAlley/bountyHunterLodge/seatingArea",
 			PresetColour.BASE_BROWN,
 			BountyHunterLodge.SEATING,
@@ -3345,7 +3504,7 @@ public class PlaceType {
 	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_UPSTAIRS_CORRIDOR = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Corridor",
-			"A narrow corridor links all the rooms on teh tavern's first floor.",
+			"A narrow corridor links all the rooms on the tavern's first floor.",
 			null,
 			PresetColour.BASE_BLACK,
 			BountyHunterLodge.UPSTAIRS_CORRIDOR,
@@ -3894,7 +4053,8 @@ public class PlaceType {
 			SubmissionGenericPlaces.TUNNEL,
 			Darkness.ALWAYS_DARK, Encounter.SUBMISSION_TUNNELS, "in Submission"
 			).initDangerous()
-			.initWeatherImmune();
+			.initWeatherImmune()
+			.initSexNotBlockedFromCharacterPresent();
 
 	public static final AbstractPlaceType SUBMISSION_BAT_CAVERNS = new AbstractPlaceType(
 			WorldRegion.SUBMISSION,
@@ -3906,7 +4066,8 @@ public class PlaceType {
 			Darkness.ALWAYS_LIGHT,
 			null, "in Submission"
 			).initWeatherImmune()
-			.initAquatic(Aquatic.MIXED);
+			.initAquatic(Aquatic.MIXED)
+			.initSexNotBlockedFromCharacterPresent();
 	
 	public static final AbstractPlaceType SUBMISSION_RAT_WARREN = new AbstractPlaceType(
 			WorldRegion.SUBMISSION,
@@ -4019,7 +4180,8 @@ public class PlaceType {
 			return getSVGOverride("submission/impTunnels1Icon", PresetColour.BASE_RED);
 		}
 	}.initDangerous()
-	.initWeatherImmune();
+	.initWeatherImmune()
+	.initSexNotBlockedFromCharacterPresent();
 
 	public static final AbstractPlaceType FORTRESS_ALPHA_ENTRANCE = new AbstractPlaceType(
 			WorldRegion.SUBMISSION,
@@ -4094,7 +4256,8 @@ public class PlaceType {
 			return getSVGOverride("submission/impTunnels2Icon", PresetColour.BASE_PURPLE);
 		}
 	}.initDangerous()
-	.initWeatherImmune();
+	.initWeatherImmune()
+	.initSexNotBlockedFromCharacterPresent();
 	
 	public static final AbstractPlaceType FORTRESS_DEMON_ENTRANCE = new AbstractPlaceType(
 			WorldRegion.SUBMISSION,
@@ -4284,7 +4447,8 @@ public class PlaceType {
 			return getSVGOverride("submission/impTunnels3Icon", PresetColour.BASE_PINK_LIGHT);
 		}
 	}.initDangerous()
-	.initWeatherImmune();
+	.initWeatherImmune()
+	.initSexNotBlockedFromCharacterPresent();
 
 	public static final AbstractPlaceType FORTRESS_FEMALES_ENTRANCE = new AbstractPlaceType(
 			WorldRegion.SUBMISSION,
@@ -4359,7 +4523,8 @@ public class PlaceType {
 			return getSVGOverride("submission/impTunnels4Icon", PresetColour.BASE_BLUE_LIGHT);
 		}
 	}.initDangerous()
-	.initWeatherImmune();
+	.initWeatherImmune()
+	.initSexNotBlockedFromCharacterPresent();
 
 	public static final AbstractPlaceType FORTRESS_MALES_ENTRANCE = new AbstractPlaceType(
 			WorldRegion.SUBMISSION,
@@ -4500,8 +4665,17 @@ public class PlaceType {
 			PresetColour.BASE_CRIMSON,
 			LyssiethPalaceDialogue.SIREN_OFFICE,
 			Darkness.ALWAYS_LIGHT,
-			null, "in Lyssieth's Palace"
-			).initWeatherImmune();
+			null, "in Lyssieth's Palace") {
+		@Override
+		public List<Population> getPopulation() {
+			if(Main.game.getNpc(DarkSiren.class).getHomeWorldLocation()!=WorldType.LYSSIETH_PALACE) {
+				return Util.newArrayListOfValues(new Population(false, PopulationType.RECEPTIONIST, PopulationDensity.ONE,
+						Util.newHashMapOfValues(
+								new Value<>(Subspecies.HALF_DEMON, SubspeciesSpawnRarity.FOUR_COMMON))));
+			}
+			return super.getPopulation();
+		}
+	}.initWeatherImmune();
 	
 	public static final AbstractPlaceType LYSSIETH_PALACE_STAIRS_1 = new AbstractPlaceType(
 			WorldRegion.SUBMISSION,
@@ -5128,7 +5302,7 @@ public class PlaceType {
 			Darkness.ALWAYS_LIGHT,
 			null, "in the Rat Warrens") {
 		@Override
-		public Encounter getEncounterType() {
+		public AbstractEncounter getEncounterType() {
 			if(Main.game.getPlayer().isCaptive()) {
 				return Encounter.VENGAR_CAPTIVE_HALL;
 			}
@@ -5167,7 +5341,7 @@ public class PlaceType {
 			null,
 			"in the Rat Warrens") {
 		@Override
-		public Encounter getEncounterType() {
+		public AbstractEncounter getEncounterType() {
 			if(Main.game.getPlayer().isCaptive()) {
 				return Encounter.VENGAR_CAPTIVE_BEDROOM;
 			}
@@ -5401,16 +5575,39 @@ public class PlaceType {
 
 	public static final AbstractGlobalPlaceType WORLD_MAP_DOMINION = new AbstractGlobalPlaceType(
 			WorldRegion.DOMINION,
-			"Dominion",
+			"Dominion Suburbs",
 			"The capital city of Lilith's realm, Dominion is the succubus queen's seat of power.",
 			"global/dominion",
 			PresetColour.BASE_PURPLE,
 			new Colour(Util.newColour(0x826B85)),
-			GlobalFoloiFields.DOMINION_EXTERIOR,
+			FieldsDialogue.DOMINION_EXTERIOR,
 			null, "in the outskirts of Dominion") {
+		@Override
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.leftDominionFirstTime)) {
+				return FieldsDialogue.DOMINION_EXTERIOR;
+			} else {
+				return DialogueManager.getDialogueFromId("innoxia_places_fields_leaving_dominion_start");
+			}
+		}
 		@Override
 		public AbstractWorldType getGlobalLinkedWorldType() {
 			return WorldType.DOMINION;
+		}
+		@Override
+		public List<Population> getPopulation() {
+			List<Population> pop = new ArrayList<>();
+			
+			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getDominionStormImmuneSpecies(true)));
+				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getDominionStormImmuneSpecies(true, Subspecies.HUMAN)));
+			} else {
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
+				pop.add(new Population(false, PopulationType.CENTAUR_CARTS, PopulationDensity.OCCASIONAL, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
+			}
+			
+			return pop;
 		}
 	}.initAquatic(Aquatic.MIXED);
 
@@ -5420,7 +5617,7 @@ public class PlaceType {
 			null,
 			"The grassland wilderness is home to many different races, the vast majority of which are just as wild and untamed as the land they inhabit.",
 			new Colour(Util.newColour(0x688255)),
-			GlobalFoloiFields.GRASSLAND_WILDERNESS,
+			FieldsDialogue.GRASSLAND_WILDERNESS,
 			null, "") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
@@ -5430,26 +5627,26 @@ public class PlaceType {
 	
 	public static final AbstractGlobalPlaceType WORLD_MAP_FIELDS = new AbstractGlobalPlaceType(
 			WorldRegion.FIELDS,
-			"Foloi fields",
+			"Foloi Fields",
 			null,
-			"The farmland surrounding Dominion is known as the 'Foloi fields', and is primarily inhabited by farmyard animal-morphs.",
+			"The farmland surrounding Dominion is known as the 'Foloi Fields', and is primarily inhabited by farmyard animal-morphs.",
 			new Colour(Util.newColour(0xB9E3A1)),
-			GlobalFoloiFields.FOLOI_FIELDS,
+			FieldsDialogue.FOLOI_FIELDS,
 			null, "") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
-	};
+	}.initDangerous();
 	
 	public static final AbstractGlobalPlaceType WORLD_MAP_FOREST = new AbstractGlobalPlaceType(
 			WorldRegion.WOODLAND,
 			"Foloi forests",
-			"The thick forests surrounding the Foloi fields are particularly dangerous, as they are home to the wild, predatory morphs of wolves, foxes, and bears.",
+			"The thick forests surrounding the Foloi Fields are particularly dangerous, as they are home to the wild, predatory morphs of wolves, foxes, and bears.",
 			"global/forest",
 			new Colour(Util.newColour(0x51A468)),
 			new Colour(Util.newColour(0x5E685E)),
-			GlobalFoloiFields.FOLOI_FOREST,
+			FieldsDialogue.FOLOI_FOREST,
 			null, "") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
@@ -5460,11 +5657,11 @@ public class PlaceType {
 	public static final AbstractGlobalPlaceType WORLD_MAP_FIELDS_CITY = new AbstractGlobalPlaceType(
 			WorldRegion.FIELD_CITY,
 			"Elis",
-			"The largest and most prosperous of all settlements in the Foloi fields, Elis acts as a trading hub for both the youko and the races inhabiting the mountains.",
+			"The largest and most prosperous of all settlements in the Foloi Fields, Elis acts as a trading hub for both the youko and the races inhabiting the mountains.",
 			"global/elis",
 			new Colour(Util.newColour(0xd544ae)),
 			new Colour(Util.newColour(0x859871)),
-			GlobalFoloiFields.ELIS,
+			FieldsDialogue.ELIS,
 			null, "") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
@@ -5475,17 +5672,18 @@ public class PlaceType {
 	public static final AbstractGlobalPlaceType WORLD_MAP_RIVER = new AbstractGlobalPlaceType(
 			WorldRegion.RIVER,
 			"river Hubur",
-			"The river Huber runs from the west, through Dominion, and flows out into the endless sea. Those parts of it which border the Foloi fields are considered safe.",
+			"The river Hubur runs from the west, through Dominion, and flows out into the endless sea. Those parts of it which border the Foloi Fields are considered safe.",
 			"global/river",
 			new Colour(Util.newColour(0x61BDFF)),
 			new Colour(Util.newColour(0x98B4CD)),
-			GlobalFoloiFields.RIVER_HUBUR,
+			FieldsDialogue.RIVER_HUBUR,
 			null, "") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
-	}.initAquatic(Aquatic.MIXED);
+	}.initAquatic(Aquatic.MIXED)
+	.initDangerous();
 
 	public static final AbstractGlobalPlaceType WORLD_MAP_WILD_RIVER = new AbstractGlobalPlaceType(
 			WorldRegion.RIVER,
@@ -5632,8 +5830,8 @@ public class PlaceType {
 	}
 	
 	public static AbstractPlaceType getPlaceTypeFromId(String id) {
-		id.replaceAll("ALEXA", "HELENA");
-		id.replaceAll("SUPPLIER_DEPOT", "TEXTILE_WAREHOUSE");
+		id = id.replaceAll("ALEXA", "HELENA");
+		id = id.replaceAll("SUPPLIER_DEPOT", "TEXTILE_WAREHOUSE");
 		
 		if(id.equals("ZARANIX_FF_BEDROOM")) {
 			id = "ZARANIX_FF_OFFICE";
@@ -5676,6 +5874,48 @@ public class PlaceType {
 	}
 	
 	static {
+		// Modded place types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/maps", "placeTypes", null);
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					String id = innerEntry.getKey().replace("_placeTypes", "");
+					AbstractPlaceType placeType = new AbstractPlaceType(innerEntry.getValue(), entry.getKey(), id, true) {};
+					allPlaceTypes.add(placeType);
+					placeToIdMap.put(placeType, id);
+					idToPlaceMap.put(id, placeType);
+//					System.out.println("modded PT: "+innerEntry.getKey());
+				} catch(Exception ex) {
+					System.err.println("Loading modded place type failed at 'PlaceType'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		// External res place types:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/maps", "placeTypes", null);
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					String id = innerEntry.getKey().replace("_placeTypes", "");
+					AbstractPlaceType placeType = new AbstractPlaceType(innerEntry.getValue(), entry.getKey(), id, false) {};
+					allPlaceTypes.add(placeType);
+					placeToIdMap.put(placeType, id);
+					idToPlaceMap.put(id, placeType);
+//					System.out.println("res PT: "+innerEntry.getKey()+" | "+id);
+				} catch(Exception ex) {
+					System.err.println("Loading place type failed at 'PlaceType'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
+
+		// Hard-coded place types (all those up above):
+		
 		Field[] fields = PlaceType.class.getFields();
 		
 		for(Field f : fields) {

@@ -32,7 +32,7 @@ public class DominionEncounterDialogue {
 		}
 		@Override
 		public String getContent() {
-			UtilText.addSpecialParsingString(Encounter.getRandomItem().getDisplayName(true), true);
+			UtilText.addSpecialParsingString(AbstractEncounter.getRandomItem().getDisplayName(true), true);
 			if(isCanal()) {
 				return UtilText.parseFromXMLFile("encounters/dominion/generic", "CANAL_FIND_PACKAGE");
 			} else {
@@ -42,23 +42,23 @@ public class DominionEncounterDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Take", "Add the " + Encounter.getRandomItem().getName() + " to your inventory.", Main.game.getDefaultDialogue(false)){
+				return new Response("Take", "Add the " + AbstractEncounter.getRandomItem().getName() + " to your inventory.", Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
-						if(Encounter.getRandomItem() instanceof AbstractWeapon) {
-							Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addWeapon((AbstractWeapon) Encounter.getRandomItem(), true));
+						if(AbstractEncounter.getRandomItem() instanceof AbstractWeapon) {
+							Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addWeapon((AbstractWeapon) AbstractEncounter.getRandomItem(), true));
 							
-						} else if(Encounter.getRandomItem() instanceof AbstractClothing) {
-							Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addClothing((AbstractClothing) Encounter.getRandomItem(), true));
+						} else if(AbstractEncounter.getRandomItem() instanceof AbstractClothing) {
+							Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addClothing((AbstractClothing) AbstractEncounter.getRandomItem(), true));
 							
-						} else if(Encounter.getRandomItem() instanceof AbstractItem) {
-							Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addItem((AbstractItem) Encounter.getRandomItem(), true, true));
+						} else if(AbstractEncounter.getRandomItem() instanceof AbstractItem) {
+							Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addItem((AbstractItem) AbstractEncounter.getRandomItem(), true, true));
 						}
 					}
 				};
 				
 			} else if (index == 2) {
-				return new Response("Leave", "Leave the " + Encounter.getRandomItem().getName() + " on the floor.", Main.game.getDefaultDialogue(false));
+				return new Response("Leave", "Leave the " + AbstractEncounter.getRandomItem().getName() + " on the floor.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -73,22 +73,22 @@ public class DominionEncounterDialogue {
 		}
 		@Override
 		public String getContent() {
-			UtilText.addSpecialParsingString(Encounter.getRandomItem().getDisplayName(true), true);
-			UtilText.addSpecialParsingString(Encounter.getRandomItem().getName(), false);
+			UtilText.addSpecialParsingString(AbstractEncounter.getRandomItem().getDisplayName(true), true);
+			UtilText.addSpecialParsingString(AbstractEncounter.getRandomItem().getName(), false);
 			return UtilText.parseFromXMLFile("encounters/dominion/generic", "HARPY_NESTS_FIND_ITEM");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Take", "Add the " + Encounter.getRandomItem().getName() + " to your inventory.", Main.game.getDefaultDialogue(false)){
+				return new Response("Take", "Add the " + AbstractEncounter.getRandomItem().getName() + " to your inventory.", Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addItem((AbstractItem) Encounter.getRandomItem(), true, true));
+						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addItem((AbstractItem) AbstractEncounter.getRandomItem(), true, true));
 					}
 				};
 				
 			} else if (index == 2) {
-				return new Response("Leave", "Leave the " + Encounter.getRandomItem().getName() + " on the floor.", Main.game.getDefaultDialogue(false));
+				return new Response("Leave", "Leave the " + AbstractEncounter.getRandomItem().getName() + " on the floor.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -117,7 +117,15 @@ public class DominionEncounterDialogue {
 	};
 
 
-	public static final DialogueNode DOMINION_STREET_PILL_HANDOUT = new DialogueNode("Mother's Week Gift", "", true) {
+	public static final DialogueNode DOMINION_STREET_PILL_HANDOUT = new DialogueNode("", "", true) {
+		@Override
+		public String getLabel() {
+			if(Main.game.getDateNow().getMonth()==Month.MAY) {
+				return "Mother's Week Gift";
+			} else {
+				return "Father's Week Gift";
+			}
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;

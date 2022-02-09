@@ -800,7 +800,6 @@ public class TooltipInventoryEventListener implements EventListener {
 			yIncrease += 2 + absItem.getExtraDescriptions(equippedToCharacter).size();
 		}
 		
-		yIncrease += Math.max(0, listIncrease-4);
 		
 		// Title:
 		tooltipSB.setLength(0);
@@ -820,11 +819,35 @@ public class TooltipInventoryEventListener implements EventListener {
 				+ "<span style='color:" + absItem.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absItem.getRarity().getName())+"</span>"
 				);
 		
-		for(ItemEffect ie : absItem.getEffects()) {
+		
+		String effectEntry = "";
+		int effectMulti = 0;
+		for(int it = 0; it<absItem.getEffects().size(); it++) {
+			ItemEffect ie = absItem.getEffects().get(it);
+			StringBuilder effectSB = new StringBuilder();
 			for(int i=0; i<ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).size(); i++) {
-				tooltipSB.append("</br>"+ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).get(i));
+				if(i!=0) {
+					effectSB.append("</br>");
+				}
+				effectSB.append(ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).get(i));
+			}
+
+			effectEntry = effectSB.toString();
+			if(it==absItem.getEffects().size()-1 || !absItem.getEffects().get(it+1).equals(ie)) {
+				tooltipSB.append("</br>");
+				if(effectMulti>0) {
+					tooltipSB.append("[style.colourArcane(x"+(effectMulti+1)+")] ");
+					listIncrease-=effectMulti;
+				}
+				tooltipSB.append(effectEntry);
+				effectMulti = 0;
+				
+			} else {
+				effectMulti++;
 			}
 		}
+		yIncrease += Math.max(0, listIncrease-4);
+		
 		for(String s : absItem.getItemType().getEffectTooltipLines()) {
 			tooltipSB.append("</br>"+s);
 		}
@@ -942,8 +965,11 @@ public class TooltipInventoryEventListener implements EventListener {
 								?"[style.colourUnarmed(Unarmed)]"
 								:(absWep.getWeaponType().isMelee()
 									?"[style.colourMelee(Melee)]"
-									:"[style.colourRanged(Ranged)]"))+"</br>"
-						+ (absWep.getWeaponType().isTwoHanded()? "Two-handed" : "One-handed")+"</br>"
+									:"[style.colourRanged(Ranged)]"))
+						+"</br>"
+						+ (absWep.getWeaponType().isTwoHanded()? "Two-handed" : "One-handed")
+						+ (absWep.getWeaponType().isOneShot()?" - [style.colourYellow(One-shot)]":"")
+						+"</br>"
 						);
 			
 			float res = absWep.getWeaponType().getPhysicalResistance();
@@ -1004,6 +1030,21 @@ public class TooltipInventoryEventListener implements EventListener {
 							+ "<b>"+ Attack.getMinimumDamage(Main.game.getPlayer(), null, Attack.MAIN, absWep, aoe.getValue()) + " - " + Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, absWep, aoe.getValue())+ "</b>"
 							+ " <b style='color:" + absWep.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>Damage</b>");
 				}
+			}
+			
+			if(absWep.getWeaponType().isOneShot()) {
+				listIncrease++;
+				listIncrease++;
+				int chanceToRecoverTurn = (int)absWep.getWeaponType().getOneShotChanceToRecoverAfterTurn();
+				int chanceToRecoverCombat = (int)absWep.getWeaponType().getOneShotChanceToRecoverAfterCombat();
+
+				tooltipSB.append("<br/><span style='color:"
+						+(chanceToRecoverTurn<=25?PresetColour.GENERIC_BAD:(chanceToRecoverTurn<=50?PresetColour.GENERIC_MINOR_BAD:(chanceToRecoverTurn<=75?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_GOOD))).toWebHexString()
+						+"'>"+chanceToRecoverTurn+"%</span> recovery [style.colourBlueLight(after use)]<br/>");
+				
+				tooltipSB.append("<span style='color:"
+						+(chanceToRecoverCombat<=25?PresetColour.GENERIC_BAD:(chanceToRecoverCombat<=50?PresetColour.GENERIC_MINOR_BAD:(chanceToRecoverCombat<=75?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_GOOD))).toWebHexString()
+						+";'>"+chanceToRecoverCombat+"%</span> recovery [style.colourCombat(after combat)]");
 			}
 			
 			for(String s : absWep.getWeaponType().getExtraEffects()) {

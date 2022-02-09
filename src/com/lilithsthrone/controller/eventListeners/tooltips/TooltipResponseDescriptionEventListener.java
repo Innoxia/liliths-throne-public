@@ -98,7 +98,9 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 				
 				if(!response.hasRequirements()) {
 					if(response instanceof ResponseSex) {
-						if(((ResponseSex)response).isPlayerInDominantSlot()) {
+						if(((ResponseSex)response).isMasturbation()) {
+							tooltipSB.append("<div class='title'><span style='color:" + PresetColour.GENERIC_SEX_AS_DOM.toWebHexString() + ";'>Masturbation</span></div>");
+						} else if(((ResponseSex)response).isPlayerInDominantSlot()) {
 							tooltipSB.append("<div class='title'><span style='color:" + PresetColour.GENERIC_SEX_AS_DOM.toWebHexString() + ";'>Dominant Sex</span></div>");
 						} else {
 							tooltipSB.append("<div class='title'><span style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>Submissive Sex</span></div>");
@@ -251,6 +253,22 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 					boxHeight+= 28 + ((response.lineHeight()+1)*18);
 				}
 				
+				/* TODO
+				 * Verify that there is no adverse effects to using this method to calculate the tooltip height,
+				 * then remove all boxHeight calculations above, I guess, and apply this method to other
+				 * tooltip types that could use this.
+				 */
+				int realHeight = Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
+				
+//				if(false) {
+//					// for every response tooltip, print the height values
+//					// very spammy
+//					System.out.println("predicted: " + boxHeight);
+//					System.out.println("measured:  " + realHeight);
+//				}
+				
+				boxHeight = realHeight;
+
 				Main.mainController.setTooltipSize(360, boxHeight);
 				
 				double xPosition = ((MouseEvent) event).getScreenX() + 16 - 180;
@@ -264,7 +282,6 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 				Main.mainController.getTooltip().setAnchorY(yPosition);
 				
 				TooltipUpdateThread.updateToolTip(xPosition,yPosition);
-				Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 			}
 			
 		}

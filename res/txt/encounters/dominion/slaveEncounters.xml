@@ -7,7 +7,7 @@
 	
 	<htmlContent tag="SLAVE_USES_YOU"><![CDATA[
 	<p>
-		As you walk down one of the many corridors in Lilaya's mansion, a figure suddenly jumps out at you from an open doorway! Taking you completely by surprise, you're unable to react, and you find yourself being pinned up against the wall as your assailant growls into your ear, [npc.speech(Who's the bitch now?!)]
+		As you [pc.walk] down one of the many corridors in Lilaya's mansion, a figure suddenly jumps out at you from an open doorway! Taking you completely by surprise, you're unable to react, and you find yourself being pinned up against the wall as your assailant growls into your ear, [npc.speech(Who's the bitch now?!)]
 	</p>
 	<p>
 		Looking into the grinning face of your slave, [npc.name], you let out a surprised cry as [npc.she] pulls you forwards into [npc.her] [npc.arms]. Before you can even start to say anything in response to this assault, [npc.name] clasps [npc.a_hand+] over your [pc.lips] and [npc.moans], [npc.speech(Right now, you're no better than a slave yourself! I'm going to have some fun with you!)]
@@ -39,7 +39,6 @@
 	]]>
 	</htmlContent>
 	
-	
 	<!-- SLAVE_USES_YOU_POST_SEX -->
 	
 	<htmlContent tag="SLAVE_USES_YOU_POST_SEX"><![CDATA[
@@ -48,6 +47,55 @@
 	</p>
 	<p>
 		With that, [npc.she] walks off, leaving you panting on the floor. It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SLAVE_USES_YOU_DUNGEON -->
+	
+	<htmlContent tag="SLAVE_USES_YOU_DUNGEON"><![CDATA[
+	<p>
+		As you [pc.walk] down the gloomy passageway which snakes its way through Lilaya's dungeon, a figure suddenly jumps out at you from a recessed doorway! Taking you completely by surprise, you're unable to react, and you find yourself being pinned up against the damp stone wall as your assailant growls into your ear, [npc.speech(Well, well, well, look who I found down here!)]
+	</p>
+	<p>
+		Looking into the grinning face of your slave, [npc.name], you let out a surprised cry as [npc.she] pulls you forwards into [npc.her] [npc.arms]. Before you can even start to say anything in response to this assault, [npc.name] clasps [npc.a_hand+] over your [pc.lips] and [npc.moans], [npc.speech(Nobody's going to hear your cries for help down here! I'm going to have some fun with you!)]
+	</p>
+	<p>
+		Being caught totally unawares, you're in no position to fight back, and are at the mercy of your supposed 'slave'...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_YOU_DUNGEON_SEX"><![CDATA[
+	<p>
+		[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away. Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] not going to be content with just a kiss...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_YOU_DUNGEON_SEX_EAGER"><![CDATA[
+	<p>
+		[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you. Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVE_USES_YOU_DUNGEON_SEX_RESIST"><![CDATA[
+	<p>
+		[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss. Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop. Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- SLAVE_USES_YOU_DUNGEON_POST_SEX -->
+	
+	<htmlContent tag="SLAVE_USES_YOU_DUNGEON_POST_SEX"><![CDATA[
+	<p>
+		As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you. [npc.She] looks down at you with a very satisfied smirk on [npc.her] face, before sneering, [npc.speech(That was fun, <i>[npc.pcName]</i>!)]
+	</p>
+	<p>
+		With that, [npc.she] walks off, leaving you panting on the floor of Lilaya's dungeon. It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way.
 	</p>
 	]]>
 	</htmlContent>

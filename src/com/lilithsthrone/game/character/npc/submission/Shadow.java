@@ -102,9 +102,11 @@ public class Shadow extends NPC {
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")
-				&& !this.hasItemType(ItemType.RESONANCE_STONE)) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6") && !this.hasItemType(ItemType.RESONANCE_STONE)) {
 			this.addItem(Main.game.getItemGen().generateItem(ItemType.RESONANCE_STONE), false);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2.1")) {
+			this.setupPerks(true);
 		}
 	}
 
@@ -115,7 +117,9 @@ public class Shadow extends NPC {
 		this.addSpecialPerk(Perk.SPECIAL_SLUT);
 		
 		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(Perk.BESERK),
+				Util.newArrayListOfValues(
+						Perk.BESERK,
+						Perk.UNARMED_TRAINING),
 				Util.newHashMapOfValues(
 						new Value<>(PerkCategory.PHYSICAL, 1),
 						new Value<>(PerkCategory.LUST, 0),
@@ -279,7 +283,7 @@ public class Shadow extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_micro_skirt_belted", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_TUBE_TOP, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.STOMACH_SARASHI, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_stomach_sarashi", PresetColour.CLOTHING_BLACK, false), true, this);
 
 		this.addItem(Main.game.getItemGen().generateItem(ItemType.RESONANCE_STONE), false);
 		
@@ -293,7 +297,7 @@ public class Shadow extends NPC {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("As her adopted name, 'Shadow', suggests, this sneaky rat-girl is an unrivalled expert at sneaking around and remaining unseen when moving by cover of darkness."
-				+ " Her considerable stealth skills are greatly enhanced by the fact that she has pitch-black fur and ebony skin, making her nigh impossible to spot when in a poorly-illumanted area.");
+				+ " Her considerable stealth skills are greatly enhanced by the fact that she has pitch-black fur and ebony skin, making her nigh impossible to spot when in a poorly-illuminated area.");
 
 		sb.append("<br/>"
 				+ "While her lust is not quite as insatiable as her companion, Silence, Shadow does often find herself feeling extremely horny,"

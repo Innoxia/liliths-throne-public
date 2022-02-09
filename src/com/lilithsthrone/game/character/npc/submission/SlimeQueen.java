@@ -99,7 +99,7 @@ public class SlimeQueen extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && this.getFleshSubspecies()!=Subspecies.HUMAN) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && this.getBody().getFleshSubspecies()!=Subspecies.HUMAN) {
 			this.setBody(Gender.F_V_B_FEMALE, Subspecies.SLIME, RaceStage.HUMAN, false);
 		}
 
@@ -135,6 +135,14 @@ public class SlimeQueen extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.1")) {
 			this.setStartingBody(false);
+		}
+		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1.1")) {
+			if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLIME_QUEEN) || Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FIVE_CONVINCE)) {
+				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_slime_queens_tiara", false), true, this);
+			}
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.NIPPLE), CoveringPattern.ORIFICE_NIPPLE, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.MILK, CoveringPattern.FLUID, PresetColour.COVERING_PINK_LIGHT, true, PresetColour.COVERING_PINK_LIGHT, true), false);
 		}
 		
 		setStartingCombatMoves();
@@ -201,9 +209,11 @@ public class SlimeQueen extends NPC {
 		this.setHairCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.HAIR), PresetColour.COVERING_PINK_DARK), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MOUTH), CoveringPattern.ORIFICE_MOUTH, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.TONGUE), CoveringPattern.NONE, PresetColour.COVERING_PINK_DARK, true, PresetColour.COVERING_PINK_DARK, true), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.NIPPLE), PresetColour.COVERING_PINK_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.NIPPLE), CoveringPattern.ORIFICE_NIPPLE, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.VAGINA), CoveringPattern.ORIFICE_VAGINA, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.PENIS), CoveringPattern.NONE, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);	
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.PENIS), CoveringPattern.NONE, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
+
+		this.setSkinCovering(new Covering(BodyCoveringType.MILK, CoveringPattern.FLUID, PresetColour.COVERING_PINK_LIGHT, true, PresetColour.COVERING_PINK_LIGHT, true), false);
 		
 		this.setHairLength(HairLength.FOUR_MID_BACK.getMaximumValue());
 		this.setHairStyle(HairStyle.HIME_CUT);
@@ -286,9 +296,9 @@ public class SlimeQueen extends NPC {
 		
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 
-		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLIME_QUEEN) && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FIVE_CONVINCE)) {
+		//if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLIME_QUEEN) && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FIVE_CONVINCE)) {
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_slime_queens_tiara", false), true, this);
-		}
+		//}
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_ring", PresetColour.CLOTHING_GOLD, false), true, this);

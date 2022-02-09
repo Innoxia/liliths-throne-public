@@ -15,7 +15,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.5
- * @version 0.2.5
+ * @version 0.4.2.2
  * @author Innoxia
  */
 public class RentalMommyDialogue {
@@ -41,16 +41,16 @@ public class RentalMommyDialogue {
 				if(Main.game.getPlayer().getMoney()<50) {
 					return new Response("Hire "+UtilText.formatAsMoneyUncoloured(50, "span"), "You don't have enough money for this!", null);
 				}
-				return new Response("Hire "+UtilText.formatAsMoney(50, "span"), "Hire the rental Mommy.", MOMMYS_EXTRAS) {
+				return new Response("Hire "+UtilText.formatAsMoney(50, "span"), "Hire the rental Mommy and spend some time resting your head on her lap.", MOMMYS_EXTRAS) {
 					@Override
 					public void effects() {
-						Main.game.getPlayer().incrementMoney(-50);
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-50));
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.mommyFound, true);
 					}
 				};
 				
 			} else if(index==2) {
-				return new Response("Decline", "", ENCOUNTER) {
+				return new Response("Decline", "Tell the rental Mommy that you're not interested in hiring her right now.", ENCOUNTER) {
 					@Override
 					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogue(false);
@@ -245,7 +245,7 @@ public class RentalMommyDialogue {
 		}
 	};
 	
-	public static final DialogueNode AFTER_SEX_MOMMY_AS_DOM = new DialogueNode("Rental Mommy", "", true) {
+	public static final DialogueNode AFTER_SEX_MOMMY_AS_DOM = new DialogueNode("Finished", "The rental Mommy has given you your money's worth, and so brings an end to the sex...", true) {
 
 		@Override
 		public String getContent() {
@@ -278,7 +278,7 @@ public class RentalMommyDialogue {
 		}
 	};
 	
-	public static final DialogueNode AFTER_SEX_MOMMY_AS_SUB = new DialogueNode("Rental Mommy", "", true) {
+	public static final DialogueNode AFTER_SEX_MOMMY_AS_SUB = new DialogueNode("Finished", "The rental Mommy has given you your money's worth, and so brings an end to the sex...", true) {
 
 		@Override
 		public String getContent() {

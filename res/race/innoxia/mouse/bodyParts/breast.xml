@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<breast>
+	<race>innoxia_mouse</race>
+	
+	<transformationName><![CDATA[mouse]]></transformationName>
+	
+	<coveringType>innoxia_mouse_fur</coveringType>
+	
+	<nippleType>innoxia_mouse_nipple</nippleType>
+	
+	<fluidType>innoxia_mouse_milk</fluidType>
+	
+	<names/>
+	<namesPlural/>
+	<descriptors/>
+	
+	<namesFlat/>
+	<namesPluralFlat/>
+	<descriptorsFlat/>
+	
+	<transformationDescription><![CDATA[
+		[npc.She] now [npc.has] [style.boldMouse(mouse-like)], [npc.nipplesFullDescription], and when lactating, [npc.she] will produce [style.boldMouse(mouse milk)].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		On each of [npc.her] [npc.breastSize] [npc.breasts], [npc.she] [npc.has] [npc.nipplesPerBreast] mouse-like, [npc.nipplesFullDescription].
+	]]></bodyDescription>
+	
+	<crotchBoobsTransformationDescription><![CDATA[
+		[npc.She] now [npc.has] [style.boldMouse(mouse-like)], [npc.crotchNipplesFullDescription], and when lactating, [npc.she] will produce [style.boldMouse(mouse milk)].
+	]]></crotchBoobsTransformationDescription>
+	
+	<crotchBoobsBodyDescription><![CDATA[
+		On each of [npc.her] [npc.crotchBoobSize] [npc.crotchBoobs], [npc.she] [npc.has] [npc.crotchNipplesPerBreast] mouse-like, [npc.crotchNipplesFullDescription].
+	]]></crotchBoobsBodyDescription>
+</breast>

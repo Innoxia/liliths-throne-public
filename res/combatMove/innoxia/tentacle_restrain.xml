@@ -96,7 +96,7 @@
 				[##npc2.removeStatusEffectCombat(SE_TENTACLE_RESTRAIN_2)]
 				[##npc2.addStatusEffect(SE_TENTACLE_RESTRAIN_3, 10)]
 				<br/>[style.italicsTerrible([npc2.NameIsFull] almost totally constricted by [npc.namePos] tentacles, and as such [npc2.is] near to being completely defeated!)]
-				<br/>[style.italicsTerrible(If [npc2.name] [npc2.verb(get)] tentacle-grabbed again, [npc.she] will be instantly defeated!)]
+				<br/>[style.italicsTerrible(If [npc2.name] [npc2.verb(get)] tentacle-grabbed again, [npc2.she] will be instantly defeated!)]
 			#ELSEIF(npc2.hasStatusEffect(SE_TENTACLE_RESTRAIN_1))
 				[##npc2.removeStatusEffectCombat(SE_TENTACLE_RESTRAIN_1)]
 				[##npc2.addStatusEffect(SE_TENTACLE_RESTRAIN_2, 10)]

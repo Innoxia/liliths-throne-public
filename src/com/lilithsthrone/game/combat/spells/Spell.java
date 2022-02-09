@@ -2481,7 +2481,7 @@ public enum Spell {
 	// FROM WEAPONS:
 	
 	WITCH_SEAL(false,
-			SpellSchool.AIR,
+			SpellSchool.ARCANE,
 			SpellType.OFFENSIVE_STATUS_EFFECT,
 			DamageType.MISC,
 			false,
@@ -2520,7 +2520,7 @@ public enum Spell {
 										"Concentrating on the arcane power within your broomstick, you summon forth a powerful seal, which traps [npc.name] in place!",
 										"",
 										"Concentrating on the arcane power within [npc.her] broomstick, [npc.name] summons forth a powerful seal, which traps you in place!",
-										"Concentrating on the arcane power within [npc1.her] broomstick, [npc1.name] summons forth a powerful seal, which traps [npc2.name] in place!"));
+										"Concentrating on the arcane power within [npc1.her] broomstick, [npc1.name] [npc.verb(summon)] forth a powerful seal, which traps [npc2.name] in place!"));
 
 			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 			
@@ -2819,6 +2819,169 @@ public enum Spell {
 					descriptionSB.append(getStatusEffectApplication(caster, combatant, isHit, isCritical));
 				}
 				
+			}
+			
+			descriptionSB.append(getCostDescription(caster, cost));
+			caster.incrementMana(-cost);
+			
+			return descriptionSB.toString();
+		}
+		
+		@Override
+	    public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+	    	return Util.newArrayListOfValues("Cannot crit.");
+	    }
+
+		@Override
+		public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+			return false;
+		}
+	},
+	
+	ARCANE_CHAIN_LIGHTNING(false,
+			SpellSchool.ARCANE,
+			SpellType.OFFENSIVE,
+			DamageType.LUST,
+			false,
+			"Chain Lightning",
+			"arcane_lightning_chain",
+			"The caster is able to summon forth a crackling manifestation of arcane lightning, which leaps from target to target, causing each person struck to become uncontrollably aroused.",
+			15,
+			DamageVariance.MEDIUM,
+			40,
+			null,
+			null,
+			null,
+			Util.newArrayListOfValues(
+					"Affects [style.colourExcellent(all enemies)]")) {
+		@Override
+		public int getAPCost() {
+			return 1;
+		}
+		@Override
+		public int getCooldown() {
+			return 2;
+		}
+		@Override
+		public boolean isSpellBook() {
+			return false;
+		}
+		@Override
+		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+			return "Deals [style.colourDmgLust("
+					+Attack.getMinimumSpellDamage(caster, target, getDamageType(), this.getDamage(caster), this.getDamageVariance())
+					+"-"
+					+Attack.getMaximumSpellDamage(caster, target, getDamageType(), this.getDamage(caster), this.getDamageVariance())
+					+ " " +damageType.getName()
+					+ ")]"
+					+ " damage to [style.colourExcellent(all enemies)].";
+		}
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
+			descriptionSB.setLength(0);
+
+			float cost = getModifiedCost(caster);
+			
+			descriptionSB.append(getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"Sealed away for countless millennia, this infinite cosmic power shall now be unleashed! Witness the arcane maelstrom I call forth, then submit to your fate as my lust-crazed puppet!"),
+													"After taking a moment to focus your aura, you summon forth a crackling manifestation of arcane lightning!",
+													"After taking a moment to focus your aura, you summon forth a crackling manifestation of arcane lightning!",
+													"After taking a moment to focus [npc.her] aura, [npc.name] [npc.verb(summon)] forth a crackling manifestation of arcane lightning!",
+													"After taking a moment to focus [npc.her] aura, [npc.name] [npc.verb(summon)] forth a crackling manifestation of arcane lightning!",
+													"After taking a moment to focus [npc.her] aura, [npc.name] [npc.verb(summon)] forth a crackling manifestation of arcane lightning!"));
+			
+			// If attack hits, apply damage. Status effect always applies.:
+			if (isHit) {
+				for(GameCharacter combatant : Main.combat.getAllCombatants(true)) {
+					if(Main.combat.isOpponent(caster, combatant)) {
+						float damage = Attack.calculateSpellDamage(caster, combatant, damageType, this.getDamage(caster), damageVariance, isCritical);
+						descriptionSB.append(getDamageDescription(caster, combatant, damage, isHit, isCritical));
+						if(damage>0) {
+							descriptionSB.append(applyDamage(caster, combatant, damage));
+						}
+						applyStatusEffects(caster, combatant, isCritical);
+						descriptionSB.append(getStatusEffectApplication(caster, combatant, isHit, isCritical));
+					}
+				}
+				
+			}
+			
+			descriptionSB.append(getCostDescription(caster, cost));
+			caster.incrementMana(-cost);
+			
+			return descriptionSB.toString();
+		}
+		@Override
+	    public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+	    	return Util.newArrayListOfValues("Cannot crit.");
+	    }
+		@Override
+		public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+			return false;
+		}
+	},
+	
+	ARCANE_LIGHTNING_SUPERBOLT(false,
+			SpellSchool.ARCANE,
+			SpellType.OFFENSIVE,
+			DamageType.LUST,
+			false,
+			"Lightning Superbolt",
+			"arcane_lightning_superbolt",
+			"The caster summons forth an almighty arcane lightning superbolt and fires it at their target, causing the person who's struck to experience an incredible surge in arousal.",
+			50,
+			DamageVariance.HIGH,
+			200,
+			null,
+			null,
+			null,
+			Util.newArrayListOfValues()) {
+		@Override
+		public int getAPCost() {
+			return 3;
+		}
+		@Override
+		public int getCooldown() {
+			return 10;
+		}
+		@Override
+		public boolean isSpellBook() {
+			return false;
+		}
+		@Override
+		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+			return "Deals [style.colourDmgLust("
+					+Attack.getMinimumSpellDamage(caster, target, getDamageType(), this.getDamage(caster), this.getDamageVariance())
+					+"-"
+					+Attack.getMaximumSpellDamage(caster, target, getDamageType(), this.getDamage(caster), this.getDamageVariance())
+					+ " " +damageType.getName()
+					+ ")]"
+					+ " damage.";
+		}
+		
+		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
+			descriptionSB.setLength(0);
+
+			float cost = getModifiedCost(caster);
+			
+			descriptionSB.append(getCastDescription(caster, target,
+											Util.newArrayListOfValues(
+													"Sealed away for countless millennia, this infinite cosmic power shall now be unleashed! Witness the arcane apocalypse I call forth, then submit to your fate as my lust-crazed puppet!"),
+													"After taking a moment to focus your aura, you summon forth an almighty arcane lightning superbolt, before launching it directly at yourself!",
+													"After taking a moment to focus your aura, you summon forth an almighty arcane lightning superbolt, before launching it directly at [npc.name]!",
+													"After taking a moment to focus [npc.her] aura, [npc.name] [npc.verb(summon)] forth an almighty arcane lightning superbolt, before launching it directly at [npc.herself]!",
+													"After taking a moment to focus [npc.her] aura, [npc.name] [npc.verb(summon)] forth an almighty arcane lightning superbolt, before launching it directly at you!",
+													"After taking a moment to focus [npc.her] aura, [npc.name] [npc.verb(summon)] forth an almighty arcane lightning superbolt, before launching it directly at [npc2.name]!"));
+			
+			// If attack hits, apply damage. Status effect always applies.:
+			if (isHit) {
+				float damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, isCritical);
+				descriptionSB.append(getDamageDescription(caster, target, damage, isHit, isCritical));
+				if(damage>0) {
+					descriptionSB.append(applyDamage(caster, target, damage));
+				}
+				applyStatusEffects(caster, target, isCritical);
+				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
@@ -3304,6 +3467,26 @@ public enum Spell {
 	private static StringBuilder lineSB = new StringBuilder();
 	private static StringBuilder entrySB = new StringBuilder();
 	
+
+	public static String getSpellMiscTreeDisplay(GameCharacter character, GameCharacter target) {
+		treeSB.setLength(0);
+
+		treeSB.append("<div class='container-full-width' style='width:100%; padding:0; margin:0;'>"
+				+ "<div class='container-full-width' style='text-align:center;'><h6 style='color:"+PresetColour.DAMAGE_TYPE_SPELL.toWebHexString()+";'>Miscellaneous</h6></div>");
+		
+		for(Spell spell : Spell.values()) {
+			if(!spell.isSpellBook()) { // Only append special spells obtained from weapons & other sources
+				treeSB.append("<div class='container-full-width' style='border:1px solid "+(character.hasSpell(spell, true)?PresetColour.DAMAGE_TYPE_SPELL:PresetColour.BASE_GREY_DARK).toWebHexString()+"; width:25%; padding:0; margin:0;'>");
+					treeSB.append(appendSpell(character, target, -1, spell, true));
+				treeSB.append("</div>");
+			}
+		}
+		
+		treeSB.append("</div>");
+		
+		return treeSB.toString();
+	}
+	
 	public static String getSpellTreesDisplay(SpellSchool school, GameCharacter character, GameCharacter target) {
 		treeSB.setLength(0);
 		appendSpellSchool(school, character, target);
@@ -3316,26 +3499,28 @@ public enum Spell {
 						+"<b style='color:"+spellSchool.getColour().toWebHexString()+";'>"+character.getSpellUpgradePoints(spellSchool)+"</b> <b>Upgrade Points Available</b></div>");
 		
 		for(Spell spell : Spell.getSpellsFromSchoolMap().get(spellSchool)) {
-			boolean fullyUpgraded = character.isSpellFullyUpgraded(spell);
-			
-			if(!spell.getSpellUpgradeTree().isEmpty()) {
-				treeSB.append("<div class='container-full-width' style='border:1px solid "+(fullyUpgraded?spell.getSpellSchool().getColour():PresetColour.BASE_GREY_DARK).toWebHexString()+"; width:25%; padding:0; margin:0;'>");
-					for(int row=-1; row<ROWS; row++) {
-						treeSB.append(appendSpell(character, target, row, spell));
-					}
-				treeSB.append("</div>");
+			if(spell.isSpellBook()) { // Do not append spells obtained from weapons & other sources
+				boolean fullyUpgraded = character.isSpellFullyUpgraded(spell);
+				
+				if(!spell.getSpellUpgradeTree().isEmpty()) {
+					treeSB.append("<div class='container-full-width' style='border:1px solid "+(fullyUpgraded?spell.getSpellSchool().getColour():PresetColour.BASE_GREY_DARK).toWebHexString()+"; width:25%; padding:0; margin:0;'>");
+						for(int row=-1; row<ROWS; row++) {
+							treeSB.append(appendSpell(character, target, row, spell, false));
+						}
+					treeSB.append("</div>");
+				}
 			}
 		}
 		
 		treeSB.append("</div>");
 	}
 	
-	private static String appendSpell(GameCharacter character, GameCharacter target, int row, Spell spell) {
+	private static String appendSpell(GameCharacter character, GameCharacter target, int row, Spell spell, boolean miscSpell) {
 		spellSB.setLength(0);
 
 		spellSB.append("<div class='container-full-width' style='width:100%; padding:0; margin:0;'>");
 			if(row==-1) {
-				boolean hasSpell = character.hasSpell(spell);
+				boolean hasSpell = character.hasSpell(spell, miscSpell);
 				boolean forbidden = spell.isForbiddenSpell();
 				
 				spellSB.append("<div class='square-button "+(!hasSpell?" disabled":"")+"' style='width:50%; margin:8px 25% 4px 25%; cursor: default; "
@@ -3351,7 +3536,7 @@ public enum Spell {
 								+ "</div>");
 				
 				Value<Boolean, String> useDesc = spell.getSpellCastOutOfCombatDescription(character, target);
-				spellSB.append("<div class='normal-button "+(useDesc.getKey()?"":"disabled")+"' id='SPELL_TREE_CAST_"+spell+"' style='width:50%; margin:8px 25% 0 25%; text-align:center;'>");
+				spellSB.append("<div class='normal-button "+(useDesc.getKey()?"":"disabled")+"' id='SPELL_TREE_CAST_"+spell+"' style='width:50%; margin:8px 25% "+(miscSpell?"8px":"0")+" 25%; text-align:center;'>");
 				spellSB.append("Cast");
 				spellSB.append("</div>");
 				
@@ -3756,7 +3941,7 @@ public enum Spell {
 		
 		sb.append(this.applyEffect(source, target, enemies, allies, true, isCrit));
 		
-		if(isCrit && !this.isBeneficial() && source.hasTraitActivated(Perk.ARCANE_CRITICALS)) {
+		if(isCrit && !this.isBeneficial() && source.hasPerkAnywhereInTree(Perk.ARCANE_CRITICALS)) {
 			sb.append(UtilText.parse(source, "<br/>[npc.NamePos] [style.boldExcellent(critical)] spell applies [style.boldArcane(arcane weakness)] to "+(target.isPlayer()?"you":UtilText.parse(target, "[npc.name]"))+"!"));
 			target.addStatusEffect(StatusEffect.ARCANE_WEAKNESS, 2);
 			sb.append(

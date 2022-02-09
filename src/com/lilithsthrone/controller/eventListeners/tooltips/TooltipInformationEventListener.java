@@ -377,7 +377,7 @@ public class TooltipInformationEventListener implements EventListener {
 			int currentCooldown = owner.getMoveCooldown(move.getIdentifier());
 			
 			Main.mainController.setTooltipSize(360,
-					352
+					(Main.game.isInCombat()?320:352)
 					+ (critReqs.size()>0?(32+critReqs.size()*16):0)
 					+ (currentCooldown>0?32:0));
 
@@ -388,7 +388,7 @@ public class TooltipInformationEventListener implements EventListener {
 			boolean coreMove = owner.getEquippedMoves().contains(move);
 			
 			tooltipSB.append("<div class='subTitle' style='width:46%; margin:2% 2% 0% 2%;'>"+(coreMove?"[style.colourMinorGood(Core)]":"[style.colourMinorBad(Non-core)]")+"</div>");
-			tooltipSB.append("<div class='subTitle' style='color:"+move.getColourByDamageType(owner).toWebHexString()+"; width:46%; margin:2% 2% 0% 2%;'>"+move.getType().getName()+"</div>");
+			tooltipSB.append("<div class='subTitle' style='color:"+move.getColourByDamageType(0, owner).toWebHexString()+"; width:46%; margin:2% 2% 0% 2%;'>"+move.getType().getName()+"</div>");
 			
 			if(currentCooldown>0) {
 				tooltipSB.append("<div class='subTitle'><span style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>On cooldown</span>: "+currentCooldown+(currentCooldown==1?" turn":" turns")+"</div>");
@@ -430,7 +430,7 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append(
 					"<div class='description'>"
 						+"<span style='color:"+(availableValue.getKey()?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_MINOR_BAD).toWebHexString()+";'>"+availableValue.getValue()+"</span> "
-						+ move.getDescription(owner)
+						+ move.getDescription(!Main.game.isInCombat()?0:owner.getSelectedMoves().size(), owner)
 					+ "</div>");
 			
 
@@ -440,13 +440,15 @@ public class TooltipInformationEventListener implements EventListener {
 			}
 			tooltipSB.append("</div>");
 
-			if(owner.getEquippedMoves().contains(move)) {
-				tooltipSB.append("<div class='subTitle' style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>Click to unequip move.</div>");
-			} else {
-				if(owner.getEquippedMoves().size()>=GameCharacter.MAX_COMBAT_MOVES) {
-					tooltipSB.append("<div class='subTitle' style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Maximum core moves selected.</div>");
+			if(!Main.game.isInCombat()) {
+				if(owner.getEquippedMoves().contains(move)) {
+					tooltipSB.append("<div class='subTitle' style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>Click to unequip move.</div>");
 				} else {
-					tooltipSB.append("<div class='subTitle' style='color:"+PresetColour.TRAIT.toWebHexString()+";'>Click to equip move.</div>");
+					if(owner.getEquippedMoves().size()>=GameCharacter.MAX_COMBAT_MOVES) {
+						tooltipSB.append("<div class='subTitle' style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Maximum core moves selected.</div>");
+					} else {
+						tooltipSB.append("<div class='subTitle' style='color:"+PresetColour.TRAIT.toWebHexString()+";'>Click to equip move.</div>");
+					}
 				}
 			}
 
@@ -874,8 +876,8 @@ public class TooltipInformationEventListener implements EventListener {
 								:"")
 							+ "<b style='color:"+owner.getSubspecies().getColour(owner).toWebHexString()+";'>"
 								+ (owner.isFeminine()
-										?Util.capitaliseSentence(owner.getSubspecies().getSingularFemaleName(owner))
-										:Util.capitaliseSentence(owner.getSubspecies().getSingularMaleName(owner)))
+										?Util.capitaliseSentence(owner.getSubspecies().getSingularFemaleName(owner.getBody()))
+										:Util.capitaliseSentence(owner.getSubspecies().getSingularMaleName(owner.getBody())))
 							+ "</b>"
 							+ "</div>");
 					
@@ -1166,7 +1168,10 @@ public class TooltipInformationEventListener implements EventListener {
 										?"[npc.NameFull]"
 										:"[npc.Name]"))
 							+"</span>"
-						+"<br/>Level " + owner.getLevel() + " <span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>| "
+						+"<br/>Level "
+							+ owner.getLevel()
+							+ (owner.getLevel()!=owner.getTrueLevel()?" [style.colourDisabled(("+owner.getTrueLevel()+"))]":"")
+							+ " <span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>| "
 						+ (owner.isElemental()
 								?"Elementals share their summoner's level</span>"
 								:"</span>"+owner.getExperience() + " / "+ (10 * owner.getLevel()) + " xp")
@@ -1284,7 +1289,8 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.setLength(0);
 			tooltipSB.append(
 					"<div class='subTitle'>"
-					+(Main.game.getCurrentDialogueNode().getLabel() == "" || Main.game.getCurrentDialogueNode().getLabel() == null ? "-" : Main.game.getCurrentDialogueNode().getLabel())
+//					+(Main.game.getCurrentDialogueNode().getLabel() == "" || Main.game.getCurrentDialogueNode().getLabel() == null ? "-" : Main.game.getCurrentDialogueNode().getLabel())
+					+"Copy Scene"
 					+ "</div>"
 					+ "<div class='description'>"
 					+ "Click to copy the currently displayed dialogue to your clipboard.<br/><br/>"
@@ -1544,7 +1550,7 @@ public class TooltipInformationEventListener implements EventListener {
 	
 	private String getBodyPartDiv(GameCharacter character, String name, AbstractRace race, Covering covering, boolean feral, String size) {
 		String raceName;
-		raceName = race.getName(character, feral);
+		raceName = race.getName(character.getBody(), feral);
 
 		Colour primaryColour = covering.getPrimaryColour();
 		Colour secondaryColour = covering.getSecondaryColour();
@@ -1562,7 +1568,7 @@ public class TooltipInformationEventListener implements EventListener {
 					raceName = ((Elemental)character).getCurrentSchool().getName()+"-wisp";
 					elementalFeral = false;
 				} else {
-					raceName = ((Elemental)character).getPassiveForm().getFeralName(character);
+					raceName = ((Elemental)character).getPassiveForm().getFeralName(character.getBody());
 				}
 			}
 		}

@@ -137,8 +137,13 @@
 		#ELSE
 			 Having seen them in use during riots on the news,
 		#ENDIF
-		 you instantly recognise the disposable firebombs as being an arcane parody of Molotov cocktails. You don't have a way to get more and you doubt any honest shop would want to carry something so obviously illegal, but perhaps a shopkeep with less scruples has the means to provide you with a supply of them...
+		 you instantly recognise the disposable firebombs as being an arcane parody of Molotov cocktails. You don't have a way to get more and you doubt any honest shop would want to carry something so obviously illegal, but perhaps a shopkeep with less scruples has the means to provide you with a supply of them...	
 	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_axelExplainedVengar))
+	<p>
+		[roxy.NamePos] shop would probably be a good place to start.
+	</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	

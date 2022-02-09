@@ -68,7 +68,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class ImpAttacker extends NPC {
 
 	public ImpAttacker() {
-		this(Subspecies.IMP, Gender.F_V_B_FEMALE, false);
+		this(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
 	}
 	
 	public ImpAttacker(boolean isImported) {
@@ -347,7 +347,7 @@ public class ImpAttacker extends NPC {
 	@Override
 	public TransformativePotion generateTransformativePotion(GameCharacter target) {
 		AbstractItemType itemType = target.getSubspecies().getTransformativeItem(target);
-        if(itemType==null) {
+        if(itemType==null || itemType.equals(ItemType.getItemTypeFromId("innoxia_race_slime_slime_quencher"))) {
             itemType = ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
         }
 		

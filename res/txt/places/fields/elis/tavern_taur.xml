@@ -1,0 +1,1096 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- All of these are linked to the 'dialogue/innoxia/places/fields/elis/tavern_taur.xml' dialogue nodes. -->
+	
+	<!-- Place dialogues -->
+	
+	<htmlContent tag="BAR"><![CDATA[
+	<p>
+		A huge, circular bar is positioned right in the very centre of the tavern, and it's from here that drinks are served to the tauric clientèle. So as to accommodate the taurs who frequent this establishment, the bar's wooden counter is quite tall, and there's not a single bar stool to be seen anywhere around its circumference.
+	</p>
+	<p>
+		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			As it's currently the busy time of day, there's almost no space at all at the bar. Well over a dozen taurs of all kinds are either standing or sitting around the counter, and as you approach you hear them either ordering drinks or flirting and talking with one another.
+		#ELSE
+			As it's currently the quiet time of day, there's plenty of space at the bar. Only a couple of taurs are standing at the counter, and as you approach you hear them talking with one another.
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getCharactersPresent().contains(kheiron))
+			#IF(kheiron.isPlayerKnowsName())
+				[pc.Stepping] up to the bar, you see Kheiron himself trot around from behind the bar's central pillar, and as he catches sight of you, he flashes you a smile and asks, [kheiron.speech(What can I get for you today, [pc.name]?)]
+			#ELSE
+					[pc.Stepping] up to the bar, you see a huge, olive-skinned centaur, who looks to be in his mid-forties, trot around from behind the bar's central pillar. His muscular, lower horse's body is covered in dark brown hair, which is a similar shade to the short, curly hair on his head. Thanks to the fact that he's only wearing a short-sleeved shirt, you're able to see that his exposed horse-cock and balls are absolutely massive. Just like his horse-half, this centaur's human body is extremely muscular, which, combined with the fact that he's standing at no less than [kheiron.heightValue], leaves you with no doubt that he must be one of the strongest people in all of Elis.
+				</p>
+				<p>
+					Glancing around the bar, this centaur's hazel eyes catch yours, and after flashing you a handsome smile, he steps forwards and speaks in a low, booming voice, [kheiron.speech(I haven't seen you here before. First time in Elis, or is this just your first time visiting my tavern?)]
+			#ENDIF
+		#ELSE
+			[pc.Stepping] up to the bar, you see that Kheiron isn't here at the moment, and instead there's a large, muscular centauress working behind the counter. Catching sight of you, she steps forwards and asks, [style.feminineSpeech(Hey there, can I get you something?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_INTRO"><![CDATA[
+	<p>
+		Seeing no reason not to introduce yourself to this friendly centaur, you tell him your name and
+		#IF(pc.isQuestProgressLessThan(QUEST_LINE_MAIN, QUEST_MAIN_3_C_MEETING_MINOTALLYS))
+			 confirm that this is indeed your first time here in Elis.
+		#ELSE
+			 explain that you've already spent some time in Elis, but that you're not a native to the town.
+		#ENDIF
+		 Nodding as he listens, this centaur responds, [kheiron.speech(It's good to meet you, [pc.name]. My name's Kheiron, and I'm the owner of this tavern. If you need anything, don't hesitate to ask. Oh, and you say that you're not from Elis? Did you come from Dominion, by any chance?)]
+	</p>
+	<p>
+		After you've confirmed to Kheiron that you have indeed come from the Realm's capital city, the centaur steps right up to the counter and leans in to ask, [kheiron.speech(Did you see a couple of centaurs offering transport out there? They're called Astrapi and Vronti. Know them?)]
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_centaur_transport_introduced))
+			Having met the centaurs he's asking about, you tell Kheiron that you do know who he's talking about, and that they've recently set up a transportation service between Elis and Dominion. Letting out a relieved sigh, Kheiron steps back and explains, [kheiron.speech(I'm their father, you see. They're not very good at keeping in touch, and as we don't get many visitors from Dominion these days I don't often hear if they're still doing ok out there.)]
+		#ELSE
+			Having not met the centaurs he's asking about, you tell Kheiron that you don't know who he's talking about. Letting out a sigh, Kheiron steps back and explains, [kheiron.speech(I'm their father, you see. They're not very good at keeping in touch, and as we don't get many visitors from Dominion these days I don't often hear if they're still doing ok out there. I guess I'll have to head out and check on them myself some time this week.)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.isHourBetween(8, 24))
+			With several customers waiting nearby to be served, Kheiron smiles at you and asks, [kheiron.speech(So, can I get you a drink, [pc.name]?)]
+		#ELSE
+			With your brief talk now over, Kheiron smiles at you and reveals, [kheiron.speech(I'm normally in bed at this hour, but I had to come downstairs to get a leaky beer tap fixed. Anyway, can I get you a drink before I head off, [pc.name]?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_TALK"><![CDATA[
+	<p>
+		Wanting to make some small talk and get to know Kheiron a little better, you ask him how his day has been going so far.
+		#IF(game.isHourBetween(8, 24))
+			 Despite the fact that there are many customers waiting to be served, the centaur leaves business to his other employees and chooses to engage you in conversation, and replies, 
+		#ELSE
+			 As there's nobody at the bar who requires his attention, the centaur chooses to engage you in conversation, and replies, 
+		#ENDIF
+		 [kheiron.speech(Everything's going well, today, [pc.name]. Thanks for asking. How about yourself?)]
+	</p>
+	<p>
+		Happy to continue talking with him, you respond to Kheiron's question and then continue to engage him in conversation. Talking about everything from the weather to recent events in Elis, the two of you spend the next fifteen minutes talking with one another over the bar's counter. Eventually, however, the muscular centaur declares, [kheiron.speech(It's been good talking with you, [pc.name], but I've got things to be getting on with. Is there anything else I can do for you?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_TALK_LUNETTE"><![CDATA[
+	<p>
+		Wanting to hear what Kheiron thinks about Lunette, you ask him what he knows of the elder lilin. His eyes narrow a little as he hears your question, and after spending a moment in thought, he replies, [kheiron.speech(Best not to be mentioning that name too loudly in here. You'll not find one person in all of Elis who has a good word to say about Lunette, but taurs can get particularly angry when they start speaking about her.)]
+	</p>
+	<p>
+		Wanting to know more, you ask the muscular centaur why that's the case, to which he sighs and replies, [kheiron.speech(Lunette's daughters seem to have a particular fondness for taurs. Many of the folk in here used to live out in the fields, and so have been the target of those demonic centaurs' affections, whether they wanted it or not. Let's just leave it at that, ok?)]
+	</p>
+	<p>
+		As Kheiron is clearly unwilling to say any more about the subject, you decide to move on to something else..
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_TALK_HISTORY"><![CDATA[
+	<p>
+		Curious about Kheiron's history, you ask him about his past and how he came to own this tavern. After taking a moment to think about where to start, he begins, [kheiron.speech(There's not really much to tell about most of my life. I used to live out in the woods with a group of other centaurs, but we ended up going our separate ways after Lunette's raiders started taking an interest in us. That was well before they started really getting out of control, but even all those years ago Lunette's daughters were a real pain to deal with.)]
+	</p>
+	<p>
+		After taking a moment to think, the muscular centaur continues, [kheiron.speech(Everyone else ended up going to Dominion, but I stuck around here in Elis. To cut a long story short, after many years doing all sorts of jobs here in Elis I ended up being given the opportunity to buy this tavern. It was on the verge of being shut down and demolished when I took over, but by converting it into a place that caters for taurs, I managed to turn its fortunes around.)]
+	</p>
+	<p>
+		Wanting to know a little more about his past, you ask Kheiron whether his son and daughter used to work with him here in Elis, to which he replies, [kheiron.speech(Oh, no. Astrapi and Vronti had no interest in staying in Elis. They went off to Dominion to try and make their own way there. I keep on telling them that they can come and work here with me, but they have no interest.)]
+	</p>
+	<p>
+		Having had enough of recounting his past, the muscular centaur quickly follows up on his last sentence by asking, [kheiron.speech(Anyway, can I get you a drink, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Ordering drinks: -->
+	
+	<htmlContent tag="BAR_DRINK_WATER"><![CDATA[
+	<p>
+		#IF(game.getCharactersPresent().contains(kheiron))
+			Feeling thirsty, you ask Kheiron for a glass of water. Grabbing a clean glass from under the bar, he quickly fills it with clean, cold water, before placing it down before you and saying, [kheiron.speech(Here you go, [pc.name]. There's no charge for water.)]
+		#ELSE
+			Feeling thirsty, you get the centauress's attention and ask her for a glass of water. Grabbing a clean glass from under the bar, she quickly fills it with clean, cold water, before placing it down before you and saying, [style.speechFeminine(There you go. The water's free.)]
+		#ENDIF
+	</p>
+	<p>
+		Bringing the glass up to your waiting [pc.lips], you quickly gulp down the cool, refreshing water. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_ORANGE_JUICE"><![CDATA[
+	<p>
+		#IF(game.getCharactersPresent().contains(kheiron))
+			Feeling thirsty, you ask Kheiron for a glass of orange juice. Grabbing a clean glass, he opens one of the arcane fridges positioned behind the bar and produces a can of carbonated orange juice. Using his large fingers to fold down the tab, he opens the can and pours the fizzy beverage into the glass, saying, [kheiron.speech(That'll be twenty flames, please.)]
+		#ELSE
+			Feeling thirsty, you get the centauress's attention and ask her for a glass of orange juice. Grabbing a clean glass, she opens one of the arcane fridges positioned behind the bar and produces a can of carbonated orange juice. Folding down the tab, she opens the can and pours the fizzy beverage into the glass, saying, [style.speechFeminine(That'll be twenty flames, please.)]
+		#ENDIF
+	</p>
+	<p>
+		Handing over the twenty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_BERRY_SODA"><![CDATA[
+	<p>
+		#IF(game.getCharactersPresent().contains(kheiron))
+			Feeling thirsty, you ask Kheiron for a glass of berry soda. Grabbing a clean glass, he opens one of the arcane fridges positioned behind the bar and produces a can of berry soda. Using his large fingers to fold down the tab, he opens the can and pours the fizzy beverage into the glass, saying, [kheiron.speech(That'll be twenty flames, please.)]
+		#ELSE
+			Feeling thirsty, you get the centauress's attention and ask her for a glass of berry soda. Grabbing a clean glass, she opens one of the arcane fridges positioned behind the bar and produces a can of berry soda. Folding down the tab, she opens the can and pours the fizzy beverage into the glass, saying, [style.speechFeminine(That'll be twenty flames, please.)]
+		#ENDIF
+	</p>
+	<p>
+		Handing over the twenty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_COLA"><![CDATA[
+	<p>
+		#IF(game.getCharactersPresent().contains(kheiron))
+			Feeling thirsty, you ask Kheiron for a glass of cola. Grabbing a clean glass, he opens one of the arcane fridges positioned behind the bar and produces a bottle of fizzy cola. Using his large fingers to operate a bottle opener, he pops off the cap and pours the brown beverage into the glass, saying, [kheiron.speech(That'll be twenty-five flames, please.)]
+		#ELSE
+			Feeling thirsty, you get the centauress's attention and ask her for a glass of cola. Grabbing a clean glass, she opens one of the arcane fridges positioned behind the bar and produces a bottle of fizzy cola. Using a bottle opener, she pops off the cap and pours the brown beverage into the glass, saying, [style.speechFeminine(That'll be twenty-five flames, please.)]
+		#ENDIF
+	</p>
+	<p>
+		Handing over the twenty-five flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_COFFEE"><![CDATA[
+	<p>
+		#IF(game.getCharactersPresent().contains(kheiron))
+			Feeling thirsty, you ask Kheiron for a glass of cold-brew coffee. Grabbing a clean glass, he opens one of the arcane fridges positioned behind the bar and produces a bottle of dark black coffee. Using his large fingers to twist off the cap, he pours the caffeinated beverage into the glass, saying, [kheiron.speech(That'll be thirty flames, please.)]
+		#ELSE
+			Feeling thirsty, you get the centauress's attention and ask her for a glass of cold-brew coffee. Grabbing a clean glass, she opens one of the arcane fridges positioned behind the bar and produces a bottle of dark black coffee. Twisting off the cap, she pours the caffeinated beverage into the glass, saying, [style.speechFeminine(That'll be thirty flames, please.)]
+		#ENDIF
+	</p>
+	<p>
+		Handing over the thirty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_BEER"><![CDATA[
+	<p>
+		Feeling thirsty, you ask Kheiron for a pint of beer. Grabbing a clean glass, he places it under the tap and pours the alcoholic beverage, 'Canine Crush', into it, before placing your pint down on the bar and saying, [kheiron.speech(That'll be forty flames, please.)]
+	</p>
+	<p>
+		Handing over the forty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_CIDER"><![CDATA[
+	<p>
+		Feeling thirsty, you ask Kheiron for a pint of cider. Grabbing a clean glass, he places it under the tap and pours the alcoholic beverage, 'Equine Cider', into it, before placing your pint down on the bar and saying, [kheiron.speech(That'll be forty flames, please.)]
+	</p>
+	<p>
+		Handing over the forty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_PERRY"><![CDATA[
+	<p>
+		Feeling thirsty, you ask Kheiron for a pint of pear cider. Grabbing a clean glass, he opens one of the arcane fridges positioned behind the bar and produces a bottle of 'Black Stripes Perry'. Using his large fingers to operate a bottle opener, he pops off the cap and pours the alcoholic beverage into the glass, saying, [kheiron.speech(That'll be forty flames, please.)]
+	</p>
+	<p>
+		Handing over the forty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_WINE_RED"><![CDATA[
+	<p>
+		Feeling thirsty, you ask Kheiron for a glass of red wine. Grabbing a clean wine glass, he reaches back to the shelves positioned behind the bar and grabs a bottle of red wine. Using his large fingers to operate a bottle opener, he removes the cork and pours the alcoholic beverage into the glass, saying, [kheiron.speech(That'll be sixty flames, please.)]
+	</p>
+	<p>
+		Handing over the sixty flames, you bring the glass up to your waiting [pc.lips] and spend a few minutes slowly drinking the delicious beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_WINE_WHITE"><![CDATA[
+	<p>
+		Feeling thirsty, you ask Kheiron for a glass of white wine. Grabbing a clean wine glass, he opens one of the arcane fridges positioned behind the bar and produces a bottle of white wine. Using his large fingers to operate a bottle opener, he removes the cork and pours the alcoholic beverage into the glass, saying, [kheiron.speech(That'll be sixty flames, please.)]
+	</p>
+	<p>
+		Handing over the sixty flames, you bring the glass up to your waiting [pc.lips] and spend a few minutes slowly drinking the delicious beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_VODKA"><![CDATA[
+	<p>
+		Feeling thirsty, you ask Kheiron for a glass of vodka. Grabbing a clean glass, he reaches back to the shelves positioned behind the bar and grabs a bottle of vodka. Using his large fingers to unscrew the cap, he pours the alcoholic beverage into the glass, saying, [kheiron.speech(That'll be a hundred flames, please.)]
+	</p>
+	<p>
+		Handing over the hundred flames, you bring the glass up to your waiting [pc.lips] and spend a few minutes slowly drinking the delicious, highly-alcoholic beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_RUM"><![CDATA[
+	<p>
+		Feeling thirsty, you ask Kheiron for a glass of rum. Grabbing a clean glass, he reaches back to the shelves positioned behind the bar and grabs a bottle of rum. Using his large fingers to unscrew the cap, he pours the alcoholic beverage into the glass, saying, [kheiron.speech(That'll be a hundred and twenty flames, please.)]
+	</p>
+	<p>
+		Handing over the one hundred and twenty flames, you bring the glass up to your waiting [pc.lips] and spend a few minutes slowly drinking the delicious, highly-alcoholic beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_WHISKEY"><![CDATA[
+	<p>
+		Feeling thirsty, you ask Kheiron for a glass of whiskey. Grabbing a clean glass, he reaches back to the shelves positioned behind the bar and grabs a bottle of whiskey. Using his large fingers to unscrew the cap, he pours the alcoholic beverage into the glass, saying, [kheiron.speech(That'll be a hundred and twenty flames, please.)]
+	</p>
+	<p>
+		Handing over the one hundred and twenty flames, you bring the glass up to your waiting [pc.lips] and spend a few minutes slowly drinking the delicious, highly-alcoholic beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_CHAMPAGNE"><![CDATA[
+	<p>
+		Feeling thirsty, you ask Kheiron for a glass of champagne. Grabbing a clean champagne flute, he opens one of the arcane fridges positioned behind the bar and produces a bottle of 'Pan's Flute'. Using his large fingers to twist off the cork, he opens the bottle with a loud pop, before pouring the fizzy beverage into the glass, saying, [kheiron.speech(That'll be a hundred and sixty flames, please.)]
+	</p>
+	<p>
+		Handing over the one hundred and sixty flames, you bring the glass up to your waiting [pc.lips] and spend a few minutes slowly drinking the delicious beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Ordering food: -->
+	
+	<htmlContent tag="BAR_FOOD_BREAD"><![CDATA[
+	#IF(game.getCharactersPresent().contains(kheiron))
+		<p>
+			Feeling a little hungry, you decide to order something to eat, and so ask Kheiron if you can order some bread rolls. Jotting your order down on a slip of paper, he nods and says, [kheiron.speech(That'll be fifty flames, please.)]
+		</p>
+		<p>
+			Handing over the money, you wait for a few minutes as your order is processed, before a centauress steps out from the kitchen door and calls out, [style.speechFeminine(One bread basket ready!)]
+		</p>
+		<p>
+			Pointing over at you, Kheiron watches as this centauress sets the bread basket down on the counter in front of you, before smiling at her and saying, [kheiron.speech(Remember to take a break if you're feeling tired.)]
+		</p>
+		<p>
+			Smiling at Kheiron, the centauress reassures him that she's still full of energy, before trotting back into the kitchen and leaving you to tuck in to the freshly-baked bread rolls...
+		</p>
+	#ELSE
+		<p>
+			Feeling a little hungry, you decide to order something to eat, and so you call over the centauress behind the bar and order some bread rolls. Nodding as you give her your order, she smiles and says, [style.speechFeminine(That'll be fifty flames, please.)]
+		</p>
+		<p>
+			Handing over the money, you wait as the centauress hurries into the kitchen, and then a minute later she returns carrying your order. Setting the bread basket down on the counter in front of you, she flashes you a smile and steps over to the next customer, leaving you to tuck in to the delicious bread rolls...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_NUTS"><![CDATA[
+	#IF(game.getCharactersPresent().contains(kheiron))
+		<p>
+			Feeling a little hungry, you decide to order something to eat, and so ask Kheiron if you can order some mixed nuts. Jotting your order down on a slip of paper, he nods and says, [kheiron.speech(That'll be fifty flames, please.)]
+		</p>
+		<p>
+			Handing over the money, you wait for a few minutes as your order is processed, before a centauress steps out from the kitchen door and calls out, [style.speechFeminine(One order of mixed nuts ready!)]
+		</p>
+		<p>
+			Pointing over at you, Kheiron watches as this centauress sets the bowl down on the counter in front of you, before smiling at her and saying, [kheiron.speech(Remember to take a break if you're feeling tired.)]
+		</p>
+		<p>
+			Smiling at Kheiron, the centauress reassures him that she's still full of energy, before trotting back into the kitchen and leaving you to tuck in to the delicious assortment of mixed nuts...
+		</p>
+	#ELSE
+		<p>
+			Feeling a little hungry, you decide to order something to eat, and so you call over the centauress behind the bar and order some mixed nuts. Nodding as you give her your order, she smiles and says, [style.speechFeminine(That'll be fifty flames, please.)]
+		</p>
+		<p>
+			Handing over the money, you wait as the centauress hurries into the kitchen, and then a minute later she returns carrying your order. Setting the bread basket down on the counter in front of you, she flashes you a smile and steps over to the next customer, leaving you to tuck in to the delicious assortment of mixed nuts...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_FRIES"><![CDATA[
+	<p>
+		Feeling a little hungry, you decide to order something to eat, and so ask Kheiron if you can order some curly fries. Jotting your order down on a slip of paper, he nods and says, [kheiron.speech(That'll be fifty flames, please.)]
+	</p>
+	<p>
+		Handing over the money, you wait for a few minutes as your order is processed, before a centauress steps out from the kitchen door and calls out, [style.speechFeminine(One order of curly fries ready!)]
+	</p>
+	<p>
+		Pointing over at you, Kheiron watches as this centauress sets the bowl down on the counter in front of you, before smiling at her and saying, [kheiron.speech(Remember to take a break if you're feeling tired.)]
+	</p>
+	<p>
+		Smiling at Kheiron, the centauress reassures him that she's still full of energy, before trotting back into the kitchen and leaving you to tuck in to the delicious bowl of greasy, curly fries...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_SHRIMP"><![CDATA[
+	<p>
+		Feeling a little hungry, you decide to order something to eat, and so ask Kheiron if you can order a shrimp cocktail. Jotting your order down on a slip of paper, he nods and says, [kheiron.speech(That'll be seventy-five flames, please.)]
+	</p>
+	<p>
+		Handing over the money, you wait for a few minutes as your order is processed, before a centauress steps out from the kitchen door and calls out, [style.speechFeminine(One order of shrimp cocktail ready!)]
+	</p>
+	<p>
+		Pointing over at you, Kheiron watches as this centauress sets the glass down on the counter in front of you, before smiling at her and saying, [kheiron.speech(Remember to take a break if you're feeling tired.)]
+	</p>
+	<p>
+		Smiling at Kheiron, the centauress reassures him that she's still full of energy, before trotting back into the kitchen and leaving you to tuck in to the delicious shrimp cocktail...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_PATE"><![CDATA[
+	#IF(game.getCharactersPresent().contains(kheiron))
+		<p>
+			Feeling a little hungry, you decide to order something to eat, and so ask Kheiron if you can order some pâté and crackers. Jotting your order down on a slip of paper, he nods and says, [kheiron.speech(That'll be eighty flames, please.)]
+		</p>
+		<p>
+			Handing over the money, you wait for a few minutes as your order is processed, before a centauress steps out from the kitchen door and calls out, [style.speechFeminine(One order of pâté and crackers ready!)]
+		</p>
+		<p>
+			Pointing over at you, Kheiron watches as this centauress sets the plate down on the counter in front of you, before smiling at her and saying, [kheiron.speech(Remember to take a break if you're feeling tired.)]
+		</p>
+		<p>
+			Smiling at Kheiron, the centauress reassures him that she's still full of energy, before trotting back into the kitchen and leaving you to tuck in to the delicious plate of meat pâté and crackers...
+		</p>
+	#ELSE
+		<p>
+			Feeling a little hungry, you decide to order something to eat, and so you call over the centauress behind the bar and order some pâté and crackers. Nodding as you give her your order, she smiles and says, [style.speechFeminine(That'll be eighty flames, please.)]
+		</p>
+		<p>
+			Handing over the money, you wait as the centauress hurries into the kitchen, and then a minute later she returns carrying your order. Setting the bread basket down on the counter in front of you, she flashes you a smile and steps over to the next customer, leaving you to tuck in to the delicious plate of meat pâté and crackers...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_FISH_CHIPS"><![CDATA[
+	<p>
+		Feeling quite hungry, you decide to order something to eat, and so ask Kheiron if you can order a serving of fish and chips. Jotting your order down on a slip of paper, he nods and says, [kheiron.speech(That'll be a hundred and fifty flames, please.)]
+	</p>
+	<p>
+		Handing over the money, you wait for a few minutes as your order is processed, before a centauress steps out from the kitchen door and calls out, [style.speechFeminine(One order of fish and chips ready!)]
+	</p>
+	<p>
+		Pointing over at you, Kheiron watches as this centauress sets the plate down on the counter in front of you, before smiling at her and saying, [kheiron.speech(Remember to take a break if you're feeling tired.)]
+	</p>
+	<p>
+		Smiling at Kheiron, the centauress reassures him that she's still full of energy, before trotting back into the kitchen and leaving you to tuck in to the delicious plate of freshly-cooked fish and chips...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_SAUSAGES"><![CDATA[
+	<p>
+		Feeling quite hungry, you decide to order something to eat, and so ask Kheiron if you can order some sausages. Jotting your order down on a slip of paper, he nods and says, [kheiron.speech(That'll be a hundred and fifty flames, please.)]
+	</p>
+	<p>
+		Handing over the money, you wait for a few minutes as your order is processed, before a centauress steps out from the kitchen door and calls out, [style.speechFeminine(One order of sausages ready!)]
+	</p>
+	<p>
+		Pointing over at you, Kheiron watches as this centauress sets the plate down on the counter in front of you, before smiling at her and saying, [kheiron.speech(Remember to take a break if you're feeling tired.)]
+	</p>
+	<p>
+		Smiling at Kheiron, the centauress reassures him that she's still full of energy, before trotting back into the kitchen and leaving you to tuck in to the delicious plate of freshly-cooked, high-quality sausages...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_BURGER"><![CDATA[
+	<p>
+		Feeling quite hungry, you decide to order something to eat, and so ask Kheiron if you can order a burger. Jotting your order down on a slip of paper, he nods and says, [kheiron.speech(That'll be a hundred and fifty flames, please.)]
+	</p>
+	<p>
+		Handing over the money, you wait for a few minutes as your order is processed, before a centauress steps out from the kitchen door and calls out, [style.speechFeminine(One burger ready!)]
+	</p>
+	<p>
+		Pointing over at you, Kheiron watches as this centauress sets the plate down on the counter in front of you, before smiling at her and saying, [kheiron.speech(Remember to take a break if you're feeling tired.)]
+	</p>
+	<p>
+		Smiling at Kheiron, the centauress reassures him that she's still full of energy, before trotting back into the kitchen and leaving you to tuck in to the delicious burger...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_CHICKEN_PIE"><![CDATA[
+	<p>
+		Feeling quite hungry, you decide to order something to eat, and so ask Kheiron if you can order a chicken pie. Jotting your order down on a slip of paper, he nods and says, [kheiron.speech(That'll be a hundred and eighty flames, please.)]
+	</p>
+	<p>
+		Handing over the money, you wait for a few minutes as your order is processed, before a centauress steps out from the kitchen door and calls out, [style.speechFeminine(One order of chicken pie ready!)]
+	</p>
+	<p>
+		Pointing over at you, Kheiron watches as this centauress sets the plate down on the counter in front of you, before smiling at her and saying, [kheiron.speech(Remember to take a break if you're feeling tired.)]
+	</p>
+	<p>
+		Smiling at Kheiron, the centauress reassures him that she's still full of energy, before trotting back into the kitchen and leaving you to tuck in to the delicious, freshly-cooked chicken pie...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_STEAK"><![CDATA[
+	<p>
+		Feeling quite hungry, you decide to order something to eat, and so ask Kheiron if you can order a steak. Jotting your order down on a slip of paper, he nods and says, [kheiron.speech(That'll be two hundred and fifty flames, please.)]
+	</p>
+	<p>
+		Handing over the money, you wait for a few minutes as your order is processed, before a centauress steps out from the kitchen door and calls out, [style.speechFeminine(One steak ready!)]
+	</p>
+	<p>
+		Pointing over at you, Kheiron watches as this centauress sets the plate down on the counter in front of you, before smiling at her and saying, [kheiron.speech(Remember to take a break if you're feeling tired.)]
+	</p>
+	<p>
+		Smiling at Kheiron, the centauress reassures him that she's still full of energy, before trotting back into the kitchen and leaving you to tuck in to the delicious, freshly-cooked steak...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_FRUIT_SALAD"><![CDATA[
+	<p>
+		Feeling a little hungry, you decide to order something to eat, and so ask Kheiron if you can order a fruit salad. Jotting your order down on a slip of paper, he nods and says, [kheiron.speech(That'll be eighty flames, please.)]
+	</p>
+	<p>
+		Handing over the money, you wait for a few minutes as your order is processed, before a centauress steps out from the kitchen door and calls out, [style.speechFeminine(One order of fruit salad ready!)]
+	</p>
+	<p>
+		Pointing over at you, Kheiron watches as this centauress sets the bowl down on the counter in front of you, before smiling at her and saying, [kheiron.speech(Remember to take a break if you're feeling tired.)]
+	</p>
+	<p>
+		Smiling at Kheiron, the centauress reassures him that she's still full of energy, before trotting back into the kitchen and leaving you to tuck in to the bowl of delicious, refreshing fruit salad...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_HONEY_BREAD"><![CDATA[
+	#IF(game.getCharactersPresent().contains(kheiron))
+		<p>
+			Feeling a little hungry, you decide to order something to eat, and so ask Kheiron if you can order some honey bread. Jotting your order down on a slip of paper, he nods and says, [kheiron.speech(That'll be eighty flames, please.)]
+		</p>
+		<p>
+			Handing over the money, you wait for a few minutes as your order is processed, before a centauress steps out from the kitchen door and calls out, [style.speechFeminine(One order of honey bread ready!)]
+		</p>
+		<p>
+			Pointing over at you, Kheiron watches as this centauress sets the plate down on the counter in front of you, before smiling at her and saying, [kheiron.speech(Remember to take a break if you're feeling tired.)]
+		</p>
+		<p>
+			Smiling at Kheiron, the centauress reassures him that she's still full of energy, before trotting back into the kitchen and leaving you to tuck in to the delicious plate of honey bread...
+		</p>
+	#ELSE
+		<p>
+			Feeling a little hungry, you decide to order something to eat, and so you call over the centauress behind the bar and order some honey bread. Nodding as you give her your order, she smiles and says, [style.speechFeminine(That'll be eighty flames, please.)]
+		</p>
+		<p>
+			Handing over the money, you wait as the centauress hurries into the kitchen, and then a minute later she returns carrying your order. Setting the bread basket down on the counter in front of you, she flashes you a smile and steps over to the next customer, leaving you to tuck in to the delicious plate of honey bread...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_BERRY_TRIFLE"><![CDATA[
+	<p>
+		Feeling a little hungry, you decide to order something to eat, and so ask Kheiron if you can order a berry trifle. Jotting your order down on a slip of paper, he nods and says, [kheiron.speech(That'll be eighty flames, please.)]
+	</p>
+	<p>
+		Handing over the money, you wait for a few minutes as your order is processed, before a centauress steps out from the kitchen door and calls out, [style.speechFeminine(One order of berry trifle ready!)]
+	</p>
+	<p>
+		Pointing over at you, Kheiron watches as this centauress sets the bowl down on the counter in front of you, before smiling at her and saying, [kheiron.speech(Remember to take a break if you're feeling tired.)]
+	</p>
+	<p>
+		Smiling at Kheiron, the centauress reassures him that she's still full of energy, before trotting back into the kitchen and leaving you to tuck in to the bowl of delicious berry trifle...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD_BROWNIE"><![CDATA[
+	#IF(game.getCharactersPresent().contains(kheiron))
+		<p>
+			Feeling a little hungry, you decide to order something to eat, and so ask Kheiron if you can order a brownie. Jotting your order down on a slip of paper, he nods and says, [kheiron.speech(That'll be eighty flames, please.)]
+		</p>
+		<p>
+			Handing over the money, you wait for a few minutes as your order is processed, before a centauress steps out from the kitchen door and calls out, [style.speechFeminine(One brownie ready!)]
+		</p>
+		<p>
+			Pointing over at you, Kheiron watches as this centauress sets the plate down on the counter in front of you, before smiling at her and saying, [kheiron.speech(Remember to take a break if you're feeling tired.)]
+		</p>
+		<p>
+			Smiling at Kheiron, the centauress reassures him that she's still full of energy, before trotting back into the kitchen and leaving you to tuck in to the delicious chocolate brownie...
+		</p>
+	#ELSE
+		<p>
+			Feeling a little hungry, you decide to order something to eat, and so you call over the centauress behind the bar and order a chocolate brownie. Nodding as you give her your order, she smiles and says, [style.speechFeminine(That'll be eighty flames, please.)]
+		</p>
+		<p>
+			Handing over the money, you wait as the centauress hurries into the kitchen, and then a minute later she returns carrying your order. Setting the bread basket down on the counter in front of you, she flashes you a smile and steps over to the next customer, leaving you to tuck in to the delicious chocolate brownie...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		Leading off from the main floor of the tavern, this corridor is clearly signposted as leading to the public toilet facilities. Just like every other aspect of this building, this corridor appears to have been constructed with taurs in mind, as it's far wider than a simple passageway would otherwise need to be.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT"><![CDATA[
+	<p>
+		You find yourself standing beside one of the two entrances to 'The Centaur's Sword'. Being specially designed so as to accommodate taurs of all sizes, the entrance's wooden doors are especially tall and wide, and the doormat which is recessed into the floor looks to be of an extremely heavy-duty design.
+	</p>
+	<p>
+		Over to one side of the large double-doors, there's a wooden umbrella rack fixed to the wall at waist-height,
+		#IF(game.getCurrentWeather()==WEATHER_RAIN)
+			 which, due to the fact that it's currently raining outside, is full of wet umbrellas.
+		#ELSE
+			 which, due to the fact that it's not currently raining outside, only has a few umbrellas stored in it.
+		#ENDIF
+		 From here, you could either [pc.step] forwards into the main area of the tavern, or instead make use of the door to head back out into Elis.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_LEAVE"><![CDATA[
+	<p>
+		Deciding that it's time for you to leave, you push open the door and head back outside, before continuing forwards into the street outside the tavern...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KITCHEN"><![CDATA[
+	<p>
+		Over on one side of the tavern's main floor, a pair of wide doors each display a sign that reads 'Kitchen: Staff Only'. [pc.Stepping] over to these doors, you look through one of their circular windows and see that the tavern's kitchen looks to be very large and well organised.
+	</p>
+	<p>
+		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			As it's currently the busy time of the day, there are several centauresses working in the kitchen, and you watch them for a moment as they prepare ingredients, stir pots, and move food in and out of the ovens.
+		#ELSE
+			As it's currently the quiet time of the day, there's only one centauress working in the kitchen, and you watch her for a moment as she takes her time preparing ingredients, stirring pots, and moving food in and out of the ovens.
+		#ENDIF
+		 Respecting the sign on the door, and not wanting to disturb the tavern's cooking staff, you decide to [pc.step] away from the door and do something else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Seating, with Fae & Silvia content:-->
+	
+	<htmlContent tag="SEATING"><![CDATA[
+	<p>
+		Running along one side of the tavern's main floor, an area has been set aside in which customers can sit and relax. Numerous large, taur-compatible sofas have been scattered throughout this area for people who want something to sit on, while clean mats have been laid out across the rest of the available space for taurs who prefer to lie down.
+	</p>
+	<p>
+		#IF(game.isHourBetween(15, 24))
+			As it's currently the busy time of the day, this seating area is almost completely full of taurs of every type imaginable. Making use of the sofas, or lying and sitting on the mats, these taurs are happily drinking, talking, and flirting with one another. Looking around, you also see that there are several along the edges of the seating area who are making out with one another or even trying to stealthily perform sexual acts.
+		#ELSE
+			As it's currently the quiet time of the day, this seating area is almost completely empty. There are however a couple of taurs who are making use of the sofas, and you watch for a moment as they happily drink and talk with one another.
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getCharactersPresent().contains(fae))
+			Taking one last look around, you suddenly spot Fae and Silvia sitting on a sofa over on the other side of this seating area. They haven't noticed you yet, and so you could either head over and say hello to them or turn around and continue on your way elsewhere...
+		#ELSE
+			With little to do here, you soon decide to turn around and head back into the rest of the tavern...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE"><![CDATA[
+	#IF(fae.isVisiblyPregnant())
+		<p>
+			#IF(!fae.isCharacterReactedToPregnancy(pc))
+				Recognising the two foxtauresses over on the far side of the seating area as none other than Fae and Silvia, you [pc.walk] over to them and say hello. Fae is the first to react to your greeting, and with a big smile on her face, she points down to her swollen belly and declares, [fae.speech(Look, [pc.name], you got me knocked up!)]
+			#ELSE
+				Recognising the two foxtauresses over on the far side of the seating area as none other than Fae and Silvia, you [pc.walk] over to them and say hello. Fae is the first to react to your greeting, and with a big smile on her face, she points down at her rounded belly and declares, [fae.speech(Look, [pc.name], I'm still pregnant with our kids!)]
+			#ENDIF
+		</p>
+	#ENDIF
+	#IF(silvia.isVisiblyPregnant())
+		<p>
+			#IF(fae.isVisiblyPregnant())
+				Letting out a soft moan, Silvia looks over at you and bites her lip, before pointing down at her own pregnant bump and teasing,
+			#ELSE
+				Recognising the two foxtauresses over on the far side of the seating area as none other than Fae and Silvia, you [pc.walk] over to them and say hello. Silvia is the first to react to your greeting, and with a big smile on her face, she runs her hands over her pregnant bump and teases,
+			#ENDIF
+			#IF(!silvia.isCharacterReactedToPregnancy(pc))
+				 [silvia.speech(Look what you did, you naughty [pc.girl]... These are your kids in here...)]
+			#ELSE
+				 [silvia.speech(I'm still carrying our kids around...)]
+			#ENDIF
+		</p>
+	#ENDIF
+	#IF(fae.isVisiblyPregnant())
+		<p>
+			#IF(silvia.isVisiblyPregnant())
+				The two pregnant sisters shuffle along on the low sofa and pat the empty space between them. Winking at you, Fae says, [fae.speech(Come and sit down, [pc.name]. Let's get you nice and comfortable...)]
+			#ELSE
+				Letting out a soft moan, Silvia looks over at you and bites her lip, before shuffling along on the low sofa and patting the empty space between her and Fae. Winking at you, the pregnant foxtauress says, [fae.speech(Come and sit down, [pc.name]. Let's get you nice and comfortable...)]
+			#ENDIF
+		</p>
+	#ELSEIF(silvia.isVisiblyPregnant())
+		<p>
+			Letting out a soft moan, Silvia looks over at you and bites her lip, before shuffling along on the low sofa and patting the empty space between her and Fae. Winking at you, the green-eyed foxtauress says, [fae.speech(Come and sit down, [pc.name]. Let's get you nice and comfortable...)]
+		</p>
+	#ELSE
+		<p>
+			Recognising the two foxtauresses over on the far side of the seating area as none other than Fae and Silvia, you [pc.walk] over to them and say hello. The moment they see you, each of the sisters flash you a sly grin, before shuffling along on the low sofa and patting the empty space between them. Winking at you, Fae says, [fae.speech(Come and sit down, [pc.name]. Let's get you nice and comfortable...)]
+		</p>
+	#ENDIF
+	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(fae))
+		<p>
+			#IF(!pc.isCharacterReactedToPregnancy(fae))
+				At that moment, the two sisters suddenly notice that you're sporting a swollen, pregnant belly. Telling Fae that she's the one who knocked you up, you smile as the foxtauress teases, [fae.speech(It's not my fault; your pussy was just so good, I didn't want to pull out! Now come over here and take a rest...)]
+			#ELSE
+				At that moment, the two sisters look down at your swollen, pregnant belly. Knowing that she's the one who knocked you up, Fae smirks and teases, [fae.speech(Still carrying our kids around, huh? Come over here and take a rest...)]
+			#ENDIF
+		</p>
+	#ELSEIF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(silvia))
+		<p>
+			#IF(!pc.isCharacterReactedToPregnancy(silvia))
+				At that moment, the two sisters suddenly notice that you're sporting a swollen, pregnant belly. Telling Silvia that she's the one who knocked you up, you smile as the foxtauress teases, [silvia.speech(It's not my fault; your pussy was just so good, I didn't want to pull out!)]
+			#ELSE
+				At that moment, the two sisters look down at your swollen, pregnant belly. Knowing that she's the one who knocked you up, Silvia smirks and teases, [silvia.speech(Still carrying our kids around, huh?)]
+			#ENDIF
+		</p>
+		<p>
+			Impatiently continuing to pat the sofa, Fae says, [fae.speech(Come over here and take a rest, [pc.name]...)]
+		</p>
+	#ENDIF
+	<p>
+		Accepting Fae's invitation, you sit between the two sisters, and the moment that you do so, they shuffle forwards and start playfully brushing up against you. Seeming to have a little more confidence than she did while at work, Silvia teases, [silvia.speech(You know, [pc.name], Fae and I were just talking about how good you are at kissing. I was wondering if you were good at other stuff, too...)]
+	</p>
+	<p>
+		[fae.speech(Why don't you just say you want to fuck [pc.her]?)] Fae says to her sister, [fae.speech(That's why we're all here, isn't it?)]
+	</p>
+	<p>
+		Letting out a giggle, Silvia nods her head and bats her eyelids at you. Finally given a moment in which to make a move, you wonder whether to take things slow or immediately start by kissing the horny sisters...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_LEAVE"><![CDATA[
+	<p>
+		Feeling like you've made a mistake, you think up some excuse as to why you suddenly need to leave, before standing up and telling Fae and Silvia that you'll have to do this another time. The foxtauresses both pout at you as they hear they're not going to be getting any action tonight, and with a look of disappointment on her face, Fae sighs, [fae.speech(Fine, I guess we'll be heading off as well then. Catch us here at the same time another day, [pc.name].)]
+	</p>
+	<p>
+		With that, the two foxtauresses stand up and walk off into the tavern. After watching them cross the floor and make their exit, you wonder what to do in here now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_TALK"><![CDATA[
+	<p>
+		Not wanting to rush things, you lean back on the sofa and ask the two foxtauresses how their day has been. Pouting at you, Fae whines, [fae.speech(Come on, [pc.name], don't tease us like this... You know we're all here just to have a good fuck...)]
+	</p>
+	<p>
+		[silvia.speech(I don't mind having a bit of a chat,)] Silvia declares, before happily smiling at you and continuing in a hushed, seductive tone, [silvia.speech(I'd like to know more about the [pc.race] who I'll be fucking tonight...)]
+	</p>
+	<p>
+		With both of the foxtauresses clearly only being interested in sex, your attempts to make small talk don't get very far, and while you're able to get them to tell you how their day has been, they refuse to engage you in any further conversation. Letting out a defeated sigh, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_DRINKS"><![CDATA[
+	<p>
+		Thinking that it would be nice to have a drink with the two foxtauresses, you ask them if you can get them anything. After briefly smirking at her sister, Fae looks at you and teases, [fae.speech(You're not escaping that easily. Siliva will keep you company while <i>I</i> go and get us some drinks.)]
+	</p>
+	<p>
+		Grabbing hold of your [pc.arm], Silvia lets out a playful giggle and says, [silvia.speech(I've got [pc.herHim], Fae. You go and get us some wine.)]
+	</p>
+	<p>
+		Allowing the sisters to have their fun, you remain seated while Fae heads off to the bar to get some wine. Leaning into you, Silvia gazes at you with her big, blue eyes and sighs, [silvia.speech(I can't wait for later... Fae and I will give you a real good fuck...)]
+	</p>
+	<p>
+		Returning the horny foxtauress's affections, you allow her to guide your [pc.hand] up to her [silvia.breastSize] breasts, and after a couple of minutes spent feeling her up, you see her sister heading back over from the bar. Clearly having seen what you were doing with Silvia, Fae sinks down onto the sofa beside you and demands, [fae.speech(Feel my tits too!)] 
+	</p>
+	<p>
+		Not wanting to make her upset, you do as Fae says and give her [fae.cupSize]-cup tits a good grope, while Silvia opens the bottle of wine and pours out three glasses. With the two horny sisters continuing to grind up against you, you spend the next ten minutes drinking and alternating between groping Fae's and Silvia's breasts...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_TAILS"><![CDATA[
+	<p>
+		Having the lower bodies of oversized feral foxes, Fae and Silvia possess exceptionally fluffy tails. Knowing that it'd feel amazing to get to stroke both of them at once, you ask the sisters if they like having their tails played with. An amused smirk settles on Fae's face as she hears you say this, and she teases, [fae.speech(You like big fluffy tails, huh? What do you think, Silvia? Should we let [pc.name] stroke them?)] 
+	</p>
+	<p>
+		[silvia.speech(I suppose, so long as [pc.she] shows the same enthusiasm towards the rest of our bodies later this evening,)] Silvia replies, before letting out a giggle and spinning around on the sofa. Following her sister's lead, Fae similarly turns around, and you suddenly find yourself flanked by the sisters' rear ends.
+	</p>
+	<p>
+		[fae.speech(Go on then, touch our fluffy tails!)] Fae laughs, before twisting her big, furry tail around to stroke it over your face. Not wanting to be left out, Silvia copies her sister and lifts her tail up to brush it over your torso.
+	</p>
+	<p>
+		With Fae and Silvia giggling in delight, you spend the next ten minutes stroking, fluffing, and playing with their large, fluffy fox-tails. Their orange fur is exceptionally smooth and luxurious, and you can't help but smile every time you touch their white tips and cause the sisters to let out an excited little laugh in response. Eventually, however, all three of you get tired of this game, and so Fae and Silvia turn back around and lean into you.
+	</p>
+	<p>
+		[silvia.speech(That was fun, but when are we going to go and fuck?)] Silvia asks, before winking and pouting at you.
+	</p>
+	<p>
+		[fae.speech(Yeah, I really need some sex tonight,)] Fae adds, [fae.speech(Having my tail fondled isn't going to cut it.)]
+	</p>
+	<p>
+		With the two sisters clearly getting impatient for the evening's main event, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_FLIRT"><![CDATA[
+	<p>
+		Wanting to get the two foxtauresses turned on and eager as can be for what's coming, you start making several flirtatious remarks about Fae's and Silvia's appearances. More than happy to respond in kind, the two of them start grinding up against you, and as they press their equally-large, [fae.cupSize]-cup breasts into your body, the two sisters start taking things up a notch.
+	</p>
+	<p>
+		[fae.speech(Do you prefer fox cock or pussy?)] Fae bluntly asks, before stroking her hand down towards your groin.
+	</p>
+	<p>
+		[silvia.speech(We don't mind which you want to use,)] Silvia adds, [silvia.speech(Oh, and we like having our tits fucked too.)]
+	</p>
+	<p>
+		Letting out synchronised, horny moans, the two sisters heavily lean into you and start excitedly feeling you up. With your flirting having a far greater impact than you'd hoped for, you're left wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_KISS"><![CDATA[
+	<p>
+		Wanting to get on with it, you lean over towards Fae and press your [pc.lips+] against her mouth, before giving her a big, wet kiss. Instantly, she responds by desperately clambering forwards into your lap, pressing her lips firmly against yours and forcing her tongue into your mouth. Grinding up against you, she starts letting out a series of high-pitched, muffled whines, and after spending a moment passionately making out with you, she pulls back and breathlessly pants, [fae.speech(Oh yeah... That's what I've been wanting...)]
+	</p>
+	<p>
+		Not one to sit back and miss out on the fun, Silvia reaches up and grabs your head, before pulling your face towards hers and desperately pressing her lips against yours. Just like her sister, the horny foxtauress forces her pierced tongue into your mouth, and after pushing her sister back, she takes Fae's place in your lap and starts wildly grinding up against you.
+	</p>
+	<p>
+		[fae.speech(That's not fair. I want another go,)] Fae complains, before moving forwards and jostling against her sister for the prime position on your lap. With the two foxtauresses fighting over your mouth, you find yourself suddenly switching between making out with Silvia, then Fae, then Silvia again. After ten minutes of this awkward, passionate make out session, the two sisters call a truce, and both look down at you with a hungry gleam in their green and blue eyes.
+	</p>
+	<p>
+		[fae.speech(Come on, [pc.name],)] Fae whines.
+	</p>
+	<p>
+		[silvia.speech(Let's go somewhere where we can fuck,)] Silvia finishes.
+	</p>
+	<p>
+		With the two sisters clearly desperate for sex, you wonder whether or not to invite them back to your room at 'The Red Dragon'...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_TAKE_HOME"><![CDATA[
+	<p>
+		Wanting to do more than just kiss these horny sisters, you ask Fae and Silvia if they'd like to accompany you back to your room in 'The Red Dragon'. Happily responding in the positive, the two foxtauresses stand up on either side of you, and with a firm grip on your [pc.arms], they join you in crossing the tavern's floor and heading towards the exit. 
+	</p>
+	<p>
+		With the two of them telling you all sorts of lewd things they'd like to do with you tonight, you lead Fae and Silvia down the street to 'The Red Dragon', and after heading through the building and up the stairs, you soon find yourself at the door to your room. After waiting for you to unlock the door, the sisters step inside, after which Fae turns to face you and moan, [fae.speech(I've been looking forward to this...)]
+	</p>
+	<p>
+		[silvia.speech(My pussy's so wet,)] Silvia adds, [silvia.speech(I <i>need</i> a good fuck!)]
+	</p>
+	<p>
+		With your foxtauress companions absolutely desperate to get started, you wonder whether to take the lead or submit to them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_TAKE_HOME_DOM"><![CDATA[
+	<p>
+		Wanting to stay in control of the situation, you [pc.step] forwards and dominantly take hold of Fae and Silvia. Pulling them into your body, you tell them to be good girls for you tonight.
+	</p>
+	<p>
+		[fae.speech(Very well,)] Fae moans, [fae.speech(But you'd better be able to satisfy us...)]
+	</p>
+	<p>
+		[silvia.speech(I hope you don't mind if we make a mess in your room,)] Silvia giggles, motioning back towards both her and Fae's rapidly-hardening fox-cocks.
+	</p>
+	<p>
+		Planting a quick, dominant kiss on each of their lips, you wonder how best to start things off...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_TAKE_HOME_SUB"><![CDATA[
+	<p>
+		Not wanting to be the one who's in control of the situation, you [pc.step] forwards and submissively ask Fae and Silvia to take the lead. Grabbing hold of you, they pull you forwards and squish their [fae.cupSize]-cup breasts into either side of your torso.
+	</p>
+	<p>
+		[fae.speech(Very well,)] Fae moans, [fae.speech(We'll be sure to have our fun with you...)]
+	</p>
+	<p>
+		[silvia.speech(I hope you don't mind if we make a mess in your room,)] Silvia giggles, motioning back towards both her and Fae's rapidly-hardening fox-cocks.
+	</p>
+	<p>
+		With that, the two foxtauresses take turns to plant a wet, dominant kiss on your lips, before starting to really get things going...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_TAKE_HOME_DOGGY"><![CDATA[
+	<p>
+		Wanting to submit to these horny sisters, you tell them that you'd like them to dominantly fuck you in the doggy-style position. Smirking as she hears you say this, Fae grabs hold of you and firmly, yet carefully, pushes you down onto the floor. Quickly gaining access to your pussy, she moans, [fae.speech(Sure thing, [pc.name]. I wouldn't mind railing this hot cunt of yours tonight...)]
+	</p>
+	<p>
+		[silvia.speech(You can use your mouth on me, then,)] Silvia decides, before trotting around in front of you and flicking her tail aside to present you with her
+		#IF(game.isAnalContentEnabled())
+			 [silvia.pussy+], [silvia.asshole+], and rapidly-hardening scarlet fox-cock.
+		#ELSE
+			 [silvia.pussy+] and rapidly-hardening scarlet fox-cock.
+		#ENDIF
+	</p>
+	<p>
+		Wasting no further time, Fae steps over the top of you and starts rubbing the head of her [fae.cock+] up and down over your exposed pussy. Letting out an excited moan, she thrusts forwards, sinking her throbbing length into your cunt and causing you to let out a desperate, deep moan.
+	</p>
+	<p>
+		[silvia.speech(Don't forget me!)] Silvia exclaims, and before you can react, she steps back and pushes her sopping-wet pussy against your mouth. Forced to perform cunnilingus on her, you start kissing and licking the blue-eyed foxtauress's cunt while her green-eyed sister relentlessly pounds your pussy from behind...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_TAKE_HOME_DOGGY_ANAL"><![CDATA[
+	<p>
+		Wanting to submit to these horny sisters, you tell them that you'd like them to dominantly fuck your ass in the doggy-style position. Smirking as she hears you say this, Fae grabs hold of you and firmly, yet carefully, pushes you down onto the floor. Quickly gaining access to your asshole, she moans, [fae.speech(Sure thing, [pc.name]. I wouldn't mind railing this hot butt of yours tonight...)]
+	</p>
+	<p>
+		[silvia.speech(You can use your mouth on me, then,)] Silvia decides, before trotting around in front of you and flicking her tail aside to present you with her [silvia.pussy+], [silvia.asshole+], and rapidly-hardening scarlet fox-cock.
+	</p>
+	<p>
+		Wasting no further time, Fae steps over the top of you and starts rubbing the head of her [fae.cock+] up and down over your exposed asshole. Letting out an excited moan, she thrusts forwards, sinking her throbbing length into your ass and causing you to let out a desperate, deep moan.
+	</p>
+	<p>
+		[silvia.speech(Don't forget me!)] Silvia exclaims, and before you can react, she steps back and pushes her sopping-wet pussy against your mouth. Forced to perform cunnilingus on her, you start kissing and licking the blue-eyed foxtauress's cunt while her green-eyed sister relentlessly pounds your [pc.asshole+] from behind...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_AFTER_SEX"><![CDATA[
+	<p>
+		#IF(fae.isSatisfiedFromLastSex())
+			#IF(silvia.isSatisfiedFromLastSex())
+				Both of the foxtauress sisters let out an extremely satisfied sigh, before stepping over to collapse down onto your bed. Panting for breath, Fae says, [fae.speech(That was... amazing... We really needed that tonight, [pc.name]...)]
+			#ELSE
+				Having had her fun, Fae lets out an extremely contented sigh and steps over to collapse down onto your bed. On the other hand, Silvia doesn't seem to have been satisfied by tonight's sex, and whines, [silvia.speech(How disappointing... I expected more from you, [pc.name]...)]
+			#ENDIF
+		#ELSEIF(silvia.isSatisfiedFromLastSex())
+			Having had her fun, Silvia lets out an extremely contented sigh and steps over to collapse down onto your bed. On the other hand, Fae doesn't seem to have been satisfied by tonight's sex, and whines, [fae.speech(How disappointing... I expected more from you, [pc.name]...)]
+		#ELSE
+			Neither of the foxtauress sisters seem to have been satisfied by tonight's sex, and Fae whines in annoyance, [fae.speech(How disappointing... I expected more from you, [pc.name]...)]
+		#ENDIF
+	</p>
+	<p>
+		As the three of you take a moment in which to recover your stamina, you wonder whether to invite the two sisters to stay the night with you, or instead simply say goodbye and have them leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_END"><![CDATA[
+	<p>
+		Not wanting the foxtauresses to stay over tonight, you tell them that you enjoyed your evening and that you hope to do it again another time.
+	</p>
+	<p>
+		#IF(fae.isSatisfiedFromLastSex())
+			#IF(silvia.isSatisfiedFromLastSex())
+				Taking the hint, the satisfied sisters put their clothing back on and step forwards to plant one last pair of kisses on your [pc.lips+]. Smiling at you, Fae sighs, [fae.speech(We really had a lot of fun tonight, [pc.name]. Thanks for everything...)]
+			#ELSE
+				Taking the hint, the sisters put their clothing back on and step forwards to plant one last pair of kisses on your [pc.lips+]. Pouting at you, Silvia sighs, [silvia.speech(Please try to satisfy me the next time we do this, [pc.name]...)]
+			#ENDIF
+		#ELSEIF(silvia.isSatisfiedFromLastSex())
+			Taking the hint, the sisters put their clothing back on and step forwards to plant one last pair of kisses on your [pc.lips+]. Pouting at you, Fae sighs, [fae.speech(Please try to satisfy me the next time we do this, [pc.name]...)]
+		#ELSE
+			Taking the hint, the sisters put their clothing back on and step forwards to plant one last pair of kisses on your [pc.lips+]. After both sisters have taken a moment in which to pout at you, Fae sighs, [fae.speech(Please try to satisfy us the next time we do this, [pc.name]...)]
+		#ENDIF
+	</p>
+	<p>
+		With that, the two of them step out of your room and head off down the corridor, leaving you wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_SLEEP"><![CDATA[
+	<p>
+		Wanting to have some company tonight, you ask the sisters if they'd like to sleep here with you. Exchanging a happy smirk with one another, Fae and Silvia strip out of their remaining clothes, throw back the covers, and slide into your bed. Patting the space between them, Silvia sighs, [silvia.speech(Come on, [pc.name]... Plenty of room for all three of us in here...)]
+	</p>
+	<p>
+		Stripping naked, you drop down onto the bed between the two foxtauresses. Letting out a synchronised moan, Fae and Silvia flick their big, fluffy tails over the top of you, before pulling the covers up and snuggling in against you. With their big, naked breasts squished up against you on either side, and with their fluffy tails providing you with an extra layer of comfort, the two foxtaruesses let out satisfied sighs and join you in quickly falling asleep...
+	</p>
+	<p>
+		...
+	</p>
+	<p><i>
+		You dream of a huge mass of soft, orange fur chasing you throughout the streets of Elis. Every time you seem to escape, the sentient mass manages to catch you and envelop you in its soft fur. Just as you start to despair, a huge fox-cock falls from the sky and scatters the fur into the wind. With the furry ball defeated, this huge cock turns its attention towards you, and relentlessly starts slapping itself against your face...
+	</i></p>
+	<p>
+		...
+	</p>
+	<p>
+		[fae.speech(Come on, [pc.name], it's not going to suck itself...)] Fae's voice wakes you from your slumber, and you open your eyes to see that the foxtauress has stepped over the top of you and lowered her groin down over your face. A bead of salty, musky precum is beading from the tip of her massive erection, and as she playfully slaps it against your face, she moans, [fae.speech(Come on, [pc.name], you'll help me out, won't you?)]
+	</p>
+	<p>
+		At that moment you become aware of hot breath falling on your groin, and you hear Silvia call out from down the bed, [silvia.speech(Help Fae out and I'll return the favour for her...)]
+	</p>
+	<p>
+		With the tip of Fae's cock dropping down towards your [pc.lips+], you only have a moment in which to articulate your response...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_SLEEP_END"><![CDATA[
+	<p>
+		Not wanting to suck Fae's cock, you roll over to one side and tell her that you're not interested. Letting out a disappointed whine, she steps off your bed before pouting at you and huffing, [fae.speech(Fine... Guess I'll have to go and find someone downstairs who's willing to jerk me off or something...)]
+	</p>
+	<p>
+		With that, the two sisters put their clothing back on, before stepping forwards to plant one last pair of kisses on your [pc.lips+]. As Fae says goodbye and heads towards the door, Silvia smiles at you and says, [silvia.speech(Thanks for the fun last night, and for letting us sleep over. See you around, [pc.name]!)]
+	</p>
+	<p>
+		Stepping over to the door, Fae and Silvia give you one last wave, and then with a swish of their big, fluffy fox tails, they head out of your room and head off down the corridor, leaving you wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_SLEEP_SEX_COCK"><![CDATA[
+	<p>
+		Wanting to make Fae happy, you tell her that you'll help her get some release, before opening your mouth and waiting for her to make the next move. Letting out a delighted moan as she sees how eager you are, Fae drops her hips down and slides the [fae.cockHead+] of her [fae.cock+] into your waiting mouth. Wrapping your [pc.lips+] around her hot shaft, you start eagerly sucking her off, which causes her to desperately pant, [fae.speech(~Mmm!~ Oh yes... ~Aah!~ You're good at this...)]
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			As you start to suck Fae's cock, Silvia lets out a hungry moan, and the next thing you know you're feeling her [silvia.lips+] planting a big, wet kiss on the [pc.cockHead] of your own cock. Letting out a happy giggle as she watches your cock stand to attention, Fae's blue-eyed sister opens wide and takes your [pc.cock+] into her mouth. With you sucking Fae's cock, and Silvia doing the same to yours, you lie back and enjoy this unexpected form of a morning wakeup...
+		#ELSEIF(pc.hasVagina())
+			As you start to suck Fae's cock, Silvia lets out a hungry moan, and the next thing you know you're feeling her [silvia.lips+] planting a big, wet kiss on your [pc.labia+]. Letting out a happy giggle as she slides her tongue over the length of your pussy, Fae's blue-eyed sister leans forwards and presses her mouth against your exposed cunt. With you sucking Fae's cock, and Silvia starting to eat you out, you lie back and enjoy this unexpected form of a morning wakeup...
+		#ELSE
+			[silvia.speech(I can't do anything down here...)] Silvia calls out as you start to suck Fae's cock. With no way to perform oral on you, Silvia simply lets out a frustrated sigh and watches as her sister fucks your throat...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_SLEEP_SEX_PUSSY"><![CDATA[
+	<p>
+		Wanting to make Fae happy, but not willing to suck her cock, you tell her that you'll help her get some release by eating her out, before opening your mouth and waiting for her to make the next move. Letting out a delighted moan as she sees how eager you are, Fae drops her hips down and presses her [fae.labia+] down over your mouth. Planting a big, wet kiss on her [fae.pussy+], you start eagerly eating her out, which causes her to desperately pant, [fae.speech(~Mmm!~ Oh yes... ~Aah!~ You're good at this...)]
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			As you start to service Fae's pussy, Silvia lets out a hungry moan, and the next thing you know you're feeling her [silvia.lips+] planting a big, wet kiss on the [pc.cockHead] of your [pc.cock+]. Letting out a happy giggle as she watches your cock stand to attention, Fae's blue-eyed sister opens wide and takes your [pc.cock+] into her mouth. With you licking and kissing Fae's cunt, and Silvia starting to give you a blowjob, you lie back and enjoy this unexpected form of a morning wakeup...
+		#ELSEIF(pc.hasVagina())
+			As you start to service Fae's pussy, Silvia lets out a hungry moan, and the next thing you know you're feeling her [silvia.lips+] planting a big, wet kiss on your [pc.labia+]. Letting out a happy giggle as she slides her tongue over the length of your pussy, Fae's blue-eyed sister leans forwards and presses her mouth against your exposed cunt. With you licking and kissing Fae's cunt, and Silvia doing the same to yours, you lie back and enjoy this unexpected form of a morning wakeup...
+		#ELSE
+			[silvia.speech(I can't do anything down here...)] Silvia calls out as you start to service Fae's pussy. With no way to perform oral on you, Silvia simply lets out a frustrated sigh and watches as her sister sits on your face...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_SLEEP_AFTER_SEX"><![CDATA[
+	<p>
+		#IF(fae.isSatisfiedFromLastSex())
+			#IF(silvia.isSatisfiedFromLastSex())
+				Both of the foxtauress sisters let out an extremely satisfied sigh, before Fae rolls over onto your bed and moans, [fae.speech(~Mmm!~ That was just what I needed... Thanks, [pc.name]...)]
+			#ELSE
+				Having had her fun, Fae lets out an extremely contented sigh and rolls over onto your bed. On the other hand, Silvia doesn't seem to have been satisfied by this morning's sex, and whines, [silvia.speech(I kind of wanted more than that...)]
+			#ENDIF
+		#ELSEIF(silvia.isSatisfiedFromLastSex())
+			Having had her fun, Silvia lets out an extremely contented sigh and rolls over onto your bed. On the other hand, Fae doesn't seem to have been satisfied by this morning's sex, and whines, [fae.speech(I needed more than that...)]
+		#ELSE
+			Neither of the foxtauress sisters seem to have been satisfied by this morning's sex, and Fae whines in annoyance, [fae.speech(I needed more than that...)]
+		#ENDIF
+	</p>
+	<p>
+		Spending the next few minutes getting your breath back and fully waking up, the three of you prepare to start your day...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_FAE_SLEEP_SEX_END"><![CDATA[
+	<p>
+		Knowing that the foxtauress sisters need to head off and get their stall at the Farmer's Market set up, you say goodbye to them and tell them that you had a lot of fun with them last night.
+	</p>
+	<p>
+		[silvia.speech(We had fun too,)] Silvia replies, before joining her sister in leaning forwards and planting one last pair of kisses on your [pc.lips+]. Heading over to the door, the two of them give you one last wave, and then with a swish of their big, fluffy fox tails, they head out of your room and set off down the corridor, leaving you wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<htmlContent tag="STAIRS"><![CDATA[
+	<p>
+		Opposite the toilets, there's a particularly wide staircase leading up to the tavern's upper floor. As you don't have any business up there, you decide that there's no point in travelling up these stairs, and instead turn around and prepare to head back into the tavern...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TABLES"><![CDATA[
+	<p>
+		In order to accommodate the large bodies of its tauric patrons, this tavern's floor area has been extended on all sides in order to make it as spacious as possible. Dozens of tables have been placed throughout this vast area, and you see that instead of chairs, each of them is surrounded by comfortable floor mats upon which taurs can either sit or lie.
+	</p>
+	<p>
+		#IF(game.isHourBetween(15, 24))
+			As it's currently the busy time of the day, the tavern is almost completely full of taurs of every type imaginable. All but a couple of the tables before you are occupied by these tauric customers, who are happily drinking and filling the room with sounds of their drunken revelry. 
+		#ELSE
+			As it's currently the quiet time of the day, the tavern is almost completely empty. There are however a few taurs who are sitting at a couple of the tables, and you watch for a moment as they happily drink and talk with one another.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Toilets: -->
+	
+	<htmlContent tag="TOILETS"><![CDATA[
+	<p>
+		You find yourself standing before the door to the tavern's toilets, and subsequently find yourself with the rather limited options of either heading inside or turning around and returning to the corridor...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_INTERIOR"><![CDATA[
+	<p>
+		Deciding to make use of the tavern's toilets, you push open the wide door and head inside. Consisting of several huge stalls and a few tall sinks, these facilities are quite clearly designed with taurs in mind, and look to be kept in an admirably clean condition.
+	</p>
+	<p>
+		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			Due to the busy time of day there are already a few taurs in here, and so if you wanted to use one of the toilets it looks like you'll have to wait for a minute or two before one of the occupied stalls becomes available.
+		#ELSE
+			Due to the quiet time of day there's nobody else in here, and so if you wanted to use one of the toilets there's nothing stopping you from entering one of the free stalls.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_LEAVE"><![CDATA[
+	<p>
+		Having no further need of the tavern's toilet facilities, you swiftly head over to the door and make your exit...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_USE"><![CDATA[
+	<p>
+		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))
+			After waiting for a couple of minutes, one of the stalls becomes available, and so after [pc.stepping] into it and locking the door behind you, you make use of the toilet.
+		#ELSE
+			[pc.Stepping] into one of the empty stalls, you turn and lock the door behind you, before making use of the toilet.
+		#ENDIF
+		 After you've finished, you flush the toilet before making your way over to one of the sinks and washing your [pc.hands]. Grabbing a paper towel from the nearby dispenser, you quickly dry yourself off, before turning to face the room and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_WASH"><![CDATA[
+	<p>
+		Feeling like you could do with having a quick clean, you step over to the sinks and thoroughly wash your [pc.hands], before splashing some water on your [pc.face]. Grabbing a paper towel from the nearby dispenser, you quickly dry yourself off, before turning to face the room and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

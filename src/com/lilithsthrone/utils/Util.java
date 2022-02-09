@@ -46,7 +46,7 @@ import javafx.scene.paint.Color;
  * This is just a big mess of utility classes that I wanted to throw somewhere.
  * 
  * @since 0.1.0
- * @version 0.4.0
+ * @version 0.4.1
  * @author Innoxia, CognitiveMist
  */
 public class Util {
@@ -54,7 +54,7 @@ public class Util {
 	public static Random random = new Random();
 
 	private static StringBuilder utilitiesStringBuilder = new StringBuilder();
-
+	
 	private static Map<KeyCode, String> KEY_NAMES = new LinkedHashMap<KeyCode, String>() {
 		private static final long serialVersionUID = 1L;
 	{
@@ -1426,13 +1426,18 @@ public class Util {
 		List<Any> list = new ArrayList<>(set);
 		return randomItemFrom(list);
 	}
-	
+
 	public static <Any> Any randomItemFrom(Any[] array) {
 		return array[Util.random.nextInt(array.length)];
 	}
 
 	public static int randomItemFrom(int[] array) {
 		return array[Util.random.nextInt(array.length)];
+	}
+
+	@SafeVarargs
+	public static <Any> Any randomItemFromValues(Any... values) {
+		return values[Util.random.nextInt(values.length)];
 	}
 
 	/**
@@ -1442,28 +1447,39 @@ public class Util {
 	 * @param input String for which to find the closest match.
 	 * @param choices Collection of valid Strings, among which the closest match to {@code input}
 	 *                   will be found.
+	 * @param maxDistance The maximum distance for a match. If no match within this distance,
+	 *                    return null.
 	 * @return The closest match.
 	 */
-	public static String getClosestStringMatch(String input, Collection<String> choices) {
-		// If input is empty, just return the empty string. It would make no sense to guess, so hopefully
-		// the caller will handle the case correctly.
+	public static String getClosestStringMatch(String input, Collection<String> choices, int maxDistance) {
+		// If input is empty, just return the empty string. It would make no sense to guess, so hopefully the caller will handle the case correctly.
 		if (input.isEmpty() || choices.contains(input)) {
 			return input;
 		}
-		int distance = Integer.MAX_VALUE;
+		int stringMatchDistance = Integer.MAX_VALUE;
 		String closestString = input;
 		for(String choice : choices) {
 			int newDistance = getLevenshteinDistance(input, choice);
-			if(newDistance < distance) {
+			if(newDistance < stringMatchDistance) {
 				closestString = choice;
-				distance = newDistance;
+				stringMatchDistance = newDistance;
 			}
 		}
-		if(distance>0) { // Only show error message if difference is more than just capitalisation differences
-			System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
+		if(stringMatchDistance>maxDistance) {
+			System.err.println("Warning: getClosestStringMatch() did not find a close enough match for '"+input+"'; returning null. (Closest match was '"+closestString+"' at distance: "+stringMatchDistance+")");
+			return null;
 		}
-//		new IllegalArgumentException().printStackTrace(System.err);
+		if(stringMatchDistance>0) { // Only show error message if difference is more than just capitalisation differences
+			System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead. (Distance: "+stringMatchDistance+")");
+		}
+		if(Main.DEBUG) {
+			new IllegalArgumentException().printStackTrace(System.err);
+		}
 		return closestString;
+	}
+	
+	public static String getClosestStringMatch(String input, Collection<String> choices) {
+		return getClosestStringMatch(input, choices, Integer.MAX_VALUE);
 	}
 
 	private static String unordered(String input, int prefix) {

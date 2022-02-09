@@ -43,8 +43,8 @@ public class QuickTransformations {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			String femaleName = targetedNpc.getSubspecies().getSingularFemaleName(targetedNpc);
-			String maleName = targetedNpc.getSubspecies().getSingularMaleName(targetedNpc);
+			String femaleName = targetedNpc.getSubspecies().getSingularFemaleName(targetedNpc.getBody());
+			String maleName = targetedNpc.getSubspecies().getSingularMaleName(targetedNpc.getBody());
 			
 			if (index == 1) {
 				return new Response("[style.colourMasculineStrong(Very masculine)]",

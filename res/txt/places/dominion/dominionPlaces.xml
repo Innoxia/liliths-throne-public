@@ -94,7 +94,6 @@
 	
 	<htmlContent tag="STREET_EVENT_SNOW"><![CDATA[
 	<p>
-		[style.boldBlueLight(Snow:)]
 		<br/>The reindeer-morph workers are doing a good job of keeping Dominion's streets clear from the snow, but the rooftops, trees, and tops of lamp posts are all home to a thick layer of white. You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold.
 	</p>
 	]]>
@@ -218,6 +217,46 @@
 			#ELSE
 				Despite the fact that it's night-time, this boulevard is packed with pedestrians, and you walk past individuals of all different races and appearances as you continue onwards through the crowds. Although dog, cat and horse-morphs are the most common races that you see, there are a significant number of demons and other more exotic races mixed in with the crowds here. Demons and half-demons in particular are very easy to spot, as wherever they walk, people hurriedly move to make way for them.
 			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DOMINION_PLAZA -->
+	
+	<htmlContent tag="DOMINION_PLAZA"><![CDATA[
+	<p>
+		You find yourself standing in the very centre of Dominion, where an expansive public square is situated. Large residential and commercial buildings flank the plaza on each of its four sides. Looking around, you see that each and every one of their white marble façades are decorated with dark-purple flags bearing the black pentagram of Lilith. Numerous grandiose statues and extravagantly-detailed water fountains, all carved from polished white marble, are scattered about throughout this large area. Each one of these sculptures appears to represent a demon or Lilin, and although they're each a marvellous work of art, the one in the very middle of the square is quite simply breathtaking.
+	</p>
+	<p>
+		On top of a plinth of at least [unit.lSizes(3000)] in height, there stands a gigantic marble statue of Lilith herself; with wings fully unfurled, and with her hands resting on her wide hips, she smirks down with a visage of manic delight at the crowds below. Although she no doubt possesses the power to transform into almost any form imaginable, this statue represents her as a cliché, stereotypical succubus, albeit an exceptionally beautiful one. Wearing only the scantiest of sexy, form-fitting lingerie, every [unit.size] of Lilith's curvaceous body is on display for all to see, and you find yourself looking straight up at Lilith's tight pussy as the thin fabric of her thong rides up between her tiny labia.
+	</p>
+	#IF(RND.nextInt(100)<20)
+		<p>
+			As you marvel at the extraordinarily skilled workmanship that must have gone into this astounding piece of art, you suddenly feel a chill run down your spine. Allowing your gaze to travel up to the top of the statue, you see that this marble mimicry of the demon queen is looking right down at you, and she has
+			#IF(pc.getCorruptionLevel()==CORRUPTION_LEVEL_ZERO_PURE || pc.getCorruptionLevel()==CORRUPTION_LEVEL_ONE_VANILLA)
+				 a look of absolute revulsion on her gorgeous face. Before you can react to this alarming event, you hear an icy, feminine voice in your head, [style.thoughtFeminineHeavy(You disgust me, citizen... Your purity... It sickens me...)]
+			#ELSEIF(pc.getCorruptionLevel()==CORRUPTION_LEVEL_TWO_HORNY || pc.getCorruptionLevel()==CORRUPTION_LEVEL_THREE_DIRTY)
+				 a look of annoyance on her gorgeous face. Before you can react to this alarming event, you hear an icy, feminine voice in your head, [style.thoughtFeminineHeavy(You displease me, citizen... You must lose what remains of your purity...)]
+			#ELSE
+				 a look of arrogant approval on her gorgeous face. Before you can react to this alarming event, you hear an icy, feminine voice in your head, [style.thoughtFeminineHeavy(You please me, citizen... Your corruption is admirable...)]
+			#ENDIF
+		</p>
+		<p>
+			As soon as it began, this alarming judgement of your character is over, and in the blink of an eye the statue's face has returned to its previous position. Wondering whether the marble had actually moved, or if it was some kind of arcane mirage, you turn away from the statue and continue on your way across the plaza.
+		</p>
+	#ENDIF
+	#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+		<p>
+			The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area. Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted plaza. There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace...
+		</p>
+	#ELSE
+		<p>
+			Being the central meeting place for Dominion's citizens, this plaza is the busiest location in all of Dominion. Throngs of people, of all different races and appearances, fill the square. Some appear to be simply passing through the area, while others lounge about on the many wooden benches and marble steps at the base of each statue.
+		</p>
+		<p>
+			On raised platforms, well-spoken orators address the crowds, relaying news and important announcements to the many citizens who pass by. Pamphlets and newspapers are handed out beside each one of these stands, and you realise that this is the only place where you've seen any form of news being distributed to the population.
 		</p>
 	#ENDIF
 	]]>

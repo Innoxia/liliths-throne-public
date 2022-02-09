@@ -698,7 +698,7 @@
 		[lilaya.speech(Supposing [pc.name] manages to pull this off,)] Lilaya wonders out loud, [lilaya.speech(Is Lilith just going to sit in her tower and ignore the fact that an elder lilin has been defeated right under her nose?)]
 	</p>
 	<p>
-		[lyssieth.speech(Lilith is far too busy trying to assert control over the rest of the world,)] Lyssieth replies, [lyssieth.speech(Most of the time she's not even here, and she certainly doesn't have the time to personally deal with any problems her Realm might experience. With what little influence I have left, I'll play the game of politics so as to put Minotallys forwards as being put in control of stabilising the Foloi fields. Lilith doesn't take too kindly to failure, so I imagine that Lunette will be rewarded by being either locked up in Lilith's tower or given some insignificant plot of land to rule over. Either way, [pc.name] shouldn't draw the wrath of Lilith. Not yet, at least...)]
+		[lyssieth.speech(Lilith is far too busy trying to assert control over the rest of the world,)] Lyssieth replies, [lyssieth.speech(Most of the time she's not even here, and she certainly doesn't have the time to personally deal with any problems her Realm might experience. With what little influence I have left, I'll play the game of politics so as to put Minotallys forwards as being put in control of stabilising the Foloi Fields. Lilith doesn't take too kindly to failure, so I imagine that Lunette will be rewarded by being either locked up in Lilith's tower or given some insignificant plot of land to rule over. Either way, [pc.name] shouldn't draw the wrath of Lilith. Not yet, at least...)]
 	</p>
 	<p>
 		[siren.speech(Perhaps you could get the youko to help as well?)] [siren.name] chimes in, [siren.speech(They're no match for my universe-shattering powers, but if you get a couple of nine-tails on your side then you probably wouldn't even need Minotallys.)]
@@ -795,7 +795,7 @@
 		[lyssieth.speech(Ok...)] Lyssieth says, still pouting for a moment, before letting out a long, deep sigh and closing her eyes. [lyssieth.speech(Sit down and relax. This will be done in a flash...)]
 	</p>
 	<p>
-		Doing as instructed, you sit down on one of the chairs before Lyssieth's desk, and, closing your eyes, you try to relax. As you let out a sigh of your own, you start to feel a strange warmth pulsating all around you, and before you know what's happening, you're slipping out of consciousness...
+		Doing as instructed, you sit down on one of the chairs before Lyssieth's desk, and, closing your eyes, you try to relax. As you let out a sigh of your own, you start to feel a strange warmth pulsating all around you. Before you can react to this feeling, a huge surge of energy jolts throughout your entire body, causing you to slip out of consciousness...
 	</p>
 	]]>
 	</htmlContent>
@@ -819,7 +819,7 @@
 		[lyssieth.speech(Ok...)] Lyssieth says, still pouting for a moment, before letting out a long, deep sigh and closing her eyes. [lyssieth.speech(Sit down and relax. This will be done in a flash...)]
 	</p>
 	<p>
-		Doing as instructed, you sit down on one of the chairs before Lyssieth's desk, and, closing your eyes, you try to relax. As you let out a sigh of your own, you start to feel a strange warmth pulsating all around you, and before you know what's happening, you're slipping out of consciousness...
+		Doing as instructed, you sit down on one of the chairs before Lyssieth's desk, and, closing your eyes, you try to relax. As you let out a sigh of your own, you start to feel a strange warmth pulsating all around you. Before you can react to this feeling, a huge surge of energy jolts throughout your entire body, causing you to slip out of consciousness...
 	</p>
 	]]>
 	</htmlContent>
@@ -829,13 +829,14 @@
 		[pc.speech(I want your pussy,)] you say, not too fond of the idea of having Lyssieth grow a cock.
 	</p>
 	<p>
-		#IF pc.hasPenisIgnoreDildo() && pc.getRace()==RACE_HUMAN
-		#THEN [lyssieth.speech(Mmm, just make sure to cum inside, dear,)] Lyssieth giggles, pulling you with her as she steps back over to her desk. [lyssieth.speech(My womb's made for human seed, and I can't wait for you to give me a nice big creampie!)]
-		#ELSE [lyssieth.speech(Mmm, yeah, I prefer using my pussy as well,)] Lyssieth giggles, pulling you with her as she steps back over to her desk. [lyssieth.speech(Now, come on, fuck me!)]
+		#IF(pc.hasPenisIgnoreDildo() && pc.getRace()==RACE_HUMAN)
+			[lyssieth.speech(Mmm, just make sure to cum inside, dear,)] Lyssieth giggles, before stepping forwards and running her hands down over your body. [lyssieth.speech(My womb's made for human seed, and I can't wait for you to give me a nice big creampie!)]
+		#ELSE
+			[lyssieth.speech(Mmm, yes, I prefer using my pussy as well,)] Lyssieth giggles, before stepping forwards and running her hands down over your body. [lyssieth.speech(Now, come on, fuck me!)]
 		#ENDIF
 	</p>
 	<p>
-		With that, Lyssieth sits back on the surface of her desk, pulling you in between her spread legs as she leans forwards and passionately kisses you. Reaching around to grip her [lyssieth.ass+], you eagerly return her kiss, and get ready to give her the fucking she desires...
+		With that, Lyssieth leans forwards and plants a deep, passionate kiss on your [pc.lips+]. Reaching around to grip her [lyssieth.ass+], you eagerly return her kiss, and get ready to give her the fucking she desires...
 	</p>
 	]]>
 	</htmlContent>
@@ -845,13 +846,14 @@
 		[pc.speech(I want your cock,)] you say, preferring to be on the receiving end.
 	</p>
 	<p>
-		#IF pc.hasVagina() && pc.getRace()==RACE_HUMAN
-		#THEN [lyssieth.speech(Mmm, in which case, I must warn you that I prefer finishing inside, dear,)] Lyssieth giggles, pulling you with her as she steps back over to her desk. [lyssieth.speech(My seed is made for human wombs, and I can't wait to give you a nice big creampie!)]
-		#ELSE [lyssieth.speech(Mmm, in which case, I must warn you that I prefer finishing inside, dear,)] Lyssieth giggles, pulling you with her as she steps back over to her desk. [lyssieth.speech(I just love the look of a nice big creampie!)]
+		#IF(pc.hasVagina() && pc.getRace()==RACE_HUMAN)
+			[lyssieth.speech(Mmm, in which case, I must warn you that I prefer finishing inside, dear,)] Lyssieth giggles, before stepping forwards and running her hands down over your body. [lyssieth.speech(My seed is made for human wombs, and I can't wait to give you a nice big creampie!)]
+		#ELSE
+			[lyssieth.speech(Mmm, in which case, I must warn you that I prefer finishing inside, dear,)] Lyssieth giggles, before stepping forwards and running her hands down over your body. [lyssieth.speech(I just love the look of a nice big creampie!)]
 		#ENDIF
 	</p>
 	<p>
-		With that, Lyssieth gently, yet firmly, pushes you back so that you're sitting on the surface of her desk. Stepping in between your spread legs, she leans forwards and passionately kisses you. Reaching around to grip her [lyssieth.ass+], you eagerly return her kiss, and get ready to receive a good, hard fucking...
+		With that, Lyssieth leans forwards and plants a deep, passionate kiss on your [pc.lips+]. Reaching around to grip her [lyssieth.ass+], you eagerly return her kiss, and get ready to receive a good, hard fucking...
 	</p>
 	]]>
 	</htmlContent>
@@ -1071,7 +1073,7 @@
 		 in length. There looks to be a large amount of farmland surrounding the capital, which is bordered by an expanse of wild grassland and forests. To the north, there's a huge expanse of what's marked as jungle, while to the south, the farmland transitions first into a wide savannah, and then into a desert.
 	</p>
 	<p>
-		[siren.speech(Elis is here,)] [siren.name] says, pointing to a mark west of Dominion. You look across to see that the town is just a few #IF(game.isMetricSizes())kilometres#ELSemiles#ENDIF to the east of the area marked as the 'Shinrin highlands', and that it looks to be roughly
+		[siren.speech(Elis is here,)] [siren.name] says, pointing to a mark west of Dominion. You look across to see that the town is just a few #IF(game.isMetricSizes())kilometres#ELSEmiles#ENDIF to the east of the area marked as the 'Shinrin highlands', and that it looks to be roughly
 		#IF(game.isMetricSizes())
 			 35 kilometres
 		#ELSE

@@ -40,6 +40,14 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 	private List<String> descriptorsMasculine;
 	private List<String> descriptorsFeminine;
 	
+	private List<String> lipNames;
+	private List<String> lipNamesPlural;
+	
+	private boolean lipDescriptorsMasculineSizeAllowed;
+	private boolean lipDescriptorsFeminineSizeAllowed;
+	private List<String> lipDescriptorsMasculine;
+	private List<String> lipDescriptorsFeminine;
+	
 	private String mouthBodyDescription;
 	
 	List<OrificeModifier> defaultRacialOrificeModifiers;
@@ -52,6 +60,10 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 				null,
 				Util.newArrayListOfValues(""),
 				Util.newArrayListOfValues(""),
+				Util.newArrayListOfValues("lip"),
+				Util.newArrayListOfValues("lips"),
+				Util.newArrayListOfValues(""),
+				Util.newArrayListOfValues("soft", "delicate"),
 				null,
 				Util.newArrayListOfValues());
 	}
@@ -73,6 +85,10 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 			List<String> namesPlural,
 			List<String> descriptorsMasculine,
 			List<String> descriptorsFeminine,
+			List<String> lipNames,
+			List<String> lipNamesPlural,
+			List<String> lipDescriptorsMasculine,
+			List<String> lipDescriptorsFeminine,
 			String mouthBodyDescription,
 			List<OrificeModifier> defaultRacialOrificeModifiers) {
 		
@@ -85,6 +101,15 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 		
 		this.descriptorsMasculine = descriptorsMasculine;
 		this.descriptorsFeminine = descriptorsFeminine;
+		
+		this.lipNames = lipNames;
+		this.lipNamesPlural = lipNamesPlural;
+
+		this.lipDescriptorsMasculineSizeAllowed = true;
+		this.lipDescriptorsFeminineSizeAllowed = true;
+		
+		this.lipDescriptorsMasculine = lipDescriptorsMasculine;
+		this.lipDescriptorsFeminine = lipDescriptorsFeminine;
 		
 		if(mouthBodyDescription==null || mouthBodyDescription.isEmpty()) {
 			this.mouthBodyDescription = "[npc.SheHasFull] [npc.lipSize], [npc.mouthColourPrimary(true)] [npc.lips]"
@@ -152,6 +177,49 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 					}
 				}
 				
+				// Lips:
+				
+				this.lipNames = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("lipNames").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("lipNames").getAllOf("name")) {
+						lipNames.add(e.getTextContent());
+					}
+				} else {
+					this.lipNames.add("lip");
+				}
+				
+				this.lipNamesPlural = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("lipNamesPlural").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("lipNamesPlural").getAllOf("name")) {
+						lipNamesPlural.add(e.getTextContent());
+					}
+				} else {
+					this.lipNamesPlural.add("lips");
+				}
+				
+
+				this.lipDescriptorsMasculine = new ArrayList<>();
+				this.lipDescriptorsMasculineSizeAllowed = true;
+				if(coreElement.getOptionalFirstOf("lipDescriptorsMasculine").isPresent()) {
+					this.lipDescriptorsMasculineSizeAllowed = Boolean.valueOf(coreElement.getMandatoryFirstOf("lipDescriptorsMasculine").getAttribute("allowSizeDescriptors"));
+					for(Element e : coreElement.getMandatoryFirstOf("lipDescriptorsMasculine").getAllOf("descriptor")) {
+						lipDescriptorsMasculine.add(e.getTextContent());
+					}
+				}
+				
+				this.lipDescriptorsFeminine = new ArrayList<>();
+				this.lipDescriptorsFeminineSizeAllowed = true;
+				if(coreElement.getOptionalFirstOf("lipDescriptorsFeminine").isPresent()) {
+					this.lipDescriptorsFeminineSizeAllowed = Boolean.valueOf(coreElement.getMandatoryFirstOf("lipDescriptorsFeminine").getAttribute("allowSizeDescriptors"));
+					for(Element e : coreElement.getMandatoryFirstOf("lipDescriptorsFeminine").getAllOf("descriptor")) {
+						lipDescriptorsFeminine.add(e.getTextContent());
+					}
+				} else {
+					this.lipDescriptorsFeminine = Util.newArrayListOfValues("soft", "delicate");
+				}
+				
+				// Other:
+				
 				this.mouthBodyDescription = coreElement.getMandatoryFirstOf("bodyDescription").getTextContent();
 				
 				this.defaultRacialOrificeModifiers = new ArrayList<>();
@@ -212,6 +280,30 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 			return Util.randomItemFrom(descriptorsFeminine);
 		} else {
 			return Util.randomItemFrom(descriptorsMasculine);
+		}
+	}
+
+	public String getLipsNameSingular(GameCharacter gc) {
+		return Util.randomItemFrom(lipNames);
+	}
+	
+	public String getLipsNamePlural(GameCharacter gc) {
+		return Util.randomItemFrom(lipNamesPlural);
+	}
+	
+	public boolean isLipsDescriptorSizeAllowed(GameCharacter gc) {
+		if (gc.isFeminine()) {
+			return lipDescriptorsFeminineSizeAllowed;
+		} else {
+			return lipDescriptorsMasculineSizeAllowed;
+		}
+	}
+	
+	public List<String> getLipsDescriptors(GameCharacter gc) {
+		if (gc.isFeminine()) {
+			return (lipDescriptorsFeminine);
+		} else {
+			return (lipDescriptorsMasculine);
 		}
 	}
 

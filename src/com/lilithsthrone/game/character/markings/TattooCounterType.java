@@ -358,6 +358,27 @@ public enum TattooCounterType {
 		}
 	},
 
+	EGGS_IMPLANTED("eggs implanted", "Keeps a count of how many eggs the bearer has implanted in others.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			int count = 0;
+			for(Litter litter : bearer.getLittersImplanted()) {
+				count+=litter.getTotalLitterCount();
+			}
+			return count;
+		}
+	},
+
+	EGGS_INCUBATED("eggs incubated", "Keeps a count of how many implanted eggs the bearer has fully incubated and laid.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			int count = 0;
+			for(Litter litter : bearer.getLittersIncubated()) {
+				count+=litter.getTotalLitterCount();
+			}
+			return count;
+		}
+	},
 
 	CUM_IN_VAGINA("cum in womb", "Displays how much cum is currently in the bearer's womb (in "+(Main.getProperties().hasValue(PropertyValue.metricFluids)?"mL":"oz")+").") {
 		@Override

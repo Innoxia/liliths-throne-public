@@ -21,6 +21,9 @@ public class SexSlotStanding {
 		@Override
 		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
 			SexSlot targetedSlot = Main.sex.getSexPositionSlot(targetedCharacter);
+			if(orgasmingCharacter.equals(targetedCharacter)) {
+				return "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.";
+			}
 			if(targetedSlot.hasTag(SexSlotTag.PERFORMING_ORAL)) {
 				return "With a small thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(push)] [npc.her] groin into [npc2.namePos] [npc2.face], before letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.";
 			}
@@ -44,7 +47,7 @@ public class SexSlotStanding {
 		}
 		@Override
 		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
-			return STANDING_DOMINANT.getGenericOrgasmDescription(orgasmingCharacter, targetedCharacter);
+			return STANDING_DOMINANT.getOrgasmDescription(orgasmingCharacter, targetedCharacter);
 		}
 	};
 	public static final SexSlot STANDING_DOMINANT_THREE = new SexSlot(STANDING_DOMINANT) {
@@ -54,7 +57,7 @@ public class SexSlotStanding {
 		}
 		@Override
 		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
-			return STANDING_DOMINANT.getGenericOrgasmDescription(orgasmingCharacter, targetedCharacter);
+			return STANDING_DOMINANT.getOrgasmDescription(orgasmingCharacter, targetedCharacter);
 		}
 	};
 	public static final SexSlot STANDING_DOMINANT_FOUR = new SexSlot(STANDING_DOMINANT) {
@@ -64,7 +67,7 @@ public class SexSlotStanding {
 		}
 		@Override
 		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
-			return STANDING_DOMINANT.getGenericOrgasmDescription(orgasmingCharacter, targetedCharacter);
+			return STANDING_DOMINANT.getOrgasmDescription(orgasmingCharacter, targetedCharacter);
 		}
 	};
 

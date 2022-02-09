@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Place type id: innoxia_fields_elis_shops_blacksmith -->
+	<scene id="exterior">
+		<content folderPath="txt/places/fields/elis/shops/blacksmith">EXTERIOR</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Approach]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getHourOfDay()>=7 && game.getHourOfDay()<20)
+						#IF(game.getDialogueFlags().hasFlag(FLAG_innoxia_elis_blacksmith_visited))
+							Approach Imsu and Hale and get their attention.
+						#ELSE
+							Approach the baphomets and get their attention.
+						#ENDIF
+					#ELSE
+						As the forge is currently closed, you'll have to come back at another time...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getHourOfDay()>=7 && game.getHourOfDay()<20)
+						innoxia_places_fields_elis_shops_blacksmith_enter
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="enter">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/blacksmith', 'ENTER'))]
+			[#imsu.setPlayerKnowsName(true)]
+			[#hale.setPlayerKnowsName(true)]
+			[#flags.setFlag(FLAG_innoxia_elis_blacksmith_visited, true)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Repeat meeting: -->
+				<response>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Trade (Imsu)]]></responseTitle>
+					<responseTooltip><![CDATA[Take a look at what Imsu has for sale...]]></responseTooltip>
+					<nextDialogue/>
+					<tradingVariables enabled="true">
+						<tradePartner><![CDATA[imsu]]></tradePartner>
+					</tradingVariables>
+				</response>
+				<response>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Trade (Hale)]]></responseTitle>
+					<responseTooltip><![CDATA[Take a look at what Hale has for sale...]]></responseTooltip>
+					<nextDialogue/>
+					<tradingVariables enabled="true">
+						<tradePartner><![CDATA[hale]]></tradePartner>
+					</tradingVariables>
+				</response>
+				<!-- Talk: -->
+				<response>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[History]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_blacksmith_talk_history))
+							You've already asked Imsu and Hale about their background today...
+						#ELSE
+							Ask Imsu and Hale how the two of them came to set up a forge together.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_blacksmith_talk_history))
+							null
+						#ELSE
+							innoxia_places_fields_elis_shops_blacksmith_talk
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/blacksmith', 'TALK_HISTORY'))]
+						[#flags.setFlag(FLAG_innoxia_blacksmith_talk_history, true)]
+						#IF(imsu.getAffection(pc)<40)
+							[#game.appendToTextStartStringBuilder(imsu.incrementAffection(pc, 5))]
+						#ENDIF
+						#IF(hale.getAffection(pc)<40)
+							[#game.appendToTextStartStringBuilder(hale.incrementAffection(pc, 5))]
+						#ENDIF
+					]]></effects>
+				</response>
+				<response>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[4]]></index>
+					<responseTitle><![CDATA[The Ninth Strike]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_blacksmith_talk_name))
+							You've already asked Imsu and Hale about the story behind their forge's name today...
+						#ELSE
+							Ask Imsu and Hale for the story behind their forge's name, 'The Ninth Strike'.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_blacksmith_talk_name))
+							null
+						#ELSE
+							innoxia_places_fields_elis_shops_blacksmith_talk
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/blacksmith', 'TALK_NAME'))]
+						[#flags.setFlag(FLAG_innoxia_blacksmith_talk_name, true)]
+						[#flags.setFlag(FLAG_innoxia_blacksmith_side_quest_available, true)]
+						#IF(imsu.getAffection(pc)<40)
+							[#game.appendToTextStartStringBuilder(imsu.incrementAffection(pc, 5))]
+						#ENDIF
+						#IF(hale.getAffection(pc)<40)
+							[#game.appendToTextStartStringBuilder(hale.incrementAffection(pc, 5))]
+						#ENDIF
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_blacksmith_side_quest_available)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[5]]></index>
+					<responseTitle><![CDATA[Youko contact]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Tell the baphomets that you'll keep their goal in mind when you're in the Shinrin Highlands, and if the opportunity arises, you'll try to convince a nine-tailed youko to help them.
+						<br/>[style.italicsMinorBad(This will be added soon!)]
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+					<effects/>
+				</response>
+				<!-- Leave: -->
+				<response>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[0]]></index>
+					<responseTitle><![CDATA[Leave]]></responseTitle>
+					<responseTooltip><![CDATA[Say goodbye to the baphomets and exit their forge.]]></responseTooltip>
+					<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_shops_street"/>
+					<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/blacksmith', 'LEAVE'))]
+						[#pc.setNearestLocation(WORLD_TYPE_innoxia_fields_elis_shops, PLACE_TYPE_innoxia_fields_elis_shops_street)]
+					]]></effects>
+				</response>
+		</responses>
+	</scene>
+	
+	<scene id="talk">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_shops_blacksmith_enter"/>
+	</scene>
+	
+</dialogueNodes>

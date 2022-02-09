@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.LyssiethPalaceDialogue;
@@ -55,7 +56,7 @@ public class Lab {
 	public static final DialogueNode LAB = new DialogueNode("Lilaya's Laboratory", "", false) {
 		@Override
 		public String getContent() {
-			if(Main.game.isExtendedWorkTime()) {
+			if(Main.game.getNpc(Lilaya.class).getLocationPlaceType()==PlaceType.LILAYA_HOME_LAB) {
 				if(Main.game.getNpc(Lilaya.class).getBaseFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
 					if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0)) {
 						return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_PREGNANCY_RISK");
@@ -91,7 +92,7 @@ public class Lab {
 					}
 				}
 				
-				if(!Main.game.isExtendedWorkTime()) {
+				if(Main.game.getNpc(Lilaya.class).getLocationPlaceType()!=PlaceType.LILAYA_HOME_LAB) {
 					return new Response("Enter", "The door to Lilaya's laboratory is firmly shut, and, considering the hour, she's probably sleeping upstairs.", null);
 				}
 				
@@ -107,9 +108,16 @@ public class Lab {
 					}
 				};
 				
-			} else {
-				return null;
+			} else if(index==2) {
+				if(Main.game.getNpc(Lilaya.class).getBaseFetishDesire(Fetish.FETISH_PREGNANCY).isNegative() && (Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0) || Main.game.getNpc(Lilaya.class).isPregnant())) {
+					return null;
+				}
+				if(Main.game.getNpc(Lilaya.class).getLocationPlaceType()!=PlaceType.LILAYA_HOME_LAB || Main.game.getNpc(Arthur.class).getLocationPlaceType()==PlaceType.LILAYA_HOME_LAB) {
+					return null;
+				}
+				return DialogueManager.getDialogueFromId("acexp_dominion_lilaya_lab_voyeurism").getResponse(0, 1);
 			}
+			return null;
 		}
 	};
 	
@@ -725,7 +733,7 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNode LAB_EXIT = new DialogueNode("Lilaya's Laboratory", "", false) {
+	public static final DialogueNode LAB_EXIT = new DialogueNode("Lilaya's Laboratory", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -734,7 +742,7 @@ public class Lab {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return LAB.getResponse(0, index);
+			return LAB_ENTRY.getResponse(0, index);
 		}
 	};
 	
@@ -793,7 +801,7 @@ public class Lab {
 	};
 	
 	
-	public static final DialogueNode LILAYA_PRESENT = new DialogueNode("Lilaya's Laboratory", "", false) {
+	public static final DialogueNode LILAYA_PRESENT = new DialogueNode("Lilaya's Laboratory", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -811,7 +819,7 @@ public class Lab {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return LAB.getResponse(0, index);
+			return LAB_ENTRY.getResponse(0, index);
 		}
 	};
 	
@@ -1551,35 +1559,10 @@ public class Lab {
 	};
 	
 	public static final DialogueNode LILAYA_SLAVER_RECOMMENDATION = new DialogueNode("", "", true, true) {
-
-
 		@Override
 		public String getContent() {
-				return "<p>"
-							+ "[pc.speech(I was told that in order to get a slaver license, I'd need a letter of recommendation from someone who's already got one,)]"
-							+ " you explain to Lilaya,"
-							+ " [pc.speech(so I was wondering if you could write one for me?)]"
-						+ "</p>"
-						+ "<p>"
-							+ "Lilaya lets out a little sigh and raises her eyebrow."
-							+ " [lilaya.speech(I'm fine with writing a letter for you, but have you thought about where you're going to keep your slaves?)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[pc.speech(Erm... Well, no...)]"
-							+ " you mumble, realising that you hadn't thought about the logistics of owning slaves."
-						+ "</p>"
-						+ "<p>"
-							+ "[lilaya.speech(I thought not,)] Lilaya responds."
-						+ "</p>"
-						+ "<p>"
-							+ "Walking over to a nearby desk, she sits down and grabs a piece of paper and a pen."
-							+ " As she starts writing your letter, she calls out to you,"
-							+ " [lilaya.speech(You're going to need a place to keep your slaves."
-								+ " No doubt they'll tell you all this when you receive your license, but the Slavery Administration is only for holding your new slaves until their relocation."
-								+ " It's <i>not</i> a permanent place to keep them.)]"
-						+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LILAYA_SLAVER_RECOMMENDATION");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -1591,10 +1574,8 @@ public class Lab {
 						}
 					}
 				};
-
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
@@ -1602,57 +1583,15 @@ public class Lab {
 
 		@Override
 		public String getContent() {
-				return "<p>"
-							+ "[pc.speech(You're right, Lilaya, I didn't think about that...)]"
-							+ " you admit, feeling like you're on the receiving end of yet another of your [lilaya.relation(pc)]'s scoldings."
-						+ "</p>"
-						+ "<p>"
-							+ "[lilaya.speech(Well, luckily for you, I think I can help,)]"
-							+ " Lilaya responds, standing up from behind her desk with the completed letter of recommendation in her hand."
-							+ " [lilaya.speech(I'm sure you've noticed, but this house is extremely large, which also means that it's an extremely time-consuming job to keep clean."
-								+ " Isn't that right Rose?)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[rose.speech(Yes, Mistress!)]"
-							+ " Rose's voice calls out from one side of the room."
-						+ "</p>"
-						+ "<p>"
-							+ "[lilaya.speech(So, I've got a deal to make. I only ever use my lab and my bedroom, and as you've probably seen, all the other rooms in this house are left empty and unused."
-								+ " I'm willing to let you use those empty rooms as accommodation for your slaves, but only on the condition that you either pay a daily upkeep for each room that you use, or you assign some of your slaves to help with the cleaning."
-								+ " Deal?)]"
-						+ "</p>"
-						+ "<p>"
-							+ "Lilaya holds the letter of recommendation behind her back, smiling as she awaits your answer."
-							+ " You think that her deal sounds fair enough, and, nodding in agreement, you reply,"
-							+ " [pc.speech(That sounds more than reasonable. Thanks, Lilaya, it's a deal.)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[lilaya.speech(Great!)]"
-							+ " Lilaya responds, beaming at you as she gives you the letter."
-							+ " [lilaya.speech(If you want to use any of the rooms to house slaves, just go into the one you'd like and ring the bell pull."
-								+ " Rose will handle all the necessary arrangements."
-								+ " Oh, and if you'd like to get Rose to manage your slaves for you, she's more than capable!"
-								+ " Just ring the little bell beside her room's door, and she'll come running, won't you Rose?!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[rose.speech(Yes, Mistress! I'd love to help!)]"
-							+ " Rose calls out yet again."
-						+ "</p>"
-						+ "<p>"
-							+ "[pc.speech(Thanks, Lilaya,)]"
-							+ " you say, smiling at your demonic [lilaya.relation(pc)]."
-							+ " She cheerily returns your smile, before backing off to give you some space."
-						+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LILAYA_SLAVER_RECOMMENDATION_SLAVE_ACCOMMODATION");
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Now that you've got Lilaya's letter of recommendation, you should head back to Slaver Alley and talk to [finch.name].", LAB_EXIT);
-
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 

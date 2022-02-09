@@ -28,7 +28,6 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMAmberDoggyFucked;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMPetMounting;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMPetOral;
@@ -1441,11 +1440,11 @@ public class ZaranixHomeGroundFloorRepeat {
 //						if(rnd>0.01f) { // Testing:
 //							return WALKIES_PET_FUCKS;
 //						}
-						if(rnd<0.3) {
+						if(rnd<0.2) {
 							return WALKIES_PEACEFUL;
-						} else if(rnd<0.5) {
+						} else if(rnd<0.4) {
 							return WALKIES_HUMILIATION;
-						} else if(rnd<0.7) {
+						} else if(rnd<0.6) {
 							return WALKIES_PUNISHMENT;
 						} else if(rnd<0.85
 								&& (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) || (Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)))) {
@@ -1818,7 +1817,7 @@ public class ZaranixHomeGroundFloorRepeat {
 							pet.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 							pet.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", false), true, owner);
 							if(Math.random()>0.5f) {
-								pet.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_BALLGAG), true, owner);
+								pet.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_ballgag", false), true, owner);
 							}
 							owner.setAffection(pet, (float) (10 + Math.random()*90));
 							owner.setPlayerKnowsName(true);

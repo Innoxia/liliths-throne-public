@@ -110,7 +110,7 @@ public class SMBreedingStall extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isAbleToEquipSexClothing(GameCharacter character){
+	public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip){
 		return false;
 	}
 

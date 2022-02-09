@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexManager>
+	<title/>
+	<wallName><![CDATA[wall]]></wallName>
+	<consensual><![CDATA[true]]></consensual>
+	<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+	<canSkipSex><![CDATA[true]]></canSkipSex>
+	<washingScene><![CDATA[false]]></washingScene>
+	<sadisticActionsAllowed><![CDATA[true]]></sadisticActionsAllowed>
+	<canItemsBeUsed><![CDATA[false]]></canItemsBeUsed>
+	<exposingReactions><![CDATA[false]]></exposingReactions>
+	<positionsAvailable exclusive="false">
+		<position><![CDATA[LYING_DOWN]]></position>
+	</positionsAvailable>
+	<publicSex>
+		<isPublic><![CDATA[true]]></isPublic>
+		<startingDescription><![CDATA[
+			Several passing shoppers stop in front of Yui's stall to watch as she grinds her asshole down against your face...
+		]]></startingDescription>
+		<randomDescriptions enabled="true">
+			<description><![CDATA[One of the onlookers loudly comments on how submissive and pathetic you look.]]></description>
+			<description><![CDATA[A member of the crowd wolf-whistles.]]></description>
+			<description><![CDATA[One of the shoppers tells Yui to show you no mercy.]]></description>
+			<description><![CDATA[A few members of the public stop to point and laugh at you.]]></description>
+			<description><![CDATA[You hear jeers and cheers from several members of the public as Yui continues to smother your face.]]></description>
+			<description><![CDATA[A passer-by stops and stares at Yui's drooling pussy, before she angrily tells them to fuck off.]]></description>
+		</randomDescriptions>
+	</publicSex>
+	<characterInformationContainer>
+		<characterInformation>
+			<characterId>pc</characterId>
+			<slotsAvailable excluded="false">
+				<slot><![CDATA[LYING_DOWN_LYING_DOWN]]></slot>
+			</slotsAvailable>
+			<canStopSex><![CDATA[false]]></canStopSex>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace/>
+			<startingImmobilisation>
+				<applierId><![CDATA[yui]]></applierId>
+				<type><![CDATA[COCOON]]></type>
+			</startingImmobilisation>
+			<canSelfTransform><![CDATA[false]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control/>
+			<sexClothingEquippable><![CDATA[false]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[false]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart preferRemoval="false">
+				<coverableArea><![CDATA[MOUTH]]></coverableArea>
+			</exposeAtStart>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmCumTargetsBlocked>
+				<character id="yui" allBodyAreas="true"/>
+			</orgasmCumTargetsBlocked>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<preferences>
+				<character id="pc">
+					<foreplay copyForMain="true">
+						<performing><![CDATA[PENETRATION_TONGUE]]></performing>
+						<targeted><![CDATA[ORIFICE_ANUS]]></targeted>
+					</foreplay>
+				</character>
+			</preferences>
+			<uniqueSexActions/>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk/>
+		</characterInformation>
+		
+		<characterInformation>
+			<characterId>yui</characterId>
+			<slotsAvailable excluded="false">
+				<slot><![CDATA[LYING_DOWN_FACE_SITTING]]></slot>
+			</slotsAvailable>
+			<canStopSex><![CDATA[true]]></canStopSex>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace/>
+			<startingLubrications>
+				<lubedArea area="ORIFICE_ANUS">
+					<lubrication>
+						<luberId><![CDATA[yui]]></luberId>
+						<type><![CDATA[GIRLCUM]]></type>
+					</lubrication>
+				</lubedArea>
+			</startingLubrications>
+			<canSelfTransform><![CDATA[true]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control/>
+			<sexClothingEquippable><![CDATA[false]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[false]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart preferRemoval="true">
+				<coverableArea><![CDATA[VAGINA]]></coverableArea>
+			</exposeAtStart>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmCumTargetsBlocked/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<preferences>
+				<character id="pc">
+					<foreplay copyForMain="true">
+						<performing><![CDATA[ORIFICE_ANUS]]></performing>
+						<targeted><![CDATA[PENETRATION_TONGUE]]></targeted>
+					</foreplay>
+				</character>
+			</preferences>
+			<uniqueSexActions/>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition><![CDATA[
+				[#sex.isSatisfiedFromOrgasms(yui, true)]
+			]]></stopSexCondition>
+			<dirtyTalk/>
+		</characterInformation>
+	</characterInformationContainer>
+</sexManager>

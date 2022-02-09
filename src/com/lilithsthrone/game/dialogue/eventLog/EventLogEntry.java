@@ -4,7 +4,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
-import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
@@ -14,16 +13,10 @@ import com.lilithsthrone.utils.XMLSaving;
  */
 public class EventLogEntry implements XMLSaving {
 	
-	protected long time;
 	protected String name;
 	protected String description;
 
 	public EventLogEntry(String name, String description) {
-		this(Main.game.getSecondsPassed(), name, description);
-	}
-	
-	public EventLogEntry(long time, String name, String description) {
-		this.time = time;
 		this.name = name;
 		this.description = description;
 	}
@@ -32,7 +25,6 @@ public class EventLogEntry implements XMLSaving {
 		Element element = doc.createElement("eventLogEntry");
 		parentElement.appendChild(element);
 		
-		XMLUtil.addAttribute(doc, element, "time", String.valueOf(time));
 		XMLUtil.addAttribute(doc, element, "name", name);
 		XMLUtil.addAttribute(doc, element, "description", description);
 		
@@ -40,12 +32,9 @@ public class EventLogEntry implements XMLSaving {
 	}
 	
 	public static EventLogEntry loadFromXML(Element parentElement, Document doc) {
-		EventLogEntry newFlags = new EventLogEntry(
-				Long.valueOf(parentElement.getAttribute("time")),
+		return new EventLogEntry(
 				parentElement.getAttribute("name"),
 				parentElement.getAttribute("description"));
-		
-		return newFlags;
 	}
 	
 	public String getFormattedEntry() {
@@ -64,14 +53,6 @@ public class EventLogEntry implements XMLSaving {
 					+ "<br/>"
 					+ description
 				+ "</p>";
-	}
-
-	public long getTime() {
-		return time;
-	}
-
-	public void setTime(long time) {
-		this.time = time;
 	}
 
 	public String getName() {

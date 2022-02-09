@@ -12,6 +12,7 @@ public enum WorldRegion {
 	// Misc:
 	MISC,
 	OLD_WORLD,
+        FELICIA_APARTMENT,
 	
 	// Cities
 	DOMINION,
@@ -22,7 +23,7 @@ public enum WorldRegion {
 	JUNGLE_CITY,
 	SEA_CITY,
 	
-	// Foloi fields:
+	// Foloi Fields:
 	FIELDS,
 	WOODLAND,
 	RIVER,

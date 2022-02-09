@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -64,7 +65,7 @@ public class SMLyssiethDemonTF extends SexManagerDefault {
 	}
 
 	@Override
-	public boolean isAbleToEquipSexClothing(GameCharacter character){
+	public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip){
 		return false;
 	}
 	

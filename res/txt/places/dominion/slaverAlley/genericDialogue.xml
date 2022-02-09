@@ -33,7 +33,7 @@
 		You find yourself standing in the gateway which links Slaver Alley to the rest of Dominion. On either side of this entrance, two horse-boy private security guards are keeping a watchful eye on anyone who passes through here; they're mostly focused on looking inwards towards Slavery Alley, as their primary duty is being on the lookout for any runaway slaves.
 	</p>
 	<p>
-		The brick walls to either side of this gateway have been plastered with promotional posters, and while the vast majority of them are advertising stores within Slaver Alley itself, you see plenty of others promoting everything from soft drinks to brothels in Dominion's red light district.
+		The brick walls to either side of this gateway have been plastered with promotional posters, and while the vast majority of them are advertising stores within Slaver Alley itself, you see plenty of others promoting everything from soft drinks to brothels in Dominion's red-light district.
 		#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_ROMANCE_HELENA, QUEST_ROMANCE_HELENA_6_ADVERTISING))
 			 True to their word, the guards have prevented anyone from pasting adverts over the six enchanted posters of Helena which you put up in this area. As customers to Slaver Alley pass you by, you hear some of them commenting on the harpy matriarch's beautiful appearance.
 		#ELSE
@@ -245,19 +245,19 @@
 		In the far left corner of Slaver Alley's main square, there's a slave shop that's quite unlike most of the others. Whereas all the other buildings that you've passed have had ornately-painted signs and decorative frontages, the one before you is of a plain wooden finish, and has it's name, 'Iron & Steel', burnt into the framework.
 	</p>
 	<p>
-		Most of the other shops have large glass windows by which to show off their goods to passers-by, but this one goes a step further, and the whole wooden frontage is actually a series of cleverly-designed sliding panels, about half of which have been pulled to one side. Looking into the open store, you see that all the slaves within appear to be males, and as you pass, a bulky cow-boy steps out and blocks your way, before cheerfully booming, [genericMale.speech(Taking a good look at our stock, I see! Why not come on in?! I'm sure we've got the right guy for you! Breeding studs, manual labourers, even pretty-boy models! We've got it all!)]
+		Most of the other shops have large glass windows by which to show off their goods to passers-by, but this one goes a step further, and the whole wooden frontage is actually a series of cleverly-designed sliding panels, about half of which have been pulled to one side. Looking into the open store, you see that all the slaves within appear to be males, and as you pass, a bulky bull-boy steps out and blocks your way, before cheerfully booming, [genericMale.speech(Taking a good look at our stock, I see! Why not come on in?! I'm sure we've got the right guy for you! Breeding studs, manual labourers, even pretty-boy models! We've got it all!)]
 	</p>
 	#IF pc.isHasSlaverLicense()
 	#THEN
 		<p>
-			[pc.speech(Maybe a quick look,)] you reply, stepping forwards alongside the smiling cow-boy into the store...
+			[pc.speech(Maybe a quick look,)] you reply, stepping forwards alongside the smiling bull-boy into the store...
 		</p>
 	#ELSE
 		<p>
 			[pc.speech(I don't have a licence, I'm afraid,)] you reply, continuing on past the salesman.
 		</p>
 		<p>
-			[genericMale.speech(Well, if you ever get one, then you know where to visit for the best male slaves in the city!)] the cow-boy shouts after you, before disappearing back into his shop.
+			[genericMale.speech(Well, if you ever get one, then you know where to visit for the best male slaves in the city!)] the bull-boy shouts after you, before disappearing back into his shop.
 		</p>
 	#ENDIF
 	]]>
@@ -350,7 +350,7 @@
 	
 	<!-- MARKET_STALL_STATUE -->
 	
-	<htmlContent tag="MARKET_STALL_STATUE_TRUTH"><![CDATA[
+	<htmlContent tag="MARKET_STALL_STATUE"><![CDATA[
 	<p>
 		In the middle of a small square on one side of Slaver Alley, there sits a very striking statue. Made completely out of jet-black obsidian, and standing at least twelve feet from head-to-toe, it's a masterfully-crafted depiction of what appears to be a buxom female fallen angel, with wide hips and massive, GG-cup breasts.
 	</p>
@@ -366,36 +366,30 @@
 	<p>
 		Looking up at her face, you see that her beautiful features are contorted into an orgasmic scream, and, as evidence that her corruption has manifested itself into physical transformations other than just the one between her legs, an abnormally long tongue drops down out of her open mouth to push its way into one of her lip-shaped nipples, which appears in turn to be desperately sucking on the wet, squirming muscle.
 	</p>
+	#IF(pc.getOccupation()==OCCUPATION_TOURIST)
+		<p>
+			Letting out a low whistle, you remark to yourself, [pc.speech(
+			[game.random(This must be one of them Baroque pieces I read about...
+			| Europeans sure are blasé about nudity...)]
+			)]
+		</p>
+	#ENDIF
 	<p>
 		This lewd statue sits upon a squat, stone pedestal, no higher than six feet or so, and as you approach, you see these words appear: 'My name is Marlel, once the humblest of all angels; Look upon my form, ye enemies of Lilith, and despair.'
-	</p>
-	<p>
-		From what Lyssieth told you, this is no ordinary statue, and is in fact the petrified form of the corrupted archangel Marlel. Lyssieth's eldest sister, Lirecea, is responsible for her current situation, and you wonder if you'll be able to force the elder lilin to revert the petrification process when you inevitably end up confronting her. Possessing no way to release Marlel from her stone prison, you let out a sigh, and, taking one last look at her lewd visage, you continue on your way...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="MARKET_STALL_STATUE"><![CDATA[
-	<p>
-		In the middle of a small square on one side of Slaver Alley, there sits a very striking statue. Made completely out of jet-black obsidian, and standing at least twelve feet from head-to-toe, it's a masterfully-crafted depiction of what appears to be a female fallen angel.
-	</p>
-	<p>
-		Her huge, feathered wings reach up to the sky behind her, and, linked by heavy chains, bracers have been clasped around her delicate wrists and ankles. One of her hands is reaching down between her legs, where she's lewdly spreading her
-		#IF(game.isGapeContentEnabled())
-			 tentacled, gaping pussy
-		#ELSE
-			 tentacled pussy
-		#ENDIF
-		 for all to see, while the other is reaching around behind her back in order to dig her slender fingers into her exposed asshole.
-	</p>
-	<p>
-		Looking up at her face, you see that her beautiful features are contorted into an orgasmic scream, and, as evidence that her corruption has manifested itself into physical transformations other than just the one between her legs, an abnormally long tongue drops down out of her open mouth to push its way into one of her lip-shaped nipples, which appears in turn to be desperately sucking on the wet, squirming muscle.
-	</p>
-	<p>
-		This lewd statue sits upon a squat, stone pedestal, no higher than six feet or so, and as you approach, you see these words appear: 'My name is Marlel, once the humblest of all angels; Look upon my form, ye enemies of Lilith, and despair.'
-	</p>
+	<htmlContent tag="MARKET_STALL_STATUE_IGNORANCE"><![CDATA[
 	<p>
 		Nobody in the square seems to be paying much attention to the statue, and you doubt that there's anybody here who would know of the creator or what this piece of their art is meant to represent, other than what's apparent from the words inscribed upon the base. Letting out a sigh, you take one last look at the lewd visage of the fallen angel before you, before continuing on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_STALL_STATUE_TRUTH"><![CDATA[
+	<p>
+		From what Lyssieth told you, this is no ordinary statue, and is in fact the petrified form of the corrupted archangel Marlel. Lyssieth's eldest sister, Lirecea, is responsible for her current situation, and you wonder if you'll be able to force the elder lilin to revert the petrification process when you inevitably end up confronting her. Possessing no way to release Marlel from her stone prison, you let out a sigh, and, taking one last look at her lewd visage, you continue on your way...
 	</p>
 	]]>
 	</htmlContent>
@@ -637,7 +631,7 @@
 	<htmlContent tag="PUBLIC_STOCKS_SEX_SOLO"><![CDATA[
 	<p>
 		#IF(pc.hasCompanions())
-			Deciding that you'd like to have some fun with [npc.race] in the stocks nearest to you, you tell [npc2.name] to stand back and watch as you walk up behind the slave. [npc.She] lets out a little [npc.moan] as [npc.she] hears you approach, and shifts [npc.her] [npc.hips+] in anticipation of what's about to happen...
+			Deciding that you'd like to have some fun with [npc.race] in the stocks nearest to you, you tell [com.name] to stand back and watch as you walk up behind the slave. [npc.She] lets out a little [npc.moan] as [npc.she] hears you approach, and shifts [npc.her] [npc.hips+] in anticipation of what's about to happen...
 		#ELSE
 			Deciding that you'd like to have some fun with the [npc.race] in the stocks nearest to you, you walk up behind [npc.herHim]. [npc.She] lets out a little [npc.moan] as [npc.she] hears you, and shifts [npc.her] [npc.hips+] in anticipation of what's about to happen...
 		#ENDIF
@@ -666,9 +660,9 @@
 	<p>
 		#IF(pc.hasCompanions())
 			#IF(sex.getNumberOfOrgasms(npc)>0)
-				Having had your fun, you and [npc2.name] step back, grinning as you hear [npc.name] let out a satisfied [npc.moan]. Several members of the public who stopped to watch the two of you using the helpless [npc.race] compliment you both on your performance, and as you move away, one of them steps forwards to have a turn with the [npc.race] themselves...
+				Having had your fun, you and [com.name] step back, grinning as you hear [npc.name] let out a satisfied [npc.moan]. Several members of the public who stopped to watch the two of you using the helpless [npc.race] compliment you both on your performance, and as you move away, one of them steps forwards to have a turn with the [npc.race] themselves...
 			#ELSE
-				Having had your fun, you and [npc2.name] step back, grinning as you hear [npc.name] let out a frustrated [npc.moan]. Several members of the public who stopped to watch the two of you using the helpless [npc.race] comment on your performance, and as you move away, one of them steps forwards to have a turn with the [npc.race] themselves...
+				Having had your fun, you and [com.name] step back, grinning as you hear [npc.name] let out a frustrated [npc.moan]. Several members of the public who stopped to watch the two of you using the helpless [npc.race] comment on your performance, and as you move away, one of them steps forwards to have a turn with the [npc.race] themselves...
 			#ENDIF
 		#ELSE
 			#IF(sex.getNumberOfOrgasms(npc)>0)

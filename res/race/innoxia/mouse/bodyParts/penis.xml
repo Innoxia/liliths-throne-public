@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<penis>
+	<race>innoxia_mouse</race>
+	
+	<transformationName><![CDATA[mouse]]></transformationName>
+	
+	<coveringType>PENIS</coveringType>
+	
+	<testicleType>innoxia_mouse_testicle</testicleType>
+	
+	<additionalTransformationEffect/>
+	
+	<namesMasculine>
+		<name><![CDATA[mouse-]]></name>
+	</namesMasculine>
+	<namesPluralMasculine>
+		<name><![CDATA[mouse-]]></name>
+	</namesPluralMasculine>
+	
+	<namesFeminine>
+		<name><![CDATA[mouse-]]></name>
+	</namesFeminine>
+	<namesPluralFeminine>
+		<name><![CDATA[mouse-]]></name>
+	</namesPluralFeminine>
+	
+	<descriptors/>
+	
+	<defaultPenetrationModifiers>
+		<modifier>SHEATHED</modifier>
+	</defaultPenetrationModifiers>
+	
+	<transformationDescription><![CDATA[
+		Letting out an involuntary moan, [npc.name] [npc.verb(feel)] [npc.her] penis shifting into a new form, and [npc.sheIs] hit by a wave of overwhelming arousal as a sheath suddenly grows around the base of [npc.her] shaft.
+		<br/>[npc.She] now [npc.has] a [style.boldMouse(mouse-like penis)], [npc.materialDescriptor] [npc.penisFullDescription(true)].
+		<br/>[npc.She] [npc.has] [style.boldMouse([npc.ballsCount]#IF(npc.isInternalTesticles()) internal#ELSE mouse#ENDIF balls)], [npc.materialDescriptor] [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldMouse(mouse cum)].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		[npc.She] [npc.has] [npc.a_cockGirth], [npc.cockLengthValue] mouse cock, which is [npc.materialCompositionDescriptor] [npc.cockFullDescription(true)].
+	]]></bodyDescription>
+</penis>

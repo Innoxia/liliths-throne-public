@@ -107,11 +107,19 @@ div.list h2 {
 }
 
 div.list h3 {
+	font-size: 20px;
+	line-height: 24px;
+	font-weight: bold;
+	margin: 0;
+	padding: 12px 0 4px;
+}
+
+div.list h4 {
 	font-size: 18px;
 	line-height: 22px;
 	font-weight: bold;
 	margin: 0;
-	padding: 12px 0 4px;
+	padding: 8px 0 4px;
 }
 
 div.list ul {
@@ -402,13 +410,13 @@ input:focus {
 /*PHONE*/
 
 .quest-title{
-	font-size:1.4em;
+	font-size:1.2em;
 	font-weight: bold;
 	text-align:center;
-	line-height:30px;
+	line-height:20px;
 	
 	width:88vw;
-	height:30px;
+	height:20px;
 	
 	margin:8px auto 8px auto;
 	padding:8px;
@@ -2257,6 +2265,13 @@ border-radius:5px;
 	width:11px;
 	bottom:2px;
 	left:2px;
+}
+.response-icon-rightTop{
+	position:absolute;
+	height:11px;
+	width:11px;
+	bottom:2px;
+	right:2px;
 }
 .response-icon-leftBottom{
 	position:absolute;

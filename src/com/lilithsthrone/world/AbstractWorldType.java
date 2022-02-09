@@ -1,12 +1,21 @@
 package com.lilithsthrone.world;
 
 import java.awt.Color;
-import java.util.List;
+import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
+import org.w3c.dom.Document;
+
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.places.AbstractPlaceType;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.12
@@ -15,34 +24,39 @@ import com.lilithsthrone.world.places.AbstractPlaceType;
  */
 public abstract class AbstractWorldType {
 
+	private boolean mod;
+	private boolean fromExternalFile;
+	private String author;
+	
 	private WorldRegion worldRegion;
 	
-	private final String name;
-	private final String fileLocation;
+	private String name;
+	private String fileLocation;
 	private Colour colour;
-	private int timeToTransition;
+
+	private String sexBlockedReason;
 	
+	private boolean usesFile;
 	private boolean loiteringEnabled;
 	private boolean flightEnabled;
-	
-	private int tileSetRowNumber;
-	private int moveCost;
+	private boolean discoveredOnStart;
+	private boolean revealedOnStart;
+	private boolean furniturePresent;
+	private String deskName;
+	private boolean wallsPresent;
+	private String wallName;
+
+	private AbstractPlaceType globalMapLocation;
 	private AbstractPlaceType standardPlace;
-	private AbstractPlaceType cutOffZone;
-	private List<AbstractPlaceType> places;
-	private List<AbstractPlaceType> dangerousPlaces;
+	private AbstractPlaceType entryFromGlobalMapLocation;
 	
 	private TeleportPermissions teleportPermissions;
 	
-	private boolean usesFile;
-	private AbstractPlaceType globalMapLocation;
-	private AbstractPlaceType entryFromGlobalMapLocation;
 	private Map<Color, AbstractPlaceType> placesMap;
 	
-	AbstractWorldType(WorldRegion worldRegion,
+	public AbstractWorldType(WorldRegion worldRegion,
 			String name,
 			Colour colour,
-			int timeToTransition,
 			boolean loiteringEnabled,
 			boolean flightEnabled,
 			TeleportPermissions teleportPermissions,
@@ -54,26 +68,108 @@ public abstract class AbstractWorldType {
 		
 		this.name = name;
 		this.colour = colour;
-		this.timeToTransition=timeToTransition;
-		moveCost = 5;
 
 		standardPlace = null;
-		cutOffZone = null;
-
+		
+		this.sexBlockedReason = "";
+		
 		this.globalMapLocation = globalMapLocation;
 		this.entryFromGlobalMapLocation = entryFromGlobalMapLocation;
 		
-		places = null;
-		dangerousPlaces = null;
-		
 		this.loiteringEnabled = loiteringEnabled;
 		this.flightEnabled = flightEnabled;
+		this.discoveredOnStart = false;
+		this.revealedOnStart = false;
+		this.furniturePresent = false;
+		this.deskName = "desk";
+		this.wallsPresent = true; // Default to true for hard coded values, as these are all Dominion/Submission (which obviously have walls)
+		this.wallName = "wall";
 		
 		this.teleportPermissions = teleportPermissions;
 		
 		this.fileLocation = fileLocation;
 		this.usesFile = true;
 		this.placesMap = placesMap;
+	}
+	
+	public AbstractWorldType(File XMLFile, String author, boolean mod) {
+		if (XMLFile.exists()) {
+			try {
+				Document doc = Main.getDocBuilder().parse(XMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element coreElement = Element.getDocumentRootElement(XMLFile); // Loads the document and returns the root element - in AbstractWorldType files it's <worldType>
+				
+				this.fileLocation = XMLFile.getAbsolutePath().replace("worldType.xml", "map.png");
+				
+				this.mod = mod;
+				this.fromExternalFile = true;
+				this.author = author;
+				
+				this.worldRegion = WorldRegion.valueOf(coreElement.getMandatoryFirstOf("worldRegion").getTextContent());
+
+				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
+				
+				String colourId = coreElement.getMandatoryFirstOf("colour").getTextContent();
+				if(colourId.startsWith("#")) {
+					this.colour = new Colour(false, Util.newColour(colourId), Util.newColour(colourId), "");
+				} else {
+					this.colour = PresetColour.getColourFromId(colourId);
+				}
+				
+				if(coreElement.getOptionalFirstOf("sexBlockedReason").isPresent()) {
+					sexBlockedReason = coreElement.getMandatoryFirstOf("sexBlockedReason").getTextContent();
+				} else {
+					sexBlockedReason = null;
+				}
+
+				this.usesFile = true;
+				
+				this.furniturePresent = false;
+				this.deskName = "desk";
+				if(coreElement.getOptionalFirstOf("furniturePresent").isPresent()) {
+					this.furniturePresent = Boolean.valueOf(coreElement.getMandatoryFirstOf("furniturePresent").getTextContent().trim());
+					if(!coreElement.getMandatoryFirstOf("furniturePresent").getAttribute("deskName").isEmpty()) {
+						this.deskName = coreElement.getMandatoryFirstOf("furniturePresent").getAttribute("deskName");
+					}
+				}
+
+				this.wallsPresent = false;
+				this.wallName = "wall";
+				if(coreElement.getOptionalFirstOf("wallsPresent").isPresent()) {
+					this.wallsPresent = Boolean.valueOf(coreElement.getMandatoryFirstOf("wallsPresent").getTextContent().trim());
+					if(!coreElement.getMandatoryFirstOf("wallsPresent").getAttribute("wallName").isEmpty()) {
+						this.wallName = coreElement.getMandatoryFirstOf("wallsPresent").getAttribute("wallName");
+					}
+				}
+				
+				this.loiteringEnabled = Boolean.valueOf(coreElement.getMandatoryFirstOf("loiteringEnabled").getTextContent().trim());
+				this.flightEnabled = Boolean.valueOf(coreElement.getMandatoryFirstOf("flightEnabled").getTextContent().trim());
+				this.discoveredOnStart = Boolean.valueOf(coreElement.getMandatoryFirstOf("visibleFromStart").getTextContent().trim());
+				this.revealedOnStart = Boolean.valueOf(coreElement.getMandatoryFirstOf("fullyRevealedFromStart").getTextContent().trim());
+				
+				this.globalMapLocation = PlaceType.getPlaceTypeFromId(coreElement.getMandatoryFirstOf("globalMapLocation").getTextContent().trim());
+				this.standardPlace = PlaceType.getPlaceTypeFromId(coreElement.getMandatoryFirstOf("standardPlace").getTextContent().trim());
+				this.entryFromGlobalMapLocation = PlaceType.getPlaceTypeFromId(coreElement.getMandatoryFirstOf("entryFromGlobalMapLocation").getTextContent().trim());
+
+				this.teleportPermissions = TeleportPermissions.valueOf(coreElement.getMandatoryFirstOf("teleportPermissions").getTextContent());
+				
+				this.placesMap = new HashMap<>();
+				for(Element e : coreElement.getMandatoryFirstOf("places").getAllOf("place")) {
+					try {
+						placesMap.put(Color.decode(e.getAttribute("colour")), PlaceType.getPlaceTypeFromId(e.getTextContent()));
+					} catch(Exception ex) {
+						System.err.println("WorldType loading error in '"+XMLFile.getName()+"': PlaceType '"+e.getTextContent()+"' not recognised! (Not added)");
+					}
+				}
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("WorldType was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+			}
+		}
 	}
 	
 	@Override
@@ -104,8 +200,20 @@ public abstract class AbstractWorldType {
 		return super.toString();
 	}
 
-	public int getTileSetRowNumber() {
-		return tileSetRowNumber;
+	public boolean isMod() {
+		return mod;
+	}
+
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public String getId() {
+		return WorldType.getIdFromWorldType(this);
 	}
 
 	public WorldRegion getWorldRegion() {
@@ -119,14 +227,6 @@ public abstract class AbstractWorldType {
 	public Colour getColour() {
 		return colour;
 	}
-
-	public int getTimeToTransition() {
-		return timeToTransition;
-	}
-
-	public int getMoveCost() {
-		return moveCost;
-	}
 	
 	public boolean isLoiteringEnabled() {
 		return loiteringEnabled;
@@ -136,30 +236,18 @@ public abstract class AbstractWorldType {
 	 * Reveals all tiles as though the player knows about them, but has not travelled to them. Behaviour may be overridden by isRevealedOnStart().
 	 */
 	public boolean isDiscoveredOnStart() {
-		return false;
+		return discoveredOnStart;
 	}
 	
 	/**
 	 * Reveals all tiles as though the player has already travelled to them.
 	 */
 	public boolean isRevealedOnStart() {
-		return false;
+		return revealedOnStart;
 	}
 
 	public AbstractPlaceType getStandardPlace() {
 		return standardPlace;
-	}
-
-	public AbstractPlaceType getCutOffZone() {
-		return cutOffZone;
-	}
-
-	public List<AbstractPlaceType> getPlaces() {
-		return places;
-	}
-
-	public List<AbstractPlaceType> getDangerousPlaces() {
-		return dangerousPlaces;
 	}
 
 	public AbstractPlaceType getGlobalMapLocation() {
@@ -195,14 +283,37 @@ public abstract class AbstractWorldType {
 	}
 	
 	public String getSexBlockedReason(GameCharacter character) {
-		return "";
+		if(this.isFromExternalFile()) {
+			return UtilText.parse(character, sexBlockedReason);
+		}
+		return sexBlockedReason;
 	}
 
 	/**
-	 * @return true if over-desk and on chair sex positions are available in this location.
+	 * @return true if over-desk and on chair sex positions are available in this location. This can be overridden in AbstractPlaceType's method of the same name.
 	 */
 	public boolean isFurniturePresent() {
-		return false;
+		return furniturePresent;
+	}
+	
+	/**
+	 * @return The name which should be used in the over desk sex position, in the X place in: 'Over X'
+	 */
+	public String getDeskName() {
+		return deskName;
 	}
 
+	/**
+	 * @return true if against wall sex positions are available in this location. This can be overridden in AbstractPlaceType's method of the same name.
+	 */
+	public boolean isWallsPresent() {
+		return wallsPresent;
+	}
+
+	/**
+	 * @return The name which should be used in the against wall sex position, in the X place in: 'Against X'
+	 */
+	public String getWallName() {
+		return wallName;
+	}
 }

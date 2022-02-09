@@ -400,7 +400,9 @@ public class OccupancyUtil implements XMLSaving {
 			SlaveryEventLogEntry entry = null;
 			// Interaction events:
 			if(slavesAtJob.get(currentJob).size()>1 || (currentJob==SlaveJob.IDLE && slave.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)) {
-				if(Math.random()<0.25f && !Main.game.getCharactersPresent().contains(slave)) { // Do not generate sex events if the player is present.
+				if(Math.random()<0.25f
+						&& !Main.game.getCharactersPresent().contains(slave) // Do not generate sex events if the player is present.
+						&& !slave.getLocationPlace().getPlaceUpgrades().stream().anyMatch(upgrade -> upgrade.getImmobilisationType()!=null)) { // Do not generate sex events if the slave is in a place that applies immobilisation.
 					List<NPC> slavesPresent = new ArrayList<>();
 					for(String npcId : slavesAtJob.get(currentJob)) {
 						try {
@@ -986,7 +988,7 @@ public class OccupancyUtil implements XMLSaving {
 						}
 						try {
 							partnerName = UtilText.parse(partner, "[npc.A_race]");
-							Main.game.addNPC(partner, false);
+							Main.game.addNPC(partner, false, true);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

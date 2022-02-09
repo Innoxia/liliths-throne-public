@@ -63,6 +63,9 @@ public enum FluidModifier {
 			"Addictive fluids will make anyone who consumes them become addicted to that particular type of fluid.") {
 		@Override
 		public String applyEffects(GameCharacter target, GameCharacter fluidProvider, float millilitres, FluidInterface fluid) {
+			if(target==null || fluidProvider==null) {
+				return ""; // catch for if one of the characters is null, which was the case in GameCharacter.calculateGenericSexEffects
+			}
 			boolean curedWithdrawal = target.getAddiction(fluid.getType())!=null && Main.game.getMinutesPassed()-target.getAddiction(fluid.getType()).getLastTimeSatisfied()>=24*60;
 			boolean appendAddiction = !Main.game.isInSex() || curedWithdrawal;
 			if(target.addAddiction(new Addiction(fluid.getType(), Main.game.getMinutesPassed(), fluidProvider.getId()))) {
@@ -70,7 +73,7 @@ public enum FluidModifier {
 						"<p style='padding:0; margin:0; text-align:center;'>"
 							+ "Due to the addictive properties of "+(fluidProvider==null?"":(fluidProvider.equals(target)?"[npc.her]":UtilText.parse(fluidProvider, "[npc.namePos]")))+" "+fluid.getName(fluidProvider)
 								+", [npc.name] [npc.verb(find)] [npc.herself] [style.colourArcane(craving)]"
-								+ " <span style='color:"+fluid.getType().getRace().getColour().toWebHexString()+";'>"+fluid.getType().getRace().getName(fluidProvider, fluid.isFeral(fluidProvider))+"</span> "+fluid.getName(fluidProvider)+"!"
+								+ " <span style='color:"+fluid.getType().getRace().getColour().toWebHexString()+";'>"+fluid.getType().getRace().getName(fluidProvider.getBody(), fluid.isFeral(fluidProvider))+"</span> "+fluid.getName(fluidProvider)+"!"
 						+ "</p>");
 				
 				
@@ -80,7 +83,7 @@ public enum FluidModifier {
 					return UtilText.parse(target, fluidProvider,
 							"<p style='padding:0; margin:0; text-align:center;'>"
 								+ "[npc.NamePos] [style.colourArcane(craving)] for <span style='color:"+fluid.getType().getRace().getColour().toWebHexString()+";'>"
-									+fluid.getType().getRace().getName(fluidProvider, fluid.isFeral(fluidProvider))
+									+fluid.getType().getRace().getName(fluidProvider.getBody(), fluid.isFeral(fluidProvider))
 								+"</span> "+fluid.getName(fluidProvider)
 									+" has been satisfied!"
 								+ (curedWithdrawal

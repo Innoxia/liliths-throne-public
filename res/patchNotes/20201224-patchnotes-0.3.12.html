@@ -1,0 +1,118 @@
+<h2>v0.3.12</h2>
+<h3>Contributors:</h3>
+<ul>
+	<li>Added variations of starting demonstone damage type based on your birth month, and correct some descriptions during the prologue related to this. (PR#1409 by Rfpnj)</li>
+	<li>Fixed bug where the 'Dye & reforge all (stack)' action would not consume reforge hammers. (by AceXP)</li>
+	<li>Fixed bug where 'Unequip all' would inadvertently unequip milking pumps, which would end up with them being added to your inventory. (by AceXP)</li>
+	<li>Editing your character's description in their save file will now display that description in the in-game selfie screen. (PR#1411 by aDrunkLittleDerp)</li>
+	<li>Fixed issue with incorrect anus description for elementals (with help from PR#1412 by AceXP).</li>
+	<li>Fixed parser command 'glow' to work without a defined colour, as well as for rainbow colours. (PR#1439 by CognitiveMist)</li>
+	<li>Typo fix in bread roll description. (PR#1414 by aDrunkLittleDerp)</li>
+	<li>Added the option for a slave to be mute to Helena's custom slave shop and removed tongue recolouring from the Hair options tab. (PR#1416 by AceXP)</li>
+	<li>Characters with the NON_CON_DOM fetish will now gain lust when having sex with someone that is resisting. (PR#1417 by AceXP)</li>
+	<li>Slaves in the stocks at Slaver Alley without a vagina will no longer have vaginal sex events generated for them. Also fixed these slaves' descriptions and the issue where they would always have all permissions granted. (PR#1426 by AceXP)</li>
+	<li>Added checks for fertility pills, including broodmother. Roxy now sells broodmother pills and random NPCs may sometimes be carrying them. Ralph and Lilaya now react to broodmother pills in the same way as fertility pills. Fixed incorrect colour descriptions of fertility pills in several places. (PR#1422 by AceXP)</li>
+	<li>Fixed issue where hair length, breast size, ass size, and hip size had no tolerance so that post-combat forced TFs alternated between too big and too small. (PR#1334 by Stadler76)</li>
+	<li>Fixed typo in phoenix-harpy description and tidied up parts of the code in UtilText.java. (PR#1336 by Stadler76)</li>
+	<li>Fixed some instances of incorrect unit parsing. (PR#1321 by NoStepOnSneks)</li>
+	<li>Fixed a bug where if a clothing item to be equipped had multiple occurrences, equipping this item would lead to bugs when the next occurrence of the item was to be equipped. (PR#1419 by Deboucher & AceXP)</li>
+	<li>Fixed the bug where clicking on an equipped item while enchanting during a trading session would give you full access to the inventory of the trader, allowing you to take all their equipped items and the items in their inventory. (PR#1420 by AxeXP)</li>
+	<li>Fixed issue with milking rooms not being able to support 8 slaves, maids gathering on the player's tile when loitering in the corridors of Lilaya's home, and the 'well rested' status effect no being applied correctly. (PR#1425 by AceXP)</li>
+	<li>Enchantment recipes can now be applied to weapons that already have enchantments. (PR#1423 by AceXP)</li>
+	<li>Updated github build tutorial. (PR#1323 by LjyiH)</li>
+	<li>Fixed missing verbs in several files. (PR#1291 by TadUnlikely)</li>
+	<li>Fixed incorrect dialogue scene titles when getting tattoos in Kate's shop, incorrect description of how much cum was expelled during orgasm when performing a double creampie orgasm action, and a reference to ass instead of breast in nipple-fingering actions. (by AceXP)</li>
+	<li>Fixed a bug where having an elemental in a feral form would cause the the left and right sidebar to go blank. (PR#1457 by AceXP)</li>
+	<li>Prevented pregnant slimes without a vagina from transforming back to flesh, as the birthing scenes only account for characters with a vagina. (PR#1459 by AceXP)</li>
+	<li>Fixed issue where Sean could not be challenged a second time if you backed out and changed your mind about fighting him. Also fixed some incorrect clothing descriptions and missing text. (PR#1458 by AceXP)</li>
+	<li>Added support for defining feral face description in face modding xml files. (PR#1452 by Stadler76)</li>
+	<li>Added 'Poncho' clothing item. (Unisex, over-torso slot, sold by Nyan.) (by NoStepOnSnek)</li>
+</ul>
+
+<h3>DSG's race contributions:</h3>
+<ul>
+	<li>Added 7 new races: Sharks, Bears, Dragons, Ferrets, Gryphons, Otters, and Raccoons.</li>
+	<li>Added 1 subspecies for each of these new races, except for the dragon race, which has the subspecies: Coatl, Ryu, Dragon, Drake, and Wyvern.</li>
+	<li>Added 18 new consumable items, consisting of a drink (attribute) & food item (transformative) for each of the 7 new races, with dragons having an extra 2 variants of their drink item and 2 extra variants of their food item.</li>
+	<li>Added 12 new colours related to the new races added.</li>
+	<li>Added 7 new combat moves for the new races: 'Charging Bite' (sharks), 'Five Claw Strike' (bears), 'Breath Weapon' (dragons), 'War Dance' (ferrets), 'Hunting Call' (gryphons), 'Tail Slap' (otters), and 'Cornered Beast' (raccoons).</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Made some slight improvements to the documentation of the xml files related to race modding.</li>
+	<li>Added support for wing types to have a defined minimum and maximum size (see the 'res/mods/innoxia/race/hyena/unused_bodyParts/wing.xml' for the commented example).</li>
+	<li>Added comments for the imageName elements in 'res/mods/innoxia/items/items/race/hyena_bone_crunchers.xml'.</li>
+	<li>Choosing to not define any covering modifiers or patterns in coveringType mods is now correctly handled without throwing background errors.</li>
+	<li>Leaving the 'backgroundName' element empty or not including it in subspecies xml mod files is now correctly handled and uses the default race background (as was implied it should in the comments).</li>
+	<li>Added elements in the 'racialBody.xml' file for defining male and female hip sizes ('maleHipSize' and 'femaleHipSize').</li>
+	<li>Added parsing hook to BodyPartTag (using the prefix 'BODY_PART_TAG_').</li>
+	<li>Added ColourTags, which can be added to modded colours to have them be automatically added to the game's covering colour lists.</li>
+	<li>Added setCovering() to Body class to make the setting of coverings easier in race mods. (See 'applySubspeciesChanges' element in lion.xml for an example on this being used.)</li>
+	<li>You can now leave the half-demon name elements empty in subspecies xml files (in which case the game will automatically generate a generic half-demon name for your subspecies).</li>
+	<li>Added support for a 'displaySize' attribute to the 'iconName' element in subspecies xml files, allowing you to define the resizing percentage of your icon image.</li>
+	<li>Added 'coveringIconColour' element for modded colours, allowing you to define the colour to use a different colour for covering icons than its usual colour for text.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Added a separate variant of the aquatic status effects for characters of an aquatic race who have the leg configuration 'TAIL'.</li>
+	<li>Added ability to recolour cum, girlcum, and milk in the self-TF menu.</li>
+	<li>Minimum size for a clitoris to be used as a pseudo-penis has been increased from 1cm to 5cm.</li>
+	<li>Split cat-morph race into cat-morph and panther-morph. Removed cat-morph's 'panther face' TF option. Tigers, lions, leopards, and snow leopards are now classed as panther-morphs.</li>
+	<li>If a character has the cat-morph's 'panther face', their cat-morph body parts will be converted into panther-morph parts when loading into this version.</li>
+	<li>Added 'Deep Roar' and 'Panther's Delight' consumable items for the new panther-morph race.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Improved sorting of subspecies in several menus.</li>
+	<li>Updated spawn locations of all subspecies.</li>
+	<li>Altered the names of the reindeer and centaur books.</li>
+	<li>Added some more global NPC transformation debug buttons (in Misc. category).</li>
+	<li>Added labourer outfits, so reindeer overseers will no longer spawn with completely random outfits.</li>
+	<li>Slightly adjusted the default colours of the leather belt.</li>
+	<li>Diamond necklaces will no longer spawn as a random item in Dominion's alleyways, canal tiles, or in the crates in the Supplier Depot.</li>
+	<li>Characters with the TAIL_LONG leg configuration now gain access to the 'tail swipe' combat move.</li>
+</ul>
+
+<h3>Body:</h3>
+<ul>
+	<li>Added ROUGH as a covering modifier.</li>
+	<li>Added TAPERED as a tongue modifier.</li>
+	<li>Added REPTILIAN and AMPHIBIAN foot types.</li>
+	<li>Added BodyPartTags TORSO_DORSAL_FIN, TAIL_TYPE_SCALES, THERMAL_VISION, and ALLOWS_FLIGHT.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>NPCs now have the chance to decide to initiate penetration using a clitoris that's large enough to act as a pseudo-penis.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Fixed bug where characters of a modded race would show as 'human' after loading a game.</li>
+	<li>Fixed non-centred alignment and uneven circle dimensions of race & item backgrounds.</li>
+	<li>Encyclopedia information for modded races should now load and display correctly.</li>
+	<li>Fixed issue with the tile's default dialogue being shown alongside the intended dialogue when refusing a partner's offer of sex in the nightclub.</li>
+	<li>Fixed issue where declining sex in a nightclub partner's apartment would lead into the nightclub's toilets dialogue instead of Dominion boulevard dialogue.</li>
+	<li>The game no longer autosaves when following or taking a nightclub partner home, as loading the autosave which was generated at that point would result in that NPC being unintentionally deleted. Instead the autosave is generated after leaving the partner.</li>
+	<li>Fixed bug where nightclub partners would not be saved if you followed them home and then refused sex, despite the tooltip indicating otherwise.</li>
+	<li>Fixed huge amount of background errors being thrown whenever you changed any of your furry preferences (which was causing that preference screen to lag a lot).</li>
+	<li>Fixed issue with race books not showing up in the library.</li>
+	<li>Added handling for automatic birthing of nipple-incubation eggs when a character transforms into a feral form which lacks breasts.</li>
+	<li>Fixed issue where litters birthed by NPCs would always have the same birth date as their conception date.</li>
+	<li>Fixed issue where background errors would be thrown if a generic sex event generated a half-demon character.</li>
+	<li>Fixed issue where NPCs with eggs implanted in them would never lay the eggs if you saved & loaded the game while they were in the 'completed' stage of incubation.</li>
+	<li>Removed incorrect reference to going to consulting Lilaya when having eggs implanted inside of you, and replaced it with a hint on having to access your phone's menu in order to lay them.</li>
+	<li>Enchanting the item 'Biojuice Canister' now correctly gives you just the option to create a slime-reversion elixir, instead of the full racial options that other standard racial TF items have access to.</li>
+	<li>Fixed image position and alignment in combat move tooltips.</li>
+	<li>Fixed issue where milking pumps and spider webbing seals could spawn as generic clothing on randomly-generated NPCs.</li>
+	<li>Fixed spotted & striped hyenas not having correct plural names for their feral forms.</li>
+	<li>Fixed issue where TF potions with a TF type that's been removed from the game would throw background errors when trying to use it.</li>
+	<li>Fixed parsing errors when eating the hyena food item 'Bone Crunchers'.</li>
+	<li>Fixed reference to feral characters having feet when they had a tail lower body type.</li>
+	<li>Fixed a couple of issues that were causing modded status effects to not work.</li>
+	<li>Fixed issue where loading a previously saved game would sometimes show parsing errors on the initial dialogue page (for example, in the entrance tile to Slaver Alley).</li>
+	<li>Fixed spam of warnings about getFeralAttributes() returning null every time you loaded the game as a feral character.</li>
+</ul>

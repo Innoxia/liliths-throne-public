@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<authorTag><![CDATA[A small tag sewn into the waist reads "Sage".]]></authorTag>
+		<value>200</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[latex zip bra]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[latex zip bras]]></namePlural>
+		<description><![CDATA[A low-cut bra that reveals a lot of the wearer's cleavage. A zip splits the front and can be undone in order to provide quick access to the wearer's breasts.]]></description>
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity>
+		<slot>CHEST</slot> 
+		<rarity>EPIC</rarity>
+		<clothingSet>sage_ltxset</clothingSet> 
+		<imageName>bra.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit>5</enchantmentLimit>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>UNZIPS</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>NIPPLES</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_BREASTS"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_RED</colour>
+			<colour>CLOTHING_PURPLE</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>SOLD_BY_FINCH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(place)] the latex bra around [npc.her] chest before pulling up on the zipper.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(place)] the latex bra around [npc2.namePos] chest before pulling up on the zipper.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(place)] the latex bra around [npc2.namePos] chest before roughly pulling up on the zipper.]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unzips)] [npc.her] latex bra and [npc.verb(take)] it off.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unzips)] [npc2.namePos] latex bra and [npc.verb(take)] it off.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(unzips)] [npc2.namePos] latex bra and [npc.verb(take)] it off.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

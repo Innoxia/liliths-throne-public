@@ -50,7 +50,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class SubmissionAttacker extends NPC {
 
 	public SubmissionAttacker() {
-		this(Gender.F_V_B_FEMALE, false);
+		this(Gender.getGenderFromUserPreferences(false, false), false);
 	}
 	
 	public SubmissionAttacker(Gender gender) {
@@ -103,12 +103,12 @@ public class SubmissionAttacker extends NPC {
 			}
 			
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f && !this.getRace().equals(Race.DEMON) && this.getSubspecies()!=Subspecies.SLIME) { // Half-demon spawn rate
-				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getFleshSubspecies(), true), true);
+				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getBody().getFleshSubspecies(), true), true);
 			}
 			
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f
-					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) { // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
-				// Check for race's leg type as taur, otherwise NPCs which sapwn with human legs won't be affected by taur conversion rate:
+					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) { // Do not reset this character's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
+				// Check for race's leg type as taur, otherwise NPCs which spawn with human legs won't be affected by taur conversion rate:
 				if(this.getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
 					this.setLegType(this.getRace().getRacialBody().getLegType());
 					Main.game.getCharacterUtils().applyTaurConversion(this);

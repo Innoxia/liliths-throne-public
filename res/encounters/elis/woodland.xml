@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+	
+	<!-- Encounters will typically be defined within a place type, but if you want to add this encounter to a pre-existing place type which does not have this encounter related to it, then use this section.
+	Each of the 'placeType' elements here will have this encounter added to them.
+	'innoxia_fields_elis_woods' already has this encounter associated with it, but I've added it here for the sake of providing an example.
+	You can have as many 'placeType' elements here as you like.
+		Please note that if a place type has multiple different 'possibleEncounters' lists associated with it, one of those lists will be chosen at random to have an encounter drawn from it. -->
+	<additionalPlaceTypeTriggers>
+		<placeType>innoxia_fields_elis_town_woods</placeType>
+	</additionalPlaceTypeTriggers>
+	
+	<!-- The 'possibleEncounters' element contains all of the encounters which can be triggered. -->
+	<possibleEncounters>
+		<!-- This simple example involves the player finding some berries: -->
+		<encounter>
+			<!-- A generic name to describe this encounter.
+			This is highly unlikely to ever be seen by the player, but is used for error handling. -->
+			<name><![CDATA[finding berries]]></name>
+			<!-- The 'chanceToTrigger' element needs to return an integer or float value representing a percentage chance of the encounter being triggered when the player triggers this encounter.
+			Values should be between 0->100, representing 0%-100% chance.
+				NOTE: If you use a value of greater than 100, then all other encounters with chances of less than or equal to 100 will be discarded and only encounters with chances of over 100 will be used.
+			The 'opportunisticEncounter' attribute increases the encounter chance based on whether the player is drunk, covered in sexual fluids, at low health, or at high lust.
+				This is an option which can be toggled on or off for the player, so don't rely on it too much (it's used in cases where random attackers can be encountered, such as in Dominion's alleyways). -->
+			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
+				#IF(flags.hasFlag(FLAG_innoxia_elis_berries_found))
+					0
+				#ELSEIF(pc.isInDarkness())
+					1
+				#ELSE
+					5
+				#ENDIF
+			]]></chanceToTrigger>
+			<!-- This element determines what scene is presented to the player upon triggering this encounter.
+			If you require any special effects to be applied upon this encounter being triggered, then use the dialogue node's preParsingEffects element. -->
+			<dialogueReturned><![CDATA[innoxia_encounters_fields_elis_woods_berries_found]]></dialogueReturned>
+		</encounter>
+		<!-- Another possible encounter is to find a peaceful clearing: -->
+		<encounter>
+			<name><![CDATA[peaceful clearing]]></name>
+			<!-- The chance to trigger this encounter is a constant 2.5% -->
+			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
+			#IF(game.getWeather()!=WEATHER_CLEAR || pc.hasAnyWellRestedStatusEffect())
+				0
+			#ELSE
+				2.5
+			#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[innoxia_encounters_fields_elis_woods_clearing]]></dialogueReturned>
+		</encounter>
+	</possibleEncounters>
+	
+</encounterRoot>

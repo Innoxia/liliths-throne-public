@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- All of these are linked to the 'dialogue/innoxia/places/fields/elis/town_hall_f1.xml' dialogue nodes. -->
+	
+	<htmlContent tag="ASSISTANT_ROOM"><![CDATA[
+	<p>
+		Needing to be available for Minotallys at all times of the day or night, Arion has had his living quarters relocated to the room next to hers. A sign on the door informs you of this fact, as it simply reads: 'Arion; Minotallys's Assistant - Private!'
+	</p>
+	<p>
+		#IF(game.getCharactersPresent().contains(arion))
+			With Minotallys's office being closed at this time of day, you're sure that Arion must be inside his room. Without any serious reason to do so, you don't think that it'd be a good idea to disturb his rest...
+		#ELSE
+			With Minotallys's office being open at this time of day, you know that Arion isn't inside his room at the moment. If you wanted to speak with him, you should [pc.step] over to Minotallys's office...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		This landing surrounds the tower's central staircase, and separates it from the rooms which are located on all four sides. The slightly-uneven wooden floorboards, along with the exposed wooden beams which hold up the high ceiling, give the impression that this is a very old structure. Hanging from the walls, there are large, painted portraits of Minotallys, who takes the form of a greater cow-girl. What draws your attention to these portraits is that her white, cow-like fur has differently-coloured spots in each of them, ranging from the typical black and brown to exotic shades of pink, green, yellow, purple, and blue.
+	<p>
+		The two demonic Enforcers standing guard at the top of the stairs keep a close eye on you as you [pc.walk] around this landing...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Office, with entry and talking: -->
+	
+	<htmlContent tag="MINOTALLYS_OFFICE"><![CDATA[
+	#IF(game.getCharactersPresent().contains(minotallys))
+		<p>
+			The door before you leads into Minotallys's office, and thanks to the fact that it's been propped open, you can look inside and see that the lilin is sitting at her desk. Busily reading over a mountain of paperwork, she hasn't noticed you standing at the entrance to her office, although this isn't the case for her ever-present assistant, Arion, who looks over at you with a questioning expression on his face.
+		</p>
+		<p>
+			If you wanted to get Minotallys's attention, you could knock on the door and ask for a moment of her time...
+		</p>
+	#ELSE
+		<p>
+			Having finished work for the day, both Minotallys and Arion have retired to their respective rooms, leaving the door to the office before you securely closed and locked.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MINOTALLYS_OFFICE_START"><![CDATA[
+	<p>
+		Wanting to spend some time talking with Minotallys, you knock on the door to her office, which causes the lilin to look up from her paperwork. Flashing you a smile, she leans back in her chair and calls out, [minotallys.speech([pc.Name]! Please, come on in!)]
+	</p>
+	<p>
+		Doing as you're instructed, you [pc.step] forwards and take a quick look around at your surroundings. Underfoot, a lush, cream-coloured rug covers most of the polished, mahogany floorboards, while on all four sides of the room, a series of colourful, abstract paintings have been hung on the smooth, white walls. Overhead, brushed-steel lights hang down between the ceiling's high beams to cast a natural shade of light over the interior. Several mahogany bookshelves have been placed on either side of the room, and have been stacked full of rare and exotic-looking tomes, trinkets, and pieces of artwork.
+	</p>
+	<p>
+		Sitting behind her large, mahogany desk, which is almost completely covered in piles of paperwork, the cow-girl lilin has her back to the wide window that overlooks the streets of Elis. Appearing almost exactly as she did in her series of portraits, Minotallys has taken the appearance of a greater cow-girl, and is covered in white fur with [minotallys.skinColourSecondary(true)] spots. Her hair, which is styled into a bobcut, is of a similar shade of [minotallys.skinColourSecondary] as her spots, while growing out from the sides of her forehead she has a pair of small, white horns. As you approach her desk, the lilin locks her golden eyes onto yours and asks in a husky tone, [minotallys.speech(Are you here for some milk? It's [minotallys.milkFlavour]-flavoured today...)]
+	</p>
+	<p>
+		Knowing that this milk will have been squeezed fresh from the lilin's breasts, you wonder whether to accept her offer or to change the subject to something else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MINOTALLYS_OFFICE_TALK_HISTORY"><![CDATA[
+	<p>
+		Wanting to find out how Minotallys came to be the mayor of Elis, you ask her about her history and what led to her being in charge of this town.
+	</p>
+	<p>
+		[minotallys.speech(Oh, well, I've been here since almost the very start of Elis's existence,)] she replies, [minotallys.speech(Of course, I wasn't a lilin back then, all those years ago...)]
+	</p>
+	<p>
+		Sensing that Minotallys is starting to drift off into thoughts of her own, Arion adds, [arion.speech(Minotallys was transformed into a lilin by Lilith herself, which makes her the most eligible candidate to act as the town's mayor.)]
+	</p>
+	<p>
+		[minotallys.speech(That's right,)] Minotallys says, having been snapped out of her daydreaming by the mention of Lilith's name. Holding her head up, she proudly states, [minotallys.speech(I'd worked hard to help set up trade with the Youko, and thanks to my efforts, Elis was soon on the map as an important trading hub. This attracted the attention of some rebels, who sought to attack Elis as a way of striking at Lilith's power. I rallied the citizens and managed to hold the rebels off for several days, after which Lilith herself recognised my loyalty and transformed me into a lilin. I also got to keep a lot of the rebels who were enslaved after that, and I had them work to help build this very town hall!)]
+	</p>
+	<p>
+		[arion.speech(Minotallys is very popular among the citizens,)] Arion adds, [arion.speech(We hold elections here every four years, and she always gets over ninety-five percent of the vote.)]
+	</p>
+	<p>
+		[minotallys.speech(There was one time where the opposing candidate got almost twenty percent,)] Minotallys corrects her assistant, before smiling at you and revealing in a happy tone, [minotallys.speech(Of course, after that, we found out that he was a member of a banned organisation, so I had him enslaved and sent to Lilith as a gift!)]
+	</p>
+	<p>
+		Having got the general gist of Minotallys's history and how she came to be the mayor, you wonder what to ask next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MINOTALLYS_OFFICE_TALK_ARION"><![CDATA[
+	<p>
+		Wanting to know more about Arion, you ask Minotallys how he came to be her personal assistant.
+	</p>
+	<p>
+		[minotallys.speech(Oh, well, I'd never needed a personal assistant before,)] Minotallys explains, [minotallys.speech(However, over the past few decades, my workload started getting bigger and bigger. Eventually I realised that I needed some help, so I went walking around town looking for someone who'd be suitable.)]
+	</p>
+	<p>
+		[arion.speech(Minotallys found me as I was on my way to apply for a job at the town bank,)] Arion picks up where his superior left off, [arion.speech(I'd graduated from the arcane university at the top of my class, and thought that it would be best for my personal development to work in finance for a while.)]
+	</p>
+	<p>
+		[minotallys.speech(I detected how strong his aura was the moment I set eyes on him,)] Minotallys says, before turning in her chair to flash Arion a sly smile and tease, [minotallys.speech(I knew he'd be the one for me right from that moment. He's not only excellent at dealing with paperwork, but thanks to my lilin form I get really horny every night, and I love riding his huge horse-coc-)]
+	</p>
+	<p>
+		[arion.speech(~Ahem!~)] Arion loudly clears his throat to interrupt Minotallys, before straightening his tie and bringing an end to the topic by stating, [arion.speech(We compliment one another very well, and that's all there is to it.)]
+	</p>
+	<p>
+		Having found out that Minotallys and Arion have somewhat more than just a purely professional relationship, you wonder what to ask next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MINOTALLYS_OFFICE_TALK_WORK"><![CDATA[
+	<p>
+		Interested in finding out what sort of work is involved in being ELis's mayor, you ask Minotallys what her average day is like.
+	</p>
+	<p>
+		[minotallys.speech(Hmm, well, it's certainly not as glamorous as most people probably think,)] she replies with a smile on her face. Leaning back in her chair, she reveals, [minotallys.speech(Most of what I do is administrative paperwork, such as signing off on business permits or organising residential and commercial zoning.)]
+	</p>
+	<p>
+		[arion.speech(Recently we've been dealing with housing refugees from the Fields as well,)] Arion states, giving Minotallys a piercing look as he does so.
+	</p>
+	<p>
+		Ignoring her subordinate's comment, the lilin continues, [minotallys.speech(Oh, and although the local Enforcers deal with almost all of the law enforcement, I sometimes gets direct orders from Dominion bearing the authority of Lilith herself, so I have to carry those tasks out personally.)]
+	</p>
+	<p>
+		Wondering what sort of orders those could be, you ask Minotallys what Lilith asks of her. Giving you a happy smile, she reveals, [minotallys.speech(Oh, you know, things like having to shut down businesses which are harming the public good, or arresting particularly dangerous criminals. The other week I got an order to shut down an unlicensed newspaper distribution cell. You should have seen the looks on their faces when I found them! Trust me, they were singing Lilith's praises by the time I'd finished with them...)]
+	</p>
+	<p>
+		As Minotallys says this, Arion give you a strong glare, which you interpret as a warning to not ask further questions on this matter. Deciding that it would be for the best not to pry any further into her business affairs, you wonder what to ask Minotallys next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MINOTALLYS_OFFICE_TALK_LILITH"><![CDATA[
+	<p>
+		Wanting to hear Minotallys's opinion of Lilith, you ask her what she thinks of the queen of all demons.
+	</p>
+	<p>
+		[minotallys.speech(What do you mean?)] she rhetorically asks in response, before quickly continuing, [minotallys.speech(I'd do absolutely anything Lilith asked of me. She's the greatest ruler this realm could ever ask for! Honestly, if anyone has any other opinion of Lilith than unquestioning loyalty, I think that they should be enslaved for life. It's high treason to question her will, after all. Don't you agree, Arion?)]
+	</p>
+	<p>
+		[arion.speech(Unfortunately, the citizens don't see things quite the same way that you do,)] Arion replies, clearly confident in his ability to question Minotallys's opinions. Matching the lilin's angry gaze with one of his own, he states, [arion.speech(We already use the anti-dissenter legislation to administer short periods of forced labour as a punishment for badmouthing Lilith. I fear that any more than that would cause serious unrest among the population.)]
+	</p>
+	<p>
+		Not being able to hold Arion's gaze, Minotallys looks away and crosses her arms, before pouting and muttering, [minotallys.speech(People are so ungrateful... They don't know how good they've got it with Lilith as their queen...)]
+	</p>
+	<p>
+		Realising that there's some tension between Arion and Minotallys over the matter of Lilith, you decide against pursuing this line of conversation any further, and wonder what to ask instead...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MINOTALLYS_OFFICE_TALK_MILK"><![CDATA[
+	<p>
+		Deciding to take Minotallys up on her offer, you tell her that you'd like to have a drink of milk. Letting out a quiet moan as you say this, the lilin eagerly bends down to open the fridge which she has beneath her desk, before straightening up to place a glass of chilled milk on the desk in front of you. Absent-mindedly reaching up to rub her huge, [minotallys.cupSize]-cup breasts, she pants, [minotallys.speech(Go on then, drink up... It's <i>very</i> fresh, I can assure you of that...)]
+	</p>
+	<p>
+		Looking down at what is quite obviously Minotallys's breast milk, you pick up the glass and gulp it down. With the cow-girl lilin watching you with a look of utter delight on her face, you find yourself enjoying the creamiest, most delicious milk that you've ever tasted. While there's an underling flavour of [minotallys.milkFlavour], it's very subtle, allowing you to fully enjoy the creamy goodness of the dairy beverage.
+	</p>
+	<p>
+		As you quickly finish off the milk and put the empty glass back down on the desk, Minotallys gropes her huge breasts and says in a husky voice, [minotallys.speech(Come back tomorrow if you want to try a different flavour...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MINOTALLYS_OFFICE_EXIT"><![CDATA[
+	<p>
+		having concluded your business, you thank Minotallys and Arion for their time and take your leave. Giving you a little wave, the lilin calls out, [minotallys.speech(Come back at any time, [pc.name]! Bye!)]
+	</p>
+	<p>
+		Returning her farewell, you [pc.step] out of her office and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Minotallys's room: -->
+	
+	<htmlContent tag="MINOTALLYS_ROOM"><![CDATA[
+	<p>
+		Due to her overwhelming workload, Minotallys has had her living quarters relocated to one of the rooms previously used as an archive. A sign on the door before you lets you know that this is the lilin's room, as it reads: 'Minotallys - Private!'
+	</p>
+	#IF(game.getCharactersPresent().contains(minotallys) && game.getCharactersPresent().contains(arion))
+		<p>
+			As you stand before the door to Minotallys's room, you hear the unmistakable sound of high-pitched, passionate moaning coming from within. These moans are interspersed with deep grunts, and you realise that Arion must be having sex with his lilin superior. Almost as if to confirm this thought, you hear the voice of Minotallys crying out Arion's name, which is followed by a series of lewd, wet slapping noises.
+		</p>
+		<p>
+			With the two Enforcers on duty giving you a questioning glance, you think that it would be best to [pc.step] away from Minotallys's room and give the two lovers within some privacy...
+		</p>
+	#ELSE
+		<p>
+			#IF(game.getCharactersPresent().contains(minotallys))
+				With her office being closed at this time of day, you're sure that Minotallys must be inside her room. As you don't have a serious reason to interrupt her rest, you think that it would be best to leave her in peace...
+			#ELSE
+				With Minotallys's office being open at this time of day, you know that she isn't inside her room at the moment. If you wanted to speak with the lilin, you should [pc.step] over to her office...
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECORDS"><![CDATA[
+	<p>
+		The wooden door before you is propped open, allowing you to look inside. The entire room is filled with rows of tall shelves, with each one of them being stacked full of old papers and books. A sign on the door informs you that this room is home to records on the administrative history of Elis.
+	</p>
+	<p>
+		Having no need for any of the information stored within these archives, you prepare to [pc.step] away from the door and return to the landing...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRS"><![CDATA[
+	<p>
+		You find yourself at the top of the tower's staircase, with a pair of elite succubi Enforcers standing very close by. Carrying rifles and looking like they're itching to use them, these Enforcers seem prepared to defend the town's mayor from any unsolicited visitors.
+	</p>
+	<p>
+		Having been given permission to come and go as you please, you have nothing to fear from these guards, and from here you could either head down the stairs or [pc.walk] on over to Minotallys's office...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRS_DOWN"><![CDATA[
+	<p>
+		Having finished your business, you head back down the stairs and quickly find yourself back down on the ground floor of Elis's town hall...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

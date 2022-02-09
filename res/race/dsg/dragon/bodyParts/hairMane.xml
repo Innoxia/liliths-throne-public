@@ -53,7 +53,7 @@
 	
 	<!-- How this hair is described in a character's description page. -->
 	<bodyDescription><![CDATA[
-		[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], dragon-like hair
+		[npc.SheHasFull] [npc.hairLength], [npc.hairColour(true)], dragon-like hair
 	]]></bodyDescription>
 	
 </hair>

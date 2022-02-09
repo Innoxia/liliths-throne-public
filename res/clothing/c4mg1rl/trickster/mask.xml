@@ -64,13 +64,13 @@
 
 	<displacementText type="REMOVE_OR_EQUIP">
 		<self>
-			<![CDATA[[npc.Name] unsecure the straps behind [npc.her] head, then [npc.verb(take)] off [npc.her] mask.]]>
+			<![CDATA[[npc.Name] [npc.verb(unfasten)] the straps behind [npc.her] head, then [npc.verb(take)] off [npc.her] mask.]]>
 		</self>
 		<other>
-			<![CDATA[[npc.Name] unsecure the straps behind [npc2.her] head, then [npc.verb(take)] off [npc2.namePos] mask.]]>
+			<![CDATA[[npc.Name] [npc.verb(unfasten)] the straps behind [npc2.her] head, then [npc.verb(take)] off [npc2.namePos] mask.]]>
 		</other>
 		<otherRough>
-			<![CDATA[[npc.Name] [npc.verb(grabs)] [npc2.namePos] mask and roughly [npc.verb(pull)] them off [npc2.namePos] [npc2.face].]]>
+			<![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] mask and roughly [npc.verb(pull)] it off [npc2.namePos] [npc2.face].]]>
 		</otherRough>
 	</displacementText>
   
