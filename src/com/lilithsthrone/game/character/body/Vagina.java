@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
@@ -294,7 +296,7 @@ public class Vagina implements BodyPartInterface {
 		
 		sb.append("</p>");
 
-		if(this.type != VaginaType.NONE) {
+		if(this.type != VaginaType.NONE || body.getBodyMaterial()==BodyMaterial.SLIME) {
 			sb.append("<p style='text-align:center;'>");
 				if(this.eggLayer) {
 					sb.append(UtilText.parse(owner,"<i>Instead of giving birth to live young, [npc.name] now [style.colourEgg([npc.verb(lay)] eggs)]!</i>"));
