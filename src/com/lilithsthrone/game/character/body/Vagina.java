@@ -434,7 +434,7 @@ public class Vagina implements BodyPartInterface {
 			return "";
 		}
 		
-		if(this.eggLayer == eggLayer || !owner.hasVagina()) {
+		if((this.eggLayer == eggLayer || !owner.hasVagina())&& body.getBodyMaterial()==!BodyMaterial.SLIME) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
