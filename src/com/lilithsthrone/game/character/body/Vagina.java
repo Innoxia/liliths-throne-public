@@ -296,7 +296,7 @@ public class Vagina implements BodyPartInterface {
 		
 		sb.append("</p>");
 
-		if(this.type != VaginaType.NONE || body.getBodyMaterial()==BodyMaterial.SLIME) {
+		if(this.type != VaginaType.NONE || owner.body.getBodyMaterial()==BodyMaterial.SLIME) {
 			sb.append("<p style='text-align:center;'>");
 				if(this.eggLayer) {
 					sb.append(UtilText.parse(owner,"<i>Instead of giving birth to live young, [npc.name] now [style.colourEgg([npc.verb(lay)] eggs)]!</i>"));
@@ -434,7 +434,7 @@ public class Vagina implements BodyPartInterface {
 			return "";
 		}
 		
-		if((this.eggLayer == eggLayer || !owner.hasVagina())&& body.getBodyMaterial()==!BodyMaterial.SLIME) {
+		if((this.eggLayer == eggLayer || !owner.hasVagina())&& owner.body.getBodyMaterial()==!BodyMaterial.SLIME) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
