@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -296,7 +295,7 @@ public class Vagina implements BodyPartInterface {
 		
 		sb.append("</p>");
 
-		if(this.type != VaginaType.NONE || owner.body.getBodyMaterial()==BodyMaterial.SLIME) {
+		if(this.type != VaginaType.NONE || owner.getBodyMaterial()==BodyMaterial.SLIME) {
 			sb.append("<p style='text-align:center;'>");
 				if(this.eggLayer) {
 					sb.append(UtilText.parse(owner,"<i>Instead of giving birth to live young, [npc.name] now [style.colourEgg([npc.verb(lay)] eggs)]!</i>"));
@@ -434,7 +433,7 @@ public class Vagina implements BodyPartInterface {
 			return "";
 		}
 		
-		if((this.eggLayer == eggLayer || !owner.hasVagina())&& owner.body.getBodyMaterial()==!BodyMaterial.SLIME) {
+		if((this.eggLayer == eggLayer || !owner.hasVagina())&& owner.getBodyMaterial()==!BodyMaterial.SLIME) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
