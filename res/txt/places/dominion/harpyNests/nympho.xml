@@ -54,5 +54,229 @@
 	]]>
 	</htmlContent>
 
+	<htmlContent tag="HARPY_NEST_NYMPHO_APPROACH"><![CDATA[
+	#IF(flags.hasFlag(FLAG_nymphoEncountered))
+		#IF(flags.hasFlag(FLAG_nymphoPacified))
+			<p>
+				Deciding to pay [harpyNympho.Name] another visit, you set off towards the flash of pink in the centre of the nest. As you make your way towards the sex-obsessed matriarch, you get a good look at the harpies that make up her flock. Just as you've seen before, the vast majority of them are rather plain-looking by harpy standards; revealing them as males.
+			</p>
+			<p>
+				As you pass the groups of loitering harpies, you overhear snippets of conversation,<br/>
+				[style.speechFeminine(...she let me unload in her three times last night...)]<br/>
+				[style.speechFeminineStrong(...I love it when she's in the mood to suck cock...)]<br/>
+				[style.speechFeminine(...and then she cleaned me off with her mouth...)]
+			</p>
+			<p>
+				Smirking as you push through the crowds, you soon find yourself standing before the harpy they're all talking about. Moaning and squealing in delight, [harpyNympho.name] is once again riding her favourite boy-toy, [harpyNymphoCompanion.name]. As you come to a halt in front of them, they both suddenly let out an exceptionally loud scream, and you look down to see a slick trail of fresh cum oozing out of [harpyNympho.namePos] pussy. After taking a few moments to catch her breath, she lifts herself up, allowing the hot load to drool out of her well-used cunt, and, leaning down to deliver a passionate kiss on her partner's lips, she calls out, [harpyNympho.speech(Who's next?!)]
+			</p>
+			<p>
+				Stepping forwards, you make yourself known, [pc.speech(I think that would be me!)]
+			</p>
+			<p>
+				Upon hearing your voice, [harpyNympho.name] spins round, letting out an exited squeal, [harpyNympho.speech([pc.Mistress]! You're back! Let's have some fun!)]
+			</p>
+			<p>
+				Rushing towards you, [harpyNympho.name] falls to her knees. Shuffling forwards, she looks up into your [pc.eyes], [harpyNympho.speech(Please! [pc.mistress]! Let's fuck!)]
+			</p>
+		#ELSE
+			<p>
+				Deciding to pay [harpyNympho.Name] another visit, you set off towards the flash of pink in the centre of the nest. As you make your way towards the sex-obsessed matriarch, you get a good look at the harpies that make up her flock. Just as you've seen before, the vast majority of them are rather plain-looking by harpy standards; revealing them as males.
+			</p>
+			<p>
+				As you pass the groups of loitering harpies, you overhear snippets of conversation,<br/>
+				[style.speechFeminine(...she let me unload in her three times last night...)]<br/>
+				[style.speechFeminineStrong(...I love it when she's in the mood to suck cock...)]<br/>
+				[style.speechFeminine(...and then she cleaned me off with her mouth...)]
+			</p>
+			<p>
+				Pushing through the crowds, you soon find yourself standing before the harpy they're all talking about. Moaning and squealing in delight, [harpyNympho.name] is once again riding her favourite boy-toy, [harpyNymphoCompanion.name]. As you come to a halt in front of them, they both suddenly let out an exceptionally loud scream, and you look down to see a slick trail of fresh cum oozing out of [harpyNympho.namePos] pussy. After taking a few moments to catch her breath, she lifts herself up, allowing the hot load to drool out of her well-used cunt, and, leaning down to deliver a passionate kiss on her partner's lips, she calls out, [harpyNympho.speech(Who's next?!)]
+			</p>
+			<p>
+				Stepping forwards, you make yourself known, [pc.speech(I think that would be me!)]
+			</p>
+			<p>
+				Upon hearing your voice, [harpyNympho.name] spins around, and, catching sight of you, she lets out a frustrated sigh,
+				#IF(pc.getFemininityValue()>FEMININITY_FEMININE_STRONG.getMinimumFemininity())
+					 [harpyNympho.speech(Eugh! It's <i>you</i> again! You'd better not be trying to steal any of my playthings!)]
+				#ELSE
+					 [harpyNympho.speech(Eugh! It's <i>you</i> again?! What do you want this time?!)]
+				#ENDIF
+			</p>
+			<p>
+				Stepping forwards, [harpyNymphoCompanion.name] moves to protect her matriarch. [harpyNymphoCompanion.speech(You heard her! What do you want?!)]
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Recognising this as one of the nests that you agreed to pacify, you set off towards the flash of pink in the centre of the nest. As you make your way across the crowded platform, you get a good look at the harpies that make up this flock. Just as you saw from the outskirts, the vast majority of them are rather plain-looking by harpy standards; revealing them as males.
+		</p>
+		<p>
+			As you pass the groups of loitering harpies, you overhear snippets of conversation,<br/>
+			[style.speechFeminine(...she let me unload in her three times last night...)]<br/>
+			[style.speechFeminineStrong(...I love it when she's in the mood to suck cock...)]<br/>
+			[style.speechFeminine(...and then she cleaned me off with her mouth...)]
+		</p>
+		<p>
+			Pushing through the crowds, you soon find yourself standing before the harpy they're all talking about. Moaning and squealing in delight, you see the matriarch of this nest unashamedly riding one of her boy-toys. As you come to a halt in front of them, they both suddenly let out an exceptionally loud scream, and you look down to see a slick trail of fresh cum oozing out of the pink-feathered matriarch's pussy. After taking a few moments to catch her breath, she lifts herself up, allowing the hot load to drool out of her well-used cunt, and, leaning down to deliver a passionate kiss on her partner's lips, she moans, [harpyNympho.speech(Ah, [harpyNymphoCompanion.Name]! I love your cock most of all!)]
+		</p>
+		<p>
+			[harpyNymphoCompanion.speech(I love making you happy, [harpyNympho.Name],)] [harpyNymphoCompanion.Name] replies. [harpyNymphoCompanion.speech(Do you want to go again?)]
+		</p>
+		<p>
+			Deciding that this is an opportune moment to make yourself known, you step forwards and clear your throat. [pc.speech(Before you do, I was hoping to talk with you for a moment.)]
+		</p>
+		<p>
+			Upon hearing your voice, [harpyNympho.name] spins around, and, catching sight of you, she lets out a frustrated sigh.
+			#IF(pc.getFemininityValue()>FEMININITY_FEMININE_STRONG.getMinimumFemininity())
+				 [harpyNympho.speech(Who are you?! What are you doing here?! You'd better not be trying to steal any of my playthings!)]
+			#ELSE
+				 [harpyNympho.speech(Who are you?! What are you doing here?! What do you want?!)]
+			#ENDIF
+		</p>
+		<p>
+			Stepping forwards, [harpyNymphoCompanion.name] moves to protect her matriarch. [harpyNymphoCompanion.speech(You heard her! What do you want?!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Angry scenes: -->
+	
+    <htmlContent tag="NYMPHO_LEAVE"><![CDATA[
+    <p>
+        Deciding that now isn't the best time to be trying to deal with [harpyNympho.name], you turn around and head back down the stairs. You hear [harpyNympho.name] moaning to [harpyNymphoCompanion.name] as you walk away, [harpyNympho.speech(Now that [pc.sheHas] gone, you can get back to fucking me!)]
+    </p>
+    <p>
+        Ignoring her words, you continue down the steps and back across the main platform, quickly finding yourself back on the outskirts of the nest.
+    </p>
+	]]>
+    </htmlContent>
+	
+	<!-- Pacified scenes: -->
+	
+    <htmlContent tag="PACIFIED_NYMPHO_LEAVE"><![CDATA[
+    <p>
+        Deciding that you don't want to talk to [harpyNympho.name] right now, you turn around and take your leave. You hear [harpyNympho.name] sighing to [harpyNymphoCompanion.name] as you walk away, [harpyNympho.speech(Aww! Well, looks like you get to have another go!)]
+    </p>
+	<p>
+		Ignoring her words, you continue back across the platform, quickly finding yourself on the outskirts of the nest once again.
+	</p>
+	]]>
+    </htmlContent>
+	
+    <htmlContent tag="PACIFIED_NYMPHO_SEX_START"><![CDATA[
+    <p>
+        Eager to help satisfy [harpyNympho.namePos] craving for sex, you reach down and grab her wings. Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyNympho.lips+].
+	</p>
+	<p>
+		[harpyNympho.Name] responds to your dominant move by letting out a excited squeal, and, enthusiastically wrapping her wings around your back, she passionately starts returning your kiss...
+    </p>
+	]]>
+    </htmlContent>
+	
+    <htmlContent tag="NYMPHO_SEX_START_ORAL"><![CDATA[
+    <p>
+        Eager to put [harpyNympho.name] and [harpyNymphoCompanion.name] in their place in front of their nest's inner-circle, you reach down and grab the nympho matriarch's wings. Pulling her to her feet, you [pc.step] forwards and plant a deep kiss on her [harpyNympho.lips+], drawing a series of lustful moans from the surrounding harpies as you do so.
+    </p>
+	<p>
+		[harpyNympho.Name] responds to your dominant move by wrapping her wings around your back, grinding herself up against you, and passionately returning your kiss. Letting out a hungry moan, [harpyNymphoCompanion.name] eagerly asks, [harpyNymphoCompanion.speech(You're going to fuck me as well, aren't you?)]
+	</p>
+	<p>
+		With [harpyNympho.name] continuing to desperately kiss you, you motion for [harpyNymphoCompanion.name] to step forwards and join in. As she happily rushes forwards, you pull back from [harpyNympho.namePos] lips, before swiftly grabbing [harpyNympho.namePos] head and giving her a taste of your [pc.tongue+]. As the lustful harpy leans heavily into you, more lustful moans break out amongst the surrounding nympho harpies.
+	</p>
+	<p>
+		Wanting the matriarch's and her subordinate's lips to be employed elsewhere, you break off your kiss, before taking hold of both of the harpies' shoulders and pushing them to their knees before you. Realising what it is you want, they both eagerly shuffle forwards towards your groin. Looking up at you, [harpyNympho.name] hungrily moans, [harpyNympho.speech(Please, use me and [harpyNymphoCompanion.name] as much as you want!)]
+	</p>
+	<p>
+		[harpyNymphoCompanion.speech(Yes! Fuck us!)] [harpyNymphoCompanion.name] squeals, and you can't help but grin as she and her matriarch eagerly prepare to perform oral on you...
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="NYMPHO_SEX_START_SPITROAST"><![CDATA[
+    <p>
+        Eager to put [harpyNympho.name] in her place in front of her nest's inner-circle, you grab hold of her and push her down onto her hands and knees before you. Raising her ass in a clear display of submission, [harpyNympho.name] passionately moans, [harpyNympho.speech(Yes! Fuck me! Come on, give it to me!)]
+    </p>
+	<p>
+		Letting out a hungry moan, the matriarch's subordinate looks at you and pleads, [harpyNymphoCompanion.speech(Please, let me join in and fuck [harpyNympho.name] too!)]
+	</p>
+	<p>
+		Telling [harpyNymphoCompanion.name] that it was your plan to have her join in and spitroast her matriarch all along, you wonder if you should take [harpyNympho.namePos] rear, or instead [pc.step] around and use her mouth...
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="NYMPHO_SPITROAST_BEHIND_START"><![CDATA[
+    <p>
+        Deciding that you want to use [harpyNympho.namePos] pussy, you drop down behind her and give her [harpyNympho.ass+] a good grope. Moaning in delight, she raises her [harpyNympho.hips+] and begs, [harpyNympho.speech(Yes! Pound my hot little pussy!)]
+	</p>
+	<p>
+       Having already been told that you want her to join in, [harpyNymphoCompanion.name] quickly drops down in front of her matriarch's mouth, and prepares to receive oral from [harpyNympho.name] while you fuck her...
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="NYMPHO_SPITROAST_IN_FRONT_START"><![CDATA[
+    <p>
+        Deciding that you want to use [harpyNympho.namePos] mouth, you [pc.step] forwards and drop down in front of her mouth. Moaning in delight, she looks up at you and begs, [harpyNympho.speech(Yes! Put my mouth to use!)]
+	</p>
+	<p>
+       Having already been told that you want her to join in, [harpyNymphoCompanion.name] quickly drops down behind her matriarch, and prepares to fuck [harpyNympho.name] while you receive oral from her...
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="NYMPHO_AFTER_SEX"><![CDATA[
+	#IF(sex.isSatisfiedFromOrgasms(harpyNympho, true))
+		<p>
+			As you [pc.step] back from [harpyNympho.name], she sinks to the floor, totally worn out from her
+			#IF(sex.getNumberOfOrgasms(harpyNympho)>1)
+				 orgasms.
+			#ELSE
+				 orgasm.
+			#ENDIF
+			 Biting her lip and flashing you a dirty look, she teases, [harpyNympho.speech(Fuck... I love getting fucked...)]
+		</p>
+	#ELSE
+		<p>
+			As you [pc.step] back from [harpyNympho.name], she sinks to the floor, letting out a desperate whine as she realises that you've finished with her. Her feathered hands dart down between her legs, and she frantically starts masturbating as she seeks to finish what you started.
+		</p>
+	#ENDIF
+	#IF(sex.getAllParticipants(false).contains(harpyNymphoCompanion))
+		#IF(sex.isSatisfiedFromOrgasms(harpyNymphoCompanion, true))
+			<p>
+				Letting out a deeply satisfied sigh, [harpyNymphoCompanion.name] looks to be completely exhausted from the
+				#IF(sex.getNumberOfOrgasms(harpyNymphoCompanion)>1)
+					 orgasms
+				#ELSE
+					 orgasm
+				#ENDIF
+				 you gave her. Panting and looking up into your eyes, she moans, [harpyNymphoCompanion.speech(That was... Wow...)]
+			</p>
+		#ELSE
+			<p>
+				Not being satisfied from this sexual experience, [harpyNymphoCompanion.name] looks over at her matriarch, and as she watches [harpyNympho.namePos] [harpyNympho.breasts+] rise and fall, she starts shamelessly masturbating right there in front of the rest of the surrounding harpies.
+			</p>
+		#ENDIF
+	#ENDIF
+	<p>
+		[harpyNympho.NamePos] inner-circle of harpies, having watched the whole thing, kneel down in submission as you finish with their matriarch. Excitedly chattering amongst themselves, they talk about your performance and wonder aloud how long it will be before you're back for more...
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="NYMPHO_LEAVE_AFTER_SEX"><![CDATA[
+	#IF(sex.getAllParticipants(false).contains(harpyNymphoCompanion))
+		<p>
+			Having shown these harpies their place, you set off down the staircase, and after walking back across the lower platform, you quickly find yourself on the outskirts of [harpyNympho.namePos] nest once again.
+		</p>
+	#ELSE
+		<p>
+			Having shown [harpyNympho.name] her place, you set off down the staircase, and after walking back across the lower platform, you quickly find yourself on the outskirts of [harpyNympho.namePos] nest once again.
+		</p>
+	#ENDIF
+    ]]>
+    </htmlContent>
 	
 </dialogue>

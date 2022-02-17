@@ -43,7 +43,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.SetBonus;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -639,7 +638,7 @@ public class DebugDialogue {
 							}
 						}
 					};
-					
+				
 				} else if(index==25)  {
 					return new Response("Spawn rates", "List the spawn rates in the current location.", SPAWN_RATES) {
 						@Override
@@ -684,6 +683,9 @@ public class DebugDialogue {
 							spawnrateSB.append("</table>");
 						}
 					};
+					
+				} else if(index==26) {
+					return new Response("Item collage", "View a collage of all item, weapon, and clothing icons which are currently in the game.<br/>[style.italicsMinorBad(Will be slow to load and display!)]", CLOTHING_COLLAGE);
 					
 				}
 				
@@ -1240,6 +1242,9 @@ public class DebugDialogue {
 				
 			} else if(index == 3) {
 				return "[style.colourTfGreater(Greater)]";
+				
+			} else if(index == 4) {
+				return "[style.colourHalfDemon(Half-demon)]";
 			}
 			return null;
 		}
@@ -1264,10 +1269,10 @@ public class DebugDialogue {
 					public void effects() {
 						initAttacker();
 						
-						if(subspecies==Subspecies.HALF_DEMON) {
+						if(subspecies==Subspecies.HALF_DEMON || responseTab==4) {
 							attacker.setSubspeciesOverride(null);
 							attacker.setBody(
-									Main.game.getCharacterUtils().generateHalfDemonBody(attacker, attacker.getGender(), Subspecies.HUMAN, false),
+									Main.game.getCharacterUtils().generateHalfDemonBody(attacker, attacker.getGender(), responseTab==4?subspecies:Subspecies.HUMAN, false),
 									false);
 						} else {
 							attacker.setSubspeciesOverride(null);
@@ -1416,13 +1421,53 @@ public class DebugDialogue {
 	
 	
 	public static final DialogueNode CLOTHING_COLLAGE = new DialogueNode("Clothing collage", "Clothing collage.", false) {
-		/**
-		 * 
-		 */
-
 		@Override
 		public String getContent() {
-			return clothingCollage();
+			inventorySB.setLength(0);
+			
+			float width = 100/20f;
+			int imgWidth = 100;
+			
+			inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+					+ "<h5>Total items: "+itemsTotal.size()+"</h5>");
+			for(AbstractItemType itemType : itemsTotal) {
+				inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:1px; margin:0;'>"
+										+ "<div class='inventory-item-slot unequipped' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0; background-color:"+itemType.getRarity().getBackgroundColour().toWebHexString()+";'>"
+											+ "<div class='inventory-icon-content'>"+itemType.getSVGString()+"</div>"
+											+ "<div class='overlay' id='" + itemType.getId() + "_SPAWN'></div>"
+										+ "</div>"
+									+ "</div>");
+			}
+			inventorySB.append("</div>");
+
+			inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+					+ "<h5>Total weapons: "+weaponsTotal.size()+"</h5>");
+			for(AbstractWeaponType weaponType : weaponsTotal) {
+				inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:1px; margin:0;'>"
+										+ "<div class='inventory-item-slot unequipped' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0; background-color:"+weaponType.getRarity().getBackgroundColour().toWebHexString()+";'>"
+											+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage()
+											+"</div>"
+											+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
+										+ "</div>"
+									+ "</div>");
+			}
+			inventorySB.append("</div>");
+
+			inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+					+ "<h5>Total clothing: "+clothingTotal.size()+"</h5>");
+			for(AbstractClothingType clothingType : clothingTotal) {
+				inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:1px; margin:0;'>"
+									+ "<div class='inventory-item-slot unequipped' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0; background-color:"+clothingType.getRarity().getBackgroundColour().toWebHexString()+";'>"
+										+ "<div class='inventory-icon-content'>"
+											+clothingType.getSVGImageRandomColour(true, false, false)
+										+"</div>"
+										+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
+									+ "</div>"
+								+ "</div>");
+			}
+			inventorySB.append("</div>");
+			
+			return inventorySB.toString();
 		}
 
 		@Override
@@ -1435,21 +1480,6 @@ public class DebugDialogue {
 			}
 		}
 	};
-
-	private static StringBuilder clothingCollageSB;
-
-	private static String clothingCollage() {
-		clothingCollageSB = new StringBuilder("<div style='position:inline-block;width:90vw;float:left;'>");
-
-		for (AbstractClothingType c : ClothingType.getAllClothing()) {
-			AbstractClothing ac = Main.game.getItemGen().generateClothing(c);
-			clothingCollageSB.append("<html><div style='width:10vw;height:10vw;float:left;all: unset;'>" + ac.getSVGString() + "</div></html>");
-		}
-
-		clothingCollageSB.append("</div>");
-
-		return clothingCollageSB.toString();
-	}
 
 	private static String parsedText = "";
 	private static String rawText = "";

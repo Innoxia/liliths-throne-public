@@ -175,6 +175,10 @@ public class Nipples implements BodyPartInterface {
 
 	public String setNippleSize(GameCharacter owner, int nippleSize) {
 		int boundNippleSize = Math.max(0, Math.min(nippleSize, NippleSize.FOUR_MASSIVE.getValue()));
+		if(owner==null) {
+			this.nippleSize = boundNippleSize;
+			return "";
+		}
 		if(this.nippleSize == boundNippleSize) {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] [npc.nipples] doesn't change...)]</p>");
 		}
@@ -199,6 +203,10 @@ public class Nipples implements BodyPartInterface {
 	}
 	
 	public String setNippleShape(GameCharacter owner, NippleShape nippleShape) {
+		if(owner==null) {
+			this.nippleShape = nippleShape;
+			return "";
+		}
 		
 		if(this.nippleShape == nippleShape) {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The shape of [npc.namePos] [npc.nipples] doesn't change...)]</p>");
@@ -247,6 +255,10 @@ public class Nipples implements BodyPartInterface {
 	}
 	
 	public String setAreolaeShape(GameCharacter owner, AreolaeShape areolaeShape) {
+		if(owner==null) {
+			this.areolaeShape = areolaeShape;
+			return "";
+		}
 		
 		if(this.areolaeShape == areolaeShape) {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The shape of [npc.namePos] areolae doesn't change...)]</p>");
@@ -287,6 +299,10 @@ public class Nipples implements BodyPartInterface {
 
 	public String setAreolaeSize(GameCharacter owner, int areolaeSize) {
 		int boundAreolaeSize = Math.max(0, Math.min(areolaeSize, AreolaeSize.FOUR_MASSIVE.getValue()));
+		if(owner==null) {
+			this.areolaeSize = boundAreolaeSize;
+			return "";
+		}
 		if (this.areolaeSize == boundAreolaeSize) {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] areolae doesn't change...)]</p>");
 		}

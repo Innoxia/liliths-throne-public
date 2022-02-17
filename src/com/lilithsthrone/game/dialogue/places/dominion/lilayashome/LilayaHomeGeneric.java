@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
 import com.lilithsthrone.game.dialogue.companions.OccupantDialogue;
@@ -614,6 +615,29 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
+	public static final DialogueNode DUNGEON_CELL = new DialogueNode("Dungeon cell", ".", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 10;
+		}
+		@Override
+		public String getLabel() {
+			return Main.game.getPlayer().getLocationPlace().getName();
+		}
+		@Override
+		public String getContent() {
+			return getRoomModificationsDescription(true);
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return getRoomResponse(responseTab, index);
+		}
+	};
+	
 	public static final DialogueNode BIRTHING_ROOM = new DialogueNode("Birthing room", ".", false) {
 
 		@Override
@@ -991,6 +1015,18 @@ public class LilayaHomeGeneric {
 		public Response getResponse(int responseTab, int index) {
 			if(responseTab==1) {
 				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
+			if (index == 1 && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("acexp_dungeon_garden_access_found"))) {
+				return new Response("Lilaya's dungeon",
+						"Press the disguised button to open the secret passage down to Lilaya's dungeon.",
+						DialogueManager.getDialogueFromId("acexp_dominion_lilaya_dungeon_stairsUp_garden")) {
+					@Override
+					public void effects() {
+						Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "DUNGEON_OPENS_FOUNTAIN"));
+						Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("acexp/dominion/lilaya_dungeon", "DUNGEON_ENTRY"));
+						Main.game.getPlayer().setLocation(WorldType.getWorldTypeFromId("acexp_dungeon"), PlaceType.getPlaceTypeFromId("acexp_dungeon_stairs_garden"), false);
+					}
+				};
 			}
 			return null;
 		}

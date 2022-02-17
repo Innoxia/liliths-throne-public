@@ -167,7 +167,7 @@
 		<!-- You can also make your own, custom list of colours to be used. The following colours in 'tertiaryColoursDye' are all found within the list preset 'ALL', but this is for a demonstration.
 		 If you want to include custom colours, do not define a 'values' attribute, and instead, list each Colour.
 		 Colour types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java
-		 PLEASE USE THE 'Colour' VALUES THAT SATRT WITH 'CLOTHING-'-->
+		 PLEASE USE THE 'Colour' VALUES THAT START WITH 'CLOTHING-'-->
 		<tertiaryColoursDye>
 			<colour>CLOTHING_WHITE</colour>
 			<colour>CLOTHING_BLACK</colour>

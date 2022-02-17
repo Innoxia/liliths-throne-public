@@ -2401,24 +2401,24 @@ public class CMFetishAttack {
             	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
+            StringBuilder sb = new StringBuilder();
+            sb.append(UtilText.returnStringAtRandom(
+						"Grinning lustfully at [npc2.name], [npc.name] [npc.verb(growl)], ",
+						"With an evil grin on [npc.her] face, [npc.name] [npc.verb(growl)] at [npc2.name], ",
+						"Glaring imposingly at [npc2.name], [npc.name] [npc.verb(growl)], ",
+						"[npc.Name] [npc.verb(let)] out a menacing growl as [npc.she] [npc.verb(stare)] lustfully at [npc2.name], "));
+        	 sb.append(UtilText.returnStringAtRandom(
+				"[npc.speech(I'm going to give you a good, hard fuck, bitch!)]",
+				"[npc.speech(You're going to get the fucking of a lifetime!)]",
+				"[npc.speech(You're going to be a good little submissive slut for me!)]",
+				"[npc.speech(I'm going to make you my bitch!)]",
+				"[npc.speech(You're going to be my bitch soon enough!)]",
+				"[npc.speech(You're going to be a mewling little bitch by the time I'm done with you!)]",
+				"[npc.speech(I'm going to fuck you so hard, you'll be squealing like a little bitch!)]"));
+            sb.append(dealtDamage.getKey());
+            
             return formatAttackOutcome(source, target,
-            		(UtilText.returnStringAtRandom(
-    						"Grinning lustfully at [npc2.name], [npc.name] [npc.verb(growl)], "
-    								+ (target.getAppearsAsGender().isFeminine()
-    									?"[npc.speech(I'm going to fuck you into next week, bitch!)]"
-    									:"[npc.speech(I'm going to make you my bitch!)]"),
-    						"With an evil grin, [npc.name] [npc.verb(growl)] at [npc2.name], "
-    								+ (target.getAppearsAsGender().isFeminine()
-    									?"[npc.speech(You're going to get the fucking of a lifetime!)]"
-    									:"[npc.speech(You're going to be my bitch soon enough!)]"),
-    						"With a powerful stare, [npc.name] [npc.verb(growl)] at [npc2.name], "
-    								+ (target.getAppearsAsGender().isFeminine()
-    									?"[npc.speech(I'm going to make you my bitch!)]"
-    									:"[npc.speech(You're going to be a mewling little bitch by the time I'm done with you!)]"),
-    						"[npc.Name] [npc.verb(let)] out a menacing growl as [npc.she] [npc.verb(stare)] lustfully at [npc2.name], "
-    								+ (target.getAppearsAsGender().isFeminine()
-    									?"[npc.speech(You're going to be a good little submissive slut for me!)]"
-    									:"[npc.speech(I'm going to fuck you so hard, you'll be squealing like a little bitch!)]")))+dealtDamage.getKey(),
+            		sb.toString(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"

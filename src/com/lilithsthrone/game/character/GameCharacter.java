@@ -7307,9 +7307,13 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	// Sex stats:
 	
+	/**
+	 * @return The total number of unique sex partners this character has had.<br/>
+	 * This <b>does not</b> include themselves (from masturbating).
+	 */
 	public int getUniqueSexPartnerCount() {
 		Map<String, SexCount> uniqueCount = new HashMap<>(sexCount);
-		uniqueCount.entrySet().removeIf(e->e.getValue().getTotalTimesHadSex()<=0);
+		uniqueCount.entrySet().removeIf(e->e.getValue().getTotalTimesHadSex()<=0 || this.getId().equals(e.getKey()));
 		return uniqueCount.keySet().size();
 	}
 	
@@ -8981,15 +8985,20 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(includesOrgasm) {
 			if(Main.game.isInSex()) {
-				Main.sex.incrementNumberOfOrgasms(this, 1);
-				if(partnerPresent) {
+				if(this.isAbleToOrgasm()) {
+					Main.sex.incrementNumberOfOrgasms(this, 1);
+				}
+				if(partnerPresent && partner.isAbleToOrgasm()) {
 					Main.sex.incrementNumberOfOrgasms(partner, 1);
 				}
+				
 			} else {
-				this.setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed());
-				this.incrementDaysOrgasmCount(1);
-				this.incrementTotalOrgasmCount(1);
-				if(partner!=null) {
+				if(this.isAbleToOrgasm()) {
+					this.setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed());
+					this.incrementDaysOrgasmCount(1);
+					this.incrementTotalOrgasmCount(1);
+				}
+				if(partnerPresent && partner.isAbleToOrgasm()) {
 					partner.setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed());
 					partner.incrementDaysOrgasmCount(1);
 					partner.incrementTotalOrgasmCount(1);
@@ -8997,28 +9006,26 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			
 			// Drain cum if orgasmed:
-			if(partnerPresent && partner.hasPenisIgnoreDildo() && partner.getPenisRawCumStorageValue()>0) {
+			if(partnerPresent && partner.isAbleToOrgasm() && partner.hasPenisIgnoreDildo() && partner.getPenisRawCumStorageValue()>0) {
 				partner.applyOrgasmCumEffect();
 			}
-			if(this.hasPenisIgnoreDildo() && this.getPenisRawCumStorageValue()>0) {
+			if(this.isAbleToOrgasm() && this.hasPenisIgnoreDildo() && this.getPenisRawCumStorageValue()>0) {
 				this.applyOrgasmCumEffect();
 			}
 			
 			if(!Main.game.isBadEnd()) { // Do not drain levels during a bad end
-//			if(isDom) {
-				if(this.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && this.isLevelDrainAvailableToUse() && !partner.isImmuneToLevelDrain() && !flags.contains(GenericSexFlag.PREVENT_LEVEL_DRAIN)) {
+				if(partnerPresent && partner.isAbleToOrgasm() && this.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && this.isLevelDrainAvailableToUse() && !partner.isImmuneToLevelDrain() && !flags.contains(GenericSexFlag.PREVENT_LEVEL_DRAIN)) {
 					levelDrainDescription = applyLevelDrain(partner);
 				}
-				
-//			} else {
-				if(partnerPresent && partner.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && partner.isLevelDrainAvailableToUse() && !this.isImmuneToLevelDrain() && !flags.contains(GenericSexFlag.PREVENT_LEVEL_DRAIN)) {
+				if(this.isAbleToOrgasm() && partnerPresent && partner.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && partner.isLevelDrainAvailableToUse() && !this.isImmuneToLevelDrain() && !flags.contains(GenericSexFlag.PREVENT_LEVEL_DRAIN)) {
 					levelDrainDescription = partner.applyLevelDrain(this);
 				}
-//			}
 			}
 			// This is reset to 25 to factor in post-orgasm satisfaction:
-			this.setArousal(25);
-			if(partnerPresent) {
+			if(this.isAbleToOrgasm()) {
+				this.setArousal(25);
+			}
+			if(partnerPresent && partner.isAbleToOrgasm()) {
 				partner.setArousal(25);
 			}
 		}
@@ -9313,6 +9320,8 @@ public abstract class GameCharacter implements XMLSaving {
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.FOOT), target, request, foreplaySexTypes, 2);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.FOOT), target, request, mainSexTypes, 2);
 		
+		// Hand holding:
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaPenetration.FINGER), target, request, foreplaySexTypes, 0.5f);
 		
 		foreplaySexTypes.entrySet().removeIf(e -> e.getValue()<=0);
 		mainSexTypes.entrySet().removeIf(e -> e.getValue()<=0);
@@ -9482,7 +9491,7 @@ public abstract class GameCharacter implements XMLSaving {
 		//TODO Further prioritise genital interactions?
 		
 		// If cannot switch position, only return preferences that are actually available:
-		if(Main.game.isInSex() && Main.sex.getAllParticipants(true).contains(this) && !Main.sex.isPositionChangingAllowed(this)) {
+		if(Main.game.isInSex() && Main.sex.getAllParticipants(true).contains(this) && (!Main.sex.isPositionChangingAllowed(this))) {
 			List<SexType> availableTypes = new ArrayList<>();
 			
 //			System.out.println(this.getName()+" restricting prefs");
@@ -9525,6 +9534,27 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 					mainSexTypes.remove(st);
 				}
+			}
+		}
+		
+		// Remove foreplay types which cannot be accessed due to limited positions or slots:
+		Set<SexType> foreplayKeys = new HashSet<>(foreplaySexTypes.keySet());
+		for(SexType st : foreplayKeys) {
+			if(!Main.sex.isSexTypePossibleViaAvailablePositionsAndSlots(this, target, st)) {
+				if(debug) {
+					System.out.println("Removed foreplay due to unavailable positioning: "+st);
+				}
+				foreplaySexTypes.remove(st);
+			}
+		}
+		// Remove main sex types which cannot be accessed due to limited positions or slots:
+		Set<SexType> mainKeys = new HashSet<>(mainSexTypes.keySet());
+		for(SexType st : mainKeys) {
+			if(!Main.sex.isSexTypePossibleViaAvailablePositionsAndSlots(this, target, st)) {
+				if(debug) {
+					System.out.println("Removed sex due to unavailable positioning: "+st);
+				}
+				mainSexTypes.remove(st);
 			}
 		}
 		
@@ -9886,6 +9916,28 @@ public abstract class GameCharacter implements XMLSaving {
 				"[npc.speech(Yes! I'm yours! Use me! Do what you want with me!)]",
 				"[npc.speech(Yeah! I'm your worthless little bitch! Fuck me!)]",
 				"[npc.speech(Yes, I'm your worthless slut! Use me like your little fuck-toy!)]");
+	}
+
+	/**
+	 * @return A <b>formatted</b> piece of loving sex talk.
+	 */
+	public String getLovingTalk() { //TODO expand to be based on penetration type:
+		return UtilText.returnStringAtRandom(
+				"[npc.speech(I love you...)]",
+				"[npc.speech(Yes... I love you so much...)]",
+				"[npc.speech(I really do love you, you know...)]",
+				"[npc.speech(I love this... I love <i>you</i>...)]");
+	}
+
+	/**
+	 * @return A <b>formatted</b> piece of loving response sex talk.
+	 */
+	public String getLovingResponseTalk() { //TODO expand to be based on penetration type:
+		return UtilText.returnStringAtRandom(
+				"[npc.speech(I love you too!)]",
+				"[npc.speech(You know that I love you too!)]",
+				"[npc.speech(I really do love you too!)]",
+				"[npc.speech(I love you more!)]");
 	}
 	
 	/**
@@ -15761,125 +15813,80 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		// Kissing:
 		if(penetrationType == SexAreaPenetration.TONGUE && orifice == SexAreaOrifice.MOUTH) {
-			if(characterPenetrating.isPlayer()) {
-				switch(Main.sex.getSexPace(characterPenetrating)) {
-					case DOM_GENTLE:
-						return UtilText.parse(characterPenetrating, characterPenetrated,
-								UtilText.returnStringAtRandom(
-								"Your soft [npc.moans] are muffled into [npc2.namePos] mouth as you continue kissing [npc2.herHim].",
-								"You gently press your [npc.lips+] against [npc2.namePos] as you continue kissing [npc2.herHim].",
-								"Gently pressing your [npc.lips+] against [npc2.nameHers], you continue making out with [npc2.herHim]."));
-					case DOM_NORMAL:
-						return UtilText.parse(characterPenetrating, characterPenetrated,
-								UtilText.returnStringAtRandom(
-								"Your [npc.moans+] are muffled into [npc2.namePos] mouth as you continue passionately kissing [npc2.herHim].",
-								"You eagerly press your [npc.lips+] against [npc2.namePos] as you continue passionately kissing [npc2.herHim].",
-								"Passionately pressing your [npc.lips+] against [npc2.nameHers], you continue making out with [npc2.herHim]."));
-					case DOM_ROUGH:
-						return UtilText.parse(characterPenetrating, characterPenetrated,
-								UtilText.returnStringAtRandom(
-								"Your [npc.moans+] are muffled into [npc2.namePos] mouth as you continue forcefully snogging [npc2.herHim].",
-								"You roughly grind your [npc.lips+] against [npc2.namePos] as you continue forcefully snogging [npc2.herHim].",
-								"Roughly grinding your [npc.lips+] against [npc2.nameHers], you continue making out with [npc2.herHim]."));
-					case SUB_EAGER:
-						return UtilText.parse(characterPenetrating, characterPenetrated,
-								UtilText.returnStringAtRandom(
-								"Your [npc.moans+] are muffled into [npc2.namePos] mouth as you continue passionately kissing [npc2.herHim].",
-								"You eagerly press your [npc.lips+] against [npc2.namePos] as you continue passionately kissing [npc2.herHim].",
-								"Passionately pressing your [npc.lips+] against [npc2.nameHers], you continue making out with [npc2.herHim]."));
-					case SUB_NORMAL:
-						return UtilText.parse(characterPenetrating, characterPenetrated,
-								UtilText.returnStringAtRandom(
-								"Your [npc.moans] are muffled into [npc2.namePos] mouth as you continue kissing [npc2.herHim].",
-								"You press your [npc.lips+] against [npc2.namePos] as you continue kissing [npc2.herHim].",
-								"Pressing your [npc.lips+] against [npc2.nameHers], you continue making out with [npc2.herHim]."));
-					case SUB_RESISTING:
-						return UtilText.parse(characterPenetrating, characterPenetrated,
-								UtilText.returnStringAtRandom(
-								"Your [npc.sobs+] are muffled into [npc2.namePos] mouth as you desperately try to push [npc2.herHim] away from you.",
-								"You try to pull your [npc.lips+] away from [npc2.namePos] as you struggle against [npc2.herHim].",
-								"Trying to pull your [npc.lips+] away from [npc2.nameHers], you continue struggling against [npc2.her] unwanted kiss."));
-				}
-				
-			} else if(characterPenetrated.isPlayer()) {
-				switch(Main.sex.getSexPace(characterPenetrating)) {
-					case DOM_GENTLE:
-						return UtilText.parse(characterPenetrating, characterPenetrated,
-								UtilText.returnStringAtRandom(
-								"[npc.NamePos] soft [npc.moans] are muffled into your mouth as [npc.she] continues kissing you.",
-								"[npc.Name] gently presses [npc.her] [npc.lips+] against yours as [npc.she] continues kissing you.",
-								"Gently pressing [npc.her] [npc.lips+] against yours, [npc.name] continues making out with you."));
-					case DOM_NORMAL:
-						return UtilText.parse(characterPenetrating, characterPenetrated,
-								UtilText.returnStringAtRandom(
-								"[npc.NamePos] [npc.moans+] are muffled into your mouth as [npc.she] continues passionately kissing you.",
-								"[npc.Name] eagerly presses [npc.her] [npc.lips+] against yours as [npc.she] continues passionately kissing you.",
-								"Passionately pressing [npc.her] [npc.lips+] against yours, [npc.name] continues making out with you."));
-					case DOM_ROUGH:
-						return UtilText.parse(characterPenetrating, characterPenetrated,
-								UtilText.returnStringAtRandom(
-								"[npc.NamePos] [npc.moans+] are muffled into your mouth as [npc.she] continues forcefully snogging you.",
-								"[npc.Name] roughly grinds [npc.her] [npc.lips+] against yours as [npc.she] continues forcefully snogging you.",
-								"Roughly grinding [npc.her] [npc.lips+] against yours, [npc.name] continues making out with you."));
-					case SUB_EAGER:
-						return UtilText.parse(characterPenetrating, characterPenetrated,
-								UtilText.returnStringAtRandom(
-								"[npc.NamePos] [npc.moans+] are muffled into your mouth as [npc.she] continues passionately kissing you.",
-								"[npc.Name] eagerly presses [npc.her] [npc.lips+] against yours as [npc.she] continues passionately kissing you.",
-								"Passionately pressing [npc.her] [npc.lips+] against yours, [npc.name] continues making out with you."));
-					case SUB_NORMAL:
-						return UtilText.parse(characterPenetrating, characterPenetrated,
-								UtilText.returnStringAtRandom(
-								"[npc.NamePos] [npc.moans] are muffled into your mouth as [npc.she] continues kissing you.",
-								"[npc.Name] presses [npc.her] [npc.lips+] against yours as [npc.she] continues kissing you.",
-								"Pressing [npc.her] [npc.lips+] against yours, [npc.name] continues making out with you."));
-					case SUB_RESISTING:
-						return UtilText.parse(characterPenetrating, characterPenetrated,
-								UtilText.returnStringAtRandom(
-								"[npc.NamePos] [npc.sobs+] are muffled into your mouth as [npc.she] desperately tries to push you away from [npc.herHim].",
-								"[npc.Name] tries to pull [npc.her] [npc.lips+] away from yours as [npc.she] struggles against you.",
-								"Trying to pull [npc.her] [npc.lips+] away from yours, [npc.name] continues struggling against your unwanted kiss."));
-				}
-				
-			} else {
-				switch(Main.sex.getSexPace(characterPenetrating)) {
-					case DOM_GENTLE:
-						return UtilText.parse(characterPenetrating, characterPenetrated,
-								UtilText.returnStringAtRandom(
-								"[npc.NamePos] soft [npc.moans] are muffled into [npc2.namePos] mouth as [npc.she] continues kissing [npc2.herHim].",
-								"[npc.Name] gently presses [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] continues kissing [npc2.herHim].",
-								"Gently pressing [npc.her] [npc.lips+] against [npc2.nameHers], [npc.name] continues making out with [npc2.herHim]."));
-					case DOM_NORMAL:
-						return UtilText.parse(characterPenetrating, characterPenetrated,
-								UtilText.returnStringAtRandom(
-								"[npc.NamePos] [npc.moans+] are muffled into [npc2.namePos] mouth as [npc.she] continues passionately kissing [npc2.herHim].",
-								"[npc.Name] eagerly presses [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] continues passionately kissing [npc2.herHim].",
-								"Passionately pressing [npc.her] [npc.lips+] against [npc2.nameHers], [npc.name] continues making out with [npc2.herHim]."));
-					case DOM_ROUGH:
-						return UtilText.parse(characterPenetrating, characterPenetrated,
-								UtilText.returnStringAtRandom(
-								"[npc.NamePos] [npc.moans+] are muffled into [npc2.namePos] mouth as [npc.she] continues forcefully snogging [npc2.herHim].",
-								"[npc.Name] roughly grinds [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] continues forcefully snogging [npc2.herHim].",
-								"Roughly grinding [npc.her] [npc.lips+] against [npc2.nameHers], [npc.name] continues making out with [npc2.herHim]."));
-					case SUB_EAGER:
-						return UtilText.parse(characterPenetrating, characterPenetrated,
-								UtilText.returnStringAtRandom(
-								"[npc.NamePos] [npc.moans+] are muffled into [npc2.namePos] mouth as [npc.she] continues passionately kissing [npc2.herHim].",
-								"[npc.Name] eagerly presses [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] continues passionately kissing [npc2.herHim].",
-								"Passionately pressing [npc.her] [npc.lips+] against [npc2.nameHers], [npc.name] continues making out with [npc2.herHim]."));
-					case SUB_NORMAL:
-						return UtilText.parse(characterPenetrating, characterPenetrated,
-								UtilText.returnStringAtRandom(
-								"[npc.NamePos] [npc.moans] are muffled into [npc2.namePos] mouth as [npc.she] continues kissing [npc2.herHim].",
-								"[npc.Name] presses [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] continues kissing [npc2.herHim].",
-								"Pressing [npc.her] [npc.lips+] against [npc2.nameHers], [npc.name] continues making out with [npc2.herHim]."));
-					case SUB_RESISTING:
-						return UtilText.parse(characterPenetrating, characterPenetrated,
-								UtilText.returnStringAtRandom(
-								"[npc.NamePos] [npc.sobs+] are muffled into [npc2.namePos] mouth as [npc.she] desperately tries to push away from [npc2.herHim].",
-								"[npc.Name] tries to pull [npc.her] [npc.lips+] away from [npc2.namePos] as [npc.she] struggles against [npc2.herHim].",
-								"Trying to pull [npc.her] [npc.lips+] away from [npc2.nameHers], [npc.name] continues struggling against the unwanted kiss."));
-				}
+			switch(Main.sex.getSexPace(characterPenetrating)) {
+				case DOM_GENTLE:
+					return UtilText.parse(characterPenetrating, characterPenetrated,
+							UtilText.returnStringAtRandom(
+							"[npc.NamePos] soft [npc.moans] are muffled into [npc2.namePos] mouth as [npc.she] [npc.verb(continue)] kissing [npc2.herHim].",
+							"[npc.Name] gently [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] [npc.verb(continue)] kissing [npc2.herHim].",
+							"Gently pressing [npc.her] [npc.lips+] against [npc2.nameHers], [npc.name] [npc.verb(continue)] making out with [npc2.herHim]."));
+				case DOM_NORMAL:
+					return UtilText.parse(characterPenetrating, characterPenetrated,
+							UtilText.returnStringAtRandom(
+							"[npc.NamePos] [npc.moans+] are muffled into [npc2.namePos] mouth as [npc.she] [npc.verb(continue)] passionately kissing [npc2.herHim].",
+							"[npc.Name] eagerly [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] [npc.verb(continue)] passionately kissing [npc2.herHim].",
+							"Passionately pressing [npc.her] [npc.lips+] against [npc2.nameHers], [npc.name] [npc.verb(continue)] making out with [npc2.herHim]."));
+				case DOM_ROUGH:
+					return UtilText.parse(characterPenetrating, characterPenetrated,
+							UtilText.returnStringAtRandom(
+							"[npc.NamePos] [npc.moans+] are muffled into [npc2.namePos] mouth as [npc.she] [npc.verb(continue)] forcefully snogging [npc2.herHim].",
+							"[npc.Name] roughly [npc.verb(grind)] [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] [npc.verb(continue)] forcefully snogging [npc2.herHim].",
+							"Roughly grinding [npc.her] [npc.lips+] against [npc2.nameHers], [npc.name] [npc.verb(continue)] making out with [npc2.herHim]."));
+				case SUB_EAGER:
+					return UtilText.parse(characterPenetrating, characterPenetrated,
+							UtilText.returnStringAtRandom(
+							"[npc.NamePos] [npc.moans+] are muffled into [npc2.namePos] mouth as [npc.she] [npc.verb(continue)] passionately kissing [npc2.herHim].",
+							"[npc.Name] eagerly [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] [npc.verb(continue)] passionately kissing [npc2.herHim].",
+							"Passionately pressing [npc.her] [npc.lips+] against [npc2.nameHers], [npc.name] [npc.verb(continue)] making out with [npc2.herHim]."));
+				case SUB_NORMAL:
+					return UtilText.parse(characterPenetrating, characterPenetrated,
+							UtilText.returnStringAtRandom(
+							"[npc.NamePos] [npc.moans] are muffled into [npc2.namePos] mouth as [npc.she] [npc.verb(continue)] kissing [npc2.herHim].",
+							"[npc.Name] [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.namePos] as [npc.she] [npc.verb(continue)] kissing [npc2.herHim].",
+							"Pressing [npc.her] [npc.lips+] against [npc2.nameHers], [npc.name] [npc.verb(continue)] making out with [npc2.herHim]."));
+				case SUB_RESISTING:
+					return UtilText.parse(characterPenetrating, characterPenetrated,
+							UtilText.returnStringAtRandom(
+							"[npc.NamePos] [npc.sobs+] are muffled into [npc2.namePos] mouth as [npc.she] desperately [npc.verb(try)] to push away from [npc2.herHim].",
+							"[npc.Name] [npc.verb(try)] to pull [npc.her] [npc.lips+] away from [npc2.namePos] as [npc.she] struggles against [npc2.herHim].",
+							"Trying to pull [npc.her] [npc.lips+] away from [npc2.nameHers], [npc.name] [npc.verb(continue)] struggling against [npc2.namePos] unwanted kiss."));
+			}
+		}
+
+		// Hand holding:
+		if(penetrationType == SexAreaPenetration.FINGER && orifice == SexAreaPenetration.FINGER) {
+			switch(Main.sex.getSexPace(characterPenetrating)) {
+				case DOM_GENTLE:
+					return UtilText.parse(characterPenetrating, characterPenetrated,
+							UtilText.returnStringAtRandom(
+							"[npc.NamePos] softly [npc.moansVerb] as [npc.she] [npc.verb(continue)] holding [npc2.namePos] [npc2.hand+].",
+							"[npc.Name] gently [npc.moansVerb] as [npc.she] [npc.verb(wrap)] [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.hand+].",
+							"Gently holding [npc2.namePos] [npc2.hand+], [npc.name] [npc.verb(let)] out [npc.a_moan+]."));
+				case DOM_NORMAL:
+				case SUB_EAGER:
+					return UtilText.parse(characterPenetrating, characterPenetrated,
+							UtilText.returnStringAtRandom(
+								"[npc.NamePos] eagerly [npc.moansVerb] as [npc.she] [npc.verb(continue)] holding [npc2.namePos] [npc2.hand+].",
+								"[npc.Name] passionately [npc.moansVerb] as [npc.she] [npc.verb(wrap)] [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.hand+].",
+								"Lustfully holding [npc2.namePos] [npc2.hand+], [npc.name] [npc.verb(let)] out [npc.a_moan+]."));
+				case DOM_ROUGH:
+					return UtilText.parse(characterPenetrating, characterPenetrated,
+							UtilText.returnStringAtRandom(
+								"[npc.NamePos] roughly [npc.moansVerb] as [npc.she] [npc.verb(continue)] forcefully gripping [npc2.namePos] [npc2.hand+].",
+								"[npc.Name] roughly [npc.moansVerb] as [npc.she] tightly [npc.verb(wrap)] [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.hand+].",
+								"Forcefully gripping [npc2.namePos] [npc2.hand+], [npc.name] [npc.verb(let)] out [npc.a_moan+]."));
+				case SUB_NORMAL:
+					return UtilText.parse(characterPenetrating, characterPenetrated,
+							UtilText.returnStringAtRandom(
+								"[npc.NamePos] [npc.moansVerb] as [npc.she] [npc.verb(continue)] holding [npc2.namePos] [npc2.hand+].",
+								"[npc.Name] [npc.moansVerb] as [npc.she] [npc.verb(wrap)] [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.hand+].",
+								"Holding [npc2.namePos] [npc2.hand+], [npc.name] [npc.verb(let)] out [npc.a_moan+]."));
+				case SUB_RESISTING:
+					return UtilText.parse(characterPenetrating, characterPenetrated,
+							UtilText.returnStringAtRandom(
+							"[npc.NamePos] [npc.sobsVerb+] as [npc.she] desperately [npc.verb(try)] to pull [npc.her] [npc.hand] away from [npc2.nameHers].",
+							"[npc.Name] [npc.verb(try)] to pull [npc.her] [npc.hand+] away from [npc2.namePos] as [npc.she] struggles against [npc2.herHim].",
+							"Trying to pull [npc.her] [npc.hand+] away from [npc2.nameHers], [npc.name] [npc.verb(continue)] struggling against [npc2.name]."));
 			}
 		}
 		
@@ -15891,6 +15898,9 @@ public abstract class GameCharacter implements XMLSaving {
 				penetratorName = "[npc.fingers]";
 				if(orifice == SexAreaPenetration.PENIS) {
 					penetratorName = UtilText.returnStringAtRandom("[npc.fingers]", "hand");
+				}
+				if(orifice == SexAreaPenetration.FINGER) {
+					penetratorName = UtilText.returnStringAtRandom("[npc.hand]");
 				}
 				break;
 			case PENIS:
@@ -15953,6 +15963,7 @@ public abstract class GameCharacter implements XMLSaving {
 					orificeName = "spinneret";
 					break;
 			}
+			
 		} else {
 			switch((SexAreaPenetration)orifice) {
 				case CLIT:
@@ -15960,6 +15971,9 @@ public abstract class GameCharacter implements XMLSaving {
 					break;
 				case FINGER:
 					orificeName = "[npc2.fingers+]";
+					if(penetrationType == SexAreaPenetration.FINGER) {
+						orificeName = UtilText.returnStringAtRandom("[npc2.hand+]");
+					}
 					break;
 				case PENIS:
 					orificeName = "[npc2.cock+]";
@@ -16544,6 +16558,21 @@ public abstract class GameCharacter implements XMLSaving {
 					return UtilText.parse(characterPenetrated, characterPenetrating,
 							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(push)] [npc.namePos] [npc.feet+] together, before sliding [npc2.her] [npc2.cock+] between them and starting to receive [npc.a_footjob].",
 							ParserTag.SEX_DESCRIPTION);
+				}
+				
+			} else {
+				return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
+			}
+			
+			
+		} else if(penetrationType == SexAreaPenetration.FINGER && orifice == SexAreaPenetration.FINGER) {
+			if(initialPenetration) {
+				if(characterPenetrating.equals(characterPenetrated)) {
+					return UtilText.parse(characterPenetrated, characterPenetrating,
+							"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(wrap)] [npc.her] [npc.fingers+] around [npc.her] own [npc.hand].");
+				} else {
+					return UtilText.parse(characterPenetrated, characterPenetrating,
+							"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(wrap)] [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.hand+].");
 				}
 				
 			} else {
@@ -20037,6 +20066,12 @@ public abstract class GameCharacter implements XMLSaving {
 		getLittersImplanted().add(implantedLitter);
 		if(implantedLitter.getFather()!=null) {
 			implantedLitter.getFather().getLittersFathered().add(implantedLitter);
+		}
+		
+		if(target.isPlayer()) {
+			for(OffspringSeed seed : implantedLitter.getOffspringSeed()) {
+				seed.setFromPlayer(true);
+			}
 		}
 		
 		target.addIncubationLitter(orifice, implantedLitter);
@@ -29734,7 +29769,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public abstract boolean isAbleToBeImpregnated();
-
+	
 	public abstract boolean isAbleToBeEgged();
 	
 	/**

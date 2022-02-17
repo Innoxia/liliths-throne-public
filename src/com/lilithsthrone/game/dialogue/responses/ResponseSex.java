@@ -632,6 +632,59 @@ public class ResponseSex extends Response {
 		}
 	}
 	
+	/**
+	 * @return true if any subs are not attracted to any doms
+	 */
+	public boolean isNonConWarning() {
+		if(Main.game.isNonConEnabled()) {
+			if(isFromExternalFile) {
+				if(isUsingExternalManager) {
+					try {
+						for(String domId : dominantPositionIds.keySet()) {
+							for(String subId : submissivePositionIds.keySet()) {
+								try {
+									GameCharacter dom = Main.game.getNPCById(domId);
+									GameCharacter sub = Main.game.getNPCById(subId);
+									if(!sub.isAttractedTo(dom)) {
+										return true;
+									}
+								} catch(Exception exInner) {
+								}
+							}
+						}
+					} catch(Exception ex) {
+					}
+				} else {
+					try {
+						for(String domId : dominantIds) {
+							for(String subId : submissiveIds) {
+								try {
+									GameCharacter dom = Main.game.getNPCById(domId);
+									GameCharacter sub = Main.game.getNPCById(subId);
+									if(!sub.isAttractedTo(dom)) {
+										return true;
+									}
+								} catch(Exception exInner) {
+								}
+							}
+						}
+					} catch(Exception ex) {
+					}
+				}
+				
+			} else {
+				for(GameCharacter dom : sexManager.getDominants().keySet()) {
+					for(GameCharacter sub : sexManager.getSubmissives().keySet()) {
+						if(!sub.isAttractedTo(dom) && (sexManager.getForcedSexPace(sub)==null || sexManager.getForcedSexPace(sub)==SexPace.SUB_RESISTING)) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
 	public List<InitialSexActionInformation> getInitialSexActions() {
 		return new ArrayList<>();
 	}

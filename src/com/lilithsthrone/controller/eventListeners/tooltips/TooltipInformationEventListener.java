@@ -1168,7 +1168,10 @@ public class TooltipInformationEventListener implements EventListener {
 										?"[npc.NameFull]"
 										:"[npc.Name]"))
 							+"</span>"
-						+"<br/>Level " + owner.getLevel() + " <span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>| "
+						+"<br/>Level "
+							+ owner.getLevel()
+							+ (owner.getLevel()!=owner.getTrueLevel()?" [style.colourDisabled(("+owner.getTrueLevel()+"))]":"")
+							+ " <span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>| "
 						+ (owner.isElemental()
 								?"Elementals share their summoner's level</span>"
 								:"</span>"+owner.getExperience() + " / "+ (10 * owner.getLevel()) + " xp")
