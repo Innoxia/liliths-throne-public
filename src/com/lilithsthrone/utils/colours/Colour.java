@@ -354,5 +354,13 @@ public class Colour {
 		}
 		return tags;
 	}
-
+	
+	/**
+	* Checks if the given Colour is in the list of Colours.
+	* @param values The list of Colours to match the type against.
+	* @return true, if the type is among the list.
+	*/
+	public boolean isOneOf(Colour... values) {
+		return Arrays.asList(values).contains(this);
+	}
 }
