@@ -362,5 +362,5 @@ public class Colour {
 	*/
 	public boolean isOneOf(Colour... values) {
 		return Arrays.asList(values).contains(this);
-
+	}
 }
