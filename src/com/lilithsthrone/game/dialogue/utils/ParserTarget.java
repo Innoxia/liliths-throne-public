@@ -1405,7 +1405,7 @@ public class ParserTarget {
 			}
 		};
 		if(idToParserTargetMap.containsKey(tag)) {
-			System.err.println("Warning: Parser target of '"+tag+"' has been replaced!");
+//			System.err.println("Warning: Parser target of '"+tag+"' has been replaced!");
 			removeAdditionalParserTarget((NPC) idToParserTargetMap.get(tag).getCharacter(null, null));
 		}
 		

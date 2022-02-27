@@ -751,13 +751,11 @@ public class EnchantmentDialogue {
 			StringBuilder saveLoadSB = new StringBuilder();
 			
 			saveLoadSB.append(
-					"<div class='container-full-width'>"
-						+ "<list style='padding:0;margin:0;'>"
-							+ "<ul style='padding-left:8px;'>Only standard characters (letters and numbers) will work for save file names.</ul>"
-							+ "<ul style='padding-left:8px;'>Hover over each item's icon to see the effects to be saved/loaded.</ul>"
-							+ "<ul style='padding-left:8px;'>If a name is [style.colourBad(red)], then you don't have a suitable item in your inventory, and cannot load that effect.</ul>"
-							+ "<ul style='padding-left:8px;'>You can only save/overwrite saves if your enchantment has at least one effect added.</ul>"
-						+ "</list>"
+					"<div class='container-full-width' style='padding:0; margin:0 0 8px 0;'>"
+							+ "Only standard characters (letters and numbers) will work for save file names."
+							+ "<br/>Hover over each item's icon to see the effects to be saved/loaded."
+							+ "<br/>If a name is [style.colourBad(red)], then you don't have a suitable item in your inventory, and cannot load that effect."
+							+ "<br/>You can only save/overwrite saves if your enchantment has at least one effect added."
 					+ "</div>"
 					+ "<div class='container-full-width' style='padding:0; margin:0;'>"
 						+ "<div class='container-full-width' style='width:calc(75% - 16px); text-align:center; background:transparent;'>"

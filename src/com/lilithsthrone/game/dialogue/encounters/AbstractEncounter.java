@@ -192,7 +192,7 @@ public abstract class AbstractEncounter {
 		}
 	}
 	
-	protected static DialogueNode SpawnAndStartChildHere(List<OffspringSeed> offspringAvailable)  {
+	public static DialogueNode SpawnAndStartChildHere(List<OffspringSeed> offspringAvailable)  {
 		NPC offspring = new NPCOffspring(offspringAvailable.get(Util.random.nextInt(offspringAvailable.size())));
 
 		offspring.setLocation(Main.game.getPlayer(), true);

@@ -61,9 +61,9 @@
 		<p>
 			Above the door shyly stands an old wooden sign with 'The Creamy Bakey' written on it in the most simple way possible. Resting against the window beside the front door is a sign which indicates that the shop is open from 
 			#IF(game.isWorkTime())
-				[style.colourMinorGood([unit.time(9)] to [unit.time(17)])]
+				[style.colourMinorGood([unit.time(9)] to [unit.time(15)])]
 			#ELSE
-				[style.colourMinorBad([unit.time(9)] to [unit.time(17)])]
+				[style.colourMinorBad([unit.time(9)] to [unit.time(15)])]
 			#ENDIF
 			 from
 			#IF(game.getDayOfWeek()==DOW_SUNDAY)
@@ -84,9 +84,9 @@
 		 <p>
 			Resting against the window beside the front door is a sign which indicates that the shop is open from 
 			#IF(game.isWorkTime())
-				[style.colourMinorGood([unit.time(9)] to [unit.time(17)])]
+				[style.colourMinorGood([unit.time(7)] to [unit.time(17)])]
 			#ELSE
-				[style.colourMinorBad([unit.time(9)] to [unit.time(17)])]
+				[style.colourMinorBad([unit.time(7)] to [unit.time(17)])]
 			#ENDIF
 			 from
 			#IF(game.getDayOfWeek()==DOW_SUNDAY)
@@ -165,7 +165,7 @@
 		</p>
 		#IF(flags.hasFlag(FLAG_nnxx_callie_upgrade_reaction_pending))
 			<p>
-				Upon seeing you enter her shop, Callie immediately rushes out from behind her counter to give you a warm hug, exclaiming as she does so, [callie.speech([pc.Name]! Look! Thanks to you, I was finally able to get my shop redecorated to make it look like how I always wanted it to! As thanks, I'll give you a 20% discount from now on!)]
+				Upon seeing you enter her shop, Callie immediately rushes out from behind her counter to give you a warm hug, exclaiming as she does so, [callie.speech([pc.Name]! Look! Thanks to you, I was finally able to get my shop redecorated to make it look like how I always wanted it to! As thanks, I'll give you a 20% discount! Oh, and I've decided to open my shop for longer, so I'll be open from seven to five from now on.)]
 			</p>
 			<p>
 				#IF(callie.isAttractedTo(pc))

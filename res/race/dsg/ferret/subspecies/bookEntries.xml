@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <bookText>
 	
-	<htmlContent tag="FERRET_BASIC"><![CDATA[
+	<htmlContent tag="FERRET_BASIC" author="Xuanlong"><![CDATA[
 	<p>
 		Ferrets prefer the temperate climate and open country of the Foloi Fields but also inhabit the more heavily wooded areas to its east as well as Elis. Some may even venture as far as the foothills of the Mountains of the Moon or Dominion. Their pointed snouts, long bodies, and penchant for physical flexibility make them distinct from other morphs.
 	</p>
 	]]>
 	</htmlContent>
 
-	<htmlContent tag="FERRET_ADVANCED"><![CDATA[
+	<htmlContent tag="FERRET_ADVANCED" author="Xuanlong"><![CDATA[
 	<p>
 		Although not all ferret-morphs are the same, they are stereotyped as being curious and playful sometimes to a fault. A confined ferret-morph deprived of entertainment will quickly become bored and desperate for any sort of stimulation. Extended confinement may even begin to wear on their mental faculties. The ferret's signature combat move is the War Dance, yet this zig-zagging maneuver does not always indicate hostility. Towards someone they are familiar with, it can serve as a friendly greeting.		
 	</p>

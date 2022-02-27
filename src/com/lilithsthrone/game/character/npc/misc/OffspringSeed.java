@@ -143,6 +143,8 @@ public class OffspringSeed implements XMLSaving {
 		
 		GenericAndrogynousNPC template = new GenericAndrogynousNPC();
 		
+		boolean motherHasSurname = mother.getSurname()!=null && !mother.getSurname().isEmpty();
+		
 		if(mother.getTrueSubspecies()==Subspecies.LILIN || mother.getTrueSubspecies()==Subspecies.ELDER_LILIN) {
 			this.setSurname(mother.getName(false)+"martuilani");
 			
@@ -152,8 +154,29 @@ public class OffspringSeed implements XMLSaving {
 		} else if(mother.getMother()!=null && (mother.getMother().getTrueSubspecies()==Subspecies.LILIN || mother.getMother().getTrueSubspecies()==Subspecies.ELDER_LILIN)) {
 			this.setSurname(mother.getMother().getName(false)+"martu");
 
-		} else if(mother.getSurname()!=null && !mother.getSurname().isEmpty()) {
-			this.setSurname(mother.getSurname());
+		} else if(father!=null && father.getSurname()!=null && !father.getSurname().isEmpty()
+				&& (father.getSurname().endsWith("martuilani") || father.getSurname().endsWith("martusarri") || father.getSurname().endsWith("marturabitu"))
+				&& (!motherHasSurname || !(mother.getSurname().endsWith("martuilani") || mother.getSurname().endsWith("martusarri") || mother.getSurname().endsWith("marturabitu")))) {
+			// Handle daughters of lilin having offspring, which results in the 'martu' ending
+			if(father.getSurname().endsWith("martuilani")) {
+				this.setSurname(father.getSurname().replace("martuilani", "martu"));
+			} else if(father.getSurname().endsWith("martusarri")) {
+				this.setSurname(father.getSurname().replace("martusarri", "martu"));
+			} else if(father.getSurname().endsWith("marturabitu")) {
+				this.setSurname(father.getSurname().replace("marturabitu", "martu"));
+			}
+			
+		} else if(motherHasSurname) {
+			// Handle daughters of lilin having offspring, which results in the 'martu' ending
+			if(mother.getSurname().endsWith("martuilani")) {
+				this.setSurname(mother.getSurname().replace("martuilani", "martu"));
+			} else if(mother.getSurname().endsWith("martusarri")) {
+				this.setSurname(mother.getSurname().replace("martusarri", "martu"));
+			} else if(mother.getSurname().endsWith("marturabitu")) {
+				this.setSurname(mother.getSurname().replace("marturabitu", "martu"));
+			} else {
+				this.setSurname(mother.getSurname());
+			}
 			
 		} else {
 			this.setSurname(""); // To make sure that surname is not null for the following check: this.surname.contains("martu")

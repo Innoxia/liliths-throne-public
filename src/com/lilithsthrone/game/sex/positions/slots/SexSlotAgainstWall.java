@@ -65,7 +65,7 @@ public class SexSlotAgainstWall {
 	public static final SexSlot STANDING_WALL = new SexSlot(
 			"Standing",
 			"standing",
-			"Realising that [npc1.sheIs] about to reach [npc1.her] climax, [npc1.name] [npc1.verb(step)] forwards, letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(press)] [npc2.name] against the [pc.wall].",
+			"Realising that [npc1.sheIs] about to reach [npc1.her] climax, [npc1.name] #IF(npc1.isPlayer())[npc1.step]#ELSE[npc1.steps]#ENDIF forwards, letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(press)] [npc2.name] against the [pc.wall].",
 			true);
 	
 	public static final SexSlot STANDING_WALL_TWO = new SexSlot(STANDING_WALL) {

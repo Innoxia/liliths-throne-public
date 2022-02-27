@@ -943,7 +943,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		if(this.isVisiblyPregnant()) {
 			prostitutePrice = prostitutePrice * 0.5f; // Pregnant prostitutes charge 50% of their usual price.
 		}
-
+		
+		prostitutePrice += this.getTrueLevel()*0.05f; // Increase price for higher level prostitutes
+		
 		return Math.max(150, ((int) (prostitutePrice*50))*10); // Minimum value is 150 flames.
 	}
 	
@@ -1698,18 +1700,29 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		//--- BREASTS ---//
 		
 		// Breast size:
-		// Using a tolerance from 0 to 2 instead of +-1 here, since target breast size can be flats (size = 0)
-		if(target.getBreastSize().getMeasurement() + 2 < body.getBreast().getSize().getMeasurement()) {
+		if(target.getBreastSize().getMeasurement() + 3 <= body.getBreast().getSize().getMeasurement()) {
 			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
-				"Your breasts need to be bigger!"));
-			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+					"Your breasts need to be a lot bigger!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 			
+		} else if(target.getBreastSize().getMeasurement() + 2 <= body.getBreast().getSize().getMeasurement()) {
+			possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
+					"Your breasts need to be bigger!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		} else if(target.getBreastSize().getMeasurement() + 1 <= body.getBreast().getSize().getMeasurement()) {
+			possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_BOOST, 1),
+					"Your breasts need to be a little bigger!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
 		} else if(target.getBreastSize().getMeasurement() > body.getBreast().getSize().getMeasurement()) {
 			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
-				"Your breasts are too big!"));
-			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
+					"Your breasts are too big!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 		}
 
 		//--- ASS ---//
@@ -1900,10 +1913,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		StringBuilder sb = new StringBuilder();
 		potion.getEffects().forEach((e) -> {
 			sb.append(UtilText.parse(this,
-				(e.getMessage()!=null && !e.getMessage().isEmpty()
+				(!this.isMute() && e.getMessage()!=null && !e.getMessage().isEmpty()
 					?"<p>[npc.speech("+e.getMessage()+")]</p>"
 					:"")
-					+ e.getEffect().applyEffect(this, target, 1)));
+				+ e.getEffect().applyEffect(this, target, 1)));
 		});
 		return sb.toString();
 	}

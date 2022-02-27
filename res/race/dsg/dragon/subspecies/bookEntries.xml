@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <bookText>
 	
-	<htmlContent tag="DRAGON_BASIC"><![CDATA[
+	<htmlContent tag="DRAGON_BASIC" author="Xuanlong"><![CDATA[
 	<p>
 		Dragon-morphs prefer terrain that naturally isolates them via either remoteness or inhospitableness. They might be found in the desert and around the volcano in the south of Lilith's Realm, deep in the jungles to the north, or up in the the Mountains of the Moon to the west. Some may even seek the Youko Forest. They rarely venture outside of these environments and almost never enter civilization. A tough, scaly exterior, flight capability, and powerful breath weapons distinguishes them from other morphs.
 	</p>
 	]]>
 	</htmlContent>
 
-	<htmlContent tag="DRAGON_ADVANCED"><![CDATA[
+	<htmlContent tag="DRAGON_ADVANCED" author="Xuanlong"><![CDATA[
 	<p>
 		Although all dragon-morphs differ individually, they are possibly the most solitary race to inhabit the realm and thus tend to be standoffish, even towards other dragon-morphs. Very little is known about their other traits and combined with the fact that they are also by far the least populous mortal race, it is possible for one to go their entire life without seeing one outside of a book. Most dragon-morphs are subsistence farmers, interacting with perhaps a few isolated traders for goods they cannot grow or make.
 	</p>
@@ -27,7 +27,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="DRAGON_SEKRIT"><![CDATA[
+	<htmlContent tag="DRAGON_SEKRIT" author="Xuanlong"><![CDATA[
 	<p>
 		In antiquity, dragons were the servants and tributaries of Lisophia, who had adopted their image. Under her rule, they terrorized the populace of the badlands and took what little they had for the Glistering Hoard. In return for their service, dragons were made the strongest and longest lived of the mortal races, and some were afforded the privilege of keeping their own hoards. Over time, however, Lisophia could not help but notice that her sisters were actually growing wealthier than herself despite their relative disinterest in riches. Even if she could squeeze every last flame from Thinis, it would be like trying to get blood from a stone. The destitute peasants under her rule had nothing more to give.
 	</p>

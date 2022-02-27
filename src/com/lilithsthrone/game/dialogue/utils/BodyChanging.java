@@ -1,22 +1,41 @@
 package com.lilithsthrone.game.dialogue.utils;
 
+import java.io.File;
+import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
-import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -27,6 +46,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
@@ -207,15 +227,28 @@ public class BodyChanging {
 					UtilText.parse(getTarget(), "Change aspects of [npc.namePos] [npc.crotchBoobs]."),
 					BODY_CHANGING_BREASTS_CROTCH);
 			
-		} else if(index==11 && debugMenu) {
-			if(Main.game.getCurrentDialogueNode()==BODY_CHANGING_MAKEUP) {
-				return new Response("Makeup", "You are already in this screen!", null);
+		} else if(index==11) {
+			if(Main.game.getCurrentDialogueNode()==BODY_CHANGING_SAVE_LOAD) {
+				return new Response("Save/Load", "You are already in this screen!", null);
 			}
-			return new Response("Makeup", 
-					UtilText.parse(getTarget(), "Change aspects of [npc.namePos] makeup."),
+			return new Response("Save/Load", 
+					UtilText.parse(getTarget(), "Save or load transformation presets, allowing you to quickly switch your appearance."),
+					BODY_CHANGING_SAVE_LOAD) {
+				@Override
+				public void effects() {
+					initSaveLoadMenu();
+				}
+			};
+			
+		} else if(index==12 && debugMenu) {
+			if(Main.game.getCurrentDialogueNode()==BODY_CHANGING_MAKEUP) {
+				return new Response("Makeup (debug)", "You are already in this screen!", null);
+			}
+			return new Response("Makeup (debug)", 
+					UtilText.parse(getTarget(), "Change aspects of [npc.namePos] makeup. (This transformation menu is only available in the debug screen.)"),
 					BODY_CHANGING_MAKEUP);
 			
-		}  else if(index==0) {
+		} else if(index==0) {
 			if(debugMenu) {
 				return new Response("Back", "Return to the previous screen.", DebugDialogue.DEBUG_MENU);
 				
@@ -257,17 +290,11 @@ public class BodyChanging {
 		} else if(isSelfTFMenu()) {
 			faceSkinOptions.add(target.getRace());
 			if (target.isYouko()){
-				faceSkinOptions.add(Race.FOX_MORPH);
-				faceSkinOptions.add(Race.HUMAN);
+				faceSkinOptions.addAll(target.getSelfTransformationRaces());
 			}
 
 		} else {
-			faceSkinOptions.add(Race.DEMON);
-			if(target.isPlayer()) {
-				if(target.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4)) {
-					faceSkinOptions.add(Race.HUMAN);
-				}
-			}
+			faceSkinOptions.addAll(target.getSelfTransformationRaces());
 		}
 		return faceSkinOptions;
 	}
@@ -285,16 +312,10 @@ public class BodyChanging {
 		} else if(isSelfTFMenu()) {
 			armLegOptions.add(target.getRace());
 			if (target.isYouko()) {
-				armLegOptions.add(Race.FOX_MORPH);
-				armLegOptions.add(Race.HUMAN);
+				armLegOptions.addAll(target.getSelfTransformationRaces());
 			}
 		} else {
-			armLegOptions.add(Race.DEMON);
-			if(target.isPlayer()) {
-				if(target.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4)) {
-					armLegOptions.add(Race.HUMAN);
-				}
-			}
+			armLegOptions.addAll(target.getSelfTransformationRaces());
 		}
 		return armLegOptions;
 	}
@@ -320,16 +341,10 @@ public class BodyChanging {
 		} else if(isSelfTFMenu()) {
 			minorPartsOptions.add(target.getRace());
 			if (target.isYouko()) {
-				minorPartsOptions.add(Race.FOX_MORPH);
-				minorPartsOptions.add(Race.HUMAN);
+				minorPartsOptions.addAll(target.getSelfTransformationRaces());
 			}
 		} else {
-			minorPartsOptions.add(Race.DEMON);
-			if(target.isPlayer()) {
-				if(target.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4)) {
-					minorPartsOptions.add(Race.HUMAN);
-				}
-			}
+			minorPartsOptions.addAll(target.getSelfTransformationRaces());
 		}
 		
 		return minorPartsOptions;
@@ -625,8 +640,8 @@ public class BodyChanging {
 								+ CharacterModificationUtils.getSelfTransformGenitalArrangementChoiceDiv()
 								+"</div>"
 							);
-						}
-						else {
+							
+						} else {
 							UtilText.nodeContentSB.append(
 								"<div style='clear:left;'>"
 								+ CharacterModificationUtils.getSelfTransformFootStructureChoiceDiv()
@@ -1888,4 +1903,410 @@ public class BodyChanging {
 		}
 	};
 	
+	
+	// Save/Load dialogue and associated methods/variables:
+
+	public static void initSaveLoadMenu() {
+		presetTransformationsMap = new HashMap<>();
+		
+		for(File f : getSavedBodies()) {
+			try {
+				String name = Util.getFileIdentifier(f);
+				String nameReadable = Util.capitaliseSentence(name.replaceAll("_", " "));
+				Body loadedBody = loadBody(name);
+				Femininity fem = Femininity.valueOf(loadedBody.getFemininity());
+				AbstractSubspecies subspecies = loadedBody.getLoadedSubspecies();
+				String subspeciesName = loadedBody.isFeminine()?subspecies.getSingularFemaleName(loadedBody):subspecies.getSingularMaleName(loadedBody);
+				String displayName;
+				if(isPresetTransformationAvailable(loadedBody)) {
+					displayName = "<b>"+nameReadable+"</b>"
+							+ " (<span style='color:"+fem.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(fem.getNames().get(0))+"</span>"
+							+ " <span style='color:"+subspecies.getColour(null).toWebHexString()+";'>"+subspeciesName+"</span>)";
+				} else {
+					displayName = "[style.boldDisabled("+nameReadable+")] [style.colourDisabled(("+Util.capitaliseSentence(fem.getNames().get(0))+" "+subspeciesName+"))]";
+				}
+				presetTransformationsMap.put(name, new Value<>(displayName, loadedBody));
+			} catch(Exception ex) {
+			}
+		}
+	}
+	
+	public static String loadConfirmationName = "";
+	public static String overwriteConfirmationName = "";
+	public static String deleteConfirmationName = "";
+	/** Mapping file location to a Value of saved name and Body. */
+	private static Map<String, Value<String, Body>> presetTransformationsMap = new HashMap<>();
+	
+	public static Map<String, Value<String, Body>> getPresetTransformationsMap() {
+		return presetTransformationsMap;
+	}
+
+	public static final DialogueNode BODY_CHANGING_SAVE_LOAD = new DialogueNode("Save transformation files", "", true) {
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public String getHeaderContent(){
+			StringBuilder saveLoadSB = new StringBuilder();
+			
+			saveLoadSB.append(
+					"<div class='container-full-width' style='padding:0; margin:0 0 8px 0;'>"
+						+ "<p>"
+							+ "Only standard characters (letters and numbers) will work for save file names."
+							+ "<br/>Hover over each transformation preset's icon to see the body overview."
+							+ UtilText.parse(BodyChanging.getTarget(), "<br/>If a name is [style.colourDisabled(greyed-out)], then [npc.name] [npc.do]n't have the ability to transform into that preset.")
+						+ "</p>"
+					+ "</div>"
+					+ "<div class='container-full-width' style='padding:0; margin:0;'>"
+						+ "<div class='container-full-width' style='width:calc(75% - 16px); text-align:center; background:transparent;'>"
+							+ "Name"
+						+ "</div>"
+						+ "<div class='container-full-width' style='width:calc(25% - 16px); text-align:center; background:transparent;'>"
+							+ "Save | Load | Delete"
+						+ "</div>"
+					+ "</div>");
+
+			int i=0;
+			
+			saveLoadSB.append(getSaveLoadRow(null, "", null, i%2==0));
+			i++;
+			
+			for(Entry<String, Value<String, Body>> entry : presetTransformationsMap.entrySet()) {
+				saveLoadSB.append(getSaveLoadRow(entry.getKey(), entry.getValue().getKey(), entry.getValue().getValue(), i%2==0));
+				i++;
+			}
+			
+			saveLoadSB.append("<p id='hiddenPField' style='display:none;'></p>");
+			
+			return saveLoadSB.toString();
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Confirmations: ",
+						"Toggle confirmations being shown when you click to load, overwrite, or delete a saved transformation."
+							+ " When turned on, it will take two clicks to apply any button press."
+							+ " When turned off, it will only take one click.",
+							BODY_CHANGING_SAVE_LOAD) {
+					@Override
+					public String getTitle() {
+						return "Confirmations: "+(Main.getProperties().hasValue(PropertyValue.overwriteWarning)
+								?"<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>ON</span>"
+								:"<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>OFF</span>");
+					}
+					
+					@Override
+					public void effects() {
+						loadConfirmationName = "";
+						overwriteConfirmationName = "";
+						deleteConfirmationName = "";
+						Main.getProperties().setValue(PropertyValue.overwriteWarning, !Main.getProperties().hasValue(PropertyValue.overwriteWarning));
+						Main.getProperties().savePropertiesAsXML();
+					}
+				};
+
+			} else if (index == 0) {
+				return new Response("Back", "Back to the transformation menu.", BODY_CHANGING_CORE);
+
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.PHONE;
+		}
+	};
+	
+	public static List<File> getSavedBodies() {
+		List<File> filesList = new ArrayList<>();
+		
+		File dir = new File("data/transformation_presets");
+		if (dir.isDirectory()) {
+			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".xml"));
+			if (directoryListing != null) {
+				filesList.addAll(Arrays.asList(directoryListing));
+			}
+		}
+
+		filesList.sort(Comparator.comparing(File::getName).reversed());
+		
+		return filesList;
+	}
+
+	private static String getSaveLoadRow(String baseName, String displayName, Body body, boolean altColour) {
+		
+		if(body!=null){
+			String fileName = (baseName+".xml");
+			
+			boolean canTransform = isPresetTransformationAvailable(body);
+			
+//			System.out.println(body.getLoadedSubspecies().getName(body));
+			
+			return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:#222;":"")+" position:relative;'>"
+						+ "<div class='container-full-width' style='width:calc(75% - 16px); background:transparent;'>"
+							+ "<div class='container-full-width' style='width:10%; margin:0; padding:0; background:transparent; position:relative; float:left;'>"
+								+"<div class='inventoryImage' style='width:100%;'>"
+									+ "<div class='inventoryImage-content'"+(canTransform?"":" style='opacity:0.25;'")+">"
+										+ body.getLoadedSubspecies().getSVGStringFromBody(body)
+									+ "</div>"
+									+ "<div class='overlay no-pointer' id='LOADED_BODY_" + baseName + "'></div>"
+								+ "</div>"
+							+ "</div>"
+						
+							+ "<div style='width:calc(90% - 8px); padding:0; margin:0 0 0 8px; position:relative; float:left;'>"
+								+ "<p style='margin:0; padding:2px;'>"+displayName+"</p>"
+								+ "<p style='margin:0; padding:2px;'>[style.colourDisabled(data/enchantments/)]"+baseName+"[style.colourDisabled(.xml)]</p>"
+							+"</div>"
+						+ "</div>"
+						+ "<div class='container-full-width' style='width:calc(25% - 16px);text-align:center; background:transparent;'>"
+							+ (Main.game.isStarted()
+									?(fileName.equals(overwriteConfirmationName)
+										?"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveConfirm()+"</div></div>"
+										:"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskOverwrite()+"</div></div>")
+									:"<div class='square-button saveIcon disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
+							
+							+ (canTransform
+									? (fileName.equals(loadConfirmationName)
+										?"<div class='square-button saveIcon' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadConfirm()+"</div></div>"
+										:"<div class='square-button saveIcon' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoad()+"</div></div>")
+									:"<div class='square-button saveIcon disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadDisabled()+"</div></div>")
+	
+	
+							+ (fileName.equals(deleteConfirmationName)
+								?"<div class='square-button saveIcon' id='delete_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
+								:"<div class='square-button saveIcon' id='delete_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
+						+ "</div>"
+					+ "</div>";
+			
+		} else {
+			String svgString = BodyChanging.getTarget().getSubspecies().getSVGString(BodyChanging.getTarget());
+			
+			return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:#222;":"")+"'>"
+					
+						+ "<div class='container-full-width' style='width:calc(75% - 16px); background:transparent;'>"
+					
+							+ "<div class='container-full-width' style='width:10%; margin:0; padding:0; background:transparent; position:relative; float:left;'>"
+								+"<div class='inventoryImage' style='width:100%;'>"
+									+ "<div class='inventoryImage-content'>"
+										+ svgString
+									+ "</div>"
+									+ "<div class='overlay no-pointer' id='LOADED_BODY_CURRENT'></div>"
+								+ "</div>"
+							+ "</div>"
+						
+							+ "<div style='width:calc(90% - 8px); padding:0; margin:0 0 0 8px; position:relative; float:left;'>"
+								+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='new_save_name' placeholder='Enter File Name' style='padding:0;margin:0;width:100%;'></form>"
+							+"</div>"
+							
+						+ "</div>"
+					
+						+ "<div class='container-full-width' style='width:calc(25% - 16px); text-align:center; background:transparent;'>"
+							+ "<div class='square-button saveIcon' id='new_saved' style='float:left;'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSave()+"</div></div>"
+						+ "</div>"
+					+ "</div>";
+		}
+	}
+
+	public static void saveBody(String name, boolean allowOverwrite) {
+		name = Main.checkFileName(name);
+		if(name.isEmpty()) {
+			return;
+		}
+		
+		Body body = BodyChanging.getTarget().getBody();
+		
+		File dir = new File("data/");
+		dir.mkdir();
+
+		dir = new File("data/transformation_presets");
+		dir.mkdir();
+
+		if (dir.isDirectory()) {
+			File[] directoryListing = dir.listFiles((path, filename) -> filename.endsWith(".xml"));
+			if (directoryListing != null) {
+				for (File child : directoryListing) {
+					if (child.getName().equals(name+".xml")){
+						if(!allowOverwrite) {
+							Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name already exists!");
+							return;
+						}
+					}
+				}
+			}
+		}
+
+		try {
+			// Starting stuff:
+			Document doc = Main.getDocBuilder().newDocument();
+			
+			Element coreElement = doc.createElement("body");
+			doc.appendChild(coreElement);
+
+			body.saveAsXML(coreElement, doc);
+			
+			// Ending stuff:
+			
+			Transformer transformer1 = Main.transformerFactory.newTransformer();
+			transformer1.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+			StringWriter writer = new StringWriter();
+
+			transformer1.transform(new DOMSource(doc), new StreamResult(writer));
+			
+			// Save this xml:
+			Transformer transformer = Main.transformerFactory.newTransformer();
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+			DOMSource source = new DOMSource(doc);
+			
+			String saveLocation = "data/transformation_presets/"+name+".xml";
+			StreamResult result = new StreamResult(saveLocation);
+			
+			transformer.transform(source, result);
+			
+		} catch (TransformerException tfe) {
+			tfe.printStackTrace();
+		}
+		
+		BodyChanging.initSaveLoadMenu();
+		Main.game.setContent(new Response("", "", BodyChanging.BODY_CHANGING_SAVE_LOAD));
+	}
+
+	public static Body loadBody(String name) {
+		if(isLoadBodyAvailable(name)) {
+			File file = new File("data/transformation_presets/"+name+".xml");
+
+			if (file.exists()) {
+				try {
+					Document doc = Main.getDocBuilder().parse(file);
+					
+					// Cast magic:
+					doc.getDocumentElement().normalize();
+					
+					Body body = Body.loadFromXML(null, (Element) doc.getDocumentElement(), doc);
+					body.calculateRace(null);
+					
+					return body;
+					
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	public static boolean isLoadBodyAvailable(String name) {
+		File file = new File("data/transformation_presets/"+name+".xml");
+
+		if(!file.exists()) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	public static void deleteBody(String name) {
+		File file = new File("data/transformation_presets/"+name+".xml");
+
+		if (file.exists()) {
+			try {
+				file.delete();
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			
+		} else {
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "File not found...");
+		}
+	}
+	
+	private static boolean isPresetTransformationAvailable(Body body) {
+		if(debugMenu) {
+			return true;
+		}
+		if(body.getBodyMaterial()!=BodyChanging.getTarget().getBodyMaterial()) {
+			return false;
+		}
+		if(body.isFeral()!=BodyChanging.getTarget().isFeral()) {
+			return false;
+		}
+		if(isDemonTFMenu() || BodyChanging.getTarget().isYouko()) {
+			for(BodyPartInterface part : body.getAllBodyParts()) {
+				if(!BodyChanging.getTarget().getSelfTransformationRaces().contains(part.getType().getRace())) {
+					return false;
+				}
+			}
+			if(BodyChanging.getTarget().isYouko()) {
+				/*
+				 * Youko do not have access to transformations which affect:
+				 * arm count
+				 * genital configuration
+				 * tentacles
+				 * wings
+				 * eye count
+				 * horns
+				 * antennae
+				 */
+				if(body.getArm().getArmRows()!=BodyChanging.getTarget().getArmRows()
+						|| body.getGenitalArrangement()!=BodyChanging.getTarget().getGenitalArrangement()
+						|| body.getTentacle().getType()!=BodyChanging.getTarget().getTentacleType()
+						|| body.getWing().getType()!=BodyChanging.getTarget().getWingType()
+						|| body.getEye().getEyePairs()!=BodyChanging.getTarget().getEyePairs()
+						|| body.getHorn().getType()!=BodyChanging.getTarget().getHornType()
+						|| body.getAntenna().getType()!=BodyChanging.getTarget().getAntennaType()) {
+					return false;
+				}
+			}
+			
+		} else if(body.getBodyMaterial() != BodyMaterial.SLIME){
+			for(BodyPartInterface part : body.getAllBodyParts()) {
+				if(BodyChanging.getTarget().getRace()!=part.getType().getRace()) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Sets the supplied body as the BodyChanging.getTarget()'s new body.
+	 * <br/>Retains all BodyChanging.getTarget()'s covering colours which are not actively used by the new body, replacing the loaded body's unused covering colours.
+	 * <br/>If the BodyChanging.getTarget() does not have covering colours saved which are present in the loaded body, then these loaded body's covering colours are retained.
+	 */
+	public static void applyLoadedBody(Body body) {
+		AbstractSubspecies subspeciesOverride = BodyChanging.getTarget().getSubspeciesOverride();
+		Map<AbstractBodyCoveringType, Covering> oldCoverings = BodyChanging.getTarget().getBody().getCoverings();
+		
+		BodyChanging.getTarget().setBody(body, false);
+		
+		BodyChanging.getTarget().setSubspeciesOverride(subspeciesOverride);
+		List<AbstractBodyCoveringType> currentlyActiveCoverings = new ArrayList<>();
+		for(BodyPartInterface part : body.getAllBodyPartsWithAllOrifices()) {
+			AbstractBodyCoveringType bct = BodyChanging.getTarget().getCovering(part);
+			if(bct==null) {
+//				System.out.println(part.getName(BodyChanging.getTarget()));
+				continue;
+			}
+			if(BodyCoveringType.getAllMakeupTypes().contains(bct) || bct==BodyCoveringType.DILDO) {
+				continue;
+			}
+			if(body.getBodyMaterial()!=BodyMaterial.FLESH) {
+				currentlyActiveCoverings.add(BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), bct.getCategory()));
+			}
+			currentlyActiveCoverings.add(bct);
+		}
+		
+		for(Entry<AbstractBodyCoveringType, Covering> entry: oldCoverings.entrySet()) {
+			if(!currentlyActiveCoverings.contains(entry.getKey())) {
+				BodyChanging.getTarget().getBody().getCoverings().put(entry.getKey(), entry.getValue());
+			}
+		}
+		
+	}
 }

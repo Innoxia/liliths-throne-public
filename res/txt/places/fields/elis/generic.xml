@@ -87,14 +87,28 @@
 	
 	<htmlContent tag="ALLEY"><![CDATA[
 	<p>
-		The northern half of Elis is quite unlike the rest of the town, as it's home to an intricate, twisting network of narrow alleyways. Permanently cast in shade from the ramshackle buildings teetering precariously overhead, the cobblestone which the ground is pathed in is poorly maintained and filled with potholes and puddles.
+		The northern half of Elis is quite unlike the rest of the town, as it's home to an intricate, twisting network of narrow alleyways. Permanently cast in shade from the ramshackle buildings teetering precariously overhead, the poorly-maintained cobblestone path is littered with potholes and puddles.
 	</p>
-	<p>
-		Despite their claustrophobic nature and the dilapidated state of the surrounding structures, these alleyways don't have the same dangerous feeling to them as those in Dominion, largely due to the fact that there's always at least a few harmless residents either loitering about or travelling past you. There are also numerous clotheslines linking the buildings above your head, and the bright colours of the clothing hung out to dry helps to lend a cheery atmosphere to what would otherwise be some very drab surroundings.
-	</p>
-	<p>
-		While you're confident that these alleyways are safe to be travelling through, you can't help but notice how they're home to the town's more disreputable elements. Thanks to the fact that there's a backalley brothel or a sleazy gambling den never more than a few turns away, you find yourself often having to filter out the sounds of whorish moaning or drunken laughter as you travel ever onwards... 
-	</p>
+	#IF(game.isDayTime())
+		<p>
+			Despite their claustrophobic nature and the dilapidated state of the surrounding structures, these alleyways don't have the same dangerous feeling to them as those in Dominion, largely due to the fact that there's always at least a few harmless residents either loitering about or travelling past you. There are also numerous clotheslines linking the buildings above your head, and the bright colours of the clothing hung out to dry helps to lend a cheery atmosphere to what would otherwise be some very drab surroundings.
+		</p>
+		<p>
+			While you're confident that these alleyways are safe to be travelling through during daylight hours, you can't help but notice how they're home to the town's more disreputable elements. Thanks to the fact that there's a back-alley brothel or a sleazy gambling den never more than a few turns away, you find yourself often having to filter out the sounds of whorish moaning or drunken laughter. As you as you travel ever onwards, you find yourself spotting countless places from which an ambush could be sprung, and you realise that these alleyways must be a very dangerous place to be at night... 
+		</p>
+	#ELSE
+		<p>
+			Although safe to travel through during daylight hours, these claustrophobic alleyways have a particularly dangerous feeling to them at night. The harmless residents who can be found loitering about while the sun's out have all disappeared into the surrounding dilapidated structures which they call home, leaving the area completely deserted.
+		</p>
+		<p>
+			Apart from the occasional sounds of whorish moaning or drunken laughter which burst out from an upper-floor window, there's absolutely no sign of life as you continue down the dark, twisting passageways. Feeling like you're being watched, you realise that it must only be a matter of time before you encounter one of the town's more disreputable elements...
+		</p>
+	#ENDIF
+	#IF(!game.getNonCompanionCharactersPresent().isEmpty())
+		[#game.getNonCompanionCharactersPresent().get(0).getPresentInTileDescription()]
+	#ELSEIF(!game.getCharactersTreatingCellAsHome(pc.getCell()).isEmpty())
+		[#game.getCharactersTreatingCellAsHome(pc.getCell()).get(0).getPresentInTileDescription(true)]
+	#ENDIF
 	]]>
 	</htmlContent>
 	

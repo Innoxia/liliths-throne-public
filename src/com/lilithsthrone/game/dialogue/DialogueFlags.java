@@ -27,13 +27,16 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.4
+ * @version 0.4.4
  * @author Innoxia
  */
 public class DialogueFlags implements XMLSaving {
 	
-	public static int MUGGER_DEMAND_1 = 250;
-	public static int MUGGER_DEMAND_2 = 500;
+	private int muggerDemand1 = 250; // Dominion
+	private int muggerDemand2 = 500; // Submission
+	private int muggerDemand3 = 750; // Elis
+	
+	private int prostituteFine = 10_000;
 	
 	public Set<AbstractDialogueFlagValue> values;
 	
@@ -397,6 +400,22 @@ public class DialogueFlags implements XMLSaving {
 		return savedLongs.get(id);
 	}
 	
+	public int getMuggerDemand1() {
+		return muggerDemand1;
+	}
+
+	public int getMuggerDemand2() {
+		return muggerDemand2;
+	}
+
+	public int getMuggerDemand3() {
+		return muggerDemand3;
+	}
+
+	public int getProstituteFine() {
+		return prostituteFine;
+	}
+
 	public NPC getSlaveTrader() {
 		if(slaveTrader==null || slaveTrader.isEmpty()) {
 			return null;

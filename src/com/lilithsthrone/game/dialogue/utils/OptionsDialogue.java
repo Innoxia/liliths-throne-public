@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
@@ -714,19 +715,21 @@ public class OptionsDialogue {
 			} else if (index == 6) {
 				return new Response("Gender pronouns", "Customise all gender pronouns and names.", OPTIONS_PRONOUNS);
 				
-			} else if (index == 7) {
-				return new Response("Gender preferences", "Set your preferred gender encounter rates.", GENDER_PREFERENCE);
-
-			} else if (index == 8) {
-				return new Response("Orientation preferences", "Set your preferred sexual orientation encounter rates.", ORIENTATION_PREFERENCE);
-			
-			} else if (index == 9) {
-				return new Response("Age preferences", "Set your preferred age encounter rates.", AGE_PREFERENCE);
-				
-			} else if (index == 10) {
-				return new Response("Furry preferences", "Set your preferred transformation encounter rates.", FURRY_PREFERENCE);
-
-			} else if (index == 11) {
+			}
+//			else if (index == 7) {
+//				return new Response("Gender preferences", "Set your preferred gender encounter rates.", GENDER_PREFERENCE);
+//
+//			} else if (index == 8) {
+//				return new Response("Orientation preferences", "Set your preferred sexual orientation encounter rates.", ORIENTATION_PREFERENCE);
+//			
+//			} else if (index == 9) {
+//				return new Response("Age preferences", "Set your preferred age encounter rates.", AGE_PREFERENCE);
+//				
+//			} else if (index == 10) {
+//				return new Response("Furry preferences", "Set your preferred transformation encounter rates.", FURRY_PREFERENCE);
+//
+//			}
+			else if (index == 7) {
 				return new Response("Unit preferences", "Set your preferred measurement units.", UNIT_PREFERENCE) {
 					@Override
 					public void effects() {
@@ -734,7 +737,7 @@ public class OptionsDialogue {
 					}
 				};
 
-			} else if (index == 12) {
+			} else if (index == 8) {
 				return new Response("Difficulty: "+Main.getProperties().difficultyLevel.getName(), "Cycle the game's difficulty.", OPTIONS){
 					@Override
 					public void effects() {
@@ -765,10 +768,13 @@ public class OptionsDialogue {
 						}
 					}
 				};
-			} else if (index == 13) {
-				return new Response("Fetish preferences", "Set your preferred fetish encounter rates.", FETISH_PREFERENCE);
-
-			} else if (index == 0) {
+				
+			}
+//			else if (index == 13) {
+//				return new Response("Fetish preferences", "Set your preferred fetish encounter rates.", FETISH_PREFERENCE);
+//
+//			}
+			else if (index == 0) {
 				return new Response("Back", "Back to the main menu.", MENU);
 
 			} else {
@@ -1245,10 +1251,7 @@ public class OptionsDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			 if (index == 0) {
-				return new Response("Back", "Go back to the options menu.", OPTIONS);
-				
-			} else if (index == 1) {
+			 if (index == 11) {
 				return new Response("Defaults", "Restore all gender preferences to their default values.", GENDER_PREFERENCE) {
 					@Override
 					public void effects() {
@@ -1256,12 +1259,9 @@ public class OptionsDialogue {
 						Main.getProperties().savePropertiesAsXML();
 					}
 				};
-				
-			} else {
-				return null;
 			}
+			return CONTENT_PREFERENCE.getResponse(responseTab, index);
 		}
-
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.OPTIONS;
@@ -1376,10 +1376,7 @@ public class OptionsDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			 if (index == 0) {
-				return new Response("Back", "Go back to the options menu.", OPTIONS);
-				
-			} else if (index == 1) {
+			if (index == 11) {
 				return new Response("Defaults", "Restore all orientation preferences to their default values.", ORIENTATION_PREFERENCE) {
 					@Override
 					public void effects() {
@@ -1387,10 +1384,8 @@ public class OptionsDialogue {
 						Main.getProperties().savePropertiesAsXML();
 					}
 				};
-				
-			} else {
-				return null;
 			}
+			return CONTENT_PREFERENCE.getResponse(responseTab, index);
 		}
 
 		@Override
@@ -1430,10 +1425,7 @@ public class OptionsDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 0) {
-				return new Response("Back", "Go back to the options menu.", OPTIONS);
-				
-			} else if(index == 1) {
+			if(index == 11) {
 				return new Response("Defaults", "Reset all fetish preferences to their default settings.", FETISH_PREFERENCE) {
 					@Override
 					public void effects() {
@@ -1441,9 +1433,8 @@ public class OptionsDialogue {
 						Main.getProperties().savePropertiesAsXML();
 					}
 				};
-			} else {
-				return null;
 			}
+			return CONTENT_PREFERENCE.getResponse(responseTab, index);
 		}
 
 		@Override
@@ -1614,10 +1605,7 @@ public class OptionsDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 0) {
-				return new Response("Back", "Go back to the options menu.", OPTIONS);
-				
-			} else if (index == 1) {
+			if (index == 11) {
 				return new Response("Defaults", "Restore all age preferences to their default values.", AGE_PREFERENCE) {
 					@Override
 					public void effects() {
@@ -1625,10 +1613,8 @@ public class OptionsDialogue {
 						Main.getProperties().savePropertiesAsXML();
 					}
 				};
-				
-			} else {
-				return null;
 			}
+			return CONTENT_PREFERENCE.getResponse(responseTab, index);
 		}
 
 		@Override
@@ -1858,10 +1844,7 @@ public class OptionsDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			 if (index == 0) {
-				return new Response("Back", "Go back to the options menu.", OPTIONS);
-				
-			} else if(index==1) {
+			if(index==11) {
 				return new Response("Defaults", "Reset all furry and spawn preferences to their default settings.", FURRY_PREFERENCE) {
 					@Override
 					public void effects() {
@@ -1876,8 +1859,7 @@ public class OptionsDialogue {
 					}
 				};
 			}
-			 
-			return null;
+			return CONTENT_PREFERENCE.getResponse(responseTab, index);
 		}
 
 		@Override
@@ -2691,6 +2673,13 @@ public class OptionsDialogue {
 								Main.getProperties().trapPenisSizePreference,
 								-90,
 								100));
+
+				UtilText.nodeContentSB.append(getSkinColourContentPreferenceVariableDiv(
+								"SKIN_COLOUR_PREFERENCE",
+								PresetColour.RACE_HUMAN,
+								"Skin Colour Preference",
+								"Affects the weighting of human skin colour for randomly-generated NPCs."
+									+ " This does not affect 'Greater' furry NPCs, as they have no human skin coverings."));
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -2759,8 +2748,11 @@ public class OptionsDialogue {
 					}
 				};
 				
-			} else if (index == 11) {
-				return new Response("[style.colourBad(Reset)]", "Resets <b>all</b> content preferences to their default values!", CONTENT_PREFERENCE) {
+			} else if (index == 5) {
+				return new Response("[style.colourMinorBad(Reset)]",
+						"Resets <b>all 'Misc.', 'Gameplay', 'Sex & Fetishes', and 'Bodies'</b> content preferences to their default values!"
+							+ "<br/>Does <b>not</b> reset Gender, Orientation, Age, Furry, or Fetish preferences.",
+						CONTENT_PREFERENCE) {
 					@Override
 					public void effects() {
 						for(PropertyValue pv : PropertyValue.values()) {
@@ -2771,12 +2763,55 @@ public class OptionsDialogue {
 					}
 				};
 				
+			} else if (index == 6) {
+				return new Response("Gender preferences",
+						Main.game.getCurrentDialogueNode()==GENDER_PREFERENCE
+							?"You are already viewing the gender preferences screen!"
+							:"Set your preferred gender encounter rates.",
+						Main.game.getCurrentDialogueNode()==GENDER_PREFERENCE
+							?null
+							:GENDER_PREFERENCE);
+
+			} else if (index == 7) {
+				return new Response("Orientation preferences",
+						Main.game.getCurrentDialogueNode()==ORIENTATION_PREFERENCE
+							?"You are already viewing the sexual orientation preferences screen!"
+							:"Set your preferred sexual orientation encounter rates.",
+						Main.game.getCurrentDialogueNode()==ORIENTATION_PREFERENCE
+							?null
+							:ORIENTATION_PREFERENCE);
+			
+			} else if (index == 8) {
+				return new Response("Age preferences",
+						Main.game.getCurrentDialogueNode()==AGE_PREFERENCE
+							?"You are already viewing the age preferences screen!"
+							:"Set your preferred age encounter rates.",
+						Main.game.getCurrentDialogueNode()==AGE_PREFERENCE
+							?null
+							:AGE_PREFERENCE);
+				
+			} else if (index == 9) {
+				return new Response("Furry preferences",
+						Main.game.getCurrentDialogueNode()==FURRY_PREFERENCE
+							?"You are already viewing the furry preferences screen!"
+							:"Set your preferred furry level for encounters.",
+						Main.game.getCurrentDialogueNode()==FURRY_PREFERENCE
+							?null
+							:FURRY_PREFERENCE);
+
+			} else if (index == 10) {
+				return new Response("Fetish preferences",
+						Main.game.getCurrentDialogueNode()==FETISH_PREFERENCE
+							?"You are already viewing the fetish preferences screen!"
+							:"Set your preferred fetish encounter rates.",
+						Main.game.getCurrentDialogueNode()==FETISH_PREFERENCE
+							?null
+							:FETISH_PREFERENCE);
+
 			} else if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", MENU);
-				
-			} else {
-				return null;
 			}
+			return null;
 		}
 
 		@Override
@@ -2892,6 +2927,49 @@ public class OptionsDialogue {
 		
 		contentSB.append("</div>"
 				+"</div>");
+		
+		return contentSB.toString();
+	}
+
+	private static String getSkinColourContentPreferenceVariableDiv(
+			String id,
+			Colour colour,
+			String title,
+			String description) {
+		
+		StringBuilder contentSB = new StringBuilder();
+		int minimum = 0;
+		int maximum = 10;
+
+		contentSB.append("<div class='container-full-width' style='padding:0; margin:2px 0;'>");
+			contentSB.append(
+					"<div class='container-half-width' style='width:calc(55% - 16px);'>"
+						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b> "
+						+ description
+					+ "</div>");
+			
+			contentSB.append("<div class='container-half-width' style='width:calc(45% - 16px);'>");
+			
+				for(Entry<Colour, Integer> entry : Main.getProperties().skinColourPreferencesMap.entrySet()) {
+					Colour skinColour = entry.getKey();
+					int value = entry.getValue();
+					contentSB.append(
+							"<div class='container-full-width' style='width:100%; margin:0; padding:0; text-align:right;'>"
+								+ "<span style='color:"+skinColour.toWebHexString()+";'>"+Util.capitaliseSentence(skinColour.getName())+":</span> "
+								+ "<div id='"+id+"_"+(skinColour).getId()+"_ON' class='normal-button"+(value==maximum?" disabled":"")+"' style='width:10%; margin:0 2.5%; text-align:center; float:right;'>"
+										+ (value==maximum?"[style.boldDisabled(+)]":"[style.boldGood(+)]")
+								+ "</div>"
+								+ "<div class='container-full-width' style='text-align:center; width:calc(30%); float:right; margin:0;'>"
+									+ "[style.colourSize"+value+"("+value+")]"
+								+ "</div>"
+								+ "<div id='"+id+"_"+(skinColour).getId()+"_OFF' class='normal-button"+(value==minimum?" disabled":"")+"' style='width:10%; margin:0 2.5%; text-align:center; float:right;'>"
+									+ (value==minimum?"[style.boldDisabled(-)]":"[style.boldBad(-)]")
+								+ "</div>"
+							+ "</div>");
+				}
+			
+			contentSB.append("</div>");
+		contentSB.append("</div>");
 		
 		return contentSB.toString();
 	}

@@ -284,6 +284,10 @@ public class Leg implements BodyPartInterface {
 	public int getLength(GameCharacter owner) {
 		return (int) (owner.getHeightValue() * getLengthAsPercentageOfHeight());
 	}
+
+	public int getLength(Body body) {
+		return (int) (body.getHeightValue() * getLengthAsPercentageOfHeight());
+	}
 	
 	
 	// Diameter:
