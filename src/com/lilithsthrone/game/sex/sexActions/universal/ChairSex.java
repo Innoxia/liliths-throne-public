@@ -736,7 +736,7 @@ public class ChairSex {
 							return "Roughly pushing [npc2.name] down, [npc.name] [npc.verb(straddle)] [npc2.her] lap, leaning forwards to glare into [npc2.her] eyes as [npc.she] [npc.moansVerb],"
 									+ " [npc.speech(Alright, slut, I'll take you for a ride!)]";
 						default:
-							return "Pushing [npc2.name] down, [npc.name] steps forwards and [npc.verb(straddle)] [npc2.her] lap, leaning forwards to gaze into [npc2.her] eyes as [npc.she] [npc.moansVerb],"
+							return "Pushing [npc2.name] down, [npc.name] [npc.steps] forwards and [npc.verb(straddle)] [npc2.her] lap, leaning forwards to gaze into [npc2.her] eyes as [npc.she] [npc.moansVerb],"
 									+ " [npc.speech(Sure, I'll take you for a ride...)]";
 					}
 					

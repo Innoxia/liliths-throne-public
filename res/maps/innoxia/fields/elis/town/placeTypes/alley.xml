@@ -15,11 +15,7 @@
 			<populationType plural="true" density="FEW">PERSON</populationType>
 			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
 		</population>
-		<population night="true">
-			<populationType plural="false" density="OCCASIONAL">PERSON</populationType>
-			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
-		</population>
-		<population>
+		<population day="true">
 			<populationType plural="false" density="OCCASIONAL">ENFORCER</populationType>
 			<subspeciesPresent worldType="innoxia_fields_elis_town">
 				<subspeciesToRemove>HUMAN</subspeciesToRemove>
@@ -29,7 +25,7 @@
 	<furniturePresent>false</furniturePresent>
 	<loiteringEnabled>true</loiteringEnabled>
 	<globalMapTile>false</globalMapTile>
-	<dangerous><![CDATA[false]]></dangerous>
+	<dangerous><![CDATA[[#!game.isDayTime()]]]></dangerous>
 	<itemsDisappear><![CDATA[true]]></itemsDisappear>
 	<aquatic><![CDATA[LAND]]></aquatic>
 	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>

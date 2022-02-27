@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <bookText>
 	
-	<htmlContent tag="RACCOON_BASIC"><![CDATA[
+	<htmlContent tag="RACCOON_BASIC" author="Xuanlong"><![CDATA[
 	<p>
 		Raccoon-morphs are extremely adaptable can be found in almost every corner of the Realm except the Endless Sea and perhaps the the Mountains of the Moon. Their triangular ears, distinct "bandit-mask" markings, and ringed tails distinguish them from other morphs.
 	</p>
 	]]>
 	</htmlContent>
 
-	<htmlContent tag="RACCOON_ADVANCED"><![CDATA[
+	<htmlContent tag="RACCOON_ADVANCED" author="Xuanlong"><![CDATA[
 	<p>
 		While all raccoon-morphs differ from one another individually, they have a reputation as adaptable scavengers. Their sensitive paws can discern by touch what average eyes fail to discern by sight. It is generally not recommended to try swindling a raccoon-morph with counterfeit goods and consequently many raccoon-morphs make their living in fields where either knowing how to spot fakes or how to producing convincing ones are vital skills.
 	</p>

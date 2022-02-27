@@ -2042,6 +2042,9 @@ public class Sex {
 							}
 						}
 					}
+					if(GenericActions.PLAYER_STOP_SEX.isAddedToAvailableSexActions()) {
+						normalActions.add(GenericActions.PLAYER_STOP_SEX);
+					}
 					partnerOrgasming = true;
 					break;
 					
@@ -5814,6 +5817,10 @@ public class Sex {
 
 	public void setPositionRequest(PositioningData positionRequest) {
 		Main.sex.positionRequest = positionRequest;
+	}
+	
+	public boolean isCharacterWantingToStopSex(GameCharacter character) {
+		return this.getInitialSexManager().isPartnerWantingToStopSex(character);
 	}
 	
 	/**

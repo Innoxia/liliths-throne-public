@@ -71,7 +71,29 @@
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>false</travelDisabled>
-		<responses/>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Explore]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(ENCOUNTER_innoxia_elis_alleyway.isAnyEncounterAvailable())
+						Spend some time exploring the surrounding alleyways to see if you can find anything of interest.
+					#ELSE
+						You get the feeling that you're not going to find anything interesting in the surrounding alleyways, so there's no reason to waste your time exploring...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(ENCOUNTER_innoxia_elis_alleyway.isAnyEncounterAvailable())
+						defaultForceEncounter
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+				<effects/>
+			</response>
+		</responses>
 	</scene>
 	
 	<!-- Place type id: innoxia_fields_elis_town_bank -->

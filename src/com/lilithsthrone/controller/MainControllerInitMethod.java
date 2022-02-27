@@ -24,6 +24,7 @@ import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.Antenna;
 import com.lilithsthrone.game.character.body.Arm;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.Breast;
 import com.lilithsthrone.game.character.body.BreastCrotch;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -6946,6 +6947,28 @@ public class MainControllerInitMethod {
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
+
+
+			for(Colour colour : PresetColour.getHumanSkinColours()) {
+				id = "SKIN_COLOUR_PREFERENCE_"+colour.getId()+"_ON";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						int newValue = Math.min(10, Main.getProperties().skinColourPreferencesMap.get(colour)+1);
+						Main.getProperties().skinColourPreferencesMap.put(colour, newValue);
+						Main.saveProperties();
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "SKIN_COLOUR_PREFERENCE_"+colour.getId()+"_OFF";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						int newValue = Math.max(0, Main.getProperties().skinColourPreferencesMap.get(colour)-1);
+						Main.getProperties().skinColourPreferencesMap.put(colour, newValue);
+						Main.saveProperties();
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+			}
 			
 			
 			id = "FORCED_FETISH_ON";
@@ -7555,8 +7578,111 @@ public class MainControllerInitMethod {
 		}
 		
 		
-		// Dice poker:
+
+		// Save/load body transformations:
+		if (Main.game.getCurrentDialogueNode() == BodyChanging.BODY_CHANGING_SAVE_LOAD) {
+			for (File f : BodyChanging.getSavedBodies()) {
+				String fileIdentifier = Util.getFileIdentifier(f);
+				String fileName = Util.getFileName(f);
+				
+				id = "overwrite_saved_" + fileIdentifier;
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						
+						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || BodyChanging.overwriteConfirmationName.equals(f.getName())) {
+							BodyChanging.overwriteConfirmationName = "";
+							BodyChanging.saveBody(fileName, true);
+							
+						} else {
+							BodyChanging.overwriteConfirmationName = f.getName();
+							BodyChanging.loadConfirmationName = "";
+							BodyChanging.deleteConfirmationName = "";
+							Main.game.setContent(new Response("Save/Load", "Open the save/load transformation window.", BodyChanging.BODY_CHANGING_SAVE_LOAD));
+						}
+						
+					}, false);
+
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Overwrite", "");
+					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+				}
+				id = "load_saved_" + fileIdentifier;
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						
+						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || BodyChanging.loadConfirmationName.equals(f.getName())) {
+							BodyChanging.loadConfirmationName = "";
+							Body loadedBody = BodyChanging.loadBody(fileName);
+							BodyChanging.applyLoadedBody(loadedBody);
+							Main.game.setContent(new Response("Save/Load", "Open the save/load transformation window.", BodyChanging.BODY_CHANGING_SAVE_LOAD));
+							
+						} else {
+							BodyChanging.overwriteConfirmationName = "";
+							BodyChanging.loadConfirmationName = f.getName();
+							BodyChanging.deleteConfirmationName = "";
+							Main.game.setContent(new Response("Save/Load", "Open the save/load transformation window.", BodyChanging.BODY_CHANGING_SAVE_LOAD));
+						}
+						
+					}, false);
+
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Load", "");
+					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+				}
+				id = "delete_saved_" + fileIdentifier;
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						
+						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || BodyChanging.deleteConfirmationName.equals(f.getName())) {
+							BodyChanging.deleteConfirmationName = "";
+							BodyChanging.deleteBody(fileName);
+							BodyChanging.initSaveLoadMenu();
+							Main.game.setContent(new Response("Save/Load", ".", BodyChanging.BODY_CHANGING_SAVE_LOAD));
+							
+						} else {
+							BodyChanging.overwriteConfirmationName = "";
+							BodyChanging.loadConfirmationName = "";
+							BodyChanging.deleteConfirmationName = f.getName();
+							Main.game.setContent(new Response("Save/Load", ".", BodyChanging.BODY_CHANGING_SAVE_LOAD));
+						}
+						
+					}, false);
+
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Delete", "");
+					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+				}
+			}
+			
+			id = "new_saved";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
+					BodyChanging.saveBody(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
+				}, false);
+
+				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+				TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Save", "");
+				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+			}
+			
+			for(Entry<String, Value<String, Body>> entry : BodyChanging.getPresetTransformationsMap().entrySet()) {
+				id = "LOADED_BODY_"+entry.getKey();
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setLoadedBody(entry.getValue().getValue(), BodyChanging.getTarget());
+					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+				}
+			}
+		}
 		
+		
+		// Dice poker:
 		if(Main.game.isStarted() && DicePoker.progress>0) {
 			for(int i=0; i<DicePoker.getPlayerDice().size(); i++) {
 				setDiceHandler(i);

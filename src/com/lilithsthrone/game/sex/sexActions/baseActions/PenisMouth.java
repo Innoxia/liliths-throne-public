@@ -123,7 +123,7 @@ public class PenisMouth {
 									+ " As [npc3.name] [npc3.verb(open)] [npc3.her] mouth to gasp in shock, [npc.name] [npc.verb(use)] the opportunity to guide the [npc.cockHead] of [npc.her] [npc.cock] past [npc3.her] [npc3.lips+],"
 									+ " before pushing it deep down [npc3.her] throat.",
 	
-							"[npc.Name] [npc.verb(step)] back, allowing [npc.her] [npc.cock+] to slide out from [npc2.namePos] mouth."
+							"[npc.Name] #IF(npc.isPlayer())[npc.step]#ELSE[npc.steps]#ENDIF back, allowing [npc.her] [npc.cock+] to slide out from [npc2.namePos] mouth."
 								+ " Looking up at [npc.herHim], [npc3.nameIs] taken by surprise as [npc.name] suddenly [npc.verb(slap)] [npc.her] "
 									+(Main.sex.hasLubricationTypeFromAnyone(target, SexAreaOrifice.MOUTH, LubricationType.PRECUM)?"slimy":"saliva-coated")+" cock against [npc3.her] face"
 									+ ", before forcing [npc.her] [npc.cock+] down [npc3.her] throat.",

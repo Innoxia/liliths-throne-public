@@ -98,6 +98,12 @@
 		<flag dailyReset="false">elis_berries_eaten</flag>
 		<flag dailyReset="false">elis_berries_encountered</flag>
 		
+		<!-- Alleyways -->
+		<flag dailyReset="false">elis_alleyway_talked</flag>
+		<flag dailyReset="false">elis_alleyway_transformations_applied</flag>
+		<flag dailyReset="false">elis_alleyway_prostitute_apartment</flag>
+		<flag dailyReset="false">elis_alleyway_prostitute_sex</flag>
+		
 		<!-- Town -->
 		<flag dailyReset="false">elis_blacksmith_visited</flag>
 		<flag dailyReset="false">elis_clothing_visited</flag>

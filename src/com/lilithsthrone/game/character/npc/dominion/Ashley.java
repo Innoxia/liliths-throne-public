@@ -206,14 +206,13 @@ public class Ashley extends NPC {
 				+ "<h4>Relationships</h4>"
 				+ "<p>"
 					+ "[style.boldAffection(Affection:)]<br/>"
-					+ AffectionLevel.getDescription(this, Main.game.getPlayer(),
-							AffectionLevel.getAffectionLevelFromValue(this.getAffection(Main.game.getPlayer())), true));
+					+ AffectionLevel.getDescription(this, Main.game.getPlayer(), true));
 		
 		for(Entry<String, Float> entry : this.getAffectionMap().entrySet()) {
 			try {
 				GameCharacter target = Main.game.getNPCById(entry.getKey());
 				if(!target.isPlayer()) {
-					infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
+					infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, true));
 				}
 			} catch (Exception e) {
 				Util.logGetNpcByIdError("Ashley.getCharacterInformationScreen()", entry.getKey());
