@@ -31,8 +31,8 @@ public class BodyCoveringType {
 					new Value<>(CoveringPattern.NONE, 30),
 					new Value<>(CoveringPattern.FRECKLED_FACE, 2),
 					new Value<>(CoveringPattern.FRECKLED, 1)),
-			PresetColour.humanSkinColours,
-			PresetColour.humanSkinColours,
+			PresetColour.getHumanSkinColours(),
+			PresetColour.getHumanSkinColours(),
 			PresetColour.allSkinColours)) {
 	};
 	
@@ -63,7 +63,7 @@ public class BodyCoveringType {
 			BodyCoveringCategory.MAIN_SKIN,
 			BodyCoveringTemplateFactory.createTopSkin(
 			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
-			PresetColour.humanSkinColours)) {
+			PresetColour.getHumanSkinColours())) {
 	};
 
 	public static AbstractBodyCoveringType ANGEL_FEATHER = new AbstractBodyCoveringType(
@@ -127,7 +127,7 @@ public class BodyCoveringType {
 	
 	public static AbstractBodyCoveringType BAT_SKIN = new AbstractBodyCoveringType(
 			BodyCoveringCategory.MAIN_SKIN,
-			BodyCoveringTemplateFactory.createBottomSkin(PresetColour.humanSkinColours)) {
+			BodyCoveringTemplateFactory.createBottomSkin(PresetColour.getHumanSkinColours())) {
 	};
 	
 	public static AbstractBodyCoveringType BAT_FUR = new AbstractBodyCoveringType(
@@ -188,7 +188,7 @@ public class BodyCoveringType {
 
 	public static AbstractBodyCoveringType RABBIT_FUR = new AbstractBodyCoveringType(
 			BodyCoveringCategory.MAIN_FUR,
-			BodyCoveringTemplateFactory.createFurSkin(Util.newArrayListOfValues(CoveringModifier.SMOOTH), null)) {
+			BodyCoveringTemplateFactory.createFurSkin(Util.newArrayListOfValues(CoveringModifier.SMOOTH, CoveringModifier.FLUFFY), null)) {
 	};
 	
 	public static AbstractBodyCoveringType HORSE_HAIR = new AbstractBodyCoveringType(

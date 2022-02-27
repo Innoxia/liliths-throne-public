@@ -49,7 +49,7 @@ public class CultistSexActions {
 
 		@Override
 		public String getDescription() {
-			return "Having had enough of pleasuring [npc2.name] with [npc.her] mouth, [npc.name] [npc.verb(stand)] up and [npc.verb(step)] forwards, bringing [npc.her] groin up against [npc2.hers]."
+			return "Having had enough of pleasuring [npc2.name] with [npc.her] mouth, [npc.name] [npc.verb(stand)] up and #IF(npc.isPlayer())[npc.step]#ELSE[npc.steps]#ENDIF forwards, bringing [npc.her] groin up against [npc2.hers]."
 					+ " Grabbing hold of [npc2.her] [npc2.legs+], [npc.she] [npc.verb(push)] them apart, grinning as [npc.she] [npc.moanVerb],"
 					+ " [npc.speech(Time to have some real fun!)]";
 		}

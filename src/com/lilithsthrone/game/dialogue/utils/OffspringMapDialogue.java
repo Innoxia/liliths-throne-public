@@ -20,7 +20,7 @@ import com.lilithsthrone.world.places.AbstractPlaceType;
 
 /**
  * @since 0.3.2
- * @version 0.3.5.5
+ * @version 0.4.4
  * @author Innoxia
  */
 public class OffspringMapDialogue {
@@ -34,11 +34,15 @@ public class OffspringMapDialogue {
 				&& (worldType==WorldType.HARPY_NEST
 						?(os.getHalfDemonSubspecies()==null || os.getHalfDemonSubspecies().getRace()==Race.HARPY)
 						:(os.getHalfDemonSubspecies()==null || os.getHalfDemonSubspecies().getRace()!=Race.HARPY))
-				|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_ALLEY
-						&& (os.getSubspecies()==Subspecies.ANGEL
-							|| os.getSubspecies()==Subspecies.FOX_ASCENDANT
+				// Allow youko in Elis alleyways:
+				|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.getEncounterFromId("innoxia_elis_alleyway")
+						&& (os.getSubspecies()==Subspecies.FOX_ASCENDANT
 							|| os.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
 							|| os.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC))
+				// Allow Angels in Dominion:
+				|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_ALLEY
+						&& (os.getSubspecies()==Subspecies.ANGEL))
+				// Allow alligators, slimes, and rats in Dominion canals:
 				|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_CANAL
 						&& (os.getSubspecies()==Subspecies.ALLIGATOR_MORPH
 							|| os.getSubspecies()==Subspecies.SLIME

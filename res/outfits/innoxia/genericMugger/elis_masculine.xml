@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- Look in the mods folder for a commented version of this. -->
+<outfit>
+	<coreAttributes>
+		<name><![CDATA[generic mugger (masculine)]]></name>
+		
+		<description><![CDATA[Simple clothing, with the possibility of a weapon or two...]]></description>
+		
+		<femininity>MASCULINE</femininity>
+		
+		<worldTypes>
+			<world>innoxia_fields_elis_town</world>
+		</worldTypes>
+		
+		<outfitTypes>
+		  <type>MUGGER</type>
+		</outfitTypes>
+		
+		<acceptableLegConfigurations/>
+		
+		<conditional><![CDATA[npc.getRace()!=RACE_DEMON || npc.getSubspecies()==SUBSPECIES_HALF_DEMON]]></conditional>
+		
+		<weight>100</weight>
+	</coreAttributes>
+	
+	<generationAttributes>
+		<cond1 constant="true"><![CDATA[RND.nextInt(100)<=75]]></cond1>
+		<cond2 constant="true"><![CDATA[RND.nextInt(100)<=50]]></cond2> <!-- knuckle dusters or pipe -->
+		<cond3 constant="true"><![CDATA[RND.nextInt(100)<=25]]></cond3>
+		<cond4 constant="true"><![CDATA[RND.nextInt(100)<=90]]></cond4> <!-- weapons -->
+		<cond5 constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></cond5> <!-- is bipedal -->
+		
+		
+		<presetColourGroup1>
+			<randomColour>CLOTHING_BLACK</randomColour>
+			<randomColour>CLOTHING_GREEN_DRAB</randomColour>
+			<randomColour>CLOTHING_OLIVE</randomColour>
+			<randomColour>CLOTHING_BROWN_VERY_DARK</randomColour>
+		</presetColourGroup1>
+		
+		<presetColourGroup2 values="ALL_METAL"/>
+		
+		<presetColourGroup3>
+			<randomColour>CLOTHING_BLACK</randomColour>
+			<randomColour>CLOTHING_WHITE</randomColour>
+			<randomColour>CLOTHING_BLUE_DARK</randomColour>
+			<randomColour>CLOTHING_BLUE_LIGHT</randomColour>
+		</presetColourGroup3>
+		
+		
+        <mainWeapons>
+			<weapon>
+				<conditional><![CDATA[cond4 && !cond2]]></conditional>
+				<types>
+					<type>innoxia_pipe_pipe</type>
+					<type>innoxia_bat_wooden</type>
+					<type>innoxia_bat_metal</type>
+				</types>
+				<damageTypes>
+					<damage>PHYSICAL</damage>
+				</damageTypes>
+				<primaryColours/>
+				<secondaryColours/>
+				<!-- 'colours' element can be used in addition to, or as a replacement of, the primary/secondary/tertiary colours elements. It is defined as follows:
+				<colours>
+					<colour>presetColourGroup1</colour> Individual colours or presetColourGroups can be used.
+				</colours>
+				-->
+			</weapon>
+			<weapon>
+				<conditional><![CDATA[cond4 && cond2]]></conditional>
+				<type>innoxia_knuckleDusters_knuckle_dusters</type>
+				<damageTypes>
+					<damage>PHYSICAL</damage>
+				</damageTypes>
+				<primaryColours/>
+				<secondaryColours/>
+			</weapon>
+        </mainWeapons>
+		
+        <offhandWeapons>
+			<weapon>
+				<conditional><![CDATA[cond4 && cond2 && RND.nextInt(100)<=50]]></conditional>
+				<type>innoxia_knuckleDusters_knuckle_dusters</type>
+				<damageTypes>
+					<damage>PHYSICAL</damage>
+				</damageTypes>
+				<primaryColours/>
+				<secondaryColours/>
+			</weapon>
+        </offhandWeapons>
+		
+		
+		<guaranteedClothingEquips/>
+		
+		
+		<genericClothingType> <!-- Generic jewellery. -->
+			<itemTags/>
+			<acceptableFemininities>
+				<femininity>ANDROGYNOUS</femininity>
+				<femininity>MASCULINE</femininity>
+			</acceptableFemininities>
+			<slot/>
+			<rarity>COMMON</rarity>
+			<conditional><![CDATA[clothing.getSlot().isJewellery() && (RND.nextInt(100)<=25 || clothing.getSlot()==IS_PIERCING_EAR)]]></conditional>
+			<primaryColours>
+				<colour>presetColourGroup2</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</genericClothingType>
+		
+		
+		<clothingType>
+			<conditional><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL]]></conditional>
+			<types>
+				<type>LEG_CARGO_TROUSERS</type>
+				<type>innoxia_leg_distressed_jeans</type>
+				<type>LEG_JEANS</type>
+			</types>
+			<primaryColours>
+				<colour>CLOTHING_BLACK</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional/>
+			<types>
+				<type>TORSO_TSHIRT</type>
+				<type>TORSO_SHORT_SLEEVE_SHIRT</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup1</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[RND.nextInt(100)<=60]]></conditional>
+			<types>
+				<type>TORSO_OVER_HOODIE</type>
+				<type>dsg_ljacket_ljacket</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup1</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[cond3]]></conditional>
+			<types>
+				<type>HAND_WRAPS</type>
+				<type>HAND_FINGERLESS_GLOVES</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup1</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[RND.nextInt(100)<=50]]></conditional>
+			<types>
+				<type>MOUTH_BANDANA</type>
+			</types>
+			<primaryColours values="DARK_SHADES"/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional/>
+			<types>
+				<type>GROIN_JOCKSTRAP</type>
+				<type>GROIN_BRIEFS</type>
+				<type>GROIN_BOXERS</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup3</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<!-- Non-taur socks: -->
+		<clothingType>
+			<conditional><![CDATA[cond5]]></conditional>
+			<types>
+				<type>SOCK_SOCKS</type>
+			</types>
+			<primaryColours values="BLACK_OR_WHITE"/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<!-- Non-taur shoes: -->
+		<clothingType>
+			<conditional><![CDATA[cond5]]></conditional>
+			<types>
+				<type>FOOT_WORK_BOOTS</type>
+				<type>FOOT_TRAINERS</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+	</generationAttributes>
+
+</outfit>

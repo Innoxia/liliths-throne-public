@@ -9527,7 +9527,7 @@ public class UtilText {
 				return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>(Error in script parsing!)</i>";
 			}
 			
-		} else if(Main.game.isStarted()) {
+		} else if(Main.game!=null && Main.game.isStarted()) {
 			if(engine==null) {
 				initScriptEngine();
 			}

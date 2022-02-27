@@ -189,6 +189,10 @@ public class Antenna implements BodyPartInterface {
 					+ "</p>");
 		}
 	}
+
+	public int getTotalAntennae() {
+		return getAntennaRows() * getAntennaePerRow();
+	}
 	
 	public HornLength getAntennaLength() {
 		return HornLength.getLengthFromInt(length);

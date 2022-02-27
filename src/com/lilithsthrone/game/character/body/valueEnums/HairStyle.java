@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -20,15 +21,15 @@ public enum HairStyle {
 	
 	NONE("natural", Femininity.ANDROGYNOUS, HairLength.ZERO_BALD) {
 		@Override
-		public String getName(GameCharacter owner) {
-			if(owner!=null && owner.isFeral()) {
-				if(owner.getLegConfiguration()==LegConfiguration.AVIAN) {
+		public String getName(Body body) {
+			if(body!=null && body.isFeral()) {
+				if(body.getLegConfiguration()==LegConfiguration.AVIAN) {
 					return "plumed";
 				} else {
 					return "maned";
 				}
 			}
-			return super.getName(owner);
+			return super.getName(body);
 		}
 	},
 	MESSY("messy", Femininity.ANDROGYNOUS, HairLength.ONE_VERY_SHORT),
@@ -70,9 +71,16 @@ public enum HairStyle {
 	}
 
 	public String getName(GameCharacter owner) {
-		return descriptor;
+		if(owner==null) {
+			return descriptor;
+		}
+		return getName(owner.getBody());
 	}
 
+	public String getName(Body body) {
+		return descriptor;
+	}
+	
 	/** This should just be used for random character hair style generation. */
 	public Femininity getFemininity() {
 		return femininity;
