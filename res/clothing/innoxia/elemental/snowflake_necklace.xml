@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>1000</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[snowflake necklace]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[snowflake necklaces]]></namePlural>
+		<description><![CDATA[A necklace consisting of a thin chain with a snowflake-shaped pendant threaded onto it. As an alternative to being worn around the neck, it would be possible to wrap the chain around your wrist.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+		  <slot>NECK</slot>
+		  <slot>WRIST</slot>
+		</equipSlots>
+
+		<rarity>EPIC</rarity>
+		<clothingSet>SNOWFLAKE</clothingSet>
+		<imageName>snowflake_necklace.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit>5</enchantmentLimit>
+		<effects>
+			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_ICE" timer="0"/>
+			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_ICE" timer="0"/>
+		</effects>
+		
+		<blockedPartsList slot="NECK">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		<blockedPartsList slot="WRIST">
+		  <blockedParts>
+			<displacementType>REMOVE_OR_EQUIP</displacementType>
+			<clothingAccessRequired/>
+			<blockedBodyParts/>
+			<clothingAccessBlocked/>
+			<concealedSlots/>
+		  </blockedParts>
+		</blockedPartsList>
+			
+		<incompatibleSlots slot="NECK"/>
+		<incompatibleSlots slot="WRIST"/>
+			
+		<primaryColours values="JUST_SILVER"/>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours values="JUST_SILVER"/>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+
+		<itemTags>
+			<tag>REINDEER_GIFT</tag>
+			<tag>SOLD_BY_KATE</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText slot="NECK" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(fasten)] the snowflake necklace around [npc.her] neck.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(fasten)] the snowflake necklace around [npc2.namePos] neck.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.name], before fastening the snowflake necklace around [npc2.her] neck.]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="NECK" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc.her] snowflake necklace, before taking it off from around [npc.her] neck.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc2.namePos] snowflake necklace, before taking it off from around [npc2.her] neck.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] [npc2.namePos] snowflake necklace, before yanking it off from around [npc2.her] neck.]]>
+    </otherRough>
+  </displacementText>
+	
+  <replacementText slot="WRIST" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(wrap)] [npc.her] snowflake necklace around [npc.her] wrist and then [npc.verb(fasten)] it in place.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(wrap)] the snowflake necklace around [npc2.namePos] wrist and then [npc.verb(fasten)] it in place.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(wrap)] the snowflake necklace around [npc2.namePos] wrist and then tightly [npc.verb(fasten)] it in place.]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="WRIST" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc.her] snowflake necklace, before unwrapping it from around [npc.her] wrist.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc2.namePos] snowflake necklace, before unwrapping it from around [npc2.her] wrist.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] [npc2.namePos] snowflake necklace, before snatching it off [npc2.her] wrist.]]>
+    </otherRough>
+  </displacementText>
+</clothing>

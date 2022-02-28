@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>600</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[sun navel piercing]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[sun navel piercings]]></namePlural>
+		<description><![CDATA[A navel piercing in the shape of a sun. It is typically sold pre-enchanted with effects that boost the wearer's arcane fire damage and resistance.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>PIERCING_STOMACH</slot> 
+		<rarity>EPIC</rarity>
+		<clothingSet>SUN</clothingSet>
+		<imageName>piercing_navel_sun.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects>
+			<effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_FIRE" timer="0"/>
+			<effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_FIRE" timer="0"/>
+			<effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_FIRE" timer="0"/>
+			<effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_FIRE" timer="0"/>
+		</effects>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="JUST_COPPER"/> 
+		<primaryColoursDye values="ALL_METAL"/>
+		<secondaryColours values="JUST_ORANGE"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>REINDEER_GIFT</tag>
+			<tag>SOLD_BY_KATE</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the sun jewel into [npc.her] navel piercing.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the sun jewel into [npc2.namePos] navel piercing.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(slide)] the sun jewel into [npc2.namePos] navel piercing.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] sun jewel out of [npc.her] navel piercing.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] sun jewel out of [npc2.her] navel piercing.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] sun jewel out of [npc2.her] navel piercing.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

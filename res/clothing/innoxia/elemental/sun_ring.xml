@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>700</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[sun ring]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[sun rings]]></namePlural>
+		<description><![CDATA[A band of metal adorned with an ornament in the shape of a sun. It is typically sold pre-enchanted with effects that boost the wearer's arcane fire damage and resistance.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>FINGER</slot>
+		<rarity>EPIC</rarity>
+		<clothingSet>SUN</clothingSet>
+		<imageName>sun_ring.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects>
+			<effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_FIRE" timer="0"/>
+			<effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_FIRE" timer="0"/>
+			<effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_FIRE" timer="0"/>
+			<effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_FIRE" timer="0"/>
+		</effects>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>FINGERS</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values="JUST_COPPER"/> 
+		<primaryColoursDye values="ALL_METAL"/>
+		<secondaryColours values="JUST_ORANGE"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+	
+		<itemTags>
+			<tag>REINDEER_GIFT</tag>
+			<tag>SOLD_BY_KATE</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the sun ring onto [npc.her] [npc.finger].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the sun ring onto [npc2.namePos] [npc.finger].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(push)] the sun ring onto [npc2.namePos] [npc.finger].]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the sun ring off [npc.her] [npc.finger].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the sun ring off [npc2.namePos] [npc.finger].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(snatch)] the sun ring off [npc2.namePos] [npc.finger].]]>
+    </otherRough>
+  </displacementText>
+  
+</clothing>
