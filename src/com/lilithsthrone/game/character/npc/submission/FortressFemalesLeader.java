@@ -49,6 +49,8 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.CombatBehaviour;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -111,7 +113,8 @@ public class FortressFemalesLeader extends NPC {
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SPECIAL_SLUT);
 		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(),
+				Util.newArrayListOfValues(
+						Perk.NYMPHOMANIAC),
 				Util.newHashMapOfValues(
 						new Value<>(PerkCategory.PHYSICAL, 0),
 						new Value<>(PerkCategory.LUST, 5),
@@ -126,6 +129,13 @@ public class FortressFemalesLeader extends NPC {
 		if(setPersona) {
 			this.setPersonalityTraits(
 					PersonalityTrait.LEWD);
+			
+			this.addSpell(Spell.ARCANE_AROUSAL);
+			
+			this.addSpell(Spell.TELEPATHIC_COMMUNICATION);
+			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_1);
+			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_2);
+			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_3);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			

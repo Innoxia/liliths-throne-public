@@ -42,6 +42,8 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
@@ -118,10 +120,11 @@ public class FortressMalesLeader extends NPC {
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(
 						Perk.FETISH_SEEDER,
+                                                Perk.FEROCIOUS_WARRIOR,
 						Perk.MELEE_DAMAGE),
 				Util.newHashMapOfValues(
-						new Value<>(PerkCategory.PHYSICAL, 5),
-						new Value<>(PerkCategory.LUST, 0),
+						new Value<>(PerkCategory.PHYSICAL, 10),
+						new Value<>(PerkCategory.LUST, 10),
 						new Value<>(PerkCategory.ARCANE, 2)));
 	}
 	
@@ -135,6 +138,11 @@ public class FortressMalesLeader extends NPC {
 
 			this.setPersonalityTraits(
 					PersonalityTrait.BRAVE);
+
+                        this.addSpell(Spell.TELEPATHIC_COMMUNICATION);
+			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_1);
+			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_2);
+                        this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_3);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -241,14 +249,14 @@ public class FortressMalesLeader extends NPC {
 		
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.STOMACH_SARASHI, PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_stomach_sarashi"), PresetColour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_leg_mens_hakama"), PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_japanese_mens_hakama"), PresetColour.CLOTHING_BLACK, false), true, this);
 
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
 			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_katana"), DamageType.PHYSICAL));
-			this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_wakizashi"), DamageType.FIRE));
+			this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_katana"), DamageType.FIRE));
 		}
 	}
 	
@@ -349,6 +357,17 @@ public class FortressMalesLeader extends NPC {
 	}
 	
 	// Combat:
+	
+	@Override
+	public void resetDefaultMoves() {
+		this.clearEquippedMoves();
+                equipMove("strike");
+                equipMove("offhand-strike");
+                equipMove("horn headbutt");
+                equipMove("block");
+		this.equipAllKnownMoves();
+		this.equipAllSpellMoves();
+	}
 	
 	@Override
 	public int getEscapeChance() {

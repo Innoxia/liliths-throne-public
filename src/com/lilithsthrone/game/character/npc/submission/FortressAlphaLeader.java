@@ -56,6 +56,8 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -141,11 +143,18 @@ public class FortressAlphaLeader extends NPC {
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SPECIAL_MARTIAL_BACKGROUND);
 		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(Perk.UNARMED_DAMAGE),
+				Util.newArrayListOfValues(
+						Perk.UNARMED_DAMAGE,
+                                                Perk.FEROCIOUS_WARRIOR,
+                                                Perk.BESERK,
+                                                Perk.ENERGY_BOOST,
+                                                Perk.SEDUCTION_BOOST_MAJOR,
+                                                Perk.SPELL_DAMAGE,
+                                                Perk.AURA_BOOST),
 				Util.newHashMapOfValues(
-						new Value<>(PerkCategory.PHYSICAL, 5),
-						new Value<>(PerkCategory.LUST, 1),
-						new Value<>(PerkCategory.ARCANE, 0)));
+						new Value<>(PerkCategory.PHYSICAL, 12),
+						new Value<>(PerkCategory.LUST, 7),
+						new Value<>(PerkCategory.ARCANE, 3)));
 	}
 	
 	@Override
@@ -159,6 +168,11 @@ public class FortressAlphaLeader extends NPC {
 			this.setPersonalityTraits(
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.BRAVE);
+
+                        this.addSpell(Spell.TELEPATHIC_COMMUNICATION);
+			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_1);
+			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_2);
+                        this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_3);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -263,16 +277,15 @@ public class FortressAlphaLeader extends NPC {
 	
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-		
 		this.unequipAllClothingIntoVoid(true, true);
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_SARASHI, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_THONG, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_leg_distressed_jeans"), PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GREY, PresetColour.CLOTHING_BRASS, false), true, this);
-		AbstractClothing jacket = Main.game.getItemGen().generateClothing(ClothingType.TORSO_OVER_WOMENS_LEATHER_JACKET, PresetColour.CLOTHING_BLACK, false);
+		AbstractClothing jacket = Main.game.getItemGen().generateClothing("innoxia_torsoOver_womens_leather_jacket", PresetColour.CLOTHING_BLACK, false);
 		this.equipClothingFromNowhere(jacket, true, this);
-		this.isAbleToBeDisplaced(this.getClothingInSlot(ClothingType.TORSO_OVER_WOMENS_LEATHER_JACKET.getEquipSlots().get(0)), DisplacementType.UNZIPS, true, true, this);
+		this.isAbleToBeDisplaced(this.getClothingInSlot(ClothingType.getClothingTypeFromId("innoxia_torsoOver_womens_leather_jacket").getEquipSlots().get(0)), DisplacementType.UNZIPS, true, true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_foot_goth_boots_fem"), false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_fishnet_gloves", PresetColour.CLOTHING_BLACK, false), true, this);
 		
@@ -296,8 +309,8 @@ public class FortressAlphaLeader extends NPC {
 		}
 		
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_knuckleDusters_knuckle_dusters"), DamageType.PHYSICAL));
-			this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_knuckleDusters_knuckle_dusters"), DamageType.POISON));
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_knuckleDusters_knuckle_dusters"), DamageType.PHYSICAL, Util.newArrayListOfValues(PresetColour.CLOTHING_SILVER)));
+			this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_knuckleDusters_knuckle_dusters"), DamageType.POISON, Util.newArrayListOfValues(PresetColour.CLOTHING_SILVER)));
 		}
 		
 		if(settings.contains(EquipClothingSetting.ADD_TATTOOS)) {
@@ -360,7 +373,7 @@ public class FortressAlphaLeader extends NPC {
 	}
 	
 	public boolean isAbleToEquipGag(GameCharacter target) {
-		AbstractClothing ringGag = Main.game.getItemGen().generateClothing(ClothingType.BDSM_RINGGAG, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GOLD, null);
+		AbstractClothing ringGag = Main.game.getItemGen().generateClothing("innoxia_bdsm_ringgag", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GOLD, null);
 		return target.isAbleToEquip(ringGag, true, this) && (target.getClothingInSlot(InventorySlot.MOUTH)==null || !target.getClothingInSlot(InventorySlot.MOUTH).getName().contains(UtilText.parse(this,"[npc.Name]")));	
 	}
 	
@@ -433,6 +446,18 @@ public class FortressAlphaLeader extends NPC {
 	}
 	
 	// Combat:
+	
+	@Override
+	public void resetDefaultMoves() {
+		this.clearEquippedMoves();
+                equipMove("strike");
+                equipMove("offhand-strike");
+                equipMove("twin-strike");
+                equipMove("horn headbutt");
+                equipMove("oral-tease");
+		this.equipAllKnownMoves();
+		this.equipAllSpellMoves();
+	}
 	
 	@Override
 	public int getEscapeChance() {

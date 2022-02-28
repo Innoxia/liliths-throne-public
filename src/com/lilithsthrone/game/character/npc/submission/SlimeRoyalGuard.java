@@ -48,6 +48,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.SlimeQueensLair;
@@ -115,18 +116,22 @@ public class SlimeRoyalGuard extends NPC {
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SPECIAL_MARTIAL_BACKGROUND);
 		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(),
+				Util.newArrayListOfValues(
+						Perk.COMBAT_REGENERATION,
+                                                Perk.ENERGY_BOOST_DRAIN_DAMAGE,
+                                                Perk.AURA_BOOST),
 				Util.newHashMapOfValues(
-						new Value<>(PerkCategory.PHYSICAL, 1),
-						new Value<>(PerkCategory.LUST, 0),
-						new Value<>(PerkCategory.ARCANE, 0)));
+						new Value<>(PerkCategory.PHYSICAL, 13),
+						new Value<>(PerkCategory.LUST, 7),
+						new Value<>(PerkCategory.ARCANE, 7)));
 	}
 	
 	@Override
 	public void setStartingCombatMoves() {
 		this.clearEquippedMoves();
-		this.equipMove("strike");
-		this.equipMove("block");
+		equipMove("strike");
+                equipMove("twin-strike");
+                equipMove("block");
 		this.equipAllKnownMoves();
 		this.equipAllSpellMoves();
 	}
@@ -137,7 +142,14 @@ public class SlimeRoyalGuard extends NPC {
 		// Persona:
 		if(setPersona) {
 			this.addSpell(Spell.SLAM);
-			this.addSpell(Spell.TELEKENETIC_SHOWER);
+
+//			this.addSpell(Spell.STONE_SHELL);
+//			this.addSpellUpgrade(SpellUpgrade.STONE_SHELL_1);
+//			this.addSpellUpgrade(SpellUpgrade.STONE_SHELL_2);
+//			this.addSpellUpgrade(SpellUpgrade.STONE_SHELL_3);
+
+                        this.addSpell(Spell.TELEPATHIC_COMMUNICATION);
+			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_1);
 
 			this.setPersonalityTraits(
 					PersonalityTrait.BRAVE,
@@ -251,11 +263,12 @@ public class SlimeRoyalGuard extends NPC {
 		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_zweihander", DamageType.PHYSICAL));
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_crotchless_chaps", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_butler_butler_trousers", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_work_boots", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.STOMACH_SARASHI, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_butler_butler_shoes", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_butler_butler_waistcoat_shirt", PresetColour.CLOTHING_GREY, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_butler_butler_gloves", PresetColour.CLOTHING_WHITE, false), true, this);
+                this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_butler_butler_jacket", PresetColour.CLOTHING_BLACK, false), true, this);
 
 	}
 	

@@ -51,6 +51,8 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.SlimeQueensLair;
@@ -98,7 +100,7 @@ public class SlimeGuardIce extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && this.getFleshSubspecies()!=Subspecies.HUMAN) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && this.getBody().getFleshSubspecies()!=Subspecies.HUMAN) {
 			this.setBody(Gender.F_V_B_FEMALE, Subspecies.SLIME, RaceStage.HUMAN, false);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.8")) {
@@ -119,25 +121,32 @@ public class SlimeGuardIce extends NPC {
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
-		this.addSpecialPerk(Perk.SPECIAL_MARTIAL_BACKGROUND);
+//		this.addSpecialPerk(Perk.SPECIAL_MARTIAL_BACKGROUND);
 		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(
-						Perk.CLOTHING_ENCHANTER),
+						Perk.CLOTHING_ENCHANTER,
+                                                Perk.ARCANE_CRITICALS,
+                                                Perk.SPELL_EFFICIENCY,
+                                                Perk.MELEE_DAMAGE,
+                                                Perk.ELEMENTAL_BOOST,
+                                                Perk.AURA_BOOST,
+                                                Perk.ARCANE_BOOST_MAJOR),
 				Util.newHashMapOfValues(
-						new Value<>(PerkCategory.PHYSICAL, 3),
-						new Value<>(PerkCategory.LUST, 1),
-						new Value<>(PerkCategory.ARCANE, 0)));
+						new Value<>(PerkCategory.PHYSICAL, 8),
+						new Value<>(PerkCategory.LUST, 0),
+						new Value<>(PerkCategory.ARCANE, 10)));
 	}
 	
 	@Override
 	public void setStartingCombatMoves() {
 		this.clearEquippedMoves();
-		this.equipMove("strike");
-		this.equipMove("tease");
+                this.equipMove("offhand-strike");
+                this.equipMove("twin-strike");
+                this.equipMove("tease");
+                this.equipMove("arcane-strike");
 		this.equipMove("block");
-		this.equipMove("avert");
 		this.equipAllKnownMoves();
 		this.equipAllSpellMoves();
 	}
@@ -150,6 +159,11 @@ public class SlimeGuardIce extends NPC {
 		if(setPersona) {
 			this.setPersonalityTraits(
 					PersonalityTrait.SHY);
+			
+			this.addSpell(Spell.SOOTHING_WATERS);
+			this.addSpellUpgrade(SpellUpgrade.SOOTHING_WATERS_1);
+			this.addSpellUpgrade(SpellUpgrade.SOOTHING_WATERS_2);
+                        this.addSpellUpgrade(SpellUpgrade.SOOTHING_WATERS_3);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -252,18 +266,18 @@ public class SlimeGuardIce extends NPC {
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		Main.game.getCharacterUtils().generateItemsInInventory(this);
 		
-		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_arming_sword", DamageType.ICE));
+		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_arming_sword_ice"));
 		this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_buckler_buckler", DamageType.ICE));
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(
 				"innoxia_finger_ring",
 				PresetColour.CLOTHING_SILVER,
 				Util.newArrayListOfValues(
-						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_ICE, TFPotency.MAJOR_BOOST, 0),
-						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_ICE, TFPotency.MAJOR_BOOST, 0),
-						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_ICE, TFPotency.MAJOR_BOOST, 0),
-						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_ICE, TFPotency.MAJOR_BOOST, 0),
-						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_ICE, TFPotency.MAJOR_BOOST, 0))),
+						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.MANA_MAXIMUM, TFPotency.MAJOR_BOOST, 0),
+						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.MANA_MAXIMUM, TFPotency.MAJOR_BOOST, 0),
+						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.MANA_MAXIMUM, TFPotency.MAJOR_BOOST, 0),
+						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.MANA_MAXIMUM, TFPotency.MAJOR_BOOST, 0),
+						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.MANA_MAXIMUM, TFPotency.MAJOR_BOOST, 0))),
 				true,
 				this);
 

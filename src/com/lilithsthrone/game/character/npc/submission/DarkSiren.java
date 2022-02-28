@@ -199,38 +199,23 @@ public class DarkSiren extends NPC {
 	@Override
 	public void resetDefaultMoves() {
 		this.clearEquippedMoves();
-		this.equipMove("strike");
+		equipMove("strike");
+                equipMove("arcane-strike");
+                equipMove("block");
 		this.equipAllSpellMoves();
 	}
 	
 	private void addSpells() {
 		this.resetSpells();
 		
-		this.addSpell(Spell.FIREBALL);
-		this.addSpellUpgrade(SpellUpgrade.FIREBALL_1);
-		this.addSpellUpgrade(SpellUpgrade.FIREBALL_2);
-		
-		this.addSpell(Spell.CLOAK_OF_FLAMES);
-		this.addSpellUpgrade(SpellUpgrade.CLOAK_OF_FLAMES_1);
-		
-		this.addSpell(Spell.ICE_SHARD);
-		this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_1);
-		this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_2);
-		
-		this.addSpell(Spell.POISON_VAPOURS);
-		this.addSpellUpgrade(SpellUpgrade.POISON_VAPOURS_1);
-		this.addSpellUpgrade(SpellUpgrade.POISON_VAPOURS_2);
+		this.addSpell(Spell.FLASH);
+		this.addSpellUpgrade(SpellUpgrade.FLASH_1);
+		this.addSpellUpgrade(SpellUpgrade.FLASH_2);
+                this.addSpellUpgrade(SpellUpgrade.FLASH_3);
 		
 		this.addSpell(Spell.VACUUM);
 		this.addSpellUpgrade(SpellUpgrade.VACUUM_1);
 		
-		this.addSpell(Spell.SLAM);
-		this.addSpellUpgrade(SpellUpgrade.SLAM_1);
-		this.addSpellUpgrade(SpellUpgrade.SLAM_2);
-		this.addSpellUpgrade(SpellUpgrade.SLAM_3);
-		
-		this.addSpell(Spell.TELEKENETIC_SHOWER);
-		this.addSpellUpgrade(SpellUpgrade.TELEKENETIC_SHOWER_1);
 	}
 	
 	@Override

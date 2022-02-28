@@ -51,6 +51,8 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.SlimeQueensLair;
@@ -98,7 +100,7 @@ public class SlimeGuardFire extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && this.getFleshSubspecies()!=Subspecies.HUMAN) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && this.getBody().getFleshSubspecies()!=Subspecies.HUMAN) {
 			this.setBody(Gender.M_P_MALE, Subspecies.SLIME, RaceStage.HUMAN, false);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.8")) {
@@ -124,18 +126,27 @@ public class SlimeGuardFire extends NPC {
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(
-						Perk.WEAPON_ENCHANTER),
+						Perk.WEAPON_ENCHANTER,
+                                                Perk.RUNNER_2,
+                                                Perk.MELEE_DAMAGE,
+                                                Perk.PHYSIQUE_BOOST_MAJOR,
+                                                Perk.ENERGY_BOOST,
+                                                Perk.ELEMENTAL_BOOST,
+                                                Perk.AURA_BOOST,
+                                                Perk.ARCANE_BOOST_MAJOR),
 				Util.newHashMapOfValues(
-						new Value<>(PerkCategory.PHYSICAL, 1),
+						new Value<>(PerkCategory.PHYSICAL, 10),
 						new Value<>(PerkCategory.LUST, 0),
-						new Value<>(PerkCategory.ARCANE, 0)));
+						new Value<>(PerkCategory.ARCANE, 8)));
 	}
 	
 	@Override
 	public void setStartingCombatMoves() {
 		this.clearEquippedMoves();
-		this.equipMove("strike");
-		this.equipMove("twin-strike");
+                this.equipMove("strike");
+                this.equipMove("offhand-strike");
+//                this.equipMove("twin-strike");
+                this.equipMove("tease");
 		this.equipMove("block");
 		this.equipAllKnownMoves();
 		this.equipAllSpellMoves();
@@ -149,6 +160,11 @@ public class SlimeGuardFire extends NPC {
 		if(setPersona) {
 			this.setPersonalityTraits(
 					PersonalityTrait.BRAVE);
+			
+//			this.addSpell(Spell.FIREBALL);
+//			this.addSpellUpgrade(SpellUpgrade.FIREBALL_1);
+
+                        this.addSpell(Spell.FLASH);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -248,18 +264,18 @@ public class SlimeGuardFire extends NPC {
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		Main.game.getCharacterUtils().generateItemsInInventory(this);
 		
-		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_arming_sword", DamageType.FIRE));
+		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_arming_sword_fire"));
 		this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_buckler_buckler", DamageType.FIRE));
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(
 				"innoxia_finger_ring",
 				PresetColour.CLOTHING_COPPER,
 				Util.newArrayListOfValues(
-						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_FIRE, TFPotency.MAJOR_BOOST, 0),
-						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_FIRE, TFPotency.MAJOR_BOOST, 0),
-						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_FIRE, TFPotency.MAJOR_BOOST, 0),
-						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_FIRE, TFPotency.MAJOR_BOOST, 0),
-						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_FIRE, TFPotency.MAJOR_BOOST, 0))),
+						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.HEALTH_MAXIMUM, TFPotency.MAJOR_BOOST, 0),
+						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.HEALTH_MAXIMUM, TFPotency.MAJOR_BOOST, 0),
+						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.HEALTH_MAXIMUM, TFPotency.MAJOR_BOOST, 0),
+						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.HEALTH_MAXIMUM, TFPotency.MAJOR_BOOST, 0),
+						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.HEALTH_MAXIMUM, TFPotency.MAJOR_BOOST, 0))),
 				true,
 				this);
 
