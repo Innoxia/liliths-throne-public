@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<value>3000</value> 
+		<melee>true</melee>
+		<twoHanded>false</twoHanded>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[kerambit]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[kerambits]]></namePlural>
+		<description><![CDATA[Originally made as a sickle-like agricultural tool, this small, easily-concealable knife soon began to see use as a weapon. The double-edged blade, made from enchanted ethereal energy, is sharply curved to resemble a tiger's claw, and is intended to be held pointing downward from the fist.]]></description> 
+		
+		<attackDescriptor>slash</attackDescriptor>
+		
+		<attackTooltipDescription><![CDATA[Slash at [npc2.name] with your kerambit.]]></attackTooltipDescription>
+		
+		<rarity>RARE</rarity> 
+		
+		<weaponSet/> 
+		
+		<equipText><![CDATA[[npc.Name] [npc.verb(unsheathe)] the kerambit, readying it for use in combat.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(sheathe)] the kerambit, before putting it away.]]></unequipText>
+		
+		<imageName>kerambit_sheathed.svg</imageName> 
+		<imageEquippedName>kerambit.svg</imageEquippedName>
+		
+		<physicalResistance>0</physicalResistance> 
+		
+		<damage>12</damage> 
+		
+		<arcaneCost>0</arcaneCost> 
+		
+		<damageVariance>HIGH</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>POISON</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<effects> 
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
+		</effects>
+		
+		<extraEffects>
+			<effect><![CDATA[
+				[style.boldExcellent(High chances)] of '[style.boldPoison(Venom)]' infliction on hit.
+			]]></effect>
+		</extraEffects>
+		
+		<onHitEffect><![CDATA[
+			#IF (RND.nextInt(100)<75)
+			#THEN [##npc2.addStatusEffect(SE_POISONED, 4)] [npc2.Name] [style.boldTerrible([npc2.verb(struggle)])] to defend [npc2.herself] as [npc2.her] vision gets blurred from the '[style.boldPoison(Venom)]' taking its toll on [npc2.his] body.
+			#ENDIF
+		]]></onHitEffect>
+		
+		<onCriticalHitEffect><![CDATA[
+			#IF (RND.nextInt(100)<90)
+			#THEN [##npc2.addStatusEffect(SE_POISONED, 4)] [npc2.Name] [style.boldTerrible([npc2.verb(struggle)])] to defend [npc2.herself] as [npc2.her] vision gets blurred from the '[style.boldPoison(Venom)]' taking its toll on [npc2.his] body.
+			#ENDIF
+		]]></onCriticalHitEffect>
+		
+		<primaryColours>
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_GREY_DARK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_BRASS"/>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		<quaternaryColours values="JUST_BRASS"/>
+		<quaternaryColoursDye values="ALL_METAL"/>
+		<quinaryColours values="JUST_BRASS"/>
+		<quinaryColoursDye values="ALL_METAL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_VICKY</tag>
+			<tag>WEAPON_BLADE</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Making a downwards slashing motion with with [npc.her] kerambit, [npc.name] [npc.verb(manage)] to strike [npc2.name] in the chest; the ethereal arcane blade passing through [npc2.her] torso to drain [npc2.her] energy!
+		]]></hitText>
+		<hitText><![CDATA[
+		Swiftly striking at [npc2.name] with [npc.her] kerambit, [npc.name] [npc.verb(manage)] to slash through [npc2.her] [npc2.arm] with the ethereal blade and drain [npc2.her] energy!
+		]]></hitText>
+		<hitText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(lunge)] out at [npc2.name] with [npc.her] kerambit, slashing the ethereal blade into [npc2.her] shoulder and causing [npc2.herHim] to lose some energy!
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		Thrusting out with [npc.her] kerambit, [npc.name] [npc.verb(attempt)] to slash [npc2.name] in the chest, but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+		<missText><![CDATA[
+		Striking out at [npc2.name] with [npc.her] kerambit, [npc.name] [npc.verb(let)] out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(lunge)] out at [npc2.name] with [npc.her] kerambit, but [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

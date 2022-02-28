@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<value>500000</value> 
+		<melee>false</melee>
+		<twoHanded>false</twoHanded>
+		<determiner><![CDATA[]]></determiner>
+		<name appendDamageName="false"><![CDATA[Waspley Mk IV .38/200 Service Revolver]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Waspley Mk IV Service Revolvers]]></namePlural> 
+		<description><![CDATA[Although nearly identical in appearance to its .455 calibre counterpart, this particular top-break, double action revolver is chambered for the smaller .38 cartridge.]]></description>
+		<attackDescriptor>shoot</attackDescriptor>
+		<attackTooltipDescription>Shoot [npc2.name] with your revolver.</attackTooltipDescription>
+		
+		<rarity>LEGENDARY</rarity> 
+		<weaponSet/> 
+		<equipText><![CDATA[[npc.Name] [npc.verb(draw)] [npc.her] revolver, ready to use it in combat.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(holster)] [npc.her] revolver.]]></unequipText>
+		
+		<imageName>revolver.svg</imageName> 
+		<imageEquippedName/>
+		<damage>2500</damage> 
+		<arcaneCost>0</arcaneCost> 
+		<damageVariance>LOW</damageVariance> 
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<enchantmentLimit>0</enchantmentLimit>
+		
+		<effects/>
+		
+		<primaryColours>
+			<colour>CLOTHING_STEEL</colour>
+		</primaryColours> 
+		<primaryColoursDye values="ALL_METAL"/>
+		<secondaryColours> 
+			<colour>CLOTHING_BLACK</colour>
+		</secondaryColours> 
+		<secondaryColoursDye values="ALL"/>
+		
+		<itemTags>
+			<tag>CHEAT_ITEM</tag>
+			<tag>CONTRABAND_HEAVY</tag>
+		</itemTags>
+		
+	</coreAttributes>
+
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Taking aim with [npc.her] pistol, [npc.name] [npc.verb(pull)] the trigger and [npc.verb(fire)] a bullet at [npc2.name], hitting [npc2.herHim] directly in the chest!<br/>Thankfully, there seems to be some kind of arcane force preventing [npc2.name] from being seriously wounded or killed...
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		Taking aim with [npc.her] pistol, [npc.name] [npc.verb(pull)] the trigger and fires a bullet at [npc2.name], but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

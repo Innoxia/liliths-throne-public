@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+	
+		<value>750</value> 
+		<melee>true</melee>
+		<twoHanded>false</twoHanded>
+		<determiner><![CDATA[]]></determiner>
+		<name><![CDATA[riding crop]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[riding crops]]></namePlural>
+		<description><![CDATA[Consisting of a long, flexible shaft, with a handle at one end and a thin leather tongue at the other, this riding crop can be used to swat at unruly slaves and animals alike.]]></description>
+		<attackDescriptor>swat</attackDescriptor>
+		<attackTooltipDescription><![CDATA[Strike at [npc.name] with your riding crop!]]></attackTooltipDescription>
+		<rarity>EPIC</rarity>
+		<weaponSet/>
+		<equipText><![CDATA[[npc.Name] [npc.verb(ready)] [npc.her] riding crop.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] riding crop away.]]></unequipText>
+		<imageName>riding_crop.svg</imageName> 
+		<imageEquippedName/> 
+		<damage>15</damage> 
+		<arcaneCost>0</arcaneCost> 
+		<damageVariance>LOW</damageVariance> 
+		<availableDamageTypes>
+			<damageType>LUST</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<effects> 
+            <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
+		</effects>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours>
+			<colour>CLOTHING_STEEL</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL_WITH_METALS"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_FINCH</tag>
+			<tag>SOLD_BY_VICKY</tag>
+		</itemTags>
+		
+	</coreAttributes>
+	
+	<hitDescriptions>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(swat)] at [npc2.namePos] [npc2.arm] with [npc.her] riding crop!
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(swing)] [npc.her] riding crop at [npc2.name] and [npc.verb(manage)] to strike [npc2.her] on the [npc2.arm]!
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(swing)] [npc.her] riding crop at [npc2.name], grinning as [npc.she] [npc.verb(swat)] [npc2.her] torso.
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(swipe)] [npc.her] riding crop at [npc2.name], but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(swing)] [npc.her] riding crop at [npc2.name], but [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

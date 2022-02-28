@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg cursor="default" version="1.1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <linearGradient id="linearGradient2493" x1="213.71" x2="226.85" y1="45.45" y2="54.558" gradientTransform="rotate(-3.06 491.17 781.57)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#ffb380" offset="0"/>
+   <stop stop-color="#ff7f2a" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g stroke="#000">
+  <g fill-rule="evenodd">
+   <g stroke-width=".30243">
+    <path d="m74.466 197.6c-3.5364 3.0019-7.6731 4.3739-13.44 3.2882l9.6259-8.9403z" fill="#f55"/>
+    <path d="m156.44 110.36c-29.358 37.03-61.855 71.134-82.385 87.576l-3.6685-4.3822c44.296-41.32 24.351-21.704 79.71-88.349z" fill="#faa"/>
+    <path d="m147.94 105.11c-40.921 54.637-64.505 73.784-82.91 92.048l6.3888-2.3686c20.422-19.179 52.859-50.486 79.888-87.596z" fill="#ffd5d5"/>
+   </g>
+   <g>
+    <path d="m162.61 103.06c-2.8415-2.1703-5.476-4.4271-8.942-6.3366l-6.13 8.3703c0.87858 1.272 4.6586 6.2741 8.793 5.9971z" fill="#dde9af" stroke-width=".5"/>
+    <path d="m185.9 50.962s7.434 5.101 7.542 4.987 5.38-9.558 5.38-9.558c-1.535-2.43-3.691-4.1-7.023-4.332z" fill="#dde9af" stroke-width="1.162"/>
+    <path d="M193.294 57.63l-3.9-1.019 2.1-3.384 2.172 1.574 1.23-1.983c-2.296-1.053.54-5.835 2.04-3.98 0 0 .551-1.284.482-1.898-.126-1.113-2.032-.717-3.126-1.459-.954-.646-1.049-2.519-1.91-2.371-.84.144-1.566 1.062-1.566 1.062 2.328.49-.308 6.978-2.442 4.302l-1.453 1.988 1.694.848-.879 3.157-3.853-2.435c.316-.537.257-1.792.571-2.325 1.625-2.759 3.614-4.737 5.328-7.22.647-.936 2.353-2.105 3.7-1.21 0 0 2.135.38 2.936.912.799.531 1.863 2.277 1.863 2.277 1.634 1.086 1.694 2.576.846 3.915-1.63 2.575-2.567 5.554-4.265 8.17-.324.5-1.228.573-1.568 1.078z" fill="#bcd35f" stroke-width=".581"/>
+   </g>
+   <g stroke-width=".581">
+    <path d="m184.3 51.416c1.645 0.996 2.575 1.353 3.513 1.899 2.673-6.071 8.773-4.298 2.658 2.55l2.944 1.696c-13.201 20.706-13.445 20.989-26.259 40.72l-10.357-7.533c14.136-20.039 21.339-29.726 27.501-39.332z" fill="url(#linearGradient2493)"/>
+    <path d="m156.92 90.59-3.311 4.46 10.535 7.475c0.984-1.235 2.262-2.843 3.454-4.868-3.8955-2.3284-7.6702-4.6035-10.678-7.067z" fill="#bcd35f"/>
+    <path d="M147.906 93.038c-2.495-1.977-1.21-3.192 1.241-1.51 7.043 4.835 13.83 9.897 19.629 14.563 2.422 1.949.835 2.93-1.143 1.527-6.687-4.742-13.342-9.519-19.727-14.58z" fill="#dde9af"/>
+   </g>
+  </g>
+  <g fill="#faa" stroke-linecap="square">
+   <ellipse transform="rotate(-46.489)" cx="41.767" cy="187.7" rx="1.024" ry=".954" stroke-width=".594" paint-order="stroke fill markers"/>
+   <circle transform="rotate(-46.489)" cx="41.196" cy="183.08" r="1.005" stroke-width=".604" paint-order="stroke fill markers"/>
+   <ellipse transform="rotate(-46.489)" cx="40.722" cy="178.4" rx="1.012" ry=".956" stroke-width=".591" paint-order="stroke fill markers"/>
+  </g>
+  <path d="m167.52 94.755-2.165-4.436-5.27-1.085zm2.915-4.932-3.997-0.737-2.798-4.12 4.692 1.066zm3.221-4.673-3.997-0.737-2.799-4.12 4.692 1.066zm3.361-4.73-3.997-0.738-2.799-4.119 4.692 1.065zm3.22-4.674-3.997-0.737-2.798-4.119 4.692 1.065zm3.04-4.806-3.997-0.736-2.799-4.12 4.692 1.066zm2.991-4.945-3.997-0.737-2.8-4.119 4.693 1.065zm3.168-4.642-3.997-0.737-2.799-4.12 4.692 1.066z" fill="#ff8080" fill-rule="evenodd" stroke-width=".581"/>
+  <g fill="#faa" stroke-linecap="square">
+   <g stroke-width=".591">
+    <ellipse transform="rotate(-46.489)" cx="96.844" cy="169.44" rx="1.012" ry=".956" paint-order="stroke fill markers"/>
+    <ellipse transform="rotate(-46.489)" cx="98.105" cy="176.92" rx="1.012" ry=".956" paint-order="stroke fill markers"/>
+    <ellipse transform="rotate(-46.489)" cx="103.01" cy="171.78" rx="1.012" ry=".956" paint-order="stroke fill markers"/>
+   </g>
+   <ellipse transform="rotate(-46.489)" cx="93.042" cy="179.16" rx=".628" ry=".6" stroke-width=".369" paint-order="stroke fill markers"/>
+   <ellipse transform="rotate(-46.489)" cx="91.35" cy="169.05" rx=".628" ry=".6" stroke-width=".369" paint-order="stroke fill markers"/>
+  </g>
+ </g>
+</svg>

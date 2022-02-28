@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+	
+		<value>100000</value> 
+		
+		<melee>true</melee>
+		
+		<twoHanded>true</twoHanded>
+		
+		<determiner><![CDATA[the]]></determiner>
+		
+		<name><![CDATA[Dark Siren's Scythe]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[Dark Siren's Scythes]]></namePlural>
+		
+		<description><![CDATA[A huge, arcane-bladed metal scythe. Enchanted by 'The Dark Siren' herself, this scythe holds tremendous power, and feels as light as a feather to the one who wields it. Such power comes at a cost, however, and each strike drains a huge amount of arcane essences from the wielder...]]></description> 
+		
+		<attackDescriptor>reap</attackDescriptor>
+		
+		<attackTooltipDescription>Swing your scythe at [npc2.name].</attackTooltipDescription>
+		
+		<rarity>LEGENDARY</rarity> 
+		
+		<weaponSet>DARK_SIREN</weaponSet> 
+		
+		<equipText><![CDATA[[npc.Name] [npc.verb(take)] hold of the Dark Siren's Scythe as [npc.she] [npc.verb(ready)] [npc.herself] to use it in combat.]]></equipText>
+		
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] away the Dark Siren's Scythe.]]></unequipText>
+		
+		<imageName>scythe.svg</imageName> 
+		
+		<imageEquippedName>scythe.svg</imageEquippedName>
+		
+		<damage>80</damage> 
+		
+		<arcaneCost>10</arcaneCost> 
+		
+		<damageVariance>LOW</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+			<damageType>FIRE</damageType>
+			<damageType>ICE</damageType>
+			<damageType>POISON</damageType>
+		</availableDamageTypes>
+		
+		<spells>
+			<spell>DARK_SIREN_SIRENS_CALL</spell>
+		</spells>
+		
+		<enchantmentLimit>10</enchantmentLimit>
+		
+		<effects> 
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
+		</effects>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK_STEEL</colour>
+		</primaryColours> 
+		<primaryColoursDye values="ALL_METAL"/>
+		<secondaryColours> 
+			<colour>CLOTHING_PURPLE_DARK</colour>
+		</secondaryColours> 
+		<secondaryColoursDye values="ALL"/>
+		
+		<itemTags> 
+			<tag>WEAPON_BLADE</tag>
+		</itemTags>
+		
+	</coreAttributes>
+	
+	<hitDescriptions>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(swing)] [npc.her] scythe at [npc2.name], letting out an evil laugh as the ethereal blade unleashes a tremendous burst of arcane energy upon contacting [npc2.her] body!
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(swing)] [npc.her] scythe at [npc2.name], grinning in delight as the ethereal blade delivers a cataclysmic blast of energy upon contacting with [npc2.her] body!
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(swing)] at [npc2.name] with [npc.her] scythe, laughing in maniacal glee as [npc2.her] body's contact with the ethereal blade triggers a tremendous burst of arcane energy!
+		]]></hitText>
+	</hitDescriptions>
+
+	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
+	<missDescriptions>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(swing)] [npc.her] scythe at [npc2.name], but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+		<missText><![CDATA[
+		Swinging at [npc2.name] with [npc.her] scythe, [npc.name] [npc.verb(let)] out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(swing)] at [npc2.name] with [npc.her] scythe, but [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

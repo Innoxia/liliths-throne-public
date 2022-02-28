@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+	
+		<value>2000</value> 
+		
+		<melee>false</melee>
+		
+		<twoHanded>false</twoHanded>
+		
+		<determiner><![CDATA[an]]></determiner>
+		
+		<name><![CDATA[arcanist's staff]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[arcanist's staffs]]></namePlural> 
+		
+		<!-- The description/lore of this weapon. -->
+		<description><![CDATA[A wooden staff, the crude design of which leads you to believe that it has been re-purposed from a different arcane weapon. Although lacking in refinement, it seems powerful enough...]]></description> 
+		
+		<attackDescriptor>Arcane bolt</attackDescriptor>
+		
+		<attackTooltipDescription><![CDATA[[npc.verb(Channel)] the power of the arcane through [npc.his] staff's power to shoot a bolt of energy at [npc2.name].]]></attackTooltipDescription>
+		
+		<rarity>RARE</rarity> 
+		
+		<equipText><![CDATA[[npc.Name] [npc.verb(ready)] [npc.her] staff, and [npc.verb(prepare)] to use it in combat.]]></equipText>
+		
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] staff away.]]></unequipText>
+		
+		<imageName>arcanist_staff.svg</imageName> 
+		
+		<imageEquippedName>arcanist_staff.svg</imageEquippedName>
+		
+		<damage>8</damage> 
+		
+		<arcaneCost>0</arcaneCost> 
+		
+		<damageVariance>MEDIUM</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>ICE</damageType>
+			<damageType>FIRE</damageType>
+			<damageType>POISON</damageType>
+		</availableDamageTypes>
+		
+		<spells>
+			<spell>FIREBALL</spell>
+			<spell>ICE_SHARD</spell>
+			<spell>ARCANE_AROUSAL</spell>
+			<spell>SLAM</spell>
+			<spell>POISON_VAPOURS</spell>
+		</spells>
+		
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<effects> 
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="SPELL_COST_MODIFIER" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="SPELL_COST_MODIFIER" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="SPELL_COST_MODIFIER" timer="0"/>
+		</effects>
+		
+		<primaryColours values="JUST_BROWN_DARK"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/> 
+		<secondaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_VICKY</tag>
+		</itemTags>
+		
+	</coreAttributes>
+
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Harnessing the power of the arcane, [npc.name] [npc.verb(materialise)] a bolt of arcane energy around [npc.her] staff, before shooting it to strike [npc2.name]!
+		]]></hitText>
+		<hitText><![CDATA[
+		Pointing [npc.her] staff at [npc2.name], a bolt of arcane energy materialises before shooting itself forward to strike [npc2.name]!
+		]]></hitText>
+		<hitText><![CDATA[
+		As [npc.name] [npc.verb(raise)] [npc.his] staff, a bolt of arcane energy materialises itself before shooting itself forward to strike [npc2.name]!
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		Harnessing the power of the arcane, [npc.name] [npc.verb(materialise)] a bolt of arcane energy around [npc.her] staff, before shooting it to strike [npc2.name], but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+		<missText><![CDATA[
+		Pointing [npc.her] staff at [npc2.name], a bolt of arcane energy materialises before shooting itself forward to strike [npc2.name, [npc.name] [npc.verb(let)] out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		As [npc.name] [npc.verb(raise)] [npc.his] staff, a bolt of arcane energy materialises itself before shooting itself forward to strike [npc2.name], but [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

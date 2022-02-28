@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+	
+		<value>3700</value> 
+		<melee>false</melee>
+		<twoHanded>true</twoHanded>
+		<determiner><![CDATA[]]></determiner>
+		<name><![CDATA[witch's broom]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[witch's brooms]]></namePlural>
+		<description><![CDATA[An old-fashioned wooden broom, consisting of a long pole with a bundle of flexible twigs attached to one end. The opposite end of the pole widens out a little, where there's a curious engraving of a pentagram etched into the wood.]]></description>
+		<attackDescriptor>Arcane bolt</attackDescriptor>
+		<attackTooltipDescription><![CDATA[Swipe your broom at [npc.name]!]]></attackTooltipDescription>
+		<rarity>EPIC</rarity>
+		<weaponSet/>
+		<equipText><![CDATA[[npc.Name] [npc.verb(ready)] [npc.her] broom.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] broom away.]]></unequipText>
+		<imageName>witch_broom.svg</imageName> 
+		<imageEquippedName/> 
+		<damage>10</damage> 
+		<arcaneCost>0</arcaneCost> 
+		<damageVariance>LOW</damageVariance> 
+		<availableDamageTypes>
+			<availableDamageTypes>
+			<damageType>ICE</damageType>
+			<damageType>FIRE</damageType>
+			<damageType>POISON</damageType>
+		</availableDamageTypes>
+		</availableDamageTypes>
+		
+		<spells>
+			<spell>WITCH_SEAL</spell>
+			<spell>WITCH_CHARM</spell>
+		</spells>
+		
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<effects> 
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>
+		</effects>
+		
+		<primaryColours>
+			<colour>CLOTHING_BROWN_DARK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_VICKY</tag>
+		</itemTags>
+		
+	</coreAttributes>
+	
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Harnessing the power of the arcane, [npc.name] [npc.verb(materialise)] a bolt of arcane energy around [npc.her] broom, before shooting it to strike [npc2.name]!
+		]]></hitText>
+		<hitText><![CDATA[
+		Pointing [npc.her] broom at [npc2.name], a bolt of arcane energy materialises before shooting itself forward to strike [npc2.name]!
+		]]></hitText>
+		<hitText><![CDATA[
+		As [npc.name] [npc.verb(raise)] [npc.his] broom, a bolt of arcane energy materialises itself before shooting itself forward to strike [npc2.name]!
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		Harnessing the power of the arcane, [npc.name] [npc.verb(materialise)] a bolt of arcane energy around [npc.her] broom, before shooting it to strike [npc2.name], but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+		<missText><![CDATA[
+		Pointing [npc.her] broom at [npc2.name], a bolt of arcane energy materialises before shooting itself forward to strike [npc2.name, [npc.name] [npc.verb(let)] out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		As [npc.name] [npc.verb(raise)] [npc.his] broom, a bolt of arcane energy materialises itself before shooting itself forward to strike [npc2.name], but [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

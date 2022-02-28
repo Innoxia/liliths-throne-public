@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<value>40000</value> 
+		<melee>true</melee>
+		<twoHanded>false</twoHanded>
+		<determiner><![CDATA[]]></determiner>
+		<name><![CDATA[clear demonstone]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[clear demonstones]]></namePlural> 
+		<description><![CDATA[A powerful demonstone, the power of which can be absorbed into a person's aura in order to enhance their unarmed strikes with extra elemental damage. Demonstones, such as this one, are rumoured to be crystallised essences of a Lilin's orgasm.]]></description> 
+		
+		<attackDescriptor>crystal strike</attackDescriptor>
+		<attackTooltipDescription>Strike at [npc.name] in melee, using your crystal's power to inflict extra damage!</attackTooltipDescription>
+		
+		<rarity>LEGENDARY</rarity> 
+		
+		<equipText><![CDATA[[npc.Name] [npc.verb(focus)] on the energy in the demonstone. As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] aura, granting [npc.herHim] the ability to perform arcane-imbued unarmed attacks.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(focus)] on extracting the absorbed arcane energy inside of [npc.her] aura. As [npc.she] [npc.does] so, it reforms back into a clear demonstone.]]></unequipText>
+		
+		<imageName>legendary.svg</imageName> 
+		
+		<imageEquippedName/>
+		
+		<damage>25</damage> 
+		
+		<arcaneCost>0</arcaneCost> 
+		
+		<damageVariance>LOW</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+			<damageType>ICE</damageType>
+			<damageType>FIRE</damageType>
+			<damageType>POISON</damageType>
+		</availableDamageTypes>
+		
+		<spells changeOnReforge="true">
+			<spell damageType="FIRE">FIREBALL</spell>
+			<spell damageType="ICE">ICE_SHARD</spell>
+			<spell damageType="LUST">ARCANE_AROUSAL</spell>
+			<spell damageType="PHYSICAL">SLAM</spell>
+			<spell damageType="POISON">POISON_VAPOURS</spell>
+		</spells>
+		
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<effects> 
+            <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+            <effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+            <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_WEAPON" timer="0"/>
+            <effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_WEAPON" timer="0"/>
+		</effects>
+		
+		<primaryColours/> 
+		<primaryColoursDye/>
+		<secondaryColours/> 
+		<secondaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_VICKY</tag>
+			<tag>WEAPON_UNARMED</tag>
+			<tag>WEAPON_FERAL_EQUIPPABLE</tag>
+		</itemTags>
+		
+	</coreAttributes>
+
+	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
+	<hitDescriptions>
+		<hitText><![CDATA[
+		#IF(npc.isFeral())
+			Darting forwards, [npc.name] [npc.verb(rear)] up [npc.verb(deliver)] a solid kick to [npc2.namePos] torso.
+		#ELSE
+			Darting forwards, [npc.name] [npc.verb(deliver)] a solid punch to [npc2.namePos] [npc2.arm].
+		#ENDIF
+		]]></hitText>
+		<hitText><![CDATA[
+		#IF(npc.isFeral())
+			Striking out at [npc2.name], [npc.name] [npc.verb(manage)] to land a solid kick on [npc2.her] [npc2.leg]!
+		#ELSE
+			Striking out at [npc2.name], [npc.name] [npc.verb(manage)] to land a solid punch on [npc2.her] [npc2.arm]!
+		#ENDIF
+		]]></hitText>
+		<hitText><![CDATA[
+		#IF(npc.isFeral())
+			[npc.Name] [npc.verb(strike)] out at [npc2.name] in unarmed combat, and [npc.verb(manage)] to land a solid kick on [npc2.her] torso.
+		#ELSE
+			[npc.Name] [npc.verb(strike)] out at [npc2.name] in unarmed combat, and [npc.verb(manage)] to land a solid hit on [npc2.her] torso.
+		#ENDIF
+		]]></hitText>
+	</hitDescriptions>
+
+	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
+	<missDescriptions>
+		<missText><![CDATA[
+		Darting forwards, [npc.name] [npc.verb(try)] to deliver a punch to [npc2.namePos] [npc2.arm], but [npc2.she] [npc2.verb(manage)] to step out of the way in time.
+		]]></missText>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(throw)] a punch at [npc2.name], but fails to make contact with any part of [npc2.her] body.
+		]]></missText>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(strike)] out at [npc2.name] in unarmed combat, but [npc.she] [npc.verb(end)] up missing.
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>
