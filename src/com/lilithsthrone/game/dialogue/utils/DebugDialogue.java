@@ -817,13 +817,13 @@ public class DebugDialogue {
 				if(npc.getMother()!=null && npc.getMother().getPregnantLitter()!=null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
 					isBorn = false;
 				}
-				UtilText.nodeContentSB.append((isBorn?"":"(Not born yet) ")+"<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</span>"
+				UtilText.nodeContentSB.append((isBorn?"":"(Not born yet) ")+"<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+" "+npc.getSurname()+"</span>"
 						+ " ("+npc.getSubspecies().getName(npc.getBody())+" | "+npc.getHalfDemonSubspecies().getName(npc.getBody())+")"
 						+ " M:"+(npc.getMother()!=null?npc.getMother().getName(true):"Deleted NPC")
 						+ " F:"+(npc.getFather()!=null?npc.getFather().getName(true):"Deleted NPC")+"<br/>");
 			}
 			for(OffspringSeed os : Main.game.getOffspringNotSpawned(os -> true,true)) {
-				UtilText.nodeContentSB.append("Not yet"+(os.isBorn()?" met ":" born ")+"<span style='color:"+os.getFemininity().getColour().toWebHexString()+";'>"+os.getName()+"</span>"
+				UtilText.nodeContentSB.append("Not yet"+(os.isBorn()?" met ":" born ")+"<span style='color:"+os.getFemininity().getColour().toWebHexString()+";'>"+os.getName()+" "+os.getSurname()+"</span>"
 						+ " ("+os.getSubspecies().getName(os.getBody())+" | "+os.getHalfDemonSubspecies().getName(os.getBody())+")"
 						+ " M:"+(os.getMother()!=null?os.getMother().getName(true):"Deleted NPC")
 						+ " F:"+(os.getFather()!=null?os.getFather().getName(true):"Deleted NPC")+"<br/>");

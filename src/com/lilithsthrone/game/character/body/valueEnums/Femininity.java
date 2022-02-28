@@ -48,6 +48,10 @@ public enum Femininity {
 		}
 	}
 
+	public List<String> getNames() {
+		return names;
+	}
+	
 	public int getMinimumFemininity() {
 		return minimumFemininity;
 	}

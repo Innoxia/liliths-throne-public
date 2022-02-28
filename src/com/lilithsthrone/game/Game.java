@@ -56,6 +56,7 @@ import com.lilithsthrone.game.character.npc.dominion.Arthur;
 import com.lilithsthrone.game.character.npc.dominion.Ashley;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.Bunny;
+import com.lilithsthrone.game.character.npc.dominion.Callie;
 import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
@@ -75,7 +76,6 @@ import com.lilithsthrone.game.character.npc.dominion.Jules;
 import com.lilithsthrone.game.character.npc.dominion.Kalahari;
 import com.lilithsthrone.game.character.npc.dominion.Kate;
 import com.lilithsthrone.game.character.npc.dominion.Kay;
-import com.lilithsthrone.game.character.npc.dominion.Callie;
 import com.lilithsthrone.game.character.npc.dominion.Kruger;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Loppy;
@@ -177,9 +177,12 @@ import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.encounters.AbstractEncounter;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
+import com.lilithsthrone.game.dialogue.npcDialogue.QuickTransformations;
+import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.EnforcerHQDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
@@ -206,13 +209,19 @@ import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.dialogue.utils.ParserTarget;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ItemGeneration;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
+import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.occupantManagement.slave.SlavePermission;
@@ -4797,41 +4806,6 @@ public class Game implements XMLSaving {
 					&& Main.game.getPlayer().getWorldLocation()!=WorldType.MUSEUM_LOST;
 	}
 	
-	/**
-	 * For use in external res files as a way to get a hook to UtilText.parseFromXMLFile
-	 */
-	public String parseFromFile(String pathName, String tag, GameCharacter... specialNPCs) {
-		return getDialogueManager().getDialogueFromFile(pathName, tag, specialNPCs);
-	}
-	
-	/**
-	 * For use in external res files as a way to get a hook to UtilText.parse
-	 */
-	public String forceParse(String content) {
-		return UtilText.parse(content);
-	}
-	
-	/**
-	 * For use in external res files as a way to get a hook to UtilText.addSpecialParsingString
-	 */
-	public void addSpecialParsingString(String content, boolean clearListBeforeAdding) {
-		UtilText.addSpecialParsingString(content, clearListBeforeAdding);
-	}
-
-	/**
-	 * For use in external res files as a way to get a hook to UtilText.clearSpecialParsingStrings
-	 */
-	public void clearSpecialParsingStrings() {
-		UtilText.clearSpecialParsingStrings();
-	}
-
-	/**
-	 * For use in external res files as a way to get a hook to Main.mainController.openInventory
-	 */
-	public void openInventoryDialogue(NPC target, InventoryInteraction interactionType) {
-		Main.mainController.openInventory(target, interactionType);
-	}
-	
 	public StringBuilder getTextStartStringBuilder() {
 		return textStartStringBuilder;
 	}
@@ -5275,7 +5249,142 @@ public class Game implements XMLSaving {
 //		System.out.println("Saved: "+character.getName());
 	}
 	
+	
+	// These methods are for access to static methods via external xml files
+
+	
+	/**
+	 * For use in external res files as a way to get a hook to UtilText.parseFromXMLFile
+	 */
+	public String parseFromFile(String pathName, String tag, GameCharacter... specialNPCs) {
+		return getDialogueManager().getDialogueFromFile(pathName, tag, specialNPCs);
+	}
+	
+	/**
+	 * For use in external res files as a way to get a hook to UtilText.parse
+	 */
+	public String forceParse(String content) {
+		return UtilText.parse(content);
+	}
+	
+	/**
+	 * For use in external res files as a way to get a hook to UtilText.addSpecialParsingString
+	 */
+	public void addSpecialParsingString(String content, boolean clearListBeforeAdding) {
+		UtilText.addSpecialParsingString(content, clearListBeforeAdding);
+	}
+
+	/**
+	 * For use in external res files as a way to get a hook to UtilText.clearSpecialParsingStrings
+	 */
+	public void clearSpecialParsingStrings() {
+		UtilText.clearSpecialParsingStrings();
+	}
+
+	/**
+	 * For use in external res files as a way to get a hook to Main.mainController.openInventory
+	 */
+	public void openInventoryDialogue(NPC target, InventoryInteraction interactionType) {
+		Main.mainController.openInventory(target, interactionType);
+	}
+	
 	public void initCosmeticsDialogue(NPC beautician, GameCharacter target, DialogueNode returnToNode) {
 		CosmeticsDialogue.initDialogue(beautician, target, returnToNode);
 	}
+
+	public void initTransformationMenu(GameCharacter target) {
+		Main.game.saveDialogueNode();
+		BodyChanging.setTarget(target);
+	}
+
+	public void initQuickTransformationMenu(GameCharacter target, DialogueNode endingNode) {
+		QuickTransformations.initQuickTransformations("misc/quickTransformations", target, endingNode);
+	}
+	
+	public void setParserTarget(String parserTarget, NPC npc) {
+		ParserTarget.addAdditionalParserTarget(parserTarget, npc);
+	}
+	
+	public boolean isFreeRoomAvailableForOccupant() {
+		return OccupancyUtil.isFreeRoomAvailableForOccupant();
+	}
+	
+	public Cell getFreeRoomForOccupant() {
+		return OccupancyUtil.getFreeRoomForOccupant();
+	}
+	
+	public boolean isSpaceForMoreProstitutes() {
+		return RedLightDistrict.isSpaceForMoreProstitutes();
+	}
+
+	AbstractCoreItem randomItem = null;
+	public AbstractItem getAlleywayItem() {
+		return (AbstractItem) randomItem;
+	}
+	
+	public AbstractClothing getAlleywayClothing() {
+		return (AbstractClothing) randomItem;
+	}
+	
+	public AbstractWeapon getAlleywayWeapon() {
+		return (AbstractWeapon) randomItem;
+	}
+	
+	public void generateAlleywayItem() {
+		if(!Main.game.isSillyModeEnabled() || Math.random()<0.99f) {
+			randomItem = Main.game.getItemGen().generateItem(ItemType.getDominionAlleywayItems().get(Util.random.nextInt(ItemType.getDominionAlleywayItems().size())));
+			
+		} else {
+			if(Math.random()<0.5f) {
+				randomItem = Main.game.getItemGen().generateItem(ItemType.EGGPLANT);
+			} else {
+				randomItem = Main.game.getItemGen().generateItem("innoxia_cheat_unlikely_whammer");
+			}
+		}
+	}
+	
+	public void generateAlleywayClothing() {
+		if(Math.random()<0.01f) {
+			randomItem = Main.game.getItemGen().generateClothing(ClothingType.MEGA_MILK);
+			Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
+			
+		} else {
+			List<AbstractClothingType> randomClothingList = new ArrayList<>(ClothingType.getAllClothing());
+			randomClothingList.removeIf((clothing) ->
+					(!clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_KATE)
+						&& !clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN)
+						&& !clothing.getDefaultItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
+					|| clothing.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN)
+					|| clothing.getRarity()==Rarity.EPIC
+					|| clothing.getRarity()==Rarity.LEGENDARY);
+			randomItem = Main.game.getItemGen().generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
+		}
+	}
+	
+	public void generateAlleywayWeapon() {
+		List<AbstractWeaponType> weapons = new ArrayList<>(WeaponType.getAllWeapons());
+		weapons.removeIf(w -> !w.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN));
+		randomItem = Main.game.getItemGen().generateWeapon(weapons.get(Util.random.nextInt(weapons.size())));
+	}
+	
+	public boolean isOffspringEncounterAvailable(AbstractWorldType worldType, AbstractPlaceType placeType) {
+		List<OffspringSeed> offspringAvailable = Main.game.getOffspringNotSpawned(
+				os-> (os.getSubspecies()==Subspecies.HALF_DEMON
+					?(os.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(worldType, placeType))
+					:(os.getSubspecies().isAbleToNaturallySpawnInLocation(worldType, placeType))));
+		
+		return !offspringAvailable.isEmpty();
+	}
+	
+	public void initOffspringEncounter(AbstractWorldType worldType, AbstractPlaceType placeType) {
+		List<OffspringSeed> offspringAvailable = Main.game.getOffspringNotSpawned(
+				os-> (os.getSubspecies()==Subspecies.HALF_DEMON
+					?(os.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(worldType, placeType))
+					:(os.getSubspecies().isAbleToNaturallySpawnInLocation(worldType, placeType))));
+		
+		if(!offspringAvailable.isEmpty()) {
+			AbstractEncounter.SpawnAndStartChildHere(offspringAvailable);
+		}
+	}
+	
 }

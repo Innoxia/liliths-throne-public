@@ -436,22 +436,34 @@
 
 	<!-- RAT-MORPHS -->
 
-	<htmlContent tag="RAT_MORPH_BASIC"><![CDATA[
+	<htmlContent tag="RAT_MORPH_BASIC" author="Professor Webster"><![CDATA[
 	<p>
-		In terms of sheer numbers, rat-morphs can be counted as a very common anthropomorphic race. Despite their significant population, however, the vast majority of rat-morphs choose to live in the undercity of Submission, making them a rare sight in all other parts of the world. Their long, naked tails, twitching nose, and rounded, rodent-like ears are usually enough to identify a rat-morph.
+		Rat-morphs, on paper, are perhaps in the running for most common morph one will encounter. However, one's perceptions of them will vary wildly depending on where you are. Split physically between the urban environment of Dominion and the rural farmlands of the Foloi Fields, they are also split culturally. The rats of the city are infamous for their affinity to criminal endeavours and a general culture that rewards selfishness and anarchy. By contrast, the majority of the rats dwelling in the rural surrounds of Elis are hard-working farmers and decent folk, though that isn't to say they don't have their fair share of rogues. Despite these differences, the urban and rural rat-morphs are united by two major similarities; a clan-like familial structure and an impressive fecundity. 
+	</p>
+	<p>
+		Unlike what one might expect considering their animal-kin, rat-morphs are only slightly less tall than an average Human. However they have a large degree of sexual dimorphism with male rats being almost 10 centimetres taller than female rats on average. Their other characteristics are shared with the common rat; rounded rodent ears, a twitching nose, and most strikingly, a long scaly prehensile tail which they will often use in a variety of creative endeavours. With proper training a rat-morph can almost use their tail as a fifth limb.
 	</p>
 	]]>
 	</htmlContent>
 
-	<htmlContent tag="RAT_MORPH_ADVANCED"><![CDATA[
+	<htmlContent tag="RAT_MORPH_ADVANCED" author="Professor Webster"><![CDATA[
 	<p>
-		Rat-morphs have a rather poor reputation, and are often accused of being criminals or troublemakers. There is more than a little truth in these accusations, as Submission's rat-morph society regards thievery, skulduggery, and subterfuge as highly desirable traits. Their immense fondness for these characteristics has resulted in the most notorious of Submission's thieves being regarded as folk heroes among the rat-morph population.
+		The rural rat-morph is a dedicated farmer or labourer. Almost wholly unremarkable with one major exception; the size of their household. Rat-morph dwellings often contain not only a rat-morph's immediate family but also their cousins, uncles, grandparents and sometimes even close compatriots. Instead of constructing one themselves, rat-morphs sometimes join a variety of other burrower morphs in creating subterranean homes, and particularly opportunistic rat-morphs are not opposed to acquiring a pre-existing structure in which to start their own clan. All clan members are expected to support the household in any way they can with young adults working to bring money to the household while older members are expected to cook or clean. The oldest members of the household are given a place of honour and exempt from the expectations of work. It is encouraged for them to act as a source of wisdom in the household but is by no means forced upon them.
 	</p>
 	<p>
-		Rat-morphs, like the other common races, get heavily affected by arcane storms. Being exposed to arcane thunder will make rat-boys enter a potent rut, while rat-girls will go into an intense heat; seeking to be bred by the first suitable partner that they can find.
+		There are, of course, black sheep to this way of life. A not-insignificant number of young rat-morphs will don the black cloak of a highwayman and set about stealing flames from others instead of earning an honest living. A clan's opinion on this will vary from reluctant acceptance to hostility. Many of these dishonourable rat-morphs have no clan, having often been expelled for bringing shame or trouble to the household through their criminal endeavours.
 	</p>
 	<p>
-		Rat-morphs will give birth to up to four offspring at once. Their pregnancies work in exactly the same way as a normal human one.
+		The urban rat-morph is almost invariably a criminal by trade, and largely crass in their behaviour. The clan structure of the rural rat-morph remains but more resembles a criminal enterprise than a family unit. Gone too is its respect for elders who are often cut loose as burdens, although sometimes they're cared for by younger relatives for a variety of typically-selfish reasons. Some urban rat-morphs have legitimate careers, however they still support their clan and by extension its criminal behaviour. It's also not uncommon for some of these honest clan-members to be threatened or coerced by their clan mates into staging robberies of their places of work.
+	</p>
+	<p>
+		Most urban rat-morphs live in the dank, dirty tunnels of Submission, rarely coming up into Dominion except when perusing the shopping centre for clothes and groceries. Enforcers wisely keep an eye on rat-morphs who travel topside. A clan's home in Submission is often re-purposed maintenance hallways or elevated shanty towns hanging over the various waterways. The construction quality varies, with collapses not uncommon with some of the less dependable clans. Slimes and alligator-morphs will often prowl around these communities to prey on the victims who fall from above. Expulsion is a far more common fact of life in an urban rat-morph's life. However it takes on a more cruel edge as one might expect. Due to criminality being so common, most rat-morphs have a sizeable record and a bounty to match. Thus an expelled clan member will often be given in to the Enforcers for their bounty and, being unable to pay their fines, will be enslaved. There are rat-morphs who find this culture distasteful, however their attempts to live outside it are often thwarted by the prejudice bred by criminal brothers and sisters and many unfortunately fall back into the arms of their clans... or the Enforcers.
+	</p>
+	<p>
+		Rat-morphs are mostly protected from arcane storms due to living in the tunnels of Submission, or in the fields and forests where the storm's influence amounts to little more than a slight twinge of arousal. Should they be subjected to its full force, however, their behaviour differs little from other species, though their diminutive size often means they are more likely to beg others to mate with them rather than to force themselves on a victim. Ambush behaviour by groups of rat-morphs caught out in an arcane storm has been reported by some.
+	</p>
+	<p>
+		A rat-morph's offspring will be a mix of rat-morphs and the partner's race. Rat-morphs are a fecund species and as one might expect, are powerless against an opportunity to couple when one presents itself. The attitudes toward reproduction unsurprisingly differ between the rural and urban divide. Rural rat-morphs have what could generously be seen as spouses. They have 'life partners', who is defined as the individual a rat-morph is romantically closer to than any other. Even with 'life partners', most rat-morphs will still have the occasional dalliance outside of this pairing and this is accepted as normal, though repeated dalliances in too short a time frame or repeated dalliances with a single individual will start drawing social repercussions and jealousy. The urban rat-morph instead tends to forgo the life partner entirely and has a love life made entirely of opportunistic flings. There are exceptions of course, usually due to jealous partners, but an urban rat-morph will usually see this as just one more law to break.
 	</p>
 	]]>
 	</htmlContent>

@@ -3477,8 +3477,7 @@ public abstract class GameCharacter implements XMLSaving {
 							+ (!relationships.isEmpty()
 									?UtilText.parse(this, "[npc.She] is your <span style='color:"+this.getFemininity().getColour().toWebHexString()+"'>"+relationships+"</span>. ")
 									:"")
-							+ AffectionLevel.getDescription(this, Main.game.getPlayer(),
-									AffectionLevel.getAffectionLevelFromValue(this.getAffection(Main.game.getPlayer())), true));
+							+ AffectionLevel.getDescription(this, Main.game.getPlayer(), true));
 				
 				for(Entry<String, Float> entry : this.getAffectionMap().entrySet()) {
 					try {
@@ -3489,7 +3488,7 @@ public abstract class GameCharacter implements XMLSaving {
 											|| target.isRelatedTo(this)
 											|| (target.isSlave() && target.getOwner().isPlayer())
 											|| Main.game.getPlayer().getFriendlyOccupants().contains(target.getId()))) {
-								infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
+								infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, true));
 							}
 						}
 					} catch (Exception e) {
@@ -4227,10 +4226,14 @@ public abstract class GameCharacter implements XMLSaving {
 		clearDesiredJobs();
 		this.setHistory(Util.randomItemFrom(occupations));
 	}
-
+	
 	/**
-	 * Only player character gets job attribute bonuses.
+	 * Does the exact same thing as setHistory()
 	 */
+	public void setOccupation(Occupation occupation) {
+		setHistory(occupation);
+	}
+	
 	public void setHistory(Occupation history) {
 		// Revert attributes from old History:
 		if (this.occupation != null) {
@@ -4688,6 +4691,10 @@ public abstract class GameCharacter implements XMLSaving {
 		return AffectionLevelBasic.getAffectionLevelFromValue(getAffection(character));
 	}
 	
+	public String getAffectionAttitudeDescription(GameCharacter target, boolean withColour) {
+		return AffectionLevel.getAttitudeDescription(this, target, withColour);
+	}
+	
 	/**
 	 * Sets this character's affection towards the supplied GameCharacter.
 	 * 
@@ -4701,7 +4708,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return UtilText.parse(this, character,
 				"<p style='text-align:center'>"
 					+ "[npc.Name] now [npc.has] <b>"+(affection>0?"+":"")+Units.round(affection, 1)+"</b> [style.boldAffection(affection)] towards [npc2.name].<br/>"
-					+ AffectionLevel.getDescription(this, character, getAffectionLevel(character), true)
+					+ AffectionLevel.getDescription(this, character, true)
 				+ "</p>");
 	}
 	
@@ -4728,7 +4735,7 @@ public abstract class GameCharacter implements XMLSaving {
 				"<p style='text-align:center'>"
 					+ (affectionChangeDescription!=null && !affectionChangeDescription.isEmpty()?"<i>"+affectionChangeDescription+"</i><br/>":"")
 					+ "[npc.Name] "+(affectionIncrement>0?"[style.boldGood(gains)]":"[style.boldBad(loses)]")+" <b>"+Math.abs(affectionIncrement)+"</b> [style.boldAffection(affection)] towards [npc2.name]!<br/>"
-					+ AffectionLevel.getDescription(this, character, getAffectionLevel(character), true)
+					+ AffectionLevel.getDescription(this, character, true)
 				+ "</p>");
 	}
 	
@@ -6826,7 +6833,7 @@ public abstract class GameCharacter implements XMLSaving {
 			incrementStatusEffectDuration(se, -secondsPassed);
 			
 			if(appliedSe.getSecondsRemaining()<0
-					&& (!se.isConditionsMet(this) || se.getApplicationLength()>0)) { // If getApplicationLength() is not -1, then this status effect should be removed and re-checked, even if isConditionsMet() is returning true.
+					&& ((!se.isConditionsMet(this)) || se.getApplicationLength()>0)) { // If getApplicationLength() is not -1, then this status effect should be removed and re-checked, even if isConditionsMet() is returning true.
 				tempListStatusEffects.add(se);
 			}
 		}
@@ -6838,12 +6845,12 @@ public abstract class GameCharacter implements XMLSaving {
 		// Combat status effects are automatically removed at the end of combat (in Combat.java), so there's no need to remove them here.
 		
 		// Add all status effects that are applicable:
-		for (AbstractStatusEffect se : StatusEffect.getAllStatusEffects()) {
-			if((se.getCategory()==StatusEffectCategory.DEFAULT && (!se.isFromExternalFile() || se.isMod())) // Modded SEs probably won't have taken into account category, so let them always be checked.
-					|| (se.getCategory()==StatusEffectCategory.INVENTORY && requiresInventoryStatusEffectCheck)
-					|| (se.getCategory()==StatusEffectCategory.ATTRIBUTE && requiresAttributeStatusEffectCheck)) {
-				if(se.isRequiresApplicationCheck() && se.isConditionsMet(this)) {
-					if(!this.hasStatusEffect(se) || se.isConstantRefresh()) {
+		for (AbstractStatusEffect se : StatusEffect.getAllStatusEffectsRequiringApplicationCheck()) {
+			if(!this.hasStatusEffect(se) || se.isConstantRefresh()) {
+				if((se.getCategory()==StatusEffectCategory.DEFAULT && (!se.isFromExternalFile() || se.isMod())) // Modded SEs probably won't have taken into account category, so let them always be checked.
+						|| (se.getCategory()==StatusEffectCategory.INVENTORY && requiresInventoryStatusEffectCheck)
+						|| (se.getCategory()==StatusEffectCategory.ATTRIBUTE && requiresAttributeStatusEffectCheck)) {
+					if(se.isConditionsMet(this)) {
 						addStatusEffect(se, se.getApplicationLength()); // Default application length is -1
 					}
 				}
@@ -9537,24 +9544,26 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		// Remove foreplay types which cannot be accessed due to limited positions or slots:
-		Set<SexType> foreplayKeys = new HashSet<>(foreplaySexTypes.keySet());
-		for(SexType st : foreplayKeys) {
-			if(!Main.sex.isSexTypePossibleViaAvailablePositionsAndSlots(this, target, st)) {
-				if(debug) {
-					System.out.println("Removed foreplay due to unavailable positioning: "+st);
+		if(Main.game.isInSex()) {
+			// Remove foreplay types which cannot be accessed due to limited positions or slots:
+			Set<SexType> foreplayKeys = new HashSet<>(foreplaySexTypes.keySet());
+			for(SexType st : foreplayKeys) {
+				if(!Main.sex.isSexTypePossibleViaAvailablePositionsAndSlots(this, target, st)) {
+					if(debug) {
+						System.out.println("Removed foreplay due to unavailable positioning: "+st);
+					}
+					foreplaySexTypes.remove(st);
 				}
-				foreplaySexTypes.remove(st);
 			}
-		}
-		// Remove main sex types which cannot be accessed due to limited positions or slots:
-		Set<SexType> mainKeys = new HashSet<>(mainSexTypes.keySet());
-		for(SexType st : mainKeys) {
-			if(!Main.sex.isSexTypePossibleViaAvailablePositionsAndSlots(this, target, st)) {
-				if(debug) {
-					System.out.println("Removed sex due to unavailable positioning: "+st);
+			// Remove main sex types which cannot be accessed due to limited positions or slots:
+			Set<SexType> mainKeys = new HashSet<>(mainSexTypes.keySet());
+			for(SexType st : mainKeys) {
+				if(!Main.sex.isSexTypePossibleViaAvailablePositionsAndSlots(this, target, st)) {
+					if(debug) {
+						System.out.println("Removed sex due to unavailable positioning: "+st);
+					}
+					mainSexTypes.remove(st);
 				}
-				mainSexTypes.remove(st);
 			}
 		}
 		
@@ -20800,7 +20809,11 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void setLocation(Cell cell) {
-		setLocation(cell.getType(), cell.getLocation(), false);
+		setLocation(cell, false);
+	}
+	
+	public void setLocation(Cell cell, boolean setAsHomeLocation) {
+		setLocation(cell.getType(), cell.getLocation(), setAsHomeLocation);
 	}
 	
 	public void setLocation(AbstractWorldType worldType, AbstractPlaceType placeType) {
@@ -24621,6 +24634,25 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public boolean isAbleToSelfTransform() {
 		return getUnableToTransformDescription().isEmpty();
+	}
+	
+	public List<AbstractRace> getSelfTransformationRaces() {
+		List<AbstractRace> races = new ArrayList<>();
+		
+		if(this.getSubspeciesOverrideRace()==Race.DEMON) {
+			races.add(Race.NONE);
+			races.add(Race.DEMON);
+			if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4)) {
+				races.add(Race.HUMAN);
+			}
+		}
+		if(this.isYouko()) {
+			races.add(Race.NONE);
+			races.add(Race.HUMAN);
+			races.add(Race.FOX_MORPH);
+		}
+		
+		return races;
 	}
 	
 	/**

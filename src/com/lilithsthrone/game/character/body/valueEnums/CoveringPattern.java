@@ -22,13 +22,13 @@ public enum CoveringPattern {
 	ORIFICE_NIPPLE(true, "nipple") {
 		@Override
 		public boolean isNaturalSecondColour(GameCharacter owner) {
-			return owner.getNippleCapacity()!=Capacity.ZERO_IMPENETRABLE;
+			return owner!=null && owner.getNippleCapacity()!=Capacity.ZERO_IMPENETRABLE;
 		}
 	},
 	ORIFICE_NIPPLE_CROTCH(true, "teat") {
 		@Override
 		public boolean isNaturalSecondColour(GameCharacter owner) {
-			return owner.getNippleCrotchCapacity()!=Capacity.ZERO_IMPENETRABLE;
+			return  owner!=null && owner.getNippleCrotchCapacity()!=Capacity.ZERO_IMPENETRABLE;
 		}
 	},
 

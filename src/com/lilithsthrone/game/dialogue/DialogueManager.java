@@ -9,10 +9,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.dialogue.npcDialogue.QuickTransformations;
+import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
 import com.lilithsthrone.game.dialogue.places.submission.LyssiethPalaceDialogue;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CosmeticsDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -88,6 +91,11 @@ public class DialogueManager {
 		
 		addHardCodedDialogueId("BEAUTICIAN_START", CosmeticsDialogue.BEAUTICIAN_START);
 
+		addHardCodedDialogueId("BODY_CHANGING_CORE", BodyChanging.BODY_CHANGING_CORE);
+		addHardCodedDialogueId("QUICK_TRANSFORMATIONS_START", QuickTransformations.QUICK_TRANSFORMATIONS_FEMININITY);
+
+		addHardCodedDialogueId("OFFSPRING_ENCOUNTER", GenericOffspringDialogue.OFFSPRING_ENCOUNTER);
+		
 		addHardCodedDialogueId("HARPY_NEST_BIMBO_TALK", HarpyNestBimbo.HARPY_NEST_BIMBO_TALK);
 		addHardCodedDialogueId("HARPY_NEST_BIMBO_QUEEN", HarpyNestBimbo.HARPY_NEST_BIMBO_QUEEN);
 		addHardCodedDialogueId("HARPY_NEST_BIMBO_UGLY", HarpyNestBimbo.HARPY_NEST_BIMBO_UGLY);

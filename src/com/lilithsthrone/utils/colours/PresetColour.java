@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
@@ -306,14 +307,17 @@ public class PresetColour {
 	public static Colour TRANSFORMATION_SHRINK = new Colour(false, BaseColour.RED, "red", Util.newArrayListOfValues("tfShrink", "shrink", "tfShrunk", "shrunk", "tfShrinking", "shrinking")) {};
 	public static Colour TRANSFORMATION_GROW = new Colour(false, BaseColour.GREEN, "green", Util.newArrayListOfValues("tfGrow", "grow", "tfGrown", "grown", "tfGrowth", "growth")) {};
 
-	public static Colour GENERIC_SIZE_ONE = new Colour(false, Util.newColour(0xAFE9B3), Util.newColour(0xc44670), "green", Util.newArrayListOfValues("size1")) {};
-	public static Colour GENERIC_SIZE_TWO = new Colour(false, Util.newColour(0xA0E4A3), Util.newColour(0xbc325a), "green", Util.newArrayListOfValues("size2")) {};
-	public static Colour GENERIC_SIZE_THREE = new Colour(false, Util.newColour(0x8FE096), Util.newColour(0xb21e44), "green", Util.newArrayListOfValues("size3")) {};
-	public static Colour GENERIC_SIZE_FOUR = new Colour(false, Util.newColour(0x77DA7F), Util.newColour(0xa40123), "green", Util.newArrayListOfValues("size4")) {};
-	public static Colour GENERIC_SIZE_FIVE = new Colour(false, Util.newColour(0x67D570), Util.newColour(0x8e011e), "green", Util.newArrayListOfValues("size5")) {};
-	public static Colour GENERIC_SIZE_SIX = new Colour(false, Util.newColour(0x57D161), Util.newColour(0x8e011e), "green", Util.newArrayListOfValues("size6")) {};
-	public static Colour GENERIC_SIZE_SEVEN = new Colour(false, Util.newColour(0x47CD52), Util.newColour(0x8e011e), "green", Util.newArrayListOfValues("size7")) {};
-	public static Colour GENERIC_SIZE_EIGHT = new Colour(false, Util.newColour(0x37C843), Util.newColour(0x8e011e), "green", Util.newArrayListOfValues("size8")) {};
+	public static Colour GENERIC_SIZE_ZERO = new Colour(false, Util.newColour(0xbdf1c1), Util.newColour(0x6da672), "green", Util.newArrayListOfValues("size0")) {};
+	public static Colour GENERIC_SIZE_ONE = new Colour(false, Util.newColour(0xAFE9B3), Util.newColour(0x6da672), "green", Util.newArrayListOfValues("size1")) {};
+	public static Colour GENERIC_SIZE_TWO = new Colour(false, Util.newColour(0xA0E4A3), Util.newColour(0x6dad72), "green", Util.newArrayListOfValues("size2")) {};
+	public static Colour GENERIC_SIZE_THREE = new Colour(false, Util.newColour(0x8FE096), Util.newColour(0x6db572), "green", Util.newArrayListOfValues("size3")) {};
+	public static Colour GENERIC_SIZE_FOUR = new Colour(false, Util.newColour(0x77DA7F), Util.newColour(0x6dbd72), "green", Util.newArrayListOfValues("size4")) {};
+	public static Colour GENERIC_SIZE_FIVE = new Colour(false, Util.newColour(0x67D570), Util.newColour(0x6dc472), "green", Util.newArrayListOfValues("size5")) {};
+	public static Colour GENERIC_SIZE_SIX = new Colour(false, Util.newColour(0x57D161), Util.newColour(0x6dcf72), "green", Util.newArrayListOfValues("size6")) {};
+	public static Colour GENERIC_SIZE_SEVEN = new Colour(false, Util.newColour(0x47CD52), Util.newColour(0x6dd672), "green", Util.newArrayListOfValues("size7")) {};
+	public static Colour GENERIC_SIZE_EIGHT = new Colour(false, Util.newColour(0x37C843), Util.newColour(0x6dde72), "green", Util.newArrayListOfValues("size8")) {};
+	public static Colour GENERIC_SIZE_NINE = new Colour(false, Util.newColour(0x19ba26), Util.newColour(0x6dde72), "green", Util.newArrayListOfValues("size9")) {};
+	public static Colour GENERIC_SIZE_TEN = new Colour(false, Util.newColour(0x0ba518), Util.newColour(0x6dde72), "green", Util.newArrayListOfValues("size10")) {};
 	
 	public static Colour GENERIC_WETNESS_ONE = new Colour(false, Util.newColour(0xddd2bf), Util.newColour(0xddd2bf), "brown", Util.newArrayListOfValues("wetness1")) {};
 	public static Colour GENERIC_WETNESS_TWO = new Colour(false, Util.newColour(0xe3f8ff), Util.newColour(0xcbf5ff), "blue", Util.newArrayListOfValues("wetness2")) {};
@@ -697,16 +701,24 @@ public class PresetColour {
 	
 	// Skin/fur/body part groups:
 	
-	public static List<Colour> humanSkinColours = Util.newArrayListOfValues(
-			PresetColour.SKIN_PALE,
-			PresetColour.SKIN_LIGHT,
-			PresetColour.SKIN_PORCELAIN,
-			PresetColour.SKIN_ROSY,
-			PresetColour.SKIN_OLIVE,
-			PresetColour.SKIN_TANNED,
-			PresetColour.SKIN_DARK,
-			PresetColour.SKIN_CHOCOLATE,
-			PresetColour.SKIN_EBONY);
+	private static Map<Colour, Integer> humanSkinColours = Util.newHashMapOfValues(
+			new Value<>(PresetColour.SKIN_PALE, 5),
+			new Value<>(PresetColour.SKIN_LIGHT, 5),
+			new Value<>(PresetColour.SKIN_PORCELAIN, 5),
+			new Value<>(PresetColour.SKIN_ROSY, 5),
+			new Value<>(PresetColour.SKIN_OLIVE, 5),
+			new Value<>(PresetColour.SKIN_TANNED, 5),
+			new Value<>(PresetColour.SKIN_DARK, 5),
+			new Value<>(PresetColour.SKIN_CHOCOLATE, 5),
+			new Value<>(PresetColour.SKIN_EBONY, 5));
+
+	public static Map<Colour, Integer> getHumanSkinColoursMap() {
+		return humanSkinColours;
+	}
+	
+	public static List<Colour> getHumanSkinColours() {
+		return new ArrayList<>(humanSkinColours.keySet());
+	}
 
 	public static List<Colour> ratSkinColours = Util.newArrayListOfValues(
 			PresetColour.SKIN_PINK_PALE);
@@ -728,6 +740,7 @@ public class PresetColour {
 			PresetColour.SKIN_RED_DARK,
 			PresetColour.SKIN_BROWN,
 			PresetColour.SKIN_AMBER,
+			PresetColour.SKIN_ORANGE,
 			PresetColour.SKIN_YELLOW,
 			PresetColour.SKIN_GREEN_LIGHT,
 			PresetColour.SKIN_GREEN,
@@ -762,6 +775,7 @@ public class PresetColour {
 			PresetColour.SKIN_RED_DARK,
 			PresetColour.SKIN_BROWN,
 			PresetColour.SKIN_AMBER,
+			PresetColour.SKIN_ORANGE,
 			PresetColour.SKIN_YELLOW,
 			PresetColour.SKIN_GREEN_LIGHT,
 			PresetColour.SKIN_GREEN,
