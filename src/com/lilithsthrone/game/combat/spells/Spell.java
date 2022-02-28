@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.EffectBenefit;
+import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.effects.TreeEntry;
@@ -57,31 +58,52 @@ public enum Spell {
 			"Fireball",
 			"fireball",
 			"Summons a ball of arcane flames that can be launched at a target.",
-			30,
+			10,
 			DamageVariance.LOW,
-			75,
+			40,
 			null,
 			Util.newArrayListOfValues(
 					SpellUpgrade.FIREBALL_1,
 					SpellUpgrade.FIREBALL_2,
 					SpellUpgrade.FIREBALL_3),
-			null, null) {
+			null, 
+                        Util.newArrayListOfValues("[style.colourGood(Instant Thawing effect)]")) {
 		
 		@Override
+		public int getCooldown() {
+			return 1;
+		}
+		
+		@Override
+                public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return 5;
+                }
+
+		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
-			if(caster!=null && caster.hasSpellUpgrade(SpellUpgrade.FIREBALL_1)) {
-				return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.LINGERING_FLAMES, 2));
-			} else {
-				return new HashMap<>();
+                        if(caster!=null) {
+                                if(caster!=null && caster.hasSpellUpgrade(SpellUpgrade.FIREBALL_1)) {
+				return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.LINGERING_FLAMES, 3));
+                                }
+                        
+                        else {
+                                if (target.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES) || Main.combat.getStatusEffectsToApply().get(target).containsKey(StatusEffect.CLOAK_OF_FLAMES)) {
+                                return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.LINGERING_FLAMES, 0));
+                                }
+                                        
+                        return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.LINGERING_FLAMES, 1));
 			}
+		}
+                
+		return new HashMap<>();
 		}
 		
 		@Override
 		public int getDamage(GameCharacter caster) {
-			if(caster!=null && caster.hasSpellUpgrade(SpellUpgrade.FIREBALL_2) && !caster.hasSpellUpgrade(SpellUpgrade.FIREBALL_3)) {
-				return 15;
-			}
-			return 30;
+//			if(caster!=null && caster.hasSpellUpgrade(SpellUpgrade.FIREBALL_2) && !caster.hasSpellUpgrade(SpellUpgrade.FIREBALL_3)) {
+//				return (int) Math.round((40 * (caster.getAttributeValue(Attribute.MAJOR_ARCANE)/100)) + (caster.getTrueLevel()/5));
+//			}
+			return (int) Math.max(1, (10 + (40 * (caster.getAttributeValue(Attribute.MAJOR_ARCANE)/100)) + (caster.getTrueLevel()/5)));
 		}
 		
 		@Override
@@ -112,14 +134,39 @@ public enum Spell {
 											"Summoning a swirling vortex of arcane fire around [npc1.her] [npc1.arm], [npc1.name] focuses its raw power into a ball of roiling flames before launching it directly at [npc2.name]!")
 								);
 			if(caster.hasSpellUpgrade(SpellUpgrade.FIREBALL_2)) {
-				descriptionSB.append(" The fireball instantly splits in two after being cast!");
+                                if(caster.hasSpellUpgrade(SpellUpgrade.FIREBALL_3)) {
+                                        descriptionSB.append(" The fireball instantly splits in mid-air before raining down on all [npc.her] enemies in the vicinity!");
+                                }
+
+                                else {
+                                        descriptionSB.append(" The fireball instantly splits in two after being cast!");
+                                }
+
 			}
 			
 			descriptionSB.append(getDamageDescription(caster, target, damage, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
-				descriptionSB.append(applyDamage(caster, target, damage));
+				
+				applyStatusEffects(caster, target, isCritical);
+                                
+				if (target.hasStatusEffect(StatusEffect.FROZEN) || Main.combat.getStatusEffectsToApply().get(target).containsKey(StatusEffect.FROZEN)) {
+				target.removeStatusEffect(StatusEffect.FROZEN);
+                                
+				descriptionSB.append("<br/>"
+                                                    +"The resulting [style.boldFire(Lingering Flames)] cause the [style.boldIce(Ice)] to [style.boldBad(Melt away)]!");
+                                }
+                                
+                                if (target.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES) || Main.combat.getStatusEffectsToApply().get(target).containsKey(StatusEffect.CLOAK_OF_FLAMES)) {
+                                
+				descriptionSB.append("<br/>"
+                                                    +"The target's [style.boldFire(Cloak of Flames)] protects them from the [style.boldFire(Lingering Flames)]!");
+                                }
+                                
+                                if(damage>0) {
+					descriptionSB.append(applyDamage(caster, target, damage));
+                                }
 
 				if(caster.hasSpellUpgrade(SpellUpgrade.FIREBALL_1)) {
 					applyStatusEffects(caster, target, isCritical);
@@ -128,27 +175,57 @@ public enum Spell {
 				
 				// Second fireball:
 				if(caster.hasSpellUpgrade(SpellUpgrade.FIREBALL_2)) {
-					damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, isCritical);
-					GameCharacter secondaryTarget = Main.combat.getRandomAlliedPartyMember(target);
-					
-					if(secondaryTarget.equals(target)) {
-						descriptionSB.append("<br/>"
-								+"The second Fireball swerves around to hit "+UtilText.parse(target,"[npc.name]")+" for a second time!");
+
+					if(caster.hasSpellUpgrade(SpellUpgrade.FIREBALL_3)) {
+                                                for(GameCharacter combatant : Main.combat.getAllCombatants(true)) {
+                                                        if(Main.combat.isOpponent(caster, combatant)) {
+                                                                descriptionSB.append(getDamageDescription(caster, combatant, damage, isHit, isCritical));
+                                                                descriptionSB.append(applyDamage(caster, combatant, damage));
+                                                                applyStatusEffects(caster, combatant, isCritical);
+                                                                descriptionSB.append(getStatusEffectApplication(caster, combatant, isHit, isCritical));
+                                                        }
+                                                        if (combatant.hasStatusEffect(StatusEffect.FROZEN) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.FROZEN)) {
+                                                        combatant.removeStatusEffect(StatusEffect.FROZEN);
+                                                        
+                                                        descriptionSB.append("<br/>"
+                                                                            +"The resulting [style.boldFire(Lingering Flames)] cause the [style.boldIce(Ice)] to melt away!");
+                                                        }
+
+                                                }
+
+                                        } else {
+
+                                                damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, isCritical);
+                                                GameCharacter secondaryTarget = Main.combat.getRandomAlliedPartyMember(target);
+                                                
+                                                if(secondaryTarget.equals(target)) {
+                                                        descriptionSB.append("<br/>"
+                                                                        +"<br/>"
+                                                                        +"The second Fireball swerves around but fails to find another target...");
 						
-						descriptionSB.append(getDamageDescription(caster, target, damage, isHit, isCritical));
-						descriptionSB.append(applyDamage(caster, target, damage));
 						
-					} else {
-						descriptionSB.append("<br/>"
-								+"The second Fireball swerves around to hit "+(secondaryTarget.isPlayer()?"you":UtilText.parse(secondaryTarget,"[npc.name]"))+"!");
+                                                } else {
+                                                        descriptionSB.append("<br/>"
+                                                                        +"<br/>"
+                                                                        +"The second Fireball swerves around to hit "+(secondaryTarget.isPlayer()?"you":UtilText.parse(secondaryTarget,"[npc.name]"))+"!");
 						
-						descriptionSB.append(getDamageDescription(caster, secondaryTarget, damage, isHit, isCritical));
-						descriptionSB.append(applyDamage(caster, secondaryTarget, damage));
-						applyStatusEffects(caster, secondaryTarget, isCritical);
-						descriptionSB.append(getStatusEffectApplication(caster, secondaryTarget, isHit, isCritical));
-					}
+                                                        descriptionSB.append(getDamageDescription(caster, secondaryTarget, damage, isHit, isCritical));
+                                                        descriptionSB.append(applyDamage(caster, secondaryTarget, damage));
+                                                        applyStatusEffects(caster, secondaryTarget, isCritical);
+                                                        descriptionSB.append(getStatusEffectApplication(caster, secondaryTarget, isHit, isCritical));
+                                                }
+
+                                                if (secondaryTarget.hasStatusEffect(StatusEffect.FROZEN) || Main.combat.getStatusEffectsToApply().get(secondaryTarget).containsKey(StatusEffect.FROZEN)) {
+                                                secondaryTarget.removeStatusEffect(StatusEffect.FROZEN);
+                                                
+                                                descriptionSB.append("<br/>"
+                                                                    +"The resulting [style.boldFire(Lingering Flames)] cause the [style.boldIce(Ice)] to melt away!");
+                                                }
+
+                                        }
 					
 				}
+                                
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
@@ -177,8 +254,23 @@ public enum Spell {
 			Util.newArrayListOfValues("[style.colourExcellent(Dazzles)] the target for [style.colourTerrible(-1)] [style.colourActionPoints(action points)]!")) {
 		
 		@Override
+		public int getAPCost() {
+			return 1;
+                }
+
+                @Override
+		public int getCooldown() {
+			return 3;
+		}
+		
+		@Override
+                public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return 4;
+                }
+
+		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
-			if(caster!=null && caster.hasSpellUpgrade(SpellUpgrade.FLASH_1)) {
+			if(caster!=null && caster.hasSpellUpgrade(SpellUpgrade.FLASH_2)) {
 				return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.FLASH_1, 1));
 			} else {
 				return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.FLASH, 1));
@@ -187,7 +279,7 @@ public enum Spell {
 		
 		@Override
 		public int getBaseCost(GameCharacter caster) {
-			if(caster!=null && caster.hasSpellUpgrade(SpellUpgrade.FLASH_3)) {
+			if(caster!=null && caster.hasSpellUpgrade(SpellUpgrade.FLASH_1)) {
 				return 25;
 			} else {
 				return 50;
@@ -263,6 +355,16 @@ public enum Spell {
 			
 			return descriptionSB.toString();
 		}
+                
+                @Override
+                public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return Util.newArrayListOfValues("Cannot crit.");
+                }
+
+		@Override
+		public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+			return false;
+		}
 	},
 	
 	CLOAK_OF_FLAMES(false,
@@ -276,30 +378,163 @@ public enum Spell {
 			0,
 			DamageVariance.LOW,
 			50,
-			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 3)),
+			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 4)),
 			Util.newArrayListOfValues(
 					SpellUpgrade.CLOAK_OF_FLAMES_1,
 					SpellUpgrade.CLOAK_OF_FLAMES_2,
 					SpellUpgrade.CLOAK_OF_FLAMES_3),
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.RESISTANCE_FIRE, 5),
-					new Value<>(Attribute.RESISTANCE_ICE, 10)),
-			Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
+					new Value<>(Attribute.RESISTANCE_FIRE, 15),
+					new Value<>(Attribute.RESISTANCE_ICE, 20)),
+			Util.newArrayListOfValues(
+                                        "Lasts for [style.colourGood(3 turns)]",
+                                        "[style.colourGood(Negates Lingering Flames)]",
+                                        "[style.colourGood(Instant Thawing effect)]")) {
+
+                @Override
+		public int getCooldown() {
+			return 3;
+		}
+		
+		@Override
+                public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return 4;
+                }
 
 		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
-			if(caster!=null && caster.hasSpellUpgrade(SpellUpgrade.CLOAK_OF_FLAMES_3)) {
-				return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_3, 3));
-				
-			} else if(caster!=null && caster.hasSpellUpgrade(SpellUpgrade.CLOAK_OF_FLAMES_2)) {
-				return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_2, 3));
-				
-			} else if(caster!=null && caster.hasSpellUpgrade(SpellUpgrade.CLOAK_OF_FLAMES_1)) {
-				return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_1, 3));
-				
-			} else {
+			if(caster!=null) {
+                                if(caster.hasSpellUpgrade(SpellUpgrade.CLOAK_OF_FLAMES_3)) {
+                                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD)) {
+                                        return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_3, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_2, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_1, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 0));
+                                        }
+                                        
+                                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD_DOWNPOUR)) {
+                                        return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_3, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_2, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_1, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 0));
+                                        }
+                                        
+                                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST)) {
+                                        return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_3, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_2, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_1, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 0));
+                                        }
+                                        
+                                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD_CLOUDBURST) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD_CLOUDBURST)) {
+                                        return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_3, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_2, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_1, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 0));
+                                        }
+                                        
+                                return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_3, 3),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_2, 3),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_1, 3),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 3));
+                                }
+                        
+                                else if(caster.hasSpellUpgrade(SpellUpgrade.CLOAK_OF_FLAMES_2)) {
+                                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD)) {
+                                        return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_2, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_1, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 0));
+                                        }
+                                        
+                                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD_DOWNPOUR)) {
+                                        return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_2, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_1, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 0));
+                                        }
+                                        
+                                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST)) {
+                                        return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_2, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_1, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 0));
+                                        }
+                                        
+                                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD_CLOUDBURST) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD_CLOUDBURST)) {
+                                        return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_2, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_1, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 0));
+                                        }
+                                        
+                                return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_2, 3),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_1, 3),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 3));
+                                }
+                        
+                                else if(caster.hasSpellUpgrade(SpellUpgrade.CLOAK_OF_FLAMES_1)) {
+                                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD)) {
+                                        return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_1, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 0));
+                                        }
+                                        
+                                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD_DOWNPOUR)) {
+                                        return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_1, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 0));
+                                        }
+                                        
+                                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST)) {
+                                        return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_1, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 0));
+                                        }
+                                        
+                                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD_CLOUDBURST) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD_CLOUDBURST)) {
+                                        return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_1, 0),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 0));
+                                        }
+                                        
+                                return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES_1, 3),
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 3));
+                                }
+                        
+                                else {
+                                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD)) {
+                                        return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 0));
+                                        }
+                                        
+                                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD_DOWNPOUR)) {
+                                        return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 0));
+                                        }
+                                        
+                                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST)) {
+                                        return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 0));
+                                        }
+                                        
+                                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD_CLOUDBURST) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD_CLOUDBURST)) {
+                                        return Util.newHashMapOfValues(
+                                                        new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 0));
+                                        }
+                                        
 				return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.CLOAK_OF_FLAMES, 3));
+				}
 			}
+                        
+			return new HashMap<>();
 		}
 		
 		@Override
@@ -329,12 +564,44 @@ public enum Spell {
 											"With a swipe of [npc1.her] [npc1.arm], [npc1.name] summons a protective cloak of arcane fire around [npc2.name]!"));
 			
 			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
-			
+                        
+                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD)) {
+                        
+                        descriptionSB.append("<br/>"
+                                            +"Due to the showery [style.boldIce(Rain)], the [style.boldFire(Cloak of Flames)] instantly gets [style.boldTerrible(Put out)]!");
+                        }
+                        
+                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD_DOWNPOUR)) {
+                        
+                        descriptionSB.append("<br/>"
+                                            +"Due to the ongoing [style.boldIce(Rain)], the [style.boldFire(Cloak of Flames)] instantly gets [style.boldTerrible(Put out)]!");
+                        }
+                        
+                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST)) {
+                        
+                        descriptionSB.append("<br/>"
+                                            +"Due to the storming [style.boldIce(Rain)], the [style.boldFire(Cloak of Flames)] instantly gets [style.boldTerrible(Put out)]!");
+                        }
+                        
+                        if (caster.hasStatusEffect(StatusEffect.RAIN_CLOUD_CLOUDBURST) || Main.combat.getStatusEffectsToApply().get(caster).containsKey(StatusEffect.RAIN_CLOUD_CLOUDBURST)) {
+                        
+                        descriptionSB.append("<br/>"
+                                            +"Due to the torrential [style.boldIce(Rain)], the [style.boldFire(Cloak of Flames)] instantly gets [style.boldTerrible(Put out)]!");
+                        }
+                        
 			if(isHit) {
 				target.removeStatusEffect(StatusEffect.CLOAK_OF_FLAMES);
 				target.removeStatusEffect(StatusEffect.CLOAK_OF_FLAMES_1);
 				target.removeStatusEffect(StatusEffect.CLOAK_OF_FLAMES_2);
 				target.removeStatusEffect(StatusEffect.CLOAK_OF_FLAMES_3);
+
+                                target.removeStatusEffect(StatusEffect.FREEZING_FOG);
+
+                                target.removeStatusEffect(StatusEffect.FROZEN);
+
+                                target.removeStatusEffect(StatusEffect.RAIN_CLOUD_DEEP_CHILL);
+
+                                target.removeStatusEffect(StatusEffect.LINGERING_FLAMES);
 				
 				applyStatusEffects(caster, target, isCritical);
 				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
@@ -468,28 +735,55 @@ public enum Spell {
 			"Ice Shard",
 			"ice_shard",
 			"Summons a shard of ice that can be launched at a target.",
-			25,
+			15,
 			DamageVariance.LOW,
-			35,
+			20,
 			null, Util.newArrayListOfValues(
 							SpellUpgrade.ICE_SHARD_1,
 							SpellUpgrade.ICE_SHARD_2,
-							SpellUpgrade.ICE_SHARD_3), null, null) {
+							SpellUpgrade.ICE_SHARD_3),
+                        null,
+                        null) {
+
+		@Override
+                public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return 4;
+                }
 
 		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
 			if(caster!=null) {
-				if(caster.hasSpellUpgrade(SpellUpgrade.ICE_SHARD_3) && isCritical) {
-					return Util.newHashMapOfValues(
+				if(caster.hasSpellUpgrade(SpellUpgrade.ICE_SHARD_3) && isCritical ) {
+                                        if (target.hasStatusEffect(StatusEffect.LINGERING_FLAMES) || Main.combat.getStatusEffectsToApply().get(target).containsKey(StatusEffect.LINGERING_FLAMES)) {
+                                        return Util.newHashMapOfValues(
+							new Value<AbstractStatusEffect, Integer>(StatusEffect.FROZEN, 0));
+                                        }
+                                        
+                                        if (target.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES) || Main.combat.getStatusEffectsToApply().get(target).containsKey(StatusEffect.CLOAK_OF_FLAMES)) {
+                                        return Util.newHashMapOfValues(
+							new Value<AbstractStatusEffect, Integer>(StatusEffect.FROZEN, 0));
+                                        }
+                                        
+                                return Util.newHashMapOfValues(
 							new Value<AbstractStatusEffect, Integer>(StatusEffect.FREEZING_FOG, 3),
-							new Value<AbstractStatusEffect, Integer>(StatusEffect.FROZEN, 1));
-					
-				} else if(caster.hasSpellUpgrade(SpellUpgrade.ICE_SHARD_1)){
-					return Util.newHashMapOfValues(
-							new Value<AbstractStatusEffect, Integer>(StatusEffect.FREEZING_FOG, 3));
+							new Value<AbstractStatusEffect, Integer>(StatusEffect.FROZEN, 1));	
+				}
+                                
+                                else if(caster.hasSpellUpgrade(SpellUpgrade.ICE_SHARD_1)){
+                                        if (target.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES) || Main.combat.getStatusEffectsToApply().get(target).containsKey(StatusEffect.CLOAK_OF_FLAMES)) {
+                                        return Util.newHashMapOfValues(
+							new Value<AbstractStatusEffect, Integer>(StatusEffect.FREEZING_FOG, 0));
+                                        }
+                                        
+                                return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.FREEZING_FOG, 3));
 				}
 			}
 			return new HashMap<>();
+		}
+		
+		@Override
+		public int getDamage(GameCharacter caster) {
+			return (int) Math.round(15 + (10 * (caster.getAttributeValue(Attribute.MAJOR_ARCANE)/100)) + (caster.getTrueLevel()/5));
 		}
 		
 		@Override
@@ -530,6 +824,20 @@ public enum Spell {
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
+                                if(caster.hasSpellUpgrade(SpellUpgrade.ICE_SHARD_3) && isCritical ) {
+                                        if (target.hasStatusEffect(StatusEffect.LINGERING_FLAMES) || Main.combat.getStatusEffectsToApply().get(target).containsKey(StatusEffect.LINGERING_FLAMES)){
+                                
+                                        descriptionSB.append("<br/>"
+                                                    +"The [style.boldFire(Lingering Flames)] prevent the target from being [style.boldIce(Frozen)]!");
+                                        }
+                                }
+                                
+                                if (target.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES) || Main.combat.getStatusEffectsToApply().get(target).containsKey(StatusEffect.CLOAK_OF_FLAMES)) {
+                                
+				descriptionSB.append("<br/>"
+                                                    +"The target's [style.boldFire(Cloak of Flames)] instantly [style.boldFire(Re-heats)] their surrounding and prevent them from being [style.boldIce(Frozen)]!");
+                                }
+                                
 				if(damage>0) {
 					descriptionSB.append(applyDamage(caster, target, damage));
 				}
@@ -551,7 +859,10 @@ public enum Spell {
 		
 		//Differs from normal version; spells have special crit requirements.
 		public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-			return target.hasStatusEffect(StatusEffect.FREEZING_FOG) || Main.combat.getStatusEffectsToApply().get(target).containsKey(StatusEffect.FREEZING_FOG);
+			if (target.hasStatusEffect(StatusEffect.RAIN_CLOUD_DEEP_CHILL) || Main.combat.getStatusEffectsToApply().get(target).containsKey(StatusEffect.RAIN_CLOUD_DEEP_CHILL)) {
+                        return true;
+                        }
+                        return target.hasStatusEffect(StatusEffect.FREEZING_FOG) || Main.combat.getStatusEffectsToApply().get(target).containsKey(StatusEffect.FREEZING_FOG);
 		}
 	},
 
@@ -565,29 +876,44 @@ public enum Spell {
 			"Summons a small cloud of arcane-enchanted rain above the target's head, which saps their ability to cast spells.",
 			0,
 			DamageVariance.LOW,
-			33,
+			50,
 			null,
 			Util.newArrayListOfValues(
 					SpellUpgrade.RAIN_CLOUD_1,
 					SpellUpgrade.RAIN_CLOUD_2,
 					SpellUpgrade.RAIN_CLOUD_3),
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.SPELL_COST_MODIFIER, -25)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
+					new Value<>(Attribute.SPELL_COST_MODIFIER, -25),
+					new Value<>(Attribute.DAMAGE_FIRE, -25)),
+			Util.newArrayListOfValues(
+                                        "for [style.colourGood(4 turns)] on [style.colourExcellent(all enemies)]",
+                                        "[style.colourGood(Extinguishes Flames)]")) {
 		
+		@Override
+                public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return 3;
+                }
+
 		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
 			if(caster!=null) {
 				if(caster.hasSpellUpgrade(SpellUpgrade.RAIN_CLOUD_3)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST, 3));
+					return Util.newHashMapOfValues(
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST, 4),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.RAIN_CLOUD_DEEP_CHILL, 4));
 					
 				} else if(caster.hasSpellUpgrade(SpellUpgrade.RAIN_CLOUD_2)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.RAIN_CLOUD_DOWNPOUR, 3));
+					return Util.newHashMapOfValues(
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.RAIN_CLOUD_DOWNPOUR, 4),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.RAIN_CLOUD_DEEP_CHILL, 4));
 					
 				} else if(caster.hasSpellUpgrade(SpellUpgrade.RAIN_CLOUD_1)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.RAIN_CLOUD_DEEP_CHILL, 3));
+					return Util.newHashMapOfValues(
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.RAIN_CLOUD_DEEP_CHILL, 4),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.RAIN_CLOUD, 4));
 					
 				} else {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.RAIN_CLOUD, 3));
+					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.RAIN_CLOUD, 4));
 				}
 			}
 			return new HashMap<>();
@@ -615,22 +941,60 @@ public enum Spell {
 											"With an upwards thrust of [npc1.her] [npc1.arm], [npc1.name] summons forth a cloud of rain above [npc2.namePos] head!"));
 
 			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
-			
+                        
+                        if(Main.game.isInCombat()) {
+			List<GameCharacter> alliesPlusCaster = new ArrayList<>(Main.combat.getAllies(caster));
+			alliesPlusCaster.add(caster);
+                        
+                                for(GameCharacter combatant : alliesPlusCaster) {
+                                        if (combatant.hasStatusEffect(StatusEffect.LINGERING_FLAMES) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.LINGERING_FLAMES)) {
+                                        combatant.removeStatusEffect(StatusEffect.LINGERING_FLAMES);
+                                        }
+                                }
+                        }
+                        
+                        descriptionSB.append("<br/>"
+                                            +"As the [style.boldIce(Rain)] starts falling down, all [style.boldFire(Lingering Flames)] on the allied side of the field are quickly [style.boldExcellent(Put out)]!");
+                        
 			// If attack hits, apply damage and effects:
 			if (isHit) {
 
-				target.removeStatusEffect(StatusEffect.RAIN_CLOUD_CLOUDBURST);
+//				target.removeStatusEffect(StatusEffect.RAIN_CLOUD_CLOUDBURST);
 				target.removeStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST);
 				target.removeStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR);
 				target.removeStatusEffect(StatusEffect.RAIN_CLOUD_DEEP_CHILL);
 				target.removeStatusEffect(StatusEffect.RAIN_CLOUD);
-				
+                                
 				applyStatusEffects(caster, target, isCritical);
-				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
+//				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
 			}
-			
+                        
+			for(GameCharacter combatant : Main.combat.getAllCombatants(true)) {
+                                if (combatant.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.CLOAK_OF_FLAMES)) {
+                                combatant.removeStatusEffect(StatusEffect.CLOAK_OF_FLAMES);
+                                }
+                                if (combatant.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_1) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.CLOAK_OF_FLAMES_1)) {
+                                combatant.removeStatusEffect(StatusEffect.CLOAK_OF_FLAMES_1);
+                                }
+                                if (combatant.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_2) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.CLOAK_OF_FLAMES_2)) {
+                                combatant.removeStatusEffect(StatusEffect.CLOAK_OF_FLAMES_2);
+                                }
+                                if (combatant.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_3) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.CLOAK_OF_FLAMES_3)) {
+                                combatant.removeStatusEffect(StatusEffect.CLOAK_OF_FLAMES_3);
+                                }
+                        }
+                        
+			for(GameCharacter combatant : Main.combat.getEnemies(caster)) {
+				applyStatusEffects(caster, combatant, isCritical);
+				descriptionSB.append(getStatusEffectApplication(caster, combatant, isHit, isCritical));
+			}
+                        
+			descriptionSB.append("<br/>"
+                                            +"The [style.boldIce(Falling Rain)] prevent the opposite side from effectively manipulating [style.boldFire(Fire)]!");
+                                            
 			descriptionSB.append(getCostDescription(caster, cost));
-
+			caster.incrementMana(-cost);
+			
 			return descriptionSB.toString();
 		}
 	},
@@ -645,7 +1009,7 @@ public enum Spell {
 			"Summons an orb of soothing arcane-infused water, which restores the "+Attribute.HEALTH_MAXIMUM.getName()+" of anyone who drinks it.",
 			0,
 			DamageVariance.LOW,
-			100,
+			40,
 			null,
 			Util.newArrayListOfValues(
 					SpellUpgrade.SOOTHING_WATERS_1_CLEAN,
@@ -653,11 +1017,31 @@ public enum Spell {
 					SpellUpgrade.SOOTHING_WATERS_1,
 					SpellUpgrade.SOOTHING_WATERS_2,
 					SpellUpgrade.SOOTHING_WATERS_3),
-			null, Util.newArrayListOfValues("[style.boldGood(Restores)] 20% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
+			null, Util.newArrayListOfValues(
+                                        "[style.boldGood(Restores)] 60% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
+                                        "[style.colourGood(Cures Venom)]",
+                                        "[style.colourGood(Heals Wounds)]")) {
+
+		@Override
+		public int getAPCost() {
+			return 2;
+                }
+		
+		@Override
+                public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        for (GameCharacter c : allies) {
+                                if (c.getHealthPercentage() < 0.5) {
+                                return 10;
+                                }
+                        }
+                        return 0;
+                }
+
 		@Override
 		public Map<Integer, List<TreeEntry<SpellSchool, SpellUpgrade>>> getSpellUpgradeTree() {
 			return Spell.soothingWatersUpgradeTree;
 		}
+
 		@Override
 		public Value<Boolean, String> getSpellCastOutOfCombatDescription(GameCharacter owner, GameCharacter target) {
 			if(!owner.hasSpell(this)) {
@@ -688,10 +1072,6 @@ public enum Spell {
 			}
 		}
 		@Override
-		public int getAPCost() {
-			return 3;
-		}
-		@Override
 		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
 			return "Heals the target.";
 		}
@@ -713,8 +1093,22 @@ public enum Spell {
 
 			if(caster.hasSpellUpgrade(SpellUpgrade.SOOTHING_WATERS_3) ) {
 				descriptionSB.append(" Smaller globes of water split off from the primary orb!");
-			}
-			
+                        }
+
+                        if (target.hasStatusEffect(StatusEffect.POISONED) || Main.combat.getStatusEffectsToApply().get(target).containsKey(StatusEffect.POISONED)) {
+                        target.removeStatusEffect(StatusEffect.POISONED);
+                        
+                        descriptionSB.append("<br/>"
+                                            +"Any traces of [style.boldPoison(Venom)] has been [style.boldExcellent(Cleared)]!");
+                        }
+
+			if (target.hasStatusEffect(StatusEffect.CRIPPLE) || Main.combat.getStatusEffectsToApply().get(target).containsKey(StatusEffect.CRIPPLE)) {
+                        target.removeStatusEffect(StatusEffect.CRIPPLE);
+                        
+                        descriptionSB.append("<br/>"
+                                            +"The [style.boldGood(Healing Water)] cause each [style.boldHealth(Wounds)] to instantly [style.boldExcellent(Heal)]!");
+                        }
+                        
 			// If attack hits, apply damage and effects:
 			if (isHit) {
 				if(caster.hasSpellUpgrade(SpellUpgrade.SOOTHING_WATERS_3)) {
@@ -722,9 +1116,9 @@ public enum Spell {
 
 					descriptionSB.append("<br/>"
 								+ "The orb of water heals "+UtilText.parse(target,"[npc.name]")+" for a total of "
-									+(int)(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.4f)+" "+Attribute.HEALTH_MAXIMUM.getColouredName("b")+" and "
+									+(int)(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.6f)+" "+Attribute.HEALTH_MAXIMUM.getColouredName("b")+" and "
 									+(int)(target.getAttributeValue(Attribute.MANA_MAXIMUM)*0.2f)+" "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!");
-					descriptionSB.append(applyDamage(caster, target, -target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.4f));
+					descriptionSB.append(applyDamage(caster, target, -target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.6f));
 					target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)*0.2f);
 					
 //					descriptionSB.append("<br/>"
@@ -800,6 +1194,13 @@ public enum Spell {
 					target.drainTotalFluidsStored(SexAreaOrifice.URETHRA_PENIS, 250);
 					target.drainTotalFluidsStored(SexAreaOrifice.URETHRA_VAGINA, 250);
 				}
+
+                                target.removeStatusEffect(StatusEffect.POISONED);
+
+                                target.removeStatusEffect(StatusEffect.CRIPPLE);
+
+				applyStatusEffects(caster, target, isCritical);
+				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
@@ -919,34 +1320,59 @@ public enum Spell {
 	
 	POISON_VAPOURS(false,
 			SpellSchool.AIR,
-			SpellType.OFFENSIVE_STATUS_EFFECT,
+			SpellType.OFFENSIVE_STATUS_EFFECT_MINOR_DAMAGE,
 			DamageType.POISON,
 			false,
 			"Poison Vapours",
 			"poison_vapours",
 			"Summons a cloud of poisonous gas around a target.",
-			0,
+			10,
 			DamageVariance.LOW,
-			50,
+			35,
 			null,
 			Util.newArrayListOfValues(
 					SpellUpgrade.POISON_VAPOURS_1,
 					SpellUpgrade.POISON_VAPOURS_2,
 					SpellUpgrade.POISON_VAPOURS_3),
 			null,
-			Util.newArrayListOfValues("<b>25</b> [style.colourPoison(Poison Damage)] per turn for [style.colourGood(3 turns)]")) {
+			Util.newArrayListOfValues(
+                                        "<b>Minimal</b> [style.colourPoison(Poison Damage)] per turn</b> on [style.colourExcellent(all enemies)]")) {
+
+		@Override
+		public int getAPCost() {
+			return 1;
+                }
+
+                @Override
+		public int getCooldown() {
+			return 1;
+		}
+		
+		@Override
+                public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return 3;
+                }
 
 		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
 			if(caster!=null) {
 				if(caster.hasSpellUpgrade(SpellUpgrade.POISON_VAPOURS_3)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.POISON_VAPOURS_WEAKENING_CLOUD, 3));
+					return Util.newHashMapOfValues(
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.POISON_VAPOURS_ARCANE_SICKNESS, 3),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.POISON_VAPOURS_WEAKENING_CLOUD, 3),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.POISON_VAPOURS_CHOKING_HAZE, 3),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.POISON_VAPOURS, 3));
 					
 				} else if(caster.hasSpellUpgrade(SpellUpgrade.POISON_VAPOURS_2)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.POISON_VAPOURS_ARCANE_SICKNESS, 3));
+					return Util.newHashMapOfValues(
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.POISON_VAPOURS_WEAKENING_CLOUD, 3),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.POISON_VAPOURS_CHOKING_HAZE, 3),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.POISON_VAPOURS, 3));
 					
 				} else if(caster.hasSpellUpgrade(SpellUpgrade.POISON_VAPOURS_1)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.POISON_VAPOURS_CHOKING_HAZE, 3));
+					return Util.newHashMapOfValues(
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.POISON_VAPOURS_CHOKING_HAZE, 3),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.POISON_VAPOURS, 3));
 					
 				} else {
 					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.POISON_VAPOURS, 3));
@@ -956,16 +1382,27 @@ public enum Spell {
 		}
 		
 		@Override
-		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-			return "Summons a poison cloud around the target.";
+		public int getDamage(GameCharacter caster) {
+			return (int) Math.round((20 * (caster.getAttributeValue(Attribute.MAJOR_ARCANE)/100)) + (caster.getTrueLevel()/5));
 		}
 		
 		@Override
+		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+			return "Deals [style.colourDmgPoison("
+					+Attack.getMinimumSpellDamage(caster, target, getDamageType(), this.getDamage(caster), this.getDamageVariance())
+					+"-"
+					+Attack.getMaximumSpellDamage(caster, target, getDamageType(), this.getDamage(caster), this.getDamageVariance())
+					+ " " +damageType.getName()
+					+ ")]"
+					+ " damage by summoning a poisonous cloud around [style.colourExcellent(all enemies)].";
+		}
+		
 		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
-			float cost = getModifiedCost(caster);
-			
 			descriptionSB.setLength(0);
+
+			float damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, isCritical);
+			float cost = getModifiedCost(caster);
 			
 			descriptionSB.append(getCastDescription(caster, target,
 											Util.newArrayListOfValues(
@@ -975,23 +1412,35 @@ public enum Spell {
 											"",
 											"With a sweeping motion of [npc.her] [npc.arm], [npc.name] summons forth a cloud of poison vapours around you!",
 											"With a sweeping motion of [npc1.her] [npc1.arm], [npc1.name] summons forth a cloud of poison vapours around [npc2.name]!"));
-
-			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 			
-			// If attack hits, apply damage and effects:
+			// If attack hits, apply damage. Status effect always applies.:
 			if (isHit) {
+                                for(GameCharacter combatant : Main.combat.getEnemies(caster)) {
 
-				target.removeStatusEffect(StatusEffect.POISON_VAPOURS_WEAKENING_CLOUD);
-				target.removeStatusEffect(StatusEffect.POISON_VAPOURS_ARCANE_SICKNESS);
-				target.removeStatusEffect(StatusEffect.POISON_VAPOURS_CHOKING_HAZE);
-				target.removeStatusEffect(StatusEffect.POISON_VAPOURS);
-				
-				applyStatusEffects(caster, target, isCritical);
-				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
+				combatant.removeStatusEffect(StatusEffect.POISON_VAPOURS_ARCANE_SICKNESS);
+                                combatant.removeStatusEffect(StatusEffect.POISON_VAPOURS_WEAKENING_CLOUD);
+				combatant.removeStatusEffect(StatusEffect.POISON_VAPOURS_CHOKING_HAZE);
+				combatant.removeStatusEffect(StatusEffect.POISON_VAPOURS);
+                                
+				descriptionSB.append(getDamageDescription(caster, combatant, damage, isHit, isCritical));
+                                descriptionSB.append(applyDamage(caster, combatant, damage));
+                                
+				applyStatusEffects(caster, combatant, isCritical);
+				descriptionSB.append(getStatusEffectApplication(caster, combatant, isHit, isCritical));
+                                }
+                                
+				if(damage>0) {
+				descriptionSB.append(applyDamage(caster, target, damage));
+				}
+			
+//			for(GameCharacter combatant : Main.combat.getEnemies(caster)) {
+//				applyStatusEffects(caster, combatant, isCritical);
+//				descriptionSB.append(getStatusEffectApplication(caster, combatant, isHit, isCritical));
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-
+			caster.incrementMana(-cost);
+			
 			return descriptionSB.toString();
 		}
 	},
@@ -1004,7 +1453,7 @@ public enum Spell {
 			"Vacuum",
 			"vacuum",
 			"Creates a void in the air, dealing a small amount of initial damage as it sucks in the target, before lingering around to continue to disrupt their movements.",
-			5,
+			10,
 			DamageVariance.LOW,
 			60,
 			null,
@@ -1013,7 +1462,26 @@ public enum Spell {
 					SpellUpgrade.VACUUM_2,
 					SpellUpgrade.VACUUM_3),
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.ENERGY_SHIELDING, -5)), Util.newArrayListOfValues("Lasts for [style.colourGood(4 turns)]")) {
+					new Value<>(Attribute.ENERGY_SHIELDING, -10)),
+			Util.newArrayListOfValues(
+                                        "<b>-25</b> to [style.boldExcellent(all damage types)]",
+                                        "[style.boldGood(Clears Fumes)]",
+                                        "[style.boldGood(Clears Clouds)]")) {
+		
+		@Override
+		public int getAPCost() {
+			return 1;
+                }
+
+                @Override
+		public int getCooldown() {
+			return 3;
+		}
+		
+		@Override
+                public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return 1;
+                }
 
 		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -1032,6 +1500,11 @@ public enum Spell {
 				}
 			}
 			return new HashMap<>();
+		}
+		
+		@Override
+		public int getDamage(GameCharacter caster) {
+			return (int) Math.round((25 * (caster.getAttributeValue(Attribute.MAJOR_ARCANE)/100)) + (caster.getTrueLevel()/5));
 		}
 		
 		@Override
@@ -1057,7 +1530,75 @@ public enum Spell {
 											"With a clench of [npc.her] fist, [npc.name] summons forth a vacuum right next to [npc2.name]!"));
 
 			descriptionSB.append(getDamageDescription(caster, target, damage, isHit, isCritical));
-			
+                        
+                        if(Main.game.isInCombat()) {
+			List<GameCharacter> alliesPlusCaster = new ArrayList<>(Main.combat.getAllies(caster));
+			alliesPlusCaster.add(caster);
+                        
+                                for(GameCharacter combatant : alliesPlusCaster) {
+                                        if (combatant.hasStatusEffect(StatusEffect.POISON_VAPOURS) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.POISON_VAPOURS)) {
+                                        combatant.removeStatusEffect(StatusEffect.POISON_VAPOURS);
+                                        }
+
+                                        if (combatant.hasStatusEffect(StatusEffect.POISON_VAPOURS_CHOKING_HAZE) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.POISON_VAPOURS_CHOKING_HAZE)) {
+                                        combatant.removeStatusEffect(StatusEffect.POISON_VAPOURS_CHOKING_HAZE);
+                                        }
+                                
+                                        if (combatant.hasStatusEffect(StatusEffect.POISON_VAPOURS_ARCANE_SICKNESS) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.POISON_VAPOURS_ARCANE_SICKNESS)) {
+                                        combatant.removeStatusEffect(StatusEffect.POISON_VAPOURS_ARCANE_SICKNESS);
+                                        }
+                                
+                                        if (combatant.hasStatusEffect(StatusEffect.POISON_VAPOURS_WEAKENING_CLOUD) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.POISON_VAPOURS_WEAKENING_CLOUD)) {
+                                        combatant.removeStatusEffect(StatusEffect.POISON_VAPOURS_WEAKENING_CLOUD);
+                                        }
+                                        
+                                        if (combatant.hasStatusEffect(StatusEffect.RAIN_CLOUD) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.RAIN_CLOUD)) {
+                                        combatant.removeStatusEffect(StatusEffect.RAIN_CLOUD);
+                                        }
+                                        
+                                        if (combatant.hasStatusEffect(StatusEffect.RAIN_CLOUD_DEEP_CHILL) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.RAIN_CLOUD_DEEP_CHILL)) {
+                                        combatant.removeStatusEffect(StatusEffect.RAIN_CLOUD_DEEP_CHILL);
+                                        }
+                                        
+                                        if (combatant.hasStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.RAIN_CLOUD_DOWNPOUR)) {
+                                        combatant.removeStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR);
+                                        }
+                                        
+                                        if (combatant.hasStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST)) {
+                                        combatant.removeStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST);
+                                        }
+                                        
+                                        if (combatant.hasStatusEffect(StatusEffect.RAIN_CLOUD_CLOUDBURST) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.RAIN_CLOUD_CLOUDBURST)) {
+                                        combatant.removeStatusEffect(StatusEffect.RAIN_CLOUD_CLOUDBURST);
+                                        }
+                                        
+                                        if (combatant.hasStatusEffect(StatusEffect.ARCANE_CLOUD) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.ARCANE_CLOUD)) {
+                                        combatant.removeStatusEffect(StatusEffect.ARCANE_CLOUD);
+                                        }
+                                        
+                                        if (combatant.hasStatusEffect(StatusEffect.ARCANE_CLOUD_ARCANE_LIGHTNING) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.ARCANE_CLOUD_ARCANE_LIGHTNING)) {
+                                        combatant.removeStatusEffect(StatusEffect.ARCANE_CLOUD_ARCANE_LIGHTNING);
+                                        }
+                                        
+                                        if (combatant.hasStatusEffect(StatusEffect.ARCANE_CLOUD_ARCANE_THUNDER) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.ARCANE_CLOUD_ARCANE_THUNDER)) {
+                                        combatant.removeStatusEffect(StatusEffect.ARCANE_CLOUD_ARCANE_THUNDER);
+                                        }
+                                        
+                                        if (combatant.hasStatusEffect(StatusEffect.ARCANE_CLOUD_LOCALISED_STORM) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.ARCANE_CLOUD_LOCALISED_STORM)) {
+                                        combatant.removeStatusEffect(StatusEffect.ARCANE_CLOUD_LOCALISED_STORM);
+                                        }
+                                        
+                                        if (combatant.hasStatusEffect(StatusEffect.BANEFUL_FISSURE) || Main.combat.getStatusEffectsToApply().get(combatant).containsKey(StatusEffect.BANEFUL_FISSURE)) {
+                                        combatant.removeStatusEffect(StatusEffect.BANEFUL_FISSURE);
+                                        }
+                                }
+                        }
+                        
+                        if(caster.hasSpellUpgrade(SpellUpgrade.VACUUM_1)) {
+                        
+                        descriptionSB.append(" The vacuum instantly splits in two after being cast!");
+			}
+                        
 			// If attack hits, apply damage and effects:
 			if (isHit) {
 				descriptionSB.append(applyDamage(caster, target, damage));
@@ -1070,6 +1611,33 @@ public enum Spell {
 				applyStatusEffects(caster, target, isCritical);
 				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
 			}
+                        
+                        // Secondary Void:
+			if(caster.hasSpellUpgrade(SpellUpgrade.VACUUM_1)) {
+                        damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, isCritical);
+                        GameCharacter secondaryTarget = Main.combat.getRandomAlliedPartyMember(target);
+                                if(secondaryTarget.equals(target)) {
+                                
+                                descriptionSB.append("<br/>"
+                                                    +"<br/>"
+                                                    +"The second Vacuum swerves around but fails to find another target...");
+                                }
+                                
+                                else {
+                                
+                                descriptionSB.append("<br/>"
+                                                    +"<br/>"
+                                                    +"The second Vacuum swerves around to hit "+(secondaryTarget.isPlayer()?"you":UtilText.parse(secondaryTarget,"[npc.name]"))+"!");
+						
+                                descriptionSB.append(getDamageDescription(caster, secondaryTarget, damage, isHit, isCritical));
+                                descriptionSB.append(applyDamage(caster, secondaryTarget, damage));
+                                applyStatusEffects(caster, secondaryTarget, isCritical);
+                                descriptionSB.append(getStatusEffectApplication(caster, secondaryTarget, isHit, isCritical));
+                                }
+                        }
+                        
+                        descriptionSB.append("<br/>"
+                                            +"The [style.boldActionPoints(Vacuum)] effectively [style.boldExcellent(Clears out)] the [style.boldActionPoints(Atmosphere)] on the allied side of the field!");
 			
 			descriptionSB.append(getCostDescription(caster, cost));
 
@@ -1087,31 +1655,49 @@ public enum Spell {
 			"Summons a benevolent wind to protect the target, as well as to help guide their attacks.",
 			0,
 			DamageVariance.LOW,
-			50,
+			40,
 			null,
 			Util.newArrayListOfValues(
 					SpellUpgrade.PROTECTIVE_GUSTS_1,
 					SpellUpgrade.PROTECTIVE_GUSTS_2,
 					SpellUpgrade.PROTECTIVE_GUSTS_3),
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.RESISTANCE_POISON, 5),
-					new Value<>(Attribute.ENERGY_SHIELDING, 1)),
-			Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
+					new Value<>(Attribute.RESISTANCE_POISON, 15),
+					new Value<>(Attribute.ENERGY_SHIELDING, 10)),
+			Util.newArrayListOfValues("Lasts for [style.colourGood(4 turns)]")) {
 		
+		@Override
+		public int getCooldown() {
+			return 3;
+		}
+		
+		@Override
+                public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return 4;
+                }
+
 		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
 			if(caster!=null) {
 				if(caster.hasSpellUpgrade(SpellUpgrade.PROTECTIVE_GUSTS_3)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.PROTECTIVE_GUSTS_FOCUSED_BLAST, 5));
+					return Util.newHashMapOfValues(
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.PROTECTIVE_GUSTS_FOCUSED_BLAST, 1),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.PROTECTIVE_GUSTS_GUIDING_WIND, 8),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.PROTECTIVE_GUSTS, 8));
 					
 				} else if(caster.hasSpellUpgrade(SpellUpgrade.PROTECTIVE_GUSTS_2)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.PROTECTIVE_GUSTS_FOCUSED_BLAST, 3));
+					return Util.newHashMapOfValues(
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.PROTECTIVE_GUSTS_FOCUSED_BLAST, 1),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.PROTECTIVE_GUSTS_GUIDING_WIND, 4),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.PROTECTIVE_GUSTS, 4));
 					
 				} else if(caster.hasSpellUpgrade(SpellUpgrade.PROTECTIVE_GUSTS_1)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.PROTECTIVE_GUSTS_GUIDING_WIND, 3));
+					return Util.newHashMapOfValues(
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.PROTECTIVE_GUSTS_GUIDING_WIND, 4),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.PROTECTIVE_GUSTS, 4));
 					
 				} else {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.PROTECTIVE_GUSTS, 3));
+					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.PROTECTIVE_GUSTS, 4));
 				}
 			}
 			return new HashMap<>();
@@ -1272,14 +1858,29 @@ public enum Spell {
 			"Slam",
 			"slam",
 			"Summons a crushing wave of force that slams down onto a target.",
-			40,
+			50,
 			DamageVariance.LOW,
-			60,
+			40,
 			null, Util.newArrayListOfValues(
 							SpellUpgrade.SLAM_1,
 							SpellUpgrade.SLAM_2,
 							SpellUpgrade.SLAM_3), null, null) {
 		
+		@Override
+		public int getAPCost() {
+			return 2;
+                }
+		
+		@Override
+		public int getCooldown() {
+			return 4;
+		}
+		
+		@Override
+                public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return 4;
+                }
+
 		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
 			if(caster!=null) {
@@ -1292,6 +1893,11 @@ public enum Spell {
 				}
 			}
 			return new HashMap<>();
+		}
+		
+		@Override
+		public int getDamage(GameCharacter caster) {
+			return (int) Math.round(50 * (caster.getAttributeValue(Attribute.MAJOR_PHYSIQUE)/100) + (50 * (caster.getAttributeValue(Attribute.MAJOR_ARCANE)/100)) + (caster.getTrueLevel()/5));
 		}
 		
 		@Override
@@ -1362,14 +1968,26 @@ public enum Spell {
 			"Lifts any small objects in the surrounding area into the air, before hurling them at the target.",
 			0,
 			DamageVariance.LOW,
-			125,
+			25,
 			null,
 			Util.newArrayListOfValues(
 					SpellUpgrade.TELEKENETIC_SHOWER_1,
 					SpellUpgrade.TELEKENETIC_SHOWER_2,
 					SpellUpgrade.TELEKENETIC_SHOWER_3),
-			null, Util.newArrayListOfValues("<b>25</b> [style.colourPhysical(Physical Damage)] per turn for [style.colourGood(3 turns)]")) {
+			null, Util.newArrayListOfValues(
+                                                        "<b>35</b> [style.colourPhysical(Physical Damage)] per turn", 
+                                                        "for [style.colourGood(3 turns)] on [style.colourExcellent(all enemies)]")) {
 		
+		@Override
+		public int getCooldown() {
+			return 4;
+		}
+		
+		@Override
+                public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return 10;
+                }
+
 		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
 			if(caster!=null) {
@@ -1411,7 +2029,7 @@ public enum Spell {
 											"Raising [npc.her] [npc.arms], [npc.name] lifts all manner of small objects in the immediate vicinity up into the air, before hurling them at [npc2.name]!"));
 
 			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
-			
+                        
 			// If attack hits, apply damage and effects:
 			if (isHit) {
 
@@ -1420,11 +2038,17 @@ public enum Spell {
 				target.removeStatusEffect(StatusEffect.TELEKENETIC_SHOWER_UNSEEN_FORCE);
 				
 				applyStatusEffects(caster, target, isCritical);
-				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
+//				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
+			}
+			
+			for(GameCharacter combatant : Main.combat.getEnemies(caster)) {
+				applyStatusEffects(caster, combatant, isCritical);
+				descriptionSB.append(getStatusEffectApplication(caster, combatant, isHit, isCritical));
 			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
-
+			caster.incrementMana(-cost);
+			
 			return descriptionSB.toString();
 		}
 	},
@@ -1439,29 +2063,40 @@ public enum Spell {
 			"Summons a protective layer of stone around the target.",
 			0,
 			DamageVariance.LOW,
-			25,
+			30,
 			null,
 			Util.newArrayListOfValues(
 					SpellUpgrade.STONE_SHELL_1,
 					SpellUpgrade.STONE_SHELL_2,
 					SpellUpgrade.STONE_SHELL_3),
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 15)),
+                        Util.newArrayListOfValues("Lasts for [style.colourGood(4 turns)]")) {
 		
+		@Override
+		public int getCooldown() {
+			return 3;
+		}
+		
+		@Override
+                public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return 3;
+                }
+
 		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
 			if(caster!=null) {
 				if(caster.hasSpellUpgrade(SpellUpgrade.STONE_SHELL_3)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.STONE_SHELL_EXPLOSIVE_FINISH, 3));
+					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.STONE_SHELL_EXPLOSIVE_FINISH, 4));
 					
 				} else if(caster.hasSpellUpgrade(SpellUpgrade.STONE_SHELL_2)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.STONE_SHELL_HARDENED_CARAPACE, 3));
+					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.STONE_SHELL_HARDENED_CARAPACE, 4));
 					
 				} else if(caster.hasSpellUpgrade(SpellUpgrade.STONE_SHELL_1)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.STONE_SHELL_SHIFTING_SANDS, 3));
+					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.STONE_SHELL_SHIFTING_SANDS, 4));
 					
 				} else {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.STONE_SHELL, 3));
+					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.STONE_SHELL, 4));
 				}
 			}
 			return new HashMap<>();
@@ -1621,22 +2256,44 @@ public enum Spell {
 			"Arcane Arousal",
 			"arcane_arousal",
 			"Causes the target to witness a highly arousing arcane vision.",
-			15,
+			10,
 			DamageVariance.LOW,
-			50,
+			70,
 			null, Util.newArrayListOfValues(
 							SpellUpgrade.ARCANE_AROUSAL_1,
 							SpellUpgrade.ARCANE_AROUSAL_2,
-							SpellUpgrade.ARCANE_AROUSAL_3), null, null) {
+							SpellUpgrade.ARCANE_AROUSAL_3),
+                        null,
+                        Util.newArrayListOfValues("[style.colourGood(Draws from own )] [style.boldArousal(Arousal )] [style.colourGood(to increase damage)]")) {
+
+		@Override
+		public int getAPCost() {
+			return 1;
+                }
+		
+		@Override
+		public int getCooldown() {
+			return 1;
+		}
+		
+		@Override
+                public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        if (source.getLust() > 75) {
+                        return 3;
+                        }
+                return 1;
+                }
 
 		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
 			if(caster!=null) {
-				if(caster.hasSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_3)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.ARCANE_AROUSAL_DIRTY_PROMISES, 3));
+				if(caster.hasSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_2)) {
+					return Util.newHashMapOfValues(
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.ARCANE_AROUSAL_LUSTFUL_DISTRACTION, 3),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.ARCANE_AROUSAL_DIRTY_PROMISES, 3));
 					
-				} else if(caster.hasSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_2)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.ARCANE_AROUSAL_LUSTFUL_DISTRACTION, 2));
+				} else if(caster.hasSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_1)) {
+					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.ARCANE_AROUSAL_LUSTFUL_DISTRACTION, 3));
 					
 				}
 			}
@@ -1645,10 +2302,10 @@ public enum Spell {
 
 		@Override
 		public int getDamage(GameCharacter caster) {
-			if(caster!=null && caster.hasSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_1)) {
-				return 30;
+			if(caster!=null && caster.hasSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_3)) {
+				return (int) Math.round( 10 + (caster.getLust()/2));
 			}
-			return 15;
+			return (int) Math.round( 10 + (caster.getLust()/5));
 		}
 		
 		@Override
@@ -1681,17 +2338,19 @@ public enum Spell {
 					descriptionSB.append(target.incrementLust(damage, true));
 				}
 				
-				if(caster.hasSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_2)) {
+				if(caster.hasSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_1)) {
 					target.removeStatusEffect(StatusEffect.ARCANE_AROUSAL_DIRTY_PROMISES);
 					target.removeStatusEffect(StatusEffect.ARCANE_AROUSAL_LUSTFUL_DISTRACTION);
 					
 					applyStatusEffects(caster, target, isCritical);
 					descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
 				}
+                                if(caster.getLust()>caster.getRestingLust()) {
+                                        descriptionSB.append(caster.setLust(caster.getRestingLust()));
+                                }
 			}
-			
-			
-			descriptionSB.append(getCostDescription(caster, cost));
+
+                        descriptionSB.append(getCostDescription(caster, cost));
 
 			return descriptionSB.toString();
 		}
@@ -1700,36 +2359,62 @@ public enum Spell {
 	TELEPATHIC_COMMUNICATION(false,
 			SpellSchool.ARCANE,
 			SpellType.DEFENSIVE_STATUS_EFFECT,
-			DamageType.PHYSICAL,
+			DamageType.LUST,
 			true,
 			"Telepathic Communication",
 			"telepathic_communication",
 			"The caster projects seductive voices into the mind of the target.",
 			0,
 			DamageVariance.LOW,
-			75,
+			30,
 			null,
 			Util.newArrayListOfValues(
 					SpellUpgrade.TELEPATHIC_COMMUNICATION_1,
 					SpellUpgrade.TELEPATHIC_COMMUNICATION_2,
 					SpellUpgrade.TELEPATHIC_COMMUNICATION_3),
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.DAMAGE_LUST, 15)), Util.newArrayListOfValues("Lasts for [style.colourGood(5 turns)]")) {
+					new Value<>(Attribute.DAMAGE_LUST, 15)),
+			Util.newArrayListOfValues(
+                                        "[style.boldLust(Tease )][style.colourExcellent(critically hits)] on target",
+                                        "for [style.boldGood(3 turns)]")) {
 		
+		@Override
+		public int getCooldown() {
+			return 1;
+		}
+		
+		@Override
+                public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        if (source.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION)) {
+                        return 0;
+                        }
+                        else if (source.getAttributeValue(Attribute.MAJOR_CORRUPTION) > 70) {
+                        return 5;
+                        }
+                        return 1;
+		}
+
 		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
 			if(caster!=null) {
 				if(caster.hasSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_3)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION, 10));
+					return Util.newHashMapOfValues(
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH, 5),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION, 5),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.TELEPATHIC_COMMUNICATION, 3));
 					
 				} else if(caster.hasSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_2)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH, 10));
+					return Util.newHashMapOfValues(
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.TELEPATHIC_COMMUNICATION, 3),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH, 5));
 					
 				} else if(caster.hasSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_1)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.TELEPATHIC_COMMUNICATION, 10));
+					return Util.newHashMapOfValues(
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.TELEPATHIC_COMMUNICATION, 3),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH, 3));
 					
 				} else {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.TELEPATHIC_COMMUNICATION, 5));
+					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.TELEPATHIC_COMMUNICATION, 3));
 				}
 			}
 			return new HashMap<>();
@@ -1776,33 +2461,57 @@ public enum Spell {
 	ARCANE_CLOUD(false,
 			SpellSchool.ARCANE,
 			SpellType.OFFENSIVE_STATUS_EFFECT,
-			DamageType.PHYSICAL,
-			false,
+			DamageType.LUST,
+			true,
 			"Arcane Cloud",
 			"arcane_cloud",
 			"Summons an arcane-imbued stormcloud over the target's head.",
 			0,
 			DamageVariance.LOW,
-			150,
+			50,
 			null,
 			Util.newArrayListOfValues(
 					SpellUpgrade.ARCANE_CLOUD_1,
 					SpellUpgrade.ARCANE_CLOUD_2,
 					SpellUpgrade.ARCANE_CLOUD_3),
-			Util.newHashMapOfValues(
-					new Value<>(Attribute.RESISTANCE_LUST, -25)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
+			null,
+                        Util.newArrayListOfValues(
+                                        "<b>-10 </b>" +Attribute.RESISTANCE_LUST.getColouredName("b"),
+                                        "[style.boldArousal(Arousal )] [style.colourExcellent(set to)] [style.colourArousal(75)]",
+                                        "on [style.boldAura(Arcane Impotent)] characters",
+                                        "Affects [style.colourExcellent(all enemies)]",
+					"Affects [style.colourTerrible(the caster)]",
+					"Affects [style.colourTerrible(all allies)]")) {
+
+		@Override
+		public int getCooldown() {
+			return 1;
+		}
+		
+		@Override
+                public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        if (source.getLust() > 0.5) {
+                        return 5;   
+                        }
+                        return 1;
+                }
 
 		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
 			if(caster!=null) {
 				if(caster.hasSpellUpgrade(SpellUpgrade.ARCANE_CLOUD_3)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.ARCANE_CLOUD_LOCALISED_STORM, 3));
+					return Util.newHashMapOfValues(
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.ARCANE_CLOUD_LOCALISED_STORM, 3),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.ARCANE_CLOUD_ARCANE_THUNDER, 3));
 					
 				} else if(caster.hasSpellUpgrade(SpellUpgrade.ARCANE_CLOUD_2)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.ARCANE_CLOUD_ARCANE_THUNDER, 3));
-					
+					return Util.newHashMapOfValues(
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.ARCANE_CLOUD_ARCANE_LIGHTNING, 3),
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.ARCANE_CLOUD_ARCANE_THUNDER, 3));
+
 				} else if(caster.hasSpellUpgrade(SpellUpgrade.ARCANE_CLOUD_1)) {
-					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.ARCANE_CLOUD_ARCANE_LIGHTNING, 3));
+					return Util.newHashMapOfValues(
+                                                                new Value<AbstractStatusEffect, Integer>(StatusEffect.ARCANE_CLOUD_ARCANE_THUNDER, 3));
 					
 				} else {
 					return Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.ARCANE_CLOUD, 3));
@@ -1836,19 +2545,32 @@ public enum Spell {
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
-				target.removeStatusEffect(StatusEffect.ARCANE_CLOUD_LOCALISED_STORM);
-				target.removeStatusEffect(StatusEffect.ARCANE_CLOUD_ARCANE_THUNDER);
-				target.removeStatusEffect(StatusEffect.ARCANE_CLOUD_ARCANE_LIGHTNING);
-				target.removeStatusEffect(StatusEffect.ARCANE_CLOUD);
+                                for(GameCharacter combatant : Main.combat.getAllCombatants(true)) {
+				combatant.removeStatusEffect(StatusEffect.ARCANE_CLOUD_LOCALISED_STORM);
+				combatant.removeStatusEffect(StatusEffect.ARCANE_CLOUD_ARCANE_THUNDER);
+				combatant.removeStatusEffect(StatusEffect.ARCANE_CLOUD_ARCANE_LIGHTNING);
+				combatant.removeStatusEffect(StatusEffect.ARCANE_CLOUD);
 				
-				applyStatusEffects(caster, target, isCritical);
-				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
-			}
-			
-			descriptionSB.append(getCostDescription(caster, cost));
+				applyStatusEffects(caster, combatant, isCritical);
 
+                                if(combatant.getAttributeValue(Attribute.MAJOR_ARCANE) < 10 ) {
+                                        descriptionSB.append(combatant.setLust(75));
+                                }
+			}
+			descriptionSB.append(getCostDescription(caster, cost));
+                        }
 			return descriptionSB.toString();
 		}
+
+//                @Override
+//                public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+//                        return Util.newArrayListOfValues("Cannot crit.");
+//                }
+
+//		@Override
+//		public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+//			return false;
+//		}
 	},
 	
 	CLEANSE(true,
@@ -1867,8 +2589,23 @@ public enum Spell {
 					SpellUpgrade.CLEANSE_1,
 					SpellUpgrade.CLEANSE_2,
 					SpellUpgrade.CLEANSE_3),
-			null, Util.newArrayListOfValues("[style.colourGood(Removes all)] combat status effects from both the targeted ally and enemy")) {
+			null, Util.newArrayListOfValues(
+                                                "[style.colourGood(Converts own )] [style.boldArousal(Arousal )] [style.colourGood(into recovered )] [style.colourHealth(Health)]",
+                                                "[style.colourGood(Removes all)] combat status effects from both the targeted ally and enemy")) {
 		
+		@Override
+		public int getAPCost() {
+			return 1;
+                }
+		
+		@Override
+                public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        if (source.getHealthPercentage() < 0.75) {
+                        return 5;
+                        }
+                return 0;
+                }
+
 		@Override
 		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
 			return "Removes combat status effects from the targeted ally and enemy.";
@@ -1937,6 +2674,18 @@ public enum Spell {
 				for(AbstractStatusEffect se : effectsToRemove) {
 					descriptionSB.append(this.getPreferredTarget(caster, enemies, allies).removeStatusEffectCombat(se));
 				}
+                                if(Main.game.isInCombat()) {
+				descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
+
+					descriptionSB.append("<br/>"
+								+ "The arcane explosion heals "+UtilText.parse(target,"[npc.name]")+" for a total of "
+									+(int)(target.getLust()*1f)+" "+Attribute.HEALTH_MAXIMUM.getColouredName("b")+"!");
+					descriptionSB.append(applyDamage(caster, target, -target.getLust()*1f));
+					}
+
+                                if(caster.getLust()> 0 ) {
+                                        descriptionSB.append(caster.setLust(0));
+                                }
 				
 				descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 				applyStatusEffects(caster, target, isCritical);
@@ -2490,13 +3239,28 @@ public enum Spell {
 			"Places an arcane seal upon the target, completely preventing them from moving.",
 			0,
 			DamageVariance.NONE,
-			80,
-			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.WITCH_SEAL, 1)),
+			50,
+			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.WITCH_SEAL, 2)),
 			null,
 			null,
 			Util.newArrayListOfValues(
 					"[style.colourExcellent(Seals)] the target for [style.colourTerrible(-3)] [style.colourActionPoints(action points)]!")) {
 		
+		@Override
+		public int getAPCost() {
+			return 2;
+                }
+
+                @Override
+		public int getCooldown() {
+			return 4;
+		}
+		
+		@Override
+                public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return 10;
+                }
+
 		@Override
 		public boolean isSpellBook() {
 			return false;
@@ -2504,7 +3268,7 @@ public enum Spell {
 		
 		@Override
 		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-			return "Seals for [style.colourTerrible(-3)] action points!";
+			return "Seals for [style.colourTerrible(-2)] action points!";
 		}
 		
 		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
@@ -2533,13 +3297,23 @@ public enum Spell {
 
 			return descriptionSB.toString();
 		}
+                
+                @Override
+                public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return Util.newArrayListOfValues("Cannot crit.");
+                }
+
+		@Override
+		public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+			return false;
+		}
 	},
 	
 	WITCH_CHARM(false,
 			SpellSchool.ARCANE,
 			SpellType.DEFENSIVE_STATUS_EFFECT,
 			DamageType.MISC,
-			true,
+			false,
 			"Witch's Charm",
 			"spell_witch_charm",
 			"Places an arcane enchantment upon the target, causing them to appear irresistibly beautiful to anyone who looks upon them.",
@@ -2549,8 +3323,25 @@ public enum Spell {
 			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.WITCH_CHARM, 5)),
 			null,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.DAMAGE_LUST, 25)), Util.newArrayListOfValues("Lasts for [style.colourGood(5 turns)]")) {
+					new Value<>(Attribute.MAJOR_ARCANE, -16),
+                                        new Value<>(Attribute.RESISTANCE_LUST, -25)),
+                        Util.newArrayListOfValues("Lasts for [style.colourGood(5 turns)]")) {
 		
+		@Override
+		public int getAPCost() {
+			return 2;
+                }
+
+                @Override
+		public int getCooldown() {
+			return 3;
+		}
+		
+		@Override
+                public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return 5;
+                }
+
 		@Override
 		public boolean isSpellBook() {
 			return false;
@@ -2599,19 +3390,29 @@ public enum Spell {
 			"Siren's Call",
 			"dark_siren_sirens_call",
 			"Unleashes a reverberating scream, the power of which causes the ground to split open. From this fissure, poisonous vapours rise to choke and stifle all nearby enemies.",
-			10,
+			70,
 			DamageVariance.NONE,
 			200,
 			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.BANEFUL_FISSURE, 10)),
 			null,
 			null,
 			Util.newArrayListOfValues(
-					"<b>25</b> [style.colourPoison(Poison Damage)] per turn for [style.colourGood(10 turns)]",
+					"<b>35</b> [style.colourPoison(Poison Damage)] per turn for [style.colourGood(10 turns)]",
 					"Affects [style.colourExcellent(all enemies)]")) {
 
 		@Override
+		public int getAPCost() {
+			return 3;
+                }
+		
+		@Override
 		public boolean isSpellBook() {
 			return false;
+		}
+		
+		@Override
+		public int getDamage(GameCharacter caster) {
+			return (int) Math.round((70 * (caster.getAttributeValue(Attribute.MAJOR_ARCANE)/100)) + (caster.getTrueLevel()/5));
 		}
 		
 		@Override
@@ -2653,6 +3454,16 @@ public enum Spell {
 //			caster.incrementMana(-cost);
 			
 			return descriptionSB.toString();
+		}
+                
+                @Override
+                public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return Util.newArrayListOfValues("Cannot crit.");
+                }
+
+		@Override
+		public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+			return false;
 		}
 	},
 	
@@ -2736,15 +3547,16 @@ public enum Spell {
 			return descriptionSB.toString();
 		}
 		
-		@Override
-	    public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-	    	return Util.newArrayListOfValues("Cannot crit.");
-	    }
+//		@Override
+//                public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+//	    	return Util.newArrayListOfValues("Cannot crit.");
+//                }
 
-		@Override
-		public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-			return false;
-		}
+		//Now crits on characters inflicted by 'Localised Storm':
+                @Override
+                public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return target.hasStatusEffect(StatusEffect.ARCANE_CLOUD_LOCALISED_STORM) || Main.combat.getStatusEffectsToApply().get(target).containsKey(StatusEffect.ARCANE_CLOUD_LOCALISED_STORM);
+                }
 	},
 	
 	LIGHTNING_SPHERE_OVERCHARGE(false,
@@ -2827,15 +3639,16 @@ public enum Spell {
 			return descriptionSB.toString();
 		}
 		
-		@Override
-	    public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-	    	return Util.newArrayListOfValues("Cannot crit.");
-	    }
+//		@Override
+//                public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+//	    	return Util.newArrayListOfValues("Cannot crit.");
+//                }
 
-		@Override
-		public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-			return false;
-		}
+		//Now crits on characters inflicted by 'Localised Storm':
+                @Override
+                public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return target.hasStatusEffect(StatusEffect.ARCANE_CLOUD_LOCALISED_STORM) || Main.combat.getStatusEffectsToApply().get(target).containsKey(StatusEffect.ARCANE_CLOUD_LOCALISED_STORM);
+                }
 	},
 	
 	ARCANE_CHAIN_LIGHTNING(false,
@@ -2911,14 +3724,16 @@ public enum Spell {
 			
 			return descriptionSB.toString();
 		}
-		@Override
-	    public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-	    	return Util.newArrayListOfValues("Cannot crit.");
-	    }
-		@Override
-		public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-			return false;
-		}
+//		@Override
+//                public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+//	    	return Util.newArrayListOfValues("Cannot crit.");
+//                }
+
+		//Now crits on characters inflicted by 'Localised Storm':
+                @Override
+                public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return target.hasStatusEffect(StatusEffect.ARCANE_CLOUD_LOCALISED_STORM) || Main.combat.getStatusEffectsToApply().get(target).containsKey(StatusEffect.ARCANE_CLOUD_LOCALISED_STORM);
+                }
 	},
 	
 	ARCANE_LIGHTNING_SUPERBOLT(false,
@@ -2990,15 +3805,16 @@ public enum Spell {
 			return descriptionSB.toString();
 		}
 		
-		@Override
-	    public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-	    	return Util.newArrayListOfValues("Cannot crit.");
-	    }
+//		@Override
+//                public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+//	    	return Util.newArrayListOfValues("Cannot crit.");
+//                }
 
-		@Override
-		public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-			return false;
-		}
+		//Now crits on characters inflicted by 'Localised Storm':
+                @Override
+                public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                        return target.hasStatusEffect(StatusEffect.ARCANE_CLOUD_LOCALISED_STORM) || Main.combat.getStatusEffectsToApply().get(target).containsKey(StatusEffect.ARCANE_CLOUD_LOCALISED_STORM);
+                }
 	};
 	
 	private static Map<SpellSchool, List<Spell>> spellsFromSchoolMap = new HashMap<>();
@@ -3941,7 +4757,7 @@ public enum Spell {
 		
 		sb.append(this.applyEffect(source, target, enemies, allies, true, isCrit));
 		
-		if(isCrit && !this.isBeneficial() && source.hasTraitActivated(Perk.ARCANE_CRITICALS)) {
+		if(isCrit && !this.isBeneficial() && source.hasPerkAnywhereInTree(Perk.ARCANE_CRITICALS)) {
 			sb.append(UtilText.parse(source, "<br/>[npc.NamePos] [style.boldExcellent(critical)] spell applies [style.boldArcane(arcane weakness)] to "+(target.isPlayer()?"you":UtilText.parse(target, "[npc.name]"))+"!"));
 			target.addStatusEffect(StatusEffect.ARCANE_WEAKNESS, 2);
 			sb.append(
