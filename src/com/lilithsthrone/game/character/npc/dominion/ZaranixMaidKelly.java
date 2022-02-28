@@ -38,6 +38,7 @@ import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -51,6 +52,9 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.CombatBehaviour;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -117,11 +121,15 @@ public class ZaranixMaidKelly extends NPC {
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(),
+				Util.newArrayListOfValues(
+						Perk.MALE_ATTRACTION,
+						Perk.FEMALE_ATTRACTION,
+                                                Perk.SEDUCTION_BOOST_MAJOR,
+                                                Perk.ENERGY_BOOST),
 				Util.newHashMapOfValues(
-						new Value<>(PerkCategory.PHYSICAL, 1),
-						new Value<>(PerkCategory.LUST, 5),
-						new Value<>(PerkCategory.ARCANE, 1)));
+						new Value<>(PerkCategory.PHYSICAL, 3),
+						new Value<>(PerkCategory.LUST, 9),
+						new Value<>(PerkCategory.ARCANE, 3)));
 	}
 	
 	@Override
@@ -133,9 +141,19 @@ public class ZaranixMaidKelly extends NPC {
 					PersonalityTrait.KIND,
 					PersonalityTrait.LEWD);
 			
+			this.addSpell(Spell.ARCANE_AROUSAL);
+			this.addSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_1);
+			this.addSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_2);
+			this.addSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_3);
+			
+			this.addSpell(Spell.TELEPATHIC_COMMUNICATION);
+			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_1);
+			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_2);
+			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_3);
+			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
-			this.setHistory(Occupation.NPC_MAID);
+			this.setHistory(Occupation.MAID);
 	
 			this.addFetish(Fetish.FETISH_SUBMISSIVE);
 			this.addFetish(Fetish.FETISH_MASOCHIST);
@@ -291,6 +309,15 @@ public class ZaranixMaidKelly extends NPC {
 	
 
 	// Combat:
+	
+	@Override
+	public void resetDefaultMoves() {
+		this.clearEquippedMoves();
+                equipMove("strike");
+                equipMove("tease");
+		this.equipAllKnownMoves();
+		this.equipAllSpellMoves();
+	}
 	
 	@Override
 	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit, boolean critical) {

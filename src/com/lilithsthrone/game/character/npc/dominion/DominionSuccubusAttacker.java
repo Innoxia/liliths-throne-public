@@ -2,8 +2,10 @@ package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -18,6 +20,7 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
@@ -59,21 +62,38 @@ public class DominionSuccubusAttacker extends NPC {
 	public DominionSuccubusAttacker(boolean isImported) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(50)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				5, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.GREATER,
+				12, Gender.getGenderFromUserPreferences(Femininity.FEMININE), Subspecies.DEMON, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
 			this.setLocation(Main.game.getPlayer(), true);
 			
-			if(!Gender.getGenderFromUserPreferences(false, false).isFeminine()) {
-				this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, true);
-				this.setGenderIdentity(Gender.M_P_MALE);
-			}
+//			if(!Gender.getGenderFromUserPreferences(false, false).isFeminine()) {
+//				this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, true);
+//				this.setGenderIdentity(Gender.M_P_MALE);
+//			}
+			
+			Gender gender = Gender.getGenderFromUserPreferences(false, false);
+			this.setBody(gender, Subspecies.DEMON, RaceStage.GREATER, true);
+			this.setGenderIdentity(gender);
+			
 			
 			Main.game.getCharacterUtils().randomiseBody(this, true);
 
 			Main.game.getCharacterUtils().setHistoryAndPersonality(this, false);
 			
+			HashMap<Occupation, Integer> randommap = new HashMap<>();
+                        randommap.put(Occupation.NPC_UNEMPLOYED, 2);
+                        randommap.put(Occupation.NPC_UNIVERSITY_STUDENT, 2);
+                        randommap.put(Occupation.NPC_CLOTHING_STORE_OWNER, 1);
+                        randommap.put(Occupation.NPC_BUSINESS_OWNER, 2);
+                        randommap.put(Occupation.NPC_OFFICE_WORKER, 5);
+                        randommap.put(Occupation.NPC_MUSICIAN, 1);
+                        randommap.put(Occupation.NPC_WRITER, 1);
+                        randommap.put(Occupation.NPC_TEACHER, 1);
+
+                        this.setHistory(Util.getRandomObjectFromWeightedMap(randommap));
+
 			addFetish(Fetish.FETISH_DEFLOWERING);
 			addFetish(Fetish.FETISH_DOMINANT);
 			Main.game.getCharacterUtils().addFetishes(this);
@@ -107,8 +127,13 @@ public class DominionSuccubusAttacker extends NPC {
 			Main.game.getCharacterUtils().applyMakeup(this, true);
 			
 			this.addSpell(Spell.ARCANE_AROUSAL);
+                        this.addSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_1);
+                        this.addSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_2);
+
 			this.addSpell(Spell.TELEPATHIC_COMMUNICATION);
 			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_1);
+                        this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_2);
+                        this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_3);
 
 			// Set starting perks based on the character's race
 			initPerkTreeAndBackgroundPerks();
@@ -192,6 +217,16 @@ public class DominionSuccubusAttacker extends NPC {
 	}
 
 	// Combat:
+
+	@Override
+	public void resetDefaultMoves() {
+		this.clearEquippedMoves();
+                equipMove("strike");
+                equipMove("arcane strike");
+                equipMove("tease");
+		this.equipAllKnownMoves();
+		this.equipAllSpellMoves();
+	}
 
 	@Override
 	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit, boolean critical) {

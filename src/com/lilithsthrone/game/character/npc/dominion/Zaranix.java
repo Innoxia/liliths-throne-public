@@ -31,6 +31,7 @@ import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -47,6 +48,8 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.moves.CMBasicAttack;
 import com.lilithsthrone.game.combat.moves.CombatMove;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.ZaranixDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -120,7 +123,8 @@ public class Zaranix extends NPC {
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(),
+				Util.newArrayListOfValues(
+						Perk.ARCANE_COMBATANT),
 				Util.newHashMapOfValues(
 						new Value<>(PerkCategory.PHYSICAL, 1),
 						new Value<>(PerkCategory.LUST, 1),
@@ -135,6 +139,16 @@ public class Zaranix extends NPC {
 		if(setPersona) {
 			this.setPersonalityTraits(
 					PersonalityTrait.SELFISH);
+			
+			this.addSpell(Spell.SLAM);
+			
+			this.addSpell(Spell.TELEKENETIC_SHOWER);
+                        
+                        this.addSpell(Spell.ARCANE_AROUSAL);
+
+                        this.addSpell(Spell.TELEPATHIC_COMMUNICATION);
+			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_1);
+			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_2);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -322,10 +336,21 @@ public class Zaranix extends NPC {
 
 	@Override
 	public void resetDefaultMoves() {
-		super.resetDefaultMoves();
-		this.unequipMove(CombatMove.getIdFromCombatMove(CMBasicAttack.BASIC_TEASE));
-		this.unequipMove(CombatMove.getIdFromCombatMove(CMBasicAttack.BASIC_TEASE_BLOCK));
+		this.clearEquippedMoves();
+                equipMove("strike");
+                equipMove("arcane-strike");
+                equipMove("tease");
+                equipMove("oral-tease");
+		this.equipAllKnownMoves();
+		this.equipAllSpellMoves();
 	}
+	
+//	@Override
+//	public void resetDefaultMoves() {
+//		super.resetDefaultMoves();
+//		this.unequipMove(CombatMove.getIdFromCombatMove(CMBasicAttack.BASIC_TEASE));
+//		this.unequipMove(CombatMove.getIdFromCombatMove(CMBasicAttack.BASIC_TEASE_BLOCK));
+//	}
 	
 	@Override
 	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit, boolean critical) {

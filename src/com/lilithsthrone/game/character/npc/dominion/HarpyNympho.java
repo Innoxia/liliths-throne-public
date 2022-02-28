@@ -46,6 +46,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
@@ -54,6 +55,7 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -96,11 +98,11 @@ public class HarpyNympho extends NPC {
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.LEWD);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
-			this.resetPerksMap(true);
-		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.20")) {
 			this.setSkinCovering(new Covering(BodyCoveringType.HARPY_SKIN, PresetColour.SKIN_PINK_LIGHT), false);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.3.3")) {
+			this.resetPerksMap(true);
 		}
 	}
 
@@ -109,7 +111,8 @@ public class HarpyNympho extends NPC {
 		this.addSpecialPerk(Perk.SPECIAL_MEGA_SLUT);
 		
 		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(),
+				Util.newArrayListOfValues(
+						Perk.AHEGAO),
 				Util.newHashMapOfValues(
 						new Value<>(PerkCategory.PHYSICAL, 0),
 						new Value<>(PerkCategory.LUST, 1),
@@ -219,6 +222,8 @@ public class HarpyNympho extends NPC {
 
 		this.unequipAllClothingIntoVoid(true, true);
 
+                this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_cleaning_feather_duster"), DamageType.LUST, Util.newArrayListOfValues(PresetColour.CLOTHING_PERIWINKLE, PresetColour.CLOTHING_PINK, PresetColour.CLOTHING_BLUE_LIGHT)));
+
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_CROTCHLESS_PANTIES, PresetColour.CLOTHING_PINK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_OPEN_CUP_BRA, PresetColour.CLOTHING_PINK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_ankle_anklet", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD, null, false), true, this);
@@ -284,6 +289,19 @@ public class HarpyNympho extends NPC {
 	
 	public int getEscapeChance() {
 		return 0;
+	}
+	
+	@Override
+	public void resetDefaultMoves() {
+		this.clearEquippedMoves();
+                equipMove("strike");
+                equipMove("block");
+                equipMove("buttslut-tease");
+                equipMove("pussy slut-tease");
+                equipMove("oral performer-tease");
+                equipMove("breasts-tease");
+                equipMove("cum addict-tease");
+                this.equipAllSpellMoves();
 	}
 	
 	@Override

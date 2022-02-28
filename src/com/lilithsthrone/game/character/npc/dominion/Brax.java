@@ -157,13 +157,14 @@ public class Brax extends NPC {
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(
-						Perk.ENCHANTMENT_STABILITY,
-						Perk.UNARMED_DAMAGE,
-						Perk.ARCANE_BOOST),
+						Perk.PHYSIQUE_BOOST_MAJOR,
+                                                Perk.CRITICAL_BOOST,
+                                                Perk.ENERGY_BOOST,
+                                                Perk.UNARMED_DAMAGE),
 				Util.newHashMapOfValues(
-						new Value<>(PerkCategory.PHYSICAL, 2),
+						new Value<>(PerkCategory.PHYSICAL, 13),
 						new Value<>(PerkCategory.LUST, 0),
-						new Value<>(PerkCategory.ARCANE, 1)));
+						new Value<>(PerkCategory.ARCANE, 0)));
 	}
 	
 	@Override
@@ -305,9 +306,8 @@ public class Brax extends NPC {
 			
 			if(!Main.game.isStarted() || (Main.game.getPlayer().hasQuest(QuestLine.MAIN) && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN))) {
 				if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-					this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_epic", DamageType.FIRE));
+					this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("dsg_eep_enbaton_enbaton", DamageType.PHYSICAL));
 					this.setEssenceCount(150);
-					this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("dsg_eep_pbweap_pbpistol")));
 				}
 			}
 		}
@@ -447,6 +447,17 @@ public class Brax extends NPC {
 	// Combat:
 	
 	@Override
+	public void resetDefaultMoves() {
+		this.clearEquippedMoves();
+                equipMove("strike");
+                equipMove("twin-strike");
+//                equipMove("savage-attack");
+//		equipMove("feral bite");
+                equipMove("dominant-tease");
+		this.equipAllSpellMoves();
+	}
+
+        @Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if (victory) {
 			return new Response("", "", BraxOffice.AFTER_COMBAT_VICTORY){

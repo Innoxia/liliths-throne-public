@@ -256,6 +256,16 @@ public class HarpyBimboCompanion extends NPC {
 	}
 	
 	@Override
+	public void resetDefaultMoves() {
+		this.clearEquippedMoves();
+                equipMove("strike");
+                equipMove("block");
+                equipMove("tease");
+                equipMove("talon slash");
+                this.equipAllSpellMoves();
+	}
+
+        @Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if (victory) {
 			return new Response("", "", HarpyNestBimbo.HARPY_NEST_BIMBO_FIGHT_BEAT_GF);

@@ -257,6 +257,15 @@ public class HarpyDominantCompanion extends NPC {
 	}
 	
 	@Override
+	public void resetDefaultMoves() {
+		this.clearEquippedMoves();
+                equipMove("strike");
+                equipMove("block");
+                equipMove("talon slash");
+                this.equipAllSpellMoves();
+	}
+	
+	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if (victory) {
 			return new Response("", "", HarpyNestDominant.HARPY_NEST_DOMINANT_FIGHT_BEAT_PET);
