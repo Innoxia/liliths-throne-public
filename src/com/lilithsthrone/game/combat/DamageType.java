@@ -117,7 +117,7 @@ public enum DamageType {
 			if(damageAmount > 0) {
 				if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 					target.incrementMana(-damageAmount);
-					return HEALTH.damageTarget(source, target, damageAmount*2);
+					return HEALTH.damageTarget(source, target, damageAmount*1);
 				} else {
 					target.setLust(target.getLust()+damageAmount);
 				}
