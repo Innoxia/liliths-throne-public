@@ -52,10 +52,12 @@ public class Perk {
 			"perks/jobs/npc_harpy_matriarch",
 			PresetColour.RACE_HARPY,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.DAMAGE_LUST, 25),
-					new Value<>(Attribute.MAJOR_CORRUPTION, 5),
-					new Value<>(Attribute.MAJOR_PHYSIQUE, 5)),
+					new Value<>(Attribute.DAMAGE_LUST, 10),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 20),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+                                        new Value<>(Attribute.HEALTH_MAXIMUM, 20)),
 			null) {
+
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameHasFull] risen to the position of matriarch of a harpy flock through a combination of [npc.her] natural beauty and willingness to do anything it takes to rule.");
@@ -71,8 +73,9 @@ public class Perk {
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.DAMAGE_LUST, 10),
 					new Value<>(Attribute.MAJOR_CORRUPTION, 5),
-					new Value<>(Attribute.MAJOR_PHYSIQUE, 1)),
+                                        new Value<>(Attribute.MAJOR_PHYSIQUE, 5)),
 			null) {
+
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameIsFull] the member of a harpy flock, and as such has considerable experience in both flattering and backstabbing others.");
@@ -648,8 +651,8 @@ public class Perk {
 			"perks/jobs/npc_slime_queen_guard",
 			PresetColour.RACE_REINDEER_MORPH,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 25),
-					new Value<>(Attribute.HEALTH_MAXIMUM, 25)),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 25),
+                                        new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 10)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1410,7 +1413,7 @@ public class Perk {
 	};
 
 	public static AbstractPerk BESERK = new AbstractPerk(20,
-			false,
+			true,
 			"berserk",
 			PerkCategory.PHYSICAL,
 			"perks/beserk",
@@ -1517,7 +1520,7 @@ public class Perk {
 	};
 
 	public static AbstractPerk ENERGY_BOOST_DRAIN_DAMAGE = new AbstractPerk(20,
-			false,
+			true,
 			"aura shielding",
 			PerkCategory.PHYSICAL,
 			"perks/resource_boost_drain_aura",
@@ -1825,7 +1828,7 @@ public class Perk {
 	
 	
 	public static AbstractPerk ARCANE_COMBATANT = new AbstractPerk(20,
-			true,
+			false,
 			"arcane combatant",
 			PerkCategory.ARCANE,
 			"perks/physical_brawler",
@@ -1877,17 +1880,17 @@ public class Perk {
 	
 	
 	public static AbstractPerk FEROCIOUS_WARRIOR = new AbstractPerk(20,
-			true,
+			false,
 			"ferocious warrior",
 			PerkCategory.PHYSICAL,
 			"perks/physical_brawler",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(
+                                        new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
 					new Value<>(Attribute.DAMAGE_UNARMED, 5),
 					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 5),
 					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 5),
-					new Value<>(Attribute.DAMAGE_PHYSICAL, 10),
-					new Value<>(Attribute.RESISTANCE_PHYSICAL, 2)),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5)),
 			null) {
 
 		@Override
@@ -1930,7 +1933,7 @@ public class Perk {
 	// Arcane:
 	
 	public static AbstractPerk ARCANE_CRITICALS = new AbstractPerk(60,
-			true,
+			false,
 			"arcane precision",
 			PerkCategory.ARCANE,
 			"perks/physical_accurate",
@@ -2167,8 +2170,11 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/fitness_runner_2",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, 5)),
-			Util.newArrayListOfValues("<span style='color:"+ PresetColour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Improved escape chance</span>")) {
+			Util.newHashMapOfValues(
+                                        new Value<>(Attribute.HEALTH_MAXIMUM, 50)),
+			Util.newArrayListOfValues("<span style='color:"+ PresetColour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Improved escape chance</span>",
+                                                 "[style.boldExcellent(Regenerate 2%)] total [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")] per turn in combat")) {
+
 		@Override
 		public String getName(GameCharacter character) {
 			if (character!=null && character.isFeminine()) {
@@ -2190,8 +2196,10 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/regeneration",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<>(Attribute.MANA_MAXIMUM, -25)),
-			Util.newArrayListOfValues("[style.boldExcellent(Regenerate 5%)] total [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")] per turn in combat")) {
+			Util.newHashMapOfValues(
+                                        new Value<>(Attribute.MANA_MAXIMUM, -50)),
+			Util.newArrayListOfValues("[style.boldExcellent(Regenerate 8%)] total [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")] per turn in combat")) {
+
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "At the expense of some of [npc.namePos] "+Attribute.MANA_MAXIMUM.getName()+", the arcane's natural healing properties will now be amplified when in the presence of [npc.her] adrenaline.");
@@ -2200,13 +2208,19 @@ public class Perk {
 	
 
 	public static AbstractPerk UNARMED_TRAINING = new AbstractPerk(20,
-			true,
+			false,
 			"martial artist",
 			PerkCategory.PHYSICAL,
 			"perks/unarmed_training",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<>(Attribute.CRITICAL_DAMAGE, 25)),
-			Util.newArrayListOfValues("[style.colourUnarmed(Base unarmed damage)] [style.colourExcellent(doubled)]")) {
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.HEALTH_MAXIMUM, -50),
+                                        new Value<>(Attribute.DAMAGE_UNARMED, 15)),
+			Util.newArrayListOfValues(
+                                                "[style.colourUnarmed(Base unarmed damage)] [style.colourExcellent(increased)]",
+                                                "and [style.colourGood(Unlocks)] new Combat Moves",
+                                                "for non-Ferals")) {
+
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameHasFull] received formal training in martial arts, allowing [npc.herHim] to deal just as much damage in unarmed combat as [npc.her] strongest foe.");
@@ -2263,7 +2277,7 @@ public class Perk {
 	};
 	
 	public static AbstractPerk CONVINCING_REQUESTS = new AbstractPerk(20,
-			false,
+			true,
 			"irresistible appeals",
 			PerkCategory.LUST,
 			"perks/convincing_requests",
@@ -2281,7 +2295,7 @@ public class Perk {
 	};
 	
 	public static AbstractPerk OBJECT_OF_DESIRE = new AbstractPerk(20,
-			false,
+			true,
 			"object of desire",
 			PerkCategory.LUST,
 			"perks/object_of_desire",
@@ -2327,20 +2341,34 @@ public class Perk {
 			"perks/fitness_nymphomaniac",
 			PresetColour.GENERIC_SEX,
 			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_LUST, 5),
 					new Value<>(Attribute.RESISTANCE_LUST, -2)),
 			Util.newArrayListOfValues("Doubles <span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You are completely and hopelessly addicted to sex.";
-			else
-				return UtilText.parse(owner, "[npc.Name] is completely and hopelessly addicted to sex.");
+			return UtilText.parse(owner, "[npc.NameIsFull] completely and hopelessly addicted to sex.");
+		}
+	};
+	
+	public static AbstractPerk AHEGAO = new AbstractPerk(20,
+			true,
+			"ahegao",
+			PerkCategory.LUST,
+			"perks/ahegao",
+			PresetColour.GENERIC_SEX,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_LUST, 15),
+					new Value<>(Attribute.RESISTANCE_LUST, -5)),
+			Util.newArrayListOfValues("Goes [style.colourSex(ahegao)] upon orgasming")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NamePos] orgasms are particularly intense, and [npc.she] can't help but make an exaggerated facial expression every time [npc.she] [npc.verb(climax)].");
 		}
 	};
 
 	public static AbstractPerk LUSTPYRE = new AbstractPerk(20,
-			true,
+			false,
 			"lustpyre",
 			PerkCategory.LUST,
 			"perks/lustful_leech",
@@ -2355,7 +2383,7 @@ public class Perk {
 	};
 
 	public static AbstractPerk PURE_MIND = new AbstractPerk(20,
-			true,
+			false,
 			"pure thoughts",
 			PerkCategory.LUST,
 			"perks/pure_mind",
@@ -2539,8 +2567,8 @@ public class Perk {
 			PresetColour.ATTRIBUTE_LUST,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MAJOR_ARCANE, 25),
-					new Value<>(Attribute.HEALTH_MAXIMUM, 100),
-					new Value<>(Attribute.MANA_MAXIMUM, 100),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 150),
+					new Value<>(Attribute.MANA_MAXIMUM, 150),
 					new Value<>(Attribute.ENCHANTMENT_LIMIT, 100)),
 			null) {
 
@@ -2648,7 +2676,7 @@ public class Perk {
 			"perks/attSeduction3",
 			PresetColour.ATTRIBUTE_LUST,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.DAMAGE_LUST, 15),
+					new Value<>(Attribute.DAMAGE_LUST, 10),
 					new Value<>(Attribute.MAJOR_CORRUPTION, 40)),
 			null) {
 
@@ -2673,8 +2701,8 @@ public class Perk {
 			"perks/attSeduction3",
 			PresetColour.ATTRIBUTE_LUST,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.DAMAGE_LUST, 25),
-					new Value<>(Attribute.MAJOR_CORRUPTION, 75)),
+					new Value<>(Attribute.DAMAGE_LUST, 10),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 50)),
 			null) {
 
 		@Override
@@ -2773,7 +2801,7 @@ public class Perk {
 			"perks/attStrength3",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.MAJOR_PHYSIQUE, 25)),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 50)),
 			null) {
 
 		@Override
@@ -2797,7 +2825,9 @@ public class Perk {
 			"perks/attStrength3",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.MAJOR_PHYSIQUE, 10)),
+					new Value<>(Attribute.DAMAGE_UNARMED, 15),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 15),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 15)),
 			null) {
 
 		@Override
