@@ -21035,7 +21035,7 @@ public abstract class GameCharacter implements XMLSaving {
 				
 			} else {
 				float scaling = Main.getProperties().difficultyLevel.getNPCLevelScaling();
-				return (int) Math.max(level, Main.game.getPlayer().getLevel() * scaling + level / (scaling * 2));
+				return Math.round(Math.max(level, Main.game.getPlayer().getLevel() * scaling + level / (scaling * 2)));
 			}
 		} catch(Exception ex) {
 			return level;
