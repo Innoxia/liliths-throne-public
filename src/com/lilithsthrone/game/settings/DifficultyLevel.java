@@ -18,7 +18,7 @@ public enum DifficultyLevel {
 	
 	NIGHTMARE("Lilin", "Enemies level up alongside your character with 150% mod, do 200% damage, and take only 50% damage from all sources.", PresetColour.BASE_PURPLE, true, 1.5f, 2f, 0.5f),
 	
-	HELL("Lilith", "Enemies level up alongside your character with 170% mod, do 400% damage, and take only 25% damage from all sources. Be prepared to lose. A lot.", PresetColour.BASE_CRIMSON, true, 1.7f, 2f, 0.25f);
+	HELL("Lilith", "Enemies level up alongside your character with 170% mod, do 400% damage, and take only 25% damage from all sources. Be prepared to lose. A lot.", PresetColour.BASE_CRIMSON, true, 1.7f, 4f, 0.25f);
 
 	private String name;
 	private String description;
