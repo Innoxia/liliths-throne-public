@@ -62,6 +62,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -1302,5 +1303,166 @@ public class Lyssieth extends NPC {
 		
 		String returnedLine = Util.randomItemFrom(availableLines);
 		return UtilText.parse(this, target, "[npc.speech("+returnedLine+")]");
+	}
+
+	@Override
+	public String getSpecialPlayerVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating, GameCharacter receivingCharacter, SexAreaOrifice penetrated) {
+		if(!receivingCharacter.isPlayer() || penetrating != SexAreaPenetration.PENIS || (penetrated != SexAreaOrifice.VAGINA && penetrated != SexAreaOrifice.ANUS)) {
+			return null;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		
+		if(penetrated == SexAreaOrifice.VAGINA) {
+			if(Main.game.getPlayer().hasHymen()) {
+				sb.append("<p>");
+					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+						sb.append("As [npc.name] thrusts [npc.her] [npc.cock+] into your [pc.pussy+], you can't help but let out a desperate, shuddering wail."
+									+ " Being so enamoured with the idea of being a pure virgin, you can scarcely believe that you're allowing an elder lilin to take it from you,"
+										+ " but as [npc.namePos] [npc.cock+] claims your precious virginity, you don't have any time to reflect on your choice."
+									+ " The only thing that's on your mind is the agonising pain of having your hymen torn by the [npc.cockGirth] demonic-cock that's been pushed into your now-despoiled cunt.");
+					} else if(Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)) {
+						sb.append("As [npc.name] thrusts [npc.her] [npc.cock+] into your [pc.pussy+] to tear your hymen and claim your virginity, you can't help but let out a lewd, masochistic scream."
+								+ " The agonising pain of having your hymen torn by [npc.namePos] [npc.cockGirth] demonic-cock completely overwhelms you, and you can't help but squeal and moan in a delightful haze of overwhelming ecstasy.");
+					} else {
+						sb.append("As [npc.name] thrusts [npc.her] [npc.cock+] into your [pc.pussy+] to claim your virginity, you can't help but let out a desperate, shuddering wail."
+								+ " The agonising pain of having your hymen torn by [npc.namePos] [npc.cockGirth] demonic-cock completely overwhelms you, and you squirm about in discomfort as you try to endure this painful experience.");
+					}
+				sb.append("</p>");
+				
+			} else {
+				sb.append("<p>");
+					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+						sb.append("As [npc.name] thrusts [npc.her] [npc.cock+] into your [pc.pussy+], you can't help but let out a desperate, shuddering wail."
+								+ " Being so enamoured with the idea of being a pure virgin, you can scarcely believe that you're allowing an elder lilin to take it from you,"
+									+ " but as [npc.namePos] [npc.cock+] claims your precious virginity, you don't have any time to reflect on your choice."
+								+ " The only thing that's on your mind is the fact that you've being broken in by the [npc.cockGirth] demonic-cock that's been pushed into your now-despoiled cunt.");
+					} else {
+						sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+] to claim your virginity, you can't help but let out a desperately lewd [pc.moan]."
+								+ " [npc.NamePos] [npc.cockGirth] demonic-cock is giving you an intense pleasure unlike any you've felt before, and you can't help but continue to scream and [pc.moan] in a delightful haze of overwhelming ecstasy.");
+					}
+				sb.append("</p>");
+			}
+			
+			if(Main.sex.getInitialSexManager() instanceof SMLyssiethDemonTF) {
+				sb.append("<p>"
+						+ "Upon hearing your ear-splitting wail, [npc.name] stops thrusting forwards, and with her hot, throbbing cock still stuffed in your quivering cunt, [npc.she] teases,"
+						+ " [npc.speechNoExtraEffects(You're a very lucky [pc.girl], [pc.name]... ~Mmm!~ Not everyone gets to lose their virginity to an elder lilin, you know, especially not while being transformed into a demon..."
+							+ " ~Ooh!~ Now beg for my cock, like a good little succubus slut, and I'll give you the rest of it.)]"
+					+ "</p>");
+			
+				sb.append("<p>");
+					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+						sb.append("Although you can't help but shed a tear as you realise that you've lost your precious, pure virginity, you're also madly turned on.");
+					} else {
+						sb.append("Although you can't help but wince as a pang of pain shoots up from your cock-filled pussy, you're also madly turned on.");
+					}
+					sb.append(" Doing as [npc.name] says, you desperately pant, [pc.speechNoExtraEffects(Please, [npc.name]... ~Aah!~ Give me your cock and turn me into a succubus!)]");
+				sb.append("</p>");
+				
+			} else {
+				sb.append("<p>"
+							+ "Upon hearing your ear-splitting wail, [npc.name] stops thrusting forwards, and with her hot, throbbing cock still stuffed in your quivering cunt, [npc.she] teases,"
+							+ " [npc.speechNoExtraEffects(You're a very lucky [pc.girl], [pc.name]... ~Mmm!~ Not everyone gets to lose their virginity to an elder lilin, you know... Now beg for my cock, and I'll give you the rest of it.)]"
+						+ "</p>");
+				
+				sb.append("<p>");
+					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+						sb.append("Although you can't help but shed a tear as you realise that you've lost your precious, pure virginity, you're also madly turned on.");
+					} else {
+						sb.append("Although you can't help but wince as a pang of pain shoots up from your cock-filled pussy, you're also madly turned on.");
+					}
+					sb.append(" Doing as [npc.name] says, you desperately pant, [pc.speechNoExtraEffects(Please, [npc.name]... ~Aah!~ Give me your cock!)]");
+				sb.append("</p>");
+			}
+			
+			sb.append("<p>"
+						+ "[npc.speechNoExtraEffects(That's a good [pc.girl],)] [npc.name] responds,"
+							+ " and you try to suppress your whimpers as [npc.she] resumes where [npc.she] left off and thrusts the remaining length of [npc.her] huge demonic-cock into your cunt."
+						+ " As [npc.she] fills your freshly popped cherry with [npc.her] hot, throbbing shaft, [npc.name] softly moans,"
+						+ " [npc.speechNoExtraEffects(That's it... ~Mmm!~ Take my cock nice and deep... It'll start feeling good for you soon enough...)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Sure enough, after [npc.nameHas] pulled [npc.her] cock back out of your pussy, the pain starts to fade away,"
+							+ " and you find yourself letting out a lewd moan as you concentrate on the feeling of [npc.her] [npc.cockHead+] pushing its way into your broken-in pussy as [npc.she] gently thrusts forwards once again..."
+					+ "</p>");
+			
+		} else if(penetrated == SexAreaOrifice.ANUS) {
+			sb.append("<p>");
+				sb.append("As [npc.name] slowly pushes [npc.her] [npc.cock+] into your [pc.asshole+] to claim your virginity, you can't help but let out a desperate, shuddering wail."
+						+ " The uncomfortable sensation of having [npc.namePos] [npc.cockGirth] demonic-cock forcing its way inside of you causes you to squirm about in discomfort.");
+			sb.append("</p>");
+			
+
+			if(Main.sex.getInitialSexManager() instanceof SMLyssiethDemonTF) {
+				sb.append("<p>"
+						+ "Upon hearing your ear-splitting wail, [npc.name] stops thrusting forwards, and with her hot, throbbing cock still stuffed in your asshole, [npc.she] teases,"
+						+ " [npc.speechNoExtraEffects(~Mmm!~ You know, no matter what they say, all succubi are horny little buttsluts... You'll be no different..."
+							+ " ~Ooh!~ Now beg for my cock, like a good little anal-loving slut, and I'll give you the rest of it.)]"
+					+ "</p>");
+			
+				sb.append("<p>");
+					sb.append("Finding yourself feeling extremely horny as [npc.name] says this, you do your best to endure the discomfort and desperately moan,"
+							+ " [pc.speechNoExtraEffects(Please, [npc.name]... ~Aah!~ I'll be a good buttslut succubus! Give me your cock!)]");
+				sb.append("</p>");
+				
+			} else {
+				sb.append("<p>"
+							+ "Upon hearing your ear-splitting wail, [npc.name] stops thrusting forwards, and with her hot, throbbing cock still stuffed in your asshole, [npc.she] teases,"
+							+ " [npc.speechNoExtraEffects(~Mmm!~ It's nice knowing that my cock's the first one that's been up your ass.. You're going to become a horny little buttslut, I can just tell..."
+							+ " ~Ooh!~ Now beg for my cock, like a good little anal-loving slut, and I'll give you the rest of it.)]"
+						+ "</p>");
+
+				sb.append("<p>");
+					sb.append("Finding yourself feeling extremely horny as [npc.name] says this, you do your best to endure the discomfort and desperately moan,"
+							+ " [pc.speechNoExtraEffects(Please, [npc.name]... ~Aah!~ Give me your cock!)]");
+				sb.append("</p>");
+			}
+
+			sb.append("<p>"
+						+ "[npc.speechNoExtraEffects(That's a good [pc.girl],)] [npc.name] responds,"
+							+ " and you try to suppress your whimpers as [npc.she] resumes where [npc.she] left off and thrusts the remaining length of [npc.her] huge demonic-cock into your asshole."
+						+ " As [npc.she] fills you with [npc.her] hot, throbbing shaft, [npc.name] softly moans,"
+						+ " [npc.speechNoExtraEffects(That's it... ~Mmm!~ Take my cock nice and deep... It'll start feeling good for you soon enough...)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Sure enough, after [npc.nameHas] pulled [npc.her] cock back out of your asshole, the discomfort starts to fade away,"
+							+ " and you find yourself letting out a lewd moan as you concentrate on the feeling of [npc.her] [npc.cockHead+] pushing its way into your broken-in butt as [npc.she] gently thrusts forwards once again..."
+					+ "</p>");
+		}
+		
+		return UtilText.parse(this,  sb.toString());
+	}
+	
+	@Override
+	public String getSpecialPlayerPureVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating) {
+		return "<p style='text-align:center;'>"
+					+ "<b style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
+				+ "</p>"
+				+ "<p>"
+					+ "As [npc.name] once again begins to stuff your cunt with [npc.her] hot demonic-cock, the sudden realisation of what's just happened hits you like a sledgehammer."
+				+ "</p>"
+				+ "<p style='text-align:center;'>"
+					+"[pc.thought(I-I've lost my virginity?!"
+					+ "<br/>To <b>an elder lilin</b>?!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "You don't know what's worse, losing the virginity that you prized so highly, or the fact that you're actually enjoying it."
+					+ " As your [pc.labia+] spread lewdly around the hot, thick [npc.cock] thrusting in and out of you, you start convincing yourself that this is all you're good for."
+				+ "</p>"
+				+ "<p style='text-align:center;'>"
+					+ "[pc.thought(If I'm not a virgin, that makes me a slut..."
+					+ "<br/>Just a slut to be fucked and pumped full of cum..."
+					+ "<br/>I wonder if all cocks are as good as [npc.namePos]...)]"
+				+ "</p>"
+				+ "<p>"
+					+ "You're vaguely aware of the fact that [npc.name] is telling you how good your pussy feels as [npc.she] starts to focus [npc.her] attention on filling it with her throbbing demonic shaft."
+					+ " With a desperate moan,"
+					+ (Main.game.getPlayer().hasLegs()
+						?" you spread your legs and"
+						:" you")
+					+ " resign yourself to the fact that you're now nothing more than a"
+					+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
+				+ "</p>";
 	}
 }

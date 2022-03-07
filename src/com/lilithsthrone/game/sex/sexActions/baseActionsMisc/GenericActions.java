@@ -1974,8 +1974,8 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.getSexManager().isPartnerWantingToStopSex(Main.sex.getCharacterPerformingAction())
-					&& !Main.sex.isAnyCharacterReadyToOrgasm(false)
+			return Main.sex.isCharacterWantingToStopSex(Main.sex.getCharacterPerformingAction())
+					&& (!Main.sex.getAllParticipants(false).contains(Main.game.getPlayer()) || !Main.sex.isReadyToOrgasm(Main.game.getPlayer()))
 					&& !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		

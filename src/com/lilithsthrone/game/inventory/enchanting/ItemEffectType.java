@@ -794,16 +794,16 @@ public class ItemEffectType {
 			sb.append("<p style='text-align:center;'>");
 				sb.append("[npc.Name] [npc.verb(feel)] a blissful sense of inner-peace wash over [npc.herHim]...");
 				if(hadAddictions) {
-					sb.append("<i>[npc.SheIsFull] no longer addicted to any substances!</i>");
+					sb.append("<br/><i>[npc.SheIsFull] no longer addicted to any substances!</i>");
 				}
 				if(drunk) {
-					sb.append("<i>The alcohol still in [npc.her] system instantly metabolises!</i>");
+					sb.append("<br/><i>The alcohol still in [npc.her] system instantly metabolises!</i>");
 				}
 				if(psychoactive) {
-					sb.append("<i>The psychoactive trip which [npc.she] [npc.was] experiencing suddenly comes to an end!</i>");
+					sb.append("<br/><i>The psychoactive trip which [npc.she] [npc.was] experiencing suddenly comes to an end!</i>");
 				}
 				if(!hadAddictions && !drunk && !psychoactive) {
-					sb.append("[style.italicsDisabled(Other than experiencing this pleasant feeling, nothing happens...)]");
+					sb.append("<br/>[style.italicsDisabled(Other than experiencing this pleasant feeling, nothing happens...)]");
 				}
 			sb.append("</p>");
 			

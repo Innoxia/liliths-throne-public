@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.xml.transform.OutputKeys;
@@ -47,6 +49,8 @@ import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -174,6 +178,8 @@ public class Properties {
 	
 	private Map<AbstractSubspecies, SubspeciesPreference> subspeciesFemininePreferencesMap;
 	private Map<AbstractSubspecies, SubspeciesPreference> subspeciesMasculinePreferencesMap;
+
+	public Map<Colour, Integer> skinColourPreferencesMap;
 	
 	// Transformation Settings
 	private FurryPreference forcedTFPreference;
@@ -245,6 +251,11 @@ public class Properties {
 		for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
 			subspeciesFemininePreferencesMap.put(s, s.getSubspeciesPreferenceDefault());
 			subspeciesMasculinePreferencesMap.put(s, s.getSubspeciesPreferenceDefault());
+		}
+		
+		skinColourPreferencesMap = new LinkedHashMap<>();
+		for(Entry<Colour, Integer> entry : PresetColour.getHumanSkinColoursMap().entrySet()) {
+			skinColourPreferencesMap.put(entry.getKey(), entry.getValue());
 		}
 		
 		itemsDiscovered = new HashSet<>();
@@ -521,6 +532,22 @@ public class Properties {
 				preference = doc.createAttribute("furryPreference");
 				preference.setValue(subspeciesMasculineFurryPreferencesMap.get(subspecies).toString());
 				element.setAttributeNode(preference);
+			}
+
+			// Skin colour preferences:
+			Element skinColourPreferences = doc.createElement("skinColourPreferences");
+			properties.appendChild(skinColourPreferences);
+			for (Entry<Colour, Integer> colour : skinColourPreferencesMap.entrySet()) {
+				Element element = doc.createElement("preference");
+				skinColourPreferences.appendChild(element);
+				
+				Attr skinColour = doc.createAttribute("colour");
+				skinColour.setValue(colour.getKey().getId());
+				element.setAttributeNode(skinColour);
+				
+				Attr value = doc.createAttribute("value");
+				value.setValue(String.valueOf(colour.getValue()));
+				element.setAttributeNode(value);
 			}
 			
 			// Discoveries:
@@ -1047,6 +1074,21 @@ public class Properties {
 						}
 					}
 				}
+
+				// Skin colour preferences:
+				nodes = doc.getElementsByTagName("skinColourPreferences");
+				element = (Element) nodes.item(0);
+				if(element!=null && element.getElementsByTagName("preference")!=null) {
+					for(int i=0; i<element.getElementsByTagName("preference").getLength(); i++){
+						Element e = ((Element)element.getElementsByTagName("preference").item(i));
+						
+						try {
+							skinColourPreferencesMap.put(PresetColour.getColourFromId(e.getAttribute("colour")), Integer.valueOf(e.getAttribute("value")));
+						} catch(IllegalArgumentException ex){
+							System.err.println("loadPropertiesFromXML() error: skinColourPreferences preference");
+						}
+					}
+				}
 				
 				// Item Discoveries:
 				if(Main.isVersionOlderThan(versionNumber, "0.3.7.7")) {
@@ -1243,6 +1285,11 @@ public class Properties {
 		udderSizePreference = 0;
 		penisSizePreference = 0;
 		trapPenisSizePreference = -70;
+
+		skinColourPreferencesMap = new LinkedHashMap<>();
+		for(Entry<Colour, Integer> entry : PresetColour.getHumanSkinColoursMap().entrySet()) {
+			skinColourPreferencesMap.put(entry.getKey(), entry.getValue());
+		}
 	}
 	
 	// Add discoveries:

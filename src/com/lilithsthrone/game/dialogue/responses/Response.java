@@ -120,8 +120,8 @@ public class Response {
 			GameCharacter characterPenetrated,
 			Collection<SexAreaInterface> sexAreaAccessRequiredForTargeted) {
 		
-		this.title = UtilText.parse(title);
-		this.tooltipText = UtilText.parse(tooltipText);
+		this.title = (title);
+		this.tooltipText = (tooltipText);
 		this.nextDialogue = nextDialogue;
 		
 		this.fetishesRequired = fetishesForUnlock;
@@ -204,17 +204,17 @@ public class Response {
 	}
 
 	public String getTitle() {
-		if(fromExternalFile) {
+//		if(fromExternalFile) {
 			return UtilText.parse(title).trim();
-		}
-		return title;
+//		}
+//		return title;
 	}
 
 	public String getTooltipText() {
-		if(fromExternalFile) {
+//		if(fromExternalFile) {
 			return UtilText.parse(tooltipText).trim();
-		}
-		return tooltipText;
+//		}
+//		return tooltipText;
 	}
 
 	public DialogueNode getNextDialogue() {
