@@ -55,12 +55,13 @@
 	<applySubspeciesChanges><![CDATA[
 	[#targetedBody.setTailType(TAIL_TYPE_mintychip_salamander_tailFlame)]
 	
-	#IF((targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour() == COLOUR_COVERING_INDIGO) ||
-		(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour() == COLOUR_COVERING_BLUE_LIGHT) ||
-		(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour() == COLOUR_COVERING_BLUE) ||
-		(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour() == COLOUR_COVERING_BLUE_DARK) ||
-		(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour() == COLOUR_COVERING_PURPLE_LIGHT)
-	)
+	#IF(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour().getPrimaryColour().isOneOf(
+		COLOUR_COVERING_INDIGO, 
+		COLOUR_COVERING_BLUE_LIGHT, 
+		COLOUR_COVERING_BLUE,
+		COLOUR_COVERING_BLUE_DARK,
+		COLOUR_COVERING_PURPLE_LIGHT
+	))
 		#IF(RND.nextInt(6)<2)
 			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).setPrimaryColour(COLOUR_COVERING_RED)]
 		#ELSEIF(RND.nextInt(4)<1)
@@ -74,12 +75,13 @@
 		#ENDIF
 	#ENDIF
 	
-	#IF((targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).getPrimaryColour() == COLOUR_COVERING_INDIGO) ||
-		(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).getPrimaryColour() == COLOUR_COVERING_BLUE_LIGHT) ||
-		(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).getPrimaryColour() == COLOUR_COVERING_BLUE) ||
-		(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).getPrimaryColour() == COLOUR_COVERING_BLUE_DARK) ||
-		(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).getPrimaryColour() == COLOUR_COVERING_PURPLE_LIGHT)
-	)		
+	#IF(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).getPrimaryColour().getPrimaryColour().getPrimaryColour().isOneOf(
+		COLOUR_COVERING_INDIGO, 
+		COLOUR_COVERING_BLUE_LIGHT, 
+		COLOUR_COVERING_BLUE,
+		COLOUR_COVERING_BLUE_DARK,
+		COLOUR_COVERING_PURPLE_LIGHT
+	))
 		#IF(RND.nextInt(2)<1)
 			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).setPrimaryColour(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour())]
 		#ELSEIF(RND.nextInt(2)<1)
