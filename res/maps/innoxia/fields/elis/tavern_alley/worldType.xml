@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[The Crossed Blades]]></name>
+	<colour>BASE_BROWN</colour>
+	<sexBlockedReason><![CDATA[[npc.Name] cannot have sex here!]]></sexBlockedReason> 
+	<furniturePresent>true</furniturePresent>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>true</loiteringEnabled>
+	<flightEnabled>false</flightEnabled>
+	<visibleFromStart>true</visibleFromStart>
+	<fullyRevealedFromStart>false</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_FIELDS_CITY</globalMapLocation>
+	<standardPlace>innoxia_fields_elis_tavern_alley_tables</standardPlace>
+	<entryFromGlobalMapLocation>innoxia_fields_elis_tavern_alley_exit</entryFromGlobalMapLocation>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		
+		<place colour="#ff0000">innoxia_fields_elis_tavern_alley_exit</place>
+		<place colour="#808080">innoxia_fields_elis_tavern_alley_tables</place>
+		
+		<place colour="#008080">innoxia_fields_elis_tavern_alley_bar</place>
+		<place colour="#ff8000">innoxia_fields_elis_tavern_alley_kitchen</place>
+		<place colour="#008000">innoxia_fields_elis_tavern_alley_toilets</place>
+		
+		<place colour="#00ffff">innoxia_fields_elis_tavern_alley_seating</place>
+		<place colour="#0080ff">innoxia_fields_elis_tavern_alley_seating_boss</place>
+		
+		<place colour="#ff00ff">innoxia_fields_elis_tavern_alley_locked_door</place>
+		<place colour="#404040">innoxia_fields_elis_tavern_alley_corridor</place>
+		<place colour="#00ff80">innoxia_fields_elis_tavern_alley_vip</place>
+	</places>
+</worldType>

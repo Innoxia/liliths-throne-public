@@ -193,14 +193,18 @@ public abstract class AbstractItemEffectType {
 		AbstractPerk perk = Perk.getSubspeciesRelatedPerk(mainSubspecies);
 		if(!reader.isPlayer() || ((PlayerCharacter) reader).addRaceDiscoveredFromBook(mainSubspecies) || !reader.hasPerkAnywhereInTree(perk)) {
 			return (withDescription
-						?mainSubspecies.getBasicDescription(null)
-								+mainSubspecies.getAdvancedDescription(null)
+						?("<p style='text-align:center; font-size:110%;margin-bottom:0;padding-bottom:0;'><b>"+mainSubspecies.getBookName()+"</b></p>"
+							+ (mainSubspecies.getBookAuthor().isEmpty()?"":"<p style='text-align:center;margin-top:0;padding-top:0;'><b><i>by "+mainSubspecies.getBookAuthor()+"</i></b></p>")
+							+ mainSubspecies.getBasicDescription(null)
+							+ mainSubspecies.getAdvancedDescription(null))
 						:"")
 					+reader.addSpecialPerk(perk);
 			
 		} else {
-			return mainSubspecies.getBasicDescription(null)
-					+mainSubspecies.getAdvancedDescription(null)
+			return "<p style='text-align:center; font-size:110%;margin-bottom:0;padding-bottom:0;'><b>"+mainSubspecies.getBookName()+"</b></p>"
+					+ (mainSubspecies.getBookAuthor().isEmpty()?"":"<p style='text-align:center;margin-top:0;padding-top:0;'><b><i>by "+mainSubspecies.getBookAuthor()+"</i></b></p>")
+					+ mainSubspecies.getBasicDescription(null)
+					+ mainSubspecies.getAdvancedDescription(null)
 					+"<p style='text-align:center; color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"
 						+ "Nothing further can be gained from re-reading this book..."
 					+ "</p>";

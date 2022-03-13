@@ -526,6 +526,10 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	public String getGirthDescriptor(GameCharacter owner) {
 		return getGirthDescriptor(owner.getTailGirth());
 	}
+
+	public String getGirthDescriptor(Body body) {
+		return getGirthDescriptor(body.getTail().getGirth());
+	}
 	
 	public String getGirthDescriptor(PenetrationGirth girth) {
 		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_SKIN)

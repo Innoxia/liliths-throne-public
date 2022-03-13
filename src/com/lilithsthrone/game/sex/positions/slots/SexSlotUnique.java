@@ -170,7 +170,7 @@ public class SexSlotUnique {
 			false) {
 		@Override
 		public String getGenericEndSexDescription(GameCharacter endingCharacter, GameCharacter targetedCharacter) {
-			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] [npc.verb(step)] away from the glory hole, signalling that [npc.sheHas] had enough for now.");
+			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] #IF(npc.isPlayer())[npc.step]#ELSE[npc.steps]#ENDIF away from the glory hole, signalling that [npc.sheHas] had enough for now.");
 		}
 	};
 
@@ -181,7 +181,7 @@ public class SexSlotUnique {
 			true) {
 		@Override
 		public String getGenericEndSexDescription(GameCharacter endingCharacter, GameCharacter targetedCharacter) {
-			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] [npc.verb(step)] away from the glory hole, signalling that [npc.sheHas] had enough for now.");
+			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] #IF(npc.isPlayer())[npc.step]#ELSE[npc.steps]#ENDIF away from the glory hole, signalling that [npc.sheHas] had enough for now.");
 		}
 	};
 
@@ -192,7 +192,7 @@ public class SexSlotUnique {
 			true) {
 		@Override
 		public String getGenericEndSexDescription(GameCharacter endingCharacter, GameCharacter targetedCharacter) {
-			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] [npc.verb(step)] away from the glory hole, signalling that [npc.sheHas] had enough for now.");
+			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] #IF(npc.isPlayer())[npc.step]#ELSE[npc.steps]#ENDIF away from the glory hole, signalling that [npc.sheHas] had enough for now.");
 		}
 	};
 	
@@ -203,7 +203,7 @@ public class SexSlotUnique {
 			true) {
 		@Override
 		public String getGenericEndSexDescription(GameCharacter endingCharacter, GameCharacter targetedCharacter) {
-			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] [npc.verb(step)] away from the glory hole, signalling that [npc.sheHas] had enough for now.");
+			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] #IF(npc.isPlayer())[npc.step]#ELSE[npc.steps]#ENDIF away from the glory hole, signalling that [npc.sheHas] had enough for now.");
 		}
 	};
 	
@@ -214,7 +214,7 @@ public class SexSlotUnique {
 			true) {
 		@Override
 		public String getGenericEndSexDescription(GameCharacter endingCharacter, GameCharacter targetedCharacter) {
-			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] [npc.verb(step)] away from the glory hole, signalling that [npc.sheHas] had enough for now.");
+			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] #IF(npc.isPlayer())[npc.step]#ELSE[npc.steps]#ENDIF away from the glory hole, signalling that [npc.sheHas] had enough for now.");
 		}
 	};
 	
@@ -225,7 +225,7 @@ public class SexSlotUnique {
 			true) {
 		@Override
 		public String getGenericEndSexDescription(GameCharacter endingCharacter, GameCharacter targetedCharacter) {
-			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] [npc.verb(step)] away from the glory hole, signalling that [npc.sheHas] had enough for now.");
+			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] #IF(npc.isPlayer())[npc.step]#ELSE[npc.steps]#ENDIF away from the glory hole, signalling that [npc.sheHas] had enough for now.");
 		}
 	};
 }

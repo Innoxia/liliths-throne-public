@@ -20,6 +20,8 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
+import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -105,6 +107,7 @@ public class TooltipInformationEventListener implements EventListener {
 	private GameCharacter moneyTransferTarget;
 	private int moneyTransferPercentage;
 	private SlaveJob slaveJob;
+	private Body loadedBody;
 	
 	private static boolean attributeTableLeft = true;
 	
@@ -1067,7 +1070,7 @@ public class TooltipInformationEventListener implements EventListener {
 								tooltipSB.append(getEmptyBodyPartDiv("Nipples",
 										"Unknown!",
 										Util.capitaliseSentence(Util.intToString(Math.max(1, owner.getBreastCrotchRows()*2)))+" "
-												+(owner.getBreastRawSizeValue()>0?(owner.getBreastCrotchSize().getCupSizeName() + "-cup "):"flat ")
+												+(owner.getBreastCrotchRawSizeValue()>0?(owner.getBreastCrotchSize().getCupSizeName() + "-cup "):"flat ")
 												+(owner.getBreastCrotchShape()==BreastShape.UDDERS
 													?(owner.getBreastCrotchRows()==0
 														?"udder"
@@ -1079,7 +1082,7 @@ public class TooltipInformationEventListener implements EventListener {
 										owner.getNippleCrotchCovering(),
 										owner.isNippleCrotchFeral(),
 										Util.capitaliseSentence(Util.intToString(Math.max(1, owner.getBreastCrotchRows()*2)))+" "
-												+(owner.getBreastRawSizeValue()>0?(owner.getBreastCrotchSize().getCupSizeName() + "-cup "):"flat ")
+												+(owner.getBreastCrotchRawSizeValue()>0?(owner.getBreastCrotchSize().getCupSizeName() + "-cup "):"flat ")
 												+(owner.getBreastCrotchShape()==BreastShape.UDDERS
 													?(owner.getBreastCrotchRows()==0
 														?"udder"
@@ -1516,6 +1519,181 @@ public class TooltipInformationEventListener implements EventListener {
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 			
+		} else if(loadedBody!=null) {
+			boolean feral = loadedBody.isFeral();
+			boolean crotchBreasts = loadedBody.hasBreastsCrotch() && (Main.getProperties().getUddersLevel()>0 || feral);
+			boolean spinneret = loadedBody.hasSpinneret();
+			
+			int crotchBreastAddition = crotchBreasts?24:0;
+			int spinneretAddition = spinneret?24:0;
+			
+			int[] dimensions = new int[]{419, (508+crotchBreastAddition+spinneretAddition)};
+
+			Main.mainController.setTooltipSize(dimensions[0], dimensions[1]);
+			
+			tooltipSB.setLength(0);
+			tooltipSB.append("<div class='title' style='color:" + loadedBody.getRace().getColour().toWebHexString() + ";'>"
+					+(loadedBody.getRaceStage().getName()!=""
+						?"<b style='color:"+loadedBody.getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(loadedBody.getRaceStage().getName())+"</b> "
+						:"")
+					+ "<b style='color:"+loadedBody.getSubspecies().getColour(null).toWebHexString()+";'>"
+						+ (loadedBody.isFeminine()
+								?Util.capitaliseSentence(loadedBody.getSubspecies().getSingularFemaleName(loadedBody))
+								:Util.capitaliseSentence(loadedBody.getSubspecies().getSingularMaleName(loadedBody)))
+					+ "</b>"
+					+ "</div>");
+			
+				
+			// GREATER:
+			AbstractBodyCoveringType covType = loadedBody.getFace().getBodyCoveringType(loadedBody);
+			if(loadedBody.getCovering(covType, true).getPattern()==CoveringPattern.FRECKLED_FACE) {
+				Covering c = loadedBody.getCovering(covType, true);
+				tooltipSB.append(getBodyPartDiv(loadedBody, "Face", loadedBody.getFace(), null,
+						new Covering(covType,
+								CoveringPattern.FRECKLED,
+								c.getModifier(),
+								c.getPrimaryColour(),
+								c.isPrimaryGlowing(),
+								c.getSecondaryColour(),
+								c.isSecondaryGlowing())));
+				
+			} else {
+				tooltipSB.append(getBodyPartDiv(loadedBody, "Face", loadedBody.getFace()));
+			}
+			
+			tooltipSB.append(getBodyPartDiv(loadedBody, "Torso", loadedBody.getTorso(),
+					"<span>"
+					+(feral && !loadedBody.getSubspecies().getFeralAttributes().isSizeHeight()
+						?"Length: [unit.sizeShort(" + (loadedBody.getHeightValue())+ ")]</span>"
+						:"Height: [unit.sizeShort(" + loadedBody.getHeightValue() + ")]</span>")));
+			
+			
+			// LESSER:
+			if(feral && !loadedBody.getSubspecies().getFeralAttributes().isArmsOrWingsPresent() && loadedBody.getLegConfiguration()!=LegConfiguration.AVIAN) {
+				tooltipSB.append(getEmptyBodyPartDiv("Arms", "None"));
+			} else {
+				tooltipSB.append(getBodyPartDiv(loadedBody, Util.capitaliseSentence(Util.intToString(loadedBody.getArm().getArmRows()*2))+" arms", loadedBody.getArm()));
+			}
+			switch(loadedBody.getLegConfiguration()) {
+				case ARACHNID:
+					tooltipSB.append(getBodyPartDiv(loadedBody, Util.capitaliseSentence(Util.intToString(loadedBody.getLeg().getLegConfiguration().getNumberOfLegs()))+" arachnid legs", loadedBody.getLeg()));
+					break;
+				case BIPEDAL:
+				case QUADRUPEDAL:
+				case WINGED_BIPED:
+					tooltipSB.append(getBodyPartDiv(loadedBody, Util.capitaliseSentence(
+							Util.intToString(loadedBody.getLeg().getLegConfiguration().getNumberOfLegs()))+" "+loadedBody.getLeg().getFootStructure().getName()+" legs", loadedBody.getLeg()));
+					break;
+				case CEPHALOPOD:
+					tooltipSB.append(getBodyPartDiv(loadedBody, Util.capitaliseSentence(Util.intToString(loadedBody.getLeg().getLegConfiguration().getNumberOfLegs()))+" tentacle-legs", loadedBody.getLeg()));
+					break;
+				case TAIL:
+					tooltipSB.append(getBodyPartDiv(loadedBody, "Mer-tail", loadedBody.getLeg()));
+					break;
+				case TAIL_LONG:
+					tooltipSB.append(getBodyPartDiv(loadedBody, "Serpent-tail (Length: "+(Units.size(loadedBody.getLeg().getLength(loadedBody)))+")", loadedBody.getLeg()));
+					break;
+				case AVIAN:
+					tooltipSB.append(getBodyPartDiv(loadedBody, Util.capitaliseSentence(Util.intToString(loadedBody.getLeg().getLegConfiguration().getNumberOfLegs()))+" bird legs", loadedBody.getLeg()));
+					break;
+			}
+			
+			// PARTIAL:
+			if (loadedBody.getHair().getRawLengthValue() == 0 && loadedBody.getFace().isBaldnessNatural()) {
+				tooltipSB.append(getEmptyBodyPartDiv("Hair", "None"));
+			} else {
+				tooltipSB.append(getBodyPartDiv(loadedBody, Util.capitaliseSentence(
+						loadedBody.getHair().getLength().getDescriptor())+" "+loadedBody.getHair().getStyle().getName(loadedBody)+" "+loadedBody.getHair().getName(owner), loadedBody.getHair()));
+			}
+			tooltipSB.append(getBodyPartDiv(loadedBody, Util.capitaliseSentence(Util.intToString(loadedBody.getEye().getEyePairs()*2))+" eyes", loadedBody.getEye()));
+			tooltipSB.append(getBodyPartDiv(loadedBody, "Ears", loadedBody.getEar()));
+			tooltipSB.append(getBodyPartDiv(loadedBody, "Tongue", loadedBody.getFace().getTongue()));
+			if (loadedBody.getHornType() != HornType.NONE) {
+				tooltipSB.append(getBodyPartDiv(loadedBody, Util.capitaliseSentence(Util.intToString(loadedBody.getHorn().getTotalHorns()))+" "+loadedBody.getHorn().getName(owner),
+						loadedBody.getHorn()));
+			} else {
+				tooltipSB.append(getEmptyBodyPartDiv("Horns", "None"));
+			}
+			if (loadedBody.getAntenna().getType() != AntennaType.NONE) {
+				tooltipSB.append(getBodyPartDiv(loadedBody, Util.capitaliseSentence(Util.intToString(loadedBody.getAntenna().getTotalAntennae()))+" antennae", loadedBody.getAntenna()));
+			} else {
+				tooltipSB.append(getEmptyBodyPartDiv("Antennae", "None"));
+			}
+			if (loadedBody.getWingType() != WingType.NONE) {
+				tooltipSB.append(getBodyPartDiv(loadedBody, Util.capitaliseSentence(loadedBody.getWing().getSize().getName())+" wings", loadedBody.getWing()));
+			} else {
+				tooltipSB.append(getEmptyBodyPartDiv("Wings", "None"));
+			}
+			if (loadedBody.getTailType() != TailType.NONE) {
+				tooltipSB.append(
+						getBodyPartDiv(loadedBody,
+								Util.capitaliseSentence(
+									Util.intToString(loadedBody.getTail().getTailCount()))
+										+" "+(loadedBody.getTail().getType().getGirthDescriptor(loadedBody))+" tail"+(loadedBody.getTail().getTailCount()!=1?"s":""), loadedBody.getTail()));
+			} else {
+				tooltipSB.append(getEmptyBodyPartDiv("Tail", "None"));
+			}
+			
+			// SEXUAL:
+			if (loadedBody.getVaginaType() != VaginaType.NONE) {
+				tooltipSB.append(getBodyPartDiv(loadedBody, "Vagina", loadedBody.getVagina(),
+								loadedBody.getVagina().getClitoris().getClitorisSize().isPseudoPenisSize()?"[unit.sizeShort(" + loadedBody.getVagina().getClitoris().getRawClitorisSizeValue()+ ")] clit":null));
+			} else {
+				tooltipSB.append(getEmptyBodyPartDiv("Vagina", "None"));
+			}
+			
+			if (loadedBody.hasPenisIgnoreDildo()) {
+				tooltipSB.append(getBodyPartDiv(loadedBody, "Penis", loadedBody.getPenis(),
+						"[unit.sizeShort("+loadedBody.getPenis().getRawLengthValue()+")] long, [unit.sizeShort("+loadedBody.getPenis().getDiameter()+")] diameter"));
+			} else if (loadedBody.hasPenis()) {
+				tooltipSB.append(getBodyPartDiv(loadedBody, "Penis", loadedBody.getPenis(),
+						"[unit.sizeShort("+loadedBody.getPenis().getRawLengthValue()+")] long, [unit.sizeShort("+loadedBody.getPenis().getDiameter()+")] diameter"));
+			} else {
+				tooltipSB.append(getEmptyBodyPartDiv("Penis", "None"));
+			}
+			
+			tooltipSB.append(getBodyPartDiv(loadedBody, "Anus", loadedBody.getAss().getAnus()));
+			
+			if(feral && !loadedBody.getSubspecies().getFeralAttributes().isBreastsPresent()) {
+				tooltipSB.append(getEmptyBodyPartDiv("Nipples (Breasts)", "None"));
+			} else {
+				tooltipSB.append(getBodyPartDiv(loadedBody, "Nipples",
+						loadedBody.getBreast().getNipples(),
+						Util.capitaliseSentence(Util.intToString(loadedBody.getBreast().getRows()*2))+" "
+								+(loadedBody.getBreast().getRawSizeValue()>0
+								?(loadedBody.getBreast().getSize().getCupSizeName() + "-cup breasts")
+								:(loadedBody.isFeminine()?"flat breasts":"pecs"))));
+			}
+			
+			if(spinneret) {
+				if(loadedBody.hasTailSpinneret()) {
+					tooltipSB.append(getBodyPartDiv(loadedBody, "Spinneret",
+							loadedBody.getTail(),
+							"",
+							loadedBody.getCovering(BodyCoveringType.SPINNERET, true)));
+				} else {
+					tooltipSB.append(getBodyPartDiv(loadedBody, "Spinneret",
+							loadedBody.getLeg(),
+							"",
+							loadedBody.getCovering(BodyCoveringType.SPINNERET, true)));
+				}
+			}
+			
+			if(crotchBreasts) {
+				tooltipSB.append(getBodyPartDiv(loadedBody, "Nipples",
+						loadedBody.getBreastCrotch().getNipples(),
+						Util.capitaliseSentence(Util.intToString(Math.max(1, loadedBody.getBreastCrotch().getRows()*2)))+" "
+								+(loadedBody.getBreastCrotch().getRawSizeValue()>0?(loadedBody.getBreastCrotch().getSize().getCupSizeName() + "-cup "):"flat ")
+								+(loadedBody.getBreastCrotch().getShape()==BreastShape.UDDERS
+									?(loadedBody.getBreastCrotch().getRows()==0
+										?"udder"
+										:"udders")
+									:"crotch-boobs")));
+			}
+		
+			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
+			
+		
 		} else { // Standard information:
 			if(description==null || description.isEmpty()) {
 				Main.mainController.setTooltipSize(360, 64);
@@ -1603,6 +1781,65 @@ public class TooltipInformationEventListener implements EventListener {
 					+ "</span>"
 					+ (passiveElemental?"<br/>":" - ")
 					+ covering.getColourDescriptor(character, true, true) + " " + coveringName
+				+"</div>";
+	}
+
+	private String getBodyPartDiv(Body body, String name, BodyPartInterface bodyPart) {
+		return getBodyPartDiv(body, name, bodyPart, null, null);
+	}
+	
+	private String getBodyPartDiv(Body body, String name, BodyPartInterface bodyPart, String size) {
+		return getBodyPartDiv(body, name, bodyPart, size, null);
+	}
+	
+	private String getBodyPartDiv(Body body, String name, BodyPartInterface bodyPart, String size, Covering coveringOverride) {
+		String raceName;
+		boolean feral = bodyPart.isFeral(owner);
+		AbstractRace race = bodyPart.getType().getRace();
+		raceName = race.getName(body, feral);
+		
+		Covering covering;
+		if(coveringOverride!=null) {
+			covering = coveringOverride;
+		} else {
+			covering = body.getCovering(bodyPart.getBodyCoveringType(body), true);
+		}
+		
+		Colour primaryColour = covering.getPrimaryColour();
+		Colour secondaryColour = covering.getSecondaryColour();
+		boolean displaySecondary = covering.getPattern().isNaturalSecondColour(owner);
+		String coveringName = covering.getName(owner);
+		
+		//  background-image:linear-gradient(to right bottom, " + primaryColour.toWebHexString() + " 50%, " + secondaryColour.toWebHexString() + " 50%);
+		return "<div class='subTitle' style='font-weight:normal; text-align:left; margin-top:2px; white-space: nowrap;'>"
+					+ "<div style='width:10px; height:16px; padding:0; margin:0;'>"
+						+ "<div class='colour-box' style='width:8px; height:"+(displaySecondary?"8px; margin:0;":"8px; margin:4px 0 0 0;")+" border-radius:2px; padding:0;"
+						+ (primaryColour.isMetallic()
+								?"background: repeating-linear-gradient(135deg, " + primaryColour.toWebHexString() + ", " + primaryColour.getShades()[4] + " 1px);"
+								:(primaryColour.getRainbowColours()!=null
+									?"background: "+primaryColour.getRainbowDiv(1)+";"
+									:"background:" + (primaryColour.getCoveringIconColour()) + ";"))
+						+ "'></div>"
+						+ (displaySecondary
+							?"<div class='colour-box' style='width:8px; height:8px; margin:0; padding:0; border-radius:2px;"
+								+ (secondaryColour.isMetallic()
+									?"background: repeating-linear-gradient(135deg, " + secondaryColour.toWebHexString() + ", " + secondaryColour.getShades()[4] + " 1px);"
+									:(secondaryColour.getRainbowColours()!=null
+										?"background: "+secondaryColour.getRainbowDiv(1)+";"
+										:"background:" + (secondaryColour.getCoveringIconColour()) + ";"))
+								+ "'></div>"
+							:"")
+					+ "</div>"
+					+ name +(size!=null&&!size.isEmpty()?" ("+size+"): ":": ")
+					+ ((feral && race!=Race.NONE)?"[style.colourFeral(Feral )]":"")
+					+ (covering.getType()!=BodyCoveringType.DILDO
+						?"<span style='color:" + race.getColour().toWebHexString() + ";'>"
+							+Util.capitaliseSentence(raceName)
+						:"<span style='color:" + PresetColour.BASE_PINK_DEEP.toWebHexString() + ";'>"
+								+"Dildo")
+					+ "</span>"
+					+ " - "
+					+ covering.getColourDescriptor(owner, true, true) + " " + coveringName
 				+"</div>";
 	}
 	
@@ -1849,6 +2086,13 @@ public class TooltipInformationEventListener implements EventListener {
 		return this;
 	}
 	
+	public TooltipInformationEventListener setLoadedBody(Body loadedBody, GameCharacter owner) {
+		resetFields();
+		this.owner = owner;
+		this.loadedBody = loadedBody;
+		return this;
+	}
+	
 	private void resetFields() {
 		extraAttributes = false;
 		weather = false;
@@ -1874,5 +2118,6 @@ public class TooltipInformationEventListener implements EventListener {
 		moneyTransferTarget = null;
 		moneyTransferPercentage = 0;
 		slaveJob = null;
+		loadedBody = null;
 	}
 }

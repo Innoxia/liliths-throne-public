@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Item/clothing/weapon found: -->
+	
+	<scene id="start">
+		<preParsingEffects><![CDATA[
+			[#game.generateAlleywayItem()]
+			[#pc.getCell().getInventory().addItem(game.getAlleywayItem())]
+			[#game.addSpecialParsingString(game.getAlleywayItem().getDisplayName(true), true)]
+		]]></preParsingEffects>
+		<title><![CDATA[Abandoned Item]]></title>
+		<content folderPath="txt/encounters/fields/elis/alleyway_item">ITEM_FOUND</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Take]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Add the [#game.getAlleywayItem().getName()] to your inventory.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.addItem(game.getAlleywayItem(), true, true))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Leave the [#game.getAlleywayItem().getName()] on the floor.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="start_clothing">
+		<preParsingEffects><![CDATA[
+			[#game.generateAlleywayClothing()]
+			[#pc.getCell().getInventory().addClothing(game.getAlleywayClothing())]
+			[#game.addSpecialParsingString(game.getAlleywayClothing().getDisplayName(true), true)]
+		]]></preParsingEffects>
+		<title><![CDATA[Clothing Found]]></title>
+		<content folderPath="txt/encounters/fields/elis/alleyway_item">CLOTHING_FOUND</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Take]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Add the [#game.getAlleywayClothing().getName()] to your inventory.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.addClothing(game.getAlleywayClothing(), 1, true, true))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Leave the [#game.getAlleywayClothing().getName()] on the floor.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="start_weapon">
+		<preParsingEffects><![CDATA[
+			[#game.generateAlleywayWeapon()]
+			[#pc.getCell().getInventory().addWeapon(game.getAlleywayWeapon())]
+			[#game.addSpecialParsingString(game.getAlleywayWeapon().getDisplayName(true), true)]
+		]]></preParsingEffects>
+		<title><![CDATA[Weapon Found]]></title>
+		<content folderPath="txt/encounters/fields/elis/alleyway_item">WEAPON_FOUND</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Take]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Add the [#game.getAlleywayWeapon().getName()] to your inventory.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(pc.addWeapon(game.getAlleywayWeapon(), 1, true, true))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Leave the [#game.getAlleywayWeapon().getName()] on the floor.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

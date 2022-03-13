@@ -13982,6 +13982,7 @@ public class StatusEffect {
 	
 	
 	public static List<AbstractStatusEffect> allStatusEffects;
+	public static List<AbstractStatusEffect> allStatusEffectsRequiringApplicationCheck;
 	
 	public static Map<AbstractStatusEffect, String> statusEffectToIdMap = new HashMap<>();
 	public static Map<String, AbstractStatusEffect> idToStatusEffectMap = new HashMap<>();
@@ -14015,6 +14016,7 @@ public class StatusEffect {
 
 	static {
 		allStatusEffects = new ArrayList<>();
+		allStatusEffectsRequiringApplicationCheck = new ArrayList<>();
 		
 		// Modded status effects:
 		
@@ -14079,5 +14081,21 @@ public class StatusEffect {
 	
 	public static List<AbstractStatusEffect> getAllStatusEffects() {
 		return allStatusEffects;
+	}
+	
+	public static List<AbstractStatusEffect> getAllStatusEffectsRequiringApplicationCheck() {
+		if(!Main.game.isStarted()) {
+			return getAllStatusEffects();
+		}
+		if(allStatusEffectsRequiringApplicationCheck.isEmpty()) { // Initialise on first call
+			for(AbstractStatusEffect se : allStatusEffects) {
+				se.isConditionsMet(Main.game.getPlayer()); // To initialise the variable
+				if(se.isRequiresApplicationCheck()) {
+					allStatusEffectsRequiringApplicationCheck.add(se);
+				}
+			}
+//			System.out.println("ASE/SE: "+allStatusEffectsRequiringApplicationCheck.size()+"/"+allStatusEffects.size());
+		}
+		return allStatusEffectsRequiringApplicationCheck;
 	}
 }

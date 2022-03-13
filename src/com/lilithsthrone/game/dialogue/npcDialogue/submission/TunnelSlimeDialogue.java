@@ -6,7 +6,6 @@ import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -178,12 +177,12 @@ public class TunnelSlimeDialogue {
 									new Value<>(getSlime(), "")));
 				
 				} else if (index == 2) {
-					if(Main.game.getPlayer().getMoney()<DialogueFlags.MUGGER_DEMAND_2) {
-						return new Response("Offer money ("+UtilText.formatAsMoney(DialogueFlags.MUGGER_DEMAND_2, "span")+")",
+					if(Main.game.getPlayer().getMoney()<Main.game.getDialogueFlags().getMuggerDemand2()) {
+						return new Response("Offer money ("+UtilText.formatAsMoney(Main.game.getDialogueFlags().getMuggerDemand2(), "span")+")",
 								"You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
 					} else {
-						return new Response("Offer money ("+UtilText.formatAsMoney(DialogueFlags.MUGGER_DEMAND_2, "span")+")",
-								"Offer to pay [npc.name] "+Util.intToString(DialogueFlags.MUGGER_DEMAND_2)+" flames to leave you alone.", OFFER_MONEY) {
+						return new Response("Offer money ("+UtilText.formatAsMoney(Main.game.getDialogueFlags().getMuggerDemand2(), "span")+")",
+								"Offer to pay [npc.name] "+Util.intToString(Main.game.getDialogueFlags().getMuggerDemand2())+" flames to leave you alone.", OFFER_MONEY) {
 							@Override
 							public void effects() {
 								Main.game.getPlayer().incrementMoney(-250);
@@ -631,7 +630,7 @@ public class TunnelSlimeDialogue {
 					
 				} else if(getSlime().isAttractedTo(Main.game.getPlayer())){
 					return new ResponseSex("Gentle sex",
-							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
+							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -643,7 +642,7 @@ public class TunnelSlimeDialogue {
 							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getSlime()));
 					
 				} else {
-					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)",
+					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that...",
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMGeneric(
@@ -662,7 +661,7 @@ public class TunnelSlimeDialogue {
 					
 				} else if(getSlime().isAttractedTo(Main.game.getPlayer())){
 					return new ResponseSex("Rough sex",
-							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
+							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -674,7 +673,7 @@ public class TunnelSlimeDialogue {
 							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getSlime()));
 					
 				} else {
-					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)",
+					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that...",
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMGeneric(

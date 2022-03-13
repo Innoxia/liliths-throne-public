@@ -832,7 +832,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			super.setLocation(worldLocation, location, setAsHomeLocation);
 			
 			AbstractPlaceType place = Main.game.getWorlds().get(WorldType.SUBMISSION).getCell(location).getPlace().getPlaceType();
-			if(place.equals(PlaceType.SUBMISSION_LILIN_PALACE_GATE) || place.equals(PlaceType.SUBMISSION_LILIN_PALACE)) {
+			if(Main.game.getNpc(Elizabeth.class)!=null && (place.equals(PlaceType.SUBMISSION_LILIN_PALACE_GATE) || place.equals(PlaceType.SUBMISSION_LILIN_PALACE))) {
 				Main.game.getNpc(Elizabeth.class).setLocation(this, false);
 			}
 			
@@ -895,7 +895,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			}
 			return Util.newHashSetOfValues(Relationship.Nibling);
 		}
-		if(character.getRace()==Race.DEMON) {
+		if(this.getRace()==Race.DEMON) {
 			if(character instanceof Lyssieth) {
 				return Util.newHashSetOfValues(Relationship.Parent);
 			}

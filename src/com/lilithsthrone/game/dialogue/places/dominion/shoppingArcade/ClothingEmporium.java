@@ -67,14 +67,14 @@ public class ClothingEmporium {
 			return "<p style='text-align:center'>"
 						+ UtilText.parse(character, "[style.italicsDisabled([npc.Name] doesn't gain any additional affection towards you from this action...)]")
 						+ "<br/>"
-						+ AffectionLevel.getDescription(character, Main.game.getPlayer(), character.getAffectionLevel(Main.game.getPlayer()), true)
+						+ AffectionLevel.getDescription(character, Main.game.getPlayer(), true)
 					+ "</p>";
 		}
 		if(increment<0 && currentAffection<=minimumLimit) {
 			return "<p style='text-align:center'>"
 						+ UtilText.parse(character, "[style.italicsDisabled([npc.Name] doesn't lose any affection towards you from this action...)]")
 						+ "<br/>"
-						+ AffectionLevel.getDescription(character, Main.game.getPlayer(), character.getAffectionLevel(Main.game.getPlayer()), true)
+						+ AffectionLevel.getDescription(character, Main.game.getPlayer(), true)
 					+ "</p>";
 		}
 		

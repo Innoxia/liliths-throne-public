@@ -141,6 +141,10 @@ public class BatCavernSlimeAttacker extends NPC {
 			return (UtilText.parse(this,
 					"[npc.NamePos] days of getting high on mushrooms and attacking innocent travellers in the Bat Caverns are now over."
 							+ " Having been enslaved as punishment for [npc.her] lawless behaviour, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
+		} else if(Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())){
+			return (UtilText.parse(this,
+					"[npc.NamePos] days of getting high on mushrooms and attacking innocent travellers in the Bat Caverns are now over."
+					+ " Having befriended [npc.herHim], you invited [npc.name] to move in with you and helped [npc.herHim] to start a new life."));
 		} else {
 			return (UtilText.parse(this,
 					"[npc.Name] is a resident of the bat caverns, and loves nothing more than getting high on mushrooms, attacking innocent travellers, and having sex."));

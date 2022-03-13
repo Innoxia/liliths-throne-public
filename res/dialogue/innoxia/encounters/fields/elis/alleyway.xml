@@ -1,0 +1,1179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Alleyway attacker: -->
+
+	<scene id="start">
+		<preParsingEffects><![CDATA[
+			#IF(pc.getCell().getCharactersHomeIds().isEmpty())
+				[#game.addNPC('fields.ElisAlleywayAttacker', 'attacker')]
+			#ELSE
+				[#game.setParserTarget('attacker', game.getNPCById(pc.getCell().getCharactersHomeIds().iterator().next()))]
+			#ENDIF
+			[#game.setActiveNPC(attacker)]
+			[#npc.setHistory(OCCUPATION_NPC_MUGGER)]
+			[#npc.equipClothing()]
+			[#npc.setLocation(pc, true)]
+			[#npc.generatePostCombatPotions()]
+			[#flags.setFlag(FLAG_innoxia_elis_alleyway_talked, false)]
+			[#flags.setFlag(FLAG_innoxia_elis_alleyway_transformations_applied, false)]
+			#IF(npc.hasEncounteredBefore())
+				#IF(npc.getAffectionLevel(pc).isWillFightPlayer())
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway', 'START_REPEAT'))]
+				#ELSE
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway', 'START_REPEAT_PACIFIED'))]
+				#ENDIF
+			#ELSE
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway', 'START'))]
+			#ENDIF
+		]]></preParsingEffects>
+		<title><![CDATA[Assaulted!]]></title>
+		<author><![CDATA[Innoxia]]></author>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Mugger is hostile responses: -->
+				<!-- Fight: -->
+				<response>
+					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Fight]]></responseTitle>
+					<responseTooltip><![CDATA[Refuse to pay [npc.name] and prepare to defend yourself!]]></responseTooltip>
+					<nextDialogue/>
+					<effects><![CDATA[
+						[#npc.applyPregnancyReactions()]
+					]]></effects>
+					<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+					<combatVariables enabled="true">
+						<nextDialoguePlayerVictory><![CDATA[innoxia_encounters_fields_elis_alleyway_combat_won]]></nextDialoguePlayerVictory>
+						<nextDialoguePlayerDefeat><![CDATA[innoxia_encounters_fields_elis_alleyway_combat_lost]]></nextDialoguePlayerDefeat>
+						<allies companionsAreAllies="true"/>
+						<enemies>
+							<enemy leader="true"><![CDATA[npc]]></enemy>
+						</enemies>
+						<openingDescriptions>
+							<combatant id="pc"><![CDATA[Refusing to hand over your money, you tell [npc.name] that [npc.sheIs] making a mistake as you prepare to defend yourself.]]></combatant>
+							<combatant id="npc"><![CDATA[Flashing you a wicked smirk, [npc.name] sneers, [npc.speech(I'll make you pay, one way or another!)]]]></combatant>
+						</openingDescriptions>
+					</combatVariables>
+				</response>
+				<!-- Pay: -->
+				<response>
+					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Offer money (#IF(pc.getMoney()>=flags.getMuggerDemand3())[style.moneyFormat([#flags.getMuggerDemand3()], span)]#ELSE[style.moneyFormatUncoloured([#flags.getMuggerDemand3()], span)]#ENDIF)]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(pc.getMoney()>=flags.getMuggerDemand3())
+							Offer to pay [npc.name] [style.intToString([#flags.getMuggerDemand3()])] flames to leave you alone.
+						#ELSE
+							You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[#IF(pc.getMoney()>=flags.getMuggerDemand3())innoxia_encounters_fields_elis_alleyway_payment#ELSEnull#ENDIF]]></nextDialogue>
+					<effects><![CDATA[
+						[#npc.applyPregnancyReactions()]
+						[#game.addSpecialParsingString('[style.intToString([#flags.getMuggerDemand3()])]', true)]
+						[#game.appendToTextEndStringBuilder(pc.incrementMoney(-flags.getMuggerDemand3()))]
+						[#npc.incrementMoney(flags.getMuggerDemand3())]
+					]]></effects>
+				</response>
+				<!-- Submit: -->
+				<response>
+					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && !npc.isAttractedTo(pc)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[Offer body]]></responseTitle>
+					<responseTooltip><![CDATA[You can tell that [npc.name] isn't at all interested in having sex with you. You'll either have to hand over your money, or prepare for a fight!]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && npc.isAttractedTo(pc)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[Offer body]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Tell [npc.name] that you can't afford to pay, and instead offer them the use of your body...
+					]]></responseTooltip>
+					<requiredFetishes>
+						<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+					</requiredFetishes>
+					<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+					<nextDialogue/>
+					<effects><![CDATA[
+						[#npc.applyPregnancyReactions()]
+					]]></effects>
+					<sexVariables enabled="true">
+						<consensual><![CDATA[true]]></consensual>
+						<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+						<dominants>
+							<character><![CDATA[npc]]></character>
+						</dominants>
+						<submissives>
+							<character><![CDATA[pc]]></character>
+						</submissives>
+						<dominantSpectators/>
+						<submissiveSpectators/>
+						<postSexDialogue><![CDATA[innoxia_encounters_fields_elis_alleyway_after_sex_sub]]></postSexDialogue>
+						<sexStartContent folderPath="txt/encounters/fields/elis/alleyway">SUBMIT_SEX_START</sexStartContent>
+						<tags/>
+						<ongoingActionsAtStart/>
+					</sexVariables>
+				</response>
+				<!-- Surrender: -->
+				<response>
+					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && npc.isApplyingPostCombatTransformations()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[4]]></index>
+					<colour><![CDATA[TRANSFORMATION_GENERIC]]></colour>
+					<responseTitle><![CDATA[Surrender]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Completely surrender to [npc.name] and let [npc.herHim] do whatever [npc.she] wants with your body...
+						<br/>[style.italicsTfGeneric(This will result in [npc.name] trying to get you to drink a transformation potion, before possibly choosing to fuck you!)]
+					]]></responseTooltip>
+					<requiredFetishes>
+						<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+						<fetish><![CDATA[FETISH_TRANSFORMATION_RECEIVING]]></fetish>
+					</requiredFetishes>
+					<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+					<nextDialogue stripContent="true"><![CDATA[innoxia_encounters_fields_elis_alleyway_combat_lost]]></nextDialogue>
+					<effects><![CDATA[
+						[#npc.applyPregnancyReactions()]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway', 'SURRENDER'))]
+					]]></effects>
+				</response>
+			<!-- Mugger is pacified responses: -->
+				<!-- Talk: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Talk]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Talk to [npc.name] for a while in order to get to know [npc.herHim] a little better.
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_encounters_fields_elis_alleyway_peaceful_talk]]></nextDialogue>
+					<effects><![CDATA[
+						[#npc.applyPregnancyReactions()]
+						[#game.appendToTextEndStringBuilder(npc.incrementAffection(pc, 10))]
+						#IF(npc.isAffectionHighEnoughToInviteHome() && !pc.hasQuest(QUEST_LINE_SIDE_ACCOMMODATION))
+							[#game.appendToTextEndStringBuilder(pc.startQuest(QUEST_LINE_SIDE_ACCOMMODATION))]
+						#ENDIF
+					]]></effects>
+				</response>
+				<!-- Offer money: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Offer money (#IF(pc.getMoney()>=flags.getMuggerDemand3())[style.moneyFormat([#flags.getMuggerDemand3()], span)]#ELSE[style.moneyFormatUncoloured([#flags.getMuggerDemand3()], span)]#ENDIF)]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Offer [npc.name] some money to help [npc.herHim] buy food and clothing.
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[#IF(pc.getMoney()>=flags.getMuggerDemand3())innoxia_encounters_fields_elis_alleyway_peaceful_offer_money#ELSEnull#ENDIF]]></nextDialogue>
+					<effects><![CDATA[
+						[#npc.applyPregnancyReactions()]
+						[#game.appendToTextEndStringBuilder(pc.incrementMoney(-flags.getMuggerDemand3()))]
+						[#npc.incrementMoney(flags.getMuggerDemand3())]
+						[#game.appendToTextEndStringBuilder(npc.incrementAffection(pc, 10))]
+						#IF(npc.isAffectionHighEnoughToInviteHome() && !pc.hasQuest(QUEST_LINE_SIDE_ACCOMMODATION))
+							[#game.appendToTextEndStringBuilder(pc.startQuest(QUEST_LINE_SIDE_ACCOMMODATION))]
+						#ENDIF
+					]]></effects>
+				</response>
+				<!-- Sex (as dom): -->
+				<response>
+					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && !npc.isAttractedTo(pc)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[Sex (dom)]]></responseTitle>
+					<responseTooltip><![CDATA[You can tell that [npc.name] isn't at all interested in having sex with you...]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && npc.isAttractedTo(pc)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[
+						Sex (dom)
+					]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Take the dominant role and have sex with [npc.name].
+					]]></responseTooltip>
+					<nextDialogue/>
+					<requiredFetishes>
+						<fetish><![CDATA[FETISH_DOMINANT]]></fetish>
+					</requiredFetishes>
+					<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+					<sexVariables enabled="true">
+						<consensual><![CDATA[true]]></consensual>
+						<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+						<dominants>
+							<character><![CDATA[pc]]></character>
+						</dominants>
+						<submissives>
+							<character><![CDATA[npc]]></character>
+						</submissives>
+						<dominantSpectators/>
+						<submissiveSpectators/>
+						<postSexDialogue><![CDATA[innoxia_encounters_fields_elis_alleyway_after_sex_peaceful]]></postSexDialogue>
+						<sexStartContent folderPath="txt/encounters/fields/elis/alleyway">PEACEFUL_SEX_AS_DOM</sexStartContent>
+						<tags/>
+						<ongoingActionsAtStart/>
+					</sexVariables>
+				</response>
+				<!-- Sex (as sub): -->
+				<response>
+					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && !npc.isAttractedTo(pc)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[4]]></index>
+					<responseTitle><![CDATA[Sex (sub)]]></responseTitle>
+					<responseTooltip><![CDATA[You can tell that [npc.name] isn't at all interested in having sex with you...]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && npc.isAttractedTo(pc)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[4]]></index>
+					<responseTitle><![CDATA[
+						Sex (sub)
+					]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Take the submissive role and have sex with [npc.name].
+					]]></responseTooltip>
+					<nextDialogue/>
+					<requiredFetishes>
+						<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+					</requiredFetishes>
+					<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+					<sexVariables enabled="true">
+						<consensual><![CDATA[true]]></consensual>
+						<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+						<dominants>
+							<character><![CDATA[npc]]></character>
+						</dominants>
+						<submissives>
+							<character><![CDATA[pc]]></character>
+						</submissives>
+						<dominantSpectators/>
+						<submissiveSpectators/>
+						<postSexDialogue><![CDATA[innoxia_encounters_fields_elis_alleyway_after_sex_peaceful]]></postSexDialogue>
+						<sexStartContent folderPath="txt/encounters/fields/elis/alleyway">PEACEFUL_SEX_AS_SUB</sexStartContent>
+						<tags/>
+						<ongoingActionsAtStart/>
+					</sexVariables>
+				</response>
+				<!-- Offer room: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && (!pc.hasQuest(QUEST_LINE_SIDE_ACCOMMODATION) || !npc.isAffectionHighEnoughToInviteHome())]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[5]]></index>
+					<responseTitle><![CDATA[Offer room]]></responseTitle>
+					<responseTooltip><![CDATA[
+						You feel as though it would be best to spend some more time getting to know [npc.name] before inviting [npc.herHim] back to Lilaya's mansion...
+						<br/>[style.italics(Requires [npc.name] to have at least [#AFFECTION_POSITIVE_THREE_CARING.getMinimumValue()] affection towards you.)]
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && pc.hasQuest(QUEST_LINE_SIDE_ACCOMMODATION) && npc.isAffectionHighEnoughToInviteHome() && !pc.isQuestCompleted(QUEST_LINE_SIDE_ACCOMMODATION)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[5]]></index>
+					<responseTitle><![CDATA[Offer room]]></responseTitle>
+					<responseTooltip><![CDATA[
+						You'll need to get Lilaya's permission before inviting [npc.name] back to her mansion...
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && pc.hasQuest(QUEST_LINE_SIDE_ACCOMMODATION) && npc.isAffectionHighEnoughToInviteHome() && pc.isQuestCompleted(QUEST_LINE_SIDE_ACCOMMODATION) && !game.isFreeRoomAvailableForOccupant()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[5]]></index>
+					<responseTitle><![CDATA[Offer room]]></responseTitle>
+					<responseTooltip><![CDATA[
+						You don't have a suitable room prepared for [npc.name] to move in to. Upgrade one of the empty rooms in Lilaya's house to a 'Guest Room' first.
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && pc.hasQuest(QUEST_LINE_SIDE_ACCOMMODATION) && npc.isAffectionHighEnoughToInviteHome() && pc.isQuestCompleted(QUEST_LINE_SIDE_ACCOMMODATION) && game.isFreeRoomAvailableForOccupant()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[5]]></index>
+					<responseTitle><![CDATA[Offer room]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Ask [npc.name] if [npc.she] would like a room in Lilaya's mansion.
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_encounters_fields_elis_alleyway_peaceful_offer_room]]></nextDialogue>
+					<effects><![CDATA[
+						[#npc.applyPregnancyReactions()]
+						[#game.appendToTextEndStringBuilder(npc.incrementAffection(pc, 25))]
+					]]></effects>
+				</response>
+				<!-- Request TF: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && npc.isApplyingPostCombatTransformations() && flags.hasFlag(FLAG_innoxia_elis_alleyway_transformations_applied)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[6]]></index>
+					<responseTitle><![CDATA[Get transformed]]></responseTitle>
+					<responseTooltip><![CDATA[
+						[npc.Name] has already given you all the transformation potions [npc.she] had!
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+					<effects/>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && npc.isApplyingPostCombatTransformations() && !flags.hasFlag(FLAG_innoxia_elis_alleyway_transformations_applied)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[6]]></index>
+					<colour><![CDATA[TRANSFORMATION_GENERIC]]></colour>
+					<responseTitle><![CDATA[Get transformed]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Tell [npc.name] that you'd like to drink any transformation potions which [npc.she] has...
+						<br/>[style.italicsTfGeneric(This will result in [npc.name] getting you to drink a transformation potion!)]
+					]]></responseTooltip>
+					<requiredFetishes>
+						<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+						<fetish><![CDATA[FETISH_TRANSFORMATION_RECEIVING]]></fetish>
+					</requiredFetishes>
+					<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+					<nextDialogue><![CDATA[innoxia_encounters_fields_elis_alleyway_peaceful_transformations]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway', 'PEACEFUL_TRANSFORMATIONS'))]
+						[#game.appendToTextStartStringBuilder(npc.applyPostCombatTransformation())]
+						[#flags.setFlag(FLAG_innoxia_elis_alleyway_transformations_applied, true)]
+					]]></effects>
+				</response>
+				<!-- Fight: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[10]]></index>
+					<colour><![CDATA[GENERIC_COMBAT]]></colour>
+					<responseTitle><![CDATA[Attack]]></responseTitle>
+					<responseTooltip><![CDATA[Betray [npc.namePos] trust and attack [npc.herHim]!]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_encounters_fields_elis_alleyway_peaceful_attack]]></nextDialogue>
+					<effects><![CDATA[
+						[#npc.applyPregnancyReactions()]
+						[#game.appendToTextEndStringBuilder(npc.setAffection(pc, -100))]
+						[#npc.addFlag(NPC_FLAG_genericNPCBetrayedByPlayer)]
+					]]></effects>
+				</response>
+				<!-- Leave: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[0]]></index>
+					<responseTitle><![CDATA[Leave]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Tell [npc.name] that you're in a rush to be somewhere else, before continuing on your way.
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[default]]></nextDialogue>
+					<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+					<effects/>
+				</response>
+		</responses>
+	</scene>
+	
+	<!-- Payment given: -->
+	
+	<scene id="payment">
+		<content folderPath="txt/encounters/fields/elis/alleyway">PAYMENT</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Satisfied with the payment you've given [npc.herHim], [npc.name] takes [npc.her] leave, allowing you to continue on your way...
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- After submitting for sex: -->
+	
+	<scene id="after_sex_sub">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[[npc.Name] has had [npc.her] fun with you, and with a satisfied sigh [npc.she] [npc.steps] back and brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/encounters/fields/elis/alleyway">AFTER_SEX_SUB</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<colour><![CDATA[
+					#IF(npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer))
+						GENERIC_NPC_REMOVAL
+					#ENDIF
+				]]></colour>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					As [npc.name] has left, there's nothing else for you to do except continue on your way...
+					#IF(npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer))
+						<br/>[style.italicsBad([npc.Name] will be permanently removed from the game.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					#IF(npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer))
+						[#game.banishNPC(npc)]
+					#ENDIF
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Won combat: -->
+	
+	<scene id="combat_won">
+		<content folderPath="txt/encounters/fields/elis/alleyway">COMBAT_WON</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Continue: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<colour><![CDATA[
+					#IF(npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer))
+						GENERIC_NPC_REMOVAL
+					#ENDIF
+				]]></colour>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Decide against doing anything further with [npc.name] and continue on your way...
+					#IF(npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer))
+						<br/>[style.italicsBad([npc.Name] will be permanently removed from the game.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway', 'COMBAT_WON_END'))]
+					#IF(npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer))
+						[#game.banishNPC(npc)]
+					#ENDIF
+				]]></effects>
+			</response>
+			
+			<!-- Sex, no pace: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!npc.isAttractedTo(pc) && !game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Sex]]></responseTitle>
+				<responseTooltip><![CDATA[You can tell that [npc.name] isn't at all interested in having sex with you..]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#npc.isAttractedTo(pc) || game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[
+					#IF(npc.isAttractedTo(pc))
+						Sex
+					#ELSE
+						Rape
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(npc.isAttractedTo(pc))
+						Take advantage of your victory to have dominant sex with [npc.name].
+					#ELSE
+						Take advantage of your victory to rape [npc.name].
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[[#npc.isAttractedTo(pc)]]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[npc]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_elis_alleyway_after_sex_dom]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/elis/alleyway">COMBAT_WON_SEX</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			<!-- Sex, gentle: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!npc.isAttractedTo(pc) && !game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Sex (gentle)]]></responseTitle>
+				<responseTooltip><![CDATA[You can tell that [npc.name] isn't at all interested in having sex with you..]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#npc.isAttractedTo(pc) || game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[
+					#IF(npc.isAttractedTo(pc))
+						Sex (gentle)
+					#ELSE
+						Rape [npc.herHim] (gentle)
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(npc.isAttractedTo(pc))
+						Take advantage of your victory to have gentle, dominant sex with [npc.name].
+					#ELSE
+						Take advantage of your victory to rape [npc.name].
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[[#npc.isAttractedTo(pc)]]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[npc]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_elis_alleyway_after_sex_dom]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/elis/alleyway">COMBAT_WON_SEX_GENTLE</sexStartContent>
+					<tags>
+						<tag>START_PACE_PLAYER_DOM_GENTLE</tag>
+					</tags>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			<!-- Sex, rough: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!npc.isAttractedTo(pc) && !game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Sex (rough)]]></responseTitle>
+				<responseTooltip><![CDATA[You can tell that [npc.name] isn't at all interested in having sex with you..]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#npc.isAttractedTo(pc) || game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[
+					#IF(npc.isAttractedTo(pc))
+						Sex (rough)
+					#ELSE
+						Rape [npc.herHim] (rough)
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(npc.isAttractedTo(pc))
+						Take advantage of your victory to have rough, dominant sex with [npc.name].
+					#ELSE
+						Take advantage of your victory to roughly rape [npc.name].
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[[#npc.isAttractedTo(pc)]]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[npc]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_elis_alleyway_after_sex_dom]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/elis/alleyway">COMBAT_WON_SEX_ROUGH</sexStartContent>
+					<tags>
+						<tag>START_PACE_PLAYER_DOM_ROUGH</tag>
+					</tags>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			
+			<!-- Submit: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!npc.isAttractedTo(pc)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Submit]]></responseTitle>
+				<responseTooltip><![CDATA[You can tell that [npc.name] isn't at all interested in having sex with you...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#npc.isAttractedTo(pc)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Submit]]></responseTitle>
+				<responseTooltip><![CDATA[Feeling bad for beating [npc.name], you decide to submit to [npc.herHim] and offer [npc.herHim] the use of your body...]]></responseTooltip>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+				<nextDialogue/>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[npc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[pc]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_encounters_fields_elis_alleyway_after_sex_sub]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/fields/elis/alleyway">COMBAT_WON_SEX_SUBMIT_START</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			
+			<!-- Open inventory: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Inventory]]></responseTitle>
+				<responseTooltip><![CDATA[Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items...]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#game.openInventoryDialogue(npc, INVENTORY_INTERACTION_FULL_MANAGEMENT)]
+				]]></effects>
+			</response>
+			
+			<!-- Talk: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Talk]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer))
+						After betraying [npc.namePos] trust, [npc.she] will never want to talk to you again.
+					#ELSE
+						Talk to [npc.name] and ask [npc.herHim] why [npc.she] attacked you.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer))
+						null
+					#ELSE
+						innoxia_encounters_fields_elis_alleyway_combat_won_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#npc.setPlayerKnowsName(true)]
+					[#game.appendToTextEndStringBuilder(npc.setAffection(pc, 10))]
+				]]></effects>
+			</response>
+			
+			<!-- Transform: -->
+			<response>
+				<availabilityConditional><![CDATA[[#npc.isAbleToSelfTransform()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Transform [npc.herHim]]]></responseTitle>
+				<responseTooltip><![CDATA[Take a very detailed look at what [npc.name] can transform [npc.herself] into...]]></responseTooltip>
+				<nextDialogue><![CDATA[BODY_CHANGING_CORE]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.initTransformationMenu(npc)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#npc.isAbleToSelfTransform()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[9]]></index>
+				<responseTitle><![CDATA[Quick transformations]]></responseTitle>
+				<responseTooltip><![CDATA[
+					As [npc.she] is able to transform [npc.herself], you have a few quick ideas in mind...
+					<br/><i>You'll return to these options once finished transforming [npc.herHim].</i>
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[QUICK_TRANSFORMATIONS_START]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.initQuickTransformationMenu(npc, DN_innoxia_encounters_fields_elis_alleyway_combat_won)]
+				]]></effects>
+			</response>
+			
+			<!-- Removal: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<colour><![CDATA[GENERIC_NPC_REMOVAL]]></colour>
+				<responseTitle><![CDATA[Remove character]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Scare [npc.name] away.
+					<br/>[style.italicsBad([npc.Name] will be permanently removed from the game.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway', 'AFTER_COMBAT_VICTORY_BANISH_NPC'))]
+					[#game.banishNPC(npc)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="after_sex_dom">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[You've had enough fun with [npc.name]...]]></tooltip>
+		<content folderPath="txt/encounters/fields/elis/alleyway">AFTER_SEX_DOM</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<colour><![CDATA[
+					#IF(npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer))
+						GENERIC_NPC_REMOVAL
+					#ENDIF
+				]]></colour>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Now that you've had your fun, you decide to leave [npc.name] and continue on your way...
+					#IF(npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer))
+						<br/>[style.italicsBad([npc.Name] will be permanently removed from the game.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					#IF(npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer))
+						[#game.banishNPC(npc)]
+					#ENDIF
+				]]></effects>
+			</response>
+			
+			<!-- Open inventory: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Inventory]]></responseTitle>
+				<responseTooltip><![CDATA[As you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items...]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#game.openInventoryDialogue(npc, INVENTORY_INTERACTION_FULL_MANAGEMENT)]
+				]]></effects>
+			</response>
+			
+			<!-- Removal: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<colour><![CDATA[GENERIC_NPC_REMOVAL]]></colour>
+				<responseTitle><![CDATA[Remove character]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Scare [npc.name] away.
+					<br/>[style.italicsBad([npc.Name] will be permanently removed from the game.)]
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway', 'AFTER_COMBAT_VICTORY_BANISH_NPC'))]
+					[#game.banishNPC(npc)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="combat_won_talk">
+		<content folderPath="txt/encounters/fields/elis/alleyway">COMBAT_WON_TALK</content>
+		<secondsPassed minutes="true"><![CDATA[
+			#IF(!npc.isMute())
+				5
+			#ELSE
+				15
+			#ENDIF
+		]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Let [npc.name] go.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Lost combat: -->
+	
+	<scene id="combat_lost">
+		<content folderPath="txt/encounters/fields/elis/alleyway">COMBAT_LOST</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Mugger betrayed: -->
+			<response>
+				<availabilityConditional><![CDATA[[#npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<colour><![CDATA[GENERIC_NPC_REMOVAL]]></colour>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Continue on your way.
+					<br/>[style.italicsBad([npc.Name] will be permanently removed from the game.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.banishNPC(npc)]
+				]]></effects>
+			</response>
+			
+			<!-- Transformation potion application: -->
+				<!-- Spit: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_elis_alleyway_transformations_applied) && npc.isApplyingPostCombatTransformations() && game.isSpittingDisabled()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Spit]]></responseTitle>
+					<responseTooltip><![CDATA[
+						You are being forced to drink down the potion!<br/>[style.italicsBad(Rejection of TF potions is disabled in the gameplay options!)]
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+					<effects/>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_elis_alleyway_transformations_applied) && npc.isApplyingPostCombatTransformations() && !game.isSpittingDisabled() && pc.hasFetish(FETISH_TRANSFORMATION_RECEIVING)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Spit]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Due to your [style.boldFetish([#FETISH_TRANSFORMATION_RECEIVING.getName(pc)])] fetish, you love being transformed so much that you can't bring yourself to spit out the transformative fluid!
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+					<effects/>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_elis_alleyway_transformations_applied) && npc.isApplyingPostCombatTransformations() && !game.isSpittingDisabled()  && !pc.hasFetish(FETISH_TRANSFORMATION_RECEIVING)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Spit]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Spit out the transformative fluid!
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_encounters_fields_elis_alleyway_after_combat_transformations]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway', 'COMBAT_LOST_SPIT'))]
+						[#flags.setFlag(FLAG_innoxia_elis_alleyway_transformations_applied, true)]
+					]]></effects>
+				</response>
+				<!-- Swallow: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_elis_alleyway_transformations_applied) && npc.isApplyingPostCombatTransformations()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Swallow]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Do as [npc.name] says and swallow the transformative fluid!
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_encounters_fields_elis_alleyway_after_combat_transformations]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway', 'COMBAT_LOST_SWALLOW'))]
+						[#game.appendToTextStartStringBuilder(npc.applyPostCombatTransformation())]
+						[#flags.setFlag(FLAG_innoxia_elis_alleyway_transformations_applied, true)]
+					]]></effects>
+				</response>
+			
+			
+			<!-- No transformation potion application: -->
+				<!-- Non-con fucked: -->
+				<response>
+					<availabilityConditional><![CDATA[[#(flags.hasFlag(FLAG_innoxia_elis_alleyway_transformations_applied) || !npc.isApplyingPostCombatTransformations()) && !npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer) && npc.isAttractedTo(pc) && npc.isWillingToRape()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Fucked]]></responseTitle>
+					<responseTooltip><![CDATA[You're unable to stop [npc.name] from dominantly fucking you...]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<sexVariables enabled="true">
+						<consensual><![CDATA[false]]></consensual>
+						<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+						<dominants>
+							<character><![CDATA[npc]]></character>
+						</dominants>
+						<submissives>
+							<character><![CDATA[pc]]></character>
+						</submissives>
+						<dominantSpectators/>
+						<submissiveSpectators/>
+						<postSexDialogue><![CDATA[innoxia_encounters_fields_elis_alleyway_after_sex_sub]]></postSexDialogue>
+						<sexStartContent folderPath="txt/encounters/fields/elis/alleyway">COMBAT_LOST_FUCKED</sexStartContent>
+						<tags/>
+						<ongoingActionsAtStart/>
+					</sexVariables>
+				</response>
+				<!-- Non-con disabled, so give player chance to leave: -->
+				<response>
+					<availabilityConditional><![CDATA[[#(flags.hasFlag(FLAG_innoxia_elis_alleyway_transformations_applied) || !npc.isApplyingPostCombatTransformations()) && !npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer) && (!npc.isWillingToRape() || (npc.isWillingToRape() && !npc.isAttractedTo(pc)))]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Leave]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(npc.isAttractedTo(pc))
+							Refuse to submit to [npc.name] and wait for [npc.herHim] to leave before continuing on your way...
+						#ELSE
+							Wait for [npc.name] to leave before continuing on your way...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+					<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway', 'COMBAT_LOST_CONTINUE'))]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#(flags.hasFlag(FLAG_innoxia_elis_alleyway_transformations_applied) || !npc.isApplyingPostCombatTransformations()) && !npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer) && npc.isAttractedTo(pc) && !npc.isWillingToRape()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Submit]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Do as [npc.name] says and submit to [npc.herHim], allowing [npc.herHim] to dominantly fuck you...
+					]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<sexVariables enabled="true">
+						<consensual><![CDATA[true]]></consensual>
+						<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+						<dominants>
+							<character><![CDATA[npc]]></character>
+						</dominants>
+						<submissives>
+							<character><![CDATA[pc]]></character>
+						</submissives>
+						<dominantSpectators/>
+						<submissiveSpectators/>
+						<postSexDialogue><![CDATA[innoxia_encounters_fields_elis_alleyway_after_sex_sub]]></postSexDialogue>
+						<sexStartContent folderPath="txt/encounters/fields/elis/alleyway">COMBAT_LOST_FUCKED_WILLING</sexStartContent>
+						<tags/>
+						<ongoingActionsAtStart/>
+					</sexVariables>
+				</response>
+		</responses>
+	</scene>
+	
+	<scene id="after_combat_transformations">
+		<content folderPath="txt/encounters/fields/elis/alleyway">AFTER_COMBAT_TRANSFORMATIONS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_encounters_fields_elis_alleyway_combat_lost"/>
+	</scene>
+	
+	<!-- Pacified npc dialogues: -->
+	
+	<scene id="peaceful_talk">
+		<preParsingEffects><![CDATA[
+			#IF(npc.isAffectionHighEnoughToInviteHome())
+				#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_ACCOMMODATION))
+					[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway', 'PEACEFUL_CAN_INVITE_HOME'))]
+				#ELSE
+					[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway', 'PEACEFUL_CAN_INVITE_HOME_REQUIRES_LILAYA_PERMISSION'))]
+				#ENDIF
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/encounters/fields/elis/alleyway">PEACEFUL_TALK</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Say goodbye to [npc.name] and continue on your way.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="peaceful_offer_money">
+		<preParsingEffects><![CDATA[
+			#IF(npc.isAffectionHighEnoughToInviteHome())
+				#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_ACCOMMODATION))
+					[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway', 'PEACEFUL_CAN_INVITE_HOME'))]
+				#ELSE
+					[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway', 'PEACEFUL_CAN_INVITE_HOME_REQUIRES_LILAYA_PERMISSION'))]
+				#ENDIF
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/encounters/fields/elis/alleyway">PEACEFUL_OFFER_MONEY</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Say goodbye to [npc.name] and continue on your way.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="peaceful_offer_room">
+		<content folderPath="txt/encounters/fields/elis/alleyway">PEACEFUL_OFFER_ROOM</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Give directions]]></responseTitle>
+				<responseTooltip><![CDATA[Give [npc.name] instructions to find Meraxis in 'The Red Dragon' tavern, and to have her teleport [npc.herHim] to [npc.her] new room in Lilaya's mansion.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_encounters_fields_elis_alleyway_peaceful_offer_room_directions]]></nextDialogue>
+				<effects><![CDATA[
+					[#npc.setLocation(game.getFreeRoomForOccupant(), true)]
+					[#pc.addFriendlyOccupant(npc)]
+					[#game.appendToTextEndStringBuilder(npc.incrementAffection(pc, 50))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Accompany [npc.herHim]]]></responseTitle>
+				<responseTooltip><![CDATA[Accompany [npc.name] through the Foloi Fields all the way back to Dominion and then to Lilaya's mansion.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_encounters_fields_elis_alleyway_peaceful_offer_room_accompany]]></nextDialogue>
+				<effects><![CDATA[
+					[#npc.setLocation(game.getFreeRoomForOccupant(), true)]
+					[#pc.setLocation(npc)]
+					[#pc.addFriendlyOccupant(npc)]
+					[#game.appendToTextEndStringBuilder(npc.incrementAffection(pc, 50))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="peaceful_offer_room_directions">
+		<content folderPath="txt/encounters/fields/elis/alleyway">PEACEFUL_OFFER_ROOM_DIRECTIONS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Now that [npc.name] has been sent back to Lilaya's mansion, you're free to continue on your way.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="peaceful_offer_room_accompany">
+		<content folderPath="txt/encounters/fields/elis/alleyway">PEACEFUL_OFFER_ROOM_ACCOMPANY</content>
+		<secondsPassed minutes="true"><![CDATA[240]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Let [npc.name] get settled in.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="peaceful_transformations">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_encounters_fields_elis_alleyway_start"/>
+	</scene>
+	
+	<scene id="peaceful_attack">
+		<content folderPath="txt/encounters/fields/elis/alleyway">PEACEFUL_ATTACK</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fight]]></responseTitle>
+				<responseTooltip><![CDATA[Start fighting [npc.name]!]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<combatVariables enabled="true">
+					<nextDialoguePlayerVictory><![CDATA[innoxia_encounters_fields_elis_alleyway_combat_won]]></nextDialoguePlayerVictory>
+					<nextDialoguePlayerDefeat><![CDATA[innoxia_encounters_fields_elis_alleyway_combat_lost]]></nextDialoguePlayerDefeat>
+					<allies companionsAreAllies="true"/>
+					<enemies>
+						<enemy leader="true"><![CDATA[npc]]></enemy>
+					</enemies>
+					<openingDescriptions>
+						<combatant id="pc"><![CDATA[Committed to your decision to betray [npc.namePos] trust, you prepare to give [npc.herHim] a sound beating.]]></combatant>
+						<combatant id="npc"><![CDATA[With a look of anguished betrayal on [npc.her] face, [npc.name] cries, [npc.speech(You [pc.bitch]!)]]]></combatant>
+					</openingDescriptions>
+				</combatVariables>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="after_sex_peaceful">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[You and [npc.name] have had enough sex for now...]]></tooltip>
+		<content folderPath="txt/encounters/fields/elis/alleyway">AFTER_SEX_PEACEFUL</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Now that you've had your fun with [npc.name], it's time to continue on your way.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+			</response>
+		</responses>
+	</scene>
+				
+	
+</dialogueNodes>
