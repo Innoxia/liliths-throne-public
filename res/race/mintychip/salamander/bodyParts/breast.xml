@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<breast>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractBreastType.java -->
+	
+	<!-- The id of the race which this breast belongs to.
+	This will almost always be the id of the race in which this type is found (in this case salamander). -->
+	<race>mintychip_salamander</race>
+	
+	<!-- The name that will be used when referring to transformations related to this type (such as when changing body parts in the self-TF menu). -->
+	<transformationName><![CDATA[salamander]]></transformationName>
+	
+	<!-- The id of the material covering this ass.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>mintychip_salamander_scales</coveringType>
+	
+	<!-- The id of the nipple that's associated with this breast type. -->
+	<nippleType>mintychip_salamander_nipple</nippleType>
+	
+	<!-- The id of the fluid that's associated with this breast type. -->
+	<fluidType>mintychip_salamander_milk</fluidType>
+	
+	<!-- Naming: 
+	For all of the following name & descriptor fields, you can do as I've done and leave them all empty to use the game's default names for breasts, or define your own names following this same format for each category:
+	<names>
+		<name><![CDATA[breast]]></name>
+		<name><![CDATA[boob]]></name>
+		<name><![CDATA[tit]]></name>
+	</names>
+	-->
+	
+	<!-- NOT a flat chest:
+	These 3 values are used when this breast type is on a character who has clearly-defined breasts. i.e. When they have more than just pecs. -->
+	
+	<!-- The singular names of this breast type. -->
+	<names/>
+	
+	<!-- The plural names of this breast type. -->
+	<namesPlural/>
+	
+	<!-- The descriptors which should be drawn upon when describing this breast type.
+	Additional descriptors are generated based on the breast's properties (such as its modifiers, cup-size, etc.), so these descriptors should only be related to the race itself. -->
+	<descriptors/>
+	
+	
+	<!-- IS a flat chest:
+	These 3 values are used when this breast type is on a character who has a flat chest. i.e. When they just have pecs. -->
+	
+	<!-- The singular names of this breast type. -->
+	<namesFlat/>
+	
+	<!-- The plural names of this breast type. -->
+	<namesPluralFlat/>
+	
+	<!-- The descriptors which should be drawn upon when describing this breast type.
+	Additional descriptors are generated based on the breast's properties (such as its modifiers, cup-size, etc.), so these descriptors should only be related to the race itself. -->
+	<descriptorsFlat/>
+	
+	
+	<!-- Chest-located breasts:
+	These 2 transformation descriptions are used when this breast type is being used for chest-breasts. i.e. Breasts located in the normal human location. -->
+	
+	<!-- The description which is shown when a character transforms to obtain this breast type.
+	This description immediately follows a brief description of the ass type undergoing a transformation. -->
+	<transformationDescription><![CDATA[
+		[npc.She] now [npc.has] [style.boldSalamander(salamander-like)], [npc.nipplesFullDescription], and when lactating, [npc.she] will produce [style.boldSalamander(salamander milk)].
+	]]></transformationDescription>
+	
+	<!-- How this breast type is described in a character's description page. -->
+	<bodyDescription><![CDATA[
+		On each of [npc.her] [npc.breastSize] [npc.breasts], [npc.she] [npc.has] [npc.nipplesPerBreast] salamander-like, [npc.nipplesFullDescription].
+	]]></bodyDescription>
+	
+	
+	<!-- Crotch-located breasts:
+	These 2 transformation descriptions are used when this breast type is being used for crotch-boobs. i.e. Breasts located on the character's lower stomach. -->
+	
+	<crotchBoobsTransformationDescription><![CDATA[
+		[npc.She] now [npc.has] [style.boldSalamander(salamander-like)], [npc.crotchNipplesFullDescription], and when lactating, [npc.she] will produce [style.boldSalamander(salamander milk)].
+	]]></crotchBoobsTransformationDescription>
+	
+	<crotchBoobsBodyDescription><![CDATA[
+		On each of [npc.her] [npc.crotchBoobSize] [npc.crotchBoobs], [npc.she] [npc.has] [npc.crotchNipplesPerBreast] salamander-like, [npc.crotchNipplesFullDescription].
+	]]></crotchBoobsBodyDescription>
+	
+</breast>

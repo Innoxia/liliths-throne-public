@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<nipple>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractNippleType.java -->
+	
+	<!-- The id of the race which this nipple belongs to.
+	This will almost always be the id of the race in which this type is found (in this case hyena). -->
+	<race>mintychip_salamander</race>
+	
+	<!-- The id of the material covering this nipple.
+	This should always be left as 'NIPPLES'.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>NIPPLES</coveringType>
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's nipple of this type.
+	Additional nipple descriptors are generated based on the nipple's properties (such as its modifiers, lubrication, capacity, etc.), so these descriptors should only be related to the race itself. -->
+	<descriptorsMasculine/>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine/>
+	<!-- Hyena nipples do not need any racial descriptors, but if you wanted to add some, use this format:
+	<descriptorsMasculine>
+		<descriptor><![CDATA[hyena-like]]></descriptor>
+	</descriptorsMasculine>
+	-->
+	
+	<!-- The orifice modifiers which this nipple has when first created (such as when a new hyena-morph is spawned).
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/OrificeModifier.java -->
+	<defaultOrificeModifiers/>
+	<!-- Hyena nipples do not spawn with any modifiers by default, but if you wanted to add some, use this format:
+	<defaultOrificeModifiers>
+		<modifier>PUFFY</modifier>
+	</defaultOrificeModifiers>
+	-->
+	
+</nipple>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<subspecies>
+	<race>HORSE_MORPH</race>
+	
+	<colour>RACE_HORSE_MORPH</colour>
+	<secondaryColour>BASE_TAN</secondaryColour>
+	<tertiaryColour>BASE_TAN</tertiaryColour>
+	
+	<mainSubspecies>false</mainSubspecies>
+	
+	<baseSlaveValue>20000</baseSlaveValue>
+	
+	<attributeItemId>innoxia_race_horse_equine_cider</attributeItemId>
+	
+	<transformativeItemId>innoxia_race_horse_sugar_carrot_cube</transformativeItemId>
+	
+	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	
+	<shortStature>false</shortStature>
+	
+	<bipedalSubspecies>true</bipedalSubspecies>
+	
+	<aquatic>false</aquatic>
+	
+	<applySubspeciesChanges><![CDATA[
+		#IF(targetedBody.getLegType()!=LEG_TYPE_mintychip_horse_legFeathered)
+			[#targetedBody.setLegType(LEG_TYPE_mintychip_horse_legFeathered)]
+		#ENDIF
+		[#targetedBody.setHornType(HORN_TYPE_NONE)]
+	]]></applySubspeciesChanges>
+	
+	<subspeciesWeighting><![CDATA[
+		#IF(targetedRace==RACE_HORSE_MORPH)
+			#IF(targetedBody.getLegType()==LEG_TYPE_mintychip_horse_legFeathered)
+				105
+			#ELSE
+				0
+			#ENDIF
+		#ELSE
+			0
+		#ENDIF
+	]]></subspeciesWeighting>
+	
+	<iconName displaySize="100">icon</iconName>
+	
+	<backgroundName/>
+	
+	<bookIconName>res/race/innoxia/horse/subspecies/icon.svg</bookIconName>
+	
+	<bookName>Equine Encyclopedia</bookName>
+	
+	<basicDescriptionId>HORSE_MORPH_BASIC</basicDescriptionId>
+	<advancedDescriptionId>HORSE_MORPH_ADVANCED</advancedDescriptionId>
+	
+	<defaultPreference>TWO_AVERAGE</defaultPreference>
+	
+	<nameAnthro>
+		<namesDefault> 
+			<name><![CDATA[clydesdale-morph]]></name>
+			<namePlural><![CDATA[clydesdale-morphs]]></namePlural>
+			<singularMaleName><![CDATA[clydesdale-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[clydesdale-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[clydesdale-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[clydesdale-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthro>
+	
+	<description><![CDATA[An anthropomorphic clydesdale. To be identified as a clydesdale-morph, a character must be a bipedel horse-morph with feathered horse legs.]]></description>
+	
+	<nameHalfDemon>
+		<namesDefault> 
+			<name><![CDATA[nightmare]]></name>
+			<namePlural><![CDATA[nightmares]]></namePlural>
+			<singularMaleName><![CDATA[nightmare]]></singularMaleName>
+			<singularFemaleName><![CDATA[nightmare]]></singularFemaleName>
+			<pluralMaleName><![CDATA[nightmares]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[nightmare]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
+	
+	<feralAttributes>
+		<name><![CDATA[clydesdale]]></name>
+		<namePlural><![CDATA[clydesdales]]></namePlural>
+		<singularMaleName><![CDATA[clydesdale]]></singularMaleName>
+		<singularFemaleName><![CDATA[clydesdale]]></singularFemaleName>
+		<pluralMaleName><![CDATA[clydesdales]]></pluralMaleName>
+		<pluralFemaleName><![CDATA[clydesdales]]></pluralFemaleName>
+		
+		<legConfiguration>QUADRUPEDAL</legConfiguration>
+		<sizeHeight>true</sizeHeight>
+		<size>185</size>
+		<serpentTailLength>0.1</serpentTailLength>
+		<breastRowCount>0</breastRowCount>
+		<nipplesPerBreastCount>1</nipplesPerBreastCount>
+		<crotchBreastRowCount>1</crotchBreastRowCount>
+		<nipplesPerCrotchBreastCount>1</nipplesPerCrotchBreastCount>
+		
+		<armsOrWingsPresent>false</armsOrWingsPresent>
+		<fingerActionsAvailable>false</fingerActionsAvailable>
+		<hairPresent>false</hairPresent>
+	</feralAttributes>
+	
+	<statusEffectDescription><![CDATA[
+		While [npc.namePos] body possesses amazing strength, [npc.sheIs] not the sharpest tool in the shed, and [npc.verb(struggle)] more than most when it comes to harnessing the arcane.
+	]]></statusEffectDescription>
+	
+	<statusEffectAttributeModifiers>
+		<attribute value="30">MAJOR_PHYSIQUE</attribute>
+		<attribute value="-5">MAJOR_ARCANE</attribute> <!-- Values with a magnitude of 0 are discarded upon loading. I've left it here as an example. -->
+		<attribute value="-10">SPELL_COST_MODIFIER</attribute>
+		<attribute value="15">DAMAGE_PHYSICAL</attribute>
+		<attribute value="10">CRITICAL_DAMAGE</attribute>
+	</statusEffectAttributeModifiers>
+	
+	<extraEffects/>
+	
+	<perkWeightings>
+		<category masculineWeighting="10" feminineWeighting="5">PHYSICAL</category>
+		<category masculineWeighting="1" feminineWeighting="1">LUST</category>
+		<category masculineWeighting="0" feminineWeighting="0">ARCANE</category>
+	</perkWeightings>
+	
+	<regionLocations>
+		<region rarity="ONE_VERY_RARE">DOMINION</region>
+		<region rarity="TWO_RARE">FIELDS</region>
+		<region rarity="TWO_RARE">FIELD_CITY</region>
+	</regionLocations>
+	
+	<worldLocations>
+		<world rarity="ONE_VERY_RARE">NIGHTLIFE_CLUB</world>
+	</worldLocations>
+	
+	<placeLocations/>
+	
+	<flags/>
+	
+</subspecies>

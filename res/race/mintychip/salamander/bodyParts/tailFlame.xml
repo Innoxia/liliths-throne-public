@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tail>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractTailType.java -->
+	
+	<!-- The id of the race which this tail belongs to.
+	This will almost always be the id of the race in which this type is found (in this case salamander). -->
+	<race>mintychip_salamander</race>
+	
+	<!-- The name that will be used when referring to transformations related to this type (such as when changing body parts in the self-TF menu). -->
+	<transformationName><![CDATA[flame-tipped salamander]]></transformationName>
+	
+	<!-- The id of the material covering this tail.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>mintychip_salamander_scales</coveringType>
+	
+	<!-- Whether this tail type has a spinneret (will only be true for spider tail types). -->
+	<spinneret>false</spinneret>
+	
+	<!-- The girth which this tail has when first created (such as when a new salamander-morph is spawned).
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/PenetrationGirth.java -->
+	<defaultGirth>4</defaultGirth>
+	
+	<!-- The length of this tail in relation to the owner's height, defined as a percentage from 0.05 (5%) to 2.5 (250%).
+	Limits are defined in here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/Tail.java -->
+	<defaultLengthAsPercentageOfHeight>0.6</defaultLengthAsPercentageOfHeight>
+	
+	<!-- Tags which are associated with this tail type.
+	You should most likely only be using the 'tail' tags for your tail type.
+	You should define ONE of the 'TAIL_TYPE_X' tags.
+	You should define ONE of the 'TAIL_TAPERING_X' tags.
+	The other tags are optional.
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/tags/BodyPartTag.java -->
+	<tags>
+		<tag>TAIL_TYPE_SCALES</tag>
+		<tag>TAIL_TAPERING_LINEAR</tag>
+		<tag>TAIL_SLEEP_HUGGING</tag>
+		<tag>TAIL_PREHENSILE</tag>
+		<tag>TAIL_SUITABLE_FOR_PENETRATION</tag>
+	</tags>
+	
+	<!-- The singular and plural determiners of this tail type.
+	These are used in the format 'Lilaya has one X tail.', where X is the determiner.
+	As such the determiner should almost always be left blank.
+	For an example of where determiners need to be defined, harpy tails are called 'tail feathers', so the determiner should be 'plume of'/'plumes of', to fit into: 'Helena has one X tail feathers.' -->
+	<determiner><![CDATA[]]></determiner>
+	<determinerPlural><![CDATA[]]></determinerPlural> 
+	
+	<!-- The singular and plural name of this tail type.
+	These should be left as 'tail' and 'tails' for standard tail types, but could be something like 'tail feathers'/'tail feathers' (both as plural) for bird tails. -->
+	<name><![CDATA[tail]]></name>
+	<namePlural><![CDATA[tails]]></namePlural> 
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's tail of this type.
+	Can be left blank. -->
+	<descriptorsMasculine>
+		<descriptor>salamander-like</descriptor>
+		<descriptor>scaly</descriptor>
+	</descriptorsMasculine>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine>
+		<descriptor>salamander-like</descriptor>
+		<descriptor>scaly</descriptor>
+	</descriptorsFeminine>
+	
+	<!-- Same naming formats as those for the tail type above, but these describe the tail's tip: -->
+	<tipName><![CDATA[tip]]></tipName>
+	<tipNamePlural><![CDATA[tips]]></tipNamePlural>
+	<tipDescriptorsMasculine>
+		<descriptor>scaly</descriptor>
+		<descriptor>fiery</descriptor>
+	</tipDescriptorsMasculine>
+	<tipDescriptorsFeminine>
+		<descriptor>scaly</descriptor>
+		<descriptor>fiery</descriptor>
+	</tipDescriptorsFeminine>
+	
+	<!-- The description which is shown when a character transforms to obtain this tail type.
+	This description immediately follows a brief description of the tail type beginning to transform. -->
+	<transformationDescription><![CDATA[
+		#IF(npc.getTailCount()==1)
+			A scaled, salamander-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about [npc.tailLength] long. There is a brief pause before the tip violently erupts into flames. Thankfully, the arcane fire is revealed to be comfortably warm to the touch. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over [npc.her] new tail.
+			<br/>[npc.Name] now [npc.has] a [style.boldSalamander(flame-tipped salamander tail)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+		#ELSE
+			[npc.TailCount] scaled, salamander-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about [npc.tailLength] long. There is a brief pause before the tips violently erupt into flames. Thankfully, the arcane fire is revealed to be comfortably warm to the touch. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over [npc.her] new tails.
+			<br/>[npc.Name] now [npc.has] [npc.tailCount] [style.boldSalamander(flame-tipped salamander tails)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+		#ENDIF
+	]]></transformationDescription>
+	
+	<!-- How this tail is described in a character's description page. -->
+	<bodyDescription><![CDATA[
+		Growing out from just above [npc.her] ass, [npc.sheHasFull]
+		#IF(npc.getTailCount()==1)
+			 a prehensile #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] salamander tail, whose tip is engulfed in arcane flames.
+		#ELSE
+			 [npc.tailCount] prehensile #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] salamander tails, whose tips are engulfed in arcane flames.
+		#ENDIF
+	]]></bodyDescription>
+	
+</tail>

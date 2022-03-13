@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<leg>
+	<race>HORSE_MORPH</race>
+	
+	<transformationName><![CDATA[Feathered horse]]></transformationName>
+	
+	<coveringType>HORSE_HAIR</coveringType>
+	
+	<defaultFootStructure>UNGULIGRADE</defaultFootStructure>
+	
+	<footType>HOOFS</footType>
+	
+	<spinneret>false</spinneret>
+	
+	<tentacleType>NONE</tentacleType>
+	
+	<tentacleCount>0</tentacleCount>
+	
+	<allowedLegConfigurations>
+		<configuration>BIPEDAL</configuration>
+		<configuration>QUADRUPEDAL</configuration>
+	</allowedLegConfigurations>
+	
+	<name><![CDATA[leg]]></name>
+	<namePlural><![CDATA[legs]]></namePlural> 
+	
+	<descriptorsMasculine>
+		<descriptor>masculine</descriptor>
+		<descriptor>feathering-coated</descriptor>
+		<descriptor>anthropomorphic, horse-like</descriptor>
+		<descriptor>hair-coated</descriptor>
+	</descriptorsMasculine>
+	
+	<descriptorsFeminine>
+		<descriptor>feminine</descriptor>
+		<descriptor>feathering-coated</descriptor>
+		<descriptor>anthropomorphic, horse-like</descriptor>
+		<descriptor>hair-coated</descriptor>
+	</descriptorsFeminine>
+	
+	<footDescriptorsMasculine>
+		<descriptor>horse-like</descriptor>
+	</footDescriptorsMasculine>
+	<footDescriptorsFeminine>
+		<descriptor>horse-like</descriptor>
+	</footDescriptorsFeminine>
+	
+	<toeDescriptorsMasculine>
+		<descriptor>horse-like</descriptor>
+	</toeDescriptorsMasculine>
+	<toeDescriptorsFeminine>
+		<descriptor>horse-like</descriptor>
+	</toeDescriptorsFeminine>
+	
+	<transformationDescription><![CDATA[
+		As the new fur on [npc.her] calves grows even longer, [npc.her] toes suddenly push together, and [npc.she] [npc.verb(let)] out a cry as a thick, hoof-like nail grows in their place, before quickly transforming to turn [npc.her] feet into horse-like hoofs. As the transformation ends, [npc.she] [npc.verb(see)] that [npc.her] new hair smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.<br/>
+		[npc.Name] now [npc.has] anthropomorphic, [style.boldHorseMorph(clydesdale-like legs and hoofed feet)], which have feathering on the calves and are [npc.materialDescriptor] [npc.legFullDescription].
+	]]></transformationDescription>
+	
+	
+	<bodyDescription><![CDATA[
+		[npc.Her] legs have feathering on the calves and are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic horse-like hoofs.
+	]]></bodyDescription>
+</leg>
