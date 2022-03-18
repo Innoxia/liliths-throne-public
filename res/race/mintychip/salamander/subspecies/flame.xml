@@ -55,7 +55,7 @@
 	<applySubspeciesChanges><![CDATA[
 	[#targetedBody.setTailType(TAIL_TYPE_mintychip_salamander_tailFlame)]
 	
-	#IF(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour().getPrimaryColour().isOneOf(
+	#IF(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour().isOneOf(
 		COLOUR_COVERING_INDIGO, 
 		COLOUR_COVERING_BLUE_LIGHT, 
 		COLOUR_COVERING_BLUE,
@@ -75,7 +75,7 @@
 		#ENDIF
 	#ENDIF
 	
-	#IF(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).getPrimaryColour().getPrimaryColour().getPrimaryColour().isOneOf(
+	#IF(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).getPrimaryColour().isOneOf(
 		COLOUR_COVERING_INDIGO, 
 		COLOUR_COVERING_BLUE_LIGHT, 
 		COLOUR_COVERING_BLUE,
@@ -233,7 +233,7 @@
 	
 	<!-- The description which is shown to the player in this subspecies' status effect tooltip. -->
 	<statusEffectDescription><![CDATA[
-		[npc.NamePos] natural affinity salamander-like body is very fast which, along with a natural affinity for arcane fire, makes [npc.herHim] a formidable opponent.
+		[npc.NamePos] salamander-like body is very fast which, along with a natural affinity for arcane fire, makes [npc.herHim] a formidable opponent.
 	]]></statusEffectDescription>
 	
 	<!-- The core attributes which a character of this subspecies benefits from.

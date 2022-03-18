@@ -55,12 +55,13 @@
 	<applySubspeciesChanges><![CDATA[
 	[#targetedBody.setTailType(TAIL_TYPE_mintychip_salamander_tailAurora)]
 	
-	#IF((targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour() == COLOUR_COVERING_RED) ||
-		(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour() == COLOUR_COVERING_PINK) ||
-		(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour() == COLOUR_COVERING_RED_DARK) ||
-		(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour() == COLOUR_COVERING_SCARLET) ||
-		(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour() == COLOUR_COVERING_ORANGE)
-	)
+	#IF(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour().isOneOf(
+		COLOUR_COVERING_RED,
+		COLOUR_COVERING_PINK,
+		COLOUR_COVERING_RED_DARK,
+		COLOUR_COVERING_SCARLET,
+		COLOUR_COVERING_ORANGE
+	))
 		#IF(RND.nextInt(6)<2)
 			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).setPrimaryColour(COLOUR_COVERING_BLUE)]
 		#ELSEIF(RND.nextInt(4)<1)
@@ -73,13 +74,14 @@
 			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).setPrimaryColour(COLOUR_COVERING_PURPLE_LIGHT)]
 		#ENDIF
 	#ENDIF
-	
-	#IF((targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).getPrimaryColour() == COLOUR_COVERING_RED) ||
-		(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).getPrimaryColour() == COLOUR_COVERING_PINK) ||
-		(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).getPrimaryColour() == COLOUR_COVERING_RED_DARK) ||
-		(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).getPrimaryColour() == COLOUR_COVERING_SCARLET) ||
-		(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).getPrimaryColour() == COLOUR_COVERING_ORANGE)
-	)
+
+	#IF(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).getPrimaryColour().isOneOf(
+		COLOUR_COVERING_RED,
+		COLOUR_COVERING_PINK,
+		COLOUR_COVERING_RED_DARK,
+		COLOUR_COVERING_SCARLET,
+		COLOUR_COVERING_ORANGE
+	))
 		#IF(RND.nextInt(2)<1)
 			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).setPrimaryColour(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour())]
 		#ELSEIF(RND.nextInt(2)<1)
@@ -202,7 +204,7 @@
 	
 	<!-- The description which is shown to the player in this subspecies' status effect tooltip. -->
 	<statusEffectDescription><![CDATA[
-		[npc.NamePos] natural affinity salamander-like body is very fast which, along with a natural affinity for arcane ice, makes [npc.herHim] a formidable opponent.
+		[npc.NamePos] salamander-like body is very fast which, along with a natural affinity for arcane ice, makes [npc.herHim] a formidable opponent.
 	]]></statusEffectDescription>
 	
 	<!-- The core attributes which a character of this subspecies benefits from.
