@@ -39,7 +39,6 @@
 		<tag>TAIL_SLEEP_HUGGING</tag>
 		<tag>TAIL_PREHENSILE</tag>
 		<tag>TAIL_SUITABLE_FOR_PENETRATION</tag>
-		<tag>BIOLUMINESCENT</tag>>
 	</tags>
 	
 	<!-- The singular and plural determiners of this tail type.
