@@ -19,7 +19,6 @@
 	<!-- Tags which are associated with this eye type.
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/tags/BodyPartTag.java -->
 	<tags>
-		<tag>NIGHT_VISION</tag>
 	</tags>
 	
 	<!-- The default number of pairs that this eye type should have (should most likely be 1). -->
