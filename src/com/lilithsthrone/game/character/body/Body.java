@@ -4301,34 +4301,7 @@ public class Body implements XMLSaving {
 				
 				for(FluidModifier fm : FluidModifier.values()) {
 					if(owner.hasMilkModifier(fm)) {
-						switch(fm) {
-							case ADDICTIVE:
-								descriptionSB.append(" It is highly addictive, and anyone who drinks too much will quickly become dependent on it.");
-								break;
-							case BUBBLING:
-								descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
-								break;
-							case HALLUCINOGENIC:
-								descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
-								break;
-							case MUSKY:
-								descriptionSB.append(" It has a strong, musky smell.");
-								break;
-							case SLIMY:
-								descriptionSB.append(" It has a slimy, oily texture.");
-								break;
-							case STICKY:
-								descriptionSB.append(" It's quite sticky, and is difficult to fully wash off without soap.");
-								break;
-							case VISCOUS:
-								descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
-								break;
-							case ALCOHOLIC:
-								descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
-								break;
-							case MINERAL_OIL:
-								descriptionSB.append(" It is rich in minerals good for your skin but not for latex.");
-						}
+						descriptionSB.append(fm.getBriefDescription());
 					}
 				}
 				
@@ -4572,34 +4545,7 @@ public class Body implements XMLSaving {
 				
 				for(FluidModifier fm : FluidModifier.values()) {
 					if(owner.hasMilkCrotchModifier(fm)) {
-						switch(fm) {
-							case ADDICTIVE:
-								descriptionSB.append(" It is highly addictive, and anyone who drinks too much will quickly become dependent on it.");
-								break;
-							case BUBBLING:
-								descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
-								break;
-							case HALLUCINOGENIC:
-								descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
-								break;
-							case MUSKY:
-								descriptionSB.append(" It has a strong, musky smell.");
-								break;
-							case SLIMY:
-								descriptionSB.append(" It has a slimy, oily texture.");
-								break;
-							case STICKY:
-								descriptionSB.append(" It's quite sticky, and is difficult to fully wash off without soap.");
-								break;
-							case VISCOUS:
-								descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
-								break;
-							case ALCOHOLIC:
-								descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
-								break;
-							case MINERAL_OIL:
-								descriptionSB.append(" It is rich in minerals good for your skin but not for latex.");
-						}
+						descriptionSB.append(fm.getBriefDescription());
 					}
 				}
 				
@@ -4998,35 +4944,7 @@ public class Body implements XMLSaving {
 			
 			for(FluidModifier fm : FluidModifier.values()) {
 				if(owner.hasCumModifier(fm)) {
-					switch(fm) {
-						case ADDICTIVE:
-							descriptionSB.append(" It is highly addictive, and anyone who drinks too much will quickly become dependent on it.");
-							break;
-						case BUBBLING:
-							descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
-							break;
-						case HALLUCINOGENIC:
-							descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in cum-related hallucinations or sensitivity to hypnotic suggestion.");
-							break;
-						case MUSKY:
-							descriptionSB.append(" It has a strong, musky smell.");
-							break;
-						case SLIMY:
-							descriptionSB.append(" It has a slimy, oily texture.");
-							break;
-						case STICKY:
-							descriptionSB.append(" It's quite sticky, and is difficult to fully wash off without soap.");
-							break;
-						case VISCOUS:
-							descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
-							break;
-						case ALCOHOLIC:
-							descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
-							break;
-						case MINERAL_OIL:
-							descriptionSB.append(" It contains mineral oils that deteriorate latex.");
-							break;
-					}
+					descriptionSB.append(fm.getBriefDescription());
 				}
 			}
 		}
@@ -5307,34 +5225,7 @@ public class Body implements XMLSaving {
 		
 		for(FluidModifier fm : FluidModifier.values()) {
 			if(viewedVagina.getGirlcum().getFluidModifiers().contains(fm)) {
-				switch(fm) {
-					case ADDICTIVE:
-						descriptionSB.append(" It is highly addictive, and anyone who drinks too much will quickly become dependent on it.");
-						break;
-					case BUBBLING:
-						descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
-						break;
-					case HALLUCINOGENIC:
-						descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
-						break;
-					case MUSKY:
-						descriptionSB.append(" It has a strong, musky smell.");
-						break;
-					case SLIMY:
-						descriptionSB.append(" It has a slimy, oily texture.");
-						break;
-					case STICKY:
-						descriptionSB.append(" It's quite sticky, and is difficult to fully wash off without soap.");
-						break;
-					case VISCOUS:
-						descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
-						break;
-					case ALCOHOLIC:
-						descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
-						break;
-					case MINERAL_OIL:
-						descriptionSB.append(" It is rich in minerals good for your skin but not for latex.");
-				}
+				descriptionSB.append(fm.getBriefDescription());
 			}
 		}
 		

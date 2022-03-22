@@ -552,8 +552,8 @@
 		</responses>
 	</scene>
 	
-	<!-- Place type id: innoxia_fields_elis_town_tavern_seedy -->
-	<scene id="tavern_seedy">
+	<!-- Place type id: innoxia_fields_elis_town_tavern_alley -->
+	<scene id="tavern_alley">
 		<author><![CDATA[Innoxia]]></author>
 		<title/>
 		<tooltip/>
@@ -562,7 +562,67 @@
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>false</travelDisabled>
-		<responses/>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.isHourBetween(5, 14)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[
+					The tavern isn't open at this time of day...
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					null
+				]]></nextDialogue>
+				<effects/>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.isHourBetween(0, 5) || game.isHourBetween(14, 24)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[Push open the tavern's door and head inside.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_tavern_alley_exit"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_alley, PLACE_TYPE_innoxia_fields_elis_tavern_alley_exit)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'INITIAL_ENTRY'))]
+					[#oglix.initElemental()]
+					[#oglix.initBeerBitches()]
+					[#game.initGamblersInElisTavern()]
+				]]></effects>
+			</response>
+			<!-- Kheiron watching: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.isQuestCompleted(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Old stables]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!game.isHourBetween(6, 7))
+						You need to come back between [units.time(6)]-[units.time(7)] if you wanted to see what Golix does to Kheiron...
+					#ELSEIF(!flags.hasFlag(FLAG_innoxia_oglix_kheiron_spectated))
+						You've already seen what Golix does to Kheiron today...
+					#ELSE
+						Sneak around the back of the tavern to the old stables so that you can watch what Golix does to Kheiron...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!game.isHourBetween(6, 7) || flags.hasFlag(FLAG_innoxia_oglix_kheiron_spectated))
+						null
+					#ELSE
+						innoxia_places_fields_elis_tavern_alley_old_stables
+					#ENDIF
+				]]></nextDialogue>
+				<effects/>
+			</response>
+		</responses>
 	</scene>
 	
 	<!-- Place type id: innoxia_fields_elis_town_tavern_taur -->

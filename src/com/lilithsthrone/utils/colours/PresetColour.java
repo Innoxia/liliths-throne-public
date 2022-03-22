@@ -70,6 +70,7 @@ public class PresetColour {
 
 	public static Colour BASE_COPPER = new Colour(false, BaseColour.COPPER, "copper", Util.newArrayListOfValues("baseCopper")) {};
 	public static Colour BASE_ORANGE = new Colour(false, BaseColour.ORANGE, "orange", Util.newArrayListOfValues("orange")) {};
+	public static Colour BASE_ORANGE_LIGHT = new Colour(false, BaseColour.ORANGE_LIGHT, "light orange", Util.newArrayListOfValues("orangeLight", "lightOrange")) {};
 	public static Colour BASE_GINGER = new Colour(false, BaseColour.GINGER, "ginger", Util.newArrayListOfValues("ginger")) {};
 	
 	public static Colour BASE_GOLD = new Colour(false, BaseColour.GOLD, "gold", Util.newArrayListOfValues("gold")) {};
@@ -571,7 +572,8 @@ public class PresetColour {
 	public static Colour COVERING_BROWN = new Colour(false, BaseColour.BROWN, "brown") {}.setLinkedColourLighter(COVERING_BROWN_LIGHT);
 	public static Colour COVERING_BROWN_DARK = new Colour(false, BaseColour.BROWN_DARK, "dark brown") {}.setLinkedColourLighter(COVERING_BROWN);
 	// Orange:
-	public static Colour COVERING_AMBER = new Colour(false, BaseColour.AMBER, "amber") {};
+	public static Colour COVERING_ORANGE_LIGHT = new Colour(false, BaseColour.ORANGE_LIGHT, "light orange") {};
+	public static Colour COVERING_AMBER = new Colour(false, BaseColour.AMBER, "amber") {}.setLinkedColourLighter(COVERING_ORANGE_LIGHT);
 	public static Colour COVERING_ORANGE = new Colour(false, BaseColour.ORANGE, "orange") {}.setLinkedColourLighter(COVERING_AMBER);
 	public static Colour COVERING_GINGER = new Colour(false, BaseColour.GINGER, "ginger") {}.setLinkedColourLighter(COVERING_ORANGE);
 	public static Colour COVERING_ORANGE_DARK = new Colour(false, BaseColour.ORANGE_DARK, "dark orange") {}.setLinkedColourLighter(COVERING_GINGER);
@@ -814,6 +816,7 @@ public class PresetColour {
 			PresetColour.COVERING_ORANGE,
 			PresetColour.COVERING_YELLOW,
 			PresetColour.COVERING_AMBER,
+			PresetColour.COVERING_ORANGE_LIGHT,
 			PresetColour.COVERING_GREEN_LIGHT,
 			PresetColour.COVERING_GREEN,
 			PresetColour.COVERING_GREEN_DARK,
@@ -862,6 +865,7 @@ public class PresetColour {
 			PresetColour.COVERING_BROWN_DARK,
 			PresetColour.COVERING_ORANGE_DARK,
 			PresetColour.COVERING_ORANGE,
+			PresetColour.COVERING_ORANGE_LIGHT,
 			PresetColour.COVERING_GINGER,
 			PresetColour.COVERING_BLEACH_BLONDE,
 			PresetColour.COVERING_YELLOW,
@@ -940,6 +944,7 @@ public class PresetColour {
 			PresetColour.COVERING_BROWN_DARK,
 			PresetColour.COVERING_ORANGE_DARK,
 			PresetColour.COVERING_ORANGE,
+			PresetColour.COVERING_ORANGE_LIGHT,
 			PresetColour.COVERING_GINGER,
 			PresetColour.COVERING_SANDY,
 			PresetColour.COVERING_BLEACH_BLONDE,

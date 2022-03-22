@@ -15,7 +15,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.69
- * @version 0.4
+ * @version 0.4.4
  * @author Innoxia
  */
 public class ResponseCombat extends Response {
@@ -37,6 +37,7 @@ public class ResponseCombat extends Response {
 	private String nextDialoguePlayerDefeatId;
 
 	private Map<String, String> openingDescriptionsUsingIds;
+	private boolean escapeBlocked = false;
 	
 	
 	public ResponseCombat(String title, String tooltipText, NPC opponent) {
@@ -128,7 +129,7 @@ public class ResponseCombat extends Response {
 	}
 	
 	
-	public ResponseCombat(String title, String tooltipText, List<String> alliesIds, boolean addCompanionsToAllies, String enemyLeaderId, List<String> enemiesIds, Map<String, String> openingDescriptionsUsingIds, String effectsResponse) {
+	public ResponseCombat(String title, String tooltipText, List<String> alliesIds, boolean addCompanionsToAllies, String enemyLeaderId, List<String> enemiesIds, Map<String, String> openingDescriptionsUsingIds, String effectsResponse, boolean escapeBlocked) {
 		super(title, tooltipText, null);
 		this.fromExternalFile = true;
 		
@@ -142,6 +143,8 @@ public class ResponseCombat extends Response {
 		}
 		
 		this.effectsString = effectsResponse;
+		
+		this.escapeBlocked = escapeBlocked;
 	}
 	
 	@Override
@@ -182,7 +185,7 @@ public class ResponseCombat extends Response {
 				openingDescriptions.put(UtilText.findFirstCharacterFromParserTarget(entry.getKey()), entry.getValue());
 			}
 			
-			Main.combat.initialiseCombat(allies, enemyLeader, enemies, openingDescriptions);
+			Main.combat.initialiseCombat(allies, enemyLeader, enemies, openingDescriptions, escapeBlocked);
 			Main.combat.setPlayerPostVictoryDialogue(DialogueManager.getDialogueFromId(UtilText.parse(nextDialoguePlayerVictoryId).trim()));
 			Main.combat.setPlayerPostDefeatDialogue(DialogueManager.getDialogueFromId(UtilText.parse(nextDialoguePlayerDefeatId).trim()));
 			

@@ -89,6 +89,10 @@ public enum QuestLine {
     SIDE_REBEL_BASE_FIREBOMBS("Spicy Meatballs", "You've gotten yourself a steady supply of Arcane Firebombs. At the usual premium, of course.",
             QuestType.SIDE,
             QuestTree.rebelBaseFirebombTree),
+
+	SIDE_OGLIX_BEER_BARRELS("Beer Bitch Bonanza", "You secured more barrels for Oglix, allowing you to send four criminals from the nearby alleyways to her to become new beer-bitches!",
+			QuestType.SIDE,
+			QuestTree.beerBarrelTree),
 	
 	// Romance quests:
 	

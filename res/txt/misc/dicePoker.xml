@@ -4,18 +4,27 @@
 	<!-- START -->
 	
 	<htmlContent tag="START"><![CDATA[
-	<p>
-		Walking up to one of the free tables in the [#SPECIAL_PARSE_0] section, you sit down opposite [npc.a_race].
-	</p>
-	<p>
-		[npc.speech(You think you can take me on, huh?)] [npc.she] taunts. [npc.speech(Don't start crying when I take all your cash!)]
-	</p>
-	<p>
-		You place the buy-in of [#SPECIAL_PARSE_1] on the table, and the [npc.race] does the same.
-	</p>
-	<p>
-		[npc.speech(The name's [npc.name], by the way. Now let's play.)]
-	</p>
+	#IF(npc.isPlayerKnowsName())
+		<p>
+			Walking up to one of the free tables in the [#SPECIAL_PARSE_0] section, you once again decide to sit down opposite [npc.name].
+		</p>
+		<p>
+			[npc.speech(Back for more, huh?)] [npc.she] taunts, [npc.speech(Don't start crying when I take all your cash!)]
+		</p>
+		<p>
+			You place the buy-in of [#SPECIAL_PARSE_1] on the table, and the [npc.race] does the same, before stating, [npc.speech(Right, let's play.)]
+		</p>
+	#ELSE
+		<p>
+			Walking up to one of the free tables in the [#SPECIAL_PARSE_0] section, you sit down opposite [npc.a_race].
+		</p>
+		<p>
+			[npc.speech(You think you can take me on, huh?)] [npc.she] taunts, [npc.speech(Don't start crying when I take all your cash!)]
+		</p>
+		<p>
+			You place the buy-in of [#SPECIAL_PARSE_1] on the table, and the [npc.race] does the same, before revealing, [npc.speech(The name's [npc.name(true)], by the way. Now let's play.)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
