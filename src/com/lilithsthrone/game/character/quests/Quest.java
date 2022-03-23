@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.world.WorldType;
