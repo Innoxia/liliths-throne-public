@@ -228,4 +228,5 @@ public class SexSlotUnique {
 			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] #IF(npc.isPlayer())[npc.step]#ELSE[npc.steps]#ENDIF away from the glory hole, signalling that [npc.sheHas] had enough for now.");
 		}
 	};
+	
 }

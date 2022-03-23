@@ -1,11 +1,1094 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
 
+	<!-- This one is linked to the 'dialogue/innoxia/places/fields/elis/generic.xml' dialogue node, 'tavern_seedy'. -->
+	
+	<htmlContent tag="INITIAL_ENTRY"><![CDATA[
+	<p style='text-align:center;'>
+		[style.italicsBad(Please be aware that a lot of the scenes in this area still has placeholder dialogue! It will be filled in for the next update.)]
+	</p>
+	<p>
+		Deciding that you want to head inside 'The Crossed Blades', you approach the entrance to the tavern and push open the old, wooden door. Although the rusty hinges produce an ear-splitting screech in protest, this unpleasant noise is drowned out by the rowdy shouting, laughing, and cursing which fills the tavern's gloomy, smoky interior. [pc.Stepping] forwards and letting the door swing shut behind you, you pause for a moment to take in the scene before you.
+	</p>
+	<p>
+		The tavern's large, open-plan floorspace is filled with dozens of mismatched tables and chairs of varying shapes and sizes. Around these tables can be seen a mix of patrons every bit as diverse as the furniture that they're seated upon, and apart from creating a huge amount of noise, this crowd can be seen to be engaged in drinking, eating, smoking, arguing, kissing, slapping, and, in just a couple of instances, drunkenly fucking. Although a few of the closest individuals stop and give you a look as you enter the tavern, their business is far more interesting than something as minor as your entrance, and they quickly return to their previous conversation.
+	</p>
+	<p>
+		After you've taken a moment to look upon the wild scene before you, you move your gaze to the other parts of the tavern. Opposite to where you're standing, and separated from the entrance by several occupied tables, you see what looks to be the tavern's bar. You also note that around the edges of the large, open-plan floorspace, dimly-lit seating looks to be populated by a different sort of clientèle, who look far less happy and considerably more dangerous than the people who are seated at the tables.
+	</p>
+	<p>
+		Taking another [pc.step] forwards into the warm, smoky atmosphere of the tavern's gloomy interior, you wonder whether to head over to the bar to perhaps order a drink, or maybe instead to turn around and head back outside...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- All of these are linked to the 'dialogue/innoxia/places/fields/elis/tavern_alley.xml' dialogue nodes. -->
 	
-	<htmlContent tag="TODO"><![CDATA[
+	<!-- Exit: -->
+	
+	<htmlContent tag="EXIT"><![CDATA[
 	<p>
-		TODO
+		Finding yourself once again at the tavern's main entrance, you wonder whether to push open the old, wooden door and head back outside, or perhaps to turn around and return to the bar...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_LEAVE"><![CDATA[
+	<p>
+		Deciding that you've had enough of the tavern's gloomy, smoky atmosphere, you push open the old, wooden door and, ignoring the screeching, grinding sound of the rusty hinges, [pc.step] back out into the relatively fresh air of Elis's alleyways...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Tables: -->
+	
+	<htmlContent tag="TABLES"><![CDATA[
+	#IF(!flags.hasFlag(FLAG_innoxia_oglix_introduced))
+		<p>
+			As you [pc.step] into the tavern, you hear a loud, womanly voice shouting out, [oglix.speech(You! Hey, you! Yeah, the [pc.race] who just came in! Get over here so I can say hello!)]
+		</p>
+		<p>
+			Realising that the you're the one that this voice is calling out for, you look over towards the source and see that it's coming from the tavern's bar. Your first thought as you see the person who's shouting out and waving at you is to wonder how you didn't immediately notice her upon your entry. Standing at [oglix.heightValue] tall, and with a remarkable shade of green skin, this black-haired woman looks startlingly similar to a generic orc from some kind of fantasy setting. Wearing a black, tie-up croptop, which is struggling to contain her massive pair of [oglix.cupSize]-cup breasts, and black hotpants, her arms, legs, and stomach are left fully exposed, allowing you to see that they're extremely muscular. Although she's lacking horns, wings, or a tail, you quickly deduce from her flawless skin, attractive features, and green skin-tone that she must be a succubus.
+		</p>
+		<p>
+			[oglix.speech(I haven't got all day!)] she booms in a loud voice which perfectly matches her huge, muscular appearance. Flashing you a big grin, she waves you forwards and jokes, [oglix.speech(I don't bite!)]
+		</p>
+	#ELSE
+		<p>
+			The tavern's large interior is absolutely packed full of tables and chairs, almost every one of which is occupied by several of the tavern's huge number of noisy, drunk patrons. As such, you have to squeeze and push past dozens of people as you [pc.walk] forwards, which not only slows your progress, but also causes many curses and angry looks to be thrown your way. Ignoring their reactions, you continue on your way through the tavern's smoky, gloomy interior...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TABLES_EVENT"><![CDATA[
+	<p style='text-align:center;'><i>
+		As you pass by a table, you see that there's someone kneeling beneath it, and from the bobbing movement of their upper torso, it's quite obvious that they're performing oral...
+	</i></p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TABLES_EVENT"><![CDATA[
+	<p style='text-align:center;'><i>
+		Your path takes you past a moaning [style.random(cat-girl|dog-girl|rat-girl|fox-girl|horse-girl|cow-girl)], who's sitting in her partner's lap with her skirt pulled up above her waist. You can't help but notice that she's not wearing any underwear, and her partner's thick cock is stuffed balls-deep inside her wet cunt...
+	</i></p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TABLES_EVENT"><![CDATA[
+	<p style='text-align:center;'><i>
+		You find yourself [pc.walking] past a couple of [style.random(cat-girls|dog-girls|rat-girls|fox-girls|horse-girls|cow-girls)], who, to the great amusement of the rest of their table's occupants, are passionately making out with one another...
+	</i></p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TABLES_EVENT"><![CDATA[
+	<p style='text-align:center;'><i>
+		One of the tables which you [pc.walk] past is occupied by a particularly rowdy group of [style.random(cat-boys|dog-boys|rat-boys|fox-boys|horse-boys|bull-boys)], who let out a deafening cheer as a passing [style.random(cat-girl|dog-girl|rat-girl|fox-girl|horse-girl|cow-girl)], who's quite clearly drunk, pulls up her top to flash them her huge tits...
+	</i></p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TABLES_EVENT"><![CDATA[
+	<p style='text-align:center;'><i>
+		A drunk [style.random(cat-boy|dog-boy|rat-boy|fox-boy|horse-boy|bull-boy)] shouts out an incomprehensible curse as you push pass, before collapsing face-first onto the table before him... 
+	</i></p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TABLES_EVENT"><![CDATA[
+	<p style='text-align:center;'><i>
+		You overhear a drunk [style.random(cat-girl|dog-girl|rat-girl|fox-girl|horse-girl|cow-girl)] loudly declaring to her table that she's going up to the bar to order another round of drinks as you pass her by... 
+	</i></p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Bar: -->
+	
+	<htmlContent tag="BAR_INTRO"><![CDATA[
+	<p>
+		Seeing no harm in introducing yourself to this orc-like succubus, who you assume must be the owner of this tavern, you take a winding path past several noisy tables and head over to the long, wooden bar. As you approach, you notice that this green-skinned succubus has orange eyes, and is wearing a pair of gold earrings and a golden nose ring. As she stands up at full height and flashes you a toothy grin, you see two pairs of distinctive bumps pressing out from beneath her croptop, letting you know that she's not wearing a bra and has a couple of barbell piercings through her nipples.
+	</p>
+	<p>
+		[oglix.speech(I'm Oglix, the owner of this dump,)] the succubus booms in her loud, slovenly-accented voice, before letting out a thunderous laugh and declaring, [oglix.speech(I haven't seen you in here before! I like to know the names of everyone who comes in here, so what's yours, [pc.race]?)]
+	</p>
+	<p>
+		As you give Oglix your name, you suddenly notice that there's a swirling cloud of grey energy hovering a little way behind the succubus. Seeing what it is you're looking at, Oglix gestures towards this wisp and reveals, [oglix.speech(This is my elemental, Golix. Come on, say hello, Golix!)]
+	</p>
+	<p>
+		[oglixElemental.speech(Hello, [pc.name],)] the wisp replies in a rather emotionless, feminine voice, before somewhat-alarmingly stating, [oglixElemental.speech(I hope that mistress orders me to punish you. You're just the sort of [pc.race] I love to stuff with my fat cock.)]
+	</p>
+	<p>
+		[oglix.speech(Oh, don't mind her,)] Oglix says, [oglix.speech(I only get Golix to punish people who deserve it. Sometimes the drink's too much for some, you see, and so now and again we get a brawl break out. I keep order in this place by having Golix here take on her active form and fuck whoever doesn't stop when I say so.)]
+	</p>
+	<p>
+		As if this wasn't alarming enough, you suddenly catch sight of another oddity behind the bar. Alongside the shelving which looks to hold a very limited selection of rum, whiskey, and vodka, a huge wooden barrel has been half-set into the wall. A section has been cut out of this barrel, and hanging out so as to be completely exposed to the tavern, a pair of huge, [beerBitch.cupSize]-cup breasts, with a couple of milking pumps sucking on their massive, puffy nipples, are rather wildly bouncing up and down.
+	</p>
+	<p>
+		[oglix.speech(Oh, that's just the beer-bitch,)] Oglix explains with a wave of her hand as she sees what it is you're looking at now. Reaching over to give one of this beer-bitch's tits a squeeze, she explains, [oglix.speech(Her milk's been transformed to be just the same as beer. She gets milked, her beer-milk gets cooled through the machine that's milking her, and then it's served to anyone who orders a pint. Oh, and her tits are bouncing like that because someone's fucking her at the moment.)]
+	</p>
+	<p>
+		At that moment, you hear the sound of a loud grunt, followed by a horny squeal, coming from the other side of the wooden barrel. With that, the beer-bitch's tits stop bouncing, and Oglix states, [oglix.speech(Sounds like they just gave her a big creampie. You can have a go at fucking her too; I give out a token with every pint of beer that's sold, and if you trade in five tokens then you get to go around back and fuck the beer-bitch. So, you want to order a pint, [pc.name]?)]
+	</p>
+	<p>
+		Looking over at the milk that's being sucked out of the beer-bitch's nipples, you think to yourself that its colour and consistency do look exactly like regular beer. Looking back over at Oglix, you wonder whether to order anything, or perhaps ask her a question or two...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR"><![CDATA[
+	<p>
+		The bar. Oglix squeezes one of the beer bitches' tits and asks if you want a drink.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_TALK_BACKGROUND"><![CDATA[
+	<p>
+		You ask Oglix about her background. She says that she moved here to Elis a long time ago, and after a while she bought this place and decided to turn it into a tavern.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_TALK_LUNETTE"><![CDATA[
+	<p>
+		You ask Oglix what she thinks of Lunette. She reveals that Lunette is her grandmother, and doesn't have a bad word to say about her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_TALK_BEER_BITCH"><![CDATA[
+	<p>
+		You ask Oglix about her beer-bitch and how she came to own her. Oglix says that she was repeatedly stealing from the tavern, and after punishing her numerous times she still didn't get the message. Someone else had reported her to the Enforcers, and so she was on the wanted list, so Oglix decided to get a slaver license and enslave her.
+	</p>
+	<p>
+		Oglix then had a great deal of fun creating some transformation potions, making the beer-bitch lactate beer, as well as making her love her situation. She's forgotten the thief's original name, but 'beer-bitch' suits her very well.
+	</p>
+	<p>
+		#IF(!pc.hasQuest(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS))
+			Looking at the relatively large amount of space beside the beer-bitch's barrel, Oglix says that she planned to add more, but never got around to it...
+		#ELSEIF(!pc.isQuestCompleted(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS))
+			Looking at the relatively large amount of space beside the beer-bitch's barrel, Oglix grunts that it's taking you a long time to get those barrels she's after...
+		#ELSE
+			Looking at the four extra barrels beside the beer-bitch's original one, Oglix grins and thanks you again for getting them for her...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_TALK_ELEMENTAL"><![CDATA[
+	<p>
+		You ask Oglix about Golix.
+		If player has elemental, she comments on it.
+		She says that she went through arcane training earlier in her life, and learned how to summon Golix back then. Golix turned out to have a thing for dominantly fucking people, which suits Oglix as she likes to watch it.
+	</p>
+	<p>
+		#IF(oglixElemental.getTotalTimesHadSex(pc)>0)
+			Golix floats up next to you and says that she keeps on remembering how good it felt to fill you with her fat cock, and that she wants to punish you again. Asks Oglix if she can have you, which Oglix waves off with a laugh.
+		#ELSE
+			Golix floats up next to you and says that she wants to punish you with her fat cock. Asks Oglix if she can have you, which Oglix waves off with a laugh.
+		#ENDIF
+	</p>
+	<p>
+		Raising her eyebrow, Oglix says that if you're interested, she wouldn't mind watching Golix fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_QUEST_START"><![CDATA[
+	<p>
+		Tell Oglix that you think it's a good idea to get more barrels and expand her range of beer-bitches, before offering to help her source them.
+		She grunts in amusement, but when she sees that you're serious, she thinks for a moment and says that she'll take you up on your offer of help.
+		Says that the only place which has barrels large enough to fit a person are those at the tavern, 'The Centaur's Sword', due to the tauric clientèle drinking huge amounts.
+	</p>
+	<p>
+		She tells you to go to this tavern and ask the owner, Kheiron, for four of the largest barrels he's got. Golix cuts in at this point, and says in her emotionless voice that if he refuses, or tries to ask for payment for them, to simply say that 'Golix says to be a good horsie'.
+	</p>
+	<p>
+		Oglix laughs at this, and confirms that that'd ought to do it. Perhaps you'll find out what it means another time, but for now, just use that phrase. Asks if you want a drink before you go.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_BEER"><![CDATA[
+	<p>
+		You tell Oglix that you'd like a pint of beer from [npc.namePos] tits and hand over forty flames. Flashing you a grin, she steps over and turns on the pump, causing a muffled, erotic moan to burst out from [npc.namePos] barrel. Filling a pint glass with the [npc.race]'s beer-like milk, Oglix turns off the pump and gives [npc.her] [npc.cupSize]-cup tits a quick slap, before placing the glass down on the bar in front of you.
+	</p>
+	<p>
+		As you drink the glass of milk, which looks, smells, and tastes identical to beer, Oglix flicks a bottle cap your way, saying that it's a beer token. Collect five, and you can trade them in to fuck [npc.name].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_VODKA"><![CDATA[
+	<p>
+		You tell Oglix that you'd like a glass of vodka and hand over a hundred flames. Pouring out a glass, the green-skinned succubus places it on the stained counter in front of you. Relaxing and taking your time to drink your vodka, you wonder whether to order another drink or to do something else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_RUM"><![CDATA[
+	<p>
+		You tell Oglix that you'd like a glass of rum and hand over a hundred and twenty flames. Pouring out a glass, the green-skinned succubus places it on the stained counter in front of you. Relaxing and taking your time to drink your rum, you wonder whether to order another drink or to do something else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_DRINK_WHISKEY"><![CDATA[
+	<p>
+		You tell Oglix that you'd like a glass of whiskey and hand over a hundred and twenty flames. Pouring out a glass, the green-skinned succubus places it on the stained counter in front of you. Relaxing and taking your time to drink your whiskey, you wonder whether to order another drink or to do something else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_FOOD"><![CDATA[
+	<p>
+		Seeing that there's a food menu hanging on the wall behind the bar, you ask Oglix if you can order [#SPECIAL_PARSE_0]. Grunting in confirmation, she taps the board where it says the price. Handing over [#SPECIAL_PARSE_1] flames, you wait while your order is given to the kitchen and cooked.
+	</p>
+	<p>
+		Ten minutes later, and your food arrives. Although not the best-presented plate of food you've ever seen, it tastes good enough, and so you happily spend the next ten minutes eating your [#SPECIAL_PARSE_2]. After you're done, Oglix takes your plate and quite literally throws it into the kitchen, causing a loud smashing noise and a couple of curses to ring out through the door as it swings shut.
+	</p>
+	<p>
+		Leaning down on the counter, Oglix asks if there's anything else you want.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Punished by Golex: -->
+	
+	<htmlContent tag="BAR_PUNISHMENT"><![CDATA[
+	<p>
+		You ask to be punished, Oglix smirks and agrees to play along. Orders Golix to punish you.
+	</p>
+	<p>
+		Golix takes her active form, and roughly pushes you down over a nearby table, sending drinks flying. Hefting her huge, stone cock in one hand, she uses her free one to forcefully slap your [pc.ass+], before stating in her emotionless voice that she's going to enjoy punishing you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_PUNISHMENT_START"><![CDATA[
+	<p>
+		Before you can object, Golix rams her fat stone cock as deep as possible
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			 into your [pc.pussy+],
+		#ELSEIF(game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+			 into your [pc.asshole+],
+		#ELSE
+			 down your throat,
+		#ENDIF
+		 before starting to forcefully piston her hips back and forth in an almost-mechanical fashion. Roughly keeping you pinned to the table, this elemental is encouraged to show you no mercy by her mistress, Oglix, who moans, [oglix.speech(That's it, Golix! Fuck that bad [pc.girl] good and hard!)]
+	</p>
+	<p>
+		Managing to catch a sideways glance at the muscular, green-skinned succubus, you see her drop a hand down towards her groin and start to touch herself as her elemental pounds you over the table...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_PUNISHMENT_AFTER_SEX"><![CDATA[
+	<p>
+		[oglix.speech(That's enough, Golix,)] Oglix calls out. Immediately, the elemental steps back, sliding her thick, stone cock out of your well-fucked
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			 pussy.
+		#ELSEIF(game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+			 asshole.
+		#ELSE
+			 throat.
+		#ENDIF
+		 With a snap of her mistress's fingers, Golix transforms back into her passive, wisp-like form of a swirling cloud of energy.
+	</p>
+	<p>
+		With that, you hastily get your things back in order and return to the bar...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_PUNISHMENT_AFTER_SEX_END"><![CDATA[
+	<p>
+		Staggering back over to the bar, you lean against the counter as Oglix smirks and asks if you enjoyed your punishment.
+	</p>
+	<p>
+		You reply in the positive, causing the green-skinned succubus to let out a booming laugh. She asks if you want anything to drink.
+	</p>
+	<p>
+		 Golix says she's ready to go again; she could stuff you with her fat cock all day and never get tired of it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Fucking a beer bitch: -->
+	
+	<htmlContent tag="FUCK_BEER_BITCH"><![CDATA[
+	<p>
+		You tell Oglix that you want to fuck [npc.name] and hand over five tokens. Flashing you a smirk, the green-skinned succubus opens the door at the far end of the bar, telling you to go through and take your time.
+	</p>
+	<p>
+		[pc.Stepping] through the door, you find yourself in a narrow corridor which runs behind the bar.
+		#IF(oglix.getBeerBitches().size()>2)
+			 The beer-bitches have their rear ends sticking out of their barrels, and as you approach [npc.name], you hear them desperately moaning inside their barrel at the prospect of being the one who's about to be fucked.
+		#ELSEIF(oglix.getBeerBitches().size()>1)
+			 Both the beer-bitches have their rear ends sticking out of their barrels, and as you approach [npc.name], you hear [npc.herHim] desperately moaning inside [npc.her] barrel at the prospect of being the one who's about to be fucked.
+		#ELSE
+			 [npc.Name] has her rear end sticking out of her barrel, and as you approach her, you hear her desperately moaning inside her barrel in anticipation of being about to be fucked.
+		#ENDIF
+	</p>
+	<p>
+		Coming to a halt behind [npc.name],
+		#IF(npc.hasVagina())
+			 you see girlcum practically drooling out of her sopping-wet pussy,
+		#ELSEIF(npc.hasPenisIgnoresDildo())
+			 you see her [npc.cock+] stiffening into an erection,
+		#ELSE
+			 you look down at her [npc.ass+],
+		#ENDIF
+		 and you hear her moaning from inside the barrel, [npc.speech(Yes! Fuck me! Whoever's back there, just fuck me already!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FUCK_BEER_BITCH_START"><![CDATA[
+	<p>
+		[pc.Stepping] forwards and giving [npc.namePos] [npc.ass+] a good grope, you prepare to start fucking her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FUCK_BEER_BITCH_BACK_OUT"><![CDATA[
+	<p>
+		Deciding that you're not up for doing this after all, you turn around and head back out through the door. Oglix expresses surprise, but quickly moves on to ask if you want to order a drink.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FUCK_BEER_BITCH_AFTER_SEX"><![CDATA[
+	<p>
+		Having had your fun with [npc.name], you [pc.step] back and give her ass a final slap, causing her to let out a desperately horny moan.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FUCK_BEER_BITCH_AFTER_SEX_END"><![CDATA[
+	<p>
+		Getting your things back in order, you turn around and head back out through the door. Oglix smirks knowingly at you and ask if you want to order a drink.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Finishing barrel quest: -->
+	
+	<htmlContent tag="BARRELS_DELIVERED"><![CDATA[
+	<p>
+		You report your success to Oglix, saying that you needed to use the phrase, 'Golix says to be a good horsie', to get him to help. Oglix grunts in amusement, and asks Golix what she makes of that.
+	</p>
+	<p>
+		Golix says that she knew Kheiron would be a good horsie for her. Tells Oglix that she can hear noise coming from the old stables around the back, and that it sounds like the four barrels are being delivered right now. Oglix tells Golix to go and cut out holes so as to prepare them for new beer-bitches.
+	</p>
+	<p>
+		Golix assumes her active form and moves off to do as she's told. Oglix calls out that she can take some time to personally tell Kheiron what a good horsie he is. Golix's fat cock immediately rises to attention as she hears this, and without a word she swiftly departs.
+	</p>
+	<p>
+		Oglix tells you to stick around in case the barrels turn out to be no good and she needs you to go and find new ones. She leans forwards over the bar and starts to engage in small talk with you while Golix gets to work out back...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARRELS_DELIVERED_NEXT"><![CDATA[
+	<p>
+		You chat to Oglix for a while, and notice that her nipples stiffen and she starts letting out deep pants. She says that she's connected to her elemental and is feeling some of what she is.
+	</p>
+	<p>
+		After ten minutes Golix comes back in, her cock covered in a layer of what looks like a mixture of cum and saliva. She's carrying one of the barrels, with holes for tits and ass cut out of it. Using telekinesis, she smashes a hole in the wall beside the current beer bitch, before placing the barrel half-way through the resulting hole. Using telekinesis once again, she patches up the edges so as to make the barrel fit snugly in the gap.
+	</p>
+	<p>
+		You and Oglix continue to chat while Golix repeats this process for the other three barrels. Finished, Golix transforms back into her wisp form, before telling Oglix that Kheiron is still very much keen to continue being a good horsie for her at the usual time every day.
+	</p>
+	<p>
+		Oglix smirks at this and tells you that as a reward for getting these barrels, you can sneak around to the old stables at the rear of the tavern between [units.time(6)]-[units.time(7)] in the morning. Don't be seen; Kheiron hates people knowing what Golix does to him.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARRELS_DELIVERED_END"><![CDATA[
+	<p>
+		Looking over at the barrels, you ask Oglix where she's going to get new beer-bitches to fill them from.
+	</p>
+	<p>
+		Oglix tells you to bring slave candidates to her. There are plenty running around in the alleyways, so it shouldn't be too hard to find some. Bring them to her, and she'll enslave them, get them transformed, and give them their new life as a beer-bitch.
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsMinorGood(After defeating muggers or prostitutes in the nearby alleyways, you'll now able to send up to four of them to Oglix to permanently become beer-bitches!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARRELS_DELIVERED_END_CONTINUE"><![CDATA[
+	<p>
+		With the barrels now installed, you wonder what to do next.
+	</p>
+	<p>
+		Oglix asks if you want something to drink before setting out to find her some nice new slaves...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- New bitch delivered: -->
+	
+	<htmlContent tag="BEER_BITCH_DELIVERED"><![CDATA[
+	<p>
+		You drag [npc.name] to 'The Crossed Blades', through the entrance, and all the way to the bar. Oglix flashes you a delighted grin as she sees what it is that you've brought her.
+	</p>
+	<p>
+		Oglix commands Golix to strip this [npc.race] naked and pin [npc.herHim] to the wall. Golix enthusiastically responds, taking on her active form and roughly tearing off [npc.namePos] clothing.
+	</p>
+	<p>
+		As Golix holds [npc.name] in place, Oglix excitedly crafts a couple of potions, before telling you to watch as this [npc.race] is turned into a new beer-bitch.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEER_BITCH_DELIVERED_TF_START"><![CDATA[
+	<p>
+		Oglix forces [npc.name] to drink the two potions.
+	</p>
+	<p>
+		[npc.NamePos]
+		#IF(!npc.isFeminine())
+			 body becomes feminine, before her
+		#ENDIF
+		 breasts rapidly expand to a massive size, and you see them start to leak milk which looks exactly like beer.
+	</p>
+	<p>
+		Instead of crying out or trying to struggle against Golix, [npc.name] lets out a desperately horny moan, before pleading to be milked and fucked.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEER_BITCH_DELIVERED_TF_END"><![CDATA[
+	<p>
+		Oglix tells the [npc.race] that her new name is '[#npc.getGenericName()]', and makes her repeat it back to her several times. Oglix asks if she'd like to be locked up in a barrel and spend her days with her fat tits on display to the tavern as they're milked.
+	</p>
+	<p>
+		[npc.Name] desperately begs for that to happen, and says that she wants to be locked up, milked, and fucked.
+	</p>
+	<p>
+		Oglix says that her ass will be hanging out of the rear of the barrel, so she'll get what she wants and be fucked countless times every day by horny drunks. She orders Golix to get her locked into the barrel, and within a few minutes she's joined the original beer-bitch in being locked inside a wooden barrel with her huge tits being milked for all the tavern to see.
+	</p>
+	<p>
+		Oglix asks you if you'd like to be the first to fuck [npc.name], seeing as you were the one to bring her here.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEER_BITCH_DELIVERED_FUCK"><![CDATA[
+	<p>
+		You take Oglix up on her offer. Flashing you a smirk, the green-skinned succubus opens the door at the far end of the bar, telling you to go through and take your time.
+	</p>
+	<p>
+		[pc.Stepping] through the door, you find yourself in a narrow corridor which runs behind the bar.
+		#IF(oglix.getBeerBitches().size()>2)
+			 The beer-bitches have their rear ends sticking out of their barrels, and as you approach [npc.name], you hear them desperately moaning inside their barrel at the prospect of being the one who's about to be fucked.
+		#ELSEIF(oglix.getBeerBitches().size()>1)
+			 Both the beer-bitches have their rear ends sticking out of their barrels, and as you approach [npc.name], you hear [npc.herHim] desperately moaning inside [npc.her] barrel at the prospect of being the one who's about to be fucked.
+		#ELSE
+			 [npc.Name] has her rear end sticking out of her barrel, and as you approach her, you hear her desperately moaning inside her barrel in anticipation of being about to be fucked.
+		#ENDIF
+	</p>
+	<p>
+		Coming to a halt behind [npc.name],
+		#IF(npc.hasVagina())
+			 you see girlcum practically drooling out of her sopping-wet pussy,
+		#ELSEIF(npc.hasPenisIgnoresDildo())
+			 you see her [npc.cock+] stiffening into an erection,
+		#ELSE
+			 you look down at her [npc.ass+],
+		#ENDIF
+		 and you hear her moaning from inside the barrel, [npc.speech(Yes! Fuck me! Whoever's back there, just fuck me already!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEER_BITCH_DELIVERED_DECLINE"><![CDATA[
+	<p>
+		You tell Oglix that you're not interested. She shrugs it off and says that some drunk will enjoy her first time then.
+	</p>
+	<p>
+		Oglix asks if you'd like something to drink. A pint of [npc.namePos] beer, perhaps...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Spectating Golix/Kheiron: -->
+	
+	<htmlContent tag="OLD_STABLES"><![CDATA[
+	<p>
+		You go around back to the old stables. See Kheiron and Oglix there.
+	</p>
+	<p>
+		Kheiron clearly dislikes Oglix. Oglix teases him and tells Golix to take her active form, before stepping back and saying to Kheiron that she only tolerates this because otherwise Golix sulks all day.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OLD_STABLES_NEXT"><![CDATA[
+	<p>
+		Golix passionately kisses Kheiron. Instead of her usual monotonous tone, her voice has a detectable hint of emotion as she says that she loves him.
+	</p>
+	<p>
+		Kheiron snorts and returns the confession. Golix asks if he's going to be a good horsie for her.
+	</p>
+	<p>
+		Kheiron grabs Golix and squeezes her ass, before grunting that one of these days she'll let him be the dom again. Golix says she'll let him mount her and rut her ass again soon, but she desperately wants him to wear his good horsie collar. Kheiron relents, saying that he knows he'll enjoy it once he's got it on...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OLD_STABLES_FINAL"><![CDATA[
+	<p>
+		Golix puts the pink collar on Kheiron, who immediately starts acting far more submissive as Golix passionately kisses him once again.
+	</p>
+	<p>
+		#IF(game.isAnalContentEnabled())
+			Golix asks if he's ready to be a good horsie and take her cock up his ass. Kheiron desperately moans and drops down onto all fours, before swishing his tail to one side and begging for it.
+		#ELSE
+			Golix asks if he's ready to be a good horsie and take her cock down his throat. Kheiron desperately moans and drops down onto all fours, before opening his mouth and begging for it.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OLD_STABLES_FINAL_WATCH"><![CDATA[
+	<p>
+		#IF(game.isAnalContentEnabled())
+			You watch as Golix rams her fat cock into Kheiron's ass, before starting to roughly fuck him...
+		#ELSE
+			You watch as Golix rams her fat cock down Kheiron's throat, before starting to roughly face-fuck him...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OLD_STABLES_FINAL_LEAVE"><![CDATA[
+	<p>
+		You decide that you don't want to see any more, so sneak out of the old stables and return to the front of the tavern...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OLD_STABLES_AFTER_WATCH"><![CDATA[
+	<p>
+		#IF(game.isAnalContentEnabled())
+			Golix slaps Kheiron's ass, before calling him a good horsie.
+		#ELSE
+			Golix gets Kheiron to lick her cock clean, before calling him a good horsie.
+		#ENDIF
+	</p>
+	<p>
+		Standing up, the two of them share a passionate kiss, before Golix takes off his collar. Kheiron's cheeks burn red with shame and embarrassment as the collar's effects are removed. Golix calls him a good horsie again, and lets him scoop her into his arms and kiss her one again.
+	</p>
+	<p>
+		Oglix says it's time for her to sleep. Kheiron prepares to leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OLD_STABLES_AFTER_WATCH_END"><![CDATA[
+	<p>
+		You don't want to be seen by Kheiron, so sneak out of the old stables and return to the front of the tavern before he leaves...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Kitchen: -->
+	
+	<htmlContent tag="KITCHEN"><![CDATA[
+	<p>
+		To one side of the bar, there's an old, wooden door which bears a crooked sign, reading: <i>'Kitchens - Staff Only!'</i>. [pc.Stepping] forwards, you cast a glance through the door's small, grimy window to see a rather unhygienic-looking assortment of worn tables, greasy ovens, and dented fridges. Food waste, dirty pans, and scrunched up packaging are strewn across almost every surface, while the floor and walls are splattered with all sorts of oils and sauces.
+	</p>
+	<p>
+		The people responsible for letting this kitchen get into such a state take the form of two young, busty succubi, who from the green shade of their skin are undoubtedly Oglix's daughters. Smoking and chatting to one another, these succubi are leaving all of the work to the third and final occupant of the room, who takes the form of a male human who looks to be in his late teens. Rushing around the kitchen in a state of overworked stress, this poor chef's work is made even harder by the fact that the two succubi cruelly attempt to trip him up or blow smoke in his face each time he's forced to pass them.
+	</p>
+	<p>
+		Turning away from the kitchen to face the equally-chaotic tavern, you duck as a carelessly-hurled bottle flies over your head to smash against a nearby wall. A sharp shout from Oglix produces an apologetic reply from the bottle's origin, and as the guilty party hurries to pick up the shards of glass, you [pc.step] past them and wonder where to go next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Toilets: -->
+	
+	<htmlContent tag="TOILETS"><![CDATA[
+	<p>
+		Unisex toilets, which are not in as bad a state as you'd feared, but are nevertheless not up to an acceptable standard of hygiene. Multiple gloryholes are drilled between the stalls, and you cna hear from the far end of the stalls that one is already in use.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_USE"><![CDATA[
+	<p>
+		Stepping into one of the empty stalls, you turn and lock the door behind you, before making use of the toilet. After you've finished, you flush the toilet before making your way over to one of the sinks and washing your [pc.hands]. Grabbing a paper towel from the nearby dispenser, you quickly dry yourself off, before turning to face the room and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_WASH"><![CDATA[
+	<p>
+		Feeling like you could do with having a quick clean, you step over to the sinks and thoroughly wash your [pc.hands], before splashing some water on your [pc.face]. Grabbing a paper towel from the nearby dispenser, you quickly dry yourself off, before turning to face the room and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Seating: -->
+	
+	<htmlContent tag="SEATING"><![CDATA[
+	<p>
+		Dimly-lit seating areas around the edges of the tavern. The occupants all look to be thuggish brutes or scheming gang members.
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_oglix_tavern_pacified))
+			As Oglix has recently brought an end to a brawl, the occupants of the seating scowl at you but seem reluctant to do anything else.
+		#ELSE
+			You can tell that it's dangerous to be moving through these areas. It's only a matter of time before one of these undesirables makes an excuse to start a fight with you...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED"><![CDATA[
+	<p>
+		As you pass, [attacker.a_race] takes offence at your presence and stands up to block your way.
+		#IF(attacker.getAlcoholLevelValue()>0.5)
+			 Clearly having had too much to drink, they slur,
+		#ELSE
+			 Clearly just itching for a fight, they angrily growl,
+		#ENDIF
+		 [attacker.speech(What do you think you're doing?! You've disturbed my drink! How are you going to apologise?!)]
+	</p>
+	<p>
+		With this [attacker.name] blocking your way, it looks like you're going to have to take action...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_PAID_OFF"><![CDATA[
+	<p>
+		You offer to pay off the [attacker.race]'s bar tab. They grin and demand 250 flames, which you hand over. Although the menacing snarl remains on their face, the [attacker.race] sits back down, allowing you to continue...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_INTIMIDATE"><![CDATA[
+	<p>
+		#IF(pc.getTrueRace()!=pc.getRace())
+			Transforming into your true, demonic form, you tell the [attacker.race] to sit down and shut up.
+		#ELSE
+			[pc.Stepping] up to the [attacker.race], you ask [attacker.herHim] if [attacker.she] really wants to pick a fight with a demon.
+		#ENDIF
+	</p>
+	<p>
+		Realising that [attacker.sheHas] made a mistake, the [attacker.race] sits back down and mumbles something about you not being worth their time. With this insolent [attacker.race] having been dealt with, you continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_BEG"><![CDATA[
+	<p>
+		You drop down before the [attacker.race] and beg for forgiveness. [attacker.She] laughs and tell you how pathetic you are. Agreeing with [attacker.her] assessment of your character, you plead for [attacker.herHim] to spare you.
+	</p>
+	<p>
+		Letting out an amused growl, the [attacker.race] sits back down and declares that someone as pathetic as you isn't worth their time. Not wanting to anger [attacker.herHim], you thank the [attacker.race] for [attacker.her] mercy and crawl away from [attacker.herHim], before standing back up and continuing on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_START_ORAL"><![CDATA[
+	<p>
+		Giving the [attacker.race] a coy look, you sensually suggest that you could give [attacker.herHim] a very special type of apology. Either from the alcohol or simply lack of understanding, the [attacker.race] grunts, [attacker.speech(what are you talking about?)]
+	</p>
+	<p>
+		After you've bluntly stating that you're willing to get under [attacker.her] table and
+		#IF(attacker.hasPenis())
+			 suck [attacker.her] cock,
+		#ELSE
+			 eat [attacker.herHim] out,
+		#ENDIF
+		 the [attacker.race]'s eyes light up, and [attacker.she] sits down and motions for you to get on with it. Dropping down before [attacker.herHim], you shuffle beneath the table and
+		#IF(attacker.hasPenis())
+			 get out [attacker.her] [attacker.cock+], before leaning in and starting to give [attacker.herHim] a blowjob...
+		#ELSE
+			 gain access to [attacker.her] [attacker.pussy+], before leaning in and starting to eat [attacker.herHim] out...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_PEACEFUL_END"><![CDATA[
+	<p>
+		Having narrowly avoided a fight, you [pc.step] back into the safety of the main area of the tavern and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_AFTER_ORAL"><![CDATA[
+	<p>
+		#IF(attacker.hasPenis())
+			Letting [attacker.namePos] [attacker.cock+] slide out of your mouth, you crawl out from under the table. [attacker.She] grins and tells you to give it one last kiss. Leaning in to [attacker.her] crotch, you do as you're told and plant one last big, wet kiss on the [attacker.race]'s softening cock.
+		#ELSE
+			Pulling back from [attacker.namePos] [attacker.pussy+], you crawl out from under the table and stand up. [attacker.She] grins and tells you to give it one last kiss. Leaning in to [attacker.her] crotch, you do as you're told and deliver one last big, wet kiss to the [attacker.race]'s [attacker.labia+].
+		#ENDIF
+	</p>
+	<p>
+		With the sound of laugher and drunken cheering ringing out all around you, [attacker.name] tells you that [attacker.sheHas] had [attacker.her] fun, and so you can get lost now.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_AFTER_ORAL_END"><![CDATA[
+	<p>
+		Deciding that it's best to do as [attacker.name] says, you [pc.step] away from the seating area and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_COMBAT_WON"><![CDATA[
+	<p>
+		The [attacker.race] staggers back against the table and collapses down, defeated. Although you'd noticed it while fighting, you're only now able to take stock of your surroundings, and see that your fight has been the spark to ignite a huge brawl which has broken out all through the tavern. Bottles, chairs, and even people are being hurtled through the air, and the sounds of smashing glass and splintering wood join with shouts, cries, and roars in a chaotic storm of senseless violence.
+	</p>
+	<p>
+		Having witnessed you defeat the [attacker.race], the nearby brawlers are choosing to give you a wide berth, which gives you an opportunity to
+		#IF(attacker.isAttractedTo(pc))
+			 have some fun if you were feeling like it...
+		#ELSE
+			 head over to a safer part of the tavern...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_COMBAT_WON_END"><![CDATA[
+	<p>
+		#IF(attacker.isAttractedTo(pc) || game.isNonConEnabled())
+			Deciding against doing anything further with the [attacker.race], you leave [attacker.herHim] behind and try to find somewhere safe to move to...
+		#ELSE
+			Leaving the [attacker.race] behind, you try to find somewhere safe to move to...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_COMBAT_WON_SEX"><![CDATA[
+	<p>
+		Deciding to take advantage of [attacker.namePos] defeated state, you move up to [attacker.herHim] and take a dominant hold of [attacker.her] body. Letting out an erotic [attacker.moan], [attacker.she] desperately pants, [attacker.speech(Yes! Come on, fuck me!)]
+	</p>
+	<p>
+		More than happy to do as [attacker.she] asks, you pull [attacker.name] into your [pc.arms], and right there in the middle of the chaotic brawl, you prepare to have some fun with [attacker.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_COMBAT_WON_SUBMIT"><![CDATA[
+	<p>
+		Wanting to have some fun with [attacker.name], you move up to [attacker.herHim] and submissively suggest that the two of you could have some fun together. Letting out an erotic [attacker.moan] as [attacker.she] hears this, the [attacker.race] grabs hold of you and hungrily pants, [attacker.speech(Sounds good to me! I wanted to fuck you right from the start!)]
+	</p>
+	<p>
+		More than happy to submit to [attacker.name], you let [attacker.herHim] pull you into [attacker.her] [attacker.arms], and right there in the middle of the chaotic brawl, you prepare to have some fun with [attacker.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_COMBAT_LOST"><![CDATA[
+	<p>
+		Unable to continue fighting for any longer, you stagger back against a nearby table and collapses down, defeated. Although you'd noticed it while fighting, you're only now able to take stock of your surroundings, and see that your fight has been the spark to ignite a huge brawl which has broken out all through the tavern. Bottles, chairs, and even people are being hurtled through the air, and the sounds of smashing glass and splintering wood join with shouts, cries, and roars in a chaotic storm of senseless violence.
+	</p>
+	<p>
+		Having witnessed your defeat at the hands of this [attacker.race], the nearby brawlers are choosing to give you a wide berth, which gives [attacker.name] the opportunity to
+		#IF(attacker.isAttractedTo(pc))
+			 bluntly suggest, [attacker.speech(How about we fuck? You're hot, I'm horny, and in all of this chaos nobody's going to care if we do it right here.)]
+		#ELSE
+			 gloat, [attacker.speech(That'll teach you to try and fight me!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(attacker.isAttractedTo(pc))
+			From the hungry look in [attacker.namePos] [attacker.eyes+] you can tell that [attacker.her] suggestion is completely sincere, and you gulp as you wonder how to reply...
+		#ELSE
+			With that, [attacker.name] tuns around and rushes off into the melee, leaving you to catch your breath...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_COMBAT_LOST_END"><![CDATA[
+	<p>
+		#IF(attacker.isAttractedTo(pc))
+			Tell the [attacker.race] that you have no interest in having sex with [attacker.herHim], you watch as [attacker.she] shrugs and rushes off into the melee. After taking a moment in which to recover some of your strength, you try to find somewhere safe to move to...
+		#ELSE
+			After taking a moment in which to recover some of your strength, you try to find somewhere safe to move to...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_COMBAT_LOST_SUBMIT"><![CDATA[
+	<p>
+		Liking the sound of what [attacker.sheIs] suggesting, you submissively tell [attacker.name] that you're happy to have some fun with [attacker.herHim]. Letting out an erotic [attacker.moan] as [attacker.she] hears this, the [attacker.race] grabs hold of you and hungrily pants, [attacker.speech(let's get to it, then! I wanted to fuck you right from the start!)]
+	</p>
+	<p>
+		More than happy to submit to [attacker.name], you let [attacker.herHim] pull you into [attacker.her] [attacker.arms], and right there in the middle of the chaotic brawl, you prepare to have some fun with [attacker.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_AFTER_SEX"><![CDATA[
+	<p>
+		#IF(sex.isDom(pc))
+			Having had your fun, you bring an end to the sex.
+			#IF(attacker.isSatisfiedFromLastSex())
+				 Letting out a frustrated moan, [attacker.name] pants, [attacker.speech(I'm not satisfied from that, you know?)]
+			#ELSE
+				 Letting out a deeply satisfied moan, [attacker.name] pants, [attacker.speech(That was great...)]
+			#ENDIF
+		#ELSE
+			Having had [attacker.her] fun, [attacker.name] brings an end to the sex. Grinning at you, [attacker.she] pants, [attacker.speech(That was great...)]
+		#ENDIF
+	</p>
+	<p>
+		With the chaotic brawl still very much ongoing throughout the tavern, [attacker.name] quickly gets [attacker.her] clothing back in order, before giving you one last smirk and then rushing off into the melee. After taking a moment to catch your breath, you get your own things in order and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_AFTER_SEX_END"><![CDATA[
+	<p>
+		Setting off through the tavern, you try to find somewhere safe to move to...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_BRAWL"><![CDATA[
+	<p>
+		Dodging drunken brawlers, knocked-over furniture, and the occasional flying bottle, you work your way through the tavern to an area which looks to be somewhat safe. Unfortunately, as you approach this space of relative calm, [attacker.name] jumps out in front of you and bellows, [attacker.speech(You'll do! Let's fight!)]
+	</p>
+	<p>
+		At that moment, you hear the unmistakable voice of Oglix booming out over the noise of the brawl, [oglix.speech(That's enough! Everyone stop fighting, right this instant! Anyone who continues is going to be publicly punished!)]
+	</p>
+	<p>
+		Although the majority of the surrounding combatants stop fighting as they hear this, the [attacker.race] before you doesn't seem to care about Oglix's warning, and launches [attacker.herself] at you. Forced to defend yourself, you have no choice but to fight!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_BRAWL_WON"><![CDATA[
+	<p>
+		The [attacker.race] staggers back, defeated, right into the waiting arms of Oglix. Looking around, you see that the brawl has come to a complete end, and you and this [attacker.race] were the last two to have been fighting.
+	</p>
+	<p>
+		[oglix.speech(Looks like someone needs to be punished!)] Oglix growls, before hurling [attacker.name] face-down over a nearby table. Glancing back over at you, she narrows her eyes and grunts, [oglix.speech(I saw that you were forced to defend yourself from [attacker.herHim], so you won't be punished, unlike [attacker.name] here...)]
+	</p>
+	<p>
+		Turning her attention back to the [attacker.race], who you've just heard is called '[attacker.name]', Oglix delivers a sharp slap to [attacker.her] rear end, before booming in a voice loud enough for the whole tavern to hear, [oglix.speech(A good, hard fuck from my elemental will put you in your place! Everyone! This is what happens to people who keep on fighting after I've said to stop! Golix, give [attacker.herHim] a good, hard fuck! I don't want [attacker.herHim] to forget this lesson!)]
+	</p>
+	<p>
+		Looking over at the floating wisp which is Oglix's elemental, you see it suddenly emit a burst of blinding light, and then a moment later, you see that it's taken its active form, which is that of a stone-skinned, shemale succubus. Hefting her enormous stone cock, Golix
+		#IF(!attacker.hasVagina() && !game.isAnalContentEnabled())
+			 wastes no time in stepping around to the other side of the table and preparing to fuck [attacker.namePos] throat...
+		#ELSE
+			 wastes no time in pulling [attacker.namePos] underwear down, before stepping forwards and preparing to fuck
+			#IF(attacker.hasVagina())
+				 [attacker.herHim] over the table...
+			#ELSE
+				 [attacker.her] ass...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_BRAWL_DONT_WATCH"><![CDATA[
+	<p>
+		Not wanting to watch, you [pc.step] away from the table at which [attacker.name] is to be punished and find a nearby table at which to sit and recover your energy from the fight. The desperate, horny moans of [attacker.name], and the wet, rhythmic slapping of Golix's cock as it slams into [attacker.herHim], can be heard even over the loud cheers and jeers of the spectating crowd.
+	</p>
+	<p>
+		After ten minutes, the public punishment sounds like it's come to an end, and you feel well rested enough to continue on your way. Standing up, you look around to see that the tavern has mostly returned to its pre-brawl state, with the exception of the people lurking in the seating areas looking less hostile than they were before. Deciding that it's time to be going, you [pc.step] away from the table and wonder where to go to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_BRAWL_WATCH_ATTACKER_FUCKED"><![CDATA[
+	<p>
+		Joining both Oglix and the crowd of people who have gathered around to watch [attacker.namePos] punishment, you watch as Oglix rams her massive stone cock deep
+		#IF(attacker.hasVagina())
+			 into the [attacker.race]'s [attacker.pussy+],
+		#ELSEIF(game.isAnalContentEnabled())
+			 into the [attacker.race]'s [attacker.asshole+],
+		#ELSE
+			 down the [attacker.race]'s throat,
+		#ENDIF
+		  before starting to forcefully piston her hips back and forth in an almost-mechanical fashion. Roughly keeping her unfortunate partner pinned to the table, this elemental is encouraged to show no mercy by her mistress, Oglix, who moans, [oglix.speech(That's it, Golix! Fuck that bad [attacker.girl] good and hard!)]
+	</p>
+	<p>
+		Looking over at the muscular, green-skinned succubus, you see her drop a hand down towards her groin and start to touch herself as her elemental pounds the [attacker.race] over the table before you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_BRAWL_LOST"><![CDATA[
+	#IF(!game.isNonConEnabled() || !((pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) || (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)) || (pc.isAbleToAccessCoverableArea(CA_MOUTH, true))))
+		<p>
+			Unable to continue fighting, you stagger back, defeated, and collapse down against a nearby table. Looking up, you see that instead of being able to take advantage of your defeated form, [attacker.name] has been grabbed by Oglix. Having a moment in which to take stock of your surroundings, you see that the brawl has come to a complete end, and that you and this [attacker.race] were the last two to have been fighting.
+		</p>
+		<p>
+			[oglix.speech(Looks like someone needs to be punished!)] Oglix growls, before hurling [attacker.name] face-down over a nearby table. Glancing back over at you, she narrows her eyes and grunts,
+			#IF(!game.isNonConEnabled())
+				 [oglix.speech(I saw that you were forced to defend yourself from [attacker.herHim], so you won't be punished, unlike [attacker.name] here...)]
+			#ELSE
+				 [oglix.speech(I was planning on punishing whoever lost the fight, but with all that sealed clothing you've got on, there's no opportunity to have you fucked. As such, I'll just have to have [attacker.name] punished in your place...)]
+			#ENDIF
+		</p>
+		<p>
+			Turning her attention back to the [attacker.race], who you've just heard is called '[attacker.name]', Oglix delivers a sharp slap to [attacker.her] rear end, before booming in a voice loud enough for the whole tavern to hear, [oglix.speech(A good, hard fuck from my elemental will put you in your place! Everyone! This is what happens to people who keep on fighting after I've said to stop! Golix, give [attacker.herHim] a good, hard fuck! I don't want [attacker.herHim] to forget this lesson!)]
+		</p>
+		<p>
+			Looking over at the floating wisp which is Oglix's elemental, you see it suddenly emit a burst of blinding light, and then a moment later, you see that it's taken its active form, which is that of a stone-skinned, shemale succubus. Hefting her enormous stone cock, this elemental, who you've just heard been called 'Golix',
+			#IF(!attacker.hasVagina() && !game.isAnalContentEnabled())
+				 wastes no time in stepping around to the other side of the table and preparing to fuck [attacker.namePos] throat...
+			#ELSE
+				 wastes no time in pulling [attacker.namePos] underwear down, before stepping forwards and preparing to fuck
+				#IF(attacker.hasVagina())
+					 [attacker.herHim] over the table...
+				#ELSE
+					 [attacker.her] ass...
+				#ENDIF
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Unable to continue fighting, you stagger back, defeated, and find yourself stumbling right into the waiting arms of Oglix. Looking around, you see that the brawl has come to a complete end, and you and this [attacker.race] were the last two to have been fighting.
+		</p>
+		<p>
+			[oglix.speech(Looks like someone needs to be punished!)] Oglix growls, before hurling you face-down over a nearby table. Glancing back over at [attacker.name], she narrows her eyes and grunts, [oglix.speech(I suggest that you get out of here, unless you want to hang around and get a punishment after I've finished with [pc.name] here...)]
+		</p>
+		<p>
+			Not needing to be told twice, [attacker.name] bolts out of the tavern, leaving Oglix to turn her attention back to you. Delivering a sharp slap to your rear end, she booms in a voice loud enough for the whole tavern to hear, [oglix.speech(A good, hard fuck from my elemental will put you in your place! Everyone! This is what happens to people who keep on fighting after I've said to stop! Golix, give [pc.herHim] a good, hard fuck! I don't want [pc.herHim] to forget this lesson!)]
+		</p>
+		<p>
+			Looking over at the floating wisp which is Oglix's elemental, you see it suddenly emit a burst of blinding light, and then a moment later, you see that it's taken its active form, which is that of a stone-skinned, shemale succubus. Hefting her enormous stone cock, this elemental, who you've just heard been called 'Golix',
+			#IF(!pc.hasVagina() && !game.isAnalContentEnabled())
+				 wastes no time in stepping around to the other side of the table and preparing to fuck your throat...
+			#ELSE
+				 wastes no time in gaining access to your
+				#IF(pc.hasVagina())
+					 [pc.pussy+], before stepping forwards and preparing to fuck you over the table...
+				#ELSE
+					 [pc.asshole+], before stepping forwards and preparing to fuck you over the table...
+				#ENDIF
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_BRAWL_LOST_FUCKED"><![CDATA[
+	<p>
+		Before you can object, Golix rams her fat stone cock as deep as possible
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			 into your [pc.pussy+],
+		#ELSEIF(game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+			 into your [pc.asshole+],
+		#ELSE
+			 down your throat,
+		#ENDIF
+		 before starting to forcefully piston her hips back and forth in an almost-mechanical fashion. Roughly keeping you pinned to the table, this elemental is encouraged to show you no mercy by her mistress, Oglix, who moans, [oglix.speech(That's it, Golix! Fuck that bad [pc.girl] good and hard!)]
+	</p>
+	<p>
+		Managing to catch a sideways glance at the muscular, green-skinned succubus, you see her drop a hand down towards her groin and start to touch herself as her elemental pounds you over the table...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_AFTER_SEX_WATCH"><![CDATA[
+	<p>
+		[oglix.speech(That's enough, Golix,)] Oglix calls out. Immediately, the elemental steps back, sliding her thick, stone cock out of [attacker.namePos] well-fucked
+		#IF(attacker.hasVagina())
+			 pussy.
+		#ELSEIF(game.isAnalContentEnabled())
+			 asshole.
+		#ELSE
+			 throat.
+		#ENDIF
+		 With a snap of her mistress's fingers, Golix transforms back into her passive, wisp-like form of a swirling cloud of energy. Stepping up to the punished [attacker.race], Oglix grunts, [oglix.speech(No hard feelings, [attacker.name]. I have to carry out punishments like this to keep order in my tavern. I hope that I'll see you here again soon.)]
+	</p>
+	<p>
+		With that, the large, green-skinned succubus returns to the bar, leaving you, [attacker.name], and the crowd that'd gathered to watch to go your separate ways...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_ATTACKED_AFTER_SEX_FUCKED"><![CDATA[
+	<p>
+		[oglix.speech(That's enough, Golix,)] Oglix calls out. Immediately, the elemental steps back, sliding her thick, stone cock out of your well-fucked
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			 pussy.
+		#ELSEIF(game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+			 asshole.
+		#ELSE
+			 throat.
+		#ENDIF
+		 With a snap of her mistress's fingers, Golix transforms back into her passive, wisp-like form of a swirling cloud of energy. Stepping up to you, Oglix grunts, [oglix.speech(No hard feelings, [pc.name]. I have to carry out punishments like this to keep order in my tavern. I hope that I'll see you here again soon.)]
+	</p>
+	<p>
+		With that, the large, green-skinned succubus returns to the bar, leaving you to get your things back in order and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- Dice poker: -->
+	
+	<htmlContent tag="DICE_POKER"><![CDATA[
+	<p>
+		In the middle of the tavern's floor, about a dozen or so tables appear to have been reserved for the game of 'dice poker'. Rather surprisingly, considering the chaotic nature of this place, a nearby sign informs you that these games of dice poker must be played in accordance with 'standard tournament rules', and any instances of cheating or deviating from the rules will be harshly punished.
+	</p>
+	<p>
+		Looking around, you see that there are spaces at several of the tables, and you wonder whether to sit down and join in on a game...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VIP corridor: -->
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		This short, dimly-lit corridor leads to the VIP lounge.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VIP locked door: -->
+	
+	<htmlContent tag="LOCKED_DOOR"><![CDATA[
+	<p>
+		With its black paint only slightly peeling around the edges, the door before you is in far better condition than all the other ones which you've seen in this establishment. The reason for this is explained by a brass plaque fixed to its surface, which reads: <i>'VIP area: No admittance without Oglix's permission'</i>.
+	</p>
+	<p>
+		As you don't have Oglix's permission to access the VIP area, and as the door appears to be securely locked, there's very little else for you to do except turn around and head over to another part of the tavern...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VIP room: -->
+	
+	<htmlContent tag="VIP"><![CDATA[
+	<p>
+		VIP lounge has several high-ranking gang members lounging about at the dozen or so tables.
+		If Wynter present, she greets you and offers a complimentary drink.
 	</p>
 	]]>
 	</htmlContent>

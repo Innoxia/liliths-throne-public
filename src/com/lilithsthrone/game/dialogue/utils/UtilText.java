@@ -196,6 +196,8 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotManager;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ToyVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
@@ -214,6 +216,7 @@ import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
+
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
@@ -9634,7 +9637,17 @@ public class UtilText {
 	public static GameCharacter findFirstCharacterFromParserTarget(String target) {
 		AbstractParserTarget parserTarget = findParserTargetWithTag(target);
 		
-		return parserTarget.getCharacter(target, new ArrayList<>(Main.game.getCharactersPresent()));
+		List<GameCharacter> specialNPCs = new ArrayList<>();
+		if(Main.game.getActiveNPC()!=null && Main.game.getCharactersPresent().contains(Main.game.getActiveNPC())) {
+			specialNPCs.add(Main.game.getActiveNPC()); // Make sure active NPC is in index 0 if they're also present
+		}
+		for(NPC gc : Main.game.getCharactersPresent()) {
+			if(!specialNPCs.contains(gc)) {
+				specialNPCs.add(gc);
+			}
+		}
+		
+		return parserTarget.getCharacter(target, specialNPCs);
 	}
 
 	private static ParserCommand findCommandWithTag(String command) {
@@ -10020,6 +10033,9 @@ public class UtilText {
 		}
 		for(OrgasmCumTarget oct : OrgasmCumTarget.values()) {
 			engine.put("OCT_"+oct.toString(), oct);
+		}
+		for(Entry<String, SexSlot> slot : SexSlotManager.getIdToSexSlotMap().entrySet()) {
+			engine.put("SEX_SLOT_"+slot.getKey(), slot.getValue());
 		}
 		
 		

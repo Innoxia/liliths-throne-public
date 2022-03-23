@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>0</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[beer-bitch token]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[beer-bitch tokens]]></namePlural>
+		<description><![CDATA[A token which was given to you by Oglix upon purchase of a pint of beer. Collecting five of these tokens allows you to trade them in for a fuck of Oglix's beer-bitch.]]></description> 
+		
+		<useDescriptor>examine</useDescriptor>
+		
+		<sexUse>false</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>false</consumedOnUse>
+		
+		<rarity>QUEST</rarity> 
+		
+		<imageName>oglix_beer_token.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_GREEN</colourPrimary>
+		<colourSecondary>CLOTHING_IRON</colourSecondary>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[Exchanged for a fuck of a beer-bitch at the bar in the tavern, 'The Crossed Blades']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p>
+			This token is nothing more than a bottle cap that's been painted green and then crudely stamped with an 'O' marking. Remembering what Oglix told you, five of these tokens can be traded in for a fuck of the beer-bitch behind her bar.
+		</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(take)] a closer look at the beer-bitch token...
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(show)] off [npc.her] beer-bitch token to [npc2.name]...
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

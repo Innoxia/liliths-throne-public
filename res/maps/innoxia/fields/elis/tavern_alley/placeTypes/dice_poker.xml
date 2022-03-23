@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <placeType>
 	<worldRegion>FIELD_CITY</worldRegion>
-	<name><![CDATA[boss's table]]></name>
-	<tooltipDescription><![CDATA[In the middle of 'The Centaur's Sword' tavern, a large table is reserved for the person who's currently considered to be the most respected boss of the local gangs.]]></tooltipDescription>
-	<virginityLossDescription><![CDATA[in the seating area at 'The Centaur's Sword' tavern]]></virginityLossDescription>
+	<name><![CDATA[dice poker]]></name>
+	<tooltipDescription><![CDATA[In the middle of 'The Crossed Blades' tavern, several large tables are reserved for games of dice poker.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[at a dice poker table in 'The Crossed Blades' tavern]]></virginityLossDescription>
 	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
-	<svgName>seating</svgName>
-	<colour>BASE_BROWN</colour>
+	<colour>BASE_GOLD</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	<encounterType>null</encounterType>
-	<dialogue>innoxia_places_fields_elis_tavern_alley_seating_boss</dialogue>
+	<dialogue>innoxia_places_fields_elis_tavern_alley_dice_poker</dialogue>
 	<populationPresent copyPlaceType="innoxia_fields_elis_tavern_alley_tables"/>
 	<furniturePresent>true</furniturePresent>
 	<globalMapTile>false</globalMapTile>

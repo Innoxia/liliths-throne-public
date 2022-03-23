@@ -200,6 +200,19 @@
 					<unavailabilityText/>
 					<availabilityText/>
 				</sticker>
+				<sticker id="horsie" priority="9" defaultSticker="false" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Horsie]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i>Horsie</i>]]></descriptionModification>
+					<imageName zLayer="1" slot="NECK">choker_stickers/bottom_horsie.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+						Only Kheiron's choker has this text!
+					]]></unavailabilityText>
+					<availabilityText/>
+				</sticker>
 			</category>
 		</stickers>
 		
