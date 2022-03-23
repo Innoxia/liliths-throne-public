@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
-import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.world.WorldType;
@@ -1575,160 +1574,44 @@ public enum Quest {
 			return getDescription();
 		}
 	},
+
 	
-	//Eisek Quests
+	// Fetching beer barrels for Oglix:
 	
-	EISEK_STALL_QUEST_STAGE_ONE(QuestType.SIDE,
-			1,
-			10) {
+	OGLIX_BEER_BARRELS_1(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
-			return "Gathering Materials";
+			return "Kheiron's Barrels";
 		}
 		@Override
 		public String getDescription() {
-			return "You've learned what Eisek needs to fix up his stall, as well as what he would like on a new sign. Now you just need to gather some materials for a nice surprise. First stop: a fabric shop.";
+			return "Having agreed to help Oglix expand her selection of beer-bitches, you've been tasked with travelling to the tavern, 'The Centaur's Sword', and asking the owner, Kheiron, for any spare barrels he might have."
+					+ " If he refuses to help, Golix instructed you to tell the centaur that 'Golix says to be a good horsie'.";
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You've ordered a new sign and some bolts of cloth from Monica."; 			
+			return "Thanks to the special phrase 'Golix says to be a good horsie', you managed to convince Kheiron to send four spare barrels to Oglix's tavern.";
 		}
 	},
 	
-	EISEK_STALL_QUEST_STAGE_TWO(QuestType.SIDE,
-			1,
-			10) {
+	OGLIX_BEER_BARRELS_2(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
-			return "Need an Awning Here";
+			return "Good Horsie Report";
 		}
 		@Override
 		public String getDescription() {
-			return "While you're waiting for Monica to finish your commission, you need to find some wooden poles for the awning. Next stop: a DIY shop.";
+			return "Having secured Kheiron's assistance, you now need to return to Oglix and inform her that Kheiron chose to be 'a good horsie' for Golix.";
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You've gotten the wooden poles."; 			
+			return "You returned to Oglix and informed her of your success."
+					+ " Having now secured four additional barrels in which to lock new beer-bitches, Oglix asked you to supply promising candidates from the nearby alleyways' criminal population."
+					+ " Additionally, she told you to sneak around the back of her tavern between [units.time(6)]-[units.time(7)] if you wanted to see what the phrase 'Golix says to be a good horsie' meant...";
 		}
 	},
 	
-	EISEK_STALL_QUEST_STAGE_THREE(QuestType.SIDE,
-			1,
-			10) {
-		@Override
-		public String getName() {
-			return "Putting it all together";
-		}
-		@Override
-		public String getDescription() {
-			return "You should check back in with Monica after three days to see if your sign commission is done yet.";
-		}
-		@Override
-		public String getCompletedDescription() {
-			return "You've gathered all the materials."; 			
-		}
-	},
 	
-	EISEK_STALL_QUEST_STAGE_FOUR(QuestType.SIDE,
-			1,
-			10) {
-		@Override
-		public String getName() {
-			return "Putting it all together";
-		}
-		@Override
-		public String getDescription() {
-			return "You have what you need to improve Eisek's stall. Tell him about it the next time you see him.";
-		}
-		@Override
-		public String getCompletedDescription() {
-			return "As far as you could tell, Eisek was overjoyed at what you've done for him and his stall looks better than ever."; 			
-		}
-	},
-	
-	EISEK_MOB_QUEST_STAGE_ONE(QuestType.SIDE,
-			10,
-			25) {
-		@Override
-		public String getName() {
-			return "One against Many";
-		}
-		@Override
-		public String getDescription() {
-			return "Eisek explained why there was a mob hounding him, but he doesn't know much about them. If you want to make sure they don't come back, you'll have to find them and confront them.<br/>As they seemed to be comprised of locals, maybe a search around town will do the trick.";
-		}
-		@Override
-		public String getCompletedDescription() {
-			return "Through a bit of luck and the mob putting up a big colourful poster, you've found and entered their meeting place.";
-		}
-	},
-	
-	EISEK_MOB_QUEST_STAGE_TWO(QuestType.SIDE,
-			10,
-			100) {
-		@Override
-		public String getName() {
-			return "Leave the Dragon Alone!";
-		}
-		@Override
-		public String getDescription() {
-			return "You've found where the mob has been meeting. Time to handle them!";
-		}
-		@Override
-		public String getCompletedDescription() {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_mob_quest_intimidate"))) {
-			    return "You convinced the mob to leave Eisek alone with your intimidating physique.";
-			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_mob_quest_intimidate_arcane"))) {
-			    return "You convinced the mob to leave Eisek alone with your arcane prowess.";
-			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_mob_quest_persuade"))) {
-			    if(!Main.game.isSillyModeEnabled()) {
-				return "You convinced the mob to leave Eisek alone with a heartfelt speech.";
-			    } else {
-				return "You destroyed the mob's arguments with FACTS and LOGIC.";
-			    }
-			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_mob_quest_seduce"))) {
-			    return "You convinced the mob to leave Eisek alone by using your mastery of lust spells to fuel an orgy.";
-			} else {
-			    return "You weren't able to convince the mob to leave Eisek alone.";
-			}
-			
-		}
-	},
-	
-	EISEK_MOB_QUEST_STAGE_TWO_FAILED(QuestType.SIDE,
-			10,
-			0) {
-		@Override
-		public String getName() {
-			return "Tossed Out";
-		}
-		@Override
-		public String getDescription() {
-			return "You weren't able to convince the mob to leave Eisek alone.";
-		}
-		@Override
-		public String getCompletedDescription() {
-			return getDescription(); 			
-		}
-	},
-	
-	EISEK_MOB_QUEST_STAGE_THREE(QuestType.SIDE,
-			10,
-			250) {
-		@Override
-		public String getName() {
-			return "Good News";
-		}
-		@Override
-		public String getDescription() {
-			return "You should return to Eisek with the good news now that you've handled the mob.";
-		}
-		@Override
-		public String getCompletedDescription() {
-			return "Although he tried to hide it, Eisek seemed pretty happy that the mob will now leave him alone. You even got some rare Dragonfruit."; 			
-		}
-	},
-        
 	// Romance quests:
 
 	RELATIONSHIP_NYAN_1_STOCK_ISSUES(QuestType.RELATIONSHIP, 1, 0) {
