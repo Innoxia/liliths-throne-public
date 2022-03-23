@@ -5863,6 +5863,9 @@ public class PlaceType {
 			
 		} else if(id.equals("SHOPPING_ARCADE_SUPPLIER_DEPOT")) {
 			id = "SHOPPING_ARCADE_RESTAURANT";
+			
+		} else if(id.equals("innoxia_fields_elis_town_tavern_seedy")) {
+			id = "innoxia_fields_elis_town_tavern_alley";
 		}
 		
 		id = Util.getClosestStringMatch(id, idToPlaceMap.keySet());

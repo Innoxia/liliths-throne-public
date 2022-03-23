@@ -59,6 +59,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.sex.managers.SexManagerExternal;
 import com.lilithsthrone.game.sex.managers.SexManagerInterface;
 import com.lilithsthrone.game.sex.managers.SexManagerLoader;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
@@ -5437,7 +5438,12 @@ public class Sex {
 	}
 	
 	public boolean isDom(GameCharacter character) {
-		return Main.sex.dominants.keySet().contains(character);
+		try {
+			return Main.sex.dominants.keySet().contains(character);
+		} catch(Exception ex) {
+			// This is a catch for when external sex managers are used and the sex control needs to be parsed before sex has finished initialising
+			return ((SexManagerExternal)sexManager).getDominants().containsKey(character);
+		}
 	}
 	
 	public boolean isPublicSex() {

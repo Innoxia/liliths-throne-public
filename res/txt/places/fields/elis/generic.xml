@@ -460,18 +460,27 @@
 	</htmlContent>
 	
 	<htmlContent tag="TAVERN_SEEDY"><![CDATA[
-	<p>
-		An oddity in amongst the narrow alleyways of the northern half of Elis, the large, paved courtyard in front of you is filled with wooden picnic tables, at which a dozen or so locals are sitting and passing the hours by drinking and gambling with one another. The establishment responsible for their supply of alcohol is situated on the far side of the courtyard, and takes the form of a rather dilapidated timber-framed structure. A weathered sign precariously hanging from a sagging metal pole displays an image of two crossed daggers, with the words 'The Crossed Blades' written in black, bold letting below.
-	</p>
-	<p>
-		While the patrons who're sitting out in the courtyard seem to be relatively well-behaved, there are some very rowdy sounds of laughter, cursing, and the occasional cheer coming from within the pub itself. Although there are large, leaded windows on the ground floor, they're so grimy that
-		#IF(game.isDayTime())
-			 you can't see much of the interior through them, 
-		#ELSE
-			 you can only barely tell that the lights are on inside,
-		#ENDIF
-		 and so if you wanted to find out what this pub is like, you'll have to risk heading inside...
-	</p>
+	#IF(game.getHourOfDay()<5 || game.getHourOfDay()>=14)
+		<p>
+			An oddity in amongst the narrow alleyways of the northern half of Elis, the large, paved courtyard in front of you is filled with wooden picnic tables, at which a dozen or so locals are sitting and passing the hours by drinking and gambling with one another. The establishment responsible for their supply of alcohol is situated on the far side of the courtyard, and takes the form of a rather dilapidated, timber-framed structure. A weathered sign hanging precariously from a drooping metal pole displays an image of two crossed daggers, with the words 'The Crossed Blades' written in black, bold letting below.
+		</p>
+		<p>
+			While the patrons who're sitting out in the courtyard seem to be relatively well-behaved, there are some very rowdy sounds of laughter, cursing, and the occasional cheer coming from within the tavern itself. Although there are large, leaded windows on the ground floor, they're so grimy that
+			#IF(game.isDayTime())
+				 you can't see much of the interior through them, 
+			#ELSE
+				 you can only barely tell that the lights are on inside,
+			#ENDIF
+			 and so if you wanted to find out what this tavern is like, you'll have to risk heading inside. As you approach the door, you see that there's an old, weathered sign which declares the tavern's opening hours to be from [style.colourMinorGood([units.time(14)]-[units.time(5)])].
+		</p>
+	#ELSE
+		<p>
+			An oddity in amongst the narrow alleyways of the northern half of Elis, the large, paved courtyard in front of you is filled with wooden picnic tables, each one of which is vacant. The establishment to which this array of empty seating belongs is situated on the far side of the courtyard, and takes the form of a rather dilapidated, timber-framed structure. A weathered sign hanging precariously from a drooping metal pole displays an image of two crossed daggers, with the words 'The Crossed Blades' written in black, bold letting below.
+		</p>
+		<p>
+			Just like the empty courtyard before you suggests, the the tavern itself seems to be closed, as there's no light nor sounds coming from within. Although there are large, leaded windows on the ground floor, they're so grimy that you can't see much of the interior through them, and so if you wanted to find out what this tavern is like, you'll have to come back again when it's open. Looking across to the tavern's front door, you see that there's an old, weathered sign which declares its opening hours to be from [style.colourMinorBad([units.time(14)]-[units.time(5)])].
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	

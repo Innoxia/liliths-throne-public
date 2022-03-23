@@ -113,7 +113,7 @@
 		<place colour="#bfbf00">innoxia_fields_elis_town_shops</place>
 		<place colour="#008080">innoxia_fields_elis_town_enforcers</place>
 		<place colour="#e680ff">innoxia_fields_elis_town_cult</place>
-		<place colour="#bb6680">innoxia_fields_elis_town_tavern_seedy</place>
+		<place colour="#bb6680">innoxia_fields_elis_town_tavern_alley</place>
 	</places>
 	
 </worldType>

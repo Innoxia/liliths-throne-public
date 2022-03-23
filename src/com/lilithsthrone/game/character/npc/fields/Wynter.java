@@ -16,7 +16,6 @@ import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -80,11 +79,12 @@ public class Wynter extends NPC {
 	
 	public Wynter(boolean isImported) {
 		super(isImported, new NameTriplet("Wynter"), "Minotallysmartu",
-				"",
-				38, Month.MAY, 22,
+				"Wynter is the security guard for the convenience store, 'The Barn', in Elis's shopping precinct."
+					+ " After drinking too much and starting a highly-destructive brawl in the tavern, 'The Crossed Blades', she now also has to work there as a waitress in the VIP lounge until she's earned enough to pay for the damage she caused.",
+				27, Month.MAY, 22,
 				30, Gender.F_V_B_FEMALE, Subspecies.RABBIT_MORPH, RaceStage.GREATER,
 				new CharacterInventory(30),
-				WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_alley"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_alley_bar"),
+				WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_alley"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_alley_vip"),
 				true);
 	}
 	
@@ -122,6 +122,8 @@ public class Wynter extends NPC {
 			this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_1);
 			this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_2);
 			this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_3);
+			
+			this.addSpell(Spell.RAIN_CLOUD);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -174,7 +176,7 @@ public class Wynter extends NPC {
 
 		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_BLUE_LIGHT));
 		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_BLUE_LIGHT));
-//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_RED));
+//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_BLUE));
 		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_BLUE));
 		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
 		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_PINK));
@@ -281,14 +283,6 @@ public class Wynter extends NPC {
 
 	@Override
 	public void endSex() {
-	}
-	
-	@Override
-	public void hourlyUpdate() {
-		if(!this.isElementalSummoned()) {
-			Spell.ELEMENTAL_WATER.applyEffect(this, this, true, false);
-			this.getElemental().setBodyMaterial(BodyMaterial.ICE);
-		}
 	}
 
 }

@@ -287,7 +287,12 @@ public abstract class DialogueNode {
 										}
 									}
 									
-									ResponseCombat combatResponse = new ResponseCombat(responseTitle, responseTooltip, alliesIds, companionsAreAllies, enemyLeaderId, enemiesIds, openingDescriptions, effectsResponse);
+									boolean escapeBlocked = false;
+									if(combatElement.getOptionalFirstOf("escapeBlocked").isPresent()) {
+										escapeBlocked = Boolean.valueOf(UtilText.parse(combatElement.getMandatoryFirstOf("escapeBlocked").getTextContent()).trim());
+									}
+									
+									ResponseCombat combatResponse = new ResponseCombat(responseTitle, responseTooltip, alliesIds, companionsAreAllies, enemyLeaderId, enemiesIds, openingDescriptions, effectsResponse, escapeBlocked);
 									combatResponse.setNextDialoguePlayerVictoryId(nextDialoguePlayerVictory);
 									combatResponse.setNextDialoguePlayerDefeatId(nextDialoguePlayerDefeat);
 									combatResponse.setConditional(availabilityConditional);
