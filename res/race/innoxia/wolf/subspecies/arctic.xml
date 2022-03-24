@@ -20,7 +20,15 @@
 		[#targetedBody.setCovering(BODY_COVERING_TYPE_LYCAN_FUR, COVERING_PATTERN_NONE, COVERING_MODIFIER_SHAGGY, COLOUR_COVERING_WHITE, false, COLOUR_COVERING_WHITE, false)]
 		[#targetedBody.setCovering(BODY_COVERING_TYPE_HAIR_LYCAN_FUR, COVERING_PATTERN_NONE, COVERING_MODIFIER_FURRY, COLOUR_COVERING_WHITE, false, COLOUR_COVERING_WHITE, false)]
 		[#targetedBody.setCovering(BODY_COVERING_TYPE_BODY_HAIR_LYCAN_FUR, COVERING_PATTERN_NONE, COVERING_MODIFIER_FURRY, COLOUR_COVERING_WHITE, false, COLOUR_COVERING_WHITE, false)]
+
 		[#targetedBody.updateCoverings(true, true, true, true)]
+
+		#IF(targetedBody.getTorsoType() != TORSO_TYPE_WOLF_MORPH)
+			[#targetedBody.getCovering(BODY_COVERING_TYPE_ANUS, true).setPrimaryColour(COLOUR_SKIN_CHOCOLATE)]
+			[#targetedBody.getCovering(BODY_COVERING_TYPE_VAGINA, true).setPrimaryColour(COLOUR_SKIN_CHOCOLATE)]
+			[#targetedBody.getCovering(BODY_COVERING_TYPE_NIPPLES, true).setPrimaryColour(COLOUR_SKIN_CHOCOLATE)]
+			[#targetedBody.getCovering(BODY_COVERING_TYPE_NIPPLES_CROTCH, true).setPrimaryColour(COLOUR_SKIN_CHOCOLATE)]
+		#ENDIF
 	]]></applySubspeciesChanges>
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_WOLF_MORPH && targetedBody.getCovering(BODY_COVERING_TYPE_LYCAN_FUR, true).getPrimaryColour()==COLOUR_COVERING_WHITE)

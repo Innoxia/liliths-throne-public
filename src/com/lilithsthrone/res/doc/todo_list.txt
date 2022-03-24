@@ -175,7 +175,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		
 	[] I wish if you wore the "Rental Daddy/Mommy (50 Flames)" t-shirt, people would walk up to you and pay to have sex with you
 	
-	[] lesser arctic wolf morph spawned with pale skin/white fur but chocolate nipples/vagina/anus
+	[x] lesser arctic wolf morph spawned with pale skin/white fur but chocolate nipples/vagina/anus
 		
 	[] tooltip size bugged in maps
 		
