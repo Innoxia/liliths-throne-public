@@ -1146,7 +1146,7 @@
 		Deciding to read the rules of dice poker before starting a game, you walk up to the nearest informative sign, and briefly scan over it...
 	</p>
 	<p style='text-align:center;'>
-		<b>[axel.name]'s Rules For Dice Poker</b><br/>
+		<b>Tournament Rules For Dice Poker</b><br/>
 		1. Both players place the buy-in amount to start a game. This is [style.moneyFormat(500, span)] for [style.colourCopper(copper)] tables, [style.moneyFormat(2500, span)] for [style.colourSilver(silver)], and [style.moneyFormat(10000, span)] for [style.colourGold(gold)].<br/>
 		2. Both players roll five dice each.<br/>
 		3. Players can choose to increase the bet (referred to as a 'raise'), or leave the bet at the buy-in amount (referred to as a 'call').<br/>

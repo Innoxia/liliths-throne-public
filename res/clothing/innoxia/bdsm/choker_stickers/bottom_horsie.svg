@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg cursor="default" version="1.1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(-.07331 12.976)" fill="none" stroke="#ff7f2a" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(-9.5358 -12.544)">
+   <path d="m130.45 215.99c3.344-0.18529 1.911 5.2629-0.59411 5.2422-4.3404-0.0359-1.9327-5.1022 0.59411-5.2422z" stroke-width="1.0935"/>
+   <g transform="matrix(.729 0 0 .729 40.352 90.57)" stroke-width="1.5">
+    <path d="m155.78 171.12c-1.5422 0.13355-3.0379 0.33231-4.3559 0.77967 0.01 2.1525-0.0841 4.3051-0.38983 6.4576 1.9738-0.22895 3.9944-0.46832 5.5763-0.61017"/>
+    <path d="m155.37 174.12c-1.3432 0.023-2.6842 0.0632-3.983 0.44068"/>
+   </g>
+   <g transform="matrix(.729 0 0 .729 19.636 90.661)" fill="none" stroke="#ff7f2a" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+    <path d="m172.02 171.88c2.9396-0.56304 3.8762-0.55381 5.339-0.69492"/>
+    <path d="m174.98 171.51c-0.0441 2.1861-0.27906 4.4358-0.59322 6.7119"/>
+    <path d="m171.64 178.66 5.5932-0.76271"/>
+   </g>
+   <path d="m143.06 215.77c-1.2272-0.61656-3.4356 0.5948-3.5122 1.5028-0.10193 1.2067 4.1222-0.42179 3.7744 1.4853-0.23848 1.3076-3.4403 2.9221-3.8268 1.3455" stroke-width="1.0935"/>
+  </g>
+  <g transform="matrix(.729 0 0 .729 -7.999 78.747)" stroke-width="1.5">
+   <path d="m166.59 171.34-0.37288 6.983"/>
+   <path d="m166.49 174.68c1.1906-0.18079 2.3945-0.36159 3.7627-0.54238"/>
+   <path d="m170.41 170.9-0.40678 7.6441"/>
+  </g>
+  <path d="m124.58 208.55c0.40715-1.8132 0.0576-3.4039-0.0494-5.0659 1.7455-1.2251 6.393 0.70668 0.40774 2.6071 2.007-0.26074 2.3883 1.5862 2.743 2.4959" stroke-width="1.0935"/>
+ </g>
+ <text x="162.32295" y="206.1396" font-family="Bahnschrift" font-size="10.667px" letter-spacing="0px" text-align="center" text-anchor="middle" word-spacing="0px" style="line-height:1.2" xml:space="preserve"><tspan x="162.32295" y="206.1396"/></text>
+</svg>
