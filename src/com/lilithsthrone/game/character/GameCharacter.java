@@ -23913,19 +23913,38 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isPenisBulgeVisible() {
+        AbstractClothing penisClothing = getClothingInSlot(InventorySlot.PENIS);
 		return hasPenis()
 				&& getGenitalArrangement()==GenitalArrangement.NORMAL
 				&& (hasPenisModifier(PenetrationModifier.SHEATHED)
 					? getPenisRawSizeValue()>=PenisLength.FOUR_HUGE.getMaximumValue()
-					: getPenisRawSizeValue()>=PenisLength.TWO_AVERAGE.getMaximumValue());
+					: (penisClothing != null && penisClothing.getItemTags().contains(ItemTag.TUCKS)
+                        ? getPenisRawSizeValue()>= (PenisLength.THREE_LARGE.getMaximumValue() + (calculateBulgeModifier() * 5))
+                        : getPenisRawSizeValue()>= (PenisLength.TWO_AVERAGE.getMaximumValue() + (calculateBulgeModifier() * 5))));
 	}
 	
 	public boolean isTesticleBulgeVisible() {
+        AbstractClothing penisClothing = getClothingInSlot(InventorySlot.PENIS);
 		return hasPenis()
 				&& getGenitalArrangement()==GenitalArrangement.NORMAL
 				&& !isInternalTesticles()
-				&& getTesticleSize().getValue()>=TesticleSize.FOUR_HUGE.getValue();
+                && (penisClothing != null && penisClothing.getItemTags().contains(ItemTag.TUCKS)
+                    ? getTesticleSize().getValue()>=(TesticleSize.FIVE_MASSIVE.getValue())
+                    : getTesticleSize().getValue()>=(TesticleSize.FOUR_HUGE.getValue() + calculateBulgeModifier()));
 	}
+
+    private int calculateBulgeModifier() {
+        for (InventorySlot slot : new InventorySlot[]{InventorySlot.TORSO_OVER, InventorySlot.TORSO_UNDER, InventorySlot.LEG,
+                InventorySlot.GROIN}) {
+            AbstractClothing clothing = getClothingInSlot(slot);
+            if(clothing != null && clothing.isConcealsSlot(this, slot, slot)){
+                Set<ItemTag> tags = clothing.getItemTags(slot);
+                if(tags.contains(ItemTag.LOOSE_GROIN)) {return 1;}
+                if(tags.contains(ItemTag.TIGHT_GROIN)) {return -1;}
+                return 0;
+            }
+        }
+    }
 	
 	private GenderAppearance calculateGenderAppearance(boolean colouredGender) {
 		return calculateGenderAppearance(colouredGender, false);
