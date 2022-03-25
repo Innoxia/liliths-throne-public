@@ -178,7 +178,7 @@
 		<!-- The 'execute' section should be used for the main description of the attack, as well as any extra effects you want to apply.
 		NOTE: The damage is automatically applied to the target, so you don't need to handle parsing of that. -->
 		<execute><![CDATA[
-			The tip of [npc.namePos] tail flashes brightly as [npc.rush] at [npc2.name] and [npc.verb(land)] a 
+			The tip of [npc.namePos] tail flashes brightly as [npc.she] [npc.verb(rush)] at [npc2.name] and [npc.verb(land)] a
 			#IF(npc.getTailType() == (TAIL_TYPE_mintychip_salamander_tailAurora))
 				freezing cold
 			#ELSE

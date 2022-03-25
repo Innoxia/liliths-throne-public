@@ -8,8 +8,8 @@
 	
 	<determiner><![CDATA[a layer of]]></determiner>
 	<name><![CDATA[hair]]></name>
-	<namePlural pluralByDefault="false"><![CDATA[hair]]></namePlural> 
-	
+	<namePlural pluralByDefault="false"><![CDATA[hair]]></namePlural>
+
 	<naturalCoveringModifiers>
 		<modifier>COARSE</modifier>
 		<modifier>SILKEN</modifier>
@@ -31,15 +31,19 @@
 	</extraPatterns>
 	
 	<naturalColoursPrimary>
-		<colour>COVERING_BLACK</colour>
-		<colour>COVERING_RED_LIGHT</colour>
+		<colour>COVERING_PINK_LIGHT</colour>
 		<colour>COVERING_RED</colour>
 		<colour>COVERING_RED_DARK</colour>
+		<colour>COVERING_SCARLET</colour>
 		<colour>COVERING_ORANGE</colour>
+
 		<colour>COVERING_INDIGO</colour>
 		<colour>COVERING_BLUE_LIGHT</colour>
 		<colour>COVERING_BLUE</colour>
 		<colour>COVERING_BLUE_DARK</colour>
+		<colour>COVERING_PURPLE_LIGHT</colour>
+
+		<colour>COVERING_BLACK</colour>
 		<colour>COVERING_WHITE</colour>
 	</naturalColoursPrimary> 
 	<extraColoursPrimary values="allCoveringColours"/>

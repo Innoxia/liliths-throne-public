@@ -14,7 +14,7 @@
 	<coveringType>mintychip_salamander_scales</coveringType>
 	
 	<!-- The id of the fluid that's associated with this testicle type. -->
-	<fluidType>innoxia_hyena_cum</fluidType>
+	<fluidType>mintychip_salamander_cum</fluidType>
 	
 	<!-- Whether this testicle type is located internally or not by default. -->
 	<internal>false</internal>
