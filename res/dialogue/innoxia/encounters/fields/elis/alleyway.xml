@@ -710,7 +710,7 @@
 					[#game.initQuickTransformationMenu(npc, DN_innoxia_encounters_fields_elis_alleyway_combat_won)]
 				]]></effects>
 			</response>
-			
+
 			<!-- Removal: -->
 			<response>
 				<availabilityConditional><![CDATA[[#!npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer)]]]></availabilityConditional>
@@ -726,6 +726,34 @@
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway', 'AFTER_COMBAT_VICTORY_BANISH_NPC'))]
 					[#game.banishNPC(npc)]
+				]]></effects>
+			</response>
+			
+			<!-- Beer bitch: -->
+			<response>
+				<availabilityConditional><![CDATA[[#oglix.isBeerBitchBarrelAvailable()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[11]]></index>
+				<responseTitle><![CDATA[Beer-bitch]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(5, 14))
+						'The Crossed Blades' tavern is closed at this time of day, so you're currently unable to take [npc.name] there and offer [npc.herHim] to Oglix as a new beer-bitch...
+						<br/>[style.italicsMinorBad(The tavern is closed between the hours of [units.time(5)]-[units.time(14)])]
+					#ELSE
+						Take [npc.name] to 'The Crossed Blades' tavern and offer [npc.herHim] to Oglix as a new beer-bitch.
+						<br/>[style.italicsMinorBad([npc.Name] will be enslaved to Oglix and permanently locked into a barrel in her tavern.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.isHourBetween(5, 14))
+						null
+					#ELSE
+						innoxia_places_fields_elis_tavern_alley_new_beer_bitch_delivered
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_alley, PLACE_TYPE_innoxia_fields_elis_tavern_alley_bar)]
+					[#npc.setLocation(pc)]
 				]]></effects>
 			</response>
 		</responses>
@@ -790,6 +818,34 @@
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway', 'AFTER_COMBAT_VICTORY_BANISH_NPC'))]
 					[#game.banishNPC(npc)]
+				]]></effects>
+			</response>
+			
+			<!-- Beer bitch: -->
+			<response>
+				<availabilityConditional><![CDATA[[#oglix.isBeerBitchBarrelAvailable()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[11]]></index>
+				<responseTitle><![CDATA[Beer-bitch]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(5, 14))
+						'The Crossed Blades' tavern is closed at this time of day, so you're currently unable to take [npc.name] there and offer [npc.herHim] to Oglix as a new beer-bitch...
+						<br/>[style.italicsMinorBad(The tavern is closed between the hours of [units.time(5)]-[units.time(14)])]
+					#ELSE
+						Take [npc.name] to 'The Crossed Blades' tavern and offer [npc.herHim] to Oglix as a new beer-bitch.
+						<br/>[style.italicsMinorBad([npc.Name] will be enslaved to Oglix and permanently locked into a barrel in her tavern.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.isHourBetween(5, 14))
+						null
+					#ELSE
+						innoxia_places_fields_elis_tavern_alley_new_beer_bitch_delivered
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_alley, PLACE_TYPE_innoxia_fields_elis_tavern_alley_bar)]
+					[#npc.setLocation(pc)]
 				]]></effects>
 			</response>
 		</responses>

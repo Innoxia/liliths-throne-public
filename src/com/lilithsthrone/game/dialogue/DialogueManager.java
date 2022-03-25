@@ -15,6 +15,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
 import com.lilithsthrone.game.dialogue.places.submission.LyssiethPalaceDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePoker;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CosmeticsDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -107,6 +108,8 @@ public class DialogueManager {
 		addHardCodedDialogueId("HARPY_NEST_NYMPHO_TALK", HarpyNestNympho.HARPY_NEST_NYMPHO_TALK);
 		addHardCodedDialogueId("HARPY_NEST_NYMPHO_QUEEN", HarpyNestNympho.HARPY_NEST_NYMPHO_QUEEN);
 		addHardCodedDialogueId("HARPY_NEST_NYMPHO_UGLY", HarpyNestNympho.HARPY_NEST_NYMPHO_UGLY);
+
+		addHardCodedDialogueId("DICE_POKER_CORE", DicePoker.GAMBLING);
 		
 		
 		// Modded dialogue types:

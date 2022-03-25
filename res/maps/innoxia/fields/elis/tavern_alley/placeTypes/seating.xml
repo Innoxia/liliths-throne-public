@@ -13,7 +13,9 @@
 	<populationPresent copyPlaceType="innoxia_fields_elis_tavern_alley_tables"/>
 	<furniturePresent>true</furniturePresent>
 	<globalMapTile>false</globalMapTile>
-	<dangerous><![CDATA[true]]></dangerous>
+	<dangerous><![CDATA[
+		[#!flags.hasFlag(FLAG_innoxia_oglix_tavern_pacified)]
+	]]></dangerous>
 	<itemsDisappear><![CDATA[true]]></itemsDisappear>
 	<aquatic><![CDATA[LAND]]></aquatic>
 	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>

@@ -504,7 +504,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	// Misc.:
 	private List<Dice> dice; // For gambling
-	private String speechColour;
+	private Colour speechColour;
 	
 	protected static List<CharacterChangeEventListener> playerAttributeChangeEventListeners = new ArrayList<>();
 	protected static List<CharacterChangeEventListener> NPCAttributeChangeEventListeners = new ArrayList<>();
@@ -803,6 +803,9 @@ public abstract class GameCharacter implements XMLSaving {
 		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "combatBehaviour", this.getCombatBehaviour().toString());
 		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "lastTimeHadSex", String.valueOf(lastTimeHadSex));
 		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "lastTimeOrgasmed", String.valueOf(lastTimeOrgasmed));
+		if(speechColour!=null) {
+			XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "speechColour", speechColour.getId());
+		}
 		
 		Element desiredJobsElement = doc.createElement("desiredJobs");
 		characterCoreInfo.appendChild(desiredJobsElement);
@@ -1499,6 +1502,11 @@ public abstract class GameCharacter implements XMLSaving {
 		// Surname:
 		if(element.getElementsByTagName("genericName")!=null && element.getElementsByTagName("genericName").getLength()>0) {
 			character.setGenericName(((Element)element.getElementsByTagName("genericName").item(0)).getAttribute("value"));
+		}
+
+		// Speech colour:
+		if(element.getElementsByTagName("speechColour")!=null && element.getElementsByTagName("speechColour").getLength()>0) {
+			character.setSpeechColour(PresetColour.getColourFromId(((Element)element.getElementsByTagName("speechColour").item(0)).getAttribute("value")));
 		}
 		
 		// Level:
@@ -3485,6 +3493,7 @@ public abstract class GameCharacter implements XMLSaving {
 						if(Main.game.getPlayer().getCharactersEncounteredAsGameCharacters(true).contains(target)) {
 							if(!target.isPlayer()
 									&& (target.isUnique()
+											|| (target.isElemental() && ((Elemental)target).getSummoner().isUnique())
 											|| target.isRelatedTo(this)
 											|| (target.isSlave() && target.getOwner().isPlayer())
 											|| Main.game.getPlayer().getFriendlyOccupants().contains(target.getId()))) {
@@ -3732,7 +3741,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public String getSpeechColour() {
 		if(speechColour!=null) {
-			return speechColour;
+			return speechColour.toWebHexString();
 		}
 		if(this.isPlayer()) {
 			switch(Femininity.valueOf(getFemininityValue())) {
@@ -3764,7 +3773,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return null;
 	}
 	
-	public void setSpeechColour(String speechColour) {
+	public void setSpeechColour(Colour speechColour) {
 		this.speechColour = speechColour;
 	}
 
@@ -4333,6 +4342,14 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public boolean isMute() {
 		return this.hasPersonalityTrait(PersonalityTrait.MUTE);
+	}
+	
+	public void setMute(boolean mute) {
+		if(mute) {
+			this.addPersonalityTrait(PersonalityTrait.MUTE);
+		} else {
+			this.removePersonalityTrait(PersonalityTrait.MUTE);
+		}
 	}
 	
 	
@@ -5051,11 +5068,13 @@ public abstract class GameCharacter implements XMLSaving {
 			if(this.isPlayer()) {
 				ParserTarget.addAdditionalParserTarget("el", elemental); // Set the 'el' parsing target to the player's elemental
 			}
+//			System.out.println("Elemental summoned: "+elementalID);
 			return elemental;
 		}
 	}
 	
 	public Elemental getElemental() {
+//		System.out.println("Accessing elemental: "+elementalID);
 		try {
 			return (Elemental) Main.game.getNPCById(elementalID);
 		} catch(Exception e) {
@@ -17803,24 +17822,24 @@ public abstract class GameCharacter implements XMLSaving {
 					switch(penetrationType) {
 						case FINGER:
 							if(partner.equals(this)) {
-								return UtilText.parse(this, "[npc.NameIs] struggling to fit [npc.her] fingers down [npc.her] throat.");
+								return UtilText.parse(this, "[npc.NameIsFull] struggling to fit [npc.her] fingers down [npc.her] throat.");
 							}
-							return UtilText.parse(this, partner, "[npc.NameIs]  struggling to fit [npc2.namePos] fingers down [npc.her] throat.");
+							return UtilText.parse(this, partner, "[npc.NameIsFull] struggling to fit [npc2.namePos] fingers down [npc.her] throat.");
 						case PENIS:
 							if(partner.equals(this)) {
-								return UtilText.parse(this, "[npc.NameIs] struggling to fit [npc.her] [npc.cock+] down [npc.her] throat.");
+								return UtilText.parse(this, "[npc.NameIsFull] struggling to fit [npc.her] [npc.cock+] down [npc.her] throat.");
 							}
-							return UtilText.parse(this, partner, "[npc.NameIs] struggling to fit [npc2.namePos] [npc2.cock+] down [npc.her] throat.");
+							return UtilText.parse(this, partner, "[npc.NameIsFull] struggling to fit [npc2.namePos] [npc2.cock+] down [npc.her] throat.");
 						case TAIL:
 							if(partner.equals(this)) {
-								return UtilText.parse(this, "[npc.NameIs] struggling to fit [npc.her] [npc.tail+(true)] down [npc.her] throat.");
+								return UtilText.parse(this, "[npc.NameIsFull] struggling to fit [npc.her] [npc.tail+(true)] down [npc.her] throat.");
 							}
-							return UtilText.parse(this, partner, "[npc.NameIs] struggling to fit [npc2.namePos] [npc2.tail+(true)] down [npc.her] throat.");
+							return UtilText.parse(this, partner, "[npc.NameIsFull] struggling to fit [npc2.namePos] [npc2.tail+(true)] down [npc.her] throat.");
 						case TENTACLE:
 							if(partner.equals(this)) {
-								return UtilText.parse(this, "[npc.NameIs] struggling to fit [npc.her] [npc.tentacle+(true)] down [npc.her] throat.");
+								return UtilText.parse(this, "[npc.NameIsFull] struggling to fit [npc.her] [npc.tentacle+(true)] down [npc.her] throat.");
 							}
-							return UtilText.parse(this, partner, "[npc.NameIs] struggling to fit [npc2.namePos] [npc2.tentacle+(true)] down [npc.her] throat.");
+							return UtilText.parse(this, partner, "[npc.NameIsFull] struggling to fit [npc2.namePos] [npc2.tentacle+(true)] down [npc.her] throat.");
 						default:
 							return UtilText.parse(this, "[npc.NamePos] throat is being stretched out.");
 					}
@@ -26865,6 +26884,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public String removeMilkModifier(FluidModifier fluidModifier) {
 		return body.getBreast().getMilk().removeFluidModifier(this, fluidModifier);
 	}
+	public void clearMilkModifiers() {
+		body.getBreast().getMilk().clearFluidModifiers();
+	}
 	// Transformations:
 	public List<ItemEffect> getMilkTransformativeEffects() {
 		return body.getBreast().getMilk().getTransformativeEffects();
@@ -27237,6 +27259,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String removeMilkCrotchModifier(FluidModifier fluidModifier) {
 		return body.getBreastCrotch().getMilk().removeFluidModifier(this, fluidModifier);
+	}
+	public void clearMilkCrotchModifiers() {
+		body.getBreastCrotch().getMilk().clearFluidModifiers();
 	}
 	// Transformations:
 	public List<ItemEffect> getMilkCrotchTransformativeEffects() {

@@ -10,7 +10,20 @@
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	<encounterType>null</encounterType>
 	<dialogue>innoxia_places_fields_elis_tavern_alley_kitchen</dialogue>
-	<populationPresent/>
+	<populationPresent>
+		<population>
+			<populationType plural="true" density="COUPLE">PERSON</populationType>
+			<subspeciesPresent>
+				<subspecies>DEMON</subspecies>
+			</subspeciesPresent>
+		</population>
+		<population>
+			<populationType plural="false" density="ONE">CHEF</populationType>
+			<subspeciesPresent>
+				<subspecies>HUMAN</subspecies>
+			</subspeciesPresent>
+		</population>
+	</populationPresent>
 	<furniturePresent>true</furniturePresent>
 	<globalMapTile>false</globalMapTile>
 	<dangerous><![CDATA[false]]></dangerous>

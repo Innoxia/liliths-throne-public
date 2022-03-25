@@ -232,6 +232,22 @@ public class FluidMilk implements FluidInterface {
 							+ "</p>");
 				}
 			case ALCOHOLIC:
+				fluidModifiers.remove(FluidModifier.ALCOHOLIC_WEAK);
+				if(this.isCrotchMilk()) {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A strange, soothing warmth spreads up through [npc.namePos] [npc.crotchBoobs], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.crotchMilk] is now [style.boldGrow(strongly alcoholic)]!"
+							+ "</p>");
+				} else {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A strange, soothing warmth spreads up through [npc.namePos] [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.milk] is now [style.boldGrow(strongly alcoholic)]!"
+							+ "</p>");
+				}
+			case ALCOHOLIC_WEAK:
+				fluidModifiers.remove(FluidModifier.ALCOHOLIC);
 				if(this.isCrotchMilk()) {
 					return UtilText.parse(owner,
 							"<p>"
@@ -375,6 +391,7 @@ public class FluidMilk implements FluidInterface {
 							+ "</p>");
 				}
 			case ALCOHOLIC:
+			case ALCOHOLIC_WEAK:
 				if(this.isCrotchMilk()) {
 					return UtilText.parse(owner,
 							"<p>"

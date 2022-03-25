@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.npc.dominion.Arthur;
 import com.lilithsthrone.game.character.npc.dominion.Ashley;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.Bunny;
+import com.lilithsthrone.game.character.npc.dominion.Callie;
 import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.npc.dominion.Elle;
@@ -31,7 +32,6 @@ import com.lilithsthrone.game.character.npc.dominion.Jules;
 import com.lilithsthrone.game.character.npc.dominion.Kalahari;
 import com.lilithsthrone.game.character.npc.dominion.Kate;
 import com.lilithsthrone.game.character.npc.dominion.Kay;
-import com.lilithsthrone.game.character.npc.dominion.Callie;
 import com.lilithsthrone.game.character.npc.dominion.Kruger;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Loppy;
@@ -76,9 +76,11 @@ import com.lilithsthrone.game.character.npc.fields.Minotallys;
 import com.lilithsthrone.game.character.npc.fields.Monica;
 import com.lilithsthrone.game.character.npc.fields.Moreno;
 import com.lilithsthrone.game.character.npc.fields.Nizhoni;
+import com.lilithsthrone.game.character.npc.fields.Oglix;
 import com.lilithsthrone.game.character.npc.fields.Penelope;
 import com.lilithsthrone.game.character.npc.fields.Silvia;
 import com.lilithsthrone.game.character.npc.fields.Vronti;
+import com.lilithsthrone.game.character.npc.fields.Wynter;
 import com.lilithsthrone.game.character.npc.fields.Yui;
 import com.lilithsthrone.game.character.npc.fields.Ziva;
 import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
@@ -1368,7 +1370,26 @@ public class ParserTarget {
 			return Main.game.getNpc(Callie.class);
 		}
 	};
-	
+
+	public static AbstractParserTarget WYNTER = new AbstractParserTarget(Util.newArrayListOfValues("wynter"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Wynter.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Wynter.class);
+		}
+	};
+
+	public static AbstractParserTarget OGLIX = new AbstractParserTarget(Util.newArrayListOfValues("oglix"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Oglix.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Oglix.class);
+		}
+	};
 	
 	
 	/** A list of the hard-coded parser targets above. */
