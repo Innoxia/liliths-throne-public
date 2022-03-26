@@ -7,7 +7,7 @@ package com.lilithsthrone.game.character.body.valueEnums;
  */
 public enum OrificeModifier {
 	
-	PUFFY("puffy", ""),
+	PUFFY("puffy", "If this orifice is a vagina, its camel toe will more prominent when wearing tight clothing."),
 	
 	RIBBED("internally-ribbed", ""),
 	

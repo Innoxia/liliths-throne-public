@@ -23916,11 +23916,17 @@ public abstract class GameCharacter implements XMLSaving {
         AbstractClothing penisClothing = getClothingInSlot(InventorySlot.PENIS);
 		return hasPenis()
 				&& getGenitalArrangement()==GenitalArrangement.NORMAL
-                && !(penisClothing != null && penisClothing.getItemTags().contains(ItemTag.TUCKS))
 				&& (hasPenisModifier(PenetrationModifier.SHEATHED)
-					? getPenisRawSizeValue()>=PenisLength.FOUR_HUGE.getMaximumValue() + (calculateBulgeModifier(InventorySlot.PENIS) * 5)
-					: getPenisRawSizeValue()>= (PenisLength.TWO_AVERAGE.getMaximumValue() + (calculateBulgeModifier(InventorySlot.PENIS) * 5)));
+					? getPenisRawSizeValue()>=PenisLength.FOUR_HUGE.getMaximumValue() + calculatePenisBulgeModifier()
+					: ((penisClothing != null && penisClothing.getItemTags().contains(ItemTag.TUCKS))
+                        ? getPenisRawSizeValue()>= PenisLength.THREE_LARGE.getMaximumValue() + calculatePenisBulgeModifier()
+                        : getPenisRawSizeValue()>= PenisLength.TWO_AVERAGE.getMaximumValue() + calculatePenisBulgeModifier()));
 	}
+
+    private int calculatePenisBulgeModifier() {
+        int bulgeModifier = calculateBulgeModifier(InventorySlot.PENIS);
+        return (bulgeModifier > 0 && isTaur()) ? 91 : bulgeModifier * 5;
+    }
 	
 	public boolean isTesticleBulgeVisible() {
         AbstractClothing penisClothing = getClothingInSlot(InventorySlot.PENIS);
@@ -23931,20 +23937,12 @@ public abstract class GameCharacter implements XMLSaving {
                 && getTesticleSize().getValue()>=(TesticleSize.FOUR_HUGE.getValue() + calculateBulgeModifier(InventorySlot.PENIS));
 	}
 
-    public boolean isActualCamelToeVisible() {
+    public boolean isCamelToeVisible() {
         return hasVagina()
                 && getGenitalArrangement()==GenitalArrangement.NORMAL
-                && getVaginaLabiaSize().getValue() >= LabiaSize.THREE_LARGE.getValue()
-                && calculateBulgeModifier(InventorySlot.VAGINA) == -1;
-    }
-
-    public boolean isArtificialCamelToeVisible() {
-        AbstractClothing penisClothing = getClothingInSlot(InventorySlot.PENIS);
-        return hasPenis()
-                && !(penisClothing != null && penisClothing.getItemTags().contains(ItemTag.TUCKS))
-                && getGenitalArrangement()==GenitalArrangement.NORMAL
-                && getPenisRawSizeValue()>= (PenisLength.TWO_AVERAGE.getMinimumValue())
-                && calculateBulgeModifier(InventorySlot.VAGINA) == -1;
+                && (getVaginaLabiaSize().getValue() >= LabiaSize.THREE_LARGE.getValue() ||
+                (getVaginaOrificeModifiers().contains(OrificeModifier.PUFFY) && getVaginaLabiaSize().getValue() > LabiaSize.ZERO_TINY.getValue()))
+                && calculateBulgeModifier(InventorySlot.VAGINA) < 0;
     }
 
     private int calculateBulgeModifier(InventorySlot slotToCheck) {
@@ -24014,45 +24012,84 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 					
 				} else if(visiblePenis) {
-					// Exposed penis:
-					return new GenderAppearance(
-							isPlayer()
-							?"Due to your exposed [pc.penis] and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-							:"Due to [npc.her] exposed [npc.penis] and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
-							Gender.F_P_B_SHEMALE);
-					
+                    // Exposed penis:
+                    if (isCamelToeVisible()) {
+                        return new GenderAppearance(
+                                isPlayer()
+                                        ? "Your exposed [pc.penis] and [pc.breastSize] breasts, combined with your prominent camel toe, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
+                                        : "[npc.Her] exposed [npc.penis] and [npc.breastSize] breasts, combined with [npc.her] prominent camel toe, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
+                                Gender.F_P_V_B_FUTANARI);
+                    } else {
+                        return new GenderAppearance(
+                                isPlayer()
+                                        ? "Due to your exposed [pc.penis] and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender(" + colouredGender + ")] on first glance."
+                                        : "Due to [npc.her] exposed [npc.penis] and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender(" + colouredGender + ")] on first glance.",
+                                Gender.F_P_B_SHEMALE);
+                    }
 				} else {
 					// Obvious bulge:
 					if(isPenisBulgeVisible()) {
-						return new GenderAppearance(
-								isPlayer()
-								?"The [pc.cockSize] bulge between your legs, combined with your feminine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.F_P_B_SHEMALE);
+                        if(isCamelToeVisible()) {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.cockSize] bulge between your legs, combined with your feminine appearance, [pc.breastSize] breasts, and prominent camel toe, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
+                                            :"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, [npc.breastSize] breasts, and [npc.her] prominent camel toe, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
+                                    Gender.F_P_V_B_FUTANARI);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ? "The [pc.cockSize] bulge between your legs, combined with your feminine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender(" + colouredGender + ")]."
+                                            : "The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender(" + colouredGender + ")].",
+                                    Gender.F_P_B_SHEMALE);
+                        }
 						
 					} else if (isTesticleBulgeVisible()) {
-						return new GenderAppearance(
-								isPlayer()
-								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your feminine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.F_P_B_SHEMALE);
+                        if(isCamelToeVisible()) {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your feminine appearance, [pc.breastSize] breasts, and prominent camel toe, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
+                                            :"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, [npc.breastSize] breasts, and [npc.her] prominent camel toe, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
+                                    Gender.F_P_V_B_FUTANARI);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your feminine appearance, [pc.breastSize] breasts, and prominent camel toe, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
+                                            :"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, [npc.breastSize] breasts, and prominent camel toe, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
+                                    Gender.F_P_B_SHEMALE);
+                        }
 					}
 					
 					if(hasPenis()) {
 						// Assume female, as penis is not visible:
-						return new GenderAppearance(
-								isPlayer()
-								?"Your [pc.penis] is concealed, so, due to your feminine appearance and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] feminine appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
-								Gender.F_V_B_FEMALE);
+                        if(isCamelToeVisible()){
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"Your [pc.penis] is concealed, so, due to your feminine appearance, prominent camel toe, and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
+                                            :"Due to [npc.her] feminine appearance, prominent camel toe, and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                    Gender.F_V_B_FEMALE);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"Your [pc.penis] is concealed, so, due to your feminine appearance and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
+                                            :"Due to [npc.her] feminine appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                    Gender.F_V_B_FEMALE);
+                        }
 						
 					} else if(hasVagina()) {
 						// Correctly assume female:
-						return new GenderAppearance(
-								isPlayer()
-								?"Your feminine appearance and [pc.breastSize] breasts leads everyone to correctly assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to [npc.her] feminine appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.F_V_B_FEMALE);
+                        if(isCamelToeVisible()) {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The camel toe of your [pc.vagina] between your legs, combined with your feminine appearance and [pc.breastSize] breasts, leads everyone to correctly assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
+                                            :"Due to [npc.her] feminine appearance, prominent camel toe, and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                    Gender.F_V_B_FEMALE);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"Your feminine appearance and [pc.breastSize] breasts leads everyone to correctly assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
+                                            :"Due to [npc.her] feminine appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
+                                    Gender.F_V_B_FEMALE);
+                        }
 						
 					} else {
 						if(isCoverableAreaVisible(CoverableArea.VAGINA) && isCoverableAreaVisible(CoverableArea.PENIS)) {
@@ -24118,44 +24155,82 @@ public abstract class GameCharacter implements XMLSaving {
 					
 				} else if(visiblePenis) {
 					// Exposed penis:
-					return new GenderAppearance(
-							isPlayer()
-							?"Due to your exposed [pc.penis], everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-							:"Due to [npc.her] exposed [npc.penis], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
-							Gender.F_P_TRAP);
-					
+                    if (isCamelToeVisible()) {
+                        return new GenderAppearance(
+                                isPlayer()
+                                        ? "Your exposed [pc.penis], combined with your prominent camel toe, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
+                                        : "[npc.Her] exposed [npc.penis], combined with [npc.her] prominent camel toe, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
+                                Gender.F_P_V_FUTANARI);
+                    } else {
+                        return new GenderAppearance(
+                                isPlayer()
+                                        ? "Due to your exposed [pc.penis], everyone assumes that you're [pc.a_appearsAsGender(" + colouredGender + ")] on first glance."
+                                        : "Due to [npc.her] exposed [npc.penis], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender(" + colouredGender + ")] on first glance.",
+                                Gender.F_P_TRAP);
+                    }
 				} else {
 					// Obvious bulge:
 					if(isPenisBulgeVisible()) {
-						return new GenderAppearance(
-								isPlayer()
-								?"The [pc.cockSize] bulge between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.F_P_TRAP);
-						
+                        if(isCamelToeVisible()) {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.cockSize] bulge between your legs, combined with your feminine appearance and prominent camel toe, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
+                                            :"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance and [npc.her] prominent camel toe, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
+                                    Gender.F_P_V_FUTANARI);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ? "The [pc.cockSize] bulge between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_appearsAsGender(" + colouredGender + ")]."
+                                            : "The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender(" + colouredGender + ")].",
+                                    Gender.F_P_TRAP);
+                        }
 					} else if (isTesticleBulgeVisible()) {
-						return new GenderAppearance(
-								isPlayer()
-								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.F_P_TRAP);
+                        if(isCamelToeVisible()) {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your feminine appearance and prominent camel toe, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
+                                            :"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance and [npc.her] prominent camel toe, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
+                                    Gender.F_P_V_FUTANARI);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ? "The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_appearsAsGender(" + colouredGender + ")]."
+                                            : "The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender(" + colouredGender + ")].",
+                                    Gender.F_P_TRAP);
+                        }
 					}
 					
 					if(hasPenis()) {
 						// Assume female, as penis is not visible:
-						return new GenderAppearance(
-								isPlayer()
-								?"Your [pc.penis] is concealed, so, due to your feminine appearance, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] feminine appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
-								Gender.F_V_FEMALE);
-						
+                        if(isCamelToeVisible()){
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"Your [pc.penis] is concealed, so, due to your feminine appearance and prominent camel toe, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
+                                            :"Due to [npc.her] feminine appearance and prominent camel toe, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                    Gender.F_V_FEMALE);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ? "Your [pc.penis] is concealed, so, due to your feminine appearance, everyone assumes that you're [pc.a_appearsAsGender(" + colouredGender + ")] on first glance."
+                                            : "Due to [npc.her] feminine appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender(" + colouredGender + ")] on first glance.",
+                                    Gender.F_V_FEMALE);
+                        }
+
 					} else if(hasVagina()) {
 						// Correctly assume female:
-						return new GenderAppearance(
-								isPlayer()
-								?"Your feminine appearance leads everyone to correctly assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to [npc.her] feminine appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.F_V_FEMALE);
+                        if(isCamelToeVisible()) {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The camel toe of your [pc.vagina] between your legs, combined with your feminine appearance, leads everyone to correctly assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
+                                            :"Due to [npc.her] feminine appearance and prominent camel toe, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                    Gender.F_V_FEMALE);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"Your feminine appearance leads everyone to correctly assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
+                                            :"Due to [npc.her] feminine appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
+                                    Gender.F_V_FEMALE);
+                        }
 						
 					} else {
 						if(isCoverableAreaVisible(CoverableArea.VAGINA) && isCoverableAreaVisible(CoverableArea.PENIS)) {
@@ -24223,44 +24298,83 @@ public abstract class GameCharacter implements XMLSaving {
 					
 				} else if(visiblePenis) {
 					// Exposed penis:
-					return new GenderAppearance(
-							isPlayer()
-							?"Due to your exposed [pc.penis] and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-							:"Due to [npc.her] exposed [npc.penis] and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
-							Gender.N_P_B_SHEMALE);
-					
+                    if (isCamelToeVisible()) {
+                        return new GenderAppearance(
+                                isPlayer()
+                                        ? "Your exposed [pc.penis] and [pc.breastSize] breasts, combined with your prominent camel toe, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
+                                        : "[npc.Her] exposed [npc.penis] and [npc.breastSize] breasts, combined with [npc.her] prominent camel toe, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
+                                Gender.N_P_V_B_HERMAPHRODITE);
+                    } else {
+                        return new GenderAppearance(
+                                isPlayer()
+                                        ? "Due to your exposed [pc.penis] and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender(" + colouredGender + ")] on first glance."
+                                        : "Due to [npc.her] exposed [npc.penis] and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender(" + colouredGender + ")] on first glance.",
+                                Gender.N_P_B_SHEMALE);
+                    }
 				} else {
 					// Obvious bulge:
 					if(isPenisBulgeVisible()) {
-						return new GenderAppearance(
-								isPlayer()
-								?"The [pc.cockSize] bulge between your legs, combined with your androgynous appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.N_P_B_SHEMALE);
-						
+                        if(isCamelToeVisible()) {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.cockSize] bulge between your legs, combined with your androgynous appearance, [pc.breastSize] breasts, and prominent camel toe, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
+                                            :"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance, [npc.breastSize] breasts, and [npc.her] prominent camel toe, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
+                                    Gender.N_P_V_B_HERMAPHRODITE);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ? "The [pc.cockSize] bulge between your legs, combined with your androgynous appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender(" + colouredGender + ")]."
+                                            : "The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender(" + colouredGender + ")].",
+                                    Gender.N_P_B_SHEMALE);
+                        }
+
 					} else if (isTesticleBulgeVisible()) {
-						return new GenderAppearance(
-								isPlayer()
-								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your androgynous appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.N_P_B_SHEMALE);
+                        if(isCamelToeVisible()) {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your androgynous appearance, [pc.breastSize] breasts, and prominent camel toe, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
+                                            :"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance, [npc.breastSize] breasts, and [npc.her] prominent camel toe, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
+                                    Gender.N_P_V_B_HERMAPHRODITE);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ? "The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your androgynous appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender(" + colouredGender + ")]."
+                                            : "The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender(" + colouredGender + ")].",
+                                    Gender.N_P_B_SHEMALE);
+                        }
 					}
 					
 					if(hasPenis()) {
 						// Assume female, as penis is not visible:
-						return new GenderAppearance(
-								isPlayer()
-								?"Your [pc.penis] is concealed, so, due to your androgynous appearance and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] androgynous appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
-								Gender.N_V_B_TOMBOY);
+                        if(isCamelToeVisible()){
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"Your [pc.penis] is concealed, so, due to your androgynous appearance, prominent camel toe, and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
+                                            :"Due to [npc.her] androgynous appearance, prominent camel toe, and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                    Gender.N_V_B_TOMBOY);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"Your [pc.penis] is concealed, so, due to your androgynous appearance and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
+                                            :"Due to [npc.her] androgynous appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                    Gender.N_V_B_TOMBOY);
+                        }
 						
 					} else if(hasVagina()) {
 						// Correctly assume female:
-						return new GenderAppearance(
-								isPlayer()
-								?"Your androgynous appearance and [pc.breastSize] breasts leads everyone to correctly assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to [npc.her] androgynous appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.N_V_B_TOMBOY);
+                        if(isCamelToeVisible()) {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The camel toe of your [pc.vagina] between your legs, combined with your androgynous appearance and [pc.breastSize] breasts, leads everyone to correctly assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
+                                            : "Due to [npc.her] feminine appearance, prominent camel toe, and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                    Gender.N_V_B_TOMBOY);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"Your androgynous appearance and [pc.breastSize] breasts leads everyone to correctly assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
+                                            :"Due to [npc.her] androgynous appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
+                                    Gender.N_V_B_TOMBOY);
+                        }
 						
 					} else {
 						if(isCoverableAreaVisible(CoverableArea.VAGINA) && isCoverableAreaVisible(CoverableArea.PENIS)) {
@@ -24326,44 +24440,84 @@ public abstract class GameCharacter implements XMLSaving {
 					
 				} else if(visiblePenis) {
 					// Exposed penis:
-					return new GenderAppearance(
-							isPlayer()
-							?"Due to your exposed [pc.penis], everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-							:"Due to [npc.her] exposed [npc.penis], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
-							Gender.N_P_TRAP);
+                    if (isCamelToeVisible()) {
+                        return new GenderAppearance(
+                                isPlayer()
+                                        ? "Your exposed [pc.penis], combined with your prominent camel toe, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
+                                        : "[npc.Her] exposed [npc.penis], combined with [npc.her] prominent camel toe, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
+                                Gender.N_P_V_HERMAPHRODITE);
+                    } else {
+                        return new GenderAppearance(
+                                isPlayer()
+                                        ?"Due to your exposed [pc.penis], everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
+                                        :"Due to [npc.her] exposed [npc.penis], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                Gender.N_P_TRAP);
+                    }
 					
 				} else {
 					// Obvious bulge:
 					if(isPenisBulgeVisible()) {
-						return new GenderAppearance(
-								isPlayer()
-								?"The [pc.cockSize] bulge between your legs, combined with your androgynous appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.N_P_TRAP);
+                        if(isCamelToeVisible()) {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.cockSize] bulge between your legs, combined with your androgynous appearance and prominent camel toe, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
+                                            :"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance and prominent camel toe, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
+                                    Gender.N_P_V_HERMAPHRODITE);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.cockSize] bulge between your legs, combined with your androgynous appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
+                                            :"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
+                                    Gender.N_P_TRAP);
+                        }
 						
 					} else if (isTesticleBulgeVisible()) {
-						return new GenderAppearance(
-								isPlayer()
-								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your androgynous appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.N_P_TRAP);
+                        if(isCamelToeVisible()) {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your androgynous appearance and prominent camel toe, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
+                                            :"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance and [npc.her] prominent camel toe, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
+                                    Gender.N_P_V_B_HERMAPHRODITE);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your androgynous appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
+                                            :"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
+                                    Gender.N_P_TRAP);
+                        }
 					}
 					
 					if(hasPenis()) {
 						// Assume female, as penis is not visible:
-						return new GenderAppearance(
-								isPlayer()
-								?"Your [pc.penis] is concealed, so, due to your androgynous appearance, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] androgynous appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
-								Gender.N_V_TOMBOY);
+                        if(isCamelToeVisible()){
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"Your [pc.penis] is concealed, so, due to your feminine appearance and prominent camel toe, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
+                                            :"Due to [npc.her] feminine appearance and prominent camel toe, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                    Gender.N_V_B_TOMBOY);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"Your [pc.penis] is concealed, so, due to your androgynous appearance, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
+                                            :"Due to [npc.her] androgynous appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                    Gender.N_V_TOMBOY);
+                        }
 						
 					} else if(hasVagina()) {
 						// Correctly assume female:
-						return new GenderAppearance(
-								isPlayer()
-								?"Your androgynous appearance leads everyone to correctly assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to [npc.her] androgynous appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.N_V_TOMBOY);
+                        if(isCamelToeVisible()) {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The camel toe of your [pc.vagina] between your legs, combined with your androgynous appearance and [pc.breastSize] breasts, leads everyone to correctly assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
+                                            : "Due to [npc.her] feminine appearance and prominent camel toe, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                    Gender.N_V_TOMBOY);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"Your androgynous appearance leads everyone to correctly assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
+                                            :"Due to [npc.her] androgynous appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
+                                    Gender.N_V_TOMBOY);
+                        }
 						
 					} else {
 						if(isCoverableAreaVisible(CoverableArea.VAGINA) && isCoverableAreaVisible(CoverableArea.PENIS)) {
@@ -24431,44 +24585,84 @@ public abstract class GameCharacter implements XMLSaving {
 					
 				} else if(visiblePenis) {
 					// Exposed penis:
-					return new GenderAppearance(
-							isPlayer()
-							?"Due to your exposed [pc.penis] and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-							:"Due to [npc.her] exposed [npc.penis] and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
-							Gender.M_P_B_BUSTYBOY);
+                    if (isCamelToeVisible()) {
+                        return new GenderAppearance(
+                                isPlayer()
+                                        ? "Your exposed [pc.penis] and [pc.breastSize] breasts, combined with your prominent camel toe, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
+                                        : "[npc.Her] exposed [npc.penis] and [npc.breastSize] breasts, combined with [npc.her] prominent camel toe, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
+                                Gender.M_P_V_B_HERMAPHRODITE);
+                    } else {
+                        return new GenderAppearance(
+                                isPlayer()
+                                        ?"Due to your exposed [pc.penis] and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
+                                        :"Due to [npc.her] exposed [npc.penis] and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                Gender.M_P_B_BUSTYBOY);
+                    }
 					
 				} else {
 					// Obvious bulge:
 					if(isPenisBulgeVisible()) {
-						return new GenderAppearance(
-								isPlayer()
-								?"The [pc.cockSize] bulge between your legs, combined with your masculine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.M_P_B_BUSTYBOY);
+                        if(isCamelToeVisible()) {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.cockSize] bulge between your legs, combined with your masculine appearance, [pc.breastSize] breasts, and prominent camel toe, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
+                                            :"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, [npc.breastSize] breasts, and [npc.her] prominent camel toe, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
+                                    Gender.F_P_V_B_FUTANARI);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.cockSize] bulge between your legs, combined with your masculine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
+                                            :"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
+                                    Gender.M_P_B_BUSTYBOY);
+                        }
 						
 					} else if (isTesticleBulgeVisible()) {
-						return new GenderAppearance(
-								isPlayer()
-								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your masculine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.M_P_B_BUSTYBOY);
+                        if(isCamelToeVisible()) {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your masculine appearance, [pc.breastSize] breasts, and prominent camel toe, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
+                                            :"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, [npc.breastSize] breasts, and [npc.her] prominent camel toe, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
+                                    Gender.F_P_V_B_FUTANARI);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your masculine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
+                                            :"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
+                                    Gender.M_P_B_BUSTYBOY);
+                        }
 					}
 					
 					if(hasPenis()) {
 						// Correctly assume busty boy:
-						return new GenderAppearance(
-								isPlayer()
-								?"Your [pc.penis] is concealed, so, due to your masculine appearance and [pc.breastSize] breasts, everyone correctly assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] masculine appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
-								Gender.M_P_B_BUSTYBOY);
+                        if(isCamelToeVisible()){
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"Your [pc.penis] is concealed, so, due to your masculine appearance, prominent camel toe, and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
+                                            :"Due to [npc.her] masculine appearance, prominent camel toe, and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                    Gender.M_V_B_BUTCH);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"Your [pc.penis] is concealed, so, due to your masculine appearance and [pc.breastSize] breasts, everyone correctly assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
+                                            :"Due to [npc.her] masculine appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                    Gender.M_P_B_BUSTYBOY);
+                        }
 						
 					} else if(hasVagina()) {
-						// Assume bustyboy:
-						return new GenderAppearance(
-								isPlayer()
-								?"Your masculine appearance and [pc.breastSize] breasts leads everyone to assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to [npc.her] masculine appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.M_P_B_BUSTYBOY);
+						// Assume bustyboy if vagina is not visible:
+                        if(isCamelToeVisible()){
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"Due to your masculine appearance, prominent camel toe, and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
+                                            :"Due to [npc.her] masculine appearance, prominent camel toe, and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                    Gender.M_V_B_BUTCH);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"Your masculine appearance and [pc.breastSize] breasts leads everyone to assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
+                                            :"Due to [npc.her] masculine appearance and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
+                                    Gender.M_P_B_BUSTYBOY);
+                        }
 						
 					} else {
 						if(isCoverableAreaVisible(CoverableArea.VAGINA) && isCoverableAreaVisible(CoverableArea.PENIS)) {
@@ -24534,44 +24728,84 @@ public abstract class GameCharacter implements XMLSaving {
 					
 				} else if(visiblePenis) {
 					// Exposed penis:
-					return new GenderAppearance(
-							isPlayer()
-							?"Due to your exposed [pc.penis], everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-							:"Due to [npc.her] exposed [npc.penis], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
-							Gender.M_P_MALE);
+                    if (isCamelToeVisible()) {
+                        return new GenderAppearance(
+                                isPlayer()
+                                        ? "Your exposed [pc.penis], combined with your prominent camel toe, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
+                                        : "[npc.Her] exposed [npc.penis], combined with [npc.her] prominent camel toe, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
+                                Gender.M_P_V_HERMAPHRODITE);
+                    } else {
+                        return new GenderAppearance(
+                                isPlayer()
+                                        ?"Due to your exposed [pc.penis], everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
+                                        :"Due to [npc.her] exposed [npc.penis], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                Gender.M_P_MALE);
+                    }
 					
 				} else {
 					// Obvious bulge:
 					if(isPenisBulgeVisible()) {
-						return new GenderAppearance(
-								isPlayer()
-								?"The [pc.cockSize] bulge between your legs, combined with your masculine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.M_P_MALE);
+                        if(isCamelToeVisible()) {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.cockSize] bulge between your legs, combined with your masculine appearance and prominent camel toe, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
+                                            :"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance and [npc.her] prominent camel toe, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
+                                    Gender.M_P_V_HERMAPHRODITE);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.cockSize] bulge between your legs, combined with your masculine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
+                                            :"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
+                                    Gender.M_P_MALE);
+                        }
 						
 					} else if (isTesticleBulgeVisible()) {
-						return new GenderAppearance(
-								isPlayer()
-								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your masculine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.M_P_MALE);
+                        if(isCamelToeVisible()) {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your masculine appearance and prominent camel toe, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
+                                            :"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance and [npc.her] prominent camel toe, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
+                                    Gender.M_P_V_HERMAPHRODITE);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your masculine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
+                                            :"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
+                                    Gender.M_P_MALE);
+                        }
 					}
 					
 					if(hasPenis()) {
-						// Assume male:
-						return new GenderAppearance(
-								isPlayer()
-								?"Your [pc.penis] is concealed, so, due to your masculine appearance, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
-								:"Due to [npc.her] masculine appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
-								Gender.M_P_MALE);
+						// Assume male if camel toe is not visible:
+                        if(isCamelToeVisible()){
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"Your [pc.penis] is concealed, so, due to your masculine appearance and prominent camel toe, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
+                                            :"Due to [npc.her] masculine appearance and prominent camel toe, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                    Gender.M_V_CUNTBOY);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"Your [pc.penis] is concealed, so, due to your masculine appearance, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
+                                            :"Due to [npc.her] masculine appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                    Gender.M_P_MALE);
+                        }
 						
 					} else if(hasVagina()) {
 						// Assume male:
-						return new GenderAppearance(
-								isPlayer()
-								?"Your masculine appearance leads everyone to assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to [npc.her] masculine appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.M_P_MALE);
+                        if(isCamelToeVisible()) {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"The camel toe of your [pc.vagina] between your legs, combined with your masculine appearance, leads everyone to correctly assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
+                                            :"Due to [npc.her] masculine appearance and prominent camel toe, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
+                                    Gender.M_V_CUNTBOY);
+                        } else {
+                            return new GenderAppearance(
+                                    isPlayer()
+                                            ?"Your masculine appearance leads everyone to assume that you're [pc.a_appearsAsGender("+colouredGender+")]."
+                                            :"Due to [npc.her] masculine appearance, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
+                                    Gender.M_P_MALE);
+                        }
 						
 					} else {
 						if(isCoverableAreaVisible(CoverableArea.VAGINA) && isCoverableAreaVisible(CoverableArea.PENIS)) {
