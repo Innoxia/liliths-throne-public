@@ -113,7 +113,7 @@ public enum ItemTag {
 	// This clothing is loose around the groin area. Raises bulge requirement. E.g. Dresses and skirts.
 	LOOSE_GROIN(Util.newArrayListOfValues("[style.colourSex(Loose around the groin; helps hide genitals)]"), false),
 	// This clothing is tight around the groin area. Lowers bulge requirement. E.g. Feminine underwear and yoga pants.
-	TIGHT_GROINUtil(Util.newArrayListOfValues("[style.colourSex(Tight around the groin; helps emphasize genitals)]"), false),
+	TIGHT_GROIN(Util.newArrayListOfValues("[style.colourSex(Tight around the groin; helps emphasize genitals)]"), false),
 
 	PROVIDES_KEY( // The person who equips this clothing will get an unlock key, making the unsealing cost 0
 			Util.newArrayListOfValues(
