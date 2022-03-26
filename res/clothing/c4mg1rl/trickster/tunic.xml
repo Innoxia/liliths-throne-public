@@ -75,7 +75,8 @@
 		</tertiaryColours>
 		<tertiaryColoursDye values="ALL_METAL"/>
 		<tertiaryColoursDye/>
-		<itemTags> 
+		<itemTags>
+			<tag>LOOSE_GROIN</tag>
 			<tag>DRESS</tag>
 		</itemTags>
 	</coreAttributes>

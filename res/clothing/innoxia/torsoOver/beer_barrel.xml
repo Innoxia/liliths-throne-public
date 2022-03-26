@@ -103,6 +103,7 @@
 			<tag>HINDERS_ARM_MOVEMENT</tag>
 			<tag>HINDERS_LEG_MOVEMENT</tag>
 			<tag>PREVENTS_COMBAT_ESCAPE</tag>
+			<tag>LOOSE_GROIN</tag>
 			<tag>NOT_FOR_SALE</tag>
 		</itemTags>
 	</coreAttributes>

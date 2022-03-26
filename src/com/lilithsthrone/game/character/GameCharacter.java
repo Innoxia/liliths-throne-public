@@ -23916,11 +23916,10 @@ public abstract class GameCharacter implements XMLSaving {
         AbstractClothing penisClothing = getClothingInSlot(InventorySlot.PENIS);
 		return hasPenis()
 				&& getGenitalArrangement()==GenitalArrangement.NORMAL
+                && !(penisClothing != null && penisClothing.getItemTags().contains(ItemTag.TUCKS))
 				&& (hasPenisModifier(PenetrationModifier.SHEATHED)
-					? getPenisRawSizeValue()>=PenisLength.FOUR_HUGE.getMaximumValue()
-					: (penisClothing != null && penisClothing.getItemTags().contains(ItemTag.TUCKS)
-                        ? getPenisRawSizeValue()>= (PenisLength.THREE_LARGE.getMaximumValue() + (calculateBulgeModifier() * 5))
-                        : getPenisRawSizeValue()>= (PenisLength.TWO_AVERAGE.getMaximumValue() + (calculateBulgeModifier() * 5))));
+					? getPenisRawSizeValue()>=PenisLength.FOUR_HUGE.getMaximumValue() + (calculateBulgeModifier(InventorySlot.PENIS) * 5)
+					: getPenisRawSizeValue()>= (PenisLength.TWO_AVERAGE.getMaximumValue() + (calculateBulgeModifier(InventorySlot.PENIS) * 5)));
 	}
 	
 	public boolean isTesticleBulgeVisible() {
@@ -23928,22 +23927,38 @@ public abstract class GameCharacter implements XMLSaving {
 		return hasPenis()
 				&& getGenitalArrangement()==GenitalArrangement.NORMAL
 				&& !isInternalTesticles()
-                && (penisClothing != null && penisClothing.getItemTags().contains(ItemTag.TUCKS)
-                    ? getTesticleSize().getValue()>=(TesticleSize.FIVE_MASSIVE.getValue())
-                    : getTesticleSize().getValue()>=(TesticleSize.FOUR_HUGE.getValue() + calculateBulgeModifier()));
+                && !(penisClothing != null && penisClothing.getItemTags().contains(ItemTag.TUCKS))
+                && getTesticleSize().getValue()>=(TesticleSize.FOUR_HUGE.getValue() + calculateBulgeModifier(InventorySlot.PENIS));
 	}
 
-    private int calculateBulgeModifier() {
-        for (InventorySlot slot : new InventorySlot[]{InventorySlot.TORSO_OVER, InventorySlot.TORSO_UNDER, InventorySlot.LEG,
-                InventorySlot.GROIN}) {
+    public boolean isActualCamelToeVisible() {
+        return hasVagina()
+                && getGenitalArrangement()==GenitalArrangement.NORMAL
+                && getVaginaLabiaSize().getValue() >= LabiaSize.THREE_LARGE.getValue()
+                && calculateBulgeModifier(InventorySlot.VAGINA) == -1;
+    }
+
+    public boolean isArtificialCamelToeVisible() {
+        AbstractClothing penisClothing = getClothingInSlot(InventorySlot.PENIS);
+        return hasPenis()
+                && !(penisClothing != null && penisClothing.getItemTags().contains(ItemTag.TUCKS))
+                && getGenitalArrangement()==GenitalArrangement.NORMAL
+                && getPenisRawSizeValue()>= (PenisLength.TWO_AVERAGE.getMinimumValue())
+                && calculateBulgeModifier(InventorySlot.VAGINA) == -1;
+    }
+
+    private int calculateBulgeModifier(InventorySlot slotToCheck) {
+        for (InventorySlot slot : Util.newArrayListOfValues(InventorySlot.TORSO_OVER, InventorySlot.TORSO_UNDER, InventorySlot.LEG,
+                InventorySlot.SOCK, InventorySlot.STOMACH, InventorySlot.GROIN)) {
             AbstractClothing clothing = getClothingInSlot(slot);
-            if(clothing != null && clothing.isConcealsSlot(this, slot, slot)){
+            if(clothing != null && clothing.isConcealsSlot(this, slot, slotToCheck)){
                 Set<ItemTag> tags = clothing.getItemTags(slot);
                 if(tags.contains(ItemTag.LOOSE_GROIN)) {return 1;}
                 if(tags.contains(ItemTag.TIGHT_GROIN)) {return -1;}
                 return 0;
             }
         }
+        return 0;
     }
 	
 	private GenderAppearance calculateGenderAppearance(boolean colouredGender) {

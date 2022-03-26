@@ -55,7 +55,8 @@
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
 		
-		<itemTags> 
+		<itemTags>
+			<tag>TIGHT_GROIN</tag>
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
 	</coreAttributes>

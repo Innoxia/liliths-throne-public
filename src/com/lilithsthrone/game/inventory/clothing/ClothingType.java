@@ -456,7 +456,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.FITS_ARM_WINGS, ItemTag.FITS_FERAL_ALL_BODY)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.LOOSE_GROIN, ItemTag.FITS_ARM_WINGS, ItemTag.FITS_FERAL_ALL_BODY)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -941,7 +941,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.DRESS, ItemTag.FITS_ARM_WINGS)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.DRESS, ItemTag.LOOSE_GROIN, ItemTag.FITS_ARM_WINGS)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1057,7 +1057,7 @@ public class ClothingType {
 			ColourListPresets.ALL,
 			ColourListPresets.JUST_BLACK,
 			ColourListPresets.ALL,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.DRESS, ItemTag.FITS_ARM_WINGS)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.DRESS, ItemTag.LOOSE_GROIN, ItemTag.FITS_ARM_WINGS)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1127,7 +1127,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.FITS_ARM_WINGS)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.LOOSE_GROIN, ItemTag.FITS_ARM_WINGS)){
 	};
 
 	public static AbstractClothingType TORSO_SLIP_DRESS = new AbstractClothingType(800,
@@ -1183,7 +1183,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.DRESS, ItemTag.FITS_ARM_WINGS)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.DRESS, ItemTag.LOOSE_GROIN, ItemTag.FITS_ARM_WINGS)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1299,7 +1299,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.DRESS, ItemTag.FITS_ARM_WINGS)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.DRESS, ItemTag.LOOSE_GROIN, ItemTag.FITS_ARM_WINGS)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1413,7 +1413,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.DRESS)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.LOOSE_GROIN, ItemTag.DRESS)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1644,7 +1644,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.LOOSE_GROIN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -2844,7 +2844,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.TIGHT_GROIN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -2907,7 +2907,7 @@ public class ClothingType {
 			ColourListPresets.ALL,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.TIGHT_GROIN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -2969,7 +2969,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.TIGHT_GROIN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3034,7 +3034,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.TIGHT_GROIN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3099,7 +3099,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.TIGHT_GROIN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3164,7 +3164,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.TIGHT_GROIN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3228,7 +3228,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.TIGHT_GROIN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3358,7 +3358,7 @@ public class ClothingType {
 			ColourListPresets.ALL,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.TIGHT_GROIN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3422,7 +3422,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.TIGHT_GROIN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3776,7 +3776,7 @@ public class ClothingType {
 			ColourListPresets.ALL,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.DRESS, ItemTag.FITS_ARM_WINGS)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.DRESS, ItemTag.LOOSE_GROIN, ItemTag.FITS_ARM_WINGS)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -4179,15 +4179,15 @@ public class ClothingType {
 			ColourListPresets.ALL,
 			ColourListPresets.JUST_STEEL,
 			ColourListPresets.ALL_METAL,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.LOOSE_GROIN, ItemTag.FITS_NON_BIPED_BODY_HUMANOID)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You step into the miniskirt before pulling it up to your waist.",
+					"You [pc.verb(step)] into the miniskirt before pulling it up to your waist.",
 					"You slide the miniskirt up [npc.namePos] [npc.legs] to rest around [npc.her] waist.",
 					null,
-					"[npc.Name] steps into the miniskirt before pulling it up to [npc.her] waist.",
+					"[npc.Name] [npc.verb(step)] into the miniskirt and [npc.verb(pull)] it up to fit around [npc.her] waist.",
 					"[npc.Name] slides the miniskirt up your [pc.legs] to rest around your waist.",
 					null, null, null);
 		}
@@ -4195,11 +4195,11 @@ public class ClothingType {
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull down your miniskirt and kick it off your [pc.feet].",
-					"You pull [npc.namePos] miniskirt down and slide it off [npc.her] [npc.feet].",
+					"You pull down your miniskirt before slipping it off.",
+					"You pull down [npc.namePos] miniskirt before slipping it off.",
 					null,
-					"[npc.Name] pulls down [npc.her] miniskirt before kicking it off [npc.her] [npc.feet].",
-					"[npc.Name] pulls your miniskirt down and slides it off your [pc.feet].",
+					"[npc.Name] pulls down [npc.her] miniskirt before slipping it off.",
+					"[npc.Name] pulls down your miniskirt before slipping it off.",
 					null, null, null);
 		}
 	};
@@ -4260,7 +4260,7 @@ public class ClothingType {
 			ColourListPresets.ALL,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.DRESS, ItemTag.FITS_ARM_WINGS)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.DRESS, ItemTag.LOOSE_GROIN, ItemTag.FITS_ARM_WINGS)){
 		@Override
 		public String getAuthorDescription() {
 			return "A tag sewn to the inside of the dress reads 'Made by Blue999'";
@@ -4602,7 +4602,7 @@ public class ClothingType {
 			ColourListPresets.ALL,
 			ColourListPresets.JUST_BLACK,
 			ColourListPresets.ALL,
-			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT, ItemTag.DRESS, ItemTag.FITS_ARM_WINGS)){
+			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT, ItemTag.DRESS, ItemTag.LOOSE_GROIN, ItemTag.FITS_ARM_WINGS)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
