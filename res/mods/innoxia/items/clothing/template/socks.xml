@@ -235,7 +235,7 @@
 		<customPatternColours/>
 		
 		<!-- These tags determine where in the world your clothing can be found, and what special attributes your clothing should have. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
-		<itemTags> <!-- itemTags without a 'slot' defined will have these tags added to every equippable slot. SHould only be used for generic tags like those related to which vendors sell it. -->
+		<itemTags> <!-- itemTags without a 'slot' defined will have these tags added to every equippable slot. Should only be used for generic tags like those related to which vendors sell it. -->
 			<tag>NOT_FOR_SALE</tag>
 		</itemTags>
 		<itemTags slot="HAND"> <!-- itemTags with a 'slot' defined will have these tags applied ONLY when the clothing is equipped into that slot. In this example, equipping the socks onto your hands hinders arm movement. This is not entirely logical, and I added this just for demonstration purposes. -->

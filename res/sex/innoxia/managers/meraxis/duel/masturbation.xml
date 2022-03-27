@@ -171,6 +171,11 @@
 				PARSER: Initial -->
 			<canChangePositions><![CDATA[false]]></canChangePositions>
 			
+			<!-- Whether or not this character is able to swap positions with another character.
+				OPTIONAL: Default true
+				PARSER: Initial -->
+			<canSwapPositions><![CDATA[false]]></canSwapPositions>
+			
 			<!-- Whether or not this character gains or loses affection towards their partners at the end of this sex scene.
 				OPTIONAL: Default true
 				PARSER: Initial -->
@@ -354,8 +359,9 @@
 			<orgasmEncourageBehaviours/>
 			
 			<!-- You can define which areas of this character are concealed from view to other characters here, which is really only useful for scenes such as gloryholes, where partners will only have small sections of themselves visible.
+				The optional 'exclusive' attribute (defaults to false) defines whether these slots are excluded from all slots being hidden (true), or whether they are the only slots hidden (false).
 					e.g. (For just feet being hidden from meraxis for some reason)
-						<concealedSlots>
+						<concealedSlots exclusive="false">
 							<viewingCharacter id="meraxis">
 								<inventorySlot><![CDATA[FOOT]]></inventorySlot>
 							</viewingCharacter>

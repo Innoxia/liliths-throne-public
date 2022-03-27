@@ -345,8 +345,15 @@ public class DialogueFlags implements XMLSaving {
 		}
 	}
 
-	public void dailyReset() {
-		values.removeIf((flag)->flag.isDailyReset());
+	public void applyTimePassingResets(int startHour, int hoursPassed) {
+		for(AbstractDialogueFlagValue flag : new HashSet<>(values)) {
+			if(flag.getResetHour()>-1) {
+				if((startHour<flag.getResetHour() && startHour+hoursPassed>=flag.getResetHour())
+						|| ((startHour-24)+hoursPassed>=flag.getResetHour())) {
+					values.remove(flag);
+				}
+			}
+		}
 	}
 
 	public boolean hasFlag(AbstractDialogueFlagValue flag) {

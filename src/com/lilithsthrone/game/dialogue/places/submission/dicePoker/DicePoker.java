@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.submission.GamblingDenPatron;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -75,7 +76,7 @@ public class DicePoker {
 		diceToReroll.addAll(playerDice);
 		diceToReroll.addAll(gamblerDice);
 		
-		gambler.setPlayerKnowsName(true);
+//		gambler.setPlayerKnowsName(true);
 		
 		return START;
 	}
@@ -213,8 +214,88 @@ public class DicePoker {
 		diceToReroll.addAll(rerollDice);
 	}
 	
+	/**
+	 * For use in external dialogue files.
+	 */
+	public static final DialogueNode GAMBLING = new DialogueNode("Dice Poker Tables", "", false) {
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			List<NPC> gamblers = Main.game.getNonCompanionCharactersPresent();
+			
+			if(index==0) {
+				return null;
+				
+			} else if(index==gamblers.size()+1){
+				return new Response("Rules", "Take a look at a nearby sign which displays the rules of dice poker.", GAMBLING_RULES);
+				
+			} else {
+				try {
+					gamblers.sort((g1, g2) -> ((GamblingDenPatron) g1).getTable().compareTo(((GamblingDenPatron) g2).getTable()));
+				} catch(Exception ex) {
+				}
+				
+				if(index-1<gamblers.size()) {
+					NPC gambler = gamblers.get(index-1);
+					DicePokerTable table = 
+							(gambler instanceof GamblingDenPatron && ((GamblingDenPatron) gambler).getTable()!=null)
+								?((GamblingDenPatron) gambler).getTable()
+								:DicePokerTable.COPPER;
+					int buyIn = table.getInitialBet()+table.getRaiseAmount();
+					if(Main.game.getPlayer().getMoney()>=buyIn) {
+						return new ResponseEffectsOnly(
+								"<span style='color:"+table.getColour().toWebHexString()+";'>"+UtilText.parse(gambler, "[npc.Name(a)]")+"</span> ("+UtilText.formatAsMoney(buyIn, "span")+")",
+								UtilText.parse(gambler,
+										"Start playing dice poker with [npc.name]. The buy-in amount is "+UtilText.formatAsMoney(table.getInitialBet(), "span")
+										+", but you'll also need "+UtilText.formatAsMoney(table.getRaiseAmount(), "span")+" for any raises.")) {
+							@Override
+							public void effects() {
+								Main.game.setContent(new Response("", "", DicePoker.initDicePoker(gambler, table, Main.game.getDefaultDialogue(), "misc/dicePoker")));
+							}
+						};
+						
+					} else {
+						return new Response(gambler.getName(true)+" ("+UtilText.formatAsMoneyUncoloured(buyIn, "span")+")",
+								"The buy-in amount is "+UtilText.formatAsMoney(table.getInitialBet(), "span")
+								+", but you'll also need "+UtilText.formatAsMoney(table.getRaiseAmount(), "span")+" for any raises. As a result, you don't have enough money to play at this table!",
+								null);
+					}
+					
+				} else {
+					return null;
+				}
+			}
+		}
+	};
+
+	public static final DialogueNode GAMBLING_RULES = new DialogueNode("Dice Poker Tables", "", true) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "GAMBLING_RULES");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==0) {
+				return new Response("Back", "Finish reading the rules and [pc.step] back from the sign.", Main.game.getDefaultDialogue());
+			}
+			return null;
+		}
+	};
+	
 	private static final DialogueNode START = new DialogueNode("Dice Poker", "", true) {
-		
+		@Override
+		public void applyPreParsingEffects() {
+			UtilText.addSpecialParsingString(table.getName(), true);
+			UtilText.addSpecialParsingString(UtilText.formatAsMoney(table.getInitialBet(), "span"), false);
+			
+			Main.game.appendToTextStartStringBuilder(getGamblingFormat(buyInDescription
+					+UtilText.parseFromXMLFile(dialoguePath, "START", gambler)));
+			
+			gambler.setPlayerKnowsName(true);
+		}
 		@Override
 		public String getLabel() {
 			return "Dice Poker - <b style='color:"+table.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(table.getName())+" Table</b>";
@@ -222,11 +303,7 @@ public class DicePoker {
 		
 		@Override
 		public String getContent() {
-			UtilText.addSpecialParsingString(table.getName(), true);
-			UtilText.addSpecialParsingString(UtilText.formatAsMoney(table.getInitialBet(), "span"), false);
-			
-			return getGamblingFormat(buyInDescription
-					+UtilText.parseFromXMLFile(dialoguePath, "START", gambler));
+			return "";
 		}
 
 		@Override
@@ -530,12 +607,14 @@ public class DicePoker {
 	};
 
 	private static final DialogueNode END_LOSS_AFTER_SEX = new DialogueNode("Finished", "", true) {
-		
+		@Override
+		public String getDescription() {
+			return UtilText.parse(gambler, "[npc.Name] has had [npc.her] fun, and so brings an end to the sex...");
+		}
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile(dialoguePath, "END_LOSS_AFTER_SEX", gambler);
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {

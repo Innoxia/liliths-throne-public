@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexManager>
+	<deskName><![CDATA[table]]></deskName>
+	<title/>
+	<consensual><![CDATA[true]]></consensual>
+	<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+	<canSkipSex><![CDATA[true]]></canSkipSex>
+	<washingScene><![CDATA[false]]></washingScene>
+	<sadisticActionsAllowed><![CDATA[true]]></sadisticActionsAllowed>
+	<canItemsBeUsed><![CDATA[true]]></canItemsBeUsed>
+	<exposingReactions><![CDATA[false]]></exposingReactions>
+	<positionsAvailable exclusive="false">
+		<position><![CDATA[OVER_DESK]]></position>
+	</positionsAvailable>
+	<publicSex>
+		<isPublic><![CDATA[true]]></isPublic>
+		<startingDescription><![CDATA[
+			A number of the tavern's nearby patrons sit back and enjoy the show that you and [oglixElemental.name] are putting on for them...
+		]]></startingDescription>
+		<randomDescriptions enabled="true">
+			<description><![CDATA[A couple of nearby spectators loudly laugh and cheer at your lewd display.]]></description>
+			<description><![CDATA[You hear someone in the tavern wolf-whistling as they watch you and [oglixElemental.name] go at it.]]></description>
+			<description><![CDATA[Over the sound of laughter and drunken cheers, you somehow manage to hear someone nearby commenting on your performance.]]></description>
+			<description><![CDATA[Cheering and laughing, the crowd which has gathered around you encourage [oglixElemental.name] to give you a good, hard fuck.]]></description>
+			<description><![CDATA[You glance across to see a couple of drunks touching themselves as they watch you and [oglixElemental.name] having sex.]]></description>
+		</randomDescriptions>
+	</publicSex>
+	<characterInformationContainer>
+		<characterInformation>
+			<characterId>pc</characterId>
+			<slotsAvailable excluded="false">
+				<slot><![CDATA[OVER_DESK_OVER_DESK_ON_FRONT]]></slot>
+			</slotsAvailable>
+			<canStopSex><![CDATA[false]]></canStopSex>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace/>
+			<canSelfTransform><![CDATA[true]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control><![CDATA[SELF]]></control>
+			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart preferRemoval="false">
+				<coverableArea><![CDATA[
+					#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+						VAGINA
+					#ELSEIF(game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+						ANUS
+					#ELSE
+						MOUTH
+					#ENDIF
+				]]></coverableArea>
+			</exposeAtStart>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmCumTargetsBlocked/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<preferences/>
+			<uniqueSexActions/>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk/>
+		</characterInformation>
+		
+		<characterInformation>
+			<characterId>oglixElemental</characterId>
+			<slotsAvailable excluded="false">
+				<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+				<slot><![CDATA[OVER_DESK_RECEIVING_ORAL]]></slot>
+			</slotsAvailable>
+			<canStopSex><![CDATA[true]]></canStopSex>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace locked="true"><![CDATA[DOM_ROUGH]]></sexPace>
+			<canSelfTransform><![CDATA[true]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control/>
+			<sexClothingEquippable><![CDATA[false]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart/>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmCumTargetsBlocked/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<preferences>
+				<character id="pc">
+					<foreplay copyForMain="true">
+						<performing><![CDATA[
+							PENETRATION_PENIS
+						]]></performing>
+						<targeted><![CDATA[
+							#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+								ORIFICE_VAGINA
+							#ELSEIF(game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+								ORIFICE_ANUS
+							#ELSE
+								ORIFICE_MOUTH
+							#ENDIF
+						]]></targeted>
+					</foreplay>
+				</character>
+			</preferences>
+			<uniqueSexActions/>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk>
+				<character id="pc">
+					<standard additionToDefault="false">
+						<line><![CDATA[Take your punishment, you bad [pc.girl]!]]></line>
+						<line><![CDATA[Remember this! Remember how good my cock feels!]]></line>
+						<line><![CDATA[This is your punishment!]]></line>
+						<line><![CDATA[You've been a bad [pc.girl]!]]></line>
+						<line><![CDATA[Don't ever forget this!]]></line>
+					</standard>
+				</character>
+			</dirtyTalk>
+		</characterInformation>
+		
+	</characterInformationContainer>
+		
+</sexManager>

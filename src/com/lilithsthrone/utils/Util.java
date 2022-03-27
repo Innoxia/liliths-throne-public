@@ -1216,9 +1216,15 @@ public class Util {
 		
 		slovenlySpeechReplacementMap.put("Yes", "Yeah");
 		slovenlySpeechReplacementMap.put("yes", "yeah");
-		
+
 		slovenlySpeechReplacementMap.put("Hurry", "'Urry");
 		slovenlySpeechReplacementMap.put("hurry", "'urry");
+		
+		slovenlySpeechReplacementMap.put("Doesn't", "Don't");
+		slovenlySpeechReplacementMap.put("doesn't", "don't");
+		
+		slovenlySpeechReplacementMap.put("Because", "'Cause");
+		slovenlySpeechReplacementMap.put("because", "'cause");
 	}
 	/**
 	 * Replaces words in the sentence to give the impression that the speaker is talking in a slovenly manner. The replacements are:
@@ -1261,6 +1267,8 @@ public class Util {
 			<br/>Very -> Real
 			<br/>Yes -> Yeah
 			<br/>Hurry -> 'Urry
+			<br/>Doesn't -> Don't
+			<br/>Because -> 'Cause
 	 *
 	 * @param sentence The speech to which the lisp should be applied.
 	 * @return The modified sentence.
