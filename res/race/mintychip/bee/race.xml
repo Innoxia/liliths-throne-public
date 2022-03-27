@@ -8,13 +8,13 @@
 		#IF(RND.nextInt(100)<10 || targetedBody.getRaceStage()==RACE_STAGE_GREATER)
 			[#targetedBody.getArm().setArmRows(null, 2)]
 		#ENDIF
-		#IF((targetedBody.hasPenis()) && (RND.nextInt(100)<90))
-			[#targetedBody.setMuscle(targetedBody.getMuscle()*0.75)]
-			[#targetedBody.setBodySize(targetedBody.getBodySize()*0.75)]
-			[#targetedBody.setHeight(targetedBody.getHeightValue()*0.97)]
-		#ENDIF
-		#IF(targetedBody.hasVagina() && targetedBody.hasPenis())
-			[#targetedBody.addPenisModifier(PENETRATION_MODIFIER_OVIPOSITOR)]
+		#IF(targetedBody.hasVagina())
+			#IF(targetedBody.hasPenis())
+				[#targetedBody.addPenisModifier(PENETRATION_MODIFIER_OVIPOSITOR)]
+			#ELSE
+				[#targetedBody.getVagina().getClitoris().addClitorisModifier(null, PENETRATION_MODIFIER_OVIPOSITOR)]
+				[#targetedBody.getVagina().getClitoris().setClitorisSize(null, 10 + RND.nextInt(16))]
+			#ENDIF
 		#ENDIF
 	]]></applyRaceChanges>
 	<name><![CDATA[bee-morph]]></name>

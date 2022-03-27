@@ -284,6 +284,17 @@ public class Clitoris implements BodyPartInterface {
 	}
 
 	public String addClitorisModifier(GameCharacter owner, PenetrationModifier modifier) {
+		//
+		if(owner == null) {
+			clitModifiers.add(modifier);
+			for(PenetrationModifier pm : modifier.getMutuallyExclusivePenetrationModifiers()) {
+				if(hasClitorisModifier(pm)) {
+					clitModifiers.remove(pm);
+				}
+			}
+			return "";
+		}
+
 		if(hasClitorisModifier(modifier)) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
@@ -297,9 +308,9 @@ public class Clitoris implements BodyPartInterface {
 		}
 		
 		clitModifiers.add(modifier);
-		
+
 		List<String> pmsRemoved = new ArrayList<>();
-		
+
 		for(PenetrationModifier pm : modifier.getMutuallyExclusivePenetrationModifiers()) {
 			if(hasClitorisModifier(pm)) {
 				pmsRemoved.add(pm.getName());

@@ -18,10 +18,10 @@
 	<bodyHair>mintychip_bee_body_hair</bodyHair>
 	
 	<genitalArrangement>NORMAL</genitalArrangement>
-	<maleHeight>180</maleHeight>
+	<maleHeight>165</maleHeight>
 	<maleFemininity>35</maleFemininity>
-	<maleBodySize>50</maleBodySize>
-	<maleMuscle>60</maleMuscle>
+	<maleBodySize>35</maleBodySize>
+	<maleMuscle>45</maleMuscle>
 	<femaleHeight>175</femaleHeight>
 	<femaleFemininity>85</femaleFemininity>
 	<femaleBodySize>50</femaleBodySize>
