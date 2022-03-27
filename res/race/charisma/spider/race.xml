@@ -5,14 +5,6 @@
 		#IF(RND.nextInt(100)<50 && targetedBody.getRaceStage()==RACE_STAGE_GREATER)
 			[#targetedBody.setArmRows(3)]
 		#ENDIF
-		#IF(targetedBody.hasVagina())
-			#IF(targetedBody.hasPenis())
-				[#targetedBody.addPenisModifier(PENETRATION_MODIFIER_OVIPOSITOR)]
-			#ELSE
-				[#targetedBody.getVagina().getClitoris().addClitorisModifier(null, PENETRATION_MODIFIER_OVIPOSITOR)]
-				[#targetedBody.getVagina().getClitoris().setClitorisSize(null, 12 + RND.nextInt(16))]
-			#ENDIF
-		#ENDIF
 	]]></applyRaceChanges>
 	<name><![CDATA[spider-morph]]></name>
 	<namePlural><![CDATA[spider-morphs]]></namePlural>

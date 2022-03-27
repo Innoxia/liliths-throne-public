@@ -28,6 +28,9 @@
 		#IF(targetedBody.getTorsoType()==TORSO_TYPE_charisma_spider_torso)
 			[#targetedBody.setTorsoType(TORSO_TYPE_charisma_spider_torsoFluffy)]
 		#ENDIF
+		#IF(targetedBody.hasVagina() && targetedBody.hasPenis())
+			[#targetedBody.addPenisModifier(PENETRATION_MODIFIER_OVIPOSITOR)]
+		#ENDIF
 		[#targetedBody.setCoveringModifier(BODY_COVERING_TYPE_charisma_spider_chitinFluffy, true, COVERING_MODIFIER_FLUFFY)]
 	]]></applySubspeciesChanges>
 	<subspeciesWeighting><![CDATA[
