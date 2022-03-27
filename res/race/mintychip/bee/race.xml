@@ -8,7 +8,7 @@
 		#IF(RND.nextInt(100)<10 || targetedBody.getRaceStage()==RACE_STAGE_GREATER)
 			[#targetedBody.getArm().setArmRows(null, 2)]
 		#ENDIF
-		#IF(targetedBody.hasVagina())
+		#IF(targetedBody.hasVagina() && targetedBody.getRaceStage()!=RACE_STAGE_PARTIAL)
 			#IF(targetedBody.hasPenis())
 				[#targetedBody.addPenisModifier(PENETRATION_MODIFIER_OVIPOSITOR)]
 			#ELSE
