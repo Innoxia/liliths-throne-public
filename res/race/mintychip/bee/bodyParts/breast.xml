@@ -40,11 +40,11 @@
 	
 	
 	<crotchBoobsTransformationDescription><![CDATA[ [##npc.getCovering(BODY_COVERING_TYPE_MILK).setPrimaryColour(COLOUR_COVERING_AMBER)]
-		[npc.She] now [npc.has] [style.boldBee(bee-like)], [npc.crotchNipplesFullDescription], and when lactating, [npc.she] will produce [style.boldBee(bee honey)].
+		[npc.She] now [npc.has] [style.boldBee(mammal-like)], [npc.crotchNipplesFullDescription], and when lactating, [npc.she] will produce [style.boldBee(bee honey)].
 	]]></crotchBoobsTransformationDescription>
 	
 	<crotchBoobsBodyDescription><![CDATA[
-		On each of [npc.her] [npc.crotchBoobSize] [npc.crotchBoobs], [npc.she] [npc.has] [npc.crotchNipplesPerBreast] bee-like, [npc.crotchNipplesFullDescription].
+		On each of [npc.her] [npc.crotchBoobSize] [npc.crotchBoobs], [npc.she] [npc.has] [npc.crotchNipplesPerBreast] [npc.crotchNipplesFullDescription].
 	]]></crotchBoobsBodyDescription>
 	
 </breast>

@@ -5,12 +5,12 @@
 		#IF(RND.nextInt(100)<50 && targetedBody.getRaceStage()==RACE_STAGE_GREATER)
 			[#targetedBody.setArmRows(3)]
 		#ENDIF
-		#IF(targetedBody.hasVagina())
+		#IF(targetedBody.hasVagina() && targetedBody.getVagina().isEggLayer())
     		#IF(targetedBody.hasPenis())
             	 [#targetedBody.addPenisModifier(PENETRATION_MODIFIER_OVIPOSITOR)]
-    		#ELSEIF(targetedBody.getRaceStage()!=RACE_STAGE_PARTIAL)
+    		#ELSE
             	 [#targetedBody.getVagina().getClitoris().addClitorisModifier(null, PENETRATION_MODIFIER_OVIPOSITOR)]
-            	 [#targetedBody.getVagina().getClitoris().setClitorisSize(null, 12 + RND.nextInt(16))]
+            	 [#targetedBody.getVagina().getClitoris().setClitorisSize(null, 20 + RND.nextInt(12))]
     		#ENDIF
  		#ENDIF
 	]]></applyRaceChanges>
