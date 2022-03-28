@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.eventLog;
 
-import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.BaseColour;
 import com.lilithsthrone.utils.colours.Colour;
@@ -15,11 +14,11 @@ public class EventLogEntryEncyclopediaUnlock extends EventLogEntry {
 
 	
 	public EventLogEntryEncyclopediaUnlock(String description, Colour highlightDescriptionColour) {
-		super(Main.game.getMinutesPassed(), "Encyclopedia",  "<span style='color:"+highlightDescriptionColour.toWebHexString()+";'>"+Util.capitaliseSentence(description)+"</span>");
+		super("Encyclopedia",  "<span style='color:"+highlightDescriptionColour.toWebHexString()+";'>"+Util.capitaliseSentence(description)+"</span>");
 	}
 	
 	public EventLogEntryEncyclopediaUnlock(String description, BaseColour highlightDescriptionColour) {
-		super(Main.game.getMinutesPassed(), "Encyclopedia",  "<span style='color:"+highlightDescriptionColour.toWebHexString()+";'>"+Util.capitaliseSentence(description)+"</span>");
+		super("Encyclopedia",  "<span style='color:"+highlightDescriptionColour.toWebHexString()+";'>"+Util.capitaliseSentence(description)+"</span>");
 	}
 	
 	@Override

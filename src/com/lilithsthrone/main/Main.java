@@ -86,7 +86,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4.2.5";
+	public static final String VERSION_NUMBER = "0.4.3.9";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -175,6 +175,9 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Fox-Sama", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Riaten", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("John Guardian", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("LemonMuffin", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("AuRah", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("shotgunlo", "", 0, 0, 0, 0, Subspecies.DEMON));
 		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
@@ -840,9 +843,9 @@ public class Main extends Application {
 			properties.money = game.getPlayer().getMoney();
 			properties.arcaneEssences = game.getPlayer().getEssenceCount();
 			if (game.getPlayer().isFeminine()) {
-				properties.race = game.getPlayer().getSubspecies().getSingularFemaleName(game.getPlayer());
+				properties.race = game.getPlayer().getSubspecies().getSingularFemaleName(game.getPlayer().getBody());
 			} else {
-				properties.race = game.getPlayer().getSubspecies().getSingularMaleName(game.getPlayer());
+				properties.race = game.getPlayer().getSubspecies().getSingularMaleName(game.getPlayer().getBody());
 			}
 			properties.quest = game.getPlayer().getQuest(QuestLine.MAIN).getName();
 

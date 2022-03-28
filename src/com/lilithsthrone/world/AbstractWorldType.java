@@ -47,6 +47,8 @@ public abstract class AbstractWorldType {
 	private boolean wallsPresent;
 	private String wallName;
 
+	private String offspringTextFilePath;
+
 	private AbstractPlaceType globalMapLocation;
 	private AbstractPlaceType standardPlace;
 	private AbstractPlaceType entryFromGlobalMapLocation;
@@ -85,6 +87,8 @@ public abstract class AbstractWorldType {
 		this.deskName = "desk";
 		this.wallsPresent = true; // Default to true for hard coded values, as these are all Dominion/Submission (which obviously have walls)
 		this.wallName = "wall";
+		
+		this.offspringTextFilePath = "characters/offspring/dominionAlleyway";
 		
 		this.teleportPermissions = teleportPermissions;
 		
@@ -166,6 +170,13 @@ public abstract class AbstractWorldType {
 					}
 				}
 				
+				this.offspringTextFilePath = "characters/offspring/dominionAlleyway";
+				if(coreElement.getOptionalFirstOf("offspringTextFilePath").isPresent()) {
+					if(!coreElement.getMandatoryFirstOf("offspringTextFilePath").getTextContent().isEmpty()) {
+						this.offspringTextFilePath = coreElement.getMandatoryFirstOf("offspringTextFilePath").getTextContent();
+					}
+				}
+				
 			} catch(Exception ex) {
 				ex.printStackTrace();
 				System.err.println("WorldType was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
@@ -202,7 +213,7 @@ public abstract class AbstractWorldType {
 	}
 
 	public String getOffspringTextFilePath(NPCOffspring o) {
-		return "characters/offspring/dominionAlleyway";
+		return offspringTextFilePath;
 	}
 
 	public boolean isMod() {

@@ -57,7 +57,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class EnforcerPatrol extends NPC {
 
 	public EnforcerPatrol() {
-		this(Occupation.NPC_ENFORCER_PATROL_CONSTABLE, Gender.F_V_B_FEMALE, false);
+		this(Occupation.NPC_ENFORCER_PATROL_CONSTABLE, Gender.getGenderFromUserPreferences(false, false), false);
 	}
 	
 	public EnforcerPatrol(boolean isImported) {
@@ -94,7 +94,7 @@ public class EnforcerPatrol extends NPC {
 			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, false);
 			
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f) { // Half-demon spawn rate
-				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getFleshSubspecies(), true), true);
+				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getBody().getFleshSubspecies(), true), true);
 			}
 			
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f

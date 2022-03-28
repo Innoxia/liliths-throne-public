@@ -126,7 +126,8 @@ public class WorldType {
 					new Value<>(new Color(0x4bff00), PlaceType.DOMINION_PARK),
 					new Value<>(new Color(0xff4000), PlaceType.DOMINION_RED_LIGHT_DISTRICT),
 					new Value<>(new Color(0xffbf00), PlaceType.DOMINION_HOME_IMPROVEMENT),
-					new Value<>(new Color(0xff0080), PlaceType.DOMINION_WAREHOUSES))) {
+					new Value<>(new Color(0xff0080), PlaceType.DOMINION_WAREHOUSES),
+					new Value<>(new Color(0x8d454e), PlaceType.DOMINION_CALLIE_BAKERY))) {
 	};
 	
 	public static AbstractWorldType EMPTY = new AbstractWorldType(WorldRegion.MISC,
@@ -1169,7 +1170,7 @@ public class WorldType {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
 				try {
 					AbstractWorldType worldType = new AbstractWorldType(innerEntry.getValue(), entry.getKey(), false) {};
-					String id = "innoxia_"+innerEntry.getKey().replace("_worldType", "");
+					String id = innerEntry.getKey().replace("_worldType", "");
 					allWorldTypes.add(worldType);
 					worldToIdMap.put(worldType, id);
 					idToWorldMap.put(id, worldType);

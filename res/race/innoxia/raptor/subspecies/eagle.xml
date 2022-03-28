@@ -16,7 +16,7 @@
 		#IF(targetedBody.getLegType().getRace()==RACE_innoxia_raptor)
 			[#targetedBody.setLegType(LEG_TYPE_innoxia_raptor_leg_large)]
 		#ENDIF
-		[#targetedBody.setHeight(targetedBody.getHeightValue()*1.25)]
+		[#targetedBody.setHeight(targetedBody.getHeightValue()*1.1)]
 		#IF(targetedBody.getBodySize()<40)
 			[#targetedBody.setBodySize(targetedBody.getBodySize()+10)]
 		#ENDIF

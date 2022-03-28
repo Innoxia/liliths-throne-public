@@ -5,9 +5,27 @@ In this text file I keep track of reported bugs and features that I am working o
 Not everything in this file is up-to-date, and everything is subject to change at a later date.
 	
 	- Repeat alleyway
-		after 3 subs in a row, can agree to be their bitch (reveals their name, new options when meeting them again)
-			for demons in dark alleyways, they use telepathic suggestion to increase your corruption 
-		after 3 doms in a row, can force them to accept being your bitch (reveals their name - you can rename them, new options)
+		[] after 3 subs in a row, can agree to be their bitch
+			[] reveals their name
+			[] when meeting them again, random demand:
+				[] give money
+				[] fucked
+				[] tag along to assist in mugging
+					[] fight
+					[] watch or join sex
+				[] pimped out
+					[] their friend fucks you
+				[] for demons in dark alleyways, they use telepathic suggestion to increase your corruption
+			[] all demands have option to refuse, which leads into fight
+				[] victory, no longer bitch
+				[] loss, fucked
+		[] after 3 doms in a row, can force them to accept being your bitch
+			[] reveals their name
+			[] new options
+				[] rename them
+				[] fuck them
+				[] manage inventory
+				[] remove them
 	
 	- Pregnancy mechanics update
 		Cycle, heat/rut(?)
@@ -17,236 +35,306 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	Contributors:
-		Fixed issue where characters without vaginas would spawn with the pure virgin fetish. (by Maxis)
-		Implemented new way of handling offspring who haven't yet been met, significantly improving turn time performance and save file size in games in which you have a lot of unmet offspring. (PR#1622 by AceXP)
-	
 	Engine/Modding:
-		Added new BodyPartTag values 'TAIL_ATTACK' and 'TAIL_VENOMOUS_STING' for future use in bee/scorpion/etc. tails.
-		Added several 'CAFFEINATED_' ItemTags for use in defining consumable items as being caffeinated (so that they can apply intoxication effects to spider-morphs).
+		Added 'escapeBlocked' variable to combat responses, allowing you to block the availability of the escape action during that combat scene.
+		Added 'resetHour' attribute support to dialogue flags, allowing you to define the hour at which dialogue flags reset, instead of only being able to reset them at midnight.
 	
 	Gameplay:
-		Added characters and basic trading actions for the last remaining shops in Elis's shopping precint, Wall's End. (More content for each store will be added later.)
-		Added a new 'raptor' race which includes the subspecies: falcons (default); eagles; bald eagles (converted from harpy race); and owls.
-		Added 'Raptor energy drink' and 'Raptor energy bar' as new drink and food items for the new raptor race.
-		Added a new 'mouse' race which includes just one 'mouse' subspecies.
-		Added 'Harvest Mouse's barley water' and 'Harvest Mouse's cheese' as new drink and food items for the new mouse race.
-	
-	Clothing:
-		Added 'safety glasses' (scientist set, eye slot, androgynous, sold by Nyan).
-	
-	Sex:
-		NPCs will now only use the orgasm denial action during sex if they have the orgasm denial fetish. (Previously, all that they needed was to have a positive desire towards that fetish.)
+		Added 'The Crossed Blades' tavern in the alleyways of northern Elis.
 	
 	Other:
-		Changed references to beer and cider bottles to being on tap in the two pubs in Elis.
-		Changed Mintallys's Sunday milk flavour/theme from grape/purple to cherry/red.
-		Gave Amber a lore-friendly demonic surname.
-		Lyssieth's dominant and submissive sex options are no longer tied to her using her pussy or growing a cock, and instead you can request that she use her pussy or grow her cock for both dominant and submissive sex scenes.
+		Added 'light orange' as a new body covering colour.
+		Renamed 'alcoholic' fluid modifier to 'strongly alcoholic', and added a new 'alcoholic' fluid modifier, which applies intoxication at a rate 10 times slower than the old, 'strongly alcoholic' modifier.
 	
 	Bugs:
 		Parsing fixes.
-		Fixed issue where you could use orgasmic level drain during bad end sex scenes.
-		Fixed (harmless) background errors being thrown when starting a new game, caused by failing to parse vagina types before the game had fully initialised.
-		Your offspring who have been incubated by someone else are now correctly counted as part of the 'Total offspring' count in the phone menu's pregnancy stats screen.
-		Fixed issue where you could ask Dale about Monica's milker before even having started Monica's quest.
-		Fixed issue with several attributes in xml-defined responses (such as for fetish/perk requirements, sex, combat, and trading), where the first definition of these attributes would be used for all subsequent responses.
 	
 	
 	
-	[x] 'underside of your feral a spider's body'
-	[x] fix incubation total offspring count
-	[x] parsing issues in encourage creampie/pullout
-	[x] once again able to use some basic telek
-	[x] Change description of beer and ale in pubs to be on tap
-	[x] Minotallys grape milk
-	[x] Amber needs correct surname
-	[-] Improve random racial TF potion to filter out TFs which will do nothing
-	[-] cannot egg spinnerets?
-		com/lilithsthrone/game/sex/sexActions/baseActionsMisc/GenericOrgasms.java:3611
-		Disabled action, and I'm fairly sure that some of the dialog for spinneret sex is missing
-	[x] Doggy-style you: "he grips your womanly hips and pulls his rump back against his groin, groaning"
-	[x] Wanting to check the new Dairy content I went there and noticed that when interacting with Dale, the option to ask about the milker was present, even though I hadn't started the quest or even met Monika.
-		I got the milker, and went to the clothing store and sure enough, the Monika NPC introduced herself to me and eventually introduced the quest. I was able to complete it on the spot because I had the milker
-	[x] decouple pussy/cock to sub/dom for Lyssieth sex
-		[x] sex dom/sub actions
-			[x] grow penis option
-	[x] NPCs denying orgasms even without fetish?
-	[x] Bird-morph rework:
-		Split harpy race to add Raptors
-			[x] Items
-				[x] Food - chicken wings
-				[x] Drink - energy drink
-			[x] Coverings
-			[x] Parts
-				[x] Check for boldRaptor
-			[x] Subspecies 
-				[x] Falcon: standard
-				[x] Eagle: Large feet
-					[x] Powerful legs
-				[x] Owl
-					[x] Large eyes
-			[x] Book entries
-		[x] Convert bald eagle
-	[x] Need caffeinated tag for drinks
-		[x] Apply to squirrel, spider, raptor
-		[x] Convert spider
-		[x] Item view doesn't show text for special effects from item tags
-	[x] Mice
-		[x] Icon
-		[x] Items
-			[x] Barley water
-			[x] Cheese
-		[x] Race/body
-		[x] Coverings
-		[x] Parts
-		[x] Subspecies
-		[x] Book entries
-		[x] testing
-	[x] MAKE A POST!!!
-	[x] owl subspecies not being applied...
-		if(this.isFromExternalFile() && Main.game.isStarted()) {
-	[x] owl/eagle colours
-	[x] Add body size to eagles
-	[x] bald-eagle to eagle should change hair colour to feather colour
 	
-	[] Wall's End
-		[x] Move Monica's content to a new file
-		[x] Add files for each shop
-		[] The Barn
-				[x] Staffed by generic mouse-boys in day, and a greater female owl-harpy at night
-				[x] Add owl subspecies (large eyes)
-				[x] Add mice
-			[x] Owl-girl
-			[x] Ceridwen is tired during day, alert at night
-			[x] Enter
-				[x] Repeat, she stalks you
-				[x] First time, she silently ambushes you and comments on the player's demon/unique appearance
-					[x] After introduction, she starts stalking you
-			[x] Trade
-			[x] Talk
-				[x] 'The Barn' name
-					[x] Named after where she used to live out in the fields
-				[x] Selection of goods
-					[x] She gets them from Dominion - her less sociable sisters fly there to pick up goods, avoiding the marauders on their way
-				[x] Mouse-morphs
-					[x] They were a family of farmers near her old home, and after Lunette's marauders burnt down their farm, she offered to employ them
-					[x] They're very timid when Ceridwen isn't around, so she stays in the store 24/7 to make them feel at ease
-					[x] Says that she wishes she could go home, but she puts her friends first
-			[x] TEST
-		[x] The Ninth Strike
-			[x] 2 greater furry male baphomets who hold a serious grudge against Lunette.
-				[x] Imsu Lisophiamartu
-					- black fur/red eyes
-					- melee weapons
-				[x] Hale Loviennemartu
-					- grey fur/yellow eyes
-					- ranged weapons
-			[x] Trade
-				[x] Give them arcane hammers to sell
-			[x] Talk
-				[x] History
-					They were competing blacksmiths in two villages (making ), who were extremely well-renowned and always in high demand
-					Their villages were the first to be destroyed by Lunette, and they lost everything
-					Managed to escape and forged a pact to get their revenge on Lunette
-				[x] Ninth Strike
-					They are trying to discover the technique which the Youko are said to possess, whereby working an enchantment into a weapon in nine strikes (hence the name) can make a weapon powerful enough to defeat Lunette
-					Need to find a nine-tailed youko to teach them this technique
-				[x] Quest action
-		[] Woolly Heaven
-			[x] Beauticians/Spa/brothel
-				[x] Penelope: border-collie-girl futa (described as being extremely attractive - her effortless beauty reminds you of the same sort of aura that Helena has)
-					- posh accent
-					- feminine sweater and skirt
-				[x] Employees are all sheep-girls
-			[x] Covering change/piercings/tattoos (kate services)
-				[x] Move Kate's dialogues to a generic class
-				[x] add support for accessing these dialogues from xml
-				[x] test
-					[x] Issue with tattoo menu
-					[x] post-enchanting tattoos leads into Kate scenes
-					[x] coverings errors
-					[x] need action grey-out when in associated dialogue
-			[x] Talk
-				[x] Pix's sister
-				[x] Did some modelling in Dominion for a while, then left to open this shop
-			[] Spa treatment
-				[x] Spa relaxation
-				[] Massage/Intimate
-					[] Sheep (250)
-						[] Belle
-							- 19, average boobs, energetic, white wool
-						[] Daphne
-							- 29, big boobs, sensual, brown wool
-						[] Farah
-							- 44, huge boobs, motherly, black wool
-						[] intimate massage 500
-							[] finger you/jerk you off
-							[] sex
-					[] Penelope (1000)
-						[] intimate massage 1500
-							[] finger you/jerk you off
-						[] double facial (she cums & squirts on face)
-						[] ass/pussy focus
-							[] hotdogging/intercrural
-							[] fucked
-						[] oral
-							[] blowjob/cunnilingus
-						[] titjob
-						[] sex
+	[] Add 'The Crossed Blades' tavern in the north of Elis
+		[x] map
+			[x] world type
+			[x] places
+			[x] dialogue
+		[x] Oglix
+			[x] large, muscular succubus
+			[x] green skin, orange eyes
+			[x] dark green orifices
+		[x] Closed between 05:00-14:00
+		[x] beer bitches - people locked into barrels behind bar
+			[x] their tits are transformed and hang out of barrel cut-outs, being milked for beer; their asses & pussies are stuck out of rear of barrel, and customers who order their 5th pint get to drink from the tap or fuck them
+			[x] generic NPCs
+		[x] kitchen
+		[x] exit
+		[x] tables
+			[x] add flavour test events
+		[x] locked VIP door
+		[x] toilets
+			[x] glory holes
+				[x] Use Shopping Arcade and Home Improvements glory hole scenes as base for making a generic glory hole dialogue container
+					[x] sex manager
+						[x] concealed slots improvements
+						[x] test
+					[x] move NPC generation to methods in game
+						[x] test home improvements and shopping arcade glory holes
+				[x] add to The Crossed Blades
+				[x] add option for double
+			[x] add wash and toilet use
+		[x] dice poker
+			[x] add hooks to generic dice poker dialogues
+			[x] improve repeat dice poker with NPC players
+			[x] hide names until playing first time
+		[x] dangerous edge tiles
+			[x] encounter opportunity to start fight
+				[x] fight (turns into huge brawl)
+					[x] lose, can present self and get fucked
+					[x] win, can fuck person who started it
+					[x] make all tiles dangerous while brawl is ongoing
+					[x] after win/sex, brawl still ongoing, but Oglix shouts for everyone to stop
+						[x] continue fighting
+							[x] lose, get fucked by Oglix's elemental
+							[x] win, opponent gets fucked by Oglix's elemental (can choose to watch)
+						[x] stop
+					[x] after brawl, areas are safe until next day
+				[x] intimidate (demon only)
+				[x] grovel
+				[x] offer to settle tab (250 flames)
+				[x] under-table perform oral
+				[x] full test of all routes
+					[x] do not let first attacker dislike receiving oral or receiving vagina/penis fetishes
+					[x] Golix start sex ongoing actions
+					[x] Golix sex preferences
+					[x] Golix sex control
+					[x] Golix fetishes
+					[x] Golix speech colour
+						[x] save/load support
+					[x] prevent escape in combat
+		[x] Oglix speech colour (green)
+		[x] Just have 1 beer bitch, so player can supply 4 more
+		[x] Make beer bitch Oglix's slave
+		[x] need to introduce Oglix before granting access to tavern
+			[x] encounter on first table tile where she calls you over to the bar
+		[x] bar
+			[x] drinks
+				[x] beer (5 bitch choices)
+					[x] gain beer token (stamped bottle cap)
+					[x] stamped bottle cap item
+				[x] rum
+				[x] whiskey
+			[x] food
+				[x] basics
+			[x] talk
+				[x] need resets in Oglix hourlyupdate
+				[x] background
+				[x] beer bitches
+					[x] add barrel clothing item
+					[x] SIDE QUEST - Barrels for the Bar
+						[x] Go and get more barrels
+							[x] Taur tavern has extra-large barrels (taurs drink a lot)
+							[x] Go and get barrels delivered to tavern
+							[x] Unlocks ability to send alleyway attackers/prostitutes to be a beer bitch
+								[x] Limited to 4 slots
+								[x] beer-slut, beer-cunt, beer-whore, beer-tits
+						[x] after completing, can find Kheiron in stables behind alley tavern between 6-7 in the morning
+							[x] he has a thing for Golix, but doesn't like Oglix (she doesn't particularly like him either, but says that it's useful having him in love with her elemental)
+							[x] Golix puts chastity cage on him which grants submissive/anal/masochist fetishes
+							[x] Golix fucks his ass (or face, if anal is off) while calling him a good horsie
+				[x] elemental
+					[x] elemental says they want to pound you again, can get fucked if been punished before
+				[x] fuck beer bitch
+		[x] Instead of flag resets in Oglix class, add attribute for flags to define hour at which they reset
+		[x] Need weak alcohol TF fluid modifier
+		[x] Full test
+			[x] brawl
+				[x] non-con off
+			[x] bar talking
+			[x] beer bitch fuck
+				[x] caress face/kiss cheek/spit in face available
+			[x] bar does not set second beer bitch correctly
+			[x] Golix punishment
+			[x] Side quest
+				[x] quest flow
+				[x] test beer bitch
+					[x] attacker
+					[x] prostitute
+					[x] first fuck defaults to first beer-bitch
+			[x] spectate Kheiron
+		[] Writing
+			[] standard place tiles
+			[] Brawl scenes
+			[] Bar scenes
+		
+	[x] add antlers for demons
+		[x] horn type
+		[x] TF potion support
+		
+		
+	[] add an option for "always Lesser" furry setting
+		[] best to make it a minimum furry setting, so you cover everything rather than have to do specialized cases
+		
+	[] I wish if you wore the "Rental Daddy/Mommy (50 Flames)" t-shirt, people would walk up to you and pay to have sex with you
 	
-	[] tagged choker stickers for text
-		[] Prefix
-			[] bound
-			[] good
-			[] bad
-			[] obedient
-			[] broken
-			[] worthless
-			[] cheap
-			[] dumb
-		[] Postfix
-			[] bitch
-			[] slut
-			[] cunt
-			[] pet
-			[] whore
-			[] toy
-			[] stud
-			[] dog
+	[] lesser arctic wolf morph spawned with pale skin/white fur but chocolate nipples/vagina/anus
+		
+	[] tooltip size bugged in maps
+		
+	[] bug fixes in developer chat
 	
-	[] Would fully removing offspring interfere with the count of total met and unmet offspring? Not looked fully into that
+	[] skunk
+	
+	[] bimbo harpy to have tanned skin not light
+	
+	[] steal panties spell should rename panties to: "X's " + item_name
+	
+	[] Improve Roxy firebombs quest triggers (have to talk to Axel first???)
+	
+	[] add 'tear' as a displacement option
+		[] 1 essence to repair
+		[] persist when unequipped
+		[] displaced icon to be scarlet if torn
+	
+	[] Add 'corkscrew' penis modifier
+	
+	[] balaclava
+	[] jewellery for blank slots (horns, wings)
+	
+	[] add generic tentacle legs for slime and demon(tentacle-girl/boy)
+	
+	[] serpent-serpent sex position 'mating coil'
+	
+	[] option to cast the soothing waters spell to clean the dumpster diver and temporarily remove the musk content from sexing them
+	
+	[] Kruger:  the next step in the sex scene he wants your pussy, but he wants to fuck standing up, but he cant if you're a taur or if you're too short so instead he blows your throat out
+	
+	[] meraxis cock content
+	
+	[] add surrender option to Dominion/Submission too
+	
+	
+	
+			
+			
+	[] Ceridwen
+		[] Offer to help
+			[] She says that she had a succubus security guard who all the mice liked who used to cover the day shift, but she disappeared a while ago
+				[] Jackalope 'Wynter' (has ice elemental)
+			[] Asks if you could find out what happened to her
+		[] Quest
+			[] Succubus known to be a heavy drinker in shady tavern
+			[] Go there and find out that she'd racked up a huge bill that she couldn't pay (after getting very drunk and fighting a gang who were bragging about mugging people in the alleyways - destroying a lot of the bar in the process)
+			[] She (and the gang) are paying off their bills by being beer bitches
+			[] Can either:
+				[] Pay off her tab
+				[] Join her in a barrel to be milked & fucked (for a week)
+				[] Intimidate (leads into fight)
+			[] Succubus thanks you and says that she'll be back at The Barn for tomorrow's shift
+				[] Can find her in the shady tavern again after this
+					[] She gets player to drink with her
+					[] She says how cute mouse-morphs are
+					[] Hits on player (with variation if player is mouse)
+					[] If drink with her too much, she smashes the table and chooses to be a beer bitch rather than pay for it
+			[] After quest, can sex Oglix
+		[] Post-quest
+			[] Ceridwen invites player to home (in wood tile in Elis)
+			[] Can have sex
+	
+	
+	[] PRs:
+		[x] PR#1617
+	[] Reverse-order merge:
+		[] #94
+		[] #895
+		[] #508
+		[] #947
+		[] #976
+		[] #1001
+		[] #1003
+		[] #1004
+		[] #1289
+		[] #1305
+		[] #1320
+		[] #1504
+		[] #1582
+		[] #1606
+		[] #1614
+		[] #1616
+		[] #1618
+		[] #1631
+		[] #1637
+		[] #1639
+		[] #1642
+			
+	[] Main quest content. I'll get the main quest progressed past the town of Thmyscra, and into the next stage.
+	
+	[] Add Elis bank
+	[] Add an associated bank in Dominion
+	
+			
+			
+	
+	[] cuddle actions?
+	
+	[] add law enforcement background
+	
+	[] harpy nests
+		[] add option to be dominated by Diana
+		[] harpy nests improve quest start dialogue flow
+		[] bad ends
+			Lose to harpy once, forcibly transformed
+			After being transformed once, losses apply:
+				- transformed again and fucked
+				- transformed, fucked, kept in nest for 24 hours and made to serve matriarch
+				- bad end: transformed, kept in nest and become part of harpy society
+	
+	[] dungeon additions
+		[] slave job 'dungeon master/mistress'
+		[] You suggest inviting Lilaya down to use the bedroom again
+			[] Alternate paths:
+				[] Both you and Rose having Lilaya as a pet
+				[] Rose makes the PC her sub maid/pet
+	
+	[] Ace content:
+		[] replace pc.getLastCell() calls (in case the player teleported into the cell)
+		[] Submission
+			[] Elizabeth
+				[] talk options +affection?
+				[] check each option
+			[] Walkways
+				[] options need cost displayed
+				[] check npc.getFleshSubspecies -> npc.getBody().getFleshSubspecies
+				[] developers messages
+	
+	[] Penelope special scene for if player is sheep
+		[] dialogue variation in massage
+		[] In sheep dialogue, she offers player job (if have prostitution license)
+			[] can wait to massage clients
+			[] get fucked
+	
+	[] bondage applier fetishists should apply bdsm gear during sex
+	
+	[] Nipple piercings
+		[] rounded
+		[] square
+	[] tail cuffs/rings
+	
+	
+	
+	[] condoms should display name of cum provider and quantity in description
+	
+	[] make it so you can toggle whether your own children can be found in random encounters
+	
+	[] We currently have permissions for slaves to *rape you, but what about having them have permission to just proposition you without force?
+	
+	[] Romance fetish
+		
+	[] Add unique loving lines for Meraxis and Nyan
+	
+	[] fucking Candi without having to buy Brax when
+		[] she conditions the player into helping cover reception
+		[] leads into bimbo pet bad end?
 	
 	[] Wall's End quests:
-		[] Ceridwen
-			[] Offer to help
-				[] She says that she had a succubus security guard who all the mice liked who used to cover the day shift, but she disappeared a while ago
-				[] Asks if you could find out what happened to her
-			[] Quest
-				[] Succubus known to be a heavy drinker in shady tavern
-				[] Add shady tavern
-					[] beer bitches - barrels behind bar have portraits on them
-					[] tile encounter opportunity to start fight (turns into huge brawl)
-						[] lose, can present self and get fucked
-						[] win, can fuck person who started it
-					[] alley tiles mugging encounters
-						[] after beating them, can take them to the shady tavern to be a beer bitch
-						[] can also take to Enforcer station to remove them
-				[] Go there and find out that she'd racked up a huge bill that she couldn't pay (after getting very drunk and fighting a gang who were bragging about mugging people in the alleyways - destroying a lot of the bar in the process)
-				[] She (and the gang) are paying off their bills by being locked up in barrels; their tits are transformed and milked for beer (out of pump-tap); their asses & pussies are stuck out of rear of barrel, and customers who order their 5th pint get to fuck them
-				[] Can either:
-					[] Pay off her tab
-					[] Join her in a barrel to be milked & fucked (for a week)
-					[] Intimidate (leads into fight)
-				[] Succubus thanks you and says that she'll be back at The Barn for tomorrow's shift
-					[] Can find her in the shady tavern again after this
-						[] She gets player to drink with her
-						[] She says how cute mouse-morphs are
-						[] Hits on player (with variation if player is mouse)
-						[] If drink with her too much, she smashes the table and chooses to be a beer bitch rather than pay for it
-			[] Post-quest
-				[] Ceridwen invites player to home (in wood tile in Elis)
-				[] Can have sex
 		[] The Ninth Strike
 			[] Side Quest - The Youko's Secret
 				- Find Youko smith
@@ -254,6 +342,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					- Can make part of the training to have Imsu and Hale TF to female
 			[] Armpit worship (they lick player's armpits before fucking them)
 	
+	[] Bad end losing at the slime queen where you're forced to pretend to invade and rape her every week
 	
 	[] Gym
 		[] Extremely fit hellhound
@@ -296,10 +385,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] if an npc has toeless stockings on during a footjob it describes them pushing the stocking up against the dick
 	
+	[] NPC modding support
 	
 	[] Natalya encounter without needing Helena quest
-	
-	[] Ace content
 	
 	[] boxing gloves mod
 	[] latex leggings
@@ -401,6 +489,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Make the rough/resist pace different from rape so the slime queen isn't such a turn off.
 	
 	Helena sex without her becoming a total slut
+	Suggestion: When non-sadistically deflowering Helena, she should get the Size Queen Fetish if the player is big enough that it's necessary for her comfort.
 	Make a non-sloot Helena ending
 	
 	Why is there no dialogue variation for Arthur/Lyssieth scenes when you already know teleport?
@@ -754,8 +843,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Security slave job
 	
 	-------------
-	
-	Add self-transformation presets (like enchantment saving)
 	
 	Weapon attack names don't make sense ("Fire the enemy")
 	
@@ -2757,7 +2844,6 @@ my character is a guy, so this is super confusing lol
 	
 	Remove the affection changes at the start of sex now that affection gets modified at the end of sex based on our performance durring the act.
 	
-	adding a way to save presets for transformation
 	doesn't look like its been reported but I've ran into a bug involving condoms and having sex with 2 partners. If one partner is fucking your pussy and is wearing a condom when he cums, he can't get you pregnant, but somehow the other person who isn't fucking your pussy and hadn't came yet, can impregnate you.
 
 	

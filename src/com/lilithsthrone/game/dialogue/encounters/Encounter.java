@@ -95,6 +95,7 @@ public class Encounter {
 						NPC slave = (NPC) Main.game.getNPCById(id);
 						if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_PLAYER)
 								&& slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE
+								&& !slave.getLocationPlace().getPlaceUpgrades().stream().anyMatch(upgrade->upgrade.getImmobilisationType()!=null)
 								&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)
 								&& slave.isAttractedTo(Main.game.getPlayer())) {
 							if(slave.getLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {
@@ -128,6 +129,59 @@ public class Encounter {
 					return null; // Return a null Encounter here instead of checking in getDialogues() due to performance issues
 				}
 				return SlaveEncountersDialogue.getSlaveUsingOtherSlaveLilayaCorridor(slaves);
+				
+			} else {
+				return null;
+			}
+		}
+	};
+
+	public static AbstractEncounter LILAYAS_DUNGEON_PASSAGEWAY = new AbstractEncounter() {
+		@Override
+		public Map<EncounterType, Float> getDialogues() {
+			return Util.newHashMapOfValues(
+					(Main.game.getCharactersPresent().isEmpty() && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("acexp_dungeon_explored"))
+						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
+						:null));
+		}
+		@Override
+		protected DialogueNode initialiseEncounter(EncounterType node) {
+			if(node == EncounterType.SLAVE_USES_YOU) {
+				List<NPC> slaves = new ArrayList<>();
+				List<NPC> hornySlaves = new ArrayList<>();
+				
+				for(String id : Main.game.getPlayer().getSlavesOwned()) {
+					try {
+						NPC slave = (NPC) Main.game.getNPCById(id);
+						if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_PLAYER)
+								&& slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE
+								&& !slave.getLocationPlace().getPlaceUpgrades().stream().anyMatch(upgrade->upgrade.getImmobilisationType()!=null)
+								&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)
+								&& slave.isAttractedTo(Main.game.getPlayer())) {
+							if(slave.getLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {
+								slaves.add(slave);
+							}
+							if(slave.hasStatusEffect(StatusEffect.PENT_UP_SLAVE)) {
+								hornySlaves.add(slave);
+							}
+						}
+					} catch (Exception e) {
+						System.err.println("Main.game.getNPCById("+id+") returning null in Encounter.LILAYAS_DUNGEON_PASSAGEWAY");
+					}
+				}
+				slaves.removeIf((slave) -> slave.getWorldLocation()==WorldType.SLAVER_ALLEY);
+				hornySlaves.removeIf((slave) -> slave.getWorldLocation()==WorldType.SLAVER_ALLEY);
+				
+				if(!hornySlaves.isEmpty()) {
+					Collections.shuffle(hornySlaves);
+					return SlaveEncountersDialogue.getSlaveUsesYou(hornySlaves.get(0));
+					
+				} else if(!slaves.isEmpty()) {
+					Collections.shuffle(slaves);
+					return SlaveEncountersDialogue.getSlaveUsesYou(slaves.get(0));
+				}
+				
+				return null;
 				
 			} else {
 				return null;

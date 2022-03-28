@@ -1267,27 +1267,23 @@ public class CharacterUtils {
 						startingGender.getType()==PronounType.NEUTRAL?50:(startingGender.isFeminine() ? startingBodyType.getFemaleFemininity() : startingBodyType.getMaleFemininity()),
 						(startingGender.isFeminine() ? startingBodyType.getFemaleBodySize() : startingBodyType.getMaleBodySize()),
 						(startingGender.isFeminine() ? startingBodyType.getFemaleMuscle() : startingBodyType.getMaleMuscle()))
-				.vagina(hasVagina
-						? new Vagina(stage.isVaginaFurry()?startingBodyType.getVaginaType():VaginaType.HUMAN,
-								LabiaSize.getRandomLabiaSize().getValue(),
-								startingBodyType.getClitSize(),
-								startingBodyType.getClitGirth(),
-								startingBodyType.getVaginaWetness(),
-								startingBodyType.getVaginaCapacity(),
-								startingBodyType.getVaginaDepth(),
-								startingBodyType.getVaginaElasticity(),
-								startingBodyType.getVaginaPlasticity(),
-								true)
-						: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 0, 2, 3, 3, true))
-				.penis(hasPenis
-						? new Penis(stage.isPenisFurry()?startingBodyType.getPenisType():PenisType.HUMAN,
-							startingBodyType.getPenisSize(),
-							true,
-							startingBodyType.getPenisGirth(),
-							startingBodyType.getTesticleSize(),
-							startingBodyType.getCumProduction(),
-							startingBodyType.getTesticleQuantity())
-						: new Penis(PenisType.NONE, 0, false, 0, 0, 0, 2))
+				.vagina(new Vagina(hasVagina?stage.isVaginaFurry()?startingBodyType.getVaginaType():VaginaType.HUMAN:VaginaType.NONE,
+						LabiaSize.getRandomLabiaSize().getValue(),
+						startingBodyType.getClitSize(),
+						startingBodyType.getClitGirth(),
+						startingBodyType.getVaginaWetness(),
+						startingBodyType.getVaginaCapacity(),
+						startingBodyType.getVaginaDepth(),
+						startingBodyType.getVaginaElasticity(),
+						startingBodyType.getVaginaPlasticity(),
+						true))
+				.penis(new Penis(hasPenis?stage.isPenisFurry()?startingBodyType.getPenisType():PenisType.HUMAN:PenisType.NONE,
+						startingBodyType.getPenisSize(),
+						true,
+						startingBodyType.getPenisGirth(),
+						startingBodyType.getTesticleSize(),
+						startingBodyType.getCumProduction(),
+						startingBodyType.getTesticleQuantity()))
 				.horn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())))
 				.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getRandomrAntennaType(false):AntennaType.NONE, (startingGender.isFeminine() ? startingBodyType.getFemaleAntennaLength() : startingBodyType.getMaleAntennaLength())))
 				.tail(new Tail(stage.isTailFurry()?startingBodyType.getRandomTailType(false):TailType.NONE))
@@ -1829,7 +1825,7 @@ public class CharacterUtils {
 		String adjective = Util.randomItemFrom(characterAdjectives);
 		
 		if(baseName==null || baseName.isEmpty()) {
-			character.setGenericName(adjective+" "+character.getSubspecies().getName(character));
+			character.setGenericName(adjective+" "+character.getSubspecies().getName(character.getBody()));
 		} else {
 			character.setGenericName(adjective+" "+baseName);
 		}
@@ -1885,7 +1881,12 @@ public class CharacterUtils {
 		
 		// Randomise skin colour if not greater:
 		if(character.getRaceStage()!=RaceStage.GREATER && character.getRaceStage()!=RaceStage.FERAL) {
-			character.setSkinCovering(BodyCoveringType.HUMAN, Util.randomItemFrom(BodyCoveringType.HUMAN.getNaturalColoursPrimary()), true);
+//			character.setSkinCovering(BodyCoveringType.HUMAN, Util.randomItemFrom(BodyCoveringType.HUMAN.getNaturalColoursPrimary()), true);
+			Colour skinColour = Util.randomItemFrom(BodyCoveringType.HUMAN.getNaturalColoursPrimary());
+			if(Main.getProperties().skinColourPreferencesMap.values().stream().anyMatch(v->v>0)) {
+				Util.getRandomObjectFromWeightedMap(Main.getProperties().skinColourPreferencesMap);
+			}
+			character.setSkinCovering(BodyCoveringType.HUMAN, skinColour, true);
 		}
 		
 		// Ass:
@@ -2380,30 +2381,7 @@ public class CharacterUtils {
 
 			if (Math.random() < prostituteChance) {
 				character.setHistory(Occupation.NPC_PROSTITUTE);
-				character.removePersonalityTrait(PersonalityTrait.PRUDE);
-				character.removePersonalityTrait(PersonalityTrait.INNOCENT);
-
-				character.setAssVirgin(false);
-				character.setAssCapacity(character.getAssRawCapacityValue()
-						* 1.2f,
-						true);
-
-				if(character.hasVagina()) {
-					character.setVaginaVirgin(false);
-					character.setVaginaCapacity(character.getVaginaRawCapacityValue()
-							* 1.2f,
-							true);
-				}
-
-				if(character.hasPenis()) {
-					character.setPenisVirgin(false);
-				}
-
-				character.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-				character.setName(Name.getRandomProstituteTriplet());
-				character.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"),
-						character,
-						false);
+				initProstitute(character);
 
 			} else {
 				character.setHistory(Occupation.NPC_MUGGER);
@@ -2414,7 +2392,33 @@ public class CharacterUtils {
 			histories.removeIf((his) -> his.isLowlife());
 			character.setHistory(Util.randomItemFrom(histories));
 		}
-			
+	}
+	
+	public static void initProstitute(GameCharacter character) {
+		character.removePersonalityTrait(PersonalityTrait.PRUDE);
+		character.removePersonalityTrait(PersonalityTrait.INNOCENT);
+
+		character.setAssVirgin(false);
+		character.setAssCapacity(character.getAssRawCapacityValue()
+				* 1.2f,
+				true);
+
+		if(character.hasVagina()) {
+			character.setVaginaVirgin(false);
+			character.setVaginaCapacity(character.getVaginaRawCapacityValue()
+					* 1.2f,
+					true);
+		}
+
+		if(character.hasPenis()) {
+			character.setPenisVirgin(false);
+		}
+
+		character.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		character.setName(Name.getRandomProstituteTriplet());
+		character.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"),
+				character,
+				false);
 	}
 	
 	private static List<Fetish> getAllowedFetishes(GameCharacter character) {
@@ -2678,6 +2682,10 @@ public class CharacterUtils {
 	}
 	
 
+	public void equipClothingFromOutfitId(GameCharacter character, String outfitId) {
+        equipClothingFromOutfit(character, OutfitType.getOutfitTypeFromId(outfitId), EquipClothingSetting.getAllClothingSettings());
+    }
+	
 	public void equipClothingFromOutfitFolderId(GameCharacter character, OutfitType outfitType, String folderId, List<EquipClothingSetting> settings) {
 		equipClothingFromOutfits(character, OutfitType.getOutfitsFromIdStart(folderId), outfitType, settings);
 	}

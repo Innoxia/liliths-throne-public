@@ -1404,7 +1404,7 @@ public class ImpFortressDialogue {
 						
 					} else if (index == 3) {
 						return new ResponseSex("Gentle Sex",
-								"Well, they <i>are</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
+								"Well, they <i>are</i> asking for it!",
 								true,
 								false,
 								getPartyForSex(),
@@ -1416,7 +1416,7 @@ public class ImpFortressDialogue {
 						
 					} else if (index == 4) {
 						return new ResponseSex("Rough Sex",
-								"Well, they <i>are</i> asking for it! (Start the sex scene in the 'rough' pace.)",
+								"Well, they <i>are</i> asking for it!",
 								true,
 								false,
 								getPartyForSex(),
@@ -3141,7 +3141,7 @@ public class ImpFortressDialogue {
 						
 					} else if (index == 3) {
 						return new ResponseSex("Gentle Sex",
-								UtilText.parse(getBoss(), "Now that they've been defeated, there's nothing stopping you from having sex with [npc.name] and [npc.her] imp gang. (Start the sex scene in the 'gentle' pace.)"),
+								UtilText.parse(getBoss(), "Now that they've been defeated, there's nothing stopping you from having sex with [npc.name] and [npc.her] imp gang."),
 								true,
 								false,
 								getPartyForSex(),
@@ -3153,7 +3153,7 @@ public class ImpFortressDialogue {
 						
 					} else if (index == 4) {
 						return new ResponseSex("Rough Sex",
-								UtilText.parse(getBoss(), "Now that they've been defeated, there's nothing stopping you from having sex with [npc.name] and [npc.her] imp gang. (Start the sex scene in the 'rough' pace.)"),
+								UtilText.parse(getBoss(), "Now that they've been defeated, there's nothing stopping you from having sex with [npc.name] and [npc.her] imp gang."),
 								true,
 								false,
 								getPartyForSex(),
@@ -3891,7 +3891,7 @@ public class ImpFortressDialogue {
 							FortressAlphaLeader boss = (FortressAlphaLeader) Main.game.getNpc(FortressAlphaLeader.class);
 							
 							if((boss).isAbleToEquipGag(Main.game.getPlayer())) {
-								AbstractClothing ringGag = Main.game.getItemGen().generateClothing(ClothingType.BDSM_RINGGAG, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GOLD, effects);
+								AbstractClothing ringGag = Main.game.getItemGen().generateClothing("innoxia_bdsm_ringgag", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GOLD, effects);
 								ringGag.setName(UtilText.parse(boss,"[npc.NamePos] 'Cock-Sucker' Ring gag"));
 								Main.game.getPlayer().equipClothingFromNowhere(ringGag, true, boss);
 								Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+UtilText.parse(boss,"[npc.Name]")+" has forced you to wear:<br/>"
@@ -3900,7 +3900,7 @@ public class ImpFortressDialogue {
 							
 							if(ImpFortressDialogue.getMainCompanion()!=null && Main.sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())
 									&& (boss).isAbleToEquipGag(ImpFortressDialogue.getMainCompanion())) {
-								AbstractClothing ringGag = Main.game.getItemGen().generateClothing(ClothingType.BDSM_RINGGAG, PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_BROWN_DARK, PresetColour.CLOTHING_BLACK_STEEL, effects);
+								AbstractClothing ringGag = Main.game.getItemGen().generateClothing("innoxia_bdsm_ringgag", PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_BROWN_DARK, PresetColour.CLOTHING_BLACK_STEEL, effects);
 								ringGag.setName(UtilText.parse(boss,"[npc.NamePos] 'Cock-Sucker' Ring gag"));
 								ImpFortressDialogue.getMainCompanion().equipClothingFromNowhere(ringGag, true, boss);
 								Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+UtilText.parse(boss,"[npc.Name]")+" has forced "

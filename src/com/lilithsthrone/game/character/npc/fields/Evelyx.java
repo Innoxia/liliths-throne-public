@@ -1195,7 +1195,7 @@ public class Evelyx extends NPC {
 						new Value<>(PerkCategory.LUST, 0),
 						new Value<>(PerkCategory.ARCANE, 1)));
 		
-		princess.setSpeechColour(PresetColour.BASE_RED.toWebHexString());
+		princess.setSpeechColour(PresetColour.BASE_RED);
 		
 		// Persona:
 		princess.setPersonalityTraits(
@@ -1441,13 +1441,13 @@ public class Evelyx extends NPC {
 
 	// Stage 3:
 	public void applyBadEndBondage() {
-		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_BALLGAG, PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_IRON, false), true, this);
+		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_ballgag", PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_IRON, false), true, this);
 		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_blindfold", PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_IRON, null, false), true, this);
 		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_croptop", PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_IRON, null, false), true, this);
 		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_bra", PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_IRON, null, false), true, this);
 		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_corset", PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_IRON, null, false), true, this);
-		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_IRON, null, false), true, this);
-		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_SPREADER_BAR, PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_IRON, null, false), true, this);
+		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_wrist_restraints", PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_IRON, null, false), true, this);
+		Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_spreaderbar", PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_IRON, null, false), true, this);
 	}
 	
 	public void applyBadEndBimbo() {

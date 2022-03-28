@@ -11,7 +11,7 @@
 			#IF(game.getDialogueFlags().hasFlag(FLAG_gymIntroduced))
 				 Moving your gaze over to look through the main entrance's glass doors, you see Pix sitting behind the lobby's front desk.
 			#ELSE
-				 Moving your gaze over to look through the main entrance's glass doors, you see a border-collie-girl sitting behind the lobby's front desk.
+				 Moving your gaze over to look through the main entrance's glass doors, you see a border collie-girl sitting behind the lobby's front desk.
 			#ENDIF
 		</p>
 		<p>
@@ -40,7 +40,7 @@
 	
 	<htmlContent tag="GYM_ENTRY"><![CDATA[
 	<p>
-		Pushing open the door, you step into the gym's lobby, where you're immediately greeted by an extremely energetic dog-girl. Her fur is black with white markings, which, in combination with her folded ears, makes her look very much like an anthropomorphised border-collie.
+		Pushing open the door, you step into the gym's lobby, where you're immediately greeted by an extremely energetic dog-girl. Her fur is black with white markings, which, in combination with her folded ears, makes her look very much like an anthropomorphised border collie.
 	</p>
 	<p>
 		[pix.speech(Heya! Hi! How're ya doin'!)] she exclaims, reaching forwards to give your hand an enthusiastic shake with both of her paw-like hands.

@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.npc.dominion.Arthur;
 import com.lilithsthrone.game.character.npc.dominion.Ashley;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.Bunny;
+import com.lilithsthrone.game.character.npc.dominion.Callie;
 import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.npc.dominion.Elle;
@@ -56,10 +57,13 @@ import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
 import com.lilithsthrone.game.character.npc.fields.Arion;
 import com.lilithsthrone.game.character.npc.fields.Astrapi;
+import com.lilithsthrone.game.character.npc.fields.Belle;
 import com.lilithsthrone.game.character.npc.fields.Ceridwen;
 import com.lilithsthrone.game.character.npc.fields.Dale;
+import com.lilithsthrone.game.character.npc.fields.Daphne;
 import com.lilithsthrone.game.character.npc.fields.Evelyx;
 import com.lilithsthrone.game.character.npc.fields.Fae;
+import com.lilithsthrone.game.character.npc.fields.Farah;
 import com.lilithsthrone.game.character.npc.fields.Flash;
 import com.lilithsthrone.game.character.npc.fields.Hale;
 import com.lilithsthrone.game.character.npc.fields.HeadlessHorseman;
@@ -72,9 +76,11 @@ import com.lilithsthrone.game.character.npc.fields.Minotallys;
 import com.lilithsthrone.game.character.npc.fields.Monica;
 import com.lilithsthrone.game.character.npc.fields.Moreno;
 import com.lilithsthrone.game.character.npc.fields.Nizhoni;
+import com.lilithsthrone.game.character.npc.fields.Oglix;
 import com.lilithsthrone.game.character.npc.fields.Penelope;
 import com.lilithsthrone.game.character.npc.fields.Silvia;
 import com.lilithsthrone.game.character.npc.fields.Vronti;
+import com.lilithsthrone.game.character.npc.fields.Wynter;
 import com.lilithsthrone.game.character.npc.fields.Yui;
 import com.lilithsthrone.game.character.npc.fields.Ziva;
 import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
@@ -1324,7 +1330,66 @@ public class ParserTarget {
 			return Main.game.getNpc(Penelope.class);
 		}
 	};
-	
+
+	public static AbstractParserTarget BELLE = new AbstractParserTarget(Util.newArrayListOfValues("belle"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Belle.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Belle.class);
+		}
+	};
+
+	public static AbstractParserTarget DAPHNE = new AbstractParserTarget(Util.newArrayListOfValues("daphne"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Daphne.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Daphne.class);
+		}
+	};
+
+	public static AbstractParserTarget FARAH = new AbstractParserTarget(Util.newArrayListOfValues("farah"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Farah.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Farah.class);
+		}
+	};
+
+	public static AbstractParserTarget CALLIE = new AbstractParserTarget(Util.newArrayListOfValues("callie"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Callie.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Callie.class);
+		}
+	};
+
+	public static AbstractParserTarget WYNTER = new AbstractParserTarget(Util.newArrayListOfValues("wynter"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Wynter.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Wynter.class);
+		}
+	};
+
+	public static AbstractParserTarget OGLIX = new AbstractParserTarget(Util.newArrayListOfValues("oglix"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Oglix.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Oglix.class);
+		}
+	};
 	
 	
 	/** A list of the hard-coded parser targets above. */
@@ -1361,7 +1426,7 @@ public class ParserTarget {
 			}
 		};
 		if(idToParserTargetMap.containsKey(tag)) {
-			System.err.println("Warning: Parser target of '"+tag+"' has been replaced!");
+//			System.err.println("Warning: Parser target of '"+tag+"' has been replaced!");
 			removeAdditionalParserTarget((NPC) idToParserTargetMap.get(tag).getCharacter(null, null));
 		}
 		

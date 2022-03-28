@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>100</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[beer barrel]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[beer barrels]]></namePlural> 
+		<description><![CDATA[A very large wooden barrel, which is being used to hold a beer bitch behind the bar in tavern, 'The Crossed Blades'. Thanks to cutouts in the front and back, the occupant's tits and rear end are left completely exposed.]]></description> 
+		<physicalResistance>50</physicalResistance> 
+		<femininity>ANDROGYNOUS</femininity> 
+		<slot>TORSO_OVER</slot> 
+		<rarity>COMMON</rarity> 
+		<clothingSet/> 
+		<imageName>beer_barrel.svg</imageName> 
+		<imageEquippedName/> 
+		<enchantmentLimit/>
+		
+		<effects> 
+			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SEALING" timer="0"/>
+		</effects>
+		
+		<blockedPartsList> 	
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts> 
+					<bodyPart>HANDS</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+					<bodyPart>LEGS</bodyPart>
+					<bodyPart>FEET</bodyPart>
+					<bodyPart>THIGHS</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
+					<bodyPart>BREASTS_CROTCH</bodyPart>
+					<bodyPart>NIPPLES_CROTCH</bodyPart>
+					<bodyPart>HAIR</bodyPart>
+					<bodyPart>MOUTH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>EYES</clothingAccess>
+					<clothingAccess>MOUTH</clothingAccess>
+					<clothingAccess>HEAD</clothingAccess>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>WRISTS</clothingAccess>
+					<clothingAccess>FINGERS</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+					<clothingAccess>LEGS_UP_TO_GROIN_LOW_LEVEL</clothingAccess>
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+					<clothingAccess>CALVES</clothingAccess>
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots>
+					<slot>ANKLE</slot>
+					<slot>FINGER</slot>
+					<slot>FOOT</slot>
+					<slot>HAIR</slot>
+					<slot>HAND</slot>
+					<slot>HEAD</slot>
+					<slot>EYES</slot>
+					<slot>HIPS</slot>
+					<slot>HORNS</slot>
+					<slot>LEG</slot>
+					<slot>MOUTH</slot>
+					<slot>NECK</slot>
+					<slot>PIERCING_EAR</slot>
+					<slot>PIERCING_LIP</slot>
+					<slot>PIERCING_NOSE</slot>
+					<slot>PIERCING_STOMACH</slot>
+					<slot>PIERCING_TONGUE</slot>
+					<slot>SOCK</slot>
+					<slot>STOMACH</slot>
+					<slot>TORSO_UNDER</slot>
+					<slot>WEAPON_MAIN_1</slot>
+					<slot>WEAPON_MAIN_2</slot>
+					<slot>WEAPON_MAIN_3</slot>
+					<slot>WEAPON_OFFHAND_1</slot>
+					<slot>WEAPON_OFFHAND_2</slot>
+					<slot>WEAPON_OFFHAND_3</slot>
+					<slot>WRIST</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_DESATURATED_BROWN</colour> 
+		</primaryColours>
+		<primaryColoursDye/>
+		<secondaryColours>
+			<colour>CLOTHING_IRON</colour>
+		</secondaryColours>
+		<secondaryColoursDye/>
+		<tertiaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>MUFFLES_SPEECH</tag>
+			<tag>BLOCKS_SIGHT</tag>
+			<tag>HINDERS_ARM_MOVEMENT</tag>
+			<tag>HINDERS_LEG_MOVEMENT</tag>
+			<tag>PREVENTS_COMBAT_ESCAPE</tag>
+			<tag>NOT_FOR_SALE</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(climb)] into the beer barrel.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(push)] [npc2.name] into the beer barrel.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(push)] [npc2.name] into the beer barrel.]]>
+		</otherRough>
+	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(climb)] out of the beer barrel.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.name] out of the beer barrel.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.name] out of the beer barrel.]]>
+		</otherRough>
+	</displacementText>
+</clothing>

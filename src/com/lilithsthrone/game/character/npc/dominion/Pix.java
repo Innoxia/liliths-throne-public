@@ -68,7 +68,7 @@ public class Pix extends NPC {
 	
 	public Pix(boolean isImported) {
 		super(isImported, new NameTriplet("Pix"), "Fear",
-				"An extremely energetic border-collie-girl, who is the owner and manager of the Shopping Arcade's gym; 'Pix's Playground'.",
+				"An extremely energetic border collie-girl, who is the owner and manager of the Shopping Arcade's gym; 'Pix's Playground'.",
 				29, Month.FEBRUARY, 21, 
 				10, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH_BORDER_COLLIE, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_PIXS_GYM, true);

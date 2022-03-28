@@ -347,7 +347,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_EAGER:
 								case SUB_NORMAL:
 								case DOM_ROUGH:
-									sb.append(" Lifting and dropping [npc2.her] [npc2.hips+], [npc2.name] [npc2.was] soon [npc2.moaning] as [npc2.she] [npc.sexPaceVerb] forced [npc.namePos] [npc.cock] over [npc2.her] [npc2.asshole+].");
+									sb.append(" Lifting and dropping [npc2.her] [npc2.hips+], [npc2.name] [npc2.was] soon [npc2.moaning] as [npc2.she] [npc2.sexPaceVerb] forced [npc.namePos] [npc.cock] over [npc2.her] [npc2.asshole+].");
 									break;
 								case SUB_RESISTING:
 									sb.append(" Sobbing and crying, [npc2.name] did [npc2.her] best to pull away from [npc.name], but ended up being held in place and having [npc2.her] [npc2.ass] used against [npc2.her] will.");
@@ -378,7 +378,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_EAGER:
 								case SUB_NORMAL:
 								case DOM_ROUGH:
-									sb.append(" Holding [npc2.her] [npc2.arm] up, [npc2.name] [npc2.was] soon [npc2.moaning] as [npc2.she] [npc.sexPaceVerb] forced [npc.namePos] [npc.cock] over [npc2.her] [npc2.armpit+].");
+									sb.append(" Holding [npc2.her] [npc2.arm] up, [npc2.name] [npc2.was] soon [npc2.moaning] as [npc2.she] [npc2.sexPaceVerb] forced [npc.namePos] [npc.cock] over [npc2.her] [npc2.armpit+].");
 									break;
 								case SUB_RESISTING:
 									sb.append(" Sobbing and crying, [npc2.name] did [npc2.her] best to pull away from [npc.name], but ended up being held in place and having [npc2.her] [npc2.armpits] fucked against [npc2.her] will.");
@@ -607,7 +607,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_EAGER:
 								case SUB_NORMAL:
 								case DOM_ROUGH:
-									sb.append(" Lifting and dropping [npc2.her] [npc2.hips+], [npc2.name] [npc2.was] soon [npc2.moaning] as [npc2.she] [npc.sexPaceVerb] forced [npc.namePos] [npc.cock] between [npc2.her] [npc2.legs+].");
+									sb.append(" Lifting and dropping [npc2.her] [npc2.hips+], [npc2.name] [npc2.was] soon [npc2.moaning] as [npc2.she] [npc2.sexPaceVerb] forced [npc.namePos] [npc.cock] between [npc2.her] [npc2.legs+].");
 									break;
 								case SUB_RESISTING:
 									sb.append(" Sobbing and crying, [npc2.name] did [npc2.her] best to pull away from [npc.name], but ended up being held in place and having [npc2.her] thighs fucked against [npc2.her] will.");
@@ -896,7 +896,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_EAGER:
 								case SUB_NORMAL:
 								case DOM_ROUGH:
-									sb.append(" Lifting and dropping [npc2.her] [npc2.hips+], [npc2.name] [npc2.was] soon [npc2.moaning] as [npc2.she] [npc.sexPaceVerb] forced [npc.namePos] [npc.clit] over [npc2.her] [npc2.asshole+].");
+									sb.append(" Lifting and dropping [npc2.her] [npc2.hips+], [npc2.name] [npc2.was] soon [npc2.moaning] as [npc2.she] [npc2.sexPaceVerb] forced [npc.namePos] [npc.clit] over [npc2.her] [npc2.asshole+].");
 									break;
 								case SUB_RESISTING:
 									sb.append(" Sobbing and crying, [npc2.name] did [npc2.her] best to pull away from [npc.name], but ended up being held in place and having [npc2.her] [npc2.ass] used against [npc2.her] will.");
@@ -1125,7 +1125,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_EAGER:
 								case SUB_NORMAL:
 								case DOM_ROUGH:
-									sb.append(" Lifting and dropping [npc2.her] [npc2.hips+], [npc2.name] [npc2.was] soon [npc2.moaning] as [npc2.she] [npc.sexPaceVerb] forced [npc.namePos] [npc.clit] between [npc2.her] [npc2.legs+].");
+									sb.append(" Lifting and dropping [npc2.her] [npc2.hips+], [npc2.name] [npc2.was] soon [npc2.moaning] as [npc2.she] [npc2.sexPaceVerb] forced [npc.namePos] [npc.clit] between [npc2.her] [npc2.legs+].");
 									break;
 								case SUB_RESISTING:
 									sb.append(" Sobbing and crying, [npc2.name] did [npc2.her] best to pull away from [npc.name], but ended up being held in place and having [npc2.her] thighs fucked against [npc2.her] will.");
@@ -1672,6 +1672,36 @@ public enum SexAreaPenetration implements SexAreaInterface {
 					case CLIT:
 						break;
 					case FINGER:
+						if(pastTense) {
+							switch(performerPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append("[npc.SexPaceVerb] wrapping [npc.her] [npc.fingers] around [npc2.namePos] [npc2.hand+], [npc.name] started holding [npc2.her] hand.");
+									break;
+								case SUB_RESISTING:
+									sb.append("Although [npc.she] tried to resist, [npc.name] [npc.was] unable to stop [npc2.name] from holding [npc.her] [npc.hand].");
+									break;
+							}
+							switch(targetPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append(" [npc2.SexPaceVerb] squeezing [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.hand], [npc2.name] started letting out [npc2.moans+] as [npc2.she] enjoyed the hand holding.");
+									break;
+								case SUB_RESISTING:
+									sb.append(" Desperately trying to pull away, [npc2.name] begged for [npc.name] to leave [npc2.herHim] alone,"
+											+ " but [npc2.her] efforts proved to be in vain, and [npc2.her] [npc2.hand] continued to be held.");
+									break;
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] holding [npc2.namePos] [npc2.hand].");
+						}
 						break;
 					case FOOT:
 						break;
@@ -2084,7 +2114,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_EAGER:
 								case SUB_NORMAL:
 								case DOM_ROUGH:
-									sb.append(" [npc2.Name] soon started letting out [npc2.moans+] as [npc2.she] [npc.sexPaceVerb] licked and kissed [npc.namePos] [npc.feet+].");
+									sb.append(" [npc2.Name] soon started letting out [npc2.moans+] as [npc2.she] [npc2.sexPaceVerb] licked and kissed [npc.namePos] [npc.feet+].");
 									break;
 								case SUB_RESISTING:
 									sb.append(" Desperately trying to pull away from [npc.name], [npc2.name] tried, and failed, to stop orally servicing [npc.her] [npc.feet].");

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>25</value>
+		<determiner><![CDATA[an]]></determiner>
+		<name><![CDATA[iced doughnut with sprinkles]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[iced doughnuts with sprinkles]]></namePlural>
+		<description><![CDATA[A small ring of sweetened dough that's been fried and topped with icing and sprinkles.]]></description>
+		<useDescriptor>eat</useDescriptor>
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		<rarity>COMMON</rarity>
+		
+		<imageName>doughnut_iced_sprinkles.svg</imageName>
+		<colourPrimary>BASE_BROWN_DARK</colourPrimary>
+		<colourSecondary>BASE_WHITE</colourSecondary>
+		<colourTertiary/>
+		
+		<associatedRace/>
+		<enchantmentItemTypeId/>
+		<enchantmentEffectId/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 30% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)*0.3)]
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel as though [npc.she] [npc.has] more energy...
+			</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+			[npc.Name] [npc.verb(lift)] the doughnut to [npc.her] mouth and [npc.verb(start)] eating it. It only takes a few moments for [npc.name] to completely consume the baked good, after which [npc.she] [npc.verb(let)] out a satisfied hum.
+		]]></selfUse>
+		<otherUse><![CDATA[
+			[npc.Name] [npc.verb(lift)] the doughnut to [npc2.namePos] mouth and [npc.verb(get)] [npc2.herHim] to start eating it. It only takes a few moments for [npc2.name] to completely consume the baked good, after which [npc2.she] [npc2.verb(let)] out a satisfied hum.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>
