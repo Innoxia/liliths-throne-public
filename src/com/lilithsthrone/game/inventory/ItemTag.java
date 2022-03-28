@@ -107,9 +107,7 @@ public enum ItemTag {
 	
 	DRESS, // For helping to generate clothing in CharacterUtils
 	
-	// The three below influence the size at which a bulge from the penis or testicles becomes visible.
-	// This clothing tucks the penis and testicles between the legs. Should only be applied to penis slot clothing.
-	TUCKS(Util.newArrayListOfValues("[style.colourSex(Tucks penis between the legs)]"), false),
+
 	// This clothing is loose around the groin area. Raises bulge requirement. E.g. Dresses and skirts.
 	LOOSE_GROIN(Util.newArrayListOfValues("[style.colourSex(Loose around the groin; helps hide genitals)]"), false),
 	// This clothing is tight around the groin area. Lowers bulge requirement. E.g. Feminine underwear and yoga pants.

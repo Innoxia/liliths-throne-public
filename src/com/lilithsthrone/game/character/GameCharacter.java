@@ -23918,14 +23918,16 @@ public abstract class GameCharacter implements XMLSaving {
 				&& getGenitalArrangement()==GenitalArrangement.NORMAL
 				&& (hasPenisModifier(PenetrationModifier.SHEATHED)
 					? getPenisRawSizeValue()>=PenisLength.FOUR_HUGE.getMaximumValue() + calculatePenisBulgeModifier()
-					: ((penisClothing != null && penisClothing.getItemTags().contains(ItemTag.TUCKS))
-                        ? getPenisRawSizeValue()>= PenisLength.THREE_LARGE.getMaximumValue() + calculatePenisBulgeModifier()
-                        : getPenisRawSizeValue()>= PenisLength.TWO_AVERAGE.getMaximumValue() + calculatePenisBulgeModifier()));
+					: getPenisRawSizeValue()>= PenisLength.TWO_AVERAGE.getMaximumValue() + calculatePenisBulgeModifier());
 	}
 
     private int calculatePenisBulgeModifier() {
         int bulgeModifier = calculateBulgeModifier(InventorySlot.PENIS);
-        return (bulgeModifier > 0 && isTaur()) ? 91 : bulgeModifier * 5;
+        return (bulgeModifier < 0)
+                ? -5
+                : isTaur()
+                    ? 91
+                    : 10;
     }
 	
 	public boolean isTesticleBulgeVisible() {
@@ -23933,7 +23935,6 @@ public abstract class GameCharacter implements XMLSaving {
 		return hasPenis()
 				&& getGenitalArrangement()==GenitalArrangement.NORMAL
 				&& !isInternalTesticles()
-                && !(penisClothing != null && penisClothing.getItemTags().contains(ItemTag.TUCKS))
                 && getTesticleSize().getValue()>=(TesticleSize.FOUR_HUGE.getValue() + calculateBulgeModifier(InventorySlot.PENIS));
 	}
 
