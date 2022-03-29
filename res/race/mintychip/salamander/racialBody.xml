@@ -238,7 +238,7 @@
 	<!-- Multiple horn types can be defined for one race, from which a random type will be selected upon spawning an instance of this race.
 	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/HornType.java -->
 	<hornTypes>
-		<type>mintychip_salamander_horn</type>
+		<type>SWEPT_BACK</type>
 	</hornTypes>
 	
 	<!-- Horn length is from 0 to 75, measured in cm.
