@@ -193,14 +193,18 @@ public abstract class AbstractItemEffectType {
 		AbstractPerk perk = Perk.getSubspeciesRelatedPerk(mainSubspecies);
 		if(!reader.isPlayer() || ((PlayerCharacter) reader).addRaceDiscoveredFromBook(mainSubspecies) || !reader.hasPerkAnywhereInTree(perk)) {
 			return (withDescription
-						?mainSubspecies.getBasicDescription(null)
-								+mainSubspecies.getAdvancedDescription(null)
+						?("<p style='text-align:center; font-size:110%;margin-bottom:0;padding-bottom:0;'><b>"+mainSubspecies.getBookName()+"</b></p>"
+							+ (mainSubspecies.getBookAuthor().isEmpty()?"":"<p style='text-align:center;margin-top:0;padding-top:0;'><b><i>by "+mainSubspecies.getBookAuthor()+"</i></b></p>")
+							+ mainSubspecies.getBasicDescription(null)
+							+ mainSubspecies.getAdvancedDescription(null))
 						:"")
 					+reader.addSpecialPerk(perk);
 			
 		} else {
-			return mainSubspecies.getBasicDescription(null)
-					+mainSubspecies.getAdvancedDescription(null)
+			return "<p style='text-align:center; font-size:110%;margin-bottom:0;padding-bottom:0;'><b>"+mainSubspecies.getBookName()+"</b></p>"
+					+ (mainSubspecies.getBookAuthor().isEmpty()?"":"<p style='text-align:center;margin-top:0;padding-top:0;'><b><i>by "+mainSubspecies.getBookAuthor()+"</i></b></p>")
+					+ mainSubspecies.getBasicDescription(null)
+					+ mainSubspecies.getAdvancedDescription(null)
 					+"<p style='text-align:center; color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"
 						+ "Nothing further can be gained from re-reading this book..."
 					+ "</p>";
@@ -2607,6 +2611,7 @@ public abstract class AbstractItemEffectType {
 				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLUID_ADDICTIVE, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLUID_ALCOHOLIC, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLUID_ALCOHOLIC_WEAK, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLUID_BUBBLING, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLUID_HALLUCINOGENIC, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLUID_MINERAL_OIL, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
@@ -5155,9 +5160,15 @@ public abstract class AbstractItemEffectType {
 						}
 					case TF_MOD_FLUID_ALCOHOLIC:
 						if(potency == TFPotency.MINOR_DRAIN) {
-							return new RacialEffectUtil("Removes alcoholic effect from cum.") { @Override public String applyEffect() { return target.removeCumModifier(FluidModifier.ALCOHOLIC); } };
+							return new RacialEffectUtil("Removes strongly alcoholic effect from cum.") { @Override public String applyEffect() { return target.removeCumModifier(FluidModifier.ALCOHOLIC); } };
 						} else {
-							return new RacialEffectUtil("Makes cum alcoholic.") { @Override public String applyEffect() { return target.addCumModifier(FluidModifier.ALCOHOLIC); } };
+							return new RacialEffectUtil("Makes cum strongly alcoholic.") { @Override public String applyEffect() { return target.addCumModifier(FluidModifier.ALCOHOLIC); } };
+						}
+					case TF_MOD_FLUID_ALCOHOLIC_WEAK:
+						if(potency == TFPotency.MINOR_DRAIN) {
+							return new RacialEffectUtil("Removes alcoholic effect from cum.") { @Override public String applyEffect() { return target.removeCumModifier(FluidModifier.ALCOHOLIC_WEAK); } };
+						} else {
+							return new RacialEffectUtil("Makes cum alcoholic.") { @Override public String applyEffect() { return target.addCumModifier(FluidModifier.ALCOHOLIC_WEAK); } };
 						}
 					case TF_MOD_FLUID_BUBBLING:
 						if(potency == TFPotency.MINOR_DRAIN) {
@@ -5275,9 +5286,15 @@ public abstract class AbstractItemEffectType {
 						}
 					case TF_MOD_FLUID_ALCOHOLIC:
 						if(potency == TFPotency.MINOR_DRAIN) {
-							return new RacialEffectUtil("Removes alcoholic effect from milk.") { @Override public String applyEffect() { return target.removeMilkModifier(FluidModifier.ALCOHOLIC); } };
+							return new RacialEffectUtil("Removes strongly alcoholic effect from milk.") { @Override public String applyEffect() { return target.removeMilkModifier(FluidModifier.ALCOHOLIC); } };
 						} else {
-							return new RacialEffectUtil("Makes milk alcoholic.") { @Override public String applyEffect() { return target.addMilkModifier(FluidModifier.ALCOHOLIC); } };
+							return new RacialEffectUtil("Makes milk strongly alcoholic.") { @Override public String applyEffect() { return target.addMilkModifier(FluidModifier.ALCOHOLIC); } };
+						}
+					case TF_MOD_FLUID_ALCOHOLIC_WEAK:
+						if(potency == TFPotency.MINOR_DRAIN) {
+							return new RacialEffectUtil("Removes alcoholic effect from milk.") { @Override public String applyEffect() { return target.removeMilkModifier(FluidModifier.ALCOHOLIC_WEAK); } };
+						} else {
+							return new RacialEffectUtil("Makes milk alcoholic.") { @Override public String applyEffect() { return target.addMilkModifier(FluidModifier.ALCOHOLIC_WEAK); } };
 						}
 					case TF_MOD_FLUID_BUBBLING:
 						if(potency == TFPotency.MINOR_DRAIN) {
@@ -5395,9 +5412,15 @@ public abstract class AbstractItemEffectType {
 						}
 					case TF_MOD_FLUID_ALCOHOLIC:
 						if(potency == TFPotency.MINOR_DRAIN) {
-							return new RacialEffectUtil("Removes alcoholic effect from udder-milk.") { @Override public String applyEffect() { return target.removeMilkCrotchModifier(FluidModifier.ALCOHOLIC); } };
+							return new RacialEffectUtil("Removes strongly alcoholic effect from udder-milk.") { @Override public String applyEffect() { return target.removeMilkCrotchModifier(FluidModifier.ALCOHOLIC); } };
 						} else {
-							return new RacialEffectUtil("Makes udder-milk alcoholic.") { @Override public String applyEffect() { return target.addMilkCrotchModifier(FluidModifier.ALCOHOLIC); } };
+							return new RacialEffectUtil("Makes udder-milk strongly alcoholic.") { @Override public String applyEffect() { return target.addMilkCrotchModifier(FluidModifier.ALCOHOLIC); } };
+						}
+					case TF_MOD_FLUID_ALCOHOLIC_WEAK:
+						if(potency == TFPotency.MINOR_DRAIN) {
+							return new RacialEffectUtil("Removes alcoholic effect from udder-milk.") { @Override public String applyEffect() { return target.removeMilkCrotchModifier(FluidModifier.ALCOHOLIC_WEAK); } };
+						} else {
+							return new RacialEffectUtil("Makes udder-milk alcoholic.") { @Override public String applyEffect() { return target.addMilkCrotchModifier(FluidModifier.ALCOHOLIC_WEAK); } };
 						}
 					case TF_MOD_FLUID_BUBBLING:
 						if(potency == TFPotency.MINOR_DRAIN) {
@@ -5515,9 +5538,15 @@ public abstract class AbstractItemEffectType {
 						}
 					case TF_MOD_FLUID_ALCOHOLIC:
 						if(potency == TFPotency.MINOR_DRAIN) {
-							return new RacialEffectUtil("Removes alcoholic effect from girlcum.") { @Override public String applyEffect() { return target.removeGirlcumModifier(FluidModifier.ALCOHOLIC); } };
+							return new RacialEffectUtil("Removes strongly alcoholic effect from girlcum.") { @Override public String applyEffect() { return target.removeGirlcumModifier(FluidModifier.ALCOHOLIC); } };
 						} else {
-							return new RacialEffectUtil("Makes girlcum alcoholic.") { @Override public String applyEffect() { return target.addGirlcumModifier(FluidModifier.ALCOHOLIC); } };
+							return new RacialEffectUtil("Makes girlcum strongly alcoholic.") { @Override public String applyEffect() { return target.addGirlcumModifier(FluidModifier.ALCOHOLIC); } };
+						}
+					case TF_MOD_FLUID_ALCOHOLIC_WEAK:
+						if(potency == TFPotency.MINOR_DRAIN) {
+							return new RacialEffectUtil("Removes alcoholic effect from girlcum.") { @Override public String applyEffect() { return target.removeGirlcumModifier(FluidModifier.ALCOHOLIC_WEAK); } };
+						} else {
+							return new RacialEffectUtil("Makes girlcum alcoholic.") { @Override public String applyEffect() { return target.addGirlcumModifier(FluidModifier.ALCOHOLIC_WEAK); } };
 						}
 					case TF_MOD_FLUID_BUBBLING:
 						if(potency == TFPotency.MINOR_DRAIN) {

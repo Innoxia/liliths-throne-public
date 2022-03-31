@@ -2039,6 +2039,46 @@ public class PlaceType {
 	}.initItemsPersistInTile()
 	.initWeatherImmune();
 	
+	public static final AbstractPlaceType LILAYA_HOME_DUNGEON_CELL = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Dungeon cell",
+			"The cells within Lilaya's dungeon are designed to be cramped and uncomfortable.",
+			"dominion/lilayasHome/roomSlave",
+			PresetColour.BASE_GREY,//BASE_MAGENTA
+			LilayaHomeGeneric.DUNGEON_CELL,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in Lilaya's dungeon") {
+		@Override
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			if(cell!=null) {
+				for(AbstractPlaceUpgrade pu : cell.getPlace().getPlaceUpgrades()) {
+					if(pu.getRoomDialogue(cell)!=null) {
+						return pu.getRoomDialogue(cell);
+					}
+				}
+			}
+			return LilayaHomeGeneric.DUNGEON_CELL;
+		}
+		@Override
+		public ArrayList<AbstractPlaceUpgrade> getStartingPlaceUpgrades() {
+			return Util.newArrayListOfValues(PlaceUpgrade.LILAYA_DUNGEON_CELL);
+		}
+		@Override
+		public ArrayList<AbstractPlaceUpgrade> getAvailablePlaceUpgrades(Set<AbstractPlaceUpgrade> upgrades) {
+			return PlaceUpgrade.getDungeonCellUpgrades();
+		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
+		}
+		@Override
+		public String getPlaceNameAppendFormat(int count) {
+			return " D-"+String.format("%02d", count);
+		}
+	}.initItemsPersistInTile()
+	.initWeatherImmune();
+	
 	public static final AbstractPlaceType LILAYA_HOME_ARTHUR_ROOM = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Arthur's Room",
@@ -5823,6 +5863,9 @@ public class PlaceType {
 			
 		} else if(id.equals("SHOPPING_ARCADE_SUPPLIER_DEPOT")) {
 			id = "SHOPPING_ARCADE_RESTAURANT";
+			
+		} else if(id.equals("innoxia_fields_elis_town_tavern_seedy")) {
+			id = "innoxia_fields_elis_town_tavern_alley";
 		}
 		
 		id = Util.getClosestStringMatch(id, idToPlaceMap.keySet());

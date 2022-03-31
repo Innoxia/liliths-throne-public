@@ -269,7 +269,7 @@ public class GenericTalk {
 			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
-			CorruptionLevel.THREE_DIRTY,
+			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL,
 			null) {
@@ -335,7 +335,7 @@ public class GenericTalk {
 			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
-			CorruptionLevel.THREE_DIRTY,
+			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL,
 			null) {

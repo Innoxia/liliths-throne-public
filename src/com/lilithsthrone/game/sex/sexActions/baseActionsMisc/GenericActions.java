@@ -1910,7 +1910,11 @@ public class GenericActions {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		
+
+		@Override
+		public boolean isOverrideAvailableDuringResisting() {
+			return true;
+		}
 		@Override
 		public String getActionTitle() {
 			return "End sex";
@@ -1970,8 +1974,8 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.getSexManager().isPartnerWantingToStopSex(Main.sex.getCharacterPerformingAction())
-					&& !Main.sex.isAnyCharacterReadyToOrgasm(false)
+			return Main.sex.isCharacterWantingToStopSex(Main.sex.getCharacterPerformingAction())
+					&& (!Main.sex.getAllParticipants(false).contains(Main.game.getPlayer()) || !Main.sex.isReadyToOrgasm(Main.game.getPlayer()))
 					&& !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -2060,7 +2064,10 @@ public class GenericActions {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-
+		@Override
+		public boolean isOverrideAvailableDuringResisting() {
+			return true;
+		}
 		@Override
 		public boolean isAvailableDuringImmobilisation() {
 			return true;
@@ -2099,7 +2106,10 @@ public class GenericActions {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-
+		@Override
+		public boolean isOverrideAvailableDuringResisting() {
+			return true;
+		}
 		@Override
 		public boolean isAvailableDuringImmobilisation() {
 			return true;
@@ -2518,7 +2528,10 @@ public class GenericActions {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-
+		@Override
+		public boolean isOverrideAvailableDuringResisting() {
+			return true;
+		}
 		@Override
 		public boolean isAvailableDuringImmobilisation() {
 			return true;
@@ -2778,7 +2791,10 @@ public class GenericActions {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-
+		@Override
+		public boolean isOverrideAvailableDuringResisting() {
+			return true;
+		}
 		@Override
 		public boolean isAvailableDuringImmobilisation() {
 			return true;
@@ -3190,6 +3206,10 @@ public class GenericActions {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+		@Override
+		public boolean isOverrideAvailableDuringResisting() {
+			return true;
+		}
 		@Override
 		public boolean isAvailableDuringImmobilisation() {
 			return true;

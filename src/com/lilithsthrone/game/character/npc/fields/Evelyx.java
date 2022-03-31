@@ -1195,7 +1195,7 @@ public class Evelyx extends NPC {
 						new Value<>(PerkCategory.LUST, 0),
 						new Value<>(PerkCategory.ARCANE, 1)));
 		
-		princess.setSpeechColour(PresetColour.BASE_RED.toWebHexString());
+		princess.setSpeechColour(PresetColour.BASE_RED);
 		
 		// Persona:
 		princess.setPersonalityTraits(

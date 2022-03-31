@@ -156,38 +156,38 @@ public class ReindeerOverseer extends NPC {
 	
 	@Override
 	public void dailyUpdate() {
-		
 		if(!this.isSlave() && !Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())) {
 			if(Main.game.getCurrentWeather()!=Weather.SNOW && Main.game.getSeason()!=Season.WINTER) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.hasSnowedThisWinter);
 				if(this.getLocation()!=Main.game.getPlayer().getLocation()) {
 					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 				}
-			}
-			
-			clearNonEquippedInventory(false);
-			
-			if(this.getLocationPlace().getPlaceType().equals(PlaceType.DOMINION_STREET) && !this.getLocation().equals(Main.game.getPlayer().getLocation())) {
-				this.moveToAdjacentMatchingCellType(true);
-				Main.game.getDialogueFlags().dailyReindeerReset(this.getId());
-			}
-			
-			for (int i = 0; i < 10 + (Util.random.nextInt(6)); i++) {
-				this.addItem(Main.game.getItemGen().generateItem(ItemType.PRESENT), false);
-			}
-			
-			for (AbstractItemType item : ItemType.getAllItems()) {
-				if(item!=null && item.getItemTags().contains(ItemTag.REINDEER_GIFT)) {
-					for (int i = 0; i < 3 + (Util.random.nextInt(6)); i++) {
-						this.addItem(Main.game.getItemGen().generateItem(item), false);
+				
+			} else {
+				clearNonEquippedInventory(false);
+				
+				if(this.getLocationPlace().getPlaceType().equals(PlaceType.DOMINION_STREET) && !this.getLocation().equals(Main.game.getPlayer().getLocation())) {
+					this.moveToAdjacentMatchingCellType(true);
+					Main.game.getDialogueFlags().dailyReindeerReset(this.getId());
+				}
+				
+				for (int i = 0; i < 10 + (Util.random.nextInt(6)); i++) {
+					this.addItem(Main.game.getItemGen().generateItem(ItemType.PRESENT), false);
+				}
+				
+				for (AbstractItemType item : ItemType.getAllItems()) {
+					if(item!=null && item.getItemTags().contains(ItemTag.REINDEER_GIFT)) {
+						for (int i = 0; i < 3 + (Util.random.nextInt(6)); i++) {
+							this.addItem(Main.game.getItemGen().generateItem(item), false);
+						}
 					}
 				}
-			}
-			
-			for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
-				if(clothing!=null && clothing.getDefaultItemTags().contains(ItemTag.REINDEER_GIFT)) {
-					for (int i = 0; i < 1 + (Util.random.nextInt(2)); i++) {
-						this.addClothing(Main.game.getItemGen().generateClothing(clothing), false);
+				
+				for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
+					if(clothing!=null && clothing.getDefaultItemTags().contains(ItemTag.REINDEER_GIFT)) {
+						for (int i = 0; i < 1 + (Util.random.nextInt(2)); i++) {
+							this.addClothing(Main.game.getItemGen().generateClothing(clothing), false);
+						}
 					}
 				}
 			}

@@ -15,7 +15,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.QuickTransformations;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -48,7 +47,7 @@ public class BatCavernDialogue {
 	private static boolean transformationsApplied = false;
 	
 	private static boolean isWantsToFight() {
-		return getMugger().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue();
+		return getMugger().getAffectionLevel(Main.game.getPlayer()).isWillFightPlayer();
 	}
 
 	private static boolean isCompanionDialogue() {
@@ -105,57 +104,7 @@ public class BatCavernDialogue {
 	}
 	
 	private static String getStatus() {
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append("<p style='text-align:center;'><i>");
-		AffectionLevel al = getMugger().getAffectionLevel(Main.game.getPlayer());
-		switch(al) {
-			case NEGATIVE_FIVE_LOATHE:
-			case NEGATIVE_FOUR_HATE:
-			case NEGATIVE_THREE_STRONG_DISLIKE:
-			case NEGATIVE_TWO_DISLIKE:
-			case NEGATIVE_ONE_ANNOYED:
-			case ZERO_NEUTRAL:
-				break;
-			case POSITIVE_ONE_FRIENDLY:
-				if(getMugger().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("[npc.Name] is acting in a <i style='color:"+al.getColour().toWebHexString()+";'>friendly, flirtatious</i> manner towards you.");
-				} else {
-					sb.append("[npc.Name] is acting in a <i style='color:"+al.getColour().toWebHexString()+";'>friendly</i> manner towards you.");
-				}
-				break;
-			case POSITIVE_TWO_LIKE:
-				if(getMugger().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>likes you</i>, and sees you as more than just a friend.");
-				} else {
-					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>likes you</i>, and sees you as a close friend.");
-				}
-				break;
-			case POSITIVE_THREE_CARING:
-				if(getMugger().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>cares about you a lot</i>, and is deeply attracted towards you.");
-				} else {
-					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>cares about you a lot</i>, and considers you to be [npc.her] best friend.");
-				}
-				break;
-			case POSITIVE_FOUR_LOVE:
-				if(getMugger().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("You can tell from the way that [npc.she] looks at you that [npc.name] <i style='color:"+al.getColour().toWebHexString()+";'>loves you</i>.");
-				} else {
-					sb.append("You can tell that [npc.name] <i style='color:"+al.getColour().toWebHexString()+";'>loves you</i> in a purely platonic manner.");
-				}
-				break;
-			case POSITIVE_FIVE_WORSHIP:
-				if(getMugger().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and is head-over-heels in love with you.");
-				} else {
-					sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and would do almost anything you asked of [npc.herHim].");
-				}
-				break;
-		}
-		sb.append("</i></p>");
-		
-		return UtilText.parse(getMugger(), sb.toString());
+		return AffectionLevel.getAttitudeDescription(getMugger(), Main.game.getPlayer(), true);
 	}
 
 	public static final DialogueNode CAVERN_ATTACK = new DialogueNode("Assaulted!", "A figure jumps out from the shadows!", true) {
@@ -256,16 +205,16 @@ public class BatCavernDialogue {
 					};
 					
 				} else if (index == 2) {
-					if(Main.game.getPlayer().getMoney()<DialogueFlags.MUGGER_DEMAND_2) {
-						return new Response("Offer money ("+UtilText.formatAsMoney(DialogueFlags.MUGGER_DEMAND_2, "span")+")",
+					if(Main.game.getPlayer().getMoney()<Main.game.getDialogueFlags().getMuggerDemand2()) {
+						return new Response("Offer money ("+UtilText.formatAsMoney(Main.game.getDialogueFlags().getMuggerDemand2(), "span")+")",
 								"You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
 					} else {
-						return new Response("Offer money ("+UtilText.formatAsMoney(DialogueFlags.MUGGER_DEMAND_2, "span")+")",
-								"Offer to pay [npc.name] "+Util.intToString(DialogueFlags.MUGGER_DEMAND_2)+" flames to leave you alone.", Main.game.getDefaultDialogue(false)) {
+						return new Response("Offer money ("+UtilText.formatAsMoney(Main.game.getDialogueFlags().getMuggerDemand2(), "span")+")",
+								"Offer to pay [npc.name] "+Util.intToString(Main.game.getDialogueFlags().getMuggerDemand2())+" flames to leave you alone.", Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
-								Main.game.getPlayer().incrementMoney(-DialogueFlags.MUGGER_DEMAND_2);
+								Main.game.getPlayer().incrementMoney(-Main.game.getDialogueFlags().getMuggerDemand2());
 								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "CAVERN_ATTACK_PAY_OFF", getAllCharacters()));
 							}
 						};
@@ -410,16 +359,16 @@ public class BatCavernDialogue {
 					};
 					
 				} else if (index == 2) {
-					if(Main.game.getPlayer().getMoney()<DialogueFlags.MUGGER_DEMAND_2) {
-						return new Response("Offer money ("+UtilText.formatAsMoney(DialogueFlags.MUGGER_DEMAND_2, "span")+")",
+					if(Main.game.getPlayer().getMoney()<Main.game.getDialogueFlags().getMuggerDemand2()) {
+						return new Response("Offer money ("+UtilText.formatAsMoney(Main.game.getDialogueFlags().getMuggerDemand2(), "span")+")",
 								"You don't have enough money to offer [npc.name] any.", null);
 					} else {
-						return new Response("Offer money ("+UtilText.formatAsMoney(DialogueFlags.MUGGER_DEMAND_2, "span")+")",
+						return new Response("Offer money ("+UtilText.formatAsMoney(Main.game.getDialogueFlags().getMuggerDemand2(), "span")+")",
 								"Offer [npc.name] some money to help [npc.herHim] buy food and clothing.", CAVERN_PEACEFUL_OFFER_MONEY) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-DialogueFlags.MUGGER_DEMAND_2));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-Main.game.getDialogueFlags().getMuggerDemand2()));
 								Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), 10));
 
 								if(getMugger().isAffectionHighEnoughToInviteHome() && !Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION)) {
@@ -852,7 +801,7 @@ public class BatCavernDialogue {
 					
 				} else if(getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Gentle sex",
-							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
+							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -865,7 +814,7 @@ public class BatCavernDialogue {
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (gentle)",
-							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)",
+							"[npc.She] needs to be punished for attacking you like that...",
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMGeneric(
@@ -884,7 +833,7 @@ public class BatCavernDialogue {
 					
 				} else if(getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Rough sex",
-							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
+							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -897,7 +846,7 @@ public class BatCavernDialogue {
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (rough)",
-							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)",
+							"[npc.She] needs to be punished for attacking you like that...",
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMGeneric(

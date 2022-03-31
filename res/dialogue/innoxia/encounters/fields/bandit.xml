@@ -236,9 +236,9 @@
 				]]></responseTitle>
 				<responseTooltip><![CDATA[
 					#IF(attacker.isAttractedTo(pc))
-						Take advantage of your victory to have gentle, dominant sex with the bandit. (Starts the sex scene in the 'gentle' pace.)
+						Take advantage of your victory to have gentle, dominant sex with the bandit.
 					#ELSE
-						Take advantage of your victory to rape the bandit. (Starts the sex scene in the 'gentle' pace.)
+						Take advantage of your victory to rape the bandit.
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue/>
@@ -283,9 +283,9 @@
 				]]></responseTitle>
 				<responseTooltip><![CDATA[
 					#IF(attacker.isAttractedTo(pc))
-						Take advantage of your victory to have rough, dominant sex with the bandit. (Starts the sex scene in the 'rough' pace.)
+						Take advantage of your victory to have rough, dominant sex with the bandit.
 					#ELSE
-						Take advantage of your victory to roughly rape the bandit. (Starts the sex scene in the 'rough' pace.)
+						Take advantage of your victory to roughly rape the bandit.
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue/>

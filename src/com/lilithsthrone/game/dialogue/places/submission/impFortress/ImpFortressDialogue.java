@@ -1404,7 +1404,7 @@ public class ImpFortressDialogue {
 						
 					} else if (index == 3) {
 						return new ResponseSex("Gentle Sex",
-								"Well, they <i>are</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
+								"Well, they <i>are</i> asking for it!",
 								true,
 								false,
 								getPartyForSex(),
@@ -1416,7 +1416,7 @@ public class ImpFortressDialogue {
 						
 					} else if (index == 4) {
 						return new ResponseSex("Rough Sex",
-								"Well, they <i>are</i> asking for it! (Start the sex scene in the 'rough' pace.)",
+								"Well, they <i>are</i> asking for it!",
 								true,
 								false,
 								getPartyForSex(),
@@ -3141,7 +3141,7 @@ public class ImpFortressDialogue {
 						
 					} else if (index == 3) {
 						return new ResponseSex("Gentle Sex",
-								UtilText.parse(getBoss(), "Now that they've been defeated, there's nothing stopping you from having sex with [npc.name] and [npc.her] imp gang. (Start the sex scene in the 'gentle' pace.)"),
+								UtilText.parse(getBoss(), "Now that they've been defeated, there's nothing stopping you from having sex with [npc.name] and [npc.her] imp gang."),
 								true,
 								false,
 								getPartyForSex(),
@@ -3153,7 +3153,7 @@ public class ImpFortressDialogue {
 						
 					} else if (index == 4) {
 						return new ResponseSex("Rough Sex",
-								UtilText.parse(getBoss(), "Now that they've been defeated, there's nothing stopping you from having sex with [npc.name] and [npc.her] imp gang. (Start the sex scene in the 'rough' pace.)"),
+								UtilText.parse(getBoss(), "Now that they've been defeated, there's nothing stopping you from having sex with [npc.name] and [npc.her] imp gang."),
 								true,
 								false,
 								getPartyForSex(),

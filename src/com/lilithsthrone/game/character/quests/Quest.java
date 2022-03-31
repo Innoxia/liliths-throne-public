@@ -1574,7 +1574,44 @@ public enum Quest {
 			return getDescription();
 		}
 	},
-        
+
+	
+	// Fetching beer barrels for Oglix:
+	
+	OGLIX_BEER_BARRELS_1(QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Kheiron's Barrels";
+		}
+		@Override
+		public String getDescription() {
+			return "Having agreed to help Oglix expand her selection of beer-bitches, you've been tasked with travelling to the tavern, 'The Centaur's Sword', and asking the owner, Kheiron, for any spare barrels he might have."
+					+ " If he refuses to help, Golix instructed you to tell the centaur that 'Golix says to be a good horsie'.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Thanks to the special phrase 'Golix says to be a good horsie', you managed to convince Kheiron to send four spare barrels to Oglix's tavern.";
+		}
+	},
+	
+	OGLIX_BEER_BARRELS_2(QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Good Horsie Report";
+		}
+		@Override
+		public String getDescription() {
+			return "Having secured Kheiron's assistance, you now need to return to Oglix and inform her that Kheiron chose to be 'a good horsie' for Golix.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You returned to Oglix and informed her of your success."
+					+ " Having now secured four additional barrels in which to lock new beer-bitches, Oglix asked you to supply promising candidates from the nearby alleyways' criminal population."
+					+ " Additionally, she told you to sneak around the back of her tavern between [units.time(6)]-[units.time(7)] if you wanted to see what the phrase 'Golix says to be a good horsie' meant...";
+		}
+	},
+	
+	
 	// Romance quests:
 
 	RELATIONSHIP_NYAN_1_STOCK_ISSUES(QuestType.RELATIONSHIP, 1, 0) {

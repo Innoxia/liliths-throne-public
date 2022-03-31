@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <placeType>
 	<worldRegion>FIELD_CITY</worldRegion>
-	<name><![CDATA[The Crossed Blades]]></name>
-	<tooltipDescription><![CDATA[Within the alleyways of northern Elis, the seedy tavern 'The Crossed Blades' attracts the undesirable patrons who're not welcome in the town's more reputable taverns.]]></tooltipDescription>
-	<virginityLossDescription><![CDATA[outside of 'The Crossed Blades' tavern]]></virginityLossDescription>
+	<name><![CDATA[corridor]]></name>
+	<tooltipDescription><![CDATA[A narrow corridor links the VIP room to the main floor of 'The Crossed Blades' tavern.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the corridor at 'The Crossed Blades' tavern]]></virginityLossDescription>
 	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
-	<colour>BASE_PURPLE</colour>
+	<colour>BASE_GREY</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	<encounterType>null</encounterType>
-	<dialogue>innoxia_places_fields_elis_generic_tavern_seedy</dialogue>
-	<populationPresent copyPlaceType="innoxia_fields_elis_town_alley"/>
+	<dialogue>innoxia_places_fields_elis_tavern_alley_corridor</dialogue>
+	<populationPresent/>
 	<furniturePresent>false</furniturePresent>
-	<loiteringEnabled>true</loiteringEnabled>
 	<globalMapTile>false</globalMapTile>
 	<dangerous><![CDATA[false]]></dangerous>
 	<itemsDisappear><![CDATA[true]]></itemsDisappear>
 	<aquatic><![CDATA[LAND]]></aquatic>
 	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
 	<teleportPermissions>BOTH</teleportPermissions>
-	<weatherImmunities/>
+	<weatherImmunities immuneToAll="true"/>
 	<applyInventoryInit/>
 </placeType>

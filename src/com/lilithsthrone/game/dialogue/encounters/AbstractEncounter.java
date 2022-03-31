@@ -192,7 +192,7 @@ public abstract class AbstractEncounter {
 		}
 	}
 	
-	protected static DialogueNode SpawnAndStartChildHere(List<OffspringSeed> offspringAvailable)  {
+	public static DialogueNode SpawnAndStartChildHere(List<OffspringSeed> offspringAvailable)  {
 		NPC offspring = new NPCOffspring(offspringAvailable.get(Util.random.nextInt(offspringAvailable.size())));
 
 		offspring.setLocation(Main.game.getPlayer(), true);
@@ -314,7 +314,10 @@ public abstract class AbstractEncounter {
 			try {
 				NPC slave = (NPC) Main.game.getNPCById(id);
 				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_SLAVES)
-						&& ((slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE && slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)) || slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING)
+						&& ((slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE
+								&& !slave.getLocationPlace().getPlaceUpgrades().stream().anyMatch(upgrade->upgrade.getImmobilisationType()!=null)
+								&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM))
+							|| slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING)
 						&& slave.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) {
 					if(slave.getLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {
 						hornySlaves.put(slave, new ArrayList<>());
@@ -330,7 +333,10 @@ public abstract class AbstractEncounter {
 			try {
 				NPC slave = (NPC) Main.game.getNPCById(id);
 				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RECEIVE_SLAVES)
-						&& ((slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE && slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)) || slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING)
+						&& ((slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE
+								&& !slave.getLocationPlace().getPlaceUpgrades().stream().anyMatch(upgrade->upgrade.getImmobilisationType()!=null)
+								&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM))
+							|| slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING)
 						&& slave.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) {
 					for(NPC horny : hornySlaves.keySet()) {
 						if(!horny.equals(slave) && horny.isAttractedTo(slave)) {

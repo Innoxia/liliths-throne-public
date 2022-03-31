@@ -28,6 +28,7 @@ import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
+import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -1335,19 +1336,45 @@ public abstract class AbstractSubspecies {
 	public String getBookNamePlural() {
 		return bookNamePlural;
 	}
-
+	
+	private File getXMLBookFile() {
+		return new File(bookIdFolderPath+System.getProperty("file.separator")+"bookEntries.xml");
+	}
+	
+	public String getBookAuthor() {
+		File bookFile = new File("res/txt/characters/raceInfo.xml");
+		if(this.isFromExternalFile()) {
+			bookFile = getXMLBookFile();
+		}
+		if(bookFile.exists()) {
+			try {
+				Document doc = Main.getDocBuilder().parse(bookFile);
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				Element coreElement = Element.getDocumentRootElement(bookFile); // Loads the document and returns the root element
+				
+				for(Element element : coreElement.getAllOf("htmlContent")) {
+					if(!element.getAttribute("author").isEmpty()) {
+						return element.getAttribute("author");
+					}
+				}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return "";
+	}
+	
 	public String getBasicDescription(GameCharacter character) {
-		if(this.isFromExternalFile() &&
-		   new File(bookIdFolderPath+System.getProperty("file.separator")+"bookEntries.xml").exists()) {
-				return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getBasicDescriptionId(), new ArrayList<>());
+		if(this.isFromExternalFile() && getXMLBookFile().exists()) {
+			return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getBasicDescriptionId(), new ArrayList<>());
 		}
 		return UtilText.parseFromXMLFile("characters/raceInfo", getBasicDescriptionId());
 	}
 
 	public String getAdvancedDescription(GameCharacter character) {
-		if(this.isFromExternalFile() &&
-		   new File(bookIdFolderPath+System.getProperty("file.separator")+"bookEntries.xml").exists()) {
-				return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getAdvancedDescriptionId(), new ArrayList<>());
+		if(this.isFromExternalFile() && getXMLBookFile().exists()) {
+			return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getAdvancedDescriptionId(), new ArrayList<>());
 		}
 		return UtilText.parseFromXMLFile("characters/raceInfo", getAdvancedDescriptionId());
 	}
@@ -1420,7 +1447,7 @@ public abstract class AbstractSubspecies {
 		
 		if(character!=null) {
 			//character.isTorsoFeral() 
-			if(character.isFeral() || (character.isElemental() && !((Elemental)character).getSummoner().isElementalActive())) {
+			if(character.isFeral() || (character.isElemental() && ((Elemental)character).getSummoner()!=null && !((Elemental)character).getSummoner().isElementalActive())) {
 				try {
 					String feralBackground = "";
 					InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundFeral.svg");
@@ -1594,7 +1621,23 @@ public abstract class AbstractSubspecies {
 		}
 		return bookSVGString;
 	}
-
+	
+	public String getSVGStringFromBody(Body body) {
+		if(SVGString==null) {
+			initSVGStrings();
+		}
+		if(body.getLoadedSubspecies().getRace()==Race.ELEMENTAL) {
+			GameCharacter character = new Elemental(false);
+			character.setBody(body, true);
+			return getSVGString(character);
+			
+		} else {
+			GameCharacter character = new GenericAndrogynousNPC();
+			character.setBody(body, true);
+			return getSVGString(character);
+		}
+	}
+	
 	public String getSVGString(GameCharacter character) {
 		if(SVGString==null) {
 			initSVGStrings();
@@ -1609,6 +1652,22 @@ public abstract class AbstractSubspecies {
 		return SVGStringNoBackground;
 	}
 
+	public String getSVGStringDesaturatedFromBody(Body body) {
+		if(SVGString==null) {
+			initSVGStrings();
+		}
+		if(body.getLoadedSubspecies().getRace()==Race.ELEMENTAL) {
+			GameCharacter character = new Elemental(false);
+			character.setBody(body, true);
+			return getSVGStringDesaturated(character);
+			
+		} else {
+			GameCharacter character = new GenericAndrogynousNPC();
+			character.setBody(body, true);
+			return getSVGStringDesaturated(character);
+		}
+	}
+	
 	public String getSVGStringDesaturated(GameCharacter character) {
 		if(SVGString==null) {
 			initSVGStrings();
