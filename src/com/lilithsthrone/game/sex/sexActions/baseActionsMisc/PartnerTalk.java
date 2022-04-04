@@ -31,6 +31,10 @@ public class PartnerTalk {
 			SexParticipantType.NORMAL) {
 
 		@Override
+		public boolean isOverrideAvailableDuringResisting() {
+			return true;
+		}
+		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Main.sex.getCharacterPerformingAction().isPlayer();
 		}

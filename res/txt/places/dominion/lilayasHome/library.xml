@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="ARCANE_AROUSAL"><![CDATA[
+	<p>
+		Sliding the large leather-bound tome out from the bookshelf, you then walk over to sit down on one of the library's comfortable chairs. The spine creaks as you open the cover, and as you start reading, you quickly discover that this book is way above your level of understanding. You decide to persist, and by flipping through the pages and skimming over some of the more intelligible passages, you do manage to discover some things.
+	</p>
+	<p>
+		For one, it seems as though arcane power is found all throughout this world, and although it's mostly concentrated in people's arcane auras, you discover that there are some places out in the wilderness where the arcane condenses into little micro-storms of activity. These places allow even the most novice of arcane users to harness its power, but for the most part, a person can only use arcane spells if they train their aura to become strong enough. This training process appears to take several years, and you realise how fortunate you are to have an aura with demon-like strength.
+	</p>
+	<p>
+		After reading through these technical aspects of the arcane, you move on to the nature of the arcane itself. You realise that this section is what must have given the book its title; 'Arcane Arousal'. It appears as though the arcane is some kind of primal force that feeds on a person's sexual energy. Although a person may normally be able to easily resist their aura's influence, when they get fatigued, their own aura will amplify their sexual desires, causing them to become obsessed with sex. This is the power that's behind the arcane storms that often erupt over Dominion, and you once again reflect on how lucky you are to have an aura powerful enough to cancel out the storm's potent effects.
+	</p>
+	<p>
+		Finally, you skim over the book's last few chapters, which define 'arcane essences'. These essences are described as being physical, gaseous manifestations of arcane power, and are able to be infused into clothing and items of food in order to create enchanted items and potions. People who have a very high level of arcane power are able to absorb arcane essences from out of the aura of people orgasming or being defeated in combat near them, with lilin even being able to passively absorb essences in a radius of several thousand metres. This does <i>not</i> diminish the aura of the orgasming person, but it does cause their aura to strengthen, preventing additional essence absorption for a few hours.
+	</p>
+	<p>
+		The book finishes by noting that, due to the sexual pleasure derived from beating others, powerful arcane users who are sadists are able to absorb essences from those they abuse or beat in fights. Conversely, powerful arcane users who are masochists absorb essences from being beaten.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILITHS_DYNASTY"><![CDATA[
+	<p>
+		You take the hardback book out of the bookshelf and walk over to sit down on one of the library's comfortable chairs. Opening the cover and flipping through the pages reveals that most of this book is taken up by descriptions of trivial events and tedious demon politics. In general, however, it does provide a good insight into how this world is ruled, and you spend a short while reading through the pages as you familiarise yourself with Lilith's dynasty.
+	</p>
+	<p>
+		You already knew that the demon queen Lilith was the reigning monarch of this world, but what you find interesting is that there is no record of her predecessor.In fact, from what you're reading, it sounds as though Lilith has ruled this world since the beginning of recorded history. You wonder what sort of immense power she must possess in order to keep control for such a length of time.
+	</p>
+	<p>
+		Your question is half-answered as you turn the next few pages. It seems as though Lilith's offspring, referred to as lilin, act as regional rulers, and are unquestionably loyal to their mother. Each Lilin appears to be an immensely powerful demon in her own right, and you realise that with an army of these subordinates ruling over her domain, Lilith's power base is incredibly secure.
+	</p>
+	<p>
+		Apparently, all of the lilin in the world were once common races, who were corrupted by Lilith into their new forms. The book makes a prominent mention that there are seven exceptions to this; those being the seven of Lilith's natural-born daughters, who are referred to as the 'elder lilin'. In order of seniority, these seven elders are:
+		<br/><i>Lirecea, Lovienne, Lasielle, Lyssieth, Lunette, Lyxias, and Lisophia.</i>
+	</p>
+	<p>
+		The final part of the introduction describes how, in a way similar to their mother's, lilin usually corrupt their partners into demons before sex, so that the resulting offspring will be pure demons. Half-demons are considered to be lower in social standing than pure demons, with half-demons being born of a lilin and human being regarded as particularly shameful.
+	</p>
+	<p>
+		Apparently, although many Lilin end up giving birth to hundreds, if not thousands, of demons, it's incredibly rare for a lilin to publicly acknowledge any of her demonic children as her own. Recognised half-demons seem to be almost unheard of, with just a handful of mentions throughout the entire book.
+	</p>
+	<p style='text-align:center;'>
+		In the book's centre-fold, there's a table which shows how demonic breeding works:
+		<br/><br/>
+		<table style='margin: 0px auto;'>
+		<tr style='font-weight:bold; text-align:left;'>
+			<td>[style.boldFeminine(Mother)]/[style.boldMasculine(Father)]</td><td>Lilin</td><td>Demon</td><td>Half-demon</td><td>Human half-demon</td><td>Non-demon</td><td>Human</td><td>Imp</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold;'>Lilin</td><td>[style.boldtfGreater(Ln)]</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold;'>Demon</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold;'>Half-demon</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold;'>Human half-demon</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold;'>Non-demon</td><td>[style.boldtfMinor(Hdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldBad(Ip)]</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold;'>Human</td><td>[style.boldtfPartial(Hhdn)]</td</td><td>[style.boldtfPartial(Hhdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldHuman(Hn)]</td><td>[style.boldBad(Ip)]</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold;'>Imp</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td>
+		</tr>
+		</table>
+		<br/><br/>
+		[style.boldtfGreater(Ln)] = Lilin&nbsp;&nbsp;&nbsp;&nbsp;
+		[style.boldtfLesser(Dn)] = Demon&nbsp;&nbsp;&nbsp;&nbsp;
+		[style.boldtfMinor(Hdn)] = Half-demon&nbsp;&nbsp;&nbsp;&nbsp;
+		[style.boldtfPartial(Hhdn)] = Human half-demon</br>
+		[style.boldtfGeneric(Nd)] = Non-demon (non-human)&nbsp;&nbsp;&nbsp;&nbsp;
+		[style.boldHuman(Hn)] = Human&nbsp;&nbsp;&nbsp;&nbsp;
+		[style.boldBad(Ip)] = Imp
+	</p>
+	<p>
+		After this, the book goes on to describe human half-demons as being particularly despised in the demon's social hierarchy. It explains that this is due to the fact that they are the only demon-kind to produce imp offspring, and imps are considered to be the lowest of all (even below humans). While still of a higher social standing than any non-demon, human half-demons are typically treated very poorly by their 'purer' relatives, who will often insult them with terms such as 'imp-breeder', 'imp-factory', 'imp-fucker', or other such profanities.
+	</p>
+	<p>
+		Your eyes widen as you read that Lilaya is one of only two recorded human half-demons in history to be publicly recognised by their lilin mother (who, in Lilaya's case, is the elder lilin, Lyssieth).
+		#IF(flags.hasFlag(FLAG_impFortressDemonBossEncountered))
+			 The other half-demon mentioned is Lilaya's sister, [siren.name].
+		#ELSE
+			 The other half-demon to be mentioned is someone by the name of [siren.name], who is another of Lyssieth's daughters.
+		#ENDIF
+		 After reading about this, you can understand why Lilaya is extremely sensitive about her human half-demon form.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOMINION_HISTORY"><![CDATA[
+	<p>
+		As you slide the history book out from the bookshelf and flip through the pages, you see that there's not much content in it, and most of the pages are taken up by large illustrations. Looking at the front cover again, you see that the title is in fact 'A horse-morph's guide to Dominion's history'. Tutting at the author's apparent assumption about the intelligence of horse-morphs, you nevertheless have a quick read through the book's pages.
+	</p>
+	<p>
+		There isn't really much useful information inside, and you quickly finish the book from cover to cover. There's an interesting passage about the construction of Dominion by Lilith and the demons many centuries ago, but it doesn't really go into any detail.
+	</p>
+	<p>
+		Apart from that, the only other part of the book that piques your interest is a small section justifying the practice of slavery as a necessary evil. The passage explains how demons, not including half-demons, are the only race which are almost never seen to be enslaved. Apparently, this is due to a non-demon owning a demonic slave being considered completely unacceptable in Dominion's society, and requires a very hard-to-obtain license. It also mentions that Enforcers are very hesitant to sign off on any demon enslavement order, as for all they know, the demon in question could turn out to be the favourite offspring of a lilin, who would be sure to bring their wrath down upon them...
+	</p>
+	<p>
+		Other than that snippet of trivia, the book doesn't contain anything useful.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_INFO"><![CDATA[
+	<p>
+		You slide the small paperback book out from the shelf, and, turning it over in your [pc.hands], you take a look at the front cover. On it, the title 'Knocked up' is displayed in bold pink lettering, and beneath that, there's a picture of a heavily-pregnant rabbit-girl cradling her swollen belly. A little speech-bubble is drawn coming from her mouth, and in it, you read the words 'All you need to know about being a parent!'.
+	</p>
+	<p>
+		Opening its pages, you find that the information contained within the book is laid out in a very neat and easy-to-read format, and it only takes you a few minutes to read through the entire thing. One of the most striking facts is that in this world, the full cycle of pregnancy only lasts for a few weeks. What's more, once the mother is ready to give birth, she's able to stay in that state indefinitely, until such time as she feels comfortable giving birth.
+	<p>
+	<p>
+		The second alarming fact contained within these pages is related to the development of children. It only takes a few minutes for newborns to develop and mature into adults, and they will inherit all of the common knowledge held by their parents. This doesn't include specific memories, so for example, if a child's mother knows how to read and write, they will too, but they won't have the memory of their mother learning this information.
+	</p>
+	<p>
+		After reaching full maturity within a matter of hours, the vast majority of children will immediately leave their parents in order to strike out for themselves and become fully independent. Despite this almost-immediate separation, a parent will always share special maternal or paternal bonds with their children, and, whether due to the arcane or some natural intuition, a parent and child, as well as siblings, will always recognise each other at first sight.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOMINION_MAP"><![CDATA[
+	<p>
+		Hanging on one of the walls of the library, a huge map of Dominion is displayed in a wooden frame. Using your phone, you take a picture of it for future reference.
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsExcellent(Dominion Map fully revealed!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVERY_HISTORY"><![CDATA[
+	<p>
+		Following Rose's instructions, you [pc.walk] down one of the library's many aisles and soon manage to find the section which contains books about slavery. Although the vast majority of these tomes look to be dry, legal texts, there's a hardback book titled 'People as Property' which appears to be aimed at the general public. Sliding this book out from its resting place, you open it up and briefly skim over its pages to see if you can find any interesting information.
+	</p>
+	<p>
+		The first half of the book is a rambling treatise seeking to justify slavery by positing that it's a natural part of societal hierarchies. After making the claim that slavery is morally justifiable from a philosophical point of view, the author of this book then attempts to champion slavery from a more practical point of view, arguing that the undesirable, criminal, and even unproductive elements of society are better off being put to use as slaves rather than being supported by the hard-working public.
+	</p>
+	<p>
+		After leafing through this lengthy opening to the book, you find that the rest of the pages are dedicated to the history and legal status of slaves in Lilith's Realm. Apparently, slavery has always been legal, and although there have been a couple of attempts to petition Lilith for a change in the law, these efforts ended with the petitioners becoming slaves themselves, which apparently did quite an excellent job of dissuading any further dissent over the matter. Reading on, you're somewhat surprised to read that only Lilith and the Elder Lilin are exempt from ever being enslaved, meaning that it's technically legal for even lilin to become slaves, although of course in practice this has never happened.
+	</p>
+	<p>
+		The final part of the book deals with the somewhat prickly issue of demons being enslaved. Although it's perfectly legal, most non-demon slave owners would never choose to purchase a demon slave, due to the risk of potentially angering the demon's siblings, parents, or even the lilin at the head of their lineage. Other demons don't have the same reluctance to own demonic slaves, as it's widely considered to be socially acceptable for a demon to own another demon.
+	</p>
+	<p>
+		Finally, taking up the last two pages, there's an abstract, double-spread map of Lilith's Realm. Although it's completely useless from a navigational perspective, it does an excellent job of showing the density of slaves in each part of the Realm. The highest concentration of slaves is, unsurprisingly, in Dominion itself, with the southern desert city of Thinis taking a relatively close second place. The jungle city of Itza'aak up to the north is also a hotbed of slavery, and finally there's a not-insignificant amount of slaves in the underwater city of Lyonesse. Conversely, the town of Elis out in the Foloi Fields, along with the vast majority of the Realm's countryside, is almost completely absent of slaves.
+	</p>
+	<p>
+		With nothing more to be gained from continuing to read this book, you return it to its place on the shelf.
+		#IF(flags.hasFlag(FLAG_readBookSlavery))
+			 Looking across to the book titled 'Lilaya's Dirty Secrets', you wonder whether to
+			#IF(flags.hasFlag(FLAG_acexp_dungeon_found))
+				 pull on it and go down to Lilaya's dungeon, or instead head elsewhere...
+			#ELSE
+				 take the time to have a look at it...
+			#ENDIF
+		#ELSE
+			 As you turn to [pc.step] back into the aisle, the title of a nearby book suddenly grabs your attention, and you find yourself staring in surprise at the words 'Lilaya's Dirty Secrets' embossed in silver lettering on the tome's spine. From the slight wear on the wooden shelf in front of this book, it looks to have been regularly taken out in the past, but a thin layer of dust on its top hints at the fact that it hasn't been read for some time. After quickly glancing up and down the aisle to make sure that you're not being watched, you wonder whether or not to take this book out and see what secrets it contains...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+    <htmlContent tag="DUNGEON_TRIGGER"><![CDATA[
+   	<p>
+        Quickly convincing yourself that your demonic [lilaya.relation(pc)] wouldn't object to it, you decide to take a look at the tome which promises to contain her dirty secrets. Reaching up to take hold of the top of the tome titled 'Lilaya's Dirty Secrets', you pull it forwards to draw it out of the shelf. As you do this, you're surprised to discover that the book doesn't slide out of its position as you'd expected, but instead tilts forwards, revealing that it's fixed in place and somehow hinged on the bottom. As the tome moves, a rumbling, grinding sound of stone sliding across stone fills the aisle, and you watch in wonder as the bookcase swings open to reveal a secret, spiral staircase that leads down into darkness.
+	</p>
+   	<p>
+		Either due to the noise of this passage opening, or more likely from a hidden link to the mansion's bell system, your inadvertent discovery of this secret passage summons Rose, who you hear calling out as she rushes towards your position from the library's entrance, [rose.speech(Mistress! Have you finally decided to use the dungeon again?! I'd been hoping- Oh! It's <i><b>you</b></i>?!)]
+	</p>
+   	<p>
+        As she comes a skidding to a halt in front of you, you can tell both from her words and the look of stern disapproval on her face that the cat-girl maid is not at all amused at finding you here instead of Lilaya. Quickly regaining her composure, she curtsies before you and asks, [rose.speech(How may I help you this time, [pc.name]?)]
+	</p>
+   	<p>
+        Motioning towards the secret passageway, you tell Rose that you accidentally discovered it, but now that it's been opened, you're wondering what's down there. A faint blush creeps up on Rose's cheeks as she answers, [rose.speech(It leads down to... Well, I suppose you might call it a dungeon, but it's really more of a <i>recreational facility</i>... It's no longer in use, although of course I still keep it clean. Now that you've found it, I don't think that Mistress Lilaya wouldn't mind if you wanted to make use of it. She seems to have forgotten that it even exists...)]
+	</p>
+   	<p>
+   	    With that, Rose takes a single step forwards, which causes a series of arcane torches to burst into life. With the spiral staircase now illuminated by these flickering arcane flames, the cat-girl maid turns to face you, and after flashing you a somewhat-sinister smirk, she teases, [rose.speech(~Mmm!~ This does bring back memories... If you'd like me to give you a good time while you're down there, then use the bell-pull in the bedroom to call me... Just make sure that you're comfortable with the equipment you find in there being used on you first, ok?)]
+	</p>
+   	<p>
+	    #IF(pc.hasFetish(FETISH_MASOCHIST) || pc.hasFetish(FETISH_SUBMISSIVE) || pc.hasFetish(FETISH_BONDAGE_VICTIM))
+	        Having a pretty good idea what this dominant cat-girl has in mind, you can't help but let out a horny whine and shiver in anticipation. Smirking at your reaction, Rose turns her back on you, and as she struts off down the aisle, she calls out behind her, [rose.speech(I look forward to punishing you, [pc.name]...)]
+	    #ELSE
+	        Not entirely sure or comfortable with what this dominant cat-girl has in mind, you give her a non-committal response and turn your attention back to the secret passage. Seeing that you have no further need of her, Rose turns her back on you, and as she struts off down the aisle, she calls out behind her, [rose.speech(Please enjoy yourself down there, [pc.name]...)]
+	    #ENDIF
+	</p>
+	]]>
+    </htmlContent>
+	
+    <htmlContent tag="DUNGEON_TRIGGER_BACK"><![CDATA[
+   	<p>
+        Deciding against heading down the spiral staircase and exploring Lilaya's dungeon, you take a [pc.step] back. By some arcane enchantment, the secret passageway senses that you're not making use of it, and after the arcane torches all suddenly extinguish themselves, the bookcase slides back into position, leaving no external hint of what's behind it.
+	</p>
+	<p>
+		Looking up and down the aisle, you wonder where to go to next...
+	</p>
+	]]>
+    </htmlContent>
+	
+    <htmlContent tag="DUNGEON_OPENS"><![CDATA[
+   	<p>
+        #IF(!flags.hasFlag(FLAG_acexp_dungeon_explored))
+			Having been granted permission to do so by Rose, you decide that now's the time to head down and explore Lilaya's dungeon.
+		#ELSE
+			Deciding that you'd like to head down into Lilaya's dungeon, you [pc.step] over to the bookcase which conceals the secret passage.
+		#ENDIF
+         Reaching up to take hold of the top of the tome titled 'Lilaya's Dirty Secrets', you pull it forwards, finding once again that it's fixed in place and hinged on the bottom, allowing it to tilt but not be drawn out from its resting place. As the tome moves, a rumbling sound of grinding stone fills the aisle, and you watch as the bookcase swings open to reveal a secret, spiral staircase which leads down into darkness. As you begin to move forwards, the wall-mounted arcane torches burst into flame, casting staircase in a dancing, flickering light.
+	</p>
+	]]>
+    </htmlContent>
+	
+	
+</dialogue>

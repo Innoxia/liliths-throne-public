@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+	
+	<additionalPlaceTypeTriggers>
+		<placeType>innoxia_fields_elis_tavern_alley_seating</placeType>
+	</additionalPlaceTypeTriggers>
+	
+	<possibleEncounters>
+		<encounter>
+			<name><![CDATA[assaulted]]></name>
+			<chanceToTrigger opportunisticEncounter="true"><![CDATA[
+				#IF(flags.hasFlag(FLAG_innoxia_oglix_tavern_pacified))
+					0
+				#ELSE
+					25
+				#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[innoxia_places_fields_elis_tavern_alley_seating_attacked]]></dialogueReturned>
+		</encounter>
+	</possibleEncounters>
+	
+</encounterRoot>

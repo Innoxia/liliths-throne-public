@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mouth>
+	<race>innoxia_mouse</race>
+	
+	<coveringType>MOUTH</coveringType>
+	
+	<tongueType>innoxia_mouse_tongue</tongueType>
+	
+	<names>
+		<name><![CDATA[mouth]]></name>
+	</names>
+	<namesPlural>
+		<name><![CDATA[mouths]]></name>
+	</namesPlural>
+	
+	<descriptorsMasculine/>
+	<descriptorsFeminine/>
+	
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.lipSize], [npc.mouthColourPrimary(true)] [npc.lips]
+		#IF(npc.isWearingLipstick())
+			#IF(npc.isPiercedLip())
+				, which have been pierced, and
+			#ELSE
+				, which
+			#ENDIF
+			 are currently [npc.materialCompositionDescriptor]
+			#IF(npc.isHeavyMakeup(BODY_COVERING_TYPE_MAKEUP_LIPSTICK) && game.isLipstickMarkingEnabled())
+				 a [style.colourPinkDeep(heavy layer)] of
+			#ENDIF
+			 [#npc.getLipstick().getFullDescription(npc, true)].
+		#ELSE
+			#IF(npc.isPiercedLip()), which have been pierced#ENDIF.
+		#ENDIF
+		 [npc.Her] throat is [npc.mouthColourSecondary(true)] in colour.
+	]]></bodyDescription>
+	
+	<defaultOrificeModifiers/>
+</mouth>

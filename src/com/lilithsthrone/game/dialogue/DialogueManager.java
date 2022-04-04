@@ -9,7 +9,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.dialogue.npcDialogue.QuickTransformations;
+import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
+import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
+import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
 import com.lilithsthrone.game.dialogue.places.submission.LyssiethPalaceDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePoker;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
+import com.lilithsthrone.game.dialogue.utils.CosmeticsDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -26,6 +34,14 @@ public class DialogueManager {
 	private static List<DialogueNode> allDialogues = new ArrayList<>();
 	private static Map<DialogueNode, String> dialogueToIdMap = new HashMap<>();
 	private static Map<String, DialogueNode> idToDialogueMap = new HashMap<>();
+
+	public static Map<DialogueNode, String> getDialogueToIdMap() {
+		return dialogueToIdMap;
+	}
+
+	public static Map<String, DialogueNode> getIdToDialogueMap() {
+		return idToDialogueMap;
+	}
 
 	/**
 	 * For use in external res files as a way to get a hook to UtilText.parseFromXMLFile
@@ -64,12 +80,37 @@ public class DialogueManager {
 		return dialogueToIdMap.get(placeType);
 	}
 	
+	private static void addHardCodedDialogueId(String id, DialogueNode node) {
+		allDialogues.add(node);
+		dialogueToIdMap.put(node, id);
+		idToDialogueMap.put(id, node);
+	}
+	
 	static {
 		// Special hard-coded dialogues which need to be accessed in external files:
-		String id = "MERAXIS_DEMON_TF_START";
-		allDialogues.add(LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START);
-		dialogueToIdMap.put(LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START, id);
-		idToDialogueMap.put(id, LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START);
+		addHardCodedDialogueId("MERAXIS_DEMON_TF_START", LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START);
+		
+		addHardCodedDialogueId("BEAUTICIAN_START", CosmeticsDialogue.BEAUTICIAN_START);
+
+		addHardCodedDialogueId("BODY_CHANGING_CORE", BodyChanging.BODY_CHANGING_CORE);
+		addHardCodedDialogueId("QUICK_TRANSFORMATIONS_START", QuickTransformations.QUICK_TRANSFORMATIONS_FEMININITY);
+
+		addHardCodedDialogueId("OFFSPRING_ENCOUNTER", GenericOffspringDialogue.OFFSPRING_ENCOUNTER);
+		
+		addHardCodedDialogueId("HARPY_NEST_BIMBO_TALK", HarpyNestBimbo.HARPY_NEST_BIMBO_TALK);
+		addHardCodedDialogueId("HARPY_NEST_BIMBO_QUEEN", HarpyNestBimbo.HARPY_NEST_BIMBO_QUEEN);
+		addHardCodedDialogueId("HARPY_NEST_BIMBO_UGLY", HarpyNestBimbo.HARPY_NEST_BIMBO_UGLY);
+
+		addHardCodedDialogueId("HARPY_NEST_DOMINANT_TALK", HarpyNestDominant.HARPY_NEST_DOMINANT_TALK);
+		addHardCodedDialogueId("HARPY_NEST_DOMINANT_QUEEN", HarpyNestDominant.HARPY_NEST_DOMINANT_QUEEN);
+		addHardCodedDialogueId("HARPY_NEST_DOMINANT_UGLY", HarpyNestDominant.HARPY_NEST_DOMINANT_UGLY);
+
+		addHardCodedDialogueId("HARPY_NEST_NYMPHO_TALK", HarpyNestNympho.HARPY_NEST_NYMPHO_TALK);
+		addHardCodedDialogueId("HARPY_NEST_NYMPHO_QUEEN", HarpyNestNympho.HARPY_NEST_NYMPHO_QUEEN);
+		addHardCodedDialogueId("HARPY_NEST_NYMPHO_UGLY", HarpyNestNympho.HARPY_NEST_NYMPHO_UGLY);
+
+		addHardCodedDialogueId("DICE_POKER_CORE", DicePoker.GAMBLING);
+		
 		
 		// Modded dialogue types:
 		

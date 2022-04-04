@@ -20,7 +20,7 @@ public class ColourListPresets {
 
 	//----- COVERING PRESETS -----//
 	
-	public static ArrayList<Colour> humanSkinColours = new ArrayList<>(PresetColour.humanSkinColours);
+	public static ArrayList<Colour> humanSkinColours = new ArrayList<>(PresetColour.getHumanSkinColours());
 	public static ArrayList<Colour> ratSkinColours = new ArrayList<>(PresetColour.ratSkinColours);
 	public static ArrayList<Colour> demonSkinColours = new ArrayList<>(PresetColour.demonSkinColours);
 	public static ArrayList<Colour> allSkinColours = new ArrayList<>(PresetColour.allSkinColours);

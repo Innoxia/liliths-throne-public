@@ -20,7 +20,7 @@ import com.lilithsthrone.world.places.AbstractPlaceType;
 
 /**
  * @since 0.3.2
- * @version 0.3.5.5
+ * @version 0.4.4
  * @author Innoxia
  */
 public class OffspringMapDialogue {
@@ -34,11 +34,15 @@ public class OffspringMapDialogue {
 				&& (worldType==WorldType.HARPY_NEST
 						?(os.getHalfDemonSubspecies()==null || os.getHalfDemonSubspecies().getRace()==Race.HARPY)
 						:(os.getHalfDemonSubspecies()==null || os.getHalfDemonSubspecies().getRace()!=Race.HARPY))
-				|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_ALLEY
-						&& (os.getSubspecies()==Subspecies.ANGEL
-							|| os.getSubspecies()==Subspecies.FOX_ASCENDANT
+				// Allow youko in Elis alleyways:
+				|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.getEncounterFromId("innoxia_elis_alleyway")
+						&& (os.getSubspecies()==Subspecies.FOX_ASCENDANT
 							|| os.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
 							|| os.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC))
+				// Allow Angels in Dominion:
+				|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_ALLEY
+						&& (os.getSubspecies()==Subspecies.ANGEL))
+				// Allow alligators, slimes, and rats in Dominion canals:
 				|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_CANAL
 						&& (os.getSubspecies()==Subspecies.ALLIGATOR_MORPH
 							|| os.getSubspecies()==Subspecies.SLIME
@@ -85,7 +89,7 @@ public class OffspringMapDialogue {
 						unknownFatherName = os.getFatherName();
 					}
 					
-					UtilText.nodeContentSB.append(" (<span style='color:"+os.getSubspecies().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(os.getSubspecies().getName(null))+"</span>)"
+					UtilText.nodeContentSB.append(" (<span style='color:"+os.getSubspecies().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(os.getSubspecies().getName(os.getBody()))+"</span>)"
 							+ " Mother: "+(os.getMother()==null?unknownMotherName:(os.getMother().isPlayer()?"[style.colourExcellent(You)]":os.getMother().getName(true)))
 							+ " Father: "+(os.getFather()==null?unknownFatherName:(os.getFather().isPlayer()?"[style.colourExcellent(You)]":os.getFather().getName(true)))
 							+ "<br/>");
@@ -110,7 +114,7 @@ public class OffspringMapDialogue {
 						unknownFatherName = os.getFatherName();
 					}
 					
-					UtilText.nodeContentSB.append(" (<span style='color:"+os.getSubspecies().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(os.getSubspecies().getName(null))+"</span>)"
+					UtilText.nodeContentSB.append(" (<span style='color:"+os.getSubspecies().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(os.getSubspecies().getName(os.getBody()))+"</span>)"
 							+ " Mother: "+(os.getMother()==null?unknownMotherName:(os.getMother().isPlayer()?"[style.colourExcellent(You)]":os.getMother().getName(true)))
 							+ " Father: "+(os.getFather()==null?unknownFatherName:(os.getFather().isPlayer()?"[style.colourExcellent(You)]":os.getFather().getName(true)))
 							+ "<br/>");

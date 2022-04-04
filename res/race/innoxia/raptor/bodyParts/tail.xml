@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tail>
+	<race>innoxia_raptor</race>
+	
+	<transformationName><![CDATA[raptor]]></transformationName>
+	
+	<coveringType>innoxia_raptor_feathers</coveringType>
+	
+	<spinneret>false</spinneret>
+	
+	<defaultGirth>3</defaultGirth>
+	
+	<defaultLengthAsPercentageOfHeight>0.5</defaultLengthAsPercentageOfHeight>
+	
+	<tags>
+		<tag>TAIL_SLEEP_HUGGING</tag>
+		<tag>TAIL_TYPE_FEATHER</tag>
+		<tag>TAIL_TAPERING_NONE</tag>
+		<tag>TAIL_NEVER_SUITABLE_FOR_PENETRATION</tag>
+	</tags>
+	
+	<determiner><![CDATA[plume of]]></determiner>
+	<determinerPlural><![CDATA[plumes of]]></determinerPlural> 
+	
+	<name><![CDATA[tail feathers]]></name>
+	<namePlural><![CDATA[tail feathers]]></namePlural> 
+	
+	<descriptorsMasculine>
+		<descriptor>raptor-like</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>raptor-like</descriptor>
+	</descriptorsFeminine>
+	
+	<tipName><![CDATA[end]]></tipName>
+	<tipNamePlural><![CDATA[ends]]></tipNamePlural>
+	<tipDescriptorsMasculine>
+		<descriptor>feathered</descriptor>
+	</tipDescriptorsMasculine>
+	<tipDescriptorsFeminine>
+		<descriptor>feathered</descriptor>
+	</tipDescriptorsFeminine>
+	
+	<transformationDescription><![CDATA[
+		#IF(npc.getTailCount()==1)
+			 A plume of tail feathers sprouts from just above [npc.her] ass, with each feather quickly growing to be about [npc.tailLength] long. [npc.She] [npc.verb(discover)] that [npc.she] can quickly raise and lower [npc.her] new bird-like tail, which helps [npc.herHim] to keep [npc.her] balance.
+			<br/>[npc.Name] now [npc.has] a [style.boldRaptor(raptor's bird-like tail)], made out of [npc.tailFullDescription(true)].
+		#ELSE
+			 [npc.TailCount] plumes of tail feathers sprout from just above [npc.her] ass, with each feather quickly growing to be about [npc.tailLength] long. [npc.She] [npc.verb(discover)] that [npc.she] can quickly raise and lower [npc.her] new bird-like tails, which helps [npc.herHim] to keep [npc.her] balance.
+			<br/>[npc.Name] now [npc.has] [npc.tailCount] [style.boldRaptor(raptor's bird-like tails)], made out of [npc.tailFullDescription(true)].
+		#ENDIF
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		Growing out from just above [npc.her] ass, [npc.sheHasFull]
+		#IF(npc.getTailCount()==1)
+			 a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF plume of [npc.tailColour(true)] tail-feathers, which [npc.she] can rapidly move up and down to help [npc.herHim] keep [npc.her] balance and to control [npc.her] path when in flight.
+		#ELSE
+			 [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF plumes of [npc.tailColour(true)] tail-feathers, which [npc.she] can rapidly move up and down to help [npc.herHim] keep [npc.her] balance and to control [npc.her] path when in flight.
+		#ENDIF
+	]]></bodyDescription>
+</tail>

@@ -215,6 +215,14 @@ public class FluidCum implements FluidInterface, XMLSaving {
 							+ "[npc.NamePos] [npc.cum] is now [style.boldGrow(addictive)]!"
 						+ "</p>");
 			case ALCOHOLIC:
+				fluidModifiers.remove(FluidModifier.ALCOHOLIC_WEAK);
+				return UtilText.parse(owner,
+						"<p>"
+							+ "A strange, soothing warmth takes root deep within [npc.namePos] [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+							+ "[npc.NamePos] [npc.cum] is now [style.boldGrow(strongly alcoholic)]!"
+						+ "</p>");
+			case ALCOHOLIC_WEAK:
+				fluidModifiers.remove(FluidModifier.ALCOHOLIC);
 				return UtilText.parse(owner,
 						"<p>"
 							+ "A strange, soothing warmth takes root deep within [npc.namePos] [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
@@ -287,6 +295,7 @@ public class FluidCum implements FluidInterface, XMLSaving {
 							+ "[npc.NamePos] [npc.cum] is [style.boldShrink(no longer addictive)]!"
 						+ "</p>");
 			case ALCOHOLIC:
+			case ALCOHOLIC_WEAK:
 				return UtilText.parse(owner,
 						"<p>"
 							+ "A soft coolness spreads up into [npc.namePos] [npc.balls], causing [npc.herHim] to let out a gentle sigh.<br/>"

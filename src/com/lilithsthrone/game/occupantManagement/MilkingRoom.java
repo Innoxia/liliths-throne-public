@@ -250,7 +250,7 @@ public class MilkingRoom implements XMLSaving {
 	}
 	
 	public static int getMaximumMilkPerHour(GameCharacter character) {
-		Cell c = getMilkingCell(character, false);
+		Cell c = character.getCell();
 		int milked = MilkingRoom.BASE_MILKING_AMOUNT;
 
 		if(c==null) {

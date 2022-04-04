@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>50</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Raptor energy bar]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Raptor energy bars]]></namePlural>
+		<description><![CDATA[A small, Raptor-branded energy bar, which proudly states on the back to be of 'Over 80% meat content'. On the reverse of the wrapper, there's an image of a fit falcon-boy dominantly face-fucking a naked mouse-girl.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/innoxia/raptor/subspecies/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="70">raptor_energy_bar.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>innoxia_raptor</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[raptor]]></potionDescriptor>
+		<associatedRace>innoxia_raptor</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 15% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_HEALTH_MAXIMUM.getFormattedValue(10)] to 'potion effects']]></line>
+			<line><![CDATA[[#ATTRIBUTE_CRITICAL_DAMAGE.getFormattedValue(10)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/15)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A powerful jolt of energy surges through [npc.namePos] body!
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_HEALTH_MAXIMUM, 10)]
+			[#npc.addPotionEffect(ATTRIBUTE_CRITICAL_DAMAGE, 10)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+			<tag>CAFFEINATED_010</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+			Tearing off the plastic wrapper, [npc.name] [npc.verb(take)] a big bite out of the Raptor energy bar. Although its savoury, meaty taste has an artificial hint to it, it's not at all unpleasant, and so [npc.she] happily [npc.verb(finish)] it off, after which [npc.she] quickly [npc.verb(find)] [npc.herself] feeling full of energy.
+		]]></selfUse>
+		<otherUse><![CDATA[
+			Tearing off the plastic wrapper, [npc.name] [npc.verb(make)] [npc2.name] take a big bite out of the Raptor energy bar. Although its savoury, meaty taste has an artificial hint to it, it's not at all unpleasant, and so [npc2.she] happily [npc2.verb(finish)] it off, after which [npc2.she] quickly [npc2.verb(find)] [npc2.herself] feeling full of energy.
+		]]></otherUse>
+	</useDescriptions>
+
+</item>

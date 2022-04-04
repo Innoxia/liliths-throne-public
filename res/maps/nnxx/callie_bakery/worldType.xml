@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>DOMINION</worldRegion>
+	<name><![CDATA[The Creamy Bakey]]></name>
+	<colour>BASE_BROWN</colour>
+	<sexBlockedReason/>
+	<furniturePresent>true</furniturePresent>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>false</loiteringEnabled>
+	<flightEnabled>false</flightEnabled>
+	<visibleFromStart>true</visibleFromStart>
+	<fullyRevealedFromStart>false</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_DOMINION</globalMapLocation>
+	<standardPlace>nnxx_callie_bakery_counter</standardPlace>
+	<entryFromGlobalMapLocation>nnxx_callie_bakery_counter</entryFromGlobalMapLocation>
+	<teleportPermissions>NONE</teleportPermissions>
+	<places>
+		<place colour="#00ff00">nnxx_callie_bakery_counter</place>
+		<place colour="#808080">nnxx_callie_bakery_seating</place>
+	</places>
+</worldType>

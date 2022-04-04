@@ -1225,7 +1225,7 @@ public enum TFModifier {
 		}
 	},
 	
-	TF_MOD_FLUID_ALCOHOLIC("alcoholic",
+	TF_MOD_FLUID_ALCOHOLIC("strongly alcoholic",
 			"Applies an effect related to changing a fluid.",
 			"alcoholic",
 			"modifier_circle_fluid_modifier",
@@ -1234,6 +1234,18 @@ public enum TFModifier {
 		@Override
 		public Colour getColour() {
 			return FluidModifier.ALCOHOLIC.getColour();
+		}
+	},
+	
+	TF_MOD_FLUID_ALCOHOLIC_WEAK("alcoholic",
+			"Applies an effect related to changing a fluid.",
+			"alcoholic",
+			"modifier_circle_fluid_modifier",
+			PresetColour.BASE_ORANGE_LIGHT,
+			Rarity.COMMON) {
+		@Override
+		public Colour getColour() {
+			return FluidModifier.ALCOHOLIC_WEAK.getColour();
 		}
 	},
 	

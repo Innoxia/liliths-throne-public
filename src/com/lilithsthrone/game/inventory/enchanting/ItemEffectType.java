@@ -421,15 +421,16 @@ public class ItemEffectType {
 					}
 				}
 				
-				return "<p>"
-						+ "The digital readout lights up with two parallel red lines, with flashing pink text next to that displaying: '[style.italicsArcane(Pregnant!)]'"
+				return "<p style='text-align:center;'>"
+						+ "The digital readout lights up with two parallel red lines, with flashing pink text next to that displaying:"
+						+ "<br/><b>'[style.italicsArcane(Pregnant!)]'</b>"
 					+ "</p>"
-					+ "<p>"
+					+ "<p style='text-align:center;'>"
 						+ "Underneath the flashing pregnancy confirmation, there's some extra information, which reads:<br/>"
 						+ "<i>"
 						+ "Father: "+(father!=null
-										?father.getNameIgnoresPlayerKnowledge()+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(father))+")"
-										:unknownFatherName+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(Main.game.getNpc(GenericAndrogynousNPC.class)))+")")+"<br/>"
+										?father.getNameIgnoresPlayerKnowledge()+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(father.getBody()))+")"
+										:unknownFatherName+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(Main.game.getNpc(GenericAndrogynousNPC.class).getBody()))+")")+"<br/>"
 						+ "Litter size: " +target.getPregnantLitter().getTotalLitterCount()+"<br/>"
 						+ "[style.colourFeminine(Daughters)]: " +(target.getPregnantLitter().getDaughtersFromFather()+target.getPregnantLitter().getDaughtersFromMother())+"<br/>"
 						+ "[style.colourMasculine(Sons)]: " +(target.getPregnantLitter().getSonsFromFather()+target.getPregnantLitter().getSonsFromMother())+"<br/>"
@@ -437,8 +438,9 @@ public class ItemEffectType {
 					+ "</p>";
 				
 			} else {
-				return "<p>"
-					+ "The digital readout lights up with a single red line, with solid black text next to that displaying: '<i>Not Pregnant.</i>'"
+				return "<p style='text-align:center;'>"
+					+ "The digital readout lights up with a single red line, with solid black text next to that displaying:"
+					+ "<br/><b>'<i>Not Pregnant.</i>'</b>"
 				+ "</p>";
 			}
 		}
@@ -792,16 +794,16 @@ public class ItemEffectType {
 			sb.append("<p style='text-align:center;'>");
 				sb.append("[npc.Name] [npc.verb(feel)] a blissful sense of inner-peace wash over [npc.herHim]...");
 				if(hadAddictions) {
-					sb.append("<i>[npc.SheIsFull] no longer addicted to any substances!</i>");
+					sb.append("<br/><i>[npc.SheIsFull] no longer addicted to any substances!</i>");
 				}
 				if(drunk) {
-					sb.append("<i>The alcohol still in [npc.her] system instantly metabolises!</i>");
+					sb.append("<br/><i>The alcohol still in [npc.her] system instantly metabolises!</i>");
 				}
 				if(psychoactive) {
-					sb.append("<i>The psychoactive trip which [npc.she] [npc.was] experiencing suddenly comes to an end!</i>");
+					sb.append("<br/><i>The psychoactive trip which [npc.she] [npc.was] experiencing suddenly comes to an end!</i>");
 				}
 				if(!hadAddictions && !drunk && !psychoactive) {
-					sb.append("[style.italicsDisabled(Other than experiencing this pleasant feeling, nothing happens...)]");
+					sb.append("<br/>[style.italicsDisabled(Other than experiencing this pleasant feeling, nothing happens...)]");
 				}
 			sb.append("</p>");
 			
@@ -2135,7 +2137,7 @@ public class ItemEffectType {
 				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on non-slave unique characters...)]</p>";
 			}
 			
-			AbstractSubspecies sub = target.getFleshSubspecies();
+			AbstractSubspecies sub = target.getBody().getFleshSubspecies();
 			if(sub.getRace()!=Race.DEMON) {
 				target.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(target, target.getGender(), sub, true), false);
 				return UtilText.parse(target, "<p style='text-align:center; color:"+PresetColour.RACE_DEMON.toWebHexString()+";'><i>[npc.Name] is now [npc.a_race]!</i></p>");

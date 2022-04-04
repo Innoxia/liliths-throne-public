@@ -1,0 +1,94 @@
+<h2>v0.4.3.5</h2>
+
+<h3>AceXP's content contributions:</h3>
+<ul>
+	<li>Added more sex actions in each of the harpy matriarch's nests, which are available after having pacified those nests (as part of the 'Angry harpies' side quest).</li>
+	<li>Added a new area, 'Lilaya's Dungeon', beneath Lilaya's mansion. You can access this area from reading the 'People as Property' book in the mansion's library, which unlocks after obtaining Lilaya's recommendation for a slaver license.</li>
+</ul>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Fixed issue where the Innoxia's Gift debug item wouldn't work correctly. (by AceXP)</li>
+	<li>Added a new 'Strapless bodysuit' clothing item, which is sold by Nyan/Monica. (by C4MG1RL)</li>
+	<li>Added support for dynamically-resizing action tooltips. (PR#1617 by CognitiveMist)</li>
+	<li>Added three new clothing items: 'Round sunglasses' (unisex), 'Heart sunglasses' (unisex), and 'Cat-Eye sunglasses' (feminine, supports patterns), all of which are sold by Nyan. (PR#1613 by CognitiveMist)</li>
+	<li>Added several additional entries to the parser namespace, giving modders handles to nine more gameplay-relevant classes. (PR#1611 by CognitiveMist)</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Added support to define pre-lubed areas at the start of sex via a new 'startingLubrications' element in external sex managers (see 'res/sex/innoxia/managers/meraxis/duel/masturbation.xml' for a commented example).</li>
+	<li>Added catch for passing in a null character argument for the setNippleSize(), setNippleShape(), setAreolaeSize(), and setAreolaeShape() methods, making it safe to call these methods with a null character in modded race's 'applyRaceChanges' and 'applySubspeciesChanges' elements.</li>
+	<li>For race modding, support has been added for defining lip names and descriptors in mouth type xml files (see 'res/mods/innoxia/race/hyena/bodyParts/mouth.xml' for a commented example).</li>
+	<li>Added support to mod in 'Loving confession' and 'Loving response' lines to sex managers in the same way that submissive and rough lines can be added (see 'res/sex/innoxia/managers/meraxis/duel/masturbation.xml' for a commented example).</li>
+	<li>Moved more dialogue out of hard-coded Lilaya's lab and library classes into external xml dialogue files.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Added 'Ahegao' as a new trait (located in the lust tree), which grants +15% lust damage, -5 lust shielding, and adds an extra paragraph to orgasm descriptions.</li>
+</ul>
+
+<h3>Clothing:</h3>
+<ul>
+	<li>Added sticker support for the 'lowback bodysuit' clothing item, allowing you to remove/attach the shoulder straps.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>ONGOING SexActionTypes are now available for immobilised characters to use during sex, but only so long as the action's performing areas doesn't include a virginity-taking penetration type.</li>
+	<li>The 'Cocoon', 'Tentacle restraint', and 'Constrict' immobilisation sex actions are now used by dominant-sex-slot NPCs who have the 'bondage applier' fetish, instead of requiring dominant, sadist, and non-con fetishes.</li>
+	<li>Ball-focused sex actions are no longer available if the targeted character has a dildo instead of a real penis.</li>
+	<li>NPCs will now only use the 'Request facial' orgasm preparation sex action if they have a positive desire towards the 'cum addict' fetish and if the person orgasming has a penis.</li>
+	<li>Added 'Kiss cheek' and 'Caress cheek' as gentle-paced counterparts to the sadistic 'Spit in face' and 'Slap face' actions. NPCs who are using the gentle pace, who lack the sadist fetish, and who have 50+ affection towards the target will use these actions.</li>
+	<li>Added 'Loving confession' and 'Loving response' sex actions, which again are used only by NPCs who are using the gentle pace, who lack the sadist fetish, and who have 50+ affection towards the target. 'Loving response' is only ever used as an immediate response to 'Loving confession'.</li>
+	<li>Added 'Hand holding' as a new ongoing action type.</li>
+	<li>The 'Encourage creampie' and 'Request creampie' actions can now be used when the orgasming character is penetrating nipples, crotch-nipples, and urethras.</li>
+	<li>Added 'Encourage knot' and 'Request knot' orgasm preparation actions for when the orgasming character has a knotted penis, which result in the orgasming character using the 'Knot them' action instead of 'Creampie them' (so long as the orgasming character is not ignoring requests).</li>
+	<li>Added NPC reaction to a creampie or knotting request to let you know if they're willing to do as you ask or not.</li>
+	<li>Orgasming characters no longer require a penis to have their orgasm description start with a small sentence describing the orgasming character's position.</li>
+	<li>NPCs are now able to use immobilisation-related 'struggle' actions while in the resisting sex pace.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Yui's anilingus scene now correctly starts with her asshole lubed by her girlcum, as the scne's intro describes.</li>
+	<li>If playing on a difficulty level which causes NPCs to always match your level, their true level is now shown in brackets after their matched level in the tooltip when hovering over their name.</li>
+	<li>Added a 'half-demon' option to the 'spawn attacker' function of the debug menu.</li>
+	<li>Added a 'demonic-owl' eye type, which enables owl-morphs to spawn as half-demons.</li>
+	<li>Masturbating no longer counts as the masturbating character having had sex with a unique sex partner. (So in the phone's sex stats screen, masturbating will no longer count towards the 'You have had sex with a total of X different people' tracker.)</li>
+	<li>Added dialogue variation of first post-sex essence absorption for if the player is a spectator instead of an active sex participant.</li>
+	<li>Callie now has the 'sterile' perk to prevent her from impregnating the player (will be reverted later when Callie impregnation content is added).</li>
+	<li>Raptor and harpy 'lips' are now referred to as a 'beak-lips'. (There isn't a perfect solution to lip parsing for beaks, so while 'beak-lips' is quite clumsy, it's the best that I can do to help differentiate beaks from normal mouths in sex actions.)</li>
+	<li>Added +5% lust damage to the 'Nymphomaniac' trait.</li>
+	<li>Added small offspring encounter dialogue variations for if the player was the offspring's incubator.</li>
+	<li>Added icon indication on sex-start actions for if the sex will involved non-con.</li>
+	<li>Set reindeer-morphs to have an extremely low chance to spawn in Dominion, which enables your reindeer offspring to be encountered in Dominion's alleyways.</li>
+	<li>NPCs who use fetish-altering potions will now generate potions that can alter penis, lactation, and foot related fetishes (provided the relevant lactation and foot content toggles are turned on).</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Typo and parsing fixes.</li>
+	<li>The ring gag clothing item now uses the correct icon, instead of displaying the ball gag icon.</li>
+	<li>Fixed issue where you could still use the 'fly' fast travel option even if the map was supposed to not allow flying (such as in Evelyx's Dairy, among many other internal locations).</li>
+	<li>Maps which are located in the Foloi Fields (such as Evelyx's Dairy) are now displayed under the 'Elis' map tab in your phone's maps screen, instead of in the 'Dominion' tab.</li>
+	<li>Fixed issue where the 'Ball gag demo' action at Yui's stall (in the Farmer's Market at Elis) would not work and throw potentially game-breaking background errors.</li>
+	<li>Fixed issue where wolf-morphs could spawn with white fur, inadvertently making them arctic wolf-morphs.</li>
+	<li>Fixed bug where using Penelope's cosmetics services would sometimes incorrectly use a character other than the player to apply cosmetics changes to.</li>
+	<li>Offspring who had both a father and mother that weren't the player, but were incubated by the player, are now correctly detected as being available to find via the offspring map or randomly in suitable tiles.</li>
+	<li>Fixed issue where dialogue flow would break during Enforcer encounters while wearing an Enforcer set and being in possession of the contractor pass.</li>
+	<li>Characters no longer regain their anal virginity upon transforming their lower body type (such as into a taur or lamia).</li>
+	<li>Characters who are unable to orgasm due to enchantment effects will no longer have orgasm effects applied from using the 'Quick sex' action.</li>
+	<li>The description for the tagged choker clothing item now correctly lists the top text first and then the bottom text afterwards.</li>
+	<li>Fixed issue with Callie spawning with incorrect skin/hair colours.</li>
+	<li>You can no longer enter Callie's bakery, 'The Creamy Bakey', on Sundays, when it's meant to be shut.</li>
+	<li>Fixed issue where selecting the 'Buyback' action throwing background errors and softlocking the game if there were no items available to buy back.</li>
+	<li>Eagle and bald-eagle morphs should no longer spawn in with huge height values.</li>
+	<li>Fixed issue where you could go back to the Rat Warrens and enter it if you went there after defeating Vengar in combat but before handing in the quest to Axel.</li>
+	<li>Selling items to Fae, Heather, and Kazik (in the Farmer's Market in Elis) no longer gives you Faire Tickets.</li>
+	<li>Fixed issue where if character1 was being forced to cum inside character2 during the same turn that character3 was also orgasming, then character1 would sometimes incorrectly be treated as orgasming inside character3.</li>
+	<li>Fixed issue where the 'Service ass' action which was displayed after flirting with Astrapi wasn't working.</li>
+	<li>Using the 'Quick sex' action will no longer result in characters being able to perform actions which should have been prevented due to limits on available positions or positioning slots.</li>
+	<li>Fixed issue with incorrect dialogue flow in several parts of Lilaya's lab.</li>
+</ul>

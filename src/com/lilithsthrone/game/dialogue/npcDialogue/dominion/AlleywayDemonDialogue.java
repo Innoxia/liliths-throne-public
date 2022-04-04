@@ -53,7 +53,7 @@ public class AlleywayDemonDialogue {
 	}
 	
 	private static boolean isWantsToFight() {
-		return getDemon().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue();
+		return getDemon().getAffectionLevel(Main.game.getPlayer()).isWillFightPlayer();
 	}
 
 	private static boolean isCompanionDialogue() {
@@ -81,57 +81,7 @@ public class AlleywayDemonDialogue {
 	}
 	
 	private static String getStatus() {
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append("<p style='text-align:center;'><i>");
-		AffectionLevel al = getDemon().getAffectionLevel(Main.game.getPlayer());
-		switch(al) {
-			case NEGATIVE_FIVE_LOATHE:
-			case NEGATIVE_FOUR_HATE:
-			case NEGATIVE_THREE_STRONG_DISLIKE:
-			case NEGATIVE_TWO_DISLIKE:
-			case NEGATIVE_ONE_ANNOYED:
-			case ZERO_NEUTRAL:
-				break;
-			case POSITIVE_ONE_FRIENDLY:
-				if(getDemon().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("[npc.Name] is acting in a <i style='color:"+al.getColour().toWebHexString()+";'>friendly, flirtatious</i> manner towards you.");
-				} else {
-					sb.append("[npc.Name] is acting in a <i style='color:"+al.getColour().toWebHexString()+";'>friendly</i> manner towards you.");
-				}
-				break;
-			case POSITIVE_TWO_LIKE:
-				if(getDemon().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>likes you</i>, and sees you as more than just a friend.");
-				} else {
-					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>likes you</i>, and sees you as a close friend.");
-				}
-				break;
-			case POSITIVE_THREE_CARING:
-				if(getDemon().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>cares about you a lot</i>, and is deeply attracted towards you.");
-				} else {
-					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>cares about you a lot</i>, and considers you to be [npc.her] best friend.");
-				}
-				break;
-			case POSITIVE_FOUR_LOVE:
-				if(getDemon().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("You can tell from the way that [npc.she] looks at you that [npc.name] <i style='color:"+al.getColour().toWebHexString()+";'>loves you</i>.");
-				} else {
-					sb.append("You can tell that [npc.name] <i style='color:"+al.getColour().toWebHexString()+";'>loves you</i> in a purely platonic manner.");
-				}
-				break;
-			case POSITIVE_FIVE_WORSHIP:
-				if(getDemon().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and is head-over-heels in love with you.");
-				} else {
-					sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and would do almost anything you asked of [npc.herHim].");
-				}
-				break;
-		}
-		sb.append("</i></p>");
-		
-		return UtilText.parse(getDemon(), sb.toString());
+		return AffectionLevel.getAttitudeDescription(getDemon(), Main.game.getPlayer(), true);
 	}
 	
 	public static final DialogueNode DEMON_ATTACK = new DialogueNode("Assaulted!", "A figure jumps out from the shadows!", true) {
@@ -779,7 +729,7 @@ public class AlleywayDemonDialogue {
 					
 				} else if(getDemon().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Gentle sex",
-							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
+							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -792,7 +742,7 @@ public class AlleywayDemonDialogue {
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (gentle)",
-							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)",
+							"[npc.She] needs to be punished for attacking you like that...",
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMGeneric(
@@ -811,7 +761,7 @@ public class AlleywayDemonDialogue {
 					
 				} else if(getDemon().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Rough sex",
-							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
+							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -824,7 +774,7 @@ public class AlleywayDemonDialogue {
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (rough)",
-							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)",
+							"[npc.She] needs to be punished for attacking you like that...",
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMGeneric(

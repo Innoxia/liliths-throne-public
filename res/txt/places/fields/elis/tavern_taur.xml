@@ -108,6 +108,39 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="BAR_BARRELS"><![CDATA[
+	<p>
+		You ask Kheiron if he has four large barrels which he could spare. He asks why, and you say that Oglix would like them for her tavern.
+	</p>
+	<p>
+		Upon hearing Oglix's name, Kheiron scowls and refuses to help, saying that he holds nothing against you for working for her, but that he doesn't want to do anything for that bitch.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_BARRELS_END"><![CDATA[
+	<p>
+		Realising that you have no other choice, you use the phrase which Oglix's elemental gave you, and tell Kheiron that 'Golix says to be a good horsie'. As he hears you say this, Kheiron snorts and paws at the ground with one of his huge, strong hoofs.
+	</p>
+	<p>
+		Letting out a reluctant grunt, he says that he'll bring the four barrels over as soon as possible. Tells you not to tell anyone about what he does with Golix, and as you really don't know anything about their relationship, you agree.
+	</p>
+	<p>
+		He asks if you want anything from the bar before you report back to Oglix...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_BARRELS_END_CONTINUE"><![CDATA[
+	<p>
+		Now that Kheiron has promised to send four barrels to Oglix, you wonder what to do next. 
+	</p>
+	<p>
+		Kheiron asks if you'd like a drink...
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<!-- Ordering drinks: -->
 	
@@ -183,7 +216,7 @@
 	
 	<htmlContent tag="BAR_DRINK_BEER"><![CDATA[
 	<p>
-		Feeling thirsty, you ask Kheiron for a pint of beer. Grabbing a clean glass, he opens one of the arcane fridges positioned behind the bar and produces a bottle of 'Canine Crush'. Using his large fingers to operate a bottle opener, he pops off the cap and pours the alcoholic beverage into the glass, saying, [kheiron.speech(That'll be forty flames, please.)]
+		Feeling thirsty, you ask Kheiron for a pint of beer. Grabbing a clean glass, he places it under the tap and pours the alcoholic beverage, 'Canine Crush', into it, before placing your pint down on the bar and saying, [kheiron.speech(That'll be forty flames, please.)]
 	</p>
 	<p>
 		Handing over the forty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
@@ -193,7 +226,7 @@
 	
 	<htmlContent tag="BAR_DRINK_CIDER"><![CDATA[
 	<p>
-		Feeling thirsty, you ask Kheiron for a pint of cider. Grabbing a clean glass, he opens one of the arcane fridges positioned behind the bar and produces a bottle of 'Equine Cider'. Using his large fingers to operate a bottle opener, he pops off the cap and pours the alcoholic beverage into the glass, saying, [kheiron.speech(That'll be forty flames, please.)]
+		Feeling thirsty, you ask Kheiron for a pint of cider. Grabbing a clean glass, he places it under the tap and pours the alcoholic beverage, 'Equine Cider', into it, before placing your pint down on the bar and saying, [kheiron.speech(That'll be forty flames, please.)]
 	</p>
 	<p>
 		Handing over the forty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...

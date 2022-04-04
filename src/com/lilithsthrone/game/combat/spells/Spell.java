@@ -1560,6 +1560,7 @@ public enum Spell {
 			
 			boolean elementalAlreadySummoned = false;
 			if(!caster.hasDiscoveredElemental()) {
+//				System.out.println(caster.getName());
 				caster.createElemental();
 			} else {
 				elementalAlreadySummoned = caster.isElementalSummoned();
