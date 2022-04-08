@@ -2,7 +2,7 @@
 <hair>
 	<race>NoStepOnSnek_octopus</race>
 	<transformationName><![CDATA[octopus]]></transformationName>
-	<coveringType>OCTOPUS_SKIN</coveringType>
+	<coveringType>NoStepOnSnek_octopus_hair</coveringType>
 	<tags>
 		<tag>HAIR_HANDLES_IN_SEX</tag>
 	</tags>
@@ -23,5 +23,5 @@
 	]]></transformationDescription>
 	<bodyDescription><![CDATA[
 		[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], octopus-like tentacles
-]]></bodyDescription>
+	]]></bodyDescription>
 </hair>
