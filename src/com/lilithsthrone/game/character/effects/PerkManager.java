@@ -128,9 +128,9 @@ public enum PerkManager {
 		
 		
 		/* Lust Tree Section 1 */
-		leftC = addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.VIRILITY_BOOST, both1);
 		addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.FIRING_BLANKS, both1);
-		leftC = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.VIRILITY_MAJOR_BOOST, leftC);
+		leftA = addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.VIRILITY_BOOST, both1);
+		leftC = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.VIRILITY_MAJOR_BOOST, leftA);
 		leftC = addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.FETISH_SEEDER, leftC);
 		leftC = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.VIRILITY_BOOST, leftC);
 		addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.VIRILITY_MAJOR_BOOST, leftC);
@@ -150,8 +150,8 @@ public enum PerkManager {
 		rightMidA = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.CRITICAL_BOOST_ALT, leftMidB, rightMidA);
 //		addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.FERTILITY_BOOST, rightMidA);
 
-		addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.BARREN, both1);
 		rightB = addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.FERTILITY_BOOST, both1);
+		addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.BARREN, both1);
 		rightB = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.FERTILITY_MAJOR_BOOST, rightB);
 		rightB = addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.FETISH_BROODMOTHER, rightB);
 		rightC = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.FERTILITY_MAJOR_BOOST);
