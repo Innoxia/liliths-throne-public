@@ -44,6 +44,10 @@
 				<p style='margin-bottom:0; padding-bottom:0;'>
 					[style.colourDisabled([npc.NameIsFull] already a slime, so nothing happens...)]
 				</p>
+			#ELSEIF(npc.getBody().getBodyMaterial()!=BODY_MATERIAL_FLESH)
+				<p style='margin-bottom:0; padding-bottom:0;'>
+					[style.colourDisabled([npc.NameIsFull] an elemental, so nothing happens...)]
+				</p>
 			#ELSE
 				[#npc.setBodyMaterial(BODY_MATERIAL_SLIME)]
 			#ENDIF
