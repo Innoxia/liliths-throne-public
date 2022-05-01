@@ -243,6 +243,12 @@ public class GenericActions {
 		boolean allDomsAssigned = false;
 		boolean allSubsAssigned = false;
 		List<GameCharacter> domsNotSatisfied = new ArrayList<>(Main.sex.getDominantParticipants(false).keySet());
+
+		// Prime targetedCharacters with player.
+		GameCharacter previousTarget = Main.sex.getTargetedPartner(Main.game.getPlayer());
+		if (previousTarget != null) {
+			targetedCharacters.put(Main.game.getPlayer(), previousTarget);
+		}
 		
 		// All characters in sex should know of each others' parts:
 		for(GameCharacter character : Main.sex.getAllParticipants()) {
@@ -256,7 +262,7 @@ public class GenericActions {
 		
 		while(!allSubsAssigned) {
 			for(GameCharacter dom : domsNotSatisfied) {
-				GameCharacter target = dom.isPlayer()?Main.sex.getTargetedPartner(dom):((NPC) dom).getPreferredSexTarget();
+				GameCharacter target = dom.isPlayer()?targetedCharacters.get(dom):((NPC) dom).getPreferredSexTarget();
 				if(target==null || (dom.isPlayer() && allDomsAssigned && Main.sex.isConsensual())) { // If second time through loop, and equal control, give player another target if available
 					if(availableSubs.isEmpty()) { // If run out of subs, re-populate sub list.
 						availableSubs = new ArrayList<>(Main.sex.getSubmissiveParticipants(false).keySet());
@@ -347,6 +353,9 @@ public class GenericActions {
 			for(GameCharacter dom : new ArrayList<>(domsNotSatisfied)) {
 				if(Main.sex.getNumberOfOrgasms(dom)>=dom.getOrgasmsBeforeSatisfied()) {
 					domsNotSatisfied.remove(dom);
+				} else if (!dom.isAbleToOrgasm() && !allSubsAssigned) {
+					// Anorgasmic Doms rove between targets instead of giving up.
+					targetedCharacters.put(dom, null);
 				}
 			}
 			
