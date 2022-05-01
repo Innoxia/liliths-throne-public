@@ -1603,18 +1603,11 @@ public class Sex {
 		
 		@Override
 		public int getSecondsPassed() {
-			if(lastUsedSexAction.get(Main.game.getPlayer())==GenericActions.PLAYER_SKIP_SEX) {
-				int seconds = 0;
-				 // 3 minutes per character orgasm (always limited to 1 orgasm for unequal control subs) if 'Quick sex' is used:
-				for(GameCharacter participant : getAllParticipants(false)) {
-					if(Main.sex.isDom(participant) || Main.sex.isSubHasEqualControl()) {
-						seconds+=Math.max(1, participant.getOrgasmsBeforeSatisfied()-Main.sex.getNumberOfOrgasms(participant))*3*60;
-					} else {
-						seconds+=3*60;
-					}
-				}
-				return seconds;
+			SexActionInterface playerLast = Main.sex.getLastUsedPlayerAction();
+			if (playerLast != null && playerLast.isSkip()) {
+				return playerLast.getSecondsPassed(Main.sex);
 			}
+
 			return 20;
 		}
 		
@@ -2195,7 +2188,14 @@ public class Sex {
 		}
 		
 		miscActionsPlayer.addAll(characterSwitchActionsPlayer);
-		if(miscActionsPlayer.contains(GenericActions.PLAYER_SKIP_SEX)) { // Put this action at the very end:
+
+		// Move these to the end:
+		if (miscActionsPlayer.contains(GenericActions.PLAYER_EXTRACTING_SEX)) {
+			miscActionsPlayer.remove(GenericActions.PLAYER_EXTRACTING_SEX);
+			miscActionsPlayer.add(GenericActions.PLAYER_EXTRACTING_SEX);
+		}
+
+		if (miscActionsPlayer.contains(GenericActions.PLAYER_SKIP_SEX)) {
 			miscActionsPlayer.remove(GenericActions.PLAYER_SKIP_SEX);
 			miscActionsPlayer.add(GenericActions.PLAYER_SKIP_SEX);
 		}

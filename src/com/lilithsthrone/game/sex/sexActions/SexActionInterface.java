@@ -25,16 +25,7 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
-import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.CondomFailure;
-import com.lilithsthrone.game.sex.LubricationType;
-import com.lilithsthrone.game.sex.SexAreaInterface;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
-import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.SexControl;
-import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.*;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -1909,5 +1900,24 @@ public interface SexActionInterface {
 	 */
 	public default SexType getAsSexType() {
 		return new SexType(this.getParticipantType(), getPerformingCharacterAreas().isEmpty()?null:getPerformingCharacterAreas().get(0), getTargetedCharacterAreas().isEmpty()?null:getTargetedCharacterAreas().get(0));
+	}
+
+	/**
+	 * Given a Sex object, determine how long the action should take.
+	 *
+	 * @param sex
+	 *
+	 * @return The number of seconds passed in this action.
+	 */
+	public default int getSecondsPassed(final Sex sex) {
+		// The default implementation returns a constant.
+		return 20;
+	}
+
+	/**
+	 * @return True if this SexAction skips the encounter.
+	 */
+	public default boolean isSkip() {
+		return false;
 	}
 }

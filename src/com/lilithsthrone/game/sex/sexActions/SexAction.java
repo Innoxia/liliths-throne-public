@@ -726,4 +726,5 @@ public abstract class SexAction implements SexActionInterface {
 			return new ArrayList<>(characterFetishesForPartner.get(characterPerformingAction));
 		}
 	}
+
 }

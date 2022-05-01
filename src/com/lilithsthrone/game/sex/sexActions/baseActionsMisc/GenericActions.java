@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -208,8 +209,32 @@ public class GenericActions {
 		}
 		return false;
 	}
+
+	private static int calculateNeededOrgasms (final GameCharacter dom, final GameCharacter sub, final boolean consenual, final boolean extracting) {
+		final int currentDomOrgasms = Main.sex.getNumberOfOrgasms(dom);
+		final int currentSubOrgasms = Main.sex.getNumberOfOrgasms(sub);
+
+		int orgasmsNeeded = 0;
+		if (consenual) {
+			// Make sure to satisfy subs in a consensual encounter.
+			orgasmsNeeded = Math.max((sub.getOrgasmsBeforeSatisfied() - currentSubOrgasms), (dom.getOrgasmsBeforeSatisfied() - currentDomOrgasms));
+
+		} else {
+			// Only the Doms matter.
+			orgasmsNeeded = dom.getOrgasmsBeforeSatisfied() - currentDomOrgasms;
+		}
+
+		// In the case of extracting sex, we pull as much essence as we can.
+		if (extracting) {
+			orgasmsNeeded = Math.max(
+					Math.max(6 - currentDomOrgasms, 6 - currentSubOrgasms),
+					orgasmsNeeded);
+		}
+
+		return orgasmsNeeded;
+	}
 	
-	private static String generateQuickSexDescription() {
+	private static String generateQuickSexDescription(final boolean extracting) {
 
 		StringBuilder sb = new StringBuilder();
 		
@@ -292,9 +317,7 @@ public class GenericActions {
 				preference = getMainSexPreference(dom, sub);
 				preventCreampie = preventCreampie(preference, dom, sub);
 				// If equal sex control, dom should satisfy subs:
-				int orgamsNeeded = !Main.sex.isConsensual()
-						?(dom.getOrgasmsBeforeSatisfied()-Main.sex.getNumberOfOrgasms(dom))
-						:Math.max((sub.getOrgasmsBeforeSatisfied()-Main.sex.getNumberOfOrgasms(sub)), (dom.getOrgasmsBeforeSatisfied()-Main.sex.getNumberOfOrgasms(dom)));
+				int orgamsNeeded = calculateNeededOrgasms(dom, sub, Main.sex.isConsensual(), extracting);
 				for(int i=0; i<orgamsNeeded; i++) {
 					// Regenerate cum by 5 minutes' worth of cum, so that there's cum for the next orgasm:
 					// Moved before orgasm so the first quick sex orgasm isn't dry
@@ -385,12 +408,107 @@ public class GenericActions {
 		@Override
 		public String getDescription() {
 			if(quickSexDescription.isEmpty()) {
-				quickSexDescription = generateQuickSexDescription();
+				quickSexDescription = generateQuickSexDescription(false);
 			}
 			return quickSexDescription;
 		}
 		@Override
 		public boolean endsSex() {
+			return true;
+		}
+
+		@Override
+		public boolean isSkip() {
+			return true;
+		}
+
+		@Override
+		public int getSecondsPassed(final Sex sex) {
+			int seconds = 0;
+			// 3 minutes per character orgasm (always limited to 1 orgasm for unequal control subs) if 'Quick sex' is used:
+			for(GameCharacter participant : sex.getAllParticipants(true)) {
+				if(Main.sex.isDom(participant) || Main.sex.isSubHasEqualControl()) {
+					seconds+=Math.max(1, participant.getOrgasmsBeforeSatisfied()-Main.sex.getNumberOfOrgasms(participant))*3*60;
+				} else {
+					seconds+=3*60;
+				}
+			}
+			return seconds;
+		}
+	};
+
+	public static final SexAction PLAYER_EXTRACTING_SEX = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.FIVE_EXTREME,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.TWO_HORNY,
+			null,
+			SexParticipantType.NORMAL
+	) {
+		private String extractingSexDescription = "";
+		@Override
+		public boolean isAvailableDuringImmobilisation() {
+			return true;
+		}
+		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.BASE_PINK;
+		}
+		@Override
+		public String getActionTitle() {
+			return "Extracting sex";
+		}
+		@Override
+		public String getActionDescription() {
+			return "Skips this sex scene, but still [style.boldSex(applies all applicable effects)] as though the scene had taken place, attempting to extract the maximum essence possible."
+					+ " A description of the resulting sex scene will be displayed before the scene ends.";
+		}
+		@Override
+		public boolean isBaseRequirementsMet() {
+			PlayerCharacter player = Main.game.getPlayer();
+
+			return Main.sex.getInitialSexManager().isAbleToSkipSexScene()
+					&& Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.isSexLeader(player)
+					&& !player.isAbleToOrgasm();
+		}
+
+		@Override
+		public String applyEndEffects() {
+
+			extractingSexDescription = "";
+			return "";
+		}
+		@Override
+		public String getDescription() {
+			if(extractingSexDescription.isEmpty()) {
+				extractingSexDescription = generateQuickSexDescription(true);
+			}
+			return extractingSexDescription;
+		}
+		@Override
+		public boolean endsSex() {
+			return true;
+		}
+
+		@Override
+		public int getSecondsPassed(Sex sex) {
+			int seconds = 0;
+			// 3 minutes per character orgasm (always limited to 1 orgasm for unequal control subs) if 'Quick sex' is used:
+			for(GameCharacter participant : sex.getAllParticipants(true)) {
+				// Spectator orgams don't count.
+				if (sex.isSpectator(participant)) {
+					continue;
+				}
+
+				seconds += Math.max(1, Main.sex.getNumberOfOrgasms(participant))*3*60;
+			}
+
+			return super.getSecondsPassed(sex);
+		}
+
+		@Override
+		public boolean isSkip() {
 			return true;
 		}
 	};
@@ -2051,7 +2169,7 @@ public class GenericActions {
 		@Override
 		public String applyEndEffects(){
 			if(Main.sex.isSpectator(Main.game.getPlayer()) && Main.sex.getInitialSexManager().isHidden(Main.game.getPlayer())) { // Generate effects when ending sex as hidden spectator
-				quickSexDescription = generateQuickSexDescription();
+				quickSexDescription = generateQuickSexDescription(false);
 			}
 			return "";
 		}
