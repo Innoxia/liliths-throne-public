@@ -41,7 +41,7 @@
 	<imageName>sting.svg</imageName>
 	
 	<colourPrimary>DAMAGE_TYPE_POISON</colourPrimary>
-	<colourSecondary/>
+	<colourSecondary>BASE_GREY_DARK</colourSecondary>
 	<colourTertiary/>
 	
 	<statusEffects>

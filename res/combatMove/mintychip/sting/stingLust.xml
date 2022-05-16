@@ -43,7 +43,7 @@
 	<imageName>sting.svg</imageName>
 	
 	<colourPrimary>DAMAGE_TYPE_LUST</colourPrimary>
-	<colourSecondary/>
+	<colourSecondary>BASE_GREY_DARK</colourSecondary>
 	<colourTertiary/>
 	
 	<statusEffects>
