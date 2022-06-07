@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -68,6 +69,12 @@ public class WorldType {
 					new Value<>(new Color(0xff8100), PlaceType.WORLD_MAP_VOLCANO), // volcano
 					new Value<>(new Color(0x3b3b3b), PlaceType.WORLD_MAP_LAVA_FLOWS) // lava flows
 					)) {
+
+		@Override
+		public String getOffspringTextFilePath(NPCOffspring o) {
+			return o.getLocationPlace().getPlaceType().getWorldRegion().getOffspringTextFilePath();
+		}
+
 		@Override
 		public boolean isDiscoveredOnStart() {
 			return true;
@@ -305,6 +312,11 @@ public class WorldType {
 					new Value<>(new Color(0xff00ff), PlaceType.HARPY_NESTS_HARPY_NEST_PINK),
 					new Value<>(new Color(0xffff00), PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW),
 					new Value<>(new Color(0xff9100), PlaceType.HARPY_NESTS_HELENAS_NEST))) {
+
+		@Override
+		public String getOffspringTextFilePath(NPCOffspring o) {
+			return "characters/offspring/harpyNests";
+		}
 	};
 	
 	public static AbstractWorldType SLAVER_ALLEY = new AbstractWorldType(WorldRegion.DOMINION,

@@ -46,6 +46,7 @@ public class OffspringSeed implements XMLSaving {
 	// Body:
 	protected AbstractSubspecies subspecies;
 	protected Body body;
+	protected BodyMaterial bodyMaterial;
 	
 	// Family:
 	protected String motherId;
@@ -79,6 +80,7 @@ public class OffspringSeed implements XMLSaving {
 		this.birthday = npc.getBirthday();
 		this.subspecies = npc.getSubspecies();
 		this.body = npc.getBody();
+		this.bodyMaterial = npc.getBodyMaterial();
 		this.motherId = npc.getMotherId();
 		this.fatherId = npc.getFatherId();
 		this.incubatorId = npc.getIncubatorId();
@@ -537,6 +539,8 @@ public class OffspringSeed implements XMLSaving {
 	public void setConceptionDate(LocalDateTime conceptionDate) { this.conceptionDate = conceptionDate; }
 	
 	public Body getBody() {	return body; }
+
+	public BodyMaterial getBodyMaterial() { return bodyMaterial; }
 	
 	public void setBody(Body body) { this.body = body; }
 	

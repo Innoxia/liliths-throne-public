@@ -9,6 +9,7 @@ import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -45,6 +46,8 @@ public abstract class AbstractWorldType {
 	private String deskName;
 	private boolean wallsPresent;
 	private String wallName;
+
+	private String offspringTextFilePath;
 
 	private AbstractPlaceType globalMapLocation;
 	private AbstractPlaceType standardPlace;
@@ -84,6 +87,8 @@ public abstract class AbstractWorldType {
 		this.deskName = "desk";
 		this.wallsPresent = true; // Default to true for hard coded values, as these are all Dominion/Submission (which obviously have walls)
 		this.wallName = "wall";
+		
+		this.offspringTextFilePath = "characters/offspring/dominionAlleyway";
 		
 		this.teleportPermissions = teleportPermissions;
 		
@@ -165,6 +170,13 @@ public abstract class AbstractWorldType {
 					}
 				}
 				
+				this.offspringTextFilePath = "characters/offspring/dominionAlleyway";
+				if(coreElement.getOptionalFirstOf("offspringTextFilePath").isPresent()) {
+					if(!coreElement.getMandatoryFirstOf("offspringTextFilePath").getTextContent().isEmpty()) {
+						this.offspringTextFilePath = coreElement.getMandatoryFirstOf("offspringTextFilePath").getTextContent();
+					}
+				}
+				
 			} catch(Exception ex) {
 				ex.printStackTrace();
 				System.err.println("WorldType was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
@@ -198,6 +210,10 @@ public abstract class AbstractWorldType {
 //		throw new IllegalAccessError();
 		System.err.println("Warning: AbstractWorldType's toString() method is being called!");
 		return super.toString();
+	}
+
+	public String getOffspringTextFilePath(NPCOffspring o) {
+		return offspringTextFilePath;
 	}
 
 	public boolean isMod() {

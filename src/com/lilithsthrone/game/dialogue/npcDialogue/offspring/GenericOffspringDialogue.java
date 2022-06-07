@@ -54,13 +54,7 @@ public class GenericOffspringDialogue {
 	}
 	
 	private static String getTextFilePath() {
-		if(offspring().getWorldLocation().equals(WorldType.HARPY_NEST)) {
-			return "characters/offspring/harpyNests";
-		} else if(offspring().getWorldLocation().equals(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"))) {
-			return "characters/offspring/elisAlleyway";
-		} else {
-			return "characters/offspring/dominionAlleyway";
-		}
+		return offspring().getWorldLocation().getOffspringTextFilePath(offspring());
 	}
 	
 
