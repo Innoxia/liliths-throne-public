@@ -13,7 +13,7 @@
 				#IF(game.isDayTime() || (!pc.getCell().getCharactersHomeIds().isEmpty() && (game.getNPCById(pc.getCell().getCharactersHomeIds().iterator().next()).getHistory()==OCCUPATION_NPC_PROSTITUTE || game.getNPCById(pc.getCell().getCharactersHomeIds().iterator().next()).isRelatedTo(pc))))
 					0
 				#ELSE
-					7
+					8
 				#ENDIF
 			]]></chanceToTrigger>
 			<dialogueReturned><![CDATA[innoxia_encounters_fields_elis_alleyway_start]]></dialogueReturned>
@@ -49,7 +49,7 @@
 				#IF(game.isDayTime())
 					0
 				#ELSE
-					3
+					2
 				#ENDIF
 			]]></chanceToTrigger>
 			<dialogueReturned><![CDATA[innoxia_encounters_fields_elis_alleyway_item_start]]></dialogueReturned>
@@ -61,7 +61,7 @@
 				#IF(game.isDayTime())
 					0
 				#ELSE
-					2
+					1
 				#ENDIF
 			]]></chanceToTrigger>
 			<dialogueReturned><![CDATA[innoxia_encounters_fields_elis_alleyway_item_start_clothing]]></dialogueReturned>

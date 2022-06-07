@@ -205,7 +205,7 @@ public class RoxysShop {
 				
 				
 			} else if(index==4
-					&& Main.game.getDialogueFlags().values.contains(DialogueFlagValue.axelExplainedVengar)
+//					&& Main.game.getDialogueFlags().values.contains(DialogueFlagValue.axelExplainedVengar)
 					&& Main.game.getPlayer().hasQuest(QuestLine.SIDE_REBEL_BASE_FIREBOMBS)
 					&& !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE_FIREBOMBS)
 					&& !Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE_FIREBOMBS)) {

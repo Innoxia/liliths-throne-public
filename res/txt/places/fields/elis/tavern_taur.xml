@@ -108,35 +108,49 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="BAR_BARRELS"><![CDATA[
+	<htmlContent tag="BAR_TALK_GOLIX"><![CDATA[
 	<p>
-		You ask Kheiron if he has four large barrels which he could spare. He asks why, and you say that Oglix would like them for her tavern.
+		Wanting to hear what Kheiron has to say about Oglix's elemental, you ask him what kind of relationship he has with Golix.
 	</p>
 	<p>
-		Upon hearing Oglix's name, Kheiron scowls and refuses to help, saying that he holds nothing against you for working for her, but that he doesn't want to do anything for that bitch.
+		[kheiron.speech(Well, I don't see how that's any of your business,)] the centaur snorts, before crossing his arms and firmly stating, [kheiron.speech(I'm not going to say anything more on the matter.)]
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_oglix_kheiron_spectated))
+			Having witnessed Kheiron's and Golix's meeting in the old stables behind 'The Crossed Blades', you can't help but give the centaur a knowing look as he says this. Realising that you're aware of at least some of the details of his relationship with the elemental, he lowers his voice and admits, [kheiron.speech(Fine, Golix and I are, well, I suppose you could say that we're dating... Now I'm serious; no more questions about this. Is there anything else can I do for you, [pc.name]?)]
+		#ELSE
+			Not wanting to pry too far into his personal affairs and risk getting on his bad side, you decide to leave it at that for now. Nodding as he sees that you're not going to press him on the matter, the centaur asks, [kheiron.speech(So, what else can I do for you, [pc.name]?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_BARRELS"><![CDATA[
+	<p>
+		Wanting to bring back good news to Oglix as soon as possible, you ask Kheiron if he has four large barrels which you could have. Raising his eyebrow as he hears you ask this, the centaur asks, [kheiron.speech(What would you need those for? I'd be happy to give you some if it's for a good reason.)]
+	</p>
+	<p>
+		As he'd find out the barrels' destination one way or another, and with no reason to lie, you truthfully tell Kheiron that Oglix wants them so that she could use them to house some more beer-bitches. Snorting in disgust as he hears the name 'Oglix', the muscular centaur shakes his head and firmly states, [kheiron.speech(In that case, no. I don't hold anything against you for working for her, but I'm not going to do anything to help Oglix.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="BAR_BARRELS_END"><![CDATA[
 	<p>
-		Realising that you have no other choice, you use the phrase which Oglix's elemental gave you, and tell Kheiron that 'Golix says to be a good horsie'. As he hears you say this, Kheiron snorts and paws at the ground with one of his huge, strong hoofs.
+		Realising that you have no other choice, you use the phrase which Oglix's elemental gave you, and tell Kheiron that 'Golix says to be a good horsie'. As he hears you say this, Kheiron's eyes open wide, and with a loud snort, he starts forcefully pawing at the ground with one of his huge, strong hoofs.
 	</p>
 	<p>
-		Letting out a reluctant grunt, he says that he'll bring the four barrels over as soon as possible. Tells you not to tell anyone about what he does with Golix, and as you really don't know anything about their relationship, you agree.
-	</p>
-	<p>
-		He asks if you want anything from the bar before you report back to Oglix...
+		[kheiron.speech(Golix told you to say that?!)] he asks, with a tone of frustrated desperation in his voice. Letting out another snort as you reply in the positive, the centaur grinds his teeth for a moment, before grunting, [kheiron.speech(Fine... I'll bring the four barrels over as soon as I can, but on one condition. You're not to tell a soul about the relationship I have with Golix, understand?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="BAR_BARRELS_END_CONTINUE"><![CDATA[
 	<p>
-		Now that Kheiron has promised to send four barrels to Oglix, you wonder what to do next. 
+		As you don't know any details about Golix's relationship with Kheiron, you see no reason not to agree to keep quiet about it. After you've given Kheiron your word that you won't mention their relationship to anyone, the centaur lets out a relieved sigh and grunts, [kheiron.speech(Good. As I said, I'll get those barrels over to Oglix's place as soon as I can.)]
 	</p>
 	<p>
-		Kheiron asks if you'd like a drink...
+		Thanking the centaur for his cooperation, you wonder whether to order anything from the bar before you head off and report back to Oglix...
 	</p>
 	]]>
 	</htmlContent>
