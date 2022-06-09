@@ -286,6 +286,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
+import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.GenericPlace;
@@ -504,7 +505,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	// Misc.:
 	private List<Dice> dice; // For gambling
-	private String speechColour;
+	private Colour speechColour;
 	
 	protected static List<CharacterChangeEventListener> playerAttributeChangeEventListeners = new ArrayList<>();
 	protected static List<CharacterChangeEventListener> NPCAttributeChangeEventListeners = new ArrayList<>();
@@ -803,6 +804,9 @@ public abstract class GameCharacter implements XMLSaving {
 		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "combatBehaviour", this.getCombatBehaviour().toString());
 		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "lastTimeHadSex", String.valueOf(lastTimeHadSex));
 		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "lastTimeOrgasmed", String.valueOf(lastTimeOrgasmed));
+		if(speechColour!=null) {
+			XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "speechColour", speechColour.getId());
+		}
 		
 		Element desiredJobsElement = doc.createElement("desiredJobs");
 		characterCoreInfo.appendChild(desiredJobsElement);
@@ -1499,6 +1503,11 @@ public abstract class GameCharacter implements XMLSaving {
 		// Surname:
 		if(element.getElementsByTagName("genericName")!=null && element.getElementsByTagName("genericName").getLength()>0) {
 			character.setGenericName(((Element)element.getElementsByTagName("genericName").item(0)).getAttribute("value"));
+		}
+
+		// Speech colour:
+		if(element.getElementsByTagName("speechColour")!=null && element.getElementsByTagName("speechColour").getLength()>0) {
+			character.setSpeechColour(PresetColour.getColourFromId(((Element)element.getElementsByTagName("speechColour").item(0)).getAttribute("value")));
 		}
 		
 		// Level:
@@ -3477,8 +3486,7 @@ public abstract class GameCharacter implements XMLSaving {
 							+ (!relationships.isEmpty()
 									?UtilText.parse(this, "[npc.She] is your <span style='color:"+this.getFemininity().getColour().toWebHexString()+"'>"+relationships+"</span>. ")
 									:"")
-							+ AffectionLevel.getDescription(this, Main.game.getPlayer(),
-									AffectionLevel.getAffectionLevelFromValue(this.getAffection(Main.game.getPlayer())), true));
+							+ AffectionLevel.getDescription(this, Main.game.getPlayer(), true));
 				
 				for(Entry<String, Float> entry : this.getAffectionMap().entrySet()) {
 					try {
@@ -3486,10 +3494,11 @@ public abstract class GameCharacter implements XMLSaving {
 						if(Main.game.getPlayer().getCharactersEncounteredAsGameCharacters(true).contains(target)) {
 							if(!target.isPlayer()
 									&& (target.isUnique()
+											|| (target.isElemental() && ((Elemental)target).getSummoner().isUnique())
 											|| target.isRelatedTo(this)
 											|| (target.isSlave() && target.getOwner().isPlayer())
 											|| Main.game.getPlayer().getFriendlyOccupants().contains(target.getId()))) {
-								infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
+								infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, true));
 							}
 						}
 					} catch (Exception e) {
@@ -3733,7 +3742,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public String getSpeechColour() {
 		if(speechColour!=null) {
-			return speechColour;
+			return speechColour.toWebHexString();
 		}
 		if(this.isPlayer()) {
 			switch(Femininity.valueOf(getFemininityValue())) {
@@ -3765,7 +3774,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return null;
 	}
 	
-	public void setSpeechColour(String speechColour) {
+	public void setSpeechColour(Colour speechColour) {
 		this.speechColour = speechColour;
 	}
 
@@ -4227,10 +4236,14 @@ public abstract class GameCharacter implements XMLSaving {
 		clearDesiredJobs();
 		this.setHistory(Util.randomItemFrom(occupations));
 	}
-
+	
 	/**
-	 * Only player character gets job attribute bonuses.
+	 * Does the exact same thing as setHistory()
 	 */
+	public void setOccupation(Occupation occupation) {
+		setHistory(occupation);
+	}
+	
 	public void setHistory(Occupation history) {
 		// Revert attributes from old History:
 		if (this.occupation != null) {
@@ -4330,6 +4343,14 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public boolean isMute() {
 		return this.hasPersonalityTrait(PersonalityTrait.MUTE);
+	}
+	
+	public void setMute(boolean mute) {
+		if(mute) {
+			this.addPersonalityTrait(PersonalityTrait.MUTE);
+		} else {
+			this.removePersonalityTrait(PersonalityTrait.MUTE);
+		}
 	}
 	
 	
@@ -4688,6 +4709,10 @@ public abstract class GameCharacter implements XMLSaving {
 		return AffectionLevelBasic.getAffectionLevelFromValue(getAffection(character));
 	}
 	
+	public String getAffectionAttitudeDescription(GameCharacter target, boolean withColour) {
+		return AffectionLevel.getAttitudeDescription(this, target, withColour);
+	}
+	
 	/**
 	 * Sets this character's affection towards the supplied GameCharacter.
 	 * 
@@ -4701,7 +4726,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return UtilText.parse(this, character,
 				"<p style='text-align:center'>"
 					+ "[npc.Name] now [npc.has] <b>"+(affection>0?"+":"")+Units.round(affection, 1)+"</b> [style.boldAffection(affection)] towards [npc2.name].<br/>"
-					+ AffectionLevel.getDescription(this, character, getAffectionLevel(character), true)
+					+ AffectionLevel.getDescription(this, character, true)
 				+ "</p>");
 	}
 	
@@ -4728,7 +4753,7 @@ public abstract class GameCharacter implements XMLSaving {
 				"<p style='text-align:center'>"
 					+ (affectionChangeDescription!=null && !affectionChangeDescription.isEmpty()?"<i>"+affectionChangeDescription+"</i><br/>":"")
 					+ "[npc.Name] "+(affectionIncrement>0?"[style.boldGood(gains)]":"[style.boldBad(loses)]")+" <b>"+Math.abs(affectionIncrement)+"</b> [style.boldAffection(affection)] towards [npc2.name]!<br/>"
-					+ AffectionLevel.getDescription(this, character, getAffectionLevel(character), true)
+					+ AffectionLevel.getDescription(this, character, true)
 				+ "</p>");
 	}
 	
@@ -5044,11 +5069,13 @@ public abstract class GameCharacter implements XMLSaving {
 			if(this.isPlayer()) {
 				ParserTarget.addAdditionalParserTarget("el", elemental); // Set the 'el' parsing target to the player's elemental
 			}
+//			System.out.println("Elemental summoned: "+elementalID);
 			return elemental;
 		}
 	}
 	
 	public Elemental getElemental() {
+//		System.out.println("Accessing elemental: "+elementalID);
 		try {
 			return (Elemental) Main.game.getNPCById(elementalID);
 		} catch(Exception e) {
@@ -6826,7 +6853,7 @@ public abstract class GameCharacter implements XMLSaving {
 			incrementStatusEffectDuration(se, -secondsPassed);
 			
 			if(appliedSe.getSecondsRemaining()<0
-					&& (!se.isConditionsMet(this) || se.getApplicationLength()>0)) { // If getApplicationLength() is not -1, then this status effect should be removed and re-checked, even if isConditionsMet() is returning true.
+					&& ((!se.isConditionsMet(this)) || se.getApplicationLength()>0)) { // If getApplicationLength() is not -1, then this status effect should be removed and re-checked, even if isConditionsMet() is returning true.
 				tempListStatusEffects.add(se);
 			}
 		}
@@ -6838,12 +6865,12 @@ public abstract class GameCharacter implements XMLSaving {
 		// Combat status effects are automatically removed at the end of combat (in Combat.java), so there's no need to remove them here.
 		
 		// Add all status effects that are applicable:
-		for (AbstractStatusEffect se : StatusEffect.getAllStatusEffects()) {
-			if((se.getCategory()==StatusEffectCategory.DEFAULT && (!se.isFromExternalFile() || se.isMod())) // Modded SEs probably won't have taken into account category, so let them always be checked.
-					|| (se.getCategory()==StatusEffectCategory.INVENTORY && requiresInventoryStatusEffectCheck)
-					|| (se.getCategory()==StatusEffectCategory.ATTRIBUTE && requiresAttributeStatusEffectCheck)) {
-				if(se.isRequiresApplicationCheck() && se.isConditionsMet(this)) {
-					if(!this.hasStatusEffect(se) || se.isConstantRefresh()) {
+		for (AbstractStatusEffect se : StatusEffect.getAllStatusEffectsRequiringApplicationCheck()) {
+			if(!this.hasStatusEffect(se) || se.isConstantRefresh()) {
+				if((se.getCategory()==StatusEffectCategory.DEFAULT && (!se.isFromExternalFile() || se.isMod())) // Modded SEs probably won't have taken into account category, so let them always be checked.
+						|| (se.getCategory()==StatusEffectCategory.INVENTORY && requiresInventoryStatusEffectCheck)
+						|| (se.getCategory()==StatusEffectCategory.ATTRIBUTE && requiresAttributeStatusEffectCheck)) {
+					if(se.isConditionsMet(this)) {
 						addStatusEffect(se, se.getApplicationLength()); // Default application length is -1
 					}
 				}
@@ -9537,24 +9564,26 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		// Remove foreplay types which cannot be accessed due to limited positions or slots:
-		Set<SexType> foreplayKeys = new HashSet<>(foreplaySexTypes.keySet());
-		for(SexType st : foreplayKeys) {
-			if(!Main.sex.isSexTypePossibleViaAvailablePositionsAndSlots(this, target, st)) {
-				if(debug) {
-					System.out.println("Removed foreplay due to unavailable positioning: "+st);
+		if(Main.game.isInSex()) {
+			// Remove foreplay types which cannot be accessed due to limited positions or slots:
+			Set<SexType> foreplayKeys = new HashSet<>(foreplaySexTypes.keySet());
+			for(SexType st : foreplayKeys) {
+				if(!Main.sex.isSexTypePossibleViaAvailablePositionsAndSlots(this, target, st)) {
+					if(debug) {
+						System.out.println("Removed foreplay due to unavailable positioning: "+st);
+					}
+					foreplaySexTypes.remove(st);
 				}
-				foreplaySexTypes.remove(st);
 			}
-		}
-		// Remove main sex types which cannot be accessed due to limited positions or slots:
-		Set<SexType> mainKeys = new HashSet<>(mainSexTypes.keySet());
-		for(SexType st : mainKeys) {
-			if(!Main.sex.isSexTypePossibleViaAvailablePositionsAndSlots(this, target, st)) {
-				if(debug) {
-					System.out.println("Removed sex due to unavailable positioning: "+st);
+			// Remove main sex types which cannot be accessed due to limited positions or slots:
+			Set<SexType> mainKeys = new HashSet<>(mainSexTypes.keySet());
+			for(SexType st : mainKeys) {
+				if(!Main.sex.isSexTypePossibleViaAvailablePositionsAndSlots(this, target, st)) {
+					if(debug) {
+						System.out.println("Removed sex due to unavailable positioning: "+st);
+					}
+					mainSexTypes.remove(st);
 				}
-				mainSexTypes.remove(st);
 			}
 		}
 		
@@ -17794,24 +17823,24 @@ public abstract class GameCharacter implements XMLSaving {
 					switch(penetrationType) {
 						case FINGER:
 							if(partner.equals(this)) {
-								return UtilText.parse(this, "[npc.NameIs] struggling to fit [npc.her] fingers down [npc.her] throat.");
+								return UtilText.parse(this, "[npc.NameIsFull] struggling to fit [npc.her] fingers down [npc.her] throat.");
 							}
-							return UtilText.parse(this, partner, "[npc.NameIs]  struggling to fit [npc2.namePos] fingers down [npc.her] throat.");
+							return UtilText.parse(this, partner, "[npc.NameIsFull] struggling to fit [npc2.namePos] fingers down [npc.her] throat.");
 						case PENIS:
 							if(partner.equals(this)) {
-								return UtilText.parse(this, "[npc.NameIs] struggling to fit [npc.her] [npc.cock+] down [npc.her] throat.");
+								return UtilText.parse(this, "[npc.NameIsFull] struggling to fit [npc.her] [npc.cock+] down [npc.her] throat.");
 							}
-							return UtilText.parse(this, partner, "[npc.NameIs] struggling to fit [npc2.namePos] [npc2.cock+] down [npc.her] throat.");
+							return UtilText.parse(this, partner, "[npc.NameIsFull] struggling to fit [npc2.namePos] [npc2.cock+] down [npc.her] throat.");
 						case TAIL:
 							if(partner.equals(this)) {
-								return UtilText.parse(this, "[npc.NameIs] struggling to fit [npc.her] [npc.tail+(true)] down [npc.her] throat.");
+								return UtilText.parse(this, "[npc.NameIsFull] struggling to fit [npc.her] [npc.tail+(true)] down [npc.her] throat.");
 							}
-							return UtilText.parse(this, partner, "[npc.NameIs] struggling to fit [npc2.namePos] [npc2.tail+(true)] down [npc.her] throat.");
+							return UtilText.parse(this, partner, "[npc.NameIsFull] struggling to fit [npc2.namePos] [npc2.tail+(true)] down [npc.her] throat.");
 						case TENTACLE:
 							if(partner.equals(this)) {
-								return UtilText.parse(this, "[npc.NameIs] struggling to fit [npc.her] [npc.tentacle+(true)] down [npc.her] throat.");
+								return UtilText.parse(this, "[npc.NameIsFull] struggling to fit [npc.her] [npc.tentacle+(true)] down [npc.her] throat.");
 							}
-							return UtilText.parse(this, partner, "[npc.NameIs] struggling to fit [npc2.namePos] [npc2.tentacle+(true)] down [npc.her] throat.");
+							return UtilText.parse(this, partner, "[npc.NameIsFull] struggling to fit [npc2.namePos] [npc2.tentacle+(true)] down [npc.her] throat.");
 						default:
 							return UtilText.parse(this, "[npc.NamePos] throat is being stretched out.");
 					}
@@ -20787,7 +20816,11 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void setLocation(Cell cell) {
-		setLocation(cell.getType(), cell.getLocation(), false);
+		setLocation(cell, false);
+	}
+	
+	public void setLocation(Cell cell, boolean setAsHomeLocation) {
+		setLocation(cell.getType(), cell.getLocation(), setAsHomeLocation);
 	}
 	
 	public void setLocation(AbstractWorldType worldType, AbstractPlaceType placeType) {
@@ -24610,6 +24643,61 @@ public abstract class GameCharacter implements XMLSaving {
 		return getUnableToTransformDescription().isEmpty();
 	}
 	
+	public List<AbstractRace> getSelfTransformationRaces() {
+		List<AbstractRace> races = new ArrayList<>();
+		
+		if(this.getSubspeciesOverrideRace()==Race.DEMON) {
+			races.add(Race.NONE);
+			races.add(Race.DEMON);
+			ArrayList<AbstractRace> unavailableRaces = Util.newArrayListOfValues(); // Never have these TF options
+			if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LOVIENNE_2)) { // I'm assuming you defeat Lovienne last
+				races.addAll(Race.allRaces);
+				races.removeAll(unavailableRaces);
+			} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4)) {
+				races.add(Race.HUMAN);
+			}
+			for (AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
+				AbstractRace race = subspecies.getRace();
+				if(subspecies.isMainSubspecies() && !unavailableRaces.contains(race)) { // Only check the main subspecies
+					List<WorldRegion> mostCommonRegion = subspecies.getMostCommonWorldRegions();
+					if (this.hasPerkAnywhereInTree(Perk.POWER_OF_LIRECEA_1)
+							&& (mostCommonRegion.contains(WorldRegion.SEA)
+							|| mostCommonRegion.contains(WorldRegion.SEA_CITY))) {
+						races.add(race);
+					} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LASIELLE_3)
+							&& (mostCommonRegion.contains(WorldRegion.MOUNTAINS)
+							|| mostCommonRegion.contains(WorldRegion.YOUKO_FOREST)
+							|| mostCommonRegion.contains(WorldRegion.SNOW))) {
+						races.add(race);
+					} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LUNETTE_5)
+							&& (mostCommonRegion.contains(WorldRegion.WOODLAND)
+							|| mostCommonRegion.contains(WorldRegion.FIELDS)
+							|| mostCommonRegion.contains(WorldRegion.FIELD_CITY)
+							|| mostCommonRegion.contains(WorldRegion.RIVER))) {
+						races.add(race);
+					} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LYXIAS_6)
+							&& (mostCommonRegion.contains(WorldRegion.JUNGLE)
+							|| mostCommonRegion.contains(WorldRegion.JUNGLE_CITY))) {
+						races.add(race);
+					} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LISOPHIA_7)
+							&& (mostCommonRegion.contains(WorldRegion.SAVANNAH)
+							|| mostCommonRegion.contains(WorldRegion.DESERT)
+							|| mostCommonRegion.contains(WorldRegion.DESERT_CITY)
+							|| mostCommonRegion.contains(WorldRegion.VOLCANO))) {
+						races.add(race);
+					}
+				}
+			}
+		}
+		if(this.isYouko()) {
+			races.add(Race.NONE);
+			races.add(Race.HUMAN);
+			races.add(Race.FOX_MORPH);
+		}
+		
+		return races;
+	}
+	
 	/**
 	 * @return A description of why this character cannot self-transform. Returns an empty String if they are able to self-transform.
 	 */
@@ -26820,6 +26908,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public String removeMilkModifier(FluidModifier fluidModifier) {
 		return body.getBreast().getMilk().removeFluidModifier(this, fluidModifier);
 	}
+	public void clearMilkModifiers() {
+		body.getBreast().getMilk().clearFluidModifiers();
+	}
 	// Transformations:
 	public List<ItemEffect> getMilkTransformativeEffects() {
 		return body.getBreast().getMilk().getTransformativeEffects();
@@ -27192,6 +27283,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String removeMilkCrotchModifier(FluidModifier fluidModifier) {
 		return body.getBreastCrotch().getMilk().removeFluidModifier(this, fluidModifier);
+	}
+	public void clearMilkCrotchModifiers() {
+		body.getBreastCrotch().getMilk().clearFluidModifiers();
 	}
 	// Transformations:
 	public List<ItemEffect> getMilkCrotchTransformativeEffects() {

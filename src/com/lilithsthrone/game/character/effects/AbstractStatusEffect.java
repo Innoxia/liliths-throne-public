@@ -295,7 +295,7 @@ public abstract class AbstractStatusEffect {
 				
 			} catch(Exception ex) {
 				ex.printStackTrace();
-				System.err.println("SetBonus was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+				System.err.println("StatusEffect was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
 			}
 		}
 	}

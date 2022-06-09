@@ -1369,7 +1369,7 @@ public class GenericOrgasms {
 					}
 				}
 			case FLOOR:
-				return " out all over the floor.";
+				return " all over the floor.";
 			case STOMACH:
 				target = Main.sex.getTargetedPartner(characterOrgasming);
 				if (!targetAreaClothingCummedOn.isEmpty()) {
@@ -1517,7 +1517,7 @@ public class GenericOrgasms {
 					}
 				}
 			case WALL:
-				return " all up the wall.";
+				return " all up the [pc.wall].";
 				
 			case SELF_GROIN:
 				if (!targetAreaClothingCummedOn.isEmpty()) {
@@ -1835,6 +1835,7 @@ public class GenericOrgasms {
 									cumTargetSB.append(" delicious, highly-addictive [npc.cum] as you possibly can.");
 									break;
 								case ALCOHOLIC:
+								case ALCOHOLIC_WEAK:
 									cumTargetSB.append(" alcoholic [npc.cum] as you possibly can.");
 									break;
 								case BUBBLING:

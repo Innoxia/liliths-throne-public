@@ -1881,7 +1881,12 @@ public class CharacterUtils {
 		
 		// Randomise skin colour if not greater:
 		if(character.getRaceStage()!=RaceStage.GREATER && character.getRaceStage()!=RaceStage.FERAL) {
-			character.setSkinCovering(BodyCoveringType.HUMAN, Util.randomItemFrom(BodyCoveringType.HUMAN.getNaturalColoursPrimary()), true);
+//			character.setSkinCovering(BodyCoveringType.HUMAN, Util.randomItemFrom(BodyCoveringType.HUMAN.getNaturalColoursPrimary()), true);
+			Colour skinColour = Util.randomItemFrom(BodyCoveringType.HUMAN.getNaturalColoursPrimary());
+			if(Main.getProperties().skinColourPreferencesMap.values().stream().anyMatch(v->v>0)) {
+				Util.getRandomObjectFromWeightedMap(Main.getProperties().skinColourPreferencesMap);
+			}
+			character.setSkinCovering(BodyCoveringType.HUMAN, skinColour, true);
 		}
 		
 		// Ass:
@@ -2376,30 +2381,7 @@ public class CharacterUtils {
 
 			if (Math.random() < prostituteChance) {
 				character.setHistory(Occupation.NPC_PROSTITUTE);
-				character.removePersonalityTrait(PersonalityTrait.PRUDE);
-				character.removePersonalityTrait(PersonalityTrait.INNOCENT);
-
-				character.setAssVirgin(false);
-				character.setAssCapacity(character.getAssRawCapacityValue()
-						* 1.2f,
-						true);
-
-				if(character.hasVagina()) {
-					character.setVaginaVirgin(false);
-					character.setVaginaCapacity(character.getVaginaRawCapacityValue()
-							* 1.2f,
-							true);
-				}
-
-				if(character.hasPenis()) {
-					character.setPenisVirgin(false);
-				}
-
-				character.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-				character.setName(Name.getRandomProstituteTriplet());
-				character.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"),
-						character,
-						false);
+				initProstitute(character);
 
 			} else {
 				character.setHistory(Occupation.NPC_MUGGER);
@@ -2410,7 +2392,33 @@ public class CharacterUtils {
 			histories.removeIf((his) -> his.isLowlife());
 			character.setHistory(Util.randomItemFrom(histories));
 		}
-			
+	}
+	
+	public static void initProstitute(GameCharacter character) {
+		character.removePersonalityTrait(PersonalityTrait.PRUDE);
+		character.removePersonalityTrait(PersonalityTrait.INNOCENT);
+
+		character.setAssVirgin(false);
+		character.setAssCapacity(character.getAssRawCapacityValue()
+				* 1.2f,
+				true);
+
+		if(character.hasVagina()) {
+			character.setVaginaVirgin(false);
+			character.setVaginaCapacity(character.getVaginaRawCapacityValue()
+					* 1.2f,
+					true);
+		}
+
+		if(character.hasPenis()) {
+			character.setPenisVirgin(false);
+		}
+
+		character.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		character.setName(Name.getRandomProstituteTriplet());
+		character.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"),
+				character,
+				false);
 	}
 	
 	private static List<Fetish> getAllowedFetishes(GameCharacter character) {

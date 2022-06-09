@@ -20,6 +20,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaOfficeD
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaSpa;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomArthur;
 import com.lilithsthrone.game.occupantManagement.MilkingRoom;
+import com.lilithsthrone.game.sex.ImmobilisationType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
@@ -620,6 +621,212 @@ public class PlaceUpgrade {
 			null) {
 	};
 
+	//**** DUNGEON UPGRADES ****//
+	
+	public static final AbstractPlaceUpgrade LILAYA_DUNGEON_CELL = new AbstractPlaceUpgrade(true,
+			PresetColour.BASE_MAGENTA,
+			"Dungeon Cell",
+			"-",
+			"This cell is just about large enough to hold four of your unlucky slaves.",
+			"-",
+			0,
+			0,
+			10,
+			4,
+			-0.15f,
+			0.2f,
+			null) {
+		@Override
+		public String getSVGOverride() {
+			return AbstractPlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveQuadruple", PresetColour.BASE_MAGENTA);
+		}
+		@Override
+		public String getRoomDescription(Cell c) {
+			GenericPlace place = c.getPlace();
+			
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("With the walls, floor, and ceiling being constructed out of large, grey stones, this cell has a gloomy, oppressive feel to it."
+					+ " A couple of metal sconces are fixed into opposite walls of the cell, with each one holding an arcane torch."
+					+ " Their perpetually-burning flames occasionally splutter and flicker, casting dancing shadows across the cell's interior."
+					+ " A small, barred window is set into the cell's heavy wooden door, allowing any unlucky slaves who are being held within to be monitored from the safety of the corridor.");
+			
+			if(!place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_DUNGEON_CELL_UPGRADE_BED) && !place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_DUNGEON_CELL_DOWNGRADE_BED)) {
+				sb.append("<br/><br/>"
+						+ "Four small, steel-framed beds are located within this cell, each of which holds a thin mattress, a couple of deflated pillows, and a ragged blanket."
+						+ " Old, wooden boxes positioned beside these beds serve as crude substitutes for bedside cabinets."
+						+ " Other than these beds and crates, there are no other pieces of furniture within the cell.");
+			}
+			
+			return sb.toString();
+		}
+	};
+	
+
+	public static final AbstractPlaceUpgrade LILAYA_DUNGEON_CELL_DOWNGRADE_BED = new AbstractPlaceUpgrade(false,
+			PresetColour.GENERIC_BAD,
+			"Straw Bedding",
+			"Remove the steel-framed beds in this cell and replace them with piles of straw."
+					+ " Providing this cell's slaves with such uncomfortable places to sleep will definitely reinforce the fact that they're nothing but your property, but at the same time, they're bound to dislike you more...",
+			"The beds in this room have been removed and replaced with piles of straw.",
+			"A small, single size bed, complete with an uncomfortable mattress, a hard pillow, and a thin blanket, sits against one side of the room."
+					+ " Providing this cell's slaves with such uncomfortable places to sleep is definitely reinforcing the fact that they're nothing but your property, but at the same time, they're starting to dislike you more...",
+			100,
+			25,
+			-5,
+			0,
+			-0.1f,
+			0.2f,
+			null) {
+		@Override
+		public String getRoomDescription(Cell c) {
+			return "The four steel-framed beds in this room have all been removed and replaced with piles of straw."
+					+ " The old, wooden boxes which served as crude substitutes for bedside cabinets have also been replaced by the simple wooden frames which the straw was packaged in."
+					+ " Providing this cell's slaves with such uncomfortable places to sleep will definitely reinforce the fact that they're nothing but your property, but at the same time, they're bound to dislike you more...";
+				
+		}
+		@Override
+		protected Value<Boolean, String> getExtraConditionalAvailability(Cell cell) {
+			if(cell.getPlace().getPlaceUpgrades().contains(LILAYA_DUNGEON_CELL_UPGRADE_BED)) {
+				return new Value<>(false, "The 'Improved Bedding' upgrade must be removed before the 'Straw Bedding' can be installed.");
+			}
+			return super.getExtraConditionalAvailability(cell);
+		}
+	};
+	
+	public static final AbstractPlaceUpgrade LILAYA_DUNGEON_CELL_UPGRADE_BED = new AbstractPlaceUpgrade(false,
+			PresetColour.GENERIC_GOOD,
+			"Improved Bedding",
+			"Remove the beds' thin mattresses, deflated pillows, and ragged blankets, and replace them with more comfortable alternatives."
+					+ " Providing this cell's slaves with a higher level of comfort will definitely get them to like you more, although such relative luxury might make them forget their place...",
+			"The four beds in this cell have had their mattresses, pillows, and blankets replaced with more comfortable alternatives.",
+			"The four beds in this cell have had their mattresses, pillows, and blankets replaced with more comfortable alternatives."
+					+ " Providing this cell's slaves with a higher level of comfort is definitely getting them to like you more, although such relative luxury is making them forget their place...",
+			250,
+			50,
+			5,
+			0,
+			0.05f,
+			-0.05f,
+			null) {
+		@Override
+		public String getRoomDescription(Cell c) {
+			return "The four beds in this cell have had their mattresses, pillows, and blankets replaced with more comfortable alternatives."
+					+ " Providing this cell's slaves with a higher level of comfort will definitely get them to like you more, although such relative luxury might make them forget their place...";
+		}
+		@Override
+		protected Value<Boolean, String> getExtraConditionalAvailability(Cell cell) {
+			if(cell.getPlace().getPlaceUpgrades().contains(LILAYA_DUNGEON_CELL_DOWNGRADE_BED)) {
+				return new Value<>(false, "The 'Straw Bedding' upgrade must be removed before the 'Improved Bedding' can be installed.");
+			}
+			return super.getExtraConditionalAvailability(cell);
+		}
+	};
+
+	public static final AbstractPlaceUpgrade LILAYA_DUNGEON_CELL_DOG_BOWLS = new AbstractPlaceUpgrade(false,
+			PresetColour.GENERIC_BAD,
+			"Dog Bowls",
+			"Have meals served to this cell's slaves in dog bowls placed upon the floor."
+					+ " Being forced to eat in such a humiliating fashion is sure to make your slaves dislike you, but it will also serve to emphasise the fact that they're nothing more than your property.",
+			"Metal dog bowls have been placed upon the floor, and it's from out of these that this cell's slaves are made to eat their meals.",
+			"Four pairs of metal dog bowls have been placed upon the floor, and it's from out of these that the cell's slaves are expected to eat and drink."
+					+ " Being forced to get down on all fours and eat their meals like a dog is making your slaves dislike you, but at the same time, it's hammering home the fact that they're nothing more than your property...",
+			100,
+			0,
+			10,
+			0,
+			-0.2f,
+			0.25f,
+			null) {
+		@Override
+		protected Value<Boolean, String> getExtraConditionalAvailability(Cell cell) {
+			if(cell.getPlace().getPlaceUpgrades().contains(LILAYA_DUNGEON_CELL_DECENT_FOOD)) {
+				return new Value<>(false, "The 'Decent Food' upgrade must be removed before the 'Dog Bowls' can be used.");
+			}
+			return super.getExtraConditionalAvailability(cell);
+		}
+	};
+	
+	public static final AbstractPlaceUpgrade LILAYA_DUNGEON_CELL_DECENT_FOOD = new AbstractPlaceUpgrade(false,
+			PresetColour.GENERIC_GOOD,
+			"Decent Food",
+			"Replace the cold, bland meals served to this cell's slaves with decent, hot food."
+					+ " Providing this cell's slaves with nicer food will definitely get them to like you more, although such relative luxury might make them forget their place...",
+			"You've replaced the cold, bland meals served to this cell's slaves with decent, hot food.",
+			"You've replaced the cold, bland meals served to this cell's slaves with decent, hot food."
+					+ " Providing this cell's slaves with nicer food is definitely getting them to like you more, although such relative luxury is making them forget their place...",
+			250,
+			0,
+			100,
+			0,
+			0.1f,
+			-0.1f,
+			null) {
+		@Override
+		protected Value<Boolean, String> getExtraConditionalAvailability(Cell cell) {
+			if(cell.getPlace().getPlaceUpgrades().contains(LILAYA_DUNGEON_CELL_DOG_BOWLS)) {
+				return new Value<>(false, "The 'Dog Bowls' upgrade must be removed before the 'Decent Food' can be used.");
+			}
+			return super.getExtraConditionalAvailability(cell);
+		}
+	};
+
+	public static final AbstractPlaceUpgrade LILAYA_DUNGEON_CELL_ROPES = new AbstractPlaceUpgrade(false,
+			PresetColour.GENERIC_TERRIBLE,
+			"Rope Restraints",
+			"Attach sturdy ropes to the walls of this cell and use them to bind your slaves in place."
+					+ " This will prevent your slaves from interacting with one another, and if in a submissive slot, they will start sex scenes with the 'Bound in rope' immobilising effect.",
+			"Sturdy ropes have been attached to the walls of this cell, and are being used to bind the occupying slaves in place.",
+			"Sturdy ropes have been attached to the walls of this cell, and are being used to bind the occupying slaves in place."
+					+ " This is preventing your slaves from interacting with one another, and is making them more obedient at the cost of disliking you more...",
+			250,
+			100,
+			10,
+			0,
+			-0.2f,
+			0.15f,
+			null) {
+		@Override
+		protected Value<Boolean, String> getExtraConditionalAvailability(Cell cell) {
+			if(cell.getPlace().getPlaceUpgrades().contains(LILAYA_DUNGEON_CELL_CHAINS)) {
+				return new Value<>(false, "The 'Chain Restraints' upgrade must be removed before the 'Rope Restraints' can be used.");
+			}
+			return super.getExtraConditionalAvailability(cell);
+		}
+		@Override
+		public ImmobilisationType getImmobilisationType() {
+			return ImmobilisationType.ROPE;
+		}
+	};
+	
+	public static final AbstractPlaceUpgrade LILAYA_DUNGEON_CELL_CHAINS = new AbstractPlaceUpgrade(false,
+			PresetColour.GENERIC_TERRIBLE,
+			"Chain Restraints",
+			"Attach metal chains to the walls of this cell and use them to bind your slaves in place."
+					+ " This will prevent your slaves from interacting with one another, and if in a submissive slot, they will start sex scenes with the 'Bound in chains' immobilising effect.",
+			"Metal chains have been attached to the walls of this cell, and are being used to bind the occupying slaves in place.",
+			"Metal chains have been attached to the walls of this cell, and are being used to bind the occupying slaves in place."
+					+ " This is preventing your slaves from interacting with one another, and is making them more obedient at the cost of disliking you more...",
+			500,
+			250,
+			25,
+			0,
+			-0.25f,
+			0.3f,
+			null) {
+		@Override
+		protected Value<Boolean, String> getExtraConditionalAvailability(Cell cell) {
+			if(cell.getPlace().getPlaceUpgrades().contains(LILAYA_DUNGEON_CELL_ROPES)) {
+				return new Value<>(false, "The 'Rope Restraints' upgrade must be removed before the 'Chain Restraints' can be used.");
+			}
+			return super.getExtraConditionalAvailability(cell);
+		}
+		@Override
+		public ImmobilisationType getImmobilisationType() {
+			return ImmobilisationType.CHAINS;
+		}
+	};
+	
 	
 	//**** MILKING UPGRADES ****//
 	
@@ -1079,6 +1286,7 @@ public class PlaceUpgrade {
 	
 	private static ArrayList<AbstractPlaceUpgrade> coreRoomUpgrades;
 	private static ArrayList<AbstractPlaceUpgrade> guestRoomUpgrades;
+	private static ArrayList<AbstractPlaceUpgrade> dungeonCellUpgrades;
 	private static ArrayList<AbstractPlaceUpgrade> slaveQuartersUpgradesSingle;
 	private static ArrayList<AbstractPlaceUpgrade> slaveQuartersUpgradesDouble;
 	private static ArrayList<AbstractPlaceUpgrade> slaveQuartersUpgradesQuadruple;
@@ -1092,6 +1300,10 @@ public class PlaceUpgrade {
 
 	public static ArrayList<AbstractPlaceUpgrade> getGuestRoomUpgrades() {
 		return guestRoomUpgrades;
+	}
+
+	public static ArrayList<AbstractPlaceUpgrade> getDungeonCellUpgrades() {
+		return dungeonCellUpgrades;
 	}
 
 	public static ArrayList<AbstractPlaceUpgrade> getSlaveQuartersUpgradesSingle() {
@@ -1135,7 +1347,19 @@ public class PlaceUpgrade {
 
 		guestRoomUpgrades = Util.newArrayListOfValues(
 				PlaceUpgrade.LILAYA_EMPTY_ROOM);
+
+		dungeonCellUpgrades = Util.newArrayListOfValues(
+				PlaceUpgrade.LILAYA_DUNGEON_CELL_DECENT_FOOD,
+				PlaceUpgrade.LILAYA_DUNGEON_CELL_DOG_BOWLS,
 				
+				PlaceUpgrade.LILAYA_DUNGEON_CELL_UPGRADE_BED,
+				PlaceUpgrade.LILAYA_DUNGEON_CELL_DOWNGRADE_BED,
+
+				PlaceUpgrade.LILAYA_DUNGEON_CELL_ROPES,
+				PlaceUpgrade.LILAYA_DUNGEON_CELL_CHAINS,
+				
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_ARCANE_INSTRUMENTS,
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_OBEDIENCE_TRAINER);
 				
 		slaveQuartersUpgradesSingle = Util.newArrayListOfValues(
 				PlaceUpgrade.LILAYA_SLAVE_ROOM_ROOM_SERVICE,

@@ -59,6 +59,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.sex.managers.SexManagerExternal;
 import com.lilithsthrone.game.sex.managers.SexManagerInterface;
 import com.lilithsthrone.game.sex.managers.SexManagerLoader;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
@@ -78,7 +79,6 @@ import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.MiscActions;
-import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
@@ -2043,6 +2043,9 @@ public class Sex {
 							}
 						}
 					}
+					if(GenericActions.PLAYER_STOP_SEX.isAddedToAvailableSexActions()) {
+						normalActions.add(GenericActions.PLAYER_STOP_SEX);
+					}
 					partnerOrgasming = true;
 					break;
 					
@@ -2325,7 +2328,7 @@ public class Sex {
 							&& getSexPace(Main.sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING
 							&& ((sexAction.getSexPace()!=null && sexAction.getSexPace()!=SexPace.SUB_RESISTING)
 									|| sexAction.getParticipantType()==SexParticipantType.SELF
-									|| (sexAction.getSexPace()==null && sexAction!=PartnerTalk.PARTNER_DIRTY_TALK && !sexAction.equals(GenericActions.PARTNER_STOP_SEX_NOT_HAVING_FUN)))) // TODO This is a little terrible
+									|| (sexAction.getSexPace()==null && !sexAction.isOverrideAvailableDuringResisting())))
 								|| (sexAction.getSexPace()!=null && sexAction.getSexPace()!=getSexPace(Main.sex.getCharacterPerformingAction()))) {
 	//						System.out.println(Main.sex.getCharacterPerformingAction().getNameIgnoresPlayerKnowledge() +": "+ sexAction.getActionTitle());
 							
@@ -5435,7 +5438,12 @@ public class Sex {
 	}
 	
 	public boolean isDom(GameCharacter character) {
-		return Main.sex.dominants.keySet().contains(character);
+		try {
+			return Main.sex.dominants.keySet().contains(character);
+		} catch(Exception ex) {
+			// This is a catch for when external sex managers are used and the sex control needs to be parsed before sex has finished initialising
+			return ((SexManagerExternal)sexManager).getDominants().containsKey(character);
+		}
 	}
 	
 	public boolean isPublicSex() {
@@ -5815,6 +5823,10 @@ public class Sex {
 
 	public void setPositionRequest(PositioningData positionRequest) {
 		Main.sex.positionRequest = positionRequest;
+	}
+	
+	public boolean isCharacterWantingToStopSex(GameCharacter character) {
+		return this.getInitialSexManager().isPartnerWantingToStopSex(character);
 	}
 	
 	/**

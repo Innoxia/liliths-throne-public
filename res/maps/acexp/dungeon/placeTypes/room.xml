@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+    <worldRegion>DOMINION</worldRegion>
+    <name><![CDATA[BDSM bedroom]]></name>
+    <tooltipDescription><![CDATA[A fully equipped BDSM bedroom in the dungeon under Lilaya's mansion.]]></tooltipDescription>
+    <virginityLossDescription><![CDATA[in Lilaya's dungeon]]></virginityLossDescription>
+    <sexBlockedReason/>
+    <sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+    <colour>BASE_BROWN_DARK</colour>
+    <backgroundColour>MAP_BACKGROUND</backgroundColour>
+    <encounterType>null</encounterType>
+    <dialogue>acexp_dominion_lilaya_dungeon_room</dialogue>
+    <populationPresent/>
+    <globalMapTile>false</globalMapTile>
+    <dangerous><![CDATA[false]]></dangerous>
+    <itemsDisappear><![CDATA[true]]></itemsDisappear>
+    <aquatic><![CDATA[LAND]]></aquatic>
+    <darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+    <teleportPermissions>BOTH</teleportPermissions>
+    <weatherImmunities immuneToAll="true"/>
+    <applyInventoryInit/>
+</placeType>

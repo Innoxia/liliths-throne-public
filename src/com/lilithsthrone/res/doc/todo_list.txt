@@ -5,9 +5,27 @@ In this text file I keep track of reported bugs and features that I am working o
 Not everything in this file is up-to-date, and everything is subject to change at a later date.
 	
 	- Repeat alleyway
-		after 3 subs in a row, can agree to be their bitch (reveals their name, new options when meeting them again)
-			for demons in dark alleyways, they use telepathic suggestion to increase your corruption 
-		after 3 doms in a row, can force them to accept being your bitch (reveals their name - you can rename them, new options)
+		[] after 3 subs in a row, can agree to be their bitch
+			[] reveals their name
+			[] when meeting them again, random demand:
+				[] give money
+				[] fucked
+				[] tag along to assist in mugging
+					[] fight
+					[] watch or join sex
+				[] pimped out
+					[] their friend fucks you
+				[] for demons in dark alleyways, they use telepathic suggestion to increase your corruption
+			[] all demands have option to refuse, which leads into fight
+				[] victory, no longer bitch
+				[] loss, fucked
+		[] after 3 doms in a row, can force them to accept being your bitch
+			[] reveals their name
+			[] new options
+				[] rename them
+				[] fuck them
+				[] manage inventory
+				[] remove them
 	
 	- Pregnancy mechanics update
 		Cycle, heat/rut(?)
@@ -17,223 +35,247 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	AceXP's content contributions:
-		Added more sex actions in each of the harpy matriarch's nests, which are available after having pacified those nests (as part of the 'Angry harpies' side quest).
-	
-	Contributors:
-		Fixed issue where the Innoxia's Gift debug item wouldn't work correctly. (by AceXP)
-		Added a new 'Strapless bodysuit' clothing item, which is sold by Nyan/Monica. (by C4MG1RL)
-	
 	Engine/Modding:
-		Added support to define pre-lubed areas at the start of sex via a new 'startingLubrications' element in external sex managers (see 'res/sex/innoxia/managers/meraxis/duel/masturbation.xml' for a commented example).
-		Added catch for passing in a null character argument for the setNippleSize(), setNippleShape(), setAreolaeSize(), and setAreolaeShape() methods, making it safe to call these methods with a null character in modded race's 'applyRaceChanges' and 'applySubspeciesChanges' elements.
-		For race modding, support has been added for defining lip names and descriptors in mouth type xml files (see 'res/mods/innoxia/race/hyena/bodyParts/mouth.xml' for a commented example).
-		Added support to mod in 'Loving confession' and 'Loving response' lines to sex managers in the same way that submissive and rough lines can be added (see 'res/sex/innoxia/managers/meraxis/duel/masturbation.xml' for a commented example).
+		Added 'escapeBlocked' variable to combat responses, allowing you to block the availability of the escape action during that combat scene.
+		Added 'resetHour' attribute support to dialogue flags, allowing you to define the hour at which dialogue flags reset, instead of only being able to reset them at midnight.
 	
 	Gameplay:
-		Added 'Ahegao' as a new trait (located beside 'Nymphomaniac' in the lust tree), which grants +15% lust damage, -5 lust shielding, and adds an extra paragraph to orgasm descriptions.
-	
-	Clothing:
-		Added sticker support for the 'lowback bodysuit' clothing item, allowing you to remove/attach the shoulder straps.
-	
-	Sex:
-		ONGOING SexActionTypes are now available for immobilised characters to use during sex, but only so long as the action's performing areas doesn't include a virginity-taking penetration type.
-		The 'Cocoon', 'Tentacle restraint', and 'Constrict' immobilisation sex actions are now used by dominant-sex-slot NPCs who have the 'bondage applier' fetish, instead of requiring dominant, sadist, and non-con fetishes.
-		Ball-focused sex actions are no longer available if the targeted character has a dildo instead of a real penis.
-		NPCs will now only use the 'Request facial' orgasm preparation sex action if they have a positive desire towards the 'cum addict' fetish and if the person orgasming has a penis.
-		Added 'Kiss cheek' and 'Caress cheek' as gentle-paced counterparts to the sadistic 'Spit in face' and 'Slap face' actions. NPCs who are using the gentle pace, who lack the sadist fetish, and who have 50+ affection towards the target will use these actions.
-		Added 'Loving confession' and 'Loving response' sex actions, which again are used only by NPCs who are using the gentle pace, who lack the sadist fetish, and who have 50+ affection towards the target. 'Loving response' is only ever used as an immediate response to 'Loving confession'.
-		Added 'Hand holding' as a new ongoing action type.
-		The 'Encourage creampie' and 'Request creampie' actions can now be used when the orgasming character is penetrating nipples, crotch-nipples, and urethras.
-		Added 'Encourage knot' and 'Request knot' orgasm preparation actions for when the orgasming character has a knotted penis, which result in the orgasming character using the 'Knot them' action instead of 'Creampie them' (so long as the orgasming character is not ignoring requests).
-		Added NPC reaction to a creampie or knotting request to let you know if they're willing to do as you ask or not.
-		Orgasming characters no longer require a penis to have their orgasm description start with a small sentence describing the orgasming character's position.
+		Added 'The Crossed Blades' tavern in the alleyways of northern Elis.
 	
 	Other:
-		Yui's anilingus scene now correctly starts with her asshole lubed by her girlcum, as the scne's intro describes.
-		If playing on a difficulty level which causes NPCs to always match your level, their true level is now shown in brackets after their matched level in the tooltip when hovering over their name.
-		Added a 'half-demon' option to the 'spawn attacker' function of the debug menu.
-		Added a 'demonic-owl' eye type, which enables owl-morphs to spawn as half-demons.
-		Masturbating no longer counts as the masturbating character having had sex with a unique sex partner. (So in the phone's sex stats screen, masturbating will no longer count towards the 'You have had sex with a total of X different people' tracker.)
-		Added dialogue variation of first post-sex essence absorption for if the player is a spectator instead of an active sex participant.
-		Callie now has the 'sterile' perk to prevent her from impregnating the player (will be reverted later when Callie impregnation content is added).
-		Raptor and harpy 'lips' are now referred to as a 'beak-lips'. (There isn't a perfect solution to lip parsing for beaks, so while 'beak-lips' is quite clumsy, it's the best that I can do to help differentiate beaks from normal mouths in sex actions.)
-		Added +5% lust damage to the 'Nymphomaniac' trait.
-		Added small offspring encounter dialogue variations for if the player was the offspring's incubator.
-		Added icon indication on sex-start actions for if the sex will involved non-con.
+		Added 'light orange' as a new body covering colour.
+		Renamed 'alcoholic' fluid modifier to 'strongly alcoholic', and added a new 'alcoholic' fluid modifier, which applies intoxication at a rate 10 times slower than the old, 'strongly alcoholic' modifier.
 	
 	Bugs:
-		Typo and parsing fixes.
-		The ring gag clothing item now uses the correct icon, instead of displaying the ball gag icon.
-		Fixed issue where you could still use the 'fly' fast travel option even if the map was supposed to not allow flying (such as in Evelyx's Dairy, among many other internal locations).
-		Maps which are located in the Foloi Fields (such as Evelyx's Dairy) are now displayed under the 'Elis' map tab in your phone's maps screen, instead of in the 'Dominion' tab.
-		Fixed issue where the 'Ball gag demo' action at Yui's stall (in the Farmer's Market at Elis) would not work and throw potentially game-breaking background errors.
-		Fixed issue where wolf-morphs could spawn with white fur, inadvertently making them arctic wolf-morphs.
-		Fixed bug where using Penelope's cosmetics services would sometimes incorrectly use a character other than the player to apply cosmetics changes to.
-		Offspring who had both a father and mother that weren't the player, but were incubated by the player, are now correctly detected as being available to find via the offspring map or randomly in suitable tiles.
-		Fixed issue where dialogue flow would break during Enforcer encounters while wearing an Enforcer set and being in possession of the contractor pass.
-		Characters no longer regain their anal virginity upon transforming their lower body type (such as into a taur or lamia).
-		Characters who are unable to orgasm due to enchantment effects will no longer have orgasm effects applied from using the 'Quick sex' action.
-		The description for the tagged choker clothing item now correctly lists the top text first and then the bottom text afterwards.
-		Fixed issue with Callie spawning with incorrect skin/hair colours.
-		You can no longer enter Callie's bakery, 'The Creamy Bakey', on Sundays, when it's meant to be shut.
-		Fixed issue where selecting the 'Buyback' action throwing background errors and softlocking the game if there were no items available to buy back.
-		Eagle and bald-eagle morphs should no longer spawn in with huge height values.
-		Fixed issue where you could go back to the Rat Warrens and enter it if you went there after defeating Vengar in combat but before handing in the quest to Axel.
-		Selling items to Fae, Heather, and Kazik (in the Farmer's Market in Elis) no longer gives you Faire Tickets.
-		Fixed issue where if character1 was being forced to cum inside character2 during the same turn that character3 was also orgasming, then character1 would sometimes incorrectly be treated as orgasming inside character3.
-		Fixed issue where the 'Service ass' action which was displayed after flirting with Astrapi wasn't working.
-		Using the 'Quick sex' action will no longer result in characters being able to perform actions which should have been prevented due to limits on available positions or positioning slots.
+		Parsing fixes.
 	
 	
 	
-	[x] Detailed plan post
-	[x] Update Blog
-	[x] TFGS update
 	
-	[x] Bugs:
-		[x] you can break into evelyx's dairy via flying after buying the milker
-		[x] Evelyx's Dairy is in Dominion maps
-		[x] "Ball gag demo" tooltip conditional parsing error
-			[x]  Selecting "Ball gag demo" at Yui's Toys in the Farmers Market begins Meraxis' Ambush at Centaur Carriage Depot and resets your quest progress despite the planner saying the quest is complete
-		[x] While immobilised allow non-virginity taking ongoing actions
-		[x] lube Yui's asshole with girlcum for anilingus scene
-		[x] Also 4.2.9, characters with the tentacles and the bondage applier trait do not use the binding ability.  It seems to require them also having Dominant and Sadist
-		[x] Dale dialogue of "I wish I were you right now..." is not from Dale
-		[-] sabotaging condoms spams the log?
-		[x] When trying to change Nipple/Areola sizes for racial mod subspecies, I get errors:
-			[#targetedBody.getBreast().getNipples().setNippleSize(null, 5)]
-			[#targetedBody.getBreast().getNipples().setAreolaeSize(null, 5)] 
-			(needs null character support)
-		[x] When I try to find a wolf-morph in the club, most of the time I get Arctic wolves
-		[x] in Elis, when first walking into Woolly Heaven for the first time, the game didn't detect what parts of my PC were pierced or tattooed. The next 2 or 3 visits fixed this, and everything worked as advertised, but I figured you should know.
-		[x] the offspring from eggs implanted in the PC that they have incubated successfully are no longer available as searchable on the Arcane Offspring Map.
-			I checked the offspring list in the debug menu and it doesn't list any new offspring.
-			Offspring that my character is impregnated with and birthed or eggs implanted into an NPC still appear on the offspring list and the Arcane Offspring Map like normal.
-				isFromPlayer() in OffspringSeed needs to be updated when litter is implanted
-				[#npc1.implantPregnantLitter(pc, ORIFICE_VAGINA)]
-		[x] having the methodical enforcer set equipped results in bugs when getting searched
-			[x] Searched does not work for leader
-			[x] After sex, 'Leave' starts combat
-		[x] my character regains her anal virginity upon transforming her lower body into a long snake body (possibly related to moving everything into a cloaca??
-			it might count as a different asshole. Penis and vagina virginity status are correct, but vagina regrew the hymen)
-		[x] if a character has a piece of clothing on them that prevents orgasm, but you use the "quick sex" option, then they still orgasm
-		[x]  My character still orgasms from quick sex even though they're wearing an item that should prevent them from orgasming.
-		[-] NPC gains level after using orgasmic level drain?
-		[x] while wearing a strapon people try to fondle my balls in sex scenes
-		[-] CLOTHING_TRANSACTION_START missing from Monica's shop?
-		[x] in the template socks.xml, on line 170, START is misspelled as SATRT
-		[x] Tagged choker description has [bottomText][topText] with no space...
-		[x] Add C4M's strapless bodysuit
-		[x] Add strap removal for current bodysuit
-		[x] Not 100%, but I think I had an owl spawn in submission that I think is supposed to be a half demon.  Had demon vagina, anus and tits, but was still counted as an owl morph.
-			[x] Due to owl-morphs having their eye changed...
-			[x] Add demonic owl eye type
-		[x] Add half-demon option to spawn attacker debug menu
-		[x] Everytime a blowjob happens, they ALWAYS ask for a facial.  Shouldn't there be some variety?  I think even with cunnilingus always ends with asking for a facial as well.
-		[x] In sex stats, it counts masturbation as sex with another person (You have had sex with a total of X different people)
-		[x] Small text bug in the new 'Spy on Lilaya and Rose' scene.
-			"As you disentangle yourself from Rose, you suddenly become aware of a strange, shimmering pink glow that's started to materialise around her body, just like the one you saw in Lilaya's lab when she ran her tests on you.​ "
-			1) It's not you+Rose
-			2) PC has not had Lilaya's tests run yet.
-		[x] Callie can impreg...
-		[x] Despite being described as having an ebony rear she spawned with a light skinned one, possibly just being randomly generated.
-		[x] You can enter the creamy bakery on sunday even though you shouldn't be able to
-		[x] Buyback throws error if no items populate it
-		[x] Raptor morphs are spawning in with crazy heights.  Got an eagle morph at 9'5".  Doesn't seem to work when I use the debug command, only when the game spawns it.
-		[x] Raptor morphs have lips?
-			[x] add lip naming modding support to face.xml
-		[x] Make gentle actions like there are rough actions.
-			[x] Like in a rough pace you have slap face, the gentle equivalent should be caress face.
-			[x] Instead of spit on face there's kiss cheek.
-		[x] Instead of rough talk, there's compliment/sweet whisper. 
-			[x] If affection is high enough, some of the responses from the submissive partner should include lines of the nature of "I love you." or "Marry me." or general expressions of how they want be with you or giving compliments back to you.
-		[x] Add isLovingActionsAllowed method
-		[x] Hand holding should also be an ongoing action.
-			[x] Quick sex description
-			[x] Rose scene
-			[x] add desire to use action in foreplay
-			[x] need action status effect
-		[x] "from between your beak"
-		[x] hand status showing for non-hand actions too
-		[x] orgasm prep additions
-			[x] add 'Request knot'
-				[x] add character reaction to this and request creampie
-				[x] double creampie/knotting	
-		[x] Add lust damage to nympho perk
-		[x] add 'Ahegao' trait beside nympho
-			[x] +10% lust damage, -5 lust shielding, go ahegao at orgasms
-			[x] test icon
-			[x] add orgasm behaviour
-				[x] getPositionPreparation is only used for penis orgasms???
-		[x] Check "// Add missing world types:" to see if it's generating each map for every world type...
-		[x] Add offspring encounter variation for if the player was the incubator
-			[x] Player was father
-			[x] Player was mother
-			[x] Player was neither
-		[x] After defeating Vengar in the Rat Barrens, when I immediately went back I refought the enemies but when I got up to Vengar I couldn't fight him again but only could sex him.
-			That didn't remove me from the Barrens though and they closed the door behind me again when I entered so that appears to me like a softlock.
-		[-] i cant finish the last part of the quest to get brax the choices are unavailable for some reason
-		[x] Enforcer warehouse squad to be called top men in silly mode
-		[x] Not sure if this is a bug or intended, but selling stuff to the shops in the farmers market also gives Faire Tickets, not just buying stuff. That is not referenced in any of the text as far as I'm aware
-		[x] v0.4.3.1, exe version, while having sex with two of my slaves, one of them came at the same time as me, the other forced a creampie from me, and it gave the forced creampie text for the first slave while still allowing me to choose where I cum
-			[x] test
-		[-] I was messing around and hunting for a Phoenix-Fury earlier and decided to impregnate a Raven-Harpy i was befriending and both me and her got pregnant despite how she has no penetrative sexual organ and i never had anyone finish inside me
-		[x]  The "Service ass" button after flirting with Astrapi doesn't work. Like it doesn't work, I click it and nothing happens
-		[x] In Astrapi's service ass scene, if using quick sex then can end up fucking her ass even though position changing is not allowed...
-			[x] test more
-		[-] clothing duplication bug in discussion
-	[x] ahegao further up
-		[x] give to Takahashi
-		[x] give to Lexi
-		[x] give to Murk's milkers
-	[x] non con button
-		[x] not attracted, non con on, no forced non-resist sex pace
-	
-	[] Ace content:
-		[] replace pc.getLastCell() calls (in case the player teleported into the cell)
-		[] Dominion
-			[x] Harpy Nests
-				[x] Incorporate into existing hard-coded dialogue
-					[x] bimbo
-					[x] dominant
-						[x] threesome sex text
-					[x] nympho
-						[x] threesome sex text
-						[x] define positions for spitroast
-				[x] test
-					[x] bimbo
-					[x] dominant
-					[x] nympho
-						[x] perk requirement missing
-						[x] sex parsing errors
-			[] Dungeon
-				[] Make entry point harder to find
-					[] library dungeon book
-				[] txt edits
-				[] stocks dialogue should grey-out when talking about that subject
-				[] unlock cell use after talking to Rose about it
-				[] manage cell dialogue should be straight into manage room
-				[] add new place type 'dungeon cell'
-					[] make new upgrades
-				
+	[] Add 'The Crossed Blades' tavern in the north of Elis
+		[x] map
+			[x] world type
+			[x] places
+			[x] dialogue
+		[x] Oglix
+			[x] large, muscular succubus
+			[x] green skin, orange eyes
+			[x] dark green orifices
+		[x] Closed between 05:00-14:00
+		[x] beer bitches - people locked into barrels behind bar
+			[x] their tits are transformed and hang out of barrel cut-outs, being milked for beer; their asses & pussies are stuck out of rear of barrel, and customers who order their 5th pint get to drink from the tap or fuck them
+			[x] generic NPCs
+		[x] kitchen
+		[x] exit
+		[x] tables
+			[x] add flavour test events
+		[x] locked VIP door
+		[x] toilets
+			[x] glory holes
+				[x] Use Shopping Arcade and Home Improvements glory hole scenes as base for making a generic glory hole dialogue container
+					[x] sex manager
+						[x] concealed slots improvements
+						[x] test
+					[x] move NPC generation to methods in game
+						[x] test home improvements and shopping arcade glory holes
+				[x] add to The Crossed Blades
+				[x] add option for double
+			[x] add wash and toilet use
+		[x] dice poker
+			[x] add hooks to generic dice poker dialogues
+			[x] improve repeat dice poker with NPC players
+			[x] hide names until playing first time
+		[x] dangerous edge tiles
+			[x] encounter opportunity to start fight
+				[x] fight (turns into huge brawl)
+					[x] lose, can present self and get fucked
+					[x] win, can fuck person who started it
+					[x] make all tiles dangerous while brawl is ongoing
+					[x] after win/sex, brawl still ongoing, but Oglix shouts for everyone to stop
+						[x] continue fighting
+							[x] lose, get fucked by Oglix's elemental
+							[x] win, opponent gets fucked by Oglix's elemental (can choose to watch)
+						[x] stop
+					[x] after brawl, areas are safe until next day
+				[x] intimidate (demon only)
+				[x] grovel
+				[x] offer to settle tab (250 flames)
+				[x] under-table perform oral
+				[x] full test of all routes
+					[x] do not let first attacker dislike receiving oral or receiving vagina/penis fetishes
+					[x] Golix start sex ongoing actions
+					[x] Golix sex preferences
+					[x] Golix sex control
+					[x] Golix fetishes
+					[x] Golix speech colour
+						[x] save/load support
+					[x] prevent escape in combat
+		[x] Oglix speech colour (green)
+		[x] Just have 1 beer bitch, so player can supply 4 more
+		[x] Make beer bitch Oglix's slave
+		[x] need to introduce Oglix before granting access to tavern
+			[x] encounter on first table tile where she calls you over to the bar
+		[x] bar
+			[x] drinks
+				[x] beer (5 bitch choices)
+					[x] gain beer token (stamped bottle cap)
+					[x] stamped bottle cap item
+				[x] rum
+				[x] whiskey
+			[x] food
+				[x] basics
+			[x] talk
+				[x] need resets in Oglix hourlyupdate
+				[x] background
+				[x] beer bitches
+					[x] add barrel clothing item
+					[x] SIDE QUEST - Barrels for the Bar
+						[x] Go and get more barrels
+							[x] Taur tavern has extra-large barrels (taurs drink a lot)
+							[x] Go and get barrels delivered to tavern
+							[x] Unlocks ability to send alleyway attackers/prostitutes to be a beer bitch
+								[x] Limited to 4 slots
+								[x] beer-slut, beer-cunt, beer-whore, beer-tits
+						[x] after completing, can find Kheiron in stables behind alley tavern between 6-7 in the morning
+							[x] he has a thing for Golix, but doesn't like Oglix (she doesn't particularly like him either, but says that it's useful having him in love with her elemental)
+							[x] Golix puts chastity cage on him which grants submissive/anal/masochist fetishes
+							[x] Golix fucks his ass (or face, if anal is off) while calling him a good horsie
+				[x] elemental
+					[x] elemental says they want to pound you again, can get fucked if been punished before
+				[x] fuck beer bitch
+		[x] Instead of flag resets in Oglix class, add attribute for flags to define hour at which they reset
+		[x] Need weak alcohol TF fluid modifier
+		[x] Full test
+			[x] brawl
+				[x] non-con off
+			[x] bar talking
+			[x] beer bitch fuck
+				[x] caress face/kiss cheek/spit in face available
+			[x] bar does not set second beer bitch correctly
+			[x] Golix punishment
+			[x] Side quest
+				[x] quest flow
+				[x] test beer bitch
+					[x] attacker
+					[x] prostitute
+					[x] first fuck defaults to first beer-bitch
+			[x] spectate Kheiron
+		[] Writing
+			[] standard place tiles
+			[] Brawl scenes
+			[] Bar scenes
 		
+	[x] add antlers for demons
+		[x] horn type
+		[x] TF potion support
+		
+		
+	[] add an option for "always Lesser" furry setting
+		[] best to make it a minimum furry setting, so you cover everything rather than have to do specialized cases
+		
+	[] I wish if you wore the "Rental Daddy/Mommy (50 Flames)" t-shirt, people would walk up to you and pay to have sex with you
 	
-	[] Also, Reindeer offspring can't spawn anymore, even in winter. This worked before, but something was changed. Maybe this was intentional?
+	[] lesser arctic wolf morph spawned with pale skin/white fur but chocolate nipples/vagina/anus
+		
+	[] tooltip size bugged in maps
+		
+	[] bug fixes in developer chat
 	
-	There was also some early work done on the Fetish system were some Fetishes were moved to a restricted sub-category, where an NPC could have those Fetishes, but could not "inflict" them on the player (assuming that the NPC had Kink Advocate).
-	 Given that the Fetish system has been expanded, nominally giving the player more control over what Fetishes are common in the game, I think it would be nice if the sub-category restriction could be removed.
-	In particular, the following are all in the restricted sub-category:
-	Milk Lover <-> Lactation
-	Cock Addict <-> Cock Stud
-	Deflowering <-> Vaginal Virginity
-	Kink Advocate <-> Kink Curious
-	Transformer <-> Test Subject
+	[] skunk
+	
+	[] bimbo harpy to have tanned skin not light
+	
+	[] steal panties spell should rename panties to: "X's " + item_name
+	
+	[] Improve Roxy firebombs quest triggers (have to talk to Axel first???)
+	
+	[] add 'tear' as a displacement option
+		[] 1 essence to repair
+		[] persist when unequipped
+		[] displaced icon to be scarlet if torn
+	
+	[] Add 'corkscrew' penis modifier
+	
+	[] balaclava
+	[] jewellery for blank slots (horns, wings)
+	
+	[] add generic tentacle legs for slime and demon(tentacle-girl/boy)
+	
+	[] serpent-serpent sex position 'mating coil'
+	
+	[] option to cast the soothing waters spell to clean the dumpster diver and temporarily remove the musk content from sexing them
+	
+	[] Kruger:  the next step in the sex scene he wants your pussy, but he wants to fuck standing up, but he cant if you're a taur or if you're too short so instead he blows your throat out
+	
+	[] meraxis cock content
+	
+	[] add surrender option to Dominion/Submission too
+	
+	
+	
+			
+			
+	[] Ceridwen
+		[] Offer to help
+			[] She says that she had a succubus security guard who all the mice liked who used to cover the day shift, but she disappeared a while ago
+				[] Jackalope 'Wynter' (has ice elemental)
+			[] Asks if you could find out what happened to her
+		[] Quest
+			[] Succubus known to be a heavy drinker in shady tavern
+			[] Go there and find out that she'd racked up a huge bill that she couldn't pay (after getting very drunk and fighting a gang who were bragging about mugging people in the alleyways - destroying a lot of the bar in the process)
+			[] She (and the gang) are paying off their bills by being beer bitches
+			[] Can either:
+				[] Pay off her tab
+				[] Join her in a barrel to be milked & fucked (for a week)
+				[] Intimidate (leads into fight)
+			[] Succubus thanks you and says that she'll be back at The Barn for tomorrow's shift
+				[] Can find her in the shady tavern again after this
+					[] She gets player to drink with her
+					[] She says how cute mouse-morphs are
+					[] Hits on player (with variation if player is mouse)
+					[] If drink with her too much, she smashes the table and chooses to be a beer bitch rather than pay for it
+			[] After quest, can sex Oglix
+		[] Post-quest
+			[] Ceridwen invites player to home (in wood tile in Elis)
+			[] Can have sex
+	
+	
+	[] PRs:
+		[x] PR#1617
+	[] Reverse-order merge:
+		[] #94
+		[] #895
+		[] #508
+		[] #947
+		[] #976
+		[] #1001
+		[] #1003
+		[] #1004
+		[] #1289
+		[] #1305
+		[] #1320
+		[] #1504
+		[] #1582
+		[] #1606
+		[] #1614
+		[] #1616
+		[] #1618
+		[] #1631
+		[] #1637
+		[] #1639
+		[] #1642
+			
+	[] Main quest content. I'll get the main quest progressed past the town of Thmyscra, and into the next stage.
+	
+	[] Add Elis bank
+	[] Add an associated bank in Dominion
+	
+			
+			
 	
 	[] cuddle actions?
 	
-	[] rat morph lore
-		[] add support for author for books
+	[] add law enforcement background
 	
 	[] harpy nests
 		[] add option to be dominated by Diana
@@ -245,15 +287,15 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				- transformed, fucked, kept in nest for 24 hours and made to serve matriarch
 				- bad end: transformed, kept in nest and become part of harpy society
 	
-	
-	
-	[] PRs:
-		[] tattoo tooltip doens't expand to show all text
-			[] PR#1617
-			
-		[] Would fully removing offspring interfere with the count of total met and unmet offspring? Not looked fully into that
+	[] dungeon additions
+		[] slave job 'dungeon master/mistress'
+		[] You suggest inviting Lilaya down to use the bedroom again
+			[] Alternate paths:
+				[] Both you and Rose having Lilaya as a pet
+				[] Rose makes the PC her sub maid/pet
 	
 	[] Ace content:
+		[] replace pc.getLastCell() calls (in case the player teleported into the cell)
 		[] Submission
 			[] Elizabeth
 				[] talk options +affection?
@@ -263,18 +305,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[] check npc.getFleshSubspecies -> npc.getBody().getFleshSubspecies
 				[] developers messages
 	
-	[] Add 'Stop sex' to orgasm preparation to prevent people getting stuck in infinite orgasm loops
-		[] Make sure NPCs can access this too on non-player orgasms
-	
-	[] orange isn't a supported dick colour
+	[] Penelope special scene for if player is sheep
+		[] dialogue variation in massage
+		[] In sheep dialogue, she offers player job (if have prostitution license)
+			[] can wait to massage clients
+			[] get fucked
 	
 	[] bondage applier fetishists should apply bdsm gear during sex
-	
-	[] Penelope special scene for if player is sheep
-	
-	[] GameCharacter.java#19512 is possibly redundant, as it's covered in Game.java#4448
-	
-	[] Add TF presets
 	
 	[] Nipple piercings
 		[] rounded
@@ -284,9 +321,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	
 	[] condoms should display name of cum provider and quantity in description
-	
-	[] add status effect mod category support for checking updates once per day or other time intervals
-		[] or do some kind of storing of parsed conditionals
 	
 	[] make it so you can toggle whether your own children can be found in random encounters
 	
@@ -301,35 +335,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] leads into bimbo pet bad end?
 	
 	[] Wall's End quests:
-		[] Ceridwen
-			[] Offer to help
-				[] She says that she had a succubus security guard who all the mice liked who used to cover the day shift, but she disappeared a while ago
-				[] Asks if you could find out what happened to her
-			[] Quest
-				[] Succubus known to be a heavy drinker in shady tavern
-				[] Add shady tavern
-					[] beer bitches - barrels behind bar have portraits on them
-					[] tile encounter opportunity to start fight (turns into huge brawl)
-						[] lose, can present self and get fucked
-						[] win, can fuck person who started it
-					[] alley tiles mugging encounters
-						[] after beating them, can take them to the shady tavern to be a beer bitch
-						[] can also take to Enforcer station to remove them
-				[] Go there and find out that she'd racked up a huge bill that she couldn't pay (after getting very drunk and fighting a gang who were bragging about mugging people in the alleyways - destroying a lot of the bar in the process)
-				[] She (and the gang) are paying off their bills by being locked up in barrels; their tits are transformed and milked for beer (out of pump-tap); their asses & pussies are stuck out of rear of barrel, and customers who order their 5th pint get to fuck them
-				[] Can either:
-					[] Pay off her tab
-					[] Join her in a barrel to be milked & fucked (for a week)
-					[] Intimidate (leads into fight)
-				[] Succubus thanks you and says that she'll be back at The Barn for tomorrow's shift
-					[] Can find her in the shady tavern again after this
-						[] She gets player to drink with her
-						[] She says how cute mouse-morphs are
-						[] Hits on player (with variation if player is mouse)
-						[] If drink with her too much, she smashes the table and chooses to be a beer bitch rather than pay for it
-			[] Post-quest
-				[] Ceridwen invites player to home (in wood tile in Elis)
-				[] Can have sex
 		[] The Ninth Strike
 			[] Side Quest - The Youko's Secret
 				- Find Youko smith
@@ -337,6 +342,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					- Can make part of the training to have Imsu and Hale TF to female
 			[] Armpit worship (they lick player's armpits before fucking them)
 	
+	[] Bad end losing at the slime queen where you're forced to pretend to invade and rape her every week
 	
 	[] Gym
 		[] Extremely fit hellhound
@@ -837,8 +843,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Security slave job
 	
 	-------------
-	
-	Add self-transformation presets (like enchantment saving)
 	
 	Weapon attack names don't make sense ("Fire the enemy")
 	
@@ -2840,7 +2844,6 @@ my character is a guy, so this is super confusing lol
 	
 	Remove the affection changes at the start of sex now that affection gets modified at the end of sex based on our performance durring the act.
 	
-	adding a way to save presets for transformation
 	doesn't look like its been reported but I've ran into a bug involving condoms and having sex with 2 partners. If one partner is fucking your pussy and is wearing a condom when he cums, he can't get you pregnant, but somehow the other person who isn't fucking your pussy and hadn't came yet, can impregnate you.
 
 	

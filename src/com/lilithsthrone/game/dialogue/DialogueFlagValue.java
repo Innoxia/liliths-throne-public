@@ -152,6 +152,7 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue readBook2 = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue readBook3 = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue readBook4 = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue readBookSlavery = new AbstractDialogueFlagValue();
 	
 	public static AbstractDialogueFlagValue arthursPackageObtained = new AbstractDialogueFlagValue();
 	

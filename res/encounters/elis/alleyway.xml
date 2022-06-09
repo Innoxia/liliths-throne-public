@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+	
+	<additionalPlaceTypeTriggers>
+		<placeType>innoxia_fields_elis_town_alley</placeType>
+	</additionalPlaceTypeTriggers>
+	
+	<possibleEncounters>
+		<!-- Alleyway attack: -->
+		<encounter>
+			<name><![CDATA[alleyway assault]]></name>
+			<chanceToTrigger opportunisticEncounter="true"><![CDATA[
+				#IF(game.isDayTime() || (!pc.getCell().getCharactersHomeIds().isEmpty() && (game.getNPCById(pc.getCell().getCharactersHomeIds().iterator().next()).getHistory()==OCCUPATION_NPC_PROSTITUTE || game.getNPCById(pc.getCell().getCharactersHomeIds().iterator().next()).isRelatedTo(pc))))
+					0
+				#ELSE
+					7
+				#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[innoxia_encounters_fields_elis_alleyway_start]]></dialogueReturned>
+		</encounter>
+		<!-- Alleyway prostitute: -->
+		<encounter>
+			<name><![CDATA[alleyway prostitute]]></name>
+			<chanceToTrigger opportunisticEncounter="true"><![CDATA[
+				#IF(game.isDayTime() || (!pc.getCell().getCharactersHomeIds().isEmpty() && (game.getNPCById(pc.getCell().getCharactersHomeIds().iterator().next()).getHistory()!=OCCUPATION_NPC_PROSTITUTE || game.getNPCById(pc.getCell().getCharactersHomeIds().iterator().next()).isRelatedTo(pc))))
+					0
+				#ELSE
+					3
+				#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[innoxia_encounters_fields_elis_alleyway_prostitute_start]]></dialogueReturned>
+		</encounter>
+		<!-- Offspring: -->
+		<encounter>
+			<name><![CDATA[a familiar face]]></name>
+			<chanceToTrigger opportunisticEncounter="true"><![CDATA[
+				#IF(game.isDayTime() || (!pc.getCell().getCharactersHomeIds().isEmpty() && !game.getNPCById(pc.getCell().getCharactersHomeIds().iterator().next()).isRelatedTo(pc)) || (pc.getCell().getCharactersHomeIds().isEmpty() && !game.isOffspringEncounterAvailable(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_alley)))
+					0
+				#ELSE
+					3
+				#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[OFFSPRING_ENCOUNTER]]></dialogueReturned>
+		</encounter>
+		<!-- Find item: -->
+		<encounter>
+			<name><![CDATA[item found]]></name>
+			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
+				#IF(game.isDayTime())
+					0
+				#ELSE
+					3
+				#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[innoxia_encounters_fields_elis_alleyway_item_start]]></dialogueReturned>
+		</encounter>
+		<!-- Find clothing: -->
+		<encounter>
+			<name><![CDATA[clothing found]]></name>
+			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
+				#IF(game.isDayTime())
+					0
+				#ELSE
+					2
+				#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[innoxia_encounters_fields_elis_alleyway_item_start_clothing]]></dialogueReturned>
+		</encounter>
+		<!-- Find weapon: -->
+		<encounter>
+			<name><![CDATA[weapon found]]></name>
+			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
+				#IF(game.isDayTime())
+					0
+				#ELSE
+					1
+				#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[innoxia_encounters_fields_elis_alleyway_item_start_weapon]]></dialogueReturned>
+		</encounter>
+	</possibleEncounters>
+	
+</encounterRoot>

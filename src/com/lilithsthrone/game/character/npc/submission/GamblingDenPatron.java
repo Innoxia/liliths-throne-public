@@ -20,6 +20,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePokerTable;
@@ -29,7 +30,9 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -52,13 +55,19 @@ public class GamblingDenPatron extends NPC {
 	public GamblingDenPatron(boolean isImported) {
 		this(Gender.F_V_B_FEMALE, DicePokerTable.COPPER, isImported);
 	}
-	
+
 	public GamblingDenPatron(Gender gender, DicePokerTable table, boolean isImported) {
+		this(gender, table, WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_GAMBLING, isImported);
+	}
+	
+	public GamblingDenPatron(Gender gender, DicePokerTable table, AbstractWorldType worldType, AbstractPlaceType placeType, boolean isImported) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3,
 				null, null, null,
-				new CharacterInventory(10), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_GAMBLING, false);
+				new CharacterInventory(10),
+				worldType, placeType,
+				false);
 		
 		this.table = table;
 		
@@ -71,17 +80,30 @@ public class GamblingDenPatron extends NPC {
 			int slimeChance = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN) ? 1000 : 500;
 			
 			Map<AbstractSubspecies, Integer> availableRaces = new HashMap<>();
-			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
-				if(s==Subspecies.SLIME) {
-					AbstractSubspecies.addToSubspeciesMap(slimeChance, gender, s, availableRaces);
-					
-				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, PlaceType.GAMBLING_DEN_GAMBLING, false, Subspecies.IMP, Subspecies.IMP_ALPHA).containsKey(s)) {
-					AbstractSubspecies.addToSubspeciesMap(
-							(int) (1000 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, PlaceType.GAMBLING_DEN_GAMBLING, false, Subspecies.IMP, Subspecies.IMP_ALPHA).get(s).getChanceMultiplier()), gender, s, availableRaces);
-					
-				} else if(Subspecies.getWorldSpecies(WorldType.DOMINION, PlaceType.GAMBLING_DEN_GAMBLING, false, Subspecies.IMP, Subspecies.IMP_ALPHA).containsKey(s)) {
-					AbstractSubspecies.addToSubspeciesMap(
-							(int) (250 * Subspecies.getWorldSpecies(WorldType.DOMINION, PlaceType.GAMBLING_DEN_GAMBLING, false, Subspecies.IMP, Subspecies.IMP_ALPHA).get(s).getChanceMultiplier()), gender, s, availableRaces);
+			if(worldType==WorldType.GAMBLING_DEN) {
+				for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
+					if(s==Subspecies.SLIME) {
+						AbstractSubspecies.addToSubspeciesMap(slimeChance, gender, s, availableRaces);
+						
+					} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, PlaceType.GAMBLING_DEN_GAMBLING, false, Subspecies.IMP, Subspecies.IMP_ALPHA).containsKey(s)) {
+						AbstractSubspecies.addToSubspeciesMap(
+								(int) (1000 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, PlaceType.GAMBLING_DEN_GAMBLING, false, Subspecies.IMP, Subspecies.IMP_ALPHA).get(s).getChanceMultiplier()), gender, s, availableRaces);
+						
+					} else if(Subspecies.getWorldSpecies(WorldType.DOMINION, PlaceType.GAMBLING_DEN_GAMBLING, false, Subspecies.IMP, Subspecies.IMP_ALPHA).containsKey(s)) {
+						AbstractSubspecies.addToSubspeciesMap(
+								(int) (250 * Subspecies.getWorldSpecies(WorldType.DOMINION, PlaceType.GAMBLING_DEN_GAMBLING, false, Subspecies.IMP, Subspecies.IMP_ALPHA).get(s).getChanceMultiplier()), gender, s, availableRaces);
+					}
+				}
+				
+			} else {
+				for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
+					if(s.getSubspeciesOverridePriority()>0) { // Do not spawn demonic races, elementals, or youko
+						continue;
+					}
+					Map<AbstractSubspecies, SubspeciesSpawnRarity> subMap = Subspecies.getWorldSpecies(worldType, placeType, false);
+					if(subMap.containsKey(s)) {
+						AbstractSubspecies.addToSubspeciesMap((int) (10000 * subMap.get(s).getChanceMultiplier()), gender, s, availableRaces);
+					}
 				}
 			}
 			
@@ -90,7 +112,7 @@ public class GamblingDenPatron extends NPC {
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
 			setName(Name.getRandomTriplet(this.getRace()));
-			this.setPlayerKnowsName(true);
+			this.setPlayerKnowsName(false);
 			
 			// PERSONALITY & BACKGROUND:
 			

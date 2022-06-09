@@ -566,7 +566,7 @@ public class ImpCitadelDialogue {
 						
 					} else if (index == 3) {
 						return new ResponseSex("Gentle Sex",
-								"Well, they <i>are</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
+								"Well, they <i>are</i> asking for it!",
 								true,
 								false,
 								Main.game.getPlayer().getParty(),
@@ -578,7 +578,7 @@ public class ImpCitadelDialogue {
 						
 					} else if (index == 4) {
 						return new ResponseSex("Rough Sex",
-								"Well, they <i>are</i> asking for it! (Start the sex scene in the 'rough' pace.)",
+								"Well, they <i>are</i> asking for it!",
 								true,
 								false,
 								Main.game.getPlayer().getParty(),

@@ -1,0 +1,58 @@
+<h2>v0.4.3.8</h2>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Added expanded rat-morph lore, which is fully unlocked after reading the 'Causing Mischief' book. (by Manwhore)</li>
+	<li>Added a .txt file guide to the Lilith's Throne root folder. (by C4MG1RL)</li>
+	<li>Fixed bug where saving on Submission's palace entrance or palace gate tiles would cause an error to be thrown when loading. (by Maxis010)</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Added support for defining an author name to subspecies' lore books, by defining an 'author' attribute in the 'htmlContent' element. See 'res/mods/innoxia/race/hyena/subspecies/bookEntries.xml' for an example.</li>
+	<li>Made minor improvement to performance of status effect calculations.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Added encounters to the northern alleyways of Elis, all of which only trigger during night-time hours:</li>
+	<li>Alleyway attackers - Same as Dominion alleyways, but with a new 'Surrender' option to apply forced TFs (if the attacker wants to TF you).</li>
+	<li>Alleyway prostitutes - Same as Dominion alleyways.</li>
+	<li>Item/clothing/weapon discoveries - Work the same way as in Dominion alleyways.</li>
+	<li>Offspring discovery - Same as Dominion alleyways and Submission tunnels. These can now also be triggered by using the offspring map in the Elis alleyway tiles.</li>
+</ul>
+
+<h3>Clothing:</h3>
+<ul>
+	<li>Added 'nose ball stud' clothing item (nose piercing slot, androgynous, sold by Kate).</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>Made the 'Stop sex' action available during orgasm preparation to prevent an issue in large-group sex scenes, where you could get stuck in infinite orgasm-preparation loops.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Added functionality to save/load self-transformation presets, in the same way that item enchantments can be saved/loaded.</li>
+	<li>Added skin colour content preference, which can be adjusted at the bottom of the 'Content options -> Body' menu.</li>
+	<li>Moved Gender, Orientation, Age, Furry, and Fetish preferences from the 'Options' screen to the 'Content options' screen.</li>
+	<li>Added 'orange' to available penis and skin colours.</li>
+	<li>Added dialogue variation for if Lyssieth takes the player's vaginal or anal virginity.</li>
+	<li>Callie's opening hours have been changed; her bakery is now open from 9:00-15:00, which increases to 07:00-17:00 after you've donated enough to upgrade her store.</li>
+	<li>Altered squirrel-morph's racial bonus from +1 health shielding to +5 physique and +10 critical damage.</li>
+	<li>Youko offspring can no longer be found in Dominion's alleyways, and can instead be found in Elis's alleyways (until the Shinrin Highlands content is added, then they'll be moved there).</li>
+	<li>Added 'pronged' antlers as a new generic horn type, which can now be a default horn type for newly-spawned demons.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Parsing and typo fixes.</li>
+	<li>The 'Loving confession' and 'Loving response' sex actions now correctly have a associated corruption values of 'pure' instead of 'dirty'.</li>
+	<li>Demons with a 'martuilani' surname ending (identifying them as a direct daughter of a lilin) now have their offspring generated with the surname ending 'martu' (meaning a descendant of a lilin) instead of 'martuilani'.</li>
+	<li>Fixed issue where in some circumstances the player character was incorrectly being detected as being related to Lyssieth and Meraxis.</li>
+	<li>Fixed bug where combat responses defined in external xml files would try to parse their title and tooltip before the game had started, causing background errors to be thrown.</li>
+	<li>Fixed issue where Dominion prostitutes would not be removed from their tile after beating the player while noncon content was turned off.</li>
+	<li>Fixed bug in sex scenes with unique stop sex conditions for NPC, where the unique stop conditions would not be used after changing position.</li>
+	<li>Fixed background errors being thrown when background sex calculations were being performed (such as when two slaves would have sex with one another).</li>
+</ul>

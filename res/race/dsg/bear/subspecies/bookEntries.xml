@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <bookText>
 	
-	<htmlContent tag="BEAR_BASIC"><![CDATA[
+	<htmlContent tag="BEAR_BASIC" author="Xuanlong"><![CDATA[
 	<p>
 		Bear-morphs can be found throughout the Realm's cold and temperate regions as well as the cities within those regions. Their large size, powerful claws, and short tails distinguish then among other morphs.
 	</p>
 	]]>
 	</htmlContent>
 
-	<htmlContent tag="BEAR_ADVANCED"><![CDATA[
+	<htmlContent tag="BEAR_ADVANCED" author="Xuanlong"><![CDATA[
 	<p>
 		Although individual bear-morphs differ from one another, they are generally wary of strangers and reluctant to even smile at someone they are unfamiliar with. To outsiders they may seem to be a grim and dour race, but among family and friends they can be warm and easygoing. In the winter months, bear-morphs do not hibernate but do become more sleepy. It is not uncommon to find bear-morphs asleep during mealtimes or napping on park benches during this time.
 	</p>

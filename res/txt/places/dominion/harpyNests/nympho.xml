@@ -232,9 +232,9 @@
 		<p>
 			As you [pc.step] back from [harpyNympho.name], she sinks to the floor, totally worn out from her
 			#IF(sex.getNumberOfOrgasms(harpyNympho)>1)
-				orgasms.
+				 orgasms.
 			#ELSE
-				orgasm.
+				 orgasm.
 			#ENDIF
 			 Biting her lip and flashing you a dirty look, she teases, [harpyNympho.speech(Fuck... I love getting fucked...)]
 		</p>
@@ -248,9 +248,9 @@
 			<p>
 				Letting out a deeply satisfied sigh, [harpyNymphoCompanion.name] looks to be completely exhausted from the
 				#IF(sex.getNumberOfOrgasms(harpyNymphoCompanion)>1)
-					orgasms
+					 orgasms
 				#ELSE
-					orgasm
+					 orgasm
 				#ENDIF
 				 you gave her. Panting and looking up into your eyes, she moans, [harpyNymphoCompanion.speech(That was... Wow...)]
 			</p>

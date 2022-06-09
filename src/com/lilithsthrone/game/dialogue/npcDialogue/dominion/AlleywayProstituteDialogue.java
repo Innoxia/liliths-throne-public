@@ -36,8 +36,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class AlleywayProstituteDialogue {
 	
-	private static final int FINE_AMOUNT = 10_000;
-	
 	private static boolean inApartment = false;
 	private static boolean hadSex = false;
 	
@@ -187,7 +185,7 @@ public class AlleywayProstituteDialogue {
 				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.prostitutionLicenseObtained)) {
 					if(RedLightDistrict.isSpaceForMoreProstitutes()) {
 						return new Response("Angel's Kiss",
-								UtilText.parse(getProstitute(), "Tell [npc.name] that [npc.she] can get back on the right side of the law by if [npc.she] agrees to come and work at Angel's Kiss."),
+								UtilText.parse(getProstitute(), "Tell [npc.name] that [npc.she] can get back on the right side of the law if [npc.she] agrees to come and work at Angel's Kiss."),
 								ALLEY_PROSTITUTE_ANGELS_KISS) {
 							@Override
 							public void effects() {
@@ -363,7 +361,7 @@ public class AlleywayProstituteDialogue {
 				if(index == 5) {
 					return new Response("Attack",
 							UtilText.parse(getProstitute(), "If you really wanted to, there's nothing stopping you from attacking [npc.name]. After all, as [npc.sheHas] run afoul of the law [npc.she] can be considered to be fair game!"
-									+ "<br/>[style.italicsBad(This will lead to permanently removing [npc.herHim] from the game!)]"),
+									+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]"),
 							PROSTITUTE_FIGHT) {
 						@Override
 						public boolean isCombatHighlight() {
@@ -390,13 +388,13 @@ public class AlleywayProstituteDialogue {
 					};
 					
 				} else if (index == 10) {
-					if(Main.game.getPlayer().getMoney()<FINE_AMOUNT) {
-						return new Response("Remove ("+UtilText.formatAsMoney(FINE_AMOUNT, "span")+")",
-								UtilText.parse(getProstitute(), "You don't have "+Util.intToString(FINE_AMOUNT)+" flames, so you can't afford to pay [npc.name] to leave this area."),
+					if(Main.game.getPlayer().getMoney()<Main.game.getDialogueFlags().getProstituteFine()) {
+						return new Response("Remove ("+UtilText.formatAsMoney(Main.game.getDialogueFlags().getProstituteFine(), "span")+")",
+								UtilText.parse(getProstitute(), "You don't have "+Util.intToString(Main.game.getDialogueFlags().getProstituteFine())+" flames, so you can't afford to pay [npc.name] to leave this area."),
 								null);
 					} else {
 						return new Response(
-								"Remove ("+UtilText.formatAsMoney(FINE_AMOUNT, "span")+")",
+								"Remove ("+UtilText.formatAsMoney(Main.game.getDialogueFlags().getProstituteFine(), "span")+")",
 								UtilText.parse(getProstitute(), "Give [npc.name] enough money to pay off the Enforcers who are after [npc.herHim], which would allow [npc.herHim] to stop having to work in these dangerous alleyways."
 										+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]"),
 								PROSTITUTE_REMOVAL_PAID) {
@@ -416,7 +414,7 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public String getContent() {
 			StringBuilder sb = new StringBuilder();
-			UtilText.addSpecialParsingString(Util.intToString(FINE_AMOUNT), true);
+			UtilText.addSpecialParsingString(Util.intToString(Main.game.getDialogueFlags().getProstituteFine()), true);
 			if(inApartment) {
 				sb.append(UtilText.parseFromXMLFile("encounters/dominion/prostitute", "ALLEY_PROSTITUTE_QUESTION_APARTMENT", getProstitute()));
 			} else {
@@ -457,7 +455,7 @@ public class AlleywayProstituteDialogue {
 	public static final DialogueNode PROSTITUTE_REMOVAL_THREATENED = new DialogueNode("", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
-			UtilText.addSpecialParsingString(Util.intToString(FINE_AMOUNT), true);
+			UtilText.addSpecialParsingString(Util.intToString(Main.game.getDialogueFlags().getProstituteFine()), true);
 			if(inApartment) {
 				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/prostitute", "PROSTITUTE_REMOVAL_THREATENED_APARTMENT", getProstitute()));
 			} else {
@@ -491,13 +489,13 @@ public class AlleywayProstituteDialogue {
 				weapon = Main.game.getItemGen().generateWeapon("dsg_eep_taser_taser"); // 10% chance of getting a taser
 			}
 			UtilText.addSpecialParsingString(weapon.getName(true, true), true);
-			UtilText.addSpecialParsingString(Util.intToString(FINE_AMOUNT), false);
+			UtilText.addSpecialParsingString(Util.intToString(Main.game.getDialogueFlags().getProstituteFine()), false);
 			if(inApartment) {
 				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/prostitute", "PROSTITUTE_REMOVAL_PAID_APARTMENT", getProstitute()));
 			} else {
 				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/prostitute", "PROSTITUTE_REMOVAL_PAID", getProstitute()));
 			}
-			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-FINE_AMOUNT));
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-Main.game.getDialogueFlags().getProstituteFine()));
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addWeapon(weapon, false));
 			Main.game.banishNPC(getProstitute());
 		}
@@ -549,7 +547,14 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Leave", "Leave [npc.name] and carry on your way. <b>[npc.Name] will disappear from this area!</b>", Main.game.getDefaultDialogue(false)) {
+				return new Response("Leave",
+						"Leave [npc.name] and carry on your way."
+								+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]",
+						Main.game.getDefaultDialogue(false)) {
+					@Override
+					public Colour getHighlightColour() {
+						return PresetColour.GENERIC_NPC_REMOVAL;
+					}
 					@Override
 					public void effects() {
 						Main.game.banishNPC(getProstitute());
@@ -570,8 +575,7 @@ public class AlleywayProstituteDialogue {
 				
 			} else if (index == 3) {
 				return new ResponseSex("Gentle fun",
-						UtilText.parse(getProstitute(), "It's clear that [npc.name] wants you to fuck [npc.herHim], so maybe you should give [npc.herHim] what [npc.she] wants..."
-								+ "<br/>[style.italicsPinkLight(Starts the sex scene in the 'gentle' pace.)]"),
+						UtilText.parse(getProstitute(), "It's clear that [npc.name] wants you to fuck [npc.herHim], so maybe you should give [npc.herHim] what [npc.she] wants..."),
 						true, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -583,8 +587,7 @@ public class AlleywayProstituteDialogue {
 				
 			} else if (index == 4) {
 				return new ResponseSex("Rough fun",
-						UtilText.parse(getProstitute(), "It's clear that [npc.name] wants you to fuck [npc.herHim], so maybe you should give [npc.herHim] what [npc.she] wants..."
-								+ "<br/>[style.italicsCrimson(Starts the sex scene in the 'rough' pace.)]"),
+						UtilText.parse(getProstitute(), "It's clear that [npc.name] wants you to fuck [npc.herHim], so maybe you should give [npc.herHim] what [npc.she] wants..."),
 						true, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -737,8 +740,7 @@ public class AlleywayProstituteDialogue {
 					
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
-							UtilText.parse(getProstitute(), "[npc.Name] forces [npc.herself] on you..."
-									+ "<br/>[style.italicsPinkLight(Starts the sex scene in the 'eager' pace.)]"),
+							UtilText.parse(getProstitute(), "[npc.Name] forces [npc.herself] on you..."),
 							false, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(getProstitute()),
@@ -751,8 +753,7 @@ public class AlleywayProstituteDialogue {
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
-							UtilText.parse(getProstitute(), "[npc.Name] forces [npc.herself] on you..."
-									+ "<br/>[style.italicsCrimson(Starts the sex scene in the 'resisting' pace.)]"),
+							UtilText.parse(getProstitute(), "[npc.Name] forces [npc.herself] on you..."),
 							false, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(getProstitute()),
@@ -766,10 +767,21 @@ public class AlleywayProstituteDialogue {
 				
 			} else {
 				if (index == 1) {
-					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
+					return new Response("Continue",
+							"Carry on your way."
+									+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]",
+							AFTER_COMBAT_DEFEAT){
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.GENERIC_NPC_REMOVAL;
+						}
 						@Override
 						public DialogueNode getNextDialogue() {
 							return Main.game.getDefaultDialogue(false);
+						}
+						@Override
+						public void effects() {
+							Main.game.banishNPC(getProstitute());
 						}
 					};
 				}
@@ -864,7 +876,14 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Leave", "Leave [npc.name] and carry on your way. <b>[npc.Name] will disappear from this area!</b>", Main.game.getDefaultDialogue(false)){
+				return new Response("Leave",
+						"Leave [npc.name] and carry on your way."
+								+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]",
+						Main.game.getDefaultDialogue(false)){
+					@Override
+					public Colour getHighlightColour() {
+						return PresetColour.GENERIC_NPC_REMOVAL;
+					}
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/prostitute", "AFTER_SEX_VICTORY_LEAVE", getProstitute()));
@@ -910,7 +929,14 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)){
+				return new Response("Continue",
+						"Carry on your way."
+							+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]",
+						Main.game.getDefaultDialogue(false)){
+					@Override
+					public Colour getHighlightColour() {
+						return PresetColour.GENERIC_NPC_REMOVAL;
+					}
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/prostitute", "AFTER_SEX_DEFEAT_LEAVE", getProstitute()));
