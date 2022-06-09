@@ -80,7 +80,7 @@ public class BatCaverns {
 			return 5*60;
 		}
 		@Override
-		public String getContent() { // If this is going to be changed, bare in mind that this is called in the REBEL_BASE DialogueNodes below
+		public String getContent() { // If this is going to be changed, bear in mind that this is called in the REBEL_BASE DialogueNodes below
 			StringBuilder sb = new StringBuilder();
 			sb.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "CAVERN_DARK"));
 			Main.game.getNonCompanionCharactersPresent().forEach((npc) -> {

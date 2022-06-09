@@ -24,8 +24,6 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class WorldType {
 	
-	// Dominion:
-	
 	public static AbstractWorldType WORLD_MAP = new AbstractWorldType(WorldRegion.MISC,
 			"Lilith's Realm",
 			PresetColour.BASE_TAN,
@@ -70,10 +68,10 @@ public class WorldType {
 					new Value<>(new Color(0x3b3b3b), PlaceType.WORLD_MAP_LAVA_FLOWS) // lava flows
 					)) {
 
-		@Override
-		public String getOffspringTextFilePath(NPCOffspring o) {
-			return o.getLocationPlace().getPlaceType().getWorldRegion().getOffspringTextFilePath();
-		}
+//		@Override
+//		public String getOffspringTextFilePath(NPCOffspring o) {
+//			return o.getLocationPlace().getPlaceType().getWorldRegion().getOffspringTextFilePath();
+//		}
 
 		@Override
 		public boolean isDiscoveredOnStart() {
@@ -829,6 +827,10 @@ public class WorldType {
 					
 					new Value<>(new Color(0x0096c9), PlaceType.SUBMISSION_IMP_FORTRESS_MALES),
 					new Value<>(new Color(0x65b0c9), PlaceType.SUBMISSION_IMP_TUNNELS_MALES))) {
+		@Override
+		public String getOffspringTextFilePath(NPCOffspring o) {
+			return "characters/offspring/submission_tunnel";
+		}
 	};
 
 
@@ -970,6 +972,10 @@ public class WorldType {
 					new Value<>(new Color(0x004080), PlaceType.BAT_CAVERN_RIVER_END),
 					
 					new Value<>(new Color(0xff80ff), PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR))) {
+		@Override
+		public String getOffspringTextFilePath(NPCOffspring o) {
+			return "characters/offspring/bat_cavern";
+		}
 	};
 
 	public static AbstractWorldType SLIME_QUEENS_LAIR_GROUND_FLOOR = new AbstractWorldType(WorldRegion.SUBMISSION,

@@ -6,6 +6,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
+	Contributors:
+		Added offspring encounters to the bat caverns. (PR#1504 by Stadler76)
+	
 	Engine/Modding:
 		Added parser hooks for tattoo counter type, count type, and writing styles, and added a new addTattoo() method in the GameCharacter class, allowing you to add tattoos to characters and then add writing/counters to the tattoo.
 	
@@ -227,9 +230,20 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] change dialogue for if only fetish TFs are being applied
 			[x] for Elis alleyway too
 	
+	[] #1504
+		[] add offspring txt variations for:
+			[] Submission tunnel
+			[] bat caverns
+			[] bat caverns slime
+		
 	[] bug fixes in developer chat
 	
 	[] TF menu should remove capacity options for if gape content is off
+	
+	[] add surrender and bitch content to bat caverns
+	
+	[] save the time at the game's start as a unique ID and use that for the quick/auto save file identifiers
+	
 	
 	[] In map screen, make core map the first action and highlight/bold it
 	
@@ -306,7 +320,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] option to cast the soothing waters spell to clean the dumpster diver and temporarily remove the musk content from sexing them
 	
-	[] meraxis cock content
+	[] meraxis
+		[] cock content
+		[] strip dice poker in tavern to "steal" clothing
 	
 	
 	
@@ -351,7 +367,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1289
 		[] #1305
 		[] #1320
-		[] #1504
 		[] #1582
 		[] #1606
 		[] #1614
