@@ -944,7 +944,7 @@ public class Game implements XMLSaving {
 							&& (!worldType.equals("DOMINION_EXPRESS") || !Main.isVersionOlderThan(loadingVersion, "0.3.7.9"))
 							&& (!worldType.equals("SHOPPING_ARCADE") || !Main.isVersionOlderThan(loadingVersion, "0.3.14"))
 							&& (!worldType.equals("innoxia_fields_elis_market") || !Main.isVersionOlderThan(loadingVersion, "0.4.1.1"))
-							&& (!worldType.equals("innoxia_fields_elis_tavern_alley") || !Main.isVersionOlderThan(loadingVersion, "0.4.3.9"))
+							&& (!worldType.equals("innoxia_fields_elis_tavern_alley") || !Main.isVersionOlderThan(loadingVersion, "0.4.4"))
 							&& !worldType.equals("SUPPLIER_DEN") // Removed
 							&& !worldType.equals("JUNGLE") // Removed
 //                          && !worldType.equals("REBEL_BASE")

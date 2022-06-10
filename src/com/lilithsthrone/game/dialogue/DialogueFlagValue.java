@@ -486,6 +486,10 @@ public class DialogueFlagValue {
 			return null;
 		}
 		
+		if(id.equals("innoxia_elis_alleyway_transformations_applied")) {
+			id = "innoxia_alleyway_transformations_applied";
+		}
+		
 		id = Util.getClosestStringMatch(id, idToDialogueFlagValueMap.keySet(), 3);
 				
 		return idToDialogueFlagValueMap.get(id);

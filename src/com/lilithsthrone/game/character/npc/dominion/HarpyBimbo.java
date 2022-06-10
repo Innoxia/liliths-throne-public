@@ -66,7 +66,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.8
- * @version 0.2.11
+ * @version 0.4.4
  * @author Innoxia
  */
 public class HarpyBimbo extends NPC {
@@ -108,6 +108,9 @@ public class HarpyBimbo extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.20")) {
 			this.setSkinCovering(new Covering(BodyCoveringType.HARPY_SKIN, PresetColour.SKIN_YELLOW), false);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.4")) {
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_TANNED), true);
 		}
 	}
 
@@ -152,7 +155,7 @@ public class HarpyBimbo extends NPC {
 		
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, PresetColour.EYE_AQUA));
 		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, PresetColour.COVERING_BLEACH_BLONDE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_LIGHT), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_TANNED), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HARPY_SKIN, PresetColour.SKIN_YELLOW), false);
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, PresetColour.COVERING_BLEACH_BLONDE), true);

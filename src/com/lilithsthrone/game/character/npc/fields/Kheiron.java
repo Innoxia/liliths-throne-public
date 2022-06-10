@@ -311,12 +311,17 @@ public class Kheiron extends NPC {
 		}
 	}
 	
-	public void applyGenericGolixSex() {
+	public void applyGenericGolixSex(boolean golixIsDom) {
 		SexType st = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS);
 		if(Main.game.isAnalContentEnabled()) {
 			st = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS);
 		}
-		this.calculateGenericSexEffects(false, true, Main.game.getNpc(Oglix.class).getElemental(), st, GenericSexFlag.NO_DESCRIPTION_NEEDED, GenericSexFlag.PREVENT_LEVEL_DRAIN);
+		if(golixIsDom) {
+			this.calculateGenericSexEffects(false, true, Main.game.getNpc(Oglix.class).getElemental(), st, GenericSexFlag.NO_DESCRIPTION_NEEDED, GenericSexFlag.PREVENT_LEVEL_DRAIN);
+			
+		} else {
+			Main.game.getNpc(Oglix.class).getElemental().calculateGenericSexEffects(false, true, this, st, GenericSexFlag.NO_DESCRIPTION_NEEDED, GenericSexFlag.PREVENT_LEVEL_DRAIN);
+		}
 	}
 
 }

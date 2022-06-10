@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="START"><![CDATA[
+	#IF(npc.hasFetish(FETISH_DOMINANT))
+		<p>
+			Your forward progress is brought to an abrupt halt as [npc.a_raceFull(true)] suddenly [npc.steps] out in front of you and gestures towards your chest as [npc.she]
+			#IF(npc.hasPersonalityTrait(PERSONALITY_TRAIT_CONFIDENT))
+				 confidently
+			#ENDIF
+			 declares, [npc.speech(I couldn't help but notice what you've got written on your t-shirt. You're not just wearing it for show, are you? Oh, and I'm [npc.name], by the way.)]
+		</p>
+		<p>
+			Knowing what [npc.name] must be thinking, you ask [npc.herHim] if [npc.she] was hoping for you to be [npc.her] '[pc.mommy]'. Nodding [npc.her] head in enthusiastic response, [npc.she] replies, [npc.speech(Yes, I want you to be my [pc.mommy]! I can pay the [style.intFormat([#flags.getSavedLong('rentalPrice')])] flames your t-shirt's asking for. I want to
+			#IF(npc.hasFetish(FETISH_EXHIBITIONIST))
+				 give you a good, hard fuck right here in front of anyone who wants to watch!
+			#ELSE
+				 take you back to my apartment and give you a good, hard fuck!
+			#ENDIF
+			)]
+		</p>
+		<p>
+			Looking this [npc.race] up and down, you wonder whether to accept [npc.her] cash and
+			#IF(npc.hasFetish(FETISH_EXHIBITIONIST))
+				 get fucked by [npc.herHim] right here in public,
+			#ELSE
+				 go back to [npc.her] apartment to get fucked by [npc.herHim],
+			#ENDIF
+			 or instead to dismiss [npc.herHim] and continue on your way...
+		</p>
+	#ELSE
+		<p>
+			Your forward progress is brought to an abrupt halt as [npc.a_raceFull(true)] suddenly [npc.steps] out in front of you and gestures towards your chest as [npc.she]
+			#IF(npc.hasPersonalityTrait(PERSONALITY_TRAIT_SHY))
+				 shyly
+			#ENDIF
+			 states, [npc.speech(I saw what's written on your t-shirt and wanted to ask you about it... I'm [npc.name], by the way...)]
+		</p>
+		<p>
+			Knowing what [npc.name] must be thinking, you ask [npc.herHim] if [npc.she] was hoping for you to be [npc.her] '[pc.mommy]'. Nodding [npc.her] head in enthusiastic response, [npc.she] replies, [npc.speech(Yes, I want you to be my [pc.mommy]! I can pay the [style.intFormat([#flags.getSavedLong('rentalPrice')])] flames your t-shirt's asking for. Please, I want you to
+			#IF(npc.hasFetish(FETISH_EXHIBITIONIST))
+				 give me a good, hard fuck right here in front of anyone who wants to watch!
+			#ELSE
+				 come back to my apartment and give me a good, hard fuck!
+			#ENDIF
+			)]
+		</p>
+		<p>
+			Looking this [npc.race] up and down, you wonder whether to accept [npc.her] cash and
+			#IF(npc.hasFetish(FETISH_EXHIBITIONIST))
+				 fuck [npc.herHim] right here in public,
+			#ELSE
+				 go back to [npc.her] apartment to fuck [npc.herHim],
+			#ENDIF
+			 or instead to dismiss [npc.herHim] and continue on your way...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_REFUSED"><![CDATA[
+	<p>
+		Deciding to decline [npc.namePos] offer, you tell [npc.herHim] that you're not interested, and after [pc.stepping] past [npc.herHim], you leave the [npc.race] behind as you continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APARTMENT_SEX_SUB"><![CDATA[
+	<p>
+		Deciding to accept [npc.namePos] offer, you take the [style.intFormat([#flags.getSavedLong('rentalPrice')])] flames which [npc.sheHas] offered. Barely even giving you time to stow away your cash, the [npc.race] impatiently takes hold of your [pc.arm(true)] and sets off to lead you to [npc.her] apartment. Clearly already getting turned on by the thought of what's to come, [npc.she] [npc.moans], [npc.speech(Come on, [pc.name], it's not far...)]
+	</p>
+	<p>
+		Sure enough, only a few minutes later you find yourself being led into [npc.namePos] bedroom. Letting out an excited [npc.moan], [npc.she] can't resist planting a passionate kiss on your [pc.lips+] before panting, [npc.speech(Yes, [pc.name]... It's time to give you a good, hard fuck!)]
+	</p>
+	<p>
+		Smiling at the [npc.race]'s words, you submissively lean into [npc.herHim] as [npc.she] dominantly kisses you once again. Breaking off the kiss with another heavy [npc.moan], [npc.name] moves to give you the fucking [npc.sheHas] paid for...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APARTMENT_SEX_DOM"><![CDATA[
+	<p>
+		Deciding to accept [npc.namePos] offer, you take the [style.intFormat([#flags.getSavedLong('rentalPrice')])] flames which [npc.sheHas] offered. Barely even giving you time to stow away your cash, the [npc.race] impatiently takes hold of your [pc.arm(true)] and pleads [npc.moans], [npc.speech(Come on, [pc.name], let's go to my apartment! I can't wait to get fucked by you...)]
+	</p>
+	<p>
+		Happy to play along, you allow [npc.name] to lead you to [npc.her] apartment, and just a few minutes later, the two of you are stepping into [npc.her] bedroom. Letting out a submissive whine, [npc.name] turns to face you and begs, [npc.speech(Please, [pc.mommy], fuck me good and hard!)]
+	</p>
+	<p>
+		Smiling at the [npc.race]'s words, you give [npc.herHim] what [npc.she] wants by pulling [npc.herHim] into a dominant kiss, before breaking it off and telling [npc.herHim] that it's time for [npc.her] '[pc.mommy]' to give [npc.herHim] the fucking [npc.sheHas] paid for...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PUBLIC_SEX_SUB"><![CDATA[
+	<p>
+		Deciding to accept [npc.namePos] offer, you take the [style.intFormat([#flags.getSavedLong('rentalPrice')])] flames which [npc.sheHas] offered. Barely even giving you time to stow away your cash, the [npc.race] impatiently plants a passionate kiss on your [pc.lips+] before breaking off and panting, [npc.speech(I'm going to fuck you good and hard, [pc.name]. Let's put on a nice show for everyone...)]
+	</p>
+	<p>
+		Smiling at the [npc.race]'s words, you submissively lean into [npc.herHim] as [npc.she] dominantly kisses you once again. Breaking off the kiss with another heavy [npc.moan], [npc.name] moves to give you the public fucking [npc.sheHas] paid for...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PUBLIC_SEX_DOM"><![CDATA[
+	<p>
+		Deciding to accept [npc.namePos] offer, you take the [style.intFormat([#flags.getSavedLong('rentalPrice')])] flames which [npc.sheHas] offered. Barely even giving you time to stow away your cash, the [npc.race] impatiently plants a passionate kiss on your [pc.lips+] before breaking off and panting, [npc.speech(Come on, [pc.name], fuck me already... Let's put on a nice show for everyone...)]
+	</p>
+	<p>
+		Smiling at the [npc.race]'s words, you give [npc.herHim] what [npc.she] wants by pulling [npc.herHim] into a dominant kiss, before breaking it off and telling [npc.herHim] that it's time for [npc.her] '[pc.mommy]' to give [npc.herHim] the public fucking [npc.sheHas] paid for...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX"><![CDATA[
+	<p>
+		#IF(npc.hasFetish(FETISH_DOMINANT))
+			Having had [npc.her] fun, [npc.name] plants one last dominant kiss on your [pc.lips+], before collapsing down onto [npc.her] bed with a satisfied [npc.moan] and sighing,
+		#ELSE
+			Feeling satisfied, [npc.name] submissively nuzzles into you, before collapsing down onto [npc.her] bed with a satisfied [npc.moan] and sighing,
+		#ENDIF
+		 [npc.speech([pc.Name]... That was great...)]
+	</p>
+	<p>
+		Feeling that you've definitely given [npc.name] [npc.her] money's worth, you set about gathering your things as you tell the [npc.race] that [npc.she] was a very good [npc.boy] for [npc.her] [pc.mommy]. Smiling as [npc.name] thanks you for the fun, you head on over to the front door and prepare to leave the apartment...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_END"><![CDATA[
+	<p>
+		Exiting [npc.namePos] apartment, you head back out to where you were when [npc.she] first approached you, before preparing to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_PUBLIC"><![CDATA[
+	<p>
+		#IF(npc.hasFetish(FETISH_DOMINANT))
+			Having had [npc.her] fun, [npc.name] plants one last dominant kiss on your [pc.lips+], before collapsing down onto a nearby bench with a satisfied [npc.moan] and sighing,
+		#ELSE
+			Feeling satisfied, [npc.name] submissively nuzzles into you, before collapsing down onto a nearby bench with a satisfied [npc.moan] and sighing,
+		#ENDIF
+		 [npc.speech([pc.Name]... That was great...)]
+	</p>
+	<p>
+		As the crowd which had gathered to watch the show begins to disperses, you set about gathering your things, before telling the [npc.race] that [npc.she] was a very good [npc.boy] for [npc.her] [pc.mommy]. Smiling as [npc.name] thanks you for the fun, you prepare to leave [npc.herHim] behind and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_PUBLIC_END"><![CDATA[
+	<p>
+		Saying one last farewell, you leave [npc.name] behind and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>
