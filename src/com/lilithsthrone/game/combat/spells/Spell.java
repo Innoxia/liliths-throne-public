@@ -2009,8 +2009,9 @@ public enum Spell {
 										"",
 										"You can't help but let out an embarrassed cry as [npc.name] steals the "+clothingToSteal.getName()+" that you're currently wearing, [pc.speech(Y-You pervert!)]",
 										"[npc2.Name] lets out an embarrassed cry as [npc1.name] steals the "+clothingToSteal.getName()+" that [npc2.sheIs] currently wearing, [npc2.speech(Y-You pervert!)]")
-								+ "<br/>"
-								+ caster.addClothing(clothingToSteal, true));
+								+ "<br/>");
+						clothingToSteal.setName(target.getNameIgnoresPlayerKnowledge() + "'s " +clothingToSteal.getName());
+						descriptionSB.append(caster.addClothing(clothingToSteal, true));
 					}
 				}
 				
@@ -2164,8 +2165,9 @@ public enum Spell {
 										"",
 										"You can't help but let out an embarrassed cry as [npc.name] steals the "+clothingToSteal.getName()+" that you're currently wearing!",
 										"[npc2.Name] lets out an embarrassed cry as [npc1.name] steals the "+clothingToSteal.getName()+" that [npc2.sheIs] currently wearing!")
-								+ "<br/>"
-								+ caster.addClothing(clothingToSteal, true));
+								+ "<br/>");
+						clothingToSteal.setName(target.getNameIgnoresPlayerKnowledge() + "'s " +clothingToSteal.getName());
+						descriptionSB.append(caster.addClothing(clothingToSteal, true));
 						
 					} else {
 						descriptionSB.append("<br/>[style.italicsDisabled(There's nothing to steal...)]");

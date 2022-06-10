@@ -13,8 +13,6 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -34,8 +32,6 @@ import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.item.FetishPotion;
-import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -307,58 +303,6 @@ public class ElisAlleywayAttacker extends NPC {
 	}
 	
 	// Misc.:
-	
-	public void applyPregnancyReactions() {
-		if(this.isVisiblyPregnant()){
-			this.setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
-		}
-		if(Main.game.getPlayer().isVisiblyPregnant()) {
-			Main.game.getPlayer().setCharacterReactedToPregnancy(this, true);
-		}
-	}
-
-	private TransformativePotion potion = null;
-	private FetishPotion fetishPotion = null;
-	public void generatePostCombatPotions() {
-		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-			potion = this.generateTransformativePotion(Main.game.getPlayer());
-			fetishPotion = this.generateFetishPotion(Main.game.getPlayer(), true);
-		} else {
-			potion = null;
-			fetishPotion = null;
-		}
-	}
-
-	public TransformativePotion getPostCombatPotion() {
-		return potion;
-	}
-
-	public FetishPotion getPostCombatFetishPotion() {
-		return fetishPotion;
-	}
-	
-	public boolean isApplyingPostCombatTransformations() {
-		return (this.isUsingForcedTransform(Main.game.getPlayer()) && this.getPostCombatPotion()!=null) || (this.isUsingForcedFetish(Main.game.getPlayer()) && this.getPostCombatFetishPotion()!=null);
-	}
-
-	public String applyPostCombatTransformation() {
-		GameCharacter target = Main.game.getPlayer();
-		boolean forcedTF = this.isUsingForcedTransform(target);
-		TransformativePotion potion = getPostCombatPotion();
-		FetishPotion fetishPotion = getPostCombatFetishPotion();
-		boolean forcedFetish = this.isUsingForcedFetish(target);
-		
-		StringBuilder sb = new StringBuilder();
-		
-		if(potion!=null && forcedTF) {
-			sb.append(this.applyPotion(potion, target));
-		}
-		
-		if(fetishPotion!=null && forcedFetish) {
-			sb.append(this.applyPotion(fetishPotion, target));
-		}
-		return sb.toString();
-	}
 	
 	public void setAsProstitute() {
 		this.removePersonalityTrait(PersonalityTrait.MUTE);

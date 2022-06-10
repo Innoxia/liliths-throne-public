@@ -1113,7 +1113,7 @@ public class Util {
 		slovenlySpeechReplacementMap.put("Your", "Yer");
 		slovenlySpeechReplacementMap.put("your", "yer");
 		
-		slovenlySpeechReplacementMap.put("You", "Ya");
+		slovenlySpeechReplacementMap.put("You ", "Ya "); // End with a space as sentences which are simply 'You.' are awkward to read when converted to 'Ya.'
 		slovenlySpeechReplacementMap.put("you", "ya");
 		
 		slovenlySpeechReplacementMap.put("Yourself", "Yerself");
@@ -1199,6 +1199,9 @@ public class Util {
 		slovenlySpeechReplacementMap.put("My", "Me");
 		slovenlySpeechReplacementMap.put("my", "me");
 
+		slovenlySpeechReplacementMap.put("Myself", "Meself");
+		slovenlySpeechReplacementMap.put("myself", "meself");
+		
 		slovenlySpeechReplacementMap.put("That", "Dat");
 		slovenlySpeechReplacementMap.put("that", "dat");
 
@@ -1260,6 +1263,7 @@ public class Util {
 			<br/>Haven't -> 'aven't
 			<br/>Have -> 'ave
 			<br/>My -> Me
+			<br/>Myself -> Meself
 			<br/>That -> Dat
 			<br/>Some -> Sum
 			<br/>For -> Fer

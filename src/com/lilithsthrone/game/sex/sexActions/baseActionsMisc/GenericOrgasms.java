@@ -82,6 +82,8 @@ public class GenericOrgasms {
 						SexAreaOrifice.URETHRA_PENIS,
 						SexAreaOrifice.URETHRA_VAGINA,
 						SexAreaOrifice.BREAST,
+						SexAreaOrifice.ARMPITS,
+						SexAreaOrifice.THIGHS,
 						SexAreaPenetration.FOOT));
 	}
 	
