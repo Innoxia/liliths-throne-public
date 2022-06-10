@@ -6,7 +6,7 @@
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[T-shirt]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[T-shirts]]></namePlural>
-		<description><![CDATA[A masculine-cut T-shirt. It bears the words: ]]></description> 
+		<description><![CDATA[A masculine-cut T-shirt. It bears the words:<br/>]]></description> 
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>TORSO_UNDER</slot>
@@ -64,6 +64,17 @@
 					<unavailabilityText/>
 					<availabilityText/>
 				</sticker>
+				<sticker id="subby" priority="2" defaultSticker="false" zLayer="1">
+					<stickerName><![CDATA[Subby]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Subby]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i>Subby </i>]]></descriptionModification>
+					<imageName>text_subby.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
 			</category>
 			<category id="price" priority="3">
 				<categoryName><![CDATA[Price]]></categoryName>
@@ -71,12 +82,63 @@
 					<stickerName><![CDATA[50]]></stickerName>
 					<namePrefix/>
 					<namePostfix/>
-					<descriptionModification fullReplacement="false" priority="3"><![CDATA[, <i>[style.moneyFormatNoColour(50, span)]</i>]]></descriptionModification>
+					<descriptionModification fullReplacement="false" priority="3"><![CDATA[, <i>[style.moneyFormatNoColour(50, span)]</i><br/>[style.italicsBlueLight(Members of the public might <b>sometimes</b> approach you and offer to pay for sex if they can see you wearing it!)]]]></descriptionModification>
 					<imageName>text_flames_50.svg</imageName>
+					<itemTagsAdded>
+						<tag>UNLOCKS_ENCOUNTER</tag>
+					</itemTagsAdded>
 					<itemTagsAdded/>
 					<itemTagsRemoved/>
 					<unavailabilityText/>
 					<availabilityText/>
+				</sticker>
+				<sticker id="250" priority="1" defaultSticker="false" zLayer="1">
+					<stickerName><![CDATA[250]]></stickerName>
+					<descriptionModification fullReplacement="false" priority="3"><![CDATA[, <i>[style.moneyFormatNoColour(250, span)]</i><br/>[style.italicsBlueLight(Members of the public might <b>sometimes</b> approach you and offer to pay for sex if they can see you wearing it!)]]]></descriptionModification>
+					<imageName>text_flames_250.svg</imageName>
+					<itemTagsAdded>
+						<tag>UNLOCKS_ENCOUNTER</tag>
+					</itemTagsAdded>
+				</sticker>
+				<sticker id="500" priority="1" defaultSticker="false" zLayer="1">
+					<stickerName><![CDATA[500]]></stickerName>
+					<descriptionModification fullReplacement="false" priority="3"><![CDATA[, <i>[style.moneyFormatNoColour(500, span)]</i><br/>[style.italicsBlueLight(Members of the public might <b>sometimes</b> approach you and offer to pay for sex if they can see you wearing it!)]]]></descriptionModification>
+					<imageName>text_flames_500.svg</imageName>
+					<itemTagsAdded>
+						<tag>UNLOCKS_ENCOUNTER</tag>
+					</itemTagsAdded>
+				</sticker>
+				<sticker id="1000" priority="1" defaultSticker="false" zLayer="1">
+					<stickerName><![CDATA[1000]]></stickerName>
+					<descriptionModification fullReplacement="false" priority="3"><![CDATA[, <i>[style.moneyFormatNoColour(1000, span)]</i><br/>[style.italicsBlueLight(Members of the public might <b>sometimes</b> approach you and offer to pay for sex if they can see you wearing it!)]]]></descriptionModification>
+					<imageName>text_flames_1000.svg</imageName>
+					<itemTagsAdded>
+						<tag>UNLOCKS_ENCOUNTER</tag>
+					</itemTagsAdded>
+				</sticker>
+				<sticker id="2500" priority="1" defaultSticker="false" zLayer="1">
+					<stickerName><![CDATA[2500]]></stickerName>
+					<descriptionModification fullReplacement="false" priority="3"><![CDATA[, <i>[style.moneyFormatNoColour(2500, span)]</i><br/>[style.italicsBlueLight(Members of the public might <b>rarely</b> approach you and offer to pay for sex if they can see you wearing it!)]]]></descriptionModification>
+					<imageName>text_flames_2500.svg</imageName>
+					<itemTagsAdded>
+						<tag>UNLOCKS_ENCOUNTER</tag>
+					</itemTagsAdded>
+				</sticker>
+				<sticker id="5000" priority="1" defaultSticker="false" zLayer="1">
+					<stickerName><![CDATA[5000]]></stickerName>
+					<descriptionModification fullReplacement="false" priority="3"><![CDATA[, <i>[style.moneyFormatNoColour(5000, span)]</i><br/>[style.italicsBlueLight(Members of the public might <b>very rarely</b> approach you and offer to pay for sex if they can see you wearing it!)]]]></descriptionModification>
+					<imageName>text_flames_5000.svg</imageName>
+					<itemTagsAdded>
+						<tag>UNLOCKS_ENCOUNTER</tag>
+					</itemTagsAdded>
+				</sticker>
+				<sticker id="10000" priority="1" defaultSticker="false" zLayer="1">
+					<stickerName><![CDATA[10000]]></stickerName>
+					<descriptionModification fullReplacement="false" priority="3"><![CDATA[, <i>[style.moneyFormatNoColour(10000, span)]</i><br/>[style.italicsBlueLight(Members of the public might <b>extremely rarely</b> approach you and offer to pay for sex if they can see you wearing it!)]]]></descriptionModification>
+					<imageName>text_flames_10000.svg</imageName>
+					<itemTagsAdded>
+						<tag>UNLOCKS_ENCOUNTER</tag>
+					</itemTagsAdded>
 				</sticker>
 				<sticker id="none" priority="0" defaultSticker="false" zLayer="1" colourSelected="TEXT_GREY">
 					<stickerName><![CDATA[None]]></stickerName>

@@ -148,7 +148,7 @@
 			The intention is for these description elements to each be mutually exclusive to one another, so that you can have different descriptions returned based on different conditionals. -->
 		<description>
 			<!-- If this returns true, then this description block will be used.
-				You can omit this if you're only defining one description element. -->
+				You can omit this to make it always return 'true'. -->
 			<descriptionConditional><![CDATA[
 				[#pc.getPenisRawOrgasmCumQuantity()>=CUM_PRODUCTION_SIX_EXTREME.getMinimumValue()]
 			]]></descriptionConditional>

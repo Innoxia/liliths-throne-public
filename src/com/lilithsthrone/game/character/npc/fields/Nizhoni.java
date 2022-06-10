@@ -90,7 +90,7 @@ public class Nizhoni extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1.1")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1.8")) {
 			this.setStartingBody(true);
 		}
 	}
@@ -172,7 +172,7 @@ public class Nizhoni extends NPC {
 		
 		// Chest:
 		this.setNippleVirgin(true);
-		this.setBreastSize(CupSize.JJ.getMeasurement());
+		this.setBreastSize(CupSize.G.getMeasurement());
 		this.setBreastShape(BreastShape.POINTY);
 		this.setNippleSize(NippleSize.FOUR_MASSIVE);
 		this.setAreolaeSize(AreolaeSize.FOUR_MASSIVE);

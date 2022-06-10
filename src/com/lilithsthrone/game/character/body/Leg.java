@@ -86,7 +86,7 @@ public class Leg implements BodyPartInterface {
 				sb.append("After just a moment, [npc.sheIs] left with [style.boldTfGeneric(no [npc.feet])]!");
 				break;
 			case DIGITIGRADE:
-				sb.append("After just a moment, [npc.sheIs] left with [style.boldTfGeneric(digitgrade [npc.feet])], meaning that [npc.she] now [npc.verb(walk)] on [npc.her] toes, with [npc.her] heel being permanently raised.");
+				sb.append("After just a moment, [npc.sheIs] left with [style.boldTfGeneric(digitigrade [npc.feet])], meaning that [npc.she] now [npc.verb(walk)] on [npc.her] toes, with [npc.her] heel being permanently raised.");
 				break;
 			case PLANTIGRADE:
 				sb.append("After just a moment, [npc.sheIs] left with [style.boldTfGeneric(plantigrade [npc.feet])], meaning that [npc.she] now [npc.verb(walk)] with [npc.her] feet flat on the ground.");
@@ -283,6 +283,10 @@ public class Leg implements BodyPartInterface {
 	
 	public int getLength(GameCharacter owner) {
 		return (int) (owner.getHeightValue() * getLengthAsPercentageOfHeight());
+	}
+
+	public int getLength(Body body) {
+		return (int) (body.getHeightValue() * getLengthAsPercentageOfHeight());
 	}
 	
 	

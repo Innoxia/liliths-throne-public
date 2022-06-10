@@ -31,9 +31,11 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -44,7 +46,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
  * Call initialiseCombat() before using.
  *
  * @since 0.1.0
- * @version 0.3.9.3
+ * @version 0.4.2.1
  * @author Innoxia, Irbynx
  */
 public class Combat {
@@ -78,6 +80,11 @@ public class Combat {
 	private Map<GameCharacter, List<String>> escapeDescriptionMap;
 	
 	private Map<GameCharacter, List<Value<GameCharacter, AbstractItem>>> itemsToBeUsed;
+
+	// Maps characters -> inventory slots (to track which slot the weapon was thrown from) -> weapon type and number of weapon type that has been thrown
+	private Map<GameCharacter, Map<InventorySlot, Map<AbstractWeapon, Integer>>> weaponsThrownDuringTurn;
+	private Map<GameCharacter, Map<InventorySlot, Map<AbstractWeapon, Integer>>> weaponsThrownDuringCombat;
+	private Map<GameCharacter, Map<InventorySlot, AbstractWeaponType>> thrownWeaponsDepleted; // Only for use in UI rendering
 	
 	// Used if the ResponseCombat which initialises combat came from an external dialogue file:
 	private DialogueNode playerPostVictoryDialogue;
@@ -87,17 +94,30 @@ public class Combat {
 	public Combat() {
 	}
 
-	/**
-	 * @param allies A list of allies who are fighting with you. <b>Do not include Main.game.getPlayer() in this!</b>
-	 * @param enemies A list of enemies you're fighting. The first enemy in the list is considered the leader.
-	 * @param escapePercentage The base chance of escaping in this combat situation. TODO
-	 * @param openingDescriptions A map of opening descriptions for characters. If a description is not provided, one is generated automatically.
-	 */
 	public void initialiseCombat(
 			List<NPC> allies,
 			NPC enemyLeader,
 			List<NPC> enemies,
 			Map<GameCharacter, String> openingDescriptions) {
+		initialiseCombat(allies,
+				enemyLeader,
+				enemies,
+				openingDescriptions,
+				false);
+	}
+	/**
+	 * @param allies A list of allies who are fighting with you. <b>Do not include Main.game.getPlayer() in this!</b>
+	 * @param enemies A list of enemies you're fighting. The first enemy in the list is considered the leader.
+	 * @param escapePercentage The base chance of escaping in this combat situation. TODO
+	 * @param openingDescriptions A map of opening descriptions for characters. If a description is not provided, one is generated automatically.
+	 * @param escapeBlocked Whether or not escape action is blocked during this combat.
+	 */
+	public void initialiseCombat(
+			List<NPC> allies,
+			NPC enemyLeader,
+			List<NPC> enemies,
+			Map<GameCharacter, String> openingDescriptions,
+			boolean escapeBlocked) {
 		
 		// These should be set manually after initialising combat
 		playerPostVictoryDialogue = null;
@@ -116,7 +136,6 @@ public class Combat {
 		manaBurnStack = new HashMap<>();
 		statusEffectsToApply = new HashMap<>();
 		
-
 		predictionContent.put(Main.game.getPlayer(), new ArrayList<>());
 		itemsToBeUsed.put(Main.game.getPlayer(), new ArrayList<>());
 		manaBurnStack.put(Main.game.getPlayer(), new Stack<>());
@@ -124,6 +143,13 @@ public class Combat {
 		combatContent.put(Main.game.getPlayer(), new ArrayList<>());
 		activeCombatants.add(Main.game.getPlayer());
 
+		weaponsThrownDuringTurn = new HashMap<>();
+		weaponsThrownDuringCombat = new HashMap<>();
+		thrownWeaponsDepleted = new HashMap<>();
+		resetWeaponsThrownDuringTurn(Main.game.getPlayer());
+		resetWeaponsThrownDuringCombat(Main.game.getPlayer());
+		resetThrownWeaponsDepleted(Main.game.getPlayer());
+		
 		if(Main.game.getPlayer().isElementalSummoned()) {
 			this.addAlly(Main.game.getPlayer().getElemental());
 			Main.game.getPlayer().getElemental().setLocation(Main.game.getPlayer(), false);
@@ -160,26 +186,28 @@ public class Combat {
 		postCombatStringBuilder.setLength(0);
 		combatTurnResolutionStringBuilder.setLength(0);
 		
-		
-
-		escapeChance = ((NPC) enemies.get(0)).getEscapeChance();
-		if (Main.game.getPlayer().hasTrait(Perk.RUNNER, true)) {
-			escapeChance *= 1.5f;
-		} else if (Main.game.getPlayer().hasTrait(Perk.RUNNER_2, true)) {
-			escapeChance *= 2f;
-		}
-		if(escapeChance >0 && Main.game.getPlayer().hasTrait(Perk.JOB_ATHLETE, true)) {
-			escapeChance = 100;
-		}
-		if(escapeChance >0 && Main.game.getPlayer().getSubspecies()==Subspecies.CAT_MORPH_CHEETAH) {
-			boolean cheetahEnemy = false;
-			for(GameCharacter enemy : getEnemies(Main.game.getPlayer())) {
-				if(enemy.getSubspecies()==Subspecies.CAT_MORPH_CHEETAH) {
-					cheetahEnemy = true;
-				}
+		if(escapeBlocked) {
+			escapeChance = 0;
+		} else {
+			escapeChance = ((NPC) enemies.get(0)).getEscapeChance();
+			if (Main.game.getPlayer().hasTrait(Perk.RUNNER, true)) {
+				escapeChance *= 1.5f;
+			} else if (Main.game.getPlayer().hasTrait(Perk.RUNNER_2, true)) {
+				escapeChance *= 2f;
 			}
-			if(!cheetahEnemy) {
+			if(escapeChance >0 && Main.game.getPlayer().hasTrait(Perk.JOB_ATHLETE, true)) {
 				escapeChance = 100;
+			}
+			if(escapeChance >0 && Main.game.getPlayer().getSubspecies()==Subspecies.CAT_MORPH_CHEETAH) {
+				boolean cheetahEnemy = false;
+				for(GameCharacter enemy : getEnemies(Main.game.getPlayer())) {
+					if(enemy.getSubspecies()==Subspecies.CAT_MORPH_CHEETAH) {
+						cheetahEnemy = true;
+					}
+				}
+				if(!cheetahEnemy) {
+					escapeChance = 100;
+				}
 			}
 		}
 		
@@ -490,16 +518,16 @@ public class Combat {
 						 || (!playerVictory && !getEnemies(Main.game.getPlayer()).contains(combatant))) {
 					combatant.setElementalSummoned(false);
 					postCombatStringBuilder.append(UtilText.parse(combatant, combatant.getElemental(),
-							"<p style='text-align:center;'><i>"
+							"<div class='container-full-width' style='text-align:center;'><i>"
 								+ "[npc.NamePos] elemental, <span style='colour:"+combatant.getElemental().getFemininity().getColour().toWebHexString()+";'>[npc2.name]</span>,"
 									+ " is completely drained of energy and is [style.italicsBad(dispelled)]!"
-							+ "</i></p>"));
+							+ "</i></div>"));
 				} else { 
 					postCombatStringBuilder.append(UtilText.parse(combatant, combatant.getElemental(),
-							"<p style='text-align:center;'><i>"
+							"<div class='container-full-width' style='text-align:center;'><i>"
 								+ "[npc.NamePos] elemental, <span style='colour:"+combatant.getElemental().getFemininity().getColour().toWebHexString()+";'>[npc2.name]</span>,"
 									+ " is drained of energy and [style.italicsArcane(returns to [npc2.her] passive form)]!"
-							+ "</i></p>"));
+							+ "</i></div>"));
 				}
 			}
 		}
@@ -508,6 +536,67 @@ public class Combat {
 		
 		// Sort out effects after combat:
 		for(GameCharacter character : getAllCombatants(true)) {
+			// Handle thrown weapons:
+			boolean anyWeaponsRecovered = false;
+        	for(int i=0; i<Math.min(character.getArmRows(), character.getMainWeaponArray().length); i++) {
+				for(Entry<AbstractWeapon, Integer> entry : weaponsThrownDuringCombat.get(character).get(InventorySlot.mainWeaponSlots[i]).entrySet()) {
+					AbstractWeapon weapon = entry.getKey();
+					for(int count=0; count<entry.getValue(); count++) {
+						if(Math.random()*100 <= weapon.getWeaponType().getOneShotChanceToRecoverAfterCombat()) {
+							if(character.getMainWeapon(i)==null) {
+								character.equipMainWeapon(weapon, i, false);
+							} else {
+								character.addWeapon(weapon, 1, false, false);
+							}
+							if(!anyWeaponsRecovered) {
+								postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'><i>");
+								if(character.isPlayer()) {
+									postCombatStringBuilder.append("[style.boldGood(One-shot weapons recovered:)]");
+								} else {
+									postCombatStringBuilder.append(UtilText.parse(character, "[style.boldGood(One-shot weapons recovered by [npc.name]:)]"));
+								}
+								postCombatStringBuilder.append("<br/>");
+								postCombatStringBuilder.append(Util.capitaliseSentence(weapon.getDisplayName(true)));
+								anyWeaponsRecovered = true;
+							} else {
+								postCombatStringBuilder.append(", "+Util.capitaliseSentence(weapon.getDisplayName(true)));
+							}
+						}
+					}
+				}
+			}
+        	for(int i=0; i<Math.min(character.getArmRows(), character.getOffhandWeaponArray().length); i++) {
+				for(Entry<AbstractWeapon, Integer> entry : weaponsThrownDuringCombat.get(character).get(InventorySlot.offhandWeaponSlots[i]).entrySet()) {
+					AbstractWeapon weapon = entry.getKey();
+					for(int count=0; count<entry.getValue(); count++) {
+						if(Math.random()*100 <= weapon.getWeaponType().getOneShotChanceToRecoverAfterCombat()) {
+							if(character.getOffhandWeapon(i)==null) {
+								character.equipOffhandWeapon(weapon, i, false);
+							} else {
+								character.addWeapon(weapon, 1, false, false);
+							}
+							if(!anyWeaponsRecovered) {
+								postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'><i>");
+								if(character.isPlayer()) {
+									postCombatStringBuilder.append("[style.boldGood(One-shot weapons recovered:)]");
+								} else {
+									postCombatStringBuilder.append(UtilText.parse(character, "[style.boldGood(One-shot weapons recovered by [npc.name]:)]"));
+								}
+								postCombatStringBuilder.append("<br/>");
+								postCombatStringBuilder.append(Util.capitaliseSentence(weapon.getDisplayName(true)));
+								anyWeaponsRecovered = true;
+							} else {
+								postCombatStringBuilder.append(", "+Util.capitaliseSentence(weapon.getDisplayName(true)));
+							}
+						}
+					}
+				}
+			}
+			if(anyWeaponsRecovered) {
+				postCombatStringBuilder.append("</i></div>");
+			}
+//        	resetWeaponsThrownDuringCombat(character); // This gets reset when combat is initialised anyway, and it might be useful for post-combat dialogue to reference thrown/one-shot weapons?
+			
 			if(enemies.contains(character)) {
 				character.setMana(character.getAttributeValue(Attribute.MANA_MAXIMUM));
 				character.setHealth(character.getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -1080,7 +1169,7 @@ public class Combat {
 
 		int selectedMoveIndex = Main.game.getPlayer().getSelectedMoves().size();
 		
-		String rejectionReason = move.isUsable(Main.game.getPlayer(), moveTarget, pcEnemies, pcAllies);
+		String rejectionReason = move.isUsable(selectedMoveIndex, Main.game.getPlayer(), moveTarget, pcEnemies, pcAllies);
 		if(rejectionReason != null) {
 			return new Response(Util.capitaliseSentence(move.getName(selectedMoveIndex, Main.game.getPlayer())),
 								rejectionReason,
@@ -1093,9 +1182,8 @@ public class Combat {
 		if(move.getStatusEffects(Main.game.getPlayer(), moveTarget, isCrit)!=null && !move.getStatusEffects(Main.game.getPlayer(), moveTarget, isCrit).isEmpty()) {
 			for(Entry<AbstractStatusEffect, Integer> entry : move.getStatusEffects(Main.game.getPlayer(), moveTarget, isCrit).entrySet()) {
 				moveStatblock.append("Applies <b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName(moveTarget))+"</b>"
-						+ " for <b>"+entry.getValue()+(entry.getValue()==1?" turn":" turns")+"</b>");
+						+ " for <b>"+entry.getValue()+(entry.getValue()==1?" turn":" turns")+"</b><br/>");
 			}
-			moveStatblock.append("<br/>");
 		}
 		
 		StringBuilder critText = new StringBuilder();
@@ -1118,7 +1206,7 @@ public class Combat {
 			}
 			@Override
 			public Colour getHighlightColour() {
-				return move.getColourByDamageType(Main.game.getPlayer());
+				return move.getColourByDamageType(selectedMoveIndex, Main.game.getPlayer());
 			}
 			@Override
 			public AbstractCombatMove getAssociatedCombatMove() {
@@ -1359,7 +1447,53 @@ public class Combat {
 			}
 		}
 		for(GameCharacter character : combatants) {
+			// Handle thrown weapons:
+			StringBuilder thrownWeaponsRecoveredDescriptions = new StringBuilder();
+        	for(int i=0; i<Math.min(character.getArmRows(), character.getMainWeaponArray().length); i++) {
+				for(Entry<AbstractWeapon, Integer> entry : weaponsThrownDuringTurn.get(character).get(InventorySlot.mainWeaponSlots[i]).entrySet()) {
+					AbstractWeapon weapon = entry.getKey();
+					for(int count=0; count<entry.getValue(); count++) {
+						if(Math.random()*100 <= weapon.getWeaponType().getOneShotChanceToRecoverAfterTurn()) {
+							if(character.getMainWeapon(i)==null) {
+								character.equipMainWeapon(weapon, i, false);
+							} else {
+								character.addWeapon(weapon, 1, false, false);
+							}
+							incrementWeaponsThrownDuringCombat(character, InventorySlot.mainWeaponSlots[i], weapon, -1);
+							if(thrownWeaponsRecoveredDescriptions.length()==0) {
+								thrownWeaponsRecoveredDescriptions.append("[style.boldGood(One-shot weapons recovered:)]");
+							}
+							thrownWeaponsRecoveredDescriptions.append("<br/>");
+							thrownWeaponsRecoveredDescriptions.append(weapon.getWeaponType().getOneShotEndTurnRecoveryDescription(character).trim());
+						}
+					}
+				}
+			}
+        	for(int i=0; i<Math.min(character.getArmRows(), character.getOffhandWeaponArray().length); i++) {
+				for(Entry<AbstractWeapon, Integer> entry : weaponsThrownDuringTurn.get(character).get(InventorySlot.offhandWeaponSlots[i]).entrySet()) {
+					AbstractWeapon weapon = entry.getKey();
+					for(int count=0; count<entry.getValue(); count++) {
+						if(Math.random()*100 <= weapon.getWeaponType().getOneShotChanceToRecoverAfterTurn()) {
+							if(character.getOffhandWeapon(i)==null) {
+								character.equipOffhandWeapon(weapon, i, false);
+							} else {
+								character.addWeapon(weapon, 1, false, false);
+							}
+							incrementWeaponsThrownDuringCombat(character, InventorySlot.offhandWeaponSlots[i], weapon, -1);
+							if(thrownWeaponsRecoveredDescriptions.length()==0) {
+								thrownWeaponsRecoveredDescriptions.append("[style.boldGood(One-shot weapons recovered:)]");
+							}
+							thrownWeaponsRecoveredDescriptions.append("<br/>");
+							thrownWeaponsRecoveredDescriptions.append(weapon.getWeaponType().getOneShotEndTurnRecoveryDescription(character).trim());
+						}
+					}
+				}
+			}
+        	resetWeaponsThrownDuringTurn(character);
+        	combatContent.get(character).add(thrownWeaponsRecoveredDescriptions.toString());
+        	
 			combatTurnResolutionStringBuilder.append(getCharactersTurnDiv(character, getTurn()==0?"Preparation":"", combatContent.get(character)));
+			
 			character.resetSelectedMoves();
 		}
 		
@@ -1651,6 +1785,59 @@ public class Combat {
 		Main.game.getPlayer().selectMove(user.getSelectedMoves().size(), CombatMove.ITEM_USAGE, target, getEnemies(user), getAllies(user));
 	}
 	
+	// Thrown weapon methods:
+	
+	public void resetWeaponsThrownDuringTurn(GameCharacter character) {
+		weaponsThrownDuringTurn.put(character, new HashMap<>());
+		for(InventorySlot slot : InventorySlot.allWeaponSlots) {
+			weaponsThrownDuringTurn.get(character).put(slot, new HashMap<>());
+		}
+	}
+	
+	public Map<AbstractWeapon, Integer> getWeaponsThrownDuringTurn(GameCharacter user, InventorySlot slot) {
+		return weaponsThrownDuringTurn.get(user).get(slot);
+	}
+
+	public void incrementWeaponsThrownDuringTurn(GameCharacter user, InventorySlot slot, AbstractWeapon weapon, int increment) {
+		weaponsThrownDuringTurn.get(user).get(slot).putIfAbsent(weapon, 0);
+		weaponsThrownDuringTurn.get(user).get(slot).put(weapon, weaponsThrownDuringTurn.get(user).get(slot).get(weapon)+increment);
+	}
+	
+	public void resetWeaponsThrownDuringCombat(GameCharacter character) {
+		weaponsThrownDuringCombat.put(character, new HashMap<>());
+		for(InventorySlot slot : InventorySlot.allWeaponSlots) {
+			weaponsThrownDuringCombat.get(character).put(slot, new HashMap<>());
+		}
+	}
+	
+	public Map<AbstractWeapon, Integer> getWeaponsThrownDuringCombat(GameCharacter user, InventorySlot slot) {
+		return weaponsThrownDuringCombat.get(user).get(slot);
+	}
+
+	public void incrementWeaponsThrownDuringCombat(GameCharacter user, InventorySlot slot, AbstractWeapon weapon, int increment) {
+		weaponsThrownDuringCombat.get(user).get(slot).putIfAbsent(weapon, 0);
+		weaponsThrownDuringCombat.get(user).get(slot).put(weapon, weaponsThrownDuringCombat.get(user).get(slot).get(weapon)+increment);
+	}
+
+	public void resetThrownWeaponsDepleted(GameCharacter character) {
+		thrownWeaponsDepleted.put(character, new HashMap<>());
+		for(InventorySlot slot : InventorySlot.allWeaponSlots) {
+			thrownWeaponsDepleted.get(character).put(slot, null);
+		}
+	}
+	
+	public AbstractWeaponType getThrownWeaponsDepleted(GameCharacter user, InventorySlot slot) {
+		return thrownWeaponsDepleted.get(user).get(slot);
+	}
+
+	public void addThrownWeaponsDepleted(GameCharacter user, InventorySlot slot, AbstractWeaponType weapon) {
+		thrownWeaponsDepleted.get(user).put(slot, weapon);
+	}
+
+	public void removeThrownWeaponsDepleted(GameCharacter user, InventorySlot slot) {
+		thrownWeaponsDepleted.get(user).put(slot, null);
+	}
+	
 	public String getPregnancyProtectionText(GameCharacter character) {
 			return (character.isVisiblyPregnant()
 					?UtilText.parse(character, "A powerful field of arcane energy is protecting [npc.namePos] pregnant belly, ensuring that no harm can come to [npc.her] unborn offspring.")
@@ -1676,6 +1863,10 @@ public class Combat {
 		statusEffectsToApply.put(ally, new HashMap<>());
 		combatContent.put(ally, new ArrayList<>());
 		activeCombatants.add(ally);
+		
+		resetWeaponsThrownDuringTurn(ally);
+		resetWeaponsThrownDuringCombat(ally);
+		resetThrownWeaponsDepleted(ally);
 		
 		if(Main.game.isInCombat()) {
 			List<GameCharacter> npcAllies = getAllies(ally);
@@ -1706,6 +1897,10 @@ public class Combat {
 		combatContent.put(enemy, new ArrayList<>());
 		activeCombatants.add(enemy);
 
+		resetWeaponsThrownDuringTurn(enemy);
+		resetWeaponsThrownDuringCombat(enemy);
+		resetThrownWeaponsDepleted(enemy);
+		
 		if(Main.game.isInCombat()) {
 			List<GameCharacter> npcAllies = getAllies(enemy);
 			List<GameCharacter> npcEnemies = getEnemies(enemy);

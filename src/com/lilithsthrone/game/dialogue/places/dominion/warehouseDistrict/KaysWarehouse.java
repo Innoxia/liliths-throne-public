@@ -37,6 +37,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -378,8 +379,8 @@ public class KaysWarehouse {
 							return null;
 						}
 						@Override
-						public boolean isAbleToEquipSexClothing(GameCharacter character){
-							return false; // Do not let sex clothing be equipped onto Kay, as they have special actions for this and it would otherwise break the flow of their scenes
+						public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip){
+							return clothingToEquip.isCondom(); // Do not let sex clothing be equipped onto Kay, as they have special actions for this and it would otherwise break the flow of their scenes
 						}
 						@Override
 						public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
@@ -2070,6 +2071,7 @@ public class KaysWarehouse {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kayFeminised, true);
 				Main.game.getNpc(Kay.class).equipClothing(EquipClothingSetting.getAllClothingSettings());
 			}
+			Main.game.getNpc(Kay.class).loadImages(true); // reload images to use correct artwork
 		}
 		@Override
 		public int getSecondsPassed() {

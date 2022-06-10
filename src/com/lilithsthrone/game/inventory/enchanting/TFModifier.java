@@ -124,7 +124,14 @@ public enum TFModifier {
 			"Applies an effect related to the primary attribute 'Corruption'.",
 			"modifier_circle_corruption",
 			Rarity.LEGENDARY),
-	
+
+	/** This TFModifier is a special case, as it is not added to the available clothing TF lists.
+	 * It is simply defined so that modded clothing can add this as a secondary TFModifier (to the primary TFModifier 'CLOTHING_MAJOR_ATTRIBUTE') to increase enchantment capacity of the wearer. */
+	ENCHANTMENT_LIMIT(AttributeCategory.CORRUPTION,
+			Attribute.ENCHANTMENT_LIMIT,
+			"Applies an effect related to the secondary attribute 'Enchantment Capacity'.",
+			"modifier_circle_corruption",
+			Rarity.LEGENDARY),
 	
 	FERTILITY(AttributeCategory.CORRUPTION,
 			Attribute.FERTILITY,
@@ -1218,7 +1225,7 @@ public enum TFModifier {
 		}
 	},
 	
-	TF_MOD_FLUID_ALCOHOLIC("alcoholic",
+	TF_MOD_FLUID_ALCOHOLIC("strongly alcoholic",
 			"Applies an effect related to changing a fluid.",
 			"alcoholic",
 			"modifier_circle_fluid_modifier",
@@ -1227,6 +1234,18 @@ public enum TFModifier {
 		@Override
 		public Colour getColour() {
 			return FluidModifier.ALCOHOLIC.getColour();
+		}
+	},
+	
+	TF_MOD_FLUID_ALCOHOLIC_WEAK("alcoholic",
+			"Applies an effect related to changing a fluid.",
+			"alcoholic",
+			"modifier_circle_fluid_modifier",
+			PresetColour.BASE_ORANGE_LIGHT,
+			Rarity.COMMON) {
+		@Override
+		public Colour getColour() {
+			return FluidModifier.ALCOHOLIC_WEAK.getColour();
 		}
 	},
 	
@@ -1339,8 +1358,8 @@ public enum TFModifier {
 	TF_MOD_FETISH_PENIS_RECEIVING(Fetish.FETISH_PENIS_RECEIVING),
 	TF_MOD_FETISH_BREASTS_OTHERS(Fetish.FETISH_BREASTS_OTHERS),
 	TF_MOD_FETISH_BREASTS_SELF(Fetish.FETISH_BREASTS_SELF),
-	TF_MOD_FETISH_ORAL_GIVING(Fetish.FETISH_ORAL_GIVING),
 	TF_MOD_FETISH_ORAL_RECEIVING(Fetish.FETISH_ORAL_RECEIVING),
+	TF_MOD_FETISH_ORAL_GIVING(Fetish.FETISH_ORAL_GIVING),
 	TF_MOD_FETISH_LEG_LOVER(Fetish.FETISH_LEG_LOVER),
 	TF_MOD_FETISH_STRUTTER(Fetish.FETISH_STRUTTER),
 	TF_MOD_FETISH_FOOT_GIVING(Fetish.FETISH_FOOT_GIVING),

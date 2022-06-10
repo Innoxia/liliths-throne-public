@@ -400,7 +400,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="INCUBATION_EGG_LAYING_FINISHED_END_SINGLE"><![CDATA[
-	<p>
+	<p style='text-align:center;'>
 		...
 	</p>
 	<p>
@@ -410,7 +410,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="INCUBATION_EGG_LAYING_FINISHED_END_MULTIPLE"><![CDATA[
-	<p>
+	<p style='text-align:center;'>
 		...
 	</p>
 	<p>

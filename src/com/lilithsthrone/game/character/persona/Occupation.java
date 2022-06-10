@@ -186,7 +186,7 @@ public enum Occupation {
 		}
 	},
 
-	NPC_OFFICE_WORKER(Perk.JOB_NPC_OFFICE_WORKER, "office worker", "[npc.NameHasFull] works for a large business, and [npc.has] manage [npc.her] subordinates, company finances, and difficult customers on a daily basis.") {
+	NPC_OFFICE_WORKER(Perk.JOB_NPC_OFFICE_WORKER, "office worker", "[npc.Name] works for a large business, and [npc.has] manage [npc.her] subordinates, company finances, and difficult customers on a daily basis.") {
 		@Override
 		public String getName(GameCharacter character) {
 			if(character==null) {
@@ -198,7 +198,7 @@ public enum Occupation {
 		}
 	},
 	
-	NPC_RECEPTIONIST(Perk.JOB_MISC, "receptionist", "-"),
+	NPC_RECEPTIONIST(Perk.JOB_MISC, "receptionist", "[npc.Name] works as a receptionist, and must deal with many visitors and customers every day."),
 	
 	NPC_SHOP_ASSISTANT(Perk.JOB_MISC, "shop assistant", "-"),
 	

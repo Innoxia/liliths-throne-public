@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- To be used only for accessing the responses -->
+	<scene id="start">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Using glory hole -->
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isTaur()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Glory hole (use)]]></responseTitle>
+				<responseTooltip><![CDATA[Due to the shape of your [pc.legRace]'s body, you cannot get into a suitable position for using the glory hole...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.isTaur() && ((!pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && (!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Glory hole (use)]]></responseTitle>
+				<responseTooltip><![CDATA[You can't get access to your genitals, so can't get serviced at a glory hole...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.isTaur() && ((pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)) || (pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Glory hole (use)]]></responseTitle>
+				<responseTooltip><![CDATA[Enter a stall which has a glory hole in it and wait for someone on the other side to service you...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_misc_glory_hole_dom_start]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.spawnSubGloryHoleNPC('stranger', 'glory')]
+				]]></effects>
+			</response>
+			<!-- Servicing glory hole -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Glory hole (service)]]></responseTitle>
+				<responseTooltip><![CDATA[Enter a stall which has a glory hole in it and wait to service someone on the other side...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_misc_glory_hole_sub_start]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.spawnDomGloryHoleNPC('stranger', 'glory')]
+					[#npc.setAreaKnownByCharacter(CA_PENIS, pc, true)]
+				]]></effects>
+			</response>
+			<!-- Servicing two glory holes -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Glory hole (double service)]]></responseTitle>
+				<responseTooltip><![CDATA[Enter a stall which has a glory hole in both sides of it and wait to service two people at once...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_misc_glory_hole_sub_threesome_start]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.spawnDomGloryHoleNPC('stranger', 'glory')]
+					[#game.spawnDomGloryHoleNPC('stranger', 'glory2')]
+					[#glory.setAreaKnownByCharacter(CA_PENIS, pc, true)]
+					[#glory2.setAreaKnownByCharacter(CA_PENIS, pc, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="dom_start">
+		<content folderPath="txt/misc/glory_hole">TOILETS_GLORY_HOLE_DOM</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[On second thoughts, you don't really want some stranger having fun with your private parts...]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/misc/glory_hole', 'TOILETS_GLORY_HOLE_DOM_LEAVE'))]
+					[#game.banishNPC(glory)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Start]]></responseTitle>
+				<responseTooltip><![CDATA[Do as [npc.name] says and [pc.step] up to the glory hole.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_misc_glory_hole_dom]]></id>
+					<startingPosition><![CDATA[GLORY_HOLE]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[UNIQUE_GLORY_HOLE_RECEIVING_ORAL_ONE]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>glory</id>
+							<slot><![CDATA[UNIQUE_GLORY_HOLE_KNEELING]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_misc_glory_hole_dom_end]]></postSexDialogue>
+					<sexStartContent folderPath="txt/misc/glory_hole">TOILETS_GLORY_HOLE_DOM_START</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="dom_end">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/misc/glory_hole', 'TOILETS_GLORY_HOLE_DOM_POST_SEX'))]
+			[#game.banishNPC(glory)]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[The stranger quickly exits their stall and heads out of the toilets, leaving you to do the same...]]></tooltip>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[[pc.Step] out of the stall.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sub_start">
+		<content folderPath="txt/misc/glory_hole">TOILETS_GLORY_HOLE_SUB</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[On second thoughts, you don't really want to suck the cock of some random stranger...]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/misc/glory_hole', 'TOILETS_GLORY_HOLE_SUB_LEAVE'))]
+					[#game.banishNPC(glory)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Start]]></responseTitle>
+				<responseTooltip><![CDATA[Do as [npc.name] says and get ready to service [npc.her] glory hole.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_misc_glory_hole_sub]]></id>
+					<startingPosition><![CDATA[GLORY_HOLE]]></startingPosition>
+					<dominants>
+						<character>
+							<id>glory</id>
+							<slot><![CDATA[UNIQUE_GLORY_HOLE_RECEIVING_ORAL_ONE]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[UNIQUE_GLORY_HOLE_KNEELING]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_misc_glory_hole_sub_end]]></postSexDialogue>
+					<sexStartContent folderPath="txt/misc/glory_hole">TOILETS_GLORY_HOLE_SUB_START</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sub_end">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/misc/glory_hole', 'TOILETS_GLORY_HOLE_SUB_POST_SEX'))]
+			[#game.banishNPC(glory)]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[The stranger quickly exits their stall and heads out of the toilets, leaving you to do the same...]]></tooltip>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[[pc.Step] out of the stall.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sub_threesome_start">
+		<content folderPath="txt/misc/glory_hole">TOILETS_GLORY_HOLE_THREESOME_SUB</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[On second thoughts, you don't really want to suck the cock of a couple of random strangers...]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/misc/glory_hole', 'TOILETS_GLORY_HOLE_THREESOME_SUB_LEAVE'))]
+					[#game.banishNPC(glory)]
+					[#game.banishNPC(glory2)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Start]]></responseTitle>
+				<responseTooltip><![CDATA[Do as these strangers say and get ready to service their glory holes.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_misc_glory_hole_threesome_sub]]></id>
+					<startingPosition><![CDATA[GLORY_HOLE]]></startingPosition>
+					<dominants>
+						<character>
+							<id>glory</id>
+							<slot><![CDATA[UNIQUE_GLORY_HOLE_RECEIVING_ORAL_ONE]]></slot>
+						</character>
+						<character>
+							<id>glory2</id>
+							<slot><![CDATA[UNIQUE_GLORY_HOLE_RECEIVING_ORAL_TWO]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[UNIQUE_GLORY_HOLE_KNEELING]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_misc_glory_hole_sub_threesome_end]]></postSexDialogue>
+					<sexStartContent folderPath="txt/misc/glory_hole">TOILETS_GLORY_HOLE_THREESOME_SUB_START</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sub_threesome_end">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/misc/glory_hole', 'TOILETS_GLORY_HOLE_THREESOME_SUB_POST_SEX'))]
+			[#game.banishNPC(glory)]
+			[#game.banishNPC(glory2)]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[The strangers quickly exit their stalls and head out of the toilets, leaving you to do the same...]]></tooltip>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[[pc.Step] out of the stall.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

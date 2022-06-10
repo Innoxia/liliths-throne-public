@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
@@ -82,15 +83,15 @@ import com.lilithsthrone.world.places.PlaceType;
 public class Minotallys extends NPC {
 	
 	private Map<DayOfWeek, FlavourInformation> flavourInformationMap = Util.newHashMapOfValues(
-			new Value<>(DayOfWeek.MONDAY, new FlavourInformation(FluidFlavour.MILK, PresetColour.COVERING_BLACK, PresetColour.COVERING_BLACK, PresetColour.COVERING_BLACK, PresetColour.CLOTHING_BLACK)),
+			new Value<>(DayOfWeek.MONDAY, new FlavourInformation(FluidFlavour.VANILLA, PresetColour.COVERING_BLACK, PresetColour.COVERING_BLACK, PresetColour.COVERING_BLACK, PresetColour.CLOTHING_BLACK)),
 			new Value<>(DayOfWeek.TUESDAY, new FlavourInformation(FluidFlavour.STRAWBERRY, PresetColour.COVERING_PINK_LIGHT, PresetColour.COVERING_PINK, PresetColour.COVERING_PINK_DARK, PresetColour.CLOTHING_PINK_HOT)),
 			new Value<>(DayOfWeek.WEDNESDAY, new FlavourInformation(FluidFlavour.BLUEBERRY, PresetColour.COVERING_BLUE_LIGHT, PresetColour.COVERING_BLUE, PresetColour.COVERING_BLUE_DARK, PresetColour.CLOTHING_BLUE_LIGHT)),
 			new Value<>(DayOfWeek.THURSDAY, new FlavourInformation(FluidFlavour.CHOCOLATE, PresetColour.COVERING_BROWN_LIGHT, PresetColour.COVERING_BROWN, PresetColour.COVERING_BROWN_DARK, PresetColour.CLOTHING_BROWN_DARK)),
 			new Value<>(DayOfWeek.FRIDAY, new FlavourInformation(FluidFlavour.HONEY, PresetColour.COVERING_AMBER, PresetColour.COVERING_YELLOW, PresetColour.COVERING_AMBER, PresetColour.CLOTHING_YELLOW)),
 			new Value<>(DayOfWeek.SATURDAY, new FlavourInformation(FluidFlavour.MINT, PresetColour.COVERING_GREEN_LIGHT, PresetColour.COVERING_GREEN, PresetColour.COVERING_GREEN_DARK, PresetColour.CLOTHING_GREEN)),
-			new Value<>(DayOfWeek.SUNDAY, new FlavourInformation(FluidFlavour.GRAPE, PresetColour.COVERING_PURPLE_LIGHT, PresetColour.COVERING_PURPLE, PresetColour.COVERING_PURPLE_DARK, PresetColour.CLOTHING_PURPLE)));
+			new Value<>(DayOfWeek.SUNDAY, new FlavourInformation(FluidFlavour.CHERRY, PresetColour.COVERING_RED, PresetColour.COVERING_RED, PresetColour.COVERING_RED_DARK, PresetColour.COVERING_RED_DARK)));
 
-	private static FluidFlavour milkFlavour = FluidFlavour.MILK;
+	private static FluidFlavour milkFlavour = FluidFlavour.VANILLA;
 	private static Colour coveringColour = PresetColour.COVERING_BLACK;
 	private static Colour bodyHairColour = PresetColour.COVERING_BLACK;
 	private static Colour makeupColour = PresetColour.COVERING_BLACK;
@@ -136,7 +137,6 @@ public class Minotallys extends NPC {
 		super(isImported,
 				new NameTriplet("Minotallys"), "Lilithmartuilani",
 				"Transformed into a lilin by Lilith herself, Minotallys is unquestionably loyal to her mother."
-					+ " Despite her age, Minotallys is alarmingly naive, and is far too kind-hearted for her own good."
 					+ " She typically defers to her assistant, Arion, on all matters related to the everyday running of Elis.",
 				643, Month.MAY, 18,
 				250,
@@ -152,6 +152,13 @@ public class Minotallys extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1.5")) {
+			this.setPersonalityTraits(
+					PersonalityTrait.CONFIDENT,
+					PersonalityTrait.LEWD);
+			this.setDescription("Transformed into a lilin by Lilith herself, Minotallys is unquestionably loyal to her mother."
+					+ " Despite her status and power, she typically defers to the advice of her assistant, Arion, on all decisions.");
+		}
 	}
 
 	@Override
@@ -171,8 +178,8 @@ public class Minotallys extends NPC {
 
 		if(setPersona) {
 			this.setPersonalityTraits(
-					PersonalityTrait.KIND,
-					PersonalityTrait.NAIVE);
+					PersonalityTrait.CONFIDENT,
+					PersonalityTrait.LEWD);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -374,8 +381,9 @@ public class Minotallys extends NPC {
 		if(!Main.game.getCharactersPresent().contains(this)) {
 			if(Main.game.getHourOfDay()<7 || Main.game.getHourOfDay()>21) {
 				this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town_hall_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_hall_f1_minotallys_room"), true);
+			} else {
+				this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town_hall_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_hall_f1_minotallys_office"));
 			}
-			this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town_hall_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_hall_f1_minotallys_office"));
 		}
 		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.minotallys_tf_required) && !Main.game.getCharactersPresent().contains(this)) {
 			changeFlavour(Main.game.getDayOfWeek());

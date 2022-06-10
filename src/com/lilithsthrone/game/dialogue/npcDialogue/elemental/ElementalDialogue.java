@@ -366,7 +366,7 @@ public class ElementalDialogue {
 			}
 			
 			for(AbstractSubspecies sub : subspecies) {
-				String feralName = sub.getFeralName(getElemental());
+				String feralName = sub.getFeralName(getElemental().getBody());
 				if(getElemental().getPassiveForm()==sub) {
 					responses.add(new Response(Util.capitaliseSentence(feralName), "[el.Name] is already assuming the passive form of a small, feral "+feralName+"!", null));
 					

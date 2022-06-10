@@ -184,19 +184,23 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		// --- Priority 2 | Resisting and Cocooned ---
 		
 		// If the partner is resisting, they will not want to remove any clothing, and will instead simply use an available option. (Which will be a SUB_RESIST or neutral pace one.)
-		Value<ImmobilisationType, GameCharacter> value = Main.sex.getImmobilisationType(Main.sex.getCharacterPerformingAction());
-		if(value!=null) {
-			switch(value.getKey()) {
-				case COCOON:
-					return GenericActions.COCOONED;
-				case TAIL_CONSTRICTION:
-					return GenericActions.TAIL_CONSTRICTED;
-				case TENTACLE_RESTRICTION:
-					return GenericActions.TENTACLE_BOUND;
-				case WITCH_SEAL:
-					return GenericActions.WITCH_SEALED;
-			}
-		}
+//		Value<ImmobilisationType, GameCharacter> value = Main.sex.getImmobilisationType(Main.sex.getCharacterPerformingAction());
+//		if(value!=null) {
+//			switch(value.getKey()) {
+//				case ROPE:
+//					return GenericActions.ROPE_BOUND;
+//				case CHAINS:
+//					return GenericActions.CHAINS_BOUND;
+//				case COCOON:
+//					return GenericActions.COCOONED;
+//				case TAIL_CONSTRICTION:
+//					return GenericActions.TAIL_CONSTRICTED;
+//				case TENTACLE_RESTRICTION:
+//					return GenericActions.TENTACLE_BOUND;
+//				case WITCH_SEAL:
+//					return GenericActions.WITCH_SEALED;
+//			}
+//		}
 		if(Main.sex.getSexPace(partner)==SexPace.SUB_RESISTING) {
 			possibleActions.addAll(Main.sex.getAvailableSexActionsPartner());
 			

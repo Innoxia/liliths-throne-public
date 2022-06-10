@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>45</value> 
+		<determiner><![CDATA[a can of]]></determiner>
+		<name><![CDATA[Raptor energy drink]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Raptor energy drinks]]></namePlural>
+		<description><![CDATA[A brightly-coloured can of caffeinated, Raptor-branded energy drink. On the reverse label there's a graphic image of a wild-eyed eagle-girl pinning a timid-looking rabbit-boy down and riding his cock.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">raptor_energy_drink.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_PHYSIQUE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_PHYSIQUE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[#ATTRIBUTE_HEALTH_MAXIMUM.getFormattedValue(5)] to 'potion effects']]></line>
+			<line><![CDATA[[#ATTRIBUTE_CRITICAL_DAMAGE.getFormattedValue(5)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A powerful jolt of energy surges through [npc.namePos] body!
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_HEALTH_MAXIMUM, 5)]
+			[#npc.addPotionEffect(ATTRIBUTE_CRITICAL_DAMAGE, 5)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+			<tag>CAFFEINATED_025</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+			Popping open the cap, [npc.name] [npc.verb(bring)] the can of Raptor energy drink up to [npc.her] [npc.mouth]. A sweet, artificial smell rises from the opening, and as [npc.she] [npc.verb(tilt)] [npc.her] head back and [npc.verb(start)] drinking the fizzy liquid, [npc.she] quickly [npc.verb(find)] [npc.herself] feeling full of energy.
+		]]></selfUse>
+		<otherUse><![CDATA[
+			Popping open the cap, [npc.name] [npc.verb(bring)] the can of Raptor energy drink up to [npc2.namePos] waiting [npc2.lips]. A sweet, artificial smell rises from the opening, and as [npc2.name] [npc2.verb(tilt)] [npc2.her] head back and [npc2.verb(start)] drinking the fizzy liquid, [npc2.she] quickly [npc2.verb(find)] [npc2.herself] feeling full of energy.
+		]]></otherUse>
+	</useDescriptions>
+
+</item>

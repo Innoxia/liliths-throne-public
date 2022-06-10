@@ -16,7 +16,7 @@ public enum AffectionLevelBasic {
 	/** -30 to 30*/
 	NEUTRAL("neutral", -30, 30, PresetColour.AFFECTION_POSITIVE_ONE),
 
-	/** -30 to 100*/
+	/** 30 to 100*/
 	LIKE("likes", 30, 100, PresetColour.AFFECTION_POSITIVE_FIVE);
 	
 	

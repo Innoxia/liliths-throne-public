@@ -432,16 +432,22 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	 */
 	public String applyLegConfigurationTransformation(GameCharacter character, LegConfiguration legConfiguration, boolean applyEffects, boolean applyFullEffects) {
 		StringBuilder feralStringBuilder = new StringBuilder();
+
+		if(character.isFeral()) {
+			return "<p style='text-align:center;'>"
+						+ UtilText.parse(character, "[style.italicsDisabled(Nothing happens, for as [npc.sheIsFull] a feral [npc.race], [npc.name] cannot have [npc.her] leg configuration transformed!)]")
+					+ "</p>";
+		}
 		
 		if(character.getLegConfiguration()==legConfiguration && character.getLegType().equals(this)) {
 			return "<p>"
-						+ "[style.italicsDisabled(Nothing happens, as [npc.name] already [npc.has] [npc.a_legRace]'s lower body in the '"+legConfiguration.getName()+"' configuration...)]"
+						+ UtilText.parse(character, "[style.italicsDisabled(Nothing happens, as [npc.name] already [npc.has] [npc.a_legRace]'s lower body in the '"+legConfiguration.getName()+"' configuration...)]")
 					+ "</p>";
 		}
 		
 		if(!character.getLegType().isLegConfigurationAvailable(legConfiguration)) {
 			return "<p>"
-					+ "[style.italicsDisabled(Nothing happens, as [npc.namePos] current lower body cannot be transformed into the '"+legConfiguration.getName()+"' configuration...)]"
+					+ UtilText.parse(character, "[style.italicsDisabled(Nothing happens, as [npc.namePos] current lower body cannot be transformed into the '"+legConfiguration.getName()+"' configuration...)]")
 				+ "</p>";
 		}
 		
@@ -815,6 +821,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 						?AssType.DEMON_COMMON
 						:startingBodyType.getAssType()));
 			} else {
+				boolean virgin = body.getAss().getAnus().getOrificeAnus().isVirgin();
 				body.setAss(
 						new Ass(
 							(demon
@@ -828,6 +835,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 							startingBodyType.getAnusElasticity(),
 							startingBodyType.getAnusPlasticity(),
 							true));
+				body.getAss().getAnus().getOrificeAnus().setVirgin(virgin);
 			}
 		}
 		if(legConfiguration.getFeralParts().contains(BreastCrotch.class)) { // Crotch-boobs:

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<colour>
+	<metallic>false</metallic>
+	
+	<name><![CDATA[light brown]]></name>
+	
+	<colour>ebc566</colour>
+	<lightColour>ebc566</lightColour>
+	
+	<formattingNames>
+		<name><![CDATA[mouse]]></name>
+		<name><![CDATA[mouseMorph]]></name>
+	</formattingNames>
+	
+	<tags/>
+	
+</colour>

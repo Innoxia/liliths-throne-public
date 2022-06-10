@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 
@@ -27,6 +28,8 @@ import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
+import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -63,6 +66,8 @@ public abstract class AbstractSubspecies {
 	private boolean shortStature;
 	private boolean bipedalSubspecies;
 	private boolean aquatic;
+
+	private Map<PersonalityTrait, Float> personalityChanceOverrides;
 	
 	private String applySubspeciesChanges;
 	private String subspeciesWeighting;
@@ -281,6 +286,8 @@ public abstract class AbstractSubspecies {
 		
 		this.attributeItemId = attributeItemId;
 		this.transformativeItemId = transformativeItemId;
+
+		this.personalityChanceOverrides = new HashMap<>();
 		
 		this.anthroNames = new HashMap<>();
 		this.anthroNames.put(null, new String[] {
@@ -406,6 +413,17 @@ public abstract class AbstractSubspecies {
 				this.shortStature = Boolean.valueOf(coreElement.getMandatoryFirstOf("shortStature").getTextContent());
 				this.bipedalSubspecies = Boolean.valueOf(coreElement.getMandatoryFirstOf("bipedalSubspecies").getTextContent());
 				this.aquatic = Boolean.valueOf(coreElement.getMandatoryFirstOf("aquatic").getTextContent());
+				
+				personalityChanceOverrides = new HashMap<>();
+				if(coreElement.getOptionalFirstOf("personalityChances").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("personalityChances").getAllOf("entry")) {
+						try {
+							personalityChanceOverrides.put(PersonalityTrait.valueOf(e.getTextContent()), Float.valueOf(e.getAttribute("chance")));
+						} catch(Exception ex) {
+							System.err.println("AbstractSubspecies error: PersonalityTrait '"+e.getTextContent()+"' failed to load!");
+						}
+					}
+				}
 				
 				this.applySubspeciesChanges = coreElement.getMandatoryFirstOf("applySubspeciesChanges").getTextContent();
 				this.subspeciesWeighting = coreElement.getMandatoryFirstOf("subspeciesWeighting").getTextContent();
@@ -720,14 +738,35 @@ public abstract class AbstractSubspecies {
 		new AccessException("WARNING: AbstractSubspecies is calling toString()!").printStackTrace(System.err);
 		return Subspecies.getIdFromSubspecies(this);
 	}
+
+	/**
+	 * @return A map of personality traits and the percentage chance that a member of this race will spawn with them.
+	 */
+	public Map<PersonalityTrait, Float> getPersonalityTraitChances() {
+		Map<PersonalityTrait, Float> map = new HashMap<>();
+		
+		if(this.fromExternalFile && personalityChanceOverrides!=null) {
+			for(Entry<PersonalityTrait, Float> entry : personalityChanceOverrides.entrySet()) {
+				map.put(entry.getKey(), entry.getValue());
+			}
+		}
+		
+		return map;
+	}
 	
 	/**
 	 * Changes that should be applied to characters of this species upon generation. Called <b>after</b> this Subspecies' Race.applyRaceChanges().
 	 */
 	public void applySpeciesChanges(Body body) {
-		if(this.isFromExternalFile() && Main.game.isStarted()) {
-			UtilText.setBodyForParsing("targetedBody", body);
-			UtilText.parse(applySubspeciesChanges);
+		// Removed check for Main.game.isStarted() in v0.4.2.5 as it was causing NPCs to spawn in as incorrect subspecies
+		// Tested from new game and everything worked fine, but also added try/catch block to make sure that any unexpected errors don't cause the game to lock up
+		if(this.isFromExternalFile()) {
+			try {
+				UtilText.setBodyForParsing("targetedBody", body);
+				UtilText.parse(applySubspeciesChanges);
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 	}
 
@@ -1056,8 +1095,8 @@ public abstract class AbstractSubspecies {
 		return getFeralName(null).charAt(getFeralName(null).length()-1)=='t'?"-taur":"taur";
 	}
 	
-	protected String applyNonBipedNameChange(GameCharacter character, String baseName, boolean applyFeminineForm, boolean plural) {
-		switch(character.getLegConfiguration()) {
+	protected String applyNonBipedNameChange(Body body, String baseName, boolean applyFeminineForm, boolean plural) {
+		switch(body.getLegConfiguration()) {
 			case ARACHNID:
 				return baseName+"-arachne"+(plural?"s":"");
 			case AVIAN:
@@ -1087,19 +1126,20 @@ public abstract class AbstractSubspecies {
  	
 	/**
 	 * @param   The character whose subspecies's name is to be returned. Can pass in null.
+	 * @param body
 	 * @return  The singular name of this character's subspecies.
 	 */
-	public String getName(GameCharacter character) {
-		if(character!=null) {
-			if(this.isFeralConfigurationAvailable() && character.isFeral()) {
+	public String getName(Body body) {
+		if(body !=null) {
+			if(this.isFeralConfigurationAvailable() && body.isFeral()) {
 				return getFeralAttributes().getFeralName();
 			}
-			LegConfiguration conf = character.getLegConfiguration();
+			LegConfiguration conf = body.getLegConfiguration();
 			if(getAnthroNamesMap().containsKey(conf)) {
 				return getAnthroNamesMap().get(conf)[0];
 			}
-			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, false);
+			if(body.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+				return applyNonBipedNameChange(body, getNonBipedRaceName(body), body.isFeminine(), false);
 			}
 		}
 		return getAnthroNamesMap().get(null)[0];
@@ -1107,19 +1147,20 @@ public abstract class AbstractSubspecies {
 
 	/**
 	 * @param   The character whose subspecies's pluralised name is to be returned. Can pass in null.
+	 * @param body
 	 * @return  The plural name of this character's subspecies.
 	 */
-	public String getNamePlural(GameCharacter character) {
-		if(character!=null) {
-			if(this.isFeralConfigurationAvailable() && character.isFeral()) {
+	public String getNamePlural(Body body) {
+		if(body !=null) {
+			if(this.isFeralConfigurationAvailable() && body.isFeral()) {
 				return getFeralAttributes().getFeralNamePlural();
 			}
-			LegConfiguration conf = character.getLegConfiguration();
+			LegConfiguration conf = body.getLegConfiguration();
 			if(getAnthroNamesMap().containsKey(conf)) {
 				return getAnthroNamesMap().get(conf)[1];
 			}
-			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, true);
+			if(body.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+				return applyNonBipedNameChange(body, getNonBipedRaceName(body), body.isFeminine(), true);
 			}
 		}
 		return getAnthroNamesMap().get(null)[1];
@@ -1127,19 +1168,20 @@ public abstract class AbstractSubspecies {
 	
 	/**
 	 * @param   The character whose male subspecies name is to be returned. Can pass in null.
+	 * @param body
 	 * @return  The singular male name of this character's subspecies.
 	 */
-	public String getSingularMaleName(GameCharacter character) {
-		if(character!=null) {
-			if(this.isFeralConfigurationAvailable() && character.isFeral()) {
+	public String getSingularMaleName(Body body) {
+		if(body !=null) {
+			if(this.isFeralConfigurationAvailable() && body.isFeral()) {
 				return getFeralAttributes().getFeralSingularMaleName();
 			}
-			LegConfiguration conf = character.getLegConfiguration();
+			LegConfiguration conf = body.getLegConfiguration();
 			if(getAnthroNamesMap().containsKey(conf)) {
 				return getAnthroNamesMap().get(conf)[2];
 			}
-			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, false);
+			if(body.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+				return applyNonBipedNameChange(body, getNonBipedRaceName(body), false, false);
 			}
 		}
 		return getAnthroNamesMap().get(null)[2];
@@ -1147,19 +1189,20 @@ public abstract class AbstractSubspecies {
 
 	/**
 	 * @param   The character whose female subspecies name is to be returned. Can pass in null.
+	 * @param body
 	 * @return  The singular female name of this character's subspecies.
 	 */
-	public String getSingularFemaleName(GameCharacter character) {
-		if(character!=null) {
-			if(this.isFeralConfigurationAvailable() && character.isFeral()) {
+	public String getSingularFemaleName(Body body) {
+		if(body !=null) {
+			if(this.isFeralConfigurationAvailable() && body.isFeral()) {
 				return getFeralAttributes().getFeralSingularFemaleName();
 			}
-			LegConfiguration conf = character.getLegConfiguration();
+			LegConfiguration conf = body.getLegConfiguration();
 			if(getAnthroNamesMap().containsKey(conf)) {
 				return getAnthroNamesMap().get(conf)[3];
 			}
-			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-				return applyNonBipedNameChange(character, getNonBipedRaceName(character), true, false);
+			if(body.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+				return applyNonBipedNameChange(body, getNonBipedRaceName(body), true, false);
 			}
 		}
 		return getAnthroNamesMap().get(null)[3];
@@ -1167,19 +1210,20 @@ public abstract class AbstractSubspecies {
 
 	/**
 	 * @param   The character whose male subspecies's pluralised name is to be returned. Can pass in null.
+	 * @param body
 	 * @return  The plural male name of this character's subspecies.
 	 */
-	public String getPluralMaleName(GameCharacter character) {
-		if(character!=null) {
-			if(this.isFeralConfigurationAvailable() && character.isFeral()) {
+	public String getPluralMaleName(Body body) {
+		if(body !=null) {
+			if(this.isFeralConfigurationAvailable() && body.isFeral()) {
 				return getFeralAttributes().getFeralPluralMaleName();
 			}
-			LegConfiguration conf = character.getLegConfiguration();
+			LegConfiguration conf = body.getLegConfiguration();
 			if(getAnthroNamesMap().containsKey(conf)) {
 				return getAnthroNamesMap().get(conf)[4];
 			}
-			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, true);
+			if(body.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+				return applyNonBipedNameChange(body, getNonBipedRaceName(body), false, true);
 			}
 		}
 		return getAnthroNamesMap().get(null)[4];
@@ -1187,36 +1231,37 @@ public abstract class AbstractSubspecies {
 
 	/**
 	 * @param   The character whose female subspecies's pluralised name is to be returned. Can pass in null.
+	 * @param body
 	 * @return  The plural female name of this character's subspecies.
 	 */
-	public String getPluralFemaleName(GameCharacter character) {
-		if(character!=null) {
-			if(this.isFeralConfigurationAvailable() && character.isFeral()) {
+	public String getPluralFemaleName(Body body) {
+		if(body !=null) {
+			if(this.isFeralConfigurationAvailable() && body.isFeral()) {
 				return getFeralAttributes().getFeralPluralFemaleName();
 			}
-			LegConfiguration conf = character.getLegConfiguration();
+			LegConfiguration conf = body.getLegConfiguration();
 			if(getAnthroNamesMap().containsKey(conf)) {
 				return getAnthroNamesMap().get(conf)[5];
 			}
-			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-				return applyNonBipedNameChange(character, getNonBipedRaceName(character), true, true);
+			if(body.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+				return applyNonBipedNameChange(body, getNonBipedRaceName(body), true, true);
 			}
 		}
 		return getAnthroNamesMap().get(null)[5];
 	}
 
-	public String getNonBipedRaceName(GameCharacter character) {
-		return getFeralName(character);
+	public String getNonBipedRaceName(Body body) {
+		return getFeralName(body);
 	}
 	
-	public String getFeralName(GameCharacter character) {
+	public String getFeralName(Body body) {
 		if(isFeralConfigurationAvailable()) {
 			return getFeralAttributes().getFeralName();
 		}
 		return getAnthroNamesMap().get(null)[0];
 	}
 	
-	public String getFeralNamePlural(GameCharacter character) {
+	public String getFeralNamePlural(Body body) {
 		if(isFeralConfigurationAvailable()) {
 			return getFeralAttributes().getFeralNamePlural();
 		}
@@ -1291,19 +1336,45 @@ public abstract class AbstractSubspecies {
 	public String getBookNamePlural() {
 		return bookNamePlural;
 	}
-
+	
+	private File getXMLBookFile() {
+		return new File(bookIdFolderPath+System.getProperty("file.separator")+"bookEntries.xml");
+	}
+	
+	public String getBookAuthor() {
+		File bookFile = new File("res/txt/characters/raceInfo.xml");
+		if(this.isFromExternalFile()) {
+			bookFile = getXMLBookFile();
+		}
+		if(bookFile.exists()) {
+			try {
+				Document doc = Main.getDocBuilder().parse(bookFile);
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				Element coreElement = Element.getDocumentRootElement(bookFile); // Loads the document and returns the root element
+				
+				for(Element element : coreElement.getAllOf("htmlContent")) {
+					if(!element.getAttribute("author").isEmpty()) {
+						return element.getAttribute("author");
+					}
+				}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return "";
+	}
+	
 	public String getBasicDescription(GameCharacter character) {
-		if(this.isFromExternalFile() &&
-		   new File(bookIdFolderPath+System.getProperty("file.separator")+"bookEntries.xml").exists()) {
-				return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getBasicDescriptionId(), new ArrayList<>());
+		if(this.isFromExternalFile() && getXMLBookFile().exists()) {
+			return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getBasicDescriptionId(), new ArrayList<>());
 		}
 		return UtilText.parseFromXMLFile("characters/raceInfo", getBasicDescriptionId());
 	}
 
 	public String getAdvancedDescription(GameCharacter character) {
-		if(this.isFromExternalFile() &&
-		   new File(bookIdFolderPath+System.getProperty("file.separator")+"bookEntries.xml").exists()) {
-				return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getAdvancedDescriptionId(), new ArrayList<>());
+		if(this.isFromExternalFile() && getXMLBookFile().exists()) {
+			return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getAdvancedDescriptionId(), new ArrayList<>());
 		}
 		return UtilText.parseFromXMLFile("characters/raceInfo", getAdvancedDescriptionId());
 	}
@@ -1376,7 +1447,7 @@ public abstract class AbstractSubspecies {
 		
 		if(character!=null) {
 			//character.isTorsoFeral() 
-			if(character.isFeral() || (character.isElemental() && !((Elemental)character).getSummoner().isElementalActive())) {
+			if(character.isFeral() || (character.isElemental() && ((Elemental)character).getSummoner()!=null && !((Elemental)character).getSummoner().isElementalActive())) {
 				try {
 					String feralBackground = "";
 					InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundFeral.svg");
@@ -1550,7 +1621,23 @@ public abstract class AbstractSubspecies {
 		}
 		return bookSVGString;
 	}
-
+	
+	public String getSVGStringFromBody(Body body) {
+		if(SVGString==null) {
+			initSVGStrings();
+		}
+		if(body.getLoadedSubspecies().getRace()==Race.ELEMENTAL) {
+			GameCharacter character = new Elemental(false);
+			character.setBody(body, true);
+			return getSVGString(character);
+			
+		} else {
+			GameCharacter character = new GenericAndrogynousNPC();
+			character.setBody(body, true);
+			return getSVGString(character);
+		}
+	}
+	
 	public String getSVGString(GameCharacter character) {
 		if(SVGString==null) {
 			initSVGStrings();
@@ -1565,6 +1652,22 @@ public abstract class AbstractSubspecies {
 		return SVGStringNoBackground;
 	}
 
+	public String getSVGStringDesaturatedFromBody(Body body) {
+		if(SVGString==null) {
+			initSVGStrings();
+		}
+		if(body.getLoadedSubspecies().getRace()==Race.ELEMENTAL) {
+			GameCharacter character = new Elemental(false);
+			character.setBody(body, true);
+			return getSVGStringDesaturated(character);
+			
+		} else {
+			GameCharacter character = new GenericAndrogynousNPC();
+			character.setBody(body, true);
+			return getSVGStringDesaturated(character);
+		}
+	}
+	
 	public String getSVGStringDesaturated(GameCharacter character) {
 		if(SVGString==null) {
 			initSVGStrings();
@@ -1629,15 +1732,16 @@ public abstract class AbstractSubspecies {
 	 * <b>[3]:</b> Singular female demon name<br/>
 	 * <b>[4]:</b> Plural male demon name<br/>
 	 * <b>[5]:</b> Plural female demon name<br/>
+	 * @param body
 	 */
-	public String[] getHalfDemonName(GameCharacter character) {
+	public String[] getHalfDemonName(Body body) {
 		String[] names = null;
 		
 		if(this.getRace()==Race.DEMON
 				|| this.getRace()==Race.ELEMENTAL
 				|| this.getRace()==Race.HUMAN) {
 			
-			String[] demonNames = demonLegConfigurationNames.get(character==null?LegConfiguration.BIPEDAL:character.getLegConfiguration());
+			String[] demonNames = demonLegConfigurationNames.get(body ==null?LegConfiguration.BIPEDAL: body.getLegConfiguration());
 			
 			names = new String[] {
 				"half-"+demonNames[0],
@@ -1649,13 +1753,13 @@ public abstract class AbstractSubspecies {
 		}
 		
 		if(names==null) {
-			if(character!=null && halfDemonNames.containsKey(character.getLegConfiguration())) {
-				return halfDemonNames.get(character.getLegConfiguration());
+			if(body !=null && halfDemonNames.containsKey(body.getLegConfiguration())) {
+				return halfDemonNames.get(body.getLegConfiguration());
 				
 			} else if(!halfDemonNames.isEmpty()) {
 				return halfDemonNames.get(null);
 				
-			} else if(character==null) {
+			} else if(body ==null) {
 				names = new String[] {
 						"demonic-"+getAnthroNamesMap().get(null)[0],
 						"demonic-"+getAnthroNamesMap().get(null)[1],
@@ -1666,12 +1770,12 @@ public abstract class AbstractSubspecies {
 				
 			} else {
 				names = new String[] {
-						"demonic-"+this.getName(character),
-						"demonic-"+this.getNamePlural(character),
-						"demonic-"+this.getSingularMaleName(character),
-						"demonic-"+this.getSingularFemaleName(character),
-						"demonic-"+this.getPluralMaleName(character),
-						"demonic-"+this.getPluralFemaleName(character)};
+						"demonic-"+this.getName(body),
+						"demonic-"+this.getNamePlural(body),
+						"demonic-"+this.getSingularMaleName(body),
+						"demonic-"+this.getSingularFemaleName(body),
+						"demonic-"+this.getPluralMaleName(body),
+						"demonic-"+this.getPluralFemaleName(body)};
 			}
 		}
 		

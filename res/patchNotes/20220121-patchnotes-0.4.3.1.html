@@ -1,0 +1,49 @@
+<h2>v0.4.3.1</h2>
+
+<h3>AceXP's content contributions:</h3>
+<ul>
+	<li>Added a scene for watching Lilaya and Rose have sex in Lilaya's lab.</li>
+	<li>Added repeatable sex content for Angel, which is unlocked after visiting her after purchasing a prostitution license.</li>
+</ul>
+
+<h3>Nnxx's content contribution:</h3>
+<ul>
+	<li>Added a bakery in the north-west of Dominion, called 'The Creamy Bakey'.</li>
+	<li>Added a new horse-girl character, Callie, who runs this shop, and added some sex content for her.</li>
+	<li>Added three new doughnut food items which can be purchased from Callie.</li>
+</ul>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Fixed issue where newly generated offspring would be of a random subspecies if they were meant to be a half-demon. (by AceXP)</li>
+	<li>Fixed issue where sometimes starting lust would be zero for newly spawned encounters instead of at their resting lust level. (by AceXP)</li>
+	<li>Fixed bug where if a character was immobilised then no orgasm options would be available for them to choose from, which led to a blank action grid being displayed to the immobilised player when a character reached orgasm. (PR#1638 by miome)</li>
+	<li>Added support for instantiating all NPC classes via the addNPC(String npcGenerationId, String parserTarget) method by using predefined names (like FieldsBandit) or qualified names (like dominion.DominionAlleywayAttacker). Also updated the default (no parameter) NPC constructors to make use of gender preferences. (PR#1615 by AceXP)</li>
+	<li>Fixed issue where offspring subspecies names weren't being generated correctly, fixed issue where offspring between demons and non-demons were not being generated as the correct subspecies, and added previously unused dialogue for all calendar months in the player's room. (PR#1634 by AceXP)</li>
+	<li>Fixed issue where a player wearing the correct patrol uniform would auto-fail the uniform check during Enforcer alleyway encounters. (PR#1635 by DSG)</li>
+	<li><b>Maxis010's bugfix PR#1630:</b></li>
+	<li>Default penis and vagina values should now always respect the default values drawn from the character's race upon generation.</li>
+	<li>Event log entries are now capped at 50 to address a potential memory leak issue.</li>
+	<li>Stopped gear resealing onto the character upon loading if it had already been unsealed.</li>
+	<li>Multiple dialog & tooltip fixes (with contribution from Phlarx).</li>
+	<li>Moved QUEST rarity clothing checks to banishNPC method as previously calling it in the unequipClothingIntoVoid method was causing a duplication bug.</li>
+	<li>Changed all removeNPC method calls to banishNPC method calls so that all NPC removal checks are applied.</li>
+	<li>If the player's offspring are being incubated in an NPC which is removed, then the offspring are no longer deleted.</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Filled in all placeholder dialogue in Penelope's spa, 'Woolly Heaven'.</li>
+</ul>
+
+<h3>Clothing:</h3>
+<ul>
+	<li>The succubus/incubus attackers in Dominion's alleyways now draw on your gender preferences to generate their gender, instead of always being either male or female.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Parsing fixes.</li>
+	<li>Corrected imp lore description incorrectly stating that imps could not self-transform.</li>
+	<li>Fixed issue where externally-defined sex managers would throw errors if a preference returned an empty String.</li>
+</ul>

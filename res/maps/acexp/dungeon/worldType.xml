@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>DOMINION</worldRegion>
+	<name><![CDATA[Lilaya's Dungeon]]></name>
+	<colour>BASE_GREY</colour>
+	<sexBlockedReason/>
+	<furniturePresent>false</furniturePresent>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>true</loiteringEnabled>
+	<flightEnabled>false</flightEnabled>
+	<visibleFromStart>false</visibleFromStart>
+	<fullyRevealedFromStart>false</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_DOMINION</globalMapLocation>
+	<standardPlace>acexp_dungeon_corridor</standardPlace>
+	<entryFromGlobalMapLocation>acexp_dungeon_stairs</entryFromGlobalMapLocation>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		<place colour="#585858">acexp_dungeon_corridor</place>
+		<place colour="#ffca18">acexp_dungeon_room</place>
+		<place colour="#ff7f27">acexp_dungeon_stairs</place>
+		<place colour="#00ff00">acexp_dungeon_stairs_garden</place>
+		<place colour="#b83dba">LILAYA_HOME_DUNGEON_CELL</place>
+	</places>
+</worldType>

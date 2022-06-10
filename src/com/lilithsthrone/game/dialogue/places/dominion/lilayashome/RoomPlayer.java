@@ -236,7 +236,7 @@ public class RoomPlayer {
 						List<NPC> charactersPresent = LilayaHomeGeneric.getSlavesAndOccupantsPresent();
 						slavesWashing = charactersPresent.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_HELP_WASH)).collect(Collectors.toList());
 						for(GameCharacter npc : slavesWashing) {
-							npc.applyWash(true, true, null, 240+30);
+							npc.applyWash(true, true, StatusEffect.CLEANED_SHOWER, 120+30);
 						}
 
 						Main.game.getTextEndStringBuilder().append("<p style='text-align:center'><i>You leave your clothes outside of your bathroom so that they can be cleaned while you wash yourself...</i></p>");
@@ -812,7 +812,7 @@ public class RoomPlayer {
 	
 	/** Calendar's associated animal-morphs are based on the twelve animals of the Chinese zodiac, with the Monkey being replaced with a demon, the Rooster with a harpy, and the Snake with a lamia.
 	 *  The ordering of the demon and harpy have also been switched, so that October has demons.<br/>
-	 *  There is also a 20% chance of giving a different, random animal-morph for each month.<br/>
+	 *  There is also a 15% chance of giving a different, random animal-morph for each month.<br/>
 	 * Animals are:<br/>
 	 * Rat, Cow, Tiger, Rabbit, Dragon, Lamia (Snake), Horse, Sheep/Goat, Harpy (Rooster), Demon (Monkey), Dog, Pig
 	 */
@@ -889,7 +889,7 @@ public class RoomPlayer {
 					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
 						sb.append("an impressively-endowed "+Subspecies.HORSE_MORPH.getSingularMaleName(null)+", who's flexing his muscles as he presents his fully-erect flared cock to you.");
 					} else {
-						sb.append("a fit "+Subspecies.HORSE_MORPH.getPluralFemaleName(null)+", who's leaning against a fence, flicking her tail to one side in order to present her animalistic-pussy to you.");
+						sb.append("a fit "+Subspecies.HORSE_MORPH.getSingularFemaleName(null)+", who's leaning against a fence, flicking her tail to one side in order to present her animalistic-pussy to you.");
 					}
 					break;
 				case AUGUST:
@@ -920,7 +920,7 @@ public class RoomPlayer {
 					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
 						sb.append("an energetic-looking "+Subspecies.DOG_MORPH.getSingularMaleName(null)+", who's smiling at you as he strokes his erect, knotted dog-cock.");
 					} else {
-						sb.append("an excited-looking "+Subspecies.DOG_MORPH.getPluralFemaleName(null)+", who's down on all fours, raising her hips in order to present you with her wet pussy.");
+						sb.append("an excited-looking "+Subspecies.DOG_MORPH.getSingularFemaleName(null)+", who's down on all fours, raising her hips in order to present you with her wet pussy.");
 					}
 					break;
 				case DECEMBER:
@@ -2164,27 +2164,27 @@ public class RoomPlayer {
 			if (index == 0) {
 				return new Response("Back", "Step away from the calendar.", ROOM);
 			} else if(index==1) {
-				return new Response("January", "Read the information on January's page. [style.italicsMinorBad(There are currently no special events during January.)]", null);
+				return new Response("January", "Read the information on January's page. [style.italicsMinorBad(There are currently no special events during January.)]", AUNT_HOME_PLAYERS_ROOM_CALENDAR_JANUARY);
 			} else if(index==2) {
-				return new Response("February", "Read the information on February page. [style.italicsMinorBad(There are currently no special events during February.)]", null);
+				return new Response("February", "Read the information on February page. [style.italicsMinorBad(There are currently no special events during February.)]", AUNT_HOME_PLAYERS_ROOM_CALENDAR_FEBRUARY);
 			} else if(index==3) {
-				return new Response("March", "Read the information on March's page. [style.italicsMinorBad(There are currently no special events during March.)]", null);
+				return new Response("March", "Read the information on March's page. [style.italicsMinorBad(There are currently no special events during March.)]", AUNT_HOME_PLAYERS_ROOM_CALENDAR_MARCH);
 			} else if(index==4) {
-				return new Response("April", "Read the information on April's page. [style.italicsMinorBad(There are currently no special events during April.)]", null);
+				return new Response("April", "Read the information on April's page. [style.italicsMinorBad(There are currently no special events during April.)]", AUNT_HOME_PLAYERS_ROOM_CALENDAR_APRIL);
 			} else if(index==5) {
 				return new Response("May", "Read the information on May's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY);
 			} else if(index==6) {
 				return new Response("June", "Read the information on June's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_JUNE);
 			} else if(index==7) {
-				return new Response("July", "Read the information on July's page. [style.italicsMinorBad(There are currently no special events during July.)]", null);
+				return new Response("July", "Read the information on July's page. [style.italicsMinorBad(There are currently no special events during July.)]", AUNT_HOME_PLAYERS_ROOM_CALENDAR_JULY);
 			} else if(index==8) {
-				return new Response("August", "Read the information on August's page. [style.italicsMinorBad(There are currently no special events during August.)]", null);
+				return new Response("August", "Read the information on August's page. [style.italicsMinorBad(There are currently no special events during August.)]", AUNT_HOME_PLAYERS_ROOM_CALENDAR_AUGUST);
 			} else if(index==9) {
-				return new Response("September", "Read the information on September's page. [style.italicsMinorBad(There are currently no special events during September.)]", null);
+				return new Response("September", "Read the information on September's page. [style.italicsMinorBad(There are currently no special events during September.)]", AUNT_HOME_PLAYERS_ROOM_CALENDAR_SEPTEMBER);
 			} else if(index==10) {
 				return new Response("October", "Read the information on October's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER);
 			} else if(index==11) {
-				return new Response("November", "Read the information on November's page. [style.italicsMinorBad(There are currently no special events during November.)]", null);
+				return new Response("November", "Read the information on November's page. [style.italicsMinorBad(There are currently no special events during November.)]", AUNT_HOME_PLAYERS_ROOM_CALENDAR_NOVEMBER);
 			} else if(index==12) {
 				return new Response("December", "Read the information on December's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER);
 			} else {
@@ -2192,8 +2192,99 @@ public class RoomPlayer {
 			}
 		}
 	};
-	
-	
+
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_JANUARY = new DialogueNode("Calendar", "", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.JANUARY));
+
+			UtilText.nodeContentSB.append(
+					"<h6 style='text-align:center;'>"
+							+ "[style.italicsMinorBad(There are currently no special events during January.)]");
+
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("January", "You are already reading the calendar's page concerning the month of January.", null);
+			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_FEBRUARY = new DialogueNode("Calendar", "", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.FEBRUARY));
+
+			UtilText.nodeContentSB.append(
+					"<h6 style='text-align:center;'>"
+							+ "[style.italicsMinorBad(There are currently no special events during February.)]");
+
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==2) {
+				return new Response("February", "You are already reading the calendar's page concerning the month of February.", null);
+			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_MARCH = new DialogueNode("Calendar", "", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.MARCH));
+
+			UtilText.nodeContentSB.append(
+					"<h6 style='text-align:center;'>"
+							+ "[style.italicsMinorBad(There are currently no special events during March.)]");
+
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==3) {
+				return new Response("March", "You are already reading the calendar's page concerning the month of March.", null);
+			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_APRIL = new DialogueNode("Calendar", "", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.APRIL));
+
+			UtilText.nodeContentSB.append(
+					"<h6 style='text-align:center;'>"
+							+ "[style.italicsMinorBad(There are currently no special events during April.)]");
+
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==4) {
+				return new Response("April", "You are already reading the calendar's page concerning the month of April.", null);
+			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+		}
+	};
+
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY = new DialogueNode("Calendar", "", true) {
 
 		@Override
@@ -2229,7 +2320,7 @@ public class RoomPlayer {
 			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
 		}
 	};
-	
+
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_JUNE = new DialogueNode("Calendar", "", true) {
 
 		@Override
@@ -2265,7 +2356,76 @@ public class RoomPlayer {
 			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
 		}
 	};
-	
+
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_JULY = new DialogueNode("Calendar", "", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.JULY));
+
+			UtilText.nodeContentSB.append(
+					"<h6 style='text-align:center;'>"
+							+ "[style.italicsMinorBad(There are currently no special events during July.)]");
+
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==7) {
+				return new Response("July", "You are already reading the calendar's page concerning the month of July.", null);
+			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_AUGUST = new DialogueNode("Calendar", "", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.AUGUST));
+
+			UtilText.nodeContentSB.append(
+					"<h6 style='text-align:center;'>"
+							+ "[style.italicsMinorBad(There are currently no special events during August.)]");
+
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==8) {
+				return new Response("August", "You are already reading the calendar's page concerning the month of August.", null);
+			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_SEPTEMBER = new DialogueNode("Calendar", "", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.SEPTEMBER));
+
+			UtilText.nodeContentSB.append(
+					"<h6 style='text-align:center;'>"
+							+ "[style.italicsMinorBad(There are currently no special events during September.)]");
+
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==9) {
+				return new Response("September", "You are already reading the calendar's page concerning the month of September.", null);
+			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+		}
+	};
+
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER = new DialogueNode("Calendar", "", true) {
 
 		@Override
@@ -2307,7 +2467,30 @@ public class RoomPlayer {
 			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
 		}
 	};
-	
+
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_NOVEMBER = new DialogueNode("Calendar", "", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.NOVEMBER));
+
+			UtilText.nodeContentSB.append(
+					"<h6 style='text-align:center;'>"
+							+ "[style.italicsMinorBad(There are currently no special events during November.)]");
+
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==11) {
+				return new Response("November", "You are already reading the calendar's page concerning the month of November.", null);
+			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+		}
+	};
+
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER = new DialogueNode("Calendar", "", true) {
 
 		@Override

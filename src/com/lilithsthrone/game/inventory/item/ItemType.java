@@ -1734,7 +1734,7 @@ public class ItemType {
 			false,
 			"arcane offspring map",
 			"arcane offspring maps",
-			"An arcane-enchanted map, obtained from Dominion's city hall, which is able to track the rough location of any of your offspring.",
+			"An arcane-enchanted map, obtained from Dominion's city hall, which is able to track the rough location of any of your nearby offspring.",
 			"offspring_map",
 			PresetColour.BASE_BROWN,
 			null,
@@ -1760,12 +1760,13 @@ public class ItemType {
 					&& (target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_ALLEY
 							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_CANAL
 							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.HARPY_NEST_WALKWAYS
-							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.SUBMISSION_TUNNELS)
+							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.SUBMISSION_TUNNELS
+							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.getEncounterFromId("innoxia_elis_alleyway"))
 					&& Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size()<=1;
 		}
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You need to be in one of Dominion's alleyway or canal tiles, a Harpy Nest walkway tile, or a Submission tunnel tile, and with no more than one character already present in that tile, in order to be able to use the map!";
+			return "In order to be able to use the map, you need to be in a vacant tile of one of the following types: Dominion alleyways; Dominion canals; Harpy Nest walkways; Submission tunnels; Elis alleyways.";
 		}
 		@Override
 		public String getUseTooltipDescription(GameCharacter user, GameCharacter target) {
@@ -2670,19 +2671,19 @@ public class ItemType {
 					String raceKnowledgeGained = "";
 					if(target.isPlayer()) {
 						if(s == Spell.ELEMENTAL_EARTH) {
-							raceKnowledgeGained = getBookEffect(target, Subspecies.ELEMENTAL_EARTH, true);
+							raceKnowledgeGained = getBookEffect(target, Subspecies.ELEMENTAL_EARTH, null, true);
 							
 						} else if(s == Spell.ELEMENTAL_WATER) {
-							raceKnowledgeGained = getBookEffect(target, Subspecies.ELEMENTAL_WATER, true);
+							raceKnowledgeGained = getBookEffect(target, Subspecies.ELEMENTAL_WATER, null, true);
 							
 						} else if(s == Spell.ELEMENTAL_AIR) {
-							raceKnowledgeGained = getBookEffect(target, Subspecies.ELEMENTAL_AIR, true);
+							raceKnowledgeGained = getBookEffect(target, Subspecies.ELEMENTAL_AIR, null, true);
 							
 						} else if(s == Spell.ELEMENTAL_FIRE) {
-							raceKnowledgeGained = getBookEffect(target, Subspecies.ELEMENTAL_FIRE, true);
+							raceKnowledgeGained = getBookEffect(target, Subspecies.ELEMENTAL_FIRE, null, true);
 							
 						} else if(s == Spell.ELEMENTAL_ARCANE) {
-							raceKnowledgeGained = getBookEffect(target, Subspecies.ELEMENTAL_ARCANE, true);
+							raceKnowledgeGained = getBookEffect(target, Subspecies.ELEMENTAL_ARCANE, null, true);
 						}
 					}
 					
@@ -2959,18 +2960,6 @@ public class ItemType {
 			subspeciesLoreMap.get(sub.getAdvancedDescriptionId()).add(sub);
 		}
 		
-//		for(Entry<String, List<AbstractSubspecies>> entry : subspeciesLoreMap.entrySet()) {
-//			AbstractSubspecies mainSubspecies = entry.getValue().contains(AbstractSubspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace()))
-//											?AbstractSubspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace())
-//											:entry.getValue().get(0);
-//			
-//			AbstractItemEffectType bookType = generateBookEffect(mainSubspecies);
-//			ItemEffectType.allEffectTypes.add(bookType);
-//			String id = "BOOK_READ_"+mainSubspecies.toString();
-//			ItemEffectType.itemEffectTypeToIdMap.put(bookType, id);
-//			ItemEffectType.idToItemEffectTypeMap.put(id, bookType);
-//		}
-		
 		for(Entry<String, List<AbstractSubspecies>> entry : subspeciesLoreMap.entrySet()) {
 			AbstractSubspecies mainSubspecies = entry.getValue().contains(AbstractSubspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace()))
 											?AbstractSubspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace())
@@ -2990,6 +2979,11 @@ public class ItemType {
 							null,
 							Util.newArrayListOfValues(ItemTag.BOOK)) {
 				@Override
+				public String getDescription() {
+					return super.getDescription()
+							+(mainSubspecies.getBookAuthor().isEmpty()?"":" The book's author is identified as '"+mainSubspecies.getBookAuthor()+"'.");
+				}
+				@Override
 				public List<ItemEffect> getEffects() {
 					AbstractSubspecies mainSubspecies = entry.getValue().contains(AbstractSubspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace()))
 							?AbstractSubspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace())
@@ -2997,7 +2991,7 @@ public class ItemType {
 					String id = "BOOK_READ_"+Subspecies.getIdFromSubspecies(mainSubspecies);
 					
 					if(!ItemEffectType.idToItemEffectTypeMap.containsKey(id)) {
-						AbstractItemEffectType bookType = generateBookEffect(mainSubspecies);
+						AbstractItemEffectType bookType = generateBookEffect(mainSubspecies, entry.getValue());
 						ItemEffectType.allEffectTypes.add(bookType);
 						ItemEffectType.itemEffectTypeToIdMap.put(bookType, id);
 						ItemEffectType.idToItemEffectTypeMap.put(id, bookType);
@@ -3172,14 +3166,14 @@ public class ItemType {
 		}
 	}
 	
-	private static AbstractItemEffectType generateBookEffect(AbstractSubspecies subspecies) {
+	private static AbstractItemEffectType generateBookEffect(AbstractSubspecies mainSubspecies, List<AbstractSubspecies> additionalUnlockSubspecies) {
 		return new AbstractItemEffectType(Util.newArrayListOfValues(
-				"Adds "+subspecies.getName(null)+" encyclopedia entry.",
-				"[style.boldExcellent(+10)] <b style='color:"+subspecies.getColour(null).toWebHexString()+";'>"+subspecies.getDamageMultiplier().getName()+"</b>"),
-				subspecies.getColour(null)) {
+				"Adds "+mainSubspecies.getName(null)+" encyclopedia entry.",
+				"[style.boldExcellent(+10)] <b style='color:"+mainSubspecies.getColour(null).toWebHexString()+";'>"+mainSubspecies.getDamageMultiplier().getName()+"</b>"),
+				mainSubspecies.getColour(null)) {
 			@Override
 			public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-				return getBookEffect(target, subspecies, true);
+				return getBookEffect(target, mainSubspecies, additionalUnlockSubspecies, true);
 			}
 		};
 	}

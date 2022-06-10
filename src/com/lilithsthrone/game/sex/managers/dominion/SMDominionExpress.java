@@ -12,10 +12,11 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.3.7.5
- * @version 0.3.7.5
+ * @version 0.4.2.2
  * @author Innoxia
  */
 public class SMDominionExpress extends SexManagerDefault {
@@ -41,11 +42,14 @@ public class SMDominionExpress extends SexManagerDefault {
 	}
 	@Override
 	public SexControl getSexControl(GameCharacter character) {
-		return SexControl.ONGOING_ONLY; // So Natalya doesn't start anything else.
+		if(!Main.sex.isDom(character)) {
+			return SexControl.ONGOING_ONLY; // So the player can't start anything else.
+		}
+		return super.getSexControl(character);
 	}
 	@Override
-	public boolean isAbleToEquipSexClothing(GameCharacter character){
-		return false;
+	public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip){
+		return clothingToEquip.isCondom();
 	}
 	@Override
 	public boolean isAbleToRemoveSelfClothing(GameCharacter character){

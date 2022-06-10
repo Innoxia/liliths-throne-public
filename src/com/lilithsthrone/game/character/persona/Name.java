@@ -298,7 +298,7 @@ public class Name {
 			new NameTriplet("Tex", "Tess", "Tessie"),
 			new NameTriplet("Whiskey", "Whiskers", "Willow"));
 	
-	private static final String[] surnames = new String[] {
+	public static final String[] surnames = new String[] {
 			"Adams", "Ali", "Allen", "Anderson",
 			"Andrews", "Armstrong", "Atkinson", "Bailey",
 			"Baker", "Barker", "Barnes", "Bell",

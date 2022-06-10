@@ -332,7 +332,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_3_C_MEETING_MINOTALLYS(QuestType.MAIN, 1, 25) {//TODO
+	MAIN_3_C_MEETING_MINOTALLYS(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
 			return "Meeting Minotallys";
@@ -340,20 +340,39 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.4.1!)]<br/>"
-					+ "Meraxis has arranged for you to meet with Minotallys concerning the threat of Lunette to the town of Elis.";
+			return "Meraxis has arranged for you to meet with Minotallys concerning the threat of Lunette to the town of Elis."
+					+ " Tell Meraxis that you're ready for the meeting at any time between [units.time(9)]-[units.time(18)].";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "-";
+			return "You and Meraxis travelled to Elis's town hall to meet Minotallys, where you also met with her personal assistant, Arion."
+					+ " Minotallys is in a state of denial about the current state of affairs in the Foloi Fields, and stated that she would only consider taking action if the town of Themiscyra was somehow being threatened.";
 		}
 	},
 	
-	MAIN_3_D_CALL_TO_ARMS(QuestType.MAIN, 1, 25) {//TODO
+	MAIN_3_D_TO_THEMISCYRA(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
-			return "Call To Arms";
+			return "To Themiscyra";
+		}
+
+		@Override
+		public String getDescription() {
+			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in future updates!)]<br/>"
+					+ "You agreed to travel to Themiscyra with Meraxis and find out whether or not the town is being threatened by Lunette's army of demonic centaurs.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "-";//TODO
+		}
+	},
+	
+	MAIN_3_E_TODO(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "TODO";
 		}
 
 		@Override
@@ -1555,7 +1574,44 @@ public enum Quest {
 			return getDescription();
 		}
 	},
-        
+
+	
+	// Fetching beer barrels for Oglix:
+	
+	OGLIX_BEER_BARRELS_1(QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Kheiron's Barrels";
+		}
+		@Override
+		public String getDescription() {
+			return "Having agreed to help Oglix expand her selection of beer-bitches, you've been tasked with travelling to the tavern, 'The Centaur's Sword', and asking the owner, Kheiron, for any spare barrels he might have."
+					+ " If he refuses to help, Golix instructed you to tell the centaur that 'Golix says to be a good horsie'.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Thanks to the special phrase 'Golix says to be a good horsie', you managed to convince Kheiron to send four spare barrels to Oglix's tavern.";
+		}
+	},
+	
+	OGLIX_BEER_BARRELS_2(QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Good Horsie Report";
+		}
+		@Override
+		public String getDescription() {
+			return "Having secured Kheiron's assistance, you now need to return to Oglix and inform her that Kheiron chose to be 'a good horsie' for Golix.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You returned to Oglix and informed her of your success."
+					+ " Having now secured four additional barrels in which to lock new beer-bitches, Oglix asked you to supply promising candidates from the nearby alleyways' criminal population."
+					+ " Additionally, she told you to sneak around the back of her tavern between [units.time(6)]-[units.time(7)] if you wanted to see what the phrase 'Golix says to be a good horsie' meant...";
+		}
+	},
+	
+	
 	// Romance quests:
 
 	RELATIONSHIP_NYAN_1_STOCK_ISSUES(QuestType.RELATIONSHIP, 1, 0) {
@@ -1939,6 +1995,53 @@ public enum Quest {
 			return "After performing anilingus on a centaur slave and then being mounted and anally fucked by them, Natalya declared that your filly training is complete.";
 		}
 	},
+
+	ROMANCE_MONICA_1_TO_THE_FARM(QuestType.RELATIONSHIP, 1, 10) {
+		@Override
+		public String getName() {
+			return "To The Farm";
+		}
+		@Override
+		public String getDescription() {
+			return "After you'd offered to help recover her personalised breast pump, Monica told you that it could be found at her old workplace; a farm located to the North-East of Elis named 'Evelyx's Dairy'."
+					+ " You'll have to go to this farm and ask for Monica's breast pump...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Having found the farm which is Monica's old workplace, you asked for the cow-girl's personalised breast pump, and were granted a meeting with the farm's owner...";
+		}
+	},
+
+	ROMANCE_MONICA_2_UNREASONABLE_DEMAND(QuestType.RELATIONSHIP, 1, 10) {
+		@Override
+		public String getName() {
+			return "An Unreasonable Demand";
+		}
+		@Override
+		public String getDescription() {
+			return "You managed to get a meeting with the farm's owner, Evelyx, who takes the form of an arrogant, greedy succubus."
+					+ " Although admitting that the breast pump was worthless, she's demanding that you either give her a huge sum of flames, or sign a suspicious contract, in exchange for it...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You managed to obtain Monica's personalised breast pump from Evelyx.";
+		}
+	},
+
+	ROMANCE_MONICA_3_THE_JOURNEY_HOME(QuestType.RELATIONSHIP, 1, 10) {
+		@Override
+		public String getName() {
+			return "The Journey Home";
+		}
+		@Override
+		public String getDescription() {
+			return "Now that Monica's personalised breast pump is in your possession, all that's left to do is to return it to its rightful owner.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You returned Monica's personalised breast pump to her, much to her surprise and delight.";
+		}
+	},
 	;
 
 	private int level, experienceReward;
@@ -1972,6 +2075,9 @@ public enum Quest {
 	public static Quest getQuestFromId(String quest) {
 		if(quest.equalsIgnoreCase("MAIN_3_A_FINDING_THE_YOUKO")) {
 			return Quest.MAIN_3_ELIS;
+		}
+		if(quest.equalsIgnoreCase("MAIN_3_D_TO_THEMISCRYA")) {
+			return Quest.MAIN_3_D_TO_THEMISCYRA;
 		}
 		
 		return Quest.valueOf(quest);

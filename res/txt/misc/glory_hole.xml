@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- As dom: -->
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_DOM"><![CDATA[
+	<p>
+		Deciding that it would be fun to get serviced at the glory hole, you peel off the tape that's covering it up, before
+		#IF(pc.hasCompanions())
+			 telling [com.name] to wait outside and then locking the stall's door behind you.
+		#ELSE
+			 locking the stall's door behind you.
+		#ENDIF
+		 In position and ready to get started, you patiently wait for a stranger to turn up and choose to service you through the glory hole...
+	</p>
+	<p>
+		A few minutes later, and someone finally enters the stall on the other side. With the open glory hole obviously having been the reason they chose to enter this stall, the stranger chooses to immediately kneel down
+		#IF(glory.isMute())
+			 and push [glory.her] open mouth up to the hole. With an impatient tap on the wall to let you know that [glory.sheIs] there, the stranger prepares to orally service you.
+		#ELSE
+			 and call out through the hole,
+			#IF(pc.hasPenis())
+				 [glory.speech(Come on then! Put your cock through here and I'll give it a good suck!)]
+			#ELSEIF(pc.hasVagina())
+				 [glory.speech(Come on then! Push your pussy up against the hole and I'll eat you out!)]
+			#ELSE
+				 [glory.speech(Come on then! Give me something to suck already!)]
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_DOM_LEAVE"><![CDATA[
+	<p>
+		Having second thoughts about receiving oral from some random stranger, you back away from the hole and wait for them to give up and leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_DOM_START"><![CDATA[
+	<p>
+		Having already waited long enough, you quickly [pc.step] up to the glory hole,
+		#IF(pc.hasPenis())
+			 preparing to have your [pc.cock+] sucked by the stranger on the other side.
+		#ELSEIF(pc.hasVagina())
+			 preparing to have your [pc.pussy+] licked by the stranger on the other side.
+		#ELSE
+			 preparing to have your genderless mound licked by the stranger on the other side.
+		#ENDIF
+	</p>
+	<p>
+		As [glory.she] sees the approach of your groin, [glory.name] lets out [glory.a_moan+], before shuffling closer to the wall and firmly pressing her open mouth up against the hole. 
+		#IF(!glory.isMute())
+			 Letting out [glory.a_moan+], [glory.she] impatiently encourages you to get started, [game.random(
+			[glory.speech(Oh yeah, come on! Let this whore show you what [glory.sheIs] capable of!)]
+			|[glory.speech(~Mmm!~ Oh yeah! Let's get started!)]
+			|[glory.speech(Oh yeah, babe! I'll show you how much of a slut I am!)])]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_DOM_POST_SEX"><![CDATA[
+	<p>
+		You [pc.step] back from the glory hole, grinning as you hear [glory.name] let out a happy little [glory.moan]. As you get your things in order, you see a flash of movement through the hole, before the creak of the adjoining stall's door announces the horny slut's exit.
+	</p>
+	<p>
+		Just a moment later, you reach down to unlock the door of your own stall, and as you open it and [pc.step] back out into the toilets, you see that [glory.name] has already left. With absolutely no idea as to who just orally serviced you, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- As sub: -->
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_SUB"><![CDATA[
+	<p>
+		Feeling horny and eager to please a complete stranger, you choose a stall which has a glory hole, and after peeling off the tape that's covering it up, you
+		#IF(pc.hasCompanions())
+			 tell [com.name] to wait outside and then lock the stall's door behind you.
+		#ELSE
+			 lock the stall's door behind you.
+		#ENDIF
+		 In position and ready to get started, you patiently wait for a stranger to turn up and have you service them...
+	</p>
+	<p>
+		A few minutes later, and someone finally enters the stall on the other side. With the open glory hole obviously having been the reason they chose to enter this stall, the stranger immediately steps up to it and starts shifting their clothing out of the way. Just a moment later, and their [glory.cockDescriptive(true)] is being pushed through the hole. Before you can make a move, [glory.name]
+		#IF(glory.isMute())
+			 impatiently taps the wall, encouraging you to get started on sucking [glory.her] cock...
+		#ELSE
+			#IF(glory.isSelfish())
+				#IF(glory.isFeminine())
+					 barks out a sharp command,
+				#ELSE
+					 lets out a deep growl,
+				#ENDIF
+				 [game.random(
+				[glory.speech(Come on, slut, get to work!)]
+				|[glory.speech(Start sucking, slut!)]
+				|[glory.speech(Come on, you dirty slut, get started already!)])]
+			#ELSE
+				#IF(glory.isFeminine())
+					 sensually [glory.moansVerb],
+				#ELSE
+					 lets out a deep grunt,
+				#ENDIF
+				 [game.random(
+				[glory.speech(Come on then, show me what you can do!)]
+				|[glory.speech(Get your lips wrapped around my cock!)]
+				|[glory.speech(Come on, get started already!)])]
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_SUB_LEAVE"><![CDATA[
+	<p>
+		Having second thoughts about servicing some random stranger's cock, you back away from the hole and wait for them to give up and leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_SUB_START"><![CDATA[
+	<p>
+		Having already waited long enough, you quickly kneel down in front of the glory hole,
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+			 before opening your mouth and leaning in towards [glory.namePos] [glory.cock+].
+		#ELSE
+			 but as your mouth is blocked, all you can prepare to do is give [glory.name] a handjob.
+		#ENDIF
+	</p>
+	<p>
+		Hearing you drop down in front of [glory.herHim], [glory.name] lets out an eager [glory.moan], and as [glory.her] cock starts to stiffen, [glory.she] impatiently bucks [glory.her] [glory.hips] up against the wall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_SUB_POST_SEX"><![CDATA[
+	<p>
+		You shuffle back from the glory hole, grinning to yourself as you hear [glory.name] letting out a satisfied [glory.moan]. As you get your things in order, you see a flash of movement through the hole, before the creak of the adjoining stall's door announces the stranger's exit.
+	</p>
+	<p>
+		Just a moment later, you reach down to unlock the door of your own stall, and as you open it and [pc.step] back out into the toilets, you see that [glory.name] has already left. With absolutely no idea as to whose cock you just serviced, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- As sub in a threesome: -->
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_THREESOME_SUB"><![CDATA[
+	<p>
+		Feeling horny and eager to please a couple of strangers, you choose a stall which has two glory holes, and after peeling off the tape that's covering them up, you
+		#IF(pc.hasCompanions())
+			 tell [com.name] to wait outside and then lock the stall's door behind you.
+		#ELSE
+			 locking the stall's door behind you.
+		#ENDIF
+		 In position and ready to get started, you patiently wait for a couple of strangers to turn up and have you service them...
+	</p>
+	<p>
+		A few minutes later, and someone finally enters the stall on one other side. With the open glory hole obviously having been the reason they chose to enter this stall, the stranger immediately steps up to it and starts shifting their clothing out of the way. Just a moment later, and their [glory.cockDescriptive(true)] is being pushed through the hole. Before you can make a move, [glory.name]
+		#IF(glory.isMute())
+			 impatiently taps the wall, encouraging you to get started on sucking [glory.her] cock...
+		#ELSE
+			#IF(glory.isSelfish())
+				#IF(glory.isFeminine())
+					 barks out a sharp command,
+				#ELSE
+					 lets out a deep growl,
+				#ENDIF
+				 [game.random(
+				[glory.speech(Come on, slut, get to work!)]
+				|[glory.speech(Start sucking, slut!)]
+				|[glory.speech(Come on, you dirty slut, get started already!)])]
+			#ELSE
+				#IF(glory.isFeminine())
+					 sensually [glory.moansVerb],
+				#ELSE
+					 lets out a deep grunt,
+				#ENDIF
+				 [game.random(
+				[glory.speech(Come on then, show me what you can do!)]
+				|[glory.speech(Get your lips wrapped around my cock!)]
+				|[glory.speech(Come on, get started already!)])]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		At that moment, another stranger enters the stall on the other side. Not wanting to miss out on the action, they hastily whip out their [glory2.cockDescriptive(true)] and push it through the glory hole. As you find yourself being presented with this second cock, [glory2.name]
+		#IF(glory2.isMute())
+			 eagerly thrusts [glory2.her] [glory2.hips] forwards, encouraging you to service [glory2.her] cock...
+		#ELSE
+			#IF(glory2.isSelfish())
+				#IF(glory2.isFeminine())
+					 harshly snaps,
+				#ELSE
+					 menacingly grunts,
+				#ENDIF
+				 [game.random(
+				[glory2.speech(Get to work, you dumb slut!)]
+				|[glory2.speech(What are you waiting for, slut?! Get to it!)]
+				|[glory2.speech(Hurry up, slut! I don't have all day!)])]
+			#ELSE
+				#IF(glory2.isFeminine())
+					 eagerly moans,
+				#ELSE
+					 eagerly grunts,
+				#ENDIF
+				 [game.random(
+				[glory2.speech(I'm looking forward to this!)]
+				|[glory2.speech(Go on, suck my cock!)]
+				|[glory2.speech(Come on, get a taste!)])]
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_THREESOME_SUB_LEAVE"><![CDATA[
+	<p>
+		Having second thoughts about servicing some random strangers' cocks, you back away from the holes and wait for the two of them to give up and leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_THREESOME_SUB_START"><![CDATA[
+	<p>
+		Having already waited long enough, you quickly kneel down in front of [glory.namePos] glory hole,
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+			 before opening your mouth and leaning in towards [glory.her] [glory.cock+].
+		#ELSE
+			 but as your mouth is blocked, all you can prepare to do is give [glory.herHim] a handjob.
+		#ENDIF
+	</p>
+	<p>
+		Hearing you drop down in front of the other stranger, [glory2.name] lets out a frustrated [glory2.moan] and impatiently bucks [glory2.her] [glory2.hips] up against the wall. Calling out to reassure [glory2.herHim] that you're not going to neglect [glory2.her] cock, you tease your [pc.fingers+] over [glory2.her] hard shaft and prepare to get started...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_THREESOME_SUB_POST_SEX"><![CDATA[
+	<p>
+		You shuffle back from the glory holes, grinning to yourself as you hear the two strangers letting out satisfied [glory.moans]. As you get your things in order, you see a flash of movement through the holes, before the consecutive creaking of the adjoining stalls' doors announces each of the strangers' exits.
+	</p>
+	<p>
+		Just a moment later, you reach down to unlock the door of your own stall, and as you open it and [pc.step] back out into the toilets, you see that your partners have already left. With absolutely no idea as to whose cocks you just serviced, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

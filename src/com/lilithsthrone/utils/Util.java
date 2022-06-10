@@ -55,8 +55,6 @@ public class Util {
 
 	private static StringBuilder utilitiesStringBuilder = new StringBuilder();
 	
-	private static int stringMatchDistance;
-	
 	private static Map<KeyCode, String> KEY_NAMES = new LinkedHashMap<KeyCode, String>() {
 		private static final long serialVersionUID = 1L;
 	{
@@ -1115,7 +1113,7 @@ public class Util {
 		slovenlySpeechReplacementMap.put("Your", "Yer");
 		slovenlySpeechReplacementMap.put("your", "yer");
 		
-		slovenlySpeechReplacementMap.put("You", "Ya");
+		slovenlySpeechReplacementMap.put("You ", "Ya "); // End with a space as sentences which are simply 'You.' are awkward to read when converted to 'Ya.'
 		slovenlySpeechReplacementMap.put("you", "ya");
 		
 		slovenlySpeechReplacementMap.put("Yourself", "Yerself");
@@ -1201,6 +1199,9 @@ public class Util {
 		slovenlySpeechReplacementMap.put("My", "Me");
 		slovenlySpeechReplacementMap.put("my", "me");
 
+		slovenlySpeechReplacementMap.put("Myself", "Meself");
+		slovenlySpeechReplacementMap.put("myself", "meself");
+		
 		slovenlySpeechReplacementMap.put("That", "Dat");
 		slovenlySpeechReplacementMap.put("that", "dat");
 
@@ -1218,9 +1219,15 @@ public class Util {
 		
 		slovenlySpeechReplacementMap.put("Yes", "Yeah");
 		slovenlySpeechReplacementMap.put("yes", "yeah");
-		
+
 		slovenlySpeechReplacementMap.put("Hurry", "'Urry");
 		slovenlySpeechReplacementMap.put("hurry", "'urry");
+		
+		slovenlySpeechReplacementMap.put("Doesn't", "Don't");
+		slovenlySpeechReplacementMap.put("doesn't", "don't");
+		
+		slovenlySpeechReplacementMap.put("Because", "'Cause");
+		slovenlySpeechReplacementMap.put("because", "'cause");
 	}
 	/**
 	 * Replaces words in the sentence to give the impression that the speaker is talking in a slovenly manner. The replacements are:
@@ -1256,6 +1263,7 @@ public class Util {
 			<br/>Haven't -> 'aven't
 			<br/>Have -> 'ave
 			<br/>My -> Me
+			<br/>Myself -> Meself
 			<br/>That -> Dat
 			<br/>Some -> Sum
 			<br/>For -> Fer
@@ -1263,6 +1271,8 @@ public class Util {
 			<br/>Very -> Real
 			<br/>Yes -> Yeah
 			<br/>Hurry -> 'Urry
+			<br/>Doesn't -> Don't
+			<br/>Because -> 'Cause
 	 *
 	 * @param sentence The speech to which the lisp should be applied.
 	 * @return The modified sentence.
@@ -1449,15 +1459,16 @@ public class Util {
 	 * @param input String for which to find the closest match.
 	 * @param choices Collection of valid Strings, among which the closest match to {@code input}
 	 *                   will be found.
+	 * @param maxDistance The maximum distance for a match. If no match within this distance,
+	 *                    return null.
 	 * @return The closest match.
 	 */
-	public static String getClosestStringMatch(String input, Collection<String> choices) {
+	public static String getClosestStringMatch(String input, Collection<String> choices, int maxDistance) {
 		// If input is empty, just return the empty string. It would make no sense to guess, so hopefully the caller will handle the case correctly.
 		if (input.isEmpty() || choices.contains(input)) {
-			stringMatchDistance = Integer.MIN_VALUE;
 			return input;
 		}
-		stringMatchDistance = Integer.MAX_VALUE;
+		int stringMatchDistance = Integer.MAX_VALUE;
 		String closestString = input;
 		for(String choice : choices) {
 			int newDistance = getLevenshteinDistance(input, choice);
@@ -1465,6 +1476,10 @@ public class Util {
 				closestString = choice;
 				stringMatchDistance = newDistance;
 			}
+		}
+		if(stringMatchDistance>maxDistance) {
+			System.err.println("Warning: getClosestStringMatch() did not find a close enough match for '"+input+"'; returning null. (Closest match was '"+closestString+"' at distance: "+stringMatchDistance+")");
+			return null;
 		}
 		if(stringMatchDistance>0) { // Only show error message if difference is more than just capitalisation differences
 			System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead. (Distance: "+stringMatchDistance+")");
@@ -1475,8 +1490,8 @@ public class Util {
 		return closestString;
 	}
 	
-	public static int getLastStringMatchDistance() {
-		return stringMatchDistance;
+	public static String getClosestStringMatch(String input, Collection<String> choices) {
+		return getClosestStringMatch(input, choices, Integer.MAX_VALUE);
 	}
 
 	private static String unordered(String input, int prefix) {

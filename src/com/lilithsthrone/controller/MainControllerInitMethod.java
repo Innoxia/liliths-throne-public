@@ -26,6 +26,7 @@ import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.Antenna;
 import com.lilithsthrone.game.character.body.Arm;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.Breast;
 import com.lilithsthrone.game.character.body.BreastCrotch;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -163,6 +164,7 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
+import com.lilithsthrone.game.dialogue.utils.CosmeticsDialogue;
 import com.lilithsthrone.game.dialogue.utils.DebugDialogue;
 import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
@@ -4852,7 +4854,6 @@ public class MainControllerInitMethod {
 					}
 					
 					
-					
 					id = BodyCoveringType.getIdFromBodyCoveringType(bct)+"_PRIMARY_GLOW_OFF";
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						
@@ -5263,7 +5264,8 @@ public class MainControllerInitMethod {
 			
 			if(Main.game.getCurrentDialogueNode()==SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS
 					|| Main.game.getCurrentDialogueNode()==CompanionManagement.SLAVE_MANAGEMENT_TATTOOS
-					|| Main.game.getCurrentDialogueNode()==CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS) {
+					|| Main.game.getCurrentDialogueNode()==CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS
+					|| Main.game.getCurrentDialogueNode()==CosmeticsDialogue.BEAUTICIAN_TATTOOS) {
 				for(InventorySlot invSlot : InventorySlot.getClothingSlots()) {
 					id = "TATTOO_INFO_"+invSlot.toString();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -5287,7 +5289,9 @@ public class MainControllerInitMethod {
 										Main.game.isInNewWorld()
 											?(Main.game.getCurrentDialogueNode()==SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS
 												?SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS_ADD
-												:CompanionManagement.SLAVE_MANAGEMENT_TATTOOS_ADD)
+												:(Main.game.getCurrentDialogueNode()==CosmeticsDialogue.BEAUTICIAN_TATTOOS
+													?CosmeticsDialogue.BEAUTICIAN_TATTOOS_ADD
+													:CompanionManagement.SLAVE_MANAGEMENT_TATTOOS_ADD))
 											:CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS_ADD){
 									@Override
 									public void effects() {
@@ -5346,7 +5350,8 @@ public class MainControllerInitMethod {
 
 			if(Main.game.getCurrentDialogueNode()==SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS_ADD
 					|| Main.game.getCurrentDialogueNode()==CompanionManagement.SLAVE_MANAGEMENT_TATTOOS_ADD
-					|| Main.game.getCurrentDialogueNode()==CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS_ADD) {
+					|| Main.game.getCurrentDialogueNode()==CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS_ADD
+					|| Main.game.getCurrentDialogueNode()==CosmeticsDialogue.BEAUTICIAN_TATTOOS_ADD) {
 				id = "NEW_TATTOO_INFO";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
@@ -5606,13 +5611,13 @@ public class MainControllerInitMethod {
 
 				// Clothing pattern selection:
 				for(Pattern pattern : Pattern.getAllPatterns()) {
-					id = "ITEM_PATTERN_"+pattern.getName();
+					id = "ITEM_PATTERN_"+pattern.getId();
 					
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							if(InventoryDialogue.dyePreviewPattern != pattern.getName()){
-								InventoryDialogue.dyePreviewPattern = pattern.getName();
+							if(!InventoryDialogue.dyePreviewPattern.equals(pattern.getId())){
+								InventoryDialogue.dyePreviewPattern = pattern.getId();
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}
 						}, false);
@@ -6239,7 +6244,7 @@ public class MainControllerInitMethod {
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.FURRY_PREFERENCE) {
 			
 			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
-				id="SUBSPECIES_PREFERNCE_INFO_"+Subspecies.getIdFromSubspecies(s);
+				id="SUBSPECIES_PREFERENCE_INFO_"+Subspecies.getIdFromSubspecies(s);
 
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
@@ -6722,6 +6727,7 @@ public class MainControllerInitMethod {
 					new Value<>("AUTO_SEX_CLOTHING_MANAGEMENT", PropertyValue.autoSexClothingManagement),
 					new Value<>("NON_CON", PropertyValue.nonConContent),
 					new Value<>("SADISTIC_SEX", PropertyValue.sadisticSexContent),
+					new Value<>("FERAL", PropertyValue.feralContent),
 					new Value<>("VOLUNTARY_NTR", PropertyValue.voluntaryNTR),
 					new Value<>("INVOLUNTARY_NTR", PropertyValue.involuntaryNTR),
 					new Value<>("INCEST", PropertyValue.incestContent),
@@ -6980,6 +6986,28 @@ public class MainControllerInitMethod {
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
+			}
+
+
+			for(Colour colour : PresetColour.getHumanSkinColours()) {
+				id = "SKIN_COLOUR_PREFERENCE_"+colour.getId()+"_ON";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						int newValue = Math.min(10, Main.getProperties().skinColourPreferencesMap.get(colour)+1);
+						Main.getProperties().skinColourPreferencesMap.put(colour, newValue);
+						Main.saveProperties();
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "SKIN_COLOUR_PREFERENCE_"+colour.getId()+"_OFF";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						int newValue = Math.max(0, Main.getProperties().skinColourPreferencesMap.get(colour)-1);
+						Main.getProperties().skinColourPreferencesMap.put(colour, newValue);
+						Main.saveProperties();
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
 			}
 			
 			
@@ -7289,10 +7317,11 @@ public class MainControllerInitMethod {
 				id = "delete_saved_" + fileIdentifier;
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || OptionsDialogue.deleteConfirmationName.equals(f.getName())) {
 							OptionsDialogue.deleteConfirmationName = "";
 							Main.deleteGame(fileName);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							
 						} else {
 							OptionsDialogue.overwriteConfirmationName = "";
 							OptionsDialogue.loadConfirmationName = "";
@@ -7517,9 +7546,6 @@ public class MainControllerInitMethod {
 							AbstractCoreItem abstractItem = lEnch.getSuitableItem();
 							EnchantmentDialogue.initModifiers(abstractItem);
 							EnchantmentDialogue.getEffects().clear();
-							for(ItemEffect ie : abstractItem.getEffects()) {
-								EnchantmentDialogue.addEffect(ie);
-							}
 							for(ItemEffect ie : lEnch.getEffects()) {
 								EnchantmentDialogue.addEffect(ie);
 							}
@@ -7592,8 +7618,111 @@ public class MainControllerInitMethod {
 		}
 		
 		
-		// Dice poker:
+
+		// Save/load body transformations:
+		if (Main.game.getCurrentDialogueNode() == BodyChanging.BODY_CHANGING_SAVE_LOAD) {
+			for (File f : BodyChanging.getSavedBodies()) {
+				String fileIdentifier = Util.getFileIdentifier(f);
+				String fileName = Util.getFileName(f);
+				
+				id = "overwrite_saved_" + fileIdentifier;
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						
+						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || BodyChanging.overwriteConfirmationName.equals(f.getName())) {
+							BodyChanging.overwriteConfirmationName = "";
+							BodyChanging.saveBody(fileName, true);
+							
+						} else {
+							BodyChanging.overwriteConfirmationName = f.getName();
+							BodyChanging.loadConfirmationName = "";
+							BodyChanging.deleteConfirmationName = "";
+							Main.game.setContent(new Response("Save/Load", "Open the save/load transformation window.", BodyChanging.BODY_CHANGING_SAVE_LOAD));
+						}
+						
+					}, false);
+
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Overwrite", "");
+					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+				}
+				id = "load_saved_" + fileIdentifier;
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						
+						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || BodyChanging.loadConfirmationName.equals(f.getName())) {
+							BodyChanging.loadConfirmationName = "";
+							Body loadedBody = BodyChanging.loadBody(fileName);
+							BodyChanging.applyLoadedBody(loadedBody);
+							Main.game.setContent(new Response("Save/Load", "Open the save/load transformation window.", BodyChanging.BODY_CHANGING_SAVE_LOAD));
+							
+						} else {
+							BodyChanging.overwriteConfirmationName = "";
+							BodyChanging.loadConfirmationName = f.getName();
+							BodyChanging.deleteConfirmationName = "";
+							Main.game.setContent(new Response("Save/Load", "Open the save/load transformation window.", BodyChanging.BODY_CHANGING_SAVE_LOAD));
+						}
+						
+					}, false);
+
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Load", "");
+					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+				}
+				id = "delete_saved_" + fileIdentifier;
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						
+						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || BodyChanging.deleteConfirmationName.equals(f.getName())) {
+							BodyChanging.deleteConfirmationName = "";
+							BodyChanging.deleteBody(fileName);
+							BodyChanging.initSaveLoadMenu();
+							Main.game.setContent(new Response("Save/Load", ".", BodyChanging.BODY_CHANGING_SAVE_LOAD));
+							
+						} else {
+							BodyChanging.overwriteConfirmationName = "";
+							BodyChanging.loadConfirmationName = "";
+							BodyChanging.deleteConfirmationName = f.getName();
+							Main.game.setContent(new Response("Save/Load", ".", BodyChanging.BODY_CHANGING_SAVE_LOAD));
+						}
+						
+					}, false);
+
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Delete", "");
+					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+				}
+			}
+			
+			id = "new_saved";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
+					BodyChanging.saveBody(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
+				}, false);
+
+				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+				TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Save", "");
+				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+			}
+			
+			for(Entry<String, Value<String, Body>> entry : BodyChanging.getPresetTransformationsMap().entrySet()) {
+				id = "LOADED_BODY_"+entry.getKey();
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setLoadedBody(entry.getValue().getValue(), BodyChanging.getTarget());
+					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+				}
+			}
+		}
 		
+		
+		// Dice poker:
 		if(Main.game.isStarted() && DicePoker.progress>0) {
 			for(int i=0; i<DicePoker.getPlayerDice().size(); i++) {
 				setDiceHandler(i);

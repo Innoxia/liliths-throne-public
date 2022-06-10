@@ -39,11 +39,11 @@ import com.lilithsthrone.world.places.PlaceType;
 public class SlaveForSale extends NPC {
 
 	public SlaveForSale() {
-		this(false);
+		this(Gender.getGenderFromUserPreferences(false, false), false);
 	}
 
 	public SlaveForSale(boolean isImported) {
-		this(Gender.F_V_B_FEMALE, isImported);
+		this(Gender.getGenderFromUserPreferences(false, false), isImported);
 	}
 	
 	public SlaveForSale(Gender gender, boolean isImported) {
@@ -79,12 +79,12 @@ public class SlaveForSale extends NPC {
 			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
 			
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f && this.getSubspecies()!=Subspecies.SLIME) {
-				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getFleshSubspecies(), true), true);
+				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getBody().getFleshSubspecies(), true), true);
 			}
 			
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f
-					&& this.getLegConfiguration()!= LegConfiguration.QUADRUPEDAL) { // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
-				// Check for race's leg type as taur, otherwise NPCs which sapwn with human legs won't be affected by taur conversion rate:
+					&& this.getLegConfiguration()!= LegConfiguration.QUADRUPEDAL) { // Do not reset this character's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
+				// Check for race's leg type as taur, otherwise NPCs which spawn with human legs won't be affected by taur conversion rate:
 				if(this.getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
 					this.setLegType(this.getRace().getRacialBody().getLegType());
 					Main.game.getCharacterUtils().applyTaurConversion(this);
@@ -99,15 +99,18 @@ public class SlaveForSale extends NPC {
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 0);
 			
 			// PERSONALITY & BACKGROUND:
-			
+
+//			this.clearPersonalityTraits();
+			Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
 			this.setHistory(Occupation.NPC_SLAVE);
 			
 			// ADDING FETISHES:
 		
 			this.clearFetishDesires();
 			this.clearFetishes();
-			this.clearPersonalityTraits();
-			this.clearTattoosAndScars();
+			Main.game.getCharacterUtils().addFetishes(this);
+			
+//			this.clearTattoosAndScars();
 			
 			this.setObedience(100);
 			
@@ -128,6 +131,11 @@ public class SlaveForSale extends NPC {
 			
 			this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
 		}
+	}
+
+	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
 	}
 	
 	@Override
@@ -160,7 +168,12 @@ public class SlaveForSale extends NPC {
 	
 	@Override
 	public String getDescription() {
-		return UtilText.parse(this, "For one reason or another, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property.");
+		if(this.isSlave()) {
+			return UtilText.parse(this, "For one reason or another, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property.");
+			
+		} else {
+			return UtilText.parse(this, "After a period of being your slave, [npc.nameIsFull] now your trusted friend.");
+		}
 	}
 	
 }

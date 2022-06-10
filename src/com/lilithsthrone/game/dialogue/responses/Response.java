@@ -66,7 +66,7 @@ public class Response {
 	
 	// For use when loaded from external files
 	
-	private boolean fromExternalFile = false;
+	protected boolean fromExternalFile = false;
 	
 	private String conditional;
 	
@@ -120,8 +120,8 @@ public class Response {
 			GameCharacter characterPenetrated,
 			Collection<SexAreaInterface> sexAreaAccessRequiredForTargeted) {
 		
-		this.title = UtilText.parse(title);
-		this.tooltipText = UtilText.parse(tooltipText);
+		this.title = (title);
+		this.tooltipText = (tooltipText);
 		this.nextDialogue = nextDialogue;
 		
 		this.fetishesRequired = fetishesForUnlock;
@@ -204,17 +204,17 @@ public class Response {
 	}
 
 	public String getTitle() {
-		if(fromExternalFile) {
+//		if(fromExternalFile) {
 			return UtilText.parse(title).trim();
-		}
-		return title;
+//		}
+//		return title;
 	}
 
 	public String getTooltipText() {
-		if(fromExternalFile) {
+//		if(fromExternalFile) {
 			return UtilText.parse(tooltipText).trim();
-		}
-		return tooltipText;
+//		}
+//		return tooltipText;
 	}
 
 	public DialogueNode getNextDialogue() {
@@ -588,7 +588,7 @@ public class Response {
 
 			SB.append(" (Subspecies): ");
 			for(AbstractSubspecies subspecies : getSubspeciesRequired()) {
-				SB.append("<span style='color:"+subspecies.getColour(Main.game.getPlayer()).toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName(Main.game.getPlayer()))+"</span>");
+				SB.append("<span style='color:"+subspecies.getColour(Main.game.getPlayer()).toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName(Main.game.getPlayer().getBody()))+"</span>");
 			}
 		}
 		

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+    <!-- Spying on your aunt: -->
+
+    <htmlContent tag="SEX_START"><![CDATA[
+	<p>
+		Deciding to sneak into Lilaya's lab and see what she and Rose are up to, you silently [pc.step] forwards through the door and quickly duck down into a shadowy corner. Looking over to the far side of the room, you see your demonic [lilaya.relation(pc)] sitting at one of the long lab tables with her back to the door. Open books and sheets of paper litter the tabletop and floor around her, but she seems far more interested in something other than work at the moment. Just as you'd hoped to see, Rose is straddling her lap, leaning in against Lilaya's chest as she whispers down to her demonic mistress. You see your [lilaya.relation(pc)]'s hand reaching up Rose's skirt, and from the movement of her arm, you can tell that she's fingering her cat-girl maid.
+	</p>
+	<p>
+		Before you can say anything, you hear some surprising words coming out of Rose's mouth as she moans down into Lilaya's ear,
+	]]></htmlContent>
+
+    <htmlContent tag="SEX_START_ENDING"><![CDATA[
+   	<p>
+		Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as her owner's fingers continue working away between her legs. Thanks to your hiding place, the cat-girl maid fails to spot you as she looks around the room to make sure that the coast is clear. Thinking that the two of them are alone, Rose suddenly leans forwards and presses her lips against Lilaya's mouth, and after the two of them have shared a wet, passionate kiss, the cat-girl maid stands up and sharply orders, [rose.speech(Get on your knees, slut!)]
+	</p>
+	<p>
+		Hurrying to obey, Lilaya slides off her chair and sinks down to the floor in front of Rose. Sitting down on the chair that her owner has just vacated, the cat-girl spreads her legs and sneers, [rose.speech(I've decided to let you use your tongue today. Now what do you say?)]
+	</p>
+	<p>
+		[lilaya.speech(Thank you, Mistress! ~Mmm!~)] Lilaya obediently replies, before letting out a desperately horny moan and leaning in to press her lips against Rose's exposed pussy.
+	</p>
+	<p>
+		[rose.speech(~Aah!~ That's it! ~Ooh!~ Worship your Mistress's pussy, like the dirty little slut that you are,)] Rose teases as Lilaya sinks her tongue into her cunt and starts eating her out. Stroking the top of your [lilaya.relation(pc)]'s head, the cat-girl purrs, [rose.speech(~Mmm!~ That's it... Get a good taste of my pussy...)]
+	</p>
+	]]></htmlContent>
+	
+    <htmlContent tag="AFTER_SEX"><![CDATA[
+   	<p>
+		After watching that steamy action, you quickly get your things in order and, waiting for a good moment in which Lilaya and Rose are distracted with one another, quietly move over to the door and silently make your exit. Breathing a small sigh of relief as you realise that you managed to get away with your voyeurism, you tell yourself that you shouldn't try doing this more than once a day, or else you'd be sure to be discovered.
+	</p>
+	<p>
+		Looking up and down the corridor you once more find yourself standing in, you wonder where to go to next...
+	</p>
+	]]></htmlContent>
+
+</dialogue>

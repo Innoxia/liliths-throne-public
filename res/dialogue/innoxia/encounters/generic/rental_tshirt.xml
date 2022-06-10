@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id="start">
+		<preParsingEffects><![CDATA[
+			[#game.addNPC('misc.GenericSexualPartner', 'customer')]
+			[#game.setActiveNPC(customer)]
+			[#npc.setLocation(pc, false)]
+			[#npc.setPlayerKnowsName(true)]
+			[#npc.setPetName(pc, 'mommy')]
+			
+			[#flags.setSavedLong('rentalPrice', pc.getClothingInSlot(IS_TORSO_UNDER).getStickers().get('price'))]
+			
+			[#npc.clearFetishDesires()]
+			[#npc.clearFetishes()]
+			
+			[#npc.removePersonalityTrait(PERSONALITY_TRAIT_MUTE)]
+			[#npc.removePersonalityTrait(PERSONALITY_TRAIT_CONFIDENT)]
+			[#npc.removePersonalityTrait(PERSONALITY_TRAIT_SHY)]
+			
+			#IF(pc.getClothingInSlot(IS_TORSO_UNDER).getStickers().get('top_txt').equals('dommy'))
+				[#npc.addFetish(FETISH_SUBMISSIVE)]
+			#ELSEIF(pc.getClothingInSlot(IS_TORSO_UNDER).getStickers().get('top_txt').equals('subby'))
+				[#npc.addFetish(FETISH_DOMINANT)]
+			#ELSE
+				#IF(pc.hasFetish(FETISH_DOMINANT) || RND.nextInt(100)<50)
+					[#npc.addFetish(FETISH_SUBMISSIVE)]
+				#ELSE
+					[#npc.addFetish(FETISH_DOMINANT)]
+				#ENDIF
+			#ENDIF
+			
+			#IF(RND.nextInt(100)<50)
+				#IF(npc.hasFetish(FETISH_DOMINANT))
+					[#npc.addPersonalityTrait(PERSONALITY_TRAIT_CONFIDENT)]
+				#ELSE
+					[#npc.addPersonalityTrait(PERSONALITY_TRAIT_SHY)]
+				#ENDIF
+			#ENDIF
+			
+			#IF(RND.nextInt(100)<50)
+				#IF(RND.nextInt(100)<50)
+					[#npc.addFetish(FETISH_ORAL_GIVING)]
+				#ELSE
+					[#npc.addFetish(FETISH_ORAL_RECEIVING)]
+				#ENDIF
+			#ENDIF
+			#IF(pc.hasBreasts())
+				[#npc.addFetish(FETISH_BREASTS_OTHERS)]
+			#ENDIF
+			#IF(pc.isLactating() && game.isLactationContentEnabled())
+				[#npc.addFetish(FETISH_LACTATION_OTHERS)]
+			#ENDIF
+			#IF(pc.hasVagina())
+				[#npc.addFetish(FETISH_VAGINAL_GIVING)]
+			#ENDIF
+			#IF(pc.hasPenisIgnoreDildo())
+				[#npc.addFetish(FETISH_PENIS_RECEIVING)]
+				#IF((!npc.hasVagina()|| RND.nextInt(100)<25 || pc.hasFetish(FETISH_ANAL_GIVING)) && game.isAnalContentEnabled())
+					[#npc.addFetish(FETISH_ANAL_RECEIVING)]
+				#ENDIF
+			#ENDIF
+			#IF((!pc.hasVagina() || RND.nextInt(100)<25 || pc.hasFetish(FETISH_ANAL_RECEIVING)) && game.isAnalContentEnabled())
+				[#npc.addFetish(FETISH_ANAL_GIVING)]
+			#ENDIF
+			
+			#IF(RND.nextInt(100)<10)
+				#IF(pc.hasVagina() && !pc.isPregnant() && !pc.hasIncubationLitter(ORIFICE_VAGINA) && RND.nextInt(100)<50)
+					[#npc.addFetish(FETISH_IMPREGNATION)]
+				#ELSE
+					[#npc.addFetish(FETISH_EXHIBITIONIST)]
+				#ENDIF
+			#ENDIF
+		]]></preParsingEffects>
+		<title><![CDATA[
+			A Customer Approaches
+		]]></title>
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/encounters/generic/rental_tshirt">START</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Continue: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Refuse]]></responseTitle>
+				<responseTooltip><![CDATA[Turn down [npc.namePos] offer and continue on your way.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/generic/rental_tshirt', 'START_REFUSED'))]
+					[#game.banishNPC(npc)]
+				]]></effects>
+			</response>
+			
+			<!-- Accept to apartment -->
+			<response>
+				<availabilityConditional><![CDATA[[#!npc.hasFetish(FETISH_EXHIBITIONIST) && npc.hasFetish(FETISH_DOMINANT)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Sex (+[style.moneyFormat([#flags.getSavedLong('rentalPrice')], span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Agree to [npc.namePos] offer and allow [npc.herHim] to lead you to [npc.her] nearby apartment so that you can get fucked in privacy.
+					<br/>[style.italicsGood(You will gain:)] [style.moneyFormat([#flags.getSavedLong('rentalPrice')], span)]
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(flags.getSavedLong('rentalPrice')))]
+				]]></effects>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[innoxia_misc_rental_tshirt]]></id>
+                    <startingPosition><![CDATA[STANDING]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>npc</id>
+                            <slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators/>
+                    <submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_encounters_generic_rental_tshirt_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/generic/rental_tshirt">APARTMENT_SEX_SUB</sexStartContent>
+                    <ongoingActionsAtStart/>
+                </sexVariablesWithManager>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!npc.hasFetish(FETISH_EXHIBITIONIST) && !npc.hasFetish(FETISH_DOMINANT)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Sex (+[style.moneyFormat([#flags.getSavedLong('rentalPrice')], span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Agree to [npc.namePos] offer and accompany [npc.herHim] to [npc.her] nearby apartment so that you can fuck [npc.herHim] in privacy.
+					<br/>[style.italicsGood(You will gain:)] [style.moneyFormat([#flags.getSavedLong('rentalPrice')], span)]
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(flags.getSavedLong('rentalPrice')))]
+				]]></effects>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[innoxia_misc_rental_tshirt]]></id>
+                    <startingPosition><![CDATA[STANDING]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>npc</id>
+                            <slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators/>
+                    <submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_encounters_generic_rental_tshirt_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/generic/rental_tshirt">APARTMENT_SEX_DOM</sexStartContent>
+                    <ongoingActionsAtStart/>
+                </sexVariablesWithManager>
+			</response>
+			
+			<!-- Accept in public: -->
+			<response>
+				<availabilityConditional><![CDATA[[#npc.hasFetish(FETISH_EXHIBITIONIST) && npc.hasFetish(FETISH_DOMINANT)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Public sex (+[style.moneyFormat([#flags.getSavedLong('rentalPrice')], span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Agree to [npc.namePos] offer and allow [npc.herHim] to fuck you right here in full view of the public.
+					<br/>[style.italicsGood(You will gain:)] [style.moneyFormat([#flags.getSavedLong('rentalPrice')], span)]
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(flags.getSavedLong('rentalPrice')))]
+				]]></effects>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[innoxia_misc_rental_tshirt_public]]></id>
+                    <startingPosition><![CDATA[STANDING]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>npc</id>
+                            <slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators/>
+                    <submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_encounters_generic_rental_tshirt_after_sex_public]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/generic/rental_tshirt">PUBLIC_SEX_SUB</sexStartContent>
+                    <ongoingActionsAtStart/>
+                </sexVariablesWithManager>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#npc.hasFetish(FETISH_EXHIBITIONIST) && !npc.hasFetish(FETISH_DOMINANT)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Public sex (+[style.moneyFormat([#flags.getSavedLong('rentalPrice')], span)])]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Agree to [npc.namePos] offer and fuck [npc.herHim] right here in full view of the public.
+					<br/>[style.italicsGood(You will gain:)] [style.moneyFormat([#flags.getSavedLong('rentalPrice')], span)]
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(flags.getSavedLong('rentalPrice')))]
+				]]></effects>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[innoxia_misc_rental_tshirt_public]]></id>
+                    <startingPosition><![CDATA[STANDING]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>npc</id>
+                            <slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators/>
+                    <submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_encounters_generic_rental_tshirt_after_sex_public]]></postSexDialogue>
+					<sexStartContent folderPath="txt/encounters/generic/rental_tshirt">PUBLIC_SEX_DOM</sexStartContent>
+                    <ongoingActionsAtStart/>
+                </sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- After sex: -->
+	
+	<scene id="after_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Having had [npc.her] fun, [npc.name] sighs that [npc.sheHas] had enough...]]></tooltip>
+		<content folderPath="txt/encounters/generic/rental_tshirt">AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Leave [npc.namePos] apartment and continue on your way...
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/generic/rental_tshirt', 'AFTER_SEX_END'))]
+					[#game.banishNPC(npc)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="after_sex_public">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Having had [npc.her] fun, [npc.name] sighs that [npc.sheHas] had enough...]]></tooltip>
+		<content folderPath="txt/encounters/generic/rental_tshirt">AFTER_SEX_PUBLIC</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Leave [npc.namePos] behind and continue on your way...
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/generic/rental_tshirt', 'AFTER_SEX_PUBLIC_END'))]
+					[#game.banishNPC(npc)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

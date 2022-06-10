@@ -6,6 +6,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -46,7 +47,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.4
- * @version 0.4
+ * @version 0.4.2.3
  * @author Innoxia
  */
 public class Arion extends NPC {
@@ -71,6 +72,15 @@ public class Arion extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1.5")) {
+			this.setPersonalityTraits(
+					PersonalityTrait.CONFIDENT,
+					PersonalityTrait.CYNICAL,
+					PersonalityTrait.PRUDE);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2.3")) {
+			this.setStartingBody(true);
+		}
 	}
 
 	@Override
@@ -90,8 +100,9 @@ public class Arion extends NPC {
 		// Persona:
 		if(setPersona) {
 			this.setPersonalityTraits(
-					PersonalityTrait.SHY,
-					PersonalityTrait.CYNICAL);
+					PersonalityTrait.CONFIDENT,
+					PersonalityTrait.CYNICAL,
+					PersonalityTrait.PRUDE);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -174,7 +185,7 @@ public class Arion extends NPC {
 //		this.addAssOrificeModifier(OrificeModifier.MUSCLE_CONTROL);
 		
 		// Penis:
-		this.setPenisVirgin(true);
+		this.setPenisVirgin(false);
 		this.setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 		this.setPenisSize(30);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
@@ -242,9 +253,14 @@ public class Arion extends NPC {
 	public void hourlyUpdate() {
 		if(!Main.game.getCharactersPresent().contains(this)) {
 			if(Main.game.getHourOfDay()<7 || Main.game.getHourOfDay()>21) {
-				this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town_hall_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_hall_f1_assistant_room"), true);
+				if(Main.game.getHourOfDay()>21) {
+					this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town_hall_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_hall_f1_minotallys_room"), false);
+				} else {
+					this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town_hall_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_hall_f1_assistant_room"), true);
+				}
+			} else {
+				this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town_hall_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_hall_f1_minotallys_office"));
 			}
-			this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town_hall_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_hall_f1_minotallys_office"));
 		}
 	}
 	

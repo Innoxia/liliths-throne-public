@@ -1,0 +1,36 @@
+<h2>v0.4.2</h2>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Added parser hooks for orifice capacity, depth, elasticity, and plasticity, under the respective prefixes: 'CAPACITY_'; 'DEPTH_'; 'ELASTICITY_'; 'PLASTICITY_'.</li>
+	<li>Added 'MONTH_' parser hook for Java's Month enum, and a getMonth() method in the Game class for obtaining the current month.</li>
+	<li>The 'orgasmBehaviour' element in sex manager files now accepts logic and is parsed on every check.</li>
+</ul>
+
+<h3>Artwork:</h3>
+<ul>
+	<li>Added 7 images for Kay (4 as default, 3 for when he's been feminised), drawn by Jam (https://twitter.com/JamDrawers).</li>
+	<li>Added 2 images for Elizabeth, drawn by KT80 (https://twitter.com/KT80AT).</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Filled in all placeholders for Monica's quest (who is the shopkeeper for the clothing store in Elis's shopping precinct, 'The Fashionable Moo').</li>
+	<li>Added a 'headless horseman' encounter to the Foloi Fields (only triggers during the in-game month of October).</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Added 'dark orange' as a covering colour for body parts.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Parsing fixes.</li>
+	<li>Fixed issue with missing 'WON_SEX_NOTHING' dialogue in one of Mreaxis's duel scenes.</li>
+	<li>The lilin book lore text is no longer shown at the end of the 'World' dialogue when talking to Lyssieth in her initial meeting scenes.</li>
+	<li>Fixed issue where after turning down Evelyx's promotion, you couldn't repeat it the next day.</li>
+	<li>Characters who have the sadist fetish will no longer agree to be gentle in sex (which was mainly affecting Amber's and Rose's sex scenes).</li>
+	<li>Fixed background error being thrown when generic sex effects were being calculated where a null partner was being treated as being exposed to addictive fluids.</li>
+	<li>Fixed parsing error being thrown if you encountered bandits in the Foloi Fields and didn't have enough money to offer them to skip the encounter.</li>
+</ul>

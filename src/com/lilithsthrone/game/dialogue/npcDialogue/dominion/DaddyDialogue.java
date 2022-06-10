@@ -1023,7 +1023,7 @@ public class DaddyDialogue {
 						},
 						null,
 						null,
-						AFTER_APARTMET_SEX,
+						AFTER_APARTMENT_SEX,
 						UtilText.parseFromXMLFile("characters/dominion/daddy", getDialoguePrefix()+"AFTER_DINNER_SEX")) {
 					@Override
 					public List<InitialSexActionInformation> getInitialSexActions() {
@@ -1111,7 +1111,7 @@ public class DaddyDialogue {
 						},
 						null,
 						null,
-						AFTER_APARTMET_SEX,
+						AFTER_APARTMENT_SEX,
 						UtilText.parseFromXMLFile("characters/dominion/daddy", getDialoguePrefix()+"AFTER_DINNER_DOMINATE")) {
 					@Override
 					public List<InitialSexActionInformation> getInitialSexActions() {
@@ -1141,7 +1141,7 @@ public class DaddyDialogue {
 		}
 	};
 
-	public static final DialogueNode AFTER_APARTMET_SEX = new DialogueNode("Finished", "The evening of lust-filled sex comes to an end...", true, true) {
+	public static final DialogueNode AFTER_APARTMENT_SEX = new DialogueNode("Finished", "The evening of lust-filled sex comes to an end...", true, true) {
 
 		@Override
 		public int getSecondsPassed() {
@@ -1150,7 +1150,7 @@ public class DaddyDialogue {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("characters/dominion/daddy", getDialoguePrefix()+"AFTER_APARTMET_SEX");
+			return UtilText.parseFromXMLFile("characters/dominion/daddy", getDialoguePrefix()+"AFTER_APARTMENT_SEX");
 		}
 		
 		@Override
@@ -1163,7 +1163,7 @@ public class DaddyDialogue {
 						BLANK_DEFAULT_DIALOGUE) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/daddy", getDialoguePrefix()+"AFTER_APARTMET_SEX_HOME"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/daddy", getDialoguePrefix()+"AFTER_APARTMENT_SEX_HOME"));
 						if(isLilayaPresent()) {
 							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL);
 							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
