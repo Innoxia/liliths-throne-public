@@ -418,7 +418,7 @@
 			With a wicked glint in [npc.her] [npc.eyeColour] [npc.eyes], [npc.name] [npc.steps] forwards in a threatening manner, before
 		#ENDIF
 		#IF(npc.isMute())
-			#IF(game.isFootContentEnabled() && npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() && pc.isAbleToAccessCoverableArea(CA_MOUTH))
+			#IF(game.isFootContentEnabled() && npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() && pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
 				 gesturing for you to drop down before [npc.herHim] and kiss [npc.her] [npc.feet]. Having already willingly given up to [npc.herHim] three times in a row, it seems like [npc.name] wants you to fully capitulate to [npc.herHim] and become [npc.her] bitch in the most humiliating manner [npc.she] can think of.
 			#ELSEIF(npc.getFetishDesire(FETISH_SADIST).isPositive())
 				 gesturing for you to drop down before [npc.herHim] and present your ass so that [npc.she] can give you a spanking. Having already willingly given up to [npc.herHim] three times in a row, it seems like [npc.name] wants you to fully capitulate to [npc.herHim] and become [npc.her] bitch in the most humiliating manner [npc.she] can think of.
@@ -426,7 +426,7 @@
 				 gesturing for you to bow down before [npc.herHim] and submit. Having already willingly given up to [npc.herHim] three times in a row, it seems like [npc.name] wants you to fully capitulate to [npc.herHim] and become [npc.her] bitch.
 			#ENDIF
 		#ELSE
-			#IF(game.isFootContentEnabled() && npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() && pc.isAbleToAccessCoverableArea(CA_MOUTH))
+			#IF(game.isFootContentEnabled() && npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() && pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
 				 declaring, [npc.speech(You've shown yourself to be a submissive bitch, so I thought it's time to make it official. Bow down before me and kiss my feet like the subservient slut you are, and I'll make you my personal bitch!)]
 			#ELSEIF(npc.getFetishDesire(FETISH_SADIST).isPositive())
 				 declaring, [npc.speech(You've shown yourself to be a submissive bitch, so I thought it's time to make it official. Bow down before me and present me with your ass, and I'll spank you into becoming my personal bitch!)]

@@ -2252,7 +2252,7 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformThroatCapacityDiv() {
 		contentSB.setLength(0);
 		
-		for(Capacity value : Capacity.values()) {
+		for(Capacity value : Capacity.getCapacityListFromPreferences()) {
 			if(BodyChanging.getTarget().getFaceCapacity() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
@@ -2523,7 +2523,7 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformAnusCapacityDiv() {
 		contentSB.setLength(0);
 		
-		for(Capacity value : Capacity.values()) {
+		for(Capacity value : Capacity.getCapacityListFromPreferences()) {
 			if(BodyChanging.getTarget().getAssCapacity() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
@@ -3047,7 +3047,7 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformNippleCapacityDiv() {
 		contentSB.setLength(0);
 		
-		for(Capacity value : Capacity.values()) {
+		for(Capacity value : Capacity.getCapacityListFromPreferences()) {
 			if(BodyChanging.getTarget().getNippleCapacity() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
@@ -3073,7 +3073,7 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformNippleCrotchCapacityDiv() {
 		contentSB.setLength(0);
 		
-		for(Capacity value : Capacity.values()) {
+		for(Capacity value : Capacity.getCapacityListFromPreferences()) {
 			if(BodyChanging.getTarget().getNippleCrotchCapacity() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
@@ -3619,7 +3619,7 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformVaginaCapacityDiv() {
 		contentSB.setLength(0);
 		
-		for(Capacity value : Capacity.values()) {
+		for(Capacity value : Capacity.getCapacityListFromPreferences()) {
 			if(BodyChanging.getTarget().getVaginaCapacity() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
@@ -3970,7 +3970,7 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformVaginaUrethraCapacityDiv() {
 		contentSB.setLength(0);
 		
-		for(Capacity value : Capacity.values()) {
+		for(Capacity value : Capacity.getCapacityListFromPreferences()) {
 			if(BodyChanging.getTarget().getVaginaUrethraCapacity() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
@@ -4281,7 +4281,7 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformUrethraCapacityDiv() {
 		contentSB.setLength(0);
 		
-		for(Capacity value : Capacity.values()) {
+		for(Capacity value : Capacity.getCapacityListFromPreferences()) {
 			if(BodyChanging.getTarget().getPenisCapacity() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
@@ -5125,7 +5125,7 @@ public class CharacterModificationUtils {
 						+ "</div>"
 						+ "<div class='cosmetics-inner-container right'>");
 		
-		for(Capacity value : Capacity.values()) {
+		for(Capacity value : Capacity.getCapacityListFromPreferences()) {
 			if(BodyChanging.getTarget().getVaginaCapacity() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
@@ -5272,7 +5272,7 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformSpinneretCapacityDiv() {
 		contentSB.setLength(0);
 		
-		for(Capacity value : Capacity.values()) {
+		for(Capacity value : Capacity.getCapacityListFromPreferences()) {
 			if(BodyChanging.getTarget().getSpinneretCapacity() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"

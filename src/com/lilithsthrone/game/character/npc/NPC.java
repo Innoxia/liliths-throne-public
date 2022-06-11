@@ -1425,7 +1425,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		if(this.getSubspeciesPreference()==Subspecies.SLIME && target.getBodyMaterial()!=BodyMaterial.SLIME) {
 			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(ItemEffectType.getItemEffectTypeFromId("innoxia_race_slime_biojuice_canister"), TFModifier.NONE, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+				new ItemEffect(ItemEffectType.RACE_SLIME_TF_UTIL_EFFECT, TFModifier.NONE, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
 				"You're going to love being a slime!"));
 			return new TransformativePotion(itemType, possibleEffects);
 		}
@@ -1434,7 +1434,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			AbstractSubspecies transformationItemSubspecies = cannotTransformPreference
 																	?target.getSubspecies()
 																	:getSubspeciesPreference();
-					
+			
 			itemType = transformationItemSubspecies.getTransformativeItem(this);
 			if(itemType==null || transformationItemSubspecies==Subspecies.SLIME) {
 				itemType = ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
@@ -1476,7 +1476,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			body = Main.game.getCharacterUtils().generateBody(null, this.getGenderPreference(), this.getSubspeciesPreference(), targetedRaceStage);
 		}
 		Util.random = new Random();
-
+		
+		if(body.getBodyMaterial()==BodyMaterial.SLIME) { // For slime body preferences, allow resetting of item type to the slime's underlying race
+			itemType = body.getFleshSubspecies().getTransformativeItem(this);
+			genitalsItemType = itemType;
+		}
+		
 		boolean vaginaSet = target.getVaginaType()==body.getVagina().getType();
 		boolean penisSet = target.getPenisType()==body.getPenis().getType();
 		boolean humanGenitals = false;

@@ -462,7 +462,7 @@ public class AlleywayAttackerDialogue {
 								@Override
 								public void effects() {
 									applyPregnancyReactions();
-									Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "PEACEFUL_TRANSFORMATIONS", getAllCharacters()));
+									Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "PEACEFUL_TRANSFORMATIONS", getAllCharacters()));
 									Main.game.appendToTextStartStringBuilder(getMugger().applyPostCombatTransformation());
 									transformationsApplied = true;
 								}

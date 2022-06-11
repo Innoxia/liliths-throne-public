@@ -8,6 +8,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Contributors:
 		Added offspring encounters to the bat caverns. (PR#1504 by Stadler76)
+		Fixed an issue where clothing management could sometimes throw a Null Pointer Exception. (by Cognitive Mist)
+		Fixed issue which was causing the message 'var timer not found...' to be printed to the error log. (by Cognitive Mist)
+		Fixed an issue where the AbstractSubspecies#getSubspeciesWeighting method was not working correctly, causing Subspecies weighting to fail and errors to be thrown. (by Cognitive Mist)
 	
 	Engine/Modding:
 		Added parser hooks for tattoo counter type, count type, and writing styles, and added a new addTattoo() method in the GameCharacter class, allowing you to add tattoos to characters and then add writing/counters to the tattoo.
@@ -15,8 +18,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Gameplay:
 		Filled in all placeholder scenes for the content in the tavern, 'The Crossed Blades', and added a way to have sex with Oglix (after completing her beer-bitch barrel quest).
 		Added encounter to 'Dominion street', 'Submission walkway', and 'Elis street' tiles for when wearing the 'rental mommy/daddy' t-shirts, where a member of the public will offer to pay the price displayed on your t-shirt to have sex with you. The t-shirt must not be concealed by other clothing for the encounter to trigger, and it will trigger less often when higher prices are displayed.
-		Added the 'surrender' and 'Request transformation' action from Elis alleyway encounters to Dominion alleyway/demon alleyway, Harpy nest walkways, and Submission tunnel encounters.
-		Expanded random encounter content in Dominion alleyways, Dominion demon tiles, Harpy Nest walkways, Submission tunnels, and Elis alleyways, by making it so that after using 'offer body' or 'surrender' actions three times, the NPC will demand that you become their bitch, after which several new options will be available upon repeat encounters.
+		Added the 'surrender' and 'Request transformation' action from Elis alleyway encounters to Dominion alleyway/demon alleyway, Harpy nest walkways, Submission tunnel, and Bat Caverns encounters.
+		Expanded random encounter content in Dominion alleyways, Dominion demon tiles, Harpy Nest walkways, Submission tunnels, Bat Caverns, and Elis alleyways, by making it so that after using 'offer body' or 'surrender' actions three times, the NPC will demand that you become their bitch, after which several new options will be available upon repeat encounters.
 	
 	Clothing:
 		Added several more sticker variations for the 'rental mommy' and 'rental daddy' t-shirts, and allowed all colours to be chosen for the tertiary dye for the 'rental mommy' t-shirt.
@@ -38,6 +41,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		The 'Between legs' sex positioning action in the 'sitting' sex position is no longer available while targeting taurs (as taurs should not be able to make use of the sitting position slot).
 		Fixed issue where Kruger would sometimes switch into an unsuitable sex position in his sex scene.
 		Fixed background error being thrown when loading a game in which your character was in Submission.
+		Fixed issues with the offspring encounters in Submission using the same dialogue as Dominion's alleyways.
+		Fixed slight inconsistencies in bat cavern encounter dialogue which were referencing Submission's tunnels instead of the caves.
+		Slimes who want to transform the player into a slime using forced TF will now correctly generate a slime-TF effect to apply (instead of producing a TF effect which always did nothing), then in subsequent encounters they will now generate the correct racial potions for their desired TFs.
+		The transformation menu no longer displays duplicate 'Loose' buttons under orifice capacity when gape content is turned off.
+		Fixed bug where skin colour preference options were not working.
+		Offspring from a human mother and a human father will now randomly choose between one or the other to have their genetics based off of, instead of always choosing the father.
+	
 	
 	
 	[x] Add 'The Crossed Blades' tavern in the north of Elis
@@ -229,29 +239,46 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[x] Submission tunnel
 		[x] change dialogue for if only fetish TFs are being applied
 			[x] for Elis alleyway too
-	
-	[] #1504
-		[] add offspring txt variations for:
-			[] Submission tunnel
-			[] bat caverns
-			[] bat caverns slime
-		
-	[] bug fixes in developer chat
-	
-	[] TF menu should remove capacity options for if gape content is off
-	
-	[] add surrender and bitch content to bat caverns
-	
-	[] save the time at the game's start as a unique ID and use that for the quick/auto save file identifiers
-	
+	[x] #1504
+		[x] add offspring txt variations for:
+			[x] Submission tunnel
+			[x] bat caverns
+				[x] make offspring mushroom vendors
+				[x] search/replace for 'Submission' 'tunnels' 'PROSTITUTE'
+	[x] bug fixes in developer chat
+	[x] test bat caverns offspring taking back to Lilaya's
+	[x] add surrender and bitch content to bat caverns
+		[x] dialogue edits
+		[x] txt edits
+			[x] initial meetings
+			[x] bitch content
+				[x] mugging edits
+				[x] pimped out
+				[x] walkies diner
+				[x] tattooist basement
+				[x] check for "tunnel" and "Submission" references to edit
+		[x] test
+			[x] coverable area bug affecting all bitch content
+			[x] slime surrender action throwing error: getClosestStringMatch() did not find an exact match for 'innoxia_race_slime_biojuice_canister' at com.lilithsthrone.game.character.npc.NPC.generateTransformativePotion(NPC.java:1428)
+			[x] slime racial TFs always default to human?
+	[x] TF menu should remove capacity options for if gape content is off
+	[x] check skin colour preference options are working
+		[x] horse-girl spawned with disabled skin colour
+	[-] bug where offspring skin colour does not match parents
 	
 	[] In map screen, make core map the first action and highlight/bold it
 	
-	[] check skin colour preference options are working
+	[] relationship twin support
 	
-	[] bug where offspring skin colour does not match parents
+	[] need mute dialogue handling for offspring encounters
 	
 	[] bug reports
+		[-] artisan and industrial milkers extract the same amount
+		[] Not sure if this counts as a bug, but you're able to get infinite fare tickets at Kazik
+	
+	
+	
+	[] save the time at the game's start as a unique ID and use that for the quick/auto save file identifiers
 	
 	[] skunk
 	[] deer

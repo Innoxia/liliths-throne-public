@@ -14,6 +14,7 @@ import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayAttackerDial
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayDemonDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyAttackerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.submission.BatCavernDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelAttackDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
@@ -126,6 +127,10 @@ public class DialogueManager {
 
 		addHardCodedDialogueId("HC_encounter_submission_defeat", TunnelAttackDialogue.AFTER_COMBAT_DEFEAT);
 		addHardCodedDialogueId("HC_encounter_submission_victory", TunnelAttackDialogue.AFTER_COMBAT_VICTORY);
+
+		addHardCodedDialogueId("HC_encounter_bat_caverns_defeat", BatCavernDialogue.AFTER_COMBAT_DEFEAT);
+		addHardCodedDialogueId("HC_encounter_bat_caverns_victory", BatCavernDialogue.AFTER_COMBAT_VICTORY);
+		
 		
 		// Modded dialogue types:
 		
