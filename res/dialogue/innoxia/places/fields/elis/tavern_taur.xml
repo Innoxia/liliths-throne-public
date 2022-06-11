@@ -101,6 +101,7 @@
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_TALK_HISTORY'))]
 				]]></effects>
 			</response>
+			<!-- Oglix quest: -->
 			<response>
 				<availabilityConditional><![CDATA[
 					[#game.getCharactersPresent().contains(kheiron) && kheiron.isPlayerKnowsName() && pc.hasQuest(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS) && pc.getQuest(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS)==QUEST_OGLIX_BEER_BARRELS_1]
@@ -111,6 +112,33 @@
 				<responseTooltip><![CDATA[Ask Kheiron if he has four large, spare barrels which could be sent to Oglix's tavern.]]></responseTooltip>
 				<nextDialogue>innoxia_places_fields_elis_tavern_taur_bar_barrels</nextDialogue>
 				<effects/>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.getCharactersPresent().contains(kheiron) && kheiron.isPlayerKnowsName() && pc.hasQuest(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS) && pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS, QUEST_OGLIX_BEER_BARRELS_1)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Golix]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_kheiron_talk_golix))
+						You've already asked Kheiron about his relationship with Golix today. It'd be best not to bring up the subject again until tomorrow at the earliest...
+					#ELSE
+						Ask Kheiron about his relationship with Oglix's elemental, Golix.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_kheiron_talk_golix))
+						innoxia_places_fields_elis_tavern_taur_bar
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_TALK_GOLIX'))]
+					[#flags.setFlag(FLAG_innoxia_kheiron_talk_golix, true)]
+				]]></effects>
 			</response>
 			
 			<!-- Kheiron not present: -->
@@ -648,7 +676,7 @@
 	<scene id="bar_barrels">
 		<author><![CDATA[Innoxia]]></author>
 		<content folderPath="txt/places/fields/elis/tavern_taur">BAR_BARRELS</content>
-		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
 		<responses>
@@ -656,11 +684,9 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Good horsie]]></responseTitle>
-				<responseTooltip><![CDATA[Just as Oglix said, Kheiron is refusing to cooperate, but perhaps the phrase Golix gave you to use will work...]]></responseTooltip>
+				<responseTooltip><![CDATA[Just as Golix said, Kheiron is refusing to cooperate, but perhaps the phrase she gave you to use will work...]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_bar_barrels_end]]></nextDialogue>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS, QUEST_OGLIX_BEER_BARRELS_2))]
-				]]></effects>
+				<effects/>
 			</response>
 		</responses>
 	</scene>
@@ -668,21 +694,30 @@
 	<scene id="bar_barrels_end">
 		<author><![CDATA[Innoxia]]></author>
 		<content folderPath="txt/places/fields/elis/tavern_taur">BAR_BARRELS_END</content>
-		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
 		<responses>
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Continue]]></responseTitle>
-				<responseTooltip><![CDATA[Now that Kheiron has promised to send four barrels to Oglix, you wonder what to do next...]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_tavern_taur_bar]]></nextDialogue>
+				<responseTitle><![CDATA[Agree]]></responseTitle>
+				<responseTooltip><![CDATA[As you don't know the details about Kheiron's relationship with Golix, it's easy for you to agree to the centaur's terms.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_bar_barrels_end_bar]]></nextDialogue>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'BAR_BARRELS_END_CONTINUE'))]
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS, QUEST_OGLIX_BEER_BARRELS_2))]
 				]]></effects>
 			</response>
 		</responses>
+	</scene>
+	
+	<scene id="bar_barrels_end_bar">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/tavern_taur">BAR_BARRELS_END_CONTINUE</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_tavern_taur_bar"/>
 	</scene>
 	
 	<!-- Place type id: innoxia_fields_elis_tavern_taur_corridor -->

@@ -1,0 +1,1581 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Dialogue used for bitch content: -->
+
+	<scene id="start">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Mugger is hostile responses: -->
+				<!-- Fight: -->
+				<response>
+					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[
+						#IF(npc.getPlayerSurrenderCount()>=4)
+							5
+						#ELSE
+							1
+						#ENDIF
+					]]></index>
+					<responseTitle><![CDATA[
+						#IF(npc.getPlayerSurrenderCount()>=4)
+							Rebel
+						#ELSEIF(npc.getPlayerSurrenderCount()==3)
+							Refuse
+						#ELSE
+							Fight
+						#ENDIF
+					]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(npc.getPlayerSurrenderCount()>=4)
+							Refuse to play along as [npc.namePos] bitch any longer and prepare to fight for your freedom!
+						#ELSEIF(npc.getPlayerSurrenderCount()==3)
+							Refuse to become [npc.namePos] bitch and prepare to defend yourself!
+						#ELSE
+							Refuse to pay [npc.name] and prepare to defend yourself!
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue/>
+					<effects><![CDATA[
+						[#npc.applyPlayerPregnancyReactions()]
+					]]></effects>
+					<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+					<combatVariables enabled="true">
+						<nextDialoguePlayerVictory><![CDATA[HC_encounter_bat_caverns_victory]]></nextDialoguePlayerVictory>
+						<nextDialoguePlayerDefeat><![CDATA[HC_encounter_bat_caverns_defeat]]></nextDialoguePlayerDefeat>
+						<allies companionsAreAllies="true"/>
+						<enemies>
+							<enemy leader="true"><![CDATA[npc]]></enemy>
+						</enemies>
+						<openingDescriptions>
+							<combatant id="pc"><![CDATA[
+								#IF(npc.getPlayerSurrenderCount()>=4)
+									Telling [npc.name] that you're not going to be [npc.her] bitch any longer, you prepare to fight for your freedom.
+								#ELSEIF(npc.getPlayerSurrenderCount()==3)
+									Telling [npc.name] that you're never going to be [npc.her] bitch, you prepare to defend yourself.
+								#ELSE
+									Refusing to hand over your money, you tell [npc.name] that [npc.sheIs] making a mistake as you prepare to defend yourself.
+								#ENDIF
+							]]></combatant>
+							<combatant id="npc"><![CDATA[
+								#IF(npc.getPlayerSurrenderCount()>=4)
+									Flashing you a wicked smirk, [npc.name] sneers, [npc.speech(You forget your place! I'll remind you of where you belong!)]
+								#ELSEIF(npc.getPlayerSurrenderCount()==3)
+									Flashing you a wicked smirk, [npc.name] sneers, [npc.speech(I'll make you my bitch, one way or another!)]
+								#ELSE
+									Flashing you a wicked smirk, [npc.name] sneers, [npc.speech(I'll make you pay, one way or another!)]
+								#ENDIF
+							]]></combatant>
+						</openingDescriptions>
+					</combatVariables>
+				</response>
+			<!-- Bitch content: -->
+				<!-- Initial acceptance: -->
+				<response>
+					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()==3 && game.isFootContentEnabled() && npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() && pc.isAbleToAccessCoverableArea(CA_MOUTH)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<requiredFetishes>
+						<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+						<fetish><![CDATA[FETISH_MASOCHIST]]></fetish>
+						<fetish><![CDATA[FETISH_FOOT_RECEIVING]]></fetish>
+					</requiredFetishes>
+					<corruptionLevel><![CDATA[FIVE_CORRUPT]]></corruptionLevel>
+					<responseTitle><![CDATA[Kiss [npc.feet]]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Show [npc.name] that you're [npc.her] bitch by doing as [npc.she] commands and bending down to submissively kiss [npc.her] [npc.feet].
+						#IF(npc.isApplyingPostCombatTransformations())
+							<br/>[style.italicsTfGeneric(This will result in [npc.name] trying to get you to drink a transformation potion, before possibly choosing to fuck you!)]
+						#ENDIF
+						<br/>[style.italicsSex(Becoming [npc.namePos] bitch will change your available options when encountering [npc.herHim] again in the future.)]
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted]]></nextDialogue>
+					<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+					<effects><![CDATA[
+						[#npc.applyPlayerPregnancyReactions()]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTING_FEET'))]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()==3 && (!game.isFootContentEnabled() || !npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() || !pc.isAbleToAccessCoverableArea(CA_MOUTH)) && npc.getFetishDesire(FETISH_SADIST).isPositive()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<requiredFetishes>
+						<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+						<fetish><![CDATA[FETISH_MASOCHIST]]></fetish>
+					</requiredFetishes>
+					<corruptionLevel><![CDATA[FIVE_CORRUPT]]></corruptionLevel>
+					<responseTitle><![CDATA[Get spanked]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Show [npc.name] that you're [npc.her] bitch by doing as [npc.she] commands and presenting [npc.herHim] with your ass so that [npc.she] can give you a rough spanking.
+						#IF(npc.isApplyingPostCombatTransformations())
+							<br/>[style.italicsTfGeneric(This will result in [npc.name] trying to get you to drink a transformation potion, before possibly choosing to fuck you!)]
+						#ENDIF
+						<br/>[style.italicsSex(Becoming [npc.namePos] bitch will change your available options when encountering [npc.herHim] again in the future.)]
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted]]></nextDialogue>
+					<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+					<effects><![CDATA[
+						[#npc.applyPlayerPregnancyReactions()]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTING_SPANKING'))]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()==3 && (!game.isFootContentEnabled() || !npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() || !pc.isAbleToAccessCoverableArea(CA_MOUTH)) && !npc.getFetishDesire(FETISH_SADIST).isPositive()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<requiredFetishes>
+						<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+						<fetish><![CDATA[FETISH_MASOCHIST]]></fetish>
+					</requiredFetishes>
+					<corruptionLevel><![CDATA[FIVE_CORRUPT]]></corruptionLevel>
+					<responseTitle><![CDATA[Bow down]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Show [npc.name] that you're [npc.her] bitch by doing as [npc.she] commands and bowing down to [npc.herHim].
+						#IF(npc.isApplyingPostCombatTransformations())
+							<br/>[style.italicsTfGeneric(This will result in [npc.name] trying to get you to drink a transformation potion, before possibly choosing to fuck you!)]
+						#ENDIF
+						<br/>[style.italicsSex(Becoming [npc.namePos] bitch will change your available options when encountering [npc.herHim] again in the future.)]
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted]]></nextDialogue>
+					<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+					<effects><![CDATA[
+						[#npc.applyPlayerPregnancyReactions()]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTING_BOW_DOWN'))]
+					]]></effects>
+				</response>
+				<!-- Submitted actions: -->
+					<!-- Transformation potion application: -->
+					<response>
+						<availabilityConditional><![CDATA[[#npc.getPlayerSurrenderCount()>=4 && npc.isApplyingPostCombatTransformations()]]]></availabilityConditional>
+						<responseTabIndex><![CDATA[0]]></responseTabIndex>
+						<index><![CDATA[1]]></index>
+						<responseTitle><![CDATA[Swallow]]></responseTitle>
+						<responseTooltip><![CDATA[
+							Do as [npc.name] says and swallow the transformative fluid!
+						]]></responseTooltip>
+						<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_transformation]]></nextDialogue>
+						<effects><![CDATA[
+							[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_TRANSFORMATION'))]
+							[#game.appendToTextStartStringBuilder(npc.applyPostCombatTransformation())]
+							[#flags.setFlag(FLAG_innoxia_alleyway_transformations_applied, true)]
+						]]></effects>
+					</response>
+					<!-- 1) Pay money: -->
+					<response>
+						<availabilityConditional><![CDATA[[#npc.getPlayerSurrenderCount()>=4 && !npc.isApplyingPostCombatTransformations() && flags.getSavedLong('randomResponseIndex')<=3]]]></availabilityConditional>
+						<responseTabIndex><![CDATA[0]]></responseTabIndex>
+						<index><![CDATA[1]]></index>
+						<responseTitle><![CDATA[Pay up ([style.moneyFormat([#flags.getMuggerDemand3()], span)])]]></responseTitle>
+						<responseTooltip><![CDATA[Do as [npc.name] commands and give [npc.herHim] [style.intToString([#flags.getMuggerDemand3()])] flames.]]></responseTooltip>
+						<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_pay_up]]></nextDialogue>
+						<effects><![CDATA[
+							[#npc.applyPlayerPregnancyReactions()]
+							[#npc.incrementPlayerSurrenderCount(1)]
+						]]></effects>
+					</response>
+					<response>
+						<availabilityConditional><![CDATA[[#npc.getPlayerSurrenderCount()>=4 && !npc.isApplyingPostCombatTransformations() && flags.getSavedLong('randomResponseIndex')<=3]]]></availabilityConditional>
+						<responseTabIndex><![CDATA[0]]></responseTabIndex>
+						<index><![CDATA[1]]></index>
+						<responseTitle><![CDATA[Pay up ([style.moneyFormatUncoloured([#flags.getMuggerDemand3()], span)])]]></responseTitle>
+						<responseTooltip><![CDATA[[npc.Name] isn't demanding money from you this time...]]></responseTooltip>
+						<nextDialogue><![CDATA[null]]></nextDialogue>
+						<effects/>
+					</response>
+					<!-- 2) Join mugging: -->
+					<response>
+						<availabilityConditional><![CDATA[[#npc.getPlayerSurrenderCount()>=4 && !npc.isApplyingPostCombatTransformations() && flags.getSavedLong('randomResponseIndex')<=3]]]></availabilityConditional>
+						<responseTabIndex><![CDATA[0]]></responseTabIndex>
+						<index><![CDATA[2]]></index>
+						<colour><![CDATA[GENERIC_COMBAT]]></colour>
+						<responseTitle><![CDATA[Partner in crime]]></responseTitle>
+						<responseTooltip><![CDATA[Obediently follow [npc.name] and assist [npc.herHim] in mugging the first innocent traveller you find.]]></responseTooltip>
+						<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_mugging]]></nextDialogue>
+						<effects><![CDATA[
+							[#npc.applyPlayerPregnancyReactions()]
+							[#npc.incrementPlayerSurrenderCount(1)]
+						]]></effects>
+					</response>
+					<!-- 3) Pimped out: -->
+					<response>
+						<availabilityConditional><![CDATA[[#npc.getPlayerSurrenderCount()>=4 && !npc.isApplyingPostCombatTransformations() && flags.getSavedLong('randomResponseIndex')<=3]]]></availabilityConditional>
+						<responseTabIndex><![CDATA[0]]></responseTabIndex>
+						<index><![CDATA[3]]></index>
+						<colour><![CDATA[GENERIC_SEX]]></colour>
+						<responseTitle><![CDATA[Pimped out]]></responseTitle>
+						<responseTooltip><![CDATA[Submissively follow [npc.name] and allow [npc.herHim] to pimp you out to a 'friend' of [npc.hers].]]></responseTooltip>
+						<requiredFetishes>
+							<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+						</requiredFetishes>
+						<corruptionLevel><![CDATA[FOUR_LUSTFUL]]></corruptionLevel>
+						<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_pimped_out]]></nextDialogue>
+						<effects><![CDATA[
+							[#npc.applyPlayerPregnancyReactions()]
+							[#npc.incrementPlayerSurrenderCount(1)]
+						]]></effects>
+					</response>
+					<!-- 4) Fucked: -->
+					<response>
+						<availabilityConditional><![CDATA[[#npc.getPlayerSurrenderCount()>=4 && !npc.isApplyingPostCombatTransformations() && flags.getSavedLong('randomResponseIndex')==4]]]></availabilityConditional>
+						<responseTabIndex><![CDATA[0]]></responseTabIndex>
+						<index><![CDATA[1]]></index>
+						<responseTitle><![CDATA[Fucked]]></responseTitle>
+						<responseTooltip><![CDATA[Be a good bitch and let [npc.name] dominantly fuck you in whatever way [npc.she] desires.]]></responseTooltip>
+						<requiredFetishes>
+							<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+						</requiredFetishes>
+						<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+						<nextDialogue/>
+						<effects><![CDATA[
+							[#npc.applyPlayerPregnancyReactions()]
+							[#npc.incrementPlayerSurrenderCount(1)]
+						]]></effects>
+						<sexVariables enabled="true">
+							<consensual><![CDATA[true]]></consensual>
+							<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+							<dominants>
+								<character><![CDATA[npc]]></character>
+							</dominants>
+							<submissives>
+								<character><![CDATA[pc]]></character>
+							</submissives>
+							<dominantSpectators/>
+							<submissiveSpectators/>
+							<postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_after_sex]]></postSexDialogue>
+							<sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_SEX_START</sexStartContent>
+							<tags/>
+							<ongoingActionsAtStart/>
+						</sexVariables>
+					</response>
+					<!-- 5) Specials: -->
+					<response>
+						<availabilityConditional><![CDATA[[#npc.getPlayerSurrenderCount()>=4 && !npc.isApplyingPostCombatTransformations() && flags.getSavedLong('randomResponseIndex')==5]]]></availabilityConditional>
+						<responseTabIndex><![CDATA[0]]></responseTabIndex>
+						<index><![CDATA[1]]></index>
+						<responseTitle><![CDATA[Walkies]]></responseTitle>
+						<responseTooltip><![CDATA[Crawl alongside [npc.name] as [npc.she] travels to a nearby shop to buy some food.]]></responseTooltip>
+						<requiredFetishes>
+							<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+						</requiredFetishes>
+						<corruptionLevel><![CDATA[FOUR_LUSTFUL]]></corruptionLevel>
+						<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_walkies]]></nextDialogue>
+						<effects><![CDATA[
+							[#npc.applyPlayerPregnancyReactions()]
+							[#npc.incrementPlayerSurrenderCount(1)]
+						]]></effects>
+					</response>
+					<!-- 6) Tattooed: -->
+					<response>
+						<availabilityConditional><![CDATA[[#npc.getPlayerSurrenderCount()>=4 && !npc.isApplyingPostCombatTransformations() && flags.getSavedLong('randomResponseIndex')==6]]]></availabilityConditional>
+						<responseTabIndex><![CDATA[0]]></responseTabIndex>
+						<index><![CDATA[1]]></index>
+						<colour><![CDATA[GENERIC_SEX]]></colour>
+						<responseTitle><![CDATA[Tattooed]]></responseTitle>
+						<responseTooltip><![CDATA[
+							Follow [npc.name] to find [npc.her] friend, who's going to tattoo you with a declaration of ownership.
+							<br/>[style.italicsSex(After being tattooed, you're going to be fucked by [npc.namePos] friend!)]
+						]]></responseTooltip>
+						<requiredFetishes>
+							<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+						</requiredFetishes>
+						<corruptionLevel><![CDATA[FOUR_LUSTFUL]]></corruptionLevel>
+						<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_tattooed]]></nextDialogue>
+						<effects><![CDATA[
+							[#npc.applyPlayerPregnancyReactions()]
+							[#npc.incrementPlayerSurrenderCount(1)]
+						]]></effects>
+					</response>
+		</responses>
+	</scene>
+	
+	<!-- Bitch content: -->
+	
+	<!-- Initial submission scenes: -->
+	
+	<scene id="submitted">
+		<preParsingEffects><![CDATA[
+			[#npc.incrementPlayerSurrenderCount(1)]
+			
+			#IF(RND.nextInt(100)<66)
+				#IF(RND.nextInt(100)<50)
+					[#npc.setPetName(pc, 'Bitch')]
+				#ELSE
+					[#npc.setPetName(pc, 'Pet')]
+				#ENDIF
+			#ELSE
+				[#npc.setPetName(pc, 'Slave')]
+			#ENDIF
+			
+			[#npc.setPlayerKnowsName(true)]
+			#IF(RND.nextInt(100)<66)
+				#IF(RND.nextInt(100)<50)
+					[#pc.setPetName(npc, 'Mistress')]
+				#ELSE
+					[#pc.setPetName(npc, "Ma'am")]
+				#ENDIF
+			#ELSE
+				[#pc.setPetName(npc, 'Miss '+npc.getSurname())]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Transformation potion application: -->
+				<!-- Spit: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_alleyway_transformations_applied) && npc.isApplyingPostCombatTransformations()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Spit]]></responseTitle>
+					<responseTooltip><![CDATA[
+						As you've only just accepted being [npc.namePos] bitch, you can't bring yourself to disobey [npc.her] order to drink the potion!
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+					<effects/>
+				</response>
+				<!-- Swallow: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_alleyway_transformations_applied) && npc.isApplyingPostCombatTransformations()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Swallow]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Do as [npc.name] says and swallow the transformative fluid!
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_transformation]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_TRANSFORMATION'))]
+						[#game.appendToTextStartStringBuilder(npc.applyPostCombatTransformation())]
+						[#flags.setFlag(FLAG_innoxia_alleyway_transformations_applied, true)]
+					]]></effects>
+				</response>
+			
+			<!-- No transformation potion application: -->
+				<!-- Non-con fucked: -->
+				<response>
+					<availabilityConditional><![CDATA[[#(flags.hasFlag(FLAG_innoxia_alleyway_transformations_applied) || !npc.isApplyingPostCombatTransformations()) && npc.isAttractedTo(pc) && npc.isWillingToRape()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Fucked]]></responseTitle>
+					<responseTooltip><![CDATA[You're unable to stop [npc.name] from dominantly fucking you...]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<sexVariables enabled="true">
+						<consensual><![CDATA[false]]></consensual>
+						<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+						<dominants>
+							<character><![CDATA[npc]]></character>
+						</dominants>
+						<submissives>
+							<character><![CDATA[pc]]></character>
+						</submissives>
+						<dominantSpectators/>
+						<submissiveSpectators/>
+						<postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_FUCKED</sexStartContent>
+						<tags/>
+						<ongoingActionsAtStart/>
+					</sexVariables>
+				</response>
+				<!-- Non-con disabled, so give player chance to leave: -->
+				<response>
+					<availabilityConditional><![CDATA[[#(flags.hasFlag(FLAG_innoxia_alleyway_transformations_applied) || !npc.isApplyingPostCombatTransformations()) && (!npc.isWillingToRape() || !npc.isAttractedTo(pc))]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Leave]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(npc.isAttractedTo(pc))
+							Refuse to let [npc.name] fuck you and wait for [npc.herHim] to leave before continuing on your way...
+						#ELSE
+							Wait for [npc.name] to leave before continuing on your way...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+					<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REFUSE_SEX'))]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#(flags.hasFlag(FLAG_innoxia_alleyway_transformations_applied) || !npc.isApplyingPostCombatTransformations()) && npc.isAttractedTo(pc) && !npc.isWillingToRape()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Submit]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Do as [npc.name] says and submit to [npc.herHim], allowing [npc.herHim] to dominantly fuck you...
+					]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<sexVariables enabled="true">
+						<consensual><![CDATA[true]]></consensual>
+						<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+						<dominants>
+							<character><![CDATA[npc]]></character>
+						</dominants>
+						<submissives>
+							<character><![CDATA[pc]]></character>
+						</submissives>
+						<dominantSpectators/>
+						<submissiveSpectators/>
+						<postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_FUCKED_WILLING</sexStartContent>
+						<tags/>
+						<ongoingActionsAtStart/>
+					</sexVariables>
+				</response>
+		</responses>
+	</scene>
+	
+	<scene id="submitted_transformation">
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_TRANSFORMATION_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_encounters_submission_bat_caverns_submitted"/>
+	</scene>
+	
+	<scene id="submitted_after_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[[npc.Name] has had [npc.her] fun with you, and with a satisfied sigh [npc.she] [npc.steps] back and brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[As [npc.name] has left, there's nothing else for you to do except continue on your way...]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Repeat submission scenes: -->
+	
+	<!-- Pay up: -->
+	
+	<scene id="submitted_repeat_pay_up">
+		<preParsingEffects><![CDATA[
+			[#game.addSpecialParsingString('[style.intToString([#flags.getMuggerDemand3()])]', true)]
+			[#game.appendToTextEndStringBuilder(pc.incrementMoney(-flags.getMuggerDemand3()))]
+			[#npc.incrementMoney(flags.getMuggerDemand3())]
+		]]></preParsingEffects>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_PAID</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[As [npc.name] has left, there's nothing else for you to do except continue on your way...]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Mugging: -->
+	
+	<scene id="submitted_repeat_mugging">
+		<preParsingEffects><![CDATA[
+			[#game.addNPC('fields.ElisAlleywayAttacker', 'victim')]
+			[#victim.equipClothing()]
+			[#victim.setLocation(pc, true)]
+			[#victim.removePersonalityTrait(PERSONALITY_TRAIT_MUTE)]
+			[#pc.incrementKarma(-10)]
+		]]></preParsingEffects>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_MUGGING</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fight]]></responseTitle>
+				<responseTooltip><![CDATA[Join [npc.name] in fighting [victim.name]!]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<combatVariables enabled="true">
+					<nextDialoguePlayerVictory><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_mugging_combat_won]]></nextDialoguePlayerVictory>
+					<nextDialoguePlayerDefeat><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_mugging_combat_lost]]></nextDialoguePlayerDefeat>
+					<allies companionsAreAllies="true">
+						<ally><![CDATA[npc]]></ally>
+					</allies>
+					<enemies>
+						<enemy leader="true"><![CDATA[victim]]></enemy>
+					</enemies>
+					<openingDescriptions>
+						<combatant id="pc"><![CDATA[Obediently doing as [npc.name] commands, you prepare to assist [npc.herHim] in subduing [victim.name].]]></combatant>
+						<combatant id="npc"><![CDATA[
+							#IF(npc.isMute())
+								With a wicked smirk on [npc.her] face, [npc.name] motions for you to attack [victim.name].
+							#ELSE
+								Letting out a mocking laugh, [npc.name] taunts [victim.name], [npc.speech(You've got no chance against the two of us!)]
+							#ENDIF
+						]]></combatant>
+						<combatant id="victim"><![CDATA[Taking on a defensive stance, [victim.name] desperately shouts, [victim.speech(Leave me alone!)]]]></combatant>
+					</openingDescriptions>
+				</combatVariables>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="submitted_repeat_mugging_combat_won">
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_MUGGING_COMBAT_WON</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Attacker has sex with victim: -->
+				<response>
+					<availabilityConditional><![CDATA[[#npc.isAttractedTo(victim) && !npc.hasStatusEffect(SE_RECOVERING_AURA) && (npc.isWillingToRape(victim) || victim.isAttractedTo(npc))]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Watch]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(!victim.isAttractedTo(npc))
+							Watch as [npc.name] rapes [victim.name]...
+						#ELSE
+							Watch as [victim.name] submits to [npc.name] and allows [npc.herHim] to fuck [victim.herHim]...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue/>
+					<sexVariables enabled="true">
+						<consensual><![CDATA[[#victim.isAttractedTo(npc)]]]></consensual>
+						<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+						<dominants>
+							<character><![CDATA[npc]]></character>
+						</dominants>
+						<submissives>
+							<character><![CDATA[victim]]></character>
+						</submissives>
+						<dominantSpectators>
+							<character><![CDATA[pc]]></character>
+						</dominantSpectators>
+						<submissiveSpectators/>
+						<postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_mugging_after_spectating_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_MUGGING_SPECTATE_SEX</sexStartContent>
+						<tags/>
+						<ongoingActionsAtStart/>
+					</sexVariables>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#npc.isAttractedTo(victim) && !npc.hasStatusEffect(SE_RECOVERING_AURA) && (npc.isWillingToRape(victim) || victim.isAttractedTo(npc))]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Leave]]></responseTitle>
+					<responseTooltip><![CDATA[Not wanting to watch [npc.name] having sex with [victim.name], you leave [npc.herHim] to it and continue on your way...]]></responseTooltip>
+					<nextDialogue><![CDATA[default]]></nextDialogue>
+					<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_MUGGING_NO_SPECTATE'))]
+						[#game.banishNPC(victim)]
+					]]></effects>
+				</response>
+			<!-- Attacker offers player sex with victim: -->
+				<response>
+					<availabilityConditional><![CDATA[[#((!npc.isAttractedTo(victim) || npc.hasStatusEffect(SE_RECOVERING_AURA)) || !npc.isWillingToRape(victim)) && (game.isNonConEnabled() || victim.isAttractedTo(pc))]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[
+						#IF(!victim.isAttractedTo(pc))
+							Rape [victim.herHim]
+						#ELSE
+							Fuck [victim.herHim]
+						#ENDIF
+					]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(!victim.isAttractedTo(pc))
+							Do as [npc.name] commands and rape [victim.name] in front of [npc.herHim].
+						#ELSE
+							Do as [npc.name] commands and fuck [victim.name] in front of [npc.herHim].
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue/>
+					<sexVariables enabled="true">
+						<consensual><![CDATA[[#victim.isAttractedTo(pc)]]]></consensual>
+						<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+						<dominants>
+							<character><![CDATA[pc]]></character>
+						</dominants>
+						<submissives>
+							<character><![CDATA[victim]]></character>
+						</submissives>
+						<dominantSpectators>
+							<character><![CDATA[npc]]></character>
+						</dominantSpectators>
+						<submissiveSpectators/>
+						<postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_mugging_after_fuck_victim]]></postSexDialogue>
+						<sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_MUGGING_FUCK_VICTIM</sexStartContent>
+						<tags/>
+						<ongoingActionsAtStart/>
+					</sexVariables>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#((!npc.isAttractedTo(victim) || npc.hasStatusEffect(SE_RECOVERING_AURA)) || !npc.isWillingToRape(victim)) && (game.isNonConEnabled() || victim.isAttractedTo(pc))]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Refuse]]></responseTitle>
+					<responseTooltip><![CDATA[Not wanting to fuck [victim.name] in front of [npc.name], you tell [npc.herHim] that you can't do it...]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_mugging_refuse_sex]]></nextDialogue>
+					<effects/>
+				</response>
+			<!-- No sex: -->
+			<response>
+				<availabilityConditional><![CDATA[[#((!npc.isAttractedTo(victim) || npc.hasStatusEffect(SE_RECOVERING_AURA)) || !npc.isWillingToRape(victim)) && (!game.isNonConEnabled() && !victim.isAttractedTo(pc))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Not wanting to stick around and get caught by the Enforcers, you decide to quickly take your leave...]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_MUGGING_NO_SEX_END'))]
+					[#game.banishNPC(victim)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="submitted_repeat_mugging_after_spectating_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[[npc.Name] has had [npc.her] fun with [victim.name], and with a satisfied sigh [npc.she] [npc.steps] back and brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_MUGGING_SPECTATE_SEX_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Not wanting to stick around and get caught by the Enforcers, you decide to quickly take your leave...]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_MUGGING_SPECTATE_SEX_END_LEAVE'))]
+					[#game.banishNPC(victim)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="submitted_repeat_mugging_after_fuck_victim">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[You've had your fun with [victim.name], and with a satisfied sigh you [pc.step] back and bring an end to the sex...]]></tooltip>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_MUGGING_FUCK_VICTIM_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Not wanting to stick around and get caught by the Enforcers, you decide to quickly take your leave...]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					#IF(!victim.isAttractedTo(pc))
+						[#pc.incrementKarma(-10)]
+					#ENDIF
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_MUGGING_FUCK_VICTIM_END_LEAVE'))]
+					[#game.banishNPC(victim)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="submitted_repeat_mugging_refuse_sex">
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_MUGGING_REFUSE_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Not wanting to stick around and get caught by the Enforcers, you decide to quickly take your leave...]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_MUGGING_REFUSE_SEX_LEAVE'))]
+					[#game.banishNPC(victim)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="submitted_repeat_mugging_combat_lost">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_MUGGING_COMBAT_LOST'))]
+			[#game.banishNPC(victim)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Escape]]></responseTitle>
+				<responseTooltip><![CDATA[Quickly escape before the Enforcers arrive!]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_MUGGING_COMBAT_LOST_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Pimped out: -->
+	
+	<scene id="submitted_repeat_pimped_out">
+		<preParsingEffects><![CDATA[
+			[#game.addNPC('misc.GenericSexualPartner', 'friend')]
+			[#friend.setLocation(pc, false)]
+			[#friend.setPlayerKnowsName(true)]
+			[#friend.setPetName(pc, [npc.getPetName(pc)])]
+			[#friend.setSexualOrientation(ORIENTATION_AMBIPHILIC)]
+			
+			#IF(RND.nextInt()<33)
+				[#friend.addStatusEffect(SE_SMOKING, 60*10)]
+			#ENDIF
+			
+			[#friend.removePersonalityTrait(PERSONALITY_TRAIT_MUTE)]
+			[#friend.addFetish(FETISH_DOMINANT)]
+			#IF(friend.hasPenis())
+				[#friend.addFetish(FETISH_PENIS_GIVING)]
+				#IF(game.isAnalContentEnabled() && (friend.hasFetish(FETISH_ANAL_GIVING) || RND.nextInt(100)<25) && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+					[#friend.addFetish(FETISH_ANAL_GIVING)]
+					[#friend.removeFetish(FETISH_VAGINAL_GIVING)]
+					[#friend.removeFetish(FETISH_ORAL_RECEIVING)]
+				#ELSEIF((friend.hasFetish(FETISH_VAGINAL_GIVING) || RND.nextInt(100)<50) && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+					[#friend.addFetish(FETISH_VAGINAL_GIVING)]
+					[#friend.removeFetish(FETISH_ANAL_GIVING)]
+					[#friend.removeFetish(FETISH_ORAL_RECEIVING)]
+				#ELSEIF((friend.hasFetish(FETISH_ORAL_RECEIVING) || RND.nextInt(100)<50) && pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+					[#friend.addFetish(FETISH_ORAL_RECEIVING)]
+					[#friend.removeFetish(FETISH_ANAL_GIVING)]
+					[#friend.removeFetish(FETISH_VAGINAL_GIVING)]
+				#ELSE
+					[#friend.removeFetish(FETISH_ANAL_GIVING)]
+					[#friend.removeFetish(FETISH_VAGINAL_GIVING)]
+					[#friend.removeFetish(FETISH_ORAL_RECEIVING)]
+				#ENDIF
+			#ENDIF
+			#IF(pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+				#IF(game.isAnalContentEnabled() && (friend.hasFetish(FETISH_ANAL_RECEIVING) || RND.nextInt(100)<20))
+					[#friend.addFetish(FETISH_ANAL_RECEIVING)]
+					[#friend.removeFetish(FETISH_VAGINAL_RECEIVING)]
+				#ELSEIF((friend.hasFetish(FETISH_VAGINAL_RECEIVING) || RND.nextInt(100)<50) && friend.hasVagina())
+					[#friend.addFetish(FETISH_VAGINAL_RECEIVING)]
+					[#friend.removeFetish(FETISH_ANAL_RECEIVING)]
+				#ELSE
+					[#friend.removeFetish(FETISH_ANAL_RECEIVING)]
+					[#friend.removeFetish(FETISH_VAGINAL_RECEIVING)]
+				#ENDIF
+			#ELSE
+				[#friend.removeFetish(FETISH_ANAL_RECEIVING)]
+				[#friend.removeFetish(FETISH_VAGINAL_RECEIVING)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_PIMPED_OUT</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Anal: -->
+			<response>
+                <availabilityConditional><![CDATA[
+					[#friend.hasFetish(FETISH_ANAL_GIVING)]
+                ]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Present ass]]></responseTitle>
+                <responseTooltip><![CDATA[
+					Present your [pc.ass+] to [friend.name] so that [friend.she] can fuck your [pc.asshole+]...
+                ]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+                <effects/>
+                <requiredFetishes>
+                    <fetish><![CDATA[FETISH_ANAL_RECEIVING]]></fetish>
+                </requiredFetishes>
+                <corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[innoxia_misc_alleyway_encounter_pimped_anal]]></id>
+                    <startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>friend</id>
+                            <slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators>
+                        <character>
+                            <id>npc</id>
+                        </character>
+					</dominantSpectators>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_pimped_out_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_PIMPED_OUT_ANAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[friend]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+                </sexVariablesWithManager>
+            </response>
+			<!-- Vaginal: -->
+			<response>
+                <availabilityConditional><![CDATA[
+					[#!friend.hasFetish(FETISH_ANAL_GIVING) && friend.hasFetish(FETISH_VAGINAL_GIVING)]
+                ]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Present pussy]]></responseTitle>
+                <responseTooltip><![CDATA[
+					Present your [pc.pussy+] to [friend.name] so that [friend.she] can fuck you...
+                ]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+                <effects/>
+                <requiredFetishes>
+                    <fetish><![CDATA[FETISH_VAGINAL_RECEIVING]]></fetish>
+                </requiredFetishes>
+                <corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[innoxia_misc_alleyway_encounter_pimped_vaginal]]></id>
+                    <startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>friend</id>
+                            <slot><![CDATA[
+								#IF(friend.hasFetish(FETISH_IMPREGNATION) && !pc.isPregnant() && !pc.isTaur())
+									LYING_DOWN_MATING_PRESS
+								#ELSE
+									LYING_DOWN_MISSIONARY
+								#ENDIF
+							]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[LYING_DOWN_LYING_DOWN]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators>
+                        <character>
+                            <id>npc</id>
+                        </character>
+					</dominantSpectators>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_pimped_out_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_PIMPED_OUT_VAGINAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[friend]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+                </sexVariablesWithManager>
+            </response>
+			<!-- Oral: -->
+			<response>
+                <availabilityConditional><![CDATA[
+					[#!friend.hasFetish(FETISH_ANAL_GIVING) && !friend.hasFetish(FETISH_VAGINAL_GIVING) && friend.hasFetish(FETISH_ORAL_RECEIVING)]
+                ]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Open wide]]></responseTitle>
+                <responseTooltip><![CDATA[
+					Open wide and present your mouth to [friend.name] so that [friend.she] can fuck your throat...
+                ]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+                <effects/>
+                <requiredFetishes>
+                    <fetish><![CDATA[FETISH_ORAL_GIVING]]></fetish>
+                </requiredFetishes>
+                <corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[innoxia_misc_alleyway_encounter_pimped_oral]]></id>
+                    <startingPosition><![CDATA[STANDING]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>friend</id>
+                            <slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators>
+                        <character>
+                            <id>npc</id>
+                        </character>
+					</dominantSpectators>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_pimped_out_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_PIMPED_OUT_ORAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[friend]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+                </sexVariablesWithManager>
+            </response>
+			<!-- Anal giving: -->
+			<response>
+                <availabilityConditional><![CDATA[
+					[#!friend.hasFetish(FETISH_ANAL_GIVING) && !friend.hasFetish(FETISH_VAGINAL_GIVING) && !friend.hasFetish(FETISH_ORAL_RECEIVING) && friend.hasFetish(FETISH_ANAL_RECEIVING)]
+                ]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Present cock]]></responseTitle>
+                <responseTooltip><![CDATA[
+					Present your [pc.cock+] to [friend.name] so that [friend.she] can use [friend.her] [friend.asshole+] to ride it...
+                ]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+                <effects/>
+                <requiredFetishes>
+                    <fetish><![CDATA[FETISH_ANAL_GIVING]]></fetish>
+                </requiredFetishes>
+                <corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[innoxia_misc_alleyway_encounter_pimped_anal_giving]]></id>
+                    <startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>friend</id>
+                            <slot><![CDATA[LYING_DOWN_COWGIRL]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[LYING_DOWN_LYING_DOWN]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators>
+                        <character>
+                            <id>npc</id>
+                        </character>
+					</dominantSpectators>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_pimped_out_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_PIMPED_OUT_ANAL_GIVING_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisAnus_USING_PENIS_START]]></id>
+							<performer><![CDATA[friend]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+                </sexVariablesWithManager>
+            </response>
+			<!-- Vaginal giving: -->
+			<response>
+                <availabilityConditional><![CDATA[
+					[#!friend.hasFetish(FETISH_ANAL_GIVING) && !friend.hasFetish(FETISH_VAGINAL_GIVING) && !friend.hasFetish(FETISH_ORAL_RECEIVING) && !friend.hasFetish(FETISH_ANAL_RECEIVING) && friend.hasFetish(FETISH_VAGINAL_RECEIVING)]
+                ]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Present cock]]></responseTitle>
+                <responseTooltip><![CDATA[
+					Present your [pc.cock+] to [friend.name] so that [friend.she] can use [friend.her] [friend.pussy+] to ride it...
+                ]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+                <effects/>
+                <requiredFetishes>
+                    <fetish><![CDATA[FETISH_VAGINAL_GIVING]]></fetish>
+                </requiredFetishes>
+                <corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[innoxia_misc_alleyway_encounter_pimped_vaginal_giving]]></id>
+                    <startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>friend</id>
+                            <slot><![CDATA[LYING_DOWN_COWGIRL]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[LYING_DOWN_LYING_DOWN]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators>
+                        <character>
+                            <id>npc</id>
+                        </character>
+					</dominantSpectators>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_pimped_out_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_PIMPED_OUT_VAGINAL_GIVING_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisVagina_USING_PENIS_START]]></id>
+							<performer><![CDATA[friend]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+                </sexVariablesWithManager>
+            </response>
+			<!-- Generic sex: -->
+			<response>
+                <availabilityConditional><![CDATA[
+					[#!friend.hasFetish(FETISH_ANAL_GIVING) && !friend.hasFetish(FETISH_VAGINAL_GIVING) && !friend.hasFetish(FETISH_ORAL_RECEIVING) && !friend.hasFetish(FETISH_ANAL_RECEIVING) && !friend.hasFetish(FETISH_VAGINAL_RECEIVING)]
+                ]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Submit]]></responseTitle>
+                <responseTooltip><![CDATA[
+					Submit to [friend.name] so that [friend.she] can fuck you...
+                ]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+                <effects/>
+                <requiredFetishes>
+                    <fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+                </requiredFetishes>
+                <corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[innoxia_misc_alleyway_encounter_pimped_generic]]></id>
+                    <startingPosition><![CDATA[STANDING]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>friend</id>
+                            <slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators>
+                        <character>
+                            <id>npc</id>
+                        </character>
+					</dominantSpectators>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_pimped_out_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_PIMPED_OUT_GENERIC_START</sexStartContent>
+					<ongoingActionsAtStart/>
+                </sexVariablesWithManager>
+            </response>
+		</responses>
+	</scene>
+	
+	<scene id="submitted_repeat_pimped_out_after_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[[friend.Name] has had [friend.her] fun with you, and brings the sex to an end...]]></tooltip>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_PIMPED_OUT_SEX_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Having been told to get out of here by [npc.name], you decide to quickly take your leave...]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_PIMPED_OUT_SEX_END_LEAVE'))]
+					[#game.banishNPC(friend)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Walkies: -->
+	
+	<scene id="submitted_repeat_walkies">
+		<preParsingEffects><![CDATA[
+			[#game.addNPC('misc.GenericSexualPartner', 'stranger')]
+			[#stranger.resetBodyToGenderPreferences(false, true)]
+			[#stranger.displaceClothingForAccess(CA_PENIS, null)]
+			[#stranger.setSexualOrientation(ORIENTATION_AMBIPHILIC)]
+			
+			[#stranger.setLocation(pc, false)]
+			
+			[#stranger.removePersonalityTrait(PERSONALITY_TRAIT_MUTE)]
+			[#stranger.addFetish(FETISH_DOMINANT)]
+			[#stranger.addFetish(FETISH_EXHIBITIONIST)]
+			
+			[#stranger.addFetish(FETISH_PENIS_GIVING)]
+			[#stranger.removeFetish(FETISH_VAGINAL_GIVING)]
+			[#stranger.removeFetish(FETISH_ORAL_RECEIVING)]
+			#IF(!game.isAnalContentEnabled() || !pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+				[#stranger.removeFetish(FETISH_ANAL_GIVING)]
+			#ENDIF
+			#IF(pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				[#stranger.addFetish(FETISH_VAGINAL_GIVING)]
+			#ENDIF
+			#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+				[#stranger.addFetish(FETISH_ORAL_RECEIVING)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_WALKIES</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Remain still]]></responseTitle>
+				<responseTooltip><![CDATA[Ignore the stranger and remain seated outside the bistro until [stranger.she] loses interest and leaves.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_walkies_ignore]]></nextDialogue>
+				<effects/>
+			</response>
+			<!-- Sex begging: -->
+			<!-- Oral: -->
+			<response>
+                <availabilityConditional><![CDATA[
+					[#stranger.hasFetish(FETISH_ORAL_RECEIVING)]
+                ]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[2]]></index>
+                <responseTitle><![CDATA[Lick cock]]></responseTitle>
+                <responseTooltip><![CDATA[
+					Lean over to [stranger.namePos] groin and give [stranger.her] [stranger.cock+] a lick, before taking it into your mouth and giving [stranger.herHim] a blowjob...
+                ]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+                <effects/>
+                <requiredFetishes>
+                    <fetish><![CDATA[FETISH_ORAL_GIVING]]></fetish>
+                    <fetish><![CDATA[FETISH_EXHIBITIONIST]]></fetish>
+                </requiredFetishes>
+                <corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[innoxia_misc_alleyway_encounter_stranger_oral]]></id>
+                    <startingPosition><![CDATA[STANDING]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>stranger</id>
+                            <slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators/>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_walkies_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_WALKIES_ORAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[stranger]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+                </sexVariablesWithManager>
+            </response>
+			<!-- Vaginal: -->
+			<response>
+                <availabilityConditional><![CDATA[
+					[#stranger.hasFetish(FETISH_VAGINAL_GIVING)]
+                ]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[3]]></index>
+                <responseTitle><![CDATA[Present pussy]]></responseTitle>
+                <responseTooltip><![CDATA[
+					Drop down onto all fours and shuffle around to present your [pc.pussy+] to [stranger.name] so that [stranger.she] can fuck you...
+                ]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+                <effects/>
+                <requiredFetishes>
+                    <fetish><![CDATA[FETISH_VAGINAL_RECEIVING]]></fetish>
+                    <fetish><![CDATA[FETISH_EXHIBITIONIST]]></fetish>
+                </requiredFetishes>
+                <corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[innoxia_misc_alleyway_encounter_stranger_vaginal]]></id>
+                    <startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>stranger</id>
+                            <slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators/>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_walkies_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_WALKIES_VAGINAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[stranger]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+                </sexVariablesWithManager>
+            </response>
+			<!-- Anal: -->
+			<response>
+                <availabilityConditional><![CDATA[
+					[#stranger.hasFetish(FETISH_ANAL_GIVING)]
+                ]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[4]]></index>
+                <responseTitle><![CDATA[Present ass]]></responseTitle>
+                <responseTooltip><![CDATA[
+					Drop down onto all fours and shuffle around to present your [pc.asshole+] to [stranger.name] so that [stranger.she] can fuck your ass...
+                ]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+                <effects/>
+                <requiredFetishes>
+                    <fetish><![CDATA[FETISH_ANAL_RECEIVING]]></fetish>
+                    <fetish><![CDATA[FETISH_EXHIBITIONIST]]></fetish>
+                </requiredFetishes>
+                <corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[innoxia_misc_alleyway_encounter_stranger_anal]]></id>
+                    <startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>stranger</id>
+                            <slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators/>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_walkies_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_WALKIES_ANAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[stranger]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+                </sexVariablesWithManager>
+            </response>
+		</responses>
+	</scene>
+	
+	<scene id="submitted_repeat_walkies_ignore">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_WALKIES_IGNORE'))]
+			[#game.banishNPC(stranger)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[As [npc.name] has left, there's nothing else for you to do except continue on your way...]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_WALKIES_IGNORE_END'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="submitted_repeat_walkies_after_sex">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_WALKIES_SEX_END'))]
+			[#game.banishNPC(stranger)]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[[stranger.Name] has had [stranger.her] fun with you, and brings the sex to an end...]]></tooltip>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Having been told to get out of here by [npc.name], you decide to quickly take your leave...]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_WALKIES_SEX_END_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Tattooed: -->
+	
+	<scene id="submitted_repeat_tattooed">
+		<preParsingEffects><![CDATA[
+			[#game.addNPC('misc.GenericSexualPartner', 'tattooist')]
+			[#tattooist.resetBodyToGenderPreferences(false, true)]
+			[#tattooist.setPlayerKnowsName(true)]
+			[#tattooist.setPetName(pc, [npc.getPetName(pc)])]
+			[#tattooist.addSpecialPerk(PERK_SPECIAL_ARCANE_TATTOOIST)]
+			[#tattooist.setSexualOrientation(ORIENTATION_AMBIPHILIC)]
+			
+			[#tattooist.setLocation(pc, false)]
+			
+			[#tattooist.removePersonalityTrait(PERSONALITY_TRAIT_MUTE)]
+			[#tattooist.addFetish(FETISH_DOMINANT)]
+			
+			[#tattooist.addFetish(FETISH_PENIS_GIVING)]
+			#IF(game.isAnalContentEnabled())
+				[#tattooist.addFetish(FETISH_ANAL_GIVING)]
+			#ENDIF
+			[#tattooist.addFetish(FETISH_VAGINAL_GIVING)]
+		]]></preParsingEffects>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_TATTOOED</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Obey]]></responseTitle>
+				<responseTooltip><![CDATA[Lie down on the table and allow [tattooist.name] to tattoo you...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_tattooed_finished]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					#IF(game.isAnalContentEnabled() && pc.getTattooInSlot(IS_TORSO_UNDER)==null && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+						[#flags.setFlag(FLAG_innoxia_alleyway_submission_tattooed_ass, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_TATTOOED_ASS'))]
+						[#pc.addTattoo(IS_TORSO_UNDER, TATTOO_TRIBAL, COLOUR_CLOTHING_BLACK, COLOUR_CLOTHING_BLACK, COLOUR_CLOTHING_BLACK, false)]
+						[#pc.getTattooInSlot(IS_TORSO_UNDER).setWriting('Property of '+[npc.name], COLOUR_CLOTHING_BLACK, false)]
+					#ENDIF
+					#IF(pc.getTattooInSlot(IS_GROIN)==null && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+						[#flags.setFlag(FLAG_innoxia_alleyway_submission_tattooed_pussy, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_TATTOOED_PUSSY'))]
+						[#pc.addTattoo(IS_GROIN, TATTOO_innoxia_heartWomb_heart_womb, COLOUR_CLOTHING_PINK, COLOUR_CLOTHING_PINK_LIGHT, COLOUR_CLOTHING_PURPLE, false)]
+						[#pc.getTattooInSlot(IS_GROIN).setWriting('Property of '+[npc.name], COLOUR_CLOTHING_PINK, false)]
+					#ENDIF
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="submitted_repeat_tattooed_finished">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Vaginal: -->
+			<response>
+                <availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_alleyway_submission_tattooed_pussy)]
+                ]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Spread [pc.legs]]]></responseTitle>
+                <responseTooltip><![CDATA[
+					Spread your [pc.legs] so [tattooist.name] can get [tattooist.her] payment by fucking your cunt.
+                ]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+                <effects/>
+                <requiredFetishes>
+                    <fetish><![CDATA[FETISH_VAGINAL_RECEIVING]]></fetish>
+                </requiredFetishes>
+                <corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[innoxia_misc_alleyway_encounter_tattooist_vaginal]]></id>
+                    <startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>tattooist</id>
+                            <slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[
+								#IF(pc.isTaur())
+									OVER_DESK_OVER_DESK_ON_FRONT
+								#ELSE
+									OVER_DESK_OVER_DESK_ON_BACK
+								#ENDIF
+							]]></slot>
+                        </character>
+                    </submissives>
+					<dominantSpectators>
+						<character><![CDATA[npc]]></character>
+					</dominantSpectators>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_tattooed_finished_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_TATTOOED_VAGINAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[tattooist]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+                </sexVariablesWithManager>
+            </response>
+			<!-- Anal: -->
+			<response>
+                <availabilityConditional><![CDATA[
+					[#!flags.hasFlag(FLAG_innoxia_alleyway_submission_tattooed_pussy)]
+                ]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Raise ass]]></responseTitle>
+                <responseTooltip><![CDATA[
+					Present your [pc.asshole+] to [tattooist.name] so that [tattooist.she] can fuck your ass...
+                ]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+                <effects/>
+                <requiredFetishes>
+                    <fetish><![CDATA[FETISH_ANAL_RECEIVING]]></fetish>
+                    <fetish><![CDATA[FETISH_EXHIBITIONIST]]></fetish>
+                </requiredFetishes>
+                <corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[innoxia_misc_alleyway_encounter_tattooist_anal]]></id>
+                    <startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>tattooist</id>
+                            <slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[OVER_DESK_OVER_DESK_ON_FRONT]]></slot>
+                        </character>
+                    </submissives>
+					<dominantSpectators>
+						<character><![CDATA[npc]]></character>
+					</dominantSpectators>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_tattooed_finished_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_TATTOOED_ANAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[tattooist]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+                </sexVariablesWithManager>
+            </response>
+		</responses>
+	</scene>
+	
+	<scene id="submitted_repeat_tattooed_finished_after_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[[tattooist.Name] has had [tattooist.her] fun with you, and brings the sex to an end...]]></tooltip>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_TATTOOED_SEX_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Having been told to get out of here by [npc.name], you decide to quickly take your leave...]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_TATTOOED_SEX_END_LEAVE'))]
+					[#game.banishNPC(tattooist)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

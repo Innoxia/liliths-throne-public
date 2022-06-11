@@ -134,7 +134,10 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.markings.AbstractTattooType;
+import com.lilithsthrone.game.character.markings.TattooCountType;
+import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.markings.TattooType;
+import com.lilithsthrone.game.character.markings.TattooWritingStyle;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
@@ -9758,9 +9761,6 @@ public class UtilText {
 		for(AbstractItemType itemType : ItemType.getAllItems()) {
 			engine.put("ITEM_"+ItemType.getIdFromItemType(itemType), itemType);
 		}
-		for(AbstractTattooType tattooType : TattooType.getAllTattooTypes()) {
-			engine.put("TATTOO_"+TattooType.getIdFromTattooType(tattooType), tattooType);
-		}
 		for(AbstractSetBonus setBonus : SetBonus.getAllSetBonuses()) {
 			engine.put("SET_BONUS_"+SetBonus.getIdFromSetBonus(setBonus), setBonus);
 		}
@@ -9784,6 +9784,20 @@ public class UtilText {
 		for(EquipClothingSetting ecs : EquipClothingSetting.values()) {
 			engine.put("EQUIP_CLOTHING_SETTING_"+ecs.toString(), ecs);
 			engine.put("ECS_"+ecs.toString(), ecs);
+		}
+		
+		// Tattoos:
+		for(AbstractTattooType tattooType : TattooType.getAllTattooTypes()) {
+			engine.put("TATTOO_"+TattooType.getIdFromTattooType(tattooType), tattooType);
+		}
+		for(TattooCounterType tattooCounterType : TattooCounterType.values()) {
+			engine.put("TATTOO_COUNTER_"+tattooCounterType.toString(), tattooCounterType);
+		}
+		for(TattooCountType tattooCountType : TattooCountType.values()) {
+			engine.put("TATTOO_COUNT_"+tattooCountType.toString(), tattooCountType);
+		}
+		for(TattooWritingStyle tattooWritingStyle : TattooWritingStyle.values()) {
+			engine.put("TATTOO_WRITING_STYLE_"+tattooWritingStyle.toString(), tattooWritingStyle);
 		}
 		
 		// Misc.:

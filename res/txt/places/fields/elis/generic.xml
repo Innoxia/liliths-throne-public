@@ -481,6 +481,25 @@
 			Just like the empty courtyard before you suggests, the the tavern itself seems to be closed, as there's no light nor sounds coming from within. Although there are large, leaded windows on the ground floor, they're so grimy that you can't see much of the interior through them, and so if you wanted to find out what this tavern is like, you'll have to come back again when it's open. Looking across to the tavern's front door, you see that there's an old, weathered sign which declares its opening hours to be from [style.colourMinorBad([units.time(14)]-[units.time(5)])].
 		</p>
 	#ENDIF
+	#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS))
+		<p>
+			<i>
+			#IF(game.isHourBetween(6, 7))
+				#IF(flags.hasFlag(FLAG_innoxia_oglix_kheiron_spectated_today))
+					You've already seen what Kheiron and Golix get up to in the old stables today. If you wanted to watch them again, then you'll have to come back tomorrow between [units.time(6)]-[units.time(7)]...
+				#ELSE
+					Remembering what Oglix said, as it's currently between [units.time(6)]-[units.time(7)], you could sneak around behind the tavern to the old stables, where Kheiron and Golix should be having their meeting...
+				#ENDIF
+			#ELSE
+				Remembering what Oglix said, if you were to come back here
+				#IF(game.getHourOfDay()>7)
+					 tomorrow
+				#ENDIF
+				 between [units.time(6)]-[units.time(7)], you could sneak around behind the tavern to the old stables, where Kheiron and Golix will be having their meeting...
+			#ENDIF
+			</i>
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	

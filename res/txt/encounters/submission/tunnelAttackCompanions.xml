@@ -865,6 +865,61 @@
 	</htmlContent>
 	
 	
+	<!-- PEACEFUL_TRANSFORMATIONS -->
+	
+	<htmlContent tag="PEACEFUL_TRANSFORMATIONS"><![CDATA[
+	<p>
+		Wanting to be transformed into whatever form [npc.name] finds most pleasing, you ask [npc.herHim] if [npc.she] has any transformative potions which [npc.she]'d like you to drink.
+	</p>
+	<p>
+		#IF(!npc.isMute())
+			[npc.speech(Well, now that you mention it...)] [npc.name] replies, before retrieving a
+		#ELSE
+			Enthusiastically nodding [npc.her] head, [npc.name] hurries to retrieve a
+		#ENDIF
+		#IF(npc.isUsingForcedTransform(pc) && npc.getPostCombatPotion()!=null && npc.isUsingForcedFetish(pc) && npc.getPostCombatFetishPotion()!=null)
+			 couple of curious little bottles from a nearby hiding place.
+		#ELSE
+			 curious little bottle from a nearby hiding place.
+		#ENDIF
+		 Grinning at you, [npc.she]
+		#IF(!npc.isMute())
+			 reveals, [npc.speech(Normally there'd be no way that someone like me could afford transformation potions, but there's this really kind succubus who sometimes finds me and asks if I've seen any humans wandering about. Even if I say no, she still makes me some customised potions so that I can transform any humans that I see... Anyway, you say you want to be transformed?
+			#IF(npc.isApplyingPostCombatTransformations(false, true))
+				 Just drink this then, your fetishes will be changed to how I like them...
+			#ELSE
+				 Just drink this then, and I'll turn you into my perfect [npc.preferredBody(b)]...
+			#ENDIF
+			)]
+		#ELSE
+			 can't contain [npc.her] excitement and has to take a moment to write out a message for you, <i>'Normally there'd be no way that someone like me could afford transformation potions, but there's this really kind succubus who sometimes finds me and asks if I've seen any humans wandering about. Even if I say no, she still makes me some customised potions so that I can transform any humans that I see... You say you want to be transformed?
+			#IF(npc.isApplyingPostCombatTransformations(false, true))
+				 Just drink this then, your fetishes will be changed to how I like them...'
+			#ELSE
+				 Just drink this then, and I'll turn you into my perfect [npc.preferredBody(b)]...'
+			#ENDIF
+			</i>
+		#ENDIF
+	</p>
+	<p>
+		#IF(npc.isUsingForcedTransform(pc) && npc.getPostCombatPotion()!=null && npc.isUsingForcedFetish(pc) && npc.getPostCombatFetishPotion()!=null)
+			With that, [npc.name] pulls out the little stopper from the top of each bottle, and as you willingly open your mouth, [npc.she] pushes their necks past your [pc.lips+].
+		#ELSE
+			With that, [npc.name] pulls out the little stopper from the top of the bottle, and as you willingly open your mouth, [npc.she] pushes its neck past your [pc.lips+].
+		#ENDIF
+		 As the sickly-sweet fluid pours out into your mouth, you can't help but let out a muffled moan in anticipation of the changes which your body is to be subjected to.
+	</p>
+	<p>
+		#IF(!npc.isMute())
+			[npc.speech(That's it, drink it all down...)] [npc.name] eagerly pants. More than happy to do as you're told, you swallow down every last drop of the transformative fluid, after which [npc.name] happily grins and exclaims, [npc.speech(Now for the fun part!)]
+		#ELSE
+			Panting in eager anticipation of what's to come, [npc.name] watches as you swallow down every last drop of the transformative fluid, after which [npc.she] happily grins and waits for the changes to take place...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- TUNNEL_PEACEFUL_ATTACK -->
 	
 	<htmlContent tag="TUNNEL_PEACEFUL_ATTACK"><![CDATA[
@@ -1199,6 +1254,90 @@
 	<p>
 		Smiling to yourself as you think that you might have just made a new friend, you set off and continue on your way...
 	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SURRENDER -->
+	
+	<htmlContent tag="SURRENDER"><![CDATA[
+	<p>
+		#IF(pc.isCowardly())
+			Well and truly terrified at the prospect of this [npc.race] choosing to engage you in physical combat, you drop down before [npc.herHim] and offer [npc.herHim] your complete surrender. Letting out an amused chuckle as [npc.she] sees how scared you are, the [npc.race]
+		#ELSEIF(pc.isBrave())
+			Although not scared of [npc.race], you find yourself unwilling to engage [npc.herHim] in combat, and so you drop down before [npc.herHim] and offer [npc.herHim] your complete surrender. Letting out an annoyed tut as [npc.she] sees the brave look in your [pc.eyes], the [npc.race]
+		#ELSE
+			Not wanting to engage this [npc.race] in combat, you drop down before [npc.herHim] and offer [npc.herHim] your complete surrender. Letting out an amused chuckle as [npc.she] sees your complete and utter submission, the [npc.race]
+		#ENDIF
+		#IF(!npc.isMute())
+			 pushes you to the ground, before using [npc.her] bodyweight to hold you down and sneer, [npc.speech(How pathetic!)]
+		#ELSE
+			 pushes you to the ground, and with a wicked sneer on [npc.her] face, [npc.she] uses [npc.her] bodyweight to hold you down.
+		#ENDIF
+	</p>
+	#IF(npc.isUsingForcedTransform(pc) && npc.getPostCombatPotion()!=null)
+		#IF(npc.isUsingForcedFetish(pc) && npc.getPostCombatFetishPotion()!=null)
+			<p>
+				As [npc.she] pins you to the floor, [npc.she] produces a couple of curious little bottles from somewhere out of sight, and shakes them from side to side
+				#IF(!npc.isMute())
+					 as [npc.she] taunts, [npc.speech(I think you could do with some <i>improvements</i>! I'm going to turn you into my perfect [npc.preferredBody(b)]!)]
+				#ELSE
+					 before your face, allowing you to see that on the side of one of them there's a label which reads '[npc.preferredBody(b)]'.
+				#ENDIF
+			</p>
+			<p>
+				With that, [npc.name] pulls out the little stopper from the top of each bottle, and as you open your mouth to protest, [npc.she] suddenly shoves their necks past your [pc.lips+]. As the sickly-sweet fluid pours out into your mouth, you let out a muffled whine; the only act of resistance that you're able to summon in your current state.
+			</p>
+			<p>
+				#IF(!npc.isMute())
+					[npc.speech(Come on! Swallow it all down already!)] [npc.she] growls, throwing
+				#ELSE
+					Clasping [npc.her] [npc.hand] over your mouth, [npc.she] throws
+				#ENDIF
+				 the now-empty vessels to one side as [npc.she] tries to force you to swallow the combined fluids...
+			</p>
+		#ELSE
+			<p>
+				As [npc.she] pins you to the floor, [npc.she] produces a curious little bottle from somewhere out of sight, and shakes it from side to side
+				#IF(!npc.isMute())
+					 as [npc.she] taunts, [npc.speech(I think you could do with some <i>improvements</i>! I'm going to turn you into my perfect [npc.preferredBody(b)]!)]
+				#ELSE
+					 before your face, allowing you to see that on the side there's a label which reads '[npc.preferredBody(b)]'.
+				#ENDIF
+			</p>
+			<p>
+				With that, [npc.name] pulls out the little stopper from the top of the bottle, and as you open your mouth to protest, [npc.she] suddenly shoves the neck past your [pc.lips+]. As the sickly-sweet fluid pours out into your mouth, you let out a muffled whine; the only act of resistance that you're able to summon in your current state.
+			</p>
+			<p>
+				#IF(!npc.isMute())
+					[npc.speech(Come on! Swallow it all down already!)] [npc.she] growls, throwing
+				#ELSE
+					Clasping [npc.her] [npc.hand] over your mouth, [npc.she] throws
+				#ENDIF
+				 the now-empty vessel to one side as [npc.she] tries to force you to swallow the strange fluid...
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			As [npc.she] pins you to the floor, [npc.she] produces a curious little bottle from somewhere out of sight, and shakes it from side to side
+			#IF(!npc.isMute())
+				 as [npc.she] taunts, [npc.speech(I think you could do with some <i>improvements</i>! You're going to end up being my perfect partner; this potion will fix your fetishes and make sure of that!)]
+			#ELSE
+				 before your face, allowing you to see that on the side there's a warning label which says something about permanent fetish alterations.
+			#ENDIF
+		</p>
+		<p>
+			With that, [npc.name] pulls out the little stopper from the top of the bottle, and as you open your mouth to protest, [npc.she] suddenly shoves the neck past your [pc.lips+]. As the sickly-sweet fluid pours out into your mouth, you let out a muffled whine; the only act of resistance that you're able to summon in your current state.
+		</p>
+		<p>
+			#IF(!npc.isMute())
+				[npc.speech(Come on! Swallow it all down already!)] [npc.she] growls, throwing
+			#ELSE
+				Clasping [npc.her] [npc.hand] over your mouth, [npc.she] throws
+			#ENDIF
+			 the now-empty vessel to one side as [npc.she] tries to force you to swallow the strange fluid...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
