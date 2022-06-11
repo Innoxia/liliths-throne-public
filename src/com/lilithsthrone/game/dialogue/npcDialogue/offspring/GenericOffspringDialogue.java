@@ -54,13 +54,7 @@ public class GenericOffspringDialogue {
 	}
 	
 	private static String getTextFilePath() {
-		if(offspring().getWorldLocation().equals(WorldType.HARPY_NEST)) {
-			return "characters/offspring/harpyNests";
-		} else if(offspring().getWorldLocation().equals(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"))) {
-			return "characters/offspring/elisAlleyway";
-		} else {
-			return "characters/offspring/dominionAlleyway";
-		}
+		return offspring().getWorldLocation().getOffspringTextFilePath(offspring());
 	}
 	
 
@@ -91,6 +85,13 @@ public class GenericOffspringDialogue {
 			List<GameCharacter> offspringList = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
 			offspringList.removeIf(c->!c.isRelatedTo(Main.game.getPlayer()));
 			Main.game.setActiveNPC((NPC) offspringList.get(0));
+			
+			if(Main.game.getPlayer().getWorldLocation()==WorldType.BAT_CAVERNS) { // If offspring is in the bat caverns, they are a mushroom hunter
+				if(offspring().getItemCount(ItemType.MUSHROOM)<5) {
+					offspring().addItem(Main.game.getItemGen().generateItem(ItemType.MUSHROOM), 5+Util.random.nextInt(10), false, false);
+					offspring().setOccupation(Occupation.NPC_MUSHROOM_FORAGER);
+				}
+			}
 		}
 		
 		@Override
