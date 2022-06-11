@@ -14,6 +14,7 @@ import java.util.Map.Entry;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -1112,7 +1113,16 @@ public class Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
-//				TODO Add offspring encounters
+				if(Math.random()<IncestEncounterRate()) {
+					List<OffspringSeed> offspringAvailable = Main.game.getOffspringNotSpawned(
+							os-> (os.getSubspecies()==Subspecies.HALF_DEMON
+								?(os.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK))
+								:(os.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK))));
+
+					if(!offspringAvailable.isEmpty()) {
+						return SpawnAndStartChildHere(offspringAvailable);
+					}
+				}
 				
 				Main.game.setActiveNPC(new BatCavernLurkerAttacker(Gender.getGenderFromUserPreferences(false, false)));
 				try {
@@ -1130,7 +1140,14 @@ public class Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
-//				TODO Add offspring encounters
+				if(Math.random()<IncestEncounterRate()) {
+					List<OffspringSeed> offspringAvailable = Main.game.getOffspringNotSpawned(
+							os-> (os.getBodyMaterial() == BodyMaterial.SLIME));
+
+					if(!offspringAvailable.isEmpty()) {
+						return SpawnAndStartChildHere(offspringAvailable);
+					}
+				}
 				
 				Main.game.setActiveNPC(new BatCavernSlimeAttacker(Gender.getGenderFromUserPreferences(false, false)));
 				try {

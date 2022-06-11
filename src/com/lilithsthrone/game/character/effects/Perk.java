@@ -867,6 +867,27 @@ public class Perk {
 					"Having spent time training alongside Lunette herself, this demonic-centaur strives to be as destructive and merciless as [npc.her] mother!");
 		}
 	};
+
+	public static AbstractPerk JOB_NPC_MUSHROOM_FORAGER = new AbstractPerk(20,
+			true,
+			"Masterful Mycologist",
+			PerkCategory.JOB,
+			"perks/jobs/mushroom_forager",//TODO
+			Util.newArrayListOfValues(
+					PresetColour.BASE_BLUE_LIGHT,
+					PresetColour.BASE_PINK,
+					PresetColour.BASE_GREEN),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.RESISTANCE_POISON, 25)),
+			null,
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NamePos] body [npc.has] become highly resistant to poison through an arduous, and oft-times nauseating, process of discovering which mushrooms are edible, psychedelic, or toxic.");
+		}
+	};
 	
 	
 	

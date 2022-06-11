@@ -296,6 +296,8 @@ public class Oglix extends NPC {
 
 	@Override
 	public void endSex() {
+		this.applyWash(true, true, null, 0);
+		this.equipClothing();
 	}
 	
 	@Override

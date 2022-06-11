@@ -164,6 +164,7 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.PronounType;
+import com.lilithsthrone.game.character.markings.AbstractTattooType;
 import com.lilithsthrone.game.character.markings.Scar;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -3871,6 +3872,15 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		postTransformationCalculation();
 	}
+
+	public void resetBodyToGenderPreferences(boolean requiresVagina, boolean requiresPenis) {
+		Gender startingGender = Gender.getGenderFromUserPreferences(requiresVagina, requiresPenis);
+		body = Main.game.getCharacterUtils().generateBody(this, startingGender, this.getSubspecies(), this.getRaceStage());
+		
+		additionalBodySetup(startingGender, RacialBody.valueOfRace(this.getRace()), this.getSubspecies());
+		
+		postTransformationCalculation();
+	}
 	
 	protected void additionalBodySetup(Gender gender, AbstractRacialBody startingRace, AbstractSubspecies startingSpeciesType) {
 		if(this.surname==null || this.surname.isEmpty()) {
@@ -3907,6 +3917,17 @@ public abstract class GameCharacter implements XMLSaving {
 		sexualOrientation = startingRace.getSexualOrientation(gender);
 		
 		initPerkTreeAndBackgroundPerks();
+	}
+
+	public void setBodyUsingSubspeciesPreference(Gender gender, AbstractSubspecies subspecies) {
+		if(gender.isFeminine()) {
+			RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies), gender, subspecies);
+			setBody(gender, subspecies, stage, true);
+			
+		} else {
+			RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(subspecies), gender, subspecies);
+			setBody(gender, subspecies, stage, true);
+		}
 	}
 	
 	/**
@@ -4076,6 +4097,13 @@ public abstract class GameCharacter implements XMLSaving {
 				
 			} else if (petName.equalsIgnoreCase("Ma'am") || petName.equalsIgnoreCase("Sir")) {
 				return target.isFeminine()?"Ma'am":"Sir";
+				
+			} else if (petName.equalsIgnoreCase("Mr. "+this.getSurname()) || petName.equalsIgnoreCase("Mrs. "+this.getSurname()) || petName.equalsIgnoreCase("Miss "+this.getSurname())) {
+				return target.isFeminine()
+						?(petName.equalsIgnoreCase("Mrs. "+this.getSurname())
+							?"Mrs. "+this.getSurname()
+							:"Miss "+this.getSurname())
+						:"Mr. "+this.getSurname();
 			}
 			return petName;
 		}
@@ -4113,6 +4141,14 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public void setPetName(GameCharacter target, String petName) {
 		setPetName(target.getId(), petName);
+	}
+	
+	public void clearPetName(String targetId) {
+		petNameMap.remove(targetId);
+	}
+	
+	public void clearPetName(GameCharacter target) {
+		petNameMap.remove(target.getId());
 	}
 
 	public boolean isPlayer() {
@@ -10714,7 +10750,7 @@ public abstract class GameCharacter implements XMLSaving {
 						case DOM_NORMAL:
 							returnedLine = UtilText.returnStringAtRandom(
 									"You like feeling my slutty little asshole gripping down on your cock?!",
-									"Good [npc2.girl]! Push your [npc2.cock] deep! into my ass",
+									"Good [npc2.girl]! Push your [npc2.cock] deep into my ass!",
 									"Keep going! Get that [npc2.cock] deep in my ass like a good [npc2.girl]!");
 							break;
 						case DOM_ROUGH:
@@ -25017,6 +25053,23 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public void addTattoo(InventorySlot invSlot, Tattoo tattoo) {
 		removeTattoo(invSlot);
+		tattoos.put(invSlot, tattoo);
+		applyEquipTattooEffects(tattoo);
+	}
+
+	/**
+	 * Tattoo addition method mainly for use in external files. After adding tattoo, use getTattooInSlot(invSlot).setWriting() and getTattooInSlot(invSlot).setCounter() methods to set writing/counter for tattoo.
+	 */
+	public void addTattoo(InventorySlot invSlot, AbstractTattooType type, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, boolean glowing) {
+		removeTattoo(invSlot);
+		Tattoo tattoo = new Tattoo(
+				type,
+				primaryColour,
+				secondaryColour,
+				tertiaryColour,
+				glowing,
+				null,
+				null);
 		tattoos.put(invSlot, tattoo);
 		applyEquipTattooEffects(tattoo);
 	}

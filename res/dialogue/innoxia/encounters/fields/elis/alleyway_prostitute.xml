@@ -18,7 +18,7 @@
 			[#flags.setFlag(FLAG_innoxia_elis_alleyway_prostitute_sex, false)]
 			[#game.addSpecialParsingString('[style.intToString([#npc.getProstitutePrice()])]', true)]
 			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway_prostitute', 'START'))]
-			[#npc.applyPregnancyReactions()]
+			[#npc.applyPlayerPregnancyReactions()]
 		]]></preParsingEffects>
 		<title><![CDATA[Prostitute]]></title>
 		<author><![CDATA[Innoxia]]></author>

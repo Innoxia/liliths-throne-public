@@ -10,7 +10,12 @@ import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.npcDialogue.QuickTransformations;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayAttackerDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayDemonDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyAttackerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.submission.BatCavernDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelAttackDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
@@ -110,6 +115,21 @@ public class DialogueManager {
 		addHardCodedDialogueId("HARPY_NEST_NYMPHO_UGLY", HarpyNestNympho.HARPY_NEST_NYMPHO_UGLY);
 
 		addHardCodedDialogueId("DICE_POKER_CORE", DicePoker.GAMBLING);
+
+		addHardCodedDialogueId("HC_encounter_alleyway_defeat", AlleywayAttackerDialogue.AFTER_COMBAT_DEFEAT);
+		addHardCodedDialogueId("HC_encounter_alleyway_victory", AlleywayAttackerDialogue.AFTER_COMBAT_VICTORY);
+
+		addHardCodedDialogueId("HC_encounter_alleyway_demon_defeat", AlleywayDemonDialogue.AFTER_COMBAT_DEFEAT);
+		addHardCodedDialogueId("HC_encounter_alleyway_demon_victory", AlleywayDemonDialogue.AFTER_COMBAT_VICTORY);
+
+		addHardCodedDialogueId("HC_encounter_harpy_nest_defeat", HarpyAttackerDialogue.AFTER_COMBAT_DEFEAT);
+		addHardCodedDialogueId("HC_encounter_harpy_nest_victory", HarpyAttackerDialogue.AFTER_COMBAT_VICTORY);
+
+		addHardCodedDialogueId("HC_encounter_submission_defeat", TunnelAttackDialogue.AFTER_COMBAT_DEFEAT);
+		addHardCodedDialogueId("HC_encounter_submission_victory", TunnelAttackDialogue.AFTER_COMBAT_VICTORY);
+
+		addHardCodedDialogueId("HC_encounter_bat_caverns_defeat", BatCavernDialogue.AFTER_COMBAT_DEFEAT);
+		addHardCodedDialogueId("HC_encounter_bat_caverns_victory", BatCavernDialogue.AFTER_COMBAT_VICTORY);
 		
 		
 		// Modded dialogue types:

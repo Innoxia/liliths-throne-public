@@ -403,6 +403,14 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	public TattooWriting getWriting() {
 		return writing;
 	}
+
+	public void setWriting(TattooWriting writing) {
+		this.writing = writing;
+	}
+
+	public void setWriting(String text, Colour colour, boolean glow, TattooWritingStyle... styles) {
+		this.writing = new TattooWriting(text, colour, glow, styles);
+	}
 	
 	/**
 	 * For examples.
@@ -427,6 +435,14 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		return counter;
 	}
 
+	public void setCounter(TattooCounter counter) {
+		this.counter = counter;
+	}
+
+	public void setCounter(TattooCounterType type, TattooCountType countType, Colour colour, boolean glow) {
+		this.counter = new TattooCounter(type, countType, colour, glow);
+	}
+	
 	/**
 	 * For examples.
 	 */
