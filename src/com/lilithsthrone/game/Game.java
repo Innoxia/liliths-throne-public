@@ -3900,7 +3900,7 @@ public class Game implements XMLSaving {
 					+ "try{"
 						+ "timer;"
 					+ "} catch(e){"
-						+ "timer=false;"
+						+ "var timer=false;"
 					+ "}"
 					+ "if(!timer) {"
 						+ "document.getElementById('bottom-text').classList.add('demo');"

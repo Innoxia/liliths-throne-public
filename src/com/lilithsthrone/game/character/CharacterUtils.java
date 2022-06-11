@@ -287,7 +287,7 @@ public class CharacterUtils {
 			RaceStage stage = RaceStage.HUMAN;
 			
 			// Core body type is random:
-			if((fatherHuman && !motherHuman) || (Math.random()<=0.5 && (!fatherHuman?!motherHuman:false))) {
+			if((fatherHuman && !motherHuman) || (Math.random()<=0.5 && (!fatherHuman?!motherHuman:motherHuman))) {
 				if(mother.isTaur()) {
 					if(mother.getArmRace()!=Race.HUMAN) {
 						startingBodyType = motherBody;
@@ -1884,7 +1884,7 @@ public class CharacterUtils {
 //			character.setSkinCovering(BodyCoveringType.HUMAN, Util.randomItemFrom(BodyCoveringType.HUMAN.getNaturalColoursPrimary()), true);
 			Colour skinColour = Util.randomItemFrom(BodyCoveringType.HUMAN.getNaturalColoursPrimary());
 			if(Main.getProperties().skinColourPreferencesMap.values().stream().anyMatch(v->v>0)) {
-				Util.getRandomObjectFromWeightedMap(Main.getProperties().skinColourPreferencesMap);
+				skinColour = Util.getRandomObjectFromWeightedMap(Main.getProperties().skinColourPreferencesMap);
 			}
 			character.setSkinCovering(BodyCoveringType.HUMAN, skinColour, true);
 		}

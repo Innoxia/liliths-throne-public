@@ -45,8 +45,8 @@
 					]]></effects>
 					<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
 					<combatVariables enabled="true">
-						<nextDialoguePlayerVictory><![CDATA[HC_encounter_alleyway_victory]]></nextDialoguePlayerVictory>
-						<nextDialoguePlayerDefeat><![CDATA[HC_encounter_alleyway_defeat]]></nextDialoguePlayerDefeat>
+						<nextDialoguePlayerVictory><![CDATA[HC_encounter_bat_caverns_victory]]></nextDialoguePlayerVictory>
+						<nextDialoguePlayerDefeat><![CDATA[HC_encounter_bat_caverns_defeat]]></nextDialoguePlayerDefeat>
 						<allies companionsAreAllies="true"/>
 						<enemies>
 							<enemy leader="true"><![CDATA[npc]]></enemy>
@@ -76,7 +76,7 @@
 			<!-- Bitch content: -->
 				<!-- Initial acceptance: -->
 				<response>
-					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()==3 && game.isFootContentEnabled() && npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() && pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()==3 && game.isFootContentEnabled() && npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() && pc.isAbleToAccessCoverableArea(CA_MOUTH)]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[2]]></index>
 					<requiredFetishes>
@@ -93,15 +93,15 @@
 						#ENDIF
 						<br/>[style.italicsSex(Becoming [npc.namePos] bitch will change your available options when encountering [npc.herHim] again in the future.)]
 					]]></responseTooltip>
-					<nextDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted]]></nextDialogue>
+					<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted]]></nextDialogue>
 					<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 					<effects><![CDATA[
 						[#npc.applyPlayerPregnancyReactions()]
-						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTING_FEET'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTING_FEET'))]
 					]]></effects>
 				</response>
 				<response>
-					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()==3 && (!game.isFootContentEnabled() || !npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() || !pc.isAbleToAccessCoverableArea(CA_MOUTH, true)) && npc.getFetishDesire(FETISH_SADIST).isPositive()]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()==3 && (!game.isFootContentEnabled() || !npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() || !pc.isAbleToAccessCoverableArea(CA_MOUTH)) && npc.getFetishDesire(FETISH_SADIST).isPositive()]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[2]]></index>
 					<requiredFetishes>
@@ -117,15 +117,15 @@
 						#ENDIF
 						<br/>[style.italicsSex(Becoming [npc.namePos] bitch will change your available options when encountering [npc.herHim] again in the future.)]
 					]]></responseTooltip>
-					<nextDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted]]></nextDialogue>
+					<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted]]></nextDialogue>
 					<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 					<effects><![CDATA[
 						[#npc.applyPlayerPregnancyReactions()]
-						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTING_SPANKING'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTING_SPANKING'))]
 					]]></effects>
 				</response>
 				<response>
-					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()==3 && (!game.isFootContentEnabled() || !npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() || !pc.isAbleToAccessCoverableArea(CA_MOUTH, true)) && !npc.getFetishDesire(FETISH_SADIST).isPositive()]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()==3 && (!game.isFootContentEnabled() || !npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() || !pc.isAbleToAccessCoverableArea(CA_MOUTH)) && !npc.getFetishDesire(FETISH_SADIST).isPositive()]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[2]]></index>
 					<requiredFetishes>
@@ -141,11 +141,11 @@
 						#ENDIF
 						<br/>[style.italicsSex(Becoming [npc.namePos] bitch will change your available options when encountering [npc.herHim] again in the future.)]
 					]]></responseTooltip>
-					<nextDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted]]></nextDialogue>
+					<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted]]></nextDialogue>
 					<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 					<effects><![CDATA[
 						[#npc.applyPlayerPregnancyReactions()]
-						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTING_BOW_DOWN'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTING_BOW_DOWN'))]
 					]]></effects>
 				</response>
 				<!-- Submitted actions: -->
@@ -158,9 +158,9 @@
 						<responseTooltip><![CDATA[
 							Do as [npc.name] says and swallow the transformative fluid!
 						]]></responseTooltip>
-						<nextDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_transformation]]></nextDialogue>
+						<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_transformation]]></nextDialogue>
 						<effects><![CDATA[
-							[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTED_TRANSFORMATION'))]
+							[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_TRANSFORMATION'))]
 							[#game.appendToTextStartStringBuilder(npc.applyPostCombatTransformation())]
 							[#flags.setFlag(FLAG_innoxia_alleyway_transformations_applied, true)]
 						]]></effects>
@@ -172,7 +172,7 @@
 						<index><![CDATA[1]]></index>
 						<responseTitle><![CDATA[Pay up ([style.moneyFormat([#flags.getMuggerDemand3()], span)])]]></responseTitle>
 						<responseTooltip><![CDATA[Do as [npc.name] commands and give [npc.herHim] [style.intToString([#flags.getMuggerDemand3()])] flames.]]></responseTooltip>
-						<nextDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_pay_up]]></nextDialogue>
+						<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_pay_up]]></nextDialogue>
 						<effects><![CDATA[
 							[#npc.applyPlayerPregnancyReactions()]
 							[#npc.incrementPlayerSurrenderCount(1)]
@@ -195,7 +195,7 @@
 						<colour><![CDATA[GENERIC_COMBAT]]></colour>
 						<responseTitle><![CDATA[Partner in crime]]></responseTitle>
 						<responseTooltip><![CDATA[Obediently follow [npc.name] and assist [npc.herHim] in mugging the first innocent traveller you find.]]></responseTooltip>
-						<nextDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_mugging]]></nextDialogue>
+						<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_mugging]]></nextDialogue>
 						<effects><![CDATA[
 							[#npc.applyPlayerPregnancyReactions()]
 							[#npc.incrementPlayerSurrenderCount(1)]
@@ -213,7 +213,7 @@
 							<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
 						</requiredFetishes>
 						<corruptionLevel><![CDATA[FOUR_LUSTFUL]]></corruptionLevel>
-						<nextDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_pimped_out]]></nextDialogue>
+						<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_pimped_out]]></nextDialogue>
 						<effects><![CDATA[
 							[#npc.applyPlayerPregnancyReactions()]
 							[#npc.incrementPlayerSurrenderCount(1)]
@@ -246,8 +246,8 @@
 							</submissives>
 							<dominantSpectators/>
 							<submissiveSpectators/>
-							<postSexDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_after_sex]]></postSexDialogue>
-							<sexStartContent folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_SEX_START</sexStartContent>
+							<postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_after_sex]]></postSexDialogue>
+							<sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_SEX_START</sexStartContent>
 							<tags/>
 							<ongoingActionsAtStart/>
 						</sexVariables>
@@ -263,7 +263,7 @@
 							<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
 						</requiredFetishes>
 						<corruptionLevel><![CDATA[FOUR_LUSTFUL]]></corruptionLevel>
-						<nextDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_walkies]]></nextDialogue>
+						<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_walkies]]></nextDialogue>
 						<effects><![CDATA[
 							[#npc.applyPlayerPregnancyReactions()]
 							[#npc.incrementPlayerSurrenderCount(1)]
@@ -284,7 +284,7 @@
 							<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
 						</requiredFetishes>
 						<corruptionLevel><![CDATA[FOUR_LUSTFUL]]></corruptionLevel>
-						<nextDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_tattooed]]></nextDialogue>
+						<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_tattooed]]></nextDialogue>
 						<effects><![CDATA[
 							[#npc.applyPlayerPregnancyReactions()]
 							[#npc.incrementPlayerSurrenderCount(1)]
@@ -322,7 +322,7 @@
 				[#pc.setPetName(npc, 'Miss '+npc.getSurname())]
 			#ENDIF
 		]]></preParsingEffects>
-		<content folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_END</content>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_END</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -349,9 +349,9 @@
 					<responseTooltip><![CDATA[
 						Do as [npc.name] says and swallow the transformative fluid!
 					]]></responseTooltip>
-					<nextDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_transformation]]></nextDialogue>
+					<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_transformation]]></nextDialogue>
 					<effects><![CDATA[
-						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTED_TRANSFORMATION'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_TRANSFORMATION'))]
 						[#game.appendToTextStartStringBuilder(npc.applyPostCombatTransformation())]
 						[#flags.setFlag(FLAG_innoxia_alleyway_transformations_applied, true)]
 					]]></effects>
@@ -378,8 +378,8 @@
 						</submissives>
 						<dominantSpectators/>
 						<submissiveSpectators/>
-						<postSexDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_after_sex]]></postSexDialogue>
-						<sexStartContent folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_FUCKED</sexStartContent>
+						<postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_FUCKED</sexStartContent>
 						<tags/>
 						<ongoingActionsAtStart/>
 					</sexVariables>
@@ -400,7 +400,7 @@
 					<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
 					<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 					<effects><![CDATA[
-						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTED_REFUSE_SEX'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REFUSE_SEX'))]
 					]]></effects>
 				</response>
 				<response>
@@ -424,8 +424,8 @@
 						</submissives>
 						<dominantSpectators/>
 						<submissiveSpectators/>
-						<postSexDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_after_sex]]></postSexDialogue>
-						<sexStartContent folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_FUCKED_WILLING</sexStartContent>
+						<postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_FUCKED_WILLING</sexStartContent>
 						<tags/>
 						<ongoingActionsAtStart/>
 					</sexVariables>
@@ -434,17 +434,17 @@
 	</scene>
 	
 	<scene id="submitted_transformation">
-		<content folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_TRANSFORMATION_END</content>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_TRANSFORMATION_END</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
-		<responses copyFromDialogueId="innoxia_encounters_dominion_alleyway_submitted"/>
+		<responses copyFromDialogueId="innoxia_encounters_submission_bat_caverns_submitted"/>
 	</scene>
 	
 	<scene id="submitted_after_sex">
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[[npc.Name] has had [npc.her] fun with you, and with a satisfied sigh [npc.she] [npc.steps] back and brings an end to the sex...]]></tooltip>
-		<content folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_AFTER_SEX</content>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_AFTER_SEX</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -472,7 +472,7 @@
 			[#game.appendToTextEndStringBuilder(pc.incrementMoney(-flags.getMuggerDemand3()))]
 			[#npc.incrementMoney(flags.getMuggerDemand3())]
 		]]></preParsingEffects>
-		<content folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_PAID</content>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_PAID</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -500,7 +500,7 @@
 			[#victim.removePersonalityTrait(PERSONALITY_TRAIT_MUTE)]
 			[#pc.incrementKarma(-10)]
 		]]></preParsingEffects>
-		<content folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_MUGGING</content>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_MUGGING</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -514,8 +514,8 @@
 				<effects/>
 				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
 				<combatVariables enabled="true">
-					<nextDialoguePlayerVictory><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_mugging_combat_won]]></nextDialoguePlayerVictory>
-					<nextDialoguePlayerDefeat><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_mugging_combat_lost]]></nextDialoguePlayerDefeat>
+					<nextDialoguePlayerVictory><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_mugging_combat_won]]></nextDialoguePlayerVictory>
+					<nextDialoguePlayerDefeat><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_mugging_combat_lost]]></nextDialoguePlayerDefeat>
 					<allies companionsAreAllies="true">
 						<ally><![CDATA[npc]]></ally>
 					</allies>
@@ -539,7 +539,7 @@
 	</scene>
 	
 	<scene id="submitted_repeat_mugging_combat_won">
-		<content folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_MUGGING_COMBAT_WON</content>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_MUGGING_COMBAT_WON</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -571,8 +571,8 @@
 							<character><![CDATA[pc]]></character>
 						</dominantSpectators>
 						<submissiveSpectators/>
-						<postSexDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_mugging_after_spectating_sex]]></postSexDialogue>
-						<sexStartContent folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_MUGGING_SPECTATE_SEX</sexStartContent>
+						<postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_mugging_after_spectating_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_MUGGING_SPECTATE_SEX</sexStartContent>
 						<tags/>
 						<ongoingActionsAtStart/>
 					</sexVariables>
@@ -586,7 +586,7 @@
 					<nextDialogue><![CDATA[default]]></nextDialogue>
 					<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 					<effects><![CDATA[
-						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTED_REPEAT_MUGGING_NO_SPECTATE'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_MUGGING_NO_SPECTATE'))]
 						[#game.banishNPC(victim)]
 					]]></effects>
 				</response>
@@ -623,8 +623,8 @@
 							<character><![CDATA[npc]]></character>
 						</dominantSpectators>
 						<submissiveSpectators/>
-						<postSexDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_mugging_after_fuck_victim]]></postSexDialogue>
-						<sexStartContent folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_MUGGING_FUCK_VICTIM</sexStartContent>
+						<postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_mugging_after_fuck_victim]]></postSexDialogue>
+						<sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_MUGGING_FUCK_VICTIM</sexStartContent>
 						<tags/>
 						<ongoingActionsAtStart/>
 					</sexVariables>
@@ -635,7 +635,7 @@
 					<index><![CDATA[2]]></index>
 					<responseTitle><![CDATA[Refuse]]></responseTitle>
 					<responseTooltip><![CDATA[Not wanting to fuck [victim.name] in front of [npc.name], you tell [npc.herHim] that you can't do it...]]></responseTooltip>
-					<nextDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_mugging_refuse_sex]]></nextDialogue>
+					<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_mugging_refuse_sex]]></nextDialogue>
 					<effects/>
 				</response>
 			<!-- No sex: -->
@@ -648,7 +648,7 @@
 				<nextDialogue><![CDATA[default]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTED_REPEAT_MUGGING_NO_SEX_END'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_MUGGING_NO_SEX_END'))]
 					[#game.banishNPC(victim)]
 				]]></effects>
 			</response>
@@ -658,7 +658,7 @@
 	<scene id="submitted_repeat_mugging_after_spectating_sex">
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[[npc.Name] has had [npc.her] fun with [victim.name], and with a satisfied sigh [npc.she] [npc.steps] back and brings an end to the sex...]]></tooltip>
-		<content folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_MUGGING_SPECTATE_SEX_END</content>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_MUGGING_SPECTATE_SEX_END</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -671,7 +671,7 @@
 				<nextDialogue><![CDATA[default]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTED_REPEAT_MUGGING_SPECTATE_SEX_END_LEAVE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_MUGGING_SPECTATE_SEX_END_LEAVE'))]
 					[#game.banishNPC(victim)]
 				]]></effects>
 			</response>
@@ -681,7 +681,7 @@
 	<scene id="submitted_repeat_mugging_after_fuck_victim">
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[You've had your fun with [victim.name], and with a satisfied sigh you [pc.step] back and bring an end to the sex...]]></tooltip>
-		<content folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_MUGGING_FUCK_VICTIM_END</content>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_MUGGING_FUCK_VICTIM_END</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -697,7 +697,7 @@
 					#IF(!victim.isAttractedTo(pc))
 						[#pc.incrementKarma(-10)]
 					#ENDIF
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTED_REPEAT_MUGGING_FUCK_VICTIM_END_LEAVE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_MUGGING_FUCK_VICTIM_END_LEAVE'))]
 					[#game.banishNPC(victim)]
 				]]></effects>
 			</response>
@@ -705,7 +705,7 @@
 	</scene>
 	
 	<scene id="submitted_repeat_mugging_refuse_sex">
-		<content folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_MUGGING_REFUSE_SEX</content>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_MUGGING_REFUSE_SEX</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -718,7 +718,7 @@
 				<nextDialogue><![CDATA[default]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTED_REPEAT_MUGGING_REFUSE_SEX_LEAVE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_MUGGING_REFUSE_SEX_LEAVE'))]
 					[#game.banishNPC(victim)]
 				]]></effects>
 			</response>
@@ -727,7 +727,7 @@
 	
 	<scene id="submitted_repeat_mugging_combat_lost">
 		<preParsingEffects><![CDATA[
-			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTED_REPEAT_MUGGING_COMBAT_LOST'))]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_MUGGING_COMBAT_LOST'))]
 			[#game.banishNPC(victim)]
 		]]></preParsingEffects>
 		<content/>
@@ -743,7 +743,7 @@
 				<nextDialogue><![CDATA[default]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTED_REPEAT_MUGGING_COMBAT_LOST_LEAVE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_MUGGING_COMBAT_LOST_LEAVE'))]
 				]]></effects>
 			</response>
 		</responses>
@@ -802,7 +802,7 @@
 				[#friend.removeFetish(FETISH_VAGINAL_RECEIVING)]
 			#ENDIF
 		]]></preParsingEffects>
-		<content folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_PIMPED_OUT</content>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_PIMPED_OUT</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -846,8 +846,8 @@
                         </character>
 					</dominantSpectators>
                     <submissiveSpectators/>
-                    <postSexDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_pimped_out_after_sex]]></postSexDialogue>
-                    <sexStartContent folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_PIMPED_OUT_ANAL_START</sexStartContent>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_pimped_out_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_PIMPED_OUT_ANAL_START</sexStartContent>
 					<ongoingActionsAtStart>
 						<action>
 							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
@@ -904,8 +904,8 @@
                         </character>
 					</dominantSpectators>
                     <submissiveSpectators/>
-                    <postSexDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_pimped_out_after_sex]]></postSexDialogue>
-                    <sexStartContent folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_PIMPED_OUT_VAGINAL_START</sexStartContent>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_pimped_out_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_PIMPED_OUT_VAGINAL_START</sexStartContent>
 					<ongoingActionsAtStart>
 						<action>
 							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
@@ -956,8 +956,8 @@
                         </character>
 					</dominantSpectators>
                     <submissiveSpectators/>
-                    <postSexDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_pimped_out_after_sex]]></postSexDialogue>
-                    <sexStartContent folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_PIMPED_OUT_ORAL_START</sexStartContent>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_pimped_out_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_PIMPED_OUT_ORAL_START</sexStartContent>
 					<ongoingActionsAtStart>
 						<action>
 							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
@@ -1008,8 +1008,8 @@
                         </character>
 					</dominantSpectators>
                     <submissiveSpectators/>
-                    <postSexDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_pimped_out_after_sex]]></postSexDialogue>
-                    <sexStartContent folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_PIMPED_OUT_ANAL_GIVING_START</sexStartContent>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_pimped_out_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_PIMPED_OUT_ANAL_GIVING_START</sexStartContent>
 					<ongoingActionsAtStart>
 						<action>
 							<id><![CDATA[PenisAnus_USING_PENIS_START]]></id>
@@ -1060,8 +1060,8 @@
                         </character>
 					</dominantSpectators>
                     <submissiveSpectators/>
-                    <postSexDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_pimped_out_after_sex]]></postSexDialogue>
-                    <sexStartContent folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_PIMPED_OUT_VAGINAL_GIVING_START</sexStartContent>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_pimped_out_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_PIMPED_OUT_VAGINAL_GIVING_START</sexStartContent>
 					<ongoingActionsAtStart>
 						<action>
 							<id><![CDATA[PenisVagina_USING_PENIS_START]]></id>
@@ -1112,8 +1112,8 @@
                         </character>
 					</dominantSpectators>
                     <submissiveSpectators/>
-                    <postSexDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_pimped_out_after_sex]]></postSexDialogue>
-                    <sexStartContent folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_PIMPED_OUT_GENERIC_START</sexStartContent>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_pimped_out_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_PIMPED_OUT_GENERIC_START</sexStartContent>
 					<ongoingActionsAtStart/>
                 </sexVariablesWithManager>
             </response>
@@ -1123,7 +1123,7 @@
 	<scene id="submitted_repeat_pimped_out_after_sex">
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[[friend.Name] has had [friend.her] fun with you, and brings the sex to an end...]]></tooltip>
-		<content folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_PIMPED_OUT_SEX_END</content>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_PIMPED_OUT_SEX_END</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -1136,7 +1136,7 @@
 				<nextDialogue><![CDATA[default]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTED_REPEAT_PIMPED_OUT_SEX_END_LEAVE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_PIMPED_OUT_SEX_END_LEAVE'))]
 					[#game.banishNPC(friend)]
 				]]></effects>
 			</response>
@@ -1172,7 +1172,7 @@
 				[#stranger.addFetish(FETISH_ORAL_RECEIVING)]
 			#ENDIF
 		]]></preParsingEffects>
-		<content folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_WALKIES</content>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_WALKIES</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -1182,7 +1182,7 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Remain still]]></responseTitle>
 				<responseTooltip><![CDATA[Ignore the stranger and remain seated outside the bistro until [stranger.she] loses interest and leaves.]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_walkies_ignore]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_walkies_ignore]]></nextDialogue>
 				<effects/>
 			</response>
 			<!-- Sex begging: -->
@@ -1222,8 +1222,8 @@
                     </submissives>
                     <dominantSpectators/>
                     <submissiveSpectators/>
-                    <postSexDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_walkies_after_sex]]></postSexDialogue>
-                    <sexStartContent folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_WALKIES_ORAL_START</sexStartContent>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_walkies_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_WALKIES_ORAL_START</sexStartContent>
 					<ongoingActionsAtStart>
 						<action>
 							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
@@ -1271,8 +1271,8 @@
                     </submissives>
                     <dominantSpectators/>
                     <submissiveSpectators/>
-                    <postSexDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_walkies_after_sex]]></postSexDialogue>
-                    <sexStartContent folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_WALKIES_VAGINAL_START</sexStartContent>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_walkies_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_WALKIES_VAGINAL_START</sexStartContent>
 					<ongoingActionsAtStart>
 						<action>
 							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
@@ -1320,8 +1320,8 @@
                     </submissives>
                     <dominantSpectators/>
                     <submissiveSpectators/>
-                    <postSexDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_walkies_after_sex]]></postSexDialogue>
-                    <sexStartContent folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_WALKIES_ANAL_START</sexStartContent>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_walkies_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_WALKIES_ANAL_START</sexStartContent>
 					<ongoingActionsAtStart>
 						<action>
 							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
@@ -1338,7 +1338,7 @@
 	
 	<scene id="submitted_repeat_walkies_ignore">
 		<preParsingEffects><![CDATA[
-			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTED_REPEAT_WALKIES_IGNORE'))]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_WALKIES_IGNORE'))]
 			[#game.banishNPC(stranger)]
 		]]></preParsingEffects>
 		<content/>
@@ -1354,7 +1354,7 @@
 				<nextDialogue><![CDATA[default]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTED_REPEAT_WALKIES_IGNORE_END'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_WALKIES_IGNORE_END'))]
 				]]></effects>
 			</response>
 		</responses>
@@ -1362,7 +1362,7 @@
 	
 	<scene id="submitted_repeat_walkies_after_sex">
 		<preParsingEffects><![CDATA[
-			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTED_REPEAT_WALKIES_SEX_END'))]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_WALKIES_SEX_END'))]
 			[#game.banishNPC(stranger)]
 		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
@@ -1380,7 +1380,7 @@
 				<nextDialogue><![CDATA[default]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTED_REPEAT_WALKIES_SEX_END_LEAVE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_WALKIES_SEX_END_LEAVE'))]
 				]]></effects>
 			</response>
 		</responses>
@@ -1409,7 +1409,7 @@
 			#ENDIF
 			[#tattooist.addFetish(FETISH_VAGINAL_GIVING)]
 		]]></preParsingEffects>
-		<content folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_TATTOOED</content>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_TATTOOED</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -1419,18 +1419,18 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Obey]]></responseTitle>
 				<responseTooltip><![CDATA[Lie down on the table and allow [tattooist.name] to tattoo you...]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_tattooed_finished]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_tattooed_finished]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
 					#IF(game.isAnalContentEnabled() && pc.getTattooInSlot(IS_TORSO_UNDER)==null && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
 						[#flags.setFlag(FLAG_innoxia_alleyway_submission_tattooed_ass, true)]
-						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTED_REPEAT_TATTOOED_ASS'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_TATTOOED_ASS'))]
 						[#pc.addTattoo(IS_TORSO_UNDER, TATTOO_TRIBAL, COLOUR_CLOTHING_BLACK, COLOUR_CLOTHING_BLACK, COLOUR_CLOTHING_BLACK, false)]
 						[#pc.getTattooInSlot(IS_TORSO_UNDER).setWriting('Property of '+[npc.name], COLOUR_CLOTHING_BLACK, false)]
 					#ENDIF
 					#IF(pc.getTattooInSlot(IS_GROIN)==null && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 						[#flags.setFlag(FLAG_innoxia_alleyway_submission_tattooed_pussy, true)]
-						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTED_REPEAT_TATTOOED_PUSSY'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_TATTOOED_PUSSY'))]
 						[#pc.addTattoo(IS_GROIN, TATTOO_innoxia_heartWomb_heart_womb, COLOUR_CLOTHING_PINK, COLOUR_CLOTHING_PINK_LIGHT, COLOUR_CLOTHING_PURPLE, false)]
 						[#pc.getTattooInSlot(IS_GROIN).setWriting('Property of '+[npc.name], COLOUR_CLOTHING_PINK, false)]
 					#ENDIF
@@ -1488,8 +1488,8 @@
 						<character><![CDATA[npc]]></character>
 					</dominantSpectators>
                     <submissiveSpectators/>
-                    <postSexDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_tattooed_finished_after_sex]]></postSexDialogue>
-                    <sexStartContent folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_TATTOOED_VAGINAL_START</sexStartContent>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_tattooed_finished_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_TATTOOED_VAGINAL_START</sexStartContent>
 					<ongoingActionsAtStart>
 						<action>
 							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
@@ -1539,8 +1539,8 @@
 						<character><![CDATA[npc]]></character>
 					</dominantSpectators>
                     <submissiveSpectators/>
-                    <postSexDialogue><![CDATA[innoxia_encounters_dominion_alleyway_submitted_repeat_tattooed_finished_after_sex]]></postSexDialogue>
-                    <sexStartContent folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_TATTOOED_ANAL_START</sexStartContent>
+                    <postSexDialogue><![CDATA[innoxia_encounters_submission_bat_caverns_submitted_repeat_tattooed_finished_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_TATTOOED_ANAL_START</sexStartContent>
 					<ongoingActionsAtStart>
 						<action>
 							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
@@ -1558,7 +1558,7 @@
 	<scene id="submitted_repeat_tattooed_finished_after_sex">
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[[tattooist.Name] has had [tattooist.her] fun with you, and brings the sex to an end...]]></tooltip>
-		<content folderPath="txt/encounters/dominion/alleywayAttack">SUBMITTED_REPEAT_TATTOOED_SEX_END</content>
+		<content folderPath="txt/encounters/submission/batCavern/generic">SUBMITTED_REPEAT_TATTOOED_SEX_END</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -1571,7 +1571,7 @@
 				<nextDialogue><![CDATA[default]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/alleywayAttack', 'SUBMITTED_REPEAT_TATTOOED_SEX_END_LEAVE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/submission/batCavern/generic', 'SUBMITTED_REPEAT_TATTOOED_SEX_END_LEAVE'))]
 					[#game.banishNPC(tattooist)]
 				]]></effects>
 			</response>
