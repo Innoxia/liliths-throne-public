@@ -7,6 +7,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Patch notes:
 	
 	Contributors:
+		Fixed latex stocks always being referred to as black in their description. (PR#1671 by Anonymous-BCFED)
 		
 	
 	
