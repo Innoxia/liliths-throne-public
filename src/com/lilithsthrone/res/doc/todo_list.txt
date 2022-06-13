@@ -13,6 +13,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Removed the 'enchantmentLimit' element from all xml files, and from the Java code that parses those xmls, as support for this element was dropped in a prior enchantment update. (PR#1618 by CognitiveMist)
 		Updated 'hyena_bone_crush.xml' to include damage variance, and changed links from master branch to dev branch in 'dagger.xml'. (PR#1616 by CognitiveMist)
 		Added warnings for if a weighted map contains bad values. (PR#1614 by CognitiveMist)
+		Adds an alarm clock function to places where you can rest: Lilaya's house room; Friendly apartment sofa; Elis tavern room; Dairy farm dormitory. (PR#1606 by CognitiveMist)
+		
 	
 	
 	[] PRs:
@@ -30,7 +32,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1305
 		[] #1320
 		[] #1582
-		[] #1606
+		[x] #1606
 		[x] #1614
 		[x] #1616
 		[x] #1618
@@ -41,6 +43,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[x] generic character
 		[-] #1639
 		[] #1642
+		[] #1663
+		[] #1664
+		[] #1665
 		
 	[] Custom artwork for characters who have the same name have the same artwork?
 		
@@ -137,6 +142,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] serpent-serpent sex position 'mating coil'
 	
 	[] option to cast the soothing waters spell to clean the dumpster diver and temporarily remove the musk content from sexing them
+	
+	[] security job
 	
 	[] meraxis
 		[] cock content
