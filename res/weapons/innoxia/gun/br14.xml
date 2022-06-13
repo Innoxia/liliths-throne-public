@@ -28,7 +28,6 @@
 		<combatMoves>
 			<move>BR14_MAG_DUMP</move>
 		</combatMoves>
-		<enchantmentLimit>0</enchantmentLimit>
 		<effects/>
 		
 		<customColours>

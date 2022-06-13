@@ -18,7 +18,6 @@
 	<clothingSet/>
 	<imageName>demonstone_necklace.svg</imageName>
     <imageEquippedName/>
-	<enchantmentLimit>5</enchantmentLimit>
 	<effects>
 		<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="MANA_MAXIMUM" timer="0"/>
 		<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="MANA_MAXIMUM" timer="0"/>

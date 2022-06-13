@@ -14,7 +14,6 @@
 		<clothingSet/>
 		<imageName>gothic_dress.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit/>
 		<effects>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>

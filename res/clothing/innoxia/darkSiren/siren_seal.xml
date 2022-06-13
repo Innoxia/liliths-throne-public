@@ -14,7 +14,6 @@
 		<clothingSet>DARK_SIREN</clothingSet>
 		<imageName>siren_seal.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit>10</enchantmentLimit>
 		<effects> 
               <effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SEALING" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>
