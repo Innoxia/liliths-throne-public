@@ -11,6 +11,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added a delete button to custom character images, enabling you to remove custom images without having to manually delete the image from the charatcer's 'custom' artwork folder. (PR#1637 by NoStepOnSneks)
 		Fully implemented all of the Elder Lilin perk checks, which for the time being can be turned on/off via the debug menu. (PR#1631 by Maxis010)
 		Removed the 'enchantmentLimit' element from all xml files, and from the Java code that parses those xmls, as support for this element was dropped in a prior enchantment update. (PR#1618 by CognitiveMist)
+		Updated 'hyena_bone_crush.xml' to include damage variance, and changed links from master branch to dev branch in 'dagger.xml'. (PR#1616 by CognitiveMist)
 	
 	
 	[] PRs:
@@ -30,7 +31,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1582
 		[] #1606
 		[] #1614
-		[] #1616
+		[x] #1616
 		[x] #1618
 		[x] #1631
 		[x] #1637
@@ -73,7 +74,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] add sex action 'look back' variation for owl morphs
 	
-	[] make fetish transfer to elemental action
+	[] make fetish transfer to elemental action (opposite fetishes also)
 	
 	- Pregnancy mechanics update
 		[] Cycle
