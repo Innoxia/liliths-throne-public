@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
@@ -199,7 +198,7 @@ public class RoomPlayer {
 				}
 				
 			} else if (index == 9) {
-				return new Response("Set Alarm", "Set the alarm on your phone, so that you can wake at a specific time.", RoomPlayer.ROOM_SET_ALARM) {
+				return new Response("Set alarm", "Set the alarm on your phone, so that you can wake at a specific time.", RoomPlayer.ROOM_SET_ALARM) {
 					@Override
 					public void effects() {
 						Main.game.saveDialogueNode();
@@ -211,10 +210,10 @@ public class RoomPlayer {
 				if(alarmTime >= 0) {
 					String alarmTimeStr = Main.game.getDisplayTime(LocalTime.ofSecondOfDay(alarmTime*60));
 					int timeUntilAlarm = Main.game.getMinutesUntilTimeInMinutes((int)alarmTime-1)+1; // -1+1 is so we get 1440 instead of 0
-					return new Response("Rest until Alarm (" + alarmTimeStr + ")",
-							"Rest for " + (timeUntilAlarm >= 60 ? timeUntilAlarm / 60 + " hours " : " ")
-									+ (timeUntilAlarm % 60 != 0 ? timeUntilAlarm % 60 + " minutes" : "")
-									+ ", until your alarm goes off. As well as replenishing your " + Attribute.HEALTH_MAXIMUM.getName() + " and " + Attribute.MANA_MAXIMUM.getName() + ", you will also get the 'Well Rested' status effect.",
+					return new Response("Rest until alarm (" + alarmTimeStr + ")",
+							"Rest for " + (timeUntilAlarm >= 60 ? timeUntilAlarm / 60 + " hours, " : "")
+									+ (timeUntilAlarm % 60 != 0 ? timeUntilAlarm % 60 + " minutes, " : "")
+									+ "until your alarm goes off. As well as replenishing your " + Attribute.HEALTH_MAXIMUM.getName() + " and " + Attribute.MANA_MAXIMUM.getName() + ", you will also get the 'Well Rested' status effect.",
 							AUNT_HOME_PLAYERS_ROOM_SLEEP) {
 						@Override
 						public void effects() {
@@ -223,7 +222,7 @@ public class RoomPlayer {
 						}
 					};
 				} else {
-					return new Response("Rest until Alarm (unset)", "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Your alarm is unset!</span>", null);
+					return new Response("Rest until alarm (unset)", "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Your alarm is unset!</span>", null);
 				}
 			}
 			
@@ -1254,7 +1253,7 @@ public class RoomPlayer {
 		return charactersPresent;
 	}
 	
-	public static final DialogueNode ROOM_SET_ALARM = new DialogueNode("Set Alarm", "", false) {
+	public static final DialogueNode ROOM_SET_ALARM = new DialogueNode("Set Alarm", "", true) {
 
 		@Override
 		public void applyPreParsingEffects() {
@@ -1269,7 +1268,7 @@ public class RoomPlayer {
 		public String getContent() {
 			long alarmTime = Main.game.getDialogueFlags().getSavedLong("player_phone_alarm");
 			String alarmTimeStr = Units.time(LocalTime.ofSecondOfDay(alarmTime*60));
-			return "<div><p>You open the alarm app on your phone.</p></div>"
+			return "<div><p style='text-align:center;'>Taking out your phone, you open the alarm app and prepare to set a time for it to go off...</p></div>"
 					+ "<div class='cosmetics-inner-container' style='margin:1% 20%; width:58%; padding:1%; box-sizing:border-box; position:relative;'>"
 						+ "<p style='margin:0; padding:0;'>"
 							+ "<b>Set Alarm</b>"

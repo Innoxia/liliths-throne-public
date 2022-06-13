@@ -1560,7 +1560,7 @@ public class OccupantDialogue {
 					};
 
 				} else if (index == 8) {
-					return new Response("Set Alarm", "Set the alarm on your phone, so that you can wake at a specific time.", RoomPlayer.ROOM_SET_ALARM) {
+					return new Response("Set alarm", "Set the alarm on your phone, so that you can wake at a specific time.", RoomPlayer.ROOM_SET_ALARM) {
 						@Override
 						public void effects() {
 							Main.game.saveDialogueNode();
@@ -1572,10 +1572,10 @@ public class OccupantDialogue {
 					if(alarmTime >= 0) {
 						String alarmTimeStr = Main.game.getDisplayTime(LocalTime.ofSecondOfDay(alarmTime*60));
 						int timeUntilAlarm = Main.game.getMinutesUntilTimeInMinutes((int)alarmTime-1)+1; // -1+1 is so we get 1440 instead of 0
-						return new Response("Rest until Alarm (" + alarmTimeStr + ")",
-								"Ask [npc.name] if you can crash on [npc.her] sofa for " + (timeUntilAlarm >= 60 ? timeUntilAlarm / 60 + " hours " : " ")
-										+ (timeUntilAlarm % 60 != 0 ? timeUntilAlarm % 60 + " minutes" : "")
-										+ ", until your alarm goes off. As well as replenishing your " + Attribute.HEALTH_MAXIMUM.getName() + " and " + Attribute.MANA_MAXIMUM.getName() + ", you will also get the 'Well Rested' status effect.",
+						return new Response("Rest until alarm (" + alarmTimeStr + ")",
+								"Ask [npc.name] if you can crash on [npc.her] sofa for " + (timeUntilAlarm >= 60 ? timeUntilAlarm / 60 + " hours, " : "")
+										+ (timeUntilAlarm % 60 != 0 ? timeUntilAlarm % 60 + " minutes, " : "")
+										+ " until your alarm goes off. As well as replenishing your " + Attribute.HEALTH_MAXIMUM.getName() + " and " + Attribute.MANA_MAXIMUM.getName() + ", you will also get the 'Well Rested' status effect.",
 								OCCUPANT_APARTMENT_SLEEP_OVER) {
 							@Override
 							public void effects() {
@@ -1584,7 +1584,7 @@ public class OccupantDialogue {
 							}
 						};
 					} else {
-						return new Response("Rest until Alarm (unset)", "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Your alarm is unset!</span>", null);
+						return new Response("Rest until alarm (unset)", "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Your alarm is unset!</span>", null);
 					}
 					
 				} else if (index == 10) {
