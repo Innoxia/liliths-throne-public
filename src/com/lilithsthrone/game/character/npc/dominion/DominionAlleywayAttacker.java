@@ -160,7 +160,7 @@ public class DominionAlleywayAttacker extends NPC {
 				this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			}
 			Main.game.getCharacterUtils().applyMakeup(this, true);
-			if((Arrays.asList(generationFlags).contains(NPCGenerationFlag.DIRTY) || hasFetish(Fetish.FETISH_CUM_ADDICT)) && Math.random() > 0.9) {
+			if((Arrays.asList(generationFlags).contains(NPCGenerationFlag.DIRTY) || hasFetish(Fetish.FETISH_CUM_ADDICT)) && Math.random() < 0.1) {
 				Main.game.getCharacterUtils().applyDirtiness(this);
 			}
 			

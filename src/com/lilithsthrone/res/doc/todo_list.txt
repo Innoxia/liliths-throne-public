@@ -14,7 +14,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Updated 'hyena_bone_crush.xml' to include damage variance, and changed links from master branch to dev branch in 'dagger.xml'. (PR#1616 by CognitiveMist)
 		Added warnings for if a weighted map contains bad values. (PR#1614 by CognitiveMist)
 		Adds an alarm clock function to places where you can rest: Lilaya's house room; Friendly apartment sofa; Elis tavern room; Dairy farm dormitory. (PR#1606 by CognitiveMist)
-		
+		If a random NPC attacker (in Dominion, Submission, Harpy Nests, or Elis) has the 'cum addict' fetish, or they are under the effects of an arcane storm, there is a 10% chance that they will spawn with some dirty inventory slots. (PR#1582 by CognitiveMist)
 	
 	
 	[] PRs:
@@ -31,7 +31,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1289
 		[] #1305
 		[] #1320
-		[] #1582
+		[x] #1582
 		[x] #1606
 		[x] #1614
 		[x] #1616

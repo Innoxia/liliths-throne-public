@@ -4,7 +4,6 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -13,6 +12,7 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
@@ -111,6 +111,10 @@ public class DominionSuccubusAttacker extends NPC {
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+
+			if(hasFetish(Fetish.FETISH_CUM_ADDICT) && Math.random() < 0.1) {
+				Main.game.getCharacterUtils().applyDirtiness(this);
+			}
 			
 			this.addSpell(Spell.ARCANE_AROUSAL);
 			this.addSpell(Spell.TELEPATHIC_COMMUNICATION);
