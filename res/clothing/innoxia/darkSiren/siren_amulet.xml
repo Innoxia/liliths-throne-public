@@ -14,7 +14,6 @@
 		<clothingSet>DARK_SIREN</clothingSet>
 		<imageName>siren_amulet.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit>20</enchantmentLimit>
 		<effects> 
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>

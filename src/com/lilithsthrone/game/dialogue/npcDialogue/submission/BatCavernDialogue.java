@@ -10,11 +10,14 @@ import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.QuickTransformations;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -25,6 +28,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.item.FetishPotion;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.item.TransformativePotion;
@@ -45,6 +49,11 @@ import com.lilithsthrone.world.Cell;
 public class BatCavernDialogue {
 
 	private static boolean transformationsApplied = false;
+
+	private static TransformativePotion potion = null;
+	private static TransformativePotion companionPotion = null;
+	private static FetishPotion fetishPotion = null;
+	private static FetishPotion companionFetishPotion = null;
 	
 	private static boolean isWantsToFight() {
 		return getMugger().getAffectionLevel(Main.game.getPlayer()).isWillFightPlayer();
@@ -108,6 +117,32 @@ public class BatCavernDialogue {
 	}
 
 	public static final DialogueNode CAVERN_ATTACK = new DialogueNode("Assaulted!", "A figure jumps out from the shadows!", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			getMugger().generatePostCombatPotions();
+			transformationsApplied = false;
+			Main.game.getDialogueFlags().setFlag("innoxia_alleyway_transformations_applied", false);
+			
+			if(getMugger().getPlayerSurrenderCount()>=4) { 
+				if(getMugger().hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
+					Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", 4);
+				} else {
+					Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", Util.random.nextInt(6)+1);
+					if(Main.game.getDialogueFlags().getSavedLong("randomResponseIndex")==1 && Main.game.getPlayer().getMoney()<Main.game.getDialogueFlags().getMuggerDemand3()) {
+						Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", 2);
+					}
+					if(Main.game.getDialogueFlags().getSavedLong("randomResponseIndex")==6
+							&& (!getMugger().hasPersonalityTrait(PersonalityTrait.SELFISH)
+									|| ((Main.game.getPlayer().getTattooInSlot(InventorySlot.GROIN)!=null || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
+										&& (!Main.game.isAnalContentEnabled() || Main.game.getPlayer().getTattooInSlot(InventorySlot.TORSO_UNDER)!=null || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true))))) {
+						Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", 4);
+					}
+					if(Main.game.getDialogueFlags().getSavedLong("randomResponseIndex")==4 && (!getMugger().isAttractedTo(Main.game.getPlayer()) || getMugger().hasStatusEffect(StatusEffect.RECOVERING_AURA))) {
+						Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", 5);
+					}
+				}
+			}
+		}
 		
 		@Override
 		public String getContent() {
@@ -117,37 +152,45 @@ public class BatCavernDialogue {
 			
 			if(getMugger().getLastTimeEncountered() != -1) {
 				if(isWantsToFight()) {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "CAVERN_ATTACK_REPEAT_INTRO", getAllCharacters()));
-					
-					if(getMugger().isVisiblyPregnant()) {
-						pregnancyReaction = true;
-						
-						if(!getMugger().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "CAVERN_ATTACK_REPEAT_PREGNANCY_REVEAL", getAllCharacters()));
-						
-						} else {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "CAVERN_ATTACK_REPEAT_STILL_PREGNANT", getAllCharacters()));
-						}
-					}
-					
-					if(Main.game.getPlayer().isVisiblyPregnant() || (isCompanionDialogue() && getMainCompanion().isVisiblyPregnant())) {
-						pregnancyReaction = true;
-						
-						if((Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getPlayer().isCharacterReactedToPregnancy(getMugger()))
-								|| (isCompanionDialogue() && getMainCompanion().isVisiblyPregnant() && !getMainCompanion().isCharacterReactedToPregnancy(getMugger()))) {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "CAVERN_ATTACK_REPEAT_PLAYER_PREGNANCY", getAllCharacters()));
-						
-						} else {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "CAVERN_ATTACK_REPEAT_CONTINUED_PLAYER_PREGNANCY", getAllCharacters()));
-						}
-					}
 
-					if(!pregnancyReaction) {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "CAVERN_ATTACK_REPEAT", getAllCharacters()));
+					if(getMugger().getPlayerSurrenderCount()>=4) {
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/generic", "CAVERN_ATTACK_SUBMITTED", getAllCharacters()));//TODO
+						
+					} else if(getMugger().getPlayerSurrenderCount()==3) {
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/generic", "CAVERN_ATTACK_DEMAND_SUBMIT", getAllCharacters()));//TODO
+						
+					} else {
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "CAVERN_ATTACK_REPEAT_INTRO", getAllCharacters()));
+						
+						if(getMugger().isVisiblyPregnant()) {
+							pregnancyReaction = true;
+							
+							if(!getMugger().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
+								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "CAVERN_ATTACK_REPEAT_PREGNANCY_REVEAL", getAllCharacters()));
+							
+							} else {
+								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "CAVERN_ATTACK_REPEAT_STILL_PREGNANT", getAllCharacters()));
+							}
+						}
+						
+						if(Main.game.getPlayer().isVisiblyPregnant() || (isCompanionDialogue() && getMainCompanion().isVisiblyPregnant())) {
+							pregnancyReaction = true;
+							
+							if((Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getPlayer().isCharacterReactedToPregnancy(getMugger()))
+									|| (isCompanionDialogue() && getMainCompanion().isVisiblyPregnant() && !getMainCompanion().isCharacterReactedToPregnancy(getMugger()))) {
+								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "CAVERN_ATTACK_REPEAT_PLAYER_PREGNANCY", getAllCharacters()));
+							
+							} else {
+								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "CAVERN_ATTACK_REPEAT_CONTINUED_PLAYER_PREGNANCY", getAllCharacters()));
+							}
+						}
+	
+						if(!pregnancyReaction) {
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "CAVERN_ATTACK_REPEAT", getAllCharacters()));
+						}
+						
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "CAVERN_ATTACK_REPEAT_END", getAllCharacters()));
 					}
-					
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "CAVERN_ATTACK_REPEAT_END", getAllCharacters()));
-
 					
 				} else { // The mugger doesn't want to attack the player:
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "CAVERN_ATTACK_PEACEFUL_INTRO", getAllCharacters()));
@@ -195,6 +238,10 @@ public class BatCavernDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(getMugger().getPlayerSurrenderCount()>=3) { // Bitch content
+				return DialogueManager.getDialogueFromId("innoxia_encounters_submission_bat_caverns_start").getResponse(responseTab, index);
+			}
+			
 			if(isWantsToFight()) {
 				if (index == 1) {
 					return new ResponseCombat("Fight", "Stand up for yourself and fight [npc.name]!", getMugger()) {
@@ -222,7 +269,9 @@ public class BatCavernDialogue {
 					
 				} else if (index == 3) {
 					if(getMugger().isAttractedTo(Main.game.getPlayer())) {
-						return new ResponseSex("Offer body", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
+						return new ResponseSex("Offer body",
+								"Offer your body to [npc.name] so that you can avoid a violent confrontation."
+									+"<br/>[style.italicsSex(Repeatedly submitting to [npc.name] will eventually lead to [npc.herHim] demanding that you become [npc.her] bitch...)]",
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, false,
@@ -244,6 +293,7 @@ public class BatCavernDialogue {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
+								getMugger().incrementPlayerSurrenderCount(1);
 							}
 						};
 						
@@ -251,7 +301,44 @@ public class BatCavernDialogue {
 						return new Response("Offer body", "You can tell that [npc.name] isn't at all interested in having sex with you. You'll either have to offer [npc.herHim] some money, or prepare for a fight!", null);
 					}
 					
-				} else if (index == 4 && isCompanionDialogue()) {
+				} else if (index == 4 && getMugger().isApplyingPostCombatTransformations()) {
+					return new Response("Surrender",
+							"Completely surrender to [npc.name] and let [npc.herHim] do whatever [npc.she] wants with your body..."
+									+"<br/>[style.italicsTfGeneric(This will result in [npc.name] trying to get you to drink a transformation potion, before possibly choosing to fuck you!)]."
+									+"<br/>[style.italicsSex(Repeatedly submitting to [npc.name] will eventually lead to [npc.herHim] demanding that you become [npc.her] bitch...)]",
+								SURRENDER,
+							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_TRANSFORMATION_RECEIVING), Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null) {
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.TRANSFORMATION_GENERIC;
+						}
+						@Override
+						public void effects() {
+							applyPregnancyReactions();
+							getMugger().incrementPlayerSurrenderCount(1);
+						}
+					};
+					
+				} else if (index == 5 && getMugger().getRace()==Race.SLIME) {
+					if(!Main.game.getPlayer().hasItemType(ItemType.MUSHROOM)) {
+						return new Response("Offer mushroom", "You don't have any mushrooms to offer to [npc.name]!", null);
+					} else {
+						return new Response("Offer mushroom", "Offer one of your Glowing Mushrooms to [npc.name] in exchange for leaving you alone.", Main.game.getDefaultDialogue(false)) {
+							@Override
+							public void effects() {
+								if(getMugger().isVisiblyPregnant()){
+									getMugger().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+								}
+								Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.MUSHROOM), 1, true);
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/submission/batCavernSlime", "ATTACK_PAID_OFF_WITH_MUSHROOM")
+										+"<p>"
+											+ Main.game.getPlayer().removedItemFromInventoryText(ItemType.MUSHROOM)
+										+ "</p>");
+							}
+						};
+					}
+					
+				} else if (index == 6 && isCompanionDialogue()) {
 					GameCharacter companion = getMainCompanion();
 	
 					if(!getMugger().isAttractedTo(Main.game.getPlayer())) {
@@ -288,7 +375,7 @@ public class BatCavernDialogue {
 						};
 					}
 					
-				} else if (index == 5 && isCompanionDialogue() && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
+				} else if (index == 7 && isCompanionDialogue() && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
 					GameCharacter companion = getMainCompanion();
 	
 					if(!getMugger().isAttractedTo(companion)) {
@@ -317,25 +404,6 @@ public class BatCavernDialogue {
 								if(!companion.isAttractedTo(getMugger()) && Main.game.isNonConEnabled()) {
 									Main.game.getTextEndStringBuilder().append(companion.incrementAffection(Main.game.getPlayer(), -50));
 								}
-							}
-						};
-					}
-					
-				} else if (index == 6 && getMugger().getRace()==Race.SLIME) {
-					if(!Main.game.getPlayer().hasItemType(ItemType.MUSHROOM)) {
-						return new Response("Offer mushroom", "You don't have any mushrooms to offer to [npc.name]!", null);
-					} else {
-						return new Response("Offer mushroom", "Offer one of your Glowing Mushrooms to [npc.name] in exchange for leaving you alone.", Main.game.getDefaultDialogue(false)) {
-							@Override
-							public void effects() {
-								if(getMugger().isVisiblyPregnant()){
-									getMugger().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
-								}
-								Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.MUSHROOM), 1, true);
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/submission/batCavernSlime", "ATTACK_PAID_OFF_WITH_MUSHROOM") //TODO
-										+"<p>"
-											+ Main.game.getPlayer().removedItemFromInventoryText(ItemType.MUSHROOM)
-										+ "</p>");
 							}
 						};
 					}
@@ -439,7 +507,7 @@ public class BatCavernDialogue {
 								"You don't have a suitable room prepared for [npc.name] to move in to. Upgrade one of the empty rooms in Lilaya's house to a 'Guest Room' first.",
 								null);
 						
-					}else {
+					} else {
 						return new Response("Offer room", "Ask [npc.name] if [npc.she] would like a room in Lilaya's mansion.", CAVERN_PEACEFUL_OFFER_ROOM) {
 							@Override
 							public void effects() {
@@ -449,7 +517,49 @@ public class BatCavernDialogue {
 						};
 					}
 					
-				} else if (index == 6 && isCompanionDialogue()) {
+				} else if(index==6) {
+					if(getMugger().getPlayerSurrenderCount()<3 && getMugger().isApplyingPostCombatTransformations()) {
+						if(transformationsApplied) {
+							return new Response("Get transformed",
+									"[npc.Name] has already given you all the transformation potions [npc.she] had!",
+									null);
+							
+						} else {
+							return new Response("Get transformed",
+									"Tell [npc.name] that you'd like to drink any transformation potions which [npc.she] has..."
+										+"<br/>[style.italicsTfGeneric(This will result in [npc.name] getting you to drink a transformation potion!)]",
+										CAVERN_PEACEFUL_TRANSFORMED,
+									Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_TRANSFORMATION_RECEIVING), Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(), null, null, null) {
+								@Override
+								public Colour getHighlightColour() {
+									return PresetColour.TRANSFORMATION_GENERIC;
+								}
+								@Override
+								public void effects() {
+									applyPregnancyReactions();
+									Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("encounters/submission/batCavern/generic", "PEACEFUL_TRANSFORMATIONS", getAllCharacters()));
+									Main.game.appendToTextStartStringBuilder(getMugger().applyPostCombatTransformation());
+									transformationsApplied = true;
+								}
+							};
+						}
+					}
+					
+				} else if (index==10) {
+					return new Response("Attack", "Betray [npc.namePos] trust and attack [npc.herHim]!", CAVERN_PEACEFUL_ATTACK) {
+						@Override
+						public void effects() {
+							applyPregnancyReactions();
+							Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), -50));
+							getMugger().addFlag(NPCFlagValue.genericNPCBetrayedByPlayer);
+						}
+						@Override
+						public boolean isCombatHighlight() {
+							return true;
+						}
+					};
+					
+				} else if (index == 11 && isCompanionDialogue()) {
 					GameCharacter companion = getMainCompanion();
 	
 					if(!getMugger().isAttractedTo(Main.game.getPlayer())) {
@@ -485,7 +595,7 @@ public class BatCavernDialogue {
 						};
 					}
 					
-				} else if (index == 7 && isCompanionDialogue() && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
+				} else if (index == 12 && isCompanionDialogue() && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
 					GameCharacter companion = getMainCompanion();
 	
 					if(!getMugger().isAttractedTo(companion)) {
@@ -518,26 +628,10 @@ public class BatCavernDialogue {
 						};
 					}
 					
-				} else if (index==10) {
-					return new Response("Attack", "Betray [npc.namePos] trust and attack [npc.herHim]!", CAVERN_PEACEFUL_ATTACK) {
-						@Override
-						public void effects() {
-							applyPregnancyReactions();
-							Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), -50));
-							getMugger().addFlag(NPCFlagValue.genericNPCBetrayedByPlayer);
-						}
-						@Override
-						public boolean isCombatHighlight() {
-							return true;
-						}
-					};
-					
 				} else if (index == 0) {
 					return new Response("Leave", "Tell [npc.name] that you're in a rush to be somewhere else, before continuing on your way.", Main.game.getDefaultDialogue(false));
-					
-				} else {
-					return null;
 				}
+				return null;
 			}
 		}
 	};
@@ -650,6 +744,17 @@ public class BatCavernDialogue {
 			}
 		}
 	};
+
+	public static final DialogueNode CAVERN_PEACEFUL_TRANSFORMED = new DialogueNode("", "", true, true) {
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return CAVERN_ATTACK.getResponse(responseTab, index);
+		}
+	};
 	
 	public static final DialogueNode CAVERN_PEACEFUL_ATTACK = new DialogueNode("Attack", "", true, true) {
 		
@@ -732,6 +837,11 @@ public class BatCavernDialogue {
 	};
 	
 	public static final DialogueNode AFTER_COMBAT_VICTORY = new DialogueNode("Victory", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			getMugger().setPlayerSurrenderCount(0);
+			getMugger().clearPetName(Main.game.getPlayer());
+		}
 
 		@Override
 		public String getDescription() {
@@ -1062,14 +1172,24 @@ public class BatCavernDialogue {
 		}
 		return sb.toString();
 	}
+
+	public static final DialogueNode SURRENDER = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			AFTER_COMBAT_DEFEAT.applyPreParsingEffects();
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("encounters/submission/batCavern/generic", "SURRENDER", getAllCharacters());//TODO
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return AFTER_COMBAT_DEFEAT.getResponse(responseTab, index);
+		}
+	};
 	
 	public static final DialogueNode AFTER_COMBAT_DEFEAT = new DialogueNode("Defeat", "", true) {
 
-		TransformativePotion potion = null;
-		TransformativePotion companionPotion = null;
-		FetishPotion fetishPotion = null;
-		FetishPotion companionFetishPotion = null;
-		
 		public void applyPreParsingEffects() {
 			transformationsApplied = false;
 			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {

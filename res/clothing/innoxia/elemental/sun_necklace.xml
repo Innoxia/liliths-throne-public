@@ -18,7 +18,6 @@
 	<clothingSet>SUN</clothingSet>
 	<imageName>sun_necklace.svg</imageName>
     <imageEquippedName/>
-	<enchantmentLimit>5</enchantmentLimit>
 	<effects>
 		<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_FIRE" timer="0"/>
 		<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_FIRE" timer="0"/>

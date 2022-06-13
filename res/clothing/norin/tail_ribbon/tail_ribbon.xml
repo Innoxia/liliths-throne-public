@@ -21,7 +21,6 @@
     <clothingSet/>
     <imageEquippedName slot="TAIL">tail_ribbon.svg</imageEquippedName>
     <imageEquippedName slot="HAIR">tail_ribbon_hair.svg</imageEquippedName>
-    <enchantmentLimit/>
     <effects/>
 
     <blockedPartsList slot="TAIL">

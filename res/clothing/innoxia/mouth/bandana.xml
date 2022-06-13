@@ -23,7 +23,6 @@
 		<imageEquippedName slot="HAIR">bandana_head.svg</imageEquippedName>
 		<imageEquippedName slot="NECK">bandana.svg</imageEquippedName>
 		<imageEquippedName/>
-		<enchantmentLimit/>
 		<effects/>
 		
 		<blockedPartsList slot="MOUTH"> 

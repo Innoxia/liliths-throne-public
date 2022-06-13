@@ -59,6 +59,7 @@
 	<scene id="bar_intro">
 		<preParsingEffects><![CDATA[
 			[#game.setParserTarget('oglixElemental', oglix.getElemental())]
+			[#game.setParserTarget('golix', oglix.getElemental())]
 			[#game.setParserTarget('beerBitch', oglix.getBeerBitches().get(0))]
 			[#oglix.beerBitchCreampie()]
 			[#flags.setFlag(FLAG_innoxia_oglix_introduced, true)]
@@ -66,6 +67,38 @@
 		<content folderPath="txt/places/fields/elis/tavern_alley">BAR_INTRO</content>
 		<secondsPassed><![CDATA[10]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Elemental]]></responseTitle>
+				<responseTooltip><![CDATA[Look over at Oglix's elemental as it greets you.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_alley_bar_intro_elemental]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="bar_intro_elemental">
+		<content folderPath="txt/places/fields/elis/tavern_alley">BAR_INTRO_ELEMENTAL</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Beer-bitch]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Oglix what she means by this [beerBitch.race] being a 'beer-bitch'.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_alley_bar_intro_beer_bitch]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="bar_intro_beer_bitch">
+		<content folderPath="txt/places/fields/elis/tavern_alley">BAR_INTRO_BEER_BITCH</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>false</travelDisabled>
 		<responses copyFromDialogueId="innoxia_places_fields_elis_tavern_alley_bar"/> 
 	</scene>
@@ -73,6 +106,7 @@
 	<scene id="bar">
 		<preParsingEffects><![CDATA[
 			[#game.setParserTarget('oglixElemental', oglix.getElemental())]
+			[#game.setParserTarget('golix', oglix.getElemental())]
 			[#game.setParserTarget('beerBitch', oglix.getBeerBitches().get(0))]
 			#IF(oglix.getBeerBitches().size()>1)
 				[#game.setParserTarget('beerBitch2', oglix.getBeerBitches().get(1))]
@@ -87,8 +121,13 @@
 				[#game.setParserTarget('beerBitch5', oglix.getBeerBitches().get(4))]
 			#ENDIF
 			[#game.clearActiveNPC()]
+			
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'BAR'))]
+			#IF(oglix.isVisiblyPregnant())
+				[#oglix.setCharacterReactedToPregnancy(pc, true)]
+			#ENDIF
 		]]></preParsingEffects>
-		<content folderPath="txt/places/fields/elis/tavern_alley">BAR</content>
+		<content/>
 		<secondsPassed><![CDATA[10]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>false</travelDisabled>
@@ -117,9 +156,9 @@
 						Ask Oglix about how she came to own this tavern.
 					#ENDIF
 				]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[
+				<nextDialogue><![CDATA[
 					#IF(!flags.hasFlag(FLAG_innoxia_oglix_talk_background))
-						innoxia_places_fields_elis_tavern_alley_bar
+						innoxia_places_fields_elis_tavern_alley_bar_empty_responses
 					#ELSE
 						null
 					#ENDIF
@@ -145,9 +184,9 @@
 						Ask Oglix what she thinks about Lunette.
 					#ENDIF
 				]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[
+				<nextDialogue><![CDATA[
 					#IF(!flags.hasFlag(FLAG_innoxia_oglix_talk_lunette))
-						innoxia_places_fields_elis_tavern_alley_bar
+						innoxia_places_fields_elis_tavern_alley_bar_empty_responses
 					#ELSE
 						null
 					#ENDIF
@@ -173,9 +212,9 @@
 						Ask Oglix about her beer-bitch.
 					#ENDIF
 				]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[
+				<nextDialogue><![CDATA[
 					#IF(!flags.hasFlag(FLAG_innoxia_oglix_talk_beer_bitch))
-						innoxia_places_fields_elis_tavern_alley_bar
+						innoxia_places_fields_elis_tavern_alley_bar_empty_responses
 					#ELSE
 						null
 					#ENDIF
@@ -202,9 +241,9 @@
 						Ask Oglix about her elemental, Golix.
 					#ENDIF
 				]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[
+				<nextDialogue><![CDATA[
 					#IF(!flags.hasFlag(FLAG_innoxia_oglix_talk_elemental))
-						innoxia_places_fields_elis_tavern_alley_bar
+						innoxia_places_fields_elis_tavern_alley_bar_empty_responses
 					#ELSE
 						null
 					#ENDIF
@@ -219,34 +258,31 @@
 					[#flags.setFlag(FLAG_innoxia_oglix_talk_elemental_sex_unlocked, true)]
 				]]></effects>
 			</response>
-			<!-- Golix punishment -->
+			<!-- VIP area -->
 			<response>
-				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_oglix_talk_elemental_sex_unlocked) || oglixElemental.getTotalTimesHadSex(pc)>0]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_oglix_talk_vip_unlocked)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[5]]></index>
-				<colour><![CDATA[GENERIC_SEX]]></colour>
-				<responseTitle><![CDATA[Golix punishment]]></responseTitle>
+				<responseTitle><![CDATA[VIP room]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF((pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) || (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)) || (pc.isAbleToAccessCoverableArea(CA_MOUTH, true)))
-						Ask Oglix if she can tell Golix to give you a punishment...
+					#IF(flags.hasFlag(FLAG_innoxia_oglix_talk_vip))
+						You've already asked Oglix about the VIP room today. You should wait until tomorrow to talk to her about this again.
 					#ELSE
-						You need to be able to offer Golix your
-						#IF(game.isAnalContentEnabled())
-							 pussy, ass, or mouth,
-						#ELSE
-							 pussy or mouth,
-						#ENDIF
-						 and as access to these areas is blocked, you cannot receive a punishment...
+						Ask Oglix what it takes to gain access to the VIP room.
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
-					#IF((pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) || (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)) || (pc.isAbleToAccessCoverableArea(CA_MOUTH, true)))
-						innoxia_places_fields_elis_tavern_alley_bar_punishment
+					#IF(!flags.hasFlag(FLAG_innoxia_oglix_talk_vip))
+						innoxia_places_fields_elis_tavern_alley_bar_empty_responses
 					#ELSE
 						null
 					#ENDIF
 				]]></nextDialogue>
-				<effects/>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'BAR_TALK_VIP'))]
+					[#flags.setFlag(FLAG_innoxia_oglix_talk_vip, true)]
+				]]></effects>
 			</response>
 			<!-- Fuck beer bitches -->
 			<response>
@@ -373,18 +409,47 @@
 					[#pc.removeItemByType(ITEM_innoxia_quest_oglix_beer_token, 5, true)]
 				]]></effects>
 			</response>
-			<!-- Quest: -->
+			<!-- Golix punishment -->
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_oglix_talk_elemental_sex_unlocked) || oglixElemental.getTotalTimesHadSex(pc)>0]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[11]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<responseTitle><![CDATA[Golix punishment]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF((pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) || (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)) || (pc.isAbleToAccessCoverableArea(CA_MOUTH, true)))
+						Ask Oglix if she can tell Golix to give you a punishment...
+					#ELSE
+						You need to be able to offer Golix your
+						#IF(game.isAnalContentEnabled())
+							 pussy, ass, or mouth,
+						#ELSE
+							 pussy or mouth,
+						#ENDIF
+						 and as access to these areas is blocked, you cannot receive a punishment...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF((pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) || (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)) || (pc.isAbleToAccessCoverableArea(CA_MOUTH, true)))
+						innoxia_places_fields_elis_tavern_alley_bar_punishment
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects/>
+			</response>
+			<!-- Quest/Flirting: -->
 			<response>
 				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_oglix_talk_beer_bitch_quest_unlocked) && !pc.hasQuest(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<colour><![CDATA[QUEST_SIDE]]></colour>
-				<index><![CDATA[11]]></index>
+				<index><![CDATA[12]]></index>
 				<responseTitle><![CDATA[More Barrels]]></responseTitle>
 				<responseTooltip><![CDATA[
 					Tell Oglix that you think it's a good idea to get more barrels and expand her range of beer-bitches, before offering to help her source them.
 				]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[
-					innoxia_places_fields_elis_tavern_alley_bar
+				<nextDialogue><![CDATA[
+					innoxia_places_fields_elis_tavern_alley_bar_empty_responses
 				]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'BAR_QUEST_START'))]
@@ -395,7 +460,7 @@
 			<response>
 				<availabilityConditional><![CDATA[[#pc.hasQuest(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS) && !pc.isQuestCompleted(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[11]]></index>
+				<index><![CDATA[12]]></index>
 				<responseTitle><![CDATA[Report back]]></responseTitle>
 				<responseTooltip><![CDATA[
 					#IF(pc.getQuest(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS)==QUEST_OGLIX_BEER_BARRELS_2)
@@ -413,6 +478,27 @@
 				]]></nextDialogue>
 				<effects/>
 			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isQuestCompleted(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[12]]></index>
+				<responseTitle><![CDATA[Flirt]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_oglix_flirted))
+						You've already flirted with Oglix once today, and from the look in her eyes, you can tell that she's not in the mood for any more of it.
+					#ELSE
+						Having bluntly expressed her desire to fuck you, it would probably only take a little bit of flirting to get Oglix to invite you to her bedroom...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_oglix_flirted))
+						null
+					#ELSE
+						innoxia_places_fields_elis_tavern_alley_flirting
+					#ENDIF
+				]]></nextDialogue>
+				<effects/>
+			</response>
 			
 		<!-- Tab 1: Drinks: -->
 			<!-- Beer bitches -->
@@ -421,7 +507,7 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Beer-bitch (#IF(pc.getMoney()>=40)[style.moneyFormat(40, span)]#ELSE[style.moneyFormatUncoloured(40, span)]#ENDIF)]]></responseTitle>
 				<responseTooltip><![CDATA[#IF(pc.getMoney()>=40) Order a pint of beer from the beer-bitch's tits. #ELSE You can't afford a pint of beer from the beer-bitch's tits... #ENDIF]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=40)innoxia_places_fields_elis_tavern_alley_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=40)innoxia_places_fields_elis_tavern_alley_bar_empty_responses#ELSEnull#ENDIF]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.setActiveNPC(beerBitch)]
@@ -439,7 +525,7 @@
 					[beerBitch2.Name] (#IF(pc.getMoney()>=40)[style.moneyFormat(40, span)]#ELSE[style.moneyFormatUncoloured(40, span)]#ENDIF)
 				]]></responseTitle>
 				<responseTooltip><![CDATA[#IF(pc.getMoney()>=40) Order a pint of beer from [beerBitch2.namePos] tits. #ELSE You can't afford a pint of beer from [beerBitch2.namePos] tits... #ENDIF]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=40)innoxia_places_fields_elis_tavern_alley_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=40)innoxia_places_fields_elis_tavern_alley_bar_empty_responses#ELSEnull#ENDIF]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.setActiveNPC(beerBitch2)]
@@ -457,7 +543,7 @@
 					[beerBitch3.Name] (#IF(pc.getMoney()>=40)[style.moneyFormat(40, span)]#ELSE[style.moneyFormatUncoloured(40, span)]#ENDIF)
 				]]></responseTitle>
 				<responseTooltip><![CDATA[#IF(pc.getMoney()>=40) Order a pint of beer from [beerBitch3.namePos] tits. #ELSE You can't afford a pint of beer from [beerBitch3.namePos] tits... #ENDIF]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=40)innoxia_places_fields_elis_tavern_alley_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=40)innoxia_places_fields_elis_tavern_alley_bar_empty_responses#ELSEnull#ENDIF]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.setActiveNPC(beerBitch3)]
@@ -475,7 +561,7 @@
 					[beerBitch4.Name] (#IF(pc.getMoney()>=40)[style.moneyFormat(40, span)]#ELSE[style.moneyFormatUncoloured(40, span)]#ENDIF)
 				]]></responseTitle>
 				<responseTooltip><![CDATA[#IF(pc.getMoney()>=40) Order a pint of beer from [beerBitch4.namePos] tits. #ELSE You can't afford a pint of beer from [beerBitch4.namePos] tits... #ENDIF]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=40)innoxia_places_fields_elis_tavern_alley_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=40)innoxia_places_fields_elis_tavern_alley_bar_empty_responses#ELSEnull#ENDIF]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.setActiveNPC(beerBitch4)]
@@ -493,7 +579,7 @@
 					[beerBitch5.Name] (#IF(pc.getMoney()>=40)[style.moneyFormat(40, span)]#ELSE[style.moneyFormatUncoloured(40, span)]#ENDIF)
 				]]></responseTitle>
 				<responseTooltip><![CDATA[#IF(pc.getMoney()>=40) Order a pint of beer from [beerBitch5.namePos] tits. #ELSE You can't afford a pint of beer from [beerBitch5.namePos] tits... #ENDIF]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=40)innoxia_places_fields_elis_tavern_alley_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=40)innoxia_places_fields_elis_tavern_alley_bar_empty_responses#ELSEnull#ENDIF]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.setActiveNPC(beerBitch5)]
@@ -509,7 +595,7 @@
 				<index><![CDATA[6]]></index>
 				<responseTitle><![CDATA[Vodka (#IF(pc.getMoney()>=100)[style.moneyFormat(100, span)]#ELSE[style.moneyFormatUncoloured(100, span)]#ENDIF)]]></responseTitle>
 				<responseTooltip><![CDATA[#IF(pc.getMoney()>=100) Order a glass of vodka. #ELSE You can't afford a glass of vodka... #ENDIF]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=100)innoxia_places_fields_elis_tavern_alley_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=100)innoxia_places_fields_elis_tavern_alley_bar_empty_responses#ELSEnull#ENDIF]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'BAR_DRINK_VODKA'))]
@@ -522,7 +608,7 @@
 				<index><![CDATA[7]]></index>
 				<responseTitle><![CDATA[Rum (#IF(pc.getMoney()>=120)[style.moneyFormat(120, span)]#ELSE[style.moneyFormatUncoloured(120, span)]#ENDIF)]]></responseTitle>
 				<responseTooltip><![CDATA[#IF(pc.getMoney()>=120) Order a glass of rum. #ELSE You can't afford a glass of rum... #ENDIF]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=120)innoxia_places_fields_elis_tavern_alley_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=120)innoxia_places_fields_elis_tavern_alley_bar_empty_responses#ELSEnull#ENDIF]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'BAR_DRINK_RUM'))]
@@ -535,7 +621,7 @@
 				<index><![CDATA[8]]></index>
 				<responseTitle><![CDATA[Whiskey (#IF(pc.getMoney()>=120)[style.moneyFormat(120, span)]#ELSE[style.moneyFormatUncoloured(120, span)]#ENDIF)]]></responseTitle>
 				<responseTooltip><![CDATA[#IF(pc.getMoney()>=120) Order a glass of whiskey. #ELSE You can't afford a glass of whiskey... #ENDIF]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=120)innoxia_places_fields_elis_tavern_alley_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=120)innoxia_places_fields_elis_tavern_alley_bar_empty_responses#ELSEnull#ENDIF]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'BAR_DRINK_WHISKEY'))]
@@ -550,7 +636,7 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Fish & chips (#IF(pc.getMoney()>=150)[style.moneyFormat(150, span)]#ELSE[style.moneyFormatUncoloured(150, span)]#ENDIF)]]></responseTitle>
 				<responseTooltip><![CDATA[#IF(pc.getMoney()>=150) Order a serving of fish and chips from the main menu. #ELSE You can't afford a serving of fish and chips from the main menu... #ENDIF]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=150)innoxia_places_fields_elis_tavern_alley_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=150)innoxia_places_fields_elis_tavern_alley_bar_empty_responses#ELSEnull#ENDIF]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.addSpecialParsingString('some fish and chips', true)]
@@ -566,7 +652,7 @@
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Sausages (#IF(pc.getMoney()>=150)[style.moneyFormat(150, span)]#ELSE[style.moneyFormatUncoloured(150, span)]#ENDIF)]]></responseTitle>
 				<responseTooltip><![CDATA[#IF(pc.getMoney()>=150) Order a serving of sausages from the main menu. #ELSE You can't afford a serving of sausages from the main menu... #ENDIF]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=150)innoxia_places_fields_elis_tavern_alley_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=150)innoxia_places_fields_elis_tavern_alley_bar_empty_responses#ELSEnull#ENDIF]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.addSpecialParsingString('some sausages', true)]
@@ -582,7 +668,7 @@
 				<index><![CDATA[3]]></index>
 				<responseTitle><![CDATA[Burger (#IF(pc.getMoney()>=150)[style.moneyFormat(150, span)]#ELSE[style.moneyFormatUncoloured(150, span)]#ENDIF)]]></responseTitle>
 				<responseTooltip><![CDATA[#IF(pc.getMoney()>=150) Order a burger from the main menu. #ELSE You can't afford a burger from the main menu... #ENDIF]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=150)innoxia_places_fields_elis_tavern_alley_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=150)innoxia_places_fields_elis_tavern_alley_bar_empty_responses#ELSEnull#ENDIF]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.addSpecialParsingString('a burger', true)]
@@ -598,7 +684,7 @@
 				<index><![CDATA[4]]></index>
 				<responseTitle><![CDATA[Chicken pie (#IF(pc.getMoney()>=180)[style.moneyFormat(180, span)]#ELSE[style.moneyFormatUncoloured(180, span)]#ENDIF)]]></responseTitle>
 				<responseTooltip><![CDATA[#IF(pc.getMoney()>=180) Order a chicken pie from the main menu. #ELSE You can't afford a chicken pie from the main menu... #ENDIF]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=180)innoxia_places_fields_elis_tavern_alley_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=180)innoxia_places_fields_elis_tavern_alley_bar_empty_responses#ELSEnull#ENDIF]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.addSpecialParsingString('a chicken pie', true)]
@@ -614,7 +700,7 @@
 				<index><![CDATA[5]]></index>
 				<responseTitle><![CDATA[Steak (#IF(pc.getMoney()>=250)[style.moneyFormat(250, span)]#ELSE[style.moneyFormatUncoloured(250, span)]#ENDIF)]]></responseTitle>
 				<responseTooltip><![CDATA[#IF(pc.getMoney()>=250) Order a steak from the main menu. #ELSE You can't afford a steak from the main menu... #ENDIF]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=250)innoxia_places_fields_elis_tavern_alley_bar#ELSEnull#ENDIF]]></nextDialogue>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=250)innoxia_places_fields_elis_tavern_alley_bar_empty_responses#ELSEnull#ENDIF]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.addSpecialParsingString('a steak', true)]
@@ -628,16 +714,43 @@
 		</responses>
 	</scene>
 
+	<scene id="bar_empty_responses">
+		<preParsingEffects><![CDATA[
+			[#game.setParserTarget('oglixElemental', oglix.getElemental())]
+			[#game.setParserTarget('golix', oglix.getElemental())]
+			[#game.setParserTarget('beerBitch', oglix.getBeerBitches().get(0))]
+			#IF(oglix.getBeerBitches().size()>1)
+				[#game.setParserTarget('beerBitch2', oglix.getBeerBitches().get(1))]
+			#ENDIF
+			#IF(oglix.getBeerBitches().size()>2)
+				[#game.setParserTarget('beerBitch3', oglix.getBeerBitches().get(2))]
+			#ENDIF
+			#IF(oglix.getBeerBitches().size()>3)
+				[#game.setParserTarget('beerBitch4', oglix.getBeerBitches().get(3))]
+			#ENDIF
+			#IF(oglix.getBeerBitches().size()>4)
+				[#game.setParserTarget('beerBitch5', oglix.getBeerBitches().get(4))]
+			#ENDIF
+			[#game.clearActiveNPC()]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_tavern_alley_bar"/> 
+	</scene>
+	
 	<!-- Golix punishment: -->
 	<scene id="bar_punishment">
 		<preParsingEffects><![CDATA[
 			[#oglix.getElemental().setLocation(oglix)]
 			[#game.setActiveNPC(oglix.getElemental())]
 			[#game.setParserTarget('oglixElemental', oglix.getElemental())]
+			[#game.setParserTarget('golix', oglix.getElemental())]
 		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/elis/tavern_alley">BAR_PUNISHMENT</content>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-		<continuesDialogue>true</continuesDialogue>
+		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
 		<responses>
 			<response>
@@ -714,7 +827,7 @@
 				<responseTitle><![CDATA[Continue]]></responseTitle>
 				<responseTooltip><![CDATA[With Golix having had her fun, you're left wondering what to do next...]]></responseTooltip>
 				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_tavern_alley_bar]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_alley_bar_empty_responses]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'BAR_PUNISHMENT_AFTER_SEX_END'))]
 				]]></effects>
@@ -761,7 +874,7 @@
 				<responseTitle><![CDATA[Back out]]></responseTitle>
 				<responseTooltip><![CDATA[Now that you find yourself in position to start fucking [npc.name], you're having second thoughts about the whole thing...]]></responseTooltip>
 				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_tavern_alley_bar]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_alley_bar_empty_responses]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'FUCK_BEER_BITCH_BACK_OUT'))]
 				]]></effects>
@@ -783,7 +896,7 @@
 				<responseTitle><![CDATA[Return to bar]]></responseTitle>
 				<responseTooltip><![CDATA[Having had your fun, you [pc.step] back around to the other side of the bar...]]></responseTooltip>
 				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_tavern_alley_bar]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_alley_bar_empty_responses]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'FUCK_BEER_BITCH_AFTER_SEX_END'))]
 				]]></effects>
@@ -822,7 +935,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[New bitches]]></responseTitle>
-				<responseTooltip><![CDATA[Ask Oglix where she's going to get new barrel-bitches from.]]></responseTooltip>
+				<responseTooltip><![CDATA[Ask Oglix where you can go to find new candidates for becoming beer-bitches.]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_alley_barrels_delivered_end]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS, QUEST_SIDE_UTIL_COMPLETE))]
@@ -836,22 +949,12 @@
 	
 	<scene id="barrels_delivered_end">
 		<content folderPath="txt/places/fields/elis/tavern_alley">BARRELS_DELIVERED_END</content>
-		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<secondsPassed minutes="true"><![CDATA[45]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
-		<travelDisabled>true</travelDisabled>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Continue]]></responseTitle>
-				<responseTooltip><![CDATA[Now that Golix has installed the four new barrels, you wonder what to do next...]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_tavern_alley_bar]]></nextDialogue>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'BARRELS_DELIVERED_END_CONTINUE'))]
-				]]></effects>
-			</response>
-		</responses>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_tavern_alley_bar"/>
 	</scene>
+	
 	
 	<scene id="new_beer_bitch_delivered">
 		<content folderPath="txt/places/fields/elis/tavern_alley">BEER_BITCH_DELIVERED</content>
@@ -862,8 +965,8 @@
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Watch]]></responseTitle>
-				<responseTooltip><![CDATA[Watch as Oglix transforms [npc.name] into a horny beer-bitch...]]></responseTooltip>
+				<responseTitle><![CDATA[Potions]]></responseTitle>
+				<responseTooltip><![CDATA[Give Oglix the potions and watch as she transforms [npc.name] into a horny beer-bitch...]]></responseTooltip>
 				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
 				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_alley_new_beer_bitch_delivered_end]]></nextDialogue>
 				<effects><![CDATA[
@@ -898,9 +1001,147 @@
 				<responseTitle><![CDATA[Decline]]></responseTitle>
 				<responseTooltip><![CDATA[Turn down Oglix's offer of being the first to fuck the '[#npc.getGenericName()]'...]]></responseTooltip>
 				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_tavern_alley_bar]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_alley_bar_empty_responses]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'BEER_BITCH_DELIVERED_DECLINE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- After barrel quest, flirting/sex with Oglix: -->
+	<scene id="flirting">
+		<preParsingEffects><![CDATA[
+			[#oglix.displaceClothingForAccess(CA_NIPPLES, null)]
+			[#flags.setFlag(FLAG_innoxia_oglix_flirted, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/tavern_alley">FLIRTING</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<responseTitle><![CDATA[Bedroom]]></responseTitle>
+				<responseTooltip><![CDATA[Accept Oglix's offer to show you to her bedroom, where no doubt she'll want to dominantly fuck you...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_alley_flirting_bedroom]]></nextDialogue>
+				<effects><![CDATA[
+					#IF(oglix.getAffection(pc)<=45)
+						[#game.appendToTextEndStringBuilder(oglix.incrementAffection(pc, 5))]
+					#ENDIF
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_alley, PLACE_TYPE_innoxia_fields_elis_tavern_alley_bedroom)]
+					[#oglix.setLocation(pc)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Decline]]></responseTitle>
+				<responseTooltip><![CDATA[Turn down Oglix's offer to show you to her bedroom. This will no doubt annoy her...]]></responseTooltip>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_alley_bar_empty_responses]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'FLIRTING_DECLINED'))]
+					[#oglix.replaceAllClothing()]
+					#IF(oglix.getAffection(pc)>=5)
+						[#game.appendToTextEndStringBuilder(oglix.incrementAffection(pc, -5))]
+					#ENDIF
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="flirting_bedroom">
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/tavern_alley">FLIRTING_BEDROOM</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fucked]]></responseTitle>
+				<responseTooltip><![CDATA[Oglix lets out another hungry moan and prepares to start dominantly fucking you...]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_tavern_alley_oglix_bedroom]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>oglix</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+						</character>
+					</submissives>
+					<dominantSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_alley_flirting_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/tavern_alley">FLIRTING_BEDROOM_SEX_START</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Take charge]]></responseTitle>
+				<responseTooltip><![CDATA[Get Oglix to surrender the dominant role to you and fuck her.]]></responseTooltip>
+				<requiredPerks>
+					<perk><![CDATA[UNARMED_TRAINING]]></perk>
+				</requiredPerks>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_tavern_alley_oglix_bedroom]]></id>
+					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[LYING_DOWN_MISSIONARY]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>oglix</id>
+							<slot><![CDATA[LYING_DOWN_LYING_DOWN]]></slot>
+						</character>
+					</submissives>
+					<dominantSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_alley_flirting_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/tavern_alley">FLIRTING_BEDROOM_SEX_START_DOM</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="flirting_after_sex">
+		<preParsingEffects/>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Oglix has had enough and brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/tavern_alley">FLIRTING_BEDROOM_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Return to bar]]></responseTitle>
+				<responseTooltip><![CDATA[Follow Oglix back to the bar.]]></responseTooltip>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_alley_bar_empty_responses]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_alley, PLACE_TYPE_innoxia_fields_elis_tavern_alley_bar)]
+					[#oglix.setLocation(pc)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'FLIRTING_BEDROOM_AFTER_SEX_END'))]
 				]]></effects>
 			</response>
 		</responses>
@@ -912,8 +1153,9 @@
 			[#oglix.setLocation(pc)]
 			[#oglix.getElemental().setLocation(oglix)]
 			[#game.setParserTarget('oglixElemental', oglix.getElemental())]
+			[#game.setParserTarget('golix', oglix.getElemental())]
 			[#kheiron.setLocation(pc)]
-			[#flags.setFlag(FLAG_innoxia_oglix_kheiron_spectated, true)]
+			[#flags.setFlag(FLAG_innoxia_oglix_kheiron_spectated_today, true)]
 		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/elis/tavern_alley">OLD_STABLES</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
@@ -938,7 +1180,11 @@
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
 		<responses>
+			<!-- First time spectating: -->
 			<response>
+				<availabilityConditional><![CDATA[
+					[#!flags.hasFlag(FLAG_innoxia_oglix_kheiron_spectated)]
+				]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Kheiron collared]]></responseTitle>
@@ -946,12 +1192,36 @@
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_alley_old_stables_final]]></nextDialogue>
 			</response>
+			<!-- Repeat spectating: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_oglix_kheiron_spectated)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Kheiron submits]]></responseTitle>
+				<responseTooltip><![CDATA[It looks like Kheiron is going to submit and get collared by Golix again...]]></responseTooltip>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_alley_old_stables_final]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_oglix_kheiron_spectated)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Kheiron dominates]]></responseTitle>
+				<responseTooltip><![CDATA[It looks like Kheiron is going to insist on being the one on top this time...]]></responseTooltip>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_alley_old_stables_final_kheiron_dom]]></nextDialogue>
+			</response>
 		</responses>
 	</scene>
 	
 	<scene id="old_stables_final">
 		<preParsingEffects><![CDATA[
 			[#kheiron.applyGolixCollar(true)]
+			[#flags.setFlag(FLAG_innoxia_oglix_kheiron_spectated, true)]
 		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/elis/tavern_alley">OLD_STABLES_FINAL</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
@@ -1032,7 +1302,104 @@
 					[#oglix.getElemental().returnToHome()]
 					[#kheiron.returnToHome()]
 					[#kheiron.applyGolixCollar(false)]
-					[#kheiron.applyGenericGolixSex()]
+					[#kheiron.applyGenericGolixSex(true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="old_stables_final_kheiron_dom">
+		<content folderPath="txt/places/fields/elis/tavern_alley">OLD_STABLES_FINAL_KHEIRON_DOM</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Watch]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isAnalContentEnabled())
+						Watch as Kheiron fucks Golix's ass...
+					#ELSE
+						Watch as Kheiron fucks Golix's throat...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_tavern_alley_kheiron_watch_kheiron_dom]]></id>
+					<startingPosition><![CDATA[
+						#IF(game.isAnalContentEnabled())
+							ALL_FOURS
+						#ELSE
+							STANDING
+						#ENDIF
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>kheiron</id>
+							<slot><![CDATA[
+								#IF(game.isAnalContentEnabled())
+									ALL_FOURS_BEHIND
+								#ELSE
+									STANDING_STANDING_DOMINANT
+								#ENDIF
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>golix</id>
+							<slot><![CDATA[
+								#IF(game.isAnalContentEnabled())
+									ALL_FOURS_ALL_FOURS
+								#ELSE
+									STANDING_PERFORMING_ORAL
+								#ENDIF
+							]]></slot>
+						</character>
+					</submissives>
+					<dominantSpectators>
+						<character><![CDATA[pc]]></character>
+						<character><![CDATA[oglix]]></character>
+					</dominantSpectators>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_alley_old_stables_after_watch]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/tavern_alley">OLD_STABLES_FINAL_WATCH_KHEIRON_DOM</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[[#game.isAnalContentEnabled()]]]></condition>
+							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[kheiron]]></performer>
+							<target><![CDATA[oglixElemental]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#!game.isAnalContentEnabled()]]]></condition>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[kheiron]]></performer>
+							<target><![CDATA[oglixElemental]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[
+					You don't want to stick around to see what's next...
+				]]></responseTooltip>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'OLD_STABLES_FINAL_LEAVE'))]
+					[#oglix.returnToHome()]
+					[#oglix.getElemental().returnToHome()]
+					[#kheiron.returnToHome()]
+					[#kheiron.applyGenericGolixSex(false)]
 				]]></effects>
 			</response>
 		</responses>
@@ -1129,6 +1496,9 @@
 	
 	<!-- Place type id: innoxia_fields_elis_tavern_alley_seating -->
 	<scene id="seating">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_oglix_tavern_seating_seen, true)]
+		]]></preParsingEffects>
 		<author><![CDATA[Innoxia]]></author>
 		<content folderPath="txt/places/fields/elis/tavern_alley">SEATING</content>
 		<secondsPassed><![CDATA[10]]></secondsPassed>
@@ -1190,11 +1560,11 @@
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
-				<responseTitle><![CDATA[Settle tab (#IF(pc.getMoney()>=250)[style.moneyFormat([#250], span)]#ELSE[style.moneyFormatUncoloured([#250], span)]#ENDIF)]]></responseTitle>
-				<responseTooltip><![CDATA[#IF(pc.getMoney()>=250) Offer [style.intToString([#250])] flames to pay off the [attacker.race]'s bar tab as an apology. #ELSE You can't afford to pay off the [attacker.race]'s bar tab... #ENDIF]]></responseTooltip>
-				<nextDialogue><![CDATA[#IF(pc.getMoney()>=250)innoxia_places_fields_elis_tavern_alley_seating_attacked_peaceful_end#ELSEnull#ENDIF]]></nextDialogue>
+				<responseTitle><![CDATA[Settle tab (#IF(pc.getMoney()>=200)[style.moneyFormat([#200], span)]#ELSE[style.moneyFormatUncoloured([#200], span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=200) Offer [style.intToString([#200])] flames to pay off the [attacker.race]'s bar tab as an apology. #ELSE You can't afford to pay off the [attacker.race]'s bar tab... #ENDIF]]></responseTooltip>
+				<nextDialogue><![CDATA[#IF(pc.getMoney()>=200)innoxia_places_fields_elis_tavern_alley_seating_attacked_peaceful_end#ELSEnull#ENDIF]]></nextDialogue>
 				<effects><![CDATA[
-					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-250))]
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-200))]
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'SEATING_ATTACKED_PAID_OFF'))]
 				]]></effects>
 			</response>
@@ -1625,6 +1995,7 @@
 			[#oglix.getElemental().setLocation(oglix)]
 			[#game.setActiveNPC(oglix.getElemental())]
 			[#game.setParserTarget('oglixElemental', oglix.getElemental())]
+			[#game.setParserTarget('golix', oglix.getElemental())]
 			[#attacker.setPlayerKnowsName(true)]
 		]]></preParsingEffects>
 		<author><![CDATA[Innoxia]]></author>
@@ -1719,6 +2090,7 @@
 			[#oglix.getElemental().setLocation(oglix)]
 			[#game.setActiveNPC(oglix.getElemental())]
 			[#game.setParserTarget('oglixElemental', oglix.getElemental())]
+			[#game.setParserTarget('golix', oglix.getElemental())]
 			#IF(game.isNonConEnabled() && ((pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) || (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)) || (pc.isAbleToAccessCoverableArea(CA_MOUTH, true))))
 				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'SEATING_ATTACKED_BRAWL_LOST'))]
 				[#game.banishNPC(attacker)]
@@ -1937,6 +2309,9 @@
 	
 	<!-- Place type id: innoxia_fields_elis_tavern_alley_locked_door -->
 	<scene id="locked_door">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_oglix_talk_vip_unlocked, true)]
+		]]></preParsingEffects>
 		<author><![CDATA[Innoxia]]></author>
 		<content folderPath="txt/places/fields/elis/tavern_alley">LOCKED_DOOR</content>
 		<secondsPassed><![CDATA[10]]></secondsPassed>
@@ -1967,5 +2342,15 @@
 		<responses/>
 	</scene>
 	
+	
+	<!-- Place type id: innoxia_fields_elis_tavern_alley_bedroom -->
+	<scene id="bedroom">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/tavern_alley">BEDROOM</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
 	
 </dialogueNodes>

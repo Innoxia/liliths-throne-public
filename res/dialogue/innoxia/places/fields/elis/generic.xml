@@ -607,14 +607,14 @@
 				<responseTooltip><![CDATA[
 					#IF(!game.isHourBetween(6, 7))
 						You need to come back between [units.time(6)]-[units.time(7)] if you wanted to see what Golix does to Kheiron...
-					#ELSEIF(!flags.hasFlag(FLAG_innoxia_oglix_kheiron_spectated))
+					#ELSEIF(flags.hasFlag(FLAG_innoxia_oglix_kheiron_spectated_today))
 						You've already seen what Golix does to Kheiron today...
 					#ELSE
 						Sneak around the back of the tavern to the old stables so that you can watch what Golix does to Kheiron...
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
-					#IF(!game.isHourBetween(6, 7) || flags.hasFlag(FLAG_innoxia_oglix_kheiron_spectated))
+					#IF(!game.isHourBetween(6, 7) || flags.hasFlag(FLAG_innoxia_oglix_kheiron_spectated_today))
 						null
 					#ELSE
 						innoxia_places_fields_elis_tavern_alley_old_stables

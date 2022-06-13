@@ -383,6 +383,16 @@ public class DialogueFlags implements XMLSaving {
 	public void setSavedLong(String id, long value) {
 		savedLongs.put(id, value);
 	}
+	
+	public void setSavedLong(String id, String value) {
+		try {
+			long valueLong = Long.valueOf(value);
+			setSavedLong(id, valueLong);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
 
 	/**
 	 * @return Increments the long saved to this id. Sets to -1 before incrementing if there was no entry found.

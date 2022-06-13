@@ -422,6 +422,24 @@ public class MainControllerInitMethod {
 							}
 						}, false);
 					}
+
+					id = "ARTWORK_DELETE";
+					if (MainController.document.getElementById(id) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							artwork.getCurrentImage().delete();
+							character.updateImages();
+							if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
+								"Remove custom artwork",
+								"Removes the current image from this character."
+										+ "<br/>[style.italicsBad(Please note that this will delete the image from the game's folder!)]"),
+								false);
+					}
 				} catch(Exception ex) {
 					System.err.println("MainController Artwork handling error.");
 				}

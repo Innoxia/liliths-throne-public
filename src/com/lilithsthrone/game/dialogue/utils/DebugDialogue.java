@@ -16,12 +16,15 @@ import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.effects.AbstractPerk;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.npc.fields.ElisAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
@@ -175,9 +178,10 @@ public class DebugDialogue {
 							PlaceType.DOMINION_CANAL,
 							PlaceType.DOMINION_CANAL_END,
 							PlaceType.DOMINION_ALLEYS_CANAL_CROSSING,
-							PlaceType.SUBMISSION_TUNNELS
+							PlaceType.SUBMISSION_TUNNELS,
+							PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_alley")
 							).contains(Main.game.getPlayer().getLocationPlace().getPlaceType())) {
-						return new Response("Spawn attacker", "You can only spawn an attacker on: Dominion's alleyway & canal tiles; Submission's tunnel tiles.", null);
+						return new Response("Spawn attacker", "You can only spawn an attacker on: Dominion's alleyway & canal tiles; Submission's tunnel tiles; Elis alleyway tiles.", null);
 					}
 					if(!Main.game.getNonCompanionCharactersPresent().isEmpty()) {
 						return new Response("Spawn attacker", "You can only spawn an attacker on empty tiles.", null);
@@ -638,8 +642,33 @@ public class DebugDialogue {
 							}
 						}
 					};
-				
-				} else if(index==25)  {
+					
+				} else if(index>=20 && index<=26) {
+					ArrayList<AbstractPerk> powerPerks = Util.newArrayListOfValues(Perk.POWER_OF_LIRECEA_1,
+							Perk.POWER_OF_LOVIENNE_2,
+							Perk.POWER_OF_LASIELLE_3,
+							Perk.POWER_OF_LYSSIETH_4,
+							Perk.POWER_OF_LUNETTE_5,
+							Perk.POWER_OF_LYXIAS_6,
+							Perk.POWER_OF_LISOPHIA_7);
+					AbstractPerk perk = powerPerks.get(index-20);
+						return new Response("Elder Lilin perk", "Toggle perk.", DEBUG_MENU) {
+							@Override
+							public String getTitle() {
+								return perk.getName(null)+": "+(Main.game.getPlayer().hasPerkAnywhereInTree(perk)?"[style.colourGood(ON)]":"[style.colourDisabled(OFF)]");
+							}
+							
+							@Override
+							public void effects() {
+								if(Main.game.getPlayer().hasPerkAnywhereInTree(perk)) {
+									Main.game.getPlayer().removeSpecialPerk(perk);
+								} else {
+									Main.game.getPlayer().addSpecialPerk(perk);
+								}
+							}
+						};
+					
+				} else if(index==29)  {
 					return new Response("Spawn rates", "List the spawn rates in the current location.", SPAWN_RATES) {
 						@Override
 						public void effects() {
@@ -684,7 +713,7 @@ public class DebugDialogue {
 						}
 					};
 					
-				} else if(index==26) {
+				} else if(index==30) {
 					return new Response("Item collage", "View a collage of all item, weapon, and clothing icons which are currently in the game.<br/>[style.italicsMinorBad(Will be slow to load and display!)]", CLOTHING_COLLAGE);
 					
 				}
@@ -819,12 +848,14 @@ public class DebugDialogue {
 				}
 				UtilText.nodeContentSB.append((isBorn?"":"(Not born yet) ")+"<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+" "+npc.getSurname()+"</span>"
 						+ " ("+npc.getSubspecies().getName(npc.getBody())+" | "+npc.getHalfDemonSubspecies().getName(npc.getBody())+")"
+						+ " ("+npc.getCovering(npc.getBody().getTorsoType().getBodyCoveringType(npc.getBody())).getPrimaryColour().getName()+")" // Primary covering colour
 						+ " M:"+(npc.getMother()!=null?npc.getMother().getName(true):"Deleted NPC")
 						+ " F:"+(npc.getFather()!=null?npc.getFather().getName(true):"Deleted NPC")+"<br/>");
 			}
 			for(OffspringSeed os : Main.game.getOffspringNotSpawned(os -> true,true)) {
 				UtilText.nodeContentSB.append("Not yet"+(os.isBorn()?" met ":" born ")+"<span style='color:"+os.getFemininity().getColour().toWebHexString()+";'>"+os.getName()+" "+os.getSurname()+"</span>"
 						+ " ("+os.getSubspecies().getName(os.getBody())+" | "+os.getHalfDemonSubspecies().getName(os.getBody())+")"
+						+ " ("+os.getBody().getCovering(os.getBody().getTorsoType().getBodyCoveringType(os.getBody()), true).getPrimaryColour().getName()+")" // Primary covering colour
 						+ " M:"+(os.getMother()!=null?os.getMother().getName(true):"Deleted NPC")
 						+ " F:"+(os.getFather()!=null?os.getFather().getName(true):"Deleted NPC")+"<br/>");
 			}
@@ -1204,9 +1235,12 @@ public class DebugDialogue {
 	private static void initAttacker() {
 		if(Main.game.getPlayer().getWorldLocation()==WorldType.DOMINION) {
 			attacker = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
+		} else if(Main.game.getPlayer().getLocationPlaceType()==PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_alley")) {
+			attacker = new ElisAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
 		} else {
 			attacker = new SubmissionAttacker(Gender.getGenderFromUserPreferences(false, false));
 		}
+		
 		try {
 			Main.game.addNPC(attacker, false);
 		} catch (Exception e) {

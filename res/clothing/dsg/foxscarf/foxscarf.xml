@@ -47,11 +47,6 @@
 		<!-- The file path for this clothing's image while equipped. It's only used by condoms in the base game at the moment (so an unequipped condom in your inventory has a different image than while being worn). -->
 		<imageEquippedName/> 
 		
-		<!-- How many enchantments can be fit into this item. It's typically best to let the game handle the default number of enchantments, which typically results in 5, and is calculated as:
-			int base = (getClothingSet()==null?5:10);
-			return base + getIncompatibleSlots().size()*base;-->
-		<enchantmentLimit/>
-		
 		<!-- The default effects that this clothing spawns in with. To know what to put in here, it would probably be easiest to enchant clothing in your game, save the game, then copy over that clothing's 'effects' in your save file. -->
 		<effects/>
 		
