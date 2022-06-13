@@ -433,8 +433,8 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
 								"Remove custom artwork",
-								"Removes the current image from this character"
-										+ " Please note that this will delete the image from the game folder."),
+								"Removes the current image from this character."
+										+ "<br/>[style.italicsBad(Please note that this will delete the image from the game's folder!)]"),
 								false);
 					}
 				} catch(Exception ex) {

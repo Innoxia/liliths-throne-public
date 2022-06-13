@@ -8,7 +8,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Contributors:
 		Fixed latex stocks always being referred to as black in their description. (PR#1671 by Anonymous-BCFED)
-		
+		Added a delete button to custom character images, enabling you to remove custom images without having to manually delete the image from the charatcer's 'custom' artwork folder. (PR#1637 by NoStepOnSneks)
 	
 	
 	
@@ -33,9 +33,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1616
 		[] #1618
 		[] #1631
-		[] #1637
-		[] #1639
+		[x] #1637
+			[x] test
+				[x] unique character
+				[x] generic character
+		[-] #1639
 		[] #1642
+		
+	[] Custom artwork for characters who have the same name have the same artwork?
 		
 	[] add tattoos to description page
 		
