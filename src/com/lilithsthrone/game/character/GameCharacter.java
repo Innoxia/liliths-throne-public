@@ -287,6 +287,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
+import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.GenericPlace;
@@ -24689,8 +24690,44 @@ public abstract class GameCharacter implements XMLSaving {
 		if(this.getSubspeciesOverrideRace()==Race.DEMON) {
 			races.add(Race.NONE);
 			races.add(Race.DEMON);
-			if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4)) {
+			ArrayList<AbstractRace> unavailableRaces = Util.newArrayListOfValues(); // Never have these TF options
+			if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LOVIENNE_2)) { // I'm assuming you defeat Lovienne last
+				races.addAll(Race.allRaces);
+				races.removeAll(unavailableRaces);
+			} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4)) {
 				races.add(Race.HUMAN);
+			}
+			for (AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
+				AbstractRace race = subspecies.getRace();
+				if(subspecies.isMainSubspecies() && !unavailableRaces.contains(race)) { // Only check the main subspecies
+					List<WorldRegion> mostCommonRegion = subspecies.getMostCommonWorldRegions();
+					if (this.hasPerkAnywhereInTree(Perk.POWER_OF_LIRECEA_1)
+							&& (mostCommonRegion.contains(WorldRegion.SEA)
+							|| mostCommonRegion.contains(WorldRegion.SEA_CITY))) {
+						races.add(race);
+					} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LASIELLE_3)
+							&& (mostCommonRegion.contains(WorldRegion.MOUNTAINS)
+							|| mostCommonRegion.contains(WorldRegion.YOUKO_FOREST)
+							|| mostCommonRegion.contains(WorldRegion.SNOW))) {
+						races.add(race);
+					} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LUNETTE_5)
+							&& (mostCommonRegion.contains(WorldRegion.WOODLAND)
+							|| mostCommonRegion.contains(WorldRegion.FIELDS)
+							|| mostCommonRegion.contains(WorldRegion.FIELD_CITY)
+							|| mostCommonRegion.contains(WorldRegion.RIVER))) {
+						races.add(race);
+					} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LYXIAS_6)
+							&& (mostCommonRegion.contains(WorldRegion.JUNGLE)
+							|| mostCommonRegion.contains(WorldRegion.JUNGLE_CITY))) {
+						races.add(race);
+					} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LISOPHIA_7)
+							&& (mostCommonRegion.contains(WorldRegion.SAVANNAH)
+							|| mostCommonRegion.contains(WorldRegion.DESERT)
+							|| mostCommonRegion.contains(WorldRegion.DESERT_CITY)
+							|| mostCommonRegion.contains(WorldRegion.VOLCANO))) {
+						races.add(race);
+					}
+				}
 			}
 		}
 		if(this.isYouko()) {
