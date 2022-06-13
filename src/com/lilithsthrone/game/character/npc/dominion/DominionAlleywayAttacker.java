@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -159,6 +160,9 @@ public class DominionAlleywayAttacker extends NPC {
 				this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			}
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+			if((Arrays.asList(generationFlags).contains(NPCGenerationFlag.DIRTY) || hasFetish(Fetish.FETISH_CUM_ADDICT)) && Math.random() < 0.1) {
+				Main.game.getCharacterUtils().applyDirtiness(this);
+			}
 			
 			// Set starting perks based on the character's race
 			initPerkTreeAndBackgroundPerks();
