@@ -24690,7 +24690,9 @@ public abstract class GameCharacter implements XMLSaving {
 		if(this.getSubspeciesOverrideRace()==Race.DEMON) {
 			races.add(Race.NONE);
 			races.add(Race.DEMON);
-			ArrayList<AbstractRace> unavailableRaces = Util.newArrayListOfValues(); // Never have these TF options
+			
+			ArrayList<AbstractRace> unavailableRaces = Util.newArrayListOfValues(Race.ELEMENTAL, Race.SLIME); // Never have these TF options
+			
 			if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LOVIENNE_2)) { // I'm assuming you defeat Lovienne last
 				races.addAll(Race.allRaces);
 				races.removeAll(unavailableRaces);
