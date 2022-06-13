@@ -1912,6 +1912,49 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
 				}
+
+				// Sort ascending
+				id = "SORT_SLAVES_ASC";
+				if(((EventTarget)MainController.document.getElementById(id))!=null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+							@Override
+							public void effects() {
+								OccupantManagementDialogue.setSlavesAreInReverseOrder(false);
+							}
+						});
+					}, false);
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
+					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+						"<b>Sort in normal order (ascending)</b>",
+						"Change how slaves are sorted.");
+					
+					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+				}
+
+				// Sort Descending
+				id = "SORT_SLAVES_DESC";
+				if(((EventTarget)MainController.document.getElementById(id))!=null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+							@Override
+							public void effects() {
+								OccupantManagementDialogue.setSlavesAreInReverseOrder(true);
+							}
+						});
+					}, false);
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
+					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+						"<b>Sort in reverse order (Descending)</b>",
+						"Change how slaves are sorted.");
+					
+					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+				}
+
 				for(String slaveId : Main.game.getPlayer().getSlavesOwned()) {
 					id = slaveId;
 					NPC slave;
