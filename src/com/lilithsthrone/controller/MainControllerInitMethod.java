@@ -443,6 +443,49 @@ public class MainControllerInitMethod {
 			}
 		}
 		
+		if(Main.game.getCurrentDialogueNode().equals(RoomPlayer.ROOM_SET_ALARM)) {
+			id = "PLAYER_ALARM_DECREASE_LARGE";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.game.getDialogueFlags().incrementSavedLong("player_phone_alarm", -60);
+					if(Main.game.getDialogueFlags().getSavedLong("player_phone_alarm") < 0) {
+						Main.game.getDialogueFlags().incrementSavedLong("player_phone_alarm", 24*60);
+					}
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "PLAYER_ALARM_DECREASE";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.game.getDialogueFlags().incrementSavedLong("player_phone_alarm", -5);
+					if(Main.game.getDialogueFlags().getSavedLong("player_phone_alarm") < 0) {
+						Main.game.getDialogueFlags().incrementSavedLong("player_phone_alarm", 24*60);
+					}
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "PLAYER_ALARM_INCREASE";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.game.getDialogueFlags().incrementSavedLong("player_phone_alarm", 5);
+					if(Main.game.getDialogueFlags().getSavedLong("player_phone_alarm") >= 24*60) {
+						Main.game.getDialogueFlags().incrementSavedLong("player_phone_alarm", -24*60);
+					}
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "PLAYER_ALARM_INCREASE_LARGE";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.game.getDialogueFlags().incrementSavedLong("player_phone_alarm", 60);
+					if(Main.game.getDialogueFlags().getSavedLong("player_phone_alarm") >= 24*60) {
+						Main.game.getDialogueFlags().incrementSavedLong("player_phone_alarm", -24*60);
+					}
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+		}
+		
 		// -------------------- Debug menu -------------------- //
 		
 		if(Main.game.getCurrentDialogueNode().equals(DebugDialogue.SPAWN_MENU) || Main.game.getCurrentDialogueNode().equals(DebugDialogue.ITEM_VIEWER)) {
