@@ -9,8 +9,6 @@
 		
 		<imageName>hoof.svg</imageName> 
 		
-		<enchantmentLimit>5</enchantmentLimit>
-		
 		<slotAvailability/>
 		
 		<primaryColours values="ALL"/> 
