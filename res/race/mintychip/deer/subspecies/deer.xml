@@ -116,18 +116,18 @@
 		<namesDefault> <!-- You must include this 'namesDefault' element, which will be used for any undefined legConfiguration names (for example, if the player somehow became a TAIL_LONG hyena). -->
 			<name><![CDATA[deer-morph]]></name>
 			<namePlural><![CDATA[deer-morphs]]></namePlural>
-			<singularMaleName><![CDATA[deer-boy]]></singularMaleName>
-			<singularFemaleName><![CDATA[deer-girl]]></singularFemaleName>
-			<pluralMaleName><![CDATA[deer-boys]]></pluralMaleName>
-			<pluralFemaleName><![CDATA[deer-girls]]></pluralFemaleName>
+			<singularMaleName><![CDATA[buck-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[doe-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[buck-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[doe-girls]]></pluralFemaleName>
 		</namesDefault>
 		<names legConfiguration="QUADRUPEDAL"> <!-- This is the usual naming pattern for quadrupeds, even if the names do get a little unwieldy at times... -->
 			<name><![CDATA[deertaur]]></name>
 			<namePlural><![CDATA[deertaurs]]></namePlural>
-			<singularMaleName><![CDATA[deertaur]]></singularMaleName>
-			<singularFemaleName><![CDATA[deertauress]]></singularFemaleName>
-			<pluralMaleName><![CDATA[deertaurs]]></pluralMaleName>
-			<pluralFemaleName><![CDATA[deertauresses]]></pluralFemaleName>
+			<singularMaleName><![CDATA[bucktaur]]></singularMaleName>
+			<singularFemaleName><![CDATA[doetauress]]></singularFemaleName>
+			<pluralMaleName><![CDATA[bucktaurs]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[doetauresses]]></pluralFemaleName>
 		</names>
 	</nameAnthro>
 	
@@ -156,10 +156,10 @@
 		As such, just define your names like so: -->
 		<name><![CDATA[deer]]></name>
 		<namePlural><![CDATA[deer]]></namePlural>
-		<singularMaleName><![CDATA[deer]]></singularMaleName>
-		<singularFemaleName><![CDATA[deer]]></singularFemaleName>
-		<pluralMaleName><![CDATA[deer]]></pluralMaleName>
-		<pluralFemaleName><![CDATA[deer]]></pluralFemaleName>
+		<singularMaleName><![CDATA[buck]]></singularMaleName>
+		<singularFemaleName><![CDATA[doe]]></singularFemaleName>
+		<pluralMaleName><![CDATA[bucks]]></pluralMaleName>
+		<pluralFemaleName><![CDATA[does]]></pluralFemaleName>
 		
 		<!-- The leg configuration that a feral form of this subspecies has.
 		This determines their overall body shape. -->
