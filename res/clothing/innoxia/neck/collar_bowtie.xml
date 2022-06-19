@@ -17,7 +17,6 @@
 	<clothingSet/>
 	<imageName>collar_bowtie.svg</imageName>
     <imageEquippedName/>
-	<enchantmentLimit>5</enchantmentLimit>
 	<effects/>
 	
 	<blockedPartsList slot="NECK">

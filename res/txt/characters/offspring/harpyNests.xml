@@ -477,7 +477,7 @@
 			#ENDIF
 		#ELSE
 			<p>
-				You're the first to recover from the shock of your surprise meeting, and as your initial surprise fades away, you find that you're shaking your head in utter disbelief. Looking into your [npc.relation(pc)]'s [npc.eyes], you frown in disapproval as you start to voice your concerns, [pc.speech([npc.Name]! Please don't tell me that you're just another low-life mugger!)]
+				You're the first to recover from the shock of your surprise meeting, and as your initial surprise fades away, you find that you're shaking your head in utter disbelief. Looking into your [npc.relation(pc)]'s [npc.eyes], you frown in disapproval as you start to voice your concerns, [pc.speech([npc.Name]! Please don't tell me that you're just another lowlife mugger!)]
 			</p>
 			#IF(npc.isConfident())
 				<p>

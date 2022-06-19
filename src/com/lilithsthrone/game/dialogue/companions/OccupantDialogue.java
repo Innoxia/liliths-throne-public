@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.companions;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -1483,11 +1484,6 @@ public class OccupantDialogue {
 						@Override
 						public void effects() {
 							sleepTimeInMinutes = 240;
-							
-							Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
-							Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
-							Main.game.getPlayer().setLustNoText(0);
-							
 							RoomPlayer.applySleep(sleepTimeInMinutes);
 						}
 					};
@@ -1506,11 +1502,6 @@ public class OccupantDialogue {
 						@Override
 						public void effects() {
 							sleepTimeInMinutes = timeUntilChange;
-							
-							Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
-							Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
-							Main.game.getPlayer().setLustNoText(0);
-							
 							RoomPlayer.applySleep(sleepTimeInMinutes);
 						}
 					};
@@ -1567,6 +1558,34 @@ public class OccupantDialogue {
 							applyReactionReset();
 						}
 					};
+
+				} else if (index == 8) {
+					return new Response("Set alarm", "Set the alarm on your phone, so that you can wake at a specific time.", RoomPlayer.ROOM_SET_ALARM) {
+						@Override
+						public void effects() {
+							Main.game.saveDialogueNode();
+						}
+					};
+
+				} else if (index == 9) {
+					long alarmTime = Main.game.getDialogueFlags().getSavedLong("player_phone_alarm");
+					if(alarmTime >= 0) {
+						String alarmTimeStr = Main.game.getDisplayTime(LocalTime.ofSecondOfDay(alarmTime*60));
+						int timeUntilAlarm = Main.game.getMinutesUntilTimeInMinutes((int)alarmTime-1)+1; // -1+1 is so we get 1440 instead of 0
+						return new Response("Rest until alarm (" + alarmTimeStr + ")",
+								"Ask [npc.name] if you can crash on [npc.her] sofa for " + (timeUntilAlarm >= 60 ? timeUntilAlarm / 60 + " hours, " : "")
+										+ (timeUntilAlarm % 60 != 0 ? timeUntilAlarm % 60 + " minutes, " : "")
+										+ " until your alarm goes off. As well as replenishing your " + Attribute.HEALTH_MAXIMUM.getName() + " and " + Attribute.MANA_MAXIMUM.getName() + ", you will also get the 'Well Rested' status effect.",
+								OCCUPANT_APARTMENT_SLEEP_OVER) {
+							@Override
+							public void effects() {
+								sleepTimeInMinutes = timeUntilAlarm;
+								RoomPlayer.applySleep(sleepTimeInMinutes);
+							}
+						};
+					} else {
+						return new Response("Rest until alarm (unset)", "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Your alarm is unset!</span>", null);
+					}
 					
 				} else if (index == 10) {
 					if(confirmKickOut) {

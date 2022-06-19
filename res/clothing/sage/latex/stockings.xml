@@ -5,7 +5,7 @@
 		<determiner><![CDATA[a pair of]]></determiner>
 		<name><![CDATA[latex thigh-high stockings]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[latex thigh-high stockings]]></namePlural>
-		<description><![CDATA[A pair of thigh-high latex stockings. They are made from black shiny latex that leaves nothing to the imagination.]]></description>
+		<description><![CDATA[A pair of thigh-high latex stockings. They are made from shiny latex that leaves nothing to the imagination.]]></description>
 		<physicalResistance>1</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>SOCK</slot> 
@@ -13,7 +13,6 @@
 		<clothingSet>sage_ltxset</clothingSet>  
 		<imageName>stockings.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit/>
 		<effects/>
 		
 		<blockedPartsList>

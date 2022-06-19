@@ -8,10 +8,13 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.QuickTransformations;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -22,6 +25,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.item.FetishPotion;
 import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
@@ -88,6 +92,29 @@ public class AlleywayDemonDialogue {
 		@Override
 		public void applyPreParsingEffects() {
 			talked = false;
+			getDemon().generatePostCombatPotions();
+			transformationsApplied = false;
+			Main.game.getDialogueFlags().setFlag("innoxia_alleyway_transformations_applied", false);
+			
+			if(getDemon().getPlayerSurrenderCount()>=4) { 
+				if(getDemon().hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
+					Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", 4);
+				} else {
+					Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", Util.random.nextInt(6)+1);
+					if(Main.game.getDialogueFlags().getSavedLong("randomResponseIndex")==1 && Main.game.getPlayer().getMoney()<Main.game.getDialogueFlags().getMuggerDemand3()) {
+						Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", 2);
+					}
+					if(Main.game.getDialogueFlags().getSavedLong("randomResponseIndex")==6
+							&& (!getDemon().hasPersonalityTrait(PersonalityTrait.SELFISH)
+									|| ((Main.game.getPlayer().getTattooInSlot(InventorySlot.GROIN)!=null || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
+										&& (!Main.game.isAnalContentEnabled() || Main.game.getPlayer().getTattooInSlot(InventorySlot.TORSO_UNDER)!=null || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true))))) {
+						Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", 4);
+					}
+					if(Main.game.getDialogueFlags().getSavedLong("randomResponseIndex")==4 && (!getDemon().isAttractedTo(Main.game.getPlayer()) || getDemon().hasStatusEffect(StatusEffect.RECOVERING_AURA))) {
+						Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", 5);
+					}
+				}
+			}
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -101,42 +128,49 @@ public class AlleywayDemonDialogue {
 			
 			if(getDemon().getLastTimeEncountered() != -1) {
 				if(isWantsToFight()) {
-					if(isCanal()) {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_CANAL_REPEAT_INTRO", getDemon()));
+					if(getDemon().getPlayerSurrenderCount()>=4) {
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_SUBMITTED", getDemon()));
+						
+					} else if(getDemon().getPlayerSurrenderCount()==3) {
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_DEMAND_SUBMIT", getDemon()));
 						
 					} else {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT_INTRO", getDemon()));
-					}
-					
-					if(getDemon().isVisiblyPregnant()) {
-						pregnancyReaction = true;
-						
-						if(!getDemon().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT_PREGNANCY_REVEAL", getDemon()));
-						
+						if(isCanal()) {
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_CANAL_REPEAT_INTRO", getDemon()));
+							
 						} else {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT_STILL_PREGNANT", getDemon()));
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT_INTRO", getDemon()));
 						}
-					}
-					
-					if(Main.game.getPlayer().isVisiblyPregnant() || (isCompanionDialogue() && getMainCompanion().isVisiblyPregnant())) {
-						pregnancyReaction = true;
 						
-						if((Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getPlayer().isCharacterReactedToPregnancy(getDemon()))
-								|| (isCompanionDialogue() && getMainCompanion().isVisiblyPregnant() && !getMainCompanion().isCharacterReactedToPregnancy(getDemon()))) {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT_PLAYER_PREGNANCY", getDemon()));
-						
-						} else {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT_CONTINUED_PLAYER_PREGNANCY", getDemon()));
+						if(getDemon().isVisiblyPregnant()) {
+							pregnancyReaction = true;
+							
+							if(!getDemon().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
+								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT_PREGNANCY_REVEAL", getDemon()));
+							
+							} else {
+								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT_STILL_PREGNANT", getDemon()));
+							}
 						}
+						
+						if(Main.game.getPlayer().isVisiblyPregnant() || (isCompanionDialogue() && getMainCompanion().isVisiblyPregnant())) {
+							pregnancyReaction = true;
+							
+							if((Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getPlayer().isCharacterReactedToPregnancy(getDemon()))
+									|| (isCompanionDialogue() && getMainCompanion().isVisiblyPregnant() && !getMainCompanion().isCharacterReactedToPregnancy(getDemon()))) {
+								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT_PLAYER_PREGNANCY", getDemon()));
+							
+							} else {
+								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT_CONTINUED_PLAYER_PREGNANCY", getDemon()));
+							}
+						}
+	
+						if(!pregnancyReaction) {
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT", getDemon()));
+						}
+						
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT_END", getDemon()));
 					}
-
-					if(!pregnancyReaction) {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT", getDemon()));
-					}
-					
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT_END", getDemon()));
-
 					
 				} else { // The mugger doesn't want to attack the player:
 					if(isCanal()) {
@@ -194,6 +228,10 @@ public class AlleywayDemonDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(getDemon().getPlayerSurrenderCount()>=3) { // Bitch content
+				return DialogueManager.getDialogueFromId("innoxia_encounters_dominion_alleyway_demon_start").getResponse(responseTab, index);
+			}
+			
 			if(isWantsToFight()) {
 				if (index == 1) {
 					return new ResponseCombat("Fight", "Stand up for yourself and fight [npc.name]!", getDemon()) {
@@ -208,7 +246,9 @@ public class AlleywayDemonDialogue {
 					
 				} else if (index == 3) {
 					if(getDemon().isAttractedTo(Main.game.getPlayer())) {
-						return new ResponseSex("Offer body", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
+						return new ResponseSex("Offer body",
+								"Offer your body to [npc.name] so that you can avoid a violent confrontation."
+									+"<br/>[style.italicsSex(Repeatedly submitting to [npc.name] will eventually lead to [npc.herHim] demanding that you become [npc.her] bitch...)]",
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, false,
@@ -230,7 +270,7 @@ public class AlleywayDemonDialogue {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
-								
+								getDemon().incrementPlayerSurrenderCount(1);
 							}
 						};
 						
@@ -238,7 +278,25 @@ public class AlleywayDemonDialogue {
 						return new Response("Offer body", "You can tell that [npc.name] isn't at all interested in having sex with you. You'll either have to offer [npc.herHim] some money, or prepare for a fight!", null);
 					}
 					
-				} else if (index == 4 && isCompanionDialogue()) {
+				} else if (index == 4 && getDemon().isApplyingPostCombatTransformations()) {
+					return new Response("Surrender",
+							"Completely surrender to [npc.name] and let [npc.herHim] do whatever [npc.she] wants with your body..."
+									+"<br/>[style.italicsTfGeneric(This will result in [npc.name] trying to get you to drink a transformation potion, before possibly choosing to fuck you!)]."
+									+"<br/>[style.italicsSex(Repeatedly submitting to [npc.name] will eventually lead to [npc.herHim] demanding that you become [npc.her] bitch...)]",
+								SURRENDER,
+							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_TRANSFORMATION_RECEIVING), Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null) {
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.TRANSFORMATION_GENERIC;
+						}
+						@Override
+						public void effects() {
+							applyPregnancyReactions();
+							getDemon().incrementPlayerSurrenderCount(1);
+						}
+					};
+					
+				} else if (index == 6 && isCompanionDialogue()) {
 					GameCharacter companion = getMainCompanion();
 	
 					if(!getDemon().isAttractedTo(Main.game.getPlayer())) {
@@ -275,7 +333,7 @@ public class AlleywayDemonDialogue {
 						};
 					}
 					
-				} else if (index == 5 && isCompanionDialogue() && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
+				} else if (index == 7 && isCompanionDialogue() && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
 					GameCharacter companion = getMainCompanion();
 	
 					if(!getDemon().isAttractedTo(companion)) {
@@ -404,7 +462,49 @@ public class AlleywayDemonDialogue {
 						};
 					}
 					
-				} else if (index == 6 && isCompanionDialogue()) {
+				} else if(index==6) {
+					if(getDemon().getPlayerSurrenderCount()<3 && getDemon().isApplyingPostCombatTransformations()) {
+						if(transformationsApplied) {
+							return new Response("Get transformed",
+									"[npc.Name] has already given you all the transformation potions [npc.she] had!",
+									null);
+							
+						} else {
+							return new Response("Get transformed",
+									"Tell [npc.name] that you'd like to drink any transformation potions which [npc.she] has..."
+										+"<br/>[style.italicsTfGeneric(This will result in [npc.name] getting you to drink a transformation potion!)]",
+										DEMON_PEACEFUL_TRANSFORMED,
+									Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_TRANSFORMATION_RECEIVING), Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(), null, null, null) {
+								@Override
+								public Colour getHighlightColour() {
+									return PresetColour.TRANSFORMATION_GENERIC;
+								}
+								@Override
+								public void effects() {
+									applyPregnancyReactions();
+									Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "PEACEFUL_TRANSFORMATIONS", getDemon()));
+									Main.game.appendToTextStartStringBuilder(getDemon().applyPostCombatTransformation());
+									transformationsApplied = true;
+								}
+							};
+						}
+					}
+					
+				} else if (index==10) {
+					return new Response("Attack", "Betray [npc.namePos] trust and attack [npc.herHim]!", DEMON_PEACEFUL_ATTACK) {
+						@Override
+						public void effects() {
+							applyPregnancyReactions();
+							Main.game.getTextEndStringBuilder().append(getDemon().incrementAffection(Main.game.getPlayer(), -50));
+							getDemon().addFlag(NPCFlagValue.genericNPCBetrayedByPlayer);
+						}
+						@Override
+						public boolean isCombatHighlight() {
+							return true;
+						}
+					};
+					
+				} else if (index == 11 && isCompanionDialogue()) {
 					GameCharacter companion = getMainCompanion();
 	
 					if(!getDemon().isAttractedTo(Main.game.getPlayer())) {
@@ -440,7 +540,7 @@ public class AlleywayDemonDialogue {
 						};
 					}
 					
-				} else if (index == 7 && isCompanionDialogue() && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
+				} else if (index == 12 && isCompanionDialogue() && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
 					GameCharacter companion = getMainCompanion();
 	
 					if(!getDemon().isAttractedTo(companion)) {
@@ -473,26 +573,10 @@ public class AlleywayDemonDialogue {
 						};
 					}
 					
-				} else if (index==10) {
-					return new Response("Attack", "Betray [npc.namePos] trust and attack [npc.herHim]!", DEMON_PEACEFUL_ATTACK) {
-						@Override
-						public void effects() {
-							applyPregnancyReactions();
-							Main.game.getTextEndStringBuilder().append(getDemon().incrementAffection(Main.game.getPlayer(), -50));
-							getDemon().addFlag(NPCFlagValue.genericNPCBetrayedByPlayer);
-						}
-						@Override
-						public boolean isCombatHighlight() {
-							return true;
-						}
-					};
-					
 				} else if (index == 0) {
 					return new Response("Leave", "Tell [npc.name] that you're in a rush to be somewhere else, before continuing on your way.", Main.game.getDefaultDialogue(false));
-					
-				} else {
-					return null;
 				}
+				return null;
 			}
 		}
 	};
@@ -573,6 +657,17 @@ public class AlleywayDemonDialogue {
 				return new Response("Continue", "Let [npc.name] get settled in.", Main.game.getDefaultDialogue(false));
 			}
 			return null;
+		}
+	};
+
+	public static final DialogueNode DEMON_PEACEFUL_TRANSFORMED = new DialogueNode("", "", true, true) {
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return DEMON_ATTACK.getResponse(responseTab, index);
 		}
 	};
 	
@@ -659,6 +754,11 @@ public class AlleywayDemonDialogue {
 	};
 	
 	public static final DialogueNode AFTER_COMBAT_VICTORY = new DialogueNode("Victory", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			getDemon().setPlayerSurrenderCount(0);
+			getDemon().clearPetName(Main.game.getPlayer());
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
@@ -988,6 +1088,20 @@ public class AlleywayDemonDialogue {
 		}
 		return sb.toString();
 	}
+
+	public static final DialogueNode SURRENDER = new DialogueNode("", "", true) {
+		public void applyPreParsingEffects() {
+			AFTER_COMBAT_DEFEAT.applyPreParsingEffects();
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "SURRENDER", getDemon());		
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return AFTER_COMBAT_DEFEAT.getResponse(responseTab, index);
+		}
+	};
 	
 	public static final DialogueNode AFTER_COMBAT_DEFEAT = new DialogueNode("Defeat", "", true) {
 

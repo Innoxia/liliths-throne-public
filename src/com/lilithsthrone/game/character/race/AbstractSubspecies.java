@@ -811,7 +811,7 @@ public abstract class AbstractSubspecies {
 //			if(race==Race.HUMAN) {
 //				new IllegalArgumentException().printStackTrace();
 //			}
-			return Integer.valueOf(UtilText.parse(subspeciesWeighting.trim()));
+			return Integer.valueOf(UtilText.parse(subspeciesWeighting).trim());
 		}
 		return 0;
 	}
@@ -1714,6 +1714,21 @@ public abstract class AbstractSubspecies {
 		return getRegionLocations().containsKey(worldType.getWorldRegion())
 				|| getWorldLocations().containsKey(worldType)
 				|| (placeType!=null && getPlaceLocations().containsKey(placeType));
+	}
+	
+	public List<WorldRegion> getMostCommonWorldRegions() {
+		List<WorldRegion> mostCommonRegion = Util.newArrayListOfValues();
+		SubspeciesSpawnRarity highestRarity = SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE;
+		for(Map.Entry<WorldRegion, SubspeciesSpawnRarity> entry : getRegionLocations().entrySet()) {
+			if(entry.getValue().getChanceMultiplier()>=highestRarity.getChanceMultiplier()) {
+				if(entry.getValue().getChanceMultiplier()>highestRarity.getChanceMultiplier()) {
+					mostCommonRegion.clear();
+				}
+				mostCommonRegion.add(entry.getKey());
+				highestRarity = entry.getValue();
+			}
+		}
+		return mostCommonRegion;
 	}
 	
 	public List<SubspeciesFlag> getFlags() {

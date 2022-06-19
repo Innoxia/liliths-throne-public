@@ -18,7 +18,6 @@
 		<clothingSet/>
 		<imageName>key_chain.svg</imageName>
     <imageEquippedName slot="WRIST">key_chain.svg</imageEquippedName>
-		<enchantmentLimit>15</enchantmentLimit>
 		<effects>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_UNARMED" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>

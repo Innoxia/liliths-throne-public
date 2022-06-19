@@ -1127,6 +1127,22 @@ public class ItemEffectType {
 		}
 	};
 	
+	/**
+	 * This is just to provide a hard-coded hook to the biojuice canister's effects, for use in NPC.generateTransformativePotion()
+	 */
+	public static AbstractItemEffectType RACE_SLIME_TF_UTIL_EFFECT = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"Transforms the consumer into a slime!"),
+			PresetColour.RACE_HUMAN) {
+		@Override
+		public String getPotionDescriptor() {
+			return "slime";
+		}
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return Main.game.getItemGen().generateItem(ItemType.getItemTypeFromId("innoxia_race_slime_biojuice_canister")).applyEffect(user, target);
+		}
+	};
+	
 //	public static AbstractItemEffectType RACE_BREAD_ROLL = new AbstractItemEffectType(Util.newArrayListOfValues(
 //			Attribute.MAJOR_PHYSIQUE.getFormattedValue(1)+" to 'potion effects'"),
 //			PresetColour.RACE_HUMAN) {

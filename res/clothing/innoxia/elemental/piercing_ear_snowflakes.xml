@@ -13,7 +13,6 @@
 		<clothingSet>SNOWFLAKE</clothingSet>
 		<imageName>piercing_ear_snowflakes.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit/>
 		<effects>
 			<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_ICE" timer="0"/>
 			<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_ICE" timer="0"/>

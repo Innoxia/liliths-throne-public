@@ -38,6 +38,269 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="ALLEY_ATTACK_SUBMITTED"><![CDATA[
+	<p>
+		Knowing that [npc.name] calls this particular part of Dominion [npc.her] home, you look out for any sign of [npc.herHim] as you proceed down the narrow alleyways. Just as you were expecting, you suddenly catch sight of a shady figure leaning against the wall a short way up ahead. Catching sight of you at the same moment, this figure [npc.steps] forwards to block your passage, allowing you to see that it's the [npc.race] you were looking out for.
+	</p>
+	#IF(npc.isVisiblyPregnant() && npc.getPregnantLitter().isFatherId(pc.getId()))
+		#IF(!npc.isCharacterReactedToPregnancy(pc))
+			<p>
+				As [npc.she] steps out from the shadows, you notice that there's something different about [npc.herHim] this time. The consequence of cumming inside of [npc.herHim] is staring you right in the face, and you gulp as you see [npc.herHim] pointing down at [npc.her] [style.colourSex(pregnant belly)].
+			</p>
+			<p>
+				#IF(npc.isMute())
+					Although unable to talk, [npc.name] gives you a smug smirk and a condescending glare which makes it very clear that [npc.she] still sees you as nothing more than [npc.her] submissive bitch.
+					#IF(npc.isAttractedTo(pc))
+						 Casting a hungry gaze up and down over your body, [npc.she] licks [npc.her] [npc.lips] and gestures for you to come closer.
+					#ELSE
+						 Allowing a smirk to settle on [npc.her] face, [npc.name] strikes an intimidating pose and gestures for you to come closer.
+					#ENDIF
+				#ELSE
+					#IF(npc.hasFetish(FETISH_PREGNANCY))
+						[npc.speech(Yeah, [pc.name], you were the one who did this!)] [npc.name] shouts, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHasFull] a fetish for being pregnant. [npc.speech(Just because I love being a mommy, don't think that I'm going to start treating you as my equal! Now get over here, [pc.name], I've got plans for you.)]
+					#ELSE
+						[npc.speech(That's right, you got me pregnant, [pc.name]...)] [npc.name] mumbles, before clearing [npc.her] throat and glaring at you. [npc.speech(Even though you knocked me up, don't think that I'm going to start treating you as my equal! Now get over here, [pc.name], I've got plans for you.)]
+					#ENDIF
+				#ENDIF
+			</p>
+		#ELSE
+			<p>
+				As [npc.she] steps out from the shadows, you see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she]
+				#IF(npc.isMute())
+					 gives you a smug smirk and a condescending glare.
+					#IF(npc.isAttractedTo(pc))
+						 Casting a hungry gaze up and down over your body, [npc.she] licks [npc.her] [npc.lips] and gestures for you to come closer.
+					#ELSE
+						 Allowing a smirk to settle on [npc.her] face, [npc.name] strikes an intimidating pose and gestures for you to come closer.
+					#ENDIF
+				#ELSE
+					#IF(npc.hasFetish(FETISH_PREGNANCY))
+						 laughs,
+					#ELSE
+						 scowls,
+					#ENDIF
+					 [npc.speech(That's right, I'm still pregnant. Now get over here, [pc.name], I've got plans for you.)]
+				#ENDIF
+			</p>
+		#ENDIF
+	#ENDIF
+	#IF(pc.isVisiblyPregnant())
+		<p>
+			#IF(npc.isMute())
+				Although unable to talk, [npc.name] pointedly looks down at your swollen belly and sneers, before giving you a 
+				#IF(pc.getPregnantLitter().isFatherId(npc.getId()))
+					 triumphant smirk which seems to say 'I did that to you'.
+				#ELSE
+					 degrading smirk which seems to say 'I'm better than you, slut'.
+				#ENDIF
+			#ELSE
+				#IF(!pc.isCharacterReactedToPregnancy(npc))
+					#IF(pc.getPregnantLitter().isFatherId(npc.getId()))
+						[npc.speech(Looks like I got you knocked up, huh, [pc.name]?!)] [npc.name] sneers, looking down at your swollen belly. [npc.speech(Now hurry up and get over here!)]
+					#ELSE
+						[npc.speech(Looks like someone got you knocked up, huh, [pc.name]?!)] [npc.name] sneers, looking down at your swollen belly. [npc.speech(Been going around town submitting to anyone who wants to pump a load in you, I'll bet! Now hurry up and get over here!)]
+					#ENDIF
+				#ELSE
+					[npc.speech(Hah! Looks like you're still pregnant, huh, slut?!)] [npc.name] laughs, looking down at your swollen belly. [npc.speech(Now hurry up and get over here!)]
+				#ENDIF
+			#ENDIF
+		</p>
+	#ENDIF
+	#IF(!npc.isVisiblyPregnant() && !pc.isVisiblyPregnant())
+		<p>
+			#IF(npc.isMute())
+				Apparently either not willing or not able to talk, [npc.name] flashes you a smug smirk and a condescending glare which makes it very clear that [npc.she] still sees you as nothing more than [npc.her] submissive bitch. Snapping [npc.her] [npc.fingers], [npc.she] points at the floor before [npc.herHim] in a clear command for you to approach.
+			#ELSE
+				[npc.speech(Back again, [pc.name]?)] [npc.she] sneers, [npc.speech(I've got plans for you. Get over here like the good, submissive bitch that you are!)]
+			#ENDIF
+		</p>
+	#ENDIF
+	#IF(npc.isApplyingPostCombatTransformations())
+		<p>
+			Hurrying to obey, you swiftly approach [npc.name] and wait to
+			#IF(npc.isMute())
+				 find out
+			#ELSE
+				 hear
+			#ENDIF
+			 what it is that [npc.sheHas] got planned for you.
+			#IF(npc.isUsingForcedTransform(pc) && npc.getPostCombatPotion()!=null)
+				#IF(npc.isUsingForcedFetish(pc) && npc.getPostCombatFetishPotion()!=null)
+					 As you come to a halt in front of [npc.herHim], the [npc.race] produces a couple of curious little bottles from somewhere out of sight, and shakes them from side to side
+					#IF(!npc.isMute())
+						 as [npc.she] taunts, [npc.speech(I think you could do with some <i>improvements</i>! I'm going to turn you into my perfect [npc.preferredBody(b)]! Now open wide, [pc.name]!)]
+					#ELSE
+						 before your face, allowing you to see that on the side of one of them there's a label which reads '[npc.preferredBody(b)]'. Motioning for you to open wide and prepare to drink the transformative potions, [npc.name] begins to advance upon you.
+					#ENDIF
+				#ELSE
+					 As you come to a halt in front of [npc.herHim], the [npc.race] produces a curious little bottle from somewhere out of sight, and shakes it from side to side
+					#IF(!npc.isMute())
+						 as [npc.she] taunts, [npc.speech(I think you could do with some <i>improvements</i>! I'm going to turn you into my perfect [npc.preferredBody(b)]! Now open wide, [pc.name]!)]
+					#ELSE
+						 before your face, allowing you to see that on the side there's a label which reads '[npc.preferredBody(b)]'. Motioning for you to open wide and prepare to drink the transformative potion, [npc.name] begins to advance upon you.
+					#ENDIF
+				#ENDIF
+			#ELSE
+				 As you come to a halt in front of [npc.herHim], the [npc.race] produces a curious little bottle from somewhere out of sight, and shakes it from side to side
+				#IF(!npc.isMute())
+					 as [npc.she] taunts, [npc.speech(I think you could do with some <i>improvements</i>! You're going to end up being my perfect partner; this potion will fix your fetishes and make sure of that! Now open wide, [pc.name]!)]
+				#ELSE
+					 before your face, allowing you to see that on the side there's a warning label which says something about permanent fetish alterations. Motioning for you to open wide and prepare to drink the transformative potion, [npc.name] begins to advance upon you.
+				#ENDIF
+			#ENDIF
+		</p>
+		<p>
+			Flashing you a brief, menacing glare, [npc.name] makes it quite clear that [npc.she] expects instant obedience from you. With only a moment in which to make your decision, you wonder whether to go obey [npc.name] and be transformed to [npc.her] liking or to refuse and prepare to fight for your freedom...
+		</p>
+	#ELSE
+		<p>
+			Hurrying to obey, you swiftly approach [npc.name] and wait to
+			#IF(npc.isMute())
+				 find out
+			#ELSE
+				 hear
+			#ENDIF
+			 what it is that [npc.sheHas] got planned for you.
+			#IF(npc.isMute())
+				#IF(flags.getSavedLong('randomResponseIndex')<=3)
+					 As you come to a halt in front of [npc.herHim], the [npc.race] flashes you a sneer and makes a gesture to signify that you need to pay [npc.herHim]. Impatiently tapping [npc.her] [npc.foot(true)] on the hard ground, she uses [npc.her] [npc.fingers] to imply that you need to pay [npc.herHim] [style.intToString([#flags.getMuggerDemand3()])] flames. As you start to offer a response, [npc.name] smacks [npc.her] fist into [npc.her] other [npc.hand(true)], before making a few hand gesture to imply that if you can't pay, then you're to tag along and help [npc.herHim] mug someone. Pausing to look you up and down as if appraising your body, [npc.she] thinks for a moment before making yet another lengthy series of convoluted and erratic hand-signs, implying that if you don't want to fight, then [npc.she] could always pimp you out and sell your body to a friend of [npc.hers].
+				#ELSEIF(flags.getSavedLong('randomResponseIndex')==4)
+					 As you come to a halt in front of [npc.herHim], the [npc.race] suddenly [npc.steps] forwards and dominantly gropes your
+					#IF(pc.hasBreasts())
+						 [pc.breasts+],
+					#ELSE
+						 [pc.ass+],
+					#ENDIF
+					 flashing you a hungry glare as [npc.she] does so.
+					#IF(npc.hasStatusEffect(SE_WEATHER_STORM_VULNERABLE))
+						 With [npc.name] clearly being uncontrollably turned on by the arcane storm raging overhead, you find yourself just moments away from being fucked by the horny, mute [npc.race].
+					#ELSE
+						 With [npc.her] intentions clear, you find yourself just moments away from being fucked by the horny, mute [npc.race].
+					#ENDIF
+				#ELSEIF(flags.getSavedLong('randomResponseIndex')==5)
+					 As you come to a halt in front of [npc.herHim], the [npc.race] gives you wicked smirk, before pointing at the floor and motioning for you to crawl after [npc.herHim]. As you start to ask where it is that you'll be going with [npc.herHim], [npc.name] lets out an angry tutting noise, before using hand signals to imply that [npc.sheIs] going to find somewhere to get some food, and that you're to embarrass yourself by crawling along beside [npc.herHim] like a dumb bitch.
+				#ELSE
+					 As you come to a halt in front of [npc.herHim], the [npc.race] flashes you an evil smirk and motions for you to follow [npc.herHim]. As you start to ask what it is that you'll be doing with [npc.herHim], [npc.name] lets out an angry huff, and through a lengthy series of convoluted and erratic hand-signs, implies that a friend of [npc.hers] is going to tattoo you to mark you as [npc.her] bitch, after which this friend is to fuck you as means of payment.
+				#ENDIF
+			#ELSE
+				#IF(flags.getSavedLong('randomResponseIndex')<=3)
+					 As you come to a halt in front of [npc.herHim], the [npc.race] flashes you a sneer and snaps, [npc.speech(I've run out of cash and owe some people some money, so pay up, [pc.name]. Let's see... I think [style.intToString([#flags.getMuggerDemand3()])] flames ought to do it. If you can't pay, then you'll help me earn some cash another way. You can either tag along and help me mug someone, or I can pimp you out to a friend of mine. So, what'll it be, [pc.name]? You going to pay, fight, or fuck to get me my money?)]
+				#ELSEIF(flags.getSavedLong('randomResponseIndex')==4)
+					 As you come to a halt in front of [npc.herHim], the [npc.race] suddenly [npc.steps] forwards and dominantly gropes your
+					#IF(pc.hasBreasts())
+						 [pc.breasts+],
+					#ELSE
+						 [pc.ass+],
+					#ENDIF
+					 sneering as [npc.she] does so,
+					#IF(npc.hasStatusEffect(SE_WEATHER_STORM_VULNERABLE))
+						 [npc.speech(This damn arcane storm's got me so turned on I can't think straight! All I need right now is to give you a good, hard fuck, [pc.name]!)]
+					#ELSE
+						 [npc.speech(I'm feeling pretty horny at the moment, [pc.name]. I think I'll give you a good fuck.)]
+					#ENDIF
+				#ELSEIF(flags.getSavedLong('randomResponseIndex')==5)
+					 As you come to a halt in front of [npc.herHim], the [npc.race] gives you wicked smirk, before pointing at the floor and sneering, [npc.speech(Get down, [pc.name]. I was just about to go and get some food, and it'd be fun to have you crawling along beside me like the dumb bitch you are.)]
+				#ELSE
+					 As you come to a halt in front of [npc.herHim], the [npc.race] flashes you an evil smirk and reveals, [npc.speech(I've made arrangements with an old friend of mine. They're going to tattoo you to mark you as my bitch, and as payment I said I'd let them screw you once the job's done. So come on, [pc.name], let's go get you inked and fucked.)]
+				#ENDIF
+			#ENDIF
+		</p>
+		<p>
+			Flashing you a brief, menacing glare, [npc.name] makes it quite clear that [npc.she] expects instant obedience from you. With only a moment in which to make your decision, you wonder whether to go along with what [npc.she] orders or to refuse and prepare to fight for your freedom...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ALLEY_ATTACK_DEMAND_SUBMIT"><![CDATA[
+	<p>
+		Having repeatedly submitted to [npc.a_fullRace(true)] in this particular part of Dominion, you make sure to keep a lookout for [npc.herHim] as you proceed down the narrow alleyways. Just as you were expecting, you suddenly catch sight of a shady figure leaning against the wall a short way up ahead. Catching sight of you at the same moment, this figure [npc.steps] forwards to block your passage, allowing you to see that it's the same [npc.race] who you've met near here before.
+	</p>
+	#IF(npc.isVisiblyPregnant() && npc.getPregnantLitter().isFatherId(pc.getId()))
+		#IF(!npc.isCharacterReactedToPregnancy(pc))
+			<p>
+				As [npc.she] steps out from the shadows, you notice that there's something different about [npc.herHim] this time. The consequence of cumming inside of [npc.herHim] is staring you right in the face, and you gulp as you see [npc.herHim] pointing down at [npc.her] [style.colourSex(pregnant belly)].
+			</p>
+			<p>
+				#IF(npc.isMute())
+					Although unable to talk, [npc.name] gives you a menacing glare which makes it very clear that [npc.her] pregnancy isn't going to stop [npc.herHim] from carrying out [npc.her] criminal activities. Unlike your previous encounters with [npc.herHim], [npc.name] doesn't seem interested in your money, and instead strikes an intimidating pose and prepares to demand something else.
+				#ELSE
+					#IF(npc.hasFetish(FETISH_PREGNANCY))
+						[npc.speech(Yeah, you were the one who did this!)] [npc.name] shouts, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHasFull] a fetish for being pregnant. [npc.speech(Just because I love being a mommy, don't think I'm letting you off the hook! I've got something special in mind for you!)]
+					#ELSE
+						[npc.speech(That's right, you got me pregnant...)] [npc.name] mumbles, before clearing [npc.her] throat and glaring at you. [npc.speech(I'm not letting my pregnancy get in the way! I've got something special in mind for you!)]
+					#ENDIF
+				#ENDIF
+			</p>
+		#ELSE
+			<p>
+				You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she]
+				#IF(npc.isMute())
+					 gives you a menacing glare. Unlike your previous encounters with [npc.herHim], [npc.name] doesn't seem interested in your money, and instead strikes an intimidating pose and prepares to demand something else.
+				#ELSE
+					#IF(npc.hasFetish(FETISH_PREGNANCY))
+						 laughs,
+					#ELSE
+						 scowls,
+					#ENDIF
+					 [npc.speech(That's right, I'm still pregnant, but I'm not letting it get in the way! I've got something special in mind for you!)]
+				#ENDIF
+			</p>
+		#ENDIF
+	#ENDIF
+	<p>
+		#IF(pc.isVisiblyPregnant())
+			#IF(npc.isMute())
+				Although unable to talk, [npc.name] pointedly looks down at your swollen belly and sneers, before giving you a 
+			#ELSE
+				Looking down at your swollen belly, [npc.name] sneers and gives you a
+			#ENDIF
+			#IF(pc.getPregnantLitter().isFatherId(npc.getId()))
+				 triumphant smirk which seems to say 'I did that to you'.
+			#ELSE
+				 degrading smirk which seems to say 'I'm better than you, slut'.
+			#ENDIF
+			 With that, [npc.she] [npc.steps] forwards in a threatening manner, before
+		#ELSE
+			With a wicked glint in [npc.her] [npc.eyeColour] [npc.eyes], [npc.name] [npc.steps] forwards in a threatening manner, before
+		#ENDIF
+		#IF(npc.isMute())
+			#IF(game.isFootContentEnabled() && npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() && pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+				 gesturing for you to drop down before [npc.herHim] and kiss [npc.her] [npc.feet]. Having already willingly given up to [npc.herHim] three times in a row, it seems like [npc.name] wants you to fully capitulate to [npc.herHim] and become [npc.her] bitch in the most humiliating manner [npc.she] can think of.
+			#ELSEIF(npc.getFetishDesire(FETISH_SADIST).isPositive())
+				 gesturing for you to drop down before [npc.herHim] and present your ass so that [npc.she] can give you a spanking. Having already willingly given up to [npc.herHim] three times in a row, it seems like [npc.name] wants you to fully capitulate to [npc.herHim] and become [npc.her] bitch in the most humiliating manner [npc.she] can think of.
+			#ELSE
+				 gesturing for you to bow down before [npc.herHim] and submit. Having already willingly given up to [npc.herHim] three times in a row, it seems like [npc.name] wants you to fully capitulate to [npc.herHim] and become [npc.her] bitch.
+			#ENDIF
+		#ELSE
+			#IF(game.isFootContentEnabled() && npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() && pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+				 declaring, [npc.speech(You've shown yourself to be a submissive bitch, so I thought it's time to make it official. Bow down before me and kiss my feet like the subservient slut you are, and I'll make you my personal bitch!)]
+			#ELSEIF(npc.getFetishDesire(FETISH_SADIST).isPositive())
+				 declaring, [npc.speech(You've shown yourself to be a submissive bitch, so I thought it's time to make it official. Bow down before me and present me with your ass, and I'll spank you into becoming my personal bitch!)]
+			#ELSE
+				 declaring, [npc.speech(You've shown yourself to be a submissive bitch, so I thought it's time to make it official. Bow down before me and show me what a subservient slut you are, and I'll make you my personal bitch!)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		#IF(npc.isAttractedTo(pc))
+			With that, [npc.name] flashes you a triumphant smirk, and once again you see that there's a wicked, hungry gleam in [npc.her] [npc.eyes+]. Your powerful arcane aura is clearly turning [npc.herHim] on, and you realise that if you were to submit and accept becoming [npc.her] bitch,
+			#IF(game.isNonConEnabled())
+				 this horny [npc.race] would surely choose to force [npc.herself] upon you.
+			#ELSE
+				 this horny [npc.race] would surely want to have sex with you.
+			#ENDIF
+		#ELSE
+			With that, [npc.name] flashes you a triumphant smirk, and once again you see that there's a wicked gleam in [npc.her] [npc.eyes+]. Although your powerful arcane aura is quite clearly turning [npc.herHim] on a little, it doesn't look as though [npc.sheIs] really all that interested in your body, and will most likely use you in other ways if you were to accept becoming [npc.her] bitch.
+		#ENDIF
+		 With just moments to spare before [npc.sheIs] upon you, the choice of whether to defend yourself or completely surrender to this [npc.race] must be quickly made...
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsSex(If you accept becoming [npc.namePos] bitch, you will be expected to obey [npc.her] commands and be given random orders each time you encounter [npc.herHim].)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="ALLEY_ATTACK_REPEAT"><![CDATA[
 	#VAR
 		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
@@ -900,6 +1163,61 @@
 	</htmlContent>
 	
 	
+	<!-- PEACEFUL_TRANSFORMATIONS -->
+	
+	<htmlContent tag="PEACEFUL_TRANSFORMATIONS"><![CDATA[
+	<p>
+		Wanting to be transformed into whatever form [npc.name] finds most pleasing, you ask [npc.herHim] if [npc.she] has any transformative potions which [npc.she]'d like you to drink.
+	</p>
+	<p>
+		#IF(!npc.isMute())
+			[npc.speech(Well, now that you mention it...)] [npc.name] replies, before retrieving a
+		#ELSE
+			Enthusiastically nodding [npc.her] head, [npc.name] hurries to retrieve a
+		#ENDIF
+		#IF(npc.isUsingForcedTransform(pc) && npc.getPostCombatPotion()!=null && npc.isUsingForcedFetish(pc) && npc.getPostCombatFetishPotion()!=null)
+			 couple of curious little bottles from a nearby hiding place.
+		#ELSE
+			 curious little bottle from a nearby hiding place.
+		#ENDIF
+		 Grinning at you, [npc.she]
+		#IF(!npc.isMute())
+			 reveals, [npc.speech(Normally there'd be no way that someone like me could afford transformation potions, but there's this really kind succubus who sometimes finds me and asks if I've seen any humans wandering about. Even if I say no, she still makes me some customised potions so that I can transform any humans that I see... Anyway, you say you want to be transformed?
+			#IF(npc.isApplyingPostCombatTransformations(false, true))
+				 Just drink this then, your fetishes will be changed to how I like them...
+			#ELSE
+				 Just drink this then, and I'll turn you into my perfect [npc.preferredBody(b)]...
+			#ENDIF
+			)]
+		#ELSE
+			 can't contain [npc.her] excitement and has to take a moment to write out a message for you, <i>'Normally there'd be no way that someone like me could afford transformation potions, but there's this really kind succubus who sometimes finds me and asks if I've seen any humans wandering about. Even if I say no, she still makes me some customised potions so that I can transform any humans that I see... You say you want to be transformed?
+			#IF(npc.isApplyingPostCombatTransformations(false, true))
+				 Just drink this then, your fetishes will be changed to how I like them...'
+			#ELSE
+				 Just drink this then, and I'll turn you into my perfect [npc.preferredBody(b)]...'
+			#ENDIF
+			</i>
+		#ENDIF
+	</p>
+	<p>
+		#IF(npc.isUsingForcedTransform(pc) && npc.getPostCombatPotion()!=null && npc.isUsingForcedFetish(pc) && npc.getPostCombatFetishPotion()!=null)
+			With that, [npc.name] pulls out the little stopper from the top of each bottle, and as you willingly open your mouth, [npc.she] pushes their necks past your [pc.lips+].
+		#ELSE
+			With that, [npc.name] pulls out the little stopper from the top of the bottle, and as you willingly open your mouth, [npc.she] pushes its neck past your [pc.lips+].
+		#ENDIF
+		 As the sickly-sweet fluid pours out into your mouth, you can't help but let out a muffled moan in anticipation of the changes which your body is to be subjected to.
+	</p>
+	<p>
+		#IF(!npc.isMute())
+			[npc.speech(That's it, drink it all down...)] [npc.name] eagerly pants. More than happy to do as you're told, you swallow down every last drop of the transformative fluid, after which [npc.name] happily grins and exclaims, [npc.speech(Now for the fun part!)]
+		#ELSE
+			Panting in eager anticipation of what's to come, [npc.name] watches as you swallow down every last drop of the transformative fluid, after which [npc.she] happily grins and waits for the changes to take place...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- ALLEY_PEACEFUL_ATTACK -->
 	
 	<htmlContent tag="ALLEY_PEACEFUL_ATTACK"><![CDATA[
@@ -1248,6 +1566,90 @@
 	<p>
 		Smiling to yourself as you think that you might have just made a new friend, you set off and continue on your way...
 	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SURRENDER -->
+	
+	<htmlContent tag="SURRENDER"><![CDATA[
+	<p>
+		#IF(pc.isCowardly())
+			Well and truly terrified at the prospect of this [npc.race] choosing to engage you in physical combat, you drop down before [npc.herHim] and offer [npc.herHim] your complete surrender. Letting out an amused chuckle as [npc.she] sees how scared you are, the [npc.race]
+		#ELSEIF(pc.isBrave())
+			Although not scared of [npc.race], you find yourself unwilling to engage [npc.herHim] in combat, and so you drop down before [npc.herHim] and offer [npc.herHim] your complete surrender. Letting out an annoyed tut as [npc.she] sees the brave look in your [pc.eyes], the [npc.race]
+		#ELSE
+			Not wanting to engage this [npc.race] in combat, you drop down before [npc.herHim] and offer [npc.herHim] your complete surrender. Letting out an amused chuckle as [npc.she] sees your complete and utter submission, the [npc.race]
+		#ENDIF
+		#IF(!npc.isMute())
+			 pushes you to the ground, before using [npc.her] bodyweight to hold you down and sneer, [npc.speech(How pathetic!)]
+		#ELSE
+			 pushes you to the ground, and with a wicked sneer on [npc.her] face, [npc.she] uses [npc.her] bodyweight to hold you down.
+		#ENDIF
+	</p>
+	#IF(npc.isUsingForcedTransform(pc) && npc.getPostCombatPotion()!=null)
+		#IF(npc.isUsingForcedFetish(pc) && npc.getPostCombatFetishPotion()!=null)
+			<p>
+				As [npc.she] pins you to the floor, [npc.she] produces a couple of curious little bottles from somewhere out of sight, and shakes them from side to side
+				#IF(!npc.isMute())
+					 as [npc.she] taunts, [npc.speech(I think you could do with some <i>improvements</i>! I'm going to turn you into my perfect [npc.preferredBody(b)]!)]
+				#ELSE
+					 before your face, allowing you to see that on the side of one of them there's a label which reads '[npc.preferredBody(b)]'.
+				#ENDIF
+			</p>
+			<p>
+				With that, [npc.name] pulls out the little stopper from the top of each bottle, and as you open your mouth to protest, [npc.she] suddenly shoves their necks past your [pc.lips+]. As the sickly-sweet fluid pours out into your mouth, you let out a muffled whine; the only act of resistance that you're able to summon in your current state.
+			</p>
+			<p>
+				#IF(!npc.isMute())
+					[npc.speech(Come on! Swallow it all down already!)] [npc.she] growls, throwing
+				#ELSE
+					Clasping [npc.her] [npc.hand] over your mouth, [npc.she] throws
+				#ENDIF
+				 the now-empty vessels to one side as [npc.she] tries to force you to swallow the combined fluids...
+			</p>
+		#ELSE
+			<p>
+				As [npc.she] pins you to the floor, [npc.she] produces a curious little bottle from somewhere out of sight, and shakes it from side to side
+				#IF(!npc.isMute())
+					 as [npc.she] taunts, [npc.speech(I think you could do with some <i>improvements</i>! I'm going to turn you into my perfect [npc.preferredBody(b)]!)]
+				#ELSE
+					 before your face, allowing you to see that on the side there's a label which reads '[npc.preferredBody(b)]'.
+				#ENDIF
+			</p>
+			<p>
+				With that, [npc.name] pulls out the little stopper from the top of the bottle, and as you open your mouth to protest, [npc.she] suddenly shoves the neck past your [pc.lips+]. As the sickly-sweet fluid pours out into your mouth, you let out a muffled whine; the only act of resistance that you're able to summon in your current state.
+			</p>
+			<p>
+				#IF(!npc.isMute())
+					[npc.speech(Come on! Swallow it all down already!)] [npc.she] growls, throwing
+				#ELSE
+					Clasping [npc.her] [npc.hand] over your mouth, [npc.she] throws
+				#ENDIF
+				 the now-empty vessel to one side as [npc.she] tries to force you to swallow the strange fluid...
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			As [npc.she] pins you to the floor, [npc.she] produces a curious little bottle from somewhere out of sight, and shakes it from side to side
+			#IF(!npc.isMute())
+				 as [npc.she] taunts, [npc.speech(I think you could do with some <i>improvements</i>! You're going to end up being my perfect partner; this potion will fix your fetishes and make sure of that!)]
+			#ELSE
+				 before your face, allowing you to see that on the side there's a warning label which says something about permanent fetish alterations.
+			#ENDIF
+		</p>
+		<p>
+			With that, [npc.name] pulls out the little stopper from the top of the bottle, and as you open your mouth to protest, [npc.she] suddenly shoves the neck past your [pc.lips+]. As the sickly-sweet fluid pours out into your mouth, you let out a muffled whine; the only act of resistance that you're able to summon in your current state.
+		</p>
+		<p>
+			#IF(!npc.isMute())
+				[npc.speech(Come on! Swallow it all down already!)] [npc.she] growls, throwing
+			#ELSE
+				Clasping [npc.her] [npc.hand] over your mouth, [npc.she] throws
+			#ENDIF
+			 the now-empty vessel to one side as [npc.she] tries to force you to swallow the strange fluid...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -1841,6 +2243,1092 @@
 	</p>
 	<p>
 		With that, [npc.she] walks off, leaving you panting on the ground. It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Bitch content: -->
+	
+	<!-- Initial submitting: -->
+	
+	<htmlContent tag="SUBMITTING_FEET"><![CDATA[
+	<p>
+		Submitting to [npc.name], you drop down before [npc.herHim] and tell [npc.herHim] that you accept being [npc.her] bitch.
+		#IF(npc.isMute())
+			 With a triumphant smirk on [npc.her] face, [npc.she] points to [npc.her] [npc.feet+] and snaps [npc.her] [npc.fingers], indicating that you're to drop down and kiss them.
+		#ELSE
+			 Letting out a triumphant laugh, [npc.she] repeats [npc.her] demand and points to the ground, ordering, [npc.speech(Kiss my feet to show me that you mean it!)] 
+		#ENDIF
+	</p>
+	<p>
+		Accepting your place as [npc.namePos] bitch, you do as [npc.she] commands. Dropping your [pc.mouth] down to 
+		#IF(npc.getHighestZLayerCoverableArea(CA_FEET)!=null)
+			 [npc.her] [npc.feet], you obediently kiss [npc.her] [#npc.getHighestZLayerCoverableArea(CA_FEET).getName()].
+		#ELSE
+			 the ground, you obediently kiss [npc.her] [npc.feet+].
+		#ENDIF
+		 Dominantly pushing [npc.her] [npc.feet] into your, [npc.name]
+		#IF(npc.isMute())
+			 forces you to continue orally servicing [npc.her] [npc.feet+].
+		#ELSE
+			 lets out a mocking laugh and teases, [npc.speech(You really are a dumb bitch aren't you? Enjoying it, bitch? Go on, kiss them some more!)] 
+		#ENDIF
+	</p>
+	<p>
+		After making you perform this degrading task for several minutes, [npc.name] finally [npc.steps] back and takes [npc.her] [npc.feet] away from your face.
+		#IF(npc.isMute())
+			 Smirking down at you, [npc.she] makes a gesture to get you to sit still, before placing [npc.her] [npc.hands] on [npc.her] hips and preparing to give you further instructions.
+		#ELSE
+			 Smirking down at you, [npc.she] orders, [npc.speech(Now sit still and listen. I need to make sure that you know your place.)] 
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTING_SPANKING"><![CDATA[
+	<p>
+		Submitting to [npc.name], you drop down before [npc.herHim] and tell [npc.herHim] that you accept being [npc.her] bitch.
+		#IF(npc.isMute())
+			 With a triumphant smirk on [npc.her] face, [npc.she] points to the ground and snaps [npc.her] [npc.fingers], before making a gesture indicating that you're to present [npc.herHim] with your [pc.ass+].
+		#ELSE
+			 Letting out a triumphant laugh, [npc.she] repeats [npc.her] demand, ordering, [npc.speech(Present me with your ass, bitch! I want you to remember this!)] 
+		#ENDIF
+	</p>
+	<p>
+		Obediently shuffling around and presenting [npc.name] with your ass, you raise your hips and prepare to receive your spanking. The [npc.race] doesn't keep you waiting long, as [npc.she] quickly drops down next to you and raises [npc.her] [npc.hand+]. Bringing it down with considerable force, [npc.she] delivers a sharp slap to your rear end, causing you to let out an involuntary cry. Smirking at your response, [npc.name] repeats this movement again and again, slapping, swatting, and spanking your [pc.ass+] over and over.
+	</p>
+	<p>
+		After subjecting you to this physical punishment for several minutes, [npc.name] finally takes [npc.her] [npc.hand] away from your ass, before standing up and [npc.stepping] back.
+		#IF(npc.isMute())
+			 Smirking down at you, [npc.she] makes a gesture to get you to sit still, before placing [npc.her] [npc.hands] on [npc.her] hips and preparing to give you further instructions.
+		#ELSE
+			 Smirking down at you, [npc.she] orders, [npc.speech(Now sit still and listen. I need to make sure that you know your place.)] 
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTING_BOW_DOWN"><![CDATA[
+	<p>
+		Submitting to [npc.name], you drop down before [npc.herHim] and tell [npc.herHim] that you accept being [npc.her] bitch.
+		#IF(npc.isMute())
+			 With a triumphant smirk on [npc.her] face, [npc.she] points to the ground and snaps [npc.her] [npc.fingers], indicating that you're to bow down before [npc.herHim].
+		#ELSE
+			 Letting out a triumphant laugh, [npc.she] repeats [npc.her] demand and points to the ground, ordering, [npc.speech(Bow down before me and show me that you mean it!)] 
+		#ENDIF
+	</p>
+	<p>
+		Accepting your place as [npc.namePos] bitch, you do as [npc.she] commands. Dropping your face towards the ground, you submissively bow down to the [npc.race] and repeat your pledge to become [npc.her] bitch. Dominantly lifting [npc.her] [npc.foot(true)] and pushing down on your back, [npc.name]
+		#IF(npc.isMute())
+			 forces you to completely bow down so that you're pressed down against the floor.
+		#ELSE
+			 forces you down against the floor as [npc.she] teases, [npc.speech(You really are a dumb bitch aren't you? That's right, bow down to me!)] 
+		#ENDIF
+	</p>
+	<p>
+		After making you remain in this submissive position for several minutes, [npc.name] finally takes [npc.her] [npc.foot(true)] off of you and [npc.steps] back.
+		#IF(npc.isMute())
+			 Smirking down at you, [npc.she] makes a gesture to get you to sit still, before placing [npc.her] [npc.hands] on [npc.her] hips and preparing to give you further instructions.
+		#ELSE
+			 Smirking down at you, [npc.she] orders, [npc.speech(Now sit still and listen. I need to make sure that you know your place.)] 
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_END"><![CDATA[
+	<p>
+		#IF(npc.isMute())
+			Producing a piece of paper and a pen, the [npc.race] scribbles something down, before pointing to [npc.herself] and showing you what [npc.sheHas] written. Looking at the piece of paper, you see that [npc.sheHas] written [npc.her] name as '[npc.name]', but underneath that [npc.sheHas] scrawled 'You will call me [pc.petName(npc)]'. After you've read this, '[pc.petName(npc)]' quickly writes something else down on the paper, before smirking and showing you that it reads 'Your name is [npc.petName(pc)]. Say it back to me.'.
+		#ELSE
+			Dominantly looming over you as you remain in your submissive position on the floor, the [npc.race] reveals, [npc.speech(My name's [npc.name], but you're to call me '[pc.petName(npc)]'. As for you, I'll give you a new name... I think '[pc.name]' suits you. Say it back to me, [pc.name]. What's your name?)]
+		#ENDIF
+	</p>
+	#IF(npc.isApplyingPostCombatTransformations())
+		<p>
+			#IF(npc.isUsingForcedTransform(pc) && npc.getPostCombatPotion()!=null)
+				#IF(npc.isUsingForcedFetish(pc) && npc.getPostCombatFetishPotion()!=null)
+					As you repeat your new name back to [npc.herHim], the [npc.race] produces a couple of curious little bottles from somewhere out of sight, and shakes them from side to side
+					#IF(!npc.isMute())
+						 as [npc.she] taunts, [npc.speech(I think you could do with some <i>improvements</i>! I'm going to turn you into my perfect [npc.preferredBody(b)]! Now open wide, [pc.name]!)]
+					#ELSE
+						 before your face, allowing you to see that on the side of one of them there's a label which reads '[npc.preferredBody(b)]'. Motioning for you to open wide and prepare to drink the transformative potions, [npc.name] begins to advance upon you.
+					#ENDIF
+				#ELSE
+					As you repeat your new name back to [npc.herHim], the [npc.race] produces a curious little bottle from somewhere out of sight, and shakes it from side to side
+					#IF(!npc.isMute())
+						 as [npc.she] taunts, [npc.speech(I think you could do with some <i>improvements</i>! I'm going to turn you into my perfect [npc.preferredBody(b)]! Now open wide, [pc.name]!)]
+					#ELSE
+						 before your face, allowing you to see that on the side there's a label which reads '[npc.preferredBody(b)]'. Motioning for you to open wide and prepare to drink the transformative potion, [npc.name] begins to advance upon you.
+					#ENDIF
+				#ENDIF
+			#ELSE
+				As you repeat your new name back to [npc.herHim], the [npc.race] produces a curious little bottle from somewhere out of sight, and shakes it from side to side
+				#IF(!npc.isMute())
+					 as [npc.she] taunts, [npc.speech(I think you could do with some <i>improvements</i>! You're going to end up being my perfect partner; this potion will fix your fetishes and make sure of that! Now open wide, [pc.name]!)]
+				#ELSE
+					 before your face, allowing you to see that on the side there's a warning label which says something about permanent fetish alterations. Motioning for you to open wide and prepare to drink the transformative potion, [npc.name] begins to advance upon you.
+				#ENDIF
+			#ENDIF
+		</p>
+		<p>
+			Flashing you a brief, menacing glare, [npc.name] makes it quite clear that [npc.she] expects instant obedience from you. Having agreed to be [npc.her] submissive bitch, you open wide and accept your fate as being transformed to [npc.namePos] liking. Opening wide, you allow [npc.herHim] to pour the liquid into your mouth...
+		</p>
+	#ELSE
+		#IF(npc.isAttractedTo(pc))
+			<p>
+				Clearly finding you irresistibly attractive, as you repeat your new name back to [npc.herHim], [npc.name] grabs hold of your [pc.arm] and pulls you to your [pc.feet], before grinding up against you and
+				#IF(npc.isWillingToRape(pc))
+					#IF(!npc.isMute())
+						 declaring, [npc.speech(As my bitch, you'll be getting fucked a lot! Now submit to me, [pc.name], and prepare to get fucked!)]
+					#ELSE
+						 starting to grope and fondle your body. Leaning in to plant a forceful kiss on your [pc.lips+], [npc.namePos] dominant behaviour makes it clear that [npc.sheIs] about to fuck you, whether you like it or not...
+					#ENDIF
+				#ELSE
+					#IF(!npc.isMute())
+						 declaring, [npc.speech(As my bitch, I'm going to be wanting to fuck you a lot! You're up for a quick fuck right now, aren't you?)]
+					#ELSE
+						 throwing you a questioning look as [npc.she] starts to run [npc.her] [npc.hands] over your body. Clearly wanting to fuck you, [npc.name] waits to hear if you're willing to submit to [npc.herHim] or not...
+					#ENDIF
+				#ENDIF
+			</p>
+		#ELSE
+			<p>
+				As you repeat your new name back to [npc.herHim], [npc.name] looks down at you and lets out an amused humming noise.
+				#IF(!npc.isMute())
+					 Clearly not being attracted to you, [npc.name] states, [npc.speech(Come back soon, [pc.name], <i>or else</i>. Ive got plans for you!)]
+				#ELSE
+					 Clearly not being attracted to you, [npc.name] simply glares at you for a moment, before turning [npc.her] back on you.
+				#ENDIF
+			</p>
+			<p>
+				With that, [npc.she] strides off down the alleyway, leaving you panting and sweating as you attempt to recover from your alarming experience...
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_TRANSFORMATION"><![CDATA[
+	<p>
+		#IF(pc.hasFetish(FETISH_TRANSFORMATION_RECEIVING) || pc.hasFetish(FETISH_KINK_RECEIVING))
+			Loving the sound of being transformed by [npc.name], you obediently swallow down the strange liquid that's in your mouth.
+		#ELSE
+			Thinking that it would be best to do as [npc.name] says, you obediently swallow down the strange liquid that's in your mouth.
+		#ENDIF
+		#IF(!npc.isMute())
+			 Seeing that you've obeyed [npc.herHim], [npc.name] grins and exclaims, [npc.speech(Now for the fun part, [pc.name]!)]
+		#ELSE
+			 Seeing that you've obeyed [npc.herHim], [npc.name] flashes you an absolutely delighted grin as [npc.she] waits for the transformative effects to take place.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_TRANSFORMATION_END"><![CDATA[
+	#IF(npc.isAttractedTo(pc))
+		<p>
+			Clearly finding you irresistibly attractive, the moment that your transformations come to end, [npc.name] grabs hold of your [pc.arm] and pulls you to your [pc.feet], before grinding up against you and
+			#IF(npc.isWillingToRape(pc))
+				#IF(!npc.isMute())
+					 declaring, [npc.speech(As my bitch, you'll be getting fucked a lot! Now submit to me, [pc.name], and prepare to get fucked!)]
+				#ELSE
+					 starting to grope and fondle your body. Leaning in to plant a forceful kiss on your [pc.lips+], [npc.namePos] dominant behaviour makes it clear that [npc.sheIs] about to fuck you, whether you like it or not...
+				#ENDIF
+			#ELSE
+				#IF(!npc.isMute())
+					 declaring, [npc.speech(As my bitch, I'm going to be wanting to fuck you a lot! You're up for a quick fuck right now, aren't you?)]
+				#ELSE
+					 throwing you a questioning look as [npc.she] starts to run [npc.her] [npc.hands] over your body. Clearly wanting to fuck you, [npc.name] waits to hear if you're willing to submit to [npc.herHim] or not...
+				#ENDIF
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			As the transformations come to an end, [npc.name] looks down at you and lets out an amused humming noise.
+			#IF(!npc.isMute())
+				 With [npc.her] transformative potion not having been strong enough to give you the body [npc.she] was looking for, [npc.name] mutters, [npc.speech(You're not good enough for me to be interested in you just yet... Come back soon, [pc.name], <i>or else</i>. I'm going to turn you into my perfect little [npc.preferredBody(b)], if it's the last thing I do!)]
+			#ELSE
+				 With [npc.her] transformative potion not having been strong enough to give you the body [npc.she] was looking for, [npc.name] simply glares at you for a moment, before turning [npc.her] back on you.
+			#ENDIF
+		</p>
+		<p>
+			With that, [npc.she] strides off down the alleyway, leaving you panting and sweating as you attempt to recover from your alarming experience...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_FUCKED"><![CDATA[
+	<p>
+		Giving you no say in the matter, [npc.name] continues to grope you, and as you open your mouth to say something, [npc.she] leans forwards and pulls you into a dominant kiss. After grinding up against you for a few moments, [npc.she] pulls back and prepares to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REFUSE_SEX"><![CDATA[
+	<p>
+		Not wanting to have sex with [npc.name], and seeing that [npc.she] is clearly unwilling to force [npc.herself] on you, you [pc.step] back and tell [npc.herHim] in no uncertain terms that you don't want to get intimate with [npc.herHim].
+	</p>
+	<p>
+		#IF(!npc.isMute())
+			[npc.speech(Just count yourself lucky that I gave you the choice, [pc.name],)] [npc.name] growls, clearly annoyed by the fact that you're refusing [npc.her] advances.
+		#ELSE
+			Flashing you a furious glare, [npc.name] makes it very clear without needing to be able to say anything that [npc.sheIs] extremely annoyed by the fact that you're refusing [npc.her] advances.
+		#ENDIF
+		 With one last snarl, [npc.she] then turns around and strides off down the alleyway, leaving you to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_FUCKED_WILLING"><![CDATA[
+	<p>
+		Agreeing to have sex with [npc.name], you submit to [npc.herHim] as [npc.she] continues to grope you. Happy with your obedience, [npc.she] leans forwards and pulls you into a dominant kiss as [npc.she] firmly squeezes your [pc.ass+]. After grinding up against you for a few moments, [npc.she] pulls back and prepares to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_AFTER_SEX"><![CDATA[
+	<p>
+		Letting out a satisfied sigh, the [npc.race] takes a [npc.step] back and brings an end to the sex. As [npc.she] starts to get [npc.her] things back in order, [npc.she]
+		#IF(!npc.isMute())
+			 teases, [npc.speech(You were a good fuck, [pc.name]... That's just what I needed today...)]
+		#ELSE
+			 smirks down at you and motions for you to move away from [npc.herHim].
+		#ENDIF
+	</p>
+	<p>
+		Moving back, you take a moment in which to catch your breath and get your own things sorted out, during which time [npc.name] finishes getting [npc.her] clothing back in position. With one last triumphant sneer thrown your way, the [npc.race] strides off down the alleyway, before turning a corner and disappearing from sight. After taking a moment in which to recover your energy, you look around to make sure that there's no immediate danger and then prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Repeat submitting misc.: -->
+	
+	<htmlContent tag="SUBMITTED_REPEAT_PAID"><![CDATA[
+	<p>
+		Obediently producing the [#SPECIAL_PARSE_0] flames which [npc.name] is demanding, you submissively offer them to [npc.herHim]. Letting out a brief laugh, the [npc.race] snatches the money from your [pc.hands], and with a condescending sneer on [npc.her] face,
+		#IF(!npc.isMute())
+			 [npc.she] states, [npc.speech(That's all I needed, [pc.name]. I'll probably have something else for you to do the next time I see you. Or maybe I'll just take more of your cash! Hah! So go on, [pc.name], fuck off!)]
+		#ELSE
+			 [npc.she] motions for you to get away from [npc.herHim].
+		#ENDIF
+	</p>
+	<p>
+		Hurrying to obey, you rush past [npc.name] and hastily make your way down the alleyway, quickly leaving [npc.herHim] far behind you. Happy with your decision to continue acting like [npc.her] bitch and hand over [#SPECIAL_PARSE_0] flames, you prepare to continue on your way through the narrow alleyways of Dominion...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_SEX_START"><![CDATA[
+	<p>
+		More than happy to have sex with [npc.herHim], you submit to [npc.name] as [npc.she] continues to grope you. Pleased to see how obedient you are, [npc.she] flashes you a quick smirk, before leaning forwards and pulling you into a dominant kiss as [npc.she] firmly squeezes your [pc.ass+]. After grinding up against you for a few moments, [npc.she] pulls back and prepares to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Repeat submitting mugging: -->
+	
+	<htmlContent tag="SUBMITTED_REPEAT_MUGGING"><![CDATA[
+	<p>
+		Deciding that the best way for [npc.name] to get [npc.her] money is by taking it from someone else, you tell [npc.herHim] that you'll assist [npc.herHim] in mugging someone. Flashing you a wicked smirk, [npc.she] motions for you to follow [npc.herHim], and you obediently tag along as [npc.she] leads you through the nearby alleyways in search of a victim.
+	</p>
+	<p>
+		Although at first it seems like the surrounding area is completely deserted, the two of you suddenly spot a flash of movement up ahead. Rushing down the alleyway and blocking the path of this unfortunate traveller, [npc.name]
+		#IF(npc.isMute())
+			 strikes an intimidating pose and makes a threatening gesture.
+		#ELSE
+			 shouts, [npc.speech(Stop right there!)]
+		#ENDIF
+	</p>
+	<p>
+		Coming to a halt beside [npc.name], you see that your victim is [victim.a_fullRace(true)]. Looking back and forth between you and [npc.name], [victim.she] defiantly calls out, [victim.speech(I'm not scared of you! You'll get nothing from me, so get out of my way!)]
+	</p>
+	<p>
+		#IF(npc.isMute())
+			Aggressively moving forwards, [npc.name] gestures for you to advance along with [npc.herHim], committing to the plan of taking money from [victim.name] by force...
+		#ELSE
+			Letting out a mocking laugh, [npc.name] gestures for you to advance as [npc.she] taunts, [npc.speech(So, you're doing this the hard way, huh? Come on, [pc.name], let's beat [victim.herHim] up!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_MUGGING_COMBAT_WON"><![CDATA[
+	<p>
+		Staggering back, [victim.name] collapses to the ground, totally defeated. Holding up [victim.her] [victim.hands] in a clear sign of surrender, [victim.she] pants, [victim.speech(No more... Please...)]
+	</p>
+	<p>
+		Showing [npc.her] victim no mercy, [npc.name] roughly searches [victim.name], and upon finding [victim.her]
+		#IF(victim.isFeminine())
+			 purse,
+		#ELSE
+			 wallet,
+		#ENDIF
+		 takes all the flames [npc.she] can find.
+	#IF(npc.isAttractedTo(victim) && !npc.hasStatusEffect(SE_RECOVERING_AURA) && (npc.isWillingToRape(victim) || victim.isAttractedTo(npc)))
+			 Not satisfied with only taking [victim.her] money, [npc.name] lets out a horny moan, before starting to grope and molest the defeated [victim.race]'s body.
+		</p>
+		#IF(victim.isAttractedTo(npc))
+			<p>
+				[victim.speech(~Aah!~ Yes... Fuck me!)] [victim.name] [victim.moansVerb+], letting you know that [victim.sheIs] just as turned on as [npc.name].
+			</p>
+			<p>
+				More than happy to give [victim.herHim] what [victim.she] wants, [npc.name] dominantly pulls the [victim.race] into a forceful, passionate kiss, before breaking it off and
+				#IF(npc.isMute())
+					 making a gesture to suggest that you can stay and watch if you want to...
+				#ELSE
+					 addressing you as [npc.she] pants, [npc.speech(You can stay and watch me fuck this bitch as your reward for helping, [pc.name]. Or fuck off, I don't really care either way...)]
+				#ENDIF
+			</p>
+		#ELSE
+			<p>
+				[victim.speech(No! Get away from me!)] [victim.name] cries out, letting you know that [victim.sheIs] not at all interested in having sex with [npc.name].
+			</p>
+			<p>
+				Ignoring [victim.her] protests, [npc.name] dominantly pulls the [victim.race] into a forceful, passionate kiss, before breaking it off and
+				#IF(npc.isMute())
+					 making a gesture to suggest that you can stay and watch if you want to...
+				#ELSE
+					 addressing you as [npc.she] pants, [npc.speech(You can stay and watch me rape this bitch as your reward for helping, [pc.name]. Or fuck off, I don't really care either way...)]
+				#ENDIF
+			</p>
+		#ENDIF
+	#ELSEIF(game.isNonConEnabled() || victim.isAttractedTo(pc))
+			 Having plans other than simply taking [victim.her] money, [npc.name] looks down at [victim.race]
+			#IF(npc.isMute())
+				 and gestures over in your direction, before making a few hand-signs to imply that you're about to fuck [victim.herHim].
+			#ELSE
+				 as [npc.she] gestures over towards you, asking, [npc.speech(You feeling horny, slut? How about [pc.name] here gives you a good fuck?)]
+			#ENDIF
+		</p>
+		#IF(victim.isAttractedTo(pc))
+			<p>
+				[victim.speech(~Aah!~ Yes... Fuck me!)] [victim.name] [victim.moansVerb+] as [victim.she] turns to face you.
+			</p>
+			<p>
+				#IF(npc.isMute())
+					Turning to flash you a devious smirk, [npc.name] makes a gesture to suggest that you can fuck [victim.name] if you want to...
+				#ELSE
+					Letting out a brief laugh, [npc.name] turns to flash you a devious smirk, before offering, [npc.speech(You can fuck this bitch as your reward for helping, [pc.name]. Or fuck off, I don't really care either way...)]
+				#ENDIF
+			</p>
+		#ELSE
+			<p>
+				[victim.speech(No! Get away from me!)] [victim.name] cries out as [victim.she] tries to crawl away from you and [npc.name].
+			</p>
+			<p>
+				#IF(npc.isMute())
+					Turning to flash you a wicked smirk, [npc.name] makes a gesture to suggest that you can rape [victim.name] if you want to...
+				#ELSE
+					Letting out a mocking laugh, [npc.name] turns to flash you a wicked smirk, before offering, [npc.speech(You can rape this bitch as your reward for helping, [pc.name]. Or fuck off, I don't really care either way...)]
+				#ENDIF
+			</p>
+		#ENDIF
+	#ELSE
+			 Pushing [victim.name] down to the ground, [npc.she] pockets the cash and takes [pc.steps] back, before heading back over to where you're standing.
+		</p>
+		<p>
+			#IF(npc.isMute())
+				Gesturing for you to get out of here, [npc.name] dashes past you and disappears down a nearby alleyway.
+			#ELSE
+				[npc.speech(Better get out of here before the Enforcers show up,)] [npc.she] warns, before dashing past you and disappearing down a nearby alleyway.
+			#ENDIF
+			 Not wanting to be caught by the Enforcers and having to explain all this to both them and Lilaya, you follow [npc.namePos] lead and prepare to make a hasty exit...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_MUGGING_SPECTATE_SEX"><![CDATA[
+	<p>
+		Deciding to stay and watch the show, you look on as [npc.name]
+		#IF(victim.isAttractedTo(npc))
+			 pulls [victim.name] into another deep kiss. Letting out a passionate moan, the [victim.race] pants, [victim.speech(Yes... ~Mmm!~ Fuck me!)]
+		#ELSE
+			 pulls [victim.name] into another unwanted kiss. Frantically struggling, the [victim.race] cries out, [victim.speech(No! Stop it, please!)]
+		#ENDIF
+	</p>
+	<p>
+		Forcefully grinding [npc.her] body up against [npc.her]
+		#IF(!victim.isAttractedTo(npc))
+			 unwilling
+		#ENDIF
+		 partner, [npc.name] lets out another horny [npc.moan] as [npc.she] moves to start
+		#IF(victim.isAttractedTo(npc))
+			 fucking [victim.herHim]...
+		#ELSE
+			 raping [victim.herHim]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_MUGGING_NO_SPECTATE"><![CDATA[
+	<p>
+		Not wanting to stick around and watch as [npc.name] 
+		#IF(victim.isAttractedTo(npc))
+			 fucks [victim.name],
+		#ELSE
+			 forces [npc.herself] upon [victim.name],
+		#ENDIF
+		 you leave the two of them to it and take your exit down a nearby alleyway. As you hurry away from the scene of the mugging, you hear
+		#IF(victim.isAttractedTo(npc))
+			 the [victim.race] [npc.moaning], [victim.speech(Yes! ~Mmm!~ Fuck me!)]
+		#ELSE
+			 the [victim.race] crying out, [victim.speech(No! Stop it, please!)]
+		#ENDIF
+	</p>
+	<p>
+		Turning a corner in the alleyway, you leave the noises of [npc.name] and [victim.name] behind you as you continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_MUGGING_FUCK_VICTIM"><![CDATA[
+	<p>
+		Liking the sound of the reward which [npc.name] is offering, you [pc.step] forwards and advance upon [victim.name]. As you pull [victim.herHim] to [victim.her] [victim.feet], 
+		#IF(victim.isAttractedTo(pc))
+			 the [victim.race] pants, [victim.speech(Yes... ~Mmm!~ Fuck me!)]
+		#ELSE
+			 the [victim.race] cries out, [victim.speech(No! Stop it, please!)]
+		#ENDIF
+	</p>
+	<p>
+		Pulling your
+		#IF(!victim.isAttractedTo(pc))
+			 unwilling
+		#ENDIF
+		 partner into a deep kiss, you grind your body up against [victim.hers], before letting out a horny [pc.moan] as you move to start
+		#IF(victim.isAttractedTo(pc))
+			 fucking [victim.herHim]...
+		#ELSE
+			 raping [victim.herHim]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_MUGGING_NO_SEX_END"><![CDATA[
+	<p>
+		Hurrying away from the scene of the crime, you leave [victim.name] far behind. Only after you've put considerable distance between you and the unfortunate [victim.race] do you finally slow down and continue on your way through the alleyways of Dominion...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_MUGGING_SPECTATE_SEX_END"><![CDATA[
+	<p>
+		With a satisfied sigh, [npc.name] pushes [victim.name] away from [npc.herHim] and brings an end to the sex. After smirking down at the panting, [victim.moaning] [victim.race], [npc.she] gets [npc.her] clothing back in order, before starting to [npc.walk] off down a nearby alleyway. Turning and looking at you before [npc.she] departs, [npc.name]
+		#IF(npc.isMute())
+			 motions for you to get out of here, probably due to a concern that the Enforcers will show up soon.
+		#ELSE
+			 warns, [npc.speech(The Enforcers will probably show up soon. Better get out of here if you don't want to be enslaved.)]
+		#ENDIF
+	</p>
+	<p>
+		As [npc.name] hurries off down the alleyway, you find yourself left behind with [victim.name]. Not wanting to be caught by the Enforcers and made to take the blame for all that's happened to [victim.name], you prepare to make a hasty getaway...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_MUGGING_SPECTATE_SEX_END_LEAVE"><![CDATA[
+	<p>
+		Hurrying away from the scene of the crime, you leave [victim.name] far behind. Only after you've put considerable distance between you and the unfortunate [victim.race] do you finally slow down and continue on your way through the alleyways of Dominion...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_MUGGING_FUCK_VICTIM_END"><![CDATA[
+	<p>
+		With a satisfied sigh, you push [victim.name] away from you and bring an end to the sex. As you get your things back in order, [npc.name] smirks down at the panting, [victim.moaning] [victim.race], before turning [npc.her] back on the two of you and starting to [npc.walk] off down a nearby alleyway. Pausing to look back at you over [npc.her] shoulder, the [npc.race]
+		#IF(npc.isMute())
+			 motions for you to get out of here, probably due to a concern that the Enforcers will show up soon.
+		#ELSE
+			 warns, [npc.speech(The Enforcers will probably show up soon. Better get out of here if you don't want to be enslaved.)]
+		#ENDIF
+	</p>
+	<p>
+		As [npc.name] hurries off down the alleyway, you find yourself left behind with [victim.name]. Not wanting to be caught by the Enforcers and made to pay for what you've done to [victim.name], you prepare to make a hasty getaway...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_MUGGING_FUCK_VICTIM_END_LEAVE"><![CDATA[
+	<p>
+		Hurrying away from the scene of the crime, you leave [victim.name] far behind. Only after you've put considerable distance between you and the unfortunate [victim.race] do you finally slow down and continue on your way through the alleyways of Dominion...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_MUGGING_REFUSE_SEX"><![CDATA[
+	<p>
+		Not wanting to have sex with [victim.name], you tell [npc.name] that you aren't interested in the 'reward' that [npc.sheIs] offering to you. Shrugging [npc.her] shoulders, the [npc.race] turns [npc.her] back on the two of you and starts to [npc.walk] off down a nearby alleyway. Pausing to look back at you over [npc.her] shoulder, [npc.name]
+		#IF(npc.isMute())
+			 motions for you to get out of here, probably due to a concern that the Enforcers will show up soon.
+		#ELSE
+			 warns, [npc.speech(The Enforcers will probably show up soon. Better get out of here if you don't want to be enslaved.)]
+		#ENDIF
+	</p>
+	<p>
+		As the [npc.race] hurries off down the alleyway, you find yourself left behind with [victim.name]. Not wanting to be caught by the Enforcers and made to pay for what you've done to [victim.name], you prepare to make a hasty getaway...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_MUGGING_REFUSE_SEX_LEAVE"><![CDATA[
+	<p>
+		Hurrying away from the scene of the crime, you leave [victim.name] far behind. Only after you've put considerable distance between you and the unfortunate [victim.race] do you finally slow down and continue on your way through the alleyways of Dominion...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_MUGGING_COMBAT_LOST"><![CDATA[
+	<p>
+		Utterly defeated by [victim.name], you collapse to the ground alongside [npc.name], who
+		#IF(npc.isMute())
+			 holds up [npc.her] [npc.hands] to the [victim.race] in a clear sign of surrender.
+		#ELSE
+			 breathlessly pants, [npc.speech(No more... You got us...)]
+		#ENDIF
+	</p>
+	<p>
+		[victim.speech(You two stay right there! The Enforcers are going to make you pay for what you tried to do!)] the [victim.race] shouts. Clearly intending to fetch the first Enforcers [victim.she] finds, the [victim.race] dashes off at full speed down a nearby alleyway.
+	</p>
+	<p>
+		Not wanting to spend the rest of [npc.her] life as a slave, [npc.name] forces [npc.herself] to [npc.her] [npc.feet], before darting off down a different alleyway. Finding yourself abandoned to your fate by the [npc.race], you quickly catch your breath and move to follow [npc.her] lead in making a hasty exit.
+	</p>
+	<p>
+		As you start to head off down the alleyway, you suddenly hear the sound of loud voices coming from where [victim.name] ran off to. Realising that you only have a few moments in which to make good your escape, you hurry away from the scene of the crime...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_MUGGING_COMBAT_LOST_LEAVE"><![CDATA[
+	<p>
+		Sprinting down the alleyway as fast as you can and turning a sharp corner, you narrowly escape being seen by the Enforcers, who you hear rushing onto the scene of the attempted mugging and starting to search for you and [npc.name]. Continuing to move at speed through the narrow alleyways of Dominion, you don't stop running until you're sure that you've escaped and left the Enforcers far behind...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Repeat submitting pimped out: -->
+	
+	<htmlContent tag="SUBMITTED_REPEAT_PIMPED_OUT"><![CDATA[
+	<p>
+		Deciding that the best way for [npc.name] to get [npc.her] money is to use your body, you tell [npc.herHim] that you're willing to get pimped out by [npc.herHim]. Smirking at you as [npc.she] hears this, the [npc.race] gestures for you to follow
+		#IF(npc.isMute())
+			 [npc.herHim], before setting off down the alleyway.
+		#ELSE
+			 [npc.herHim] as [npc.she] teases, [npc.speech(Happy to act as my whore, [pc.name]? That's fine with me, I've got just the person in mind for you...)]
+		#ENDIF
+	</p>
+	<p>
+		Obediently following [npc.name] through the twists and turns of the alleyways of Dominion, you soon find yourself coming to a halt in front of an old, crooked wooden door. [npc.Stepping] forwards, [npc.name] knocks upon the warped timber, and a few moments later its rusty hinges are making an ear-splitting screech as it swings partially open. [friend.A_fullRace(true)],
+		#IF(friend.hasStatusEffect(SE_SMOKING))
+			 who's got a freshly-lit cigarette hanging out of [npc.her] mouth,
+		#ELSE
+			 who looks as though [friend.sheHas] just got out of bed,
+		#ENDIF
+		 peers out through the gap in the doorway with a suspicious look on [friend.her] face. Recognising [npc.name], [friend.she] snaps, [friend.speech(What do you want, [npc.name]? If you've got the Enforcers after you, then I don't want to know. I had a close call with them the other day, and I'm trying to lie low for a while.)]
+	</p>
+	<p>
+		#IF(npc.isMute())
+			Clearly knowing that [npc.name] is unable to talk, the [friend.race] grabs a piece of scrap paper and a pen from somewhere just behind the door, before holding it out to [npc.name]. Taking the offered items, [npc.name] quickly scrawls an answer on the paper, and you look over to see that it says; 'Long time no see, [friend.name]. If you're lying low then you're not getting any action. Want to fuck this [pc.race]? We can haggle over price inside.'.
+		#ELSE
+			[npc.speech(Long time no see, [friend.name],)] [npc.name] replies in an uncharacteristically-friendly tone. Flashing '[friend.name]' a smile, [npc.she] motions towards you and makes [npc.her] offer, [npc.speech(If you're lying low then you're not getting any action. Want to fuck this [pc.race]? We can haggle over price inside.)]
+		#ENDIF
+	</p>
+	<p>
+		Looking you up and down, [friend.name] lets out an approving grunt, before opening the door fully and ushering you and [npc.name] inside. As the door is closed and locked behind you, you find yourself standing in a dingy one-room apartment. Although half of the arcane lightbulbs are broken, there's enough light to see that there's a huge pile of unwashed dishes piled up in the kitchen sink, while the nearby bin looks to be overflowing with empty pizza boxes and other fast-food packaging. A couple of mismatched, sagging sofas sit in the middle of the room, while the broken remains of a wooden table and chairs have been pushed into the far corner.
+	</p>
+	<p>
+		#IF(npc.isMute())
+			After glancing around the apartment and giving a sincere, approving nod, [npc.name] grabs you by the [pc.arm] and roughly pulls you forwards to stand before [friend.name]. Scrawling an asking price of two thousand flames on [npc.her] piece of paper, [npc.she] shows it to [friend.name] and gestures towards you.
+		#ELSE
+			[npc.speech(I see you've tidied the place up since I was last here,)] [npc.name] says with complete sincerity in [npc.her] voice. Grabbing you by the [pc.arm], [npc.she] roughly pulls you forwards to stand before [friend.name], before stating, [npc.speech([pc.SheIs] called [pc.name], and it's two thousand flames to fuck [pc.herHim].)]
+		#ENDIF
+	</p>
+	<p>
+		[friend.speech(Two thousand flames?! You think I'm made of money?)] the [friend.race] replies, [friend.speech(I'll give you five hundred.)]
+	</p>
+	<p>
+		Not at all happy with this counter offer, [npc.name] refuses, and with that, the two of them start haggling about the price. After a few minutes an agreement is finally made, and with a grin on [friend.her] face, [friend.name] concludes,
+	#IF(friend.hasFetish(FETISH_ANAL_GIVING))
+			 [friend.speech(Right, so eight hundred flames now, and I owe you two hundred the next time I see you. I get to rut [pc.namePos] ass and cum in [pc.herHim] if I want.)]
+		</p>
+		<p>
+			With [npc.name] offering [friend.herHim] a nod in agreement, [friend.name] hands over the eight hundred flames, after which [friend.she] points over to a stained mattress in one corner of the room and orders you, [friend.speech(Get down on my bed, [pc.name], and present me with your ass. I'm going to get my money's worth out of your hot butt.)]
+		</p>
+	#ELSEIF(friend.hasFetish(FETISH_VAGINAL_GIVING))
+			 [friend.speech(Right, so eight hundred flames now, and I owe you two hundred the next time I see you. I get to rut [pc.namePos] cunt and
+			#IF(friend.hasFetish(FETISH_IMPREGNATION) && !pc.isPregnant() && !pc.isTaur())
+				 try to knock [pc.herHim] up by giving [pc.herHim] a big creampie.
+			#ELSE
+				 cum in [pc.herHim] if I want.
+			#ENDIF
+			)]
+		</p>
+		<p>
+			With [npc.name] offering [friend.herHim] a nod in agreement, [friend.name] hands over the eight hundred flames, after which [friend.she] points over to a stained mattress in one corner of the room and orders you, [friend.speech(Get down on my bed, [pc.name], and spread your [pc.legs]. I'm going to get my money's worth out of your hot cunt.)]
+		</p>
+	#ELSEIF(friend.hasFetish(FETISH_ORAL_RECEIVING))
+			 [friend.speech(Right, so eight hundred flames now, and I owe you two hundred the next time I see you. I get to fuck [pc.namePos] face and make [pc.herHim] swallow if I want.)]
+		</p>
+		<p>
+			With [npc.name] offering [friend.herHim] a nod in agreement, [friend.name] hands over the eight hundred flames, after which [friend.she] points over to a stained mattress in one corner of the room and orders you, [friend.speech(Kneel down on my bed, [pc.name], and open that pretty mouth of yours. I'm going to get my money's worth by fucking your throat.)]
+		</p>
+	#ELSEIF(friend.hasFetish(FETISH_ANAL_RECEIVING))
+			 [friend.speech(Right, so eight hundred flames now, and I owe you two hundred the next time I see you. I get to have my ass fucked by riding [pc.namePos] cock.)]
+		</p>
+		<p>
+			With [npc.name] offering [friend.herHim] a nod in agreement, [friend.name] hands over the eight hundred flames, after which [friend.she] points over to a stained mattress in one corner of the room and orders you, [friend.speech(Lie back on my bed, [pc.name], and present me with your cock. I'm going to get my money's worth out of you by getting you to fuck my ass.)]
+		</p>
+	#ELSEIF(friend.hasFetish(FETISH_VAGINAL_RECEIVING))
+			 [friend.speech(Right, so eight hundred flames now, and I owe you two hundred the next time I see you. I get to have my cunt fucked by riding [pc.namePos] cock.)]
+		</p>
+		<p>
+			With [npc.name] offering [friend.herHim] a nod in agreement, [friend.name] hands over the eight hundred flames, after which [friend.she] points over to a stained mattress in one corner of the room and orders you, [friend.speech(Lie back on my bed, [pc.name], and present me with your cock. I'm going to get my money's worth out of you by getting you to fuck my pussy.)]
+		</p>
+	#ELSE
+			 [friend.speech(Right, so eight hundred flames now, and I owe you two hundred the next time I see you. I get to fuck [pc.name] any way I like.)]
+		</p>
+		<p>
+			With [npc.name] offering [friend.herHim] a nod in agreement, [friend.name] hands over the eight hundred flames, after which [friend.she] points over to a stained mattress in one corner of the room and orders you, [friend.speech(Get over to my bed, [pc.name]. I'm going to get my money's worth out of you.)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_PIMPED_OUT_ANAL_START"><![CDATA[
+	<p>
+		Doing as you're told, you [pc.walk] over to [friend.namePos] 'bed', and after dropping down on all fours onto [friend.her] worn, stained mattress, you lift your ass towards [friend.herHim]. Looking back over your shoulder, you see the [friend.race] pulling out [friend.her] [friend.cock+], before dropping down behind you and greedily exposing your [pc.ass+].
+		#IF(pc.getTattooInSlot(IS_TORSO_UNDER)!=null && pc.getTattooInSlot(IS_TORSO_UNDER).getWriting()!=null && pc.getTattooInSlot(IS_TORSO_UNDER).getWriting().getText().equalsIgnoreCase('Property of '+npc.getNameIgnoresPlayerKnowledge()))
+			 Seeing the words 'Property of [npc.name]' inked as part of your tramp stamp, [friend.name] lets out an amused laugh and calls out, [friend.speech(I see you've got [pc.name] marked as your property. I've paid for it, so don't complain to me if I end up breaking [pc.her] ass.)]
+		#ELSE
+			 Seeing your [pc.asshole+], [friend.name] lets out a hungry [friend.moan] and calls out to [npc.name], [friend.speech(I've paid for it, so don't complain to me if I end up breaking [pc.her] ass.)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(npc.isMute())
+			Waving [npc.her] [npc.hand] to show that [npc.she] doesn't care, [npc.name] leans against the back of one of the sofas and prepares to watch you get anally fucked by [friend.name]. 
+		#ELSE
+			[npc.speech(Do what you like with [pc.herHim],)] [npc.name] replies, before leaning against the back of one of the sofas and preparing to watch you get anally fucked by [friend.name]. 
+		#ENDIF
+	</p>
+	<p>
+		[friend.speech(Here I come, [pc.name]. Now moan for me like the whore you are,)] the [friend.race] teases, before impatiently thrusting [friend.her] [friend.cock+] into your [pc.asshole+]. The sudden penetration causes you to let out an involuntary [pc.moan], and you can't help but pant and whine as [friend.name] starts to rhythmically pound your ass...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_PIMPED_OUT_VAGINAL_START"><![CDATA[
+	<p>
+		Doing as you're told, you [pc.walk] over to [friend.namePos] 'bed', and after lying back onto [friend.her] worn, stained mattress, you spread your [pc.legs] for [friend.herHim]. Eager to get started, the [friend.race] pulls out [friend.her] [friend.cock+], before dropping down between your [pc.legs] you and greedily exposing your [pc.pussy+].
+		#IF(pc.getTattooInSlot(IS_GROIN)!=null && pc.getTattooInSlot(IS_GROIN).getWriting()!=null && pc.getTattooInSlot(IS_GROIN).getWriting().getText().equalsIgnoreCase('Property of '+npc.getNameIgnoresPlayerKnowledge()))
+			 Seeing the words 'Property of [npc.name]' inked as part of your womb tattoo, [friend.name] lets out an amused laugh and calls out, [friend.speech(I see you've got [pc.name] marked as your property. I've paid for it, so don't complain to me if I end up breaking [pc.her] cunt.)]
+		#ELSE
+			 Teasing [friend.her] [friend.fingers+] over your [pc.labia+], [friend.name] lets out a hungry [friend.moan] and calls out to [npc.name], [friend.speech(I've paid for it, so don't complain to me if I end up breaking [pc.her] cunt.)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(npc.isMute())
+			Waving [npc.her] [npc.hand] to show that [npc.she] doesn't care, [npc.name] leans against the back of one of the sofas and prepares to watch you get fucked by [friend.name]. 
+		#ELSE
+			[npc.speech(Do what you like with [pc.herHim],)] [npc.name] replies, before leaning against the back of one of the sofas and preparing to watch you get fucked by [friend.name]. 
+		#ENDIF
+	</p>
+	<p>
+		#IF(friend.hasFetish(FETISH_IMPREGNATION) && !pc.isPregnant() && !pc.isTaur())
+				[friend.speech(I'm going to knock you up, [pc.name],)] the [friend.race] teases, before impatiently grabbing your [pc.legs+] and pushing them apart and back towards your head. Shuffling forwards and positioning [friend.herself] over the top of you, [friend.name] locks you into the mating press position, before lifting [friend.her] hips and sliding the [friend.cockHead+] of [friend.her] cock up and down over your [pc.labia+]. Looking down into your [pc.eyes+], [friend.she] licks [friend.her] [friend.lips] and [friend.moansVerb], [friend.speech(Here I come, [pc.name]. Now moan for me like the whore you are!)]
+			</p>
+			<p>
+				Before you can answer, the [friend.race] impatiently thrusts [friend.her] [friend.cock+] deep into your [pc.pussy+]. The sudden penetration causes you to let out an involuntary [pc.moan], and you can't help but pant and whine as [friend.name] starts to rhythmically pound your [pc.pussy+]...
+			</p>
+		#ELSE
+			[friend.speech(Here I come, [pc.name]. Now moan for me like the whore you are,)] the [friend.race] teases, before impatiently thrusting [friend.her] [friend.cock+] into your [pc.pussy+]. The sudden penetration causes you to let out an involuntary [pc.moan], and you can't help but pant and whine as [friend.name] starts to rhythmically pound your [pc.pussy+]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_PIMPED_OUT_ORAL_START"><![CDATA[
+	<p>
+		Doing as you're told, you [pc.walk] over to [friend.namePos] 'bed', and after kneeling down onto [friend.her] worn, stained mattress, you open your mouth for [friend.herHim]. Eager to get started, the [friend.race] pulls out [friend.her] [friend.cock+], before [friend.stepping] forwards and bringing it towards your face.
+	</p>
+	<p>
+		[friend.speech(Hungry for my cock, [pc.name]?)] the [friend.race] teases.
+	</p>
+	<p>
+		As you begin to answer, [friend.name] impatiently grabs the back of your head, and with a single buck of [friend.her] [friend.hips], thrusts [friend.her] [friend.cock+] down your throat. As [friend.she] starts to fuck your face, [friend.she] [friend.moansVerb], [friend.speech(That's it, take it deep, [pc.name]... ~Mmm!~ Suck my cock like the whore you are!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_PIMPED_OUT_ANAL_GIVING_START"><![CDATA[
+	<p>
+		Doing as you're told, you [pc.walk] over to [friend.namePos] 'bed' and lie back onto [friend.her] worn, stained mattress. Eager to get started, the [friend.race] exposes [friend.her] [friend.ass+], before dropping down over the top of you and greedily exposing your [pc.cock+].
+		#IF(pc.getTattooInSlot(IS_GROIN)!=null && pc.getTattooInSlot(IS_GROIN).getWriting()!=null && pc.getTattooInSlot(IS_GROIN).getWriting().getText().equalsIgnoreCase('Property of '+npc.getNameIgnoresPlayerKnowledge()))
+			 Seeing the words 'Property of [npc.name]' inked as part of your womb tattoo, [friend.name] lets out an amused laugh and calls out, [friend.speech(I see you've got [pc.name] marked as your property. I've paid for [pc.herHim], so for the moment [pc.sheIs] mine!)]
+		#ELSE
+			 Looking down at your [pc.cock+], [friend.name] lets out a hungry [friend.moan] and calls out to [npc.name], [friend.speech(I've paid for it, so I'm going to have my fun with [pc.her] cock!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(npc.isMute())
+			Waving [npc.her] [npc.hand] to show that [npc.she] doesn't care, [npc.name] leans against the back of one of the sofas and prepares to watch you fuck [friend.namePos] ass.
+		#ELSE
+			[npc.speech(Do what you like with [pc.herHim],)] [npc.name] replies, before leaning against the back of one of the sofas and preparing to watch you fuck [friend.namePos] ass. 
+		#ENDIF
+	</p>
+	<p>
+		Teasing [friend.her] [friend.fingers+] over the [pc.cockHead+] of your [pc.cock+], [friend.name] forces you to get an erection, before lining it up to [friend.her] [friend.asshole+]. Grinning down at you, [friend.she] teases, [friend.speech(Here I come, [pc.name]. Now moan for me like the whore you are!)]
+	</p>
+	<p>
+		With that, [friend.she] impatiently drops down, forcing your [pc.cock+] into [friend.her] [friend.asshole+]. The sudden penetration causes you to let out an involuntary [pc.moan], and you can't help but pant and whine as [friend.name] starts to rhythmically bounce up and down on your [pc.cock+]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_PIMPED_OUT_VAGINAL_GIVING_START"><![CDATA[
+	<p>
+		Doing as you're told, you [pc.walk] over to [friend.namePos] 'bed' and lie back onto [friend.her] worn, stained mattress. Eager to get started, the [friend.race] exposes [friend.her] [friend.pussy+], before dropping down over the top of you and greedily exposing your [pc.cock+].
+		#IF(pc.getTattooInSlot(IS_GROIN)!=null && pc.getTattooInSlot(IS_GROIN).getWriting()!=null && pc.getTattooInSlot(IS_GROIN).getWriting().getText().equalsIgnoreCase('Property of '+npc.getNameIgnoresPlayerKnowledge()))
+			 Seeing the words 'Property of [npc.name]' inked as part of your womb tattoo, [friend.name] lets out an amused laugh and calls out, [friend.speech(I see you've got [pc.name] marked as your property. I've paid for [pc.herHim], so for the moment [pc.sheIs] mine!)]
+		#ELSE
+			 Looking down at your [pc.cock+], [friend.name] lets out a hungry [friend.moan] and calls out to [npc.name], [friend.speech(I've paid for it, so I'm going to have my fun with [pc.her] cock!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(npc.isMute())
+			Waving [npc.her] [npc.hand] to show that [npc.she] doesn't care, [npc.name] leans against the back of one of the sofas and prepares to watch you fuck [friend.namePos] cunt.
+		#ELSE
+			[npc.speech(Do what you like with [pc.herHim],)] [npc.name] replies, before leaning against the back of one of the sofas and preparing to watch you fuck [friend.namePos] cunt. 
+		#ENDIF
+	</p>
+	<p>
+		Teasing [friend.her] [friend.fingers+] over the [pc.cockHead+] of your [pc.cock+], [friend.name] forces you to get an erection, before lining it up to [friend.her] [friend.asshole+]. Grinning down at you, [friend.she] starts rubbing [friend.her] [friend.labia+] over your [pc.cock], teasing, [friend.speech(Here I come, [pc.name]. Now moan for me like the whore you are!)]
+	</p>
+	<p>
+		With that, [friend.she] impatiently drops down, forcing your [pc.cock+] into [friend.her] [friend.pussy+]. The sudden penetration causes you to let out an involuntary [pc.moan], and you can't help but pant and whine as [friend.name] starts to rhythmically bounce up and down on your [pc.cock+]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_PIMPED_OUT_GENERIC_START"><![CDATA[
+	<p>
+		Doing as you're told, you [pc.walk] over to [friend.namePos] 'bed', and after [pc.stepping] onto [friend.her] worn, stained mattress, you turn to face [friend.herHim]. Eager to get started, the [friend.race] grabs hold of you, before pulling you into a sloppy, forceful kiss. Breaking it off with a wet smacking of [friend.her] [friend.lips], [friend.name] teases, [friend.speech(You're mine now, [pc.name]. I want to hear you moan like the whore you are.)]
+	</p>
+	<p>
+		Pulling you into [friend.her] body, [friend.name] dominantly grinds up against you as [friend.she] decides how best to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_PIMPED_OUT_SEX_END"><![CDATA[
+	<p>
+		Having had [friend.her] fun, [friend.name] collapses down onto the stained mattress which serves as [friend.her] bed, before shouting out to [npc.name], [friend.speech(I've finished with [pc.name]. You can take this whore away now.)]
+	</p>
+	#IF(npc.isMute())
+		<p>
+			[npc.Stepping] forwards, [npc.name] gestures for you to quickly gather your things, and after you've done so, [npc.she] grabs hold of your [pc.arm(true)] and impatiently pulls you out of [friend.namePos] apartment. Turning to give you a smug grin once the two of you are back out in the alleyways, [npc.name] makes a motion to indicate that you should be on your way, before turning [npc.her] back on you and [npc.walking] off.
+		</p>
+		<p>
+			With your task of earning some money for [npc.name] having been completed, there's little else for you to do except continue on your way...
+		</p>
+	#ELSE
+		<p>
+			[npc.Stepping] forwards, [npc.name] commands, [npc.speech(Gather your things, [pc.name]. We're leaving.)]
+		</p>
+		<p>
+			Hurrying to do as you're told, you quickly get your things back in order, and after you've done so, [npc.name] grabs hold of your [pc.arm(true)] and impatiently pulls you out of [friend.namePos] apartment. Turning to give you a smug grin once the two of you are back out in the alleyways, [npc.she] states, [npc.speech(You did well back there, [pc.name]. I made some good money off of selling your body. Come find me later if you want to do this again.)]
+		</p>
+		<p>
+			With that, [npc.name] turns [npc.her] back on you and [npc.walks] off down the alleyway. With your task of earning some money for [npc.herHim] having been completed, there's little else for you to do except follow the [npc.race]'s example and continue on your way...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_PIMPED_OUT_SEX_END_LEAVE"><![CDATA[
+	<p>
+		Leaving [friend.namePos] apartment behind, you set off on your way through the alleyways, wondering what to think about the fact that you've just willingly been pimped out by [npc.name]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Repeat submitting walkies: -->
+	
+	<htmlContent tag="SUBMITTED_REPEAT_WALKIES"><![CDATA[
+	<p>
+		Doing as you're told, you obediently drop down in front of [npc.name] and crawl over to [npc.her] side. Letting out a brief laugh, the [npc.race]
+		#IF(npc.isMute())
+			 snaps [npc.her] [npc.fingers] and motions for you to follow [npc.herHim] as [npc.she] sets off at a slow walk down the alleyway.
+		#ELSE
+			sets off at a slow walk down the alleyway, calling back to you as [npc.she] goes, [npc.speech(Keep up, [pc.name]!)]
+		#ENDIF
+	</p>
+	<p>
+		Not wanting to disappoint [npc.name], you crawl as fast as you can and try your best to remain at [npc.her] side as [npc.she] leads you through the alleyways. Thankfully, [npc.her] destination isn't too far away, and after five minutes of crawling along with [npc.herHim], you and [npc.name] arrive at a dingy, run-down bistro. Through the grimy windows you're able to see that it looks to be quite limited on interior space, which is probably why [npc.name]
+		#IF(npc.isMute())
+			 gestures for you to wait outside while [npc.she] goes in to eat.
+		#ELSE
+			 commands, [npc.speech(Sit here and wait for my return, [pc.name].)]
+		#ENDIF
+	</p>
+	<p>
+		Obediently waiting outside as [npc.name] enters the bistro to get some food, you start to feel the stares of several nearby people who are loitering about nearby. After a couple of minutes have passed, one of these strangers, [stranger.a_fullRace(true)], [stranger.walks] up to where you're sitting, and with a big grin on [stranger.her] face, asks, [stranger.speech(You doing some kind of pet-play with that [npc.race] who went inside? You sure look like a dumb, horny bitch. I bet you're craving a taste of my fat cock, aren't you?)]
+	</p>
+	<p>
+		Before you can answer, the [stranger.race] shamelessly whips out [stranger.her] [stranger.cock+] and presents it to you. With the other nearby strangers looking on in amusement, [stranger.name] waits to see what your reaction will be...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_WALKIES_ORAL_START"><![CDATA[
+	<p>
+		Turned on at the thought of sucking [stranger.namePos] cock in front of the nearby strangers, you lean over to give it a hot, wet lick. With a triumphant smirk quickly settling on [stranger.her] face, the [stranger.race] teases, [stranger.speech(Yeah, that's what I thought. You're just as much of a slutty bitch as you look.)]
+	</p>
+	<p>
+		Proving [stranger.herHim] right, you shuffle around to face the [stranger.race], before parting your [pc.lips+] and taking [stranger.her] [stranger.cock+] into your mouth. Letting out [stranger.a_moan+], [stranger.name] eagerly thrusts [stranger.her] cock down your throat and makes you give [stranger.herHim] a sloppy, public blowjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_WALKIES_VAGINAL_START"><![CDATA[
+	<p>
+		Turned on at the thought of getting fucked by [stranger.name] in front of the nearby strangers, you desperately gain access to your [pc.pussy+], before turning around on all fours to present it to [stranger.name]. With a triumphant smirk quickly settling on [stranger.her] face, the [stranger.race] teases, [stranger.speech(Yeah, that's what I thought. You're just as much of a slutty bitch as you look.)]
+	</p>
+	<p>
+		Dropping down behind you, the [stranger.race] slides [stranger.her] [stranger.cock+] up and down over your [pc.labia+], before pushing forwards and sinking it into your [pc.pussy+]. Letting out [stranger.a_moan+], [stranger.name] then eagerly starts thrusting [stranger.her] cock in and out of your [pc.pussy+] as [stranger.she] gives you a good public fucking...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_WALKIES_ANAL_START"><![CDATA[
+	<p>
+		Turned on at the thought of getting fucked by [stranger.name] in front of the nearby strangers, you desperately gain access to your [pc.asshole+], before turning around on all fours to present your ass to [stranger.name]. With a triumphant smirk quickly settling on [stranger.her] face, the [stranger.race] teases, [stranger.speech(Yeah, that's what I thought. You're just as much of a slutty bitch as you look.)]
+	</p>
+	<p>
+		Dropping down behind you, the [stranger.race] slides [stranger.her] [stranger.cock+] up and down over your [pc.ass+], before pushing forwards and sinking it into your [pc.asshole+]. Letting out [stranger.a_moan+], [stranger.name] then eagerly starts thrusting [stranger.her] cock in and out of your [pc.ass+] as [stranger.she] gives you a good public anal fucking...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_WALKIES_IGNORE"><![CDATA[
+	<p>
+		Not at all interested in [stranger.namePos] cock, you turn away from [stranger.herHim] and remain seated outside the bistro. Grunting in disappointment, and to the sound of laughter from the other strangers who were watching, the [stranger.race] [stranger.walks] off and disappears from sight down a nearby alleyway.
+	</p>
+	<p>
+		After that, nothing eventful happens during the fifteen minutes you're left waiting for [npc.namePos] return. As [npc.she] makes [npc.her] eventual return and exits the bistro, the [npc.race] looks over at you with a a surprised look on [npc.her] face. Letting out a mocking laugh, [npc.she]
+		#IF(npc.isMute())
+			 gestures to imply that [npc.she]'d forgotten you were out here, before making a [npc.hand] movement to shoo you away.
+		#ELSE
+			 declares, [npc.speech(I'd forgotten than you were out here, [pc.name]! What an obedient thing you are! Anyway, I've got nothing for you to do right now, so get lost.)]
+		#ENDIF
+	</p>
+	<p>
+		With that, [npc.name] heads off down the alleyway, leaving you feeling more than a little embarrassed at the manner of your dismissal...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_WALKIES_IGNORE_END"><![CDATA[
+	<p>
+		Standing up and brushing yourself down, you head off down the alleyway and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_WALKIES_SEX_END"><![CDATA[
+	<p>
+		With a satisfied [stranger.moan], [stranger.name] pulls [stranger.her] cock away from you and teases, [stranger.speech(You're one slutty bitch. I knew you'd be a good fuck.)]
+	</p>
+	<p>
+		With that, the [stranger.race] puts [stranger.her] [stranger.cock+] away, and after taking one last look at you, [stranger.she] [stranger.walks] off and disappears from sight down a nearby alleyway. At that same moment, [npc.name] makes [npc.her] return, and upon exiting the bistro, [npc.she] turns to give you a knowing smirk.
+	</p>
+	<p>
+		#IF(npc.isMute())
+			Gesturing back towards the window of the bistro, [npc.she] implies through [npc.hand(true)] signals that [npc.she] was watching you the whole time. Flashing you another smirk, [npc.she] dismisses you with a wave of [npc.her] [npc.hand(true)] and [npc.walks] off down the alleyway, leaving you with little else to do but continue on your way...
+		#ELSE
+				[npc.speech(Couldn't resist [stranger.her] cock, huh, [pc.name]?)] [npc.she] asks, [npc.speech(Me and the other people inside were watching you get fucked through the windows. You're a dirty, horny whore, aren't you?)]
+			</p>
+			<p>
+				Not giving you any time in which to respond, [npc.name] dismisses you with a wave of [npc.her] [npc.hand(true)], before [npc.walking] off down the alleyway, leaving you with little else to do but continue on your way...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_WALKIES_SEX_END_LEAVE"><![CDATA[
+	<p>
+		Standing up and brushing yourself down, you head off down the alleyway and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Repeat submitting tattooed: -->
+	
+	<htmlContent tag="SUBMITTED_REPEAT_TATTOOED"><![CDATA[
+	<p>
+		Obediently submitting to [npc.namePos] order, you follow along behind [npc.herHim] as [npc.she] sets off down the alleyway. After a few minutes, you find yourself being led to a pitch-black door that's been artistically painted with the words '[tattooist.NamePos] Tattoos'. After giving this door a brief, loud knock, [npc.name] [npc.steps] back, and then moment later, it swings outwards to reveal [tattooist.a_race] standing at the top of a steep flight of stairs.
+	</p>
+	<p>
+		#IF(npc.isMute())
+			Gesturing towards you, [npc.name] makes some [npc.hand(true)] signals to imply that you're the one [npc.she] wants tattooed, and as payment, [tattooist.name] can fuck you once [tattooist.sheIs] done.
+		#ELSE
+			[npc.speech(Hey, [tattooist.name],)] [npc.name] says in a familiar tone, before gesturing towards you and stating, [npc.speech(This is the bitch I told you about. You tattoo [pc.herHim] as my property, and as payment you can fuck [pc.herHim], like we agreed.)]
+		#ENDIF
+	</p>
+	<p>
+		[tattooist.speech(I knew you were selfish, [npc.name], but getting this slut tattooed as your property? Well, whatever, it's not like I care,)] [tattooist.name] grunts. After looking you up and down, [tattooist.she] then turns and [tattooist.walks] down the steps, calling out after [tattooist.herHim], [tattooist.speech(Bring [pc.herHim] down, [npc.name]. I'll get [pc.herHim] inked right away.)]
+	</p>
+	<p>
+		Grabbing you by the [pc.arm(true)], [npc.name] leads you down the stairs, and then after turning a corner and passing through a thick, metal door, you find yourself in a brightly-lit tattoo studio. Closing and locking the door behind you, [tattooist.name] gestures towards a bed-like table, commanding,
+		#IF(game.isAnalContentEnabled() && pc.getTattooInSlot(IS_TORSO_UNDER)==null && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+			#IF(pc.getTattooInSlot(IS_GROIN)==null && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				 [tattooist.speech(Lie down on your front. I'll give you your tramp stamp first, then you can turn over for your womb tattoo.)]
+			#ELSE
+				 [tattooist.speech(Lie down on your front; I'm going to be giving you a tramp stamp.)]
+			#ENDIF
+		#ELSE
+			 [tattooist.speech(Lie down on your back; I'm going to be giving you a womb tattoo.)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_TATTOOED_ASS"><![CDATA[
+	<p>
+		Once again doing as you're told, you lie down face-first on the padded table and hold still as [tattooist.name] exposes your ass and lower back. Dominantly groping your [pc.assSize] butt,
+		#IF(pc.getTattooInSlot(IS_GROIN)==null && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			 the [tattooist.race] grunts, [tattooist.speech(You've got a nice ass. Now let's get you marked up.)]
+		#ELSE
+			 the [tattooist.race] grunts, [tattooist.speech(Yeah, you look like you'll be a good fuck. Let's get you marked up so I can get on with pounding your ass.)]
+		#ENDIF
+	</p>
+	<p>
+		Firing up [tattooist.her] arcane tattoo gun, [tattooist.name] starts to ink a black, tribal pattern onto your lower back. Thankfully, the process isn't at all painful, and only produces a light tingling sensation in the areas where your tramp stamp is being applied. Finishing your tattoo off with the words 'Property of [npc.name]', the [tattooist.race] [tattooist.steps] back and declares, [tattooist.speech(Right, you're done. Now anyone fucking you from behind knows who you belong to.)]
+	</p>
+	#IF(pc.getTattooInSlot(IS_GROIN)==null && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+		<p>
+			Not finished with you yet, [tattooist.name] gives your [pc.ass+] a quick slap, before commanding, [tattooist.speech(Flip over onto your back so that I can give you your womb tattoo.)]
+		</p>
+	#ELSE
+		<p>
+			Whipping out [tattooist.her] [tattooist.cock+], [tattooist.name] gives your [pc.ass+] a quick slap, before playfully calling out to [npc.name], [tattooist.speech(It says here that this bitch's ass belongs to you. Mind if I use it for a bit?)]
+		</p>
+		<p>
+			#IF(npc.isMute())
+				Smirking at [tattooist.namePos] words, [npc.name] waves [npc.her] [npc.hand(true)] in a gesture to indicate that [tattooist.she] can go ahead and do what [tattooist.she] likes with you.
+			#ELSE
+				[npc.speech(Knock yourself out,)] [npc.name] replies with a big smirk on [npc.her] face.
+			#ENDIF
+		</p>
+		<p>
+			[tattooist.speech(Raise your ass, [pc.name],)] [tattooist.name] hungrily commands, before [tattooist.stepping] forwards and preparing to fuck you...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_TATTOOED_PUSSY"><![CDATA[
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_alleyway_submission_tattooed_ass))
+			Obediently following [tattooist.namePos] command, you flip over and again hold still as [tattooist.name] exposes your [pc.pussy+].
+		#ELSE
+			Once again doing as you're told, you lie back on the padded table and hold still as [tattooist.name] exposes your [pc.pussy+].
+		#ENDIF
+		 Unable to resist, [npc.she] slides [npc.fingers+] over your [pc.labia+], before stroking your [pc.clit+] and causing you to let out an involuntary [pc.moan]. Smirking at your reacting, the [tattooist.race] teases, [tattooist.speech(Yeah, you look like you'll be a good fuck. Let's get you marked up so I can get on with pounding your cunt.)]
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_alleyway_submission_tattooed_ass))
+			Once again firing up [tattooist.her] arcane tattoo gun, [tattooist.name] inks a pink, heart-themed womb tattoo onto your lower abdomen, before adding the words 'Property of [npc.name]'. With both of your tattoos now complete, [tattooist.name] puts [tattooist.her] tool down and proudly states, [tattooist.speech(These are some of my best works. No matter if you're fucked from the front or behind, everyone's going to know who you belong to.)]
+		#ELSE
+			Firing up [tattooist.her] arcane tattoo gun, [tattooist.name] starts to ink a pink, heart-themed womb tattoo onto your lower abdomen. Thankfully, the process isn't at all painful, and only produces a light tingling sensation in the areas where your tattoo is being applied. Finishing it off with the words 'Property of [npc.name]', the [tattooist.race] [tattooist.steps] back and declares, [tattooist.speech(Right, you're done. Now anyone fucking your cunt knows who you belong to.)]
+		#ENDIF
+	</p>
+	<p>
+		Whipping out [tattooist.her] [tattooist.cock+], [tattooist.name] starts stroking your [pc.pussy+] as [tattooist.she] playfully calls out to [npc.name], [tattooist.speech(It says here that this bitch's cunt belongs to you. Mind if I use it for a bit?)]
+	</p>
+	<p>
+		#IF(npc.isMute())
+			Smirking at [tattooist.namePos] words, [npc.name] waves [npc.her] [npc.hand(true)] in a gesture to indicate that [tattooist.she] can go ahead and do what [tattooist.she] likes with you.
+		#ELSE
+			[npc.speech(Knock yourself out,)] [npc.name] replies with a big smirk on [npc.her] face.
+		#ENDIF
+	</p>
+	<p>
+		[tattooist.speech(Spread your [pc.legs], [pc.name],)] [tattooist.name] hungrily commands, before [tattooist.stepping] forwards and preparing to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_TATTOOED_VAGINAL_START"><![CDATA[
+	<p>
+		Submissively doing as you're told, you spread your [pc.legs], allowing [tattooist.name] to [tattooist.step] forwards and start to slide the [tattooist.cockHead+] of [tattooist.her] [tattooist.cock+] up and down over your [pc.labia+]. Looking down at [tattooist.her] [tattooist.cock+], you can't help but let out [pc.a_moan+] in anticipation of what's about to happen.
+	</p>
+	<p>
+		[tattooist.speech(You want it, [pc.name]?)] [tattooist.name] asks in response to your lewd noise. Lining [tattooist.her] [tattooist.cock+] up to your [pc.pussy+], [tattooist.she] teases, [tattooist.speech(Beg for it, you horny bitch.)]
+	</p>
+	<p>
+		[pc.speech(Please, fuck me!)] you cry out in desperation. Grabbing your [pc.hips+], the [tattooist.race] gives you what you want, and with a determined thrust, sinks [tattooist.her] [tattooist.cock+] into your [pc.pussy+]. As you let out another [pc.moan+], [tattooist.name] starts to pump in and out of your [pc.pussy+], while [npc.name] looks on with an amused smirk on [npc.her] face...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_TATTOOED_ANAL_START"><![CDATA[
+	<p>
+		Submissively doing as you're told, you raise your [pc.ass+], allowing [tattooist.name] to [tattooist.step] forwards and start to slide the [tattooist.cockHead+] of [tattooist.her] [tattooist.cock+] up and down over your [pc.ass+]. Looking back over your shoulder at the [tattooist.race], you can't help but let out [pc.a_moan+] in anticipation of what's about to happen.
+	</p>
+	<p>
+		[tattooist.speech(You want it, [pc.name]?)] [tattooist.name] asks in response to your lewd noise. Lining [tattooist.her] [tattooist.cock+] up to your [pc.asshole+], [tattooist.she] teases, [tattooist.speech(Beg for it, you horny bitch.)]
+	</p>
+	<p>
+		[pc.speech(Please, fuck my ass!)] you cry out in desperation. Grabbing your [pc.hips+], the [tattooist.race] gives you what you want, and with a determined thrust, sinks [tattooist.her] [tattooist.cock+] into your [pc.ass+]. As you let out another [pc.moan+], [tattooist.name] starts to pump in and out of your [pc.asshole+], while [npc.name] looks on with an amused smirk on [npc.her] face...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_TATTOOED_SEX_END"><![CDATA[
+	<p>
+		With a satisfied [tattooist.moan], [tattooist.name] pulls back and allows
+		#IF(flags.hasFlag(FLAG_innoxia_alleyway_submission_tattooed_pussy))
+			 [tattooist.her] [tattooist.cock+] to slide out of your well-fucked cunt. [tattooist.Stepping] back, [tattooist.she] teases,
+		#ELSE
+			 [tattooist.her] [tattooist.cock+] to slide out of your well-fucked asshole. Giving your [pc.ass+] a slap, [tattooist.she] [tattooist.steps] back and teases,
+		#ENDIF
+		 [tattooist.speech(You were a good fuck, [pc.name].)]
+	</p>
+	<p>
+		With that, the [tattooist.race] puts [tattooist.her] cock away and turns to talk with [npc.name], leaving you panting on the padded table. After spending a few minutes lying there and catching your breath, [npc.name] [npc.steps] forwards and looms over you, before
+		#IF(npc.isMute())
+			 gesturing for you to get your things together and get up.
+		#ELSE
+			 commanding, [npc.speech(Get your things together and get up. The fun's over.)]
+		#ENDIF
+	</p>
+	<p>
+		Hurrying to obey, you get up off the table and quickly you sort yourself out, after which [npc.name] gestures for you to leave the same way you came. Calling out as you exit [tattooist.her] tattoo parlour, [tattooist.name] teases, [tattooist.speech(Show those tattoos off as much as you can, [pc.name]!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_TATTOOED_SEX_END_LEAVE"><![CDATA[
+	<p>
+		Heading up the stairs and finding yourself out in the alleyways of Dominion once again, you turn to face [npc.name] as [npc.she] follows on and closes the door behind [npc.herHim].
+		#IF(npc.isMute())
+			 Making [npc.a_hand] sign to imply that you should come back and find [npc.her] again soon, the [npc.race] [npc.walks] off down the alleyway, before turning a corner and disappearing from sight. With little else to do, you follow [npc.her] example and continue on your way...
+		#ELSE
+				 Flashing you a devious grin, the [npc.race] commands, [npc.speech(Come back and find me again soon. With those new tattoos of yours, it could be fun to go and pimp you out.)]
+			</p>
+			<p>
+				With that, [npc.name] [npc.walks] off down the alleyway, before turning a corner and disappearing from sight. With little else to do, you follow [npc.her] example and continue on your way...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>

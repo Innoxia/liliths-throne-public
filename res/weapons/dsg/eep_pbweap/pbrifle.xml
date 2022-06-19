@@ -47,8 +47,6 @@
 		
 		<spells/>
 		
-		<enchantmentLimit>5</enchantmentLimit>
-		
 		<effects/> 
 		
 		<primaryColours values="JUST_BLACK"/> 

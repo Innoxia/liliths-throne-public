@@ -54,13 +54,7 @@ public class GenericOffspringDialogue {
 	}
 	
 	private static String getTextFilePath() {
-		if(offspring().getWorldLocation().equals(WorldType.HARPY_NEST)) {
-			return "characters/offspring/harpyNests";
-		} else if(offspring().getWorldLocation().equals(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"))) {
-			return "characters/offspring/elisAlleyway";
-		} else {
-			return "characters/offspring/dominionAlleyway";
-		}
+		return offspring().getWorldLocation().getOffspringTextFilePath(offspring());
 	}
 	
 
@@ -91,6 +85,13 @@ public class GenericOffspringDialogue {
 			List<GameCharacter> offspringList = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
 			offspringList.removeIf(c->!c.isRelatedTo(Main.game.getPlayer()));
 			Main.game.setActiveNPC((NPC) offspringList.get(0));
+			
+			if(Main.game.getPlayer().getWorldLocation()==WorldType.BAT_CAVERNS) { // If offspring is in the bat caverns, they are a mushroom hunter
+				if(offspring().getItemCount(ItemType.MUSHROOM)<5) {
+					offspring().addItem(Main.game.getItemGen().generateItem(ItemType.MUSHROOM), 5+Util.random.nextInt(10), false, false);
+					offspring().setOccupation(Occupation.NPC_MUSHROOM_FORAGER);
+				}
+			}
 		}
 		
 		@Override
@@ -834,7 +835,7 @@ public class GenericOffspringDialogue {
 				if (index == 1) {
 					return new ResponseSex("Incestuous sex",
 							"It's time to show your [npc.daughter] what [npc.her] [pc.mother] can do!",
-							true, false,
+							true, true,
 							new SMGeneric(
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								Util.newArrayListOfValues(offspring()),
@@ -846,7 +847,7 @@ public class GenericOffspringDialogue {
 				} else if (index == 2) {
 					return new ResponseSex("Submissive sex",
 							"It's time to let your [npc.daughter] show you what [npc.she] can do!",
-							true, false,
+							true, true,
 							new SMGeneric(
 									Util.newArrayListOfValues(offspring()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),

@@ -231,7 +231,7 @@ public class BodyChanging {
 			if(Main.game.getCurrentDialogueNode()==BODY_CHANGING_SAVE_LOAD) {
 				return new Response("Save/Load", "You are already in this screen!", null);
 			}
-			return new Response("Save/Load", 
+			return new Response("Save/Load",
 					UtilText.parse(getTarget(), "Save or load transformation presets, allowing you to quickly switch your appearance."),
 					BODY_CHANGING_SAVE_LOAD) {
 				@Override
@@ -244,7 +244,7 @@ public class BodyChanging {
 			if(Main.game.getCurrentDialogueNode()==BODY_CHANGING_MAKEUP) {
 				return new Response("Makeup (debug)", "You are already in this screen!", null);
 			}
-			return new Response("Makeup (debug)", 
+			return new Response("Makeup (debug)",
 					UtilText.parse(getTarget(), "Change aspects of [npc.namePos] makeup. (This transformation menu is only available in the debug screen.)"),
 					BODY_CHANGING_MAKEUP);
 			
