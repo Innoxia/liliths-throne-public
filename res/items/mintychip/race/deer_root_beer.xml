@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[A small disclaimer on the label claims 'Buck's is a subsidiary of MintyChip Foods']]></authorTag>
+	
+		<value>20</value> 
+		<determiner><![CDATA[a can of]]></determiner>
+		<name><![CDATA[Buck's Root Beer]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Buck's Root Beer]]></namePlural>
+		<description><![CDATA[A can with a brown label proudly declaring it to be Buck's brand root beer. Among the listed ingredients are vanilla, sarsaparilla roots, and a large amount of surgar.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">deer_root_beer.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_PHYSIQUE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_PHYSIQUE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(1)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/20)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A powerful wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 1)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		After first opening it with a hiss, [npc.name] [npc.verb(bring)] the can of Buck's Root Beer up to [npc.her] [npc.mouth]. A very sweet smell of vanilla rises from the opening, and as [npc.she] [npc.verb(tilt)] [npc.her] head back and [npc.verb(start)] drinking the cool liquid, [npc.she] [npc.verb(discover)] that it tastes exactly the same as its smell.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		After first opening it with a hiss, [npc.name] [npc.verb(bring)] the can of Buck's Root Beer up to [npc2.namePos] waiting [npc2.lips]. A very sweet smell of vanilla rises from the opening, and as [npc2.she] [npc2.verb(tilt)] [npc2.her] head back and [npc2.verb(start)] drinking the cool liquid, [npc2.she] [npc2.verb(discover)] that it tastes exactly the same as its smell.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>
