@@ -10,6 +10,8 @@ import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.events.EventTarget;
+import org.w3c.dom.html.HTMLInputElement;
+import org.w3c.dom.html.HTMLTextAreaElement;
 
 import com.lilithsthrone.controller.eventListeners.EnchantmentEventListener;
 import com.lilithsthrone.controller.eventListeners.InventorySelectedItemEventListener;
@@ -147,6 +149,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.companions.OccupantSortingMethod;
 import com.lilithsthrone.game.dialogue.npcDialogue.elemental.ElementalDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
@@ -1839,6 +1842,36 @@ public class MainControllerInitMethod {
 							}
 						}
 					}
+
+					id = "SET_SLAVE_CATEGORY";
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("change", e -> {
+							Main.game.getDialogueFlags().getManagementCompanion().setSlaveCategory(((HTMLInputElement)e.getTarget()).getValue());
+							//Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getManagementCompanion())));
+						}, false);
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+								"<b>Slave Category</b>",
+								"Used when you select [style.italicsArcane(Sort by Custom Category)]. Use any format you desire.");
+						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+					}
+
+					id = "SET_SLAVE_NOTES";
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("change", e -> {
+							Main.game.getDialogueFlags().getManagementCompanion().setSlaveNotes(((HTMLTextAreaElement)e.getTarget()).getValue());
+							//Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getManagementCompanion())));
+						}, false);
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+								"<b>Slave Notes</b>",
+								"Write any arbitrary text here, or none at all. Useful if you need to track some information about a slave not available elsewhere.");
+						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						// This needs to be done here rather than in HTML due to Java not handling linebreaks and <br>s correctly.
+						((HTMLTextAreaElement)MainController.document.getElementById(id)).setValue(Main.game.getDialogueFlags().getManagementCompanion().getSlaveNotes());
+					}
 				}
 				
 				// Permissions:
@@ -1896,6 +1929,75 @@ public class MainControllerInitMethod {
 
 			if(Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.SLAVE_LIST
 					|| Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.SLAVE_LIST_MANAGEMENT) {
+				
+				// Sorting
+				for(OccupantSortingMethod osm : OccupantSortingMethod.values()) {
+					id = "SORT_SLAVES_BY_" + osm;
+					if(((EventTarget)MainController.document.getElementById(id))!=null) {
+						String friendlyName = Util.capitaliseSentence(osm.name());
+						if(osm == OccupantSortingMethod.CUSTOM_CATEGORY)
+							friendlyName = "Category";
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									OccupantManagementDialogue.setSlavesSortedBy(osm);
+								}
+							});
+						}, false);
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+							"<b>Sort By "+friendlyName+"</b>",
+							"Change how slaves are sorted.");
+						
+						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+					}
+				}
+
+				// Sort ascending
+				id = "SORT_SLAVES_ASC";
+				if(((EventTarget)MainController.document.getElementById(id))!=null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+							@Override
+							public void effects() {
+								OccupantManagementDialogue.setSlavesAreInReverseOrder(false);
+							}
+						});
+					}, false);
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
+					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+						"<b>Sort in normal order (ascending)</b>",
+						"Change how slaves are sorted.");
+					
+					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+				}
+
+				// Sort Descending
+				id = "SORT_SLAVES_DESC";
+				if(((EventTarget)MainController.document.getElementById(id))!=null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+							@Override
+							public void effects() {
+								OccupantManagementDialogue.setSlavesAreInReverseOrder(true);
+							}
+						});
+					}, false);
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
+					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+						"<b>Sort in reverse order (Descending)</b>",
+						"Change how slaves are sorted.");
+					
+					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+				}
+
 				for(String slaveId : Main.game.getPlayer().getSlavesOwned()) {
 					id = slaveId;
 					NPC slave;
