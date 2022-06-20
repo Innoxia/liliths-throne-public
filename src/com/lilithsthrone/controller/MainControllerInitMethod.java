@@ -1934,9 +1934,7 @@ public class MainControllerInitMethod {
 				for(OccupantSortingMethod osm : OccupantSortingMethod.values()) {
 					id = "SORT_SLAVES_BY_" + osm;
 					if(((EventTarget)MainController.document.getElementById(id))!=null) {
-						String friendlyName = Util.capitaliseSentence(osm.name());
-						if(osm == OccupantSortingMethod.CUSTOM_CATEGORY)
-							friendlyName = "Category";
+						String friendlyName = Util.capitaliseSentence(osm.getName());
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override

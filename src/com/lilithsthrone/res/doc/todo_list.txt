@@ -68,6 +68,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[-] #1639
 		[] #1642
 		[] #1662
+			[] button names overlap
+			[] tooltips for 'Additional Book-Keeping Information' need moving to information icon
+			[] text area formatting is broken
+			[] how to access note keeping?
 		[] #1663
 		[] #1664
 		[] #1665
