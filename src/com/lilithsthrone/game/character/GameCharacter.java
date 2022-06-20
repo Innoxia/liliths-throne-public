@@ -4125,6 +4125,7 @@ public abstract class GameCharacter implements XMLSaving {
 				case Nibling:
 				case HalfSibling:
 				case Sibling:
+				case SiblingTwin:
 					break;
 				case GrandGrandParent:
 				case GrandParent:
@@ -5629,7 +5630,11 @@ public abstract class GameCharacter implements XMLSaving {
 			commonParents.add(this.getMotherId());
 		}
 		if(commonParents.size() == 2 || (commonParents.size() == 1 && character.getFatherId().equals(character.getMotherId()))) {
-			result.add(Relationship.Sibling);
+			if(this.getBirthday().equals(character.getBirthday())) {
+				result.add(Relationship.SiblingTwin);
+			} else {
+				result.add(Relationship.Sibling);
+			}
 			
 		} else if(commonParents.size() == 1) {
 			result.add(Relationship.HalfSibling);

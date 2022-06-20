@@ -80,7 +80,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.9
+ * @version 0.4.4.1
  * @author Innoxia
  */
 public class Lilaya extends NPC {
@@ -441,6 +441,17 @@ public class Lilaya extends NPC {
 	@Override
 	public boolean isAbleToBeImpregnated() {
 		return true;
+	}
+	
+	public void growCock() {
+		this.setPenisType(PenisType.DEMON_COMMON);
+		this.setPenisVirgin(false);
+		this.setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
+		this.setPenisSize(28);
+		this.setTesticleSize(TesticleSize.THREE_LARGE);
+		this.setInternalTesticles(false);
+		this.setPenisCumStorage(2000);
+		this.fillCumToMaxStorage();
 	}
 	
 	@Override

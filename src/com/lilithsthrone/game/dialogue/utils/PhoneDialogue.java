@@ -3929,7 +3929,9 @@ public class PhoneDialogue {
 			int i=2;
 			List<AbstractWorldType> worldTypes = new ArrayList<>(Main.getProperties().hasValue(PropertyValue.mapReveal)?WorldType.getAllWorldTypes():Main.game.getPlayer().getWorldsVisited());
 			
-			worldTypes.sort((w1, w2) -> w1.getName().compareTo(w2.getName()));
+			worldTypes.sort((w1, w2) -> (w1.getName().compareTo(w2.getName())));
+			
+			worldTypes.sort((w1, w2) -> w1.getMajorAreaIndex()-w2.getMajorAreaIndex());
 			
 			for(AbstractWorldType world : worldTypes) {
 				boolean correctRegion = false;
@@ -3948,11 +3950,14 @@ public class PhoneDialogue {
 						&& world != WorldType.MUSEUM_LOST) {
 					if(index==i) {
 						boolean playerPresent = Main.game.getPlayer().getWorldLocation()==world;
+						String responseTitle = (world.isMajorArea()?"<b>":"")+Util.capitaliseSentence(world.getName())+(world.isMajorArea()?"</b>":"");
+//						String responseTitle = Util.capitaliseSentence(world.getName());
+						
 						if(worldTypeMap==world) {
-							return new Response(Util.capitaliseSentence(world.getName()), "You are already viewing the map of "+world.getName()+"."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), null);
+							return new Response(responseTitle, "You are already viewing the map of "+world.getName()+"."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), null);
 							
 						} else if(Main.game.getPlayer().getWorldsVisited().contains(world) || Main.getProperties().hasValue(PropertyValue.mapReveal)) { 
-							return new Response(Util.capitaliseSentence(world.getName()), "View the map of "+world.getName()+"."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), MAP) {
+							return new Response(responseTitle, "View the map of "+world.getName()+"."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), MAP) {
 								@Override
 								public Colour getHighlightColour() {
 									if(playerPresent) {

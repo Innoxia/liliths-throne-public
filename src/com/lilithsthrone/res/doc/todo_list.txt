@@ -16,6 +16,30 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Adds an alarm clock function to places where you can rest: Lilaya's house room; Friendly apartment sofa; Elis tavern room; Dairy farm dormitory. (PR#1606 by CognitiveMist)
 		If a random NPC attacker (in Dominion, Submission, Harpy Nests, or Elis) has the 'cum addict' fetish, or they are under the effects of an arcane storm, there is a 10% chance that they will spawn with some dirty inventory slots. (PR#1582 by CognitiveMist)
 	
+	Engine/Modding:
+		Added a new element, 'bodyOverviewDescription', to tattoo xml files, which is used in the newly-added tattoo section of the character appearance page. (If missing, the basic description is used instead.)
+	
+	Gameplay:
+		Added a minor expansion to Lilaya's panties content, where after threatening Rose you can gain access to a submissive threesome scene with her and Lilaya.
+	
+	Items:
+		Added new tattoo types: spider; rose; crossed blades; pentagram; trinity and spiral Celtic knots.
+	
+	Sex:
+		Hand-holding is now tagged as a 'loving' action (similar to 'Caress face', 'Kiss cheek', etc.), so NPCs will now only use this action if they do not have the sadist fetish and their affection towards their target is at least 'caring'.
+	
+	Other:
+		In the character appearance page, a description of the character's tattoos is now shown at the bottom.
+		In the rental mommy random customer encounter, the chance for the customer to be a dom or a sub is now 60/40 based on your fetishes instead of 100/0, and 90/10 based on the writing on your tshirt instead of 100/0.
+		The map screen in your phone menu now lists major maps within the selected region before all other maps.
+		Bat eyes now grant the night vision ability (which negates the 'darkness' status effect).
+		Siblings who are born at the same time are now defined as being twins to one another. Katherine and Kelly have now also been correctly defined as being twin sisters.
+		The random NPC who spawns during the 'walkies' content for the new repeated-submission alleyway content can now spawn with a pussy instead of always spawning with a cock.
+	
+	Bugs:
+		Typo fixes and minor text improvements.
+		Fixed several places in the new repeated-submission alleyway content where vagina interaction content would be used even if the player didn't have a vagina.
+	
 	
 	[] PRs:
 		[x] PR#1617
@@ -29,8 +53,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1003
 		[] #1004
 		[] #1289
-		[] #1305
-		[] #1320
+		[-] #1305
+		[-] #1320
 		[x] #1582
 		[x] #1606
 		[x] #1614
@@ -43,25 +67,47 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[x] generic character
 		[-] #1639
 		[] #1642
+		[] #1662
 		[] #1663
 		[] #1664
 		[] #1665
 		
+	[x] add tattoos to description page
+	
+	[x] I got pimped out and got my trap PC got pregnant even though he only has a penis?!  I was confused when the prompt at the NPCs home said "Present pussy", but it actually came true
+		[x] hasVagina() checks missing for every vagina action...
+	[x] tag hand holding as a romantic action?
+	[x] change rental mommy encounter to 60/40 either way for if you have the dom or sub fetish instead of 100/0
+	[x] In map screen, make core map the first action and highlight/bold it
+	[-] Masturbation scene with panties charter as cum like 8 times can't stop
+	[x] Add 'Threaten' threesome sex
+	[x] relationship twin support
+	[x] add NPC pussy interactions for walkies bitch content
+	[x] add some more tattoo styles
+		[x] rose
+		[x] spider
+		[x] crossed blades
+		[x] pentagram
+		[x] celtic knots
+	
+	[] Make blog post
+	
+	
+	[] buff elder lilin perks for if player is a demon
+	
+	[] Vicky, Amber, and yea Ms. Cunningham don't have an alternative if you're not into feet or anal
+	
+	[] Teleport seems to be busted. It costs nothing and lets me tele to tiles I haven't been to.
+	
+	[] save the time at the game's start as a unique ID and use that for the quick/auto save file identifiers
 	[] Custom artwork for characters who have the same name have the same artwork?
-		
-	[] add tattoos to description page
-		
-	[] tag hand holding as a romantic action?
-		
-	[] Masturbation scene  with panties charter as cum like 8 times can't stop
+		[] folder structure:
+			[] parent folder name should be unique ID of player
+			[] child folders should be unique ID of NPCs
 	
-	[] change rental mommy encounter to 60/40 either way for if you have the dom or sub fetish instead of 100/0
-	
-	[] taverns beer from tap not bottles
-	
-	[] In map screen, make core map the first action and highlight/bold it
-	
-	[] relationship twin support
+	[] improve status effect calculations
+		[] update requirements triggered by clothing/attribute/position change
+		[] upon load is it doing an init of all effects?
 	
 	[] need mute dialogue handling for offspring encounters
 	
@@ -70,8 +116,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Not sure if this counts as a bug, but you're able to get infinite fare tickets at Kazik
 	
 	[] add a debug option to skip the dominion quests
-	
-	[] save the time at the game's start as a unique ID and use that for the quick/auto save file identifiers
 	
 	[] skunk
 	[] deer
@@ -136,7 +180,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		
 	[] balaclava
 	[] jewellery for blank slots (horns, wings)
-	
+		[] tail ring clothing
+		[] horn chains & rings clothing
+		
 	[] add generic tentacle legs for slime and demon(tentacle-girl/boy)
 	
 	[] serpent-serpent sex position 'mating coil'

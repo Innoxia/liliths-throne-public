@@ -67,7 +67,7 @@
 			<partnerClothingRemoval><![CDATA[true]]></partnerClothingRemoval>
 			<startNaked><![CDATA[false]]></startNaked>
 			<exposeAtStart preferRemoval="false">
-				<coverableArea><![CDATA[PENIS]]></coverableArea>
+				<coverableArea><![CDATA[VAGINA]]></coverableArea>
 			</exposeAtStart>
 			<forcedCreampiesDisabled/>
 			<orgasmBehaviour/>
@@ -79,12 +79,12 @@
 			<preferences>
 				<character id="pc">
 					<foreplay>
-						<performing><![CDATA[PENETRATION_PENIS]]></performing>
-						<targeted><![CDATA[ORIFICE_MOUTH]]></targeted>
+						<performing><![CDATA[ORIFICE_VAGINA]]></performing>
+						<targeted><![CDATA[PENETRATION_TONGUE]]></targeted>
 					</foreplay>
 					<mainSex>
-						<performing><![CDATA[PENETRATION_PENIS]]></performing>
-						<targeted><![CDATA[ORIFICE_MOUTH]]></targeted>
+						<performing><![CDATA[ORIFICE_VAGINA]]></performing>
+						<targeted><![CDATA[PENETRATION_TONGUE]]></targeted>
 					</mainSex>
 				</character>
 			</preferences>

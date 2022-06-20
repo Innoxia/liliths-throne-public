@@ -114,7 +114,7 @@ public class HarpyAttackerDialogue {
 					}
 					if(Main.game.getDialogueFlags().getSavedLong("randomResponseIndex")==6
 							&& (!getHarpy().hasPersonalityTrait(PersonalityTrait.SELFISH)
-									|| ((Main.game.getPlayer().getTattooInSlot(InventorySlot.GROIN)!=null || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
+									|| ((Main.game.getPlayer().getTattooInSlot(InventorySlot.GROIN)!=null || !Main.game.getPlayer().hasVagina() || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
 										&& (!Main.game.isAnalContentEnabled() || Main.game.getPlayer().getTattooInSlot(InventorySlot.TORSO_UNDER)!=null || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true))))) {
 						Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", 4);
 					}
