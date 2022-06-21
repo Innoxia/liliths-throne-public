@@ -863,7 +863,7 @@ public class TooltipInventoryEventListener implements EventListener {
 
 		tooltipSB.append("</div>");
 
-		tooltipSB.append("<div class='container-full-width' style='padding:8px; height:106px;'>"
+		tooltipSB.append("<div class='container-full-width' style='padding:8px; min-height:106px;'>"
 						+ absItem.getDescription()
 					+ "</div>");
 		
@@ -982,6 +982,7 @@ public class TooltipInventoryEventListener implements EventListener {
 			if(cost>0) {
 				listIncrease++;
 				tooltipSB.append("Costs [style.boldArcane("+cost+" Arcane essence"+(cost>1?"s":"")+")] "+(absWep.getWeaponType().isMelee()?"per attack":"to fire")+"<br/>");
+				if(absWep.getWeaponType().isMelee()) {listIncrease++;}
 			}
 			
 			if(equippedToCharacter != null) {
@@ -1076,7 +1077,7 @@ public class TooltipInventoryEventListener implements EventListener {
 
 		tooltipSB.append("</div>");
 
-		tooltipSB.append("<div class='container-full-width' style='padding:8px; height:106px;'>"
+		tooltipSB.append("<div class='container-full-width' style='padding:8px; min-height:106px;'>"
 						+ UtilText.parse(absWep.getWeaponType().getDescription())
 					+ "</div>");
 
@@ -1276,7 +1277,7 @@ public class TooltipInventoryEventListener implements EventListener {
 
 		tooltipSB.append("</div>");
 
-		tooltipSB.append("<div class='container-full-width' style='padding:8px; height:106px;'>"
+		tooltipSB.append("<div class='container-full-width' style='padding:8px; min-height:106px;'>"
 						+ absClothing.getTypeDescription()
 					+ "</div>");
 		
