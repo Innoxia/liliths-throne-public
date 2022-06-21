@@ -2973,7 +2973,7 @@ public class PhoneDialogue {
 						Main.getProperties().setValue(PropertyValue.newRaceDiscovered, false);
 					}
 				};
-			
+
 			} else if (index == 2) {
 				return new Response((Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered))?"<span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>Weapons</span>":"Weapons",
 						"Have a look at all the different weapons that you've encountered in your travels.", WEAPON_CATALOGUE){
@@ -2982,7 +2982,7 @@ public class PhoneDialogue {
 						Main.getProperties().setValue(PropertyValue.newWeaponDiscovered, false);
 					}
 				};
-			
+
 			} else if (index == 3) {
 				return new Response((Main.getProperties().hasValue(PropertyValue.newClothingDiscovered))?"<span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>Clothing</span>":"Clothing",
 						"Have a look at all the different clothing that you've encountered in your travels.", CLOTHING_CATALOGUE){
@@ -2992,7 +2992,7 @@ public class PhoneDialogue {
 						clothingSlotKey = clothingSlotCategories.keySet().iterator().next();
 					}
 				};
-			
+
 			} else if (index == 4) {
 				return new Response((Main.getProperties().hasValue(PropertyValue.newItemDiscovered))?"<span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>Items</span>":"Items",
 						"Have a look at all the different items that you've encountered in your travels.", ITEM_CATALOGUE){
@@ -3001,10 +3001,21 @@ public class PhoneDialogue {
 						Main.getProperties().setValue(PropertyValue.newItemDiscovered, false);
 					}
 				};
-			
+
+			} else if (index == 5) {
+				return new ResponseEffectsOnly("<span style='color:" + PresetColour.GENERIC_MINOR_GOOD.toWebHexString() + ";'>Clear Alerts</span>",
+						"Clear encyclopedia alerts."){
+					@Override
+					public void effects() {
+						Main.getProperties().setValue(PropertyValue.newItemDiscovered, false);
+						Main.getProperties().setValue(PropertyValue.newClothingDiscovered, false);
+						Main.getProperties().setValue(PropertyValue.newWeaponDiscovered, false);
+						Main.getProperties().setValue(PropertyValue.newRaceDiscovered, false);
+					}
+				};
 			} else if (index == 0) {
 				return new Response("Back", "Return to the phone's main menu.", MENU);
-			
+
 			} else {
 				return null;
 			}
