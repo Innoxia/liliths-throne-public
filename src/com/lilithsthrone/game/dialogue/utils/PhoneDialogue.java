@@ -3003,16 +3003,29 @@ public class PhoneDialogue {
 				};
 
 			} else if (index == 5) {
-				return new ResponseEffectsOnly("<span style='color:" + PresetColour.GENERIC_MINOR_GOOD.toWebHexString() + ";'>Clear Alerts</span>",
-						"Clear encyclopedia alerts."){
-					@Override
-					public void effects() {
-						Main.getProperties().setValue(PropertyValue.newItemDiscovered, false);
-						Main.getProperties().setValue(PropertyValue.newClothingDiscovered, false);
-						Main.getProperties().setValue(PropertyValue.newWeaponDiscovered, false);
-						Main.getProperties().setValue(PropertyValue.newRaceDiscovered, false);
-					}
-				};
+				if(!Main.getProperties().hasValue(PropertyValue.newItemDiscovered)
+						&& !Main.getProperties().hasValue(PropertyValue.newClothingDiscovered)
+						&& !Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered)
+						&& !Main.getProperties().hasValue(PropertyValue.newRaceDiscovered)) {
+					return new Response("Clear alerts", "Clears encyclopedia alerts.<br/><i>You currently do not have any encyclopedia alerts to clear...</i>", null);
+					
+				} else {
+					return new ResponseEffectsOnly("Clear alerts",
+							"Clears encyclopedia alerts."){
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.GENERIC_MINOR_GOOD;
+						}
+						@Override
+						public void effects() {
+							Main.getProperties().setValue(PropertyValue.newItemDiscovered, false);
+							Main.getProperties().setValue(PropertyValue.newClothingDiscovered, false);
+							Main.getProperties().setValue(PropertyValue.newWeaponDiscovered, false);
+							Main.getProperties().setValue(PropertyValue.newRaceDiscovered, false);
+						}
+					};
+				}
+				
 			} else if (index == 0) {
 				return new Response("Back", "Return to the phone's main menu.", MENU);
 
@@ -3030,7 +3043,6 @@ public class PhoneDialogue {
 	private static List<AbstractItemType> itemsDiscoveredList = new ArrayList<>();
 	private static List<AbstractClothingType> clothingDiscoveredList = new ArrayList<>();
 	private static List<AbstractWeaponType> weaponsDiscoveredList = new ArrayList<>();
-
 	
 	private static Map<String, List<InventorySlot>> clothingSlotCategories;
 	private static String clothingSlotKey;
