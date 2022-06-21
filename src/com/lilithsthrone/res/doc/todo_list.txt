@@ -16,6 +16,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Adds an alarm clock function to places where you can rest: Lilaya's house room; Friendly apartment sofa; Elis tavern room; Dairy farm dormitory. (PR#1606 by CognitiveMist)
 		If a random NPC attacker (in Dominion, Submission, Harpy Nests, or Elis) has the 'cum addict' fetish, or they are under the effects of an arcane storm, there is a 10% chance that they will spawn with some dirty inventory slots. (PR#1582 by CognitiveMist)
 		Added sorting options to the slave list. (PR#1662 by Anonymous-BCFED)
+		Changed all old FITS_HARPY_WINGS item tags to FITS_ARM_WINGS as the former is no longer supported. (PR#1663 by DSG)
 	
 	Engine/Modding:
 		Added a new element, 'bodyOverviewDescription', to tattoo xml files, which is used in the newly-added tattoo section of the character appearance page. (If missing, the basic description is used instead.)
@@ -72,7 +73,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[x] button names overlap
 			[x] condense sorting button panel
 			[x] improve tooltip descriptions
-			[x] text areas are far too laggy for some reaon, so have to remove category and notes
+			[x] text areas are far too laggy for some reason, so have to remove category and notes
 				[-] tooltips for 'Additional Book-Keeping Information' need moving to information icon
 				[-] text area formatting is broken
 					[-] remove notes as it's laggy and unresponsive
@@ -80,6 +81,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1663
 		[] #1664
 		[] #1665
+		[] #1649
 		
 	[x] add tattoos to description page
 	
