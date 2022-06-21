@@ -868,6 +868,12 @@ public class MainController implements Initializable {
 								allowInput = false;
 							}
 						}
+
+						// Allow users to type in slave metadata without getting whisked away.
+						if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('SET_SLAVE_NOTES') === document.activeElement")
+						|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('SET_SLAVE_CATEGORY') === document.activeElement")) {
+							allowInput = false;
+						}
 						
 						if(allowInput){
 							if (keyEventMatchesBindings(KeyboardAction.INVENTORY, event)) {
