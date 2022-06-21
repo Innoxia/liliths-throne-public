@@ -10,8 +10,6 @@ import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.events.EventTarget;
-import org.w3c.dom.html.HTMLInputElement;
-import org.w3c.dom.html.HTMLTextAreaElement;
 
 import com.lilithsthrone.controller.eventListeners.EnchantmentEventListener;
 import com.lilithsthrone.controller.eventListeners.InventorySelectedItemEventListener;
@@ -1843,35 +1841,35 @@ public class MainControllerInitMethod {
 						}
 					}
 
-					id = "SET_SLAVE_CATEGORY";
-					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						((EventTarget) MainController.document.getElementById(id)).addEventListener("change", e -> {
-							Main.game.getDialogueFlags().getManagementCompanion().setSlaveCategory(((HTMLInputElement)e.getTarget()).getValue());
-							//Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getManagementCompanion())));
-						}, false);
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
-								"<b>Slave Category</b>",
-								"Used when you select [style.italicsArcane(Sort by Custom Category)]. Use any format you desire.");
-						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
-					}
+//					id = "SET_SLAVE_CATEGORY";
+//					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+//						((EventTarget) MainController.document.getElementById(id)).addEventListener("change", e -> {
+//							Main.game.getDialogueFlags().getManagementCompanion().setSlaveCategory(((HTMLInputElement)e.getTarget()).getValue());
+//							//Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getManagementCompanion())));
+//						}, false);
+//						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+//						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+//						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+//								"<b>Slave Category</b>",
+//								"Used when you select [style.italicsArcane(Sort by Custom Category)]. Use any format you desire.");
+//						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+//					}
 
-					id = "SET_SLAVE_NOTES";
-					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						((EventTarget) MainController.document.getElementById(id)).addEventListener("change", e -> {
-							Main.game.getDialogueFlags().getManagementCompanion().setSlaveNotes(((HTMLTextAreaElement)e.getTarget()).getValue());
-							//Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getManagementCompanion())));
-						}, false);
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
-								"<b>Slave Notes</b>",
-								"Write any arbitrary text here, or none at all. Useful if you need to track some information about a slave not available elsewhere.");
-						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
-						// This needs to be done here rather than in HTML due to Java not handling linebreaks and <br>s correctly.
-						((HTMLTextAreaElement)MainController.document.getElementById(id)).setValue(Main.game.getDialogueFlags().getManagementCompanion().getSlaveNotes());
-					}
+//					id = "SET_SLAVE_NOTES";
+//					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+//						((EventTarget) MainController.document.getElementById(id)).addEventListener("change", e -> {
+//							Main.game.getDialogueFlags().getManagementCompanion().setSlaveNotes(((HTMLTextAreaElement)e.getTarget()).getValue());
+//							//Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getManagementCompanion())));
+//						}, false);
+//						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+//						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+//						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+//								"<b>Slave Notes</b>",
+//								"Write any arbitrary text here, or none at all. Useful if you need to track some information about a slave not available elsewhere.");
+//						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+//						// This needs to be done here rather than in HTML due to Java not handling linebreaks and <br>s correctly.
+//						((HTMLTextAreaElement)MainController.document.getElementById(id)).setValue(Main.game.getDialogueFlags().getManagementCompanion().getSlaveNotes());
+//					}
 				}
 				
 				// Permissions:
@@ -1948,7 +1946,7 @@ public class MainControllerInitMethod {
 
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
 							"<b>Sort By "+friendlyName+"</b>",
-							"Change how slaves are sorted.");
+							osm.getSortingDescription());
 						
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
@@ -1969,8 +1967,8 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 
 					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
-						"<b>Sort in normal order (ascending)</b>",
-						"Change how slaves are sorted.");
+						"Sort in ascending order",
+						"");
 					
 					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 				}
@@ -1990,8 +1988,8 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 
 					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
-						"<b>Sort in reverse order (Descending)</b>",
-						"Change how slaves are sorted.");
+						"Sort in descending order",
+						"");
 					
 					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 				}

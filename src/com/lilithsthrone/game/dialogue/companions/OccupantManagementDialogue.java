@@ -27,7 +27,6 @@ import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
-import com.lilithsthrone.utils.comparators.SlaveCategoryComparator;
 import com.lilithsthrone.utils.comparators.SlaveNameComparator;
 import com.lilithsthrone.utils.comparators.SlaveRoomComparator;
 import com.lilithsthrone.utils.comparators.SlaveValueComparator;
@@ -1194,18 +1193,20 @@ public class OccupantManagementDialogue {
 					
 			//UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>");
 			//UtilText.nodeContentSB.append(  "<h6 style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+"'>Sorting</h6>");
+			String buttonStyle = "margin:2px; width:16%;";
 			UtilText.nodeContentSB.append(  "<div class='container-full-width inner' style='text-align:center'>");
 			UtilText.nodeContentSB.append(    "<div style='width:100%;font-weight:bold;margin-top:8px'>Sort By</div>");
-			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_NONE' class='normal-button"+((sortingMethod==OccupantSortingMethod.NONE)?" disabled":"")+"' style='margin:2px'>None</div>");
-			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_NAME' class='normal-button"+((sortingMethod==OccupantSortingMethod.NAME)?" disabled":"")+"' style='margin:2px'>Name</div>");
-			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_ROOM' class='normal-button"+((sortingMethod==OccupantSortingMethod.ROOM)?" disabled":"")+"' style='margin:2px'>Room</div>");
-			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_VALUE' class='normal-button"+((sortingMethod==OccupantSortingMethod.VALUE)?" disabled":"")+"' style='margin:2px'>Value</div>");
-			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_CUSTOM_CATEGORY' class='normal-button"+((sortingMethod==OccupantSortingMethod.CUSTOM_CATEGORY)?" disabled":"")+"' style='margin:2px'>Category</div>");
-			UtilText.nodeContentSB.append(  "</div>");
-			UtilText.nodeContentSB.append(  "<div class='container-full-width inner' style='text-align:center'>");
-			UtilText.nodeContentSB.append(    "<div style='width:100%;font-weight:bold;margin-top:8px'>Order</div>");
-			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_ASC' class='normal-button"+((!reverseSortSlaves)?" disabled":"")+"' style='margin:2px'>Ascending</div>");
-			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_DESC' class='normal-button"+((reverseSortSlaves)?" disabled":"")+"' style='margin:2px'>Descending</div>");
+			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_NONE' class='normal-button"+((sortingMethod==OccupantSortingMethod.NONE)?" selected":"")+"' style='"+buttonStyle+"'>None</div>");
+			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_NAME' class='normal-button"+((sortingMethod==OccupantSortingMethod.NAME)?" selected":"")+"' style='"+buttonStyle+"'>Name</div>");
+			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_ROOM' class='normal-button"+((sortingMethod==OccupantSortingMethod.ROOM)?" selected":"")+"' style='"+buttonStyle+"'>Room</div>");
+			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_VALUE' class='normal-button"+((sortingMethod==OccupantSortingMethod.VALUE)?" selected":"")+"' style='"+buttonStyle+"'>Value</div>");
+//			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_CUSTOM_CATEGORY' class='normal-button"+((sortingMethod==OccupantSortingMethod.CUSTOM_CATEGORY)?" selected":"")+"' style='"+buttonStyle+"'>Category</div>");
+//			UtilText.nodeContentSB.append(  "</div>");
+//			UtilText.nodeContentSB.append(  "<div class='container-full-width inner' style='text-align:center'>");
+//			UtilText.nodeContentSB.append(    "<div style='width:100%;font-weight:bold;margin-top:8px'>Order</div>");
+			UtilText.nodeContentSB.append(  "<div style='width:100%; height:0;'></div>");
+			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_ASC' class='normal-button"+((!reverseSortSlaves)?" selected":"")+"' style='"+buttonStyle+"'>Ascending</div>");
+			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_DESC' class='normal-button"+((reverseSortSlaves)?" selected":"")+"' style='"+buttonStyle+"'>Descending</div>");
 			UtilText.nodeContentSB.append(  "</div>");
 			//UtilText.nodeContentSB.append("<div>");
 			
@@ -1242,9 +1243,6 @@ public class OccupantManagementDialogue {
 						break;
 					case VALUE:
 						ssm = new SlaveValueComparator();
-						break;
-					case CUSTOM_CATEGORY:
-						ssm = new SlaveCategoryComparator();
 						break;
 					default:
 						break;
