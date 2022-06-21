@@ -91,6 +91,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] celtic knots
 	
 	[] Make blog post
+		[] plan to bug fix, PR merge, other minor things
 	
 	
 	[] buff elder lilin perks for if player is a demon
