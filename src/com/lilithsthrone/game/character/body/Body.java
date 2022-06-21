@@ -4357,7 +4357,7 @@ public class Body implements XMLSaving {
 				
 				for(FluidModifier fm : FluidModifier.values()) {
 					if(owner.hasMilkModifier(fm)) {
-						descriptionSB.append(fm.getBriefDescription());
+						descriptionSB.append(" " + fm.getBriefDescription());
 					}
 				}
 				
@@ -4601,7 +4601,7 @@ public class Body implements XMLSaving {
 				
 				for(FluidModifier fm : FluidModifier.values()) {
 					if(owner.hasMilkCrotchModifier(fm)) {
-						descriptionSB.append(fm.getBriefDescription());
+						descriptionSB.append(" " + fm.getBriefDescription());
 					}
 				}
 				
@@ -5000,7 +5000,7 @@ public class Body implements XMLSaving {
 			
 			for(FluidModifier fm : FluidModifier.values()) {
 				if(owner.hasCumModifier(fm)) {
-					descriptionSB.append(fm.getBriefDescription());
+					descriptionSB.append(" " + fm.getBriefDescription());
 				}
 			}
 		}
@@ -5281,7 +5281,7 @@ public class Body implements XMLSaving {
 		
 		for(FluidModifier fm : FluidModifier.values()) {
 			if(viewedVagina.getGirlcum().getFluidModifiers().contains(fm)) {
-				descriptionSB.append(fm.getBriefDescription());
+				descriptionSB.append(" " + fm.getBriefDescription());
 			}
 		}
 		

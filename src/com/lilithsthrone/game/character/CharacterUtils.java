@@ -1130,6 +1130,7 @@ public class CharacterUtils {
 			for(OrificeModifier mod : RacialBody.valueOfRace(halfSubspecies.getRace()).getVaginaType().getDefaultRacialOrificeModifiers()) {
 				body.getVagina().getOrificeVagina().addOrificeModifier(linkedCharacter, mod);
 			}
+			body.getVagina().setEggLayer(null, RacialBody.valueOfRace(halfSubspecies.getRace()).getVaginaType().isEggLayer());
 		}
 		
 		if(!body.getArm().getType().allowsFlight()) { // Do not give back wings to characters who have arm wings.

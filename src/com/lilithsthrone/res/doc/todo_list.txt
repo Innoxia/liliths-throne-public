@@ -18,6 +18,18 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added sorting options to the slave list. (PR#1662 by Anonymous-BCFED)
 		Changed all old FITS_HARPY_WINGS item tags to FITS_ARM_WINGS as the former is no longer supported. (PR#1663 by DSG)
 	
+	Misc fixes contribution (PR#1664 by MintyChip):
+		Added spaces before the fluid modifier descriptions in the appearance screens.
+		Taurs now spawn with their race's default GenitalArrangement (e.g. alligator-taurs now have cloacas).
+		Fixed the params of the method applyLegConfigurationTransformation's javadoc.
+		Fixed visual bug where displayed file path for transformation presets was set to the same one as enchantments.
+		Improved positioning of the infertility/fertility perks so that their connecting lines no longer appear to be connected to unrelated perks.
+		Changed the octopus hair covering type to mimic the octopus skin covering type.
+		Imported characters now correctly receive Lilaya's 5k flames if they skip the prologue.
+		Made it so that half-demons lay eggs if their other half's race lays eggs.
+		Added a 'clear alerts' button to the encyclopedia menu.
+		added a 'clear stats' button when importing a character.
+	
 	Engine/Modding:
 		Added a new element, 'bodyOverviewDescription', to tattoo xml files, which is used in the newly-added tattoo section of the character appearance page. (If missing, the basic description is used instead.)
 	
