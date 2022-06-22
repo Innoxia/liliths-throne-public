@@ -55,7 +55,7 @@ public class BraxOffice {
 	}
 	
 	private static void givePlayerEnforcerUniform(StringBuilder sb) {
-		if(Main.game.getPlayer().isFeminine()) {
+		if((Main.game.getPlayer().isFeminine() && !Main.game.getPlayer().hasBaseFetish(Fetish.FETISH_CROSS_DRESSER)) || (!Main.game.getPlayer().isFeminine() && Main.game.getPlayer().hasBaseFetish(Fetish.FETISH_CROSS_DRESSER))) {
 			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfskirt", PresetColour.CLOTHING_BLACK, false), false));
 			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_flsldshirt", PresetColour.CLOTHING_PINK, false), false));
 			
