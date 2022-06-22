@@ -17,6 +17,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		If a random NPC attacker (in Dominion, Submission, Harpy Nests, or Elis) has the 'cum addict' fetish, or they are under the effects of an arcane storm, there is a 10% chance that they will spawn with some dirty inventory slots. (PR#1582 by CognitiveMist)
 		Added sorting options to the slave list. (PR#1662 by Anonymous-BCFED)
 		Changed all old FITS_HARPY_WINGS item tags to FITS_ARM_WINGS as the former is no longer supported. (PR#1663 by DSG)
+		NPCs who are freed via use of a Freedom Certificate are no longer able to be re-enslaved afterwards. (PR#1649 by Maxis010)
 	
 	Misc fixes contribution (PR#1664 by MintyChip):
 		Added spaces before the fluid modifier descriptions in the appearance screens.
@@ -100,7 +101,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] #1663
 		[x] #1664
 		[x] #1665
-		[] #1649
+		[x] #1649
+		[] #1674
 		
 	[x] add tattoos to description page
 	

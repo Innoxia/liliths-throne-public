@@ -1877,6 +1877,7 @@ public class CompanionManagement {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getPlayer().removeSlave(characterSelected());
+			characterSelected().setEnslavementDialogue(SlaveDialogue.FREEDOM_DIALOG, false);
 			if(!isFreedSlaveAvailableAsGuest()) {
 				freedSlaveDeleted = true;
 				if(!characterSelected().isAffectionHighEnoughToInviteHome()) {
