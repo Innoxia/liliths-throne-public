@@ -982,7 +982,9 @@ public class TooltipInventoryEventListener implements EventListener {
 			if(cost>0) {
 				listIncrease++;
 				tooltipSB.append("Costs [style.boldArcane("+cost+" Arcane essence"+(cost>1?"s":"")+")] "+(absWep.getWeaponType().isMelee()?"per attack":"to fire")+"<br/>");
-				if(absWep.getWeaponType().isMelee()) {listIncrease++;}
+				if(absWep.getWeaponType().isMelee()) {
+					listIncrease++; // To account for the fact that the arcane cost description for melee weapons takes two lines
+				}
 			}
 			
 			if(equippedToCharacter != null) {
