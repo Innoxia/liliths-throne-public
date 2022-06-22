@@ -14,7 +14,6 @@
 		<clothingSet/>
 		<imageName>patch.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit/>
 		<effects/>
 		
 		<blockedPartsList>
@@ -67,7 +66,7 @@
 			<![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] eye patch.]]>
 		</other>
 		<otherRough>
-			<![CDATA[[npc.Name] [npc.verb(grabs)] [npc2.namePos] eye patch and roughly [npc.verb(pull)] it off.]]>
+			<![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] eye patch and roughly [npc.verb(pull)] it off.]]>
 		</otherRough>
 	</displacementText>
   

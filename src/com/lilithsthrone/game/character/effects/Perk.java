@@ -867,6 +867,27 @@ public class Perk {
 					"Having spent time training alongside Lunette herself, this demonic-centaur strives to be as destructive and merciless as [npc.her] mother!");
 		}
 	};
+
+	public static AbstractPerk JOB_NPC_MUSHROOM_FORAGER = new AbstractPerk(20,
+			true,
+			"Masterful Mycologist",
+			PerkCategory.JOB,
+			"perks/jobs/mushroom_forager",//TODO
+			Util.newArrayListOfValues(
+					PresetColour.BASE_BLUE_LIGHT,
+					PresetColour.BASE_PINK,
+					PresetColour.BASE_GREEN),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.RESISTANCE_POISON, 25)),
+			null,
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NamePos] body [npc.has] become highly resistant to poison through an arduous, and oft-times nauseating, process of discovering which mushrooms are edible, psychedelic, or toxic.");
+		}
+	};
 	
 	
 	
@@ -2327,15 +2348,29 @@ public class Perk {
 			"perks/fitness_nymphomaniac",
 			PresetColour.GENERIC_SEX,
 			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_LUST, 5),
 					new Value<>(Attribute.RESISTANCE_LUST, -2)),
 			Util.newArrayListOfValues("Doubles <span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You are completely and hopelessly addicted to sex.";
-			else
-				return UtilText.parse(owner, "[npc.Name] is completely and hopelessly addicted to sex.");
+			return UtilText.parse(owner, "[npc.NameIsFull] completely and hopelessly addicted to sex.");
+		}
+	};
+	
+	public static AbstractPerk AHEGAO = new AbstractPerk(20,
+			true,
+			"ahegao",
+			PerkCategory.LUST,
+			"perks/ahegao",
+			PresetColour.GENERIC_SEX,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_LUST, 15),
+					new Value<>(Attribute.RESISTANCE_LUST, -5)),
+			Util.newArrayListOfValues("Goes [style.colourSex(ahegao)] upon orgasming")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NamePos] orgasms are particularly intense, and [npc.she] can't help but make an exaggerated facial expression every time [npc.she] [npc.verb(climax)].");
 		}
 	};
 
@@ -2900,7 +2935,9 @@ public class Perk {
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldLightBlue(aquatic transformations)] if a [style.boldDemon(demon)]")) {
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldLightBlue(fish transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2925,7 +2962,9 @@ public class Perk {
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldFeral(feral transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2950,7 +2989,9 @@ public class Perk {
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] ability to transform others into [style.boldDemon(demons)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -3002,7 +3043,9 @@ public class Perk {
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldGreenLight(mammalian transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -3027,7 +3070,9 @@ public class Perk {
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldGreenLight(avian transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -3052,7 +3097,9 @@ public class Perk {
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldGreenLight(reptilian and amphibian transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {

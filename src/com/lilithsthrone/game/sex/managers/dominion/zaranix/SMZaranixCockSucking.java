@@ -87,8 +87,8 @@ public class SMZaranixCockSucking extends SexManagerDefault {
 	}
 
 	@Override
-	public boolean isAbleToEquipSexClothing(GameCharacter character){
-		return false;
+	public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip){
+		return clothingToEquip.isCondom();
 	}
 	
 	@Override

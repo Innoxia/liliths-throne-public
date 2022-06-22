@@ -95,6 +95,10 @@ public interface SexManagerInterface {
 	public default boolean isSadisticActionsAllowed() {
 		return true;
 	}
+
+	public default boolean isLovingActionsAllowed() {
+		return true;
+	}
 	
 	public default String getStartSexDescription() {
 		return "";
@@ -202,6 +206,7 @@ public interface SexManagerInterface {
 	public default boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return character.isPlayer()
 				&& isPositionChangingAllowed(character)
+				&& Main.sex.getInitialSexManager().isSlotAvailable(character, Main.sex.getSexPositionSlot(target))
 				&& Main.sex.getInitialSexManager().isSlotAvailable(target, Main.sex.getSexPositionSlot(character));
 	}
 	
@@ -231,6 +236,7 @@ public interface SexManagerInterface {
 		boolean domsSatisfied = true;
 		boolean subsResisting = true;
 		boolean subsDenied = true;
+		boolean subsStillInForeplay = true;
 		
 		if(!isCharacterAbleToStopSex(partner)) {
 			return false;
@@ -267,13 +273,19 @@ public interface SexManagerInterface {
 			if(Main.sex.getNumberOfDeniedOrgasms(character)==0) {
 				subsDenied = false;
 			}
+			if(!Main.sex.isInForeplay(character)) {
+				subsStillInForeplay = false;
+			}
 		}
+		
+		boolean gettingBored = Main.sex.getNumberOfOrgasms(partner)>partner.getOrgasmsBeforeSatisfied()+1;
 		
 		if(Main.sex.isDom(partner)
 				&& (!Main.sex.isConsensual()
 						|| subsResisting
+						|| (subsStillInForeplay && gettingBored)
 						|| (partner.getFetishDesire(Fetish.FETISH_DENIAL).isPositive() && subsDenied))) {
-			if(Main.sex.getNumberOfOrgasms(partner)>partner.getOrgasmsBeforeSatisfied()+1) {
+			if(gettingBored) {
 				return true;
 			}
 			return domsSatisfied;
@@ -333,7 +345,7 @@ public interface SexManagerInterface {
 		return true;
 	}
 	
-	public default boolean isAbleToEquipSexClothing(GameCharacter character){
+	public default boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
 		return true;
 	}
 	
@@ -753,6 +765,14 @@ public interface SexManagerInterface {
 	
 	public default String getRoughTalk(GameCharacter character) {
 		return character.getRoughTalk();
+	}
+
+	public default String getLovingTalk(GameCharacter character) {
+		return character.getLovingTalk();
+	}
+
+	public default String getLovingResponseTalk(GameCharacter character) {
+		return character.getLovingResponseTalk();
 	}
 	
 	public default String getSubmissiveTalk(GameCharacter character) {

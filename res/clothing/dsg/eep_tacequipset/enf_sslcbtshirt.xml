@@ -30,8 +30,6 @@
 
 		<imageEquippedName/> 
 
-		<enchantmentLimit/>
-
 		<effects>
 			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_FIRE" potency="MINOR_BOOST" timer="397" type="CLOTHING"/>
 			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_ICE" potency="MINOR_BOOST" timer="397" type="CLOTHING"/>
@@ -99,7 +97,7 @@
 		<secondaryColoursDye values="ALL"/>
 
 		<itemTags> 
-			<tag>FITS_HARPY_WINGS</tag>
+			<tag>FITS_ARM_WINGS</tag>
 			<tag>CONTRABAND_MEDIUM</tag>
 		</itemTags>
 	</coreAtributes>

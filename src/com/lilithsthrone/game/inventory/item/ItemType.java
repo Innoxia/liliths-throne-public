@@ -1734,7 +1734,7 @@ public class ItemType {
 			false,
 			"arcane offspring map",
 			"arcane offspring maps",
-			"An arcane-enchanted map, obtained from Dominion's city hall, which is able to track the rough location of any of your offspring.",
+			"An arcane-enchanted map, obtained from Dominion's city hall, which is able to track the rough location of any of your nearby offspring.",
 			"offspring_map",
 			PresetColour.BASE_BROWN,
 			null,
@@ -1757,15 +1757,19 @@ public class ItemType {
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return target.isPlayer()
-					&& (target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_ALLEY
-							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_CANAL
-							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.HARPY_NEST_WALKWAYS
-							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.SUBMISSION_TUNNELS)
+					&& (Util.newArrayListOfValues(
+						Encounter.DOMINION_ALLEY,
+						Encounter.DOMINION_CANAL,
+						Encounter.HARPY_NEST_WALKWAYS,
+						Encounter.SUBMISSION_TUNNELS,
+						Encounter.BAT_CAVERN,
+						Encounter.getEncounterFromId("innoxia_elis_alleyway")
+					).contains(target.getLocationPlace().getPlaceType().getEncounterType()))
 					&& Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size()<=1;
 		}
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You need to be in one of Dominion's alleyway or canal tiles, a Harpy Nest walkway tile, or a Submission tunnel tile, and with no more than one character already present in that tile, in order to be able to use the map!";
+			return "In order to be able to use the map, you need to be in a vacant tile of one of the following types: Dominion alleyways; Dominion canals; Harpy Nest walkways; Submission tunnels; Bat Caverns; Elis alleyways.";
 		}
 		@Override
 		public String getUseTooltipDescription(GameCharacter user, GameCharacter target) {
@@ -2977,6 +2981,11 @@ public class ItemType {
 							Rarity.LEGENDARY,
 							null,
 							Util.newArrayListOfValues(ItemTag.BOOK)) {
+				@Override
+				public String getDescription() {
+					return super.getDescription()
+							+(mainSubspecies.getBookAuthor().isEmpty()?"":" The book's author is identified as '"+mainSubspecies.getBookAuthor()+"'.");
+				}
 				@Override
 				public List<ItemEffect> getEffects() {
 					AbstractSubspecies mainSubspecies = entry.getValue().contains(AbstractSubspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace()))

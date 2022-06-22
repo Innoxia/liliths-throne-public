@@ -16,41 +16,18 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
-import com.lilithsthrone.game.character.body.types.ArmType;
-import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BreastType;
-import com.lilithsthrone.game.character.body.types.EarType;
-import com.lilithsthrone.game.character.body.types.EyeType;
-import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.HairType;
-import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.LegType;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.body.types.TorsoType;
-import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.types.WingType;
-import com.lilithsthrone.game.character.body.valueEnums.AssSize;
-import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
-import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
-import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
-import com.lilithsthrone.game.character.body.valueEnums.HipSize;
-import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.body.types.*;
+import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
+import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.race.AbstractRace;
-import com.lilithsthrone.game.character.race.AbstractSubspecies;
-import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.*;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
@@ -436,7 +413,7 @@ public class ItemEffectType {
 				String unknownFatherName = "Unknown!";
 				if(father==null) {
 					try {
-						GameCharacter offspring0 = target.getPregnantLitter().getOffspringCharacters().iterator().next();
+						OffspringSeed offspring0 = target.getPregnantLitter().getOffspringSeed().iterator().next();
 						if(!offspring0.getFatherName().equals("???")) {
 							unknownFatherName = offspring0.getFatherName();
 						}
@@ -444,15 +421,16 @@ public class ItemEffectType {
 					}
 				}
 				
-				return "<p>"
-						+ "The digital readout lights up with two parallel red lines, with flashing pink text next to that displaying: '[style.italicsArcane(Pregnant!)]'"
+				return "<p style='text-align:center;'>"
+						+ "The digital readout lights up with two parallel red lines, with flashing pink text next to that displaying:"
+						+ "<br/><b>'[style.italicsArcane(Pregnant!)]'</b>"
 					+ "</p>"
-					+ "<p>"
+					+ "<p style='text-align:center;'>"
 						+ "Underneath the flashing pregnancy confirmation, there's some extra information, which reads:<br/>"
 						+ "<i>"
 						+ "Father: "+(father!=null
-										?father.getNameIgnoresPlayerKnowledge()+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(father))+")"
-										:unknownFatherName+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(Main.game.getNpc(GenericAndrogynousNPC.class)))+")")+"<br/>"
+										?father.getNameIgnoresPlayerKnowledge()+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(father.getBody()))+")"
+										:unknownFatherName+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(Main.game.getNpc(GenericAndrogynousNPC.class).getBody()))+")")+"<br/>"
 						+ "Litter size: " +target.getPregnantLitter().getTotalLitterCount()+"<br/>"
 						+ "[style.colourFeminine(Daughters)]: " +(target.getPregnantLitter().getDaughtersFromFather()+target.getPregnantLitter().getDaughtersFromMother())+"<br/>"
 						+ "[style.colourMasculine(Sons)]: " +(target.getPregnantLitter().getSonsFromFather()+target.getPregnantLitter().getSonsFromMother())+"<br/>"
@@ -460,8 +438,9 @@ public class ItemEffectType {
 					+ "</p>";
 				
 			} else {
-				return "<p>"
-					+ "The digital readout lights up with a single red line, with solid black text next to that displaying: '<i>Not Pregnant.</i>'"
+				return "<p style='text-align:center;'>"
+					+ "The digital readout lights up with a single red line, with solid black text next to that displaying:"
+					+ "<br/><b>'<i>Not Pregnant.</i>'</b>"
 				+ "</p>";
 			}
 		}
@@ -815,16 +794,16 @@ public class ItemEffectType {
 			sb.append("<p style='text-align:center;'>");
 				sb.append("[npc.Name] [npc.verb(feel)] a blissful sense of inner-peace wash over [npc.herHim]...");
 				if(hadAddictions) {
-					sb.append("<i>[npc.SheIsFull] no longer addicted to any substances!</i>");
+					sb.append("<br/><i>[npc.SheIsFull] no longer addicted to any substances!</i>");
 				}
 				if(drunk) {
-					sb.append("<i>The alcohol still in [npc.her] system instantly metabolises!</i>");
+					sb.append("<br/><i>The alcohol still in [npc.her] system instantly metabolises!</i>");
 				}
 				if(psychoactive) {
-					sb.append("<i>The psychoactive trip which [npc.she] [npc.was] experiencing suddenly comes to an end!</i>");
+					sb.append("<br/><i>The psychoactive trip which [npc.she] [npc.was] experiencing suddenly comes to an end!</i>");
 				}
 				if(!hadAddictions && !drunk && !psychoactive) {
-					sb.append("[style.italicsDisabled(Other than experiencing this pleasant feeling, nothing happens...)]");
+					sb.append("<br/>[style.italicsDisabled(Other than experiencing this pleasant feeling, nothing happens...)]");
 				}
 			sb.append("</p>");
 			
@@ -1145,6 +1124,22 @@ public class ItemEffectType {
 					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 2)
 					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 5);
+		}
+	};
+	
+	/**
+	 * This is just to provide a hard-coded hook to the biojuice canister's effects, for use in NPC.generateTransformativePotion()
+	 */
+	public static AbstractItemEffectType RACE_SLIME_TF_UTIL_EFFECT = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"Transforms the consumer into a slime!"),
+			PresetColour.RACE_HUMAN) {
+		@Override
+		public String getPotionDescriptor() {
+			return "slime";
+		}
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return Main.game.getItemGen().generateItem(ItemType.getItemTypeFromId("innoxia_race_slime_biojuice_canister")).applyEffect(user, target);
 		}
 	};
 	
@@ -2158,7 +2153,7 @@ public class ItemEffectType {
 				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on non-slave unique characters...)]</p>";
 			}
 			
-			AbstractSubspecies sub = target.getFleshSubspecies();
+			AbstractSubspecies sub = target.getBody().getFleshSubspecies();
 			if(sub.getRace()!=Race.DEMON) {
 				target.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(target, target.getGender(), sub, true), false);
 				return UtilText.parse(target, "<p style='text-align:center; color:"+PresetColour.RACE_DEMON.toWebHexString()+";'><i>[npc.Name] is now [npc.a_race]!</i></p>");
@@ -2603,7 +2598,11 @@ public class ItemEffectType {
 							}
 							@Override
 							public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-								return target.setBodyMaterial(BodyMaterial.FLESH);
+								return target.getBodyMaterial() == BodyMaterial.SLIME
+										? target.setBodyMaterial(BodyMaterial.FLESH)
+										: "<p style='margin-bottom:0; padding-bottom:0;'>" +
+											"[style.colourDisabled([npc.NameIsFull] an elemental, so nothing happens...)]" +
+											"</p>";
 							}
 						});
 				

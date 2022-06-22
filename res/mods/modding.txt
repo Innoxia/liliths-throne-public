@@ -6,6 +6,7 @@ Currently supported directories:
 CLOTHING MODS: res/mods/(yourName)/items/clothing
 TATTOO MODS: res/mods/(yourName)/items/tattoos
 WEAPON MODS: res/mods/(yourName)/items/weapons
+PATTERN MODS: res/mods/(yourName)/items/patterns
 OUTFIT MODS: res/mods/(yourname)/outfits/(descriptiveFolderName)
 SET BONUS MODS: res/mods/(yourname)/setBonuses
 STATUS EFFECT MODS: res/mods/(yourname)/statusEffects
@@ -27,6 +28,8 @@ Within these mod folders (which you create), place the .xml and .svg files that 
 I've included at least one example in each directory for you to reference (the 'clothing' example is in the 'template' folder). If you need any help, there is a 'mod-discussion' channel in the LT discord. ^^
 
 Commented examples not found in the mod folder can be found here:
+Patterns:
+	res/patterns/irbynx/camo.xml for patterns
 Dialogue:
 	res/dialogue/innoxia/flags.xml for dialogue flags
 	res/dialogue/innoxia/encounters/fields/elis/woods.xml for dialogue nodes

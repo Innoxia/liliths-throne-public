@@ -22,10 +22,15 @@ public class SexSlotManager {
 	private static Map<SexSlot, String> sexSlotToIdMap = new HashMap<>();
 	private static Map<String, SexSlot> idToSexSlotMap = new HashMap<>();
 
+
 	public static List<SexSlot> getAllSexSlots() {
 		return allSexSlots;
 	}
 
+	public static Map<String, SexSlot> getIdToSexSlotMap() {
+		return idToSexSlotMap;
+	}
+	
 	public static List<String> getAllSexSlotIds() {
 		return new ArrayList<>(idToSexSlotMap.keySet());
 	}

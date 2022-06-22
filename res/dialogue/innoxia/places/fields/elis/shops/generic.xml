@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Place type id: innoxia_fields_elis_shops_exit -->
+	<scene id="exit">
+		<author><![CDATA[Innoxia]]></author>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/shops/generic">EXIT</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Exit the shopping precinct and head back out into the rest of Elis.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_street"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_shops)]
+					[#pc.setNearestLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_street)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/generic', 'EXIT_LEAVE'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Information sign]]></responseTitle>
+				<responseTooltip><![CDATA[Take a moment to read the touristy-looking information sign positioned in the middle of the path.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_shops_generic_exit_info</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="exit_info">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/shops/generic">EXIT_INFO</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Back]]></responseTitle>
+				<responseTooltip><![CDATA[You've finished reading and so [pc.step] away from the sign.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_shops_exit"/>
+				<secondsPassed><![CDATA[30]]></secondsPassed>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_shops_fountain -->
+	<scene id="fountain">
+		<content folderPath="txt/places/fields/elis/shops/generic">FOUNTAIN</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_shops_generic_shop -->
+	<scene id="shop">
+		<content folderPath="txt/places/fields/elis/shops/generic">GENERIC_SHOP</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_shops_generic_lawn -->
+	<scene id="lawn">
+		<content folderPath="txt/places/fields/elis/shops/generic">LAWN</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_shops_generic_street -->
+	<scene id="street">
+		<content folderPath="txt/places/fields/elis/shops/generic">STREET</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_shops_toilets -->
+	<scene id="toilets">
+		<content folderPath="txt/places/fields/elis/shops/generic">TOILETS</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Enter the toilets.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_generic_toilets_interior]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="toilets_interior">
+		<content folderPath="txt/places/fields/elis/shops/generic">TOILETS_INTERIOR</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Exit the toilets and head back out into the shopping precinct.
+				]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_shops_street"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setNearestLocation(WORLD_TYPE_innoxia_fields_elis_shops, PLACE_TYPE_innoxia_fields_elis_shops_street)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/generic', 'TOILETS_LEAVE'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Toilet]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Use the toilet.
+				]]></responseTooltip>
+				<nextDialogue forceContinue="true" stripContent="true"><![CDATA[innoxia_places_fields_elis_shops_generic_toilets_interior]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/generic', 'TOILETS_USE'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Wash]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Use the sinks to wash your [pc.hands] and face.
+					<br/>[style.italicsGood(This will clean all inventory slots associated with head and hand slots, as well as any clothing worn in these slots.)]
+				]]></responseTooltip>
+				<nextDialogue forceContinue="true" stripContent="true"><![CDATA[innoxia_places_fields_elis_shops_generic_toilets_interior]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.applyLimitedWash(IS_HEAD, IS_EYES, IS_MOUTH, IS_NECK, IS_HAIR, IS_FINGER, IS_HAND, IS_WRIST)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/generic', 'TOILETS_WASH'))]
+				]]></effects>
+			</response>
+			<!-- TODO Glory hole: -->
+			<!-- <response>
+				<availabilityConditional><![CDATA[
+					[#!game.getDialogueFlags().hasFlag(FLAG_innoxia_elis_toilets_hole_made)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Make glory hole]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.hasWeaponWithTag(ITEM_TAG_WEAPON_BLADE, true, true))
+						Use your bladed weapon to cut a small hole between two of the stalls...
+					#ELSE
+						You require a bladed weapon in your inventory to be able to cut a hole between two of the stalls!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(pc.hasWeaponWithTag(ITEM_TAG_WEAPON_BLADE, true, true))
+						innoxia_places_fields_elis_shops_generic_toilets_interior
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_elis_toilets_hole_ever_made, true)]
+					[#flags.setFlag(FLAG_innoxia_elis_toilets_hole_made, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/generic', 'TOILETS_MAKE_HOLE'))]
+				]]></effects>
+			</response>
+			-->
+		</responses>
+	</scene>
+	
+</dialogueNodes>

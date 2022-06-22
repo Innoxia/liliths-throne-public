@@ -12,7 +12,7 @@
 		<attackDescriptor>Broom swipe</attackDescriptor>
 		<attackTooltipDescription><![CDATA[Swipe your broom at [npc.name]!]]></attackTooltipDescription>
 		<rarity>EPIC</rarity>
-		<weaponSet/>
+		<weaponSet>innoxia_witch</weaponSet>
 		<equipText><![CDATA[[npc.Name] [npc.verb(ready)] [npc.her] broom.]]></equipText>
 		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] broom away.]]></unequipText>
 		<imageName>witch_broom.svg</imageName> 
@@ -31,8 +31,6 @@
 			<spell>WITCH_SEAL</spell>
 			<spell>WITCH_CHARM</spell>
 		</spells>
-		
-		<enchantmentLimit>5</enchantmentLimit>
 		
 		<effects> 
               <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>

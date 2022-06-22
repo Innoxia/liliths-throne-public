@@ -194,7 +194,7 @@ public class StormStreetAttackerDialogue {
 				
 			} else if (index == 3) {
 				return new ResponseSex("Gentle sex",
-						"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
+						"Well, [npc.she] <i>is</i> asking for it!",
 						true, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -207,7 +207,7 @@ public class StormStreetAttackerDialogue {
 				
 			} else if (index == 4) {
 				return new ResponseSex("Rough sex",
-						"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
+						"Well, [npc.she] <i>is</i> asking for it!",
 						true, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(Main.game.getPlayer()),

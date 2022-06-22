@@ -958,7 +958,7 @@
 	<htmlContent tag="ROMANCE_PAINTING_C_PAINT_SIGN"><![CDATA[
 	<p>
 		#IF(pc.isSpellSchoolSpecialAbilityUnlocked(SPELL_SCHOOL_EARTH))
-			Thanks to your mastery of the arcane school of Earth, you're once again able to use some basic telekinesis to get the job done, and under the harpy's instruction, you set about painting the words 'Helena's Boutique' in flowing gold lettering above the entrance to her shop. While you're sometimes interrupted by the matriarch's commentary and decidedly-unhelpful tips, you're able to completely finish the task in just ten minutes.
+			Thanks to your mastery of the arcane school of Earth, you're able to use some basic telekinesis to get the job done, and under the harpy's instruction, you set about painting the words 'Helena's Boutique' in flowing gold lettering above the entrance to her shop. While you're sometimes interrupted by the matriarch's commentary and decidedly-unhelpful tips, you're able to completely finish the task in just ten minutes.
 		#ELSE
 			#IF(pc.isTaur())
 				Retrieving the ladders from the alleyway beside Helena's store, you do your best to overcome the hindrance of having the lower body of [pc.a_legRace] and somehow manage to haphazardly climb up high enough to reach the space above the front door.
@@ -1143,7 +1143,7 @@
 	
 	<htmlContent tag="ROMANCE_SCARLETT_OWNED_FETCH"><![CDATA[
 	<p>
-		Not wanting to let all of your hard work go to waste, you tell Helena that you're willing to do as she asks, and will return to sell [scarlett.name] to her as soon as you can. Flashing you another of her slight slimes, the harpy matriarch replies, [helena.speech(Thank you, [pc.name]. I expect to see both you and my dear Scarlett again very soon.)]
+		Not wanting to let all of your hard work go to waste, you tell Helena that you're willing to do as she asks, and will return to sell [scarlett.name] to her as soon as you can. Flashing you another of her slight smiles, the harpy matriarch replies, [helena.speech(Thank you, [pc.name]. I expect to see both you and my dear Scarlett again very soon.)]
 	</p>
 	<p>
 		Not wanting to keep Helena waiting, you stand up and bid her farewell, before [pc.walking] over to the front entrance and heading back out into Slaver Alley. Despite the fact that you've drawn the blinds, there's still a small crowd loitering about in front of the large glass windows, obviously hoping to catch a glimpse of the beautiful matriarch they know to be inside. Ignoring several of their presumptuous questions, you set out on your way to retrieve your slave and return here with [scarlett.herHim] by your side...

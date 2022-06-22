@@ -14,7 +14,6 @@
 		<clothingSet>BDSM</clothingSet>
 		<imageName>blindfold.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit/>
 		
 		<effects> 
 			<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SEALING" timer="0"/>
@@ -72,7 +71,7 @@
 			<![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] eye patch.]]>
 		</other>
 		<otherRough>
-			<![CDATA[[npc.Name] [npc.verb(grabs)] [npc2.namePos] eye patch and roughly [npc.verb(pull)] it off.]]>
+			<![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] eye patch and roughly [npc.verb(pull)] it off.]]>
 		</otherRough>
 	</displacementText>
   

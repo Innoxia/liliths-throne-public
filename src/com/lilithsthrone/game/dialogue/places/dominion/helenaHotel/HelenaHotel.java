@@ -22,6 +22,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.LubricationType;
@@ -232,8 +233,8 @@ public class HelenaHotel {
 				return false;
 			}
 			@Override
-			public boolean isAbleToEquipSexClothing(GameCharacter character) {
-				return false; // Do not allow toy use
+			public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
+				return clothingToEquip.isCondom(); // Do not allow toy use
 			}
 			@Override
 			public boolean isPositionChangingAllowed(GameCharacter character) {

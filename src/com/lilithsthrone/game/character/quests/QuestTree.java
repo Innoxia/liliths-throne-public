@@ -25,6 +25,7 @@ public class QuestTree {
 	public static TreeNode<Quest> buyingBraxTree = new TreeNode<Quest>(Quest.BUYING_BRAX_START);
 	public static TreeNode<Quest> vengarTree = new TreeNode<Quest>(Quest.VENGAR_START);
 	public static TreeNode<Quest> wesTree = new TreeNode<Quest>(Quest.WES_START);
+	public static TreeNode<Quest> beerBarrelTree = new TreeNode<Quest>(Quest.OGLIX_BEER_BARRELS_1);
 	
 	public static TreeNode<Quest> nyanTree = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_1_STOCK_ISSUES);
 	public static TreeNode<Quest> helenaTree = new TreeNode<Quest>(Quest.ROMANCE_HELENA_1_OFFER_HELP);
@@ -70,7 +71,7 @@ public class QuestTree {
 		node1.addChild(node2);
 		node1 = new TreeNode<Quest>(Quest.MAIN_3_C_MEETING_MINOTALLYS);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_3_D_TO_THEMISCRYA);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_D_TO_THEMISCYRA);
 		node1.addChild(node2);
 		node1 = new TreeNode<Quest>(Quest.MAIN_3_E_TODO);
 		node2.addChild(node1);
@@ -259,6 +260,13 @@ public class QuestTree {
 		node2.addChild(nodeBranchA);
 		nodeBranchA.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
 		
+		
+		// Beer barrels for Oglix:
+		
+		node1 = new TreeNode<Quest>(Quest.OGLIX_BEER_BARRELS_2);
+		beerBarrelTree.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		node1.addChild(node2);
 		
 		// Romance quests:
 

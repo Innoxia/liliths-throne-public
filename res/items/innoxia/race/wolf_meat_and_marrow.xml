@@ -17,7 +17,7 @@
 		<rarity>RARE</rarity> 
 		
 		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
-		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/innoxia/wolf/icon.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/innoxia/wolf/subspecies/icon.svg</imageName>
 		<imageName zLayer="2" imageRotation="0" imageSize="70">wolf_meat_and_marrow.svg</imageName>
 		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
 		

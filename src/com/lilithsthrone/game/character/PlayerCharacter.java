@@ -832,7 +832,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			super.setLocation(worldLocation, location, setAsHomeLocation);
 			
 			AbstractPlaceType place = Main.game.getWorlds().get(WorldType.SUBMISSION).getCell(location).getPlace().getPlaceType();
-			if(place.equals(PlaceType.SUBMISSION_LILIN_PALACE_GATE) || place.equals(PlaceType.SUBMISSION_LILIN_PALACE)) {
+			if(Main.game.isStarted() && Main.game.getNpc(Elizabeth.class)!=null && (place.equals(PlaceType.SUBMISSION_LILIN_PALACE_GATE) || place.equals(PlaceType.SUBMISSION_LILIN_PALACE))) {
 				Main.game.getNpc(Elizabeth.class).setLocation(this, false);
 			}
 			
@@ -895,7 +895,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			}
 			return Util.newHashSetOfValues(Relationship.Nibling);
 		}
-		if(character.getRace()==Race.DEMON) {
+		if(this.getRace()==Race.DEMON) {
 			if(character instanceof Lyssieth) {
 				return Util.newHashSetOfValues(Relationship.Parent);
 			}
@@ -981,7 +981,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		quests.get(questLine).add(0, quest);
 		
-		Main.game.getEventLog().add(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Optional Task Complete)]", quest.getName()));
+		Main.game.addEvent(new EventLogEntry("[style.colourGood(Optional Task Complete)]", quest.getName()), false);
 		return "<p style='text-align:center;'>"
 				+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b><br/>"
 				+ "<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Optional Task Completed: " + quest.getName() + "</b><br/>"
@@ -1013,7 +1013,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			quests.get(questLine).add(quest);
 			
 			if (questLine.getQuestTree().getFirstNodeWithData(quest).getChildren().isEmpty()) { // QuestLine complete (No more children in the tree)
-				Main.game.getEventLog().add(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Quest Complete)]", questLine.getName()));
+				Main.game.addEvent(new EventLogEntry("[style.colourExcellent(Quest Complete)]", questLine.getName()), false);
 				return "<p style='text-align:center;'>"
 						+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b><br/>"
 						+ "<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Task Completed</b><b> - "+currentQuest.getName()+"</b><br/>"
@@ -1021,7 +1021,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 						+ experienceUpdate;
 				
 			} else {
-				Main.game.getEventLog().add(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourMinorGood(New Task)]", quest.getName()));
+				Main.game.addEvent(new EventLogEntry("[style.colourMinorGood(New Task)]", quest.getName()), false);
 				return "<p style='text-align:center;'>"
 						+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b><br/>"
 						+ "<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Task Completed - "+currentQuest.getName()+"</b><br/>"
@@ -1033,7 +1033,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			quests.put(questLine, new ArrayList<>());
 			quests.get(questLine).add(quest);
 			
-			Main.game.getEventLog().add(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Quest Started)]", questLine.getName()));
+			Main.game.addEvent(new EventLogEntry("[style.colourGood(Quest Started)]", questLine.getName()), false);
 			
 			return "<p style='text-align:center;'>"
 					+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>New Quest - " + questLine.getName() + "</b><br/>"
@@ -1810,7 +1810,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					+ "</p>"
 					+ "<p style='text-align:center;'>"
 						+ "[pc.thought(This is how I lose my virginity?!<br/>"
-								+ "To... <i>[npc.a_race]</i>?!<br/>"
+								+ "To...<i>"
+								+ (characterPenetrating.isSlave() && characterPenetrating.getOwner().isPlayer()
+										?" my own slave"
+										:" [npc.a_race]")
+								+ "</i>?!<br/>"
 								+ "This can't be happening!)]"
 					+ "</p>"
 					+ "<p>"

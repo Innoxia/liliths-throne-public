@@ -72,6 +72,7 @@ import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
+import com.lilithsthrone.game.dialogue.utils.CosmeticsDialogue;
 import com.lilithsthrone.game.dialogue.utils.DebugDialogue;
 import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
@@ -668,9 +669,21 @@ public class MainController implements Initializable {
 								}
 							}
 						}
+						if(Main.game.getCurrentDialogueNode() == BodyChanging.BODY_CHANGING_SAVE_LOAD){
+							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('new_save_name') === document.activeElement")) {
+								allowInput = false;
+								if (event.getCode() == KeyCode.ENTER) {
+									enterConsumed = true;
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
+									BodyChanging.saveBody(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
+									Main.game.setContent(new Response("Save", "", Main.game.getCurrentDialogueNode()));
+								}
+							}
+						}
 						if(Main.game.getCurrentDialogueNode() == SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS_ADD
 								|| Main.game.getCurrentDialogueNode() == CompanionManagement.SLAVE_MANAGEMENT_TATTOOS_ADD
-								|| Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS_ADD){
+								|| Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS_ADD
+								|| Main.game.getCurrentDialogueNode() == CosmeticsDialogue.BEAUTICIAN_TATTOOS_ADD){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('tattoo_name') === document.activeElement")) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
@@ -684,13 +697,16 @@ public class MainController implements Initializable {
 						}
 						if(Main.game.getCurrentDialogueNode() == CompanionManagement.OCCUPANT_CHOOSE_NAME
 								|| Main.game.getCurrentDialogueNode() == ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY
-								|| Main.game.getCurrentDialogueNode() == KaysWarehouse.KAY_OFFICE_DOMINATE_NAMING) {
+								|| Main.game.getCurrentDialogueNode() == KaysWarehouse.KAY_OFFICE_DOMINATE_NAMING
+								|| Main.game.getCurrentDialogueNode() == ElementalDialogue.ELEMENTAL_CHOOSE_NAME) {
 							
 							GameCharacter slave = Main.game.getDialogueFlags().getManagementCompanion();
 							if(Main.game.getCurrentDialogueNode() == ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY) {
 								slave = BodyChanging.getTarget();
 							} else if(Main.game.getCurrentDialogueNode() == KaysWarehouse.KAY_OFFICE_DOMINATE_NAMING) {
 								slave = Main.game.getNpc(Kay.class);
+							} else if(Main.game.getCurrentDialogueNode() == ElementalDialogue.ELEMENTAL_CHOOSE_NAME) {
+								slave = Main.game.getPlayer().getElemental();
 							}
 							GameCharacter slaveFinal = slave;
 							
@@ -851,6 +867,12 @@ public class MainController implements Initializable {
 									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('xmlTest') === document.activeElement")) {
 								allowInput = false;
 							}
+						}
+
+						// Allow users to type in slave metadata without getting whisked away.
+						if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('SET_SLAVE_NOTES') === document.activeElement")
+						|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('SET_SLAVE_CATEGORY') === document.activeElement")) {
+							allowInput = false;
 						}
 						
 						if(allowInput){
@@ -2381,16 +2403,44 @@ public class MainController implements Initializable {
 			webEngine.loadContent(content);
 		}
 	}
-	
-	public void setTooltipContent(String content) {
+
+	/**
+	 * Sets the tooltip content, and returns the pixel height
+	 * of the resultant tooltip content.
+	 * 
+	 * To calculate height, wraps the content in a #sizing-box
+	 * div, and checks that element's height.
+	 * 
+	 * This does not set the tooltip height, but only measures
+	 * the content height. The tooltip must be manually
+	 * resized as needed.
+	 * 
+	 * Additionally, this should be called before setting the
+	 * tooltip position, if that requires knowledge of the
+	 * final height.
+	 * 
+	 * @param content HTML content to display in the tooltip
+	 * @return the calculated height of the tooltip content
+	 */
+	public int setTooltipContent(String content) {
 		if (Main.getProperties().hasValue(PropertyValue.fadeInText)) {
 			content = "<div class='tooltip-animation' style='width: 100%;'>" + content + "</div>";
 		}
+		content = "<div id='sizing-box' style='width: 100%;'>" + content + "</div>";
 		if(useJavascriptToSetContent) {
 			setWebEngineContent(webEngineTooltip, content);
 		} else {
 			webEngineTooltip.loadContent(content);
 		}
+		int height = 0;
+		try {
+			// add 8 + 8 to account for the top + bottom margins
+			height = 16 + (int)Main.mainController.getWebEngineTooltip().executeScript("document.getElementById('sizing-box').scrollHeight");
+		} catch(Exception e) {
+			System.err.println("Failed to locate the tooltip sizing box!");
+			e.printStackTrace();
+		}
+		return height;
 	}
 	
 	public void setAttributePanelContent(String content) {

@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
+import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -190,9 +192,8 @@ public abstract class AbstractEncounter {
 		}
 	}
 	
-	protected static DialogueNode SpawnAndStartChildHere(List<NPC> offspringAvailable) {
-		NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
-		Main.game.getOffspringSpawned().add(offspring);
+	public static DialogueNode SpawnAndStartChildHere(List<OffspringSeed> offspringAvailable)  {
+		NPC offspring = new NPCOffspring(offspringAvailable.get(Util.random.nextInt(offspringAvailable.size())));
 
 		offspring.setLocation(Main.game.getPlayer(), true);
 		
@@ -313,7 +314,10 @@ public abstract class AbstractEncounter {
 			try {
 				NPC slave = (NPC) Main.game.getNPCById(id);
 				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_SLAVES)
-						&& ((slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE && slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)) || slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING)
+						&& ((slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE
+								&& !slave.getLocationPlace().getPlaceUpgrades().stream().anyMatch(upgrade->upgrade.getImmobilisationType()!=null)
+								&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM))
+							|| slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING)
 						&& slave.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) {
 					if(slave.getLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {
 						hornySlaves.put(slave, new ArrayList<>());
@@ -329,7 +333,10 @@ public abstract class AbstractEncounter {
 			try {
 				NPC slave = (NPC) Main.game.getNPCById(id);
 				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RECEIVE_SLAVES)
-						&& ((slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE && slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)) || slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING)
+						&& ((slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE
+								&& !slave.getLocationPlace().getPlaceUpgrades().stream().anyMatch(upgrade->upgrade.getImmobilisationType()!=null)
+								&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM))
+							|| slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING)
 						&& slave.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) {
 					for(NPC horny : hornySlaves.keySet()) {
 						if(!horny.equals(slave) && horny.isAttractedTo(slave)) {
@@ -502,8 +509,15 @@ public abstract class AbstractEncounter {
 //			System.out.println("Final opportunisticIncrease: "+opportunisticIncrease);
 			
 			if(forceEncounter || Math.random()*(100+opportunisticIncrease)<total) {
-				ExternalEncounterData encounter = Util.getRandomObjectFromWeightedFloatMap(finalMap);
-				DialogueNode dn = DialogueManager.getDialogueFromId(UtilText.parse(encounter.getDialogueId()).trim());
+				ExternalEncounterData encounter;
+				DialogueNode dn = null;
+				int tries = 0;
+				while(dn==null && tries<=3) { // As some Encounters rarely return null, try 3 times to get an Encounter. Yes this is not ideal, but it was either this or suffer performance issues in calculating Encounter availabilities.
+					tries++;
+					encounter = Util.getRandomObjectFromWeightedFloatMap(finalMap);
+					finalMap.remove(encounter);
+					dn = DialogueManager.getDialogueFromId(UtilText.parse(encounter.getDialogueId()).trim());
+				}
 //				System.out.println("Returning: "+dn.getId());
 //				System.out.println("--- END ---");
 				setEncounterDialogue(dn, forceEncounter);
@@ -532,8 +546,15 @@ public abstract class AbstractEncounter {
 			}
 			
 			if(forceEncounter || Math.random()*(100+opportunisticIncrease)<total) {
-				EncounterType encounter = Util.getRandomObjectFromWeightedFloatMap(finalMap);
-				DialogueNode dn = initialiseEncounter(encounter);
+				EncounterType encounter;
+				DialogueNode dn = null;
+				int tries = 0;
+				while(dn==null && tries<=3) { // As some Encounters rarely return null, try 3 times to get an Encounter. Yes this is not ideal, but it was either this or suffer performance issues in calculating Encounter availabilities.
+					tries++;
+					encounter = Util.getRandomObjectFromWeightedFloatMap(finalMap);
+					finalMap.remove(encounter);
+					dn = initialiseEncounter(encounter);
+				}
 				setEncounterDialogue(dn, forceEncounter);
 				return dn;
 			}

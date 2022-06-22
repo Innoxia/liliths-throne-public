@@ -20,7 +20,7 @@
 		
 		<attackTooltipDescription><![CDATA[Slash at [npc2.name] with your arming sword.]]></attackTooltipDescription>
 		
-		<rarity>EPIC</rarity> 
+		<rarity>COMMON</rarity> 
 		
 		<weaponSet/> 
 		
@@ -46,8 +46,6 @@
 		</availableDamageTypes>
 		
 		<spells/>
-		
-		<enchantmentLimit>5</enchantmentLimit>
 		
 		<effects> 
               <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>

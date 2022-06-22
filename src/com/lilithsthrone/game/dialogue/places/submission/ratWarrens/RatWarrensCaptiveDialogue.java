@@ -286,8 +286,8 @@ public class RatWarrensCaptiveDialogue {
 						return super.isAbleToRemoveOthersClothing(character, clothing);
 					}
 					@Override
-					public boolean isAbleToEquipSexClothing(GameCharacter character) {
-						return !character.isPlayer();
+					public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
+						return !equippingCharacter.isPlayer();
 					}
 					@Override
 					public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
@@ -407,7 +407,7 @@ public class RatWarrensCaptiveDialogue {
 				return false;
 			}
 			@Override
-			public boolean isAbleToEquipSexClothing(GameCharacter character) {
+			public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
 				return false;
 			}
 			@Override
@@ -3246,7 +3246,7 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Follow", "Join Shadow and SIlence in following Constable Adams to the nearest Enforcer post.", RatWarrensDialogue.POST_CAPTIVITY_SWORD_RAID) {
+				return new Response("Follow", "Join Shadow and Silence in following Constable Adams to the nearest Enforcer post.", RatWarrensDialogue.POST_CAPTIVITY_SWORD_RAID) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);

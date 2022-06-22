@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Place type id: innoxia_fields_elis_shops_convenience -->
+	<scene id="exterior">
+		<content folderPath="txt/places/fields/elis/shops/convenience">CONVENIENCE</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[Enter the convenience store.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_convenience_enter]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="enter">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/convenience', 'ENTER'))]
+			[#ceridwen.setPlayerKnowsName(true)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- First meeting: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_elis_convenience_visited)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Introduction]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Tell Ceridwen who you are.
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_convenience_introduction]]></nextDialogue>
+				</response>
+			<!-- Repeat meeting: -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_convenience_visited)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Trade]]></responseTitle>
+					<responseTooltip><![CDATA[Take a look around Ceridwen's store and see what she's got for sale...]]></responseTooltip>
+					<nextDialogue/>
+					<tradingVariables enabled="true">
+						<tradePartner><![CDATA[ceridwen]]></tradePartner>
+					</tradingVariables>
+				</response>
+				<!-- Talk: -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_convenience_visited)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[The Barn]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_ceridwen_talk_name))
+							You've already asked Ceridwen about the story behind her convenience store's name today...
+						#ELSE
+							Ask Ceridwen for the story behind her convenience store's name, 'The Barn'.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_ceridwen_talk_name))
+							null
+						#ELSE
+							innoxia_places_fields_elis_shops_convenience_talk
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/convenience', 'TALK_NAME'))]
+						[#flags.setFlag(FLAG_innoxia_ceridwen_talk_name, true)]
+						#IF(ceridwen.getAffection(pc)<40)
+							[#game.appendToTextStartStringBuilder(ceridwen.incrementAffection(pc, 5))]
+						#ENDIF
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_convenience_visited)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[Suppliers]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_ceridwen_talk_sources))
+							You've already asked Ceridwen about how she sources all of her goods today...
+						#ELSE
+							Ask Ceridwen how she sources all of the goods that she's got for sale.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_ceridwen_talk_sources))
+							null
+						#ELSE
+							innoxia_places_fields_elis_shops_convenience_talk
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/convenience', 'TALK_SOURCES'))]
+						[#flags.setFlag(FLAG_innoxia_ceridwen_talk_sources, true)]
+						#IF(ceridwen.getAffection(pc)<40)
+							[#game.appendToTextStartStringBuilder(ceridwen.incrementAffection(pc, 5))]
+						#ENDIF
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_convenience_visited)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[4]]></index>
+					<responseTitle><![CDATA[Mouse-morphs]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_ceridwen_talk_mice))
+							You've already asked Ceridwen about why she only employs mouse-morphs today...
+						#ELSE
+							Ask Ceridwen why she only employs mouse-morphs.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_ceridwen_talk_mice))
+							null
+						#ELSE
+							innoxia_places_fields_elis_shops_convenience_talk
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/convenience', 'TALK_MICE'))]
+						[#flags.setFlag(FLAG_innoxia_ceridwen_talk_mice, true)]
+						[#flags.setFlag(FLAG_innoxia_ceridwen_side_quest_available, true)]
+						#IF(ceridwen.getAffection(pc)<40)
+							[#game.appendToTextStartStringBuilder(ceridwen.incrementAffection(pc, 5))]
+						#ENDIF
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_convenience_visited) && flags.hasFlag(FLAG_innoxia_ceridwen_side_quest_available)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[5]]></index>
+					<responseTitle><![CDATA[Offer help]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Tell Ceridwen that you'd like to help her out in some way, and ask her if there's anything you can do that would allow her to go home and rest during the day.
+						<br/>[style.italicsMinorBad(This will be added soon!)]
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+					<effects/>
+				</response>
+				<!-- Leave: -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_convenience_visited)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[0]]></index>
+					<responseTitle><![CDATA[Leave]]></responseTitle>
+					<responseTooltip><![CDATA[Say goodbye to Ceridwen and exit her convenience store.]]></responseTooltip>
+					<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_shops_street"/>
+					<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/shops/convenience', 'LEAVE'))]
+						[#pc.setNearestLocation(WORLD_TYPE_innoxia_fields_elis_shops, PLACE_TYPE_innoxia_fields_elis_shops_street)]
+					]]></effects>
+				</response>
+		</responses>
+	</scene>
+	
+	<scene id="introduction">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_elis_convenience_visited, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/shops/convenience">INTRODUCTION</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_shops_convenience_enter"/>
+	</scene>
+	
+	<scene id="talk">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_shops_convenience_enter"/>
+	</scene>
+	
+</dialogueNodes>

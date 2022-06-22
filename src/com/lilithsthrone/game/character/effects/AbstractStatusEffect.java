@@ -295,7 +295,7 @@ public abstract class AbstractStatusEffect {
 				
 			} catch(Exception ex) {
 				ex.printStackTrace();
-				System.err.println("SetBonus was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+				System.err.println("StatusEffect was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
 			}
 		}
 	}
@@ -964,8 +964,12 @@ public abstract class AbstractStatusEffect {
 		
 		return SVGImageSB.toString();
 	}
-	
+
 	public String getOrificeSVGString(GameCharacter owner, SexAreaInterface orifice, String baseSVG) {
+		return getOrificeSVGString(owner, orifice, baseSVG, null);
+	}
+	
+	public String getOrificeSVGString(GameCharacter owner, SexAreaInterface orifice, String baseSVG, List<SexAreaInterface> limitInteractionsTo) {
 		StringBuilder SVGImageSB = new StringBuilder();
 
 		if(!Main.sex.getOngoingSexAreas(owner, orifice).isEmpty()) {
@@ -980,31 +984,33 @@ public abstract class AbstractStatusEffect {
 				for(SexAreaInterface sArea : entry.getValue()) {
 					if(sArea.isPenetration()) {
 						GameCharacter penetrationOwner = Main.sex.getOngoingCharactersUsingAreas(owner, orifice, sArea).iterator().next();
-						switch((SexAreaPenetration)sArea) {
-							case FINGER:
-								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
-								break;
-							case PENIS:
-								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
-								break;
-							case TAIL:
-								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"
-										+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail(penetrationOwner.getLegConfiguration()==LegConfiguration.TAIL_LONG)+"</div>");
-								break;
-							case TONGUE:
-								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
-								break;
-							case CLIT:
-								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeClit()+"</div>");
-								break;
-							case FOOT:
-								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFoot()+"</div>");
-								break;
-							case TENTACLE:
-								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTentacle()+"</div>");
-								break;
+						if(limitInteractionsTo==null || limitInteractionsTo.contains(sArea)) {
+							switch((SexAreaPenetration)sArea) {
+								case FINGER:
+									SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
+									break;
+								case PENIS:
+									SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
+									break;
+								case TAIL:
+									SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"
+											+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail(penetrationOwner.getLegConfiguration()==LegConfiguration.TAIL_LONG)+"</div>");
+									break;
+								case TONGUE:
+									SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
+									break;
+								case CLIT:
+									SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeClit()+"</div>");
+									break;
+								case FOOT:
+									SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFoot()+"</div>");
+									break;
+								case TENTACLE:
+									SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTentacle()+"</div>");
+									break;
+							}
+							rightOffset+=8;
 						}
-						rightOffset+=8;
 					}
 				}
 			}

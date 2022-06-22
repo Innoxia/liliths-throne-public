@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.fetishes.Fetish;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -42,7 +45,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class HarpyNestsAttacker extends NPC {
 
 	public HarpyNestsAttacker() {
-		this(Gender.F_V_B_FEMALE, false);
+		this(Gender.getGenderFromUserPreferences(Femininity.FEMININE), false);
 	}
 	
 	public HarpyNestsAttacker(Gender gender) {
@@ -84,7 +87,7 @@ public class HarpyNestsAttacker extends NPC {
 			this.setBodyFromSubspeciesPreference(gender, subspeciesMap, true, false);
 
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f) { // Half-demon spawn rate
-				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, this.getGender(), this.getFleshSubspecies(), true), true);
+				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, this.getGender(), this.getBody().getFleshSubspecies(), true), true);
 			}
 			
 			setName(Name.getRandomTriplet(Race.HARPY));
@@ -106,7 +109,11 @@ public class HarpyNestsAttacker extends NPC {
 			
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			Main.game.getCharacterUtils().applyMakeup(this, true);
-
+			
+			if(hasFetish(Fetish.FETISH_CUM_ADDICT) && Math.random() < 0.1) {
+				Main.game.getCharacterUtils().applyDirtiness(this);
+			}
+			
 			initHealthAndManaToMax();
 		}
 

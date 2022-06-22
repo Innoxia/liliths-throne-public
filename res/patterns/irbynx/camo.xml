@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <pattern>
+	<!-- This name will be displayed in-game to the player. It will automatically be capitalised as needed. -->
 	<name><![CDATA[camo]]></name>
+
+	<!-- If 'true', this pattern can be used when generating random clothing. If 'false', it will be reserved to the dye menu. -->
 	<defaultPattern>true</defaultPattern>
-    <patternName>camo.svg</patternName>
+
+	<!-- The SVG with the actual pattern image. See `pattern-modding.txt` for additional info on making the SVG. -->
+	<patternName>camo.svg</patternName>
 </pattern>

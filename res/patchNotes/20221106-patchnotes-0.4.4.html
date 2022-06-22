@@ -1,0 +1,55 @@
+<h2>v0.4.4</h2>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Added offspring encounters to the bat caverns. (PR#1504 by Stadler76)</li>
+	<li>Fixed an issue where clothing management could sometimes throw a Null Pointer Exception. (by Cognitive Mist)</li>
+	<li>Fixed issue which was causing the message 'var timer not found...' to be printed to the error log. (by Cognitive Mist)</li>
+	<li>Fixed an issue where the AbstractSubspecies#getSubspeciesWeighting method was not working correctly, causing Subspecies weighting to fail and errors to be thrown. (by Cognitive Mist)</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Added parser hooks for tattoo counter type, count type, and writing styles, and added a new addTattoo() method in the GameCharacter class, allowing you to add tattoos to characters and then add writing/counters to the tattoo.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Filled in all placeholder scenes for the content in the tavern, 'The Crossed Blades', and added a way to have sex with Oglix (after completing her beer-bitch barrel quest).</li>
+	<li>Added encounter to 'Dominion street', 'Submission walkway', and 'Elis street' tiles for when wearing the 'rental mommy/daddy' t-shirts, where a member of the public will offer to pay the price displayed on your t-shirt to have sex with you. The t-shirt must not be concealed by other clothing for the encounter to trigger, and it will trigger less often when higher prices are displayed.</li>
+	<li>Added the 'surrender' and 'Request transformation' action from Elis alleyway encounters to Dominion alleyway/demon alleyway, Harpy nest walkways, Submission tunnel, and Bat Caverns encounters.</li>
+	<li>Expanded random encounter content in Dominion alleyways, Dominion demon tiles, Harpy Nest walkways, Submission tunnels, Bat Caverns, and Elis alleyways, by making it so that after using 'offer body' or 'surrender' actions three times, the NPC will demand that you become their bitch, after which several new options will be available upon repeat encounters.</li>
+</ul>
+
+<h3>Clothing:</h3>
+<ul>
+	<li>Added several more sticker variations for the 'rental mommy' and 'rental daddy' t-shirts, and allowed all colours to be chosen for the tertiary dye for the 'rental mommy' t-shirt.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Added armpit and intercural counts to the phone menu's sex stats screen.</li>
+	<li>Clothing stolen using the 'Steal' spell (which is currently not available to gain outside of the debug menu) now renames stolen clothing from character X following the pattern: 'clothing_name' to 'X's clothing_name'.</li>
+	<li>The trigger for talking to Roxy about firebombs (stage 1 of the 'Spicy Meatballs' quest) no longer requires you to have asked Axel about Vengar first.</li>
+	<li>Post-combat transformation scenes will now add/remove and alter the size of crotch-boobs.</li>
+	<li>Slightly adjusted encounter chances in Elis's alleyways, making it slightly more likely to encounter an attacker than finding an item, prostitute, or offspring.</li>
+	<li>Forced TF potions from alleyway attackers should now apply more drastic hair length TFs, speeding up the forced TF process.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Typo fixes.</li>
+	<li>NPCs with arm-wings who are added as beer-bitches to 'The Crossed Blades' will now correctly have a 'barrel' clothing item applied to them.</li>
+	<li>The 'Encourage cum on X' action is now correctly disabled during armpit and intercrural sex for characters who are the one who's about to be cummed on (this is a different action to 'Request cum on X', and is intended for third party participants).</li>
+	<li>Fixed issue where arctic wolf-morphs would correctly spawn with pale skin/white fur, but incorrectly-coloured nipples, vagina, and anus.</li>
+	<li>Brittany (the bimbo harpy matriarch) now correctly has 'tanned' skin colour instead of 'light'.</li>
+	<li>The 'Between legs' sex positioning action in the 'sitting' sex position is no longer available while targeting taurs (as taurs should not be able to make use of the sitting position slot).</li>
+	<li>Fixed issue where Kruger would sometimes switch into an unsuitable sex position in his sex scene.</li>
+	<li>Fixed background error being thrown when loading a game in which your character was in Submission.</li>
+	<li>Fixed issues with the offspring encounters in Submission using the same dialogue as Dominion's alleyways.</li>
+	<li>Fixed slight inconsistencies in bat cavern encounter dialogue which were referencing Submission's tunnels instead of the caves.</li>
+	<li>Slimes who want to transform the player into a slime using forced TF will now correctly generate a slime-TF effect to apply (instead of producing a TF effect which always did nothing), then in subsequent encounters they will now generate the correct racial potions for their desired TFs.</li>
+	<li>The transformation menu no longer displays duplicate 'Loose' buttons under orifice capacity when gape content is turned off.</li>
+	<li>Fixed bug where skin colour preference options were not working.</li>
+	<li>Offspring from a human mother and a human father will now randomly choose between one or the other to have their genetics based off of, instead of always choosing the father.</li>
+</ul>

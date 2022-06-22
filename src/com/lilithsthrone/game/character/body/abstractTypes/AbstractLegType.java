@@ -423,7 +423,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	 * Penis.class (type, size, cloaca)<br/>
 	 * Vagina.class (type, capacity, cloaca)<br/>
 	 * 
-	 * @param configuration The leg configuration to be applied.
+	 * @param legConfiguration The leg configuration to be applied.
 	 * @param character The character which is being transformed.
 	 * @param applyEffects Whether the transformative effects should be applied. Pass in false to get the transformation description without applying any of the actual effects.
 	 * @param applyFullEffects Pass in true if you want the additional transformations to include attribute changes (such as penis resizing, vagina capacity resetting, etc.).
@@ -432,6 +432,12 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	 */
 	public String applyLegConfigurationTransformation(GameCharacter character, LegConfiguration legConfiguration, boolean applyEffects, boolean applyFullEffects) {
 		StringBuilder feralStringBuilder = new StringBuilder();
+
+		if(character.isFeral()) {
+			return "<p style='text-align:center;'>"
+						+ UtilText.parse(character, "[style.italicsDisabled(Nothing happens, for as [npc.sheIsFull] a feral [npc.race], [npc.name] cannot have [npc.her] leg configuration transformed!)]")
+					+ "</p>";
+		}
 		
 		if(character.getLegConfiguration()==legConfiguration && character.getLegType().equals(this)) {
 			return "<p>"
@@ -643,7 +649,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				
 				if(applyEffects) {
 					applyExtraLegConfigurationTransformations(body, legConfiguration, legConfiguration.isLargeGenitals(), applyFullEffects);
-					body.setGenitalArrangement(GenitalArrangement.NORMAL);
+					body.setGenitalArrangement(body.getLegType().getRace().getRacialBody().getGenitalArrangement());
 				}
 				
 				feralStringBuilder.append(
@@ -815,6 +821,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 						?AssType.DEMON_COMMON
 						:startingBodyType.getAssType()));
 			} else {
+				boolean virgin = body.getAss().getAnus().getOrificeAnus().isVirgin();
 				body.setAss(
 						new Ass(
 							(demon
@@ -828,6 +835,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 							startingBodyType.getAnusElasticity(),
 							startingBodyType.getAnusPlasticity(),
 							true));
+				body.getAss().getAnus().getOrificeAnus().setVirgin(virgin);
 			}
 		}
 		if(legConfiguration.getFeralParts().contains(BreastCrotch.class)) { // Crotch-boobs:

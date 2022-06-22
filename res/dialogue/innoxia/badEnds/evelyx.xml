@@ -35,19 +35,31 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[New home]]></responseTitle>
-				<responseTooltip><![CDATA[Follow your Mistress through the unlocked door as she leads you to your new home.]]></responseTooltip>
+				<responseTooltip><![CDATA[Follow Evelyx's sister as she leads you into the slave barn which will be serving as your new home.]]></responseTooltip>
 				<nextDialogue>innoxia_badEnds_evelyx_slave_barn</nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[
+					#IF(pc.isPregnant())
+						180
+					#ELSE
+						10
+					#ENDIF
+				]]></secondsPassed>
 				<effects><![CDATA[
 					[#pc.setRandomLocation(WORLD_TYPE_innoxia_fields_dairyFarm, PLACE_TYPE_innoxia_fields_dairyFarm_barn4, true)]
 					[#evelyx.returnToHome()]
-					[#evelyx.setDairyRevealed(3)]
 				]]></effects>
 			</response>
 		</responses>
 	</scene>
 	
 	<scene id="slave_barn">
-		<content folderPath="txt/badEnds/evelyx">SLAVE_BARN</content>
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/evelyx', 'SLAVE_BARN'))]
+			#IF(pc.isPregnant())
+				[#pc.endPregnancy(true)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
 		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -59,19 +71,18 @@
 				<responseTooltip><![CDATA[You're left locked up with the milking machine sucking away at your nipples...]]></responseTooltip>
 				<nextDialogue>innoxia_badEnds_evelyx_slave_barn_end</nextDialogue>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/evelyx', 'SLAVE_BARN_END'))]
-					[#pc.applyWash(true, true, null, 480)]
+					[#evelyx.setLocation(pc)]
+					[#pc.applyWash(true, true, null, 0)]
 					#IF(pc.isPregnant())
 						[#pc.endPregnancy(true)]
 					#ENDIF
-					[#evelyx.setLocation(pc)]
 				]]></effects>
 			</response>
 		</responses>
 	</scene>
 	
 	<scene id="slave_barn_end">
-		<content/>
+		<content folderPath="txt/badEnds/evelyx">SLAVE_BARN_END</content>
 		<secondsPassed minutes="true"><![CDATA[480]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -80,7 +91,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Follow]]></responseTitle>
-				<responseTooltip><![CDATA[Obey your Mistress and follow her to 'your auction'...]]></responseTooltip>
+				<responseTooltip><![CDATA[Obey your Mistress and follow her to your 'auction'...]]></responseTooltip>
 				<nextDialogue>innoxia_badEnds_evelyx_auction</nextDialogue>
 				<effects><![CDATA[
 					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_dairyFarm_auction)]
@@ -104,8 +115,8 @@
 				<nextDialogue>innoxia_badEnds_evelyx_auction_end</nextDialogue>
 				<effects><![CDATA[
 					[#game.addNPC('LunetteMelee', 'owner')]
+					[#evelyx.badEndInitPrincess(owner)]
 					[#owner.setLocation(pc)]
-					[#owner.setGenericName('Princess')]
 				]]></effects>
 			</response>
 		</responses>
@@ -139,12 +150,12 @@
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_badEnds_evelyx_mounted_end]]></postSexDialogue>
-					<sexStartContent folderPath="txt/places/fields/dairyFarm">MOUNTED</sexStartContent>
+					<sexStartContent folderPath="txt/badEnds/evelyx">MOUNTED</sexStartContent>
 					<ongoingActionsAtStart>
 						<action>
 							<condition/>
 							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
-							<performer><![CDATA[partner]]></performer>
+							<performer><![CDATA[owner]]></performer>
 							<target><![CDATA[pc]]></target>
 							<showDescription><![CDATA[false]]></showDescription>
 							<showEffects><![CDATA[true]]></showEffects>
@@ -157,16 +168,18 @@
 	</scene>
 	
 	<scene id="mounted_end">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Princess is satisfied with the feel of your cunt, although she's far from finished with you...]]></tooltip>
 		<content folderPath="txt/badEnds/evelyx">MOUNTED_END</content>
 		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
-		<continuesDialogue>true</continuesDialogue>
+		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
 		<responses>
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Back home]]></responseTitle>
-				<responseTooltip><![CDATA[Evelyx leads you and your owner back to your new home...]]></responseTooltip>
+				<responseTooltip><![CDATA[Evelyx leads you and Princess back to your new home...]]></responseTooltip>
 				<nextDialogue>innoxia_badEnds_evelyx_back_home</nextDialogue>
 				<effects><![CDATA[
 					[#pc.returnToHome()]
@@ -190,7 +203,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[New life...]]></responseTitle>
-				<responseTooltip><![CDATA[As your owner mounts you once again, you realise that this is going to be your new life...]]></responseTooltip>
+				<responseTooltip><![CDATA[As Princess mounts you once again, you realise that this is going to be your new life...]]></responseTooltip>
 				<nextDialogue>innoxia_badEnds_evelyx_new_life_1</nextDialogue>
 				<effects><![CDATA[
 					[#evelyx.returnToHome()]
@@ -212,8 +225,8 @@
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Pussy slut]]></responseTitle>
-				<responseTooltip><![CDATA[Your owner seems to be most interested in transforming your pussy...]]></responseTooltip>
+				<responseTitle><![CDATA[Cock-sleeve]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Princess that you'd love to have your pussy transformed into her perfect cock-sleeve...]]></responseTooltip>
 				<nextDialogue>innoxia_badEnds_evelyx_new_life_1_tf</nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/evelyx', 'NEW_LIFE_1_PUSSY'))]
@@ -225,7 +238,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Oral pet]]></responseTitle>
-				<responseTooltip><![CDATA[Your owner seems to be most interested in transforming your mouth...]]></responseTooltip>
+				<responseTooltip><![CDATA[Tell Princess that you'd love to have your mouth transformed so that she can enjoy face-fucking you every day...]]></responseTooltip>
 				<nextDialogue>innoxia_badEnds_evelyx_new_life_1_tf</nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/evelyx', 'NEW_LIFE_1_MOUTH'))]
@@ -237,8 +250,8 @@
 				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled()]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[3]]></index>
-				<responseTitle><![CDATA[Anal bitch]]></responseTitle>
-				<responseTooltip><![CDATA[Your owner seems to be most interested in transforming your asshole...]]></responseTooltip>
+				<responseTitle><![CDATA[Buttslut]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Princess that you'd love to have your asshole transformed and become her dirty buttslut...]]></responseTooltip>
 				<nextDialogue>innoxia_badEnds_evelyx_new_life_1_tf</nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/evelyx', 'NEW_LIFE_1_ANUS'))]
@@ -259,7 +272,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Fucked...]]></responseTitle>
-				<responseTooltip><![CDATA[Your owner visits every day over the next few months to tirelessly fuck your newly-transformed orifice...]]></responseTooltip>
+				<responseTooltip><![CDATA[Princess visits every day over the next few months to tirelessly fuck your newly-transformed orifice...]]></responseTooltip>
 				<nextDialogue>innoxia_badEnds_evelyx_new_life_2</nextDialogue>
 				<effects><![CDATA[
 					[#flags.setFlag(FLAG_knowsDate, false)]
@@ -281,7 +294,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Flavours]]></responseTitle>
-				<responseTooltip><![CDATA[Your owner decides to experiment with the flavours of your milk and girlcum...]]></responseTooltip>
+				<responseTooltip><![CDATA[Princess decides to experiment with the flavours of your milk and girlcum...]]></responseTooltip>
 				<nextDialogue>innoxia_badEnds_evelyx_new_life_2_tf</nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/evelyx', 'NEW_LIFE_2_FLAVOUR'))]
@@ -293,7 +306,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Hyper breasts]]></responseTitle>
-				<responseTooltip><![CDATA[Your owner decides to grow your breasts #IF(pc.hasBreastsCrotch())and udders#ENDIF into the ultimate milk-producing vessels...]]></responseTooltip>
+				<responseTooltip><![CDATA[Princess decides to grow your breasts #IF(pc.hasBreastsCrotch())and udders#ENDIF into the ultimate milk-producing vessels...]]></responseTooltip>
 				<nextDialogue>innoxia_badEnds_evelyx_new_life_2_tf</nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/evelyx', 'NEW_LIFE_2_HYPER'))]
@@ -305,7 +318,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[3]]></index>
 				<responseTitle><![CDATA[Multi-breasts]]></responseTitle>
-				<responseTooltip><![CDATA[Your owner decides to give you as many pairs of breasts as your torso will support...]]></responseTooltip>
+				<responseTooltip><![CDATA[Princess decides to give you as many pairs of breasts as your torso will support...]]></responseTooltip>
 				<nextDialogue>innoxia_badEnds_evelyx_new_life_2_tf</nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/evelyx', 'NEW_LIFE_2_MULTI'))]
@@ -326,7 +339,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Milk miracle...]]></responseTitle>
-				<responseTooltip><![CDATA[With the improvements your owner has made to your body, your milk ends up making her extremely wealthy...]]></responseTooltip>
+				<responseTooltip><![CDATA[With the improvements Princess has made to your body, your milk ends up making her extremely wealthy...]]></responseTooltip>
 				<nextDialogue>innoxia_badEnds_evelyx_new_life_3</nextDialogue>
 				<effects/>
 			</response>
@@ -346,7 +359,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Bondage]]></responseTitle>
-				<responseTooltip><![CDATA[Your owner decides to silence you by locking you in latex bondage gear...]]></responseTooltip>
+				<responseTooltip><![CDATA[Princess decides to silence you by locking you in latex bondage gear...]]></responseTooltip>
 				<nextDialogue>innoxia_badEnds_evelyx_new_life_3_tf</nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/evelyx', 'NEW_LIFE_3_BONDAGE'))]
@@ -358,7 +371,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Bimbo-Xtreme]]></responseTitle>
-				<responseTooltip><![CDATA[Your owner decides to silence you by giving you a taste of her experimental 'Bimbo-Xtreme' potion...]]></responseTooltip>
+				<responseTooltip><![CDATA[Princess decides to silence you by giving you a taste of her experimental 'Bimbo-Xtreme' potion...]]></responseTooltip>
 				<nextDialogue>innoxia_badEnds_evelyx_new_life_3_tf</nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/evelyx', 'NEW_LIFE_3_BIMBO'))]
@@ -371,12 +384,12 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[3]]></index>
 				<responseTitle><![CDATA[Feral cow]]></responseTitle>
-				<responseTooltip><![CDATA[Your owner decides to silence you by transforming you into a feral cow...]]></responseTooltip>
+				<responseTooltip><![CDATA[Princess decides to silence you by transforming you into a feral cow...]]></responseTooltip>
 				<nextDialogue>innoxia_badEnds_evelyx_new_life_3_tf</nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/evelyx', 'NEW_LIFE_3_FERAL'))]
 					[#flags.setFlag(FLAG_innoxia_evelyx_bad_end_feral, true)]
-					[#evelyx.applyBadEndFeral()]
+					[#evelyx.applyBadEndFeral(owner)]
 				]]></effects>
 			</response>
 		</responses>

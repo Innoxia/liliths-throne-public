@@ -30,7 +30,6 @@
 		<effectTooltipLines>
 			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
 			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(1)] to 'potion effects']]></line>
-			<line><![CDATA[[style.boldMinorBad(Adds)] 25% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]]]></line>
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
@@ -40,29 +39,21 @@
 				A powerful wave of arcane energy washes over [npc.name]...
 			</p>
 			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 1)]
-			#IF(npc.getRace()==RACE_charisma_spider)
-				[#npc.incrementAlcoholLevel(0.25)]
-			#ENDIF
 		]]></applyEffects>
 		
 		<itemTags>
 			<tag>ATTRIBUTE_TF_ITEM</tag>
 			<tag>SOLD_BY_RALPH</tag>
+			<tag>CAFFEINATED_025</tag>
 		</itemTags>
 	</coreAttributes>
 
 	<useDescriptions>
 		<selfUse><![CDATA[
 		After first unscrewing the cap, [npc.name] [npc.verb(bring)] the bottle of coffee up to [npc.her] [npc.mouth]. A strong smell of espresso assaults [npc.her] nostrils, and as [npc.she] [npc.verb(tilt)] [npc.her] head back and [npc.verb(start)] drinking the cool liquid, [npc.she] [npc.verb(feel)] a surge of alertness.
-		#IF(npc.getRace()==RACE_charisma_spider)
-			 Due to [npc.her] spider physiology, the caffeine in the beverage acts in a similar manner to alcohol, and as a result [npc.she] [npc.verb(feel)] [npc.herself] getting [style.boldAlcohol(drunk)].
-		#ENDIF
 		]]></selfUse>
 		<otherUse><![CDATA[
 		After first unscrewing the cap, [npc.name] [npc.verb(bring)] the bottle of coffee up to [npc2.namePos] waiting [npc2.lips]. A strong smell of espresso assaults [npc2.her] nostrils, and as [npc2.she] [npc2.verb(tilt)] [npc2.her] head back and [npc2.verb(start)] drinking the cool liquid, [npc2.she] [npc2.verb(feel)] a surge of alertness.
-		#IF(npc2.getRace()==RACE_charisma_spider)
-			 Due to [npc2.her] spider physiology, the caffeine in the beverage acts in a similar manner to alcohol, and as a result [npc2.she] [npc2.verb(feel)] [npc2.herself] getting [style.boldAlcohol(drunk)].
-		#ENDIF
 		]]></otherUse>
 	</useDescriptions>
 

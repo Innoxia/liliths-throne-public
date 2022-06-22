@@ -619,11 +619,7 @@ public class Attribute {
 			return oldConversionMapping.get(attributeId);
 		}
 
-		attributeId = Util.getClosestStringMatch(attributeId, idToAttributeMap.keySet());
-
-		if(Util.getLastStringMatchDistance()>3) {
-			return null;
-		}
+		attributeId = Util.getClosestStringMatch(attributeId, idToAttributeMap.keySet(), 3);
 		
 		return idToAttributeMap.get(attributeId);
 	}

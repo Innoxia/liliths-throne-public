@@ -157,7 +157,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 				this.tags = new ArrayList<>();
 				if(coreElement.getOptionalFirstOf("tags").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("tags").getAllOf("tag")) {
-						tags.add(BodyPartTag.valueOf(e.getTextContent()));
+						tags.add(BodyPartTag.getBodyPartTagFromId(e.getTextContent()));
 					}
 				}
 				if(tags.isEmpty()) {
@@ -525,6 +525,10 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 
 	public String getGirthDescriptor(GameCharacter owner) {
 		return getGirthDescriptor(owner.getTailGirth());
+	}
+
+	public String getGirthDescriptor(Body body) {
+		return getGirthDescriptor(body.getTail().getGirth());
 	}
 	
 	public String getGirthDescriptor(PenetrationGirth girth) {

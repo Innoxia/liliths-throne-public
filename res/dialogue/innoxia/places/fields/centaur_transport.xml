@@ -825,7 +825,7 @@
 					<submissives>
 						<character>
 							<id>astrapi</id>
-							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_post_sex]]></postSexDialogue>

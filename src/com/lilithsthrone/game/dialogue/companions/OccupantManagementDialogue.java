@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -26,6 +27,9 @@ import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.utils.comparators.SlaveNameComparator;
+import com.lilithsthrone.utils.comparators.SlaveRoomComparator;
+import com.lilithsthrone.utils.comparators.SlaveValueComparator;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
@@ -47,6 +51,8 @@ public class OccupantManagementDialogue {
 	private static DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 	private static List<SlaveEventType> eventTypeFilterExclusions = new ArrayList<>();
 	private static List<String> slaveIdFilterExclusions = new ArrayList<>();
+	private static OccupantSortingMethod sortingMethod = OccupantSortingMethod.NONE;
+	private static boolean reverseSortSlaves = false;
 	
 	static {
 		decimalFormat.setRoundingMode(RoundingMode.HALF_EVEN);
@@ -97,6 +103,22 @@ public class OccupantManagementDialogue {
 
 	public static void setDayNumber(int dayNumber) {
 		OccupantManagementDialogue.dayNumber = Math.max(1, dayNumber);
+	}
+
+	public static OccupantSortingMethod setSlavesSortedBy() {
+		return sortingMethod;
+	}
+
+	public static void setSlavesSortedBy(OccupantSortingMethod osm) {
+		OccupantManagementDialogue.sortingMethod = osm;
+	}
+
+	public static boolean getSlavesAreInReverseOrder() {
+		return OccupantManagementDialogue.reverseSortSlaves;
+	}
+
+	public static void setSlavesAreInReverseOrder(boolean truth) {
+		OccupantManagementDialogue.reverseSortSlaves = truth;
 	}
 	
 	private static Response getSlaveryResponse(int index) {
@@ -1164,10 +1186,31 @@ public class OccupantManagementDialogue {
 			}
 			
 			
+			
 			// Your slaves:
 			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
-					+ "<h6 style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+"; text-align:center;'>Slaves Owned</h6>"
-					+ getSlaveryHeader());
+					+ "<h6 style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+"; text-align:center;'>Slaves Owned</h6>");
+					
+			//UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>");
+			//UtilText.nodeContentSB.append(  "<h6 style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+"'>Sorting</h6>");
+			String buttonStyle = "margin:2px; width:16%;";
+			UtilText.nodeContentSB.append(  "<div class='container-full-width inner' style='text-align:center'>");
+			UtilText.nodeContentSB.append(    "<div style='width:100%;font-weight:bold;margin-top:8px'>Sort By</div>");
+			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_NONE' class='normal-button"+((sortingMethod==OccupantSortingMethod.NONE)?" selected":"")+"' style='"+buttonStyle+"'>None</div>");
+			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_NAME' class='normal-button"+((sortingMethod==OccupantSortingMethod.NAME)?" selected":"")+"' style='"+buttonStyle+"'>Name</div>");
+			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_ROOM' class='normal-button"+((sortingMethod==OccupantSortingMethod.ROOM)?" selected":"")+"' style='"+buttonStyle+"'>Room</div>");
+			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_VALUE' class='normal-button"+((sortingMethod==OccupantSortingMethod.VALUE)?" selected":"")+"' style='"+buttonStyle+"'>Value</div>");
+//			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_CUSTOM_CATEGORY' class='normal-button"+((sortingMethod==OccupantSortingMethod.CUSTOM_CATEGORY)?" selected":"")+"' style='"+buttonStyle+"'>Category</div>");
+//			UtilText.nodeContentSB.append(  "</div>");
+//			UtilText.nodeContentSB.append(  "<div class='container-full-width inner' style='text-align:center'>");
+//			UtilText.nodeContentSB.append(    "<div style='width:100%;font-weight:bold;margin-top:8px'>Order</div>");
+			UtilText.nodeContentSB.append(  "<div style='width:100%; height:0;'></div>");
+			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_ASC' class='normal-button"+((!reverseSortSlaves)?" selected":"")+"' style='"+buttonStyle+"'>Ascending</div>");
+			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_DESC' class='normal-button"+((reverseSortSlaves)?" selected":"")+"' style='"+buttonStyle+"'>Descending</div>");
+			UtilText.nodeContentSB.append(  "</div>");
+			//UtilText.nodeContentSB.append("<div>");
+			
+			UtilText.nodeContentSB.append(getSlaveryHeader());
 			
 			if(Main.game.getPlayer().getSlavesOwned().isEmpty()) {
 				UtilText.nodeContentSB.append(
@@ -1177,20 +1220,48 @@ public class OccupantManagementDialogue {
 				
 			} else {
 				int i = 0;
-				for(String id : Main.game.getPlayer().getSlavesOwned()) {
-					try {
-						NPC slave = (NPC) Main.game.getNPCById(id);
-						AffectionLevel affection = AffectionLevel.getAffectionLevelFromValue(slave.getAffection(Main.game.getPlayer()));
-						ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(slave.getObedienceValue());
-						float affectionChange = slave.getDailyAffectionChange();
-						float obedienceChange = slave.getDailyObedienceChange();
-						GenericPlace place = Main.game.getPlayerCell().getPlace();
-						
-						UtilText.nodeContentSB.append(getSlaveryEntry(true, place, slave, affection, affectionChange, obedience, obedienceChange, i%2==0));
-						i++;
-					} catch (Exception e) {
-						System.err.println("Main.game.getNPCById("+id+") returning null 2nd instance in method: SLAVE_LIST.getResponse()");
+				List<NPC> slaves = Main.game.getPlayer().getSlavesOwned().stream()
+					.filter(npcid -> Main.game.isCharacterExisting(npcid))
+					.map(npcid -> {
+						try {
+							return (NPC)Main.game.getNPCById(npcid);
+						} catch (Exception e) {
+							// Should never happen. Just satisfying Java's pickiness.
+							System.err.println("Main.game.getNPCById("+npcid+") returning null 2nd instance in method: SLAVE_LIST.getResponse()");
+							return null;
+						}
+					})
+					.filter(npc -> npc != null)
+					.collect(Collectors.toList());
+				Comparator<NPC> ssm = null;
+				switch(sortingMethod) {
+					case NAME:
+						ssm = new SlaveNameComparator();
+						break;
+					case ROOM:
+						ssm = new SlaveRoomComparator();
+						break;
+					case VALUE:
+						ssm = new SlaveValueComparator();
+						break;
+					default:
+						break;
+				}
+				if(ssm != null) {
+					if(reverseSortSlaves) {
+						ssm = Collections.reverseOrder(ssm);
 					}
+					Collections.sort(slaves, ssm);
+				}
+				for(NPC slave : slaves) {
+					AffectionLevel affection = AffectionLevel.getAffectionLevelFromValue(slave.getAffection(Main.game.getPlayer()));
+					ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(slave.getObedienceValue());
+					float affectionChange = slave.getDailyAffectionChange();
+					float obedienceChange = slave.getDailyObedienceChange();
+					GenericPlace place = Main.game.getPlayerCell().getPlace();
+					
+					UtilText.nodeContentSB.append(getSlaveryEntry(true, place, slave, affection, affectionChange, obedience, obedienceChange, i%2==0));
+					i++;
 				}
 			}
 			
@@ -1289,7 +1360,7 @@ public class OccupantManagementDialogue {
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
 							+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName(true)+"</b><br/>"
 							+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"
-								+Util.capitaliseSentence((slave.isFeminine()?slave.getSubspecies().getSingularFemaleName(slave):slave.getSubspecies().getSingularMaleName(slave)))+"</span><br/>"
+								+Util.capitaliseSentence((slave.isFeminine()?slave.getSubspecies().getSingularFemaleName(slave.getBody()):slave.getSubspecies().getSingularMaleName(slave.getBody())))+"</span><br/>"
 							+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span>"
 						+ "</div>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
@@ -1386,7 +1457,7 @@ public class OccupantManagementDialogue {
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
 							+ "<b style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+occupant.getName(true)+"</b><br/>"
 							+ "<span style='color:"+occupant.getRace().getColour().toWebHexString()+";'>"
-								+Util.capitaliseSentence((occupant.isFeminine()?occupant.getSubspecies().getSingularFemaleName(occupant):occupant.getSubspecies().getSingularMaleName(occupant)))+"</span><br/>"
+								+Util.capitaliseSentence((occupant.isFeminine()?occupant.getSubspecies().getSingularFemaleName(occupant.getBody()):occupant.getSubspecies().getSingularMaleName(occupant.getBody())))+"</span><br/>"
 							+ "<span style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(occupant.getGender().getName())+"</span>"
 						+ "</div>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"

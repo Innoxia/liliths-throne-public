@@ -566,7 +566,7 @@ public class ImpCitadelDialogue {
 						
 					} else if (index == 3) {
 						return new ResponseSex("Gentle Sex",
-								"Well, they <i>are</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
+								"Well, they <i>are</i> asking for it!",
 								true,
 								false,
 								Main.game.getPlayer().getParty(),
@@ -578,7 +578,7 @@ public class ImpCitadelDialogue {
 						
 					} else if (index == 4) {
 						return new ResponseSex("Rough Sex",
-								"Well, they <i>are</i> asking for it! (Start the sex scene in the 'rough' pace.)",
+								"Well, they <i>are</i> asking for it!",
 								true,
 								false,
 								Main.game.getPlayer().getParty(),
@@ -929,7 +929,7 @@ public class ImpCitadelDialogue {
 						return new ResponseSex(
 								"Sex",
 								isCompanionDialogue() && !spectators.contains(getMainCompanion())
-									?UtilText.parse(getArcanist(), getMainCompanion(), "Accept the price of your defeat, and, alongside [pc2.name], prepare to perform oral on [npc.name].")
+									?UtilText.parse(getArcanist(), getMainCompanion(), "Accept the price of your defeat, and alongside [com.name], prepare to perform oral on [npc.name].")
 									:UtilText.parse(getArcanist(), "Accept the price of your defeat, and prepare to perform oral on [npc.name]."),
 								false,
 								false,
@@ -943,7 +943,7 @@ public class ImpCitadelDialogue {
 						return new ResponseSex(
 								"Eager sex",
 								isCompanionDialogue() && !spectators.contains(getMainCompanion())
-									?UtilText.parse(getArcanist(), getMainCompanion(), "Happily accept what's being demanded of you, and, alongside [pc2.name], eagerly prepare to perform oral on [npc.name].")
+									?UtilText.parse(getArcanist(), getMainCompanion(), "Happily accept what's being demanded of you, and alongside [com.name], eagerly prepare to perform oral on [npc.name].")
 									:UtilText.parse(getArcanist(), "Happily accept what's being demanded of you, and eagerly prepare to perform oral on [npc.name]."),
 								false,
 								false,
@@ -2242,7 +2242,7 @@ public class ImpCitadelDialogue {
 					return new ResponseSex(
 							"Sex",
 							isCompanionDialogue()
-								?UtilText.parse(getArcanist(), getMainCompanion(), "Accept the price of your defeat, and, alongside [pc2.name], prepare to get fucked by the three demons.")
+								?UtilText.parse(getArcanist(), getMainCompanion(), "Accept the price of your defeat, and alongside [com.name], prepare to get fucked by the three demons.")
 								:UtilText.parse(getArcanist(), "Accept the price of your defeat, and prepare to get fucked by the three demons."),
 							false,
 							false,
@@ -2256,7 +2256,7 @@ public class ImpCitadelDialogue {
 					return new ResponseSex(
 							"Eager sex",
 							isCompanionDialogue()
-								?UtilText.parse(getArcanist(), getMainCompanion(), "Happily accept what's about to happen, and, alongside [pc2.name], eagerly prepare to get fucked by the three demons.")
+								?UtilText.parse(getArcanist(), getMainCompanion(), "Happily accept what's about to happen, and alongside [com.name], eagerly prepare to get fucked by the three demons.")
 								:UtilText.parse(getArcanist(), "Happily accept the price of your defeat, and eagerly prepare to get fucked by the three demons."),
 							false,
 							false,
@@ -2483,8 +2483,8 @@ public class ImpCitadelDialogue {
 						if(isPrisonerFemale()) {
 							c = PresetColour.CLOTHING_BLACK;
 						}
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_CHOKER, c, false), true, getOwner()));
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_choker", c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_wrist_restraints", c, false), true, getOwner()));
 						
 						//TODO siren wants to watch them fuck your face(s)
 						if(getOwner() instanceof FortressFemalesLeader) {
@@ -2535,8 +2535,8 @@ public class ImpCitadelDialogue {
 						if(isPrisonerFemale()) {
 							c = PresetColour.CLOTHING_BROWN_DARK;
 						}
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_CHOKER, c, false), true, getOwner()));
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_choker", c, false), true, getOwner()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_wrist_restraints", c, false), true, getOwner()));
 						
 					}
 				};
@@ -2593,7 +2593,7 @@ public class ImpCitadelDialogue {
 				return new ResponseSex(
 						"Oral",
 						isCompanionDialogue()
-							?UtilText.parse(getOwner(), getMainCompanion(), "Accept the price of your defeat, and, alongside [pc2.name], prepare to perform oral on [npc.name].")
+							?UtilText.parse(getOwner(), getMainCompanion(), "Accept the price of your defeat, and alongside [com.name], prepare to perform oral on [npc.name].")
 							:UtilText.parse(getOwner(), "Accept the price of your defeat, and prepare to perform oral on [npc.name]."),
 						false,
 						false,
@@ -2607,7 +2607,7 @@ public class ImpCitadelDialogue {
 				return new ResponseSex(
 						"Eager oral",
 						isCompanionDialogue()
-							?UtilText.parse(getOwner(), getMainCompanion(), "Happily accept what's being demanded of you, and, alongside [pc2.name], eagerly prepare to perform oral on [npc.name].")
+							?UtilText.parse(getOwner(), getMainCompanion(), "Happily accept what's being demanded of you, and alongside [com.name], eagerly prepare to perform oral on [npc.name].")
 							:UtilText.parse(getOwner(), "Happily accept what's being demanded of you, and eagerly prepare to perform oral on [npc.name]."),
 						false,
 						false,
