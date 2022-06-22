@@ -2598,7 +2598,11 @@ public class ItemEffectType {
 							}
 							@Override
 							public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-								return target.setBodyMaterial(BodyMaterial.FLESH);
+								return target.getBodyMaterial() == BodyMaterial.SLIME
+										? target.setBodyMaterial(BodyMaterial.FLESH)
+										: "<p style='margin-bottom:0; padding-bottom:0;'>" +
+											"[style.colourDisabled([npc.NameIsFull] an elemental, so nothing happens...)]" +
+											"</p>";
 							}
 						});
 				
