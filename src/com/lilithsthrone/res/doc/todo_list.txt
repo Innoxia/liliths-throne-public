@@ -30,6 +30,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added a 'clear alerts' button to the encyclopedia menu.
 		added a 'clear stats' button when importing a character.
 	
+	Slime tweaks contribution (PR#1665 by MintyChip):
+		Made it so that the slime attacker's slime transformation applies the same effects as the biojuice for the sake of consistency.
+		Added flavor text to the biojuice description to mention that it's "heavily processed" and thus corruptive where the source (slime queen in the bath scene) is not.
+		Nerfed the permanent corruption gain from biojuice, as it seemed like a harsh effect if a new player just wandered into the submission.
+		Made it so that elementals can't have their body material transformed into SLIME or FLESH using the biojuice or flesh potions.
+	
+	
 	Engine/Modding:
 		Added a new element, 'bodyOverviewDescription', to tattoo xml files, which is used in the newly-added tattoo section of the character appearance page. (If missing, the basic description is used instead.)
 	
@@ -90,9 +97,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[-] text area formatting is broken
 					[-] remove notes as it's laggy and unresponsive
 				[-] move category definition to above 'Available Jobs' section 
-		[] #1663
-		[] #1664
-		[] #1665
+		[x] #1663
+		[x] #1664
+		[x] #1665
 		[] #1649
 		
 	[x] add tattoos to description page

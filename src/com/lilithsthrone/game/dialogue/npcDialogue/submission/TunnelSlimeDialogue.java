@@ -7,11 +7,14 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.responses.*;
+import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
+import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
+import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.ItemGeneration;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
@@ -150,7 +153,7 @@ public class TunnelSlimeDialogue {
 							}
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(getSlime().useItem(new ItemGeneration().generateItem("RACE_INGREDIENT_SLIME"),
+								Main.game.getTextEndStringBuilder().append(getSlime().useItem(Main.game.getItemGen().generateItem("RACE_INGREDIENT_SLIME"),
 										Main.game.getPlayer(), false, true));
 								if(getSlime().isAttractedTo(Main.game.getPlayer())) {
 									Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED_SLIME_OFFER_SEX"));
@@ -813,7 +816,7 @@ public class TunnelSlimeDialogue {
 						}
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(getSlime().useItem(new ItemGeneration().generateItem("RACE_INGREDIENT_SLIME"),
+							Main.game.getTextEndStringBuilder().append(getSlime().useItem(Main.game.getItemGen().generateItem("RACE_INGREDIENT_SLIME"),
 									Main.game.getPlayer(), false, true));
 						}
 					};
