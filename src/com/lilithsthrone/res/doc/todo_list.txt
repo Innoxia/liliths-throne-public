@@ -18,6 +18,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added sorting options to the slave list. (PR#1662 by Anonymous-BCFED)
 		Changed all old FITS_HARPY_WINGS item tags to FITS_ARM_WINGS as the former is no longer supported. (PR#1663 by DSG)
 		NPCs who are freed via use of a Freedom Certificate are no longer able to be re-enslaved afterwards. (PR#1649 by Maxis010)
+		Fixed some sizing issues with item tooltips. (PR#1674 by Nonny5Mouse)
 	
 	Misc fixes contribution (PR#1664 by MintyChip):
 		Added spaces before the fluid modifier descriptions in the appearance screens.
@@ -102,7 +103,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] #1664
 		[x] #1665
 		[x] #1649
-		[] #1674
+		[x] #1674
+		[] #1657
+		[] #1658
 		
 	[x] add tattoos to description page
 	
