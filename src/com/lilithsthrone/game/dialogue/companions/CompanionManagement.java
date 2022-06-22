@@ -594,7 +594,6 @@ public class CompanionManagement {
 					} else if(!OccupancyUtil.isFreeRoomAvailableForOccupant()) {
 						unavailableGuestDescription = "[style.italicsMinorBad(As you do not have a free guest room for [npc.name] to move in to, you will be unable to invite [npc.herHim] to stay here in the mansion after freeing [npc.herHim]!)]";
 					}
-					characterSelected().setEnslavementDialogue(SlaveDialogue.FREEDOM_DIALOG, false);
 					String thanksjava = unavailableGuestDescription;
 					
 					return new Response("Set free",
@@ -1878,6 +1877,7 @@ public class CompanionManagement {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getPlayer().removeSlave(characterSelected());
+			characterSelected().setEnslavementDialogue(SlaveDialogue.FREEDOM_DIALOG, false);
 			if(!isFreedSlaveAvailableAsGuest()) {
 				freedSlaveDeleted = true;
 				if(!characterSelected().isAffectionHighEnoughToInviteHome()) {

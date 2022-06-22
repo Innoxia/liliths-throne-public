@@ -335,9 +335,8 @@ public class SlaveDialogue {
 	public static final DialogueNode FREEDOM_DIALOG = new DialogueNode("Freed Slave", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getTextEndStringBuilder().append(enslavementTarget.setAffection(Main.game.getPlayer(), -100));
+			Main.game.getTextEndStringBuilder().append(enslavementTarget.incrementAffection(Main.game.getPlayer(), -25));
 		}
-		
 		@Override
 		public String getContent() {
 			GameCharacter target = enslavementTarget;
@@ -346,7 +345,6 @@ public class SlaveDialogue {
 			UtilText.addSpecialParsingString(enslavementClothing.getClothingType().isPlural()?"them":"it", false);
 			return UtilText.parseFromXMLFile("characters/enslavement", "ENSLAVEMENT_FAIL_FREEDOM_CERTIFICATION", target);
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
