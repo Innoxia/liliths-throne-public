@@ -193,9 +193,11 @@ public class SexPositionUnique {
 			} else if(Main.sex.getCharacterInPosition(SexSlotUnique.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS)!=null) {
 				characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS));
 				isKneeling = true;
+			} else {
+				return "MISSIONARY_ALTAR_CULTIST: Invalid character positions!";
 			}
 
-			boolean playerIsOnTheAltar = characters.get(0).isPlayer();
+			// boolean playerIsOnTheAltar = characters.get(0).isPlayer();
 
 			StringBuilder desc = new StringBuilder();
 			desc.append("[npc.NameIs] lying back on top of the chapel's altar, and ");
@@ -239,13 +241,30 @@ public class SexPositionUnique {
 			null, Util.newArrayListOfValues(CultistSexActions.class)) {
 		@Override
 		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {//TODO
-			if(Main.sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotUnique.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR) {
-				return "You're lying back on top of the chapel's altar, and [npc.namePos] standing between your [pc.legs], ready to have some fun with you in the missionary position.";
-			} else if(Main.sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotUnique.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS) {
-				return "[npc.Name] is lying back on top of the chapel's altar, and you're standing between [npc.her] [npc.legs], ready to have some fun in the missionary position.";
+			List<GameCharacter> characters = new ArrayList<>();
+			boolean isKneeling = false;
+			// 0 - Lying on altar
+			// 1 - Standing OR kneeling, as determined by `kneeling`
+			characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR));
+			if (Main.sex.getCharacterInPosition(SexSlotUnique.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS)!=null) {
+				characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS));
+			} else if(Main.sex.getCharacterInPosition(SexSlotUnique.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS)!=null) {
+				characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS));
+				isKneeling = true;
 			} else {
-				return "[npc.Name] is lying back on top of the chapel's altar, and you're kneeling down between [npc.her] [npc.legs], ready to have some oral fun in the missionary position.";
+				return "MISSIONARY_ALTAR_SEALED_CULTIST: Invalid character positions!";
 			}
+
+			// boolean playerIsOnTheAltar = characters.get(0).isPlayer();
+
+			StringBuilder desc = new StringBuilder();
+			desc.append("[npc.NameIs] lying back on top of the chapel's altar, and ");
+			if (isKneeling) {
+				desc.append("[npc2.nameIs] kneeling down between [npc.hisHer] [npc.legs], ready to have some oral fun with [npc.himHer] in the missionary position.");
+			} else {
+				desc.append("[npc2.nameIs] standing between [npc.hisHer] [npc.legs], ready to have some fun with [npc.himHer] in the missionary position.");
+			}
+			return UtilText.parse(characters.get(0), characters.get(1), desc.toString());
 		}
 		@Override
 		public Map<SexSlot, Map<SexSlot, SexActionInteractions>> getSlotTargets() {
