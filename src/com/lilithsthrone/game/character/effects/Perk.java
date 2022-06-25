@@ -5863,6 +5863,28 @@ public class Perk {
 		return perkToIdMap.get(perk);
 	}
 
+	public static void addPerk(String id, AbstractPerk perk) {
+		// I feel like this is stupid :thinking:
+		perkToIdMap.put(perk, id);
+		idToPerkMap.put(id, perk);
+
+		allPerks.add(perk);
+		if (perk.isHiddenPerk()) {
+			hiddenPerks.add(perk);
+		}
+	}
+
+	// Theoretically, this would work, but since you can't screw with an enum's members, it can't actually be used :()
+	// public static void overridePerk(String id, AbstractPerk perk) {
+	// 	if(idToPerkMap.containsKey(id)) {
+	// 		AbstractPerk oldPerk = idToPerkMap.get(id);
+	// 		allPerks.remove(oldPerk);
+	// 		if(oldPerk.isHiddenPerk())
+	// 			hiddenPerks.remove(oldPerk);
+	// 	}
+	// 	addPerk(id, perk);
+	// }
+
 	static {
 		hiddenPerks = new ArrayList<>();
 		allPerks = new ArrayList<>();
@@ -5876,32 +5898,14 @@ public class Perk {
 				
 				try {
 					perk = ((AbstractPerk) f.get(null));
-
-					// I feel like this is stupid :thinking:
-					// TODO: Abstract out into addPerk() or something
-					perkToIdMap.put(perk, f.getName());
-					idToPerkMap.put(f.getName(), perk);
-					
-					allPerks.add(perk);
-					if(perk.isHiddenPerk()) {
-						hiddenPerks.add(perk);
-					}
-					
+					addPerk(f.getName(), perk);
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		
-		for(AbstractPerk perk : PluginLoader.getInstance().getPerks()) {
-			perkToIdMap.put(perk, f.getName());
-			idToPerkMap.put(f.getName(), perk);
-			
-			allPerks.add(perk);
-			if(perk.isHiddenPerk()) {
-				hiddenPerks.add(perk);
-			}
-		}
+		PluginLoader.getInstance().onInitPerks();
 		
 		hiddenPerks.sort((p1, p2) -> p1.getRenderingPriority()-p2.getRenderingPriority());
 	}

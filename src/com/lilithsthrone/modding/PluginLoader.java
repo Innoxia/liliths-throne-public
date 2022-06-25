@@ -10,6 +10,7 @@ import java.net.URLClassLoader;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -19,7 +20,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 
 public final class PluginLoader {
@@ -83,14 +83,9 @@ public final class PluginLoader {
 			}
 		}
 		System.err.println("Failed to load plugins (could not satisfy dependencies within 100 iterations):");
-		for(BasePlugin plug : pluginsToLoad) {
-			System.err.println(plug.metadata.id+": "+plug.metadata.name);
+		for (BasePlugin plug : pluginsToLoad) {
+			System.err.println(plug.metadata.id + ": " + plug.metadata.name);
 		}
-	}
-
-	private void onPluginsLoaded() {
-		for (BasePlugin plugin : plugins)
-			plugin.onPluginsLoaded();
 	}
 
 	private void tryLoadingPluginFromFile(File pluginFile) {
@@ -157,6 +152,7 @@ public final class PluginLoader {
 	}
 
 	HashSet<Fetish> providedFetishes = null;
+
 	public Collection<? extends Fetish> getFetishes() {
 		if (providedFetishes == null) {
 			providedFetishes = new HashSet<Fetish>();
@@ -165,25 +161,29 @@ public final class PluginLoader {
 		}
 		return providedFetishes;
 	}
-	
-	HashSet<AbstractPerk> providedPerks = null;
-	public Collection<? extends AbstractPerk> getPerks() {
-		if (providedPerks == null) {
-			providedPerks = new HashSet<AbstractPerk>();
-			for (BasePlugin p : plugins)
-				p.addPerks(providedPerks); // So mods can intercept other mods' perks
-		}
-		return providedPerks;
+
+	public void forEachPlugin(Consumer<? super BasePlugin> callback) {
+		plugins.forEach(callback);
+	}
+
+	//////////////////////////////////////////////////
+	// SIGNALLING
+	//////////////////////////////////////////////////
+
+	private void onPluginsLoaded() {
+		plugins.forEach(p -> p.onPluginsLoaded());
 	}
 
 	public void onInitUniqueNPCs() {
-		for (BasePlugin p : plugins)
-			p.onInitUniqueNPCs();
+		plugins.forEach(p -> p.onInitUniqueNPCs());
 	}
 
 	public void onMainStart() {
-		for (BasePlugin p : plugins)
-			p.onMainStart();
+		plugins.forEach(p -> p.onMainStart());
+	}
+
+	public void onInitPerks() {
+		plugins.forEach(p -> p.onInitPerks());
 	}
 
 }
