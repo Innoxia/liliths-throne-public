@@ -49,6 +49,7 @@ import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.modding.PluginLoader;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
@@ -1553,6 +1554,8 @@ public class Properties {
 		for(Fetish f : Fetish.values()) {
 			fetishPreferencesMap.put(f, f.getFetishPreferenceDefault().getValue());
 		}
+		for(Fetish f : PluginLoader.getInstance().getFetishes())
+			fetishPreferencesMap.put(f, f.getFetishPreferenceDefault().getValue());
 	}
 	
 	public void resetAgePreferences() {

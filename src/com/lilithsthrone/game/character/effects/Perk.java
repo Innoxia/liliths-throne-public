@@ -17,6 +17,7 @@ import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.modding.PluginLoader;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
@@ -5877,6 +5878,7 @@ public class Perk {
 					perk = ((AbstractPerk) f.get(null));
 
 					// I feel like this is stupid :thinking:
+					// TODO: Abstract out into addPerk() or something
 					perkToIdMap.put(perk, f.getName());
 					idToPerkMap.put(f.getName(), perk);
 					
@@ -5888,6 +5890,16 @@ public class Perk {
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
+			}
+		}
+		
+		for(AbstractPerk perk : PluginLoader.getInstance().getPerks()) {
+			perkToIdMap.put(perk, f.getName());
+			idToPerkMap.put(f.getName(), perk);
+			
+			allPerks.add(perk);
+			if(perk.isHiddenPerk()) {
+				hiddenPerks.add(perk);
 			}
 		}
 		

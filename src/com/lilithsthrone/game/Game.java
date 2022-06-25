@@ -250,6 +250,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.modding.PluginLoader;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.SizedStack;
 import com.lilithsthrone.utils.Units;
@@ -2234,7 +2235,7 @@ public class Game implements XMLSaving {
 			
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HeadlessHorseman.class))) { addNPC(new HeadlessHorseman(), false); addedNpcs.add(HeadlessHorseman.class); }
 			
-			
+			PluginLoader.getInstance().onInitUniqueNPCs();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
