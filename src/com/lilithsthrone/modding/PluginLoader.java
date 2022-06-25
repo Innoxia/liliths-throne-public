@@ -19,6 +19,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
+import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 
 public final class PluginLoader {
@@ -156,7 +157,6 @@ public final class PluginLoader {
 	}
 
 	HashSet<Fetish> providedFetishes = null;
-
 	public Collection<? extends Fetish> getFetishes() {
 		if (providedFetishes == null) {
 			providedFetishes = new HashSet<Fetish>();
@@ -164,6 +164,16 @@ public final class PluginLoader {
 				p.addFetishes(providedFetishes);
 		}
 		return providedFetishes;
+	}
+	
+	HashSet<AbstractPerk> providedPerks = null;
+	public Collection<? extends AbstractPerk> getPerks() {
+		if (providedPerks == null) {
+			providedPerks = new HashSet<AbstractPerk>();
+			for (BasePlugin p : plugins)
+				p.addPerks(providedPerks); // So mods can intercept other mods' perks
+		}
+		return providedPerks;
 	}
 
 	public void onInitUniqueNPCs() {
