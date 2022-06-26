@@ -4,6 +4,7 @@
 package com.lilithsthrone.modding;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.UUID;
 
 import org.w3c.dom.Element;
@@ -43,13 +44,14 @@ public class PluginMetadata {
 		this.license = pluginElement.getAttribute("license");
 		this.mainClass = pluginElement.getAttribute("mainClass");
 		
-		HashSet<PluginContributor> ctors = new HashSet<PluginContributor>();
+		HashSet<PluginContributor> ctors = new LinkedHashSet<PluginContributor>();
 		NodeList contribElements = ((Element)pluginElement.getElementsByTagName("contribs").item(0)).getElementsByTagName("contrib");
 		for(int i = 0;i<contribElements.getLength();i++) {
 			PluginContributor contrib = PluginContributor.FromElement((Element) contribElements.item(i));
 			ctors.add(contrib);
 		}
-		this.contributors = (PluginContributor[]) ctors.toArray();
+		this.contributors = new PluginContributor[ctors.size()];
+		ctors.toArray(this.contributors);
 
 		NodeList requiredTagsElements = ((Element)pluginElement.getElementsByTagName("requiresTags").item(0)).getElementsByTagName("tag");
 		for(int i = 0;i<requiredTagsElements.getLength();i++) {

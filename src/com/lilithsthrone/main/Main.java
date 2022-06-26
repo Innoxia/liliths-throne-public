@@ -37,6 +37,7 @@ import com.lilithsthrone.game.dialogue.utils.MapTravelType;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.modding.PluginLoader;
+import com.lilithsthrone.modding.Plugins;
 import com.lilithsthrone.utils.CreditsSlot;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -678,6 +679,9 @@ public class Main extends Application {
 			properties = new Properties();
 			properties.savePropertiesAsXML();
 		}
+		
+		//Plugins.Invoke("onMainMain");
+		PluginLoader.getInstance().onMainMain();
 
 		launch(args);
 	}

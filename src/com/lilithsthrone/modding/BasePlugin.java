@@ -66,4 +66,9 @@ public class BasePlugin {
      * Use Perks.addPerk.
      */
     public void onInitPerks() {}
+
+    /**
+     * Called after Main.main()
+     */
+    public void onMainMain() {}
 }

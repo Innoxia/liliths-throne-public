@@ -5874,7 +5874,7 @@ public class Perk {
 		}
 	}
 
-	// Theoretically, this would work, but since you can't screw with an enum's members, it can't actually be used :()
+	// Theoretically, this would work, but since you can't screw with an enum's members, it can't actually be used :(
 	// public static void overridePerk(String id, AbstractPerk perk) {
 	// 	if(idToPerkMap.containsKey(id)) {
 	// 		AbstractPerk oldPerk = idToPerkMap.get(id);
@@ -5904,8 +5904,6 @@ public class Perk {
 				}
 			}
 		}
-		
-		PluginLoader.getInstance().onInitPerks();
 		
 		hiddenPerks.sort((p1, p2) -> p1.getRenderingPriority()-p2.getRenderingPriority());
 	}
@@ -5954,6 +5952,9 @@ public class Perk {
 			}
 		}
 		subspeciesPerksGenerated = true;
+
+		PluginLoader.getInstance().onInitPerks();
+		
 		hiddenPerks.sort((p1, p2) -> p1.getRenderingPriority()-p2.getRenderingPriority());
 	}
 	
