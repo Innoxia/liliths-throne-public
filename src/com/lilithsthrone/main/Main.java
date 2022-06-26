@@ -680,7 +680,6 @@ public class Main extends Application {
 			properties.savePropertiesAsXML();
 		}
 		
-		//Plugins.Invoke("onMainMain");
 		PluginLoader.getInstance().onMainMain();
 
 		launch(args);
