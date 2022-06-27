@@ -464,7 +464,7 @@ public class Properties {
 			// Fetish preferences:
 			Element fetishPreferences = doc.createElement("fetishPreferences");
 			properties.appendChild(fetishPreferences);
-			for (Fetish f : Fetish.values()) {
+			for (Fetish f : PluginLoader.getInstance().getAllFetishes()) {
 				Element element = doc.createElement("preference");
 				fetishPreferences.appendChild(element);
 				
@@ -1551,11 +1551,9 @@ public class Properties {
 
 	public void resetFetishPreferences() {
 		fetishPreferencesMap = new EnumMap<>(Fetish.class);
-		for(Fetish f : Fetish.values()) {
+		for(Fetish f : PluginLoader.getInstance().getAllFetishes()) {
 			fetishPreferencesMap.put(f, f.getFetishPreferenceDefault().getValue());
 		}
-		for(Fetish f : PluginLoader.getInstance().getFetishes())
-			fetishPreferencesMap.put(f, f.getFetishPreferenceDefault().getValue());
 	}
 	
 	public void resetAgePreferences() {

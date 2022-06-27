@@ -125,6 +125,7 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.modding.PluginLoader;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.ColourListPresets;
@@ -2425,7 +2426,7 @@ public class CharacterUtils {
 	private static List<Fetish> getAllowedFetishes(GameCharacter character) {
 		List<Fetish> allowedFetishes = new ArrayList<>();
 		
-		for(Fetish f : Fetish.values()) {
+		for(Fetish f : PluginLoader.getInstance().getAllFetishes()) {
 			switch(f) {
 				case FETISH_PURE_VIRGIN:
 					if(character.hasVagina()&&(character.getHistory()!=Occupation.NPC_PROSTITUTE||Math.random()<=0.25f))

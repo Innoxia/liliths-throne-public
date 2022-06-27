@@ -203,15 +203,26 @@ public final class PluginLoader {
 		this.plugins.add(plugin);
 	}
 
-	HashSet<Fetish> providedFetishes = null;
-
-	public Collection<? extends Fetish> getFetishes() {
+	private HashSet<Fetish> providedFetishes = null;
+	public Collection<? extends Fetish> getProvidedFetishes() {
 		if (providedFetishes == null) {
 			providedFetishes = new HashSet<Fetish>();
 			for (BasePlugin p : plugins)
 				p.addFetishes(providedFetishes);
 		}
 		return providedFetishes;
+	}
+
+	private HashSet<Fetish> allFetishes = null;
+	public Collection<? extends Fetish> getAllFetishes() {
+		if(allFetishes == null){
+			allFetishes=new HashSet<Fetish>();
+			for(Fetish f : Fetish.values()) {
+				allFetishes.add(f);
+			}
+			allFetishes.addAll(getProvidedFetishes());
+		}
+		return allFetishes;
 	}
 
 	public void forEachPlugin(Consumer<? super BasePlugin> callback) {

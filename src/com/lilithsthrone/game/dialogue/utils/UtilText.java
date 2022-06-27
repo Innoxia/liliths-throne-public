@@ -203,6 +203,7 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotManager;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ToyVagina;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.modding.PluginLoader;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
@@ -9976,7 +9977,7 @@ public class UtilText {
 		
 		
 		// Effects & persona:
-		for(Fetish f : Fetish.values()) {
+		for(Fetish f : PluginLoader.getInstance().getAllFetishes()) {
 			engine.put(f.toString(), f);
 		}
 		for(FetishDesire fetishDesire : FetishDesire.values()) {

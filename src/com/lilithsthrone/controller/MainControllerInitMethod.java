@@ -213,6 +213,7 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.modding.PluginLoader;
 import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.Pattern;
@@ -2864,7 +2865,7 @@ public class MainControllerInitMethod {
 				}
 				
 				// Fetishes:
-				for(Fetish fetish : Fetish.values()) {
+				for(Fetish fetish : PluginLoader.getInstance().getAllFetishes()) {
 					for(FetishDesire desire : FetishDesire.values()) {
 						id = "FETISH_DESIRE_"+fetish+desire;
 						if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -2880,7 +2881,6 @@ public class MainControllerInitMethod {
 						}
 					}
 				}
-				
 				
 				// Age:
 				id = "AGE_APPEARANCE_INCREASE";
@@ -6113,7 +6113,7 @@ public class MainControllerInitMethod {
 				}
 			}
 			if (Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_FETISHES) {
-				for (Fetish f : Fetish.values()) {
+				for (Fetish f : PluginLoader.getInstance().getAllFetishes()) {
 					id = "fetishUnlock" + f;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -6304,7 +6304,7 @@ public class MainControllerInitMethod {
 		
 		// NPC Fetish spawn preferences:
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.FETISH_PREFERENCE) {
-			for (Fetish f : Fetish.values()) {
+			for (Fetish f : PluginLoader.getInstance().getAllFetishes()) {
 				if(!Main.game.isPenetrationLimitationsEnabled() && f == Fetish.FETISH_SIZE_QUEEN) {
 					continue;
 				}

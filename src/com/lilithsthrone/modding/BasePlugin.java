@@ -32,6 +32,9 @@ public class BasePlugin {
         return loadedTags.containsAll(metadata.requires_tags);
     }
 
+    /**
+     * Returns the tags that this plugin provides to other plugins.
+     */
     public Collection<? extends String> getProvidedTags() {
         return this.metadata.provides_tags;
     }
@@ -48,7 +51,7 @@ public class BasePlugin {
 
     public void addFetishes(HashSet<Fetish> providedFetishes) {}
 
-    public void addPerks(HashSet<AbstractPerk> providedFetishes) {}
+    public void addPerks(HashSet<AbstractPerk> providedPerks) {}
 
     /**
      * Set up NPCs here.
