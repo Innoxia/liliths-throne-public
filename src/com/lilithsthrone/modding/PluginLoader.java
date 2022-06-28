@@ -13,6 +13,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -25,6 +26,7 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.NPC;
 
 public final class PluginLoader {
 	private static String MOD_DIR = "res/mods";
@@ -237,8 +239,8 @@ public final class PluginLoader {
 		plugins.forEach(p -> p.onPluginsLoaded());
 	}
 
-	public void onInitUniqueNPCs() {
-		plugins.forEach(p -> p.onInitUniqueNPCs());
+	public void onInitUniqueNPCs(List<Class<? extends NPC>> addedNpcs) {
+		plugins.forEach(p -> p.onInitUniqueNPCs(addedNpcs));
 	}
 
 	public void onMainStart() {

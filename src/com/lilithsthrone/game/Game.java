@@ -2235,7 +2235,7 @@ public class Game implements XMLSaving {
 			
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HeadlessHorseman.class))) { addNPC(new HeadlessHorseman(), false); addedNpcs.add(HeadlessHorseman.class); }
 			
-			PluginLoader.getInstance().onInitUniqueNPCs();
+			PluginLoader.getInstance().onInitUniqueNPCs(addedNpcs);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

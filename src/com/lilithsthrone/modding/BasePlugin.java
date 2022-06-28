@@ -5,10 +5,12 @@ package com.lilithsthrone.modding;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.NPC;
 
 /**
  * @author Anon
@@ -55,8 +57,9 @@ public class BasePlugin {
 
     /**
      * Set up NPCs here.
+     * @param addedNpcs 
      */
-    public void onInitUniqueNPCs() {}
+    public void onInitUniqueNPCs(List<Class<? extends NPC>> addedNpcs) {}
 
     /**
      * Called after Main.start()
