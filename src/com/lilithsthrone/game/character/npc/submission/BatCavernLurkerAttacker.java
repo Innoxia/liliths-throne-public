@@ -10,6 +10,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
@@ -109,6 +110,10 @@ public class BatCavernLurkerAttacker extends NPC {
 	
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+
+			if(hasFetish(Fetish.FETISH_CUM_ADDICT) && Math.random() < 0.1) {
+				Main.game.getCharacterUtils().applyDirtiness(this);
+			}
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();

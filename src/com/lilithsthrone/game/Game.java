@@ -8,9 +8,12 @@ import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -4268,26 +4271,51 @@ public class Game implements XMLSaving {
 		return getStartingDate().plusSeconds(Main.game.getSecondsPassed());
 	}
 
-	public String getDisplayDate(boolean withYear) {
-		String date = Units.date(getDateNow(), Units.DateType.LONG);
-		
+	public LocalDateTime getCustomDateTime(int year, int month, int dayOfMonth, int hour, int minute, int second) {
+		return LocalDateTime.of(year, month, dayOfMonth, hour, minute, second);
+	}
+
+	public LocalDate getCustomDate(int year, int month, int dayOfMonth) {
+		return LocalDate.of(year, month, dayOfMonth);
+	}
+
+	public LocalTime getCustomTime(int hour, int minute, int second) {
+		return LocalTime.of(hour, minute, second);
+	}
+
+	public String getDisplayDate(TemporalAccessor dateNow, boolean withYear) {
 		if(isInNewWorld() && !getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate)) {
 			return UtilText.parse("[style.colourMinorBad(Unknown date)]");
 		}
 		
-//		if(withYear) {
-//			return Units.date(getDateNow().minusYears(TIME_SKIP_YEARS), Units.DateType.LONG);
-//		} else {
-//			String date = Units.date(getDateNow().minusYears(TIME_SKIP_YEARS), Units.DateType.LONG);
-//			return date.substring(0, date.length()-5);
-//		}
+		String date = Units.date(dateNow, Units.DateType.LONG);
 		if(withYear) {
-			return Units.date(getDateNow(), Units.DateType.LONG);
+			return date;
 		} else {
 			return date.substring(0, date.length()-5);
 		}
 	}
 	
+	public String getDisplayDate(boolean withYear) {
+		return getDisplayDate(getDateNow(), withYear);
+	}
+
+	public String getDisplayDate(TemporalAccessor dateNow) {
+		return getDisplayDate(dateNow, false);
+	}
+
+	public String getDisplayDate() {
+		return getDisplayDate(getDateNow(), false);
+	}
+
+	public String getDisplayTime(TemporalAccessor timeNow) {
+		return Units.time(timeNow);
+	}
+
+	public String getDisplayTime() {
+		return getDisplayTime(getDateNow());
+	}
+
 	public int getYear() {
 		return Main.game.getDateNow().getYear();
 	}

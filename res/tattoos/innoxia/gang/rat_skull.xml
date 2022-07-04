@@ -4,9 +4,9 @@
 		<value>500</value> 
 		<name><![CDATA[rat skull]]></name>
 		<description><![CDATA[A rat's skull, with a pair of crossed bones sitting behind it.]]></description>
+		<bodyOverviewDescription><![CDATA[a tattoo depicting a rat's skull, with a pair of crossed bones sitting behind it]]></bodyOverviewDescription> 
 		<availabilityRequirements><![CDATA[!npc.isPlayer() || pc.isQuestCompleted(QUEST_LINE_SIDE_VENGAR)]]></availabilityRequirements>
 		<imageName>rat_skull.svg</imageName> 
-		<enchantmentLimit>5</enchantmentLimit>
 		<slotAvailability/> 
 		<primaryColours values="ALL"/> 
 		<secondaryColours values="ALL"/>

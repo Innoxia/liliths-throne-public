@@ -1709,7 +1709,7 @@ public class Sex {
 							return miscActionsPlayer.get(index).toResponse();
 						}
 						if(index==miscActionsPlayer.size() && !miscActionsPlayer.contains(GenericActions.PLAYER_SKIP_SEX)) {
-							return new Response(GenericActions.PLAYER_SKIP_SEX.getActionTitle(), "As this is a special sex scene, you cannot skip it!", null);
+							return new Response(GenericActions.PLAYER_SKIP_SEX.getActionTitle(), isMasturbation()?"You cannot use quick sex during masturbation scenes.":"As this is a special sex scene, you cannot skip it!", null);
 						}
 						
 					} else {
@@ -1721,7 +1721,7 @@ public class Sex {
 							return miscActionsPlayer.get(i-1).toResponse();
 						}
 						if(i==miscActionsPlayer.size()+1 && !miscActionsPlayer.contains(GenericActions.PLAYER_SKIP_SEX)) {
-							return new Response(GenericActions.PLAYER_SKIP_SEX.getActionTitle(), "As this is a special sex scene, you cannot skip it!", null);
+							return new Response(GenericActions.PLAYER_SKIP_SEX.getActionTitle(), isMasturbation()?"You cannot use quick sex during masturbation scenes.":"As this is a special sex scene, you cannot skip it!", null);
 						}
 					}
 					

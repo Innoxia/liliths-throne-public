@@ -26,8 +26,6 @@
 		
 		<imageEquippedName/> 
 		
-		<enchantmentLimit>10</enchantmentLimit>
-		
 		<effects> 
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="SPELL_COST_MODIFIER" timer="0"/>
 		</effects>

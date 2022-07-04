@@ -16,7 +16,6 @@
 		<clothingSet/> 
 		<imageName>basic_barbell.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit/>
 		<effects/>
 		
 		<blockedPartsList slot="PIERCING_TONGUE">

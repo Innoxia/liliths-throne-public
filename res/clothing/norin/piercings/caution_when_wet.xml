@@ -17,7 +17,6 @@
     
     <clothingSet/> <!-- No way to define custom sets yet -->
     <imageEquippedName/> <!-- The file path for this clothing's image while equipped -->
-    <enchantmentLimit/> <!-- Custom values override game -->
     <effects>
       <effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SEALING" timer="31"/>
       <effect itemEffectType="CLOTHING" limit="7" potency="MAJOR_BOOST" primaryModifier="TF_VAGINA" secondaryModifier="TF_MOD_WETNESS" timer="31"/>

@@ -176,7 +176,7 @@ public class SexActionManager {
 				new Value<>("SadisticActions", SadisticActions.class.getFields()),
 
 				// Gentle actions:
-				new Value<>("GentleActions", LovingActions.class.getFields()),
+				new Value<>("LovingActions", LovingActions.class.getFields()),
 				
 				// Finger actions:
 				new Value<>("FingerAnus", FingerAnus.class.getFields()),

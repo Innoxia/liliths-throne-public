@@ -7,5 +7,7 @@ package com.lilithsthrone.game.character.npc;
  */
 public enum NPCGenerationFlag {
 
-	NO_CLOTHING_EQUIP;
+	NO_CLOTHING_EQUIP,
+
+	DIRTY;
 }

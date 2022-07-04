@@ -16,6 +16,8 @@ import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.effects.AbstractPerk;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -640,8 +642,33 @@ public class DebugDialogue {
 							}
 						}
 					};
-				
-				} else if(index==25)  {
+					
+				} else if(index>=20 && index<=26) {
+					ArrayList<AbstractPerk> powerPerks = Util.newArrayListOfValues(Perk.POWER_OF_LIRECEA_1,
+							Perk.POWER_OF_LOVIENNE_2,
+							Perk.POWER_OF_LASIELLE_3,
+							Perk.POWER_OF_LYSSIETH_4,
+							Perk.POWER_OF_LUNETTE_5,
+							Perk.POWER_OF_LYXIAS_6,
+							Perk.POWER_OF_LISOPHIA_7);
+					AbstractPerk perk = powerPerks.get(index-20);
+						return new Response("Elder Lilin perk", "Toggle perk.", DEBUG_MENU) {
+							@Override
+							public String getTitle() {
+								return perk.getName(null)+": "+(Main.game.getPlayer().hasPerkAnywhereInTree(perk)?"[style.colourGood(ON)]":"[style.colourDisabled(OFF)]");
+							}
+							
+							@Override
+							public void effects() {
+								if(Main.game.getPlayer().hasPerkAnywhereInTree(perk)) {
+									Main.game.getPlayer().removeSpecialPerk(perk);
+								} else {
+									Main.game.getPlayer().addSpecialPerk(perk);
+								}
+							}
+						};
+					
+				} else if(index==29)  {
 					return new Response("Spawn rates", "List the spawn rates in the current location.", SPAWN_RATES) {
 						@Override
 						public void effects() {
@@ -686,7 +713,7 @@ public class DebugDialogue {
 						}
 					};
 					
-				} else if(index==26) {
+				} else if(index==30) {
 					return new Response("Item collage", "View a collage of all item, weapon, and clothing icons which are currently in the game.<br/>[style.italicsMinorBad(Will be slow to load and display!)]", CLOTHING_COLLAGE);
 					
 				}

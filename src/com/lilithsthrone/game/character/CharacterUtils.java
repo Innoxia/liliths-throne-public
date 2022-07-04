@@ -1130,6 +1130,7 @@ public class CharacterUtils {
 			for(OrificeModifier mod : RacialBody.valueOfRace(halfSubspecies.getRace()).getVaginaType().getDefaultRacialOrificeModifiers()) {
 				body.getVagina().getOrificeVagina().addOrificeModifier(linkedCharacter, mod);
 			}
+			body.getVagina().setEggLayer(null, RacialBody.valueOfRace(halfSubspecies.getRace()).getVaginaType().isEggLayer());
 		}
 		
 		if(!body.getArm().getType().allowsFlight()) { // Do not give back wings to characters who have arm wings.
@@ -2966,6 +2967,24 @@ public class CharacterUtils {
 			
 		} else {
 			// Masculine characters
+		}
+	}
+	
+	public void applyDirtiness(GameCharacter character) {
+		ArrayList<InventorySlot> validSlots = new ArrayList<>();
+		
+		for(InventorySlot slot : InventorySlot.getClothingSlots()) {
+			if(slot.getBodyPartClothingBlock(character) == null) {
+				validSlots.add(slot);
+			}
+		}
+		
+		int dirtySlots = Util.random.nextInt(validSlots.size()/2) + 1;
+		
+		for(int i = 0; i < dirtySlots; i++) {
+			InventorySlot slot = Util.randomItemFrom(validSlots);
+			character.inventory.addDirtySlot(slot);
+			validSlots.remove(slot);
 		}
 	}
 	

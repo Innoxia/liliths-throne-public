@@ -3,7 +3,6 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -280,10 +279,7 @@ public class GenericTalk {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
-					&& (Main.sex.getCharacterPerformingAction().isPlayer()
-						|| (Main.sex.getCharacterPerformingAction().getAffectionLevel(Main.sex.getCharacterTargetedForSexAction(this)).isGreaterThan(AffectionLevel.POSITIVE_TWO_LIKE)
-								&& !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST)));
+			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
 		}
 		
 		@Override
@@ -348,10 +344,7 @@ public class GenericTalk {
 		public boolean isBaseRequirementsMet() {
 			return !Main.sex.isSpectator(Main.sex.getCharacterPerformingAction())
 					&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
-					&& Main.sex.getLastUsedSexAction(Main.sex.getCharacterTargetedForSexAction(this))==LOVING_TALK
-					&& (Main.sex.getCharacterPerformingAction().isPlayer()
-							|| (Main.sex.getCharacterPerformingAction().getAffectionLevel(Main.sex.getCharacterTargetedForSexAction(this)).isGreaterThan(AffectionLevel.POSITIVE_TWO_LIKE)
-									&& !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST)));
+					&& Main.sex.getLastUsedSexAction(Main.sex.getCharacterTargetedForSexAction(this))==LOVING_TALK;
 		}
 		@Override
 		public String getActionTitle() {

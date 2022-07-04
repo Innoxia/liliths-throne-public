@@ -1716,6 +1716,21 @@ public abstract class AbstractSubspecies {
 				|| (placeType!=null && getPlaceLocations().containsKey(placeType));
 	}
 	
+	public List<WorldRegion> getMostCommonWorldRegions() {
+		List<WorldRegion> mostCommonRegion = Util.newArrayListOfValues();
+		SubspeciesSpawnRarity highestRarity = SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE;
+		for(Map.Entry<WorldRegion, SubspeciesSpawnRarity> entry : getRegionLocations().entrySet()) {
+			if(entry.getValue().getChanceMultiplier()>=highestRarity.getChanceMultiplier()) {
+				if(entry.getValue().getChanceMultiplier()>highestRarity.getChanceMultiplier()) {
+					mostCommonRegion.clear();
+				}
+				mostCommonRegion.add(entry.getKey());
+				highestRarity = entry.getValue();
+			}
+		}
+		return mostCommonRegion;
+	}
+	
 	public List<SubspeciesFlag> getFlags() {
 		return flags;
 	}

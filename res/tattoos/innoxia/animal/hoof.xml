@@ -6,10 +6,9 @@
 		<name><![CDATA[horse-shoe]]></name>
 		
 		<description><![CDATA[A stylised silhouette of a horse shoe.]]></description> 
+		<bodyOverviewDescription><![CDATA[a tattoo which depicts a stylised silhouette of a horse shoe]]></bodyOverviewDescription> 
 		
 		<imageName>hoof.svg</imageName> 
-		
-		<enchantmentLimit>5</enchantmentLimit>
 		
 		<slotAvailability/>
 		
