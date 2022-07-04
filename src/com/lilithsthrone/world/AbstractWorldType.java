@@ -47,6 +47,8 @@ public abstract class AbstractWorldType {
 	private boolean wallsPresent;
 	private String wallName;
 
+	private int majorAreaIndex;
+
 	private String offspringTextFilePath;
 
 	private AbstractPlaceType globalMapLocation;
@@ -95,6 +97,8 @@ public abstract class AbstractWorldType {
 		this.fileLocation = fileLocation;
 		this.usesFile = true;
 		this.placesMap = placesMap;
+		
+		this.majorAreaIndex = 0;
 	}
 	
 	public AbstractWorldType(File XMLFile, String author, boolean mod) {
@@ -148,6 +152,12 @@ public abstract class AbstractWorldType {
 					if(!coreElement.getMandatoryFirstOf("wallsPresent").getAttribute("wallName").isEmpty()) {
 						this.wallName = coreElement.getMandatoryFirstOf("wallsPresent").getAttribute("wallName");
 					}
+				}
+
+				if(coreElement.getOptionalFirstOf("majorAreaIndex").isPresent()) {
+					majorAreaIndex = Integer.valueOf(coreElement.getMandatoryFirstOf("majorAreaIndex").getTextContent().trim());
+				} else {
+					majorAreaIndex = 0;
 				}
 				
 				this.loiteringEnabled = Boolean.valueOf(coreElement.getMandatoryFirstOf("loiteringEnabled").getTextContent().trim());
@@ -331,5 +341,19 @@ public abstract class AbstractWorldType {
 	 */
 	public String getWallName() {
 		return wallName;
+	}
+
+	/**
+	 * @return The index which this world should be placed at. Returns Integer.MAX_VALUE if it's not a major world which requires ordering.
+	 */
+	public int getMajorAreaIndex() {
+		if(majorAreaIndex<=0) {
+			return Integer.MAX_VALUE;
+		}
+		return majorAreaIndex;
+	}
+	
+	public boolean isMajorArea() {
+		return getMajorAreaIndex()>0 && getMajorAreaIndex()!=Integer.MAX_VALUE;
 	}
 }

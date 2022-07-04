@@ -480,6 +480,10 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		return this.getType().getDescription();
 	}
 
+	public String getBodyOverviewDescription() {
+		return this.getType().getBodyOverviewDescription();
+	}
+	
 	@Override
 	public int getValue() {
 		return this.getType().getValue();

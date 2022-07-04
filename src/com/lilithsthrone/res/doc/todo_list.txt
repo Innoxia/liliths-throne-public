@@ -7,268 +7,143 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Patch notes:
 	
 	Contributors:
-		Added offspring encounters to the bat caverns. (PR#1504 by Stadler76)
-		Fixed an issue where clothing management could sometimes throw a Null Pointer Exception. (by Cognitive Mist)
-		Fixed issue which was causing the message 'var timer not found...' to be printed to the error log. (by Cognitive Mist)
-		Fixed an issue where the AbstractSubspecies#getSubspeciesWeighting method was not working correctly, causing Subspecies weighting to fail and errors to be thrown. (by Cognitive Mist)
+		Fixed latex stocks always being referred to as black in their description. (PR#1671 by Anonymous-BCFED)
+		Added a delete button to custom character images, enabling you to remove custom images without having to manually delete the image from the charatcer's 'custom' artwork folder. (PR#1637 by NoStepOnSneks)
+		Fully implemented all of the Elder Lilin perk checks, which for the time being can be turned on/off via the debug menu. (PR#1631 by Maxis010)
+		Removed the 'enchantmentLimit' element from all xml files, and from the Java code that parses those xmls, as support for this element was dropped in a prior enchantment update. (PR#1618 by CognitiveMist)
+		Updated 'hyena_bone_crush.xml' to include damage variance, and changed links from master branch to dev branch in 'dagger.xml'. (PR#1616 by CognitiveMist)
+		Added warnings for if a weighted map contains bad values. (PR#1614 by CognitiveMist)
+		Adds an alarm clock function to places where you can rest: Lilaya's house room; Friendly apartment sofa; Elis tavern room; Dairy farm dormitory. (PR#1606 by CognitiveMist)
+		If a random NPC attacker (in Dominion, Submission, Harpy Nests, or Elis) has the 'cum addict' fetish, or they are under the effects of an arcane storm, there is a 10% chance that they will spawn with some dirty inventory slots. (PR#1582 by CognitiveMist)
+		Added sorting options to the slave list. (PR#1662 by Anonymous-BCFED)
+		Changed all old FITS_HARPY_WINGS item tags to FITS_ARM_WINGS as the former is no longer supported. (PR#1663 by DSG)
+		NPCs who are freed via use of a Freedom Certificate are no longer able to be re-enslaved afterwards. (PR#1649 by Maxis010)
+		Fixed some sizing issues with item tooltips. (PR#1674 by Nonny5Mouse)
+	
+	Misc fixes contribution (PR#1664 by MintyChip):
+		Added spaces before the fluid modifier descriptions in the appearance screens.
+		Taurs now spawn with their race's default GenitalArrangement (e.g. alligator-taurs now have cloacas).
+		Fixed the params of the method applyLegConfigurationTransformation's javadoc.
+		Fixed visual bug where displayed file path for transformation presets was set to the same one as enchantments.
+		Improved positioning of the infertility/fertility perks so that their connecting lines no longer appear to be connected to unrelated perks.
+		Changed the octopus hair covering type to mimic the octopus skin covering type.
+		Imported characters now correctly receive Lilaya's 5k flames if they skip the prologue.
+		Made it so that half-demons lay eggs if their other half's race lays eggs.
+		Added a 'clear alerts' button to the encyclopedia menu.
+		added a 'clear stats' button when importing a character.
+	
+	Slime tweaks contribution (PR#1665 by MintyChip):
+		Made it so that the slime attacker's slime transformation applies the same effects as the biojuice for the sake of consistency.
+		Added flavor text to the biojuice description to mention that it's "heavily processed" and thus corruptive where the source (slime queen in the bath scene) is not.
+		Nerfed the permanent corruption gain from biojuice, as it seemed like a harsh effect if a new player just wandered into the submission.
+		Made it so that elementals can't have their body material transformed into SLIME or FLESH using the biojuice or flesh potions.
+	
 	
 	Engine/Modding:
-		Added parser hooks for tattoo counter type, count type, and writing styles, and added a new addTattoo() method in the GameCharacter class, allowing you to add tattoos to characters and then add writing/counters to the tattoo.
+		Added a new element, 'bodyOverviewDescription', to tattoo xml files, which is used in the newly-added tattoo section of the character appearance page. (If missing, the basic description is used instead.)
 	
 	Gameplay:
-		Filled in all placeholder scenes for the content in the tavern, 'The Crossed Blades', and added a way to have sex with Oglix (after completing her beer-bitch barrel quest).
-		Added encounter to 'Dominion street', 'Submission walkway', and 'Elis street' tiles for when wearing the 'rental mommy/daddy' t-shirts, where a member of the public will offer to pay the price displayed on your t-shirt to have sex with you. The t-shirt must not be concealed by other clothing for the encounter to trigger, and it will trigger less often when higher prices are displayed.
-		Added the 'surrender' and 'Request transformation' action from Elis alleyway encounters to Dominion alleyway/demon alleyway, Harpy nest walkways, Submission tunnel, and Bat Caverns encounters.
-		Expanded random encounter content in Dominion alleyways, Dominion demon tiles, Harpy Nest walkways, Submission tunnels, Bat Caverns, and Elis alleyways, by making it so that after using 'offer body' or 'surrender' actions three times, the NPC will demand that you become their bitch, after which several new options will be available upon repeat encounters.
+		Added a minor expansion to Lilaya's panties content, where after threatening Rose you can gain access to a submissive threesome scene with her and Lilaya.
 	
-	Clothing:
-		Added several more sticker variations for the 'rental mommy' and 'rental daddy' t-shirts, and allowed all colours to be chosen for the tertiary dye for the 'rental mommy' t-shirt.
+	Items:
+		Added new tattoo types: spider; rose; crossed blades; pentagram; trinity and spiral Celtic knots.
+	
+	Sex:
+		Hand-holding is now tagged as a 'loving' action (similar to 'Caress face', 'Kiss cheek', etc.), so NPCs will now only use this action if they do not have the sadist fetish and their affection towards their target is at least 'caring'.
 	
 	Other:
-		Added armpit and intercural counts to the phone menu's sex stats screen.
-		Clothing stolen using the 'Steal' spell (which is currently not available to gain outside of the debug menu) now renames stolen clothing from character X following the pattern: 'clothing_name' to 'X's clothing_name'.
-		The trigger for talking to Roxy about firebombs (stage 1 of the 'Spicy Meatballs' quest) no longer requires you to have asked Axel about Vengar first.
-		Post-combat transformation scenes will now add/remove and alter the size of crotch-boobs.
-		Slightly adjusted encounter chances in Elis's alleyways, making it slightly more likely to encounter an attacker than finding an item, prostitute, or offspring.
-		Forced TF potions from alleyway attackers should now apply more drastic hair length TFs, speeding up the forced TF process.
+		In the character appearance page, a description of the character's tattoos is now shown at the bottom.
+		In the rental mommy random customer encounter, the chance for the customer to be a dom or a sub is now 60/40 based on your fetishes instead of 100/0, and 90/10 based on the writing on your tshirt instead of 100/0.
+		The map screen in your phone menu now lists major maps within the selected region before all other maps.
+		Bat eyes now grant the night vision ability (which negates the 'darkness' status effect).
+		Siblings who are born at the same time are now defined as being twins to one another. Katherine and Kelly have now also been correctly defined as being twin sisters.
+		The random NPC who spawns during the 'walkies' content for the new repeated-submission alleyway content can now spawn with a pussy instead of always spawning with a cock.
 	
 	Bugs:
-		Typo fixes.
-		NPCs with arm-wings who are added as beer-bitches to 'The Crossed Blades' will now correctly have a 'barrel' clothing item applied to them.
-		The 'Encourage cum on X' action is now correctly disabled during armpit and intercrural sex for characters who are the one who's about to be cummed on (this is a different action to 'Request cum on X', and is intended for third party participants).
-		Fixed issue where arctic wolf-morphs would correctly spawn with pale skin/white fur, but incorrectly-coloured nipples, vagina, and anus.
-		Brittany (the bimbo harpy matriarch) now correctly has 'tanned' skin colour instead of 'light'.
-		The 'Between legs' sex positioning action in the 'sitting' sex position is no longer available while targeting taurs (as taurs should not be able to make use of the sitting position slot).
-		Fixed issue where Kruger would sometimes switch into an unsuitable sex position in his sex scene.
-		Fixed background error being thrown when loading a game in which your character was in Submission.
-		Fixed issues with the offspring encounters in Submission using the same dialogue as Dominion's alleyways.
-		Fixed slight inconsistencies in bat cavern encounter dialogue which were referencing Submission's tunnels instead of the caves.
-		Slimes who want to transform the player into a slime using forced TF will now correctly generate a slime-TF effect to apply (instead of producing a TF effect which always did nothing), then in subsequent encounters they will now generate the correct racial potions for their desired TFs.
-		The transformation menu no longer displays duplicate 'Loose' buttons under orifice capacity when gape content is turned off.
-		Fixed bug where skin colour preference options were not working.
-		Offspring from a human mother and a human father will now randomly choose between one or the other to have their genetics based off of, instead of always choosing the father.
+		Typo fixes and minor text improvements.
+		Fixed several places in the new repeated-submission alleyway content where vagina interaction content would be used even if the player didn't have a vagina.
 	
 	
-	
-	[x] Add 'The Crossed Blades' tavern in the north of Elis
-		[x] Writing
-			[x] Bar scenes
-				[x] talking
-				[x] drinks
-				[x] Golix punishment
-					[x] test
-			[x] Barrel bitch
-				[x] fuck
-				[x] quest completion
-					[x] taur tavern
-					[x] test
-				[x] delivering bitch
-					[x] test
-						[x] choosing to fuck them didn't apply barrel
-			[x] Kheiron
-				[x] after first encounter, add action which results in Golix submitting
-					[x] Golix oral/anal depth++
-				[x] add Golix topic to Kheiron talk options
-			[x] standard place tiles
-				[x] toilets
-				[x] gambling
-				[x] VIP
-					[x] Add Oglix conversation topic after seeing the door
-				[x] seating
-					[x] brawl scenes
-	[x] add armpit & intercural sex to sex stats
-	[x] lesser arctic wolf morph spawned with pale skin/white fur but chocolate nipples/vagina/anus
-	[-] tooltip size bugged in maps
-	[x] bimbo harpy to have tanned skin not light
-	[x] steal panties spell should rename panties to: "X's " + item_name
-	[x] Improve Roxy firebombs quest triggers (have to talk to Axel first???)
-	[x] I wish if you wore the "Rental Daddy/Mommy (50 Flames)" t-shirt, people would walk up to you and pay to have sex with you
-		[x] framework
-			[x] encounter init
-				[x] NPC as sub
-				[x] NPC as dom
-			[x] sex
-				[x] dom
-				[x] sub
-		[x] add to
-			[x] Dominion
-			[x] Submission
-			[x] Elis
-		[x] add line in tshirt item (from price sticker) to show that it can cause encounters
-		[x] Disable encounter if clothing is concealing tshirt
-		[x] writing
-		[x] encounter chance based on cost
-	[x] add way to have sex with Oglix
-		[x] add bedroom
-		[x] flirt at bar
-			[x] she flashes you, asks if you wanted more
-			[x] bedroom sex
-				[x] add manager to set bed name
-		[x] 'Take charge' option
-			[x] requires martial arts
-		[x] writing
-			[x] Add text at end of quest where she flirts with player
-				[x] add this to repeat bar text
-			[x] flirting scenes
-			[x] pregnancy reactions in bar intro scenes
-		[x] test
-			[x] flirting
-			[x] repeat
-				[x] same day
-				[x] tomorrow
-			[x] pregnancy reaction
-	[-] Kruger: the next step in the sex scene he wants your pussy, but he wants to fuck standing up, but he cant if you're a taur or if you're too short so instead he blows your throat out
-	[x] add surrender option to Dominion/Submission too
-	[x] post-combat TF potion doesn't remove crotch-boobs
-	[x] add surrender to 
-		[x] Dominion demon alleyway encounter
-		[x] Harpy nests
-	[x] Repeat alleyway
-		[x] after 3 'offer body'/'surrender' in a row, they demand that you become their bitch.
-			[x] add warning to action tooltips and/or to combat or somewhere in the main text
-			[x] fight or submit
-				[x] Have to show them that you're their bitch, after which an option is chosen:
-					[x] Kiss feet for foot-worshipping character
-					[x] Get spanked for sadistic NPC
-					[x] Bow down (always available)
-				[x] They laugh and give player a nickname
-				[x] reveals their name (pet name set to Mistress/Master, Miss/Mr X, or Ma'am/Sir)
-				[x] finish by TF, sex, or saying that they're not interested in fucking, but will have a use for you
-			[x] Add as Elis alleyway alternate encounter:
-				[x] when meeting them again, random demand:
-					[x] Priority 1 is transformed/fucked, after which all other options become available:
-					[x] 1 give money
-					[x] 2 tag along to assist in mugging
-						[x] fight
-							[x] if lose, owner runs off, leaving you to be fucked or abandoned
-							[x] if win, owner makes you take money from victim, then:
-								[x] sex based on attraction and last time had sex:
-									[x] (if NPC is attracted to victim) watch
-									[x] (if player is attracted to victim) ordered to rape victim
-						[x] karma decrease
-					[x] 3 pimped out
-						[x] a friend fucks you (same gender)
-							[x] special starts based on fetishes
-								[x] oral
-								[x] anal
-								[x] vaginal
-							[x] generic
-						[x] owner watches
-					[x] 4 get fucked
-					[x] 5 'Walkies' humiliation
-						[x] crawl alongside npc as they go to get something to eat
-						[x] stranger fuck options
-					[x] 6 tattooed 'X's bitch'
-						[x] fucked by tattooist as payment
-					[x] unify payment options and give player choice (to give a way to avoid pimped out and mugging)
-						[x] just present player with the available options, don't show diabled ones
-					[x] tattooed action should only be for selfish NPCs (so can avoid)
-				[x] all demands have option to refuse (action 5, 'Rebel'), which leads into fight
-					[x] victory, no longer bitch
-					[x] loss, fucked
-				[x] testing
-					[x] fucked action should not be given if having strengthened aura effect
-					[x] pay
-						[x] payment parsing special doesn't work
-						[x] after payment should have 'Continue' to improve dialogue flow
-					[x] mugging
-						[x] combat won/lost continues dialogue
-						[x] test loss
-							[x] tooltip error
-					[x] pimped
-						[x] not using special starts?
-					[x] fucked
-					[x] walkies
-						[x] ignore parsing errors
-						[x] after sex id missing
-						[x] no position switching for fuck
-					[x] tattooed
-						[x] both actions have same name
-					[x] test rebel combat
-						[x] win
-						[x] lose
-				[x] writing
-					[x] initial submit
-					[x] payment
-					[x] mugging
-					[x] pimped
-					[x] sex
-					[x] walkies
-					[x] tattooed
-				[x] test all again
-					[x] tattooist pet name
-					[x] tattooed mark as sex
-					[x] test tattoo conditionals in pimped
-				[x] arcane storm vulnerability should always use fuck
-					[x] add dialogue variation for this
-				[x] Combat win should reset pet name
-				[x] add dialogue to make it clear that NPC being selfish is why tattoo happens
-			[x] copy over for:
-				[x] Dominion alleyway
-				[x] demon alleyway
-				[x] Harpy nest walkways
-					[x] make all NPCs harpies
-					[x] mugging edits
-					[x] pimped out -> harpy
-					[x] walkies diner -> lower nest restaurant
-					[x] tattooist basement -> harpy apartment
-					[x] check for "alley" and "Dominion" references to edit
-				[x] Submission tunnel
-					[x] check for "alley" and "Dominion" references to edit
+	[] PRs:
+		[x] PR#1617
+	[] Reverse-order merge:
+		[] #94
+		[] #895
+		[] #508
+		[] #947
+		[] #976
+		[] #1001
+		[] #1003
+		[] #1004
+		[] #1289
+		[-] #1305
+		[-] #1320
+		[x] #1582
+		[x] #1606
+		[x] #1614
+		[x] #1616
+		[x] #1618
+		[x] #1631
+		[x] #1637
 			[x] test
-				[x] Dominion alleyway
-				[x] demon alleyway
-				[x] Harpy nest walkways
-					[x] harpy race reset not working
-				[x] Submission tunnel
-				[x] combat lost link incorrect - move to hard-coded fight action
-				[x] add indication of submission to overview NPC text
-	[x] Check Elis prostitute spawn chance (seemed a lot higher than mugger)
-	[x] increase hair TF rate for random TF potion application
-	[x] Request TF action
-		[x] add to:
-			[x] Dominion alleyway
-			[x] demon alleyway
-			[x] Harpy nest walkways
-			[x] Submission tunnel
-		[x] make sure to reset transformed boolean at start
-		[x] test all
-			[x] Dominion alleyway
-			[x] demon alleyway
-			[x] Harpy nest walkways
-			[x] Submission tunnel
-		[x] change dialogue for if only fetish TFs are being applied
-			[x] for Elis alleyway too
-	[x] #1504
-		[x] add offspring txt variations for:
-			[x] Submission tunnel
-			[x] bat caverns
-				[x] make offspring mushroom vendors
-				[x] search/replace for 'Submission' 'tunnels' 'PROSTITUTE'
-	[x] bug fixes in developer chat
-	[x] test bat caverns offspring taking back to Lilaya's
-	[x] add surrender and bitch content to bat caverns
-		[x] dialogue edits
-		[x] txt edits
-			[x] initial meetings
-			[x] bitch content
-				[x] mugging edits
-				[x] pimped out
-				[x] walkies diner
-				[x] tattooist basement
-				[x] check for "tunnel" and "Submission" references to edit
-		[x] test
-			[x] coverable area bug affecting all bitch content
-			[x] slime surrender action throwing error: getClosestStringMatch() did not find an exact match for 'innoxia_race_slime_biojuice_canister' at com.lilithsthrone.game.character.npc.NPC.generateTransformativePotion(NPC.java:1428)
-			[x] slime racial TFs always default to human?
-	[x] TF menu should remove capacity options for if gape content is off
-	[x] check skin colour preference options are working
-		[x] horse-girl spawned with disabled skin colour
-	[-] bug where offspring skin colour does not match parents
+				[x] unique character
+				[x] generic character
+		[-] #1639
+		[] #1642
+		[x] #1662
+			[x] button names overlap
+			[x] condense sorting button panel
+			[x] improve tooltip descriptions
+			[x] text areas are far too laggy for some reason, so have to remove category and notes
+				[-] tooltips for 'Additional Book-Keeping Information' need moving to information icon
+				[-] text area formatting is broken
+					[-] remove notes as it's laggy and unresponsive
+				[-] move category definition to above 'Available Jobs' section 
+		[x] #1663
+		[x] #1664
+		[x] #1665
+		[x] #1649
+		[x] #1674
+		[] #1657
+		[] #1658
+		
+	[x] add tattoos to description page
 	
-	[] In map screen, make core map the first action and highlight/bold it
+	[x] I got pimped out and got my trap PC got pregnant even though he only has a penis?!  I was confused when the prompt at the NPCs home said "Present pussy", but it actually came true
+		[x] hasVagina() checks missing for every vagina action...
+	[x] tag hand holding as a romantic action?
+	[x] change rental mommy encounter to 60/40 either way for if you have the dom or sub fetish instead of 100/0
+	[x] In map screen, make core map the first action and highlight/bold it
+	[-] Masturbation scene with panties charter as cum like 8 times can't stop
+	[x] Add 'Threaten' threesome sex
+	[x] relationship twin support
+	[x] add NPC pussy interactions for walkies bitch content
+	[x] add some more tattoo styles
+		[x] rose
+		[x] spider
+		[x] crossed blades
+		[x] pentagram
+		[x] celtic knots
 	
-	[] relationship twin support
+	[] Make blog post
+		[] plan to bug fix, PR merge, other minor things
+	
+	
+	[] buff elder lilin perks for if player is a demon
+	
+	[] Vicky, Amber, and yea Ms. Cunningham don't have an alternative if you're not into feet or anal
+	
+	[] Teleport seems to be busted. It costs nothing and lets me tele to tiles I haven't been to.
+	
+	[] save the time at the game's start as a unique ID and use that for the quick/auto save file identifiers
+	[] Custom artwork for characters who have the same name have the same artwork?
+		[] folder structure:
+			[] parent folder name should be unique ID of player
+			[] child folders should be unique ID of NPCs
+	
+	[] improve status effect calculations
+		[] update requirements triggered by clothing/attribute/position change
+		[] upon load is it doing an init of all effects?
 	
 	[] need mute dialogue handling for offspring encounters
 	
@@ -276,15 +151,16 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[-] artisan and industrial milkers extract the same amount
 		[] Not sure if this counts as a bug, but you're able to get infinite fare tickets at Kazik
 	
-	
-	
-	[] save the time at the game's start as a unique ID and use that for the quick/auto save file identifiers
+	[] add a debug option to skip the dominion quests
 	
 	[] skunk
 	[] deer
 		glade springs - sparkling mineral water
 		tree shoots salad
 	
+	[] add sex action 'look back' variation for owl morphs
+	
+	[] make fetish transfer to elemental action (opposite fetishes also)
 	
 	- Pregnancy mechanics update
 		[] Cycle
@@ -340,12 +216,16 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		
 	[] balaclava
 	[] jewellery for blank slots (horns, wings)
-	
+		[] tail ring clothing
+		[] horn chains & rings clothing
+		
 	[] add generic tentacle legs for slime and demon(tentacle-girl/boy)
 	
 	[] serpent-serpent sex position 'mating coil'
 	
 	[] option to cast the soothing waters spell to clean the dumpster diver and temporarily remove the musk content from sexing them
+	
+	[] security job
 	
 	[] meraxis
 		[] cock content
@@ -379,30 +259,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] Ceridwen invites player to home (in wood tile in Elis)
 			[] Can have sex
 	
-	
-	[] PRs:
-		[x] PR#1617
-	[] Reverse-order merge:
-		[] #94
-		[] #895
-		[] #508
-		[] #947
-		[] #976
-		[] #1001
-		[] #1003
-		[] #1004
-		[] #1289
-		[] #1305
-		[] #1320
-		[] #1582
-		[] #1606
-		[] #1614
-		[] #1616
-		[] #1618
-		[] #1631
-		[] #1637
-		[] #1639
-		[] #1642
 			
 	[] Main quest content. I'll get the main quest progressed past the town of Thmyscra, and into the next stage.
 	

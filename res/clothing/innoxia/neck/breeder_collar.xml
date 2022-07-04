@@ -17,7 +17,6 @@
 	<clothingSet/>
 	<imageName>breeder_collar.svg</imageName>
     <imageEquippedName/>
-	<enchantmentLimit>5</enchantmentLimit>
 	<effects>
 		<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="FERTILITY" timer="0"/>
 		<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="FERTILITY" timer="0"/>

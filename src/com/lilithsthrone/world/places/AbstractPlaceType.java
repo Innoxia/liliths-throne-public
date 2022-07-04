@@ -529,7 +529,9 @@ public class AbstractPlaceType {
 			possibleEncountersMap.put(encounterType, encounterType.getTotalChanceValue());
 		}
 		for(AbstractEncounter enc : Encounter.getAddedEncounters(this.getId())) {
-			possibleEncountersMap.put(enc, enc.getTotalChanceValue());
+			if(enc.getTotalChanceValue()>0) {
+				possibleEncountersMap.put(enc, enc.getTotalChanceValue());
+			}
 		}
 		
 		if(possibleEncountersMap.isEmpty()) {

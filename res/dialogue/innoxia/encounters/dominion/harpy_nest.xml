@@ -774,7 +774,7 @@
 					[#friend.addFetish(FETISH_ANAL_GIVING)]
 					[#friend.removeFetish(FETISH_VAGINAL_GIVING)]
 					[#friend.removeFetish(FETISH_ORAL_RECEIVING)]
-				#ELSEIF((friend.hasFetish(FETISH_VAGINAL_GIVING) || RND.nextInt(100)<50) && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+				#ELSEIF((friend.hasFetish(FETISH_VAGINAL_GIVING) || RND.nextInt(100)<50) && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 					[#friend.addFetish(FETISH_VAGINAL_GIVING)]
 					[#friend.removeFetish(FETISH_ANAL_GIVING)]
 					[#friend.removeFetish(FETISH_ORAL_RECEIVING)]
@@ -1151,9 +1151,16 @@
 	<scene id="submitted_repeat_walkies">
 		<preParsingEffects><![CDATA[
 			[#game.addNPC('misc.GenericSexualPartner', 'stranger')]
-			[#stranger.resetBodyToGenderPreferences(false, true)]
+			#IF(!stranger.hasVagina() && !stranger.hasPenis())
+				[#stranger.resetBodyToGenderPreferences(false, true)]
+			#ENDIF
 			[#stranger.setBodyUsingSubspeciesPreference(stranger.getGender(), SUBSPECIES_HARPY)]
-			[#stranger.displaceClothingForAccess(CA_PENIS, null)]
+			#IF(stranger.hasVagina())
+				[#stranger.displaceClothingForAccess(CA_VAGINA, null)]
+			#ENDIF
+			#IF(stranger.hasPenis())
+				[#stranger.displaceClothingForAccess(CA_PENIS, null)]
+			#ENDIF
 			[#stranger.setSexualOrientation(ORIENTATION_AMBIPHILIC)]
 			
 			[#stranger.setLocation(pc, false)]
@@ -1162,15 +1169,18 @@
 			[#stranger.addFetish(FETISH_DOMINANT)]
 			[#stranger.addFetish(FETISH_EXHIBITIONIST)]
 			
-			[#stranger.addFetish(FETISH_PENIS_GIVING)]
-			[#stranger.removeFetish(FETISH_VAGINAL_GIVING)]
+			#IF(stranger.hasPenis())
+				[#stranger.addFetish(FETISH_PENIS_GIVING)]
+				[#stranger.removeFetish(FETISH_VAGINAL_GIVING)]
+			#ENDIF
+			#IF(stranger.hasVagina())
+				[#stranger.removeFetish(FETISH_VAGINAL_RECEIVING)]
+			#ENDIF
 			[#stranger.removeFetish(FETISH_ORAL_RECEIVING)]
 			#IF(!game.isAnalContentEnabled() || !pc.isAbleToAccessCoverableArea(CA_ANUS, true))
 				[#stranger.removeFetish(FETISH_ANAL_GIVING)]
-			#ELSEIF(pc.getFetishDesire(FETISH_ANAL_RECEIVING).isPositive())
-				[#stranger.addFetish(FETISH_ANAL_GIVING)]
 			#ENDIF
-			#IF(pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 				[#stranger.addFetish(FETISH_VAGINAL_GIVING)]
 			#ENDIF
 			#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
@@ -1186,15 +1196,32 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Remain still]]></responseTitle>
-				<responseTooltip><![CDATA[Ignore the stranger and remain seated outside the bistro until [stranger.she] loses interest and leaves.]]></responseTooltip>
+				<responseTooltip><![CDATA[Ignore the stranger and remain seated outside the restaurant until [stranger.she] loses interest and leaves.]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_encounters_dominion_harpy_nest_submitted_repeat_walkies_ignore]]></nextDialogue>
 				<effects/>
 			</response>
 			<!-- Sex begging: -->
-			<!-- Oral: -->
+			<!-- Blowjob: -->
 			<response>
                 <availabilityConditional><![CDATA[
-					[#stranger.hasFetish(FETISH_ORAL_RECEIVING)]
+					[#!stranger.hasFetish(FETISH_ORAL_RECEIVING) || !stranger.hasPenis()]
+                ]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Lick cock]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!stranger.hasFetish(FETISH_ORAL_RECEIVING))
+						You're unable to access your mouth, so cannot lick the [stranger.race]'s cock!
+					#ELSE
+						The [stranger.race] doesn't have a cock for you to lick!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<effects/>
+			</response>
+			<response>
+                <availabilityConditional><![CDATA[
+					[#stranger.hasFetish(FETISH_ORAL_RECEIVING) && stranger.hasPenis()]
                 ]]></availabilityConditional>
                 <responseTabIndex><![CDATA[0]]></responseTabIndex>
                 <index><![CDATA[2]]></index>
@@ -1240,13 +1267,96 @@
 					</ongoingActionsAtStart>
                 </sexVariablesWithManager>
             </response>
-			<!-- Vaginal: -->
+			<!-- Cunnilingus: -->
 			<response>
                 <availabilityConditional><![CDATA[
-					[#stranger.hasFetish(FETISH_VAGINAL_GIVING)]
+					[#!stranger.hasFetish(FETISH_ORAL_RECEIVING) || !stranger.hasVagina()]
+                ]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Kiss pussy]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!stranger.hasFetish(FETISH_ORAL_RECEIVING))
+						You're unable to access your mouth, so cannot kiss the [stranger.race]'s pussy!
+					#ELSE
+						The [stranger.race] doesn't have a pussy for you to kiss!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<effects/>
+			</response>
+			<response>
+                <availabilityConditional><![CDATA[
+					[#stranger.hasFetish(FETISH_ORAL_RECEIVING) && stranger.hasVagina()]
                 ]]></availabilityConditional>
                 <responseTabIndex><![CDATA[0]]></responseTabIndex>
                 <index><![CDATA[3]]></index>
+                <responseTitle><![CDATA[Kiss pussy]]></responseTitle>
+                <responseTooltip><![CDATA[
+					Lean over to [stranger.namePos] groin and give [stranger.her] [stranger.pussy+] a kiss, before eagerly eating [stranger.herHim] out...
+                ]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+                <effects/>
+                <requiredFetishes>
+                    <fetish><![CDATA[FETISH_ORAL_GIVING]]></fetish>
+                    <fetish><![CDATA[FETISH_EXHIBITIONIST]]></fetish>
+                </requiredFetishes>
+                <corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[innoxia_misc_alleyway_encounter_stranger_oral_vaginal]]></id>
+                    <startingPosition><![CDATA[STANDING]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>stranger</id>
+                            <slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators/>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[innoxia_encounters_dominion_harpy_nest_submitted_repeat_walkies_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/encounters/dominion/harpyAttack">SUBMITTED_REPEAT_WALKIES_ORAL_VAGINAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueVagina_RECEIVING_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[stranger]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+                </sexVariablesWithManager>
+            </response>
+			<!-- Vaginal: -->
+			<response>
+                <availabilityConditional><![CDATA[
+					[#!stranger.hasFetish(FETISH_VAGINAL_GIVING) || !stranger.hasPenis()]
+                ]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Present pussy]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!stranger.hasFetish(FETISH_VAGINAL_GIVING))
+						You don't have a pussy, so cannot get fucked by the [stranger.race]!
+					#ELSE
+						The [stranger.race] doesn't have a cock, so [stranger.she] can't fuck your pussy!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<effects/>
+			</response>
+			<response>
+                <availabilityConditional><![CDATA[
+					[#stranger.hasFetish(FETISH_VAGINAL_GIVING) && stranger.hasPenis()]
+                ]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[4]]></index>
                 <responseTitle><![CDATA[Present pussy]]></responseTitle>
                 <responseTooltip><![CDATA[
 					Drop down onto all fours and shuffle around to present your [pc.pussy+] to [stranger.name] so that [stranger.she] can fuck you...
@@ -1292,10 +1402,29 @@
 			<!-- Anal: -->
 			<response>
                 <availabilityConditional><![CDATA[
-					[#stranger.hasFetish(FETISH_ANAL_GIVING)]
+					[#game.isAnalContentEnabled() && (!stranger.hasFetish(FETISH_ANAL_GIVING) || !stranger.hasPenis())]
+                ]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Present ass]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+						You can't access your asshole, so cannot get anally fucked by the [stranger.race]!
+					#ELSEIF(!stranger.hasFetish(FETISH_ANAL_GIVING))
+						The [stranger.race] doesn't seem to be interested in wanting to fuck your ass...
+					#ELSE
+						The [stranger.race] doesn't have a cock, so [stranger.she] can't fuck your ass!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<effects/>
+			</response>
+			<response>
+                <availabilityConditional><![CDATA[
+					[#stranger.hasFetish(FETISH_ANAL_GIVING) && stranger.hasPenis()]
                 ]]></availabilityConditional>
                 <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[4]]></index>
+                <index><![CDATA[5]]></index>
                 <responseTitle><![CDATA[Present ass]]></responseTitle>
                 <responseTooltip><![CDATA[
 					Drop down onto all fours and shuffle around to present your [pc.asshole+] to [stranger.name] so that [stranger.she] can fuck your ass...
@@ -1434,7 +1563,7 @@
 						[#pc.addTattoo(IS_TORSO_UNDER, TATTOO_TRIBAL, COLOUR_CLOTHING_BLACK, COLOUR_CLOTHING_BLACK, COLOUR_CLOTHING_BLACK, false)]
 						[#pc.getTattooInSlot(IS_TORSO_UNDER).setWriting('Property of '+[npc.name], COLOUR_CLOTHING_BLACK, false)]
 					#ENDIF
-					#IF(pc.getTattooInSlot(IS_GROIN)==null && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+					#IF(pc.getTattooInSlot(IS_GROIN)==null && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 						[#flags.setFlag(FLAG_innoxia_alleyway_submission_tattooed_pussy, true)]
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/harpyAttack', 'SUBMITTED_REPEAT_TATTOOED_PUSSY'))]
 						[#pc.addTattoo(IS_GROIN, TATTOO_innoxia_heartWomb_heart_womb, COLOUR_CLOTHING_PINK, COLOUR_CLOTHING_PINK_LIGHT, COLOUR_CLOTHING_PURPLE, false)]

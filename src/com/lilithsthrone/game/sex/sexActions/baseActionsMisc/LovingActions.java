@@ -3,9 +3,7 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 import java.util.List;
 import java.util.Map;
 
-import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -65,10 +63,7 @@ public class LovingActions {
 			}
 			return SexAreaPenetration.FINGER.isFree(Main.sex.getCharacterPerformingAction())
 					&& !Main.sex.isDom(Main.sex.getCharacterTargetedForSexAction(this))
-					&& (mouthFinger || mouthFingerReversed)
-					&& (Main.sex.getCharacterPerformingAction().isPlayer()
-							|| (Main.sex.getCharacterPerformingAction().getAffectionLevel(Main.sex.getCharacterTargetedForSexAction(this)).isGreaterThan(AffectionLevel.POSITIVE_TWO_LIKE)
-									&& !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST)));
+					&& (mouthFinger || mouthFingerReversed);
 		}
 		
 		@Override
@@ -147,10 +142,7 @@ public class LovingActions {
 			}
 			return SexAreaOrifice.MOUTH.isFree(Main.sex.getCharacterPerformingAction())
 					&& !Main.sex.isDom(Main.sex.getCharacterTargetedForSexAction(this))
-					&& (mouthTongue || mouthTongueReversed)
-					&& (Main.sex.getCharacterPerformingAction().isPlayer()
-							|| (Main.sex.getCharacterPerformingAction().getAffectionLevel(Main.sex.getCharacterTargetedForSexAction(this)).isGreaterThan(AffectionLevel.POSITIVE_TWO_LIKE)
-									&& !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST)));
+					&& (mouthTongue || mouthTongueReversed);
 		}
 		
 		@Override

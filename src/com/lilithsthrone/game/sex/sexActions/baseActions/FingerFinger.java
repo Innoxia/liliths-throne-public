@@ -14,7 +14,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.4.3.2
- * @version 0.4.3.2
+ * @version 0.4.4.1
  * @author Innoxia
  */
 public class FingerFinger {
@@ -26,6 +26,10 @@ public class FingerFinger {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL) {
+		@Override
+		public boolean isLovingAction() {
+			return true;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Start hand holding";

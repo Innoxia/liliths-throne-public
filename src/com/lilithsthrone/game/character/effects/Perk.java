@@ -2976,7 +2976,9 @@ public class Perk {
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldLightBlue(aquatic transformations)] if a [style.boldDemon(demon)]")) {
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldLightBlue(fish transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -3001,7 +3003,9 @@ public class Perk {
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldFeral(feral transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -3026,7 +3030,9 @@ public class Perk {
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] ability to transform others into [style.boldDemon(demons)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -3078,7 +3084,9 @@ public class Perk {
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldGreenLight(mammalian transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -3103,7 +3111,9 @@ public class Perk {
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldGreenLight(avian transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -3128,7 +3138,9 @@ public class Perk {
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldGreenLight(reptilian and amphibian transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {

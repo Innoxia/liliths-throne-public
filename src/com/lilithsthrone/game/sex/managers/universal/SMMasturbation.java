@@ -19,7 +19,7 @@ import com.lilithsthrone.utils.Util;
 public class SMMasturbation extends SexManagerDefault {
 
 	public SMMasturbation(Map<GameCharacter, SexSlot> dominants) {
-		super(false,
+		super(true,
 				SexPosition.MASTURBATION,
 				dominants,
 				new HashMap<>());

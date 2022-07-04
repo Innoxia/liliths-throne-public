@@ -17,7 +17,6 @@
 
 	<clothingSet>BDSM</clothingSet>
     <imageEquippedName/>
-    <enchantmentLimit/>
 	
 	<effects> 
 		<effect itemEffectType="CLOTHING" limit="0" potency="DRAIN" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SEALING" timer="0"/>
