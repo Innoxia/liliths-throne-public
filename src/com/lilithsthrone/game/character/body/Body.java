@@ -96,6 +96,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
@@ -106,6 +107,7 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -3291,6 +3293,60 @@ public class Body implements XMLSaving {
 			sb.append("</p>");
 		}
 		
+		// Tattoos:
+		StringBuilder tattooSB = new StringBuilder();
+		for(Entry<InventorySlot, Tattoo> tattoEntry : owner.getTattoos().entrySet()) {
+			InventorySlot tattooSlot = tattoEntry.getKey();
+			boolean knowsArea = owner.isPlayer();
+			if(!knowsArea) {
+				caLoop:
+				for(CoverableArea ca : CoverableArea.values()) {
+					for(InventorySlot slot : ca.getAssociatedInventorySlots(owner)) {
+						if(tattooSlot==slot) {
+							knowsArea = true;
+							break caLoop;
+						}
+					}
+				}
+			}
+			if(knowsArea) {
+				if(tattooSB.length()>0) {
+					tattooSB.append("<br/>");
+				}
+				Tattoo tattoo = tattoEntry.getValue();
+				if(tattoo.getBodyOverviewDescription().isEmpty()) { // Old version support
+					tattooSB.append("<span style='color:"+tattoo.getPrimaryColour().toWebHexString()+";'>"+Util.capitaliseSentence(tattooSlot.getTattooSlotName())+":</span> ");
+					tattooSB.append(tattoo.getDescription());
+					tattooSB.append(".");
+					
+				} else {
+					tattooSB.append("On [npc.her] [style.boldBlueSteel("+tattooSlot.getTattooSlotName()+")], [npc.sheHasFull] ");
+					tattooSB.append(tattoo.getBodyOverviewDescription());
+					tattooSB.append(", which is primarily coloured ");
+					tattooSB.append("<span style='color:"+tattoo.getPrimaryColour().toWebHexString()+";'>"+tattoo.getPrimaryColour().getName()+"</span>");
+					tattooSB.append(".");
+				}
+				if(tattoo.getWriting()!=null) {
+					tattooSB.append("<br/>It bears the words: '"+tattoo.getFormattedWritingOutput()+"'");
+				}
+				if(tattoo.getCounter()!=null) {
+					String counterName = tattoo.getCounter().getType().getName();
+					if(tattoo.getWriting()!=null) {
+						tattooSB.append(", and is enchanted to keep");
+					} else {
+						tattooSB.append("<br/>The tattoo's enchanted to keep");
+					}
+					tattooSB.append(UtilText.generateSingularDeterminer(counterName)+" '"+counterName+"' count, which reads: '"+tattoo.getFormattedCounterOutput(owner)+"'.");
+				} else {
+					tattooSB.append(".");
+				}
+			}
+		}
+		if(tattooSB.length()>0) {
+			sb.append(getHeader("Tattoos"));
+			sb.append(tattooSB.toString());
+		}
+		
 		if(!owner.isPlayer()) {
 			sb.append(getSexDetails(owner));
 			
@@ -4301,7 +4357,7 @@ public class Body implements XMLSaving {
 				
 				for(FluidModifier fm : FluidModifier.values()) {
 					if(owner.hasMilkModifier(fm)) {
-						descriptionSB.append(fm.getBriefDescription());
+						descriptionSB.append(" " + fm.getBriefDescription());
 					}
 				}
 				
@@ -4545,7 +4601,7 @@ public class Body implements XMLSaving {
 				
 				for(FluidModifier fm : FluidModifier.values()) {
 					if(owner.hasMilkCrotchModifier(fm)) {
-						descriptionSB.append(fm.getBriefDescription());
+						descriptionSB.append(" " + fm.getBriefDescription());
 					}
 				}
 				
@@ -4944,7 +5000,7 @@ public class Body implements XMLSaving {
 			
 			for(FluidModifier fm : FluidModifier.values()) {
 				if(owner.hasCumModifier(fm)) {
-					descriptionSB.append(fm.getBriefDescription());
+					descriptionSB.append(" " + fm.getBriefDescription());
 				}
 			}
 		}
@@ -5225,7 +5281,7 @@ public class Body implements XMLSaving {
 		
 		for(FluidModifier fm : FluidModifier.values()) {
 			if(viewedVagina.getGirlcum().getFluidModifiers().contains(fm)) {
-				descriptionSB.append(fm.getBriefDescription());
+				descriptionSB.append(" " + fm.getBriefDescription());
 			}
 		}
 		

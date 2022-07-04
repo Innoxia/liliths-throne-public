@@ -1766,117 +1766,180 @@ public class PhoneDialogue {
 
 		@Override
 		public String getContent() {
-			return "<div class='container-full-width' style='text-align:center; width:100%; padding:0; margin:4px 0;'>"
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("<div class='container-full-width' style='text-align:center; width:100%; padding:0; margin:4px 0;'>"
 						+ "You have orgasmed [style.boldSex("+Main.game.getPlayer().getDaysOrgasmCount()+")] time"+(Main.game.getPlayer().getDaysOrgasmCount()==1?"":"s")
 							+" today, bringing your total orgasm count to [style.boldSex("+Main.game.getPlayer().getTotalOrgasmCount()+")]."
 						+ "<br/>"
 						+ "Your record for most orgasms in one day is currently [style.boldSex("+Main.game.getPlayer().getDaysOrgasmCountRecord()+")]."
 						+ "<br/>"
 						+ "You have had sex with a total of [style.boldSex("+Main.game.getPlayer().getUniqueSexPartnerCount()+")] "+(Main.game.getPlayer().getUniqueSexPartnerCount()==1?"person":"different people")+"."
-					+ "</div>"
+					+ "</div>");
 					
-					+ sexStatHeader()
-					
-					+ sexStatRow(PresetColour.AROUSAL_STAGE_ONE, "Fingering",
+			sb.append(sexStatHeader());
+			
+			boolean oddRow = false;
+			
+			sb.append(sexStatRow(PresetColour.AROUSAL_STAGE_ONE, "Fingering",
 							Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 							-1,
 							Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER)),
 							-1,
-							true)
-
-					+ (Main.game.isAnalContentEnabled()
+							oddRow));
+			
+			oddRow = !oddRow;
+			
+			sb.append((Main.game.isAnalContentEnabled()
 							?sexStatRow(PresetColour.AROUSAL_STAGE_ONE, "Anal Fingering",
 									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.ANUS)),
 									-1,
 									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.FINGER)),
 									-1,
-									false)
-							:"")
-					
-					+ sexStatRow(PresetColour.AROUSAL_STAGE_ONE, "Blowjobs",
+									oddRow)
+							:""));
+			
+			if(Main.game.isAnalContentEnabled()) {
+				oddRow = !oddRow;
+			}
+			
+			sb.append(sexStatRow(PresetColour.AROUSAL_STAGE_ONE, "Blowjobs",
 							Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
 							Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
 							Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
 							Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
-							true)
-					
-					+ sexStatRow(PresetColour.AROUSAL_STAGE_ONE, "Cunnilingus",
+							oddRow));
+
+			oddRow = !oddRow;
+			
+			sb.append(sexStatRow(PresetColour.AROUSAL_STAGE_ONE, "Cunnilingus",
 							Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
 							-1,
 							Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)),
 							-1,
-							false)
-					
-					+ (Main.game.isAnalContentEnabled()
+							oddRow));
+
+			oddRow = !oddRow;
+			
+			sb.append((Main.game.isAnalContentEnabled()
 							?sexStatRow(PresetColour.AROUSAL_STAGE_ONE, "Anilingus",
 									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS)),
 									-1,
 									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE)),
 									-1,
-									true)
-							:"")
+									oddRow)
+							:""));
+			
+			if(Main.game.isAnalContentEnabled()) {
+				oddRow = !oddRow;
+			}
+
+			sb.append(sexStatRow(PresetColour.AROUSAL_STAGE_ONE, "Intercrural",
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS)),
+									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS)),
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS)),
+									oddRow));
+
+			oddRow = !oddRow;
 					
-					+ (Main.game.isFootContentEnabled()
+			sb.append((Main.game.isFootContentEnabled()
 							?sexStatRow(PresetColour.AROUSAL_STAGE_ONE, "Footjobs",
 									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaPenetration.PENIS)),
 									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FOOT)),
 									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FOOT)),
 									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaPenetration.PENIS)),
-									true)
-							:"")
+									oddRow)
+							:""));
+			
+			if(Main.game.isFootContentEnabled()) {
+				oddRow = !oddRow;
+			}
+
+			sb.append((Main.game.isArmpitContentEnabled()
+							?sexStatRow(PresetColour.AROUSAL_STAGE_ONE, "Armpit fuck",
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ARMPITS)),
+									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ARMPITS)),
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ARMPITS, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ARMPITS, SexAreaPenetration.PENIS)),
+									oddRow)
+							:""));
+			
+			if(Main.game.isArmpitContentEnabled()) {
+				oddRow = !oddRow;
+			}
 					
-					+ sexStatRow(PresetColour.AROUSAL_STAGE_TWO, "Vaginal sex",
+			sb.append(sexStatRow(PresetColour.AROUSAL_STAGE_TWO, "Vaginal sex",
 							Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
 							Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
 							Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
 							Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
-							false)
+							oddRow));
 
+			oddRow = !oddRow;
 					
-					+ (Main.game.isAnalContentEnabled()
+			sb.append((Main.game.isAnalContentEnabled()
 							?sexStatRow(PresetColour.AROUSAL_STAGE_TWO, "Anal sex",
 									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
 									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
 									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
 									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
-									true)
-							:"")
+									oddRow)
+							:""));
 
-					+ (Main.game.isNipplePenEnabled()
+			if(Main.game.isAnalContentEnabled()) {
+				oddRow = !oddRow;
+			}
+			
+			sb.append((Main.game.isNipplePenEnabled()
 							?sexStatRow(PresetColour.AROUSAL_STAGE_TWO, "Nipple penetration",
 									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE)),
 									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE)),
 									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS)),
 									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS)),
-									false)
-							:"")
+									oddRow)
+							:""));
 
-					+ (Main.game.isNipplePenEnabled()
+			if(Main.game.isNipplePenEnabled()) {
+				oddRow = !oddRow;
+			}
+			
+			sb.append((Main.game.isNipplePenEnabled()
 							?sexStatRow(PresetColour.AROUSAL_STAGE_TWO, "Crotch Nipple penetration",
 									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE_CROTCH)),
 									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE_CROTCH)),
 									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE_CROTCH, SexAreaPenetration.PENIS)),
 									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE_CROTCH, SexAreaPenetration.PENIS)),
-									true)
-							:"")
-					
-					+ (Main.game.isUrethraEnabled()
+									oddRow)
+							:""));
+
+			if(Main.game.isNipplePenEnabled()) {
+				oddRow = !oddRow;
+			}
+			
+			sb.append((Main.game.isUrethraEnabled()
 							?sexStatRow(PresetColour.AROUSAL_STAGE_TWO, "Penis Urethra penetration",
 									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_PENIS)),
 									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_PENIS)),
 									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, SexAreaPenetration.PENIS)),
 									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, SexAreaPenetration.PENIS)),
-									false)
-							:"")
+									oddRow)
+							:""));
 
-					+ (Main.game.isUrethraEnabled()
+			if(Main.game.isUrethraEnabled()) {
+				oddRow = !oddRow;
+			}
+			
+			sb.append((Main.game.isUrethraEnabled()
 							?sexStatRow(PresetColour.AROUSAL_STAGE_TWO, "Vagina Urethra penetration",
 									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_VAGINA)),
 									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_VAGINA)),
 									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_VAGINA, SexAreaPenetration.PENIS)),
 									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_VAGINA, SexAreaPenetration.PENIS)),
-									true)
-							:"");
+									oddRow)
+							:""));
+			
+			return sb.toString();
 		}
 		
 		@Override
@@ -2910,7 +2973,7 @@ public class PhoneDialogue {
 						Main.getProperties().setValue(PropertyValue.newRaceDiscovered, false);
 					}
 				};
-			
+
 			} else if (index == 2) {
 				return new Response((Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered))?"<span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>Weapons</span>":"Weapons",
 						"Have a look at all the different weapons that you've encountered in your travels.", WEAPON_CATALOGUE){
@@ -2919,7 +2982,7 @@ public class PhoneDialogue {
 						Main.getProperties().setValue(PropertyValue.newWeaponDiscovered, false);
 					}
 				};
-			
+
 			} else if (index == 3) {
 				return new Response((Main.getProperties().hasValue(PropertyValue.newClothingDiscovered))?"<span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>Clothing</span>":"Clothing",
 						"Have a look at all the different clothing that you've encountered in your travels.", CLOTHING_CATALOGUE){
@@ -2929,7 +2992,7 @@ public class PhoneDialogue {
 						clothingSlotKey = clothingSlotCategories.keySet().iterator().next();
 					}
 				};
-			
+
 			} else if (index == 4) {
 				return new Response((Main.getProperties().hasValue(PropertyValue.newItemDiscovered))?"<span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>Items</span>":"Items",
 						"Have a look at all the different items that you've encountered in your travels.", ITEM_CATALOGUE){
@@ -2938,10 +3001,34 @@ public class PhoneDialogue {
 						Main.getProperties().setValue(PropertyValue.newItemDiscovered, false);
 					}
 				};
-			
+
+			} else if (index == 5) {
+				if(!Main.getProperties().hasValue(PropertyValue.newItemDiscovered)
+						&& !Main.getProperties().hasValue(PropertyValue.newClothingDiscovered)
+						&& !Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered)
+						&& !Main.getProperties().hasValue(PropertyValue.newRaceDiscovered)) {
+					return new Response("Clear alerts", "Clears encyclopedia alerts.<br/><i>You currently do not have any encyclopedia alerts to clear...</i>", null);
+					
+				} else {
+					return new ResponseEffectsOnly("Clear alerts",
+							"Clears encyclopedia alerts."){
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.GENERIC_MINOR_GOOD;
+						}
+						@Override
+						public void effects() {
+							Main.getProperties().setValue(PropertyValue.newItemDiscovered, false);
+							Main.getProperties().setValue(PropertyValue.newClothingDiscovered, false);
+							Main.getProperties().setValue(PropertyValue.newWeaponDiscovered, false);
+							Main.getProperties().setValue(PropertyValue.newRaceDiscovered, false);
+						}
+					};
+				}
+				
 			} else if (index == 0) {
 				return new Response("Back", "Return to the phone's main menu.", MENU);
-			
+
 			} else {
 				return null;
 			}
@@ -2956,7 +3043,6 @@ public class PhoneDialogue {
 	private static List<AbstractItemType> itemsDiscoveredList = new ArrayList<>();
 	private static List<AbstractClothingType> clothingDiscoveredList = new ArrayList<>();
 	private static List<AbstractWeaponType> weaponsDiscoveredList = new ArrayList<>();
-
 	
 	private static Map<String, List<InventorySlot>> clothingSlotCategories;
 	private static String clothingSlotKey;
@@ -3866,7 +3952,9 @@ public class PhoneDialogue {
 			int i=2;
 			List<AbstractWorldType> worldTypes = new ArrayList<>(Main.getProperties().hasValue(PropertyValue.mapReveal)?WorldType.getAllWorldTypes():Main.game.getPlayer().getWorldsVisited());
 			
-			worldTypes.sort((w1, w2) -> w1.getName().compareTo(w2.getName()));
+			worldTypes.sort((w1, w2) -> (w1.getName().compareTo(w2.getName())));
+			
+			worldTypes.sort((w1, w2) -> w1.getMajorAreaIndex()-w2.getMajorAreaIndex());
 			
 			for(AbstractWorldType world : worldTypes) {
 				boolean correctRegion = false;
@@ -3885,11 +3973,14 @@ public class PhoneDialogue {
 						&& world != WorldType.MUSEUM_LOST) {
 					if(index==i) {
 						boolean playerPresent = Main.game.getPlayer().getWorldLocation()==world;
+						String responseTitle = (world.isMajorArea()?"<b>":"")+Util.capitaliseSentence(world.getName())+(world.isMajorArea()?"</b>":"");
+//						String responseTitle = Util.capitaliseSentence(world.getName());
+						
 						if(worldTypeMap==world) {
-							return new Response(Util.capitaliseSentence(world.getName()), "You are already viewing the map of "+world.getName()+"."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), null);
+							return new Response(responseTitle, "You are already viewing the map of "+world.getName()+"."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), null);
 							
 						} else if(Main.game.getPlayer().getWorldsVisited().contains(world) || Main.getProperties().hasValue(PropertyValue.mapReveal)) { 
-							return new Response(Util.capitaliseSentence(world.getName()), "View the map of "+world.getName()+"."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), MAP) {
+							return new Response(responseTitle, "View the map of "+world.getName()+"."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), MAP) {
 								@Override
 								public Colour getHighlightColour() {
 									if(playerPresent) {

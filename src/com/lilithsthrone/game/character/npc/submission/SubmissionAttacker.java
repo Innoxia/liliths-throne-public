@@ -153,6 +153,10 @@ public class SubmissionAttacker extends NPC {
 	
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+
+			if(hasFetish(Fetish.FETISH_CUM_ADDICT) && Math.random() < 0.1) {
+				Main.game.getCharacterUtils().applyDirtiness(this);
+			}
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();

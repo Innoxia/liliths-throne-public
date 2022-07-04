@@ -10,6 +10,7 @@ import java.util.Set;
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -492,18 +493,26 @@ public interface SexActionInterface {
 	}
 	
 	public default boolean isBasicCoreRequirementsMet() {
+		GameCharacter performingCharacter = Main.sex.getCharacterPerformingAction();
+		
 		if(this.isSadisticAction()
 				&& (!Main.getProperties().hasValue(PropertyValue.sadisticSexContent)
 						|| !Main.sex.isSadisticActionsAllowed()
-						|| !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST))) {
+						|| !performingCharacter.hasFetish(Fetish.FETISH_SADIST))) {
 			return false;
 		}
 		
-		if(this.isLovingAction() && !Main.sex.isLovingActionsAllowed()) {
-			return false;
+		if(this.isLovingAction()) {
+			if(!Main.sex.isLovingActionsAllowed()) {
+				return false;
+			}
+			if(!performingCharacter.isPlayer()
+					&& (!performingCharacter.getAffectionLevel(Main.sex.getCharacterTargetedForSexAction(this)).isGreaterThan(AffectionLevel.POSITIVE_TWO_LIKE) || performingCharacter.hasFetish(Fetish.FETISH_SADIST))) {
+				return false;
+			}
 		}
 		
-		if(Main.sex.isCharacterImmobilised(Main.sex.getCharacterPerformingAction()) && !isAvailableDuringImmobilisation()) {
+		if(Main.sex.isCharacterImmobilised(performingCharacter) && !isAvailableDuringImmobilisation()) {
 			return false;
 		}
 		
@@ -512,7 +521,7 @@ public interface SexActionInterface {
 		boolean footAllowed = true;
 		try { // Wrap in try/catch block as some sex actions may make calls to ongoing actions that aren't ongoing yet
 			footAllowed = Main.game.isFootContentEnabled()
-					|| Collections.disjoint(Util.mergeLists(this.getFetishes(Main.sex.getCharacterPerformingAction()), this.getFetishesForTargetedPartner(Main.sex.getCharacterPerformingAction())),
+					|| Collections.disjoint(Util.mergeLists(this.getFetishes(performingCharacter), this.getFetishesForTargetedPartner(performingCharacter)),
 						Util.newArrayListOfValues(Fetish.FETISH_FOOT_GIVING, Fetish.FETISH_FOOT_RECEIVING));
 		} catch(Exception ex) {
 		}
@@ -534,11 +543,11 @@ public interface SexActionInterface {
 				&& crotchBoobsAllowed
 				&& underarmAllowed
 				&& (this.getSexPace()==null
-					|| (this.getSexPace().isDom() == Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()).isDom()))
+					|| (this.getSexPace().isDom() == Main.sex.getSexPace(performingCharacter).isDom()))
 				&& (this.getActionType()!=SexActionType.STOP_ONGOING // Can only stop non-self ongoing penetrations if full control
 					|| this.getParticipantType()==SexParticipantType.SELF
-					|| Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL)
-				&& (Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotGeneric.MISC_WATCHING // Cannot switch positions as spectator
+					|| Main.sex.getSexControl(performingCharacter)==SexControl.FULL)
+				&& (Main.sex.getSexPositionSlot(performingCharacter)!=SexSlotGeneric.MISC_WATCHING // Cannot switch positions as spectator
 					|| this.getActionType()!=SexActionType.POSITIONING); 
 	}
 	

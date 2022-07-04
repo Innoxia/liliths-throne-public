@@ -867,6 +867,27 @@ public class Perk {
 					"Having spent time training alongside Lunette herself, this demonic-centaur strives to be as destructive and merciless as [npc.her] mother!");
 		}
 	};
+
+	public static AbstractPerk JOB_NPC_MUSHROOM_FORAGER = new AbstractPerk(20,
+			true,
+			"Masterful Mycologist",
+			PerkCategory.JOB,
+			"perks/jobs/mushroom_forager",//TODO
+			Util.newArrayListOfValues(
+					PresetColour.BASE_BLUE_LIGHT,
+					PresetColour.BASE_PINK,
+					PresetColour.BASE_GREEN),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.RESISTANCE_POISON, 25)),
+			null,
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NamePos] body [npc.has] become highly resistant to poison through an arduous, and oft-times nauseating, process of discovering which mushrooms are edible, psychedelic, or toxic.");
+		}
+	};
 	
 	
 	
@@ -2914,7 +2935,9 @@ public class Perk {
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldLightBlue(aquatic transformations)] if a [style.boldDemon(demon)]")) {
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldLightBlue(fish transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2939,7 +2962,9 @@ public class Perk {
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldFeral(feral transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2964,7 +2989,9 @@ public class Perk {
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] ability to transform others into [style.boldDemon(demons)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -3016,7 +3043,9 @@ public class Perk {
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldGreenLight(mammalian transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -3041,7 +3070,9 @@ public class Perk {
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldGreenLight(avian transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -3066,7 +3097,9 @@ public class Perk {
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
-			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldGreenLight(reptilian and amphibian transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {

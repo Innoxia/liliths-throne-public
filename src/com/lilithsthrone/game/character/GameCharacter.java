@@ -164,6 +164,7 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.PronounType;
+import com.lilithsthrone.game.character.markings.AbstractTattooType;
 import com.lilithsthrone.game.character.markings.Scar;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -286,6 +287,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
+import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.GenericPlace;
@@ -439,6 +441,9 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	protected SlaveJob[] workHours;
 	protected Map<SlaveJob, Set<SlaveJobSetting>> slaveJobSettings;
+
+//	protected String slaveCategory = "";
+//	protected String slave_notes = "";
 	
 	
 	//Companion
@@ -1319,6 +1324,19 @@ public abstract class GameCharacter implements XMLSaving {
 					XMLUtil.addAttribute(doc, slaveAssignedJobs, "h"+String.valueOf(i), workHours[i].toString());
 				}
 			}
+
+			// Useful externally.
+			XMLUtil.createXMLElementWithValue(doc, slaveryElement, "value", String.valueOf(this.getValueAsSlave(true)));
+
+//			if(!this.slaveCategory.isEmpty()) {
+//				XMLUtil.createXMLElementWithValue(doc, slaveryElement, "category", this.slaveCategory);
+//			}
+
+//			if(this.slave_notes != "") {
+//				Element notes = doc.createElement("notes");
+//				slaveryElement.appendChild(notes);
+//				notes.setTextContent(this.getSlaveNotes());
+//			}
 		}
 		
 		
@@ -2784,6 +2802,17 @@ public abstract class GameCharacter implements XMLSaving {
 						character.addSlavePermissionSetting(SlavePermission.SEX, SlavePermissionSetting.SEX_SAVE_VIRGINITY);
 					}
 				}
+
+//				// Since 0.4.3.X
+//				Element slaveCat = (Element)slaveryElement.getElementsByTagName("category").item(0);
+//				if (slaveCat != null) {
+//					character.setSlaveCategory(slaveCat.getAttribute("value"));
+//				}
+
+//				Element slaveNotes = (Element)slaveryElement.getElementsByTagName("notes").item(0);
+//				if (slaveNotes != null) {
+//					character.setSlaveNotes(slaveNotes.getTextContent());
+//				}
 			}
 		}
 		
@@ -3310,7 +3339,11 @@ public abstract class GameCharacter implements XMLSaving {
 					"See error.log for details"), false);
 		}
 	}
-	
+
+    public void updateImages() {
+            loadImages(true);
+    }
+
 	public abstract boolean isUnique();
 
 	public boolean isElemental() {
@@ -3414,6 +3447,7 @@ public abstract class GameCharacter implements XMLSaving {
 										? ""
 										: "<p style='margin-top:50%; font-weight:bold; color:"+PresetColour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
 								+ "</div>"
+                                + (artwork.getArtist().getName().equals("Custom")?"<div class='title-button' id='ARTWORK_DELETE' style='background:transparent; left:auto; right:52px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div>":"")
 								+ "<div class='title-button' id='ARTWORK_ADD' style='background:transparent; left:auto; right:28px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getAddIcon()+"</div>"
 								+ "<div class='title-button' id='ARTWORK_INFO' style='background:transparent; left:auto; right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
 							+ "</div>"
@@ -3871,6 +3905,15 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		postTransformationCalculation();
 	}
+
+	public void resetBodyToGenderPreferences(boolean requiresVagina, boolean requiresPenis) {
+		Gender startingGender = Gender.getGenderFromUserPreferences(requiresVagina, requiresPenis);
+		body = Main.game.getCharacterUtils().generateBody(this, startingGender, this.getSubspecies(), this.getRaceStage());
+		
+		additionalBodySetup(startingGender, RacialBody.valueOfRace(this.getRace()), this.getSubspecies());
+		
+		postTransformationCalculation();
+	}
 	
 	protected void additionalBodySetup(Gender gender, AbstractRacialBody startingRace, AbstractSubspecies startingSpeciesType) {
 		if(this.surname==null || this.surname.isEmpty()) {
@@ -3907,6 +3950,17 @@ public abstract class GameCharacter implements XMLSaving {
 		sexualOrientation = startingRace.getSexualOrientation(gender);
 		
 		initPerkTreeAndBackgroundPerks();
+	}
+
+	public void setBodyUsingSubspeciesPreference(Gender gender, AbstractSubspecies subspecies) {
+		if(gender.isFeminine()) {
+			RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies), gender, subspecies);
+			setBody(gender, subspecies, stage, true);
+			
+		} else {
+			RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(subspecies), gender, subspecies);
+			setBody(gender, subspecies, stage, true);
+		}
 	}
 	
 	/**
@@ -4076,6 +4130,13 @@ public abstract class GameCharacter implements XMLSaving {
 				
 			} else if (petName.equalsIgnoreCase("Ma'am") || petName.equalsIgnoreCase("Sir")) {
 				return target.isFeminine()?"Ma'am":"Sir";
+				
+			} else if (petName.equalsIgnoreCase("Mr. "+this.getSurname()) || petName.equalsIgnoreCase("Mrs. "+this.getSurname()) || petName.equalsIgnoreCase("Miss "+this.getSurname())) {
+				return target.isFeminine()
+						?(petName.equalsIgnoreCase("Mrs. "+this.getSurname())
+							?"Mrs. "+this.getSurname()
+							:"Miss "+this.getSurname())
+						:"Mr. "+this.getSurname();
 			}
 			return petName;
 		}
@@ -4091,6 +4152,7 @@ public abstract class GameCharacter implements XMLSaving {
 				case Nibling:
 				case HalfSibling:
 				case Sibling:
+				case SiblingTwin:
 					break;
 				case GrandGrandParent:
 				case GrandParent:
@@ -4113,6 +4175,14 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public void setPetName(GameCharacter target, String petName) {
 		setPetName(target.getId(), petName);
+	}
+	
+	public void clearPetName(String targetId) {
+		petNameMap.remove(targetId);
+	}
+	
+	public void clearPetName(GameCharacter target) {
+		petNameMap.remove(target.getId());
 	}
 
 	public boolean isPlayer() {
@@ -4680,6 +4750,22 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		return count;
 	}
+	
+//	public String getSlaveNotes() {
+//		return this.slave_notes;
+//	}
+//
+//	public void setSlaveNotes(String input) {
+//		this.slave_notes = input;
+//	}
+//
+//	public String getSlaveCategory() {
+//		return this.slaveCategory;
+//	}
+//
+//	public void setSlaveCategory(String input) {
+//		this.slaveCategory = input;
+//	}
 
 
 	// Affection:
@@ -5587,7 +5673,11 @@ public abstract class GameCharacter implements XMLSaving {
 			commonParents.add(this.getMotherId());
 		}
 		if(commonParents.size() == 2 || (commonParents.size() == 1 && character.getFatherId().equals(character.getMotherId()))) {
-			result.add(Relationship.Sibling);
+			if(this.getBirthday().equals(character.getBirthday())) {
+				result.add(Relationship.SiblingTwin);
+			} else {
+				result.add(Relationship.Sibling);
+			}
 			
 		} else if(commonParents.size() == 1) {
 			result.add(Relationship.HalfSibling);
@@ -10714,7 +10804,7 @@ public abstract class GameCharacter implements XMLSaving {
 						case DOM_NORMAL:
 							returnedLine = UtilText.returnStringAtRandom(
 									"You like feeling my slutty little asshole gripping down on your cock?!",
-									"Good [npc2.girl]! Push your [npc2.cock] deep! into my ass",
+									"Good [npc2.girl]! Push your [npc2.cock] deep into my ass!",
 									"Keep going! Get that [npc2.cock] deep in my ass like a good [npc2.girl]!");
 							break;
 						case DOM_ROUGH:
@@ -24648,8 +24738,46 @@ public abstract class GameCharacter implements XMLSaving {
 		if(this.getSubspeciesOverrideRace()==Race.DEMON) {
 			races.add(Race.NONE);
 			races.add(Race.DEMON);
-			if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4)) {
+			
+			ArrayList<AbstractRace> unavailableRaces = Util.newArrayListOfValues(Race.ELEMENTAL, Race.SLIME); // Never have these TF options
+			
+			if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LOVIENNE_2)) { // I'm assuming you defeat Lovienne last
+				races.addAll(Race.allRaces);
+				races.removeAll(unavailableRaces);
+			} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4)) {
 				races.add(Race.HUMAN);
+			}
+			for (AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
+				AbstractRace race = subspecies.getRace();
+				if(subspecies.isMainSubspecies() && !unavailableRaces.contains(race)) { // Only check the main subspecies
+					List<WorldRegion> mostCommonRegion = subspecies.getMostCommonWorldRegions();
+					if (this.hasPerkAnywhereInTree(Perk.POWER_OF_LIRECEA_1)
+							&& (mostCommonRegion.contains(WorldRegion.SEA)
+							|| mostCommonRegion.contains(WorldRegion.SEA_CITY))) {
+						races.add(race);
+					} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LASIELLE_3)
+							&& (mostCommonRegion.contains(WorldRegion.MOUNTAINS)
+							|| mostCommonRegion.contains(WorldRegion.YOUKO_FOREST)
+							|| mostCommonRegion.contains(WorldRegion.SNOW))) {
+						races.add(race);
+					} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LUNETTE_5)
+							&& (mostCommonRegion.contains(WorldRegion.WOODLAND)
+							|| mostCommonRegion.contains(WorldRegion.FIELDS)
+							|| mostCommonRegion.contains(WorldRegion.FIELD_CITY)
+							|| mostCommonRegion.contains(WorldRegion.RIVER))) {
+						races.add(race);
+					} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LYXIAS_6)
+							&& (mostCommonRegion.contains(WorldRegion.JUNGLE)
+							|| mostCommonRegion.contains(WorldRegion.JUNGLE_CITY))) {
+						races.add(race);
+					} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LISOPHIA_7)
+							&& (mostCommonRegion.contains(WorldRegion.SAVANNAH)
+							|| mostCommonRegion.contains(WorldRegion.DESERT)
+							|| mostCommonRegion.contains(WorldRegion.DESERT_CITY)
+							|| mostCommonRegion.contains(WorldRegion.VOLCANO))) {
+						races.add(race);
+					}
+				}
 			}
 		}
 		if(this.isYouko()) {
@@ -25004,6 +25132,23 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public void addTattoo(InventorySlot invSlot, Tattoo tattoo) {
 		removeTattoo(invSlot);
+		tattoos.put(invSlot, tattoo);
+		applyEquipTattooEffects(tattoo);
+	}
+
+	/**
+	 * Tattoo addition method mainly for use in external files. After adding tattoo, use getTattooInSlot(invSlot).setWriting() and getTattooInSlot(invSlot).setCounter() methods to set writing/counter for tattoo.
+	 */
+	public void addTattoo(InventorySlot invSlot, AbstractTattooType type, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, boolean glowing) {
+		removeTattoo(invSlot);
+		Tattoo tattoo = new Tattoo(
+				type,
+				primaryColour,
+				secondaryColour,
+				tertiaryColour,
+				glowing,
+				null,
+				null);
 		tattoos.put(invSlot, tattoo);
 		applyEquipTattooEffects(tattoo);
 	}

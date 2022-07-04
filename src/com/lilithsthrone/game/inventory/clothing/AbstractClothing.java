@@ -2647,7 +2647,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				return modifiedIncompatibleSlots;
 			}
 		}
-		return clothingType.incompatibleSlotsMap.get(slotEquippedTo);
+//		return clothingType.incompatibleSlotsMap.get(slotEquippedTo);
+		return clothingType.incompatibleSlotsMap.getOrDefault(slotEquippedTo, new ArrayList<>());
 	}
 
 	public List<DisplacementType> getBlockedPartsKeysAsListWithoutNONE(GameCharacter character, InventorySlot slotEquippedTo) {

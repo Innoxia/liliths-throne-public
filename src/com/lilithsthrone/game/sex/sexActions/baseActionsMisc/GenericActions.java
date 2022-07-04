@@ -2034,9 +2034,11 @@ public class GenericActions {
 		}
 		@Override
 		public String getDescription() {
-			return Main.sex.isMasturbation()
+			return Main.sex.isSpectator(Main.game.getPlayer())
 					?"Having had enough of the show, you turn away and stop watching the sex scene unfold before you..."
-					:"Having had enough, you [pc.step] back and stop having sex...";
+					:(Main.sex.isMasturbation()
+						?"Having had enough, you stop masturbating..."
+						:"Having had enough, you [pc.step] back and stop having sex...");
 		}
 		@Override
 		public SexParticipantType getParticipantType() {

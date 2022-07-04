@@ -39,14 +39,12 @@ public class AbstractTattooType extends AbstractCoreType {
 	private boolean isMod;
 	
 	private int value;
-
-	@SuppressWarnings("unused")
-	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment capacity mechanics.
 	
 	private List<InventorySlot> slotAvailability;
 
 	private String name;
 	private String description;
+	private String bodyOverviewDescription;
 
 	private List<Colour> availablePrimaryColours;
 	private List<Colour> availableSecondaryColours;
@@ -57,10 +55,21 @@ public class AbstractTattooType extends AbstractCoreType {
 
 	private String availabilityRequirements;
 	
+	/**
+	 * @param pathName
+	 * @param name
+	 * @param description
+	 * @param bodyOverviewDescription To fit into the sentence at point X: "On [npc.her] "+tattooSlotName+", [npc.sheHasFull] "+X+"."
+	 * @param availablePrimaryColours
+	 * @param availableSecondaryColours
+	 * @param availableTertiaryColours
+	 * @param slotAvailability
+	 */
 	public AbstractTattooType(
 			String pathName,
 			String name,
 			String description,
+			String bodyOverviewDescription,
 			List<Colour> availablePrimaryColours,
 			List<Colour> availableSecondaryColours,
 			List<Colour> availableTertiaryColours,
@@ -69,12 +78,11 @@ public class AbstractTattooType extends AbstractCoreType {
 		this.isMod = false;
 		
 		value = 500;
-		enchantmentLimit = 5;
 		
 		this.pathName = pathName;
 		this.name = name;
 		this.description = description;
-		
+		this.bodyOverviewDescription = bodyOverviewDescription;
 		
 		this.availablePrimaryColours = new ArrayList<>();
 		if (availablePrimaryColours == null) {
@@ -143,16 +151,15 @@ public class AbstractTattooType extends AbstractCoreType {
 				this.pathName = tattooXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getElementsByTagName("imageName").item(0).getTextContent();
 				this.name = coreAttributes.getElementsByTagName("name").item(0).getTextContent();
 				this.description = coreAttributes.getElementsByTagName("description").item(0).getTextContent();
+				
+				this.bodyOverviewDescription = "";
+				if(coreAttributes.getElementsByTagName("bodyOverviewDescription").item(0)!=null) {
+					this.bodyOverviewDescription = coreAttributes.getElementsByTagName("bodyOverviewDescription").item(0).getTextContent();
+				}
 
 				try {
 					this.availabilityRequirements = coreAttributes.getElementsByTagName("availabilityRequirements").item(0).getTextContent();
 				} catch(Exception ex) {
-				}
-				
-				try {
-					enchantmentLimit = Integer.valueOf(coreAttributes.getElementsByTagName("enchantmentLimit").item(0).getTextContent());
-				} catch(Exception ex) {
-					System.err.println("AbstractTattooType loading failed. Cause: 'enchantmentLimit' element unable to be parsed. (" + tattooXMLFile.getName() + ")\n" + ex);
 				}
 				
 				List<Colour> importedPrimaryColours = new ArrayList<>();
@@ -254,6 +261,10 @@ public class AbstractTattooType extends AbstractCoreType {
 
 	public String getDescription() {
 		return description;
+	}
+
+	public String getBodyOverviewDescription() {
+		return bodyOverviewDescription;
 	}
 
 	public List<Colour> getAvailablePrimaryColours() {

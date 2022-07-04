@@ -332,6 +332,30 @@ public class SlaveDialogue {
 		}
 	};
 	
+	public static final DialogueNode FREEDOM_DIALOG = new DialogueNode("Freed Slave", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getTextEndStringBuilder().append(enslavementTarget.incrementAffection(Main.game.getPlayer(), -25));
+		}
+		@Override
+		public String getContent() {
+			GameCharacter target = enslavementTarget;
+			AbstractClothing enslavementClothing = target.getEnslavementClothing();
+			UtilText.addSpecialParsingString(enslavementClothing.getName(), true);
+			UtilText.addSpecialParsingString(enslavementClothing.getClothingType().isPlural()?"them":"it", false);
+			return UtilText.parseFromXMLFile("characters/enslavement", "ENSLAVEMENT_FAIL_FREEDOM_CERTIFICATION", target);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue",
+						UtilText.parse(SlaveDialogue.getEnslavementTarget(), "That didn't work, but it doesn't mean you're finished with [npc.name] yet!"),
+						SlaveDialogue.getFollowupEnslavementDialogue());
+			}
+			return null;
+		}
+	};
+	
 	public static final DialogueNode SLAVE_START = new DialogueNode("", ".", true) {
 		@Override
 		public DialogueNodeType getDialogueNodeType() {

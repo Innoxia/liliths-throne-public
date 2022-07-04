@@ -147,6 +147,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.companions.OccupantSortingMethod;
 import com.lilithsthrone.game.dialogue.npcDialogue.elemental.ElementalDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
@@ -419,9 +420,70 @@ public class MainControllerInitMethod {
 							}
 						}, false);
 					}
+
+					id = "ARTWORK_DELETE";
+					if (MainController.document.getElementById(id) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							artwork.getCurrentImage().delete();
+							character.updateImages();
+							if (!character.isPlayer()) CharactersPresentDialogue.resetContent(character);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
+								"Remove custom artwork",
+								"Removes the current image from this character."
+										+ "<br/>[style.italicsBad(Please note that this will delete the image from the game's folder!)]"),
+								false);
+					}
 				} catch(Exception ex) {
 					System.err.println("MainController Artwork handling error.");
 				}
+			}
+		}
+		
+		if(Main.game.getCurrentDialogueNode().equals(RoomPlayer.ROOM_SET_ALARM)) {
+			id = "PLAYER_ALARM_DECREASE_LARGE";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.game.getDialogueFlags().incrementSavedLong("player_phone_alarm", -60);
+					if(Main.game.getDialogueFlags().getSavedLong("player_phone_alarm") < 0) {
+						Main.game.getDialogueFlags().incrementSavedLong("player_phone_alarm", 24*60);
+					}
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "PLAYER_ALARM_DECREASE";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.game.getDialogueFlags().incrementSavedLong("player_phone_alarm", -5);
+					if(Main.game.getDialogueFlags().getSavedLong("player_phone_alarm") < 0) {
+						Main.game.getDialogueFlags().incrementSavedLong("player_phone_alarm", 24*60);
+					}
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "PLAYER_ALARM_INCREASE";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.game.getDialogueFlags().incrementSavedLong("player_phone_alarm", 5);
+					if(Main.game.getDialogueFlags().getSavedLong("player_phone_alarm") >= 24*60) {
+						Main.game.getDialogueFlags().incrementSavedLong("player_phone_alarm", -24*60);
+					}
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "PLAYER_ALARM_INCREASE_LARGE";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.game.getDialogueFlags().incrementSavedLong("player_phone_alarm", 60);
+					if(Main.game.getDialogueFlags().getSavedLong("player_phone_alarm") >= 24*60) {
+						Main.game.getDialogueFlags().incrementSavedLong("player_phone_alarm", -24*60);
+					}
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
 			}
 		}
 		
@@ -1778,6 +1840,36 @@ public class MainControllerInitMethod {
 							}
 						}
 					}
+
+//					id = "SET_SLAVE_CATEGORY";
+//					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+//						((EventTarget) MainController.document.getElementById(id)).addEventListener("change", e -> {
+//							Main.game.getDialogueFlags().getManagementCompanion().setSlaveCategory(((HTMLInputElement)e.getTarget()).getValue());
+//							//Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getManagementCompanion())));
+//						}, false);
+//						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+//						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+//						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+//								"<b>Slave Category</b>",
+//								"Used when you select [style.italicsArcane(Sort by Custom Category)]. Use any format you desire.");
+//						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+//					}
+
+//					id = "SET_SLAVE_NOTES";
+//					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+//						((EventTarget) MainController.document.getElementById(id)).addEventListener("change", e -> {
+//							Main.game.getDialogueFlags().getManagementCompanion().setSlaveNotes(((HTMLTextAreaElement)e.getTarget()).getValue());
+//							//Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getManagementCompanion())));
+//						}, false);
+//						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+//						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+//						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+//								"<b>Slave Notes</b>",
+//								"Write any arbitrary text here, or none at all. Useful if you need to track some information about a slave not available elsewhere.");
+//						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+//						// This needs to be done here rather than in HTML due to Java not handling linebreaks and <br>s correctly.
+//						((HTMLTextAreaElement)MainController.document.getElementById(id)).setValue(Main.game.getDialogueFlags().getManagementCompanion().getSlaveNotes());
+//					}
 				}
 				
 				// Permissions:
@@ -1835,6 +1927,73 @@ public class MainControllerInitMethod {
 
 			if(Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.SLAVE_LIST
 					|| Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.SLAVE_LIST_MANAGEMENT) {
+				
+				// Sorting
+				for(OccupantSortingMethod osm : OccupantSortingMethod.values()) {
+					id = "SORT_SLAVES_BY_" + osm;
+					if(((EventTarget)MainController.document.getElementById(id))!=null) {
+						String friendlyName = Util.capitaliseSentence(osm.getName());
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									OccupantManagementDialogue.setSlavesSortedBy(osm);
+								}
+							});
+						}, false);
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+							"<b>Sort By "+friendlyName+"</b>",
+							osm.getSortingDescription());
+						
+						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+					}
+				}
+
+				// Sort ascending
+				id = "SORT_SLAVES_ASC";
+				if(((EventTarget)MainController.document.getElementById(id))!=null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+							@Override
+							public void effects() {
+								OccupantManagementDialogue.setSlavesAreInReverseOrder(false);
+							}
+						});
+					}, false);
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
+					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+						"Sort in ascending order",
+						"");
+					
+					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+				}
+
+				// Sort Descending
+				id = "SORT_SLAVES_DESC";
+				if(((EventTarget)MainController.document.getElementById(id))!=null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+							@Override
+							public void effects() {
+								OccupantManagementDialogue.setSlavesAreInReverseOrder(true);
+							}
+						});
+					}, false);
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
+					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+						"Sort in descending order",
+						"");
+					
+					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+				}
+
 				for(String slaveId : Main.game.getPlayer().getSlavesOwned()) {
 					id = slaveId;
 					NPC slave;

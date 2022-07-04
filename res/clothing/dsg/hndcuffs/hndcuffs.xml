@@ -27,8 +27,6 @@
 		<imageName>hndcuffs_uneq.svg</imageName>
 
 		<imageEquippedName>hndcuffs.svg</imageEquippedName>
-			
-		<enchantmentLimit/>
 		
 		<effects> 
 			<effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="MINOR_DRAIN" timer="0" type="CLOTHING"/>

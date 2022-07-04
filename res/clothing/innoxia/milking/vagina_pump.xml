@@ -14,7 +14,6 @@
 		<clothingSet/>
 		<imageName>vagina_pump.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit/>
 		<effects>
 			<effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_VIBRATION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
 		</effects>

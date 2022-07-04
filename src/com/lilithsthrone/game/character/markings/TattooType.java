@@ -14,7 +14,7 @@ import com.lilithsthrone.utils.colours.ColourListPresets;
 
 /**
  * @since 0.2.6
- * @version 0.3.5.5
+ * @version 0.4.4.1
  * @author Innoxia
  */
 public class TattooType {
@@ -23,6 +23,7 @@ public class TattooType {
 			"none",
 			"none",
 			"This tattoo has no particular pattern, and simply displays either writing or a counter.",
+			"a tattoo which lacks any kind of image or pattern",
 			ColourListPresets.JUST_GREY,
 			null,
 			null,
@@ -32,6 +33,7 @@ public class TattooType {
 			"flowers",
 			"flowers",
 			"This tattoo depicts a flowing series of intertwined flowers.",
+			"a floral-themed tattoo, depicting a flowing series of intertwined flowers",
 			ColourListPresets.ALL,
 			ColourListPresets.ALL,
 			ColourListPresets.ALL,
@@ -41,6 +43,7 @@ public class TattooType {
 			"tribal",
 			"tribal",
 			"A series of flowing lines and intricate patterns.",
+			"a tattoo which consists of a series of flowing lines and intricate patterns",
 			ColourListPresets.ALL,
 			null,
 			null,
@@ -50,6 +53,7 @@ public class TattooType {
 			"butterflies",
 			"butterflies",
 			"An artistic depiction of a trio of butterflies in mid-flight.",
+			"a tattoo of a trio of butterflies in mid-flight",
 			ColourListPresets.ALL,
 			ColourListPresets.ALL,
 			ColourListPresets.ALL,
@@ -59,6 +63,7 @@ public class TattooType {
 			"lines",
 			"lines",
 			"A series of flowing, swirling lines.",
+			"a tattoo which consists of a series of flowing, swirling lines",
 			ColourListPresets.ALL,
 			null,
 			null,

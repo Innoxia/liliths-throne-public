@@ -39,8 +39,6 @@
 			<spell damageType="POISON">VACUUM</spell>
 		</spells>
 		
-		<enchantmentLimit>10</enchantmentLimit>
-		
 		<effects> 
             <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_WEAPON" timer="0"/>
             <effect itemEffectType="WEAPON" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_WEAPON" timer="0"/>

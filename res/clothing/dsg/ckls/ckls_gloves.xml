@@ -17,7 +17,6 @@
 		<rarity>EPIC</rarity>
 		<clothingSet>innoxia_kitty</clothingSet>
 		<imageName>ckls_gloves.svg</imageName>
-		<enchantmentLimit/>
 		
 		<effects>
               <effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>

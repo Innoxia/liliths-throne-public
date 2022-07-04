@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tattoo>
+	<coreAttributes>
+		<value>500</value> 
+		
+		<name><![CDATA[spiral knot]]></name>
+		
+		<description><![CDATA[A depiction of a Celtic spiral knot, believed to symbolise the transition between the physical and spiritual worlds.]]></description> 
+		<bodyOverviewDescription><![CDATA[a tattoo which depicts a Celtic spiral knot]]></bodyOverviewDescription> 
+		
+		<imageName>spiral.svg</imageName> 
+		
+		<slotAvailability/>
+		
+		<primaryColours values="ALL"/> 
+		<secondaryColours/> 
+		<tertiaryColours/> 
+		
+	</coreAttributes>
+	
+</tattoo>

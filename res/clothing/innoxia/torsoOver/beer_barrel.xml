@@ -104,6 +104,7 @@
 			<tag>HINDERS_LEG_MOVEMENT</tag>
 			<tag>PREVENTS_COMBAT_ESCAPE</tag>
 			<tag>NOT_FOR_SALE</tag>
+			<tag>FITS_ARM_WINGS</tag>
 		</itemTags>
 	</coreAttributes>
 	

@@ -28,7 +28,6 @@
 		<combatMoves>
 			<move>MKAR_MAG_DUMP</move>
 		</combatMoves>
-		<enchantmentLimit>0</enchantmentLimit>
 		<effects/>
 		
 		<primaryColours>

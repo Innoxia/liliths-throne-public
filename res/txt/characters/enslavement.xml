@@ -104,6 +104,19 @@
 	]]>
 	</htmlContent>
 
+	<htmlContent tag="ENSLAVEMENT_FAIL_FREEDOM_CERTIFICATION"><![CDATA[
+	<p>
+		Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards [npc.name]. [npc.She] freezes up for a moment as [npc.she] sees what you're about to do, before relaxing and stating, [npc.speech(If you're trying to enslave me again, it's no use! You set me free, remember?)]
+	</p>
+	<p>
+		Ignoring [npc.her] warning, you force the [#SPECIAL_PARSE_0] onto [npc.herHim], before stepping back and waiting to see if anything happens. True to [npc.her] words, however, the [#SPECIAL_PARSE_0]'s arcane enchantment doesn't recognise [npc.herHim] as being a criminal, which is evidenced by glowing red lettering that's projected into the air, reading:
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsBad(Target not wanted for enslavement!)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="ENSLAVEMENT_FAIL_NOT_WANTED_DEMON"><![CDATA[
 	<p>
 		Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards v. [npc.She] lets out a mocking laugh as [npc.she] sees what you're about to do, and sneers, [npc.speech(If you're trying to enslave me, it's no use! No Enforcer would ever sign off on a demon's enslavement warrant!)]
@@ -143,7 +156,6 @@
 	</p>
 	]]>
 	</htmlContent>
-	
 	
 	<!-- SET_SLAVE_FREE_SCARLETT -->
 	

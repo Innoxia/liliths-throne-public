@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+	
+	<additionalPlaceTypeTriggers>
+		<placeType>innoxia_fields_elis_town_street</placeType>
+		<placeType>DOMINION_STREET</placeType>
+		<placeType>SUBMISSION_WALKWAYS</placeType>
+	</additionalPlaceTypeTriggers>
+	
+	<possibleEncounters>
+		<encounter>
+			<name><![CDATA[rental parental figure detected]]></name>
+			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
+				#IF(pc.getClothingInSlot(IS_TORSO_UNDER)!=null
+					&& !pc.getInventorySlotsConcealed(npc).containsKey(IS_TORSO_UNDER)
+					&& (pc.getClothingInSlot(IS_TORSO_UNDER).getClothingType()==CT_innoxia_rentalMommy_rental_mommy || pc.getClothingInSlot(IS_TORSO_UNDER).getClothingType()==CT_innoxia_rentalMommy_rental_daddy)
+					&& !pc.getClothingInSlot(IS_TORSO_UNDER).getStickers().get('price').equals('none'))
+					#IF(pc.getWorldLocation()==WORLD_TYPE_DOMINION && game.getWeather()==WEATHER_MAGIC_STORM)
+						0
+					#ELSE
+						#IF(pc.getClothingInSlot(IS_TORSO_UNDER).getStickers().get('price')=='10000')
+							2
+						#ELSEIF(pc.getClothingInSlot(IS_TORSO_UNDER).getStickers().get('price')=='5000')
+							3
+						#ELSEIF(pc.getClothingInSlot(IS_TORSO_UNDER).getStickers().get('price')=='2500')
+							5
+						#ELSE
+							10
+						#ENDIF
+					#ENDIF
+				#ELSE
+					0
+				#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[innoxia_encounters_generic_rental_tshirt_start]]></dialogueReturned>
+		</encounter>
+	</possibleEncounters>
+	
+</encounterRoot>

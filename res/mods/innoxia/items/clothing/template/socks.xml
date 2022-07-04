@@ -70,10 +70,6 @@
 		<!-- For an annotated example on how stickers are defined, please see the 'res/mods/innoxia/items/clothing/rentalMommy/rental_mommy.xml' file -->
 		<stickers/>
 		
-		<!-- How many enchantments can be fit into this item. It's typically best to let the game handle the default number of enchantments, which typically results in 100.
-			- Example: I have not defined this, as I'll let the game keep the 100 enchantments default value.-->
-		<enchantmentLimit/>
-		
 		<!-- The default effects that this clothing spawns in with. To know what to put in here, it would probably be easiest to enchant clothing in your game, save the game, then copy over that clothing's 'effects' in your save file.
 			- Example: The first defined effect will give +3 to physical damage, while the second will give the wearer the masturbation fetish while worn. -->
 		<effects> 

@@ -135,6 +135,60 @@
 					[#pc.applySleep(~~(game.getMinutesUntilNextMorningOrEvening() + 5))]
 				]]></effects>
 			</response>
+
+			<!-- Alarm Clock: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[9]]></index>
+				<responseTitle><![CDATA[Set alarm]]></responseTitle>
+				<responseTooltip><![CDATA[Set the alarm on your phone, so that you can wake at a specific time.]]></responseTooltip>
+				<nextDialogue stripContent="false"><![CDATA[ROOM_SET_ALARM]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[[#game.saveDialogueNode()]]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[
+					#IF(flags.getSavedLong('player_phone_alarm') < 0)
+						Rest until alarm (unset)
+					#ELSE
+						Rest until alarm ([#
+							var alarm = flags.getSavedLong('player_phone_alarm');
+							var alarmObj = game.getCustomTime(alarm/60, alarm%60, 0);
+							game.getDisplayTime(alarmObj)
+						])
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.getSavedLong('player_phone_alarm') < 0)
+						[style.colourBad(Your alarm is unset!)]
+					#ELSE
+						Rest for
+						#IF((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1) >= 60)
+							 [#~~((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1) / 60)] hours,
+						#ENDIF
+						#IF((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1) % 60 != 0)
+							 [#~~((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1) % 60)] minutes,
+						#ENDIF
+						 until your alarm goes off. As well as replenishing your [#ATTRIBUTE_HEALTH_MAXIMUM.getName()] and [#ATTRIBUTE_MANA_MAXIMUM.getName()], you will also get the 'Well Rested' status effect.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.getSavedLong('player_phone_alarm') < 0)
+						null
+					#ELSE
+						innoxia_places_fields_elis_tavern_f1_room_player
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[
+					[#~~(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1)]
+				]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_f1', 'ROOM_PLAYER_REST'))]
+					[#pc.applySleep(~~(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1))]
+				]]></effects>
+			</response>
 			
 			<!-- Tab index 1, fast travel: -->
 			<response>
