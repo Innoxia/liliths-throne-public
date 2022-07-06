@@ -6,11 +6,16 @@ package com.lilithsthrone.modding;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @author Anon
@@ -51,9 +56,9 @@ public class BasePlugin {
      */
     public void onStartup() {}
 
-    public void addFetishes(HashSet<Fetish> providedFetishes) {}
+    public void addFetishes(Set<AbstractFetish> providedFetishes) {}
 
-    public void addPerks(HashSet<AbstractPerk> providedPerks) {}
+    public void addPerks(Set<AbstractPerk> providedPerks) {}
 
     /**
      * Set up NPCs here.
@@ -77,4 +82,19 @@ public class BasePlugin {
      * Called after Main.main()
      */
     public void onMainMain() {}
+
+	public void getRelatedFetishes(List<AbstractFetish> fetishes, GameCharacter characterPerforming,
+			GameCharacter characterTargeted, boolean isPenetration, boolean isOrgasm) {}
+
+	public void onGenerateDesiresAvailableFetishesFixup(GameCharacter character,
+			List<AbstractFetish> availableFetishes) {}
+
+	public void onAfterGenerateDesires(GameCharacter character, List<AbstractFetish> availableFetishes,
+			Map<AbstractFetish, Integer> desireMap, Map<AbstractFetish, Integer> negativeMap, int desiresAssigned) {}
+
+	public void addToPairedFetishMap(Map<AbstractFetish, AbstractFetish> pairedFetishMap) {}
+
+	public void addToUnpairedFetishMap(Map<AbstractFetish, Boolean> unpairedFetishMap) {}
+
+	public void appendPhoneFetishRows(StringBuilder journalSB, DialogueNode dialogueNode) {}
 }

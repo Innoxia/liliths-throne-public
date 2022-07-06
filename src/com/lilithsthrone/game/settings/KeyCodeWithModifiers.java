@@ -35,9 +35,9 @@ public class KeyCodeWithModifiers {
 					usesControlModifier = true;
 				}
 			}
-			keyCode = KeyCode.valueOf(splitted[splitted.length -1]);
+			keyCode = KeyCode.getFetishById(splitted[splitted.length -1]);
 		} else {
-			keyCode = KeyCode.valueOf(source);
+			keyCode = KeyCode.getFetishById(source);
 		}
 		
 		return new KeyCodeWithModifiers(keyCode, usesControlModifier, usesShiftModifier);

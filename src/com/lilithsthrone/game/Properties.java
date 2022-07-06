@@ -23,6 +23,7 @@ import org.w3c.dom.NodeList;
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -170,7 +171,7 @@ public class Properties {
 	public Map<Gender, Integer> genderPreferencesMap;
 	
 	public Map<SexualOrientation, Integer> orientationPreferencesMap;
-	public EnumMap<Fetish, Integer> fetishPreferencesMap;
+	public Map<AbstractFetish, Integer> fetishPreferencesMap;
 
 	public Map<PronounType, Map<AgeCategory, Integer>> agePreferencesMap;
 	
@@ -464,7 +465,7 @@ public class Properties {
 			// Fetish preferences:
 			Element fetishPreferences = doc.createElement("fetishPreferences");
 			properties.appendChild(fetishPreferences);
-			for (Fetish f : PluginLoader.getInstance().getAllFetishes()) {
+			for (AbstractFetish f : Fetish.getAllFetishes()) {
 				Element element = doc.createElement("preference");
 				fetishPreferences.appendChild(element);
 				
@@ -1037,7 +1038,7 @@ public class Properties {
 						
 						try {
 							if(!e.getAttribute("fetish").isEmpty()) {
-								fetishPreferencesMap.put(Fetish.valueOf(e.getAttribute("fetish")), Integer.valueOf(e.getAttribute("value")));
+								fetishPreferencesMap.put(Fetish.getFetishById(e.getAttribute("fetish")), Integer.valueOf(e.getAttribute("value")));
 							}
 						} catch(IllegalArgumentException ex){
 							System.err.println("loadPropertiesFromXML() error: fetishPreferences preference");
@@ -1550,8 +1551,8 @@ public class Properties {
 	}
 
 	public void resetFetishPreferences() {
-		fetishPreferencesMap = new EnumMap<>(Fetish.class);
-		for(Fetish f : PluginLoader.getInstance().getAllFetishes()) {
+		fetishPreferencesMap = new HashMap<AbstractFetish,Integer>();
+		for(AbstractFetish f : PluginLoader.getInstance().getAllFetishes()) {
 			fetishPreferencesMap.put(f, f.getFetishPreferenceDefault().getValue());
 		}
 	}

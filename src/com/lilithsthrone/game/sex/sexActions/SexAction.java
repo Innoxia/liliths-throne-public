@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -21,6 +22,7 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.modding.PluginLoader;
 
 /**
  * @since 0.1.0
@@ -42,8 +44,8 @@ public abstract class SexAction implements SexActionInterface {
 
 	protected SexParticipantType participantType;
 	protected SexPace associatedSexPace;
-	protected Map<GameCharacter, Set<Fetish>> characterFetishes;
-	protected Map<GameCharacter, Set<Fetish>> characterFetishesForPartner;
+	protected Map<GameCharacter, Set<AbstractFetish>> characterFetishes;
+	protected Map<GameCharacter, Set<AbstractFetish>> characterFetishesForPartner;
 	
 	// External file variables:
 
@@ -291,23 +293,23 @@ public abstract class SexAction implements SexActionInterface {
 	}
 	
 	@Override
-	public List<Fetish> getFetishesForTargetedPartner(GameCharacter characterPerformingAction) {
+	public List<AbstractFetish> getFetishesForTargetedPartner(GameCharacter characterPerformingAction) {
 		return getFetishesForEitherPartner(characterPerformingAction, false);
 	}
 
 	@Override
-	public List<Fetish> getFetishes(GameCharacter characterPerformingAction) {
+	public List<AbstractFetish> getFetishes(GameCharacter characterPerformingAction) {
 		return getFetishesForEitherPartner(characterPerformingAction, true);
 	}
 	
 	/**
 	 * To be overridden to add extra fetishes on top of the automatically-generated ones in getFetishes() and getFetishesForTargetedPartner().
 	 */
-	public List<Fetish> getExtraFetishes(GameCharacter character) {
+	public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 		return null;
 	}
 	
-	public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
+	public List<AbstractFetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
 //		if(characterFetishes==null || characterFetishes.get(characterPerformingAction)==null) {
 			GameCharacter characterTarget = Main.sex.getTargetedPartner(characterPerformingAction);
 			
@@ -318,12 +320,12 @@ public abstract class SexAction implements SexActionInterface {
 			characterFetishesForPartner.putIfAbsent(characterPerformingAction, new HashSet<>());
 			
 			if(getExtraFetishes(characterPerformingAction)!=null) {
-				for(Fetish f : getExtraFetishes(characterPerformingAction)) {
+				for(AbstractFetish f : getExtraFetishes(characterPerformingAction)) {
 					characterFetishes.get(characterPerformingAction).add(f);
 				}
 			}
 			if(getExtraFetishes(characterTarget)!=null) {
-				for(Fetish f : getExtraFetishes(characterTarget)) {
+				for(AbstractFetish f : getExtraFetishes(characterTarget)) {
 					characterFetishesForPartner.get(characterPerformingAction).add(f);
 				}
 			}
@@ -377,6 +379,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 				}
 			}
+			
 			
 			List<CoverableArea> cummedOnList = null;
 			try { // Wrap in try/catch block as some sex actions may make calls to ongoing actions that aren't ongoing yet
@@ -515,6 +518,7 @@ public abstract class SexAction implements SexActionInterface {
 							break;
 					}
 				}
+				PluginLoader.getInstance().onSexActionFetishesForEitherPartner(this, characterPerformingAction,characterFetishes,characterFetishesForPartner,cummedOnList);
 			}
 			
 			List<SexAreaInterface> cummedInList = this.getAreasCummedIn(characterPerformingAction, characterTarget);

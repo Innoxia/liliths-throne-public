@@ -159,6 +159,7 @@ import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.effects.StatusEffectCategory;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
@@ -381,11 +382,11 @@ public abstract class GameCharacter implements XMLSaving {
 	protected List<AbstractPerk> traits;
 	protected Map<Integer, Set<AbstractPerk>> perks;
 	protected Set<AbstractPerk> specialPerks;
-	protected Set<Fetish> fetishes;
-	protected Map<Fetish, FetishDesire> fetishDesireMap;
-	protected Map<Fetish, Integer> clothingFetishDesireModifiersMap;
-	protected List<Fetish> fetishesFromClothing;
-	protected Map<Fetish, Integer> fetishExperienceMap;
+	protected Set<AbstractFetish> fetishes;
+	protected Map<AbstractFetish, FetishDesire> fetishDesireMap;
+	protected Map<AbstractFetish, Integer> clothingFetishDesireModifiersMap;
+	protected List<AbstractFetish> fetishesFromClothing;
+	protected Map<AbstractFetish, Integer> fetishExperienceMap;
 	protected List<AppliedStatusEffect> statusEffects;
 	/** Maps seconds passed to Maps of StatusEffect-descriptions. */
 	protected Map<Long, Map<AbstractStatusEffect, String>> statusEffectDescriptions;
@@ -1062,7 +1063,7 @@ public abstract class GameCharacter implements XMLSaving {
 		// Fetishes:
 		Element characterFetishes = doc.createElement("fetishes");
 		properties.appendChild(characterFetishes);
-		for(Fetish f : this.getFetishes(false)){
+		for(AbstractFetish f : this.getFetishes(false)){
 			Element element = doc.createElement("fetish");
 			characterFetishes.appendChild(element);
 			
@@ -1071,7 +1072,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		Element fetishDesire = doc.createElement("fetishDesire");
 		properties.appendChild(fetishDesire);
-		for(Entry<Fetish, FetishDesire> entry : this.getFetishDesireMap().entrySet()){
+		for(Entry<AbstractFetish, FetishDesire> entry : this.getFetishDesireMap().entrySet()){
 			Element fondnessEntry = doc.createElement("entry");
 			fetishDesire.appendChild(fondnessEntry);
 			
@@ -1081,7 +1082,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		Element fetishExperience = doc.createElement("fetishExperience");
 		properties.appendChild(fetishExperience);
-		for(Entry<Fetish, Integer> entry : this.getFetishExperienceMap().entrySet()){
+		for(Entry<AbstractFetish, Integer> entry : this.getFetishExperienceMap().entrySet()){
 			Element expEntry = doc.createElement("entry");
 			fetishExperience.appendChild(expEntry);
 			
@@ -2302,10 +2303,10 @@ public abstract class GameCharacter implements XMLSaving {
 							character.incrementEssenceCount(5, false);
 							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added refund for old non-con fetish. (+5 arcane essences)");
 							
-						} else if(Fetish.valueOf(e.getAttribute("type")) != null) {
+						} else if(Fetish.getFetishById(e.getAttribute("type")) != null) {
 							if(Boolean.valueOf(e.getAttribute("value"))) {
-								character.addFetish(Fetish.valueOf(e.getAttribute("type")));
-								Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
+								character.addFetish(Fetish.getFetishById(e.getAttribute("type")));
+								Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added Fetish: "+Fetish.getFetishById(e.getAttribute("type")).getName(character));
 							}
 						}
 					}catch(IllegalArgumentException ex){
@@ -2321,9 +2322,9 @@ public abstract class GameCharacter implements XMLSaving {
 							character.incrementEssenceCount(5, false);
 							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added refund for old non-con fetish. (+5 arcane essences)");
 							
-						} else if(Fetish.valueOf(e.getAttribute("type")) != null) {
-							character.addFetish(Fetish.valueOf(e.getAttribute("type")));
-							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
+						} else if(Fetish.getFetishById(e.getAttribute("type")) != null) {
+							character.addFetish(Fetish.getFetishById(e.getAttribute("type")));
+							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added Fetish: "+Fetish.getFetishById(e.getAttribute("type")).getName(character));
 						}
 					}catch(IllegalArgumentException ex){
 					}
@@ -2339,7 +2340,7 @@ public abstract class GameCharacter implements XMLSaving {
 				Element e = ((Element)fetishDesireEntries.item(i));
 
 				try {
-					character.setFetishDesire(Fetish.valueOf(e.getAttribute("fetish")), FetishDesire.valueOf(e.getAttribute("desire")));
+					character.setFetishDesire(Fetish.getFetishById(e.getAttribute("fetish")), FetishDesire.valueOf(e.getAttribute("desire")));
 					Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set fetish desire: "+e.getAttribute("fetish") +" , "+ e.getAttribute("desire"));
 				}catch(IllegalArgumentException ex){
 				}
@@ -2354,7 +2355,7 @@ public abstract class GameCharacter implements XMLSaving {
 				Element e = ((Element)fetishExperienceEntries.item(i));
 
 				try {
-					character.setFetishExperience(Fetish.valueOf(e.getAttribute("fetish")), Integer.valueOf(e.getAttribute("experience")));
+					character.setFetishExperience(Fetish.getFetishById(e.getAttribute("fetish")), Integer.valueOf(e.getAttribute("experience")));
 					Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set fetish experience: "+e.getAttribute("fetish") +" , "+ e.getAttribute("experience"));
 				}catch(IllegalArgumentException ex){
 				}
@@ -6635,13 +6636,13 @@ public abstract class GameCharacter implements XMLSaving {
 	// Fetishes:
 
 	/**The returned list is ordered by rendering priority.*/
-	public List<Fetish> getFetishes(boolean includeFetishesFromClothing) {
-		Set<Fetish> tempFetishSet = new HashSet<>(fetishes);
+	public List<AbstractFetish> getFetishes(boolean includeFetishesFromClothing) {
+		Set<AbstractFetish> tempFetishSet = new HashSet<>(fetishes);
 		if(includeFetishesFromClothing) {
 			tempFetishSet.addAll(fetishesFromClothing);
 		}
-		List<Fetish> tempFetishList = new ArrayList<>(tempFetishSet);
-		tempFetishList.sort(Comparator.comparingInt(Fetish::getRenderingPriority).reversed());
+		List<AbstractFetish> tempFetishList = new ArrayList<>(tempFetishSet);
+		tempFetishList.sort(Comparator.comparingInt(AbstractFetish::getRenderingPriority).reversed());
 		return tempFetishList;
 	}
 	
@@ -6649,7 +6650,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return fetishes.contains(f);
 	}
 	
-	public boolean hasFetish(Fetish fetish) {
+	public boolean hasFetish(AbstractFetish fetish) {
 		// If content settings are disabled, always treat fetish as not being owned:
 		if(!Main.game.isNonConEnabled() && (fetish==Fetish.FETISH_NON_CON_DOM || fetish==Fetish.FETISH_NON_CON_SUB)) {
 			return false;
@@ -6683,11 +6684,11 @@ public abstract class GameCharacter implements XMLSaving {
 				&& (this.getAffectionLevelBasic(target)!=AffectionLevelBasic.LIKE || target.getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive());
 	}
 
-	public String addFetish(Fetish fetish) {
+	public String addFetish(AbstractFetish fetish) {
 		return addFetish(fetish, false);
 	}
 	
-	public String addFetish(Fetish fetish, boolean shortDescription) {
+	public String addFetish(AbstractFetish fetish, boolean shortDescription) {
 		if (fetishes.contains(fetish)) {
 			if(!Main.game.isStarted() || this.getBody()==null) {
 				return "";
@@ -6713,7 +6714,7 @@ public abstract class GameCharacter implements XMLSaving {
 				+"</p>";
 	}
 	
-	private void applyFetishGainEffects(Fetish fetish) {
+	private void applyFetishGainEffects(AbstractFetish fetish) {
 		// Increment bonus attributes from this fetish:
 		if (fetish.getAttributeModifiers() != null) {
 			for (Entry<AbstractAttribute, Integer> e : fetish.getAttributeModifiers().entrySet()) {
@@ -6726,11 +6727,11 @@ public abstract class GameCharacter implements XMLSaving {
 		calculateSpecialFetishes();
 	}
 
-	public String removeFetish(Fetish fetish) {
+	public String removeFetish(AbstractFetish fetish) {
 		return removeFetish(fetish, false);
 	}
 	
-	public String removeFetish(Fetish fetish, boolean shortDescription) {
+	public String removeFetish(AbstractFetish fetish, boolean shortDescription) {
 		if (!fetishes.contains(fetish)) {
 			if(!Main.game.isStarted() || this.getBody()==null) {
 				return "";
@@ -6758,12 +6759,12 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void clearFetishes() {
-		for(Fetish fetish : this.getFetishes(false)) {
+		for(AbstractFetish fetish : this.getFetishes(false)) {
 			removeFetish(fetish);
 		}
 	}
 	
-	private void applyFetishLossEffects(Fetish fetish) {
+	private void applyFetishLossEffects(AbstractFetish fetish) {
 		// Reverse bonus attributes from this fetish:
 		if (fetish.getAttributeModifiers() != null) {
 			for (Entry<AbstractAttribute, Integer> e : fetish.getAttributeModifiers().entrySet()) {
@@ -6777,10 +6778,10 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void calculateSpecialFetishes() {
-		for(Fetish f : PluginLoader.getInstance().getAllFetishes()) {
+		for(AbstractFetish f : PluginLoader.getInstance().getAllFetishes()) {
 			if(!f.getFetishesForAutomaticUnlock().isEmpty()) {
 				boolean conditionsMet = true;
-				for(Fetish fetishNeeded : f.getFetishesForAutomaticUnlock()) {
+				for(AbstractFetish fetishNeeded : f.getFetishesForAutomaticUnlock()) {
 					if(!hasFetish(fetishNeeded)) {
 						conditionsMet = false;
 						break;
@@ -6795,7 +6796,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 	
-	public Map<Fetish, FetishDesire> getFetishDesireMap() {
+	public Map<AbstractFetish, FetishDesire> getFetishDesireMap() {
 		return fetishDesireMap;
 	}
 	
@@ -6803,11 +6804,11 @@ public abstract class GameCharacter implements XMLSaving {
 		fetishDesireMap.clear();
 	}
 
-	public String setFetishDesire(Fetish fetish, FetishDesire desire) {
+	public String setFetishDesire(AbstractFetish fetish, FetishDesire desire) {
 		return setFetishDesire(fetish, desire, false);
 	}
 	
-	public String setFetishDesire(Fetish fetish, FetishDesire desire, boolean shortDescription) {
+	public String setFetishDesire(AbstractFetish fetish, FetishDesire desire, boolean shortDescription) {
 		if(fetishDesireMap.getOrDefault(fetish, FetishDesire.TWO_NEUTRAL)!=desire) {
 			if(desire==FetishDesire.TWO_NEUTRAL) {
 				fetishDesireMap.remove(fetish);
@@ -6842,8 +6843,11 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 	
-	public FetishDesire getBaseFetishDesire(Fetish fetish) {
+	public FetishDesire getBaseFetishDesire(AbstractFetish fetish) {
 		// If content settings are disabled, revert base desire to neutral so that it is not shown anywhere:
+		if(fetish.isDisabled())
+			return FetishDesire.TWO_NEUTRAL;
+		/*
 		if(!Main.game.isNonConEnabled() && (fetish==Fetish.FETISH_NON_CON_DOM || fetish==Fetish.FETISH_NON_CON_SUB)) {
 			return FetishDesire.TWO_NEUTRAL;
 		} else if(!Main.game.isLactationContentEnabled() && (fetish==Fetish.FETISH_LACTATION_OTHERS || fetish==Fetish.FETISH_LACTATION_SELF)) {
@@ -6855,13 +6859,14 @@ public abstract class GameCharacter implements XMLSaving {
 		} else if(!Main.game.isArmpitContentEnabled() && (fetish==Fetish.FETISH_ARMPIT_GIVING || fetish==Fetish.FETISH_ARMPIT_RECEIVING)) {
 			return FetishDesire.TWO_NEUTRAL;
 		}
+		*/
 		if(!fetishDesireMap.containsKey(fetish)) {
 			return FetishDesire.TWO_NEUTRAL;
 		}
 		return fetishDesireMap.get(fetish);
 	}
 	
-	public FetishDesire getFetishDesire(Fetish fetish) {
+	public FetishDesire getFetishDesire(AbstractFetish fetish) {
 		if(hasFetish(fetish)) {
 			return FetishDesire.FOUR_LOVE;
 		}
@@ -6875,28 +6880,28 @@ public abstract class GameCharacter implements XMLSaving {
 		return baseDesire;
 	}
 	
-	private Map<Fetish, Integer> getFetishExperienceMap() {
+	private Map<AbstractFetish, Integer> getFetishExperienceMap() {
 		return fetishExperienceMap;
 	}
 	
-	public boolean setFetishExperience(Fetish fetish, int experience) {
+	public boolean setFetishExperience(AbstractFetish fetish, int experience) {
 		fetishExperienceMap.put(fetish, Math.max(0, Math.min(experience, FetishLevel.FOUR_MASTERFUL.getMaximumExperience())));
 		return true;
 	}
 	
-	public boolean incrementFetishExperience(Fetish fetish, int experienceIncrement) {
+	public boolean incrementFetishExperience(AbstractFetish fetish, int experienceIncrement) {
 		fetishExperienceMap.putIfAbsent(fetish, 0);
 		return setFetishExperience(fetish, Math.max(0, fetishExperienceMap.get(fetish)+experienceIncrement));
 	}
 	
-	public int getFetishExperience(Fetish fetish) {
+	public int getFetishExperience(AbstractFetish fetish) {
 		if(!fetishExperienceMap.containsKey(fetish)) {
 			return 0;
 		}
 		return fetishExperienceMap.get(fetish);
 	}
 	
-	public FetishLevel getFetishLevel(Fetish fetish) {
+	public FetishLevel getFetishLevel(AbstractFetish fetish) {
 		return FetishLevel.getFetishLevelFromValue(getFetishExperience(fetish));
 	}
 	
@@ -7749,9 +7754,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public int calculateSexTypeWeighting(SexType type, GameCharacter target, List<SexType> request, boolean lustOrArousalCalculation) {
 		int weight = 0;
 		
-		List<Fetish> fetishes = type.getRelatedFetishes(this, target, true, false);
+		List<AbstractFetish> fetishes = type.getRelatedFetishes(this, target, true, false);
 		
-		for(Fetish fetish : fetishes) {
+		for(AbstractFetish fetish : fetishes) {
 			if(this.hasFetish(fetish)) {
 				weight+=7;
 			} else {
@@ -7806,7 +7811,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if(!Main.game.isArmpitContentEnabled()) {
 				weight-=100000;
 			} else {
-				weight-=4; //TODO This makes it unlikely for NPCs to choose armpit actions. When armptit fetishes are added, remove this.
+				weight-=4; //TODO This makes it unlikely for NPCs to choose armpit actions. When armpit fetishes are added, remove this.
 			}
 		}
 		
@@ -22843,7 +22848,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		for(ItemEffect ie : newClothing.getEffects()) {
 			if(ie.getSecondaryModifier()!=null && ie.getSecondaryModifier().getFetish()!=null) {
-				Fetish associatedFetish = ie.getSecondaryModifier().getFetish();
+				AbstractFetish associatedFetish = ie.getSecondaryModifier().getFetish();
 				switch(ie.getPotency()) {
 					case MINOR_BOOST:
 						clothingFetishDesireModifiersMap.putIfAbsent(ie.getSecondaryModifier().getFetish(), 0);
@@ -22906,7 +22911,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		for(ItemEffect ie : clothing.getEffects()) {
 			if(ie.getSecondaryModifier()!=null && ie.getSecondaryModifier().getFetish()!=null) {
-				Fetish associatedFetish = ie.getSecondaryModifier().getFetish();
+				AbstractFetish associatedFetish = ie.getSecondaryModifier().getFetish();
 				switch(ie.getPotency()) {
 					case MINOR_BOOST:
 						clothingFetishDesireModifiersMap.put(associatedFetish, clothingFetishDesireModifiersMap.get(associatedFetish) - 1);
@@ -25176,7 +25181,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		for(ItemEffect ie : tattoo.getEffects()) {
 			if(ie.getSecondaryModifier()!=null && ie.getSecondaryModifier().getFetish()!=null) {
-				Fetish associatedFetish = ie.getSecondaryModifier().getFetish();
+				AbstractFetish associatedFetish = ie.getSecondaryModifier().getFetish();
 				switch(ie.getPotency()) {
 					case MINOR_BOOST:
 						clothingFetishDesireModifiersMap.putIfAbsent(ie.getSecondaryModifier().getFetish(), 0);
@@ -25214,7 +25219,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		for(ItemEffect ie : tattoo.getEffects()) {
 			if(ie.getSecondaryModifier()!=null && ie.getSecondaryModifier().getFetish()!=null) {
-				Fetish associatedFetish = ie.getSecondaryModifier().getFetish();
+				AbstractFetish associatedFetish = ie.getSecondaryModifier().getFetish();
 				switch(ie.getPotency()) {
 					case MINOR_BOOST:
 						clothingFetishDesireModifiersMap.put(associatedFetish, clothingFetishDesireModifiersMap.get(associatedFetish) - 1);

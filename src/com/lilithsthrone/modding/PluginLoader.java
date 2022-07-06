@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -14,6 +15,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -25,8 +28,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.sex.sexActions.SexAction;
 
 public final class PluginLoader {
 	private static String MOD_DIR = "res/mods";
@@ -204,24 +213,43 @@ public final class PluginLoader {
 	private void addPlugin(BasePlugin plugin) {
 		this.plugins.add(plugin);
 	}
+	
+	private Set<AbstractFetish> stockFetishes = null;
+	public Collection<? extends AbstractFetish> getStockFetishes() {
+		if(stockFetishes!=null) {
+			stockFetishes = new HashSet<>();
+			Field[] fields = Perk.class.getFields();
+			for(Field f : fields){
+				if (AbstractFetish.class.isAssignableFrom(f.getType())) {
+					
+					AbstractFetish fetish;
+					
+					try {
+						fetish = ((AbstractFetish) f.get(null));
+						stockFetishes.add(fetish);
+					} catch (IllegalArgumentException | IllegalAccessException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return stockFetishes;
+	}
 
-	private HashSet<Fetish> providedFetishes = null;
-	public Collection<? extends Fetish> getProvidedFetishes() {
+	private Set<AbstractFetish> providedFetishes = null;
+	public Collection<? extends AbstractFetish> getProvidedFetishes() {
 		if (providedFetishes == null) {
-			providedFetishes = new HashSet<Fetish>();
-			for (BasePlugin p : plugins)
-				p.addFetishes(providedFetishes);
+			providedFetishes = new HashSet<AbstractFetish>();
+			plugins.forEach(p -> p.addFetishes(providedFetishes));
 		}
 		return providedFetishes;
 	}
 
-	private HashSet<Fetish> allFetishes = null;
-	public Collection<? extends Fetish> getAllFetishes() {
+	private Set<AbstractFetish> allFetishes = null;
+	public Collection<? extends AbstractFetish> getAllFetishes() {
 		if(allFetishes == null){
-			allFetishes=new HashSet<Fetish>();
-			for(Fetish f : Fetish.values()) {
-				allFetishes.add(f);
-			}
+			allFetishes=new HashSet<AbstractFetish>();
+			allFetishes.addAll(getStockFetishes());
 			allFetishes.addAll(getProvidedFetishes());
 		}
 		return allFetishes;
@@ -254,5 +282,31 @@ public final class PluginLoader {
 	public void onMainMain() {
 		plugins.forEach(p -> p.onMainMain());
 	}
+
+	public void onGenerateDesiresAvailableFetishesFixup(GameCharacter character,
+			List<AbstractFetish> availableFetishes) {
+		plugins.forEach(p -> p.onGenerateDesiresAvailableFetishesFixup(character,availableFetishes));
+	}
+
+	public void onAfterGenerateDesires(GameCharacter character, List<AbstractFetish> availableFetishes,
+			Map<AbstractFetish, Integer> desireMap, Map<AbstractFetish, Integer> negativeMap, int desiresAssigned) {
+		plugins.forEach(p -> p.onAfterGenerateDesires(character,availableFetishes,desireMap,negativeMap,desiresAssigned));
+	}
+
+	public void addToPairedFetishMap(Map<AbstractFetish, AbstractFetish> pairedFetishMap) {
+		plugins.forEach(p->p.addToPairedFetishMap(pairedFetishMap));
+	}
+
+	public void addToUnpairedFetishMap(Map<AbstractFetish, Boolean> unpairedFetishMap) {
+		plugins.forEach(p->p.addToUnpairedFetishMap(unpairedFetishMap));
+	}
+
+	public void appendPhoneFetishRows(StringBuilder journalSB, DialogueNode dialogueNode) {
+		plugins.forEach(p->p.appendPhoneFetishRows(journalSB,dialogueNode));
+	}
+
+	public void onSexActionFetishesForEitherPartner(SexAction sexAction, GameCharacter characterPerformingAction,
+			Map<GameCharacter, Set<AbstractFetish>> characterFetishes,
+			Map<GameCharacter, Set<AbstractFetish>> characterFetishesForPartner, List<CoverableArea> cummedOnList) {}
 
 }

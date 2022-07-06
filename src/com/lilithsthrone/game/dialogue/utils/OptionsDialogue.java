@@ -20,6 +20,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishPreference;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
@@ -1409,7 +1410,7 @@ public class OptionsDialogue {
 							+ "</div>"
 							
 							+ "<div class='container-full-width' style='text-align:center;'>");
-			for(Fetish fetish : PluginLoader.getInstance().getAllFetishes()) {
+			for(AbstractFetish fetish : PluginLoader.getInstance().getAllFetishes()) {
 				if(fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 					UtilText.nodeContentSB.append(getFetishPreferencesPanel(fetish));
 				}
@@ -1473,7 +1474,7 @@ public class OptionsDialogue {
 				+"</div>";
 	}
 	
-	private static String getFetishPreferencesPanel(Fetish fetish) {
+	private static String getFetishPreferencesPanel(AbstractFetish fetish) {
 		StringBuilder sb = new StringBuilder();
 		
 		Colour highlightColour = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getColour();

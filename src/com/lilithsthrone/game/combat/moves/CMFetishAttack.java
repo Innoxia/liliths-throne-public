@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.combat.Attack;
@@ -34,8 +35,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_ANAL_RECEIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_ANAL_GIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_ANAL_RECEIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_ANAL_GIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -142,8 +143,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_ANAL_GIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_ANAL_RECEIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_ANAL_GIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_ANAL_RECEIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -240,8 +241,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_VAGINAL_RECEIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_VAGINAL_GIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_VAGINAL_RECEIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_VAGINAL_GIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -341,8 +342,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_VAGINAL_GIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_VAGINAL_RECEIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_VAGINAL_GIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_VAGINAL_RECEIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -443,8 +444,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_INCEST;
-    	private Fetish oppositeFetish = Fetish.FETISH_INCEST;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_INCEST;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_INCEST;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -592,8 +593,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_CUM_STUD;
-    	private Fetish oppositeFetish = Fetish.FETISH_CUM_ADDICT;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_CUM_STUD;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_CUM_ADDICT;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -692,8 +693,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_CUM_ADDICT;
-    	private Fetish oppositeFetish = Fetish.FETISH_CUM_STUD;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_CUM_ADDICT;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_CUM_STUD;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -797,8 +798,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_PENIS_RECEIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_PENIS_GIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_PENIS_RECEIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_PENIS_GIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -898,8 +899,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_PENIS_GIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_PENIS_RECEIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_PENIS_GIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_PENIS_RECEIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -994,8 +995,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_FOOT_RECEIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_FOOT_GIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_FOOT_RECEIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_FOOT_GIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1091,8 +1092,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_FOOT_GIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_FOOT_RECEIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_FOOT_GIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_FOOT_RECEIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1187,8 +1188,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_ARMPIT_RECEIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_ARMPIT_GIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_ARMPIT_RECEIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_ARMPIT_GIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1285,8 +1286,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_ARMPIT_GIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_ARMPIT_RECEIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_ARMPIT_GIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_ARMPIT_RECEIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1385,8 +1386,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_ORAL_RECEIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_ORAL_GIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_ORAL_RECEIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_ORAL_GIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1484,8 +1485,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_ORAL_GIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_ORAL_RECEIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_ORAL_GIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_ORAL_RECEIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1593,8 +1594,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_BREASTS_OTHERS;
-    	private Fetish oppositeFetish = Fetish.FETISH_BREASTS_SELF;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_BREASTS_OTHERS;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_BREASTS_SELF;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1710,8 +1711,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_BREASTS_SELF;
-    	private Fetish oppositeFetish = Fetish.FETISH_BREASTS_OTHERS;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_BREASTS_SELF;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_BREASTS_OTHERS;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1819,8 +1820,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_LACTATION_OTHERS;
-    	private Fetish oppositeFetish = Fetish.FETISH_LACTATION_SELF;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_LACTATION_OTHERS;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_LACTATION_SELF;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1947,8 +1948,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_LACTATION_SELF;
-    	private Fetish oppositeFetish = Fetish.FETISH_LACTATION_OTHERS;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_LACTATION_SELF;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_LACTATION_OTHERS;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -2079,8 +2080,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_PREGNANCY;
-    	private Fetish oppositeFetish = Fetish.FETISH_IMPREGNATION;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_PREGNANCY;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_IMPREGNATION;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -2214,8 +2215,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_IMPREGNATION;
-    	private Fetish oppositeFetish = Fetish.FETISH_PREGNANCY;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_IMPREGNATION;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_PREGNANCY;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -2341,8 +2342,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_DOMINANT;
-    	private Fetish oppositeFetish = Fetish.FETISH_SUBMISSIVE;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_DOMINANT;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_SUBMISSIVE;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -2450,8 +2451,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_SUBMISSIVE;
-    	private Fetish oppositeFetish = Fetish.FETISH_DOMINANT;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_SUBMISSIVE;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_DOMINANT;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
