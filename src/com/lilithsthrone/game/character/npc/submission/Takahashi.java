@@ -67,6 +67,7 @@ import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.sexActions.submission.CitadelYoukoSA;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.modding.PluginLoader;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -398,6 +399,8 @@ public class Takahashi extends NPC {
 
 		effects.addAll(reducedEffects);
 		effects.addAll(maximumEffects);
+		
+		PluginLoader.getInstance().onNPCGenerateTransformativePotion(this, target, effects);
 		
 		return new TransformativePotion(itemType, effects);
 	}

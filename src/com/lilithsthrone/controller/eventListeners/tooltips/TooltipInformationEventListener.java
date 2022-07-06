@@ -41,6 +41,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
@@ -94,7 +95,7 @@ public class TooltipInformationEventListener implements EventListener {
 	private AbstractPerk perk;
 	private AbstractPerk levelUpPerk;
 	private int perkRow;
-	private Fetish fetish;
+	private AbstractFetish fetish;
 	private boolean fetishExperience = false;
 	private FetishDesire desire;
 	private Spell spell;
@@ -542,7 +543,7 @@ public class TooltipInformationEventListener implements EventListener {
 				// Requirements:
 				if(!fetish.getFetishesForAutomaticUnlock().isEmpty() || (!owner.hasFetish(fetish) && !fetish.getPerkRequirements(owner).isEmpty())) {
 					tooltipSB.append("<div class='subTitle' style='font-weight:normal;'><b>Requirements</b>");
-					for(Fetish f : fetish.getFetishesForAutomaticUnlock()) {
+					for(AbstractFetish f : fetish.getFetishesForAutomaticUnlock()) {
 						if(owner.hasFetish(f)) {
 							tooltipSB.append("<br/>[style.italicsGood(" + Util.capitaliseSentence(f.getName(owner))+")]");
 						} else {
@@ -1980,14 +1981,14 @@ public class TooltipInformationEventListener implements EventListener {
 		return this;
 	}
 	
-	public TooltipInformationEventListener setFetish(Fetish fetish, GameCharacter owner) {
+	public TooltipInformationEventListener setFetish(AbstractFetish fetish, GameCharacter owner) {
 		resetFields();
 		this.fetish = fetish;
 		this.owner = owner;
 		return this;
 	}
 
-	public TooltipInformationEventListener setFetishExperience(Fetish fetish, GameCharacter owner) {
+	public TooltipInformationEventListener setFetishExperience(AbstractFetish fetish, GameCharacter owner) {
 		resetFields();
 		fetishExperience = true;
 		this.fetish = fetish;
@@ -1995,7 +1996,7 @@ public class TooltipInformationEventListener implements EventListener {
 		return this;
 	}
 	
-	public TooltipInformationEventListener setFetishDesire(Fetish fetish, FetishDesire desire, GameCharacter owner) {
+	public TooltipInformationEventListener setFetishDesire(AbstractFetish fetish, FetishDesire desire, GameCharacter owner) {
 		resetFields();
 		this.desire = desire;
 		this.fetish = fetish;

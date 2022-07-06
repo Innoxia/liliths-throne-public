@@ -35,6 +35,7 @@ import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 
 public final class PluginLoader {
@@ -122,22 +123,25 @@ public final class PluginLoader {
 			return "[BUG: SEE ERROR LOG]";
 		}
 	}
-	
+
 	private static final char[] HEX_CHARS = "0123456789ABCDEF".toCharArray();
+
 	private String byte2hex(byte[] bytes) {
-		char[] c = new char[bytes.length*2];
+		char[] c = new char[bytes.length * 2];
 		int v = 0;
-		for(int i=0;i<bytes.length;i++) {
-			v = bytes[i]&0xFF; // Mask off anything other than the last 8 bits
-			c[i*2]=HEX_CHARS[v >>> 4]; // Shift down four bits, truncating the lower four
-			c[i*2+1]=HEX_CHARS[v & 0x0f]; // Mask off the upper four bits.
+		for (int i = 0; i < bytes.length; i++) {
+			v = bytes[i] & 0xFF; // Mask off anything other than the last 8 bits
+			c[i * 2] = HEX_CHARS[v >>> 4]; // Shift down four bits, truncating the lower four
+			c[i * 2 + 1] = HEX_CHARS[v & 0x0f]; // Mask off the upper four bits.
 		}
 		return new String(c);
 	}
+
 	private String getChecksumOfFile(File file, MessageDigest algorithm) {
 		algorithm.reset();
 		try (DigestInputStream dis = new DigestInputStream(new FileInputStream(file), algorithm)) {
-			while (dis.read() != -1) {}
+			while (dis.read() != -1) {
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -213,20 +217,22 @@ public final class PluginLoader {
 	private void addPlugin(BasePlugin plugin) {
 		this.plugins.add(plugin);
 	}
-	
+
 	private Set<AbstractFetish> stockFetishes = null;
+
 	public Collection<? extends AbstractFetish> getStockFetishes() {
-		if(stockFetishes!=null) {
+		if (stockFetishes != null) {
 			stockFetishes = new HashSet<>();
 			Field[] fields = Perk.class.getFields();
-			for(Field f : fields){
+			for (Field f : fields) {
 				if (AbstractFetish.class.isAssignableFrom(f.getType())) {
-					
+
 					AbstractFetish fetish;
-					
+
 					try {
 						fetish = ((AbstractFetish) f.get(null));
 						stockFetishes.add(fetish);
+						Fetish.addFetish(f.getName(), fetish);
 					} catch (IllegalArgumentException | IllegalAccessException e) {
 						e.printStackTrace();
 					}
@@ -237,18 +243,22 @@ public final class PluginLoader {
 	}
 
 	private Set<AbstractFetish> providedFetishes = null;
+
 	public Collection<? extends AbstractFetish> getProvidedFetishes() {
 		if (providedFetishes == null) {
 			providedFetishes = new HashSet<AbstractFetish>();
 			plugins.forEach(p -> p.addFetishes(providedFetishes));
+			for (AbstractFetish f : providedFetishes)
+				Fetish.addFetish(f.getID(), f);
 		}
 		return providedFetishes;
 	}
 
 	private Set<AbstractFetish> allFetishes = null;
+
 	public Collection<? extends AbstractFetish> getAllFetishes() {
-		if(allFetishes == null){
-			allFetishes=new HashSet<AbstractFetish>();
+		if (allFetishes == null) {
+			allFetishes = new HashSet<AbstractFetish>();
 			allFetishes.addAll(getStockFetishes());
 			allFetishes.addAll(getProvidedFetishes());
 		}
@@ -285,28 +295,35 @@ public final class PluginLoader {
 
 	public void onGenerateDesiresAvailableFetishesFixup(GameCharacter character,
 			List<AbstractFetish> availableFetishes) {
-		plugins.forEach(p -> p.onGenerateDesiresAvailableFetishesFixup(character,availableFetishes));
+		plugins.forEach(p -> p.onGenerateDesiresAvailableFetishesFixup(character, availableFetishes));
 	}
 
 	public void onAfterGenerateDesires(GameCharacter character, List<AbstractFetish> availableFetishes,
 			Map<AbstractFetish, Integer> desireMap, Map<AbstractFetish, Integer> negativeMap, int desiresAssigned) {
-		plugins.forEach(p -> p.onAfterGenerateDesires(character,availableFetishes,desireMap,negativeMap,desiresAssigned));
+		plugins.forEach(
+				p -> p.onAfterGenerateDesires(character, availableFetishes, desireMap, negativeMap, desiresAssigned));
 	}
 
 	public void addToPairedFetishMap(Map<AbstractFetish, AbstractFetish> pairedFetishMap) {
-		plugins.forEach(p->p.addToPairedFetishMap(pairedFetishMap));
+		plugins.forEach(p -> p.addToPairedFetishMap(pairedFetishMap));
 	}
 
 	public void addToUnpairedFetishMap(Map<AbstractFetish, Boolean> unpairedFetishMap) {
-		plugins.forEach(p->p.addToUnpairedFetishMap(unpairedFetishMap));
+		plugins.forEach(p -> p.addToUnpairedFetishMap(unpairedFetishMap));
 	}
 
 	public void appendPhoneFetishRows(StringBuilder journalSB, DialogueNode dialogueNode) {
-		plugins.forEach(p->p.appendPhoneFetishRows(journalSB,dialogueNode));
+		plugins.forEach(p -> p.appendPhoneFetishRows(journalSB, dialogueNode));
 	}
 
 	public void onSexActionFetishesForEitherPartner(SexAction sexAction, GameCharacter characterPerformingAction,
 			Map<GameCharacter, Set<AbstractFetish>> characterFetishes,
-			Map<GameCharacter, Set<AbstractFetish>> characterFetishesForPartner, List<CoverableArea> cummedOnList) {}
+			Map<GameCharacter, Set<AbstractFetish>> characterFetishesForPartner, List<CoverableArea> cummedOnList) {
+	}
+
+	public void onNPCGenerateTransformativePotion(NPC npc, GameCharacter target,
+			List<PossibleItemEffect> possibleEffects) {
+		plugins.forEach(p -> p.onNPCGenerateTransformativePotion(npc, target, possibleEffects));
+	}
 
 }

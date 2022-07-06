@@ -2052,6 +2052,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			}
 		}
 		
+		PluginLoader.getInstance().onNPCGenerateTransformativePotion(this, target, possibleEffects);
+		
 		if(possibleEffects.isEmpty()) {
 			return null;
 		}

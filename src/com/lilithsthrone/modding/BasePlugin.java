@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -92,9 +93,23 @@ public class BasePlugin {
 	public void onAfterGenerateDesires(GameCharacter character, List<AbstractFetish> availableFetishes,
 			Map<AbstractFetish, Integer> desireMap, Map<AbstractFetish, Integer> negativeMap, int desiresAssigned) {}
 
+	/**
+	 * Top -> bottom mapping of fetishes. Used when NPCs are making TF potions.
+	 * 
+	 * @see com.lilithsthrone.game.character.npc.NPC.generateFetishPotion(GameCharacter, Boolean)
+	 * @param pairedFetishMap
+	 */
 	public void addToPairedFetishMap(Map<AbstractFetish, AbstractFetish> pairedFetishMap) {}
 
+	/**
+	 * Fetishes that are off on their own.  Value is whether to share or hoard the fetish when making potions.
+	 * 
+	 * @param unpairedFetishMap
+	 */
 	public void addToUnpairedFetishMap(Map<AbstractFetish, Boolean> unpairedFetishMap) {}
 
 	public void appendPhoneFetishRows(StringBuilder journalSB, DialogueNode dialogueNode) {}
+
+	public void onNPCGenerateTransformativePotion(NPC npc, GameCharacter target,
+			List<PossibleItemEffect> possibleEffects) {}
 }

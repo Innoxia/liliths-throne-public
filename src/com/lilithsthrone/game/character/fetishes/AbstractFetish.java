@@ -20,7 +20,7 @@ import com.lilithsthrone.utils.colours.Colour;
 public abstract class AbstractFetish {
 	
 	private int renderingPriority;
-	protected String id;
+	private String id;
 	protected String name;
 	protected String shortDescriptor;
 	private int experienceGainFromSexAction;
@@ -65,7 +65,30 @@ public abstract class AbstractFetish {
 			HashMap<AbstractAttribute, Integer> attributeModifiers,
 			List<String> extraEffects,
 			List<AbstractFetish> fetishesForAutomaticUnlock) {
-
+    	this(null,
+    		 renderingPriority,
+    		 name,
+    		 shortDescriptor,
+    		 pathName,
+    		 experienceGainFromSexAction,
+    		 colourShade,
+    		 attributeModifiers,
+    		 extraEffects,
+    		 fetishesForAutomaticUnlock);
+	}
+    
+    public AbstractFetish(
+    		String id, // Can be null for builtins. Assigned at runtime.
+			int renderingPriority,
+			String name,
+			String shortDescriptor,
+			String pathName,
+			FetishExperience experienceGainFromSexAction,
+			List<Colour> colourShade,
+			HashMap<AbstractAttribute, Integer> attributeModifiers,
+			List<String> extraEffects,
+			List<AbstractFetish> fetishesForAutomaticUnlock) {
+    	this.id = id;
 		this.renderingPriority = renderingPriority;
 		this.name = name;
 		this.shortDescriptor = shortDescriptor;
@@ -254,7 +277,12 @@ public abstract class AbstractFetish {
 	 */
 	public void onGeneratingDesiresForLikedFetishes(GameCharacter character, List<AbstractFetish> availableFetishes) {}
 	
-	public void registered(String id) {
-		this.id=id;
+	public final void registered(String id) {
+		if(this.id==null)
+			this.id=id;
+	}
+
+	public String getID() {
+		return this.id;
 	}
 }

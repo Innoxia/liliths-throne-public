@@ -6646,7 +6646,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return tempFetishList;
 	}
 	
-	public boolean hasBaseFetish(Fetish f) {
+	public boolean hasBaseFetish(AbstractFetish f) {
 		return fetishes.contains(f);
 	}
 	
