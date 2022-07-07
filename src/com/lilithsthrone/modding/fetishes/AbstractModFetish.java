@@ -3,20 +3,20 @@
  */
 package com.lilithsthrone.modding.fetishes;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.FetishExperience;
-import com.lilithsthrone.modding.ModdingFrameworkError;
+import com.lilithsthrone.modding.PluginUtils;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 
-/**
- * @author nexis
- *
- */
 public abstract class AbstractModFetish extends AbstractFetish {
 	public AbstractModFetish(String id, int renderingPriority, String name, String shortDescriptor, String pathName,
 			FetishExperience experienceGainFromSexAction, Colour colourShade,
@@ -39,17 +39,48 @@ public abstract class AbstractModFetish extends AbstractFetish {
 			FetishExperience experienceGainFromSexAction, Colour colourShade,
 			HashMap<AbstractAttribute, Integer> attributeModifiers, List<String> extraEffects,
 			List<AbstractFetish> fetishesForAutomaticUnlock) {
-		super(renderingPriority, name, shortDescriptor, pathName, experienceGainFromSexAction, colourShade, attributeModifiers,
-				extraEffects, fetishesForAutomaticUnlock);
-		//throw new ModdingFrameworkError("Please use the AbstractModFetish constructors with IDs in them.");
+		super(renderingPriority, name, shortDescriptor, pathName, experienceGainFromSexAction, colourShade,
+				attributeModifiers, extraEffects, fetishesForAutomaticUnlock);
+		// throw new ModdingFrameworkError("Please use the AbstractModFetish
+		// constructors with IDs in them.");
 	}
+
 	private AbstractModFetish(int renderingPriority, String name, String shortDescriptor, String pathName,
 			FetishExperience experienceGainFromSexAction, List<Colour> colourShade,
 			HashMap<AbstractAttribute, Integer> attributeModifiers, List<String> extraEffects,
 			List<AbstractFetish> fetishesForAutomaticUnlock) {
-		super(renderingPriority, name, shortDescriptor, pathName, experienceGainFromSexAction, colourShade, attributeModifiers,
-				extraEffects, fetishesForAutomaticUnlock);
-		//throw new ModdingFrameworkError("Please use the AbstractModFetish constructors with IDs in them.");
+		super(renderingPriority, name, shortDescriptor, pathName, experienceGainFromSexAction, colourShade,
+				attributeModifiers, extraEffects, fetishesForAutomaticUnlock);
+		// throw new ModdingFrameworkError("Please use the AbstractModFetish
+		// constructors with IDs in them.");
 	}
 
+	@Override
+	protected void fetchSVG() {
+		if (SVGString == null) {
+			String realFilePath = PluginUtils.GetModPath(getClass())
+					.resolve("fetishes")
+					.resolve(pathName + ".svg")
+					.toString();
+			try {
+				File f = new File(realFilePath);
+				if(!f.isFile()) {
+					System.err.println("Error! Fetish icon file does not exist (Trying to read from '"+realFilePath+"')!");
+				}
+				else if(!f.canRead()) {
+					System.err.println("Error! Fetish icon file is not readable (Trying to read from '"+realFilePath+"')!");
+				}
+				System.err.println("Reading "+realFilePath);
+				
+				InputStream is = new FileInputStream(f);
+				SVGString = Util.inputStreamToString(is);
+				
+				is.close();
+				System.err.println("Read "+realFilePath+" successfully.");
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.err.println("Failed to read "+realFilePath);
+			}
+		}
+	}
 }

@@ -2267,6 +2267,9 @@ public class Fetish {
 		}
 		try {
 			InputStream is = Subspecies.class.getClassLoader().getResourceAsStream("com/lilithsthrone/res/fetishes/fetish_bro.svg");
+			if(is==null) {
+				System.err.println("Error! Fetish icon file does not exist (Trying to read from 'com/lilithsthrone/res/fetishes/fetish_bro')!");
+			}
 			broString = Util.inputStreamToString(is);
 			broString = SvgUtil.colourReplacement("FETISH_BRO", PresetColour.BASE_BLUE, broString);
 			is.close();
@@ -2280,7 +2283,7 @@ public class Fetish {
 	}
 
 
-	private static String getGenericFetishDesireDescription(GameCharacter target, FetishDesire desire,
+	public static String getGenericFetishDesireDescription(GameCharacter target, FetishDesire desire,
 			String descriptor) {
 		switch (desire) {
 			case ZERO_HATE:

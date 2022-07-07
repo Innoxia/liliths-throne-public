@@ -221,7 +221,7 @@ public final class PluginLoader {
 	private Set<AbstractFetish> stockFetishes = null;
 
 	public Collection<? extends AbstractFetish> getStockFetishes() {
-		if (stockFetishes != null) {
+		if (stockFetishes == null) {
 			stockFetishes = new HashSet<>();
 			Field[] fields = Perk.class.getFields();
 			for (Field f : fields) {

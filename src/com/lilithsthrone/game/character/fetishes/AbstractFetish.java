@@ -26,13 +26,15 @@ public abstract class AbstractFetish {
 	private int experienceGainFromSexAction;
 	private HashMap<AbstractAttribute, Integer> attributeModifiers;
 
-	private String SVGString;
+	protected String SVGString;
 
 	private List<String> extraEffects;
 
 	private List<String> modifiersList;
 	
 	private List<AbstractFetish> fetishesForAutomaticUnlock;
+	protected List<Colour> colourShades;
+	protected String pathName;
     
     public AbstractFetish(
 			int renderingPriority,
@@ -97,6 +99,8 @@ public abstract class AbstractFetish {
 		this.attributeModifiers = attributeModifiers;
 
 		this.extraEffects = extraEffects;
+		this.colourShades = colourShade;
+		this.pathName = pathName;
 
 		if (fetishesForAutomaticUnlock == null) {
 			this.fetishesForAutomaticUnlock = new ArrayList<>();
@@ -105,21 +109,7 @@ public abstract class AbstractFetish {
 		}
 
 		if (pathName != null) {
-			try {
-				InputStream is = this.getClass()
-						.getResourceAsStream("/com/lilithsthrone/res/fetishes/" + pathName + ".svg");
-				if (is == null) {
-					System.err.println(
-							"Error! Fetish icon file does not exist (Trying to read from '" + pathName + "')!");
-				}
-				SVGString = Util.inputStreamToString(is);
-				SVGString = SvgUtil.colourReplacement(this.toString(), colourShade.get(0),
-						colourShade.size() >= 2 ? colourShade.get(1) : null,
-						colourShade.size() >= 3 ? colourShade.get(2) : null, SVGString);
-				is.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			this.fetchSVG();
 		} else {
 			SVGString = "";
 		}
@@ -135,7 +125,28 @@ public abstract class AbstractFetish {
 		}
 	}
 
-    public List<AbstractFetish> getFetishesForAutomaticUnlock() {
+   
+    protected void fetchSVG() {
+    	String rscpath = "/com/lilithsthrone/res/fetishes/" + pathName + ".svg";
+    	try {
+    		System.out.println(this.getClass().getName()+"("+this.name+"): "+rscpath);
+			InputStream is = this.getClass().getResourceAsStream(rscpath);
+			if (is == null) {
+				System.err.println(
+						"Error! Fetish icon file does not exist (Trying to read from '" + rscpath + "')!");
+			}
+			SVGString = Util.inputStreamToString(is);
+			SVGString = SvgUtil.colourReplacement(this.getID(), colourShades.get(0),
+					colourShades.size() >= 2 ? colourShades.get(1) : null,
+					colourShades.size() >= 3 ? colourShades.get(2) : null, SVGString);
+			is.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			SVGString = "";
+		}
+	}
+
+	public List<AbstractFetish> getFetishesForAutomaticUnlock() {
         return fetishesForAutomaticUnlock;
     }
 
