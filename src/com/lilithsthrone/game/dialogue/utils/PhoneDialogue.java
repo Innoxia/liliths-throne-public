@@ -48,6 +48,9 @@ import com.lilithsthrone.game.sex.managers.universal.SMMasturbation;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMasturbation;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.modding.PluginLoader;
+import com.lilithsthrone.modding.fetishes.FetishGroup;
+import com.lilithsthrone.modding.fetishes.LooseFetishGroup;
+import com.lilithsthrone.modding.fetishes.RelatedFetishGroup;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Pathing;
 import com.lilithsthrone.utils.Units;
@@ -3743,8 +3746,8 @@ public class PhoneDialogue {
 					+ "</details>");
 			
 			// Normal fetishes:
-
 			journalSB.append("<div class='container-full-width' style='text-align:center; font-weight:bold;'><h6>Fetishes</h6></div>");
+			/* Moved to com.lilithsthrone.modding.PluginLoader.initFetishGroups.			
 			journalSB.append(getFetishEntry(Fetish.FETISH_DOMINANT, Fetish.FETISH_SUBMISSIVE));
 			journalSB.append(getFetishEntry(Fetish.FETISH_VAGINAL_GIVING, Fetish.FETISH_VAGINAL_RECEIVING));
 			journalSB.append(getFetishEntry(Fetish.FETISH_PENIS_GIVING, Fetish.FETISH_PENIS_RECEIVING));
@@ -3789,8 +3792,29 @@ public class PhoneDialogue {
 					journalSB.append(getFetishEntry(Fetish.FETISH_MASTURBATION, null));
 				}
 			}
+			*/
 			
-			PluginLoader.getInstance().appendPhoneFetishRows(journalSB, this);
+			// God, I wish we had Flexbox.
+			
+			// Stock AND mod fetishes
+			// Pairs at the top, just like stock.
+			List<AbstractFetish> loners = new ArrayList<AbstractFetish>();
+			RelatedFetishGroup rfg;
+			for(FetishGroup fg : PluginLoader.getInstance().getAllFetishGroups()) {
+				if(fg instanceof RelatedFetishGroup) {
+					rfg=(RelatedFetishGroup)fg;
+					journalSB.append(getFetishEntry(rfg.getDominantFetish(), rfg.getSubmissiveFetish()));
+				}
+				else if(fg instanceof LooseFetishGroup) {
+					loners.add(((LooseFetishGroup)fg).getMember());
+				}
+			}
+			// Loners get combined at the bottom.
+			int sz=loners.size();
+			for(int i = 0;i<sz;i+=2) {
+				journalSB.append(getFetishEntry(loners.get(i),
+						(i+1 == sz) ? null : loners.get(i+1)));
+			}
 			
 			// Derived fetishes:
 
