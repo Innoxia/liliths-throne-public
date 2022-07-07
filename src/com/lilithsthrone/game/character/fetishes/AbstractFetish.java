@@ -129,7 +129,7 @@ public abstract class AbstractFetish {
     protected void fetchSVG() {
     	String rscpath = "/com/lilithsthrone/res/fetishes/" + pathName + ".svg";
     	try {
-    		System.out.println(this.getClass().getName()+"("+this.name+"): "+rscpath);
+    		//System.out.println(this.getClass().getName()+"("+this.name+"): "+rscpath);
 			InputStream is = this.getClass().getResourceAsStream(rscpath);
 			if (is == null) {
 				System.err.println("Error! Fetish icon file does not exist (Trying to read from '" + rscpath + "')!");

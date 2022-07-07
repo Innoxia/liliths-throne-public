@@ -200,19 +200,7 @@ public final class PluginLoader {
 				plugin = (BasePlugin) mainClass.getDeclaredConstructors()[0].newInstance();
 				plugin.metadata = meta;
 				this.addPlugin(plugin);
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SecurityException e) {
+			} catch (InstantiationException|IllegalAccessException|IllegalArgumentException|InvocationTargetException|SecurityException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -276,7 +264,7 @@ public final class PluginLoader {
 			System.err.println("Discovered Fetishes");
 			System.err.println("------------------------------------------------------------------");
 			for(AbstractFetish f : allFetishes) {
-				System.err.println(String.format("%s - %s", f.getClass().getCanonicalName(), f.getName(null)));
+				System.err.println(String.format("%s - %s", f.getClass().getName(), f.getName(null)));
 			}
 			System.err.println("------------------------------------------------------------------");
 		}
