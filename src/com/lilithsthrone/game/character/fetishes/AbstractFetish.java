@@ -132,8 +132,7 @@ public abstract class AbstractFetish {
     		System.out.println(this.getClass().getName()+"("+this.name+"): "+rscpath);
 			InputStream is = this.getClass().getResourceAsStream(rscpath);
 			if (is == null) {
-				System.err.println(
-						"Error! Fetish icon file does not exist (Trying to read from '" + rscpath + "')!");
+				System.err.println("Error! Fetish icon file does not exist (Trying to read from '" + rscpath + "')!");
 			}
 			SVGString = Util.inputStreamToString(is);
 			SVGString = SvgUtil.colourReplacement(this.getID(), colourShades.get(0),

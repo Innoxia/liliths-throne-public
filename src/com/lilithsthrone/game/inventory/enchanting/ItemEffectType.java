@@ -44,6 +44,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.modding.PluginLoader;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -699,7 +700,7 @@ public class ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			List<AbstractFetish> fetishesToAdd = new ArrayList<>();
 			List<AbstractFetish> fetishesToRemove = new ArrayList<>();
-			for(AbstractFetish f : Fetish.getAllFetishes()) {
+			for(AbstractFetish f : PluginLoader.getInstance().getAllFetishes()) {
 				if(f.getFetishesForAutomaticUnlock().isEmpty()) {
 					if(target.hasFetish(f)) {
 						fetishesToRemove.add(f);

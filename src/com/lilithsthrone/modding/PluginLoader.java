@@ -13,6 +13,7 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -223,7 +224,7 @@ public final class PluginLoader {
 	public Collection<? extends AbstractFetish> getStockFetishes() {
 		if (stockFetishes == null) {
 			stockFetishes = new HashSet<>();
-			Field[] fields = Perk.class.getFields();
+			Field[] fields = Fetish.class.getFields();
 			for (Field f : fields) {
 				if (AbstractFetish.class.isAssignableFrom(f.getType())) {
 
@@ -243,11 +244,18 @@ public final class PluginLoader {
 	}
 
 	private Set<AbstractFetish> providedFetishes = null;
+	private Map<BasePlugin, Set<AbstractFetish>> pluginFetishes = new HashMap<BasePlugin, Set<AbstractFetish>>();
 
 	public Collection<? extends AbstractFetish> getProvidedFetishes() {
 		if (providedFetishes == null) {
 			providedFetishes = new HashSet<AbstractFetish>();
-			plugins.forEach(p -> p.addFetishes(providedFetishes));
+			for(BasePlugin p : plugins) {
+				//plugins.forEach(p -> p.addFetishes(providedFetishes));
+				HashSet<AbstractFetish> pluginFetishSet = new HashSet<>();
+				p.addFetishes(pluginFetishSet);
+				pluginFetishes.put(p, pluginFetishSet);
+				providedFetishes.addAll(pluginFetishSet);
+			}
 			for (AbstractFetish f : providedFetishes)
 				Fetish.addFetish(f.getID(), f);
 		}
@@ -261,6 +269,12 @@ public final class PluginLoader {
 			allFetishes = new HashSet<AbstractFetish>();
 			allFetishes.addAll(getStockFetishes());
 			allFetishes.addAll(getProvidedFetishes());
+			System.err.println("Discovered Fetishes");
+			System.err.println("------------------------------------------------------------------");
+			for(AbstractFetish f : allFetishes) {
+				System.err.println(String.format("%s - %s", f.getClass().getCanonicalName(), f.getName(null)));
+			}
+			System.err.println("------------------------------------------------------------------");
 		}
 		return allFetishes;
 	}

@@ -465,7 +465,7 @@ public class Properties {
 			// Fetish preferences:
 			Element fetishPreferences = doc.createElement("fetishPreferences");
 			properties.appendChild(fetishPreferences);
-			for (AbstractFetish f : Fetish.getAllFetishes()) {
+			for (AbstractFetish f : PluginLoader.getInstance().getAllFetishes()) {
 				Element element = doc.createElement("preference");
 				fetishPreferences.appendChild(element);
 				
