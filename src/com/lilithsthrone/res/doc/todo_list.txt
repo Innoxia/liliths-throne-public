@@ -23,7 +23,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		NPCs who are freed via use of a Freedom Certificate are no longer able to be re-enslaved afterwards. (PR#1649 by Maxis010)
 		Fixed some sizing issues with item tooltips. (PR#1674 by Nonny5Mouse)
 		Fixed incorrect parsing in tail type transformation text. (by Stadler)
-		Typo fixes and fixes to descriptions in role-reversed witch altar scenes. (PR#1677)
+		Typo fixes and fixes to descriptions in role-reversed witch altar scenes. (PR#1677 by Anonymous-BCFED)
 	
 	Misc fixes contribution (PR#1664 by MintyChip):
 		Added spaces before the fluid modifier descriptions in the appearance screens.
