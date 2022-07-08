@@ -295,4 +295,8 @@ public abstract class AbstractFetish {
 	public String getID() {
 		return this.id;
 	}
+	
+	public String toString() {
+		return this.getID();
+	}
 }
