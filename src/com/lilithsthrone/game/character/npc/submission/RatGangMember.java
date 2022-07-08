@@ -12,6 +12,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -90,7 +91,7 @@ public class RatGangMember extends NPC {
 			
 			Main.game.getCharacterUtils().addFetishes(this);
 			// Do not give a negative fetish desire towards these fetishes, as otherwise it ends up in the gang members being gentle in sex, which doesn't really fit, or not using appropriate actions:
-			Fetish[] fetishes = new Fetish[] {
+			AbstractFetish[] fetishes = new AbstractFetish[] {
 					Fetish.FETISH_NON_CON_DOM,
 					Fetish.FETISH_SADIST,
 					Fetish.FETISH_DOMINANT,
@@ -99,7 +100,7 @@ public class RatGangMember extends NPC {
 					Fetish.FETISH_VAGINAL_GIVING,
 					Fetish.FETISH_VAGINAL_RECEIVING,
 					Fetish.FETISH_ORAL_RECEIVING};
-			for(Fetish f : fetishes) {
+			for(AbstractFetish f : fetishes) {
 				if(this.getFetishDesire(f).isNegative()) {
 					this.setFetishDesire(f, FetishDesire.TWO_NEUTRAL);
 				}

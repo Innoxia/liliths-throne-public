@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -243,7 +244,69 @@ public class DebugDialogue {
 						}
 					};
 					
+				} else if(index==15) {
+					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_I_ARTHURS_TALE)) {
+						return new Response("Skip Dominion quests", "You have already completed all of the main quests which lead up to the Submission quest line!", null);
+						
+					} else {
+						return new Response("Skip Dominion quests", "Skip all main quests up to the start of the Submission quest line.", DEBUG_MENU){
+							@Override
+							public void effects() {
+								List<Quest> dominionSkipQuests = Util.newArrayListOfValues(
+										Quest.MAIN_1_A_LILAYAS_TESTS,
+										Quest.MAIN_1_B_DEMON_HOME,
+										Quest.MAIN_1_C_WOLFS_DEN,
+										Quest.MAIN_1_D_SLAVERY,
+										Quest.MAIN_1_E_REPORT_TO_HELENA,
+										Quest.MAIN_1_F_SCARLETTS_FATE,
+										Quest.MAIN_1_G_SLAVERY,
+										Quest.MAIN_1_H_THE_GREAT_ESCAPE,
+										Quest.MAIN_1_I_ARTHURS_TALE,
+										Quest.MAIN_2_A_INTO_THE_DEPTHS
+										);
+								for(int i=0; i<dominionSkipQuests.size()-1; i++) {
+									Quest q = dominionSkipQuests.get(i);
+									if(Main.game.getPlayer().getQuest(QuestLine.MAIN)==q) {
+										q.applySkipQuestEffects();
+										Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, dominionSkipQuests.get(i+1));
+									}
+								}
+							}
+						};
+					}
+					
+				} else if(index==16) {
+					if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_2_A_INTO_THE_DEPTHS)) {
+						return new Response("Skip Submission quests", "You have not progressed far enough into the main quest to start skipping Submission quests!", null);
+						
+					} else if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN)) {
+						return new Response("Skip Submission quests", "You have already completed all of the main quests which lead up to the Elis quest line!", null);
+						
+					} else {
+						return new Response("Skip Submission quests", "Skip all main quests up to the start of the Elis quest line.", DEBUG_MENU){
+							@Override
+							public void effects() {
+								List<Quest> submissionSkipQuests = Util.newArrayListOfValues(
+										Quest.MAIN_2_A_INTO_THE_DEPTHS,
+										Quest.MAIN_2_B_SIRENS_CALL,
+										Quest.MAIN_2_C_SIRENS_FALL,
+										Quest.MAIN_2_D_MEETING_A_LILIN,
+										Quest.MAIN_3_ELIS
+										);
+								for(int i=0; i<submissionSkipQuests.size()-1; i++) {
+									Quest q = submissionSkipQuests.get(i);
+									if(Main.game.getPlayer().getQuest(QuestLine.MAIN)==q) {
+										q.applySkipQuestEffects();
+										Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, submissionSkipQuests.get(i+1));
+									}
+								}
+							
+							}
+						};
+					}
+					
 				}
+				
 				
 			} else if(responseTab==1) {
 				if (index == 1) {
@@ -860,7 +923,7 @@ public class DebugDialogue {
 						+ " F:"+(os.getFather()!=null?os.getFather().getName(true):"Deleted NPC")+"<br/>");
 			}
 			if(activeOffspring!=null) {
-				for(Fetish f : activeOffspring.getFetishes(true)) {
+				for(AbstractFetish f : activeOffspring.getFetishes(true)) {
 					UtilText.nodeContentSB.append("<br/>[style.boldSex(Fetish:)] "+f.getName(activeOffspring));
 				}
 				UtilText.nodeContentSB.append(

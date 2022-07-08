@@ -23,6 +23,7 @@ import org.w3c.dom.NodeList;
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -123,6 +124,8 @@ public class Properties {
 			"There will be no options to bypass sex action corruption requirements, you are limited in your actions based on your corruption and fetishes.",
 			"Sex action corruption requirements may be bypassed if your corruption level is one level below the required corruption level of the action, but you will gain corruption if you do so.",
 			"All sex action corruption requirements may be bypassed, but you will gain corruption if you do so."};
+
+	public int pregnancyDuration = 1;
 	
 	public int forcedTFPercentage = 40;
 	public int forcedFetishPercentage = 0;
@@ -169,7 +172,7 @@ public class Properties {
 	public Map<Gender, Integer> genderPreferencesMap;
 	
 	public Map<SexualOrientation, Integer> orientationPreferencesMap;
-	public EnumMap<Fetish, Integer> fetishPreferencesMap;
+	public Map<AbstractFetish, Integer> fetishPreferencesMap;
 
 	public Map<PronounType, Map<AgeCategory, Integer>> agePreferencesMap;
 	
@@ -313,6 +316,7 @@ public class Properties {
 			createXMLElementWithValue(doc, settings, "udders", String.valueOf(udders));
 			createXMLElementWithValue(doc, settings, "autoSaveFrequency", String.valueOf(autoSaveFrequency));
 			createXMLElementWithValue(doc, settings, "bypassSexActions", String.valueOf(bypassSexActions));
+			createXMLElementWithValue(doc, settings, "pregnancyDuration", String.valueOf(pregnancyDuration));
 			createXMLElementWithValue(doc, settings, "forcedTFPercentage", String.valueOf(forcedTFPercentage));
 			createXMLElementWithValue(doc, settings, "randomRacePercentage", String.valueOf(randomRacePercentage)); 
 
@@ -463,12 +467,12 @@ public class Properties {
 			// Fetish preferences:
 			Element fetishPreferences = doc.createElement("fetishPreferences");
 			properties.appendChild(fetishPreferences);
-			for (Fetish f : Fetish.values()) {
+			for (AbstractFetish f : Fetish.getAllFetishes()) {
 				Element element = doc.createElement("preference");
 				fetishPreferences.appendChild(element);
 				
 				Attr fetish = doc.createAttribute("fetish");
-				fetish.setValue(f.toString());
+				fetish.setValue(Fetish.getIdFromFetish(f));
 				element.setAttributeNode(fetish);
 				
 				Attr value = doc.createAttribute("value");
@@ -853,7 +857,12 @@ public class Properties {
 				} else {
 					bypassSexActions = 2;
 				}
-
+				
+				
+				if(element.getElementsByTagName("pregnancyDuration").item(0)!=null) {
+					pregnancyDuration = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyDuration").item(0)).getAttribute("value"));
+				}
+				
 				if(element.getElementsByTagName("forcedTFPercentage").item(0)!=null) {
 					forcedTFPercentage = Integer.valueOf(((Element)element.getElementsByTagName("forcedTFPercentage").item(0)).getAttribute("value"));
 				}
@@ -1036,7 +1045,7 @@ public class Properties {
 						
 						try {
 							if(!e.getAttribute("fetish").isEmpty()) {
-								fetishPreferencesMap.put(Fetish.valueOf(e.getAttribute("fetish")), Integer.valueOf(e.getAttribute("value")));
+								fetishPreferencesMap.put(Fetish.getFetishFromId(e.getAttribute("fetish")), Integer.valueOf(e.getAttribute("value")));
 							}
 						} catch(IllegalArgumentException ex){
 							System.err.println("loadPropertiesFromXML() error: fetishPreferences preference");
@@ -1261,6 +1270,7 @@ public class Properties {
 		bypassSexActions = 2;
 		multiBreasts = 1;
 		udders = 1;
+		pregnancyDuration = 1;
 		forcedTFPercentage = 40;
 		forcedFetishPercentage = 40;
 		setForcedFetishTendency(ForcedFetishTendency.NEUTRAL);
@@ -1549,8 +1559,8 @@ public class Properties {
 	}
 
 	public void resetFetishPreferences() {
-		fetishPreferencesMap = new EnumMap<>(Fetish.class);
-		for(Fetish f : Fetish.values()) {
+		fetishPreferencesMap = new HashMap<>();
+		for(AbstractFetish f : Fetish.getAllFetishes()) {
 			fetishPreferencesMap.put(f, f.getFetishPreferenceDefault().getValue());
 		}
 	}

@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -305,12 +306,12 @@ public interface SexActionInterface {
 	/**
 	 * @return A list of fetishes that affect the character in this sex action.
 	 */
-	public List<Fetish> getFetishes(GameCharacter characterPerformingAction);
+	public List<AbstractFetish> getFetishes(GameCharacter characterPerformingAction);
 
 	/**
 	 * @return A list of fetishes that affect the target of 'characterPerformingAction' in this sex action.
 	 */
-	public List<Fetish> getFetishesForTargetedPartner(GameCharacter characterPerformingAction);
+	public List<AbstractFetish> getFetishesForTargetedPartner(GameCharacter characterPerformingAction);
 	
 	// Sex-specific:
 	
@@ -1488,7 +1489,7 @@ public interface SexActionInterface {
 					StringBuilder SB = new StringBuilder();
 					
 					if(fetishesRequired!=null) {
-						for(Fetish f : fetishesRequired){
+						for(AbstractFetish f : fetishesRequired){
 							if(Main.game.getPlayer().hasFetish(f)) {
 								SB.append("<br/>"
 										+"<span style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
@@ -1891,7 +1892,7 @@ public interface SexActionInterface {
 		return CondomFailure.NONE;
 	}
 	
-	public default List<Fetish> getFetishesFromPenetrationAndOrificeTypes(
+	public default List<AbstractFetish> getFetishesFromPenetrationAndOrificeTypes(
 			GameCharacter characterPerformingAction,
 			SexAreaInterface performingArea,
 			GameCharacter characterTarget,
@@ -1901,10 +1902,10 @@ public interface SexActionInterface {
 		SexType type = new SexType(this.getParticipantType(), performingArea, targetedArea);
 		
 		// Self areas:
-		List<Fetish> associatedFetishes = new ArrayList<>(type.getRelatedFetishes(characterPerformingAction, characterTarget, this.getActionType().isPenetratingOption(), this.getActionType()==SexActionType.ORGASM));
+		List<AbstractFetish> associatedFetishes = new ArrayList<>(type.getRelatedFetishes(characterPerformingAction, characterTarget, this.getActionType().isPenetratingOption(), this.getActionType()==SexActionType.ORGASM));
 		
 		// Add opposite fetishes for partner:
-		List<Fetish> associatedFetishesPartner = new ArrayList<>(type.getOppositeFetishes(characterPerformingAction, characterTarget, this.getActionType().isPenetratingOption(), this.getActionType()==SexActionType.ORGASM));
+		List<AbstractFetish> associatedFetishesPartner = new ArrayList<>(type.getOppositeFetishes(characterPerformingAction, characterTarget, this.getActionType().isPenetratingOption(), this.getActionType()==SexActionType.ORGASM));
 		
 		if(characterPerformingActionFetishes) {
 			return associatedFetishes;

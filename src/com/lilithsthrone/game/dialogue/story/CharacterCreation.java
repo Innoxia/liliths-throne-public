@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.markings.TattooType;
@@ -1959,6 +1960,8 @@ public class CharacterCreation {
 		if(!imported) {
 			Main.game.getPlayer().setAgeAppearanceDifference(-Game.TIME_SKIP_YEARS);
 		}
+
+		Main.game.getPlayer().addSpecialPerk(Perk.SPECIAL_PLAYER);
 		
 		moveNPCOutOfPlayerTile();
 	}

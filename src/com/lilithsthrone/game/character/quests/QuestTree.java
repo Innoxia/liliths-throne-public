@@ -55,26 +55,24 @@ public class QuestTree {
 		node1.addChild(node2);
 		node1 = new TreeNode<Quest>(Quest.MAIN_1_I_ARTHURS_TALE);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_1_J_ARTHURS_ROOM);
+		node2 = new TreeNode<Quest>(Quest.MAIN_2_A_INTO_THE_DEPTHS);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.MAIN_2_A_INTO_THE_DEPTHS);
+		node1 = new TreeNode<Quest>(Quest.MAIN_2_B_SIRENS_CALL);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_2_B_SIRENS_CALL);
+		node2 = new TreeNode<Quest>(Quest.MAIN_2_C_SIRENS_FALL);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.MAIN_2_C_SIRENS_FALL);
+		node1 = new TreeNode<Quest>(Quest.MAIN_2_D_MEETING_A_LILIN);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_2_D_MEETING_A_LILIN);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_ELIS);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.MAIN_3_ELIS);
+		node1 = new TreeNode<Quest>(Quest.MAIN_3_B_MEETING_MERAXIS);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_3_B_MEETING_MERAXIS);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_C_MEETING_MINOTALLYS);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.MAIN_3_C_MEETING_MINOTALLYS);
+		node1 = new TreeNode<Quest>(Quest.MAIN_3_D_TO_THEMISCYRA);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_3_D_TO_THEMISCYRA);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_E_TODO);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.MAIN_3_E_TODO);
-		node2.addChild(node1);
 
 		enchantmentTree.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
 

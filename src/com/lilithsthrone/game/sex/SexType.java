@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -177,8 +178,8 @@ public class SexType implements XMLSaving {
 		return new SexType(getAsParticipant(), getTargetedSexArea(), getPerformingSexArea());
 	}
 	
-	public List<Fetish> getRelatedFetishes(GameCharacter characterPerforming, GameCharacter characterTargeted, boolean isPenetration, boolean isOrgasm) {
-		List<Fetish> fetishes = new ArrayList<>();
+	public List<AbstractFetish> getRelatedFetishes(GameCharacter characterPerforming, GameCharacter characterTargeted, boolean isPenetration, boolean isOrgasm) {
+		List<AbstractFetish> fetishes = new ArrayList<>();
 		
 		// Self areas:
 		
@@ -376,140 +377,110 @@ public class SexType implements XMLSaving {
 		return fetishes;
 	}
 	
-	public List<Fetish> getOppositeFetishes(GameCharacter characterPerforming, GameCharacter characterTargeted, boolean isPenetration, boolean isOrgasm) {
-		List<Fetish> oppositeFetishes = new ArrayList<>();
-		for(Fetish f : getRelatedFetishes(characterPerforming, characterTargeted, isPenetration, isOrgasm)) {
-			switch(f) {
-				case FETISH_ANAL_GIVING:
-					oppositeFetishes.add(Fetish.FETISH_ANAL_RECEIVING);
-					break;
-				case FETISH_ANAL_RECEIVING:
-					oppositeFetishes.add(Fetish.FETISH_ANAL_GIVING);
-					break;
-				case FETISH_BIMBO:
-				case FETISH_BONDAGE_APPLIER:
-				case FETISH_BONDAGE_VICTIM:
-					break;
-				case FETISH_BREASTS_OTHERS:
-					oppositeFetishes.add(Fetish.FETISH_BREASTS_SELF);
-					break;
-				case FETISH_BREASTS_SELF:
-					oppositeFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
-					break;
-				case FETISH_LACTATION_OTHERS:
-					oppositeFetishes.add(Fetish.FETISH_LACTATION_SELF);
-					break;
-				case FETISH_LACTATION_SELF:
-					oppositeFetishes.add(Fetish.FETISH_LACTATION_OTHERS);
-					break;
-				case FETISH_BREEDER:
-					break;
-				case FETISH_CROSS_DRESSER:
-					break;
-				case FETISH_CUM_ADDICT:
-					oppositeFetishes.add(Fetish.FETISH_CUM_STUD);
-					break;
-				case FETISH_CUM_STUD:
-					oppositeFetishes.add(Fetish.FETISH_CUM_ADDICT);
-					break;
-				case FETISH_DEFLOWERING:
-					break;
-				case FETISH_DENIAL:
-					oppositeFetishes.add(Fetish.FETISH_DENIAL_SELF);
-					break;
-				case FETISH_DENIAL_SELF:
-					oppositeFetishes.add(Fetish.FETISH_DENIAL);
-					break;
-				case FETISH_DOMINANT:
-					oppositeFetishes.add(Fetish.FETISH_SUBMISSIVE);
-					break;
-				case FETISH_EXHIBITIONIST:
-					break;
-				case FETISH_IMPREGNATION:
-					oppositeFetishes.add(Fetish.FETISH_PREGNANCY);
-					break;
-				case FETISH_INCEST:
-					oppositeFetishes.add(Fetish.FETISH_INCEST);
-					break;
-				case FETISH_LEG_LOVER:
-					oppositeFetishes.add(Fetish.FETISH_STRUTTER);
-					break;
-				case FETISH_LUSTY_MAIDEN:
-					break;
-				case FETISH_MASOCHIST:
-					oppositeFetishes.add(Fetish.FETISH_SADIST);
-					break;
-				case FETISH_MASTURBATION:
-					oppositeFetishes.add(Fetish.FETISH_MASTURBATION);
-					break;
-				case FETISH_NON_CON_DOM:
-					oppositeFetishes.add(Fetish.FETISH_NON_CON_SUB);
-					break;
-				case FETISH_NON_CON_SUB:
-					oppositeFetishes.add(Fetish.FETISH_NON_CON_DOM);
-					break;
-				case FETISH_ORAL_GIVING:
-					oppositeFetishes.add(Fetish.FETISH_ORAL_RECEIVING);
-					break;
-				case FETISH_ORAL_RECEIVING:
-					oppositeFetishes.add(Fetish.FETISH_ORAL_GIVING);
-					break;
-				case FETISH_PREGNANCY:
-					oppositeFetishes.add(Fetish.FETISH_IMPREGNATION);
-					break;
-				case FETISH_PURE_VIRGIN:
-					break;
-				case FETISH_SADIST:
-					oppositeFetishes.add(Fetish.FETISH_MASOCHIST);
-					break;
-				case FETISH_SADOMASOCHIST:
-					break;
-				case FETISH_STRUTTER:
-					oppositeFetishes.add(Fetish.FETISH_LEG_LOVER);
-					break;
-				case FETISH_SUBMISSIVE:
-					oppositeFetishes.add(Fetish.FETISH_DOMINANT);
-					break;
-				case FETISH_SWITCH:
-					break;
-				case FETISH_TRANSFORMATION_GIVING:
-					oppositeFetishes.add(Fetish.FETISH_TRANSFORMATION_RECEIVING);
-					break;
-				case FETISH_TRANSFORMATION_RECEIVING:
-					oppositeFetishes.add(Fetish.FETISH_TRANSFORMATION_GIVING);
-					break;
-				case FETISH_VAGINAL_GIVING:
-					oppositeFetishes.add(Fetish.FETISH_VAGINAL_RECEIVING);
-					break;
-				case FETISH_VAGINAL_RECEIVING:
-					oppositeFetishes.add(Fetish.FETISH_VAGINAL_GIVING);
-					break;
-				case FETISH_VOYEURIST:
-					break;
-				case FETISH_KINK_GIVING:
-					break;
-				case FETISH_KINK_RECEIVING:
-					break;
-				case FETISH_PENIS_GIVING:
-					oppositeFetishes.add(Fetish.FETISH_PENIS_RECEIVING);
-					break;
-				case FETISH_PENIS_RECEIVING:
-					oppositeFetishes.add(Fetish.FETISH_PENIS_GIVING);
-					break;
-				case FETISH_FOOT_GIVING:
-					oppositeFetishes.add(Fetish.FETISH_FOOT_RECEIVING);
-					break;
-				case FETISH_FOOT_RECEIVING:
-					oppositeFetishes.add(Fetish.FETISH_FOOT_GIVING);
-					break;
-				case FETISH_ARMPIT_GIVING:
-					oppositeFetishes.add(Fetish.FETISH_ARMPIT_RECEIVING);
-					break;
-				case FETISH_ARMPIT_RECEIVING:
-					oppositeFetishes.add(Fetish.FETISH_ARMPIT_GIVING);
-					break;
-				case FETISH_SIZE_QUEEN:
-					break;
+	public List<AbstractFetish> getOppositeFetishes(GameCharacter characterPerforming, GameCharacter characterTargeted, boolean isPenetration, boolean isOrgasm) {
+		List<AbstractFetish> oppositeFetishes = new ArrayList<>();
+		for(AbstractFetish f : getRelatedFetishes(characterPerforming, characterTargeted, isPenetration, isOrgasm)) {
+			if(f==Fetish.FETISH_ANAL_GIVING) {
+				oppositeFetishes.add(Fetish.FETISH_ANAL_RECEIVING);
+			}
+			if(f==Fetish.FETISH_ANAL_RECEIVING) {
+				oppositeFetishes.add(Fetish.FETISH_ANAL_GIVING);
+			}
+			if(f==Fetish.FETISH_BREASTS_OTHERS) {
+				oppositeFetishes.add(Fetish.FETISH_BREASTS_SELF);
+			}
+			if(f==Fetish.FETISH_BREASTS_SELF) {
+				oppositeFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+			}
+			if(f==Fetish.FETISH_LACTATION_OTHERS) {
+				oppositeFetishes.add(Fetish.FETISH_LACTATION_SELF);
+			}
+			if(f==Fetish.FETISH_LACTATION_SELF) {
+				oppositeFetishes.add(Fetish.FETISH_LACTATION_OTHERS);
+			}
+			if(f==Fetish.FETISH_CUM_ADDICT) {
+				oppositeFetishes.add(Fetish.FETISH_CUM_STUD);
+			}
+			if(f==Fetish.FETISH_CUM_STUD) {
+				oppositeFetishes.add(Fetish.FETISH_CUM_ADDICT);
+			}
+			if(f==Fetish.FETISH_DENIAL) {
+				oppositeFetishes.add(Fetish.FETISH_DENIAL_SELF);
+			}
+			if(f==Fetish.FETISH_DENIAL_SELF) {
+				oppositeFetishes.add(Fetish.FETISH_DENIAL);
+			}
+			if(f==Fetish.FETISH_DOMINANT) {
+				oppositeFetishes.add(Fetish.FETISH_SUBMISSIVE);
+			}
+			if(f==Fetish.FETISH_IMPREGNATION) {
+				oppositeFetishes.add(Fetish.FETISH_PREGNANCY);
+			}
+			if(f==Fetish.FETISH_INCEST) {
+				oppositeFetishes.add(Fetish.FETISH_INCEST);
+			}
+			if(f==Fetish.FETISH_LEG_LOVER) {
+				oppositeFetishes.add(Fetish.FETISH_STRUTTER);
+			}
+			if(f==Fetish.FETISH_MASOCHIST) {
+				oppositeFetishes.add(Fetish.FETISH_SADIST);
+			}
+			if(f==Fetish.FETISH_MASTURBATION) {
+				oppositeFetishes.add(Fetish.FETISH_MASTURBATION);
+			}
+			if(f==Fetish.FETISH_NON_CON_DOM) {
+				oppositeFetishes.add(Fetish.FETISH_NON_CON_SUB);
+			}
+			if(f==Fetish.FETISH_NON_CON_SUB) {
+				oppositeFetishes.add(Fetish.FETISH_NON_CON_DOM);
+			}
+			if(f==Fetish.FETISH_ORAL_GIVING) {
+				oppositeFetishes.add(Fetish.FETISH_ORAL_RECEIVING);
+			}
+			if(f==Fetish.FETISH_ORAL_RECEIVING) {
+				oppositeFetishes.add(Fetish.FETISH_ORAL_GIVING);
+			}
+			if(f==Fetish.FETISH_PREGNANCY) {
+				oppositeFetishes.add(Fetish.FETISH_IMPREGNATION);
+			}
+			if(f==Fetish.FETISH_SADIST) {
+				oppositeFetishes.add(Fetish.FETISH_MASOCHIST);
+			}
+			if(f==Fetish.FETISH_STRUTTER) {
+				oppositeFetishes.add(Fetish.FETISH_LEG_LOVER);
+			}
+			if(f==Fetish.FETISH_SUBMISSIVE) {
+				oppositeFetishes.add(Fetish.FETISH_DOMINANT);
+			}
+			if(f==Fetish.FETISH_TRANSFORMATION_GIVING) {
+				oppositeFetishes.add(Fetish.FETISH_TRANSFORMATION_RECEIVING);
+			}
+			if(f==Fetish.FETISH_TRANSFORMATION_RECEIVING) {
+				oppositeFetishes.add(Fetish.FETISH_TRANSFORMATION_GIVING);
+			}
+			if(f==Fetish.FETISH_VAGINAL_GIVING) {
+				oppositeFetishes.add(Fetish.FETISH_VAGINAL_RECEIVING);
+			}
+			if(f==Fetish.FETISH_VAGINAL_RECEIVING) {
+				oppositeFetishes.add(Fetish.FETISH_VAGINAL_GIVING);
+			}
+			if(f==Fetish.FETISH_PENIS_GIVING) {
+				oppositeFetishes.add(Fetish.FETISH_PENIS_RECEIVING);
+			}
+			if(f==Fetish.FETISH_PENIS_RECEIVING) {
+				oppositeFetishes.add(Fetish.FETISH_PENIS_GIVING);
+			}
+			if(f==Fetish.FETISH_FOOT_GIVING) {
+				oppositeFetishes.add(Fetish.FETISH_FOOT_RECEIVING);
+			}
+			if(f==Fetish.FETISH_FOOT_RECEIVING) {
+				oppositeFetishes.add(Fetish.FETISH_FOOT_GIVING);
+			}
+			if(f==Fetish.FETISH_ARMPIT_GIVING) {
+				oppositeFetishes.add(Fetish.FETISH_ARMPIT_RECEIVING);
+			}
+			if(f==Fetish.FETISH_ARMPIT_RECEIVING) {
+				oppositeFetishes.add(Fetish.FETISH_ARMPIT_GIVING);
 			}
 		}
 		return oppositeFetishes;

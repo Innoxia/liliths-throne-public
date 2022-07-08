@@ -291,7 +291,11 @@
 				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_fields"/>
 				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 				<effects><![CDATA[
-					[#pc.setLocation(pc.getLastCell())]
+					#IF(pc.getLastCell().getPlace().getPlaceType()==PLACE_TYPE_innoxia_fields_elis_town_fields)
+						[#pc.setLocation(pc.getLastCell())]
+					#ELSE
+						[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_town_fields)]
+					#ENDIF
 				]]></effects>
 			</response>
 			<response>

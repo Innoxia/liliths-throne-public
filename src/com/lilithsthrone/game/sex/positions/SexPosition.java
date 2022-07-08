@@ -2584,8 +2584,7 @@ public class SexPosition {
 		@Override
 		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
 			// Restrict anal actions if the one humping is in the way:
-			if(Main.sex.getSexPositionSlot(target).hasTag(SexSlotTag.ALL_FOURS)
-					&& Main.sex.getSexPositionSlot(performer).hasTag(SexSlotTag.BEHIND_ALL_FOURS)) {
+			if(Main.sex.getSexPositionSlot(target).hasTag(SexSlotTag.ALL_FOURS) && Main.sex.getSexPositionSlot(performer).hasTag(SexSlotTag.BEHIND_ALL_FOURS)) {
 				List<SexSlot> allFoursList = Util.newArrayListOfValues(SexSlotAllFours.ALL_FOURS, SexSlotAllFours.ALL_FOURS_TWO, SexSlotAllFours.ALL_FOURS_THREE, SexSlotAllFours.ALL_FOURS_FOUR);
 				List<SexSlot> humpingList = Util.newArrayListOfValues(SexSlotAllFours.HUMPING, SexSlotAllFours.HUMPING_TWO, SexSlotAllFours.HUMPING_THREE, SexSlotAllFours.HUMPING_FOUR);
 				for(int i=0; i<4; i++) {

@@ -200,6 +200,7 @@ import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.npcDialogue.QuickTransformations;
 import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.EnforcerHQDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Lab;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict.DominionExpress;
@@ -1369,7 +1370,7 @@ public class Game implements XMLSaving {
 				
 				if(Main.isVersionOlderThan(loadingVersion, "0.3.0.5")) {
 					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
-						ImpCitadelDialogue.clearFortress();
+						ImpCitadelDialogue.clearFortress(true);
 						ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_ALPHA);
 						ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_FEMALES);
 						ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_MALES);
@@ -1416,13 +1417,46 @@ public class Game implements XMLSaving {
 					}
 				}
 
-				if(Main.isVersionOlderThan(loadingVersion, "0.3.3.8")) {
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.4.2")) {
+					// Player perk resets:
 					Main.game.getPlayer().resetPerksMap(false);
+					if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4) && Main.game.getPlayer().getTrueRace()==Race.DEMON) {
+						Main.game.getPlayer().removeSpecialPerk(Perk.POWER_OF_LYSSIETH_4);
+						Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LYSSIETH_4_DEMON);
+					}
+					if(!Main.game.getPlayer().hasPerkAnywhereInTree(Perk.SPECIAL_PLAYER)) {
+						Main.game.getPlayer().addSpecialPerk(Perk.SPECIAL_PLAYER);
+					}
+					
+					// NPC perk resets:
 					for(NPC npc : Main.game.getAllNPCs()) {
 						if(!(npc.isElemental())) {
 							npc.resetPerksMap(true, false);
 						}
 						PerkManager.initialiseSpecialPerksUponCreation(npc); // Generate unique perks for slaves/occupants as well
+					}
+					
+					// Arthur's room change:
+					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_I_ARTHURS_TALE)) {
+						if(!Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCells(PlaceUpgrade.LILAYA_ARTHUR_ROOM).isEmpty()) {
+							Cell arthurRoom = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCells(PlaceUpgrade.LILAYA_ARTHUR_ROOM).get(0);
+							arthurRoom.removePlaceUpgrade(PlaceUpgrade.LILAYA_ARTHUR_ROOM);
+							if(arthurRoom.getLocation().getX()>2 && arthurRoom.getLocation().getX()<8 && arthurRoom.getLocation().getY()>2 && arthurRoom.getLocation().getY()<8) {
+							arthurRoom.getPlace().setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR);
+							} else {
+								arthurRoom.getPlace().setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR);
+							}
+						} else if(!Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCells(PlaceUpgrade.LILAYA_ARTHUR_ROOM).isEmpty()) {
+							Cell arthurRoom = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCells(PlaceUpgrade.LILAYA_ARTHUR_ROOM).get(0);
+							arthurRoom.removePlaceUpgrade(PlaceUpgrade.LILAYA_ARTHUR_ROOM);
+							if(arthurRoom.getLocation().getX()>2 && arthurRoom.getLocation().getX()<8 && arthurRoom.getLocation().getY()>2 && arthurRoom.getLocation().getY()<8) {
+							arthurRoom.getPlace().setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR);
+							} else {
+								arthurRoom.getPlace().setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR);
+							}
+						}
+						Cell c = Lab.addArthurRoom();
+						Main.game.getNpc(Arthur.class).setLocation(c, true);
 					}
 				}
 				
