@@ -37,10 +37,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallProperty
 import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.BraxOffice;
 import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.EnforcerHQDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.feliciaApartment.FeliciaApartment;
-import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
-import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestHelena;
-import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestsDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.helenaHotel.HelenaApartment;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Lab;
@@ -1799,12 +1796,16 @@ public class PlaceType {
 			"Diana's nest consists primarily of angry red harpies; their feather colour an attempt to mimic the appearance of their sadistic leader.",
 			"dominion/harpyNests/nestRed",
 			PresetColour.BASE_CRIMSON,
-			HarpyNestDominant.HARPY_NEST_DOMINANT,
+			null,
 			Darkness.ALWAYS_LIGHT,
 			null, "in Diana's nest"){
 		@Override
 		public List<Population> getPopulation() {
 			return HARPY_NESTS_WALKWAYS.getPopulation();
+		}
+		@Override
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			return DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_dominant_exterior");
 		}
 	};
 	
@@ -1814,12 +1815,16 @@ public class PlaceType {
 			"Lexi's nest contains a disproportionate amount of harpy males, each of whom hangs around in the hopes of getting to fuck their sex-loving matriarch.",
 			"dominion/harpyNests/nestPink",
 			PresetColour.BASE_PINK_LIGHT,
-			HarpyNestNympho.HARPY_NEST_NYMPHO,
+			null,
 			Darkness.ALWAYS_LIGHT,
 			null, "in Lexi's nest"){
 		@Override
 		public List<Population> getPopulation() {
 			return HARPY_NESTS_WALKWAYS.getPopulation();
+		}
+		@Override
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			return DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_nympho_exterior");
 		}
 	};
 	
@@ -1829,12 +1834,16 @@ public class PlaceType {
 			"Brittany's nest has a considerable population of bleach-blonde-feathered, big-busted, bimbo harpies.",
 			"dominion/harpyNests/nestYellow",
 			PresetColour.BASE_YELLOW_LIGHT,
-			HarpyNestBimbo.HARPY_NEST_BIMBO,
+			null,
 			Darkness.ALWAYS_LIGHT,
 			null, "in Brittany's nest"){
 		@Override
 		public List<Population> getPopulation() {
 			return HARPY_NESTS_WALKWAYS.getPopulation();
+		}
+		@Override
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			return DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_bimbo_exterior");
 		}
 	};
 	
@@ -2030,10 +2039,50 @@ public class PlaceType {
 	}.initItemsPersistInTile()
 	.initWeatherImmune();
 	
+	public static final AbstractPlaceType LILAYA_HOME_DUNGEON_CELL = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Dungeon cell",
+			"The cells within Lilaya's dungeon are designed to be cramped and uncomfortable.",
+			"dominion/lilayasHome/roomSlave",
+			PresetColour.BASE_GREY,//BASE_MAGENTA
+			LilayaHomeGeneric.DUNGEON_CELL,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in Lilaya's dungeon") {
+		@Override
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			if(cell!=null) {
+				for(AbstractPlaceUpgrade pu : cell.getPlace().getPlaceUpgrades()) {
+					if(pu.getRoomDialogue(cell)!=null) {
+						return pu.getRoomDialogue(cell);
+					}
+				}
+			}
+			return LilayaHomeGeneric.DUNGEON_CELL;
+		}
+		@Override
+		public ArrayList<AbstractPlaceUpgrade> getStartingPlaceUpgrades() {
+			return Util.newArrayListOfValues(PlaceUpgrade.LILAYA_DUNGEON_CELL);
+		}
+		@Override
+		public ArrayList<AbstractPlaceUpgrade> getAvailablePlaceUpgrades(Set<AbstractPlaceUpgrade> upgrades) {
+			return PlaceUpgrade.getDungeonCellUpgrades();
+		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
+		}
+		@Override
+		public String getPlaceNameAppendFormat(int count) {
+			return " D-"+String.format("%02d", count);
+		}
+	}.initItemsPersistInTile()
+	.initWeatherImmune();
+	
 	public static final AbstractPlaceType LILAYA_HOME_ARTHUR_ROOM = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Arthur's Room",
-			"As chosen by you, this room houses Lilaya's one-time lover and colleague, Arthur.",
+			"Converted from a store room houses Lilaya's one-time lover and colleague, Arthur.",
 			"dominion/lilayasHome/roomArthur",
 			PresetColour.BASE_BLUE_STEEL,
 			RoomArthur.ROOM_ARTHUR,
@@ -5814,6 +5863,9 @@ public class PlaceType {
 			
 		} else if(id.equals("SHOPPING_ARCADE_SUPPLIER_DEPOT")) {
 			id = "SHOPPING_ARCADE_RESTAURANT";
+			
+		} else if(id.equals("innoxia_fields_elis_town_tavern_seedy")) {
+			id = "innoxia_fields_elis_town_tavern_alley";
 		}
 		
 		id = Util.getClosestStringMatch(id, idToPlaceMap.keySet());

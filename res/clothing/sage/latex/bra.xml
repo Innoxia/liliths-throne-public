@@ -15,7 +15,6 @@
 		<clothingSet>sage_ltxset</clothingSet> 
 		<imageName>bra.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit>5</enchantmentLimit>
 		<effects/>
 		
 		<blockedPartsList>
@@ -76,13 +75,13 @@
 
 	<displacementText type="REMOVE_OR_EQUIP">
 		<self>
-		  <![CDATA[[npc.Name] [npc.verb(unzips)] [npc.her] latex bra and [npc.verb(take)] it off.]]>
+		  <![CDATA[[npc.Name] [npc.verb(unzip)] [npc.her] latex bra and [npc.verb(take)] it off.]]>
 		</self>
 		<other>
-		  <![CDATA[[npc.Name] [npc.verb(unzips)] [npc2.namePos] latex bra and [npc.verb(take)] it off.]]>
+		  <![CDATA[[npc.Name] [npc.verb(unzip)] [npc2.namePos] latex bra and [npc.verb(take)] it off.]]>
 		</other>
 		<otherRough>
-		  <![CDATA[[npc.Name] roughly [npc.verb(unzips)] [npc2.namePos] latex bra and [npc.verb(take)] it off.]]>
+		  <![CDATA[[npc.Name] roughly [npc.verb(unzip)] [npc2.namePos] latex bra and [npc.verb(take)] it off.]]>
 		</otherRough>
 	</displacementText>
 	

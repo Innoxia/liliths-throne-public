@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.sexActions.universal;
+package com.lilithsthrone.game.sex.sexActions.dominion;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -19,7 +19,7 @@ import com.lilithsthrone.utils.Util.Value;
  * @version 0.2.8
  * @author Innoxia
  */
-public class HandHolding {
+public class RoseHandHolding {
 	
 	public static final SexAction PLAYER_HAND_MASSAGE = new SexAction(
 			SexActionType.ONGOING,

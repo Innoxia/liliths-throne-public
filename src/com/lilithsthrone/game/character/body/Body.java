@@ -96,6 +96,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
@@ -106,6 +107,7 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -157,6 +159,8 @@ public class Body implements XMLSaving {
 	
 	private Map<AbstractRace, Integer> raceWeightMap = new ConcurrentHashMap<>();
 	private AbstractSubspecies subspecies;
+	/** This keeps track of what this body's subspecies was at the moment of last being saved. it's only used in BodyChanging.java as part of save/load transformation presets. */
+	private AbstractSubspecies loadedSubspecies;
 	private RaceStage raceStage;
 	private boolean piercedStomach = false;
 	private AbstractSubspecies subspeciesOverride = null;
@@ -172,7 +176,8 @@ public class Body implements XMLSaving {
 	private Set<AbstractBodyCoveringType> coveringsDiscovered;
 
 	private List<BodyPartInterface> allBodyParts;
-
+	private List<BodyPartInterface> allBodyPartsExtended;
+	
 	private boolean takesAfterMother = true;
 	
 	
@@ -320,7 +325,7 @@ public class Body implements XMLSaving {
 		applyStartingCoveringValues();
 		
 		coveringsDiscovered = new HashSet<>();
-		for(BodyPartInterface bp : allBodyParts) {
+		for(BodyPartInterface bp : allBodyPartsExtended) {
 			if(bp.getBodyCoveringType(this)!=null) {
 				coveringsDiscovered.add(bp.getBodyCoveringType(this));
 			}
@@ -353,6 +358,14 @@ public class Body implements XMLSaving {
 		allBodyParts.add(tentacle);
 		allBodyParts.add(vagina);
 		allBodyParts.add(wing);
+
+		allBodyPartsExtended = new ArrayList<>();
+		allBodyPartsExtended.addAll(allBodyParts);
+		allBodyPartsExtended.add(ass.getAnus());
+		allBodyPartsExtended.add(breast.getNipples());
+		allBodyPartsExtended.add(breastCrotch.getNipples());
+		allBodyPartsExtended.add(face.getMouth());
+		allBodyPartsExtended.add(face.getTongue());
 	}
 	
 	public void addDiscoveredBodyCoveringsFromMaterial(BodyMaterial bodyMaterial) {
@@ -468,6 +481,7 @@ public class Body implements XMLSaving {
 		if(this.getSubspeciesOverride()!=null) {
 			XMLUtil.addAttribute(doc, bodyCore, "subspeciesOverride", Subspecies.getIdFromSubspecies(this.getSubspeciesOverride()));
 		}
+		XMLUtil.addAttribute(doc, bodyCore, "subspecies", Subspecies.getIdFromSubspecies(this.getSubspecies()));
 		XMLUtil.addAttribute(doc, bodyCore, "takesAfterMother", String.valueOf(this.isTakesAfterMother()));
 		
 		for(AbstractBodyCoveringType bct : BodyCoveringType.getAllBodyCoveringTypes()) {
@@ -870,6 +884,15 @@ public class Body implements XMLSaving {
 			}
 		} catch(Exception ex) {	
 		}
+
+		AbstractSubspecies importedLoadedSubspecies = null;
+		try {
+			if(element.getAttribute("subspecies") != null && !element.getAttribute("subspecies").isEmpty()) {
+				importedLoadedSubspecies = Subspecies.getSubspeciesFromId(element.getAttribute("subspecies"));
+			}
+		} catch(Exception ex) {	
+		}
+		
 		
 		
 		// **************** Antenna **************** //
@@ -1878,6 +1901,7 @@ public class Body implements XMLSaving {
 		}
 		
 		body.setSubspeciesOverride(importedSubspeciesOverride);
+		body.loadedSubspecies = importedLoadedSubspecies;
 		
 		body.setPiercedStomach(Boolean.valueOf(element.getAttribute("piercedStomach")));
 		Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Body: Set piercedStomach: "+Boolean.valueOf(element.getAttribute("piercedStomach")));
@@ -2113,6 +2137,10 @@ public class Body implements XMLSaving {
 	
 	public List<BodyPartInterface> getAllBodyParts() {
 		return allBodyParts;
+	}
+	
+	public List<BodyPartInterface> getAllBodyPartsWithAllOrifices() {
+		return allBodyPartsExtended;
 	}
 	
 	private String getHeader(String header) {
@@ -3265,6 +3293,60 @@ public class Body implements XMLSaving {
 			sb.append("</p>");
 		}
 		
+		// Tattoos:
+		StringBuilder tattooSB = new StringBuilder();
+		for(Entry<InventorySlot, Tattoo> tattoEntry : owner.getTattoos().entrySet()) {
+			InventorySlot tattooSlot = tattoEntry.getKey();
+			boolean knowsArea = owner.isPlayer();
+			if(!knowsArea) {
+				caLoop:
+				for(CoverableArea ca : CoverableArea.values()) {
+					for(InventorySlot slot : ca.getAssociatedInventorySlots(owner)) {
+						if(tattooSlot==slot) {
+							knowsArea = true;
+							break caLoop;
+						}
+					}
+				}
+			}
+			if(knowsArea) {
+				if(tattooSB.length()>0) {
+					tattooSB.append("<br/>");
+				}
+				Tattoo tattoo = tattoEntry.getValue();
+				if(tattoo.getBodyOverviewDescription().isEmpty()) { // Old version support
+					tattooSB.append("<span style='color:"+tattoo.getPrimaryColour().toWebHexString()+";'>"+Util.capitaliseSentence(tattooSlot.getTattooSlotName())+":</span> ");
+					tattooSB.append(tattoo.getDescription());
+					tattooSB.append(".");
+					
+				} else {
+					tattooSB.append("On [npc.her] [style.boldBlueSteel("+tattooSlot.getTattooSlotName()+")], [npc.sheHasFull] ");
+					tattooSB.append(tattoo.getBodyOverviewDescription());
+					tattooSB.append(", which is primarily coloured ");
+					tattooSB.append("<span style='color:"+tattoo.getPrimaryColour().toWebHexString()+";'>"+tattoo.getPrimaryColour().getName()+"</span>");
+					tattooSB.append(".");
+				}
+				if(tattoo.getWriting()!=null) {
+					tattooSB.append("<br/>It bears the words: '"+tattoo.getFormattedWritingOutput()+"'");
+				}
+				if(tattoo.getCounter()!=null) {
+					String counterName = tattoo.getCounter().getType().getName();
+					if(tattoo.getWriting()!=null) {
+						tattooSB.append(", and is enchanted to keep");
+					} else {
+						tattooSB.append("<br/>The tattoo's enchanted to keep");
+					}
+					tattooSB.append(UtilText.generateSingularDeterminer(counterName)+" '"+counterName+"' count, which reads: '"+tattoo.getFormattedCounterOutput(owner)+"'.");
+				} else {
+					tattooSB.append(".");
+				}
+			}
+		}
+		if(tattooSB.length()>0) {
+			sb.append(getHeader("Tattoos"));
+			sb.append(tattooSB.toString());
+		}
+		
 		if(!owner.isPlayer()) {
 			sb.append(getSexDetails(owner));
 			
@@ -3443,6 +3525,13 @@ public class Body implements XMLSaving {
 		return subspecies;
 	}
 	
+	public AbstractSubspecies getLoadedSubspecies() {
+		if(loadedSubspecies==null) {
+			return getSubspecies();
+		}
+		return loadedSubspecies;
+	}
+
 	public RaceStage getRaceStage() {
 		return raceStage;
 	}
@@ -3490,6 +3579,10 @@ public class Body implements XMLSaving {
 		return breast.getType();
 	}
 	
+	public boolean hasBreasts() {
+		return getBreastType()!=BreastType.NONE;
+	}
+	
 	public BreastCrotch getBreastCrotch() {
 		return breastCrotch;
 	}
@@ -3497,7 +3590,11 @@ public class Body implements XMLSaving {
 	public AbstractBreastType getBreastCrotchType() {
 		return breastCrotch.getType();
 	}
-
+	
+	public boolean hasBreastsCrotch() {
+		return getBreastCrotchType()!=BreastType.NONE;
+	}
+	
 	public Face getFace() {
 		return face;
 	}
@@ -3562,12 +3659,32 @@ public class Body implements XMLSaving {
 		return penis.getType() != PenisType.NONE;
 	}
 
+	public boolean hasPenisIgnoreDildo() {
+		return hasPenis() && penis.getType() != PenisType.DILDO;
+	}
+
+	public boolean hasPenisIgnoresDildo() {
+		return hasPenisIgnoreDildo();
+	}
+	
 	public Penis getSecondPenis() {
 		return secondPenis;
 	}
 
 	public OrificeSpinneret getSpinneret() {
 		return spinneret;
+	}
+	
+	public boolean hasTailSpinneret() {
+		return getTailType().hasSpinneret();
+	}
+	
+	public boolean hasLegSpinneret() {
+		return getLegConfiguration()==LegConfiguration.ARACHNID && getLegType().hasSpinneret();
+	}
+	
+	public boolean hasSpinneret() {
+		return hasTailSpinneret() || hasLegSpinneret();
 	}
 
 	public Torso getTorso() {
@@ -4240,34 +4357,7 @@ public class Body implements XMLSaving {
 				
 				for(FluidModifier fm : FluidModifier.values()) {
 					if(owner.hasMilkModifier(fm)) {
-						switch(fm) {
-							case ADDICTIVE:
-								descriptionSB.append(" It is highly addictive, and anyone who drinks too much will quickly become dependent on it.");
-								break;
-							case BUBBLING:
-								descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
-								break;
-							case HALLUCINOGENIC:
-								descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
-								break;
-							case MUSKY:
-								descriptionSB.append(" It has a strong, musky smell.");
-								break;
-							case SLIMY:
-								descriptionSB.append(" It has a slimy, oily texture.");
-								break;
-							case STICKY:
-								descriptionSB.append(" It's quite sticky, and is difficult to fully wash off without soap.");
-								break;
-							case VISCOUS:
-								descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
-								break;
-							case ALCOHOLIC:
-								descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
-								break;
-							case MINERAL_OIL:
-								descriptionSB.append(" It is rich in minerals good for your skin but not for latex.");
-						}
+						descriptionSB.append(" " + fm.getBriefDescription());
 					}
 				}
 				
@@ -4511,34 +4601,7 @@ public class Body implements XMLSaving {
 				
 				for(FluidModifier fm : FluidModifier.values()) {
 					if(owner.hasMilkCrotchModifier(fm)) {
-						switch(fm) {
-							case ADDICTIVE:
-								descriptionSB.append(" It is highly addictive, and anyone who drinks too much will quickly become dependent on it.");
-								break;
-							case BUBBLING:
-								descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
-								break;
-							case HALLUCINOGENIC:
-								descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
-								break;
-							case MUSKY:
-								descriptionSB.append(" It has a strong, musky smell.");
-								break;
-							case SLIMY:
-								descriptionSB.append(" It has a slimy, oily texture.");
-								break;
-							case STICKY:
-								descriptionSB.append(" It's quite sticky, and is difficult to fully wash off without soap.");
-								break;
-							case VISCOUS:
-								descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
-								break;
-							case ALCOHOLIC:
-								descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
-								break;
-							case MINERAL_OIL:
-								descriptionSB.append(" It is rich in minerals good for your skin but not for latex.");
-						}
+						descriptionSB.append(" " + fm.getBriefDescription());
 					}
 				}
 				
@@ -4937,35 +5000,7 @@ public class Body implements XMLSaving {
 			
 			for(FluidModifier fm : FluidModifier.values()) {
 				if(owner.hasCumModifier(fm)) {
-					switch(fm) {
-						case ADDICTIVE:
-							descriptionSB.append(" It is highly addictive, and anyone who drinks too much will quickly become dependent on it.");
-							break;
-						case BUBBLING:
-							descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
-							break;
-						case HALLUCINOGENIC:
-							descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in cum-related hallucinations or sensitivity to hypnotic suggestion.");
-							break;
-						case MUSKY:
-							descriptionSB.append(" It has a strong, musky smell.");
-							break;
-						case SLIMY:
-							descriptionSB.append(" It has a slimy, oily texture.");
-							break;
-						case STICKY:
-							descriptionSB.append(" It's quite sticky, and is difficult to fully wash off without soap.");
-							break;
-						case VISCOUS:
-							descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
-							break;
-						case ALCOHOLIC:
-							descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
-							break;
-						case MINERAL_OIL:
-							descriptionSB.append(" It contains mineral oils that deteriorate latex.");
-							break;
-					}
+					descriptionSB.append(" " + fm.getBriefDescription());
 				}
 			}
 		}
@@ -5246,34 +5281,7 @@ public class Body implements XMLSaving {
 		
 		for(FluidModifier fm : FluidModifier.values()) {
 			if(viewedVagina.getGirlcum().getFluidModifiers().contains(fm)) {
-				switch(fm) {
-					case ADDICTIVE:
-						descriptionSB.append(" It is highly addictive, and anyone who drinks too much will quickly become dependent on it.");
-						break;
-					case BUBBLING:
-						descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
-						break;
-					case HALLUCINOGENIC:
-						descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
-						break;
-					case MUSKY:
-						descriptionSB.append(" It has a strong, musky smell.");
-						break;
-					case SLIMY:
-						descriptionSB.append(" It has a slimy, oily texture.");
-						break;
-					case STICKY:
-						descriptionSB.append(" It's quite sticky, and is difficult to fully wash off without soap.");
-						break;
-					case VISCOUS:
-						descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
-						break;
-					case ALCOHOLIC:
-						descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
-						break;
-					case MINERAL_OIL:
-						descriptionSB.append(" It is rich in minerals good for your skin but not for latex.");
-				}
+				descriptionSB.append(" " + fm.getBriefDescription());
 			}
 		}
 		

@@ -17,7 +17,6 @@
 	<clothingSet/>
 	<imageName>velvet_choker.svg</imageName>
     <imageEquippedName/>
-	<enchantmentLimit>5</enchantmentLimit>
 	<effects/>
 	
 	<blockedPartsList slot="NECK">

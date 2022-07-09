@@ -35,6 +35,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -3738,7 +3739,8 @@ public class StatusEffect {
 			StringBuilder sb = new StringBuilder();
 			
 			if (target.isPregnant()) {
-				target.addStatusEffect(PREGNANT_1, 60 * 60 * (72 + Util.random.nextInt(13)));
+				int maxHourLength = (int)((Main.getProperties().pregnancyDuration * 7 * 24) / 2f);
+				target.addStatusEffect(PREGNANT_1, 60 * 60 * ((maxHourLength-12) + Util.random.nextInt(13)));
 				target.loadImages(true); // Reload images for pregnant versions
 				
 				if (target.isPlayer() && !((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
@@ -3926,12 +3928,12 @@ public class StatusEffect {
 							+ (target.getBodyMaterial()==BodyMaterial.SLIME
 								?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
 									+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of [npc.herHim]."
-								:" Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll move onto the next stage in a matter of days."));
+								:" Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll move onto the next stage with alarming speed."));
 		}
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
-
-			target.addStatusEffect(PREGNANT_2, 60 * 60 * (72 + Util.random.nextInt(13)));
+			int maxHourLength = (int)((Main.getProperties().pregnancyDuration * 7 * 24) / 2f);
+			target.addStatusEffect(PREGNANT_2, 60 * 60 * ((maxHourLength-12) + Util.random.nextInt(13)));
 			
 			boolean breastGrowth = false;
 			if(Main.getProperties().pregnancyBreastGrowth>0 && target.getBreastRawSizeValue()<Main.getProperties().pregnancyBreastGrowthLimit) {
@@ -4041,7 +4043,7 @@ public class StatusEffect {
 							+ (target.getBodyMaterial()==BodyMaterial.SLIME
 								?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
 									+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of [npc.herHim]..."
-								:" Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll move onto the final stage in a matter of days."));
+								:" Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll move onto the final stage with alarming speed."));
 		}
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
@@ -11272,9 +11274,9 @@ public class StatusEffect {
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			List<String> modList = new ArrayList<>();
-			List<Fetish> orderedFetishList = new ArrayList<>();
+			List<AbstractFetish> orderedFetishList = new ArrayList<>();
 			
-			for(Fetish f : Fetish.values()) {
+			for(AbstractFetish f : Fetish.getAllFetishes()) {
 				FetishDesire desire = target.getFetishDesire(f);
 				if(desire!=FetishDesire.TWO_NEUTRAL) {
 					orderedFetishList.add(f);
@@ -11282,7 +11284,7 @@ public class StatusEffect {
 			}
 			orderedFetishList.sort((e1, e2) -> target.getFetishDesire(e2).compareTo(target.getFetishDesire(e1)));
 
-			for(Fetish f : orderedFetishList) {
+			for(AbstractFetish f : orderedFetishList) {
 				FetishDesire desire = target.getFetishDesire(f);
 				modList.add("<b style='color:"+desire.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(desire.getNameAsVerb())+"</b>: "+Util.capitaliseSentence(f.getShortDescriptor(target)));
 			}
@@ -11542,7 +11544,7 @@ public class StatusEffect {
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
 			return 0;
 		}
-				@Override
+		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			return getPenetrationModifiersAsStringList(target, SexAreaPenetration.CLIT);
 		}
@@ -13881,8 +13883,108 @@ public class StatusEffect {
 		}
 	};
 
+	public static AbstractStatusEffect HAND_STATUS = new AbstractStatusEffect(95,
+			"Hand status",
+			null,
+			PresetColour.GENERIC_SEX,
+			false,
+			null,
+			null) {
+		@Override
+		public float getArousalPerTurnSelf(GameCharacter target) {
+			return getPenetrationArousalPerTurn(target, SexAreaPenetration.FINGER);
+		}
+		@Override
+		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
+			return 0;
+		}
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			return getPenetrationModifiersAsStringList(target, SexAreaPenetration.FINGER);
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			StringBuilder descriptionSB = new StringBuilder();
+			SexAreaPenetration type = SexAreaPenetration.FINGER;
+
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
+			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Main.sex.getOngoingSexAreas(target, type).entrySet()) {
+				boolean selfAction = target.equals(entry.getKey());
+				for(SexAreaInterface sArea : entry.getValue()) {
+					if(sArea.isPenetration()) {
+						switch((SexAreaPenetration)sArea) {
+							case CLIT:
+								break;
+							case PENIS:
+								break;
+							case TAIL:
+								break;
+							case TENTACLE:
+								break;
+							case TONGUE:
+								break;
+							case FINGER:
+								if(selfAction) {
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(holding hands)] with [npc.herself]!"));
+								} else {
+									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] [style.boldSex(holding hands)] with [npc2.name]!"));
+								}
+								break;
+							case FOOT:
+								break;
+						}
+						
+					}
+				}
+			}
+			
+			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
+				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No ongoing action.</b>");
+			}
+
+			appendPenetrationAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.hands]"), descriptionSB);
+			
+			descriptionSB.append("</p>");
+			
+			return descriptionSB.toString();
+		}
+		@Override
+		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
+			if(Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.FINGER).isEmpty()) {
+				return null;
+			}
+			
+			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.FINGER).get(0);
+			
+			return new Value<>(3,
+					Main.sex.formatPenetration(
+					target.getPenetrationDescription(false,
+							target,
+							SexAreaPenetration.FINGER,
+							partner,
+							Main.sex.getOngoingActionsMap(target).get(SexAreaPenetration.FINGER).get(partner).iterator().next())));
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			if(!Main.game.isInSex() || !Main.sex.getAllParticipants(true).contains(target) || Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.FINGER).isEmpty()) {
+				return false;
+			}
+			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.FINGER).get(0);
+			return Main.sex.getOngoingSexAreas(target, SexAreaPenetration.FINGER).get(partner).contains(SexAreaPenetration.FINGER);
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getOrificeSVGString(owner, SexAreaPenetration.FINGER, SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger(), Util.newArrayListOfValues(SexAreaPenetration.FINGER));
+		}
+	};
+	
 	
 	public static List<AbstractStatusEffect> allStatusEffects;
+	public static List<AbstractStatusEffect> allStatusEffectsRequiringApplicationCheck;
 	
 	public static Map<AbstractStatusEffect, String> statusEffectToIdMap = new HashMap<>();
 	public static Map<String, AbstractStatusEffect> idToStatusEffectMap = new HashMap<>();
@@ -13916,6 +14018,7 @@ public class StatusEffect {
 
 	static {
 		allStatusEffects = new ArrayList<>();
+		allStatusEffectsRequiringApplicationCheck = new ArrayList<>();
 		
 		// Modded status effects:
 		
@@ -13980,5 +14083,21 @@ public class StatusEffect {
 	
 	public static List<AbstractStatusEffect> getAllStatusEffects() {
 		return allStatusEffects;
+	}
+	
+	public static List<AbstractStatusEffect> getAllStatusEffectsRequiringApplicationCheck() {
+		if(!Main.game.isStarted()) {
+			return getAllStatusEffects();
+		}
+		if(allStatusEffectsRequiringApplicationCheck.isEmpty()) { // Initialise on first call
+			for(AbstractStatusEffect se : allStatusEffects) {
+				se.isConditionsMet(Main.game.getPlayer()); // To initialise the variable
+				if(se.isRequiresApplicationCheck()) {
+					allStatusEffectsRequiringApplicationCheck.add(se);
+				}
+			}
+//			System.out.println("ASE/SE: "+allStatusEffectsRequiringApplicationCheck.size()+"/"+allStatusEffects.size());
+		}
+		return allStatusEffectsRequiringApplicationCheck;
 	}
 }

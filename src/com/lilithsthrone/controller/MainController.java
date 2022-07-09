@@ -42,11 +42,11 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
@@ -498,15 +498,15 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-							for(NPC npc : Main.game.getAllNPCs()) {
-								if(npc.isUnique() && !npc.hasArtwork()
-//										&& (npc.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION)
-										&& npc.isFeminine()
-										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()==BodyCoveringCategory.MAIN_SKIN
-										) {
-									System.out.println(npc.getNameIgnoresPlayerKnowledge() + " "+npc.getClass().getName());// + " " + npc.getSurname());
-								}
-							}
+//							for(NPC npc : Main.game.getAllNPCs()) {
+//								if(npc.isUnique() && !npc.hasArtwork()
+////										&& (npc.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION)
+//										&& npc.isFeminine()
+//										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()==BodyCoveringCategory.MAIN_SKIN
+//										) {
+//									System.out.println(npc.getNameIgnoresPlayerKnowledge() + " "+npc.getClass().getName());// + " " + npc.getSurname());
+//								}
+//							}
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.PHYSICAL, 1);
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.ARCANE, 1);
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.LUST, 1);
@@ -665,6 +665,17 @@ public class MainController implements Initializable {
 									enterConsumed = true;
 									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
 									EnchantmentDialogue.saveEnchant(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
+									Main.game.setContent(new Response("Save", "", Main.game.getCurrentDialogueNode()));
+								}
+							}
+						}
+						if(Main.game.getCurrentDialogueNode() == BodyChanging.BODY_CHANGING_SAVE_LOAD){
+							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('new_save_name') === document.activeElement")) {
+								allowInput = false;
+								if (event.getCode() == KeyCode.ENTER) {
+									enterConsumed = true;
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
+									BodyChanging.saveBody(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
 									Main.game.setContent(new Response("Save", "", Main.game.getCurrentDialogueNode()));
 								}
 							}
@@ -856,6 +867,12 @@ public class MainController implements Initializable {
 									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('xmlTest') === document.activeElement")) {
 								allowInput = false;
 							}
+						}
+
+						// Allow users to type in slave metadata without getting whisked away.
+						if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('SET_SLAVE_NOTES') === document.activeElement")
+						|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('SET_SLAVE_CATEGORY') === document.activeElement")) {
+							allowInput = false;
 						}
 						
 						if(allowInput){
@@ -1583,9 +1600,9 @@ public class MainController implements Initializable {
 
 			MainController.addEventListener(documentButtonsRight, id, "mouseenter", new TooltipInformationEventListener().setInformation(
 					Main.game.getCurrentDialogueNode().getLabel() == "" || Main.game.getCurrentDialogueNode().getLabel() == null ? "-" : Main.game.getCurrentDialogueNode().getLabel(),
-					"Click to copy the currently displayed dialogue to your clipboard.<br/>"
+					"Click to copy the currently displayed dialogue to your clipboard. You can then paste the output into a text editor, save it as a <i>.html</i> file, then open that file in a browser to retain the game's formatting.<br/>"
 					+ "This scene was written by: <b>"+Main.game.getCurrentDialogueNode().getAuthor()+"</b>",
-					48), false);
+					80), false);
 			
 		}
 		
@@ -1975,13 +1992,13 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, id, "mouseenter", el, false);
 				}
 			}
-			for (Fetish f : character.getFetishes(true)) {
-				if (((EventTarget) documentAttributes.getElementById("FETISH_"+idModifier + f)) != null) {
-					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mousemove", moveTooltipListener, false);
-					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mouseleave", hideTooltipListener, false);
+			for (AbstractFetish f : character.getFetishes(true)) {
+				if (((EventTarget) documentAttributes.getElementById("FETISH_"+idModifier + Fetish.getIdFromFetish(f))) != null) {
+					addEventListener(documentAttributes, "FETISH_"+idModifier + Fetish.getIdFromFetish(f), "mousemove", moveTooltipListener, false);
+					addEventListener(documentAttributes, "FETISH_"+idModifier + Fetish.getIdFromFetish(f), "mouseleave", hideTooltipListener, false);
 
 					TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, character);
-					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mouseenter", el, false);
+					addEventListener(documentAttributes, "FETISH_"+idModifier + Fetish.getIdFromFetish(f), "mouseenter", el, false);
 				}
 			}
 			for (AbstractCombatMove combatMove : character.getAvailableMoves()) {
@@ -2328,13 +2345,13 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, id, "mouseenter", el, false);
 					}
 				}
-				for (Fetish f : character.getFetishes(true)) {
-					if (((EventTarget) documentRight.getElementById("FETISH_NPC_"+idModifier + f)) != null) {
-						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mousemove", moveTooltipListener, false);
-						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mouseleave", hideTooltipListener, false);
+				for (AbstractFetish f : character.getFetishes(true)) {
+					if (((EventTarget) documentRight.getElementById("FETISH_NPC_"+idModifier + Fetish.getIdFromFetish(f))) != null) {
+						addEventListener(documentRight, "FETISH_NPC_"+idModifier + Fetish.getIdFromFetish(f), "mousemove", moveTooltipListener, false);
+						addEventListener(documentRight, "FETISH_NPC_"+idModifier + Fetish.getIdFromFetish(f), "mouseleave", hideTooltipListener, false);
 	
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, character);
-						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mouseenter", el, false);
+						addEventListener(documentRight, "FETISH_NPC_"+idModifier + Fetish.getIdFromFetish(f), "mouseenter", el, false);
 					}
 				}
 				for (AbstractCombatMove combatMove : character.getAvailableMoves()) {
@@ -2386,16 +2403,44 @@ public class MainController implements Initializable {
 			webEngine.loadContent(content);
 		}
 	}
-	
-	public void setTooltipContent(String content) {
+
+	/**
+	 * Sets the tooltip content, and returns the pixel height
+	 * of the resultant tooltip content.
+	 * 
+	 * To calculate height, wraps the content in a #sizing-box
+	 * div, and checks that element's height.
+	 * 
+	 * This does not set the tooltip height, but only measures
+	 * the content height. The tooltip must be manually
+	 * resized as needed.
+	 * 
+	 * Additionally, this should be called before setting the
+	 * tooltip position, if that requires knowledge of the
+	 * final height.
+	 * 
+	 * @param content HTML content to display in the tooltip
+	 * @return the calculated height of the tooltip content
+	 */
+	public int setTooltipContent(String content) {
 		if (Main.getProperties().hasValue(PropertyValue.fadeInText)) {
 			content = "<div class='tooltip-animation' style='width: 100%;'>" + content + "</div>";
 		}
+		content = "<div id='sizing-box' style='width: 100%;'>" + content + "</div>";
 		if(useJavascriptToSetContent) {
 			setWebEngineContent(webEngineTooltip, content);
 		} else {
 			webEngineTooltip.loadContent(content);
 		}
+		int height = 0;
+		try {
+			// add 8 + 8 to account for the top + bottom margins
+			height = 16 + (int)Main.mainController.getWebEngineTooltip().executeScript("document.getElementById('sizing-box').scrollHeight");
+		} catch(Exception e) {
+			System.err.println("Failed to locate the tooltip sizing box!");
+			e.printStackTrace();
+		}
+		return height;
 	}
 	
 	public void setAttributePanelContent(String content) {

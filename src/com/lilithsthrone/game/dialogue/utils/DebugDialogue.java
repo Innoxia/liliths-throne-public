@@ -16,12 +16,16 @@ import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.effects.AbstractPerk;
+import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.npc.fields.ElisAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
@@ -43,7 +47,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.SetBonus;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -176,9 +179,10 @@ public class DebugDialogue {
 							PlaceType.DOMINION_CANAL,
 							PlaceType.DOMINION_CANAL_END,
 							PlaceType.DOMINION_ALLEYS_CANAL_CROSSING,
-							PlaceType.SUBMISSION_TUNNELS
+							PlaceType.SUBMISSION_TUNNELS,
+							PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_alley")
 							).contains(Main.game.getPlayer().getLocationPlace().getPlaceType())) {
-						return new Response("Spawn attacker", "You can only spawn an attacker on: Dominion's alleyway & canal tiles; Submission's tunnel tiles.", null);
+						return new Response("Spawn attacker", "You can only spawn an attacker on: Dominion's alleyway & canal tiles; Submission's tunnel tiles; Elis alleyway tiles.", null);
 					}
 					if(!Main.game.getNonCompanionCharactersPresent().isEmpty()) {
 						return new Response("Spawn attacker", "You can only spawn an attacker on empty tiles.", null);
@@ -240,7 +244,69 @@ public class DebugDialogue {
 						}
 					};
 					
+				} else if(index==15) {
+					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_I_ARTHURS_TALE)) {
+						return new Response("Skip Dominion quests", "You have already completed all of the main quests which lead up to the Submission quest line!", null);
+						
+					} else {
+						return new Response("Skip Dominion quests", "Skip all main quests up to the start of the Submission quest line.", DEBUG_MENU){
+							@Override
+							public void effects() {
+								List<Quest> dominionSkipQuests = Util.newArrayListOfValues(
+										Quest.MAIN_1_A_LILAYAS_TESTS,
+										Quest.MAIN_1_B_DEMON_HOME,
+										Quest.MAIN_1_C_WOLFS_DEN,
+										Quest.MAIN_1_D_SLAVERY,
+										Quest.MAIN_1_E_REPORT_TO_HELENA,
+										Quest.MAIN_1_F_SCARLETTS_FATE,
+										Quest.MAIN_1_G_SLAVERY,
+										Quest.MAIN_1_H_THE_GREAT_ESCAPE,
+										Quest.MAIN_1_I_ARTHURS_TALE,
+										Quest.MAIN_2_A_INTO_THE_DEPTHS
+										);
+								for(int i=0; i<dominionSkipQuests.size()-1; i++) {
+									Quest q = dominionSkipQuests.get(i);
+									if(Main.game.getPlayer().getQuest(QuestLine.MAIN)==q) {
+										q.applySkipQuestEffects();
+										Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, dominionSkipQuests.get(i+1));
+									}
+								}
+							}
+						};
+					}
+					
+				} else if(index==16) {
+					if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_2_A_INTO_THE_DEPTHS)) {
+						return new Response("Skip Submission quests", "You have not progressed far enough into the main quest to start skipping Submission quests!", null);
+						
+					} else if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN)) {
+						return new Response("Skip Submission quests", "You have already completed all of the main quests which lead up to the Elis quest line!", null);
+						
+					} else {
+						return new Response("Skip Submission quests", "Skip all main quests up to the start of the Elis quest line.", DEBUG_MENU){
+							@Override
+							public void effects() {
+								List<Quest> submissionSkipQuests = Util.newArrayListOfValues(
+										Quest.MAIN_2_A_INTO_THE_DEPTHS,
+										Quest.MAIN_2_B_SIRENS_CALL,
+										Quest.MAIN_2_C_SIRENS_FALL,
+										Quest.MAIN_2_D_MEETING_A_LILIN,
+										Quest.MAIN_3_ELIS
+										);
+								for(int i=0; i<submissionSkipQuests.size()-1; i++) {
+									Quest q = submissionSkipQuests.get(i);
+									if(Main.game.getPlayer().getQuest(QuestLine.MAIN)==q) {
+										q.applySkipQuestEffects();
+										Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, submissionSkipQuests.get(i+1));
+									}
+								}
+							
+							}
+						};
+					}
+					
 				}
+				
 				
 			} else if(responseTab==1) {
 				if (index == 1) {
@@ -640,7 +706,32 @@ public class DebugDialogue {
 						}
 					};
 					
-				} else if(index==25)  {
+				} else if(index>=20 && index<=26) {
+					ArrayList<AbstractPerk> powerPerks = Util.newArrayListOfValues(Perk.POWER_OF_LIRECEA_1,
+							Perk.POWER_OF_LOVIENNE_2,
+							Perk.POWER_OF_LASIELLE_3,
+							Perk.POWER_OF_LYSSIETH_4,
+							Perk.POWER_OF_LUNETTE_5,
+							Perk.POWER_OF_LYXIAS_6,
+							Perk.POWER_OF_LISOPHIA_7);
+					AbstractPerk perk = powerPerks.get(index-20);
+						return new Response("Elder Lilin perk", "Toggle perk.", DEBUG_MENU) {
+							@Override
+							public String getTitle() {
+								return perk.getName(null)+": "+(Main.game.getPlayer().hasPerkAnywhereInTree(perk)?"[style.colourGood(ON)]":"[style.colourDisabled(OFF)]");
+							}
+							
+							@Override
+							public void effects() {
+								if(Main.game.getPlayer().hasPerkAnywhereInTree(perk)) {
+									Main.game.getPlayer().removeSpecialPerk(perk);
+								} else {
+									Main.game.getPlayer().addSpecialPerk(perk);
+								}
+							}
+						};
+					
+				} else if(index==29)  {
 					return new Response("Spawn rates", "List the spawn rates in the current location.", SPAWN_RATES) {
 						@Override
 						public void effects() {
@@ -684,6 +775,9 @@ public class DebugDialogue {
 							spawnrateSB.append("</table>");
 						}
 					};
+					
+				} else if(index==30) {
+					return new Response("Item collage", "View a collage of all item, weapon, and clothing icons which are currently in the game.<br/>[style.italicsMinorBad(Will be slow to load and display!)]", CLOTHING_COLLAGE);
 					
 				}
 				
@@ -815,19 +909,21 @@ public class DebugDialogue {
 				if(npc.getMother()!=null && npc.getMother().getPregnantLitter()!=null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
 					isBorn = false;
 				}
-				UtilText.nodeContentSB.append((isBorn?"":"(Not born yet) ")+"<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</span>"
+				UtilText.nodeContentSB.append((isBorn?"":"(Not born yet) ")+"<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+" "+npc.getSurname()+"</span>"
 						+ " ("+npc.getSubspecies().getName(npc.getBody())+" | "+npc.getHalfDemonSubspecies().getName(npc.getBody())+")"
+						+ " ("+npc.getCovering(npc.getBody().getTorsoType().getBodyCoveringType(npc.getBody())).getPrimaryColour().getName()+")" // Primary covering colour
 						+ " M:"+(npc.getMother()!=null?npc.getMother().getName(true):"Deleted NPC")
 						+ " F:"+(npc.getFather()!=null?npc.getFather().getName(true):"Deleted NPC")+"<br/>");
 			}
 			for(OffspringSeed os : Main.game.getOffspringNotSpawned(os -> true,true)) {
-				UtilText.nodeContentSB.append("Not yet"+(os.isBorn()?" met ":" born ")+"<span style='color:"+os.getFemininity().getColour().toWebHexString()+";'>"+os.getName()+"</span>"
+				UtilText.nodeContentSB.append("Not yet"+(os.isBorn()?" met ":" born ")+"<span style='color:"+os.getFemininity().getColour().toWebHexString()+";'>"+os.getName()+" "+os.getSurname()+"</span>"
 						+ " ("+os.getSubspecies().getName(os.getBody())+" | "+os.getHalfDemonSubspecies().getName(os.getBody())+")"
+						+ " ("+os.getBody().getCovering(os.getBody().getTorsoType().getBodyCoveringType(os.getBody()), true).getPrimaryColour().getName()+")" // Primary covering colour
 						+ " M:"+(os.getMother()!=null?os.getMother().getName(true):"Deleted NPC")
 						+ " F:"+(os.getFather()!=null?os.getFather().getName(true):"Deleted NPC")+"<br/>");
 			}
 			if(activeOffspring!=null) {
-				for(Fetish f : activeOffspring.getFetishes(true)) {
+				for(AbstractFetish f : activeOffspring.getFetishes(true)) {
 					UtilText.nodeContentSB.append("<br/>[style.boldSex(Fetish:)] "+f.getName(activeOffspring));
 				}
 				UtilText.nodeContentSB.append(
@@ -1202,9 +1298,12 @@ public class DebugDialogue {
 	private static void initAttacker() {
 		if(Main.game.getPlayer().getWorldLocation()==WorldType.DOMINION) {
 			attacker = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
+		} else if(Main.game.getPlayer().getLocationPlaceType()==PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_alley")) {
+			attacker = new ElisAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
 		} else {
 			attacker = new SubmissionAttacker(Gender.getGenderFromUserPreferences(false, false));
 		}
+		
 		try {
 			Main.game.addNPC(attacker, false);
 		} catch (Exception e) {
@@ -1240,6 +1339,9 @@ public class DebugDialogue {
 				
 			} else if(index == 3) {
 				return "[style.colourTfGreater(Greater)]";
+				
+			} else if(index == 4) {
+				return "[style.colourHalfDemon(Half-demon)]";
 			}
 			return null;
 		}
@@ -1264,10 +1366,10 @@ public class DebugDialogue {
 					public void effects() {
 						initAttacker();
 						
-						if(subspecies==Subspecies.HALF_DEMON) {
+						if(subspecies==Subspecies.HALF_DEMON || responseTab==4) {
 							attacker.setSubspeciesOverride(null);
 							attacker.setBody(
-									Main.game.getCharacterUtils().generateHalfDemonBody(attacker, attacker.getGender(), Subspecies.HUMAN, false),
+									Main.game.getCharacterUtils().generateHalfDemonBody(attacker, attacker.getGender(), responseTab==4?subspecies:Subspecies.HUMAN, false),
 									false);
 						} else {
 							attacker.setSubspeciesOverride(null);
@@ -1416,13 +1518,53 @@ public class DebugDialogue {
 	
 	
 	public static final DialogueNode CLOTHING_COLLAGE = new DialogueNode("Clothing collage", "Clothing collage.", false) {
-		/**
-		 * 
-		 */
-
 		@Override
 		public String getContent() {
-			return clothingCollage();
+			inventorySB.setLength(0);
+			
+			float width = 100/20f;
+			int imgWidth = 100;
+			
+			inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+					+ "<h5>Total items: "+itemsTotal.size()+"</h5>");
+			for(AbstractItemType itemType : itemsTotal) {
+				inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:1px; margin:0;'>"
+										+ "<div class='inventory-item-slot unequipped' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0; background-color:"+itemType.getRarity().getBackgroundColour().toWebHexString()+";'>"
+											+ "<div class='inventory-icon-content'>"+itemType.getSVGString()+"</div>"
+											+ "<div class='overlay' id='" + itemType.getId() + "_SPAWN'></div>"
+										+ "</div>"
+									+ "</div>");
+			}
+			inventorySB.append("</div>");
+
+			inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+					+ "<h5>Total weapons: "+weaponsTotal.size()+"</h5>");
+			for(AbstractWeaponType weaponType : weaponsTotal) {
+				inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:1px; margin:0;'>"
+										+ "<div class='inventory-item-slot unequipped' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0; background-color:"+weaponType.getRarity().getBackgroundColour().toWebHexString()+";'>"
+											+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage()
+											+"</div>"
+											+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
+										+ "</div>"
+									+ "</div>");
+			}
+			inventorySB.append("</div>");
+
+			inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+					+ "<h5>Total clothing: "+clothingTotal.size()+"</h5>");
+			for(AbstractClothingType clothingType : clothingTotal) {
+				inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:1px; margin:0;'>"
+									+ "<div class='inventory-item-slot unequipped' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0; background-color:"+clothingType.getRarity().getBackgroundColour().toWebHexString()+";'>"
+										+ "<div class='inventory-icon-content'>"
+											+clothingType.getSVGImageRandomColour(true, false, false)
+										+"</div>"
+										+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
+									+ "</div>"
+								+ "</div>");
+			}
+			inventorySB.append("</div>");
+			
+			return inventorySB.toString();
 		}
 
 		@Override
@@ -1435,21 +1577,6 @@ public class DebugDialogue {
 			}
 		}
 	};
-
-	private static StringBuilder clothingCollageSB;
-
-	private static String clothingCollage() {
-		clothingCollageSB = new StringBuilder("<div style='position:inline-block;width:90vw;float:left;'>");
-
-		for (AbstractClothingType c : ClothingType.getAllClothing()) {
-			AbstractClothing ac = Main.game.getItemGen().generateClothing(c);
-			clothingCollageSB.append("<html><div style='width:10vw;height:10vw;float:left;all: unset;'>" + ac.getSVGString() + "</div></html>");
-		}
-
-		clothingCollageSB.append("</div>");
-
-		return clothingCollageSB.toString();
-	}
 
 	private static String parsedText = "";
 	private static String rawText = "";

@@ -5,7 +5,9 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
@@ -17,10 +19,17 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.4
+ * @version 0.4.4.2
  * @author Innoxia
  */
 public class CMFetishAttack {
+	
+	private static int getFetishAttackBaseDamage(AbstractFetish associatedFetish, GameCharacter source, boolean isCrit) {
+		int baseDamage = 3;
+		FetishLevel fetishLevel = source.getFetishLevel(associatedFetish);
+		baseDamage += fetishLevel.getBonusTeaseDamage();
+        return baseDamage * (isCrit?3:1);
+	}
 	
 	public static AbstractCombatMove TEASE_ANAL_RECEIVING = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
             "buttslut tease",
@@ -34,8 +43,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_ANAL_RECEIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_ANAL_GIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_ANAL_RECEIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_ANAL_GIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -46,7 +55,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -142,8 +151,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_ANAL_GIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_ANAL_RECEIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_ANAL_GIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_ANAL_RECEIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -154,7 +163,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -240,8 +249,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_VAGINAL_RECEIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_VAGINAL_GIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_VAGINAL_RECEIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_VAGINAL_GIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -252,7 +261,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -341,8 +350,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_VAGINAL_GIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_VAGINAL_RECEIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_VAGINAL_GIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_VAGINAL_RECEIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -353,7 +362,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -443,8 +452,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_INCEST;
-    	private Fetish oppositeFetish = Fetish.FETISH_INCEST;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_INCEST;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_INCEST;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -455,7 +464,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -592,8 +601,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_CUM_STUD;
-    	private Fetish oppositeFetish = Fetish.FETISH_CUM_ADDICT;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_CUM_STUD;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_CUM_ADDICT;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -604,7 +613,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -692,8 +701,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_CUM_ADDICT;
-    	private Fetish oppositeFetish = Fetish.FETISH_CUM_STUD;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_CUM_ADDICT;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_CUM_STUD;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -704,7 +713,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -797,8 +806,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_PENIS_RECEIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_PENIS_GIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_PENIS_RECEIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_PENIS_GIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -809,7 +818,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -898,8 +907,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_PENIS_GIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_PENIS_RECEIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_PENIS_GIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_PENIS_RECEIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -910,7 +919,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -994,8 +1003,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_FOOT_RECEIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_FOOT_GIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_FOOT_RECEIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_FOOT_GIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1006,7 +1015,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1091,8 +1100,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_FOOT_GIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_FOOT_RECEIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_FOOT_GIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_FOOT_RECEIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1103,7 +1112,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1187,8 +1196,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_ARMPIT_RECEIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_ARMPIT_GIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_ARMPIT_RECEIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_ARMPIT_GIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1199,7 +1208,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1285,8 +1294,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_ARMPIT_GIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_ARMPIT_RECEIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_ARMPIT_GIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_ARMPIT_RECEIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1297,7 +1306,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1385,8 +1394,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_ORAL_RECEIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_ORAL_GIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_ORAL_RECEIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_ORAL_GIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1397,7 +1406,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1484,8 +1493,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_ORAL_GIVING;
-    	private Fetish oppositeFetish = Fetish.FETISH_ORAL_RECEIVING;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_ORAL_GIVING;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_ORAL_RECEIVING;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1496,7 +1505,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1593,8 +1602,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_BREASTS_OTHERS;
-    	private Fetish oppositeFetish = Fetish.FETISH_BREASTS_SELF;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_BREASTS_OTHERS;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_BREASTS_SELF;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1605,7 +1614,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1710,8 +1719,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_BREASTS_SELF;
-    	private Fetish oppositeFetish = Fetish.FETISH_BREASTS_OTHERS;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_BREASTS_SELF;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_BREASTS_OTHERS;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1722,7 +1731,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1819,8 +1828,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_LACTATION_OTHERS;
-    	private Fetish oppositeFetish = Fetish.FETISH_LACTATION_SELF;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_LACTATION_OTHERS;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_LACTATION_SELF;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1831,7 +1840,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1947,8 +1956,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_LACTATION_SELF;
-    	private Fetish oppositeFetish = Fetish.FETISH_LACTATION_OTHERS;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_LACTATION_SELF;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_LACTATION_OTHERS;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -1959,7 +1968,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -2079,8 +2088,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_PREGNANCY;
-    	private Fetish oppositeFetish = Fetish.FETISH_IMPREGNATION;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_PREGNANCY;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_IMPREGNATION;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -2091,7 +2100,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -2214,8 +2223,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_IMPREGNATION;
-    	private Fetish oppositeFetish = Fetish.FETISH_PREGNANCY;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_IMPREGNATION;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_PREGNANCY;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -2226,7 +2235,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -2341,8 +2350,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_DOMINANT;
-    	private Fetish oppositeFetish = Fetish.FETISH_SUBMISSIVE;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_DOMINANT;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_SUBMISSIVE;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -2353,7 +2362,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -2401,24 +2410,24 @@ public class CMFetishAttack {
             	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
+            StringBuilder sb = new StringBuilder();
+            sb.append(UtilText.returnStringAtRandom(
+						"Grinning lustfully at [npc2.name], [npc.name] [npc.verb(growl)], ",
+						"With an evil grin on [npc.her] face, [npc.name] [npc.verb(growl)] at [npc2.name], ",
+						"Glaring imposingly at [npc2.name], [npc.name] [npc.verb(growl)], ",
+						"[npc.Name] [npc.verb(let)] out a menacing growl as [npc.she] [npc.verb(stare)] lustfully at [npc2.name], "));
+        	 sb.append(UtilText.returnStringAtRandom(
+				"[npc.speech(I'm going to give you a good, hard fuck, bitch!)]",
+				"[npc.speech(You're going to get the fucking of a lifetime!)]",
+				"[npc.speech(You're going to be a good little submissive slut for me!)]",
+				"[npc.speech(I'm going to make you my bitch!)]",
+				"[npc.speech(You're going to be my bitch soon enough!)]",
+				"[npc.speech(You're going to be a mewling little bitch by the time I'm done with you!)]",
+				"[npc.speech(I'm going to fuck you so hard, you'll be squealing like a little bitch!)]"));
+            sb.append(dealtDamage.getKey());
+            
             return formatAttackOutcome(source, target,
-            		(UtilText.returnStringAtRandom(
-    						"Grinning lustfully at [npc2.name], [npc.name] [npc.verb(growl)], "
-    								+ (target.getAppearsAsGender().isFeminine()
-    									?"[npc.speech(I'm going to fuck you into next week, bitch!)]"
-    									:"[npc.speech(I'm going to make you my bitch!)]"),
-    						"With an evil grin, [npc.name] [npc.verb(growl)] at [npc2.name], "
-    								+ (target.getAppearsAsGender().isFeminine()
-    									?"[npc.speech(You're going to get the fucking of a lifetime!)]"
-    									:"[npc.speech(You're going to be my bitch soon enough!)]"),
-    						"With a powerful stare, [npc.name] [npc.verb(growl)] at [npc2.name], "
-    								+ (target.getAppearsAsGender().isFeminine()
-    									?"[npc.speech(I'm going to make you my bitch!)]"
-    									:"[npc.speech(You're going to be a mewling little bitch by the time I'm done with you!)]"),
-    						"[npc.Name] [npc.verb(let)] out a menacing growl as [npc.she] [npc.verb(stare)] lustfully at [npc2.name], "
-    								+ (target.getAppearsAsGender().isFeminine()
-    									?"[npc.speech(You're going to be a good little submissive slut for me!)]"
-    									:"[npc.speech(I'm going to fuck you so hard, you'll be squealing like a little bitch!)]")))+dealtDamage.getKey(),
+            		sb.toString(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
@@ -2450,8 +2459,8 @@ public class CMFetishAttack {
             false,
 			null) {
 
-    	private Fetish associatedFetish = Fetish.FETISH_SUBMISSIVE;
-    	private Fetish oppositeFetish = Fetish.FETISH_DOMINANT;
+    	private AbstractFetish associatedFetish = Fetish.FETISH_SUBMISSIVE;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_DOMINANT;
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -2462,7 +2471,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {

@@ -152,6 +152,7 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue readBook2 = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue readBook3 = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue readBook4 = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue readBookSlavery = new AbstractDialogueFlagValue();
 	
 	public static AbstractDialogueFlagValue arthursPackageObtained = new AbstractDialogueFlagValue();
 	
@@ -441,6 +442,8 @@ public class DialogueFlagValue {
 
 	public static AbstractDialogueFlagValue murkLectured = new AbstractDialogueFlagValue(true);
 	public static AbstractDialogueFlagValue murkSpanked = new AbstractDialogueFlagValue(true);
+
+	public static AbstractDialogueFlagValue milkersClaireDialogue = new AbstractDialogueFlagValue(false);
 	
 	
 	//Felicia
@@ -483,6 +486,10 @@ public class DialogueFlagValue {
 		if(id.equals("ratWarrensRaid")
 				|| id.equals("suppliersTriedConvincing")) {
 			return null;
+		}
+		
+		if(id.equals("innoxia_elis_alleyway_transformations_applied")) {
+			id = "innoxia_alleyway_transformations_applied";
 		}
 		
 		id = Util.getClosestStringMatch(id, idToDialogueFlagValueMap.keySet(), 3);

@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogueFlags>
 	<!-- Additional dialogue flags for use in the game.
-	The 'dailyReset' value determines whether or not the flag gets reset to false at midnight every day.
+	The 'dailyReset' attribute determines whether or not the flag gets reset to false at midnight every day.
+	You can instead use the 'resetHour' attribute to define the hour at which the flag is reset to false every day.
+	If neither attribute is defined, the flag will never automatically reset to false.
 	Please note that the final id of the flags defined below will have the parent folder's name appended to the front of them.
 		i.e. 'elis_berries_found' will be identified as 'innoxia_elis_berries_found' during the game's runtime. -->
+	
+	<!-- Misc. encounters etc.: -->
+		<!-- Alleyway attackers -->
+			<flag dailyReset="false">alleyway_submission_tattooed_pussy</flag>
+			<flag dailyReset="false">alleyway_submission_tattooed_ass</flag>
+			<flag dailyReset="false">alleyway_transformations_applied</flag>
 	
 	<!-- Meraxis: -->
 	
@@ -98,6 +106,11 @@
 		<flag dailyReset="false">elis_berries_eaten</flag>
 		<flag dailyReset="false">elis_berries_encountered</flag>
 		
+		<!-- Alleyways -->
+		<flag dailyReset="false">elis_alleyway_talked</flag>
+		<flag dailyReset="false">elis_alleyway_prostitute_apartment</flag>
+		<flag dailyReset="false">elis_alleyway_prostitute_sex</flag>
+		
 		<!-- Town -->
 		<flag dailyReset="false">elis_blacksmith_visited</flag>
 		<flag dailyReset="false">elis_clothing_visited</flag>
@@ -123,12 +136,33 @@
 		
 		<!-- Taur tavern -->
 		<flag dailyReset="true">kheiron_smalltalk_complete</flag>
+		<flag dailyReset="true">kheiron_talk_golix</flag>
 		<flag dailyReset="true">tavern_fae_met</flag>
 		<flag dailyReset="true">tavern_fae_small_talk</flag>
 		<flag dailyReset="true">tavern_fae_drink</flag>
 		<flag dailyReset="true">tavern_fae_tail_fluffed</flag>
 		<flag dailyReset="true">tavern_fae_flirt</flag>
 		<flag dailyReset="true">tavern_fae_kiss</flag>
+		
+		<!-- Alley tavern -->
+		<flag dailyReset="false">oglix_beer_bitches_spawned</flag>
+		<flag dailyReset="false">oglix_introduced</flag>
+		<flag dailyReset="false">oglix_tavern_brawl</flag>
+		<flag resetHour="6">oglix_tavern_pacified</flag>
+		<flag resetHour="6">oglix_talk_background</flag>
+		<flag resetHour="6">oglix_talk_lunette</flag>
+		<flag resetHour="6">oglix_talk_beer_bitch</flag>
+		<flag dailyReset="false">oglix_talk_beer_bitch_quest_unlocked</flag>
+		<flag resetHour="6">oglix_talk_elemental</flag>
+		<flag dailyReset="false">oglix_talk_vip_unlocked</flag>
+		<flag resetHour="6">oglix_talk_vip</flag>
+		<flag resetHour="6">oglix_flirted</flag>
+		<flag dailyReset="false">oglix_talk_elemental_sex_unlocked</flag>
+		<flag dailyReset="false">oglix_kheiron_spectated</flag>
+		<flag dailyReset="true">oglix_kheiron_spectated_today</flag>
+		<flag dailyReset="false">oglix_tavern_seating_seen</flag>
+		
+		
 		
 		<!-- Market -->
 		<flag dailyReset="true">elis_market_entry_north</flag>

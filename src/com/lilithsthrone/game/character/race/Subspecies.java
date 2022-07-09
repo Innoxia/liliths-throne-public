@@ -1467,7 +1467,6 @@ public class Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			List<Colour> naturalWolfFurColours = Util.newArrayListOfValues(
-					PresetColour.COVERING_WHITE,
 					PresetColour.COVERING_GREY,
 					PresetColour.COVERING_BLACK,
 					PresetColour.COVERING_JET_BLACK);
@@ -1641,6 +1640,7 @@ public class Subspecies {
 			body.getCoverings().put(BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
 			body.getCoverings().put(BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
 			body.getCoverings().put(BodyCoveringType.BODY_HAIR_FOX_FUR, new Covering(BodyCoveringType.BODY_HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
+			body.updateCoverings(false, false, true, true);
 		}
 
 		@Override
@@ -1967,6 +1967,7 @@ public class Subspecies {
 			if(body.getTail().getType()==TailType.FOX_MORPH) {
 				body.getTail().setType(null, TailType.FOX_MORPH_MAGIC);
 			}
+			body.updateCoverings(false, false, true, true);
 		}
 		
 		@Override
@@ -3974,6 +3975,7 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic reindeer, known as a 'reindeer-morph' when bipedal, and a 'reindeertaur' when the lower body is that of a feral reindeer.",
 			Util.newHashMapOfValues(
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE),
 					new Value<>(WorldRegion.SNOW, SubspeciesSpawnRarity.THREE_UNCOMMON)),
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE)),
@@ -4258,10 +4260,10 @@ public class Subspecies {
 					1, false),
 			"[npc.NameIsFull] very agile and alert, and [npc.is] capable of leaping great distances with [npc.her] powerful [npc.legs].",
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.MAJOR_PHYSIQUE, 0f),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
 					new Value<>(Attribute.MAJOR_ARCANE, 0f),
 					new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
-					new Value<>(Attribute.ENERGY_SHIELDING, 1f)),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 10f)),
 			null,
 			"Chasing Squirrels",
 			"Chasing Squirrels'",
@@ -5238,7 +5240,7 @@ public class Subspecies {
 		}
 		@Override
 		public String getSVGString(GameCharacter character) {
-			if(character!=null && !((Elemental)character).getSummoner().isElementalActive()) {
+			if(character!=null && (((Elemental)character).getSummoner()!=null && !((Elemental)character).getSummoner().isElementalActive())) {
 				if(((Elemental)character).getPassiveForm()==null) {
 					String wispSVG = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(ELEMENTAL_FIRE),
 									this.getColour(character),

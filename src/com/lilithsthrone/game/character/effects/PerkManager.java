@@ -128,9 +128,9 @@ public enum PerkManager {
 		
 		
 		/* Lust Tree Section 1 */
+		leftC = addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.VIRILITY_BOOST, both1);
 		addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.FIRING_BLANKS, both1);
-		leftA = addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.VIRILITY_BOOST, both1);
-		leftC = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.VIRILITY_MAJOR_BOOST, leftA);
+		leftC = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.VIRILITY_MAJOR_BOOST, leftC);
 		leftC = addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.FETISH_SEEDER, leftC);
 		leftC = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.VIRILITY_BOOST, leftC);
 		addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.VIRILITY_MAJOR_BOOST, leftC);
@@ -142,14 +142,16 @@ public enum PerkManager {
 		rightMidA = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.SEDUCTION_DEFENCE_BOOST, leftMidA);
 
 		leftMidB = addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.SEDUCTION_BOOST, leftMidB);
+		connectorMid = addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.AHEGAO, leftMidB);
 		rightMidA = addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.SEDUCTION_DEFENCE_BOOST, rightMidA);
+		rightMidA.addLink(connectorMid);
 
 //		leftA = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.VIRILITY_BOOST);
-		rightMidA = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.CRITICAL_BOOST_ALT, leftMidB, rightMidA);
+		rightMidA = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.CRITICAL_BOOST_LUST, leftMidB, rightMidA);
 //		addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.FERTILITY_BOOST, rightMidA);
 
-		rightB = addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.FERTILITY_BOOST, both1);
 		addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.BARREN, both1);
+		rightB = addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.FERTILITY_BOOST, both1);
 		rightB = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.FERTILITY_MAJOR_BOOST, rightB);
 		rightB = addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.FETISH_BROODMOTHER, rightB);
 		rightC = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.FERTILITY_MAJOR_BOOST);
@@ -173,7 +175,7 @@ public enum PerkManager {
 		leftMidB.addLink(leftMidA);
 		addPerkEntry(perkTree, PerkCategory.LUST, 8, Perk.OBJECT_OF_DESIRE, leftMidA);
 		leftMidA = addPerkEntry(perkTree, PerkCategory.LUST, 9, Perk.SEDUCTION_BOOST_ALT, leftMidA);
-		leftMidA = addPerkEntry(perkTree, PerkCategory.LUST, 10, Perk.NYMPHOMANIAC, leftMidA);
+		addPerkEntry(perkTree, PerkCategory.LUST, 10, Perk.NYMPHOMANIAC, leftMidA);
 
 		rightA = addPerkEntry(perkTree, PerkCategory.LUST, 7, Perk.SEDUCTION_DEFENCE_BOOST, connectorMid);
 		rightA = addPerkEntry(perkTree, PerkCategory.LUST, 8, Perk.SEDUCTION_DEFENCE_BOOST, rightA);
@@ -197,7 +199,7 @@ public enum PerkManager {
 		leftA = addPerkEntry(perkTree, PerkCategory.ARCANE, 3, Perk.SPELL_DAMAGE, rightA);
 		leftA = addPerkEntry(perkTree, PerkCategory.ARCANE, 4, Perk.SPELL_DAMAGE, leftA);
 		leftA = addPerkEntry(perkTree, PerkCategory.ARCANE, 5, Perk.ELEMENTAL_BOOST, leftA);
-		leftB = addPerkEntry(perkTree, PerkCategory.ARCANE, 5, Perk.CRITICAL_BOOST_ALT_2, leftA);
+		leftB = addPerkEntry(perkTree, PerkCategory.ARCANE, 5, Perk.CRITICAL_BOOST_ARCANE, leftA);
 		addPerkEntry(perkTree, PerkCategory.ARCANE, 5, Perk.CHUUNI, leftB);
 		
 		leftMidA = addPerkEntry(perkTree, PerkCategory.ARCANE, 3, Perk.AURA_BOOST, rightA);

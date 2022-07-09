@@ -12,6 +12,7 @@ import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -37,8 +38,8 @@ public class SexActionExternal extends SexAction {
 	private String endsSexString;
 	private String priorityString;
 	
-	private List<Fetish> performingFetishes;
-	private List<Fetish> targetedFetishes;
+	private List<AbstractFetish> performingFetishes;
+	private List<AbstractFetish> targetedFetishes;
 
 	private String startEffects;
 	private String effects;
@@ -123,13 +124,13 @@ public class SexActionExternal extends SexAction {
 					if(fetishesContainer.getOptionalFirstOf("performer").isPresent()) {
 						performingFetishes = new ArrayList<>();
 						for(Element fetish : fetishesContainer.getMandatoryFirstOf("performer").getAllOf("fetish")) {
-							performingFetishes.add(Fetish.valueOf(fetish.getTextContent().trim()));
+							performingFetishes.add(Fetish.getFetishFromId(fetish.getTextContent().trim()));
 						}
 					}
 					if(fetishesContainer.getOptionalFirstOf("target").isPresent()) {
 						targetedFetishes = new ArrayList<>();
 						for(Element fetish : fetishesContainer.getMandatoryFirstOf("target").getAllOf("fetish")) {
-							targetedFetishes.add(Fetish.valueOf(fetish.getTextContent().trim()));
+							targetedFetishes.add(Fetish.getFetishFromId(fetish.getTextContent().trim()));
 						}
 					}
 				}
@@ -248,7 +249,7 @@ public class SexActionExternal extends SexAction {
 	}
 
 	@Override
-	public List<Fetish> getExtraFetishes(GameCharacter character) {
+	public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 		if(character.equals(Main.sex.getCharacterPerformingAction())) {
 			return performingFetishes;
 		}

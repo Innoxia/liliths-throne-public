@@ -128,36 +128,8 @@ public class RatWarrensDialogue {
 		}
 		
 		// Spawn humans:
-		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)
-				&& Main.game.getCharactersPresent(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_ROOM).isEmpty()) {
-			try {
-				String[] adjectives = new String[] {"brainwashed", "submissive", "obedient", "docile"};
-				for(int i=0;i<4;i++) {
-					NPC human = new RatWarrensCaptive(Gender.F_V_B_FEMALE);
-					Main.game.addNPC(human, false);
-					human.setGenericName(adjectives[i]+" milker");
-					human.setAffection(Main.game.getNpc(Murk.class), 100);
-					Main.game.getNpc(Murk.class).calculateGenericSexEffects(true, true, human, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA), GenericSexFlag.NO_DESCRIPTION_NEEDED);
-					Main.game.getNpc(Murk.class).fillCumToMaxStorage();
-					human.clearFluidsStored(SexAreaOrifice.VAGINA);
-					human.calculateStatusEffects(1);
-					AbstractItem milk = Main.game.getItemGen().generateItem(ItemType.MOTHERS_MILK);
-					human.useItem(milk, human, false);
-					if(human.isPregnant()) {
-						if(Math.random()<0.75f) {
-							human.useItem(milk, human, false);
-						}
-						if(Math.random()<0.5f) {
-							human.useItem(milk, human, false);
-						}
-						if(Math.random()<0.25f) {
-							human.useItem(milk, human, false);
-						}
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR) && Main.game.getCharactersPresent(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_ROOM).isEmpty()) {
+			spawnMilkers();
 		}
 		
 		// Spawn bar-tender:
@@ -217,7 +189,7 @@ public class RatWarrensDialogue {
 		return guards;
 	}
 	
-	private static List<GameCharacter> getMilkers() {
+	public static List<GameCharacter> getMilkers() {
 		List<GameCharacter> milkers = new ArrayList<>();
 		for(GameCharacter milker : Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.RAT_WARRENS).getCell(PlaceType.RAT_WARRENS_MILKING_ROOM))) {
 			if(milker instanceof RatWarrensCaptive && !Main.game.getPlayer().getCompanions().contains(milker)) {
@@ -267,6 +239,47 @@ public class RatWarrensDialogue {
 		
 		Main.game.getPlayer().removeItemByType(ItemType.RESONANCE_STONE);
 
+		List<NPC> ratGuards = new ArrayList<>(Main.game.getCharactersPresent(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE));
+		ratGuards.addAll(Main.game.getCharactersPresent(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_DICE_DEN));
+		for(NPC ratGuard : ratGuards) {
+			if(ratGuard instanceof RatGangMember && !Main.game.getPlayer().getCompanions().contains(ratGuard)) {
+				Main.game.banishNPC(ratGuard);
+			}
+		}
+	}
+	
+	public static void spawnMilkers() {
+		try {
+			String[] adjectives = new String[] {"brainwashed", "submissive", "obedient", "docile"};
+			for(int i=0;i<4;i++) {
+				NPC human = new RatWarrensCaptive(Gender.F_V_B_FEMALE);
+				Main.game.addNPC(human, false);
+				human.setGenericName(adjectives[i]+" milker");
+				human.setAffection(Main.game.getNpc(Murk.class), 100);
+				Main.game.getNpc(Murk.class).calculateGenericSexEffects(true, true, human, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA), GenericSexFlag.NO_DESCRIPTION_NEEDED);
+				Main.game.getNpc(Murk.class).fillCumToMaxStorage();
+				human.clearFluidsStored(SexAreaOrifice.VAGINA);
+				human.calculateStatusEffects(1);
+				AbstractItem milk = Main.game.getItemGen().generateItem(ItemType.MOTHERS_MILK);
+				human.useItem(milk, human, false);
+				if(human.isPregnant()) {
+					if(Math.random()<0.75f) {
+						human.useItem(milk, human, false);
+					}
+					if(Math.random()<0.5f) {
+						human.useItem(milk, human, false);
+					}
+					if(Math.random()<0.25f) {
+						human.useItem(milk, human, false);
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void banishMilkers() {
 		for(GameCharacter milker : getMilkers()) {
 			Main.game.banishNPC((NPC) milker);
 		}

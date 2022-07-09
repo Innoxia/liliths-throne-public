@@ -215,7 +215,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[3]]></index>
 				<responseTitle><![CDATA[Sex (gentle)]]></responseTitle>
-				<responseTooltip><![CDATA[Take advantage of your victory to have gentle, dominant sex with the [headHorse.name]. (Starts the sex scene in the 'gentle' pace.)]]></responseTooltip>
+				<responseTooltip><![CDATA[Take advantage of your victory to have gentle, dominant sex with the [headHorse.name].]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariables enabled="true">
 					<consensual><![CDATA[true]]></consensual>
@@ -241,7 +241,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[4]]></index>
 				<responseTitle><![CDATA[Sex (rough)]]></responseTitle>
-				<responseTooltip><![CDATA[Take advantage of your victory to have rough, dominant sex with the [headHorse.name]. (Starts the sex scene in the 'rough' pace.)]]></responseTooltip>
+				<responseTooltip><![CDATA[Take advantage of your victory to have rough, dominant sex with the [headHorse.name].]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariables enabled="true">
 					<consensual><![CDATA[true]]></consensual>

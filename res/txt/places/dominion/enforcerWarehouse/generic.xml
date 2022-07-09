@@ -661,7 +661,11 @@
 	
 	<htmlContent tag="ENTRANCE"><![CDATA[
 	<p>
-		After spending quite some time making your way through the labyrinthine passages of the SWORD warehouse, you and Claire finally arrive at the solitary exit. Your troubles aren't yet over, however, as before you stand four guards. From your hiding place behind a stack of wooden crates, you're able to tell that the leader of this group is [npc.a_race], while the other three look to be [npc2.a_race], [npc3.a_race], and [npc4.a_race].
+		After spending quite some time making your way through the labyrinthine passages of the SWORD warehouse, you and Claire finally arrive at the solitary exit. Your troubles aren't yet over, however, as before you stand four guards. From your hiding place behind a stack of wooden crates, you're able to tell that the leader of this group
+		#IF(game.isSillyMode())
+			 of top men
+		#ENDIF
+		 is [npc.a_race], while the other three look to be [npc2.a_race], [npc3.a_race], and [npc4.a_race].
 	</p>
 	<p>
 		#IF(claire.getLust()>75)

@@ -62,7 +62,7 @@
 			Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
 		<rarity>COMMON</rarity>
 		
-		<!-- What set this weapon is a part of. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
+		<!-- What set this weapon is a part of. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
 		<weaponSet/> 
 		
 		<!-- The description that's used when equipping this weapon. The description should be generic, able to be used by both the player and NPCs. Just make sure to use the tag "[npc.verb()]" whenever using a verb, which will then, for example, parse like this:
@@ -96,10 +96,10 @@
 		<!-- How many arcane essences are required, and drained, by firing this weapon. Ranged weapons should usually use the value 1, while melee weapons should usually be 0. -->
 		<arcaneCost>0</arcaneCost> 
 		
-		<!-- The variance in base damage when this weapon is actually used to attack. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/DamageVariance.java -->
+		<!-- The variance in base damage when this weapon is actually used to attack. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/DamageVariance.java -->
 		<damageVariance>MEDIUM</damageVariance> 
 		
-		<!-- The available damage types that this weapon can spawn in with. Values can be found here (MISC should not be used): https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/DamageType.java -->
+		<!-- The available damage types that this weapon can spawn in with. Values can be found here (MISC should not be used): https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/DamageType.java -->
 		<availableDamageTypes>
 			<damageType>PHYSICAL</damageType>
 			<damageType>ICE</damageType>
@@ -127,7 +127,7 @@
 		...
 		Note that the damageType does not have to correspond to the spell's school (so FIRE can unlock ICE_SHARD, etc.).
 		
-		Values for spells can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/Spell.java -->
+		Values for spells can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/Spell.java -->
 		<spells/>
 		
 		<!-- The combat moves that are unlocked when equipping this weapon. IF you want to add any, use the format:
@@ -145,12 +145,9 @@
 			<move damageType="FIRE">EXAMPLE_MOVE_4</move>
 		...
 		
-		Values for combat moves can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/CMWeaponSpecials.java
+		Values for combat moves can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/CMWeaponSpecials.java
 		There will be a way to add modded combat moves soon! -->
 		<combatMoves/>
-		
-		<!-- How many effects this weapon can be enchanted with. Should usually be left at 5. -->
-		<enchantmentLimit>5</enchantmentLimit>
 		
 		<!-- The effects that this weapon spawns in with. Remember that the player can remove/change/add effects. To know what to put in here, it would probably be easiest to enchant a weapon in your game, save the game, then copy over that weapon's 'effects' in your save file.
 		There are two special values for secondaryModifier, which are: RESISTANCE_WEAPON and DAMAGE_WEAPON
@@ -248,7 +245,7 @@
 			</customColour>
 		</customColours>
 		
-		<!-- Special item tags that apply to this weapon. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+		<!-- Special item tags that apply to this weapon. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> 
 			<tag>WEAPON_BLADE</tag>
 			<tag>CONTRABAND_HEAVY</tag>

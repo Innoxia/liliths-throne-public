@@ -14,7 +14,6 @@
 		<clothingSet>innoxia_ronin</clothingSet>
 		<imageName>mens_kimono.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit/>
 		<effects> 
 			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="STRENGTH" timer="0"/>
 			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_PHYSICAL" timer="0"/>

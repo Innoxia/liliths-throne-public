@@ -94,17 +94,30 @@ public class Combat {
 	public Combat() {
 	}
 
-	/**
-	 * @param allies A list of allies who are fighting with you. <b>Do not include Main.game.getPlayer() in this!</b>
-	 * @param enemies A list of enemies you're fighting. The first enemy in the list is considered the leader.
-	 * @param escapePercentage The base chance of escaping in this combat situation. TODO
-	 * @param openingDescriptions A map of opening descriptions for characters. If a description is not provided, one is generated automatically.
-	 */
 	public void initialiseCombat(
 			List<NPC> allies,
 			NPC enemyLeader,
 			List<NPC> enemies,
 			Map<GameCharacter, String> openingDescriptions) {
+		initialiseCombat(allies,
+				enemyLeader,
+				enemies,
+				openingDescriptions,
+				false);
+	}
+	/**
+	 * @param allies A list of allies who are fighting with you. <b>Do not include Main.game.getPlayer() in this!</b>
+	 * @param enemies A list of enemies you're fighting. The first enemy in the list is considered the leader.
+	 * @param escapePercentage The base chance of escaping in this combat situation. TODO
+	 * @param openingDescriptions A map of opening descriptions for characters. If a description is not provided, one is generated automatically.
+	 * @param escapeBlocked Whether or not escape action is blocked during this combat.
+	 */
+	public void initialiseCombat(
+			List<NPC> allies,
+			NPC enemyLeader,
+			List<NPC> enemies,
+			Map<GameCharacter, String> openingDescriptions,
+			boolean escapeBlocked) {
 		
 		// These should be set manually after initialising combat
 		playerPostVictoryDialogue = null;
@@ -173,26 +186,28 @@ public class Combat {
 		postCombatStringBuilder.setLength(0);
 		combatTurnResolutionStringBuilder.setLength(0);
 		
-		
-
-		escapeChance = ((NPC) enemies.get(0)).getEscapeChance();
-		if (Main.game.getPlayer().hasTrait(Perk.RUNNER, true)) {
-			escapeChance *= 1.5f;
-		} else if (Main.game.getPlayer().hasTrait(Perk.RUNNER_2, true)) {
-			escapeChance *= 2f;
-		}
-		if(escapeChance >0 && Main.game.getPlayer().hasTrait(Perk.JOB_ATHLETE, true)) {
-			escapeChance = 100;
-		}
-		if(escapeChance >0 && Main.game.getPlayer().getSubspecies()==Subspecies.CAT_MORPH_CHEETAH) {
-			boolean cheetahEnemy = false;
-			for(GameCharacter enemy : getEnemies(Main.game.getPlayer())) {
-				if(enemy.getSubspecies()==Subspecies.CAT_MORPH_CHEETAH) {
-					cheetahEnemy = true;
-				}
+		if(escapeBlocked) {
+			escapeChance = 0;
+		} else {
+			escapeChance = ((NPC) enemies.get(0)).getEscapeChance();
+			if (Main.game.getPlayer().hasTrait(Perk.RUNNER, true)) {
+				escapeChance *= 1.5f;
+			} else if (Main.game.getPlayer().hasTrait(Perk.RUNNER_2, true)) {
+				escapeChance *= 2f;
 			}
-			if(!cheetahEnemy) {
+			if(escapeChance >0 && Main.game.getPlayer().hasTrait(Perk.JOB_ATHLETE, true)) {
 				escapeChance = 100;
+			}
+			if(escapeChance >0 && Main.game.getPlayer().getSubspecies()==Subspecies.CAT_MORPH_CHEETAH) {
+				boolean cheetahEnemy = false;
+				for(GameCharacter enemy : getEnemies(Main.game.getPlayer())) {
+					if(enemy.getSubspecies()==Subspecies.CAT_MORPH_CHEETAH) {
+						cheetahEnemy = true;
+					}
+				}
+				if(!cheetahEnemy) {
+					escapeChance = 100;
+				}
 			}
 		}
 		
@@ -1167,9 +1182,8 @@ public class Combat {
 		if(move.getStatusEffects(Main.game.getPlayer(), moveTarget, isCrit)!=null && !move.getStatusEffects(Main.game.getPlayer(), moveTarget, isCrit).isEmpty()) {
 			for(Entry<AbstractStatusEffect, Integer> entry : move.getStatusEffects(Main.game.getPlayer(), moveTarget, isCrit).entrySet()) {
 				moveStatblock.append("Applies <b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName(moveTarget))+"</b>"
-						+ " for <b>"+entry.getValue()+(entry.getValue()==1?" turn":" turns")+"</b>");
+						+ " for <b>"+entry.getValue()+(entry.getValue()==1?" turn":" turns")+"</b><br/>");
 			}
-			moveStatblock.append("<br/>");
 		}
 		
 		StringBuilder critText = new StringBuilder();

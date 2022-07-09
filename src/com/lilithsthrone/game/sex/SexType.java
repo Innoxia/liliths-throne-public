@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -177,8 +178,8 @@ public class SexType implements XMLSaving {
 		return new SexType(getAsParticipant(), getTargetedSexArea(), getPerformingSexArea());
 	}
 	
-	public List<Fetish> getRelatedFetishes(GameCharacter characterPerforming, GameCharacter characterTargeted, boolean isPenetration, boolean isOrgasm) {
-		List<Fetish> fetishes = new ArrayList<>();
+	public List<AbstractFetish> getRelatedFetishes(GameCharacter characterPerforming, GameCharacter characterTargeted, boolean isPenetration, boolean isOrgasm) {
+		List<AbstractFetish> fetishes = new ArrayList<>();
 		
 		// Self areas:
 		
@@ -376,10 +377,10 @@ public class SexType implements XMLSaving {
 		return fetishes;
 	}
 	
-	public List<Fetish> getOppositeFetishes(GameCharacter characterPerforming, GameCharacter characterTargeted, boolean isPenetration, boolean isOrgasm) {
-		List<Fetish> oppositeFetishes = new ArrayList<>();
-		for(Fetish f : getRelatedFetishes(characterPerforming, characterTargeted, isPenetration, isOrgasm)) {
-			Fetish opposite = f.getOpposite();
+	public List<AbstractFetish> getOppositeFetishes(GameCharacter characterPerforming, GameCharacter characterTargeted, boolean isPenetration, boolean isOrgasm) {
+		List<AbstractFetish> oppositeFetishes = new ArrayList<>();
+		for(AbstractFetish f : getRelatedFetishes(characterPerforming, characterTargeted, isPenetration, isOrgasm)) {
+			AbstractFetish opposite = f.getOpposite();
 			if(opposite != null) {
 				oppositeFetishes.add(f.getOpposite());
 			}

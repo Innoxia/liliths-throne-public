@@ -284,7 +284,9 @@ public class DominionPlaces {
 		}
 		
 		if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.DOMINION_CALLIE_BAKERY) {
-			if(Main.game.isWorkTime()) {
+			int hourOpen = !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("nnxx_callie_upgrade_2"))?7:9;
+			int hourClose = !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("nnxx_callie_upgrade_2"))?17:15;
+			if(Main.game.isHourBetween(hourOpen, hourClose) && Main.game.getDayOfWeek()!=DayOfWeek.SUNDAY) {
 				mommyResponses.add(new Response("The Creamy Bakey",
 						"Head over to the nearby bakery, 'The Creamy Bakey', and take a look inside."
 								+ "<br/><i>The bakery is open from [style.italicsMinorGood([unit.time(9)]-[unit.time(17)])].</i>",
@@ -300,7 +302,14 @@ public class DominionPlaces {
 			} else {
 				mommyResponses.add(new Response("The Creamy Bakey",
 						"The nearby bakery, 'The Creamy Bakey', is closed at this time of day."
-								+ "<br/><i>You'll have to come back between [style.italicsMinorBad([unit.time(9)]-[unit.time(17)])].</i>",
+								+ "<br/><i>You'll have to come back between"
+								+ (Main.game.isHourBetween(hourOpen, hourClose)
+										?" [style.italicsMinorGood([unit.time("+hourOpen+")]-[unit.time("+hourClose+")])],"
+										:" [style.italicsMinorBad([unit.time("+hourOpen+")]-[unit.time("+hourClose+")])],")
+								+ (Main.game.getDayOfWeek()!=DayOfWeek.SUNDAY
+										?" [style.italicsMinorGood(Monday to Saturday)]"
+										:" [style.italicsMinorBad(Monday to Saturday)]")
+								+ ".</i>",
 						null));
 			}
 		}

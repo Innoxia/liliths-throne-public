@@ -9,12 +9,14 @@ import java.util.List;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.markings.TattooType;
@@ -1958,6 +1960,8 @@ public class CharacterCreation {
 		if(!imported) {
 			Main.game.getPlayer().setAgeAppearanceDifference(-Game.TIME_SKIP_YEARS);
 		}
+
+		Main.game.getPlayer().addSpecialPerk(Perk.SPECIAL_PLAYER);
 		
 		moveNPCOutOfPlayerTile();
 	}
@@ -2149,7 +2153,9 @@ public class CharacterCreation {
 				+ "</td>"
 				+ "</tr>";
 	}
-	
+
+	private static boolean resetImportedCharacter = false;
+
 	public static final DialogueNode START_GAME_WITH_IMPORT = new DialogueNode("Start game", "", true) {
 		
 		@Override
@@ -2179,6 +2185,9 @@ public class CharacterCreation {
 				return new Response("Start", "Use this character and start the game at the very beginning.", INTRO_2_FROM_IMPORT){
 					@Override
 					public void effects() {
+						if(resetImportedCharacter){
+							resetPlayerCharacter();
+						}
 						Main.game.getPlayer().resetAllQuests();
 						Main.game.getPlayer().getCharactersEncountered().clear();
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.MAIN));
@@ -2191,6 +2200,10 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 						Main.game.setRenderMap(true);
+						if(resetImportedCharacter){
+							resetPlayerCharacter();
+						}
+						Main.game.getPlayer().setMoney(5000);
 
 						Main.game.getPlayer().resetAllQuests();
 						Main.game.getPlayer().getCharactersEncountered().clear();
@@ -2231,7 +2244,20 @@ public class CharacterCreation {
 						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 					}
 				};
-				
+
+			} else if (index == 5) {
+				return new ResponseEffectsOnly(resetImportedCharacter
+						?"Reset Character: <span style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>ON</span>"
+						:"Reset Character: <span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>OFF</span>",
+						"Resets experience and flames to 0 and clears your entire inventory, except equipped clothing and weapons. " +
+								"Spells and spell perks are removed as well."){
+					@Override
+					public void effects(){
+						resetImportedCharacter = !resetImportedCharacter;
+					}
+				};
+
+
 			} else if (index == 0) {
 				return new ResponseEffectsOnly("Back", "Return to new game screen."){
 					@Override
@@ -2250,7 +2276,17 @@ public class CharacterCreation {
 			}
 		}
 	};
-	
+
+	private static void resetPlayerCharacter(){
+		PlayerCharacter player = Main.game.getPlayer();
+		player.clearNonEquippedInventory(true);
+		player.setEssenceCount(0);
+		player.incrementExperience(player.getExperienceNeededForNextLevel(player.getLevel()), false);
+		player.setLevel(1);
+		player.resetSpells();
+		player.resetPerksMap(false);
+	}
+
 	public static final DialogueNode INTRO_2_FROM_IMPORT = new DialogueNode("In the Museum", "", true) {
 
 		@Override

@@ -5,22 +5,25 @@
 
 	<htmlContent tag="ROOM_ARTHUR_INSTALLATION"><![CDATA[
 	<p>
-		Deciding that this room would be suitable to convert for Arthur's use, you walk over to the bell-pull in one corner and give it a tug. After just a few moments, Rose steps through the door, before curtsying and greeting you, [rose.speech(Is there anything you need, [pc.name]?)]
+		Sensing that Lilaya's temper is about to flare up again, you quickly head over to the door which leads into the adjacent storeroom. Sure enough, by the time you've made your way across the lab, you hear Lilaya's voice raise into shouts and screams again. Finding yourself glad to not be in Arthur's position right now, you open the door and [pc.step] into the room beyond, where you find Rose waiting for you.
 	</p>
 	<p>
-		[pc.speech(I've decided that this would be the best place for Arthur to have as his room,)] you reply, and, deciding that you'd like to get it set up as quickly as possible, you continue, [pc.speech(If you show me what needs moving in here, I can give you a hand.)]
+		[rose.speech(Good [style.morning], [pc.name],)] the cat-girl maid says as she performs a curtsy. Gesturing to the stacks of cardboard boxes which fill this storeroom, she continue, [rose.speech(With your help, I should be able to get all of this cleared in no time. There's another storeroom a short distance down the hallway. We can move these boxes to there. Please grab one and follow me.)] 
 	</p>
 	<p>
-		Thanking you for the offer of help, Rose proceeds to lead you to a storage cupboard, where a significant amount of spare lab equipment is being kept. After showing you which of the items Arthur will need in order to carry out experiments for Lilaya, Rose picks up one of the smaller desks and sets off in the direction of the room. Following her lead, you start moving furniture into Arthur's new room, and after just half an hour, you manage to get all of the work finished.
+		Doing as she says, you grab a box and follow Rose as she proceeds to lead you through another door and out into the ground floor's circular hallway. A short way down this hallway, you find yourself being led into a storage cupboard, in which Rose instructs you to place your box in the far corner. Over the next half an hour the two of you repeat this process several dozen more times, until finally only a bed, a couple of wardrobes, and the equipment that Arthur will need to carry out his experiments is left in the now-spacious storeroom. 
 	</p>
 	<p>
-		[rose.speech(I'll fetch mistress,)] Rose says, before slipping out of the room.
+		[rose.speech(All that's left is for me to quickly dust this room,)] Rose says as your task comes to an end.
 	</p>
 	<p>
-		After just a couple of minutes, the door pushes open again, and Rose steps into the room, followed by Arthur. [rose.speech(Here you are, sir. If there's anything you need, please use the bell-pull to call for me.)]
+		Leaving the cat-girl maid to her duty, you return to the lab to tell Arthur that his room is ready. Catching him on the receiving end of yet another of Lilaya's lectures, you have to wait until your demonic [lilaya.relation(pc)] is finished before giving him the good news. Placing her hands on her hips as she hears that Arthur's room is ready, Lilaya tuts, [lilaya.speech(It really is a great inconvenience to have to let you stay here, Arthur. Then again, I suppose that we can't afford for you to go missing again until we've found a way to help [pc.name]. Just try not to make too much noise in there while I'm working.)]
 	</p>
 	<p>
-		With that, Rose exits the room once again, leaving you alone with Arthur. He lets out a deep sigh as he walks over to sit on his new bed, before looking up at you and smiling. [arthur.speech(I don't think I've said it properly yet, so thank you [pc.name], for rescuing me.)]
+		With that, Lilaya dismisses the two of you with a wave of her hand, and so Arthur, with a very relieved look on his face, hurries to follow you into his newly-prepared room. As you enter, you see that Rose has already finished dusting, and after curtsying towards you, she addresses Arthur, [rose.speech(Your room is ready, sir. If there's anything you need, please use the bell-pull to call for me.)]
+	</p>
+	<p>
+		With that, Rose exits the room, leaving you alone with Arthur. He lets out a deep sigh as he walks over to sit on his new bed, before looking up at you and smiling. [arthur.speech(I don't think I've said it properly yet, so thank you [pc.name], for rescuing me.)]
 	</p>
 	<p>
 		[pc.speech(You're welcome,)] you reply. [pc.speech(So do you think you can figure out how I was transported into your world? Lilaya told me that you're the best arcane researcher out there...)]

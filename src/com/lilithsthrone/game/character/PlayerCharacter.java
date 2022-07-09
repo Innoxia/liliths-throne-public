@@ -35,6 +35,7 @@ import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -514,8 +515,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 								int questIncrement=0;
 								while(!questString.isEmpty()) {
 									quest = Quest.getQuestFromId(questString);
-	
-									questList.add(quest);
+									if(quest!=Quest.MAIN_1_J_ARTHURS_ROOM) {
+										questList.add(quest);
+									}
 									
 									questIncrement++;
 									questString = e.getAttribute("q"+questIncrement);
@@ -725,6 +727,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			}
 		}
 
+		if(Main.isVersionOlderThan(version, "0.4.4.2")) {
+			if(character.getQuest(QuestLine.MAIN)==Quest.MAIN_1_J_ARTHURS_ROOM) {
+				character.setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_I_ARTHURS_TALE);
+			}
+		}
+		
 		if(debug) {
 			System.out.println("Player loading finished: "+((System.nanoTime()-time)/1000000000d));
 		}
@@ -832,7 +840,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			super.setLocation(worldLocation, location, setAsHomeLocation);
 			
 			AbstractPlaceType place = Main.game.getWorlds().get(WorldType.SUBMISSION).getCell(location).getPlace().getPlaceType();
-			if(place.equals(PlaceType.SUBMISSION_LILIN_PALACE_GATE) || place.equals(PlaceType.SUBMISSION_LILIN_PALACE)) {
+			if(Main.game.isStarted() && Main.game.getNpc(Elizabeth.class)!=null && (place.equals(PlaceType.SUBMISSION_LILIN_PALACE_GATE) || place.equals(PlaceType.SUBMISSION_LILIN_PALACE))) {
 				Main.game.getNpc(Elizabeth.class).setLocation(this, false);
 			}
 			
@@ -895,7 +903,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			}
 			return Util.newHashSetOfValues(Relationship.Nibling);
 		}
-		if(character.getRace()==Race.DEMON) {
+		if(this.getRace()==Race.DEMON) {
 			if(character instanceof Lyssieth) {
 				return Util.newHashSetOfValues(Relationship.Parent);
 			}
@@ -1810,7 +1818,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					+ "</p>"
 					+ "<p style='text-align:center;'>"
 						+ "[pc.thought(This is how I lose my virginity?!<br/>"
-								+ "To... <i>[npc.a_race]</i>?!<br/>"
+								+ "To...<i>"
+								+ (characterPenetrating.isSlave() && characterPenetrating.getOwner().isPlayer()
+										?" my own slave"
+										:" [npc.a_race]")
+								+ "</i>?!<br/>"
 								+ "This can't be happening!)]"
 					+ "</p>"
 					+ "<p>"
@@ -1955,7 +1967,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 			sb.append("<p style='text-align:center;'>"
 										+ "[style.italicsArcane(Due to [npc.namePos] deflowering fetish, [npc.she] [npc.verb(gain)])]"
-										+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
+										+ " [style.italicsExperience("+AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
 								+ "</p>");
 		}
 		
@@ -2166,7 +2178,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 			sb.append("<p style='text-align:center;'>"
 						+ "[style.italicsArcane(Due to [npc.namePos] deflowering fetish, [npc.she] [npc.verb(gain)])]"
-						+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
+						+ " [style.italicsExperience("+AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
 					+ "</p>");
 		}
 		
@@ -2186,7 +2198,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				+(characterPenetrated.hasFetish(Fetish.FETISH_DEFLOWERING)
 						?"<p style='text-align:center;'>"
 							+ "[style.italicsArcane(Due to [npc.namePos] deflowering fetish, [npc.she] [npc.verb(gain)])]"
-								+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrated)+")] [style.italicsArcane(experience!)]"
+								+ " [style.italicsExperience("+AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrated)+")] [style.italicsArcane(experience!)]"
 						+ "</p>"
 						:""));
 	}
@@ -2204,7 +2216,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
 						?"<p style='text-align:center;'>"
 							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
-								+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
+								+ " [style.italicsExperience("+AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
 						+ "</p>"
 						:""));
 	}
@@ -2222,7 +2234,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
 						?"<p style='text-align:center;'>"
 							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
-								+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
+								+ " [style.italicsExperience("+AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
 						+ "</p>"
 						:""));
 	}
@@ -2240,7 +2252,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
 						?"<p style='text-align:center;'>"
 							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
-								+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
+								+ " [style.italicsExperience("+AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
 						+ "</p>"
 						:""));
 	}
@@ -2258,7 +2270,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
 						?"<p style='text-align:center;'>"
 							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
-								+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
+								+ " [style.italicsExperience("+AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
 						+ "</p>"
 						:""));
 	}
@@ -2276,7 +2288,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
 						?"<p style='text-align:center;'>"
 							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
-								+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
+								+ " [style.italicsExperience("+AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
 						+ "</p>"
 						:""));
 	}

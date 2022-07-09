@@ -31,6 +31,7 @@ public class ChairSex {
 
 	private static boolean checkBaseRequirements(PositioningData data, boolean request) {
 		return Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
+				&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(data.getPosition())
 				&& !(Main.sex.getPosition() == data.getPosition()
 					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==data.getPerformerSlots().get(0)
 					&& Main.sex.getSexPositionSlot(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))==data.getPartnerSlots().get(0))
@@ -623,7 +624,7 @@ public class ChairSex {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isSittingAvailable(Main.sex.getCharacterPerformingAction())
+			return isSittingAvailable(Main.sex.getCharacterTargetedForSexAction(this))
 					&& checkBaseRequirements(data, false);
 		}
 		@Override
@@ -668,7 +669,7 @@ public class ChairSex {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isSittingAvailable(Main.sex.getCharacterPerformingAction())
+			return isSittingAvailable(Main.sex.getCharacterTargetedForSexAction(this))
 					&& checkBaseRequirements(data, true);
 		}
 		@Override
@@ -736,7 +737,7 @@ public class ChairSex {
 							return "Roughly pushing [npc2.name] down, [npc.name] [npc.verb(straddle)] [npc2.her] lap, leaning forwards to glare into [npc2.her] eyes as [npc.she] [npc.moansVerb],"
 									+ " [npc.speech(Alright, slut, I'll take you for a ride!)]";
 						default:
-							return "Pushing [npc2.name] down, [npc.name] steps forwards and [npc.verb(straddle)] [npc2.her] lap, leaning forwards to gaze into [npc2.her] eyes as [npc.she] [npc.moansVerb],"
+							return "Pushing [npc2.name] down, [npc.name] [npc.steps] forwards and [npc.verb(straddle)] [npc2.her] lap, leaning forwards to gaze into [npc2.her] eyes as [npc.she] [npc.moansVerb],"
 									+ " [npc.speech(Sure, I'll take you for a ride...)]";
 					}
 					

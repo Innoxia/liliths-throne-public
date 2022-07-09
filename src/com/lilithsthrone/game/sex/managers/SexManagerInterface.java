@@ -95,6 +95,10 @@ public interface SexManagerInterface {
 	public default boolean isSadisticActionsAllowed() {
 		return true;
 	}
+
+	public default boolean isLovingActionsAllowed() {
+		return true;
+	}
 	
 	public default String getStartSexDescription() {
 		return "";
@@ -761,6 +765,14 @@ public interface SexManagerInterface {
 	
 	public default String getRoughTalk(GameCharacter character) {
 		return character.getRoughTalk();
+	}
+
+	public default String getLovingTalk(GameCharacter character) {
+		return character.getLovingTalk();
+	}
+
+	public default String getLovingResponseTalk(GameCharacter character) {
+		return character.getLovingResponseTalk();
 	}
 	
 	public default String getSubmissiveTalk(GameCharacter character) {
