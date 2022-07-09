@@ -13,8 +13,6 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +52,7 @@ public final class PluginLoader {
 	private static PluginLoader INSTANCE = null;
 
 	private HashSet<BasePlugin> plugins = new HashSet<BasePlugin>();
-	HashSet<UUID> loadedPlugins = new HashSet<UUID>();
+	private HashSet<UUID> loadedPlugins = new HashSet<UUID>();
 
 	private File modDir;
 	private DocumentBuilderFactory dbf;
@@ -225,7 +223,7 @@ public final class PluginLoader {
 					try {
 						fetish = ((AbstractFetish) f.get(null));
 						stockFetishes.add(fetish);
-						Fetish.addFetish(p, f.getName(), f);
+						Fetish.addFetish(null, f.getName(), fetish);
 					} catch (IllegalArgumentException | IllegalAccessException e) {
 						e.printStackTrace();
 					}
@@ -251,6 +249,8 @@ public final class PluginLoader {
 
 
 	private List<AbstractFetish> allFetishes = null;
+	private HashSet<AbstractFetish> notIncludedInPotions = null;
+	private List<FetishGroup> allFetishGroups = null;
 	public List<AbstractFetish> getAllFetishes() {
 		if (allFetishes == null) {
 			allFetishes = new ArrayList<AbstractFetish>();
@@ -345,7 +345,7 @@ public final class PluginLoader {
 			this.stockFetishes.add(dom);
 		if(!this.stockFetishes.contains(sub))
 			this.stockFetishes.add(sub);
-		this.allFetishGroups.add(new RelatedFetishGroup(dom,sub));
+		this.allFetishGroups .add(new RelatedFetishGroup(dom,sub));
 	}
 
 	private void registerLonerStockFetish(AbstractFetish f) {

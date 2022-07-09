@@ -3823,7 +3823,7 @@ public class PhoneDialogue {
 			for(FetishGroup fg : PluginLoader.getInstance().getAllFetishGroups()) {
 				if(fg instanceof RelatedFetishGroup) {
 					rfg=(RelatedFetishGroup)fg;
-					journalSB.append(getFetishEntry(rfg.getDominantFetish(), rfg.getSubmissiveFetish()));
+					journalSB.append(getFetishEntry(Main.game.getPlayer(), rfg.getDominantFetish(), rfg.getSubmissiveFetish()));
 				}
 				else if(fg instanceof LooseFetishGroup) {
 					loners.add(((LooseFetishGroup)fg).getMember());
@@ -3832,7 +3832,7 @@ public class PhoneDialogue {
 			// Loners get combined at the bottom.
 			int sz=loners.size();
 			for(int i = 0;i<sz;i+=2) {
-				journalSB.append(getFetishEntry(loners.get(i),
+				journalSB.append(getFetishEntry(Main.game.getPlayer(), loners.get(i),
 						(i+1 == sz) ? null : loners.get(i+1)));
 			}
 			
@@ -3844,7 +3844,7 @@ public class PhoneDialogue {
 			for(AbstractFetish fetish : Fetish.getAllFetishes()) {
 				if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 					journalSB.append(
-							"<div id='fetishUnlock" + Fetish.getIdFromFetish(fetish) + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
+							"<div id='fetishUnlock" + fetish.getID() + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
 							? " owned' style='border:2px solid " + PresetColour.FETISH.getShades()[1] + ";'>"
 							: (fetish.isAvailable(Main.game.getPlayer())
 									? " unlocked' style='border:2px solid " +  PresetColour.TEXT_GREY.toWebHexString() + ";" + "'>"

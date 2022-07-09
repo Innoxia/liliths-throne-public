@@ -31,7 +31,7 @@ public class BasePlugin {
 
 	public HashSet<GameCharacter> providedGameCharacters = new HashSet<GameCharacter>();
 
-	private List<AbstractFetish> fetishes = new ArrayList<AbstractFetish>();
+	public List<AbstractFetish> fetishes = new ArrayList<AbstractFetish>();
 	private List<FetishGroup> fetishGroups = new ArrayList<FetishGroup>();
 
 	/**

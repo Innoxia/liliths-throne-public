@@ -5,7 +5,7 @@ package com.lilithsthrone.modding.fetishes;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -55,32 +55,29 @@ public abstract class AbstractModFetish extends AbstractFetish {
 		// constructors with IDs in them.");
 	}
 
+	
 	@Override
-	protected void fetchSVG() {
-		if (SVGString == null) {
-			String realFilePath = PluginUtils.GetModPath(getClass())
-					.resolve("fetishes")
-					.resolve(pathName + ".svg")
-					.toString();
-			try {
-				File f = new File(realFilePath);
-				if(!f.isFile()) {
-					System.err.println("Error! Fetish icon file does not exist (Trying to read from '"+realFilePath+"')!");
-				}
-				else if(!f.canRead()) {
-					System.err.println("Error! Fetish icon file is not readable (Trying to read from '"+realFilePath+"')!");
-				}
-				System.err.println("Reading "+realFilePath);
-				
-				InputStream is = new FileInputStream(f);
-				SVGString = Util.inputStreamToString(is);
-				
-				is.close();
-				System.err.println("Read "+realFilePath+" successfully.");
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.err.println("Failed to read "+realFilePath);
-			}
+	protected InputStream getInputStreamForSVG() {
+		String realFilePath = PluginUtils.GetModPath(getClass())
+				.resolve("fetishes")
+				.resolve(pathName + ".svg")
+				.toString();
+		File f = new File(realFilePath);
+		if(!f.isFile()) {
+			System.err.println("Error! Fetish icon file does not exist (Trying to read from '"+realFilePath+"')!");
 		}
+		else if(!f.canRead()) {
+			System.err.println("Error! Fetish icon file is not readable (Trying to read from '"+realFilePath+"')!");
+		}
+		
+		System.err.println("Reading "+realFilePath);
+		
+		try {
+			return new FileInputStream(f);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

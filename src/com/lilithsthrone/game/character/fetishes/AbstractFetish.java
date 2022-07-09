@@ -34,8 +34,8 @@ public abstract class AbstractFetish {
 	private int experienceGainFromSexAction;
 	private HashMap<AbstractAttribute, Integer> attributeModifiers;
 
-	private String pathName;
-	private String SVGString;
+	protected String pathName;
+	protected String SVGString;
 	private List<Colour> colourShades;
 
 	private List<String> extraEffects;
@@ -243,21 +243,16 @@ public abstract class AbstractFetish {
     public List<String> getExtraEffects(GameCharacter owner) {
         return extraEffects;
     }
-
 	public String getSVGString(GameCharacter owner) {
 		if (SVGString == null) {
 			if (pathName != null && !pathName.isEmpty()) {
 				try {
-					InputStream is = this.getClass()
-							.getResourceAsStream("/com/lilithsthrone/res/fetishes/" + pathName + ".svg");
+					InputStream is = getInputStreamForSVG();
 					if (is == null) {
 						System.err.println("Error! Fetish icon file does not exist (Trying to read from '" + pathName + "')!");
 					}
 					SVGString = Util.inputStreamToString(is);
-					SVGString = SvgUtil.colourReplacement(this.getId(), colourShades, null, SVGString);
-					// SVGString = SvgUtil.colourReplacement(this.getId(), colourShades.get(0),
-					// colourShades.size()>=2?colourShades.get(1):null,
-					// colourShades.size()>=3?colourShades.get(2):null, SVGString);
+					SVGString = SvgUtil.colourReplacement(this.getID(), colourShades, null, SVGString);
 					is.close();
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -268,6 +263,10 @@ public abstract class AbstractFetish {
 			}
 		}
 		return SVGString;
+	}
+
+	protected InputStream getInputStreamForSVG() {
+		return this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/" + pathName + ".svg");
 	}
 
     public static int getExperienceGainFromTakingVaginalVirginity(GameCharacter owner) {
@@ -318,7 +317,7 @@ public abstract class AbstractFetish {
 	public final void assignID(BasePlugin plugin, String id) {
 		if(this.id==null) {
 			if(plugin == null) {
-				// FETISH_ID
+				// FETISH_ID (stock only)
 				this.id = id;
 			} else {
 				// UUID_FETISH_ID
@@ -333,5 +332,9 @@ public abstract class AbstractFetish {
 	
 	public String toString() {
 		return this.getID();
+	}
+
+	public String getAppliedFetishLevelEffectDescription(GameCharacter character) {
+		return null;
 	}
 }

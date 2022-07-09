@@ -1,29 +1,20 @@
 package com.lilithsthrone.game.character.fetishes;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.effects.AbstractPerk;
-import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.modding.BasePlugin;
 import com.lilithsthrone.modding.PluginLoader;
-import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -2290,7 +2281,8 @@ public class Fetish {
 		fetishToIdMap.put(fetish, fetish.getID());
 		idToFetishMap.put(fetish.getID(), fetish);
 		allFetishes.add(fetish);
-		plugin.fetishes.add(fetish);
+		if (plugin != null)
+			plugin.fetishes.add(fetish);
 	}
 	
 	/**
