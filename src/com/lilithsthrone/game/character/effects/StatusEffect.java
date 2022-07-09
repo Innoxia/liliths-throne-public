@@ -35,6 +35,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -3738,7 +3739,8 @@ public class StatusEffect {
 			StringBuilder sb = new StringBuilder();
 			
 			if (target.isPregnant()) {
-				target.addStatusEffect(PREGNANT_1, 60 * 60 * (72 + Util.random.nextInt(13)));
+				int maxHourLength = (int)((Main.getProperties().pregnancyDuration * 7 * 24) / 2f);
+				target.addStatusEffect(PREGNANT_1, 60 * 60 * ((maxHourLength-12) + Util.random.nextInt(13)));
 				target.loadImages(true); // Reload images for pregnant versions
 				
 				if (target.isPlayer() && !((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
@@ -3926,12 +3928,12 @@ public class StatusEffect {
 							+ (target.getBodyMaterial()==BodyMaterial.SLIME
 								?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
 									+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of [npc.herHim]."
-								:" Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll move onto the next stage in a matter of days."));
+								:" Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll move onto the next stage with alarming speed."));
 		}
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
-
-			target.addStatusEffect(PREGNANT_2, 60 * 60 * (72 + Util.random.nextInt(13)));
+			int maxHourLength = (int)((Main.getProperties().pregnancyDuration * 7 * 24) / 2f);
+			target.addStatusEffect(PREGNANT_2, 60 * 60 * ((maxHourLength-12) + Util.random.nextInt(13)));
 			
 			boolean breastGrowth = false;
 			if(Main.getProperties().pregnancyBreastGrowth>0 && target.getBreastRawSizeValue()<Main.getProperties().pregnancyBreastGrowthLimit) {
@@ -4041,7 +4043,7 @@ public class StatusEffect {
 							+ (target.getBodyMaterial()==BodyMaterial.SLIME
 								?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
 									+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of [npc.herHim]..."
-								:" Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll move onto the final stage in a matter of days."));
+								:" Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll move onto the final stage with alarming speed."));
 		}
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
@@ -11272,9 +11274,9 @@ public class StatusEffect {
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			List<String> modList = new ArrayList<>();
-			List<Fetish> orderedFetishList = new ArrayList<>();
+			List<AbstractFetish> orderedFetishList = new ArrayList<>();
 			
-			for(Fetish f : Fetish.values()) {
+			for(AbstractFetish f : Fetish.getAllFetishes()) {
 				FetishDesire desire = target.getFetishDesire(f);
 				if(desire!=FetishDesire.TWO_NEUTRAL) {
 					orderedFetishList.add(f);
@@ -11282,7 +11284,7 @@ public class StatusEffect {
 			}
 			orderedFetishList.sort((e1, e2) -> target.getFetishDesire(e2).compareTo(target.getFetishDesire(e1)));
 
-			for(Fetish f : orderedFetishList) {
+			for(AbstractFetish f : orderedFetishList) {
 				FetishDesire desire = target.getFetishDesire(f);
 				modList.add("<b style='color:"+desire.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(desire.getNameAsVerb())+"</b>: "+Util.capitaliseSentence(f.getShortDescriptor(target)));
 			}

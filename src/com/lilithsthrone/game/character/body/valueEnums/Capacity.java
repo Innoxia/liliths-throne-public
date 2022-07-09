@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -11,22 +13,22 @@ import com.lilithsthrone.utils.colours.PresetColour;
  * Measured in cm of <b>diameter</b> of a penetrative object which could fit comfortably within an orifice.
  * 
  * @since 0.1.0
- * @version 0.3.7.3
+ * @version 0.4
  * @author Innoxia
  */
 public enum Capacity {
 	
-	ZERO_IMPENETRABLE("extremely tight", "tight", 0f, 1f, PresetColour.GENERIC_SIZE_ONE),
+	ZERO_IMPENETRABLE("extremely tight", "tight", 0f, 1f, PresetColour.GENERIC_SIZE_ONE, false),
 	
-	ONE_EXTREMELY_TIGHT("tight", "tight", 1f, 2.5f, PresetColour.GENERIC_SIZE_TWO),
+	ONE_EXTREMELY_TIGHT("tight", "tight", 1f, 2.5f, PresetColour.GENERIC_SIZE_TWO, false),
 	
-	TWO_TIGHT("somewhat tight", "tight", 2.5f, 5f, PresetColour.GENERIC_SIZE_THREE),
+	TWO_TIGHT("somewhat tight", "tight", 2.5f, 5f, PresetColour.GENERIC_SIZE_THREE, false),
 	
-	THREE_SLIGHTLY_LOOSE("slightly loose", "loose", 5f, 7.5f, PresetColour.GENERIC_SIZE_FOUR),
+	THREE_SLIGHTLY_LOOSE("slightly loose", "loose", 5f, 7.5f, PresetColour.GENERIC_SIZE_FOUR, false),
 	
-	FOUR_LOOSE("loose", "loose", 7.5f, 10f, PresetColour.GENERIC_SIZE_FIVE),
+	FOUR_LOOSE("loose", "loose", 7.5f, 10f, PresetColour.GENERIC_SIZE_FIVE, false),
 	
-	FIVE_ROOMY("very loose", "loose", 10f, 12.5f, PresetColour.GENERIC_SIZE_SIX) {
+	FIVE_ROOMY("very loose", "loose", 10f, 12.5f, PresetColour.GENERIC_SIZE_SIX, true) {
 		@Override
 		public String getDescriptor() {
 			if(!Main.game.isGapeContentEnabled()) {
@@ -43,7 +45,7 @@ public enum Capacity {
 		}
 	},
 	
-	SIX_STRETCHED_OPEN("stretched open", "gaping", 12.5f, 15f, PresetColour.GENERIC_SIZE_SEVEN) {
+	SIX_STRETCHED_OPEN("stretched open", "gaping", 12.5f, 15f, PresetColour.GENERIC_SIZE_SEVEN, true) {
 		@Override
 		public String getDescriptor() {
 			if(!Main.game.isGapeContentEnabled()) {
@@ -60,7 +62,7 @@ public enum Capacity {
 		}
 	},
 	
-	SEVEN_GAPING("gaping wide", "gaping", 15f, 25f, PresetColour.GENERIC_SIZE_EIGHT) {
+	SEVEN_GAPING("gaping wide", "gaping", 15f, 25f, PresetColour.GENERIC_SIZE_EIGHT, true) {
 		@Override
 		public String getDescriptor() {
 			if(!Main.game.isGapeContentEnabled()) {
@@ -83,8 +85,9 @@ public enum Capacity {
 	private float minimumSizeComfortable;
 	private float maximumSizeComfortable;
 	private Colour colour;
+	private boolean gapeContentRestricted;
 
-	private Capacity(String descriptor, String speechDescriptor, float minimumSizeComfortable, float maximumSizeComfortable, Colour colour) {
+	private Capacity(String descriptor, String speechDescriptor, float minimumSizeComfortable, float maximumSizeComfortable, Colour colour, boolean gapeContentRestricted) {
 		this.descriptor = descriptor;
 		this.speechDescriptor = speechDescriptor;
 
@@ -92,6 +95,7 @@ public enum Capacity {
 		this.maximumSizeComfortable = maximumSizeComfortable;
 		
 		this.colour=colour;
+		this.gapeContentRestricted = gapeContentRestricted;
 	}
 
 	/** @return The minimum diameter that this Capacity can handle without it feeling too small. */
@@ -175,20 +179,20 @@ public enum Capacity {
 		return getDescriptor();
 	}
 
-	//TODO change:
-	
-//	/** @return The maximum PenisLength, assuming a default diameter, that this Capacity can handle without it feeling too big. */
-//	public PenisLength getMaximumSizeComfortable() {
-//		return maximumSizeComfortable;
-//	}
-//
-//	/** @return The maximum PenisLength, assuming a default diameter, that this Capacity can handle without it feeling too big. */
-//	public PenisLength getMaximumSizeComfortableWithLube() {
-//		return maximumSizeComfortableWithLube;
-//	}
-
 	public Colour getColour() {
 		return colour;
+	}
+	
+	public static List<Capacity> getCapacityListFromPreferences() {
+		List<Capacity> capacities = new ArrayList<>();
+
+		for(Capacity value : Capacity.values()) {
+			if(!value.gapeContentRestricted || Main.game.isGapeContentEnabled()) {
+				capacities.add(value);
+			}
+		}
+		
+		return capacities;
 	}
 
 }

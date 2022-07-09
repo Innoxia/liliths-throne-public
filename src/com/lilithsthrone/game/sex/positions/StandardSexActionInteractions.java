@@ -652,19 +652,19 @@ public class StandardSexActionInteractions {
 				
 				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 						new SexActionInteractions(
-						Util.mergeMaps(
-								SexActionPresets.penisToThighs,
-								SexActionPresets.penisToAss,
-								SexActionPresets.penisToVagina,
-								SexActionPresets.vaginaToVagina,
-								SexActionPresets.tailToLowerHalf,
-								SexActionPresets.tentacleToLowerHalf,
-								!performer.isTaur()
-									?SexActionPresets.fingerToLowerHalf
-									:null,
-								isAbleToReachTargetUpperTorso
-									?SexActionPresets.fingerToUpperTorso
-									:null),
+								Util.mergeMaps(
+										SexActionPresets.penisToThighs,
+										SexActionPresets.penisToAss,
+										SexActionPresets.penisToVagina,
+										SexActionPresets.vaginaToVagina,
+										SexActionPresets.tailToLowerHalf,
+										SexActionPresets.tentacleToLowerHalf,
+										(!performer.isTaur()
+											?SexActionPresets.fingerToLowerHalf
+											:null),
+										(isAbleToReachTargetUpperTorso
+											?SexActionPresets.fingerToUpperTorso
+											:null)),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.ASS,
 								OrgasmCumTarget.GROIN,
@@ -672,6 +672,7 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.FLOOR),
 						Util.newArrayListOfValues(
+								OrgasmCumTarget.GROIN,
 								OrgasmCumTarget.FLOOR)))));
 			}
 	};

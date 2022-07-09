@@ -272,6 +272,10 @@ public class EyeType {
 				+ "[npc.Name] now [npc.has] [style.boldBatMorph(bat-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
 			"[npc.SheHasFull] [npc.eyePairs] bat-like eyes, the irises and pupils of which are larger than a regular human's."
 				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+		@Override
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.NIGHT_VISION);
+		}
 	};
 
 	public static AbstractEyeType ALLIGATOR_MORPH = new AbstractEyeType(BodyCoveringType.EYE_ALLIGATOR_MORPH,

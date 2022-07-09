@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
@@ -131,6 +132,10 @@ public class ElisAlleywayAttacker extends NPC {
 				this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			}
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+
+			if(hasFetish(Fetish.FETISH_CUM_ADDICT) && Math.random() < 0.1) {
+				Main.game.getCharacterUtils().applyDirtiness(this);
+			}
 			
 			// Set starting perks based on the character's race
 			initPerkTreeAndBackgroundPerks();

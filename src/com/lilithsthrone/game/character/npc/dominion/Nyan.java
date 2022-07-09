@@ -569,6 +569,9 @@ public class Nyan extends NPC {
 	
 	@Override
 	public String getArtworkFolderName() {
+		if(this.isVisiblyPregnant()) {
+			return "NyanPregnant";
+		}
 		return "Nyan";
 		//TODO NyanSpecials
 	}

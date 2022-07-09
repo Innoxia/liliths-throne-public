@@ -223,6 +223,18 @@ input {
 input:focus {
 	background:#444;
 }
+textarea {
+	background:#333;
+	font-family: Calibri, Carlito, sans-serif;
+	font-size:18px; /*font-size:2vw;*/
+	line-height:24px;
+	color: #DDDDDD;
+	border: 2px solid #666;
+	border-radius: 4px;
+}
+textarea:focus {
+	background:#444;
+}
 
 .center {
 	text-align:center;

@@ -372,57 +372,179 @@
 		 [rose.speech(And remember, the next time you see me, you're to treat me as Lilaya's slave once more. Understood?)]
 	</p>
 	<p>
-		[pc.speech(Y-Yes, Mistress,)]
-		 you reply, before quickly gathering your things and hurrying to the door.
-		 Glancing back one last time at Rose, you see her grinning evilly at you.
-		 Letting out a little cry, you quickly turn away and rush off down the corridor, not daring to stop until you're back safe and sound in your own room...
+		[pc.speech(Y-Yes, Mistress,)] you reply, before quickly gathering your things and hurrying to the door. Glancing back one last time at Rose, you see her grinning evilly at you. Letting out a little cry, you quickly turn away and rush off down the corridor, not daring to stop until you're back safe and sound in your own room...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="THREATEN"><![CDATA[
 	<p>
-		You decide that there's only one thing for it.
-		 You'll have to threaten Rose into silence.
-		 Standing up, you quickly stride forwards until you're standing just in front of Rose, and, putting on your most menacing tone, you growl at her,
-		 [pc.speech(You'd <i>better</i> not tell Lilaya about all this. You'll be sorry if you do!)]
+		You decide that there's only one thing for it. You'll have to threaten Rose into silence. Standing up, you quickly stride forwards until you're standing just in front of Rose, and, putting on your most menacing tone, you growl at her, [pc.speech(You'd <i>better</i> not tell Lilaya about all this. You'll be sorry if you do!)]
 	</p>
 	<p>
-		Completely unfazed by your aggressive action, Rose stares into your eyes and coolly replies,
-		 [rose.speech(I don't think it's wise to threaten the property of the person whose house this is.
-		 I'll forget about what you just said, but don't you <i>dare</i> try anything like that again.)]
+		Completely unfazed by your aggressive action, Rose stares into your eyes and coolly replies, [rose.speech(It's really not very wise to threaten me. Let's find out what Mistress has to say about your actions, shall we?)]
 	</p>
 	<p>
-		With that, Rose quickly steps away from you and hurries off down the corridor.
-		 You let out a frustrated sigh as you watch her leave, and, with nothing else to do, you return to the safety of your own room.
+		With that, Rose quickly steps away from you and slides a small wall panel to one side, before pressing a small button that's located behind it. Flashing you an evil smirk, the cat-girl maid raps her claw-like fingers on the surface of a nearby dresser, announcing as she does so, [rose.speech(Mistress will be up here in just a moment. Wait right there, [pc.name]...)]
+	</p>
+	<p>
+		Realising that this button must have alerted Lilaya, and that your [lilaya.relation(pc)] must already be on her way up to this room, you wonder whether to wait for her arrival, or to instead hurry off and return to the safety of your own room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="THREATEN_FLEE"><![CDATA[
+	<p>
+		Not wanting to face Lilaya right now, you tell Rose that you've got to leave, before dashing for the door and quickly exiting out into the corridor beyond. Thankfully, Lilaya doesn't seem to have made it up the stairs just yet, and so you manage to rush back to your room without encountering her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="THREATEN_WAIT"><![CDATA[
+	<p>
+		Not having anything to fear from Lilaya, you do as Rose says and wait for your [lilaya.relation(pc)]'s arrival. As the two of you await the [lilaya.race]'s arrival, Rose takes the time to sneer, [rose.speech(Don't think you can talk your way out of this, [pc.name]. If you're smart, you'll do as I suggest and submit to your punishment...)]
+	</p>
+	<p>
+		Before you can respond, the door to the bedroom suddenly flies open, and the familiar figure of Lilaya bursts into the room. As she makes her entry, you see that she's beginning to hastily pull off her clothes, but upon seeing you she halts this rapid undressing, and with a deep blush rising into her cheeks, she turns and exclaims to Rose, [lilaya.speech(Mistress! You used the special bell, so I was expecting... Well, you know... What's [pc.name] doing here? Is [pc.she] joining us for today's session?)]
+	</p>
+	<p>
+		Immediately picking up on the fact that Lilaya just called her maid 'Mistress', you realise that she was expecting Rose's summons to involve some kind of role-reversal sex. Before you can offer an explanation, the cat-girl quickly reveals, [rose.speech(I caught [pc.name] here pleasuring [pc.herself] with a pair of your underwear. Upon confronting [pc.herHim], [pc.she] threatened me, and so I was forced to summon you here.)]
+	</p>
+	<p>
+		[lilaya.speech(You did what?!)] Lilaya exclaims, turning to face you with a curious mixture of anger and curiosity in her facial expression. Placing her hands on her hips, your [lilaya.relation(pc)] demands, [lilaya.speech(You're not to threaten Rose! And as to the other thing, you know you can come down to me and have some 'tests' at any time. There's no need for using my panties like that... Anyway, I want to hear you apologise to Rose for threatening her. If you know what's good for you, and don't want to end up on her bad side, then I suggest you submit and let her punish you like the naughty [pc.girl] you are!)]
+	</p>
+	<p>
+		As she mentions that you should submit to Rose and be 'punished', Lilaya's cheeks flush red once more, and she turns to give her maid a submissive look. Realising that Rose is really the one in charge in this situation, you wonder whether to submit to her and undoubtedly be forced to endure some kind of sexual punishment, or to instead quickly apologise and return to your room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="THREATEN_APOLOGISE"><![CDATA[
+	<p>
+		Not wanting to submit to Rose, nor end up on both her and Lilaya's bad side, you quickly apologise to the cat-girl maid, before dashing for the door and quickly exiting out into the corridor beyond. Thankfully, Lilaya doesn't seem to have any interest in pursuing you and demanding you do anything further, and so you manage to rush back to your room without further incident...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="THREATEN_SUBMIT"><![CDATA[
+	<p>
+		Deciding that the best thing to do would be to completely submit to Rose, you bow down before her and offer the cat-girl your most sincere apology. Looking down at you with a look of triumph on her face, she drops what's left of her polite act, and after flashing you an uncharacteristically evil, sadistic grin, she declares, [rose.speech(That'll do for your apology, bitch. Now for your punishment. Get down on all fours and present yourself to me.)]
+	</p>
+	<p>
+		Committed to completely submitting to Rose, you do as she says and get down onto all fours. As you turn your ass towards her, she addresses Lilaya in a manner most unlike how she does so while on the job, and snaps, [rose.speech(Strip naked, slut, then sit on the edge of your bed.)]
+	</p>
+	<p>
+		As Lilaya obediently hurries to strip out of her clothing, Rose steps over to one side of the room, before roughly yanking open the top drawer of one of Lilaya's cabinets. From within, she produces a black leather harness, with a large, purple dildo fixed to the front. Holding the strap-on up so that you can clearly see it, she laughs in sadistic pleasure as she states, [rose.speech(For your punishment, I'm going to fuck you with this. Oh, and you'll call me Mistress for the duration of this. Understood?)]
+	</p>
+	<p>
+		[pc.speech(Yes, Mistress,)] you reply.
+	</p>
+	<p>
+		Sitting down on the edge of her bed, the now-naked Lilaya spreads her legs, before addressing Rose in the same manner in which you've been instructed to, [lilaya.speech(Mistress, am I going to be allowed to join in?)]
+	</p>
+	<p>
+		By means of an answer, the cat-girl maid grabs hold of you, before roughly pulling you forwards towards Lilaya, and once there, she pushes your face into your [lilaya.relation(pc)]'s groin. Grabbing hold of the back of your head, Lilaya pulls your head forwards, forcing you to lick and kiss her [lilaya.pussy+].
+	</p>
+	<p>
+		[rose.speech(Liking the taste of this slut's cunt?)] Rose teases as she lifts her maid's dress and drops her thong to the floor. With a clear amount of previous practice, she then swiftly secures the strap-on's harness in place around her groin. Dropping down behind you, she
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			 roughly gains access to your [pc.pussy+] and gives it a sharp slap, causing you to let out a muffled cry into Lilaya's cunt. Forcefully shoving three of her fingers into your [pc.pussy+], the cat-girl roughly fingers you as she states, 
+		#ELSEIF(game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+			 roughly gains access to your [pc.ass+] and gives it a sharp slap, causing you to let out a muffled cry into Lilaya's cunt. After forcefully swatting your exposed ass several more times, the cat-girl finally stops and states, 
+		#ELSE
+			 gives your ass a sharp slap, causing you to let out a muffled cry into Lilaya's cunt. After forcefully swatting your ass several more times, the cat-girl finally stops and states, 
+		#ENDIF
+		 [rose.speech(You never answered me, bitch. You like the taste of slut's cunt? Or would you rather I have her grow a nice, fat cock for you to choke on?)]
+	</p>
+	<p>
+		[lilaya.speech(Be a good [pc.girl] and answer Mistress,)] Lilaya says, pushing your head back a little so as to allow you to breathe and make your decision...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LILAYA_AND_ROSE_AS_DOMS"><![CDATA[
 	<p>
-		Rose pushes Lilaya onto her knees before you, and pushes your face into her groin. She equips strap-on and kneels behind you.
+		[pc.speech(Yes, Mistress, I like the taste of her cunt,)] you reply, before burying your face between Lilaya's legs and carrying on where you left off.
+	</p>
+	<p>
+		[rose.speech(Keep eating her out then, bitch,)] Rose laughs in a sadistic, mocking tone.
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			 Roughly yanking her fingers out of your cunt, she quickly brings the head of her purple strap-on to your [pc.labia+], and before you can react, she slams forwards, ramming the toy deep into your [pc.cunt+]. As you let out another muffled cry into Lilaya's pussy, Rose grabs your [pc.hips+] and sneers, [rose.speech(Take it like the bitch you are!)]
+		#ELSEIF(game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+			 Roughly spanking your exposed ass several times, she then quickly brings the head of her purple strap-on to your [pc.asshole+], and before you can react, she slams forwards, ramming the toy deep into your [pc.ass+]. As you let out another muffled cry into Lilaya's pussy, Rose grabs your [pc.hips+] and sneers, [rose.speech(Take it like the bitch you are!)]
+		#ELSE
+			 Roughly spanking your ass several times, she then slaps the head of her purple strap-on against your [pc.ass+]. As you let out another muffled cry into Lilaya's pussy, Rose grabs your [pc.hips+] and sneers, [rose.speech(That's it, bitch! You're mine now!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_AND_ROSE_AS_DOMS_PENIS"><![CDATA[
+	<p>
+		[pc.speech(I'd prefer the taste of her cock, Mistress,)] you truthfully reply.
+	</p>
+	<p>
+		[rose.speech(Go on, slut. Grow a nice, big cock for this bitch to choke on,)] Rose orders Lilaya.
+	</p>
+	<p>
+		[lilaya.speech(Yes, Mistress!)] your [lilaya.relation(pc)] replies, and before your eyes, a thick, demonic cock quickly grows out above Lilaya's pussy. With a horny squeal,
+		#IF(!lilaya.isPregnant())
+			 the [lilaya.race] then transforms away her pussy, leaving you with no other option but to orally service her newly-grown dick. As a pair of large, full balls drop down beneath her erect shaft,
+		#ENDIF
+		 Lilaya impatiently grabs hold of your head and guides your mouth up to the twitching head of her throbbing cock. As you part your [pc.lips+], your [lilaya.relation(pc)] pulls your head down, forcing her cock into your mouth as she moans, [lilaya.speech(~Ooh!~ Yes! Take it deep!)]
+	</p>
+	<p>
+		[rose.speech(That's it, bitch, choke on that slut's fat cock,)] Rose laughs in a sadistic, mocking tone.
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			 Roughly yanking her fingers out of your cunt, she quickly brings the head of her purple strap-on to your [pc.labia+], and before you can react, she slams forwards, ramming the toy deep into your [pc.cunt+]. As you let out another muffled cry around Lilaya's cock, Rose grabs your [pc.hips+] and sneers, [rose.speech(Take it like the bitch you are!)]
+		#ELSEIF(game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+			 Roughly spanking your exposed ass several times, she then quickly brings the head of her purple strap-on to your [pc.asshole+], and before you can react, she slams forwards, ramming the toy deep into your [pc.ass+]. As you let out another muffled cry around Lilaya's cock, Rose grabs your [pc.hips+] and sneers, [rose.speech(Take it like the bitch you are!)]
+		#ELSE
+			 Roughly spanking your ass several times, she then slaps the head of her purple strap-on against your [pc.ass+]. As you let out another muffled cry around Lilaya's cock, Rose grabs your [pc.hips+] and sneers, [rose.speech(That's it, bitch! You're mine now!)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_LILAYA_AND_ROSE_AS_DOMS"><![CDATA[
 	<p>
-		Rose orders you to return to your room. Tells Lilaya to clean up and return to lab.
+		having had her fun, Rose steps back from the bed, and with a big grin on her face, she teases, [rose.speech(Well, I think you've been adequately punished now.)]
+	</p>
+	<p>
+		[pc.speech(Yes, Mistress... Thank you, Mistress...)] You pant, withdrawing from Lilaya's crotch as you catch your breath. You hear Rose unfastening her strap-on, and as she moves to retrieve her thong and get her clothes back in order, she commands, [rose.speech(Now, back to your room, bitch. I need to show this slut some love, and we don't want you present for it. Oh, and remember, the next time you see me, you're to treat me as a maid once more, so none of this 'Mistress' business. Understood?)]
+	</p>
+	<p>
+		[pc.speech(Yes,)] you reply, before quickly gathering your things and hurrying to the door as you prepare to leave...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="EXPLAIN"><![CDATA[
+	<htmlContent tag="AFTER_LILAYA_AND_ROSE_AS_DOMS_LEAVE"><![CDATA[
+	<p>
+		Glancing back one last time, you see Rose stepping over to Lilaya and pulling her into a loving, tender kiss. Not wanting to get into trouble, you quickly turn away and rush off down the corridor, not daring to stop until you're back safe and sound in your own room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Content below not used for now -->
+	
+	<htmlContent tag="DOMINATE"><![CDATA[
 	<p>
 		You explain that you're just horny. Rose smirks and suggests to Lilaya that they both take a break from work and help you with your problem.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="ROSE_AND_LILAYA_AS_SUBS"><![CDATA[
+	<htmlContent tag="LILAYA_AS_SUB_START"><![CDATA[
 	<p>
 		Rose pushes Lilaya onto her knees before you, and pushes your face into her groin. She equips strap-on and kneels behind you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOMINATE_LEAVE"><![CDATA[
+	<p>
+		You say that you're not interested in that at the moment and return to your room.
 	</p>
 	]]>
 	</htmlContent>
@@ -434,7 +556,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="EXPLAIN_LEAVE"><![CDATA[
+	<htmlContent tag="AFTER_ROSE_AND_LILAYA_AS_SUBS_LEAVE"><![CDATA[
 	<p>
 		You say that you're not interested in that at the moment and return to your room.
 	</p>

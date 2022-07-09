@@ -1036,6 +1036,25 @@ public class CompanionManagement {
 				UtilText.nodeContentSB.append("</div>");
 			}
 			UtilText.nodeContentSB.append("</div>");
+
+//			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>");
+//			UtilText.nodeContentSB.append(  "<h6 style='color:"+PresetColour.GENERIC_EXPERIENCE.toWebHexString()+"; text-align:center;'>Additional Book-Keeping Information</h6>");
+//			UtilText.nodeContentSB.append(  "<p>Optional extra information you may add for this slave for book-keeping purposes.</p>");
+//			UtilText.nodeContentSB.append(  "<div class='container-full-width inner' style='margin-bottom:0;'>");
+//			UtilText.nodeContentSB.append(    "<h7>Category</h7>");
+//			UtilText.nodeContentSB.append(    "<div class='container-full-width inner' style='margin-bottom:0;'>");
+//			UtilText.nodeContentSB.append(      "<input id='SET_SLAVE_CATEGORY' type='text' value='"+UtilText.parseForHTMLDisplay(character.getSlaveCategory())+"'/>");
+//			UtilText.nodeContentSB.append(    "</div>");
+//			UtilText.nodeContentSB.append(  "</div>");
+//			UtilText.nodeContentSB.append(  "<div class='container-full-width inner' style='margin-bottom:0;'>");
+//			UtilText.nodeContentSB.append(    "<h7>Notes</h7>");
+//			UtilText.nodeContentSB.append(    "<div class='container-full-width inner' style='margin-bottom:0;'>");
+//			UtilText.nodeContentSB.append(      "<form style='padding:0;margin:0;text-align:center;'>");
+//			UtilText.nodeContentSB.append(        "<textarea id='SET_SLAVE_NOTES' style='width:760px;height:200px;'>"+character.getSlaveNotes()+"</textarea>");
+//			UtilText.nodeContentSB.append(      "</form>");
+//			UtilText.nodeContentSB.append(    "</div>");
+//			UtilText.nodeContentSB.append(  "</div>");
+//			UtilText.nodeContentSB.append("</div>");
 			
 			UtilText.nodeContentSB.append("<p id='hiddenFieldName' style='display:none;'></p>");
 			return UtilText.parse(character, UtilText.nodeContentSB.toString());
@@ -1863,6 +1882,7 @@ public class CompanionManagement {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getPlayer().removeSlave(characterSelected());
+			characterSelected().setEnslavementDialogue(SlaveDialogue.FREEDOM_DIALOG, false);
 			if(!isFreedSlaveAvailableAsGuest()) {
 				freedSlaveDeleted = true;
 				if(!characterSelected().isAffectionHighEnoughToInviteHome()) {

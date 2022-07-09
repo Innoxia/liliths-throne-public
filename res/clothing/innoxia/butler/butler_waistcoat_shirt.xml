@@ -26,8 +26,6 @@
 		
 		<imageEquippedName/> 
 		
-		<enchantmentLimit/>
-		
 		<effects> 
               <effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_PHYSICAL" timer="0"/>
 		</effects>

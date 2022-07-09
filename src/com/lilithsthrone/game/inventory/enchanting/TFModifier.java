@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -1631,7 +1632,7 @@ public enum TFModifier {
 	
 	private Colour colour;
 	private Rarity rarity;
-	private Fetish fetish;
+	private AbstractFetish fetish;
 	
 	private TFModifier(AttributeCategory attributeCategory, AbstractAttribute associatedAttribute, String description, String SVGString, Rarity rarity) {
 		this.attributeCategory=attributeCategory;
@@ -1662,7 +1663,7 @@ public enum TFModifier {
 		this.SVGString = null;
 	}
 	
-	private TFModifier(Fetish f) {
+	private TFModifier(AbstractFetish f) {
 		this.name = f.getName(null);
 		this.description = "Applies an effect related to the "+name+" fetish. ("+Util.capitaliseSentence(f.getShortDescriptor(null))+".)";
 		this.descriptor = name;
@@ -1834,7 +1835,7 @@ public enum TFModifier {
 		return returnList;
 	}
 
-	public Fetish getFetish() {
+	public AbstractFetish getFetish() {
 		return fetish;
 	}
 

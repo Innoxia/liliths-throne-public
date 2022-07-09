@@ -14,10 +14,12 @@ import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayAttackerDial
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayDemonDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyAttackerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.submission.BatCavernDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelAttackDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.places.submission.LyssiethPalaceDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePoker;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
@@ -94,6 +96,8 @@ public class DialogueManager {
 		// Special hard-coded dialogues which need to be accessed in external files:
 		addHardCodedDialogueId("MERAXIS_DEMON_TF_START", LyssiethPalaceDialogue.MERAXIS_DEMON_TF_START);
 		
+		addHardCodedDialogueId("ROOM_SET_ALARM", RoomPlayer.ROOM_SET_ALARM);
+
 		addHardCodedDialogueId("BEAUTICIAN_START", CosmeticsDialogue.BEAUTICIAN_START);
 
 		addHardCodedDialogueId("BODY_CHANGING_CORE", BodyChanging.BODY_CHANGING_CORE);
@@ -126,6 +130,10 @@ public class DialogueManager {
 
 		addHardCodedDialogueId("HC_encounter_submission_defeat", TunnelAttackDialogue.AFTER_COMBAT_DEFEAT);
 		addHardCodedDialogueId("HC_encounter_submission_victory", TunnelAttackDialogue.AFTER_COMBAT_VICTORY);
+
+		addHardCodedDialogueId("HC_encounter_bat_caverns_defeat", BatCavernDialogue.AFTER_COMBAT_DEFEAT);
+		addHardCodedDialogueId("HC_encounter_bat_caverns_victory", BatCavernDialogue.AFTER_COMBAT_VICTORY);
+		
 		
 		// Modded dialogue types:
 		

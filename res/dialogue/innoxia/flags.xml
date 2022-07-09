@@ -7,7 +7,7 @@
 	Please note that the final id of the flags defined below will have the parent folder's name appended to the front of them.
 		i.e. 'elis_berries_found' will be identified as 'innoxia_elis_berries_found' during the game's runtime. -->
 	
-	<!-- Mic. encounters etc.: -->
+	<!-- Misc. encounters etc.: -->
 		<!-- Alleyway attackers -->
 			<flag dailyReset="false">alleyway_submission_tattooed_pussy</flag>
 			<flag dailyReset="false">alleyway_submission_tattooed_ass</flag>

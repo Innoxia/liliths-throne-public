@@ -21,6 +21,7 @@ import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -2696,12 +2697,12 @@ public enum RenderingEngine {
 			}
 			
 			if(!character.isPlayer()) {
-				for (Fetish f : character.getFetishes(true)) {
+				for (AbstractFetish f : character.getFetishes(true)) {
 					panelSB.append(
 						"<div class='icon effect'>"
 							+ "<div class='icon-content'>"
 									+ f.getSVGString(character)
-									+ "<div class='overlay' id='FETISH_"+idPrefix + f + "'></div>"
+									+ "<div class='overlay' id='FETISH_"+idPrefix + Fetish.getIdFromFetish(f) + "'></div>"
 							+ "</div>"
 						+ "</div>");
 				}
@@ -2853,15 +2854,6 @@ public enum RenderingEngine {
 							+ "</div>");
 				}
 			}
-//			for (Fetish f : elemental.getFetishes(true)) {
-//				panelSB.append(
-//					"<div class='icon effect' style='width:"+iconWidth+"%;'>"
-//						+ "<div class='icon-content'>"
-//								+ f.getSVGString(elemental)
-//								+ "<div class='overlay' id='FETISH_"+idPrefix + f + "'></div>"
-//						+ "</div>"
-//					+ "</div>");
-//			}
 			
 			panelSB.append("</div>");
 		}
@@ -3040,12 +3032,12 @@ public enum RenderingEngine {
 			}
 			
 			if(!character.isPlayer()) {
-				for (Fetish f : character.getFetishes(true)) {
+				for (AbstractFetish f : character.getFetishes(true)) {
 					panelSB.append(
 						"<div class='icon effect'>"
 							+ "<div class='icon-content'>"
 									+ f.getSVGString(character)
-									+ "<div class='overlay' id='FETISH_"+idPrefix + f + "'></div>"
+									+ "<div class='overlay' id='FETISH_"+idPrefix + Fetish.getIdFromFetish(f) + "'></div>"
 							+ "</div>"
 						+ "</div>");
 				}

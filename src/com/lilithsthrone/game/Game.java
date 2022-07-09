@@ -8,9 +8,12 @@ import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -198,6 +201,7 @@ import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.npcDialogue.QuickTransformations;
 import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.EnforcerHQDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Lab;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict.DominionExpress;
@@ -1367,7 +1371,7 @@ public class Game implements XMLSaving {
 				
 				if(Main.isVersionOlderThan(loadingVersion, "0.3.0.5")) {
 					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
-						ImpCitadelDialogue.clearFortress();
+						ImpCitadelDialogue.clearFortress(true);
 						ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_ALPHA);
 						ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_FEMALES);
 						ImpFortressDialogue.resetFortress(WorldType.IMP_FORTRESS_MALES);
@@ -1414,13 +1418,46 @@ public class Game implements XMLSaving {
 					}
 				}
 
-				if(Main.isVersionOlderThan(loadingVersion, "0.3.3.8")) {
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.4.2")) {
+					// Player perk resets:
 					Main.game.getPlayer().resetPerksMap(false);
+					if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4) && Main.game.getPlayer().getTrueRace()==Race.DEMON) {
+						Main.game.getPlayer().removeSpecialPerk(Perk.POWER_OF_LYSSIETH_4);
+						Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LYSSIETH_4_DEMON);
+					}
+					if(!Main.game.getPlayer().hasPerkAnywhereInTree(Perk.SPECIAL_PLAYER)) {
+						Main.game.getPlayer().addSpecialPerk(Perk.SPECIAL_PLAYER);
+					}
+					
+					// NPC perk resets:
 					for(NPC npc : Main.game.getAllNPCs()) {
 						if(!(npc.isElemental())) {
 							npc.resetPerksMap(true, false);
 						}
 						PerkManager.initialiseSpecialPerksUponCreation(npc); // Generate unique perks for slaves/occupants as well
+					}
+					
+					// Arthur's room change:
+					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_I_ARTHURS_TALE)) {
+						if(!Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCells(PlaceUpgrade.LILAYA_ARTHUR_ROOM).isEmpty()) {
+							Cell arthurRoom = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCells(PlaceUpgrade.LILAYA_ARTHUR_ROOM).get(0);
+							arthurRoom.removePlaceUpgrade(PlaceUpgrade.LILAYA_ARTHUR_ROOM);
+							if(arthurRoom.getLocation().getX()>2 && arthurRoom.getLocation().getX()<8 && arthurRoom.getLocation().getY()>2 && arthurRoom.getLocation().getY()<8) {
+							arthurRoom.getPlace().setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR);
+							} else {
+								arthurRoom.getPlace().setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR);
+							}
+						} else if(!Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCells(PlaceUpgrade.LILAYA_ARTHUR_ROOM).isEmpty()) {
+							Cell arthurRoom = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCells(PlaceUpgrade.LILAYA_ARTHUR_ROOM).get(0);
+							arthurRoom.removePlaceUpgrade(PlaceUpgrade.LILAYA_ARTHUR_ROOM);
+							if(arthurRoom.getLocation().getX()>2 && arthurRoom.getLocation().getX()<8 && arthurRoom.getLocation().getY()>2 && arthurRoom.getLocation().getY()<8) {
+							arthurRoom.getPlace().setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR);
+							} else {
+								arthurRoom.getPlace().setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR);
+							}
+						}
+						Cell c = Lab.addArthurRoom();
+						Main.game.getNpc(Arthur.class).setLocation(c, true);
 					}
 				}
 				
@@ -3899,7 +3936,7 @@ public class Game implements XMLSaving {
 					+ "try{"
 						+ "timer;"
 					+ "} catch(e){"
-						+ "timer=false;"
+						+ "var timer=false;"
 					+ "}"
 					+ "if(!timer) {"
 						+ "document.getElementById('bottom-text').classList.add('demo');"
@@ -4269,26 +4306,51 @@ public class Game implements XMLSaving {
 		return getStartingDate().plusSeconds(Main.game.getSecondsPassed());
 	}
 
-	public String getDisplayDate(boolean withYear) {
-		String date = Units.date(getDateNow(), Units.DateType.LONG);
-		
+	public LocalDateTime getCustomDateTime(int year, int month, int dayOfMonth, int hour, int minute, int second) {
+		return LocalDateTime.of(year, month, dayOfMonth, hour, minute, second);
+	}
+
+	public LocalDate getCustomDate(int year, int month, int dayOfMonth) {
+		return LocalDate.of(year, month, dayOfMonth);
+	}
+
+	public LocalTime getCustomTime(int hour, int minute, int second) {
+		return LocalTime.of(hour, minute, second);
+	}
+
+	public String getDisplayDate(TemporalAccessor dateNow, boolean withYear) {
 		if(isInNewWorld() && !getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate)) {
 			return UtilText.parse("[style.colourMinorBad(Unknown date)]");
 		}
 		
-//		if(withYear) {
-//			return Units.date(getDateNow().minusYears(TIME_SKIP_YEARS), Units.DateType.LONG);
-//		} else {
-//			String date = Units.date(getDateNow().minusYears(TIME_SKIP_YEARS), Units.DateType.LONG);
-//			return date.substring(0, date.length()-5);
-//		}
+		String date = Units.date(dateNow, Units.DateType.LONG);
 		if(withYear) {
-			return Units.date(getDateNow(), Units.DateType.LONG);
+			return date;
 		} else {
 			return date.substring(0, date.length()-5);
 		}
 	}
 	
+	public String getDisplayDate(boolean withYear) {
+		return getDisplayDate(getDateNow(), withYear);
+	}
+
+	public String getDisplayDate(TemporalAccessor dateNow) {
+		return getDisplayDate(dateNow, false);
+	}
+
+	public String getDisplayDate() {
+		return getDisplayDate(getDateNow(), false);
+	}
+
+	public String getDisplayTime(TemporalAccessor timeNow) {
+		return Units.time(timeNow);
+	}
+
+	public String getDisplayTime() {
+		return getDisplayTime(getDateNow());
+	}
+
 	public int getYear() {
 		return Main.game.getDateNow().getYear();
 	}

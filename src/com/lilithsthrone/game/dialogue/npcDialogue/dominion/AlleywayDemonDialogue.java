@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
@@ -36,6 +37,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
+import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -97,7 +99,7 @@ public class AlleywayDemonDialogue {
 			Main.game.getDialogueFlags().setFlag("innoxia_alleyway_transformations_applied", false);
 			
 			if(getDemon().getPlayerSurrenderCount()>=4) { 
-				if(getDemon().hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
+				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) { // Even if immune, only give fuck option as others dno't make sense to trigger during a storm
 					Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", 4);
 				} else {
 					Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", Util.random.nextInt(6)+1);
@@ -106,7 +108,7 @@ public class AlleywayDemonDialogue {
 					}
 					if(Main.game.getDialogueFlags().getSavedLong("randomResponseIndex")==6
 							&& (!getDemon().hasPersonalityTrait(PersonalityTrait.SELFISH)
-									|| ((Main.game.getPlayer().getTattooInSlot(InventorySlot.GROIN)!=null || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
+									|| ((Main.game.getPlayer().getTattooInSlot(InventorySlot.GROIN)!=null || !Main.game.getPlayer().hasVagina() || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
 										&& (!Main.game.isAnalContentEnabled() || Main.game.getPlayer().getTattooInSlot(InventorySlot.TORSO_UNDER)!=null || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true))))) {
 						Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", 4);
 					}
@@ -1228,7 +1230,7 @@ public class AlleywayDemonDialogue {
 			// Response variables:
 			boolean forcedTF = getDemon().isUsingForcedTransform(Main.game.getPlayer());
 			boolean forcedFetish = getDemon().isUsingForcedFetish(Main.game.getPlayer());
-			List<Fetish> applicableFetishes = Util.newArrayListOfValues(
+			List<AbstractFetish> applicableFetishes = Util.newArrayListOfValues(
 					forcedTF && potion!=null
 						?Fetish.FETISH_TRANSFORMATION_RECEIVING
 						:null,
