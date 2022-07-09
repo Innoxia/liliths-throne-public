@@ -111,7 +111,7 @@ public class AlleywayAttackerDialogue {
 			Main.game.getDialogueFlags().setFlag("innoxia_alleyway_transformations_applied", false);
 			
 			if(getMugger().getPlayerSurrenderCount()>=4) { 
-				if(getMugger().hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
+				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) { // Even if immune, only give fuck option as others dno't make sense to trigger during a storm
 					Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", 4);
 				} else {
 					Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", Util.random.nextInt(6)+1);

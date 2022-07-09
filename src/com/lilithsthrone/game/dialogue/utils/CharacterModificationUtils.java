@@ -578,7 +578,7 @@ public class CharacterModificationUtils {
 	
 							contentSB.append(
 									getInformationDiv(
-											"FETISH_INFO_"+fetish,
+											"FETISH_INFO_"+Fetish.getIdFromFetish(fetish),
 											new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(fetish.getName(BodyChanging.getTarget())), fetish.getDescription(null)),
 											true));
 							
@@ -588,7 +588,7 @@ public class CharacterModificationUtils {
 									contentSB.append("<div class='cosmetics-button active' style='width:18%; margin:1%; min-width:0;'>"
 											+ "<span style='color:"+desire.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(desire.getName())+"</span></div>");
 								} else {
-									contentSB.append("<div id='FETISH_DESIRE_"+fetish+desire+"' class='cosmetics-button' style='width:18%; margin:1%; min-width:0;'>"
+									contentSB.append("<div id='FETISH_DESIRE_"+Fetish.getIdFromFetish(fetish)+desire+"' class='cosmetics-button' style='width:18%; margin:1%; min-width:0;'>"
 											+ "<span style='color:"+desire.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(desire.getName())+"</span></div>");
 								}
 							}

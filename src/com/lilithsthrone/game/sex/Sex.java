@@ -3454,7 +3454,7 @@ public class Sex {
 						&& actualOrifice.isInternalOrifice()) {
 					penileVirginityLoss = characterPenetrating.getVirginityLossPenetrationDescription(characterPenetrated, SexAreaPenetration.PENIS, actualOrifice);
 					if(characterPenetrated.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-						characterPenetrated.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrated), true);
+						characterPenetrated.incrementExperience(AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrated), true);
 					}
 					characterPenetrated.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 					characterPenetrating.setVirginityLoss(relatedSexTypeForCharacterPenetrating, characterPenetrated, characterPenetrated.getLostVirginityDescriptor());
@@ -3532,7 +3532,7 @@ public class Sex {
 					if(characterPenetrated.isAssVirgin() && penetrationType.isTakesVirginity()) {
 						penetrationSB.append(characterPenetrated.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, SexAreaOrifice.ANUS));
 						if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
+							characterPenetrating.incrementExperience(AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
 						}
 						characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 						characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating, characterPenetrating.getLostVirginityDescriptor());
@@ -3557,7 +3557,7 @@ public class Sex {
 						if(characterPenetrated.isVaginaVirgin()) {
 							penetrationSB.append(characterPenetrated.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, SexAreaOrifice.VAGINA));
 							if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingVaginalVirginity(characterPenetrating), true);
+								characterPenetrating.incrementExperience(AbstractFetish.getExperienceGainFromTakingVaginalVirginity(characterPenetrating), true);
 							}
 							characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 							characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating, characterPenetrating.getLostVirginityDescriptor());
@@ -3601,7 +3601,7 @@ public class Sex {
 					if(characterPenetrated.isNippleVirgin() && penetrationType.isTakesVirginity()) {
 						penetrationSB.append(characterPenetrated.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, SexAreaOrifice.NIPPLE));
 						if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
+							characterPenetrating.incrementExperience(AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
 						}
 						characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 						characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating, characterPenetrating.getLostVirginityDescriptor());
@@ -3645,7 +3645,7 @@ public class Sex {
 					if(characterPenetrated.isNippleCrotchVirgin() && penetrationType.isTakesVirginity()) {
 						penetrationSB.append(characterPenetrated.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, SexAreaOrifice.NIPPLE_CROTCH));
 						if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
+							characterPenetrating.incrementExperience(AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
 						}
 						characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 						characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating, characterPenetrating.getLostVirginityDescriptor());
@@ -3669,7 +3669,7 @@ public class Sex {
 					if(characterPenetrated.isUrethraVirgin() && penetrationType.isTakesVirginity()) {
 						penetrationSB.append(characterPenetrated.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, SexAreaOrifice.URETHRA_PENIS));
 						if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
+							characterPenetrating.incrementExperience(AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
 						}
 						characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 						characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating, characterPenetrating.getLostVirginityDescriptor());
@@ -3693,7 +3693,7 @@ public class Sex {
 					if(characterPenetrated.isVaginaUrethraVirgin() && penetrationType.isTakesVirginity()) {
 						penetrationSB.append(characterPenetrated.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, SexAreaOrifice.URETHRA_VAGINA));
 						if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
+							characterPenetrating.incrementExperience(AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
 						}
 						characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 						characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating, characterPenetrating.getLostVirginityDescriptor());
@@ -3717,7 +3717,7 @@ public class Sex {
 					if(characterPenetrated.isFaceVirgin() && penetrationType.isTakesVirginity()) {
 						penetrationSB.append(characterPenetrated.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, SexAreaOrifice.MOUTH));
 						if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
+							characterPenetrating.incrementExperience(AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
 						}
 						characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 						characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating, characterPenetrating.getLostVirginityDescriptor());
@@ -3741,7 +3741,7 @@ public class Sex {
 					if(characterPenetrated.isSpinneretVirgin() && penetrationType.isTakesVirginity()) {
 						penetrationSB.append(characterPenetrated.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, SexAreaOrifice.SPINNERET));
 						if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
+							characterPenetrating.incrementExperience(AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
 						}
 						characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 						characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating, characterPenetrating.getLostVirginityDescriptor());

@@ -42,7 +42,6 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -499,15 +498,15 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-							for(NPC npc : Main.game.getAllNPCs()) {
-								if(npc.isUnique() && !npc.hasArtwork()
-//										&& (npc.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION)
-										&& npc.isFeminine()
-										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()==BodyCoveringCategory.MAIN_SKIN
-										) {
-									System.out.println(npc.getNameIgnoresPlayerKnowledge() + " "+npc.getClass().getName());// + " " + npc.getSurname());
-								}
-							}
+//							for(NPC npc : Main.game.getAllNPCs()) {
+//								if(npc.isUnique() && !npc.hasArtwork()
+////										&& (npc.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION)
+//										&& npc.isFeminine()
+//										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()==BodyCoveringCategory.MAIN_SKIN
+//										) {
+//									System.out.println(npc.getNameIgnoresPlayerKnowledge() + " "+npc.getClass().getName());// + " " + npc.getSurname());
+//								}
+//							}
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.PHYSICAL, 1);
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.ARCANE, 1);
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.LUST, 1);
@@ -1601,9 +1600,9 @@ public class MainController implements Initializable {
 
 			MainController.addEventListener(documentButtonsRight, id, "mouseenter", new TooltipInformationEventListener().setInformation(
 					Main.game.getCurrentDialogueNode().getLabel() == "" || Main.game.getCurrentDialogueNode().getLabel() == null ? "-" : Main.game.getCurrentDialogueNode().getLabel(),
-					"Click to copy the currently displayed dialogue to your clipboard.<br/>"
+					"Click to copy the currently displayed dialogue to your clipboard. You can then paste the output into a text editor, save it as a <i>.html</i> file, then open that file in a browser to retain the game's formatting.<br/>"
 					+ "This scene was written by: <b>"+Main.game.getCurrentDialogueNode().getAuthor()+"</b>",
-					48), false);
+					80), false);
 			
 		}
 		
@@ -1994,12 +1993,12 @@ public class MainController implements Initializable {
 				}
 			}
 			for (AbstractFetish f : character.getFetishes(true)) {
-				if (((EventTarget) documentAttributes.getElementById("FETISH_"+idModifier + f)) != null) {
-					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mousemove", moveTooltipListener, false);
-					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mouseleave", hideTooltipListener, false);
+				if (((EventTarget) documentAttributes.getElementById("FETISH_"+idModifier + f.getID())) != null) {
+					addEventListener(documentAttributes, "FETISH_"+idModifier + f.getID(), "mousemove", moveTooltipListener, false);
+					addEventListener(documentAttributes, "FETISH_"+idModifier + f.getID(), "mouseleave", hideTooltipListener, false);
 
 					TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, character);
-					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mouseenter", el, false);
+					addEventListener(documentAttributes, "FETISH_"+idModifier + f.getID(), "mouseenter", el, false);
 				}
 			}
 			for (AbstractCombatMove combatMove : character.getAvailableMoves()) {
@@ -2347,12 +2346,12 @@ public class MainController implements Initializable {
 					}
 				}
 				for (AbstractFetish f : character.getFetishes(true)) {
-					if (((EventTarget) documentRight.getElementById("FETISH_NPC_"+idModifier + f)) != null) {
-						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mousemove", moveTooltipListener, false);
-						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mouseleave", hideTooltipListener, false);
+					if (((EventTarget) documentRight.getElementById("FETISH_NPC_"+idModifier + f.getID())) != null) {
+						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f.getID(), "mousemove", moveTooltipListener, false);
+						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f.getID(), "mouseleave", hideTooltipListener, false);
 	
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, character);
-						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mouseenter", el, false);
+						addEventListener(documentRight, "FETISH_NPC_"+idModifier + Fetish.getIdFromFetish(f), "mouseenter", el, false);
 					}
 				}
 				for (AbstractCombatMove combatMove : character.getAvailableMoves()) {

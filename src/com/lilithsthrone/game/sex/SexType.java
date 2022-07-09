@@ -181,7 +181,6 @@ public class SexType implements XMLSaving {
 	
 	public List<AbstractFetish> getRelatedFetishes(GameCharacter characterPerforming, GameCharacter characterTargeted, boolean isPenetration, boolean isOrgasm) {
 		List<AbstractFetish> fetishes = new ArrayList<>();
-		// NOTE: I am leaving the "stock" fetishes in-place, because this is the most efficient way of doing this.
 		
 		// Self areas:
 		

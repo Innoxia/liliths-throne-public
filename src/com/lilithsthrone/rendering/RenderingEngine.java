@@ -2702,7 +2702,7 @@ public enum RenderingEngine {
 						"<div class='icon effect'>"
 							+ "<div class='icon-content'>"
 									+ f.getSVGString(character)
-									+ "<div class='overlay' id='FETISH_"+idPrefix + f + "'></div>"
+									+ "<div class='overlay' id='FETISH_"+idPrefix + Fetish.getIdFromFetish(f) + "'></div>"
 							+ "</div>"
 						+ "</div>");
 				}
@@ -2854,15 +2854,6 @@ public enum RenderingEngine {
 							+ "</div>");
 				}
 			}
-//			for (Fetish f : elemental.getFetishes(true)) {
-//				panelSB.append(
-//					"<div class='icon effect' style='width:"+iconWidth+"%;'>"
-//						+ "<div class='icon-content'>"
-//								+ f.getSVGString(elemental)
-//								+ "<div class='overlay' id='FETISH_"+idPrefix + f + "'></div>"
-//						+ "</div>"
-//					+ "</div>");
-//			}
 			
 			panelSB.append("</div>");
 		}
@@ -3046,7 +3037,7 @@ public enum RenderingEngine {
 						"<div class='icon effect'>"
 							+ "<div class='icon-content'>"
 									+ f.getSVGString(character)
-									+ "<div class='overlay' id='FETISH_"+idPrefix + f + "'></div>"
+									+ "<div class='overlay' id='FETISH_"+idPrefix + Fetish.getIdFromFetish(f) + "'></div>"
 							+ "</div>"
 						+ "</div>");
 				}

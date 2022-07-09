@@ -2325,7 +2325,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		// map of top -> bottom paired fetishes; NPCs with a paired fetish will greatly favor 
 		// giving the player it's pair, and remove that fetish if there is a match
 		Map<AbstractFetish, AbstractFetish> pairedFetishMap = new HashMap<>();
-		
 		pairedFetishMap.put(Fetish.FETISH_PENIS_GIVING, Fetish.FETISH_PENIS_RECEIVING);
 		pairedFetishMap.put(Fetish.FETISH_ANAL_GIVING, Fetish.FETISH_ANAL_RECEIVING);
 		pairedFetishMap.put(Fetish.FETISH_VAGINAL_GIVING, Fetish.FETISH_VAGINAL_RECEIVING);
@@ -2364,8 +2363,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			currentTopFetish = entry.getKey();
 			currentBottomFetish = entry.getValue();
 			
-			currentTopModifier = TFModifier.valueOf( "TF_MOD_" + currentTopFetish);
-			currentBottomModifier = TFModifier.valueOf( "TF_MOD_" + currentBottomFetish);
+			currentTopModifier = TFModifier.valueOf( "TF_MOD_" + Fetish.getIdFromFetish(currentTopFetish));
+			currentBottomModifier = TFModifier.valueOf( "TF_MOD_" + Fetish.getIdFromFetish(currentBottomFetish));
 			
 			currentTopPotency = TFPotency.MINOR_BOOST;
 			currentBottomPotency = TFPotency.MINOR_BOOST;
@@ -2591,7 +2590,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			currentTopFetish = entry.getKey();
 			Boolean wantsToShare = entry.getValue();
 			
-			currentTopModifier = TFModifier.valueOf( "TF_MOD_" + currentTopFetish);
+			currentTopModifier = TFModifier.valueOf( "TF_MOD_" + Fetish.getIdFromFetish(currentTopFetish));
 			
 			currentTopPotency = TFPotency.MINOR_BOOST;
 			currentTopRemovePotency = TFPotency.MINOR_DRAIN;

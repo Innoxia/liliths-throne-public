@@ -1513,7 +1513,7 @@ public class OptionsDialogue {
 				sb.append("<div style='display:inline-block;'><span class='option-disabled'>Fetish forcibly disabled due to "+disabledMsg+" setting!</span></div>");
 				break;
 			} else {
-				sb.append("<div id='"+preference+"_"+fetish+"' class='preference-button"+(Main.getProperties().fetishPreferencesMap.get(fetish)==preference.getValue()?" selected":"")+"'>"
+				sb.append("<div id='"+preference+"_"+Fetish.getIdFromFetish(fetish)+"' class='preference-button"+(Main.getProperties().fetishPreferencesMap.get(fetish)==preference.getValue()?" selected":"")+"'>"
 							+Util.capitaliseSentence(preference.getName())
 						+"</div>");
 			}
@@ -2422,14 +2422,14 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"FEMININE_BEARD",
 							PresetColour.BASE_BLUE_STEEL,
-							"Feminine Beards",
+							"Feminine beards",
 							"This enables feminine characters to grow beards.",
 							Main.getProperties().hasValue(PropertyValue.feminineBeardsContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"FURRY_HAIR",
 							PresetColour.CLOTHING_DESATURATED_BROWN,
-							"Furry Hair",
+							"Furry hair",
 							"Toggles whether or not characters with a furry head type will spawn with human-like hair on their heads.",
 							Main.getProperties().hasValue(PropertyValue.furryHairContent)));
 			
@@ -2440,12 +2440,24 @@ public class OptionsDialogue {
 							"Toggles whether or not characters with a reptilian or amphibious head type will spawn with human-like hair on their heads.",
 							Main.getProperties().hasValue(PropertyValue.scalyHairContent)));
 
+			if(contentOptionsPage==ContentOptionsPage.GAMEPLAY) {
+				UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+						"PREGNANCY_DURATION",
+						PresetColour.BASE_PINK_DEEP,
+						"Pregnancy duration",
+						"This sets the maximum time it takes for a pregnancy to progress from conception to birth.",
+						Main.getProperties().pregnancyDuration+" week"+(Main.getProperties().pregnancyDuration==1?"":"s"),
+						Main.getProperties().pregnancyDuration,
+						1,
+						40));
+			}
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
-					"SPITTING_ENABLED",
-					PresetColour.BASE_BLUE,
-					"Rejecting TF potions",
-					"Forced TF potions may be spat out if this is enabled.",
-					!Main.game.isSpittingDisabled()));
+							"SPITTING_ENABLED",
+							PresetColour.BASE_BLUE,
+							"Rejecting TF potions",
+							"Forced TF potions may be spat out if this is enabled.",
+							!Main.game.isSpittingDisabled()));
 			
 			if(contentOptionsPage==ContentOptionsPage.GAMEPLAY) {
 				UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(

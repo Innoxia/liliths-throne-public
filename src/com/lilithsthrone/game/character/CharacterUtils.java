@@ -20,7 +20,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import com.lilithsthrone.game.character.fetishes.FetishPreference;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -89,6 +88,7 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
+import com.lilithsthrone.game.character.fetishes.FetishPreference;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -2431,7 +2431,6 @@ public class CharacterUtils {
 			if(f.isAllowed(character))
 				allowedFetishes.add(f);
 		}
-		
 		return allowedFetishes;
 	}
 	

@@ -147,7 +147,7 @@ public enum PerkManager {
 		rightMidA.addLink(connectorMid);
 
 //		leftA = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.VIRILITY_BOOST);
-		rightMidA = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.CRITICAL_BOOST_ALT, leftMidB, rightMidA);
+		rightMidA = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.CRITICAL_BOOST_LUST, leftMidB, rightMidA);
 //		addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.FERTILITY_BOOST, rightMidA);
 
 		addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.BARREN, both1);
@@ -199,7 +199,7 @@ public enum PerkManager {
 		leftA = addPerkEntry(perkTree, PerkCategory.ARCANE, 3, Perk.SPELL_DAMAGE, rightA);
 		leftA = addPerkEntry(perkTree, PerkCategory.ARCANE, 4, Perk.SPELL_DAMAGE, leftA);
 		leftA = addPerkEntry(perkTree, PerkCategory.ARCANE, 5, Perk.ELEMENTAL_BOOST, leftA);
-		leftB = addPerkEntry(perkTree, PerkCategory.ARCANE, 5, Perk.CRITICAL_BOOST_ALT_2, leftA);
+		leftB = addPerkEntry(perkTree, PerkCategory.ARCANE, 5, Perk.CRITICAL_BOOST_ARCANE, leftA);
 		addPerkEntry(perkTree, PerkCategory.ARCANE, 5, Perk.CHUUNI, leftB);
 		
 		leftMidA = addPerkEntry(perkTree, PerkCategory.ARCANE, 3, Perk.AURA_BOOST, rightA);

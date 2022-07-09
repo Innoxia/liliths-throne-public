@@ -883,8 +883,8 @@ public class GenericPositioning {
 //			setNewSexManager(generatePerformingOralData(Main.sex.getCharacterTargetedForSexAction(this)), false);
 //		}
 //		@Override
-//		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
-//			Set<Fetish> fetishes = new HashSet<>(super.getFetishesForEitherPartner(characterPerformingAction, characterPerformingActionFetishes));
+//		public List<AbstractFetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
+//			Set<AbstractFetish> fetishes = new HashSet<>(super.getFetishesForEitherPartner(characterPerformingAction, characterPerformingActionFetishes));
 //			if(characterPerformingActionFetishes) {
 //				fetishes.add(Fetish.FETISH_ORAL_GIVING);
 //			} else {

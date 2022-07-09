@@ -124,13 +124,13 @@ public class SexActionExternal extends SexAction {
 					if(fetishesContainer.getOptionalFirstOf("performer").isPresent()) {
 						performingFetishes = new ArrayList<>();
 						for(Element fetish : fetishesContainer.getMandatoryFirstOf("performer").getAllOf("fetish")) {
-							performingFetishes.add(Fetish.getFetishById(fetish.getTextContent().trim()));
+							performingFetishes.add(Fetish.getFetishFromId(fetish.getTextContent().trim()));
 						}
 					}
 					if(fetishesContainer.getOptionalFirstOf("target").isPresent()) {
 						targetedFetishes = new ArrayList<>();
 						for(Element fetish : fetishesContainer.getMandatoryFirstOf("target").getAllOf("fetish")) {
-							targetedFetishes.add(Fetish.getFetishById(fetish.getTextContent().trim()));
+							targetedFetishes.add(Fetish.getFetishFromId(fetish.getTextContent().trim()));
 						}
 					}
 				}

@@ -3740,7 +3740,8 @@ public class StatusEffect {
 			StringBuilder sb = new StringBuilder();
 			
 			if (target.isPregnant()) {
-				target.addStatusEffect(PREGNANT_1, 60 * 60 * (72 + Util.random.nextInt(13)));
+				int maxHourLength = (int)((Main.getProperties().pregnancyDuration * 7 * 24) / 2f);
+				target.addStatusEffect(PREGNANT_1, 60 * 60 * ((maxHourLength-12) + Util.random.nextInt(13)));
 				target.loadImages(true); // Reload images for pregnant versions
 				
 				if (target.isPlayer() && !((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
@@ -3928,12 +3929,12 @@ public class StatusEffect {
 							+ (target.getBodyMaterial()==BodyMaterial.SLIME
 								?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
 									+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of [npc.herHim]."
-								:" Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll move onto the next stage in a matter of days."));
+								:" Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll move onto the next stage with alarming speed."));
 		}
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
-
-			target.addStatusEffect(PREGNANT_2, 60 * 60 * (72 + Util.random.nextInt(13)));
+			int maxHourLength = (int)((Main.getProperties().pregnancyDuration * 7 * 24) / 2f);
+			target.addStatusEffect(PREGNANT_2, 60 * 60 * ((maxHourLength-12) + Util.random.nextInt(13)));
 			
 			boolean breastGrowth = false;
 			if(Main.getProperties().pregnancyBreastGrowth>0 && target.getBreastRawSizeValue()<Main.getProperties().pregnancyBreastGrowthLimit) {
@@ -4043,7 +4044,7 @@ public class StatusEffect {
 							+ (target.getBodyMaterial()==BodyMaterial.SLIME
 								?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
 									+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of [npc.herHim]..."
-								:" Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll move onto the final stage in a matter of days."));
+								:" Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll move onto the final stage with alarming speed."));
 		}
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {

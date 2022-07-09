@@ -42,7 +42,6 @@ import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
-import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -530,6 +529,7 @@ public class TooltipInformationEventListener implements EventListener {
 				} else if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 					specialIncrease += 8;
 				}
+				specialIncrease += LINE_HEIGHT; // For fetish level effects
 				
 				Main.mainController.setTooltipSize(360, 342 + specialIncrease + (yIncrease * LINE_HEIGHT));
 				
@@ -537,8 +537,18 @@ public class TooltipInformationEventListener implements EventListener {
 				tooltipSB.setLength(0);
 				tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(fetish.getName(owner)) + " fetish</div>");
 				FetishLevel level = FetishLevel.getFetishLevelFromValue(owner.getFetishExperience(fetish));
-				tooltipSB.append("<div class='subTitle'>Level "+level.getNumeral()+": <span style='color:"+level.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(level.getName())+"</span>"
-						+ " <span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>|</span> " + owner.getFetishExperience(fetish) +" / "+ level.getMaximumExperience() + " xp" + "</div>");
+				tooltipSB.append("<div class='subTitle'>");
+				tooltipSB.append("Level "+level.getNumeral()+": <span style='color:"+level.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(level.getName())+"</span>"
+						+ " <span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>|</span> " + owner.getFetishExperience(fetish) +" / "+ level.getMaximumExperience() + " xp");
+
+				String appliedFetishLevelDescription = fetish.getAppliedFetishLevelEffectDescription(owner);
+				tooltipSB.append("<br/>[style.boldFetish(Level Effects:)] ");
+				if(appliedFetishLevelDescription!=null && !appliedFetishLevelDescription.isEmpty()) {
+					tooltipSB.append(appliedFetishLevelDescription);
+				} else {
+					tooltipSB.append("[style.colourDisabled(None...)]");
+				}
+				tooltipSB.append("</div>");
 				
 				// Requirements:
 				if(!fetish.getFetishesForAutomaticUnlock().isEmpty() || (!owner.hasFetish(fetish) && !fetish.getPerkRequirements(owner).isEmpty())) {

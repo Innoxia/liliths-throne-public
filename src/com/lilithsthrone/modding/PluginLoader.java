@@ -213,7 +213,7 @@ public final class PluginLoader {
 
 
 	private List<AbstractFetish> stockFetishes = null;
-	public Collection<? extends AbstractFetish> getStockFetishes() {
+	public List<AbstractFetish> getStockFetishes() {
 		if (stockFetishes == null) {
 			stockFetishes = new ArrayList<>();
 			Field[] fields = Fetish.class.getFields();
@@ -225,7 +225,7 @@ public final class PluginLoader {
 					try {
 						fetish = ((AbstractFetish) f.get(null));
 						stockFetishes.add(fetish);
-						Fetish.addFetish(f.getName(), fetish);
+						Fetish.addFetish(p, f.getName(), f);
 					} catch (IllegalArgumentException | IllegalAccessException e) {
 						e.printStackTrace();
 					}
@@ -236,27 +236,22 @@ public final class PluginLoader {
 	}
 
 	private List<AbstractFetish> providedFetishes = null;
-	private Map<BasePlugin, Set<AbstractFetish>> pluginFetishes = new HashMap<BasePlugin, Set<AbstractFetish>>();
-
-	public Collection<? extends AbstractFetish> getProvidedFetishes() {
+	public List<AbstractFetish> getProvidedFetishes() {
 		if (providedFetishes == null) {
 			providedFetishes = new ArrayList<AbstractFetish>();
 			for(BasePlugin p : plugins) {
-				//p.addFetishes();
-				pluginFetishes.put(p, new HashSet<AbstractFetish>(p.getFetishes()));
-				providedFetishes.addAll(p.getFetishes());
+				for(AbstractFetish f : p.getFetishes()) {
+					providedFetishes.add(f);
+					Fetish.addFetish(p, f.getID(), f);
+				}
 			}
-			for (AbstractFetish f : providedFetishes)
-				Fetish.addFetish(f.getID(), f);
 		}
 		return providedFetishes;
 	}
 
-	private List<AbstractFetish> allFetishes = null;
-	private List<FetishGroup> allFetishGroups = null;
-	private Set<AbstractFetish> notIncludedInPotions = null;
 
-	public Collection<? extends AbstractFetish> getAllFetishes() {
+	private List<AbstractFetish> allFetishes = null;
+	public List<AbstractFetish> getAllFetishes() {
 		if (allFetishes == null) {
 			allFetishes = new ArrayList<AbstractFetish>();
 			allFetishes.addAll(getStockFetishes());

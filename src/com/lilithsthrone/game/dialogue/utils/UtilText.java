@@ -9979,7 +9979,7 @@ public class UtilText {
 		
 		// Effects & persona:
 		for(AbstractFetish f : PluginLoader.getInstance().getAllFetishes()) {
-			engine.put(f.toString(), f);
+			engine.put(f.getID(), f);
 		}
 		for(FetishDesire fetishDesire : FetishDesire.values()) {
 			engine.put("FETISH_DESIRE_"+fetishDesire.toString(), fetishDesire);

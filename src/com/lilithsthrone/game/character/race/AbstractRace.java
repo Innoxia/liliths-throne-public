@@ -256,7 +256,7 @@ public abstract class AbstractRace {
 				if(coreElement.getOptionalFirstOf("racialFetishModifiers").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("racialFetishModifiers").getAllOf("fetish")) {
 						try {
-							AbstractFetish fetish = Fetish.getFetishById(e.getTextContent());
+							AbstractFetish fetish = Fetish.getFetishFromId(e.getTextContent());
 							HashMap<String, Integer> weights = new HashMap<>();
 							if(!e.getAttribute("love").isEmpty()) {
 								weights.put("love", Integer.parseInt(e.getAttribute("love")));

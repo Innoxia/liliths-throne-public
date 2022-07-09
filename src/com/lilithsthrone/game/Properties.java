@@ -125,6 +125,8 @@ public class Properties {
 			"There will be no options to bypass sex action corruption requirements, you are limited in your actions based on your corruption and fetishes.",
 			"Sex action corruption requirements may be bypassed if your corruption level is one level below the required corruption level of the action, but you will gain corruption if you do so.",
 			"All sex action corruption requirements may be bypassed, but you will gain corruption if you do so."};
+
+	public int pregnancyDuration = 1;
 	
 	public int forcedTFPercentage = 40;
 	public int forcedFetishPercentage = 0;
@@ -315,6 +317,7 @@ public class Properties {
 			createXMLElementWithValue(doc, settings, "udders", String.valueOf(udders));
 			createXMLElementWithValue(doc, settings, "autoSaveFrequency", String.valueOf(autoSaveFrequency));
 			createXMLElementWithValue(doc, settings, "bypassSexActions", String.valueOf(bypassSexActions));
+			createXMLElementWithValue(doc, settings, "pregnancyDuration", String.valueOf(pregnancyDuration));
 			createXMLElementWithValue(doc, settings, "forcedTFPercentage", String.valueOf(forcedTFPercentage));
 			createXMLElementWithValue(doc, settings, "randomRacePercentage", String.valueOf(randomRacePercentage)); 
 
@@ -470,7 +473,7 @@ public class Properties {
 				fetishPreferences.appendChild(element);
 				
 				Attr fetish = doc.createAttribute("fetish");
-				fetish.setValue(f.toString());
+				fetish.setValue(Fetish.getIdFromFetish(f));
 				element.setAttributeNode(fetish);
 				
 				Attr value = doc.createAttribute("value");
@@ -855,7 +858,12 @@ public class Properties {
 				} else {
 					bypassSexActions = 2;
 				}
-
+				
+				
+				if(element.getElementsByTagName("pregnancyDuration").item(0)!=null) {
+					pregnancyDuration = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyDuration").item(0)).getAttribute("value"));
+				}
+				
 				if(element.getElementsByTagName("forcedTFPercentage").item(0)!=null) {
 					forcedTFPercentage = Integer.valueOf(((Element)element.getElementsByTagName("forcedTFPercentage").item(0)).getAttribute("value"));
 				}
@@ -1038,7 +1046,7 @@ public class Properties {
 						
 						try {
 							if(!e.getAttribute("fetish").isEmpty()) {
-								fetishPreferencesMap.put(Fetish.getFetishById(e.getAttribute("fetish")), Integer.valueOf(e.getAttribute("value")));
+								fetishPreferencesMap.put(Fetish.getFetishFromId(e.getAttribute("fetish")), Integer.valueOf(e.getAttribute("value")));
 							}
 						} catch(IllegalArgumentException ex){
 							System.err.println("loadPropertiesFromXML() error: fetishPreferences preference");
@@ -1263,6 +1271,7 @@ public class Properties {
 		bypassSexActions = 2;
 		multiBreasts = 1;
 		udders = 1;
+		pregnancyDuration = 1;
 		forcedTFPercentage = 40;
 		forcedFetishPercentage = 40;
 		setForcedFetishTendency(ForcedFetishTendency.NEUTRAL);
@@ -1551,7 +1560,7 @@ public class Properties {
 	}
 
 	public void resetFetishPreferences() {
-		fetishPreferencesMap = new HashMap<AbstractFetish,Integer>();
+		fetishPreferencesMap = new HashMap<AbstractFetish, Integer>();
 		for(AbstractFetish f : PluginLoader.getInstance().getAllFetishes()) {
 			fetishPreferencesMap.put(f, f.getFetishPreferenceDefault().getValue());
 		}

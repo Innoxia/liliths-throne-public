@@ -7,6 +7,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
@@ -18,10 +19,17 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.4
+ * @version 0.4.4.2
  * @author Innoxia
  */
 public class CMFetishAttack {
+	
+	private static int getFetishAttackBaseDamage(AbstractFetish associatedFetish, GameCharacter source, boolean isCrit) {
+		int baseDamage = 3;
+		FetishLevel fetishLevel = source.getFetishLevel(associatedFetish);
+		baseDamage += fetishLevel.getBonusTeaseDamage();
+        return baseDamage * (isCrit?3:1);
+	}
 	
 	public static AbstractCombatMove TEASE_ANAL_RECEIVING = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
             "buttslut tease",
@@ -47,7 +55,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -155,7 +163,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -253,7 +261,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -354,7 +362,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -456,7 +464,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -605,7 +613,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -705,7 +713,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -810,7 +818,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -911,7 +919,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1007,7 +1015,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1104,7 +1112,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1200,7 +1208,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1298,7 +1306,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1398,7 +1406,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1497,7 +1505,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1606,7 +1614,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1723,7 +1731,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1832,7 +1840,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -1960,7 +1968,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -2092,7 +2100,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -2227,7 +2235,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -2354,7 +2362,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -2463,7 +2471,7 @@ public class CMFetishAttack {
     	}
 
         private int getBaseDamage(GameCharacter source, boolean isCrit) {
-            return 5 * (isCrit?3:1);
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {

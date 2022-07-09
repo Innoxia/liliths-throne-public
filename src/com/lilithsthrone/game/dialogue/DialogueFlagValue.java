@@ -442,6 +442,8 @@ public class DialogueFlagValue {
 
 	public static AbstractDialogueFlagValue murkLectured = new AbstractDialogueFlagValue(true);
 	public static AbstractDialogueFlagValue murkSpanked = new AbstractDialogueFlagValue(true);
+
+	public static AbstractDialogueFlagValue milkersClaireDialogue = new AbstractDialogueFlagValue(false);
 	
 	
 	//Felicia

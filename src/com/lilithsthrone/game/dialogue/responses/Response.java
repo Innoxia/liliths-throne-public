@@ -981,7 +981,7 @@ public class Response {
 		if(fromExternalFile && fetishesRequired==null && fetishesRequiredId!=null && !fetishesRequiredId.isEmpty()) {
 			fetishesRequired = new ArrayList<>();
 			for(String fetishId : fetishesRequiredId) {
-				fetishesRequired.add(Fetish.getFetishById(UtilText.parse(fetishId).trim()));
+				fetishesRequired.add(Fetish.getFetishFromId(UtilText.parse(fetishId).trim()));
 			}
 		}
 		return fetishesRequired;
