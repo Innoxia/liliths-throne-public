@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.fetishes;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -2271,7 +2272,7 @@ public class Fetish {
 	
 	// Access methods:
 	
-	public static List<AbstractFetish> allFetishes;
+	public static List<AbstractFetish> allFetishes = new ArrayList<>();
 
 	public static Map<AbstractFetish, String> fetishToIdMap = new HashMap<>();
 	public static Map<String, AbstractFetish> idToFetishMap = new HashMap<>();

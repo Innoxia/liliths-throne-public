@@ -257,11 +257,11 @@ public final class PluginLoader {
 			allFetishes.addAll(getStockFetishes());
 			allFetishes.addAll(getProvidedFetishes());
 			System.err.println("Discovered Fetishes");
-			System.err.println("------------------------------------------------------------------");
+			System.err.println("---------------------------------------------------------");
 			for(AbstractFetish f : allFetishes) {
 				System.err.println(String.format("%s - %s", f.getClass().getName(), f.getName(null)));
 			}
-			System.err.println("------------------------------------------------------------------");
+			System.err.println("---------------------------------------------------------");
 		}
 		return allFetishes;
 	}
