@@ -54,14 +54,12 @@ public class BasePlugin {
 	/**
 	 * All plugins loaded
 	 */
-	public void onPluginsLoaded() {
-	}
+	public void onPluginsLoaded() {}
 
 	/**
 	 * Do stuff in here to start up this plugin
 	 */
-	public void onStartup() {
-	}
+	public void onStartup() {}
 
 	/**
 	 * Declare two fetishes related by a dominant(top)/submissive(bottom)
@@ -103,16 +101,14 @@ public class BasePlugin {
 		return fetishGroups;
 	}
 
-	public void addPerks(Set<AbstractPerk> providedPerks) {
-	}
+	public void addPerks(Set<AbstractPerk> providedPerks) {}
 
 	/**
 	 * Set up NPCs here.
 	 * 
 	 * @param addedNpcs
 	 */
-	public void onInitUniqueNPCs(List<Class<? extends NPC>> addedNpcs) {
-	}
+	public void onInitUniqueNPCs(List<Class<? extends NPC>> addedNpcs) {}
 
 	/**
 	 * Called after Main.start()

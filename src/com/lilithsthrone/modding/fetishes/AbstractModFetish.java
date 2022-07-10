@@ -55,23 +55,19 @@ public abstract class AbstractModFetish extends AbstractFetish {
 		// constructors with IDs in them.");
 	}
 
-	
 	@Override
 	protected InputStream getInputStreamForSVG() {
-		String realFilePath = PluginUtils.GetModPath(getClass())
-				.resolve("fetishes")
-				.resolve(pathName + ".svg")
+		String realFilePath = PluginUtils.GetModPath(getClass()).resolve("fetishes").resolve(pathName + ".svg")
 				.toString();
 		File f = new File(realFilePath);
-		if(!f.isFile()) {
-			System.err.println("Error! Fetish icon file does not exist (Trying to read from '"+realFilePath+"')!");
+		if (!f.isFile()) {
+			System.err.println("Error! Fetish icon file does not exist (Trying to read from '" + realFilePath + "')!");
+		} else if (!f.canRead()) {
+			System.err.println("Error! Fetish icon file is not readable (Trying to read from '" + realFilePath + "')!");
 		}
-		else if(!f.canRead()) {
-			System.err.println("Error! Fetish icon file is not readable (Trying to read from '"+realFilePath+"')!");
-		}
-		
-		System.err.println("Reading "+realFilePath);
-		
+
+		System.err.println("Reading " + realFilePath);
+
 		try {
 			return new FileInputStream(f);
 		} catch (FileNotFoundException e) {
