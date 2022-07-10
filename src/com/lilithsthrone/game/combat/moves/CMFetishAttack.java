@@ -991,6 +991,210 @@ public class CMFetishAttack {
         }
     };
     
+    public static AbstractCombatMove TEASE_LEG_RECEIVING = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
+            "strutter tease",
+            0,
+            1,
+            CombatMoveType.TEASE,
+            DamageType.LUST,
+            "fetishes/fetish_strutter",
+            false,
+            true,
+            false,
+			null) {
+
+    	private AbstractFetish associatedFetish = Fetish.FETISH_STRUTTER;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_LEG_LOVER;
+
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
+        }
+
+        protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
+            if(target.getFetishDesire(oppositeFetish).isNegative()) {
+            	return 1;
+            }
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
+        }
+        
+        @Override
+        public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
+            return new Value<>(source.hasFetish(associatedFetish) && source.hasLegs(), "Available to characters who have legs and who have the "+associatedFetish.getName(source)+" fetish.");
+        }
+
+        @Override
+        public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            DamageType damageType = getDamageType(turnIndex, source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
+            return UtilText.parse(source, target,
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            			+ "[npc.Name] [npc.verb(offer)] [npc2.name] the use of [npc.her] legs, dealing "+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false, isTargetAtMaximumLust(target)) + " damage."
+            			+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
+        }
+        
+        @Override
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base "
+            				+ getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
+            				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
+        }
+
+        @Override
+        public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            DamageType damageType = getDamageType(turnIndex, source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            boolean maxLust = isTargetAtMaximumLust(target);
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
+            if(target.getFetishDesire(oppositeFetish).isNegative()) {
+            	dealtDamage = new Value<>("", 1);
+            	isCrit = false;
+            } else {
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
+            }
+            
+            return formatAttackOutcome(source, target,
+            		(UtilText.returnStringAtRandom(
+						"[npc.Name] [npc.verb(slide)] [npc.her] [npc.hands] down between [npc.her] [npc.legs] and [npc.moansVerb], "
+								+ "[npc.speech(My legs are aching for your touch!)]",
+						"[npc.Name] [npc.verb(slip)] one [npc.hand] down to stroke [npc.her] [npc.legs] and [npc.moansVerb], "
+								+ "[npc.speech(Come fuck my thighs!)]",
+						"[npc.Name] [npc.verb(lift)] one of [npc.her] [npc.legs+] and [npc.moansVerb], "
+								+ "[npc.speech(Come fuck my legs and thighs!)]",
+						"[npc.Name] [npc.verb(wink)] at [npc2.name] and [npc.moansVerb], "
+								+ "[npc.speech(My thighs <i>need</i> some attention!)]"))+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
+            		(isCrit
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
+            			:null),
+                	"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
+        }
+
+        @Override
+        public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+        	return Util.newArrayListOfValues(
+        			 (target!=null?UtilText.parse(target,"[npc.NamehasFull]"):"The target has")+" the "+oppositeFetish.getName(target)+" fetish.");
+        }
+        
+        @Override
+        public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+        	return target.hasFetish(oppositeFetish);
+        }
+    };
+    
+    public static AbstractCombatMove TEASE_LEG_GIVING = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
+            "leg lover tease",
+            0,
+            1,
+            CombatMoveType.TEASE,
+            DamageType.LUST,
+            "fetishes/fetish_leg_lover",
+            false,
+            true,
+            false,
+			null) {
+
+    	private AbstractFetish associatedFetish = Fetish.FETISH_LEG_LOVER;
+    	private AbstractFetish oppositeFetish = Fetish.FETISH_STRUTTER;
+
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return getFetishAttackBaseDamage(associatedFetish, source, isCrit);
+        }
+
+        protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
+            if(!target.hasLegs() || target.getFetishDesire(oppositeFetish).isNegative()) {
+            	return 1;
+            }
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
+        }
+        
+        @Override
+        public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
+            return new Value<>(source.hasFetish(associatedFetish), "Available to characters who have the "+associatedFetish.getName(source)+" fetish.");
+        }
+
+        @Override
+        public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            DamageType damageType = getDamageType(turnIndex, source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
+            return UtilText.parse(source, target,
+	            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+		            		+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to use [npc2.her] [npc2.legs],"
+		            		+ " dealing "+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false, isTargetAtMaximumLust(target)) + " damage."
+	            			+ (!target.hasLegs()
+            					?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] does not have legs!)]"
+            					:(target.getFetishDesire(oppositeFetish).isNegative()
+                    					?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]"
+                            			:"")));
+        }
+
+        @Override
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false, false) + " damage."
+            				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target doesn't have legs or they dislike the "+oppositeFetish.getName(null)+" fetish.)]");
+        }
+
+        @Override
+        public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            DamageType damageType = getDamageType(turnIndex, source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            boolean maxLust = isTargetAtMaximumLust(target);
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
+            if(!target.hasLegs() || target.getFetishDesire(oppositeFetish).isNegative()) {
+            	dealtDamage = new Value<>("", 1);
+            	isCrit = false;
+            } else {
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
+            }
+            
+            return formatAttackOutcome(source, target,
+            		(UtilText.returnStringAtRandom(
+						"[npc.Name] [npc.verb(grin)] at [npc2.name], before moving [npc.her] gaze down to [npc2.her] [npc2.legs] and [npc.moaning],"
+							+" [npc.speech(Your thighs look like they need a good fuck!)]",
+						"[npc.Name] hungrily [npc.verb(stare)] at [npc2.namePos] [npc2.legs], [npc.moaning],"
+							+" [npc.speech(I'm going to fuck those legs so hard!)]",
+						"Gazing lustfully at [npc2.namePos] [npc2.legs], [npc.name] [npc.verb(let)] out [npc.a_moan+],"
+							+" [npc.speech(I'm going to pound those sweet thighs into the ground!)]"))+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
+            		(isCrit
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
+            			:null),
+            		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
+        }
+
+        @Override
+        public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+        	return Util.newArrayListOfValues(
+        			 (target!=null?UtilText.parse(target,"[npc.NamehasFull]"):"The target has")+" the "+oppositeFetish.getName(target)+" fetish.");
+        }
+        
+        @Override
+        public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+        	return target.hasFetish(oppositeFetish);
+        }
+    };
+    
 	public static AbstractCombatMove TEASE_FOOT_RECEIVING = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
             "submissive foot tease",
             0,

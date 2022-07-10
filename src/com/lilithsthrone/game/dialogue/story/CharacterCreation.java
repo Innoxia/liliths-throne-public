@@ -462,7 +462,7 @@ public class CharacterCreation {
 		
 		switch(character.getFemininity()) {
 			case MASCULINE_STRONG:
-				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_briefs", PresetColour.CLOTHING_WHITE, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_long_sleeved_shirt", PresetColour.CLOTHING_WHITE, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_tie", PresetColour.CLOTHING_RED, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torsoOver_suit_jacket", PresetColour.CLOTHING_BLACK, false), true, character);
@@ -478,7 +478,7 @@ public class CharacterCreation {
 				break;
 				
 			case MASCULINE:
-				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BOXERS, PresetColour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_boxers", PresetColour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_short_sleeved_shirt", PresetColour.CLOTHING_WHITE, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_trousers", PresetColour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, character);
@@ -492,7 +492,7 @@ public class CharacterCreation {
 				break;
 				
 			case ANDROGYNOUS:
-				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_PANTIES, PresetColour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_panties", PresetColour.CLOTHING_WHITE, false), true, character);
 				if(character.getBreastRawSizeValue()!=0) {
 					character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_CROPTOP_BRA, PresetColour.CLOTHING_WHITE, false), true, character);
 				} else {
@@ -509,7 +509,7 @@ public class CharacterCreation {
 				break;
 				
 			case FEMININE:
-				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_PANTIES, PresetColour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_panties", PresetColour.CLOTHING_WHITE, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_PLUNGE_BRA, PresetColour.CLOTHING_WHITE, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_SKATER_DRESS, PresetColour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_trainer_socks", PresetColour.CLOTHING_WHITE, false), true, character);
@@ -524,7 +524,7 @@ public class CharacterCreation {
 				break;
 				
 			case FEMININE_STRONG:
-				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_THONG, PresetColour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_thong", PresetColour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_PLUNGE_BRA, PresetColour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_SLIP_DRESS, PresetColour.CLOTHING_RED_BURGUNDY, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_pantyhose", PresetColour.CLOTHING_BLACK, false), true, character);
@@ -577,7 +577,7 @@ public class CharacterCreation {
 				generateClothingOnFloor("innoxia_sock_socks", PresetColour.CLOTHING_WHITE);
 				generateClothingOnFloor("innoxia_leg_cargo_trousers", PresetColour.CLOTHING_BLACK);
 				generateClothingOnFloor("innoxia_leg_jeans", PresetColour.CLOTHING_BLUE_GREY);
-				generateClothingOnFloor(ClothingType.GROIN_BOXERS, PresetColour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_groin_boxers", PresetColour.CLOTHING_BLACK);
 				generateClothingOnFloor("innoxia_eye_aviators", PresetColour.CLOTHING_BLACK_STEEL);
 				generateClothingOnFloor("innoxia_eye_glasses", PresetColour.CLOTHING_BLACK_STEEL);
 				generateClothingOnFloor("innoxia_hand_gloves", PresetColour.CLOTHING_BLACK);
@@ -587,7 +587,7 @@ public class CharacterCreation {
 				generateClothingOnFloor(ClothingType.TORSO_RIBBED_SWEATER, PresetColour.CLOTHING_GREY);
 				generateClothingOnFloor("innoxia_torso_short_sleeved_shirt", PresetColour.CLOTHING_WHITE);
 				generateClothingOnFloor("innoxia_torso_tshirt", PresetColour.CLOTHING_BLUE_LIGHT);
-				generateClothingOnFloor(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_WHITE);
+				generateClothingOnFloor("innoxia_groin_briefs", PresetColour.CLOTHING_WHITE);
 				generateClothingOnFloor("innoxia_torso_long_sleeved_shirt", PresetColour.CLOTHING_WHITE);
 				generateClothingOnFloor("innoxia_neck_tie", PresetColour.CLOTHING_RED);
 				generateClothingOnFloor("innoxia_torsoOver_suit_jacket", PresetColour.CLOTHING_BLACK);
@@ -598,9 +598,9 @@ public class CharacterCreation {
 				generateClothingOnFloor(ClothingType.getClothingTypeFromId("innoxia_foot_trainers"), PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_PURPLE_DARK, PresetColour.CLOTHING_BLACK);
 				generateClothingOnFloor("innoxia_foot_heels", PresetColour.CLOTHING_BLACK);
 				
-				generateClothingOnFloor(ClothingType.GROIN_THONG, PresetColour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_groin_thong", PresetColour.CLOTHING_BLACK);
 				generateClothingOnFloor("innoxia_groin_lacy_panties", PresetColour.CLOTHING_RED);
-				generateClothingOnFloor(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_WHITE);
+				generateClothingOnFloor("innoxia_groin_briefs", PresetColour.CLOTHING_WHITE);
 
 				generateClothingOnFloor("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_RED);
 
@@ -642,10 +642,10 @@ public class CharacterCreation {
 				generateClothingOnFloor("innoxia_sock_stockings", PresetColour.CLOTHING_BLACK);
 				generateClothingOnFloor(ClothingType.HIPS_SUSPENDER_BELT, PresetColour.CLOTHING_BLACK);
 				
-				generateClothingOnFloor(ClothingType.GROIN_PANTIES, PresetColour.CLOTHING_WHITE);
-				generateClothingOnFloor(ClothingType.GROIN_THONG, PresetColour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_groin_panties", PresetColour.CLOTHING_WHITE);
+				generateClothingOnFloor("innoxia_groin_thong", PresetColour.CLOTHING_BLACK);
 				generateClothingOnFloor("innoxia_groin_lacy_panties", PresetColour.CLOTHING_RED);
-				generateClothingOnFloor(ClothingType.GROIN_VSTRING, PresetColour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_groin_vstring", PresetColour.CLOTHING_BLACK);
 
 				generateClothingOnFloor("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_RED);
 				generateClothingOnFloor(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_BLACK);
@@ -2011,7 +2011,7 @@ public class CharacterCreation {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.MAIN));
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS));
 						
-						Main.game.getPlayer().setMoney(5000);
+						Main.game.getPlayer().incrementMoney(5000);
 						
 						DamageType damageType = DamageType.FIRE;
 						switch(CharacterCreation.getStartingDemonstoneSpellSchool()) {
@@ -2203,7 +2203,7 @@ public class CharacterCreation {
 						if(resetImportedCharacter){
 							resetPlayerCharacter();
 						}
-						Main.game.getPlayer().setMoney(5000);
+						Main.game.getPlayer().incrementMoney(5000);
 
 						Main.game.getPlayer().resetAllQuests();
 						Main.game.getPlayer().getCharactersEncountered().clear();

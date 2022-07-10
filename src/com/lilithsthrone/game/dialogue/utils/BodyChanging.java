@@ -655,9 +655,10 @@ public class BodyChanging {
 							+ CharacterModificationUtils.getSelfTransformTailChoiceDiv(
 									(getTarget().isElemental()
 											?allRaces
-											:(removeNoneFromTailChoices()||isSelfTFMenu()
-												?getMinorPartsDemonRaces(true)
-												:Util.newArrayListOfValues(Race.DEMON))),
+											:getMinorPartsDemonRaces(true)),
+//											:(removeNoneFromTailChoices()||isSelfTFMenu()
+//												?getMinorPartsDemonRaces(true)
+//												:Util.newArrayListOfValues(Race.DEMON))),
 									removeNoneFromTailChoices())
 							+ CharacterModificationUtils.getSelfTransformTailLengthDiv()
 							+"</div>"
@@ -677,11 +678,12 @@ public class BodyChanging {
 
 								+"<div style='clear:left;'>"
 									+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(
-										(getTarget().isElemental())
+										(getTarget().isElemental()
 											?allRaces
-											:(!removeNoneFromWingChoices()
-												?Util.newArrayListOfValues(Race.DEMON)
-												:getMinorPartsDemonRaces(true)),
+											:getMinorPartsDemonRaces(true)),
+//											:(!removeNoneFromWingChoices()
+//												?Util.newArrayListOfValues(Race.DEMON)
+//												:getMinorPartsDemonRaces(true)),
 										removeNoneFromWingChoices())
 									+ CharacterModificationUtils.getSelfTransformWingSizeDiv()
 								+"</div>"
@@ -1226,8 +1228,7 @@ public class BodyChanging {
 							+"</div>"
 
 							+ "<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformAntennaChoiceDiv(
-							(getMinorPartsDemonRaces(true)))
+							+ CharacterModificationUtils.getSelfTransformAntennaChoiceDiv((getMinorPartsDemonRaces(true)))
 							+ CharacterModificationUtils.getSelfTransformAntennaSizeDiv()
 							+"</div>"
 

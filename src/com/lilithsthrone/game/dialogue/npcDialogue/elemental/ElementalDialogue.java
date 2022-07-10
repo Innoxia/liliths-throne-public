@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.npcDialogue.elemental;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -110,7 +111,11 @@ public class ElementalDialogue {
 							true, true,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getElemental(), SexSlotStanding.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(getElemental(), SexSlotStanding.STANDING_SUBMISSIVE))) {
+								public boolean isCharacterAbleToStopSex(GameCharacter character) {
+									return character.isPlayer();
+								}
+							},
 							null,
 							null,
 							ELEMENTAL_AFTER_SEX,

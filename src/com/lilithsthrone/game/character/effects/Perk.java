@@ -2952,7 +2952,6 @@ public class Perk {
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Unlocks)] [style.boldLightBlue(fish transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
 					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
-
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
@@ -2961,13 +2960,38 @@ public class Perk {
 							?" Her power has additionally enabled you to transform your demonic body into that of any aquatic species!"
 							:" If you were a demon, this power would enable you to transform your body parts into those of any aquatic species!"));
 		}
-		
 		@Override
 		public boolean isHiddenPerk() {
 			return true;
 		}
 	};
 
+	public static AbstractPerk POWER_OF_LIRECEA_1_DEMON = new AbstractPerk(20,
+			false,
+			"Lirecea's true power",
+			PerkCategory.ARCANE,
+			"perks/lilin1",
+			PresetColour.BASE_BLUE_LIGHT,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_ARCANE, 10),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 15),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldLightBlue(fish transformations)]",
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lirecea's power has been infused into your arcane aura."
+					+ " Her power has been enhanced by your demonic form, which has also enabled you to transform your demonic body into that of any aquatic species!");
+		}
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+	
 	public static AbstractPerk POWER_OF_LOVIENNE_2 = new AbstractPerk(21,
 			false,
 			"Lovienne's power",
@@ -2979,22 +3003,46 @@ public class Perk {
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Unlocks)] [style.boldFeral(feral transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
 					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
-
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
-					"The essence of Lyssieth's power has been infused into your arcane aura."
+					"The essence of Lovienne's power has been infused into your arcane aura."
 					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
-							?" Her power has additionally enabled you to transform your demonic body into that of a regular human!"
-							:" If you were a demon, this power would enable you to transform your body parts into those of a regular human!"));
+							?" Her power has additionally enabled you to transform your demonic body into that of feral animals!"
+							:" If you were a demon, this power would enable you to transform your body parts into those of feral animals!"));
 		}
-		
 		@Override
 		public boolean isHiddenPerk() {
 			return true;
 		}
 	};
 
+	public static AbstractPerk POWER_OF_LOVIENNE_2_DEMON = new AbstractPerk(21,
+			false,
+			"Lovienne's true power",
+			PerkCategory.ARCANE,
+			"perks/lilin2",
+			PresetColour.RACE_BESTIAL,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_ARCANE, 10),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 15),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldFeral(feral transformations)]",
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lovienne's power has been infused into your arcane aura."
+					+ " Her power has been enhanced by your demonic form, which has also enabled you to transform your demonic body into that of feral animals!");
+		}
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+	
 	public static AbstractPerk POWER_OF_LASIELLE_3 = new AbstractPerk(22,
 			false,
 			"Lasielle's power",
@@ -3010,12 +3058,38 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
-					"The essence of Lyssieth's power has been infused into your arcane aura."
+					"The essence of Lasielle's power has been infused into your arcane aura."
 					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
-							?" Her power has additionally enabled you to transform your demonic body into that of a regular human!"
-							:" If you were a demon, this power would enable you to transform your body parts into those of a regular human!"));
+							?" Her power has additionally enabled you to transform others into demons!"
+							:" If you were a demon, this power would enable you to transform others into demons!"));
 		}
 		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+
+	public static AbstractPerk POWER_OF_LASIELLE_3_DEMON = new AbstractPerk(22,
+			false,
+			"Lasielle's true power",
+			PerkCategory.ARCANE,
+			"perks/lilin3",
+			PresetColour.RACE_DEMON,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_ARCANE, 10),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 15),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] ability to transform others into [style.boldDemon(demons)]",
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lasielle's power has been infused into your arcane aura."
+					+ " Her power has been enhanced by your demonic form, which has also enabled you to transform others into demons!");
+		}
 		@Override
 		public boolean isHiddenPerk() {
 			return true;
@@ -3029,7 +3103,7 @@ public class Perk {
 			"perks/lilin4",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.MANA_MAXIMUM, 50)),
+					new Value<>(Attribute.MANA_MAXIMUM, 25)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]",
 					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
@@ -3052,9 +3126,10 @@ public class Perk {
 			"perks/lilin4",
 			PresetColour.RACE_HUMAN,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.MAJOR_ARCANE, 75),
-					new Value<>(Attribute.MAJOR_PHYSIQUE, 25),
-					new Value<>(Attribute.MAJOR_CORRUPTION, 25),
+					new Value<>(Attribute.MAJOR_ARCANE, 10),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 15),
+					new Value<>(Attribute.MANA_MAXIMUM, 50),
 					new Value<>(Attribute.getRacialDamageAttribute(Race.HUMAN), 50)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)]",
@@ -3080,18 +3155,42 @@ public class Perk {
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues(
-					"[style.boldExcellent(Unlocks)] [style.boldGreenLight(mammalian transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Unlocks)] [style.boldHorse(mammalian transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
 					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
-
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
-					"The essence of Lyssieth's power has been infused into your arcane aura."
+					"The essence of Lunette's power has been infused into your arcane aura."
 					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
 							?" Her power has additionally enabled you to transform your demonic body into that of a regular human!"
 							:" If you were a demon, this power would enable you to transform your body parts into those of a regular human!"));
 		}
-		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+
+	public static AbstractPerk POWER_OF_LUNETTE_5_DEMON = new AbstractPerk(24,
+			false,
+			"Lunette's true power",
+			PerkCategory.ARCANE,
+			"perks/lilin5",
+			PresetColour.RACE_HORSE_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_ARCANE, 10),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 15),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldHorse(mammalian transformations)]",
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lunette's power has been infused into your arcane aura."
+					+ " Her power has been enhanced by your demonic form, which has also enabled you to transform your demonic body parts into those of mammalian species!");
+		}
 		@Override
 		public boolean isHiddenPerk() {
 			return true;
@@ -3107,18 +3206,42 @@ public class Perk {
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues(
-					"[style.boldExcellent(Unlocks)] [style.boldGreenLight(avian transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
+					"[style.boldExcellent(Unlocks)] [style.boldHarpy(avian transformations)] if a [style.boldDemon(demon)]", //TODO placeholder TF unlock, might change in the future
 					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
-
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
-					"The essence of Lyssieth's power has been infused into your arcane aura."
+					"The essence of Lyxias's power has been infused into your arcane aura."
 					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
-							?" Her power has additionally enabled you to transform your demonic body into that of a regular human!"
-							:" If you were a demon, this power would enable you to transform your body parts into those of a regular human!"));
+							?" Her power has additionally enabled you to transform your demonic body into that of avian species!"
+							:" If you were a demon, this power would enable you to transform your body parts into those of avian species!"));
 		}
-		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+
+	public static AbstractPerk POWER_OF_LYXIAS_6_DEMON = new AbstractPerk(25,
+			false,
+			"Lyxias's true power",
+			PerkCategory.ARCANE,
+			"perks/lilin6",
+			PresetColour.RACE_HARPY,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_ARCANE, 10),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 15),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldHarpy(avian transformations)]",
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lyxias's power has been infused into your arcane aura."
+					+ " Her power has been enhanced by your demonic form, which has also enabled you to transform your demonic body parts into those of avian species!");
+		}
 		@Override
 		public boolean isHiddenPerk() {
 			return true;
@@ -3142,8 +3265,8 @@ public class Perk {
 			return UtilText.parse(owner,
 					"The essence of Lyssieth's power has been infused into your arcane aura."
 					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
-							?" Her power has additionally enabled you to transform your demonic body into that of a regular human!"
-							:" If you were a demon, this power would enable you to transform your body parts into those of a regular human!"));
+							?" Her power has additionally enabled you to transform your demonic body into that of reptilian and amphibian species!"
+							:" If you were a demon, this power would enable you to transform your body parts into those of reptilian and amphibian species!"));
 		}
 		
 		@Override
@@ -3152,6 +3275,32 @@ public class Perk {
 		}
 	};
 
+	public static AbstractPerk POWER_OF_LISOPHIA_7_DEMON = new AbstractPerk(26,
+			false,
+			"Lisophia's true power",
+			PerkCategory.ARCANE,
+			"perks/lilin7",
+			PresetColour.BASE_GREEN_LIGHT,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_ARCANE, 10),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 15),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldGreenLight(reptilian and amphibian transformations)]",
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lisophia's power has been infused into your arcane aura."
+					+ " Her power has been enhanced by your demonic form, which has also enabled you to transform your demonic body parts into those of reptilian and amphibian species!");
+		}
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+	
 	public static AbstractPerk SINGLE_TAILED_YOUKO = new AbstractPerk(20,
 			false,
 			"Single tailed Youko",

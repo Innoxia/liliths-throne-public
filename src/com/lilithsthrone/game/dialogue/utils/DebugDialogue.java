@@ -714,22 +714,38 @@ public class DebugDialogue {
 							Perk.POWER_OF_LUNETTE_5,
 							Perk.POWER_OF_LYXIAS_6,
 							Perk.POWER_OF_LISOPHIA_7);
+
+					ArrayList<AbstractPerk> powerPerksDemon = Util.newArrayListOfValues(Perk.POWER_OF_LIRECEA_1_DEMON,
+							Perk.POWER_OF_LOVIENNE_2_DEMON,
+							Perk.POWER_OF_LASIELLE_3_DEMON,
+							Perk.POWER_OF_LYSSIETH_4_DEMON,
+							Perk.POWER_OF_LUNETTE_5_DEMON,
+							Perk.POWER_OF_LYXIAS_6_DEMON,
+							Perk.POWER_OF_LISOPHIA_7_DEMON);
+					
 					AbstractPerk perk = powerPerks.get(index-20);
-						return new Response("Elder Lilin perk", "Toggle perk.", DEBUG_MENU) {
-							@Override
-							public String getTitle() {
-								return perk.getName(null)+": "+(Main.game.getPlayer().hasPerkAnywhereInTree(perk)?"[style.colourGood(ON)]":"[style.colourDisabled(OFF)]");
-							}
-							
-							@Override
-							public void effects() {
-								if(Main.game.getPlayer().hasPerkAnywhereInTree(perk)) {
-									Main.game.getPlayer().removeSpecialPerk(perk);
+					AbstractPerk perkDemon = powerPerksDemon.get(index-20);
+					
+					return new Response("Elder Lilin perk", "Toggle perk.", DEBUG_MENU) {
+						@Override
+						public String getTitle() {
+							return perk.getName(null)+": "+(Main.game.getPlayer().hasPerkAnywhereInTree(perk) || Main.game.getPlayer().hasPerkAnywhereInTree(perkDemon)?"[style.colourGood(ON)]":"[style.colourDisabled(OFF)]");
+						}
+						
+						@Override
+						public void effects() {
+							if(Main.game.getPlayer().hasPerkAnywhereInTree(perk) || Main.game.getPlayer().hasPerkAnywhereInTree(perkDemon)) {
+								Main.game.getPlayer().removeSpecialPerk(perk);
+								Main.game.getPlayer().removeSpecialPerk(perkDemon);
+							} else {
+								if(Main.game.getPlayer().getTrueRace()==Race.DEMON) {
+									Main.game.getPlayer().addSpecialPerk(perkDemon);
 								} else {
 									Main.game.getPlayer().addSpecialPerk(perk);
 								}
 							}
-						};
+						}
+					};
 					
 				} else if(index==29)  {
 					return new Response("Spawn rates", "List the spawn rates in the current location.", SPAWN_RATES) {
