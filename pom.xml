@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.lilithsthrone</groupId>
 	<artifactId>game</artifactId>
@@ -7,9 +9,6 @@
 	<name>lilithsthrone</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<pf4j.version>3.6.0</pf4j.version>
-		<javafx.version>17</javafx.version>
-		<javafx.maven.plugin.version>0.0.6</javafx.maven.plugin.version>
 	</properties>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -43,31 +42,8 @@
 					<source>1.8</source>
 					<target>1.8</target>
 					<useIncrementalCompilation>false</useIncrementalCompilation>
-					<verbose>true</verbose>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-	<dependencies>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-controls</artifactId>
-			<version>${javafx.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-fxml</artifactId>
-			<version>${javafx.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-web</artifactId>
-			<version>${javafx.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.pf4j</groupId>
-			<artifactId>pf4j</artifactId>
-			<version>${pf4j.version}</version>
-		</dependency>
-	</dependencies>
 </project>
