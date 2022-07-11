@@ -321,7 +321,7 @@ public abstract class AbstractFetish {
 				this.id = id;
 			} else {
 				// UUID_FETISH_ID
-				this.id = String.format("%s_%s", plugin.metadata.id.toString().replaceAll("-","_"), plugin);
+				this.id = String.format("%s_%s", plugin.metadata.id.toString().replaceAll("-","_"), id);
 			}
 		}
 	}

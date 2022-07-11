@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.combat.spells.SpellUpgrade;
+import com.lilithsthrone.modding.BasePlugin;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
@@ -24,7 +25,7 @@ import com.lilithsthrone.utils.colours.Colour;
  * @author Innoxia
  */
 public abstract class AbstractPerk {
-	
+	private String id;
 	private int renderingPriority;
 	protected String name;
 	private List<Colour> colours;
@@ -260,5 +261,19 @@ public abstract class AbstractPerk {
 
 	public SpellSchool getSchool() {
 		return school;
+	}
+	
+	public final String getID() {
+		return this.id;
+	}
+	
+	public void assignID(BasePlugin plugin, String id) {
+		if(this.id != null)
+			return;
+		if(plugin == null) {
+			this.id = id; // Stock
+		} else {
+			this.id = String.format("%s_%s", plugin.metadata.id.toString().replaceAll("-","_"), id);
+		}
 	}
 }

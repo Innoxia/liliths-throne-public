@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.effects;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +17,7 @@ import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.modding.BasePlugin;
 import com.lilithsthrone.modding.PluginLoader;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -5851,8 +5851,8 @@ public class Perk {
 	
 	
 
-	public static List<AbstractPerk> hiddenPerks;
-	public static List<AbstractPerk> allPerks;
+	public static List<AbstractPerk> hiddenPerks = new ArrayList<>();
+	public static List<AbstractPerk> allPerks = new ArrayList<>();
 	
 	public static Map<AbstractPerk, String> perkToIdMap = new HashMap<>();
 	public static Map<String, AbstractPerk> idToPerkMap = new HashMap<>();
@@ -5861,7 +5861,7 @@ public class Perk {
 	
 	public static AbstractPerk getPerkFromId(String id) {
 		if(!subspeciesPerksGenerated) {
-			generateSubspeciesPerks();
+			PluginLoader.getInstance().getAllPerks(); // Trigger perk list build
 		}
 //		System.out.print("ID: "+id);
 		if(id.equalsIgnoreCase("MERAXIS")
@@ -5898,19 +5898,24 @@ public class Perk {
 	
 	public static String getIdFromPerk(AbstractPerk perk) {
 		if(!subspeciesPerksGenerated) {
-			generateSubspeciesPerks();
+			PluginLoader.getInstance().getAllPerks(); // Trigger perk list build
 		}
-		return perkToIdMap.get(perk);
+		//return perkToIdMap.get(perk);
+		return perk.getID();
 	}
 
-	public static void addPerk(String id, AbstractPerk perk) {
+	public static void addPerk(BasePlugin plugin, String id, AbstractPerk perk) {
 		// I feel like this is stupid :thinking:
-		perkToIdMap.put(perk, id);
-		idToPerkMap.put(id, perk);
-
-		allPerks.add(perk);
-		if (perk.isHiddenPerk()) {
-			hiddenPerks.add(perk);
+		if(!allPerks.contains(perk)) {
+			perk.assignID(plugin, id);
+			
+			perkToIdMap.put(perk, perk.getID());
+			idToPerkMap.put(perk.getID(), perk);
+	
+			allPerks.add(perk);
+			if (perk.isHiddenPerk()) {
+				hiddenPerks.add(perk);
+			}
 		}
 	}
 
@@ -5925,6 +5930,7 @@ public class Perk {
 	// 	addPerk(id, perk);
 	// }
 
+	/*
 	static {
 		hiddenPerks = new ArrayList<>();
 		allPerks = new ArrayList<>();
@@ -5938,17 +5944,19 @@ public class Perk {
 				
 				try {
 					perk = ((AbstractPerk) f.get(null));
-					addPerk(f.getName(), perk);
+					addPerk(null, f.getName(), perk);
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
 		}
+
+		PluginLoader.getInstance().onInitPerks();
 		
 		hiddenPerks.sort((p1, p2) -> p1.getRenderingPriority()-p2.getRenderingPriority());
-	}
+	}*/
 	
-	private static void generateSubspeciesPerks() {
+	public static void generateSubspeciesPerks() {
 		List<AbstractAttribute> resistancesAdded = new ArrayList<>();
 		for(AbstractSubspecies sub : Subspecies.getAllSubspecies()) {
 			if(!resistancesAdded.contains(sub.getDamageMultiplier())) {
@@ -5985,9 +5993,7 @@ public class Perk {
 					}
 				};
 //				System.out.println("Added perk: "+Subspecies.getIdFromSubspecies(subToUse)+" "+racePerk.getName(null)+" "+racePerk.hashCode());
-				perkToIdMap.put(racePerk, Subspecies.getIdFromSubspecies(subToUse));
-				idToPerkMap.put(Subspecies.getIdFromSubspecies(subToUse), racePerk);
-				allPerks.add(racePerk);
+				Perk.addPerk(null, Subspecies.getIdFromSubspecies(subToUse), racePerk);
 				hiddenPerks.add(racePerk);
 			}
 		}
@@ -6012,15 +6018,12 @@ public class Perk {
 	}
 	
 	public static List<AbstractPerk> getAllPerks() {
-		if(!subspeciesPerksGenerated) {
-			generateSubspeciesPerks();
-		}
-		return allPerks;
+		return PluginLoader.getInstance().getAllPerks();
 	}
 	
 	public static List<AbstractPerk> getHiddenPerks() {
 		if(!subspeciesPerksGenerated) {
-			generateSubspeciesPerks();
+			PluginLoader.getInstance().getAllPerks(); // Trigger perk list build
 		}
 		return hiddenPerks;
 	}

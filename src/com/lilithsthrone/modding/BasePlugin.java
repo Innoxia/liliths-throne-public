@@ -12,6 +12,7 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
@@ -33,6 +34,8 @@ public class BasePlugin {
 
 	public List<AbstractFetish> fetishes = new ArrayList<AbstractFetish>();
 	private List<FetishGroup> fetishGroups = new ArrayList<FetishGroup>();
+
+	private List<AbstractPerk> perks = new ArrayList<AbstractPerk>();
 
 	/**
 	 * Returns true when the plugin should be loaded.
@@ -100,8 +103,15 @@ public class BasePlugin {
 	public final List<FetishGroup> getFetishGroups() {
 		return fetishGroups;
 	}
+	
+	protected final void declarePerk(String perkID, AbstractPerk perk) {
+		Perk.addPerk(this, perkID, perk);
+		this.perks.add(perk);
+	}
 
-	public void addPerks(Set<AbstractPerk> providedPerks) {}
+	public final List<AbstractPerk> getPerks() {
+		return perks ;
+	}
 
 	/**
 	 * Set up NPCs here.
@@ -118,7 +128,7 @@ public class BasePlugin {
 	/**
 	 * Called after Perk static, but before hiddens are visually sorted.
 	 * 
-	 * Use Perks.addPerk.
+	 * Use declarePerk().
 	 */
 	public void onInitPerks() {}
 

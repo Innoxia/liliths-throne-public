@@ -13,6 +13,7 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,8 @@ import org.xml.sax.SAXException;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.effects.AbstractPerk;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -209,6 +212,9 @@ public final class PluginLoader {
 		this.plugins.add(plugin);
 	}
 
+	//////////////////////////////////////////////////
+	// Fetishes
+	//////////////////////////////////////////////////
 
 	private List<AbstractFetish> stockFetishes = null;
 	public List<AbstractFetish> getStockFetishes() {
@@ -266,13 +272,70 @@ public final class PluginLoader {
 		return allFetishes;
 	}
 
-	public void forEachPlugin(Consumer<? super BasePlugin> callback) {
-		plugins.forEach(callback);
+	//////////////////////////////////////////////////
+	// PERKS
+	//////////////////////////////////////////////////
+
+	private List<AbstractPerk> stockPerks = null;
+	public List<AbstractPerk> getStockPerks() {
+		if (stockPerks == null) {
+			stockPerks = new ArrayList<>();
+			Field[] fields = Perk.class.getFields();
+			for (Field f : fields) {
+				if (AbstractPerk.class.isAssignableFrom(f.getType())) {
+					AbstractPerk perk;
+					try {
+						perk = ((AbstractPerk) f.get(null));
+						stockPerks.add(perk);
+						Perk.addPerk(null, f.getName(), perk);
+					} catch (IllegalArgumentException | IllegalAccessException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			Perk.generateSubspeciesPerks();
+		}
+		return stockPerks;
+	}
+
+	private List<AbstractPerk> providedPerks = null;
+	public List<AbstractPerk> getProvidedPerks() {
+		if (providedPerks == null) {
+			providedPerks = new ArrayList<AbstractPerk>();
+			for(BasePlugin p : plugins) {
+				for(AbstractPerk P : p.getPerks()) {
+					providedPerks.add(P);
+					Perk.addPerk(p, P.getID(), P);
+				}
+			}
+		}
+		return providedPerks;
+	}
+
+
+	private List<AbstractPerk> allPerks = null;
+	public List<AbstractPerk> getAllPerks() {
+		if (allPerks == null) {
+			allPerks = new ArrayList<AbstractPerk>();
+			allPerks.addAll(getStockPerks());
+			allPerks.addAll(getProvidedPerks());
+			System.err.println("Discovered Perks");
+			System.err.println("---------------------------------------------------------");
+			for(AbstractPerk f : allPerks) {
+				System.err.println(String.format("%s - %s (%s)", f.getClass().getName(), f.getID(), f.getName(null)));
+			}
+			System.err.println("---------------------------------------------------------");
+		}
+		return allPerks;
 	}
 
 	//////////////////////////////////////////////////
 	// SIGNALLING
 	//////////////////////////////////////////////////
+
+	public void forEachPlugin(Consumer<? super BasePlugin> callback) {
+		plugins.forEach(callback);
+	}
 
 	private void onPluginsLoaded() {
 		plugins.forEach(p -> p.onPluginsLoaded());
