@@ -2282,8 +2282,6 @@ public class Fetish {
 		fetishToIdMap.put(fetish, fetish.getID());
 		idToFetishMap.put(fetish.getID(), fetish);
 		allFetishes.add(fetish);
-		if (plugin != null)
-			plugin.fetishes.add(fetish);
 	}
 	
 	/**
