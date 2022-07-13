@@ -2866,7 +2866,7 @@ public class MainControllerInitMethod {
 				}
 				
 				// Fetishes:
-				for(AbstractFetish fetish : PluginLoader.getInstance().getAllFetishes()) {
+				for(AbstractFetish fetish : Fetish.getAllFetishes()) {
 					for(FetishDesire desire : FetishDesire.values()) {
 						id = "FETISH_DESIRE_"+Fetish.getIdFromFetish(fetish)+desire;
 						if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -6120,7 +6120,7 @@ public class MainControllerInitMethod {
 				} else {
 					targetedCharacter = Main.game.getPlayer();
 				}
-				for (AbstractFetish f : PluginLoader.getInstance().getAllFetishes()) {
+				for (AbstractFetish f : Fetish.getAllFetishes()) {
 					id = "fetishUnlock" + f.getID();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {

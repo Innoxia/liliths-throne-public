@@ -49,7 +49,6 @@ import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.modding.PluginLoader;
 import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.ArtistWebsite;
 import com.lilithsthrone.rendering.Artwork;
@@ -1412,7 +1411,7 @@ public class OptionsDialogue {
 							+ "</div>"
 							
 							+ "<div class='container-full-width' style='text-align:center;'>");
-			for(AbstractFetish fetish : PluginLoader.getInstance().getAllFetishes()) {
+			for(AbstractFetish fetish : Fetish.getAllFetishes()) {
 				if(fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 					UtilText.nodeContentSB.append(getFetishPreferencesPanel(fetish));
 				}

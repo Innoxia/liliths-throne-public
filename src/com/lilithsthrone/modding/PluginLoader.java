@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,8 +11,6 @@ import java.net.URLClassLoader;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -32,19 +29,13 @@ import org.xml.sax.SAXException;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
-import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
-import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
-import com.lilithsthrone.main.Main;
 import com.lilithsthrone.modding.fetishes.FetishGroup;
 import com.lilithsthrone.modding.fetishes.FetishLoader;
-import com.lilithsthrone.modding.fetishes.LooseFetishGroup;
-import com.lilithsthrone.modding.fetishes.RelatedFetishGroup;
 import com.lilithsthrone.modding.perks.PerkLoader;
-import com.lilithsthrone.utils.Util;
 
 public final class PluginLoader {
 	private static String MOD_DIR = "res/mods";
@@ -57,7 +48,7 @@ public final class PluginLoader {
 	private static PluginLoader INSTANCE = null;
 
 	private HashSet<BasePlugin> plugins = new HashSet<BasePlugin>();
-	private HashSet<UUID> loadedPlugins = new HashSet<UUID>();
+	private Set<UUID> loadedPlugins = new HashSet<UUID>();
 
 	private File modDir;
 	private DocumentBuilderFactory dbf;
@@ -191,7 +182,7 @@ public final class PluginLoader {
 
 		System.err.println("---------------------------------------------------------");
 		System.err.println(String.format("%s v%s (%s)", meta.name, meta.version, meta.id));
-		System.err.println("Hash: "+GetSHA256ChecksumOfFile(pluginFile));
+		System.err.println("SHA256: "+GetSHA256ChecksumOfFile(pluginFile));
 
 		Class<?> cls = null;
 		try {
@@ -223,16 +214,19 @@ public final class PluginLoader {
 	//////////////////////////////////////////////////
 	// Fetishes
 	//////////////////////////////////////////////////
-
+	public FetishLoader getFetishes() { return fetishes; }
+	
+	@Deprecated
 	public List<AbstractFetish> getStockFetishes() {
 		return this.fetishes.getStock();
 	}
-
+	
+	@Deprecated
 	public List<AbstractFetish> getProvidedFetishes() {
 		return this.fetishes.getProvided();
 	}
-
-
+	
+	@Deprecated
 	public List<AbstractFetish> getAllFetishes() {
 		return this.fetishes.getAll();
 	}
@@ -240,14 +234,19 @@ public final class PluginLoader {
 	//////////////////////////////////////////////////
 	// PERKS
 	//////////////////////////////////////////////////
+	public PerkLoader getPerks() { return perks; }
+	
+	@Deprecated
 	public List<AbstractPerk> getStockPerks() {
 		return perks.getStock();
 	}
-
+	
+	@Deprecated
 	public List<AbstractPerk> getProvidedPerks() {
 		return perks.getProvided();
 	}
 	
+	@Deprecated
 	public List<AbstractPerk> getAllPerks() {
 		return perks.getAll();
 	}

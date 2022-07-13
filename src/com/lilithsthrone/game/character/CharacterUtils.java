@@ -2427,7 +2427,7 @@ public class CharacterUtils {
 	private static List<AbstractFetish> getAllowedFetishes(GameCharacter character) {
 		List<AbstractFetish> allowedFetishes = new ArrayList<>();
 		
-		for(AbstractFetish f : PluginLoader.getInstance().getAllFetishes()) {
+		for(AbstractFetish f : Fetish.getAllFetishes()) {
 			if(f.isAllowed(character))
 				allowedFetishes.add(f);
 		}

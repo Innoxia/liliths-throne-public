@@ -2365,7 +2365,7 @@ public class Fetish {
 		return fetishToIdMap.get(fetish);
 	}
 
-	/* Now assigned in PluginLoader.
+	/* Now assigned in FetishLoader.
 	static {
 		allFetishes = new ArrayList<>();
 		
@@ -2394,7 +2394,7 @@ public class Fetish {
 	*/
 	
 	public static List<AbstractFetish> getAllFetishes() {
-		return PluginLoader.getInstance().getAllFetishes();
+		return PluginLoader.getInstance().getFetishes().getAll();
 	}
 	
 }
