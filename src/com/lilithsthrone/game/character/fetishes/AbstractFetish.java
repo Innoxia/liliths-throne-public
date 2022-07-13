@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -336,5 +337,9 @@ public abstract class AbstractFetish {
 
 	public String getAppliedFetishLevelEffectDescription(GameCharacter character) {
 		return null;
+	}
+
+	public EnumSet<ContentFlag> requiresContent() {
+		return ContentFlag.NONE;
 	}
 }

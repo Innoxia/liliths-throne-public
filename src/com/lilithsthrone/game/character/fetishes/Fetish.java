@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.fetishes;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,6 +82,11 @@ public class Fetish {
 		public boolean isAllowed(GameCharacter character) {
 			return Main.game.isAnalContentEnabled();
 		}
+
+		@Override
+		public EnumSet<ContentFlag> requiresContent() {
+			return ContentFlag.allOf(ContentFlag.ANAL);
+		}
 	};
 	
 	public static AbstractFetish FETISH_ANAL_RECEIVING = new AbstractFetish(60,
@@ -132,6 +138,11 @@ public class Fetish {
 		@Override
 		public boolean isAllowed(GameCharacter character) {
 			return Main.game.isAnalContentEnabled();
+		}
+
+		@Override
+		public EnumSet<ContentFlag> requiresContent() {
+			return ContentFlag.allOf(ContentFlag.ANAL);
 		}
 	};
 	
@@ -460,6 +471,11 @@ public class Fetish {
 		public boolean isAllowed(GameCharacter character) {
 			return Main.game.isLactationContentEnabled();
 		}
+
+		@Override
+		public EnumSet<ContentFlag> requiresContent() {
+			return ContentFlag.allOf(ContentFlag.LACTATION);
+		}
 	};
 	
 	public static AbstractFetish FETISH_LACTATION_SELF = new AbstractFetish(60,
@@ -511,6 +527,11 @@ public class Fetish {
 		@Override
 		public boolean isAllowed(GameCharacter character) {
 			return Main.game.isLactationContentEnabled();
+		}
+
+		@Override
+		public EnumSet<ContentFlag> requiresContent() {
+			return ContentFlag.allOf(ContentFlag.LACTATION);
 		}
 	};
 	
@@ -649,6 +670,11 @@ public class Fetish {
 		public boolean isAllowed(GameCharacter character) {
 			return Main.game.isFootContentEnabled();
 		}
+
+		@Override
+		public EnumSet<ContentFlag> requiresContent() {
+			return ContentFlag.allOf(ContentFlag.FEET);
+		}
 	};
 	
 	public static AbstractFetish FETISH_FOOT_RECEIVING = new AbstractFetish(60,
@@ -701,6 +727,11 @@ public class Fetish {
 		public boolean isAllowed(GameCharacter character) {
 			return Main.game.isFootContentEnabled();
 		}
+
+		@Override
+		public EnumSet<ContentFlag> requiresContent() {
+			return ContentFlag.allOf(ContentFlag.FEET);
+		}
 	};
 
 	public static AbstractFetish FETISH_ARMPIT_GIVING = new AbstractFetish(60,
@@ -750,6 +781,11 @@ public class Fetish {
 		public boolean isAllowed(GameCharacter character) {
 			return Main.game.isArmpitContentEnabled();
 		}
+
+		@Override
+		public EnumSet<ContentFlag> requiresContent() {
+			return ContentFlag.allOf(ContentFlag.ARMPITS);
+		}
 	};
 	
 	public static AbstractFetish FETISH_ARMPIT_RECEIVING = new AbstractFetish(60,
@@ -793,6 +829,11 @@ public class Fetish {
 		@Override
 		public Collection<? extends AbstractFetish> getOppositeFetishes() {
 			return Util.newArrayListOfValues(FETISH_ARMPIT_GIVING);
+		}
+
+		@Override
+		public EnumSet<ContentFlag> requiresContent() {
+			return ContentFlag.allOf(ContentFlag.ARMPITS);
 		}
 	};
 	
@@ -1621,6 +1662,11 @@ public class Fetish {
 		public boolean isAllowed(GameCharacter character) {
 			return Main.game.isIncestEnabled();
 		}
+
+		@Override
+		public EnumSet<ContentFlag> requiresContent() {
+			return ContentFlag.allOf(ContentFlag.INCEST);
+		}
 	};
 	
 	public static AbstractFetish FETISH_MASOCHIST = new AbstractFetish(60,
@@ -1761,6 +1807,11 @@ public class Fetish {
 		public boolean isAllowed(GameCharacter character) {
 			return Main.game.isNonConEnabled();
 		}
+
+		@Override
+		public EnumSet<ContentFlag> requiresContent() {
+			return ContentFlag.allOf(ContentFlag.NON_CON);
+		}
 	};
 	
 	public static AbstractFetish FETISH_NON_CON_SUB = new AbstractFetish(60,
@@ -1816,6 +1867,11 @@ public class Fetish {
 		public void onGeneratingDesiresForLikedFetishes(GameCharacter character,
 				List<AbstractFetish> availableFetishes) {
 			availableFetishes.remove(Fetish.FETISH_SUBMISSIVE);
+		}
+
+		@Override
+		public EnumSet<ContentFlag> requiresContent() {
+			return ContentFlag.allOf(ContentFlag.NON_CON);
 		}
 	};
 	
@@ -2100,6 +2156,11 @@ public class Fetish {
 		@Override
 		public boolean isAllowed(GameCharacter character) {
 			return Main.game.isPenetrationLimitationsEnabled();
+		}
+
+		@Override
+		public EnumSet<ContentFlag> requiresContent() {
+			return ContentFlag.allOf(ContentFlag.PENETRATION_SIZE_LIMITATIONS);
 		}
 	};
 	
