@@ -40,8 +40,10 @@ import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.modding.fetishes.FetishGroup;
+import com.lilithsthrone.modding.fetishes.FetishLoader;
 import com.lilithsthrone.modding.fetishes.LooseFetishGroup;
 import com.lilithsthrone.modding.fetishes.RelatedFetishGroup;
+import com.lilithsthrone.modding.perks.PerkLoader;
 import com.lilithsthrone.utils.Util;
 
 public final class PluginLoader {
@@ -60,6 +62,9 @@ public final class PluginLoader {
 	private File modDir;
 	private DocumentBuilderFactory dbf;
 	private DocumentBuilder docBuilder;
+	
+	private FetishLoader fetishes;
+	private PerkLoader perks;
 
 	public static PluginLoader getInstance() {
 		if (INSTANCE == null)
@@ -69,6 +74,10 @@ public final class PluginLoader {
 
 	public PluginLoader() {
 		System.err.println("Plugin System initializing...");
+		
+		this.fetishes = new FetishLoader(this);
+		this.perks = new PerkLoader(this);
+		
 		this.dbf = DocumentBuilderFactory.newInstance();
 		try {
 			this.docBuilder = dbf.newDocumentBuilder();
@@ -131,7 +140,6 @@ public final class PluginLoader {
 	}
 
 	private static final char[] HEX_CHARS = "0123456789ABCDEF".toCharArray();
-
 	private String byte2hex(byte[] bytes) {
 		char[] c = new char[bytes.length * 2];
 		int v = 0;
@@ -216,117 +224,32 @@ public final class PluginLoader {
 	// Fetishes
 	//////////////////////////////////////////////////
 
-	private List<AbstractFetish> stockFetishes = null;
 	public List<AbstractFetish> getStockFetishes() {
-		if (stockFetishes == null) {
-			stockFetishes = new ArrayList<>();
-			Field[] fields = Fetish.class.getFields();
-			for (Field f : fields) {
-				if (AbstractFetish.class.isAssignableFrom(f.getType())) {
-
-					AbstractFetish fetish;
-
-					try {
-						fetish = ((AbstractFetish) f.get(null));
-						stockFetishes.add(fetish);
-						Fetish.addFetish(null, f.getName(), fetish);
-					} catch (IllegalArgumentException | IllegalAccessException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-		return stockFetishes;
+		return this.fetishes.getStock();
 	}
 
-	private List<AbstractFetish> providedFetishes = null;
 	public List<AbstractFetish> getProvidedFetishes() {
-		if (providedFetishes == null) {
-			providedFetishes = new ArrayList<AbstractFetish>();
-			for(BasePlugin p : plugins) {
-				for(AbstractFetish f : p.getFetishes()) {
-					providedFetishes.add(f);
-					Fetish.addFetish(p, f.getID(), f);
-				}
-			}
-		}
-		return providedFetishes;
+		return this.fetishes.getProvided();
 	}
 
 
-	private List<AbstractFetish> allFetishes = null;
-	private HashSet<AbstractFetish> notIncludedInPotions = null;
-	private List<FetishGroup> allFetishGroups = null;
 	public List<AbstractFetish> getAllFetishes() {
-		if (allFetishes == null) {
-			allFetishes = new ArrayList<AbstractFetish>();
-			allFetishes.addAll(getStockFetishes());
-			allFetishes.addAll(getProvidedFetishes());
-			System.err.println("Discovered Fetishes");
-			System.err.println("---------------------------------------------------------");
-			for(AbstractFetish f : allFetishes) {
-				System.err.println(String.format("%s - %s", f.getClass().getName(), f.getName(null)));
-			}
-			System.err.println("---------------------------------------------------------");
-		}
-		return allFetishes;
+		return this.fetishes.getAll();
 	}
 
 	//////////////////////////////////////////////////
 	// PERKS
 	//////////////////////////////////////////////////
-
-	private List<AbstractPerk> stockPerks = null;
 	public List<AbstractPerk> getStockPerks() {
-		if (stockPerks == null) {
-			stockPerks = new ArrayList<>();
-			Field[] fields = Perk.class.getFields();
-			for (Field f : fields) {
-				if (AbstractPerk.class.isAssignableFrom(f.getType())) {
-					AbstractPerk perk;
-					try {
-						perk = ((AbstractPerk) f.get(null));
-						stockPerks.add(perk);
-						Perk.addPerk(null, f.getName(), perk);
-					} catch (IllegalArgumentException | IllegalAccessException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-			Perk.generateSubspeciesPerks();
-		}
-		return stockPerks;
+		return perks.getStock();
 	}
 
-	private List<AbstractPerk> providedPerks = null;
 	public List<AbstractPerk> getProvidedPerks() {
-		if (providedPerks == null) {
-			providedPerks = new ArrayList<AbstractPerk>();
-			for(BasePlugin p : plugins) {
-				for(AbstractPerk P : p.getPerks()) {
-					providedPerks.add(P);
-					Perk.addPerk(p, P.getID(), P);
-				}
-			}
-		}
-		return providedPerks;
+		return perks.getProvided();
 	}
-
-
-	private List<AbstractPerk> allPerks = null;
+	
 	public List<AbstractPerk> getAllPerks() {
-		if (allPerks == null) {
-			allPerks = new ArrayList<AbstractPerk>();
-			allPerks.addAll(getStockPerks());
-			allPerks.addAll(getProvidedPerks());
-			System.err.println("Discovered Perks");
-			System.err.println("---------------------------------------------------------");
-			for(AbstractPerk f : allPerks) {
-				System.err.println(String.format("%s - %s (%s)", f.getClass().getName(), f.getID(), f.getName(null)));
-			}
-			System.err.println("---------------------------------------------------------");
-		}
-		return allPerks;
+		return perks.getAll();
 	}
 
 	//////////////////////////////////////////////////
@@ -369,28 +292,11 @@ public final class PluginLoader {
 	}
 
 	public void addToPairedFetishMap(Map<AbstractFetish, AbstractFetish> pairedFetishMap) {
-		//plugins.forEach(p -> p.addToPairedFetishMap(pairedFetishMap));
-		if(notIncludedInPotions==null) {
-			notIncludedInPotions = new HashSet<AbstractFetish>(Util.newArrayListOfValues(
-				Fetish.FETISH_TRANSFORMATION_GIVING, 
-				Fetish.FETISH_TRANSFORMATION_RECEIVING,
-				Fetish.FETISH_KINK_GIVING, 
-				Fetish.FETISH_KINK_RECEIVING
-			));
-		}
-		getAllFetishGroups().stream()
-        	.filter(g -> g instanceof RelatedFetishGroup)
-            .map(RelatedFetishGroup.class::cast)
-            .filter(rfg -> notIncludedInPotions.contains(rfg.getDominantFetish()) && !notIncludedInPotions.contains(rfg.getSubmissiveFetish()))
-            .forEachOrdered(rfg -> pairedFetishMap.put(rfg.getDominantFetish(),rfg.getSubmissiveFetish()));
+		this.fetishes.addToPairedFetishMap(pairedFetishMap);
 	}
 
 	public void addToUnpairedFetishMap(Map<AbstractFetish, Boolean> unpairedFetishMap) {
-		getAllFetishGroups().stream()
-			.filter(g -> g instanceof LooseFetishGroup)
-	        .map(LooseFetishGroup.class::cast)
-	        .filter(lfg -> notIncludedInPotions.contains(lfg.getMember()))
-	        .forEachOrdered(rfg -> unpairedFetishMap.put(rfg.getMember(), rfg.shouldShareWithVictims()));
+		this.fetishes.addToUnpairedFetishMap(unpairedFetishMap);
 	}
 
 	public void onSexActionFetishesForEitherPartner(SexAction sexAction, GameCharacter characterPerformingAction,
@@ -403,83 +309,19 @@ public final class PluginLoader {
 		plugins.forEach(p -> p.onNPCGenerateTransformativePotion(npc, target, possibleEffects));
 	}
 
-	private void registerRelatedStockFetishes(AbstractFetish dom, AbstractFetish sub) {
-		if(!this.stockFetishes.contains(dom))
-			this.stockFetishes.add(dom);
-		if(!this.stockFetishes.contains(sub))
-			this.stockFetishes.add(sub);
-		this.allFetishGroups .add(new RelatedFetishGroup(dom,sub));
+	public void registerRelatedStockFetishes(AbstractFetish dom, AbstractFetish sub) {
+		this.fetishes.registerRelatedStockFetishes(dom,sub);
 	}
 
-	private void registerLonerStockFetish(AbstractFetish f) {
-		if(!this.stockFetishes.contains(f))
-			this.stockFetishes.add(f);
-		this.allFetishGroups.add(new LooseFetishGroup(f, true));
-	}
-	private void initStockFetishes() {
-		registerRelatedStockFetishes(Fetish.FETISH_DOMINANT, Fetish.FETISH_SUBMISSIVE);
-		registerRelatedStockFetishes(Fetish.FETISH_VAGINAL_GIVING, Fetish.FETISH_VAGINAL_RECEIVING);
-		registerRelatedStockFetishes(Fetish.FETISH_PENIS_GIVING, Fetish.FETISH_PENIS_RECEIVING);
-		if(Main.game.isAnalContentEnabled()) {
-			registerRelatedStockFetishes(Fetish.FETISH_ANAL_GIVING, Fetish.FETISH_ANAL_RECEIVING);
-		}
-		registerRelatedStockFetishes(Fetish.FETISH_BREASTS_OTHERS, Fetish.FETISH_BREASTS_SELF);
-		if(Main.game.isLactationContentEnabled()) {
-			registerRelatedStockFetishes(Fetish.FETISH_LACTATION_OTHERS, Fetish.FETISH_LACTATION_SELF);
-		}
-		registerRelatedStockFetishes(Fetish.FETISH_ORAL_RECEIVING, Fetish.FETISH_ORAL_GIVING);
-		registerRelatedStockFetishes(Fetish.FETISH_LEG_LOVER, Fetish.FETISH_STRUTTER);
-		if(Main.game.isFootContentEnabled()) {
-			registerRelatedStockFetishes(Fetish.FETISH_FOOT_GIVING, Fetish.FETISH_FOOT_RECEIVING);
-		}
-		if(Main.game.isArmpitContentEnabled()) {
-			registerRelatedStockFetishes(Fetish.FETISH_ARMPIT_GIVING, Fetish.FETISH_ARMPIT_RECEIVING);
-		}
-		registerRelatedStockFetishes(Fetish.FETISH_CUM_STUD, Fetish.FETISH_CUM_ADDICT);
-		registerRelatedStockFetishes(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_PURE_VIRGIN);
-		registerRelatedStockFetishes(Fetish.FETISH_IMPREGNATION, Fetish.FETISH_PREGNANCY);
-		registerRelatedStockFetishes(Fetish.FETISH_TRANSFORMATION_GIVING, Fetish.FETISH_TRANSFORMATION_RECEIVING);
-		registerRelatedStockFetishes(Fetish.FETISH_KINK_GIVING, Fetish.FETISH_KINK_RECEIVING);
-		registerRelatedStockFetishes(Fetish.FETISH_SADIST, Fetish.FETISH_MASOCHIST);
-		if(Main.game.isNonConEnabled()) {
-			registerRelatedStockFetishes(Fetish.FETISH_NON_CON_DOM, Fetish.FETISH_NON_CON_SUB);
-		}
-
-		registerRelatedStockFetishes(Fetish.FETISH_BONDAGE_APPLIER, Fetish.FETISH_BONDAGE_VICTIM);
-		registerRelatedStockFetishes(Fetish.FETISH_DENIAL, Fetish.FETISH_DENIAL_SELF);
-		registerRelatedStockFetishes(Fetish.FETISH_VOYEURIST, Fetish.FETISH_EXHIBITIONIST);
-		registerLonerStockFetish(Fetish.FETISH_BIMBO);
-		registerLonerStockFetish(Fetish.FETISH_CROSS_DRESSER);
-		/*
-		if(Main.game.isIncestEnabled()) {
-			registerLonerStockFetish(Fetish.FETISH_MASTURBATION);
-			registerLonerStockFetish(Fetish.FETISH_INCEST);
-			if(Main.game.isPenetrationLimitationsEnabled()) {
-				registerLonerStockFetish(Fetish.FETISH_SIZE_QUEEN);
-			}
-		} else {
-			if(Main.game.isPenetrationLimitationsEnabled()) {
-				registerLonerStockFetish(Fetish.FETISH_MASTURBATION);
-				registerLonerStockFetish(Fetish.FETISH_SIZE_QUEEN);
-			} else {
-				registerLonerStockFetish(Fetish.FETISH_MASTURBATION);
-			}
-		*/
-		registerLonerStockFetish(Fetish.FETISH_MASTURBATION);
-		if (Main.game.isIncestEnabled()) {
-			registerLonerStockFetish(Fetish.FETISH_INCEST);
-		}
-		if (Main.game.isPenetrationLimitationsEnabled()) {
-			registerLonerStockFetish(Fetish.FETISH_SIZE_QUEEN);
-		}
+	public void registerLonerStockFetish(AbstractFetish f) {
+		this.fetishes.registerLonerStockFetish(f);
 	}
 	public List<FetishGroup> getAllFetishGroups() {
-		if(allFetishGroups == null) {
-			allFetishGroups = new ArrayList<FetishGroup>();
-			initStockFetishes();
-			plugins.forEach(p -> allFetishGroups.addAll(p.getFetishGroups()));
-		}
-		return allFetishGroups;
+		return fetishes.getAllFetishGroups();
+	}
+
+	public Set<BasePlugin> getAllPlugins() {
+		return plugins;
 	}
 
 }
