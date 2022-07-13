@@ -5861,7 +5861,7 @@ public class Perk {
 	
 	public static AbstractPerk getPerkFromId(String id) {
 		if(!subspeciesPerksGenerated) {
-			PluginLoader.getInstance().getAllPerks(); // Trigger perk list build
+			Perk.getAllPerks(); // Trigger perk list build
 		}
 //		System.out.print("ID: "+id);
 		if(id.equalsIgnoreCase("MERAXIS")
@@ -5898,7 +5898,7 @@ public class Perk {
 	
 	public static String getIdFromPerk(AbstractPerk perk) {
 		if(!subspeciesPerksGenerated) {
-			PluginLoader.getInstance().getAllPerks(); // Trigger perk list build
+			Perk.getAllPerks(); // Trigger perk list build
 		}
 		//return perkToIdMap.get(perk);
 		return perk.getID();
@@ -6018,12 +6018,12 @@ public class Perk {
 	}
 	
 	public static List<AbstractPerk> getAllPerks() {
-		return PluginLoader.getInstance().getAllPerks();
+		return PluginLoader.getInstance().getPerks().getAll();
 	}
 	
 	public static List<AbstractPerk> getHiddenPerks() {
 		if(!subspeciesPerksGenerated) {
-			PluginLoader.getInstance().getAllPerks(); // Trigger perk list build
+			Perk.getAllPerks(); // Trigger perk list build
 		}
 		return hiddenPerks;
 	}

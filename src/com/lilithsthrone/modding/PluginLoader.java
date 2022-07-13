@@ -215,41 +215,15 @@ public final class PluginLoader {
 	// Fetishes
 	//////////////////////////////////////////////////
 	public FetishLoader getFetishes() { return fetishes; }
-	
-	@Deprecated
-	public List<AbstractFetish> getStockFetishes() {
-		return this.fetishes.getStock();
-	}
-	
-	@Deprecated
-	public List<AbstractFetish> getProvidedFetishes() {
-		return this.fetishes.getProvided();
-	}
-	
-	@Deprecated
-	public List<AbstractFetish> getAllFetishes() {
-		return this.fetishes.getAll();
+	public List<FetishGroup> getAllFetishGroups() {
+		return fetishes.getAllFetishGroups();
 	}
 
 	//////////////////////////////////////////////////
 	// PERKS
 	//////////////////////////////////////////////////
 	public PerkLoader getPerks() { return perks; }
-	
-	@Deprecated
-	public List<AbstractPerk> getStockPerks() {
-		return perks.getStock();
-	}
-	
-	@Deprecated
-	public List<AbstractPerk> getProvidedPerks() {
-		return perks.getProvided();
-	}
-	
-	@Deprecated
-	public List<AbstractPerk> getAllPerks() {
-		return perks.getAll();
-	}
+
 
 	//////////////////////////////////////////////////
 	// SIGNALLING
@@ -314,9 +288,6 @@ public final class PluginLoader {
 
 	public void registerLonerStockFetish(AbstractFetish f) {
 		this.fetishes.registerLonerStockFetish(f);
-	}
-	public List<FetishGroup> getAllFetishGroups() {
-		return fetishes.getAllFetishGroups();
 	}
 
 	public Set<BasePlugin> getAllPlugins() {
