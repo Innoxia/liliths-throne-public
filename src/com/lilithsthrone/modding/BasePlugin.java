@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.modding.fetishes.FetishGroup;
 import com.lilithsthrone.modding.fetishes.LooseFetishGroup;
 import com.lilithsthrone.modding.fetishes.RelatedFetishGroup;
@@ -162,5 +163,9 @@ public class BasePlugin {
 
 	public void onNPCGenerateTransformativePotion(NPC npc, GameCharacter target,
 			List<PossibleItemEffect> possibleEffects) {
+	}
+
+	public void onGenerateSexChoicesAddSexTypes(boolean resetPositioningBan, GameCharacter target,
+			List<SexType> request, Map<SexType, Integer> foreplaySexTypes, Map<SexType, Integer> mainSexTypes) {
 	}
 }

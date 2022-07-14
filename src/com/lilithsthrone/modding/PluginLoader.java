@@ -32,6 +32,7 @@ import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.modding.fetishes.FetishGroup;
 import com.lilithsthrone.modding.fetishes.FetishLoader;
@@ -292,6 +293,11 @@ public final class PluginLoader {
 
 	public Set<BasePlugin> getAllPlugins() {
 		return plugins;
+	}
+
+	public void onGenerateSexChoicesAddSexTypes(boolean resetPositioningBan, GameCharacter target,
+			List<SexType> request, Map<SexType, Integer> foreplaySexTypes, Map<SexType, Integer> mainSexTypes) {
+		plugins.forEach(p -> p.onGenerateSexChoicesAddSexTypes(resetPositioningBan,target,request,foreplaySexTypes,mainSexTypes));
 	}
 
 }
