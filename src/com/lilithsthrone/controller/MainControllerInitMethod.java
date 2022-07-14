@@ -214,7 +214,6 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.modding.PluginLoader;
 import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.Pattern;
@@ -6311,23 +6310,9 @@ public class MainControllerInitMethod {
 		
 		// NPC Fetish spawn preferences:
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.FETISH_PREFERENCE) {
-			for (AbstractFetish f : PluginLoader.getInstance().getAllFetishes()) {
-				if(!Main.game.isPenetrationLimitationsEnabled() && f == Fetish.FETISH_SIZE_QUEEN) {
-					continue;
-				}
-				if(!Main.game.isNonConEnabled() && (f == Fetish.FETISH_NON_CON_DOM || f == Fetish.FETISH_NON_CON_SUB)) {
-					continue;
-				}
-				if(!Main.game.isIncestEnabled() && f == Fetish.FETISH_INCEST) {
-					continue;
-				}
-				if(!Main.game.isLactationContentEnabled() && (f == Fetish.FETISH_LACTATION_OTHERS || f == Fetish.FETISH_LACTATION_SELF)) {
-					continue;
-				}
-				if(!Main.game.isAnalContentEnabled() && (f == Fetish.FETISH_ANAL_GIVING || f == Fetish.FETISH_ANAL_RECEIVING)) {
-					continue;
-				}
-				if(!Main.game.isFootContentEnabled() && (f == Fetish.FETISH_FOOT_GIVING || f == Fetish.FETISH_FOOT_RECEIVING)) {
+			for (AbstractFetish f : Fetish.getAllFetishes()) {
+				// Skip fetishes that are disabled
+				if(f.isDisabled()) {
 					continue;
 				}
 				for(FetishPreference preference : FetishPreference.values()) {
