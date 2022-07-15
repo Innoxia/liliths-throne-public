@@ -8,8 +8,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -165,7 +163,12 @@ public class BasePlugin {
 			List<PossibleItemEffect> possibleEffects) {
 	}
 
-	public void onGenerateSexChoicesAddSexTypes(boolean resetPositioningBan, GameCharacter target,
+	protected void addSexTypeWeighting(GameCharacter ctx, SexType type, GameCharacter target, List<SexType> request,
+			Map<SexType, Integer> map, float multiplier) {
+		map.put(type, (int) (ctx.calculateSexTypeWeighting(type, target, request) * multiplier));
+	}
+
+	public void onGenerateSexChoicesAddSexTypes(GameCharacter ctx, boolean resetPositioningBan, GameCharacter target,
 			List<SexType> request, Map<SexType, Integer> foreplaySexTypes, Map<SexType, Integer> mainSexTypes) {
 	}
 }

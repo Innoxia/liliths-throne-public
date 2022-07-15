@@ -11,6 +11,7 @@ import java.net.URLClassLoader;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,6 @@ import org.xml.sax.SAXException;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
@@ -48,8 +48,8 @@ public final class PluginLoader {
 
 	private static PluginLoader INSTANCE = null;
 
-	private HashSet<BasePlugin> plugins = new HashSet<BasePlugin>();
-	private Set<UUID> loadedPlugins = new HashSet<UUID>();
+	private Set<BasePlugin> plugins = new HashSet<BasePlugin>();
+	private Map<UUID,BasePlugin> uuidToPlugin = new HashMap<UUID,BasePlugin>();
 
 	private File modDir;
 	private DocumentBuilderFactory dbf;
@@ -210,6 +210,23 @@ public final class PluginLoader {
 
 	private void addPlugin(BasePlugin plugin) {
 		this.plugins.add(plugin);
+		this.uuidToPlugin.put(plugin.metadata.id, plugin);
+	}
+	
+	public BasePlugin getPluginByUUID(String uuidAsString) {
+		return getPluginByUUID(UUID.fromString(uuidAsString));
+	}
+
+	public BasePlugin getPluginByUUID(UUID uuid) {
+		return this.uuidToPlugin.get(uuid);
+	}
+	
+	public Set<BasePlugin> getPlugins() {
+		return plugins;
+	}
+
+	public void forEachPlugin(Consumer<? super BasePlugin> callback) {
+		plugins.forEach(callback);
 	}
 
 	//////////////////////////////////////////////////
@@ -229,10 +246,6 @@ public final class PluginLoader {
 	//////////////////////////////////////////////////
 	// SIGNALLING
 	//////////////////////////////////////////////////
-
-	public void forEachPlugin(Consumer<? super BasePlugin> callback) {
-		plugins.forEach(callback);
-	}
 
 	private void onPluginsLoaded() {
 		plugins.forEach(p -> p.onPluginsLoaded());
@@ -295,9 +308,10 @@ public final class PluginLoader {
 		return plugins;
 	}
 
-	public void onGenerateSexChoicesAddSexTypes(boolean resetPositioningBan, GameCharacter target,
+	public void onGenerateSexChoicesAddSexTypes(GameCharacter ctx, boolean resetPositioningBan, GameCharacter target,
 			List<SexType> request, Map<SexType, Integer> foreplaySexTypes, Map<SexType, Integer> mainSexTypes) {
-		plugins.forEach(p -> p.onGenerateSexChoicesAddSexTypes(resetPositioningBan,target,request,foreplaySexTypes,mainSexTypes));
+		plugins.forEach(p -> p.onGenerateSexChoicesAddSexTypes(ctx, resetPositioningBan, target, request,
+				foreplaySexTypes, mainSexTypes));
 	}
 
 }
