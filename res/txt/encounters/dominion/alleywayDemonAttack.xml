@@ -971,7 +971,7 @@
 		As [npc.she] hears what it is you're saying, [npc.name] lets out a laugh and replies, [npc.speech(Where's the fun that? It's far more exciting to trap someone and dominate them. As to my little games breaking the law, well, the Enforcers wouldn't go out of their way to arrest a demon who's only having a little harmless fun! Sure, I may be on their wanted list, but nobody's ever going to try hunting me down...)]
 	</p>
 	<p>
-		Shifting the topic of conversation, you ask [npc.name] if [npc.she] lives nearby, to which she answers, [npc.speech(Why yes, as a matter of fact, I do live nearby. I have a pretty fancy apartment, but I only really use it as a place to sleep, as I spend most of my free time playing games in these alleyways...)]
+		Shifting the topic of conversation, you ask [npc.name] if [npc.she] lives nearby, to which [npc.she] answers, [npc.speech(Why yes, as a matter of fact, I do live nearby. I have a pretty fancy apartment, but I only really use it as a place to sleep, as I spend most of my free time playing games in these alleyways...)]
 	</p>
 	<p>
 		After that, your conversation shifts to talking about recent mundane events in [npc.namePos] life, from which you learn that [npc.sheIs] currently
