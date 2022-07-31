@@ -431,12 +431,12 @@ public class Penis implements BodyPartInterface {
 	}
 	
 	public static float getGenericDiameter(int length, PenetrationGirth girth, Set<PenetrationModifier> mods) {
-		return Units.round((length * 0.25f) * (1f + girth.getDiameterPercentageModifier() + (mods.contains(PenetrationModifier.FLARED)?0.05f:0) + (mods.contains(PenetrationModifier.TAPERED)?-0.05f:0)), 2);
+		return Units.round((((length * 10f) ** 0.7f) * 0.1f) * (1f + girth.getDiameterPercentageModifier() + (mods.contains(PenetrationModifier.FLARED)?0.05f:0) + (mods.contains(PenetrationModifier.TAPERED)?-0.05f:0)), 2);
 	}
 	
 	public float getDiameter() {
 		return getGenericDiameter(length, getGirth(), penisModifiers);
-//		return Units.round((length * 0.25f) * (1f + this.getGirth().getDiameterPercentageModifier() + (this.hasPenisModifier(PenetrationModifier.FLARED)?0.05f:0) + (this.hasPenisModifier(PenetrationModifier.TAPERED)?-0.05f:0)), 2);
+//		return Units.round((((length * 10f) ** 0.7f) * 0.1f) * (1f + this.getGirth().getDiameterPercentageModifier() + (this.hasPenisModifier(PenetrationModifier.FLARED)?0.05f:0) + (this.hasPenisModifier(PenetrationModifier.TAPERED)?-0.05f:0)), 2);
 	}
 	
 	public boolean isPierced() {
