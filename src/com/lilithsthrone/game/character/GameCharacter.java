@@ -18714,7 +18714,7 @@ public abstract class GameCharacter implements XMLSaving {
 			AbstractCombatMove selectedMove = null;
 			Map<AbstractCombatMove, Float> weightedMoves = new HashMap<>();
 			for(AbstractCombatMove move : potentialMoves) {
-				weightedMoves.put(move, getMoveWeight(move, enemies, allies));
+				weightedMoves.put(move, Math.max(0, getMoveWeight(move, enemies, allies)));
 			}
 			selectedMove = Util.getRandomObjectFromWeightedFloatMap(weightedMoves);
 			if(selectedMove == null) {
@@ -18777,6 +18777,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public void equipBasicCombatMoves() {
 		equipMove("strike");
+		equipMove("offhand-strike");
 		equipMove("twin-strike");
 		equipMove("block");
 		equipMove("tease");
@@ -19701,6 +19702,10 @@ public abstract class GameCharacter implements XMLSaving {
 	public static final String PREGNANCY_CALCULATION = "10% + (Cum-character's Virility% / 2) + (Womb-character's Fertility% / 2)";
 
 	public String rollForPregnancy(GameCharacter partner, float cumQuantity, boolean directSexInsemination) {
+		return rollForPregnancy(partner, cumQuantity, directSexInsemination, Attribute.VIRILITY);
+	}
+	
+	public String rollForPregnancy(GameCharacter partner, float cumQuantity, boolean directSexInsemination, AbstractAttribute virilityAttribute) {
 		if(partner.isElemental()) {
 			return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner, directSexInsemination)
 					+"<p style='text-align:center;'>"
@@ -19717,14 +19722,14 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		float pregnancyChance = 0.1f;
 		
-		boolean partnerVirile = partner.getAttributeValue(Attribute.VIRILITY) > 0 || !partner.hasPerkAnywhereInTree(Perk.FIRING_BLANKS);
+		boolean partnerVirile = partner.getAttributeValue(virilityAttribute) > 0 || !partner.hasPerkAnywhereInTree(Perk.FIRING_BLANKS);
 		boolean selfFertile = (getAttributeValue(Attribute.FERTILITY) > 0 || !hasPerkAnywhereInTree(Perk.BARREN)) && !this.hasStatusEffect(StatusEffect.MENOPAUSE);
 		
 		if(!partnerVirile || !selfFertile || !isAbleToBeImpregnated()) {
 			pregnancyChance = 0;
 			
 		} else if(isAbleToBeImpregnated()) {
-			pregnancyChance += (partner.getAttributeValue(Attribute.VIRILITY)/100f)/2f;
+			pregnancyChance += (partner.getAttributeValue(virilityAttribute)/100f)/2f;
 			pregnancyChance += (getAttributeValue(Attribute.FERTILITY)/100f)/2f;
 			pregnancyChance = Math.max(0, Math.min(pregnancyChance, 1));
 		}
@@ -20745,6 +20750,11 @@ public abstract class GameCharacter implements XMLSaving {
 		setLastCell(this.getCell());
 		setLocation(getWorldLocation(), location, false);
 	}
+
+	public void setLocation(int xCoord, int yCoord) {
+		Vector2i vecLoc = new Vector2i(xCoord, yCoord);
+		setLocation(vecLoc);
+	}
 	
 	public void moveLocation(int xMovement, int yMovement) {
 		setLocation(new Vector2i(this.getLocation().getX()+xMovement, this.getLocation().getY()+yMovement));
@@ -20841,6 +20851,11 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public void setLocation(GameCharacter character, boolean setAsHomeLocation) {
 		setLocation(character.getWorldLocation(), character.getLocation(), setAsHomeLocation);
+	}
+
+	public void setLocation(AbstractWorldType worldLocation, int xCoord, int yCoord, boolean setAsHomeLocation) {
+		Vector2i vecLoc = new Vector2i(xCoord, yCoord);
+		setLocation(worldLocation, vecLoc, setAsHomeLocation);
 	}
 	
 	public void setLocation(AbstractWorldType worldLocation, Vector2i location, boolean setAsHomeLocation) {

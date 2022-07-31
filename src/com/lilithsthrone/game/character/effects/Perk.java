@@ -889,6 +889,72 @@ public class Perk {
 					"[npc.NamePos] body [npc.has] become highly resistant to poison through an arduous, and oft-times nauseating, process of discovering which mushrooms are edible, psychedelic, or toxic.");
 		}
 	};
+
+	public static AbstractPerk JOB_LUNETTE_RECOGNISED_DAUGHTER = new AbstractPerk(20,
+			true,
+			"Lunette's favourite",
+			PerkCategory.JOB,
+			"perks/jobs/lunette_raider",
+			Util.newArrayListOfValues(
+					PresetColour.BASE_GOLD,
+					PresetColour.BASE_CRIMSON),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 25),
+					new Value<>(Attribute.MAJOR_ARCANE, 25),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 100),
+					new Value<>(Attribute.DAMAGE_LUST, 25),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 25)),
+			null,
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] a recognised daughter of Lunette herself, and as such is considerably more powerful than a regular demon.");
+		}
+	};
+	
+	public static AbstractPerk JOB_AMAZONIAN_QUEEN = new AbstractPerk(20,
+			true,
+			"Queen of Queens",
+			PerkCategory.JOB,
+			"perks/jobs/npc_amazonian_queen",
+			Util.newArrayListOfValues(
+					PresetColour.CLOTHING_SILVER),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 25),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 10),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 25),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 25),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 25)),
+			null,
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] the queen of the Amazons, and as such has lived a life full of rigorous physical activity and combat training.");
+		}
+	};
+	
+	public static AbstractPerk JOB_AMAZONIAN = new AbstractPerk(20,
+			true,
+			"Girl Power",
+			PerkCategory.JOB,
+			"perks/jobs/npc_amazonian",
+			PresetColour.BASE_PINK,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 10),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 10),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 10)),
+			null,
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] an Amazon, and as such regularly engages in physical activity and combat training.");
+		}
+	};
 	
 	
 	
@@ -2935,6 +3001,34 @@ public class Perk {
 			return UtilText.parse(owner, "<i>It's the same old shit. People think they can fuck with me, and there's only one way to prove 'em wrong!</i>");
 		}
 		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+	
+	public static AbstractPerk HERO_OF_THEMISCYRA = new AbstractPerk(20,
+			false,
+			"Hero of Themiscyra",
+			PerkCategory.ARCANE,
+			"perks/hero_of_themiscyra",
+			PresetColour.BASE_GOLD,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.getRacialDamageAttribute(Race.HORSE_MORPH), 25),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.DEMON), 25)),
+			null) {
+		@Override
+		public String getName(GameCharacter owner) {
+			if(owner!=null && owner.isFeminine()) {
+				return "Heroine of Themiscyra";
+			} else {
+				return super.getName(owner);
+			}
+		}
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "<i>The skies, the fountains, every region near seem'd all one mutual cry: I never heard so musical a discord, such sweet thunder.</i>");
+		}
 		@Override
 		public boolean isHiddenPerk() {
 			return true;

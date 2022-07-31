@@ -303,6 +303,14 @@ public class NyanMum extends NPC {
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_PURPLE_ROYAL, false), true, this);
 		}
 	}
+
+	@Override
+	public String getArtworkFolderName() {
+		if(this.isVisiblyPregnant()) {
+			return "NyanMumPregnant";
+		}
+		return "NyanMum";
+	}
 	
 	@Override
 	public String getSpeechColour() {

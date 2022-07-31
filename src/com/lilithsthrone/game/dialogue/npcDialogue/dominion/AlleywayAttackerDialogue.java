@@ -14,7 +14,6 @@ import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
-import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -119,9 +118,8 @@ public class AlleywayAttackerDialogue {
 						Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", 2);
 					}
 					if(Main.game.getDialogueFlags().getSavedLong("randomResponseIndex")==6
-							&& (!getMugger().hasPersonalityTrait(PersonalityTrait.SELFISH)
-									|| ((Main.game.getPlayer().getTattooInSlot(InventorySlot.GROIN)!=null || !Main.game.getPlayer().hasVagina() || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
-										&& (!Main.game.isAnalContentEnabled() || Main.game.getPlayer().getTattooInSlot(InventorySlot.TORSO_UNDER)!=null || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true))))) {
+							&& ((Main.game.getPlayer().getTattooInSlot(InventorySlot.GROIN)!=null || !Main.game.getPlayer().hasVagina() || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
+										&& (!Main.game.isAnalContentEnabled() || Main.game.getPlayer().getTattooInSlot(InventorySlot.TORSO_UNDER)!=null || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)))) {
 						Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", 4);
 					}
 					if(Main.game.getDialogueFlags().getSavedLong("randomResponseIndex")==4 && (!getMugger().isAttractedTo(Main.game.getPlayer()) || getMugger().hasStatusEffect(StatusEffect.RECOVERING_AURA))) {

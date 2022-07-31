@@ -740,10 +740,10 @@ public class StatusEffect {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
-					"[npc.NameIsFull] completely and utterly corrupted"
+					"[npc.NameIsFull] completely and utterly corrupted,"
 						+ (owner.getSubspeciesOverrideRace()==Race.DEMON
-							?", as is fitting for [npc.a_race]."
-							:", and desperately [npc.verb(wish)] that [npc.she] [npc.was] a demon.")
+							?" as is fitting for a demon."
+							:" and desperately [npc.verb(wish)] that [npc.she] [npc.was] a demon.")
 					+ " The lewd thoughts and fantasies that continuously run through [npc.her] mind have unlocked the full power of the arcane, making [npc.her] body hyper-fertile and virile.");
 		}
 		@Override

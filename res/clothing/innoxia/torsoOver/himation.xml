@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+	<value>250</value>
+	<determiner><![CDATA[a]]></determiner>
+	<name><![CDATA[himation]]></name>
+	<namePlural pluralByDefault="false"><![CDATA[himations]]></namePlural>
+	<description><![CDATA[A large, rectangular piece of woollen cloth which is wrapped around the body and worn like a cloak. The excess fabric is then pulled up over the wearer's head to make a hood.]]></description>
+	<physicalResistance>0</physicalResistance>
+	<femininity>FEMININE</femininity>
+	<equipSlots>
+		<slot>TORSO_OVER</slot>
+	</equipSlots>
+	<rarity>COMMON</rarity>
+	<clothingSet/>
+	<imageName>himation.svg</imageName>
+	<imageEquippedName/>
+	<effects/>
+	
+	<blockedPartsList> 
+		<blockedParts>
+			<displacementType>REMOVE_OR_EQUIP</displacementType>
+			<clothingAccessRequired/>
+			<blockedBodyParts>
+				<bodyPart>BACK</bodyPart>
+			</blockedBodyParts>
+			<clothingAccessBlocked/>
+			<concealedSlots/>
+		</blockedParts>
+		<blockedParts>
+			<displacementType>OPEN</displacementType> 
+			<clothingAccessRequired/>
+			<blockedBodyParts>
+				<bodyPart>ARMPITS</bodyPart>
+				<bodyPart>BREASTS</bodyPart>
+				<bodyPart>NIPPLES</bodyPart>
+				<bodyPart>STOMACH</bodyPart>
+				<bodyPart>MOUND</bodyPart>
+				<bodyPart>PENIS</bodyPart>
+				<bodyPart>TESTICLES</bodyPart>
+				<bodyPart>VAGINA</bodyPart>
+				<bodyPart>THIGHS</bodyPart>
+			</blockedBodyParts>
+			<clothingAccessBlocked>
+				<clothingAccess>GROIN</clothingAccess>
+				<clothingAccess>CHEST</clothingAccess>
+				<clothingAccess>WAIST</clothingAccess>
+			</clothingAccessBlocked>
+			<concealedSlots>
+				<slot>ANUS</slot>
+				<slot>CHEST</slot>
+				<slot>FINGER</slot>
+				<slot>GROIN</slot>
+				<slot>HAIR</slot>
+				<slot>HAND</slot>
+				<slot>HEAD</slot>
+				<slot>HIPS</slot>
+				<slot>HORNS</slot>
+				<slot>NECK</slot>
+				<slot>NIPPLE</slot>
+				<slot>PENIS</slot>
+				<slot>PIERCING_NIPPLE</slot>
+				<slot>PIERCING_PENIS</slot>
+				<slot>PIERCING_STOMACH</slot>
+				<slot>PIERCING_VAGINA</slot>
+				<slot>STOMACH</slot>
+				<slot>TAIL</slot>
+				<slot>TORSO_UNDER</slot>
+				<slot>VAGINA</slot>
+				<slot>WEAPON_MAIN_1</slot>
+				<slot>WEAPON_MAIN_2</slot>
+				<slot>WEAPON_MAIN_3</slot>
+				<slot>WEAPON_OFFHAND_1</slot>
+				<slot>WEAPON_OFFHAND_2</slot>
+				<slot>WEAPON_OFFHAND_3</slot>
+				<slot>WRIST</slot>
+			</concealedSlots>
+		</blockedParts>
+		<blockedParts>
+			<displacementType>PULLS_UP</displacementType>
+			<clothingAccessRequired/>
+			<blockedBodyParts>
+				<bodyPart>ASS</bodyPart>
+				<bodyPart>ANUS</bodyPart>
+				<bodyPart>MOUND</bodyPart>
+				<bodyPart>PENIS</bodyPart>
+				<bodyPart>TESTICLES</bodyPart>
+				<bodyPart>VAGINA</bodyPart>
+				<bodyPart>THIGHS</bodyPart>
+			</blockedBodyParts>
+			<clothingAccessBlocked>
+				<clothingAccess>ANUS</clothingAccess>
+				<clothingAccess>GROIN</clothingAccess>
+			</clothingAccessBlocked>
+			<concealedSlots>
+				<slot>ANUS</slot>
+				<slot>ANUS</slot>
+				<slot>GROIN</slot>
+				<slot>HIPS</slot>
+				<slot>PENIS</slot>
+				<slot>PIERCING_NIPPLE</slot>
+				<slot>PIERCING_PENIS</slot>
+				<slot>PIERCING_VAGINA</slot>
+				<slot>TAIL</slot>
+				<slot>VAGINA</slot>
+			</concealedSlots>
+		</blockedParts>
+	</blockedPartsList>
+	
+		
+	<incompatibleSlots slot="TORSO_OVER"/>
+		
+	<primaryColours>
+		<colour>CLOTHING_WHITE</colour>
+		<colour>CLOTHING_KHAKI</colour>
+		<colour>CLOTHING_BLUE_LIGHT</colour>
+		<colour>CLOTHING_TURQUOISE</colour>
+	</primaryColours>
+	<primaryColoursDye values="ALL"/>
+	<secondaryColours/>
+	<secondaryColoursDye/>
+	<tertiaryColours/>
+	<tertiaryColoursDye/>
+
+	<itemTags>
+		<tag>SOLD_BY_MONICA</tag>
+		<tag>FITS_ARM_WINGS</tag>
+		<tag>FITS_FERAL_ALL_BODY</tag>
+	</itemTags>
+	
+	</coreAttributes>
+
+	<replacementText slot="NECK" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(drape)] the cloak over [npc.her] shoulders, before tying the cord around [npc.her] neck.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(drape)] the cloak over [npc2.namePos] shoulders, before tying the cord around [npc2.her] neck.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(drape)] the cloak over [npc2.namePos] shoulders, before firmly tying the cord around [npc2.her] neck.]]>
+		</otherRough>
+	</replacementText>
+	<displacementText slot="NECK" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(untie)] the cord around [npc.her] neck, before taking off [npc.her] cloak.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(untie)] the cord around [npc2.namePos] neck, before taking off [npc2.her] cloak.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(untie)] the cord around [npc2.namePos] neck, before pulling off [npc2.her] cloak.]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText slot="TORSO_OVER" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(drape)] the cloak over [npc.her] shoulders, before tying the cord around [npc.her] neck.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(drape)] the cloak over [npc2.namePos] shoulders, before tying the cord around [npc2.her] neck.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(drape)] the cloak over [npc2.namePos] shoulders, before firmly tying the cord around [npc2.her] neck.]]>
+		</otherRough>
+	</replacementText>
+	<displacementText slot="TORSO_OVER" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(untie)] the cord around [npc.her] neck, before taking off [npc.her] cloak.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(untie)] the cord around [npc2.namePos] neck, before taking off [npc2.her] cloak.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(untie)] the cord around [npc2.namePos] neck, before pulling off [npc2.her] cloak.]]>
+		</otherRough>
+	</displacementText>
+
+</clothing>

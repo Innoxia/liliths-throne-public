@@ -17,11 +17,12 @@ public enum PregnancyDescriptor {
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
 			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
 			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
+			boolean cumInPussy = isCumInPussy(characterBeingImpregnated, characterProvidingCum);
 			
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append("<p class='centre noPad'>");
-			if(characterBeingImpregnated.isPlayer()){
+			if(characterBeingImpregnated.isPlayer() && cumInPussy){
 				if(characterProvidingCum==null) {
 					sb.append("You feel cum ");
 					if(isSlime) {
@@ -89,11 +90,12 @@ public enum PregnancyDescriptor {
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
 			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
 			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
+			boolean cumInPussy = isCumInPussy(characterBeingImpregnated, characterProvidingCum);
 			
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append("<p class='centre noPad'>");
-			if(characterBeingImpregnated.isPlayer()){
+			if(characterBeingImpregnated.isPlayer() && cumInPussy){
 				if(characterProvidingCum==null) {
 					sb.append("You feel cum ");
 					if(isSlime) {
@@ -161,11 +163,39 @@ public enum PregnancyDescriptor {
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
 			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
 			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
+			boolean cumInPussy = isCumInPussy(characterBeingImpregnated, characterProvidingCum);
 			
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append("<p class='centre noPad'>");
-			if(characterBeingImpregnated.isPlayer()){
+			if(!cumInPussy) {
+				sb.append("Although [npc.namePos] womb is free, [style.boldSex(there's no chance that ");
+				if(characterProvidingCum==null) {
+					if(selfcest) {
+						sb.append("[npc.sheHasFull] knocked [npc.herself] up");
+					} else {
+						sb.append("[npc.sheHasFull] been impregnated");
+					}
+					sb.append(")]!");
+					
+				} else {
+					if(directSexInsemination) {
+						if(selfcest) {
+							sb.append("[npc.sheHasFull] knocked [npc.herself] up");
+						} else {
+							sb.append("[npc2.nameHas] knocked [npc.herHim] up");
+						}
+					} else {
+						if(selfcest) {
+							sb.append("[npc.sheHasFull] impregnated [npc.herself]");
+						} else {
+							sb.append("[npc2.nameHas] impregnated [npc.herHim]");
+						}
+					}
+					sb.append(")]!");
+				}
+				
+			} else if(characterBeingImpregnated.isPlayer()){
 				if(characterProvidingCum==null) {
 					sb.append("Despite feeling cum ");
 					if(isSlime) {
@@ -233,11 +263,20 @@ public enum PregnancyDescriptor {
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
 			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
 			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
+			boolean cumInPussy = isCumInPussy(characterBeingImpregnated, characterProvidingCum);
 			
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append("<p class='centre noPad'>");
-			if(characterBeingImpregnated.isPlayer()){
+			if(!cumInPussy) {
+				sb.append("Letting out a gasp,");
+				if(characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+					sb.append(" [npc.name] [npc.verb(realise)] that [style.boldSex(if [npc.she] isn't already pregnant, there's a small chance [npc.she] is now)]!");
+				} else {
+					sb.append(" [npc.name] [npc.verb(realise)] that [style.boldSex(there's a small chance [npc.she]'ll get pregnant from this)]!");
+				}
+				
+			} else if(characterBeingImpregnated.isPlayer()){
 				sb.append("You feel ");
 				if(selfcest) {
 					sb.append("your own [npc.cum+]");
@@ -296,11 +335,20 @@ public enum PregnancyDescriptor {
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
 			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
 			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
+			boolean cumInPussy = isCumInPussy(characterBeingImpregnated, characterProvidingCum);
 
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append("<p class='centre noPad'>");
-			if(characterBeingImpregnated.isPlayer()){
+			if(!cumInPussy) {
+				sb.append("Letting out a gasp,");
+				if(characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+					sb.append(" [npc.name] [npc.verb(realise)] that [style.boldSex(if [npc.she] isn't already pregnant, there's a chance [npc.she] is now)]!");
+				} else {
+					sb.append(" [npc.name] [npc.verb(realise)] that [style.boldSex(there's a chance [npc.she]'ll get pregnant from this)]!");
+				}
+				
+			} else if(characterBeingImpregnated.isPlayer()){
 				sb.append("You feel ");
 				if(selfcest) {
 					sb.append("your own [npc.cum+]");
@@ -359,11 +407,20 @@ public enum PregnancyDescriptor {
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
 			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
 			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
+			boolean cumInPussy = isCumInPussy(characterBeingImpregnated, characterProvidingCum);
 
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append("<p class='centre noPad'>");
-			if(characterBeingImpregnated.isPlayer()){
+			if(!cumInPussy) {
+				sb.append("Letting out a gasp,");
+				if(characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+					sb.append(" [npc.name] [npc.verb(realise)] that [style.boldSex(if [npc.she] isn't already pregnant, there's a high chance [npc.she] is now)]!");
+				} else {
+					sb.append(" [npc.name] [npc.verb(realise)] that [style.boldSex(there's a high chance [npc.she]'ll get pregnant from this)]!");
+				}
+				
+			} else if(characterBeingImpregnated.isPlayer()){
 				sb.append("You feel ");
 				if(selfcest) {
 					sb.append("your own [npc.cum+]");
@@ -422,11 +479,20 @@ public enum PregnancyDescriptor {
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
 			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
 			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
+			boolean cumInPussy = isCumInPussy(characterBeingImpregnated, characterProvidingCum);
 
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append("<p class='centre noPad'>");
-			if(characterBeingImpregnated.isPlayer()){
+			if(!cumInPussy) {
+				sb.append("Letting out a gasp,");
+				if(characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+					sb.append(" [npc.name] [npc.verb(realise)] that [style.boldSex(if [npc.she] isn't already pregnant, [npc.she] certainly is now)]!");
+				} else {
+					sb.append(" [npc.name] [npc.verb(realise)] that [style.boldSex(it's a certainty that [npc.sheHas] been impregnated from this)]!");
+				}
+				
+			} else if(characterBeingImpregnated.isPlayer()){
 				sb.append("You feel ");
 				if(selfcest) {
 					sb.append("your own [npc.cum+]");
@@ -480,6 +546,15 @@ public enum PregnancyDescriptor {
 		}
 	};
 	
+	private static boolean isCumInPussy(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum) {
+		return characterBeingImpregnated.getFluidsStoredInOrifice(SexAreaOrifice.VAGINA).stream().anyMatch(f -> {
+			try {
+				return f.isCum() && f.getFluidCharacter()==characterProvidingCum;
+			} catch (Exception e) {
+				return false;
+			}
+		});
+	}
 	
 	public abstract String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination);
 	

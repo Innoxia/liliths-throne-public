@@ -114,6 +114,7 @@ import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
 import com.lilithsthrone.game.character.npc.fields.Arion;
 import com.lilithsthrone.game.character.npc.fields.Astrapi;
+import com.lilithsthrone.game.character.npc.fields.Aurokaris;
 import com.lilithsthrone.game.character.npc.fields.Belle;
 import com.lilithsthrone.game.character.npc.fields.Ceridwen;
 import com.lilithsthrone.game.character.npc.fields.Dale;
@@ -134,6 +135,7 @@ import com.lilithsthrone.game.character.npc.fields.Kazik;
 import com.lilithsthrone.game.character.npc.fields.Kheiron;
 import com.lilithsthrone.game.character.npc.fields.LunetteMelee;
 import com.lilithsthrone.game.character.npc.fields.LunetteRanged;
+import com.lilithsthrone.game.character.npc.fields.Lunexis;
 import com.lilithsthrone.game.character.npc.fields.Minotallys;
 import com.lilithsthrone.game.character.npc.fields.Monica;
 import com.lilithsthrone.game.character.npc.fields.Moreno;
@@ -141,6 +143,7 @@ import com.lilithsthrone.game.character.npc.fields.Nizhoni;
 import com.lilithsthrone.game.character.npc.fields.Oglix;
 import com.lilithsthrone.game.character.npc.fields.Penelope;
 import com.lilithsthrone.game.character.npc.fields.Silvia;
+import com.lilithsthrone.game.character.npc.fields.Ursa;
 import com.lilithsthrone.game.character.npc.fields.Vronti;
 import com.lilithsthrone.game.character.npc.fields.Wynter;
 import com.lilithsthrone.game.character.npc.fields.Yui;
@@ -2255,7 +2258,6 @@ public class Game implements XMLSaving {
 				Main.game.getNpc(Kheiron.class).setAffection(Main.game.getNpc(Oglix.class), AffectionLevel.NEGATIVE_THREE_STRONG_DISLIKE.getMedianValue());
 			}
 			
-			
 			// Evelyx's Dairy:
 			
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Evelyx.class))) { addNPC(new Evelyx(), false); addedNpcs.add(Evelyx.class); }
@@ -2268,6 +2270,12 @@ public class Game implements XMLSaving {
 			// Headless horseman:
 			
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HeadlessHorseman.class))) { addNPC(new HeadlessHorseman(), false); addedNpcs.add(HeadlessHorseman.class); }
+			
+			// Themiscyra:
+			
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Lunexis.class))) { addNPC(new Lunexis(), false); addedNpcs.add(Lunexis.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Ursa.class))) { addNPC(new Ursa(), false); addedNpcs.add(Ursa.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Aurokaris.class))) { addNPC(new Aurokaris(), false); addedNpcs.add(Aurokaris.class); }
 			
 			
 		} catch (Exception e) {
@@ -3074,7 +3082,7 @@ public class Game implements XMLSaving {
 				if (node.isContinuesDialogue() || response.isForceContinue()) {
 					currentDialogue = 
 								"<div id='main-content'>"
-									+ getTitleDiv(dialogueTitle)
+									+ getTitleDiv(getDialogueTitle())
 									+ "<div class='div-center' id='content-block'>"
 //										+ "<div class='inner-text-content'>"
 											+ getMapDiv()
@@ -3100,7 +3108,7 @@ public class Game implements XMLSaving {
 
 				} else {
 					currentDialogue = "<div id='main-content'>"
-								+ getTitleDiv(dialogueTitle)
+								+ getTitleDiv(getDialogueTitle())
 								+ "<span id='position" + positionAnchor + "'></span>"
 								+ "<div class='div-center' id='content-block'>"
 //									+ "<div class='inner-text-content'>"
@@ -3316,7 +3324,7 @@ public class Game implements XMLSaving {
 
 		if (node.isContinuesDialogue() || response.isForceContinue()) {
 			currentDialogue = "<div id='main-content'>"
-						+ getTitleDiv(dialogueTitle)
+						+ getTitleDiv(getDialogueTitle())
 						+ "<div class='div-center' id='content-block'>"
 //							+ "<div class='inner-text-content'>"
 								+ getMapDiv()
@@ -3340,7 +3348,7 @@ public class Game implements XMLSaving {
 
 		} else {
 			currentDialogue = "<div id='main-content'>"
-						+ getTitleDiv(dialogueTitle)
+						+ getTitleDiv(getDialogueTitle())
 						+ "<span id='position" + positionAnchor + "'></span>"
 							+ "<div class='div-center' id='content-block'>"
 //								+ "<div class='inner-text-content'>"
@@ -3433,6 +3441,13 @@ public class Game implements XMLSaving {
 				|| node.equals(InventoryDialogue.DYE_EQUIPPED_CLOTHING_CHARACTER_CREATION)
 				|| node.equals(InventoryDialogue.DYE_EQUIPPED_WEAPON)
 				|| node.equals(InventoryDialogue.DYE_WEAPON);
+	}
+	
+	private String getDialogueTitle() {
+		if(isBadEnd()) {
+			return "<b style='color:"+PresetColour.GENERIC_BAD_END.toWebHexString()+";'>Bad End: "+Main.getProperties().badEndTitle+"</b>";
+		}
+		return dialogueTitle;
 	}
 	
 	private String getTitleDiv(String title) {
@@ -3697,7 +3712,7 @@ public class Game implements XMLSaving {
 				+ ".speech:before { content: '\"'; }"
 				+ ".speech:after { content: '\"'; }"
 				+ "</style>"
-					+ "<h4 style='text-align:center; font-size:1.4em;'>" + dialogueTitle + "</h4>"
+					+ "<h4 style='text-align:center; font-size:1.4em;'>" + getDialogueTitle() + "</h4>"
 					+ "<div style='max-width:800px; margin:0 auto;'>"
 						+ (currentDialogueNode.getHeaderContent() != null ? "<div id='header-content'>" + currentDialogueNode.getHeaderContent() + "</div>" : "")
 						+ (content != null
@@ -3976,7 +3991,7 @@ public class Game implements XMLSaving {
 			
 			currentDialogue = 
 					"<div id='main-content'>"
-						+ getTitleDiv(dialogueTitle)
+						+ getTitleDiv(getDialogueTitle())
 						+ "<div class='div-center' id='content-block'>"
 								+ getMapDiv()
 								+ (headerContent != null
