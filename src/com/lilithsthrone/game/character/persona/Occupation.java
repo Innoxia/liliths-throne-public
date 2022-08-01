@@ -83,7 +83,7 @@ public enum Occupation {
 	
 	NPC_LYSSIETH_GUARD(Perk.JOB_LYSSIETH_GUARD, "Lyssieth's guard", "[npc.NameIsFull] one of Lyssieth's unrecognised daughters, and has been assigned to guard her mother's palace.", OccupationTag.HAS_PREREQUISITES),
 	
-	NPC_ELDER_LILIN(Perk.JOB_ELDER_LILIN, "elder lilin", "[npc.NameIs] one of the seven elder lilin; the recognised daughters of Lilith herself.", OccupationTag.HAS_PREREQUISITES),
+	NPC_ELDER_LILIN(Perk.JOB_ELDER_LILIN, "elder lilin", "[npc.NameIsFull] one of the seven elder lilin; the recognised daughters of Lilith herself.", OccupationTag.HAS_PREREQUISITES),
 
 	NPC_TAUR_TRANSPORT(Perk.JOB_TAUR_TRANSPORT, "taur transporter", "[npc.Name] uses [npc.her] tauric body to its full potential by pulling carts and transporting goods.", OccupationTag.HAS_PREREQUISITES),
 
@@ -93,6 +93,11 @@ public enum Occupation {
 	NPC_LUNETTE_HERD(Perk.JOB_LUNETTE_HERD, "Daughter of Lunette", "[npc.NameIsFull] one of Lunette's daughters, and inherits [npc.her] mother's love of causing mayhem and havoc.", OccupationTag.HAS_PREREQUISITES),
 
 	NPC_MUSHROOM_FORAGER(Perk.JOB_NPC_MUSHROOM_FORAGER, "mushroom forager", "[npc.Name] [npc.verb(forage)] for and then sells psychedelic mushrooms in the bat caverns beneath Submission."),
+
+	NPC_LUNETTE_RECOGNISED_DAUGHTER(Perk.JOB_LUNETTE_RECOGNISED_DAUGHTER, "recognised daughter of Lunette", "[npc.NameIsFull] a recognised daughter of Lunette herself, and as such is considerably more powerful than a regular demon.", OccupationTag.HAS_PREREQUISITES),
+	
+	NPC_AMAZONIAN_QUEEN(Perk.JOB_AMAZONIAN_QUEEN, "Amazon Queen", "[npc.NameIsFull] the queen of the Amazons, and as such [npc.has] considerable strength and combat abilities.", OccupationTag.HAS_PREREQUISITES),
+	NPC_AMAZONIAN(Perk.JOB_AMAZONIAN, "Amazon", "[npc.NameIsFull] an Amazon, and as such [npc.has] spent much time training for combat.", OccupationTag.HAS_PREREQUISITES),
 	
 	
 	// NPC generic histories:

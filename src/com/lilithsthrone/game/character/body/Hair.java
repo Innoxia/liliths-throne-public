@@ -241,6 +241,9 @@ public class Hair implements BodyPartInterface {
 				case CHIGNON:
 					sb.append("tied up and styled into a chignon.");
 					break;
+				case SIDE_BRAIDS:
+					sb.append("styled into two braids which hang down on either side of [npc.her] face.");
+					break;
 			}
 		sb.append("</p>");
 		return UtilText.parse(owner, sb.toString());

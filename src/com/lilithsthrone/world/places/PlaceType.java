@@ -2082,7 +2082,7 @@ public class PlaceType {
 	public static final AbstractPlaceType LILAYA_HOME_ARTHUR_ROOM = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Arthur's Room",
-			"As chosen by you, this room houses Lilaya's one-time lover and colleague, Arthur.",
+			"Converted from a store room houses Lilaya's one-time lover and colleague, Arthur.",
 			"dominion/lilayasHome/roomArthur",
 			PresetColour.BASE_BLUE_STEEL,
 			RoomArthur.ROOM_ARTHUR,

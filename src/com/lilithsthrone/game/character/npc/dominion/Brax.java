@@ -269,7 +269,7 @@ public class Brax extends NPC {
 		
 		if(isFeminine()) {
 			if(hasFetish(Fetish.FETISH_BIMBO)) {
-				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_CROTCHLESS_PANTIES, PresetColour.CLOTHING_PINK, false), true, this);
+				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_crotchless_panties", PresetColour.CLOTHING_PINK, false), true, this);
 				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.NIPPLE_TAPE_CROSSES, PresetColour.CLOTHING_PINK, false), true, this);
 				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_FISHNET_TOP, PresetColour.CLOTHING_WHITE, false), true, this);
 				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_micro_skirt_pleated", PresetColour.CLOTHING_PINK, false), true, this);
@@ -286,7 +286,7 @@ public class Brax extends NPC {
 				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_GOLD, false), InventorySlot.PIERCING_STOMACH, true, this);
 				
 			} else {
-				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_THONG, PresetColour.CLOTHING_WHITE, false), true, this);
+				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_thong", PresetColour.CLOTHING_WHITE, false), true, this);
 				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_PLUNGE_BRA, PresetColour.CLOTHING_WHITE, false), true, this);
 				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_kneehigh_socks", PresetColour.CLOTHING_WHITE, false), true, this);
 
@@ -296,7 +296,7 @@ public class Brax extends NPC {
 			}
 			
 		} else {
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BOXERS, PresetColour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_boxers", PresetColour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_STEEL, false), true, this);
 
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdslacks", PresetColour.CLOTHING_BLACK, false), true, this);

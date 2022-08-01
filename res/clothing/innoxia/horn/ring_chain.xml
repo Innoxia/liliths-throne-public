@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>250</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[horn chains]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[horn chains]]></namePlural>
+		<description><![CDATA[Two pairs of rings, with each pair being connected by a decorative chain. The rings are of a size suitable for being slotted onto someone's horns.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+			<slot>HORNS</slot>
+		</equipSlots>
+		<rarity>COMMON</rarity>
+		<clothingSet/> 
+		<imageName>ring_chain.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<stickers>
+			<category id="more_chains" priority="1">
+				<categoryName><![CDATA[Chain count]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="0" colourSelected="GENERIC_GOOD">
+					<stickerName><![CDATA[One chain]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="add1" priority="1" defaultSticker="true" zLayer="-1">
+					<stickerName><![CDATA[Two chains]]></stickerName>
+					<namePrefix/>
+					<descriptionModification/>
+					<imageName>ring_chain_extra_1.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="add2" priority="2" defaultSticker="true" zLayer="-2">
+					<stickerName><![CDATA[Three chains]]></stickerName>
+					<namePrefix/>
+					<descriptionModification/>
+					<imageName>ring_chain_extra_2.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+			</category>
+		</stickers>
+		
+		<blockedPartsList slot="HORNS">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots slot="HORNS"/>
+		
+		<primaryColours values="ALL_METAL"/> 
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_KATE</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText slot="PIERCING_NIPPLE" type="REMOVE_OR_EQUIP">
+	<self>
+		<![CDATA[[npc.Name] [npc.verb(slide)] the rings onto [npc.her] [npc.horns], before allowing the connected chains to dangle free.]]>
+	</self>
+	<other>
+		<![CDATA[[npc.Name] [npc.verb(slide)] the rings onto [npc2.namePos] [npc2.horns], before allowing the connected chains to dangle free.]]>
+	</other>
+	<otherRough>
+		<![CDATA[[npc.Name] roughly [npc.verb(slide)] the rings onto [npc2.namePos] [npc2.horns], before allowing the connected chains to dangle free.]]>
+	</otherRough>
+	</replacementText>
+
+	<displacementText slot="PIERCING_NIPPLE" type="REMOVE_OR_EQUIP">
+	<self>
+		<![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] rings from off of [npc.her] [npc.horns].]]>
+	</self>
+	<other>
+		<![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] rings from off of [npc2.her] [npc2.horns].]]>
+	</other>
+	<otherRough>
+		<![CDATA[[npc.Name] roughly [npc.verb(slide)] [npc2.namePos] rings from off of [npc2.her] [npc2.horns].]]>
+	</otherRough>
+	</displacementText>
+	
+</clothing>

@@ -1354,7 +1354,7 @@ public abstract class AbstractSubspecies {
 				Element coreElement = Element.getDocumentRootElement(bookFile); // Loads the document and returns the root element
 				
 				for(Element element : coreElement.getAllOf("htmlContent")) {
-					if(!element.getAttribute("author").isEmpty()) {
+					if(element.getAttribute("tag").equals(basicDescriptionId) && !element.getAttribute("author").isEmpty()) {
 						return element.getAttribute("author");
 					}
 				}

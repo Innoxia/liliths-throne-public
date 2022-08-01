@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -368,7 +369,7 @@ public class SlaverAlleyDialogue {
 		partners.get(0).removeFetish(Fetish.FETISH_ORAL_RECEIVING);
 		partners.get(0).removeFetish(Fetish.FETISH_VAGINAL_GIVING);
 		partners.get(0).removeFetish(Fetish.FETISH_ANAL_GIVING);
-		List<Fetish> fetishes = Util.newArrayListOfValues(
+		List<AbstractFetish> fetishes = Util.newArrayListOfValues(
 				target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)
 				&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slaverAlleyTwoPartners)
 					?Fetish.FETISH_ORAL_RECEIVING

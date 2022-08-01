@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.Game;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
@@ -413,6 +414,8 @@ public class PrologueDialogue {
 						Main.game.getPlayer().setAgeAppearanceDifference(-Game.TIME_SKIP_YEARS);
 						
 						Main.game.applyStartingDateChange();
+
+						Main.game.getPlayer().addSpecialPerk(Perk.SPECIAL_PLAYER);
 					}
 				};
 			} else {

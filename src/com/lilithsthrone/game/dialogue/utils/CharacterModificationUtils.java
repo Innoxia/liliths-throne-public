@@ -108,6 +108,7 @@ import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.markings.AbstractTattooType;
@@ -566,7 +567,7 @@ public class CharacterModificationUtils {
 				
 				// Like/dislike/owned
 				int i=0;
-				for(Fetish fetish : Fetish.values()) {
+				for(AbstractFetish fetish : Fetish.getAllFetishes()) {
 					if(fetish.isAvailable(BodyChanging.getTarget()) && fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 						contentSB.append("<div class='container-full-width inner' style='width:100%; margin:0; padding:0; background:"+(i%2==0?PresetColour.BACKGROUND:PresetColour.BACKGROUND_ALT).toWebHexString()+";'>");
 						
@@ -576,7 +577,7 @@ public class CharacterModificationUtils {
 	
 							contentSB.append(
 									getInformationDiv(
-											"FETISH_INFO_"+fetish,
+											"FETISH_INFO_"+Fetish.getIdFromFetish(fetish),
 											new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(fetish.getName(BodyChanging.getTarget())), fetish.getDescription(null)),
 											true));
 							
@@ -586,7 +587,7 @@ public class CharacterModificationUtils {
 									contentSB.append("<div class='cosmetics-button active' style='width:18%; margin:1%; min-width:0;'>"
 											+ "<span style='color:"+desire.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(desire.getName())+"</span></div>");
 								} else {
-									contentSB.append("<div id='FETISH_DESIRE_"+fetish+desire+"' class='cosmetics-button' style='width:18%; margin:1%; min-width:0;'>"
+									contentSB.append("<div id='FETISH_DESIRE_"+Fetish.getIdFromFetish(fetish)+desire+"' class='cosmetics-button' style='width:18%; margin:1%; min-width:0;'>"
 											+ "<span style='color:"+desire.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(desire.getName())+"</span></div>");
 								}
 							}

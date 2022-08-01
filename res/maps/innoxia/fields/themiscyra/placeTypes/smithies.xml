@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[Themiscyra smithies]]></name>
+	<tooltipDescription><![CDATA[The place where weapons and armour were once made with which to equip the town's all-female army.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[beside the smithies in Themiscyra]]></virginityLossDescription>
+	<sexBlockedReason/>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_BLUE_STEEL</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_themiscyra_smithies</dialogue>
+	<populationPresent/>
+	<furniturePresent>false</furniturePresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

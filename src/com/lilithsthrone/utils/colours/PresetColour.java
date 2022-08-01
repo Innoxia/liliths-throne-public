@@ -112,6 +112,7 @@ public class PresetColour {
 	public static Colour MAP_BACKGROUND_DANGEROUS = new Colour(false, Util.newColour(0x303030), Util.newColour(0xaaaaaa), "dark grey") {};
 	public static Colour MAP_BACKGROUND_BLUE = new Colour(false,  Util.newColour(0xbbbbdd), Util.newColour(0xbbbbdd), "light blue") {};
 	public static Colour MAP_BACKGROUND_GREEN = new Colour(false,  Util.newColour(0xbbddbb), Util.newColour(0xbbddbb), "light green") {};
+	public static Colour MAP_BACKGROUND_GREEN_DARK = new Colour(false,  Util.newColour(0x5E685E), Util.newColour(0x5E685E), "dark green") {};
 
 	public static Colour GENERIC_NPC_REMOVAL = new Colour(false, BaseColour.RED_LIGHT, "red") {};
 	public static Colour GENERIC_SEX = new Colour(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("sex", "sexSub", "subSex", "sub", "submissive")) {};
