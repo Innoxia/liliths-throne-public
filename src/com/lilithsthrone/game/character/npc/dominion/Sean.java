@@ -209,7 +209,7 @@ public class Sean extends NPC {
 		this.unequipMainWeaponIntoVoid(0, false);
 		this.unequipOffhandWeaponIntoVoid(0, false);
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BOXERS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_boxers", PresetColour.CLOTHING_BLACK, false), true, this);
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_enfslacks", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_utilbelt", PresetColour.CLOTHING_BLACK, false), true, this);

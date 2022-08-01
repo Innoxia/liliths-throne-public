@@ -243,7 +243,7 @@ public class FortressMalesLeader extends NPC {
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_stomach_sarashi", PresetColour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_briefs", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_leg_mens_hakama"), PresetColour.CLOTHING_BLACK, false), true, this);
 
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
@@ -277,7 +277,7 @@ public class FortressMalesLeader extends NPC {
 	}
 
 	public boolean isAbleToEquipThong(GameCharacter target) {
-		AbstractClothing thong = Main.game.getItemGen().generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, PresetColour.CLOTHING_RED_DARK, null);
+		AbstractClothing thong = Main.game.getItemGen().generateClothing("innoxia_groin_crotchless_thong", PresetColour.CLOTHING_RED_DARK, null);
 		return target.isAbleToEquip(thong, true, this)
 				&& Main.sex.getSexTypeCount(this, target, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0
 				&& (target.getClothingInSlot(InventorySlot.GROIN)==null || !target.getClothingInSlot(InventorySlot.GROIN).getName().contains(UtilText.parse(this,"[npc.Name]")));	

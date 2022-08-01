@@ -317,7 +317,7 @@ public class Minotallys extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.resetInventory(true);
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_CROTCHLESS_PANTIES, clothingColour, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_crotchless_panties", clothingColour, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_NURSING_BRA, clothingColour, false), true, this);
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torsoOver_feminine_blazer", PresetColour.CLOTHING_BLACK, false), true, this);

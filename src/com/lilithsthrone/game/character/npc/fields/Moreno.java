@@ -193,7 +193,7 @@ public class Moreno extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_briefs", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_sport_shorts", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("TonyJC_tank_top", PresetColour.CLOTHING_BLUE_NAVY, false), true, this);
 		

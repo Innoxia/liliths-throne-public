@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tattoo>
+	<coreAttributes>
+		<value>500</value> 
+		
+		<name><![CDATA[pentagram]]></name>
+		
+		<description><![CDATA[The pentagram is the symbol of Lilith herself, and this particular depiction of it has been set within a circle.]]></description> 
+		<bodyOverviewDescription><![CDATA[a tattoo which depicts a pentagram within a circle]]></bodyOverviewDescription> 
+		
+		<imageName>pentagram.svg</imageName> 
+		
+		<slotAvailability/>
+		
+		<primaryColours values="ALL"/> 
+		<secondaryColours values="ALL"/> 
+		<tertiaryColours/> 
+		
+	</coreAttributes>
+	
+</tattoo>

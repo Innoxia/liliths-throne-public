@@ -7,6 +7,7 @@ import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -63,7 +64,7 @@ public class PixShower {
 		}
 
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
 		}
 	};
@@ -105,7 +106,7 @@ public class PixShower {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
 		}
 	};
@@ -148,7 +149,7 @@ public class PixShower {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
 		}
 	};
@@ -189,7 +190,7 @@ public class PixShower {
 		}
 
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
 		}
 	};
@@ -235,7 +236,7 @@ public class PixShower {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
 				return Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE);
 			} else {
@@ -280,7 +281,7 @@ public class PixShower {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
 				return Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE);
 			} else {
@@ -474,7 +475,7 @@ public class PixShower {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
 				return Util.newArrayListOfValues(Fetish.FETISH_BREASTS_SELF);
 			} else {
@@ -644,7 +645,7 @@ public class PixShower {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
 				return Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE);
 			} else {
@@ -973,7 +974,7 @@ public class PixShower {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
 				return Util.newArrayListOfValues(Fetish.FETISH_DENIAL_SELF);
 			} else {

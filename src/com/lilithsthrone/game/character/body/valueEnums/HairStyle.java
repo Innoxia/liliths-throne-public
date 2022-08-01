@@ -52,6 +52,7 @@ public enum HairStyle {
 	PONYTAIL("ponytail", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH),
 	LOW_PONYTAIL("low ponytail", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH),
 	TWIN_TAILS("twintails", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH),
+	SIDE_BRAIDS("side braids", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH),
 	CHIGNON("chignon", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
 	BRAIDED("braided", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
 	TWIN_BRAIDS("twin braids", Femininity.FEMININE, HairLength.FOUR_MID_BACK),

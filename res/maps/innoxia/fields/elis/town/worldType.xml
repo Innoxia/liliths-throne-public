@@ -40,6 +40,11 @@
 		e.g. <wallsPresent wallName="tree">true</wallsPresent> -->
 	<wallsPresent>true</wallsPresent>
 	
+	<!-- The index which this world should be placed in when viewed in the phone's map screen.
+		Indexing starts at 1, and can either be omitted or set to 0 if this world is not considered to be a major area within its world map region.
+		For example, Dominion, Harpy Nests, Submission, and Bat Caverns are considered to be major areas and so have an index set, while places such as Lilaya's Mansion are left undefined, resulting in them using the default ordering in the phone's screen. -->
+	<majorAreaIndex>1</majorAreaIndex>
+	
 	<!-- Whether or not the player can loiter (pass time without encountering anything) in this map.
 	Use either 'true' or 'false' as values.
 	Note: This can be overridden in a place type's definition, so even if you set loitering to be enabled or disabled here, the actual place in which the player is located might have different behaviour, which has priority over this definition. -->

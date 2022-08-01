@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -234,7 +235,7 @@ public class PartnerTalk {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
 				if(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING) {
 					return Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM);

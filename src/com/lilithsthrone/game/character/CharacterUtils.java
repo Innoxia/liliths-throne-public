@@ -20,7 +20,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import com.lilithsthrone.game.character.fetishes.FetishPreference;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -86,8 +85,10 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
+import com.lilithsthrone.game.character.fetishes.FetishPreference;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -1130,6 +1131,7 @@ public class CharacterUtils {
 			for(OrificeModifier mod : RacialBody.valueOfRace(halfSubspecies.getRace()).getVaginaType().getDefaultRacialOrificeModifiers()) {
 				body.getVagina().getOrificeVagina().addOrificeModifier(linkedCharacter, mod);
 			}
+			body.getVagina().setEggLayer(null, RacialBody.valueOfRace(halfSubspecies.getRace()).getVaginaType().isEggLayer());
 		}
 		
 		if(!body.getArm().getType().allowsFlight()) { // Do not give back wings to characters who have arm wings.
@@ -2421,73 +2423,89 @@ public class CharacterUtils {
 				false);
 	}
 	
-	private static List<Fetish> getAllowedFetishes(GameCharacter character) {
-		List<Fetish> allowedFetishes = new ArrayList<>();
+	private static List<AbstractFetish> getAllowedFetishes(GameCharacter character) {
+		List<AbstractFetish> allowedFetishes = new ArrayList<>();
+		List<AbstractFetish> bannedFetishes = new ArrayList<>();
 		
-		for(Fetish f : Fetish.values()) {
-			switch(f) {
-				case FETISH_PURE_VIRGIN:
-					if(character.hasVagina()&&(character.getHistory()!=Occupation.NPC_PROSTITUTE||Math.random()<=0.25f))
-						allowedFetishes.add(f);
-					break;
-				case FETISH_PREGNANCY:
-				case FETISH_VAGINAL_RECEIVING:
-					if(character.hasVagina())
-						allowedFetishes.add(f);
-					break;
-				case FETISH_IMPREGNATION:
-					if(character.hasPenis() && character.sexualOrientation!=SexualOrientation.ANDROPHILIC)
-						allowedFetishes.add(f);
-					break;
-				case FETISH_CUM_STUD:
-				case FETISH_PENIS_GIVING:
-					if(character.hasPenis())
-						allowedFetishes.add(f);
-					break;
-				case FETISH_BREASTS_SELF:
-					if(character.hasBreasts())
-						allowedFetishes.add(f);
-					break;
-				case FETISH_NON_CON_DOM:
-				case FETISH_NON_CON_SUB:
-					if(Main.game.isNonConEnabled())
-						allowedFetishes.add(f);
-					break;
-				case FETISH_INCEST:
-					if(Main.game.isIncestEnabled())
-						allowedFetishes.add(f);
-					break;
-				case FETISH_LACTATION_OTHERS:
-				case FETISH_LACTATION_SELF:
-					if(Main.game.isLactationContentEnabled())
-						allowedFetishes.add(f);
-					break;
-				case FETISH_ANAL_GIVING:
-				case FETISH_ANAL_RECEIVING:
-					if(Main.game.isAnalContentEnabled())
-						allowedFetishes.add(f);
-					break;
-				case FETISH_FOOT_GIVING:
-				case FETISH_FOOT_RECEIVING:
-					if(Main.game.isFootContentEnabled())
-						allowedFetishes.add(f);
-					break;
-				case FETISH_SIZE_QUEEN:
-					if(Main.game.isPenetrationLimitationsEnabled())
-						allowedFetishes.add(f);
-					break;
-				case FETISH_ARMPIT_GIVING:
-				case FETISH_ARMPIT_RECEIVING:
-					if(Main.game.isArmpitContentEnabled())
-						allowedFetishes.add(f);
-					break;
-				default:
-					if (f.getFetishesForAutomaticUnlock().isEmpty())
-						allowedFetishes.add(f);
-					break;
+		if(character.hasVagina()&&(character.getHistory()!=Occupation.NPC_PROSTITUTE||Math.random()<=0.25f)) {
+			allowedFetishes.add(Fetish.FETISH_PURE_VIRGIN);
+		} else {
+			bannedFetishes.add(Fetish.FETISH_PURE_VIRGIN);
+		}
+		if(character.hasVagina()) {
+			allowedFetishes.add(Fetish.FETISH_PREGNANCY);
+			allowedFetishes.add(Fetish.FETISH_VAGINAL_RECEIVING);
+		} else {
+			bannedFetishes.add(Fetish.FETISH_PREGNANCY);
+			bannedFetishes.add(Fetish.FETISH_VAGINAL_RECEIVING);
+		}
+		if(character.hasPenis() && character.sexualOrientation!=SexualOrientation.ANDROPHILIC) {
+			allowedFetishes.add(Fetish.FETISH_IMPREGNATION);
+		} else {
+			bannedFetishes.add(Fetish.FETISH_IMPREGNATION);
+		}
+		if(character.hasPenis()) {
+			allowedFetishes.add(Fetish.FETISH_CUM_STUD);
+			allowedFetishes.add(Fetish.FETISH_PENIS_GIVING);
+		} else {
+			bannedFetishes.add(Fetish.FETISH_CUM_STUD);
+			bannedFetishes.add(Fetish.FETISH_PENIS_GIVING);
+		}
+		if(character.hasBreasts()) {
+			allowedFetishes.add(Fetish.FETISH_BREASTS_SELF);
+		} else {
+			bannedFetishes.add(Fetish.FETISH_BREASTS_SELF);
+		}
+		if(Main.game.isNonConEnabled()) {
+			allowedFetishes.add(Fetish.FETISH_NON_CON_DOM);
+			allowedFetishes.add(Fetish.FETISH_NON_CON_SUB);
+		} else {
+			bannedFetishes.add(Fetish.FETISH_NON_CON_DOM);
+			bannedFetishes.add(Fetish.FETISH_NON_CON_SUB);
+		}
+		if(Main.game.isIncestEnabled()) {
+			allowedFetishes.add(Fetish.FETISH_INCEST);
+		} else {
+			bannedFetishes.add(Fetish.FETISH_INCEST);
+		}
+		if(Main.game.isLactationContentEnabled()) {
+			allowedFetishes.add(Fetish.FETISH_LACTATION_OTHERS);
+			allowedFetishes.add(Fetish.FETISH_LACTATION_SELF);
+		} else {
+			bannedFetishes.add(Fetish.FETISH_LACTATION_OTHERS);
+			bannedFetishes.add(Fetish.FETISH_LACTATION_SELF);
+		}
+		if(Main.game.isAnalContentEnabled()) {
+			allowedFetishes.add(Fetish.FETISH_ANAL_GIVING);
+			allowedFetishes.add(Fetish.FETISH_ANAL_RECEIVING);
+		} else {
+			bannedFetishes.add(Fetish.FETISH_ANAL_GIVING);
+			bannedFetishes.add(Fetish.FETISH_ANAL_RECEIVING);
+		}
+		if(Main.game.isFootContentEnabled()) {
+			allowedFetishes.add(Fetish.FETISH_FOOT_GIVING);
+			allowedFetishes.add(Fetish.FETISH_FOOT_RECEIVING);
+		} else {
+			bannedFetishes.add(Fetish.FETISH_FOOT_GIVING);
+			bannedFetishes.add(Fetish.FETISH_FOOT_RECEIVING);
+		}
+		if(Main.game.isPenetrationLimitationsEnabled()) {
+			allowedFetishes.add(Fetish.FETISH_SIZE_QUEEN);
+		} else {
+			bannedFetishes.add(Fetish.FETISH_SIZE_QUEEN);
+		}
+		if(Main.game.isArmpitContentEnabled()) {
+			allowedFetishes.add(Fetish.FETISH_ARMPIT_GIVING);
+			allowedFetishes.add(Fetish.FETISH_ARMPIT_RECEIVING);
+		} else {
+			bannedFetishes.add(Fetish.FETISH_ARMPIT_GIVING);
+			bannedFetishes.add(Fetish.FETISH_ARMPIT_RECEIVING);
+		}
+		for(AbstractFetish f : Fetish.getAllFetishes()) {
+			if (!bannedFetishes.contains(f) && !allowedFetishes.contains(f) && f.getFetishesForAutomaticUnlock().isEmpty()) {
+				allowedFetishes.add(f);
 			}
 		}
-		
 		return allowedFetishes;
 	}
 	
@@ -2495,9 +2513,9 @@ public class CharacterUtils {
 	 * @param character The character to add fetishes to.
 	 * @param exclusions Any fetishes that should not be modified.
 	 */
-	public void addFetishes(GameCharacter character, Fetish... exclusions) {
+	public void addFetishes(GameCharacter character, AbstractFetish... exclusions) {
 		
-		List<Fetish> availableFetishes = getAllowedFetishes(character);
+		List<AbstractFetish> availableFetishes = getAllowedFetishes(character);
 		
 		// Remove existing fetishes and exclusions:
 		availableFetishes.removeAll(character.getFetishes(false));
@@ -2528,9 +2546,9 @@ public class CharacterUtils {
 			availableFetishes.remove(Fetish.FETISH_KINK_GIVING);
 		}
 		
-		Map<Fetish, Integer> fetishMap = new HashMap<>();
-		Map<Fetish, Map<String, Integer>> raceModifiers = character.getRace().getRacialFetishModifiers();
-		for(Fetish fetish : availableFetishes) {
+		Map<AbstractFetish, Integer> fetishMap = new HashMap<>();
+		Map<AbstractFetish, Map<String, Integer>> raceModifiers = character.getRace().getRacialFetishModifiers();
+		for(AbstractFetish fetish : availableFetishes) {
 			int weight = 0;
 			if(raceModifiers.containsKey(fetish)) {
 				// Racial modifier acts as a multiplier so fetishes can be disabled by race or player preferences
@@ -2543,7 +2561,7 @@ public class CharacterUtils {
 			}
 		}
 		while(fetishesAssigned < numberOfFetishes && !fetishMap.isEmpty()) {
-			Fetish f = Util.getRandomObjectFromWeightedMap(fetishMap);
+			AbstractFetish f = Util.getRandomObjectFromWeightedMap(fetishMap);
 			character.addFetish(f);
 			fetishMap.remove(f);
 			fetishesAssigned++;
@@ -2554,20 +2572,14 @@ public class CharacterUtils {
 	
 	public void generateDesires(GameCharacter character) {
 		
-		List<Fetish> availableFetishes = getAllowedFetishes(character);
+		List<AbstractFetish> availableFetishes = getAllowedFetishes(character);
 		availableFetishes.removeAll(character.getFetishes(false));
-		for(Fetish f : character.getFetishes(false)) {
-			switch(f) {
-				default:
-					break;
-				// Related fetishes cannot be loved and disliked at the same time:
-				case FETISH_PREGNANCY:
-					availableFetishes.remove(Fetish.FETISH_VAGINAL_RECEIVING);
-					break;
-				case FETISH_IMPREGNATION:
-					availableFetishes.remove(Fetish.FETISH_VAGINAL_GIVING);
-					break;
-			}
+		// Related fetishes cannot be loved and disliked at the same time:
+		if(character.getFetishes(false).contains(Fetish.FETISH_PREGNANCY)) {
+			availableFetishes.remove(Fetish.FETISH_VAGINAL_RECEIVING);
+		}
+		if(character.getFetishes(false).contains(Fetish.FETISH_IMPREGNATION)) {
+			availableFetishes.remove(Fetish.FETISH_VAGINAL_GIVING);
 		}
 
 		// Desires:
@@ -2577,11 +2589,11 @@ public class CharacterUtils {
 		int numberOfNegativeDesires = Util.randomItemFrom(negDesireProb);
 		
 		int desiresAssigned = 0;
-		List<Fetish> fetishesLiked = new ArrayList<>(character.getFetishes(false));
+		List<AbstractFetish> fetishesLiked = new ArrayList<>(character.getFetishes(false));
 		
-		Map<Fetish, Integer> desireMap = new HashMap<>();
-		Map<Fetish, Map<String, Integer>> raceModifiers = character.getRace().getRacialFetishModifiers();
-		for(Fetish fetish : availableFetishes) {
+		Map<AbstractFetish, Integer> desireMap = new HashMap<>();
+		Map<AbstractFetish, Map<String, Integer>> raceModifiers = character.getRace().getRacialFetishModifiers();
+		for(AbstractFetish fetish : availableFetishes) {
 			int weight = 0;
 			if(raceModifiers.containsKey(fetish)) {
 				// Racial modifier acts as a multiplier so fetishes can be disabled by race or player preferences
@@ -2594,7 +2606,7 @@ public class CharacterUtils {
 			}
 		}
 		while(desiresAssigned < numberOfPositiveDesires && !desireMap.isEmpty()) {
-			Fetish f = Util.getRandomObjectFromWeightedMap(desireMap);
+			AbstractFetish f = Util.getRandomObjectFromWeightedMap(desireMap);
 			character.setFetishDesire(f, FetishDesire.THREE_LIKE);
 			availableFetishes.remove(f);
 			desireMap.remove(f);
@@ -2604,30 +2616,24 @@ public class CharacterUtils {
 		
 		// Disliked fetishes:
 		// Related fetishes cannot be liked and disliked at the same time:
-		for(Fetish f : fetishesLiked) {
-			switch(f) {
-				default:
-					break;
-				case FETISH_VAGINAL_RECEIVING:
-					availableFetishes.remove(Fetish.FETISH_PENIS_RECEIVING);
-					break;
-				case FETISH_VAGINAL_GIVING:
-					availableFetishes.remove(Fetish.FETISH_PENIS_GIVING);
-					break;
-				case FETISH_PREGNANCY:
-					availableFetishes.remove(Fetish.FETISH_VAGINAL_RECEIVING);
-					availableFetishes.remove(Fetish.FETISH_PENIS_RECEIVING);
-					availableFetishes.remove(Fetish.FETISH_CUM_ADDICT);
-					break;
-				case FETISH_IMPREGNATION:
-					availableFetishes.remove(Fetish.FETISH_VAGINAL_GIVING);
-					availableFetishes.remove(Fetish.FETISH_PENIS_GIVING);
-					availableFetishes.remove(Fetish.FETISH_CUM_STUD);
-					break;
-				case FETISH_NON_CON_SUB:
-					availableFetishes.remove(Fetish.FETISH_SUBMISSIVE);
-					break;
-			}
+		if(fetishesLiked.contains(Fetish.FETISH_VAGINAL_RECEIVING)) {
+			availableFetishes.remove(Fetish.FETISH_PENIS_RECEIVING);
+		}
+		if(fetishesLiked.contains(Fetish.FETISH_VAGINAL_GIVING)) {
+			availableFetishes.remove(Fetish.FETISH_PENIS_GIVING);
+		}
+		if(fetishesLiked.contains(Fetish.FETISH_PREGNANCY)) {
+			availableFetishes.remove(Fetish.FETISH_VAGINAL_RECEIVING);
+			availableFetishes.remove(Fetish.FETISH_PENIS_RECEIVING);
+			availableFetishes.remove(Fetish.FETISH_CUM_ADDICT);
+		}
+		if(fetishesLiked.contains(Fetish.FETISH_IMPREGNATION)) {
+			availableFetishes.remove(Fetish.FETISH_VAGINAL_GIVING);
+			availableFetishes.remove(Fetish.FETISH_PENIS_GIVING);
+			availableFetishes.remove(Fetish.FETISH_CUM_STUD);
+		}
+		if(fetishesLiked.contains(Fetish.FETISH_NON_CON_SUB)) {
+			availableFetishes.remove(Fetish.FETISH_SUBMISSIVE);
 		}
 		
 		desiresAssigned = 0;
@@ -2647,8 +2653,8 @@ public class CharacterUtils {
 		availableFetishes.remove(Fetish.FETISH_PENIS_GIVING);
 		availableFetishes.remove(Fetish.FETISH_VAGINAL_RECEIVING);
 		
-		Map<Fetish, Integer> negativeMap = new HashMap<>();
-		for(Fetish fetish : availableFetishes) {
+		Map<AbstractFetish, Integer> negativeMap = new HashMap<>();
+		for(AbstractFetish fetish : availableFetishes) {
 			int weight = 0;
 			FetishPreference fp = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish));
 			if(raceModifiers.containsKey(fetish)) {
@@ -2663,7 +2669,7 @@ public class CharacterUtils {
 			}
 		}
 		while(desiresAssigned < numberOfNegativeDesires && !negativeMap.isEmpty()) {
-			Fetish f = Util.getRandomObjectFromWeightedMap(negativeMap);
+			AbstractFetish f = Util.getRandomObjectFromWeightedMap(negativeMap);
 			int rnd = Util.random.nextInt(negativeMap.get(f))+1;
 			int weight = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(f)).getHate();
 			if(raceModifiers.containsKey(f)) {

@@ -53,6 +53,7 @@ import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -2271,7 +2272,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		AbstractItemType itemType = ItemType.FETISH_UNREFINED;
 		
-		Fetish currentTopFetish = null, currentBottomFetish = null;
+		AbstractFetish currentTopFetish = null, currentBottomFetish = null;
 		TFModifier currentTopModifier = null, currentBottomModifier = null;
 		TFPotency currentTopPotency = null, currentBottomPotency = null, currentTopRemovePotency = null, currentBottomRemovePotency = null;;
 		
@@ -2320,7 +2321,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		// map of top -> bottom paired fetishes; NPCs with a paired fetish will greatly favor 
 		// giving the player it's pair, and remove that fetish if there is a match
-		Map<Fetish, Fetish> pairedFetishMap = new HashMap<>();
+		Map<AbstractFetish, AbstractFetish> pairedFetishMap = new HashMap<>();
 
 		pairedFetishMap.put(Fetish.FETISH_PENIS_GIVING, Fetish.FETISH_PENIS_RECEIVING);
 		pairedFetishMap.put(Fetish.FETISH_ANAL_GIVING, Fetish.FETISH_ANAL_RECEIVING);
@@ -2354,12 +2355,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 //			pairedFetishMap.put(Fetish.FETISH_KINK_GIVING, Fetish.FETISH_KINK_RECEIVING);
 //		}
 		
-		for(Entry<Fetish, Fetish> entry : pairedFetishMap.entrySet()) {
+		for(Entry<AbstractFetish, AbstractFetish> entry : pairedFetishMap.entrySet()) {
 			currentTopFetish = entry.getKey();
 			currentBottomFetish = entry.getValue();
 			
-			currentTopModifier = TFModifier.valueOf( "TF_MOD_" + currentTopFetish);
-			currentBottomModifier = TFModifier.valueOf( "TF_MOD_" + currentBottomFetish);
+			currentTopModifier = TFModifier.valueOf( "TF_MOD_" + Fetish.getIdFromFetish(currentTopFetish));
+			currentBottomModifier = TFModifier.valueOf( "TF_MOD_" + Fetish.getIdFromFetish(currentBottomFetish));
 			
 			currentTopPotency = TFPotency.MINOR_BOOST;
 			currentBottomPotency = TFPotency.MINOR_BOOST;
@@ -2572,18 +2573,18 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		// currently, all unpaired fetishes seem like they are something the owner would want to share,
 		// but setting the second argument to false will cause the NPC to instead have an aversion to 
 		// giving the player the same fetish
-		Map<Fetish, Boolean> unpairedFetishMap = new HashMap<>();
+		Map<AbstractFetish, Boolean> unpairedFetishMap = new HashMap<>();
 
 		unpairedFetishMap.put(Fetish.FETISH_BIMBO, true);
 		unpairedFetishMap.put(Fetish.FETISH_CROSS_DRESSER, true);
 		unpairedFetishMap.put(Fetish.FETISH_INCEST, true);
 		unpairedFetishMap.put(Fetish.FETISH_MASTURBATION, true);
 		
-		for(Entry<Fetish, Boolean> entry : unpairedFetishMap.entrySet()) {
+		for(Entry<AbstractFetish, Boolean> entry : unpairedFetishMap.entrySet()) {
 			currentTopFetish = entry.getKey();
 			Boolean wantsToShare = entry.getValue();
 			
-			currentTopModifier = TFModifier.valueOf( "TF_MOD_" + currentTopFetish);
+			currentTopModifier = TFModifier.valueOf( "TF_MOD_" + Fetish.getIdFromFetish(currentTopFetish));
 			
 			currentTopPotency = TFPotency.MINOR_BOOST;
 			currentTopRemovePotency = TFPotency.MINOR_DRAIN;
