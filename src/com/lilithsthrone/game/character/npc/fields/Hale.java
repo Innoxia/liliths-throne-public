@@ -221,7 +221,7 @@ public class Hale extends NPC {
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_eye_safety_glasses", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_jeans", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL, null, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BOXERS, PresetColour.CLOTHING_DESATURATED_BROWN, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_boxers", PresetColour.CLOTHING_DESATURATED_BROWN, false), true, this);
 	}
 	
 	@Override

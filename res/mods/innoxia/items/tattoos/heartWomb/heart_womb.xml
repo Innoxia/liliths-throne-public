@@ -17,6 +17,11 @@
 		<!-- The description that's shown in tooltips and on the item's inspection page. -->
 		<description><![CDATA[A stylised heart tattoo, which roughly resembles the shape of a female's reproductive system.]]></description> 
 		
+		<!-- The description that's shown in a character's description page.
+			This description should fit in to the sentence at point X:
+				"On [npc.her] "+tattooSlotName+", [npc.sheHasFull] "+X+"." -->
+		<bodyOverviewDescription><![CDATA[a stylised heart tattoo, which roughly resembles the shape of a female's reproductive system]]></bodyOverviewDescription> 
+		
 		<!-- Availability requirements for this tattoo. Use 'npc' for the character receiving the tattoo. Can be left blank.
 		Example (for a tattoo that would only be available to the player or feminine NPCs):
 		<availabilityRequirements><![CDATA[npc.isPlayer() || npc.isFeminine()]]></availabilityRequirements>

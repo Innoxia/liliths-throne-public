@@ -6,20 +6,49 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	Contributors:
-		Fixed latex stocks always being referred to as black in their description. (PR#1671 by Anonymous-BCFED)
-		Added a delete button to custom character images, enabling you to remove custom images without having to manually delete the image from the charatcer's 'custom' artwork folder. (PR#1637 by NoStepOnSneks)
-		Fully implemented all of the Elder Lilin perk checks, which for the time being can be turned on/off via the debug menu. (PR#1631 by Maxis010)
-		Removed the 'enchantmentLimit' element from all xml files, and from the Java code that parses those xmls, as support for this element was dropped in a prior enchantment update. (PR#1618 by CognitiveMist)
-		Updated 'hyena_bone_crush.xml' to include damage variance, and changed links from master branch to dev branch in 'dagger.xml'. (PR#1616 by CognitiveMist)
-		Added warnings for if a weighted map contains bad values. (PR#1614 by CognitiveMist)
-		Adds an alarm clock function to places where you can rest: Lilaya's house room; Friendly apartment sofa; Elis tavern room; Dairy farm dormitory. (PR#1606 by CognitiveMist)
-		If a random NPC attacker (in Dominion, Submission, Harpy Nests, or Elis) has the 'cum addict' fetish, or they are under the effects of an arcane storm, there is a 10% chance that they will spawn with some dirty inventory slots. (PR#1582 by CognitiveMist)
+	FriendlyAlienFriend's artwork:
+		Added artwork for Leotie (Nyan's mum), in clothed, lingerie, and naked variations, each with a pregnant version.
+	
+	Engine/Modding:
+		Converted all groin clothing from hard-coded files to xml files (located in 'res/clothing/innoxia/groin').
+	
+	Items:
+		Added 'morning star' weapon (one-handed, sold by Vicky).
+		Added 'fur cloak' clothing item (over-torso/neck slot, androgynous, sold by Nyan).
+		Added 'nipple chain' clothing item (nipple piercing slot, androgynous, sold by Kate, two stickers to apply/remove extra chains).
+		Added 'horn chains' clothing item (horn slot, androgynous, sold by Kate, two stickers to apply/remove extra chains).
+		Added 'thin horn rings' clothing item (horn slot, androgynous, sold by Kate).
+		Added 'ear cuff chain studs' clothing item (ear piercing slot, feminine, sold by Kate, two stickers to apply/remove extra chains).
+		Added 'peplos' clothing item (torso slot, feminine, sold by Monica).
+		Added 'himation' clothing item (over-torso slot, feminine, sold by Monica).
+		Added 'sandals' clothing item (foot slot, androgynous, sold by Monica).
+		Added a new consumable item, 'Amazonian's Secret', which is sold by Ralph. After consuming it, for 24 hours, when orgasming during a tribbing action, there's a chance to impregnate your partner (using fertility for the impregnation calculation instead of virility).
+		The 'jockstrap' clothing item no longer incorrectly conceals the wearer's anus.
+		
+	Sex:
+		When having dominant sex with your elemental, your elemental is no longer able to bring an end to the sex scene.
+		Characters kneeling behind or humping a partner who's on all fours can now use that partner's tail/tentacles/fingers.
+		The 'lubricate fingers' and 'lubricate tail' sex actions should now always be available to you (unless physically impossible or if mouth/fingers/tail are already occupied).
+	
+	Other:
+		Nerfed the attribute bonuses gained from 'Lyssieth's true power' perk.
+		Added 'strutter tease' and 'leg lover tease' as fetish-related tease attacks for the 'strutter' and 'leg lover' fetishes, respectively.
+		Improved dialogue flow when using your elemental to intimmidate the imp guards in the fortresses in Submission.
+		Added a 'side braids' hair style.
+		During the new 'bitch' content (where the player completely submits to a random NPC), the requirement for NPCs to have the selfish trait in order for them to take the player to be tattooed has been removed.
+		Added 'shaggy' as a non-standard covering modifier to cow fur.
+	
+	Bugs:
+		Parsing fixes.
+		Fixed issue where 'Lyssieth's true power' perk would not enable you to transform your demonic body parts into human parts.
+		Tail and wing self-transformation options should now be populated with all intended races when using the debug menu to test the elder Lilin perks.
+		When skipping the prologue at the start of a game, imported characters will now correctly gain 5000 flames on top of any flames they already had, instead of flames being set to 5000.
+		Fixed bug in the rental mommy t-shirt encounters where the 'dommy' title would spawn dominant NPCs, and the 'subby' title would spawn submissive NPCs, instead of the other way around.
+		Fixed bug with the rental daddy t-shirt where the 'subby' text title was assigned to the 'bottom text' sticker category instead of 'top text'.
+		Unique NPCs no longer have a random chance to have the 'ahegao' perk (Takahashi is unaffected by this change).
 	
 	
 	[] PRs:
-		[x] PR#1617
-	[] Reverse-order merge:
 		[] #94
 		[] #895
 		[] #508
@@ -29,76 +58,259 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1003
 		[] #1004
 		[] #1289
-		[] #1305
-		[] #1320
-		[x] #1582
-		[x] #1606
-		[x] #1614
-		[x] #1616
-		[x] #1618
-		[x] #1631
-		[x] #1637
-			[x] test
-				[x] unique character
-				[x] generic character
-		[-] #1639
 		[] #1642
-		[] #1663
-		[] #1664
-		[] #1665
+		[] #1657
+		[] #1658
+		[] #1626
+		[] #1489
 		
+	[] Bugs
+		[x] demon perk not working
+			[x] human options aren't available in the demon TF menu
+		[x] telekinetic shower typo 'You is...'
+		[x] Strutter Fetish says it unlocks Strutter Tease, but Strutter Tease doesn't seem to exist
+		[-] I have two maps of elis in my phone for some reason
+		[-] All my kids are now unemployed even though they had a job previous updoot. Market really is rough out there.
+		[x] Using the 'Elemental' option when entering a Submission fortress needs a 'Continue' action to make it clearer that the dialogue is done
+		[x] Fucking elemental as dom, elemental shouldn't be able to end sex
+		[x] Cannot use tail of all fours participant in doggy sex
+		[x] Implementation of the other Lilin's perks is pretty great, but it seems that the pull request missed the tail slot for unlocking TFs (and wings?).
+		[x] Clothing reveal fix missed jockstraps, they're still broken and hide the anus slot.
+			[x] convert GROIN clothing
+			[x] test lacy panties determiner
+		[x] Also skipping the prologue doesn't award you the 5000 flames given by Lilaya, but rather, sets your amount of flames to 5000 thus making you lose money or not gain as much as you should have unless you started with 0 flames to begin with.
+		[x] For instance, the top text on the shirt will say "Dommy" but every time an encounter occurs the NPC will have the Dominant fetish, or the shirt will say "Subby" and every encounter will involve an NPC with the Submissive fetish.
+		[x] Also, the "Subby" text is appearing as bottom text on the rental daddy t-shirt. 
+		[x] plural cocks not working
+		[x] the lubricate fingers self action is missing, version 4.4.2
+		
+		
+	[] Main quest Themiscyra
+		[x] Add consumable item 'Amazonian's Secret': For 24 hours, when orgasming during a tribbing action, there's a chance to impregnate your partner (chance uses fertility instead of virility)
+		[x] add Lunette recognised daughter NPC
+			[x] Lunexis
+			[x] Add clothing for her
+				[x] fur cloak
+				[x] nipple chains
+				[x] horn rings with chains
+				[x] ear cuff chain piercing
+			[x] Four arms
+				[x] morning stars
+		[x] add bear amazon leader NPC
+			[x] Ursa
+			[x] Add new clothing for her
+				[x] Peplos
+				[x] himation
+				[x] sandals
+				[x] sold by Monica
+			[x] Uses dory
+		[x] make map
+			[x] fire barricade
+			[x] raiding party
+			[x] specials
+				[x] armouries (weapons)
+				[x] jeweller's quarter (jewellery)
+				[x] wine merchants (wine)
+			[x] palace
+			[x] add NPCs to map
+			[x] init NPCs
+		[x] add dialogue
+			[x] basic framework
+			[x] txt links
+			[x] "the Themiscyrians have quite a fiercesome reputation" -> change to reference Amazons
+			[x] add Themiscyra travel dialogues
+				[x] warning to make sure that you're prepared for potential combat before starting this quest
+				[x] journey dialogues
+					[x] a dozen centauresses show up, Meraxis casts Siren's call, destroying the arch in the process and splitting you up from her
+					[x] meet defender, says that the centauresses are going to reach the palace and you need to help
+					[x] defender urges you to hurry - queen will be able to convince Minotallys to help
+			[x] map navigation section
+				[x] arch
+				[x] streets
+				[x] burning blockades (smoke makes it impossible to fly around)
+				[x] raider parties
+					[x] add methods to Lunexis class
+						[x] init when entering town
+						[x] remove when exiting town
+					[x] retreat
+						[x] move back to previous tile
+					[x] fight
+						[x] win
+							[x] interrogate
+							[x] fuck
+							[x] manage inventory
+							[x] when finished, banish NPCs and change tile type to street
+						[x] lose
+							[x] money stolen
+							[x] get fucked (random centauress wins argument to choose who gets to fuck player)
+							[x] move back to previous tile
+						[x] flee applyEscapeCombatEffects()
+							[x] move back to previous tile
+				[x] If beat all raider parties, gain 'hero of Themiscyra' perk (horse-morph and demon damage)
+					[x] add perk
+					[x] application
+					[x] add hints on defeat of raiders
+						[x] change tile to raiders_cleared
+				[x] change map to not be hostile, with hostile raiders tiles
+				[x] add defender NPC to initial Themiscyra entry
+					[x] Aurokaris
+					[x] intro
+					[x] Follows player around
+					[x] add Aurokaris talk action to all tiles
+					[x] Aurokaris fight
+					[x] add lose to raiders handling for Aurokaris sex
+						[x] remove submit action (conflicts too heavily with Aurokaris)
+						[x] change to 2 raiders each tile
+						[x] randomise which raider uses pc/Aurokaris
+							[x] sex manager
+			[x] Town square fight (main demon force is here, Amazons look to have already retreated, Ursa holding them back)
+				[x] watch
+					[x] - affection for all involved
+					[x] Meraxis teleports all to Minotallys (call removal method)
+				[x] fight
+					[x] + affection for all involved
+					[x] win
+						[x] centauresses move to attack
+						[x] Meraxis teleports all to Minotallys (call removal method)
+					[x] lose
+						[x] Lunexis decides to fuck player first
+						[x] bad end
+							[x] add enslavement collars
+							[x] Meraxis, Ursa, and Aurokaris go to the centauresses who defeated them (Ursa has a second wind and almost manages to strike Lunexis in the back, stopped by another centauress)
+							[x] Lunexis takes player as her cock-sleeve
+							[x] Lunexis leads victorious centauresses into the palace and declares that this is her town now
+							[x] trains you, with the help of her other trained cock-sleeves, to worship her cock
+							[x] focus for months-later epliogue
+								[x] player is kept chained in the throne room
+								[x] taken to orgy
+								[x] oral, Lunexis creampies Meraxis and player cleans her cock
+								[x] vaginal, Lunexis creampies Ursa (anal) and then player
+								[x] anal, Lunexis has Aurokaris deepthroat her cock, then fucks player's ass
+						[x] no bad end
+							[x] fucked
+							[x] Meraxis teleports all to Minotallys (call removal method)
+			[x] Elis dialogue
+				[x] Minotallys subdues Lunexis
+				[x] Revealed that Lunette will attack Elis
+				[x] Arion, player, and co. get Minotallys to agree to act
+				[x] No room left in Elis, Amazon refugees have to camp outside the walls
+				[x] Quest: Go to Enforcer station
+			[x] Amazon camp
+				[x] add camp tile
+				[x] Ursa
+				[x] Aurokaris
+				[x] dialogue
+			[x] improvements
+				[x] sex targeting vaginal/anal/oral needs to be set for positioning
+				[x] Ursa to start fight with low health
+		[x] full test
+			[x] Aurokaris at arch too soon (move at 'Take cover' action)
+			[x] Reveal Aurokaris's name at 'Explain'
+			[x] Aurokaris talk action needs to be present in all tiles
+			[x] Add Aurokaris dialogue 'current location' talk option
+				[x] arch
+				[x] street
+				[x] barricade
+				[x] raiders_cleared
+				[x] smithies
+				[x] wine
+				[x] jewellery
+			[x] did not find an exact match for 'innoxia_places_fields_themiscyra_aurochsia_talk'; returning 'innoxia_places_fields_themiscyra_aurochsia' instead
+			[x] raider tile travel
+			[x] sex position init bugs
+			[x] raider victory flag error
+			[x] raider victory place setting in wrong order
+			[x] add more wine and Amazon's secret
+			[x] Meraxis is not at the palace...
+			[x] Append progress to perk to post-clearing dialogue
+			[x] Add colouring to post-clearing dialogue
+			[x] strip dialogue removal on default post-clearing dialogue
+			[x] Ursa and Aurokaris combat should only use attacks
+			[x] bad end test
+				[x] positioning error
+				[x] make bad end title change
+			[x] test Amazon camp
+				[x] change icon
+				[x] position down y
+			[x] Test Themiscyra on world map
+			[x] split main quest to add 'get to the palace'
+				[x] test
+		[x] items below
+		[x] quest skip effects
+		[] Need to do a thorough test for game-breaking bugs
+			[x] main route
+			[] sex scenes
+			[] bad end
+			[] post-quest positioning checks
+		[] writing
+			[x] Journey
+			[x] Aurokaris talk
+			[] Themiscyra place tiles
+			[] Aurokaris place tiles talk
+			[] add chuuni variations to JOURNEY_CENTAURS
+			[] raiders
+			[] plaza conflict
+			[] Post-teleportation
+			[] Bad end
+		[] treasures (all of which can only be obtained repeatedly later after Themiscyra is rebuilt)
+			[] smithies - xiphos
+			[] jewellers - greek key ring
+			[] wine merchants - wine amphora (Amazons' Nectar)
+	
+	[x] Add Leotie artwork
+	[x] prevent unique NPCs from choosing ahegao perk
+	[x] Add 'side-braids' hair style
+	[x] remove selfish trait requirement for bitch content tattoo
+	[x] vote
+	
+	------------
+	
+	[] add self-cleaning clothing enchantment (handle dirtying when covering dirty orifice)
+	
+	[] Angel should reward us if we manage to get 10 prostitutes working for her at angel's kiss not counting slaves. But, she should give you a partnership arrangement if you have a certain number of slaves working at angel's kiss
+	
+	[] add mating press as a quick position & as a request
+	
+	[] Deer PR
+		glade springs - sparkling mineral water
+		tree shoots salad
+	
+	[] Sex additions:
+		[] Finger urethra insertion
+		[] Lick fluids off partner actions
+		[] Fisting
+	
+	[] Kay female TF
+	
+	[] mugger bitch content
+	
+	Felicia content expansion:
+		- Ask out on date (affection requirement first I guess)
+		- Repeat date until 3 dates completed
+		- Give her gift after 3rd date and she reveals how she transformed into a 'doll' to stop having lewd thoughts all the time
+		- Says she feels lewd towards player, can sex
+		- Option to give her TF potion to give her vagina (although she prefers giving oral)
+		- Repeat dates & sex is end content
+	
+	[] Add Elis bank
+	[] Add an associated bank in Dominion
+	
+	[] Add Dominion hospital and Elis clinic as alternatives to Lilaya
+	
+	
+	[] save the time at the game's start as a unique ID and use that for the quick/auto save file identifiers
 	[] Custom artwork for characters who have the same name have the same artwork?
-		
-	[] add tattoos to description page
-		
-	[] tag hand holding as a romantic action?
-		
-	[] Masturbation scene  with panties charter as cum like 8 times can't stop
-	
-	[] change rental mommy encounter to 60/40 either way for if you have the dom or sub fetish instead of 100/0
-	
-	[] taverns beer from tap not bottles
-	
-	[] In map screen, make core map the first action and highlight/bold it
-	
-	[] relationship twin support
-	
-	[] need mute dialogue handling for offspring encounters
+		[] folder structure:
+			[] parent folder name should be unique ID of player
+			[] child folders should be unique ID of NPCs
 	
 	[] bug reports
 		[-] artisan and industrial milkers extract the same amount
 		[] Not sure if this counts as a bug, but you're able to get infinite fare tickets at Kazik
 	
-	[] add a debug option to skip the dominion quests
-	
-	[] save the time at the game's start as a unique ID and use that for the quick/auto save file identifiers
-	
 	[] skunk
-	[] deer
-		glade springs - sparkling mineral water
-		tree shoots salad
 	
-	[] add sex action 'look back' variation for owl morphs
-	
-	[] make fetish transfer to elemental action (opposite fetishes also)
-	
-	- Pregnancy mechanics update
-		[] Cycle
-			[] add toggle for this
-			[] 14 day menstrual cycle, days:
-				[] 1-3: -50 fertility
-				[] 4-6: -25 fertility
-				[] 7-10: +25 fertility
-				[] 11-14: +0 fertility
-			[] heat/rut triggers when arcane storm happens, applies to storm-vulnerable races, lasts for 48 hours
-				[] arcane heat: +25 fertility
-				[] arcane rut: +25 virility
-		[] Increase pregnancy time
-			[] add an option
-			[] Demons quicker pregnancies
-			[] Perks
-		[] Add Dominion hospital and Elis clinic as alternatives to Lilaya
-	
+	[] add alt start where TF happens during new game into new world
 	
 	[] Add to alleyway bitch content:
 		[] 7) specials
@@ -136,7 +348,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		
 	[] balaclava
 	[] jewellery for blank slots (horns, wings)
+		[] tail ring clothing
+		[] horn chains & rings clothing
+	[] Nipple piercings
+		[] rounded
+		[] square
+	[] tail cuffs/rings
 	
+		
 	[] add generic tentacle legs for slime and demon(tentacle-girl/boy)
 	
 	[] serpent-serpent sex position 'mating coil'
@@ -145,13 +364,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] security job
 	
+	[] need mute dialogue handling for offspring encounters
+	
 	[] meraxis
 		[] cock content
 		[] strip dice poker in tavern to "steal" clothing
 	
 	
-	
-			
 			
 	[] Ceridwen
 		[] Offer to help
@@ -176,12 +395,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Post-quest
 			[] Ceridwen invites player to home (in wood tile in Elis)
 			[] Can have sex
-	
-			
-	[] Main quest content. I'll get the main quest progressed past the town of Thmyscra, and into the next stage.
-	
-	[] Add Elis bank
-	[] Add an associated bank in Dominion
 	
 			
 			
@@ -225,11 +438,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] get fucked
 	
 	[] bondage applier fetishists should apply bdsm gear during sex
-	
-	[] Nipple piercings
-		[] rounded
-		[] square
-	[] tail cuffs/rings
 	
 	[] take slave and/or nightclub date back to spa
 	
@@ -307,21 +515,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] latex leggings
 	[] Add tailjobs (make sure tail lower body type works with it)
 	
-	[] elemental quest before leaving Dominion
-		[] can research in library
+	[] elemental quest should be able to be started at any time
+		[] can trigger research quest in library
 		[] If not obtained, Lyssieth grants you the spell
 	
-	[] Add option when starting a new game to skip Dominion
-		[] requires player to have already finished main quest up to leaving Dominion
-		[] apply minimal completion
-	
-	[] Add consumable item 'Amazonian's Secret': For 24 hours, when orgasming during a tribbing action, there's a chance to impregnate your partner (chance uses fertility instead of virility)
-	
-	[] hand holding sex action
-	
 	[] dye earth skill to take 1 essence
-	
-	[] Test fetish preferences in watering hole
 	
 	[] Need a place to deliver pregnancy in Elis
 		[] Medical centre
@@ -329,14 +527,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] expand pregnancy content for slaves and friendly occupants
 	
-	[] Sex additions:
-		[] Finger urethra insertion
-		[] Lick fluids off partner actions
-		[] Fisting
-	
 	[] PR Maxis list
-	
-	[] Kay female TF
 	
 	[] If you have custom pictures for characters and then a random NPC spawns with the same name, (even if you technically don't know the name) the custom picture shows up, despite it being for another character. 
 			Maybe add a flag to the characters to determine whether it has custom pictures or not, or have their unique ID for them be part of what they look for before they show a picture
@@ -344,14 +535,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] add some modding parameters for self-TF races to support definition of races that can be transformed into (or unlimited race self-TF)
 	
 	[] add an attribute to make special effects AoE for weapons (stun grenades)
-	
-	Felicia content expansion:
-		- Ask out on date (affection requirement first I guess)
-		- Repeat date until 3 dates completed
-		- Give her gift after 3rd date and she reveals how she transformed into a 'doll' to stop having lewd thoughts all the time
-		- Says she feels lewd towards player, can sex
-		- Option to give her TF potion to give her vagina (although she prefers giving oral)
-		- Repeat dates & sex is end content
 	
 	[] rework furry setting levels so each is selectable to allow/disable spawning of that furry level
 		

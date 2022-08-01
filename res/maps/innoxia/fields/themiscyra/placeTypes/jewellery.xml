@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[jewellery quarter]]></name>
+	<tooltipDescription><![CDATA[Wanting to look their best, the residents of Themiscyra mastered the art of creating fine pieces of jewellery in this area.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the jewellery quarter in Themiscyra]]></virginityLossDescription>
+	<sexBlockedReason/>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_GOLD</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_themiscyra_jewellery</dialogue>
+	<populationPresent/>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

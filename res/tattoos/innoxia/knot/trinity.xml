@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tattoo>
+	<coreAttributes>
+		<value>500</value> 
+		
+		<name><![CDATA[trinity knot]]></name>
+		
+		<description><![CDATA[A depiction of a Celtic trinity knot, believed to have some sort of significance to goddesses, life-cycles, or moon phases.]]></description> 
+		<bodyOverviewDescription><![CDATA[a tattoo which depicts a Celtic trinity knot]]></bodyOverviewDescription> 
+		
+		<imageName>trinity.svg</imageName> 
+		
+		<slotAvailability/>
+		
+		<primaryColours values="ALL"/> 
+		<secondaryColours/> 
+		<tertiaryColours/> 
+		
+	</coreAttributes>
+	
+</tattoo>

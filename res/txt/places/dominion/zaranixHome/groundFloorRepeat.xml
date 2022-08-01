@@ -106,10 +106,20 @@
 	
 	<htmlContent tag="KNOCK_ON_DOOR_APOLOGISE_MOUTH_BLOCKED"><![CDATA[
 	<p>
-		Before you can respond, the fiery-haired maid suddenly pushes her leg forwards, and, unable to keep your balance, you find yourself being kicked backwards down the couple of steps that lead up to the front door. Laughing out loud, Mistress Amber snarls down at you, [amber.speech(Stupid bitch, having your mouth blocked like that. I wanted to get you to lick my shoes in front of everyone here. Oh well. Heel.)] The fiery-haired maid snaps her fingers at her side.
+		Before you can respond, the fiery-haired maid suddenly pushes her leg forwards, and, unable to keep your balance, you find yourself being kicked backwards down the couple of steps that lead up to the front door. Laughing out loud, Mistress Amber snarls down at you, [amber.speech(Stupid bitch, having your mouth blocked like that. I wanted to get you to lick my shoes in front of everyone here. Oh well. Heel.)]
 	</p>
 	<p>
-		You do as you're told, looking down at the ground and trying your best to ignore Mistress Amber's piercing gaze as you crawl back up the couple of steps to her side.
+		As the fiery-haired maid snaps her fingers at her side, you move to do as you're told. Looking down at the ground and trying your best to ignore Mistress Amber's piercing gaze, you crawl back up the couple of steps to her side.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KNOCK_ON_DOOR_APOLOGISE_NO_FOOT"><![CDATA[
+	<p>
+		Before you can respond, the fiery-haired maid suddenly pushes her leg forwards, and, unable to keep your balance, you find yourself being kicked backwards down the couple of steps that lead up to the front door. Laughing out loud, Mistress Amber snarls down at you, [amber.speech(Stupid bitch. Heel.)]
+	</p>
+	<p>
+		As the fiery-haired maid snaps her fingers at her side, you move to do as you're told. Looking down at the ground and trying your best to ignore Mistress Amber's piercing gaze, you crawl back up the couple of steps to her side.
 	</p>
 	]]>
 	</htmlContent>
@@ -117,13 +127,12 @@
 	<htmlContent tag="KNOCK_ON_DOOR_APOLOGISE_MOUTH_FREE"><![CDATA[
 	<p>
 		Before you can respond, the fiery-haired maid suddenly pushes her leg forwards, and, unable to keep your balance, you find yourself being kicked backwards down the couple of steps that lead up to the front door. Laughing out loud, Mistress Amber steps forwards, reaching down to grab
-		#IF pc.getHairLength()>6
-		#THEN
-			a fistful of your [pc.hair+]
+		#IF(pc.getHairLength()>6)
+			 a fistful of your [pc.hair+],
 		#ELSE
-			the back of your neck
+			 the back of your neck,
 		#ENDIF
-		, before dragging you out into the street in front of her master's home. Glaring down at you as you shuffle about on your knees, Mistress Amber sneers, [amber.speech(Now, you're going to show everyone here what a useless bitch you are!)]
+		 before dragging you out into the street in front of her master's home. Glaring down at you as you shuffle about on your knees, Mistress Amber sneers, [amber.speech(Now, you're going to show everyone here what a useless bitch you are!)]
 	</p>
 	<p>
 		Letting you go, Mistress Amber moves around in front of you, before raising her foot and pushing her heel into your face. [amber.speech(Lick it, bitch.)]
@@ -1084,7 +1093,7 @@
 		After a little while, you hear your Mistress let out a happy little laugh, before yanking your leash as she starts to hurry forwards. Snapping at you to hurry up, she then looks straight ahead and calls out, [amber.speech(Hey girls! Fancy seeing all of you here!)]
 	</p>
 	<p>
-		Looking up, you see a group of four or five succubi lounging about on a wooden bench to one side of the street. As you approach, the nearest one of the group turns towards Mistress Amber and waves. [genericFemale.speech(Heya Amber! How're you doing? We were just thinkin' about going down to the Shopping Arcade, did y'wanna come?)] Looking down at you with an amused smirk on her face, the succubus continues, [genericFemale.speech(Nice pet. You gonna bring [pc.herHim] along too?)]
+		Looking up, you see a group of five succubi lounging about on a wooden bench to one side of the street. As you approach, the nearest one of the group turns towards Mistress Amber and waves. [genericFemale.speech(Heya Amber! How're you doing? We were just thinkin' about going down to the Shopping Arcade, did y'wanna come?)] Looking down at you with an amused smirk on her face, the succubus continues, [genericFemale.speech(Nice pet. You gonna bring [pc.herHim] along too?)]
 	</p>
 	<p>
 		[amber.speech(Sorry girls, but I'm only out for a quick walk. I need to return and get back to work within the hour,)] Mistress Amber says, before looking down at you. [amber.speech(I could give you all a show before I leave though. This bitch is still in training, but [pc.she]'s obedient enough for most of the time. Want to see [pc.herHim] demonstrate what a good bitch [pc.she] is?)]
@@ -1092,12 +1101,21 @@
 	<p>
 		The succubi all start giggling, and the leader grins down at you with a smile almost as sadistic as your Mistress's. [genericFemale.speech(Hell yes! You always get all the fun, Amber... I wish I had a pet bitch...)]
 	</p>
-	<p>
-		[amber.speech(Very well. Bitch, lick my shoes clean for me!)] Mistress Amber snaps, pulling on your lead to guide your face down to her feet.
-	</p>
-	<p>
-		You could do as you're told, and obediently lick Mistress Amber's shoes in front of her friends. Then again, you could always refuse...
-	</p>
+	#IF(game.isFootContentEnabled())
+		<p>
+			[amber.speech(Very well. Bitch, lick my shoes clean for me!)] Mistress Amber snaps, pulling on your lead to guide your face down to her feet.
+		</p>
+		<p>
+			You could do as you're told, and obediently lick Mistress Amber's shoes in front of her friends. Then again, you could always refuse...
+		</p>
+	#ELSE
+		<p>
+			[amber.speech(Very well. Bitch, beg like a dog then bow down to my friends!)] Mistress Amber snaps, pulling on your lead to guide you to face her succubi friends.
+		</p>
+		<p>
+			You could do as you're told, and obediently beg like a dog in front of Mistress Amber's friends. Then again, you could always refuse...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -1125,7 +1143,7 @@
 		[pc.speech(Yes, Mistress Amber,)] you say, leaning down and kissing the tip of her right shoe.
 	</p>
 	<p>
-		The group of succubi all instantly start giggling and chattering amongst themselves as they watch you humiliate yourself. Despite your desire to obey your Mistress, you're still a little reluctant to really commit to licking her shoes, and simply make do with kissing them instead.
+		The group of succubi all instantly start giggling and chattering amongst themselves as they watch you humiliate yourself. Despite your desire to obey your Mistress, you're still a little reluctant to really commit to licking her shoes, and so you simply make do with kissing them instead.
 	</p>
 	<p>
 		[amber.speech(Come on bitch, put that tongue of yours to use!)] Amber snaps, sensing your hesitation.
@@ -1142,18 +1160,62 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="WALKIES_HUMILIATION_RELUCTANT_NO_FOOT"><![CDATA[
+	<p>
+		[pc.speech(Yes, Mistress Amber,)] you say, before raising your arms and assuming a dog-like begging posture.
+	</p>
+	<p>
+		The group of succubi all instantly start giggling and chattering amongst themselves as they watch you humiliate yourself. Despite your desire to obey your Mistress, you're still a little reluctant to really commit to this command, and so you quickly move on to bowing down to her friends.
+	</p>
+	<p>
+		[amber.speech(That's it, bitch, now tell them what a worthless cunt you are!)] Amber snaps, sensing your hesitation.
+	</p>
+	<p>
+		[pc.speech(Yes, Mistress Amber,)] you reply, before half-heartedly stating, [pc.speech(I'm Mistress Amber's worthless bitch...)]
+	</p>
+	<p>
+		[amber.speech(Well, that will do I suppose. Put some more effort into it next time, bitch,)] Mistress Amber snarls, before yanking your lead and ordering you to stop. Turning towards her friends, her voice takes on a friendly tone as she says goodbye, [amber.speech(Well, see you later girls. Have a good time shopping!)]
+	</p>
+	<p>
+		The succubi say their farewells to Mistress Amber, and you soon find yourself crawling alongside the fiery maid once more as she leads you down the streets of Demon Home. [amber.speech(Bad bitch! I want you to put some more effort into it the next time I order you to do something!)] she snaps, before continuing, [amber.speech(Now, heel. We're going straight home!)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="WALKIES_HUMILIATION_EAGER"><![CDATA[
 	<p>
 		[pc.speech(Yes, Mistress Amber,)] you happily exclaim, before leaning down and planting a loving kiss on the tip of her right shoe.
 	</p>
 	<p>
-		The group of succubi all instantly start giggling and chattering amongst themselves as they watch you humiliate yourself. Their behaviour does nothing to diminish your desire to obey your Mistress, and quickly move on from kissing to greedily licking her shoes. Running your [pc.tongue+] over her high heels, you savour the salty, grimy taste of Mistress Amber's footwear as you show her what an obedient bitch you are.
+		The group of succubi all instantly start giggling and chattering amongst themselves as they watch you humiliate yourself. Their behaviour does nothing to diminish your desire to obey your Mistress, and so you quickly move on from kissing to greedily licking her shoes. Running your [pc.tongue+] over her high heels, you savour the salty, grimy taste of Mistress Amber's footwear as you show her what an obedient bitch you are.
 	</p>
 	<p>
 		[amber.speech(Good bitch! Don't forget the other one, now!)] Amber laughs, moving her right foot back before thrusting her left towards you.
 	</p>
 	<p>
 		[pc.speech(Yes, Mistress Amber!)] you reply, before dutifully switching over to the as-yet untouched shoe. Quickly darting out your tongue to deliver a slow, wet lick over the tart, salty surface, you start kissing and nuzzling into Mistress Amber's shoe.
+	</p>
+	<p>
+		[amber.speech(Very good, bitch. That's enough,)] Mistress Amber snaps, before yanking your lead and turning towards her friends. [amber.speech(Well, I hope you enjoyed the show, girls. Have a good time shopping, I'll see you later!)]
+	</p>
+	<p>
+		The succubi say their farewells to Mistress Amber, and you soon find yourself crawling alongside the fiery maid once more as she leads you down the streets of Demon Home. [amber.speech(Good bitch! My friends seemed very impressed with your performance!)] she says, before continuing, [amber.speech(Now, heel. It's time to go home.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WALKIES_HUMILIATION_EAGER_NO_FOOT"><![CDATA[
+	<p>
+		[pc.speech(Yes, Mistress Amber,)] you happily exclaim, before raising your arms and assuming a dog-like begging posture.
+	</p>
+	<p>
+		The group of succubi all instantly start giggling and chattering amongst themselves as they watch you humiliate yourself. Their behaviour does nothing to diminish your desire to obey your Mistress, and so you quickly move on to bowing down to her friends. Dropping your head down low to the ground, you do your best to put on a show of complete subservience in order to display to Mistress Amber's friends what an obedient bitch you are.
+	</p>
+	<p>
+		[amber.speech(Good bitch! Now tell them what a worthless cunt you are!)] Amber laughs.
+	</p>
+	<p>
+		[pc.speech(Yes, Mistress Amber!)] you reply, before dutifully stating, [pc.speech(I'm Mistress Amber's worthless bitch, and obey absolutely any command she gives me!)]
 	</p>
 	<p>
 		[amber.speech(Very good, bitch. That's enough,)] Mistress Amber snaps, before yanking your lead and turning towards her friends. [amber.speech(Well, I hope you enjoyed the show, girls. Have a good time shopping, I'll see you later!)]

@@ -153,8 +153,8 @@ public class TunnelSlimeDialogue {
 							}
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setBodyMaterial(BodyMaterial.SLIME));
-								
+								Main.game.getTextEndStringBuilder().append(getSlime().useItem(Main.game.getItemGen().generateItem("RACE_INGREDIENT_SLIME"),
+										Main.game.getPlayer(), false, true));
 								if(getSlime().isAttractedTo(Main.game.getPlayer())) {
 									Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED_SLIME_OFFER_SEX"));
 								} else {
@@ -816,7 +816,8 @@ public class TunnelSlimeDialogue {
 						}
 						@Override
 						public void effects() {
-							Main.game.getPlayer().setBodyMaterial(BodyMaterial.SLIME);
+							Main.game.getTextEndStringBuilder().append(getSlime().useItem(Main.game.getItemGen().generateItem("RACE_INGREDIENT_SLIME"),
+									Main.game.getPlayer(), false, true));
 						}
 					};
 					

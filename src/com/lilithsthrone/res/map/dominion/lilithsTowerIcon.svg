@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
-    <defs>
-        <linearGradient id="lilithsTowerGradient">
-            <stop offset="0" stop-color="#f55"/>
-            <stop offset="1" stop-color="#ff8080"/>
-        </linearGradient>
-        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.35625 0 0 1.35843 -11.395 -365.612)" gradientUnits="userSpaceOnUse" xlink:href="#lilithsTowerGradient"/>
-    </defs>
-    <g transform="matrix(.95 0 0 .95 1.6 -937.344)">
-        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" fill-rule="evenodd" rx="31.982" ry="31.98"/>
-        <path fill="none" stroke="#fff" stroke-width="3.725" d="M40.528 1042.123l-15.475.05 1.863-40.154 5.85-6.173 5.808 6.012z"/>
-    </g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.5" y2="1003.4" gradientTransform="matrix(1.3562 0 0 1.3584 -11.395 -365.61)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f55" offset="0"/>
+   <stop stop-color="#ff8080" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g transform="matrix(.95 0 0 .95 1.6 -937.34)">
+  <ellipse cx="32" cy="1020.4" rx="31.982" ry="31.98" fill="url(#linearGradient15)" fill-rule="evenodd"/>
+  <path d="m40.528 1042.1-15.475 0.05 1.863-40.154 5.85-6.173 5.808 6.012z" fill="none" stroke="#fff" stroke-width="3.725"/>
+ </g>
 </svg>

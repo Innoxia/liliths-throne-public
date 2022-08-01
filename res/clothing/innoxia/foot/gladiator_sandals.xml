@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>500</value> 
+		
+		<determiner><![CDATA[a pair of]]></determiner>
+		
+		<name><![CDATA[sandals]]></name>
+		
+		<namePlural pluralByDefault="true"><![CDATA[sandals]]></namePlural> 
+		
+		<description><![CDATA[A pair of basic, leather sandals.]]></description> 
+		
+		<physicalResistance>0</physicalResistance> 
+		
+		<femininity>ANDROGYNOUS</femininity> 
+		
+		<slot>FOOT</slot> 
+		
+		<rarity>COMMON</rarity> 
+		
+		<clothingSet/> 
+		
+		<imageName>gladiator_sandals.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
+		<effects/>
+		
+		<blockedPartsList> 
+		
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				
+				<clothingAccessRequired> 
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessRequired>
+				
+				<blockedBodyParts>
+					<bodyPart>FEET</bodyPart>
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked> 
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessBlocked>
+				
+				<concealedSlots/>
+			</blockedParts>
+			
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+			<colour>CLOTHING_DESATURATED_BROWN_DARK</colour>
+			<colour>CLOTHING_BROWN</colour>
+			<colour>CLOTHING_BROWN_DARK</colour>
+			<colour>CLOTHING_BROWN_VERY_DARK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_MONICA</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slip)] [npc.her] [npc.feet] into the sandals, before bucking them up.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slip)] [npc2.namePos] [npc2.feet] into the sandals, before bucking them up.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(push)] [npc2.namePos] [npc2.feet] into the sandals, before bucking them up.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unbuckle)] [npc.her] sandals, before taking them off.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unbuckle)] [npc2.namePos] sandals, before taking them off.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] quickly [npc.verb(unbuckle)] [npc2.namePos] sandals, before roughly tugging them off.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

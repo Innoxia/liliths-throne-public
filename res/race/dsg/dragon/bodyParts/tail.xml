@@ -35,6 +35,7 @@
 	The other tags are optional.
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/tags/BodyPartTag.java -->
 	<tags>
+		<tag>TAIL_SUITABLE_FOR_PENETRATION</tag>
 		<tag>TAIL_TYPE_SCALES</tag>
 		<tag>TAIL_TAPERING_LINEAR</tag>
 		<tag>TAIL_SLEEP_HUGGING</tag>

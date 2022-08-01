@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -116,7 +117,7 @@ public class EnforcerPatrol extends NPC {
 			
 			Main.game.getCharacterUtils().addFetishes(this, Fetish.FETISH_CROSS_DRESSER, Fetish.FETISH_EXHIBITIONIST); // Do not allow cross-dressing or exhibitionist, as otherwise it will mess with uniforms.
 			
-			List<Fetish> fetishesForNonNegative = Util.newArrayListOfValues(
+			List<AbstractFetish> fetishesForNonNegative = Util.newArrayListOfValues(
 					Fetish.FETISH_ANAL_GIVING,
 					Fetish.FETISH_ORAL_RECEIVING,
 					Fetish.FETISH_VAGINAL_GIVING,
@@ -124,7 +125,7 @@ public class EnforcerPatrol extends NPC {
 					Fetish.FETISH_PENIS_GIVING,
 					Fetish.FETISH_PENIS_RECEIVING,
 					Fetish.FETISH_DOMINANT);
-			for(Fetish fetish : fetishesForNonNegative) {
+			for(AbstractFetish fetish : fetishesForNonNegative) {
 				if(this.getFetishDesire(fetish).isNegative()) {
 					this.setFetishDesire(fetish, FetishDesire.TWO_NEUTRAL);
 				}
