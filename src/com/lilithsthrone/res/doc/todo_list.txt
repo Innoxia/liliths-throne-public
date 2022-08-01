@@ -4,190 +4,339 @@
 In this text file I keep track of reported bugs and features that I am working on.
 Not everything in this file is up-to-date, and everything is subject to change at a later date.
 	
-	- Repeat alleyway
-		[] after 3 subs in a row, can agree to be their bitch
-			[] reveals their name
-			[] when meeting them again, random demand:
-				[] give money
-				[] fucked
-				[] tag along to assist in mugging
-					[] fight
-					[] watch or join sex
-				[] pimped out
-					[] their friend fucks you
-				[] for demons in dark alleyways, they use telepathic suggestion to increase your corruption
-			[] all demands have option to refuse, which leads into fight
-				[] victory, no longer bitch
-				[] loss, fucked
-		[] after 3 doms in a row, can force them to accept being your bitch
-			[] reveals their name
-			[] new options
-				[] rename them
-				[] fuck them
-				[] manage inventory
-				[] remove them
-	
-	- Pregnancy mechanics update
-		Cycle, heat/rut(?)
-		Increase pregnancy time (add a toggle. Demons quicker pregnancies? Perks?)
-		Add hospital as alternative to Lilaya
-		
-	
 	Patch notes:
 	
-	Engine/Modding:
-		Added 'escapeBlocked' variable to combat responses, allowing you to block the availability of the escape action during that combat scene.
-		Added 'resetHour' attribute support to dialogue flags, allowing you to define the hour at which dialogue flags reset, instead of only being able to reset them at midnight.
+	FriendlyAlienFriend's artwork:
+		Added artwork for Leotie (Nyan's mum), in clothed, lingerie, and naked variations, each with a pregnant version.
 	
-	Gameplay:
-		Added 'The Crossed Blades' tavern in the alleyways of northern Elis.
+	Engine/Modding:
+		Converted all groin clothing from hard-coded files to xml files (located in 'res/clothing/innoxia/groin').
+	
+	Items:
+		Added 'morning star' weapon (one-handed, sold by Vicky).
+		Added 'fur cloak' clothing item (over-torso/neck slot, androgynous, sold by Nyan).
+		Added 'nipple chain' clothing item (nipple piercing slot, androgynous, sold by Kate, two stickers to apply/remove extra chains).
+		Added 'horn chains' clothing item (horn slot, androgynous, sold by Kate, two stickers to apply/remove extra chains).
+		Added 'thin horn rings' clothing item (horn slot, androgynous, sold by Kate).
+		Added 'ear cuff chain studs' clothing item (ear piercing slot, feminine, sold by Kate, two stickers to apply/remove extra chains).
+		Added 'peplos' clothing item (torso slot, feminine, sold by Monica).
+		Added 'himation' clothing item (over-torso slot, feminine, sold by Monica).
+		Added 'sandals' clothing item (foot slot, androgynous, sold by Monica).
+		Added a new consumable item, 'Amazonian's Secret', which is sold by Ralph. After consuming it, for 24 hours, when orgasming during a tribbing action, there's a chance to impregnate your partner (using fertility for the impregnation calculation instead of virility).
+		The 'jockstrap' clothing item no longer incorrectly conceals the wearer's anus.
+		
+	Sex:
+		When having dominant sex with your elemental, your elemental is no longer able to bring an end to the sex scene.
+		Characters kneeling behind or humping a partner who's on all fours can now use that partner's tail/tentacles/fingers.
+		The 'lubricate fingers' and 'lubricate tail' sex actions should now always be available to you (unless physically impossible or if mouth/fingers/tail are already occupied).
 	
 	Other:
-		Added 'light orange' as a new body covering colour.
-		Renamed 'alcoholic' fluid modifier to 'strongly alcoholic', and added a new 'alcoholic' fluid modifier, which applies intoxication at a rate 10 times slower than the old, 'strongly alcoholic' modifier.
+		Nerfed the attribute bonuses gained from 'Lyssieth's true power' perk.
+		Added 'strutter tease' and 'leg lover tease' as fetish-related tease attacks for the 'strutter' and 'leg lover' fetishes, respectively.
+		Improved dialogue flow when using your elemental to intimmidate the imp guards in the fortresses in Submission.
+		Added a 'side braids' hair style.
+		During the new 'bitch' content (where the player completely submits to a random NPC), the requirement for NPCs to have the selfish trait in order for them to take the player to be tattooed has been removed.
+		Added 'shaggy' as a non-standard covering modifier to cow fur.
 	
 	Bugs:
 		Parsing fixes.
+		Fixed issue where 'Lyssieth's true power' perk would not enable you to transform your demonic body parts into human parts.
+		Tail and wing self-transformation options should now be populated with all intended races when using the debug menu to test the elder Lilin perks.
+		When skipping the prologue at the start of a game, imported characters will now correctly gain 5000 flames on top of any flames they already had, instead of flames being set to 5000.
+		Fixed bug in the rental mommy t-shirt encounters where the 'dommy' title would spawn dominant NPCs, and the 'subby' title would spawn submissive NPCs, instead of the other way around.
+		Fixed bug with the rental daddy t-shirt where the 'subby' text title was assigned to the 'bottom text' sticker category instead of 'top text'.
+		Unique NPCs no longer have a random chance to have the 'ahegao' perk (Takahashi is unaffected by this change).
 	
 	
+	[] PRs:
+		[] #94
+		[] #895
+		[] #508
+		[] #947
+		[] #976
+		[] #1001
+		[] #1003
+		[] #1004
+		[] #1289
+		[] #1642
+		[] #1657
+		[] #1658
+		[] #1626
+		[] #1489
+		
+	[] Bugs
+		[x] demon perk not working
+			[x] human options aren't available in the demon TF menu
+		[x] telekinetic shower typo 'You is...'
+		[x] Strutter Fetish says it unlocks Strutter Tease, but Strutter Tease doesn't seem to exist
+		[-] I have two maps of elis in my phone for some reason
+		[-] All my kids are now unemployed even though they had a job previous updoot. Market really is rough out there.
+		[x] Using the 'Elemental' option when entering a Submission fortress needs a 'Continue' action to make it clearer that the dialogue is done
+		[x] Fucking elemental as dom, elemental shouldn't be able to end sex
+		[x] Cannot use tail of all fours participant in doggy sex
+		[x] Implementation of the other Lilin's perks is pretty great, but it seems that the pull request missed the tail slot for unlocking TFs (and wings?).
+		[x] Clothing reveal fix missed jockstraps, they're still broken and hide the anus slot.
+			[x] convert GROIN clothing
+			[x] test lacy panties determiner
+		[x] Also skipping the prologue doesn't award you the 5000 flames given by Lilaya, but rather, sets your amount of flames to 5000 thus making you lose money or not gain as much as you should have unless you started with 0 flames to begin with.
+		[x] For instance, the top text on the shirt will say "Dommy" but every time an encounter occurs the NPC will have the Dominant fetish, or the shirt will say "Subby" and every encounter will involve an NPC with the Submissive fetish.
+		[x] Also, the "Subby" text is appearing as bottom text on the rental daddy t-shirt. 
+		[x] plural cocks not working
+		[x] the lubricate fingers self action is missing, version 4.4.2
+		
+		
+	[] Main quest Themiscyra
+		[x] Add consumable item 'Amazonian's Secret': For 24 hours, when orgasming during a tribbing action, there's a chance to impregnate your partner (chance uses fertility instead of virility)
+		[x] add Lunette recognised daughter NPC
+			[x] Lunexis
+			[x] Add clothing for her
+				[x] fur cloak
+				[x] nipple chains
+				[x] horn rings with chains
+				[x] ear cuff chain piercing
+			[x] Four arms
+				[x] morning stars
+		[x] add bear amazon leader NPC
+			[x] Ursa
+			[x] Add new clothing for her
+				[x] Peplos
+				[x] himation
+				[x] sandals
+				[x] sold by Monica
+			[x] Uses dory
+		[x] make map
+			[x] fire barricade
+			[x] raiding party
+			[x] specials
+				[x] armouries (weapons)
+				[x] jeweller's quarter (jewellery)
+				[x] wine merchants (wine)
+			[x] palace
+			[x] add NPCs to map
+			[x] init NPCs
+		[x] add dialogue
+			[x] basic framework
+			[x] txt links
+			[x] "the Themiscyrians have quite a fiercesome reputation" -> change to reference Amazons
+			[x] add Themiscyra travel dialogues
+				[x] warning to make sure that you're prepared for potential combat before starting this quest
+				[x] journey dialogues
+					[x] a dozen centauresses show up, Meraxis casts Siren's call, destroying the arch in the process and splitting you up from her
+					[x] meet defender, says that the centauresses are going to reach the palace and you need to help
+					[x] defender urges you to hurry - queen will be able to convince Minotallys to help
+			[x] map navigation section
+				[x] arch
+				[x] streets
+				[x] burning blockades (smoke makes it impossible to fly around)
+				[x] raider parties
+					[x] add methods to Lunexis class
+						[x] init when entering town
+						[x] remove when exiting town
+					[x] retreat
+						[x] move back to previous tile
+					[x] fight
+						[x] win
+							[x] interrogate
+							[x] fuck
+							[x] manage inventory
+							[x] when finished, banish NPCs and change tile type to street
+						[x] lose
+							[x] money stolen
+							[x] get fucked (random centauress wins argument to choose who gets to fuck player)
+							[x] move back to previous tile
+						[x] flee applyEscapeCombatEffects()
+							[x] move back to previous tile
+				[x] If beat all raider parties, gain 'hero of Themiscyra' perk (horse-morph and demon damage)
+					[x] add perk
+					[x] application
+					[x] add hints on defeat of raiders
+						[x] change tile to raiders_cleared
+				[x] change map to not be hostile, with hostile raiders tiles
+				[x] add defender NPC to initial Themiscyra entry
+					[x] Aurokaris
+					[x] intro
+					[x] Follows player around
+					[x] add Aurokaris talk action to all tiles
+					[x] Aurokaris fight
+					[x] add lose to raiders handling for Aurokaris sex
+						[x] remove submit action (conflicts too heavily with Aurokaris)
+						[x] change to 2 raiders each tile
+						[x] randomise which raider uses pc/Aurokaris
+							[x] sex manager
+			[x] Town square fight (main demon force is here, Amazons look to have already retreated, Ursa holding them back)
+				[x] watch
+					[x] - affection for all involved
+					[x] Meraxis teleports all to Minotallys (call removal method)
+				[x] fight
+					[x] + affection for all involved
+					[x] win
+						[x] centauresses move to attack
+						[x] Meraxis teleports all to Minotallys (call removal method)
+					[x] lose
+						[x] Lunexis decides to fuck player first
+						[x] bad end
+							[x] add enslavement collars
+							[x] Meraxis, Ursa, and Aurokaris go to the centauresses who defeated them (Ursa has a second wind and almost manages to strike Lunexis in the back, stopped by another centauress)
+							[x] Lunexis takes player as her cock-sleeve
+							[x] Lunexis leads victorious centauresses into the palace and declares that this is her town now
+							[x] trains you, with the help of her other trained cock-sleeves, to worship her cock
+							[x] focus for months-later epliogue
+								[x] player is kept chained in the throne room
+								[x] taken to orgy
+								[x] oral, Lunexis creampies Meraxis and player cleans her cock
+								[x] vaginal, Lunexis creampies Ursa (anal) and then player
+								[x] anal, Lunexis has Aurokaris deepthroat her cock, then fucks player's ass
+						[x] no bad end
+							[x] fucked
+							[x] Meraxis teleports all to Minotallys (call removal method)
+			[x] Elis dialogue
+				[x] Minotallys subdues Lunexis
+				[x] Revealed that Lunette will attack Elis
+				[x] Arion, player, and co. get Minotallys to agree to act
+				[x] No room left in Elis, Amazon refugees have to camp outside the walls
+				[x] Quest: Go to Enforcer station
+			[x] Amazon camp
+				[x] add camp tile
+				[x] Ursa
+				[x] Aurokaris
+				[x] dialogue
+			[x] improvements
+				[x] sex targeting vaginal/anal/oral needs to be set for positioning
+				[x] Ursa to start fight with low health
+		[x] full test
+			[x] Aurokaris at arch too soon (move at 'Take cover' action)
+			[x] Reveal Aurokaris's name at 'Explain'
+			[x] Aurokaris talk action needs to be present in all tiles
+			[x] Add Aurokaris dialogue 'current location' talk option
+				[x] arch
+				[x] street
+				[x] barricade
+				[x] raiders_cleared
+				[x] smithies
+				[x] wine
+				[x] jewellery
+			[x] did not find an exact match for 'innoxia_places_fields_themiscyra_aurochsia_talk'; returning 'innoxia_places_fields_themiscyra_aurochsia' instead
+			[x] raider tile travel
+			[x] sex position init bugs
+			[x] raider victory flag error
+			[x] raider victory place setting in wrong order
+			[x] add more wine and Amazon's secret
+			[x] Meraxis is not at the palace...
+			[x] Append progress to perk to post-clearing dialogue
+			[x] Add colouring to post-clearing dialogue
+			[x] strip dialogue removal on default post-clearing dialogue
+			[x] Ursa and Aurokaris combat should only use attacks
+			[x] bad end test
+				[x] positioning error
+				[x] make bad end title change
+			[x] test Amazon camp
+				[x] change icon
+				[x] position down y
+			[x] Test Themiscyra on world map
+			[x] split main quest to add 'get to the palace'
+				[x] test
+		[x] items below
+		[x] quest skip effects
+		[] Need to do a thorough test for game-breaking bugs
+			[x] main route
+			[] sex scenes
+			[] bad end
+			[] post-quest positioning checks
+		[] writing
+			[x] Journey
+			[x] Aurokaris talk
+			[] Themiscyra place tiles
+			[] Aurokaris place tiles talk
+			[] add chuuni variations to JOURNEY_CENTAURS
+			[] raiders
+			[] plaza conflict
+			[] Post-teleportation
+			[] Bad end
+		[] treasures (all of which can only be obtained repeatedly later after Themiscyra is rebuilt)
+			[] smithies - xiphos
+			[] jewellers - greek key ring
+			[] wine merchants - wine amphora (Amazons' Nectar)
+	
+	[x] Add Leotie artwork
+	[x] prevent unique NPCs from choosing ahegao perk
+	[x] Add 'side-braids' hair style
+	[x] remove selfish trait requirement for bitch content tattoo
+	[x] vote
+	
+	------------
+	
+	[] add self-cleaning clothing enchantment (handle dirtying when covering dirty orifice)
+	
+	[] Angel should reward us if we manage to get 10 prostitutes working for her at angel's kiss not counting slaves. But, she should give you a partnership arrangement if you have a certain number of slaves working at angel's kiss
+	
+	[] add mating press as a quick position & as a request
+	
+	[] Deer PR
+		glade springs - sparkling mineral water
+		tree shoots salad
+	
+	[] Sex additions:
+		[] Finger urethra insertion
+		[] Lick fluids off partner actions
+		[] Fisting
+	
+	[] Kay female TF
+	
+	[] mugger bitch content
+	
+	Felicia content expansion:
+		- Ask out on date (affection requirement first I guess)
+		- Repeat date until 3 dates completed
+		- Give her gift after 3rd date and she reveals how she transformed into a 'doll' to stop having lewd thoughts all the time
+		- Says she feels lewd towards player, can sex
+		- Option to give her TF potion to give her vagina (although she prefers giving oral)
+		- Repeat dates & sex is end content
+	
+	[] Add Elis bank
+	[] Add an associated bank in Dominion
+	
+	[] Add Dominion hospital and Elis clinic as alternatives to Lilaya
 	
 	
-	[] Add 'The Crossed Blades' tavern in the north of Elis
-		[x] map
-			[x] world type
-			[x] places
-			[x] dialogue
-		[x] Oglix
-			[x] large, muscular succubus
-			[x] green skin, orange eyes
-			[x] dark green orifices
-		[x] Closed between 05:00-14:00
-		[x] beer bitches - people locked into barrels behind bar
-			[x] their tits are transformed and hang out of barrel cut-outs, being milked for beer; their asses & pussies are stuck out of rear of barrel, and customers who order their 5th pint get to drink from the tap or fuck them
-			[x] generic NPCs
-		[x] kitchen
-		[x] exit
-		[x] tables
-			[x] add flavour test events
-		[x] locked VIP door
-		[x] toilets
-			[x] glory holes
-				[x] Use Shopping Arcade and Home Improvements glory hole scenes as base for making a generic glory hole dialogue container
-					[x] sex manager
-						[x] concealed slots improvements
-						[x] test
-					[x] move NPC generation to methods in game
-						[x] test home improvements and shopping arcade glory holes
-				[x] add to The Crossed Blades
-				[x] add option for double
-			[x] add wash and toilet use
-		[x] dice poker
-			[x] add hooks to generic dice poker dialogues
-			[x] improve repeat dice poker with NPC players
-			[x] hide names until playing first time
-		[x] dangerous edge tiles
-			[x] encounter opportunity to start fight
-				[x] fight (turns into huge brawl)
-					[x] lose, can present self and get fucked
-					[x] win, can fuck person who started it
-					[x] make all tiles dangerous while brawl is ongoing
-					[x] after win/sex, brawl still ongoing, but Oglix shouts for everyone to stop
-						[x] continue fighting
-							[x] lose, get fucked by Oglix's elemental
-							[x] win, opponent gets fucked by Oglix's elemental (can choose to watch)
-						[x] stop
-					[x] after brawl, areas are safe until next day
-				[x] intimidate (demon only)
-				[x] grovel
-				[x] offer to settle tab (250 flames)
-				[x] under-table perform oral
-				[x] full test of all routes
-					[x] do not let first attacker dislike receiving oral or receiving vagina/penis fetishes
-					[x] Golix start sex ongoing actions
-					[x] Golix sex preferences
-					[x] Golix sex control
-					[x] Golix fetishes
-					[x] Golix speech colour
-						[x] save/load support
-					[x] prevent escape in combat
-		[x] Oglix speech colour (green)
-		[x] Just have 1 beer bitch, so player can supply 4 more
-		[x] Make beer bitch Oglix's slave
-		[x] need to introduce Oglix before granting access to tavern
-			[x] encounter on first table tile where she calls you over to the bar
-		[x] bar
-			[x] drinks
-				[x] beer (5 bitch choices)
-					[x] gain beer token (stamped bottle cap)
-					[x] stamped bottle cap item
-				[x] rum
-				[x] whiskey
-			[x] food
-				[x] basics
-			[x] talk
-				[x] need resets in Oglix hourlyupdate
-				[x] background
-				[x] beer bitches
-					[x] add barrel clothing item
-					[x] SIDE QUEST - Barrels for the Bar
-						[x] Go and get more barrels
-							[x] Taur tavern has extra-large barrels (taurs drink a lot)
-							[x] Go and get barrels delivered to tavern
-							[x] Unlocks ability to send alleyway attackers/prostitutes to be a beer bitch
-								[x] Limited to 4 slots
-								[x] beer-slut, beer-cunt, beer-whore, beer-tits
-						[x] after completing, can find Kheiron in stables behind alley tavern between 6-7 in the morning
-							[x] he has a thing for Golix, but doesn't like Oglix (she doesn't particularly like him either, but says that it's useful having him in love with her elemental)
-							[x] Golix puts chastity cage on him which grants submissive/anal/masochist fetishes
-							[x] Golix fucks his ass (or face, if anal is off) while calling him a good horsie
-				[x] elemental
-					[x] elemental says they want to pound you again, can get fucked if been punished before
-				[x] fuck beer bitch
-		[x] Instead of flag resets in Oglix class, add attribute for flags to define hour at which they reset
-		[x] Need weak alcohol TF fluid modifier
-		[x] Full test
-			[x] brawl
-				[x] non-con off
-			[x] bar talking
-			[x] beer bitch fuck
-				[x] caress face/kiss cheek/spit in face available
-			[x] bar does not set second beer bitch correctly
-			[x] Golix punishment
-			[x] Side quest
-				[x] quest flow
-				[x] test beer bitch
-					[x] attacker
-					[x] prostitute
-					[x] first fuck defaults to first beer-bitch
-			[x] spectate Kheiron
-		[] Writing
-			[] standard place tiles
-			[] Brawl scenes
-			[] Bar scenes
-		
-	[x] add antlers for demons
-		[x] horn type
-		[x] TF potion support
-		
-		
-	[] add an option for "always Lesser" furry setting
-		[] best to make it a minimum furry setting, so you cover everything rather than have to do specialized cases
-		
-	[] I wish if you wore the "Rental Daddy/Mommy (50 Flames)" t-shirt, people would walk up to you and pay to have sex with you
+	[] save the time at the game's start as a unique ID and use that for the quick/auto save file identifiers
+	[] Custom artwork for characters who have the same name have the same artwork?
+		[] folder structure:
+			[] parent folder name should be unique ID of player
+			[] child folders should be unique ID of NPCs
 	
-	[] lesser arctic wolf morph spawned with pale skin/white fur but chocolate nipples/vagina/anus
-		
-	[] tooltip size bugged in maps
-		
-	[] bug fixes in developer chat
+	[] bug reports
+		[-] artisan and industrial milkers extract the same amount
+		[] Not sure if this counts as a bug, but you're able to get infinite fare tickets at Kazik
 	
 	[] skunk
 	
-	[] bimbo harpy to have tanned skin not light
+	[] add alt start where TF happens during new game into new world
 	
-	[] steal panties spell should rename panties to: "X's " + item_name
-	
-	[] Improve Roxy firebombs quest triggers (have to talk to Axel first???)
+	[] Add to alleyway bitch content:
+		[] 7) specials
+			[] 'Mind-fuck' demons in dark alleyways
+				[] they use telepathic suggestion to increase your corruption
+			[] 'Makeup time' harpies
+				[] they make you apply makeup
+			[] 'Gangbang' tunnel imp
+				[] imp gangbang
+		[] Change mugging to 'nest raid' for harpies
+		[] Change mugging to 'bait' for demons in dark alleyways
+				
+	[] Prostitute expansion
+		[] Can whore in alleyways (dangerous)
+		[] Angel's Kiss progression
+			[] 10+ clients, Angel suggests advertising your picture outside
+			[] 20+ clients, get 'special client' tab, granting clients who want to:
+				[] Impregnate
+				[] Get pregnant
+				[] Punish
+				[] Get punished
+				[] Bondage fuck
+				[] Roleplay incest
+				[] Threesome
+				[] Anal/Oral/Pussy/Foot/Armpit focus
+			[] After doing five special clients, get well-known and (rarely) be approached on street and asked to fuck
 	
 	[] add 'tear' as a displacement option
 		[] 1 essence to repair
@@ -195,25 +344,33 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] displaced icon to be scarlet if torn
 	
 	[] Add 'corkscrew' penis modifier
-	
+		[] And glue as a fluid mod (congealing)? IE like how pig cum hardens in contact with air to seal up the female's vagina and trap the rest of the cum inside
+		
 	[] balaclava
 	[] jewellery for blank slots (horns, wings)
+		[] tail ring clothing
+		[] horn chains & rings clothing
+	[] Nipple piercings
+		[] rounded
+		[] square
+	[] tail cuffs/rings
 	
+		
 	[] add generic tentacle legs for slime and demon(tentacle-girl/boy)
 	
 	[] serpent-serpent sex position 'mating coil'
 	
 	[] option to cast the soothing waters spell to clean the dumpster diver and temporarily remove the musk content from sexing them
 	
-	[] Kruger:  the next step in the sex scene he wants your pussy, but he wants to fuck standing up, but he cant if you're a taur or if you're too short so instead he blows your throat out
+	[] security job
 	
-	[] meraxis cock content
+	[] need mute dialogue handling for offspring encounters
 	
-	[] add surrender option to Dominion/Submission too
+	[] meraxis
+		[] cock content
+		[] strip dice poker in tavern to "steal" clothing
 	
 	
-	
-			
 			
 	[] Ceridwen
 		[] Offer to help
@@ -238,37 +395,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Post-quest
 			[] Ceridwen invites player to home (in wood tile in Elis)
 			[] Can have sex
-	
-	
-	[] PRs:
-		[x] PR#1617
-	[] Reverse-order merge:
-		[] #94
-		[] #895
-		[] #508
-		[] #947
-		[] #976
-		[] #1001
-		[] #1003
-		[] #1004
-		[] #1289
-		[] #1305
-		[] #1320
-		[] #1504
-		[] #1582
-		[] #1606
-		[] #1614
-		[] #1616
-		[] #1618
-		[] #1631
-		[] #1637
-		[] #1639
-		[] #1642
-			
-	[] Main quest content. I'll get the main quest progressed past the town of Thmyscra, and into the next stage.
-	
-	[] Add Elis bank
-	[] Add an associated bank in Dominion
 	
 			
 			
@@ -313,11 +439,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] bondage applier fetishists should apply bdsm gear during sex
 	
-	[] Nipple piercings
-		[] rounded
-		[] square
-	[] tail cuffs/rings
-	
+	[] take slave and/or nightclub date back to spa
 	
 	
 	[] condoms should display name of cum provider and quantity in description
@@ -391,24 +513,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] boxing gloves mod
 	[] latex leggings
-	[] deer
 	[] Add tailjobs (make sure tail lower body type works with it)
 	
-	[] elemental quest before leaving Dominion
-		[] can research in library
+	[] elemental quest should be able to be started at any time
+		[] can trigger research quest in library
 		[] If not obtained, Lyssieth grants you the spell
 	
-	[] Add option when starting a new game to skip Dominion
-		[] requires player to have already finished main quest up to leaving Dominion
-		[] apply minimal completion
-	
-	[] Add consumable item 'Amazonian's Secret': For 24 hours, when orgasming during a tribbing action, there's a chance to impregnate your partner (chance uses fertility instead of virility)
-	
-	[] hand holding sex action
-	
 	[] dye earth skill to take 1 essence
-	
-	[] Test fetish preferences in watering hole
 	
 	[] Need a place to deliver pregnancy in Elis
 		[] Medical centre
@@ -416,14 +527,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] expand pregnancy content for slaves and friendly occupants
 	
-	[] Sex additions:
-		[] Finger urethra insertion
-		[] Lick fluids off partner actions
-		[] Fisting
-	
 	[] PR Maxis list
-	
-	[] Kay female TF
 	
 	[] If you have custom pictures for characters and then a random NPC spawns with the same name, (even if you technically don't know the name) the custom picture shows up, despite it being for another character. 
 			Maybe add a flag to the characters to determine whether it has custom pictures or not, or have their unique ID for them be part of what they look for before they show a picture
@@ -432,14 +536,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] add an attribute to make special effects AoE for weapons (stun grenades)
 	
-	Felicia content expansion:
-		- Ask out on date (affection requirement first I guess)
-		- Repeat date until 3 dates completed
-		- Give her gift after 3rd date and she reveals how she transformed into a 'doll' to stop having lewd thoughts all the time
-		- Says she feels lewd towards player, can sex
-		- Option to give her TF potion to give her vagina (although she prefers giving oral)
-		- Repeat dates & sex is end content
-	
+	[] rework furry setting levels so each is selectable to allow/disable spawning of that furry level
+		
 	Ashley
 	
 	[] 4 person guest rooms
@@ -522,10 +620,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Antique shop
 	
 	[] Add bondage fetish and use as check for tail/tentacle/webbing actions
-	
-	[] deer
-		glade springs - sparkling mineral water
-		tree shoots salad
 	
 	[] mouse
 	
@@ -3963,11 +4057,7 @@ Submissive NPCs with with a virginity fetish still tell you to "Fuck my virgin p
 	
 	Saliva
 	
-	can we get glue like as a fluid mod? IE like how pig cum hardens in contact with air to seal up the female's vagina and trap the rest of the cum inside
-		congealing
 	
-	
-		
 	and a minor bug where the enemy statistic of win and lose or sub and dom sex also reset after you load the game.
 	
 	

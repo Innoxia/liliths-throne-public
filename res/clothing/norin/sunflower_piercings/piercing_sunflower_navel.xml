@@ -18,7 +18,6 @@
     
     <clothingSet/> <!-- No way to define custom sets yet -->
     <imageEquippedName/> <!-- The file path for this clothing's image while equipped -->
-    <enchantmentLimit/> <!-- Custom values override game -->
     <effects/> <!-- Default enchantments -->
 
     <blockedPartsList>

@@ -232,12 +232,17 @@
 	]]>
 	</htmlContent>
 	
-	<!-- FIREBOMBS -->
 	
+	<!-- FIREBOMBS -->
 	
 	<htmlContent tag="FIREBOMBS"><![CDATA[
 	<p>
-		You think back to the arcane firebombs you got from the mysterious cave. Surely Roxy still has some connections from her time with Vengar's gang? You bring out a firebomb and set it down on the counter.
+		You think back to the arcane firebombs you got from the mysterious cave.
+		#IF(flags.hasFlag(FLAG_axelExplainedVengar))
+			 Surely Roxy still has some connections from her time with Vengar's gang? You bring out a firebomb and set it down on the counter.
+		#ELSE
+			 Surely Roxy is the sort of rat who'd have some shady connections? You bring out a firebomb and set it down on the counter.
+		#ENDIF
 	</p>
 	<p>
 		[roxy.speech(What's that yer got there?)] Roxy asks, raising an eyebrow, [roxy.speech(The newest thing y'been jammin' up yer arse?)]

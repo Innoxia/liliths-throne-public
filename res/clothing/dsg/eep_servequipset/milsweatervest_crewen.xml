@@ -30,8 +30,6 @@
 
 		<imageEquippedName/> 
 
-		<enchantmentLimit/>
-
 		<effects/> 
 
 		<blockedPartsList>
@@ -86,7 +84,7 @@
 		<tertiaryColoursDye values="ALL_METAL"/>
 
 		<itemTags> 
-			<tag>FITS_HARPY_WINGS</tag>
+			<tag>FITS_ARM_WINGS</tag>
 			<tag>CONTRABAND_MEDIUM</tag>
 		</itemTags>
 	</coreAtributes>

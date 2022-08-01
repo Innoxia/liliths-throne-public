@@ -18,7 +18,6 @@
 		<imageName>siren_cloak.svg</imageName>
     <imageEquippedName slot="TORSO_OVER">siren_cloak.svg</imageEquippedName>
 		<imageEquippedName/>
-		<enchantmentLimit>15</enchantmentLimit>
 		<effects> 
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>

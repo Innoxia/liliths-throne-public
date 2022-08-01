@@ -477,7 +477,7 @@
 			#ENDIF
 		#ELSE
 			<p>
-				You're the first to recover from the shock of your surprise meeting, and as your initial surprise fades away, you find that you're shaking your head in utter disbelief. Looking into your [npc.relation(pc)]'s [npc.eyes], you frown in disapproval as you start to voice your concerns, [pc.speech([npc.Name]! Please don't tell me that you're just another low-life mugger!)]
+				You're the first to recover from the shock of your surprise meeting, and as your initial surprise fades away, you find that you're shaking your head in utter disbelief. Looking into your [npc.relation(pc)]'s [npc.eyes], you frown in disapproval as you start to voice your concerns, [pc.speech([npc.Name]! Please don't tell me that you're just another lowlife mugger!)]
 			</p>
 			#IF(npc.isConfident())
 				<p>
@@ -677,7 +677,7 @@
 	
 	<htmlContent tag="OFFSPRING_ENCOUNTER_FIGHT"><![CDATA[
 	<p>
-		Just because [npc.sheIs] your [npc.relation(pc)], that doesn't mean [npc.sheIs] any better than the rest of the low-lifes inhabiting these alleyways. Lowering into a combat stance, you grin at [npc.name]. [pc.speech(No [npc.relation(pc)] of mine is going to live like this and expect not to be punished! I'm going to teach you a lesson!)]
+		Just because [npc.sheIs] your [npc.relation(pc)], that doesn't mean [npc.sheIs] any better than the rest of the lowlifes inhabiting these alleyways. Lowering into a combat stance, you grin at [npc.name]. [pc.speech(No [npc.relation(pc)] of mine is going to live like this and expect not to be punished! I'm going to teach you a lesson!)]
 	</p>
 	#IF(npc.isConfident())
 		<p>

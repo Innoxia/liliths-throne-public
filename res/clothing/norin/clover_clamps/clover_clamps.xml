@@ -21,7 +21,6 @@
 
     <clothingSet>BDSM</clothingSet> 
     <imageEquippedName/>
-    <enchantmentLimit>5</enchantmentLimit>
     
     <effects>
       <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="STRENGTH" timer="6"/>     

@@ -14,10 +14,12 @@ import java.util.Map.Entry;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
@@ -239,7 +241,7 @@ public class Encounter {
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.DOMINION_STORM_ATTACK && Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
-				NPC npc = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
+				NPC npc = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.DIRTY);
 				try {
 					Main.game.addNPC(npc, false);
 				} catch (Exception e) {
@@ -1112,7 +1114,16 @@ public class Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
-//				TODO Add offspring encounters
+				if(Math.random()<IncestEncounterRate()) {
+					List<OffspringSeed> offspringAvailable = Main.game.getOffspringNotSpawned(
+							os-> (os.getSubspecies()==Subspecies.HALF_DEMON
+								?(os.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK))
+								:(os.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK))));
+
+					if(!offspringAvailable.isEmpty()) {
+						return SpawnAndStartChildHere(offspringAvailable);
+					}
+				}
 				
 				Main.game.setActiveNPC(new BatCavernLurkerAttacker(Gender.getGenderFromUserPreferences(false, false)));
 				try {
@@ -1130,7 +1141,14 @@ public class Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
-//				TODO Add offspring encounters
+				if(Math.random()<IncestEncounterRate()) {
+					List<OffspringSeed> offspringAvailable = Main.game.getOffspringNotSpawned(
+							os-> (os.getBodyMaterial() == BodyMaterial.SLIME));
+
+					if(!offspringAvailable.isEmpty()) {
+						return SpawnAndStartChildHere(offspringAvailable);
+					}
+				}
 				
 				Main.game.setActiveNPC(new BatCavernSlimeAttacker(Gender.getGenderFromUserPreferences(false, false)));
 				try {

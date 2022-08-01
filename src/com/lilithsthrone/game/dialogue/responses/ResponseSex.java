@@ -12,7 +12,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
-import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -134,8 +134,8 @@ public class ResponseSex extends Response {
 	 */
 	public ResponseSex(String title,
 			String tooltipText,
-			List<Fetish> fetishesForUnlock,
-			List<Fetish> fetishesBlocking,
+			List<AbstractFetish> fetishesForUnlock,
+			List<AbstractFetish> fetishesBlocking,
 			CorruptionLevel corruptionBypass,
 			List<AbstractPerk> perksRequired,
 			Femininity femininityRequired,
@@ -413,8 +413,8 @@ public class ResponseSex extends Response {
 	
 	public ResponseSex(String title,
 			String tooltipText,
-			List<Fetish> fetishesForUnlock,
-			List<Fetish> fetishesBlocking,
+			List<AbstractFetish> fetishesForUnlock,
+			List<AbstractFetish> fetishesBlocking,
 			CorruptionLevel corruptionBypass,
 			List<AbstractPerk> perksRequired,
 			Femininity femininityRequired,
@@ -457,8 +457,8 @@ public class ResponseSex extends Response {
 	
 	public ResponseSex(String title,
 			String tooltipText,
-			List<Fetish> fetishesForUnlock,
-			List<Fetish> fetishesBlocking,
+			List<AbstractFetish> fetishesForUnlock,
+			List<AbstractFetish> fetishesBlocking,
 			CorruptionLevel corruptionBypass,
 			List<AbstractPerk> perksRequired,
 			Femininity femininityRequired,
