@@ -219,6 +219,13 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="ENTRANCE_ELEMENTAL_CONTINUE"><![CDATA[
+	<p>
+		[pc.Walking] forwards past the cowering imps, you tell [el.name] to keep a look out for any sign of danger as you enter the fortress and take a look around...
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	
 	<!-- GUARDS_AFTER_ORAL_FOR_ENTRY -->

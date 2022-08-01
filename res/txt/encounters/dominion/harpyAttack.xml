@@ -341,8 +341,12 @@
 						 [pc.ass+],
 					#ENDIF
 					 flashing you a hungry glare as [npc.she] does so.
-					#IF(npc.hasStatusEffect(SE_WEATHER_STORM_VULNERABLE))
-						 With [npc.name] clearly being uncontrollably turned on by the arcane storm raging overhead, you find yourself just moments away from being fucked by the horny, mute [npc.race].
+					#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+						#IF(npc.hasStatusEffect(SE_WEATHER_STORM_VULNERABLE))
+							 With [npc.name] clearly being uncontrollably turned on by the arcane storm raging overhead, you find yourself just moments away from being fucked by the horny, mute [npc.race].
+						#ELSE
+							 Although [npc.name] seems to be immune to the arousing effects of the ongoing arcane storm, you realise that [npc.sheHas] given up on doing anything else with you until after the storm has passed, and so you find yourself just moments away from being fucked by the horny, mute [npc.race].
+						#ENDIF
 					#ELSE
 						 With [npc.her] intentions clear, you find yourself just moments away from being fucked by the horny, mute [npc.race].
 					#ENDIF
@@ -362,8 +366,12 @@
 						 [pc.ass+],
 					#ENDIF
 					 sneering as [npc.she] does so,
-					#IF(npc.hasStatusEffect(SE_WEATHER_STORM_VULNERABLE))
-						 [npc.speech(This damn arcane storm's got me so turned on I can't think straight! All I need right now is to give you a good, hard fuck, [pc.name]!)]
+					#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+						#IF(npc.hasStatusEffect(SE_WEATHER_STORM_VULNERABLE))
+							 [npc.speech(This damn arcane storm's got me so turned on I can't think straight! All I need right now is to give you a good, hard fuck, [pc.name]!)]
+						#ELSE
+							 [npc.speech(I don't get affected by arcane storms, but while it's raging there's going to be nobody about and nothing to do but fuck. So come on, [pc.name], submit to me and prepare to get a good, hard fuck!)]
+						#ENDIF
 					#ELSE
 						 [npc.speech(I'm feeling pretty horny at the moment, [pc.name]. I think I'll give you a good fuck.)]
 					#ENDIF

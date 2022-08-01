@@ -224,6 +224,8 @@ public class BodyCoveringType {
 			Util.newArrayListOfValues(
 					CoveringModifier.SHORT,
 					CoveringModifier.SMOOTH),
+			Util.newArrayListOfValues(
+					CoveringModifier.SHAGGY),
 			Util.newHashMapOfValues(
 					new Value<>(CoveringPattern.NONE, 10),
 					new Value<>(CoveringPattern.SPOTTED, 5),

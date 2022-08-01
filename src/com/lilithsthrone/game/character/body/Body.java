@@ -2409,6 +2409,9 @@ public class Body implements XMLSaving {
 				case CHIGNON:
 					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been tied up into a chignon.");
 					break;
+				case SIDE_BRAIDS:
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been woven into braids that hang down on either side of [npc.her] face.");
+					break;
 			}
 		}
 		if (hair.isNeckFluff()) {

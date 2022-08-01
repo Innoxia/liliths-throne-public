@@ -10,35 +10,38 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.99
- * @version 0.1.99
+ * @version 0.4.4.2
  * @author Innoxia
  */
 public enum FetishLevel {
 	
-	ZERO_NO_EXPERIENCE("inexperienced", "I", "", "overlay1", 0, 0, 10, PresetColour.DESIRE_STAGE_ZERO),
+	ZERO_NO_EXPERIENCE("inexperienced", "I", "", "overlay1", 0, 0, 0, 10, PresetColour.DESIRE_STAGE_ZERO),
 	
-	ONE_AMATEUR("amateur", "II", "", "overlay2", 0.5f, 10, 50, PresetColour.DESIRE_STAGE_ONE),
+	ONE_AMATEUR("amateur", "II", "", "overlay2", 0.5f, 1, 10, 50, PresetColour.DESIRE_STAGE_ONE),
 	
-	TWO_EXPERIENCED("experienced", "III", "", "overlay3", 1f, 50, 100, PresetColour.DESIRE_STAGE_TWO),
+	TWO_EXPERIENCED("experienced", "III", "", "overlay3", 1f, 2, 50, 100, PresetColour.DESIRE_STAGE_TWO),
 	
-	THREE_EXPERT("expert", "IV", "", "overlay4", 2f, 100, 200, PresetColour.DESIRE_STAGE_THREE),
+	THREE_EXPERT("expert", "IV", "", "overlay4", 2f, 3, 100, 200, PresetColour.DESIRE_STAGE_THREE),
 	
-	FOUR_MASTERFUL("masterful", "V", "", "overlay5", 2.5f, 200, 200, PresetColour.DESIRE_STAGE_FOUR);
+	FOUR_MASTERFUL("masterful", "V", "", "overlay5", 2.5f, 4, 200, 200, PresetColour.DESIRE_STAGE_FOUR);
+	
 	
 	private String name;
 	private String numeral;
 	private String description;
 	private String SVGImageOverlay;
 	private float bonusArousalIncrease;
+	private int bonusTeaseDamage;
 	private int minimumExperience;
 	private int maximumExperience;
 	private Colour colour;
 	
-	private FetishLevel(String name, String numeral, String description, String pathName, float bonusArousalIncrease, int minimumExperience, int maximumExperience, Colour colour) {
+	private FetishLevel(String name, String numeral, String description, String pathName, float bonusArousalIncrease, int bonusTeaseDamage, int minimumExperience, int maximumExperience, Colour colour) {
 		this.name = name;
 		this.numeral = numeral;
 		this.description = description;
 		this.bonusArousalIncrease = bonusArousalIncrease;
+		this.bonusTeaseDamage = bonusTeaseDamage;
 		this.minimumExperience = minimumExperience;
 		this.maximumExperience = maximumExperience;
 		this.colour = colour;
@@ -82,7 +85,11 @@ public enum FetishLevel {
 	public float getBonusArousalIncreasePartner() {
 		return Math.round((bonusArousalIncrease/2f)*100)/100f;
 	}
-
+	
+	public int getBonusTeaseDamage() {
+		return bonusTeaseDamage;
+	}
+	
 	public int getMinimumExperience() {
 		return minimumExperience;
 	}

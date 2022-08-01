@@ -35,6 +35,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -316,7 +317,7 @@ public class StatusEffect {
 			if (owner.isPlayer()) {
 				return "Despite your natural affinity with the arcane, you've somehow managed to end up losing most of your power...";
 			} else {
-				return UtilText.parse(owner, "[npc.Name] is unable to harness the arcane in any significant manner. This is a typical level of arcane affinity in all the common races of this world.");
+				return UtilText.parse(owner, "[npc.NameIsFull] unable to harness the arcane in any significant manner. This is a typical level of arcane affinity in all the common races of this world.");
 			}
 		}
 		@Override
@@ -419,7 +420,7 @@ public class StatusEffect {
 			if (target.isPlayer()) {
 				return "You are highly proficient with the arcane. Your spells are easier to cast and do more damage, and you also have a small amount of elemental damage affinity.";
 			} else {
-				return UtilText.parse(target, "[npc.Name] is highly proficient with the arcane. [npc.Her] spells are easier to cast and do more damage, and [npc.she] also has a small amount of elemental damage affinity.");
+				return UtilText.parse(target, "[npc.NameIsFull] highly proficient with the arcane. [npc.Her] spells are easier to cast and do more damage, and [npc.she] also has a small amount of elemental damage affinity.");
 			}
 		}
 		@Override
@@ -456,7 +457,7 @@ public class StatusEffect {
 			if (target.isPlayer()) {
 				return "You are extremely proficient with the arcane. Your spells are easier to cast and do more damage, and you also have a considerable amount of elemental damage affinity.";
 			} else {
-				return UtilText.parse(target, "[npc.Name] is extremely proficient with the arcane."
+				return UtilText.parse(target, "[npc.NameIsFull] extremely proficient with the arcane."
 						+ " [npc.Her] spells are easier to cast and do more damage, and [npc.she] also has a considerable amount of elemental damage affinity.");
 			}
 		}
@@ -528,7 +529,7 @@ public class StatusEffect {
 			if (owner.isPlayer()) {
 				return "You are completely uncorrupted, and aside from performing the most conservative of sexual acts with the person you love, you're not really interested in sex at all.";
 			} else {
-				return UtilText.parse(owner, "[npc.Name] is completely uncorrupted, and aside from performing the most conservative of sexual acts with the person [npc.she] loves, [npc.sheIs] not really interested in sex at all.");
+				return UtilText.parse(owner, "[npc.NameIsFull] completely uncorrupted, and aside from performing the most conservative of sexual acts with the person [npc.she] loves, [npc.sheIs] not really interested in sex at all.");
 			}
 		}
 		@Override
@@ -562,7 +563,7 @@ public class StatusEffect {
 			if (owner.isPlayer()) {
 				return "You're open to the idea of having casual sex, but are still unwilling to perform any extreme sexual acts.";
 			} else {
-				return UtilText.parse(owner, "[npc.Name] is open to the idea of having casual sex, but is unwilling to perform any extreme sexual acts.");
+				return UtilText.parse(owner, "[npc.NameIsFull] open to the idea of having casual sex, but is unwilling to perform any extreme sexual acts.");
 			}
 		}
 		@Override
@@ -739,10 +740,10 @@ public class StatusEffect {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
-					"[npc.NameIsFull] completely and utterly corrupted"
+					"[npc.NameIsFull] completely and utterly corrupted,"
 						+ (owner.getSubspeciesOverrideRace()==Race.DEMON
-							?", as is fitting for [npc.a_race]."
-							:", and desperately [npc.verb(wish)] that [npc.she] [npc.was] a demon.")
+							?" as is fitting for a demon."
+							:" and desperately [npc.verb(wish)] that [npc.she] [npc.was] a demon.")
 					+ " The lewd thoughts and fantasies that continuously run through [npc.her] mind have unlocked the full power of the arcane, making [npc.her] body hyper-fertile and virile.");
 		}
 		@Override
@@ -775,7 +776,7 @@ public class StatusEffect {
 			if (target.isPlayer())
 				return "You aren't aroused at all.";
 			else
-				return UtilText.parse(target, "[npc.Name] isn't aroused at all.");
+				return UtilText.parse(target, "[npc.NameIsFull]n't aroused at all.");
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -823,7 +824,7 @@ public class StatusEffect {
 			if (target.isPlayer())
 				return "You're starting to get pretty turned on.";
 			else
-				return UtilText.parse(target, "[npc.Name] is starting to get turned on.");
+				return UtilText.parse(target, "[npc.NameIsFull] starting to get turned on.");
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -860,7 +861,7 @@ public class StatusEffect {
 			if (target.isPlayer())
 				return "You're getting quite excited, and your thoughts are now focused on your sexual desires.";
 			else
-				return UtilText.parse(target, "[npc.Name] is getting quite excited.");
+				return UtilText.parse(target, "[npc.NameIsFull] getting quite excited.");
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -926,7 +927,7 @@ public class StatusEffect {
 			if (target.isPlayer())
 				return "The only thing you want right now is to reach your climax.";
 			else
-				return UtilText.parse(target, "[npc.Name] is only concerned with reaching [npc.her] climax.");
+				return UtilText.parse(target, "[npc.NameIsFull] only concerned with reaching [npc.her] climax.");
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -959,7 +960,7 @@ public class StatusEffect {
 			if (owner.isPlayer())
 				return "You feel your climax building. You know that it's only going to be a matter of seconds before you orgasm!";
 			else
-				return UtilText.parse(owner, "[npc.Name] is about to reach [npc.her] climax!");
+				return UtilText.parse(owner, "[npc.NameIsFull] about to reach [npc.her] climax!");
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -1650,7 +1651,7 @@ public class StatusEffect {
 						+ " Although you can still feel its effects taking the form of an increased libido, you're currently protected from most of the storm's wrath.";
 			} else {
 				return UtilText.parse(target,
-						"[npc.Name] is currently protected from the arcane storm.");
+						"[npc.NameIsFull] currently protected from the arcane storm.");
 			}
 		}
 		@Override
@@ -1807,7 +1808,7 @@ public class StatusEffect {
 			if(target.isPlayer())
 				return "You're a human, just like every other person in this world.";
 			else
-				return "[npc.Name] is a human, just like every other person in this world.";
+				return "[npc.NameIsFull] a human, just like every other person in this world.";
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -2131,7 +2132,7 @@ public class StatusEffect {
 			if(target.isPlayer()) {
 				return "You are sexually attracted to males and masculinity.";
 			} else {
-				return UtilText.parse(target, "[npc.Name] is sexually attracted to males and masculinity.");
+				return UtilText.parse(target, "[npc.NameIsFull] sexually attracted to males and masculinity.");
 			}
 		}
 		@Override
@@ -2156,7 +2157,7 @@ public class StatusEffect {
 			if(target.isPlayer()) {
 				return "You are sexually attracted to females and femininity.";
 			} else {
-				return UtilText.parse(target, "[npc.Name] is sexually attracted to females and femininity.");
+				return UtilText.parse(target, "[npc.NameIsFull] sexually attracted to females and femininity.");
 			}
 		}
 		@Override
@@ -2180,7 +2181,7 @@ public class StatusEffect {
 			if(target.isPlayer()) {
 				return "You are sexually attracted to both masculine and feminine people.";
 			} else {
-				return UtilText.parse(target, "[npc.Name] is sexually attracted to both masculine and feminine people.");
+				return UtilText.parse(target, "[npc.NameIsFull] sexually attracted to both masculine and feminine people.");
 			}
 		}
 		@Override
@@ -3360,7 +3361,7 @@ public class StatusEffect {
 							+ " <i>Addictions can be cleared by using '"+ItemType.ADDICTION_REMOVAL.getName(false)+"'.</i>";
 				} else {
 					return UtilText.parse(target,
-							"[npc.Name] is currently addicted to "+Util.intToString(target.getAddictions().size())+(target.getAddictions().size()==1?" type of fluid":" types of fluids")+"!"
+							"[npc.NameIsFull] currently addicted to "+Util.intToString(target.getAddictions().size())+(target.getAddictions().size()==1?" type of fluid":" types of fluids")+"!"
 									+ " After going for more than 24 hours without getting a fix, [npc.she] will start to suffer from withdrawal symptoms."
 									+ " <i>Addictions can be cleared by using '"+ItemType.ADDICTION_REMOVAL.getName(false)+"'.</i>");
 				}
@@ -3396,7 +3397,7 @@ public class StatusEffect {
 				if(target.isPlayer()) {
 					sb.append("You are suffering mild withdrawal from:");
 				} else {
-					sb.append(UtilText.parse(target, "[npc.Name] is suffering mild withdrawal from:"));
+					sb.append(UtilText.parse(target, "[npc.NameIsFull] suffering mild withdrawal from:"));
 				}
 
 				for(Addiction addiction : target.getAddictions()) {
@@ -3459,7 +3460,7 @@ public class StatusEffect {
 				if(target.isPlayer()) {
 					sb.append("You are suffering noticeable withdrawal from:");
 				} else {
-					sb.append(UtilText.parse(target, "[npc.Name] is suffering noticeable withdrawal from:"));
+					sb.append(UtilText.parse(target, "[npc.NameIsFull] suffering noticeable withdrawal from:"));
 				}
 
 				for(Addiction addiction : target.getAddictions()) {
@@ -3522,7 +3523,7 @@ public class StatusEffect {
 				if(target.isPlayer()) {
 					sb.append("You are suffering strong withdrawal from:");
 				} else {
-					sb.append(UtilText.parse(target, "[npc.Name] is suffering strong withdrawal from:"));
+					sb.append(UtilText.parse(target, "[npc.NameIsFull] suffering strong withdrawal from:"));
 				}
 
 				for(Addiction addiction : target.getAddictions()) {
@@ -3585,7 +3586,7 @@ public class StatusEffect {
 				if(target.isPlayer()) {
 					sb.append("You are suffering severe withdrawal from:");
 				} else {
-					sb.append(UtilText.parse(target, "[npc.Name] is suffering severe withdrawal from:"));
+					sb.append(UtilText.parse(target, "[npc.NameIsFull] suffering severe withdrawal from:"));
 				}
 
 				for(Addiction addiction : target.getAddictions()) {
@@ -3648,7 +3649,7 @@ public class StatusEffect {
 				if(target.isPlayer()) {
 					sb.append("You are suffering intense withdrawal from:");
 				} else {
-					sb.append(UtilText.parse(target, "[npc.Name] is suffering intense withdrawal from:"));
+					sb.append(UtilText.parse(target, "[npc.NameIsFull] suffering intense withdrawal from:"));
 				}
 
 				for(Addiction addiction : target.getAddictions()) {
@@ -3738,7 +3739,8 @@ public class StatusEffect {
 			StringBuilder sb = new StringBuilder();
 			
 			if (target.isPregnant()) {
-				target.addStatusEffect(PREGNANT_1, 60 * 60 * (72 + Util.random.nextInt(13)));
+				int maxHourLength = (int)((Main.getProperties().pregnancyDuration * 7 * 24) / 2f);
+				target.addStatusEffect(PREGNANT_1, 60 * 60 * ((maxHourLength-12) + Util.random.nextInt(13)));
 				target.loadImages(true); // Reload images for pregnant versions
 				
 				if (target.isPlayer() && !((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
@@ -3926,12 +3928,12 @@ public class StatusEffect {
 							+ (target.getBodyMaterial()==BodyMaterial.SLIME
 								?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
 									+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of [npc.herHim]."
-								:" Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll move onto the next stage in a matter of days."));
+								:" Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll move onto the next stage with alarming speed."));
 		}
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
-
-			target.addStatusEffect(PREGNANT_2, 60 * 60 * (72 + Util.random.nextInt(13)));
+			int maxHourLength = (int)((Main.getProperties().pregnancyDuration * 7 * 24) / 2f);
+			target.addStatusEffect(PREGNANT_2, 60 * 60 * ((maxHourLength-12) + Util.random.nextInt(13)));
 			
 			boolean breastGrowth = false;
 			if(Main.getProperties().pregnancyBreastGrowth>0 && target.getBreastRawSizeValue()<Main.getProperties().pregnancyBreastGrowthLimit) {
@@ -4041,7 +4043,7 @@ public class StatusEffect {
 							+ (target.getBodyMaterial()==BodyMaterial.SLIME
 								?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
 									+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of [npc.herHim]..."
-								:" Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll move onto the final stage in a matter of days."));
+								:" Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll move onto the final stage with alarming speed."));
 		}
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
@@ -8102,7 +8104,7 @@ public class StatusEffect {
 					return "You are wearing a set of accessories normally found on a cow or bull.";
 					
 				} else {
-					return UtilText.parse(target, "[npc.Name] is wearing a set of accessories normally found on a cow or bull.");
+					return UtilText.parse(target, "[npc.NameIsFull] wearing a set of accessories normally found on a cow or bull.");
 					
 				}
 			} else {
@@ -8270,7 +8272,7 @@ public class StatusEffect {
 					return "By wearing the outfit of the 'Yule figure', both your wisdom and prowess in battle are greatly increased!";
 					
 				} else {
-					return UtilText.parse(target, "[npc.Name] is wearing the outfit of the 'Yule figure', thereby greatly increasing [npc.her] wisdom and prowess in battle.");
+					return UtilText.parse(target, "[npc.NameIsFull] wearing the outfit of the 'Yule figure', thereby greatly increasing [npc.her] wisdom and prowess in battle.");
 					
 				}
 			} else {
@@ -8462,7 +8464,7 @@ public class StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
-				return UtilText.parse(target, "[npc.Name] is struggling to fight against your manifest destiny!");
+				return UtilText.parse(target, "[npc.NameIsFull] struggling to fight against your manifest destiny!");
 			}
 			return "";
 		}
@@ -8515,7 +8517,7 @@ public class StatusEffect {
 				return "You are absolutely desperate for sex, but thanks to the strength of your arcane aura, you are able to resist giving up right here on the spot!";
 			} else {
 				return UtilText.parse(target,
-						"[npc.Name] is absolutely desperate for sex, but thanks to the strength of [npc.her] arcane aura, [npc.sheIs] able to resist giving up right here on the spot!");
+						"[npc.NameIsFull] absolutely desperate for sex, but thanks to the strength of [npc.her] arcane aura, [npc.sheIs] able to resist giving up right here on the spot!");
 			}
 		}
 		@Override
@@ -9460,7 +9462,7 @@ public class StatusEffect {
 			Util.newArrayListOfValues("+100% [style.colourExcellent(Non-Seduction Damage)]")) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.Name] is siphoning off as much of [npc2.namePos] energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.NameIsFull] siphoning off as much of [npc2.namePos] energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
@@ -9765,7 +9767,7 @@ public class StatusEffect {
 			Util.newArrayListOfValues("+100% [style.colourExcellent(Non-Seduction Damage)]")) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.Name] is siphoning off as much of [npc2.namePos] energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.NameIsFull] siphoning off as much of [npc2.namePos] energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
@@ -10242,7 +10244,7 @@ public class StatusEffect {
 			Util.newArrayListOfValues("+100% [style.colourExcellent(Non-Seduction Damage)]")) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.Name] is siphoning off as much of [npc2.namePos] energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.NameIsFull] siphoning off as much of [npc2.namePos] energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
@@ -10349,7 +10351,7 @@ public class StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target,
-						"[npc.Name] is being continuously pelted by a barrage of rocks and other small objects.");
+						"[npc.NameIsFull] being continuously pelted by a barrage of rocks and other small objects.");
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
@@ -10377,7 +10379,7 @@ public class StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target,
-						"[npc.Name] is being continuously pelted by a highly-accurate barrage of rocks and other small objects.");
+						"[npc.NameIsFull] being continuously pelted by a highly-accurate barrage of rocks and other small objects.");
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
@@ -10405,7 +10407,7 @@ public class StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target,
-						"[npc.Name] is being continuously pelted by a highly-accurate barrage of rocks and other small objects. Each impact is immediately followed up by an explosive wave of force.");
+						"[npc.NameIsFull] being continuously pelted by a highly-accurate barrage of rocks and other small objects. Each impact is immediately followed up by an explosive wave of force.");
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
@@ -10627,7 +10629,7 @@ public class StatusEffect {
 			Util.newArrayListOfValues("+100% [style.colourExcellent(Non-Seduction Damage)]")) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.Name] is siphoning off as much of [npc2.namePos] energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.NameIsFull] siphoning off as much of [npc2.namePos] energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
@@ -11020,7 +11022,7 @@ public class StatusEffect {
 			Util.newArrayListOfValues("+100% [style.colourExcellent(Non-Seduction Damage)]")) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.Name] is siphoning off as much of [npc2.namePos] energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.NameIsFull] siphoning off as much of [npc2.namePos] energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
@@ -11272,9 +11274,9 @@ public class StatusEffect {
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			List<String> modList = new ArrayList<>();
-			List<Fetish> orderedFetishList = new ArrayList<>();
+			List<AbstractFetish> orderedFetishList = new ArrayList<>();
 			
-			for(Fetish f : Fetish.values()) {
+			for(AbstractFetish f : Fetish.getAllFetishes()) {
 				FetishDesire desire = target.getFetishDesire(f);
 				if(desire!=FetishDesire.TWO_NEUTRAL) {
 					orderedFetishList.add(f);
@@ -11282,7 +11284,7 @@ public class StatusEffect {
 			}
 			orderedFetishList.sort((e1, e2) -> target.getFetishDesire(e2).compareTo(target.getFetishDesire(e1)));
 
-			for(Fetish f : orderedFetishList) {
+			for(AbstractFetish f : orderedFetishList) {
 				FetishDesire desire = target.getFetishDesire(f);
 				modList.add("<b style='color:"+desire.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(desire.getNameAsVerb())+"</b>: "+Util.capitaliseSentence(f.getShortDescriptor(target)));
 			}
@@ -11436,7 +11438,7 @@ public class StatusEffect {
 								break;
 							case PENIS:
 								if(selfAction) {
-									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(frotting)] with [npc.her] two [npc.cocks]!"));
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(frotting)] with [npc.her] two [npc.cocks(true)]!"));
 								} else {
 									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] [style.boldSex(frotting)] with [npc2.name]!"));
 								}

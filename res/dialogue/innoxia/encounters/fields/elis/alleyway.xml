@@ -26,7 +26,7 @@
 					#IF(flags.getSavedLong('randomResponseIndex')==1 && pc.getMoney()<flags.getMuggerDemand3())
 						[#flags.setSavedLong('randomResponseIndex', 2)]
 					#ENDIF
-					#IF(flags.getSavedLong('randomResponseIndex')==6 && (!npc.hasPersonalityTrait(PERSONALITY_TRAIT_SELFISH) || ((pc.getTattooInSlot(IS_GROIN)!=null || !pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (!game.isAnalContentEnabled() || pc.getTattooInSlot(IS_TORSO_UNDER)!=null || !pc.isAbleToAccessCoverableArea(CA_ANUS, true)))))
+					#IF(flags.getSavedLong('randomResponseIndex')==6 && ((pc.getTattooInSlot(IS_GROIN)!=null || !pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (!game.isAnalContentEnabled() || pc.getTattooInSlot(IS_TORSO_UNDER)!=null || !pc.isAbleToAccessCoverableArea(CA_ANUS, true))))
 						[#flags.setSavedLong('randomResponseIndex', 4)]
 					#ENDIF
 					#IF(flags.getSavedLong('randomResponseIndex')==4 && (!npc.isAttractedTo(pc) || npc.hasStatusEffect(SE_RECOVERING_AURA)))
