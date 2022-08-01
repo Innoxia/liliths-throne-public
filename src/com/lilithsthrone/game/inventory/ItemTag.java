@@ -21,7 +21,8 @@ public enum ItemTag {
 	
 	REINDEER_GIFT, // Can be found in the presents that the reindeer sell (who appear in Dominion during winter months).
 	SOLD_BY_RALPH, // Will also be used for any future consumable and miscellaneous item vendors.
-	SOLD_BY_NYAN, // Clothing
+	SOLD_BY_NYAN, // Clothing (is added to all clothing vendors)
+	SOLD_BY_MONICA, // Clothing (is added to Elis only)
 	SOLD_BY_KATE, // Jewellery
 	SOLD_BY_FINCH, // BDSM and sex-related stuff
 	SOLD_BY_VICKY, // Weapons

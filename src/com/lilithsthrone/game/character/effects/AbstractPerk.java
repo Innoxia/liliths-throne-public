@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -214,10 +215,13 @@ public abstract class AbstractPerk {
 		return Util.mergeLists(modifiersList, getExtraEffects());
 	}
 
-	public HashMap<AbstractAttribute, Integer> getAttributeModifiers(GameCharacter character) {
+	/**
+	 * final because attributes are only accessed when perk is applied/removed to/from a character, so changing this while perk is applied will either not work or break attributes when the perk is removed.
+	 */
+	public final Map<AbstractAttribute, Integer> getAttributeModifiers(GameCharacter character) {
 		return attributeModifiers;
 	}
-
+	
 	public String applyPerkGained(GameCharacter character) {
 		return "";
 	};

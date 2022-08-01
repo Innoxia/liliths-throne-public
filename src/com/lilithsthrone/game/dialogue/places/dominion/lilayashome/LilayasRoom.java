@@ -114,9 +114,9 @@ public class LilayasRoom {
 					public void effects() {
 						List<AbstractClothingType> panties = new ArrayList<>();
 						panties.add(ClothingType.getClothingTypeFromId("innoxia_groin_lacy_panties"));
-						panties.add(ClothingType.GROIN_PANTIES);
-						panties.add(ClothingType.GROIN_SHIMAPAN);
-						panties.add(ClothingType.GROIN_CROTCHLESS_PANTIES);
+						panties.add(ClothingType.getClothingTypeFromId("innoxia_groin_panties"));
+						panties.add(ClothingType.getClothingTypeFromId("innoxia_groin_shimapan"));
+						panties.add(ClothingType.getClothingTypeFromId("innoxia_groin_crotchless_panties"));
 						
 						lilayasPanties = Main.game.getItemGen().generateClothing(panties.get(Util.random.nextInt(panties.size())), false);
 					}
