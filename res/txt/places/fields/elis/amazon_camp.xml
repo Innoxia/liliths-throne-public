@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="EXTERIOR"><![CDATA[
+	<p>
+		TODO exterior of Amazons' camp. Woods, tents, guards at entrances, campfires, etc.
+	</p>
+	<p>
+		Although the guards look like they'll try to block your entry, once they know who you are you'll surely be allowed in.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

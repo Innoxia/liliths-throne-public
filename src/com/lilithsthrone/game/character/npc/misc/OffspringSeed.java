@@ -537,6 +537,8 @@ public class OffspringSeed implements XMLSaving {
 	public void setConceptionDate(LocalDateTime conceptionDate) { this.conceptionDate = conceptionDate; }
 	
 	public Body getBody() {	return body; }
+
+	public BodyMaterial getBodyMaterial() { return getBody().getBodyMaterial(); }
 	
 	public void setBody(Body body) { this.body = body; }
 	

@@ -231,7 +231,7 @@ public class BodyChanging {
 			if(Main.game.getCurrentDialogueNode()==BODY_CHANGING_SAVE_LOAD) {
 				return new Response("Save/Load", "You are already in this screen!", null);
 			}
-			return new Response("Save/Load", 
+			return new Response("Save/Load",
 					UtilText.parse(getTarget(), "Save or load transformation presets, allowing you to quickly switch your appearance."),
 					BODY_CHANGING_SAVE_LOAD) {
 				@Override
@@ -244,7 +244,7 @@ public class BodyChanging {
 			if(Main.game.getCurrentDialogueNode()==BODY_CHANGING_MAKEUP) {
 				return new Response("Makeup (debug)", "You are already in this screen!", null);
 			}
-			return new Response("Makeup (debug)", 
+			return new Response("Makeup (debug)",
 					UtilText.parse(getTarget(), "Change aspects of [npc.namePos] makeup. (This transformation menu is only available in the debug screen.)"),
 					BODY_CHANGING_MAKEUP);
 			
@@ -655,9 +655,10 @@ public class BodyChanging {
 							+ CharacterModificationUtils.getSelfTransformTailChoiceDiv(
 									(getTarget().isElemental()
 											?allRaces
-											:(removeNoneFromTailChoices()||isSelfTFMenu()
-												?getMinorPartsDemonRaces(true)
-												:Util.newArrayListOfValues(Race.DEMON))),
+											:getMinorPartsDemonRaces(true)),
+//											:(removeNoneFromTailChoices()||isSelfTFMenu()
+//												?getMinorPartsDemonRaces(true)
+//												:Util.newArrayListOfValues(Race.DEMON))),
 									removeNoneFromTailChoices())
 							+ CharacterModificationUtils.getSelfTransformTailLengthDiv()
 							+"</div>"
@@ -677,11 +678,12 @@ public class BodyChanging {
 
 								+"<div style='clear:left;'>"
 									+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(
-										(getTarget().isElemental())
+										(getTarget().isElemental()
 											?allRaces
-											:(!removeNoneFromWingChoices()
-												?Util.newArrayListOfValues(Race.DEMON)
-												:getMinorPartsDemonRaces(true)),
+											:getMinorPartsDemonRaces(true)),
+//											:(!removeNoneFromWingChoices()
+//												?Util.newArrayListOfValues(Race.DEMON)
+//												:getMinorPartsDemonRaces(true)),
 										removeNoneFromWingChoices())
 									+ CharacterModificationUtils.getSelfTransformWingSizeDiv()
 								+"</div>"
@@ -1226,8 +1228,7 @@ public class BodyChanging {
 							+"</div>"
 
 							+ "<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformAntennaChoiceDiv(
-							(getMinorPartsDemonRaces(true)))
+							+ CharacterModificationUtils.getSelfTransformAntennaChoiceDiv((getMinorPartsDemonRaces(true)))
 							+ CharacterModificationUtils.getSelfTransformAntennaSizeDiv()
 							+"</div>"
 
@@ -2059,7 +2060,7 @@ public class BodyChanging {
 						
 							+ "<div style='width:calc(90% - 8px); padding:0; margin:0 0 0 8px; position:relative; float:left;'>"
 								+ "<p style='margin:0; padding:2px;'>"+displayName+"</p>"
-								+ "<p style='margin:0; padding:2px;'>[style.colourDisabled(data/enchantments/)]"+baseName+"[style.colourDisabled(.xml)]</p>"
+								+ "<p style='margin:0; padding:2px;'>[style.colourDisabled(data/transformation_presets/)]"+baseName+"[style.colourDisabled(.xml)]</p>"
 							+"</div>"
 						+ "</div>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px);text-align:center; background:transparent;'>"

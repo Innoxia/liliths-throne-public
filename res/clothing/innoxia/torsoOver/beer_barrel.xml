@@ -105,6 +105,7 @@
 			<tag>PREVENTS_COMBAT_ESCAPE</tag>
 			<tag>LOOSE_GROIN</tag>
 			<tag>NOT_FOR_SALE</tag>
+			<tag>FITS_ARM_WINGS</tag>
 		</itemTags>
 	</coreAttributes>
 	

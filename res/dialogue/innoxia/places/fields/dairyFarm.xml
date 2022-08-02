@@ -2066,6 +2066,64 @@
 				]]></effects>
 			</response>
 			
+			<!-- Alarm Clock: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[9]]></index>
+				<responseTitle><![CDATA[Set alarm]]></responseTitle>
+				<responseTooltip><![CDATA[Set the alarm on your phone, so that you can wake at a specific time.]]></responseTooltip>
+				<nextDialogue stripContent="false"><![CDATA[ROOM_SET_ALARM]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[[#game.saveDialogueNode()]]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[
+					#IF(flags.getSavedLong('player_phone_alarm') < 0)
+						Rest until alarm (unset)
+					#ELSE
+						Rest until alarm ([#
+							var alarm = flags.getSavedLong('player_phone_alarm');
+							var alarmObj = game.getCustomTime(alarm/60, alarm%60, 0);
+							game.getDisplayTime(alarmObj)
+						])
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.getSavedLong('player_phone_alarm') < 0)
+						[style.colourBad(Your alarm is unset!)]
+					#ELSE
+						Rest for
+						#IF((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1) >= 60)
+							 [#~~((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1) / 60)] hours,
+						#ENDIF
+						#IF((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1) % 60 != 0)
+							 [#~~((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1) % 60)] minutes,
+						#ENDIF
+						 until your alarm goes off. As well as replenishing your [#ATTRIBUTE_HEALTH_MAXIMUM.getName()] and [#ATTRIBUTE_MANA_MAXIMUM.getName()], you will also get the 'Well Rested' status effect.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.getSavedLong('player_phone_alarm') < 0)
+						null
+					#ELSE
+						innoxia_places_fields_dairyFarm_dormitory
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[
+					[#~~(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1)]
+				]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'DORMITORY_REST'))]
+					[#pc.applySleep(~~(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1))]
+					#IF(((game.getHourOfDay() + ((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1)/60)) % 24 < 1) ||
+						((game.getHourOfDay() + ((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1)/60)) % 24 >= 5))
+						[#dale.returnToHome()]
+					#ENDIF
+				]]></effects>
+			</response>
+			
 			<!-- Vending Machine: -->
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>

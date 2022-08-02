@@ -195,8 +195,8 @@ public class Cultist extends NPC {
 		
 		List<AbstractClothingType> clothingChoices = new ArrayList<>();
 		
-		clothingChoices.add(ClothingType.GROIN_CROTCHLESS_PANTIES);
-		clothingChoices.add(ClothingType.GROIN_CROTCHLESS_THONG);
+		clothingChoices.add(ClothingType.getClothingTypeFromId("innoxia_groin_crotchless_panties"));
+		clothingChoices.add(ClothingType.getClothingTypeFromId("innoxia_groin_crotchless_thong"));
 		equipClothingFromNowhere(Main.game.getItemGen().generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
 		
 		clothingChoices.clear();

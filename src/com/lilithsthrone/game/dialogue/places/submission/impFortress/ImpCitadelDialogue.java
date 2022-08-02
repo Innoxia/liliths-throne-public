@@ -120,7 +120,7 @@ public class ImpCitadelDialogue {
 		}
 	}
 	
-	public static void clearFortress() {
+	public static void clearFortress(boolean withQuestProgress) {
 		
 		for(GameCharacter character : getBossGroup(false)) {
 			character.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
@@ -133,7 +133,7 @@ public class ImpCitadelDialogue {
 		((NPC) getBoss()).equipClothing(EquipClothingSetting.getAllClothingSettings()); // In case the player used steal on her.
 		
 		// Increment quest:
-		if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_2_B_SIRENS_CALL) {
+		if(withQuestProgress && Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_2_B_SIRENS_CALL) {
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL));
 		}
 		
@@ -365,12 +365,10 @@ public class ImpCitadelDialogue {
 	}
 	
 	public static final DialogueNode ENTRANCE = new DialogueNode("Gateway", "", false) {
-		
 		@Override
 		public int getSecondsPassed() {
 			return 60;
 		}
-		
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -1959,7 +1957,7 @@ public class ImpCitadelDialogue {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_RING_TRICK", getAllCharacters()));
 						Main.game.getTextEndStringBuilder().append(getBoss().incrementAffection(Main.game.getPlayer(), -50));
 						Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.LYSSIETHS_RING));
-						clearFortress();
+						clearFortress(true);
 					}
 				};
 				
@@ -1998,7 +1996,7 @@ public class ImpCitadelDialogue {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_RING_TRICK", getAllCharacters()));
 						Main.game.getTextEndStringBuilder().append(getBoss().incrementAffection(Main.game.getPlayer(), -50));
 						Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.LYSSIETHS_RING));
-						clearFortress();
+						clearFortress(true);
 					}
 				};
 				
@@ -2078,7 +2076,7 @@ public class ImpCitadelDialogue {
 							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_COLLAPSE_ESCAPE_GUARDS_IMPS", getAllCharacters()));
 						}
 						
-						clearFortress();
+						clearFortress(true);
 					}
 				};
 			}

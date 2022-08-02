@@ -18,7 +18,6 @@
 		<clothingSet/>
 		<imageName>ankh_necklace.svg</imageName>
 		<imageEquippedName slot="WRIST">ankh_necklace.svg</imageEquippedName>
-		<enchantmentLimit>5</enchantmentLimit>
 		<effects/>
 		
 		<blockedPartsList slot="NECK">

@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.character.npc.submission.GamblingDenPatron;
+import com.lilithsthrone.game.character.npc.submission.RatWarrensCaptive;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -29,6 +30,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.story.LyssiethReveal;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
@@ -49,6 +51,12 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class SubmissionGenericPlaces {
+	
+	private static void applyClaireMeetingEffects() {
+		if(Main.game.getNpc(Claire.class).isVisiblyPregnant()) {
+			Main.game.getNpc(Claire.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+		}
+	}
 
 	public static final DialogueNode WALKWAYS = new DialogueNode("Walkways", "", false) {
 		
@@ -952,41 +960,86 @@ public class SubmissionGenericPlaces {
 	// Entrance and exits:
 
 	public static final DialogueNode SEWER_ENTRANCE = new DialogueNode("Enforcer Checkpoint", "", false) {
-
 		@Override
 		public int getSecondsPassed() {
 			return 3*60;
 		}
-		
+		@Override
+		public boolean isTravelDisabled() {
+			return Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR) && Main.game.getPlayer().isHasSlaverLicense() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.milkersClaireDialogue);
+		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "SEWER_ENTRANCE");
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Dominion", "Head back up to Dominion.", PlaceType.DOMINION_EXIT_TO_SUBMISSION.getDialogue(false)){
-					@Override
-					public void effects() {
-						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_EXIT_TO_SUBMISSION, false);
-					}
-				};
-
-			} else if (index == 2) {
-				return new Response("Claire", "Approach Claire and say hello to her.", CLAIRE);
-
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR) && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.milkersClaireDialogue)) {
+				return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "SEWER_ENTRANCE_CLAIRE_MILKERS");
 			} else {
-				return null;
+				return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "SEWER_ENTRANCE");
 			}
 		}
-	};
-	
-	private static void applyClaireMeetingEffects() {
-		if(Main.game.getNpc(Claire.class).isVisiblyPregnant()) {
-			Main.game.getNpc(Claire.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR) && Main.game.getPlayer().isHasSlaverLicense() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.milkersClaireDialogue)) {
+				if (index == 1) {
+					return new Response("Take milkers", "Tell Claire that you'll take responsibility for the slaves recovered from the Rat Warrens.", SEWER_ENTRANCE_MILKERS_RESOLVED) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.milkersClaireDialogue, true);
+							Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "SEWER_ENTRANCE_CLAIRE_MILKERS_ACCEPTED"));
+							if(RatWarrensDialogue.getMilkers().isEmpty()) {
+								RatWarrensDialogue.spawnMilkers();
+							}
+							for(GameCharacter milker : RatWarrensDialogue.getMilkers()) {
+								((RatWarrensCaptive)milker).applyMilkingEquipment(false, Util.newArrayListOfValues(InventorySlot.NIPPLE, InventorySlot.VAGINA));
+								milker.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
+								Main.game.getPlayer().addSlave((NPC) milker);
+								milker.setObedience(100);
+							}
+						}
+					};
+
+				} else if (index == 2) {
+					return new Response("Decline", "Tell Claire that you're not interested in the slaves recovered from the Rat Warrens.", SEWER_ENTRANCE_MILKERS_RESOLVED) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.milkersClaireDialogue, true);
+							Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "SEWER_ENTRANCE_CLAIRE_MILKERS_DECLINED"));
+							RatWarrensDialogue.banishMilkers();
+						}
+					};
+				}
+				
+			} else {
+				if (index == 1) {
+					return new Response("Dominion", "Head back up to Dominion.", PlaceType.DOMINION_EXIT_TO_SUBMISSION.getDialogue(false)){
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_EXIT_TO_SUBMISSION, false);
+						}
+					};
+
+				} else if (index == 2) {
+					return new Response("Claire", "Approach Claire and say hello to her.", CLAIRE);
+				}
+			}
+			
+			return null;
 		}
-	}
+	};
+
+	public static final DialogueNode SEWER_ENTRANCE_MILKERS_RESOLVED = new DialogueNode("", "", false, true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return SEWER_ENTRANCE.getResponse(responseTab, index);
+		}
+	};
 	
 	public static final DialogueNode CLAIRE = new DialogueNode("Claire", "", true) {
 

@@ -21,7 +21,8 @@ public enum ItemTag {
 	
 	REINDEER_GIFT, // Can be found in the presents that the reindeer sell (who appear in Dominion during winter months).
 	SOLD_BY_RALPH, // Will also be used for any future consumable and miscellaneous item vendors.
-	SOLD_BY_NYAN, // Clothing
+	SOLD_BY_NYAN, // Clothing (is added to all clothing vendors)
+	SOLD_BY_MONICA, // Clothing (is added to Elis only)
 	SOLD_BY_KATE, // Jewellery
 	SOLD_BY_FINCH, // BDSM and sex-related stuff
 	SOLD_BY_VICKY, // Weapons
@@ -78,8 +79,13 @@ public enum ItemTag {
 	NO_RANDOM_SPAWN,
 	
 	UNIQUE_NO_NPC_EQUIP, // Prevents the clothing/weapon from being equipped onto an NPC. Only works on items with a 'UNIQUE' rarity level
+
+	UNLOCKS_ENCOUNTER( // Special tag which has no effect other than displaying text for clothing stickers. Used for the 'rental mommy' tshirt, so look there for an example.
+			Util.newArrayListOfValues(
+			"[style.colourBlueLight(Can cause an encounter)]"),
+			false),
 	
-	NIGHT_VISION_SELF(  // Makes this clothing or weapon provide immunity to the darkness debuff for just the wearer while equipped
+	NIGHT_VISION_SELF( // Makes this clothing or weapon provide immunity to the darkness debuff for just the wearer while equipped
 			Util.newArrayListOfValues(
 					"[style.colourGood(Negates 'Darkness' effect)]"),
 			false),

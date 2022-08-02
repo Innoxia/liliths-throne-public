@@ -615,7 +615,7 @@
 			Deciding to spend some time getting to know [npc.name] a little better, you ask, [pc.speech(How are you doing these days, [npc.name]? Do you have somewhere safe to sleep, and do you get enough to eat?)]
 		</p>
 		<p>
-			[npc.Name] casts [npc.her] [npc.eyes] to the floor, shuffling [npc.her] [npc.feet] a little as [npc.she] replies, [npc.speech(Nobody ever asks me stuff like that... I guess I'm ok, I usually get enough money to buy food and stuff. I don't really have any fixed place to sleep, but the tunnels nearest to the street are usually safe enough...)]
+			[npc.Name] casts [npc.her] [npc.eyes] to the floor, shuffling [npc.her] [npc.feet] a little as [npc.she] replies, [npc.speech(Nobody ever asks me stuff like that... I guess I'm ok, I usually get enough money to buy food and stuff. I don't really have any fixed place to sleep though...)]
 		</p>
 		<p>
 			[pc.speech(Do you have any friends or family that can help you?)] you ask, [npc.namePos] previous answer making you more concerned than ever for [npc.her] well-being.
@@ -653,7 +653,7 @@
 			Having got to know [npc.name] fairly well by now, and wanting to spend some time talking with [npc.herHim], you ask, [pc.speech(How are you, [npc.name]? You're still getting enough to eat, right?)]
 		</p>
 		<p>
-			[npc.speech(Yeah, I'm eating well enough, thanks for asking,)] [npc.she] replies, smiling happily at you. [npc.speech(Things really do seem to be getting better for me recently. I mean, I'm still living rough out here in the tunnels, but now at least I've got a friend...)]
+			[npc.speech(Yeah, I'm eating well enough, thanks for asking,)] [npc.she] replies, smiling happily at you. [npc.speech(Things really do seem to be getting better for me recently. I mean, I'm still living rough down here, but now at least I've got a friend...)]
 		</p>
 		<p>
 			You can't help but smile as you hear [npc.name] saying that, and reply, [pc.speech(I'm glad to hear that you're doing ok for yourself. I'm happy to call you my friend as well. Just make sure to take care of yourself, ok? I'm always concerned about you, and wondering how you're getting on.)]

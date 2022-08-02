@@ -3,7 +3,9 @@ package com.lilithsthrone.game.dialogue.npcDialogue.elemental;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.PerkManager;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
@@ -18,12 +20,14 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
+import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.3.9
@@ -107,7 +111,11 @@ public class ElementalDialogue {
 							true, true,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getElemental(), SexSlotStanding.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(getElemental(), SexSlotStanding.STANDING_SUBMISSIVE))) {
+								public boolean isCharacterAbleToStopSex(GameCharacter character) {
+									return character.isPlayer();
+								}
+							},
 							null,
 							null,
 							ELEMENTAL_AFTER_SEX,
@@ -163,7 +171,7 @@ public class ElementalDialogue {
 					return new Response("Perks", "Assign [el.namePos] perk points.", ELEMENTAL_PERKS);
 					
 				} else if(index==4) {
-					return new Response("Set names", "Change [el.namePos] name or tell [el.herHim] to call you by a different name.", ELEMENTAL_CHOOSE_NAME);
+					return new Response("Fetishes", "Use your intimate psychic connection with [el.name] to alter [el.her] fetishes based on which fetishes you have.", ELEMENTAL_FETISHES);
 					
 				}
 				// index==5 is transform toggle defined below
@@ -201,6 +209,10 @@ public class ElementalDialogue {
 							Main.game.updateResponses();
 						}
 					};
+					
+				} else if(index==9) {
+					return new Response("Set names", "Change [el.namePos] name or tell [el.herHim] to call you by a different name.", ELEMENTAL_CHOOSE_NAME);
+					
 				}
 			}
 			
@@ -420,7 +432,7 @@ public class ElementalDialogue {
 					&& ELEMENTAL_START.getResponse(responseTab, index).getNextDialogue()==ELEMENTAL_PERKS) {
 				return new Response("Perks", "You are already assigning [el.namePos] perk points!", null);
 			}
-			if(responseTab==1 && index==9) {
+			if(responseTab==1 && index==11) {
 				return new Response("Reset perks", "Reset all perks and traits, refunding all points spent. (This is a temporary action while the perk tree is still under development.)", ELEMENTAL_PERKS) {
 					@Override
 					public void effects() {
@@ -431,7 +443,116 @@ public class ElementalDialogue {
 			return ELEMENTAL_START.getResponse(responseTab, index);
 		}
 	};
-	
+
+	public static final DialogueNode ELEMENTAL_FETISHES = new DialogueNode("[el.NamePos] Fetishes", "", true) {
+		@Override
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			
+			sb = new StringBuilder(
+					"<details>"
+						+ "<summary>[style.boldFetish(Fetish Information)]</summary>"
+							+ "You can select [el.namePos] [style.colourLust(desire)] for each fetish [style.colourArcane(for free)],"
+							+ " or choose to take the associated [style.colourFetish(fetish)] for a cost of [style.colourArcane(arcane essences)].<br/><br/>"
+							+ "Choosing a desire will affect bonus lust gains in sex, while taking a fetish will permanently lock [el.namePos] desire to 'love', and also give [el.herHim] special bonuses."
+							+ " Fetishes can only be removed through enchanted potions.<br/><br/>"
+							+ "[el.NamePos] currently selected desire has a "+PresetColour.FETISH.getName()+" border, but [el.her] true desire (indicated by the coloured desire icon) may be modified by enchanted clothes or other items.<br/><br/>"
+							+ "[el.name] will earn experience for each fetish through performing related actions in sex."
+							+ " Experience is earned regardless of whether or not [el.she] has the associated fetish."
+							+ " Higher level fetishes will cause both [el.name] and [el.her] partner to gain more arousal from related sex actions, as well as increase the fetish's bonuses.<br/><br/>"
+							+ "Finally, derived fetishes cannot be directly unlocked, but are instead automatically applied when [el.name] meets their requirements."
+					+ "</details>");
+			
+			// Normal fetishes:
+
+			sb.append("<div class='container-full-width' style='text-align:center; font-weight:bold;'><h6>Fetishes</h6></div>");
+			sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_DOMINANT, Fetish.FETISH_SUBMISSIVE));
+			sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_VAGINAL_GIVING, Fetish.FETISH_VAGINAL_RECEIVING));
+			sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_PENIS_GIVING, Fetish.FETISH_PENIS_RECEIVING));
+			if(Main.game.isAnalContentEnabled()) {
+				sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_ANAL_GIVING, Fetish.FETISH_ANAL_RECEIVING));
+			}
+			sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_BREASTS_OTHERS, Fetish.FETISH_BREASTS_SELF));
+			if(Main.game.isLactationContentEnabled()) {
+				sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_LACTATION_OTHERS, Fetish.FETISH_LACTATION_SELF));
+			}
+			sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_ORAL_RECEIVING, Fetish.FETISH_ORAL_GIVING));
+			sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_LEG_LOVER, Fetish.FETISH_STRUTTER));
+			if(Main.game.isFootContentEnabled()) {
+				sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_FOOT_GIVING, Fetish.FETISH_FOOT_RECEIVING));
+			}
+			if(Main.game.isArmpitContentEnabled()) {
+				sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_ARMPIT_GIVING, Fetish.FETISH_ARMPIT_RECEIVING));
+			}
+			sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_CUM_STUD, Fetish.FETISH_CUM_ADDICT));
+			sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_DEFLOWERING, Fetish.FETISH_PURE_VIRGIN));
+			sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_IMPREGNATION, Fetish.FETISH_PREGNANCY));
+			sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_TRANSFORMATION_GIVING, Fetish.FETISH_TRANSFORMATION_RECEIVING));
+			sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_KINK_GIVING, Fetish.FETISH_KINK_RECEIVING));
+			sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_SADIST, Fetish.FETISH_MASOCHIST));
+			if(Main.game.isNonConEnabled()) {
+				sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_NON_CON_DOM, Fetish.FETISH_NON_CON_SUB));
+			}
+
+			sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_BONDAGE_APPLIER, Fetish.FETISH_BONDAGE_VICTIM));
+			sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_DENIAL, Fetish.FETISH_DENIAL_SELF));
+			sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_VOYEURIST, Fetish.FETISH_EXHIBITIONIST));
+			sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_BIMBO, Fetish.FETISH_CROSS_DRESSER));
+			if(Main.game.isIncestEnabled()) {
+				sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_MASTURBATION, Fetish.FETISH_INCEST));
+				if(Main.game.isPenetrationLimitationsEnabled()) {
+					sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_SIZE_QUEEN, null));
+				}
+			} else {
+				if(Main.game.isPenetrationLimitationsEnabled()) {
+					sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_MASTURBATION, Fetish.FETISH_SIZE_QUEEN));
+				} else {
+					sb.append(PhoneDialogue.getFetishEntry(getElemental(), Fetish.FETISH_MASTURBATION, null));
+				}
+			}
+			
+			// Derived fetishes:
+
+			sb.append("<div class='container-full-width' style='text-align:center; font-weight:bold; margin-top:16px;'><h6>Derived Fetishes</h6></div>");
+			sb.append("<div class='fetish-container'>");
+			
+			for(AbstractFetish fetish : Fetish.getAllFetishes()) {
+				if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
+					sb.append(
+							"<div id='fetishUnlock" + Fetish.getIdFromFetish(fetish) + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
+							? " owned' style='border:2px solid " + PresetColour.FETISH.getShades()[1] + ";'>"
+							: (fetish.isAvailable(Main.game.getPlayer())
+									? " unlocked' style='border:2px solid " +  PresetColour.TEXT_GREY.toWebHexString() + ";" + "'>"
+									: " locked' style='border:2px solid " + PresetColour.TEXT_GREY.toWebHexString() + ";'>"))
+							+ "<div class='fetish-icon-content'>"+fetish.getSVGString(Main.game.getPlayer())+"</div>"
+							+ (Main.game.getPlayer().hasFetish(fetish) // Overlay to create disabled effect:
+									? ""
+									: (fetish.isAvailable(Main.game.getPlayer())
+											? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.5; border-radius:5px;'></div>"
+											: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>"))
+							+ "</div>");
+				}
+			}
+			
+			sb.append("</div>");
+			
+			
+			return sb.toString();
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return ELEMENTAL_START.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(ELEMENTAL_START.getResponse(responseTab, index)!=null
+					&& ELEMENTAL_START.getResponse(responseTab, index).getNextDialogue()==ELEMENTAL_FETISHES) {
+				return new Response("Fetishes", "You are already assigning [el.namePos] fetishes!", null);
+			}
+			//TODO
+			return ELEMENTAL_START.getResponse(responseTab, index);
+		}
+	};
 
 	public static final DialogueNode ELEMENTAL_CHOOSE_NAME = new DialogueNode("[el.Name]", "", true) {
 		@Override
@@ -502,7 +623,7 @@ public class ElementalDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(ELEMENTAL_START.getResponse(responseTab, index)!=null
 					&& ELEMENTAL_START.getResponse(responseTab, index).getNextDialogue()==ELEMENTAL_CHOOSE_NAME) {
-				return new Response("Perks", "You are already assigning [el.namePos] perk points!", null);
+				return new Response("Set names", "You are already telling [el.name] what names [el.she] should use!", null);
 			}
 			return ELEMENTAL_START.getResponse(responseTab, index);
 		}

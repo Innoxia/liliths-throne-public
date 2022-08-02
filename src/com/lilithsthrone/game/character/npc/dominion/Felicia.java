@@ -174,7 +174,7 @@ public class Felicia extends NPC {
 
         this.unequipAllClothingIntoVoid(true, true);
                        
-        this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_PANTIES, PresetColour.CLOTHING_BLACK_JET, false), true, this);
+        this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_panties", PresetColour.CLOTHING_BLACK_JET, false), true, this);
         this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_BLACK_JET, false), true, this);
         this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK_JET, false), true, this);
         this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_heart_necklace", PresetColour.CLOTHING_RED_BURGUNDY, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD, false), true, this);

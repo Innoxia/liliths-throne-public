@@ -14,8 +14,6 @@
 		<imageName>kyudogi.svg</imageName>
 		<imageEquippedName/>
 		<stickers/>
-		
-		<enchantmentLimit/>
 		<effects>
               <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="BOOST" timer="3500" type="CLOTHING"/>
               <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="BOOST" timer="3500" type="CLOTHING"/>

@@ -892,7 +892,7 @@
 		<content folderPath="txt/places/fields/elis/tavern_f0">MERAXIS_APPROACH</content>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled>false</travelDisabled>
+		<travelDisabled>true</travelDisabled>
 		<responses>
 			<!-- Leave -->
 			<response>
@@ -966,6 +966,22 @@
 					#ELSE
 						null
 					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<!-- Themiscyra -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_3_D_TO_THEMISCYRA]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Themiscyra]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis that you're ready to go with her to Themiscyra to find out if the town is suffering from Lunette's raiders.
+					<br/>[style.italicsCombat(Be prepared, for this will start a lengthy section of the main quest during which there may be difficult fights!)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					innoxia_places_fields_themiscyra_journey_start
 				]]></nextDialogue>
 			</response>
 			<!-- Demon TF -->

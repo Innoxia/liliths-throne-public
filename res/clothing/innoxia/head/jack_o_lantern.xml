@@ -14,7 +14,6 @@
 		<clothingSet/>
 		<imageName>jack_o_lantern.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit/>
 		<effects/>
 		
 		<stickers>
@@ -42,8 +41,6 @@
 				</sticker>
 			</category>
 		</stickers>
-		
-		<enchantmentLimit/>
 		
 		<effects/>
 		

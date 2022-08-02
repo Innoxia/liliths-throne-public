@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -53,7 +54,7 @@ public abstract class AbstractRace {
 	private FurryPreference defaultFemininePreference;
 	private FurryPreference defaultMasculinePreference;
 	private boolean affectedByFurryPreference;
-	private Map<Fetish, Map<String, Integer>> racialFetishModifiers;
+	private Map<AbstractFetish, Map<String, Integer>> racialFetishModifiers;
 
 	private boolean feralPartsAvailable;
 	private boolean ableToSelfTransform;
@@ -142,7 +143,7 @@ public abstract class AbstractRace {
 		
 		this.affectedByFurryPreference = affectedByFurryPreference;
 		
-		this.racialFetishModifiers = new HashMap<Fetish, Map<String, Integer>>();
+		this.racialFetishModifiers = new HashMap<AbstractFetish, Map<String, Integer>>();
 
 		this.feralPartsAvailable = true;
 		this.ableToSelfTransform = false;
@@ -255,7 +256,7 @@ public abstract class AbstractRace {
 				if(coreElement.getOptionalFirstOf("racialFetishModifiers").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("racialFetishModifiers").getAllOf("fetish")) {
 						try {
-							Fetish fetish = Fetish.valueOf(e.getTextContent());
+							AbstractFetish fetish = Fetish.getFetishFromId(e.getTextContent());
 							HashMap<String, Integer> weights = new HashMap<>();
 							if(!e.getAttribute("love").isEmpty()) {
 								weights.put("love", Integer.parseInt(e.getAttribute("love")));
@@ -421,7 +422,7 @@ public abstract class AbstractRace {
 		return defaultMasculinePreference;
 	}
 
-	public Map<Fetish, Map<String, Integer>> getRacialFetishModifiers() {
+	public Map<AbstractFetish, Map<String, Integer>> getRacialFetishModifiers() {
 		return racialFetishModifiers;
 	}
 }

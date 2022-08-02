@@ -6,7 +6,7 @@ import com.lilithsthrone.game.character.gender.PronounType;
 // TODO: needs plural forms
 /**
  * @since 0.2.0
- * @version 0.4
+ * @version 0.4.4.1
  * @author Innoxia, orvail
  */
 public enum Relationship {
@@ -22,6 +22,7 @@ public enum Relationship {
     GrandChild("grand-daughter", "grand-son", "grand-child", 1),
     GrandGrandChild("grand-grand-daughter", "grand-grand-son", "grand-grand-child", 2),
     Sibling("sister", "brother", "sibling", 0),
+    SiblingTwin("twin-sister", "twin-brother", "twin", 0),
     HalfSibling("half-sister", "half-brother", "half-sibling", 1.25),
     Cousin("cousin", 2),
     Pibling("aunt", "uncle", "pibling", 1.5),

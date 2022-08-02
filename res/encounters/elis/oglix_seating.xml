@@ -9,7 +9,7 @@
 		<encounter>
 			<name><![CDATA[assaulted]]></name>
 			<chanceToTrigger opportunisticEncounter="true"><![CDATA[
-				#IF(flags.hasFlag(FLAG_innoxia_oglix_tavern_pacified))
+				#IF(flags.hasFlag(FLAG_innoxia_oglix_tavern_pacified) || !flags.hasFlag(FLAG_innoxia_oglix_tavern_seating_seen))
 					0
 				#ELSE
 					25
