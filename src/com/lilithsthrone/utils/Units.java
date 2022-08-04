@@ -63,7 +63,6 @@ public enum Units {
             Main.getProperties().setValue(PropertyValue.metricSizes, isMetric);
             Main.getProperties().setValue(PropertyValue.metricFluids, isMetric);
             Main.getProperties().setValue(PropertyValue.metricWeights, isMetric);
-            Main.getProperties().setValue(PropertyValue.metricWeights, isMetric);
             Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !twelveHourCountries.contains(countryCode));
             Main.getProperties().setValue(PropertyValue.internationalDate, isMetric);
         }
