@@ -79,6 +79,10 @@ public class PopulationType {
 	
 	public static AbstractPopulationType AMAZON = new AbstractPopulationType("Amazon", "Amazons") {};
 	
+	public static AbstractPopulationType LUNETTE_DAUGTHER = new AbstractPopulationType("Lunette's daughter", "Lunette's daughters") {};
+	
+	public static AbstractPopulationType COCK_SLEEVE = new AbstractPopulationType("cock-sleeve", "cock-sleeves") {};
+	
 	
 	private static List<AbstractPopulationType> allPopulationTypes = new ArrayList<>();
 	private static Map<AbstractPopulationType, String> populationToIdMap = new HashMap<>();

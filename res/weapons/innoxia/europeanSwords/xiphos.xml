@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<value>3500</value>
+		<melee>true</melee>
+		<twoHanded>false</twoHanded>
+		<determiner><![CDATA[]]></determiner>
+		<name><![CDATA[xiphos]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[xiphe]]></namePlural>
+		<description><![CDATA[A double-edged, one-handed shortsword, with a straight, #IF(game.isMetricSizes())60cm#ELSE24 inch#ENDIF blade. The ancient Greeks used it as a secondary battlefield weapon after the dory or javelin.]]></description> 
+		<attackDescriptor>slash</attackDescriptor>
+		<attackTooltipDescription><![CDATA[Slash at [npc2.name] with your xiphos.]]></attackTooltipDescription>
+		<rarity>COMMON</rarity>
+		<weaponSet/>
+		<equipText><![CDATA[[npc.Name] [npc.verb(position)] [npc.her] xiphos at [npc.her] hip, ready to draw it at a moment's notice.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(sheath)] [npc.her] xiphos, before putting it away.]]></unequipText>
+		<imageName>xiphos_sheathed.svg</imageName> 
+		<imageEquippedName>xiphos.svg</imageEquippedName> 
+		<damage>25</damage>
+		<arcaneCost>0</arcaneCost>
+		<damageVariance>LOW</damageVariance> 
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+			<damageType>FIRE</damageType>
+			<damageType>ICE</damageType>
+			<damageType>POISON</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<effects> 
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
+		</effects>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+			<colour>CLOTHING_DESATURATED_BROWN_DARK</colour>
+		</primaryColours> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		
+		<customColours>
+			<customColour copyColourIndex="0" c0="#ABC837" c1="#BCD35F" c2="#CDDE87" c3="#DDE9AF" c4="#EEF4D7">
+				<defaultColours>
+					<colour>CLOTHING_BLACK</colour>
+					<colour>CLOTHING_DESATURATED_BROWN</colour>
+					<colour>CLOTHING_DESATURATED_BROWN_DARK</colour>
+				</defaultColours> 
+				<extraColours values="ALL"/>
+			</customColour>
+		</customColours>
+		
+		<itemTags>
+			<tag>WEAPON_BLADE</tag>
+		</itemTags>
+		
+	</coreAttributes>
+	
+	<hitDescriptions>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(slash)] [npc.her] xiphos at [npc2.name], grinning as the ethereal arcane blade travels through [npc2.her] body!
+		]]></hitText>
+		<hitText><![CDATA[
+		Slashing out at [npc2.name] with [npc.her] xiphos, [npc.name] [npc.verb(grin)] as [npc.she] [npc.verb(see)] the ethereal blade travel straight through [npc2.her] body!
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(slash)] at [npc2.name] with [npc.her] xiphos, causing [npc2.herHim] to stagger back as the ethereal blade passes right through [npc2.her] chest!
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(slash)] [npc.her] xiphos at [npc2.name], but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+		<missText><![CDATA[
+		Slashing out at [npc2.name] with [npc.her] xiphos, [npc.name] [npc.verb(let)] out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(slash)] at [npc2.name] with [npc.her] xiphos, but [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>
