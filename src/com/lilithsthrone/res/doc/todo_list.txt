@@ -12,8 +12,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Engine/Modding:
 		Converted all groin clothing from hard-coded files to xml files (located in 'res/clothing/innoxia/groin').
 	
-	Items:
+	Gameplay:
+		Added the next section of the main quest, where you need to travel to Themiscyra to find out if it's being threatened by Lunette's daughters. (There are a few scenes marked as having placeholder dialogue. I'll get them filled in for the next update.)
+	
+	Weapons:
 		Added 'morning star' weapon (one-handed, sold by Vicky).
+		Added 'xiphos' weapon (one-handed, only obtainable during the Themiscyra quest for now).
+		
+	Clothing:
 		Added 'fur cloak' clothing item (over-torso/neck slot, androgynous, sold by Nyan).
 		Added 'nipple chain' clothing item (nipple piercing slot, androgynous, sold by Kate, two stickers to apply/remove extra chains).
 		Added 'horn chains' clothing item (horn slot, androgynous, sold by Kate, two stickers to apply/remove extra chains).
@@ -22,8 +28,12 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added 'peplos' clothing item (torso slot, feminine, sold by Monica).
 		Added 'himation' clothing item (over-torso slot, feminine, sold by Monica).
 		Added 'sandals' clothing item (foot slot, androgynous, sold by Monica).
-		Added a new consumable item, 'Amazonian's Secret', which is sold by Ralph. After consuming it, for 24 hours, when orgasming during a tribbing action, there's a chance to impregnate your partner (using fertility for the impregnation calculation instead of virility).
+		Added 'meander ring' clothing item (finger slot, androgynous, only obtainable during the Themiscyra quest for now).
 		The 'jockstrap' clothing item no longer incorrectly conceals the wearer's anus.
+		
+	Items:
+		Added 'Amazon's Secret' (sold by Ralph, applies a 24-hour effect: when orgasming during a tribbing action, there's a chance to impregnate your partner, using fertility for the impregnation calculation instead of virility).
+		Added 'Amazonian Ambrosia' (only obtainable during the Themiscyra quest for now, applies +femininity and +muscle).
 		
 	Sex:
 		When having dominant sex with your elemental, your elemental is no longer able to bring an end to the sex scene.
@@ -33,10 +43,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Other:
 		Nerfed the attribute bonuses gained from 'Lyssieth's true power' perk.
 		Added 'strutter tease' and 'leg lover tease' as fetish-related tease attacks for the 'strutter' and 'leg lover' fetishes, respectively.
-		Improved dialogue flow when using your elemental to intimmidate the imp guards in the fortresses in Submission.
+		Improved dialogue flow when using your elemental to intimidate the imp guards in the fortresses in Submission.
 		Added a 'side braids' hair style.
 		During the new 'bitch' content (where the player completely submits to a random NPC), the requirement for NPCs to have the selfish trait in order for them to take the player to be tattooed has been removed.
 		Added 'shaggy' as a non-standard covering modifier to cow fur.
+		The current time and date is now hidden during a bad end.
 	
 	Bugs:
 		Parsing fixes.
@@ -46,6 +57,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed bug in the rental mommy t-shirt encounters where the 'dommy' title would spawn dominant NPCs, and the 'subby' title would spawn submissive NPCs, instead of the other way around.
 		Fixed bug with the rental daddy t-shirt where the 'subby' text title was assigned to the 'bottom text' sticker category instead of 'top text'.
 		Unique NPCs no longer have a random chance to have the 'ahegao' perk (Takahashi is unaffected by this change).
+		Fixed issue where NPCs would not be targeting their intended partner in sex scenes which used the 'preferredTarget' variable.
 	
 	
 	[] PRs:
@@ -64,7 +76,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1626
 		[] #1489
 		
-	[] Bugs
+	[x] Bugs
 		[x] demon perk not working
 			[x] human options aren't available in the demon TF menu
 		[x] telekinetic shower typo 'You is...'
@@ -237,25 +249,64 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[x] test
 		[x] items below
 		[x] quest skip effects
-		[] Need to do a thorough test for game-breaking bugs
+		[x] Need to do a thorough test for game-breaking bugs
 			[x] main route
-			[] sex scenes
-			[] bad end
-			[] post-quest positioning checks
+			[x] raiders
+				[x] victory
+				[x] defeat
+					[x] sex scenes
+						[x] targeting is wrong - preferredTarget not working?
+							[x] Not working -> Main.sex.getSexManager().assignNPCTarget(character);
+							[x] assignNPCTarget is not setting preferred target...
+						[x] non-con
+						[x] non-con off
+			[x] lunexis
+				[x] watch
+				[x] victory
+				[x] defeat
+					[x] non-bad end
+						[x] non-con
+						[x] non-con off
+					[x] bad end
+				[x] block escape from combat
+			[x] move Lunexis bad end dialogue to bad end folder
+			[x] post-quest positioning checks
+			[x] camp is west, not north
 		[] writing
 			[x] Journey
 			[x] Aurokaris talk
-			[] Themiscyra place tiles
-			[] Aurokaris place tiles talk
-			[] add chuuni variations to JOURNEY_CENTAURS
+			[x] mention Aurochsia height in her intro
+			[x] Themiscyra place tiles
+			[x] Aurokaris place tiles talk
+			[x] add chuuni variations to JOURNEY_CENTAURS
+			[x] plaza conflict
+			[x] need Lunexis positioning check
+			[x] Lunexis sex preference
+			[x] Lunexis starting sex actions
+			[x] attack should be described as starting many hours ago
+			[x] Post-teleportation
 			[] raiders
-			[] plaza conflict
-			[] Post-teleportation
-			[] Bad end
-		[] treasures (all of which can only be obtained repeatedly later after Themiscyra is rebuilt)
-			[] smithies - xiphos
-			[] jewellers - greek key ring
-			[] wine merchants - wine amphora (Amazons' Nectar)
+			[x] Bad end
+				[x] apply training method
+				[x] Add cock-sleeves to palace
+				[x] add demon crowd on plaza and in palace
+				[x] fate of others as actions
+				[x] Hide date/time during bad end
+					[x] DoW
+					[x] tooltips
+					[x] toggle date display
+				[x] epilogue
+				[x] non-con option should say non-con may happen in bad ends regardless of setting
+			[x] Ursa speech colour to brown
+			[x] Amazon camp
+		[x] dev chat fixes
+		[x] treasures (all of which can only be obtained repeatedly later after Themiscyra is rebuilt)
+			[x] smithies - 2 xiphe
+			[x] jewellers - 3 meander rings
+			[x] wine merchants - wine amphora (Amazons' Nectar)
+				[x] +fem, +muscle
+		[] Add (affection_value) after affection description in character view page
+		[] move txt for lyssiethReveal to quest folder
 	
 	[x] Add Leotie artwork
 	[x] prevent unique NPCs from choosing ahegao perk

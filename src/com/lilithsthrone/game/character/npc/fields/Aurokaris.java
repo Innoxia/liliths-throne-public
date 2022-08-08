@@ -277,7 +277,7 @@ public class Aurokaris extends NPC {
 	@Override
 	public void turnUpdate() {
 		if(Main.game.getPlayer().getWorldLocation()==WorldType.getWorldTypeFromId("innoxia_fields_themiscyra")
-				&& Main.game.getPlayer().getQuest(QuestLine.MAIN)==Quest.MAIN_3_D_TO_THEMISCYRA
+				&& Main.game.getPlayer().getQuest(QuestLine.MAIN)==Quest.MAIN_3_E_THEMISCYRA_ATTACK
 				&& !Main.game.isBadEnd()
 				&& this.isPlayerKnowsName()) {
 			this.setLocation(Main.game.getPlayer(), false);

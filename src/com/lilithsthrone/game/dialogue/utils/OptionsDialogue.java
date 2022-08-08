@@ -2095,7 +2095,8 @@ public class OptionsDialogue {
 								"BAD_END",
 								PresetColour.GENERIC_TERRIBLE,
 								"Bad Ends",
-								"Toggle the ability to trigger 'bad ends', which effectively end the game for your character when encountered.",
+								"Toggle the ability to trigger 'bad ends', which effectively end the game for your character when encountered."
+									+ "<br/>[style.italicsMinorBad(Please note that bad ends involve non-con content, regardless of whether or not your non-con option is enabled.)]",
 								Main.getProperties().hasValue(PropertyValue.badEndContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
@@ -2149,7 +2150,8 @@ public class OptionsDialogue {
 							"NON_CON",
 							PresetColour.BASE_CRIMSON,
 							"Non-consent",
-							"This enables the 'resist' pace in sex scenes, which contains some more extreme non-consensual descriptions.",
+							"This enables the 'resist' pace in sex scenes, which contains some more extreme non-consensual descriptions, as well as dialogue references and actions related to this content."
+								+ "<br/>[style.italicsMinorBad(Please note that bad ends involve non-con content, regardless of whether or not this option is enabled.)]",
 							Main.getProperties().hasValue(PropertyValue.nonConContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,

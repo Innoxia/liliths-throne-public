@@ -409,8 +409,18 @@ public class Lunexis extends NPC {
 	}
 	
 	public void applyTraining(GameCharacter target) {
-		//TODO remove virginites
-		//TODO add masochist & submissive fetishes, remove dominant
+		target.setVaginaVirgin(false);
+		target.setAnalVirgin(false);
+		target.setFaceVirgin(false);
+
+		target.addFetish(Fetish.FETISH_SUBMISSIVE);
+		target.addFetish(Fetish.FETISH_MASOCHIST);
+		target.addFetish(Fetish.FETISH_NON_CON_SUB);
+
+		target.removeFetish(Fetish.FETISH_DOMINANT);
+		target.removeFetish(Fetish.FETISH_NON_CON_DOM);
+		target.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.ZERO_HATE);
+		target.setFetishDesire(Fetish.FETISH_NON_CON_DOM, FetishDesire.ZERO_HATE);
 	}
 	
 }
