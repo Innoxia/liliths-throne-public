@@ -114,6 +114,10 @@
 		<flag dailyReset="false">themiscyra_bad_end_oral</flag>
 		<flag dailyReset="false">themiscyra_bad_end_vaginal</flag>
 		<flag dailyReset="false">themiscyra_bad_end_anal</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_meraxis</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_aurokaris</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_ursa</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_self</flag>
 		
 		
 	<!-- Elis: -->
