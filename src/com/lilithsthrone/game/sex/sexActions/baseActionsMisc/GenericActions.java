@@ -232,7 +232,7 @@ public class GenericActions {
 		
 		while(!allSubsAssigned) {
 			for(GameCharacter dom : domsNotSatisfied) {
-				GameCharacter target = dom.isPlayer()?Main.sex.getTargetedPartner(dom):((NPC) dom).getPreferredSexTarget();
+				GameCharacter target = dom.isPlayer()?Main.sex.getTargetedPartner(dom):Main.sex.getInitialSexManager().getPreferredSexTarget((NPC) dom);
 				if(target==null || (dom.isPlayer() && allDomsAssigned && Main.sex.isConsensual())) { // If second time through loop, and equal control, give player another target if available
 					if(availableSubs.isEmpty()) { // If run out of subs, re-populate sub list.
 						availableSubs = new ArrayList<>(Main.sex.getSubmissiveParticipants(false).keySet());

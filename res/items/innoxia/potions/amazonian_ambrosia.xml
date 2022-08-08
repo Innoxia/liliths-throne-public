@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>5000</value>
+		<determiner><![CDATA[an amphora of]]></determiner>
+		<name><![CDATA[Amazonian Ambrosia]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Amazonian Ambrosias]]></namePlural>
+		<description><![CDATA[A miniature terracotta amphora, filled with a heady red wine. The description on the label is terse, but promises to 'make an Amazon' out of anyone who drinks it.]]></description>
+		<useDescriptor>drink</useDescriptor>
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		<rarity>EPIC</rarity>
+		
+		<imageName>amazonian_ambrosia.svg</imageName>
+		<colourPrimary>CLOTHING_DESATURATED_BROWN</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<associatedRace/>
+		<enchantmentItemTypeId/>
+		<enchantmentEffectId/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.italicsSex(+5)] [style.italicsFeminine(femininity)]]]></line>
+			<line><![CDATA[[style.italicsGood(+3)] [style.italicsMuscleTwo(muscle)]]]></line>
+			<line><![CDATA[[style.boldMinorBad(Adds)] 10% to [style.boldAlcohol(intoxication level)]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				As the rich wed wine begins to circulate through [npc.her] system, [npc.name] [npc.verb(feel)] [npc.her] body subtly changing...
+			</p>
+			[#npc.incrementFemininity(5)]
+			[#npc.incrementMuscle(3)]
+			[#npc.incrementAlcoholLevel(0.1)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ALCOHOLIC</tag>
+		</itemTags>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+			Opening the amphora of Amazonian Ambrosia, [npc.name] [npc.verb(tilt)] [npc.her] head back and [npc.verb(bring)] it up to [npc.her] waiting [npc.lips]. The rich, red wine contained within has a strong, heady fragrance, which seduces [npc.name] into quickly taking a deep draught. Discovering that the wine's taste is every bit as excellent as its smell, [npc.she] quickly drinks every last drop.
+		]]></selfUse>
+		<otherUse><![CDATA[
+			Opening the amphora of Amazonian Ambrosia, [npc.name] [npc.verb(bring)] it up to [npc2.namePos] waiting [npc2.lips]. The rich, red wine contained within has a strong, heady fragrance, which seduces [npc2.name] into quickly taking a deep draught. Discovering that the wine's taste is every bit as excellent as its smell, [npc2.she] quickly drinks every last drop.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

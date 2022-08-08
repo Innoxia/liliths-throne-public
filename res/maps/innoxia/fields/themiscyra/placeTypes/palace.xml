@@ -10,7 +10,18 @@
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	<encounterType>null</encounterType>
 	<dialogue>innoxia_places_fields_themiscyra_palace</dialogue>
-	<populationPresent/>
+	<populationPresent>
+		<population>
+			<populationType plural="true" density="HUNDREDS">LUNETTE_DAUGTHER</populationType>
+			<subspeciesPresent>
+				<subspecies>DEMON</subspecies>
+			</subspeciesPresent>
+		</population>
+		<population>
+			<populationType plural="true" density="NUMEROUS">COCK_SLEEVE</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+	</populationPresent>
 	<furniturePresent>false</furniturePresent>
 	<loiteringEnabled>true</loiteringEnabled>
 	<globalMapTile>false</globalMapTile>
