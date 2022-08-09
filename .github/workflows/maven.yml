@@ -17,7 +17,7 @@ on:
       - 'release/**'
 
 jobs:
-  linux-aarch64:
+  linux_aarch64:
     name: Linux (aarch64)
 
     runs-on: ubuntu-latest
@@ -59,7 +59,7 @@ jobs:
         name: Lilith's Throne (linux)
         path: staging
 
-  mac-aarch64:
+  mac_aarch64:
     name: Mac (aarch64)
 
     runs-on: ubuntu-latest
@@ -101,7 +101,7 @@ jobs:
         name: Lilith's Throne (mac)
         path: staging
 
-  win-x86:
+  win_x86:
     name: Windows (x86)
 
     runs-on: ubuntu-latest
