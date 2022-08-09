@@ -1,7 +1,8 @@
 bin/
 data/
 target/
-.*
+.idea
+.vscode
 *.bak
 *~
 *.old
