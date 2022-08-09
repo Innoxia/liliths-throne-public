@@ -1497,7 +1497,7 @@ public class Race {
 			}
 		}
 		
-		PluginLoader.getInstance().forEachPlugin(p -> p.onRacesLoaded());
+		PluginLoader.getInstance().forEachPlugin(p -> p.onInitRaces());
 	}
 	
 	public static List<AbstractRace> getAllRaces() {

@@ -175,5 +175,5 @@ public class BasePlugin {
 	/**
 	 * All AbstractRaces have been loaded.
 	 */
-	public void onRacesLoaded() {}
+	public void onInitRaces() {}
 }
