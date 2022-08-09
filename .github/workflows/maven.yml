@@ -34,5 +34,5 @@ jobs:
     - run: mkdir staging && cp -r target/shade/ staging
     - uses: actions/upload-artifact@v3
       with:
-        name: Package
+        name: Lilith's Throne
         path: staging
