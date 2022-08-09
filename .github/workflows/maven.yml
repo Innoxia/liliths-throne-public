@@ -8,10 +8,13 @@ on:
     branches: 
       - dev
       - master
+      - 'feature/**'
+      - 'release/**'
   pull_request:
     branches: 
       - dev
       - master
+      - 'release/**'
 
 jobs:
   build:
