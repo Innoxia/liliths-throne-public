@@ -171,4 +171,9 @@ public class BasePlugin {
 	public void onGenerateSexChoicesAddSexTypes(GameCharacter ctx, boolean resetPositioningBan, GameCharacter target,
 			List<SexType> request, Map<SexType, Integer> foreplaySexTypes, Map<SexType, Integer> mainSexTypes) {
 	}
+
+	/**
+	 * All AbstractRaces have been loaded.
+	 */
+	public void onRacesLoaded() {}
 }
