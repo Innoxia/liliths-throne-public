@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>innoxia</groupId>
 	<artifactId>lilithsthrone</artifactId>
@@ -19,39 +17,62 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.openjfx</groupId>
-			<artifactId>javafx</artifactId>
+			<artifactId>javafx-fxml</artifactId>
 			<version>${javafx.version}</version>
-			<type>pom</type>
-		  </dependency>
-		  <dependency>
+			<classifier>win</classifier>
+		</dependency>
+		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
 			<version>${javafx.version}</version>
-		  </dependency>
-		  <dependency>
+			<classifier>linux</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-fxml</artifactId>
+			<version>${javafx.version}</version>
+			<classifier>mac</classifier>
+		</dependency>
+
+		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-web</artifactId>
 			<version>${javafx.version}</version>
-		  </dependency>
-		  <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>${javafx.version}</version>
-            <classifier>win</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>${javafx.version}</version>
-            <classifier>linux</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>${javafx.version}</version>
-            <classifier>mac</classifier>
-        </dependency>
-		  <dependency>
+			<classifier>win</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-web</artifactId>
+			<version>${javafx.version}</version>
+			<classifier>linux</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-web</artifactId>
+			<version>${javafx.version}</version>
+			<classifier>mac</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-graphics</artifactId>
+			<version>${javafx.version}</version>
+			<classifier>win</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-graphics</artifactId>
+			<version>${javafx.version}</version>
+			<classifier>linux</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-graphics</artifactId>
+			<version>${javafx.version}</version>
+			<classifier>mac</classifier>
+		</dependency>
+
+		<dependency>
 			<groupId>org.openjdk.nashorn</groupId>
 			<artifactId>nashorn-core</artifactId>
 			<version>${nashorn.version}</version>
@@ -101,8 +122,7 @@
 							<shadedClassifierName>project-classifier</shadedClassifierName>
 							<outputFile>${project.build.directory}/shade/${project.name}-${project.version}.jar</outputFile>
 							<transformers>
-								<transformer implementation=
-													 "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>com.lilithsthrone.Launcher</mainClass>
 								</transformer>
 							</transformers>
