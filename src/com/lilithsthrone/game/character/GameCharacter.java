@@ -18713,7 +18713,7 @@ public abstract class GameCharacter implements XMLSaving {
 			AbstractCombatMove selectedMove = null;
 			Map<AbstractCombatMove, Float> weightedMoves = new HashMap<>();
 			for(AbstractCombatMove move : potentialMoves) {
-				weightedMoves.put(move, getMoveWeight(move, enemies, allies));
+				weightedMoves.put(move, Math.max(0, getMoveWeight(move, enemies, allies)));
 			}
 			selectedMove = Util.getRandomObjectFromWeightedFloatMap(weightedMoves);
 			if(selectedMove == null) {
@@ -18776,6 +18776,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public void equipBasicCombatMoves() {
 		equipMove("strike");
+		equipMove("offhand-strike");
 		equipMove("twin-strike");
 		equipMove("block");
 		equipMove("tease");
@@ -19700,6 +19701,10 @@ public abstract class GameCharacter implements XMLSaving {
 	public static final String PREGNANCY_CALCULATION = "10% + (Cum-character's Virility% / 2) + (Womb-character's Fertility% / 2)";
 
 	public String rollForPregnancy(GameCharacter partner, float cumQuantity, boolean directSexInsemination) {
+		return rollForPregnancy(partner, cumQuantity, directSexInsemination, Attribute.VIRILITY);
+	}
+	
+	public String rollForPregnancy(GameCharacter partner, float cumQuantity, boolean directSexInsemination, AbstractAttribute virilityAttribute) {
 		if(partner.isElemental()) {
 			return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner, directSexInsemination)
 					+"<p style='text-align:center;'>"
@@ -19716,14 +19721,14 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		float pregnancyChance = 0.1f;
 		
-		boolean partnerVirile = partner.getAttributeValue(Attribute.VIRILITY) > 0 || !partner.hasPerkAnywhereInTree(Perk.FIRING_BLANKS);
+		boolean partnerVirile = partner.getAttributeValue(virilityAttribute) > 0 || !partner.hasPerkAnywhereInTree(Perk.FIRING_BLANKS);
 		boolean selfFertile = (getAttributeValue(Attribute.FERTILITY) > 0 || !hasPerkAnywhereInTree(Perk.BARREN)) && !this.hasStatusEffect(StatusEffect.MENOPAUSE);
 		
 		if(!partnerVirile || !selfFertile || !isAbleToBeImpregnated()) {
 			pregnancyChance = 0;
 			
 		} else if(isAbleToBeImpregnated()) {
-			pregnancyChance += (partner.getAttributeValue(Attribute.VIRILITY)/100f)/2f;
+			pregnancyChance += (partner.getAttributeValue(virilityAttribute)/100f)/2f;
 			pregnancyChance += (getAttributeValue(Attribute.FERTILITY)/100f)/2f;
 			pregnancyChance = Math.max(0, Math.min(pregnancyChance, 1));
 		}
@@ -20744,6 +20749,11 @@ public abstract class GameCharacter implements XMLSaving {
 		setLastCell(this.getCell());
 		setLocation(getWorldLocation(), location, false);
 	}
+
+	public void setLocation(int xCoord, int yCoord) {
+		Vector2i vecLoc = new Vector2i(xCoord, yCoord);
+		setLocation(vecLoc);
+	}
 	
 	public void moveLocation(int xMovement, int yMovement) {
 		setLocation(new Vector2i(this.getLocation().getX()+xMovement, this.getLocation().getY()+yMovement));
@@ -20840,6 +20850,11 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public void setLocation(GameCharacter character, boolean setAsHomeLocation) {
 		setLocation(character.getWorldLocation(), character.getLocation(), setAsHomeLocation);
+	}
+
+	public void setLocation(AbstractWorldType worldLocation, int xCoord, int yCoord, boolean setAsHomeLocation) {
+		Vector2i vecLoc = new Vector2i(xCoord, yCoord);
+		setLocation(worldLocation, vecLoc, setAsHomeLocation);
 	}
 	
 	public void setLocation(AbstractWorldType worldLocation, Vector2i location, boolean setAsHomeLocation) {
@@ -24754,36 +24769,36 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			ArrayList<AbstractRace> unavailableRaces = Util.newArrayListOfValues(Race.ELEMENTAL, Race.SLIME); // Never have these TF options
 			
-			if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LOVIENNE_2)) { // I'm assuming you defeat Lovienne last
+			if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LOVIENNE_2) || this.hasPerkAnywhereInTree(Perk.POWER_OF_LOVIENNE_2_DEMON)) { // I'm assuming you defeat Lovienne last
 				races.addAll(Race.allRaces);
 				races.removeAll(unavailableRaces);
-			} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4)) {
+			} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4) || this.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4_DEMON)) {
 				races.add(Race.HUMAN);
 			}
 			for (AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
 				AbstractRace race = subspecies.getRace();
 				if(subspecies.isMainSubspecies() && !unavailableRaces.contains(race)) { // Only check the main subspecies
 					List<WorldRegion> mostCommonRegion = subspecies.getMostCommonWorldRegions();
-					if (this.hasPerkAnywhereInTree(Perk.POWER_OF_LIRECEA_1)
+					if ((this.hasPerkAnywhereInTree(Perk.POWER_OF_LIRECEA_1) || this.hasPerkAnywhereInTree(Perk.POWER_OF_LIRECEA_1_DEMON))
 							&& (mostCommonRegion.contains(WorldRegion.SEA)
 							|| mostCommonRegion.contains(WorldRegion.SEA_CITY))) {
 						races.add(race);
-					} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LASIELLE_3)
+					} else if((this.hasPerkAnywhereInTree(Perk.POWER_OF_LASIELLE_3) || this.hasPerkAnywhereInTree(Perk.POWER_OF_LASIELLE_3_DEMON))
 							&& (mostCommonRegion.contains(WorldRegion.MOUNTAINS)
 							|| mostCommonRegion.contains(WorldRegion.YOUKO_FOREST)
 							|| mostCommonRegion.contains(WorldRegion.SNOW))) {
 						races.add(race);
-					} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LUNETTE_5)
+					} else if((this.hasPerkAnywhereInTree(Perk.POWER_OF_LUNETTE_5) || this.hasPerkAnywhereInTree(Perk.POWER_OF_LUNETTE_5_DEMON))
 							&& (mostCommonRegion.contains(WorldRegion.WOODLAND)
 							|| mostCommonRegion.contains(WorldRegion.FIELDS)
 							|| mostCommonRegion.contains(WorldRegion.FIELD_CITY)
 							|| mostCommonRegion.contains(WorldRegion.RIVER))) {
 						races.add(race);
-					} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LYXIAS_6)
+					} else if((this.hasPerkAnywhereInTree(Perk.POWER_OF_LYXIAS_6) || this.hasPerkAnywhereInTree(Perk.POWER_OF_LYXIAS_6_DEMON))
 							&& (mostCommonRegion.contains(WorldRegion.JUNGLE)
 							|| mostCommonRegion.contains(WorldRegion.JUNGLE_CITY))) {
 						races.add(race);
-					} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LISOPHIA_7)
+					} else if((this.hasPerkAnywhereInTree(Perk.POWER_OF_LISOPHIA_7) || this.hasPerkAnywhereInTree(Perk.POWER_OF_LISOPHIA_7_DEMON))
 							&& (mostCommonRegion.contains(WorldRegion.SAVANNAH)
 							|| mostCommonRegion.contains(WorldRegion.DESERT)
 							|| mostCommonRegion.contains(WorldRegion.DESERT_CITY)

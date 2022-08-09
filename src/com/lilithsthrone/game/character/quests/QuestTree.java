@@ -71,7 +71,11 @@ public class QuestTree {
 		node1.addChild(node2);
 		node1 = new TreeNode<Quest>(Quest.MAIN_3_D_TO_THEMISCYRA);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_3_E_TODO);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_E_THEMISCYRA_ATTACK);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.MAIN_3_F_PREPARING_ELIS);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_G_TODO);
 		node1.addChild(node2);
 
 		enchantmentTree.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));

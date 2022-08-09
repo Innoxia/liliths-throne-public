@@ -202,7 +202,7 @@ public class Fetish {
 			PresetColour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					"<span style='color:"+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>pussy slut tease</span>",
+					"<span style='color:"+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>pussy slut tease</span> (Requires vagina)",
 					"<span style='color:"+ PresetColour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>pussy worship tease</span>"),
 			null) {
 		@Override
@@ -382,7 +382,7 @@ public class Fetish {
 			PresetColour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					"<span style='color:"+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>breasts tease</span>",
+					"<span style='color:"+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>breasts tease</span> (Requires breasts)",
 					"<span style='color:"+ PresetColour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>breasts lover tease</span>"),
 			null) {
 		@Override
@@ -486,7 +486,7 @@ public class Fetish {
 			PresetColour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					"<span style='color:"+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>lactation tease</span>",
+					"<span style='color:"+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>lactation tease</span> (Requires breasts)",
 					"<span style='color:"+ PresetColour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>milk-lover tease</span>"),
 			null) {
 		@Override
@@ -585,7 +585,7 @@ public class Fetish {
 			PresetColour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					"<span style='color:"+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>strutter tease</span>",
+					"<span style='color:"+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>strutter tease</span> (Requires legs)",
 					"<span style='color:"+ PresetColour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>leg lover tease</span>"),
 			null) {
 		@Override

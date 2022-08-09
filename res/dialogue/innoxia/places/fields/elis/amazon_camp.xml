@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id="exterior">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/fields/elis/amazon_camp">EXTERIOR</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Enter the Amazons' camp and take a look around.
+					<br/>[style.italicsBad(This will be added soon!)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

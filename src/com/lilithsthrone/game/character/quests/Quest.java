@@ -11,6 +11,9 @@ import com.lilithsthrone.game.character.npc.dominion.Helena;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
+import com.lilithsthrone.game.character.npc.fields.Aurokaris;
+import com.lilithsthrone.game.character.npc.fields.Lunexis;
+import com.lilithsthrone.game.character.npc.fields.Ursa;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -444,7 +447,7 @@ public enum Quest {
 		}
 		@Override
 		public void applySkipQuestEffects() {
-			// No effects applied
+			// TODO
 		}
 	},
 	
@@ -467,7 +470,7 @@ public enum Quest {
 		}
 		@Override
 		public void applySkipQuestEffects() {
-			// No effects applied
+			// TODO
 		}
 	},
 	
@@ -479,24 +482,70 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in future updates!)]<br/>"
-					+ "You agreed to travel to Themiscyra with Meraxis and find out whether or not the town is being threatened by Lunette's army of demonic centaurs.";
+			return "You agreed to travel to Themiscyra with Meraxis and find out whether or not the town is being threatened by Lunette's army.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "-";//TODO
+			return "You travelled to Themiscyra with Meraxis, but upon reaching the town, you discovered that it was being destroyed by Lunette's army!";
 		}
 		@Override
 		public void applySkipQuestEffects() {
-			// No effects applied
+			if(Main.game.getWorlds().get(WorldType.WORLD_MAP).getCell(PlaceType.getPlaceTypeFromId("innoxia_fields_themiscyra"))==null) {
+				Main.game.getWorlds().get(WorldType.WORLD_MAP).getCell(11, 32).getPlace().setPlaceType(PlaceType.getPlaceTypeFromId("innoxia_fields_themiscyra"));
+			}
 		}
 	},
 	
-	MAIN_3_E_TODO(QuestType.MAIN, 1, 25) {//TODO
+	MAIN_3_E_THEMISCYRA_ATTACK(QuestType.MAIN, 1, 250) {
 		@Override
 		public String getName() {
-			return "TODO";
+			return "Save the Queen";
+		}
+		@Override
+		public String getDescription() {
+			return "Separated from Meraxis, you've teamed up with an Amazon cow-girl named Aurokaris."
+					+ " You need to travel through Themiscyra and find both Meraxis and Ursa, the queen of the Amazons, who should be at the palace.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Alongside Aurokaris, you travelled through Themiscyra and found both Meraxis and Ursa at the plaza before the palace."
+					+ " After encountering Lunexis, the leader of Lunette's army, Meraxis teleported the five of you back to Elis's town hall, where Minotallys was finally convinced that Lunette is a threat to Elis.";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			if(Main.game.getWorlds().get(WorldType.getWorldTypeFromId("innoxia_fields_elis_town")).getCell(PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_amazon_camp"))==null) {
+				Main.game.getWorlds().get(WorldType.getWorldTypeFromId("innoxia_fields_elis_town")).getCell(10, 20).getPlace().setPlaceType(PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_amazon_camp"));
+			}
+			Main.game.getNpc(Ursa.class).setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_amazon_camp"), true);
+			Main.game.getNpc(Aurokaris.class).setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_amazon_camp"), true);
+			Main.game.getNpc(Lunexis.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
+		}
+	},
+	
+	MAIN_3_F_PREPARING_ELIS(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "Defence of Elis";
+		}
+
+		@Override
+		public String getDescription() {
+			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in future updates!)]<br/>"
+					+ "With Lunette planning to attack Elis at some point in the near future, you've been tasked by Minotallys with helping get the town's defences in order."
+					+ " You need to travel to the Enforcer station in Elis and ask for their assistance.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "-";
+		}
+	},
+	
+	MAIN_3_G_TODO(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "";
 		}
 
 		@Override
@@ -509,6 +558,7 @@ public enum Quest {
 			return "-";
 		}
 	},
+	
 
 	// Side Quests:
 

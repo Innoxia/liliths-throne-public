@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[Themiscyra palace]]></name>
+	<tooltipDescription><![CDATA[The seat of government in Themiscyra, this classical palace sits atop a rocky hill and overlooks the entire town.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[outside the palace in Themiscyra]]></virginityLossDescription>
+	<sexBlockedReason/>
+	<sexBlockedFromCharacterPresent>false</sexBlockedFromCharacterPresent>
+	<colour>BASE_TEAL</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_themiscyra_palace</dialogue>
+	<populationPresent>
+		<population>
+			<populationType plural="true" density="HUNDREDS">LUNETTE_DAUGTHER</populationType>
+			<subspeciesPresent>
+				<subspecies>DEMON</subspecies>
+			</subspeciesPresent>
+		</population>
+		<population>
+			<populationType plural="true" density="NUMEROUS">COCK_SLEEVE</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+	</populationPresent>
+	<furniturePresent>false</furniturePresent>
+	<loiteringEnabled>true</loiteringEnabled>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

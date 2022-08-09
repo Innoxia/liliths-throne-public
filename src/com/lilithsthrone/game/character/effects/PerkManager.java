@@ -577,6 +577,9 @@ public enum PerkManager {
 				deniedPerks.add(Perk.BARREN);
 				deniedPerks.add(Perk.FIRING_BLANKS);
 				deniedPerks.add(Perk.UNARMED_TRAINING);
+				if(character.isUnique()) {
+					deniedPerks.add(Perk.AHEGAO);
+				}
 				if(character.getEnchantmentPointsUsedTotal()<=character.getAttributeValue(Attribute.ENCHANTMENT_LIMIT) || !Main.game.isEnchantmentCapacityEnabled()) {
 					deniedPerks.add(Perk.ENCHANTMENT_STABILITY);
 					deniedPerks.add(Perk.ENCHANTMENT_STABILITY_ALT);

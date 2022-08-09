@@ -27,10 +27,11 @@ public class SelfTailMouth {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.sex.hasLubricationTypeFromAnyone(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.TAIL)
-					&& Main.sex.isInForeplay(Main.sex.getCharacterPerformingAction())
-					&& (Main.sex.getForeplayPreference(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))!=null
-						&& Main.sex.getForeplayPreference(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this)).getPerformingSexArea()==SexAreaPenetration.TAIL);
+			return Main.sex.getCharacterPerformingAction().isPlayer()
+					|| (!Main.sex.hasLubricationTypeFromAnyone(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.TAIL)
+							&& Main.sex.isInForeplay(Main.sex.getCharacterPerformingAction())
+							&& (Main.sex.getForeplayPreference(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))!=null
+								&& Main.sex.getForeplayPreference(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this)).getPerformingSexArea()==SexAreaPenetration.TAIL));
 		}
 		
 		@Override

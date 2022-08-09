@@ -99,6 +99,27 @@
 			<flag dailyReset="true">evelyx_bad_end_feral</flag>
 		
 		
+	<!-- Themiscyra: -->
+		<flag dailyReset="false">themiscyra_smithies_looted</flag>
+		<flag dailyReset="false">themiscyra_jewellers_looted</flag>
+		<flag dailyReset="false">themiscyra_wine_looted</flag>
+		<flag dailyReset="false">themiscyra_centauresses_question</flag>
+		<flag dailyReset="false">themiscyra_aurokaris_talk_ursa</flag>
+		<flag dailyReset="false">themiscyra_aurokaris_talk_raiders</flag>
+		<flag dailyReset="false">themiscyra_aurokaris_talk_town</flag>
+		<flag dailyReset="false">themiscyra_aurokaris_talk_amazons</flag>
+		<flag dailyReset="false">themiscyra_aurokaris_talk_location</flag>
+		<flag dailyReset="false">themiscyra_raider_sex_player_targeted_by_leader</flag>
+		<!-- Bad end -->
+		<flag dailyReset="false">themiscyra_bad_end_oral</flag>
+		<flag dailyReset="false">themiscyra_bad_end_vaginal</flag>
+		<flag dailyReset="false">themiscyra_bad_end_anal</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_meraxis</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_aurokaris</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_ursa</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_self</flag>
+		
+		
 	<!-- Elis: -->
 	
 		<!-- Woods -->

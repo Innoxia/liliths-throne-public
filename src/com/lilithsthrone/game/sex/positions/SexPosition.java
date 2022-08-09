@@ -2506,7 +2506,7 @@ public class SexPosition {
 			for(int i=0; i<4; i++) {
 				if(Main.sex.getCharacterInPosition(allFoursList.get(i))!=null && !Main.sex.getCharacterInPosition(allFoursList.get(i)).isTaur()) {
 					for(SexSlot inFrontSlot : inFrontList) {
-						interactions.add(StandardSexActionInteractions.allFourscharacterBehindToCharactersFront.getSexActionInteractions(behindList.get(i), inFrontSlot));
+						interactions.add(StandardSexActionInteractions.allFoursCharacterBehindToCharactersFront.getSexActionInteractions(behindList.get(i), inFrontSlot));
 					}
 				}
 			}

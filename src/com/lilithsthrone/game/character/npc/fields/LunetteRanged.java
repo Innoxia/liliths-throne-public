@@ -354,7 +354,11 @@ public class LunetteRanged extends NPC {
 
 	@Override
 	public void applyEscapeCombatEffects() {
-		Main.game.banishNPC(this);
+		if(this.getLocationPlace().getPlaceType()==PlaceType.getPlaceTypeFromId("innoxia_fields_themiscyra_raiders")) {
+			Main.game.getPlayer().setLocation(Main.game.getPlayer().getLastCell());
+		} else {
+			Main.game.banishNPC(this); // Only remove if this NPC is not a raider in Themiscyra
+		}
 	}
 	
 	@Override

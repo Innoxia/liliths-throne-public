@@ -257,7 +257,7 @@ public class Oglix extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("TonyJC_tie_up_crop_top", PresetColour.CLOTHING_BLACK, false), true, this);
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_hotpants", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_PANTIES, PresetColour.CLOTHING_PURPLE_DARK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_panties", PresetColour.CLOTHING_PURPLE_DARK, false), true, this);
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_kneehigh_socks", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_thigh_high_boots", PresetColour.CLOTHING_DESATURATED_BROWN_DARK, false), true, this);

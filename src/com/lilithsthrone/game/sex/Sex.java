@@ -20,6 +20,7 @@ import com.lilithsthrone.game.character.FluidStored;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
@@ -2633,7 +2634,7 @@ public class Sex {
 						condomBrokeAppended = true;
 					}
 				}
-
+				
 				List<SexAreaInterface> cummedInAreas = sexAction.getAreasCummedIn(cumProvider, cumTarget);
 				if(cummedInAreas != null) {
 					for (SexAreaInterface area : cummedInAreas) {
@@ -2746,6 +2747,31 @@ public class Sex {
 									SexAreaOrifice.MOUTH,
 									squirtAmount));
 						}
+					}
+				}
+
+				// If under the effects of Amazonian's Secret, then this character can impregnate partners who are directly contacting their vagina:
+				if(Main.sex.getCharacterPerformingAction().hasStatusEffect("innoxia_amazons_secret")) {
+					Set<GameCharacter> charactersContactingVagina = new HashSet<>(getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.CLIT));
+					charactersContactingVagina.addAll(getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.CLIT, SexAreaOrifice.VAGINA));
+					charactersContactingVagina.addAll(getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaOrifice.VAGINA));
+					charactersContactingVagina.addAll(getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.CLIT, SexAreaPenetration.CLIT));
+					
+					if(!charactersContactingVagina.isEmpty()) {
+						stringBuilderForAppendingDescriptions.append("<p style='text-align:center; padding:0; margin:0;'>");
+						stringBuilderForAppendingDescriptions.append(UtilText.parse(Main.sex.getCharacterPerformingAction(),
+								"<i>[style.boldSex(Feminine Fertility:)]</i>"));
+						for(GameCharacter character : charactersContactingVagina) {
+							stringBuilderForAppendingDescriptions.append(UtilText.parse(Main.sex.getCharacterPerformingAction(), character,
+									"<br/><i>[npc.NamePos] orgasm triggers a wave of hot arcane energy that rushes up deep into [npc2.namePos] [npc2.pussy+],"
+									+ " causing [npc2.herHim] to [npc.verb(let)] out an erotic moan as [npc2.she] [npc2.verb(realise)] that"
+									+ (character.isVisiblyPregnant() || character.hasIncubationLitter(SexAreaOrifice.VAGINA)
+											?" if it weren't for the fact that [npc2.her] womb is already occupied, [npc2.she] might have got pregnant from this!"
+											:" [npc2.she] might get pregnant from this!")
+									+ "</i>"));
+							stringBuilderForAppendingDescriptions.append(character.rollForPregnancy(Main.sex.getCharacterPerformingAction(), 1, true, Attribute.FERTILITY));
+						}
+						stringBuilderForAppendingDescriptions.append("</p>");
 					}
 				}
 			}

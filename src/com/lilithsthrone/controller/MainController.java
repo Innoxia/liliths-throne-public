@@ -498,6 +498,13 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
+							if(Main.game.isInSex()) {
+								System.out.println("----");
+								for(GameCharacter character : Main.sex.getAllParticipants()) {
+									System.out.println(character.getName()+" -> "+Main.sex.getTargetedPartner(character).getName());
+								}
+							}
+							
 //							for(NPC npc : Main.game.getAllNPCs()) {
 //								if(npc.isUnique() && !npc.hasArtwork()
 ////										&& (npc.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION)
@@ -1728,33 +1735,45 @@ public class MainController implements Initializable {
 		id = "DATE_DISPLAY_TOGGLE";
 		if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 			((EventTarget) documentAttributes.getElementById(id)).addEventListener("click", e -> {
-				Main.getProperties().setValue(PropertyValue.calendarDisplay, !Main.getProperties().hasValue(PropertyValue.calendarDisplay));
-				Main.saveProperties();
-				MainController.updateUI();
+				if(!Main.game.isBadEnd()) {
+					Main.getProperties().setValue(PropertyValue.calendarDisplay, !Main.getProperties().hasValue(PropertyValue.calendarDisplay));
+					Main.saveProperties();
+					MainController.updateUI();
+				}
 			}, false);
 			
 			addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
 			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
 			String day = Main.game.getDateNow().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+			StringBuilder dateSB = new StringBuilder();
+			if(Main.game.isBadEnd()) {
+				dateSB.append("[style.italicsBad(Given your current situation, you've lost track of what day it is...)]");
+			} else {
+				if(!dateKnown) {
+					dateSB.append("[style.italicsMinorBad(Look at the calendar in your room to reveal the date!)]");
+				} else {
+					dateSB.append("The current date is: [style.colourGood("+ Main.game.getDisplayDate(true)+")]");
+				}
+				dateSB.append("<br/>");
+				dateSB.append("It is currently "+UtilText.generateSingularDeterminer(day)+" [style.colourBlueLight("+day+")].<br/>"
+						+ "You've been in this new world for: [style.colourExcellent("+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+")]");
+				dateSB.append("<br/><i>Click to toggle between a date and day count.</i>");
+			}
 			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Toggle Calendar Display",
-						(!dateKnown
-							?"[style.italicsMinorBad(Look at the calendar in your room to reveal the date!)]"
-							:"The current date is: [style.colourGood("+ Main.game.getDisplayDate(true)+")]")
-						+ "<br/>"
-						+ "It is currently "+UtilText.generateSingularDeterminer(day)+" [style.colourBlueLight("+day+")].<br/>"
-						+ "You've been in this new world for: [style.colourExcellent("+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+")]"
-						+"<br/><i>Click to toggle between a date and day count.</i>");
+						dateSB.toString());
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 		
 		id = "TWENTY_FOUR_HOUR_TIME_TOGGLE";
 		if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 			((EventTarget) documentAttributes.getElementById(id)).addEventListener("click", e -> {
-			    overrideAutoLocale();
-				Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !Main.getProperties().hasValue(PropertyValue.twentyFourHourTime));
-				Main.saveProperties();
-				Units.FORMATTER.updateTimeFormat(Main.getProperties().hasValue(PropertyValue.autoLocale));
-				MainController.updateUI();
+				if(!Main.game.isBadEnd()) {
+				    overrideAutoLocale();
+					Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !Main.getProperties().hasValue(PropertyValue.twentyFourHourTime));
+					Main.saveProperties();
+					Units.FORMATTER.updateTimeFormat(Main.getProperties().hasValue(PropertyValue.autoLocale));
+					MainController.updateUI();
+				}
 			}, false);
 			
 			DayPeriod dp = DateAndTime.getDayPeriod(Main.game.getDateNow(), Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
@@ -1763,12 +1782,18 @@ public class MainController implements Initializable {
 			
 			addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
 			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
-			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(
-					(Main.game.isDayTime()?"Day-time":"Night-time"),
-					"Current time: "+Units.time(Main.game.getDateNow())+" (<span style='color:"+dp.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(dp.getName())+"</span>)<br/>"
+			StringBuilder timeSB = new StringBuilder();
+			if(Main.game.isBadEnd()) {
+				timeSB.append("[style.italicsBad(Given your current situation, you've lost track of what time it is...)]");
+			} else {
+				timeSB.append("Current time: "+Units.time(Main.game.getDateNow())+" (<span style='color:"+dp.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(dp.getName())+"</span>)<br/>"
 					+ "Sunrise: "+(!dateKnown?"[style.colourMinorBad(??/??/??)] [style.colourYellow("+Units.time(ldt[0]):"[style.colourYellow("+Units.dateTime(ldt[0]))+")]<br/>"
 					+ "Sunset: "+(!dateKnown?"[style.colourMinorBad(??/??/??)] [style.colourOrange("+Units.time(ldt[1]):"[style.colourOrange("+Units.dateTime(ldt[1]))+")]<br/>"
 					+ "<i>Click to toggle the time display between a 24-hour and 12-hour clock.</i>");
+			}
+			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(
+					(Main.game.isDayTime()?"Day-time":"Night-time"),
+					timeSB.toString());
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 

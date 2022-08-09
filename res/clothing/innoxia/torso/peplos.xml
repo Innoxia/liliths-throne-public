@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>750</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[peplos]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[peploses]]></namePlural>
+		<description><![CDATA[A a body-length garment, consisting of a long, rectangular cloth which is gathered about the waist and then pinned into place over the shoulders. The top half of the peplos is folded down, giving the appearance of a second piece of clothing.]]></description>
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity>
+		<slot>TORSO_UNDER</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>peplos.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_DOWN</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO_STOMACH_VISIBLE"/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_GROIN"/>
+			</blockedParts>
+			
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/>
+		<primaryColoursDye/>
+		<secondaryColours>
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>SOLD_BY_MONICA</tag>
+			<tag>FITS_ARM_WINGS</tag>
+			<tag>DRESS</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(gather)] the peplos about [npc.her] waist, before folding the top edges over [npc.her] shoulders and pinning them in place.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(gather)] the peplos about [npc2.namePos] waist, before folding the top edges over [npc2.her] shoulders and pinning them in place.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(gather)] the peplos about [npc2.namePos] waist, before folding the top edges over [npc2.her] shoulders and pinning them in place.]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unpin)] the peplos, before taking it off.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unpin)] [npc2.namePos] peplos, before taking it off.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(unpin)] [npc2.namePos] peplos, before taking it off.]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText type="PULLS_UP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the skirt of [npc.her] peplos back down into the proper position.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the skirt [npc2.namePos] peplos back down into the proper position.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] the skirt [npc2.namePos] peplos back down into the proper position.]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="PULLS_UP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up the skirt of [npc.her] peplos.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up the skirt of [npc2.namePos] peplos.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(grab)] hold of the skirt of [npc2.namePos] peplos, before roughly pulling it up.]]>
+		</otherRough>
+	</displacementText>
+
+	<displacementText type="PULLS_DOWN">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unpin)] [npc.her] peplos and [npc.verb(allow)] the top half to fall down around [npc.her] waist.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unpin)] [npc2.namePos] peplos and [npc.verb(allow)] the top half to fall down around [npc2.her] waist.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(unpin)] [npc2.namePos] peplos and [npc.verb(yank)] the top half down around [npc2.her] waist.]]>
+	  </otherRough>
+	</displacementText>
+
+	<replacementText type="PULLS_DOWN">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up the top half of [npc.her] peplos and [npc.verb(pin)] the top edges into place over [npc.her] shoulders.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up the top half of [npc2.namePos] peplos and [npc.verb(pin)] the top edges into place over [npc.her] shoulders.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(yank)] up the top half of [npc2.namePos] peplos and [npc.verb(pin)] the top edges into place over [npc.her] shoulders.]]>
+		</otherRough>
+	</replacementText>
+
+	
+</clothing>
