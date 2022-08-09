@@ -2,14 +2,61 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.lilithsthrone</groupId>
-	<artifactId>game</artifactId>
+	<groupId>innoxia</groupId>
+	<artifactId>lilithsthrone</artifactId>
 	<packaging>jar</packaging>
-	<version>1</version>
-	<name>lilithsthrone</name>
+	<version>0.4.4.5-SNAPSHOT</version>
+	<name>Lilith's Throne</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.release>17</maven.compiler.release>
+		<javafx.version>18.0.2</javafx.version>
+		<nashorn.version>15.4</nashorn.version>
+		<javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
+		<maven-shade-plugin.version>3.3.0</maven-shade-plugin.version>
+		<maven-compile-plugin.version>3.10.1</maven-compile-plugin.version>
 	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx</artifactId>
+			<version>${javafx.version}</version>
+			<type>pom</type>
+		  </dependency>
+		  <dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-fxml</artifactId>
+			<version>${javafx.version}</version>
+		  </dependency>
+		  <dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-web</artifactId>
+			<version>${javafx.version}</version>
+		  </dependency>
+		  <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>win</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>linux</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>mac</classifier>
+        </dependency>
+		  <dependency>
+			<groupId>org.openjdk.nashorn</groupId>
+			<artifactId>nashorn-core</artifactId>
+			<version>${nashorn.version}</version>
+		</dependency>
+	</dependencies>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
@@ -19,30 +66,49 @@
 			</resource>
 			<resource>
 				<directory>res</directory>
-				<targetPath>${project.build.directory}/res</targetPath>
+				<targetPath>${project.build.directory}/shade/res</targetPath>
 			</resource>
 		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.0.2</version>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compile-plugin.version}</version>
 				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>com.lilithsthrone.main.Main</mainClass>
-						</manifest>
-					</archive>
+					<release>${maven.compiler.release}</release>
 				</configuration>
 			</plugin>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.7.0</version>
+				<groupId>org.openjfx</groupId>
+				<artifactId>javafx-maven-plugin</artifactId>
+				<version>${javafx.maven.plugin.version}</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-					<useIncrementalCompilation>false</useIncrementalCompilation>
+					<mainClass>com.lilithsthrone.main.Main</mainClass>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>${maven-shade-plugin.version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<shadedArtifactAttached>true</shadedArtifactAttached>
+							<shadedClassifierName>project-classifier</shadedClassifierName>
+							<outputFile>${project.build.directory}/shade/${project.name}-${project.version}.jar</outputFile>
+							<transformers>
+								<transformer implementation=
+													 "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>com.lilithsthrone.Launcher</mainClass>
+								</transformer>
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
