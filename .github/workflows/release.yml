@@ -21,7 +21,7 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B clean package --file pom.xml -Dtarget.platform=linux-aarch64 -Dexclude.platform=linux
-    - run: mkdir staging && zip -r "staging/Lilith's Throne (linux-aarch64).zip" "target/Lilith's Throne (linux-aarch64)/"
+    - run: mkdir staging && cd target && zip -r "../staging/Lilith's Throne (linux-aarch64).zip" "Lilith's Throne (linux-aarch64)/" && cd ..
     - uses: actions/upload-artifact@v3
       with:
         name: Lilith's Throne (linux-aarch64)
@@ -42,7 +42,7 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B clean package --file pom.xml -Dtarget.platform=linux
-    - run: mkdir staging && zip -r "staging/Lilith's Throne (linux).zip" "target/Lilith's Throne (linux)/"
+    - run: mkdir staging && cd target && zip -r "../staging/Lilith's Throne (linux).zip" "Lilith's Throne (linux)/" && cd ..
     - uses: actions/upload-artifact@v3
       with:
         name: Lilith's Throne (linux)
@@ -63,7 +63,7 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B clean package --file pom.xml -Dtarget.platform=mac-aarch64 -Dexclude.platform=linux
-    - run: mkdir staging && zip -r "staging/Lilith's Throne (mac-aarch64).zip" "target/Lilith's Throne (mac-aarch64)/"
+    - run: mkdir staging && cd target && zip -r "../staging/Lilith's Throne (mac-aarch64).zip" "Lilith's Throne (mac-aarch64)/" && cd ..
     - uses: actions/upload-artifact@v3
       with:
         name: Lilith's Throne (mac-aarch64)
@@ -84,7 +84,7 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B clean package --file pom.xml -Dtarget.platform=mac -Dexclude.platform=linux
-    - run: mkdir staging && zip -r "staging/Lilith's Throne (mac).zip" "target/Lilith's Throne (mac)/"
+    - run: mkdir staging && cd target && zip -r "../staging/Lilith's Throne (mac).zip" "Lilith's Throne (mac)/" && cd ..
     - uses: actions/upload-artifact@v3
       with:
         name: Lilith's Throne (mac)
@@ -105,7 +105,7 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn clean -B package --file pom.xml -Dtarget.platform=win-x86 -Dexclude.platform=linux
-    - run: mkdir staging && zip -r "staging/Lilith's Throne (win-x86).zip" "target/Lilith's Throne (win-x86)/"
+    - run: mkdir staging && cd target && zip -r "../staging/Lilith's Throne (win-x86).zip" "Lilith's Throne (win-x86)/" && cd ..
     - uses: actions/upload-artifact@v3
       with:
         name: Lilith's Throne (win-x86)
@@ -126,7 +126,7 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B clean package --file pom.xml -Dtarget.platform=win -Dexclude.platform=linux
-    - run: mkdir staging && zip -r "staging/Lilith's Throne (win).zip" "target/Lilith's Throne (win)/"
+    - run: mkdir staging && cd target && zip -r "../staging/Lilith's Throne (win).zip" "Lilith's Throne (win)/" && cd ..
     - uses: actions/upload-artifact@v3
       with:
         name: Lilith's Throne (win)
