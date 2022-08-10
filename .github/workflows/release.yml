@@ -20,7 +20,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn clean -B package --file pom.xml -Dtarget.platform=linux-aarch64 -Dexclude.platform=linux
+      run: mvn -B clean package --file pom.xml -Dtarget.platform=linux-aarch64 -Dexclude.platform=linux
     - run: mkdir staging && zip -r "staging/Lilith's Throne (linux-aarch64).zip" "target/Lilith's Throne (linux-aarch64)/"
     - uses: actions/upload-artifact@v3
       with:
@@ -41,7 +41,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn clean -B package --file pom.xml -Dtarget.platform=linux
+      run: mvn -B clean package --file pom.xml -Dtarget.platform=linux
     - run: mkdir staging && zip -r "staging/Lilith's Throne (linux).zip" "target/Lilith's Throne (linux)/"
     - uses: actions/upload-artifact@v3
       with:
@@ -62,7 +62,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn clean -B package --file pom.xml -Dtarget.platform=mac-aarch64 -Dexclude.platform=linux
+      run: mvn -B clean package --file pom.xml -Dtarget.platform=mac-aarch64 -Dexclude.platform=linux
     - run: mkdir staging && zip -r "staging/Lilith's Throne (mac-aarch64).zip" "target/Lilith's Throne (mac-aarch64)/"
     - uses: actions/upload-artifact@v3
       with:
@@ -83,7 +83,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn clean -B package --file pom.xml -Dtarget.platform=mac -Dexclude.platform=linux
+      run: mvn -B clean package --file pom.xml -Dtarget.platform=mac -Dexclude.platform=linux
     - run: mkdir staging && zip -r "staging/Lilith's Throne (mac).zip" "target/Lilith's Throne (mac)/"
     - uses: actions/upload-artifact@v3
       with:
@@ -125,7 +125,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn clean -B package --file pom.xml -Dtarget.platform=win -Dexclude.platform=linux
+      run: mvn -B clean package --file pom.xml -Dtarget.platform=win -Dexclude.platform=linux
     - run: mkdir staging && zip -r "staging/Lilith's Throne (win).zip" "target/Lilith's Throne (win)/"
     - uses: actions/upload-artifact@v3
       with:
@@ -134,7 +134,7 @@ jobs:
   
   build_release:
     needs: [linux_aarch64, linux, mac_aarch64, mac, win_x86, win]
-    name: build_release
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -170,7 +170,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: "./staging/Lilith's Throne (linux)/Lilith's Throne (linux).zip"
-          asset_name: "Lilith's Throne v${{ steps.version.outputs.version }} (linux).zip"
+          asset_name: "Lilith's Throne ${{ steps.version.outputs.version }} (linux).zip"
           asset_content_type: application/zip
 
       - name: upload linux-aarch64 artifact
@@ -180,7 +180,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: "./staging/Lilith's Throne (linux-aarch64)/Lilith's Throne (linux-aarch64).zip"
-          asset_name: "Lilith's Throne v${{ steps.version.outputs.version }} (linux-aarch64).zip"
+          asset_name: "Lilith's Throne ${{ steps.version.outputs.version }} (linux-aarch64).zip"
           asset_content_type: application/zip
       
       - name: upload win artifact
@@ -190,7 +190,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: "./staging/Lilith's Throne (win)/Lilith's Throne (win).zip"
-          asset_name: "Lilith's Throne v${{ steps.version.outputs.version }} (win).zip"
+          asset_name: "Lilith's Throne ${{ steps.version.outputs.version }} (win).zip"
           asset_content_type: application/zip
       
       - name: upload win-x86 artifact
@@ -200,7 +200,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: "./staging/Lilith's Throne (win-x86)/Lilith's Throne (win-x86).zip"
-          asset_name: "Lilith's Throne v${{ steps.version.outputs.version }} (win-x86).zip"
+          asset_name: "Lilith's Throne ${{ steps.version.outputs.version }} (win-x86).zip"
           asset_content_type: application/zip
 
       - name: upload mac artifact
@@ -210,7 +210,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: "./staging/Lilith's Throne (mac)/Lilith's Throne (mac).zip"
-          asset_name: "Lilith's Throne v${{ steps.version.outputs.version }} (mac).zip"
+          asset_name: "Lilith's Throne ${{ steps.version.outputs.version }} (mac).zip"
           asset_content_type: application/zip
 
       - name: upload mac-aarch64 artifact
@@ -220,5 +220,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: "./staging/Lilith's Throne (mac-aarch64)/Lilith's Throne (mac-aarch64).zip"
-          asset_name: "Lilith's Throne v${{ steps.version.outputs.version }} (mac-aarch64).zip"
+          asset_name: "Lilith's Throne ${{ steps.version.outputs.version }} (mac-aarch64).zip"
           asset_content_type: application/zip

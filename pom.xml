@@ -70,7 +70,7 @@
 			</resource>
 			<resource>
 				<directory>res</directory>
-				<targetPath>${project.build.directory}/shade/res</targetPath>
+				<targetPath>${project.build.directory}/${project.name} (${target.platform})/res</targetPath>
 			</resource>
 		</resources>
 		<plugins>
