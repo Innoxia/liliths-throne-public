@@ -1,0 +1,223 @@
+name: Release Pipeline
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  linux_aarch64:
+    name: Build LT for Linux (aarch64)
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: mvn clean -B package --file pom.xml -Dtarget.platform=linux-aarch64 -Dexclude.platform=linux
+    - run: mkdir staging && zip -r "staging/Lilith's Throne (linux-aarch64).zip" "target/Lilith's Throne (linux-aarch64)/"
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Lilith's Throne (linux-aarch64)
+        path: 'staging'
+  
+  linux:
+    name: Build LT for Linux (amd64)
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: mvn clean -B package --file pom.xml -Dtarget.platform=linux
+    - run: mkdir staging && zip -r "staging/Lilith's Throne (linux).zip" "target/Lilith's Throne (linux)/"
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Lilith's Throne (linux)
+        path: 'staging'
+
+  mac_aarch64:
+    name: Build LT for Mac (aarch64)
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: mvn clean -B package --file pom.xml -Dtarget.platform=mac-aarch64 -Dexclude.platform=linux
+    - run: mkdir staging && zip -r "staging/Lilith's Throne (mac-aarch64).zip" "target/Lilith's Throne (mac-aarch64)/"
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Lilith's Throne (mac-aarch64)
+        path: 'staging'
+
+  mac:
+    name: Build LT for Mac (amd64)
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: mvn clean -B package --file pom.xml -Dtarget.platform=mac -Dexclude.platform=linux
+    - run: mkdir staging && zip -r "staging/Lilith's Throne (mac).zip" "target/Lilith's Throne (mac)/"
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Lilith's Throne (mac)
+        path: 'staging'
+
+  win_x86:
+    name: Build LT for Windows (x86)
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: mvn clean -B package --file pom.xml -Dtarget.platform=win-x86 -Dexclude.platform=linux
+    - run: mkdir staging && zip -r "staging/Lilith's Throne (win-x86).zip" "target/Lilith's Throne (win-x86)/"
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Lilith's Throne (win-x86)
+        path: 'staging'
+  
+  win:
+    name: Build LT for Windows (amd64)
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: mvn clean -B package --file pom.xml -Dtarget.platform=win -Dexclude.platform=linux
+    - run: mkdir staging && zip -r "staging/Lilith's Throne (win).zip" "target/Lilith's Throne (win)/"
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Lilith's Throne (win)
+        path: 'staging'
+  
+  build_release:
+    needs: [linux_aarch64, linux, mac_aarch64, mac, win_x86, win]
+    name: build_release
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      
+      - name: version
+        run: echo "::set-output name=version::${GITHUB_REF#refs/*/}"
+        id: version
+      
+      - name: release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: false
+          prerelease: false
+          release_name: ${{ steps.version.outputs.version }}
+          tag_name: ${{ github.ref }}
+          body_path: CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      
+      - run: mkdir staging
+
+      - name: donwload generated artifacts
+        uses: actions/download-artifact@v3
+          path: ./staging
+
+      - name: upload linux artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: './staging/Lilith's Throne (linux)/Lilith's Throne (linux).zip'
+          asset_name: 'Lilith's Throne v${{ steps.version.outputs.version }} (linux).zip'
+          asset_content_type: application/zip
+
+      - name: upload linux-aarch64 artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: './staging/Lilith's Throne (linux-aarch64)/Lilith's Throne (linux-aarch64).zip'
+          asset_name: 'Lilith's Throne v${{ steps.version.outputs.version }} (linux-aarch64).zip'
+          asset_content_type: application/zip
+      
+      - name: upload win artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: './staging/Lilith's Throne (win)/Lilith's Throne (win).zip'
+          asset_name: 'Lilith's Throne v${{ steps.version.outputs.version }} (win).zip'
+          asset_content_type: application/zip
+      
+      - name: upload win-x86 artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: './staging/Lilith's Throne (win-x86)/Lilith's Throne (win-x86).zip'
+          asset_name: 'Lilith's Throne v${{ steps.version.outputs.version }} (win-x86).zip'
+          asset_content_type: application/zip
+
+      - name: upload mac artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: './staging/Lilith's Throne (mac)/Lilith's Throne (mac).zip'
+          asset_name: 'Lilith's Throne v${{ steps.version.outputs.version }} (mac).zip'
+          asset_content_type: application/zip
+
+      - name: upload mac-aarch64 artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: './staging/Lilith's Throne (mac-aarch64)/Lilith's Throne (mac-aarch64).zip'
+          asset_name: 'Lilith's Throne v${{ steps.version.outputs.version }} (mac-aarch64).zip'
+          asset_content_type: application/zip
