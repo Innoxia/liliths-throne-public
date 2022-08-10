@@ -31,7 +31,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn clean -B package --file pom.xml -Dtarget.platform=linux-aarch64
+      run: mvn clean -B package --file pom.xml -Dtarget.platform=linux-aarch64 -Dexclude.platform=linux
     - run: mkdir staging && cp -r target/shade/ staging
     - uses: actions/upload-artifact@v3
       with:
@@ -73,7 +73,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn clean -B package --file pom.xml -Dtarget.platform=mac-aarch64
+      run: mvn clean -B package --file pom.xml -Dtarget.platform=mac-aarch64 -Dexclude.platform=linux
     - run: mkdir staging && cp -r target/shade/ staging
     - uses: actions/upload-artifact@v3
       with:
@@ -94,7 +94,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn clean -B package --file pom.xml -Dtarget.platform=mac
+      run: mvn clean -B package --file pom.xml -Dtarget.platform=mac -Dexclude.platform=linux
     - run: mkdir staging && cp -r target/shade/ staging
     - uses: actions/upload-artifact@v3
       with:
@@ -115,7 +115,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn clean -B package --file pom.xml -Dtarget.platform=win-x86
+      run: mvn clean -B package --file pom.xml -Dtarget.platform=win-x86 -Dexclude.platform=linux
     - run: mkdir staging && cp -r target/shade/ staging
     - uses: actions/upload-artifact@v3
       with:
@@ -136,7 +136,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn clean -B package --file pom.xml -Dtarget.platform=win
+      run: mvn clean -B package --file pom.xml -Dtarget.platform=win -Dexclude.platform=linux
     - run: mkdir staging && cp -r target/shade/ staging
     - uses: actions/upload-artifact@v3
       with:
