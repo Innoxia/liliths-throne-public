@@ -160,6 +160,7 @@ jobs:
 
       - name: donwload generated artifacts
         uses: actions/download-artifact@v3
+        with:
           path: ./staging
 
       - name: upload linux artifact
@@ -168,8 +169,8 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: './staging/Lilith's Throne (linux)/Lilith's Throne (linux).zip'
-          asset_name: 'Lilith's Throne v${{ steps.version.outputs.version }} (linux).zip'
+          asset_path: "./staging/Lilith's Throne (linux)/Lilith's Throne (linux).zip"
+          asset_name: "Lilith's Throne v${{ steps.version.outputs.version }} (linux).zip"
           asset_content_type: application/zip
 
       - name: upload linux-aarch64 artifact
@@ -178,8 +179,8 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: './staging/Lilith's Throne (linux-aarch64)/Lilith's Throne (linux-aarch64).zip'
-          asset_name: 'Lilith's Throne v${{ steps.version.outputs.version }} (linux-aarch64).zip'
+          asset_path: "./staging/Lilith's Throne (linux-aarch64)/Lilith's Throne (linux-aarch64).zip"
+          asset_name: "Lilith's Throne v${{ steps.version.outputs.version }} (linux-aarch64).zip"
           asset_content_type: application/zip
       
       - name: upload win artifact
@@ -188,8 +189,8 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: './staging/Lilith's Throne (win)/Lilith's Throne (win).zip'
-          asset_name: 'Lilith's Throne v${{ steps.version.outputs.version }} (win).zip'
+          asset_path: "./staging/Lilith's Throne (win)/Lilith's Throne (win).zip"
+          asset_name: "Lilith's Throne v${{ steps.version.outputs.version }} (win).zip"
           asset_content_type: application/zip
       
       - name: upload win-x86 artifact
@@ -198,8 +199,8 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: './staging/Lilith's Throne (win-x86)/Lilith's Throne (win-x86).zip'
-          asset_name: 'Lilith's Throne v${{ steps.version.outputs.version }} (win-x86).zip'
+          asset_path: "./staging/Lilith's Throne (win-x86)/Lilith's Throne (win-x86).zip"
+          asset_name: "Lilith's Throne v${{ steps.version.outputs.version }} (win-x86).zip"
           asset_content_type: application/zip
 
       - name: upload mac artifact
@@ -208,8 +209,8 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: './staging/Lilith's Throne (mac)/Lilith's Throne (mac).zip'
-          asset_name: 'Lilith's Throne v${{ steps.version.outputs.version }} (mac).zip'
+          asset_path: "./staging/Lilith's Throne (mac)/Lilith's Throne (mac).zip"
+          asset_name: "Lilith's Throne v${{ steps.version.outputs.version }} (mac).zip"
           asset_content_type: application/zip
 
       - name: upload mac-aarch64 artifact
@@ -218,6 +219,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: './staging/Lilith's Throne (mac-aarch64)/Lilith's Throne (mac-aarch64).zip'
-          asset_name: 'Lilith's Throne v${{ steps.version.outputs.version }} (mac-aarch64).zip'
+          asset_path: "./staging/Lilith's Throne (mac-aarch64)/Lilith's Throne (mac-aarch64).zip"
+          asset_name: "Lilith's Throne v${{ steps.version.outputs.version }} (mac-aarch64).zip"
           asset_content_type: application/zip
