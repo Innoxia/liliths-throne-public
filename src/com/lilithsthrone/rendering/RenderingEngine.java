@@ -2302,7 +2302,7 @@ public enum RenderingEngine {
 		
 		
 		if(!Main.game.isInNewWorld() || Main.game.getCurrentDialogueNode().isTravelDisabled()) {
-			mapSB.append("<div style='left:0; top:0; margin:0; padding:0; width:100%; height:100vw; background-color:#000; opacity:0.7; border-radius:5px;'></div>");
+			mapSB.append("<div style='left:0; top:0; margin:0; padding:0; width:100%; height:100vw; background-color:rgba(0,0,0,0.7); border-radius:5px;'></div>");
 			renderedDisabledMap = true;
 			
 		} else {
@@ -2362,7 +2362,7 @@ public enum RenderingEngine {
 	
 	private void appendNotVisitedLayer(World world, int x, int y) {
 		if(!world.getCell(x, y).isTravelledTo()) {
-			mapSB.append("<div style='position:absolute;width:100%;height:100%;top:0;left:0;background-color:#000;opacity:0.5;'></div>");
+			mapSB.append("<div style='position:absolute;width:100%;height:100%;top:0;left:0;background-color:rgba(0,0,0,0.5);'></div>");
 		}
 	}
 

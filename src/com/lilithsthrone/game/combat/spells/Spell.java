@@ -3534,7 +3534,7 @@ public enum Spell {
 									+ (!hasSpell
 										?(forbidden
 											?"<div class='overlay disabled-dark' style='cursor:default;'></div>"
-											:"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8;'></div>")
+											:"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); '></div>")
 										:"")
 								+ "</div>");
 				
@@ -3623,9 +3623,9 @@ public enum Spell {
 							+ (!hasUpgrade && !isUpgradeAvailable
 								?(forbidden
 										?"<div class='overlay disabled-dark' style='border-radius:50%;'></div>"
-										:"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; border-radius:50%; cursor: default;'></div>")
+										:"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); border-radius:50%; cursor: default;'></div>")
 								:(!hasUpgrade
-									?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.6; border-radius:50%; cursor:pointer;'></div>"
+									?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6); border-radius:50%; cursor:pointer;'></div>"
 									:""))
 						+ "</div>");
 		
