@@ -158,6 +158,11 @@ public class Colour {
 		return "#"+getColor().toString().substring(2, 8);
 	}
 
+	public String toRGBA(Double alpha) {
+		Color color = Color.web(this.toWebHexString());
+		return "rgba(" + (color.getRed()*255) + ", " + (color.getGreen()*255) + ",  " + (color.getBlue()*255) + ", " + alpha + ")";
+	}
+
 	/**
 	 * The colour that should be used when displaying icons to the player in covering recolouring screens. Will usually be the same as toWebHexString().
 	 * @return A String in the format #RRGGBB
