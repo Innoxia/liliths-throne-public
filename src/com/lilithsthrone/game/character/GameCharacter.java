@@ -24055,27 +24055,26 @@ public abstract class GameCharacter implements XMLSaving {
 	public String getAppearsAsGenderDescription(boolean colouredGender) {
 		return UtilText.parse(this, calculateGenderAppearance(colouredGender).description);
 	}
-	
+
+
 	public boolean isPenisBulgeVisible() {
-        AbstractClothing penisClothing = getClothingInSlot(InventorySlot.PENIS);
 		return hasPenis()
 				&& getGenitalArrangement()==GenitalArrangement.NORMAL
 				&& (hasPenisModifier(PenetrationModifier.SHEATHED)
-					? getPenisRawSizeValue()>=PenisLength.FOUR_HUGE.getMaximumValue() + calculatePenisBulgeModifier()
+					? getPenisRawSizeValue()>= PenisLength.FOUR_HUGE.getMaximumValue() + calculatePenisBulgeModifier()
 					: getPenisRawSizeValue()>= PenisLength.TWO_AVERAGE.getMaximumValue() + calculatePenisBulgeModifier());
 	}
 
     private int calculatePenisBulgeModifier() {
         int bulgeModifier = calculateBulgeModifier(InventorySlot.PENIS);
-        return (bulgeModifier < 0)
-                ? -5
+        return bulgeModifier * ((bulgeModifier < 0)
+                ? 5
                 : isTaur()
                     ? 91
-                    : 10;
+                    : 10);
     }
 	
 	public boolean isTesticleBulgeVisible() {
-        AbstractClothing penisClothing = getClothingInSlot(InventorySlot.PENIS);
 		return hasPenis()
 				&& getGenitalArrangement()==GenitalArrangement.NORMAL
 				&& !isInternalTesticles()
@@ -24083,16 +24082,16 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
     public boolean isCamelToeVisible() {
-        return hasVagina()
-                && getGenitalArrangement()==GenitalArrangement.NORMAL
-                && (getVaginaLabiaSize().getValue() >= LabiaSize.THREE_LARGE.getValue() ||
+        return hasVagina() &&
+                getGenitalArrangement()==GenitalArrangement.NORMAL &&
+                (getVaginaLabiaSize().getValue() >= LabiaSize.THREE_LARGE.getValue() ||
                 (getVaginaOrificeModifiers().contains(OrificeModifier.PUFFY) && getVaginaLabiaSize().getValue() > LabiaSize.ZERO_TINY.getValue()))
                 && calculateBulgeModifier(InventorySlot.VAGINA) < 0;
     }
 
     private int calculateBulgeModifier(InventorySlot slotToCheck) {
-        for (InventorySlot slot : Util.newArrayListOfValues(InventorySlot.TORSO_OVER, InventorySlot.TORSO_UNDER, InventorySlot.LEG,
-                InventorySlot.SOCK, InventorySlot.STOMACH, InventorySlot.GROIN)) {
+        for (InventorySlot slot : Util.newArrayListOfValues(InventorySlot.TORSO_OVER, InventorySlot.TORSO_UNDER,
+                InventorySlot.LEG, InventorySlot.SOCK, InventorySlot.STOMACH, InventorySlot.GROIN)) {
             AbstractClothing clothing = getClothingInSlot(slot);
             if(clothing != null && clothing.isConcealsSlot(this, slot, slotToCheck)){
                 Set<ItemTag> tags = clothing.getItemTags(slot);
