@@ -229,6 +229,11 @@ public class HarpyDominantCompanion extends NPC {
 			return "#E36D71";
 		}
 	}
+
+	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
+	}
 	
 	@Override
 	public void changeFurryLevel(){

@@ -65,9 +65,10 @@
 			<characterId>lunexis</characterId>
 			<slotsAvailable excluded="false">
 				<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+				<slot><![CDATA[ALL_FOURS_IN_FRONT]]></slot>
 			</slotsAvailable>
 			<canStopSex><![CDATA[true]]></canStopSex>
-			<canChangePositions><![CDATA[true]]></canChangePositions>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
 			<endSexAffectionChanges><![CDATA[true]]></endSexAffectionChanges>
 			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
 			<sexPace/>
@@ -86,7 +87,22 @@
 			<concealedSlots/>
 			<preferredTarget/>
 			<uniqueSexActions/>
-			<preferences/>
+            <preferences>
+                <character id="pc">
+                    <foreplay copyForMain="true">
+                        <performing><![CDATA[PENETRATION_PENIS]]></performing>
+                        <targeted><![CDATA[
+							#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+								ORIFICE_VAGINA
+							#ELSEIF(game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+								ORIFICE_ANUS
+							#ELSE
+								ORIFICE_MOUTH
+							#ENDIF
+						]]></targeted>
+                    </foreplay>
+                </character>
+            </preferences>
 			<sexTypesBanned/>
 			<areasBanned/>
 			<stopSexCondition/>

@@ -255,6 +255,7 @@ public class SlaveDialogue {
 		return new ArrayList<>(characters);
 	}
 	
+	private static boolean enslavementWorked = false;
 	public static final DialogueNode DEFAULT_ENSLAVEMENT_DIALOGUE = new DialogueNode("New Slave", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
@@ -264,9 +265,8 @@ public class SlaveDialogue {
 			} else {
 				Main.game.getTextEndStringBuilder().append(enslavementTarget.incrementAffection(Main.game.getPlayer(), -25));
 			}
-		}
-		@Override
-		public String getContent() {
+			
+			// Generate content:
 			GameCharacter target = enslavementTarget;
 			AbstractClothing enslavementClothing = target.getEnslavementClothing();
 			UtilText.addSpecialParsingString(enslavementClothing.getName(), true);
@@ -276,43 +276,51 @@ public class SlaveDialogue {
 				path = "characters/offspring/enslavement";
 			}
 			
-			
 			if(!target.isSlave() && target.isAbleToBeEnslaved() && Main.game.getPlayer().isHasSlaverLicense()) {
 				if(enslavementClothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"))) {
-					return UtilText.parseFromXMLFile(path, "ENSLAVEMENT_SUCCESS_COLLAR", target);
+					Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile(path, "ENSLAVEMENT_SUCCESS_COLLAR", target));
 				} else {
-					return UtilText.parseFromXMLFile(path, "ENSLAVEMENT_SUCCESS", target);
+					Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile(path, "ENSLAVEMENT_SUCCESS", target));
 				}
+				enslavementWorked = true;
 				
 			} else {
 				if(target.isSlave()) {
-					return UtilText.parseFromXMLFile(path, "ENSLAVEMENT_FAIL_ALREADY_SLAVE", target);
+					Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile(path, "ENSLAVEMENT_FAIL_ALREADY_SLAVE", target));
 					
 				} else if(!target.isAbleToBeEnslaved()) {
 					if(target.getSubspecies()==Subspecies.DEMON) {
-						return UtilText.parseFromXMLFile(path, "ENSLAVEMENT_FAIL_NOT_WANTED_DEMON", target);
+						Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile(path, "ENSLAVEMENT_FAIL_NOT_WANTED_DEMON", target));
 						
 					} else {
-						return UtilText.parseFromXMLFile(path, "ENSLAVEMENT_FAIL_NOT_WANTED", target);
+						Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile(path, "ENSLAVEMENT_FAIL_NOT_WANTED", target));
 					}
 					
 				} else {
-					return UtilText.parseFromXMLFile(path, "ENSLAVEMENT_FAIL_NO_LICENSE", target);
+					Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile(path, "ENSLAVEMENT_FAIL_NO_LICENSE", target));
 				}
+				enslavementWorked = false;
 			}
+			
+			// Apply effects after content has been generated due to conditional checks:
+			Main.game.getPlayer().addSlave((NPC) enslavementTarget);
+			enslavementTarget.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
 		}
-
+		@Override
+		public String getContent() {
+			return "";
+		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
-				if(!SlaveDialogue.getEnslavementTarget().isSlave() && SlaveDialogue.getEnslavementTarget().isAbleToBeEnslaved() && Main.game.getPlayer().isHasSlaverLicense()) {
+				if(enslavementWorked) {
 					return new Response("Continue",
 							"Carry on your way.",
 							SlaveDialogue.getFollowupEnslavementDialogue()){
 						@Override
 						public void effects() {
-							Main.game.getPlayer().addSlave((NPC) enslavementTarget);
-							enslavementTarget.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
+//							Main.game.getPlayer().addSlave((NPC) enslavementTarget);
+//							enslavementTarget.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
 						}
 						@Override
 						public DialogueNode getNextDialogue(){
@@ -1444,7 +1452,7 @@ public class SlaveDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Talking with [npc.Name]";
+			return UtilText.parse(getSlave(), "Talking with [npc.Name]");
 		}
 
 		@Override
@@ -1536,7 +1544,7 @@ public class SlaveDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Talking with [npc.Name]";
+			return UtilText.parse(getSlave(), "Talking with [npc.Name]");
 		}
 
 		@Override
@@ -1682,7 +1690,7 @@ public class SlaveDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Encouraging [npc.Name]";
+			return UtilText.parse(getSlave(), "Encouraging [npc.Name]");
 		}
 
 		@Override
@@ -1878,7 +1886,7 @@ public class SlaveDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Hugging [npc.Name]";
+			return UtilText.parse(getSlave(), "Hugging [npc.Name]");
 		}
 
 		@Override
@@ -2075,7 +2083,7 @@ public class SlaveDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Petting [npc.Name]";
+			return UtilText.parse(getSlave(), "Petting [npc.Name]");
 		}
 
 		@Override
@@ -2224,7 +2232,7 @@ public class SlaveDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Giving [npc.Name] a present";
+			return UtilText.parse(getSlave(), "Giving [npc.Name] a present");
 		}
 
 		@Override
@@ -2350,7 +2358,7 @@ public class SlaveDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Inspecting [npc.Name]";
+			return UtilText.parse(getSlave(), "Inspecting [npc.Name]");
 		}
 
 		@Override
@@ -2719,7 +2727,7 @@ public class SlaveDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Spanking [npc.Name]";
+			return UtilText.parse(getSlave(), "Spanking [npc.Name]");
 		}
 
 		@Override
@@ -2930,7 +2938,7 @@ public class SlaveDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Molesting [npc.Name]";
+			return UtilText.parse(getSlave(), "Molesting [npc.Name]");
 		}
 
 		@Override

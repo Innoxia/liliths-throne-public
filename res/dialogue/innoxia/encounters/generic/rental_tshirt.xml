@@ -32,6 +32,11 @@
 				#ENDIF
 			#ENDIF
 			
+			#IF(pc.isFeminine() && !npc.getSexualOrientation().isAttractedToFeminine())
+				[#npc.setSexualOrientation(ORIENTATION_GYNEPHILIC)]
+			#ELSEIF(!pc.isFeminine() && !npc.getSexualOrientation().isAttractedToMasculine())
+				[#npc.setSexualOrientation(ORIENTATION_ANDROPHILIC)]
+			#ENDIF
 			
 			#IF(RND.nextInt(100)<50)
 				#IF(npc.hasFetish(FETISH_DOMINANT))

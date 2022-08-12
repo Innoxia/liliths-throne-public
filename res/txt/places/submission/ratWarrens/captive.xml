@@ -2470,22 +2470,22 @@
 		<p style='text-align:center;'>
 			...
 		</p>
-		<p>
+		<p><i>
 			Completely and utterly broken into one of your Master's milkers, you happily spend the next few days, weeks, months, and years being milked and bred by both your Master and the members of Vengar's gang. Your love of your Master's massive fat cock never falters, and even after you've spent many years serving as his milker, you moan just as eagerly for him to fuck you as you did all that time ago when he first transformed your pretty pussy into your now-ugly, drooling cunt
 			#IF(game.isGapeContentEnabled())
 				 before permanently gaping it out with his fat cock.
 			#ELSE
 				 before breaking it in with his fat cock.
 			#ENDIF
-		</p>
-		<p>
+		</i></p>
+		<p><i>
 			#IF(game.isIncestEnabled())
 				As the years pass, dozens of the countless rat-morphs which you end up giving birth to end up joining the gang, and before long your drooling, ugly cunt is being rutted and stuffed with the cum of your offspring and their father alike.
 			#ELSE
 				As the years pass, dozens of the countless rat-morphs which you end up giving birth to end up joining the gang.
 			#ENDIF
 			 Due to the pressure that these offspring of yours exert on your Master, you're eventually given privileges to freely wander the Rat Warrens. Despite this, you're rarely found outside of the milking room, where you love nothing more than to be rutted by your Master's cock while being hooked up to the arcane milking machine...
-		</p>
+		</i></p>
 	#ELSE
 		<p>
 			Unable to think of yourself as anything other than your Master's milker, you unquestioningly obey his command to get into your milking stall when he wakes you up the next morning. With your behaviour now indistinguishable from the other four milkers, you join them in raising your [pc.hips+] and eagerly begging for your Master to fuck your ass as he hooks you all up to your milking machines. Much to your delight, your asshole's owner seems unable to resist the sight of your [pc.ass+], and after hooking you up to your cock-pump, he gives you a good, rough fucking and a hot, fresh load of musky cum.
@@ -2499,9 +2499,9 @@
 		<p style='text-align:center;'>
 			...
 		</p>
-		<p>
+		<p><i>
 			Completely and utterly broken into one of your Master's milkers, you happily spend the next few days, weeks, months, and years being milked and fucked by both your Master and the members of Vengar's gang. Your love of your Master's massive fat cock never falters, and even after you've spent many years serving as his milker, you beg just as eagerly for him to fuck you as you did all that time ago when he first penetrated your [pc.ass+]...
-		</p>
+		</i></p>
 	#ENDIF
 	]]>
 	</htmlContent>
