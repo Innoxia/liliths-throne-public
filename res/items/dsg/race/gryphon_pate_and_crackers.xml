@@ -7,7 +7,7 @@
 		<determiner><![CDATA[a package of]]></determiner>
 		<name><![CDATA[Pâté and Crackers]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Tuna Sashimi]]></namePlural>
-		<description><![CDATA[A small tin of meat pâté and crackers wrapped in a wax paper package. The label on package is a cartoony depiction a smiling grypon-boy with crumbs all around his beak.]]></description> 
+		<description><![CDATA[A small tin of meat pâté and crackers wrapped in a wax paper package. The label on package is a cartoony depiction a smiling gryphon-boy with crumbs all around his beak.]]></description> 
 		
 		<useDescriptor>eat</useDescriptor>
 		
