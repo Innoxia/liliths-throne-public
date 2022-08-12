@@ -89,10 +89,13 @@
     <scene id ="approach">
         <author><![CDATA[AceXp]]></author>
         <title><![CDATA[[harpyDominant.NamePos] nest]]></title>
-        <preParsingEffects>
+        <preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'HARPY_NEST_DOMINANT_APPROACH'))]
             [#harpyDominantCompanion.setAreaKnownByCharacter(CA_PENIS, harpyDominant, true)]
-        </preParsingEffects>
-        <content folderPath="txt/places/dominion/harpyNests/dominant">HARPY_NEST_DOMINANT_APPROACH</content>
+			[#harpyDominant.setCharacterReactedToPregnancy(pc, true)]
+			[#harpyDominantCompanion.setCharacterReactedToPregnancy(pc, true)]
+        ]]></preParsingEffects>
+        <content/>
         <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
         <continuesDialogue>false</continuesDialogue>
         <travelDisabled>true</travelDisabled>

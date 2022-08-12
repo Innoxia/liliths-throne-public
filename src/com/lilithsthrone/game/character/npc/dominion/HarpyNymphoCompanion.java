@@ -219,6 +219,11 @@ public class HarpyNymphoCompanion extends NPC {
 			return "#F986E7";
 		}
 	}
+
+	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
+	}
 	
 	@Override
 	public void changeFurryLevel(){
