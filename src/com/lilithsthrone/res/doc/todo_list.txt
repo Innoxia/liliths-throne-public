@@ -10,6 +10,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where Amazonian Ambrosia wouldn't be given to the player upon searching the district in Themiscyra. (by AceXP)
 		Fixed bug in the 'Lilaya's panties' content, where in the threesome section of the sex scene, selecting the 'Lilaya's pussy' or 'Lilaya's cock' actions would not work. (by AceXP)
 		Parsing fix in the tooltip for the 'Moo mode' action in the debug menu. (by AceXP)
+		Typo fixes. (PR#1680 by Thernn)
 		
 	Gameplay:
 		Filled in final placeholders in the new Themiscyra main quest content and fixed a couple of minor parsing issues in it.
