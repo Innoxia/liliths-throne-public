@@ -27,8 +27,8 @@ public class BreastType {
 			Race.NONE,
 			NippleType.HUMAN,
 			FluidType.MILK_HUMAN,
-			"",
-			"",
+			"breast",
+			"breasts",
 			"[npc.She] no longer [npc.has] [style.boldShrink([npc.crotchBoobs])]!",
 			""){
 	};

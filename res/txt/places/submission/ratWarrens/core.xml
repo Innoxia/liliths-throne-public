@@ -1469,10 +1469,10 @@
 		#ENDIF
 	</p>
 	<p>
-		Looking down at the sign, you read:
+		Looking down at the sign, which has clearly been stolen from Axel's gambling den, you read:
 	</p>
 	<p style='text-align:center;'>
-		<b>[axel.name]'s Rules For Dice Poker</b><br/>
+		<b><strike>[axel.name]'s</strike> Rules For Dice Poker</b><br/>
 		1. Both players place the buy-in amount to start a game.<br/><i>Some of the text has been etched out here, and replaced with crude writing:</i><br/>If ya wont to play, you haz to pay up [style.moneyFormat(500, span)]. No reefundz, no arrguinn if ya looses.<br/>
 		2. Both players roll five dice each.<br/>
 		3. Players can choose to increase the bet (referred to as a 'raise'), or leave the bet at the buy-in amount (referred to as a 'call').<br/>

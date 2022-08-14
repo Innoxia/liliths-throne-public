@@ -141,20 +141,27 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 	
 	@Override
 	public String applyEffect(GameCharacter user, GameCharacter target) {
+		if(cum==null) {
+			System.err.println("WARNING: AbstractFilledCondom is calling applyEffect() when cum variable is null!!!");
+		}
 		if(target.hasFetish(Fetish.FETISH_CUM_ADDICT)) {
 			return UtilText.parse(target, user,
 					"<p>"
 						+ "[npc.Name] can't help but let out a delighted [npc.moan] as [npc.she] greedily [npc.verb(gulp)] down the slimy fluid."
 						+ " Darting [npc.her] [npc.tongue] out, [npc.she] desperately [npc.verb(lick)] up every last drop of cum; only discarding the condom once [npc.sheIs] sure that's it's completely empty."
 					+ "</p>"
-					+ target.ingestFluid(getCumProvider(), cum, SexAreaOrifice.MOUTH, millilitresStored));
+					+ (cum==null
+						?""
+						:target.ingestFluid(getCumProvider(), cum, SexAreaOrifice.MOUTH, millilitresStored)));
 		} else {
 			return UtilText.parse(target, user,
 					"<p>"
 						+ "[npc.Name] [npc.verb(scrunch)] [npc.her] [npc.eyes] shut as [npc.she] [npc.verb(gulp)] down the slimy fluid,"
 						+ " trying [npc.her] best not to think about what [npc.sheHas] just done as "+(user.equals(target)?"[npc.she] [npc.verb(throw)]":"[npc2.name] [npc2.verb(throw)]")+" the now-empty condom to the floor..."
 					+ "</p>"
-					+ target.ingestFluid(getCumProvider(), cum, SexAreaOrifice.MOUTH, millilitresStored));
+					+ (cum==null
+						?""
+						:target.ingestFluid(getCumProvider(), cum, SexAreaOrifice.MOUTH, millilitresStored)));
 		}
 		
 	}

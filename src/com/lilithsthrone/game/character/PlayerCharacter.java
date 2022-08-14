@@ -1452,44 +1452,64 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		if(Main.sex.getAllParticipants().contains(Main.game.getNpc(Lilaya.class))
 				&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
-				&& target==OrgasmCumTarget.INSIDE
-				&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
-				&& this.getCurrentPenisRawCumStorageValue()>0
-				&& Main.sex.getOngoingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getNpc(Lilaya.class)).contains(SexAreaOrifice.VAGINA)) {
+				&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lilayaAmazonsSecretImpregnation, false);
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lilayaCondomBroke, false);
+			boolean triggerEndScene = false;
 			
-			StringBuilder sb = new StringBuilder();if(description!=null) {
+			StringBuilder sb = new StringBuilder();
+			if(description!=null) {
 				sb.append(description);
 			} else {
 				sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
 			}
 			
-			if(this.isWearingCondom()) {
-				if(sexAction.getCondomFailure(this, Main.game.getNpc(Lilaya.class))!=CondomFailure.NONE) {
-					Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lilayaCondomBroke, true);
-					sb.append(UtilText.parseFromXMLFile("characters/dominion/lilaya", "ORGASM_REACTION_CREAMPIE_CONDOM_BROKE"));
+			// Penis cumming inside reaction:
+			if(target==OrgasmCumTarget.INSIDE
+					&& this.getCurrentPenisRawCumStorageValue()>0
+					&& Main.sex.getOngoingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getNpc(Lilaya.class)).contains(SexAreaOrifice.VAGINA)) {
+				if(this.isWearingCondom()) {
+					if(sexAction.getCondomFailure(this, Main.game.getNpc(Lilaya.class))!=CondomFailure.NONE) {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lilayaCondomBroke, true);
+						sb.append(UtilText.parseFromXMLFile("characters/dominion/lilaya", "ORGASM_REACTION_CREAMPIE_CONDOM_BROKE"));
+					} else {
+						sb.append(UtilText.parseFromXMLFile("characters/dominion/lilaya", "ORGASM_REACTION_CREAMPIE_CONDOM"));
+					}
 				} else {
-					Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lilayaCondomBroke, false);
-					sb.append(UtilText.parseFromXMLFile("characters/dominion/lilaya", "ORGASM_REACTION_CREAMPIE_CONDOM"));
+					sb.append(UtilText.parseFromXMLFile("characters/dominion/lilaya", "ORGASM_REACTION_CREAMPIE"));
 				}
-			} else {
-				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lilayaCondomBroke, false);
-				sb.append(UtilText.parseFromXMLFile("characters/dominion/lilaya", "ORGASM_REACTION_CREAMPIE"));
+				triggerEndScene = true;
+				
+			// Amazon's Secret status effect reaction:
+			} else if(this.hasStatusEffect("innoxia_amazons_secret")) {
+				Set<GameCharacter> charactersContactingVagina = new HashSet<>(Main.sex.getOngoingCharactersUsingAreas(this, SexAreaOrifice.VAGINA, SexAreaPenetration.CLIT));
+				charactersContactingVagina.addAll(Main.sex.getOngoingCharactersUsingAreas(this, SexAreaPenetration.CLIT, SexAreaOrifice.VAGINA));
+				charactersContactingVagina.addAll(Main.sex.getOngoingCharactersUsingAreas(this, SexAreaOrifice.VAGINA, SexAreaOrifice.VAGINA));
+				charactersContactingVagina.addAll(Main.sex.getOngoingCharactersUsingAreas(this, SexAreaPenetration.CLIT, SexAreaPenetration.CLIT));
+
+				if(charactersContactingVagina.contains(Main.game.getNpc(Lilaya.class))) {
+					Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lilayaAmazonsSecretImpregnation, true);
+					triggerEndScene = true;
+					sb.append(UtilText.parseFromXMLFile("characters/dominion/lilaya", "ORGASM_REACTION_AMAZONS_SECRET"));
+				}
 			}
 			
-			return new SexActionOrgasmOverride(false) {
-				@Override
-				public String getDescription() {
-					return sb.toString();
-				}
-				@Override
-				public void applyEffects() {
-				}
-				@Override
-				public boolean isEndsSex() {
-					return Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0)
-							&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative();
-				}
-			};
+			if(triggerEndScene) {
+				return new SexActionOrgasmOverride(false) {
+					@Override
+					public String getDescription() {
+						return sb.toString();
+					}
+					@Override
+					public void applyEffects() {
+					}
+					@Override
+					public boolean isEndsSex() {
+						return Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0)
+								&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative();
+					}
+				};
+			}
 		}
 		
 		

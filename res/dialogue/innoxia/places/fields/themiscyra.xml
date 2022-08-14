@@ -418,7 +418,7 @@
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/themiscyra', 'WINE_LOOTING'))]
                     [#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_race_fox_vulpines_vineyard), 3, false, true))]
                     [#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_potions_amazons_secret), 2, false, true))]
-                    [#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_potions_amazonians_ambrosia), 4, false, true))]
+                    [#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_potions_amazonian_ambrosia), 4, false, true))]
 					[#flags.setFlag(FLAG_innoxia_themiscyra_wine_looted, true)]
 				]]></effects>
 			</response>
@@ -915,6 +915,7 @@
 		<preParsingEffects><![CDATA[
 			[#game.setParserTarget('attacker', game.getNonCompanionCharactersPresent().get(0))]
 			[#game.setParserTarget('attacker2', game.getNonCompanionCharactersPresent().get(1))]
+			[#attacker2.setSpeechColour(COLOUR_BASE_PURPLE_LIGHT)]
 			[#flags.setFlag(FLAG_innoxia_themiscyra_centauresses_question, false)]
 		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/themiscyra">RAIDERS</content>
@@ -1044,7 +1045,7 @@
 					<dominantSpectators/>
 					<submissiveSpectators/>
 					<postSexDialogue><![CDATA[innoxia_places_fields_themiscyra_raiders_after_sex_dom]]></postSexDialogue>
-					<sexStartContent folderPath="txt/places/fields/themiscyra">RAIDERS_COMBAT_WON_SEX_GENTLE</sexStartContent>
+					<sexStartContent folderPath="txt/places/fields/themiscyra">RAIDERS_COMBAT_WON_SEX</sexStartContent>
 					<tags>
 						<tag>START_PACE_PLAYER_DOM_GENTLE</tag>
 					</tags>
@@ -1070,7 +1071,7 @@
 					<dominantSpectators/>
 					<submissiveSpectators/>
 					<postSexDialogue><![CDATA[innoxia_places_fields_themiscyra_raiders_after_sex_dom]]></postSexDialogue>
-					<sexStartContent folderPath="txt/places/fields/themiscyra">RAIDERS_COMBAT_WON_SEX_ROUGH</sexStartContent>
+					<sexStartContent folderPath="txt/places/fields/themiscyra">RAIDERS_COMBAT_WON_SEX</sexStartContent>
 					<tags>
 						<tag>START_PACE_PLAYER_DOM_ROUGH</tag>
 					</tags>
@@ -1350,6 +1351,9 @@
 	</scene>
 	
 	<scene id="raiders_after_sex_sub">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(pc.getLastCell())]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[The centauress has had her fun with you, and with a cruel laugh she kicks you away from her...]]></tooltip>
 		<content folderPath="txt/places/fields/themiscyra">RAIDERS_AFTER_SEX_SUB</content>
@@ -1360,15 +1364,12 @@
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Flee]]></responseTitle>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
 				<responseTooltip><![CDATA[
-					With the centauresses threatening to beat you up all over again, the best thing to do would be to make a hasty exit...
+					After your sexual encounter with the two centauresses, you wonder where to go now...
 				]]></responseTooltip>
 				<nextDialogue defaultPlaceType="innoxia_fields_themiscyra_street"/>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
-				<effects><![CDATA[
-					[#pc.setLocation(pc.getLastCell())]
-				]]></effects>
 			</response>
 		</responses>
 	</scene>
