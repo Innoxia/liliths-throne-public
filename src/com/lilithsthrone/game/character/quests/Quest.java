@@ -437,7 +437,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "As you left Elis, you were approached by Meraxis, who told you to meet her in the tavern 'The Red Dragon' at Elis, which is apparently near to the town's eastern gate."
+			return "As you left Dominion, you were approached by Meraxis, who told you to meet her in the tavern 'The Red Dragon' at Elis, which is apparently near to the town's eastern gate."
 					+ " Meraxis also said that she'll set up a meeting with Minotallys when you arrive, and that she'll have secured accommodation for you.";
 		}
 

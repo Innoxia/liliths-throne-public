@@ -2599,15 +2599,23 @@ public class GenericOrgasms {
 			}
 			if(!pluggedVagina) {
 				SexAreaPenetration analPenetrator = Main.sex.getFirstOngoingSexAreaPenetration(characterOrgasming, SexAreaOrifice.ANUS);
+				Set<GameCharacter> tribbingPartners = Main.sex.getOngoingCharactersUsingAreas(characterOrgasming, SexAreaPenetration.CLIT, SexAreaPenetration.CLIT);
+				
 				if(characterOrgasming.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()
 						&& analPenetrator!=null
 						&& analPenetrator.isTakesVirginity()) {
 					GameCharacter characterPenetratingAss = Main.sex.getOngoingCharactersUsingAreas(characterOrgasming, SexAreaOrifice.ANUS, analPenetrator).iterator().next();
 					genericOrgasmSB.append(UtilText.parse(characterOrgasming, characterPenetratingAss,
-							" [npc.NamePos] [npc.pussy+] clenches down hard, and despite the fact that it's not being penetrated,"
-									+ " [npc.namePos] pleasure isn't in any way lessened due to the fact that [npc.sheIs] "
-									+(Main.sex.getSexPace(characterOrgasming)==SexPace.SUB_RESISTING?"focusing primarily on":"loving")
-									+" the feeling of [npc2.namePos] "+analPenetrator.getName(characterPenetratingAss)+" in [npc.her] ass."));
+							" [npc.NamePos] [npc.pussy+] clenches down hard, and despite the fact that it's not being penetrated, [npc.namePos] pleasure isn't in any way lessened due to the fact that [npc.sheIs] "
+								+(Main.sex.getSexPace(characterOrgasming)==SexPace.SUB_RESISTING?"focusing primarily on":"loving")
+								+" the feeling of [npc2.namePos] "+analPenetrator.getName(characterPenetratingAss)+" in [npc.her] ass."));
+					
+				} else if(tribbingPartners!=null && !tribbingPartners.isEmpty()) {
+					GameCharacter tribbingPartner = tribbingPartners.iterator().next();
+					genericOrgasmSB.append(UtilText.parse(characterOrgasming, tribbingPartner,
+							" [npc.NamePos] [npc.pussy+] clenches down hard, and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(focus)]"
+								+ " on the feeling of [npc2.namePos] [npc2.pussy+] rubbing, bumping, and grinding against [npc.hers]."));
+					
 				} else {
 					genericOrgasmSB.append(" [npc.NamePos] [npc.pussy+] clenches down hard, and the wave of disappointment upon finding itself empty almost overwhelms the pleasure that radiates up through [npc.her] groin.");
 				}

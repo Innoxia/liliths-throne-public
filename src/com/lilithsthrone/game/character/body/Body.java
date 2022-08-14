@@ -97,6 +97,7 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.Tattoo;
+import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
@@ -3329,15 +3330,15 @@ public class Body implements XMLSaving {
 					tattooSB.append("<span style='color:"+tattoo.getPrimaryColour().toWebHexString()+";'>"+tattoo.getPrimaryColour().getName()+"</span>");
 					tattooSB.append(".");
 				}
-				if(tattoo.getWriting()!=null) {
+				if(tattoo.getWriting()!=null && tattoo.getWriting().getText()!=null && !tattoo.getWriting().getText().isEmpty()) {
 					tattooSB.append("<br/>It bears the words: '"+tattoo.getFormattedWritingOutput()+"'");
 				}
-				if(tattoo.getCounter()!=null) {
+				if(tattoo.getCounter()!=null && tattoo.getCounter().getType()!=TattooCounterType.NONE) {
 					String counterName = tattoo.getCounter().getType().getName();
-					if(tattoo.getWriting()!=null) {
-						tattooSB.append(", and is enchanted to keep");
+					if(tattoo.getWriting()!=null && tattoo.getWriting().getText()!=null && !tattoo.getWriting().getText().isEmpty()) {
+						tattooSB.append(", and is enchanted to keep ");
 					} else {
-						tattooSB.append("<br/>The tattoo's enchanted to keep");
+						tattooSB.append("<br/>The tattoo is enchanted to keep ");
 					}
 					tattooSB.append(UtilText.generateSingularDeterminer(counterName)+" '"+counterName+"' count, which reads: '"+tattoo.getFormattedCounterOutput(owner)+"'.");
 				} else {

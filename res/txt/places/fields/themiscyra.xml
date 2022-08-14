@@ -605,7 +605,7 @@
 	
 	<htmlContent tag="PLAZA_LUNEXIS_ENTRY"><![CDATA[
 	<p>
-		[lunexis.speech(I tire of these games!)] the voice calls out, and you watch as a gigantic centauress shoves the others aside to step forwards in front of Ursa. While all of the centauresses are large, this particular one stands at a staggering [lunexis.heightValue], and looks to be every bit as muscular as the Amazons' queen. Her skin is a bright shade of scarlet, while the hair on her head and that which covers her horse's body is black. Throwing open her red fur cloak, she reveals her six breasts, and you see that the dark red nipples of each one are connected to each other by means of gold rings and chains. Her huge horns are similarly connected by gold chains, while perched upon her head is a gold circlet that's similar to Ursa's silver one. Several more pieces of gold jewellery glitter and glisten in the light of the fires ringing the plaza, and as her golden eyes flick between you, Ursa, Aurokaris, and Ursa, she lifts up her four arms, showing off the four menacing-looking morning stars which she's using as weapons, and proclaims in a voice like thunder, [lunexis.speech(Let all here know that it is Lunexis, recognised daughter of Lunette herself, commander of her army, undefeated champion of the iron-hoof games, who is to have the pleasure of defeating Ursa, so-called queen of the Amazons!)]
+		[lunexis.speech(I tire of these games!)] the voice calls out, and you watch as a gigantic centauress shoves the others aside to step forwards in front of Ursa. While all of the centauresses are large, this particular one stands at a staggering [lunexis.heightValue], and looks to be every bit as muscular as the Amazons' queen. Her skin is a bright shade of scarlet, while the hair on her head and that which covers her horse's body is black. Throwing open her red fur cloak, she reveals her six breasts, and you see that the dark red nipples of each one are connected to each other by means of gold rings and chains. Her huge horns are similarly connected by gold chains, while perched upon her head is a gold circlet that's similar to Ursa's silver one. Several more pieces of gold jewellery glitter and glisten in the light of the fires ringing the plaza, and as her golden eyes flick between you, Meraxis, Aurokaris, and Ursa, she lifts up her four arms, showing off the four menacing-looking morning stars which she's using as weapons, and proclaims in a voice like thunder, [lunexis.speech(Let all here know that it is Lunexis, recognised daughter of Lunette herself, commander of her army, undefeated champion of the iron-hoof games, who is to have the pleasure of defeating Ursa, so-called queen of the Amazons!)]
 	</p>
 	<p>
 		As Lunexis finishes this boast, her army lets out a deafening cheer, which causes a wicked smirk to settle on the demon's face. For the first time, you then hear Ursa speak, whose voice is loud enough to quieten down the centauresses while also having a gentle, melodic quality to it, [ursa.speech(You may defeat me, wretched daughter of a despicable lilin, but so long as one Amazon still remains free, you will not have defeated us.)]
@@ -675,7 +675,11 @@
 			Looking across, you see Meraxis and Aurokaris have also just fallen to their opponents, and the centauresses who delivered the final blows are quick to shout out their claims on your companion's bodies. Summoning the last of her strength, Meraxis tries to cast teleport, but the centauresses who's claimed her quickly clasps an iron collar around her neck, which drains the [meraxis.race]'s arcane energy and interrupts her casting. Tearing off Meraxis's clothes, this muscular, purple-skinned brute of a centauress pushes her down onto all fours, before quickly mounting her and ramming her fat, horse-like cock deep into Meraxis's [meraxis.pussy+].
 		</p>
 		<p>
-			The similar fate awaits Aurokaris, and you look across to see a surprisingly-small, blue-skinned centauress announcing to her comrades that the cow-girl is still a virgin. To the amused cheers and jeers of the other demons, this weak-looking centauress rears up and mounts Aurokaris, before gleefully taking her virginity and then frantically starting to rut her. 
+			#IF(aurokaris.isVaginaVirgin())
+				The similar fate awaits Aurokaris, and you look across to see a surprisingly-small, blue-skinned centauress announcing to her comrades that the cow-girl is still a virgin. To the amused cheers and jeers of the other demons, this weak-looking centauress rears up and mounts Aurokaris, before gleefully taking her virginity and then frantically starting to rut her. 
+			#ELSE
+				The similar fate awaits Aurokaris, and you look across to see a surprisingly-small, blue-skinned centauress announcing to her comrades that the cow-girl is her first slave. To the amused cheers and jeers of the other demons, this weak-looking centauress rears up and mounts Aurokaris, before gleefully ramming her fat horse-cock into the cow-girl's cunt and then frantically starting to rut her. 
+			#ENDIF
 		</p>
 		<p>
 			Seeing that all of the nearby centauresses, including Lunexis, have been distracted by the spectacle of Aurokaris losing her virginity, Ursa somehow manages to summon enough energy to pick up her spear and lunge at the demon leader. Caught completely by surprise, although Lunexis sees the attack coming, she doesn't have time to evade. Your hopes of a sudden reversal of fate are quickly dashed, however, as an ebony-skinned centauress manages to dart forwards and deliver a truly crushing blow to the Amazon queen. Having been the one to fell Ursa, this centauress boldly claims out loud, [style.speechFeminineStrong(I was the one to deliver the final blow! As is custom, I lay claim to this bitch!)]
@@ -868,68 +872,107 @@
 		[aurokaris.speech(I don't think they'll be back for a while,)] Aurokaris muses out loud, before giving the reasoning for this claim by saying, [aurokaris.speech(They'll be too worried about having to admit their defeat to their sisters.)]
 	</p>
 	<p>
-		Regardless of whether or not they'll be returning to Themiscyra soon, all that you can do is continue on your way, and so you say to Aurokaris that the two of you had better get moving. Nodding her head in agreement, the cow-girl returns to your side as you sett off once again to find Ursa...
+		Regardless of whether or not they'll be returning to Themiscyra soon, all that you can do is continue on your way, and so you say to Aurokaris that the two of you had better get moving. Nodding her head in agreement, the cow-girl returns to your side as you set off once again to find Ursa...
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="RAIDERS_COMBAT_WON_SEX"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue:)] You decide to fuck the centauresses. Aurokaris tuts in disapproval and walks some distance away while you do this.
+		Turned on at the sight of these two panting, horny centauresses lying before you and flashing you their feral horse-pussies, you tell them that you'll give them what they want.
 	</p>
-	]]>
-	</htmlContent>
-
-	<htmlContent tag="RAIDERS_COMBAT_WON_SEX_GENTLE"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue:)] You decide to gently fuck the centauresses. Aurokaris tuts in disapproval and walks some distance away while you do this.
+		[attacker.speech(Yes! Come and claim me!)] [attacker.name] moans.
 	</p>
-	]]>
-	</htmlContent>
-
-	<htmlContent tag="RAIDERS_COMBAT_WON_SEX_ROUGH"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue:)] You decide to roughly fuck the centauresses. Aurokaris tuts in disapproval and walks some distance away while you do this.
+		[attacker2.speech(I'm getting wet already!)] the other one breathlessly pants.
+	</p>
+	<p>
+		[aurokaris.speech(I'll have no part in this!)] Aurokaris declares. Furiously blushing, she averts her gaze away from the two demons, and after tutting at you in disapproval, she marches off out of sight, calling back after her as she goes, [aurokaris.speech(Shout me once you're done!)]
+	</p>
+	<p>
+		Left alone with the two defeated demons, you advance on them and prepare to have some fun...
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="RAIDERS_AFTER_SEX_DOM"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue:)] You finish fucking the centauresses. Aurokaris returns to your side.
+		Having had your fun, you [pc.step] back from the two centauresses and start getting your things back in order. Once you're ready, you call out for Aurokaris, and a moment later the cow-girl reappears from around a nearby building.
+	</p>
+	<p>
+		[aurokaris.speech(I really don't approve of this,)] the Amazon tuts as she looks back and forth between you and the panting, softly-moaning centauresses.
+	</p>
+	<p>
+		Telling Aurokaris not to worry about it, you look over at the two demons and wonder what to do with them now...
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="RAIDERS_AFTER_SEX_DOM_END"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue:)] You tell the centauresses to get out of here. Having been defeated by you once already, they don't argue, and run off down the street.
+		Not wanting these two demons to hang around and recover their strength, you decide that the best course of action is to scare them off and drive them out of the town. With this thought in mind, you strike an intimidating pose and tell them to get out of here.
+	</p>
+	<p>
+		[aurokaris.speech(I could knock them out if it's easier,)] Aurokaris offers, before hefting her dory and taking a step forwards.
+	</p>
+	<p>
+		Having been defeated by the two of you already, and clearly not wanting to be on the receiving end of the Amazon's spear once again, the centauresses briefly look at one another, before hurrying to stand up. Encouraged to get a move on by another threat from your cow-girl companion, the two centauresses run off down the street, before turning a corner and disappearing from sight.
+	</p>
+	<p>
+		[aurokaris.speech(I doubt that they've left the town,)] Aurokaris sighs, [aurokaris.speech(but at least they shouldn't bother us again. Now come on, let's get moving!)]
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="RAIDERS_COMBAT_WON_TALK"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue:)] You ask the demonic centauresses why they're attacking Themiscyra. They provide useless answers, such as wanting to fight, destroy, and fuck.
+		Wanting to extract some information from these two demons, you ask them why they're attacking Themiscyra, how many of them are there, and what their plan is for the town.
+	</p>
+	<p>
+		[attacker.speech(I was promised prime Amazon pussy!)] [attacker.name] declares, [attacker.speech(I just wanted to rut some hot bitch's cunt, so that's why I joined in with the attack.)]
+	</p>
+	<p>
+		[attacker2.speech(I just like having a good fight,)] [attacker2.name] states, [attacker2.speech(but I prefer it when I win...)]
+	</p>
+	<p>
+		Your follow-up questions don't get you much further than this, and after realising that these two demons aren't going to offer you any useful information at all, you decide to give up on your questioning and do something else...
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="RAIDERS_COMBAT_LOST"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue:)] You lose. The centauresses start to argue between themselves which one of them should fuck you and which should fuck the cow-girl. They tell you and Aurokaris to sit still and wait while they decide.
+		Unable to continue fighting, you find yourself completely and utterly defeated by the two centauresses, and as your [pc.legs] give out from under you, you find yourself collapsing down next to Aurokaris.
+	</p>
+	<p>
+		[attacker.speech(That was easy!)] [attacker.name] boasts, and as her massive horse-cock starts to push out of its sheath, she lustfully exclaims, [attacker.speech(Now for the fun part! Which one of you should I fuck?)]
+	</p>
+	<p>
+		[attacker2.speech(I did most of the work, so I'll choose who I want, and you can get the other one,)] [attacker2.name] grunts.
 	</p>
 	#IF(!game.isNonConEnabled())
 		<p>
-			Managing to slightly recover her strength, Aurokaris hisses that the two of you could escape while they argue...
+			With that, the two centauresses quickly start arguing between themselves over which one of them should fuck you and which should fuck Aurokaris. As their argument begins to heat up, your cow-girl companion manages to slightly recover her strength, and hisses to you, [aurokaris.speech(We should try to escape while they argue...)]
 		</p>
 	#ELSE
+		#IF(flags.hasFlag(FLAG_innoxia_themiscyra_raider_sex_player_targeted_by_leader))
+			<p>
+				[attacker.speech(Well I want to fuck the [pc.race],)] [attacker.name] states.
+			</p>
+			<p>
+				[attacker2.speech(That suits me,)] [attacker2.name] replies, [attacker2.speech(I wanted to get my fat cock balls-deep in that cow-slut's cunt. Let's get started already.)]
+			</p>
+		#ELSE
+			<p>
+				[attacker.speech(Well I want to get my fat cock balls-deep in that cow-slut's cunt,)] [attacker.name] states.
+			</p>
+			<p>
+				[attacker2.speech(That suits me,)] [attacker2.name] replies, [attacker2.speech(I wanted to rut the [pc.race]. Let's get started already.)]
+			</p>
+		#ENDIF
 		<p>
-			#IF(flags.hasFlag(FLAG_innoxia_themiscyra_raider_sex_player_targeted_by_leader))
-				[attacker.Name] declares that she's going to fuck you, while [attacker2.name] says that she wouldn't mind ramming her fat cock into Aurokaris's cunt...
-			#ELSE
-				[attacker2.Name] declares that she's going to fuck you, while [attacker.name] says that she wouldn't mind ramming her fat cock into Aurokaris's cunt...
-			#ENDIF
+			With that, the two centauresses advance on you and Aurokaris with a lustful gleam in their eyes...
 		</p>
 	#ENDIF
 	]]>
@@ -937,73 +980,132 @@
 	
 	<htmlContent tag="RAIDERS_COMBAT_LOST_RAPE_START"><![CDATA[
 	#IF((pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) || (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)))
-		<p>
-			#IF(flags.hasFlag(FLAG_innoxia_themiscyra_raider_sex_player_targeted_by_leader))
-				[attacker.Name] pushes you to the ground and mounts you, while [attacker2.name] does the same to Aurokaris...
-			#ELSE
-				[attacker2.Name] pushes you to the ground and mounts you, while [attacker.name] does the same to Aurokaris...
-			#ENDIF
-		</p>
+		#IF(flags.hasFlag(FLAG_innoxia_themiscyra_raider_sex_player_targeted_by_leader))
+			<p>
+				Trotting up to you, [attacker.name] roughly pushes you down onto all fours before her, and with an arrogant smirk on her face, declares, [attacker.speech(You're mine now, slut! Get ready to take my cock!)]
+			</p>
+			<p>
+				Not giving you a moment in which to react, the centauress steps forwards and mounts you. As her fat, feral horse-cock starts prodding at your rear end, you look across to see that Aurokaris has been mounted in much the same way by [attacker2.name], and you can't help but let out a defeated [pc.moan] as you realise that the two of you are about to get fucked...
+			</p>
+		#ELSE
+			<p>
+				Trotting up to you, [attacker2.name] roughly pushes you down onto all fours before her, and with an arrogant smirk on her face, declares, [attacker2.speech(You're mine now, slut! Get ready to take my cock!)]
+			</p>
+			<p>
+				Not giving you a moment in which to react, the centauress steps forwards and mounts you. As her fat, feral horse-cock starts prodding at your rear end, you look across to see that Aurokaris has been mounted in much the same way by [attacker.name], and you can't help but let out a defeated [pc.moan] as you realise that the two of you are about to get fucked...
+			</p>
+		#ENDIF
 	#ELSE
-		<p>
-			#IF(flags.hasFlag(FLAG_innoxia_themiscyra_raider_sex_player_targeted_by_leader))
-				[attacker.Name] pushes you to the ground and shoves her cock into your face, while [attacker2.name] mounts Aurokaris...
-			#ELSE
-				[attacker2.Name] pushes you to the ground and shoves her cock into your face, while [attacker.name] mounts Aurokaris...
-			#ENDIF
-		</p>
+		#IF(flags.hasFlag(FLAG_innoxia_themiscyra_raider_sex_player_targeted_by_leader))
+			<p>
+				Trotting up to you, [attacker.name] roughly pushes you down onto all fours before her, and with an arrogant smirk on her face, declares, [attacker.speech(You're mine now, slut! Get ready to taste my cock!)]
+			</p>
+			<p>
+				Not giving you a moment in which to react, the centauress steps forwards and shoves her fat, feral horse-cock into your face. As the flared head starts repeatedly prodding at your [pc.lips+], you glance across to see that Aurokaris has been mounted by [attacker2.name], and you can't help but let out a defeated [pc.moan] as you realise that the two of you are about to get fucked...
+			</p>
+		#ELSE
+			<p>
+				Trotting up to you, [attacker2.name] roughly pushes you down onto all fours before her, and with an arrogant smirk on her face, declares, [attacker2.speech(You're mine now, slut! Get ready to taste my cock!)]
+			</p>
+			<p>
+				Not giving you a moment in which to react, the centauress steps forwards and shoves her fat, feral horse-cock into your face. As the flared head starts repeatedly prodding at your [pc.lips+], you glance across to see that Aurokaris has been mounted by [attacker.name], and you can't help but let out a defeated [pc.moan] as you realise that the two of you are about to get fucked...
+			</p>
+		#ENDIF
 	#ENDIF
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="RAIDERS_COMBAT_LOST_ESCAPE"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue:)] You motion for Aurokaris to start to fall back from the arguing centauresses. They're so caught up in their argument that the two of you manage to slip away and escape...
+		Not wanting to hang around and get fucked by these demons, you motion for Aurokaris to start to fall back from the arguing centauresses. Nodding in acknowledgement, the cow-girl slowly crawls away alongside you as you make your way over to a nearby gap between two buildings. The centauresses are so caught up in their argument that they don't see you as you and Aurokaris slip down the narrow alleyway and make good your escape.
+	</p>
+	<p>
+		[aurokaris.speech(That was close...)] the cow-girl sighs as you turn a corner and make your way back the way you came. Shaking her head, she admonishes herself by stating, [aurokaris.speech(I should have fought better... We'll win next time!)]
+	</p>
+	<p>
+		Agreeing with the Amazon's confident remark, you look around and wonder where to go next...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="RAIDERS_COMBAT_LOST_SEX_START"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue:)] You tell Aurokaris that it's too risky to try and escape. Sure enough, just a few seconds later the centauresses finish arguing and turn their attention back to you.
+		Not wanted this to end by being on the receiving end of yet another beating, you tell Aurokaris that it's far too risky to try and escape. Sure enough, just a few seconds later the centauresses finish arguing and turn their attention back to you.
 	</p>
 	#IF((pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) || (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)))
-		<p>
-			#IF(flags.hasFlag(FLAG_innoxia_themiscyra_raider_sex_player_targeted_by_leader))
-				[attacker.Name] pushes you to the ground and mounts you, while [attacker2.name] does the same to Aurokaris...
-			#ELSE
-				[attacker2.Name] pushes you to the ground and mounts you, while [attacker.name] does the same to Aurokaris...
-			#ENDIF
-		</p>
+		#IF(flags.hasFlag(FLAG_innoxia_themiscyra_raider_sex_player_targeted_by_leader))
+			<p>
+				Trotting up to you, [attacker.name] roughly pushes you down onto all fours before her, and with an arrogant smirk on her face, declares, [attacker.speech(You're mine now, slut! Get ready to take my cock!)]
+			</p>
+			<p>
+				Not giving you a moment in which to react, the centauress steps forwards and mounts you. As her fat, feral horse-cock starts prodding at your rear end, you look across to see that Aurokaris has been mounted in much the same way by [attacker2.name], and you can't help but let out a defeated [pc.moan] as you realise that the two of you are about to get fucked...
+			</p>
+		#ELSE
+			<p>
+				Trotting up to you, [attacker2.name] roughly pushes you down onto all fours before her, and with an arrogant smirk on her face, declares, [attacker2.speech(You're mine now, slut! Get ready to take my cock!)]
+			</p>
+			<p>
+				Not giving you a moment in which to react, the centauress steps forwards and mounts you. As her fat, feral horse-cock starts prodding at your rear end, you look across to see that Aurokaris has been mounted in much the same way by [attacker.name], and you can't help but let out a defeated [pc.moan] as you realise that the two of you are about to get fucked...
+			</p>
+		#ENDIF
 	#ELSE
-		<p>
-			#IF(flags.hasFlag(FLAG_innoxia_themiscyra_raider_sex_player_targeted_by_leader))
-				[attacker.Name] pushes you to the ground and shoves her cock into your face, while [attacker2.name] mounts Aurokaris...
-			#ELSE
-				[attacker2.Name] pushes you to the ground and shoves her cock into your face, while [attacker.name] mounts Aurokaris...
-			#ENDIF
-		</p>
+		#IF(flags.hasFlag(FLAG_innoxia_themiscyra_raider_sex_player_targeted_by_leader))
+			<p>
+				Trotting up to you, [attacker.name] roughly pushes you down onto all fours before her, and with an arrogant smirk on her face, declares, [attacker.speech(You're mine now, slut! Get ready to taste my cock!)]
+			</p>
+			<p>
+				Not giving you a moment in which to react, the centauress steps forwards and shoves her fat, feral horse-cock into your face. As the flared head starts repeatedly prodding at your [pc.lips+], you glance across to see that Aurokaris has been mounted by [attacker2.name], and you can't help but let out a defeated [pc.moan] as you realise that the two of you are about to get fucked...
+			</p>
+		#ELSE
+			<p>
+				Trotting up to you, [attacker2.name] roughly pushes you down onto all fours before her, and with an arrogant smirk on her face, declares, [attacker2.speech(You're mine now, slut! Get ready to taste my cock!)]
+			</p>
+			<p>
+				Not giving you a moment in which to react, the centauress steps forwards and shoves her fat, feral horse-cock into your face. As the flared head starts repeatedly prodding at your [pc.lips+], you glance across to see that Aurokaris has been mounted by [attacker.name], and you can't help but let out a defeated [pc.moan] as you realise that the two of you are about to get fucked...
+			</p>
+		#ENDIF
 	#ENDIF
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="RAIDERS_AFTER_SEX_SUB"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue:)] Satisfied, the demonic centauresses tell you and Aurokaris to get out of here, before they decide to beat you up all over again. Deciding to do as they say, you hurry back the way you came, leaving the trio to their looting...
+		Satisfied, the demonic centauresses step back from you and Aurokaris, before looking down at the two of you and letting out smug, arrogant laughs. As you and the Amazon gather your things, [attacker.name] declares, [attacker.speech(I'd take you as my slaves, but I already have too many.)]
+	</p>
+	<p>
+		[attacker2.speech(I'm sure that our sisters will enjoy fucking you,)] [attacker2.name] sneers, before commanding, [attacker2.speech(Get out of here! The first centauresses you see, you're to submit to them and let them rut you. Understand?)]
+	</p>
+	<p>
+		Not wanting to anger the demons and risk being beaten up and fucked all over again, you tell the centauress that you'll do as she says, before joining Aurokaris in hurrying back the way you came. Leaving the two demons to their looting, you continue moving until they're out of sight, as which point your Amazon companion groans, [aurokaris.speech(That was so humiliating... At least we're still free to make our way to Ursa... Come on, [pc.name], we need to hurry!)]
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="RAIDERS_PERK_APPLICATION"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue:)] Aurokaris says that those demons were the last of the looters, and so now all that's left is the main force that's advanced towards the palace. Having cleared out all of the looting raiders from Themiscyra, you feel as though you'll be able to more easily combat demons and centaurs in the future...
+		Not wanting these two demons to hang around and recover their strength, you decide that the best course of action is to scare them off and drive them out of the town. With this thought in mind, you strike an intimidating pose and tell them to get out of here.
+	</p>
+	<p>
+		[aurokaris.speech(I could knock them out if it's easier,)] Aurokaris offers, before hefting her dory and taking a step forwards.
+	</p>
+	<p>
+		Having been defeated by the two of you already, and clearly not wanting to be on the receiving end of the Amazon's spear once again, the centauresses briefly look at one another, before hurrying to stand up. Encouraged to get a move on by another threat from your cow-girl companion, the two centauresses run off down the street, before turning a corner and disappearing from sight.
+	</p>
+	<p>
+		With the demons dealt with, the two of you begin to set off on your way through the town, but as you do so, Aurokaris suddenly declares, [aurokaris.speech(You know, [pc.name], we've been almost everywhere in Themiscyra now, and wherever we found demons, we defeated them... I think you and I have actually managed to clear all of the looters out from the town!)]
+	</p>
+	<p>
+		As she says this, you instinctively feel that she's correct. Having defeated well over a dozen demonic centauresses in Themiscyra, you've not only managed to clear the town, but have also gained invaluable experience at fighting with demons and centaurs. Not only that, but Aurokaris is starting to look at you in a new way, and before you can say anything, she happily declares, [aurokaris.speech(Once word gets out of what you've done here, all the Amazons are sure to call you the [pc.hero] of Themiscyra!)]
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="RAIDERS_PERK_APPLICATION_END"><![CDATA[
 	<p>
-		[style.italicsBad(Placeholder dialogue:)] You continue on your way...
+		Not given a moment in which to celebrate your feat, Aurokaris hurries you on by declaring, [aurokaris.speech(Come on, [pc.name]! We've defeated all the looters, but there's still the main force that's advanced towards the palace. We need to get there and help Ursa as soon as we can!)]
+	</p>
+	<p>
+		Understanding her sense of urgency, you agree with what the cow-girl is saying and hurry onwards towards the palace...
 	</p>
 	]]>
 	</htmlContent>
@@ -1075,7 +1177,7 @@
 		Still being held in position by Minotallys's spell, Lunexis grits her teeth and spits, [lunexis.speech(I'll have you as my cock-sleeve once mother finishes with you, cow! Now that we've taken Themiscyra, Elis is next on our list! Mother has been busy helping Lilith with something in a far away land, but she'll return soon, and once she finds out where I am, then she'll lay waste to this pathetic town of yours!)]
 	</p>
 	<p>
-		[minotallys.speech(Lilith would never allow that,)] Minotally replies, but you cna hear fro the tone of her voice that she isn't fully confident in her words.
+		[minotallys.speech(Lilith would never allow that,)] Minotallys replies, but you can hear from the tone of her voice that she isn't fully confident in her words.
 	</p>
 	<p>
 		[lunexis.speech(Hahaha! Is that what you think?!)] Lunexis evilly laughs, [lunexis.speech(Mother told me that it was Lilith herself who gave her permission to start laying waste to the Foloi Fields! So long as the population is kept under control, she doesn't give a shit about what happens out here!)]

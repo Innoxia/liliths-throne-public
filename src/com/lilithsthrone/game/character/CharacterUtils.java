@@ -702,11 +702,11 @@ public class CharacterUtils {
 		if (body.getHornType() == HornType.NONE) {
 			if (Math.random() >= takesAfterMotherChance) {
 				if (mother.hasGenericHorns()) {
-					body.getHorn().setTypeAndLength(mother.getHornType(), mother.getHornLength());
+					body.getHorn().setTypeAndLength(mother.getHornType(), mother.getHornLengthValue());
 				}
 			} else {
 				if (father.hasGenericHorns()) {
-					body.getHorn().setTypeAndLength(father.getHornType(), father.getHornLength());
+					body.getHorn().setTypeAndLength(father.getHornType(), father.getHornLengthValue());
 				}
 			}
 		}
