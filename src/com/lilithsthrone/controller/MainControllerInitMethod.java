@@ -7812,7 +7812,10 @@ public class MainControllerInitMethod {
 
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Load", "");
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Load",
+							BodyChanging.isPresetTransformationAvailable(BodyChanging.loadBody(fileName))
+								?""
+								:BodyChanging.getPresetTransformationUnavailabilityText(BodyChanging.loadBody(fileName)));
 					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 				id = "delete_saved_" + fileIdentifier;

@@ -30,7 +30,7 @@
 		OrgasmBehaviours: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/managers/OrgasmBehaviour.java
 		OrgasmCumTargets: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/OrgasmCumTarget.java
 		ResponseTags: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/dialogue/responses/ResponseTag.java
-		SexActions (you cna see how ids are generated in this class): https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexActions/SexActionManager.java
+		SexActions (you can see how ids are generated in this class): https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexActions/SexActionManager.java
 		SexAreaOrifices (should be prefaced with 'ORIFICE_'): https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexAreaOrifice.java
 		SexAreaPenetrations (should be prefaced with 'PENETRATION_'): https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexAreaPenetration.java
 		SexControls: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexControl.java
