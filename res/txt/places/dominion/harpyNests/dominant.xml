@@ -71,9 +71,22 @@
 			<p>
 				Just as you're about to say something, [harpyDominant.Name], only just noticing your presence, calls out, [harpyDominant.speech([pc.Mistress]! You're back!)]
 			</p>
-			<p>
-				Jumping down off of her podium, [harpyDominant.name] falls to her knees before you. Noticing what's going on, [harpyDominantCompanion.name] lets out a little squeak, and, pulling out of her fuck-toy, jumps down onto her knees beside her matriarch. Shuffling forwards, [harpyDominant.Name] bows her head, before asking, [harpyDominant.speech(What can I do for you [pc.mistress]?!)]
-			</p>
+			#IF(harpyDominant.isVisiblyPregnant())
+				<p>
+					#IF(!harpyDominant.isCharacterReactedToPregnancy(pc))
+						As she jumps down off of her podium, you see that [harpyDominant.name] is sporting a [style.colourSex(pregnant belly)], and as she gestures towards it, she reveals, [harpyDominant.speech(You got me pregnant, [pc.mistress]...)]
+					#ELSE
+						Jumping down off of her podium, [harpyDominant.name] gestures towards her [style.colourSex(pregnant belly)] and states, [harpyDominant.speech(I'm still pregnant from when you knocked me up, [pc.mistress]...)]
+					#ENDIF
+				</p>
+				<p>
+					Noticing what's going on, [harpyDominantCompanion.name] lets out a little squeak, and after quickly pulling out of her fuck-toy, jumps down onto her knees beside her matriarch. Not giving you a moment in which to comment on her pregnancy, [harpyDominant.Name] bows her head and asks, [harpyDominant.speech(What can I do for you [pc.mistress]?)]
+				</p>
+			#ELSE
+				<p>
+					Jumping down off of her podium, [harpyDominant.name] falls to her knees before you. Noticing what's going on, [harpyDominantCompanion.name] lets out a little squeak, and after quickly pulling out of her fuck-toy, jumps down onto her knees beside her matriarch. Shuffling forwards, [harpyDominant.Name] bows her head, before asking, [harpyDominant.speech(What can I do for you [pc.mistress]?)]
+				</p>
+			#ENDIF
 		#ELSE
 			<p>
 				Deciding to pay [harpyDominant.Name] another visit, you set off towards the centre podium. As you make your way towards the dominant matriarch, you get a good look at the harpies that make up her flock. Just as you've seen before, there's a red-and-black-feathered harpy sitting on top of each of the small podiums that are scattered about the area.

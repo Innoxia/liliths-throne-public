@@ -3521,6 +3521,8 @@ public abstract class GameCharacter implements XMLSaving {
 									?UtilText.parse(this, "[npc.She] is your <span style='color:"+this.getFemininity().getColour().toWebHexString()+"'>"+relationships+"</span>. ")
 									:"")
 							+ AffectionLevel.getDescription(this, Main.game.getPlayer(), true));
+				int affection = (int)this.getAffection(Main.game.getPlayer());
+				infoScreenSB.append(" (<span style='color:"+this.getAffectionLevel(Main.game.getPlayer()).getColour().toWebHexString()+";'>"+(affection>0?"+":"")+affection+"</span>)");
 				
 				for(Entry<String, Float> entry : this.getAffectionMap().entrySet()) {
 					try {
@@ -3533,6 +3535,8 @@ public abstract class GameCharacter implements XMLSaving {
 											|| (target.isSlave() && target.getOwner().isPlayer())
 											|| Main.game.getPlayer().getFriendlyOccupants().contains(target.getId()))) {
 								infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, true));
+								affection = (int)this.getAffection(target);
+								infoScreenSB.append(" (<span style='color:"+this.getAffectionLevel(target).getColour().toWebHexString()+";'>"+(affection>0?"+":"")+affection+"</span>)");
 							}
 						}
 					} catch (Exception e) {
@@ -19636,7 +19640,18 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void setCharacterReactedToPregnancy(GameCharacter characterReacting, boolean reactedToPregnancy) {
-		if(reactedToPregnancy) {
+		setCharacterReactedToPregnancy(characterReacting, reactedToPregnancy, false);
+	}
+
+	/**
+	 * If setting <code>reactedToPregnancy</code> to true, then this method will only work if this character is visibly pregnant, or if the <code>overrideVisiblyPregnancyCheck</code> variable is set to true.
+	 * 
+	 * @param characterReacting The character who is to have reacted to this character's pregnancy.
+	 * @param reactedToPregnancy true or false
+	 * @param overrideVisiblyPregnancyCheck Set to true to make sure that this change is applied regardless of whether or not this character is visibly pregnant.
+	 */
+	public void setCharacterReactedToPregnancy(GameCharacter characterReacting, boolean reactedToPregnancy, boolean overrideVisiblyPregnancyCheck) {
+		if(reactedToPregnancy && (this.isVisiblyPregnant() || overrideVisiblyPregnancyCheck)) {
 			pregnancyReactions.add(characterReacting.getId());
 		} else {
 			pregnancyReactions.remove(characterReacting.getId());
@@ -22093,7 +22108,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * <br/>This also affects unique weapons.
 	 * 
 	 * @param weaponType The weapon type to remove
-	 * @param includeNonEquippedWeapons Whether or not to search through weapons in this cahracter's inventory which aren't equipped.
+	 * @param includeNonEquippedWeapons Whether or not to search through weapons in this character's inventory which aren't equipped.
 	 * @param includeEquippedWeapons Whether or not to search through weapons which this character currently has equipped.
 	 * @param appendTextToEventLog true if text detailing the loss of this weaopnType should be added to the event log.
 	 * @return true if a weapon was found and removed.
@@ -23316,13 +23331,23 @@ public abstract class GameCharacter implements XMLSaving {
 		inventory.forceUnequipClothingIntoVoid(this, characterRemovingClothing, clothing);
 	}
 	
+	public String unequipClothingIntoVoid(InventorySlot slot, boolean automaticClothingManagement, GameCharacter characterClothingUnequipper) {
+		return unequipClothingIntoVoid(getClothingInSlot(slot), automaticClothingManagement, characterClothingUnequipper);
+	}
+	
 	public String unequipClothingIntoVoid(AbstractClothing clothing, boolean automaticClothingManagement, GameCharacter characterClothingUnequipper) { // TODO it's saying "added to inventory"
+		if(clothing==null) {
+			System.err.println("A null item of clothing was passed into unequipClothingIntoVoid()! Method is returning an empty String and not applying any effects.");
+			new Exception().printStackTrace();
+			return "";
+		}
+		
 		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.PENIS);
 		boolean unknownBreasts = !this.isAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.BREASTS);
 		boolean unknownBreastsCrotch = !this.isAreaKnownByCharacter(CoverableArea.BREASTS_CROTCH, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH);
 		boolean unknownVagina = !this.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.VAGINA);
 		boolean unknownAss = !this.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.ANUS);
-
+		
 		InventorySlot slot = clothing.getSlotEquippedTo();
 		
 		boolean wasAbleToUnequip = inventory.isAbleToUnequip(clothing, true, automaticClothingManagement, this, characterClothingUnequipper);
@@ -28106,7 +28131,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getHorn().getType().isGeneric();
 	}
 	public boolean isHornsAbleToBeUsedAsHandlesInSex() {
-		return this.hasHorns() && HornLength.getLengthFromInt(this.getHornLength()).isSuitableAsHandles();
+		return this.hasHorns() && HornLength.getLengthFromInt(this.getHornLengthValue()).isSuitableAsHandles();
 	}
 	// Names:
 	public String getHornName() {
@@ -28128,14 +28153,17 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getHorn().getType().getPronoun(this);
 	}
 	// Length:
-	public int getHornLength() {
+	public HornLength getHornLength() {
+		return body.getHorn().getHornLength();
+	}
+	public int getHornLengthValue() {
 		return body.getHorn().getHornLengthValue();
 	}
 	public String setHornLength(int length) {
 		return body.getHorn().setHornLength(this, length);
 	}
 	public String incrementHornLength(int increment) {
-		return body.getHorn().setHornLength(this, getHornLength() + increment);
+		return body.getHorn().setHornLength(this, getHornLengthValue() + increment);
 	}
 	// Rows:
 	public int getHornRows() {

@@ -3165,7 +3165,9 @@ public class StatusEffect {
 			"drunk1",
 			PresetColour.BASE_YELLOW,
 			false,
-			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_CORRUPTION, 2f),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<>(Attribute.MAJOR_ARCANE, -2f),
 					new Value<>(Attribute.DAMAGE_LUST, 5f),
 					new Value<>(Attribute.RESISTANCE_LUST, -1f)),
@@ -3195,7 +3197,9 @@ public class StatusEffect {
 			"drunk2",
 			PresetColour.BASE_YELLOW,
 			false,
-			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_CORRUPTION, 5f),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
 					new Value<>(Attribute.MAJOR_ARCANE, -5f),
 					new Value<>(Attribute.DAMAGE_LUST, 10f),
 					new Value<>(Attribute.RESISTANCE_LUST, -5f)),
@@ -3224,7 +3228,9 @@ public class StatusEffect {
 			"drunk3",
 			PresetColour.BASE_YELLOW,
 			false,
-			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, -5f),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_CORRUPTION, 10f),
+					new Value<>(Attribute.MAJOR_ARCANE, -5f),
 					new Value<>(Attribute.DAMAGE_LUST, 5f),
 					new Value<>(Attribute.RESISTANCE_LUST, -10f)),
 			null) {
@@ -3259,7 +3265,9 @@ public class StatusEffect {
 			"drunk4",
 			PresetColour.BASE_YELLOW,
 			false,
-			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -5f),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_CORRUPTION, 15f),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, -5f),
 					new Value<>(Attribute.MAJOR_ARCANE, -10f),
 					new Value<>(Attribute.DAMAGE_LUST, -5f),
 					new Value<>(Attribute.RESISTANCE_LUST, -15f)),
@@ -3295,7 +3303,9 @@ public class StatusEffect {
 			"drunk5",
 			PresetColour.BASE_YELLOW,
 			false,
-			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -10f),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_CORRUPTION, 20f),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, -10f),
 					new Value<>(Attribute.MAJOR_ARCANE, -15f),
 					new Value<>(Attribute.DAMAGE_LUST, -10f),
 					new Value<>(Attribute.RESISTANCE_LUST, -20f)),

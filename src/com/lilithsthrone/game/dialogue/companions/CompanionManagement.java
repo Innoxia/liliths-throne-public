@@ -854,17 +854,14 @@ public class CompanionManagement {
 	};
 	
 	public static final DialogueNode SLAVE_MANAGEMENT_JOBS = new DialogueNode("Slave Management", ".", true) {
-
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.OCCUPANT_MANAGEMENT;
 		}
-		
 		@Override
 		public String getLabel() {
 			return UtilText.parse(characterSelected(), "[npc.NamePos] Job");
 		}
-		
 		@Override
 		public String getContent() {
 			NPC character = characterSelected();

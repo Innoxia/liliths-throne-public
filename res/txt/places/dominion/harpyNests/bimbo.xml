@@ -61,14 +61,36 @@
 				Deciding that you should go and pay [bimboHarpy.name] another visit, you set off across the nest. Most of the bimbo harpies recognise you as [bimboHarpy.namePos] [pc.mistress], and submissively bow their heads or drop to their knees as you pass. Reaching the staircase that leads to the upper platform, you quickly scale the stairs, and as you reach the top, you're greeted by a familiar sight.
 			</p>
 			<p>
-				[bimboHarpy.Name] is lying down on a sunbed, surrounded by her inner-circle of harpy bimbos. [bimboHarpyCompanion.Name] is obediently grooming her matriarch's beautiful bleach-blonde feathers, giggling and whispering with her mistress as she works. As you approach, she suddenly notices you, and cries out, [bimboHarpyCompanion.speechNoEffects(Mistress! Like, [pc.name] is back!)]
+				[bimboHarpy.Name] is lying down on a sunbed, surrounded by her inner-circle of harpy bimbos. [bimboHarpyCompanion.Name] is obediently grooming her matriarch's beautiful bleach-blonde feathers, giggling and whispering with her mistress as she works.
+				#IF(bimboHarpyCompanion.isVisiblyPregnant())
+					#IF(!bimboHarpyCompanion.isCharacterReactedToPregnancy(pc))
+						 As you approach, you notice that she's got a swollen, [style.colourSex(pregnant belly)], and as she sees you, she nods to confirm that you're the one who knocked her up, before crying out, [bimboHarpyCompanion.speechNoEffects(Mistress! Like, [pc.name] is back!)]
+					#ELSE
+						 As you approach, you see that she's still got a swollen, [style.colourSex(pregnant belly)], and as she sees you, she cries out, [bimboHarpyCompanion.speechNoEffects(Mistress! Like, [pc.name] is back!)]
+					#ENDIF
+				#ELSE
+					 As you approach, she suddenly notices you and cries out, [bimboHarpyCompanion.speechNoEffects(Mistress! Like, [pc.name] is back!)]
+				#ENDIF
 			</p>
-			<p>
-				[bimboHarpy.Name] instantly jumps up off the sunbed, and, rushing forwards, she throws herself to her knees at your [pc.feet]. Looking up with her big [bimboHarpy.eyeColour] eyes, she pushes out her chest and bites her lip.
-			</p>
-			<p>
-				[bimboHarpy.speechNoEffects(Ah! [pc.Mistress]! I've been, like, super good and stuff!)] she happily squeals, [bimboHarpy.speechNoEffects(We've all been, like, super chilled out and stuff, right girls?!)]
-			</p>
+			#IF(bimboHarpy.isVisiblyPregnant())
+				<p>
+					#IF(!bimboHarpy.isCharacterReactedToPregnancy(pc))
+						[bimboHarpy.Name] instantly jumps up off the sunbed, and as she rushes forwards, you see that she's sporting a [style.colourSex(pregnant belly)]. Coming to a halt before you, she bites her lip, pushes out her chest, and teases, [bimboHarpy.speechNoEffects([pc.Mistress], look! You, like, totally got me pregnant!)]
+					#ELSE
+						[bimboHarpy.Name] instantly jumps up off the sunbed, and as she rushes forwards, you see that she's still sporting a [style.colourSex(pregnant belly)]. Coming to a halt before you, she bites her lip, pushes out her chest, and teases, [bimboHarpy.speechNoEffects([pc.Mistress], look! I'm still pregnant from when you, like, got me knocked up and stuff!)]
+					#ENDIF
+				</p>
+				<p>
+					Before you can react to this, the bimbo harpy quickly changes the subject and happily squeals, [bimboHarpy.speechNoEffects(Me and my girls have all been, like, super good and stuff! We're totally, like, chilled out to the max, right girls?!)]
+				</p>
+			#ELSE
+				<p>
+					[bimboHarpy.Name] instantly jumps up off the sunbed, and, rushing forwards, she throws herself to her knees at your [pc.feet]. Looking up with her big [bimboHarpy.eyeColour] eyes, she pushes out her chest and bites her lip.
+				</p>
+				<p>
+					[bimboHarpy.speechNoEffects(Ah! [pc.Mistress]! I've been, like, super good and stuff!)] she happily squeals, [bimboHarpy.speechNoEffects(We've all been, like, super chilled out and stuff, right girls?!)]
+				</p>
+			#ENDIF
 			<p>
 				A chorus of eager voices cry out in agreement, and you can't help but smile down at [bimboHarpy.name] as she shuffles a little closer to you.
 			</p>
@@ -95,31 +117,31 @@
 		#ENDIF
 	#ELSE
 		<p>
-				This nest looks like the home of one of the matriarchs you agreed to try and calm down. Deciding that you should do as the Enforcer sergeant asked, you set off across the nest towards the staircase leading to the upper platform.
-			</p>
-			<p>
-				As you walk through the nest, you take a closer look at this peculiar, bleach-blonde flock. Just as you saw from the outskirts, most of these harpies have larger-than-average breasts, hips, and asses, but it's the snippets of conversation that you overhear that reveal their true nature,<br/>
-				[style.speechFeminine(...yeah, and, like, she was soooo not pretty...)]<br/>
-				[style.speechFeminineStrong(...uh-huh, and, like, her feathers were like, totally blech!...)]<br/>
-				[style.speechFeminine(...and he was, like, 'I'll do whatever you say!', and I was like, 'Uhh, duh!'...)]
-			</p>
-			<p>
-				Combined with their large assets and choice of feather colour, you're left with no doubt as to what's going on here. Every single one of this nest's occupants is a bimbo. Before you know it, you've reached the staircase that leads to the upper platform, and, taking one look back at the crowd of bimbos, you set off up the the stairs, and quickly reach the top.
-			</p>
-			<p>
-				You'd already seen a picture of [bimboHarpy.name] in the Enforcer's papers, but even if you hadn't, it's clearly obvious who the matriarch is. With large, perfectly shaped breasts, the tanned body of a super-model, and one of the most gorgeous faces you've ever seen, [bimboHarpy.name] is the centre of attention. Her inner-circle of bimbo harpies are gathered around her, vying for their leader's attention as they giggle and agree with every word she speaks. One harpy in particular seems to be the closest to her, and it's this particular bimbo who's the first one to notice your approach.
-			</p>
-			<p>
-				[bimboHarpyCompanion.speechNoEffects([bimboHarpy.Name]! There's, like, some [pc.race] over there!)]
-			</p>
-			<p>
-				Instantly, all eyes are on you, and [bimboHarpy.Name] stand up from the sunbed upon which she was lying. Stepping forwards, she rests one of her feathered hands on her hips, striking a pose as she speaks,
-				#IF(pc.getFemininityValue()>=FEMININITY_FEMININE_STRONG.getMinimumFemininity())
-					 [bimboHarpy.speechNoEffects(Like, who do you think you are?! I hope you're not, like, thinkin' of tryin' to steal girls from my flock! You, like, might have the looks, but they aren't gonna listen to some stupid slut like you! What do you, like, even want? Coming up here uninvited is, like, super rude y'know?!)]
-				#ELSE
-					 [bimboHarpy.speechNoEffects(Like, who do you think you are?! Coming up here uninvited is, like, super rude y'know?!)]
-				#ENDIF
-			</p>
+			This nest looks like the home of one of the matriarchs you agreed to try and calm down. Deciding that you should do as the Enforcer sergeant asked, you set off across the nest towards the staircase leading to the upper platform.
+		</p>
+		<p>
+			As you walk through the nest, you take a closer look at this peculiar, bleach-blonde flock. Just as you saw from the outskirts, most of these harpies have larger-than-average breasts, hips, and asses, but it's the snippets of conversation that you overhear that reveal their true nature,<br/>
+			[style.speechFeminine(...yeah, and, like, she was soooo not pretty...)]<br/>
+			[style.speechFeminineStrong(...uh-huh, and, like, her feathers were like, totally blech!...)]<br/>
+			[style.speechFeminine(...and he was, like, 'I'll do whatever you say!', and I was like, 'Uhh, duh!'...)]
+		</p>
+		<p>
+			Combined with their large assets and choice of feather colour, you're left with no doubt as to what's going on here. Every single one of this nest's occupants is a bimbo. Before you know it, you've reached the staircase that leads to the upper platform, and, taking one look back at the crowd of bimbos, you set off up the the stairs, and quickly reach the top.
+		</p>
+		<p>
+			You'd already seen a picture of [bimboHarpy.name] in the Enforcer's papers, but even if you hadn't, it's clearly obvious who the matriarch is. With large, perfectly shaped breasts, the tanned body of a super-model, and one of the most gorgeous faces you've ever seen, [bimboHarpy.name] is the centre of attention. Her inner-circle of bimbo harpies are gathered around her, vying for their leader's attention as they giggle and agree with every word she speaks. One harpy in particular seems to be the closest to her, and it's this particular bimbo who's the first one to notice your approach.
+		</p>
+		<p>
+			[bimboHarpyCompanion.speechNoEffects([bimboHarpy.Name]! There's, like, some [pc.race] over there!)]
+		</p>
+		<p>
+			Instantly, all eyes are on you, and [bimboHarpy.Name] stand up from the sunbed upon which she was lying. Stepping forwards, she rests one of her feathered hands on her hips, striking a pose as she speaks,
+			#IF(pc.getFemininityValue()>=FEMININITY_FEMININE_STRONG.getMinimumFemininity())
+				 [bimboHarpy.speechNoEffects(Like, who do you think you are?! I hope you're not, like, thinkin' of tryin' to steal girls from my flock! You, like, might have the looks, but they aren't gonna listen to some stupid slut like you! What do you, like, even want? Coming up here uninvited is, like, super rude y'know?!)]
+			#ELSE
+				 [bimboHarpy.speechNoEffects(Like, who do you think you are?! Coming up here uninvited is, like, super rude y'know?!)]
+			#ENDIF
+		</p>
 	#ENDIF
 	]]>
 	</htmlContent>
