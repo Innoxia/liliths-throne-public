@@ -1878,7 +1878,8 @@ public class CharacterCreation {
 						"<div class='container-full-width' style='text-align:center;'>"
 							+ "<i>For each increase in sexual experience, you will gain 1 corruption. (You can see your corruption, along with your other attributes, in the character panel in the left of the screen.)</i>"
 						+ "</div>"
-						+CharacterModificationUtils.getSexualExperienceDiv());
+						+CharacterModificationUtils.getSexualExperienceDiv()
+						+CharacterModificationUtils.getFetishChoiceDiv());
 			
 			return UtilText.nodeContentSB.toString();
 		}

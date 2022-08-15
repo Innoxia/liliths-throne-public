@@ -561,9 +561,12 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		contentSB.append("<div class='container-full-width'>");
-		
-			contentSB.append("<div class='container-full-width' style='padding:0;'>");
-				contentSB.append("<p style='text-align:center; margin:0; padding:0;'><b>Fetishes</b></p>");
+			if(!Main.game.isPrologueFinished()) {
+				contentSB.append("<div class='container-full-width' style='text-align:center;'><h6>Fetishes</h6></div>");
+			} else {
+				contentSB.append("<div class='container-full-width' style='padding:0;'>");
+					contentSB.append("<p style='text-align:center; margin:0; padding:0;'><b>Fetishes</b></p>");
+			}
 				
 				// Like/dislike/owned
 				int i=0;
