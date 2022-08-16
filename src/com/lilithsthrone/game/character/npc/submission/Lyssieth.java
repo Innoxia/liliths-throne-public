@@ -360,7 +360,7 @@ public class Lyssieth extends NPC {
 		
 		children.add(Main.game.getNpc(Lilaya.class));
 		children.add(Main.game.getNpc(DarkSiren.class));
-		if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
+		if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
 			children.add(Main.game.getPlayer());
 		}
 		
@@ -1064,7 +1064,7 @@ public class Lyssieth extends NPC {
 	
 	public static boolean isPlayersMommy() {
 		return Main.game.getPlayer().hasFetish(Fetish.FETISH_INCEST)
-				&& (Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON || (Main.game.isInSex() && Main.sex.getSexManager() instanceof SMLyssiethDemonTF));
+				&& (Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth") || (Main.game.isInSex() && Main.sex.getSexManager() instanceof SMLyssiethDemonTF));
 	}
 	
 	@Override

@@ -421,7 +421,7 @@ public class Lilaya extends NPC {
 	@Override
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
 		if(character.isPlayer()) {
-			if(character.getSubspeciesOverrideRace()==Race.DEMON) {
+			if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
 				Set<Relationship> rSet = new LinkedHashSet<>();
 				rSet.add(Relationship.HalfSibling);
 				rSet.add(Relationship.Pibling);
@@ -557,7 +557,7 @@ public class Lilaya extends NPC {
 
 		speech.add("Fuck, why do demons always have to feel so horny?! All I ever think about is fucking you or Rose!");
 		speech.add("I'm sure I can collect some valuable data from this...");
-		if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
+		if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
 			speech.add("Horny for your new half-sister, hmm?");
 			speech.add("There's nothing wrong with demonic siblings fucking one another...");
 		} else {

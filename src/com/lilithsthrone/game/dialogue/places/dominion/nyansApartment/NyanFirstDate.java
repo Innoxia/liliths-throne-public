@@ -554,7 +554,7 @@ public class NyanFirstDate {
 				if(Main.game.getPlayer().getSubspeciesOverrideRace()!=Race.DEMON) {
 					return new Response("Demon", "You are not a demon, and so cannot impress [nyanmum.name] in this manner...", null);
 				}
-				return new Response("Lyssieth's [pc.daughter]", "Reveal to [nyanmum.name] that you're a direct [pc.daughter] of Lyssieth herself, and so you'll never struggle to provide for Nyan.", POST_DATE_APARTMENT_INTERVIEW_2_FOOD) {
+				return new Response("[pc.getMotherName()]'s [pc.daughter]", "Reveal to [nyanmum.name] that you're a direct [pc.daughter] of a lilin, and so you'll never struggle to provide for Nyan.", POST_DATE_APARTMENT_INTERVIEW_2_FOOD) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nyansApartment/firstDate", "POST_DATE_APARTMENT_INTERVIEW_2_DEMON"));

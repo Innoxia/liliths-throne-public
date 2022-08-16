@@ -34,6 +34,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.lilithsthrone.game.character.persona.Relationship;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -1673,9 +1674,11 @@ public class Game implements XMLSaving {
 					Main.game.getNpc(Ashley.class).setAffection(Main.game.getNpc(Nyan.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 				}
 
-				if(Main.isVersionOlderThan(loadingVersion, "0.3.17") && Main.game.getPlayer().getTrueRace()==Race.DEMON) {
-					if(Main.game.getNpc(Lyssieth.class).getAffection(Main.game.getPlayer())<75) {
-						Main.game.getNpc(Lyssieth.class).setAffection(Main.game.getPlayer(), 75);
+				NPC lyssieth = Main.game.getNpc(Lyssieth.class);
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.17")
+						&& lyssieth.getRelationshipsTo(Main.game.getPlayer()).contains(Relationship.Child)) {
+					if(lyssieth.getAffection(Main.game.getPlayer())<75) {
+						lyssieth.setAffection(Main.game.getPlayer(), 75);
 					}
 				}
 				
