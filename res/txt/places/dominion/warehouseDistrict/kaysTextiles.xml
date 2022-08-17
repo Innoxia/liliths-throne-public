@@ -362,7 +362,7 @@
 	
 	<htmlContent tag="DOBERMANNS_DEMONIC_INTIMIDATION"><![CDATA[
 	<p>
-		Thinking that these lowly dobermanns aren't showing a [pc.daughter] of #IF(pc.getLilinMother()!=null)[#pc.getLilinMother().name()]#ELSEa lilin#ENDIF the respect you deserve, you [pc.step] forwards and prepare to let these two lowly bounty hunters know who you really are. Sensing that something's not quite right, Wolfgang stands up and glares at you, before grunting, [wolfgang.speech(What're you planning?! You may be a demon, but we're not going to be intimidated by any of your tricks!)]
+		Thinking that these lowly dobermanns aren't showing a [pc.daughter] of [#pc.getLilinMother().name] the respect you deserve, you [pc.step] forwards and prepare to let these two lowly bounty hunters know who you really are. Sensing that something's not quite right, Wolfgang stands up and glares at you, before grunting, [wolfgang.speech(What're you planning?! You may be a demon, but we're not going to be intimidated by any of your tricks!)]
 	</p>
 	<p>
 		Deciding that now's the perfect time to reveal your true identity, you use your self-transformative powers to reshape your body into your old human form. Unable to contain an amused laugh as you see the looks of shock and horror on the dobermanns' faces, you quickly transform back into your previous, demonic body, before [pc.stepping] forwards and asking Wolfgang to repeat what he just said about not being intimidated by the likes of you.
