@@ -1,61 +1,51 @@
-Lilith's Throne
-by Innoxia
+<h2>v0.4.5</h2>
 
-Version 0.4.4.5
+<h3>Contributors:</h3>
+<ul>
+	<li>Fixed issue where Amazonian Ambrosia wouldn't be given to the player upon searching the district in Themiscyra. (by AceXP)</li>
+	<li>Fixed bug in the 'Lilaya's panties' content, where in the threesome section of the sex scene, selecting the 'Lilaya's pussy' or 'Lilaya's cock' actions would not work. (by AceXP)</li>
+	<li>Parsing fix in the tooltip for the 'Moo mode' action in the debug menu. (by AceXP)</li>
+	<li>Typo fixes. (PR#1680 by Thernn)</li>
+	<li>Removed a duplicate line. (PR#1683 by IjyiH)</li>
+</ul>
 
-Compiled using Java version: 17.0.4
+<h3>Gameplay:</h3>
+<ul>
+	<li>Filled in final placeholders in the new Themiscyra main quest content and fixed a couple of minor parsing issues in it.</li>
+</ul>
 
-PATCH NOTES FOR v0.4.4.5
+<h3>Weapons:</h3>
+<ul>
+	<li>Characters who are taurs can now use the 'sitting in lap' slot in the 'sitting' sex position (described as them turning around and lowering their rear half down into the sitting character's lap).</li>
+	<li>Added a minor description variation for vaginal orgasms that are triggered while engaged in tribbing.</li>
+</ul>
 
-FriendlyAlienFriend's artwork:
-	Added artwork for Leotie (Nyan's mum), in clothed, lingerie, and naked variations, each with a pregnant version.
+<h3>Other:</h3>
+<ul>
+	<li>Appended a numerical value to affection descriptions in the character view screen, so that it's easier to track exactly what affection values an NPC has towards you and other NPCs.</li>
+	<li>A character's testicles' covering type is now determined by the testicle type's defined covering, instead of using the character's torso covering type.</li>
+	<li>Added variations to the scenes relating to Lilaya's negative reaction to being impregnated for if the player has impregnated her via use of Amazon's Secret.</li>
+	<li>Added tooltip to the 'load' buttons in the preset transformation save/load screen, to let you know exactly why a preset transformation is unavailable.</li>
+	<li>Dominant contacts at 'The Watering Hole' no longer have their affection reset to 5 when encountering them another night.</li>
+	<li>The five stages of the 'intoxicated' status effect now apply an increasing boost to corruption at each level.</li>
+	<li>Added horn length to the 'Head & Throat' stats in the phone's body stats screen.</li>
+	<li>Reduced the diameter of penises & clits, with reductions being minor for more normal penis lengths, and more significant for longer lengths. (Diameter can still be increased to absurd levels by increasing girth via transformations.)</li>
+	<li>Added pregnancy reactions to the harpy matriarch dialogues, and allowed their companions to be impregnated.</li>
+</ul>
 
-Engine/Modding:
-	Converted all groin clothing from hard-coded files to xml files (located in 'res/clothing/innoxia/groin').
-
-Gameplay:
-	Added the next section of the main quest, where you need to travel to Themiscyra to find out if it's being threatened by Lunette's daughters. (There are a few scenes marked as having placeholder dialogue. I'll get them filled in for the next update.)
-
-Weapons:
-	Added 'morning star' weapon (one-handed, sold by Vicky).
-	Added 'xiphos' weapon (one-handed, only obtainable during the Themiscyra quest for now).
-	
-Clothing:
-	Added 'fur cloak' clothing item (over-torso/neck slot, androgynous, sold by Nyan).
-	Added 'nipple chain' clothing item (nipple piercing slot, androgynous, sold by Kate, two stickers to apply/remove extra chains).
-	Added 'horn chains' clothing item (horn slot, androgynous, sold by Kate, two stickers to apply/remove extra chains).
-	Added 'thin horn rings' clothing item (horn slot, androgynous, sold by Kate).
-	Added 'ear cuff chain studs' clothing item (ear piercing slot, feminine, sold by Kate, two stickers to apply/remove extra chains).
-	Added 'peplos' clothing item (torso slot, feminine, sold by Monica).
-	Added 'himation' clothing item (over-torso slot, feminine, sold by Monica).
-	Added 'sandals' clothing item (foot slot, androgynous, sold by Monica).
-	Added 'meander ring' clothing item (finger slot, androgynous, only obtainable during the Themiscyra quest for now).
-	The 'jockstrap' clothing item no longer incorrectly conceals the wearer's anus.
-	
-Items:
-	Added 'Amazon's Secret' (sold by Ralph, applies a 24-hour effect: when orgasming during a tribbing action, there's a chance to impregnate your partner, using fertility for the impregnation calculation instead of virility).
-	Added 'Amazonian Ambrosia' (only obtainable during the Themiscyra quest for now, applies +femininity and +muscle).
-	
-Sex:
-	When having dominant sex with your elemental, your elemental is no longer able to bring an end to the sex scene.
-	Characters kneeling behind or humping a partner who's on all fours can now use that partner's tail/tentacles/fingers.
-	The 'lubricate fingers' and 'lubricate tail' sex actions should now always be available to you (unless physically impossible or if mouth/fingers/tail are already occupied).
-
-Other:
-	Nerfed the attribute bonuses gained from 'Lyssieth's true power' perk.
-	Added 'strutter tease' and 'leg lover tease' as fetish-related tease attacks for the 'strutter' and 'leg lover' fetishes, respectively.
-	Improved dialogue flow when using your elemental to intimidate the imp guards in the fortresses in Submission.
-	Added a 'side braids' hair style.
-	During the new 'bitch' content (where the player completely submits to a random NPC), the requirement for NPCs to have the selfish trait in order for them to take the player to be tattooed has been removed.
-	Added 'shaggy' as a non-standard covering modifier to cow fur.
-	The current time and date is now hidden during a bad end.
-
-Bugs:
-	Parsing fixes.
-	Fixed issue where 'Lyssieth's true power' perk would not enable you to transform your demonic body parts into human parts.
-	Tail and wing self-transformation options should now be populated with all intended races when using the debug menu to test the elder Lilin perks.
-	When skipping the prologue at the start of a game, imported characters will now correctly gain 5000 flames on top of any flames they already had, instead of flames being set to 5000.
-	Fixed bug in the rental mommy t-shirt encounters where the 'dommy' title would spawn dominant NPCs, and the 'subby' title would spawn submissive NPCs, instead of the other way around.
-	Fixed bug with the rental daddy t-shirt where the 'subby' text title was assigned to the 'bottom text' sticker category instead of 'top text'.
-	Unique NPCs no longer have a random chance to have the 'ahegao' perk (Takahashi is unaffected by this change).
-	Fixed issue where NPCs would not be targeting their intended partner in sex scenes which used the 'preferredTarget' variable.
+<h3>Bugs:</h3>
+<ul>
+	<li>Typo fixes.</li>
+	<li>The NPC who you encounter during the event while wearing a rental mommy/daddy t-shirt will no longer be gynephilic or androphilic if the player character is masculine or feminine, respectively.</li>
+	<li>Fixed issue with missing dialogue for a cunnilingus scene during the 'random NPC's bitch' content.</li>
+	<li>Added a catch to avoid a background error being thrown for if a condom has somehow had its cum variable reset to null.</li>
+	<li>Fixed several instances, mostly in the titles of dialogue scenes while interacting with slaves, where an incorrect name for the NPC being interacted with was being displayed.</li>
+	<li>The Amazon's Secret item will now correctly apply the 'feminine fertility' status effect to the consuming character.</li>
+	<li>Fixed some formatting issues with tattoo descriptions at the bottom of the selfie/character view page when the tattoo had no writing or a 'none'-type counter.</li>
+	<li>Fixed continuity error at the start of the demon TF sex scene for Meraxis, where Meraxis would always be described during her initial vaginal penetration as being a virgin, even if you'd previously taken her virginity.</li>
+	<li>When getting a demonic or youko sexual partner to grow a penis during sex via use of the 'Grow cock' action, their penis skin colour should now match their race, unless it's been previously set to a different colour.</li>
+	<li>Fixed parsing issue when equipping Enforcer's night vision goggles on an NPC.</li>
+	<li>Fixed issue where the 'strapless bodysuit' clothing would throw a background error when being equipped, and then fail to display in your inventory UI while being worn. </li>
+	<li>The 'spaghetti crop tank-top' clothing no longer conceals the stomach slot.</li>
+	<li>Fixed issue which was present in several dialogues where a character who you've impregnated would act as though you'd previously reacted to their pregnancy, even if it was the first time you'd seen them pregnant.</li>
+</ul>
