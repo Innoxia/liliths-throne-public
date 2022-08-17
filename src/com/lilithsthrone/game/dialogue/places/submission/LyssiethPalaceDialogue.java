@@ -729,7 +729,7 @@ public class LyssiethPalaceDialogue {
 						((Lyssieth)Main.game.getNpc(Lyssieth.class)).growCock(PenisType.HUMAN);
 					}
 				};
-				//FIXME MintyChip#1944 - I don't know if the below scenes work with all demons or just her child
+
 			} else if(index==3 && Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
 				return new ResponseSex("Use pussy (lilin)",
 						"Tell Lyssieth that you want her to take on her lilin form, and that you want to use her pussy.",
