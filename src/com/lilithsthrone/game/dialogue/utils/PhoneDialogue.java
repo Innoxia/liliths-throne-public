@@ -1364,6 +1364,13 @@ public class PhoneDialogue {
 				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Hair Length",
 						PresetColour.TEXT, Units.size(character.getHairRawLengthValue()),
 						character.getHairLength().getColour(), Util.capitaliseSentence(character.getHairLength().getDescriptor()))
+				+ (character.hasHorns()
+						?statRow(PresetColour.TRANSFORMATION_GENERIC, "Horn Length",
+							PresetColour.TEXT, Units.size(character.getHornLengthValue()),
+							character.getHornLength().getColour(), Util.capitaliseSentence(character.getHornLength().getDescriptor()))
+						:statRow(PresetColour.TRANSFORMATION_GENERIC, "Horn Length",
+								PresetColour.TEXT, Units.size(0),
+								PresetColour.TEXT_GREY, "N/A"))
 				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Tongue Length",
 						PresetColour.TEXT, Units.size(character.getTongueLengthValue()),
 						PresetColour.TRANSFORMATION_GENERIC, Util.capitaliseSentence(character.getTongueLength().getDescriptor()))

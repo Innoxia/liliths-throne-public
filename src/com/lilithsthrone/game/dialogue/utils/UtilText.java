@@ -5496,7 +5496,7 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Returns the descriptor of the length of this cahracter's antennae.",
+				"Returns the descriptor of the length of this character's antennae.",
 				BodyPartType.ANTENNA){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
@@ -6883,11 +6883,11 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Returns the descriptor of the length of this cahracter's horns.",
+				"Returns the descriptor of the length of this character's horns.",
 				BodyPartType.HORN){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return HornLength.getLengthFromInt(character.getHornLength()).getDescriptor();
+				return HornLength.getLengthFromInt(character.getHornLengthValue()).getDescriptor();
 			}
 		});
 		

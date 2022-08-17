@@ -48,7 +48,8 @@ public class ChairSex {
 	}
 	
 	private static boolean isSittingAvailable(GameCharacter gettingFucked) {
-		return !gettingFucked.isTaur();
+		return true;
+//		return !gettingFucked.isTaur();
 	}
 	
 	private static void applyChangeSlotEffects(GameCharacter mover, SexSlot moverSlot, GameCharacter partner, SexSlot partnerSlot) {
