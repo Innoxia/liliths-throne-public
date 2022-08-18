@@ -24,6 +24,7 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
@@ -176,8 +177,11 @@ public class MilkingRoom implements XMLSaving {
 
 		for(MilkingRoom room : Main.game.getOccupancyUtil().getMilkingRooms()) {
 			Cell c = Main.game.getWorlds().get(room.getWorldType()).getCell(room.getLocation());
-			int charactersPresent = Main.game.getCharactersPresent(c).size();
-			if (charactersPresent < 8) {
+			List<NPC> charactersPresent = Main.game.getCharactersPresent(c);
+			if (charactersPresent.contains((NPC) character)) {
+				return c;
+			}
+			if (charactersPresent.size() < 8) {
 				freeRooms.add(room);
 			} else {
 				fullRooms.add(room);
