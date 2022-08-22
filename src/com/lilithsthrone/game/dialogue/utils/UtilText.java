@@ -1317,14 +1317,26 @@ public class UtilText {
 				}
 				errMsg.append(startIndex);
 				if(target != null) {
-					errMsg.append(" Target: "+target);
+					errMsg.append(" Target: '" + target + "'");
 				}
 				if(command != null) {
-					errMsg.append(" Command: "+command);
+					errMsg.append(" Command: '" + command + "'");
 				}
-				errMsg.append(" "+input.substring(startIndex, Math.min(input.length()-1, startIndex+20)));
+				{
+					int errContext = 30;
+					errMsg.append("\nContext:  " + input.substring(Math.max(0, startIndex - errContext), Math.min(input.length(), startIndex + errContext)));
+					errMsg.append("\nLocation: " + "-".repeat(Math.min(errContext, startIndex)) + "^");
+				}
 				System.err.println(errMsg);
 				parsingCharactersForSpeech = parsingCharactersForSpeechSaved;
+				switch(input.charAt(startIndex)) {
+					// Replace the problematic character with its html entity, so that the error does
+					// not propagate further.
+					case '#':
+						return input.substring(0, startIndex) + "&#35;" + input.substring(startIndex+1);
+					case '[':
+						return input.substring(0, startIndex) + "&#91;" + input.substring(startIndex+1);
+				}
 				return input;
 			}
 			if (startedParsingSegmentAt < input.length()) {
