@@ -1027,8 +1027,10 @@ public class UtilText {
 			for (int i = 0; i < input.length(); i++) {
 				char c = input.charAt(i);
 				
+				// Advance the parser index to the final `>` if we encounter an SVG
 				if(c == 'g' && substringMatchesInReverseAtIndex(input, "<svg", i)) {
-					i = input.indexOf("</svg>", i) + 6; // 6 == "</svg>".length()
+					i = input.indexOf("</svg>", i) + 5; // 5 == "</svg>".length() - 1
+					continue;
 				}
 
 				if(usingConditionalBrackets) {
