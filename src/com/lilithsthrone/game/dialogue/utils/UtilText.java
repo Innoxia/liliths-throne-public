@@ -1027,6 +1027,10 @@ public class UtilText {
 			for (int i = 0; i < input.length(); i++) {
 				char c = input.charAt(i);
 				
+				if(c == 'g' && substringMatchesInReverseAtIndex(input, "<svg", i)) {
+					i = input.indexOf("</svg>", i) + 6; // 6 == "</svg>".length()
+				}
+
 				if(usingConditionalBrackets) {
 					if(input.charAt(i)=='(') {
 						conditionalOpenBrackets++;
