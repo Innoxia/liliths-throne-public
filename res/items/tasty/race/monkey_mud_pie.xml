@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[An inscription written in crayon on the pie packaging reads 'Packed tight by Tasty's Secret Priest Sauce LLC']]></authorTag>
+		
+		<value>250</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Mud Pie]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Mud Pie]]></namePlural>
+		<description><![CDATA[A hastily folded up package of homemade mud pie. A logo printed on the top of the box shows a busty monkey-girl in a skimpy chef's outfit with no back, looking behind her at the consumer, her ass on display, her tail twisted up into a heart, a mud pie in held up in her hand, a wink in her eye and a smile on her face.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="95" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/mods/tasty/race/monkey/subspecies/monkeyicon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="90">monkey_mud_pie.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>tasty_monkey</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[monkey]]></potionDescriptor>
+		<associatedRace>tasty_monkey</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(1)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel stronger...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 2)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(open)] the package and [npc.verb(breathe)] in the scent of hot homemade chocolate and cream. Unable to resist the delicious-looking pie found inside, [npc.she] [npc.verb(start)] shoving the entire pie into [npc.her] mouth until nothing but crumbs are left behind.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(open)] the package and [npc.verb(hold)] it out to [npc2.name], allowing [npc2.herHim] to breathe in the scent of hot homemade chocolate and cream. Unable to resist the delicious-looking pie found inside, [npc2.she] [npc2.verb(start)] shoving the entire pie into [npc2.her] mouth until nothing but crumbs are left behind.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>
