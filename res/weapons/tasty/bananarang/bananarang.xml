@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<authorTag><![CDATA[At the base of the bananarang, there is a small blue label that reads "Cajun Creations by Tasty's Priest Sauce LLC."]]></authorTag>
+		
+		<value>10000</value> 
+		
+		<melee>false</melee>
+		
+		<twoHanded>false</twoHanded>
+		
+		<determiner><![CDATA[a]]></determiner>
+		
+		<name><![CDATA[Bananarang]]></name>
+		
+		<name appendDamageName="true"><![CDATA[Bananarang]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[Bananarangs]]></namePlural> 
+		
+		<description><![CDATA[An unpeeled banana with the power of monkey-propelled flight.]]></description> 
+		
+		<attackDescriptor>Toss</attackDescriptor>
+		
+		<attackTooltipDescription><![CDATA[Toss out your Bananarang at [npc2.name].]]></attackTooltipDescription>
+		
+		<rarity>EPIC</rarity> 
+		
+		<weaponSet/>
+		
+		<equipText><![CDATA[[npc.Name] [npc.verb(slip)] the bananarang out, debating if it should be readied for combat... or eaten.]]></equipText>
+		
+		<unequipText><![CDATA[[npc.Name] [npc.verb(slide)] the bananarang back into its hidey hole.]]></unequipText>
+		
+		<imageName>bananarang_inv.svg</imageName> 
+		
+		<imageEquippedName>bananarang.svg</imageEquippedName>
+		
+		<damage>25</damage>
+		<aoe chance="50">10</aoe>
+		<aoe chance="25">5</aoe>
+		
+		<arcaneCost>0</arcaneCost> 
+		
+		<damageVariance>MEDIUM</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+			<damageType>FIRE</damageType>
+			<damageType>ICE</damageType>
+			<damageType>POISON</damageType>
+		</availableDamageTypes>
+		
+		<spells changeOnReforge="false">
+			<spell damageType="PHYSICAL">STEAL</spell>			
+		</spells>
+		
+		<!-- The combat moves that are unlocked when equipping this weapon. IF you want to add any, use the format:
+		<combatMoves changeOnReforge="true">
+			<move damageType="PHYSICAL">ASSAULT_RIFLE_MAG_DUMP</move>
+		</combatMoves>
+		
+		The 'changeOnReforge' variable determines whether this weapon should regenerate combat moves whenever the player changes the damage type. (i.e. If they reforge a PHYSICAL dagger to an ICE dagger, if 'changeOnReforge' is true, then the granted combat move ASSAULT_RIFLE_MAG_DUMP will be lost).
+		
+		The 'damageType' variable corresponds to the damageType which causes the move to be unlocked when this weapon is spawned in. You can have multiple entries of the same damageType, like so:
+		...
+			<move damageType="FIRE">EXAMPLE_MOVE_1</move>
+			<move damageType="FIRE">EXAMPLE_MOVE_2</move>
+			<move damageType="FIRE">EXAMPLE_MOVE_3</move>
+			<move damageType="FIRE">EXAMPLE_MOVE_4</move>
+		...
+		
+		Values for combat moves can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/CMWeaponSpecials.java
+		There will be a way to add modded combat moves soon! -->
+		<combatMoves/>
+		
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<effects>
+			  <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
+		</effects>
+		
+		<!-- You can use this section to describe any extra features of this weapon.
+		These effects are shown in the tooltip when the player hovers over the weapon icon, so try and keep them short (as they should fit on one line).
+		It should probably only be used to describe what happens in the <onHitEffect> element.
+		No characters are passed in as parsing arguments, so you should NOT use any character-specific parsing elements (such as [npc.name]).
+		For this weapon, no extra effects need to be described, but if you need to use this section, use the following format:
+		<extraEffects>
+			<effect><![CDATA[Stab time!]]></effect>
+		</extraEffects> -->
+		<extraEffects/>
+		
+		<!-- This is applied every time this weapon hits a target. It does NOT apply when the weapon critically hits.
+		The returned text is appended to the hit description.
+		'npc' corresponds to the attacker, and 'npc2' to the target, for use in effects/parsing.
+		For this weapon, no hit effects need to be added, but if you need to use this section, use the following format:
+		<onHitEffect><![CDATA[
+		[##npc2.setHealth(0)]
+		[npc2.Name] is instantly defeated!
+		]]></onHitEffect> -->
+		<onHitEffect/>
+	
+		<!-- This is applied every time this weapon critically hits a target. It does NOT apply when the weapon does a non-critical hit.
+		The returned text is appended to the hit description.
+		'npc' corresponds to the attacker, and 'npc2' to the target, for use in effects/parsing.
+		Use the exact same format as onHitEffect (the element above). -->
+		<onCriticalHitEffect/>
+		
+		<primaryColours values="ALL"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="ALL"/> 
+		<secondaryColoursDye values="ALL"/>
+		
+		<itemTags>
+			<tag>SOLD_BY_VICKY</tag>
+		</itemTags>
+		
+	</coreAttributes>
+
+	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Tossing out [npc.her] bananarang, [npc.name] [npc.verb(manage)] to thwack [npc2.name] right between the eyes. There is a loud smooshing sound as the bananarang connects with the aura above [npc2.her] head to drain [npc2.her] energy!
+		]]></hitText>
+		<hitText><![CDATA[
+		Ducking to the side, [npc.name] [npc.verb(toss)] out at [npc2.name] with [npc.her] bananarang, smacking the aura around [npc2.her] thigh with the mighty fruit and causing [npc2.herHim] to lose some energy!
+		]]></hitText>
+		<hitText><![CDATA[
+		Tossing out with [npc.her] bananarang, [npc.name] [npc.verb(manage)] to slam [npc2.name] square in the armpit! There is a loud giggling sound as the for-some-reason-moist fruit connects with the aura under [npc2.her] arm to drain [npc2.her] energy!
+		#IF !npc2.hasStatusEffect(SE_DAZED)
+		#THEN [##npc2.addStatusEffect(SE_DAZED, 6)] [npc2.Name] [npc2.is] <span style='color:#A79E90;'><b>seeing stars</b></span> from such a banana. 
+		#ENDIF
+		]]></hitText>
+	</hitDescriptions>
+
+	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
+	<missDescriptions>
+		<missText><![CDATA[
+		Tossing out with [npc.her] bananarang, [npc.name] [npc.verb(attempt)] to thwack [npc2.name] in the chest, but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+		<missText><![CDATA[
+		Ducking to the side, [npc.name] [npc.verb(toss)] out at [npc2.name] with [npc.her] bananarang, but [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		Tossing out with [npc.her] bananarang, [npc.name] [npc.verb(attempt)] to smack [npc2.name] across the head, but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>
