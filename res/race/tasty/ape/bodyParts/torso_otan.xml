@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<torso>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractTorsoType.java -->
+	
+	<!-- The id of the race which this torso belongs to.
+	This will almost always be the id of the race in which this type is found (in this case hyena). -->
+	<race>tasty_ape</race>
+	
+	<!-- The name that will be used when referring to transformations related to this type (such as when changing body parts in the self-TF menu). -->
+	<transformationName><![CDATA[orangutan]]></transformationName>
+	
+	<!-- The id of the material covering this torso.
+	The id will typically take the form of 'innoxia_hyena_fur'.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>tasty_ape_fur_otan</coveringType>
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's torso of this type.
+	Can be left blank. -->
+	<descriptorsMasculine/>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine/>
+	<!-- Hyena torsos do not need any racial descriptors, but if you wanted to add some, use this format:
+	<descriptorsMasculine>
+		<descriptor><![CDATA[hyena-like]]></descriptor>
+	</descriptorsMasculine>
+	-->
+	
+	<!-- The description which is shown when a character transforms to obtain this torso type.
+	This description immediately follows a brief description of the torso type beginning to transform. -->
+	<transformationDescription><![CDATA[
+		After just a few moments, the transformation comes to an end, and [npc.she] [npc.verb(let)] out a deep sigh as the itching finally stops, leaving [npc.her] torso covered with orangutan-like fur. [npc.Her] new fur is a little shaggy around [npc.her] joints and is quite densely packed.
+		<br/>[npc.Name] now [npc.has] [style.boldOrangutan(orangutan-like)], [npc.skinFullDescription].
+	]]></transformationDescription>
+	
+	<!-- How this torso is described in a character's description page. -->
+	<bodyDescription><![CDATA[
+		[npc.Her] torso has [npc.a_femininity(true)] appearance, and is [npc.materialCompositionDescriptor] [npc.skinFullDescription(true)].
+	]]></bodyDescription>
+	
+</torso>
