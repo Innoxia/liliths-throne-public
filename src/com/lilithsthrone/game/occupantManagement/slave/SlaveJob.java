@@ -956,19 +956,29 @@ public enum SlaveJob {
 		
 		if(this==SlaveJob.MILKING) {
 			value = 0;
-			if(character.getBreastRawStoredMilkValue()>0  && character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK)) {
+			if(character.getBreastRawStoredMilkValue()>0
+					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK)
+					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK_AUTO_SELL)) {
 				int milked = MilkingRoom.getActualMilkPerHour(character);
 				value += (milked * character.getMilk().getValuePerMl());
 			}
-			if(character.hasBreastsCrotch() && character.getBreastCrotchRawStoredMilkValue()>0  && character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK_CROTCH)) {
+			if(character.hasBreastsCrotch()
+					&& character.getBreastCrotchRawStoredMilkValue()>0
+					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK_CROTCH)
+					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK_CROTCH_AUTO_SELL)) {
 				int milked = MilkingRoom.getActualCrotchMilkPerHour(character);
 				value += (milked * character.getMilkCrotch().getValuePerMl());
 			}
-			if(character.hasPenis() && character.getPenisRawStoredCumValue()>0  && character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_CUM)) {
+			if(character.hasPenis()
+					&& character.getPenisRawStoredCumValue()>0
+					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_CUM)
+					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_CUM_AUTO_SELL)) {
 				int milked = MilkingRoom.getActualCumPerHour(character);
 				value += (milked * character.getCum().getValuePerMl());
 			}
-			if(character.hasVagina() && character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_GIRLCUM)) {
+			if(character.hasVagina()
+					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_GIRLCUM)
+					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_GIRLCUM_AUTO_SELL)) {
 				int milked = MilkingRoom.getActualGirlcumPerHour(character);
 				value += (milked * character.getGirlcum().getValuePerMl());
 			}
