@@ -246,7 +246,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	
 	@Override
 	public int getValue() {
-		return itemType.getValue(this.getEffects());
+		return itemType.getValue();
 	}
 	
 	public String getExtraDescription(GameCharacter user, GameCharacter target) {

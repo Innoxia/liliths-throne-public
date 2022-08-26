@@ -1142,10 +1142,10 @@ public class SlaverAlleyDialogue {
 						}
 						sb.append("</div>");
 						sb.append("<div class='container-full-width' style='text-align:center; width:20%; background:transparent; margin:0; padding:0;'>");
-							if(Main.game.getPlayer().getMoney()<itemType.getValue(null)*2) {
-								sb.append(UtilText.formatAsMoney(itemType.getValue(null)*2, "span", PresetColour.GENERIC_BAD));
+							if(Main.game.getPlayer().getMoney()<itemType.getValue()*2) {
+								sb.append(UtilText.formatAsMoney(itemType.getValue()*2, "span", PresetColour.GENERIC_BAD));
 							} else {
-								sb.append(UtilText.formatAsMoney(itemType.getValue(null)*2, "span"));
+								sb.append(UtilText.formatAsMoney(itemType.getValue()*2, "span"));
 							}
 						sb.append("</div>");
 					sb.append("</div>");
@@ -1174,7 +1174,7 @@ public class SlaverAlleyDialogue {
 			
 			for(AbstractItemType itemType : getCafeItems()) {
 				if(responseTab==0) {
-					if(Main.game.getPlayer().getMoney()<itemType.getValue(null)*2) {
+					if(Main.game.getPlayer().getMoney()<itemType.getValue()*2) {
 						responses.add(new Response(itemType.getName(false), "You don't have enough money to order "+itemType.getDeterminer()+" "+itemType.getName(false)+"...", null));
 						
 					} else {
@@ -1188,17 +1188,17 @@ public class SlaverAlleyDialogue {
 									public void effects() {
 										UtilText.addSpecialParsingString(itemType.getDeterminer(), true);
 										UtilText.addSpecialParsingString(itemType.getName(false), false);
-										UtilText.addSpecialParsingString(Util.intToString(itemType.getValue(null)*2), false);
+										UtilText.addSpecialParsingString(Util.intToString(itemType.getValue()*2), false);
 										UtilText.addSpecialParsingString(itemType.getUseName(), false);
 										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_CAFE_INTERIOR_ORDER"));
 										Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().useItem(Main.game.getItemGen().generateItem(itemType), Main.game.getPlayer(), false, true));
-										Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-itemType.getValue(null)*2));
+										Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-itemType.getValue()*2));
 									}
 								});
 					}
 					
 				} else if(responseTab==1) {
-					if(Main.game.getPlayer().getMoney()<itemType.getValue(null)*2) {
+					if(Main.game.getPlayer().getMoney()<itemType.getValue()*2) {
 						responses.add(new Response(itemType.getName(false), "You don't have enough money to order "+itemType.getDeterminer()+" "+itemType.getName(false)+"...", null));
 						
 					} else {
@@ -1210,11 +1210,11 @@ public class SlaverAlleyDialogue {
 									public void effects() {
 										UtilText.addSpecialParsingString(itemType.getDeterminer(), true);
 										UtilText.addSpecialParsingString(itemType.getName(false), false);
-										UtilText.addSpecialParsingString(Util.intToString(itemType.getValue(null)*2), false);
+										UtilText.addSpecialParsingString(Util.intToString(itemType.getValue()*2), false);
 										UtilText.addSpecialParsingString(UtilText.parse("[com.verb("+itemType.getUseName()+")]"), false);
 										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_CAFE_INTERIOR_ORDER_COMPANION"));
 										Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().getMainCompanion().useItem(Main.game.getItemGen().generateItem(itemType), Main.game.getPlayer().getMainCompanion(), false, true));
-										Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-itemType.getValue(null)*2));
+										Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-itemType.getValue()*2));
 									}
 								});
 					}
