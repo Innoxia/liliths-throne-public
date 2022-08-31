@@ -2643,6 +2643,7 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_MELON, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_COCONUT, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_BLUEBERRY, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_BANANA, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				break;
 				
 			default:
@@ -5151,6 +5152,8 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Makes cum taste like coconut.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.COCONUT); } };
 					case TF_MOD_FLAVOUR_BLUEBERRY:
 						return new RacialEffectUtil("Makes cum taste like blueberries.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.BLUEBERRY); } };
+					case TF_MOD_FLAVOUR_BANANA:
+						return new RacialEffectUtil("Makes cum taste like bananas.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.BANANA); } };
 	
 					case TF_MOD_FLUID_ADDICTIVE:
 						if(potency == TFPotency.MINOR_DRAIN) {
@@ -5277,7 +5280,9 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Makes milk taste like coconut.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.COCONUT); } };
 					case TF_MOD_FLAVOUR_BLUEBERRY:
 						return new RacialEffectUtil("Makes milk taste like blueberries.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.BLUEBERRY); } };
-	
+					case TF_MOD_FLAVOUR_BANANA:
+						return new RacialEffectUtil("Makes milk taste like bananas.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.BANANA); } };
+						
 					case TF_MOD_FLUID_ADDICTIVE:
 						if(potency == TFPotency.MINOR_DRAIN) {
 							return new RacialEffectUtil("Removes addictive effect from milk.") { @Override public String applyEffect() { return target.removeMilkModifier(FluidModifier.ADDICTIVE); } };
@@ -5403,6 +5408,8 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Makes udder-milk taste like coconut.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.COCONUT); } };
 					case TF_MOD_FLAVOUR_BLUEBERRY:
 						return new RacialEffectUtil("Makes udder-milk taste like blueberries.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.BLUEBERRY); } };
+					case TF_MOD_FLAVOUR_BANANA:
+						return new RacialEffectUtil("Makes udder-milk taste like bananas.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.BANANA); } };
 	
 					case TF_MOD_FLUID_ADDICTIVE:
 						if(potency == TFPotency.MINOR_DRAIN) {
@@ -5529,6 +5536,8 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Makes girlcum taste like coconut.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.COCONUT); } };
 					case TF_MOD_FLAVOUR_BLUEBERRY:
 						return new RacialEffectUtil("Makes girlcum taste like blueberries.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.BLUEBERRY); } };
+					case TF_MOD_FLAVOUR_BANANA:
+						return new RacialEffectUtil("Makes girlcum taste like bananas.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.BANANA); } };
 	
 					case TF_MOD_FLUID_ADDICTIVE:
 						if(potency == TFPotency.MINOR_DRAIN) {
