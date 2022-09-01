@@ -152,10 +152,12 @@ public class CharacterModificationUtils {
 	public static final int FLUID_INCREMENT_SMALL = 5;
 	public static final int FLUID_INCREMENT_AVERAGE = 50;
 	public static final int FLUID_INCREMENT_LARGE = 500;
+	public static final int FLUID_INCREMENT_HUGE = 5000;
 
 	public static final int FLUID_REGEN_INCREMENT_SMALL = 100;
 	public static final int FLUID_REGEN_INCREMENT_AVERAGE = 1000;
-	public static final int FLUID_REGEN_INCREMENT_LARGE = 10_000;
+	public static final int FLUID_REGEN_INCREMENT_LARGE = 10000;
+	public static final int FLUID_REGEN_INCREMENT_HUGE = 100000;
 
 	public static final int MAX_AGE_PLAYER = 50;
 	public static final int MAX_AGE_NPC = 60;
@@ -605,7 +607,6 @@ public class CharacterModificationUtils {
 	}
 	
 	
-	public static int[] soSilly = new int[] {0, 1, 2, 3, 4}; // Apparently just using normalValues.length isn't allowed (in MainController) :s
 	public static int[] normalSexExperienceValues = new int[] {0, 5, 25, 50, 100};
 	private static Colour[] sexColours = new Colour[] {PresetColour.GENERIC_EXCELLENT, PresetColour.BASE_PINK_LIGHT, PresetColour.BASE_PINK, PresetColour.BASE_PINK_DEEP, PresetColour.ATTRIBUTE_CORRUPTION};
 	public static String[] feminineNames = new String[] {"Virgin", "Inexperienced", "Experienced", "Expert", "Slut"};
@@ -885,7 +886,7 @@ public class CharacterModificationUtils {
 				Units.size(value, Units.ValueType.PRECISE, Units.UnitType.SHORT),decreaseDisabled, increaseDisabled);
 	}
 	
-	private static String applyVariableWrapperFluids(String title, String description, String id, String value, boolean decreaseDisabled, boolean increaseDisabled, int incrementSmall, int incrementAverage, int incrementLarge) {
+	private static String applyVariableWrapperFluids(String title, String description, String id, String value, boolean decreaseDisabled, boolean increaseDisabled, int incrementSmall, int incrementAverage, int incrementLarge, int incrementHuge) {
 		return "<div class='cosmetics-inner-container' style='margin:1% 1%; width:48%; padding:1%; box-sizing:border-box; position:relative'>"
 					+ "<p style='margin:0; padding:0;'>"
 						+ getInformationDiv(id, new TooltipInformationEventListener().setInformation(title, description))
@@ -893,28 +894,34 @@ public class CharacterModificationUtils {
 					+"</p>"
 					+ "<div class='container-full-width'>"
 						+ "<div class='container-full-width' style='width:25%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
-							+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:98%; margin:1%; padding:0;'>"
+							+ "<div id='"+id+"_DECREASE_SMALL' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:98%; margin:1%; padding:0;'>"
 								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-incrementSmall)+")]":"[style.boldBadMinor("+Units.fluid(-incrementSmall)+")]")
 							+ "</div>"
+							+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:98%; margin:1%; padding:0;'>"
+								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-incrementAverage)+")]":"[style.boldBadMinor("+Units.fluid(-incrementAverage)+")]")
+							+ "</div>"
 							+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:98%; margin:1%; padding:0;'>"
-								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-incrementAverage)+")]":"[style.boldBad("+Units.fluid(-incrementAverage)+")]")
+								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-incrementLarge)+")]":"[style.boldBad("+Units.fluid(-incrementLarge)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_DECREASE_HUGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:98%; margin:1%; padding:0;'>"
-								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-incrementLarge)+")]":"[style.boldBad("+Units.fluid(-incrementLarge)+")]")
+								+ (decreaseDisabled?"[style.boldDisabled("+Units.fluid(-incrementHuge)+")]":"[style.boldBad("+Units.fluid(-incrementHuge)+")]")
 							+ "</div>"
 						+ "</div>"
 						+ "<div class='container-full-width' style='width:48%; margin:1%; padding:0; text-align:center; float:left; position:relative;'>"
 							+ value
 						+ "</div>"
 						+ "<div class='container-full-width' style='width:25%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
-							+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:98%; margin:1%; padding:0;'>"
+							+ "<div id='"+id+"_INCREASE_SMALL' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:98%; margin:1%; padding:0;'>"
 								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(incrementSmall)+")]":"[style.boldGoodMinor(+"+Units.fluid(incrementSmall)+")]")
 							+ "</div>"
+							+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:98%; margin:1%; padding:0;'>"
+								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(incrementAverage)+")]":"[style.boldGoodMinor(+"+Units.fluid(incrementAverage)+")]")
+							+ "</div>"
 							+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:98%; margin:1%; padding:0;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(incrementAverage)+")]":"[style.boldGood(+"+Units.fluid(incrementAverage)+")]")
+								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(incrementLarge)+")]":"[style.boldGood(+"+Units.fluid(incrementLarge)+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_INCREASE_HUGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:98%; margin:1%; padding:0;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(incrementLarge)+")]":"[style.boldGood(+"+Units.fluid(incrementLarge)+")]")
+								+ (increaseDisabled?"[style.boldDisabled(+"+Units.fluid(incrementHuge)+")]":"[style.boldGood(+"+Units.fluid(incrementHuge)+")]")
 							+ "</div>"
 						+ "</div>"
 					+ "</div>"
@@ -1010,7 +1017,7 @@ public class CharacterModificationUtils {
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_BODY_MATERIAL_"+mat+"' class='cosmetics-button'>"
+						"<div id='BODY_MATERIAL_"+mat+"' class='cosmetics-button'>"
 							+ "<span style='color:"+mat.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(mat.getName())+"</span>"
 						+ "</div>");
 			}
@@ -1055,7 +1062,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_TAIL_"+TailType.getIdFromTailType(tail)+"' class='cosmetics-button'>"
+							"<div id='TAIL_"+TailType.getIdFromTailType(tail)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION)?"*":"")+(tail.isPrehensile()?"&#8314;":"")+"</span>"
 							+ "</div>");
 				}
@@ -1269,7 +1276,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_WING_SIZE_"+wingSize+"' class='cosmetics-button'>"
+							"<div id='WING_SIZE_"+wingSize+"' class='cosmetics-button'>"
 								+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(wingSize.getName())
 									+(wingSize.getValue()>=target.getLegConfiguration().getMinimumWingSizeForFlight(target.getBody()).getValue()?"*":"")+"</span>"
 							+ "</div>");
@@ -1318,7 +1325,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_WING_"+WingType.getIdFromWingType(wing)+"' class='cosmetics-button'>"
+							"<div id='WING_"+WingType.getIdFromWingType(wing)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(wing.getTransformName())+"</span>"
 							+ "</div>");
 				}
@@ -1371,7 +1378,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_HORN_"+HornType.getIdFromHornType(horn)+"' class='cosmetics-button'>"
+							"<div id='HORN_"+HornType.getIdFromHornType(horn)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(horn.getTransformName())+"</span>"
 							+ "</div>");
 				}
@@ -1398,7 +1405,7 @@ public class CharacterModificationUtils {
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_HORN_LENGTH_"+hornLength+"' class='cosmetics-button'>"
+						"<div id='HORN_LENGTH_"+hornLength+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(hornLength.getDescriptor())+(hornLength.isSuitableAsHandles()?"*":"")+"</span>"
 						+ "</div>");
 			}
@@ -1484,7 +1491,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_ANTENNA_"+AntennaType.getIdFromAntennaType(antenna)+"' class='cosmetics-button'>"
+							"<div id='ANTENNA_"+AntennaType.getIdFromAntennaType(antenna)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(antenna.getTransformName())+"</span>"
 							+ "</div>");
 				}
@@ -1511,7 +1518,7 @@ public class CharacterModificationUtils {
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_ANTENNA_LENGTH_"+antennaLength+"' class='cosmetics-button'>"
+						"<div id='ANTENNA_LENGTH_"+antennaLength+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(antennaLength.getDescriptor())+(antennaLength.isSuitableAsHandles()?"*":"")+"</span>"
 						+ "</div>");
 			}
@@ -1590,7 +1597,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_HAIR_"+HairType.getIdFromHairType(hair)+"' class='cosmetics-button'>"
+							"<div id='HAIR_"+HairType.getIdFromHairType(hair)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+hair.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(hair.getTransformName())+"</span>"
 							+ "</div>");
 				}
@@ -1708,7 +1715,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_ASS_"+AssType.getIdFromAssType(ass)+"' class='cosmetics-button'>"
+							"<div id='ASS_"+AssType.getIdFromAssType(ass)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+ass.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(ass.getTransformName())+"</span>"
 							+ "</div>");
 				}
@@ -1736,7 +1743,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_BREAST_"+BreastType.getIdFromBreastType(breast)+"' class='cosmetics-button'>"
+							"<div id='BREAST_"+BreastType.getIdFromBreastType(breast)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+breast.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(breast.getTransformName())+"</span>"
 							+ "</div>");
 				}
@@ -1764,7 +1771,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_BREAST_CROTCH_"+BreastType.getIdFromBreastType(breast)+"' class='cosmetics-button'>"
+							"<div id='BREAST_CROTCH_"+BreastType.getIdFromBreastType(breast)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+breast.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(breast.getTransformName())+"</span>"
 							+ "</div>");
 				}
@@ -1793,7 +1800,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_ARM_"+ArmType.getIdFromArmType(arm)+"' class='cosmetics-button'>"
+							"<div id='ARM_"+ArmType.getIdFromArmType(arm)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+arm.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(arm.getTransformName())+"</span>"
 							+ "</div>");
 				}
@@ -1847,7 +1854,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_LEG_"+LegType.getIdFromLegType(leg)+"' class='cosmetics-button'>"
+							"<div id='LEG_"+LegType.getIdFromLegType(leg)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+leg.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(leg.getTransformName())+"</span>"
 							+ "</div>");
 				}
@@ -1876,7 +1883,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_FOOT_STRUCTURE_"+footStructure+"' class='cosmetics-button'>"
+							"<div id='FOOT_STRUCTURE_"+footStructure+"' class='cosmetics-button'>"
 								+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(footStructure.getName())+"</span>"
 							+ "</div>");
 				}
@@ -1904,7 +1911,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_FACE_"+FaceType.getIdFromFaceType(face)+"' class='cosmetics-button'>"
+							"<div id='FACE_"+FaceType.getIdFromFaceType(face)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+face.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(face.getTransformName())+(face.getTags().contains(BodyPartTag.THERMAL_VISION)?"*":"")+"</span>"
 							+ "</div>");
 				}
@@ -1933,7 +1940,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_SKIN_"+TorsoType.getIdFromTorsoType(skin)+"' class='cosmetics-button'>"
+							"<div id='TORSO_"+TorsoType.getIdFromTorsoType(skin)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+skin.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(skin.getTransformName())+"</span>"
 							+ "</div>");
 				}
@@ -1968,7 +1975,7 @@ public class CharacterModificationUtils {
 						
 					} else {
 						contentSB.append(
-								"<div id='CHANGE_GENITAL_ARRANGEMENT_"+arrangement+"' class='cosmetics-button'>"
+								"<div id='GENITAL_ARRANGEMENT_"+arrangement+"' class='cosmetics-button'>"
 									+ "<span style='color:"+PresetColour.GENERIC_SEX.getShades()[0]+";'>"+Util.capitaliseSentence(arrangement.getName())+"</span>"
 								+ "</div>");
 					}
@@ -2001,7 +2008,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_LEG_CONFIGURATION_"+legConfig+"' class='cosmetics-button'>"
+							"<div id='LEG_CONFIGURATION_"+legConfig+"' class='cosmetics-button'>"
 								+ "<span style='color:"+PresetColour.RACE_BESTIAL.getShades()[0]+";'>"+Util.capitaliseSentence(legConfig.getName())+(!legConfig.isAbleToGrowTail()?"*":"")+"</span>"
 							+ "</div>");
 				}
@@ -2034,7 +2041,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_EAR_"+EarType.getIdFromEarType(ear)+"' class='cosmetics-button'>"
+							"<div id='EAR_"+EarType.getIdFromEarType(ear)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+ear.getRace().getColour().getShades()[0]+";'>"
 									+Util.capitaliseSentence(ear.getTransformName())
 									+(ear.isAbleToBeUsedAsHandlesInSex()?"*":"")
@@ -2066,7 +2073,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_EYE_"+EyeType.getIdFromEyeType(eye)+"' class='cosmetics-button'>"
+							"<div id='EYE_"+EyeType.getIdFromEyeType(eye)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+eye.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(eye.getTransformName())+(eye.getTags().contains(BodyPartTag.NIGHT_VISION)?"*":"")+"</span>"
 							+ "</div>");
 				}
@@ -2093,7 +2100,7 @@ public class CharacterModificationUtils {
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_IRIS_SHAPE_"+eyeShape+"' class='cosmetics-button'>"
+						"<div id='IRIS_SHAPE_"+eyeShape+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(eyeShape.getName())+"</span>"
 						+ "</div>");
 			}
@@ -2119,7 +2126,7 @@ public class CharacterModificationUtils {
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_PUPIL_SHAPE_"+eyeShape+"' class='cosmetics-button'>"
+						"<div id='PUPIL_SHAPE_"+eyeShape+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(eyeShape.getName())+"</span>"
 						+ "</div>");
 			}
@@ -2171,7 +2178,7 @@ public class CharacterModificationUtils {
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_LIP_SIZE_"+lipSize+"' class='cosmetics-button'>"
+						"<div id='LIP_SIZE_"+lipSize+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(lipSize.getName())+(lipSize.isImpedesSpeech()?"*":"")+"</span>"
 						+ "</div>");
 			}
@@ -2191,13 +2198,13 @@ public class CharacterModificationUtils {
 		for(OrificeModifier orificeMod : OrificeModifier.values()) {
 			if(BodyChanging.getTarget().hasFaceOrificeModifier(orificeMod)) {
 				contentSB.append(
-						"<div  id='CHANGE_MOUTH_MOD_"+orificeMod+"' class='cosmetics-button active'>"
+						"<div  id='THROAT_MOD_"+orificeMod+"' class='cosmetics-button active'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_MOUTH_MOD_"+orificeMod+"' class='cosmetics-button'>"
+						"<div id='THROAT_MOD_"+orificeMod+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 			}
@@ -2206,7 +2213,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Lip & Throat Modifiers",
 				UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.namePos] lips and throat."
 						+ "<br/><i>These modifiers affect descriptions when performing oral sex.</i>"),
-				"LIP_MODS",
+				"THROAT_MODS",
 				contentSB.toString(),
 				true);
 	}
@@ -2381,13 +2388,13 @@ public class CharacterModificationUtils {
 		for(TongueModifier tongueMod : TongueModifier.values()) {
 			if(BodyChanging.getTarget().hasTongueModifier(tongueMod)) {
 				contentSB.append(
-						"<div  id='CHANGE_TONGUE_MOD_"+tongueMod+"' class='cosmetics-button active'>"
+						"<div  id='TONGUE_MOD_"+tongueMod+"' class='cosmetics-button active'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(tongueMod.getName())+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_TONGUE_MOD_"+tongueMod+"' class='cosmetics-button'>"
+						"<div id='TONGUE_MOD_"+tongueMod+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(tongueMod.getName())+"</span>"
 						+ "</div>");
 			}
@@ -2413,7 +2420,7 @@ public class CharacterModificationUtils {
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_TONGUE_LENGTH_"+tongueLength+"' class='cosmetics-button'>"
+						"<div id='TONGUE_LENGTH_"+tongueLength+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(tongueLength.getDescriptor())+"</span>"
 						+ "</div>");
 			}
@@ -2439,7 +2446,7 @@ public class CharacterModificationUtils {
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_ASS_SIZE_"+as+"' class='cosmetics-button'>"
+						"<div id='ASS_SIZE_"+as+"' class='cosmetics-button'>"
 							+ "<span style='color:"+as.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(as.getDescriptor())+"</span>"
 						+ "</div>");
 			}
@@ -2465,7 +2472,7 @@ public class CharacterModificationUtils {
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_HIP_SIZE_"+hs+"' class='cosmetics-button'>"
+						"<div id='HIP_SIZE_"+hs+"' class='cosmetics-button'>"
 							+ "<span style='color:"+hs.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(hs.getDescriptor())+"</span>"
 						+ "</div>");
 			}
@@ -2652,13 +2659,13 @@ public class CharacterModificationUtils {
 		for(OrificeModifier orificeMod : OrificeModifier.values()) {
 			if(BodyChanging.getTarget().hasAssOrificeModifier(orificeMod)) {
 				contentSB.append(
-						"<div  id='CHANGE_ANUS_MOD_"+orificeMod+"' class='cosmetics-button active'>"
+						"<div  id='ANUS_MOD_"+orificeMod+"' class='cosmetics-button active'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_ANUS_MOD_"+orificeMod+"' class='cosmetics-button'>"
+						"<div id='ANUS_MOD_"+orificeMod+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 			}
@@ -2667,7 +2674,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Anus Modifiers",
 				UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.namePos] anus."
 						+ "<br/><i>Orifice modifiers affect descriptions and some actions in sex. The modifiers which have more than just descriptive effects are marked by an asterisk.</i>"),
-				"ASSHOLE_MODS",
+				"ANUS_MOD",
 				contentSB.toString(),
 				true);
 	}
@@ -2700,7 +2707,7 @@ public class CharacterModificationUtils {
 		return applyFullVariableWrapper(
 				UtilText.parse(BodyChanging.getTarget(), Util.capitaliseSentence(getCrotchBoobName(false))+" Size"),
 				UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] "+getCrotchBoobName(true)+"."),
-				"CROTCH_BOOB_SIZE",
+				"BREAST_CROTCH_SIZE",
 				" cup",
 				" cup",
 				Util.capitaliseSentence(BodyChanging.getTarget().getBreastCrotchSize().getCupSizeName())
@@ -2750,7 +2757,7 @@ public class CharacterModificationUtils {
 				
 			} else {
 				contentSB.append(
-						"<div id='CROTCH_BOOB_SHAPE_"+bs+"' class='cosmetics-button'>"
+						"<div id='BREAST_CROTCH_SHAPE_"+bs+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(bs.getTransformName())+"</span>"
 						+ "</div>");
 			}
@@ -2812,7 +2819,7 @@ public class CharacterModificationUtils {
 				
 			} else {
 				contentSB.append(
-						"<div id='CROTCH_BOOB_COUNT_"+i+"' class='cosmetics-button'>"
+						"<div id='BREAST_CROTCH_COUNT_"+i+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+name+"</span>"
 						+ "</div>");
 			}
@@ -2850,7 +2857,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Nipple Count",
 				UtilText.parse(BodyChanging.getTarget(), "Change the number of nipples [npc.name] has on each breast."
 						+ "<br/><i>This is primarily a cosmetic change, but also affects descriptions in sex.</i>"),
-				"BREAST_NIPPLE_COUNT",
+				"NIPPLE_COUNT",
 				contentSB.toString(),true);
 	}
 
@@ -2880,7 +2887,7 @@ public class CharacterModificationUtils {
 		return applyWrapper("Nipple Count",
 				UtilText.parse(BodyChanging.getTarget(), "Change the number of nipples [npc.name] [npc.has] on each "+getCrotchBoobName(false)+"."
 						+ "<br/><i>This is primarily a cosmetic change, but also affects descriptions in sex.</i>"),
-				"BREAST_CROTCH_NIPPLE_COUNT",
+				"NIPPLE_CROTCH_COUNT",
 				contentSB.toString(),
 				true);
 	}
@@ -3116,7 +3123,8 @@ public class CharacterModificationUtils {
 				BodyChanging.getTarget().getBreastRawMilkStorageValue()>=getLactationUpperLimit(),
 				FLUID_INCREMENT_SMALL,
 				FLUID_INCREMENT_AVERAGE,
-				FLUID_INCREMENT_LARGE);
+				FLUID_INCREMENT_LARGE,
+				FLUID_INCREMENT_HUGE);
 	}
 	
 	public static int getLactationCrotchUpperLimit() {
@@ -3134,7 +3142,8 @@ public class CharacterModificationUtils {
 				BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()>=getLactationCrotchUpperLimit(),
 				FLUID_INCREMENT_SMALL,
 				FLUID_INCREMENT_AVERAGE,
-				FLUID_INCREMENT_LARGE);
+				FLUID_INCREMENT_LARGE,
+				FLUID_INCREMENT_HUGE);
 	}
 	
 	public static String getSelfTransformLactationRegenerationDiv() {
@@ -3149,7 +3158,8 @@ public class CharacterModificationUtils {
 				BodyChanging.getTarget().getBreastRawLactationRegenerationValue()>=FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay(),
 				FLUID_REGEN_INCREMENT_SMALL,
 				FLUID_REGEN_INCREMENT_AVERAGE,
-				FLUID_REGEN_INCREMENT_LARGE);
+				FLUID_REGEN_INCREMENT_LARGE,
+				FLUID_REGEN_INCREMENT_HUGE);
 	}
 
 	public static String getSelfTransformLactationCrotchRegenerationDiv() {
@@ -3164,7 +3174,8 @@ public class CharacterModificationUtils {
 				BodyChanging.getTarget().getBreastCrotchRawLactationRegenerationValue()>=FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay(),
 				FLUID_REGEN_INCREMENT_SMALL,
 				FLUID_REGEN_INCREMENT_AVERAGE,
-				FLUID_REGEN_INCREMENT_LARGE);
+				FLUID_REGEN_INCREMENT_LARGE,
+				FLUID_REGEN_INCREMENT_HUGE);
 	}
 
 	public static String getSelfTransformLactationFlavourDiv() {
@@ -3475,13 +3486,13 @@ public class CharacterModificationUtils {
 		for(OrificeModifier orificeMod : OrificeModifier.values()) {
 			if(BodyChanging.getTarget().hasNippleOrificeModifier(orificeMod)) {
 				contentSB.append(
-						"<div id='CHANGE_NIPPLE_MOD_"+orificeMod+"' class='cosmetics-button active'>"
+						"<div id='NIPPLE_MOD_"+orificeMod+"' class='cosmetics-button active'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_NIPPLE_MOD_"+orificeMod+"' class='cosmetics-button'>"
+						"<div id='NIPPLE_MOD_"+orificeMod+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 			}
@@ -3501,13 +3512,13 @@ public class CharacterModificationUtils {
 		for(OrificeModifier orificeMod : OrificeModifier.values()) {
 			if(BodyChanging.getTarget().hasNippleCrotchOrificeModifier(orificeMod)) {
 				contentSB.append(
-						"<div id='CHANGE_NIPPLE_CROTCH_MOD_"+orificeMod+"' class='cosmetics-button active'>"
+						"<div id='NIPPLE_CROTCH_MOD_"+orificeMod+"' class='cosmetics-button active'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_NIPPLE_CROTCH_MOD_"+orificeMod+"' class='cosmetics-button'>"
+						"<div id='NIPPLE_CROTCH_MOD_"+orificeMod+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 			}
@@ -3537,7 +3548,7 @@ public class CharacterModificationUtils {
 				
 				if(BodyChanging.getTarget().getVaginaType() == vagina) {
 					contentSB.append(
-							"<div id='CHANGE_VAGINA_"+VaginaType.getIdFromVaginaType(vagina)+"' class='cosmetics-button active'>"
+							"<div id='VAGINA_"+VaginaType.getIdFromVaginaType(vagina)+"' class='cosmetics-button active'>"
 								+ "<span style='color:"+c.toWebHexString()+";'>"
 									+Util.capitaliseSentence(vagina.getTransformName())+(vagina.isEggLayer()?"*":"")
 								+"</span>"
@@ -3547,7 +3558,7 @@ public class CharacterModificationUtils {
 					boolean cannotChoose = vagina==VaginaType.NONE
 							&& (BodyChanging.getTarget().isPregnant() || BodyChanging.getTarget().hasStatusEffect(StatusEffect.PREGNANT_0) || BodyChanging.getTarget().hasIncubationLitter(SexAreaOrifice.VAGINA));
 					contentSB.append(
-							"<div id='CHANGE_VAGINA_"+VaginaType.getIdFromVaginaType(vagina)+"' class='cosmetics-button"+(cannotChoose?" disabled":"")+"'>"
+							"<div id='VAGINA_"+VaginaType.getIdFromVaginaType(vagina)+"' class='cosmetics-button"+(cannotChoose?" disabled":"")+"'>"
 								+ "<span style='color:"+(cannotChoose?PresetColour.TEXT_GREY.toWebHexString():c.getShades()[0])+";'>"
 									+Util.capitaliseSentence(vagina.getTransformName())+(vagina.isEggLayer()?"*":"")
 								+"</span>"
@@ -3948,13 +3959,13 @@ public class CharacterModificationUtils {
 		for(OrificeModifier orificeMod : OrificeModifier.values()) {
 			if(BodyChanging.getTarget().hasVaginaOrificeModifier(orificeMod)) {
 				contentSB.append(
-						"<div id='CHANGE_VAGINA_MOD_"+orificeMod+"' class='cosmetics-button active'>"
+						"<div id='VAGINA_MOD_"+orificeMod+"' class='cosmetics-button active'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_VAGINA_MOD_"+orificeMod+"' class='cosmetics-button'>"
+						"<div id='VAGINA_MOD_"+orificeMod+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 			}
@@ -4099,13 +4110,13 @@ public class CharacterModificationUtils {
 		for(OrificeModifier orificeMod : OrificeModifier.values()) {
 			if(BodyChanging.getTarget().hasVaginaUrethraOrificeModifier(orificeMod)) {
 				contentSB.append(
-						"<div id='CHANGE_VAGINA_URETHRA_MOD_"+orificeMod+"' class='cosmetics-button active'>"
+						"<div id='VAGINA_URETHRA_MOD_"+orificeMod+"' class='cosmetics-button active'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_VAGINA_URETHRA_MOD_"+orificeMod+"' class='cosmetics-button'>"
+						"<div id='VAGINA_URETHRA_MOD_"+orificeMod+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 			}
@@ -4141,7 +4152,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_PENIS_"+PenisType.getIdFromPenisType(penis)+"' class='cosmetics-button'>"
+							"<div id='PENIS_"+PenisType.getIdFromPenisType(penis)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(penis.getTransformName())+"</span>"
 							+ "</div>");
 				}
@@ -4363,7 +4374,8 @@ public class CharacterModificationUtils {
 				BodyChanging.getTarget().getPenisRawCumStorageValue()>=getCumUpperLimit(),
 				FLUID_INCREMENT_SMALL,
 				FLUID_INCREMENT_AVERAGE,
-				FLUID_INCREMENT_LARGE);
+				FLUID_INCREMENT_LARGE,
+				FLUID_INCREMENT_HUGE);
 	}
 	
 	public static String getSelfTransformCumRegenerationDiv() {
@@ -4378,7 +4390,8 @@ public class CharacterModificationUtils {
 				BodyChanging.getTarget().getPenisRawCumProductionRegenerationValue()>=FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay(),
 				FLUID_REGEN_INCREMENT_SMALL,
 				FLUID_REGEN_INCREMENT_AVERAGE,
-				FLUID_REGEN_INCREMENT_LARGE);
+				FLUID_REGEN_INCREMENT_LARGE,
+				FLUID_REGEN_INCREMENT_HUGE);
 	}
 
 	public static String getSelfTransformCumExplusionDiv() {
@@ -4512,13 +4525,13 @@ public class CharacterModificationUtils {
 		for(PenetrationModifier penMod : PenetrationModifier.values()) {
 			if(BodyChanging.getTarget().hasPenisModifier(penMod)) {
 				contentSB.append(
-						"<div id='CHANGE_PENIS_MOD_"+penMod+"' class='cosmetics-button active'>"
+						"<div id='PENIS_MOD_"+penMod+"' class='cosmetics-button active'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(penMod.getName())+(penMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_PENIS_MOD_"+penMod+"' class='cosmetics-button'>"
+						"<div id='PENIS_MOD_"+penMod+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(penMod.getName())+(penMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 			}
@@ -4538,13 +4551,13 @@ public class CharacterModificationUtils {
 		for(OrificeModifier orificeMod : OrificeModifier.values()) {
 			if(BodyChanging.getTarget().hasUrethraOrificeModifier(orificeMod)) {
 				contentSB.append(
-						"<div id='CHANGE_URETHRA_MOD_"+orificeMod+"' class='cosmetics-button active'>"
+						"<div id='URETHRA_MOD_"+orificeMod+"' class='cosmetics-button active'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_URETHRA_MOD_"+orificeMod+"' class='cosmetics-button'>"
+						"<div id='URETHRA_MOD_"+orificeMod+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 			}
@@ -5006,7 +5019,7 @@ public class CharacterModificationUtils {
 		
 		if(BodyChanging.getTarget().isAssBleached()) {
 			contentSB.append(
-					"<div id='ANUS_BLEACHED_OFF' class='cosmetics-button'>"
+					"<div id='BLEACHING_OFF' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.GENERIC_GOOD.getShades()[0]+";'>Normal</span>"
 					+ "</div>"
 					+ "<div class='cosmetics-button active'>"
@@ -5017,7 +5030,7 @@ public class CharacterModificationUtils {
 					"<div class='cosmetics-button active'>"
 						+ "[style.boldGood(Normal)]"
 					+ "</div>"
-					+ "<div id='ANUS_BLEACHED_ON' class='cosmetics-button'>"
+					+ "<div id='BLEACHING_ON' class='cosmetics-button'>"
 						+ "<span style='color:"+PresetColour.GENERIC_GOOD.getShades()[0]+";'>Bleached</span>"
 					+ "</div>");
 		}
@@ -5152,13 +5165,13 @@ public class CharacterModificationUtils {
 		for(PenetrationModifier penMod : PenetrationModifier.values()) {
 			if(BodyChanging.getTarget().hasClitorisModifier(penMod)) {
 				contentSB.append(
-						"<div id='CHANGE_CLITORIS_MOD_"+penMod+"' class='cosmetics-button active'>"
+						"<div id='CLITORIS_MOD_"+penMod+"' class='cosmetics-button active'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(penMod.getName())+(penMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_CLITORIS_MOD_"+penMod+"' class='cosmetics-button'>"
+						"<div id='CLITORIS_MOD_"+penMod+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(penMod.getName())+(penMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 			}
@@ -5170,6 +5183,10 @@ public class CharacterModificationUtils {
 				"CLITORIS_MODS",
 				contentSB.toString(),
 				true);
+	}
+	
+	public static ClitorisSize[] getClitorisSizesAvailable() {
+		return new ClitorisSize[] {ClitorisSize.ZERO_AVERAGE, ClitorisSize.ONE_BIG};
 	}
 	
 	public static String getClitorisSizeDiv() {
@@ -5187,7 +5204,7 @@ public class CharacterModificationUtils {
 						+ "</div>"
 						+ "<div class='cosmetics-inner-container right'>");
 		
-		ClitorisSize[] sizesAvailable = new ClitorisSize[] {ClitorisSize.ZERO_AVERAGE, ClitorisSize.ONE_BIG};
+		ClitorisSize[] sizesAvailable = getClitorisSizesAvailable();
 		
 		for(ClitorisSize size : sizesAvailable) {
 			if(BodyChanging.getTarget().getVaginaClitorisSize() == size) {
@@ -5250,13 +5267,13 @@ public class CharacterModificationUtils {
 		for(OrificeModifier orificeMod : OrificeModifier.values()) {
 			if(BodyChanging.getTarget().hasSpinneretOrificeModifier(orificeMod)) {
 				contentSB.append(
-						"<div id='CHANGE_SPINNERET_MOD_"+orificeMod+"' class='cosmetics-button active'>"
+						"<div id='SPINNERET_MOD_"+orificeMod+"' class='cosmetics-button active'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_SPINNERET_MOD_"+orificeMod+"' class='cosmetics-button'>"
+						"<div id='SPINNERET_MOD_"+orificeMod+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 			}
