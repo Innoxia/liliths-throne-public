@@ -878,7 +878,7 @@ public class WorldType {
 			"Imp Fortress A",
 			PresetColour.BASE_CRIMSON,
 			false,
-			true,
+			false,
 			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress1Map.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_ALPHA_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
@@ -899,7 +899,7 @@ public class WorldType {
 			"Imp Citadel",
 			PresetColour.BASE_PURPLE,
 			false,
-			true,
+			false,
 			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress2Map.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_DEMON_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
@@ -926,7 +926,7 @@ public class WorldType {
 			"Imp Fortress F",
 			PresetColour.BASE_PINK,
 			false,
-			true,
+			false,
 			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress3Map.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_FEMALES_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
@@ -947,7 +947,7 @@ public class WorldType {
 			"Imp Fortress M",
 			PresetColour.BASE_BLUE,
 			false,
-			true,
+			false,
 			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress4Map.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_MALES_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),

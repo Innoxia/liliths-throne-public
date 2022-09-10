@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<subspecies>
+	<race>innoxia_deer</race>
+	<colour>innoxia_deer</colour>
+	<secondaryColour>innoxia_deer</secondaryColour>
+	<tertiaryColour>innoxia_deer</tertiaryColour>
+	<mainSubspecies>true</mainSubspecies>
+	<baseSlaveValue>12000</baseSlaveValue>
+	<attributeItemId>innoxia_race_deer_glade_springs</attributeItemId>
+	<transformativeItemId>innoxia_race_deer_tree_shoots_salad</transformativeItemId>
+	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<shortStature>false</shortStature>
+	<bipedalSubspecies>true</bipedalSubspecies>
+	<aquatic>false</aquatic>
+	<applySubspeciesChanges/>
+	<subspeciesWeighting><![CDATA[
+		#IF(targetedRace==RACE_innoxia_deer)
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></subspeciesWeighting>
+	<iconName displaySize="80">icon</iconName>
+	<backgroundName>background</backgroundName>
+	<bookIconName>icon</bookIconName>
+	<bookName>Bleating Headbutters</bookName>
+	<basicDescriptionId>DEER_BASIC</basicDescriptionId>
+	<advancedDescriptionId>DEER_ADVANCED</advancedDescriptionId>
+	<defaultPreference>TWO_AVERAGE</defaultPreference>
+	<name><![CDATA[deer-morph]]></name>
+	<namePlural><![CDATA[deer-morphs]]></namePlural>
+	<singularMaleName><![CDATA[stag-boy]]></singularMaleName>
+	<singularFemaleName><![CDATA[deer-girl]]></singularFemaleName>
+	<pluralMaleName><![CDATA[stag-boys]]></pluralMaleName>
+	<pluralFemaleName><![CDATA[deer-girls]]></pluralFemaleName>
+	<description><![CDATA[An anthropomorphic deer, known as a 'deer-morph' when bipedal, and a 'deer-taur' when the lower body is that of a feral deer.]]></description>
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[baphomet]]></name>
+			<namePlural><![CDATA[baphomets]]></namePlural>
+			<singularMaleName><![CDATA[baphomet]]></singularMaleName>
+			<singularFemaleName><![CDATA[baphomet]]></singularFemaleName>
+			<pluralMaleName><![CDATA[baphomets]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[baphomets]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
+	<feralAttributes>
+		<feralName><![CDATA[deer]]></feralName>
+		<feralNamePlural><![CDATA[deer]]></feralNamePlural>
+		<feralSingularMaleName><![CDATA[stag]]></feralSingularMaleName>
+		<feralSingularFemaleName><![CDATA[doe]]></feralSingularFemaleName>
+		<feralPluralMaleName><![CDATA[stags]]></feralPluralMaleName>
+		<feralPluralFemaleName><![CDATA[does]]></feralPluralFemaleName>
+		<legConfiguration>QUADRUPEDAL</legConfiguration>
+		<sizeHeight>true</sizeHeight>
+		<size>75</size>
+		<breastRowCount>0</breastRowCount>
+		<nipplesPerBreastCount>1</nipplesPerBreastCount>
+		<crotchBreastRowCount>1</crotchBreastRowCount>
+		<nipplesPerCrotchBreastCount>2</nipplesPerCrotchBreastCount>
+		<armsOrWingsPresent>false</armsOrWingsPresent>
+		<fingerActionsAvailable>false</fingerActionsAvailable>
+		<hairPresent>false</hairPresent>
+	</feralAttributes>
+	<statusEffectDescription><![CDATA[
+		[npc.NamePos] strong, tough body helps [npc.herHim] to endure physical blows as well as to put some extra power behind attacks of [npc.her] own.
+	]]></statusEffectDescription>
+	<statusEffectAttributeModifiers>
+		<attribute value="10">MAJOR_PHYSIQUE</attribute>
+		<attribute value="0">MAJOR_ARCANE</attribute> 
+		<attribute value="0">MAJOR_CORRUPTION</attribute>
+		<attribute value="10">DAMAGE_PHYSICAL</attribute>
+		<attribute value="5">RESISTANCE_PHYSICAL</attribute>
+	</statusEffectAttributeModifiers>
+	<extraEffects/>
+	<perkWeightings>
+		<category masculineWeighting="5" feminineWeighting="5">PHYSICAL</category>
+		<category masculineWeighting="1" feminineWeighting="2">LUST</category>
+		<category masculineWeighting="0" feminineWeighting="0">ARCANE</category>
+	</perkWeightings>
+	<regionLocations>
+		<region rarity="ONE_VERY_RARE">DOMINION</region>
+		<region rarity="FOUR_COMMON">WOODLAND</region>
+		<region rarity="THREE_UNCOMMON">FIELDS</region>
+		<region rarity="THREE_UNCOMMON">FIELD_CITY</region>
+	</regionLocations>
+	<worldLocations>
+		<world rarity="ONE_VERY_RARE">NIGHTLIFE_CLUB</world>
+	</worldLocations>
+	<flags/>
+</subspecies>

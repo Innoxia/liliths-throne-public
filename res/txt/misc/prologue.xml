@@ -59,7 +59,9 @@
 	]]>
 	</htmlContent>
 
-	<htmlContent tag="INTRO_EMPTY_ROOM_SEX_FEMALE_AS_MALE_START"><![CDATA[
+	<!-- Sex with female character: -->
+	
+	<htmlContent tag="INTRO_EMPTY_ROOM_SEX_FEMALE_AS_MALE_START_DOM"><![CDATA[
 	#IF(pc.isFeminine() && !pc.isPenisBulgeVisible() && !pc.isTesticleBulgeVisible())
 		<p>
 			You pull [prologueFemale.name] into your [pc.breasts], desperately [pc.moaning] into her mouth as you dominantly grope and fondle [npc.her] body. Never expecting something like this to happen today, you're glad that you always keep a condom in your purse 'just in case'. Now would be a good time to put it to use...
@@ -79,14 +81,67 @@
 	]]>
 	</htmlContent>
 
-	<htmlContent tag="INTRO_EMPTY_ROOM_SEX_FEMALE_AS_FEMALE_START"><![CDATA[
+	<htmlContent tag="INTRO_EMPTY_ROOM_SEX_FEMALE_AS_FEMALE_START_DOM"><![CDATA[
 	<p>
 		You pull [prologueFemale.name] into your [pc.breasts], desperately [pc.moaning] into her mouth as you dominantly grope and fondle [npc.her] body...
 	</p>
 	]]>
 	</htmlContent>
 
-	<htmlContent tag="INTRO_EMPTY_ROOM_SEX_MALE_START"><![CDATA[
+	<htmlContent tag="INTRO_EMPTY_ROOM_SEX_FEMALE_AS_MALE_START_SUB"><![CDATA[
+	#IF(pc.isFeminine() && !pc.isPenisBulgeVisible() && !pc.isTesticleBulgeVisible())
+		<p>
+			Not wanting to be the one to take the lead, you lean into [prologueFemale.namePos] [pc.breasts], before letting out a desperate [pc.moan] and begging her to fuck you. Smirking at your submissively display, [prologueFemale.name] presses her lips against yours, before thrusting her tongue into your mouth as she dominantly gropes and fondles your body. Never expecting something like this to happen today, you're glad that you always keep a condom in your purse 'just in case'. Now would be a good time to put it to use...
+		</p>
+	#ELSE
+		<p>
+			Not wanting to be the one to take the lead, you lean into [prologueFemale.namePos] [pc.breasts], before letting out a desperate [pc.moan] and begging her to fuck you. Smirking at your submissively display, [prologueFemale.name] presses her lips against yours, before thrusting her tongue into your mouth as she dominantly gropes and fondles your body. Breaking off the kiss for a moment, she pulls something out of her purse, before pushing it into your hands and saying, [prologueFemale.speech(I'd rather you didn't, but if you want to, you can wear this.)]
+		</p>
+		<p>
+			You look down to see that you've just been given a condom, still sealed in its small square packet...
+		</p>
+	#ENDIF
+	<div class='container-full-width' style='text-align:center;'>
+		<i>If you'd like to use the condom, open your inventory (by pressing 'i') and select it from the menu.<br/>
+		(Your penis will need to be exposed before it can be used!)</i>
+	</div>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="INTRO_EMPTY_ROOM_SEX_FEMALE_AS_FEMALE_START_SUB"><![CDATA[
+	<p>
+		Not wanting to be the one to take the lead, you lean into [prologueFemale.namePos] [pc.breasts], before letting out a desperate [pc.moan] and begging her to fuck you. Smirking at your submissively display, [prologueFemale.name] presses her lips against yours, before thrusting her tongue into your mouth as she dominantly gropes and fondles your body...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Sex with male character: -->
+	
+	<htmlContent tag="INTRO_EMPTY_ROOM_SEX_MALE_START_DOM"><![CDATA[
+	<p>
+		Deciding to take charge, you dominantly pull [prologueMale.name] into your torso, before thrusting your tongue into his mouth as you grope and fondle his body. Breaking off the kiss for a moment, [prologueMale.name] pulls something out of his pocket, before pushing it into your hands and saying, [prologueMale.speech(I'd rather you didn't, but if you want to, you can wear this.)]
+	</p>
+		#IF(pc.hasPenis())
+		  #IF(pc.isFeminine() && !pc.isPenisBulgeVisible() && !pc.isTesticleBulgeVisible())
+		    You look down to see that you've just been given a condom, still sealed in its small square packet. It's a good thing that you always keep a condom in your purse as well, so that you've got one for both [prologueMale.name] and yourself if need be.
+		  #ELSE
+			You look down to see that you've just been given a pair of condoms, still sealed in their small square packets.
+		  #ENDIF
+		#ELSE
+			You look down to see that you've just been given a condom, still sealed in its small square packet.
+		#ENDIF
+	</p>
+	<div class='container-full-width' style='text-align:center;'>
+		#IF(pc.hasPenis())
+			<i>If you'd like to use the condoms, open your inventory (by pressing 'i') and select them from the menu.<br/>([prologueMale.namePos] penis will need to be exposed before it can be equipped onto him, and the same applies for if you want to equip one yourself!)</i>
+		#ELSE
+			<i>If you'd like to use the condom, open your inventory (by pressing 'i') and select it from the menu.<br/>([prologueMale.namePos] penis will need to be exposed before it can be used!)</i>
+		#ENDIF
+	</div>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INTRO_EMPTY_ROOM_SEX_MALE_START_SUB"><![CDATA[
 	<p>
 		You allow [prologueMale.name] to pull you into his strong, masculine torso, desperately moaning into his mouth as he dominantly gropes and fondles your body. Breaking off the kiss for a moment, he pulls something out of his pocket, before pushing it into your hands and saying, [prologueMale.speech(I'd rather not, but if you want me to, I can wear this.)]
 	</p>

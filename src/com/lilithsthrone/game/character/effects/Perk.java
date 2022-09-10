@@ -1256,7 +1256,7 @@ public class Perk {
 					new Value<>(Attribute.HEALTH_MAXIMUM, 25),
 					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5),
 					new Value<>(Attribute.DAMAGE_PHYSICAL, 10)),
-			Util.newArrayListOfValues("Your first strike in combat deals [style.boldExcellent(double)] damage")) {
+			Util.newArrayListOfValues("Your damage is [style.boldExcellent(doubled)] in the first turn of combat")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameHas] spent a considerable amount of time training to fight, and as a result, [npc.she] [npc.is] far stronger and healthier than a normal person."
@@ -2661,7 +2661,7 @@ public class Perk {
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "You have a surprisingly large amount of natural arcane power; far more than a regular person aught to have.";
+			return "You have a surprisingly large amount of natural arcane power; far more than a regular person ought to have.";
 		}
 		@Override
 		public boolean isHiddenPerk() {
@@ -3075,6 +3075,34 @@ public class Perk {
 			return true;
 		}
 	};
+
+	public static AbstractPerk AMAZONIAN_TRAINING = new AbstractPerk(20,
+			false,
+			"Amazonian training",
+			PerkCategory.ARCANE,
+			"perks/amazonian_training",
+			Util.newArrayListOfValues(
+				PresetColour.DAMAGE_TYPE_PHYSICAL,
+				PresetColour.CLOTHING_DESATURATED_BROWN,
+				PresetColour.CLOTHING_KHAKI),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_UNARMED, 1),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 1),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 1)),
+			null,
+			null,
+			null,
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "Having participated in several sparring sessions with Aurokaris, you feel like you've learned a new thing or two about how to fight.");
+		}
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+	
 	
 	public static AbstractPerk POWER_OF_LIRECEA_1 = new AbstractPerk(20,
 			false,
