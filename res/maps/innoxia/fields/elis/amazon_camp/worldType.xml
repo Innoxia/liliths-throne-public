@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>FIELDS</worldRegion>
+	<name><![CDATA[Amazons' Camp]]></name>
+	<colour>BASE_TEAL</colour>
+	<sexBlockedReason/>
+	<furniturePresent>true</furniturePresent>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>false</loiteringEnabled>
+	<flightEnabled>false</flightEnabled>
+	<visibleFromStart>true</visibleFromStart>
+	<fullyRevealedFromStart>false</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_FIELDS_CITY</globalMapLocation>
+	<standardPlace>innoxia_fields_elis_amazon_camp_pathway</standardPlace>
+	<entryFromGlobalMapLocation>innoxia_fields_elis_amazon_camp_exit</entryFromGlobalMapLocation>
+	<teleportPermissions>NONE</teleportPermissions>
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		
+		<place colour="#808080">innoxia_fields_elis_amazon_camp_pathway</place>
+		<place colour="#00ff00">innoxia_fields_elis_amazon_camp_exit</place>
+		
+		<place colour="#ff8000">innoxia_fields_elis_amazon_camp_tents</place>
+		<place colour="#0080ff">innoxia_fields_elis_amazon_camp_sparring_field</place>
+		<place colour="#ffff00">innoxia_fields_elis_amazon_camp_trader</place>
+		<place colour="#ff00ff">innoxia_fields_elis_amazon_camp_queen</place>
+		<place colour="#ff0000">innoxia_fields_elis_amazon_camp_lunexis</place>
+		<place colour="#00ffff">innoxia_fields_elis_amazon_camp_aurokaris</place>
+		
+	</places>
+</worldType>

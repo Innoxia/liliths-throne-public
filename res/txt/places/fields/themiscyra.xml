@@ -617,7 +617,32 @@
 		Letting out a deep, rumbling laugh, the huge centauress turns slightly to the side so that she can show off her gigantic, sheathed horse-cock and four massive, heavy balls. Bucking her hips, and causing her huge, animalistic genitals to ponderously sway in the process, she licks her lips and shouts out to her army, [lunexis.speech(Keep the others occupied! I'm going to pummel this so-called queen, then pump her full of my cum!)]
 	</p>
 	<p>
-		hurrying to obey, the other centauresses rush forwards and engage Aurokaris and Meraxis in combat. As the two of them are now unable to assist Ursa, it looks like it's fallen to you to help the queen of Themiscyra...
+		Hurrying to obey, the other centauresses rush forwards and engage Aurokaris and Meraxis in combat. As the two of them are now unable to assist Ursa, it looks like it's fallen to you to help the queen of Themiscyra...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PLAZA_SHIELDING"><![CDATA[
+	<p>
+		Wanting to assist Meraxis and the two Amazons, but not wanting to get in harm's way, you decide to use your ability to create a protective shield to help your allies. Using every last ounce of your remaining strength, you put everything you've got into summoning forth an arcane barrier around the three combatants. Your intervention comes at the perfect time, for a moment after shield has crackled into life around Ursa, Lunexis brings her four morning stars crashing down on the Amazon queen. Such is the power of her attack that your protective barrier is completely shattered, although you see with satisfaction that it was enough to protect Ursa.
+	</p>
+	<p>
+		[ursa.speech(Begone from my town!)] the bear-girl bellows as she takes this opportunity to counter-attack. Despite clearly being an accomplished fighter, Lunexis is caught off-guard by the effectiveness of your shield, ans is made to look like a complete amateur as the Amazon queen repeatedly strikes her over and over again with her dory. Staggering back and flailing wildly at her opponent, the centauress only manges to hit thin air as she's pierced by the dory's arcane blade over a dozen times in the span of just a few seconds.
+	</p>
+	<p>
+		[lunexis.speech(No... Impossible...)] Lunexis pants as she takes one final half-hearted swing at Ursa. Completely and utterly exhausted and defeated, she staggers from side to side for a moment, before her legs give up and she crashes to the ground, panting for breath. Her morning stars fall from her hands, and as they roll across the shattered paving stones, she breathlessly curses, [lunexis.speech(You two... I'll make you pay...)]
+	</p>
+	<p>
+		Instead of breaking and fleeing as you might have hoped, the hundreds of demonic centauresses, seeing an opportunity to assert dominance and win glory, begin to advance towards you and Ursa. Having defeated their opponents, Meraxis and Aurokaris fall back to regroup with the two of you. Looking across to the cow-girl Amazon, Ursa says, [ursa.speech(You've fought bravely, Aurokaris. I knew I could rely on you. Now let us fight to the end.)]
+	</p>
+	<p>
+		Upon hearing this, one of the nearby centauresses grins and shouts out, [style.speechFeminineStrong(They're almost done! I'll bet whoever beats the queen will be recognised by Lunette!)]
+	</p>
+	<p>
+		These words are all the army needs to hear, and as one they start to charge forwards. With no other option, you ready yourself to meet the hundreds of charging demons. As there's clearly no way that you can win, Meraxis quickly excuses herself by shouting, [meraxis.speech(I wouldn't do this if I was at full strength! This doesn't count as a defeat!)]
+	</p>
+	<p>
+		With that, the [meraxis.race] summons the last of her energy and begins casting the teleportation spell. Just at the exact moment as the demonic centauresses are about to crash into you, you're enveloped by a flash of pinkish purple light...
 	</p>
 	]]>
 	</htmlContent>
@@ -632,7 +657,7 @@
 		 you remain where you are and choose to simply watch as Ursa battles Lunexis. Dodging one another, locking weapons, and trading blows which would fell an ordinary person, the two titans put on an incredible display of strength and combat ability, while Aurokaris and Meraxis do their best to hold back the tide of centauresses. Inevitably, under the weight of numbers, the cow-girl and [meraxis.race] are soon defeated, and forced by the laughing demons to watch as the queen and recognised daughter finish their battle.
 	</p>
 	<p>
-		To begin with, it looks like Ursa is going to pull it off. Repeatedly thrusting the arcane blade of her spear into Lunexis's flank, she causes the demon to stagger and let out a frantic wail. Encouraged by this, the bear-girl goes all-in for a final blow, but the demon's weakness turns out to be a feint, and at the last moment she grabs Ursa's spear and uses her momentum against her. Slamming the queen into the floor, she delivers a knock-out blow with all four of her morning stars, before rearing up and shouting, [lunexis.speech(Themiscyra is mine! Rejoice, my sisters, for next we shall take Elis, where there are slaves enough for all!)]
+		To begin with, it looks like Ursa is going to pull it off. Repeatedly thrusting the arcane blade of her spear into Lunexis's flank, she causes the demon to stagger and let out a frantic wail. Encouraged by this, the bear-girl goes all-in for a final blow, but the demon's weakness turns out to be a feint, and at the last moment she grabs Ursa's spear and uses her momentum against her. Slamming the queen into the floor, she delivers a knock-out blow with all four of her morning stars, before triumphantly throwing her weapons to the ground, rearing up, and shouting, [lunexis.speech(Themiscyra is mine! Rejoice, my sisters, for next we shall take Elis, where there are slaves enough for all!)]
 	</p>
 	<p>
 		Although for a moment all seems lost, you suddenly notice that Meraxis hasn't wasted the time she's been forced to lie still and watch the fight. Pulling her arms free, she makes a familiar gesture, before summoning what little energy she has left and casting the teleportation spell. Although the nearby centauresses see what she's doing, they're too late to stop her, and as they reach down to grab the [meraxis.race], you're enveloped by a flash of pinkish-purple light...
@@ -644,6 +669,11 @@
 	<p>
 		Completely and utterly exhausted and defeated, Lunexis staggers from side to side for a moment, before her legs give up and she crashes to the ground, panting for breath. Her morning stars fall from her hands, and as they roll across the shattered paving stones, she breathlessly curses, [lunexis.speech(You two... I'll make you pay...)]
 	</p>
+	#IF(pc.hasTraitActivated(PERK_CHUUNI))
+		<p>
+			[pc.speech(~Mwhahaha!~)] you laugh, before striking a victorious pose and boasting to the defeated demon, [pc.speech(You stood no chance against my galaxy-shattering powers! Consider yourself lucky that I didn't banish you to the edge of the universe!)]
+		</p>
+	#ENDIF
 	<p>
 		Instead of breaking and fleeing as you might have hoped, the hundreds of demonic centauresses, seeing an opportunity to assert dominance and win glory, begin to advance towards you and Ursa. Having defeated their opponents, Meraxis and Aurokaris fall back to regroup with the two of you. Looking across to the cow-girl Amazon, Ursa says, [ursa.speech(You've fought bravely, Aurokaris. I knew I could rely on you. Now let us fight to the end.)]
 	</p>
@@ -672,7 +702,7 @@
 	</p>
 	#IF(game.isNonConEnabled())
 		<p>
-			Looking across, you see Meraxis and Aurokaris have also just fallen to their opponents, and the centauresses who delivered the final blows are quick to shout out their claims on your companion's bodies. Summoning the last of her strength, Meraxis tries to cast teleport, but the centauresses who's claimed her quickly clasps an iron collar around her neck, which drains the [meraxis.race]'s arcane energy and interrupts her casting. Tearing off Meraxis's clothes, this muscular, purple-skinned brute of a centauress pushes her down onto all fours, before quickly mounting her and ramming her fat, horse-like cock deep into Meraxis's [meraxis.pussy+].
+			Looking across, you see Meraxis and Aurokaris have also just fallen to their opponents, and the centauresses who delivered the final blows are quick to shout out their claims on your companion's bodies. Summoning the last of her strength, Meraxis tries to cast teleport, but the centauress who's claimed her quickly clasps an iron collar around her neck, which drains the [meraxis.race]'s arcane energy and interrupts her casting. Tearing off Meraxis's clothes, this muscular, purple-skinned brute of a centauress pushes her down onto all fours, before quickly mounting her and ramming her fat, horse-like cock deep into Meraxis's [meraxis.pussy+].
 		</p>
 		<p>
 			#IF(aurokaris.isVaginaVirgin())
@@ -946,10 +976,21 @@
 		Unable to continue fighting, you find yourself completely and utterly defeated by the two centauresses, and as your [pc.legs] give out from under you, you find yourself collapsing down next to Aurokaris.
 	</p>
 	<p>
-		[attacker.speech(That was easy!)] [attacker.name] boasts, and as her massive horse-cock starts to push out of its sheath, she lustfully exclaims, [attacker.speech(Now for the fun part! Which one of you should I fuck?)]
+		[attacker.speech(That was easy!)] [attacker.name] boasts, and as
+		#IF(!attacker.hasPenis())
+			 she quickly transforms to give herself a massive, sheathed horse-cock,
+		#ELSE
+			 her massive horse-cock starts to push out of its sheath,
+		#ENDIF
+		 she lustfully exclaims, [attacker.speech(Now for the fun part! Which one of you should I fuck?)]
 	</p>
 	<p>
-		[attacker2.speech(I did most of the work, so I'll choose who I want, and you can get the other one,)] [attacker2.name] grunts.
+		[attacker2.speech(I did most of the work, so I'll choose who I want, and you can get the other one,)] [attacker2.name] grunts,
+		#IF(!attacker2.hasPenis())
+			 before turning to the side and showing off the huge, animalistic shaft that she's just transformed to give herself.
+		#ELSE
+			 before turning to the side and showing off the huge, animalistic shaft that's pushed out of her sheath and risen to full erection.
+		#ENDIF
 	</p>
 	#IF(!game.isNonConEnabled())
 		<p>

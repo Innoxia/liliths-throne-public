@@ -239,6 +239,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
@@ -272,6 +273,7 @@ import com.lilithsthrone.world.Generation;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.World;
+import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -1767,12 +1769,22 @@ public class Game implements XMLSaving {
 						Main.game.getNpc(Arthur.class).setLocation(c, true);
 					}
 				}
+				
 				if(Main.isVersionOlderThan(loadingVersion, "0.4.4.3")) {
 					if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4) && Main.game.getPlayer().getTrueRace()==Race.DEMON) {
 						Main.game.getPlayer().removeSpecialPerk(Perk.POWER_OF_LYSSIETH_4);
 						Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LYSSIETH_4_DEMON);
 					}
 				}
+				
+				// Moving Ursa, Aurokaris, and Lunexis to their proper tiles:
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.5.1") && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_3_E_THEMISCYRA_ATTACK)) {
+					Main.game.getNpc(Ursa.class).setLocation("innoxia_fields_elis_amazon_camp", "innoxia_fields_elis_amazon_camp_queen", true);
+					Main.game.getNpc(Aurokaris.class).setLocation("innoxia_fields_elis_amazon_camp", "innoxia_fields_elis_amazon_camp_trader", true);
+					Main.game.getNpc(Lunexis.class).setLocation("innoxia_fields_elis_amazon_camp", "innoxia_fields_elis_amazon_camp_lunexis", true);
+				}
+				
+
 				
 				if(debug) {
 					System.out.println("New NPCs finished");
@@ -4806,6 +4818,11 @@ public class Game implements XMLSaving {
 			npc.removeStatusEffect(StatusEffect.PREGNANT_0);
 		}
 		
+		 // remove NPC's elemental before this NPC is removed to prevent the elemental persisting in LT-purgatory (which was causing a crash due to the elemental having no summoner when loading saved games)
+		if(npc.hasDiscoveredElemental() && npc.getElemental()!=null) {
+			removeNPC(npc.getElemental());
+		}
+		
 		if(!npc.getIncubatingLitters().isEmpty()) {
 			for(SexAreaOrifice orifice : new ArrayList<>(npc.getIncubatingLitters().keySet())) {
 				npc.endIncubationPregnancy(orifice, ((npc.getPregnantLitter().getFather()!=null && npc.getIncubationLitter(orifice).getFather().isPlayer()) || (npc.getPregnantLitter().getMother()!=null && npc.getIncubationLitter(orifice).getMother().isPlayer())));
@@ -5480,7 +5497,21 @@ public class Game implements XMLSaving {
 	
 	public void generateAlleywayItem() {
 		if(!Main.game.isSillyModeEnabled() || Math.random()<0.99f) {
-			randomItem = Main.game.getItemGen().generateItem(ItemType.getDominionAlleywayItems().get(Util.random.nextInt(ItemType.getDominionAlleywayItems().size())));
+			List<AbstractItemType> itemsToDrawFrom = ItemType.getDominionAlleywayItems();
+			
+			if(Main.game.getPlayer().getWorldLocation()==WorldType.BAT_CAVERNS) {
+				itemsToDrawFrom = ItemType.getBatCavernItems();
+				
+			} else if(Main.game.getPlayer().getWorldLocation().getWorldRegion()==WorldRegion.SUBMISSION) {
+				itemsToDrawFrom = ItemType.getSubmissionTunnelItems();
+				
+			} else if(Main.game.getPlayer().getWorldLocation().getWorldRegion()==WorldRegion.FIELD_CITY
+					|| Main.game.getPlayer().getWorldLocation().getWorldRegion()==WorldRegion.FIELDS
+					|| Main.game.getPlayer().getWorldLocation().getWorldRegion()==WorldRegion.WOODLAND
+					|| Main.game.getPlayer().getWorldLocation().getWorldRegion()==WorldRegion.RIVER) {
+				itemsToDrawFrom = ItemType.getElisAlleywayItems();
+			}
+			randomItem = Main.game.getItemGen().generateItem(itemsToDrawFrom.get(Util.random.nextInt(itemsToDrawFrom.size())));
 			
 		} else {
 			if(Math.random()<0.5f) {
