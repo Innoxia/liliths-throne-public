@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<racialBody>
+
+	<!-- Miscellaneous attributes: -->
+	<personalityChances/>
+	
+	<orientationFeminineGynephilic>20</orientationFeminineGynephilic>
+	<orientationFeminineAmbiphilic>40</orientationFeminineAmbiphilic>
+	<orientationFeminineAndrophilic>40</orientationFeminineAndrophilic>
+	
+	<orientationMasculineGynephilic>60</orientationMasculineGynephilic>
+	<orientationMasculineAmbiphilic>30</orientationMasculineAmbiphilic>
+	<orientationMasculineAndrophilic>10</orientationMasculineAndrophilic>
+	
+	
+	<!-- Core body info: -->
+	
+	<bodyMaterial>FLESH</bodyMaterial>
+	
+	<bodyHair>innoxia_deer_body_hair</bodyHair>
+	
+	<genitalArrangement>NORMAL</genitalArrangement>
+	
+	<maleHeight>186</maleHeight>
+	<maleFemininity>10</maleFemininity>
+	<maleBodySize>70</maleBodySize>
+	<maleMuscle>75</maleMuscle>
+	
+	<femaleHeight>176</femaleHeight>
+	<femaleFemininity>85</femaleFemininity>
+	<femaleBodySize>55</femaleBodySize>
+	<femaleMuscle>55</femaleMuscle>
+	
+	
+	<!-- Antenna: -->
+	
+	<antennaTypes>
+		<type>NONE</type>
+	</antennaTypes>
+	
+	<maleAntennaLength>0</maleAntennaLength>
+	<femaleAntennaLength>0</femaleAntennaLength>
+	
+	
+	<!-- Arms: -->
+	
+	<armType>innoxia_deer_arm</armType>
+	
+	<armRows>1</armRows>
+	
+	
+	<!-- Ass: -->
+	
+	<assType>innoxia_deer_ass</assType>
+	
+	<maleAssSize>2</maleAssSize>
+	<femaleAssSize>4</femaleAssSize>
+	
+	<maleHipSize>2</maleHipSize>
+	<femaleHipSize>5</femaleHipSize>
+	
+	<anusCapacity>1.5</anusCapacity>
+	<anusDepth>2</anusDepth>
+	<anusWetness>0</anusWetness>
+	<anusElasticity>3</anusElasticity>
+	<anusPlasticity>3</anusPlasticity>
+	
+	
+	<!-- Breasts: -->
+	
+	<breastType>innoxia_deer_breast</breastType>
+	
+	<breastShapes>
+		<shape>ROUND</shape>
+		<shape>POINTY</shape>
+		<shape>PERKY</shape>
+		<shape>SIDE_SET</shape>
+		<shape>WIDE</shape>
+		<shape>NARROW</shape>
+	</breastShapes>
+	
+	<!-- Masculine characteristics: -->
+	<maleBreastSize>0</maleBreastSize>
+	<maleBreastRows>1</maleBreastRows>
+	<maleNippleSize>0</maleNippleSize>
+	<maleNippleShape>NORMAL</maleNippleShape>
+	<maleAreolaeSize>0</maleAreolaeSize>
+	<maleAreolaeShape>NORMAL</maleAreolaeShape>
+	<maleNippleCountPerBreast>1</maleNippleCountPerBreast>
+	<maleLactationRate>0</maleLactationRate>
+	<maleBreastCapacity>0</maleBreastCapacity>
+	<maleBreastDepth>2</maleBreastDepth>
+	<maleBreastElasticity>3</maleBreastElasticity>
+	<maleBreastPlasticity>3</maleBreastPlasticity>
+	
+	<!-- Feminine characteristics: -->
+	<femaleBreastSize>7</femaleBreastSize>
+	<femaleBreastRows>1</femaleBreastRows>
+	<femaleNippleSize>2</femaleNippleSize>
+	<femaleNippleShape>NORMAL</femaleNippleShape>
+	<femaleAreolaeSize>2</femaleAreolaeSize>
+	<femaleAreolaeShape>NORMAL</femaleAreolaeShape>
+	<femaleNippleCountPerBreast>1</femaleNippleCountPerBreast>
+	<femaleLactationRate>0</femaleLactationRate>
+	<femaleBreastCapacity>0</femaleBreastCapacity>
+	<femaleBreastDepth>2</femaleBreastDepth>
+	<femaleBreastElasticity>3</femaleBreastElasticity>
+	<femaleBreastPlasticity>3</femaleBreastPlasticity>
+	
+	
+	<!-- Crotch-boobs/udders: -->
+	
+	<breastCrotchType>innoxia_deer_breast</breastCrotchType>
+	<breastCrotchShapes udderShapes="true"/>
+	
+	<breastCrotchSize>6</breastCrotchSize>
+	<breastCrotchRows>1</breastCrotchRows>
+	<breastCrotchNippleSize>2</breastCrotchNippleSize>
+	<breastCrotchNippleShape>NORMAL</breastCrotchNippleShape>
+	<breastCrotchAreolaeSize>2</breastCrotchAreolaeSize>
+	<breastCrotchAreolaeShape>NORMAL</breastCrotchAreolaeShape>
+	<nippleCountPerBreastCrotch>1</nippleCountPerBreastCrotch>
+	<breastCrotchLactationRate>0</breastCrotchLactationRate>
+	<breastCrotchCapacity>0</breastCrotchCapacity>
+	<breastCrotchDepth>2</breastCrotchDepth>
+	<breastCrotchElasticity>3</breastCrotchElasticity>
+	<breastCrotchPlasticity>3</breastCrotchPlasticity>
+	
+	
+	<!-- Face: -->
+	
+	<faceType>innoxia_deer_face</faceType>
+	
+	<eyeType>innoxia_deer_eye</eyeType>
+	
+	<earType>innoxia_deer_ear</earType>
+	
+	<maleLipSize>1</maleLipSize>
+	<femaleLipSize>2</femaleLipSize>
+	
+	
+	<!-- Hair: -->
+	
+	<hairType>innoxia_deer_hair</hairType>
+	
+	<maleHairLength>12</maleHairLength>
+	<femaleHairLength>35</femaleHairLength>
+	
+	
+	<!-- Horns: -->
+	
+	<hornTypes>
+		<type>ANTLERS</type>
+	</hornTypes>
+	
+	<maleHornLength>45</maleHornLength>
+	<femaleHornLength>10</femaleHornLength>
+	
+	
+	<!-- Legs: -->
+	
+	<legType>innoxia_deer_leg</legType>
+	
+	<legConfiguration>BIPEDAL</legConfiguration>
+	
+	
+	<!-- Penis: -->
+	
+	<penisType>innoxia_deer_penis</penisType>
+	
+	<penisLength>20</penisLength>
+	<penisGirth>4</penisGirth>
+	<testicleSize>3</testicleSize>
+	<testicleQuantity>2</testicleQuantity>
+	<cumProduction>100</cumProduction>
+	
+	
+	<!-- Tail: -->
+	
+	<tailTypes>
+		<type>innoxia_deer_tail</type>
+	</tailTypes>
+	
+	
+	<!-- Tentacle: -->
+	
+	<tentacleType>NONE</tentacleType>
+	
+	
+	<!-- Torso: -->
+	
+	<torsoType>innoxia_deer_torso</torsoType>
+	
+	
+	<!-- Vagina: -->
+	
+	<vaginaType>innoxia_deer_vagina</vaginaType>
+	
+	<clitSize>0</clitSize>
+	
+	<!-- Values from 0 to 6. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/PenetrationGirth.java -->
+	<clitGirth>3</clitGirth>
+	
+	<vaginaCapacity>2.5</vaginaCapacity>
+	<vaginaDepth>2</vaginaDepth>
+	<vaginaWetness>2</vaginaWetness>
+	<vaginaElasticity>4</vaginaElasticity>
+	<vaginaPlasticity>3</vaginaPlasticity>
+	
+	
+	<!-- Wings: -->
+	
+	<wingTypes>
+		<type>NONE</type>
+	</wingTypes>
+	
+	<maleWingSize>0</maleWingSize>
+	<femaleWingSize>0</femaleWingSize>
+	
+</racialBody>

@@ -2420,6 +2420,8 @@ public class ItemType {
 	private static List<AbstractItemType> dominionAlleywayItems = new ArrayList<>();
 	private static List<AbstractItemType> submissionTunnelItems = new ArrayList<>();
 	private static List<AbstractItemType> batCavernItems = new ArrayList<>();
+	private static List<AbstractItemType> elisAlleywayItems = new ArrayList<>();
+	
 	private static List<AbstractItemType> essences = new ArrayList<>();
 	private static List<AbstractItemType> allItems = new ArrayList<>();
 	private static List<AbstractItemType> moddedItems = new ArrayList<>();
@@ -2615,18 +2617,6 @@ public class ItemType {
 					idToItemMap.put(f.getName(), item);
 					
 					allItems.add(item);
-					
-					if(item.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN)) {
-						dominionAlleywayItems.add(item);
-					}
-					
-					if(item.getItemTags().contains(ItemTag.SUBMISSION_TUNNEL_SPAWN)) {
-						submissionTunnelItems.add(item);
-					} 
-					
-					if(item.getItemTags().contains(ItemTag.BAT_CAVERNS_SPAWN)) {
-						batCavernItems.add(item);
-					} 
 					
 					if(item.getItemTags().contains(ItemTag.ESSENCE)) {
 						essences.add(item);
@@ -3167,6 +3157,22 @@ public class ItemType {
 			}
 
 		}
+		
+		// Add items to spawn lists:
+		for(AbstractItemType item : allItems) {
+			if(item.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN) || item.getItemTags().contains(ItemTag.ALL_AREAS_SPAWN)) {
+				dominionAlleywayItems.add(item);
+			}
+			if(item.getItemTags().contains(ItemTag.SUBMISSION_TUNNEL_SPAWN) || item.getItemTags().contains(ItemTag.ALL_AREAS_SPAWN)) {
+				submissionTunnelItems.add(item);
+			}
+			if(item.getItemTags().contains(ItemTag.BAT_CAVERNS_SPAWN) || item.getItemTags().contains(ItemTag.ALL_AREAS_SPAWN)) {
+				batCavernItems.add(item);
+			}
+			if(item.getItemTags().contains(ItemTag.ELIS_ALLEYWAY_SPAWN) || item.getItemTags().contains(ItemTag.ALL_AREAS_SPAWN)) {
+				elisAlleywayItems.add(item);
+			}
+		}
 	}
 	
 	private static AbstractItemEffectType generateBookEffect(AbstractSubspecies mainSubspecies, List<AbstractSubspecies> additionalUnlockSubspecies) {
@@ -3268,6 +3274,11 @@ public class ItemType {
 	public static List<AbstractItemType> getBatCavernItems() {
 		return batCavernItems;
 	}
+	
+	public static List<AbstractItemType> getElisAlleywayItems() {
+		return elisAlleywayItems;
+	}
+	
 	public static List<AbstractItemType> getEssences() {
 		return essences;
 	}

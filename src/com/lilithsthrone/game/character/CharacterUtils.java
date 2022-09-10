@@ -443,10 +443,12 @@ public class CharacterUtils {
 		// Height:
 		if(body.getHeightValue()>=Height.ZERO_TINY.getMinimumValue()) {
 //			System.out.println("height adjusted");
-			body.setHeight(getSizeFromGenetics( //TODO check this
+			body.setHeight(getSizeFromGenetics(
 					body.getHeightValue(),
-					(body.isFeminine()?mother.isFeminine():!mother.isFeminine()), mother.getHeightValue(),
-					(body.isFeminine()?father.isFeminine():!father.isFeminine()), father.getHeightValue()));
+					(body.isFeminine()?mother.isFeminine():!mother.isFeminine()),
+					mother.getHeightValue(),
+					(body.isFeminine()?father.isFeminine():!father.isFeminine()),
+					father.getHeightValue()));
 		}
 		
 		// Femininity:
@@ -904,8 +906,12 @@ public class CharacterUtils {
 			body.getBreastCrotch().setType(null, BreastType.NONE);
 		}
 		
+		// The applyRaceChanges and applySpeciesChanges methods sometimes change covering colours and then call updateCoverings(), which will result in this character's covering colours being unrelated to genetics
+		// To fix, coverings are saved and then restored after the two methods have been called
+		Map<AbstractBodyCoveringType, Covering> preChangesCoverings = body.getCoverings();
 		raceTakesAfter.getRace().applyRaceChanges(body);
 		raceTakesAfter.applySpeciesChanges(body);
+		body.setCoverings(preChangesCoverings);
 		
 		body.setTakesAfterMother(takesAfterMother);
 		
