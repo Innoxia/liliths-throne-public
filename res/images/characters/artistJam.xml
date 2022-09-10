@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <artist name="Jam" colour="BASE_CRIMSON" folderName="jam">
+	<website title="Jam's twitter" url="https://twitter.com/JamDrawers"/>
 	<website title="Jam's SFW Blog" url="http://jamdrawers.tumblr.com/"/>
 	<website title="Jam's NSFW Blog" url="http://ass-jam.tumblr.com/"/>
 </artist>
