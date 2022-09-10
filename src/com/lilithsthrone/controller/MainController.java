@@ -42,8 +42,6 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.Penis;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -501,10 +499,15 @@ public class MainController implements Initializable {
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
 							
-							System.out.println("--- Penis diameters ---");
-							for(int i=10; i<75; i+=5) {
-								System.out.println(i+" : "+Penis.getGenericDiameter(i, PenetrationGirth.THREE_AVERAGE));
+							System.out.println("------");
+							for(AbstractCombatMove move : Main.game.getPlayer().getEquippedMoves()) {
+								System.out.println(move.getName(0, Main.game.getPlayer()));
 							}
+							
+//							System.out.println("--- Penis diameters ---");
+//							for(int i=10; i<75; i+=5) {
+//								System.out.println(i+" : "+Penis.getGenericDiameter(i, PenetrationGirth.THREE_AVERAGE));
+//							}
 							
 //							if(Main.game.isInSex()) {
 //								System.out.println("----");

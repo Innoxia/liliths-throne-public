@@ -86,8 +86,10 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4.5";
+	public static final String VERSION_NUMBER = "0.4.5.2";
 	public static final String VERSION_DESCRIPTION = "Alpha";
+
+	public static boolean quickSaved = false;
 	
 	/**
 	 * To turn it on, just add -Ddebug=true to java's VM options. (You should be able to do this in Eclipse through Run::Run Configurations...::Arguments tab::VM Arguments).
@@ -812,12 +814,16 @@ public class Main extends Application {
 		if(isQuickSaveAvailable()){
 			Main.getProperties().lastQuickSaveName = getQuickSaveName();
 			saveGame(getQuickSaveName(), true);
+			quickSaved = true;
 		} else {
 			Main.game.flashMessage(PresetColour.GENERIC_BAD, getQuickSaveUnavailabilityDescription());
 		}
 	}
 
 	public static void quickLoadGame() {
+		if(quickSaved) {
+			loadGame(Main.properties.lastQuickSaveName);
+		}
 		loadGame(getQuickSaveName());
 	}
 

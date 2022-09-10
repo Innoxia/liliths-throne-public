@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -472,6 +473,13 @@ public abstract class AbstractCombatMove {
      * @return Character to target with this action.
      */
     public GameCharacter getPreferredTarget(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+		if(Main.game.isInCombat()) {
+	    	GameCharacter preferredTarget = Main.combat.getPreferredTarget(source);
+	    	if(preferredTarget!=null && !Main.combat.isCombatantDefeated(preferredTarget)) {
+	    		return preferredTarget;
+	    	}
+		}
+		
         if(weightingText!=null && !weightingText.isEmpty()) {
         	float maxWeight = 0.0f;
         	GameCharacter target = null;
@@ -479,7 +487,7 @@ public abstract class AbstractCombatMove {
         		if((isCanTargetSelf() && character.equals(source))
         				|| (isCanTargetAllies() && character.isCombatAlly(source))
         				|| (isCanTargetEnemies() && character.isCombatEnemy(source))) {
-        			float weight = Float.valueOf(UtilText.parse(source, character, weightingText).trim());
+        			float weight = Float.valueOf(UtilText.parse(source, character, weightingText).trim()) * (Main.combat.isCombatantDefeated(character)?0:1);
         			if(weight>maxWeight) {
         				target = character;
         				maxWeight = weight;
@@ -492,8 +500,10 @@ public abstract class AbstractCombatMove {
         }
         
         if(isCanTargetEnemies()) {
-            if(shouldBlunder()) {
-                return enemies.get(Util.random.nextInt(enemies.size()));
+            if(shouldBlunder() && enemies.stream().anyMatch(enemy->!Main.combat.isCombatantDefeated(enemy))) {
+            	List<GameCharacter> nonDefeatedEnemies = new ArrayList<>(enemies);
+            	nonDefeatedEnemies.removeIf(enemy->Main.combat.isCombatantDefeated(enemy));
+                return nonDefeatedEnemies.get(Util.random.nextInt(nonDefeatedEnemies.size()));
             } else {
                 float lowestHP = -1;
                 GameCharacter potentialCharacter = null;
@@ -507,8 +517,10 @@ public abstract class AbstractCombatMove {
             }
         }
         if(isCanTargetAllies() && !allies.isEmpty()) {
-            if(shouldBlunder()) {
-                return allies.get(Util.random.nextInt(allies.size()));
+            if(shouldBlunder() && allies.stream().anyMatch(ally->!Main.combat.isCombatantDefeated(ally))) {
+            	List<GameCharacter> nonDefeatedAllies = new ArrayList<>(allies);
+            	nonDefeatedAllies.removeIf(ally->Main.combat.isCombatantDefeated(ally));
+                return nonDefeatedAllies.get(Util.random.nextInt(nonDefeatedAllies.size()));
             }
             else {
                 float lowestHP = -1;

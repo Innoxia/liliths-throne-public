@@ -176,7 +176,12 @@ public class MilkingRoom implements XMLSaving {
 
 		for(MilkingRoom room : Main.game.getOccupancyUtil().getMilkingRooms()) {
 			Cell c = Main.game.getWorlds().get(room.getWorldType()).getCell(room.getLocation());
-			int charactersPresent = Main.game.getCharactersPresent(c).size();
+			int charactersPresent = 0; //Main.game.getCharactersPresent(c).size();
+			for(GameCharacter charPresent : Main.game.getCharactersPresent(c)) {
+				if(charPresent.isSlave() && charPresent.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.MILKING && charPresent!=character) {
+					charactersPresent++;
+				}
+			}
 			if (charactersPresent < 8) {
 				freeRooms.add(room);
 			} else {
@@ -188,26 +193,33 @@ public class MilkingRoom implements XMLSaving {
 		}
 
 		// check for a room with capacity and the right type first
+		List<Cell> suitableCells = new ArrayList<>();
 		for(MilkingRoom room : freeRooms) {
 			Cell c = Main.game.getWorlds().get(room.getWorldType()).getCell(room.getLocation());
-
+			
 			if(character.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_INDUSTRIAL)
 					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
-				return c;
+				suitableCells.add(c);
 
 			} else if(character.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_ARTISAN)
 					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
-				return c;
+				suitableCells.add(c);
 
 			} else if(character.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_REGULAR)
 					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
 					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
-				return c;
+				suitableCells.add(c);
 
 			} else {
 				// not the right type, but has capacity
 				milkingCells.add(c);
 			}
+		}
+		if(!suitableCells.isEmpty()) {
+			if(suitableCells.contains(character.getCell())) { // If the cell the character is in is suitable, just leave them there
+				return character.getCell();
+			}
+			return suitableCells.get(0);
 		}
 
 		for(MilkingRoom room : fullRooms) {

@@ -45,7 +45,10 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -260,5 +263,19 @@ public class Ursa extends NPC {
 	public boolean isAbleToBeImpregnated() {
 		return true;
 	}
-	
+
+	@Override
+	public SexPace getSexPaceDomPreference(){
+		return SexPace.DOM_GENTLE;
+	}
+
+	public void stripForSex(){
+		List<InventorySlot> slotsToUnequip = Util.newArrayListOfValues(InventorySlot.TORSO_UNDER, InventorySlot.GROIN, InventorySlot.CHEST);
+		for(InventorySlot slot : slotsToUnequip) {
+			AbstractClothing clothingInSlot = this.getClothingInSlot(slot);
+			if(clothingInSlot!=null) {
+				this.unequipClothingIntoVoid(clothingInSlot, true, this);
+			}
+		}
+	}
 }

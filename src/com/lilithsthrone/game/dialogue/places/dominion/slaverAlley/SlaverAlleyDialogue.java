@@ -675,7 +675,7 @@ public class SlaverAlleyDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 //				if(Main.game.getPlayer().getMoney()>=100) {
-					return new Response("Pay ("+UtilText.formatAsMoney(100)+")", "Pay the guards the hundred flames they're asking for.", GATEWAY_POSTER_PERMISSION_END) {
+					return new Response("Pay ("+UtilText.formatAsMoney(100, "span")+")", "Pay the guards the hundred flames they're asking for.", GATEWAY_POSTER_PERMISSION_END) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "GATEWAY_POSTER_PERMISSION_PAID"));

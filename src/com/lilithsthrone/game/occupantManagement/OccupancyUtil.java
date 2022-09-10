@@ -311,7 +311,7 @@ public class OccupancyUtil implements XMLSaving {
 			SlaveJob currentJob = slave.getSlaveJob(hour);
 			
 			slave.incrementAffection(slave.getOwner(), slave.getHourlyAffectionChange(hour));
-			slave.incrementObedience(slave.getHourlyObedienceChange(hour), false);
+			slave.incrementObedience(slave.getHourlyObedienceChange(hour), true);
 			
 			boolean isAtWork = slave.isAtWork(hour);
 			

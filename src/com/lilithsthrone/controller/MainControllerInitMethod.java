@@ -4693,6 +4693,7 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						BodyChanging.getTarget().incrementPenisCumStorage(-CharacterModificationUtils.FLUID_INCREMENT_SMALL);
+						BodyChanging.getTarget().fillCumToMaxStorage();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -4700,6 +4701,7 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						BodyChanging.getTarget().incrementPenisCumStorage(-CharacterModificationUtils.FLUID_INCREMENT_AVERAGE);
+						BodyChanging.getTarget().fillCumToMaxStorage();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -4707,6 +4709,7 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						BodyChanging.getTarget().incrementPenisCumStorage(-CharacterModificationUtils.FLUID_INCREMENT_LARGE);
+						BodyChanging.getTarget().fillCumToMaxStorage();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -6330,6 +6333,7 @@ public class MainControllerInitMethod {
 				if(!Main.game.isFootContentEnabled() && (f == Fetish.FETISH_FOOT_GIVING || f == Fetish.FETISH_FOOT_RECEIVING)) {
 					continue;
 				}
+				
 				for(FetishPreference preference : FetishPreference.values()) {
 					id=preference+"_"+Fetish.getIdFromFetish(f);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {

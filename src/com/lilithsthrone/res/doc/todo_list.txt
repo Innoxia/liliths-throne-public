@@ -6,169 +6,326 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
+	Artwork:
+		Added new artwork for Nyan, by Davyn. (Davyn's twitter: https://twitter.com/davyndraw)
+	
 	Contributors:
-		Fixed issue where Amazonian Ambrosia wouldn't be given to the player upon searching the district in Themiscyra. (by AceXP)
-		Fixed bug in the 'Lilaya's panties' content, where in the threesome section of the sex scene, selecting the 'Lilaya's pussy' or 'Lilaya's cock' actions would not work. (by AceXP)
-		Parsing fix in the tooltip for the 'Moo mode' action in the debug menu. (by AceXP)
-		Typo fixes. (PR#1680 by Thernn)
-		Removed a duplicate line. (PR#1683 by IjyiH)
-		
+		Fixed bug where the game would freeze and break when having sex with a slave in a milking room while all of your milking rooms were full. (by Maxis010)
+		Fixed two related bugs where items (such as enchanted elixirs) would not stack correctly after saving/reloading, and where one or more of these separate stacks would disappear upon another save and reload. (by Maxis010)
+		Fixed bug where the 'In Control' perk (from the 'teacher' background) would triple negative obedience changes instead of just the positive changes as the job describes, and also fixed issue where changes would be tripled twice. (by Maxis010)
+		Fixed issue where you could encounter a softlock when accessing your phone or options menus while in the 'Set alarm' dialogue. (by Cognitive Mist)
+		Tracked down numerous elusive bugs. (by Maymay)
+		Fixed an issue where if you saved an elemental transformation preset then the TF preset menu would crash with a null pointer. (by Maxis010)
+		Fixed issue where the game could potentially get stuck in a loop when exiting the Unit Preferences menu. (by Maxis010)
+		Fixed bug where removing an NPC who had summoned their elemental would cause games that are saved after that to crash upon being loaded. (by Cognitive Mist)
+		Fixed issue with incorrectly defined dialogue IDs in Lunexis's bad end scenes. (by AceXP)
+	
+	Engine/Modding:
+		Added new item tag, 'ELIS_ALLEYWAY_SPAWN' and 'ALL_AREAS_SPAWN', which mark items/weapons/clothing as being able to randomly spawn in encounters in the Foloi Fields and in every area of the game, respectively.
+	
 	Gameplay:
-		Filled in final placeholders in the new Themiscyra main quest content and fixed a couple of minor parsing issues in it.
-		
+		Added content for the Amazons' camp in Elis (which appears after completing the Themiscyra section of the main quest).
+		Added 'deer' as a race, with associated drink, 'Glade Springs', and food, 'Tree Shoots Salad'.
+	
+	Items:
+		In random encounters, racial items for badgers, goats, and sheep will now only spawn in Elis, while racial items for cows, mice, pigs, rabbits, raptors, and wolves will now additionally spawn in Elis.
+	
+	Body:
+		Added diameter value to the 'Penis Length', 'Clitoris Length', and 'Tail Length' elements in the transformation menu.
+		Added value of expelled cum to the 'Cum Expulsion' element in the transformation menu.
+		Cum expulsion values which correspond to 'large', 'huge', 'extreme', and 'monstrous' cum storage values now dirty 1, 2, 4, and 8 additional inventory slots of targeted characters during orgasms.
+		When transforming a character's leg configuration into 'quadrupedal', 'arachnid', or 'avian' from any of the other configurations, that character will gain 33% extra height (the 33% increase is reverted when transforming the other way).
+	
+	Combat:
+		Added 'cycle target' and 'clear target' actions to the 'Commands' tab in combat, giving you control over who your allies are targeting.
+	
 	Sex:
-		Characters who are taurs can now use the 'sitting in lap' slot in the 'sitting' sex position (described as them turning around and lowering their rear half down into the sitting character's lap).
-		Added a minor description variation for vaginal orgasms that are triggered while engaged in tribbing.
+		Any body areas or clothing which are dirtied by cum upon a targeted orgasm are now appended to the orgasm description.
+		Any body areas or clothing which are dirtied by squirting when the orgasming character's vagina is concealed, or when a parter is performing cunnilingus on them, are now appended to the orgasm description.
+		Added a minor variation to orgasm descriptions for when a squirting character is being penetrated.
+		Using the 'Unequip all' action in sex will no longer unequip condoms.
+		The 'object of desire' perk's effect to make participants in sex need an extra orgasm before being satisfied no longer stacks when multiple participants have this perk, and the effect is no longer applied from spectators.
 	
 	Other:
-		Appended a numerical value to affection descriptions in the character view screen, so that it's easier to track exactly what affection values an NPC has towards you and other NPCs.
-		A character's testicles' covering type is now determined by the testicle type's defined covering, instead of using the character's torso covering type.
-		Added variations to the scenes relating to Lilaya's negative reaction to being impregnated for if the player has impregnated her via use of Amazon's Secret.
-		Added tooltip to the 'load' buttons in the preset transformation save/load screen, to let you know exactly why a preset transformation is unavailable.
-		Dominant contacts at 'The Watering Hole' no longer have their affection reset to 5 when encountering them another night.
-		The five stages of the 'intoxicated' status effect now apply an increasing boost to corruption at each level.
-		Added horn length to the 'Head & Throat' stats in the phone's body stats screen.
-		Reduced the diameter of penises & clits, with reductions being minor for more normal penis lengths, and more significant for longer lengths. (Diameter can still be increased to absurd levels by increasing girth via transformations.)
-		Added pregnancy reactions to the harpy matriarch dialogues, and allowed their companions to be impregnated.
+		Added the option to take either the dominant or submissive role in the sex scene in the museum during the prologue.
+		Added an extra pre-fight option for the Lunexis encounter in Themiscyra, which allows you to skip the fight and avoid the negative affection hit with Ursa, Aurokairs, and Meraxis if you have the 'sacrificial shielding' perk equipped.
+		Improved wording in the description of the 'controlled aggression' perk to make it clear that your damage is doubled only during the first turn of combat.
+		If you have quicksaved at least once, the quickload feature will now load the last quicksave you made, instead of the quicksave which matches your character's current name.
 		
 	Bugs:
-		Typo fixes.
-		The NPC who you encounter during the event while wearing a rental mommy/daddy t-shirt will no longer be gynephilic or androphilic if the player character is masculine or feminine, respectively.
-		Fixed issue with missing dialogue for a cunnilingus scene during the 'random NPC's bitch' content.
-		Added a catch to avoid a background error being thrown for if a condom has somehow had its cum variable reset to null.
-		Fixed several instances, mostly in the titles of dialogue scenes while interacting with slaves, where an incorrect name for the NPC being interacted with was being displayed.
-		The Amazon's Secret item will now correctly apply the 'feminine fertility' status effect to the consuming character.
-		Fixed some formatting issues with tattoo descriptions at the bottom of the selfie/character view page when the tattoo had no writing or a 'none'-type counter.
-		Fixed continuity error at the start of the demon TF sex scene for Meraxis, where Meraxis would always be described during her initial vaginal penetration as being a virgin, even if you'd previously taken her virginity.
-		When getting a demonic or youko sexual partner to grow a penis during sex via use of the 'Grow cock' action, their penis skin colour should now match their race, unless it's been previously set to a different colour.
-		Fixed parsing issue when equipping Enforcer's night vision goggles on an NPC.
-		Fixed issue where the 'strapless bodysuit' clothing would throw a background error when being equipped, and then fail to display in your inventory UI while being worn. 
-		The 'spaghetti crop tank-top' clothing no longer conceals the stomach slot.
-		Fixed issue which was present in several dialogues where a character who you've impregnated would act as though you'd previously reacted to their pregnancy, even if it was the first time you'd seen them pregnant.
+		Typo and parsing fixes.
+		The information icons in the fetish preference options page now correctly display tooltips when moused over.
+		Reducing cum storage via the TF menu now correctly reduces the character's currently stored cum value to the new maximum.
+		When being transformed into a demon, all relevant 'Elder lilin's power' perks will now be upgraded into their demonic versions, not just Lyssieth's.
+		Fixed bug in the 'defeated by raiders' scene in Thymescria, where the raiders would fuck you and Aurokaris without first growing cocks before the scene started.
+		Aurokaris now correctly starts sex scenes with raiders in the 'resisting' pace (unless non-con is turned off).
+		The raiders in Themiscyra will now correctly end the sex scene as soon as they're satisfied, instead of waiting to satisfy you and Aurokaris before ending it.
+		Fixed issue in combat where NPCs would sometimes target combatants who had already been defeated.
+		Fixed bug where orgasming in Lilaya's sex scene while wearing a condom would result in your orgasm actions being unresponsive.
+		Fixed bug where fetish combat moves would be unequipped during sex scenes if any sex action related to the fetish was performed.
+		Tattoos with a 'none' icon type will no longer incorrectly state that they're 'primarily coloured grey' in the selfie/character page description.
+		Fixed issue where offspring would be born with randomly-coloured eyes, hair, and other coverings, instead of having thse colours inherited from their parents.
+		Removed the ability to fly in the demon fortresses in Submission to prevent an issue where you could fly past Meraxis and take her gear before encountering her.
+		In the custom slave ordering screen (from Helena after completing her quest), parts of the slave's body are no longer concealed during the final character overview.
+		Fixed bug where milk slaves would not identify a milking room as being free if you were standing in it and there were already 7 other characters present.
+		Fixed bug where slaves would move between milking rooms during their job hours, instead of remaining in the same room for the duration of their work.
+		Fixed issue where racial items were not being marked as being available to be found in 'item found' encounters.
 	
 	
-	[x] Add (affection_value) after affection description in character view page
-	[x] move txt for lyssiethReveal to quest folder
-	[x] bugs:
-		[-] selfie picture breaks when adding png?
-		[x] Typos:
-			[x] "As you left Elis" should be Dominion
-			[x] Minotally repllies, but you cna hear fro the tone of her voice
-			[x] cahracter
-			[x] "Minotally replies" typo
-		[x] Bug regarding Rental Mommy/Daddy shirts in 0.4.4. Masculine characters can receive gynephilic clients, and Feminine characters can receive androphilic clients
-		[-] During transformations, dildos are unequipped, even if the body part still fits it afterwards.  (IE, species change)
-		[-] every time I craft a meat potion (enchant a slime potion to meat) it disappears
-		[-] Version 4.4.2: After becoming a demon, when agreeing to help Lilaya turn into a demon, pressing the button to transform only Lilaya transforms Meraxis too
-		[x] SUBMITTED_REPEAT_WALKIES_ORAL_VAGINAL_START is missing from txt files
-		[x] Trying to drink spooge while interacting with a slave result in NPE
-			Exception in thread "JavaFX Application Thread" java.lang.NullPointerException
-		        at com.lilithsthrone.game.character.GameCharacter.ingestFluid(GameCharacter.java:18108)
-		        at com.lilithsthrone.game.inventory.item.AbstractFilledCondom.applyEffect(AbstractFilledCondom.java:157)
-		        at com.lilithsthrone.game.character.GameCharacter.useItem(GameCharacter.java:21918)
-		        at com.lilithsthrone.game.character.GameCharacter.useItem(GameCharacter.java:21880)
-		        at com.lilithsthrone.game.dialogue.utils.InventoryDialogue$3$21.effects(InventoryDialogue.java:1421)
-		        at com.lilithsthrone.game.dialogue.responses.Response.applyEffects(Response.java:379)
-		[-] When undressing an NPC with a cock in the inventory screen, they always use the "Let's have some fun!" line even when they aren't attracted to you
-		[x] In the Spa with a human, but the text says that I can have fun with the dog-girl: "Then again, if you wanted to, you could have some fun with"
-		[x] The name of the person you first interact with gets stuck sometimes. So for example I interact with the Rental Mommy.
-			When I smexed my slaves it says Interacting with Mommy at the top for all of them. If I interact with one slave it uses that same for all slaves
-			i.e. Inspecting npc shows active NPC name at top
-			Molest or Inspect (The action) a slave
-			Molest or Inspect a different slave. You'll notice the name at the top doesn't change
-			Info:
-				activeNPC isn't being set in these scenes as the companion manager uses getSlave() whenever it needs them
-				SlaveDialogue is trying to use [npc.Name] but it seems to be latching onto the first NPC it can find
-				Inspected the first slave in a 4 room, it used the name of the 3rd slave (3 out of 4 present at the time)
-		[x] testes just seem to be follow whatever the body is (skin/fur) instead of the penis race's body covering
-		[x] the new amazon's secret doesn't apply any effect - it's a typo on the status effect name
-			ReferenceError: "STATUS_EFFECT_innoxia_amazonians_secret" is not defined in <eval> at line number 1
-		[x] additional Ace fix:
-			game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_potions_amazonians_ambrosia), 4, false, true))
-			Should be potions_amazonian_ambrosia
-		[x]  There is a possible oversight with Amazon's Secret when using it to get Lilaya pregnant where it treats it as if you came inside her with a penis.
-			[x] sex action handling
-				[x] test
-			[x] pre-sex warning
-			[x] post-sex pregnancy reaction in lab - LAB_ENTRY_PREGNANT
-				[x] test
-		[x] tattoo formatting issues, search for "tattoo's applied at Kate's give the following message" in bug reports
-			It bears the words: '', and is enchanted to keepa 'none' count, which reads: '0'.​
-		[x] I can't transform into my "human" look, but it lets me transform into my demon form with the presets
-			[x] Improve by adding tooltip to let player know why it's disabled
-		[-] Equipped fetish combat moves are randomly removed from your combat moves after sex scenes in the newest version (0.4.4.2)
-		[x] I found a continuity error with Meraxis becoming a full demon (Meraxis virginity issues in TF scene)
-			when Lyssieth penetrated Meraxis it went into detail about her breaking through her hymen.
-			[x] test Meraxis TF sex scene
-		[-] Quick sex displayed "Horse-boy with Jess" sex actions, not player-Nizhoni... "Nizhoni's got a second name?"
-			[-] Quick sex must have happened at the same time, and Jess's quick sex scene was displayed to the player?
-		[x] Dominant Spa sex for a taur starts with a slave lap sitting
-		[x] Lilaya grew cock and it was Ivory...
-		[-] When trying to assign each individual slave a separate job, I run into the issue of all slaves being assigned to one job
-			I would assign one slave to be a maid and every other slave would also become a maid, I try to switch somebody else to work at the spa desk and everybody would be assigned to work at the spa desk, and so forth.
-			File: save_with_slave_job_error
-		[x] Equipping Enforcer's night vision goggles on an elemental results in the equipping description speaking as if you were assisting yourself in wearing them
-		[x] in the Rat Warrens, if you go to the Dice Den and ask for the Rules, they list "Axel's Rules"
-		[x] The Strapless bodysuit appears to be invisible on your character
-		[x] The spaghetti crop top concealed the stomach slot
-		[x] Submissive contacts ("as dom") at The Watering Hole retain their affection value between nights/visits, but dominant contacts ("as sub") reset to indifferent each time
-			[x] change tracking from affection to variable
-			[x] limit affection changes
-		[x] intoxicated effects should increase corruption
-		[-] Have a bug where a slave isn't sent to Finch but remains on the tile
-		[x] "Lilaya's pussy"/"Lilaya's cock" options not working:
-			Exception in thread "JavaFX Application Thread" java.lang.NullPointerException
-				at com.lilithsthrone.game.character.GameCharacter.unequipClothingIntoVoid(GameCharacter.java:23326)
-				at com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayasRoom$13$2.effects(LilayasRoom.java:650)
-				at com.lilithsthrone.game.dialogue.responses.Response.applyEffects(Response.java:379)
-				at com.lilithsthrone.game.Game.setContent(Game.java:2942)
-				at com.lilithsthrone.controller.MainController.processResponse(MainController.java:977)
-				at com.lilithsthrone.controller.MainController.access$5(MainController.java:975)
-				at com.lilithsthrone.controller.MainController$3.handle(MainController.java:917)
-				at com.lilithsthrone.controller.MainController$3.handle(MainController.java:1)
-			Ace fix:
-				To fix it, a check needs to be added at line 650 and 755 in LilayasRoom.java.
-				add a check for Main.game.getNpc(Rose.class).getClothingInSlot(InventorySlot.GROIN)!=null before trying the unequipClothingIntoVoid
-				Maybe there should be a unequipClothingIntoVoid that accepts a slot rather than a clothing item? And then check in that method if there is any clothing to be removed from the slot. 
-		[x] Ace fix:
-			the 'Moo mode' in the buggy menu references the raw lactation fetish object. A .getName(null) should be added to it so it renders 'lactation' instead of an object pointer. (line 666 in DebugDialogue.java)
-		[x] Missing stat block for horn details?
-			When enchanting horn length for a potion, no extra details?
-		[x] penis width too wide at longer lengths
-			[x] reduce increase quantity or use a curve
-	[x] finish raiders dialogue writing
-		[x] fill in placeholders
-		[x] test post-sub-sex scene
-		[x] need speech colour change for second attacker
-		[x] test perk
-		[x] Aurokaris bad end virginity check
-	[x] Add a tribbing variation to vagina orgasm: "and the wave of disappointment upon finding itself empty almost overwhelms the pleasure that radiates up through your groin"
-	[x] add pregnant variations for harpy companions and allow them to be impregnated
-		[x] bimbo
-			[x] test
-		[x] dominant
-			[x] test
-		[x] nympho
-			[x] test  [#nymphoHarpy.rollForPregnancy(pc, 1000, true)] [#nymphoHarpy.isPregnant()]
-	[x] setting pregnancy reactions doesn't take into account visibly pregnant
+	[x] in the fetish preference setting page, when you mouse over the information icon, nothing happen
+	[x] nice to be able to choose which position my character takes during sex in the character creator,
+		playing through the prologue as a male attracted to males and for the first sex encounter I was stuck in a loop of the npc trying to bottom and then me having to reposition so im the bottom not fun
+		[x] add options to sub or dom for both male and female prologue characters
+	[x] in TF screen, show actual measurement of diameter in girth TF sections
+		[x] penis size (change to length)
+		[x] clit size (change to length)
+		[x] tail length
+	[x] large ejaculations should drip down and dirty other places on the body
+		[x] +1/2/4/8 random slot getting dirty per level of ejaculation starting at large
+		[x] Cum Expulsion should display ml of cum expelled
+			[x] check with cumRegenerationContent
+		[x] add info for dirtying extra slots to TF menu
+		[x] apply to sex effects
+			[x] append to sex action description
+				[x] formatting issues
+				[x] move to method
+				[x] repeat slots encountered
+	[x] Append squirting dirty areas/clothing
+		[x] test dirtying self panties
+		[x] test dirtying cunnilingus
+	[x] add variation for squirting when being penetrated " it suddenly squirts out a huge amount of hot, wet female ejaculate"
+	[x] com.lilithsthrone.game.character.npc.submission.Lyssieth#setPlayerToFullDemon
+		At current this only changes one of the POWER_OF perks to a higher rank, perhaps check for the other 6 perks and change if needed?
+	[-] Not sure if this counts as a bug, but you're able to get infinite fare tickets at Kazik
+	[x] The raider defeat scene in Thymescria itself can have some issues with the raiders deciding to fuck you with their cocks but not growing one before the scene starts
+	[x] Also Aurokaris' lust gain was totalling negative meaning they will never orgasm and for some reason the raiders are waiting for everyone to reach their desired orgasm count instead of just their own
+	[x] Aurokaris should resist sex
+	[x] Lunexis will keep attacking Ursa in the fight even after Ursa has been downed
+	[x] Typo in abnormal aura's perk description text - "aught" should be "ought"
+	[x] when I have sex with Lilaya and put a condom on, the game won't let me cum. I click on either creampie or orgasm but the scene does not proceed
+		java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+			at java.util.ArrayList.rangeCheck(ArrayList.java:657)
+			at java.util.ArrayList.get(ArrayList.java:433)
+			at com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms.cumTargetDescription(GenericOrgasms.java:1657)
+			at com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms.getGenericPenisOrgasmDescription(GenericOrgasms.java:1128)
+			at com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms.getGenericOrgasmDescription(GenericOrgasms.java:2747)
+			at com.lilithsthrone.game.character.PlayerCharacter.getSexActionOrgasmOverride(PlayerCharacter.java:1465)
+			at com.lilithsthrone.game.character.GameCharacter.getSexActionOrgasmOverride(GameCharacter.java:7725)
+			at com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms$2.endsSex(GenericOrgasms.java:3278)
+			at com.lilithsthrone.game.sex.Sex.applyGenericDescriptionsAndEffects(Sex.java:2877)
+			at com.lilithsthrone.game.sex.Sex.endSexTurn(Sex.java:1854)
+			at com.lilithsthrone.game.sex.sexActions.SexActionInterface$1.effects(SexActionInterface.java:1277)
+	[x] Equipped fetish combat moves are randomly removed from your combat moves after sex scenes in the newest version (0.4.4.2)
+		FetishTest.xml
+			The main thing I noticed is skipping sex with the "Quick Sex" option doesn't cause the bug, but manually choosing sex actions during sex will remove any equipped combat actions that gains EXP from said actions.
+			Happens during sex, not at end
+	[x] Unequip all in sex should not remove condom
+	[x] "which is primarily coloured X​" - Color of text-only tattoos isn't properly recorded. Simple fix (and best IMO) is to just not display the color for text-only tattoos.
+	[x] add an option for the Lunexis fight based on a perk to offer support so as to avoid the negative affection hit
+		[x] sacrificial shielding perk
+	[x] your kids will still be born with different colored eyes, different colored hair, and different colored skin.
+		 This bug/issue did not exist several versions ago. I don't know what is causing it, but it's been in the past several builds.
+		  It seems like the game is just auto generating things instead of taking the values from the two parents.
+	[x] I've noticed that asking your elemental to change targets doesn't work. It just stays focused on whatever it started on at beginning of the turn
+		[x] add 'change target' button to commands
+		[x] add 'clear target' button to commands
+	[x] it's possible to get the dark siren gear before fighting meraxis. you just need to fly to the tile. simple fix is to make the citadel a no-fly zone.
+	[x] Object of desire stacks. Voyeurs add to this count. This can lead to sexual partners requiring a large number of orgasms in places like the milking room
+	[-] Errors throwing when the offspring map is loading:
+		Error: getSubspeciesFromBody() did not find a suitable Subspecies!
+			java.lang.Exception
+			    at com.lilithsthrone.game.character.race.AbstractSubspecies.getSubspeciesFromBody(AbstractSubspecies.java:835)
+			    at com.lilithsthrone.game.character.body.Body.getHalfDemonSubspecies(Body.java:3553)
+			    at com.lilithsthrone.game.character.npc.misc.OffspringSeed.getHalfDemonSubspecies(OffspringSeed.java:583)
+			    at com.lilithsthrone.game.dialogue.utils.OffspringMapDialogue.lambda$0(OffspringMapDialogue.java:36)
+	[-] Going inside The creamy bakey instantly lead to Evelyx's Slave bad end
+		BUGREPORT.xml
+	[-] I can no longer fly in the new update, despite having my wings set to large
+	[x]  GameBreaking bug in the Milking room if I try to fuck a taur. Sex options disappear from the menu and it is not possible to exit sex. Bug is 100% repeatable. Attached is save.
+			Can replicate by sexing Dasher. Do Tease Pussy action as first action. Nothing will seem to happen, action isn't used.
+			Switch menus to Self Position and back and you'll see almost all the actions have vanished. Same for Misc Actions. Almost all the actions have vanished.
+			Actually anyone in that room seems to break. Just tried Smexing my SheepMorph
+			the milking machines aren't hoovering up the leaked milk from the slaves during sex anymore. The machines used to do this in the past though. This happens on the "okay" save too
+		null coming from MilkingRoom.getMilkingCell(this, true); because your milking rooms are all full
+		Then feeds that null into Main.game.getOccupancyUtil().getMilkingRoom(...) which causes a NullPointerException
+		Maxis fix:
+			Fix is to replace Cell c = MilkingRoom.getMilkingCell(this, true); with Cell c = this.getCell(); on lines 26811, 27186 & 28928 of com/lilithsthrone/game/character/GameCharacter.java
+	[x] In slave creator you cannot see parameters of slave's genitals.
+	[x] add player chuuni dialogue to Lunexis fight in Themiscyra
+	[x] Slaves don't stay in one milk room during their assigned milk period. They moove (hehe) between milk rooms. Loitering for an hour will show that slave placement has shuffled.
+	[x] Deer
+		[x] xml fies
+			[x] body parts
+			[x] coverings
+			[x] race
+			[x] subspecies
+			[x] book entries
+			[x] check spawn locations
+		[x] add colour
+		[x] glade springs - sparkling mineral water
+			[x] icon
+			[x] file
+		[x] tree shoots salad
+			[x] icon
+			[x] file
+	[x] need 'ELIS_ALLEYWAY_SPAWN' for items for fields races
+	[x] add 'ALL_AREAS_SPAWN' tag
+	[x] Improve "controlled aggression" perk wording
+	[x] Make taurs taller
+	[-] leg config effects are being called when loading a save
+	[x] colour height value in body view and leg config change
+	[x] Check heights of unique taurs
+	[x] You cannot recraft potions you already have on hand. If I craft 1 Human Elixir of Resizing Breasts (+1 Size), save, reload, craft 99 more of the same elixir, save and then reload.
+		If I do the above the 99 crafted potions disappear into the ether and are lost
 	
+	[] add Amazon camp
+		[x] Add small map
+		[x] place type and icon files
+		[x] add linked dialogue nodes & txt files
+		[x] Move characters when loading into this version
+		[x] dialogue additions
+			[x] initial entry
+				[x] aurokaris tells guards who player is
+				[x] aurokaris shows player through camp
+				[x] leaves player and goes to her tent or trader tent based on time of day
+			[x] Aurokaris as trader
+				[x] work hours
+				[x] approach
+					[x] trade
+						[x] buy Amazon's Secret here instead of at Ralph's
+						[x] clothing, weapons
+					[x] she's bored doing it and so offers combat training
+						[x] leads into sex after doing enough
+					[x] trade stall cunnilingus
+						[x] unlocked after tent sex
+						[x] requires attraction
+						[x] pours ambrosia over pussy and lets player lick it off
+					[x] combat training buff
+						[x] boosts melee skill by up to +5 core
+			[x] Aurokaris tent
+				[x] transformation
+				[x] sex
+			[x] Ursa
+				[x] initial thanks
+					[x] shows to Lunexis
+					[x] says that you're free to interrogate her
+				[x] says that you'll have sex with her, saying that you and Meraxis saved her from Lunexis, and so she's indebted to you
+					[x] decline -> she says that it's not an offer
+						[x] decline -> she lets player go
+					[x] accept -> she wants to gentle dom
+				[x] add talk options
+					[x] Amazons
+					[x] Queen
+					[x] Lunette
+					[x] Aurokaris
+				[x] Make sure that table name is bed in sex scene
+			[x] Lunexis
+				[x] needs clothing change
+					[x] collar which restricts TFs
+					[x] make sure clothing removal is blocked during sex
+				[x] can access at all hours after unlocking from Ursa
+				[x] Held in tent enchanted to prevent noise from escaping
+				[x] can interrogate her
+				[x] can "interrogate" her
+					[x] perform oral
+					[x] fuck her
+					[x] get fucked
+					[x] pattings
+				[x] if submit to her, can become her cock-sleeve
+					[x] help her to escape by getting Meraxis to teleport the two of you back to Themiscyra
+						[x] convince Meraxis by saying that Themiscyra has been abandoned by the centaurs and that Lunexis knows the location of a secret weapon
+						[x] get bad-ended 'Lunexis's saviour'
+					[x] betray Lunexis
+						[x] taken to Ursa's tent by Meraxis
+						[x] forbidden from contacting Lunexis again
+				[x] need fetishes for sex & submission actions
+		[x] full test
+			[x] intro
+				[x] reveal path to sparring field
+			[x] Aurokaris
+				[x] trader
+					[x] sparring
+						[x] weapon actions should actually do something different
+							[x] add unarmed and bow
+							[x] change to perk once done all three
+								[x] +1 to each 'Amazonian training'
+						[x] append attribute increase
+						[x] dialogue end not displaying
+						[x] test combat escape
+					[x] No leave action...
+				[x] tent
+					[x] travel disabled
+					[x] move out to path when leave
+					[x] getAffection errors
+					[x] transformation
+						[x] affection error
+					[x] sex
+						[x] public sex
+						[x] id errors
+				[x] Ambrosia sex scene
+					[x] travel disabled
+				[x] Pregnancy reaction scenes
+			[] Ursa
+				[x] Pregnancy reaction scenes
+				[x] initial return to tent not working
+				[x] need 'back' action when entering tent tile
+				[x] Ursa sex is detected as being public
+			[x] Lunexis
+				[x] initial entry doesn't move
+				[x] disable travel
+				[x] pat her flag
+				[x] sexual interrogation needs corruption bypasses
+				[x] interrogation sex managers need preferences for quick sex use
+				[x] post-sex dialogue node doesn't have title
+				[x] cum-covering formatting
+				[x] 'Listen' action uses incorrect dialogue
+				[x] Pregnancy reaction scenes
+				[x] Player pregnancy reaction scenes
+				[x] bad end quest
+					[x] Meraxis action missing - pc.getQuest(QUEST_LINE_SIDE_LUNEXIS_ESCAPE) == QUEST_SIDE_LUNEXIS_ESCAPE
+					[x] betray Lunexis quest broken
+		[] writing
+			[x] initial entry
+				[x] rename trade tents to marketplace
+				[] add dialogue to Monica about selling cloth to Amazons
+			[x] default places
+				[x] add Amazon guards to entrance
+			[x] aurokaris
+				[x] end Aurokaris pregnancy when initial entry (potentially from centauresses)
+				[x] trader
+					[x] sparring
+					[x] ambrosia scene
+				[x] tent
+			[x] Ursa
+				[x] need Ursa clothing stripping
+			[] Lunexis
+				[x] tent
+				[] submission/bad end
+					[] camp
+					[] tavern
+					[] Themiscrya
+			[] Improvements
+				[] tent descriptions to make it clear that they're quite large
+					[] generic
+					[] Aurokaris
+					[] Ursa
+				[] Aurokaris pre-sex virginity talk
+				[] Ursa more sex options
 	
-	
-	[] large ejaculations should drip down and dirty other places on the body
-		[] +1 random slot getting dirty per level of ejaculation over large
-			[] add to TF tooltip
-			[] append to sex action description
-	
-	[] in gameplay, add auto-pickup action for item encounters
-	
-	[] add a scene where demonic player can intimidate Meraxis's minions and warn them against taking advantage of her
-	
-	[] Deer
-		glade springs - sparkling mineral water
-		tree shoots salad
-	
-	[] Not sure if this counts as a bug, but you're able to get infinite fare tickets at Kazik
+	[x] characters present "Hundreds Lunette's daughters"
 		
+	!!!!NEED TO MERGE MAXIS PRS!!!!
+	[] #1626 - milk tax
+	[] #1560 - maxis PR
+	[] #1690
+	
+	Sort out DMs
+		Honeybitterchip
+		
+	[] Need pure virginity loss to someone they love variation
+		[] Helena
+		[] Aurokaris
+	
 	[] PRs:
 		[] #94
 		[] #895
@@ -182,26 +339,15 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1642
 		[] #1657
 		[] #1658
-		[] #1626
+		[] #1626 - milk tax
 		[] #1489
+		[] #1560 - maxis PR
 		
-	------------
+	[] The eagle morph seems to be stuck at the leg Tf, owl morph seems to get stuck with the eye-TF,  falcon morph works as intended. 
+	[] It is still odd, that aside horse-taurs and snake taurs (centaur, unitaur, lamia ,melusine, etc.)  no other taur NPC inflicts a taur TF on the PC. , you never get TFed into any other taur
 	
-	[] add Amazon camp
-		[] Ursa
-			[] initial thanks
-			[] offers sex, saying that you and Meraxis saved her from Lunexis, and so she's indebted to you
-				[] decline -> she says that it's not an offer
-					[] decline -> she lets player go
-				[] accept -> she wants to gentle dom
-		[] Aurochsia
-			[] offers combat training
-				[] leads into sex after doing enough
-		[] Lunexis
-			[] Held in tent enchanted to prevent noise from escaping
-			[] can interrogate her
-			[] can "interrogate" her
-			
+	[] Dwight - submission & toggle for being able to encounter your offspring
+	
 	[] add self-cleaning clothing enchantment (handle dirtying when covering dirty orifice)
 	
 	[] Angel should reward us if we manage to get 10 prostitutes working for her at angel's kiss not counting slaves. But, she should give you a partnership arrangement if you have a certain number of slaves working at angel's kiss
@@ -213,6 +359,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] Kay female TF
 	
+	[] change Pix gym perk points to use a special perk
+	
+		
 	Felicia content expansion:
 		- Ask out on date (affection requirement first I guess)
 		- Repeat date until 3 dates completed
@@ -227,6 +376,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] Add Dominion hospital and Elis clinic as alternatives to Lilaya
 		[] clothing
 	
+	[] C4M cult
+	
+	[] add more pregnant interactions for offspring/occupants
 	
 	[] save the time at the game's start as a unique ID and use that for the quick/auto save file identifiers
 	[] Custom artwork for characters who have the same name have the same artwork?
@@ -291,6 +443,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] security job
 	
 	[] need mute dialogue handling for offspring encounters
+	
+	[] Skull head option for demons, preferably able to take morph type into account
 	
 	[] meraxis
 		[] cock content
@@ -1135,8 +1289,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	When you pull out of someone you cummed inside, could we get a blurb about your cum leaking out
 	
 	Bug reports pings
-	
-	Make taurs taller
 	
 	being able to raise cum volume of static NPCs alot
 	
