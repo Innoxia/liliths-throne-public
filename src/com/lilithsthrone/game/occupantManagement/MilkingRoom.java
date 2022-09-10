@@ -183,6 +183,12 @@ public class MilkingRoom implements XMLSaving {
 				}
 			}
 			if (charactersPresent < 8) {
+			// Milk tax PR change, but I think the above change already fixed the issue
+//			List<NPC> charactersPresent = Main.game.getCharactersPresent(c);
+//			if (charactersPresent.contains((NPC) character)) {
+//				return c;
+//			}
+//			if (charactersPresent.size() < 8) {
 				freeRooms.add(room);
 			} else {
 				fullRooms.add(room);
@@ -262,7 +268,7 @@ public class MilkingRoom implements XMLSaving {
 	}
 	
 	public static int getMaximumMilkPerHour(GameCharacter character) {
-		Cell c = getMilkingCell(character, false);
+		Cell c = character.getCell();
 		int milked = MilkingRoom.BASE_MILKING_AMOUNT;
 
 		if(c==null) {

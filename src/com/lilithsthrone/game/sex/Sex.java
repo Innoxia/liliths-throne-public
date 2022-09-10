@@ -2737,7 +2737,7 @@ public class Sex {
 						if(vaginaClothing.isMilkingEquipment()
 								&& Main.sex.getCharacterPerformingAction().isSlave()
 								&& Main.sex.getCharacterPerformingAction().getSlaveJob(Main.game.getHourOfDay())==SlaveJob.MILKING
-								&& Main.sex.getCharacterPerformingAction().isAtWork(Main.game.getHourOfDay())) {
+								&& Main.sex.getCharacterPerformingAction().isAtWork()) {
 							Cell c = MilkingRoom.getMilkingCell(Main.sex.getCharacterPerformingAction(), true);
 							MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(c.getType(), c.getLocation());
 							room.incrementFluidStored(new FluidStored(Main.sex.getCharacterPerformingAction().getId(), Main.sex.getCharacterPerformingAction().getGirlcum(), squirtAmount), squirtAmount);

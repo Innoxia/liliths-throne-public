@@ -4654,12 +4654,10 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	/**
-	 * @param hour The hour of the day which is being checked (0-23 inclusive).
 	 * @return true if this character is at their job's location, and that job is not SlaveJob.IDLE. 
 	 */
-	public boolean isAtWork(int hour) {
-		SlaveJob job = getSlaveJob(hour);
-		return job!=SlaveJob.IDLE && this.getLocationPlace().getPlaceType()==job.getPlaceLocation(this);
+	public boolean isAtWork() {
+		return !Main.game.getOccupancyUtil().getSlavesResting().contains(this);
 	}
 	
 	public float getDailySlaveJobStamina() {
@@ -5205,7 +5203,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if(character.getPartyLeader() != null) {
 				character.getPartyLeader().removeCompanion(character);
 			}
-			if(character.isSlave() && character.isAtWork(Main.game.getHourOfDay())) {
+			if(character.isSlave() && character.isAtWork()) {
 				character.getSlaveJob(Main.game.getHourOfDay()).applyJobEndEffects(character);
 			}
 			character.setPartyLeader(this.getId());
@@ -26847,7 +26845,7 @@ public abstract class GameCharacter implements XMLSaving {
 				&& this.getClothingInSlot(InventorySlot.NIPPLE).isMilkingEquipment()
 				&& this.isSlave()
 				&& this.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.MILKING
-				&& this.isAtWork(Main.game.getHourOfDay())) {
+				&& this.isAtWork()) {
 			Cell c = this.getCell();//MilkingRoom.getMilkingCell(this, true);
 			MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(c.getType(), c.getLocation());
 			room.incrementFluidStored(new FluidStored(this.getId(), this.getMilk(), -increment), -increment);
@@ -27222,7 +27220,7 @@ public abstract class GameCharacter implements XMLSaving {
 				&& this.getClothingInSlot(InventorySlot.NIPPLE).isMilkingEquipment()
 				&& this.isSlave()
 				&& this.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.MILKING
-				&& this.isAtWork(Main.game.getHourOfDay())) {
+				&& this.isAtWork()) {
 			Cell c = this.getCell();//MilkingRoom.getMilkingCell(this, true);
 			MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(c.getType(), c.getLocation());
 			room.incrementFluidStored(new FluidStored(this.getId(), this.getMilkCrotch(), -increment), -increment);
@@ -28970,7 +28968,7 @@ public abstract class GameCharacter implements XMLSaving {
 				&& this.getClothingInSlot(InventorySlot.PENIS).isMilkingEquipment()
 				&& this.isSlave()
 				&& this.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.MILKING
-				&& this.isAtWork(Main.game.getHourOfDay())) {
+				&& this.isAtWork()) {
 			Cell c = this.getCell();//MilkingRoom.getMilkingCell(this, true);
 			MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(c.getType(), c.getLocation());
 			room.incrementFluidStored(new FluidStored(this, this.getCum(), -increment), -increment);
