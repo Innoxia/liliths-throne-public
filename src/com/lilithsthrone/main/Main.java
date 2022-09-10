@@ -65,7 +65,7 @@ import javax.xml.transform.TransformerFactory;
 
 /**
  * @since 0.1.0
- * @version 0.4.1
+ * @version 0.4.5.5
  * @author Innoxia
  */
 public class Main extends Application {
@@ -86,7 +86,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4.5.2";
+	public static final String VERSION_NUMBER = "0.4.5.5";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 
 	public static boolean quickSaved = false;

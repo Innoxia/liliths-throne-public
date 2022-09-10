@@ -272,7 +272,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[x] Ambrosia sex scene
 					[x] travel disabled
 				[x] Pregnancy reaction scenes
-			[] Ursa
+			[x] Ursa
 				[x] Pregnancy reaction scenes
 				[x] initial return to tent not working
 				[x] need 'back' action when entering tent tile
@@ -326,6 +326,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		- Affection gains via fetishes from being milked now correctly account for whether it's milk or cum that's being milked
 		- Fixed issue where milk slaves' clothing could potentially be duplicated
 		- Increased upkeep costs for all milk room upgrades
+		
+	[] Finish bad end
+	[] Doing a duel against Aurokaris involves your elemental...
 		
 	[] #1560 - maxis PR
 	[] #1690
