@@ -20,6 +20,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed bug where removing an NPC who had summoned their elemental would cause games that are saved after that to crash upon being loaded. (by Cognitive Mist)
 		Fixed issue with incorrectly defined dialogue IDs in Lunexis's bad end scenes. (by AceXP)
 	
+	Maxis010's 'Milk Tax' Contribution (PR#1626):
+		Affection gains for overworked slaves have been reduced.
+		Base value of milk, cum, and girlcum are no longer affected by fluid modifiers or flavours, resulting in a potentialyl significant decrease in the amount of money that can be earned from milking slaves.
+		Affection gains via fetishes from being milked now correctly account for whether it's milk or cum that's being milked.
+		Fixed issue where milk slaves' clothing could potentially be duplicated.
+		Increased upkeep costs for all milk room upgrades.
+	
 	Engine/Modding:
 		Added new item tag, 'ELIS_ALLEYWAY_SPAWN' and 'ALL_AREAS_SPAWN', which mark items/weapons/clothing as being able to randomly spawn in encounters in the Foloi Fields and in every area of the game, respectively.
 	
@@ -313,9 +320,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[] Ursa more sex options
 	
 	[x] characters present "Hundreds Lunette's daughters"
+	[x] #1626 - milk tax
+		- Affection gains reduced by more when overworked
+		- Base value of milk, cum, and girlcum are no longer affected by fluid modifiers or flavours
+		- Affection gains via fetishes from being milked now correctly account for whether it's milk or cum that's being milked
+		- Fixed issue where milk slaves' clothing could potentially be duplicated
+		- Increased upkeep costs for all milk room upgrades
 		
-	!!!!NEED TO MERGE MAXIS PRS!!!!
-	[] #1626 - milk tax
 	[] #1560 - maxis PR
 	[] #1690
 	
