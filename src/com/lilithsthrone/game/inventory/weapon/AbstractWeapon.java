@@ -543,12 +543,12 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 			float typeModifier = 0.025f;
 			boolean clothingBonus = false;
 			if (types.contains(TFModifier.CLOTHING_MAJOR_ATTRIBUTE)) {
-				typeModifier = 0.1f;
+				typeModifier = 0.5f;
 				clothingBonus = true;
 			} else if (types.contains(TFModifier.CLOTHING_ATTRIBUTE)
 					|| types.contains(TFModifier.DAMAGE_WEAPON)
 					|| types.contains(TFModifier.RESISTANCE_WEAPON)) {
-				typeModifier = 0.05f;
+				typeModifier = 0.2f;
 				clothingBonus = true;
 			}
 			
@@ -563,6 +563,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		}
 
 		modifier += this.getSpells().size()>0?0.2f:0;
+		
+		modifier += effects.size()*0.01f;
 		
 		if(getWeaponType().getClothingSet()!=null) {
 			modifier += 1;

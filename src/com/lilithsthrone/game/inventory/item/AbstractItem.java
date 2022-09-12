@@ -248,17 +248,20 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	
 	@Override
 	public int getValue() {
+		int modifier = 1;
 		if(this.getEffects().size() > 0) {
 			List<TFPotency> potencies = this.getEffects().stream().map(ItemEffect::getPotency).collect(Collectors.toList());
 			if (potencies.contains(TFPotency.MAJOR_BOOST)) {
-				return (int) (itemType.getValue() * 1.5f);
+				modifier += 0.5;
 			} else if (potencies.contains(TFPotency.BOOST)) {
-				return (int) (itemType.getValue() * 1.3f);
+				modifier += 0.3;
 			} else if (potencies.contains(TFPotency.MINOR_BOOST)) {
-				return (int) (itemType.getValue() * 1.1f);
+				modifier += 0.1;
 			}
+			
+			modifier += itemEffects.size()*0.01f;
 		}
-		return itemType.getValue();
+		return itemType.getValue() * modifier;
 	}
 	
 	public String getExtraDescription(GameCharacter user, GameCharacter target) {

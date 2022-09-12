@@ -1058,10 +1058,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			float typeModifier = 0.1f;
 			boolean clothingBonus = false;
 			if (types.contains(TFModifier.CLOTHING_MAJOR_ATTRIBUTE)) {
-				typeModifier = 0.3f;
+				typeModifier = 0.75f;
 				clothingBonus = true;
 			} else if (types.contains(TFModifier.CLOTHING_ATTRIBUTE)) {
-				typeModifier = 0.2f;
+				typeModifier = 0.35f;
 				clothingBonus = true;
 			}
 			
@@ -1073,6 +1073,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			} else if (potencies.contains(TFPotency.MINOR_BOOST)) {
 				modifier += (clothingBonus?TFPotency.MINOR_BOOST.getClothingBonusValue():TFPotency.MINOR_BOOST.getValue())*typeModifier;
 			}
+			
+			modifier += effects.size()*0.01f;
 		}
 		
 		if(getClothingType().getClothingSet()!=null) {
