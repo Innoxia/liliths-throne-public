@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+	
+	<!-- Betrayed Lunexis: -->
+	
+	<scene id="failed">
+		<content folderPath="txt/badEnds/lunexis_escape">FAILED</content>
+		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Follow]]></responseTitle>
+				<responseTooltip><![CDATA[Follow Meraxis as she leads you to the Amazons' camp.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_escape_failed_ursa]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_amazon_camp_queen)]
+					[#meraxis.setLocation(pc)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="failed_ursa">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(pc.setQuestFailed(QUEST_LINE_SIDE_LUNEXIS_ESCAPE, QUEST_LUNEXIS_ESCAPE_FAILED))]
+		]]></preParsingEffects>
+		<content folderPath="txt/badEnds/lunexis_escape">FAILED_URSA</content>
+		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Do as Ursa says and leave her tent.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/lunexis_escape', 'FAILED_URSA_LEAVE'))]
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_amazon_camp_pathway)]
+					[#meraxis.hourlyUpdate()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Betrayed Meraxis: -->
+	
+	<scene id="start">
+		<preParsingEffects><![CDATA[
+			[#game.setBadEnd("Lunexis's Loyal Cock-sleeve")]
+		]]></preParsingEffects>
+		<content folderPath="txt/badEnds/lunexis_escape">START</content>
+		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Lunexis]]></responseTitle>
+				<responseTooltip><![CDATA[Accompany Meraxis to the Amazons' camp to see Lunexis.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_escape_amazon_camp]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_amazon_camp_lunexis)]
+					[#meraxis.setLocation(pc)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="amazon_camp">
+		<content folderPath="txt/badEnds/lunexis_escape">AMAZON_CAMP</content>
+		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Teleported]]></responseTitle>
+				<responseTooltip><![CDATA[With your guarantee that it's safe to teleport to Themiscyra, Meraxis casts the spell...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_escape_teleported]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_themiscyra, PLACE_TYPE_innoxia_fields_themiscyra_plaza)]
+					[#meraxis.setLocation(pc)]
+					[#lunexis.setLocation(pc)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="teleported">
+		<preParsingEffects><![CDATA[
+			[#pc.unequipAllClothingIntoVoid(true, true)]
+			[#meraxis.unequipAllClothingIntoVoid(true, true)]
+			
+			[#lunexis.applyCollar(pc)]
+			[#lunexis.applyCollar(meraxis)]
+			
+			[#lunexis.equipClothing()]
+			
+			[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_LUNEXIS_ESCAPE, QUEST_SIDE_UTIL_COMPLETE))]
+		]]></preParsingEffects>
+		<content folderPath="txt/badEnds/lunexis_escape">TELEPORTED</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Cock-sleeve]]></responseTitle>
+				<responseTooltip><![CDATA[Lunexis claims you as her cock-sleeve by fucking you in front of her army...]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_themiscyra_lunexis_sex]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>lunexis</id>
+							<slot><![CDATA[
+								#IF(pc.hasVagina() || game.isAnalContentEnabled())
+									ALL_FOURS_BEHIND
+								#ELSE
+									ALL_FOURS_IN_FRONT
+								#ENDIF
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_badEnds_lunexis_escape_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/badEnds/lunexis_escape">TELEPORTED_SEX</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[[#pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[lunexis]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#(!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))]]]></condition>
+							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[lunexis]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#(!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (!game.isAnalContentEnabled() || !pc.isAbleToAccessCoverableArea(CA_ANUS, true))]]]></condition>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[lunexis]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="after_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[The centauress has had her fun with you, and with a cruel laugh she kicks you away from her...]]></tooltip>
+		<content folderPath="txt/badEnds/lunexis_escape">AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Palace]]></responseTitle>
+				<responseTooltip><![CDATA[The two of you are dragged into Themiscyra's palace...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_escape_palace]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_themiscyra, PLACE_TYPE_innoxia_fields_themiscyra_palace)]
+					[#meraxis.setLocation(pc)]
+					[#lunexis.setLocation(pc)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="palace">
+		<content folderPath="txt/badEnds/lunexis_escape">PALACE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Trained]]></responseTitle>
+				<responseTooltip><![CDATA[Over the next few months, Lunexis has you trained into becoming her obedient cock-sleeve...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_escape_palace_trained]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="palace_trained">
+		<preParsingEffects><![CDATA[
+			[#pc.endPregnancy(true)]
+			[#meraxis.endPregnancy(true)]
+			[#lunexis.applyTraining(pc)]
+			[#lunexis.applyTraining(meraxis)]
+		]]></preParsingEffects>
+		<content folderPath="txt/badEnds/lunexis_escape">TRAINED</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Oral whore]]></responseTitle>
+				<responseTooltip><![CDATA[Tell the horse-girl that you love sucking her fat horse cock most of all!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_escape_choice]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/lunexis_escape', 'TRAINED_ORAL'))]
+					[#flags.setFlag(FLAG_innoxia_themiscyra_bad_end_oral, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Cock sleeve]]></responseTitle>
+				<responseTooltip><![CDATA[Tell the horse-girl that you love being a true cock sleeve, having her fat horse cock hilted deep into your cunt!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_escape_choice]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/lunexis_escape', 'TRAINED_VAGINAL'))]
+					[#flags.setFlag(FLAG_innoxia_themiscyra_bad_end_vaginal, true)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Butt slut]]></responseTitle>
+				<responseTooltip><![CDATA[Tell the horse-girl that you love the feeling of having her massive cock rammed deep into your slutty ass!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_escape_choice]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/lunexis_escape', 'TRAINED_ANAL'))]
+					[#flags.setFlag(FLAG_innoxia_themiscyra_bad_end_anal, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="choice">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Final training]]></responseTitle>
+				<responseTooltip><![CDATA[You get trained by the horse-girl to become Lunexis's perfect cock-sleeve...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_escape_graduation]]></nextDialogue>
+				<effects><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_oral))
+						[#pc.addFetish(FETISH_ORAL_GIVING)]
+					#ELSEIF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_vaginal))
+						[#pc.addFetish(FETISH_VAGINAL_RECEIVING)]
+					#ELSE
+						[#pc.addFetish(FETISH_ANAL_RECEIVING)]
+					#ENDIF
+					[#meraxis.addFetish(FETISH_VAGINAL_RECEIVING)]
+					#IF(game.isAnalContentEnabled())
+						[#ursa.addFetish(FETISH_ANAL_RECEIVING)]
+					#ELSE
+						[#ursa.addFetish(FETISH_VAGINAL_RECEIVING)]
+					#ENDIF
+					[#aurokaris.addFetish(FETISH_ORAL_GIVING)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="graduation">
+		<content folderPath="txt/badEnds/lunexis_escape">GRADUATION</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Party]]></responseTitle>
+				<responseTooltip><![CDATA[You're taken to the party, where you're to finally get stuffed full of Lunexis's cock!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_escape_final]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="final">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_fields_themiscyra, PLACE_TYPE_innoxia_fields_themiscyra_plaza)]
+			[#meraxis.setLocation(pc)]
+			[#lunexis.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/badEnds/lunexis_escape">FINAL</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Meraxis]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_spectate_meraxis))
+						You've already seen what's become of the cock-sleeve who used to be known as Meraxis.
+					#ELSE
+						Look across and see what's being done to the cock-sleeve who used to be known as Meraxis.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_spectate_meraxis))
+						null
+					#ELSE
+						innoxia_badEnds_lunexis_escape_final_spectate
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/lunexis_escape', 'FINAL_MERAXIS'))]
+					[#flags.setFlag(FLAG_innoxia_themiscyra_bad_end_spectate_meraxis, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Pleasure Lunexis]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_spectate_self))
+						You've already pleasured Lunexis, who's momentarily satisfied and has commanded you to remain still and act as her cock-sleeve.
+					#ELSE
+						Focus on pleasuring your queen instead of watching what's happening to the other three cock-sleeves.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_spectate_self))
+						null
+					#ELSE
+						innoxia_badEnds_lunexis_escape_final_spectate
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/lunexis_escape', 'FINAL_SELF'))]
+					[#flags.setFlag(FLAG_innoxia_themiscyra_bad_end_spectate_self, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Epilogue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_spectate_meraxis) || !flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_spectate_self))
+						The party's only just getting started!
+					#ELSE
+						After the party, you start your new life as Lunexis's favoured cock-sleeve...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_spectate_meraxis) || !flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_spectate_self))
+						null
+					#ELSE
+						innoxia_badEnds_lunexis_escape_final_epilogue
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="final_spectate">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_badEnds_lunexis_escape_final"/>
+	</scene>
+	
+	<scene id="final_epilogue">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_fields_themiscyra, PLACE_TYPE_innoxia_fields_themiscyra_palace)]
+			[#meraxis.setLocation(pc)]
+			[#lunexis.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/badEnds/lunexis_escape">EPILOGUE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[The End...]]></responseTitle>
+				<responseTooltip><![CDATA[[style.italicsBadEnd(With this end to your journey, the thread of prophecy is severed. Restore a saved game to restore the weave of fate, or persist in the doomed world you have created.)]]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	
+</dialogueNodes>

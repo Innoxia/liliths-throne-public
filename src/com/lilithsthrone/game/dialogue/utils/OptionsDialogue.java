@@ -1480,7 +1480,7 @@ public class OptionsDialogue {
 		
 		sb.append("<div style='display:inline-block; margin:4px auto;width:100%;'>"
 				+ "<div style='display:inline-block; margin:0 auto;'>"
-				+ getInformationDiv(fetish.toString()+"_INFO", new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(fetish.getName(Main.game.getPlayer())), fetish.getDescription(null)))
+				+ getInformationDiv(fetish.getId()+"_INFO", new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(fetish.getName(Main.game.getPlayer())), fetish.getDescription(null)))
 				+ "<div style='width:150px; float:left;'><b style='color:"+highlightColour.toWebHexString()+";'>"+Util.capitaliseSentence(fetish.getName(null))+"</b></div>");
 		
 		for(FetishPreference preference : FetishPreference.values()) {
@@ -2046,6 +2046,10 @@ public class OptionsDialogue {
 			} else {
 				return null;
 			}
+		}
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+		    return DialogueNodeType.OPTIONS;
 		}
 	};
 	

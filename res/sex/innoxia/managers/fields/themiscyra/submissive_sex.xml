@@ -3,7 +3,7 @@
 
 	<title/>
 	<wallName/>
-	<consensual><![CDATA[true]]></consensual>
+	<consensual><![CDATA[false]]></consensual>
 	<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
 	<canSkipSex><![CDATA[true]]></canSkipSex>
 	<washingScene><![CDATA[false]]></washingScene>
@@ -69,7 +69,7 @@
 			<canChangePositions><![CDATA[false]]></canChangePositions>
 			<endSexAffectionChanges><![CDATA[true]]></endSexAffectionChanges>
 			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
-			<sexPace/>
+			<sexPace locked="false"><![CDATA[SUB_RESISTING]]></sexPace>
 			<canSelfTransform><![CDATA[true]]></canSelfTransform>
 			<hidden><![CDATA[false]]></hidden>
 			<control/>
