@@ -80,7 +80,7 @@ public class Util {
 		put(KeyCode.ENTER, "Enter");
 		put(KeyCode.EQUALS, "=");
 		put(KeyCode.ESCAPE, "Esc");
-		put(KeyCode.EURO_SIGN, "&euro"); // €
+		put(KeyCode.EURO_SIGN, "&euro;"); // €
 		put(KeyCode.EXCLAMATION_MARK, "!");
 		put(KeyCode.GREATER, ">");
 		put(KeyCode.KP_DOWN, "Down");
@@ -106,7 +106,7 @@ public class Util {
 		put(KeyCode.PAGE_UP, "Pg Up");
 		put(KeyCode.PERIOD, ".");
 		put(KeyCode.PLUS, "+");
-		put(KeyCode.POUND, "&pound"); // £
+		put(KeyCode.POUND, "&pound;"); // £
 		put(KeyCode.POWER, "^");
 		put(KeyCode.QUOTE, "\"");
 		put(KeyCode.RIGHT, "Right");
