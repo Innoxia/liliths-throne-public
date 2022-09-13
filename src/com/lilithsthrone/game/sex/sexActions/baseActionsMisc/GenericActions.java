@@ -4,6 +4,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
@@ -232,7 +233,7 @@ public class GenericActions {
 		
 		while(!allSubsAssigned) {
 			for(GameCharacter dom : domsNotSatisfied) {
-				GameCharacter target = dom.isPlayer()?Main.sex.getTargetedPartner(dom):((NPC) dom).getPreferredSexTarget();
+				GameCharacter target = dom.isPlayer()?Main.sex.getTargetedPartner(dom):Main.sex.getInitialSexManager().getPreferredSexTarget((NPC) dom);
 				if(target==null || (dom.isPlayer() && allDomsAssigned && Main.sex.isConsensual())) { // If second time through loop, and equal control, give player another target if available
 					if(availableSubs.isEmpty()) { // If run out of subs, re-populate sub list.
 						availableSubs = new ArrayList<>(Main.sex.getSubmissiveParticipants(false).keySet());
@@ -654,11 +655,19 @@ public class GenericActions {
 			Main.sex.getCharactersGrewCock().add(Main.sex.getCharacterTargetedForSexAction(this));
 			
 			StringBuilder sb = new StringBuilder();
-			if(Main.sex.getCharacterTargetedForSexAction(this).getSubspeciesOverrideRace()==Race.DEMON
-					|| Main.sex.getCharacterTargetedForSexAction(this).isElemental()) {
+			boolean discoveredPenisColour = Main.sex.getCharacterTargetedForSexAction(this).isBodyCoveringTypesDiscovered(BodyCoveringType.PENIS);
+			if(Main.sex.getCharacterTargetedForSexAction(this).getSubspeciesOverrideRace()==Race.DEMON || Main.sex.getCharacterTargetedForSexAction(this).isElemental()) {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(PenisType.DEMON_COMMON));
+				if(!discoveredPenisColour) {
+					Main.sex.getCharacterTargetedForSexAction(this).setSkinCovering(BodyCoveringType.PENIS, Main.sex.getCharacterTargetedForSexAction(this).getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false);
+				}
+				
 			} else if(Main.sex.getCharacterTargetedForSexAction(this).isYouko()) {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(PenisType.FOX_MORPH));
+				if(!discoveredPenisColour) {
+					Main.sex.getCharacterTargetedForSexAction(this).setSkinCovering(BodyCoveringType.PENIS, PresetColour.SKIN_RED, false);
+				}
+				
 			} else {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(RacialBody.valueOfRace(Main.sex.getCharacterTargetedForSexAction(this).getBody().getFleshSubspecies().getRace()).getPenisType()));
 			}

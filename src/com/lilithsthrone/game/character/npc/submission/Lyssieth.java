@@ -60,7 +60,6 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
-import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -431,8 +430,7 @@ public class Lyssieth extends NPC {
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.MOUTH, PresetColour.SKIN_RED, PresetColour.SKIN_RED_DARK), false);
 		
 		// Change perk to demon version:
-		Main.game.getPlayer().removeSpecialPerk(Perk.POWER_OF_LYSSIETH_4);
-		Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LYSSIETH_4_DEMON);
+		Main.game.getPlayer().handleDemonicTransformationPerkEffects();
 	}
 	
 	public void setDaughterToFullDemon(Class<? extends NPC> daughterClass) {

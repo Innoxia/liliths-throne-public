@@ -437,7 +437,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "As you left Elis, you were approached by Meraxis, who told you to meet her in the tavern 'The Red Dragon' at Elis, which is apparently near to the town's eastern gate."
+			return "As you left Dominion, you were approached by Meraxis, who told you to meet her in the tavern 'The Red Dragon' at Elis, which is apparently near to the town's eastern gate."
 					+ " Meraxis also said that she'll set up a meeting with Minotallys when you arrive, and that she'll have secured accommodation for you.";
 		}
 
@@ -1784,7 +1784,42 @@ public enum Quest {
 					+ " Additionally, she told you to sneak around the back of her tavern between [units.time(6)]-[units.time(7)] if you wanted to see what the phrase 'Golix says to be a good horsie' meant...";
 		}
 	},
+
 	
+	// Helping Lunexis to escape:
+	
+	LUNEXIS_ESCAPE(QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Free Lunexis";
+		}
+		@Override
+		public String getDescription() {
+			return "Having surrendered to Lunexis and pledged to be her obedient cock-sleeve, you've been ordered by your new Mistress to assist her in escaping from captivity."
+					+ " Wanting to get her revenge on the one who teleported her to Elis, the centauress has devised a plan where you're to convince Meraxis to teleport the three of you back to Themiscyra."
+					+ " Once there, your Mistress will reward you by keeping you as one of her personal cock-sleeve slaves...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You convinced Meraxis to teleport herself, along with you and Lunexis, back to Themiscyra."
+					+ " Once there, your deception was made clear, and although she tried to fight, Meraxis was soon subdued and used by your Mistress to win back the wavering loyalty of her centauress army.";
+		}
+	},
+
+	LUNEXIS_ESCAPE_FAILED(QuestType.SIDE, 1, 0) {
+		@Override
+		public String getName() {
+			return "Lunexis Betrayed";
+		}
+		@Override
+		public String getDescription() {
+			return "Deciding to reveal everything to Meraxis, you betrayed Lunexis, and were banned from having any further contact with the demonic centauress.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
 	
 	// Romance quests:
 

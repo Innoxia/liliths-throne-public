@@ -347,6 +347,10 @@ public class Lilaya extends NPC {
 	public boolean isCondomBroke() {
 		return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaCondomBroke);
 	}
+
+	public boolean isAmazonsSecretImpregnation() {
+		return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaAmazonsSecretImpregnation);
+	}
 	
 	@Override
 	public boolean isUnique() {

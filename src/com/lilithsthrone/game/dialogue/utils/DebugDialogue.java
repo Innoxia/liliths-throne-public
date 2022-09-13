@@ -663,7 +663,7 @@ public class DebugDialogue {
 				} else if(index==18) {
 					return new Response("Moo mode",
 							"Every feminine NPC will have their breast size incremented by 5,"
-									+ " gain the '"+Fetish.FETISH_LACTATION_SELF+"' fetish,"
+									+ " gain the '"+Fetish.FETISH_LACTATION_SELF.getName(null)+"' fetish,"
 									+ " gain 500ml breast milk storage,"
 									+ " ass size incremented by 1,"
 									+ " and hip size incremented by 1."

@@ -45,7 +45,10 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -145,18 +148,18 @@ public class Ursa extends NPC {
 		this.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
 
 		// Coverings:
-		this.setEyeCovering(new Covering("dsg_bear_eye", PresetColour.EYE_HAZEL));
+		this.setEyeCovering(new Covering("dsg_bear_eye", PresetColour.EYE_BLUE_DARK));
 		this.setSkinCovering(new Covering("dsg_bear_fur", PresetColour.COVERING_BROWN), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_TANNED), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, PresetColour.SKIN_DARK), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, PresetColour.SKIN_DARK), false);
 
-		this.setHairCovering(new Covering("dsg_bear_hair", PresetColour.COVERING_BROWN_DARK), true);
+		this.setHairCovering(new Covering("dsg_bear_body_hair", PresetColour.COVERING_BROWN_DARK), true);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
 		this.setHairStyle(HairStyle.WAVY);
 
 		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, PresetColour.COVERING_BROWN_DARK), false);
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_BOVINE_FUR, PresetColour.COVERING_BROWN_DARK), false);
+		this.setHairCovering(new Covering("dsg_bear_hair", PresetColour.COVERING_BROWN_DARK), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.FOUR_NATURAL);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);
@@ -239,7 +242,7 @@ public class Ursa extends NPC {
 	
 	@Override
 	public String getSpeechColour() {
-		return PresetColour.BASE_PURPLE_LIGHT.toWebHexString();
+		return PresetColour.BASE_BROWN.toWebHexString();
 	}
 	
 	@Override
@@ -260,5 +263,19 @@ public class Ursa extends NPC {
 	public boolean isAbleToBeImpregnated() {
 		return true;
 	}
-	
+
+	@Override
+	public SexPace getSexPaceDomPreference(){
+		return SexPace.DOM_GENTLE;
+	}
+
+	public void stripForSex(){
+		List<InventorySlot> slotsToUnequip = Util.newArrayListOfValues(InventorySlot.TORSO_UNDER, InventorySlot.GROIN, InventorySlot.CHEST);
+		for(InventorySlot slot : slotsToUnequip) {
+			AbstractClothing clothingInSlot = this.getClothingInSlot(slot);
+			if(clothingInSlot!=null) {
+				this.unequipClothingIntoVoid(clothingInSlot, true, this);
+			}
+		}
+	}
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<bookText>
+	
+	<htmlContent tag="DEER_BASIC"><![CDATA[
+	<p>
+		Although deer-morphs can be found throughout Lilith's Realm, the majority of their population chooses to live in the Foloi Forests. A furry body, antlers, and a short, tufty tail are usually enough to identify someone as a deer-morph.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="DEER_ADVANCED"><![CDATA[
+	<p>
+		Like all the other common races, a deer-morph's personality will vary from person to person, although they do have somewhat of a reputation as being reclusive and primitive. This is due to the fact that most deer-morphs prefer to live in the wild, untamed lands of the Foloi Forests and Fields. Although they can initially be skittish and wary around strangers, they are often quick to make friends with others and are no less capable of functioning in urban societies than other races.
+	</p>
+	<p>
+		Deer-morphs, like the other common races, get heavily affected by arcane storms. Being exposed to arcane thunder will make stag-boys seek out a partner to mate with, while deer-girls will go into heat.
+	</p>
+	<p>
+		A deer-morph's offspring will be a mixture of deer-morphs and offspring of their partner's race.
+	</p>
+	]]>
+	</htmlContent>
+	
+</bookText>

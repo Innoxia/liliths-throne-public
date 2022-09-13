@@ -70,6 +70,8 @@ public class Combat {
 	private StringBuilder postCombatStringBuilder = new StringBuilder();
 	
 	private StringBuilder combatTurnResolutionStringBuilder = new StringBuilder();
+
+	private Map<GameCharacter, GameCharacter> preferredTargets;
 	
 	private Map<GameCharacter, Stack<Float>> manaBurnStack;
 	
@@ -133,6 +135,7 @@ public class Combat {
 		combatContent = new HashMap<>();
 		escapeDescriptionMap = new HashMap<>();
 		itemsToBeUsed = new HashMap<>();
+		preferredTargets = new HashMap<>();
 		manaBurnStack = new HashMap<>();
 		statusEffectsToApply = new HashMap<>();
 		
@@ -1030,7 +1033,7 @@ public class Combat {
 							CombatBehaviour behaviour = CombatBehaviour.values()[i-1];
 							
 							if(targetedAlly.isPlayer()) {
-								return new Response(Util.capitaliseSentence(behaviour.getName()), UtilText.parse(targetedAlly, "You cannot issue commands to yourself!"), null);
+								return new Response(Util.capitaliseSentence(behaviour.getName()), "You cannot issue commands to yourself!", null);
 							}
 							return new Response(
 									Util.capitaliseSentence(behaviour.getName()),
@@ -1075,6 +1078,111 @@ public class Combat {
 								}
 							};
 						}
+					}
+					// Change targets:
+					if(index==CombatBehaviour.values().length+1) {
+						if(targetedAlly.isPlayer()) {
+							return new Response("Cycle target", "You cannot issue commands to yourself!", null);
+						}
+						return new Response(
+								"Cycle target",
+								UtilText.parse(targetedAlly, "Tell [npc.name] to change [npc.her] target. [npc.She] is currently targeting [style.colourBad("
+									+ (getPreferredTarget(targetedAlly)==null
+										?" whoever [npc.she] wants"
+										:UtilText.parse(getPreferredTarget(targetedAlly), " [npc.name]"))
+									+")].")
+									+costDescription,
+								ENEMY_ATTACK) {
+							@Override
+							public void effects() {
+								// Sets up NPC ally/enemy lists that include player
+								List<GameCharacter> npcAllies= getAllies(targetedAlly);
+								List<GameCharacter> npcEnemies = getEnemies(targetedAlly);
+								npcAllies.removeIf((character)->isCombatantDefeated(character));
+								npcEnemies.removeIf((character)->isCombatantDefeated(character));
+								
+								// Figures out the new moves
+								int i = 0;
+								for(Value<GameCharacter, AbstractCombatMove> move : targetedAlly.getSelectedMoves()) {
+									move.getValue().performOnDeselection(i,
+											targetedAlly,
+											move.getKey(),
+											new ArrayList<>(npcEnemies),
+											new ArrayList<>(npcAllies));
+									targetedAlly.setCooldown(move.getValue().getIdentifier(), 0);
+									i++;
+								}
+								
+								// Set the preferred target:
+								int currentTargetIndex = 0;
+								if(getPreferredTarget(targetedAlly)!=null) {
+									currentTargetIndex = enemies.indexOf(getPreferredTarget(targetedAlly));
+								}
+								List<GameCharacter> enemiesDoubled = new ArrayList<>(enemies);
+								enemiesDoubled.addAll(enemies);
+								for(int enemyIdx=0; enemyIdx<enemiesDoubled.size(); enemyIdx++) {
+									GameCharacter enemyAtIndex = enemiesDoubled.get(enemyIdx);
+									if(!isCombatantDefeated(enemyAtIndex) && getPreferredTarget(targetedAlly)!=enemyAtIndex && (enemyIdx>currentTargetIndex || getPreferredTarget(targetedAlly)==null)) {
+										setPreferredTarget(targetedAlly, enemyAtIndex);
+										break;
+									}
+								}
+								
+								targetedAlly.resetSelectedMoves();
+								targetedAlly.setRemainingAP(targetedAlly.getMaxAP(), npcEnemies, npcAllies);
+								targetedAlly.selectMoves(npcEnemies, npcAllies);
+								
+								predictionContent.put(targetedAlly, targetedAlly.getMovesPredictionString(npcEnemies, npcAllies));
+							}
+						};
+					}
+					// Clear target:
+					if(index==CombatBehaviour.values().length+2) {
+						if(targetedAlly.isPlayer()) {
+							return new Response("Clear target", "You cannot issue commands to yourself!", null);
+						}
+						if(getPreferredTarget(targetedAlly)==null) {
+							return new Response("Clear target", UtilText.parse(targetedAlly, "[npc.Name] is already targeting whoever [npc.she] wants!"), null);
+						}
+						return new Response(
+								"Clear target",
+								UtilText.parse(targetedAlly, "Tell [npc.name] to target whoever [npc.she] wants. [npc.She] is currently targeting [style.colourBad("
+									+ (getPreferredTarget(targetedAlly)==null
+										?" whoever [npc.she] wants"
+										:UtilText.parse(getPreferredTarget(targetedAlly), " [npc.name]"))
+									+")].")
+									+costDescription,
+								ENEMY_ATTACK) {
+							@Override
+							public void effects() {
+								// Sets up NPC ally/enemy lists that include player
+								List<GameCharacter> npcAllies= getAllies(targetedAlly);
+								List<GameCharacter> npcEnemies = getEnemies(targetedAlly);
+								npcAllies.removeIf((character)->isCombatantDefeated(character));
+								npcEnemies.removeIf((character)->isCombatantDefeated(character));
+								
+								// Figures out the new moves
+								int i = 0;
+								for(Value<GameCharacter, AbstractCombatMove> move : targetedAlly.getSelectedMoves()) {
+									move.getValue().performOnDeselection(i,
+											targetedAlly,
+											move.getKey(),
+											new ArrayList<>(npcEnemies),
+											new ArrayList<>(npcAllies));
+									targetedAlly.setCooldown(move.getValue().getIdentifier(), 0);
+									i++;
+								}
+								
+								// Set the preferred target:
+								setPreferredTarget(targetedAlly, null);
+								
+								targetedAlly.resetSelectedMoves();
+								targetedAlly.setRemainingAP(targetedAlly.getMaxAP(), npcEnemies, npcAllies);
+								targetedAlly.selectMoves(npcEnemies, npcAllies);
+								
+								predictionContent.put(targetedAlly, targetedAlly.getMovesPredictionString(npcEnemies, npcAllies));
+							}
+						};
 					}
 				}
 				
@@ -1741,7 +1849,7 @@ public class Combat {
 	}
 	
 	/**
-	 * @return The enemy NPC which the player is targeting. Use COmbatMove's getPreferredTarget for NPC targeting.
+	 * @return The enemy NPC which the player is targeting. Use CombatMove's getPreferredTarget for NPC targeting.
 	 */
 	public GameCharacter getTargetedCombatant() {
 		return targetedEnemy;
@@ -2009,6 +2117,27 @@ public class Combat {
 	
 	public Map<GameCharacter, Stack<Float>> getManaBurnStack() {
 		return manaBurnStack;
+	}
+
+	/**
+	 * Set target to null to remove preferred targeting behaviour.
+	 */
+	public void setPreferredTarget(GameCharacter character, GameCharacter target) {
+		if(target==null) {
+			preferredTargets.remove(character);
+		} else {
+			preferredTargets.put(character, target);
+		}
+	}
+	
+	/**
+	 * Will typically be null, unless a target has been manually set. If the preferred target is defeated, this will return null.
+	 */
+	public GameCharacter getPreferredTarget(GameCharacter character) {
+		if(!preferredTargets.containsKey(character) || isCombatantDefeated(preferredTargets.get(character))) {
+			return null;
+		}
+		return preferredTargets.get(character);
 	}
 	
 	public void addStatusEffectToApply(GameCharacter target, AbstractStatusEffect effect, int duration) {

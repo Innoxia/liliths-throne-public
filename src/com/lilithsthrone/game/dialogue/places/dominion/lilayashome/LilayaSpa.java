@@ -1151,7 +1151,7 @@ public class LilayaSpa {
 			
 			sb.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_RECEPTION_SHOWER", getSlaves()));
 			sb.append(getShowerSlavesDescription(slavesWashing));
-			sb.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_RECEPTION_SHOWER_END"));
+			sb.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_RECEPTION_SHOWER_END", getSlaves()));
 			
 			return sb.toString();
 		}
@@ -1524,7 +1524,7 @@ public class LilayaSpa {
 			sb.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_CORE_BATHING"));
 			sb.append(getBathingSlavesDescription(slavesWashing));
 			UtilText.addSpecialParsingString(String.valueOf(slavesWashing.size()), true);
-			sb.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_CORE_BATHING_END"));
+			sb.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_CORE_BATHING_END", slavesWashing));
 			
 			return sb.toString();
 		}

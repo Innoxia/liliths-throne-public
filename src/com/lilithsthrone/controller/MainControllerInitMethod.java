@@ -230,7 +230,6 @@ import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
-
 import javafx.stage.FileChooser;
 
 /**
@@ -2085,15 +2084,17 @@ public class MainControllerInitMethod {
 									@Override
 									public void effects() {
 										slave.setHomeLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation());
-										slave.returnToHome();
+										if(!slave.isAtWork()) {
+											slave.returnToHome();
+										}
 									}
 								});
 							}, false);
 							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 		
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Move Slave Here",
-									UtilText.parse(slave, "Move [npc.name] to your current location."));
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Assign Slave Here",
+									UtilText.parse(slave, "Assign [npc.name] to your current location."));
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 						
@@ -4693,6 +4694,7 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						BodyChanging.getTarget().incrementPenisCumStorage(-CharacterModificationUtils.FLUID_INCREMENT_SMALL);
+						BodyChanging.getTarget().fillCumToMaxStorage();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -4700,6 +4702,7 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						BodyChanging.getTarget().incrementPenisCumStorage(-CharacterModificationUtils.FLUID_INCREMENT_AVERAGE);
+						BodyChanging.getTarget().fillCumToMaxStorage();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -4707,6 +4710,7 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						BodyChanging.getTarget().incrementPenisCumStorage(-CharacterModificationUtils.FLUID_INCREMENT_LARGE);
+						BodyChanging.getTarget().fillCumToMaxStorage();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -6330,6 +6334,7 @@ public class MainControllerInitMethod {
 				if(!Main.game.isFootContentEnabled() && (f == Fetish.FETISH_FOOT_GIVING || f == Fetish.FETISH_FOOT_RECEIVING)) {
 					continue;
 				}
+				
 				for(FetishPreference preference : FetishPreference.values()) {
 					id=preference+"_"+Fetish.getIdFromFetish(f);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -7812,7 +7817,10 @@ public class MainControllerInitMethod {
 
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Load", "");
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Load",
+							BodyChanging.isPresetTransformationAvailable(BodyChanging.loadBody(fileName))
+								?""
+								:BodyChanging.getPresetTransformationUnavailabilityText(BodyChanging.loadBody(fileName)));
 					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 				id = "delete_saved_" + fileIdentifier;

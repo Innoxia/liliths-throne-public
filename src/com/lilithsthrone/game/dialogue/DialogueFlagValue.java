@@ -139,6 +139,7 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue auntHomeJustEntered = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue hadSexWithLilaya = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue lilayaCondomBroke = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue lilayaAmazonsSecretImpregnation = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue reactedToPregnancyLilaya = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue waitingOnLilayaPregnancyResults = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue waitingOnLilayaBirthNews = new AbstractDialogueFlagValue();

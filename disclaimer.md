@@ -13,7 +13,7 @@ By choosing to play this game, or view this source code, you are agreeing to be 
 Such content consists of, but is not limited to; graphic depictions of sex, inter-species sex (with fantasy sentient creatures), sexual transformation,
 rape fantasy/implied lack of consent, mild physical violence, sexual violence and drug use.
 
-Extreme fetish content such as guro/extreme violence, scat, and under/questionable age, is not, and will never be, a part of this game.
+Extreme fetish content such as guro/extreme violence, scat, vore, and under/questionable age, is not, and will never be, a part of this game.
 
 By playing this game, or choosing to view this source code, you also agree that you are at least 18 years of age (or the legal age for you to purchase and view pornographic material in your country).
 

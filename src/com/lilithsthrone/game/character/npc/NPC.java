@@ -1039,7 +1039,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		if(this.getSlaveJob(hour)==SlaveJob.IDLE) {
 			return Math.round(this.getHomeLocationPlace().getHourlyAffectionChange()*100)/100f;
 		} else {
-			return Math.round(job.getAffectionGain(hour, this)*100)/100f;
+			float overworkedPenalty = 1f;
+			if(this.hasStatusEffect(StatusEffect.OVERWORKED_1)) {
+				overworkedPenalty = 0.5f;
+			} else if(this.hasStatusEffect(StatusEffect.OVERWORKED_2)) {
+				overworkedPenalty = 0.2f;
+			} else if(this.hasStatusEffect(StatusEffect.OVERWORKED_3)) {
+				overworkedPenalty = 0f;
+			}
+			float affectionGain = Math.round(job.getAffectionGain(hour, this)*100)/100f;
+			return Math.min(affectionGain, affectionGain*overworkedPenalty);
 		}
 	}
 	
@@ -1594,12 +1603,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							:"Ready to grow some new horns?"));
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 				} else if (target.getHornType() != HornType.NONE) {
-					if(target.getHornLength() + 3 < body.getHorn().getHornLengthValue()) {
+					if(target.getHornLengthValue() + 3 < body.getHorn().getHornLengthValue()) {
 						possibleEffects.add(new PossibleItemEffect(
 							new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HORNS, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
 							"Let's make your horn" + ((target.getHornsPerRow() * target.getHornRows()) > 1 ? "s" : "") + " longer!"));
 						if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-					} else if(target.getHornLength() - 3 > body.getHorn().getHornLengthValue()) {
+					} else if(target.getHornLengthValue() - 3 > body.getHorn().getHornLengthValue()) {
 						possibleEffects.add(new PossibleItemEffect(
 							new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HORNS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
 							"Let's make your horn" + ((target.getHornsPerRow() * target.getHornRows()) > 1 ? "s" : "") + " shorter!"));

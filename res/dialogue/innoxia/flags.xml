@@ -114,6 +114,10 @@
 		<flag dailyReset="false">themiscyra_bad_end_oral</flag>
 		<flag dailyReset="false">themiscyra_bad_end_vaginal</flag>
 		<flag dailyReset="false">themiscyra_bad_end_anal</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_meraxis</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_aurokaris</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_ursa</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_self</flag>
 		
 		
 	<!-- Elis: -->
@@ -179,8 +183,6 @@
 		<flag dailyReset="true">oglix_kheiron_spectated_today</flag>
 		<flag dailyReset="false">oglix_tavern_seating_seen</flag>
 		
-		
-		
 		<!-- Market -->
 		<flag dailyReset="true">elis_market_entry_north</flag>
 		<flag dailyReset="true">elis_market_entry_east</flag>
@@ -239,6 +241,33 @@
 		<flag dailyReset="true">spa_talk_posters</flag>
 		<flag dailyReset="true">spa_talk_sheep</flag>
 		<flag dailyReset="false">spa_sheep_introduced</flag>
+	
+		<!-- Amazon Camp: -->
+		<flag dailyReset="false">amazon_camp_discovered</flag>
+		<!-- Aurokaris: -->
+			<flag dailyReset="true">amazon_camp_aurokaris_sparred</flag>
+			<flag dailyReset="false">amazon_camp_aurokaris_sparred_unarmed</flag>
+			<flag dailyReset="false">amazon_camp_aurokaris_sparred_melee</flag>
+			<flag dailyReset="false">amazon_camp_aurokaris_sparred_ranged</flag>
+			<flag dailyReset="false">amazon_camp_aurokaris_tent_invite_received</flag>
+			<flag resetHour="18">amazon_camp_aurokaris_tent_visited</flag>
+			<flag dailyReset="false">amazon_camp_aurokaris_tent_had_sex</flag>
+			<flag dailyReset="true">amazon_camp_aurokaris_ambrosia_tasting</flag>
+		<!-- Ursa: -->
+			<flag dailyReset="false">amazon_camp_ursa_met</flag>
+			<flag dailyReset="true">amazon_camp_ursa_daily_interaction</flag>
+			<flag dailyReset="true">amazon_camp_ursa_talk_amazons</flag>
+			<flag dailyReset="true">amazon_camp_ursa_talk_queen</flag>
+			<flag dailyReset="true">amazon_camp_ursa_talk_lunette</flag>
+			<flag dailyReset="true">amazon_camp_ursa_talk_aurokaris</flag>
+		<!-- Lunexis: -->
+			<flag dailyReset="true">amazon_camp_lunexis_questioned</flag>
+			<flag dailyReset="true">amazon_camp_lunexis_humiliated</flag>
+			<flag dailyReset="false">amazon_camp_lunexis_obeyed</flag>
+			<flag dailyReset="false">amazon_camp_lunexis_surrendered</flag>
+			
+		
+	
 	
 	
 	<!-- You can ignore this section, I just use it to track the ids of saved long values (using [flags.setSavedLong(id, value)] calls)

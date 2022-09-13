@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.fields;
 
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -10,6 +11,7 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.HornType;
@@ -409,8 +411,47 @@ public class Lunexis extends NPC {
 	}
 	
 	public void applyTraining(GameCharacter target) {
-		//TODO remove virginites
-		//TODO add masochist & submissive fetishes, remove dominant
+		target.setVaginaVirgin(false);
+		target.setAnalVirgin(false);
+		target.setFaceVirgin(false);
+
+		target.addFetish(Fetish.FETISH_SUBMISSIVE);
+		target.addFetish(Fetish.FETISH_MASOCHIST);
+		target.addFetish(Fetish.FETISH_NON_CON_SUB);
+
+		target.removeFetish(Fetish.FETISH_DOMINANT);
+		target.removeFetish(Fetish.FETISH_NON_CON_DOM);
+		target.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.ZERO_HATE);
+		target.setFetishDesire(Fetish.FETISH_NON_CON_DOM, FetishDesire.ZERO_HATE);
+	}
+
+	public void applyEnslavedClothingChange() {
+		List<InventorySlot> slotsToUnequip = Util.newArrayListOfValues(InventorySlot.TORSO_OVER, InventorySlot.HAND, InventorySlot.HEAD, InventorySlot.HORNS);
+		for(InventorySlot slot : slotsToUnequip) {
+			AbstractClothing clothingInSlot = this.getClothingInSlot(slot);
+			if(clothingInSlot!=null) {
+				this.unequipClothingIntoVoid(clothingInSlot, true, this);
+			}
+		}
+		AbstractClothing collar = Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false);
+		this.equipClothingFromNowhere(collar, true, this);
 	}
 	
+	public void generateSurrenderedSexChoice() {
+		List<Integer> availableChoices = new ArrayList<>();
+		if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+			availableChoices.add(2);
+		}
+		if(Main.game.isAnalContentEnabled() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
+			availableChoices.add(3);
+		}
+		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+			availableChoices.add(4);
+		}
+		if(availableChoices.isEmpty()) {
+			Main.game.getDialogueFlags().setSavedLong("lunexis_sex_choice", 1);
+		} else {
+			Main.game.getDialogueFlags().setSavedLong("lunexis_sex_choice", Util.randomItemFrom(availableChoices));
+		}
+	}
 }

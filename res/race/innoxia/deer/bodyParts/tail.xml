@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tail>
+	<race>innoxia_deer</race>
+	
+	<transformationName><![CDATA[deer]]></transformationName>
+	
+	<coveringType>innoxia_deer_fur</coveringType>
+	
+	<spinneret>false</spinneret>
+	
+	<defaultGirth>3</defaultGirth>
+	
+	<defaultLengthAsPercentageOfHeight>0.1</defaultLengthAsPercentageOfHeight>
+	
+	<tags>
+		<tag>TAIL_TYPE_TUFT</tag>
+		<tag>TAIL_TAPERING_LINEAR</tag>
+	</tags>
+	
+	<determiner><![CDATA[]]></determiner>
+	<determinerPlural><![CDATA[]]></determinerPlural> 
+	
+	<name><![CDATA[tail]]></name>
+	<namePlural><![CDATA[tails]]></namePlural> 
+	
+	<descriptorsMasculine>
+		<descriptor>deer-like</descriptor>
+		<descriptor>furry</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>deer-like</descriptor>
+		<descriptor>furry</descriptor>
+	</descriptorsFeminine>
+	
+	<tipName><![CDATA[tip]]></tipName>
+	<tipNamePlural><![CDATA[tips]]></tipNamePlural>
+	<tipDescriptorsMasculine>
+		<descriptor>furry</descriptor>
+	</tipDescriptorsMasculine>
+	<tipDescriptorsFeminine>
+		<descriptor>furry</descriptor>
+	</tipDescriptorsFeminine>
+	
+	<transformationDescription><![CDATA[
+		#IF(npc.getTailCount()==1)
+			A furry, deer-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about [npc.tailLength] long. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] a very limited amount of control over it, and can only lift it up and down.
+			<br/>[npc.Name] now [npc.has] a [style.boldGoat(deer-like tail)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+		#ELSE
+			[npc.TailCount] furry, deer-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about [npc.tailLength] long. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] a very limited amount of control over them, and can only lift them up and down.
+			<br/>[npc.Name] now [npc.has] [npc.tailCount] [style.boldGoat(deer-like tails)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+		#ENDIF
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		Growing out from just above [npc.her] ass, [npc.sheHasFull]
+		#IF(npc.getTailCount()==1)
+			 a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] deer tail, which [npc.she] can lift up and down.
+		#ELSE
+			 [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] deer tails, which [npc.she] can lift up and down.
+		#ENDIF
+	]]></bodyDescription>
+</tail>
