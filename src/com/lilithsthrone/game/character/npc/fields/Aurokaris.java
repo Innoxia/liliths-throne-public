@@ -1,16 +1,22 @@
 package com.lilithsthrone.game.character.npc.fields;
 
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -50,8 +56,16 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
+import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -90,6 +104,9 @@ public class Aurokaris extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.5.5")) {
+			this.setFetishDesire(Fetish.FETISH_ANAL_RECEIVING, FetishDesire.THREE_LIKE);
+		}
 	}
 
 	@Override
@@ -139,10 +156,9 @@ public class Aurokaris extends NPC {
 			this.addFetish(Fetish.FETISH_PURE_VIRGIN);
 
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_ANAL_RECEIVING, FetishDesire.THREE_LIKE);
 
 			this.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.ONE_DISLIKE);
-			
-			this.setFetishDesire(Fetish.FETISH_ANAL_RECEIVING, FetishDesire.ZERO_HATE);
 		}
 		
 		// Body:
@@ -283,4 +299,106 @@ public class Aurokaris extends NPC {
 			this.setLocation(Main.game.getPlayer(), false);
 		}
 	}
+
+	@Override
+	public void hourlyUpdate() {
+		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_3_E_THEMISCYRA_ATTACK)
+				&& !Main.game.getCharactersPresent().contains(this)) {
+			if(Main.game.isHourBetween(8, 18)) {
+				this.setLocation("innoxia_fields_elis_amazon_camp", "innoxia_fields_elis_amazon_camp_trader", false);
+			} else {
+				this.setLocation("innoxia_fields_elis_amazon_camp", "innoxia_fields_elis_amazon_camp_aurokaris", true);
+			}
+		}
+	}
+
+	@Override
+	public void dailyUpdate() {
+		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_3_E_THEMISCYRA_ATTACK)) {
+			clearNonEquippedInventory(false);
+			
+			// Clothing:
+			List<AbstractClothingType> clothingTypesToSell = new ArrayList<>();
+			clothingTypesToSell.add(ClothingType.getClothingTypeFromId("innoxia_torso_peplos"));
+			clothingTypesToSell.add(ClothingType.getClothingTypeFromId("innoxia_torsoOver_himation"));
+			clothingTypesToSell.add(ClothingType.getClothingTypeFromId("innoxia_foot_gladiator_sandals"));
+			clothingTypesToSell.add(ClothingType.getClothingTypeFromId("innoxia_finger_meander_ring"));
+			//TODO male clothing
+			for(AbstractClothingType type : clothingTypesToSell) {
+				for(int i=0; i<Util.random.nextInt(4)+3; i++) {
+					this.addClothing(Main.game.getItemGen().generateClothing(type, false), false);
+				}
+			}
+			
+			// Weapons:
+			List<AbstractWeaponType> weaponTypesToSell = new ArrayList<>();
+			weaponTypesToSell.add(WeaponType.getWeaponTypeFromId("innoxia_spear_dory"));
+			weaponTypesToSell.add(WeaponType.getWeaponTypeFromId("innoxia_europeanSwords_xiphos"));
+			weaponTypesToSell.add(WeaponType.getWeaponTypeFromId("innoxia_bow_recurve"));
+	//		weaponTypesToSell.add(WeaponType.getWeaponTypeFromId("innoxia_europeanSwords_xiphos")); //TODO shield
+			for(AbstractWeaponType type : weaponTypesToSell) {
+				for(int i=0; i<Util.random.nextInt(4)+2; i++) {
+					this.addWeapon(Main.game.getItemGen().generateWeapon(type), false);
+				}
+			}
+			
+			// Items:
+			List<AbstractItemType> itemTypesToSell = new ArrayList<>();
+			for(AbstractItemType item : ItemType.getAllItems()) {
+				if(item.getItemTags().contains(ItemTag.SOLD_BY_RALPH)
+						&& (!item.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())
+						&& !item.getItemTags().contains(ItemTag.ALCOHOLIC)
+						&& (item.getEnchantmentItemType(null)==ItemType.POTION || item.getEnchantmentItemType(null)==ItemType.ELIXIR)) {
+					itemTypesToSell.add(item);
+				}
+			}
+			Collections.shuffle(itemTypesToSell);
+			int listSize = itemTypesToSell.size();
+			itemTypesToSell.subList(0, itemTypesToSell.size()-(listSize<=8?1:8)).clear();
+			for(AbstractItemType type : itemTypesToSell) {
+				this.addItem(Main.game.getItemGen().generateItem(type), !type.isConsumedOnUse()?1:(4+Util.random.nextInt(7)), false, false);
+			}
+	//		
+			
+			// Specials:
+			itemTypesToSell.clear();
+			itemTypesToSell.add(ItemType.getItemTypeFromId("innoxia_potions_amazonian_ambrosia"));
+			itemTypesToSell.add(ItemType.getItemTypeFromId("innoxia_potions_amazons_secret"));
+			for(AbstractItemType type : itemTypesToSell) {
+				for(int i=0; i<Util.random.nextInt(6)+3; i++) {
+					this.addItem(Main.game.getItemGen().generateItem(type), false);
+				}
+			}
+		}
+	}
+
+	@Override
+	public float getSellModifier(AbstractCoreItem item) {
+		return 2.0f;
+	}
+	
+	@Override
+	public String getTraderDescription() {
+		return UtilText.parseFromXMLFile("places/fields/elis/amazon_camp", "AUROKARIS_TRANSACTION_START");
+	}
+
+	public String applyFeminisationPotion(GameCharacter target) {
+		StringBuilder sb = new StringBuilder();
+		
+		if(target.getFemininityValue()<80) {
+			sb.append(target.setFemininity(80));
+		}
+		if(target.getBreastRawSizeValue()<CupSize.C.getMeasurement()) {
+			sb.append(target.setBreastSize(CupSize.C));
+		}
+		if(target.hasPenis()) {
+			sb.append(target.setPenisType(PenisType.NONE));
+		}
+		if(!target.hasVagina()) {
+			sb.append(target.setVaginaType(VaginaType.getVaginaTypes(target.getRace()).get(0)));
+		}
+		
+		return sb.toString();
+	}
+	
 }

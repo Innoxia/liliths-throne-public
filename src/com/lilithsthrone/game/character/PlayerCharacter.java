@@ -35,6 +35,7 @@ import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -1800,7 +1801,38 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	public boolean isDiscoveredWorldMap() {
 		return this.isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN);
 	}
-
+	
+	public void handleDemonicTransformationPerkEffects() {
+		if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.POWER_OF_LIRECEA_1)) {
+			Main.game.getPlayer().removeSpecialPerk(Perk.POWER_OF_LIRECEA_1);
+			Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LIRECEA_1_DEMON);
+		}
+		if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.POWER_OF_LOVIENNE_2)) {
+			Main.game.getPlayer().removeSpecialPerk(Perk.POWER_OF_LOVIENNE_2);
+			Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LOVIENNE_2_DEMON);
+		}
+		if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.POWER_OF_LASIELLE_3)) {
+			Main.game.getPlayer().removeSpecialPerk(Perk.POWER_OF_LASIELLE_3);
+			Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LASIELLE_3_DEMON);
+		}
+		if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4)) {
+			Main.game.getPlayer().removeSpecialPerk(Perk.POWER_OF_LYSSIETH_4);
+			Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LYSSIETH_4_DEMON);
+		}
+		if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.POWER_OF_LUNETTE_5)) {
+			Main.game.getPlayer().removeSpecialPerk(Perk.POWER_OF_LUNETTE_5);
+			Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LUNETTE_5_DEMON);
+		}
+		if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.POWER_OF_LYXIAS_6)) {
+			Main.game.getPlayer().removeSpecialPerk(Perk.POWER_OF_LYXIAS_6);
+			Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LYXIAS_6_DEMON);
+		}
+		if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.POWER_OF_LISOPHIA_7)) {
+			Main.game.getPlayer().removeSpecialPerk(Perk.POWER_OF_LISOPHIA_7);
+			Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LISOPHIA_7_DEMON);
+		}
+	}
+	
 	protected String losingPureVirginity(GameCharacter characterPenetrating, SexAreaPenetration penetrationType) {
 		if(characterPenetrating.isPlayer()) {
 			return UtilText.parse(this,

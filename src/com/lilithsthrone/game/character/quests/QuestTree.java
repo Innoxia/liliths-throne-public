@@ -26,6 +26,7 @@ public class QuestTree {
 	public static TreeNode<Quest> vengarTree = new TreeNode<Quest>(Quest.VENGAR_START);
 	public static TreeNode<Quest> wesTree = new TreeNode<Quest>(Quest.WES_START);
 	public static TreeNode<Quest> beerBarrelTree = new TreeNode<Quest>(Quest.OGLIX_BEER_BARRELS_1);
+	public static TreeNode<Quest> lunexisEscapeTree = new TreeNode<Quest>(Quest.LUNEXIS_ESCAPE);
 	
 	public static TreeNode<Quest> nyanTree = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_1_STOCK_ISSUES);
 	public static TreeNode<Quest> helenaTree = new TreeNode<Quest>(Quest.ROMANCE_HELENA_1_OFFER_HELP);
@@ -213,7 +214,7 @@ public class QuestTree {
 		node2.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
 		
 		
-        //Rebel base:
+        // Rebel base:
 		
         node1 = new TreeNode<Quest>(Quest.REBEL_BASE_HANDLE_REFUSED);
         rebelBaseTree.addChild(node1);
@@ -269,6 +270,14 @@ public class QuestTree {
 		beerBarrelTree.addChild(node1);
 		node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
 		node1.addChild(node2);
+		
+		
+		// Lunexis escape:
+		
+		node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		lunexisEscapeTree.addChild(node1);
+		
+		
 		
 		// Romance quests:
 

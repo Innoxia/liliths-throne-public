@@ -79,6 +79,8 @@ public class PopulationType {
 	
 	public static AbstractPopulationType AMAZON = new AbstractPopulationType("Amazon", "Amazons") {};
 	
+	public static AbstractPopulationType AMAZON_GUARD = new AbstractPopulationType("Amazon guard", "Amazon guards") {};
+	
 	public static AbstractPopulationType LUNETTE_DAUGTHER = new AbstractPopulationType("Lunette's daughter", "Lunette's daughters") {};
 	
 	public static AbstractPopulationType COCK_SLEEVE = new AbstractPopulationType("cock-sleeve", "cock-sleeves") {};
