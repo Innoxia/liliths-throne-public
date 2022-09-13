@@ -948,6 +948,24 @@
 	]]>
 	</htmlContent>
 	
+	
+	<!-- Lunexis bad end options -->
+	
+	<htmlContent tag="LUNEXIS_PLAN"><![CDATA[
+	<p>
+		TODO You tell Meraxis that you have something secret to discuss with her. She steps away from her minions and asks what it is.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_PLAN_DELAY"><![CDATA[
+	<p>
+		TODO You tell Meraxis that you've changed your mind and that now's not the time. She is annoyed and goes to sit back down with her minions. You step away from her and head back into the tavern...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<htmlContent tag="MERAXIS_ROOM_SEX"><![CDATA[
 	<p>
 		#IF(pc.hasTraitActivated(PERK_CHUUNI))

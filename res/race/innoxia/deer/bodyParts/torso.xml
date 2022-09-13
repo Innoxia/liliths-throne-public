@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<torso>
+	<race>innoxia_deer</race>
+	
+	<transformationName><![CDATA[deer]]></transformationName>
+	
+	<coveringType>innoxia_deer_fur</coveringType>
+	
+	<descriptorsMasculine/>
+	
+	<descriptorsFeminine/>
+	
+	<transformationDescription><![CDATA[
+		After just a few moments, the transformation comes to an end, and [npc.she] [npc.verb(let)] out a deep sigh as the itching finally stops, leaving [npc.her] torso covered with deer-like fur. Although it's relatively close-cropped and smooth over [npc.her] stomach and [npc.breasts], it's thicker on other parts of [npc.her] torso.
+		<br/>[npc.Name] now [npc.has] [style.boldGoat(deer-like)], [npc.skinFullDescription].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		[npc.Her] torso has [npc.a_femininity(true)] appearance, and is [npc.materialCompositionDescriptor] [npc.skinFullDescription(true)].
+	]]></bodyDescription>
+</torso>

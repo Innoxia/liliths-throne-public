@@ -3820,6 +3820,14 @@ public enum Spell {
 		if(Main.game.isInCombat() && source.isPlayer()) {
 			return Main.combat.getTargetedCombatant();
 		}
+		
+		if(Main.game.isInCombat()) {
+			GameCharacter preferredTarget = Main.combat.getPreferredTarget(source);
+	    	if(preferredTarget!=null && !Main.combat.isCombatantDefeated(preferredTarget)) {
+	    		return preferredTarget;
+	    	}
+		}
+		
 		if(isCanTargetEnemies()) {
 			if(AbstractCombatMove.shouldBlunder()) {
 				return enemies.get(Util.random.nextInt(enemies.size()));

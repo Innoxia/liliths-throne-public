@@ -25,9 +25,9 @@ public enum PopulationDensity {
 	
 	DENSE("dense"),
 	
-	HUNDREDS("hundreds"),
+	HUNDREDS("hundreds of"),
 	
-	THOUSANDS("thousands");
+	THOUSANDS("thousands of");
 
 	String name;
 	
