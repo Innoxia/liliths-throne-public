@@ -1747,7 +1747,7 @@
 	<p>
 		Not wanting to give the nervous matriarch any time in which to change her mind,
 		#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
-			 you drop down behind her and quickly press your [pc.lips] against her bird-like claoca. Knowing that you're not interested in her pussy, Helena shifts about a little until her asshole is pointing directly towards your mouth, before calling out,
+			 you drop down behind her and quickly press your [pc.lips] against her bird-like cloaca. Knowing that you're not interested in her pussy, Helena shifts about a little until her asshole is pointing directly towards your mouth, before calling out,
 		#ELSE
 			 you take hold of her perfectly-smooth ass cheeks and spread them apart, before dropping down behind her and quickly pressing your [pc.lips] against her [helena.asshole+]. Feeling your mouth make contact with her butt, Helena calls out,
 		#ENDIF
@@ -1777,7 +1777,7 @@
 	<p>
 		More than happy to do as she demands,
 		#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
-			 you drop down behind Helena and quickly press your [pc.lips] against her bird-like claoca. Knowing that you're not interested in her pussy, the gorgeous matriarch shifts about a little until her asshole is pointing directly towards your mouth, before calling out,
+			 you drop down behind Helena and quickly press your [pc.lips] against her bird-like cloaca. Knowing that you're not interested in her pussy, the gorgeous matriarch shifts about a little until her asshole is pointing directly towards your mouth, before calling out,
 		#ELSE
 			 you take hold of Helena's perfectly-smooth ass cheeks and spread them apart, before dropping down behind her and quickly pressing your [pc.lips] against her [helena.asshole+]. Feeling your mouth make contact with her butt, the gorgeous matriarch calls out,
 		#ENDIF
@@ -1837,7 +1837,7 @@
 		<p>
 			Finding yourself at the mercy of Helena's dominant demand, you do as she orders and beg for her to slip your cock into her rear entrance. Flashing you one last cheeky smirk, the gorgeous matriarch reaches down between her legs, before guiding your throbbing shaft up to her
 			#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
-				 claoca
+				 cloaca
 			#ELSE
 				 asshole
 			#ENDIF
@@ -1853,7 +1853,7 @@
 		<p>
 			Not wanting to waste another moment, you quickly reposition yourself behind Helena, before pointing your throbbing cock at her
 			#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
-				 claoca
+				 cloaca
 			#ELSE
 				 [helena.ass+]
 			#ENDIF

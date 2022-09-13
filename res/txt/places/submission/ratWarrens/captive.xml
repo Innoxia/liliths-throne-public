@@ -1431,7 +1431,7 @@
 	<htmlContent tag="CAPTIVE_DAY_3_MILKING"><![CDATA[
 	#IF(pc.hasVagina())
 		<p>
-			Stepping around beside you, Murk bends down and flicks a switch on the milking machine that's positioned beneath your stall. For the first time since your arrival here, the arcane-powered device whirrs into life, and starts making the same rhythmic pumping noise as the ones which are attached to the other milkers. Letting out a deep, satisfied grunt, Murk roughly grabs one of your massive tits, before lifting up one of the now-pressurised suction cups and letting it suck into place over your [pc.nippleColour], puffy nipple.
+			Stepping around beside you, Murk bends down and flicks a switch on the milking machine that's positioned beneath your stall. For the first time since your arrival here, the arcane-powered device whirs into life, and starts making the same rhythmic pumping noise as the ones which are attached to the other milkers. Letting out a deep, satisfied grunt, Murk roughly grabs one of your massive tits, before lifting up one of the now-pressurised suction cups and letting it suck into place over your [pc.nippleColour], puffy nipple.
 		</p>
 		<p>
 			#IF(game.isLactationContentEnabled())
@@ -1454,7 +1454,7 @@
 			<p>
 				Continuing to chuckle at the horny moan which you let out in response to his question, Murk moves down towards your stomach, before roughly pinching your [pc.crotchNipples] and drawing a few squirts of [pc.crotchMilk] out from them. Loudly smacking his lips as he licks the milk from his chubby fingers, the rat-boy grunts in approval and quickly moves to attach yet more suction pumps to your [pc.udders+].
 				#IF(game.isLactationContentEnabled())
-					 Once again, you quickly feel your [pc.crotchMilk] beading up on the surface of your fat teats, and as the machine continues to steadily pump away at your [pc.udders], they start to squirt out a signifiacnt amount of milk.
+					 Once again, you quickly feel your [pc.crotchMilk] beading up on the surface of your fat teats, and as the machine continues to steadily pump away at your [pc.udders], they start to squirt out a significant amount of milk.
 				#ENDIF
 			</p>
 		#ENDIF
@@ -1471,7 +1471,7 @@
 		</p>
 	#ELSE
 		<p>
-			Stepping around beside you, Murk bends down and flicks a switch on the milking machine that's positioned beneath your stall. For the first time since your arrival here, the arcane-powered device whirrs into life, and starts making the same rhythmic pumping noise as the ones which are attached to the other milkers. Letting out a deep, satisfied grunt, Murk moves around to your rear-end, before roughly wrapping his chubby fingers around your [pc.cockSize] cock and grunting, [murk.speech(Now ta get this thing spurtin' away! You's gonna be cummin' all day, every day! Heh-heh-heh!)]
+			Stepping around beside you, Murk bends down and flicks a switch on the milking machine that's positioned beneath your stall. For the first time since your arrival here, the arcane-powered device whirs into life, and starts making the same rhythmic pumping noise as the ones which are attached to the other milkers. Letting out a deep, satisfied grunt, Murk moves around to your rear-end, before roughly wrapping his chubby fingers around your [pc.cockSize] cock and grunting, [murk.speech(Now ta get this thing spurtin' away! You's gonna be cummin' all day, every day! Heh-heh-heh!)]
 		</p>
 		<p>
 			With that, the chubby rat-boy grabs a cock-pump from off of the milking machine, before sliding the pressurised tube over your shaft and letting it suck itself into place against the base of your cock. Immediately, the intense sucking sensation is enough for you to start to grow hard, and you can't help but let out a deep, horny moan as the steadily-vibrating pump starts its work of bringing you to an orgasm.
@@ -3290,7 +3290,7 @@
 	#IF(pc.isTaur() || !pc.hasLegs())
 		#IF(pc.hasVagina())
 			<p>
-				Desperate to be fucked by your Master's fat cock again, you quickly stand up and turn around, before lowering #IF(pc.hasLegs())the hindquarters of your feral [pc.legRace]'s body#ELSEyour rear-facing claoca down#ENDIF into his lap. Grunting in amusement, your Master starts rubbing the head of his fat, throbbing cock up and down over your
+				Desperate to be fucked by your Master's fat cock again, you quickly stand up and turn around, before lowering #IF(pc.hasLegs())the hindquarters of your feral [pc.legRace]'s body#ELSEyour rear-facing cloaca down#ENDIF into his lap. Grunting in amusement, your Master starts rubbing the head of his fat, throbbing cock up and down over your
 				#IF(game.isGapeContentEnabled())
 					 drooling, ruined
 				#ELSE
@@ -3309,7 +3309,7 @@
 			</p>
 		#ELSE
 			<p>
-				Desperate to be fucked by your Master's fat cock again, you quickly stand up and turn around, before lowering #IF(pc.hasLegs())the hindquarters of your feral [pc.legRace]'s body#ELSEyour rear-facing claoca down#ENDIF into his lap. Grunting in amusement, your Master starts rubbing the head of his fat, throbbing cock up and down over your
+				Desperate to be fucked by your Master's fat cock again, you quickly stand up and turn around, before lowering #IF(pc.hasLegs())the hindquarters of your feral [pc.legRace]'s body#ELSEyour rear-facing cloaca down#ENDIF into his lap. Grunting in amusement, your Master starts rubbing the head of his fat, throbbing cock up and down over your
 				#IF(game.isGapeContentEnabled())
 					 puffy, ruined
 				#ELSE
@@ -3393,7 +3393,7 @@
 		The baseball bat falls from Murk's hand, and after staggering back, he collapses to floor with a pathetic whine, [murk.speech(You's... gonna pay...)]
 	</p>
 	<p>
-		With that, the chubby rat-boy's head drops down, and you [pc.step] forwards to see that he's fainted. With all of the noise he made during your fight, you realise that you have no time in which to take advantage of Murk's unconcious form before reinforcements arrive, and so quickly rush over to the chest in which all of your gear is being stored. Throwing open the lid, you immediately find the key to your collar contained within, and after taking it off, you grab all of your belongings and head for the exit.
+		With that, the chubby rat-boy's head drops down, and you [pc.step] forwards to see that he's fainted. With all of the noise he made during your fight, you realise that you have no time in which to take advantage of Murk's unconscious form before reinforcements arrive, and so quickly rush over to the chest in which all of your gear is being stored. Throwing open the lid, you immediately find the key to your collar contained within, and after taking it off, you grab all of your belongings and head for the exit.
 	</p>
 	<p>
 		Leaving the still-unconscious rat-boy behind, you set off into the dimly-lit tunnels of the Rat Warrens and begin to make your escape...

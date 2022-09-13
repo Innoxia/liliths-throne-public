@@ -763,7 +763,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[0]]></index>
 				<responseTitle><![CDATA[Back]]></responseTitle>
-				<responseTooltip><![CDATA[Decide against entering Ursa's tent and head abck into the Amazons' camp...]]></responseTooltip>
+				<responseTooltip><![CDATA[Decide against entering Ursa's tent and head back into the Amazons' camp...]]></responseTooltip>
 				<nextDialogue defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'QUEEN_BACK'))]

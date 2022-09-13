@@ -175,7 +175,7 @@
 		</p>
 		<p>
 			#IF(flags.hasFlag(FLAG_innoxia_oglix_flirted))
-				[oglix.speech(So, you going to order anything, or what?)] she asks, releasing your [pc.hand(true)]. Having already flirted with her today, it doesn't seem like Olix will be receptive to more of your advances until tomorrow. Flashing you a toothy grin, the orc-like succubus waits to hear whether or not you were planning on ordering some food or drink...
+				[oglix.speech(So, you going to order anything, or what?)] she asks, releasing your [pc.hand(true)]. Having already flirted with her today, it doesn't seem like Oglix will be receptive to more of your advances until tomorrow. Flashing you a toothy grin, the orc-like succubus waits to hear whether or not you were planning on ordering some food or drink...
 			#ELSE
 					[oglix.speech(Just because I'm pregnant, doesn't mean I'm not horny,)] Oglix bluntly states, before leaning forwards over the bar and giving you a clear view of her considerable cleavage. Licking her lips, she teases, [oglix.speech(You got a thing for fucking pregnant chicks? Come on, let's head back to my room and do it again...)]
 				</p>
@@ -417,7 +417,7 @@
 	]]>
 	</htmlContent>
 	
-	<!-- Punished by Golex: -->
+	<!-- Punished by Golix: -->
 	
 	<htmlContent tag="BAR_PUNISHMENT"><![CDATA[
 	#IF(oglixElemental.getTotalTimesHadSex(pc)>0)
