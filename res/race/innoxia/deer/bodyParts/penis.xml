@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<penis>
+	<race>innoxia_deer</race>
+	
+	<transformationName><![CDATA[deer]]></transformationName>
+	
+	<coveringType>PENIS</coveringType>
+	
+	<testicleType>innoxia_deer_testicle</testicleType>
+	
+	<additionalTransformationEffect/>
+	
+	<namesMasculine>
+		<name><![CDATA[deer-]]></name>
+	</namesMasculine>
+	<namesPluralMasculine>
+		<name><![CDATA[deer-]]></name>
+	</namesPluralMasculine>
+	
+	<namesFeminine>
+		<name><![CDATA[deer-]]></name>
+	</namesFeminine>
+	<namesPluralFeminine>
+		<name><![CDATA[deer-]]></name>
+	</namesPluralFeminine>
+	
+	<descriptors/>
+	
+	<defaultPenetrationModifiers>
+		<modifier>SHEATHED</modifier>
+	</defaultPenetrationModifiers>
+	
+	<transformationDescription><![CDATA[
+		Letting out an involuntary moan, [npc.name] [npc.verb(feel)] [npc.her] penis shifting into a new form, and [npc.sheIs] hit by a wave of overwhelming arousal as a thick sheath suddenly grows around the base of [npc.her] shaft.
+		<br/>[npc.She] now [npc.has] a [style.boldGoat(deer-like penis)], [npc.materialDescriptor] [npc.penisFullDescription(true)].
+		<br/>[npc.She] [npc.has] [style.boldGoat([npc.ballsCount]#IF(npc.isInternalTesticles()) internal#ELSE deer#ENDIF balls)], [npc.materialDescriptor] [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldGoat(deer cum)].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		[npc.She] [npc.has] [npc.a_cockGirth], [npc.cockLengthValue] deer cock, which is [npc.materialCompositionDescriptor] [npc.cockFullDescription(true)].
+	]]></bodyDescription>
+</penis>

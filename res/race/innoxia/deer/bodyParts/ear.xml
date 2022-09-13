@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ear>
+	<race>innoxia_deer</race>
+	
+	<transformationName><![CDATA[deer]]></transformationName>
+	
+	<coveringType>innoxia_deer_fur</coveringType>
+	
+	<tags/>
+	
+	<name><![CDATA[ear]]></name>
+	<namePlural><![CDATA[ears]]></namePlural>
+	
+	<descriptorsMasculine>
+		<descriptor>furry</descriptor>
+		<descriptor>deer-like</descriptor>
+	</descriptorsMasculine>
+	
+	<descriptorsFeminine>
+		<descriptor>feminine</descriptor>
+		<descriptor>furry</descriptor>
+		<descriptor>deer-like</descriptor>
+	</descriptorsFeminine>
+	
+	<transformationDescription><![CDATA[
+		They quickly take on a distinctly deer-like shape by growing out and narrowing down into long, slightly-folded ovals.
+		#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)
+		 A layer of [npc.earFullDescriptionColour] quickly grows to cover them,
+		#ELSE
+		 Just like the rest of [npc.her] body, they're made out of [npc.earFullDescription],
+		#ENDIF
+		 and as the transformation finishes, [npc.she] experimentally [npc.verb(twitch)] [npc.her] new deer-like ears back and forth.
+		 <br/>[npc.Name] now [npc.has] [style.boldGoat(deer-like ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		[npc.She] [npc.has] a pair of #IF(npc.isPiercedEar()) pierced,#ENDIF deer-like ears, which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].
+	]]></bodyDescription>
+	
+</ear>

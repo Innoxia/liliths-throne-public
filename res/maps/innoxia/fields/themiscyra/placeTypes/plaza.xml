@@ -12,7 +12,7 @@
 	<dialogue>innoxia_places_fields_themiscyra_plaza</dialogue>
 	<populationPresent>
 		<population>
-			<populationType plural="true" density="NUMEROUS">demonic centauresses</populationType>
+			<populationType plural="true" density="HUNDREDS">LUNETTE_DAUGTHER</populationType>
 			<subspeciesPresent>
 				<subspecies>DEMON</subspecies>
 			</subspeciesPresent>

@@ -1370,6 +1370,7 @@ public enum RenderingEngine {
 					uiAttributeSB.append("<div class='item-inline' style='float:left;'>"
 											+SVGImages.SVG_IMAGE_PROVIDER.getCalendarIcon()
 										+ "</div>");
+					
 					uiAttributeSB.append((Main.getProperties().hasValue(PropertyValue.calendarDisplay)
 													? Main.game.getDisplayDate(false)
 													:"Day "+Main.game.getDayNumber()));
@@ -1378,7 +1379,7 @@ public enum RenderingEngine {
 					uiAttributeSB.append("<div class='full-width-container' style='text-align:center; float:left; margin:0; padding:0; width:100%;'>");
 						String[] weekDays = new String[] {"M", "T", "W", "T", "F", "S", "S"};
 						for(int i=0; i<7; i++) {
-							if(Main.game.getDateNow().getDayOfWeek().getValue()==i+1) {
+							if(!Main.game.isBadEnd() && Main.game.getDateNow().getDayOfWeek().getValue()==i+1) {
 								uiAttributeSB.append("<div class='full-width-container' style='height:12px; box-sizing:border-box; text-align:center; border-radius:5px; font-size:10px;"
 										+ " border:1px solid "+PresetColour.TEXT.toWebHexString()+"; float:left; margin:0; padding:0; width:14.28%;'>");
 							} else {
@@ -1410,8 +1411,13 @@ public enum RenderingEngine {
 						+ "</div>");
 			}
 	
-			uiAttributeSB.append(Units.time(Main.game.getDateNow())
-							+ "</div>"
+			if(Main.game.isBadEnd()) {
+				uiAttributeSB.append("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>??:??</span>");
+			} else {
+				uiAttributeSB.append(Units.time(Main.game.getDateNow()));
+			}
+			
+			uiAttributeSB.append("</div>"
 						+ "</div>");
 			
 		}

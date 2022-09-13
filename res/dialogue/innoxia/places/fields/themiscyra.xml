@@ -246,7 +246,7 @@
 				<index><![CDATA[4]]></index>
 				<responseTitle><![CDATA[Lunette's attack]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_aurokaris_talk_ursa))
+					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_aurokaris_talk_raiders))
 						You've already asked Aurokaris about the current situation in Themsicyra, and she doesn't have the patience to repeat herself right now.
 					#ELSE
 						Ask Aurokaris about the current situation in Themsicyra.
@@ -382,7 +382,8 @@
 				]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/themiscyra', 'SMITHIES_LOOTING'))]
-					[#game.appendToTextStartStringBuilder(pc.addWeapon(itemGen.generateWeapon(WEAPON_innoxia_spear_dory, DAMAGE_TYPE_PHYSICAL), 1, false, true))]
+					[#game.appendToTextStartStringBuilder(pc.addWeapon(itemGen.generateWeapon(WEAPON_innoxia_europeanSwords_xiphos, DAMAGE_TYPE_PHYSICAL), 1, false, true))]
+					[#game.appendToTextStartStringBuilder(pc.addWeapon(itemGen.generateWeapon(WEAPON_innoxia_europeanSwords_xiphos, DAMAGE_TYPE_FIRE), 1, false, true))]
 					[#flags.setFlag(FLAG_innoxia_themiscyra_smithies_looted, true)]
 				]]></effects>
 			</response>
@@ -415,8 +416,9 @@
 				]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/themiscyra', 'WINE_LOOTING'))]
-                    [#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_race_fox_vulpines_vineyard), 6, false, true))]
+                    [#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_race_fox_vulpines_vineyard), 3, false, true))]
                     [#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_potions_amazons_secret), 2, false, true))]
+                    [#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_potions_amazonian_ambrosia), 4, false, true))]
 					[#flags.setFlag(FLAG_innoxia_themiscyra_wine_looted, true)]
 				]]></effects>
 			</response>
@@ -449,7 +451,8 @@
 				]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/themiscyra', 'JEWELLERY_LOOTING'))]
-					[#game.appendToTextStartStringBuilder(pc.addClothing(itemGen.generateClothing('innoxia_finger_wrap_ring', COLOUR_CLOTHING_GOLD, false), 1, false, true))]
+					[#game.appendToTextStartStringBuilder(pc.addClothing(itemGen.generateClothing('innoxia_finger_meander_ring', COLOUR_CLOTHING_SILVER, false), 2, false, true))]
+					[#game.appendToTextStartStringBuilder(pc.addClothing(itemGen.generateClothing('innoxia_finger_meander_ring', COLOUR_CLOTHING_GOLD, false), 1, false, true))]
 					[#flags.setFlag(FLAG_innoxia_themiscyra_jewellers_looted, true)]
 				]]></effects>
 			</response>
@@ -532,7 +535,7 @@
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Not yet]]></responseTitle>
 				<responseTooltip><![CDATA[Tell Aurokaris that the two of you still have things to do in Themiscyra, but that you'll be back to help Ursa very soon.]]></responseTooltip>
-				<nextDialogue defaultPlaceType="innoxia_fields_themiscyra_street"/>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_themiscyra_street"/>
 				<effects><![CDATA[
 					[#pc.setLocation(pc.getLastCell())]
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/themiscyra', 'PLAZA_BACK'))]
@@ -543,6 +546,22 @@
 	
 	<scene id="plaza_follow">
 		<content folderPath="txt/places/fields/themiscyra">PLAZA_FOLLOW</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Prepare]]></responseTitle>
+				<responseTooltip><![CDATA[Prepare to meet whoever it is that's coming your way!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_lunexis_entry]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="plaza_lunexis_entry">
+		<content folderPath="txt/places/fields/themiscyra">PLAZA_LUNEXIS_ENTRY</content>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -570,18 +589,37 @@
 					</enemies>
 					<openingDescriptions>
 						<combatant id="pc"><![CDATA[With Ursa, the queen of the Amazons, at your side, you prepare to fight Lunexis.]]></combatant>
-						<combatant id="ursa"><![CDATA[[ursa.speech(I haven't got much strength left,)] Ursa pants to you, [ursa.speech(I'll be relying on you, [pc.name]...)]]]></combatant>
+						<combatant id="ursa"><![CDATA[[ursa.speech(I haven't got much strength left,)] Ursa pants, [ursa.speech(I'll be relying on you, [pc.name]...)]]]></combatant>
 						<combatant id="lunexis"><![CDATA[[lunexis.speech(I'll be taking the two of you as my slaves!)] Lunexis gleefully shouts as she effortlessly swirls her four morning stars around.]]></combatant>
 					</openingDescriptions>
+					<escapeBlocked><![CDATA[true]]></escapeBlocked>
 				</combatVariables>
 			</response>
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Shielding]]></responseTitle>
+				<responseTooltip><![CDATA[Use every ounce of your strength to summon forth a protective arcane shield to assist Meraxis, Aurokaris, and Ursa.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_non_combatant]]></nextDialogue>
+				<requiredPerks>
+					<perk><![CDATA[SACRIFICIAL_SHIELDING]]></perk>
+				</requiredPerks>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/themiscyra', 'PLAZA_SHIELDING'))]
+					[#game.appendToTextEndStringBuilder(aurokaris.incrementAffection(pc, 10))]
+					[#game.appendToTextEndStringBuilder(ursa.incrementAffection(pc, 10))]
+					[#game.appendToTextEndStringBuilder(meraxis.incrementAffection(pc, 10))]
+					[#lunexis.unequipAllWeaponsIntoVoid(true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
 				<responseTitle><![CDATA[Watch]]></responseTitle>
 				<responseTooltip><![CDATA[Hang back and watch as Meraxis, Ursa, and Aurokaris fight Lunexis and her demonic centauresses.]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_watch]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_non_combatant]]></nextDialogue>
 				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/themiscyra', 'PLAZA_WATCH'))]
 					[#game.appendToTextEndStringBuilder(aurokaris.incrementAffection(pc, -10))]
 					[#game.appendToTextEndStringBuilder(ursa.incrementAffection(pc, -10))]
 					[#game.appendToTextEndStringBuilder(meraxis.incrementAffection(pc, -10))]
@@ -590,8 +628,8 @@
 		</responses>
 	</scene>
 	
-	<scene id="plaza_watch">
-		<content folderPath="txt/places/fields/themiscyra">PLAZA_WATCH</content>
+	<scene id="plaza_non_combatant">
+		<content/>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -602,6 +640,9 @@
 				<responseTitle><![CDATA[Teleported]]></responseTitle>
 				<responseTooltip><![CDATA[Summoning the last of her energy, Meraxis manages to teleport all of you to safety!]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_teleported]]></nextDialogue>
+				<effects><![CDATA[
+					[#lunexis.unequipAllWeaponsIntoVoid(true)]
+				]]></effects>
 			</response>
 		</responses>
 	</scene>
@@ -689,7 +730,13 @@
 					<dominants>
 						<character>
 							<id>lunexis</id>
-							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+							<slot><![CDATA[
+								#IF(pc.hasVagina() || game.isAnalContentEnabled())
+									ALL_FOURS_BEHIND
+								#ELSE
+									ALL_FOURS_IN_FRONT
+								#ENDIF
+							]]></slot>
 						</character>
 					</dominants>
 					<submissives>
@@ -700,7 +747,32 @@
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_combat_lost_after_sex]]></postSexDialogue>
 					<sexStartContent folderPath="txt/places/fields/themiscyra">PLAZA_COMBAT_LOST_RAPE_START</sexStartContent>
-					<ongoingActionsAtStart/>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[[#pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[lunexis]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#(!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))]]]></condition>
+							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[lunexis]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#(!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (!game.isAnalContentEnabled() || !pc.isAbleToAccessCoverableArea(CA_ANUS, true))]]]></condition>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[lunexis]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
 				</sexVariablesWithManager>
 			</response>
 			<!-- Non-con turned off: -->
@@ -714,7 +786,15 @@
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#!game.isNonConEnabled() && !game.isBadEnd()]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#!game.isNonConEnabled() && !game.isBadEnd() && (!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (!game.isAnalContentEnabled() || !pc.isAbleToAccessCoverableArea(CA_ANUS, true)) && !pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Submit]]></responseTitle>
+				<responseTooltip><![CDATA[As you can't gain access to your orifices, you can't submit to Lunexis and let her fuck you in front of everyone...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!game.isNonConEnabled() && !game.isBadEnd() && ((pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) || (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)) || pc.isAbleToAccessCoverableArea(CA_MOUTH, true))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Submit]]></responseTitle>
@@ -727,7 +807,13 @@
 					<dominants>
 						<character>
 							<id>lunexis</id>
-							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+							<slot><![CDATA[
+								#IF((pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) || (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)))
+									ALL_FOURS_BEHIND
+								#ELSE
+									ALL_FOURS_IN_FRONT
+								#ENDIF
+							]]></slot>
 						</character>
 					</dominants>
 					<submissives>
@@ -738,7 +824,32 @@
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_combat_lost_after_sex]]></postSexDialogue>
 					<sexStartContent folderPath="txt/places/fields/themiscyra">PLAZA_COMBAT_LOST_SEX_START</sexStartContent>
-					<ongoingActionsAtStart/>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[[#pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[lunexis]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#(!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))]]]></condition>
+							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[lunexis]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#(!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (!game.isAnalContentEnabled() || !pc.isAbleToAccessCoverableArea(CA_ANUS, true))]]]></condition>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[lunexis]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
 				</sexVariablesWithManager>
 			</response>
 		</responses>
@@ -768,7 +879,7 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Cock-sleeve]]></responseTitle>
 				<responseTooltip><![CDATA[Lunexis adds you to her collection of cock-sleeves, while Meraxis, Ursa, and Aurokaris go to the centauresses who defeated them.]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_bad_end]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_plaza_bad_end]]></nextDialogue>
 			</response>
 		</responses>
 	</scene>
@@ -785,148 +896,6 @@
 				<responseTitle><![CDATA[Teleported]]></responseTitle>
 				<responseTooltip><![CDATA[Summoning the last of her energy, Meraxis manages to teleport all of you to safety!]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_teleported]]></nextDialogue>
-			</response>
-		</responses>
-	</scene>
-	
-	<!-- Bad end -->
-	
-	<scene id="plaza_bad_end">
-		<title><![CDATA[[style.boldBadEnd(Bad End: Lunexis's Cock-sleeve)]]]></title>
-		<content folderPath="txt/places/fields/themiscyra">PLAZA_BAD_END</content>
-		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
-		<continuesDialogue>true</continuesDialogue>
-		<travelDisabled>true</travelDisabled>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Palace]]></responseTitle>
-				<responseTooltip><![CDATA[The four of you are dragged into Themiscyra's palace...]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_bad_end_palace]]></nextDialogue>
-				<effects><![CDATA[
-					[#pc.setLocation(WORLD_TYPE_innoxia_fields_themiscyra, PLACE_TYPE_innoxia_fields_themiscyra_palace)]
-					[#meraxis.setLocation(pc)]
-					[#ursa.setLocation(pc)]
-					[#aurokaris.setLocation(pc)]
-					[#lunexis.setLocation(pc)]
-				]]></effects>
-			</response>
-		</responses>
-	</scene>
-	
-	<scene id="plaza_bad_end_palace">
-		<content folderPath="txt/places/fields/themiscyra">PLAZA_BAD_END_PALACE</content>
-		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
-		<continuesDialogue>true</continuesDialogue>
-		<travelDisabled>true</travelDisabled>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Trained]]></responseTitle>
-				<responseTooltip><![CDATA[Over the next few months, Lunexis has you trained into becoming her obedient cock-sleeve...]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_bad_end_palace_trained]]></nextDialogue>
-			</response>
-		</responses>
-	</scene>
-	
-	<scene id="plaza_bad_end_palace_trained">
-		<preParsingEffects><![CDATA[
-			[#pc.endPregnancy(true)]
-			[#meraxis.endPregnancy(true)]
-			[#lunexis.applyTraining(pc)]
-			[#lunexis.applyTraining(ursa)]
-			[#lunexis.applyTraining(meraxis)]
-			[#lunexis.applyTraining(aurokaris)]
-		]]></preParsingEffects>
-		<title><![CDATA[[style.boldBadEnd(Bad End: Lunexis's Cock-sleeve)]]]></title>
-		<content folderPath="txt/places/fields/themiscyra">PLAZA_BAD_END_PALACE_TRAINED</content>
-		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
-		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled>true</travelDisabled>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Oral whore]]></responseTitle>
-				<responseTooltip><![CDATA[Tell Lunexis that you love sucking her fat horse cock most of all!]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_bad_end_palace_trained_choice]]></nextDialogue>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/themiscyra', 'PLAZA_BAD_END_PALACE_TRAINED_ORAL'))]
-					[#flags.setFlag(FLAG_innoxia_themiscyra_bad_end_oral, true)]
-				]]></effects>
-			</response>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[2]]></index>
-				<responseTitle><![CDATA[Cock sleeve]]></responseTitle>
-				<responseTooltip><![CDATA[Tell Lunexis that you love being a true cock sleeve, having her fat horse cock hilted deep into your cunt!]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_bad_end_palace_trained_choice]]></nextDialogue>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/themiscyra', 'PLAZA_BAD_END_PALACE_TRAINED_VAGINAL'))]
-					[#flags.setFlag(FLAG_innoxia_themiscyra_bad_end_vaginal, true)]
-				]]></effects>
-			</response>
-			<response>
-				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled()]]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[3]]></index>
-				<responseTitle><![CDATA[Butt slut]]></responseTitle>
-				<responseTooltip><![CDATA[Tell Lunexis that you love the feeling of having her massive cock rammed deep into your slutty ass!]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_bad_end_palace_trained_choice]]></nextDialogue>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/themiscyra', 'PLAZA_BAD_END_PALACE_TRAINED_ANAL'))]
-					[#flags.setFlag(FLAG_innoxia_themiscyra_bad_end_anal, true)]
-				]]></effects>
-			</response>
-		</responses>
-	</scene>
-	
-	<scene id="plaza_bad_end_palace_trained_choice">
-		<content folderPath="txt/places/fields/themiscyra">PLAZA_BAD_END_PALACE_CHOICE</content>
-		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
-		<continuesDialogue>true</continuesDialogue>
-		<travelDisabled>true</travelDisabled>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[New life]]></responseTitle>
-				<responseTooltip><![CDATA[You begin your new life as Lunexis's cock sleeve...]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_bad_end_final]]></nextDialogue><effects><![CDATA[
-					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_oral))
-						[#pc.addFetish(FETISH_ORAL_GIVING)]
-					#ELSEIF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_vaginal))
-						[#pc.addFetish(FETISH_VAGINAL_RECEIVING)]
-					#ELSE
-						[#pc.addFetish(FETISH_ANAL_RECEIVING)]
-					#ENDIF
-					[#meraxis.addFetish(FETISH_VAGINAL_RECEIVING)]
-					#IF(game.isAnalContentEnabled())
-						[#ursa.addFetish(FETISH_ANAL_RECEIVING)]
-					#ELSE
-						[#ursa.addFetish(FETISH_VAGINAL_RECEIVING)]
-					#ENDIF
-					[#aurokaris.addFetish(FETISH_ORAL_GIVING)]
-				]]></effects>
-			</response>
-		</responses>
-	</scene>
-	
-	<scene id="plaza_bad_end_final">
-		<title><![CDATA[[style.boldBadEnd(Bad End: Lunexis's Cock-sleeve)]]]></title>
-		<content folderPath="txt/places/fields/themiscyra">PLAZA_BAD_END_FINAL</content>
-		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
-		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled>true</travelDisabled>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[The End...]]></responseTitle>
-				<responseTooltip><![CDATA[[style.italicsBadEnd(With this end to your journey, the thread of prophecy is severed. Restore a saved game to restore the weave of fate, or persist in the doomed world you have created.)]]]></responseTooltip>
-				<nextDialogue>null</nextDialogue>
 			</response>
 		</responses>
 	</scene>
@@ -967,6 +936,7 @@
 		<preParsingEffects><![CDATA[
 			[#game.setParserTarget('attacker', game.getNonCompanionCharactersPresent().get(0))]
 			[#game.setParserTarget('attacker2', game.getNonCompanionCharactersPresent().get(1))]
+			[#attacker2.setSpeechColour(COLOUR_BASE_PURPLE_LIGHT)]
 			[#flags.setFlag(FLAG_innoxia_themiscyra_centauresses_question, false)]
 		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/themiscyra">RAIDERS</content>
@@ -1096,7 +1066,7 @@
 					<dominantSpectators/>
 					<submissiveSpectators/>
 					<postSexDialogue><![CDATA[innoxia_places_fields_themiscyra_raiders_after_sex_dom]]></postSexDialogue>
-					<sexStartContent folderPath="txt/places/fields/themiscyra">RAIDERS_COMBAT_WON_SEX_GENTLE</sexStartContent>
+					<sexStartContent folderPath="txt/places/fields/themiscyra">RAIDERS_COMBAT_WON_SEX</sexStartContent>
 					<tags>
 						<tag>START_PACE_PLAYER_DOM_GENTLE</tag>
 					</tags>
@@ -1122,7 +1092,7 @@
 					<dominantSpectators/>
 					<submissiveSpectators/>
 					<postSexDialogue><![CDATA[innoxia_places_fields_themiscyra_raiders_after_sex_dom]]></postSexDialogue>
-					<sexStartContent folderPath="txt/places/fields/themiscyra">RAIDERS_COMBAT_WON_SEX_ROUGH</sexStartContent>
+					<sexStartContent folderPath="txt/places/fields/themiscyra">RAIDERS_COMBAT_WON_SEX</sexStartContent>
 					<tags>
 						<tag>START_PACE_PLAYER_DOM_ROUGH</tag>
 					</tags>
@@ -1255,8 +1225,17 @@
 			#ELSE
 				[#flags.setFlag(FLAG_innoxia_themiscyra_raider_sex_player_targeted_by_leader, false)]
 			#ENDIF
+			
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/themiscyra', 'RAIDERS_COMBAT_LOST'))]
+			
+			#IF(!attacker.hasPenis())
+				[#attacker.growPenis()]
+			#ENDIF
+			#IF(!attacker2.hasPenis())
+				[#attacker2.growPenis()]
+			#ENDIF
 		]]></preParsingEffects>
-		<content folderPath="txt/places/fields/themiscyra">RAIDERS_COMBAT_LOST</content>
+		<content/>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -1402,6 +1381,9 @@
 	</scene>
 	
 	<scene id="raiders_after_sex_sub">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(pc.getLastCell())]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[The centauress has had her fun with you, and with a cruel laugh she kicks you away from her...]]></tooltip>
 		<content folderPath="txt/places/fields/themiscyra">RAIDERS_AFTER_SEX_SUB</content>
@@ -1412,15 +1394,12 @@
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Flee]]></responseTitle>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
 				<responseTooltip><![CDATA[
-					With the centauresses threatening to beat you up all over again, the best thing to do would be to make a hasty exit...
+					After your sexual encounter with the two centauresses, you wonder where to go now...
 				]]></responseTooltip>
 				<nextDialogue defaultPlaceType="innoxia_fields_themiscyra_street"/>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
-				<effects><![CDATA[
-					[#pc.setLocation(pc.getLastCell())]
-				]]></effects>
 			</response>
 		</responses>
 	</scene>
@@ -1428,6 +1407,7 @@
 	<scene id="raiders_perk_application">
 		<preParsingEffects><![CDATA[
 			[#game.appendToTextEndStringBuilder(pc.addSpecialPerk(PERK_HERO_OF_THEMISCYRA))]
+			[#game.appendToTextEndStringBuilder(aurokaris.incrementAffection(pc, 50))]
 		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/themiscyra">RAIDERS_PERK_APPLICATION</content>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
@@ -1472,7 +1452,7 @@
 	
 	<scene id="elis_fight">
 		<content folderPath="txt/places/fields/themiscyra">ELIS_FIGHT</content>
-		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
 		<responses>
@@ -1488,7 +1468,23 @@
 	
 	<scene id="elis_listen">
 		<content folderPath="txt/places/fields/themiscyra">ELIS_LISTEN</content>
-		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Reassure]]></responseTitle>
+				<responseTooltip><![CDATA[Try to think of something to say to reassure Minotallys and snap her out of her depression.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_elis_reassure]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="elis_reassure">
+		<content folderPath="txt/places/fields/themiscyra">ELIS_REASSURE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
 		<responses>
@@ -1507,9 +1503,9 @@
 			#IF(game.getWorlds().get(WORLD_TYPE_innoxia_fields_elis_town).getCell(PLACE_TYPE_innoxia_fields_elis_town_amazon_camp)==null)
 				[#game.getWorlds().get(WORLD_TYPE_innoxia_fields_elis_town).getCell(1, 11).getPlace().setPlaceType(PLACE_TYPE_innoxia_fields_elis_town_amazon_camp)]
 			#ENDIF
-			[#ursa.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_amazon_camp, true)]
-			[#aurokaris.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_amazon_camp, true)]
-			[#lunexis.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, true)]
+			[#ursa.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_amazon_camp_queen, true)]
+			[#aurokaris.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_town_amazon_camp_trader, true)]
+			[#lunexis.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_town_amazon_camp_lunexis, true)]
 		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/themiscyra">ELIS_HELP</content>
 		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>

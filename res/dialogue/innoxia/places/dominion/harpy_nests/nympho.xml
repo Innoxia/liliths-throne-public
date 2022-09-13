@@ -89,10 +89,13 @@
     <scene id ="approach">
         <author><![CDATA[AceXp]]></author>
         <title><![CDATA[[harpyNympho.NamePos] nest]]></title>
-        <preParsingEffects>
+        <preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'HARPY_NEST_NYMPHO_APPROACH'))]
             [#harpyNymphoCompanion.setAreaKnownByCharacter(CA_PENIS, harpyNympho, true)]
-        </preParsingEffects>
-        <content folderPath="txt/places/dominion/harpyNests/nympho">HARPY_NEST_NYMPHO_APPROACH</content>
+			[#nymphoHarpy.setCharacterReactedToPregnancy(pc, true)]
+			[#harpyNymphoCompanion.setCharacterReactedToPregnancy(pc, true)]
+        ]]></preParsingEffects>
+        <content/>
         <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
         <continuesDialogue>false</continuesDialogue>
         <travelDisabled>true</travelDisabled>

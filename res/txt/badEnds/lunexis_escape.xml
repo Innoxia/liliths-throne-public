@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- Betrayed Lunexis: -->
+	
+	<htmlContent tag="FAILED"><![CDATA[
+	<p>
+		TODO You reveal Lunexis's plan to Meraxis. She reacts with surprise and chastises you for having submitted to her in the first place.
+	</p>
+	<p>
+		lets out a relieves sigh and says that at least she can trust you to never betray her. Says that Ursa must be informed of this, and so to follow her to the Amazon camp.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FAILED_URSA"><![CDATA[
+	<p>
+		TODO You follow Meraxis, and are soon standing in Ursa's tent as Meraxis recounts your admission. Ursa shoots you a severe glance, but is relieved in much the same way Meraxis was to see that you'd never betray their trust.
+	</p>
+	<p>
+		Says that it would be for the best if you were banned from seeing Lunexis again. Whatever power she's been able to exert over you will not be allowed to be harnessed.
+	</p>
+	<p>
+		Says to Meraxis that she's been wanting to give her a special reward for having helped back in Themiscyra. Seeming to realise what Ursa means, and obviously not wanting to be dominantly fucked by the Amazonian queen, she makes an excuse and teleports back to the tavern.
+	</p>
+	<p>
+		Ursa sighs that she didn't really have time anyway. Asks you to leave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FAILED_URSA_LEAVE"><![CDATA[
+	<p>
+		TODO You leave the tent. Miraculously, Ursa and Meraxis don't seem to think any less of you, as they seemed more impressed by your honesty than concerned at your initial betrayal.
+	</p>
+	<p>
+		Letting out a disappointed sigh as you realise that you're not going to be able to get another taste of your Mistress's cock, you continue on your way into the Amazon camp...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Betrayed Meraxis: -->
+	
+	<htmlContent tag="START"><![CDATA[
+	<p>
+		TODO You convince Meraxis that there's a secret weapon in Themiscyra, hidden there by Lunexis during the attack on the town. Having now been abandoned by the centauresses, the two of you can travel there and retrieve it.
+	</p>
+	<p>
+		Meraxis believes you and asks where exactly it is. You say that Lunexis's directions are too vague to pinpoint it, but if you take her along with you, then she can lead the way there.
+	</p>
+	<p>
+		Meraxis asks if Ursa has been informed of this, to which you say that she's too busy to be involved, and that something like this needs to be acted upon immediately. She is a little hesitant, but says that she'll decide once she's spoken with Lunexis.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AMAZON_CAMP"><![CDATA[
+	<p>
+		TODO You arrive at the Amazons' camp, and recognising both you and Meraxis, are allowed through by Ursa's guards to see Lunexis. Thankfully, the queen is busy with a very important meeting, which lends credence to your assertion that she's too busy to get involved in this matter.
+	</p>
+	<p>
+		As you enter the sound-proof tent, you see a flash of delight in Lunexis's eyes, but she quickly gets control of herself and takes on the part of the indignant demon. Cursing both you and Meraxis, she says that she's not going to cooperate with anything you want.
+	</p>
+	<p>
+		You say that you're here about the weapon she mentioned before. Not the sharpest tool in the shed, the centauress is confused, but as you pointedly 'remind her' of the secret weapon she told you about, she finally clocks on and states taht you'll never have it.
+	</p>
+	<p>
+		Thankfully, Meraxis hasn't noticed Lunexis's odd behaviour, and demands that she reveal the location of this weapon. As Lunexis refuses, Meraxis laughs and says that she's going to lead them to it, or else.
+	</p>
+	<p>
+		She makes sure one last time with you that it's safe to teleport to Themiscyra. You say that it's safe, but there might be the occasional bandit. You want to get in and out as quickly as possible, so teleport straight to the plaza.
+	</p>
+	<p>
+		Nodding in approval, the [meraxis.race] summons her energy and begins casting the teleportation spell. A devious smirk settles on Lunexis's face just before you're enveloped by a flash of pinkish purple light...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TELEPORTED"><![CDATA[
+	<p>
+		You appear in the plaza at Themiscyra, and as Lunexis hoped, her army is still there, milling about and not doing much. As the purple flash dies away, Lunexis grabs hold of you, before rearing up and pointing at Meraxis as she shouts, [lunexis.speech(Get her before she can escape!)]
+	</p>
+	<p>
+		Meraxis tries to fight against the centauresses, but there are too many.  Summoning the last of her strength, Meraxis tries to cast teleport, but the centauress who felled her quickly clasps an iron collar around her neck, which drains the [meraxis.race]'s arcane energy and interrupts her casting. Tearing off Meraxis's clothes, this muscular, purple-skinned brute of a centauress has four arms, just like Lunexis. Using two of them, she effortlessly lifts Meraxis into the air, while using her lower two to spread her labia and roughly shove her thick fingers into her cunt. Hungrily grunting as she fingers Meraxis, she looks at Lunexis and declares, [style.speechFeminineStrong(This bitch is mine!)]
+	</p>
+	<p>
+		Angrily stomping her hoofs on the ground, Lunexis demands her weapons. A small centauress hurries to obey, and brings another cloak along with them. Hefting her four morning stars, Lunexis declares, [lunexis.speech(As the one who defeated her, Lunette's law gives you that right, but I challenge you to a duel for her!)]
+	</p>
+	<p>
+		The muscular centauress lets out an annoyed grunt, and as she uses her strong hands to roughly molest Meraxis's tits, she states, [style.speechFeminineStrong(After you vanished, I was recognised by our sisters as the army's leader. I'll stand down without a fight, but only on the condition that you let me keep this bitch.)]
+	</p>
+	<p>
+		Lunexis steps right up to this other centauress, squishing Meraxis between Lunexis's six breasts and her captor's four. With their noses practically touching, the two titanic, muscular centauresses glare at one another, before Lunexis grunts and declares, [lunexis.speech(I shall obey Lunette's law! You may keep this slut!)]
+	</p>
+	<p>
+		With this confrontation resolved, the purple centauress pushes Meraxis down onto all fours, before quickly mounting her and ramming her fat, horse-like cock deep into her [meraxis.pussy+]. Grunting down at her, she taunts in-between rough thrusts, [style.speechFeminineStrong(Feels better than my fingers, huh, slut?! You're mine now!)]
+	</p>
+	<p>
+		Clearly annoyed at having to surrender Meraxis in exchange for regaining control over her army, Lunexis breaks one of the plaza's paving stones beneath a furious stomp of her huge hoofs. Having lost her prize, Lunexis turns her attention to you, and after roughly stripping you and clasping an iron collar around your neck, she grunts in disappointment, [lunexis.speech(All I get is you? Well, gaining another obedient cock-sleeve isn't too bad...)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="TELEPORTED_SEX"><![CDATA[
+	<p>
+		Using one of her huge hoofs, Lunexis roughly kicks you down, and as her gigantic horse-cock pushes out of its sheath and begins to harden, she growls, [lunexis.speech(Get on all fours, cunt!)]
+	</p>
+	<p>
+		More than happy to submit to her, you quickly do as you're told and drop down onto all fours before the demonic centauress. Wasting no time, she
+		#IF(pc.hasVagina() || game.isAnalContentEnabled())
+			 quickly steps forwards and mounts you, before ramming her monstrous, fully-erect cock as deep as possible into your exposed
+			#IF(pc.hasVagina())
+				 [pc.pussy].
+			#ELSE
+				 [pc.asshole].
+			#ENDIF
+		#ELSE
+			 quickly steps around and mounts your face, before ramming her monstrous, fully-erect cock as deep as possible down your throat.
+		#ENDIF
+		 Keeping her fat, throbbing shaft hilted deep inside of you, she ignores your squirming and the lewd moaning noises that you're making, and calls over a few nearby centauresses. Acting as though you don't exist, she spends the next few minutes ordering her subordinates to ready the palace for her arrival and to send a report to Lunette. Only after this business has been sorted out does Lunexis return her attention to you, and after bucking her hips into you a few times, she muses to herself, [lunexis.speech(There really does seem to be potential for this slut... I suppose I'll have [pc.herHim] trained like I promised.)]
+	</p>
+	<p>
+		Having come to a decision on what to do with you, Lunexis pulls her hips back, allowing her throbbing, hot horse-cock to slide mostly out of your
+		#IF(pc.hasVagina())
+			 [pc.pussy],
+		#ELSEIF(game.isAnalContentEnabled())
+			 [pc.asshole],
+		#ELSE
+			 mouth,
+		#ENDIF
+		 before ruthlessly thrusting forwards and forcing it deep inside of you once again. Beginning to repeat this process, she addresses you by grunting, [lunexis.speech(Forget whatever life you had, cunt. You're my cock-sleeve now, and you're going to be trained to love it!)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="AFTER_SEX"><![CDATA[
+	<p>
+		Snapping her fingers at you, Lunexis points back and down towards her groin, before commanding, [lunexis.speech(Lick my cock clean, slut.)]
+	</p>
+	<p>
+		Completely at her mercy, and not wanting to find out what happens if you disobey, you obediently crawl beneath Lunexis's horse body and begin to lick all traces of her cum from her fat, hot horse-cock. As you do this, you're able to look over to one side to see that Meraxis, with cum drooling out of her well-fucked cunt, has her face buried in her captor's
+		#IF(game.isAnalContentEnabled())
+			 ass as she performs anilingus on her.
+		#ELSE
+			 pussy as she performs cunnilingus on her. Grunting in pleasure, the muscular, purple-skinned centauress shouts, [style.speechFeminineStrong(Get your tongue in deep, you dumb bitch! I'll have you cumming from this by the time I'm finished with you!)]
+		#ENDIF
+	</p>
+	<p>
+		[lunexis.speech(I need more than this,)] Lunexis suddenly sighs, before forcefully ramming her cock down your throat. Pinning you to the floor with her gigantic shaft buried deep inside of you, she grunts, [lunexis.speech(~Aah!~ That's better!)] 
+	</p>
+	<p>
+		A few moments later, and Lunexis lets out a deep, erotic grunt, before spurting a huge load of hot demonic cum directly into your stomach. Panting and moaning, the demonic centauress then slides her softening shaft out of your mouth, before ordering one of her subordinates to drag you along behind her as she trots off towards the palace. 
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="PALACE"><![CDATA[
+	<p>
+		Treated like a completely worthless slave, you find yourself being unceremoniously dragged along behind Lunexis as she climbs the winding staircase that leads up to the palace's entrance. Meraxis is similarly dragged along behind you while her captor, who is clearly second-in-command behind Lunexis, strides after her. Once inside, your companion is dragged off to the part of the palace which has been claimed by the purple-skinned centauress, while you're taken to the throne room and chained to a pillar.
+	</p>
+	<p>
+		For the next several hours you're left alone while Lunexis meets with her lieutenants to plan their next move. Just when you think you've been forgotten, a group of a dozen or so scantily-clad slaves approach. Their leader, a heavily-pierced and tattooed horse-girl, looks down at you and identifies the group by saying, [style.speechFeminine(We are Lunexis's cock-sleeves, and you are our newest member. We live to service our divine queen, and crave nothing more than to be stuffed full of her perfect cock.)]
+	</p>
+	<p>
+		Dropping the wispy, translucent skirt which was concealing her genitals, this horse-girl reveals that she's sporting a massive, and very familiar-looking, horse-cock. Nodding as she sees the look of recognition in your face, she reveals, [style.speechFeminine(Yes, my cock has the exact same proportions as that of Lunexis. You're to be trained on my cock so that you'll be proficient at servicing your queen. We begin your training immediately.)]
+	</p>
+	<p>
+		At the horse-girl's order, four of the other slaves step forwards and hold you down. Stroking her shaft so that it quickly rises to full erection, the leader of Lunexis's cock-sleeves squats down and roughly rams her cock deep down your throat. Keeping it hilted for what seems like an eternity, she then starts ruthlessly face-fucking you, and can't help but moan in pleasure as she enjoys giving you a taste of your new life...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="TRAINED"><![CDATA[
+	<p>
+		Having already accepted the fact that you're to become one of Lunexis's cock-sleeves, you happily consume several mind-altering potions which are given to you by the horse-girl slave, which make you more open to the concept of being another's property while simultaneously causing memories of your life before meeting Lunexis to become foggy and confusing. Thanks to these potions, as well as your relentless schedule of being fucked, exhibited, and forced to submissively serve the other cock-sleeves, you soon start to call yourself 'cock-sleeve' and see yourself as one of the group.
+	</p>
+	<p style='text-align:center;'>
+		...
+	</p>
+	<p>
+		Two months pass in this manner, and while the other cock-sleeves are regularly called out to service your queen, you're never asked for. The horse-girl slave, who like all of you cock-sleeves has no name, responds to any question of being used by Lunexis by saying something along the lines of, [style.speechFeminine(Your training is not yet finished. Now swallow my cock and stay still while I fill you with cum.)]
+	</p>
+	<p style='text-align:center;'>
+		...
+	</p>
+	<p>
+		After another month, on one day after spending all morning fucking you and pumping you full of cum, the horse-girl suddenly declares, [style.speechFeminine(Your preliminary training is finished. Now we need to get you specialised. I think I already know what's best for you, but let's hear what you think. How best do you like taking my cock?)]
+	</p>
+	<p>
+		Dropping her thick, meaty shaft down onto your face, the horse-girl smirks as you breathe in the musky scent of her massive cock and wonder how to answer...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="TRAINED_ORAL"><![CDATA[
+	<p>
+		In love with the taste of her cock and being able to cum from simply licking, kissing, and swallowing her thick, hot shaft, you tell the horse-girl that you want to be able to give Lunexis the best blowjobs she's ever had. Nodding her head as she hears you say this, the horse-girl roughly rams her erect horse-cock down your throat, saying as she does so, [style.speechFeminine(I knew right from the first moment I saw you that you were a dirty oral whore. Let's turn your passion into an obsession, and get your throat trained to take our queen's cock.)]
+	</p>
+	<p>
+		Happily taking the horse-girl's cock fully down your throat, you completely lose yourself to the idea of becoming Lunexis's oral cock-sleeve. That day you end up swallowing load after load of the horse-girl's cum, each time feeling like you'll be a little better at orally servicing Lunexis's cock...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="TRAINED_VAGINAL"><![CDATA[
+	<p>
+		In love with the feeling of her cock being rammed deep into your cunt, and being able to cum from the first touch of her flared head against your [pc.labia+], you tell the horse-girl that you want to be able to be the best fuck that Lunexis has ever had. Nodding her head as she hears you say this, the horse-girl slaps her erect horse-cock against your pussy, before ramming it deep inside and saying as she does so, [style.speechFeminine(I knew right from the first moment I saw you that you were born to be a cock-sleeve. Let's turn your passion into an obsession, and get your cunt trained to take our queen's cock.)]
+	</p>
+	<p>
+		Happily moaning as the slave hilts her fat horse-cock in your pussy, you completely lose yourself to the idea of becoming Lunexis's obedient cock-sleeve. That day you end up taking load after load of the horse-girl's cum, each time feeling like your pussy will be a little better at making Lunexis's cock feel good...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="TRAINED_ANAL"><![CDATA[
+	<p>
+		In love with the feeling of her cock being rammed deep into your ass, and being able to cum from the first touch of her flared head against your [pc.asshole+], you tell the horse-girl that you want to be able to be the best anal slut that Lunexis has ever had. Nodding her head as she hears you say this, the horse-girl slaps her erect horse-cock against your ass, before ramming it deep inside your butt and saying as she does so, [style.speechFeminine(I knew right from the first moment I saw you that you were a dirty butt slut. Let's turn your passion into an obsession, and get your ass trained to take our queen's cock.)]
+	</p>
+	<p>
+		Happily moaning as the slave hilts her fat horse-cock in your asshole, you completely lose yourself to the idea of becoming Lunexis's anal cock-sleeve. That day you end up taking load after load of the horse-girl's cum, each time feeling like your asshole will be a little better at making Lunexis's cock feel good...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="GRADUATION"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_oral))
+		<p>
+			After many more days of sucking the horse-girl's cock, licking her balls, and swallowing load after load of her cum, you're finally ordered one evening to kneel before the other cock-sleeves, where the horse-girl announces, [style.speechFeminine(This cock-sleeve has finished [pc.her] training. Please step forwards and congratulate her one by one.)]
+		</p>
+		<p>
+			Lining up, the other cock-sleeves take turns using their cocks or strap-ons to fuck your face. None of them feel anywhere near as good as the horse-girl's shaft, and so after they're all done, you beg her to hilt her fat cock deep down your throat. Shaking her head, she replies, [style.speechFeminine(Your graduation is over, which means that your mouth and throat are only for our queen's cock now. You won't have long to wait for it, either, for an orgy has been planned for tomorrow evening out in the plaza to celebrate the fall of Themiscyra. The party is going to be started by a public demonstration of how the four captives taken in the battle of the plaza have been reduced to obedient cock-sleeves. Do your best to please our queen, cock-sleeve.)]
+		</p>
+	#ELSEIF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_vaginal))
+		<p>
+			After many more days of being fucked by the horse-girl's cock, acting as her cock-sleeve, and being pumped full of load after load of her cum, you're finally ordered one evening to lie down before the other cock-sleeves, where the horse-girl announces, [style.speechFeminine(This cock-sleeve has finished [pc.her] training. Please step forwards and congratulate her one by one.)]
+		</p>
+		<p>
+			Lining up, the other cock-sleeves take turns using their cocks or strap-ons to fuck your pussy. None of them feel anywhere near as good as the horse-girl's shaft, and so after they're all done, you beg her to hilt her fat cock deep into your hungry twat. Shaking her head, she replies, [style.speechFeminine(Your graduation is over, which means that your pussy is only for our queen's cock now. You won't have long to wait for it, either, for an orgy has been planned for tomorrow evening out in the plaza to celebrate the fall of Themiscyra. The party is going to be started by a public demonstration of how the four captives taken in the battle of the plaza have been reduced to obedient cock-sleeves. Do your best to please our queen, cock-sleeve.)]
+		</p>
+	#ELSE
+		<p>
+			After many more days of being anally fucked by the horse-girl's cock, acting as her cock-sleeve, and being pumped full of load after load of her cum, you're finally ordered one evening to lie down before the other cock-sleeves, where the horse-girl announces, [style.speechFeminine(This cock-sleeve has finished [pc.her] training. Please step forwards and congratulate her one by one.)]
+		</p>
+		<p>
+			Lining up, the other cock-sleeves take turns using their cocks or strap-ons to fuck your ass. None of them feel anywhere near as good as the horse-girl's shaft, and so after they're all done, you beg her to hilt her fat cock deep into your hungry asshole. Shaking her head, she replies, [style.speechFeminine(Your graduation is over, which means that your ass is only for our queen's cock now. You won't have long to wait for it, either, for an orgy has been planned for tomorrow evening out in the plaza to celebrate the fall of Themiscyra. The party is going to be started by a public demonstration of how the four captives taken in the battle of the plaza have been reduced to obedient cock-sleeves. Do your best to please our queen, cock-sleeve.)]
+		</p>
+	#ENDIF
+	<p>
+		Promising that you will, you spend the next twenty four hours constantly thinking about how good it's going to feel to finally be stuffed full of your queen's cock. After what seems like an eternity, the time finally arrives, and you're led off to the party, ready to show Lunexis and all of her guests what a good cock-sleeve you are....
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FINAL"><![CDATA[
+	<p>
+		Having been kept back as the final cock-sleeve to be brought to the party, you're impatiently watched by at least a few hundred centauresses as you're led down the steps before the palace, and then a short way across the plaza. Arriving at the exact same point where you and your three companions were defeated, you see that everyone's already here and waiting for you.
+	</p>
+	<p>
+		Your gaze wanders first to the muscular, purple-skinned brute of a centauress who claimed Meraxis, and you see that she's got the chuuni demon on a thick leather leash. Grunting at you in amusement, the centauress tugs on this leash, causing Meraxis to step forwards and show off her naked body. Now covered in degrading tattoos, and with every conceivable part of her body pierced, the chuuni demon has been transformed to have five pairs of big, perky breasts, each one of which is sporting a thick, golden ring. Having been trained to be an obedient cock-sleeve, she reaches down between her legs and spreads her big, dripping-wet labia, excitedly moaning as she does so, [meraxis.speech(~Mmm!~ I'm ready for your cock, Mistress!)]
+	</p>
+	<p>
+		Alongside Meraxis and her owner, you see several enslaved Amazons, all of whom are already down on all fours, presenting themselves to the horde of centauress. From the cum that's leaking down their inner-thighs, as well as the fact that several of them have swollen, pregnant belly, you can see that the demonic host has been enjoying their cunts on a regular basis. Also trained to be obedient cock-sleeves, these slaves lift their hips and presents their pussies, before desperately begging to be fucked.
+	</p>
+	<p>
+		All that's left now is for Lunexis to show off what a well-trained cock-sleeve you are, and so the huge, muscular centauress, who's been close by this entire time, simply turns to her side and presents you with the thing that you want most in the world right now. The sight of your queen's huge, meaty horse-cock causes you to let out a desperate whine, and you rush forwards to drop down beside her, ready to obey at a moment's notice when she finally gives you the command to get started.
+	</p>
+	<p>
+		Smirking at your show of obedience, your queen addresses the crowd that's gathered by booming in her loud voice, [lunexis.speech(Sisters! The fields have been ravaged, Themiscyra is in ruins, and Elis will soon be ours! Tonight we celebrate our triumphs! To get things started, I present to you the fate of all who dare oppose us!)]
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_oral))
+		<p>
+			With a mocking smirk on her face, the centauress looks down at you and grunts, [lunexis.speech(My balls are sweaty from running around all day. Lick them clean, cock-sleeve.)]
+		</p>
+		<p>
+			Eager to obey, you quickly shuffle forwards and start licking her huge, ebony-skinned balls. Lovingly sliding your tongue over her four heavy testicles, you make sure to lick up every drop of sweat. Your queen's gigantic horse-cock rapidly slides out of its sheath in response to your attention, and as it stiffens into full erection, she snaps, [lunexis.speech(That's enough! Now swallow my cock and show everyone what a good cock-sleeve you are!)]
+		</p>
+		<p>
+			Quickly repositioning yourself, you do as Lunexis commands. Opening wide, you slide your head forwards, and with the help of a buck of your queen's hips, the massive, meaty shaft is soon hilted deep down your throat. Your training proves to have been worthwhile, for as soon as your throat is full of cock, Lunexis moans, [lunexis.speech(~Mmm!~ Fuck! This slut's throat feels too good!)]
+		</p>
+		<p>
+			Reaching up to play with her three pairs of breasts, your queen starts pumping her hips forward and back, forcing her massive, throbbing shaft deep down and then back up your throat. As she fucks your face in this manner, you find that your position allows you to look across and see what's happening to the cock-sleeve who you once knew as Meraxis...
+		</p>
+	#ELSEIF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_vaginal))
+		<p>
+			With a mocking smirk on her face, the centauress looks down at you and grunts, [lunexis.speech(My balls are aching. Present yourself, cock-sleeve, so I can empty them in you.)]
+		</p>
+		<p>
+			Eager to obey, you quickly drop down beneath your queen and present her with your [pc.pussy+]. Your queen's gigantic horse-cock rapidly slides out of its sheath, and the moment that it stiffens into a full erection, she bucks her hips and rams her massive, meaty shaft into your hungry cunt. Stepping forwards, she roughly forces the entire length of her thick, throbbing dick inside of you, letting out a satisfied groan as she hilts herself as deep as possible into your cunt. Your training proves to have been worthwhile, for as soon as your cunt is full of cock, Lunexis moans, [lunexis.speech(~Mmm!~ Fuck! This slut's pussy feels too good!)]
+		</p>
+		<p>
+			Reaching up to play with her three pairs of breasts, your queen starts pumping her hips forward and back, forcing her massive, throbbing shaft deep inside and then back out of your twat. As she fucks you in this manner, you find that your position allows you to look across and see what's happening to the cock-sleeve who you once knew as Meraxis...
+		</p>
+	#ELSE
+		<p>
+			With a mocking smirk on her face, the centauress looks down at you and grunts, [lunexis.speech(My balls are aching. Present yourself, cock-sleeve, so I can empty them in you.)]
+		</p>
+		<p>
+			Eager to obey, you quickly drop down beneath your queen and present her with your [pc.ass+]. Your queen's gigantic horse-cock rapidly slides out of its sheath, and the moment that it stiffens into a full erection, she bucks her hips and rams her massive, meaty shaft into your hungry asshole. Stepping forwards, she roughly forces the entire length of her thick, throbbing dick inside of you, letting out a satisfied groan as she hilts herself as deep as possible into your ass. Your training proves to have been worthwhile, for as soon as you're full of cock, Lunexis moans, [lunexis.speech(~Mmm!~ Fuck! This slut's ass feels too good!)]
+		</p>
+		<p>
+			Reaching up to play with her three pairs of breasts, your queen starts pumping her hips forward and back, forcing her massive, throbbing shaft deep inside and then back out of your rear entrance. As she fucks you in this manner, you find that your position allows you to look across and see what's happening to the cock-sleeve who you once knew as Meraxis...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="FINAL_MERAXIS"><![CDATA[
+	<p>
+		Looking across to the [meraxis.race] cock-sleeve who was once called Meraxis, you see her heavily-tattooed body wildly rocking back and forth as her brutish, purple-skinned owner violently pumps her huge horse-cock in and out of her cunt. The cock-sleeve's five pairs of big breasts, each one pierced and bearing a thick golden ring, are jiggling and bouncing in a hypnotic manner as she lies back on the paving stones and keeps her legs spread wide for her mistress. Clearly loving every moment of being roughly fucked in public like this, the cock-sleeve moans, [meraxis.speech(~Aah!~ Yes, Mistress! I'm your worthless slut! ~Ooh!~ Break my dirty little cunt!)]
+	</p>
+	<p>
+		Letting out a deep, guttural roar, the centauress thrusts her fat cock deep inside her cock-sleeve. The [meraxis.race]'s big, pierced labia spread and grip down lewdly around her mistress's thick cock, causing the centauress to shout, [style.speechFeminineStrong(That's it, milk my cock, you dumb bitch! ~Aah!~ Ready to get knocked up again, bitch?!)]
+	</p>
+	<p>
+		With that, the centauress's heavy balls tense up, and she continues grunting and making degrading comments as she fills her cock-sleeve's pussy with hot, demonic cum. It takes almost a full minute for her orgasm to end, by which point her thick, salty jizz has backed up and leaked out around her cock to form a large, gloopy puddle on the ground beneath her cock-sleeve's well-fucked cunt. By no means having finished with her tattooed, pierced [meraxis.race], the centauress slides her fat cock free with an audible squelch, before commanding,
+		#IF(game.isAnalContentEnabled())
+			 [style.speechFeminineStrong(Get to work on my ass, cock-sleeve! I want to hear you cumming from giving me a rimjob, you filthy slut!)]
+		#ELSE
+			 [style.speechFeminineStrong(Get to work on my cunt, cock-sleeve! I want to hear you cumming from eating me out, you filthy slut!)]
+		#ENDIF
+	</p>
+	<p>
+		Hurrying to obey, the cock-sleeve jumps to her feet, and with cum drooling out of her pussy, she moves around behind her mistress. Swishing her tail to one side, the centauress grins as her slave eagerly buries her face in her rear end, and within moments, you hear the multi-breasted [meraxis.race]'s muffled squeals announcing the fact that she's orgasmed simply from
+		#IF(game.isAnalContentEnabled())
+			 performing anilingus. Letting out a mocking laugh, the centauress shouts back to her cock-sleeve, [style.speechFeminineStrong(That's a good bitch! I'll give you another tattoo after the party as a reward for your obedience. I'm thinking 'Ass licker' would go nicely on your lips...)]
+		#ELSE
+			 performing cunnilingus. Letting out a mocking laugh, the centauress shouts back to her cock-sleeve, [style.speechFeminineStrong(That's a good bitch! I'll give you another tattoo after the party as a reward for your obedience. I'm thinking 'Cunt licker' would go nicely on your lips...)]
+		#ENDIF
+	</p>
+	<p>
+		Not having been told to stop, the cock-sleeve continues eagerly performing oral on her mistress. Despite being interrupted now and again by an intense, body-shaking orgasm, the [meraxis.race] quickly settles into a steady rhythm
+		#IF(game.isAnalContentEnabled())
+			 as she gives her mistress a marathon rimjob...
+		#ELSE
+			 as she gives her mistress a marathon cunnilingus session...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="FINAL_SELF"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_oral))
+		<p>
+			Instead of looking to see what's happening to the other cock-sleeve, you focus on pleasuring your queen. Moving your head in time with the rhythmic pumping of her hips, you remember your training with the horse-girl whose name you never knew and work hard to give Lunexis the best blowjob she's ever had. Putting everything you've got into sucking, swallowing, and licking her thick, throbbing horse-shaft, you can't help but feel extremely proud of yourself as the centauress lets out a series of shuddering, deeply erotic moans.
+		</p>
+		<p>
+			[lunexis.speech(~Aah!~ Yes, cock-sleeve!)] she squeals, [lunexis.speech(~Ooh!~ Take my load, you fucking slut!)]
+		</p>
+		<p>
+			With that, the centauress lets out a deep, guttural grunt, before violently slamming her massive cock as deep as possible down your throat. Thanks to your training, you're fully prepared for this moment, and continue using your tongue and throat muscles to massage her cock as she reaches her climax. As her balls tense up, a truly massive load of hot, salty cum spurts out of her horse-cock and jets directly down into your stomach. Greedily swallowing down every last drop, you push your [pc.lips+] up against the sweaty, salty base of her animalistic shaft to signal that you're able to comfortably take every last
+			#IF(game.isMetricSizes())
+				 centimetre
+			#ELSE
+				 inch
+			#ENDIF
+			 of her cock down your throat.
+		</p>
+		<p>
+			[lunexis.speech(You've been trained well, cock-sleeve,)] Lunexis grunts as she finishes her climax. Keeping her cock hilted down your throat, she continues absent-mindedly playing with her multiple breasts as she commands, [lunexis.speech(Keep doing that thing with your throat while I watch the party.)]
+		</p>
+		<p>
+			Doing as you're told, you put your training to good use as you remain as still as you can while using your tongue and throat muscles to pleasure your queen's cock...
+		</p>
+	#ELSEIF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_vaginal))
+		<p>
+			Instead of looking to see what's happening to the other cock-sleeve, you focus on pleasuring your queen. Moving your hips in time with the rhythmic pumping of her cock, you remember your training with the horse-girl whose name you never knew and work hard to give Lunexis the best sex she's ever had. Putting everything you've got into pushing back against her and squeezing your pussy down around her thick, throbbing horse-shaft, you can't help but feel extremely proud of yourself as the centauress lets out a series of shuddering, deeply erotic moans.
+		</p>
+		<p>
+			[lunexis.speech(~Aah!~ Yes, cock-sleeve!)] she squeals, [lunexis.speech(~Ooh!~ Take my load, you fucking slut!)]
+		</p>
+		<p>
+			With that, the centauress lets out a deep, guttural grunt, before violently slamming her massive cock as deep as possible into your [pc.pussy+]. Thanks to your training, you're fully prepared for this moment, and use your vaginal muscles to massage her cock as she reaches her climax. As her balls tense up, a truly massive load of hot, salty cum spurts out of her horse-cock and jets directly into your womb. Milking her for every last drop, you push back and press your [pc.labia+] against the sweaty, hot base of her animalistic shaft to signal that you're able to comfortably take every last
+			#IF(game.isMetricSizes())
+				 centimetre
+			#ELSE
+				 inch
+			#ENDIF
+			 of her cock into your cunt.
+		</p>
+		<p>
+			[lunexis.speech(You've been trained well, cock-sleeve,)] Lunexis grunts as she finishes her climax. Keeping her cock hilted in your cum-stuffed pussy, she continues absent-mindedly playing with her multiple breasts as she teases,
+			#IF(game.isIncestEnabled())
+				 [lunexis.speech(You're going to get pregnant from this, slut. I'm sure that the daughters you'll birth will enjoy fucking their mother's hot cunt as much as I do. Now keep on milking my cock while I watch the party.)]
+			#ELSE
+				 [lunexis.speech(You're going to get pregnant from this, slut. Now keep on milking my cock while I watch the party.)]
+			#ENDIF
+		</p>
+		<p>
+			Doing as you're told, you put your training to good use as you use your vaginal muscles to squeeze and pleasure your queen's cock...
+		</p>
+	#ELSE
+		<p>
+			Instead of looking to see what's happening to the other cock-sleeve, you focus on pleasuring your queen. Moving your hips in time with the rhythmic pumping of her cock, you remember your training with the horse-girl whose name you never knew and work hard to give Lunexis the best anal sex she's ever had. Putting everything you've got into pushing back against her and squeezing your asshole down around her thick, throbbing horse-shaft, you can't help but feel extremely proud of yourself as the centauress lets out a series of shuddering, deeply erotic moans.
+		</p>
+		<p>
+			[lunexis.speech(~Aah!~ Yes, cock-sleeve!)] she squeals, [lunexis.speech(~Ooh!~ Take my load, you fucking slut!)]
+		</p>
+		<p>
+			With that, the centauress lets out a deep, guttural grunt, before violently slamming her massive cock as deep as possible into your [pc.ass+]. Thanks to your training, you're fully prepared for this moment, and use your anal muscles to massage her cock as she reaches her climax. As her balls tense up, a truly massive load of hot, salty cum spurts out of her horse-cock and jets deep into your ass. Milking her for every last drop, you push back and press your [pc.ass+] against the sweaty, hot base of her animalistic shaft to signal that you're able to comfortably take every last
+			#IF(game.isMetricSizes())
+				 centimetre
+			#ELSE
+				 inch
+			#ENDIF
+			 of her cock into your rear entrance.
+		</p>
+		<p>
+			[lunexis.speech(You've been trained well, cock-sleeve,)] Lunexis grunts as she finishes her climax. Keeping her cock hilted in your cum-stuffed asshole, she continues absent-mindedly playing with her multiple breasts as she teases, [lunexis.speech(You're such a filthy butt-slut. Now keep on milking my cock while I watch the party.)]
+		</p>
+		<p>
+			Doing as you're told, you put your training to good use as you use your anal muscles to squeeze and pleasure your queen's cock...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="EPILOGUE"><![CDATA[
+	<p>
+		You and the other cock-sleeve are publicly used in this manner for another half an hour or so, before finally Lunexis booms out over the noise of the crowd, [lunexis.speech(Bring in the slaves! Themiscyra is mine, and soon Elis shall share its fate!)]
+	</p>
+	<p>
+		To the wild cheering and shouting of the hundreds of demonic centauresses who are present, a train of slaves is led into the plaza. Sporting massive erections and stripping off their clothes to reveal massive, bouncing breasts, Lunette's daughters impatiently await the signal from Lunexis, which is soon given as she shouts, [lunexis.speech(Let the orgy commence!)]
+	</p>
+	<p>
+		The vast majority of these slaves look like they've been taken from the Foloi Field's villages and farms as part of the centauresses' looting, although some of the taller and more muscular are no doubt Amazons who were captured in the fall of Themiscyra. Whatever their background, they all share the same fate, that being having their holes stuffed full of horse-cock and hot, demonic cum. Within moments, you find yourself in the middle of a wild orgy, although Lunexis is enjoying using you so much that you find yourself being hogged by her for the entire night.
+	</p>
+	<p>
+		By the time the party has progressed into the early hours of the morning, you've seen the cock-sleeves once known as Meraxis and Aurokaris being reluctantly shared by their owners with just a handful of centauresses. The fallen queen of the Amazons, however, has been fucked by at least a hundred different cocks, each one of which filled or covered her in slimy, demonic cum. Thanks to being shared with so many sexual partners, she's soon coated in such a thick layer of jizz that you struggle to see the bondage gear she's wearing beneath it all.
+	</p>
+	<p>
+		Throughout it all, you and the other three cock-sleeves happily moan, squeal, and beg for more. So thorough has been your training that you can't recall a life before becoming Lunexis's slave, and so by the time the sun comes up, the four of you are convinced that you've always been, and forever shall remain, nothing but cock-sleeves for your demonic centauress owners...
+	</p>
+	<p style='text-align:center;'>
+		...
+	</p>
+	<p><i>
+		In the months and years to follow, the name of Themiscyra becomes synonymous with Lunexis's brutality. Any unfortunate soul caught by the centauresses who inhabit these ruins is brought to the palace, where they're fucked, used as entertainment in gladiatorial contests, or auctioned off as slaves. Through it all, you and Meraxis serve as your owners' cock-sleeves.
+	</i></p>
+	<p><i>
+		With degrading tattoos covering every part of her body, and wearing a uniform consisting of golden piercings and nothing else, the [meraxis.race] who was once called Meraxis is trained by her owner into becoming the perfect masochistic fuck-toy. Her ten large breasts, with the thick, teat-like nipple on each one pierced and sporting a heavy, golden ring, regularly draw the attention of visitors to the palace. Loving nothing more than being roughly pounded and abused by the brutish, purple-skinned centauress who owns her, this cock-sleeve gains a reputation throughout the palace as being a particularly dirty slut, who's willingly engaged in every degrading sex act imaginable...
+	</i></p>
+	<p><i>
+		Thanks to your training, and the expertise you displayed on the night of the grand orgy, Lunexis takes you as her favourite cock-sleeve. While a lot of your time is spent resting with the other cock-sleeves, you're called to your queen's side multiple times each day, where you're roughly rutted, pumped full of cum, and ordered afterwards to pleasure her cock. Dressed up in translucent silks which leave nothing to the imagination, you're sometimes shown off by your queen and lent for a day or two to particularly deserving subordinates as a special reward. Just like the other three cock-sleeves, you only remember your life as a cock-sleeve, and love every moment of dutifully serving your queen and her massive, hot horse-cock...
+	</i></p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

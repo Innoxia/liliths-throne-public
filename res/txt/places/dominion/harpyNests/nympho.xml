@@ -70,14 +70,21 @@
 				Smirking as you push through the crowds, you soon find yourself standing before the harpy they're all talking about. Moaning and squealing in delight, [harpyNympho.name] is once again riding her favourite boy-toy, [harpyNymphoCompanion.name]. As you come to a halt in front of them, they both suddenly let out an exceptionally loud scream, and you look down to see a slick trail of fresh cum oozing out of [harpyNympho.namePos] pussy. After taking a few moments to catch her breath, she lifts herself up, allowing the hot load to drool out of her well-used cunt, and, leaning down to deliver a passionate kiss on her partner's lips, she calls out, [harpyNympho.speech(Who's next?!)]
 			</p>
 			<p>
-				Stepping forwards, you make yourself known, [pc.speech(I think that would be me!)]
+				Taking this opportunity to let yourself be known, you [pc.step] forwards and announce that you've returned. Upon hearing your voice, [harpyNympho.name] spins around and lets out an exited squeal, [harpyNympho.speech([pc.Mistress]! You're back! Let's have some fun!)]
 			</p>
-			<p>
-				Upon hearing your voice, [harpyNympho.name] spins round, letting out an exited squeal, [harpyNympho.speech([pc.Mistress]! You're back! Let's have some fun!)]
-			</p>
-			<p>
-				Rushing towards you, [harpyNympho.name] falls to her knees. Shuffling forwards, she looks up into your [pc.eyes], [harpyNympho.speech(Please! [pc.mistress]! Let's fuck!)]
-			</p>
+			#IF(harpyNympho.isVisiblyPregnant())
+				<p>
+					#IF(!harpyNympho.isCharacterReactedToPregnancy(pc))
+						As she rushes towards you, you see that [harpyNympho.name] is sporting a [style.colourSex(pregnant belly)], and as she comes to a halt before you, she moans, [harpyNympho.speech(You got me pregnant, [pc.mistress]! Isn't it great?! Come on, let's recreate how you got me knocked up!)]
+					#ELSE
+						As she rushes towards you, you see that [harpyNympho.name] is still sporting a [style.colourSex(pregnant belly)], and as she comes to a halt before you, she moans, [harpyNympho.speech(Yeah, I'm still pregnant, [pc.mistress]! Come on, let's recreate how you got me knocked up!)]
+					#ENDIF
+				</p>
+			#ELSE
+				<p>
+					Rushing towards you, [harpyNympho.name] falls to her knees. Shuffling forwards, she looks up into your [pc.eyes], [harpyNympho.speech(Please! [pc.mistress]! Let's fuck!)]
+				</p>
+			#ENDIF
 		#ELSE
 			<p>
 				Deciding to pay [harpyNympho.Name] another visit, you set off towards the flash of pink in the centre of the nest. As you make your way towards the sex-obsessed matriarch, you get a good look at the harpies that make up her flock. Just as you've seen before, the vast majority of them are rather plain-looking by harpy standards; revealing them as males.
@@ -92,10 +99,7 @@
 				Pushing through the crowds, you soon find yourself standing before the harpy they're all talking about. Moaning and squealing in delight, [harpyNympho.name] is once again riding her favourite boy-toy, [harpyNymphoCompanion.name]. As you come to a halt in front of them, they both suddenly let out an exceptionally loud scream, and you look down to see a slick trail of fresh cum oozing out of [harpyNympho.namePos] pussy. After taking a few moments to catch her breath, she lifts herself up, allowing the hot load to drool out of her well-used cunt, and, leaning down to deliver a passionate kiss on her partner's lips, she calls out, [harpyNympho.speech(Who's next?!)]
 			</p>
 			<p>
-				Stepping forwards, you make yourself known, [pc.speech(I think that would be me!)]
-			</p>
-			<p>
-				Upon hearing your voice, [harpyNympho.name] spins around, and, catching sight of you, she lets out a frustrated sigh,
+				Taking this opportunity to let yourself be known, you [pc.step] forwards and announce that you've returned. Upon hearing your voice, [harpyNympho.name] spins around and lets out a frustrated sigh,
 				#IF(pc.getFemininityValue()>FEMININITY_FEMININE_STRONG.getMinimumFemininity())
 					 [harpyNympho.speech(Eugh! It's <i>you</i> again! You'd better not be trying to steal any of my playthings!)]
 				#ELSE

@@ -4,8 +4,8 @@
         <authorTag/>
         <value>400</value>
         <determiner><![CDATA[a]]></determiner>
-        <name><![CDATA[Strapless bodysuit]]></name>
-        <namePlural pluralByDefault="false"><![CDATA[Strapless bodysuits]]></namePlural>
+        <name><![CDATA[strapless bodysuit]]></name>
+        <namePlural pluralByDefault="false"><![CDATA[strapless bodysuits]]></namePlural>
         <description><![CDATA[A strapless bodysuit with a scooped low back.]]></description>
         <physicalResistance>0</physicalResistance>
         <femininity>FEMININE</femininity>
@@ -15,7 +15,6 @@
         <rarity>COMMON</rarity>
         <clothingSet/>
         <imageName>strapless_bodysuit.svg</imageName>
-        <imageEquippedName slot="STOMACH"/>
         <enchantmentLimit>1</enchantmentLimit>
         <effects/>
         <blockedPartsList slot="STOMACH">
