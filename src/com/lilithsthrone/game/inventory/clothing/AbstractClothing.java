@@ -561,7 +561,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(!parentElement.getAttribute("slotEquippedTo").isEmpty()) {
 			InventorySlot slot = InventorySlot.valueOf(parentElement.getAttribute("slotEquippedTo"));
 			if(!clothing.getClothingType().getEquipSlots().contains(slot)) {
-				return null; // If the clothing type doens't support this slot, then something has gone wrong and the clothing should not be laoded.
+				return null; // If the clothing type doesn't support this slot, then something has gone wrong and the clothing should not be laoded.
 			}
 			clothing.setSlotEquippedTo(slot);
 		}
