@@ -354,7 +354,7 @@
 	<htmlContent tag="ANGELS_KISS_BEDROOM_BUNNY_ENTER_REPEAT"><![CDATA[
 	#IF(bunny.isVisiblyPregnant())
 		<p>
-			[pc.Stepping] into the rabbit-girl's bedroom and announcing your presence with a quick hello, you watch as Bunny's large, rabbit-like ears twitch in response to your greeting, before she labouriously sits up and looks over at the door. Seeing that it's you, she points down at her swollen belly and excitedly calls out,
+			[pc.Stepping] into the rabbit-girl's bedroom and announcing your presence with a quick hello, you watch as Bunny's large, rabbit-like ears twitch in response to your greeting, before she laboriously sits up and looks over at the door. Seeing that it's you, she points down at her swollen belly and excitedly calls out,
 			#IF(!bunny.isCharacterReactedToPregnancy(pc))
 				 [bunny.speech([pc.Name]! Look! Even though I was on the pill, you still managed to get me pregnant! Your seed must be super virile or something; I can't believe you actually managed to get me knocked up! Come and have a feel of my tummy!)]
 			#ELSE

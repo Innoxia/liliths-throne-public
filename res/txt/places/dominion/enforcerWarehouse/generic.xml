@@ -452,7 +452,7 @@
 		[claire.speech(I-Is that thing safe to touch?)] Claire asks, her voice still a little shaky as she desperately tries to keep her lust under control. 
 	</p>
 	<p>
-		[pc.speech(Yes, I don't think it's going to discharge again without having some kind of arcane energy channelled into it,)] you reply, your natural affinity for the arcane instincively telling you that this is the case. Deciding to take this lightning globe with you, you tell your cat-girl companion, [pc.speech(Perhaps it will be useful in helping us to escape from this place.)]
+		[pc.speech(Yes, I don't think it's going to discharge again without having some kind of arcane energy channelled into it,)] you reply, your natural affinity for the arcane instinctively telling you that this is the case. Deciding to take this lightning globe with you, you tell your cat-girl companion, [pc.speech(Perhaps it will be useful in helping us to escape from this place.)]
 	</p>
 	<p>
 		Looking back into the crate, you see that a few of the bottled essences are still intact.
@@ -760,7 +760,7 @@
 	</p>
 	<p>
 		#IF(claire.getLust()>75)
-			[claire.speech(~Mmm!~ Y-Yeah, it's just down the road,)] she sensually replies, and, clearly desperate to find somewhere where she can masturate, she continues, [claire.speech(I-I'd better get going right now, before anyone notices that I'm missing! ~Mmm!~ T-Thanks for getting me out of that warehouse, [pc.name]. Come and visit me down in Submission again some time!)]
+			[claire.speech(~Mmm!~ Y-Yeah, it's just down the road,)] she sensually replies, and, clearly desperate to find somewhere where she can masturbate, she continues, [claire.speech(I-I'd better get going right now, before anyone notices that I'm missing! ~Mmm!~ T-Thanks for getting me out of that warehouse, [pc.name]. Come and visit me down in Submission again some time!)]
 		#ELSE
 			[claire.speech(Oh, yeah, it's just down the road,)] she replies, [claire.speech(I'd better get going right now, before anyone notices that I'm missing. Thanks for getting me out of that warehouse, [pc.name]. Come and visit me down in Submission again some time!)]
 		#ENDIF
