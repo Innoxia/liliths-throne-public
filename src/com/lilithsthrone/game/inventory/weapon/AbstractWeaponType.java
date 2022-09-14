@@ -96,8 +96,6 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	private boolean combatMovesRegenOnDamageTypeChange;
 	private Map<DamageType, List<AbstractCombatMove>> combatMoves;
 
-	@SuppressWarnings("unused")
-	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment capacity mechanics.
 	protected List<ItemEffect> effects;
 	protected List<String> extraEffects;
 
@@ -251,9 +249,6 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 					}
 				}
 				
-				
-				enchantmentLimit = Integer.valueOf(coreAttributes.getMandatoryFirstOf("enchantmentLimit").getTextContent());
-
 				this.clothingSet = coreAttributes.getOptionalFirstOf("weaponSet")
 					.filter(filterEmptyElements)
 					.map(Element::getTextContent).map(SetBonus::getSetBonusFromId)

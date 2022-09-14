@@ -49,8 +49,6 @@
 			<spell>LIGHTNING_SPHERE_OVERCHARGE</spell>
 		</spells>
 		
-		<enchantmentLimit>10</enchantmentLimit>
-		
 		<effects> 
               <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
               <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>

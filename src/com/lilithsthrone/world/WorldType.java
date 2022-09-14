@@ -126,6 +126,10 @@ public class WorldType {
 					new Value<>(new Color(0xffbf00), PlaceType.DOMINION_HOME_IMPROVEMENT),
 					new Value<>(new Color(0xff0080), PlaceType.DOMINION_WAREHOUSES),
 					new Value<>(new Color(0x8d454e), PlaceType.DOMINION_CALLIE_BAKERY))) {
+		@Override
+		public int getMajorAreaIndex() {
+			return 1;
+		}
 	};
 	
 	public static AbstractWorldType EMPTY = new AbstractWorldType(WorldRegion.MISC,
@@ -310,7 +314,10 @@ public class WorldType {
 					new Value<>(new Color(0xff00ff), PlaceType.HARPY_NESTS_HARPY_NEST_PINK),
 					new Value<>(new Color(0xffff00), PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW),
 					new Value<>(new Color(0xff9100), PlaceType.HARPY_NESTS_HELENAS_NEST))) {
-
+		@Override
+		public int getMajorAreaIndex() {
+			return 2;
+		}
 		@Override
 		public String getOffspringTextFilePath(NPCOffspring o) {
 			return "characters/offspring/harpyNests";
@@ -828,6 +835,10 @@ public class WorldType {
 					new Value<>(new Color(0x0096c9), PlaceType.SUBMISSION_IMP_FORTRESS_MALES),
 					new Value<>(new Color(0x65b0c9), PlaceType.SUBMISSION_IMP_TUNNELS_MALES))) {
 		@Override
+		public int getMajorAreaIndex() {
+			return 1;
+		}
+		@Override
 		public String getOffspringTextFilePath(NPCOffspring o) {
 			return "characters/offspring/submission_tunnel";
 		}
@@ -867,7 +878,7 @@ public class WorldType {
 			"Imp Fortress A",
 			PresetColour.BASE_CRIMSON,
 			false,
-			true,
+			false,
 			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress1Map.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_ALPHA_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
@@ -888,7 +899,7 @@ public class WorldType {
 			"Imp Citadel",
 			PresetColour.BASE_PURPLE,
 			false,
-			true,
+			false,
 			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress2Map.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_DEMON_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
@@ -915,7 +926,7 @@ public class WorldType {
 			"Imp Fortress F",
 			PresetColour.BASE_PINK,
 			false,
-			true,
+			false,
 			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress3Map.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_FEMALES_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
@@ -936,7 +947,7 @@ public class WorldType {
 			"Imp Fortress M",
 			PresetColour.BASE_BLUE,
 			false,
-			true,
+			false,
 			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress4Map.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_MALES_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
@@ -972,6 +983,10 @@ public class WorldType {
 					new Value<>(new Color(0x004080), PlaceType.BAT_CAVERN_RIVER_END),
 					
 					new Value<>(new Color(0xff80ff), PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR))) {
+		@Override
+		public int getMajorAreaIndex() {
+			return 2;
+		}
 		@Override
 		public String getOffspringTextFilePath(NPCOffspring o) {
 			return "characters/offspring/bat_cavern";

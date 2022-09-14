@@ -1,17 +1,38 @@
 package com.lilithsthrone.game.dialogue.utils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
-import com.lilithsthrone.game.character.attributes.*;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
+import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
+import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.valueEnums.*;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
+import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
@@ -22,7 +43,11 @@ import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
-import com.lilithsthrone.game.character.race.*;
+import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
+import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.RaceStage;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
@@ -56,10 +81,6 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
-
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 /**
  * @since 0.1.0
@@ -1343,6 +1364,13 @@ public class PhoneDialogue {
 				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Hair Length",
 						PresetColour.TEXT, Units.size(character.getHairRawLengthValue()),
 						character.getHairLength().getColour(), Util.capitaliseSentence(character.getHairLength().getDescriptor()))
+				+ (character.hasHorns()
+						?statRow(PresetColour.TRANSFORMATION_GENERIC, "Horn Length",
+							PresetColour.TEXT, Units.size(character.getHornLengthValue()),
+							character.getHornLength().getColour(), Util.capitaliseSentence(character.getHornLength().getDescriptor()))
+						:statRow(PresetColour.TRANSFORMATION_GENERIC, "Horn Length",
+								PresetColour.TEXT, Units.size(0),
+								PresetColour.TEXT_GREY, "N/A"))
 				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Tongue Length",
 						PresetColour.TEXT, Units.size(character.getTongueLengthValue()),
 						PresetColour.TRANSFORMATION_GENERIC, Util.capitaliseSentence(character.getTongueLength().getDescriptor()))
@@ -2973,7 +3001,7 @@ public class PhoneDialogue {
 						Main.getProperties().setValue(PropertyValue.newRaceDiscovered, false);
 					}
 				};
-			
+
 			} else if (index == 2) {
 				return new Response((Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered))?"<span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>Weapons</span>":"Weapons",
 						"Have a look at all the different weapons that you've encountered in your travels.", WEAPON_CATALOGUE){
@@ -2982,7 +3010,7 @@ public class PhoneDialogue {
 						Main.getProperties().setValue(PropertyValue.newWeaponDiscovered, false);
 					}
 				};
-			
+
 			} else if (index == 3) {
 				return new Response((Main.getProperties().hasValue(PropertyValue.newClothingDiscovered))?"<span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>Clothing</span>":"Clothing",
 						"Have a look at all the different clothing that you've encountered in your travels.", CLOTHING_CATALOGUE){
@@ -2992,7 +3020,7 @@ public class PhoneDialogue {
 						clothingSlotKey = clothingSlotCategories.keySet().iterator().next();
 					}
 				};
-			
+
 			} else if (index == 4) {
 				return new Response((Main.getProperties().hasValue(PropertyValue.newItemDiscovered))?"<span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>Items</span>":"Items",
 						"Have a look at all the different items that you've encountered in your travels.", ITEM_CATALOGUE){
@@ -3001,10 +3029,34 @@ public class PhoneDialogue {
 						Main.getProperties().setValue(PropertyValue.newItemDiscovered, false);
 					}
 				};
-			
+
+			} else if (index == 5) {
+				if(!Main.getProperties().hasValue(PropertyValue.newItemDiscovered)
+						&& !Main.getProperties().hasValue(PropertyValue.newClothingDiscovered)
+						&& !Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered)
+						&& !Main.getProperties().hasValue(PropertyValue.newRaceDiscovered)) {
+					return new Response("Clear alerts", "Clears encyclopedia alerts.<br/><i>You currently do not have any encyclopedia alerts to clear...</i>", null);
+					
+				} else {
+					return new ResponseEffectsOnly("Clear alerts",
+							"Clears encyclopedia alerts."){
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.GENERIC_MINOR_GOOD;
+						}
+						@Override
+						public void effects() {
+							Main.getProperties().setValue(PropertyValue.newItemDiscovered, false);
+							Main.getProperties().setValue(PropertyValue.newClothingDiscovered, false);
+							Main.getProperties().setValue(PropertyValue.newWeaponDiscovered, false);
+							Main.getProperties().setValue(PropertyValue.newRaceDiscovered, false);
+						}
+					};
+				}
+				
 			} else if (index == 0) {
 				return new Response("Back", "Return to the phone's main menu.", MENU);
-			
+
 			} else {
 				return null;
 			}
@@ -3019,7 +3071,6 @@ public class PhoneDialogue {
 	private static List<AbstractItemType> itemsDiscoveredList = new ArrayList<>();
 	private static List<AbstractClothingType> clothingDiscoveredList = new ArrayList<>();
 	private static List<AbstractWeaponType> weaponsDiscoveredList = new ArrayList<>();
-
 	
 	private static Map<String, List<InventorySlot>> clothingSlotCategories;
 	private static String clothingSlotKey;
@@ -3707,7 +3758,7 @@ public class PhoneDialogue {
 					"<details>"
 						+ "<summary>[style.boldFetish(Fetish Information)]</summary>"
 							+ "You can select your [style.colourLust(desire)] for each fetish [style.colourArcane(for free)],"
-							+ " or choose to take the associated [style.colourFetish(fetish)] for [style.colourArcane("+Fetish.FETISH_ANAL_GIVING.getCost()+" Arcane Essences)].<br/><br/>"
+							+ " or choose to take the associated [style.colourFetish(fetish)] for a cost of [style.colourArcane(arcane essences)].<br/><br/>"
 							+ "Choosing a desire will affect bonus lust gains in sex, while taking a fetish will permanently lock your desire to 'love', and also give you special bonuses."
 							+ " Fetishes can only be removed through enchanted potions.<br/><br/>"
 							+ "Your currently selected desire has a "+PresetColour.FETISH.getName()+" border, but your true desire (indicated by the coloured desire icon) may be modified by enchanted clothes or other items.<br/><br/>"
@@ -3720,48 +3771,48 @@ public class PhoneDialogue {
 			// Normal fetishes:
 
 			journalSB.append("<div class='container-full-width' style='text-align:center; font-weight:bold;'><h6>Fetishes</h6></div>");
-			journalSB.append(getFetishEntry(Fetish.FETISH_DOMINANT, Fetish.FETISH_SUBMISSIVE));
-			journalSB.append(getFetishEntry(Fetish.FETISH_VAGINAL_GIVING, Fetish.FETISH_VAGINAL_RECEIVING));
-			journalSB.append(getFetishEntry(Fetish.FETISH_PENIS_GIVING, Fetish.FETISH_PENIS_RECEIVING));
+			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_DOMINANT, Fetish.FETISH_SUBMISSIVE));
+			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_VAGINAL_GIVING, Fetish.FETISH_VAGINAL_RECEIVING));
+			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_PENIS_GIVING, Fetish.FETISH_PENIS_RECEIVING));
 			if(Main.game.isAnalContentEnabled()) {
-				journalSB.append(getFetishEntry(Fetish.FETISH_ANAL_GIVING, Fetish.FETISH_ANAL_RECEIVING));
+				journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_ANAL_GIVING, Fetish.FETISH_ANAL_RECEIVING));
 			}
-			journalSB.append(getFetishEntry(Fetish.FETISH_BREASTS_OTHERS, Fetish.FETISH_BREASTS_SELF));
+			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_BREASTS_OTHERS, Fetish.FETISH_BREASTS_SELF));
 			if(Main.game.isLactationContentEnabled()) {
-				journalSB.append(getFetishEntry(Fetish.FETISH_LACTATION_OTHERS, Fetish.FETISH_LACTATION_SELF));
+				journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_LACTATION_OTHERS, Fetish.FETISH_LACTATION_SELF));
 			}
-			journalSB.append(getFetishEntry(Fetish.FETISH_ORAL_RECEIVING, Fetish.FETISH_ORAL_GIVING));
-			journalSB.append(getFetishEntry(Fetish.FETISH_LEG_LOVER, Fetish.FETISH_STRUTTER));
+			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_ORAL_RECEIVING, Fetish.FETISH_ORAL_GIVING));
+			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_LEG_LOVER, Fetish.FETISH_STRUTTER));
 			if(Main.game.isFootContentEnabled()) {
-				journalSB.append(getFetishEntry(Fetish.FETISH_FOOT_GIVING, Fetish.FETISH_FOOT_RECEIVING));
+				journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_FOOT_GIVING, Fetish.FETISH_FOOT_RECEIVING));
 			}
 			if(Main.game.isArmpitContentEnabled()) {
-				journalSB.append(getFetishEntry(Fetish.FETISH_ARMPIT_GIVING, Fetish.FETISH_ARMPIT_RECEIVING));
+				journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_ARMPIT_GIVING, Fetish.FETISH_ARMPIT_RECEIVING));
 			}
-			journalSB.append(getFetishEntry(Fetish.FETISH_CUM_STUD, Fetish.FETISH_CUM_ADDICT));
-			journalSB.append(getFetishEntry(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_PURE_VIRGIN));
-			journalSB.append(getFetishEntry(Fetish.FETISH_IMPREGNATION, Fetish.FETISH_PREGNANCY));
-			journalSB.append(getFetishEntry(Fetish.FETISH_TRANSFORMATION_GIVING, Fetish.FETISH_TRANSFORMATION_RECEIVING));
-			journalSB.append(getFetishEntry(Fetish.FETISH_KINK_GIVING, Fetish.FETISH_KINK_RECEIVING));
-			journalSB.append(getFetishEntry(Fetish.FETISH_SADIST, Fetish.FETISH_MASOCHIST));
+			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_CUM_STUD, Fetish.FETISH_CUM_ADDICT));
+			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_DEFLOWERING, Fetish.FETISH_PURE_VIRGIN));
+			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_IMPREGNATION, Fetish.FETISH_PREGNANCY));
+			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_TRANSFORMATION_GIVING, Fetish.FETISH_TRANSFORMATION_RECEIVING));
+			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_KINK_GIVING, Fetish.FETISH_KINK_RECEIVING));
+			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_SADIST, Fetish.FETISH_MASOCHIST));
 			if(Main.game.isNonConEnabled()) {
-				journalSB.append(getFetishEntry(Fetish.FETISH_NON_CON_DOM, Fetish.FETISH_NON_CON_SUB));
+				journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_NON_CON_DOM, Fetish.FETISH_NON_CON_SUB));
 			}
 
-			journalSB.append(getFetishEntry(Fetish.FETISH_BONDAGE_APPLIER, Fetish.FETISH_BONDAGE_VICTIM));
-			journalSB.append(getFetishEntry(Fetish.FETISH_DENIAL, Fetish.FETISH_DENIAL_SELF));
-			journalSB.append(getFetishEntry(Fetish.FETISH_VOYEURIST, Fetish.FETISH_EXHIBITIONIST));
-			journalSB.append(getFetishEntry(Fetish.FETISH_BIMBO, Fetish.FETISH_CROSS_DRESSER));
+			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_BONDAGE_APPLIER, Fetish.FETISH_BONDAGE_VICTIM));
+			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_DENIAL, Fetish.FETISH_DENIAL_SELF));
+			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_VOYEURIST, Fetish.FETISH_EXHIBITIONIST));
+			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_BIMBO, Fetish.FETISH_CROSS_DRESSER));
 			if(Main.game.isIncestEnabled()) {
-				journalSB.append(getFetishEntry(Fetish.FETISH_MASTURBATION, Fetish.FETISH_INCEST));
+				journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_MASTURBATION, Fetish.FETISH_INCEST));
 				if(Main.game.isPenetrationLimitationsEnabled()) {
-					journalSB.append(getFetishEntry(Fetish.FETISH_SIZE_QUEEN, null));
+					journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_SIZE_QUEEN, null));
 				}
 			} else {
 				if(Main.game.isPenetrationLimitationsEnabled()) {
-					journalSB.append(getFetishEntry(Fetish.FETISH_MASTURBATION, Fetish.FETISH_SIZE_QUEEN));
+					journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_MASTURBATION, Fetish.FETISH_SIZE_QUEEN));
 				} else {
-					journalSB.append(getFetishEntry(Fetish.FETISH_MASTURBATION, null));
+					journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_MASTURBATION, null));
 				}
 			}
 			
@@ -3770,10 +3821,10 @@ public class PhoneDialogue {
 			journalSB.append("<div class='container-full-width' style='text-align:center; font-weight:bold; margin-top:16px;'><h6>Derived Fetishes</h6></div>");
 			journalSB.append("<div class='fetish-container'>");
 			
-			for(Fetish fetish : Fetish.values()) {
+			for(AbstractFetish fetish : Fetish.getAllFetishes()) {
 				if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 					journalSB.append(
-							"<div id='fetishUnlock" + fetish + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
+							"<div id='fetishUnlock" + Fetish.getIdFromFetish(fetish) + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
 							? " owned' style='border:2px solid " + PresetColour.FETISH.getShades()[1] + ";'>"
 							: (fetish.isAvailable(Main.game.getPlayer())
 									? " unlocked' style='border:2px solid " +  PresetColour.TEXT_GREY.toWebHexString() + ";" + "'>"
@@ -3813,40 +3864,40 @@ public class PhoneDialogue {
 	};
 	
 	
-	private static String getFetishEntry(Fetish othersFetish, Fetish selfFetish) {
+	public static String getFetishEntry(GameCharacter targetedCharacter, AbstractFetish othersFetish, AbstractFetish selfFetish) {
 		return "<div class='container-full-width' style='background:transparent; margin:2px 0; width:100%;'>"
-					+ getIndividualFetishEntry(othersFetish)
-					+ (selfFetish==null?"":getIndividualFetishEntry(selfFetish))
+					+ getIndividualFetishEntry(targetedCharacter, othersFetish)
+					+ (selfFetish==null?"":getIndividualFetishEntry(targetedCharacter, selfFetish))
 				+ "</div>";
 	}
 	
-	private static String getIndividualFetishEntry(Fetish fetish) {
-		FetishLevel level = FetishLevel.getFetishLevelFromValue(Main.game.getPlayer().getFetishExperience(fetish));
-		float experiencePercentage = ((Main.game.getPlayer().getFetishExperience(fetish)) / (float)(level.getMaximumExperience()))*100;
+	private static String getIndividualFetishEntry(GameCharacter targetedCharacter, AbstractFetish fetish) {
+		FetishLevel level = FetishLevel.getFetishLevelFromValue(targetedCharacter.getFetishExperience(fetish));
+		float experiencePercentage = ((targetedCharacter.getFetishExperience(fetish)) / (float)(level.getMaximumExperience()))*100;
 		
 		return "<div class='container-half-width' style='margin:0 8px;'>"
 					+"<div class='container-full-width' style='text-align:center; font-weight:bold; margin:0 8px; width: calc(78% - 16px);'>"
-						+ (Main.game.getPlayer().hasFetish(fetish)
-								?"[style.colourPink("+Util.capitaliseSentence(fetish.getName(Main.game.getPlayer()))+" "+level.getNumeral()+")]"
-								:Util.capitaliseSentence(fetish.getName(Main.game.getPlayer()))+" "+level.getNumeral())
+						+ (targetedCharacter.hasFetish(fetish)
+								?"[style.colourPink("+Util.capitaliseSentence(fetish.getName(targetedCharacter))+" "+level.getNumeral()+")]"
+								:Util.capitaliseSentence(fetish.getName(targetedCharacter))+" "+level.getNumeral())
 						+"<div class='container-full-width' style='margin:2px 0; padding:0; width:100%;'></div>" // Spacer
-						+getFetishDesireEntry(fetish, FetishDesire.ZERO_HATE)
-						+getFetishDesireEntry(fetish, FetishDesire.ONE_DISLIKE)
-						+getFetishDesireEntry(fetish, FetishDesire.TWO_NEUTRAL)
-						+getFetishDesireEntry(fetish, FetishDesire.THREE_LIKE)
-						+getFetishDesireEntry(fetish, FetishDesire.FOUR_LOVE)
+						+getFetishDesireEntry(targetedCharacter, fetish, FetishDesire.ZERO_HATE)
+						+getFetishDesireEntry(targetedCharacter, fetish, FetishDesire.ONE_DISLIKE)
+						+getFetishDesireEntry(targetedCharacter, fetish, FetishDesire.TWO_NEUTRAL)
+						+getFetishDesireEntry(targetedCharacter, fetish, FetishDesire.THREE_LIKE)
+						+getFetishDesireEntry(targetedCharacter, fetish, FetishDesire.FOUR_LOVE)
 					+ "</div>"
 					+"<div class='container-full-width' style='margin:0 8px; width: calc(22% - 16px);'>"
-						+ "<div id='fetishUnlock" + fetish + "' class='fetish-icon full" + (Main.game.getPlayer().hasFetish(fetish)
+						+ "<div id='fetishUnlock" + Fetish.getIdFromFetish(fetish) + "' class='fetish-icon full" + (targetedCharacter.hasFetish(fetish)
 							? " owned' style='border:2px solid " + PresetColour.FETISH.toWebHexString() + ";'>"
-							: (fetish.isAvailable(Main.game.getPlayer())
+							: (fetish.isAvailable(targetedCharacter)
 									? " unlocked' style='border:2px solid " + PresetColour.TEXT_GREY.toWebHexString() + ";" + "'>"
 									: " locked' style='border:2px solid " + PresetColour.TEXT_GREY_DARK.toWebHexString() + ";'>"))
-										+ "<div class='fetish-icon-content'>"+fetish.getSVGString(Main.game.getPlayer())+"</div>"
+										+ "<div class='fetish-icon-content'>"+fetish.getSVGString(targetedCharacter)+"</div>"
 										+ "<div style='width:40%;height:40%;position:absolute;top:0;right:4px;'>"+level.getSVGImageOverlay()+"</div>"
-										+ (Main.game.getPlayer().hasFetish(fetish) // Overlay to create disabled effect:
+										+ (targetedCharacter.hasFetish(fetish) // Overlay to create disabled effect:
 											? ""
-											: (fetish.isAvailable(Main.game.getPlayer())
+											: (fetish.isAvailable(targetedCharacter)
 													? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.5; border-radius:5px;'></div>"
 													: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>"))
 						+ "</div>"
@@ -3858,24 +3909,24 @@ public class PhoneDialogue {
 							+ "</div>"
 						+ "</div>"
 						+"<div class='container-full-width' style='text-align:center; margin:0 8px; width: calc(22% - 16px);'>"
-							+ "<span style='color:"+level.getColour().toWebHexString()+";'>"+Main.game.getPlayer().getFetishExperience(fetish)+" xp</span>"
+							+ "<span style='color:"+level.getColour().toWebHexString()+";'>"+targetedCharacter.getFetishExperience(fetish)+" xp</span>"
 						+ "</div>"
-//						+ "<div class='overlay no-pointer' id='"+fetish+"_EXPERIENCE'></div>"
+//						+ "<div class='overlay no-pointer' id='"+Fetish.getIdFromFetish(fetish)+"_EXPERIENCE'></div>"
 					+ "</div>"
 				+ "</div>";
 	}
 	
-	private static String getFetishDesireEntry(Fetish fetish, FetishDesire desire) {
-		boolean disabled = desire!=FetishDesire.FOUR_LOVE && Main.game.getPlayer().hasFetish(fetish);
+	private static String getFetishDesireEntry(GameCharacter targetedCharacter, AbstractFetish fetish, FetishDesire desire) {
+		boolean disabled = desire!=FetishDesire.FOUR_LOVE && targetedCharacter.hasFetish(fetish);
 		
-		return "<div class='square-button"+(disabled?" disabled":"")+"' id='"+fetish+"_"+desire+"'"
-					+ " style='"+(Main.game.getPlayer().getBaseFetishDesire(fetish)==desire
+		return "<div class='square-button"+(disabled?" disabled":"")+"' id='"+Fetish.getIdFromFetish(fetish)+"_"+desire+"'"
+					+ " style='"+(targetedCharacter.getBaseFetishDesire(fetish)==desire
 								?"border:2px solid "+PresetColour.FETISH.getShades()[1]+";"
 								:"")+"width:10%; margin:0 5%; float:left; cursor:pointer;'>"
-				+ "<div class='square-button-content'>"+(Main.game.getPlayer().getFetishDesire(fetish)==desire?desire.getSVGImage():desire.getSVGImageDesaturated())+"</div>"
-				+ (Main.game.getPlayer().hasFetish(fetish) && Main.game.getPlayer().getFetishDesire(fetish)!=desire
+				+ "<div class='square-button-content'>"+(targetedCharacter.getFetishDesire(fetish)==desire?desire.getSVGImage():desire.getSVGImageDesaturated())+"</div>"
+				+ (targetedCharacter.hasFetish(fetish) && targetedCharacter.getFetishDesire(fetish)!=desire
 					?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; border-radius:5px;'></div>"
-					:Main.game.getPlayer().getFetishDesire(fetish)!=desire
+					:targetedCharacter.getFetishDesire(fetish)!=desire
 						?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.6; border-radius:5px;'></div>"
 						:"")
 			+ "</div>";
@@ -3929,7 +3980,9 @@ public class PhoneDialogue {
 			int i=2;
 			List<AbstractWorldType> worldTypes = new ArrayList<>(Main.getProperties().hasValue(PropertyValue.mapReveal)?WorldType.getAllWorldTypes():Main.game.getPlayer().getWorldsVisited());
 			
-			worldTypes.sort((w1, w2) -> w1.getName().compareTo(w2.getName()));
+			worldTypes.sort((w1, w2) -> (w1.getName().compareTo(w2.getName())));
+			
+			worldTypes.sort((w1, w2) -> w1.getMajorAreaIndex()-w2.getMajorAreaIndex());
 			
 			for(AbstractWorldType world : worldTypes) {
 				boolean correctRegion = false;
@@ -3948,11 +4001,14 @@ public class PhoneDialogue {
 						&& world != WorldType.MUSEUM_LOST) {
 					if(index==i) {
 						boolean playerPresent = Main.game.getPlayer().getWorldLocation()==world;
+						String responseTitle = (world.isMajorArea()?"<b>":"")+Util.capitaliseSentence(world.getName())+(world.isMajorArea()?"</b>":"");
+//						String responseTitle = Util.capitaliseSentence(world.getName());
+						
 						if(worldTypeMap==world) {
-							return new Response(Util.capitaliseSentence(world.getName()), "You are already viewing the map of "+world.getName()+"."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), null);
+							return new Response(responseTitle, "You are already viewing the map of "+world.getName()+"."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), null);
 							
 						} else if(Main.game.getPlayer().getWorldsVisited().contains(world) || Main.getProperties().hasValue(PropertyValue.mapReveal)) { 
-							return new Response(Util.capitaliseSentence(world.getName()), "View the map of "+world.getName()+"."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), MAP) {
+							return new Response(responseTitle, "View the map of "+world.getName()+"."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), MAP) {
 								@Override
 								public Colour getHighlightColour() {
 									if(playerPresent) {

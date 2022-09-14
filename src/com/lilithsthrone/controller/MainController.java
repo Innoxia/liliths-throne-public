@@ -42,11 +42,11 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
@@ -498,15 +498,33 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-							for(NPC npc : Main.game.getAllNPCs()) {
-								if(npc.isUnique() && !npc.hasArtwork()
-//										&& (npc.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION)
-										&& npc.isFeminine()
-										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()==BodyCoveringCategory.MAIN_SKIN
-										) {
-									System.out.println(npc.getNameIgnoresPlayerKnowledge() + " "+npc.getClass().getName());// + " " + npc.getSurname());
-								}
+							
+							System.out.println("------");
+							for(AbstractCombatMove move : Main.game.getPlayer().getEquippedMoves()) {
+								System.out.println(move.getName(0, Main.game.getPlayer()));
 							}
+							
+//							System.out.println("--- Penis diameters ---");
+//							for(int i=10; i<75; i+=5) {
+//								System.out.println(i+" : "+Penis.getGenericDiameter(i, PenetrationGirth.THREE_AVERAGE));
+//							}
+							
+//							if(Main.game.isInSex()) {
+//								System.out.println("----");
+//								for(GameCharacter character : Main.sex.getAllParticipants()) {
+//									System.out.println(character.getName()+" -> "+Main.sex.getTargetedPartner(character).getName());
+//								}
+//							}
+							
+//							for(NPC npc : Main.game.getAllNPCs()) {
+//								if(npc.isUnique() && !npc.hasArtwork()
+////										&& (npc.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION)
+//										&& npc.isFeminine()
+//										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()==BodyCoveringCategory.MAIN_SKIN
+//										) {
+//									System.out.println(npc.getNameIgnoresPlayerKnowledge() + " "+npc.getClass().getName());// + " " + npc.getSurname());
+//								}
+//							}
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.PHYSICAL, 1);
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.ARCANE, 1);
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.LUST, 1);
@@ -867,6 +885,12 @@ public class MainController implements Initializable {
 									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('xmlTest') === document.activeElement")) {
 								allowInput = false;
 							}
+						}
+
+						// Allow users to type in slave metadata without getting whisked away.
+						if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('SET_SLAVE_NOTES') === document.activeElement")
+						|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('SET_SLAVE_CATEGORY') === document.activeElement")) {
+							allowInput = false;
 						}
 						
 						if(allowInput){
@@ -1594,9 +1618,9 @@ public class MainController implements Initializable {
 
 			MainController.addEventListener(documentButtonsRight, id, "mouseenter", new TooltipInformationEventListener().setInformation(
 					Main.game.getCurrentDialogueNode().getLabel() == "" || Main.game.getCurrentDialogueNode().getLabel() == null ? "-" : Main.game.getCurrentDialogueNode().getLabel(),
-					"Click to copy the currently displayed dialogue to your clipboard.<br/>"
+					"Click to copy the currently displayed dialogue to your clipboard. You can then paste the output into a text editor, save it as a <i>.html</i> file, then open that file in a browser to retain the game's formatting.<br/>"
 					+ "This scene was written by: <b>"+Main.game.getCurrentDialogueNode().getAuthor()+"</b>",
-					48), false);
+					80), false);
 			
 		}
 		
@@ -1722,33 +1746,45 @@ public class MainController implements Initializable {
 		id = "DATE_DISPLAY_TOGGLE";
 		if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 			((EventTarget) documentAttributes.getElementById(id)).addEventListener("click", e -> {
-				Main.getProperties().setValue(PropertyValue.calendarDisplay, !Main.getProperties().hasValue(PropertyValue.calendarDisplay));
-				Main.saveProperties();
-				MainController.updateUI();
+				if(!Main.game.isBadEnd()) {
+					Main.getProperties().setValue(PropertyValue.calendarDisplay, !Main.getProperties().hasValue(PropertyValue.calendarDisplay));
+					Main.saveProperties();
+					MainController.updateUI();
+				}
 			}, false);
 			
 			addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
 			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
 			String day = Main.game.getDateNow().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+			StringBuilder dateSB = new StringBuilder();
+			if(Main.game.isBadEnd()) {
+				dateSB.append("[style.italicsBad(Given your current situation, you've lost track of what day it is...)]");
+			} else {
+				if(!dateKnown) {
+					dateSB.append("[style.italicsMinorBad(Look at the calendar in your room to reveal the date!)]");
+				} else {
+					dateSB.append("The current date is: [style.colourGood("+ Main.game.getDisplayDate(true)+")]");
+				}
+				dateSB.append("<br/>");
+				dateSB.append("It is currently "+UtilText.generateSingularDeterminer(day)+" [style.colourBlueLight("+day+")].<br/>"
+						+ "You've been in this new world for: [style.colourExcellent("+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+")]");
+				dateSB.append("<br/><i>Click to toggle between a date and day count.</i>");
+			}
 			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Toggle Calendar Display",
-						(!dateKnown
-							?"[style.italicsMinorBad(Look at the calendar in your room to reveal the date!)]"
-							:"The current date is: [style.colourGood("+ Main.game.getDisplayDate(true)+")]")
-						+ "<br/>"
-						+ "It is currently "+UtilText.generateSingularDeterminer(day)+" [style.colourBlueLight("+day+")].<br/>"
-						+ "You've been in this new world for: [style.colourExcellent("+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+")]"
-						+"<br/><i>Click to toggle between a date and day count.</i>");
+						dateSB.toString());
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 		
 		id = "TWENTY_FOUR_HOUR_TIME_TOGGLE";
 		if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 			((EventTarget) documentAttributes.getElementById(id)).addEventListener("click", e -> {
-			    overrideAutoLocale();
-				Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !Main.getProperties().hasValue(PropertyValue.twentyFourHourTime));
-				Main.saveProperties();
-				Units.FORMATTER.updateTimeFormat(Main.getProperties().hasValue(PropertyValue.autoLocale));
-				MainController.updateUI();
+				if(!Main.game.isBadEnd()) {
+				    overrideAutoLocale();
+					Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !Main.getProperties().hasValue(PropertyValue.twentyFourHourTime));
+					Main.saveProperties();
+					Units.FORMATTER.updateTimeFormat(Main.getProperties().hasValue(PropertyValue.autoLocale));
+					MainController.updateUI();
+				}
 			}, false);
 			
 			DayPeriod dp = DateAndTime.getDayPeriod(Main.game.getDateNow(), Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
@@ -1757,12 +1793,18 @@ public class MainController implements Initializable {
 			
 			addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
 			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
-			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(
-					(Main.game.isDayTime()?"Day-time":"Night-time"),
-					"Current time: "+Units.time(Main.game.getDateNow())+" (<span style='color:"+dp.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(dp.getName())+"</span>)<br/>"
+			StringBuilder timeSB = new StringBuilder();
+			if(Main.game.isBadEnd()) {
+				timeSB.append("[style.italicsBad(Given your current situation, you've lost track of what time it is...)]");
+			} else {
+				timeSB.append("Current time: "+Units.time(Main.game.getDateNow())+" (<span style='color:"+dp.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(dp.getName())+"</span>)<br/>"
 					+ "Sunrise: "+(!dateKnown?"[style.colourMinorBad(??/??/??)] [style.colourYellow("+Units.time(ldt[0]):"[style.colourYellow("+Units.dateTime(ldt[0]))+")]<br/>"
 					+ "Sunset: "+(!dateKnown?"[style.colourMinorBad(??/??/??)] [style.colourOrange("+Units.time(ldt[1]):"[style.colourOrange("+Units.dateTime(ldt[1]))+")]<br/>"
 					+ "<i>Click to toggle the time display between a 24-hour and 12-hour clock.</i>");
+			}
+			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(
+					(Main.game.isDayTime()?"Day-time":"Night-time"),
+					timeSB.toString());
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 
@@ -1986,13 +2028,13 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, id, "mouseenter", el, false);
 				}
 			}
-			for (Fetish f : character.getFetishes(true)) {
-				if (((EventTarget) documentAttributes.getElementById("FETISH_"+idModifier + f)) != null) {
-					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mousemove", moveTooltipListener, false);
-					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mouseleave", hideTooltipListener, false);
+			for (AbstractFetish f : character.getFetishes(true)) {
+				if (((EventTarget) documentAttributes.getElementById("FETISH_"+idModifier + Fetish.getIdFromFetish(f))) != null) {
+					addEventListener(documentAttributes, "FETISH_"+idModifier + Fetish.getIdFromFetish(f), "mousemove", moveTooltipListener, false);
+					addEventListener(documentAttributes, "FETISH_"+idModifier + Fetish.getIdFromFetish(f), "mouseleave", hideTooltipListener, false);
 
 					TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, character);
-					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mouseenter", el, false);
+					addEventListener(documentAttributes, "FETISH_"+idModifier + Fetish.getIdFromFetish(f), "mouseenter", el, false);
 				}
 			}
 			for (AbstractCombatMove combatMove : character.getAvailableMoves()) {
@@ -2339,13 +2381,13 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, id, "mouseenter", el, false);
 					}
 				}
-				for (Fetish f : character.getFetishes(true)) {
-					if (((EventTarget) documentRight.getElementById("FETISH_NPC_"+idModifier + f)) != null) {
-						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mousemove", moveTooltipListener, false);
-						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mouseleave", hideTooltipListener, false);
+				for (AbstractFetish f : character.getFetishes(true)) {
+					if (((EventTarget) documentRight.getElementById("FETISH_NPC_"+idModifier + Fetish.getIdFromFetish(f))) != null) {
+						addEventListener(documentRight, "FETISH_NPC_"+idModifier + Fetish.getIdFromFetish(f), "mousemove", moveTooltipListener, false);
+						addEventListener(documentRight, "FETISH_NPC_"+idModifier + Fetish.getIdFromFetish(f), "mouseleave", hideTooltipListener, false);
 	
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, character);
-						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mouseenter", el, false);
+						addEventListener(documentRight, "FETISH_NPC_"+idModifier + Fetish.getIdFromFetish(f), "mouseenter", el, false);
 					}
 				}
 				for (AbstractCombatMove combatMove : character.getAvailableMoves()) {

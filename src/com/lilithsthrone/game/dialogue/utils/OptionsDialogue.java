@@ -20,6 +20,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishPreference;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
@@ -1408,7 +1409,7 @@ public class OptionsDialogue {
 							+ "</div>"
 							
 							+ "<div class='container-full-width' style='text-align:center;'>");
-			for(Fetish fetish : Fetish.values()) {
+			for(AbstractFetish fetish : Fetish.getAllFetishes()) {
 				if(fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 					UtilText.nodeContentSB.append(getFetishPreferencesPanel(fetish));
 				}
@@ -1472,14 +1473,14 @@ public class OptionsDialogue {
 				+"</div>";
 	}
 	
-	private static String getFetishPreferencesPanel(Fetish fetish) {
+	private static String getFetishPreferencesPanel(AbstractFetish fetish) {
 		StringBuilder sb = new StringBuilder();
 		
 		Colour highlightColour = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getColour();
 		
 		sb.append("<div style='display:inline-block; margin:4px auto;width:100%;'>"
 				+ "<div style='display:inline-block; margin:0 auto;'>"
-				+ getInformationDiv(fetish.toString()+"_INFO", new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(fetish.getName(Main.game.getPlayer())), fetish.getDescription(null)))
+				+ getInformationDiv(fetish.getId()+"_INFO", new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(fetish.getName(Main.game.getPlayer())), fetish.getDescription(null)))
 				+ "<div style='width:150px; float:left;'><b style='color:"+highlightColour.toWebHexString()+";'>"+Util.capitaliseSentence(fetish.getName(null))+"</b></div>");
 		
 		for(FetishPreference preference : FetishPreference.values()) {
@@ -1511,7 +1512,7 @@ public class OptionsDialogue {
 				sb.append("<div style='display:inline-block;'><span class='option-disabled'>Fetish forcibly disabled due to "+disabledMsg+" setting!</span></div>");
 				break;
 			} else {
-				sb.append("<div id='"+preference+"_"+fetish+"' class='preference-button"+(Main.getProperties().fetishPreferencesMap.get(fetish)==preference.getValue()?" selected":"")+"'>"
+				sb.append("<div id='"+preference+"_"+Fetish.getIdFromFetish(fetish)+"' class='preference-button"+(Main.getProperties().fetishPreferencesMap.get(fetish)==preference.getValue()?" selected":"")+"'>"
 							+Util.capitaliseSentence(preference.getName())
 						+"</div>");
 			}
@@ -2046,6 +2047,10 @@ public class OptionsDialogue {
 				return null;
 			}
 		}
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+		    return DialogueNodeType.OPTIONS;
+		}
 	};
 	
 	
@@ -2094,7 +2099,8 @@ public class OptionsDialogue {
 								"BAD_END",
 								PresetColour.GENERIC_TERRIBLE,
 								"Bad Ends",
-								"Toggle the ability to trigger 'bad ends', which effectively end the game for your character when encountered.",
+								"Toggle the ability to trigger 'bad ends', which effectively end the game for your character when encountered."
+									+ "<br/>[style.italicsMinorBad(Please note that bad ends involve non-con content, regardless of whether or not your non-con option is enabled.)]",
 								Main.getProperties().hasValue(PropertyValue.badEndContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
@@ -2148,7 +2154,8 @@ public class OptionsDialogue {
 							"NON_CON",
 							PresetColour.BASE_CRIMSON,
 							"Non-consent",
-							"This enables the 'resist' pace in sex scenes, which contains some more extreme non-consensual descriptions.",
+							"This enables the 'resist' pace in sex scenes, which contains some more extreme non-consensual descriptions, as well as dialogue references and actions related to this content."
+								+ "<br/>[style.italicsMinorBad(Please note that bad ends involve non-con content, regardless of whether or not this option is enabled.)]",
 							Main.getProperties().hasValue(PropertyValue.nonConContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
@@ -2420,14 +2427,14 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"FEMININE_BEARD",
 							PresetColour.BASE_BLUE_STEEL,
-							"Feminine Beards",
+							"Feminine beards",
 							"This enables feminine characters to grow beards.",
 							Main.getProperties().hasValue(PropertyValue.feminineBeardsContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"FURRY_HAIR",
 							PresetColour.CLOTHING_DESATURATED_BROWN,
-							"Furry Hair",
+							"Furry hair",
 							"Toggles whether or not characters with a furry head type will spawn with human-like hair on their heads.",
 							Main.getProperties().hasValue(PropertyValue.furryHairContent)));
 			
@@ -2438,12 +2445,24 @@ public class OptionsDialogue {
 							"Toggles whether or not characters with a reptilian or amphibious head type will spawn with human-like hair on their heads.",
 							Main.getProperties().hasValue(PropertyValue.scalyHairContent)));
 
+			if(contentOptionsPage==ContentOptionsPage.GAMEPLAY) {
+				UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+						"PREGNANCY_DURATION",
+						PresetColour.BASE_PINK_DEEP,
+						"Pregnancy duration",
+						"This sets the maximum time it takes for a pregnancy to progress from conception to birth.",
+						Main.getProperties().pregnancyDuration+" week"+(Main.getProperties().pregnancyDuration==1?"":"s"),
+						Main.getProperties().pregnancyDuration,
+						1,
+						40));
+			}
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
-					"SPITTING_ENABLED",
-					PresetColour.BASE_BLUE,
-					"Rejecting TF potions",
-					"Forced TF potions may be spat out if this is enabled.",
-					!Main.game.isSpittingDisabled()));
+							"SPITTING_ENABLED",
+							PresetColour.BASE_BLUE,
+							"Rejecting TF potions",
+							"Forced TF potions may be spat out if this is enabled.",
+							!Main.game.isSpittingDisabled()));
 			
 			if(contentOptionsPage==ContentOptionsPage.GAMEPLAY) {
 				UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(

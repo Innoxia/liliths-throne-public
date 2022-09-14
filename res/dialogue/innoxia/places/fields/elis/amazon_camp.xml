@@ -1,0 +1,2033 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+	
+	<!-- The Amazons' Camp tile in Elis: -->
+
+	<scene id="exterior">
+		<content folderPath="txt/places/fields/elis/amazon_camp">EXTERIOR</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[Enter the Amazons' camp and take a look around.]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_amazon_camp_discovered))
+						innoxia_places_fields_elis_amazon_camp_initial_entry
+					#ELSE
+						innoxia_places_fields_elis_amazon_camp_exit
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_amazon_camp_exit)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Initial entry scenes: -->
+	
+	<scene id="initial_entry">
+		<preParsingEffects><![CDATA[
+			[#aurokaris.endPregnancy(true)]
+			[#aurokaris.setLocation(pc)]
+			[#flags.setFlag(FLAG_innoxia_amazon_camp_discovered, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/amazon_camp">INITIAL_ENTRY</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Follow]]></responseTitle>
+				<responseTooltip><![CDATA[Follow Aurokaris as she shows you around the camp.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_initial_entry_follow]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.walkPathNoEffects(0, 2, true, 1)]
+					[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_fields_elis_amazon_camp_trader, true, 1)]
+					[#aurokaris.setLocation(pc)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="initial_entry_follow">
+		<content folderPath="txt/places/fields/elis/amazon_camp">INITIAL_ENTRY_FOLLOW</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Continue following Aurokaris as she leads you to the centre of the Amazons' camp.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_initial_entry_follow_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_fields_elis_amazon_camp_sparring_field, true, 1)]
+					[#aurokaris.setLocation(pc)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="initial_entry_follow_end">
+		<content folderPath="txt/places/fields/elis/amazon_camp">INITIAL_ENTRY_FOLLOW_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Goodbye]]></responseTitle>
+				<responseTooltip><![CDATA[Say goodbye to Aurokaris and set off to explore the Amazons' camp.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'INITIAL_ENTRY_FOLLOW_END_LEAVE'))]
+					[#aurokaris.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_amazon_camp_trader)]
+					[#aurokaris.hourlyUpdate()]
+					[#aurokaris.dailyUpdate()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Scenes within the Amazon Camp: -->
+	
+	<scene id="exit">
+		<content folderPath="txt/places/fields/elis/amazon_camp">EXIT</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Having seen enough, you decide to head out of the Amazons' camp.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_exterior]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_amazon_camp)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'EXIT_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="pathway">
+		<content folderPath="txt/places/fields/elis/amazon_camp">PATHWAY</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<scene id="tents">
+		<content folderPath="txt/places/fields/elis/amazon_camp">TENTS</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<scene id="sparring_field">
+		<content folderPath="txt/places/fields/elis/amazon_camp">SPARRING_FIELD</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Trade tents: -->
+	
+	<scene id="trader">
+		<content folderPath="txt/places/fields/elis/amazon_camp">TRADER</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(aurokaris)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Aurokaris]]></responseTitle>
+				<responseTooltip><![CDATA[Head over to where Aurokaris is working.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_trader_aurokaris]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!game.getCharactersPresent().contains(aurokaris)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Aurokaris]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Aurokaris isn't here at the moment.
+					<br/>[style.italicsMinorBad(Aurokaris is only present between the hours of [units.time(8)]-[units.time(18)])]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="trader_aurokaris">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'TRADER_AUROKARIS'))]
+			[#aurokaris.setCharacterReactedToPregnancy(pc, true)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Leave: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Aurokaris that you've got to be going now.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'TRADER_AUROKARIS_LEAVE'))]
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_amazon_camp_pathway)]
+				]]></effects>
+			</response>
+			<!-- Trade: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Trade]]></responseTitle>
+				<responseTooltip><![CDATA[Take a look at what Aurokaris has for sale...]]></responseTooltip>
+				<nextDialogue/>
+				<tradingVariables enabled="true">
+					<tradePartner><![CDATA[aurokaris]]></tradePartner>
+				</tradingVariables>
+			</response>
+			<!-- Sparring: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_sparred) && !aurokaris.isVisiblyPregnant()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Sparring]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Aurokaris if she'd like you to act as her sparring partner.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_trader_aurokaris_sparring]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_sparred) || aurokaris.isVisiblyPregnant()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Sparring]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(aurokaris.isVisiblyPregnant())
+						Aurokaris doesn't want to do any sparring while pregnant.
+					#ELSE
+						You've already acted as Aurokaris's sparring partner today.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<!-- If attracted to player, and had sex in tent, Aurokaris offers special sex: -->
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_had_sex) && (!aurokaris.isAttractedTo(pc) || flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_ambrosia_tasting) || !pc.isAbleToAccessCoverableArea(CA_MOUTH, true))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Ambrosia tasting]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!aurokaris.isAttractedTo(pc))
+						Aurokaris isn't attracted to you, so she's not willing to offer you some special 'Ambrosia tasting'.
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						As you're unable to gain access to your mouth, you cannot taste Aurokaris's Ambrosia...
+					#ELSE
+						Aurokaris doesn't have time for more 'Ambrosia tasting' today
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_had_sex) && aurokaris.isAttractedTo(pc) && !flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_ambrosia_tasting) && pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<responseTitle><![CDATA[Ambrosia tasting]]></responseTitle>
+				<responseTooltip><![CDATA[Accept Aurokaris's offer of some 'Ambrosia tasting'...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_trader_aurokaris_sex]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_amazon_camp_aurokaris_ambrosia_tasting, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="trader_aurokaris_sparring">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_amazon_camp_sparring_field)]
+			[#aurokaris.setLocation(pc)]
+			[#flags.setFlag(FLAG_innoxia_amazon_camp_aurokaris_sparred, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/amazon_camp">TRADER_AUROKARIS_SPARRING</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Wrestle]]></responseTitle>
+				<responseTooltip><![CDATA[Decide not to use any weapons as you spar with Aurokaris.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_trader_aurokaris_sparring_practice]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'TRADER_AUROKARIS_SPARRING_START_UNARMED'))]
+					[#flags.setFlag(FLAG_innoxia_amazon_camp_aurokaris_sparred_unarmed, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Dory]]></responseTitle>
+				<responseTooltip><![CDATA[Decide to use the Amazons' spear, a dory, to spar with Aurokaris.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_trader_aurokaris_sparring_practice]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'TRADER_AUROKARIS_SPARRING_START_MELEE'))]
+					[#flags.setFlag(FLAG_innoxia_amazon_camp_aurokaris_sparred_melee, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Bow]]></responseTitle>
+				<responseTooltip><![CDATA[Decide to use the Amazons' preferred ranged weapon, a compound bow.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_trader_aurokaris_sparring_practice]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'TRADER_AUROKARIS_SPARRING_START_RANGED'))]
+					[#flags.setFlag(FLAG_innoxia_amazon_camp_aurokaris_sparred_ranged, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="trader_aurokaris_sparring_practice">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(aurokaris.incrementAffection(pc, 5))]
+			#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_sparred_unarmed) && flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_sparred_melee) && flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_sparred_ranged) && !pc.hasPerkAnywhereInTree(PERK_AMAZONIAN_TRAINING))
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'TRADER_AUROKARIS_SPARRING_PERK_UNLOCK'))]
+				[#game.appendToTextEndStringBuilder(pc.addSpecialPerk(PERK_AMAZONIAN_TRAINING))]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/amazon_camp">TRADER_AUROKARIS_SPARRING_START_END</content>
+		<secondsPassed minutes="true"><![CDATA[45]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Duel]]></responseTitle>
+				<responseTooltip><![CDATA[Agree to a duel and fight Aurokaris with whatever weapons you want.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<combatVariables enabled="true">
+					<nextDialoguePlayerVictory><![CDATA[innoxia_places_fields_elis_amazon_camp_trader_aurokaris_sparring_practice_won]]></nextDialoguePlayerVictory>
+					<nextDialoguePlayerDefeat><![CDATA[innoxia_places_fields_elis_amazon_camp_trader_aurokaris_sparring_practice_lost]]></nextDialoguePlayerDefeat>
+					<allies companionsAreAllies="false"/>
+					<enemies>
+						<enemy leader="true"><![CDATA[aurokaris]]></enemy>
+					</enemies>
+					<openingDescriptions>
+						<combatant id="aurokaris"><![CDATA[[aurokaris.speech(Give me everything you've got, [pc.name]!)] Aurokaris shouts with a smile on her face, [aurokaris.speech(I'm not going to hold back either!)]]]></combatant>
+					</openingDescriptions>
+					<escapeBlocked><![CDATA[true]]></escapeBlocked>
+				</combatVariables>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Decline]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Aurokaris that your sparring practice was enough.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_trader_aurokaris_sparring_end]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="trader_aurokaris_sparring_practice_won">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(aurokaris.incrementAffection(pc, 5))]
+			#IF(aurokaris.getAffection(pc)>=AFFECTION_POSITIVE_FOUR_LOVE.getMinimumValue() && aurokaris.isAttractedTo(pc))
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'TRADER_AUROKARIS_SPARRING_PRACTICE_TENT_INVITE'))]
+			#ELSE
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'TRADER_AUROKARIS_SPARRING_PRACTICE_END'))]
+			#ENDIF
+			[#aurokaris.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_amazon_camp_trader)]
+			[#aurokaris.hourlyUpdate()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/amazon_camp">TRADER_AUROKARIS_SPARRING_PRACTICE_WON</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					As Aurokaris has hurried off back to
+					#IF(aurokaris.getLocationPlace().getPlaceType()==PLACE_TYPE_innoxia_fields_elis_amazon_camp_trader)
+						 work,
+					#ELSE
+						 her tent,
+					#ENDIF
+					 you're left to continue on your way through the Amazons' camp...
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					#IF(aurokaris.getAffection(pc)>=AFFECTION_POSITIVE_FOUR_LOVE.getMinimumValue() && aurokaris.isAttractedTo(pc))
+						[#flags.setFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_invite_received, true)]
+					#ENDIF
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="trader_aurokaris_sparring_practice_lost">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'TRADER_AUROKARIS_SPARRING_PRACTICE_END'))]
+			[#aurokaris.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_amazon_camp_trader)]
+			[#aurokaris.hourlyUpdate()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/amazon_camp">TRADER_AUROKARIS_SPARRING_PRACTICE_LOST</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_amazon_camp_trader_aurokaris_sparring_practice_won"/>
+	</scene>
+	
+	<scene id="trader_aurokaris_sparring_end">
+		<preParsingEffects><![CDATA[
+			[#aurokaris.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_amazon_camp_trader)]
+			[#aurokaris.hourlyUpdate()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/amazon_camp">TRADER_AUROKARIS_SPARRING_END</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_amazon_camp_trader_aurokaris_sparring_practice_won"/>
+	</scene>
+	
+	<scene id="trader_aurokaris_sex">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_visited, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/amazon_camp">AUROKARIS_TASTING_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Pussy]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Aurokaris that you want to lick the Ambrosia from her pussy.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_amazon_camp_aurokaris_ambrosia_pussy]]></id>
+					<startingPosition><![CDATA[SITTING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>aurokaris</id>
+							<slot><![CDATA[SITTING_SITTING]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[SITTING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_trader_aurokaris_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">AUROKARIS_TASTING_SEX_PUSSY</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[aurokaris]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Breasts]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Aurokaris that you want to lick the Ambrosia from her breasts.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_amazon_camp_aurokaris_ambrosia_breasts]]></id>
+					<startingPosition><![CDATA[SITTING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>aurokaris</id>
+							<slot><![CDATA[SITTING_SITTING]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[SITTING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_trader_aurokaris_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">AUROKARIS_TASTING_SEX_BREASTS</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueNipple_SUCKLE_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[aurokaris]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<id><![CDATA[SelfFingerVagina_SELF_FINGER_VAGINA_PENETRATION]]></id>
+							<performer><![CDATA[aurokaris]]></performer>
+							<target><![CDATA[aurokaris]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Ass]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Aurokaris that you want to lick the Ambrosia from her ass.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_amazon_camp_aurokaris_ambrosia_ass]]></id>
+					<startingPosition><![CDATA[SITTING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>aurokaris</id>
+							<slot><![CDATA[SITTING_SITTING]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[SITTING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_trader_aurokaris_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">AUROKARIS_TASTING_SEX_ASS</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueAnus_ANILINGUS_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[aurokaris]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<id><![CDATA[SelfFingerVagina_SELF_FINGER_VAGINA_PENETRATION]]></id>
+							<performer><![CDATA[aurokaris]]></performer>
+							<target><![CDATA[aurokaris]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="trader_aurokaris_after_sex">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_had_sex, true)]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Aurokaris has had enough, and so brings the sex to an end...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/amazon_camp">AUROKARIS_TASTING_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Head on out of the tent and decide what to do next...]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'AUROKARIS_TASTING_AFTER_SEX_LEAVE'))]
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_amazon_camp_pathway)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Aurokaris tent: -->
+	
+	<scene id="aurokaris_tent">
+		<content folderPath="txt/places/fields/elis/amazon_camp">AUROKARIS_TENT</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(aurokaris) && flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_invite_received) && !flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_visited)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Aurokaris]]></responseTitle>
+				<responseTooltip><![CDATA[Having been invited to pay her a visit, head over to Aurokaris's tent and see if she's in there.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_aurokaris_tent_entry]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!game.getCharactersPresent().contains(aurokaris) || !flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_invite_received) || flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_visited)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Aurokaris]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_invite_received))
+						Aurokaris told you not to disturb her while she's in her tent, so you shouldn't attempt to bother her...
+					#ELSEIF(flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_visited))
+						Aurokaris told you that she needs to get some rest, so you should leave her alone for the rest of the night...
+					#ELSE
+						Aurokaris isn't here at the moment.
+						<br/>[style.italicsMinorBad(Aurokaris is only present between the hours of [units.time(18)]-[units.time(8)].)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="aurokaris_tent_entry">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_visited, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/amazon_camp">AUROKARIS_TENT_ENTRY</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- If not attracted to player, Aurokaris wants them to drink feminising potion: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!aurokaris.isAttractedTo(pc)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Drink]]></responseTitle>
+					<responseTooltip><![CDATA[Drink Aurokaris's potion to become a feminised version of yourself...]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_aurokaris_tent_transformed]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#!aurokaris.isAttractedTo(pc)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Decline]]></responseTitle>
+					<responseTooltip><![CDATA[Tell Aurokaris that you don't want to be transformed.]]></responseTooltip>
+					<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>
+					<effects><![CDATA[
+						[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_amazon_camp_pathway)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'AUROKARIS_TENT_ENTRY_POTION_DECLINED'))]
+					]]></effects>
+				</response>
+			<!-- If attracted to player, Aurokaris wants sex: -->
+				<response>
+					<availabilityConditional><![CDATA[[#aurokaris.isAttractedTo(pc)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Dominant sex]]></responseTitle>
+					<responseTooltip><![CDATA[Return Aurokaris's affections and get more intimate with her...]]></responseTooltip>
+					<nextDialogue/>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_elis_amazon_camp_aurokaris_sex]]></id>
+						<startingPosition><![CDATA[STANDING]]></startingPosition>
+						<dominants>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>aurokaris</id>
+								<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+							</character>
+						</submissives>
+						<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_aurokaris_tent_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">AUROKARIS_TENT_ENTRY_SEX_AS_DOM</sexStartContent>
+					</sexVariablesWithManager>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#aurokaris.isAttractedTo(pc)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Submissive sex]]></responseTitle>
+					<responseTooltip><![CDATA[Return Aurokaris's affections and let her get more intimate with you...]]></responseTooltip>
+					<nextDialogue/>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_elis_amazon_camp_aurokaris_sex]]></id>
+						<startingPosition><![CDATA[STANDING]]></startingPosition>
+						<dominants>
+							<character>
+								<id>aurokaris</id>
+								<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+							</character>
+						</submissives>
+						<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_aurokaris_tent_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">AUROKARIS_TENT_ENTRY_SEX_AS_SUB</sexStartContent>
+					</sexVariablesWithManager>
+				</response>
+				<!-- Leave: -->
+				<response>
+					<availabilityConditional><![CDATA[[#aurokaris.isAttractedTo(pc)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[5]]></index>
+					<responseTitle><![CDATA[Leave]]></responseTitle>
+					<responseTooltip><![CDATA[Make an excuse to leave and tell Aurokaris that perhaps you'll be back again to take things further another time.]]></responseTooltip>
+					<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>
+					<effects><![CDATA[
+						[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_amazon_camp_pathway)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'AUROKARIS_TENT_ENTRY_SEX_DECLINED'))]
+						#IF(aurokaris.getAffection(pc)>=AFFECTION_POSITIVE_TWO_LIKE.getMinimumValue())
+							[#game.appendToTextEndStringBuilder(aurokaris.incrementAffection(pc, -5))]
+						#ENDIF
+					]]></effects>
+				</response>
+		</responses>
+	</scene>
+	
+	<scene id="aurokaris_tent_transformed">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'AUROKARIS_TENT_TRANSFORMED'))]
+			[#game.appendToTextStartStringBuilder(aurokaris.applyFeminisationPotion(pc))]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'AUROKARIS_TENT_TRANSFORMED_END'))]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_amazon_camp_aurokaris_tent_entry"/>
+	</scene>
+	
+	<scene id="aurokaris_tent_after_sex">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_had_sex, true)]
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Aurokaris has had enough, and so brings the sex to an end...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/amazon_camp">AUROKARIS_TENT_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Say goodbye to Aurokaris and leave her to get some rest.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>
+				<effects><![CDATA[
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_amazon_camp_pathway)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'AUROKARIS_TENT_AFTER_SEX_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Ursa scenes: -->
+	
+	<scene id="queen">
+		<content folderPath="txt/places/fields/elis/amazon_camp">QUEEN</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Back]]></responseTitle>
+				<responseTooltip><![CDATA[Decide against entering Ursa's tent and head abck into the Amazons' camp...]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'QUEEN_BACK'))]
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_amazon_camp_pathway)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_ursa_daily_interaction))
+						Ursa has already seen you today, and has no more time to spare until tomorrow at the earliest.
+					#ELSE
+						Approach the guards and tell them that you'd like to enter Ursa's tent.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_ursa_daily_interaction))
+						null
+					#ELSEIF(!flags.hasFlag(FLAG_innoxia_amazon_camp_ursa_met))
+						innoxia_places_fields_elis_amazon_camp_queen_initial_entry
+					#ELSE
+						innoxia_places_fields_elis_amazon_camp_queen_entry
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_amazon_camp_ursa_met, true)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_amazon_camp_ursa_met)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Lunexis]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.isQuestFailed(QUEST_LINE_SIDE_LUNEXIS_ESCAPE))
+						After revealing Lunexis's plans to Meraxis, Ursa has banned you from seeing the demonic centauress.
+					#ELSE
+						Tell the guards that you're here to visit Lunexis.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.isQuestFailed(QUEST_LINE_SIDE_LUNEXIS_ESCAPE))
+						null
+					#ELSE
+						innoxia_places_fields_elis_amazon_camp_lunexis
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="queen_initial_entry">
+		<content folderPath="txt/places/fields/elis/amazon_camp">QUEEN_INITIAL_ENTRY</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Follow]]></responseTitle>
+				<responseTooltip><![CDATA[Follow Ursa as she shows you to where Lunexis is being held.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_queen_initial_entry_lunexis]]></nextDialogue>
+				<effects><![CDATA[
+					[#lunexis.applyEnslavedClothingChange()]
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_amazon_camp_lunexis)]
+					[#ursa.setLocation(pc)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="queen_initial_entry_lunexis">
+		<content folderPath="txt/places/fields/elis/amazon_camp">QUEEN_INITIAL_ENTRY_LUNEXIS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Return]]></responseTitle>
+				<responseTooltip><![CDATA[Go with Ursa and exit the tent.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_queen_initial_entry_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_amazon_camp_queen)]
+					[#ursa.setLocation(pc)]
+					[#ursa.stripForSex()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="queen_initial_entry_end">
+		<content folderPath="txt/places/fields/elis/amazon_camp">QUEEN_INITIAL_ENTRY_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_amazon_camp_queen_entry"/>
+	</scene>
+	
+	<scene id="queen_entry">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'QUEEN_ENTRY'))]
+			[#ursa.setCharacterReactedToPregnancy(pc, true)]
+			[#flags.setFlag(FLAG_innoxia_amazon_camp_ursa_talk_amazons, false)]
+			[#flags.setFlag(FLAG_innoxia_amazon_camp_ursa_talk_queen, false)]
+			[#flags.setFlag(FLAG_innoxia_amazon_camp_ursa_talk_lunette, false)]
+			[#flags.setFlag(FLAG_innoxia_amazon_camp_ursa_talk_aurokaris, false)]
+			[#ursa.stripForSex()]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Submit]]></responseTitle>
+				<responseTooltip><![CDATA[Submit to Ursa and let her fuck you.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_amazon_camp_ursa_sex]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>ursa</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_queen_entry_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">QUEEN_ENTRY_SEX</sexStartContent>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Refuse]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Ursa that you're not interested in sex.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_queen_entry_sex_declined]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="queen_entry_sex_declined">
+		<content folderPath="txt/places/fields/elis/amazon_camp">QUEEN_ENTRY_SEX_DECLINED</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Obey]]></responseTitle>
+				<responseTooltip><![CDATA[Follow Ursa's command and strip so that she can fuck you.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_amazon_camp_ursa_sex]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>ursa</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_queen_entry_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">QUEEN_ENTRY_SEX_OBEY</sexStartContent>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Refuse again]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Ursa that you're <i>really</i> not interested in having sex right now.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_queen_entry_sex_declined_end]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="queen_entry_after_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Ursa has had enough, and so brings the sex to an end...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/amazon_camp">QUEEN_ENTRY_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_amazon_camp_queen_entry_sex_declined_end"/>
+	</scene>
+	
+	<scene id="queen_entry_sex_declined_end">
+		<content folderPath="txt/places/fields/elis/amazon_camp">QUEEN_ENTRY_SEX_DECLINED_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[As Ursa is too busy to give you any more of her time today, all that's left is for you to leave...]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_amazon_camp_ursa_daily_interaction, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'QUEEN_ENTRY_FINAL_LEAVE'))]
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_amazon_camp_pathway)]
+					[#ursa.equipClothing()]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Amazons]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_ursa_talk_amazons))
+						You've already asked Ursa about the history and customs of the Amazons...
+					#ELSE
+						Ask Ursa about the history and customs of the Amazons.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_ursa_talk_amazons))
+						null
+					#ELSE
+						innoxia_places_fields_elis_amazon_camp_queen_entry_sex_declined_end
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_amazon_camp_ursa_talk_amazons, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'QUEEN_TALK_AMAZONS'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Queen]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_ursa_talk_queen))
+						You've already asked Ursa how she came to be the queen of the Amazons...
+					#ELSE
+						Ask Ursa how she came to be the queen of the Amazons.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_ursa_talk_queen))
+						null
+					#ELSE
+						innoxia_places_fields_elis_amazon_camp_queen_entry_sex_declined_end
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_amazon_camp_ursa_talk_queen, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'QUEEN_TALK_QUEEN'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Lunette]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_ursa_talk_lunette))
+						You've already asked Ursa what she thinks Lunette's next move will be...
+					#ELSE
+						Ask Ursa what she thinks Lunette's next move will be.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_ursa_talk_lunette))
+						null
+					#ELSE
+						innoxia_places_fields_elis_amazon_camp_queen_entry_sex_declined_end
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_amazon_camp_ursa_talk_lunette, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'QUEEN_TALK_LUNETTE'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Aurokaris]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_ursa_talk_aurokaris))
+						You've already asked Ursa how well she knows Aurokaris and what she thinks of her...
+					#ELSE
+						Ask Ursa how well she knows Aurokaris and what she thinks of her.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_ursa_talk_aurokaris))
+						null
+					#ELSE
+						innoxia_places_fields_elis_amazon_camp_queen_entry_sex_declined_end
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_amazon_camp_ursa_talk_aurokaris, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'QUEEN_TALK_AUROKARIS'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Lunexis interrogation scenes: -->
+	
+	<scene id="lunexis">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_amazon_camp_lunexis)]
+			[#flags.setFlag(FLAG_innoxia_amazon_camp_lunexis_questioned, false)]
+			[#flags.setFlag(FLAG_innoxia_amazon_camp_lunexis_humiliated, false)]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'LUNEXIS'))]
+			[#lunexis.setCharacterReactedToPregnancy(pc, true)]
+			[#pc.setCharacterReactedToPregnancy(lunexis, true)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Non-surrendered actions: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_amazon_camp_lunexis_surrendered)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Interrogate]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_lunexis_questioned))
+							You've already tried to ask Lunexis about what Lunette's plans might be, and she's proven to be completely uncooperative...
+						#ELSE
+							Ask Lunexis what Lunette's plans might be...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_lunexis_questioned))
+							null
+						#ELSE
+							innoxia_places_fields_elis_amazon_camp_lunexis_question
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#flags.setFlag(FLAG_innoxia_amazon_camp_lunexis_questioned, true)]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_amazon_camp_lunexis_surrendered)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA['Interrogate']]></responseTitle>
+					<responseTooltip><![CDATA[Try to get Lunexis to answer your questions by getting her turned on.]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_sexual]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_amazon_camp_lunexis_surrendered)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[Pat her]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_lunexis_humiliated))
+							You've already humiliated Lunexis by patting her and telling her that she's a good girl.
+						#ELSE
+							Humiliate Lunexis by patting her and telling her that she's a good girl.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_lunexis_humiliated))
+							null
+						#ELSE
+							innoxia_places_fields_elis_amazon_camp_lunexis_humiliation
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#flags.setFlag(FLAG_innoxia_amazon_camp_lunexis_humiliated, true)]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_amazon_camp_lunexis_surrendered)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[5]]></index>
+					<responseTitle><![CDATA[Leave]]></responseTitle>
+					<responseTooltip><![CDATA[Not wanting to do anything further with Lunexis, you take your leave...]]></responseTooltip>
+					<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'LUNEXIS_LEAVE'))]
+						[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_amazon_camp_pathway)]
+					]]></effects>
+				</response>
+			<!-- Surrendered actions: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Obey]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						Obey Lunexis's command and get her cock hard with your mouth while she thinks about how she wants to fuck you...
+					#ELSE
+						Obey Lunexis's command and get her cock hard with your [pc.hands] while she thinks about how she wants to fuck you...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_submitted_start]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="lunexis_question">
+		<content folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_QUESTION</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_amazon_camp_lunexis"/>
+	</scene>
+	
+	<scene id="lunexis_humiliation">
+		<content folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_HUMILIATION</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_amazon_camp_lunexis"/>
+	</scene>
+	
+	<scene id="lunexis_sexual">
+		<content folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_SEXUAL</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Kiss nipples]]></responseTitle>
+				<responseTooltip><![CDATA[Kiss and pinch Lunexis's nipples to get her turned on.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_sexual_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'LUNEXIS_SEXUAL_NIPPLES'))]
+				]]></effects>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_BREASTS_OTHERS]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[ONE_VANILLA]]></corruptionLevel>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Pussy play]]></responseTitle>
+				<responseTooltip><![CDATA[Stroke Lunexis's pussy and play with her labia to get her horny.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_sexual_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'LUNEXIS_SEXUAL_PUSSY'))]
+				]]></effects>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_VAGINAL_GIVING]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[ONE_VANILLA]]></corruptionLevel>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Stroke cock]]></responseTitle>
+				<responseTooltip><![CDATA[Stroke Lunexis's cock to get her worked up and desperate for sex.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_sexual_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'LUNEXIS_SEXUAL_COCK'))]
+				]]></effects>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_PENIS_RECEIVING]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[TWO_HORNY]]></corruptionLevel>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Anal play]]></responseTitle>
+				<responseTooltip><![CDATA[Tease Lunexis's puffy doughnut and plant a couple of kisses on her ass to get her aroused.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_sexual_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'LUNEXIS_SEXUAL_ASS'))]
+				]]></effects>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_ANAL_GIVING]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[TWO_HORNY]]></corruptionLevel>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Changing your mind, you decide to take your leave...]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'LUNEXIS_SEXUAL_LEAVE'))]
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_amazon_camp_pathway)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="lunexis_sexual_end">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(lunexis.setLust(65))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_SEXUAL_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Back out: -->
+				<response>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[0]]></index>
+					<responseTitle><![CDATA[Finished]]></responseTitle>
+					<responseTooltip><![CDATA[Not wanting to do anything further with Lunexis, you decide to leave her pent up and begging for sex and take your leave...]]></responseTooltip>
+					<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'LUNEXIS_SEXUAL_END_LEAVE'))]
+						[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_amazon_camp_pathway)]
+					]]></effects>
+				</response>
+			<!-- Dominant sex: -->
+				<response>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Dominate]]></responseTitle>
+					<responseTooltip><![CDATA[Give Lunexis what she wants by dominantly fucking her.]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_elis_amazon_camp_lunexis_sex]]></id>
+						<startingPosition><![CDATA[STANDING]]></startingPosition>
+						<dominants>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>lunexis</id>
+								<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+							</character>
+						</submissives>
+						<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_DOMINANT_SEX</sexStartContent>
+					</sexVariablesWithManager>
+				</response>
+				<!-- Cunnilingus: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Eat her out]]></responseTitle>
+					<responseTooltip><![CDATA[As you're unable to gain access to your mouth, you can't perform oral sex on Lunexis's pussy...]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Eat her out]]></responseTitle>
+					<responseTooltip><![CDATA[Give Lunexis what she wants by performing oral sex on her hot, wet horse-cunt.]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_elis_amazon_camp_lunexis_sex_pussy_oral]]></id>
+						<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+						<dominants>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[ALL_FOURS_BEHIND_ORAL]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>lunexis</id>
+								<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+							</character>
+						</submissives>
+						<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_DOMINANT_SEX_PUSSY_ORAL</sexStartContent>
+						<ongoingActionsAtStart>
+							<action>
+								<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
+								<performer><![CDATA[pc]]></performer>
+								<target><![CDATA[lunexis]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+						</ongoingActionsAtStart>
+					</sexVariablesWithManager>
+				</response>
+				<!-- Fuck pussy: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[Fuck pussy]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(!pc.hasPenis())
+							As you don't have a penis, you can't fuck Lunexis's pussy...
+						#ELSE
+							As you're unable to gain access to your penis, you can't fuck Lunexis's pussy...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[Fuck pussy]]></responseTitle>
+					<responseTooltip><![CDATA[Give Lunexis what she wants by filling her wet pussy with your cock.]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_elis_amazon_camp_lunexis_sex_pussy]]></id>
+						<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+						<dominants>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>lunexis</id>
+								<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+							</character>
+						</submissives>
+						<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_DOMINANT_SEX_PUSSY</sexStartContent>
+						<ongoingActionsAtStart>
+							<action>
+								<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+								<performer><![CDATA[pc]]></performer>
+								<target><![CDATA[lunexis]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+						</ongoingActionsAtStart>
+					</sexVariablesWithManager>
+				</response>
+				<!-- Anilingus: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[4]]></index>
+					<responseTitle><![CDATA[Rimjob]]></responseTitle>
+					<responseTooltip><![CDATA[As you're unable to gain access to your mouth, you can't perform anilingus on Lunexis...]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[4]]></index>
+					<responseTitle><![CDATA[Rimjob]]></responseTitle>
+					<responseTooltip><![CDATA[Give Lunexis what she wants by performing oral sex on her hot, puffy asshole.]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_elis_amazon_camp_lunexis_sex_ass_oral]]></id>
+						<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+						<dominants>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[ALL_FOURS_BEHIND_ORAL]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>lunexis</id>
+								<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+							</character>
+						</submissives>
+						<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_DOMINANT_SEX_ASS_ORAL</sexStartContent>
+						<ongoingActionsAtStart>
+							<action>
+								<id><![CDATA[TongueAnus_ANILINGUS_START]]></id>
+								<performer><![CDATA[pc]]></performer>
+								<target><![CDATA[lunexis]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+						</ongoingActionsAtStart>
+					</sexVariablesWithManager>
+				</response>
+				<!-- Fuck ass: -->
+				<response>
+					<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && (!pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true))]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[5]]></index>
+					<responseTitle><![CDATA[Fuck ass]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(!pc.hasPenis())
+							As you don't have a penis, you can't fuck Lunexis's ass...
+						#ELSE
+							As you're unable to gain access to your penis, you can't fuck Lunexis's ass...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[5]]></index>
+					<responseTitle><![CDATA[Fuck ass]]></responseTitle>
+					<responseTooltip><![CDATA[Give Lunexis what she wants by filling her ass with your cock.]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_elis_amazon_camp_lunexis_sex_ass]]></id>
+						<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+						<dominants>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>lunexis</id>
+								<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+							</character>
+						</submissives>
+						<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_DOMINANT_SEX_ASS</sexStartContent>
+						<ongoingActionsAtStart>
+							<action>
+								<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+								<performer><![CDATA[pc]]></performer>
+								<target><![CDATA[lunexis]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+						</ongoingActionsAtStart>
+					</sexVariablesWithManager>
+				</response>
+			<!-- Submissive sex: -->
+				<response>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[6]]></index>
+					<responseTitle><![CDATA[Submit]]></responseTitle>
+					<responseTooltip><![CDATA[Obey Lunexis and submit to her, allowing her to fuck you in any manner she wants.]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<requiredFetishes>
+						<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+					</requiredFetishes>
+					<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_elis_amazon_camp_lunexis_sex_sub]]></id>
+						<startingPosition><![CDATA[STANDING]]></startingPosition>
+						<dominants>
+							<character>
+								<id>lunexis</id>
+								<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+							</character>
+						</submissives>
+						<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_after_sex_submitted]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_SUBMISSIVE_SEX</sexStartContent>
+					</sexVariablesWithManager>
+				</response>
+				<!-- Blowjob: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[7]]></index>
+					<responseTitle><![CDATA[Face-fucked]]></responseTitle>
+					<responseTooltip><![CDATA[As you're unable to gain access to your mouth, you cannot give Lunexis a blowjob...]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[7]]></index>
+					<responseTitle><![CDATA[Face-fucked]]></responseTitle>
+					<responseTooltip><![CDATA[Obey Lunexis and submit to her, allowing her to fuck your throat with her massive, horse-like cock.]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<requiredFetishes>
+						<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+					</requiredFetishes>
+					<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_elis_amazon_camp_lunexis_sex_sub_blowjob]]></id>
+						<startingPosition><![CDATA[STANDING]]></startingPosition>
+						<dominants>
+							<character>
+								<id>lunexis</id>
+								<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+							</character>
+						</submissives>
+						<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_after_sex_submitted]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_SUBMISSIVE_SEX_BLOWJOB</sexStartContent>
+						<ongoingActionsAtStart>
+							<action>
+								<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+								<performer><![CDATA[lunexis]]></performer>
+								<target><![CDATA[pc]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+						</ongoingActionsAtStart>
+					</sexVariablesWithManager>
+				</response>
+				<!-- Fucked in pussy: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[8]]></index>
+					<responseTitle><![CDATA[Offer pussy]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(!pc.hasVagina())
+							As you don't have a pussy, you can't get vaginally fucked by Lunexis...
+						#ELSE
+							As you're unable to gain access to your pussy, you can't get vaginally fucked by Lunexis...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[8]]></index>
+					<responseTitle><![CDATA[Offer pussy]]></responseTitle>
+					<responseTooltip><![CDATA[Obey Lunexis and submit to her, allowing her to fuck your wet pussy with her massive, horse-like cock.]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<requiredFetishes>
+						<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+					</requiredFetishes>
+					<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_elis_amazon_camp_lunexis_sex_sub_pussy]]></id>
+						<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+						<dominants>
+							<character>
+								<id>lunexis</id>
+								<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+							</character>
+						</submissives>
+						<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_after_sex_submitted]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_SUBMISSIVE_SEX_PUSSY</sexStartContent>
+						<ongoingActionsAtStart>
+							<action>
+								<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+								<performer><![CDATA[lunexis]]></performer>
+								<target><![CDATA[pc]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+						</ongoingActionsAtStart>
+					</sexVariablesWithManager>
+				</response>
+				<!-- Fucked in ass: -->
+				<response>
+					<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && !pc.isAbleToAccessCoverableArea(CA_ANUS, true)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[9]]></index>
+					<responseTitle><![CDATA[Offer ass]]></responseTitle>
+					<responseTooltip><![CDATA[As you're unable to gain access to your ass, you can't get anally fucked by Lunexis...]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[9]]></index>
+					<responseTitle><![CDATA[Offer ass]]></responseTitle>
+					<responseTooltip><![CDATA[Obey Lunexis and submit to her, allowing her to fuck your ass with her massive, horse-like cock.]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<requiredFetishes>
+						<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+					</requiredFetishes>
+					<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_elis_amazon_camp_lunexis_sex_sub_ass]]></id>
+						<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+						<dominants>
+							<character>
+								<id>lunexis</id>
+								<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+							</character>
+						</submissives>
+						<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_after_sex_submitted]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_SUBMISSIVE_SEX_ASS</sexStartContent>
+						<ongoingActionsAtStart>
+							<action>
+								<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+								<performer><![CDATA[lunexis]]></performer>
+								<target><![CDATA[pc]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+						</ongoingActionsAtStart>
+					</sexVariablesWithManager>
+				</response>
+		</responses>
+	</scene>
+	
+	<scene id="lunexis_after_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[You've had enough for now, so [pc.step] away from Lunexis and bring an end to the 'interrogation'...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Having had your fun, you leave Lunexis to recover...]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'LUNEXIS_AFTER_SEX_LEAVE'))]
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_amazon_camp_pathway)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="lunexis_after_sex_submitted">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Lunexis has had enough for now and brings a end to the sex...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_AFTER_SEX_SUBMITTED</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isBadEndsEnabled())
+						You ignore Lunexis's command and take your leave...
+					#ELSE
+						having finished with her, you do as Lunexis says and take your leave...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'LUNEXIS_AFTER_SEX_SUBMITTED_LEAVE'))]
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_amazon_camp_pathway)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isBadEndsEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Obey]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						Obey Lunexis's command and clean her cock with your mouth while she thinks about what to do with you...
+					#ELSE
+						Obey Lunexis's command and jerk her off while she thinks about what to do with you...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_after_sex_submitted_obey]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_amazon_camp_lunexis_obeyed, true)]
+				]]></effects>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="lunexis_after_sex_submitted_obey">
+		<content folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_AFTER_SEX_SUBMITTED_OBEYED</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Refuse to pledge yourself completely to Lunexis and take your leave...]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'LUNEXIS_AFTER_SEX_SUBMITTED_OBEYED_LEAVE'))]
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_amazon_camp_pathway)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<colour><![CDATA[GENERIC_BAD]]></colour>
+				<responseTitle><![CDATA[Surrender]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Completely surrender to Lunexis and agree to become her obedient cock-sleeve, with the promise of being kept as one of her personal slaves once she's free.
+					<br/>[style.italicsBad(You will decide to always submit to Lunexis after taking this decision.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_after_sex_submitted_obey_surrender]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_amazon_camp_lunexis_surrendered, true)]
+				]]></effects>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="lunexis_after_sex_submitted_obey_surrender">
+		<content folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_AFTER_SEX_SUBMITTED_OBEYED_SURRENDER</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Listen]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+						Continue to suck Lunexis's cock as she tells you her plan...
+					#ELSE
+						Continue to stroke Lunexis's cock as she tells you her plan...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_after_sex_submitted_obey_surrender_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(sex.applyCummedOnEffects(CA_MOUTH, lunexis, pc, true))]
+					[#game.appendToTextEndStringBuilder(pc.startQuest(QUEST_LINE_SIDE_LUNEXIS_ESCAPE))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="lunexis_after_sex_submitted_obey_surrender_end">
+		<content folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_AFTER_SEX_SUBMITTED_OBEYED_SURRENDER_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Obey]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Lunexis that you'll do as she commands and take your leave...]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'LUNEXIS_AFTER_SEX_SUBMITTED_OBEYED_SURRENDER_END_LEAVE'))]
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_amazon_camp_pathway)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="lunexis_submitted_start">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(lunexis.setLust(65))]
+			[#lunexis.generateSurrenderedSexChoice()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_SUBMITTED_START</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Submissive sex: -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.getSavedLong('lunexis_sex_choice')==1]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Submit]]></responseTitle>
+					<responseTooltip><![CDATA[Obey Lunexis and submit to her, allowing her to fuck you in any manner she wants.]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_elis_amazon_camp_lunexis_sex_sub]]></id>
+						<startingPosition><![CDATA[STANDING]]></startingPosition>
+						<dominants>
+							<character>
+								<id>lunexis</id>
+								<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+							</character>
+						</submissives>
+						<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_submitted_start_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_SUBMITTED_START_SEX</sexStartContent>
+					</sexVariablesWithManager>
+				</response>
+				<!-- Blowjob: -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.getSavedLong('lunexis_sex_choice')==4]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Face-fucked]]></responseTitle>
+					<responseTooltip><![CDATA[Obey Lunexis and submit to her, allowing her to fuck your throat with her massive, horse-like cock.]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_elis_amazon_camp_lunexis_sex_sub_blowjob]]></id>
+						<startingPosition><![CDATA[STANDING]]></startingPosition>
+						<dominants>
+							<character>
+								<id>lunexis</id>
+								<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+							</character>
+						</submissives>
+						<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_submitted_start_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_SUBMITTED_START_SEX_BLOWJOB</sexStartContent>
+						<ongoingActionsAtStart>
+							<action>
+								<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+								<performer><![CDATA[lunexis]]></performer>
+								<target><![CDATA[pc]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+						</ongoingActionsAtStart>
+					</sexVariablesWithManager>
+				</response>
+				<!-- Fucked in pussy: -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.getSavedLong('lunexis_sex_choice')==2]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Present pussy]]></responseTitle>
+					<responseTooltip><![CDATA[Obey Lunexis and submit to her, allowing her to fuck your wet pussy with her massive, horse-like cock.]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_elis_amazon_camp_lunexis_sex_sub_pussy]]></id>
+						<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+						<dominants>
+							<character>
+								<id>lunexis</id>
+								<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+							</character>
+						</submissives>
+						<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_submitted_start_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_SUBMITTED_START_SEX_PUSSY</sexStartContent>
+						<ongoingActionsAtStart>
+							<action>
+								<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+								<performer><![CDATA[lunexis]]></performer>
+								<target><![CDATA[pc]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+						</ongoingActionsAtStart>
+					</sexVariablesWithManager>
+				</response>
+				<!-- Fucked in ass: -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.getSavedLong('lunexis_sex_choice')==3]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Present ass]]></responseTitle>
+					<responseTooltip><![CDATA[Obey Lunexis and submit to her, allowing her to fuck your ass with her massive, horse-like cock.]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_elis_amazon_camp_lunexis_sex_sub_ass]]></id>
+						<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+						<dominants>
+							<character>
+								<id>lunexis</id>
+								<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+							</character>
+						</submissives>
+						<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_lunexis_submitted_start_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_SUBMITTED_START_SEX_ASS</sexStartContent>
+						<ongoingActionsAtStart>
+							<action>
+								<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+								<performer><![CDATA[lunexis]]></performer>
+								<target><![CDATA[pc]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+						</ongoingActionsAtStart>
+					</sexVariablesWithManager>
+				</response>
+		</responses>
+	</scene>
+	
+	<scene id="lunexis_submitted_start_after_sex">
+		<content folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_SUBMITTED_START_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Obey Lunexis and take your leave...]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'LUNEXIS_SUBMITTED_START_AFTER_SEX_LEAVE'))]
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_amazon_camp_pathway)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

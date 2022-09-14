@@ -5,7 +5,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
-import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 
 /**
@@ -25,7 +25,7 @@ public class ResponseEffectsOnly extends Response {
 
 	public ResponseEffectsOnly(String title,
 			String tooltipText,
-			List<Fetish> fetishesForUnlock,
+			List<AbstractFetish> fetishesForUnlock,
 			CorruptionLevel corruptionBypass,
 			List<AbstractPerk> perksRequired,
 			Femininity femininityRequired,

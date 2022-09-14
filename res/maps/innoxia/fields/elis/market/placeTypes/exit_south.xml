@@ -6,6 +6,7 @@
 	<virginityLossDescription><![CDATA[in Elis's Farmer's Market]]></virginityLossDescription>
 	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<svgName>exit</svgName>
 	<colour>BASE_RED</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	<encounterType>null</encounterType>

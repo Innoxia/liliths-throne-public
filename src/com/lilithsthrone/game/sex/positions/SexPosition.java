@@ -2506,7 +2506,7 @@ public class SexPosition {
 			for(int i=0; i<4; i++) {
 				if(Main.sex.getCharacterInPosition(allFoursList.get(i))!=null && !Main.sex.getCharacterInPosition(allFoursList.get(i)).isTaur()) {
 					for(SexSlot inFrontSlot : inFrontList) {
-						interactions.add(StandardSexActionInteractions.allFourscharacterBehindToCharactersFront.getSexActionInteractions(behindList.get(i), inFrontSlot));
+						interactions.add(StandardSexActionInteractions.allFoursCharacterBehindToCharactersFront.getSexActionInteractions(behindList.get(i), inFrontSlot));
 					}
 				}
 			}
@@ -2584,8 +2584,7 @@ public class SexPosition {
 		@Override
 		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
 			// Restrict anal actions if the one humping is in the way:
-			if(Main.sex.getSexPositionSlot(target).hasTag(SexSlotTag.ALL_FOURS)
-					&& Main.sex.getSexPositionSlot(performer).hasTag(SexSlotTag.BEHIND_ALL_FOURS)) {
+			if(Main.sex.getSexPositionSlot(target).hasTag(SexSlotTag.ALL_FOURS) && Main.sex.getSexPositionSlot(performer).hasTag(SexSlotTag.BEHIND_ALL_FOURS)) {
 				List<SexSlot> allFoursList = Util.newArrayListOfValues(SexSlotAllFours.ALL_FOURS, SexSlotAllFours.ALL_FOURS_TWO, SexSlotAllFours.ALL_FOURS_THREE, SexSlotAllFours.ALL_FOURS_FOUR);
 				List<SexSlot> humpingList = Util.newArrayListOfValues(SexSlotAllFours.HUMPING, SexSlotAllFours.HUMPING_TWO, SexSlotAllFours.HUMPING_THREE, SexSlotAllFours.HUMPING_FOUR);
 				for(int i=0; i<4; i++) {
@@ -3364,13 +3363,13 @@ public class SexPosition {
 				}
 			}
 			
-			if(characterToTakeSlot.isTaur()
-					&& (slot==SexSlotSitting.SITTING
-							|| slot==SexSlotSitting.SITTING_TWO
-							|| slot==SexSlotSitting.SITTING_THREE
-							|| slot==SexSlotSitting.SITTING_FOUR)) {
-				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, "Due to the proportions of [npc.her] animalistic lower body, [npc.nameIsFull] unable to use the '"+Util.capitaliseSentence(slot.getDescription())+"' slot."));
-			}
+//			if(characterToTakeSlot.isTaur()
+//					&& (slot==SexSlotSitting.SITTING
+//							|| slot==SexSlotSitting.SITTING_TWO
+//							|| slot==SexSlotSitting.SITTING_THREE
+//							|| slot==SexSlotSitting.SITTING_FOUR)) {
+//				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, "Due to the proportions of [npc.her] animalistic lower body, [npc.nameIsFull] unable to use the '"+Util.capitaliseSentence(slot.getDescription())+"' slot."));
+//			}
 			if(!characterToTakeSlot.isTaur()
 					&& (slot==SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL
 							|| slot==SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL_TWO

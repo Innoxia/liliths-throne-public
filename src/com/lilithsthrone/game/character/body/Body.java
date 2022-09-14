@@ -96,6 +96,9 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.markings.Tattoo;
+import com.lilithsthrone.game.character.markings.TattooCounterType;
+import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
@@ -106,6 +109,7 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -2154,17 +2158,20 @@ public class Body implements XMLSaving {
 		boolean observant = Main.game.getPlayer().hasTrait(Perk.OBSERVANT, true);
 		// Describe race:
 		sb.append(getHeader("Overview"));
+		String colouredHeightValue = "<span style='color:"+this.getHeight().getColour().toWebHexString()+";'>[npc.heightValue]</span>";
 		
-		String heightDescription = " Standing at full height, [npc.she] [npc.verb(measure)] [npc.heightValue]";
+		String heightDescription = " Standing at full height, [npc.she] [npc.verb(measure)] "+colouredHeightValue;
 		if(owner.isFeral() && !owner.getFeralAttributes().isSizeHeight()) {
 			if(owner.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
-				heightDescription = " [npc.Her] body measures [npc.heightValue], which combined with [npc.her] [npc.tailLength]-long tail, gives [npc.herHim] a total length of "
-						+Units.size(owner.getHeightValue()+owner.getLegTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+				heightDescription = " [npc.Her] body measures "+colouredHeightValue+", which combined with [npc.her] [npc.tailLength]-long tail, gives [npc.herHim] a total length of "
+						+ "<span style='color:"+Height.getHeightFromInt(owner.getHeightValue()+owner.getLegTailLength(false)).getColour().toWebHexString()+";'>"
+							+ Units.size(owner.getHeightValue()+owner.getLegTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG)
+						+"</span>";
 				
 //				heightDescription = " From head to tail,  [npc.she] [npc.verb(measure)] "
 //						+Units.size(owner.getHeightValue()+owner.getLegTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG);
 			} else {
-				heightDescription = " From head to tail,  [npc.she] [npc.verb(measure)] [npc.heightValue]";
+				heightDescription = " From head to tail,  [npc.she] [npc.verb(measure)] "+colouredHeightValue;
 			}
 		}
 		
@@ -2406,6 +2413,9 @@ public class Body implements XMLSaving {
 					break;
 				case CHIGNON:
 					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been tied up into a chignon.");
+					break;
+				case SIDE_BRAIDS:
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been woven into braids that hang down on either side of [npc.her] face.");
 					break;
 			}
 		}
@@ -3289,6 +3299,62 @@ public class Body implements XMLSaving {
 				sb.append("[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] pussy looks like, or even if [npc.sheHasFull] one.)]");
 			}
 			sb.append("</p>");
+		}
+		
+		// Tattoos:
+		StringBuilder tattooSB = new StringBuilder();
+		for(Entry<InventorySlot, Tattoo> tattoEntry : owner.getTattoos().entrySet()) {
+			InventorySlot tattooSlot = tattoEntry.getKey();
+			boolean knowsArea = owner.isPlayer();
+			if(!knowsArea) {
+				caLoop:
+				for(CoverableArea ca : CoverableArea.values()) {
+					for(InventorySlot slot : ca.getAssociatedInventorySlots(owner)) {
+						if(tattooSlot==slot) {
+							knowsArea = true;
+							break caLoop;
+						}
+					}
+				}
+			}
+			if(knowsArea) {
+				if(tattooSB.length()>0) {
+					tattooSB.append("<br/>");
+				}
+				Tattoo tattoo = tattoEntry.getValue();
+				if(tattoo.getBodyOverviewDescription().isEmpty()) { // Old version support
+					tattooSB.append("<span style='color:"+tattoo.getPrimaryColour().toWebHexString()+";'>"+Util.capitaliseSentence(tattooSlot.getTattooSlotName())+":</span> ");
+					tattooSB.append(tattoo.getDescription());
+					tattooSB.append(".");
+					
+				} else {
+					tattooSB.append("On [npc.her] [style.boldBlueSteel("+tattooSlot.getTattooSlotName()+")], [npc.sheHasFull] ");
+					tattooSB.append(tattoo.getBodyOverviewDescription());
+					if(tattoo.getType()!=TattooType.NONE) {
+						tattooSB.append(", which is primarily coloured ");
+						tattooSB.append("<span style='color:"+tattoo.getPrimaryColour().toWebHexString()+";'>"+tattoo.getPrimaryColour().getName()+"</span>");
+					}
+					tattooSB.append(".");
+				}
+				if(tattoo.getWriting()!=null && tattoo.getWriting().getText()!=null && !tattoo.getWriting().getText().isEmpty()) {
+					tattooSB.append(" It bears the words: '"+tattoo.getFormattedWritingOutput()+"'");
+				}
+				if(tattoo.getCounter()!=null && tattoo.getCounter().getType()!=TattooCounterType.NONE) {
+					String counterName = tattoo.getCounter().getType().getName();
+					if(tattoo.getWriting()!=null && tattoo.getWriting().getText()!=null && !tattoo.getWriting().getText().isEmpty()) {
+						tattooSB.append(", and is enchanted to keep ");
+					} else {
+						tattooSB.append(" The tattoo is enchanted to keep ");
+					}
+					tattooSB.append(UtilText.generateSingularDeterminer(counterName)+" '"+counterName+"' count, which reads: '"+tattoo.getFormattedCounterOutput(owner)+"'.");
+				} else {
+					tattooSB.append(".");
+				}
+			}
+		}
+		if(tattooSB.length()>0) {
+			sb.append(getHeader("Tattoos"));
+			sb.append(tattooSB.toString());
 		}
 		
 		if(!owner.isPlayer()) {
@@ -4301,7 +4367,7 @@ public class Body implements XMLSaving {
 				
 				for(FluidModifier fm : FluidModifier.values()) {
 					if(owner.hasMilkModifier(fm)) {
-						descriptionSB.append(fm.getBriefDescription());
+						descriptionSB.append(" " + fm.getBriefDescription());
 					}
 				}
 				
@@ -4545,7 +4611,7 @@ public class Body implements XMLSaving {
 				
 				for(FluidModifier fm : FluidModifier.values()) {
 					if(owner.hasMilkCrotchModifier(fm)) {
-						descriptionSB.append(fm.getBriefDescription());
+						descriptionSB.append(" " + fm.getBriefDescription());
 					}
 				}
 				
@@ -4944,7 +5010,7 @@ public class Body implements XMLSaving {
 			
 			for(FluidModifier fm : FluidModifier.values()) {
 				if(owner.hasCumModifier(fm)) {
-					descriptionSB.append(fm.getBriefDescription());
+					descriptionSB.append(" " + fm.getBriefDescription());
 				}
 			}
 		}
@@ -5225,7 +5291,7 @@ public class Body implements XMLSaving {
 		
 		for(FluidModifier fm : FluidModifier.values()) {
 			if(viewedVagina.getGirlcum().getFluidModifiers().contains(fm)) {
-				descriptionSB.append(fm.getBriefDescription());
+				descriptionSB.append(" " + fm.getBriefDescription());
 			}
 		}
 		
@@ -6322,6 +6388,13 @@ public class Body implements XMLSaving {
 
 	public Map<AbstractBodyCoveringType, Covering> getCoverings() {
 		return coverings;
+	}
+
+	/**
+	 * This should only be used in special cases, where the covering map needs to be overwritten for some reason!
+	 */
+	public void setCoverings(Map<AbstractBodyCoveringType, Covering> coverings) {
+		this.coverings = coverings;
 	}
 	
 	public void setCovering(AbstractBodyCoveringType coveringType, CoveringPattern pattern, CoveringModifier modifier, Colour primaryColor, boolean primaryGlow, Colour secondaryColor, boolean secondaryGlow) {

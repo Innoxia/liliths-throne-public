@@ -368,7 +368,7 @@ public class FluidCum implements FluidInterface, XMLSaving {
 	}
 
 	public float getValuePerMl() {
-		return (0.1f + (this.getFluidModifiers().size()*0.1f)) * (this.getFlavour()!=FluidFlavour.CUM?1.5f:1);
+		return 0.1f;
 	}
 
 	@Override

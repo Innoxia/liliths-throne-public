@@ -7,7 +7,7 @@
 	Please note that the final id of the flags defined below will have the parent folder's name appended to the front of them.
 		i.e. 'elis_berries_found' will be identified as 'innoxia_elis_berries_found' during the game's runtime. -->
 	
-	<!-- Mic. encounters etc.: -->
+	<!-- Misc. encounters etc.: -->
 		<!-- Alleyway attackers -->
 			<flag dailyReset="false">alleyway_submission_tattooed_pussy</flag>
 			<flag dailyReset="false">alleyway_submission_tattooed_ass</flag>
@@ -99,6 +99,27 @@
 			<flag dailyReset="true">evelyx_bad_end_feral</flag>
 		
 		
+	<!-- Themiscyra: -->
+		<flag dailyReset="false">themiscyra_smithies_looted</flag>
+		<flag dailyReset="false">themiscyra_jewellers_looted</flag>
+		<flag dailyReset="false">themiscyra_wine_looted</flag>
+		<flag dailyReset="false">themiscyra_centauresses_question</flag>
+		<flag dailyReset="false">themiscyra_aurokaris_talk_ursa</flag>
+		<flag dailyReset="false">themiscyra_aurokaris_talk_raiders</flag>
+		<flag dailyReset="false">themiscyra_aurokaris_talk_town</flag>
+		<flag dailyReset="false">themiscyra_aurokaris_talk_amazons</flag>
+		<flag dailyReset="false">themiscyra_aurokaris_talk_location</flag>
+		<flag dailyReset="false">themiscyra_raider_sex_player_targeted_by_leader</flag>
+		<!-- Bad end -->
+		<flag dailyReset="false">themiscyra_bad_end_oral</flag>
+		<flag dailyReset="false">themiscyra_bad_end_vaginal</flag>
+		<flag dailyReset="false">themiscyra_bad_end_anal</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_meraxis</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_aurokaris</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_ursa</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_self</flag>
+		
+		
 	<!-- Elis: -->
 	
 		<!-- Woods -->
@@ -162,8 +183,6 @@
 		<flag dailyReset="true">oglix_kheiron_spectated_today</flag>
 		<flag dailyReset="false">oglix_tavern_seating_seen</flag>
 		
-		
-		
 		<!-- Market -->
 		<flag dailyReset="true">elis_market_entry_north</flag>
 		<flag dailyReset="true">elis_market_entry_east</flag>
@@ -222,6 +241,33 @@
 		<flag dailyReset="true">spa_talk_posters</flag>
 		<flag dailyReset="true">spa_talk_sheep</flag>
 		<flag dailyReset="false">spa_sheep_introduced</flag>
+	
+		<!-- Amazon Camp: -->
+		<flag dailyReset="false">amazon_camp_discovered</flag>
+		<!-- Aurokaris: -->
+			<flag dailyReset="true">amazon_camp_aurokaris_sparred</flag>
+			<flag dailyReset="false">amazon_camp_aurokaris_sparred_unarmed</flag>
+			<flag dailyReset="false">amazon_camp_aurokaris_sparred_melee</flag>
+			<flag dailyReset="false">amazon_camp_aurokaris_sparred_ranged</flag>
+			<flag dailyReset="false">amazon_camp_aurokaris_tent_invite_received</flag>
+			<flag resetHour="18">amazon_camp_aurokaris_tent_visited</flag>
+			<flag dailyReset="false">amazon_camp_aurokaris_tent_had_sex</flag>
+			<flag dailyReset="true">amazon_camp_aurokaris_ambrosia_tasting</flag>
+		<!-- Ursa: -->
+			<flag dailyReset="false">amazon_camp_ursa_met</flag>
+			<flag dailyReset="true">amazon_camp_ursa_daily_interaction</flag>
+			<flag dailyReset="true">amazon_camp_ursa_talk_amazons</flag>
+			<flag dailyReset="true">amazon_camp_ursa_talk_queen</flag>
+			<flag dailyReset="true">amazon_camp_ursa_talk_lunette</flag>
+			<flag dailyReset="true">amazon_camp_ursa_talk_aurokaris</flag>
+		<!-- Lunexis: -->
+			<flag dailyReset="true">amazon_camp_lunexis_questioned</flag>
+			<flag dailyReset="true">amazon_camp_lunexis_humiliated</flag>
+			<flag dailyReset="false">amazon_camp_lunexis_obeyed</flag>
+			<flag dailyReset="false">amazon_camp_lunexis_surrendered</flag>
+			
+		
+	
 	
 	
 	<!-- You can ignore this section, I just use it to track the ids of saved long values (using [flags.setSavedLong(id, value)] calls)

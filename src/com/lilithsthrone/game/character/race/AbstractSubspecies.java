@@ -831,7 +831,7 @@ public abstract class AbstractSubspecies {
 		}
 		if(subspecies==null) {
 			if(Main.game.isStarted()) { // Races get recalculated after the game starts in Game.handlePostGameInit(), so only show errors if the detection is still failing after that
-				System.err.println("Error: getSubspeciesFromBody() did not find a suitable Subspecies!");
+				System.err.println("Error: getSubspeciesFromBody() did not find a suitable Subspecies! (Race: "+(race==null?"null":race.getName(false))+")");
 				new Exception().printStackTrace();
 			}
 			return Subspecies.HUMAN;
@@ -1354,7 +1354,7 @@ public abstract class AbstractSubspecies {
 				Element coreElement = Element.getDocumentRootElement(bookFile); // Loads the document and returns the root element
 				
 				for(Element element : coreElement.getAllOf("htmlContent")) {
-					if(!element.getAttribute("author").isEmpty()) {
+					if(element.getAttribute("tag").equals(basicDescriptionId) && !element.getAttribute("author").isEmpty()) {
 						return element.getAttribute("author");
 					}
 				}
@@ -1714,6 +1714,21 @@ public abstract class AbstractSubspecies {
 		return getRegionLocations().containsKey(worldType.getWorldRegion())
 				|| getWorldLocations().containsKey(worldType)
 				|| (placeType!=null && getPlaceLocations().containsKey(placeType));
+	}
+	
+	public List<WorldRegion> getMostCommonWorldRegions() {
+		List<WorldRegion> mostCommonRegion = Util.newArrayListOfValues();
+		SubspeciesSpawnRarity highestRarity = SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE;
+		for(Map.Entry<WorldRegion, SubspeciesSpawnRarity> entry : getRegionLocations().entrySet()) {
+			if(entry.getValue().getChanceMultiplier()>=highestRarity.getChanceMultiplier()) {
+				if(entry.getValue().getChanceMultiplier()>highestRarity.getChanceMultiplier()) {
+					mostCommonRegion.clear();
+				}
+				mostCommonRegion.add(entry.getKey());
+				highestRarity = entry.getValue();
+			}
+		}
+		return mostCommonRegion;
 	}
 	
 	public List<SubspeciesFlag> getFlags() {

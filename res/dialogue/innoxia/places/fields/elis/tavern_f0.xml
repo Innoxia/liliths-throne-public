@@ -892,7 +892,7 @@
 		<content folderPath="txt/places/fields/elis/tavern_f0">MERAXIS_APPROACH</content>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled>false</travelDisabled>
+		<travelDisabled>true</travelDisabled>
 		<responses>
 			<!-- Leave -->
 			<response>
@@ -900,7 +900,7 @@
 				<index><![CDATA[0]]></index>
 				<responseTitle><![CDATA[Leave]]></responseTitle>
 				<responseTooltip><![CDATA[Say goodbye to Meraxis and [pc.step] back into the tavern.]]></responseTooltip>
-				<nextDialogue defaultPlaceType="innoxia_fields_elis_tavern_f0_seating"/>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_tavern_f0_tables"/>
 				<secondsPassed minutes="false"><![CDATA[2]]></secondsPassed>
 				<effects><![CDATA[
 					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_tavern_f0_tables)]
@@ -937,37 +937,66 @@
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Takahashi]]></responseTitle>
 				<responseTooltip><![CDATA[
-					Ask Meraxis if she' managed to find Takahashi, the youko who used to work at her citadel in Submission.
+					Ask Meraxis if she's managed to find Takahashi, the youko who used to work at her citadel in Submission.
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_f0_meraxis_talk]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_f0', 'MERAXIS_TALK_TAKAHASHI'))]
 				]]></effects>
 			</response>
-			<!-- Minotallys meeting -->
-			<response>
-				<availabilityConditional><![CDATA[
-					[#!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_C_MEETING_MINOTALLYS)]
-				]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[3]]></index>
-				<responseTitle><![CDATA[Minotallys]]></responseTitle>
-				<responseTooltip><![CDATA[
-					#IF(game.isHourBetween(8, 18))
-						Tell Meraxis that you're ready to meet Minotallys now, which will lead into travelling to Elis's town hall together.
-					#ELSE
-						This isn't a suitable time in which to be asking to meet Minotallys...
-						<br/>[style.italics(You can ask to meet Minotallys between [units.time(9)]-[units.time(18)]...)]
-					#ENDIF
-				]]></responseTooltip>
-				<nextDialogue><![CDATA[
-					#IF(game.isHourBetween(8, 18))
-						innoxia_quests_main_minotallys_meeting_start
-					#ELSE
-						null
-					#ENDIF
-				]]></nextDialogue>
-			</response>
+			<!-- All under index 3, as each one can only be accessed at stages of quest progress whihc are mutually exclusive of one another -->
+				<!-- Minotallys meeting -->
+				<response>
+					<availabilityConditional><![CDATA[
+						[#!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_C_MEETING_MINOTALLYS)]
+					]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[Minotallys]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(game.isHourBetween(8, 18))
+							Tell Meraxis that you're ready to meet Minotallys now, which will lead into travelling to Elis's town hall together.
+						#ELSE
+							This isn't a suitable time in which to be asking to meet Minotallys...
+							<br/>[style.italics(You can ask to meet Minotallys between [units.time(9)]-[units.time(18)]...)]
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(game.isHourBetween(8, 18))
+							innoxia_quests_main_minotallys_meeting_start
+						#ELSE
+							null
+						#ENDIF
+					]]></nextDialogue>
+				</response>
+				<!-- Themiscyra -->
+				<response>
+					<availabilityConditional><![CDATA[
+						[#pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_3_D_TO_THEMISCYRA]
+					]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[Themiscyra]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Tell Meraxis that you're ready to go with her to Themiscyra to find out if the town is suffering from Lunette's raiders.
+						<br/>[style.italicsCombat(Be prepared, for this will start a lengthy section of the main quest during which there may be difficult fights!)]
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_journey_start]]></nextDialogue>
+				</response>
+				<!-- Lunexis betrayal -->
+				<response>
+					<availabilityConditional><![CDATA[
+						[#pc.getQuest(QUEST_LINE_SIDE_LUNEXIS_ESCAPE) == QUEST_LUNEXIS_ESCAPE]
+					]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[Lunexis's plan]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Tell Meraxis that you have something to discuss with her in private concerning Lunexis.
+						<br/>[style.italicsBad(This will be added for the next update!)]
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue> <!-- innoxia_places_fields_elis_tavern_f0_lunexis_plan -->
+				</response>
 			<!-- Demon TF -->
 			<response>
 				<availabilityConditional><![CDATA[
@@ -1031,6 +1060,50 @@
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
 		<responses copyFromDialogueId="innoxia_places_fields_elis_tavern_f0_meraxis_approach"/>
+	</scene>
+	
+	<scene id="lunexis_plan">
+		<content folderPath="txt/places/fields/elis/tavern_f0">LUNEXIS_PLAN</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<colour><![CDATA[GENERIC_BAD_END]]></colour>
+				<responseTitle><![CDATA[Betray Meraxis]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Convince Meraxis that Themiscyra has been abandoned by Lunette's daughters and that by teleporting yourself and Lunexis there, the centauress will reveal where she's hidden a secret weapon.
+					<br/>[style.italicsBadEnd(This will lead into both you and Meraxis falling into the clutches of Lunexis!)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_escape_start]]></nextDialogue>
+				<effects/>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Betray Lunexis]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Betray your Mistress and reveal all the details of Lunexis's plan to Meraxis.
+					<br/>[style.italicsBad(You will be forbidden from contacting Lunexis again after this!)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_escape_failed]]></nextDialogue>
+				<effects/>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Another time]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Meraxis that now's not the time to reveal your secret information, but you'll tell her what's going on soon.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_tavern_f0_tables"/>
+				<secondsPassed minutes="false"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_tavern_f0_tables)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_f0', 'LUNEXIS_PLAN_DELAY'))]
+				]]></effects>
+			</response>
+		</responses>
 	</scene>
 	
 	<scene id="meraxis_post_demon_tf">

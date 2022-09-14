@@ -201,9 +201,18 @@
 	</p>
 	<p>
 		The elder lilin then quickly gets to her feet, letting out a soft, good-natured laugh as she sees you wobbling a little from the strange new feeling of having a demonic tail and pair of wings. Stepping forwards, she takes hold of you, and before you can say anything, she leans forwards and sighs,
-		#IF pc.hasFetish(FETISH_INCEST)
-		#THEN [lyssieth.speechNoEffects(~Mmm!~ Such a naughty [pc.girl], making mommy suck your cock like that... To be reminded of your true place, you need a nice, tight, demonic pussy, ready to be fucked by mommy's big cock!)]
-		#ELSE [lyssieth.speechNoEffects(~Mmm!~ Such a naughty little demon, making me suck your cock like that... To be reminded of your true place, you need a nice, tight, demonic pussy, ready to be fucked by my big cock!)]
+		#IF(flags.hasFlag(FLAG_lyssiethNoCockDemonTF))
+			#IF(pc.hasFetish(FETISH_INCEST))
+				 [lyssieth.speechNoEffects(~Mmm!~ Such a naughty [pc.girl], making mommy suck your cock like that... To be reminded of your true place, you need a nice, tight, demonic pussy, so that you can find out how good it feels to get scissored!)]
+			#ELSE
+				 [lyssieth.speechNoEffects(~Mmm!~ Such a naughty little demon, making me suck your cock like that... To be reminded of your true place, you need a nice, tight, demonic pussy, so that you can find out how good it feels to get scissored!)]
+			#ENDIF
+		#ELSE
+			#IF(pc.hasFetish(FETISH_INCEST))
+				 [lyssieth.speechNoEffects(~Mmm!~ Such a naughty [pc.girl], making mommy suck your cock like that... To be reminded of your true place, you need a nice, tight, demonic pussy, ready to be fucked by mommy's big cock!)]
+			#ELSE
+				 [lyssieth.speechNoEffects(~Mmm!~ Such a naughty little demon, making me suck your cock like that... To be reminded of your true place, you need a nice, tight, demonic pussy, ready to be fucked by my big cock!)]
+			#ENDIF
 		#ENDIF
 	</p>
 	<p>
@@ -239,17 +248,33 @@
 	</p>
 	<p>
 		The elder lilin then quickly gets to her feet, letting out a soft, good-natured laugh as she sees you wobbling a little from the strange new feeling of having a demonic tail and pair of wings. Stepping forwards, she takes hold of you, and before you can say anything, she leans forwards and sighs,
-		#IF(pc.hasFetish(FETISH_INCEST))
-			#IF(pc.getVaginaType().getRace()==RACE_DEMON)
-				 [lyssieth.speechNoEffects(~Mmm!~ Such a naughty [pc.girl], making mommy lick your hot little pussy like that... To be reminded of your true place, and now that you're all wet and ready for it, you need to get fucked by mommy's big cock!)]
+		#IF(flags.hasFlag(FLAG_lyssiethNoCockDemonTF))
+			#IF(pc.hasFetish(FETISH_INCEST))
+				#IF(pc.getVaginaType().getRace()==RACE_DEMON)
+					 [lyssieth.speechNoEffects(~Mmm!~ Such a naughty [pc.girl], making mommy lick your hot little pussy like that... To be reminded of your true place, and now that you're all wet and ready for it, you need to find out how good it feels to get scissored!)]
+				#ELSE
+					 [lyssieth.speechNoEffects(~Mmm!~ Such a naughty [pc.girl], making mommy lick your hot little pussy like that... To be reminded of your true place, your pussy needs to be turned into a nice, tight demonic one, ready to find out how good it feels to get scissored!)]
+				#ENDIF
 			#ELSE
-				 [lyssieth.speechNoEffects(~Mmm!~ Such a naughty [pc.girl], making mommy lick your hot little pussy like that... To be reminded of your true place, your pussy needs to be turned into a nice, tight demonic one, ready to be fucked by mommy's big cock!)]
+				#IF(pc.getVaginaType().getRace()==RACE_DEMON)
+					 [lyssieth.speechNoEffects(~Mmm!~ Such a naughty little demon, making me lick your hot little pussy like that... To be reminded of your true place, and now that you're all wet and ready for it, you need to find out how good it feels to get scissored!)]
+				#ELSE
+					 [lyssieth.speechNoEffects(~Mmm!~ Such a naughty little demon, making me lick your hot little pussy like that... To be reminded of your true place, your pussy needs to be turned into a nice, tight demonic one, ready to find out how good it feels to get scissored!)]
+				#ENDIF
 			#ENDIF
 		#ELSE
-			#IF(pc.getVaginaType().getRace()==RACE_DEMON)
-				 [lyssieth.speechNoEffects(~Mmm!~ Such a naughty little demon, making me lick your hot little pussy like that... To be reminded of your true place, and now that you're all wet and ready for it, you need to get fucked by my big cock!)]
+			#IF(pc.hasFetish(FETISH_INCEST))
+				#IF(pc.getVaginaType().getRace()==RACE_DEMON)
+					 [lyssieth.speechNoEffects(~Mmm!~ Such a naughty [pc.girl], making mommy lick your hot little pussy like that... To be reminded of your true place, and now that you're all wet and ready for it, you need to get fucked by mommy's big cock!)]
+				#ELSE
+					 [lyssieth.speechNoEffects(~Mmm!~ Such a naughty [pc.girl], making mommy lick your hot little pussy like that... To be reminded of your true place, your pussy needs to be turned into a nice, tight demonic one, ready to be fucked by mommy's big cock!)]
+				#ENDIF
 			#ELSE
-				 [lyssieth.speechNoEffects(~Mmm!~ Such a naughty little demon, making me lick your hot little pussy like that... To be reminded of your true place, your pussy needs to be turned into a nice, tight demonic one, ready to be fucked by my big cock!)]
+				#IF(pc.getVaginaType().getRace()==RACE_DEMON)
+					 [lyssieth.speechNoEffects(~Mmm!~ Such a naughty little demon, making me lick your hot little pussy like that... To be reminded of your true place, and now that you're all wet and ready for it, you need to get fucked by my big cock!)]
+				#ELSE
+					 [lyssieth.speechNoEffects(~Mmm!~ Such a naughty little demon, making me lick your hot little pussy like that... To be reminded of your true place, your pussy needs to be turned into a nice, tight demonic one, ready to be fucked by my big cock!)]
+				#ENDIF
 			#ENDIF
 		#ENDIF
 	</p>
@@ -756,16 +781,26 @@
 	
 	<htmlContent tag="DEMON_TF_STAGE_2_PC_FUCKING_LYSSIETH_END"><![CDATA[
 	<p>
-		#IF pc.hasFetish(FETISH_INCEST)
-		#THEN [lyssieth.speechNoEffects(Ok, you naughty [pc.girl],)] Lyssieth playfully says, pushing you back and forcing your hard cock to slide out of her cum-stuffed pussy, [lyssieth.speechNoEffects(Mommy let you fuck her, but it's time to stop acting like you're the one in charge!)]
-		#ELSE [lyssieth.speechNoEffects(Ok, you naughty demon,)] Lyssieth playfully says, pushing you back and forcing your hard cock to slide out of her cum-stuffed pussy, [lyssieth.speechNoEffects(I let you fuck me, but it's time to stop acting like you're the one in charge!)]
+		#IF(pc.hasFetish(FETISH_INCEST))
+			[lyssieth.speechNoEffects(Ok, you naughty [pc.girl],)] Lyssieth playfully says, pushing you back and forcing your hard cock to slide out of her cum-stuffed pussy, [lyssieth.speechNoEffects(Mommy let you fuck her, but it's time to stop acting like you're the one in charge!)]
+		#ELSE
+			[lyssieth.speechNoEffects(Ok, you naughty demon,)] Lyssieth playfully says, pushing you back and forcing your hard cock to slide out of her cum-stuffed pussy, [lyssieth.speechNoEffects(I let you fuck me, but it's time to stop acting like you're the one in charge!)]
 		#ENDIF
 	</p>
 	<p>
 		Using her huge wings, Lyssieth pushes herself up off the desk, and, as your cum drools out of her cunt to splatter messily on the floor, she narrows her eyes and grins at you.
-		#IF pc.hasFetish(FETISH_INCEST)
-		#THEN [lyssieth.speechNoEffects(It's all well and good acting as the dominant one, but mommy wants you to be on the receiving end now, so that she can fuck you and turn you into her good little futa succubus. You'd like that, wouldn't you?)]
-		#ELSE [lyssieth.speechNoEffects(It's all well and good acting as the dominant one, but I need you to be on the receiving end now, so that I can fuck you and turn you into a good little futa succubus. You'd like that, wouldn't you?)]
+		#IF(flags.hasFlag(FLAG_lyssiethNoCockDemonTF))
+			#IF(pc.hasFetish(FETISH_INCEST))
+				 [lyssieth.speechNoEffects(It's all well and good acting as the dominant one, but mommy wants you to be on the receiving end now, so that she can sixty nine with you and smother you with her hot pussy. You'd like that, wouldn't you?)]
+			#ELSE
+				 [lyssieth.speechNoEffects(It's all well and good acting as the dominant one, but I need you to be on the receiving end now, so that I can sixty nine with you and smother you with my hot pussy. You'd like that, wouldn't you?)]
+			#ENDIF
+		#ELSE
+			#IF(pc.hasFetish(FETISH_INCEST))
+				 [lyssieth.speechNoEffects(It's all well and good acting as the dominant one, but mommy wants you to be on the receiving end now, so that she can fuck you and turn you into her good little futa succubus. You'd like that, wouldn't you?)]
+			#ELSE
+				 [lyssieth.speechNoEffects(It's all well and good acting as the dominant one, but I need you to be on the receiving end now, so that I can fuck you and turn you into a good little futa succubus. You'd like that, wouldn't you?)]
+			#ENDIF
 		#ENDIF
 	</p>
 	<p>
@@ -1248,16 +1283,18 @@
 	<htmlContent tag="DEMON_TF_STAGE_2_MATING_PRESS"><![CDATA[
 	<p>
 		You haven't let Lyssieth have her way with you so far, and, with the end of your demonic transformation in sight, you certainly aren't about to change that now. Knowing that you need to really put
-		#IF pc.hasFetish(FETISH_INCEST)
-		#THEN your mommy
-		#ELSE Lyssieth
+		#IF(pc.hasFetish(FETISH_INCEST))
+			 your mommy
+		#ELSE
+			 Lyssieth
 		#ENDIF
 		 in her place, you forcefully grab hold of her arms, and, stepping up beside her, you prepare to make your move.
 	</p>
 	<p>
-		#IF pc.hasFetish(FETISH_INCEST)
-		#THEN [lyssieth.speechNoEffects(Don't be so rough with mommy!)] Lyssieth exclaims, surprised that you aren't submitting to her. [lyssieth.speechNoEffects(Be a good [pc.girl] and accept that I'm the one in charge! Stop thi- ~Eek!~)]
-		#ELSE [lyssieth.speechNoEffects(W-What are you doing?!)] Lyssieth asks, surprised that you aren't submitting to her. [lyssieth.speechNoEffects(I'm the one in charge! Stop thi- ~Eek!~)]
+		#IF(pc.hasFetish(FETISH_INCEST))
+			[lyssieth.speechNoEffects(Don't be so rough with mommy!)] Lyssieth exclaims, surprised that you aren't submitting to her. [lyssieth.speechNoEffects(Be a good [pc.girl] and accept that I'm the one in charge! Stop thi- ~Eek!~)]
+		#ELSE
+			[lyssieth.speechNoEffects(W-What are you doing?!)] Lyssieth asks, surprised that you aren't submitting to her. [lyssieth.speechNoEffects(I'm the one in charge! Stop thi- ~Eek!~)]
 		#ENDIF
 	</p>
 	<p>
@@ -1265,25 +1302,31 @@
 	</p>
 	<p>
 		Having had enough of her complaints, you press your lips down against hers, silencing her as you forcefully thrust your tongue into her mouth. Reaching down beneath you, you grab hold of Lyssieth's thighs, and, pushing her legs back up towards her head, you reposition your lower body so that the underside of your thick cock is pressed down over her cum-stuffed pussy. Reaching up to then take hold of the elder lilin's wrists, you stop her from batting at your arms by pinning her hands to the floor on either side of her head. Breaking off your kiss, you smirk down at Lyssieth and growl,
-		#IF pc.hasFetish(FETISH_INCEST)
-		#THEN [pc.speechNoEffects(This is your true place, mommy. Locked beneath me, ready to be bred by my thick cock!)]
-		#ELSE [pc.speechNoEffects(This is your true place. Locked beneath me, ready to be bred by my thick cock!)]
+		#IF(pc.hasFetish(FETISH_INCEST))
+			[pc.speechNoEffects(This is your true place, mommy. Locked beneath me, ready to be bred by my thick cock!)]
+		#ELSE
+			[pc.speechNoEffects(This is your true place. Locked beneath me, ready to be bred by my thick cock!)]
 		#ENDIF
 	</p>
 	<p>
-		#IF pc.hasFetish(FETISH_INCEST)
-		#THEN [lyssieth.speechNoEffects(~Ooh!~ Y-You're so strong...)] Lyssieth moans, [lyssieth.speechNoEffects(Mommy just wanted to test you... She has no need for a cock now...)]
-		#ELSE [lyssieth.speechNoEffects(~Ooh!~ Y-You're so strong...)] Lyssieth moans, [lyssieth.speechNoEffects(I just wanted to test you... I've no need for a cock now...)]
+		#IF(pc.hasFetish(FETISH_INCEST))
+			[lyssieth.speechNoEffects(~Ooh!~ Y-You're so strong...)] Lyssieth moans, [lyssieth.speechNoEffects(Mommy just wanted to test you...#IF(!flags.hasFlag(FLAG_lyssiethNoCockDemonTF)) She has no need for a cock now...#ENDIF))]
+		#ELSE
+			[lyssieth.speechNoEffects(~Ooh!~ Y-You're so strong...)] Lyssieth moans, [lyssieth.speechNoEffects(I just wanted to test you...#IF(!flags.hasFlag(FLAG_lyssiethNoCockDemonTF)) I've no need for a cock now...#ENDIF))]
 		#ENDIF
 	</p>
 	<p>
-		As she says this, her fat, demonic cock shrinks down and disappears into the skin above her pussy, leaving her as a purely female succubus.
-		#IF!pc.isFeminine()
-		#THEN
-			 Gazing up into your eyes, she sends another hot wave of corruptive energy into your body, and you feel your body becoming more muscular and masculine than any you ever imagine. As you bulk out to gain a buff body shape, you feel your cock grow another few [unit.sizes], and your balls expand and fill with a huge amount of cum.
-			#IFpc.hasVagina()
-			#THEN Finally, your pussy closes up and vanishes, leaving you as Lyssieth's perfect incubus partner.
-			#ELSE letting out a deep groan, you realise that you're now Lyssieth's perfect incubus partner.
+		#IF(flags.hasFlag(FLAG_lyssiethNoCockDemonTF)) 
+			As she says this, the elder lilin submissively strokes her pussy, before parting her [lyssieth.labia+] and seductively biting her lower lip.
+		#ELSE
+			As she says this, her fat, demonic cock shrinks down and disappears into the skin above her pussy, leaving her as a purely female succubus.
+		#ENDIF
+		#IF(!pc.isFeminine())
+			 Gazing up into your eyes, she sends another hot wave of corruptive energy into your body, and you feel your body becoming more muscular and masculine than you could ever imagine. As you bulk out to gain a buff body shape, you feel your cock grow another few [unit.sizes], and your balls expand and fill with a huge amount of cum.
+			#IF(pc.hasVagina())
+				 Finally, your pussy closes up and vanishes, leaving you as Lyssieth's perfect incubus partner.
+			#ELSE
+				 Letting out a deep groan, you realise that you're now Lyssieth's perfect incubus partner.
 			#ENDIF
 		#ELSE
 			 Clearly satisfied with how your body already is, Lyssieth subjects you to no further transformations, and you realise that she's ready and waiting for you to fill her with your thick cock.
@@ -1291,9 +1334,10 @@
 		 [lyssieth.speechNoEffects(I never told you how fertile we lilin are... I'm sure to get pregnant from this...)]
 	</p>
 	<p>
-		#IF pc.hasFetish(FETISH_INCEST)
-		#THEN [pc.speechNoEffects(That's right, mommy, I'm going to knock you up!)] you growl, lifting your hips and positioning the head of your cock over Lyssieth's well-fucked cunt. [pc.speechNoEffects(Lilaya, Meraxis, and I could do with having some more sisters!)]
-		#ELSE [pc.speechNoEffects(That's right, I'm going to knock you up!)] you growl, lifting your hips and positioning the head of your cock over Lyssieth's well-fucked cunt. [pc.speechNoEffects(Lilaya and Meraxis could do with having some more sisters!)]
+		#IF(pc.hasFetish(FETISH_INCEST))
+			[pc.speechNoEffects(That's right, mommy, I'm going to knock you up!)] you growl, lifting your hips and positioning the head of your cock over Lyssieth's well-fucked cunt. [pc.speechNoEffects(Lilaya, Meraxis, and I could do with having some more sisters!)]
+		#ELSE
+			[pc.speechNoEffects(That's right, I'm going to knock you up!)] you growl, lifting your hips and positioning the head of your cock over Lyssieth's well-fucked cunt. [pc.speechNoEffects(Lilaya and Meraxis could do with having some more sisters!)]
 		#ENDIF
 	</p>
 	<p>

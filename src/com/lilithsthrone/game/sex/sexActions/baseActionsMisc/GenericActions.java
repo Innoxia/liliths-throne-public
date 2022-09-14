@@ -5,10 +5,12 @@ import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Race;
@@ -262,7 +264,7 @@ public class GenericActions {
 		
 		while(!allSubsAssigned) {
 			for(GameCharacter dom : domsNotSatisfied) {
-				GameCharacter target = dom.isPlayer()?targetedCharacters.get(dom):((NPC) dom).getPreferredSexTarget();
+				GameCharacter target = dom.isPlayer()?Main.sex.getTargetedPartner(dom):Main.sex.getInitialSexManager().getPreferredSexTarget((NPC) dom);
 				if(target==null || (dom.isPlayer() && allDomsAssigned && Main.sex.isConsensual())) { // If second time through loop, and equal control, give player another target if available
 					if(availableSubs.isEmpty()) { // If run out of subs, re-populate sub list.
 						availableSubs = new ArrayList<>(Main.sex.getSubmissiveParticipants(false).keySet());
@@ -623,7 +625,7 @@ public class GenericActions {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) {
 				return Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM);
 			} else {
@@ -780,11 +782,19 @@ public class GenericActions {
 			Main.sex.getCharactersGrewCock().add(Main.sex.getCharacterTargetedForSexAction(this));
 			
 			StringBuilder sb = new StringBuilder();
-			if(Main.sex.getCharacterTargetedForSexAction(this).getSubspeciesOverrideRace()==Race.DEMON
-					|| Main.sex.getCharacterTargetedForSexAction(this).isElemental()) {
+			boolean discoveredPenisColour = Main.sex.getCharacterTargetedForSexAction(this).isBodyCoveringTypesDiscovered(BodyCoveringType.PENIS);
+			if(Main.sex.getCharacterTargetedForSexAction(this).getSubspeciesOverrideRace()==Race.DEMON || Main.sex.getCharacterTargetedForSexAction(this).isElemental()) {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(PenisType.DEMON_COMMON));
+				if(!discoveredPenisColour) {
+					Main.sex.getCharacterTargetedForSexAction(this).setSkinCovering(BodyCoveringType.PENIS, Main.sex.getCharacterTargetedForSexAction(this).getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false);
+				}
+				
 			} else if(Main.sex.getCharacterTargetedForSexAction(this).isYouko()) {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(PenisType.FOX_MORPH));
+				if(!discoveredPenisColour) {
+					Main.sex.getCharacterTargetedForSexAction(this).setSkinCovering(BodyCoveringType.PENIS, PresetColour.SKIN_RED, false);
+				}
+				
 			} else {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(RacialBody.valueOfRace(Main.sex.getCharacterTargetedForSexAction(this).getBody().getFleshSubspecies().getRace()).getPenisType()));
 			}
@@ -1077,7 +1087,7 @@ public class GenericActions {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
 			} else {
@@ -2161,9 +2171,11 @@ public class GenericActions {
 		}
 		@Override
 		public String getDescription() {
-			return Main.sex.isMasturbation()
+			return Main.sex.isSpectator(Main.game.getPlayer())
 					?"Having had enough of the show, you turn away and stop watching the sex scene unfold before you..."
-					:"Having had enough, you [pc.step] back and stop having sex...";
+					:(Main.sex.isMasturbation()
+						?"Having had enough, you stop masturbating..."
+						:"Having had enough, you [pc.step] back and stop having sex...");
 		}
 		@Override
 		public SexParticipantType getParticipantType() {
@@ -2218,7 +2230,7 @@ public class GenericActions {
 					"[npc.Name] [npc.verb(try)] to make a move, but the ropes binding [npc.herHim] in place are too strong, and [npc.she] [npc.verb(collapse)] back down, stunned.");
 		}
 		@Override
-		public List<Fetish> getExtraFetishes(GameCharacter character) {
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_BONDAGE_VICTIM);
 			}
@@ -2260,7 +2272,7 @@ public class GenericActions {
 					"[npc.Name] [npc.verb(try)] to make a move, but the chains binding [npc.herHim] in place are too strong, and [npc.she] [npc.verb(collapse)] back down, stunned.");
 		}
 		@Override
-		public List<Fetish> getExtraFetishes(GameCharacter character) {
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_BONDAGE_VICTIM);
 			}
@@ -2393,7 +2405,7 @@ public class GenericActions {
 			return sb.toString();
 		}
 		@Override
-		public List<Fetish> getExtraFetishes(GameCharacter character) {
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_BONDAGE_APPLIER);
 			} else if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) {
@@ -2442,7 +2454,7 @@ public class GenericActions {
 			return sb.toString();
 		}
 		@Override
-		public List<Fetish> getExtraFetishes(GameCharacter character) {
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_BONDAGE_APPLIER);
 			} else if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) {
@@ -2491,7 +2503,7 @@ public class GenericActions {
 			return sb.toString();
 		}
 		@Override
-		public List<Fetish> getExtraFetishes(GameCharacter character) {
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_BONDAGE_APPLIER);
 			} else if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) {
@@ -2540,7 +2552,7 @@ public class GenericActions {
 			return sb.toString();
 		}
 		@Override
-		public List<Fetish> getExtraFetishes(GameCharacter character) {
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_BONDAGE_APPLIER);
 			} else if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) {
@@ -2597,7 +2609,7 @@ public class GenericActions {
 			Main.sex.addCharacterImmobilised(ImmobilisationType.COCOON, Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		@Override
-		public List<Fetish> getExtraFetishes(GameCharacter character) {
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_BONDAGE_APPLIER);
 			} else if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) {
@@ -2682,7 +2694,7 @@ public class GenericActions {
 					"[npc.Name] [npc.verb(try)] to make a move, but the cocoon binding [npc.herHim] in place is too strong, and [npc.she] [npc.verb(collapse)] back down, stunned.");
 		}
 		@Override
-		public List<Fetish> getExtraFetishes(GameCharacter character) {
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_BONDAGE_VICTIM);
 			}
@@ -2736,7 +2748,7 @@ public class GenericActions {
 			Main.sex.addCharacterImmobilised(ImmobilisationType.TENTACLE_RESTRICTION, Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		@Override
-		public List<Fetish> getExtraFetishes(GameCharacter character) {
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_BONDAGE_APPLIER);
 			} else if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) {
@@ -2844,7 +2856,7 @@ public class GenericActions {
 			return sb.toString();
 		}
 		@Override
-		public List<Fetish> getExtraFetishes(GameCharacter character) {
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_SADIST, Fetish.FETISH_BONDAGE_APPLIER);
 			} else if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) {
@@ -2901,7 +2913,7 @@ public class GenericActions {
 			return sb.toString();
 		}
 		@Override
-		public List<Fetish> getExtraFetishes(GameCharacter character) {
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_DOMINANT, Fetish.FETISH_BONDAGE_APPLIER);
 			} else if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) {
@@ -2947,7 +2959,7 @@ public class GenericActions {
 					"[npc.Name] [npc.verb(try)] to make a move, but [npc2.namePos] tentacle embrace is far too strong, and all [npc.she] can manage is to make a few pathetic squirming motions.");
 		}
 		@Override
-		public List<Fetish> getExtraFetishes(GameCharacter character) {
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_BONDAGE_VICTIM);
 			}
@@ -2998,7 +3010,7 @@ public class GenericActions {
 			Main.sex.addCharacterImmobilised(ImmobilisationType.WITCH_SEAL, Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		@Override
-		public List<Fetish> getExtraFetishes(GameCharacter character) {
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_BONDAGE_APPLIER);
 			} else if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) {
@@ -3051,7 +3063,7 @@ public class GenericActions {
 			}
 		}
 		@Override
-		public List<Fetish> getExtraFetishes(GameCharacter character) {
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_BONDAGE_VICTIM);
 			}
@@ -3151,7 +3163,7 @@ public class GenericActions {
 			Main.sex.addCharacterImmobilised(ImmobilisationType.TAIL_CONSTRICTION, Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		@Override
-		public List<Fetish> getExtraFetishes(GameCharacter character) {
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_BONDAGE_APPLIER);
 			} else if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) {
@@ -3259,7 +3271,7 @@ public class GenericActions {
 			return sb.toString();
 		}
 		@Override
-		public List<Fetish> getExtraFetishes(GameCharacter character) {
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_SADIST, Fetish.FETISH_BONDAGE_APPLIER);
 			} else if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) {
@@ -3316,7 +3328,7 @@ public class GenericActions {
 			return sb.toString();
 		}
 		@Override
-		public List<Fetish> getExtraFetishes(GameCharacter character) {
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_DOMINANT, Fetish.FETISH_BONDAGE_APPLIER);
 			} else if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) {
@@ -3362,7 +3374,7 @@ public class GenericActions {
 					"[npc.Name] [npc.verb(try)] to make a move, but [npc2.namePos] constricting tail is far too strong, and all [npc.she] can manage is to make a few pathetic squirming motions.");
 		}
 		@Override
-		public List<Fetish> getExtraFetishes(GameCharacter character) {
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_BONDAGE_VICTIM);
 			}

@@ -39,6 +39,17 @@
 					<unavailabilityText/>
 					<availabilityText/>
 				</sticker>
+				<sticker id="subby" priority="3" defaultSticker="false" zLayer="1">
+					<stickerName><![CDATA[Subby]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Subby]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i>Subby </i>]]></descriptionModification>
+					<imageName>text_subby.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
 			</category>
 			<category id="btm_txt" priority="2">
 				<categoryName><![CDATA[Bottom Text]]></categoryName>
@@ -59,17 +70,6 @@
 					<namePostfix/>
 					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i>Mommy</i>]]></descriptionModification>
 					<imageName>text_mommy.svg</imageName>
-					<itemTagsAdded/>
-					<itemTagsRemoved/>
-					<unavailabilityText/>
-					<availabilityText/>
-				</sticker>
-				<sticker id="subby" priority="2" defaultSticker="false" zLayer="1">
-					<stickerName><![CDATA[Subby]]></stickerName>
-					<namePrefix priority="1"><![CDATA[Subby]]></namePrefix>
-					<namePostfix/>
-					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i>Subby </i>]]></descriptionModification>
-					<imageName>text_subby.svg</imageName>
 					<itemTagsAdded/>
 					<itemTagsRemoved/>
 					<unavailabilityText/>
@@ -153,8 +153,6 @@
 				</sticker>
 			</category>
 		</stickers>
-		
-		<enchantmentLimit/>
 		<effects>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>

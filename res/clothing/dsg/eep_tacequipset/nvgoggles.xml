@@ -1,85 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <clothing>
-	
-	
 	<coreAtributes>
-	
 		<authorTag><![CDATA[On the underside of each lens set, a faint engraving reads "Official Enforcer Issue, MFD by DSG Threadworks."]]></authorTag>
-	
-		
-		<value>1000</value> 
-		
-		
+		<value>1000</value>
 		<determiner><![CDATA[a set of]]></determiner>
-		
-		
 		<name><![CDATA[Enforcer's night vision goggles]]></name>
-		
-		
-		<namePlural pluralByDefault="false"><![CDATA[Enforcer's night vision goggles]]></namePlural> 
-		
-		
-		<description><![CDATA[With its array of four sight enchantments, this set of panoramic night vision goggles offers twice the field of view compared to older systems. The included mount is very flexible and can be securely attached to compatible headgear.]]></description> 
-		
-		
-		<physicalResistance>1</physicalResistance> 
-		
-		
-		<femininity>ANDROGYNOUS</femininity> 
-		
-		
-		<slot>EYES</slot> 
-		
-		
-		<rarity>EPIC</rarity> 
-		
-		
-		<clothingSet/> 
-		
-		
-		<imageName>nvgoggles.svg</imageName> 
-		
-		
-		<imageEquippedName/> 
-		
-		
-		<enchantmentLimit/>
-		
-		
+		<namePlural pluralByDefault="false"><![CDATA[Enforcer's night vision goggles]]></namePlural>
+		<description><![CDATA[With its array of four sight enchantments, this set of panoramic night vision goggles offers twice the field of view compared to older systems. The included mount is very flexible and can be securely attached to compatible headgear.]]></description>
+		<physicalResistance>1</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>EYES</slot>
+		<rarity>EPIC</rarity>
+		<clothingSet/>
+		<imageName>nvgoggles.svg</imageName>
+		<imageEquippedName/>
 		<effects/> 
 		
-		
 		<blockedPartsList> 
-		
-			
 			<blockedParts>
-			
-				
-				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				
-				
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
 				<clothingAccessRequired> 
 					<clothingAccess>EYES</clothingAccess>
 				</clothingAccessRequired>
-				
-				
-				<blockedBodyParts/> 
-				
-				
+				<blockedBodyParts/>
 				<clothingAccessBlocked>
 					<clothingAccess>EYES</clothingAccess> 
 				</clothingAccessBlocked>
-				
-				
-				
 				<concealedSlots/> 
 			</blockedParts>
 		</blockedPartsList>
 		
-		
 		<incompatibleSlots/> 
-		
 		
 		<primaryColours values="JUST_GREY"/> 
 		<primaryColoursDye values="ALL"/>
@@ -89,7 +41,6 @@
 		
 		<tertiaryColoursDye values="ALL"/>
 		
-		
 		<itemTags> 
 			<tag>RIGID_MATERIAL</tag>
 			<tag>CONTRABAND_MEDIUM</tag>
@@ -97,9 +48,6 @@
 		</itemTags>
 	</coreAtributes>
 
-	
-	
-	
 	<replacementText type="REMOVE_OR_EQUIP">
 		<self>
 			<![CDATA[[npc.Name] [npc.verb(equip)] the goggles and [npc.verb(lower)] them over [npc.her] [npc.eyes].]]>
@@ -112,7 +60,6 @@
 		</otherRough>
 	</replacementText>
 
-	
 	<displacementText type="REMOVE_OR_EQUIP">
 		<self>
 		  <![CDATA[[npc.Name] [npc.verb(raise)] [npc.her] goggles from [npc.her] [npc.eyes] and [npc.verb(unequip)] them.]]>
@@ -124,33 +71,5 @@
 		  <![CDATA[[npc.Name] [npc.verb(yank)] [npc2.namePos] goggles from [npc2.her] [npc2.eyes].]]>
 		</otherRough>
 	</displacementText>
-
-	
-	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You equip the goggles and lower them over your [pc.eyes].
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You help [npc.name] equip the goggles before lowering them over [npc.her] [npc.eyes].
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You force [npc.name] to equip the goggles and slap them down over [npc.her] [npc.eyes].
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] equips the goggles and lowers them over [npc.her] [npc.eyes].
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] helps you equip the goggles before lowering them over your [pc.eyes].
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] forces you to equip the goggles and slaps them down over your [pc.eyes].
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] helps [npc2.name]'s equip the goggles before lowering them over [npc2.her] [npc2.eyes].
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] forces [npc2.name] to equip the goggles before slapping them down over [npc2.her] [npc2.eyes].
-		]]></NPCOtherNPCRough>
-	</replacementText>
 	
 </clothing>

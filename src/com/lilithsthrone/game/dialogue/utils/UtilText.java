@@ -128,6 +128,7 @@ import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -5495,7 +5496,7 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Returns the descriptor of the length of this cahracter's antennae.",
+				"Returns the descriptor of the length of this character's antennae.",
 				BodyPartType.ANTENNA){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
@@ -6882,11 +6883,11 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Returns the descriptor of the length of this cahracter's horns.",
+				"Returns the descriptor of the length of this character's horns.",
 				BodyPartType.HORN){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return HornLength.getLengthFromInt(character.getHornLength()).getDescriptor();
+				return HornLength.getLengthFromInt(character.getHornLengthValue()).getDescriptor();
 			}
 		});
 		
@@ -9976,8 +9977,8 @@ public class UtilText {
 		
 		
 		// Effects & persona:
-		for(Fetish f : Fetish.values()) {
-			engine.put(f.toString(), f);
+		for(AbstractFetish f : Fetish.getAllFetishes()) {
+			engine.put(Fetish.getIdFromFetish(f), f);
 		}
 		for(FetishDesire fetishDesire : FetishDesire.values()) {
 			engine.put("FETISH_DESIRE_"+fetishDesire.toString(), fetishDesire);

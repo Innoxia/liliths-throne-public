@@ -3,14 +3,39 @@ package com.lilithsthrone.game.character.quests;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AffectionLevel;
+import com.lilithsthrone.game.character.attributes.ObedienceLevel;
+import com.lilithsthrone.game.character.npc.dominion.Arthur;
+import com.lilithsthrone.game.character.npc.dominion.Helena;
+import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.character.npc.dominion.Zaranix;
+import com.lilithsthrone.game.character.npc.fields.Aurokaris;
+import com.lilithsthrone.game.character.npc.fields.Lunexis;
+import com.lilithsthrone.game.character.npc.fields.Ursa;
+import com.lilithsthrone.game.character.npc.submission.DarkSiren;
+import com.lilithsthrone.game.character.npc.submission.Lyssieth;
+import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.BraxOffice;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Lab;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
+import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.7
+ * @version 0.4.4.1
  * @author Innoxia
  */
 public enum Quest {
@@ -23,12 +48,10 @@ public enum Quest {
 		public String getName() {
 			return "Survive the evening";
 		}
-
 		@Override
 		public String getDescription() {
 			return "You promised your aunt Lily that you'd attend the opening of her museum's new exhibit. You need to survive the boredom of the evening ahead.";
 		}
-
 		@Override
 		public String getCompletedDescription() {
 			return "Your evening at the museum turned out to be far more eventful than you'd have liked."
@@ -43,15 +66,17 @@ public enum Quest {
 		public String getName() {
 			return "Lilaya's tests";
 		}
-
 		@Override
 		public String getDescription() {
 			return "You can find Lilaya in her lab at any time, where she'll be ready to continue running her tests on you. Maybe she can find a way to send you back home?";
 		}
-
 		@Override
 		public String getCompletedDescription() {
 			return "Lilaya ran some more tests on you, but she's unable to progress with her research without the help of her old colleague, Arthur.";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			((Arthur) Main.game.getNpc(Arthur.class)).generateNewTile();
 		}
 	},
 
@@ -60,17 +85,19 @@ public enum Quest {
 		public String getName() {
 			return "The search for Arthur; Demon Home";
 		}
-
 		@Override
 		public String getDescription() {
 			return "Lilaya has informed you that her old colleague, Arthur, would know more about the type of magic used in the portal."
 					+ " However, she seems to have an intense dislike of him, and you've ended up being tasked to go and get him to apologise to Lilaya before she'll allow him to" + " come and work with her."
 					+ " Arthur lives in an apartment building called 'Sawlty Towers', in the district of the city known as 'Demon Home', so you can find him there.";
 		}
-
 		@Override
 		public String getCompletedDescription() {
 			return "When you arrived at Arthur's home, you found that Dominion's Enforcers had arrested him on suspicion of plotting against Lilith." + " After his arrest, he was taken to the Enforcer's HQ.";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			// No effects applied
 		}
 	},
 
@@ -79,17 +106,20 @@ public enum Quest {
 		public String getName() {
 			return "The search for Arthur; The Wolf's Den";
 		}
-
 		@Override
 		public String getDescription() {
 			return "Arthur has been arrested by Dominion's Enforcers, and has been taken to the Enforcer's HQ."
 					+ " It looks like you'll have to inquire further there and find out a way to save Arthur.";
 		}
-
 		@Override
 		public String getCompletedDescription() {
 			return "You were forced to confront the Enforcer Inspector, Brax."
 					+ " Thankfully, you were able to deal with him, but you then found out that Arthur has been sold into slavery!";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			BraxOffice.setBraxsPostQuestStatus(false);
+			BraxOffice.givePlayerEnforcerUniform(null);
 		}
 	},
 
@@ -98,16 +128,18 @@ public enum Quest {
 		public String getName() {
 			return "The search for Arthur; Sold into Slavery";
 		}
-
 		@Override
 		public String getDescription() {
 			return "After defeating Brax, you found out that Arthur was sold into slavery to a trader called Scarlett."
 					+ " You'll have to travel to Slaver Alley, find Scarlett, and find a way to free Arthur.";
 		}
-
 		@Override
 		public String getCompletedDescription() {
-			return "You found the harpy Scarlett in Slaver Alley, who turned out to be one of the most annoying people you've ever met.";
+			return "You found the harpy Scarlett in Slaver Alley, who turned out to be one of the rudest people you've ever met.";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			// No effects applied
 		}
 	},
 	
@@ -116,17 +148,20 @@ public enum Quest {
 		public String getName() {
 			return "The search for Arthur; Find Helena";
 		}
-
 		@Override
 		public String getDescription() {
 			return "After finding Scarlett in Slaver Alley, you discovered that she's no longer in possession of Arthur."
 					+ " Before she'll tell you anything about it, she wants you to go the Harpy Nests and report to her matriarch, Helena, that her business is a complete failure";
 		}
-
 		@Override
 		public String getCompletedDescription() {
 			return "You reported Scarlett's problems to her matriarch, Helena."
 					+ " She didn't seem to have much sympathy for Scarlett, and quickly flew off to go and talk to her in person.";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
+			Main.game.getNpc(Helena.class).addSlave(Main.game.getNpc(Scarlett.class));
 		}
 	},
 	
@@ -135,15 +170,23 @@ public enum Quest {
 		public String getName() {
 			return "The search for Arthur; Scarlett's fate";
 		}
-
 		@Override
 		public String getDescription() {
 			return "You need to travel back to Scarlett's shop to find out what's become of her. Hopefully Helena wasn't too hard on her, and she'll be willing to tell you what happened to Arthur now...";
 		}
-
 		@Override
 		public String getCompletedDescription() {
 			return "You travelled back to Scarlett's shop, only to discover that Helena has enslaved her!";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			Main.game.getNpc(Helena.class).addSlave(Main.game.getNpc(Scarlett.class));
+			Main.game.getNpc(Scarlett.class).setObedience(ObedienceLevel.POSITIVE_TWO_OBEDIENT.getMedianValue());
+			Main.game.getNpc(Scarlett.class).resetInventory(true);
+			AbstractClothing collar = Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false);
+			collar.setSealed(true);
+			Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(collar, true, Main.game.getNpc(Helena.class));
+			Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_ballgag", PresetColour.CLOTHING_PINK, false), true, Main.game.getNpc(Helena.class));
 		}
 	},
 	
@@ -152,16 +195,31 @@ public enum Quest {
 		public String getName() {
 			return "The search for Arthur; Slavery";
 		}
-
 		@Override
 		public String getDescription() {
 			return "Helena is willing to sell Scarlett to you, which seems to be the only way you'll get the information you need."
 					+ " You'll need to have a slaver license in order to buy Scarlett.";
 		}
-
 		@Override
 		public String getCompletedDescription() {
 			return "Helena sold Scarlett to you, which allowed you to order Scarlett to tell you what happened to Arthur.";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			AbstractClothing ballgag = Main.game.getNpc(Scarlett.class).getClothingInSlot(InventorySlot.MOUTH);
+			if (ballgag != null) {
+				ballgag.setSealed(false);
+				Main.game.getNpc(Scarlett.class).unequipClothingIntoVoid(ballgag, true, Main.game.getNpc(Helena.class));
+			}
+			
+			Main.game.getNpc(Scarlett.class).setAffection(Main.game.getNpc(Helena.class), AffectionLevel.NEGATIVE_FIVE_LOATHE.getMedianValue());
+			Main.game.getNpc(Scarlett.class).setObedience(ObedienceLevel.NEGATIVE_FOUR_DEFIANT.getMedianValue());
+			Main.game.getNpc(Scarlett.class).setAffection(Main.game.getPlayer(), AffectionLevel.NEGATIVE_FIVE_LOATHE.getMedianValue());
+			Main.game.getPlayer().addSlave(Main.game.getNpc(Scarlett.class));
+			
+			Main.game.getNpc(Scarlett.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
+			
+			((Zaranix) Main.game.getNpc(Zaranix.class)).generateNewTile();
 		}
 	},
 	
@@ -170,16 +228,19 @@ public enum Quest {
 		public String getName() {
 			return "The search for Arthur; The Great Escape";
 		}
-
 		@Override
 		public String getDescription() {
 			return "It turns out that Arthur was sold to an extremely dangerous demon called Zaranix, who lives in Demon Home."
 					+ " You'll need to travel to demon home and rescue Arthur!";
 		}
-
 		@Override
 		public String getCompletedDescription() {
 			return "After defeating Zaranix, you saved Arthur and brought him back to Lilaya's home.";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixDiscoveredHome, true);
+			Main.game.getNpc(Arthur.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 		}
 	},
 	
@@ -200,20 +261,24 @@ public enum Quest {
 					+ " Through one of his agents, Zaranix found out about this, and had no difficulty in getting Arthur enslaved for treason."
 					+ " Now that you've rescued him, he's keen to repay the favour by finding out how to send you back home.";
 		}
+		@Override
+		public void applySkipQuestEffects() {
+			Cell arthurRoomCell = Lab.addArthurRoom();
+			Main.game.getNpc(Arthur.class).setLocation(arthurRoomCell, true);
+		}
 	},
 	
+	// This quest is no longer used, but is left here for old version support
 	MAIN_1_J_ARTHURS_ROOM(QuestType.MAIN, 1, 30) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; A room of his own";
 		}
-
 		@Override
 		public String getDescription() {
 			return "Lilaya really doesn't want Arthur in her lab, and has tasked you to help Rose find a suitable room for him to stay in.<br/>"
 					+ "<i>Go into one of the empty rooms in Lilaya's House, and through the room management window, upgrade it to 'Arthur's Room'.</i>";
 		}
-
 		@Override
 		public String getCompletedDescription() {
 			return "You located a suitable room for Arthur, and, with Rose's help, moved a significant amount of arcane instrumentation into his new lab-cum-bedroom.";
@@ -226,7 +291,6 @@ public enum Quest {
 		public String getName() {
 			return "Into Submission";
 		}
-
 		@Override
 		public String getDescription() {
 			return "Arthur was able to explain the mechanism by which you were transported into this new world, but he seemed to hold back on some of the details."
@@ -234,10 +298,13 @@ public enum Quest {
 					+ " After much arguing, Lilaya agreed to convince her mother to help, but you'll have to be the one to deliver the message.<br/>"
 					+ "<i>Travel down into the undercity of Submission and seek an audience with Lilaya's mother, Lyssieth.</i>";
 		}
-
 		@Override
 		public String getCompletedDescription() {
 			return "Acting on Arthur's advice, you ventured down into Submission and discovered the location of Lyssieth's palace.";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.LYSSIETHS_RING), false);
 		}
 	},
 	
@@ -246,7 +313,6 @@ public enum Quest {
 		public String getName() {
 			return "The Siren's Call";
 		}
-
 		@Override
 		public String getDescription() {
 			return "The guards at the gate to Lyssieth's palace told you that she's not receiving any visitors at the moment."
@@ -254,10 +320,33 @@ public enum Quest {
 					+ " She's currently living in a stone fortress in one of the central tunnels here in Submission, from which she sends out gangs of imps to terrorise innocent citizens.</br>"
 					+ "If you're able to enslave her, either through combat or trickery, you'll have earned an audience with Lyssieth.";
 		}
-
 		@Override
 		public String getCompletedDescription() {
 			return "You managed to enslave Lyssieth's troublesome daughter, and so earned an audience with her!";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.LYSSIETHS_RING));
+			ImpCitadelDialogue.clearFortress(false);
+			// Set tunnels to be cleared manually, as they haven't been cleared when skipping quests:
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressAlphaDefeated, true);
+			for(GameCharacter character : Main.game.getCharactersPresent(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL)) {
+				if(character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA)) {
+					character.returnToHome();
+				}
+			}
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressFemalesDefeated, true);
+			for(GameCharacter character : Main.game.getCharactersPresent(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL)) {
+				if(character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES)) {
+					character.returnToHome();
+				}
+			}
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressMalesDefeated, true);
+			for(GameCharacter character : Main.game.getCharactersPresent(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL)) {
+				if(character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_MALES)) {
+					character.returnToHome();
+				}
+			}
 		}
 	},
 	
@@ -277,6 +366,15 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "For enslaving 'The Dark Siren', the guards at the gate to Lyssieth's palace gave you permission to enter and seek out an audience with her.";
 		}
+		@Override
+		public void applySkipQuestEffects() {
+			if(Main.game.getPlayer().hasItemType(ItemType.LYSSIETHS_RING)) {
+				Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.LYSSIETHS_RING));
+			}
+			if(!Main.game.getPlayer().hasClothingType(ClothingType.FINGER_LYSSIETHS_RING, true)) {
+				Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(ClothingType.FINGER_LYSSIETHS_RING), false);
+			}
+		}
 	},
 	
 	MAIN_2_D_MEETING_A_LILIN(QuestType.MAIN, 1, 100) {
@@ -293,6 +391,19 @@ public enum Quest {
 		@Override
 		public String getCompletedDescription() {
 			return "Lyssieth revealed that this world is in fact your own, and that Lilith transformed it into a different reality when she was released from the mirror.";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			((DarkSiren)Main.game.getNpc(DarkSiren.class)).postDefeatReset();
+			AbstractItemEffectType.getBookEffect(Main.game.getPlayer(), Subspecies.LILIN, null, false);
+			Main.game.getNpc(Lyssieth.class).incrementAffection(Main.game.getPlayer(), 25);
+			Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), 10);
+			Main.game.getNpc(DarkSiren.class).incrementAffection(Main.game.getPlayer(), 10);
+			Main.game.getNpc(Arthur.class).incrementAffection(Main.game.getPlayer(), 10);
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.firstReactionLiberate, true);
+			if(Main.game.getNpc(DarkSiren.class).getAffection(Main.game.getPlayer())<0) {
+				Main.game.getNpc(DarkSiren.class).setAffection(Main.game.getPlayer(), 0);
+			}
 		}
 	},
 	
@@ -312,6 +423,10 @@ public enum Quest {
 			return "Lyssieth told you that in order to defeat the elder lilin pegataur, Lunette, you'll need to obtain the help of Minotallys; the lilin who rules the town of Elis."
 					+ " To this end, you left Dominion for the first time...";
 		}
+		@Override
+		public void applySkipQuestEffects() {
+			// TODO
+		}
 	},
 	
 	MAIN_3_B_MEETING_MERAXIS(QuestType.MAIN, 1, 25) {
@@ -322,13 +437,17 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "As you left Elis, you were approached by Meraxis, who told you to meet her in the tavern 'The Red Dragon' at Elis, which is apparently near to the town's eastern gate."
+			return "As you left Dominion, you were approached by Meraxis, who told you to meet her in the tavern 'The Red Dragon' at Elis, which is apparently near to the town's eastern gate."
 					+ " Meraxis also said that she'll set up a meeting with Minotallys when you arrive, and that she'll have secured accommodation for you.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
 			return "You met Meraxis in 'The Red Dragon' tavern, where she's managed to secure accommodation for you in the form of a rented room on the tavern's first floor.";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			// TODO
 		}
 	},
 	
@@ -349,6 +468,10 @@ public enum Quest {
 			return "You and Meraxis travelled to Elis's town hall to meet Minotallys, where you also met with her personal assistant, Arion."
 					+ " Minotallys is in a state of denial about the current state of affairs in the Foloi Fields, and stated that she would only consider taking action if the town of Themiscyra was somehow being threatened.";
 		}
+		@Override
+		public void applySkipQuestEffects() {
+			// TODO
+		}
 	},
 	
 	MAIN_3_D_TO_THEMISCYRA(QuestType.MAIN, 1, 25) {
@@ -359,20 +482,70 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in future updates!)]<br/>"
-					+ "You agreed to travel to Themiscyra with Meraxis and find out whether or not the town is being threatened by Lunette's army of demonic centaurs.";
+			return "You agreed to travel to Themiscyra with Meraxis and find out whether or not the town is being threatened by Lunette's army.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "-";//TODO
+			return "You travelled to Themiscyra with Meraxis, but upon reaching the town, you discovered that it was being destroyed by Lunette's army!";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			if(Main.game.getWorlds().get(WorldType.WORLD_MAP).getCell(PlaceType.getPlaceTypeFromId("innoxia_fields_themiscyra"))==null) {
+				Main.game.getWorlds().get(WorldType.WORLD_MAP).getCell(11, 32).getPlace().setPlaceType(PlaceType.getPlaceTypeFromId("innoxia_fields_themiscyra"));
+			}
 		}
 	},
 	
-	MAIN_3_E_TODO(QuestType.MAIN, 1, 25) {//TODO
+	MAIN_3_E_THEMISCYRA_ATTACK(QuestType.MAIN, 1, 250) {
 		@Override
 		public String getName() {
-			return "TODO";
+			return "Save the Queen";
+		}
+		@Override
+		public String getDescription() {
+			return "Separated from Meraxis, you've teamed up with an Amazon cow-girl named Aurokaris."
+					+ " You need to travel through Themiscyra and find both Meraxis and Ursa, the queen of the Amazons, who should be at the palace.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Alongside Aurokaris, you travelled through Themiscyra and found both Meraxis and Ursa at the plaza before the palace."
+					+ " After encountering Lunexis, the leader of Lunette's army, Meraxis teleported the five of you back to Elis's town hall, where Minotallys was finally convinced that Lunette is a threat to Elis.";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			if(Main.game.getWorlds().get(WorldType.getWorldTypeFromId("innoxia_fields_elis_town")).getCell(PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_amazon_camp"))==null) {
+				Main.game.getWorlds().get(WorldType.getWorldTypeFromId("innoxia_fields_elis_town")).getCell(10, 20).getPlace().setPlaceType(PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_amazon_camp"));
+			}
+			Main.game.getNpc(Ursa.class).setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_amazon_camp"), true);
+			Main.game.getNpc(Aurokaris.class).setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_amazon_camp"), true);
+			Main.game.getNpc(Lunexis.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
+		}
+	},
+	
+	MAIN_3_F_PREPARING_ELIS(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "Defence of Elis";
+		}
+
+		@Override
+		public String getDescription() {
+			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in future updates!)]<br/>"
+					+ "With Lunette planning to attack Elis at some point in the near future, you've been tasked by Minotallys with helping get the town's defences in order."
+					+ " You need to travel to the Enforcer station in Elis and ask for their assistance.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "-";
+		}
+	},
+	
+	MAIN_3_G_TODO(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "";
 		}
 
 		@Override
@@ -385,6 +558,7 @@ public enum Quest {
 			return "-";
 		}
 	},
+	
 
 	// Side Quests:
 
@@ -1610,7 +1784,42 @@ public enum Quest {
 					+ " Additionally, she told you to sneak around the back of her tavern between [units.time(6)]-[units.time(7)] if you wanted to see what the phrase 'Golix says to be a good horsie' meant...";
 		}
 	},
+
 	
+	// Helping Lunexis to escape:
+	
+	LUNEXIS_ESCAPE(QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Free Lunexis";
+		}
+		@Override
+		public String getDescription() {
+			return "Having surrendered to Lunexis and pledged to be her obedient cock-sleeve, you've been ordered by your new Mistress to assist her in escaping from captivity."
+					+ " Wanting to get her revenge on the one who teleported her to Elis, the centauress has devised a plan where you're to convince Meraxis to teleport the three of you back to Themiscyra."
+					+ " Once there, your Mistress will reward you by keeping you as one of her personal cock-sleeve slaves...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You convinced Meraxis to teleport herself, along with you and Lunexis, back to Themiscyra."
+					+ " Once there, your deception was made clear, and although she tried to fight, Meraxis was soon subdued and used by your Mistress to win back the wavering loyalty of her centauress army.";
+		}
+	},
+
+	LUNEXIS_ESCAPE_FAILED(QuestType.SIDE, 1, 0) {
+		@Override
+		public String getName() {
+			return "Lunexis Betrayed";
+		}
+		@Override
+		public String getDescription() {
+			return "Deciding to reveal everything to Meraxis, you betrayed Lunexis, and were banned from having any further contact with the demonic centauress.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
 	
 	// Romance quests:
 
@@ -2059,7 +2268,10 @@ public enum Quest {
 	public abstract String getDescription();
 
 	public abstract String getCompletedDescription();
-
+	
+	public void applySkipQuestEffects() {	
+	}
+	
 	public int getLevel() {
 		return level;
 	}

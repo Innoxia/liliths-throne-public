@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>20</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Glade Springs]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Glade Springs]]></namePlural>
+		<description><![CDATA[A glass bottle of sparkling water bearing the brand name 'Glade Springs'. On the reverse label, a muscular stag-boy is pictured post-coitus with two deer-girls, and is drinking a bottle of this sparkling water.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">deer_glade_springs.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_PHYSIQUE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_PHYSIQUE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(1)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/20)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A soothing wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 1)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ELIS_ALLEYWAY_SPAWN</tag>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+			After first unscrewing the cap, [npc.name] [npc.verb(bring)] the glass bottle of Glade Springs up to [npc.her] [npc.mouth]. A faint sweet smell informs [npc.herHim] that this isn't any ordinary water, and as [npc.she] [npc.verb(tilt)] [npc.her] head back and [npc.verb(start)] drinking the fizzy liquid, [npc.she] [npc.verb(taste)] a subtle hint of mint.
+		]]></selfUse>
+		<otherUse><![CDATA[
+			After first unscrewing the cap, [npc.name] [npc.verb(bring)] the glass bottle of Glade Springs up to [npc2.namePos] waiting [npc2.lips]. A faint sweet smell informs [npc2.herHim] that this isn't any ordinary water, and as [npc2.she] [npc2.verb(tilt)] [npc2.her] head back and [npc2.verb(start)] drinking the fizzy liquid, [npc.she] [npc.verb(taste)] a subtle hint of mint.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

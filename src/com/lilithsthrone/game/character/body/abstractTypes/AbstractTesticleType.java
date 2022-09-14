@@ -177,13 +177,10 @@ public abstract class AbstractTesticleType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	/**
-	 * <b>This should never be used - the covering of testicles is determined by the torso's covering!</b>
-	 */
 	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
-		if(body!=null) {
-			return body.getTorso().getBodyCoveringType(body);
-		}
+//		if(body!=null) {
+//			return body.getTorso().getBodyCoveringType(body);
+//		}
 		return coveringType;
 	}
 

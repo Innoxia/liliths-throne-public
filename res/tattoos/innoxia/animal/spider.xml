@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tattoo>
+	<coreAttributes>
+		<value>500</value> 
+		
+		<name><![CDATA[spider]]></name>
+		
+		<description><![CDATA[A stylised silhouette of a spider.]]></description> 
+		<bodyOverviewDescription><![CDATA[a tattoo which depicts a stylised silhouette of a spider]]></bodyOverviewDescription> 
+		
+		<imageName>spider.svg</imageName> 
+		
+		<slotAvailability/>
+		
+		<primaryColours values="ALL"/> 
+		<secondaryColours/>
+		<tertiaryColours/>
+		
+	</coreAttributes>
+	
+</tattoo>

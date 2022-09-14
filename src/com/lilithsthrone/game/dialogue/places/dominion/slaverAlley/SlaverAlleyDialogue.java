@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -368,7 +369,7 @@ public class SlaverAlleyDialogue {
 		partners.get(0).removeFetish(Fetish.FETISH_ORAL_RECEIVING);
 		partners.get(0).removeFetish(Fetish.FETISH_VAGINAL_GIVING);
 		partners.get(0).removeFetish(Fetish.FETISH_ANAL_GIVING);
-		List<Fetish> fetishes = Util.newArrayListOfValues(
+		List<AbstractFetish> fetishes = Util.newArrayListOfValues(
 				target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)
 				&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slaverAlleyTwoPartners)
 					?Fetish.FETISH_ORAL_RECEIVING
@@ -674,7 +675,7 @@ public class SlaverAlleyDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 //				if(Main.game.getPlayer().getMoney()>=100) {
-					return new Response("Pay ("+UtilText.formatAsMoney(100)+")", "Pay the guards the hundred flames they're asking for.", GATEWAY_POSTER_PERMISSION_END) {
+					return new Response("Pay ("+UtilText.formatAsMoney(100, "span")+")", "Pay the guards the hundred flames they're asking for.", GATEWAY_POSTER_PERMISSION_END) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "GATEWAY_POSTER_PERMISSION_PAID"));

@@ -108,6 +108,7 @@ import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.markings.AbstractTattooType;
@@ -566,7 +567,7 @@ public class CharacterModificationUtils {
 				
 				// Like/dislike/owned
 				int i=0;
-				for(Fetish fetish : Fetish.values()) {
+				for(AbstractFetish fetish : Fetish.getAllFetishes()) {
 					if(fetish.isAvailable(BodyChanging.getTarget()) && fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 						contentSB.append("<div class='container-full-width inner' style='width:100%; margin:0; padding:0; background:"+(i%2==0?PresetColour.BACKGROUND:PresetColour.BACKGROUND_ALT).toWebHexString()+";'>");
 						
@@ -576,7 +577,7 @@ public class CharacterModificationUtils {
 	
 							contentSB.append(
 									getInformationDiv(
-											"FETISH_INFO_"+fetish,
+											"FETISH_INFO_"+Fetish.getIdFromFetish(fetish),
 											new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(fetish.getName(BodyChanging.getTarget())), fetish.getDescription(null)),
 											true));
 							
@@ -586,7 +587,7 @@ public class CharacterModificationUtils {
 									contentSB.append("<div class='cosmetics-button active' style='width:18%; margin:1%; min-width:0;'>"
 											+ "<span style='color:"+desire.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(desire.getName())+"</span></div>");
 								} else {
-									contentSB.append("<div id='FETISH_DESIRE_"+fetish+desire+"' class='cosmetics-button' style='width:18%; margin:1%; min-width:0;'>"
+									contentSB.append("<div id='FETISH_DESIRE_"+Fetish.getIdFromFetish(fetish)+desire+"' class='cosmetics-button' style='width:18%; margin:1%; min-width:0;'>"
 											+ "<span style='color:"+desire.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(desire.getName())+"</span></div>");
 								}
 							}
@@ -851,6 +852,10 @@ public class CharacterModificationUtils {
 	}
 
 	private static String applyFullVariableWrapper(String title, String description, String id, String minorStep, String majorStep, String value, boolean decreaseDisabled, boolean increaseDisabled) {
+		return applyFullVariableWrapper(title, description, id, minorStep, majorStep, value, decreaseDisabled, increaseDisabled, null);
+	}
+	
+	private static String applyFullVariableWrapper(String title, String description, String id, String minorStep, String majorStep, String value, boolean decreaseDisabled, boolean increaseDisabled, String additionalDescription) {
 			return "<div class='cosmetics-inner-container' style='margin:1% 1%; width:48%; padding:1%; box-sizing:border-box; position:relative;'>"
 						+ "<p style='margin:0; padding:0;'>"
 							+ getInformationDiv(id, new TooltipInformationEventListener().setInformation(title, description))
@@ -875,6 +880,9 @@ public class CharacterModificationUtils {
 								+ (increaseDisabled?"[style.boldDisabled(+"+majorStep+")]":"[style.boldGood(+"+majorStep+")]")
 							+ "</div>"
 						+ "</div>"
+						+(additionalDescription!=null && !additionalDescription.isEmpty()
+							?"<div class='container-full-width' style='width:98%; margin:1%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"+additionalDescription+"</div>"
+							:"")
 					+ "</div>";
 	}
 
@@ -1099,7 +1107,9 @@ public class CharacterModificationUtils {
 					"25%",
 					Math.round(BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()*100)+"%"
 						+ "<br/>"
-						+ Units.size(BodyChanging.getTarget().getTailLength(false)),
+						+ Units.size(BodyChanging.getTarget().getTailLength(false))
+						+ "<br/><i>Base Diameter: "+Units.size(BodyChanging.getTarget().getTailDiameter(0))+"</i>"
+						+ "<br/><i>Tip Diameter: "+Units.size(BodyChanging.getTarget().getTailDiameter(BodyChanging.getTarget().getTailLength(false)))+"</i>",
 					BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()<=Tail.LENGTH_PERCENTAGE_MIN || !BodyChanging.getTarget().hasTail(),
 					BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()>=Tail.LENGTH_PERCENTAGE_MAX || !BodyChanging.getTarget().hasTail());
 		}
@@ -1389,7 +1399,7 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		for(HornLength hornLength : HornLength.values()) {
-			if(HornLength.getLengthFromInt(BodyChanging.getTarget().getHornLength()) == hornLength) {
+			if(HornLength.getLengthFromInt(BodyChanging.getTarget().getHornLengthValue()) == hornLength) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(hornLength.getDescriptor())+(hornLength.isSuitableAsHandles()?"*":"")+"</span>"
@@ -3872,8 +3882,8 @@ public class CharacterModificationUtils {
 	}
 	
 	public static String getSelfTransformClitorisSizeDiv() {
-		return applyFullVariableWrapper("Clitoris Size",
-				UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] clitoris."
+		return applyFullVariableWrapper("Clitoris Length",
+				UtilText.parse(BodyChanging.getTarget(), "Change the length of [npc.namePos] clitoris."
 						+ " All sizes larger than '<i style='color:"+ClitorisSize.ONE_BIG.getColour().toWebHexString()+";'>"
 							+ Util.capitaliseSentence(ClitorisSize.ONE_BIG.getDescriptor())+"</i>' enable [npc.her] clitoris to be used for penetrative actions in sex."
 									+ " (Size will be marked by an asterisk when large enough to be used as a pseudo penis.)"),
@@ -3881,10 +3891,10 @@ public class CharacterModificationUtils {
 				Units.size(1),
 				Units.size(5),
 				Units.size(BodyChanging.getTarget().getVaginaRawClitorisSizeValue(), Units.ValueType.PRECISE, Units.UnitType.SHORT)
-					+"<br/>"
-					+ "<i style='color:"+BodyChanging.getTarget().getVaginaClitorisSize().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getVaginaClitorisSize().getDescriptor())
-					+ (BodyChanging.getTarget().getVaginaClitorisSize().isPseudoPenisSize()?"*":"")
-					+"</i>",
+					+"<br/><i style='color:"+BodyChanging.getTarget().getVaginaClitorisSize().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getVaginaClitorisSize().getDescriptor())
+						+ (BodyChanging.getTarget().getVaginaClitorisSize().isPseudoPenisSize()?"*":"")
+					+"</i>"
+					+ "<br/><i>Diameter: "+Units.size(BodyChanging.getTarget().getClitorisDiameter())+"</i>",
 				BodyChanging.getTarget().getVaginaRawClitorisSizeValue()<=0,
 				BodyChanging.getTarget().getVaginaRawClitorisSizeValue()>=ClitorisSize.SEVEN_STALLION.getMaximumValue());
 	}
@@ -4156,15 +4166,16 @@ public class CharacterModificationUtils {
 	}
 	
 	public static String getSelfTransformPenisSizeDiv() {
-		return applyFullVariableWrapper("Penis Size",
+		return applyFullVariableWrapper("Penis Length",
 				(BodyChanging.getTarget().isPlayer()
-						?"Change the size of your penis."
+						?"Change the length of your penis."
 						:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] penis.")),
 				"PENIS_SIZE",
 				Units.size(1),
 				Units.size(5),
 				Units.size(BodyChanging.getTarget().getPenisRawSizeValue(), Units.ValueType.PRECISE, Units.UnitType.SHORT)
-					+"<br/><i style='color:"+BodyChanging.getTarget().getPenisSize().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getPenisSize().getDescriptor())+"</i>",
+					+"<br/><i style='color:"+BodyChanging.getTarget().getPenisSize().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getPenisSize().getDescriptor())+"</i>"
+					+ "<br/><i>Diameter: "+Units.size(BodyChanging.getTarget().getPenisDiameter())+"</i>",
 				BodyChanging.getTarget().getPenisRawSizeValue()<=0,
 				BodyChanging.getTarget().getPenisRawSizeValue()>=PenisLength.SEVEN_STALLION.getMaximumValue());
 	}
@@ -4381,16 +4392,20 @@ public class CharacterModificationUtils {
 	}
 
 	public static String getSelfTransformCumExplusionDiv() {
+		CumProduction expelledValue = CumProduction.getCumProductionFromInt(BodyChanging.getTarget().getPenisMaximumOrgasmCumQuantity());
+		int extraSlotsDirtied = expelledValue.getAdditionalSlotsDirtiedUponOrgasm();
 		return applyFullVariableWrapper("Cum Expulsion",
 				UtilText.parse(BodyChanging.getTarget(), "Alter how much of [npc.namePos] stored cum is expelled at each orgasm."
-						+ "<br/><i>If the amount of stored cum is less than or equal to "+Units.fluid(Testicle.MINIMUM_VALUE_FOR_ALL_CUM_TO_BE_EXPELLED)+", 100% of cum left in [npc.namePos] will be expelled.</i>"),
+						+ "<br/><i>If the amount of stored cum is less than or equal to "+Units.fluid(Testicle.MINIMUM_VALUE_FOR_ALL_CUM_TO_BE_EXPELLED)+", 100% of cum left in [npc.namePos] balls will be expelled.</i>"),
 				"CUM_EXPULSION",
 				"1",
 				"10",
 				BodyChanging.getTarget().getPenisRawCumExpulsionValue()+"%"
-					+"<br/><i>"+Util.capitaliseSentence(BodyChanging.getTarget().getPenisCumExpulsion().getDescriptor())+"</i>",
-				BodyChanging.getTarget().getPenisRawCumExpulsionValue()<=5,
-				BodyChanging.getTarget().getPenisRawCumExpulsionValue()>=100);
+						+"<br/><i>"+Units.fluid(BodyChanging.getTarget().getPenisMaximumOrgasmCumQuantity())+" - <span style='color:"+expelledValue.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(expelledValue.getName())+"</span></i>",
+//					+"<br/><i>"+Util.capitaliseSentence(BodyChanging.getTarget().getPenisCumExpulsion().getDescriptor())+"</i>",
+				BodyChanging.getTarget().getPenisRawCumExpulsionValue()<=5 || !Main.getProperties().hasValue(PropertyValue.cumRegenerationContent),
+				BodyChanging.getTarget().getPenisRawCumExpulsionValue()>=100 || !Main.getProperties().hasValue(PropertyValue.cumRegenerationContent),
+				"<i>Dirties <b style='color:"+expelledValue.getColour().toWebHexString()+";'>"+Util.intToString(extraSlotsDirtied)+"</b> extra inventory slot"+(extraSlotsDirtied==1?"":"s")+" during targeted orgasm.</i>");
 	}
 
 	public static String getSelfTransformCumFlavourDiv() {
@@ -5039,10 +5054,10 @@ public class CharacterModificationUtils {
 				"<div class='container-full-width'>"
 					+"<div class='cosmetics-inner-container left'>"
 						+ "<h5 style='text-align:center;'>"
-							+"Penis Size"
+							+"Penis Length"
 						+"</h5>"
 						+ "<p style='text-align:center;'>"
-							+ "Choose how large your penis is."
+							+ "Choose how long your penis is."
 						+ "</p>"
 						+ "</div>"
 						+ "<div class='cosmetics-inner-container right'>");
@@ -5178,10 +5193,10 @@ public class CharacterModificationUtils {
 				"<div class='container-full-width'>"
 					+"<div class='cosmetics-inner-container left'>"
 						+ "<h5 style='text-align:center;'>"
-							+"Clitoris Size"
+							+"Clitoris Length"
 						+"</h5>"
 						+ "<p style='text-align:center;'>"
-							+ "Choose how large your clitoris is."
+							+ "Choose how long your clitoris is."
 						+ "</p>"
 						+ "</div>"
 						+ "<div class='cosmetics-inner-container right'>");

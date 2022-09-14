@@ -11,7 +11,7 @@
 		<name legConfiguration="QUADRUPEDAL"><![CDATA[goat]]></name>
 	</nameFeral>
 	<nameFeralPlural>
-		<name legConfiguration="QUADRUPEDAL"><![CDATA[goat]]></name>
+		<name legConfiguration="QUADRUPEDAL"><![CDATA[goats]]></name>
 	</nameFeralPlural>
 	
 	<defaultTransformName><![CDATA[goat]]></defaultTransformName>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[Amazons' camp]]></name>
+	<tooltipDescription><![CDATA[The Amazons, driven out of their hometown of Themiscyra, have set up a temporary camp in the woods to the west of Elis.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the Amazons' camp to the west of Elis]]></virginityLossDescription>
+	<sexBlockedReason/>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_BLUE_LIGHT</colour>
+	<backgroundColour>MAP_BACKGROUND_GREEN</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_amazon_camp_exterior</dialogue>
+	<populationPresent>
+		<population day="true">
+			<populationType plural="true" density="NUMEROUS">AMAZON</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+		<population night="true">
+			<populationType plural="false" density="OCCASIONAL">AMAZON</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+	</populationPresent>
+	<furniturePresent>true</furniturePresent>
+	<loiteringEnabled>true</loiteringEnabled>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

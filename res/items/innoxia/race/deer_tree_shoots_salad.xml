@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>30</value> 
+		<determiner><![CDATA[a bag of]]></determiner>
+		<name><![CDATA[Tree Shoots Salad]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Tree Shoots Salads]]></namePlural>
+		<description><![CDATA[A plastic bag containing a somewhat bland-looking assortment of green leaves, stems, and shoots. On the reverse of the bag it proudly declares that it 'contains all the nutrients a deer needs', beside a picture of a naked deer-girl fondling her breasts.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/innoxia/deer/subspecies/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="70">deer_tree_shoots_salad.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>innoxia_deer</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[deer]]></potionDescriptor>
+		<associatedRace>innoxia_deer</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId> <!-- 'RACE' is a special value, and when defined, this item will use the defined 'associatedRace' to give the player enchantment options for making a TF elixir for that race. -->
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(2)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel a lot healthier...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 2)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ELIS_ALLEYWAY_SPAWN</tag>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+			[npc.Name] [npc.verb(open)] the bag of Tree Shoots Salad and quickly [npc.verb(devour)] it, leaving [npc.herHim] with the refreshing, watery taste of green leaves filling [npc.her] mouth.
+		]]></selfUse>
+		<otherUse><![CDATA[
+			[npc.Name] [npc.verb(open)] the bag of Tree Shoots Salad, before bringing it up to [npc2.namePos] [npc2.lips] and getting [npc2.herHim] to eat it. Quickly devouring it, [npc2.name] is left with the refreshing, watery taste of green leaves filling [npc2.her] mouth.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

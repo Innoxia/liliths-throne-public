@@ -107,8 +107,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private Set<OrificeModifier> orificeOtherModifiers;
 
 	// Enchantments:
-	@SuppressWarnings("unused")
-	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment capacity mechanics.
 	protected List<ItemEffect> effects;
 
 	// Images:
@@ -245,8 +243,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		
 		this.isPatternAvailable = false;
 		this.isPatternAvailableInitCompleted = false;
-
-		enchantmentLimit = -1;
 		
 		// Attribute modifiers:
 		if (effects != null) {
@@ -555,11 +551,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 			
 			Predicate<Element> filterEmptyElements = element -> !element.getTextContent().isEmpty(); //helper function to filter out empty elements.
-
-			this.enchantmentLimit = coreAttributes.getOptionalFirstOf("enchantmentLimit") // three possible cases
-				.filter(filterEmptyElements) // <enchantmentLimit> or <enchantmentLimit></enchantmentLimit> - text content is "" - trying to convert to Integer throws  - filter it out so default value gets assigned
-				.map(Element::getTextContent).map(Integer::valueOf) //<enchantmentLimit>x</enchantmentLimit>, x being Integer		
-				.orElse(-1);// empty element or no value in element, assign default value;
 
 			this.clothingSet = coreAttributes.getOptionalFirstOf("clothingSet")
 				.filter(filterEmptyElements)

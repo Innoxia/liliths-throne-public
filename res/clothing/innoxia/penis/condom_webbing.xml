@@ -17,7 +17,6 @@
 	
 	<clothingSet/>
     <imageEquippedName/>
-    <enchantmentLimit/>
 	
 	<effects>
         <effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_CONDOM" secondaryModifier="ARCANE_BOOST" timer="0"/>

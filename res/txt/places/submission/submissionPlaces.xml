@@ -21,6 +21,67 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="SEWER_ENTRANCE_CLAIRE_MILKERS"><![CDATA[
+	<p>
+		A large stone building, spanning the entire width of the tunnel, has been erected here. A sign reading 'Official Enforcer Post' is clearly displayed beside the main entrance, and within, a dozen or so Enforcers are manning desks or standing guard beside internal doorways. None of them seem to pay you much attention, allowing you to come and go as you please.
+	</p>
+	<p>
+		As usual, you see the short, busty form of the cat-girl Enforcer, Claire, hurrying around as she fetches and delivers all sorts of miscellaneous paperwork. As she catches sight of you, she lets out a little cry and waves her arms to get your attention, causing her massive breasts to bounce up and down in a hypnotic rhythm.  Skipping over to where you're standing, and causing her tits to jiggle up and down in the process, the busty cat-girl bluntly asks, [claire.speech(Hey, [pc.name], you know that business you got mixed up in down at the Rat Warrens? Did you meet a nasty little rat-boy called 'Murk' while you were in there?)]
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_murkIntroduced))
+			Having met Murk while in there, you reply to Claire's question in the positive, before asking her what this is all about.
+		#ELSE
+			Not having met anyone called 'Murk' while in there, you reply to Claire's question in the negative, before asking her what this is all about.
+		#ENDIF
+	</p>
+	<p>
+		[claire.speech(Well, as we discovered as we cleared out the place, that nasty little rat had kidnapped four humans from Dominion. We'd had them on our missing persons list for so long that we'd given up ever finding them,)] she reveals, before letting out a sigh and allowing an uncharacteristically sad look to settle on her face. As you state that surely it's a good thing that these people were found, the cat-girl shakes her head and reveals, [claire.speech(That rat really messed their heads up. All they keep asking for is to be put back into chains and milked while being treated as sex slaves. We've had one of our demon Enforcers who specialises in psychological damage take a look at them, but she said that there's nothing we can do with the limited budget that our department has.)]
+	</p>
+	<p>
+		Wanting to know what the point is that Claire's getting to, you ask the cat-girl what's going to become of these captives, and what she wants you to do about it.
+	</p>
+	<p>
+		[claire.speech(Well, the four of them kept on demanding to be made slaves and sold to someone who'd give them the sort of degrading life they've grown to love,)] Claire sighs, the frustration in her voice making it clear that she doesn't approve of this. Throwing her hands up in the air, she reveals, [claire.speech(My superior said that we don't have the time or resources to do anything else with them, so they've been enslaved, transferred to slaver alley, and are due to be auctioned off at the end of the day. Look, I know that I don't owe them anything, and neither do you, but I don't want them being sold to someone who's going to abuse them. I know that you'd treat them right, so I can arrange it for you to take ownership of them instead. It won't cost you anything, either!)]
+	</p>
+	<p>
+		With that, the busty cat-girl gives you a pleading expression, and you wonder whether to agree to take on these four slaves, or to instead decline and let them be sold off to the highest bidder...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEWER_ENTRANCE_CLAIRE_MILKERS_DECLINED"><![CDATA[
+	<p>
+		Not wanting to take on these four ex-captives, you tell Claire that you're not able to take ownership of them.
+	</p>
+	<p>
+		[claire.speech(That's too bad...)] Claire laments, before forcing herself to smile and declare, [claire.speech(Well, I'd better get back on with work! If you need anything, just let me know!)]
+	</p>
+	<p>
+		With that, the busty cat-girl skips off, leaving you to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEWER_ENTRANCE_CLAIRE_MILKERS_ACCEPTED"><![CDATA[
+	<p>
+		Liking the sound of what it is that Claire's suggesting, you tell the cat-girl that you'd be happy to take ownership of the humans who were rescued from the Rat Warrens.
+	</p>
+	<p>
+		[claire.speech(Great! I knew I could rely on you, [pc.name],)] Claire happily replies, before stating, [claire.speech(All I need is to see your slaver license, then I can get the paperwork signed right away!)]
+	</p>
+	<p>
+		Producing the piece of paper which she's asking for, you allow Claire to inspect your license, and after she's satisfied, she quickly fills in the paperwork and declares, [claire.speech(That's that all sorted then! Your new slaves will be waiting for you in the administration building in slaver alley.)]
+	</p>
+	<p>
+		Thanking Claire for the opportunity and for the new slaves, you tell her that the four humans are going to be safe in your hands. Flashing you a big smile, the busty cat-girl bounces up and down, causing her massive breasts to sway as she exclaims, [claire.speech(Thanks again for helping out, [pc.name]; I really didn't want such vulnerable people auctioned off to the public. Anyway, I'd better get back on with work! If you need anything, just let me know!)]
+	</p>
+	<p>
+		With that, the busty cat-girl skips off, leaving you to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<!-- CLAIRE -->
 	

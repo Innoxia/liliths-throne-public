@@ -32,8 +32,8 @@ public class TailType {
 			"none",
 			"",
 			"",
-			"",
-			"",
+			"tail",
+			"tails",
 			Util.newArrayListOfValues(),
 			Util.newArrayListOfValues(),
 			"",
@@ -253,10 +253,10 @@ public class TailType {
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
 					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)], #IF(npc.isShortStature())impish#ELSEdemonic#ENDIF-horse tail,"
-						+ " which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over it."
+						+ " which [npc.she] can swipe from side to side, but other than that, [npc.she] [npc.does]n't have much control over it."
 				+ "#ELSE"
 					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] #IF(npc.isShortStature())impish#ELSEdemonic#ENDIF-horse tails,"
-						+ " which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over them."
+						+ " which [npc.she] can swipe from side to side, but other than that, [npc.she] [npc.does]n't have much control over them."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
 					BodyPartTag.TAIL_TYPE_HAIR,
@@ -493,9 +493,9 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)], cow tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over it."
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)], cow tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] [npc.does]n't have much control over it."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] cow tails, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over them."
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] cow tails, which [npc.she] can swipe from side to side, but other than that, [npc.she] [npc.does]n't have much control over them."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
 					BodyPartTag.TAIL_TYPE_FUR,
@@ -739,9 +739,9 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)], horse tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over it."
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)], horse tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] [npc.does]n't have much control over it."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] horse tails, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over them."
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] horse tails, which [npc.she] can swipe from side to side, but other than that, [npc.she] [npc.does]n't have much control over them."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
 					BodyPartTag.TAIL_TYPE_HAIR,
@@ -777,9 +777,9 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)], zebra tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over it."
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)], zebra tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] [npc.does]n't have much control over it."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] zebra tails, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over them."
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] zebra tails, which [npc.she] can swipe from side to side, but other than that, [npc.she] [npc.does]n't have much control over them."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
 					BodyPartTag.TAIL_TYPE_HAIR,

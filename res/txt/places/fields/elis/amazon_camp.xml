@@ -1,0 +1,1555 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="EXTERIOR"><![CDATA[
+	<p>
+		A short way down the western road which connects Elis to the far-off Shinrin Highlands, a large, natural clearing in the woods has been expanded, reshaped, and levelled into a huge, flat rectangle. Surrounding this space, a perimeter ditch has been dug, and as an extra layer of protection, the trees which were chopped down to expand the clearing have been used to construct a chest-high wall. The creators of this fortification, and the people who are now occupying the hundreds of tents that have been set up inside it, are the Amazon refugees from Themiscyra.
+	</p>
+	<p>
+		Posted at each of the entrances to this fortified camp, a pair of Amazon warriors are standing guard. As you approach, they cross their dories to signal that your entry is forbidden. Clearly having mistaken you for a stranger, these sentinels will surely lower their guard and grant you entry to their camp if you were to tell them who you are...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Initial entry: -->
+	
+	<htmlContent tag="INITIAL_ENTRY"><![CDATA[
+	<p>
+		Wanting to head into the Amazons' camp and take a look around, you approach the two warriors who are standing guard at its entrance. Keeping their dories crossed to bar your passage, the guards glare at you in a menacing fashion as the more senior of the two declares, [style.speechFeminineStrong(Halt! You're no Amazon; you can't come in here!)]
+	</p>
+	<p>
+		Fortunately, at that moment you spot the familiar figure of Aurokaris walking through the camp a short distance up ahead. Thinking that it's going to help to have this Amazon vouch for you, you call out to the cow-girl and manage to get her attention. Walking over to the guards, she gestures towards you and declares,
+		#IF(pc.hasPerkAnywhereInTree(PERK_HERO_OF_THEMISCYRA))
+			 [aurokaris.speech(This is the Hero#IF(pc.isFeminine())ine#ENDIF who defeated dozens of Lunette's daughters Themiscyra, before helping to saving our queen! [pc.She] may not be one of us, but [pc.sheHas] earned the right to enter our camp!)]
+		#ELSE
+			 [aurokaris.speech(This is the [pc.race] who helped to save our queen in Themiscyra! [pc.She] may not be one of us, but [pc.sheHas] earned the right to enter our camp!)]
+		#ENDIF
+	</p>
+	<p>
+		Clearly knowing Aurokaris and respecting her authority, the sentries uncross their dories, before the leader states, [style.speechFeminineStrong(Very well, you may enter. We'll make sure that the other guards are informed of who you are, so you shouldn't have any trouble entering our camp again.)]
+	</p>
+	<p>
+		As you [pc.step] forwards to greet Aurokaris, the other guard menacingly warns,
+		#IF(!pc.isFeminine())
+			 [style.speechFeminine(We'll be keeping an eye on you. Considering how masculine you are, you're very fortunate to be allowed into our camp. Behave yourself, or else you'll have us to answer to...)]
+		#ELSE
+			 [style.speechFeminine(We'll be keeping an eye on you. Behave yourself, or else you'll have us to answer to...)]
+		#ENDIF
+	</p>
+	<p>
+		[aurokaris.speech([pc.She] won't cause any trouble,)] Aurokaris reassures the guard, before motioning you to follow her and happily saying, [aurokaris.speech(Come on, [pc.name], I'll show you around.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INITIAL_ENTRY_FOLLOW"><![CDATA[
+	<p>
+		[pc.Walking] forwards and entering the Amazons' camp, you follow Aurokaris as she leads you down a relatively wide pathway which is flanked by dozens of tents of all colours, shapes, and sizes. Gesturing around her, the cow-girl reveals, [aurokaris.speech(We managed to bring quite a few tents with us as we evacuated Themiscyra, but a lot of these were made after we arrived at Elis. I think we must have bought every last scrap of cloth in the town...)]
+	</p>
+	<p>
+		Seeing more than one forlorn look on the faces of the many Amazons who you pass, you ask Aurokaris how they're managing after losing their hometown to Lunexis's army. Putting on a brave face, the muscular cow-girl cheerily replies, [aurokaris.speech(We'll be fine, don't you worry about us! We've got all the essentials here, and it's only a matter of time before we take our town back. Speaking of essentials, look, here's where we've set up our marketplace.)]
+	</p>
+	<p>
+		Having reached a T-junction at the end of the path you've been travelling on, you look left to where Aurokaris is gesturing. The Amazons' marketplace appears to consist of about a dozen tents, each one of which is much larger than those being used as accommodation, and within each one you see that food, drink, clothing, and other miscellaneous goods have been stacked upon wooden tables and shelves. Pointing to the one that's closest to where you're currently standing, Aurokaris reveals, [aurokaris.speech(I work in that tent during the day, so you can come and visit me from eight in the morning to six at night if you ever want to buy anything. I wouldn't try to trade with anyone else if I were you; most Amazons are distrustful of strangers, and after what happened back at Themiscyra tensions are running pretty high...)]
+	</p>
+	<p>
+		Thanking your companion for the warning, you move to continue following her as she turns away from the marketplace and declares, [aurokaris.speech(Come on, I'll take you past Ursa's tent and show you the sparring field.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INITIAL_ENTRY_FOLLOW_END"><![CDATA[
+	<p>
+		Continuing to follow Aurokaris, you set off down another pathway, and are soon lead past Ursa's tent. As is to be expected of the tent which houses the queen of the Amazons, it's far bigger than any other you've seen so far, and actually looks to consist of several large tents which have been joined together. Motioning towards the two bear-girl guards at the tent's entrance, Aurokaris states, [aurokaris.speech(If you want to see Ursa, just tell the guards who you are. Our queen is very busy at all times of the day and night, but I'm sure that she'll make time to see you after what you did for her back in Themiscyra.)]
+	</p>
+	<p>
+		Continuing past the queen's tent, Aurokaris leads you to the edge of a large, sandy square. Scattered throughout this open space, pairs of Amazons are wrestling and sparring with one another, while on the far side an archery range has been set up for warriors who want to practice with a bow. Turning to face you, your cow-girl guide explains, [aurokaris.speech(All Amazons are required to practice their combat skills at least three times a week. Now more than ever we need to keep our skills sharp, as one day soon we'll be marching off to retake Themiscyra. While it should be fine for you to watch, you'd better not try to get involved; things could easily get out of hand and then you'd have a real fight on your hands.)]
+	</p>
+	<p>
+		Turning to point out a relatively small, pale blue tent that's tucked into a corner on the far side of the sparring field, she reveals, [aurokaris.speech(That's my tent over there if you need me in an emergency. I'd rather you didn't disturb me while I'm in there, though, as I always need a good night's rest. Anyway, that's pretty much all of the interesting parts of our camp.
+		#IF(game.isHourBetween(8, 18))
+			 I need to go and get back to work at the marketplace now. Remember, I work there between eight in the morning to six in the evening, so if you want me then come and find me there.
+		#ELSE
+			 Speaking of a good night's rest, I really should be getting to bed now. Remember, I work at the marketplace between eight in the morning to six in the evening, so if you want me then come and find me there.
+		#ENDIF
+		 Bye, [pc.name], oh and thanks again for all of your help back in Themiscyra!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INITIAL_ENTRY_FOLLOW_END_LEAVE"><![CDATA[
+	<p>
+		After you've said goodbye to her, Aurokaris gives you once last wave and runs off, leaving you to explore the Amazon camp in your own time...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Standard place scenes: -->
+	
+	<htmlContent tag="EXIT"><![CDATA[
+	<p>
+		You find yourself standing at the main entrance to the Amazons' camp. A pair of warriors, equipped with dories, are standing guard on either side of the path.
+	</p>
+	<p>
+		[style.feminineSpeech(You'd better be on your best behaviour in there,)] one of these guards warns you, before the two of them flash you suspicious looks. 
+	</p>
+	<p>
+		Having saved their queen from Themiscyra, and with Aurokaris having vouched for your good character, you have nothing to fear from these Amazons, no matter how many hostile glares they throw your way. Still, you decide that it would be best not to do anything that would give them an excuse to harass you, and so you turn away from them and wonder where to go to form here...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_LEAVE"><![CDATA[
+	<p>
+		Having concluded your business in here, you pass the sentinels and head back out into the cleared area of woodland which surrounds the Amazons' camp...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PATHWAY"><![CDATA[
+	<p>
+		Compacted gravel forms the relatively wide pathway which serves as the main route through the Amazons' camp. Travelling down this road, you end up passing dozens of tents of all colours, shapes, and sizes. Here and there, wooden crates are stacked up in between these tents, and you assume that they contain whatever belongings were able to be taken with the Amazons during their retreat from Themiscyra.
+	</p>
+	<p>
+		As you pass the feminine warriors who call this temporary accommodation home, you can't help but notice that they're giving you suspicious glances, with some even going so far as to glare at you in a hostile manner. Not wanting to do anything that would justify these Amazons' distrust of strangers, you ignore their menacing looks and continue on your way down the path...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TENTS"><![CDATA[
+	<p>
+		As you pass them by, you see that no two of the tents which have been erected within the Amazons' camp are alike. Varying not only in size and shape, these canvas dwellings are found in a dazzling array of colours, from sky blue to dark red and everything in-between.
+	</p>
+	<p>
+		The Amazons who are found here don't seem to appreciate your proximity to their homes, and glare at you in a hostile manner as you pass. Although your presence seems to be grudgingly tolerated, you decide that it's probably best not to linger here for too long, and so swiftly continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPARRING_FIELD"><![CDATA[
+	<p>
+		Serving both as a meeting place and the area in which the Amazons' combat skills are practised, the large, sandy square before you is currently in use by at least two dozen female warriors. Wrestling, crossing dories, or competing with bows to hit distant archery targets, these Amazons are so focused on their sparring that they either don't notice you or decide not to pay you any attention.
+	</p>
+	<p>
+		At regular intervals around the square, you see that weapon racks are stocked with spare dories and bows. Deciding that it would be a very bad idea to try and take one of these weapons, and soon having had enough of watching the Amazons spar with one another, you decide to continue on your way through the camp...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Aurokaris at trading tents: -->
+	
+	<htmlContent tag="TRADER"><![CDATA[
+	<p>
+		Looking around, you see that the Amazons' marketplace consists of about a dozen tents, each one of which is much larger than those being used as accommodation.
+		#IF(game.isHourBetween(8, 18))
+			 Within each one you see that food, drink, clothing, and other miscellaneous goods have been stacked upon wooden tables and shelves. A nearby sign reminds shoppers that the tents are only open between [style.colourMinorGood([units.time(8)]-[units.time(18)])], and so as you can see from the fact that there are many Amazons passing to and fro between each stall, the marketplace is currently [style.colourGood(open)].
+		#ELSE
+			 A nearby sign reminds shoppers that the tents are only open between [style.colourMinorBad([units.time(8)]-[units.time(18)])], and so as you can see from the fact that this area is currently deserted, the marketplace is currently [style.colourBad(closed)].
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getCharactersPresent().contains(aurokaris))
+			Although the goods on offer in all of the tents look interesting, you remember Aurokaris's warning about Amazons being distrustful of strangers and so not to bother them. Looking over to the cow-girl's stall, you see her standing behind a table with a bored expression on her face. If you wanted to buy something, you could head over to her stall and see what she's got for sale...
+		#ELSE
+			As all of the tents are tied up and closed for the day, you'll have to leave and return during opening hours if you wanted to buy something...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_AUROKARIS"><![CDATA[
+	#IF(aurokaris.isVisiblyPregnant())
+		<p>
+			Deciding that you'd like to pay Aurokaris another visit while she's at work, you head over to her stall. As usual, although most of the other tents are busy with customers, the cow-girl's community store doesn't seem to be attracting any shoppers at all, thanks to the high prices of all the goods on offer.
+		</p>
+		<p>
+			[aurokaris.speech(Oh, hi, [pc.name]!)] the cow-girl calls out as she sees you approaching. Standing upright, she gestures down to her stomach, and you see that
+			#IF(!aurokaris.isCharacterReactedToPregnancy(pc))
+				 she's sporting a [style.colourSex(pregnant belly)]. Blushing as she smiles at you, she reveals, [aurokaris.speech(I haven't been with anyone else, so it was you who got me pregnant... Oh, don't worry about having to do anything to help; I can manage it just fine!)]
+			#ELSE
+				 she's still sporting a [style.colourSex(pregnant belly)]. Blushing as she smiles at you, she reveals, [aurokaris.speech(I've been coping with it just fine! There's really no need for any help with anything!)]
+			#ENDIF
+		</p>
+		<p>
+			Gesturing you forwards, the cow-girl takes hold of your [pc.hand] and guides it down to her belly, letting out a soft gasp as she gets you to feel her pregnant bump. As you run your [pc.fingers+] over her distended belly, the cow-girl gently sighs and says, [aurokaris.speech(I think it would be best to avoid sparring while I'm like this. After I've given birth we can do it again if you'd like... Anyway, did you want to buy anything? Sorry about the high prices; there's nothing I can do about them.)]
+		</p>
+	#ELSE
+		<p>
+			Deciding that you'd like to pay Aurokaris a visit while she's at work, you head over to her stall. Although most of the other tents are busy with customers, the cow-girl doesn't seem to be attracting any shoppers at all. The reason for this is soon made clear, for as you approach, you see that the prices on display appear to be quite steep.
+		</p>
+		<p>
+			[aurokaris.speech(Oh, hi, [pc.name]!)] the cow-girl calls out as she sees you approaching. Noticing that you're taking a look at the goods which are on offer, she explains, [aurokaris.speech(This is a community store, so I don't get to set the prices. I'm just the one who's got stuck running this place...)]
+		</p>
+		<p>
+			#IF(!flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_sparred))
+				Letting out a sigh to indicate how bored she is, the cow-girl complains, [aurokaris.speech(I can't even do anything productive during my break. All of my regular sparring partners have ended up being assigned similar community services, and trying to coordinate times to go and have a sparring session has turned out to be impossible... Anyway, did you want to buy anything? Sorry about the high prices; there's nothing I can do about them.)]
+			#ELSE
+				Changing her tone, the cow-girl flashes you a big smile and happily says, [aurokaris.speech(Thanks for the sparring session earlier, by the way. I hope that you'll come back and do it again with me another day... Anyway, did you want to buy anything? Sorry about the high prices; there's nothing I can do about them.)]
+			#ENDIF
+		</p>
+	#ENDIF
+	#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_visited))
+		<p>
+			Before you can answer, the muscular Amazon lets out a little moan, and as she starts to blush, she says,
+			#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_had_sex))
+				 [aurokaris.speech(I had a lot of fun with you last night... Perhaps we could have some fun again this evening? You know where my tent is if you want to do it again...)]
+			#ELSE
+				 [aurokaris.speech(Thanks for visiting me last night, but... Well, perhaps we could actually do something together tonight? You know where my tent is if you want to try it...)]
+			#ENDIF
+		</p>
+	#ELSEIF(flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_had_sex))
+		<p>
+			Before you can answer, the muscular Amazon lets out a little moan, and as she starts to blush, she asks, [aurokaris.speech(Are we going to have some fun tonight? You know where my tent is...)] 
+		</p>
+		#IF(aurokaris.isAttractedTo(pc) && !flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_ambrosia_tasting) && pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+			<p>
+				Returning the Amazon's smile, you tell her that you'll stop by again if you have the time. Clearly not wanting to wait until then to get some action, she leans forwards over the counter and playfully suggests, [aurokaris.speech(I've got something naughty in mind... How about you join me for some ambrosia tasting? I've got some samples from the latest batch which haven't been enchanted yet, so you can drink it without having any of the usual effects.)]
+			</p>
+			<p>
+				Telling Aurokaris that this doesn't exactly sound very 'naughty', you make the cow-girl blush and awkwardly reveal, [aurokaris.speech(Well, I was thinking that... I mean... I was going to let you lick it off of me... So if you've got time, and if you want to, come into the tent and we can have some fun...)] 
+			</p>
+		#ENDIF
+	#ELSEIF(flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_invite_received))
+		<p>
+			Before you can answer, the muscular Amazon lets out a little moan, and as she starts to blush, she awkwardly reminds you, [aurokaris.speech(You know, I was serious about you visiting my tent at night... I mean, if you wanted to, we could have some fun in there... I really kind of like you...)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_AUROKARIS_LEAVE"><![CDATA[
+	<p>
+		Having concluded your business with Aurokaris, you tell her that that you need to leave now. Saying goodbye, the cow-girl waves to you as you [pc.step] away from her tent and head off into the camp, wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUROKARIS_TRANSACTION_START"><![CDATA[
+	<p>
+		As you take a look at what Aurokaris has for sale, she states, [aurokaris.speech(The sort of food and drink I've got here varies from day to day, as it's just whatever can be bought from Elis for a good price that morning. The potions, clothing, and weapons that we Amazons make should always be available, though.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Aurokaris sparring: -->
+	
+	<htmlContent tag="TRADER_AUROKARIS_SPARRING"><![CDATA[
+	<p>
+		Picking up on what Aurokaris said, you ask her if she'd like you to act as her sparring partner today. Clapping her hands together in joy, she enthusiastically replies, [aurokaris.speech(Really? You'd do that for me? Thanks, [pc.name]!)]
+	</p>
+	<p>
+		Not giving you a chance to change your mind, the cow-girl quickly closes her tent and places a sign in front of it declaring that she's on her lunch break. Grabbing hold of your [pc.hand], she happily leads you through the camp to the sparring field, before gesturing to one of the nearby weapon racks and asking, [aurokaris.speech(Would you like to use a dory or a bow? Or perhaps we should leave the weapons behind and wrestle instead?)]
+	</p>
+	<p>
+		[style.speechFeminine(Hey, Aurokaris, you're not seriously going to let an outsider spar with you, are you?)] a nearby Amazon shouts out in a disapproving tone.
+	</p>
+	<p>
+		Turning to face the warrior who just spoke, Aurokaris silences her by loudly declaring for all to hear,
+		#IF(pc.hasPerkAnywhereInTree(PERK_HERO_OF_THEMISCYRA))
+			 [aurokaris.speech(This is the Hero#IF(pc.isFeminine())ine#ENDIF of Themiscyra! [pc.She] saved our queen, so [pc.sheHas] earned the right to be here!)]
+		#ELSE
+			 [aurokaris.speech(This is the [pc.race] who fought alongside me in Themiscyra! [pc.She] helped to save our queen, so [pc.sheHas] earned the right to be here!)]
+		#ENDIF
+	</p>
+	<p>
+		With that, the cow-girl turns back to you and once again asks, [aurokaris.speech(So, what'll it be, [pc.name]? A dory, some archery practice, or wrestling?)]
+	</p>
+	#IF(!flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_sparred_unarmed) || !flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_sparred_ranged) || !flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_sparred_melee))
+		<p style='text-align:center;'><i>
+			#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_sparred_unarmed))
+				You've previously chosen to [style.colourMinorBad(wrestle)] with Aurokaris without using a weapon, so perhaps you should try something else this time.
+			#ELSE
+				You haven't yet sparred with Aurokaris without using a weapon, so choosing to [style.colourMinorGood(wrestle)] with her might be a good option.
+			#ENDIF
+		</i></p>
+		<p style='text-align:center;'><i>
+			#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_sparred_melee))
+				You've already learned a thing or two about using a [style.colourMinorBad(dory)], so maybe you should choose something else this time.
+			#ELSE
+				You haven't yet tried using Aurokaris's favourite weapon, the [style.colourMinorGood(dory)], so maybe you should choose that.
+			#ENDIF
+		</i></p>
+		<p style='text-align:center;'><i>
+			#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_sparred_ranged))
+				Your last competition with Aurokaris using a [style.colourMinorBad(bow)] went well, but there's not much more to be learned by doing it again.
+			#ELSE
+				Perhaps using the [style.colourMinorGood(bow)] would be a good way to learn something new from Aurokaris.
+			#ENDIF
+		</i></p>
+	#ELSE
+		<p style='text-align:center;'><i>
+			You've already sparred with Aurokaris in every way imaginable, so there's not really anything else to be gained from this other than having fun. As such, any weapon choice would be much the same as another.
+		</i></p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_AUROKARIS_SPARRING_START_UNARMED"><![CDATA[
+	<p>
+		Not wanting to use a weapon, you tell Aurokaris that you'd like to wrestle with her. Happily nodding at your choice, the cow-girl leads you onto the sandy ground of the sparring field, before instructing you on how to assume the correct wrestling stance and what sort of moves you'll be practising against one another. Once she's happy with your position, she makes the signal to start, and so there begins an hour of exertion in which the two of you wrestle and grapple with one another in a multitude of different ways.
+	</p>
+	<p>
+		Your time wrestling with the cow-girl flies by, and as the hour comes to an end, you find yourself panting for breath and
+		#IF(pc.isAttractedTo(aurokaris))
+			 feeling a little turned on from having spent so much time in contact with Aurokaris's muscular, sweaty body.
+		#ELSE
+			 feeling quite worn out from having spent so much time trying to counter Aurokaris's powerful moves.
+		#ENDIF
+		 Smiling at you,
+		#IF(aurokaris.isAttractedTo(pc))
+			 and blushing a little as she glances down at your body,
+		#ENDIF
+		 the cow-girl asks, [aurokaris.speech(How did you find that, [pc.name]? You did really well!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_AUROKARIS_SPARRING_START_MELEE"><![CDATA[
+	<p>
+		Deciding that you'd like to use a melee weapon, you tell Aurokaris that sparring with dories would suit you. Happily nodding at your choice, the cow-girl grabs a couple of long spears from a nearby weapon rack, and after throwing one your way, she leads you onto the sandy ground of the sparring field. Instructing you on how to assume the correct stances and what sort of moves you'll be practising against one another, she makes sure that she's happy with your position before giving the signal to start. With that, an hour of exertion begins, in which the two of you use your weapons to thrust, strike, and lunge at one another in a multitude of different ways.
+	</p>
+	<p>
+		Your time sparring with the cow-girl flies by, and as the hour comes to an end, you find yourself panting for breath and
+		#IF(pc.isAttractedTo(aurokaris))
+			 feeling a little turned on from having spent so much time watching Aurokaris's muscular, sweaty body jump and bounce around.
+		#ELSE
+			 feeling quite worn out from having spent so much time trying to counter Aurokaris's powerful moves.
+		#ENDIF
+		 Smiling at you,
+		#IF(aurokaris.isAttractedTo(pc))
+			 and blushing a little as she glances down at your body,
+		#ENDIF
+		 the cow-girl asks, [aurokaris.speech(How did you find that, [pc.name]? You did really well!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_AUROKARIS_SPARRING_START_RANGED"><![CDATA[
+	<p>
+		Deciding that you'd like to use a ranged weapon, you tell Aurokaris that spending some time on the archery range would suit you. Happily nodding at your choice, the cow-girl grabs a couple of compound bows from a nearby weapon rack, and after throwing one your way, she leads you onto the sandy ground of the sparring field. Instructing you on how to assume the correct stances and how your shots will be scored, she makes sure that she's happy with your position before giving the signal to start. With that, an hour of exertion begins, in which the two of you use your weapons to compete against one another to score the most bullseyes on the distant archery targets.
+	</p>
+	<p>
+		Your time practising archery with the cow-girl flies by, and as the hour comes to an end, you find yourself panting for breath and
+		#IF(pc.isAttractedTo(aurokaris))
+			 feeling a little turned on from having spent so much time in close proximity to Aurokaris's muscular, sweaty body.
+		#ELSE
+			 feeling quite worn out from having spent so much time competing against Aurokaris.
+		#ENDIF
+		 Smiling at you,
+		#IF(aurokaris.isAttractedTo(pc))
+			 and blushing a little as she glances down at your body,
+		#ENDIF
+		 the cow-girl asks, [aurokaris.speech(How did you find that, [pc.name]? You did really well!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_AUROKARIS_SPARRING_START_END"><![CDATA[
+	<p>
+		As you stretch and shake off the soreness in your muscles, you truthfully tell your Amazon sparring partner that you enjoyed your session with her. Smiling at you, she says, [aurokaris.speech(Thanks for doing this with me, [pc.name]. I was bored out of my mind back at the marketplace, but now I'm really feeling alive!)]
+	</p>
+	<p>
+		Before you can reply to this, a mischievous grin flashes across the cow-girl's face. Retrieving her personal dory which she'd left in the weapon rack during your sparring session, she asks, [aurokaris.speech(How about we have a full-contact duel to finish things off? We can use Amazon tournament rules, so everything's permitted with the only real rule being that you have to stop fighting when your opponent submits.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_AUROKARIS_SPARRING_PERK_UNLOCK"><![CDATA[
+	<p style='text-align:center;'>
+		[style.italicsExcellent(You feel like Aurokaris has nothing more to teach you, and that you've really learned a lot from sparring with her in so many different ways!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_AUROKARIS_SPARRING_PRACTICE_WON"><![CDATA[
+	<p>
+		Taking a few steps back, Aurokaris holds up her hands in a clear sign of submission and pants, [aurokaris.speech(No more... You win...)]
+	</p>
+	<p>
+		With that, the cow-girl collapses down onto the sandy ground of the sparring field, panting for breath. [pc.Walking] forwards, you offer your partner your [pc.hand], and with a happy grin on her face, Aurokaris takes it and allows you to help her back up onto her feet. Still smiling as she brushes herself off, she happily exclaims, [aurokaris.speech(It's great to finally have a worthy sparring partner again! I always beat my usual partners, but you give me a real challenge, [pc.name]!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_AUROKARIS_SPARRING_PRACTICE_TENT_INVITE"><![CDATA[
+	<p>
+		Telling Aurokaris that you enjoyed your duel, you say that perhaps you'll stop by her tent another time so that you can do this again.
+		#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_invite_received))
+			 As she happily nods her head as you suggest this, the cow-girl suddenly starts to blush, and after fidgeting around on the spot for a moment, she nervously confesses, [aurokaris.speech(You know, [pc.name], I really do kind of like you... Remember that you're welcome to... Well... You know... You can come and see me in my tent after work...)]
+		#ELSE
+			 As she happily nods her head as you suggest this, the cow-girl suddenly starts to blush, and after fidgeting around on the spot for a moment, she nervously confesses, [aurokaris.speech(You know, [pc.name], I really do kind of like you... I'd be happy if you would... Well... I mean... You can come and see me in my tent after work if you'd like... Perhaps we could... You know...)]
+		#ENDIF
+	</p>
+	<p>
+		Despite being one of the strongest and most confident of the Amazon warriors, Aurokaris doesn't seem to know quite how to fully express her feelings. Thoroughly embarrassed at her confession, she doesn't give you time to respond, and after giving you a quick wave goodbye, she runs off in the direction of the marketplace, leaving you to think about her invitation and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_AUROKARIS_SPARRING_PRACTICE_END"><![CDATA[
+	<p>
+		Telling Aurokaris that you enjoyed your duel, you say that perhaps you'll stop by her tent another time so that you can do this again. Happily nodding her head as you suggest this, the cow-girl replies, [aurokaris.speech(That'd be great! I should really be getting back to work now though, so I'm going to have to dash. See you later, [pc.name]!)]
+	</p>
+	<p>
+		With that, the cow-girl Amazon gives you one last wave, before running off in the direction of the marketplace, leaving you to brush yourself off and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_AUROKARIS_SPARRING_PRACTICE_LOST"><![CDATA[
+	<p>
+		Taking a few steps back, you hold up your [pc.hands] in a clear sign of submission and tell Aurokaris that she's got the better of you. Unable to remain standing, you collapse down onto the sandy floor of the sparring field, panting for breath.
+	</p>
+	<p>
+		Walking forwards, your partner offers you her hand, and with a happy grin on her face, Aurokaris helps you back up onto your feet. Still smiling as she waits for you to brush yourself off, she happily exclaims, [aurokaris.speech(It's great to finally have a worthy sparring partner again! I always easily beat my usual partners, but you give me a real challenge, [pc.name]!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_AUROKARIS_SPARRING_END"><![CDATA[
+	<p>
+		Saying that you don't think an all-out duel is a good idea, you tell Aurokaris that you've had enough for now.
+	</p>
+	<p>
+		[aurokaris.speech(Oh, ok,)] Aurokaris replies with a disappointed sigh, [aurokaris.speech(I suppose that I should really be getting back to work anyway. Thanks for sparring with me, [pc.name], and I'll see you later!)]
+	</p>
+	<p>
+		With that, the cow-girl Amazon gives you one last wave, before running off in the direction of the marketplace, leaving you to brush yourself off and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Aurokaris ambrosia tasting: -->
+	
+	<htmlContent tag="AUROKARIS_TASTING_SEX"><![CDATA[
+	<p>
+		Liking the sound of what Aurokaris is suggesting, you tell her that you'd like to help her taste the newest batch of ambrosia. Playfully biting her lip, the cow-girl glances around to make sure that there are no incoming customers, and once she's satisfied that the coast is clear, she gestures you forwards and says, [aurokaris.speech(Come on, [pc.name], I'll close the tent after you.)]
+	</p>
+	<p>
+		[pc.Stepping] around the table which separates you from Aurokaris, you head into the rear of the large tent as the muscular Amazon ties the canvas flaps shut. Turning to face you, she blushes as she shrugs off her peplos and allows it to drop to the floor, exposing her naked body to you in the process. Skipping over to grab a nearby bottle of ambrosia, and causing her [aurokaris.cupSize]-cup breasts to bounce in a hypnotic manner in the process, the cow-girl bats her eyelashes at you and excitedly pants, [aurokaris.speech(Which part of me did you want to lick it off of?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUROKARIS_TASTING_SEX_PUSSY"><![CDATA[
+	<p>
+		[pc.Stepping] forwards, you tease your [pc.fingers+] down over the Amazon's [aurokaris.labia+], which causes her to let out a soft, horny moan. Telling her that you'd like to service her pussy, you say that she should pour the ambrosia over her cunt so that you can eat her out while tasting it.
+	</p>
+	<p>
+		[aurokaris.speech(~Ooh!~ Yes, I like the sound of that,)] the cow-girl giggles, before quickly stepping over to a nearby chair and sitting down on it. Leaning back, she spreads her muscular legs, before tipping the small bottle up and allowing the ambrosia within to pour out all over her [aurokaris.pussy+]. Using her fingers to spread her glistening pussy lips, she moans, [aurokaris.speech(Come on, [pc.name]... I'm ready for you...)]
+	</p>
+	<p>
+		Not needing to be told twice, you drop down between the cow-girl's legs. Burying your face between her powerful thighs, you eagerly lick, kiss, and suck on her hot, wet labia and clit, getting a good taste of the sweet, delicious ambrosia in the process. Grabbing the back of your head, the cow-girl lets out a desperately lewd moan, which encourages you to dart your [pc.tongue+] into her [aurokaris.pussy+] and start to eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUROKARIS_TASTING_SEX_BREASTS"><![CDATA[
+	<p>
+		[pc.Stepping] forwards, you tease your [pc.fingers+] over the Amazon's [aurokaris.breasts+], which causes her to let out a soft, horny moan. Telling her what perfect tits she has, you say that she should pour the ambrosia over her nipples so that you can suck on them while tasting it.
+	</p>
+	<p>
+		[aurokaris.speech(~Ooh!~ Yes, I like the sound of that,)] the cow-girl giggles, before leaning back against a nearby stack of crates. Reaching up to her chest, she tips the small bottle up and allows the ambrosia within to pour out all over her [aurokaris.breasts+]. Using her fingers to tease her [aurokaris.nipples+], she moans, [aurokaris.speech(Come on, [pc.name]... I'm ready for you...)]
+	</p>
+	<p>
+		Not needing to be told twice, you [pc.step] forwards so that you're standing right in front of the blushing cow-girl. Dropping your face down to her [aurokaris.breasts+], you start eagerly licking and kissing her pillowy mounds, getting a good taste of the sweet, delicious ambrosia in the process. Grabbing the back of your head, the cow-girl lets out a desperately lewd moan, which encourages you to move on and start to kiss and suck on her [aurokaris.nipples+]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUROKARIS_TASTING_SEX_ASS"><![CDATA[
+	<p>
+		[pc.Stepping] forwards, you reach around behind Aurokaris and tease your [pc.fingers+] over the Amazon's [aurokaris.ass+], which causes her to let out a soft, horny moan. Telling her that you'd like to service her ass, you say that she should pour the ambrosia over her asshole so that you can give her a rimjob while tasting it.
+	</p>
+	<p>
+		[aurokaris.speech(~Ooh!~ Yes, I like the sound of that,)] the cow-girl giggles, before quickly stepping over to a couple of nearby crates and bending down over the top of them. Looking back over her shoulder, she spreads her muscular legs, before tipping the small bottle up and allowing the ambrosia within to pour out all over her [aurokaris.ass+]. Using her hands to spread her ass cheeks, she moans, [aurokaris.speech(Come on, [pc.name]... I'm ready for you...)]
+	</p>
+	<p>
+		Not needing to be told twice, you drop down between the cow-girl's legs. Burying your face in her [aurokaris.ass+], you eagerly lick, kiss, and tongue her [aurokaris.asshole+], getting a good taste of the sweet, delicious ambrosia in the process. Pushing her [aurokaris.hips+] back, the cow-girl lets out a desperately lewd moan, which encourages you to dart your [pc.tongue+] into her [aurokaris.asshole+] and start to give her a rimjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUROKARIS_TASTING_AFTER_SEX"><![CDATA[
+	<p>
+		Having had her fun, Aurokaris breathlessly pants, [aurokaris.speech(That's enough, [pc.name]... I need to get back to work now...)]
+	</p>
+	<p>
+		After giving the muscular cow-girl one last kiss, and making her blush again in the process, you start to get your things back in order. Pulling on her peplos to cover herself up, Aurokaris smiles at you and moves to reopen the tent. As she unties the cords, she calls back, [aurokaris.speech(So, did you enjoy the ambrosia, [pc.name]?)]
+	</p>
+	<p>
+		Replying that you found it to be absolutely delicious, you cause the Amazon to let out a happy giggle. As she pulls the tent's flaps open, she motions for you to head on back around to the other side of the table.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUROKARIS_TASTING_AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		Doing as Aurokaris instructs, you head on out of her tent and return to the other side of the table. As you leave, a couple of nearby Amazons, who must have heard what you and Aurokaris were up to, give the cow-girl a knowing grin and call out, [style.speechFeminine(Having fun today, Aurokaris? It sounded like you were really enjoying your break.)]
+	</p>
+	<p>
+		Furiously blushing, the muscular Amazon hesitantly calls out, [aurokaris.speech(Hello... Yes, well... You know, I was, well, I was just...)]
+	</p>
+	<p>
+		Unable to handle the situation, Aurokaris darts off back into the tent and disappears behind a stack of crates. Calling out from her hiding place, she shouts, [aurokaris.speech(I need to sort some things out! Come back later if you need to buy anything, [pc.name]!)]
+	</p>
+	<p>
+		Not wanting to prolong Aurokaris's embarrassment, you [pc.walk] past the couple of giggling Amazons and head off into the camp, wondering where to go next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Aurokaris tent: -->
+	
+	<htmlContent tag="AUROKARIS_TENT"><![CDATA[
+	<p>
+		This area of the Amazons' camp looks very much like the rest; colourful tents of all shapes and sizes are to be seen, while the occasional Amazon shoots you a suspicious look. What sets it apart from the rest of the camp, however, is the fact that Aurokaris's tent is found here. A soft shade of blue, her canvas dwelling is of a similar, considerable size to those around it, and can easily be identified by the stack of crates which sit to one side of the entrance.
+	</p>
+	<p>
+		#IF(game.getCharactersPresent().contains(aurokaris))
+			#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_visited))
+				 As you've already visited Aurokaris tonight, you should leave her to get some rest. If you wanted to pay her another visit, you could always come back tomorrow...
+			#ELSEIF(flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_invite_received))
+				 As Aurokaris has invited you to pay her a visit, you could always [pc.step] up to the entrance to her tent and call out to her to see if she's
+				#IF(!aurokaris.isAttractedTo(pc))
+					  awake. As you've transformed since last seeing her, you imagine that Aurokaris will want you to transform back into a more feminine form before getting intimate with you...
+				#ELSE
+					 awake...
+				#ENDIF
+			#ELSE
+				 As she's warned you against disturbing her rest, there's very little for you to do here...
+			#ENDIF
+		#ELSE
+			Due to the current time of day, you know that Aurokaris will be working, and so won't be in her tent at the moment.
+			#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_aurokaris_tent_invite_received))
+				 As she's invited you to pay her a visit, you could always come back here to do so after she's finished work...
+			#ELSE
+				 As she's warned you against disturbing her rest, you suppose that it really makes no difference whether she's here or not...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUROKARIS_TENT_ENTRY"><![CDATA[
+	<p>
+		Wanting to see Aurokaris, you approach the entrance to her tent and call out to her. A few moments later, you hear sounds of movement within, before the canvas flap is hastily untied and opened before you.
+	</p>
+	<p>
+		[aurokaris.speech([pc.Name]! Please, come on in,)] the Amazon happily exclaims. [pc.Stepping] forwards into the tent, you look around to see that it's surprisingly spacious inside, granting both you and Aurokaris plenty of room in which to move around. Turing to face the cow-girl after she's tied the entrance flap back into place, you see that 
+		#IF(aurokaris.isVisiblyPregnant())
+			#IF(!aurokaris.isCharacterReactedToPregnancy(pc))
+				 she's sporting a [style.colourSex(pregnant belly)]. Blushing as she smiles at you, she reveals, [aurokaris.speech(I haven't been with anyone else, so it was you who got me pregnant... Oh, don't worry about having to do anything to help; I can manage it just fine!)]
+			#ELSE
+				 she's still sporting a [style.colourSex(pregnant belly)]. Blushing as she smiles at you, she reveals, [aurokaris.speech(I've been coping with it just fine! There's really no need for any help with anything!)]
+			#ENDIF
+		#ELSE
+			 she's blushing as she smiles at you and reveals, [aurokaris.speech(I was really hoping that you'd come tonight...)]
+		#ENDIF
+	</p>
+	<p>
+		Before you can answer, the excited cow-girl quickly steps forwards so that she's standing right in front of you. Looking you up and down, she
+		#IF(!aurokaris.isAttractedTo(pc))
+			 sighs and declares, [aurokaris.speech(You've transformed since I invited you here... Sorry, [pc.name], but I just can't do this with how you're currently looking... If you wanted to, well, you know... Then I've got a potion that will make you feminine again...)]
+		#ELSE
+			 lets out a horny moan and leans into you, sighing as she does so, [aurokaris.speech(You know, I <i>really</i> like you, [pc.name]... You like me too, don't you?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUROKARIS_TENT_ENTRY_POTION_DECLINED"><![CDATA[
+	<p>
+		Not wanting to be transformed, you tell Aurokaris that you don't want to drink the transformative potion she's offering. Pouting at you, the cow-girl takes a step back before sighing, [aurokaris.speech(I understand... But I really can't get in the mood while you're looking like that... I guess it'd be best if you left now...)]
+	</p>
+	<p>
+		Not wanting to damage your relationship with the muscular Amazon, you do as she says and move back over to the tent's entrance. Untying the cord which keeps the canvas flap in place, you say goodbye to Aurokaris and [pc.step] back out into the camp. Calling out after you, Aurokaris asks, [aurokaris.speech(You'll come and visit me at the marketplace again, right? I'd still like to spar with you now and again...)]
+	</p>
+	<p>
+		Telling the cow-girl that you'll visit her there again when you have the time, you say goodbye and set off into the camp, wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUROKARIS_TENT_ENTRY_SEX_AS_DOM"><![CDATA[
+	<p>
+		Returning Aurokaris's declaration of affection, you take charge and pull the muscular cow-girl forwards into a passionate kiss. Happy to submit to you, she melts into your [pc.arms], moaning and sighing as she happily thrusts her tongue into your mouth.
+	</p>
+	<p>
+		After a few moments of making out with one another in this manner, you pull back, before moving to start having dominant sex with Aurokaris...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUROKARIS_TENT_ENTRY_SEX_AS_SUB"><![CDATA[
+	<p>
+		Returning Aurokaris's declaration of affection, you allow the muscular cow-girl to take charge and pull you forwards into a passionate kiss. Happy to submit to her, you melt into her arms, moaning and sighing as she happily thrusts her tongue into your mouth.
+	</p>
+	<p>
+		After a few moments of making out with one another in this manner, Aurokaris pulls back, before moving to start having dominant sex with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUROKARIS_TENT_ENTRY_SEX_DECLINED"><![CDATA[
+	<p>
+		Not wanting to get intimate with her, you tell Aurokaris that while you like her, you don't want to take things any further tonight. Pouting at you, the cow-girl takes a step back before sighing, [aurokaris.speech(I understand... Well, I should sleep now... I guess it'd be best if you left...)]
+	</p>
+	<p>
+		Not wanting to damage your relationship with the muscular Amazon, you do as she says and move back over to the tent's entrance. Untying the cord which keeps the canvas flap in place, you say goodbye to Aurokaris and [pc.step] back out into the camp. Calling out after you, Aurokaris asks, [aurokaris.speech(You'll come and visit me at the marketplace again, right? I'd still like to spar with you now and again...)]
+	</p>
+	<p>
+		Telling the cow-girl that you'll visit her there again when you have the time, you say goodbye and set off into the camp, wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUROKARIS_TENT_TRANSFORMED"><![CDATA[
+	<p>
+		Wanting to make Aurokaris happy, you tell her that you'll drink the transformative potion which she's offering. Happily clapping her hands together, the excited cow-girl hastily retrieves a small bottle from out of a nearby crate, and as she hands it over to you she explains, [aurokaris.speech(This is a standard feminising potion we Amazons make. It should give you the sort of body that'd fit in with our society...)]
+	</p>
+	<p>
+		Committing to your decision to drink the potion, you take the lid off and bring it up to your waiting lips. Tilting your head back, you quickly swallow down every last drop of the sweet liquid contained within, then wait to see what sort of effects it's going to have on your body...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUROKARIS_TENT_TRANSFORMED_END"><![CDATA[
+	<p>
+		Clearly being very pleased with how you've turned out, Aurokaris steps forwards and moans, [aurokaris.speech(That's better... You want to take things further with me now, right? You know, I <i>really</i> like you, [pc.name]... You like me too, don't you?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUROKARIS_TENT_AFTER_SEX"><![CDATA[
+	<p>
+		Satisfied, Aurokaris lets out a deep sigh and collapses down onto her bed. Unfortunately, there doesn't appear to be enough room on it for two, and so as she catches her breath, she sighs, [aurokaris.speech(That was great... Sorry, [pc.name], but my tent's a little small...)]
+	</p>
+	<p>
+		Telling Aurokaris that you needed to be heading off anyway, you give her one last passionate kiss, before moving to get your things in order. Smiling as she looks on, the cow-girl blushes and reveals, [aurokaris.speech(I really do like you a lot, [pc.name]... I need to get some sleep now, but you'll come back another night so we can do this again, right?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUROKARIS_TENT_AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		Telling the muscular cow-girl that you'll visit again when you have the time, you say goodbye and leave her tent, before setting off into the camp and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Ursa scenes: -->
+	
+	<htmlContent tag="QUEEN"><![CDATA[
+	<p>
+		You find yourself standing before the huge, purple tent which houses Ursa, the queen of the Amazons. As is to be expected of royalty, Ursa's tent is far bigger than any other in the camp, and actually appears to consist of several large tents which have been joined together. At the entrance, two huge, bear-girl Amazons are standing guard, each of whom are equipped with the Amazons' favourite weapon; the dory.
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_ursa_daily_interaction))
+			Ursa has already seen you today, and she made it quite clear to you that she has no more time to spare. If you wanted to pay her another visit, then you'll have to come back tomorrow. Then again, if it was Lunexis who you're after, you could head right on through to the tent where she's being kept...
+		#ELSE
+			#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_ursa_met))
+				As the guards have been informed by Ursa that you've been granted permission to enter her tent, you should have no trouble getting past the two burly bear-girls if you wanted to pay the queen a visit. Then again, if it was Lunexis who you're after, you could head right on through to the tent where she's being kept...
+			#ELSE
+				Although the two burly bear-girls might give you some trouble, you're sure that you'll be able to gain access to Ursa's tent once they're informed of who you are. As such, if you wanted to pay the queen a visit, you could [pc.walk] up to them and introduce yourself...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEEN_BACK"><![CDATA[
+	<p>
+		Deciding that you don't have any business here after all, you turn away from Ursa's tent and head back into the Amazons' camp...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEEN_INITIAL_ENTRY"><![CDATA[
+	<p>
+		Wanting to visit Ursa and check up on the situation with Lunexis, you approach the entrance to the grand, purple tent. Fixing their gaze onto you, the two burly bear-girl guards step forwards to block your passage, with the larger of the two growling in a deep, threatening tone, [style.speechFeminineStrong(Outsiders shouldn't even be in our camp. You're going no further.)]
+	</p>
+	<p>
+		Just like with your initial entry to the camp, you have a stroke of good luck, for at that moment the tent's entrance flap is pulled back and a small group of senior-looking Amazons emerge from within. Ignoring your presence, they head off into the camp, leaving just Ursa herself standing at the entrance to the tent. Looking over at you, the huge, muscular queen of the Amazons allows a big smile to break out on her face. Addressing her guards, she explains, [ursa.speech(This one's the [pc.race] who fought alongside me back in Themiscyra. Remember [pc.her] face, for [pc.sheIs] always welcome in my tent.)]
+	</p>
+	<p>
+		Standing aside, the two guards reply in unison, [style.speechFeminineStrong(Yes, your majesty.)]
+	</p>
+	<p>
+		[ursa.speech(Well don't jsut stand there, come on in!)] Ursa booms in a friendly tone, before stepping back into her tent. Doing as she says, you [pc.step] past the guards and enter the queen's temporary home.
+	</p>
+	<p>
+		The tent's interior is absolutely gigantic, and is well lit by a series of arcane lanterns which hang down from the wooden poles that support the high canvas ceiling. To your left and right, separate wings have been formed out of adjoining tents, and while there are canvas screens for privacy, you can see that one is the queen's bedroom, while the other looks to be a well-equipped armoury. In the middle of the huge central room in which you're currently standing, a massive wooden table holds a map of Themiscrya and the surrounding countryside. Gesturing to this map, Ursa explains, [ursa.speech(We've been busy planning the recapture of our hometown, but there are so many pressing issues to deal with that it's going to take us a while to truly prepare for it.)]
+	</p>
+	<p>
+		Not seeing any sign of the demonic centauress, you ask the bear-girl queen where Lunexis is being held. Flashing you a toothy grin, she gestures for you to follow her and strides off to the far side of the tent.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEEN_INITIAL_ENTRY_LUNEXIS"><![CDATA[
+	<p>
+		[ursa.speech(Apart from those of us who were present in Minotallys's office, only my personal bodyguards know of Lunexis's whereabouts. The less people know about this, the better,)] Ursa explains as she strides a flap in the rear of the tent. Pulling aside the canvas, she leads you out of the back of the tent and into a small, grassy compound. A tall, wooden wall separates this space from the rest of the camp, and positioned right in the middle there's a large, pale-red tent. Another bear-girl guard is standing beside the entrance, while another is slowly patrolling around the tent in a wide circle.
+	</p>
+	<p>
+		[ursa.speech([pc.Name] here is to be granted access to this tent at any time of the day or night,)] Ursa informs the guards without breaking her step. Continuing forwards, she strides through the tent's entrance, leaving you to catch up and follow her inside.
+	</p>
+	<p>
+		Ducking through the canvas parting, you find yourself in yet another large tent, with a ceiling high enough for the [ursa.heightValue] figure of Ursa to easily stand fully upright. It's not the impressive size of the interior which catches your attention, however, but the fact that the naked form of Lunexis is standing just a short way in front of you. Attached to four huge stakes which have been driven into the ground, a series of heavy, steel chains have been locked to a metal collar that's fastened around the demon's neck. Surprisingly, her four arms and legs are free, allowing her to stomp and shake her fists at you and Ursa as she screams, [lunexis.speech(You'll pay for this, you fucking cunts! Once I'm free, I'll have the two of you as my cock-sleeves! Set me free!)]
+	</p>
+	<p>
+		Ignoring the demon's ranting, Ursa turns to face you and explains, [ursa.speech(We only had enough chains to attach to her collar, and as it turns out she's unable to break them even with her arms and legs free.)]
+	</p>
+	<p>
+		[lunexis.speech(When Lunette gets a hold of you, you'll wish you'd have surrendered to me!)] Lunexis roars, [lunexis.speech(Set me free and I'll allow you to serve as my slave!)]
+	</p>
+	<p>
+		[ursa.speech(You can wail and cry all you want,)] Ursa growls, [ursa.speech(This tent has been enchanted so that not a single noise can pass through its walls. Nobody can hear you, and nobody's coming to set you free. You'll answer for your crimes once your mother has been dealt with.)]
+	</p>
+	<p>
+		This remark sets off another bout of cursing, screeching and shouting, which proves to be of an annoyance to Ursa, who gestures for you to follow her back out of the tent.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEEN_INITIAL_ENTRY_END"><![CDATA[
+	<p>
+		Following the bear-girl back out into the walled compound, you're amazed to discover that the moment you [pc.step] over the entrance's boundary, Lunexis's loud, obnoxious cursing is completely silenced. Looking back through the open flap, you see that her lips are still moving, but the tent's enchantment prevents any noise whatsoever from escaping the interior.
+	</p>
+	<p>
+		[ursa.speech(The enchantment was Aurokaris's idea,)] Lunexis reveals as she turns to face you. With an amused grin on her face, she recalls, [ursa.speech(Lunexis was screeching and shouting all the way as we went down that escape passage from Minotallys's office. Aurokaris ended up having to gag her, and pointed out that the entire of Elis would soon know of Lunexis's whereabouts if we didn't find a way to keep her silent.)]
+	</p>
+	<p>
+		Remarking on how effective the silencing enchantment is, you ask Ursa what she's planning on doing with her prisoner. Gesturing for you to follow her back into her grand, purple tent, she speaks over her shoulder as walks, [ursa.speech(We're going to keep her here for now, then after Lunette is dealt with we'll decide what to do with her. We've tried interrogating her to get some more information about her mother, but she's far too stubborn to reveal anything to us. You can come back and try at any time, but I doubt you'll succeed in finding anything out.)]
+	</p>
+	<p>
+		At this moment, you realise that Ursa has led you through the tent's huge, central room, past the canvas screenings, and into one of the two wings that project out on opposite sides. Looking around, you see that there are several wardrobes and cabinets in here, as well as a huge bed, covered in furs, that's placed right in the middle of the room. As you start to ask what you're doing in her bedroom, the Amazon queen simply shrugs off her peplos, before quickly stripping out of her underwear. Before you know it, the huge, muscular bear-girl is standing completely naked before you.
+	</p>
+	<p>
+		[ursa.speech(I am indebted to both you and Meraxis for your assistance in Themiscyra,)] she states in her deep, rumbling voice, [ursa.speech(Aurokaris has already received her reward, and Meraxis will get hers when next we meet. As for you, you shall be given your reward now. Submit to me, and let the queen of the Amazons show you how grateful she is.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEEN_ENTRY"><![CDATA[
+	<p>
+		Wanting to visit Ursa again, you approach the entrance to her tent, and as you do so the two bear-girl guards on duty move to block your passage. Recognising you from your previous visit, the larger of the two states in a deep, rumbling voice, [style.speechFeminineStrong(You can go on in, but make sure that you're on your best behaviour when in the presence of our queen.)]
+	</p>
+	<p>
+		[pc.Walking] forwards between the guards, you open the canvas flap and enter the huge, purple tent. The interior is absolutely gigantic, and is well lit by a series of arcane lanterns which hang down from the wooden poles that support the high canvas ceiling. To your left and right, separate wings have been formed out of adjoining tents, and while there are canvas screens for privacy, you know very well that one is the queen's bedroom, while the other looks to be a well-equipped armoury. In the middle of the huge central room in which you're currently standing, a massive wooden table holds a map of Themiscrya and the surrounding countryside.
+	</p>
+	<p>
+		[ursa.speech(Back again, [pc.name]?)] Ursa calls out from behind the table as she sees you entering her tent.
+		#IF(ursa.isVisiblyPregnant())
+			#IF(!ursa.isCharacterReactedToPregnancy(pc))
+				 Running her hands over her stomach, the queen draws your attention to the fact that she has a [style.colourSex(pregnant belly)], and she grins as she reveals, [ursa.speech(Yes, you're the one who got me pregnant, and no, I don't need or want any help, before you offer it. Now come over here and submit to me.)]
+			#ELSE
+				 Running her hands over her stomach, the queen draws your attention to the fact that she still has a [style.colourSex(pregnant belly)], and she grins as she states, [ursa.speech(Yes, I'm still pregnant, thanks to you, and no, I don't need or want any help, before you offer it. Now come over here and submit to me.)]
+			#ENDIF
+		#ELSE
+			 Placing her hands on her [ursa.hips+], the bear-girl flashes you a grin and orders, [ursa.speech(Come over here and submit to me.)]
+		#ENDIF
+	</p>
+	<p>
+		Not wanting to risk the ire of the queen of the Amazons, you do as she says and [pc.walk] over to where she's standing. Confidently grabbing hold of your [pc.hand], the muscular bear-girl wastes no time in dragging you after her as she leads you once again into her sleeping quarters. Looking around, you see that there are several wardrobes and cabinets in here, as well as a huge bed, covered in furs, that's placed right in the middle of the room. Just like last time, the Amazon queen shrugs off her peplos, before quickly stripping out of her underwear. Before you know it, Ursa is standing completely naked before you.
+	</p>
+	<p>
+		[ursa.speech(You didn't think that I'd finished giving you your reward, did you?)] she asks in her deep, rumbling voice, [ursa.speech(Now submit to me, and let the queen of the Amazons show you how grateful she is for your assistance in Themiscyra.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEEN_ENTRY_SEX"><![CDATA[
+	<p>
+		Doing as you're told, you tell Ursa that you'll submit to her and let her give you your reward. Considering her size and strength, the bear-girl is surprisingly gentle as she steps forwards and pulls you into a loving embrace. Letting out a soft, affectionate growl, she teases, [ursa.speech(That's a good [pc.girl]... Now hold still for me...)]
+	</p>
+	<p>
+		Once again obeying the queen, you don't resist as she pulls you forwards and presses her lips against your mouth. Darting out her tongue, she gives you a soft, tender kiss, before drawing back and happily sighing, [ursa.speech(I'll do my best to make this good for you...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEEN_ENTRY_SEX_DECLINED"><![CDATA[
+	<p>
+		Not really liking the sound of what Ursa has to offer, you tell her that you're flattered but not interested in doing anything sexual with her. Flashing you a big, toothy grin, the queen responds to your rejection by growling, [ursa.speech(Playing hard to get, are we? I don't recall giving you the option of refusing. Now submit to me...)]
+	</p>
+	<p>
+		Despite her words, and the fact that she takes a dominant steps forwards, you get the impression from the soft look on her face that she isn't really serious about forcing you into anything. If you really didn't want to do this, you could just repeat your answer. Then again, perhaps you could change your mind and choose to submit to her after all...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEEN_ENTRY_SEX_OBEY"><![CDATA[
+	<p>
+		Deciding to relent and obey the queen of the Amazons, you tell Ursa that you'll submit to her and let her give you your reward. Considering her size and strength, the bear-girl is surprisingly gentle as she steps forwards and pulls you into a loving embrace. Letting out a soft, affectionate growl, she teases, [ursa.speech(That's a good [pc.girl]... Now hold still for me...)]
+	</p>
+	<p>
+		Once again obeying the queen, you don't resist as she pulls you forwards and presses her lips against your mouth. Darting out her tongue, she gives you a soft, tender kiss, before drawing back and happily sighing, [ursa.speech(I'll do my best to make this good for you...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEEN_ENTRY_AFTER_SEX"><![CDATA[
+	<p>
+		Having had enough, Ursa moves away from you and gently, yet firmly, states, [ursa.speech(You've had enough of a reward for one day.)]
+	</p>
+	<p>
+		Planting one last gentle kiss on your [pc.lips], she moves over to clean herself off and retrieve her clothing. As you similarly get your things back in order, she sighs, [ursa.speech(Ordinarily I'd have kept you in my bedchamber all day and night, but considering the current situation we Amazons are in, I have far more pressing matters to attend to.)]
+	</p>
+	<p>
+		As you finish getting your things together, the bear-girl smiles at you and teases, [ursa.speech(That doesn't mean that I don't want to see you again, by the way. Come back tomorrow and I'll give you more of your reward.)]
+	</p>
+	<p>
+		As Ursa pulls her peplos back on, you wonder whether to leave her tent straight away, or to ask her some questions before you depart...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEEN_ENTRY_SEX_DECLINED_END"><![CDATA[
+	<p>
+		Really not wanting to have sex with her, you tell Ursa once again that you're not interested in her idea of a reward. Although she huffs and crosses her arms in annoyance, the bear-girl doesn't persist, and instead relents with a sigh, [ursa.speech(Fine... I suppose that I must respect you for having the guts to turn me down. Well, seeing as we're not going to be having any fun, is there anything else you wanted, or should I get back to my work now?)]
+	</p>
+	<p>
+		As the bear-girl uncrosses her arms and waits to hear your answer, you wonder whether to leave her tent straight away, or to ask her some questions before you depart...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEEN_TALK_AMAZONS"><![CDATA[
+	<p>
+		Wanting to know more about the Amazons, you ask Ursa if she can tell you anything about their history and customs.
+	</p>
+	<p>
+		[ursa.speech(There's really not much about us that isn't common knowledge. We're a community of all-feminine warriors, and up until now, we've always kept to ourselves in Themiscyra,)] she replies, [ursa.speech(Under normal circumstances, anyone could present themselves to us and ask to join, but they had to be feminine in appearance, and willing to undergo rigorous physical and martial training. After what's recently happened,however, we're not accepting any new members into our community.)]
+	</p>
+	<p>
+		Thanking Ursa for the information, you ask her if there are any characteristics in particular which are prized amongst the Amazons.
+	</p>
+	<p>
+		[ursa.speech(Being strong and a formidable warrior will earn you respect,)] Ursa replies, [ursa.speech(but every Amazon is required to attend combat training, so it's unusual for any of us to be anything other than a powerful, competent warrior. As such, it's Amazons who are kind, caring, and willing to help out others who end up being the most popular.)]
+	</p>
+	<p>
+		With your questions about the Amazons now answered, you wonder what to ask Ursa next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEEN_TALK_QUEEN"><![CDATA[
+	<p>
+		Feeling like it'd be nice to know more about Ursa herself, you ask the bear-girl how she came to be queen of the Amazons.
+	</p>
+	<p>
+		[ursa.speech(Well, it helped that I can trace my ancestry back to the two sisters who founded Themiscyra hundreds of years ago,)] she replies, [ursa.speech(We Amazons don't believe in having a hereditary monarchy, but there's a certain amount of respect that's given to those of us who are descended from our founders. This helps during the royal tournament, as one of the events is winning the approval of the tribe's elders.)]
+	</p>
+	<p>
+		Wanting to hear more about this 'royal tournament', you ask Ursa what that entails, and how it's related to her becoming the queen.
+	</p>
+		[ursa.speech(The tournament is how we decide who's going to rule us,)] Ursa reveals, [ursa.speech(it's held every two years, and involves tests of strength, martial prowess, intelligence, and leadership abilities. I've won the past ten contests, and in doing so have earned the Amazons' respect, love, and devotion. Anyone can enter the tournament to try and unseat the ruling queen, but there haven't been any serious entrants for the past four times it's been held. Of course, after what's happened to our home town, I'm sure that there will be many who'll want to try and remove me from power at the next tournament...)]
+	</p>
+	<p>
+		Feeling as though this conversation is going to a dark place that Ursa would rather avoid, you wonder how to change the topic...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEEN_TALK_LUNETTE"><![CDATA[
+	<p>
+		Thinking that it would be a good idea to keep up to speed on what Lunette might be planning, you ask Ursa if she's heard anything about what the elder lilin's next move might be.
+	</p>
+	<p>
+		[ursa.speech(You know as much as I do, if not more,)] the bear-girl replies, [ursa.speech(We don't have any spies in her forces, nor have we managed to extract any information from our prisoner. Speaking of which, it's only a matter of time before Lunette hears about what's happened to her recognised daughter, and although she's got a reputation as being more brawn than brains, I don't think it's going to take too long for her to guess where Lunexis has been taken to.)]
+	</p>
+	<p>
+		Saying that you're working with Minotallys to try and get Elis prepared for the elder lilin's inevitable arrival, you ask Ursa if you're going to be able to count on the aid of the Amazons when the time comes.
+	</p>
+	<p>
+		[ursa.speech(Of course, we'll be there to fight,)] she confidently replies, [ursa.speech(but even an army of Amazons aren't going to be able to stop an elder lilin. We'll help to deal with her daughters, but we'll be leaving Lunette to you, Meraxis, and Minotallys. Don't count on our aid before then, though; we're busy trying to recover our strength and preparing for when we go to retake Themiscyra.)]
+	</p>
+	<p>
+		Thanking Ursa for her commitment, you wonder what to ask next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEEN_TALK_AUROKARIS"><![CDATA[
+	<p>
+		Curious to find out what Ursa thinks of your mutual friend, you ask her how well she knows Aurokaris, and what she thinks of her.
+	</p>
+	<p>
+		[ursa.speech(Oh, I know her <i>very</i> well by now,)] Ursa replies, allowing a slight smile to settle on her face as she says this. Gesturing towards her bed, she reveals, [ursa.speech(I already knew of Aurokaris thanks to her incredible talents in combat, but after rewarding her for her service in Themiscyra, I really got to know just how eager she is to <i>please</i> her queen.)]
+	</p>
+	<p>
+		Wanting to hear more, you tell Ursa to continue, but she simply smirks and protests, [ursa.speech(Oh, I shouldn't be talking about any more of that; she gets quite embarrassed about these sorts of things, you know, and wouldn't like it if I were to talk about how skilled she is with her tongue... Anyway, Aurokaris is one of our most promising warriors, and if she keeps training then perhaps one day she'll be queen.)]
+	</p>
+	<p>
+		Having revealed all that she's willing to about Aurokaris, Ursa stops talking, leaving you wondering what to ask next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEEN_ENTRY_FINAL_LEAVE"><![CDATA[
+	<p>
+		Telling Ursa that you need to get going now as well, you make a move towards the exit. Following after you, the bear-girl states, [ursa.speech(I won't have any more time to spare today, but come back tomorrow if you want to see me again. Oh, and do feel free to pass on though if you wanted to try interrogating Lunexis. I doubt you'll get far with her, though.)]
+	</p>
+	<p>
+		Responding by saying you very well might do that, you bid farewell to the Amazon queen and exit her tent, before looking around and wondering where to go next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Lunexis scenes: -->
+	
+	<htmlContent tag="LUNEXIS"><![CDATA[
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_lunexis_surrendered))
+			Wanting to see your Mistress again, you approach the entrance to Ursa's tent and briefly inform the guards that you're here to interrogate Lunexis.
+		#ELSE
+			Wanting to see Lunexis again, you approach the entrance to Ursa's tent and briefly inform the guards that you're here to interrogate the demonic centauress.
+		#ENDIF
+		 As you've been given permission to come and go as you please, the bear-girl sentinels stand aside to grant you access, allowing you to [pc.step] past them and enter the grand, purple tent.
+	</p>
+	<p>
+		Once inside, you see that Ursa, along with several senior-looking Amazons, is standing before the central table, and looks to be busy discussing plans on how to retake Themiscyra. Although she acknowledging your presence with a curt nod, the bear-girl doesn't have any time for you right now, and so you're able to pass her by and head on out into the small, walled compound without being delayed. [pc.Walking] straight on over to the large, pale-red tent which is positioned in the centre of this grassy area, you pass by the bear-girl guard who's on duty and open the entrance flap.
+	</p>
+	<p>
+		Ducking through the canvas parting, you find yourself in yet another large tent, with a ceiling high enough for the [ursa.heightValue] figure of Ursa to easily stand fully upright. It's not the impressive size of the interior which catches your attention, however, but the fact that the naked form of Lunexis is standing just a short way in front of you. Attached to four huge stakes which have been driven into the ground, a series of heavy, steel chains have been locked to a metal collar that's fastened around the demon's neck.
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_amazon_camp_lunexis_surrendered))
+		<p>
+			As her four arms and legs are free, she's able to stomp and shake her fists at you as she angrily demands,
+			#IF((!lunexis.isVisiblyPregnant() || !lunexis.getPregnantLitter().isFatherId(pc.getId())) && !pc.isVisiblyPregnant())
+				 [lunexis.speech(Why isn't Meraxis with you?! You useless cunt! Get over here and submit to me, then tell me what an obedient slave you are!)]
+			#ELSE
+				 [lunexis.speech(Why isn't Meraxis with you?! You useless cunt! You'll be punished for this!)]
+			#ENDIF
+		</p>
+		#IF(lunexis.isVisiblyPregnant() && lunexis.getPregnantLitter().isFatherId(pc.getId()))
+			<p>
+				#IF(!lunexis.isCharacterReactedToPregnancy(pc))
+					As you start to explain that you're still working on a way to trick the chuuni [meraxis.race] into setting her free, you notice that your Mistress's lower, equine body has a visibly swollen, [style.colourSex(pregnant belly)]. Grunting in annoyance as she notices what it is you're looking at, the centauress snaps, [lunexis.speech(Yes, you got me pregnant! I've already got more bastards than I can count, so what's a few more to me? Now, submit to me and tell me what an obedient cunt you are!)]
+				#ELSE
+					As you start to explain that you're still working on a way to trick the chuuni [meraxis.race] into setting her free, you notice that your Mistress's lower, equine body still has a visibly swollen, [style.colourSex(pregnant belly)]. Grunting in annoyance as she notices what it is you're looking at, the centauress snaps, [lunexis.speech(Yes, I'm still pregnant, thanks to you! I've already got more bastards than I can count, so what's a few more to me? Now, submit to me and tell me what an obedient cunt you are!)]
+				#ENDIF
+			</p>
+		#ENDIF
+		#IF(pc.isVisiblyPregnant())
+			<p>
+				Looking down at your pregnant bump, Lunexis sneers and taunts,
+				#IF(!pc.isCharacterReactedToPregnancy(lunexis))
+					#IF(pc.getPregnantLitter().isFatherId(lunexis.getId()))
+						[lunexis.speech(Hah! Looks like you're carrying some of my bastards around! Now submit to me and tell me what an obedient cunt you are!)]
+					#ELSE
+						[lunexis.speech(Hah! Looks like someone else likes using you as a cock-sleeve! Now submit to me and tell me what an obedient cunt you are!)]
+					#ENDIF
+				#ELSE
+					[lunexis.speech(Hah! Looks like you're still pregnant, huh, you fucking slut? Now submit to me and tell me what an obedient cunt you are!)]
+				#ENDIF
+			</p>
+		#ENDIF
+		<p>
+			Hurrying to obey, you rush forwards and drop down before your Mistress, before telling her that you're her good, obedient cock-sleeve. Snorting and stomping at the ground with her huge hoofs, the demon turns to one side and presents you with her flaccid, sheathed horse-cock, before angrily commanding,
+			#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+				 [lunexis.speech(Open wide, bitch! Get me hard with your mouth so that I can give you a good, rough hate-fucking!)]
+			#ELSE
+				 [lunexis.speech(Put your [pc.hands] to use, bitch! Get me hard so that I can give you a good, rough hate-fucking!)]
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			As her four arms and legs are free, she's able to stomp and shake her fists at you as she angrily screams, [lunexis.speech(You fucking cunt! Set me free and I might allow you to be my cock-sleeve!)]
+		</p>
+		#IF(lunexis.isVisiblyPregnant() && lunexis.getPregnantLitter().isFatherId(pc.getId()))
+			<p>
+				#IF(!lunexis.isCharacterReactedToPregnancy(pc))
+					As you take a look at the raging demon, you notice that her lower, equine body has a visibly swollen, [style.colourSex(pregnant belly)]. Furiously growling as she notices what it is you're looking at, the centauress snaps, [lunexis.speech(Yes, you got me pregnant, you fucking bitch! I've already got more bastards than I can count, so what's a few more to me?!)]
+				#ELSE
+					As you take a look at the raging demon, you notice that her lower, equine body still has a visibly swollen, [style.colourSex(pregnant belly)]. Furiously growling as she notices what it is you're looking at, the centauress snaps, [lunexis.speech(Yes, I'm still pregnant, you fucking bitch! I've already got more bastards than I can count, so what's a few more to me?)]
+				#ENDIF
+			</p>
+		#ENDIF
+		#IF(pc.isVisiblyPregnant())
+			<p>
+				Looking down at your pregnant bump, Lunexis sneers and taunts,
+				#IF(!pc.isCharacterReactedToPregnancy(lunexis))
+					#IF(pc.getPregnantLitter().isFatherId(lunexis.getId()))
+						[lunexis.speech(Hah! Looks like you're carrying some of my bastards around! Now submit to me and let me hate-fuck you, you fucking cunt!)]
+					#ELSE
+						[lunexis.speech(Hah! Looks like someone else likes using you as a cock-sleeve! Now submit to me and let me hate-fuck you, you fucking cunt!)]
+					#ENDIF
+				#ELSE
+					[lunexis.speech(Hah! Looks like you're still pregnant, huh, you fucking slut? Now submit to me and let me hate-fuck you, you fucking cunt!)]
+				#ENDIF
+			</p>
+		#ENDIF
+		<p>
+			Ignoring the centauress's foul mouthed ranting, you wonder how best to try and interrogate her...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_LEAVE"><![CDATA[
+	<p>
+		Seeing no reason to continue wasting your time with this uncooperative demon, you turn your back on Lunexis and [pc.walk] out of the tent to the sounds of angry curses and threats. The moment that you [pc.step] over the entrance's boundary, Lunexis's loud, obnoxious shouting is completely silenced. Looking back through the open flap, you see that her lips are still moving, but the tent's enchantment prevents any noise whatsoever from escaping the interior.
+	</p>
+	<p>
+		Crossing the small, grassy compound, you pass back through Ursa's tent, where the queen is still busy with the group of senior Amazons, and head back out into the camp. Looking around, you wonder to go to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_QUESTION"><![CDATA[
+	<p>
+		Deciding to try the obvious, you start by simply asking Lunexis what she knows of Lunette's plans. Predictably, the demon offers you noting but angry curses and threats of violence. Although you persist in your questioning for a short while, the most useful piece of information you get is when the centauress declares, [lunexis.speech(Once mother finds out who's responsible for my abduction, she's going to march on Elis and raze this wretched town to the ground! You'll be begging to be my cock-sleeve before she's done with you!)]
+	</p>
+	<p>
+		Not giving up just yet, you try several different tactics in trying to get Lunexis to reveal what she knows to you. As stubborn as she is loud, the centauress doesn't give you any useful information, and you soon begin to suspect that she may actually not know much at all. With this impression being reinforced by several idiotic comments that the demon makes, you finally realise that Lunexis is all brawn and no brains, and that any further attempts at questioning her are completely pointless.
+	</p>
+	<p>
+		As the furious demon continues to shout, stomp, and screech, you wonder what to do with her now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_HUMILIATION"><![CDATA[
+	<p>
+		Thinking that it might be worth trying something completely different in your attempt to interrogate Lunexis, you decide to attempt to humiliate her into revealing important information. With this thought in mind, you [pc.walk] around to the side of her horse's body, before placing your [pc.hand] on her flank and giving her a little pat.
+	</p>
+	<p>
+		[lunexis.speech(What the fuck do you think you're doing?!)] she furiously bellows, before trying to step away from your touch. Thanks to the chains which are attached to her collar, she's not able to manoeuvre very much, and so is unable to prevent you from continuing to pat her. Overflowing with indignant rage, the red skin of her cheeks flushes an even deeper shade of scarlet as she yells, [lunexis.speech(Stop that! Stop it right this instant, you fucking cunt!)]
+	</p>
+	<p>
+		Ignoring her words, you move on to start stroking the black fur of her horse's body. Telling her that she's a good horsie, you combine this stroking with the occasional pat, before moving your touch down to give her
+		#IF(lunexis.isVisiblyPregnant())
+			 pregnant
+		#ENDIF
+		 belly a good rubbing. Embarrassed and fuming, the centauress impotently stomps her powerful hoofs on the ground and orders, [lunexis.speech(Stop it! Stop it right now! I can't be treated like this! I'm a recognised daughter of Lunette! Get your filthy [pc.hands] off of me!)]
+	</p>
+	<p>
+		Ignoring her demands, you continue rubbing, patting, and stroking her for some time, calling her a 'good horsie' now and then to cause her some additional embarrassment. Eventually, this treatment proves to be too much for Lunexis to bear, and she frantically declares, [lunexis.speech(I don't know anything! Lunette's going to attack to save me, but other than that I don't know! Now stop this! You'll pay for this! Cease!)]
+	</p>
+	<p>
+		Sensing some sincerity in Lunexis's admission that she knows nothing, you decide to bring this treatment to and end, and so after giving her belly one last good rub, you pat her flank and [pc.step] back, wondering what to do with her next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SEXUAL"><![CDATA[
+	<p>
+		Thinking that the best way to try and make Lunexis talk is by getting her uncontrollably turned on, you [pc.step] up beside her and say how horny she must be after being kept in here all alone. Angrily stomping at the ground with her hoofs, she snaps, [lunexis.speech(I'll get my fill of fucking once I'm free! You're top of my list of cunts that I'm going to turn into cock-sleeves!)]
+	</p>
+	<p>
+		Running your [pc.hand] over the flank of the angry demon's lower horse body, and causing her to let out a furious growl in the process, you wonder how best to get her aroused...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SEXUAL_NIPPLES"><![CDATA[
+	<p>
+		Although she's been stripped of her clothing, Lunexis has been allowed to keep her jewellery, and so you find your gaze being drawn to the golden chains that dangle between her thick nipple rings. Tempted by the sight of her six, huge breasts, you approach Lunexis from the front and reach up to give her soft mounds of flesh a good grope. Letting out an angry growl, the demon uses her four arms to try and push you away from her, but the enchantment on her collar appears to be sapping her strength, for she only barely manges to weakly bat her fists against you.
+	</p>
+	<p>
+		[lunexis.speech(What do you think you're doing?!)] she hisses through gritted teeth, [lunexis.speech(How dare you touch me in such a manner?!)]
+	</p>
+	<p>
+		Ignoring her words, you lean forwards and wrap your [pc.lips] around one of her big, dark-red nipples. Burying your face into her round breasts, you suck and lick her thick teat, before moving over to the one next to it. Instead of continuing to try and push you away, the angry demon grabs hold of you and pulls you into her, growling as she does so, [lunexis.speech(Fuck... Fine... I'll allow you to do this, but know that I'm the one in charge here, cunt!)]
+	</p>
+	<p>
+		By groping, kissing, and squeezing the demonic centauress's tits and nipples, you soon manage to make her let out the first of many moans. Biting her lip, she's soon breathlessly panting and begging, [lunexis.speech(Yes! Come on, give me more of that! You like my tits, huh? Show me how much you love them!)]
+	</p>
+	<p>
+		Encouraged by Lunexis's words, and enjoying the fact that you've managed to reduce the angry centauress to a panting, moaning slut, you continue having your fun with her pussy for some time, before eventually [pc.stepping] back and asking her what she knows about Lunette's plans.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SEXUAL_PUSSY"><![CDATA[
+	<p>
+		Deciding to go straight for her most intimate area, you [pc.step] around behind Lunexis and take hold of her black horse tail. Lifting it up so as to expose her animalistic genitalia, you use your other [pc.hand] to playfully run your [pc.fingers] over her [lunexis.labia+]. Gasping in shock, the demon tries to step away, but the enchantment on her collar appears to be sapping her strength, for she only barely manges to weakly move her ass from side to side.
+	</p>
+	<p>
+		[lunexis.speech(What do you think you're doing?!)] she hisses through gritted teeth, [lunexis.speech(How dare you touch me in such a manner?!)]
+	</p>
+	<p>
+		Ignoring her words, you slide your [pc.fingers] over her clit, before starting to playfully stroke and gently rub her sensitive, horse-like button. Failing to suppress an erotic moan, Lunexis pushes her [lunexis.hips+] back against you as hot, demonic girlcum starts dripping out of her lewd equine pussy. Breathlessly panting and moaning, she begs, [lunexis.speech(Yes! Come on, give me more of that! You like my pussy, huh? Show me how much you love it!)]
+	</p>
+	<p>
+		Encouraged by Lunexis's words, you push your [pc.fingers] into her sopping-wet cunt and start to finger her. Enjoying the fact that you've managed to reduce the angry centauress to a quivering, moaning slut, you continue having your fun with her pussy for some time, before eventually [pc.stepping] back and asking her what she knows about Lunette's plans.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SEXUAL_COCK"><![CDATA[
+	<p>
+		Deciding to go straight for her most intimate area, you [pc.step] up beside Lunexis and reach down to stroke and play with the thick, ebony sheath between her legs. Sliding your [pc.hand] over her hot folds of skin, you're quickly rewarded for your efforts as you feel the demon's massive horse-cock pushing out and stiffening into a giant erection. Gasping in shock, Lunexis tries to step away, but the enchantment on her collar appears to be sapping her strength, for she only barely manges to weakly move her hips against you.
+	</p>
+	<p>
+		[lunexis.speech(What do you think you're doing?!)] she hisses through gritted teeth, [lunexis.speech(How dare you touch me in such a manner?!)]
+	</p>
+	<p>
+		#IF(game.isFutanariTesticlesEnabled())
+			Ignoring her words, you slide your [pc.hand] down over her two pairs of huge, heavy balls, before starting to playfully stroke and cup them.
+		#ELSE
+			Ignoring her words, you slide your [pc.hand] up and down around her stiffening cock, before starting to playfully stroke it.
+		#ENDIF
+		 Failing to suppress an erotic moan, Lunexis bucks her [lunexis.hips+] forwards, thrusting her cock into your [pc.hand] as hot, demonic precum starts dripping out of the end of her massive, throbbing shaft. Breathlessly panting and moaning, she begs, [lunexis.speech(Yes! Come on, give me more of that! You like my cock, huh? Show me how much you love it!)]
+	</p>
+	<p>
+		Encouraged by Lunexis's words, you tease your [pc.fingers] up to the wide, flared head of her horse-like shaft, before giving the full length of her thick, animalistic dick a few quick strokes. Enjoying the fact that you've managed to reduce the angry centauress to a quivering, moaning slut, you continue having your fun with her cock for some time, before eventually [pc.stepping] back and asking her what she knows about Lunette's plans.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SEXUAL_ASS"><![CDATA[
+	<p>
+		Deciding to go straight for her most intimate area, you [pc.step] around behind Lunexis and take hold of her black horse tail. Lifting it up so as to expose her animalistic genitalia, you use your other [pc.hand] to playfully run your [pc.fingers] over her puffy, horse-like asshole. Gasping in shock, the demon tries to step away, but the enchantment on her collar appears to be sapping her strength, for she only barely manges to weakly move her ass from side to side.
+	</p>
+	<p>
+		[lunexis.speech(What do you think you're doing?!)] she hisses through gritted teeth, [lunexis.speech(How dare you touch me in such a manner?!)]
+	</p>
+	<p>
+		Ignoring her words, you give her ass a quick slap, before starting to playfully stroke and gently rub her puffy, horse-like doughnut. Failing to suppress an erotic moan, Lunexis pushes her [lunexis.hips+] back against you as hot, demonic girlcum starts dripping out of her lewd equine pussy. Breathlessly panting and moaning, she begs, [lunexis.speech(Yes! Come on, give me more of that! You like my ass, huh? Show me how much you love it!)]
+	</p>
+	<p>
+		Encouraged by Lunexis's words, you slide your [pc.hand] down to her sopping-wet cunt, and after lubricating your [pc.fingers] with her girlcum, move back up to resume playing with her hot, puffy asshole. Enjoying the fact that you've managed to reduce the angry centauress to a quivering, moaning slut, you continue having your fun with her ass for some time, before eventually [pc.stepping] back and asking her what she knows about Lunette's plans.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SEXUAL_LEAVE"><![CDATA[
+	<p>
+		Deciding that you don't want to try anything sexual with Lunexis after all, you turn away from her and [pc.walk] out of the tent to the sounds of angry curses and threats. The moment that you [pc.step] over the entrance's boundary, Lunexis's loud, obnoxious shouting is completely silenced. Looking back through the open flap, you see that her lips are still moving, but the tent's enchantment prevents any noise whatsoever from escaping the interior.
+	</p>
+	<p>
+		Crossing the small, grassy compound, you pass back through Ursa's tent, where the queen is still busy with the group of senior Amazons, and head back out into the camp. Looking around, you wonder to go to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SEXUAL_END"><![CDATA[
+	<p>
+		Desperately turned on, the centauress quickly responds by moaning, [lunexis.speech(I don't know anything, you dumb cunt! WHy did you stop?! Come on, you started this, so finish it, you coward! Fuck me!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SEXUAL_END_LEAVE"><![CDATA[
+	<p>
+		Hearing the sincerity in Lunexis's voice, you realise that she really must not know anything about her mother's plans. With your work here finished, you turn away from the centauress and [pc.walk] out of the tent to the sounds of frustrated moans and curses. The moment that you [pc.step] over the entrance's boundary, Lunexis's lewd noises are completely silenced. Looking back through the open flap, you see that her lips are still moving, but the tent's enchantment prevents any noise whatsoever from escaping the interior.
+	</p>
+	<p>
+		Crossing the small, grassy compound, you pass back through Ursa's tent, where the queen is still busy with the group of senior Amazons, and head back out into the camp. Looking around, you wonder to go to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_DOMINANT_SEX"><![CDATA[
+	<p>
+		Feeling more than a little aroused yourself, you decide to give Lunexis what she wants. [pc.Stepping] up to the demonic centauress, you run your [pc.hand] over her flank, causing her to let out a deep moan and impatiently snap, [lunexis.speech(No more foreplay! Let's fuck already!)]
+	</p>
+	<p>
+		Pleased to hear how eager she is for it, you move to start fucking the angry demon...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_DOMINANT_SEX_PUSSY_ORAL"><![CDATA[
+	<p>
+		Feeling turned on and wanting to get a taste of Lunexis's pussy, you decide to give the demon what she wants. [pc.Stepping] around behind her, you grin as she flicks her tail to one side to expose her [lunexis.pussy+]. Sliding your [pc.fingers+] over her dripping-wet horse-cunt, you cause the centauress to let out a deep moan and impatiently snap, [lunexis.speech(No more teasing! Fuck my cunt already!)]
+	</p>
+	<p>
+		Giving her what she wants, you move forwards and plant a passionate kiss on her [lunexis.labia+], before burying your face in her pussy, thrusting your tongue into her wet horse-cunt, and starting to greedily eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_DOMINANT_SEX_PUSSY"><![CDATA[
+	<p>
+		Feeling turned on and wanting to fuck Lunexis's pussy, you decide to give the demon what she wants. [pc.Stepping] around behind her, you grin as she flicks her tail to one side to expose her [lunexis.pussy+]. Sliding your [pc.fingers+] over her dripping-wet horse-cunt, you cause the centauress to let out a deep moan and impatiently snap, [lunexis.speech(No more teasing! Fuck my cunt already!)]
+	</p>
+	<p>
+		More than happy to do as she says, you
+		#IF(pc.isTaur())
+			 rear up and mount the centauress, and as you feel your rapidly-hardening cock prodding at her [lunexis.labia+], you tell her that you're going to make her your mare.
+		#ELSE
+			 move right up behind the centauress, and as you push your rapidly-hardening cock against her [lunexis.labia+], you tell her that you're going to make her your mare.
+		#ENDIF
+		 Letting out an impatient moan, Lunexis begs, [lunexis.speech(Yes! Give it to me!)]
+	</p>
+	<p>
+		Encouraged by her words, you thrust forwards, sinking your [pc.cock+] into the demon's dripping horse-cunt and causing her to let out an exceptionally lewd squeal. Pulling back, you thrust forwards once again, letting out [pc.a_moan] of your own as you start to eagerly fuck Lunexis...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_DOMINANT_SEX_ASS_ORAL"><![CDATA[
+	<p>
+		Feeling turned on and wanting to get a taste of Lunexis's ass, you decide to give the demon what she wants. [pc.Stepping] around behind her, you grin as she flicks her tail to one side to expose her [lunexis.asshole+]. Sliding your [pc.fingers+] over her puffy doughnut, you cause the centauress to let out a deep moan and impatiently snap, [lunexis.speech(No more teasing! Fuck my ass already!)]
+	</p>
+	<p>
+		Giving her what she wants, you move forwards and plant several passionate kisses on her [lunexis.ass+], before burying your face between her cheeks and thrusting your tongue into her asshole.
+		#IF(pc.getClothingInSlot(IS_NECK)!=null && pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker'))
+			 Thanks to your training as one of Natalya's fillies, your skills quickly cause the centauress to let out a series of incredibly lewd moans, before panting, [attacker.speech(Fuck... ~Mmm!~ Oh, fuck! You're so good at this! Oh yeah... Tongue my asshole, you dirty slut!)]
+		#ELSE
+			 Letting out a desperate moan, she demands, [attacker.speech(Oh yeah, keep going! Tongue my asshole, you dirty slut!)]
+		#ENDIF
+	</p>
+	<p>
+		More than happy to do as she says, you continue giving Lunexis a rimjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_DOMINANT_SEX_ASS"><![CDATA[
+	<p>
+		Feeling turned on and wanting to fuck Lunexis's ass, you decide to give the demon what she wants. [pc.Stepping] around behind her, you grin as she flicks her tail to one side to expose her [lunexis.asshole+]. Sliding your [pc.fingers+] over her puffy doughnut, you cause the centauress to let out a deep moan and impatiently snap, [lunexis.speech(No more teasing! Fuck my ass already!)]
+	</p>
+	<p>
+		More than happy to do as she says, you
+		#IF(pc.isTaur())
+			 rear up and mount the centauress, and as you feel your rapidly-hardening cock prodding at her [lunexis.asshole+], you tell her that you're going to make her your mare.
+		#ELSE
+			 move right up behind the centauress, and as you push your rapidly-hardening cock against her [lunexis.asshole+], you tell her that you're going to make her your mare.
+		#ENDIF
+		 Letting out an impatient moan, Lunexis begs, [lunexis.speech(Yes! Give it to me!)]
+	</p>
+	<p>
+		Encouraged by her words, you thrust forwards, sinking your [pc.cock+] into the demon's puffy asshole and causing her to let out an exceptionally lewd squeal. Pulling back, you thrust forwards once again, letting out [pc.a_moan] of your own as you start to eagerly fuck Lunexis...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SUBMISSIVE_SEX"><![CDATA[
+	<p>
+		Feeling more than a little aroused yourself, and wanting nothing more than to be put in your place by such a strong, dominant demon, you decide to give Lunexis what she wants. [pc.Stepping] up to her, you submissively state that you're willing to let her dominate you.
+	</p>
+	<p>
+		[lunexis.speech(Of course you are, you pathetic cunt!)] Lunexis triumphantly growls. Immediately seizing upon your display of weakness, she grabs hold of you and pulls you into her six breasts. With an evil smirk on her face, she growls, [lunexis.speech(I'm going to put you in your place, bitch!)]
+	</p>
+	<p>
+		Madly turned on by her dominant behaviour, you willingly submit to Lunexis and allow her to fuck you any way she wants...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SUBMISSIVE_SEX_BLOWJOB"><![CDATA[
+	<p>
+		Feeling more than a little aroused yourself, and wanting nothing more than to be put in your place by such a strong, dominant demon, you decide to give Lunexis what she wants. Dropping down beside her, you submissively lean forwards and plant a kiss on her thick, ebony sheath, before stating that you're willing to let her fuck your face.
+	</p>
+	<p>
+		[lunexis.speech(Hah! Can't resist the sight of my cock, huh?!)] Lunexis triumphantly growls. Immediately seizing upon your display of weakness, she steps forwards and shoves her rapidly-hardening cock into your face. As her massive horse-cock rises to attention, she growls, [lunexis.speech(I'm going to put you in your place, bitch! Now open wide!)]
+	</p>
+	<p>
+		Madly turned on by her dominant behaviour, you willingly submit to Lunexis and part your [pc.lips+]. Not wasting a single moment, the demonic centauress thrusts her hips forwards, ramming her hot, fat cock down your throat in the process. Letting out a deep, satisfied grunt, she starts forcefully pistoning her hips back and forth as she roughly fucks your face...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SUBMISSIVE_SEX_PUSSY"><![CDATA[
+	<p>
+		Feeling more than a little aroused yourself, and wanting nothing more than to be put in your place by such a strong, dominant demon, you decide to give Lunexis what she wants. Dropping down in front of her, you submissively expose your pussy, before stating that you're willing to let her fuck your cunt as hard and for as long as she wants.
+	</p>
+	<p>
+		[lunexis.speech(Hah! Can't resist the thought of my cock being rammed deep into your slutty cunt, huh?!)] Lunexis triumphantly growls. Immediately seizing upon your display of weakness, she steps forwards and mounts you, before shoving the wide, flared head of her rapidly-hardening cock up against your [pc.labia+]. As her massive horse-cock rises to attention, she growls, [lunexis.speech(I'm going to put you in your place, bitch!)]
+	</p>
+	<p>
+		Madly turned on by her dominant behaviour, you willingly submit to Lunexis and lift your [pc.hips+] for her. Not wasting a single moment, the demonic centauress thrusts her hips forwards, ramming her hot, fat cock deep into your [pc.pussy+] in the process. Letting out a deep, satisfied grunt, she starts forcefully pistoning her hips back and forth as she roughly fucks your cunt...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SUBMISSIVE_SEX_ASS"><![CDATA[
+	<p>
+		Feeling more than a little aroused yourself, and wanting nothing more than to be put in your place by such a strong, dominant demon, you decide to give Lunexis what she wants. Dropping down in front of her, you submissively expose your ass, before stating that you're willing to let her fuck your butt as hard and for as long as she wants.
+	</p>
+	<p>
+		[lunexis.speech(Hah! Can't resist the thought of my cock being rammed deep into your slutty asshole, huh?!)] Lunexis triumphantly growls. Immediately seizing upon your display of weakness, she steps forwards and mounts you, before shoving the wide, flared head of her rapidly-hardening cock up against your [pc.asshole+]. As her massive horse-cock rises to attention, she growls, [lunexis.speech(I'm going to put you in your place, bitch!)]
+	</p>
+	<p>
+		Madly turned on by her dominant behaviour, you willingly submit to Lunexis and lift your [pc.hips+] for her. Not wasting a single moment, the demonic centauress thrusts her hips forwards, ramming her hot, fat cock deep into your [pc.asshole+] in the process. Letting out a deep, satisfied grunt, she starts forcefully pistoning her hips back and forth as she roughly fucks your ass...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_AFTER_SEX"><![CDATA[
+	<p>
+		Having had your fun, you tell Lunexis that you've had enough before [pc.stepping] away from her and moving to get your things back in order.
+	</p>
+	<p>
+		#IF(lunexis.isSatisfiedFromLastSex())
+			[lunexis.speech(Fuck you...)] the centauress pants, but despite her hostile words you can tell from the toe in her voice that you've thoroughly satisfied her. To confirm this, as you finish getting yourself sorted out, she snaps, [lunexis.speech(You'd better come back and do this with me again, or else!)]
+		#ELSE
+			[lunexis.speech(You couldn't even satisfy me, you worthless cunt...)] the centauress pants. Despite her words, she soon betrays her desire for another round of this, for as you finish getting yourself sorted out, she snaps, [lunexis.speech(You'd better come back again and do it properly next time, or else!)]
+		#ENDIF
+	</p>
+	<p>
+		Smirking at her demand, you head over towards the tent's exit and prepare to take your leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		Leaving Lunexis panting and moaning, you turn away from the centauress and [pc.walk] out of the tent. The moment that you [pc.step] over the entrance's boundary, Lunexis's lewd noises are completely silenced. Looking back through the open flap, you see that her lips are still moving, but the tent's enchantment prevents any noise whatsoever from escaping the interior.
+	</p>
+	<p>
+		Happy to know that the guards have heard nothing of what happened within, you cross the small, grassy compound and enter Ursa's tent once again. The queen is still busy with the group of senior Amazons, and so you're able to head back out into the camp without being stalled. Looking around, you wonder to go to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_AFTER_SEX_SUBMITTED"><![CDATA[
+	<p>
+		Having had her fun, Lunexis lets out a satisfied grunt, before kicking you away from her and growling, [lunexis.speech(That's enough, slut!)]
+	</p>
+	#IF(game.isBadEndsEnabled())
+		<p>
+			Before you can recover from this brutal treatment, the centauress steps over the top of you and shoves her semi-hard cock into your face. Letting out another deep grunt, she commands,
+			#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+				 [lunexis.speech(Clean me off with your tongue, bitch! I need to think about what to do with you...)]
+			#ELSE
+				 [lunexis.speech(Jerk me off, bitch! I need to think about what to do with you...)]
+			#ENDIF
+		</p>
+		<p>
+			Slapping her huge, flaccid cock against your face, the centauress makes it clear that she expects you to obey. You could always do as she commands, or stand up and tell her that you've had enough... 
+		</p>
+	#ELSE
+		<p>
+			Flashing you a triumphant sneer, she commands, [lunexis.speech(Get out of my sight! Oh, and come back again later; I'll need to empty my balls again soon.)]
+		</p>
+		<p>
+			Submissively hurrying to obey, you gather your things and head over towards the tent's exit...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_AFTER_SEX_SUBMITTED_LEAVE"><![CDATA[
+	#IF(game.isBadEndsEnabled())
+		<p>
+			Ignoring Lunexis's order, and the curses and shouts which she starts to make as you turn away from her, you [pc.walk] out of the tent. The moment that you [pc.step] over the entrance's boundary, Lunexis's screams and bellows are completely silenced. Looking back through the open flap, you see that her lips are still moving, but the tent's enchantment prevents any noise whatsoever from escaping the interior.
+		</p>
+	#ELSE
+		<p>
+			Having helped Lunexis get some satisfaction, you turn away from the panting centauress and [pc.walk] out of the tent. The moment that you [pc.step] over the entrance's boundary, Lunexis's lewd noises are completely silenced. Looking back through the open flap, you see that she's moving about, but the tent's enchantment prevents any noise whatsoever from escaping the interior.
+		</p>
+	#ENDIF
+	<p>
+		Happy to know that the guards have heard nothing of what happened within, you cross the small, grassy compound and enter Ursa's tent once again. The queen is still busy with the group of senior Amazons, and so you're able to head back out into the camp without being stalled. Looking around, you wonder to go to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_AFTER_SEX_SUBMITTED_OBEYED"><![CDATA[
+	<p>
+		Doing as you're told once more, you 
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+			 lean forwards and part your [pc.lips], before eagerly starting to lick the centauress's massive, flaccid horse-cock clean.
+		#ELSE
+			 lean forwards and take hold of the centauress's massive, flaccid horse-cock, before starting to stroke it and get it hard once again.
+		#ENDIF
+		 Grunting and letting out short, deep moans, Lunexis starts playing with her nipples as she ponders out loud, [lunexis.speech(What to do with you... Keep you as my fuck toy until I'm set free? Hmm... Or perhaps something more...)]
+	</p>
+	<p>
+		After a few of minutes of this,
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+			 during which time you've moved on to start giving the demonic centauress a full-on blowjob,
+		#ELSE
+			 during which time you've managed to get her cock rock-hard once again,
+		#ENDIF
+		 Lunexis suddenly lets out a decisive grunt, before declaring, [lunexis.speech(I've decided what to do with you! You seem like a good, obedient bitch, so I'll take you as one of my personal cock-sleeves. Now surrender yourself fully to me and pledge to forever be my loyal slave!)]
+	</p>
+	<p>
+		Roughly thrusting her throbbing horse-cock into your face and letting out an annoyed grunt, the centauress makes it clear that she's not going to patiently await your answer. You'd better respond quickly if you wanted to avoid angering her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_AFTER_SEX_SUBMITTED_OBEYED_LEAVE"><![CDATA[
+	<p>
+		Deciding that this has gone far enough, you flatly refuse to obey Lunexis's order, and ignore her wild curses and yells as you stand up and [pc.walk] out of the tent. The moment that you [pc.step] over the entrance's boundary, Lunexis's screams and bellows are completely silenced. Looking back through the open flap, you see that her lips are still moving, but the tent's enchantment prevents any noise whatsoever from escaping the interior.
+	</p>
+	<p>
+		Happy to know that the guards have heard nothing of what happened within, you cross the small, grassy compound and enter Ursa's tent once again. The queen is still busy with the group of senior Amazons, and so you're able to head back out into the camp without being stalled. Looking around, you wonder to go to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_AFTER_SEX_SUBMITTED_OBEYED_SURRENDER"><![CDATA[
+	<p>
+		TODO You obediently do as you're told, and promise to be a good, loyal slave for Lunexis.
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+			 She makes you deep-throat her and act as a cock-sleeve while she taunts you about how pathetic you are.
+		#ELSE
+			 She makes you play with her cock and balls while she taunts you about how pathetic you are.
+		#ENDIF
+		 Tells you to listen as she gives you your first truly important command.
+	</p>
+	
+	#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+		<p>
+			Unable to resist, you plant a big, wet kiss on the flared head of Lunexis's cock, before completely surrendering to her and promising to always act as her good, obedient slave. Letting out a triumphant laugh as she hears this, your new Mistress commands, [lunexis.speech(Take my cock deep down your throat! You'd better start acting like a good cock-sleeve, or else I'll have to discipline you!)]
+		</p>
+		<p>
+			Hurrying to obey, you open wide and push your head forwards, forcing your Mistress's massive, throbbing cock deep down your throat. Grunting in amusement, she taunts, [lunexis.speech(How pathetic you are! ~Mmm!~ Keep it deep down your throat like the dumb cock-sleeve you are and listen to my plan!)]
+		</p>
+	#ELSE
+		<p>
+			Unable to resist, you lovingly stroke Lunexis's thick cock as you competely surrender to her and promise to always act as her good, obedient slave. Letting out a triumphant laugh as she hears this, your new Mistress commands, [lunexis.speech(Keep stroking my cock! You'd better start acting like a good cock-sleeve, or else I'll have to discipline you!)]
+		</p>
+		<p>
+			Hurrying to obey, you step up the pace and start eagerly running your [pc.hands] up and down the considerable length of your Mistress's massive, throbbing cock. Grunting in amusement, she taunts, [lunexis.speech(How pathetic you are! ~Mmm!~ Keep it up, you dumb cock-sleeve, and listen to my plan!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_AFTER_SEX_SUBMITTED_OBEYED_SURRENDER_END"><![CDATA[
+	#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+		<p>
+			Once more obeying your Mistress, you continue to keep her massive, animalistic shaft hilted deep down your throat as she prepares to reveal her plan. After letting out a lewd moan, she explains, [lunexis.speech(You're going to set me free, and what's more, you're going to help me get my revenge on that daughter of Lyssieth who teleported us into Minotallys's office. You're going to trick her into setting me free and teleporting the three of us back to Themiscyra. I don't care how you do it, just get that
+			#IF(meraxis.getRaceStage()!=RACE_STAGE_GREATER)
+				 imp-breeder bitch
+			#ELSE
+				 dumb whore
+			#ENDIF
+			 to teleport us there, and my army will deal with the rest!)]
+		</p>
+		<p>
+			Excited at the prospect of being set free and getting her revenge on Meraxis, your Mistress roughly thrusts her hips forwards several times, ramming her fat cock deep down your throat in the process. Managing to reach her climax from the feeling of fucking your face, she quickly orders, [lunexis.speech(Take it on your face, you dumb cock-sleeve cunt!)]
+		</p>
+		<p>
+			Hurrying to obey, you allow your Mistress's shaft to slide fully out of your throat, before grabbing hold of it and pointing it at your face. A second later, and a huge jet of thick, slimy cum shoots out all over you. Passionately moaning as she gives you a facial, your Mistress teases, [lunexis.speech(~Aah!~ Serve me well, slut, and there'll be plenty more of this sort of treatment for you once you've helped me escape! ~Mmm!~ I'll take you as one of my personal cock-sleeves as your reward!)]
+		</p>
+		<p>
+			Spurting out one last load of demonic cum, the centauress's cock starts to soften, and as she steps away from you, she grins down at the mess she's made of your face and demands, [lunexis.speech(Tell me that you'll obey!)]
+		</p>
+	#ELSE
+		<p>
+			Once more obeying your Mistress, you continue to stroke her massive, animalistic shaft as she prepares to reveal her plan. After letting out a lewd moan, she explains, [lunexis.speech(You're going to set me free, and what's more, you're going to help me get my revenge on that daughter of Lyssieth who teleported us into Minotallys's office. You're going to trick her into setting me free and teleporting the three of us back to Themiscyra. I don't care how you do it, just get that
+			#IF(meraxis.getRaceStage()!=RACE_STAGE_GREATER)
+				 imp-breeder bitch
+			#ELSE
+				 dumb whore
+			#ENDIF
+			 to teleport us there, and my army will deal with the rest!)]
+		</p>
+		<p>
+			Excited at the prospect of being set free and getting her revenge on Meraxis, your Mistress roughly thrusts her hips forwards several times, ramming her fat cock up against your face in the process. Managing to reach her climax from your handjob, she quickly orders, [lunexis.speech(Take it on your face, you dumb cock-sleeve cunt!)]
+		</p>
+		<p>
+			Hurrying to obey, you take hold of your Mistress's shaft and point it directly at your face. A second later, and a huge jet of thick, slimy cum shoots out all over you. Passionately moaning as she gives you a facial, your Mistress teases, [lunexis.speech(~Aah!~ Serve me well, slut, and there'll be plenty more of this sort of treatment for you once you've helped me escape! ~Mmm!~ I'll take you as one of my personal cock-sleeves as your reward!)]
+		</p>
+		<p>
+			Spurting out one last load of demonic cum, the centauress's cock starts to soften, and as she steps away from you, she grins down at the mess she's made of your face and demands, [lunexis.speech(Tell me that you'll obey!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_AFTER_SEX_SUBMITTED_OBEYED_SURRENDER_END_LEAVE"><![CDATA[
+	<p>
+		Eager to please, you happily tell your Mistress that you'll serve her and see that she's set free. With a triumphant grin on her face, Lunexis happily stomps her hoofs on the ground, before snapping, [lunexis.speech(Go on then, get to it! Bring that
+		#IF(meraxis.getRaceStage()!=RACE_STAGE_GREATER)
+			 imp-fucker
+		#ELSE
+			 cunt of a succubus
+		#ENDIF
+		 here and get her to teleport us to Themiscyra!)]
+	</p>
+	<p>
+		Telling your Mistress that it will be done, you stand up and hurry out of the tent. The moment that you [pc.step] over the entrance's boundary, Lunexis's triumphant laughter is completely silenced. Looking back through the open flap, you see that her lips are still moving, but the tent's enchantment prevents any noise whatsoever from escaping the interior.
+	</p>
+	<p>
+		Happy to know that the guards have heard nothing of what happened within, you cross the small, grassy compound and enter Ursa's tent once again. The queen is still busy with the group of senior Amazons, and so you're able to head back out into the camp without being stalled. Looking around, you wonder to go to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SUBMITTED_START"><![CDATA[
+	<p>
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+			Hurrying to obey your Mistress, you drop down beside her and lean forwards between her legs. Parting your [pc.lips], you deliver a loving kiss to her thick, ebony sheath, which causes her massive, demonic horse-cock to push out and rapidly harden into a full erection. Delivering a long, slow lick up the hot, throbbing length of her shaft, you let out a submissive whine and ask Lunexis how she'd like to fuck you today.
+		#ELSE
+			Hurrying to obey your Mistress, you drop down beside her and lean forwards between her legs. Reaching up, you stroke and cup her thick, ebony sheath, which causes her massive, demonic horse-cock to push out and rapidly harden into a full erection. Delivering a series of long, slow strokes up the full length of her hot, throbbing shaft, you let out a submissive whine and ask Lunexis how she'd like to fuck you today.
+		#ENDIF
+	</p>
+	#IF(flags.getSavedLong('lunexis_sex_choice')==2)
+		<p>
+			[lunexis.speech(I'm going to wreck your cunt!)] she bellows, before looking down at you and ordering, [lunexis.speech(Present yourself to me, cock-sleeve!)]
+		</p>
+	#ELSEIF(flags.getSavedLong('lunexis_sex_choice')==3)
+		<p>
+			[lunexis.speech(I'm going to wreck your ass!)] she bellows, before looking down at you and ordering, [lunexis.speech(Present yourself to me, cock-sleeve!)]
+		</p>
+	#ELSEIF(flags.getSavedLong('lunexis_sex_choice')==4)
+		<p>
+			[lunexis.speech(I'm going to wreck your throat!)] she bellows, before looking down at you and ordering, [lunexis.speech(Open wide, cock-sleeve!)]
+		</p>
+	#ELSE
+		<p>
+			[lunexis.speech(I'll decide on that in a minute!)] she bellows, before looking down at you and ordering, [lunexis.speech(Stand up so that I can get a good look at you, cock-sleeve!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SUBMITTED_START_SEX"><![CDATA[
+	<p>
+		Doing as you're told, you stand up before Lunexis, who grabs hold of you and pulls you into her six breasts. Flashing you a sadistic grin, she muses, [lunexis.speech(Now, how best to fuck you?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SUBMITTED_START_SEX_BLOWJOB"><![CDATA[
+	<p>
+		Doing as you're told, you obediently submit to your Mistress and open your mouth wide for her. Letting out a deep grunt, she wastes no time in thrusting her hips forwards and ramming her fat horse-cock as deep as possible down your throat. Letting out a series of gargled choking noises, you try to please your Mistress as she roughly fucks your face and taunts, [lunexis.speech(That's it, cock-sleeve! ~Mmm!~ Take it deep!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SUBMITTED_START_SEX_PUSSY"><![CDATA[
+	<p>
+		Doing as you're told, you obediently submit to your Mistress and get down on all fours to present your pussy to her. Letting out a deep grunt, she wastes no time in mounting you, before thrusting her hips forwards and ramming her fat horse-cock as deep as possible into your [pc.pussy+]. Letting out a series of [pc.moans+], you push your [pc.hips+] back in an attempt to please your Mistress as she roughly fucks you and taunts, [lunexis.speech(That's it, cock-sleeve! ~Mmm!~ Take it deep!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SUBMITTED_START_SEX_ASS"><![CDATA[
+	<p>
+		Doing as you're told, you obediently submit to your Mistress and get down on all fours to present your ass to her. Letting out a deep grunt, she wastes no time in mounting you, before thrusting her hips forwards and ramming her fat horse-cock as deep as possible into your [pc.asshole+]. Letting out a series of [pc.moans+], you push your [pc.hips+] back in an attempt to please your Mistress as she roughly fucks you and taunts, [lunexis.speech(That's it, cock-sleeve! ~Mmm!~ Take it deep!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SUBMITTED_START_AFTER_SEX"><![CDATA[
+	<p>
+		Having had her fun, Lunexis lets out a satisfied grunt, before kicking you away from her and growling, [lunexis.speech(That's enough, cock-sleeve!)]
+	</p>
+	<p>
+		Flashing you a triumphant sneer, she commands, [lunexis.speech(Get out of my sight, and bring that bitch of a daughter of Lyssieth with you next time!)]
+	</p>
+	<p>
+		Submissively hurrying to obey, you gather your things and head over towards the tent's exit...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LUNEXIS_SUBMITTED_START_AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		Having successfully satisfied your Mistress, you turn away from her and [pc.walk] out of the tent. The moment that you [pc.step] over the entrance's boundary, Lunexis's panting as she regains her breath is completely silenced. Looking back through the open flap, you see that she's moving about, but the tent's enchantment prevents any noise whatsoever from escaping the interior.
+	</p>
+	<p>
+		Happy to know that the guards have heard nothing of what happened within, you cross the small, grassy compound and enter Ursa's tent once again. The queen is still busy with the group of senior Amazons, and so you're able to head back out into the camp without being stalled. Looking around, you wonder to go to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

@@ -142,7 +142,7 @@ public class PlaceUpgrade {
 		
 		@Override
 		protected Value<Boolean, String> getExtraConditionalAvailability(Cell cell) {
-			if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_J_ARTHURS_ROOM)
+			if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_2_A_INTO_THE_DEPTHS)
 					|| !Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCells(LILAYA_ARTHUR_ROOM).isEmpty()
 					|| !Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCells(LILAYA_ARTHUR_ROOM).isEmpty()) {
 				return new Value<>(false, "");
@@ -903,7 +903,7 @@ public class PlaceUpgrade {
 					+ " Although they're far more comfortable than regular milking machines, they appear to be designed more for show than practicality, and while your slaves are sure to be happy, milk output is a lot lower than normal.",
 			2500,
 			500,
-			250,
+			500,
 			0,
 			1f,
 			0.5f,
@@ -934,7 +934,7 @@ public class PlaceUpgrade {
 					+ " Although they're sure to maximise milk output, and profits, these machines aren't exactly the most comfortable of devices to be strapped in to, and any slaves assigned to be milked in here are sure to hate you for it...",
 			1500,
 			500,
-			100,
+			1000,
 			0,
 			-1f,
 			0.5f,
@@ -957,7 +957,7 @@ public class PlaceUpgrade {
 			"The standard suction cups on each machine have been replaced with aftermarket 'Lact-o-Cups', which are doubling the maximum amount of milk extracted per hour.",
 			500,
 			100,
-			10,
+			200,
 			0,
 			0,
 			0,
@@ -972,7 +972,7 @@ public class PlaceUpgrade {
 			"The standard cock-milking tubes on each machine have been replaced with aftermarket 'Succ-u-Buses', which are doubling the maximum amount of cum extracted per hour.",
 			500,
 			100,
-			10,
+			200,
 			0,
 			0,
 			0,
@@ -987,7 +987,7 @@ public class PlaceUpgrade {
 			"The standard vaginal pumps on each machine have been replaced with aftermarket 'Vibro-Pumps', which are doubling the maximum amount of girlcum extracted per hour.",
 			500,
 			100,
-			10,
+			200,
 			0,
 			0,
 			0,

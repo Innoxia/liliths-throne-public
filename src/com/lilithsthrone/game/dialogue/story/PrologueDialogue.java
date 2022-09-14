@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.Game;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
@@ -110,21 +111,21 @@ public class PrologueDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				if(femalePrologueNPC()) {
-					return new ResponseSex("Sex", "Give in to your lust and start having sex with [prologueFemale.name]...",
+			if(femalePrologueNPC()) {
+				if (index == 1) {
+					return new ResponseSex("Dominant sex", "Give in to your lust, take the lead, and start having sex with [prologueFemale.name]...",
 							null, null, null,
 							null, null, null,
 							true, true,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(Main.game.getNpc(PrologueFemale.class)),
-							null,
-							null),
+									null,
+									null),
 							AFTER_SEX,
 							(Main.game.getPlayer().hasPenis()
-								?UtilText.parseFromXMLFile("misc/prologue", "INTRO_EMPTY_ROOM_SEX_FEMALE_AS_MALE_START")
-								:UtilText.parseFromXMLFile("misc/prologue", "INTRO_EMPTY_ROOM_SEX_FEMALE_AS_FEMALE_START"))
+								?UtilText.parseFromXMLFile("misc/prologue", "INTRO_EMPTY_ROOM_SEX_FEMALE_AS_MALE_START_DOM")
+								:UtilText.parseFromXMLFile("misc/prologue", "INTRO_EMPTY_ROOM_SEX_FEMALE_AS_FEMALE_START_DOM"))
 							+ UtilText.parseFromXMLFile("misc/prologue", "SEX_CLOTHING_MANAGEMENT_TIP", Main.game.getNpc(PrologueFemale.class))) {
 						@Override
 						public void effects() {
@@ -134,18 +135,44 @@ public class PrologueDialogue {
 						}
 					};
 					
-				} else {
-					return new ResponseSex("Sex", "Give in to your lust and start having sex with [prologueMale.name]...",
+				} else if(index==2) {
+					return new ResponseSex("Submissive sex", "Give in to your lust, submit to [prologueFemale.name], and let her take the lead as you have sex with her...",
 							null, null, null,
 							null, null, null,
 							true, true,
 							new SMGeneric(
-									Util.newArrayListOfValues(Main.game.getNpc(PrologueMale.class)),
+									Util.newArrayListOfValues(Main.game.getNpc(PrologueFemale.class)),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-							null,
-							null),
+									null,
+									null),
 							AFTER_SEX,
-							UtilText.parseFromXMLFile("misc/prologue", "INTRO_EMPTY_ROOM_SEX_MALE_START")
+							(Main.game.getPlayer().hasPenis()
+								?UtilText.parseFromXMLFile("misc/prologue", "INTRO_EMPTY_ROOM_SEX_FEMALE_AS_MALE_START_SUB")
+								:UtilText.parseFromXMLFile("misc/prologue", "INTRO_EMPTY_ROOM_SEX_FEMALE_AS_FEMALE_START_SUB"))
+							+ UtilText.parseFromXMLFile("misc/prologue", "SEX_CLOTHING_MANAGEMENT_TIP", Main.game.getNpc(PrologueFemale.class))) {
+						@Override
+						public void effects() {
+							if(Main.game.getPlayer().hasPenis()) {
+								Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_WHITE, false), false);
+							}
+						}
+					};
+				
+				}
+				
+			} else {
+				if (index == 1) {
+					return new ResponseSex("Dominant sex", "Give in to your lust, take the lead, and start having sex with [prologueMale.name]...",
+							null, null, null,
+							null, null, null,
+							true, true,
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(Main.game.getNpc(PrologueMale.class)),
+									null,
+									null),
+							AFTER_SEX,
+							UtilText.parseFromXMLFile("misc/prologue", "INTRO_EMPTY_ROOM_SEX_MALE_START_DOM")
 								+ UtilText.parseFromXMLFile("misc/prologue", "SEX_CLOTHING_MANAGEMENT_TIP", Main.game.getNpc(PrologueMale.class))) {
 						@Override
 						public void effects() {
@@ -155,19 +182,42 @@ public class PrologueDialogue {
 							Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_WHITE, false), false);
 						}
 					};
-				}
+					
+				} else if(index==2) {
+					return new ResponseSex("Submissive sex", "Give in to your lust, submit to [prologueMale.name], and let him take the lead as you have sex with him...",
+							null, null, null,
+							null, null, null,
+							true, true,
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getNpc(PrologueMale.class)),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									null),
+							AFTER_SEX,
+							UtilText.parseFromXMLFile("misc/prologue", "INTRO_EMPTY_ROOM_SEX_MALE_START_SUB")
+								+ UtilText.parseFromXMLFile("misc/prologue", "SEX_CLOTHING_MANAGEMENT_TIP", Main.game.getNpc(PrologueMale.class))) {
+						@Override
+						public void effects() {
+							if(Main.game.getPlayer().hasPenis()) {
+								Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_WHITE, false), false);
+							}
+							Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_WHITE, false), false);
+						}
+					};
 				
-			} else if (index == 2) {
+				}
+			}
+			
+			if (index == 3) {
 				return new Response("Second Thoughts", "Decide that this is a bad idea after all, and put an end to this.", INTRO_SECOND_THOUGHTS) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.MUSEUM, PlaceType.MUSEUM_CROWDS);
 					}
 				};
-				
-			} else {
-				return null;
 			}
+			
+			return null;
 		}
 	};
 	
@@ -413,6 +463,8 @@ public class PrologueDialogue {
 						Main.game.getPlayer().setAgeAppearanceDifference(-Game.TIME_SKIP_YEARS);
 						
 						Main.game.applyStartingDateChange();
+
+						Main.game.getPlayer().addSpecialPerk(Perk.SPECIAL_PLAYER);
 					}
 				};
 			} else {

@@ -17,6 +17,11 @@
 		<!-- The description that's shown in tooltips and on the item's inspection page. -->
 		<description><![CDATA[A stylised heart tattoo, which roughly resembles the shape of a female's reproductive system.]]></description> 
 		
+		<!-- The description that's shown in a character's description page.
+			This description should fit in to the sentence at point X:
+				"On [npc.her] "+tattooSlotName+", [npc.sheHasFull] "+X+"." -->
+		<bodyOverviewDescription><![CDATA[a stylised heart tattoo, which roughly resembles the shape of a female's reproductive system]]></bodyOverviewDescription> 
+		
 		<!-- Availability requirements for this tattoo. Use 'npc' for the character receiving the tattoo. Can be left blank.
 		Example (for a tattoo that would only be available to the player or feminine NPCs):
 		<availabilityRequirements><![CDATA[npc.isPlayer() || npc.isFeminine()]]></availabilityRequirements>
@@ -26,9 +31,6 @@
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
 		<imageName>heart_womb.svg</imageName> 
-		
-		<!-- How many enchantments can be fit into this item. I feel like 5 is a good number for this.-->
-		<enchantmentLimit>10</enchantmentLimit>
 		
 		<!-- Inventory slots that this tattoo can be assigned to. Leave blank to allow all slots to be used. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
 		<slotAvailability> 

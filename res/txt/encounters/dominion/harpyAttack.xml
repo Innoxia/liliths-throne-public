@@ -341,8 +341,12 @@
 						 [pc.ass+],
 					#ENDIF
 					 flashing you a hungry glare as [npc.she] does so.
-					#IF(npc.hasStatusEffect(SE_WEATHER_STORM_VULNERABLE))
-						 With [npc.name] clearly being uncontrollably turned on by the arcane storm raging overhead, you find yourself just moments away from being fucked by the horny, mute [npc.race].
+					#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+						#IF(npc.hasStatusEffect(SE_WEATHER_STORM_VULNERABLE))
+							 With [npc.name] clearly being uncontrollably turned on by the arcane storm raging overhead, you find yourself just moments away from being fucked by the horny, mute [npc.race].
+						#ELSE
+							 Although [npc.name] seems to be immune to the arousing effects of the ongoing arcane storm, you realise that [npc.sheHas] given up on doing anything else with you until after the storm has passed, and so you find yourself just moments away from being fucked by the horny, mute [npc.race].
+						#ENDIF
 					#ELSE
 						 With [npc.her] intentions clear, you find yourself just moments away from being fucked by the horny, mute [npc.race].
 					#ENDIF
@@ -362,8 +366,12 @@
 						 [pc.ass+],
 					#ENDIF
 					 sneering as [npc.she] does so,
-					#IF(npc.hasStatusEffect(SE_WEATHER_STORM_VULNERABLE))
-						 [npc.speech(This damn arcane storm's got me so turned on I can't think straight! All I need right now is to give you a good, hard fuck, [pc.name]!)]
+					#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+						#IF(npc.hasStatusEffect(SE_WEATHER_STORM_VULNERABLE))
+							 [npc.speech(This damn arcane storm's got me so turned on I can't think straight! All I need right now is to give you a good, hard fuck, [pc.name]!)]
+						#ELSE
+							 [npc.speech(I don't get affected by arcane storms, but while it's raging there's going to be nobody about and nothing to do but fuck. So come on, [pc.name], submit to me and prepare to get a good, hard fuck!)]
+						#ENDIF
 					#ELSE
 						 [npc.speech(I'm feeling pretty horny at the moment, [pc.name]. I think I'll give you a good fuck.)]
 					#ENDIF
@@ -3064,10 +3072,15 @@
 		#ENDIF
 	</p>
 	<p>
-		Obediently waiting outside as [npc.name] enters the restaurant to get some food, you start to feel the stares of several nearby harpies who are loitering about just a short distance down the wide corridor. After a couple of minutes have passed, one of these strangers, [stranger.a_fullRace(true)], [stranger.walks] up to where you're sitting, and with a big grin on [stranger.her] face, asks, [stranger.speech(You doing some kind of pet-play with that [npc.race] who went inside? You sure look like a dumb, horny bitch. I bet you're craving a taste of my cock, aren't you?)]
+		Obediently waiting outside as [npc.name] enters the restaurant to get some food, you start to feel the stares of several nearby harpies who are loitering about just a short distance down the wide corridor. After a couple of minutes have passed, one of these strangers, [stranger.a_fullRace(true)], [stranger.walks] up to where you're sitting, and with a big grin on [stranger.her] face, asks, [stranger.speech(You doing some kind of pet-play with that [npc.race] who went inside? You sure look like a dumb, horny bitch. I bet you're craving a taste of my #IF(stranger.hasPenis())fat cock#ELSEcunt#ENDIF, aren't you?)]
 	</p>
 	<p>
-		Before you can answer, the [stranger.race] shamelessly whips out [stranger.her] [stranger.cock+] and presents it to you. With the other nearby strangers looking on in amusement, [stranger.name] waits to see what your reaction will be...
+		#IF(stranger.hasPenis())
+			Before you can answer, the [stranger.race] shamelessly whips out [stranger.her] [stranger.cock+] and presents it to you.
+		#ELSE
+			Before you can answer, the [stranger.race] shamelessly exposes [stranger.her] [stranger.pussy+] and presents it to you.
+		#ENDIF
+		 With the other nearby strangers looking on in amusement, [stranger.name] waits to see what your reaction will be...
 	</p>
 	]]>
 	</htmlContent>
@@ -3078,6 +3091,16 @@
 	</p>
 	<p>
 		Proving [stranger.herHim] right, you shuffle around to face the [stranger.race], before parting your [pc.lips+] and taking [stranger.her] [stranger.cock+] into your mouth. Letting out [stranger.a_moan+], [stranger.name] eagerly thrusts [stranger.her] cock down your throat and makes you give [stranger.herHim] a sloppy, public blowjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SUBMITTED_REPEAT_WALKIES_ORAL_VAGINAL_START"><![CDATA[
+	<p>
+		Turned on at the thought of orally servicing [stranger.namePos] pussy in front of the nearby strangers, you lean over to give it a hot, wet lick. With a triumphant smirk quickly settling on [stranger.her] face, the [stranger.race] teases, [stranger.speech(Yeah, that's what I thought. You're just as much of a slutty bitch as you look.)]
+	</p>
+	<p>
+		Proving [stranger.herHim] right, you shuffle around to face the [stranger.race], before pressing your [pc.lips+] against [stranger.her] [stranger.labia+] and pushing your [pc.tongue+] into [stranger.her] hot cunt. Letting out [stranger.a_moan+], [stranger.name] eagerly grabs the back of your head and pulls your face into [stranger.her] groin, forcing you to continue giving [stranger.herHim] some sloppy, public cunnilingus...
 	</p>
 	]]>
 	</htmlContent>
@@ -3174,7 +3197,7 @@
 	<p>
 		Grabbing you by the [pc.arm(true)], [npc.name] leads you down the stairs, and then after turning a corner and passing through a thick, metal door, you find yourself in a brightly-lit tattoo studio. Closing and locking the door behind you, [tattooist.name] gestures towards a bed-like table, commanding,
 		#IF(game.isAnalContentEnabled() && pc.getTattooInSlot(IS_TORSO_UNDER)==null && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
-			#IF(pc.getTattooInSlot(IS_GROIN)==null && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			#IF(pc.getTattooInSlot(IS_GROIN)==null && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 				 [tattooist.speech(Lie down on your front. I'll give you your tramp stamp first, then you can turn over for your womb tattoo.)]
 			#ELSE
 				 [tattooist.speech(Lie down on your front; I'm going to be giving you a tramp stamp.)]
@@ -3189,7 +3212,7 @@
 	<htmlContent tag="SUBMITTED_REPEAT_TATTOOED_ASS"><![CDATA[
 	<p>
 		Once again doing as you're told, you lie down face-first on the padded table and hold still as [tattooist.name] exposes your ass and lower back. Dominantly groping your [pc.assSize] butt,
-		#IF(pc.getTattooInSlot(IS_GROIN)==null && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+		#IF(pc.getTattooInSlot(IS_GROIN)==null && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 			 the [tattooist.race] grunts, [tattooist.speech(You've got a nice ass. Now let's get you marked up.)]
 		#ELSE
 			 the [tattooist.race] grunts, [tattooist.speech(Yeah, you look like you'll be a good fuck. Let's get you marked up so I can get on with pounding your ass.)]
@@ -3198,7 +3221,7 @@
 	<p>
 		Firing up [tattooist.her] arcane tattoo gun, [tattooist.name] starts to ink a black, tribal pattern onto your lower back. Thankfully, the process isn't at all painful, and only produces a light tingling sensation in the areas where your tramp stamp is being applied. Finishing your tattoo off with the words 'Property of [npc.name]', the [tattooist.race] [tattooist.steps] back and declares, [tattooist.speech(Right, you're done. Now anyone fucking you from behind knows who you belong to.)]
 	</p>
-	#IF(pc.getTattooInSlot(IS_GROIN)==null && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+	#IF(pc.getTattooInSlot(IS_GROIN)==null && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 		<p>
 			Not finished with you yet, [tattooist.name] gives your [pc.ass+] a quick slap, before commanding, [tattooist.speech(Flip over onto your back so that I can give you your womb tattoo.)]
 		</p>

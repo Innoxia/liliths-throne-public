@@ -104,10 +104,15 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 				}
 			}
 			item.setItemEffects(effectsToBeAdded);
+
+			item.setColour(0,
+					parentElement.getAttribute("colour").isEmpty()
+						?PresetColour.GENERIC_ARCANE
+						:PresetColour.getColourFromId(parentElement.getAttribute("colour")));
 			
 			if(!effectsToBeAdded.isEmpty()
 					&& (item.getItemType().getId().equals(ItemType.ELIXIR.getId()) || item.getItemType().getId().equals(ItemType.POTION.getId()) || item.getItemType().getId().equals(ItemType.ORIENTATION_HYPNO_WATCH.getId()))) {
-				item.setSVGString(EnchantingUtils.getImportedSVGString(item, (parentElement.getAttribute("colour").isEmpty()?PresetColour.GENERIC_ARCANE:PresetColour.getColourFromId(parentElement.getAttribute("colour"))), effectsToBeAdded));
+				item.setSVGString(EnchantingUtils.getImportedSVGString(item, item.getColour(0), effectsToBeAdded));
 			}
 			
 			return item;
