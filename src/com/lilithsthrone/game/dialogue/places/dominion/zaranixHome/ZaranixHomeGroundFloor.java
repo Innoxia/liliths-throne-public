@@ -461,7 +461,7 @@ public class ZaranixHomeGroundFloor {
 	public static final DialogueNode MEETING_ZARANIX = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			// Set this to true here so that the repeat encounter with Amber at the door doens't end up with her acting as though you broke in
+			// Set this to true here so that the repeat encounter with Amber at the door doesn't end up with her acting as though you broke in
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.amberRepeatEncountered, true);
 		}
 		@Override
