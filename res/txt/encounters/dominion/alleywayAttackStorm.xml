@@ -342,14 +342,14 @@
 		#ENDIF
 	</p>
 	<p>
-		[npc.speech(Yes! Let's get strated and fuck already!)] [npc.name] desperately whines, before stepping forwards and placing [npc.a_hand] on each of your waists. With a hungry growl, [npc.she] dominantly pulls the two of you up against [npc.herHim], before leaning in to plant a passionate kiss on your [pc.lips+].
+		[npc.speech(Yes! Let's get started and fuck already!)] [npc.name] desperately whines, before stepping forwards and placing [npc.a_hand] on each of your waists. With a hungry growl, [npc.she] dominantly pulls the two of you up against [npc.herHim], before leaning in to plant a passionate kiss on your [pc.lips+].
 	</p>
 	<p>
 		As you press yourself up against [npc.name], [npc.she] suddenly breaks off the kiss, before turning to [com.name] and thrusting [npc.her] [npc.tongue+] down [com.her] throat.
 		#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
 			 Your [com.companion] lets out a delighted, muffled [com.moan] as [com.she] eagerly returns the kiss, [com.speech(~Mmm!~ Yes!)]
 		#ELSE
-			 Your [com.companion] lets lets out a flustered, muffled yelp, before pushing [npc.name] away from [com.herHim] and shouting, [com.speech(Get away from me!)]
+			 Your [com.companion] lets out a flustered, muffled yelp, before pushing [npc.name] away from [com.herHim] and shouting, [com.speech(Get away from me!)]
 		#ENDIF
 	</p>
 	<p>
