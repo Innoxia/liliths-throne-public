@@ -884,7 +884,7 @@
 		</p>
 		#IF(game.getHourOfDay()>=18)
 			<p>
-				As it's past closing time, the trio of boisterous, broad-shouldered bog-boys who work here are busily packing away their stall. If you wanted to buy anything from them, you'll have to return here tomorrow...
+				As it's past closing time, the trio of boisterous, broad-shouldered dog-boys who work here are busily packing away their stall. If you wanted to buy anything from them, you'll have to return here tomorrow...
 			</p>
 		#ELSE
 			<p>
@@ -1285,7 +1285,7 @@
 				<p>
 					[heather.speech(Those who wish for me to glance into the mists of their future name me as Heather,)] [heather.she] reveals in a quiet voice.
 					#IF(heather.isAttractedTo(pc))
-						 Clearly liking the look of you, [heather.she] flashes you a sly smile and asks, [heather.speech(Who do I have the please of entertaining today?)]
+						 Clearly liking the look of you, [heather.she] flashes you a sly smile and asks, [heather.speech(Who do I have the pleasure of entertaining today?)]
 					#ELSE
 						 As you move forwards, [heather.she] flashes you a quick smile and asks, [heather.speech(May I ask for your name?)]
 					#ENDIF
