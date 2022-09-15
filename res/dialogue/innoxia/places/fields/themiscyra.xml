@@ -247,9 +247,9 @@
 				<responseTitle><![CDATA[Lunette's attack]]></responseTitle>
 				<responseTooltip><![CDATA[
 					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_aurokaris_talk_raiders))
-						You've already asked Aurokaris about the current situation in Themsicyra, and she doesn't have the patience to repeat herself right now.
+						You've already asked Aurokaris about the current situation in Themiscyra, and she doesn't have the patience to repeat herself right now.
 					#ELSE
-						Ask Aurokaris about the current situation in Themsicyra.
+						Ask Aurokaris about the current situation in Themiscyra.
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
