@@ -21,6 +21,7 @@ import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Wing;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
@@ -3557,7 +3558,7 @@ public class GenericOrgasms {
 		public boolean isBaseRequirementsMet() {
 			if(!Main.sex.getCharacterPerformingAction().hasPenisIgnoreDildo()
 					|| !Main.sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.OVIPOSITOR)
-					|| !Main.sex.getCharacterPerformingAction().hasVagina()
+					|| !(Main.sex.getCharacterPerformingAction().hasVagina()||Main.sex.getCharacterPerformingAction().getBodyMaterial()==BodyMaterial.SLIME)
 					|| !Main.sex.getCharacterPerformingAction().isVaginaEggLayer()
 					|| !Main.sex.getCharacterPerformingAction().isPregnant()) {
 				return false;
@@ -3665,7 +3666,7 @@ public class GenericOrgasms {
 			// To lay eggs, the orgasming character requires an ovipositor penis, an egg-laying vagina, and for the eggs to be fertilised
 			if(!Main.sex.getCharacterPerformingAction().hasPenisIgnoreDildo()
 					|| !Main.sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.OVIPOSITOR)
-					|| !Main.sex.getCharacterPerformingAction().hasVagina()
+					|| !(Main.sex.getCharacterPerformingAction().hasVagina()||Main.sex.getCharacterPerformingAction().getBodyMaterial()==BodyMaterial.SLIME)
 					|| !Main.sex.getCharacterPerformingAction().isVaginaEggLayer()
 					|| !Main.sex.getCharacterPerformingAction().isPregnant()) {
 				return false;
@@ -3999,7 +4000,7 @@ public class GenericOrgasms {
 		public boolean isBaseRequirementsMet() {
 			if(Main.sex.getCharacterPerformingAction().getVaginaClitorisSize()==ClitorisSize.ZERO_AVERAGE
 					|| !Main.sex.getCharacterPerformingAction().hasClitorisModifier(PenetrationModifier.OVIPOSITOR)
-					|| !Main.sex.getCharacterPerformingAction().hasVagina()
+					|| !(Main.sex.getCharacterPerformingAction().hasVagina()||Main.sex.getCharacterPerformingAction().getBodyMaterial()==BodyMaterial.SLIME)
 					|| !Main.sex.getCharacterPerformingAction().isVaginaEggLayer()
 					|| !Main.sex.getCharacterPerformingAction().isPregnant()) {
 				return false;
@@ -4107,7 +4108,7 @@ public class GenericOrgasms {
 			// To lay eggs, the orgasming character requires an ovipositor clit, an egg-laying vagina, and for the eggs to be fertilised
 			if(Main.sex.getCharacterPerformingAction().getVaginaClitorisSize()==ClitorisSize.ZERO_AVERAGE
 					|| !Main.sex.getCharacterPerformingAction().hasClitorisModifier(PenetrationModifier.OVIPOSITOR)
-					|| !Main.sex.getCharacterPerformingAction().hasVagina()
+					|| !(Main.sex.getCharacterPerformingAction().hasVagina()||Main.sex.getCharacterPerformingAction().getBodyMaterial()==BodyMaterial.SLIME)
 					|| !Main.sex.getCharacterPerformingAction().isVaginaEggLayer()
 					|| !Main.sex.getCharacterPerformingAction().isPregnant()) {
 				return false;
