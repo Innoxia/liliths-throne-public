@@ -10,7 +10,7 @@
 		If omitted or left blank, then your mod's folder name will be used instead. -->
 		<author><![CDATA[Innoxia]]></author>
 		
-		<!-- The title of this scene, which will be displayed as the title at the the top-centre of the UI.
+		<!-- The title of this scene, which will be displayed as the title at the top-centre of the UI.
 		This can be omitted entirely, and is done so in most of the game's scenes, as when omitted the game instead uses the name of the tile which the player is current in as the title. -->
 		<title><![CDATA[Berry bounty]]></title>
 		

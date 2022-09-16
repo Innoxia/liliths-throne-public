@@ -2386,7 +2386,7 @@
 		Not at all interested in [stranger.namePos] cock, you turn away from [stranger.herHim] and remain seated outside the bistro. Grunting in disappointment, and to the sound of laughter from the other strangers who were watching, the [stranger.race] [stranger.walks] off and soon disappears from sight.
 	</p>
 	<p>
-		After that, nothing eventful happens during the fifteen minutes you're left waiting for [npc.namePos] return. As [npc.she] makes [npc.her] eventual return and exits the bistro, the [npc.race] looks over at you with a a surprised look on [npc.her] face. Letting out a mocking laugh, [npc.she]
+		After that, nothing eventful happens during the fifteen minutes you're left waiting for [npc.namePos] return. As [npc.she] makes [npc.her] eventual return and exits the bistro, the [npc.race] looks over at you with a surprised look on [npc.her] face. Letting out a mocking laugh, [npc.she]
 		#IF(npc.isMute())
 			 gestures to imply that [npc.she]'d forgotten you were out here, before making a [npc.hand] movement to shoo you away.
 		#ELSE

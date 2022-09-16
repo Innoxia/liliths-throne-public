@@ -879,7 +879,7 @@
 	<p>
 		Sure enough, just fifteen minutes later, Murk returns to the milking room, and is once again greeted by the desperate moans of the other milkers calling out for him to come and fuck them.
 		#IF(game.isAnalContentEnabled())
-			 Swaggering over to the one closest to you, he turns up the intensity dial on the the vibrating pump shoved deep into her [npc.pussy+], before climbing up onto her back and instantly sinking his fat, throbbing cock deep into her puffy, naturally-lubricating asshole. Reaching down beneath her body to fondle her massive tits, the chubby rat-boy violently pounds [npc.namePos] [npc.assholeCapacity] asshole, and after just a few minutes of causing her to let out some of the most obscene moans and screams you've ever heard, he pumps a hot load of his musky rat-cum deep into her ass.
+			 Swaggering over to the one closest to you, he turns up the intensity dial on the vibrating pump shoved deep into her [npc.pussy+], before climbing up onto her back and instantly sinking his fat, throbbing cock deep into her puffy, naturally-lubricating asshole. Reaching down beneath her body to fondle her massive tits, the chubby rat-boy violently pounds [npc.namePos] [npc.assholeCapacity] asshole, and after just a few minutes of causing her to let out some of the most obscene moans and screams you've ever heard, he pumps a hot load of his musky rat-cum deep into her ass.
 		#ELSE
 			 Swaggering over to the one closest to you, he pulls the vibrating pump out of her [npc.pussy+], before climbing up onto her back and instantly sinking his fat, throbbing cock deep into her sloppy cunt. Reaching down beneath her body to fondle her massive tits, the chubby rat-boy violently pounds [npc.namePos] [npc.pussyCapacity] pussy, and after just a few minutes of causing her to let out some of the most obscene moans and screams you've ever heard, he pumps a hot load load of his musky rat-cum deep into her
 			#IF(npc.isPregnant())
@@ -1743,9 +1743,9 @@
 			<p>
 				Letting out a deep chuckle, the chubby rat-boy reaches up to your quivering cunt, but instead of pulling out your pussy-pump as you'd hoped, he turns a small dial on it all the way up to its maximum setting. Almost immediately, the pump's dildo starts wildly buzzing as its vibrations massively increase in intensity, and you let out a frantic squeal as your drooling cunt starts involuntarily quivering from the vigorous stimulation. At that moment, you feel Murk grab your [pc.ass+] with both hands, and after spreading your cheeks apart, he leans forwards and spits on your puffy asshole. Using two of his chubby fingers to spread his saliva over your [pc.assholeColour] rear-entrance, he sneers,
 				#IF(game.isGapeContentEnabled())
-					 [murk.speech(Me fat cock only needed its first date ta break in in yer ugly cunt! Let's see if it can gape yer asshole an' turn ya inta a dirty butt-slut fer yer second date!)]
+					 [murk.speech(Me fat cock only needed its first date ta break in yer ugly cunt! Let's see if it can gape yer asshole an' turn ya inta a dirty butt-slut fer yer second date!)]
 				#ELSE
-					 [murk.speech(Me fat cock only needed its first date ta break in in yer ugly cunt! Let's see if it can turn ya inta a dirty butt-slut fer yer second date!)]
+					 [murk.speech(Me fat cock only needed its first date ta break in yer ugly cunt! Let's see if it can turn ya inta a dirty butt-slut fer yer second date!)]
 				#ENDIF
 			</p>
 			<p>
@@ -1963,7 +1963,7 @@
 		[murk.speech(I saw ya enjoyin' the show,)] the deep voice of Murk suddenly grunts out from next to you, and you look up just in time to see him step forwards and slap his flaccid cock against your face. As his musky, slimy cum splatters across your cheek, he sneers, [murk.speech(Ain't no need fer ya ta get jealous; me fat, stinkin' cock's got enough love fer all five o' ya! Now give it a nice big kiss ta show that yer still in love with it! Heh-heh-heh!)]
 	</p>
 	<p>
-		More than happy to to as you're told, you start passionately kissing and licking the chubby rat-boy's fat cock. As you happily swallow down every last drop of the delicious, salty fluids that coat his [murk.cockColour] shaft, Murk takes away your empty bowl away and grunts,
+		More than happy to do as you're told, you start passionately kissing and licking the chubby rat-boy's fat cock. As you happily swallow down every last drop of the delicious, salty fluids that coat his [murk.cockColour] shaft, Murk takes away your empty bowl away and grunts,
 		#IF(pc.hasVagina())
 			 [murk.speech(As you's just seen, me fat cock ain't in an exclusive relationship with yer ugly cunt. If I's allowed ta 'ave other loves, then it's only fair that yer droolin' twat gets ta be fucked by any old stinkin' rat-cock wot wants it! You's like the sound o' that, slut?!)]
 		#ELSE

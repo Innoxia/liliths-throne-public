@@ -209,7 +209,7 @@
 		Peering through a slender gap in the crates, you're able to get a good look of Elle, who turns out to be a greater [elle.race] who looks to be in her early forties. As is the case for most people with demonic blood, Elle's brown-furred anthropomorphic horse-like face is stunningly beautiful, and there's an energetic, excited look in her [elle.eyeColour] demonic eyes. Her SWORD uniform conceals most of her fit body, but you can still quite clearly see that she's got a huge pair of [elle.cupSize]-cup breasts, as well as wide, womanly hips and a large ass.
 	</p>
 	<p>
-		As she turns to one side to beckon the gang members into the cave, you're able to see that Elle's horse-like tail is the same sandy blonde colour as her hair, which is tied up into a smart bun. Growing from her shoulder-blades, you see that she she has a pair of large, lilac-skinned demonic wings, while a long, indigo unicorn horn grows from her upper forehead. Having taken a good look at Elle's appearance, you turn your attention to the group of rat, alligator, and dog-morph gang-members who are roughly pushing their way past the mushrooms and into the cave.
+		As she turns to one side to beckon the gang members into the cave, you're able to see that Elle's horse-like tail is the same sandy blonde colour as her hair, which is tied up into a smart bun. Growing from her shoulder-blades, you see that she has a pair of large, lilac-skinned demonic wings, while a long, indigo unicorn horn grows from her upper forehead. Having taken a good look at Elle's appearance, you turn your attention to the group of rat, alligator, and dog-morph gang-members who are roughly pushing their way past the mushrooms and into the cave.
 	</p>
 	<p>
 		Taking out the arcane recorder which Wes gave to you, you point the lens through the gap in the crates and start filming the scene in front of you...
@@ -1258,7 +1258,7 @@
 	<htmlContent tag="REQUISITIONS_WORK_WES_1"><![CDATA[
 	#IF(game.getDialogueFlags().getSavedLong("wes_background_progress")<4)
 		<p>
-			[wes.speech(To tell you the truth, I'm finding the learning curve of being master of both the borough's equipment and Elle to be pretty steep,)] Wes sighs, [wes.speech(It's taking a bit of a toll on on me.)]
+			[wes.speech(To tell you the truth, I'm finding the learning curve of being master of both the borough's equipment and Elle to be pretty steep,)] Wes sighs, [wes.speech(It's taking a bit of a toll on me.)]
 		</p>
 		<p>
 			[elle.speech(Come on, I'm not <i>that</i> demanding, am I?)] Elle asks while continuing to forcefully press her huge breasts into Wes's back.

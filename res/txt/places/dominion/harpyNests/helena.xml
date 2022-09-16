@@ -5,7 +5,7 @@
 	
 	<htmlContent tag="HELENAS_NEST_EXTERIOR"><![CDATA[
 	<p>
-		Making your way down one of the the many walkways that criss-cross Dominion's rooftops, you find yourself approaching an exceptionally large Harpy Nest. Spanning several buildings, and with an elaborate system of multi-level platforms built on top of each one, you instantly recognise this as a nest of particular importance.
+		Making your way down one of the many walkways that criss-cross Dominion's rooftops, you find yourself approaching an exceptionally large Harpy Nest. Spanning several buildings, and with an elaborate system of multi-level platforms built on top of each one, you instantly recognise this as a nest of particular importance.
 	</p>
 	<p>
 		#IF(game.isDayTime())
@@ -73,7 +73,7 @@
 
 	<htmlContent tag="HELENAS_NEST_EXTERIOR_STORM"><![CDATA[
 	<p>
-		Making your way down one of the the many walkways that criss-cross Dominion's rooftops, you find yourself approaching an exceptionally large Harpy Nest. Spanning several buildings, and with an elaborate system of multi-level platforms built on top of each one, you instantly recognise this as a nest of particular importance.
+		Making your way down one of the many walkways that criss-cross Dominion's rooftops, you find yourself approaching an exceptionally large Harpy Nest. Spanning several buildings, and with an elaborate system of multi-level platforms built on top of each one, you instantly recognise this as a nest of particular importance.
 	</p>
 	<p>
 		Due to the ongoing arcane storm, the nest is completed deserted; its residents having retreated down into the safety of the buildings below. As yet another flash of arcane lightning illuminates the platforms before you, you notice that there are little signs dotted around the edges of the nest. Walking up to the nearest one, you read, in flowing, ornate script, the following words;
@@ -105,7 +105,7 @@
 	
 	<htmlContent tag="HELENAS_NEST_EXTERIOR_SLEEPING"><![CDATA[
 	<p>
-		Making your way down one of the the many walkways that criss-cross Dominion's rooftops, you find yourself approaching an exceptionally large Harpy Nest. Spanning several buildings, and with an elaborate system of multi-level platforms built on top of each one, you instantly recognise this as a nest of particular importance.
+		Making your way down one of the many walkways that criss-cross Dominion's rooftops, you find yourself approaching an exceptionally large Harpy Nest. Spanning several buildings, and with an elaborate system of multi-level platforms built on top of each one, you instantly recognise this as a nest of particular importance.
 	</p>
 	<p>
 		Due to the current hour, the nest is completed deserted; its residents having retired to the comfort of the buildings below in order to get a good night's sleep. Taking a look around the deserted platform, you notice that there are little signs dotted around the edges of the nest. Walking up to the nearest one, you read, in flowing, ornate script, the following words;

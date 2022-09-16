@@ -347,7 +347,7 @@ public class VengarCaptiveDialogue {
 				CorruptionLevel applicableCorruptionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 				return new Response(
 						"Obey",
-						"Due to the potion you were just forced to drink, you're now so desperate to submit and be transformed that you can't bring yourself to to anything other than exactly what Shadow commands...",
+						"Due to the potion you were just forced to drink, you're now so desperate to submit and be transformed that you can't bring yourself to do anything other than exactly what Shadow commands...",
 						START_VENGAR_PUBLIC_FUCK,
 						applicableFetishes,
 						applicableCorruptionLevel,

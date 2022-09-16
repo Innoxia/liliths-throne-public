@@ -274,7 +274,7 @@
 			[nyanmum.speech(What fun!)] [nyanmum.name] declares. The physical exertion seems to have got her pumped up, and with a wild look in her eyes, she smiles at you and pants, [nyanmum.speech(I can't wait to burn off some of this energy with you tonight...)]
 		</p>
 		<p>
-			After giving Nyan some time in which to catch her breath, you accompany her and her mother down the wide, marble walkways of the Arcade, and soon arrive at your destination of the restaurant, 'The Oaken Glade'. Holding open the front door and allowing your two companions to step inside, you follow them through and are immediately met by the same smartly-dressed otter-boy maître d' as the the last time you were here. After giving you and Nyan a friendly, familiar smile, he addresses [nyanmum.name] by bowing his head and saying, [style.speechMasculine(Good evening, Ms. [nyanmum.surname]! We are most delighted to see you here again. We always have a table for you, so if you'll please follow me, I'll get you seated.)]
+			After giving Nyan some time in which to catch her breath, you accompany her and her mother down the wide, marble walkways of the Arcade, and soon arrive at your destination of the restaurant, 'The Oaken Glade'. Holding open the front door and allowing your two companions to step inside, you follow them through and are immediately met by the same smartly-dressed otter-boy maître d' as the last time you were here. After giving you and Nyan a friendly, familiar smile, he addresses [nyanmum.name] by bowing his head and saying, [style.speechMasculine(Good evening, Ms. [nyanmum.surname]! We are most delighted to see you here again. We always have a table for you, so if you'll please follow me, I'll get you seated.)]
 		</p>
 	#ELSEIF(game.getCurrentWeather()==WEATHER_RAIN || game.getCurrentWeather()==WEATHER_SNOW)
 		<p>
@@ -296,7 +296,7 @@
 	#ENDIF
 	#IF(game.getCurrentWeather()!=WEATHER_MAGIC_STORM)
 		<p>
-			Heading inside, you accompany Nyan and [nyanmum.name] down the wide, marble walkways of the Arcade, and soon arrive at your destination of the restaurant, 'The Oaken Glade'. Holding open the front door and allowing your two companions to step inside, you follow them through and are immediately met by the same smartly-dressed otter-boy maître d' as the the last time you were here. After giving you and Nyan a friendly, familiar smile, he addresses [nyanmum.name] by bowing his head and saying, [style.speechMasculine(Good evening, Ms. [nyanmum.surname]! We are most delighted to see you here again. We always have a table for you, so if you'll please follow me, I'll get you seated.)]
+			Heading inside, you accompany Nyan and [nyanmum.name] down the wide, marble walkways of the Arcade, and soon arrive at your destination of the restaurant, 'The Oaken Glade'. Holding open the front door and allowing your two companions to step inside, you follow them through and are immediately met by the same smartly-dressed otter-boy maître d' as the last time you were here. After giving you and Nyan a friendly, familiar smile, he addresses [nyanmum.name] by bowing his head and saying, [style.speechMasculine(Good evening, Ms. [nyanmum.surname]! We are most delighted to see you here again. We always have a table for you, so if you'll please follow me, I'll get you seated.)]
 		</p>
 	#ENDIF
 	<p>
