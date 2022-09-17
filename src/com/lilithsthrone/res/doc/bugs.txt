@@ -5,13 +5,13 @@
 	--------
 	
 	loading a savegame with a new version doesn't work (not that surprising) but the menu is still available and if you turn off confirmation you get stuck in the load menu,
-	 I d recomment not to show saves of incompatible versions  or display them as disabled with a note or smth.
+	 I d recommend not to show saves of incompatible versions  or display them as disabled with a note or smth.
 	
 	you still haven't put in a way to change the keybinds for the third row of commands.
 	
 	Perhaps adding a �cute� element to responses under the different Talks to include hearts?
 
-	dnieing selfaction still has no effect :/
+	denying selfaction still has no effect :/
 
 	NPCs don�t have pace change mechanic it seems. I am certain you�ll work on that, just putting it out there.
 	
@@ -51,7 +51,7 @@
 	2# Where is the cowgirl position? (Hint hint. Please add)
 	Or threesomes, if it's worth the headache programming all that. :p
 	
-	3# Would be nice if we can edit our character at the start a bit more. Heigth, hips, ass etc. 
+	3# Would be nice if we can edit our character at the start a bit more. Height, hips, ass etc. 
 	Those stats do anything in this game? Or not right now?
 	
 	5# The AI doesn't use tails on my character. 
@@ -72,7 +72,7 @@
 	
 	"You now have hair."
 	
-	An NPC wearing both assless chaps and backless panties doesn't count as having exposed their ass even if you're in the middle of fucking it. As long as you haven't shifted asside thier panties to see thier pussy/ cock.
+	An NPC wearing both assless chaps and backless panties doesn't count as having exposed their ass even if you're in the middle of fucking it. As long as you haven't shifted aside their panties to see their pussy/ cock.
 		(In-sex behaviour)
 		
 	The request options may have been affected by this new sex pace update, so they might not be working properly at the moment.
@@ -82,14 +82,14 @@
 		
 	Vixen's virility description doesn't reference virility.
 	
-	Spell cost reduction has no discernable effect
+	Spell cost reduction has no discernible effect
 	
 	there's no sound effects when you beg someone to stop while they have their dick in your mouth  (I think I fixed this)
 	
 	Importer removing vagina for some reason
 	the Importer still removes vaginas
 	
-	Sorry I also discovered that if you climax with anal tease when domninating the police wolf it bugs out the game and all choices disappear locking the player in the scene.
+	Sorry I also discovered that if you climax with anal tease when dominating the police wolf it bugs out the game and all choices disappear locking the player in the scene.
 	
 	Just found bug that made the "stop sex" button not do anything when dominating a cat girl, don't know what caused it, haven't been able to recreate it, but it forced me to reload my save to get out of it.
 	
@@ -121,7 +121,7 @@
 	: but then at the end he acts as if no one was alerted and you get it all
 	
 	I'm not certain as to this, but it appears there is a bug when if you unlock a perk, and a perk that requires that perk at the same time, you don't get the affect of the latter.
-		Or atleast it visually appears as a perk you don't have
+		Or at least it visually appears as a perk you don't have
 		
 	Spell cost reduction does not affect the cost of the main hand weapon's associated attack spell, but all other spell costs are reduced normally.
 		Correction: It's the fireball spell itself that does not conform to spell cost reduction.
@@ -142,9 +142,9 @@
 	Pulling aside backless panties with nothing else equipped gets rid of the exposed breasts status
 		Actually, it's just being completely exposed in general
 		I think it's trying to merge the statuses into one, but it doesn't increase the penalty
-		Or maybe it's supposed to get rid of the exposed breasts status effect when you wear backless panties, but it doesnt?
+		Or maybe it's supposed to get rid of the exposed breasts status effect when you wear backless panties, but it doesn't?
 	
-	(Maybe fixed) I just ran into a horse girl thats wearing assless chaps and backless panties but I don't know what her asshole looks like
+	(Maybe fixed) I just ran into a horse girl that's wearing assless chaps and backless panties but I don't know what her asshole looks like
 	
 	Nyan responds to you going back to the general choice of which type of clothing as if you just entered the back warehouse
 	
@@ -196,4 +196,4 @@
 	sometimes if you use the scroll wheel on the "Continue" box at the main menu, then a scroll bar will appear (which, while not causing any problems, does not fit with everything else appearance-wise).
 		I think slightly enlarging the box may mitigate this, but I'm not sure.
 		
-	Create a character -> choose slut -> back -> choose strong and you get "Recovering orfices" on a virgin
+	Create a character -> choose slut -> back -> choose strong and you get "Recovering orifices" on a virgin
