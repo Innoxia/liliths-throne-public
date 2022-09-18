@@ -62,16 +62,12 @@
 		COLOUR_COVERING_BLUE_DARK,
 		COLOUR_COVERING_PURPLE_LIGHT
 	))
-		#IF(RND.nextInt(6)<2)
+		#IF(RND.nextInt(4)<2)
 			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).setPrimaryColour(COLOUR_COVERING_RED)]
-		#ELSEIF(RND.nextInt(4)<1)
-			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).setPrimaryColour(COLOUR_COVERING_PINK)]
-		#ELSEIF(RND.nextInt(3)<1)
-			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).setPrimaryColour(COLOUR_COVERING_RED_DARK)]
 		#ELSEIF(RND.nextInt(2)<1)
-			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).setPrimaryColour(COLOUR_COVERING_ORANGE)]
+			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).setPrimaryColour(COLOUR_COVERING_RED_DARK)]
 		#ELSE
-			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).setPrimaryColour(COLOUR_COVERING_SCARLET)]
+			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).setPrimaryColour(COLOUR_COVERING_ORANGE)]
 		#ENDIF
 	#ENDIF
 	
@@ -82,7 +78,7 @@
 		COLOUR_COVERING_BLUE_DARK,
 		COLOUR_COVERING_PURPLE_LIGHT
 	))
-		#IF(RND.nextInt(2)<1)
+		#IF(RND.nextInt(5)<1)
 			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).setPrimaryColour(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour())]
 		#ELSEIF(RND.nextInt(2)<1)
 			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).setPrimaryColour(COLOUR_COVERING_BLACK)]
