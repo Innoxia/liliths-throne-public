@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.w3c.dom.Document;
 
@@ -849,7 +850,7 @@ public abstract class AbstractCombatMove {
     	if(fromExternalFile) {
         	return Util.newArrayListOfValues(criticalDescription);
     	}
-    	return Util.newArrayListOfValues("It's the third time being used.");
+        return Util.newArrayListOfValues("It's the third time being used this turn.");
     }
     
     public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -863,15 +864,16 @@ public abstract class AbstractCombatMove {
             return Boolean.valueOf(UtilText.parse(source, target, parseText).trim());
     		
     	} else {
-	    	// Normally moves crit on three hits in a row.
+	        // Normally moves crit on every third use per turn.
 	        int thisMoveSelected = 0;
-	        for(Value<GameCharacter, AbstractCombatMove> move : source.getSelectedMoves()) {
-	            if(move.getValue().getIdentifier() == this.getIdentifier()) {
+	        for(int i = 0; i < source.getSelectedMoves().size(); i++) {
+	            Value<GameCharacter, AbstractCombatMove> move = source.getSelectedMoves().get(i);
+	            if(Objects.equals(move.getValue().getIdentifier(), this.getIdentifier())) {
 	                thisMoveSelected++;
 	            }
-	        }
-	        if(thisMoveSelected>=3 && (turnIndex+1)%3==0) {
-	            return true;
+	            if(i == turnIndex) {
+	                return thisMoveSelected % 3 == 0;
+	            }
 	        }
 	        return false;
     	}
