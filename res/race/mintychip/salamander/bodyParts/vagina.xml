@@ -27,7 +27,7 @@
 		As an aside, a character lacking both penis and vagina cannot grow pubic hair.
 	By default, vagina types allow pubic hair if its race is of either the MAMMAL or BIRD RacialClass. As such, this vagina type would allow pubic hair even if this element was omitted (as salamanders are of the MAMMAL class), but I've included it here for demonstration purposes.
 	You should define this as either 'true' or 'false', or, if you'd like to leave it to its default value, then leave this element blank or omit it entirely. -->
-	<pubicHairAllowed>true</pubicHairAllowed>
+	<pubicHairAllowed>false</pubicHairAllowed>
 	
 	<!-- Whether this vagina type lays eggs (true) or gives birth to live young (false). -->
 	<eggLayer>false</eggLayer>
