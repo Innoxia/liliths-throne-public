@@ -30,7 +30,7 @@
 	<pubicHairAllowed>false</pubicHairAllowed>
 	
 	<!-- Whether this vagina type lays eggs (true) or gives birth to live young (false). -->
-	<eggLayer>false</eggLayer>
+	<eggLayer>true</eggLayer>
 	
 	<!-- The singular/plural names of this vagina.
 	One of the defined names will be chosen at random every time the name is displayed to the player. 
