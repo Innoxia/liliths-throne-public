@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ass>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractAssType.java -->
+	
+	<!-- The id of the race which this ass belongs to.
+	This will almost always be the id of the race in which this type is found (in this case hyena). -->
+	<race>mintychip_salamander</race>
+	
+	<!-- The name that will be used when referring to transformations related to this type (such as when changing body parts in the self-TF menu). -->
+	<transformationName><![CDATA[salamander]]></transformationName>
+	
+	<!-- The id of the material covering this ass.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>mintychip_salamander_scales</coveringType>
+	
+	<!-- The id of the anus that's associated with this ass type. -->
+	<anusType>mintychip_salamander_anus</anusType>
+	
+	<!-- The singular names of this ass.
+	One of the defined names will be chosen at random every time the name is displayed to the player.-->
+	<names/>
+	<!-- You can do as I've done here and leave this empty to use the game's default names for an ass ('ass', 'rear end', 'butt', and 'rump'), or define your own ass names like so:
+	<names>
+		<name><![CDATA[ass]]></name>
+		<name><![CDATA[rear end]]></name>
+		<name><![CDATA[butt]]></name>
+		<name><![CDATA[rump]]></name>
+	</names>
+	-->
+	
+	<!-- The plural names of this ass.
+	One of the defined names will be chosen at random every time the name is displayed to the player.-->
+	<namesPlural/>
+	<!-- You can do as I've done here and leave this empty to use the game's default plural names for an ass ('asses', 'rear ends', 'butts', and 'rumps'), or define your own plural ass names like so:
+	<namesPlural>
+		<name><![CDATA[asses]]></name>
+		<name><![CDATA[rear ends]]></name>
+		<name><![CDATA[butts]]></name>
+		<name><![CDATA[rumps]]></name>
+	</namesPlural>
+	-->
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's ass of this type.
+	Additional ass descriptors are generated based on the ass's properties (such as its modifiers, lubrication, capacity, etc.), so these descriptors should only be related to the race itself. -->
+	<descriptorsMasculine/>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine/>
+	<!-- Hyena asses do not need any racial descriptors, but if you wanted to add some, use this format:
+	<descriptorsMasculine>
+		<descriptor><![CDATA[hyena-like]]></descriptor>
+	</descriptorsMasculine>
+	-->
+	
+	<!-- The description which is shown when a character transforms to obtain this ass type.
+	This description immediately follows a brief description of the ass type undergoing a transformation. -->
+	<transformationDescription><![CDATA[
+		[npc.She] now [npc.has] a [style.boldSalamander(salamander-like)], [npc.assholeFullDescription].
+	]]></transformationDescription>
+	
+	<!-- How this ass is described in a character's description page.
+	You should not end this particular description with any punctuation, as the game adds an additional description onto the end of it. -->
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] a salamander-like, [npc.anusFullDescription(true)]
+	]]></bodyDescription>
+	
+</ass>
