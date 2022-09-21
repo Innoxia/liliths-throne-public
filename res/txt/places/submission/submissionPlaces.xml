@@ -530,7 +530,7 @@
 		[pc.speech(Don't worry, I've kept it a secret,)] you reply, [pc.speech(and there's nobody nearby who's going to overhear us.)]
 	</p>
 	<p>
-		[claire.speech(Y-Yes, well, you never know,)] Claire responds, and you notice that for some odd reason she's starting to blush. Before you can ask her what's wrong, she continues, [claire.speech(The truth is, I kind of found that whole experience to be... well.. pretty exciting...)]
+		[claire.speech(Y-Yes, well, you never know,)] Claire responds, and you notice that for some odd reason she's starting to blush. Before you can ask her what's wrong, she continues, [claire.speech(The truth is, I kind of found that whole experience to be... well... pretty exciting...)]
 	</p>
 	<p>
 		[pc.speech(I suppose it was,)] you reply.

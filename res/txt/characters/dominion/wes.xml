@@ -1572,7 +1572,7 @@
 	<htmlContent tag="WES_END_SEX_THREESOME"><![CDATA[
 	<p>
 		#IF(wes.isSatisfiedFromLastSex())
-			Letting out a deeply satisfied sigh, Wes steps over to his luxurious leather office chair and sinks down into it. Flashing you and Elle a warm smile, he sighs, [wes.speech(That was just what what I needed... Thanks, you two...)]
+			Letting out a deeply satisfied sigh, Wes steps over to his luxurious leather office chair and sinks down into it. Flashing you and Elle a warm smile, he sighs, [wes.speech(That was just what I needed... Thanks, you two...)]
 		#ELSE
 			Letting out a frustrated sigh, Wes steps over to his luxurious leather office chair and sinks down into it. Still sporting a clear erection, he tuts, [wes.speech(That really wasn't enough to satisfy me... I guess you can finish me off back in the requisitions area, Elle...)]
 		#ENDIF

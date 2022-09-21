@@ -118,7 +118,7 @@
 			#IF(pc.hasCompanions() && com.isVisiblyPregnant())
 				#IF(pc.getPregnantLitter().isFatherId(npc.getId()))
 					#IF(com.getPregnantLitter().isFatherId(npc.getId()))
-						[npc.speech(Well, well, well, looks like I got you two sluts knocked up!)] [npc.name] sneers as [npc.she] looks down down at both your and [com.namePos] swollen bellies, [npc.speech(Seeing as I've laid claim to your wombs already, you horny breeding sluts should just submit for another good fucking right now!)]
+						[npc.speech(Well, well, well, looks like I got you two sluts knocked up!)] [npc.name] sneers as [npc.she] looks down at both your and [com.namePos] swollen bellies, [npc.speech(Seeing as I've laid claim to your wombs already, you horny breeding sluts should just submit for another good fucking right now!)]
 					#ELSE
 						[npc.speech(Well, well, well, looks like I got you knocked up, whore!)] [npc.name] sneers as [npc.she] looks down at your swollen belly, before glancing over at [com.name] and remarking, [npc.speech(I see your friend's been #IF(com.hasLegs())spreading [com.her] legs#ELSEgetting creampied#ENDIF as well! Hah! What a pair of sluts!)]
 					#ENDIF

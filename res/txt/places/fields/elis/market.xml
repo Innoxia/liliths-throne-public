@@ -455,7 +455,7 @@
 	
 	<htmlContent tag="GAME_STRENGTH_LOST"><![CDATA[
 	<p>
-		Not wanting to waste any more money on trying to win, you take a [pc.step] back and wonder what to do next. Seeing that you don't want to play any more, Moreno flashes you a friendly smile and reminds you, [moreno.speech(If you've already got any tickets, you can trade them in for a prize here..)]
+		Not wanting to waste any more money on trying to win, you take a [pc.step] back and wonder what to do next. Seeing that you don't want to play any more, Moreno flashes you a friendly smile and reminds you, [moreno.speech(If you've already got any tickets, you can trade them in for a prize here.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1760,7 +1760,7 @@
 	
 	<htmlContent tag="KISSING_KISS_ZIVA_MORE"><![CDATA[
 	<p>
-		Unable to look away from the sight of [ziva.namePos] massive, thick nipples pressing out beneath the thin fabric of her plunge blouse, you give in to your horny thoughts and and ask the mature goat-girl if you can kiss them. Letting out a shocked sigh, [ziva.name] starts to admonish you for your outrageous request, but once again quickly stops herself. Narrowing her gaze a little, she peers at you through her glasses and slowly says, [ziva.speech(Let me get this straight, hun. You're telling me that you want me to take my tits out, so you can kiss my nipples? That's seriously what you're asking me right now?)]
+		Unable to look away from the sight of [ziva.namePos] massive, thick nipples pressing out beneath the thin fabric of her plunge blouse, you give in to your horny thoughts and ask the mature goat-girl if you can kiss them. Letting out a shocked sigh, [ziva.name] starts to admonish you for your outrageous request, but once again quickly stops herself. Narrowing her gaze a little, she peers at you through her glasses and slowly says, [ziva.speech(Let me get this straight, hun. You're telling me that you want me to take my tits out, so you can kiss my nipples? That's seriously what you're asking me right now?)]
 	</p>
 	<p>
 		Responding in the positive, you confirm to [ziva.name] that that's what you want. Letting out a laugh in disbelief at what she's hearing, the mature goat-girl gestures towards her young, voluptuous cow-girl slaves and asks, [ziva.speech(You're asking to kiss <i>my</i> tits, when you could have asked me about fucking one of my slaves instead? You've really got a thing for older goat-girls, huh? And here I was thinking that you'd be happy with just a kiss from me...)]
@@ -1951,7 +1951,7 @@
 			#IF(game.getDialogueFlags().hasFlag(FLAG_lunetteTerrorEnded))
 				Thanks to the fact that Lunette is no longer raiding the surrounding farmland, the market seems to be busier than ever. Catching brief snippets of conversation as you [pc.walk] past some of the stalls, you soon get the impression that the quantity and quality of produce which the vendors are able to acquire is better than it's ever been. Thanks to this, there are a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some time out of your day in which to do a spot of shopping...
 			#ELSE
-				Although it's very busy, with crowds of shoppers occupying large parts of the market, you can't help but notice that some of the stalls look to be quite low on goods for sale. Catching brief snippets of conversation as you [pc.walk] past, you soon get the impression that Lunette's raiding is having an effect on both the quantity and quality of produce which the vendors are able to acquire. Despite this, however, there are still a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some some time out of your day in which to do a spot of shopping...
+				Although it's very busy, with crowds of shoppers occupying large parts of the market, you can't help but notice that some of the stalls look to be quite low on goods for sale. Catching brief snippets of conversation as you [pc.walk] past, you soon get the impression that Lunette's raiding is having an effect on both the quantity and quality of produce which the vendors are able to acquire. Despite this, however, there are still a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some time out of your day in which to do a spot of shopping...
 			#ENDIF
 		</p>
 		#IF(game.getMinutesUntilTimeInMinutes(1080)<30)

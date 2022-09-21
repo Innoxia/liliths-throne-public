@@ -228,7 +228,7 @@
 		With those words, the wolf-girl lets out a relieves sigh, before suddenly dropping down onto [lumi.her] knees as her adrenaline rush comes to an end. Wanting to spend a moment talking with this unusual thief, you walk towards her and crouch down so as to be on the same level. [pc.speech(Now tell me, why do you steal?)]
 	</p>
 	<p>
-		[lumi.speech(Because I'm hungry, and people are mean!)] She huffs, [lumi.speech(A-At first I tried stealing food from m-mar.. morch..)]
+		[lumi.speech(Because I'm hungry, and people are mean!)] She huffs, [lumi.speech(A-At first I tried stealing food from m-mar... morch...)]
 	</p>
 	<p>
 		[pc.speech(Merchants?)]

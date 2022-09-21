@@ -204,7 +204,7 @@
 			#ELSE
 				 Giving you one last scowl,
 			#ENDIF
-			 Scarlett follows her matriarch, and as the two of them fly off, the fans let out out a collective sigh of disappointment.
+			 Scarlett follows her matriarch, and as the two of them fly off, the fans let out a collective sigh of disappointment.
 		#ELSE
 			[style.speechFeminine(There she is! Helena! Helena! I'm your biggest fan!)] one of the members of the nearby crowd calls out as she sees the three of you exit the store. As the rest of Helena's fans start to shout and rush forwards, the harpy matriarch coolly tells them that she has no time at the moment, before gracefully striding off down the street.
 			#IF(scarlett.isLikesPlayer())
@@ -212,7 +212,7 @@
 			#ELSE
 				 Giving you one last scowl,
 			#ENDIF
-			 Scarlett follows her matriarch, and as the two of them head off on their way to see Scarlett's sister, the fans let out out a collective sigh of disappointment.
+			 Scarlett follows her matriarch, and as the two of them head off on their way to see Scarlett's sister, the fans let out a collective sigh of disappointment.
 		#ENDIF
 	</p>
 	<p>

@@ -15,7 +15,7 @@
 		#ENDIF
 	#ELSE
 		<p>
-			Lilaya's laboratory is located in this particular corner of the house, and as you approach it, you see that the door has been firmly [style.colourBad(closed)]. Considering the current hour, it's most likely that your [lilaya.relation(pc)] and and her cat-girl maid have both retired to their rooms in order to get a good night's sleep. If you wanted to discuss something with Lilaya, you'll have to come back later during the day.
+			Lilaya's laboratory is located in this particular corner of the house, and as you approach it, you see that the door has been firmly [style.colourBad(closed)]. Considering the current hour, it's most likely that your [lilaya.relation(pc)] and her cat-girl maid have both retired to their rooms in order to get a good night's sleep. If you wanted to discuss something with Lilaya, you'll have to come back later during the day.
 		</p>
 	#ENDIF
 	]]>

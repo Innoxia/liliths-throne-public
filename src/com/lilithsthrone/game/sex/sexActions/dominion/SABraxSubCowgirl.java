@@ -1893,22 +1893,22 @@ public class SABraxSubCowgirl {
 					UtilText.nodeContentSB.append("A small amount of cum squirts onto Brax's chest, and you groan in satisfaction as you spurt out your sticky seed.");
 					break;
 				case THREE_AVERAGE:
-					UtilText.nodeContentSB.append("Your cum shoots out as your cock throbs, and you groan in satisfaction as as you spurt your sticky seed all over Brax's chest.");
+					UtilText.nodeContentSB.append("Your cum shoots out as your cock throbs, and you groan in satisfaction as you spurt your sticky seed all over Brax's chest.");
 					break;
 				case FOUR_LARGE:
-					UtilText.nodeContentSB.append("Your cum shoots out as your cock throbs, and you groan in satisfaction as as you spurt your sticky seed all over Brax's chest."
+					UtilText.nodeContentSB.append("Your cum shoots out as your cock throbs, and you groan in satisfaction as you spurt your sticky seed all over Brax's chest."
 							+ " A few drops even reach up to his face, and he flinches as your salty cum lands around his mouth.");
 					break;
 				case FIVE_HUGE:
-					UtilText.nodeContentSB.append("Your large load pours out as your cock throbs, and you groan in satisfaction as as you spurt your sticky seed all over Brax's chest."
+					UtilText.nodeContentSB.append("Your large load pours out as your cock throbs, and you groan in satisfaction as you spurt your sticky seed all over Brax's chest."
 							+ " A splatter of cum manages to reach up to his face, and he flinches as your salty cum lands around his mouth.");
 					break;
 				case SIX_EXTREME:
-					UtilText.nodeContentSB.append("Your huge load pours out as your cock throbs, and you groan in satisfaction as as you spurt your sticky seed all over Brax's chest."
+					UtilText.nodeContentSB.append("Your huge load pours out as your cock throbs, and you groan in satisfaction as you spurt your sticky seed all over Brax's chest."
 							+ " A few thick ropes of cum manage to reach up to his face, and he flinches as your salty cum lands all around his mouth.");
 					break;
 				case SEVEN_MONSTROUS:
-					UtilText.nodeContentSB.append("Your enormous load pours out as your cock throbs, and you groan in satisfaction as as you spurt your sticky seed all over Brax's chest."
+					UtilText.nodeContentSB.append("Your enormous load pours out as your cock throbs, and you groan in satisfaction as you spurt your sticky seed all over Brax's chest."
 							+ " Several thick ropes of cum manage to reach up to his face, and he flinches as your salty cum completely covers his torso and face.");
 					break;
 				default:

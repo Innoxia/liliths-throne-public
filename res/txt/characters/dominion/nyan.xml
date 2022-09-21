@@ -53,7 +53,7 @@
 	<htmlContent tag="NYAN_TALK_NYAN_WORK"><![CDATA[
 	#IF(game.getDialogueFlags().getSavedLong('NYAN_WORK')>-1)
 		<p>
-			Deciding that it would be a good idea to find out how how Nyan's work has been going lately, you ask her how she's coping with being this store's owner and manager.
+			Deciding that it would be a good idea to find out how Nyan's work has been going lately, you ask her how she's coping with being this store's owner and manager.
 		</p>
 		#IF(!game.getDialogueFlags().hasFlag(FLAG_nyanRestaurantDateCompleted))
 			<p>

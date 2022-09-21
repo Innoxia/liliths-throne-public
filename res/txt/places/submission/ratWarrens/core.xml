@@ -1415,7 +1415,7 @@
 	<htmlContent tag="DICE_DEN_CHALLENGE"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
-			Deciding that this is the right time to get started on clearing out the Rat Warrens, you step step forwards and call out to the gambling rats that you're here to put an end to their criminal activities. As the gang members jump to their feet, you and [npc.name] ready yourselves for combat.
+			Deciding that this is the right time to get started on clearing out the Rat Warrens, you step forwards and call out to the gambling rats that you're here to put an end to their criminal activities. As the gang members jump to their feet, you and [npc.name] ready yourselves for combat.
 		</p>
 		<p>
 			[npc5.speech(You's 'ere ta do wot?!)] [npc5.name] exclaims, before rushing around from behind the bar and calling out, [npc5.speech(Come on everyone! Let's show 'em wot we do ta troublemakers!)]
@@ -1428,7 +1428,7 @@
 		</p>
 	#ELSE
 		<p>
-			Deciding that this is the right time to get started on clearing out the Rat Warrens, you step step forwards and call out to the gambling rats that you're here to put an end to their criminal activities. As the gang members jump to their feet, you ready yourself for combat.
+			Deciding that this is the right time to get started on clearing out the Rat Warrens, you step forwards and call out to the gambling rats that you're here to put an end to their criminal activities. As the gang members jump to their feet, you ready yourself for combat.
 		</p>
 		<p>
 			[npc4.speech(You's 'ere ta do wot?!)] [npc4.name] exclaims, before rushing around from behind the bar and calling out, [npc4.speech(Come on everyone! Let's show 'em wot we do ta troublemakers!)]
@@ -3849,7 +3849,7 @@
 	
 	<htmlContent tag="BODYGUARDS_COMBAT_DEFEAT_DRAGGED_OFF"><![CDATA[
 	<p>
-		Ignoring the triumphant shouts of the gang-members gathered in his hall, Vengar roughly grabs hold you and starts dragging you back out into the tunnels through which you came. Letting out deep grunt as he kicks one of the more excitable members of his gang out of his way, the rat-boy growls down to you, [vengar.speech(I's gonna be usin' ya ta pay back back a favour ta Murk. I'm sure yer gonna 'ave lots o' fun with 'im as yer master; he's gonna transform ya into an 'orny milkin' bitch, an' get yer broken in an' worshippin' 'is cock! I's got all the rat-pussy I need, but some o' the members o' me gang'll pay Murk ta fuck ya!)]
+		Ignoring the triumphant shouts of the gang-members gathered in his hall, Vengar roughly grabs hold you and starts dragging you back out into the tunnels through which you came. Letting out deep grunt as he kicks one of the more excitable members of his gang out of his way, the rat-boy growls down to you, [vengar.speech(I's gonna be usin' ya ta pay back a favour ta Murk. I'm sure yer gonna 'ave lots o' fun with 'im as yer master; he's gonna transform ya into an 'orny milkin' bitch, an' get yer broken in an' worshippin' 'is cock! I's got all the rat-pussy I need, but some o' the members o' me gang'll pay Murk ta fuck ya!)]
 	</p>
 	#IF(game.getDialogueFlags().hasFlag(FLAG_murkIntroduced))
 		<p>

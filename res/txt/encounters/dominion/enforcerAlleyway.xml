@@ -113,7 +113,7 @@
 					 Putting on your best [wes.Name] impression, you affirm that you are.
 				</p>
 				<p>
-					 [npc2.speech(Didn't know [pc.she] was even capable of taking breaks,)] the [npc2.name] mutters mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.name]'s elbow. 
+					 [npc2.speech(Didn't know [pc.she] was even capable of taking breaks,)] the [npc2.name] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.name]'s elbow. 
 				</p>
 				<p>
 					Quickly changing the subject, the [npc.name] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week...if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will.
@@ -376,7 +376,7 @@
 				 Putting on your best [wes.Name] impression, you affirm that you are.
 			</p>
 			<p>
-				 [npc2.speech(Didn't know [pc.she] was even capable of taking breaks,)] the [npc2.race] mutters mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.race]'s elbow. 
+				 [npc2.speech(Didn't know [pc.she] was even capable of taking breaks,)] the [npc2.race] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.race]'s elbow. 
 			</p>
 			<p>
 				Quickly changing the subject, the [npc.race] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week...if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will and take note of the names on their vests.

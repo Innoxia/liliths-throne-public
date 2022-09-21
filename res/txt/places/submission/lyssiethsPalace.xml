@@ -1762,8 +1762,8 @@
 	</p>
 	<p>
 		#IF pc.hasFetish(FETISH_INCEST)
-		#THEN Before you can offer any words of your own, your [lilaya.relation(pc)] breaks off the hug with your mother, and immediately throws herself into your [pc.arms]. Gazing happily happily into your eyes, she sighs, [lilaya.speech(Thank you so much as well, [pc.name]! I'm so lucky to have such a loving [pc.sister]!)]
-		#ELSE Before you can offer any words of your own, your [lilaya.relation(pc)] breaks off the hug with your mother, and immediately throws herself into your [pc.arms]. Gazing happily happily into your eyes, she sighs, [lilaya.speech(Thank you so much as well, [pc.name]! I'm so lucky to have such a loving [pc.sister]!)]
+		#THEN Before you can offer any words of your own, your [lilaya.relation(pc)] breaks off the hug with your mother, and immediately throws herself into your [pc.arms]. Gazing happily into your eyes, she sighs, [lilaya.speech(Thank you so much as well, [pc.name]! I'm so lucky to have such a loving [pc.sister]!)]
+		#ELSE Before you can offer any words of your own, your [lilaya.relation(pc)] breaks off the hug with your mother, and immediately throws herself into your [pc.arms]. Gazing happily into your eyes, she sighs, [lilaya.speech(Thank you so much as well, [pc.name]! I'm so lucky to have such a loving [pc.sister]!)]
 		#ENDIF
 	</p>
 	<p>
