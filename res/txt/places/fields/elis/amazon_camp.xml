@@ -825,7 +825,7 @@
 		Wanting to know more about the Amazons, you ask Ursa if she can tell you anything about their history and customs.
 	</p>
 	<p>
-		[ursa.speech(There's really not much about us that isn't common knowledge. We're a community of all-feminine warriors, and up until now, we've always kept to ourselves in Themiscyra,)] she replies, [ursa.speech(Under normal circumstances, anyone could present themselves to us and ask to join, but they had to be feminine in appearance, and willing to undergo rigorous physical and martial training. After what's recently happened,however, we're not accepting any new members into our community.)]
+		[ursa.speech(There's really not much about us that isn't common knowledge. We're a community of all-feminine warriors, and up until now, we've always kept to ourselves in Themiscyra,)] she replies, [ursa.speech(Under normal circumstances, anyone could present themselves to us and ask to join, but they had to be feminine in appearance, and willing to undergo rigorous physical and martial training. After what's recently happened, however, we're not accepting any new members into our community.)]
 	</p>
 	<p>
 		Thanking Ursa for the information, you ask her if there are any characteristics in particular which are prized amongst the Amazons.

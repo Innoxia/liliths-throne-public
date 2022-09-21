@@ -101,7 +101,7 @@
 					#IF(npc.hasFetish(FETISH_PREGNANCY))
 						You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] laughs, [npc.speech(That's right, I'm still pregnant, all thanks to you!)]
 					#ELSE
-						You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] scowls, [npc.speech(That's right, I'm still pregnant,and it's all your fault!)]
+						You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] scowls, [npc.speech(That's right, I'm still pregnant, and it's all your fault!)]
 					#ENDIF
 				#ELSEIF(companions && npc.getPregnantLitter().isFatherId(com.getId()))
 					#IF(npc.hasFetish(FETISH_PREGNANCY))
@@ -113,7 +113,7 @@
 					#IF(npc.hasFetish(FETISH_PREGNANCY))
 						You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] laughs, [npc.speech(That's right, I'm still pregnant, all thanks to [#npc.getPregnantLitter().getFatherName()]!)]
 					#ELSE
-						You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] scowls, [npc.speech(That's right, I'm still pregnant,and it's all your and [#npc.getPregnantLitter().getFatherName()]'s fault!)]
+						You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] scowls, [npc.speech(That's right, I'm still pregnant, and it's all your and [#npc.getPregnantLitter().getFatherName()]'s fault!)]
 					#ENDIF
 				#ENDIF
 			</p>

@@ -5,7 +5,7 @@
 	
 	<htmlContent tag="DATE_START"><![CDATA[
 	<p>
-		With your excitement outweighing your apprehension at the prospect of going out on a date with both Nyan and her mother, you swiftly [pc.walk] past the immaculately-clean, regency-styled residences which line their street,. Heading up the steps to the front door of their apartment building, you make use of the arcane intercom to buzz your girlfriend. After a momentary pause, you hear Nyan's voice call out over the intercom, [nyan.speechNoEffects(Hello? This is Ms. [nyan.surname], who is it?)]
+		With your excitement outweighing your apprehension at the prospect of going out on a date with both Nyan and her mother, you swiftly [pc.walk] past the immaculately-clean, regency-styled residences which line their street. Heading up the steps to the front door of their apartment building, you make use of the arcane intercom to buzz your girlfriend. After a momentary pause, you hear Nyan's voice call out over the intercom, [nyan.speechNoEffects(Hello? This is Ms. [nyan.surname], who is it?)]
 	</p>
 	<p>
 		After quickly telling her that it's you, and that you're here to pick her up for a date, Nyan lets out an excited squeak and quickly replies, [nyan.speechNoEffects([pc.Name]! Come on up!)]
@@ -154,7 +154,7 @@
 		Realising that her mother is talking about you, Nyan pouts and mumbles, [nyan.speech(You can't just treat [pc.name] like an object, mum...)]
 	</p>
 	<p>
-		Laughing off her daughter's reply, [nyanmum.name] asks you what you're gong to order for your starter, and after telling her what you're thinking of, the three of you move on to deciding your main courses. Once again, Nyan decides to order tsipoura, while her mother immediately declares that she'll be having steak. Just as you've also decided what it is you'd to eat this evening, the otter-boy returns to take your orders...
+		Laughing off her daughter's reply, [nyanmum.name] asks you what you're going to order for your starter, and after telling her what you're thinking of, the three of you move on to deciding your main courses. Once again, Nyan decides to order tsipoura, while her mother immediately declares that she'll be having steak. Just as you've also decided what it is you'd to eat this evening, the otter-boy returns to take your orders...
 	</p>
 	]]>
 	</htmlContent>
