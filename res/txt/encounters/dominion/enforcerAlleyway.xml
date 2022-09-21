@@ -116,7 +116,7 @@
 					 [npc2.speech(Didn't know [pc.she] was even capable of taking breaks,)] the [npc2.name] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.name]'s elbow. 
 				</p>
 				<p>
-					Quickly changing the subject, the [npc.name] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week...if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will.
+					Quickly changing the subject, the [npc.name] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week... if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will.
 				</p>
 			#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_elle") > 0)
 				<p>
@@ -132,7 +132,7 @@
 					 [npc2.speech(Armory must get real stuffy from all the fucking,)] the [npc2.name] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.name]'s elbow. 
 				</p>
 				<p>
-					Quickly changing the subject, the [npc.name] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week...if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will and take note of the names on their vests.
+					Quickly changing the subject, the [npc.name] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week... if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will and take note of the names on their vests.
 				</p>
 			#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_nysa") > 0)
 				<p>
@@ -379,7 +379,7 @@
 				 [npc2.speech(Didn't know [pc.she] was even capable of taking breaks,)] the [npc2.race] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.race]'s elbow. 
 			</p>
 			<p>
-				Quickly changing the subject, the [npc.race] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week...if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will and take note of the names on their vests.
+				Quickly changing the subject, the [npc.race] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week... if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will and take note of the names on their vests.
 			</p>
 		#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_elle") > 0)
 			<p>
@@ -395,7 +395,7 @@
 				 [npc2.speech(Armory must get real stuffy from all the fucking,)] the [npc2.race] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.race]'s elbow. 
 			</p>
 			<p>
-				Quickly changing the subject, the [npc.race] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week...if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will and take note of the names on their vests.
+				Quickly changing the subject, the [npc.race] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week... if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will and take note of the names on their vests.
 			</p>
 		#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_nysa") > 0)
 			<p>

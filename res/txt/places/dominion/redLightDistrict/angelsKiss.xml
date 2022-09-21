@@ -438,7 +438,7 @@
 		[pc.speech(Sorry, Bunny, I don't have time right now, but I might be back later,)] you explain, before heading towards the door.
 	</p>
 	<p>
-		[bunny.speech(Awww....)] Bunny pouts, [bunny.speech(Make sure to come back soon! I can show you a real good time!)]
+		[bunny.speech(Awww...)] Bunny pouts, [bunny.speech(Make sure to come back soon! I can show you a real good time!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -601,7 +601,7 @@
 		[pc.speech(Sorry, Loppy, I don't have time right now, but I might be back later,)] you explain, before heading towards the door.
 	</p>
 	<p>
-		[loppy.speech(Awww....)] Loppy sighs. [loppy.speech(Make sure to come back soon! I can show you a real good time!)]
+		[loppy.speech(Awww...)] Loppy sighs. [loppy.speech(Make sure to come back soon! I can show you a real good time!)]
 	</p>
 	]]>
 	</htmlContent>

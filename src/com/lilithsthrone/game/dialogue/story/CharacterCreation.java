@@ -779,7 +779,7 @@ public class CharacterCreation {
 					+ "</p>"
 					+ "<p>"
 						+ "You turn away from the glass and step forwards, smiling."
-						+ " [pc.speech(Yes, I have it right here... erm... hold on....)]"
+						+ " [pc.speech(Yes, I have it right here... erm... hold on...)]"
 					+ "</p>"
 					+ "<p>"
 						+ "Reaching into your "+(Main.game.getPlayer().isFeminine()?"purse":"pocket")+", you feel your heart start to race as you discover that the invitation isn't in there."
