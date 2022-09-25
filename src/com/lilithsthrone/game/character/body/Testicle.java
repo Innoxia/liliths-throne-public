@@ -13,7 +13,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.83
@@ -267,7 +266,7 @@ public class Testicle implements BodyPartInterface {
 	/**
 	 * Sets the cumStorage. Value is bound to >=0 && <=getRawCumStorageValue()
 	 */
-	public String setStoredCum(GameCharacter owner, float cumStored) {
+	public String setStoredCum(GameCharacter owner, float cumStored, boolean withFormatting) {
 		float oldStoredCum = this.cumStored;
 		this.cumStored = Math.max(0, (Math.min(cumStored, getRawCumStorageValue())));
 		float cumChange = oldStoredCum - this.cumStored;
@@ -279,17 +278,38 @@ public class Testicle implements BodyPartInterface {
 		if (cumChange <= 0) {
 			return "";
 		} else {
-			return UtilText.parse(owner, "<p style='text-align:center;'><i style='color:"+PresetColour.CUM.toWebHexString()+";'>"
-					+ UtilText.returnStringAtRandom(
-							Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] squirts out of [npc.her] [npc.cock+].",
-							Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] shoots out of [npc.her] [npc.cock+].",
-							Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] spurts out of [npc.her] [npc.cock+].")
-				+ "</i>"
-				+ (this.cumStored==0
-					?"<br/><i>[npc.Name] now [npc.has] no more [npc.cum] stored in [npc.her] [npc.balls]!</i>"
-					:"")
-				+ "</p>");
+			StringBuilder storedCumSB = new StringBuilder();
+			if(withFormatting) {
+				storedCumSB.append("<p style='text-align:center;'>[style.italicsCum(");
+			}
+			storedCumSB.append(UtilText.returnStringAtRandom(
+					Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] squirts out of [npc.her] [npc.cock+].",
+					Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] shoots out of [npc.her] [npc.cock+].",
+					Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] spurts out of [npc.her] [npc.cock+]."));
+			if(withFormatting) {
+				storedCumSB.append(")]");
+			}
+			if(this.cumStored==0) {
+				storedCumSB.append("<br/><i>[npc.Name] now [npc.has] no more [npc.cum] stored in [npc.her] [npc.balls]!</i>");
+			}
+			if(withFormatting) {
+				storedCumSB.append("</p>");
+			}
+			return UtilText.parse(owner, storedCumSB.toString());
+//			return UtilText.parse(owner, "<p style='text-align:center;'><i style='color:"+PresetColour.CUM.toWebHexString()+";'>"
+//					+ UtilText.returnStringAtRandom(
+//							Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] squirts out of [npc.her] [npc.cock+].",
+//							Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] shoots out of [npc.her] [npc.cock+].",
+//							Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] spurts out of [npc.her] [npc.cock+].")
+//				+ "</i>"
+//				+ (this.cumStored==0
+//					?"<br/><i>[npc.Name] now [npc.has] no more [npc.cum] stored in [npc.her] [npc.balls]!</i>"
+//					:"")
+//				+ "</p>");
 		}
+	}
+	public String setStoredCum(GameCharacter owner, float cumStored) {
+		return setStoredCum(owner, cumStored, true);
 	}
 
 	// Regeneration:

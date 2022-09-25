@@ -91,6 +91,9 @@ public class Kheiron extends NPC {
 			this.setFaceVirgin(false);
 			this.setAssVirgin(false);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.5.5")) {
+			this.setHeight(230);
+		}
 	}
 
 	@Override
@@ -134,7 +137,7 @@ public class Kheiron extends NPC {
 		setBody(Gender.M_P_MALE, Subspecies.CENTAUR, RaceStage.PARTIAL_FULL, false);
 		
 		// Core:
-		this.setHeight(220);
+		this.setHeight(230);
 		this.setFemininity(0);
 		this.setMuscle(100);
 		this.setBodySize(BodySize.FOUR_HUGE.getMedianValue());

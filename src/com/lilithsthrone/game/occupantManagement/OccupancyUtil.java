@@ -311,9 +311,9 @@ public class OccupancyUtil implements XMLSaving {
 			SlaveJob currentJob = slave.getSlaveJob(hour);
 			
 			slave.incrementAffection(slave.getOwner(), slave.getHourlyAffectionChange(hour));
-			slave.incrementObedience(slave.getHourlyObedienceChange(hour), false);
+			slave.incrementObedience(slave.getHourlyObedienceChange(hour), true);
 			
-			boolean isAtWork = slave.isAtWork(hour);
+			boolean isAtWork = slave.isAtWork();
 			
 			// If at work:
 			if(isAtWork) {
@@ -328,15 +328,15 @@ public class OccupancyUtil implements XMLSaving {
 				
 				// Overworked effect:
 				if(slave.hasStatusEffect(StatusEffect.OVERWORKED_1)) {
-					slave.incrementAffection(slave.getOwner(), -0.05f);
+					slave.incrementAffection(slave.getOwner(), -0.5f);
 					workQuality *= 0.75f; // If overworked, they have a a lowered chance to gain experience.
 					
 				} else if(slave.hasStatusEffect(StatusEffect.OVERWORKED_2)) {
-					slave.incrementAffection(slave.getOwner(), -0.1f);
+					slave.incrementAffection(slave.getOwner(), -1f);
 					workQuality *= 0.5f; // If overworked, they have a a lowered chance to gain experience.
 					
 				} else if(slave.hasStatusEffect(StatusEffect.OVERWORKED_3)) {
-					slave.incrementAffection(slave.getOwner(), -0.15f);
+					slave.incrementAffection(slave.getOwner(), -2f);
 					workQuality *= 0.25f; // If overworked, they have a a lowered chance to gain experience.
 				}
 				
