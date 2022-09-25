@@ -329,15 +329,15 @@ public class OccupancyUtil implements XMLSaving {
 				// Overworked effect:
 				if(slave.hasStatusEffect(StatusEffect.OVERWORKED_1)) {
 					slave.incrementAffection(slave.getOwner(), -0.5f);
-					workQuality *= 0.75f; // If overworked, they have a a lowered chance to gain experience.
+					workQuality *= 0.75f; // If overworked, they have a lowered chance to gain experience.
 					
 				} else if(slave.hasStatusEffect(StatusEffect.OVERWORKED_2)) {
 					slave.incrementAffection(slave.getOwner(), -1f);
-					workQuality *= 0.5f; // If overworked, they have a a lowered chance to gain experience.
+					workQuality *= 0.5f; // If overworked, they have a lowered chance to gain experience.
 					
 				} else if(slave.hasStatusEffect(StatusEffect.OVERWORKED_3)) {
 					slave.incrementAffection(slave.getOwner(), -2f);
-					workQuality *= 0.25f; // If overworked, they have a a lowered chance to gain experience.
+					workQuality *= 0.25f; // If overworked, they have a lowered chance to gain experience.
 				}
 				
 				// chance to gain experience based on profits

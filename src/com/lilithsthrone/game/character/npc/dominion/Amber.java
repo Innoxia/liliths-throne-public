@@ -407,7 +407,7 @@ public class Amber extends NPC {
 					+ "</p>"
 					+ "<p>"
 						+ "It's quite clear that she's unable to continue fighting any longer, and after just a moment, the effects of your powerful arcane aura make themselves known."
-						+ " Amber's angry scowl trails off into a exceptionally lewd moan, and, averting the gaze of her luminescent eyes from you for the first time, she looks down at her groin and slips a hand under her dress."
+						+ " Amber's angry scowl trails off into an exceptionally lewd moan, and, averting the gaze of her luminescent eyes from you for the first time, she looks down at her groin and slips a hand under her dress."
 					+ "</p>"
 					+ "<p>"
 						+ "[amber.speech(~Aaah!~ Fuck...)]"
