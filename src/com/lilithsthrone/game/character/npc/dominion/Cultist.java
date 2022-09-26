@@ -22,7 +22,6 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
@@ -108,7 +107,7 @@ public class Cultist extends NPC {
 			this.setNippleVirgin(false);
 			this.setPenisVirgin(false);
 			
-			setName(Name.getRandomTriplet(Race.DEMON));
+			setName(Name.getRandomTriplet(Subspecies.DEMON));
 			this.setPlayerKnowsName(true);
 			setDescription("As a high-ranking member of the 'Cult of Lilith', it's obvious to anyone that this demon is extremely powerful."
 					+ " You aren't exactly 'anyone', however, and as you get close to her, you can almost physically feel the power of her arcane aura as it comes into contact with yours...");

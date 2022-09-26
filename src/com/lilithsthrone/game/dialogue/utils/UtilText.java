@@ -666,10 +666,17 @@ public class UtilText {
 		return "&#9930;";
 	}
 
+	public static String getBasicInfinitySymbol() {
+		return "<span style='font-weight:normal; font-family:sans-serif; font-size:1.5em;'>&#8734;</span>";
+	}
+
+	/**
+	 * The infinity symbol really, really sucks in the default LT font.
+	 */
 	public static String getInfinitySymbol(boolean largerFont) {
 		//"&#9854;";
 //		return "<span style='font-family:serif; font-weight:normal; font-size:1.25em;'>&#8734;</span>";
-		return "<span style='font-weight:normal; color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+"; "+(largerFont?"font-size:28px;":"")+"'>&#8734;</span>";
+		return "<span style='font-weight:normal; font-family:sans-serif; color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+"; "+(largerFont?"font-size:28px;":"")+"'>&#8734;</span>";
 	}
 
 	public static String applyGlow(String input) {

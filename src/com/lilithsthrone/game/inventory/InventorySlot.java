@@ -553,6 +553,7 @@ public enum InventorySlot {
 	private static List<InventorySlot> mainClothingSlots;
 	private static List<InventorySlot> extraClothingSlots;
 	private static List<InventorySlot> piercingSlots;
+	private static List<InventorySlot> commonTattooSlots;
 	
 	public static InventorySlot[] mainWeaponSlots;
 	public static InventorySlot[] offhandWeaponSlots;
@@ -616,6 +617,20 @@ public enum InventorySlot {
 		piercingSlots.add(PIERCING_VAGINA);
 		piercingSlots.add(PIERCING_PENIS);
 		
+		commonTattooSlots = Util.newArrayListOfValues(
+				InventorySlot.NECK,
+				InventorySlot.TORSO_OVER,
+				InventorySlot.TORSO_UNDER,
+				InventorySlot.CHEST,
+				InventorySlot.STOMACH,
+				InventorySlot.HAND,
+				InventorySlot.WRIST,
+				InventorySlot.HIPS,
+				InventorySlot.ANUS,
+				InventorySlot.LEG,
+				InventorySlot.GROIN,
+				InventorySlot.SOCK,
+				InventorySlot.ANKLE);
 
 		humanoidSlots.add(HEAD);
 		humanoidSlots.add(EYES);
@@ -709,23 +724,27 @@ public enum InventorySlot {
 	}
 	
 	public static List<InventorySlot> getHumanoidSlots() {
-		return humanoidSlots;
+		return new ArrayList<>(humanoidSlots);
 	}
 
 	public static List<InventorySlot> getClothingSlots() {
-		return clothingSlots;
+		return new ArrayList<>(clothingSlots);
 	}
 
 	public static List<InventorySlot> getPiercingSlots() {
-		return piercingSlots;
+		return new ArrayList<>(piercingSlots);
+	}
+
+	public static List<InventorySlot> getCommonTattooSlots() {
+		return new ArrayList<>(commonTattooSlots);
 	}
 	
 	public static List<InventorySlot> getMainClothingSlots() {
-		return mainClothingSlots;
+		return new ArrayList<>(mainClothingSlots);
 	}
 
 	public static List<InventorySlot> getExtraClothingSlots() {
-		return extraClothingSlots;
+		return new ArrayList<>(extraClothingSlots);
 	}
 
 	/**

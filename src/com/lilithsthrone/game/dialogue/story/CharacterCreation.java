@@ -901,7 +901,7 @@ public class CharacterCreation {
 							Main.game.getPlayer().setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent());
 						}
 
-						Main.game.getPlayer().setName(Name.getRandomTriplet(Race.HUMAN));
+						Main.game.getPlayer().setName(Name.getRandomTriplet(Subspecies.HUMAN));
 					}
 				};
 				
@@ -2012,7 +2012,7 @@ public class CharacterCreation {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS));
 						
 						Main.game.getPlayer().incrementMoney(5000);
-						
+
 						DamageType damageType = DamageType.FIRE;
 						switch(CharacterCreation.getStartingDemonstoneSpellSchool()) {
 							case AIR:
@@ -2029,7 +2029,11 @@ public class CharacterCreation {
 								damageType = DamageType.ICE;
 								break;
 						}
-						Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType));
+						if(Main.game.getPlayer().getMainWeapon(0)==null) {
+							Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType));
+						} else {
+							Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType), false);
+						}
 						
 						Spell startingSpell = Spell.FIREBALL;
 						switch(getStartingTomeSpellSchool()) {
@@ -2091,7 +2095,7 @@ public class CharacterCreation {
 					+ "<b>2.</b> Copy the exported .xml file (in the old version's <i>data/characters</i> folder).<br/>"
 					+ "<b>3.</b> Paste it into this version's <i>data/characters</i> folder.<br/>"
 					+ "<b>4.</b> Press 'Refresh', and your old character file should show up in the list below!<br/><br/>"
-					+ "(If it doesn't work, please let me know as a comment on my blog, and I'll get it fixed ASAP!)"
+//					+ "(If it doesn't work, please let me know as a comment on my blog, and I'll get it fixed ASAP!)"
 					+ "</p>"
 					+ "<p>"
 					+ "<table align='center'>"
@@ -2226,7 +2230,11 @@ public class CharacterCreation {
 								damageType = DamageType.ICE;
 								break;
 						}
-						Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType));
+						if(Main.game.getPlayer().getMainWeapon(0)==null) {
+							Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType));
+						} else {
+							Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType), false);
+						}
 						
 						AbstractItem spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.FIREBALL));
 						if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 1) {

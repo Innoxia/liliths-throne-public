@@ -82,7 +82,7 @@ public class RebelBaseInsaneSurvivor extends NPC {
             // Spawn with level between 12 and 15
             setLevel(12 + Util.random.nextInt(4));
             
-            setName(Name.getRandomTriplet(this.getRace()));
+            setName(Name.getRandomTriplet(this.getSubspecies()));
             this.setPlayerKnowsName(false);
             this.setGenericName("insane survivor");
             this.setEssenceCount(500);

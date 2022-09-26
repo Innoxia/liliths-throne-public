@@ -802,7 +802,7 @@
 				<nextDialogue/>
 				<effects/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_fields_themiscyra_lunexis_sex]]></id>
+					<id><![CDATA[innoxia_fields_themiscyra_lunexis_sex_sub]]></id>
 					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
 					<dominants>
 						<character>
@@ -1504,8 +1504,8 @@
 				[#game.getWorlds().get(WORLD_TYPE_innoxia_fields_elis_town).getCell(1, 11).getPlace().setPlaceType(PLACE_TYPE_innoxia_fields_elis_town_amazon_camp)]
 			#ENDIF
 			[#ursa.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_amazon_camp_queen, true)]
-			[#aurokaris.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_town_amazon_camp_trader, true)]
-			[#lunexis.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_town_amazon_camp_lunexis, true)]
+			[#aurokaris.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_amazon_camp_aurokaris, true)]
+			[#lunexis.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_amazon_camp_lunexis, true)]
 		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/themiscyra">ELIS_HELP</content>
 		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>

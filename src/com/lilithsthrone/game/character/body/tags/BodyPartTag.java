@@ -112,6 +112,9 @@ public enum BodyPartTag {
 
 	/** Whether this tail unlocks lust-applying sting attacks. (Not yet implemented) */
 	TAIL_VENOMOUS_STING_LUST,
+
+	/** Whether this tail can act as an ovipositor. */
+	TAIL_OVIPOSITOR,
 	
 	// Tail types:
 	/** Of a type which is covered in skin. Used for girth descriptors and descriptions. Examples would be demonic, rat.*/

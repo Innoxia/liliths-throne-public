@@ -45,6 +45,23 @@ public class ClitMouth {
 			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
 		}
 		@Override
+		public Map<SexAreaInterface, SexAreaInterface> getSexAreaInteractions() {
+			if(Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE).contains(Main.sex.getCharacterTargetedForSexAction(this))) {
+				return Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE));
+			} else {
+				return Util.newHashMapOfValues(new Value<>(SexAreaPenetration.CLIT, SexAreaOrifice.MOUTH));
+			}
+		}
+		@Override
+		public SexActionType getActionType(){
+			if(Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE).contains(Main.sex.getCharacterTargetedForSexAction(this))
+					|| Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.CLIT, SexAreaOrifice.MOUTH).contains(Main.sex.getCharacterTargetedForSexAction(this))) {
+				return SexActionType.ONGOING;
+			} else {
+				return SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED;
+			}
+		}
+		@Override
 		public String getActionTitle() {
 			return "Clit attention";
 		}
@@ -114,7 +131,7 @@ public class ClitMouth {
 		}
 		@Override
 		public Map<SexAreaInterface, SexAreaInterface> getSexAreaInteractions() {
-			if(Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterPerformingAction())) {
+			if(Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterTargetedForSexAction(this))) {
 				return Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA));
 			} else {
 				return Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.CLIT));
@@ -122,7 +139,8 @@ public class ClitMouth {
 		}
 		@Override
 		public SexActionType getActionType(){
-			if(Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterPerformingAction())) {
+			if(Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterTargetedForSexAction(this))
+					|| Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH, SexAreaPenetration.CLIT).contains(Main.sex.getCharacterTargetedForSexAction(this))) {
 				return SexActionType.ONGOING;
 			} else {
 				return SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED;

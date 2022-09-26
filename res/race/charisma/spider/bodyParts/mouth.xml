@@ -25,7 +25,11 @@
 			#ENDIF
 			 [#npc.getLipstick().getFullDescription(npc, true)].
 		#ELSE
-			#IF(npc.isPiercedLip()), which have been pierced#ENDIF.
+			#IF(npc.isPiercedLip())
+				 [npc.lips], which have been pierced.
+			#ELSE
+				 [npc.lips].
+			#ENDIF
 		#ENDIF
 		 [npc.Her] throat is [npc.mouthColourSecondary(true)] in colour.
 	]]></bodyDescription>

@@ -1032,7 +1032,7 @@
 	
 	<htmlContent tag="DEMON_PEACEFUL_OFFER_ROOM_BACK_HOME"><![CDATA[
 	<p>
-		After just a minute, you find yourself opening the door to [npc.namePos] new room, and after leading [npc.herHim] inside, you turn towards [npc.herHim] and say, [pc.speech(Well, this is your room, [npc.name]. You've got an en suite bathroom over here, and if you put your dirty clothes in the laundry basket, they'll be cleaned for you for the next day.)]
+		After just a minute, you find yourself opening the door to [npc.namePos] new room, and after leading [npc.herHim] inside, you turn towards [npc.herHim] and say, [pc.speech(Well, this is your room, [npc.name]. You've got an ensuite bathroom over here, and if you put your dirty clothes in the laundry basket, they'll be cleaned for you for the next day.)]
 	</p>
 	<p>
 		Stepping forwards, [npc.name] smiles as [npc.she] remarks, [npc.speech(This is far better than my old apartment! Oh yes, I think I'll very much enjoy staying here...)]

@@ -40,7 +40,6 @@ import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.dominion.DominionClubNPC;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
@@ -822,7 +821,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		if(this.getWorldLocation()==WorldType.NIGHTLIFE_CLUB) {
 			List<GameCharacter> clubbers = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
-			clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC));
+//			clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC));
+			clubbers.removeIf((npc) -> npc.isUnique());
 			
 			AbstractWorldType worldLocationInitial = this.getWorldLocation();
 			Vector2i locationInitial = this.getLocation();

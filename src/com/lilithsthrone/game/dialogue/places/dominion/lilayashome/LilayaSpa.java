@@ -996,6 +996,13 @@ public class LilayaSpa {
 
 	public static final DialogueNode SPA_CONSTRUCTION = new DialogueNode("Building site", "", false) {
 		@Override
+		public void applyPreParsingEffects() {
+			// This is a backup check to finish construction if somehow the building site has not been converted to the spa:
+			if(Main.game.getDayNumber() - Main.game.getDialogueFlags().getSavedLong(SPA_CONSTRUCTTION_TIMER_ID) > 7) {
+				LilayaHomeGeneric.dailyUpdate();
+			}
+		}
+		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}

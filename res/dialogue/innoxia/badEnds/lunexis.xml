@@ -56,6 +56,7 @@
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
 		<responses>
+			<!-- Oral: -->
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
@@ -67,10 +68,20 @@
 					[#flags.setFlag(FLAG_innoxia_themiscyra_bad_end_oral, true)]
 				]]></effects>
 			</response>
+			<!-- Vaginal: -->
 			<response>
+				<availabilityConditional><![CDATA[[#!pc.hasVagina()]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
-				<responseTitle><![CDATA[Cock sleeve]]></responseTitle>
+				<responseTitle><![CDATA[Cock-sleeve]]></responseTitle>
+				<responseTooltip><![CDATA[You don't have a pussy, so can't be trained to be a true cock-sleeve...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.hasVagina()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Cock-sleeve]]></responseTitle>
 				<responseTooltip><![CDATA[Tell the horse-girl that you love being a true cock sleeve, having her fat horse cock hilted deep into your cunt!]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_plaza_bad_end_palace_trained_choice]]></nextDialogue>
 				<effects><![CDATA[
@@ -78,6 +89,7 @@
 					[#flags.setFlag(FLAG_innoxia_themiscyra_bad_end_vaginal, true)]
 				]]></effects>
 			</response>
+			<!-- Anal: -->
 			<response>
 				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled()]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>

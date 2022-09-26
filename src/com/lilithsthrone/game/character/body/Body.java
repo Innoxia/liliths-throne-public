@@ -2327,7 +2327,7 @@ public class Body implements XMLSaving {
 			}
 			
 		} else {
-			sb.append(" "+hair.getType().getBodyDescription(owner));
+			sb.append(" "+hair.getType().getBodyDescription(owner).trim());
 			
 			if(hair.getType().getTags().contains(BodyPartTag.HAIR_NATURAL_MANE) && owner.getFaceType().getRace()==hair.getType().getRace()) {
 				sb.append(", which forms a mane running down the back of [npc.her] neck and which "); // If hair and face races match, the mane is fully formed
@@ -2400,7 +2400,7 @@ public class Body implements XMLSaving {
 					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been woven into long twin braids.");
 					break;
 				case DRILLS:
-					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into drills.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into ojou ringlets.");
 					break;
 				case LOW_PONYTAIL:
 					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into a low ponytail.");
@@ -4008,7 +4008,7 @@ public class Body implements XMLSaving {
 			break;
 		}
 		
-		descriptionSB.append(ass.getType().getBodyDescription(owner));
+		descriptionSB.append(ass.getType().getBodyDescription(owner).trim());
 		
 		// Colour:
 		if(ass.getAnus().isBleached()) {

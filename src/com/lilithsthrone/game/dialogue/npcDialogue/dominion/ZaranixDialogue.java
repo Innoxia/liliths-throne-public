@@ -73,7 +73,7 @@ public class ZaranixDialogue {
 				return new ResponseSex("Submit",
 						"Allow Zaranix to fuck you.",
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
-						false, false,
+						true, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(Main.game.getNpc(Zaranix.class)),
 								Util.newArrayListOfValues(Main.game.getPlayer()),

@@ -1037,7 +1037,7 @@
 			</response>
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
+				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Decline]]></responseTitle>
 				<responseTooltip><![CDATA[Turn down Oglix's offer to show you to her bedroom. This will no doubt annoy her...]]></responseTooltip>
 				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>

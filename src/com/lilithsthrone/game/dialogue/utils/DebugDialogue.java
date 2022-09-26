@@ -37,7 +37,6 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
-import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -546,21 +545,30 @@ public class DebugDialogue {
 					};
 
 				} else if(index == 10){
-					return new Response("Get slaver license", "Automatically completes the quest to get a slaver license. This will start the quest if you don't already have it, and finish it.", DEBUG_MENU){
-						@Override
-						public void effects(){
-							if(!Main.game.getPlayer().isHasSlaverLicense()){ //If the player doesn't have the slaver license
-								if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)){ //But has started the quest to get it
-									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLAVERY, Quest.SIDE_UTIL_COMPLETE)); //Finish it.
+					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLAVERY)) { //If the player doesn't have the slaver license
+						return new Response("Get slaver license", "Automatically completes the quest to get a slaver license. This will start the quest if you don't already have it, and finish it.", DEBUG_MENU){
+							@Override
+							public void effects() {
+								if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)){
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_SLAVERY));
 								}
-								else{ //But hasn't started the quest to get it
-									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_SLAVERY)); //Start the quest
-									Main.game.getDialogueFlags().values.add(DialogueFlagValue.finchIntroduced); //Introduce Finch
-									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLAVERY, Quest.SIDE_UTIL_COMPLETE)); //And finish it
+								List<Quest> slaverSkipQuests = Util.newArrayListOfValues(
+										Quest.SIDE_SLAVER_NEED_RECOMMENDATION,
+										Quest.SIDE_SLAVER_RECOMMENDATION_OBTAINED,
+										Quest.SIDE_UTIL_COMPLETE);
+								for(int i=0; i<slaverSkipQuests.size()-1; i++) {
+									Quest q = slaverSkipQuests.get(i);
+									if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY)==q) {
+										q.applySkipQuestEffects();
+										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLAVERY, slaverSkipQuests.get(i+1)));
+									}
 								}
 							}
-						}
-					};
+						};
+						
+					} else {
+						return new Response("Get slaver license", "You've already completed the side quest to obtain a slaver license.", null);
+					}
 					
 				} else if(index == 11){
 					return new Response("Centaur", "A wild centaur appears! (Please only use this on a completely neutral tile, as it will probably break things otherwise.)", CENTAUR_SEX){

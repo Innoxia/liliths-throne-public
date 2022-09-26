@@ -65,7 +65,7 @@ public class BatCavernSlimeAttacker extends NPC {
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(false);
 			
 			// PERSONALITY & BACKGROUND:
