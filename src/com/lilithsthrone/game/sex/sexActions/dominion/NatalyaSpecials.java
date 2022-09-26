@@ -48,7 +48,7 @@ public class NatalyaSpecials {
 		@Override
 		public String getDescription() {
 			return "Natalya's breathing starts to get faster and heavier, and as her [natalya.cockGirth], bestial cock starts wildly throbbing in your [pc.hands], she desperately paws on the ground with one of her front hoofs and calls out,"
-					+ " [natalya.speechNoEffects(Slave! ~Ooh!~ I am getting close! ~Aah!~ As your reward, you are to... ~Ooh!~ ... you are to take my load all over your face! ~Mmm!~)]";
+					+ " [natalya.speechNoEffects(Slave! ~Ooh!~ I am getting close! ~Aah!~ As your reward, you are to... ~Ooh!~ ...you are to take my load all over your face! ~Mmm!~)]";
 		}
 		@Override
 		public void applyEffects() {
@@ -82,7 +82,7 @@ public class NatalyaSpecials {
 		}
 		@Override
 		public String getDescription() {
-			return "Letting out a lewd moan, Natalya cries out, [natalya.speechNoEffects(Slave! I am about... ~Ooh!~ ... about to cum! Do as I command and take my load on your face!)]"
+			return "Letting out a lewd moan, Natalya cries out, [natalya.speechNoEffects(Slave! I am about... ~Ooh!~ ...about to cum! Do as I command and take my load on your face!)]"
 					+ "<br/><br/>"
 					+ "With the [natalya.race]'s [natalya.cockGirth] cock wildly throbbing in your [pc.hands], you do as you're told and shuffle around in front of it."
 					+ " Continuing to rub your Mistress's musky precum up and down the length of her hot shaft, you point the flared head directly at your face and prepare to receive your reward...";
@@ -123,7 +123,7 @@ public class NatalyaSpecials {
 		}
 		@Override
 		public String getDescription() {
-			return "Letting out a lewd moan, Natalya cries out, [natalya.speechNoEffects(Slave! I am about... ~Ooh!~ ... about to cum! Do as I command and take my load on your face!)]"
+			return "Letting out a lewd moan, Natalya cries out, [natalya.speechNoEffects(Slave! I am about... ~Ooh!~ ...about to cum! Do as I command and take my load on your face!)]"
 					+ "<br/><br/>"
 					+ "With the [natalya.race]'s [natalya.cockGirth] cock wildly throbbing in your [pc.hands], you decide that you'd rather not do as you're told and instead shuffle around to the side of it."
 					+ " Continuing to rub your Mistress's musky precum up and down the length of her hot shaft, you point the flared head away from you and prepare for it to unload all over the floor...";
