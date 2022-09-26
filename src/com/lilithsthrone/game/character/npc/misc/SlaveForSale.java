@@ -39,14 +39,18 @@ import com.lilithsthrone.world.places.PlaceType;
 public class SlaveForSale extends NPC {
 
 	public SlaveForSale() {
-		this(Gender.getGenderFromUserPreferences(false, false), false);
+		this(Gender.getGenderFromUserPreferences(false, false), true, false);
 	}
 
 	public SlaveForSale(boolean isImported) {
-		this(Gender.getGenderFromUserPreferences(false, false), isImported);
+		this(Gender.getGenderFromUserPreferences(false, false), true, isImported);
+	}
+
+	public SlaveForSale(Gender gender, boolean isImported) {
+		this(Gender.getGenderFromUserPreferences(false, false), true, isImported);
 	}
 	
-	public SlaveForSale(Gender gender, boolean isImported) {
+	public SlaveForSale(Gender gender, boolean allowTaurSpawns, boolean isImported) {
 		super(isImported,
 				new NameTriplet("Slave"), "",
 				"",
@@ -68,6 +72,9 @@ public class SlaveForSale extends NPC {
 				if(s.getSubspeciesOverridePriority()>0) { // Do not spawn demonic races, elementals, or youko
 					continue;
 				}
+				if(s.isNonBiped() && !allowTaurSpawns) {
+					continue;
+				}
 				if(Subspecies.getWorldSpecies(WorldType.DOMINION, null, false).containsKey(s)) {
 					AbstractSubspecies.addToSubspeciesMap((int) (10000 * Subspecies.getWorldSpecies(WorldType.DOMINION, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 				}
@@ -82,7 +89,8 @@ public class SlaveForSale extends NPC {
 				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getBody().getFleshSubspecies(), true), true);
 			}
 			
-			if(Math.random()<Main.getProperties().taurSpawnRate/100f
+			if(allowTaurSpawns
+					&& Math.random()<Main.getProperties().taurSpawnRate/100f
 					&& this.getLegConfiguration()!= LegConfiguration.QUADRUPEDAL) { // Do not reset this character's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
 				// Check for race's leg type as taur, otherwise NPCs which spawn with human legs won't be affected by taur conversion rate:
 				if(this.getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
@@ -93,7 +101,7 @@ public class SlaveForSale extends NPC {
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 			
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(true);
 			
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 0);

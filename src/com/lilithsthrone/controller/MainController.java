@@ -498,11 +498,33 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
+
+							Main.game.getPlayer().incrementFetishExperience(Fetish.FETISH_DOMINANT, 200);
+//							if(Main.game.isInSex()) {
+//								for(GameCharacter c : Main.sex.getSubmissiveSpectators()) {
+//									c.setArousal(98);
+//									c.setLust(98);
+//								}
+//							}
+//							System.out.println("START");
+//							Util.addDrunkSlur(Util.addMuffle(Util.addBimbo(
+//									"Hello, my name is [rose.name], would you like to see my [rose.hands(true)]? #IF(nyan.isFeminine())Or my [rose.breasts+]?#ENDIF Or should I call [lilaya.name]? Answer me now.",
+//									4), 4), 4);
+//							System.out.println("END");
 							
-							System.out.println("------");
-							for(AbstractCombatMove move : Main.game.getPlayer().getEquippedMoves()) {
-								System.out.println(move.getName(0, Main.game.getPlayer()));
-							}
+//							System.out.println("-----");
+//							for(NameTriplet nameTriplet : Name.getAllNameTriplets(Subspecies.getSubspeciesFromId("innoxia_hyena_subspecies_spotted"))) {
+//								System.out.println(nameTriplet.getMasculine()+", "+nameTriplet.getAndrogynous()+", "+nameTriplet.getFeminine());
+//							}
+//							System.out.println("-----");
+//							for(NameTriplet nameTriplet : Name.getAllNameTriplets(Subspecies.getSubspeciesFromId("innoxia_hyena_subspecies_striped"))) {
+//								System.out.println(nameTriplet.getMasculine()+", "+nameTriplet.getAndrogynous()+", "+nameTriplet.getFeminine());
+//							}
+							
+//							System.out.println("------");
+//							for(AbstractCombatMove move : Main.game.getPlayer().getEquippedMoves()) {
+//								System.out.println(move.getName(0, Main.game.getPlayer()));
+//							}
 							
 //							System.out.println("--- Penis diameters ---");
 //							for(int i=10; i<75; i+=5) {
@@ -519,12 +541,14 @@ public class MainController implements Initializable {
 //							for(NPC npc : Main.game.getAllNPCs()) {
 //								if(npc.isUnique() && !npc.hasArtwork()
 ////										&& (npc.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION)
-//										&& npc.isFeminine()
-//										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()==BodyCoveringCategory.MAIN_SKIN
+////										&& npc.isFeminine()
+//										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()!=BodyCoveringCategory.MAIN_SKIN
+//										&& (npc.getClass().getName().contains("dominion.") || npc.getClass().getName().contains("submission."))
 //										) {
-//									System.out.println(npc.getNameIgnoresPlayerKnowledge() + " "+npc.getClass().getName());// + " " + npc.getSurname());
+//									System.out.println(npc.getNameIgnoresPlayerKnowledge() + " "+npc.getClass().getName().split(".npc.")[1]);// + " " + npc.getSurname());
 //								}
 //							}
+							
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.PHYSICAL, 1);
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.ARCANE, 1);
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.LUST, 1);

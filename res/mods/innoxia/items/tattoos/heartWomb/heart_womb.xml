@@ -22,11 +22,14 @@
 				"On [npc.her] "+tattooSlotName+", [npc.sheHasFull] "+X+"." -->
 		<bodyOverviewDescription><![CDATA[a stylised heart tattoo, which roughly resembles the shape of a female's reproductive system]]></bodyOverviewDescription> 
 		
-		<!-- Availability requirements for this tattoo. Use 'npc' for the character receiving the tattoo. Can be left blank.
-		Example (for a tattoo that would only be available to the player or feminine NPCs):
-		<availabilityRequirements><![CDATA[npc.isPlayer() || npc.isFeminine()]]></availabilityRequirements>
+		<!-- Availability requirements for this tattoo. Use 'npc' for the character receiving the tattoo.
+			This field can be left blank if you want the tattoo to always be available.
+			The 'unique' attribute determines if this tattoo is a special, unique tattoo.
+				If set to true, then this tattoo type won't be granted randomly to NPCs, but will still obey the availability requirements for availability to the player.
+			An example for a tattoo that would only be available to the player or feminine NPCs:
+				<availabilityRequirements><![CDATA[npc.isPlayer() || npc.isFeminine()]]></availabilityRequirements>
 		-->
-		<availabilityRequirements/>
+		<availabilityRequirements unique="false"/>
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->

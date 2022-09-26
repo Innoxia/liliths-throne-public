@@ -54,6 +54,7 @@ public class AbstractTattooType extends AbstractCoreType {
 	private Map<Colour, Map<Colour, Map<Colour, String>>> SVGStringMap;
 
 	private String availabilityRequirements;
+	private boolean unique;
 	
 	/**
 	 * @param pathName
@@ -76,6 +77,8 @@ public class AbstractTattooType extends AbstractCoreType {
 			List<InventorySlot> slotAvailability) {
 
 		this.isMod = false;
+		
+		this.unique = false;
 		
 		value = 500;
 		
@@ -100,7 +103,6 @@ public class AbstractTattooType extends AbstractCoreType {
 		if (availableTertiaryColours != null) {
 			this.availableTertiaryColours.addAll(availableTertiaryColours);
 		}
-		
 		
 		SVGStringMap = new HashMap<>();
 		
@@ -156,7 +158,13 @@ public class AbstractTattooType extends AbstractCoreType {
 				if(coreAttributes.getElementsByTagName("bodyOverviewDescription").item(0)!=null) {
 					this.bodyOverviewDescription = coreAttributes.getElementsByTagName("bodyOverviewDescription").item(0).getTextContent();
 				}
-
+				
+				this.unique = false;
+				try {
+					this.unique = Boolean.valueOf(coreAttributes.getElementsByTagName("availabilityRequirements").item(0).getAttributes().getNamedItem("unique").getTextContent());
+//					System.out.println(this.name+" | "+unique);
+				} catch(Exception ex) {
+				}
 				try {
 					this.availabilityRequirements = coreAttributes.getElementsByTagName("availabilityRequirements").item(0).getTextContent();
 				} catch(Exception ex) {
@@ -280,7 +288,11 @@ public class AbstractTattooType extends AbstractCoreType {
 	}
 
 	public List<InventorySlot> getSlotAvailability() {
-		return slotAvailability;
+		return new ArrayList<>(slotAvailability);
+	}
+	
+	public boolean isLimitedSlotAvailability() {
+		return !slotAvailability.containsAll(standardInventorySlots);
 	}
 	
 	public boolean isAvailable(GameCharacter target) {
@@ -288,6 +300,10 @@ public class AbstractTattooType extends AbstractCoreType {
 			return Boolean.valueOf(UtilText.parse(target, ("[#"+availabilityRequirements+"]").replaceAll("\u200b", "")));
 		}
 		return true;
+	}
+	
+	public boolean isUnique() {
+		return unique;
 	}
 	
 	public String getId() {

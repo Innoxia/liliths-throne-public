@@ -694,21 +694,21 @@ public abstract class AbstractSubspecies {
 				this.regionLocations = new HashMap<>();
 				if(coreElement.getOptionalFirstOf("regionLocations").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("regionLocations").getAllOf("region")) {
-						regionLocations.put(WorldRegion.valueOf(e.getTextContent()), SubspeciesSpawnRarity.valueOf(e.getAttribute("rarity")));
+						regionLocations.put(WorldRegion.valueOf(e.getTextContent()), SubspeciesSpawnRarity.getSubspeciesSpawnRarityFromString(e.getAttribute("rarity")));
 					}
 				}
 				
 				this.worldLocations = new HashMap<>();
 				if(coreElement.getOptionalFirstOf("worldLocations").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("worldLocations").getAllOf("world")) {
-						worldLocations.put(WorldType.getWorldTypeFromId(e.getTextContent()), SubspeciesSpawnRarity.valueOf(e.getAttribute("rarity")));
+						worldLocations.put(WorldType.getWorldTypeFromId(e.getTextContent()), SubspeciesSpawnRarity.getSubspeciesSpawnRarityFromString(e.getAttribute("rarity")));
 					}
 				}
 				
 				this.placeLocations = new HashMap<>();
 				if(coreElement.getOptionalFirstOf("placeLocations").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("placeLocations").getAllOf("place")) {
-						placeLocations.put(PlaceType.getPlaceTypeFromId(e.getTextContent()), SubspeciesSpawnRarity.valueOf(e.getAttribute("rarity")));
+						placeLocations.put(PlaceType.getPlaceTypeFromId(e.getTextContent()), SubspeciesSpawnRarity.getSubspeciesSpawnRarityFromString(e.getAttribute("rarity")));
 					}
 				}
 				
@@ -1719,7 +1719,7 @@ public abstract class AbstractSubspecies {
 	
 	public List<WorldRegion> getMostCommonWorldRegions() {
 		List<WorldRegion> mostCommonRegion = Util.newArrayListOfValues();
-		SubspeciesSpawnRarity highestRarity = SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE;
+		SubspeciesSpawnRarity highestRarity = SubspeciesSpawnRarity.ONE;
 		for(Map.Entry<WorldRegion, SubspeciesSpawnRarity> entry : getRegionLocations().entrySet()) {
 			if(entry.getValue().getChanceMultiplier()>=highestRarity.getChanceMultiplier()) {
 				if(entry.getValue().getChanceMultiplier()>highestRarity.getChanceMultiplier()) {
