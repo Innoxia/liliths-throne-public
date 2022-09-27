@@ -1402,7 +1402,7 @@
 	
 	<htmlContent tag="LUNEXIS_AFTER_SEX_SUBMITTED_OBEYED_SURRENDER"><![CDATA[
 	<p>
-		TODO You obediently do as you're told, and promise to be a good, loyal slave for Lunexis.
+		You obediently do as you're told, and promise to be a good, loyal slave for Lunexis.
 		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
 			 She makes you deep-throat her and act as a cock-sleeve while she taunts you about how pathetic you are.
 		#ELSE
