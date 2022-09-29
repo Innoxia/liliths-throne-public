@@ -3,7 +3,6 @@ package com.lilithsthrone.game.dialogue.places.dominion.zaranixHome;
 import java.util.List;
 import java.util.Map;
 
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -455,7 +454,7 @@ public class ZaranixHomeGroundFloorRepeat {
 					return new ResponseSex("Submit",
 							"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Katherine. Perhaps if you submitted, [katherine.she]'d be willing to fuck you?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
-							false, false,
+							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getNpc(ZaranixMaidKatherine.class)),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -620,7 +619,7 @@ public class ZaranixHomeGroundFloorRepeat {
 					return new ResponseSex("Submit",
 							"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Katherine. Perhaps if you submitted, [katherine.she]'d be willing to fuck you?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
-							false, false,
+							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getNpc(ZaranixMaidKatherine.class)),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -1180,7 +1179,7 @@ public class ZaranixHomeGroundFloorRepeat {
 				return new ResponseSex("Submit",
 						"Do as Amber says and drop down on all fours, ready for her to fuck you.",
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
-						!Main.getProperties().hasValue(PropertyValue.nonConContent), false,
+						true, false,
 						new SMAmberDoggyFucked(
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Amber.class), SexSlotAllFours.BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))),
@@ -1346,7 +1345,7 @@ public class ZaranixHomeGroundFloorRepeat {
 				return new ResponseSex("Submit",
 						"Amber's fiery personality is seriously turning you on. You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with her. Perhaps if you submitted, she'd be willing to fuck you?",
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
-						false, false,
+						true, false,
 						new SMAmberDoggyFucked(
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Amber.class), SexSlotAllFours.BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))),
@@ -1801,7 +1800,7 @@ public class ZaranixHomeGroundFloorRepeat {
 						pet.setPlayerKnowsName(true);
 						owner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 						owner.setBody(Gender.getGenderFromUserPreferences(false, false), RacialBody.DEMON, RaceStage.GREATER, false);
-						owner.setName(Name.getRandomTriplet(owner.getRace()));
+						owner.setName(Name.getRandomTriplet(owner.getSubspecies()));
 						
 						try {
 							Main.game.addNPC(pet, false);

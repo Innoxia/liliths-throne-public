@@ -5,36 +5,57 @@
 	
 	<htmlContent tag="FAILED"><![CDATA[
 	<p>
-		TODO You reveal Lunexis's plan to Meraxis. She reacts with surprise and chastises you for having submitted to her in the first place.
+		Not able to bring yourself to betray Meraxis, and by extension Ursa, Minotallys, Lyssieth, and everyone else who's counting on you to play a major role in defeating Lunette, you tell the [meraxis.race] that while interrogating her, Lunexis managed to seduce you, and that you were on the verge of carrying out her plans.
 	</p>
 	<p>
-		lets out a relieves sigh and says that at least she can trust you to never betray her. Says that Ursa must be informed of this, and so to follow her to the Amazon camp.
+		[meraxis.speech(Wait, what?!)] Meraxis cries with a look of absolute shock on her face. Shaking her head a little, she momentarily drops her chuuni act as she asks, [meraxis.speech(What did that bitch tell you to do?! I'll teach her a lesson!)]
+	</p>
+	<p>
+		Realising that Meraxis will find out about the details of your Mistress's plan one way or another, you tell her what Lunexis's orders were.
+	</p>
+	<p>
+		[meraxis.speech(So she sent you here to trick me into setting her free? That bitch...)] Meraxis sighs, before placing her hands on her hips and declaring in her typical chuuni way, [meraxis.speech(I cannot possibly imagine what foul, dark arts that demon used to force you to submit to her! Thankfully our fates have been intertwined strongly enough to have ensured that you wouldn't betray me. The queen of the Amazons herself needs to be informed of Lunexis's evil powers, otherwise her subjects could be seduced and enslaved to that demon's will. So join me, [pc.name]; we're going to their camp!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="FAILED_URSA"><![CDATA[
 	<p>
-		TODO You follow Meraxis, and are soon standing in Ursa's tent as Meraxis recounts your admission. Ursa shoots you a severe glance, but is relieved in much the same way Meraxis was to see that you'd never betray their trust.
+		Having committed to betraying Lunexis, you do as Meraxis says and join her as she leads the way through Elis, out of the western gate, and to the entrance of the Amazons' camp. The sentinels on duty recognise the two of you, and so the [meraxis.race] is able to confidently stride right past them, and with you at her side, is soon standing before Ursa's tent.
 	</p>
 	<p>
-		Says that it would be for the best if you were banned from seeing Lunexis again. Whatever power she's been able to exert over you will not be allowed to be harnessed.
+		[style.speechFeminineStrong(Meraxis. What brings you back here?)] one of the bear-girl guards asks, revealing that Meraxis has already paid Ursa a visit at some point.
 	</p>
 	<p>
-		Says to Meraxis that she's been wanting to give her a special reward for having helped back in Themiscyra. Seeming to realise what Ursa means, and obviously not wanting to be dominantly fucked by the Amazonian queen, she makes an excuse and teleports back to the tavern.
+		[meraxis.speech(I require an audience with your queen!)] your companion declares, before striking a wild pose and warning, [meraxis.speech(The very fate of your people depends on Ursa receiving the information I hold!)]
 	</p>
 	<p>
-		Ursa sighs that she didn't really have time anyway. Asks you to leave.
+		Nodding her head, the larger of the two bear-girl guards gestures for you and Meraxis to go on in. A moment later, and you and the [meraxis.race] are standing in the middle of the queen's tent. Looking back and forth between the two of you from the other side of the table which sits in the centre of the tent, Ursa crosses her arms and asks, [ursa.speech(Well, what is it? Speak quickly, for I have many matters to attend to.)]
+	</p>
+	<p>
+		Not wasting any time, Meraxis recounts what you revealed to her in her typical, exaggerated manner of speaking. Upon hearing that you'd submitted to Lunexis and been ordered to help set her free, Ursa shoots you a severe glare, but as Meraxis finally finishes recounting your tale, the queen lets out a deep, relieved sigh and states, [ursa.speech(It seems as though I've underestimated our prisoner. I should have known that a recognised daughter of an elder lilin was capable of something like this... Well, in any case, at least you pulled through in the end, [pc.name], and didn't betray us. I think we'll all agree that it would be wise not to let you see Lunexis again; who knows what she could make you do if you were subjected to any more of her charms.)]
+	</p>
+	<p>
+		[meraxis.speech(I agree,)] Meraxis chimes in, [meraxis.speech(Whatever foul power that demon has been able to exert over [pc.name] must not be allowed to be harnessed!)]
+	</p>
+	<p>
+		Nodding in agreement, Ursa looks over at you and states in her deep voice, [ursa.speech(I don't hold anything against you, [pc.name]; there's no shame in being bested by a demon of that power. Now, with that all settled, I think this would be a good opportunity to give you your reward for assisting me in Themiscyra, Meraxis. You departed so quickly the last time you were here that I wasn't able to show you my deep appreciation...)]
+	</p>
+	<p>
+		Noticing the hungry look in the bear-girl's eyes, Meraxis seems to quickly understand what exactly this reward entails. Obviously not wanting to be dominantly fucked by the Amazonian queen, she quickly blurts out, [meraxis.speech(Oh! A thousand apologies, but I just remembered! Erm... I left my minions unattended! I need to get back to them! Fare well!)]
+	</p>
+	<p>
+		Not giving the queen any time to respond, Meraxis disappears in a flash of pink light as she casts teleport. Letting out an amused growl, Ursa looks over to you and says, [ursa.speech(I didn't really have time for it right now anyway... I suppose you'd better be on your way as well, [pc.name]. Come back tomorrow if you want to see me again; I'll be busy for the rest of the day.)] 
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="FAILED_URSA_LEAVE"><![CDATA[
 	<p>
-		TODO You leave the tent. Miraculously, Ursa and Meraxis don't seem to think any less of you, as they seemed more impressed by your honesty than concerned at your initial betrayal.
+		Doing as the queen suggests, you quickly say goodbye and exit her tent. As you [pc.step] back out into the Amazons' camp, you reflect on the miraculous fact that Ursa and Meraxis didn't seem to think any less of you after learning of your submission to Lunexis. Thankfully, they seemed more impressed by your honesty than concerned at your initial betrayal, and so you breathe a sigh of relief as you realise that your relations with the two of them aren't going to suffer from this episode.
 	</p>
 	<p>
-		Letting out a disappointed sigh as you realise that you're not going to be able to get another taste of your Mistress's cock, you continue on your way into the Amazon camp...
+		Turing your thoughts back to Lunexis, you can't help but let out a disappointed sigh as you realise that you're not going to be able to get another taste of her cock. Hoping that you'll find another Mistress like her at some point in the future, you continue on your way into the camp and wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -44,67 +65,123 @@
 	
 	<htmlContent tag="START"><![CDATA[
 	<p>
-		TODO You convince Meraxis that there's a secret weapon in Themiscyra, hidden there by Lunexis during the attack on the town. Having now been abandoned by the centauresses, the two of you can travel there and retrieve it.
+		Thinking of how your Mistress will reward you by turning you into her cock-sleeve, you decide to commit to carrying out her orders and try to trick Meraxis into helping you set her free. Knowing the sort of thing that the [meraxis.race] would be interested in, you tell Meraxis that during your interrogation of Lunexis, she revealed to you that the reason for their assault on Themiscyra was to find a secret weapon, said to have been created by Lilith herself. With the defeat of their leader, and not knowing the real reason why they were led there, Lunexis's army will have scattered and abandoned Themiscyra, allowing you to go there and claim this weapon for yourself.
 	</p>
 	<p>
-		Meraxis believes you and asks where exactly it is. You say that Lunexis's directions are too vague to pinpoint it, but if you take her along with you, then she can lead the way there.
+		[meraxis.speech(So that's why they risked attacking Themiscyra...)] Meraxis responds, clearly believing your every word. Striking a confident pose, she states in her typical, flamboyant manner, [meraxis.speech(We shall journey to Themiscyra, uncover this weapon, and unleash its cataclysmic powers in order to defeat Lunette! Simply lead the way, [pc.name], and soon this artefact shall be ours!)]
 	</p>
 	<p>
-		Meraxis asks if Ursa has been informed of this, to which you say that she's too busy to be involved, and that something like this needs to be acted upon immediately. She is a little hesitant, but says that she'll decide once she's spoken with Lunexis.
+		Continuing with your fabricated tale, you tell Meraxis that Lunexis's directions are too vague, and as such you'll be unable to pinpoint the exact location where the weapon is hidden. As such, you'll need to take the centauress along with you so that she can lead the way to the weapon. 
+	</p>
+	<p>
+		[meraxis.speech(Take Lunexis with us?)] Meraxis asks, clearly startled by your suggestion. Furrowing her brow, she continues, [meraxis.speech(I'm sure that our powers combined would be more than enough to keep her subdued, but it still sounds risky. Has Ursa been informed of all this?)]
+	</p>
+	<p>
+		Telling Meraxis that the Amazon queen has enough to deal with as it is, you say that you won't need her help, and that what's needed is decisive action before some looter or bandit discovers the weapon before you.
+	</p>
+	<p>
+		[meraxis.speech(I'm not so sure about this,)] Meraxis says, before stating, [meraxis.speech(I'll speak with Lunexis myself. Once I hear what that demon's talking about I'll make a decision. Come on, [pc.name], let's get going!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AMAZON_CAMP"><![CDATA[
 	<p>
-		TODO You arrive at the Amazons' camp, and recognising both you and Meraxis, are allowed through by Ursa's guards to see Lunexis. Thankfully, the queen is busy with a very important meeting, which lends credence to your assertion that she's too busy to get involved in this matter.
+		Having committed to loyally serving your Mistress, you do as Meraxis says and join her as she leads the way through Elis, out of the western gate, and to the entrance of the Amazons' camp. The sentinels on duty recognise the two of you, and so the [meraxis.race] is able to confidently stride right past them, and with you at her side, is soon standing before Ursa's tent.
 	</p>
 	<p>
-		As you enter the sound-proof tent, you see a flash of delight in Lunexis's eyes, but she quickly gets control of herself and takes on the part of the indignant demon. Cursing both you and Meraxis, she says that she's not going to cooperate with anything you want.
+		[style.speechFeminineStrong(Meraxis. What brings you back here?)] one of the bear-girl guards asks, revealing that Meraxis has already paid Ursa a visit at some point. Looking abck and forth between the two of you, she reveals, [style.speechFeminineStrong(Our queen is in the middle of a critically important meeting, and cannot be disturbed for any reason.)]
 	</p>
 	<p>
-		You say that you're here about the weapon she mentioned before. Not the sharpest tool in the shed, the centauress is confused, but as you pointedly 'remind her' of the secret weapon she told you about, she finally clocks on and states taht you'll never have it.
+		This revelation lends credence to your assertion that Ursa is too busy to get involved in the matter of retrieving a secret weapon, and you utter silent thanks to the queen for choosing this moment in which to hold her meeting. Not deterred by the guard's statement, Meraxis declares in an uncharacteristically-hushed tone, [meraxis.speech(It's not your queen that we're here to see. Let us through, for we need to speak with the prisoner.)]
 	</p>
 	<p>
-		Thankfully, Meraxis hasn't noticed Lunexis's odd behaviour, and demands that she reveal the location of this weapon. As Lunexis refuses, Meraxis laughs and says that she's going to lead them to it, or else.
+		Nodding in understanding, one of the two bear-girl guards motions for you to follow her, and so you and Meraxis trail along behind her as she enters the queen's tent. Once inside, you see that almost two dozen Amazons are crowded around the tent's central table, noisily discussing plans on how to recapture their town. Thanks to this commotion, you're able to skirt around the edge of the tent and exit out of the far side without being noticed. Once again finding yourself in the small, walled compound, you and Meraxis leave the bear-girl guard behind as you head straight on over to the large, pale-red tent which is positioned in the centre of this grassy area.
 	</p>
 	<p>
-		She makes sure one last time with you that it's safe to teleport to Themiscyra. You say that it's safe, but there might be the occasional bandit. You want to get in and out as quickly as possible, so teleport straight to the plaza.
+		As you open the entrance flap and [pc.step] into the sound-proof tent, you notice a flash of delight in Lunexis's eyes as she sees that Meraxis is with you. Thankfully, the centauress quickly gets control of herself and takes on the part of the indignant demon as the two of you move forwards to stand before her. With a furious scowl on her face, she spits, [lunexis.speech(What the fuck do you two cunts want?! Set me free, you vile wretches, and I might consider taking you as my personal cock-sleeves!)]
 	</p>
 	<p>
-		Nodding in approval, the [meraxis.race] summons her energy and begins casting the teleportation spell. A devious smirk settles on Lunexis's face just before you're enveloped by a flash of pinkish purple light...
+		Feeling your heart pounding in excitement as your Mistress says this, you try to keep your cool as you state that you're here about the secret weapon she mentioned before. Although possessing herculean strength and an unbreakable will, Lunexis isn't known for her intellectual prowess, and so when she hears your talk of a secret weapon, she blurts out, [lunexis.speech(What the fuck are you talking about, slave?! Set me free!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AMAZON_CAMP_REMIND_HER"><![CDATA[
+	<p>
+		With your plan teetering on the brink of failure, you glare at Lunexis and pointedly 'remind her' of what she told you; there's a secret weapon hidden in Themiscyra, and she's the only one who knows exactly where it is. Finally understanding what's going on, the brutish centauress grins and declares, [lunexis.speech(Forget about that, you dumb cunt! I'll never let you have it! That weapon is mine!)]
+	</p>
+	<p>
+		Thankfully, in her excitement at the prospect of obtaining a powerful relic, Meraxis hasn't noticed Lunexis's odd behaviour, and after pointing an accusatory finger at the centauress, she demands, [meraxis.speech(Tell us what you know, you evil beast! That weapon shall be ours!)]
+	</p>
+	<p>
+		[lunexis.speech(The only thing that's going to be yours is my fat cock as I ram it into your cunt!)] the centauress bellows.
+	</p>
+	<p>
+		[meraxis.speech(Uncooperative as ever, I see,)] Meraxis states, before grinning and saying, [meraxis.speech(Well, we don't need you to tell us where it is. We'll be making you show it to us in just a moment...)]
+	</p>
+	<p>
+		With that, the [meraxis.race] turns to you and asks, [meraxis.speech(Are you certain that it's safe to teleport to Themiscyra? I haven't heard anything about the movements of Lunexis's army...)]
+	</p>
+	<p>
+		Reassuring Meraxis by telling her that you've checked it out and that it's safe, you try to make your lie a little more believable by warning her that there might be the occasional bandit. Not wanting to give the [meraxis.race] any time in which to stop and think, you say that you want to get this over and done with as quickly as possible, and to avoid as much travel as you can, she should teleport the three of you straight to the town's plaza.
+	</p>
+	<p>
+		[meraxis.speech(Ok, let's do this,)] Meraxis states, before turning to Lunexis and warning her, [meraxis.speech(Try to run away or attack us, and you'll regret it! You lost once to us already, and this time you don't even have your weapons, so you stand no chance against us. Do as I say, and I won't have to hurt you.)]
+	</p>
+	<p>
+		With that, Meraxis begins to channel her energy, and by sacrificing a large amount of the essences she's absorbed into her aura, she manages to remove the seal that's been placed on Lunexis's collar. Realising that she's about to get her revenge, a devious smirk settles on Lunexis's face as she impatiently unclasps the metal collar from around her neck and hurls it to the ground. Fixing her gaze on Meraxis's face, she sneers, [lunexis.speech(Don't worry, bitch, you have my word that I won't leave you.)]
+	</p>
+	<p>
+		[meraxis.speech(You'd better not,)] Meraxis replies, before summoning her energy and beginning to cast the teleportation spell. The last thing you see before a flash of pinkish purple light envelops you is a wild, triumphant grin on your Mistress's face...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="TELEPORTED"><![CDATA[
 	<p>
-		You appear in the plaza at Themiscyra, and as Lunexis hoped, her army is still there, milling about and not doing much. As the purple flash dies away, Lunexis grabs hold of you, before rearing up and pointing at Meraxis as she shouts, [lunexis.speech(Get her before she can escape!)]
+		An instant later, and the three of you find yourselves standing back in the middle of Themiscyra's plaza. Just as Lunexis had hoped, her army is still here, and as the purple flash dies away, you glance around to see that hundreds of demonic centaurs are looking your way. Stepping forwards, Lunexis roughly grabs hold of you, before rearing up and pointing at Meraxis as she booms, [lunexis.speech(Get her before she can escape!)]
 	</p>
 	<p>
-		Meraxis tries to fight against the centauresses, but there are too many.  Summoning the last of her strength, Meraxis tries to cast teleport, but the centauress who felled her quickly clasps an iron collar around her neck, which drains the [meraxis.race]'s arcane energy and interrupts her casting. Tearing off Meraxis's clothes, this muscular, purple-skinned brute of a centauress has four arms, just like Lunexis. Using two of them, she effortlessly lifts Meraxis into the air, while using her lower two to spread her labia and roughly shove her thick fingers into her cunt. Hungrily grunting as she fingers Meraxis, she looks at Lunexis and declares, [style.speechFeminineStrong(This bitch is mine!)]
+		Letting out a triumphant laugh, your Mistress watches as her army rushes forwards to attack Meraxis. Possessing considerable arcane and combat skills, the [meraxis.race] manages to floor the first centauresses who reach her, and as Lunexis realises that this fight might take a while, she barks out an order to a nearby centauress, [lunexis.speech(Bring me my clothes and weapons, you worthless scum! Oh, and bring a collar for my slave, too!)]
 	</p>
 	<p>
-		Angrily stomping her hoofs on the ground, Lunexis demands her weapons. A small centauress hurries to obey, and brings another cloak along with them. Hefting her four morning stars, Lunexis declares, [lunexis.speech(As the one who defeated her, Lunette's law gives you that right, but I challenge you to a duel for her!)]
+		As Meraxis continues to fight against the never-ending tide of demonic centauresses, your Mistress uses her four, strong arms to roughly strip you naked. As her subordinate quickly returns with the items she asked for, Lunexis clasps a heavy metal slave collar around your neck, before donning her cloak and hefting her four morning stars. Maniacally laughing as she finds herself once again free and at the head of her army, she looks down at you once again and snaps, [lunexis.speech(What are you waiting for, cock-sleeve?! Get me hard with your mouth, so that I'm ready to rut that bitch once my army's beaten her!)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="TELEPORTED_BLOWJOB"><![CDATA[
+	<p>
+		Hurrying to obey, you drop down beneath your Mistress and lean in between her rear legs. Planting a big, wet kiss on her thick sheath, you're quickly rewarded for your efforts as her massive, horse-like cock pushes out and rises into an erection. Continuing to lick, kiss, and suck on her massive, throbbing shaft, you can't help but let out a series of lewd, hungry moans.
 	</p>
 	<p>
-		The muscular centauress lets out an annoyed grunt, and as she uses her strong hands to roughly molest Meraxis's tits, she states, [style.speechFeminineStrong(After you vanished, I was recognised by our sisters as the army's leader. I'll stand down without a fight, but only on the condition that you let me keep this bitch.)]
+		[lunexis.speech(What's taking you so long, you useless cunts?!)] Lunexis rages at her subordinates as they continue to fight against Meraxis. As you're concentrating on servicing your Mistress's cock, you can't see how the fight is going, but you're alerted to its end by a sudden throbbing of Lunexis's cock as she triumphantly cries out, [lunexis.speech(Yes! Quick! Collar that bitch before she teleports away!)]
 	</p>
 	<p>
-		Lunexis steps right up to this other centauress, squishing Meraxis between Lunexis's six breasts and her captor's four. With their noses practically touching, the two titanic, muscular centauresses glare at one another, before Lunexis grunts and declares, [lunexis.speech(I shall obey Lunette's law! You may keep this slut!)]
+		Trotting forwards, your Mistress leaves you scrambling to follow after her as she approaches the defeated form of Meraxis. Looking over at her, you see the [meraxis.race] attempting to summon the last of her strength in order to cast teleport. Before she can finish the spell, however, the centauress who felled her quickly clasps an iron collar around her neck, which drains Meraxis's arcane energy and interrupts her casting. Just like Lunexis, the muscular, purple-skinned brute of a centauress who felled Meraxis has four arms, allowing her to hold your old companion down while quickly tearing off her clothes. Once Meraxis is wearing nothing but a few strips of torn cloth, the huge, beast of a centauress uses her upper arms to effortlessly lift her prey into the air, while using her lower two to spread her labia and roughly shove her thick fingers into her cunt. Hungrily grunting as she fingers Meraxis, she looks at Lunexis and declares, [style.speechFeminineStrong(This bitch is mine!)]
 	</p>
 	<p>
-		With this confrontation resolved, the purple centauress pushes Meraxis down onto all fours, before quickly mounting her and ramming her fat, horse-like cock deep into her [meraxis.pussy+]. Grunting down at her, she taunts in-between rough thrusts, [style.speechFeminineStrong(Feels better than my fingers, huh, slut?! You're mine now!)]
+		Angrily stomping her hoofs on the ground, and shattering a flagstone in the process, Lunexis hefts her weapons and roars, [lunexis.speech(As the one who defeated her, Lunette's law gives you that right, but I challenge you to a duel for her!)]
 	</p>
 	<p>
-		Clearly annoyed at having to surrender Meraxis in exchange for regaining control over her army, Lunexis breaks one of the plaza's paving stones beneath a furious stomp of her huge hoofs. Having lost her prize, Lunexis turns her attention to you, and after roughly stripping you and clasping an iron collar around your neck, she grunts in disappointment, [lunexis.speech(All I get is you? Well, gaining another obedient cock-sleeve isn't too bad...)]
+		The muscular, purple-skinned centauress lets out an annoyed grunt, and with the fingers of one hand stuffed deep into Meraxis's cunt, she moves her other up to roughly molest the [meraxis.race]'s tits, growling as she does so, [style.speechFeminineStrong(After you vanished, I was recognised by our sisters as the army's leader. I'll stand down without a fight, but only on the condition that you let me keep this bitch.)]
+	</p>
+	<p>
+		Trotting forwards, Lunexis steps right up in front of this other centauress, squishing Meraxis between her six breasts and the brutish challenger's four. With their noses practically touching, the two titanic, muscular centauresses glare at one another for a moment, before Lunexis, realising that there are no shouts of support coming from her other subordinates, steps back with an angry grunt. Looking around at her army, she loudly declares, [lunexis.speech(I shall obey Lunette's law! I surrender this slut, and as such I'm back in charge!)]
+	</p>
+	<p>
+		With this confrontation resolved, the purple centauress drags the defeated, panting figure of Meraxis over to the nearby ruins of a fallen column. Throwing her down over a large piece of masonry, she rears up and mounts the [meraxis.race], before quickly lining her massive, rock-hard horse-cock up to her cunt. With a triumphant roar, she violently thrusts forwards, ramming her fat, animalistic shaft deep into Meraxis's [meraxis.pussy+]. Grunting down at her, she taunts in-between rough thrusts, [style.speechFeminineStrong(Feels better than my fingers, huh, slut?! ~Mmm!~ You're mine now, bitch!)]
+	</p>
+	<p>
+		Clearly annoyed at having to surrender Meraxis in exchange for regaining control over her army, Lunexis breaks yet another of the plaza's flagstones beneath a furious stomp of her huge hoofs. Having lost her prize, Lunexis turns her attention to you, and after letting out one last angry grunt, she smirks and states, [lunexis.speech(At least I've got one new slave. You did well, my obedient cock-sleeve. Now it's time for your reward!)]
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="TELEPORTED_SEX"><![CDATA[
 	<p>
-		Using one of her huge hoofs, Lunexis roughly kicks you down, and as her gigantic horse-cock pushes out of its sheath and begins to harden, she growls, [lunexis.speech(Get on all fours, cunt!)]
+		Using one of her huge hoofs, Lunexis roughly kicks you down, and as she swings her gigantic horse-cock towards you, she growls, [lunexis.speech(Get on all fours, cunt!)]
 	</p>
 	<p>
 		More than happy to submit to her, you quickly do as you're told and drop down onto all fours before the demonic centauress. Wasting no time, she
@@ -118,7 +195,7 @@
 		#ELSE
 			 quickly steps around and mounts your face, before ramming her monstrous, fully-erect cock as deep as possible down your throat.
 		#ENDIF
-		 Keeping her fat, throbbing shaft hilted deep inside of you, she ignores your squirming and the lewd moaning noises that you're making, and calls over a few nearby centauresses. Acting as though you don't exist, she spends the next few minutes ordering her subordinates to ready the palace for her arrival and to send a report to Lunette. Only after this business has been sorted out does Lunexis return her attention to you, and after bucking her hips into you a few times, she muses to herself, [lunexis.speech(There really does seem to be potential for this slut... I suppose I'll have [pc.herHim] trained like I promised.)]
+		 Keeping her fat, throbbing shaft hilted deep inside of you, she ignores your squirming and the lewd moaning noises that you're making and calls over a few nearby centauresses. Acting as though you don't exist, she spends the next few minutes ordering her subordinates to ready the palace for her arrival and to send a report to Lunette. Only after this business has been sorted out does Lunexis return her attention to you, and after bucking her hips into you a few times, she muses to herself, [lunexis.speech(There really does seem to be potential for this slut... I suppose I'll have [pc.herHim] trained like I promised.)]
 	</p>
 	<p>
 		Having come to a decision on what to do with you, Lunexis pulls her hips back, allowing her throbbing, hot horse-cock to slide mostly out of your
@@ -129,7 +206,7 @@
 		#ELSE
 			 mouth,
 		#ENDIF
-		 before ruthlessly thrusting forwards and forcing it deep inside of you once again. Beginning to repeat this process, she addresses you by grunting, [lunexis.speech(Forget whatever life you had, cunt. You're my cock-sleeve now, and you're going to be trained to love it!)]
+		 before ruthlessly thrusting forwards and forcing it deep inside of you once again. Beginning to repeat this process, she addresses you by grunting, [lunexis.speech(Forget whatever life you had, cunt. ~Mmm!~ You're my cock-sleeve now, and you're going to be trained to love it!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -139,25 +216,26 @@
 		Snapping her fingers at you, Lunexis points back and down towards her groin, before commanding, [lunexis.speech(Lick my cock clean, slut.)]
 	</p>
 	<p>
-		Completely at her mercy, and not wanting to find out what happens if you disobey, you obediently crawl beneath Lunexis's horse body and begin to lick all traces of her cum from her fat, hot horse-cock. As you do this, you're able to look over to one side to see that Meraxis, with cum drooling out of her well-fucked cunt, has her face buried in her captor's
+		Completely at her mercy, and and more than happy to do as you're told, you obediently crawl beneath your Mistress's horse body and begin to lick all traces of her cum from her fat, hot horse-cock. As you do this, you're able to look over to one side to see that Meraxis, with cum drooling out of her well-fucked cunt, has her face buried in her captor's
 		#IF(game.isAnalContentEnabled())
 			 ass as she performs anilingus on her.
 		#ELSE
-			 pussy as she performs cunnilingus on her. Grunting in pleasure, the muscular, purple-skinned centauress shouts, [style.speechFeminineStrong(Get your tongue in deep, you dumb bitch! I'll have you cumming from this by the time I'm finished with you!)]
+			 pussy as she performs cunnilingus on her.
 		#ENDIF
+		 Grunting in pleasure, the muscular, purple-skinned centauress shouts, [style.speechFeminineStrong(Get your tongue in deep, you dumb bitch! I'll have you cumming from this by the time I'm finished with you!)]
 	</p>
 	<p>
 		[lunexis.speech(I need more than this,)] Lunexis suddenly sighs, before forcefully ramming her cock down your throat. Pinning you to the floor with her gigantic shaft buried deep inside of you, she grunts, [lunexis.speech(~Aah!~ That's better!)] 
 	</p>
 	<p>
-		A few moments later, and Lunexis lets out a deep, erotic grunt, before spurting a huge load of hot demonic cum directly into your stomach. Panting and moaning, the demonic centauress then slides her softening shaft out of your mouth, before ordering one of her subordinates to drag you along behind her as she trots off towards the palace. 
+		A few moments later, and Lunexis lets out a deep, erotic grunt, before spurting a huge load of hot demonic cum directly into your stomach. Panting and moaning, the demonic centauress then slides her softening shaft out of your mouth, before ordering one of her subordinates to drag you along behind her as she trots off towards the palace.
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="PALACE"><![CDATA[
 	<p>
-		Treated like a completely worthless slave, you find yourself being unceremoniously dragged along behind Lunexis as she climbs the winding staircase that leads up to the palace's entrance. Meraxis is similarly dragged along behind you while her captor, who is clearly second-in-command behind Lunexis, strides after her. Once inside, your companion is dragged off to the part of the palace which has been claimed by the purple-skinned centauress, while you're taken to the throne room and chained to a pillar.
+		Treated like a completely worthless slave, you find yourself being unceremoniously dragged along behind Lunexis as she climbs the winding staircase that leads up to the palace's entrance. Meraxis is similarly dragged along behind you while her captor, who is clearly second-in-command behind Lunexis, strides after her. Once inside, the [meraxis.race] is dragged off to the part of the palace which has been claimed by the purple-skinned centauress, while you're taken to the throne room and chained to a pillar.
 	</p>
 	<p>
 		For the next several hours you're left alone while Lunexis meets with her lieutenants to plan their next move. Just when you think you've been forgotten, a group of a dozen or so scantily-clad slaves approach. Their leader, a heavily-pierced and tattooed horse-girl, looks down at you and identifies the group by saying, [style.speechFeminine(We are Lunexis's cock-sleeves, and you are our newest member. We live to service our divine queen, and crave nothing more than to be stuffed full of her perfect cock.)]
@@ -229,21 +307,21 @@
 			After many more days of sucking the horse-girl's cock, licking her balls, and swallowing load after load of her cum, you're finally ordered one evening to kneel before the other cock-sleeves, where the horse-girl announces, [style.speechFeminine(This cock-sleeve has finished [pc.her] training. Please step forwards and congratulate her one by one.)]
 		</p>
 		<p>
-			Lining up, the other cock-sleeves take turns using their cocks or strap-ons to fuck your face. None of them feel anywhere near as good as the horse-girl's shaft, and so after they're all done, you beg her to hilt her fat cock deep down your throat. Shaking her head, she replies, [style.speechFeminine(Your graduation is over, which means that your mouth and throat are only for our queen's cock now. You won't have long to wait for it, either, for an orgy has been planned for tomorrow evening out in the plaza to celebrate the fall of Themiscyra. The party is going to be started by a public demonstration of how the four captives taken in the battle of the plaza have been reduced to obedient cock-sleeves. Do your best to please our queen, cock-sleeve.)]
+			Lining up, the other cock-sleeves take turns using their cocks or strap-ons to fuck your face. None of them feel anywhere near as good as the horse-girl's shaft, and so after they're all done, you beg her to hilt her fat cock deep down your throat. Shaking her head, she replies, [style.speechFeminine(Your graduation is over, which means that your mouth and throat are only for our queen's cock now. You won't have long to wait for it, either, for an orgy has been planned for tomorrow evening out in the plaza to celebrate the fall of Themiscyra and Lunexis's return. The party is going to be started by a public demonstration of how you and that [meraxis.race] you arrived with have been reduced to obedient cock-sleeves. Do your best to please our queen, cock-sleeve.)]
 		</p>
 	#ELSEIF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_vaginal))
 		<p>
 			After many more days of being fucked by the horse-girl's cock, acting as her cock-sleeve, and being pumped full of load after load of her cum, you're finally ordered one evening to lie down before the other cock-sleeves, where the horse-girl announces, [style.speechFeminine(This cock-sleeve has finished [pc.her] training. Please step forwards and congratulate her one by one.)]
 		</p>
 		<p>
-			Lining up, the other cock-sleeves take turns using their cocks or strap-ons to fuck your pussy. None of them feel anywhere near as good as the horse-girl's shaft, and so after they're all done, you beg her to hilt her fat cock deep into your hungry twat. Shaking her head, she replies, [style.speechFeminine(Your graduation is over, which means that your pussy is only for our queen's cock now. You won't have long to wait for it, either, for an orgy has been planned for tomorrow evening out in the plaza to celebrate the fall of Themiscyra. The party is going to be started by a public demonstration of how the four captives taken in the battle of the plaza have been reduced to obedient cock-sleeves. Do your best to please our queen, cock-sleeve.)]
+			Lining up, the other cock-sleeves take turns using their cocks or strap-ons to fuck your pussy. None of them feel anywhere near as good as the horse-girl's shaft, and so after they're all done, you beg her to hilt her fat cock deep into your hungry twat. Shaking her head, she replies, [style.speechFeminine(Your graduation is over, which means that your pussy is only for our queen's cock now. You won't have long to wait for it, either, for an orgy has been planned for tomorrow evening out in the plaza to celebrate the fall of Themiscyra and Lunexis's return. The party is going to be started by a public demonstration of how you and that [meraxis.race] you arrived with have been reduced to obedient cock-sleeves. Do your best to please our queen, cock-sleeve.)]
 		</p>
 	#ELSE
 		<p>
 			After many more days of being anally fucked by the horse-girl's cock, acting as her cock-sleeve, and being pumped full of load after load of her cum, you're finally ordered one evening to lie down before the other cock-sleeves, where the horse-girl announces, [style.speechFeminine(This cock-sleeve has finished [pc.her] training. Please step forwards and congratulate her one by one.)]
 		</p>
 		<p>
-			Lining up, the other cock-sleeves take turns using their cocks or strap-ons to fuck your ass. None of them feel anywhere near as good as the horse-girl's shaft, and so after they're all done, you beg her to hilt her fat cock deep into your hungry asshole. Shaking her head, she replies, [style.speechFeminine(Your graduation is over, which means that your ass is only for our queen's cock now. You won't have long to wait for it, either, for an orgy has been planned for tomorrow evening out in the plaza to celebrate the fall of Themiscyra. The party is going to be started by a public demonstration of how the four captives taken in the battle of the plaza have been reduced to obedient cock-sleeves. Do your best to please our queen, cock-sleeve.)]
+			Lining up, the other cock-sleeves take turns using their cocks or strap-ons to fuck your ass. None of them feel anywhere near as good as the horse-girl's shaft, and so after they're all done, you beg her to hilt her fat cock deep into your hungry asshole. Shaking her head, she replies, [style.speechFeminine(Your graduation is over, which means that your ass is only for our queen's cock now. You won't have long to wait for it, either, for an orgy has been planned for tomorrow evening out in the plaza to celebrate the fall of Themiscyra and Lunexis's return. The party is going to be started by a public demonstration of how you and that [meraxis.race] you arrived with have been reduced to obedient cock-sleeves. Do your best to please our queen, cock-sleeve.)]
 		</p>
 	#ENDIF
 	<p>
@@ -254,13 +332,13 @@
 	
 	<htmlContent tag="FINAL"><![CDATA[
 	<p>
-		Having been kept back as the final cock-sleeve to be brought to the party, you're impatiently watched by at least a few hundred centauresses as you're led down the steps before the palace, and then a short way across the plaza. Arriving at the exact same point where you and your three companions were defeated, you see that everyone's already here and waiting for you.
+		Having been kept back as the final cock-sleeve to be brought to the party, you're impatiently watched by at least a few hundred centauresses as you're led down the steps before the palace, and then a short way across the plaza. Arriving at the exact same point where you were teleported to, you see that everyone's already here and waiting for you.
 	</p>
 	<p>
-		Your gaze wanders first to the muscular, purple-skinned brute of a centauress who claimed Meraxis, and you see that she's got the chuuni demon on a thick leather leash. Grunting at you in amusement, the centauress tugs on this leash, causing Meraxis to step forwards and show off her naked body. Now covered in degrading tattoos, and with every conceivable part of her body pierced, the chuuni demon has been transformed to have five pairs of big, perky breasts, each one of which is sporting a thick, golden ring. Having been trained to be an obedient cock-sleeve, she reaches down between her legs and spreads her big, dripping-wet labia, excitedly moaning as she does so, [meraxis.speech(~Mmm!~ I'm ready for your cock, Mistress!)]
+		Your gaze wanders first to the muscular, purple-skinned brute of a centauress who claimed Meraxis, and you see that she's got the chuuni demon on a thick leather leash. Grunting at you in amusement, the centauress tugs on this leash, causing Meraxis to step forwards and show off her naked body. Now covered in degrading tattoos, and with every conceivable part of her body pierced, Meraxis has been transformed to have five pairs of big, perky breasts, each one of which is sporting a thick, golden ring. Completely naked apart from the countless piercings which adorn her abused body, the [meraxis.race] has clearly been trained to be an obedient cock-sleeve, for without being told to, she reaches down between her legs and spreads her big, dripping-wet labia, excitedly moaning as she does so, [meraxis.speech(~Mmm!~ This worthless cunt is ready for your cock, Mistress!)]
 	</p>
 	<p>
-		Alongside Meraxis and her owner, you see several enslaved Amazons, all of whom are already down on all fours, presenting themselves to the horde of centauress. From the cum that's leaking down their inner-thighs, as well as the fact that several of them have swollen, pregnant belly, you can see that the demonic host has been enjoying their cunts on a regular basis. Also trained to be obedient cock-sleeves, these slaves lift their hips and presents their pussies, before desperately begging to be fucked.
+		Lined up a short distance behind Meraxis and her owner, you see about two dozen enslaved Amazons, all of whom are already down on all fours, presenting themselves to the horde of centauresses. From the cum that's leaking down their inner-thighs, as well as the fact that several of them have swollen, pregnant bellies, you can see that the demonic host has been enjoying their cunts on a regular basis. Also trained to be obedient cock-sleeves, these slaves are lifting their hips so as to show off their pussies, while desperately begging to be fucked.
 	</p>
 	<p>
 		All that's left now is for Lunexis to show off what a well-trained cock-sleeve you are, and so the huge, muscular centauress, who's been close by this entire time, simply turns to her side and presents you with the thing that you want most in the world right now. The sight of your queen's huge, meaty horse-cock causes you to let out a desperate whine, and you rush forwards to drop down beside her, ready to obey at a moment's notice when she finally gives you the command to get started.
@@ -307,13 +385,13 @@
 
 	<htmlContent tag="FINAL_MERAXIS"><![CDATA[
 	<p>
-		Looking across to the [meraxis.race] cock-sleeve who was once called Meraxis, you see her heavily-tattooed body wildly rocking back and forth as her brutish, purple-skinned owner violently pumps her huge horse-cock in and out of her cunt. The cock-sleeve's five pairs of big breasts, each one pierced and bearing a thick golden ring, are jiggling and bouncing in a hypnotic manner as she lies back on the paving stones and keeps her legs spread wide for her mistress. Clearly loving every moment of being roughly fucked in public like this, the cock-sleeve moans, [meraxis.speech(~Aah!~ Yes, Mistress! I'm your worthless slut! ~Ooh!~ Break my dirty little cunt!)]
+		Looking across to the [meraxis.race] cock-sleeve who was once called Meraxis, you see her heavily-tattooed body wildly rocking back and forth as her brutish, purple-skinned owner violently pumps her huge horse-cock in and out of her cunt. The cock-sleeve's five pairs of big breasts, each one pierced and bearing a thick golden ring, are jiggling and swaying in a hypnotic manner as she kneels down on all fours beneath her Mistress. Clearly loving every moment of being roughly fucked in public like this, the cock-sleeve moans, [meraxis.speech(~Aah!~ Yes, Mistress! I'm your worthless slut! ~Ooh!~ Break my dirty little cunt!)]
 	</p>
 	<p>
-		Letting out a deep, guttural roar, the centauress thrusts her fat cock deep inside her cock-sleeve. The [meraxis.race]'s big, pierced labia spread and grip down lewdly around her mistress's thick cock, causing the centauress to shout, [style.speechFeminineStrong(That's it, milk my cock, you dumb bitch! ~Aah!~ Ready to get knocked up again, bitch?!)]
+		Letting out a deep, guttural roar, the centauress thrusts her fat cock deep inside her cock-sleeve. The [meraxis.race]'s big, pierced labia spread and grip down lewdly around her mistress's thick cock, causing the centauress to shout, [style.speechFeminineStrong(That's it, milk my cock, you dumb bitch! ~Aah!~ Ready to get knocked up again, cunt?!)]
 	</p>
 	<p>
-		With that, the centauress's heavy balls tense up, and she continues grunting and making degrading comments as she fills her cock-sleeve's pussy with hot, demonic cum. It takes almost a full minute for her orgasm to end, by which point her thick, salty jizz has backed up and leaked out around her cock to form a large, gloopy puddle on the ground beneath her cock-sleeve's well-fucked cunt. By no means having finished with her tattooed, pierced [meraxis.race], the centauress slides her fat cock free with an audible squelch, before commanding,
+		With that, the centauress's heavy balls tense up, and she continues grunting and making degrading comments as she fills her cock-sleeve's pussy with hot, demonic cum. It takes almost a full minute for her orgasm to end, by which point her thick, salty jizz has backed up and leaked out around her cock to form a large, slimy puddle on the ground beneath her cock-sleeve's well-fucked cunt. By no means having finished with the tattooed, pierced [meraxis.race], the centauress slides her fat cock free with an audible squelch, before commanding,
 		#IF(game.isAnalContentEnabled())
 			 [style.speechFeminineStrong(Get to work on my ass, cock-sleeve! I want to hear you cumming from giving me a rimjob, you filthy slut!)]
 		#ELSE
@@ -323,9 +401,9 @@
 	<p>
 		Hurrying to obey, the cock-sleeve jumps to her feet, and with cum drooling out of her pussy, she moves around behind her mistress. Swishing her tail to one side, the centauress grins as her slave eagerly buries her face in her rear end, and within moments, you hear the multi-breasted [meraxis.race]'s muffled squeals announcing the fact that she's orgasmed simply from
 		#IF(game.isAnalContentEnabled())
-			 performing anilingus. Letting out a mocking laugh, the centauress shouts back to her cock-sleeve, [style.speechFeminineStrong(That's a good bitch! I'll give you another tattoo after the party as a reward for your obedience. I'm thinking 'Ass licker' would go nicely on your lips...)]
+			 performing anilingus. Letting out a mocking laugh, the centauress shouts back to her cock-sleeve, [style.speechFeminineStrong(That's a good bitch! I'll give you another tattoo after the party as a reward for your obedience. I'm thinking 'Ass licker' would go nicely on your lips!)]
 		#ELSE
-			 performing cunnilingus. Letting out a mocking laugh, the centauress shouts back to her cock-sleeve, [style.speechFeminineStrong(That's a good bitch! I'll give you another tattoo after the party as a reward for your obedience. I'm thinking 'Cunt licker' would go nicely on your lips...)]
+			 performing cunnilingus. Letting out a mocking laugh, the centauress shouts back to her cock-sleeve, [style.speechFeminineStrong(That's a good bitch! I'll give you another tattoo after the party as a reward for your obedience. I'm thinking 'Cunt licker' would go nicely on your lips!)]
 		#ENDIF
 	</p>
 	<p>
@@ -420,16 +498,16 @@
 		You and the other cock-sleeve are publicly used in this manner for another half an hour or so, before finally Lunexis booms out over the noise of the crowd, [lunexis.speech(Bring in the slaves! Themiscyra is mine, and soon Elis shall share its fate!)]
 	</p>
 	<p>
-		To the wild cheering and shouting of the hundreds of demonic centauresses who are present, a train of slaves is led into the plaza. Sporting massive erections and stripping off their clothes to reveal massive, bouncing breasts, Lunette's daughters impatiently await the signal from Lunexis, which is soon given as she shouts, [lunexis.speech(Let the orgy commence!)]
+		To the wild cheering and shouting of the hundreds of demonic centauresses who are present, a train of at least a hundred slaves is led into the plaza. Quickly gaining massive erections and stripping off their clothes to reveal huge, bouncing breasts, Lunette's daughters impatiently await the signal from Lunexis, which is soon given as she shouts, [lunexis.speech(Let the orgy commence!)]
 	</p>
 	<p>
-		The vast majority of these slaves look like they've been taken from the Foloi Field's villages and farms as part of the centauresses' looting, although some of the taller and more muscular are no doubt Amazons who were captured in the fall of Themiscyra. Whatever their background, they all share the same fate, that being having their holes stuffed full of horse-cock and hot, demonic cum. Within moments, you find yourself in the middle of a wild orgy, although Lunexis is enjoying using you so much that you find yourself being hogged by her for the entire night.
+		The vast majority of these slaves look like they've been taken from the Foloi fields' villages and farms as part of the centauresses' looting, although some of the taller and more muscular are no doubt Amazons who were captured in the fall of Themiscyra. Whatever their background, they all share the same fate, that being having their holes stuffed full of horse-cock and hot, demonic cum. Within moments, you find yourself in the middle of a wild orgy, although Lunexis is enjoying using you so much that you find yourself being hogged by her for the entire night.
 	</p>
 	<p>
-		By the time the party has progressed into the early hours of the morning, you've seen the cock-sleeves once known as Meraxis and Aurokaris being reluctantly shared by their owners with just a handful of centauresses. The fallen queen of the Amazons, however, has been fucked by at least a hundred different cocks, each one of which filled or covered her in slimy, demonic cum. Thanks to being shared with so many sexual partners, she's soon coated in such a thick layer of jizz that you struggle to see the bondage gear she's wearing beneath it all.
+		By the time the party has progressed into the early hours of the morning, you've seen the cock-sleeve once known as Meraxis being fucked by at least a hundred different cocks, each one of which filled or covered her in slimy, demonic cum. Thanks to being shared with so many sexual partners, she's soon coated in such a thick layer of jizz that you struggle to see the tattoos and piercing which cover her body.
 	</p>
 	<p>
-		Throughout it all, you and the other three cock-sleeves happily moan, squeal, and beg for more. So thorough has been your training that you can't recall a life before becoming Lunexis's slave, and so by the time the sun comes up, the four of you are convinced that you've always been, and forever shall remain, nothing but cock-sleeves for your demonic centauress owners...
+		Throughout it all, you happily moan, squeal, and beg for more of your Mistress's cock. So thorough has your training been that you can't recall a life before becoming Lunexis's slave, and so by the time the sun comes up, you're convinced that you've always been, and forever shall remain, nothing but an obedient cock-sleeve for your demonic Mistress...
 	</p>
 	<p style='text-align:center;'>
 		...
@@ -441,7 +519,7 @@
 		With degrading tattoos covering every part of her body, and wearing a uniform consisting of golden piercings and nothing else, the [meraxis.race] who was once called Meraxis is trained by her owner into becoming the perfect masochistic fuck-toy. Her ten large breasts, with the thick, teat-like nipple on each one pierced and sporting a heavy, golden ring, regularly draw the attention of visitors to the palace. Loving nothing more than being roughly pounded and abused by the brutish, purple-skinned centauress who owns her, this cock-sleeve gains a reputation throughout the palace as being a particularly dirty slut, who's willingly engaged in every degrading sex act imaginable...
 	</i></p>
 	<p><i>
-		Thanks to your training, and the expertise you displayed on the night of the grand orgy, Lunexis takes you as her favourite cock-sleeve. While a lot of your time is spent resting with the other cock-sleeves, you're called to your queen's side multiple times each day, where you're roughly rutted, pumped full of cum, and ordered afterwards to pleasure her cock. Dressed up in translucent silks which leave nothing to the imagination, you're sometimes shown off by your queen and lent for a day or two to particularly deserving subordinates as a special reward. Just like the other three cock-sleeves, you only remember your life as a cock-sleeve, and love every moment of dutifully serving your queen and her massive, hot horse-cock...
+		Thanks to your training, and the expertise you displayed on the night of the grand orgy, Lunexis takes you as her favourite cock-sleeve. While a lot of your time is spent resting with the other cock-sleeves, you're called to your queen's side multiple times each day, where you're roughly rutted, pumped full of cum, and ordered afterwards to pleasure her cock. Dressed up in translucent silks which leave nothing to the imagination, you're sometimes shown off by your queen and lent for a day or two to particularly deserving subordinates as a special reward. Unable to remember your life before becoming a cock-sleeve, you love every moment of dutifully serving your queen and her massive, hot horse-cock...
 	</i></p>
 	]]>
 	</htmlContent>

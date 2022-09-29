@@ -601,7 +601,7 @@ public class AlleywayProstituteDialogue {
 				return new ResponseSex("Submit",
 						UtilText.parse(getProstitute(), "You feel bad for having beaten [npc.name]. Perhaps submitting to [npc.herHim] and letting [npc.herHim] dominantly fuck you would make [npc.herHim] feel better?"),
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
-						false, false,
+						true, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(getProstitute()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),

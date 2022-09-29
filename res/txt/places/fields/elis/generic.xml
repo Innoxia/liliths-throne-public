@@ -508,7 +508,7 @@
 		Positioned on the street corner directly adjacent to the Farmer's Market, 'The Centaur's Sword' tavern occupies one of the largest two-story buildings within Elis. Prominently displayed beside each of its two remarkably-wide entrances, information boards declare this tavern to have a 'taur-friendly interior design' and a bar that's able to 'accommodate more than a dozen centaurs'.
 	</p>
 	<p>
-		The tavern's sign hangs from a purpose-built post situated a few [style.lSizes] away from the building's corner, and displays an image of a naked, muscular centaur showing off his enormous erection. The words 'The Centaur's Sword' are written beneath this in flowing gold script, while an additional sign hanging beneath that reads 'Open 24/7'.
+		The tavern's sign hangs from a purpose-built post situated a few [style.lSizes] away from the building's corner, and displays an image of a naked, muscular centaur showing off his enormous erection. The words 'The Centaur's Sword' are written beneath this in flowing gold script, while an additional sign hanging beneath that reads '[style.colourMinorGood(Open 24/7)]'.
 	</p>
 	<p>
 		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))

@@ -90,7 +90,7 @@ public class LunetteMelee extends NPC {
 			this.setStartingBody(true);
 			
 			this.setGenericName(Util.randomItemFrom(namePrefixes)+" "+name);
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setSurname("Lunettemartu");
 			this.setPlayerKnowsName(false);
 			

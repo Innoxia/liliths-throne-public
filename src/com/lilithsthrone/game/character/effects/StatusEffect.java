@@ -77,8 +77,8 @@ import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Weather;
+import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -1443,7 +1443,7 @@ public class StatusEffect {
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
 			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
-				if(!Main.game.isWeatherInterruptionsEnabled() || !Main.game.getPlayer().getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION)) {
+				if(!Main.game.isWeatherInterruptionsEnabled() || Main.game.getPlayer().getWorldLocation().getWorldRegion()!=WorldRegion.DOMINION) {
 					return "";
 				}
 				
@@ -1458,19 +1458,18 @@ public class StatusEffect {
 							+ " they find themselves unable to think of anything but sex."
 						+ "</p>");
 				
-				AbstractPlaceType place = target.getGlobalLocationPlace().getPlaceType();
+				WorldRegion region = target.getWorldLocation().getWorldRegion();
 				
-				if(!place.equals(PlaceType.WORLD_MAP_DOMINION)){
+				if(region != WorldRegion.DOMINION){
 					sb.append("<p>"
 							+ "Although it breaks high over Dominion, the storm isn't contained to just within the city, and swiftly sweeps out across the Foloi Fields and into the surrounding forests and grassland wilderness."
 							+ " Like a chain reaction, flashes of purple lightning streak across the sky in all directions, which are quickly followed by the erotic moaning of arcane thunder."
 						+ "</p>");
 
-					if(place.equals(PlaceType.WORLD_MAP_FIELDS)
-							|| place.equals(PlaceType.WORLD_MAP_FIELDS_CITY)
-							|| place.equals(PlaceType.WORLD_MAP_FOREST)
-							|| place.equals(PlaceType.WORLD_MAP_GRASSLANDS)
-							|| place.equals(PlaceType.WORLD_MAP_RIVER)) {
+					if(region==WorldRegion.FIELD_CITY
+							|| region==WorldRegion.FIELDS
+							|| region==WorldRegion.WOODLAND
+							|| region==WorldRegion.RIVER) {
 						
 						if(target.getLocationPlace().isStormImmune()) {
 							sb.append("<p>"
@@ -1509,7 +1508,7 @@ public class StatusEffect {
 				if(!target.isVulnerableToArcaneStorm()) {
 					return UtilText.parse(target, "[npc.NamePos] affinity with the arcane has rendered [npc.herHim] all but immune to the arousing effects of arcane storms!");
 				} else {
-					return UtilText.parse(target, "[npc.NameIsFull] is far enough away from the storm's epicentre to be rendered all but immune to its arousing effects!");
+					return UtilText.parse(target, "[npc.NameIsFull] far enough away from the storm's epicentre to be rendered all but immune to its arousing effects!");
 				}
 			}
 		}
@@ -1519,7 +1518,7 @@ public class StatusEffect {
 					&& Main.game.isInNewWorld()
 					&& Main.game.isStarted()
 					&& ((!target.isVulnerableToArcaneStorm() && !(target.isElemental() && ((Elemental)target).getSummoner()!=null?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune())
-							|| !target.getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION));
+							|| target.getWorldLocation().getWorldRegion()!=WorldRegion.DOMINION);
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
@@ -1559,7 +1558,7 @@ public class StatusEffect {
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
 			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
-				if(!Main.game.isWeatherInterruptionsEnabled() || !Main.game.getPlayer().getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION)) {
+				if(!Main.game.isWeatherInterruptionsEnabled() || Main.game.getPlayer().getWorldLocation().getWorldRegion()!=WorldRegion.DOMINION) {
 					return "";
 				}
 				
@@ -1590,7 +1589,7 @@ public class StatusEffect {
 					&& Main.game.isStarted()
 					&& target.isVulnerableToArcaneStorm()
 					&& !(target.isElemental() && ((Elemental)target).getSummoner()!=null?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune()
-					&& target.getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION);
+					&& target.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION;
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
@@ -1628,7 +1627,7 @@ public class StatusEffect {
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
 			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
-				if(!Main.game.isWeatherInterruptionsEnabled() || !Main.game.getPlayer().getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION)) {
+				if(!Main.game.isWeatherInterruptionsEnabled() || Main.game.getPlayer().getWorldLocation().getWorldRegion()!=WorldRegion.DOMINION) {
 					return "";
 				}
 				
@@ -1660,7 +1659,7 @@ public class StatusEffect {
 					&& Main.game.isInNewWorld()
 					&& Main.game.isStarted()
 					&& (target.isElemental() && ((Elemental)target).getSummoner()!=null?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune()
-					&& target.getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION);
+					&& target.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION;
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
@@ -7722,6 +7721,26 @@ public class StatusEffect {
 		}
 		@Override
 		public boolean isSexEffect() {
+			return true;
+		}
+	};
+	
+	
+	// JOB/OCCUPATION EFFECTS:
+	
+	public static AbstractStatusEffect COMBAT_JOB_SOLDIER = new AbstractStatusEffect(10,
+			"Controlled Aggression",
+			"res/perks/jobs/soldier",
+			PresetColour.BASE_GREEN,
+			true,
+			null,
+			Util.newArrayListOfValues("Your damage is [style.boldExcellent(doubled)]")) {
+		@Override
+		public String getDescription(GameCharacter target) {
+				return UtilText.parse(target, "Thanks to [npc.her] military training, [npc.name] [npc.is] able to strike with extreme aggression at the beginning of combat.");
+		}
+		@Override
+		public boolean isCombatEffect() {
 			return true;
 		}
 	};
@@ -14000,6 +14019,7 @@ public class StatusEffect {
 	
 	public static List<AbstractStatusEffect> allStatusEffects;
 	public static List<AbstractStatusEffect> allStatusEffectsRequiringApplicationCheck;
+	public static List<AbstractStatusEffect> allStatusEffectsRequiringApplicationCheckNonCombat;
 	
 	public static Map<AbstractStatusEffect, String> statusEffectToIdMap = new HashMap<>();
 	public static Map<String, AbstractStatusEffect> idToStatusEffectMap = new HashMap<>();
@@ -14034,6 +14054,7 @@ public class StatusEffect {
 	static {
 		allStatusEffects = new ArrayList<>();
 		allStatusEffectsRequiringApplicationCheck = new ArrayList<>();
+		allStatusEffectsRequiringApplicationCheckNonCombat = new ArrayList<>();
 		
 		// Modded status effects:
 		
@@ -14109,10 +14130,17 @@ public class StatusEffect {
 				se.isConditionsMet(Main.game.getPlayer()); // To initialise the variable
 				if(se.isRequiresApplicationCheck()) {
 					allStatusEffectsRequiringApplicationCheck.add(se);
+					if(!se.isCombatEffect()) {
+						allStatusEffectsRequiringApplicationCheckNonCombat.add(se);
+					}
 				}
 			}
 //			System.out.println("ASE/SE: "+allStatusEffectsRequiringApplicationCheck.size()+"/"+allStatusEffects.size());
 		}
-		return allStatusEffectsRequiringApplicationCheck;
+		if(Main.game.isInCombat()) {
+			return allStatusEffectsRequiringApplicationCheck;
+		} else {
+			return allStatusEffectsRequiringApplicationCheckNonCombat;
+		}
 	}
 }

@@ -767,7 +767,7 @@ public class Sex {
 				clothingToStrip.addAll(character.getClothingCurrentlyEquipped());
 				clothingToStrip.removeIf(c -> c.getSlotEquippedTo().isJewellery() || c.isMilkingEquipment());
 				for(AbstractClothing c : clothingToStrip) {
-					character.unequipClothingOntoFloor(c, true, character);
+					character.unequipClothingIntoInventory(c, true, character);
 				}
 				// If any clothing was unable to be removed, displace it in every way possible:
 				clothingToStrip.clear();
@@ -790,7 +790,7 @@ public class Sex {
 				clothingToStrip.removeIf(c -> c.getSlotEquippedTo().isJewellery() || c.isMilkingEquipment());
 				for(AbstractClothing c : clothingToStrip) {
 					if(Main.sex.getInitialSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), c)) {
-						character.unequipClothingOntoFloor(c, true, character);
+						character.unequipClothingIntoInventory(c, true, character);
 					}
 				}
 				// If any clothing was unable to be removed, displace it in every way possible:
@@ -920,6 +920,7 @@ public class Sex {
 								character.equipClothingOverride(c, entry2.getKey(), false, false);
 							}
 						}
+						
 						clothingEquipped = character.getClothingInSlot(entry2.getKey()); // check if now equipped
 						if(Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)) {
 							for(AbstractClothing clothing : new ArrayList<>(character.getClothingCurrentlyEquipped())) {
@@ -4320,7 +4321,7 @@ public class Sex {
 		clothingBeingRemoved = clothingRemoval.getKey();
 
 		if(clothingRemoval.getValue() == DisplacementType.REMOVE_OR_EQUIP) {
-			targetForManagement.unequipClothingOntoFloor(clothingBeingRemoved, false, characterManagingClothing);
+			targetForManagement.unequipClothingIntoInventory(clothingBeingRemoved, false, characterManagingClothing);
 			Main.sex.setUnequipClothingText(clothingBeingRemoved, targetForManagement.getUnequipDescription());
 
 		} else {
@@ -4992,8 +4993,7 @@ public class Sex {
 	 */
 	public Set<GameCharacter> getOngoingCharactersUsingAreas(GameCharacter character, SexAreaInterface sexAreaBeingUsed, SexAreaInterface sexAreaUsing) {
 		Set<GameCharacter> characters = new HashSet<>();
-		
-		if(!ongoingActionsMap.get(character).containsKey(sexAreaBeingUsed)) {
+		if(ongoingActionsMap==null || !ongoingActionsMap.containsKey(character) || !ongoingActionsMap.get(character).containsKey(sexAreaBeingUsed)) { // Catch for if sex has not yet finished initialising
 			return characters;
 		}
 		
@@ -5010,7 +5010,10 @@ public class Sex {
 	 * Returns a list, not a single instance of GameCharacter, as the 'characterPenetrating' could be penetrating multiple characters with tentacles, tails, hands, etc.
 	 */
 	public List<SexAreaOrifice> getOrificesBeingPenetratedBy(GameCharacter characterPenetrating, SexAreaPenetration penetration, GameCharacter characterPenetrated) {
-		if(ongoingActionsMap.get(characterPenetrating).get(penetration).containsKey(characterPenetrated)) {
+		if(ongoingActionsMap!=null
+				&& ongoingActionsMap.containsKey(characterPenetrated)
+				&& ongoingActionsMap.get(characterPenetrating).containsKey(penetration)
+				&& ongoingActionsMap.get(characterPenetrating).get(penetration).containsKey(characterPenetrated)) {
 			List<SexAreaOrifice> returnList = new ArrayList<>();
 			for(SexAreaInterface sArea : ongoingActionsMap.get(characterPenetrating).get(penetration).get(characterPenetrated)) {
 				if(sArea.isOrifice()) {
@@ -5033,9 +5036,12 @@ public class Sex {
 	}
 	
 	/**
-	 * Returns a set, not a single instance of GameCharacter, as the 'characterPenetrating' could be penetrating multiple characters with tentacles, tails, hands, etc.
+	 * Returns a list, not a single instance of GameCharacter, as the 'characterPenetrating' could be penetrating multiple characters with tentacles, tails, hands, etc.
 	 */
 	public List<GameCharacter> getCharactersHavingOngoingActionWith(GameCharacter characterPenetrating, SexAreaPenetration penetration) {
+		if(ongoingActionsMap==null || !ongoingActionsMap.containsKey(characterPenetrating) || !ongoingActionsMap.get(characterPenetrating).containsKey(penetration)) {
+			return new ArrayList<>();
+		}
 		return new ArrayList<>(ongoingActionsMap.get(characterPenetrating).get(penetration).keySet());
 	}
 	

@@ -769,7 +769,7 @@ public class PrologueDialogue {
 								Main.game.getPlayer().equipClothingFromGround(c, true, Main.game.getPlayer());
 							}
 						}
-						
+
 						DamageType damageType = DamageType.FIRE;
 						switch(CharacterCreation.getStartingDemonstoneSpellSchool()) {
 							case AIR:
@@ -786,7 +786,11 @@ public class PrologueDialogue {
 								damageType = DamageType.ICE;
 								break;
 						}
-						Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType));
+						if(Main.game.getPlayer().getMainWeapon(0)==null) {
+							Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType));
+						} else {
+							Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType), false);
+						}
 						
 						Main.game.clearTextStartStringBuilder();
 						Main.game.clearTextEndStringBuilder();
