@@ -20,7 +20,6 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -44,7 +43,7 @@ public class DominionClubNPC extends NPC {
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3,
 				null, null, null,
-				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_CLUB_HOLDING_CELL, false);
 		
 		if(!isImported) {
 			this.setLocation(Main.game.getPlayer(), false);
@@ -66,10 +65,10 @@ public class DominionClubNPC extends NPC {
 //				setBody(gender, subspecies, stage, true);
 //			}
 			
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(true);
 			setDescription(UtilText.parse(this,
-					"[npc.Name] is a resident of Dominion, who you met in one of Nightlife's clubs."));
+					"[npc.Name] is a resident of Dominion, who you met in one of the clubs in the city's Nightlife district."));
 			
 			// PERSONALITY & BACKGROUND:
 			
@@ -91,6 +90,7 @@ public class DominionClubNPC extends NPC {
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyTattoos(this, true);
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
@@ -125,15 +125,15 @@ public class DominionClubNPC extends NPC {
 		return false;
 	}
 	
-	@Override
-	public Vector2i getLocation() {
-		if(this.getWorldLocation()==WorldType.NIGHTLIFE_CLUB
-				&& Main.game.getPlayer().getWorldLocation()==WorldType.NIGHTLIFE_CLUB) {
-			return Main.game.getPlayer().getLocation();
-		}
-		return location;
-	}
-	
+//	@Override
+//	public Vector2i getLocation() {
+//		if(this.getWorldLocation()==WorldType.NIGHTLIFE_CLUB
+//				&& Main.game.getPlayer().getWorldLocation()==WorldType.NIGHTLIFE_CLUB) {
+//			return Main.game.getPlayer().getLocation();
+//		}
+//		return location;
+//	}
+//	
 	@Override
 	public boolean isAbleToBeImpregnated() {
 		return true;

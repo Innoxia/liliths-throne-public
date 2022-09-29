@@ -98,10 +98,12 @@ public class Combat {
 
 	public void initialiseCombat(
 			List<NPC> allies,
+			boolean addElementalsToAllies,
 			NPC enemyLeader,
 			List<NPC> enemies,
 			Map<GameCharacter, String> openingDescriptions) {
 		initialiseCombat(allies,
+				addElementalsToAllies,
 				enemyLeader,
 				enemies,
 				openingDescriptions,
@@ -116,6 +118,7 @@ public class Combat {
 	 */
 	public void initialiseCombat(
 			List<NPC> allies,
+			boolean addElementalsToAllies,
 			NPC enemyLeader,
 			List<NPC> enemies,
 			Map<GameCharacter, String> openingDescriptions,
@@ -153,16 +156,18 @@ public class Combat {
 		resetWeaponsThrownDuringCombat(Main.game.getPlayer());
 		resetThrownWeaponsDepleted(Main.game.getPlayer());
 		
-		if(Main.game.getPlayer().isElementalSummoned()) {
-			this.addAlly(Main.game.getPlayer().getElemental());
-			Main.game.getPlayer().getElemental().setLocation(Main.game.getPlayer(), false);
-		}
-		if(allies!=null){
-			for(NPC ally : allies) {
-				this.addAlly(ally);
-				if(ally.isElementalSummoned()) {
-					this.addAlly(ally.getElemental());
-					ally.getElemental().setLocation(ally, false);
+		if(addElementalsToAllies) {
+			if(Main.game.getPlayer().isElementalSummoned()) {
+				this.addAlly(Main.game.getPlayer().getElemental());
+				Main.game.getPlayer().getElemental().setLocation(Main.game.getPlayer(), false);
+			}
+			if(allies!=null){
+				for(NPC ally : allies) {
+					this.addAlly(ally);
+					if(ally.isElementalSummoned()) {
+						this.addAlly(ally.getElemental());
+						ally.getElemental().setLocation(ally, false);
+					}
 				}
 			}
 		}
@@ -229,11 +234,13 @@ public class Combat {
 			startingEffect = Spell.getBasicStatusEffectApplication(Main.game.getPlayer(), true, Util.newHashMapOfValues(new Value<>(StatusEffect.TELEPATHIC_COMMUNICATION, 10)));
 		}
 		
-		combatContent.get(Main.game.getPlayer()).add(
-				(Main.game.getPlayer().hasTrait(Perk.JOB_SOLDIER, true)
-					?"Any "+Attribute.HEALTH_MAXIMUM.getName()+" damage you deal in this first turn is [style.boldExcellent(doubled)] thanks to your"
-							+ " <b style='color:"+Perk.JOB_SOLDIER.getColour().toWebHexString()+";'>"+Perk.JOB_SOLDIER.getName(Main.game.getPlayer())+"</b> ability."
-					:""));
+		// Soldier:
+		if(Main.game.getPlayer().hasTrait(Perk.JOB_SOLDIER, true)) {
+			Main.game.getPlayer().addStatusEffect(StatusEffect.COMBAT_JOB_SOLDIER, 2);
+			combatContent.get(Main.game.getPlayer()).add(
+					"Any "+Attribute.HEALTH_MAXIMUM.getName()+" damage you deal in this first turn is [style.boldExcellent(doubled)] thanks to your"
+						+ " <b style='color:"+Perk.JOB_SOLDIER.getColour().toWebHexString()+";'>"+Perk.JOB_SOLDIER.getName(Main.game.getPlayer())+"</b> ability.");
+		}
 		
 		combatContent.get(Main.game.getPlayer()).add(
 				openingDescriptions!=null && openingDescriptions.containsKey(Main.game.getPlayer())
@@ -261,13 +268,14 @@ public class Combat {
 				combatant.addStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION, 11);
 				startingEffect = Spell.getBasicStatusEffectApplication(combatant, true, Util.newHashMapOfValues(new Value<>(StatusEffect.TELEPATHIC_COMMUNICATION, 10)));
 			}
-			
-			combatContent.get(combatant).add(UtilText.parse(combatant,
-					(combatant.hasTrait(Perk.JOB_SOLDIER, true)
-						?"Any "+Attribute.HEALTH_MAXIMUM.getName()+" damage [npc.name] deals in this first turn is [style.boldExcellent(doubled)] thanks to [npc.her]"
-								+ " <b style='color:"+Perk.JOB_SOLDIER.getColour().toWebHexString()+";'>"+Perk.JOB_SOLDIER.getName(combatant)+"</b> ability."
-						:"")
-					));
+
+			// Soldier:
+			if(combatant.hasTrait(Perk.JOB_SOLDIER, true)) {
+				combatant.addStatusEffect(StatusEffect.COMBAT_JOB_SOLDIER, 2);
+				combatContent.get(combatant).add(UtilText.parse(combatant,
+						"Any "+Attribute.HEALTH_MAXIMUM.getName()+" damage [npc.name] deals in this first turn is [style.boldExcellent(doubled)] thanks to [npc.her]"
+								+ " <b style='color:"+Perk.JOB_SOLDIER.getColour().toWebHexString()+";'>"+Perk.JOB_SOLDIER.getName(combatant)+"</b> ability."));
+			}
 			
 			combatContent.get(combatant).add(UtilText.parse(combatant,
 					openingDescriptions!=null && openingDescriptions.containsKey(combatant)
@@ -1807,6 +1815,7 @@ public class Combat {
 				if(appliedSe.getEffect().getEffectInterval()<=0 || ((turn-appliedSe.getLastTimeAppliedEffect())>appliedSe.getEffect().getEffectInterval())) {
 					if(appliedSe.getEffect().getEffectInterval()<=0) {
 						s.append(se.applyEffect(character, 1, appliedSe.getSecondsPassed()));
+						
 					} else {
 						for(int i=0; i<((Main.game.getSecondsPassed()-appliedSe.getLastTimeAppliedEffect())/appliedSe.getEffect().getEffectInterval()); i++) {
 							if(s.length()>0) {
@@ -1827,7 +1836,9 @@ public class Combat {
 //				if(!effectString.isEmpty()) {
 //					endTurnStatusEffectText.append("<p><b style='color: " + se.getColour().toWebHexString() + "'>" + Util.capitaliseSentence(se.getName(character)) + ":</b> " + effectString+ "</p>");
 //				}
-				character.setCombatStatusEffectDuration(se, character.getStatusEffectDuration(se) - 1);
+				if(character.getStatusEffectDuration(se)>=0) { // Don't decrement below -1
+					character.setCombatStatusEffectDuration(se, character.getStatusEffectDuration(se) - 1);
+				}
 				if (character.getStatusEffectDuration(se) == 0) { // Do not remove special effects (i.e. ones set at -1 duration)
 					effectsToRemove.add(se);
 				}

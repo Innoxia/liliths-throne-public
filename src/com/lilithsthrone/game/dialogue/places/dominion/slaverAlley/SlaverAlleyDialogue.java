@@ -12,11 +12,19 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
+import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
@@ -38,6 +46,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
@@ -49,7 +58,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
@@ -147,15 +155,7 @@ public class SlaverAlleyDialogue {
 			slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_GOLD, false), true, Main.game.getNpc(Finch.class));
 			Main.game.getNpc(Finch.class).addSlave(slave);
 			
-			slave.addFetish(Fetish.FETISH_SUBMISSIVE);
-			slave.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
-			slave.addFetish(Fetish.FETISH_ORAL_GIVING);
-			slave.removePersonalityTraits(PersonalityCategory.SPEECH);
-			slave.removePersonalityTrait(PersonalityTrait.SHY);
-			if (Math.random() < 0.5f) {
-				slave.addPersonalityTrait(PersonalityTrait.LEWD);
-			}
-			slave.setObedience(100);
+			applySlaveEffectsFemale(slave);
 		}
 
 		// Male stall:
@@ -171,13 +171,7 @@ public class SlaverAlleyDialogue {
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_MALES, true);
 			Main.game.getNpc(Finch.class).addSlave(slave);
 			
-			slave.addFetish(Fetish.FETISH_DOMINANT);
-			slave.addFetish(Fetish.FETISH_CUM_STUD);
-			slave.removePersonalityTrait(PersonalityTrait.COWARDLY);
-			if (Math.random() < 0.5f) {
-				slave.addPersonalityTrait(PersonalityTrait.BRAVE);
-			}
-			slave.setObedience(75);
+			applySlaveEffectsMale(slave);
 		}
 
 		// Anal stall:
@@ -199,15 +193,8 @@ public class SlaverAlleyDialogue {
 			}
 			Main.game.getNpc(Finch.class).addSlave(slave);
 			
-			slave.setAssWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
-			slave.setAssBleached(true);
-			slave.setAssCapacity(Util.random.nextInt((int) Capacity.ONE_EXTREMELY_TIGHT.getMaximumValue(false)), true);
-			slave.setAssVirgin(false);
+			applySlaveEffectsAnal(slave);
 			Main.game.getPlayer().setKnowsCharacterArea(CoverableArea.ANUS, slave, true);
-			
-			slave.addFetish(Fetish.FETISH_ANAL_GIVING);
-			slave.addFetish(Fetish.FETISH_ANAL_RECEIVING);
-			slave.setObedience(75);
 		}
 
 		// Vaginal stall:
@@ -222,13 +209,7 @@ public class SlaverAlleyDialogue {
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_VAGINAL, true);
 			Main.game.getNpc(Finch.class).addSlave(slave);
 			
-			slave.setVaginaWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
-			slave.setVaginaCapacity(Util.random.nextInt((int) Capacity.ONE_EXTREMELY_TIGHT.getMaximumValue(false)), true);
-			slave.setVaginaVirgin(true);
-			
-			slave.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
-			slave.addFetish(Fetish.FETISH_VAGINAL_GIVING);
-			slave.setObedience(75);
+			applySlaveEffectsVaginal(slave);
 		}
 
 		// Oral stall:
@@ -245,17 +226,64 @@ public class SlaverAlleyDialogue {
 				slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_ringgag", false), true, Main.game.getNpc(Finch.class));
 			}
 			Main.game.getNpc(Finch.class).addSlave(slave);
-
-			slave.setFaceWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
-			slave.setFaceCapacity(Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue(), true);
-			slave.setFaceElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
-			slave.setLipSize(LipSize.FOUR_HUGE.getValue());
-			slave.setFaceVirgin(false);
-
-			slave.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-			slave.addFetish(Fetish.FETISH_ORAL_GIVING);
-			slave.setObedience(75);
+			
+			applySlaveEffectsOral(slave);
 		}
+	}
+	
+	private static void applySlaveEffectsFemale(GameCharacter slave) {
+		slave.addFetish(Fetish.FETISH_SUBMISSIVE);
+		slave.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
+		slave.addFetish(Fetish.FETISH_ORAL_GIVING);
+		slave.removePersonalityTraits(PersonalityCategory.SPEECH);
+		slave.removePersonalityTrait(PersonalityTrait.SHY);
+		if (Math.random() < 0.5f) {
+			slave.addPersonalityTrait(PersonalityTrait.LEWD);
+		}
+		slave.setObedience(100);
+	}
+	
+	private static void applySlaveEffectsMale(GameCharacter slave) {
+		slave.addFetish(Fetish.FETISH_DOMINANT);
+		slave.addFetish(Fetish.FETISH_CUM_STUD);
+		slave.removePersonalityTrait(PersonalityTrait.COWARDLY);
+		if (Math.random() < 0.5f) {
+			slave.addPersonalityTrait(PersonalityTrait.BRAVE);
+		}
+		slave.setObedience(75);
+	}
+	
+	private static void applySlaveEffectsAnal(GameCharacter slave) {
+		slave.setAssWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
+		slave.setAssBleached(true);
+		slave.setAssCapacity(Util.random.nextInt((int) Capacity.ONE_EXTREMELY_TIGHT.getMaximumValue(false)), true);
+		slave.setAssVirgin(false);
+		
+		slave.addFetish(Fetish.FETISH_ANAL_GIVING);
+		slave.addFetish(Fetish.FETISH_ANAL_RECEIVING);
+		slave.setObedience(75);
+	}
+
+	private static void applySlaveEffectsVaginal(GameCharacter slave) {
+		slave.setVaginaWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
+		slave.setVaginaCapacity(Util.random.nextInt((int) Capacity.ONE_EXTREMELY_TIGHT.getMaximumValue(false)), true);
+		slave.setVaginaVirgin(true);
+		
+		slave.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
+		slave.addFetish(Fetish.FETISH_VAGINAL_GIVING);
+		slave.setObedience(75);
+	}
+	
+	private static void applySlaveEffectsOral(GameCharacter slave) {
+		slave.setFaceWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
+		slave.setFaceCapacity(Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue(), true);
+		slave.setFaceElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
+		slave.setLipSize(LipSize.FOUR_HUGE.getValue());
+		slave.setFaceVirgin(false);
+
+		slave.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+		slave.addFetish(Fetish.FETISH_ORAL_GIVING);
+		slave.setObedience(75);
 	}
 	
 	private static boolean slavesInStocksPresent() {
@@ -1091,68 +1119,154 @@ public class SlaverAlleyDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Enter", "Enter the cafe and sit down at one of the tables.", MARKET_STALL_CAFE_INTERIOR) {
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_CAFE_INTERIOR"));
-					}
-				};
+				return new Response("Enter", "Enter the cafe and sit down at one of the tables.", MARKET_STALL_CAFE_INTERIOR);
 			}
 			return null;
 		}
 	};
 
-	private static List<AbstractItemType> getCafeItems() {
-		return Util.newArrayListOfValues(
-				ItemType.getItemTypeFromId("innoxia_race_human_vanilla_water"),
-				ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_juice_box"),
-				ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_juice"),
-				ItemType.getItemTypeFromId("innoxia_race_squirrel_squirrel_java"),
-				ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_carrot_cake"),
-				ItemType.getItemTypeFromId("innoxia_race_rat_brown_rats_burger"),
-				ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_salad"));
+	private static Map<Integer, AbstractItemType> getCafeItems() {
+		return Util.newHashMapOfValues(
+				new Value<>(1, ItemType.getItemTypeFromId("innoxia_race_human_vanilla_water")),
+				new Value<>(2, ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_juice_box")),
+				new Value<>(3, ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_juice")),
+				new Value<>(4, ItemType.getItemTypeFromId("innoxia_race_squirrel_squirrel_java")),
+				new Value<>(6, ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_carrot_cake")),
+				new Value<>(7, ItemType.getItemTypeFromId("innoxia_race_rat_brown_rats_burger")),
+				new Value<>(8, ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_salad")));
 	}
 	
 	public static final DialogueNode MARKET_STALL_CAFE_INTERIOR = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			if(Main.game.getNonCompanionCharactersPresent().isEmpty()) {
+				NPC slave = new SlaveForSale(
+						Main.game.getPlayer().getLocationPlaceType()==PlaceType.SLAVER_ALLEY_CAFE_2 || Main.game.getPlayer().getLocationPlaceType()==PlaceType.SLAVER_ALLEY_CAFE_3
+							?Gender.M_P_MALE
+							:Gender.F_V_B_FEMALE,
+						false,
+						false);
+				try {
+					Main.game.addNPC(slave, false);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				slave.setLocation(Main.game.getPlayer(), true);
+				slave.removePersonalityTrait(PersonalityTrait.MUTE);
+				slave.removePersonalityTrait(PersonalityTrait.STUTTER);
+				slave.removePersonalityTrait(PersonalityTrait.SLOVENLY);
+				slave.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+				for(AbstractFetish fetish : Fetish.allFetishes) {
+					if(slave.getFetishDesire(fetish).isNegative()) {
+						slave.setFetishDesire(fetish, FetishDesire.TWO_NEUTRAL); // Remove all negative fetishes to make sure they don't start hating sex scenes
+					}
+				}
+				
+				if(Main.game.getPlayer().getLocationPlaceType()==PlaceType.SLAVER_ALLEY_CAFE) { //Oral:
+					applySlaveEffectsOral(slave);
+					slave.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, CoveringPattern.NONE, CoveringModifier.METALLIC, PresetColour.COVERING_GOLD, false, PresetColour.COVERING_GOLD, false));
+					slave.addHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
+					slave.addPersonalityTrait(PersonalityTrait.SHY);
+
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_vstring", PresetColour.CLOTHING_PURPLE_DARK, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_PURPLE_DARK, false), true, slave);
+					
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_DRESS, PresetColour.CLOTHING_BLUE_LIGHT, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_HEADPIECE, PresetColour.CLOTHING_BLUE_LIGHT, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_SLEEVES, PresetColour.CLOTHING_BLUE_LIGHT, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_STOCKINGS, PresetColour.CLOTHING_BLUE_LIGHT, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_HEELS, PresetColour.CLOTHING_BLUE_LIGHT, false), true, slave);
+					
+					slave.setPiercedEar(true);
+					slave.setPiercedTongue(true);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_basic_barbell", PresetColour.CLOTHING_GOLD, false), true, slave);
+					slave.setPiercedLip(true);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_lip_double_ring", PresetColour.CLOTHING_GOLD, false), true, slave);
+					
+				} else if(Main.game.getPlayer().getLocationPlaceType()==PlaceType.SLAVER_ALLEY_CAFE_2) { //Masculine:
+					applySlaveEffectsMale(slave);
+					if(slave.getPenisSize().getMedianValue()<PenisLength.FOUR_HUGE.getMedianValue()) {
+						slave.setPenisSize(PenisLength.FOUR_HUGE);
+					}
+					slave.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+					slave.addPersonalityTrait(PersonalityTrait.CONFIDENT);
+					slave.addFetish(Fetish.FETISH_IMPREGNATION);
+
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_briefs", PresetColour.CLOTHING_BLACK, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_work_boots", PresetColour.CLOTHING_BLACK, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_crotchless_chaps", PresetColour.CLOTHING_BLACK, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_tshirt", PresetColour.CLOTHING_BLUE_NAVY, false), true, slave);
+					
+				} else if(Main.game.getPlayer().getLocationPlaceType()==PlaceType.SLAVER_ALLEY_CAFE_3) { //Anal:
+					applySlaveEffectsAnal(slave);
+					slave.addFetish(Fetish.FETISH_SUBMISSIVE);
+					slave.removePersonalityTrait(PersonalityTrait.CONFIDENT);
+					
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_briefs", PresetColour.CLOTHING_BLACK, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, slave);
+
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_butler_butler_waistcoat_shirt", PresetColour.CLOTHING_GREY, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_butler_butler_jacket", PresetColour.CLOTHING_BLACK, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_butler_butler_trousers", PresetColour.CLOTHING_BLACK, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_butler_butler_gloves", PresetColour.CLOTHING_WHITE, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_butler_butler_shoes", PresetColour.CLOTHING_BLACK, false), true, slave);
+
+					slave.addStatusEffect(StatusEffect.CHASTITY_4, -1);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_chastity_cage", PresetColour.CLOTHING_PINK_LIGHT, false), true, slave);
+					
+				} else { //Feminine:
+					applySlaveEffectsFemale(slave);
+					if(slave.getBreastSize().getMeasurement()<CupSize.F.getMeasurement()) {
+						slave.setBreastSize(CupSize.F);
+					}
+					slave.addPersonalityTrait(PersonalityTrait.CONFIDENT);
+					slave.addPersonalityTrait(PersonalityTrait.LEWD);
+					slave.setVaginaSquirter(true);
+
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_VIRGIN_KILLER_SWEATER, PresetColour.CLOTHING_RED_BURGUNDY, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_stockings", PresetColour.CLOTHING_BLACK, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.HIPS_SUSPENDER_BELT, PresetColour.CLOTHING_BLACK, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_elbow_length_gloves", PresetColour.CLOTHING_BLACK, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_platform_boots", PresetColour.CLOTHING_RED_BURGUNDY, false), true, slave);
+					
+					slave.setPiercedEar(true);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_PLATINUM, false), true, slave);
+					slave.setPiercedNose(true);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_nose_ball_stud", PresetColour.CLOTHING_PLATINUM, false), true, slave);
+				}
+				
+			} else {
+				NPC slave = Main.game.getNonCompanionCharactersPresent().get(0);
+				if(Main.game.getPlayer().getLocationPlaceType()==PlaceType.SLAVER_ALLEY_CAFE) { //Oral:
+					slave.addHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
+				}
+			}
+			Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_CAFE_INTERIOR"));
+			if(Main.game.getPlayer().getLocationPlaceType()==PlaceType.SLAVER_ALLEY_CAFE) { //Oral:
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slaverAlleyCafe1Visited, true);
+			} else if(Main.game.getPlayer().getLocationPlaceType()==PlaceType.SLAVER_ALLEY_CAFE_2) { //Masculine:
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slaverAlleyCafe2Visited, true);
+			} else if(Main.game.getPlayer().getLocationPlaceType()==PlaceType.SLAVER_ALLEY_CAFE_3) { //Anal:
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slaverAlleyCafe3Visited, true);
+			} else { // Feminine:
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slaverAlleyCafe4Visited, true);
+			}
+			NPC slave = Main.game.getNonCompanionCharactersPresent().get(0);
+			if(slave.isVisiblyPregnant()) {
+				slave.setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+			}
+			if(Main.game.getPlayer().isVisiblyPregnant()) {
+				Main.game.getPlayer().setCharacterReactedToPregnancy(slave, true);
+			}
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 2*60;
 		}
 		@Override
 		public String getContent() {
-			StringBuilder sb = new StringBuilder();
-
-			sb.append("<div class='container-full-width' style='text-align:center;'>");
-				sb.append("<b>Menu</b>");
-				for(AbstractItemType itemType : getCafeItems()) {
-					sb.append("<div class='container-full-width' style='width:100%; margin:4px 0; background:"+PresetColour.BACKGROUND.toWebHexString()+";'>");
-						sb.append("<div class='container-full-width' style='text-align:center; width:20%; background:transparent; margin:0; padding:0;'>");
-							sb.append("<span style='color:"+itemType.getRarity().getColour().toWebHexString()+";'>"+itemType.getName(false)+"</span>");
-						sb.append("</div>");
-						sb.append("<div class='container-full-width' style='text-align:center; width:60%; background:transparent; margin:0; padding:0;'>");
-						int i=0;
-						for(ItemEffect ie : itemType.getEffects()) {
-							for(String desc : ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
-								if(i!=0) {
-									sb.append("<br/>");
-								}
-								sb.append(desc);
-								i++;
-							}
-						}
-						sb.append("</div>");
-						sb.append("<div class='container-full-width' style='text-align:center; width:20%; background:transparent; margin:0; padding:0;'>");
-							if(Main.game.getPlayer().getMoney()<itemType.getValue(null)*2) {
-								sb.append(UtilText.formatAsMoney(itemType.getValue(null)*2, "span", PresetColour.GENERIC_BAD));
-							} else {
-								sb.append(UtilText.formatAsMoney(itemType.getValue(null)*2, "span"));
-							}
-						sb.append("</div>");
-					sb.append("</div>");
-				}
-			sb.append("</div>");
-			
-			return sb.toString();
+			return "";
 		}
 		@Override
 		public String getResponseTabTitle(int index) {
@@ -1170,61 +1284,74 @@ public class SlaverAlleyDialogue {
 			if(index==0) {
 				return new Response("Leave", "Exit the cafe and head back out into Slaver Alley.", MARKET_STALL_CAFE);
 			}
-			List<Response> responses = new ArrayList<>();
 			
-			for(AbstractItemType itemType : getCafeItems()) {
+			if(getCafeItems().containsKey(index)) {
+				AbstractItemType itemType = getCafeItems().get(index);
+				int itemValue = (int) (itemType.getValue(null)*1.8f);
 				if(responseTab==0) {
-					if(Main.game.getPlayer().getMoney()<itemType.getValue(null)*2) {
-						responses.add(new Response(itemType.getName(false), "You don't have enough money to order "+itemType.getDeterminer()+" "+itemType.getName(false)+"...", null));
+					if(Main.game.getPlayer().getMoney()<itemValue) {
+						return new Response(itemType.getName(false)+" ("+UtilText.formatAsMoneyUncoloured(itemValue, "span")+")",
+								"You don't have enough money to order "+itemType.getDeterminer()+" "+itemType.getName(false)+"...",
+								null);
 						
 					} else {
-						responses.add(
-								new Response(itemType.getName(false),
+						return new Response(itemType.getName(false)+" ("+UtilText.formatAsMoney(itemValue, "span")+")",
 										Main.game.getPlayer().hasCompanions()
 											?"Order "+itemType.getDeterminer()+" "+itemType.getName(false)+" for yourself."
 											:"Order "+itemType.getDeterminer()+" "+itemType.getName(false)+".",
-										MARKET_STALL_CAFE_INTERIOR) {
+											MARKET_STALL_CAFE_INTERIOR_NO_CONTENT) {
 									@Override
 									public void effects() {
 										UtilText.addSpecialParsingString(itemType.getDeterminer(), true);
 										UtilText.addSpecialParsingString(itemType.getName(false), false);
-										UtilText.addSpecialParsingString(Util.intToString(itemType.getValue(null)*2), false);
+										UtilText.addSpecialParsingString(Util.intToString(itemValue), false);
 										UtilText.addSpecialParsingString(itemType.getUseName(), false);
 										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_CAFE_INTERIOR_ORDER"));
 										Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().useItem(Main.game.getItemGen().generateItem(itemType), Main.game.getPlayer(), false, true));
-										Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-itemType.getValue(null)*2));
+										Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-itemValue));
 									}
-								});
+								};
 					}
 					
 				} else if(responseTab==1) {
-					if(Main.game.getPlayer().getMoney()<itemType.getValue(null)*2) {
-						responses.add(new Response(itemType.getName(false), "You don't have enough money to order "+itemType.getDeterminer()+" "+itemType.getName(false)+"...", null));
+					if(Main.game.getPlayer().getMoney()<itemValue) {
+						return new Response(itemType.getName(false), "You don't have enough money to order "+itemType.getDeterminer()+" "+itemType.getName(false)+"...", null);
 						
 					} else {
-						responses.add(
-								new Response(itemType.getName(false),
+						return new Response(itemType.getName(false),
 										"Order "+itemType.getDeterminer()+" "+itemType.getName(false)+" for [com.name].",
-										MARKET_STALL_CAFE_INTERIOR) {
+										MARKET_STALL_CAFE_INTERIOR_NO_CONTENT) {
 									@Override
 									public void effects() {
 										UtilText.addSpecialParsingString(itemType.getDeterminer(), true);
 										UtilText.addSpecialParsingString(itemType.getName(false), false);
-										UtilText.addSpecialParsingString(Util.intToString(itemType.getValue(null)*2), false);
+										UtilText.addSpecialParsingString(Util.intToString(itemValue), false);
 										UtilText.addSpecialParsingString(UtilText.parse("[com.verb("+itemType.getUseName()+")]"), false);
 										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_CAFE_INTERIOR_ORDER_COMPANION"));
 										Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().getMainCompanion().useItem(Main.game.getItemGen().generateItem(itemType), Main.game.getPlayer().getMainCompanion(), false, true));
-										Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-itemType.getValue(null)*2));
+										Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-itemValue));
 									}
-								});
+								};
 					}
 				}
 			}
 			
-			if(index-1<responses.size()) {
-				return responses.get(index-1);
-			}
-			return null;
+			return DialogueManager.getDialogueFromId("innoxia_places_dominion_slaver_alley_cafe_interior").getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode MARKET_STALL_CAFE_INTERIOR_NO_CONTENT = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return MARKET_STALL_CAFE_INTERIOR.getResponse(responseTab, index);
 		}
 	};
 	

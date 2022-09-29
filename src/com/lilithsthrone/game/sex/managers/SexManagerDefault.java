@@ -141,7 +141,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		// --- Priority 1 | If orgasming, bypass everything and use an orgasm option ---
 		
-		if (Main.sex.isReadyToOrgasm(partner) && SexFlags.playerPreparedForCharactersOrgasm.contains(partner)) {
+		if (Main.sex.isReadyToOrgasm(partner)
+				&& (SexFlags.playerPreparedForCharactersOrgasm.contains(partner) || Main.sex.isSpectator(partner))) { // Player does not prepare for spectator orgasms
 			List<SexActionInterface> priorityOrgasms = new ArrayList<>();
 			
 			for(SexActionInterface action : availableActions) {
