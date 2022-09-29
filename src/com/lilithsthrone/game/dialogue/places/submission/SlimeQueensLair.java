@@ -612,7 +612,7 @@ public class SlimeQueensLair {
 					return new ResponseSex("Submit",
 							UtilText.parse(Main.game.getNpc(SlimeRoyalGuard.class), "Let [slimeRoyalGuard.name] fuck you."),
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
-							false, false,
+							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getNpc(SlimeRoyalGuard.class)),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -988,7 +988,7 @@ public class SlimeQueensLair {
 				return new ResponseSex("Submit",
 						UtilText.parse(Main.game.getNpc(SlimeRoyalGuard.class), "Let [slimeRoyalGuard.name] fuck you."),
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
-						false, false,
+						true, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(Main.game.getNpc(SlimeRoyalGuard.class)),
 								Util.newArrayListOfValues(Main.game.getPlayer()),

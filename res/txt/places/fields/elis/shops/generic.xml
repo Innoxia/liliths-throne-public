@@ -8,9 +8,9 @@
 	<p>
 		Large wooden plant boxes line the sides of this entranceway, and are filled with a dazzling array of brightly-coloured flowers.
 		#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<17)
-			 With the information board quite clearly listing the standard opening times of the precinct's stores as [units.time(9)]-[units.time(17)], it's no wonder that there are a considerable amount of people passing through this entrance.
+			 With the information board quite clearly listing the standard opening times of the precinct's stores as [style.colourMinorGood([units.time(9)]-[units.time(17)])], it's no wonder that there are a considerable amount of people passing through this entrance.
 		#ELSE
-			 Despite the information board quite clearly listing the standard opening times of the precinct's stores as [units.time(9)]-[units.time(17)], there's still the occasional person passing through this entrance.
+			 Despite the information board quite clearly listing the standard opening times of the precinct's stores as [style.colourMinorBad([units.time(9)]-[units.time(17)])], there's still the occasional person passing through this entrance.
 		#ENDIF
 	</p>
 	<p>
@@ -97,7 +97,12 @@
 		For every one of the stores which are of interest to you, there are one or two that offer goods or services which are of no use to you whatsoever. Ranging from furniture stores to first-floor accountants offices, you pass by these businesses without giving them so much of a second glance.
 	</p>
 	<p>
-		It's in front of one of these generic shops which you currently find yourself standing, and other than offering a place for you to stand and look around Wall's End, there's nothing for you to do here...
+		It's in front of one of these generic shops which you currently find yourself standing.
+		#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<17)
+			 Although its opening hours are clearly displayed in the window as [style.colourMinorGood([units.time(9)]-[units.time(17)])], the goods within are of no interest to you, and as such there's nothing for you to do here...
+		#ELSE
+			 With its opening hours clearly displayed in the window as [style.colourMinorBad([units.time(9)]-[units.time(17)])], there's nothing for you to do here...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>

@@ -20,9 +20,9 @@
 	<p>
 		Looking over in the direction of the bar, you see a greater badger-morph step out from behind it. Wearing a stern expression, this badger-morph looks to be in his early forties, and as he strides over to where you and Meraxis are standing, you see that he's
 		#IF(game.isMetricSizes())
-			 just under six feet tall,
-		#ELSE
 			 about 180cm tall,
+		#ELSE
+			 just under six feet tall,
 		#ENDIF
 		 and has a sturdy, muscular body. His [flash.topClothing(NIPPLES)] strains to contain his wide chest and thick biceps, and as he comes to a halt before you, he speaks in a deep, gruff voice which perfectly matches his physical appearance, [flash.speech(Took you long enough to get here. So you're the one Meraxis told me about, eh? I'm Flash, the owner of this place. You're not going to try and challenge me to a duel as well, are you?)]
 	</p>
@@ -953,14 +953,29 @@
 	
 	<htmlContent tag="LUNEXIS_PLAN"><![CDATA[
 	<p>
-		TODO You tell Meraxis that you have something secret to discuss with her. She steps away from her minions and asks what it is.
+		Deciding that now's the time to get Meraxis involved in your plan to free your Mistress, you tell her that you have something very important to discuss with her.
+	</p>
+	<p>
+		[meraxis.speech(Something important?)] she excitedly asks with a bright glint in her eye. Leaning forwards on her seat, she guesses, [meraxis.speech(Have you discovered a universe-shattering artefact? Or maybe Elis needs saving from a cataclysmic disaster!)]
+	</p>
+	<p>
+		Although you're happy to see how eager she is to find out what you've got in store for her, you don't want anyone else finding out about your plan. As such, you pointedly glance over to the succubi who are sitting beside the [meraxis.race] and tell her that you need to discuss it in secret.
+	</p>
+	<p>
+		[meraxis.speech(Very well, I understand! Remain seated, my minions; I'll be right back!)] Meraxis declares, before standing up and following you as you lead her out into the privacy of the tavern's beer garden. Once there, the [meraxis.race] turns to face you and impatiently asks, [meraxis.speech(Well, what is it, [pc.name]? Is it about defeating Lunette?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LUNEXIS_PLAN_DELAY"><![CDATA[
 	<p>
-		TODO You tell Meraxis that you've changed your mind and that now's not the time. She is annoyed and goes to sit back down with her minions. You step away from her and head back into the tavern...
+		Having second thoughts about leading Meraxis into the clutches of Lunexis, but also not wanting to betray your Mistress, you decide that now's not the time for this. Shaking your head, you tell the [meraxis.race] that you're not quite ready to reveal your secret after all.
+	</p>
+	<p>
+		[meraxis.speech(You think that you can hide your secrets from me?!)] Meraxis declares, before striking one of her wild poses and letting out a loud laugh. Pointing an accusatory finger at you, she declares, [meraxis.speech(I shall discover what you're hiding before long, my nemesis! For now, however, I must return to my minions. Until next time!)]
+	</p>
+	<p>
+		With that, Meraxis dashes off back into the tavern, leaving you to let out a sigh of relief and continue on your way...
 	</p>
 	]]>
 	</htmlContent>

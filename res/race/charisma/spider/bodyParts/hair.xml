@@ -22,6 +22,6 @@
 		<br/>[npc.Name] now [npc.has] [npc.hairColour] [style.boldSpider(spider-morph hair)].
 	]]></transformationDescription>
 	<bodyDescription><![CDATA[
-		[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], silky human-like hair.
+		[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], silky human-like hair
 	]]></bodyDescription>
 </hair>

@@ -260,8 +260,11 @@
 					This element also does not support the special 'default' values. -->
 					<nextDialoguePlayerDefeat><![CDATA[innoxia_encounters_elis_berries_fight_lost]]></nextDialoguePlayerDefeat>
 					<!-- A list of allies who will be on your side during the fight.
-					If the 'companionsAreAllies' attribute is true, the player's companions are included as allies. -->
-					<allies companionsAreAllies="true">
+						If the 'companionsAreAllies' attribute is true, the player's companions are included as allies.
+							If omitted, this defaults to true.
+						If the 'elementalsAreAllies' attribute is true, combatants' elementals are included as allies.
+							If omitted, this defaults to true. -->
+					<allies companionsAreAllies="true" elementalsAreAllies="true">
 						<ally><![CDATA[nyan]]></ally>
 					</allies>
 					<!-- A list of enemies who you'll be fighting during the fight. -->

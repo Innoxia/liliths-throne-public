@@ -87,7 +87,7 @@ public class BatCavernLurkerAttacker extends NPC {
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
-			setName(Name.getRandomTriplet(species.getRace()));
+			setName(Name.getRandomTriplet(species));
 			this.setPlayerKnowsName(false);
 			
 			// PERSONALITY & BACKGROUND:
@@ -110,6 +110,7 @@ public class BatCavernLurkerAttacker extends NPC {
 	
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyTattoos(this, true);
 
 			if(hasFetish(Fetish.FETISH_CUM_ADDICT) && Math.random() < 0.1) {
 				Main.game.getCharacterUtils().applyDirtiness(this);

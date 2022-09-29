@@ -159,13 +159,13 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical human.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.TEN)),
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
@@ -423,12 +423,12 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical demon.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.THREE)),
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.NIGHTLIFE_CLUB,  SubspeciesSpawnRarity.TWO_RARE)),
+					new Value<>(WorldType.NIGHTLIFE_CLUB,  SubspeciesSpawnRarity.THREE)),
 			null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
@@ -599,14 +599,14 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"The result of copulation between a demon and a non-demonic partner.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.ONE_VERY_RARE)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO),
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.TWO),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.TWO)),
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)),
+					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.TWO),
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO)),
 			null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
@@ -747,7 +747,7 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical imp.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON)),
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.TEN)),
 			Util.newHashMapOfValues(),
 			null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
@@ -820,7 +820,7 @@ public class Subspecies {
 			SubspeciesPreference.ONE_LOW,
 			"A more powerful form of imp, standing at over 3'6\" tall.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON)),
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.TEN)),
 			Util.newHashMapOfValues(),
 			null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
@@ -904,12 +904,12 @@ public class Subspecies {
 			PresetColour.RACE_COW_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT, "An anthropomorphic cow, known as a 'cattle-morph' when bipedal, and a 'cowtaur'/'bulltaur' when the lower body is that of a feral cow or bull.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.ONE_VERY_RARE)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.TWO)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.THREE)),
 			null, null) {
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -990,16 +990,16 @@ public class Subspecies {
 			PresetColour.RACE_DOG_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT, "An anthropomorphic dog, known as a 'dog-morph' when bipedal, and a 'dogtaur' when the lower body is that of an oversized feral dog.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.TEN)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, null) {
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -1087,11 +1087,11 @@ public class Subspecies {
 							+ " They are known as 'border collie-morphs' when bipedal, and 'border collie-taurs' when the lower body is that of an oversized feral border collie."
 							+ " To be identified as a border collie-morph, a character must be a dog-morph that has either upright or folded ears, and fluffy, black fur with white markings.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FIVE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TEN)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -1200,10 +1200,10 @@ public class Subspecies {
 				+ " They are known as 'dobermanns' when bipedal, and 'dobermanntaurs' when the lower body is that of an oversized feral dobermann."
 				+ " To be identified as a dobermann, a character must be a dog-morph that has short, black fur, with either brown, dark-brown, or tan markings.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.THREE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -1322,12 +1322,12 @@ public class Subspecies {
 				+ " They are known as 'German-shepherd-morphs' when bipedal, and 'German-shepherd-taurs' when the lower body is that of an oversized feral German-shepherd."
 				+ " To be identified as a German-shepherd-morph, a character must be a dog-morph that has upright ears, and fluffy, black fur with tan markings.",
 				Util.newHashMapOfValues(
-						new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.THREE_UNCOMMON),
-						new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
-						new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.THREE_UNCOMMON)),
+						new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FIVE),
+						new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE),
+						new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FIVE)),
 			Util.newHashMapOfValues(
-			new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-			new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.TEN),
+			new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -1429,12 +1429,12 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic wolf, known as a 'wolf-morph' when bipedal, and a 'wolftaur' when the lower body is that of a typically-oversized feral wolf.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FIVE),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.FIVE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, null) {
 		@Override
 		public String getName(Body body) {
@@ -1556,12 +1556,12 @@ public class Subspecies {
 			PresetColour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT, "An anthropomorphic fox, known as a 'fox-morph' when bipedal, and a 'foxtaur' when the lower body is that of a typically-oversized feral fox.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.FOUR_COMMON)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.TEN)),
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -1629,10 +1629,10 @@ public class Subspecies {
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic fox with white fur, known as an 'arctic fox-morph' when bipedal, and an 'arctic foxtaur' when the lower body is that of a typically-oversized feral fox.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldRegion.SNOW, SubspeciesSpawnRarity.TWO_RARE)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO),
+					new Value<>(WorldRegion.SNOW, SubspeciesSpawnRarity.THREE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.THREE)),
 			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -1708,11 +1708,11 @@ public class Subspecies {
 			"An anthropomorphic fox with distinctive large ears, and with either tan, dirty blonde, or bleach-blonde fur."
 					+ " They are known as a 'fennec-morph' when bipedal, and a 'fennectaur' when the lower body is that of a typically-oversized feral fennec fox.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldRegion.DESERT, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.THREE_UNCOMMON)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO),
+					new Value<>(WorldRegion.DESERT, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.FIVE)),
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -1801,7 +1801,7 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A fox-morph, empowered by the gifts of a Lilin.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.TWO_RARE)),
+					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.THREE)),
 			Util.newHashMapOfValues(),
 			null, Util.newArrayListOfValues(
 					SubspeciesFlag.DISABLE_SPAWN_PREFERENCE)) {
@@ -1938,7 +1938,7 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An arctic fox-morph, empowered by the gifts of a Lilin.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.ONE_VERY_RARE)),
+					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.TWO)),
 			Util.newHashMapOfValues(),
 			null, Util.newArrayListOfValues(
 					SubspeciesFlag.DISABLE_SPAWN_PREFERENCE)) {
@@ -2066,7 +2066,7 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A fennec-morph, empowered by the gifts of a Lilin.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.ONE)),
 			Util.newHashMapOfValues(),
 			null, Util.newArrayListOfValues(
 					SubspeciesFlag.DISABLE_SPAWN_PREFERENCE)) {
@@ -2214,16 +2214,16 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic cat, known as a 'cat-morph' when bipedal, and a 'cat-taur' when the lower body is that of a typically-oversized feral cat.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.TEN)),
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, null) {
 		@Override
 		public String getName(Body body) {
@@ -2316,12 +2316,12 @@ public class Subspecies {
 			"An anthropomorphic lynx, known as a 'lynx-morph' when bipedal, and a 'lynxtaur' when the lower body is that of a typically-oversized feral lynx."
 				+ " To be identified as a Lynx-morph, a character must be a cat-morph that has fluffy fur, tufted ears, a short tail, and side-fluff hair type.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.FIVE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.THREE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -2414,11 +2414,11 @@ public class Subspecies {
 			"An anthropomorphic cheetah, known as a 'cheetah-morph' when bipedal, and a 'cheetahtaur' when the lower body is that of a typically-oversized feral cheetah."
 				+ " To be identified as a cheetah-morph, a character must be a cat-morph that has short, spotted fur and not identified as other feline morphs.",
 				Util.newHashMapOfValues(
-						new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-						new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.TWO_RARE),
-						new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+						new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO),
+						new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.THREE),
+						new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.THREE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -2522,11 +2522,11 @@ public class Subspecies {
 			"An anthropomorphic caracal, known as a 'caracal-morph' when bipedal, and a 'caracaltaur' when the lower body is that of a typically-oversized feral caracal."
 				+ " To be identified as a caracal-morph, a character must be a cat-morph with tufted ears.",
 				Util.newHashMapOfValues(
-						new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-						new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.TWO_RARE),
-						new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+						new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO),
+						new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.THREE),
+						new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.THREE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -2999,13 +2999,13 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic, bipedal horse.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.TEN)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -3098,12 +3098,12 @@ public class Subspecies {
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal horse, who has a single magical horn growing from their forehead.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.TWO_RARE)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)),
+				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.TWO),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO)),
 			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -3200,11 +3200,11 @@ public class Subspecies {
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal horse, who has a pair of feathered wings growing from their back.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.THREE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO)),
 			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -3299,10 +3299,10 @@ public class Subspecies {
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal horse, who has both a pair of feathered wings growing from their back, as well as a single magical horn growing from their forehead.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.ONE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE)),
 			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -3391,13 +3391,13 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"Anyone who has the feral, quadrupedal lower body of a horse is classified as a centaur.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.TEN)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO)),
 			null, null) {
 		@Override
 		public boolean isNonBiped() {
@@ -3471,11 +3471,11 @@ public class Subspecies {
 			SubspeciesPreference.ONE_LOW,
 			"Anyone who has the feral, winged, quadrupedal lower body of a horse is classified as a pegataur.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.THREE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE)),
 			null, null) {
 		@Override
 		public boolean isNonBiped() {
@@ -3552,11 +3552,11 @@ public class Subspecies {
 			SubspeciesPreference.ONE_LOW,
 			"Anyone who has the feral, quadrupedal lower body of a horse, along with a single unicorn horn, is classified as a unitaur.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.THREE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE)),
 			null, null) {
 		@Override
 		public boolean isNonBiped() {
@@ -3636,10 +3636,10 @@ public class Subspecies {
 			SubspeciesPreference.ONE_LOW,
 			"Anyone who has the feral, winged, quadrupedal lower body of a horse, along with a single unicorn horn, is classified as an alitaur.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.ONE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE)),
 			null, null) {
 		@Override
 		public boolean isNonBiped() {
@@ -3739,11 +3739,11 @@ public class Subspecies {
 			"An anthropomorphic horse with black-and-white striped fur, known as a 'zebra-morph' when bipedal, and a 'zebrataur' when the lower body is that of a feral zebra."
 					+" To be identified as a zebra-morph, a character must be a horse-morph that has black-and-white striped hair, with a zebra-morph's tail.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.THREE_UNCOMMON)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO),
+					new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.FIVE),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.FIVE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -3859,11 +3859,11 @@ public class Subspecies {
 			"An anthropomorphic donkey, known as a 'donkey-morph' when bipedal, and a 'donkeytaur' when the lower body is that of a feral donkey."
 					+" To be identified as a donkey-morph, a character must be a horse-morph that has tall, upright ears.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TEN)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.THREE)),
 			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -3975,10 +3975,10 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic reindeer, known as a 'reindeer-morph' when bipedal, and a 'reindeertaur' when the lower body is that of a feral reindeer.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE),
-					new Value<>(WorldRegion.SNOW, SubspeciesSpawnRarity.THREE_UNCOMMON)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE),
+					new Value<>(WorldRegion.SNOW, SubspeciesSpawnRarity.FIVE)),
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE)),
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.THREE)),
 			null, null) {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
@@ -4038,10 +4038,10 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic alligator, known as an 'alligator-morph' when bipedal, and an 'alligatortaur' when the lower body is that of a typically-oversized feral alligator.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.RIVER, SubspeciesSpawnRarity.ONE_VERY_RARE)),
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.RIVER, SubspeciesSpawnRarity.TWO)),
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)),
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO)),
 			null, null) {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
@@ -4090,9 +4090,9 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"Someone who is made completely of slime, with a sold core suspended in the place where their heart should be.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON)),
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.TEN)),
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.BAT_CAVERNS, SubspeciesSpawnRarity.FOUR_COMMON)),
+					new Value<>(WorldType.BAT_CAVERNS, SubspeciesSpawnRarity.TEN)),
 			null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
@@ -4282,12 +4282,12 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic squirrel, known as a 'squirrel-morph' when bipedal, and a 'squirreltaur' when the lower body is that of an oversized feral squirrel.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.FOUR_COMMON)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FIVE),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FIVE),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.TEN)),
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, null) {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
@@ -4347,14 +4347,14 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic rat, known as a 'rat-morph' when bipedal, and a 'rat-taur' when the lower body is that of an oversized feral rat.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.THREE_UNCOMMON)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FIVE),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.FIVE),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.FIVE)),
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)), null, null) {
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO)), null, null) {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.RAT_MORPH) {
@@ -4412,12 +4412,12 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic rabbit, known as a 'rabbit-morph' when bipedal, and a 'rabbit-taur' when the lower body is that of an oversized feral rabbit.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FIVE),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.FIVE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -4506,12 +4506,12 @@ public class Subspecies {
 			"An anthropomorphic rabbit which has floppy ears instead of the usual upright ones."
 					+ " Known as a 'lop-rabbit-morph' when bipedal, and a 'lop-rabbit-taur' when the lower body is that of an oversized feral lop-rabbit.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON)),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FIVE),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TEN),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.FIVE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -4605,16 +4605,16 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic, bipedal bat.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.JUNGLE, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.TWO),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.FIVE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.JUNGLE, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.THREE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.SUBMISSION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-				new Value<>(WorldType.BAT_CAVERNS, SubspeciesSpawnRarity.FOUR_COMMON),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+				new Value<>(WorldType.SUBMISSION, SubspeciesSpawnRarity.TWO),
+				new Value<>(WorldType.BAT_CAVERNS, SubspeciesSpawnRarity.TEN),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE)),
 			null, null) {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
@@ -4677,16 +4677,16 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic, bipedal bird. Typically only possessing non-human arms, legs, eyes, ears, and hair.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.JUNGLE, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FIVE),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.FIVE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.JUNGLE, SubspeciesSpawnRarity.THREE),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.THREE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.FOUR_COMMON),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+				new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.TEN),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, Util.newArrayListOfValues(
 				SubspeciesFlag.DISABLE_SPAWN_PREFERENCE,
 				SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
@@ -4803,12 +4803,12 @@ public class Subspecies {
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal raven, with dark black feathers. Typically only possessing non-human arms, legs, eyes, ears, and hair.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FIVE),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.FIVE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.THREE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.TWO_RARE),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+				new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.THREE),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, Util.newArrayListOfValues(
 				SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
@@ -4908,12 +4908,12 @@ public class Subspecies {
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal swan, with white feathers and either ebony or grey leg skin. Typically only possessing non-human arms, legs, eyes, ears, and hair.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.RIVER, SubspeciesSpawnRarity.THREE_UNCOMMON),
-					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FIVE),
+					new Value<>(WorldRegion.RIVER, SubspeciesSpawnRarity.FIVE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.THREE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.TWO_RARE),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+				new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.THREE),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)),
 			null, Util.newArrayListOfValues(
 				SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
@@ -5131,9 +5131,9 @@ public class Subspecies {
 			"An anthropomorphic, bipedal, mythological bird, whose feathers are either glowing red, orange, or yellow, or are actually made out of arcane fire."
 					+ " They are extremely rare and typically only possess non-human arms, legs, eyes, ears, and hair.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldRegion.VOLCANO, SubspeciesSpawnRarity.TWO_RARE)),
+					new Value<>(WorldRegion.VOLCANO, SubspeciesSpawnRarity.THREE)),
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ONE)),
 			null, Util.newArrayListOfValues(
 					SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override

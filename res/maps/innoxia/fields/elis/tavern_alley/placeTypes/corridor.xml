@@ -17,7 +17,7 @@
 	<itemsDisappear><![CDATA[true]]></itemsDisappear>
 	<aquatic><![CDATA[LAND]]></aquatic>
 	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
-	<teleportPermissions>BOTH</teleportPermissions>
+	<teleportPermissions>OUTGOING_ONLY</teleportPermissions>
 	<weatherImmunities immuneToAll="true"/>
 	<applyInventoryInit/>
 </placeType>

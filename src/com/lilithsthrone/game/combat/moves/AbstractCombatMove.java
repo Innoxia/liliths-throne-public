@@ -102,7 +102,7 @@ public abstract class AbstractCombatMove {
     		boolean canTargetEnemies,
     		boolean canTargetSelf,
     		Map<AbstractStatusEffect, Integer> statusEffects) {
-    	this(category, name, cooldown, APcost, 1, type, damageType, DamageVariance.NONE, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects, Util.newHashMapOfValues());
+    	this(category, name, cooldown, APcost, 1, type, damageType, DamageVariance.NONE, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects, statusEffects);
     }
 
 	public AbstractCombatMove(CombatMoveCategory category,
@@ -117,7 +117,7 @@ public abstract class AbstractCombatMove {
     		boolean canTargetEnemies,
     		boolean canTargetSelf,
     		Map<AbstractStatusEffect, Integer> statusEffects) {
-    	this(category, name, cooldown, APcost, 1, type, damageType, damageVariance, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects, Util.newHashMapOfValues());
+    	this(category, name, cooldown, APcost, 1, type, damageType, damageVariance, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects, statusEffects);
     }
 
 	public AbstractCombatMove(CombatMoveCategory category,
@@ -132,7 +132,7 @@ public abstract class AbstractCombatMove {
 			boolean canTargetEnemies,
 			boolean canTargetSelf,
 			Map<AbstractStatusEffect, Integer> statusEffects) {
-		this(category, name, cooldown, APcost, 1, type, damageType, DamageVariance.NONE, pathName, iconColours, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects, Util.newHashMapOfValues());
+		this(category, name, cooldown, APcost, 1, type, damageType, DamageVariance.NONE, pathName, iconColours, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects, statusEffects);
 	}
     
     /**

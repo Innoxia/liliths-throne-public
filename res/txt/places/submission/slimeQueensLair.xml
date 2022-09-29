@@ -732,10 +732,28 @@
 		As commanding as the statement on the sign may be, you have no intention of turning back now. Reaching out to turn the handle, you find that the door to the Slime Queen's room is unlocked, and, preparing yourself for an ambush, you push it open and cautiously step inside.
 	</p>
 	<p>
-		The room in front of you is similar in many ways to the rest of the tower, with the walls covered in tapestries, a burgundy rug underfoot, and rudimentary wooden chandeliers hanging from the ceiling's wooden beams. What sets this particular room apart, however, is the colossal four-poster bed on the left-hand-side of the room. It's by far the largest bed you've ever seen, and from a quick estimate, you guess that it's well over fifteen feet in length.
+		The room in front of you is similar in many ways to the rest of the tower, with the walls covered in tapestries, a burgundy rug underfoot, and rudimentary wooden chandeliers hanging from the ceiling's wooden beams. What sets this particular room apart, however, is the colossal four-poster bed on the left-hand-side of the room. It's by far the largest bed you've ever seen, and from a quick estimate, you guess that it's well over
+		#IF(game.isMetricSizes())
+			 four and a half metres
+		#ELSE
+			 fifteen feet
+		#ENDIF
+		 in length.
 	</p>
 	<p>
-		Along with this abnormally sized piece of furniture, there's another feature of this room which catches your attention. In the far right corner, you see a decoratively carved wooden wall, no higher than two feet, and measuring roughly ten feet on each of its square sides. The interior of this enclosure has been tiled to form a huge bath, and is currently filled with a considerable amount of translucent pink liquid.
+		Along with this abnormally sized piece of furniture, there's another feature of this room which catches your attention. In the far right corner, you see that a square area measuring roughly
+		#IF(game.isMetricSizes())
+			 three metres
+		#ELSE
+			 ten feet
+		#ENDIF
+		 on each side has been enclosed by an intricately carved wooden wall, which stands at about
+		#IF(game.isMetricSizes())
+			 one metre
+		#ELSE
+			 three feet
+		#ENDIF
+		 in height. The interior of this enclosure has been tiled to form a huge bath, and is currently filled with a considerable amount of translucent pink liquid.
 	</p>
 	<p>
 		Glancing around the room, you don't see any sign of the Slime Queen, and, highly suspicious of the bath's slimy pink contents, you slowly make your way towards it. As you approach, you see several pieces of gold jewellery scattered around the bath's floor. In the middle of all of these, there's a small, glowing pink core, confirming that the bath's contents are concealing the slime that you've been seeking.
@@ -750,13 +768,30 @@
 		Before you can respond, the bath's surface starts to push upwards, carrying a golden tiara, earrings, and necklace up from the tiled floor. The distinctive shape of a woman's head quickly forms out of the slime, and you watch, ready to defend yourself from any attack, as the rest of the Queen's naked body starts to take shape.
 	</p>
 	<p>
-		To begin with, nothing seems to be out of the ordinary as the pink, female slime stands up before you. As her hips lift up out of the bath's slimy waters, however, the Queen starts to rapidly grow in size. Initially standing at just over [units.size(168)] in height, it only takes a couple of seconds before her entire body has proportionally expanded up to seven feet in height.
+		To begin with, nothing seems to be out of the ordinary as the pink, female slime stands up before you. As her hips lift up out of the bath's slimy waters, however, the Queen starts to rapidly grow in size. Initially standing at just over [units.sizes(168)] in height, it only takes a couple of seconds before her entire body has proportionally expanded up to
+		#IF(game.isMetricSizes())
+			 just over two metres in height.
+		#ELSE
+			 seven feet in height.
+		#ENDIF
 	</p>
 	<p>
-		You instinctively step back as the slime before you continues to grow in height. Eight feet... Nine... Ten... Her growth shows no sign of stopping as she backs away from you, making no attempt to cover up her [slimeQueen.breastSize], [slimeQueen.cupSize]-cup breasts and [slimeQueen.pussy+].
+		You instinctively step back as the slime before you continues to grow in height.
+		#IF(game.isMetricSizes())
+			 Two and a half metres... Three metres...
+		#ELSE
+			 Eight feet... Nine... Ten...
+		#ENDIF
+		 Her growth shows no sign of stopping as she backs away from you, making no attempt to cover up her [slimeQueen.breastSize], [slimeQueen.cupSize]-cup breasts and [slimeQueen.pussy+].
 	</p>
 	<p>
-		[slimeQueen.speech(~Aaah!~)] she cries again, as she finished growing up to a final twelve-feet in height. [slimeQueen.speech(H-How did you get past my guards?! W-What do you want?)]
+		[slimeQueen.speech(~Aaah!~)] she cries again, as she finally finishes growing to stand at a staggering
+		#IF(game.isMetricSizes())
+			 three and a half metres
+		#ELSE
+			 twelve feet
+		#ENDIF
+		 in height. [slimeQueen.speech(H-How did you get past my guards?! W-What do you want?)]
 	</p>
 	<p>
 		Despite her immense size, the Slime Queen shows no sign of aggression, and almost trips over the edge of the bath as she attempts to manoeuvre her way towards her bed. Worried that she might try to draw strength from the considerable amount of pink goo still left in the bath, you give the Slime Queen some space, allowing her to rush over and hide behind her huge bed.
@@ -784,10 +819,28 @@
 	
 	<htmlContent tag="BED_CHAMBER_PACIFIED"><![CDATA[
 	<p>
-		The Slime Queen's room is similar in many ways to the rest of the tower, with the walls covered in tapestries, a burgundy rug underfoot, and rudimentary wooden chandeliers hanging from the ceiling's wooden beams. What sets this particular room apart, however, is the colossal four-poster bed on the left-hand-side of the room. It's by far the largest bed you've ever seen, and from a quick estimate, you guess that it's well over fifteen feet in length.
+		The Slime Queen's room is similar in many ways to the rest of the tower, with the walls covered in tapestries, a burgundy rug underfoot, and rudimentary wooden chandeliers hanging from the ceiling's wooden beams. What sets this particular room apart, however, is the colossal four-poster bed on the left-hand-side of the room. It's by far the largest bed you've ever seen, and from a quick estimate, you guess that it's well over
+		#IF(game.isMetricSizes())
+			 four and a half metres
+		#ELSE
+			 fifteen feet
+		#ENDIF
+		 in length.
 	</p>
 	<p>
-		Along with this abnormally sized piece of furniture, there's another feature of this room which is out of the ordinary. In the far right corner, you see a decoratively carved wooden wall, no higher than two feet, and measuring roughly ten feet on each of its square sides. The interior of this enclosure has been tiled to form a huge bath, and is currently filled with a considerable amount of translucent pink liquid.
+		Along with this abnormally sized piece of furniture, there's another feature of this room which is out of the ordinary. In the far right corner, you see that a square area measuring roughly
+		#IF(game.isMetricSizes())
+			 three metres
+		#ELSE
+			 ten feet
+		#ENDIF
+		 on each side has been enclosed by an intricately carved wooden wall, which stands at about
+		#IF(game.isMetricSizes())
+			 one metre
+		#ELSE
+			 three feet
+		#ENDIF
+		 in height. The interior of this enclosure has been tiled to form a huge bath, and is currently filled with a considerable amount of translucent pink liquid.
 	</p>
 	<p>
 		Relaxing in this pool of pink slime is Catherine, who jumps to her feet as she sees you enter. Making no attempt to cover her huge, naked body, she cries, [slimeQueen.speech(~Aah!~ You've returned! I-I knew you wouldn't be able to resist your lustful impulses for long!)]

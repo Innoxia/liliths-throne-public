@@ -73,6 +73,7 @@ import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
@@ -91,6 +92,11 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishPreference;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.PronounType;
+import com.lilithsthrone.game.character.markings.AbstractTattooType;
+import com.lilithsthrone.game.character.markings.Tattoo;
+import com.lilithsthrone.game.character.markings.TattooType;
+import com.lilithsthrone.game.character.markings.TattooWriting;
+import com.lilithsthrone.game.character.markings.TattooWritingStyle;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
@@ -1317,6 +1323,17 @@ public class CharacterUtils {
 							startingBodyType.getBreastCrotchPlasticity(), 
 							true))
 				.build();
+		
+		// Randomise skin colour if not greater by using skin preferences:
+		if(body.getRaceStage()!=RaceStage.GREATER && body.getRaceStage()!=RaceStage.FERAL) {
+			Colour skinColour = Util.randomItemFrom(BodyCoveringType.HUMAN.getNaturalColoursPrimary());
+			if(Main.getProperties().skinColourPreferencesMap.values().stream().anyMatch(v->v>0)) {
+				skinColour = Util.getRandomObjectFromWeightedMap(Main.getProperties().skinColourPreferencesMap);
+			}
+			body.setCovering(BodyCoveringType.HUMAN, Util.getRandomObjectFromWeightedMap(BodyCoveringType.HUMAN.getNaturalPatterns()), CoveringModifier.SMOOTH, skinColour, false, skinColour, false);
+			body.updateCoverings(true, true, true, true);
+		}
+
 		
 		if(!body.isFeral()
 				&& (Main.getProperties().getUddersLevel()==0
@@ -2978,6 +2995,118 @@ public class CharacterUtils {
 			
 		} else {
 			// Masculine characters
+		}
+	}
+	
+	public void applyTattoos(GameCharacter character, boolean overrideExistingTattoos) {
+		if(character.isShy() || character.isInnocent() || character.isPrude()) {
+			return; // Shy, innocent, and prude characters don't get tattoos
+		}
+		// Higher corruption levels increase tattoo chance:
+		float tattooChance = 0;
+		boolean lewdTattoos = false;
+		int maxTattooCount = 1;
+		switch(character.getCorruptionLevel()) {
+			case ZERO_PURE:
+				return; // Pure characters don't get tattoos
+			case ONE_VANILLA:
+				tattooChance = 0.1f;
+				break;
+			case TWO_HORNY:
+				tattooChance = 0.2f;
+				maxTattooCount = 2;
+				break;
+			case THREE_DIRTY:
+				tattooChance = 0.3f;
+				lewdTattoos = true;
+				maxTattooCount = 3;
+				break;
+			case FOUR_LUSTFUL:
+				tattooChance = 0.4f;
+				lewdTattoos = true;
+				maxTattooCount = 5;
+				break;
+			case FIVE_CORRUPT:
+				tattooChance = 0.5f;
+				lewdTattoos = true;
+				maxTattooCount = 8;
+				break;
+		}
+		if(Math.random()>tattooChance) {
+			return;
+		}
+		
+		// Add tattoos:
+		// Colour selection:
+		Map<List<Colour>, Integer> colourMap = new HashMap<>();
+		colourMap.put(Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK), 2);
+		colourMap.put(Util.newArrayListOfValues(PresetColour.CLOTHING_RED_DARK, PresetColour.CLOTHING_RED, PresetColour.CLOTHING_RED_VERY_DARK), 1);
+		colourMap.put(Util.newArrayListOfValues(PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_WHITE), 1);
+		if(character.isFeminine()) {
+			colourMap.put(Util.newArrayListOfValues(PresetColour.CLOTHING_PINK, PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_PURPLE), 1);
+		} else {
+			colourMap.put(Util.newArrayListOfValues(PresetColour.CLOTHING_BLUE, PresetColour.CLOTHING_BLUE_LIGHT, PresetColour.CLOTHING_BLUE_NAVY), 1);
+		}
+		List<Colour> colourList = Util.getRandomObjectFromWeightedMap(colourMap);
+		
+		List<AbstractTattooType> availableTypes = new ArrayList<>(TattooType.getAllTattooTypes());
+		availableTypes.remove(TattooType.NONE);
+		availableTypes.removeIf(tattoo->tattoo.isUnique());
+		
+		List<InventorySlot> commonSlots = new ArrayList<>(InventorySlot.getCommonTattooSlots());
+		
+		int tattooCount = 1 + Util.random.nextInt(maxTattooCount);
+//		System.out.println("Tattoos applied: "+tattooCount+"/"+maxTattooCount);
+		for(int i=0; i<tattooCount; i++) {
+			if(availableTypes.isEmpty()) {
+				break;
+			}
+			// Type selection:
+			AbstractTattooType tattooType = Util.randomItemFrom(availableTypes);
+			if(tattooType.isLimitedSlotAvailability()) {
+				availableTypes.remove(tattooType);
+			}
+			// Slot selection:
+			List<InventorySlot> slotAvailability = tattooType.getSlotAvailability();
+			slotAvailability.retainAll(commonSlots);
+			if(!slotAvailability.isEmpty()) {
+				InventorySlot slot = Util.randomItemFrom(slotAvailability);
+				commonSlots.remove(slot);
+				// Writing selection:
+				String writing = "";
+				if(Math.random()<0.1f && lewdTattoos) {
+					if(slot==InventorySlot.GROIN && character.hasVagina()) {
+						writing = Util.randomItemFrom(Util.newArrayListOfValues(
+								character.getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive()?"Breed me!":null,
+								"Fuck me!",
+								"Hot Pussy"));
+						
+					} else {
+						writing = Util.randomItemFrom(Util.newArrayListOfValues(
+								character.getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive()?"Dominate me":null,
+								character.getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive()?"Good pet":null,
+								character.getFetishDesire(Fetish.FETISH_DOMINANT).isPositive()?"Bow down":null,
+								character.getFetishDesire(Fetish.FETISH_DOMINANT).isPositive()?"Submit to me":null));
+					}
+				}
+				TattooWriting tattooWriting = null;
+				if(writing!=null && !writing.isEmpty()) {
+					tattooWriting = new TattooWriting(
+							writing,
+							colourList.get(1),
+							Math.random()<0.1f, // Glow
+							character.isFeminine()&&Math.random()<0.5f?TattooWritingStyle.ITALICISED:null);
+				}
+				Tattoo tat = new Tattoo(
+						tattooType,
+						colourList.get(0),
+						colourList.get(1),
+						colourList.get(2),
+						Math.random()<0.1f || (tattooWriting!=null && tattooWriting.isGlow()),
+						tattooWriting,
+						null);
+				character.addTattoo(slot, tat);
+			}
 		}
 	}
 	

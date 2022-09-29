@@ -80,7 +80,7 @@ public class DominionExpressCentaur extends NPC {
 				names = Util.newArrayListOfValues("horny centaur", "lustful centaur", "desperate centaur");
 			}
 			this.setGenericName(Util.randomItemFrom(names));
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(false);
 			
 			// PERSONALITY & BACKGROUND:
