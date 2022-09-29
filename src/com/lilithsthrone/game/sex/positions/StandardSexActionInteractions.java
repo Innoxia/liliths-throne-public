@@ -664,7 +664,7 @@ public class StandardSexActionInteractions {
 										?SexActionPresets.fingerToLowerHalf
 										:null),
 									(!performer.isTaur()
-										?SexActionPresets.upperHalfToAppendages
+										?SexActionPresets.upperHalfToTailTentacle
 										:null),
 									(isAbleToReachTargetUpperTorso
 										?SexActionPresets.fingerToUpperTorso
@@ -676,7 +676,6 @@ public class StandardSexActionInteractions {
 									OrgasmCumTarget.LEGS,
 									OrgasmCumTarget.FLOOR),
 							Util.newArrayListOfValues(
-									OrgasmCumTarget.GROIN,
 									OrgasmCumTarget.FLOOR)))));
 			}
 	};

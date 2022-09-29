@@ -20,15 +20,15 @@ public enum Capacity {
 	
 	ZERO_IMPENETRABLE("extremely tight", "tight", 0f, 1f, PresetColour.GENERIC_SIZE_ONE, false),
 	
-	ONE_EXTREMELY_TIGHT("tight", "tight", 1f, 2.5f, PresetColour.GENERIC_SIZE_TWO, false),
+	ONE_EXTREMELY_TIGHT("tight", "tight", 1f, 2f, PresetColour.GENERIC_SIZE_TWO, false),
 	
-	TWO_TIGHT("somewhat tight", "tight", 2.5f, 5f, PresetColour.GENERIC_SIZE_THREE, false),
+	TWO_TIGHT("somewhat tight", "tight", 2f, 4f, PresetColour.GENERIC_SIZE_THREE, false),
 	
-	THREE_SLIGHTLY_LOOSE("slightly loose", "loose", 5f, 7.5f, PresetColour.GENERIC_SIZE_FOUR, false),
+	THREE_SLIGHTLY_LOOSE("slightly loose", "loose", 4f, 6f, PresetColour.GENERIC_SIZE_FOUR, false),
 	
-	FOUR_LOOSE("loose", "loose", 7.5f, 10f, PresetColour.GENERIC_SIZE_FIVE, false),
+	FOUR_LOOSE("loose", "loose", 6f, 9f, PresetColour.GENERIC_SIZE_FIVE, false),
 	
-	FIVE_ROOMY("very loose", "loose", 10f, 12.5f, PresetColour.GENERIC_SIZE_SIX, true) {
+	FIVE_ROOMY("very loose", "loose", 9f, 12f, PresetColour.GENERIC_SIZE_SIX, true) {
 		@Override
 		public String getDescriptor() {
 			if(!Main.game.isGapeContentEnabled()) {
@@ -45,7 +45,7 @@ public enum Capacity {
 		}
 	},
 	
-	SIX_STRETCHED_OPEN("stretched open", "gaping", 12.5f, 15f, PresetColour.GENERIC_SIZE_SEVEN, true) {
+	SIX_STRETCHED_OPEN("stretched open", "gaping", 12f, 16f, PresetColour.GENERIC_SIZE_SEVEN, true) {
 		@Override
 		public String getDescriptor() {
 			if(!Main.game.isGapeContentEnabled()) {
@@ -62,7 +62,7 @@ public enum Capacity {
 		}
 	},
 	
-	SEVEN_GAPING("gaping wide", "gaping", 15f, 25f, PresetColour.GENERIC_SIZE_EIGHT, true) {
+	SEVEN_GAPING("gaping wide", "gaping", 16f, 25f, PresetColour.GENERIC_SIZE_EIGHT, true) {
 		@Override
 		public String getDescriptor() {
 			if(!Main.game.isGapeContentEnabled()) {

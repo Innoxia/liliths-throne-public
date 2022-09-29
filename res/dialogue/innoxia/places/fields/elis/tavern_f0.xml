@@ -991,11 +991,12 @@
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[3]]></index>
 					<responseTitle><![CDATA[Lunexis's plan]]></responseTitle>
-					<responseTooltip><![CDATA[
-						Tell Meraxis that you have something to discuss with her in private concerning Lunexis.
-						<br/>[style.italicsBad(This will be added for the next update!)]
-					]]></responseTooltip>
-					<nextDialogue><![CDATA[null]]></nextDialogue> <!-- innoxia_places_fields_elis_tavern_f0_lunexis_plan -->
+					<responseTooltip><![CDATA[Tell Meraxis that you have something to discuss with her in private concerning Lunexis.]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_f0_lunexis_plan]]></nextDialogue>
+					<effects><![CDATA[
+						[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_fields_elis_tavern_f0_garden, true, 1)]
+						[#meraxis.setLocation(pc)]
+					]]></effects>
 				</response>
 			<!-- Demon TF -->
 			<response>
@@ -1096,10 +1097,10 @@
 				<index><![CDATA[5]]></index>
 				<responseTitle><![CDATA[Another time]]></responseTitle>
 				<responseTooltip><![CDATA[Tell Meraxis that now's not the time to reveal your secret information, but you'll tell her what's going on soon.]]></responseTooltip>
-				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_tavern_f0_tables"/>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_tavern_f0_garden"/>
 				<secondsPassed minutes="false"><![CDATA[2]]></secondsPassed>
 				<effects><![CDATA[
-					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_tavern_f0_tables)]
+					[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f0, PLACE_TYPE_innoxia_fields_elis_tavern_f0_meraxis)]
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_f0', 'LUNEXIS_PLAN_DELAY'))]
 				]]></effects>
 			</response>

@@ -1084,7 +1084,7 @@ public class GenericOffspringDialogue {
 							"You're not really sure what to do now...<br/>"
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_INCEST), null, CorruptionLevel.FIVE_CORRUPT, null, null, null,
-							false, false,
+							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(offspring()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),

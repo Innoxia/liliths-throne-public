@@ -21,7 +21,7 @@
 			<characterId>pc</characterId>
 			<slotsAvailable/>
 			<canStopSex><![CDATA[true]]></canStopSex>
-			<canChangePositions><![CDATA[true]]></canChangePositions>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
 			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
 			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
 			<sexPace/>

@@ -84,7 +84,7 @@ public class ReindeerOverseer extends NPC {
 				setBody(gender, subspecies, stage, true);
 			}
 
-			setName(Name.getRandomTriplet(subspecies.getRace()));
+			setName(Name.getRandomTriplet(subspecies));
 			this.setPlayerKnowsName(false);
 			
 			// PERSONALITY & BACKGROUND:

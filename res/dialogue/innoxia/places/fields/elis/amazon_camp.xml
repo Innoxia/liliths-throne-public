@@ -332,7 +332,7 @@
 				<combatVariables enabled="true">
 					<nextDialoguePlayerVictory><![CDATA[innoxia_places_fields_elis_amazon_camp_trader_aurokaris_sparring_practice_won]]></nextDialoguePlayerVictory>
 					<nextDialoguePlayerDefeat><![CDATA[innoxia_places_fields_elis_amazon_camp_trader_aurokaris_sparring_practice_lost]]></nextDialoguePlayerDefeat>
-					<allies companionsAreAllies="false"/>
+					<allies companionsAreAllies="false" elementalsAreAllies="false"/>
 					<enemies>
 						<enemy leader="true"><![CDATA[aurokaris]]></enemy>
 					</enemies>
@@ -469,17 +469,17 @@
 				<effects/>
 				<sexVariablesWithManager enabled="true">
 					<id><![CDATA[innoxia_elis_amazon_camp_aurokaris_ambrosia_breasts]]></id>
-					<startingPosition><![CDATA[SITTING]]></startingPosition>
+					<startingPosition><![CDATA[AGAINST_WALL]]></startingPosition>
 					<dominants>
 						<character>
 							<id>aurokaris</id>
-							<slot><![CDATA[SITTING_SITTING]]></slot>
+							<slot><![CDATA[AGAINST_WALL_BACK_TO_WALL]]></slot>
 						</character>
 					</dominants>
 					<submissives>
 						<character>
 							<id>pc</id>
-							<slot><![CDATA[SITTING_PERFORMING_ORAL]]></slot>
+							<slot><![CDATA[AGAINST_WALL_STANDING_WALL]]></slot>
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_trader_aurokaris_after_sex]]></postSexDialogue>
@@ -512,17 +512,17 @@
 				<effects/>
 				<sexVariablesWithManager enabled="true">
 					<id><![CDATA[innoxia_elis_amazon_camp_aurokaris_ambrosia_ass]]></id>
-					<startingPosition><![CDATA[SITTING]]></startingPosition>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
 					<dominants>
 						<character>
 							<id>aurokaris</id>
-							<slot><![CDATA[SITTING_SITTING]]></slot>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_FRONT]]></slot>
 						</character>
 					</dominants>
 					<submissives>
 						<character>
 							<id>pc</id>
-							<slot><![CDATA[SITTING_PERFORMING_ORAL]]></slot>
+							<slot><![CDATA[OVER_DESK_PERFORMING_ORAL]]></slot>
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_trader_aurokaris_after_sex]]></postSexDialogue>

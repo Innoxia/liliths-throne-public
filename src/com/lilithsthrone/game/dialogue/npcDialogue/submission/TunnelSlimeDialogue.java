@@ -695,7 +695,7 @@ public class TunnelSlimeDialogue {
 							"You're not really sure what to do now... Perhaps it would be best to let [npc.name] choose what to do next?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
 							null, CorruptionLevel.THREE_DIRTY, null, null, null,
-							false, false,
+							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(getSlime()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),

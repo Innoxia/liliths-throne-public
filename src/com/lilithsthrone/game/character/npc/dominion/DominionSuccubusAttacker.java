@@ -21,7 +21,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
@@ -98,7 +97,7 @@ public class DominionSuccubusAttacker extends NPC {
 			
 			setLevel(Util.random.nextInt(5) + 4);
 			
-			setName(Name.getRandomTriplet(Race.DEMON));
+			setName(Name.getRandomTriplet(Subspecies.DEMON));
 			this.setPlayerKnowsName(false);
 			
 			// Set random inventory & weapons:
@@ -111,6 +110,7 @@ public class DominionSuccubusAttacker extends NPC {
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyTattoos(this, true);
 
 			if(hasFetish(Fetish.FETISH_CUM_ADDICT) && Math.random() < 0.1) {
 				Main.game.getCharacterUtils().applyDirtiness(this);

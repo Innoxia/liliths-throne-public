@@ -2780,6 +2780,8 @@ public class PhoneDialogue {
 			valueForDisplay = (value>=0?"+":"")+valueForDisplay+"%";
 		}
 		
+		float bonusAttributeValue = owner.getBonusAttributeValue(att) + (att==Attribute.RESISTANCE_PHYSICAL?owner.getPhysicalResistanceAttributeFromClothingAndWeapons():0);
+		
 		return "<div class='container-full-width' style='background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'>"
 				
 					+ "<div class='container-full-width' style='background:transparent;margin:0;padding:0;width:30%;'>"
@@ -2798,12 +2800,12 @@ public class PhoneDialogue {
 
 					+ "<div class='container-full-width' style='background:transparent;margin:0;padding:0;width:6%;text-align:left;'>"
 						+" | "	
-						+ (owner.getBonusAttributeValue(att) > 0 
+						+ (bonusAttributeValue > 0 
 								? "<b style='color:" + PresetColour.GENERIC_MINOR_GOOD.getShades()[1] + ";"
-								: (owner.getBonusAttributeValue(att) < 0
+								: (bonusAttributeValue < 0
 									? "<b style='color:" + PresetColour.GENERIC_MINOR_BAD.getShades()[1] + ";"
 									: "<b style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";"))+"'>"
-							+Units.number(owner.getBonusAttributeValue(att), 0, 1)
+							+Units.number(bonusAttributeValue, 0, 1)
 						+"</b>"
 					+ "</div>"
 						
@@ -3996,7 +3998,7 @@ public class PhoneDialogue {
 				
 				if(correctRegion
 						&& world != WorldType.WORLD_MAP
-						&& world != WorldType.EMPTY
+						&& (world != WorldType.EMPTY || Main.game.isDebugMode())
 						&& world != WorldType.MUSEUM
 						&& world != WorldType.MUSEUM_LOST) {
 					if(index==i) {
@@ -4013,6 +4015,9 @@ public class PhoneDialogue {
 								public Colour getHighlightColour() {
 									if(playerPresent) {
 										return PresetColour.GENERIC_GOOD;
+									}
+									if(world==WorldType.EMPTY) {
+										return PresetColour.GENERIC_BAD;
 									}
 									return super.getHighlightColour();
 								}

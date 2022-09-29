@@ -117,7 +117,7 @@ public class SubmissionAttacker extends NPC {
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(false);
 			setDescription(UtilText.parse(this,
 					"[npc.Name] is a resident of Submission, who prowls the tunnels looking for strangers to mug and assault..."));
@@ -153,6 +153,7 @@ public class SubmissionAttacker extends NPC {
 	
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyTattoos(this, true);
 
 			if(hasFetish(Fetish.FETISH_CUM_ADDICT) && Math.random() < 0.1) {
 				Main.game.getCharacterUtils().applyDirtiness(this);

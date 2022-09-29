@@ -294,7 +294,8 @@
 
     <scene id ="after_sex">
         <author><![CDATA[Innoxia]]></author>
-        <title><![CDATA[[harpyDominant.NamePos] nest]]></title>
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[You've finished having your fun...]]></tooltip>
         <preParsingEffects/>
         <content folderPath="txt/places/dominion/harpyNests/dominant">DOMINANT_AFTER_SEX</content>
         <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>

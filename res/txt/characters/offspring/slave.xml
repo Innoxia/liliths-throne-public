@@ -80,27 +80,6 @@
 	<htmlContent tag="SEX_START"><![CDATA[
 	#IF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_CRAWLING))
 		<p>
-			[pc.speech(I know what it is you want,)] you tease, stepping forwards and reaching out to take hold of [npc.namePos] [npc.hips+]. [pc.speech(You just want your [pc.mistress] to give you some attention, don't you?)]
-		</p>
-		<p>
-			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
-				[npc.speech(Eugh, I hate you so much...)] [npc.name] remarks, scowling at you for a moment before hungrily gazing up and down over your body and stating, [npc.speech(I guess I have no choice in the matter, do I? Anyway, a good hate-fuck wouldn't be so bad...)]
-			#ELSE
-				#IF(npc.isFeminine())
-					[npc.speech(Yes, [pc.name],)] [npc.name] sensually replies, biting [npc.her] [npc.lip] and letting out a horny moan as [npc.she] leans into you, [npc.speech(Please, I want you...)]
-				#ELSE
-					[npc.speech(Yes, [pc.name],)] [npc.name] replies, smiling at you and letting out a hungry groan as [npc.she] leans into you, [npc.speech(Please, I want you...)]
-				#ENDIF
-			#ENDIF
-		</p>
-		<p>
-			As [npc.namePos] warm body presses against yours, you dominantly pull [npc.herHim] in against you and kiss [npc.herHim] fully on the [npc.lips]. Opening [npc.her] mouth to allow your [pc.tongue] to slide in over [npc.hers], [npc.name] lets out a happy, muffled [npc.moan] as the two of you start making out with one another.
-		</p>
-		<p>
-			After just a moment, you find yourself wanting more than just a kiss, and after pulling back, you [pc.moan], [pc.speech(I've got an hour or two to spare, let's make the most of it...)]
-		</p>
-	#ELSE
-		<p>
 			[pc.speech(I know what it is you want,)] you tease, looking down at [npc.name], who, thanks to your order of having to crawl everywhere [npc.she] goes, is on all fours before you. [pc.speech(You just want your [pc.mistress] to give you some attention, don't you?)]
 		</p>
 		<p>
@@ -123,6 +102,27 @@
 		</p>
 		<p>
 			Eager to do as [npc.she] asks, you prepare to start fucking your slave on the floor of [npc.her] room...
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(I know what it is you want,)] you tease, stepping forwards and reaching out to take hold of [npc.namePos] [npc.hips+]. [pc.speech(You just want your [pc.mistress] to give you some attention, don't you?)]
+		</p>
+		<p>
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				[npc.speech(Eugh, I hate you so much...)] [npc.name] remarks, scowling at you for a moment before hungrily gazing up and down over your body and stating, [npc.speech(I guess I have no choice in the matter, do I? Anyway, a good hate-fuck wouldn't be so bad...)]
+			#ELSE
+				#IF(npc.isFeminine())
+					[npc.speech(Yes, [pc.name],)] [npc.name] sensually replies, biting [npc.her] [npc.lip] and letting out a horny moan as [npc.she] leans into you, [npc.speech(Please, I want you...)]
+				#ELSE
+					[npc.speech(Yes, [pc.name],)] [npc.name] replies, smiling at you and letting out a hungry groan as [npc.she] leans into you, [npc.speech(Please, I want you...)]
+				#ENDIF
+			#ENDIF
+		</p>
+		<p>
+			As [npc.namePos] warm body presses against yours, you dominantly pull [npc.herHim] in against you and kiss [npc.herHim] fully on the [npc.lips]. Opening [npc.her] mouth to allow your [pc.tongue] to slide in over [npc.hers], [npc.name] lets out a happy, muffled [npc.moan] as the two of you start making out with one another.
+		</p>
+		<p>
+			After just a moment, you find yourself wanting more than just a kiss, and after pulling back, you [pc.moan], [pc.speech(I've got an hour or two to spare, let's make the most of it...)]
 		</p>
 	#ENDIF
 	]]>

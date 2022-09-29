@@ -32,6 +32,7 @@ public class TattooWriting implements XMLSaving {
 		this.glow = glow;
 		this.styles = new ArrayList<>();
 		Collections.addAll(this.styles, styles);
+		this.styles.removeIf(e->e==null);
 	}
 	
 	public static List<Colour> getAvailableColours() {

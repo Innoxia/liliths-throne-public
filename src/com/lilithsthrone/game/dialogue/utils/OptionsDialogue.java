@@ -2325,7 +2325,7 @@ public class OptionsDialogue {
 							"FURRY_TAIL_PENETRATION",
 							PresetColour.BASE_MAGENTA,
 							"Furry tail penetrations",
-							"This enables furry tails to engage in penetrative actions in sex.",
+							"This marks all tail types as being suitable for penetration, thereby enabling furry tails to engage in penetrative actions in sex.",
 							Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent)));
 					
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,

@@ -33,7 +33,7 @@
 		#ELSE
 			 and even despite the current hour it still seems to be relatively busy, with at least one shopper entering or leaving via its sliding glass doors every few minutes or so. The back-lit sign above the store's entrance declares it to be called 'The Barn', although there's nothing about the building's glass frontage to give it the appearance of such.
 		#ENDIF
-		 Looking across to the entrance, you see that the opening times have been written on a piece of paper and stuck to the inside of the glass doors, and are displayed as a simple: 'Open 24/7'
+		 Looking across to the entrance, you see that the opening times have been written on a piece of paper and stuck to the inside of the glass doors, and are displayed as a simple: '[style.colourMinorGood(Open 24/7)]'
 	</p>
 	<p>
 		Taking a look through the floor-to-ceiling glass windows which cover almost all of the ground floor, you see that the interior has a clean, modern look to it. Bathed in the unnaturally-bright light given out by its ceiling-mounted arcane fluorescent lamps, the store's interior is taken up by about a dozen rows of shelving. Most of these look to be filled with items of food and drink, although a couple appear instead to be stocked full of miscellaneous household items.

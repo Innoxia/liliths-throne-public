@@ -45,7 +45,7 @@
 	
 	<htmlContent tag="INITIAL_ENTRY_FOLLOW"><![CDATA[
 	<p>
-		[pc.Walking] forwards and entering the Amazons' camp, you follow Aurokaris as she leads you down a relatively wide pathway which is flanked by dozens of tents of all colours, shapes, and sizes. Gesturing around her, the cow-girl reveals, [aurokaris.speech(We managed to bring quite a few tents with us as we evacuated Themiscyra, but a lot of these were made after we arrived at Elis. I think we must have bought every last scrap of cloth in the town...)]
+		[pc.Walking] forwards and entering the Amazons' camp, you follow Aurokaris as she leads you down a relatively wide pathway which is flanked by dozens of tents of all colours, shapes, and sizes. While some are smaller than others, all are of a considerable size, with even the very smallest that you see looking like it'd be able to comfortably house two or three people. Gesturing around her, the cow-girl reveals, [aurokaris.speech(We managed to bring quite a few tents with us as we evacuated Themiscyra, but a lot of these were made after we arrived at Elis. I think we must have bought every last scrap of cloth in the town...)]
 	</p>
 	<p>
 		Seeing more than one forlorn look on the faces of the many Amazons who you pass, you ask Aurokaris how they're managing after losing their hometown to Lunexis's army. Putting on a brave face, the muscular cow-girl cheerily replies, [aurokaris.speech(We'll be fine, don't you worry about us! We've got all the essentials here, and it's only a matter of time before we take our town back. Speaking of essentials, look, here's where we've set up our marketplace.)]
@@ -120,7 +120,7 @@
 	
 	<htmlContent tag="TENTS"><![CDATA[
 	<p>
-		As you pass them by, you see that no two of the tents which have been erected within the Amazons' camp are alike. Varying not only in size and shape, these canvas dwellings are found in a dazzling array of colours, from sky blue to dark red and everything in-between.
+		As you pass them by, you see that no two of the tents which have been erected within the Amazons' camp are alike. Varying not only in size and shape, these canvas dwellings are found in a dazzling array of colours, from sky blue to dark red and everything in-between. While some are smaller than others, all are of a considerable size, with even the very smallest that you see looking like it'd be able to comfortably house two or three people.
 	</p>
 	<p>
 		The Amazons who are found here don't seem to appreciate your proximity to their homes, and glare at you in a hostile manner as you pass. Although your presence seems to be grudgingly tolerated, you decide that it's probably best not to linger here for too long, and so swiftly continue on your way...
@@ -507,7 +507,7 @@
 	
 	<htmlContent tag="AUROKARIS_TENT"><![CDATA[
 	<p>
-		This area of the Amazons' camp looks very much like the rest; colourful tents of all shapes and sizes are to be seen, while the occasional Amazon shoots you a suspicious look. What sets it apart from the rest of the camp, however, is the fact that Aurokaris's tent is found here. A soft shade of blue, her canvas dwelling is of a similar, considerable size to those around it, and can easily be identified by the stack of crates which sit to one side of the entrance.
+		This area of the Amazons' camp looks very much like the rest; colourful tents of all shapes and sizes are to be seen, while the occasional Amazon shoots you a suspicious look. What sets it apart from the rest of the camp, however, is the fact that Aurokaris's tent is found here, which can easily be identified by both its colour as well as the stack of crates which seem to permanently sit to one side of its entrance. A soft shade of blue, the cow-girl's canvas dwelling is of a similar, considerable size to those around it, and while only Aurokaris lives within it, it looks to be able to easily house at least four people.
 	</p>
 	<p>
 		#IF(game.getCharactersPresent().contains(aurokaris))
@@ -579,9 +579,18 @@
 	<p>
 		Returning Aurokaris's declaration of affection, you take charge and pull the muscular cow-girl forwards into a passionate kiss. Happy to submit to you, she melts into your [pc.arms], moaning and sighing as she happily thrusts her tongue into your mouth.
 	</p>
-	<p>
-		After a few moments of making out with one another in this manner, you pull back, before moving to start having dominant sex with Aurokaris...
-	</p>
+	#IF(aurokaris.isVaginaVirgin())
+		<p>
+			After a few moments of making out with one another in this manner, you pull back, before moving to start having dominant sex with Aurokaris. Before you can really get started, however, the cow-girl bites her lip and softly moans, [aurokaris.speech(I'm happy to go all the way with you, [pc.name], but please just be aware... I mean... I've been with other Amazons before, but I've never... Well, I guess I'm technically still a virgin, ok?)]
+		</p>
+		<p>
+			Telling Aurokaris that you'll take good care of her, you plant another passionate kiss on her [aurokaris.lips+], before moving to get started...
+		</p>
+	#ELSE
+		<p>
+			After a few moments of making out with one another in this manner, you pull back, before moving to start having dominant sex with Aurokaris...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -589,9 +598,18 @@
 	<p>
 		Returning Aurokaris's declaration of affection, you allow the muscular cow-girl to take charge and pull you forwards into a passionate kiss. Happy to submit to her, you melt into her arms, moaning and sighing as she happily thrusts her tongue into your mouth.
 	</p>
-	<p>
-		After a few moments of making out with one another in this manner, Aurokaris pulls back, before moving to start having dominant sex with you...
-	</p>
+	#IF(aurokaris.isVaginaVirgin())
+		<p>
+			After a few moments of making out with one another in this manner, Aurokaris pulls back, before moving to start having dominant sex with you. Before she really gets started, however, the cow-girl bites her lip and softly moans, [aurokaris.speech(I'm happy to go all the way with you, [pc.name], but please just be aware... I mean... I've been with other Amazons before, but I've never... Well, I guess I'm technically still a virgin, ok?)]
+		</p>
+		<p>
+			Telling Aurokaris she can take things at her own pace, you plant another passionate kiss on her [aurokaris.lips+], before submissively allowing the cow-girl to take the lead and get started...
+		</p>
+	#ELSE
+		<p>
+			After a few moments of making out with one another in this manner, Aurokaris pulls back, before moving to start having dominant sex with you...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -681,7 +699,7 @@
 		Standing aside, the two guards reply in unison, [style.speechFeminineStrong(Yes, your majesty.)]
 	</p>
 	<p>
-		[ursa.speech(Well don't jsut stand there, come on in!)] Ursa booms in a friendly tone, before stepping back into her tent. Doing as she says, you [pc.step] past the guards and enter the queen's temporary home.
+		[ursa.speech(Well don't just stand there, come on in!)] Ursa booms in a friendly tone, before stepping back into her tent. Doing as she says, you [pc.step] past the guards and enter the queen's temporary home.
 	</p>
 	<p>
 		The tent's interior is absolutely gigantic, and is well lit by a series of arcane lanterns which hang down from the wooden poles that support the high canvas ceiling. To your left and right, separate wings have been formed out of adjoining tents, and while there are canvas screens for privacy, you can see that one is the queen's bedroom, while the other looks to be a well-equipped armoury. In the middle of the huge central room in which you're currently standing, a massive wooden table holds a map of Themiscrya and the surrounding countryside. Gesturing to this map, Ursa explains, [ursa.speech(We've been busy planning the recapture of our hometown, but there are so many pressing issues to deal with that it's going to take us a while to truly prepare for it.)]
@@ -694,7 +712,7 @@
 	
 	<htmlContent tag="QUEEN_INITIAL_ENTRY_LUNEXIS"><![CDATA[
 	<p>
-		[ursa.speech(Apart from those of us who were present in Minotallys's office, only my personal bodyguards know of Lunexis's whereabouts. The less people know about this, the better,)] Ursa explains as she strides a flap in the rear of the tent. Pulling aside the canvas, she leads you out of the back of the tent and into a small, grassy compound. A tall, wooden wall separates this space from the rest of the camp, and positioned right in the middle there's a large, pale-red tent. Another bear-girl guard is standing beside the entrance, while another is slowly patrolling around the tent in a wide circle.
+		[ursa.speech(Apart from those of us who were present in Minotallys's office, only my personal bodyguards know of Lunexis's whereabouts. The less people know about this, the better,)] Ursa explains as she strides towards a flap in the rear of the tent. Pulling aside the canvas, she leads you out of the back of the tent and into a small, grassy compound. A tall, wooden wall separates this space from the rest of the camp, and positioned right in the middle there's a large, pale-red tent. Another bear-girl guard is standing beside the entrance, while another is slowly patrolling around the tent in a wide circle.
 	</p>
 	<p>
 		[ursa.speech([pc.Name] here is to be granted access to this tent at any time of the day or night,)] Ursa informs the guards without breaking her step. Continuing forwards, she strides through the tent's entrance, leaving you to catch up and follow her inside.
@@ -1064,7 +1082,7 @@
 		By groping, kissing, and squeezing the demonic centauress's tits and nipples, you soon manage to make her let out the first of many moans. Biting her lip, she's soon breathlessly panting and begging, [lunexis.speech(Yes! Come on, give me more of that! You like my tits, huh? Show me how much you love them!)]
 	</p>
 	<p>
-		Encouraged by Lunexis's words, and enjoying the fact that you've managed to reduce the angry centauress to a panting, moaning slut, you continue having your fun with her pussy for some time, before eventually [pc.stepping] back and asking her what she knows about Lunette's plans.
+		Encouraged by Lunexis's words, and enjoying the fact that you've managed to reduce the angry centauress to a panting, moaning slut, you continue having your fun with her six, [lunexis.breastSize] breasts for some time, before eventually [pc.stepping] back and asking her what she knows about Lunette's plans.
 	</p>
 	]]>
 	</htmlContent>
@@ -1195,9 +1213,9 @@
 	<p>
 		Giving her what she wants, you move forwards and plant several passionate kisses on her [lunexis.ass+], before burying your face between her cheeks and thrusting your tongue into her asshole.
 		#IF(pc.getClothingInSlot(IS_NECK)!=null && pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker'))
-			 Thanks to your training as one of Natalya's fillies, your skills quickly cause the centauress to let out a series of incredibly lewd moans, before panting, [attacker.speech(Fuck... ~Mmm!~ Oh, fuck! You're so good at this! Oh yeah... Tongue my asshole, you dirty slut!)]
+			 Thanks to your training as one of Natalya's fillies, your skills quickly cause the centauress to let out a series of incredibly lewd moans, before panting, [lunexis.speech(Fuck... ~Mmm!~ Oh, fuck! You're so good at this! Oh yeah... Tongue my asshole, you dirty slut!)]
 		#ELSE
-			 Letting out a desperate moan, she demands, [attacker.speech(Oh yeah, keep going! Tongue my asshole, you dirty slut!)]
+			 Letting out a desperate moan, she demands, [lunexis.speech(Oh yeah, keep going! Tongue my asshole, you dirty slut!)]
 		#ENDIF
 	</p>
 	<p>

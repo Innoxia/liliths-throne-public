@@ -1057,22 +1057,30 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getTailType() == tail) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION)?"*":"")+(tail.isPrehensile()?"&#8314;":"")+"</span>"
+								+ "<span style='color:"+c.toWebHexString()+";'>"
+									+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION) || Main.game.isFurryTailPenetrationContentEnabled()?"*":"")
+									+(tail.isPrehensile()?"&#8314;":"")
+									+(tail.isOvipositor()?"&deg;":"")
+								+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='CHANGE_TAIL_"+TailType.getIdFromTailType(tail)+"' class='cosmetics-button'>"
-								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION)?"*":"")+(tail.isPrehensile()?"&#8314;":"")+"</span>"
+								+ "<span style='color:"+c.getShades()[0]+";'>"
+									+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION) || Main.game.isFurryTailPenetrationContentEnabled()?"*":"")
+									+(tail.isPrehensile()?"&#8314;":"")
+									+(tail.isOvipositor()?"&deg;":"")
+								+"</span>"
 							+ "</div>");
 				}
 			}
 		}
 		
 		return applyWrapper("Tail",
-				UtilText.parse(BodyChanging.getTarget(), "<i>Tails which are suitable for penetration are marked with an asterisk."
-						+ " Use in sex requires them to either be prehensile (&#8314;) or at least 50% of [npc.namePos] height."
-						+ " (The 'furry tail penetration' content option makes all prehensile tails able to be used in sex, even if not marked as suitable for penetration.)</i>"),
+				UtilText.parse(BodyChanging.getTarget(),
+						"<i>Tails must be suitable for penetration (*), and either be prehensile (&#8314;) or at least 50% of [npc.namePos] height to be used to penetrate orifices in sex."
+						+ " Ovipositor-equipped tails (&deg;) can lay eggs in orifices during sex.</i>"),
 				"TAIL_TYPE",
 				contentSB.toString(),
 				true);
