@@ -14,7 +14,7 @@
 
 		<namePlural pluralByDefault="false"><![CDATA[linen shirt]]></namePlural> 
 
-		<description><![CDATA[A simple short-sleeved shirt made from coarse linen. Slits cut into the sides allow for good mobility despite its length. Although meant to be worn as an undershirt, it is opaque enough to be worn as an outer garment.]]></description> 
+		<description><![CDATA[A simple short-sleeved shirt made from coarse linen. The sides are partially slitted to allow for good mobility despite the length. Meant to be worn as an undershirt, it is opaque enough to be worn as an outer garment.]]></description> 
 
 		<physicalResistance>0</physicalResistance> 
 
