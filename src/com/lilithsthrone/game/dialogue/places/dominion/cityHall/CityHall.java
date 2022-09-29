@@ -329,7 +329,7 @@ public class CityHall {
 		}
 	};
 	
-	public static final DialogueNode LODGER_IMPORT = new DialogueNode("Auctioning block", "", true) {
+	public static final DialogueNode LODGER_IMPORT = new DialogueNode("", "", true) {
 		@Override
 		public String getContent() {
 			return "";

@@ -34,7 +34,7 @@
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
-			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/15)]
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM) * 0.15)]
 			
 			<p style='margin-bottom:0; padding-bottom:0;'>
 				A powerful wave of arcane energy washes over [npc.name]...

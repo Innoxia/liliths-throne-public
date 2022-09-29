@@ -110,7 +110,7 @@ public class Elemental extends NPC {
 			
 			setSexualOrientation(SexualOrientation.AMBIPHILIC);
 	
-			setName(Name.getRandomTriplet(Race.DEMON));
+			setName(Name.getRandomTriplet(Subspecies.DEMON));
 			this.setPlayerKnowsName(true);
 			
 			// INVENTORY:

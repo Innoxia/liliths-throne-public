@@ -93,7 +93,7 @@ public class ImpAttacker extends NPC {
 			
 			setSexualOrientation(SexualOrientation.AMBIPHILIC);
 	
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(false);
 			setDescription(UtilText.parse(this,
 					"Imps, such as this one, have no interest in anything but sex, and will attack anyone who's not a member of their clan in order to get what they want..."));
@@ -119,6 +119,7 @@ public class ImpAttacker extends NPC {
 	
 			// Clothing is equipped in the Encounter class, when the imps are spawned.
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyTattoos(this, true);
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();

@@ -753,7 +753,7 @@
 			[silvia.speech(Here you go, [pc.name]. These are the socks that the tourism board supplies us with as a prize,)] Silvia says as she hands you a pair of lime-green socks.
 		</p>
 		<p>
-			#IF(pc.hasLegs())
+			#IF(!pc.hasLegs())
 				As you don't have any feet on which to wear them, you're not exactly sure what to do with this pair of socks, but nevertheless take them from Silvia and thank her for the prize.
 			#ELSE
 				You're not entirely convinced that you'll end up wearing these offensively-coloured socks, but nevertheless take them from Silvia and thank her for the prize.

@@ -13,7 +13,7 @@
 	<globalMapLocation>WORLD_MAP_FIELDS_CITY</globalMapLocation>
 	<standardPlace>innoxia_fields_elis_amazon_camp_pathway</standardPlace>
 	<entryFromGlobalMapLocation>innoxia_fields_elis_amazon_camp_exit</entryFromGlobalMapLocation>
-	<teleportPermissions>NONE</teleportPermissions>
+	<teleportPermissions>OUTGOING_ONLY</teleportPermissions>
 	<places>
 		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
 		

@@ -154,6 +154,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaMilkingRoomDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
+import com.lilithsthrone.game.dialogue.places.dominion.nightlife.NightlifeDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
@@ -2084,7 +2085,7 @@ public class MainControllerInitMethod {
 									@Override
 									public void effects() {
 										slave.setHomeLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation());
-										if(!slave.isAtWork()) {
+										if(!slave.isAtWork() || slave.getLocationPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)) {
 											slave.returnToHome();
 										}
 									}
@@ -2370,7 +2371,7 @@ public class MainControllerInitMethod {
 							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 		
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Move Slave To Here",
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Move Slave Here",
 									UtilText.parse(slave, "You cannot move [npc.name] to this location, as you don't own [npc.herHim], as well as due to the fact that [npc.sheIs] already here!"));
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
@@ -7650,6 +7651,28 @@ public class MainControllerInitMethod {
 							UtilText.parse(npc, "Find [npc.name]"),
 							UtilText.parse(npc, "Look around the waiting area and see if you can find [npc.name]..."));
 					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+				}
+			}
+		}
+		
+		// Clubber import:
+		if (Main.game.getCurrentDialogueNode() == NightlifeDistrict.WATERING_HOLE_IMPORT) {
+			for (File f : Main.getSlavesForImport()) {
+				String fileIdentifier = Util.getFileIdentifier(f);
+				String fileName = Util.getFileName(f);
+				
+				if (((EventTarget) MainController.document.getElementById("import_clubber_" + fileIdentifier )) != null) {
+					((EventTarget) MainController.document.getElementById("import_clubber_" + fileIdentifier )).addEventListener("click", e -> {
+						try {
+							Game.importCharacterAsClubber(fileName);
+							MainController.updateUI();
+							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
+							Main.game.flashMessage(PresetColour.GENERIC_GOOD, "Imported Character!");
+						
+						} catch(Exception ex) {
+							Main.game.flashMessage(PresetColour.GENERIC_BAD, "Import Failed!");
+						}
+					}, false);
 				}
 			}
 		}

@@ -36,7 +36,7 @@
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
-			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/20)]
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/5)]
 			
 			<p style='margin-bottom:0; padding-bottom:0;'>
 				[npc.Name] [npc.verb(start)] to feel heavier and stronger...
