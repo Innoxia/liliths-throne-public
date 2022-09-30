@@ -2884,7 +2884,6 @@ public class MainControllerInitMethod {
 					}
 				}
 				
-				
 				// Age:
 				id = "AGE_APPEARANCE_INCREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -6126,7 +6125,7 @@ public class MainControllerInitMethod {
 					targetedCharacter = Main.game.getPlayer();
 				}
 				for (AbstractFetish f : Fetish.getAllFetishes()) {
-					id = "fetishUnlock" + Fetish.getIdFromFetish(f);
+					id = "fetishUnlock" + f.getID();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							if(Main.game.getPlayer().getEssenceCount()>=f.getCost() && f.getFetishesForAutomaticUnlock().isEmpty()) {
@@ -6317,22 +6316,8 @@ public class MainControllerInitMethod {
 		// NPC Fetish spawn preferences:
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.FETISH_PREFERENCE) {
 			for (AbstractFetish f : Fetish.getAllFetishes()) {
-				if(!Main.game.isPenetrationLimitationsEnabled() && f == Fetish.FETISH_SIZE_QUEEN) {
-					continue;
-				}
-				if(!Main.game.isNonConEnabled() && (f == Fetish.FETISH_NON_CON_DOM || f == Fetish.FETISH_NON_CON_SUB)) {
-					continue;
-				}
-				if(!Main.game.isIncestEnabled() && f == Fetish.FETISH_INCEST) {
-					continue;
-				}
-				if(!Main.game.isLactationContentEnabled() && (f == Fetish.FETISH_LACTATION_OTHERS || f == Fetish.FETISH_LACTATION_SELF)) {
-					continue;
-				}
-				if(!Main.game.isAnalContentEnabled() && (f == Fetish.FETISH_ANAL_GIVING || f == Fetish.FETISH_ANAL_RECEIVING)) {
-					continue;
-				}
-				if(!Main.game.isFootContentEnabled() && (f == Fetish.FETISH_FOOT_GIVING || f == Fetish.FETISH_FOOT_RECEIVING)) {
+				// Skip fetishes that are disabled
+				if(f.isDisabled()) {
 					continue;
 				}
 				

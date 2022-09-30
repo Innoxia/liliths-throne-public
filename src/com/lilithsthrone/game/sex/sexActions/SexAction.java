@@ -22,6 +22,7 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.modding.PluginLoader;
 
 /**
  * @since 0.1.0
@@ -379,6 +380,7 @@ public abstract class SexAction implements SexActionInterface {
 				}
 			}
 			
+			
 			List<CoverableArea> cummedOnList = null;
 			try { // Wrap in try/catch block as some sex actions may make calls to ongoing actions that aren't ongoing yet
 				cummedOnList = this.getAreasCummedOn(characterPerformingAction, characterTarget);
@@ -516,6 +518,7 @@ public abstract class SexAction implements SexActionInterface {
 							break;
 					}
 				}
+				PluginLoader.getInstance().onSexActionFetishesForEitherPartner(this, characterPerformingAction,characterFetishes,characterFetishesForPartner,cummedOnList);
 			}
 			
 			List<SexAreaInterface> cummedInList = this.getAreasCummedIn(characterPerformingAction, characterTarget);

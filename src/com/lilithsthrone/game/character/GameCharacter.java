@@ -271,6 +271,7 @@ import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionOrgasmOverride;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.modding.PluginLoader;
 import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.CachedImage;
@@ -6681,15 +6682,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public boolean hasFetish(AbstractFetish fetish) {
 		// If content settings are disabled, always treat fetish as not being owned:
-		if(!Main.game.isNonConEnabled() && (fetish==Fetish.FETISH_NON_CON_DOM || fetish==Fetish.FETISH_NON_CON_SUB)) {
-			return false;
-		} else if(!Main.game.isLactationContentEnabled() && (fetish==Fetish.FETISH_LACTATION_OTHERS || fetish==Fetish.FETISH_LACTATION_SELF)) {
-			return false;
-		} else if(!Main.game.isFootContentEnabled() && (fetish==Fetish.FETISH_FOOT_GIVING || fetish==Fetish.FETISH_FOOT_RECEIVING)) {
-			return false;
-		} else if(!Main.game.isAnalContentEnabled() && (fetish==Fetish.FETISH_ANAL_GIVING || fetish==Fetish.FETISH_ANAL_RECEIVING)) {
-			return false;
-		} else if(!Main.game.isArmpitContentEnabled() && (fetish==Fetish.FETISH_ARMPIT_GIVING || fetish==Fetish.FETISH_ARMPIT_RECEIVING)) {
+		if(fetish.isDisabled()) {
 			return false;
 		}
 		return fetishes.contains(fetish) || fetishesFromClothing.contains(fetish);
@@ -6874,6 +6867,9 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public FetishDesire getBaseFetishDesire(AbstractFetish fetish) {
 		// If content settings are disabled, revert base desire to neutral so that it is not shown anywhere:
+		if(fetish.isDisabled())
+			return FetishDesire.TWO_NEUTRAL;
+		/*
 		if(!Main.game.isNonConEnabled() && (fetish==Fetish.FETISH_NON_CON_DOM || fetish==Fetish.FETISH_NON_CON_SUB)) {
 			return FetishDesire.TWO_NEUTRAL;
 		} else if(!Main.game.isLactationContentEnabled() && (fetish==Fetish.FETISH_LACTATION_OTHERS || fetish==Fetish.FETISH_LACTATION_SELF)) {
@@ -6885,6 +6881,7 @@ public abstract class GameCharacter implements XMLSaving {
 		} else if(!Main.game.isArmpitContentEnabled() && (fetish==Fetish.FETISH_ARMPIT_GIVING || fetish==Fetish.FETISH_ARMPIT_RECEIVING)) {
 			return FetishDesire.TWO_NEUTRAL;
 		}
+		*/
 		if(!fetishDesireMap.containsKey(fetish)) {
 			return FetishDesire.TWO_NEUTRAL;
 		}
@@ -7849,7 +7846,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if(!Main.game.isArmpitContentEnabled()) {
 				weight-=100000;
 			} else {
-				weight-=4; //TODO This makes it unlikely for NPCs to choose armpit actions. When armptit fetishes are added, remove this.
+				weight-=4; //TODO This makes it unlikely for NPCs to choose armpit actions. When armpit fetishes are added, remove this.
 			}
 		}
 		
@@ -9482,6 +9479,8 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		// Hand holding:
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaPenetration.FINGER), target, request, foreplaySexTypes, 0.5f);
+		
+		PluginLoader.getInstance().onGenerateSexChoicesAddSexTypes(this,resetPositioningBan,target,request,foreplaySexTypes,mainSexTypes);
 		
 		foreplaySexTypes.entrySet().removeIf(e -> e.getValue()<=0);
 		mainSexTypes.entrySet().removeIf(e -> e.getValue()<=0);

@@ -36,6 +36,7 @@ import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.MapTravelType;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.modding.PluginLoader;
 import com.lilithsthrone.utils.CreditsSlot;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -507,6 +508,7 @@ public class Main extends Application {
 		
 		Main.game.setContent(new Response("", "", OptionsDialogue.MENU));
 		
+		PluginLoader.getInstance().onMainStart();
 	}
 	
 	protected static void CheckForDataDirectory() {
@@ -678,6 +680,8 @@ public class Main extends Application {
 			properties = new Properties();
 			properties.savePropertiesAsXML();
 		}
+		
+		PluginLoader.getInstance().onMainMain();
 
 		launch(args);
 	}

@@ -56,6 +56,7 @@ import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.modding.PluginLoader;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -530,6 +531,8 @@ public class ImpAttacker extends NPC {
 					""));
 			}
 		}
+		
+		PluginLoader.getInstance().onNPCGenerateTransformativePotion(this, target, effects);
 
 		if(effects.isEmpty()) {
 			return null;

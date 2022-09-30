@@ -2053,12 +2053,12 @@ public class MainController implements Initializable {
 				}
 			}
 			for (AbstractFetish f : character.getFetishes(true)) {
-				if (((EventTarget) documentAttributes.getElementById("FETISH_"+idModifier + Fetish.getIdFromFetish(f))) != null) {
-					addEventListener(documentAttributes, "FETISH_"+idModifier + Fetish.getIdFromFetish(f), "mousemove", moveTooltipListener, false);
-					addEventListener(documentAttributes, "FETISH_"+idModifier + Fetish.getIdFromFetish(f), "mouseleave", hideTooltipListener, false);
+				if (((EventTarget) documentAttributes.getElementById("FETISH_"+idModifier + f.getID())) != null) {
+					addEventListener(documentAttributes, "FETISH_"+idModifier + f.getID(), "mousemove", moveTooltipListener, false);
+					addEventListener(documentAttributes, "FETISH_"+idModifier + f.getID(), "mouseleave", hideTooltipListener, false);
 
 					TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, character);
-					addEventListener(documentAttributes, "FETISH_"+idModifier + Fetish.getIdFromFetish(f), "mouseenter", el, false);
+					addEventListener(documentAttributes, "FETISH_"+idModifier + f.getID(), "mouseenter", el, false);
 				}
 			}
 			for (AbstractCombatMove combatMove : character.getAvailableMoves()) {
@@ -2406,9 +2406,9 @@ public class MainController implements Initializable {
 					}
 				}
 				for (AbstractFetish f : character.getFetishes(true)) {
-					if (((EventTarget) documentRight.getElementById("FETISH_NPC_"+idModifier + Fetish.getIdFromFetish(f))) != null) {
-						addEventListener(documentRight, "FETISH_NPC_"+idModifier + Fetish.getIdFromFetish(f), "mousemove", moveTooltipListener, false);
-						addEventListener(documentRight, "FETISH_NPC_"+idModifier + Fetish.getIdFromFetish(f), "mouseleave", hideTooltipListener, false);
+					if (((EventTarget) documentRight.getElementById("FETISH_NPC_"+idModifier + f.getID())) != null) {
+						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f.getID(), "mousemove", moveTooltipListener, false);
+						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f.getID(), "mouseleave", hideTooltipListener, false);
 	
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, character);
 						addEventListener(documentRight, "FETISH_NPC_"+idModifier + Fetish.getIdFromFetish(f), "mouseenter", el, false);

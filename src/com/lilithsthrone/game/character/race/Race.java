@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.modding.PluginLoader;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
@@ -1495,6 +1496,8 @@ public class Race {
 				Attribute.allAttributes.add(racialAttribute);
 			}
 		}
+		
+		PluginLoader.getInstance().forEachPlugin(p -> p.onInitRaces());
 	}
 	
 	public static List<AbstractRace> getAllRaces() {

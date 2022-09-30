@@ -107,6 +107,7 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.modding.PluginLoader;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.XMLSaving;
@@ -2072,6 +2073,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			}
 		}
 		
+		PluginLoader.getInstance().onNPCGenerateTransformativePotion(this, target, possibleEffects);
+		
 		if(possibleEffects.isEmpty()) {
 			return null;
 		}
@@ -2343,7 +2346,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		// map of top -> bottom paired fetishes; NPCs with a paired fetish will greatly favor 
 		// giving the player it's pair, and remove that fetish if there is a match
 		Map<AbstractFetish, AbstractFetish> pairedFetishMap = new HashMap<>();
-
 		pairedFetishMap.put(Fetish.FETISH_PENIS_GIVING, Fetish.FETISH_PENIS_RECEIVING);
 		pairedFetishMap.put(Fetish.FETISH_ANAL_GIVING, Fetish.FETISH_ANAL_RECEIVING);
 		pairedFetishMap.put(Fetish.FETISH_VAGINAL_GIVING, Fetish.FETISH_VAGINAL_RECEIVING);
@@ -2375,6 +2377,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 //			pairedFetishMap.put(Fetish.FETISH_TRANSFORMATION_GIVING, Fetish.FETISH_TRANSFORMATION_RECEIVING);
 //			pairedFetishMap.put(Fetish.FETISH_KINK_GIVING, Fetish.FETISH_KINK_RECEIVING);
 //		}
+		
+		PluginLoader.getInstance().addToPairedFetishMap(pairedFetishMap);
 		
 		for(Entry<AbstractFetish, AbstractFetish> entry : pairedFetishMap.entrySet()) {
 			currentTopFetish = entry.getKey();
@@ -2600,6 +2604,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		unpairedFetishMap.put(Fetish.FETISH_CROSS_DRESSER, true);
 		unpairedFetishMap.put(Fetish.FETISH_INCEST, true);
 		unpairedFetishMap.put(Fetish.FETISH_MASTURBATION, true);
+		
+		PluginLoader.getInstance().addToUnpairedFetishMap(unpairedFetishMap);
 		
 		for(Entry<AbstractFetish, Boolean> entry : unpairedFetishMap.entrySet()) {
 			currentTopFetish = entry.getKey();

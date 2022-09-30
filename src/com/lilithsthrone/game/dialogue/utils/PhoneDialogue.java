@@ -71,6 +71,10 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.universal.SMMasturbation;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMasturbation;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.modding.PluginLoader;
+import com.lilithsthrone.modding.fetishes.FetishGroup;
+import com.lilithsthrone.modding.fetishes.LooseFetishGroup;
+import com.lilithsthrone.modding.fetishes.RelatedFetishGroup;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Pathing;
 import com.lilithsthrone.utils.Units;
@@ -3771,8 +3775,8 @@ public class PhoneDialogue {
 					+ "</details>");
 			
 			// Normal fetishes:
-
 			journalSB.append("<div class='container-full-width' style='text-align:center; font-weight:bold;'><h6>Fetishes</h6></div>");
+			/*
 			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_DOMINANT, Fetish.FETISH_SUBMISSIVE));
 			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_VAGINAL_GIVING, Fetish.FETISH_VAGINAL_RECEIVING));
 			journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_PENIS_GIVING, Fetish.FETISH_PENIS_RECEIVING));
@@ -3817,6 +3821,29 @@ public class PhoneDialogue {
 					journalSB.append(getFetishEntry(Main.game.getPlayer(), Fetish.FETISH_MASTURBATION, null));
 				}
 			}
+			*/
+			
+			// God, I wish we had Flexbox.
+			
+			// Stock AND mod fetishes
+			// Pairs at the top, just like stock.
+			List<AbstractFetish> loners = new ArrayList<AbstractFetish>();
+			RelatedFetishGroup rfg;
+			for(FetishGroup fg : PluginLoader.getInstance().getAllFetishGroups()) {
+				if(fg instanceof RelatedFetishGroup) {
+					rfg=(RelatedFetishGroup)fg;
+					journalSB.append(getFetishEntry(Main.game.getPlayer(), rfg.getDominantFetish(), rfg.getSubmissiveFetish()));
+				}
+				else if(fg instanceof LooseFetishGroup) {
+					loners.add(((LooseFetishGroup)fg).getMember());
+				}
+			}
+			// Loners get combined at the bottom.
+			int sz=loners.size();
+			for(int i = 0;i<sz;i+=2) {
+				journalSB.append(getFetishEntry(Main.game.getPlayer(), loners.get(i),
+						(i+1 == sz) ? null : loners.get(i+1)));
+			}
 			
 			// Derived fetishes:
 
@@ -3826,7 +3853,7 @@ public class PhoneDialogue {
 			for(AbstractFetish fetish : Fetish.getAllFetishes()) {
 				if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 					journalSB.append(
-							"<div id='fetishUnlock" + Fetish.getIdFromFetish(fetish) + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
+							"<div id='fetishUnlock" + fetish.getID() + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
 							? " owned' style='border:2px solid " + PresetColour.FETISH.getShades()[1] + ";'>"
 							: (fetish.isAvailable(Main.game.getPlayer())
 									? " unlocked' style='border:2px solid " +  PresetColour.TEXT_GREY.toWebHexString() + ";" + "'>"

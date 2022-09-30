@@ -3,6 +3,8 @@ package com.lilithsthrone.game.character.fetishes;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -13,6 +15,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.modding.BasePlugin;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
@@ -24,15 +27,16 @@ import com.lilithsthrone.utils.colours.PresetColour;
  * @author Innoxia
  */
 public abstract class AbstractFetish {
-
+	private String id;
+	
 	private int renderingPriority;
 	protected String name;
 	protected String shortDescriptor;
 	private int experienceGainFromSexAction;
 	private HashMap<AbstractAttribute, Integer> attributeModifiers;
 
-	private String pathName;
-	private String SVGString;
+	protected String pathName;
+	protected String SVGString;
 	private List<Colour> colourShades;
 
 	private List<String> extraEffects;
@@ -74,7 +78,7 @@ public abstract class AbstractFetish {
 			String shortDescriptor,
 			String pathName,
 			FetishExperience experienceGainFromSexAction,
-			Colour colourShades,
+			Colour colourShade,
 			HashMap<AbstractAttribute, Integer> attributeModifiers,
 			List<String> extraEffects,
 			List<AbstractFetish> fetishesForAutomaticUnlock) {
@@ -83,13 +87,13 @@ public abstract class AbstractFetish {
 				shortDescriptor,
 				pathName,
 				experienceGainFromSexAction,
-				Util.newArrayListOfValues(colourShades),
+				Util.newArrayListOfValues(colourShade),
 				attributeModifiers,
 				extraEffects,
 				fetishesForAutomaticUnlock);
 	}
-	
-	public AbstractFetish(
+
+    public AbstractFetish(
 			int renderingPriority,
 			String name,
 			String shortDescriptor,
@@ -99,7 +103,30 @@ public abstract class AbstractFetish {
 			HashMap<AbstractAttribute, Integer> attributeModifiers,
 			List<String> extraEffects,
 			List<AbstractFetish> fetishesForAutomaticUnlock) {
-
+    	this(null,
+    		 renderingPriority,
+    		 name,
+    		 shortDescriptor,
+    		 pathName,
+    		 experienceGainFromSexAction,
+    		 colourShades,
+    		 attributeModifiers,
+    		 extraEffects,
+    		 fetishesForAutomaticUnlock);
+	}
+    
+    public AbstractFetish(
+    		String id, // Can be null for builtins. Assigned at runtime.
+			int renderingPriority,
+			String name,
+			String shortDescriptor,
+			String pathName,
+			FetishExperience experienceGainFromSexAction,
+			List<Colour> colourShades,
+			HashMap<AbstractAttribute, Integer> attributeModifiers,
+			List<String> extraEffects,
+			List<AbstractFetish> fetishesForAutomaticUnlock) {
+    	this.id = id;
 		this.renderingPriority = renderingPriority;
 		this.name = name;
 		this.shortDescriptor = shortDescriptor;
@@ -126,145 +153,193 @@ public abstract class AbstractFetish {
 			}
 		}
 	}
-
-	public String getId() {
-		return Fetish.getIdFromFetish(this);
-	}
 	
 	public List<AbstractFetish> getFetishesForAutomaticUnlock() {
-		return fetishesForAutomaticUnlock;
-	}
-	
-	public boolean isAvailable(GameCharacter character) {
-		return true;
-	}
-	
-	public List<String> getPerkRequirements(GameCharacter character) {
-		perkRequirementsList.clear();
+        return fetishesForAutomaticUnlock;
+    }
 
-		return perkRequirementsList;
-	}
+    public boolean isAvailable(GameCharacter character) {
+        return true;
+    }
 
-	public String getName(GameCharacter owner) {
-		return name;
-	}
-	
-	public String getShortDescriptor(GameCharacter target) {
-		return shortDescriptor;
-	}
+    public List<String> getPerkRequirements(GameCharacter character) {
+        perkRequirementsList.clear();
 
-	public abstract String getDescription(GameCharacter target);
-	
-	public abstract String getFetishDesireDescription(GameCharacter target, FetishDesire desire);
-	
-	protected static String getGenericFetishDesireDescription(GameCharacter target, FetishDesire desire, String descriptor) {
-		switch(desire) {
-			case ZERO_HATE:
-				return UtilText.parse(target, "You absolutely hate "+descriptor+".");
-			case ONE_DISLIKE:
-				return UtilText.parse(target, "You don't like "+descriptor+".");
-			case TWO_NEUTRAL:
-				return UtilText.parse(target, "You are indifferent to "+descriptor+".");
-			case THREE_LIKE:
-				return UtilText.parse(target, "You like "+descriptor+".");
-			case FOUR_LOVE:
-				return UtilText.parse(target, "You love "+descriptor+".");
-		}
-		return "";
-	}
+        return perkRequirementsList;
+    }
 
-	public int getExperienceGainFromSexAction() {
-		return experienceGainFromSexAction;
-	}
-	
-	public int getCost() {
-		return 5;
-	}
+    public String getName(GameCharacter owner) {
+        return name;
+    }
 
-	public List<String> getModifiersAsStringList(GameCharacter owner) {
-		List<String> modList = new ArrayList<>(modifiersList);
-		if(getExtraEffects(owner) != null) {
-			modList.addAll(getExtraEffects(owner));
-		}
-		return modList;
-	}
+    public String getShortDescriptor(GameCharacter target) {
+        return shortDescriptor;
+    }
 
-	public HashMap<AbstractAttribute, Integer> getAttributeModifiers() {
-		return attributeModifiers;
-	}
-	
-	public String getAppliedFetishLevelEffectDescription(GameCharacter character) {
-		return null;
-	}
-	
-	public String applyPerkGained(GameCharacter character) {
-		return "";
-	}
+    public abstract String getDescription(GameCharacter target);
 
-	public String applyPerkLost(GameCharacter character){
-		return "";
-	}
+    public abstract String getFetishDesireDescription(GameCharacter target, FetishDesire desire);
 
-	public Fetish getPreviousLevelPerk() {
-		return null;
-	}
+    public static String getGenericFetishDesireDescription(GameCharacter target, FetishDesire desire,
+            String descriptor) {
+        switch (desire) {
+            case ZERO_HATE:
+                return UtilText.parse(target, "You absolutely hate " + descriptor + ".");
+            case ONE_DISLIKE:
+                return UtilText.parse(target, "You don't like " + descriptor + ".");
+            case TWO_NEUTRAL:
+                return UtilText.parse(target, "You are indifferent to " + descriptor + ".");
+            case THREE_LIKE:
+                return UtilText.parse(target, "You like " + descriptor + ".");
+            case FOUR_LOVE:
+                return UtilText.parse(target, "You love " + descriptor + ".");
+        }
+        return "";
+    }
 
-	public Perk getNextLevelPerk() {
-		return null;
-	}
-	
-	public CorruptionLevel getAssociatedCorruptionLevel() {
-		return CorruptionLevel.ZERO_PURE;
-	}
+    public int getExperienceGainFromSexAction() {
+        return experienceGainFromSexAction;
+    }
 
-	public int getRenderingPriority() {
-		return renderingPriority;
-	}
+    public int getCost() {
+        return 5;
+    }
 
-	public List<String> getExtraEffects(GameCharacter owner) {
-		return extraEffects;
-	}
-	
-	public Colour getColour() {
-		return colourShades.get(0);
-	}
+    public List<String> getModifiersAsStringList(GameCharacter owner) {
+        List<String> modList = new ArrayList<>(modifiersList);
+        if (getExtraEffects(owner) != null) {
+            modList.addAll(getExtraEffects(owner));
+        }
+        return modList;
+    }
 
-	public List<Colour> getColourShades() {
-		return colourShades;
-	}
+    public HashMap<AbstractAttribute, Integer> getAttributeModifiers() {
+        return attributeModifiers;
+    }
 
+    public String applyPerkGained(GameCharacter character) {
+        return "";
+    }
+
+    public String applyPerkLost(GameCharacter character) {
+        return "";
+    }
+
+    public Fetish getPreviousLevelPerk() {
+        return null;
+    }
+
+    public Perk getNextLevelPerk() {
+        return null;
+    }
+
+    public CorruptionLevel getAssociatedCorruptionLevel() {
+        return CorruptionLevel.ZERO_PURE;
+    }
+
+    public int getRenderingPriority() {
+        return renderingPriority;
+    }
+
+    public List<String> getExtraEffects(GameCharacter owner) {
+        return extraEffects;
+    }
 	public String getSVGString(GameCharacter owner) {
-		if(SVGString==null) {
-			if(pathName!=null && !pathName.isEmpty()) {
+		if (SVGString == null) {
+			if (pathName != null && !pathName.isEmpty()) {
 				try {
-					InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/" + pathName + ".svg");
-					if(is==null) {
-						System.err.println("Error! Fetish icon file does not exist (Trying to read from '"+pathName+"')!");
+					InputStream is = getInputStreamForSVG();
+					if (is == null) {
+						System.err.println("Error! Fetish icon file does not exist (Trying to read from '" + pathName + "')!");
 					}
 					SVGString = Util.inputStreamToString(is);
-					SVGString = SvgUtil.colourReplacement(this.getId(), colourShades, null, SVGString);
-//					SVGString = SvgUtil.colourReplacement(this.getId(), colourShades.get(0), colourShades.size()>=2?colourShades.get(1):null, colourShades.size()>=3?colourShades.get(2):null, SVGString);
+					SVGString = SvgUtil.colourReplacement(this.getID(), colourShades, null, SVGString);
 					is.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
+
 			} else {
 				SVGString = "";
 			}
 		}
 		return SVGString;
 	}
+
+	protected InputStream getInputStreamForSVG() {
+		return this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/" + pathName + ".svg");
+	}
+
+    public static int getExperienceGainFromTakingVaginalVirginity(GameCharacter owner) {
+        return owner.getLevel() * 2;
+    }
+
+    public static int getExperienceGainFromTakingOtherVirginity(GameCharacter owner) {
+        return owner.getLevel();
+    }
+
+    public FetishPreference getFetishPreferenceDefault() {
+        return FetishPreference.THREE_NEUTRAL;
+    }
+    
+    /**
+     * For fetishes that have content toggles.
+     * @return
+     */
+    public boolean isDisabled() {
+    	return false;
+    }
+    
+    /**
+     * A collection of AbstractFetishes that oppose this fetish.
+     * @return
+     */
+    public Collection<? extends AbstractFetish> getOppositeFetishes() {
+		return Util.newArrayListOfValues();
+    }
+
+	public boolean isAllowed(GameCharacter character) {
+		return getFetishesForAutomaticUnlock().isEmpty();
+	}
+
+	/**
+	 * Used in CharacterUtils.generateDesires(), before desireMaps are built.
+	 * @param character
+	 * @param availableFetishes
+	 */
+	public void onBeforeGeneratingDesires(GameCharacter character, List<AbstractFetish> availableFetishes) {}
+	/**
+	 * Used in CharacterUtils.generateDesires(), after desireMaps are built, in the likedFetishes loop.
+	 * @param character
+	 * @param availableFetishes
+	 */
+	public void onGeneratingDesiresForLikedFetishes(GameCharacter character, List<AbstractFetish> availableFetishes) {}
 	
-	public static int getExperienceGainFromTakingVaginalVirginity(GameCharacter owner) {
-		return owner.getLevel()*2;
+	public final void assignID(BasePlugin plugin, String id) {
+		if(this.id==null) {
+			if(plugin == null) {
+				// FETISH_ID (stock only)
+				this.id = id;
+			} else {
+				// UUID_FETISH_ID
+				this.id = String.format("%s_%s", plugin.metadata.id.toString().replaceAll("-","_"), id);
+			}
+		}
+	}
+
+	public String getID() {
+		return this.id;
 	}
 	
-	public static int getExperienceGainFromTakingOtherVirginity(GameCharacter owner) {
-		return owner.getLevel();
+	public String toString() {
+		return this.getID();
 	}
-	
-	public FetishPreference getFetishPreferenceDefault() {
-		return FetishPreference.THREE_NEUTRAL;
+
+	public String getAppliedFetishLevelEffectDescription(GameCharacter character) {
+		return null;
+	}
+
+	public EnumSet<ContentFlag> requiresContent() {
+		return ContentFlag.NONE;
 	}
 }

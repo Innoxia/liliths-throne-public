@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -21,6 +22,7 @@ import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
+import com.lilithsthrone.game.character.fetishes.ContentFlag;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishPreference;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
@@ -1485,25 +1487,26 @@ public class OptionsDialogue {
 		
 		for(FetishPreference preference : FetishPreference.values()) {
 			String disabledMsg=null;
-			if(!Main.game.isPenetrationLimitationsEnabled() && fetish == Fetish.FETISH_SIZE_QUEEN) {
+			EnumSet<ContentFlag> requiredContent = fetish.requiresContent();
+			if(requiredContent.contains(ContentFlag.PENETRATION_SIZE_LIMITATIONS) && !Main.game.isPenetrationLimitationsEnabled()) {
 				disabledMsg="Penetrative size-difference";
 			}
-			if(!Main.game.isNonConEnabled() && (fetish == Fetish.FETISH_NON_CON_DOM || fetish == Fetish.FETISH_NON_CON_SUB)) {
+			if(requiredContent.contains(ContentFlag.NON_CON) && !Main.game.isNonConEnabled()) {
 				disabledMsg="Non-consent";
 			}
-			if(!Main.game.isIncestEnabled() && fetish == Fetish.FETISH_INCEST) {
+			if(requiredContent.contains(ContentFlag.INCEST) && !Main.game.isIncestEnabled()) {
 				disabledMsg="Incest";
 			}
-			if(!Main.game.isLactationContentEnabled() && (fetish == Fetish.FETISH_LACTATION_OTHERS || fetish == Fetish.FETISH_LACTATION_SELF)) {
+			if(requiredContent.contains(ContentFlag.LACTATION) && !Main.game.isLactationContentEnabled()) {
 				disabledMsg="Lactation";
 			}
-			if(!Main.game.isAnalContentEnabled() && (fetish == Fetish.FETISH_ANAL_GIVING || fetish == Fetish.FETISH_ANAL_RECEIVING)) {
+			if(requiredContent.contains(ContentFlag.ANAL) && !Main.game.isAnalContentEnabled()) {
 				disabledMsg="Anal Content";
 			}
-			if(!Main.game.isFootContentEnabled() && (fetish == Fetish.FETISH_FOOT_GIVING || fetish == Fetish.FETISH_FOOT_RECEIVING)) {
+			if(requiredContent.contains(ContentFlag.FEET) && !Main.game.isFootContentEnabled()) {
 				disabledMsg="Foot Content";
 			}
-			if(!Main.game.isArmpitContentEnabled() && (fetish == Fetish.FETISH_ARMPIT_GIVING || fetish == Fetish.FETISH_ARMPIT_RECEIVING)) {
+			if(requiredContent.contains(ContentFlag.ARMPITS) && !Main.game.isArmpitContentEnabled()) {
 				disabledMsg="Armpit Content";
 			}
 			if(disabledMsg!=null) {

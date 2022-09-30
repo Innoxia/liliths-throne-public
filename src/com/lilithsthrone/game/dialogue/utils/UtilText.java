@@ -9985,7 +9985,7 @@ public class UtilText {
 		
 		// Effects & persona:
 		for(AbstractFetish f : Fetish.getAllFetishes()) {
-			engine.put(Fetish.getIdFromFetish(f), f);
+			engine.put(f.getID(), f);
 		}
 		for(FetishDesire fetishDesire : FetishDesire.values()) {
 			engine.put("FETISH_DESIRE_"+fetishDesire.toString(), fetishDesire);
