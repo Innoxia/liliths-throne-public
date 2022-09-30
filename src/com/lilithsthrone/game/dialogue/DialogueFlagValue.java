@@ -200,6 +200,19 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue slaverAlleyCompanionAcceptedDeal = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue slaverAlleyTwoPartners = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue slaverAlleySlavesFreed = new AbstractDialogueFlagValue(); // Reset every day at midnight (as part of stocks reset method)
+
+	public static AbstractDialogueFlagValue slaverAlleyCafe1Visited = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue slaverAlleyCafe1Demonstrated = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue slaverAlleyCafe1DailyDemonstrated = new AbstractDialogueFlagValue(true);
+	public static AbstractDialogueFlagValue slaverAlleyCafe2Visited = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue slaverAlleyCafe2Demonstrated = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue slaverAlleyCafe2DailyDemonstrated = new AbstractDialogueFlagValue(true);
+	public static AbstractDialogueFlagValue slaverAlleyCafe3Visited = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue slaverAlleyCafe3Demonstrated = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue slaverAlleyCafe3DailyDemonstrated = new AbstractDialogueFlagValue(true);
+	public static AbstractDialogueFlagValue slaverAlleyCafe4Visited = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue slaverAlleyCafe4Demonstrated = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue slaverAlleyCafe4DailyDemonstrated = new AbstractDialogueFlagValue(true);
 	
 	// Wes:
 	public static AbstractDialogueFlagValue wesQuestLilayaHelp = new AbstractDialogueFlagValue();

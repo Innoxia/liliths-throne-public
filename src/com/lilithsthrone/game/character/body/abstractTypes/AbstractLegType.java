@@ -668,6 +668,21 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 						+ "</p>");
 				break;
 		}
+
+		// Increase or decrease height based on configuration:
+		if(applyEffects) {
+			if(!body.getLegConfiguration().isTall() && legConfiguration.isTall()) {
+				body.setHeight((int) (body.getHeightValue()*1.33f));
+				String colouredHeightValue = "<span style='color:"+body.getHeight().getColour().toWebHexString()+";'>[npc.heightValue]</span>";
+				feralStringBuilder.append("<p>The size of [npc.namePos] new lower body has resulted in [npc.herHim] getting taller, so now when standing at full height [npc.she] [npc.verb(measure)] "+colouredHeightValue+".</p>");
+				
+			} else if(body.getLegConfiguration().isTall() && !legConfiguration.isTall()) {
+				body.setHeight((int) (body.getHeightValue()/1.33f));
+				String colouredHeightValue = "<span style='color:"+body.getHeight().getColour().toWebHexString()+";'>[npc.heightValue]</span>";
+				feralStringBuilder.append("<p>The reduced size of [npc.namePos] new lower body has resulted in [npc.herHim] getting shorter, so now when standing at full height [npc.she] [npc.verb(measure)] "+colouredHeightValue+".</p>");
+			}
+		}
+		
 		
 		if(legConfiguration.isTailLostOnInitialTF()) {
 			if(body.getTail().getType()!=TailType.NONE) {

@@ -293,7 +293,8 @@
 
     <scene id ="after_sex">
         <author><![CDATA[Innoxia]]></author>
-        <title><![CDATA[[harpyBimbo.NamePos] nest]]></title>
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[You've finished having your fun...]]></tooltip>
         <preParsingEffects/>
         <content folderPath="txt/places/dominion/harpyNests/bimbo">BIMBO_AFTER_SEX</content>
         <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>

@@ -1440,7 +1440,7 @@ public class OptionsDialogue {
 		
 		sb.append("<div style='display:inline-block; margin:4px auto;width:100%;'>"
 				+ "<div style='display:inline-block; margin:0 auto;'>"
-				+ getInformationDiv(fetish.toString()+"_INFO", new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(fetish.getName(Main.game.getPlayer())), fetish.getDescription(null)))
+				+ getInformationDiv(fetish.getId()+"_INFO", new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(fetish.getName(Main.game.getPlayer())), fetish.getDescription(null)))
 				+ "<div style='width:150px; float:left;'><b style='color:"+highlightColour.toWebHexString()+";'>"+Util.capitaliseSentence(fetish.getName(null))+"</b></div>");
 		
 		for(FetishPreference preference : FetishPreference.values()) {
@@ -2001,6 +2001,10 @@ public class OptionsDialogue {
 				return null;
 			}
 		}
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+		    return DialogueNodeType.OPTIONS;
+		}
 	};
 	
 	/**
@@ -2202,7 +2206,7 @@ public class OptionsDialogue {
 				if (!artist.getName().equals("Custom")) {
 					UtilText.nodeContentSB.append("<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b><br/>");
 				}
-			}	
+			}
 
 			UtilText.nodeContentSB.append("<br/>"
 					+ "Contributors:</br>" // In alphabetical order:
@@ -2746,7 +2750,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("FURRY_TAIL_PENETRATION",
 					PresetColour.BASE_MAGENTA,
 					"Furry tail penetrations",
-					"This enables furry tails to engage in penetrative actions in sex.",
+					"This marks all tail types as being suitable for penetration, thereby enabling furry tails to engage in penetrative actions in sex.",
 					Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("INFLATION_CONTENT",
