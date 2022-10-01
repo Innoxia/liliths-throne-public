@@ -141,7 +141,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		// --- Priority 1 | If orgasming, bypass everything and use an orgasm option ---
 		
-		if (Main.sex.isReadyToOrgasm(partner) && SexFlags.playerPreparedForCharactersOrgasm.contains(partner)) {
+		if (Main.sex.isReadyToOrgasm(partner)
+				&& (SexFlags.playerPreparedForCharactersOrgasm.contains(partner) || Main.sex.isSpectator(partner))) { // Player does not prepare for spectator orgasms
 			List<SexActionInterface> priorityOrgasms = new ArrayList<>();
 			
 			for(SexActionInterface action : availableActions) {
@@ -1036,7 +1037,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		availableTargets.removeIf((character) -> Main.sex.getSexPositionSlot(character)==SexSlotGeneric.MISC_WATCHING);
 		
-		GameCharacter preferredTarget = ((NPC) targeter).getPreferredSexTarget();
+		GameCharacter preferredTarget = Main.sex.getInitialSexManager().getPreferredSexTarget((NPC) targeter);
 		
 		// Always target those who are about to cum:
 		if(Main.sex.isReadyToOrgasm(targeter) && SexFlags.playerPreparedForCharactersOrgasm.contains(targeter)) {

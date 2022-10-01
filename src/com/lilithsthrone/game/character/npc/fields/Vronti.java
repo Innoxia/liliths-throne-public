@@ -87,6 +87,9 @@ public class Vronti extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.0.6")) {
 			this.setHomeLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.5.5")) {
+			this.setHeight(225);
+		}
 	}
 
 	@Override
@@ -124,7 +127,7 @@ public class Vronti extends NPC {
 		setBody(Gender.M_P_MALE, Subspecies.CENTAUR, RaceStage.PARTIAL_FULL, false);
 		
 		// Core:
-		this.setHeight(210);
+		this.setHeight(225);
 		this.setFemininity(0);
 		this.setMuscle(95);
 		this.setBodySize(BodySize.FOUR_HUGE.getMedianValue());

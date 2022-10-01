@@ -38,6 +38,7 @@ import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJobFlag;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJobSetting;
@@ -75,6 +76,7 @@ public class OccupancyUtil implements XMLSaving {
 	/** Maps job to ids of slaves who are currently at that job. */
 	private Map<SlaveJob, List<String>> charactersAtJob;
 	private List<NPC> charactersResting;
+	
 	private int generatedIncome;
 	private int generatedUpkeep;
 	
@@ -196,6 +198,28 @@ public class OccupancyUtil implements XMLSaving {
 		}
 		charactersResting.clear();
 	}
+
+	/**
+	 * Should only be used at the end of a game import to populate the slavesResting list.
+	 */
+	public void updateSlavesResting(int hour) {
+		for(String id : Main.game.getPlayer().getSlavesOwned()) {
+			try {
+				NPC slave = (NPC) Main.game.getNPCById(id);
+
+				SlaveJob currentJob = slave.getSlaveJob(hour);
+				
+				if(Main.game.getPlayer().hasCompanion(slave)) {
+					continue;
+				}
+				if(currentJob==SlaveJob.IDLE) {
+					slavesResting.add(slave);
+				}
+			} catch (Exception e) {
+				Util.logGetNpcByIdError("updateSlavesResting()", id);
+			}
+		}
+	}
 	
 	/**
 	 * Resets daily dialogue flags and searches for a job (if the occupant is still marked as a lowlife).
@@ -276,7 +300,7 @@ public class OccupancyUtil implements XMLSaving {
 		
 		clearJobTracking(); // Reset slavesAtJob and slavesResting
 		
-		// First need to set correct jobs:
+		// First need to set correct jobs and handle miscellaneous updates:
 		List<NPC> charactersToSendToWork = new ArrayList<>();
 		for(String id : this.getAllCharacters()) {
 			try {
@@ -286,6 +310,10 @@ public class OccupancyUtil implements XMLSaving {
 				
 				if(Main.game.getPlayer().hasCompanion(slave)) {
 					continue;
+				}
+				
+				if(slave.isVisiblyPregnant() && !slave.hasStatusEffect(StatusEffect.PREGNANT_3) && slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_MOTHERS_MILK)) {
+					ItemEffectType.MOTHERS_MILK.applyEffect(null, null, null, 0, slave, slave, null);
 				}
 				
 				if(!Main.game.getPlayer().isActive() || !Main.game.getCharactersPresent().contains(slave) // If the player isn't interacting with them, then move them
@@ -346,9 +374,9 @@ public class OccupancyUtil implements XMLSaving {
 			SlaveJob currentJob = slave.getSlaveJob(hour);
 			
 			slave.incrementAffection(slave.getOwner(), slave.getHourlyAffectionChange(hour));
-			slave.incrementObedience(slave.getHourlyObedienceChange(hour), false);
+			slave.incrementObedience(slave.getHourlyObedienceChange(hour), true);
 			
-			boolean isAtWork = slave.isAtWork(hour);
+			boolean isAtWork = slave.isAtWork();
 			
 			// If at work:
 			if(isAtWork) {
@@ -363,15 +391,15 @@ public class OccupancyUtil implements XMLSaving {
 				
 				// Overworked effect:
 				if(slave.hasStatusEffect(StatusEffect.OVERWORKED_1)) {
-					slave.incrementAffection(slave.getOwner(), -0.05f);
+					slave.incrementAffection(slave.getOwner(), -0.5f);
 					workQuality *= 0.75f; // If overworked, they have a a lowered chance to gain experience.
 					
 				} else if(slave.hasStatusEffect(StatusEffect.OVERWORKED_2)) {
-					slave.incrementAffection(slave.getOwner(), -0.1f);
+					slave.incrementAffection(slave.getOwner(), -1f);
 					workQuality *= 0.5f; // If overworked, they have a a lowered chance to gain experience.
 					
 				} else if(slave.hasStatusEffect(StatusEffect.OVERWORKED_3)) {
-					slave.incrementAffection(slave.getOwner(), -0.15f);
+					slave.incrementAffection(slave.getOwner(), -2f);
 					workQuality *= 0.25f; // If overworked, they have a a lowered chance to gain experience.
 				}
 				
@@ -962,7 +990,7 @@ public class OccupancyUtil implements XMLSaving {
 										effects.add("<span style='color:"+PresetColour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
 										
-									} else if(!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS)) {
+									} else if(!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS)) {
 										effectDescriptions.append(UtilText.parse(slave, "resulting in a risk of pregnancy!"));
 										effects.add("<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Pregnancy Risk:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
@@ -1158,7 +1186,7 @@ public class OccupancyUtil implements XMLSaving {
 										effects.add("<span style='color:"+PresetColour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
 										
-									} else if(!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS)) {
+									} else if(!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS)) {
 										effectDescriptions.append(UtilText.parse(slave, "resulting in a risk of pregnancy!"));
 										effects.add("<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Pregnancy Risk:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
@@ -1187,7 +1215,7 @@ public class OccupancyUtil implements XMLSaving {
 										effects.add("<span style='color:"+PresetColour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
 										
-									} else if(!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS)) {
+									} else if(!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS)) {
 										effectDescriptions.append(UtilText.parse(slave, "resulting in a risk of pregnancy!"));
 										effects.add("<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Pregnancy Risk:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);

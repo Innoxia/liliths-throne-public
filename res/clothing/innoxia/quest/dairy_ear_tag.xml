@@ -13,7 +13,6 @@
 		<clothingSet>CATTLE</clothingSet>
 		<imageName>dairy_ear_tag.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit/>
 		<effects>
             <effect limit="20" mod1="TF_BREASTS" mod2="TF_MOD_SIZE" potency="BOOST" timer="0" type="CLOTHING"/>
             <effect limit="80" mod1="TF_CORE" mod2="TF_MOD_FEMININITY" potency="BOOST" timer="0" type="CLOTHING"/>

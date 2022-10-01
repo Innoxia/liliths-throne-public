@@ -218,6 +218,26 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="WATERING_HOLE_IMPORT_DOM"><![CDATA[
+	<p>
+		You can import any of your previously exported characters in order to add them to your contacts list. Once imported, this character will show up in your 'Contacts (as dom)' list.
+	</p>
+	<p>
+		<i>You can export any character in the game by viewing their character sheet and pressing the little export button in the bottom-right of the screen.</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_IMPORT_SUB"><![CDATA[
+	<p>
+		You can import any of your previously exported characters in order to add them to your contacts list. Once imported, this character will show up in your 'Contacts (as sub)' list.
+	</p>
+	<p>
+		<i>You can export any character in the game by viewing their character sheet and pressing the little export button in the bottom-right of the screen.</i>
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="WATERING_HOLE_PARTNER_LEAVES"><![CDATA[
 	<p>
 		Completely fed up with your rude behaviour, [npc.name]

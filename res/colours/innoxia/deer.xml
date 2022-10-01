@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<colour>
+	<metallic>false</metallic>
+	
+	<name><![CDATA[brown]]></name>
+	
+	<colour>eac5a1</colour>
+	<lightColour>a28870</lightColour>
+	
+	<formattingNames>
+		<name><![CDATA[deer]]></name>
+		<name><![CDATA[deerMorph]]></name>
+	</formattingNames>
+	
+	<tags/>
+	
+</colour>

@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.main.Main;
@@ -263,7 +264,7 @@ public class Race {
 		}
 		
 		@Override
-		public Map<Fetish, Map<String, Integer>> getRacialFetishModifiers() {
+		public Map<AbstractFetish, Map<String, Integer>> getRacialFetishModifiers() {
 			return Util.newHashMapOfValues(
 					new Value<>(Fetish.FETISH_BREASTS_SELF,
 							Util.newHashMapOfValues(
@@ -576,7 +577,7 @@ public class Race {
 		}
 		
 		@Override
-		public Map<Fetish, Map<String, Integer>> getRacialFetishModifiers() {
+		public Map<AbstractFetish, Map<String, Integer>> getRacialFetishModifiers() {
 			return Util.newHashMapOfValues(
 					new Value<>(Fetish.FETISH_IMPREGNATION,
 							Util.newHashMapOfValues(

@@ -16,7 +16,6 @@
 		<clothingSet/>
 		<imageName>filly_choker.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit>5</enchantmentLimit>
 		
 		<effects>
 			<effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SEALING" timer="0"/>

@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <placeType>
 	<worldRegion>FIELD_CITY</worldRegion>
-	<name><![CDATA[The Crossed Blades]]></name>
-	<tooltipDescription><![CDATA[Within the alleyways of northern Elis, the seedy tavern 'The Crossed Blades' attracts the undesirable patrons who're not welcome in the town's more reputable taverns.]]></tooltipDescription>
-	<virginityLossDescription><![CDATA[outside of 'The Crossed Blades' tavern]]></virginityLossDescription>
+	<name><![CDATA[burning barricade]]></name>
+	<tooltipDescription><![CDATA[Constructed and lit by the town's defenders, this burning barricade is producing a considerable amount of heat and smoke, making it impossible for you to pass.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[beside a burning barricade in Themiscyra]]></virginityLossDescription>
 	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
-	<colour>BASE_PURPLE</colour>
+	<colour>BASE_CRIMSON</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	<encounterType>null</encounterType>
-	<dialogue>innoxia_places_fields_elis_generic_tavern_seedy</dialogue>
-	<populationPresent copyPlaceType="innoxia_fields_elis_town_alley"/>
+	<dialogue>innoxia_places_fields_themiscyra_barricade</dialogue>
+	<populationPresent/>
 	<furniturePresent>false</furniturePresent>
-	<loiteringEnabled>true</loiteringEnabled>
 	<globalMapTile>false</globalMapTile>
 	<dangerous><![CDATA[false]]></dangerous>
 	<itemsDisappear><![CDATA[true]]></itemsDisappear>

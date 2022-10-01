@@ -1733,15 +1733,42 @@
 	<!-- KEEP_COLLAPSE_ESCAPE -->
 	
 	<!--Escape after enslaving dark siren with ring:-->
-	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_EXPLAIN"><![CDATA[
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_ENSLAVE"><![CDATA[
 	<p>
 		With little choice but to do as you're told, you explain to the officer that you were instructed by Elizabeth to apprehend [siren.name]. Recounting how you were able to trick her into wearing the enslavement ring, you describe how she was able to cast one final spell before vanishing, which caused the citadel to collapse.
 	</p>
 	<p>
-		[genericFemale.speech(I see,)] the officer says, before turning to one of her subordinates. [genericFemale.speech(Elrinia, have you heard anything from the palace?)]
+		[genericFemale.speech(I see,)] the officer says, before turning to one of her subordinates. [genericFemale.speech(Elrinia, did Elizabeth mention any of this to you?)]
 	</p>
 	<p>
-		The half-succubus which she addresses appears to be carrying a strange purple stone, and, after staring intensely at it for a moment, she looks up and replies, [style.speechFeminineStrong(Yes, Ma'am, it's as the [pc.race] says. The Captain did ask [pc.herHim] to help with subduing [siren.name], who is now safely with Lyssieth.)]
+		The half-succubus which the officer is addressing quickly replies, [style.speechFeminineStrong(Yes, Ma'am, it's as the [pc.race] says. The captain did ask [pc.herHim] to help with subduing [siren.name], who is now safely being escorted back to Lyssieth.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!--Escape with dark siren:-->
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_EXPLAIN"><![CDATA[
+	<p>
+		With little choice but to do as you're told, you explain to the officer that you were instructed by Elizabeth to apprehend [siren.name]. Recounting the fight you had with the siren, you describe how she was able to cast one final spell before being defeated, which is what caused the citadel to collapse.
+	</p>
+	<p>
+		[genericFemale.speech(I see,)] the officer says, before turning to one of her subordinates. [genericFemale.speech(Elrinia, did Elizabeth mention any of this to you?)]
+	</p>
+	<p>
+		The half-succubus which the officer is addressing quickly replies, [style.speechFeminineStrong(Yes, Ma'am, it's as the [pc.race] says. The captain did ask [pc.herHim] to help with subduing [siren.name].)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_EXPLAIN_PRE_QUEST"><![CDATA[
+	<p>
+		With little choice but to do as you're told, you explain to the officer that you were trying to put an end to the imp gangs by confronting [siren.name]. Recounting the fight you had with the siren, you describe how she was able to cast one final spell before being defeated, which is what caused the citadel to collapse.
+	</p>
+	<p>
+		[genericFemale.speech(I see,)] the officer says, before turning to one of her subordinates. [genericFemale.speech(Elrinia, did Elizabeth mention anything about what to do with any third parties who assisted us?)]
+	</p>
+	<p>
+		The half-succubus which the officer is addressing quickly replies, [style.speechFeminineStrong(Yes, Ma'am, the captain thought of everything. She stated that anyone who helped in our mission should be offered our gratitude.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1768,33 +1795,6 @@
 	</p>
 	<p>
 		As the demon guards head off into Submission's tunnels, you and [npc.name] turn back towards the citadel. It looks like the collapse has come to a complete halt, and you wonder if the two of you should head back through the gates and explore the ruins...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<!--Escape with dark siren:-->
-	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_ENSLAVE"><![CDATA[
-	<p>
-		With little choice but to do as you're told, you explain to the officer that you were instructed by Elizabeth to apprehend [siren.name]. Recounting the fight you had with the siren, you describe how she was able to cast one final spell before being defeated, which is what caused the citadel to collapse.
-	</p>
-	<p>
-		[genericFemale.speech(I see,)] the officer says, before turning to one of her subordinates. [genericFemale.speech(Elrinia, have you heard anything from the palace?)]
-	</p>
-	<p>
-		The half-succubus which she addresses appears to be carrying a strange purple stone, and, after staring intensely at it for a moment, she looks up and replies, [style.speechFeminineStrong(Yes, Ma'am, it's as the [pc.race] says. The Captain did ask [pc.herHim] to help with subduing [siren.name].)]
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_ENSLAVE_PRE_QUEST"><![CDATA[
-	<p>
-		With little choice but to do as you're told, you explain to the officer that you were trying to put an end to the imp gangs by confronting [siren.name]. Recounting the fight you had with the siren, you describe how she was able to cast one final spell before being defeated, which is what caused the citadel to collapse.
-	</p>
-	<p>
-		[genericFemale.speech(I see,)] the officer says, before turning to one of her subordinates. [genericFemale.speech(Elrinia, have you informed the palace of these developments?)]
-	</p>
-	<p>
-		The half-succubus which she addresses appears to be carrying a strange purple stone, and, after staring intensely at it for a moment, she looks up and replies, [style.speechFeminineStrong(Yes, Ma'am. The Captain has asked that this [pc.race]  be offered our gratitude for [pc.her] help in subduing [siren.name].)]
 	</p>
 	]]>
 	</htmlContent>

@@ -370,8 +370,9 @@ public enum SlaveJob {
 		@Override
 		public float getAffectionGain(int hour, GameCharacter slave) {
 			float aff = this.affectionGain;
-			if(slave.hasFetish(Fetish.FETISH_LACTATION_SELF) || slave.hasFetish(Fetish.FETISH_CUM_STUD)) {
-				aff = 2f;
+			if((slave.hasFetish(Fetish.FETISH_LACTATION_SELF) && (slave.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_MILK) || slave.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_MILK_CROTCH)))
+					|| (slave.hasFetish(Fetish.FETISH_CUM_STUD) && slave.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_CUM))) {
+				aff = 0.25f;
 			}
 			Cell c = this.getWorkDestinationCell(hour, slave);
 			return aff + (c==null?0:c.getPlace().getHourlyAffectionChange());
@@ -438,7 +439,7 @@ public enum SlaveJob {
 					if(clothing!=null) {
 						if(!clothing.isMilkingEquipment()) {
 							clothingRemoved.add(clothing);
-							slave.unequipClothingIntoVoid(clothing, true, slave);
+							slave.unequipClothingIntoInventory(clothing, true, slave);
 							equipBreastPumps = true;
 						}
 					} else {
@@ -451,7 +452,7 @@ public enum SlaveJob {
 					if(clothing!=null) {
 						if(!clothing.isMilkingEquipment()) {
 							clothingRemoved.add(clothing);
-							slave.unequipClothingIntoVoid(clothing, true, slave);
+							slave.unequipClothingIntoInventory(clothing, true, slave);
 							equipUdderPumps = true;
 						}
 					} else {
@@ -464,7 +465,7 @@ public enum SlaveJob {
 					if(clothing!=null) {
 						if(!clothing.isMilkingEquipment()) {
 							clothingRemoved.add(clothing);
-							slave.unequipClothingIntoVoid(clothing, true, slave);
+							slave.unequipClothingIntoInventory(clothing, true, slave);
 							equipPenisPump = true;
 						}
 					} else {
@@ -479,7 +480,7 @@ public enum SlaveJob {
 					if(clothing!=null) {
 						if(!clothing.isMilkingEquipment()) {
 							clothingRemoved.add(clothing);
-							slave.unequipClothingIntoVoid(clothing, true, slave);
+							slave.unequipClothingIntoInventory(clothing, true, slave);
 							equipVaginaPump = true;
 						}
 					} else {
@@ -545,9 +546,10 @@ public enum SlaveJob {
 								for(DisplacementType dt : new ArrayList<>(clothing.getDisplacedList())) {
 									slave.isAbleToBeReplaced(slave.getClothingInSlot(clothing.getSlotEquippedTo()), dt, true, true, slave);
 								}
-								
-							} else {
-								slave.equipClothingFromNowhere(clothing, true, slave);
+							} else if(slave.hasClothing(clothing)) {
+								slave.equipClothingFromInventory(clothing, true, slave, slave);
+							} else if(slave.getCell().getInventory().hasClothing(clothing)) {
+								slave.equipClothingFromGround(clothing, true, slave);
 							}
 						}
 						room.clearClothingRemovedForMilking(slave);
@@ -959,19 +961,29 @@ public enum SlaveJob {
 		
 		if(this==SlaveJob.MILKING) {
 			value = 0;
-			if(character.getBreastRawStoredMilkValue()>0  && character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK)) {
+			if(character.getBreastRawStoredMilkValue()>0
+					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK)
+					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK_AUTO_SELL)) {
 				int milked = MilkingRoom.getActualMilkPerHour(character);
 				value += (milked * character.getMilk().getValuePerMl());
 			}
-			if(character.hasBreastsCrotch() && character.getBreastCrotchRawStoredMilkValue()>0  && character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK_CROTCH)) {
+			if(character.hasBreastsCrotch()
+					&& character.getBreastCrotchRawStoredMilkValue()>0
+					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK_CROTCH)
+					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK_CROTCH_AUTO_SELL)) {
 				int milked = MilkingRoom.getActualCrotchMilkPerHour(character);
 				value += (milked * character.getMilkCrotch().getValuePerMl());
 			}
-			if(character.hasPenis() && character.getPenisRawStoredCumValue()>0  && character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_CUM)) {
+			if(character.hasPenis()
+					&& character.getPenisRawStoredCumValue()>0
+					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_CUM)
+					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_CUM_AUTO_SELL)) {
 				int milked = MilkingRoom.getActualCumPerHour(character);
 				value += (milked * character.getCum().getValuePerMl());
 			}
-			if(character.hasVagina() && character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_GIRLCUM)) {
+			if(character.hasVagina()
+					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_GIRLCUM)
+					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_GIRLCUM_AUTO_SELL)) {
 				int milked = MilkingRoom.getActualGirlcumPerHour(character);
 				value += (milked * character.getGirlcum().getValuePerMl());
 			}

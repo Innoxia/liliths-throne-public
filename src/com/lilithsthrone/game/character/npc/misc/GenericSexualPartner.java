@@ -110,7 +110,7 @@ public class GenericSexualPartner extends NPC {
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(false);
 			setDescription(UtilText.parse(this,
 					"[npc.Name] is a resident of Dominion, who's currently only interested in having sex."));
@@ -134,6 +134,7 @@ public class GenericSexualPartner extends NPC {
 
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyTattoos(this, true);
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
@@ -296,7 +297,7 @@ public class GenericSexualPartner extends NPC {
 									+ " but as [npc.namePos] [npc.cock+] claims your precious virginity, you don't have any time to reflect on your poor choice."
 								+ " The only thing that's on your mind is the fact that you're being broken in by a person you've never even seen or spoken to before, and you can't help but continue to desperately cry out as [npc.she] penetrates you.");
 				} else {
-					sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+] claim your virginity, you can't help but let out a desperately lewd [pc.moan]."
+					sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+] to claim your virginity, you can't help but let out a desperately lewd [pc.moan]."
 							+ " This person who you've never even seen or spoken to before is giving you a feeling unlike any you've felt before, and you can't help but continue to scream and [pc.moan] in a delightful haze of overwhelming ecstasy.");
 				}
 			sb.append("</p>");

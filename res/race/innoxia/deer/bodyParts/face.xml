@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<face>
+	<race>innoxia_deer</race>
+	
+	<transformationName><![CDATA[deer]]></transformationName>
+	
+	<coveringType>innoxia_deer_fur</coveringType>
+	
+	<mouthType>innoxia_deer_mouth</mouthType>
+	
+	<tags>
+		<tag>FACE_MUZZLE</tag>
+		<tag>FACE_NATURAL_BALDNESS_FURRY</tag>
+	</tags>
+	
+	<names/>
+	<namesPlural/> 
+	
+	<descriptorsMasculine>
+		<descriptor>anthropomorphic deer-like</descriptor>
+		<descriptor>deer-like</descriptor>
+	</descriptorsMasculine>
+	
+	<descriptorsFeminine>
+		<descriptor>anthropomorphic deer-like</descriptor>
+		<descriptor>deer-like</descriptor>
+	</descriptorsFeminine>
+	
+	<noseName><![CDATA[nose]]></noseName>
+	<noseNamePlural><![CDATA[noses]]></noseNamePlural>
+	
+	<noseDescriptorsMasculine/>
+	<noseDescriptorsFeminine/>
+	
+	<transformationDescription><![CDATA[
+		[npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic deer-like muzzle, and [npc.her] tongue transforms into a strong, deer-like one.
+		#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)
+			 A layer of very close-cropped, smooth wool quickly grows to cover [npc.her] new face, 
+		#ELSE
+			 Just like the rest of [npc.her] body, [npc.her] new face is [npc.materialDescriptor] [npc.faceSkin+], 
+		#ENDIF
+		and as the transformation finally comes to an end, [npc.sheIs] left panting and sighing as [npc.she] [npc.verb(try)] to catch [npc.her] breath.
+		<br/>[npc.Name] now [npc.has] an anthropomorphic [style.boldGoat(deer-like face)], [npc.materialDescriptor] [npc.faceFullDescription]. Within [npc.her] [npc.mouth], [npc.she] [npc.has] a [style.boldGoat(strong, deer-like tongue)].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, deer-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a muzzle.
+	]]></bodyDescription>
+	
+	<!-- Feral variant of the above. -->
+	<bodyDescriptionFeral><![CDATA[
+		[npc.SheHasFull] the [npc.feminineDescriptor(true)] face of a feral [npc.legRace], which is [npc.materialDescriptor] [npc.faceFullDescription(true)] and complete with a muzzle.
+	]]></bodyDescriptionFeral>
+	
+</face>

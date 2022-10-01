@@ -243,7 +243,7 @@ public class NyanMum extends NPC {
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_hair_accessories_hair_bobby_pins", PresetColour.CLOTHING_GOLD, false), true, this);
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_crotchless_thong", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_strapless_bra", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_BODYCONZIP_DRESS, PresetColour.CLOTHING_PURPLE_ROYAL, PresetColour.CLOTHING_GOLD, null, false), true, this);
@@ -293,7 +293,7 @@ public class NyanMum extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 
 		if(kinky) {
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, PresetColour.CLOTHING_PURPLE_ROYAL, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_crotchless_thong", PresetColour.CLOTHING_PURPLE_ROYAL, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_OPEN_CUP_BRA, PresetColour.CLOTHING_PURPLE_ROYAL, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_bell_collar", PresetColour.CLOTHING_PURPLE_ROYAL, PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_SILVER, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_tail_ribbon_tail_ribbon", PresetColour.CLOTHING_BLACK, false), true, this);
@@ -302,6 +302,14 @@ public class NyanMum extends NPC {
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_PURPLE_ROYAL, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_PURPLE_ROYAL, false), true, this);
 		}
+	}
+
+	@Override
+	public String getArtworkFolderName() {
+		if(this.isVisiblyPregnant()) {
+			return "NyanMumPregnant";
+		}
+		return "NyanMum";
 	}
 	
 	@Override

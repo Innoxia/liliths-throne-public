@@ -219,7 +219,7 @@ public class Kazik extends NPC {
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_eye_aviators", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_ORANGE, null, false), true, this);
 
-		AbstractClothing boxers = Main.game.getItemGen().generateClothing(ClothingType.GROIN_BOXERS, PresetColour.CLOTHING_BLACK, false);
+		AbstractClothing boxers = Main.game.getItemGen().generateClothing("innoxia_groin_boxers", PresetColour.CLOTHING_BLACK, false);
 		boxers.setPattern(Pattern.getPatternIdByName("camo"));
 		boxers.setPatternColour(0, PresetColour.CLOTHING_DESATURATED_BROWN);
 		boxers.setPatternColour(1, PresetColour.CLOTHING_GREEN_DRAB);

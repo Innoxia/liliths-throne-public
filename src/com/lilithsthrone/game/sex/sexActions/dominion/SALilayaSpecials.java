@@ -1,5 +1,9 @@
 package com.lilithsthrone.game.sex.sexActions.dominion;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -22,6 +26,20 @@ import com.lilithsthrone.main.Main;
  */
 public class SALilayaSpecials {
 	
+	private static boolean isAmazonsSecretActive(GameCharacter targetedCharacter) {
+		GameCharacter performingCharacter = Main.sex.getCharacterPerformingAction();
+		if(targetedCharacter.hasStatusEffect("innoxia_amazons_secret")) {
+			Set<GameCharacter> charactersContactingVagina = new HashSet<>(Main.sex.getOngoingCharactersUsingAreas(performingCharacter, SexAreaOrifice.VAGINA, SexAreaPenetration.CLIT));
+			charactersContactingVagina.addAll(Main.sex.getOngoingCharactersUsingAreas(performingCharacter, SexAreaPenetration.CLIT, SexAreaOrifice.VAGINA));
+			charactersContactingVagina.addAll(Main.sex.getOngoingCharactersUsingAreas(performingCharacter, SexAreaOrifice.VAGINA, SexAreaOrifice.VAGINA));
+			charactersContactingVagina.addAll(Main.sex.getOngoingCharactersUsingAreas(performingCharacter, SexAreaPenetration.CLIT, SexAreaPenetration.CLIT));
+
+			return !charactersContactingVagina.isEmpty();
+		}
+		
+		return false;
+	}
+	
 	// Demand pull out
 	public static final SexAction PARTNER_DEMAND_PULL_OUT = new SexAction(
 			SexActionType.SPEECH_WITH_ALTERNATIVE,
@@ -33,10 +51,13 @@ public class SALilayaSpecials {
 		
 		@Override
 		public String getActionTitle() {
+			if(isAmazonsSecretActive(Main.sex.getCharacterTargetedForSexAction(this))) {
+				return "Pull back reminder";
+			}
 			if(Main.sex.getCharacterTargetedForSexAction(this).isWearingCondom()) {
 				return "Condom check";
 			}
-			return "Pull-out reminder";
+			return "Pull out reminder";
 		}
 		@Override
 		public String getActionDescription() {
@@ -44,13 +65,14 @@ public class SALilayaSpecials {
 		}
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS).contains(Main.sex.getCharacterTargetedForSexAction(this))
+			return (isAmazonsSecretActive(Main.sex.getCharacterTargetedForSexAction(this))
+						|| (Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS).contains(Main.sex.getCharacterTargetedForSexAction(this))
+								&& Main.sex.getCharacterTargetedForSexAction(this).hasPenisIgnoreDildo()))
 					&& Main.sex.getCharacterTargetedForSexAction(this).getArousal() >= ArousalLevel.FOUR_PASSIONATE.getMinimumValue()
 					&& !Main.sex.getCharactersRequestingPullout().keySet().contains(Main.sex.getCharacterPerformingAction())
 					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
 					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
-					&& Main.sex.getCharacterPerformingAction().equals(Main.game.getNpc(Lilaya.class))
-					&& Main.sex.getCharacterTargetedForSexAction(this).hasPenisIgnoreDildo();
+					&& Main.sex.getCharacterPerformingAction().equals(Main.game.getNpc(Lilaya.class));
 		}
 		@Override
 		public SexActionPriority getPriority() {
@@ -58,17 +80,29 @@ public class SALilayaSpecials {
 		}
 		@Override
 		public String getDescription() {
-			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
-				return "While letting out desperate moans and lewd cries, [npc.name] [npc.verb(try)] to push [npc2.namePos] [npc2.hips] away from [npc.her] [npc.pussy],"
-						+ " making it clear that [npc.she] doesn't want [npc2.herHim] cumming inside of [npc.herHim].";
+			if(isAmazonsSecretActive(Main.sex.getCharacterTargetedForSexAction(this))) {
+				if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
+					return "While letting out desperate moans and lewd cries, [npc.name] [npc.verb(try)] to push [npc2.namePos] [npc2.hips] away from [npc.her] [npc.pussy],"
+							+ " making it clear that [npc.she] doesn't want [npc2.herHim] orgasming in this position due to the effects gained from drinking a bottle of 'Amazon's Secret'.";
+					
+				} else {
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to [npc2.name],"
+							+" [npc.speech(Pull away before you orgasm! I know that you've drunk a bottle of Amazon's Secret, and I'm <b>not</b> getting pregnant!)]";
+				}
 				
 			} else {
-				if(Main.sex.getCharacterTargetedForSexAction(this).isWearingCondom()) {
+				if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
+					return "While letting out desperate moans and lewd cries, [npc.name] [npc.verb(try)] to push [npc2.namePos] [npc2.hips] away from [npc.her] [npc.pussy],"
+							+ " making it clear that [npc.she] doesn't want [npc2.herHim] cumming inside of [npc.herHim].";
+					
+				} else {
+					if(Main.sex.getCharacterTargetedForSexAction(this).isWearingCondom()) {
+						return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to [npc2.name],"
+								+" [npc.speech(Your condom's on properly, isn't it? I'm <b>not</b> getting pregnant!)]";
+					}
 					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to [npc2.name],"
-							+" [npc.speech(Your condom's on properly, isn't it? I'm <b>not</b> getting pregnant!)]";
+							+" [npc.speech(Just remember to pull out! I'm <b>not</b> getting pregnant!)]";
 				}
-				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to [npc2.name],"
-						+" [npc.speech(Just remember to pull out! I'm <b>not</b> getting pregnant!)]";
 			}
 				
 		}
@@ -89,6 +123,7 @@ public class SALilayaSpecials {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS).contains(Main.sex.getCharacterTargetedForSexAction(this))
+					&& !isAmazonsSecretActive(Main.sex.getCharacterTargetedForSexAction(this))
 					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 					&& Main.sex.getCharacterPerformingAction().equals(Main.game.getNpc(Lilaya.class));
 		}
@@ -139,10 +174,13 @@ public class SALilayaSpecials {
 		
 		@Override
 		public String getActionTitle() {
+			if(isAmazonsSecretActive(Main.sex.getCharacterTargetedForSexAction(this))) {
+				return "Demand pull back";
+			}
 			if(Main.sex.getCharacterTargetedForSexAction(this).isWearingCondom()) {
 				return "Condom reassurance";
 			}
-			return "Demand pull-out";
+			return "Demand pull out";
 		}
 
 		@Override
@@ -152,11 +190,12 @@ public class SALilayaSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS).contains(Main.sex.getCharacterTargetedForSexAction(this))
+			return (isAmazonsSecretActive(Main.sex.getCharacterTargetedForSexAction(this))
+					|| (Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS).contains(Main.sex.getCharacterTargetedForSexAction(this))
+							&& Main.sex.getCharacterTargetedForSexAction(this).hasPenisIgnoreDildo()))
 					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
 					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
-					&& Main.sex.getCharacterPerformingAction().equals(Main.game.getNpc(Lilaya.class))
-					&& Main.sex.getCharacterTargetedForSexAction(this).hasPenisIgnoreDildo();
+					&& Main.sex.getCharacterPerformingAction().equals(Main.game.getNpc(Lilaya.class));
 		}
 
 		@Override
@@ -166,17 +205,29 @@ public class SALilayaSpecials {
 		
 		@Override
 		public String getDescription() {
-			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
-				return "While letting out desperate moans and lewd cries, [npc.name] [npc.verb(try)] to push [npc2.namePos] [npc2.hips] away from [npc.her] [npc.pussy],"
-						+ " making it clear that [npc.she] doesn't want [npc2.herHim] cumming inside of [npc.herHim].";
+			if(isAmazonsSecretActive(Main.sex.getCharacterTargetedForSexAction(this))) {
+				if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
+					return "While letting out desperate moans and lewd cries, [npc.name] [npc.verb(try)] to push [npc2.namePos] [npc2.hips] away from [npc.her] [npc.pussy],"
+							+ " making it clear that [npc.she] doesn't want [npc2.herHim] orgasming in this position due to the effects gained from drinking a bottle of 'Amazon's Secret'.";
+					
+				} else {
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to [npc2.name], "
+							+" [npc.speech(Hey, wait! If you orgasm like this, I could get pregnant!)]";
+				}
 				
 			} else {
-				if(Main.sex.getCharacterTargetedForSexAction(this).isWearingCondom()) {
-					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to [npc2.name],"
-							+" [npc.speech(That condom had better not break! I'm <b>not</b> getting pregnant!)]";
+				if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
+					return "While letting out desperate moans and lewd cries, [npc.name] [npc.verb(try)] to push [npc2.namePos] [npc2.hips] away from [npc.her] [npc.pussy],"
+							+ " making it clear that [npc.she] doesn't want [npc2.herHim] cumming inside of [npc.herHim].";
+					
+				} else {
+					if(Main.sex.getCharacterTargetedForSexAction(this).isWearingCondom()) {
+						return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to [npc2.name],"
+								+" [npc.speech(That condom had better not break! I'm <b>not</b> getting pregnant!)]";
+					}
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to [npc2.name], "
+							+ "[npc.speech(Pull out! I'm <b>not</b> getting pregnant!)]";
 				}
-				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to [npc2.name], "
-						+ "[npc.speech(Pull out! I'm <b>not</b> getting pregnant!)]";
 			}
 		}
 
@@ -200,6 +251,9 @@ public class SALilayaSpecials {
 		
 		@Override
 		public String getActionTitle() {
+			if(isAmazonsSecretActive(Main.sex.getCharacterTargetedForSexAction(this)) || !Main.sex.getCharacterTargetedForSexAction(this).hasPenisIgnoreDildo()) {
+				return "Impregnated?!";
+			}
 			return "Creampied?!";
 		}
 
@@ -222,6 +276,10 @@ public class SALilayaSpecials {
 
 		@Override
 		public String getDescription() {
+			if(isAmazonsSecretActive(Main.sex.getCharacterTargetedForSexAction(this)) || !Main.sex.getCharacterTargetedForSexAction(this).hasPenisIgnoreDildo()) {
+				return "[npc.Name] feels a deep, penetrating warmth spreading through her [lilaya.pussy+] and up into her womb. Violently shoving [npc2.name] away from her, she angrily screams, "
+						+ "[npc.speechNoEffects(What the fuck?! I told you to pull back!)]";
+			}
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaCondomBroke)) {
 				return "[npc.Name] feels [npc2.namePos] [npc2.cum] dripping out of her [lilaya.pussy+], and, frantically shoving [npc2.herHim] away from her, she cries out in distress, "
 						+" [npc.speechNoEffects(The condom broke! No! Fuck! I could get pregnant from this!)]";

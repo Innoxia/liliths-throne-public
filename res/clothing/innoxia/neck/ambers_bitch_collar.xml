@@ -16,7 +16,6 @@
 		<clothingSet/>
 		<imageName>ambers_bitch_collar.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit>5</enchantmentLimit>
 		<effects>
 			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_SUBMISSIVE" timer="0"/>
 			<effect itemEffectType="CLOTHING" limit="0" potency="MINOR_DRAIN" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SEALING" timer="0"/>

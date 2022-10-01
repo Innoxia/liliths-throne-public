@@ -1,9 +1,14 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 
+import java.util.List;
+import java.util.Map;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -398,6 +403,11 @@ public class SadisticActions {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			Map<InventorySlot, List<AbstractClothing>> concealedMap = Main.sex.getCharacterTargetedForSexAction(this).getInventorySlotsConcealed(Main.sex.getCharacterPerformingAction());
+			if(concealedMap.containsKey(InventorySlot.MOUTH) && concealedMap.containsKey(InventorySlot.EYES)) {
+				return false; // If mouth and eyes are concealed, treat face as being concealed and so unavailable
+			}
+			
 			boolean mouthTongue = false;
 			boolean mouthTongueReversed = false;
 			try {

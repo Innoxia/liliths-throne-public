@@ -996,6 +996,13 @@ public class LilayaSpa {
 
 	public static final DialogueNode SPA_CONSTRUCTION = new DialogueNode("Building site", "", false) {
 		@Override
+		public void applyPreParsingEffects() {
+			// This is a backup check to finish construction if somehow the building site has not been converted to the spa:
+			if(Main.game.getDayNumber() - Main.game.getDialogueFlags().getSavedLong(SPA_CONSTRUCTTION_TIMER_ID) > 7) {
+				LilayaHomeGeneric.dailyUpdate();
+			}
+		}
+		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
@@ -1133,7 +1140,7 @@ public class LilayaSpa {
 			
 			sb.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_RECEPTION_SHOWER", getSlaves()));
 			sb.append(getShowerSlavesDescription(slavesWashing));
-			sb.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_RECEPTION_SHOWER_END"));
+			sb.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_RECEPTION_SHOWER_END", getSlaves()));
 			
 			return sb.toString();
 		}
@@ -1488,7 +1495,7 @@ public class LilayaSpa {
 			sb.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_CORE_BATHING"));
 			sb.append(getBathingSlavesDescription(slavesWashing));
 			UtilText.addSpecialParsingString(String.valueOf(slavesWashing.size()), true);
-			sb.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_CORE_BATHING_END"));
+			sb.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_CORE_BATHING_END", slavesWashing));
 			
 			return sb.toString();
 		}

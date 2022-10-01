@@ -295,7 +295,7 @@ public abstract class AbstractStatusEffect {
 				
 			} catch(Exception ex) {
 				ex.printStackTrace();
-				System.err.println("SetBonus was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+				System.err.println("StatusEffect was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
 			}
 		}
 	}
@@ -554,7 +554,11 @@ public abstract class AbstractStatusEffect {
 						SVGString = SvgUtil.colourReplacement(this.getId(), colourShades, null, SVGString);
 						
 					} else {
-						InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/" + pathName + ".svg");
+						String path = "/com/lilithsthrone/res/statusEffects/" + pathName + ".svg";
+						if(pathName.startsWith("res/")) {
+							path = "/com/lilithsthrone/"+pathName+".svg";
+						}
+						InputStream is = this.getClass().getResourceAsStream(path);
 						if(is==null) {
 							System.err.println("Error! StatusEffect icon file does not exist (Trying to read from '"+pathName+"')!");
 						}

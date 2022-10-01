@@ -7,7 +7,7 @@
         <tooltip><![CDATA[Head up the stairs and return to the library...]]></tooltip>
         <preParsingEffects/>
         <content folderPath="txt/acexp/dominion/lilaya_dungeon">STAIRS_UP</content>
-        <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+        <secondsPassed ><![CDATA[20]]></secondsPassed>
         <continuesDialogue>false</continuesDialogue>
         <travelDisabled>false</travelDisabled>
         <responses>
@@ -18,7 +18,7 @@
                 <responseTitle><![CDATA[Stairs up]]></responseTitle>
                 <responseTooltip><![CDATA[Head up the spiral staircase...]]></responseTooltip>
                 <nextDialogue stripContent="true" defaultPlaceType="LILAYA_HOME_LIBRARY"/>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+                <secondsPassed ><![CDATA[20]]></secondsPassed>
                 <effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/dominion/lilaya_dungeon', 'STAIRS_UP_EXIT'))]
 					[#pc.setLocation(WORLD_TYPE_LILAYAS_HOUSE_GROUND_FLOOR, PLACE_TYPE_LILAYA_HOME_LIBRARY, false)]
@@ -34,7 +34,7 @@
         <tooltip><![CDATA[Head up the stairs and return to the garden...]]></tooltip>
         <preParsingEffects/>
         <content folderPath="txt/acexp/dominion/lilaya_dungeon">STAIRS_UP_GARDEN</content>
-        <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+        <secondsPassed ><![CDATA[20]]></secondsPassed>
         <continuesDialogue>false</continuesDialogue>
         <travelDisabled>false</travelDisabled>
         <responses>
@@ -45,7 +45,7 @@
                 <responseTitle><![CDATA[Stairs up]]></responseTitle>
                 <responseTooltip><![CDATA[Head up the spiral staircase...]]></responseTooltip>
                 <nextDialogue stripContent="true" defaultPlaceType="LILAYA_HOME_FOUNTAIN"/>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+                <secondsPassed ><![CDATA[20]]></secondsPassed>
                 <effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/dominion/lilaya_dungeon', 'STAIRS_UP_GARDEN_EXIT'))]
 					[#pc.setLocation(WORLD_TYPE_LILAYAS_HOUSE_GROUND_FLOOR, PLACE_TYPE_LILAYA_HOME_FOUNTAIN, false)]
@@ -67,7 +67,7 @@
 			#ENDIF
 		]]></preParsingEffects>
         <content folderPath="txt/acexp/dominion/lilaya_dungeon">CORRIDOR</content>
-        <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+        <secondsPassed ><![CDATA[20]]></secondsPassed>
         <continuesDialogue>false</continuesDialogue>
         <travelDisabled>false</travelDisabled>
     </scene>
@@ -78,7 +78,7 @@
         <tooltip><![CDATA[Room]]></tooltip>
         <preParsingEffects/>
         <content folderPath="txt/acexp/dominion/lilaya_dungeon">ROOM</content>
-        <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+        <secondsPassed ><![CDATA[20]]></secondsPassed>
         <continuesDialogue>false</continuesDialogue>
         <travelDisabled>false</travelDisabled>
         <responses>
@@ -113,7 +113,7 @@
         <tooltip><![CDATA[Room]]></tooltip>
         <preParsingEffects/>
         <content folderPath="txt/acexp/dominion/lilaya_dungeon">ROOM_ROSE</content>
-        <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+        <secondsPassed ><![CDATA[20]]></secondsPassed>
         <continuesDialogue>true</continuesDialogue>
         <travelDisabled>true</travelDisabled>
         <responses>

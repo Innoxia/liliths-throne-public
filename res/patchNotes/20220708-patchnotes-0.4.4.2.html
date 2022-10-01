@@ -1,0 +1,104 @@
+<h2>v0.4.4.2</h2>
+
+<h3>FriendlyAlienFriend's artwork:</h3>
+<ul>
+	<li>Added new pregnant variations for Nyan's clothed, lingerie, and naked artwork.</li>
+</ul>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Fixed latex stocks always being referred to as black in their description. (PR#1671 by Anonymous-BCFED)</li>
+	<li>Added a delete button to custom character images, enabling you to remove custom images without having to manually delete the image from the charatcer's 'custom' artwork folder. (PR#1637 by NoStepOnSneks)</li>
+	<li>Fully implemented all of the Elder Lilin perk checks, which for the time being can be turned on/off via the debug menu. (PR#1631 by Maxis010)</li>
+	<li>Removed the 'enchantmentLimit' element from all xml files, and from the Java code that parses those xmls, as support for this element was dropped in a prior enchantment update. (PR#1618 by CognitiveMist)</li>
+	<li>Updated 'hyena_bone_crush.xml' to include damage variance, and changed links from master branch to dev branch in 'dagger.xml'. (PR#1616 by CognitiveMist)</li>
+	<li>Added warnings for if a weighted map contains bad values. (PR#1614 by CognitiveMist)</li>
+	<li>Adds an alarm clock function to places where you can rest: Lilaya's house room; Friendly apartment sofa; Elis tavern room; Dairy farm dormitory. (PR#1606 by CognitiveMist)</li>
+	<li>If a random NPC attacker (in Dominion, Submission, Harpy Nests, or Elis) has the 'cum addict' fetish, or they are under the effects of an arcane storm, there is a 10% chance that they will spawn with some dirty inventory slots. (PR#1582 by CognitiveMist)</li>
+	<li>Added sorting options to the slave list. (PR#1662 by Anonymous-BCFED)</li>
+	<li>Changed all old FITS_HARPY_WINGS item tags to FITS_ARM_WINGS as the former is no longer supported. (PR#1663 by DSG)</li>
+	<li>NPCs who are freed via use of a Freedom Certificate are no longer able to be re-enslaved afterwards. (PR#1649 by Maxis010)</li>
+	<li>Fixed some sizing issues with item tooltips. (PR#1674 by Nonny5Mouse)</li>
+	<li>Fixed incorrect parsing in tail type transformation text. (by Stadler)</li>
+	<li>Typo fixes and fixes to descriptions in role-reversed witch altar scenes. (PR#1677 by Anonymous-BCFED)</li>
+</ul>
+
+<h3>Misc fixes contribution (PR#1664 by MintyChip):</h3>
+<ul>
+	<li>Added spaces before the fluid modifier descriptions in the appearance screens.</li>
+	<li>Taurs now spawn with their race's default GenitalArrangement (e.g. alligator-taurs now have cloacas).</li>
+	<li>Fixed the params of the method applyLegConfigurationTransformation's javadoc.</li>
+	<li>Fixed visual bug where displayed file path for transformation presets was set to the same one as enchantments.</li>
+	<li>Improved positioning of the infertility/fertility perks so that their connecting lines no longer appear to be connected to unrelated perks.</li>
+	<li>Changed the octopus hair covering type to mimic the octopus skin covering type.</li>
+	<li>Imported characters now correctly receive Lilaya's 5k flames if they skip the prologue.</li>
+	<li>Made it so that half-demons lay eggs if their other half's race lays eggs.</li>
+	<li>Added a 'clear alerts' button to the encyclopedia menu.</li>
+	<li>added a 'clear stats' button when importing a character.</li>
+</ul>
+
+<h3>Slime tweaks contribution (PR#1665 by MintyChip):</h3>
+<ul>
+	<li>Made it so that the slime attacker's slime transformation applies the same effects as the biojuice for the sake of consistency.</li>
+	<li>Added flavor text to the biojuice description to mention that it's "heavily processed" and thus corruptive where the source (slime queen in the bath scene) is not.</li>
+	<li>Nerfed the permanent corruption gain from biojuice, as it seemed like a harsh effect if a new player just wandered into the submission.</li>
+	<li>Made it so that elementals can't have their body material transformed into SLIME or FLESH using the biojuice or flesh potions.</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Added a new element, 'bodyOverviewDescription', to tattoo xml files, which is used in the newly-added tattoo section of the character appearance page. (If missing, the basic description is used instead.)</li>
+	<li>Converted Fetish enums to instances of AbstractFetish classes.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Added a minor expansion to Lilaya's panties content, where after threatening Rose you can gain access to a submissive threesome scene with her and Lilaya.</li>
+</ul>
+
+<h3>Items:</h3>
+<ul>
+	<li>Added new tattoo types: spider; rose; crossed blades; pentagram; trinity and spiral Celtic knots.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>Hand-holding is now tagged as a 'loving' action (similar to 'Caress face', 'Kiss cheek', etc.), so NPCs will now only use this action if they do not have the sadist fetish and their affection towards their target is at least 'caring'.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>In the character appearance page, a description of the character's tattoos is now shown at the bottom.</li>
+	<li>In the rental mommy random customer encounter, the chance for the customer to be a dom or a sub is now 60/40 based on your fetishes instead of 100/0, and 90/10 based on the writing on your tshirt instead of 100/0.</li>
+	<li>The map screen in your phone menu now lists major maps within the selected region before all other maps.</li>
+	<li>Bat eyes now grant the night vision ability (which negates the 'darkness' status effect).</li>
+	<li>Siblings who are born at the same time are now defined as being twins to one another. Katherine and Kelly have now also been correctly defined as being twin sisters.</li>
+	<li>The random NPC who spawns during the 'walkies' content for the new repeated-submission alleyway content can now spawn with a pussy instead of always spawning with a cock.</li>
+	<li>The 'Lyssieth's power' perk now changes into 'Lyssieth's true power' after transforming into a demon, granting stronger attribute buffs.</li>
+	<li>Added a 'begging' alternative to Amber's walkies scene to remove foot worshipping content for if foot content is turned off in your settings.</li>
+	<li>Added a 'shoulder massage' alternative to Vanessa/Ms. Cunningham's foot massage scene to remove foot massage content for if foot content is turned off in your settings.</li>
+	<li>Arthur's room no longer takes up one of the available rooms in Lilaya's house, and instead is now placed adjacent to the lab. (This will be retroactively applied when loading into this version if you have already placed Arthur's room.)</li>
+	<li>Added a couple of options in the debug menu which allow you to skip Dominion and Submission quests (located on the second page of the 'Main' tab).</li>
+	<li>While an arcane storm is raging, storm-immune NPCs who treat you as their bitch will now only use the 'fuck' option in encounters, so as to address the inconsistency of being taken to public places that were seemingly unaffected by the storm.</li>
+	<li>Added some minor description variations for the 'seductive look' sex action (available while in the 'all fours' sex slot) for if the performer is identified as an owl-morph and has a 'raptor' race face type.</li>
+	<li>Added ability to manage your elemental's fetishes to their management dialogue options.</li>
+	<li>Gaining levels for fetishes now applies increased base damage to any associated tease attacks, up to a maximum of +4 at level 5. Base damage for all fetish tease attacks was reduced from 5 to 3 as part of this.</li>
+	<li>Added a new 'Pregnancy duration' option in 'Gameplay' settings to define the length of pregnancies, with the default being 1 week and the maximum being 40 weeks.</li>
+	<li>Scarlett's oral sex scene for the romantic setup for Helena now ends after Scarlett has orgasmed once, and you can now use the 'Skip sex' action in Helena's sex scenes.</li>
+	<li>After completing the 'Vengar's Tyranny' side quest, the next time you enter an Enforcer Checkpoint tile in Submission while in possession of a slaver license, Claire will offer you the option of taking ownership of the four milkers from the Rat Warrens.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Typo fixes and minor text improvements.</li>
+	<li>Fixed several places in the new repeated-submission alleyway content where vagina interaction content would be used even if the player didn't have a vagina.</li>
+	<li>Fixed issue where many racial books incorrectly had their author listed as 'Professor Webster'.</li>
+	<li>Fixed several instances where, during Lyssieth's demon TF scenes, after starting the sex scene with the 'pussy only' action, there were references to her having a cock.</li>
+	<li>Fixed bug where Meraxis would always be located in the tavern in Elis, even when she should have been in her citadel or in Lyssieth's palace.</li>
+	<li>Fixed bug where tail interactions in sex scenes would not be available in some positions, such as when kneeling behind a partner in the all fours position.</li>
+	<li>Fixed bugs with incorrectly-defined perk categories, which should fix issues with incorrect tracking of perk points when spending 'physical-only' perk points (earned from Pix's gym).</li>
+	<li>Fixed bug where if you teleported to the lake in the Elis map, then selected 'Back', you would return to the tile from which you teleported, instead of to an adjacent fields tile.</li>
+	<li>Sabotaging a condom no longer costs essences, and also now displays the condom's correct name in the event log.</li>
+	<li>Fixed minor issue with configuration of several clothing items which meant that coverable areas were being incorrectly concealed. Clothing fixed: tied-up croptop; one-strap crop top; cropped tank-top; cropped T-shirt; cropped sweater.</li>
+	<li>The exit icons in the Farmer's Market in Elis should now correctly be displayed on the map.</li>
+</ul>

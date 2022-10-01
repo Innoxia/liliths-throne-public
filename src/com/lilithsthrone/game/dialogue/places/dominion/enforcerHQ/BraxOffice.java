@@ -43,7 +43,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class BraxOffice {
 
-	private static void setBraxsPostQuestStatus() {
+	public static void setBraxsPostQuestStatus(boolean applyPlayerLocationChange) {
 		Main.game.getNpc(Brax.class).setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_RECEPTION_DESK, true);
 		Main.game.getNpc(Brax.class).setPendingClothingDressing(true);
 		Main.game.getNpc(Brax.class).setAffection(Main.game.getPlayer(), -50);
@@ -51,10 +51,15 @@ public class BraxOffice {
 		Main.game.getNpc(CandiReceptionist.class).addSlave(Main.game.getNpc(Brax.class));
 		Main.game.getWorlds().get(WorldType.ENFORCER_HQ).getCell(PlaceType.ENFORCER_HQ_BRAXS_OFFICE).getInventory().clearNonEquippedInventory(true);
 		
-		Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_ENFORCER_HQ, false);
+		if(applyPlayerLocationChange) {
+			Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_ENFORCER_HQ, false);
+		}
 	}
 	
-	private static void givePlayerEnforcerUniform(StringBuilder sb) {
+	public static void givePlayerEnforcerUniform(StringBuilder sb) {
+		if(sb==null) {
+			sb = new StringBuilder();
+		}
 		if(Main.game.getPlayer().isFeminine()) {
 			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfskirt", PresetColour.CLOTHING_BLACK, false), false));
 			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_flsldshirt", PresetColour.CLOTHING_PINK, false), false));
@@ -260,7 +265,7 @@ public class BraxOffice {
 				return new Response("Exit", "Leave the Enforcer HQ.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
 					@Override
 					public void effects() {
-						setBraxsPostQuestStatus();
+						setBraxsPostQuestStatus(true);
 					}
 				};
 				
@@ -375,7 +380,7 @@ public class BraxOffice {
 				return new Response("Exit", "Leave the Enforcer HQ.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
 					@Override
 					public void effects() {
-						setBraxsPostQuestStatus();
+						setBraxsPostQuestStatus(true);
 					}
 				};
 				
@@ -456,7 +461,7 @@ public class BraxOffice {
 				return new Response("Outside", "You find yourself back outside once more, but this time, with new knowledge of Arthur's location.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
 					@Override
 					public void effects() {
-						setBraxsPostQuestStatus();
+						setBraxsPostQuestStatus(true);
 					}
 				};
 				
@@ -610,7 +615,7 @@ public class BraxOffice {
 					@Override
 					public void effects() {
 						if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)) {
-							setBraxsPostQuestStatus();
+							setBraxsPostQuestStatus(true);
 							
 						} else {
 							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_ENFORCER_HQ, false);
@@ -641,7 +646,7 @@ public class BraxOffice {
 				return new Response("Outside", "You find yourself back outside once more, but this time, with new knowledge of Arthur's location.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
 					@Override
 					public void effects() {
-						setBraxsPostQuestStatus();
+						setBraxsPostQuestStatus(true);
 					}
 				};
 				

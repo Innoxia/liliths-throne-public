@@ -946,7 +946,7 @@
 		[pc.speech(Wait, so I can transform myself at will, like a demon?)] you ask.
 	</p>
 	<p>
-		[lyssieth.speech(No, but if you <i>were</i> a demon, I think that you'd be able to shift into a human form, exactly as I've done right now. I imagine that when you gain the essences of my elder lilin sisters, you'll gain more and more transformative powers, until eventually you become a fully-fledged lilin yourself. Well, if you were already a demon, that is...)]
+		[lyssieth.speech(No, but if you <i>were</i> a demon, I think that you'd be able to shift into a human form, exactly as I've done right now. Also, the power of the essence I've just granted you should also be significantly stronger if you were a demon. I imagine that when you gain the essences of my sisters, you'll gain more and more transformative powers, until eventually you become a fully-fledged lilin yourself. Well, if you were already a demon, that is...)]
 	</p>
 	<p>
 		[pc.speech(But I'm not a demon, am I?)] you ask, [pc.speech(Your power definitely didn't change me like that, did it? I mean, I certainly don't feel like I've turned into a demon, but just to make sure...)]

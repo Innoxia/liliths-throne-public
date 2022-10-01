@@ -65,7 +65,7 @@ import javax.xml.transform.TransformerFactory;
 
 /**
  * @since 0.1.0
- * @version 0.4.1
+ * @version 0.4.5.5
  * @author Innoxia
  */
 public class Main extends Application {
@@ -86,8 +86,10 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4.3.4";
+	public static final String VERSION_NUMBER = "0.4.6";
 	public static final String VERSION_DESCRIPTION = "Alpha";
+
+	public static boolean quickSaved = false;
 	
 	/**
 	 * To turn it on, just add -Ddebug=true to java's VM options. (You should be able to do this in Eclipse through Run::Run Configurations...::Arguments tab::VM Arguments).
@@ -175,6 +177,9 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Fox-Sama", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Riaten", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("John Guardian", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("LemonMuffin", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("AuRah", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("shotgunlo", "", 0, 0, 0, 0, Subspecies.DEMON));
 		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
@@ -809,12 +814,16 @@ public class Main extends Application {
 		if(isQuickSaveAvailable()){
 			Main.getProperties().lastQuickSaveName = getQuickSaveName();
 			saveGame(getQuickSaveName(), true);
+			quickSaved = true;
 		} else {
 			Main.game.flashMessage(PresetColour.GENERIC_BAD, getQuickSaveUnavailabilityDescription());
 		}
 	}
 
 	public static void quickLoadGame() {
+		if(quickSaved) {
+			loadGame(Main.properties.lastQuickSaveName);
+		}
 		loadGame(getQuickSaveName());
 	}
 

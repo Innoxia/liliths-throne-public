@@ -48,6 +48,8 @@
 	<p style='text-align:center;'>
 		#IF(lilaya.isCondomBroke())
 			<i>Hey [pc.name], I may have overreacted a little, but this really is all your fault for buying cheap crappy condoms. I'm keeping this door locked until I know if I'm pregnant or not.</i>
+		#ELSEIF(lilaya.isAmazonsSecretImpregnation())
+			<i>Hey [pc.name], I thought you could do with taking some time to think about what 'don't use Amazon's Secret next time you fucking asshole' could possibly mean. I'm keeping this door locked until I know if I'm pregnant or not. You'd better hope I'm not.</i>
 		#ELSE
 			<i>Hey [pc.name], I thought you could do with taking some time to think about what 'pull out next time you fucking asshole' could possibly mean. I'm keeping this door locked until I know if I'm pregnant or not. You'd better hope I'm not.</i>
 		#ENDIF
@@ -131,6 +133,8 @@
 		[lilaya.speech(Yes, that's right!)] she angrily shouts, before marching over towards you.
 		#IF(lilaya.isCondomBroke())
 			 [lilaya.speech(You ended up getting me pregnant! This is all your fault for using such cheap, crappy condoms! Why couldn't you have just pulled out instead?!)]
+		#ELSEIF(lilaya.isAmazonsSecretImpregnation())
+			 [lilaya.speech(You ended up getting me pregnant! I <i>told</i> you to pull back before you orgasmed! I knew this would happen!)]	
 		#ELSE
 			 [lilaya.speech(You ended up getting me pregnant! I <i>told</i> you to pull out! I knew this would happen!)]		
 		#ENDIF
@@ -175,7 +179,7 @@
 		#IF(lilaya.isCondomBroke())
 			 [lilaya.speech(Now that you're here, would you like me to run some more <i>tests</i>? With the condition that you've got a proper condom this time, or that you'll be sure to pull out...)]
 		#ELSE
-			 [lilaya.speech(Now that you're here, would you like me to run some more <i>tests</i>? With the condition that you'll be sure to pull out, of course...)]
+			 [lilaya.speech(Now that you're here, would you like me to run some more <i>tests</i>? With the condition that you'll promise not to get me pregnant, of course...)]
 		#ENDIF
 	</p>
 	<p>
@@ -200,6 +204,8 @@
 	<p>
 		#IF(lilaya.isCondomBroke())
 			Your [lilaya.relation(pc)] lets out a resigned sigh as you say that, and, lowering her voice, she continues, [lilaya.speech(Yes, well, I've already forgiven you. It wasn't really your fault that the condom broke. Just know now that I <i>hate</i> being pregnant, so don't let this happen again.)]
+		#ELSEIF(lilaya.isAmazonsSecretImpregnation())
+			Your [lilaya.relation(pc)] lets out a resigned sigh as you say that, and, lowering her voice, she continues, [lilaya.speech(Yes, well, I've already forgiven you. Just know now that I <i>hate</i> being pregnant, so when I say pull back before you orgasm, I mean it.)]
 		#ELSE
 			Your [lilaya.relation(pc)] lets out a resigned sigh as you say that, and, lowering her voice, she continues, [lilaya.speech(Yes, well, I've already forgiven you. Just know now that I <i>hate</i> being pregnant, so when I say pull out, I mean it.)]
 		#ENDIF
@@ -209,7 +215,7 @@
 		#IF(lilaya.isCondomBroke())
 			 [lilaya.speech(Now that you're here, and that whole business is behind us, would you like me to run some more <i>tests</i>? With the condition that you've got a proper condom this time, or that you'll be sure to pull out...)]
 		#ELSE
-			 [lilaya.speech(Now that you're here, and that whole business is behind us, would you like me to run some more <i>tests</i>? With the condition that you'll be sure to pull out, of course...)]
+			 [lilaya.speech(Now that you're here, and that whole business is behind us, would you like me to run some more <i>tests</i>? With the condition that you'll promise not to get me pregnant, of course...)]
 		#ENDIF
 	</p>
 	<p>
@@ -437,10 +443,10 @@
 		[arthur.speech(Lilaya, please, how many times to I have to say I'm sorr-)] Arthur starts, before being cut short by a sudden exclamation from your [lilaya.relation(pc)].
 	</p>
 	<p>
-		[lilaya.speech(You wouldn't have had to say sorry even <i>once</i> if you could have just refrained from fucking my mother! And right here in my lab of all places!)] Lilaya shouts, her cheeks burning red from embarrassment and anger. With a dismissive swipe of her hand, she turns to you and demands, [lilaya.speech([pc.Name], you're going to help Rose find a suitable room for Arthur! I simply can't have this insufferable cheating bastard hanging around in my lab!)]
+		[lilaya.speech(You wouldn't have had to say sorry even <i>once</i> if you could have just refrained from fucking my mother! And right here in my lab of all places!)] Lilaya shouts, her cheeks burning red from embarrassment and anger. With a dismissive swipe of her hand, she turns to you and demands, [lilaya.speech([pc.Name], you're going to help Rose clear out my lab's storeroom so that it can be converted into a bedroom for Arthur! I simply can't endure having this insufferable cheating bastard in my presence for more than a few minutes at a time!)]
 	</p>
 	<p>
-		Finding yourself in an increasingly awkward position, you realise that your only real option is to agree to do as she asks...
+		Finding yourself in an increasingly awkward position, you realise that your only real option is to agree to do as your [lilaya.relation(pc)] asks...
 	</p>
 	]]>
 	</htmlContent>
@@ -698,12 +704,21 @@
 	<!-- END_SEX -->
 	
 	<htmlContent tag="LAB_END_SEX_CREAMPIE"><![CDATA[
-	<p>
-		Lilaya forcefully shoves you away from her, and with a look of disbelief on her face, looks down at the [pc.cum+] dripping out from between her thighs, [lilaya.speech(What the fuck?! What the fuck?! I fucking told you to pull out!)]
-	</p>
-	<p>
-		Grabbing a tissue from a nearby desk, she starts frantically trying to clean your [pc.cum] out of her creampied pussy. Her face has gone completely scarlet, and as the reality of what you've just done sinks in, she turns on you in a furious rage, [lilaya.speech(What did I say?! Huh?! I fucking told you to pull out! I do <i>not</i> want to be giving birth to a brood of imps! Oh fuck... You'd better fucking hope I don't get pregnant from this!)]
-	</p>
+	#IF(lilaya.isAmazonsSecretImpregnation())
+		<p>
+			Lilaya forcefully shoves you away from her, and with a look of disbelief on her face, clutches her lower abdomen. Looking down at her hot, wet pussy, she angrily shouts, [lilaya.speech(What the fuck?! What the fuck?! I fucking told you to pull back!)]
+		</p>
+		<p>
+			Knowing that the effects of your Amazon's Secret potion may very well have led to her being impregnated, she lets out a short, panicked cry. Her face has gone completely scarlet, and as the reality of what you've just done sinks in, she turns on you in a furious rage, [lilaya.speech(What did I say?! Huh?! I fucking told you to get back before you orgasmed! I do <i>not</i> want to be giving birth to a brood of imps! Oh fuck... You'd better fucking hope I don't get pregnant from this!)]
+		</p>
+	#ELSE
+		<p>
+			Lilaya forcefully shoves you away from her, and with a look of disbelief on her face, looks down at the [pc.cum+] dripping out from between her thighs as she shouts, [lilaya.speech(What the fuck?! What the fuck?! I fucking told you to pull out!)]
+		</p>
+		<p>
+			Grabbing a tissue from a nearby desk, she starts frantically trying to clean your [pc.cum] out of her creampied pussy. Her face has gone completely scarlet, and as the reality of what you've just done sinks in, she turns on you in a furious rage, [lilaya.speech(What did I say?! Huh?! I fucking told you to pull out! I do <i>not</i> want to be giving birth to a brood of imps! Oh fuck... You'd better fucking hope I don't get pregnant from this!)]
+		</p>
+	#ENDIF
 	<p>
 		Continuing to shout and curse, she grabs you by the [pc.arm] and marches you over to the lab's exit. With one last angry cry, she throws you out, before slamming the door behind you. You start to wonder if perhaps you made a mistake, but surely she'll have calmed down in a couple of hours...
 	</p>
@@ -777,9 +792,11 @@
 	</p>
 	<p>
 		#IF(pc.hasPenisIgnoreDildo() && !lilaya.isVisiblyPregnant() && lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
-		[lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands.
+			[lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands.
+		#ELSEIF(pc.hasStatusEffect(SE_innoxia_amazons_secret) && pc.hasVagina() && !lilaya.isVisiblyPregnant() && lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
+			[lilaya.speech(Mmm, yes! Just, if you want to scissor, make sure you pull back before climaxing, ok?)] she demands, before explaining, [lilaya.speech(I'm an arcane researcher, remember? I can tell that you're under the effects of Amazon's Secret, and I'm <b>not</b> going to let you get me pregnant from it.)]
 		#ELSE
-		[lilaya.speech(Mmm, yes!)] she giggles.
+			[lilaya.speech(Mmm, yes!)] she giggles.
 		#ENDIF
 	</p>
 	<p>
@@ -794,9 +811,11 @@
 	</p>
 	<p>
 		#IF(pc.hasPenisIgnoreDildo() && !lilaya.isVisiblyPregnant() && lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
-		[lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands.
+			[lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands.
+		#ELSEIF(pc.hasStatusEffect(SE_innoxia_amazons_secret) && pc.hasVagina() && !lilaya.isVisiblyPregnant() && lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
+			[lilaya.speech(Mmm, yes! Just, if you want to scissor, make sure you pull back before climaxing, ok? I'm <b>not</b> getting pregnant from the effects of Amazon's Secret!)] she demands.
 		#ELSE
-		[lilaya.speech(Mmm, yes!)] she giggles.
+			[lilaya.speech(Mmm, yes!)] she giggles.
 		#ENDIF
 	</p>
 	<p>
@@ -822,12 +841,21 @@
 	<!-- END_SEX_GEISHA -->
 	
 	<htmlContent tag="END_SEX_GEISHA_CREAMPIE"><![CDATA[
-	<p>
-		Lilaya forcefully shoves you away from her, and with a look of disbelief on her face, looks down at the [pc.cum+] dripping out from between her thighs, [lilaya.speech(What the fuck?! What the fuck?! I fucking told you to pull out!)]
-	</p>
-	<p>
-		Grabbing a tissue from a nearby cabinet, she starts frantically trying to clean your [pc.cum] out of her creampied pussy. Her face has gone completely scarlet, and as the reality of what you've just done sinks in, she turns on you in a furious rage, [lilaya.speech(What did I say?! Huh?! I fucking told you to pull out! Do you know how fucking fertile demons are?! Oh fuck... You'd better fucking hope I don't get pregnant from this!)]
-	</p>
+	#IF(lilaya.isAmazonsSecretImpregnation())
+		<p>
+			Lilaya forcefully shoves you away from her, and with a look of disbelief on her face, clutches her lower abdomen. Looking down at her hot, wet pussy, she angrily shouts, [lilaya.speech(What the fuck?! What the fuck?! I fucking told you to pull back!)]
+		</p>
+		<p>
+			Knowing that the effects of your Amazon's Secret potion may very well have led to her being impregnated, she lets out a short, panicked cry. Her face has gone completely scarlet, and as the reality of what you've just done sinks in, she turns on you in a furious rage, [lilaya.speech(What did I say?! Huh?! I fucking told you to get back before you orgasmed! Do you know how fucking fertile demons are?! Oh fuck... You'd better fucking hope I don't get pregnant from this!)]
+		</p>
+	#ELSE
+		<p>
+			Lilaya forcefully shoves you away from her, and with a look of disbelief on her face, looks down at the [pc.cum+] dripping out from between her thighs as she shouts, [lilaya.speech(What the fuck?! What the fuck?! I fucking told you to pull out!)]
+		</p>
+		<p>
+			Grabbing a tissue from a nearby cabinet, she starts frantically trying to clean your [pc.cum] out of her creampied pussy. Her face has gone completely scarlet, and as the reality of what you've just done sinks in, she turns on you in a furious rage, [lilaya.speech(What did I say?! Huh?! I fucking told you to pull out! Do you know how fucking fertile demons are?! Oh fuck... You'd better fucking hope I don't get pregnant from this!)]
+		</p>
+	#ENDIF
 	<p>
 		Continuing to shout and curse, she grabs you by the [pc.arm] and marches you over to her bedroom door. With one last angry cry, she throws you out, before slamming the door behind you. You start to wonder if perhaps you made a mistake, but surely she'll have calmed down in a couple of hours...
 	</p>
@@ -1405,6 +1433,8 @@
 	<p>
 		#IF(pc.hasPenisIgnoreDildo() && !lilaya.isVisiblyPregnant() && lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
 			[lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands.
+		#ELSEIF(pc.hasStatusEffect(SE_innoxia_amazons_secret) && pc.hasVagina() && !lilaya.isVisiblyPregnant() && lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
+			[lilaya.speech(Mmm, yes! Just, if you want to scissor, make sure you pull back before climaxing, ok? I'm <b>not</b> getting pregnant from the effects of Amazon's Secret!)] she demands.
 		#ELSE
 			[lilaya.speech(Mmm, yes!)] she giggles.
 		#ENDIF
@@ -1422,6 +1452,8 @@
 	<p>
 		#IF(pc.hasPenisIgnoreDildo() && !lilaya.isVisiblyPregnant() && lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
 			[lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands.
+		#ELSEIF(pc.hasStatusEffect(SE_innoxia_amazons_secret) && pc.hasVagina() && !lilaya.isVisiblyPregnant() && lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
+			[lilaya.speech(Mmm, yes! Just, if you want to scissor, make sure you pull back before climaxing, ok? I'm <b>not</b> getting pregnant from the effects of Amazon's Secret!)] she demands.
 		#ELSE
 			[lilaya.speech(Mmm, yes!)] she giggles.
 		#ENDIF
@@ -1566,6 +1598,8 @@
 	<p>
 		#IF(pc.hasPenisIgnoreDildo() && !lilaya.isVisiblyPregnant() && lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
 			[lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands.
+		#ELSEIF(pc.hasStatusEffect(SE_innoxia_amazons_secret) && pc.hasVagina() && !lilaya.isVisiblyPregnant() && lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
+			[lilaya.speech(Mmm, yes! Just, if you want to scissor, make sure you pull back before climaxing, ok? I'm <b>not</b> getting pregnant from the effects of Amazon's Secret!)] she demands.
 		#ELSE
 			[lilaya.speech(Mmm, yes!)] she giggles.
 		#ENDIF
@@ -1583,6 +1617,8 @@
 	<p>
 		#IF(pc.hasPenisIgnoreDildo() && !lilaya.isVisiblyPregnant() && lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
 			[lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands.
+		#ELSEIF(pc.hasStatusEffect(SE_innoxia_amazons_secret) && pc.hasVagina() && !lilaya.isVisiblyPregnant() && lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
+			[lilaya.speech(Mmm, yes! Just, if you want to scissor, make sure you pull back before climaxing, ok? I'm <b>not</b> getting pregnant from the effects of Amazon's Secret!)] she demands.
 		#ELSE
 			[lilaya.speech(Mmm, yes!)] she giggles.
 		#ENDIF
@@ -1688,6 +1724,52 @@
 	</p>
 	<p>
 		Rushing forwards to obey, Rose tells you in which of the library's many aisles the books on slavery can be found. After thanking both Rose and Lilaya for their help, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Arthur: -->
+	
+	<htmlContent tag="LAB_ARTHURS_TALE"><![CDATA[
+	<p>
+		Telling Lilaya that you'll help Rose clear out the lab's storeroom, you hope that your reply will calm your [lilaya.relation(pc)] down.
+	</p>
+	<p>
+		[lilaya.speech(Thank you, [pc.name]. Rose would be able to manage by herself, but it'll be a lot quicker with your help,)] Lilaya says, before stepping to one side and turning to face Arthur, [lilaya.speech(You should let [pc.name] know how you ended up as Zaranix's slave; after all, [pc.she] was the one who went through all that trouble to free you.)]
+	</p>
+	<p>
+		[arthur.speech(Yes, Lilaya,)] Arthur responds, before turning to address you. [arthur.speech(We can discuss it a little more some other time, but the basic gist of it is that I decided to do a little research into arcane teleportation.)]
+	</p>
+	<p>
+		[lilaya.speech(Which is illegal,)] Lilaya interjects.
+	</p>
+	<p>
+		[arthur.speech(Yes, thank you, Lilaya. Which is illegal. Anyway, thanks to a certain amber-haired demon, who I <i>assumed</i> was no more than a succubus looking to make some quick cash, I ended up creating a teleportation device that actually worked! Well, it sort of worked... It didn't quite take me to where I wanted to go...)]
+	</p>
+	<p>
+		You notice Arthur glance across to Lilaya, and the pair of them exchange a slightly worried look, before he continues, [arthur.speech(Anyway, when I returned, I discovered that Amber had already called for the Enforcers. After immediately being enslaved for 'treason', I was quickly shunted through the legal process, and, through a series of bribes, Zaranix quickly gained possession of me. It turned out that he'd been watching me for months, waiting for me to make a mistake so that he could get me enslaved. He was under the rather deluded impression that I'd be able to make a demonic transformative potion, among other things, and that I'd therefore be able to make him rich.)]
+	</p>
+	<p>
+		[lilaya.speech(Which could actually be possible, by the way,)] Lilaya interrupts again, leaning back against a desk and crossing her arms.
+	</p>
+	<p>
+		[arthur.speech(Erm, no. It isn't possible. You can harness arcane power to create transformatives for other races, but demonic essence is actually-)]
+	</p>
+	<p>
+		[lilaya.speech(Oh please, give me a break. Who was it that said inter-dimensional travel wasn't possible, even when the entire rest of the research community said it was? Oh, that'd be you. And look what's sitting right next to you. Proof that it is possible!)]
+	</p>
+	<p>
+		[arthur.speech(L-Lilaya, we can discuss that another time. What I'm talking about it demonic essences being, by their very nature, incompatible with transformative consumables, or indeed items of any sort!)]
+	</p>
+	<p>
+		[lilaya.speech(I honestly can't believe how thick you are sometimes, Arthur. But then again, it is to be expected of someone who'd go behind their lover's back to fuck-)]
+	</p>
+	<p>
+		[arthur.speech(How many times do I have to apologise?)]
+	</p>
+	<p>
+		[lilaya.speech(Oh, I'm sorry, I thought <i>I</i> was talking. But that's ok. Seeing as you want to interrupt me, you're obviously very eager to talk about how much you liked fucking her behind my back, so please, do go on!)]
 	</p>
 	]]>
 	</htmlContent>

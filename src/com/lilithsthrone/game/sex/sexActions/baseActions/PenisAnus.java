@@ -433,13 +433,13 @@ public class PenisAnus {
 		public String getDescription() {
 			if(PenisAnus.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).size()>1) {
 				return UtilText.parse(PenisAnus.getCharactersForParsing(Main.sex.getCharacterPerformingAction()), UtilText.returnStringAtRandom(
-						"Letting out [npc.a_moan+], [npc.name] [npc.verb(concentrate)] on squeezing the extra internal muscles within [npc.her] [npc.asshole] down around #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+].",
+						"Letting out [npc.a_moan+], [npc.name] [npc.verb(concentrate)] on squeezing the extra internal muscles within [npc.her] [npc.asshole] down around #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+(true)].",
 						"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(focus)] on controlling the extra muscles lining the insides of [npc.her] [npc.asshole]."
-								+ " Gripping and squeezing them down around #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+], [npc.name] [npc.verb(cause)] the two of "
+								+ " Gripping and squeezing them down around #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+(true)], [npc.name] [npc.verb(cause)] the two of "
 								+ (getOngoingCharacters(Main.sex.getCharacterPerformingAction()).contains(Main.game.getPlayer())?"you":"them")
 								+ " to let out involuntary cries of pleasure.",
 						"[npc.Name] [npc.verb(find)] [npc.her] [npc.moans] falling into a steady rhythm as [npc.she] [npc.verb(concentrate)]"
-								+ " on squeezing the extra muscles within [npc.her] [npc.asshole+] down around the two [npc2.cocks] currently double-penetrating [npc.herHim].",
+								+ " on squeezing the extra muscles within [npc.her] [npc.asshole+] down around the two [npc2.cocks(true)] currently double-penetrating [npc.herHim].",
 						"With [npc.a_moan+], [npc.name] [npc.verb(focus)] on controlling the extra muscles deep within [npc.her] [npc.asshole],"
 								+ " gripping them down and massaging #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cock+] as [npc.she] [npc.verb(squeal)] in pleasure."));
 				
@@ -688,53 +688,53 @@ public class PenisAnus {
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(action))) {
 				case SUB_RESISTING:
 					return (UtilText.parse(PenisAnus.getCharactersForParsing(Main.sex.getCharacterTargetedForSexAction(action)), UtilText.returnStringAtRandom(
-							" Desperately trying, and failing, to pull away from the two [npc.cocks] inside of [npc2.herHim],"
+							" Desperately trying, and failing, to pull away from the two [npc.cocks(true)] inside of [npc2.herHim],"
 									+ " [npc2.name] [npc2.verb(let)] out [npc2.a_sob+], tears streaming down [npc2.her] [npc2.face] as [npc2.she] weakly [npc2.verb(beg)] for [npc.name] and [npc3.name] to pull out of [npc2.her] [npc2.asshole+].",
 							" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips] as [npc2.she] weakly [npc2.verb(try)] to push [npc.name] and [npc3.name] away,"
 									+ " tears streaming down [npc2.her] [npc2.face] as [npc2.she] [npc2.verb(plead)] for the two of "
 									+(getOngoingCharacters(Main.sex.getCharacterTargetedForSexAction(action)).contains(Main.game.getPlayer())?"you":"them")+" to pull out of [npc2.her] [npc2.asshole+].",
 							" [npc2.Sobbing] in distress, and with tears running down [npc2.her] [npc2.face],"
-									+ " [npc2.name] weakly [npc2.verb(struggle)] in a vain attempt to dislodge the [npc.cocks] thrusting into [npc2.her] [npc2.asshole+], pleading and crying for [npc.name] and [npc3.name] to leave [npc2.herHim] alone.")));
+									+ " [npc2.name] weakly [npc2.verb(struggle)] in a vain attempt to dislodge the [npc.cocks(true)] thrusting into [npc2.her] [npc2.asshole+], pleading and crying for [npc.name] and [npc3.name] to leave [npc2.herHim] alone.")));
 				case SUB_NORMAL:
 					return (UtilText.parse(PenisAnus.getCharactersForParsing(Main.sex.getCharacterTargetedForSexAction(action)), UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(buck)] [npc2.her] [npc2.hips] in response,"
-									+ " letting out [npc2.a_moan+] as [npc2.she] [npc2.verb(help)] to sink the two [npc.cocks] even deeper into [npc2.her] [npc2.asshole+].",
+									+ " letting out [npc2.a_moan+] as [npc2.she] [npc2.verb(help)] to sink the two [npc.cocks(true)] even deeper into [npc2.her] [npc2.asshole+].",
 							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+],"
 									+ " and, thrusting out [npc2.her] [npc2.hips], [npc2.she] [npc2.verb(beg)] for [npc.name] and [npc3.name] to carry on fucking [npc2.herHim].",
 							" [npc2.Moaning] in delight, [npc2.name] eagerly [npc2.verb(push)] [npc2.her] [npc2.hips+] out,"
 									+ " begging for the two of "+(getOngoingCharacters(Main.sex.getCharacterTargetedForSexAction(action)).contains(Main.game.getPlayer())
-											?"you to continue fucking [npc2.herHim] as [npc2.her] movements help to sink your [npc.cocks] deep into [npc2.her] [npc2.asshole+]."
-											:"them to continue fucking [npc2.herHim] as [npc2.her] movements help to sink their [npc.cocks] deep into [npc2.her] [npc2.asshole+]."))));
+											?"you to continue fucking [npc2.herHim] as [npc2.her] movements help to sink your [npc.cocks(true)] deep into [npc2.her] [npc2.asshole+]."
+											:"them to continue fucking [npc2.herHim] as [npc2.her] movements help to sink their [npc.cocks(true)] deep into [npc2.her] [npc2.asshole+]."))));
 				case DOM_GENTLE:
 					return (UtilText.parse(PenisAnus.getCharactersForParsing(Main.sex.getCharacterTargetedForSexAction(action)), UtilText.returnStringAtRandom(
 							" [npc2.Name] slowly [npc2.verb(buck)] [npc2.her] [npc2.hips] in response,"
-									+ " letting out [npc2.a_moan+] as [npc2.she] [npc2.verb(start)] gently forcing the two [npc.cocks] even deeper into [npc2.her] [npc2.asshole+].",
+									+ " letting out [npc2.a_moan+] as [npc2.she] [npc2.verb(start)] gently forcing the two [npc.cocks(true)] even deeper into [npc2.her] [npc2.asshole+].",
 							" [npc2.A_moan+] drifts out from between [npc2.namePos] [npc2.lips+],"
 									+ " and, slowly bucking [npc2.her] [npc2.hips], [npc2.she] [npc2.verb(implore)] [npc.name] and [npc3.name] to carry on fucking [npc2.herHim].",
 							" [npc2.Moaning] in delight, [npc2.name] gently [npc2.verb(push)] [npc2.her] [npc2.hips+] out,"
 									+ " begging for the two of "+(getOngoingCharacters(Main.sex.getCharacterTargetedForSexAction(action)).contains(Main.game.getPlayer())
-											?"you to continue fucking [npc2.herHim] as [npc2.her] rhythmic movements help to sink your [npc.cocks] deep into [npc2.her] [npc2.asshole+]."
-											:"them to continue fucking [npc2.herHim] as [npc2.her] rhythmic movements help to sink their [npc.cocks] deep into [npc2.her] [npc2.asshole+]."))));
+											?"you to continue fucking [npc2.herHim] as [npc2.her] rhythmic movements help to sink your [npc.cocks(true)] deep into [npc2.her] [npc2.asshole+]."
+											:"them to continue fucking [npc2.herHim] as [npc2.her] rhythmic movements help to sink their [npc.cocks(true)] deep into [npc2.her] [npc2.asshole+]."))));
 				case DOM_ROUGH:
 					return (UtilText.parse(PenisAnus.getCharactersForParsing(Main.sex.getCharacterTargetedForSexAction(action)), UtilText.returnStringAtRandom(
 							" [npc2.Name] violently [npc2.verb(buck)] [npc2.her] [npc2.hips] in response,"
-									+ " letting out [npc2.a_moan+] as [npc2.she] roughly [npc2.verb(force)] the two [npc.cocks] even deeper into [npc2.her] [npc2.asshole+].",
+									+ " letting out [npc2.a_moan+] as [npc2.she] roughly [npc2.verb(force)] the two [npc.cocks(true)] even deeper into [npc2.her] [npc2.asshole+].",
 							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+],"
 									+ " and, roughly thrusting [npc2.her] [npc2.hips], [npc2.she] [npc2.verb(order)] [npc.name] and [npc3.name] to carry on fucking [npc2.herHim].",
 							" [npc2.Moaning] in delight, [npc2.name] roughly [npc2.verb(slam)] [npc2.her] [npc2.hips+] out,"
 									+ " ordering the two of "+(getOngoingCharacters(Main.sex.getCharacterTargetedForSexAction(action)).contains(Main.game.getPlayer())
-											?"you to continue fucking [npc2.herHim] as [npc2.her] violent movements help to sink your [npc.cocks] deep into [npc2.her] [npc2.asshole+]."
-											:"them to continue fucking [npc2.herHim] as [npc2.her] violent movements help to sink their [npc.cocks] deep into [npc2.her] [npc2.asshole+]."))));
+											?"you to continue fucking [npc2.herHim] as [npc2.her] violent movements help to sink your [npc.cocks(true)] deep into [npc2.her] [npc2.asshole+]."
+											:"them to continue fucking [npc2.herHim] as [npc2.her] violent movements help to sink their [npc.cocks(true)] deep into [npc2.her] [npc2.asshole+]."))));
 				default:
 					return (UtilText.parse(PenisAnus.getCharactersForParsing(Main.sex.getCharacterTargetedForSexAction(action)), UtilText.returnStringAtRandom(
 							" [npc2.Name] desperately [npc2.verb(buck)] [npc2.her] [npc2.hips] in response,"
-									+ " letting out [npc2.a_moan+] as [npc2.she] eagerly [npc2.verb(force)] the two [npc.cocks] even deeper into [npc2.her] [npc2.asshole+].",
+									+ " letting out [npc2.a_moan+] as [npc2.she] eagerly [npc2.verb(force)] the two [npc.cocks(true)] even deeper into [npc2.her] [npc2.asshole+].",
 							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+],"
 									+ " and, energetically thrusting [npc2.her] [npc2.hips], [npc2.she] [npc2.verb(beg)] for [npc.name] and [npc3.name] to carry on fucking [npc2.herHim].",
 							" [npc2.Moaning] in delight, [npc2.name] happily [npc2.verb(buck)] [npc2.her] [npc2.hips+] out,"
 									+ " begging for the two of "+(getOngoingCharacters(Main.sex.getCharacterTargetedForSexAction(action)).contains(Main.game.getPlayer())
-											?"you to continue fucking [npc2.herHim] as [npc2.her] energetic movements help to sink your [npc.cocks] deep into [npc2.her] [npc2.asshole+]."
-											:"them to continue fucking [npc2.herHim] as [npc2.her] energetic movements help to sink their [npc.cocks] deep into [npc2.her] [npc2.asshole+]."))));
+											?"you to continue fucking [npc2.herHim] as [npc2.her] energetic movements help to sink your [npc.cocks(true)] deep into [npc2.her] [npc2.asshole+]."
+											:"them to continue fucking [npc2.herHim] as [npc2.her] energetic movements help to sink their [npc.cocks(true)] deep into [npc2.her] [npc2.asshole+]."))));
 			}
 			
 		} else {
@@ -811,7 +811,7 @@ public class PenisAnus {
 						"With [npc.her] [npc.cock+] rubbing up against [npc3.namePos], [npc.name] gently [npc.verb(thrust)] deep inside of [npc2.namePos] [npc2.asshole+],"
 								+ " letting out a little [npc.moan] with every buck of [npc.her] [npc.hips] as [npc.she] slowly [npc.verb(fuck)] [npc2.herHim].",
 						"Joining [npc3.name] in double-penetrating [npc2.namePos] [npc2.asshole+], [npc.name] softly [npc.verb(thrust)] [npc.her] [npc.hips] forwards, letting out a little [npc.moan] as [npc.she] gently [npc.verb(fuck)] [npc2.herHim].",
-						"With both [npc.her] and [npc3.namePos] [npc.cocks] stuffed deep in [npc2.namePos] [npc2.asshole+],"
+						"With both [npc.her] and [npc3.namePos] [npc.cocks(true)] stuffed deep in [npc2.namePos] [npc2.asshole+],"
 								+ " [npc.name] gently [npc.verb(pump)] [npc.her] [npc.hips] back and forth, breathing in [npc2.namePos] [npc2.scent] as [npc.she] slowly [npc.verb(fuck)] [npc2.herHim].")));
 				
 			} else {
@@ -859,7 +859,7 @@ public class PenisAnus {
 						"With [npc.her] [npc.cock+] rubbing up against [npc3.namePos], [npc.name] eagerly [npc.verb(thrust)] deep inside of [npc2.namePos] [npc2.asshole+],"
 								+ " letting out [npc.a_moan+] with every energetic buck of [npc.her] [npc.hips] as [npc.she] frantically [npc.verb(fuck)] [npc2.herHim].",
 						"Joining [npc3.name] in double-penetrating [npc2.namePos] [npc2.asshole+], [npc.name] enthusiastically [npc.verb(thrust)] [npc.her] [npc.hips] forwards, letting out [npc.a_moan+] as [npc.she] eagerly [npc.verb(fuck)] [npc2.herHim].",
-						"With both [npc.her] and [npc3.namePos] [npc.cocks] stuffed deep in [npc2.namePos] [npc2.asshole+],"
+						"With both [npc.her] and [npc3.namePos] [npc.cocks(true)] stuffed deep in [npc2.namePos] [npc2.asshole+],"
 								+ " [npc.name] happily [npc.verb(pump)] [npc.her] [npc.hips] back and forth, breathing in [npc2.namePos] [npc2.scent] as [npc.she] desperately [npc.verb(fuck)] [npc2.herHim].")));
 				
 			} else {
@@ -907,7 +907,7 @@ public class PenisAnus {
 						"With [npc.her] [npc.cock+] rubbing up against [npc3.namePos], [npc.name] roughly [npc.verb(thrust)] deep inside of [npc2.namePos] [npc2.asshole+],"
 								+ " letting out [npc.a_moan+] with every violent slam of [npc.her] [npc.hips] as [npc.she] forcefully [npc.verb(fuck)] [npc2.herHim].",
 						"Joining [npc3.name] in double-penetrating [npc2.namePos] [npc2.asshole+], [npc.name] roughly [npc.verb(slam)] [npc.her] [npc.hips] forwards, letting out [npc.a_moan+] as [npc.she] forcefully [npc.verb(fuck)] [npc2.herHim].",
-						"With both [npc.her] and [npc3.namePos] [npc.cocks] stuffed deep in [npc2.namePos] [npc2.asshole+],"
+						"With both [npc.her] and [npc3.namePos] [npc.cocks(true)] stuffed deep in [npc2.namePos] [npc2.asshole+],"
 								+ " [npc.name] violently [npc.verb(thrust)] [npc.her] [npc.hips] back and forth, breathing in [npc2.namePos] [npc2.scent] as [npc.she] aggressively [npc.verb(fuck)] [npc2.herHim].")));
 				
 			} else {
@@ -955,7 +955,7 @@ public class PenisAnus {
 						"With [npc.her] [npc.cock+] rubbing up against [npc3.namePos], [npc.name] [npc.verb(thrust)] deep inside of [npc2.namePos] [npc2.asshole+],"
 								+ " letting out [npc.a_moan+] with every buck of [npc.her] [npc.hips] as [npc.she] happily [npc.verb(fuck)] [npc2.herHim].",
 						"Joining [npc3.name] in double-penetrating [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(thrust)] [npc.her] [npc.hips] forwards, letting out [npc.a_moan+] as [npc.she] [npc.verb(fuck)] [npc2.herHim].",
-						"With both [npc.her] and [npc3.namePos] [npc.cocks] stuffed deep in [npc2.namePos] [npc2.asshole+],"
+						"With both [npc.her] and [npc3.namePos] [npc.cocks(true)] stuffed deep in [npc2.namePos] [npc2.asshole+],"
 								+ " [npc.name] happily [npc.verb(pump)] [npc.her] [npc.hips] back and forth, breathing in [npc2.namePos] [npc2.scent] as [npc.she] [npc.verb(fuck)] [npc2.herHim].")));
 				
 			} else {
@@ -1003,7 +1003,7 @@ public class PenisAnus {
 						"With [npc.her] [npc.cock+] rubbing up against [npc3.namePos], [npc.name] eagerly [npc.verb(thrust)] deep inside of [npc2.namePos] [npc2.asshole+],"
 								+ " letting out [npc.a_moan+] with every energetic buck of [npc.her] [npc.hips] as [npc.she] frantically [npc.verb(fuck)] [npc2.herHim].",
 						"Joining [npc3.name] in double-penetrating [npc2.namePos] [npc2.asshole+], [npc.name] enthusiastically [npc.verb(thrust)] [npc.her] [npc.hips] forwards, letting out [npc.a_moan+] as [npc.she] eagerly [npc.verb(fuck)] [npc2.herHim].",
-						"With both [npc.her] and [npc3.namePos] [npc.cocks] stuffed deep in [npc2.namePos] [npc2.asshole+],"
+						"With both [npc.her] and [npc3.namePos] [npc.cocks(true)] stuffed deep in [npc2.namePos] [npc2.asshole+],"
 								+ " [npc.name] happily [npc.verb(pump)] [npc.her] [npc.hips] back and forth, breathing in [npc2.namePos] [npc2.scent] as [npc.she] desperately [npc.verb(fuck)] [npc2.herHim].")));
 				
 			} else {
@@ -1598,9 +1598,9 @@ public class PenisAnus {
 
 			if(PenisAnus.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).size()>1) {
 				UtilText.nodeContentSB.append(UtilText.parse(PenisAnus.getCharactersForParsing(Main.sex.getCharacterPerformingAction()), UtilText.returnStringAtRandom(
-						"With a gentle thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] [npc.verb(help)] to sink the two [npc2.cocks] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
-						"With a soft [npc.moan], [npc.name] gently [npc.verb(start)] bucking [npc.her] [npc.hips], forcing #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+] ever deeper into [npc.her] [npc.asshole+].",
-						"Slowly gyrating [npc.her] [npc.hips], a soft [npc.moan] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force the two [npc2.cocks] deep into [npc.her] [npc.asshole+].")));
+						"With a gentle thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] [npc.verb(help)] to sink the two [npc2.cocks(true)] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
+						"With a soft [npc.moan], [npc.name] gently [npc.verb(start)] bucking [npc.her] [npc.hips], forcing #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+(true)] ever deeper into [npc.her] [npc.asshole+].",
+						"Slowly gyrating [npc.her] [npc.hips], a soft [npc.moan] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force the two [npc2.cocks(true)] deep into [npc.her] [npc.asshole+].")));
 				
 			} else {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1641,9 +1641,9 @@ public class PenisAnus {
 
 			if(PenisAnus.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).size()>1) {
 				UtilText.nodeContentSB.append(UtilText.parse(PenisAnus.getCharactersForParsing(Main.sex.getCharacterPerformingAction()), UtilText.returnStringAtRandom(
-						"With a eager bucking of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(help)] to sink the two [npc2.cocks] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
-						"With [npc.a_moan+], [npc.name] enthusiastically [npc.verb(start)] bucking [npc.her] [npc.hips], forcing #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+] ever deeper into [npc.her] [npc.asshole+].",
-						"Energetically gyrating [npc.her] [npc.hips], [npc.a_moan+] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force the two [npc2.cocks] deep into [npc.her] [npc.asshole+].")));
+						"With a eager bucking of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(help)] to sink the two [npc2.cocks(true)] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
+						"With [npc.a_moan+], [npc.name] enthusiastically [npc.verb(start)] bucking [npc.her] [npc.hips], forcing #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+(true)] ever deeper into [npc.her] [npc.asshole+].",
+						"Energetically gyrating [npc.her] [npc.hips], [npc.a_moan+] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force the two [npc2.cocks(true)] deep into [npc.her] [npc.asshole+].")));
 				
 			} else {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1684,9 +1684,9 @@ public class PenisAnus {
 
 			if(PenisAnus.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).size()>1) {
 				UtilText.nodeContentSB.append(UtilText.parse(PenisAnus.getCharactersForParsing(Main.sex.getCharacterPerformingAction()), UtilText.returnStringAtRandom(
-						"With a violent slamming of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(force)] the two [npc2.cocks] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
-						"With [npc.a_moan+], [npc.name] roughly [npc.verb(start)] bucking [npc.her] [npc.hips], forcing #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+] ever deeper into [npc.her] [npc.asshole+].",
-						"Forcefully gyrating [npc.her] [npc.hips], [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements roughly force the two [npc2.cocks] deep into [npc.her] [npc.asshole+].")));
+						"With a violent slamming of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(force)] the two [npc2.cocks(true)] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
+						"With [npc.a_moan+], [npc.name] roughly [npc.verb(start)] bucking [npc.her] [npc.hips], forcing #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+(true)] ever deeper into [npc.her] [npc.asshole+].",
+						"Forcefully gyrating [npc.her] [npc.hips], [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements roughly force the two [npc2.cocks(true)] deep into [npc.her] [npc.asshole+].")));
 				
 			} else {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1727,9 +1727,9 @@ public class PenisAnus {
 			
 			if(PenisAnus.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).size()>1) {
 				UtilText.nodeContentSB.append(UtilText.parse(PenisAnus.getCharactersForParsing(Main.sex.getCharacterPerformingAction()), UtilText.returnStringAtRandom(
-						"With a quick buck of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(force)] the two [npc2.cocks] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
-						"With [npc.a_moan+], [npc.name] [npc.verb(start)] bucking [npc.her] [npc.hips], forcing #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+] ever deeper into [npc.her] [npc.asshole+].",
-						"Gyrating [npc.her] [npc.hips], [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force the two [npc2.cocks] deep into [npc.her] [npc.asshole+].")));
+						"With a quick buck of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(force)] the two [npc2.cocks(true)] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
+						"With [npc.a_moan+], [npc.name] [npc.verb(start)] bucking [npc.her] [npc.hips], forcing #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+(true)] ever deeper into [npc.her] [npc.asshole+].",
+						"Gyrating [npc.her] [npc.hips], [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force the two [npc2.cocks(true)] deep into [npc.her] [npc.asshole+].")));
 				
 			} else {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1770,9 +1770,9 @@ public class PenisAnus {
 
 			if(PenisAnus.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).size()>1) {
 				UtilText.nodeContentSB.append(UtilText.parse(PenisAnus.getCharactersForParsing(Main.sex.getCharacterPerformingAction()), UtilText.returnStringAtRandom(
-						"With a eager bucking of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(help)] to sink the two [npc2.cocks] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
-						"With [npc.a_moan+], [npc.name] enthusiastically [npc.verb(start)] bucking [npc.her] [npc.hips], forcing #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+] ever deeper into [npc.her] [npc.asshole+].",
-						"Energetically gyrating [npc.her] [npc.hips], [npc.a_moan+] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force the two [npc2.cocks] deep into [npc.her] [npc.asshole+].")));
+						"With a eager bucking of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(help)] to sink the two [npc2.cocks(true)] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
+						"With [npc.a_moan+], [npc.name] enthusiastically [npc.verb(start)] bucking [npc.her] [npc.hips], forcing #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+(true)] ever deeper into [npc.her] [npc.asshole+].",
+						"Energetically gyrating [npc.her] [npc.hips], [npc.a_moan+] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force the two [npc2.cocks(true)] deep into [npc.her] [npc.asshole+].")));
 				
 			} else {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1816,27 +1816,27 @@ public class PenisAnus {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.parse(PenisAnus.getCharactersForParsing(Main.sex.getCharacterPerformingAction()), UtilText.returnStringAtRandom(
 								"[npc.Name] [npc.verb(feel)] tears [npc.verb(start)] to well up in [npc.her] [npc.eyes], and, not being able to hold back any longer, [npc.she] suddenly [npc.verb(let)] out [npc.a_sob+],"
-										+ " before weakly trying to pull both #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks] out of [npc.her] [npc.asshole+].",
+										+ " before weakly trying to pull both #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks(true)] out of [npc.her] [npc.asshole+].",
 								"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.asshole] away from the unwanted double-penetration,"
-										+ " struggling in desperation as the two [npc2.cocks] continue slowly sliding in and out of [npc.her] [npc.asshole+].",
+										+ " struggling in desperation as the two [npc2.cocks(true)] continue slowly sliding in and out of [npc.her] [npc.asshole+].",
 								"Trying desperately to pull [npc.her] [npc.hips] away,"
 										+ " [npc.name] [npc.sobVerb] in distress as [npc2.namePos] [npc2.cock+] continues to join [npc3.namePos] in gently sliding deep into [npc.her] [npc.asshole+].")));
 						break;
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.parse(PenisAnus.getCharactersForParsing(Main.sex.getCharacterPerformingAction()), UtilText.returnStringAtRandom(
 								"[npc.Name] [npc.verb(feel)] tears [npc.verb(start)] to well up in [npc.her] [npc.eyes], and, not being able to hold back any longer, [npc.she] suddenly [npc.verb(let)] out [npc.a_sob+],"
-										+ " before weakly trying to pull both #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks] out of [npc.her] [npc.asshole+].",
+										+ " before weakly trying to pull both #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks(true)] out of [npc.her] [npc.asshole+].",
 								"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.asshole] away from the unwanted double-penetration,"
-										+ " struggling in desperation as the two [npc2.cocks] continue roughly slamming in and out of [npc.her] [npc.asshole+].",
+										+ " struggling in desperation as the two [npc2.cocks(true)] continue roughly slamming in and out of [npc.her] [npc.asshole+].",
 								"Trying desperately to pull [npc.her] [npc.hips] away,"
 										+ " [npc.name] [npc.sobVerb] in distress as [npc2.namePos] [npc2.cock+] continues to join [npc3.namePos] in violently thrusting deep into [npc.her] [npc.asshole+].")));
 						break;
 					default:
 						UtilText.nodeContentSB.append(UtilText.parse(PenisAnus.getCharactersForParsing(Main.sex.getCharacterPerformingAction()), UtilText.returnStringAtRandom(
 								"[npc.Name] [npc.verb(feel)] tears [npc.verb(start)] to well up in [npc.her] [npc.eyes], and, not being able to hold back any longer, [npc.she] suddenly [npc.verb(let)] out [npc.a_sob+],"
-										+ " before weakly trying to pull both #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks] out of [npc.her] [npc.asshole+].",
+										+ " before weakly trying to pull both #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks(true)] out of [npc.her] [npc.asshole+].",
 								"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.asshole] away from the unwanted double-penetration,"
-										+ " struggling in desperation as the two [npc2.cocks] continue frantically pumping in and out of [npc.her] [npc.asshole+].",
+										+ " struggling in desperation as the two [npc2.cocks(true)] continue frantically pumping in and out of [npc.her] [npc.asshole+].",
 								"Trying desperately to pull [npc.her] [npc.hips] away,"
 										+ " [npc.name] [npc.sobVerb] in distress as [npc2.namePos] [npc2.cock+] continues to join [npc3.namePos] in greedily thrusting deep into [npc.her] [npc.asshole+].")));
 						break;

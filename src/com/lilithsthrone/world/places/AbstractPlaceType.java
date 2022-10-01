@@ -525,11 +525,13 @@ public class AbstractPlaceType {
 	public AbstractEncounter getEncounterType() {
 		Map<AbstractEncounter, Float> possibleEncountersMap = new HashMap<>();
 		
-		if(encounterType!=null) {
+		if(encounterType!=null && encounterType.getTotalChanceValue()>0) {
 			possibleEncountersMap.put(encounterType, encounterType.getTotalChanceValue());
 		}
 		for(AbstractEncounter enc : Encounter.getAddedEncounters(this.getId())) {
-			possibleEncountersMap.put(enc, enc.getTotalChanceValue());
+			if(enc.getTotalChanceValue()>0) {
+				possibleEncountersMap.put(enc, enc.getTotalChanceValue());
+			}
 		}
 		
 		if(possibleEncountersMap.isEmpty()) {
