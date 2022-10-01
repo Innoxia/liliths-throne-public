@@ -148,7 +148,7 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 			return UtilText.parse(target, user,
 					"<p>"
 						+ "[npc.Name] can't help but let out a delighted [npc.moan] as [npc.she] greedily [npc.verb(gulp)] down the slimy fluid."
-						+ " Darting [npc.her] [npc.tongue] out, [npc.she] desperately [npc.verb(lick)] up every last drop of cum; only discarding the condom once [npc.sheIs] sure that's it's completely empty."
+						+ " Darting [npc.her] [npc.tongue] out, [npc.she] desperately [npc.verb(lick)] up every last drop of cum; only discarding the condom once [npc.sheIs] sure that it's completely empty."
 					+ "</p>"
 					+ (cum==null
 						?""

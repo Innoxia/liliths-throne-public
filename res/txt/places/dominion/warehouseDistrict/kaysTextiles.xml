@@ -284,7 +284,7 @@
 	</p>
 	<p>
 		#IF(pc.hasAnyEnforcerStatusEffect())
-			Picking up what he's just said, you point out to Wolfgang that if 'what they're doing right now' isn't written in their contract, then they potentially doing something illegal after all. Playing up to the fact that they've mistaken you for an Enforcer, you subtly suggest that everyone would like to avoid all of the work involved in making arrests. Seeing the worried look on Karl's face, you know that you've hit your mark, and once again ask the dobermanns if they'd like to take the easy way out and have the remainder of their contract paid off.
+			Picking up what he's just said, you point out to Wolfgang that if 'what they're doing right now' isn't written in their contract, then they are potentially doing something illegal after all. Playing up to the fact that they've mistaken you for an Enforcer, you subtly suggest that everyone would like to avoid all of the work involved in making arrests. Seeing the worried look on Karl's face, you know that you've hit your mark, and once again ask the dobermanns if they'd like to take the easy way out and have the remainder of their contract paid off.
 		#ELSE
 			Picking up what he's just said, you point out to Wolfgang that if 'what they're doing right now' isn't written in their contract, then they're sure to be found guilty of something if the Enforcers were ever to get involved. Subtly suggesting that everyone would like to avoid that particular legal process, you say how easy it would be for someone to walk over to the Enforcer HQ and bring this matter to the attention of the authorities. Seeing the worried look on Karl's face, you know that you've hit your mark, and once again ask the dobermanns if they'd like to have the remainder of their contract paid off.
 		#ENDIF
@@ -1880,7 +1880,7 @@
 	
 	<htmlContent tag="KAY_OFFICE_DOMINATE_BUTTPLUG_DESK_ANILINGUS"><![CDATA[
 	<p>
-		Unable to resist the sight of [kay.namePos] submissively-presented ass, you lean forwards and plant a big, wet kiss directly on [kay.her] still-winking asshole. Caught by surprise, the cute [kay.race] lets out an excited sqeuak, before turning [kay.her] head back and panting, [kay.speech([pc.Name]... ~Aah!~ You like my ass that much?)]
+		Unable to resist the sight of [kay.namePos] submissively-presented ass, you lean forwards and plant a big, wet kiss directly on [kay.her] still-winking asshole. Caught by surprise, the cute [kay.race] lets out an excited squeak, before turning [kay.her] head back and panting, [kay.speech([pc.Name]... ~Aah!~ You like my ass that much?)]
 	</p>
 	<p>
 		Replying in the affirmative, you dominantly grab hold of [kay.namePos] [kay.hips+], and after swiftly pushing [kay.herHim] face-first over [kay.her] desk, you drop down behind [kay.herHim] and prepare to show [kay.herHim] just how much you love [kay.her] ass. Reaching back to spread [kay.her] ass cheeks, [kay.name] continues to eagerly pant and moan as you lean forwards and start greedily eating [kay.her] cute ass...
@@ -1890,7 +1890,7 @@
 	
 	<htmlContent tag="KAY_OFFICE_DOMINATE_BUTTPLUG_DESK_FUCK"><![CDATA[
 	<p>
-		Unable to resist the sight of [kay.namePos] submissively-presented ass, you tell your cute pet how sexy [kay.her] still-winking asshole is. Caught by surprise, the cute [kay.race] lets out an excited sqeuak, before turning [kay.her] head back and panting, [kay.speech([pc.Name]... ~Aah!~ You like my ass that much?)]
+		Unable to resist the sight of [kay.namePos] submissively-presented ass, you tell your cute pet how sexy [kay.her] still-winking asshole is. Caught by surprise, the cute [kay.race] lets out an excited squeak, before turning [kay.her] head back and panting, [kay.speech([pc.Name]... ~Aah!~ You like my ass that much?)]
 	</p>
 	<p>
 		#IF(pc.isTaur())
