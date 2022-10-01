@@ -437,13 +437,22 @@
 	
 	<htmlContent tag="MARKET_STALL_CAFE"><![CDATA[
 	<p>
-		You find yourself standing in front of one of the cozy cafes which are scattered throughout Slaver Alley. Open twenty-four hours a day, seven days of the week, these establishments offer a place in which weary members of the public can rest and recuperate.
+		You find yourself standing in front of one of the cosy cafés which are scattered throughout Slaver Alley. Open twenty-four hours a day, seven days of the week, these establishments offer a place in which weary members of the public can rest and recuperate. From the advertisement posters which have been placed in the windows, this particular café seems to be associated with the shop
+		#IF(pc.getLocationPlaceType()==PLACE_TYPE_SLAVER_ALLEY_CAFE)
+			 'Viva Voce'. The poster nearest to the door states that you can <i>'Ask the café staff for a demonstration of our slaves' oral abilities'</i>.
+		#ELSEIF(pc.getLocationPlaceType()==PLACE_TYPE_SLAVER_ALLEY_CAFE_2)
+			 'Iron & Steel'. The poster nearest to the door states that you can <i>'Ask the café staff for a demonstration of our slaves' strength and virility'</i>.
+		#ELSEIF(pc.getLocationPlaceType()==PLACE_TYPE_SLAVER_ALLEY_CAFE_3)
+			 'The Rear Entrance'. The poster nearest to the door states that you can <i>'Ask the café staff for a demonstration of our slaves' anal abilities'</i>.
+		#ELSE
+			 'A Woman's Touch'. The poster nearest to the door states that you can <i>'Ask the café staff for a demonstration of our slaves' obedience and desire to please'</i>.
+		#ENDIF
 	</p>
 	<p>
 		#IF(game.isExtendedWorkTime())
-			Looking through the front windows, you see that the cafe is currently very busy, with almost all of the tables being occupied. Despite this, however, you think that you'd be able to find a seat if you wanted to go inside and get something to eat or drink...
+			Looking through the front windows, you see that the café is currently very busy, with almost all of the tables being occupied. Despite this, however, you think that you'd be able to find a seat if you wanted to go inside and get something to eat or drink...
 		#ELSE
-			Looking through the front windows, you see that the cafe is currently very quiet, with almost all of the tables being empty. If you wanted to, you could go inside and get something to eat or drink...
+			Looking through the front windows, you see that the café is currently very quiet, with almost all of the tables being empty. If you wanted to, you could go inside and get something to eat or drink...
 		#ENDIF
 	</p>
 	]]>
@@ -454,20 +463,194 @@
 	
 	<htmlContent tag="MARKET_STALL_CAFE_INTERIOR"><![CDATA[
 	<p>
-		Deciding that you'd like to take a break, you push open the door to the cafe and step inside. Noticing your entry, one of the waitresses hurries over to greet you, before leading you over to an empty table next to one of the windows. Handing you a menu, she informs you that all food and drink must be paid for at the moment of order, before flashing you a sunny smile and rushing over to another table which requires her attention.
+		Deciding that you'd like to take a break, you push open the door to the café and step inside. Looking around the roomy interior, you see that there are about two dozen tables, most of which
+		#IF(game.isExtendedWorkTime())
+			 are occupied.
+		#ELSE
+			 are unoccupied.
+		#ENDIF
+		 Over on one side of the room, there's a long counter, and behind a layer of protective glass you see all sorts of cakes and snacks on display.
 	</p>
+	#IF(pc.getLocationPlaceType()==PLACE_TYPE_SLAVER_ALLEY_CAFE)
+		<p>
+			Noticing your entry, [npc.a_race] waitress, who's wearing a light blue maid's outfit, and who has a heavy metal collar around her neck, hurries over to where you're standing. Her [npc.lips+] are covered in a thick layer of golden lipstick, and as they turn up into a shy smile, she curtsies and says in a soft voice,
+			#IF(flags.hasFlag(FLAG_slaverAlleyCafe1Visited))
+				 [npc.speech(Welcome to our café, [pc.sir]; it's good to see you again. Please follow me and I'll show you to your table.)]
+			#ELSE
+				 [npc.speech(Welcome to our café, [pc.sir]. My name is [npc.name]; I'm a slave from the shop 'Viva Voca', and if you're impressed by my service then you can find many slaves like me for sale there. Please follow me and I'll show you to your table.)]
+			#ENDIF
+		</p>
+		#IF(pc.getTotalTimesHadSex(npc)>0)
+			<p>
+				Doing as the maid-waitress asks, you follow her as she leads you over to an empty table next to one of the windows. Handing you a menu, she states, [npc.speech(All food and drink must be paid for at the moment of order. Please call me over once you've made your selection.)]
+			</p>
+			<p>
+				#IF(flags.hasFlag(FLAG_slaverAlleyCafe1DailyDemonstrated))
+					After pausing to let out a slightly frustrated sigh, the [npc.race] whines, [npc.speech(I'm sorry, but if you want another demo, you'll have to come back tomorrow; I'm only allowed to give one demo per customer per day...)]
+				#ELSE
+					After pausing to flash you a shy smile, the [npc.race] lets out an excited giggle and says, [npc.speech(If you want another demo, just call me over and let me know...)]
+				#ENDIF
+			</p>
+			<p>
+				With that, the waitress blushes and rushes over to another table which requires her attention, leaving you to decide what you'd like to order...
+			</p>
+		#ELSE
+			<p>
+				Doing as the maid-waitress asks, you follow her as she leads you over to an empty table next to one of the windows. Handing you a menu, she states, [npc.speech(All food and drink must be paid for at the moment of order. Please call me over once you've made your selection. Oh, and if you'd like a demonstration of what slaves from 'Viva Voce' can do, then please let me know... I'll be happy to show you...)]
+			</p>
+			<p>
+				With that, the waitress flashes you a sunny smile and rushes over to another table which requires her attention, leaving you to decide what you'd like to order...
+			</p>
+		#ENDIF
+	#ELSEIF(pc.getLocationPlaceType()==PLACE_TYPE_SLAVER_ALLEY_CAFE_2)
+		<p>
+			Noticing your entry, a muscular, [npc.race] waiter, who's wearing black crotchless chaps and a navy blue t-shirt, and who has a heavy metal collar around his neck, confidently strides over to where you're standing. Thanks to his choice of leg-wear, you can see that there's a huge bulge pressing out from beneath his black briefs,
+			#IF(pc.isAttractedTo(npc))
+				 and you can't help but glance at it as he grins and declares,
+			#ELSE
+				 and you try to avoid looking at it again as he grins and declares,
+			#ENDIF
+			#IF(flags.hasFlag(FLAG_slaverAlleyCafe2Visited))
+				 [npc.speech(Welcome to our café, [pc.sir]; thanks for coming back again. Please follow me and I'll show you to your table.)]
+			#ELSE
+				 [npc.speech(Welcome to our café, [pc.sir]. My name is [npc.name]; I'm a slave from the shop 'Iron & Steel', and if you're impressed by my service then you can find many slaves like me for sale there. Please follow me and I'll show you to your table.)]
+			#ENDIF
+		</p>
+		#IF(pc.getTotalTimesHadSex(npc)>0)
+			<p>
+				Doing as the waiter asks, you follow him as he leads you over to an empty table next to one of the windows. Handing you a menu, he states, [npc.speech(All food and drink must be paid for at the moment of order. Please call me over once you've made your selection.)]
+			</p>
+			#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(npc))
+				<p>
+					Looking down at your pregnant belly, [npc.name] grins and asks,
+					#IF(!pc.isCharacterReactedToPregnancy(npc))
+						 [npc.speech(Looks like I really gave you the full breeding demo experience, huh?)]
+					#ELSE
+						 [npc.speech(You're still pregnant from the breeding demo I gave you, huh?)]
+					#ENDIF
+				</p>
+				<p>
+					After you've replied to confirm that he's the father, [npc.name] lets out a satisfied grunt and states,
+					#IF(flags.hasFlag(FLAG_slaverAlleyCafe2DailyDemonstrated))
+						 [npc.speech(If you want another demo, you'll have to come back tomorrow; I'm only allowed to give one demo per customer per day.)]
+					#ELSE
+						 [npc.speech(If you want another demo, just call me over and let me know.)]
+					#ENDIF
+				</p>
+			#ELSE
+				<p>
+					#IF(flags.hasFlag(FLAG_slaverAlleyCafe2DailyDemonstrated))
+						After pausing to let out a slightly frustrated grunt, the [npc.race] states, [npc.speech(If you want another demo, you'll have to come back tomorrow; I'm only allowed to give one demo per customer per day.)]
+					#ELSE
+						After pausing to flash you a knowing look, the [npc.race] grins and states, [npc.speech(If you want another demo, just call me over and let me know.)]
+					#ENDIF
+				</p>
+			#ENDIF
+		#ELSE
+			<p>
+				Doing as the waiter asks, you follow him as he leads you over to an empty table next to one of the windows. Handing you a menu, he states, [npc.speech(All food and drink must be paid for at the moment of order. Please call me over once you've made your selection. Oh, and if you'd like a demonstration of what slaves from 'Iron & Steel' can do, then please let me know; I'll be more than happy to give you a full demonstration.)]
+			</p>
+		#ENDIF
+		<p>
+			With that, the waiter flashes you a grin and strides over to another table which requires his attention, leaving you to decide what you'd like to order...
+		</p>
+	#ELSEIF(pc.getLocationPlaceType()==PLACE_TYPE_SLAVER_ALLEY_CAFE_3)
+		<p>
+			Noticing your entry, [npc.a_race] waiter, who's wearing a smart, black butler's uniform, and who has a heavy metal collar around his neck, gracefully steps over to where you're standing. Respectfully bowing to you, he states,
+			#IF(flags.hasFlag(FLAG_slaverAlleyCafe3Visited))
+				 [npc.speech(Welcome to our café again, [pc.sir]; we're grateful that you've chosen to visit us again. Please follow me and I'll show you to your table.)]
+			#ELSE
+				 [npc.speech(Welcome to our café, [pc.sir]. My name is [npc.name]; I'm a slave from the shop 'The Rear Entrance', and if you're impressed by my service then you can find many slaves like me for sale there. Please follow me and I'll show you to your table.)]
+			#ENDIF
+		</p>
+		#IF(pc.getTotalTimesHadSex(npc)>0)
+			<p>
+				Doing as the waiter asks, you follow him as he leads you over to an empty table next to one of the windows. Handing you a menu, he states, [npc.speech(All food and drink must be paid for at the moment of order. Please call me over once you've made your selection.)]
+			</p>
+			<p>
+				#IF(flags.hasFlag(FLAG_slaverAlleyCafe3DailyDemonstrated))
+					After pausing to let out a soft sigh, the [npc.race] apologises, [npc.speech(I'm sorry, [pc.sir], but if you want another demo, you'll have to come back tomorrow; I'm only permitted to give one demo per customer per day.)]
+				#ELSE
+					After pausing to flash you a subtle smile, the [npc.race] says, [npc.speech(If you want another demo, then please don't hesitate to call me over and let me know.)]
+				#ENDIF
+			</p>
+		#ELSE
+			<p>
+				Doing as the waiter asks, you follow him as he leads you over to an empty table next to one of the windows. Handing you a menu, he states, [npc.speech(All food and drink must be paid for at the moment of order. Please call me over once you've made your selection. Oh, and if you'd like a demonstration of what slaves from 'The Rear Entrance' can do, then please let me know so that I can arrange a demonstration for you.)]
+			</p>
+		#ENDIF
+		<p>
+			With that, the waiter bows to you once more, before gliding over to another table which requires his attention, leaving you to decide what you'd like to order...
+		</p>
+	#ELSE
+		<p>
+			Noticing your entry, a beautiful, [npc.race] waitress, who's wearing a burgundy virgin-killer sweater, black stockings and gloves, and who has a heavy metal collar around her neck, struts over to where you're standing. Provocatively biting her [npc.lip] and crossing her arms to push her [npc.cupSize]-cup breasts up, she says in a seductive tone,
+			#IF(flags.hasFlag(FLAG_slaverAlleyCafe3Visited))
+				 [npc.speech(Welcome to our café again, [pc.sir]; I'm happy to see you here again. Please follow me and I'll show you to your table.)]
+			#ELSE
+				 [npc.speech(Welcome to our café, [pc.sir]. My name is [npc.name]; I'm a slave from the shop 'A Woman's Touch', and if you're impressed by my service then you can find many slaves like me for sale there. Please follow me and I'll show you to your table.)]
+			#ENDIF
+		</p>
+		#IF(pc.getTotalTimesHadSex(npc)>0)
+			<p>
+				Doing as the waitress asks, you follow her as she leads you over to an empty table next to one of the windows. Handing you a menu, she states, [npc.speech(All food and drink must be paid for at the moment of order. Please call me over once you've made your selection.)]
+			</p>
+			#IF(npc.isVisiblyPregnant() && npc.getPregnantLitter().getFather().equals(pc))
+				<p>
+					Rubbing her [npc.hands] over her [style.colourSex(pregnant belly)], [npc.name] grins
+					#IF(!npc.isCharacterReactedToPregnancy(pc))
+						 and reveals, [npc.speech(Yeah, you were the one to knock me up. No worries though; I kind of like being pregnant. Oh, and don't worry about anything; my owner is handling all of my needs.)]
+					#ELSE
+						 and says, [npc.speech(Yeah, I'm still pregnant, thanks to you. No worries though; I kind of like it. Oh, and don't worry about anything; my owner is handling all of my needs.)]
+					#ENDIF
+				</p>
+				<p>
+					Not giving you much time in which to respond, the [npc.race]
+					#IF(flags.hasFlag(FLAG_slaverAlleyCafe4DailyDemonstrated))
+						 sighs and states, [npc.speech(If you want another demo, you'll have to come back tomorrow; I'm only allowed to give one demo per customer per day.)]
+					#ELSE
+						 flashes you a seductive smile and states, [npc.speech(If you want another demo, just call me over and let me know.)]
+					#ENDIF
+				</p>
+			#ELSE
+				<p>
+					#IF(flags.hasFlag(FLAG_slaverAlleyCafe2DailyDemonstrated))
+						After pausing to let out a slightly frustrated sigh, the [npc.race] states, [npc.speech(If you want another demo, you'll have to come back tomorrow; I'm only allowed to give one demo per customer per day.)]
+					#ELSE
+						After pausing to flash you a seductive smile, the [npc.race] states, [npc.speech(If you want another demo, just call me over and let me know.)]
+					#ENDIF
+				</p>
+			#ENDIF
+		#ELSE
+			<p>
+				Doing as the waitress asks, you follow her as she leads you over to an empty table next to one of the windows. Handing you a menu, she states, [npc.speech(All food and drink must be paid for at the moment of order. Please call me over once you've made your selection. Oh, and if you'd like a demonstration of what slaves from 'A Woman's Touch' can do, then please let me know... I'll be happy to show you...)]
+			</p>
+		#ENDIF
+		<p>
+			With that, the waitress bats her eyelashes at you, and then after flashing one last smile, she struts over to another table which requires her attention, leaving you to decide what you'd like to order...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MARKET_STALL_CAFE_INTERIOR_ORDER"><![CDATA[
 	<p>
-		Calling over the waitress, you place an order for [#SPECIAL_PARSE_0] [#SPECIAL_PARSE_1], before handing over the [#SPECIAL_PARSE_2] flames she asks of you. Having received the payment, she hurries off into the kitchen, before returning to your table and placing the [#SPECIAL_PARSE_1] down in front of you. Flashing you a cheery smile, she then quickly turns around and hurries off to another table which requires her attention.
+		Calling over the #IF(npc.isFeminine())waitress#ELSEwaiter#ENDIF, you place an order for [#SPECIAL_PARSE_0] [#SPECIAL_PARSE_1], before handing over the [#SPECIAL_PARSE_2] flames [npc.she] asks of you. Having received the payment, [npc.she] sets off into the kitchen, before swiftly returning to your table and placing the [#SPECIAL_PARSE_1] down in front of you.
+		#IF(pc.getLocationPlaceType()==PLACE_TYPE_SLAVER_ALLEY_CAFE)
+			 Flashing you a cheery smile, she then quickly turns around and hurries off to another table which requires her attention.
+		#ELSEIF(pc.getLocationPlaceType()==PLACE_TYPE_SLAVER_ALLEY_CAFE_2)
+			 Flashing you a grin, he then turns around and strides off to another table which requires his attention.
+		#ELSEIF(pc.getLocationPlaceType()==PLACE_TYPE_SLAVER_ALLEY_CAFE_3)
+			 Giving you a small bow, he then turns around and steps over to another table which requires his attention.
+		#ELSE
+			 Flashing you a seductive smirk, she then quickly turns around and hurries off to another table which requires her attention.
+		#ENDIF
 	</p>
 	<p>
 		#IF(pc.hasCompanions())
 			Relaxing in your comfortable chair, you make small-talk with [com.name] as you [#SPECIAL_PARSE_3] your [#SPECIAL_PARSE_1]...
 		#ELSE
-			Relaxing in your comfortable chair, you gaze out of the cafe's window and do some people-watching as you [#SPECIAL_PARSE_3] your [#SPECIAL_PARSE_1]...
+			Relaxing in your comfortable chair, you gaze out of the café's window and do some people-watching as you [#SPECIAL_PARSE_3] your [#SPECIAL_PARSE_1]...
 		#ENDIF
 	</p>
 	]]>
@@ -475,10 +658,290 @@
 	
 	<htmlContent tag="MARKET_STALL_CAFE_INTERIOR_ORDER_COMPANION"><![CDATA[
 	<p>
-		Calling over the waitress, you place an order for [#SPECIAL_PARSE_0] [#SPECIAL_PARSE_1], before handing over the [#SPECIAL_PARSE_2] flames she asks of you. Having received the payment, she hurries off into the kitchen, before returning to your table and placing the [#SPECIAL_PARSE_1] down in front of [com.name]. Flashing the two of you a cheery smile, she then quickly turns around and hurries off to another table which requires her attention.
+		Calling over the #IF(npc.isFeminine())waitress#ELSEwaiter#ENDIF, you place an order for [#SPECIAL_PARSE_0] [#SPECIAL_PARSE_1], before handing over the [#SPECIAL_PARSE_2] flames [npc.she] asks of you. Having received the payment, [npc.she] sets off into the kitchen, before returning to your table and placing the [#SPECIAL_PARSE_1] down in front of [com.name].
+		#IF(pc.getLocationPlaceType()==PLACE_TYPE_SLAVER_ALLEY_CAFE)
+			 Flashing the two of you a cheery smile, she then quickly turns around and hurries off to another table which requires her attention.
+		#ELSEIF(pc.getLocationPlaceType()==PLACE_TYPE_SLAVER_ALLEY_CAFE_2)
+			 Flashing the two of you a grin, he then turns around and strides off to another table which requires his attention.
+		#ELSEIF(pc.getLocationPlaceType()==PLACE_TYPE_SLAVER_ALLEY_CAFE_3)
+			 Giving the two of you a small bow, he then turns around and steps over to another table which requires his attention.
+		#ELSE
+			 Flashing the two of you a seductive smirk, she then quickly turns around and hurries off to another table which requires her attention.
+		#ENDIF
 	</p>
 	<p>
 		Relaxing in your comfortable chair, you make small-talk with [com.name] as [com.she] [#SPECIAL_PARSE_3] [com.her] [#SPECIAL_PARSE_1]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_STALL_CAFE_DEMONSTRATION_EXPLANATION"><![CDATA[
+	#IF(pc.getLocationPlaceType()==PLACE_TYPE_SLAVER_ALLEY_CAFE)
+		<p>
+			Wanting to know exactly what [npc.namePos] demonstration involves, you call over the waitress, before putting the question to her.
+		</p>
+		<p>
+			[npc.speech(Oh, well, you know...)] she shyly responds, before slowly running her [npc.tongue] over her [npc.lips+] and revealing, [npc.speech(My owner's shop specialises in orally-trained slaves... I can take you around back and show you just how thorough my training has been... We'll keep going until you cum, then the demo's over...)]
+		</p>
+		<p>
+			Clearly worried that she hasn't been clear enough, the [npc.race] blushes as she 
+			#IF(pc.hasPenis() && pc.isCoverableAreaVisible(CA_PENIS))
+				 looks down at your [pc.cock+] and declares, [npc.speech(I'll give you the best blowjob of your life! Just say the word, and you can be balls-deep down my throat in a few minutes...)]
+			#ELSEIF(pc.hasVagina() && pc.isCoverableAreaVisible(CA_VAGINA))
+				 looks down at your [pc.pussy+] and declares, [npc.speech(I'll give you the best cunnilingus of your life! Just say the word, and I'll be eating you out in a few minutes...)]
+			#ELSE
+				 declares, [npc.speech(I give the best blowjobs and cunnilingus in all of slaver alley! Just say the word, and I'll be showing you how good I am in a few minutes...)]
+			#ENDIF
+		</p>
+		<p>
+			At that moment, another customer calls for [npc.NamePos] attention. Before dashing off to see to them, she declares, [npc.speech(Just call me over if you want a demo!)]
+		</p>
+	#ELSEIF(pc.getLocationPlaceType()==PLACE_TYPE_SLAVER_ALLEY_CAFE_2)
+		<p>
+			Wanting to know exactly what [npc.namePos] demonstration involves, you call over the muscular waiter, before putting the question to him.
+		</p>
+		<p>
+			[npc.speech(You get to feel how good my cock is,)] he confidently responds, before reaching down to squeeze the massive bulge between his legs and revealing, [npc.speech(My owner's shop specialises in strong, virile slaves. I'll take you around back and get you stuffed full of my fat cock to show you how good it is to own a slave like me. I'll fuck you until you cum, then the demo's over.)]
+		</p>
+		<p>
+			At that moment, another customer calls for [npc.NamePos] attention. Before striding off to see to them, he declares, [npc.speech(Just call me over if you want a demo; I'll get you [pc.moaning] and orgasming in no time.)]
+		</p>
+	#ELSEIF(pc.getLocationPlaceType()==PLACE_TYPE_SLAVER_ALLEY_CAFE_3)
+		<p>
+			Wanting to know exactly what [npc.namePos] demonstration involves, you call over the waiter, before putting the question to him.
+		</p>
+		<p>
+			[npc.speech(Well, [pc.sir], my owner's store specialises in anally-trained slaves,)] he politely responds, before turning to one side and slightly pushing his [npc.ass+] out towards you. Flashing you a smile, he states, [npc.speech(You can use my ass however you'd like, or, if you prefer, I'll show you how much I love performing rimjobs.)]
+		</p>
+		<p>
+			At that moment, another customer calls for [npc.NamePos] attention. Before striding off to see to them, he bows to you and says, [npc.speech(Please call me over if you want a demo; I promise that my ass won't disappoint you.)]
+		</p>
+	#ELSE
+		<p>
+			Wanting to know exactly what [npc.namePos] demonstration involves, you call over the waitress, before putting the question to her.
+		</p>
+		<p>
+			[npc.speech(Why, you get to fuck my pussy, of course!)] she confidently responds, before biting her [npc.lip] and teasing, [npc.speech(Or, if you'd prefer, I'll spread my legs and let you eat me out. My pussy tastes great, I promise!)]
+		</p>
+		<p>
+			At that moment, another customer calls for [npc.NamePos] attention. Before strutting off to see to them, she winks at you and declares, [npc.speech(Just call me over if you want a demo!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_STALL_CAFE_ORAL_BLOWJOB"><![CDATA[
+	<p>
+		Wanting to put [npc.namePos] mouth to the test, you call over the waitress and tell her that you want to have a demonstration of her blowjob skills.
+	</p>
+	<p>
+		[npc.speech(Yes, [pc.sir],)] she replies, before letting out an excited little moan and beckoning you to follow her. Skipping off to the far side of the café with you in tow, she blushes as she playfully teases, [npc.speech(I hope you don't mind getting your cock marked by my lipstick... My owner makes me wear a lot of it so that you can see how deep I can take you down my throat...)]
+	</p>
+	<p>
+		Leading you into a small, carpeted office at the rear of the café, [npc.name] closes the door behind you, before wasting no time in dropping to her knees before you. Expertly gaining access to your cock before you even have time to say anything, she lets out a hungry moan and declares, [npc.speech(Oh yes, this'll do nicely! Remember, the demo ends once I make you orgasm...)]
+	</p>
+	<p>
+		Leaning forwards, she darts out her [npc.tongue+] and delivers a long, slow lick up the length of your rapidly-hardening shaft, before dropping her head down and taking your [pc.cock+] into her mouth. Bobbing her head up and down, she starts making lewd, wet gargling noises as she starts giving you an enthusiastic blowjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_STALL_CAFE_ORAL_CUNNILINGUS"><![CDATA[
+	<p>
+		Wanting to put [npc.namePos] tongue to the test, you call over the waitress and tell her that you want to have a demonstration of her cunnilingus skills.
+	</p>
+	<p>
+		[npc.speech(Yes, [pc.sir],)] she replies, before letting out an excited little moan and beckoning you to follow her. Skipping off to the far side of the café with you in tow, she blushes as she playfully teases, [npc.speech(I hope you don't mind getting your pussy marked by my lipstick... My owner makes me wear a lot of it so clients can see how deep I can take their cocks...)]
+	</p>
+	<p>
+		Leading you into a small, carpeted office at the rear of the café, [npc.name] closes the door behind you, before wasting no time in dropping to her knees before you. Expertly gaining access to your pussy before you even have time to say anything, she lets out a hungry moan and declares, [npc.speech(Oh yes, this'll do nicely! Remember, the demo ends once I make you orgasm...)]
+	</p>
+	<p>
+		Leaning forwards, she darts out her [npc.tongue+] and delivers a long, slow lick over your [pc.labia+], before pushing her head forwards and pressing her [npc.lips+] against your [pc.pussy+]. Darting out her tongue and thrusting it into your cunt, she starts making lewd, wet kissing noises as she starts enthusiastically eating you out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_STALL_CAFE_MASCULINE_BLOWJOB"><![CDATA[
+	<p>
+		Wanting to get a taste of [npc.namePos] massive cock, you call him over and say that you want to get a demonstration of how good he is at face-fucking.
+	</p>
+	<p>
+		[npc.speech(Hungry for this, are you?)] he grunts in amusement as he grabs hold of his massive bulge and hefts it up and down a couple of times. Replying in the positive, you can't help but let out an eager [pc.moan] as he dominantly takes you by the [pc.arm] and leads you over towards the back of the café, saying as he goes, [npc.speech(I'll have you choking and gargling on my fat cock in just a minute. You're going to love it, aren't you, you horny thing?)]
+	</p>
+	<p>
+		Once again replying in the positive, you happily allow the muscular [npc.race] to take you into a small, carpeted office that's located at the rear of the café. As [npc.name] closes the door and turns to face you, you eagerly drop down before him, and after quickly shifting his briefs to one side, you let out [pc.a_moan+] as his [npc.cock+] flops free.
+	</p>
+	<p>
+		[npc.speech(Go on, get me hard,)] [npc.name] grunts, and you eagerly oblige by leaning forwards and planting a big, wet kiss on his [npc.cockHead+]. After licking and kissing his [npc.cock+] to get him hard, you open wide, allowing him to grab the sides of your head and thrust his [npc.cock+] into your mouth and down your throat. With lewd, wet gargling noises coming out of your throat with each one of his thrusts, the [npc.race] grunts, [npc.speech(I'll make you cum from this... ~Mmm!~ Remember, after you've orgasmed once, the demo's over...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_STALL_CAFE_MASCULINE_BREEDING"><![CDATA[
+	<p>
+		Wanting to feel [npc.namePos] massive cock pumping deep in and out of your [pc.pussy+], you call him over and say that you want to get a demonstration of how virile and hungry for sex he is.
+	</p>
+	<p>
+		[npc.speech(Wanting to get rutted by this, huh?)] he grunts in amusement as he grabs hold of his massive bulge and hefts it up and down a couple of times. Replying in the positive, you can't help but let out an eager [pc.moan] as he dominantly takes you by the [pc.arm] and leads you over towards the back of the café, saying as he goes, [npc.speech(I'll have you stuffed full of my fat cock in just a minute. You're going to love it, aren't you, you horny thing?)]
+	</p>
+	<p>
+		Once again replying in the positive, you happily allow the muscular [npc.race] to take you into a small, carpeted office that's located at the rear of the café. As [npc.name] closes the door and turns to face you,
+		#IF(pc.isTaur())
+			 you eagerly turn around and drop down before him, presenting him with your hind-quarters in the process. Watching the muscular [npc.race] quickly shift his briefs to one side, you let out [pc.a_moan+] as you see his [npc.cock+] flopping free.
+		#ELSE
+			 you eagerly lie back before him, and after gaining access to your groin, you spread your [pc.legs] and present him with your [pc.pussy+].
+		#ENDIF
+	</p>
+	<p>
+		[npc.speech(You want it like that, huh?)] [npc.name] hungrily grunts.
+		#IF(pc.isTaur())
+			 Stepping forwards, he strokes his cock a few times, and thanks to the sight of your [pc.pussy+], he's rock-hard in just a moment. Wasting no time, he lines his [npc.cock+] up to your cunt, and after sliding the [npc.cockHead+] up and down over your [pc.labia+] a couple of times, he thrusts forwards, sinking his [npc.cock+] into your [pc.pussy+]. Pushing forwards, he fills you with his massive shaft, grunting as he does so, [npc.speech(I'll make you cum in no time! ~Mmm!~ Remember, after you've orgasmed once, the demo's over...)]
+		#ELSE
+			 Stepping forwards, he strokes his cock a few times, and thanks to the sight of your submissive posture and exposed [pc.pussy], he's rock-hard in just a moment. Wasting no time, he drops down over the top of you, grabbing your [pc.legs] and pushing them up and back towards your head as he does so. Locking you in the mating press position, he lets out anotehr deep grunt as he lines his [npc.cock+] up to your cunt, and after sliding the [npc.cockHead+] up and down over your [pc.labia+] a couple of times, he drops down, sinking his [npc.cock+] into your [pc.pussy+] in the process. Ignoring your lewd squeals as he fills you with his massive shaft, he declares, [npc.speech(I'll make you cum in no time! ~Mmm!~ Remember, after you've orgasmed once, the demo's over...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_STALL_CAFE_MASCULINE_ANAL"><![CDATA[
+	<p>
+		Wanting to feel [npc.namePos] massive cock pumping deep in and out of your [pc.ass+], you call him over and say that you want to get a demonstration of how virile and hungry for anal sex he is.
+	</p>
+	<p>
+		[npc.speech(Wanting your ass to get rutted by this, huh?)] he grunts in amusement as he grabs hold of his massive bulge and hefts it up and down a couple of times. Replying in the positive, you can't help but let out an eager [pc.moan] as he dominantly takes you by the [pc.arm] and leads you over towards the back of the café, saying as he goes, [npc.speech(I'll have you stuffed full of my fat cock in just a minute. You're going to love it, aren't you, you horny thing?)]
+	</p>
+	<p>
+		Once again replying in the positive, you happily allow the muscular [npc.race] to take you into a small, carpeted office that's located at the rear of the café. As [npc.name] closes the door and turns to face you, you eagerly turn around and drop down before him, presenting him with your [pc.ass+] in the process. Watching the muscular [npc.race] quickly shift his briefs to one side, you let out [pc.a_moan+] as you see his [npc.cock+] flopping free.
+	</p>
+	<p>
+		[npc.speech(You want it like that, huh?)] [npc.name] hungrily grunts. Stepping forwards, he strokes his cock a few times, and thanks to the sight of your exposed asshole, he's rock-hard in just a moment. Wasting no time, he lines his [npc.cock+] up to your rear entrance, and after sliding the [npc.cockHead+] up and down over your [pc.ass+] a couple of times, he thrusts forwards, sinking his [npc.cock+] into your [pc.asshole+]. Pushing forwards, he fills you with his massive shaft, grunting as he does so, [npc.speech(I'll make you cum in no time! ~Mmm!~ Remember, after you've orgasmed once, the demo's over...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_STALL_CAFE_ANAL_SEX"><![CDATA[
+	<p>
+		Wanting to fuck [npc.namePos] ass, you call over the waiter and tell him that you want a demo of how much he loves getting his ass rutted.
+	</p>
+	<p>
+		[npc.speech(Of course, [pc.sir],)] he replies, before letting out a quiet, excited moan and gesturing for you to follow him. Walking over to the far side of the café with you in tow, he drops his professional mannerisms a little as he teases, [npc.speech(I can't wait to feel your cock pounding my butt... I love getting fucked in the ass so much...)]
+	</p>
+	<p>
+		Leading you into a small, carpeted office at the rear of the café, [npc.name] closes the door behind you, before wasting no time in pulling down his trousers and bending over the office's desk, exposing his [npc.asshole+] to you in the process. Quickly gaining access to your cock, you [pc.step] forwards and rub the [pc.cockHead+] over the [npc.race]'s ass, causing him to moan, [npc.speech(Oh yes! ~Mmm!~ Please, [pc.sir], fuck my ass! Oh, and please remember that the demo ends once you cum...)]
+	</p>
+	<p>
+		Wasting no more time, you line your [pc.cock+] up to [npc.namePos] rear entrance, before thrusting forwards and sinking your [pc.cock+] into his [npc.asshole+]. Pushing forwards, you fill the waiter's ass with your throbbing shaft, before pulling back and then thrusting forwards once more, causing him to moan and groan in delight as you fuck his [npc.ass+]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_STALL_CAFE_ANAL_ANILINGUS"><![CDATA[
+	<p>
+		Wanting to get a rimjob from [npc.name], you call over the waiter and tell him that you want a demo of how much he loves performing anilingus.
+	</p>
+	<p>
+		[npc.speech(Of course, [pc.sir],)] he replies, before letting out a quiet, excited moan and gesturing for you to follow him. Walking over to the far side of the café with you in tow, he drops his professional mannerisms a little as he teases, [npc.speech(I can't wait to get a taste of your ass...)]
+	</p>
+	<p>
+		Telling him that he'll get what he wants in just a moment, you happily allow the [npc.race] to take you into a small, carpeted office that's located at the rear of the café. As [npc.name] closes the door and turns to face you, you eagerly expose your [pc.asshole+] and lean forwards over the office's desk, presenting your [pc.ass+] to the waiter in the process. 
+	</p>
+	<p>
+		[npc.speech(Let's get started then!)] he happily exclaims, before dropping down behind you and leaning forwards to plant a big, wet kiss on your [pc.asshole+]. Pulling back for a moment, he moans, [npc.speech(Oh, please remember that the demo ends once you cum...)]
+	</p>
+	<p>
+		With that, [npc.name] buries his face between your [pc.assSize] ass cheeks, and after giving your rear entrance another passionate kiss, he darts out his tongue and starts to give you an enthusiastic rimjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_STALL_CAFE_ANAL_TASTING"><![CDATA[
+	<p>
+		Wanting to get a taste of [npc.namePos] ass, you call over the waiter and tell him that you want a demo of how much he loves to receive anilingus.
+	</p>
+	<p>
+		[npc.speech(Of course, [pc.sir],)] he replies, before letting out a quiet, excited moan and gesturing for you to follow him. Walking over to the far side of the café with you in tow, he drops his professional mannerisms a little as he teases, [npc.speech(I can't wait to get a rimjob from you...)]
+	</p>
+	<p>
+		Telling him that he'll get what he wants in just a moment, you happily allow the [npc.race] to take you into a small, carpeted office that's located at the rear of the café. After he's closed the door, he wastes no time in pulling down his trousers and bending over the office's desk, exposing his [npc.asshole+] to you in the process. Quickly [pc.stepping] forwards, you drop down behind the [npc.race] and plant a big, wet kiss on his [npc.asshole+], causing him to moan, [npc.speech(Oh yes! ~Mmm!~ Please, [pc.sir], enjoy my ass! Oh, and please remember that the demo ends once you cum...)]
+	</p>
+	<p>
+		Eager to get started, you bury your face between [npc.namePos] [npc.assSize] ass cheeks, and after giving his rear entrance another passionate kiss, you dart out your [pc.tongue+] and start to give him an enthusiastic rimjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_STALL_CAFE_FEMININE_SEX"><![CDATA[
+	<p>
+		Wanting to fuck [npc.name], you call over the waitress and tell her that you want a demonstration of how good her pussy feels.
+	</p>
+	<p>
+		[npc.speech(~Mmm!~ You want to pound my little cunt, huh?)] she moans, before winking and beckoning you to follow her. Strutting off to the far side of the café with you in tow, she bites her lip as she looks back over her shoulder and playfully teases, [npc.speech(My owner said that clients can finish inside of me if they want, so don't worry about pulling out once I make you cum...)]
+	</p>
+	<p>
+		Leading you into a small, carpeted office at the rear of the café, [npc.name] closes the door behind you, before wasting no time in pulling up her virgin-killer sweater and lying back over the office's desk. Spreading her legs, she exposes her [npc.pussy+] to you, before reaching down and using her [npc.fingers+] to spread her pussy lips. Quickly gaining access to your cock, you [pc.step] forwards and rub the [pc.cockHead+] over the [npc.race]'s [npc.labia+], causing her to excitedly squeal and moan, [npc.speech(Oh yes! ~Mmm!~ Come on, fuck me good and hard! Oh, and please remember that the demo ends once you cum...)]
+	</p>
+	<p>
+		Wasting no more time, you line your [pc.cock+] up to [npc.namePos] [npc.pussy+], before thrusting forwards and sinking your [pc.cock+] into her hungry cunt. Pushing forwards, you fill the waitress's pussy with your throbbing shaft, before pulling back and then thrusting forwards once more, causing her to moan in delight...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_STALL_CAFE_ORAL_CUNNILINGUS"><![CDATA[
+	<p>
+		Wanting to get a taste of [npc.namePos] pussy, you call over the waitress and tell her that you want a demonstration of how much she loves to be eaten out.
+	</p>
+	<p>
+		[npc.speech(~Mmm!~ You want to get your tongue into my hot little cunt, huh?)] she moans, before winking and beckoning you to follow her. Strutting off to the far side of the café with you in tow, she bites her lip as she looks back over her shoulder and playfully teases, [npc.speech(You know, I'm something of a squirter, so apologies in advance if I end up making a mess all over your face...)]
+	</p>
+	<p>
+		Leading you into a small, carpeted office at the rear of the café, [npc.name] closes the door behind you, before wasting no time in pulling up her virgin-killer sweater and sitting down on a nearby chair. Spreading her legs, she exposes her [npc.pussy+] to you, before reaching down and using her [npc.fingers+] to spread her pussy lips. Wanting to get started as soon as possible, you [pc.step] forwards and drop down between the [npc.racePos] legs, before planting a big, wet kiss on her [npc.labia+]. Stroking the top of your head, she loudly moans, [npc.speech(Oh yes! ~Mmm!~ Go on, get your tongue in there and have a good taste! Oh, and please remember that the demo ends once you cum...)]
+	</p>
+	<p>
+		Eager to get started, you bury your face between [npc.namePos] [npc.legs] and give her [npc.clit+] a passionate kiss. With the [npc.race] continuing to let out a stream of horny moans, you dart out your [pc.tongue+] and thrust it into her cunt, before starting to enthusiastically eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_STALL_CAFE_AFTER_SEX"><![CDATA[
+	#IF(pc.getLocationPlaceType()==PLACE_TYPE_SLAVER_ALLEY_CAFE)
+		<p>
+			As you've reached your climax, [npc.name] gently pushes you away from her and sighs, [npc.speech(Sorry, but my owner has ordered that I have to stop after my partner's first orgasm...)]
+		</p>
+		<p>
+			Although still horny and wanting to do more with the [npc.race], you realise from the tone of her voice that there's no room for negotiation, and so you [pc.step] back and set about getting your things back in order. Cleaning herself up with a few wet wipes, [npc.name] gets her uniform back in order and steps over to the door, asking, [npc.speech(Are you ready to head back to your table now, [pc.sir]?)]
+		</p>
+	#ELSEIF(pc.getLocationPlaceType()==PLACE_TYPE_SLAVER_ALLEY_CAFE_2)
+		<p>
+			As you've reached your climax, [npc.name] takes a step back and grunts, [npc.speech(Sorry, babe, but my owner has ordered that I have to stop after your first orgasm. Come back tomorrow and we can do this again.)]
+		</p>
+		<p>
+			Although still horny and wanting to do more with the [npc.race], you realise from the tone of his voice that there's no room for negotiation, and so you [pc.step] back and set about getting your things back in order. Cleaning himself up with a few wet wipes, [npc.name] gets his uniform back in order and steps over to the door, asking, [npc.speech(Are you ready to head back to your table now?)]
+		</p>
+	#ELSEIF(pc.getLocationPlaceType()==PLACE_TYPE_SLAVER_ALLEY_CAFE_3)
+		<p>
+			As you've reached your climax, [npc.name] takes a step back and sighs, [npc.speech(I'm sorry, [pc.sir], but my owner has ordered that I have to stop after your first orgasm...)]
+		</p>
+		<p>
+			Although still horny and wanting to do more with the [npc.race], you realise from the tone of his voice that there's no room for negotiation, and so you [pc.step] back and set about getting your things back in order. Cleaning himself up with a few wet wipes, [npc.name] gets his uniform back in order and steps over to the door, asking, [npc.speech(Are you ready to head back to your table now, [pc.sir]?)]
+		</p>
+	#ELSE
+		<p>
+			As you've reached your climax, [npc.name] gently pushes you away from her and sighs, [npc.speech(Sorry, babe, but my owner has ordered that I have to stop after my partner's first orgasm...)]
+		</p>
+		<p>
+			Although still horny and wanting to do more with the [npc.race], you realise from the tone of her voice that there's no room for negotiation, and so you [pc.step] back and set about getting your things back in order. Cleaning herself up with a few wet wipes, [npc.name] gets her uniform back in order and steps over to the door, asking, [npc.speech(Are you ready to head back to your table now?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_STALL_CAFE_AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		Replying in the positive, you head back out into the café and allow [npc.name] to lead you back over to your table. Before departing, [npc.she] states, [npc.speech(Please call for me if you want to order anything. Oh, and I can't give you anotehr demonstration until tomorrow at the earliest.)]
+	</p>
+	<p>
+		At that moment, another customer calls for [npc.namePos] attention, and as the [npc.race] heads over to see what they want, you're left wondering what to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -537,7 +1000,10 @@
 	
 	<htmlContent tag="AUCTION_IMPORT_START"><![CDATA[
 	<p>
-		You can import any of your previously exported characters in order to add them to the auctioning list. (Export any character in the game by viewing their character sheet and pressing the little export button in the top-right of the screen.)
+		You can import any of your previously exported characters in order to add them to the auctioning list. Once imported, this character will show up in the auction list, and by bidding on them you can purchase them and add them as one of your slaves.
+	</p>
+	<p>
+		<i>You can export any character in the game by viewing their character sheet and pressing the little export button in the bottom-right of the screen.</i>
 	</p>
 	]]>
 	</htmlContent>

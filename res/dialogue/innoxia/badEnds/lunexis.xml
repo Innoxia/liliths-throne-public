@@ -13,7 +13,7 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Palace]]></responseTitle>
 				<responseTooltip><![CDATA[The four of you are dragged into Themiscyra's palace...]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_badEnds_plaza_bad_end_palace]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_plaza_bad_end_palace]]></nextDialogue>
 				<effects><![CDATA[
 					[#pc.setLocation(WORLD_TYPE_innoxia_fields_themiscyra, PLACE_TYPE_innoxia_fields_themiscyra_palace)]
 					[#meraxis.setLocation(pc)]
@@ -36,7 +36,7 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Trained]]></responseTitle>
 				<responseTooltip><![CDATA[Over the next few months, Lunexis has you trained into becoming her obedient cock-sleeve...]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_badEnds_plaza_bad_end_palace_trained]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_plaza_bad_end_palace_trained]]></nextDialogue>
 			</response>
 		</responses>
 	</scene>
@@ -56,35 +56,47 @@
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
 		<responses>
+			<!-- Oral: -->
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Oral whore]]></responseTitle>
 				<responseTooltip><![CDATA[Tell the horse-girl that you love sucking her fat horse cock most of all!]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_badEnds_plaza_bad_end_palace_trained_choice]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_plaza_bad_end_palace_trained_choice]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/lunexis', 'PLAZA_BAD_END_PALACE_TRAINED_ORAL'))]
 					[#flags.setFlag(FLAG_innoxia_themiscyra_bad_end_oral, true)]
 				]]></effects>
 			</response>
+			<!-- Vaginal: -->
 			<response>
+				<availabilityConditional><![CDATA[[#!pc.hasVagina()]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
-				<responseTitle><![CDATA[Cock sleeve]]></responseTitle>
+				<responseTitle><![CDATA[Cock-sleeve]]></responseTitle>
+				<responseTooltip><![CDATA[You don't have a pussy, so can't be trained to be a true cock-sleeve...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.hasVagina()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Cock-sleeve]]></responseTitle>
 				<responseTooltip><![CDATA[Tell the horse-girl that you love being a true cock sleeve, having her fat horse cock hilted deep into your cunt!]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_badEnds_plaza_bad_end_palace_trained_choice]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_plaza_bad_end_palace_trained_choice]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/lunexis', 'PLAZA_BAD_END_PALACE_TRAINED_VAGINAL'))]
 					[#flags.setFlag(FLAG_innoxia_themiscyra_bad_end_vaginal, true)]
 				]]></effects>
 			</response>
+			<!-- Anal: -->
 			<response>
 				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled()]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[3]]></index>
 				<responseTitle><![CDATA[Butt slut]]></responseTitle>
 				<responseTooltip><![CDATA[Tell the horse-girl that you love the feeling of having her massive cock rammed deep into your slutty ass!]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_badEnds_plaza_bad_end_palace_trained_choice]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_plaza_bad_end_palace_trained_choice]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/badEnds/lunexis', 'PLAZA_BAD_END_PALACE_TRAINED_ANAL'))]
 					[#flags.setFlag(FLAG_innoxia_themiscyra_bad_end_anal, true)]
@@ -104,7 +116,7 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Final training]]></responseTitle>
 				<responseTooltip><![CDATA[You get trained by the horse-girl to become Lunexis's perfect cock-sleeve...]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_badEnds_plaza_bad_end_graduation]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_plaza_bad_end_graduation]]></nextDialogue>
 				<effects><![CDATA[
 					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_oral))
 						[#pc.addFetish(FETISH_ORAL_GIVING)]
@@ -137,7 +149,7 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Party]]></responseTitle>
 				<responseTooltip><![CDATA[You're taken to the party, where you're to finally get stuffed full of Lunexis's cock!]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_badEnds_plaza_bad_end_final]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_plaza_bad_end_final]]></nextDialogue>
 			</response>
 		</responses>
 	</scene>
@@ -171,7 +183,7 @@
 					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_spectate_meraxis))
 						null
 					#ELSE
-						innoxia_badEnds_plaza_bad_end_final_spectate
+						innoxia_badEnds_lunexis_plaza_bad_end_final_spectate
 					#ENDIF
 				]]></nextDialogue>
 				<effects><![CDATA[
@@ -194,7 +206,7 @@
 					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_spectate_aurokaris))
 						null
 					#ELSE
-						innoxia_badEnds_plaza_bad_end_final_spectate
+						innoxia_badEnds_lunexis_plaza_bad_end_final_spectate
 					#ENDIF
 				]]></nextDialogue>
 				<effects><![CDATA[
@@ -217,7 +229,7 @@
 					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_spectate_ursa))
 						null
 					#ELSE
-						innoxia_badEnds_plaza_bad_end_final_spectate
+						innoxia_badEnds_lunexis_plaza_bad_end_final_spectate
 					#ENDIF
 				]]></nextDialogue>
 				<effects><![CDATA[
@@ -240,7 +252,7 @@
 					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_spectate_self))
 						null
 					#ELSE
-						innoxia_badEnds_plaza_bad_end_final_spectate
+						innoxia_badEnds_lunexis_plaza_bad_end_final_spectate
 					#ENDIF
 				]]></nextDialogue>
 				<effects><![CDATA[
@@ -263,7 +275,7 @@
 					#IF(!flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_spectate_meraxis) || !flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_spectate_aurokaris) || !flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_spectate_ursa) || !flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_spectate_self))
 						null
 					#ELSE
-						innoxia_badEnds_plaza_bad_end_final_epilogue
+						innoxia_badEnds_lunexis_plaza_bad_end_final_epilogue
 					#ENDIF
 				]]></nextDialogue>
 			</response>
@@ -276,7 +288,7 @@
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
-		<responses copyFromDialogueId="innoxia_badEnds_plaza_bad_end_final"/>
+		<responses copyFromDialogueId="innoxia_badEnds_lunexis_plaza_bad_end_final"/>
 	</scene>
 	
 	<scene id="plaza_bad_end_final_epilogue">

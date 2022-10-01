@@ -3085,7 +3085,12 @@ public class ScarlettsShop {
 			} else if(index==14) {
 				return new Response("[style.colourMinorGood(Finalise order)]",
 						"Tell Helena that you've completed the ordering forms, and see how much this is going to cost you...",
-						HELENAS_SHOP_CUSTOM_SLAVE_FINISH);
+						HELENAS_SHOP_CUSTOM_SLAVE_FINISH) {
+					@Override
+					public void effects() {
+						BodyChanging.getTarget().setAllAreasKnownByCharacter(Main.game.getPlayer(), true);
+					}
+				};
 				
 			} 
 			return null;

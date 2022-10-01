@@ -6,6 +6,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -45,7 +46,10 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -79,6 +83,9 @@ public class Ursa extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.5.6")) {
+			this.setFetishDesire(Fetish.FETISH_PENIS_RECEIVING, FetishDesire.TWO_NEUTRAL);
+		}
 	}
 
 	@Override
@@ -131,7 +138,6 @@ public class Ursa extends NPC {
 			
 			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ONE_DISLIKE);
 			
-			this.setFetishDesire(Fetish.FETISH_PENIS_RECEIVING, FetishDesire.ZERO_HATE);
 			this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.ZERO_HATE);
 			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.ZERO_HATE);
 		}
@@ -260,5 +266,19 @@ public class Ursa extends NPC {
 	public boolean isAbleToBeImpregnated() {
 		return true;
 	}
-	
+
+	@Override
+	public SexPace getSexPaceDomPreference(){
+		return SexPace.DOM_GENTLE;
+	}
+
+	public void stripForSex(){
+		List<InventorySlot> slotsToUnequip = Util.newArrayListOfValues(InventorySlot.TORSO_UNDER, InventorySlot.GROIN, InventorySlot.CHEST);
+		for(InventorySlot slot : slotsToUnequip) {
+			AbstractClothing clothingInSlot = this.getClothingInSlot(slot);
+			if(clothingInSlot!=null) {
+				this.unequipClothingIntoVoid(clothingInSlot, true, this);
+			}
+		}
+	}
 }

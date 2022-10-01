@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<vagina>
+	<race>innoxia_deer</race>
+	
+	<transformationName><![CDATA[deer]]></transformationName>
+	
+	<coveringType>VAGINA</coveringType>
+	
+	<fluidType>innoxia_deer_girlcum</fluidType>
+	
+	<eggLayer>false</eggLayer>
+	
+	<names>
+		<name><![CDATA[deer-]]></name>
+	</names>
+	<namesPlural>
+		<name><![CDATA[deer-]]></name>
+	</namesPlural>
+	
+	<descriptors>
+		<descriptor><![CDATA[hot]]></descriptor>
+	</descriptors>
+	
+	<defaultOrificeModifiers/>
+	
+	<transformationDescription><![CDATA[
+			[npc.She] [npc.verb(let)] out a squeal of excitement as a wave of pleasure runs up through [npc.her] groin, which increases in intensity as [npc.she] [npc.verb(feel)] [npc.her] slit uncontrollably shifting and contracting. Within moments, the feeling fades away, and [npc.she] [npc.verb(discover)] that [npc.her] pussy [npc.has] reformed into a distinctly deer-like form.
+		</p>
+		<p>
+			Just as [npc.she] [npc.verb(start)] think that the transformation [npc.has] come to an end, [npc.her] pussy involuntarily clenches down, and a desperate squeal escapes from between [npc.her] [npc.lips+] as a warm, tingling feeling spreads up through [npc.her] lower abdomen. Images of throbbing deer-cocks slamming deep into [npc.her] new pussy flash before [npc.her] eyes, and [npc.her] squeal turns into a satisfied moan as [npc.she] [npc.verb(imagine)] them pumping their potent seed deep into [npc.her] new womb. Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body, [npc.she] [npc.verb(feel)] [npc.her] female reproductive organs finishing their transformation.
+			<br/>[npc.Name] now [npc.has] a [style.boldGoat(deer vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls.
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		[npc.she] [npc.has] #IF(npc.isPiercedVagina())a pierced#ELSEa#ENDIF deer-pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.
+	]]></bodyDescription>
+	
+</vagina>

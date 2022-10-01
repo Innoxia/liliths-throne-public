@@ -486,3 +486,6 @@ platonic
 psychedelic
 nauseating
 depiction
+squelching
+ovipositor
+ovipositors

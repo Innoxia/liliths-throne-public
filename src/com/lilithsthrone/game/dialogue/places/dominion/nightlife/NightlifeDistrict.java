@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.dialogue.places.dominion.nightlife;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -78,12 +80,17 @@ public class NightlifeDistrict {
 		return !((Main.game.getMinutesPassed()+minutesPassedForNextScene) % (24 * 60) >= (60 * 5) && (Main.game.getMinutesPassed()+minutesPassedForNextScene) % (24 * 60) < (60 * 19));
 	}
 	
+	public static boolean isSearchingForASub() {
+		return isSearchingForASub;
+	}
+
 	public static List<GameCharacter> getClubbersPresent() {
 		List<GameCharacter> clubbers = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
 //		for(GameCharacter clubber : clubbers) {
 //			System.out.println(clubber.getClass().getName());
 //		}
-		clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC));
+//		clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC));
+		clubbers.removeIf((npc) -> npc.isUnique());
 		return clubbers;
 	}
 	
@@ -95,10 +102,9 @@ public class NightlifeDistrict {
 
 	
 	public static List<GameCharacter> getSavedClubbers(boolean submissiveClubbers) {
-		List<GameCharacter> clubbers = new ArrayList<>(Main.game.getCharactersPresent(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL));
+		List<GameCharacter> clubbers = new ArrayList<>(Main.game.getCharactersPresent(WorldType.EMPTY, PlaceType.GENERIC_CLUB_HOLDING_CELL));
 		
-		clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC)
-				|| (submissiveClubbers
+		clubbers.removeIf((npc) -> (submissiveClubbers
 						?npc.hasPersonalityTrait(PersonalityTrait.CONFIDENT)
 						:!npc.hasPersonalityTrait(PersonalityTrait.CONFIDENT)));
 		
@@ -179,7 +185,7 @@ public class NightlifeDistrict {
 	
 	public static void saveClubbers() {
 		for(GameCharacter clubber : getClubbersPresent()) {
-			clubber.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+			clubber.setLocation(WorldType.EMPTY, PlaceType.GENERIC_CLUB_HOLDING_CELL);
 		}
 	}
 	
@@ -304,7 +310,7 @@ public class NightlifeDistrict {
 		sb.append("<p style='text-align:center;'>");
 		if(isPartnerLeaving()) {
 			sb.append(UtilText.parse(getClubbersPresent(), "[style.boldTerrible([npc.Name] leaves you!)]</br>"
-					+ "[npc.Name] is fed up, and, with a dismissive wave of [npc.her] [npc.hand], [npc.she] turns around and leaves you!"));
+					+ "[npc.Name] is fed up, and with a dismissive wave of [npc.her] [npc.hand], [npc.she] turns around and leaves you!"));
 		
 		} else if(isPartnerPassingOut()) {
 			sb.append(UtilText.parse(getClubbersPresent(), "[style.boldTerrible([npc.Name] collapses!)]</br>"
@@ -823,9 +829,21 @@ public class NightlifeDistrict {
 						};
 					}
 					
+				} else if(index==4) {
+					return new Response("Import (as dom)",
+							"View the character import screen."
+								+ " Characters imported in the following screen will be marked as being submissive, and will show up in your 'Contacts (as dom)' list after they've been imported.",
+							WATERING_HOLE_IMPORT) {
+						@Override
+						public void effects() {
+							isSearchingForASub = true;
+						}
+					};
+					
 				} if(index==6) {
 					return new Response("Search (as sub)",
-							"Loiter in the main area of the club and try to catch the eye of someone you like the look of. This will put you in the submissive role, where your partner will be the one leading you around the club.",
+							"Loiter in the main area of the club and try to catch the eye of someone you like the look of."
+									+ " This will put you in the submissive role, where your partner will be the one leading you around the club.",
 							WATERING_HOLE_SEARCH_GENDER) {
 						@Override
 						public void effects() {
@@ -863,9 +881,20 @@ public class NightlifeDistrict {
 							}
 						};
 					}
-				} else {
-					return null;
+					
+				} else if(index==9) {
+					return new Response("Import (as sub)",
+							"View the character import screen."
+								+ " Characters imported in the following screen will be marked as being dominant, and will show up in your 'Contacts (as sub)' list after they've been imported.",
+							WATERING_HOLE_IMPORT) {
+						@Override
+						public void effects() {
+							isSearchingForASub = false;
+						}
+					};
 				}
+				
+				return null;
 			}
 		}
 	};
@@ -1207,6 +1236,62 @@ public class NightlifeDistrict {
 			return Main.game.getDefaultDialogue(false).getResponse(responseTab, index);
 		}
 	};
+	
+	public static final DialogueNode WATERING_HOLE_IMPORT = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public String getHeaderContent(){
+			StringBuilder saveLoadSB = new StringBuilder();
+			
+			if(isSearchingForASub) {
+				saveLoadSB.append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_IMPORT_DOM"));
+			} else {
+				saveLoadSB.append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_IMPORT_SUB"));
+			}
+			saveLoadSB.append(
+					"<p>"
+						+ "<table align='center'>");
+			Main.getSlavesForImport().sort(Comparator.comparingLong(File::lastModified).reversed());
+			
+			for(File f : Main.getSlavesForImport()){
+				saveLoadSB.append(getImportRow(f.getName()));
+			}
+			
+			saveLoadSB.append("</table>"
+					+ "</p>"
+					+ "<p id='hiddenPField' style='display:none;'></p>");
+			
+			return saveLoadSB.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==0) {
+				return new Response("Back", "Return to the previous screen.", Main.game.getDefaultDialogue());
+			}
+			return null;
+		}
+	};
+	
+	private static String getImportRow(String name) {
+		String baseName = Util.getFileName(name);
+		String identifier = Util.getFileIdentifier(name);
+		
+		return "<tr>"
+				+ "<td style='min-width:200px;'>"
+					+ baseName
+				+ "</td>"
+				+ "<td>"
+					+ "<div class='saveLoadButton' id='import_clubber_" + identifier + "' style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Import</div>"
+				+ "</td>"
+				+ "</tr>";
+	}
 	
 	public static final DialogueNode WATERING_HOLE_LOITER_GENERATE = new DialogueNode("The Watering Hole", "", false) {
 		

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[Ursa's tent]]></name>
+	<tooltipDescription><![CDATA[This purple tent is larger than all the others in the Amazons' camp, and it houses the queen, Ursa.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in Ursa's tent in the Amazons' camp]]></virginityLossDescription>
+	<sexBlockedReason/>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_PURPLE</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_amazon_camp_queen</dialogue>
+	<populationPresent>
+		<population>
+			<populationType plural="true" density="COUPLE">AMAZON_GUARD</populationType>
+			<subspeciesPresent>
+				<subspecies>dsg_bear_subspecies_bear</subspecies>
+			</subspeciesPresent>
+		</population>
+	</populationPresent>
+	<furniturePresent deskName="bed">true</furniturePresent>
+	<wallsPresent wallName="wardrobe">true</wallsPresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions/>
+	<weatherImmunities immuneToAll="true"/>
+	<applyInventoryInit/>
+</placeType>
