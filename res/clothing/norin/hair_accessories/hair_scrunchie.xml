@@ -19,7 +19,6 @@
 		<clothingSet/> 
 		<imageName>hair_scrunchie.svg</imageName> 
 		<imageEquippedName/> 
-		<enchantmentLimit/>
 		<effects/>
 		
 		<blockedPartsList slot="HAIR"> 	

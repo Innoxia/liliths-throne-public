@@ -113,6 +113,7 @@ public class NPCOffspring extends NPC {
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		
 		Main.game.getCharacterUtils().applyMakeup(this, true);
+		Main.game.getCharacterUtils().applyTattoos(this, true);
 		
 		initHealthAndManaToMax();
 		

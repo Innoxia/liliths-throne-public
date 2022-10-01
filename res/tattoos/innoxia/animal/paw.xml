@@ -6,10 +6,9 @@
 		<name><![CDATA[paw-print]]></name>
 		
 		<description><![CDATA[A stylised silhouette of an animal's paw-print.]]></description> 
+		<bodyOverviewDescription><![CDATA[a tattoo which depicts a stylised silhouette of an animal's paw-print]]></bodyOverviewDescription> 
 		
 		<imageName>paw.svg</imageName> 
-		
-		<enchantmentLimit>5</enchantmentLimit>
 		
 		<slotAvailability/>
 		

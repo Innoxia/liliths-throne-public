@@ -39,7 +39,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
@@ -83,7 +82,7 @@ public class RebelBaseInsaneSurvivor extends NPC {
             // Spawn with level between 12 and 15
             setLevel(12 + Util.random.nextInt(4));
             
-            setName(Name.getRandomTriplet(this.getRace()));
+            setName(Name.getRandomTriplet(this.getSubspecies()));
             this.setPlayerKnowsName(false);
             this.setGenericName("insane survivor");
             this.setEssenceCount(500);
@@ -222,11 +221,11 @@ public class RebelBaseInsaneSurvivor extends NPC {
         }
         if(this.isFeminine())
         {
-            this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_PANTIES, false), true, this);
+            this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_panties", false), true, this);
         }
         else
         {
-            this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BRIEFS, false), true, this);
+            this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_briefs", false), true, this);
         }
         
     }

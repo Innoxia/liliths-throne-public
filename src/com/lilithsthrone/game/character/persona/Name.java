@@ -1,12 +1,21 @@
 package com.lilithsthrone.game.character.persona;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import org.w3c.dom.Document;
+
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -628,19 +637,148 @@ public class Name {
 			"Lynixi",
 			"Liloria"};
 	
+	private static Map<String, List<NameTriplet>> racialNames = new HashMap<>();
+	
+	static {
+		for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
+			if(subspecies.getRace()==Race.HORSE_MORPH) {
+				racialNames.put(Subspecies.getIdFromSubspecies(subspecies), equine);
+			}
+			if(subspecies.getRace()==Race.REINDEER_MORPH) {
+				racialNames.put(Subspecies.getIdFromSubspecies(subspecies), reindeer);
+			}
+		}
+		
+		// Modded names:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", null, "names");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					String raceID = innerEntry.getKey().replaceAll("_race", "");
+					raceID = raceID.replaceAll("_names", "");
+					
+					Map<String, List<NameTriplet>> importedNames = importNames(innerEntry.getValue(), entry.getKey(), true, raceID);
+					if(importedNames!=null && !importedNames.isEmpty()) {
+						for(Entry<String, List<NameTriplet>> importedNameEntry : importedNames.entrySet()) {
+							racialNames.putIfAbsent(importedNameEntry.getKey(), new ArrayList<>());
+							racialNames.get(importedNameEntry.getKey()).addAll(importedNameEntry.getValue());
+						}
+//						System.out.println("Added modded names of race: "+raceID);
+					}
+				} catch(Exception ex) {
+					System.err.println("Loading modded names failed. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		// External res names:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", null, "names");
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					String raceID = innerEntry.getKey().replaceAll("_race", "");
+					raceID = raceID.replaceAll("_names", "");
+					
+					Map<String, List<NameTriplet>> importedNames = importNames(innerEntry.getValue(), entry.getKey(), false, raceID);
+					if(importedNames!=null && !importedNames.isEmpty()) {
+						for(Entry<String, List<NameTriplet>> importedNameEntry : importedNames.entrySet()) {
+							racialNames.putIfAbsent(importedNameEntry.getKey(), new ArrayList<>());
+							racialNames.get(importedNameEntry.getKey()).addAll(importedNameEntry.getValue());
+						}
+//						System.out.println("Added res names of race: "+raceID);
+					}
+				} catch(Exception ex) {
+					System.err.println("Loading names failed. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
 
+	private static Map<String, List<NameTriplet>> importNames(File XMLFile, String author, boolean mod, String raceID) {
+		if (XMLFile.exists()) {
+			try {
+				Document doc = Main.getDocBuilder().parse(XMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element coreElement = Element.getDocumentRootElement(XMLFile); // Loads the document and returns the root element - in statusEffect files it's <statusEffect>
+				
+				boolean additionalNames = Boolean.valueOf(coreElement.getAttribute("additional"));
+				
+				Map<String, List<NameTriplet>> importedNameMap = new HashMap<>();
+				
+				for(Element outerElement : coreElement.getAllOf("subspecies")) {
+					String subspeciesId = outerElement.getAttribute("id");
+					List<NameTriplet> importedNames = new ArrayList<>();
+					for(Element e : outerElement.getAllOf("nameTriplet")) {
+						String femName = e.getOptionalFirstOf("fem").isPresent()?e.getMandatoryFirstOf("fem").getTextContent():null;
+						String andName = e.getOptionalFirstOf("and").isPresent()?e.getMandatoryFirstOf("and").getTextContent():null;
+						String masName = e.getOptionalFirstOf("mas").isPresent()?e.getMandatoryFirstOf("mas").getTextContent():null;
+						
+						if(femName!=null || andName!=null || masName!=null) {
+							if(femName==null) {
+								femName = andName!=null?andName:masName;
+							}
+							if(andName==null) {
+								andName = femName!=null?femName:masName;
+							}
+							if(masName==null) {
+								masName = andName!=null?andName:femName;
+							}
+							importedNames.add(new NameTriplet(masName, andName, femName));
+//							System.out.println("Added ("+subspeciesId+"): "+masName+", "+andName+", "+femName);
+						}
+					}
+					if(subspeciesId.isEmpty() || subspeciesId.equalsIgnoreCase("ALL")) {
+						for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
+							if(subspecies.getRace()==Race.getRaceFromId(raceID)) {
+								importedNameMap.putIfAbsent(Subspecies.getIdFromSubspecies(subspecies), new ArrayList<>());
+								importedNameMap.get(Subspecies.getIdFromSubspecies(subspecies)).addAll(importedNames);
+							}
+						}
+						
+					} else {
+						importedNameMap.putIfAbsent(subspeciesId, new ArrayList<>());
+						importedNameMap.get(subspeciesId).addAll(importedNames);
+					}
+				}
+				if(additionalNames) {
+					for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
+						if(subspecies.getRace()==Race.getRaceFromId(raceID)) {
+							importedNameMap.get(Subspecies.getIdFromSubspecies(subspecies)).addAll(human);
+						}
+					}
+				}
+				
+				return importedNameMap;
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("AbstractRacialBody was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+			}
+		}
+		return null;
+	}
 	
 	public static String getRandomName(GameCharacter gc) {
 		switch(gc.getFemininity()) {
 			case MASCULINE_STRONG:
 			case MASCULINE:
-				return getRandomTriplet(gc.getRace()).getMasculine();
+				return getRandomTriplet(gc.getSubspecies()).getMasculine();
 			case ANDROGYNOUS:
-				return getRandomTriplet(gc.getRace()).getAndrogynous();
+				return getRandomTriplet(gc.getSubspecies()).getAndrogynous();
 			case FEMININE:
 			case FEMININE_STRONG:
 			default:
-				return getRandomTriplet(gc.getRace()).getFeminine();
+				return getRandomTriplet(gc.getSubspecies()).getFeminine();
 		}
 	}
 	
@@ -709,22 +847,28 @@ public class Name {
 		return surnames[Util.random.nextInt(surnames.length)];
 	}
 	
-	public static NameTriplet getRandomTriplet(AbstractRace r) {
+	public static NameTriplet getRandomTriplet(AbstractSubspecies subspecies) {
 		NameTriplet name = Util.randomItemFrom(human);
-		// occasionally throw some "prostitute" names in there - about 10% of the time
-		if(Math.random()<0.1) {
-			name = Util.randomItemFrom(prostitute); 
-		}
+		AbstractRace r = subspecies.getRace();
 		
 		if(r==Race.DEMON || r==Race.ELEMENTAL) {
 			name = getDemonName();
-		} else if(r==Race.REINDEER_MORPH) {
-			name = Util.randomItemFrom(reindeer);
-		} else if(r==Race.HORSE_MORPH) {
-			name = Util.randomItemFrom(equine);
+			
+		} else if(racialNames.containsKey(Subspecies.getIdFromSubspecies(subspecies))) {
+			name = Util.randomItemFrom(racialNames.get(Subspecies.getIdFromSubspecies(subspecies)));
+			
+		} else if(Math.random()<0.1) { // If no racial names are found, then occasionally throw some "prostitute" names in there
+			name = Util.randomItemFrom(prostitute); 
 		}
 		
 		return name;
+	}
+	
+	public static List<NameTriplet> getAllNameTriplets(AbstractSubspecies subspecies) {
+		if(racialNames.containsKey(Subspecies.getIdFromSubspecies(subspecies))) {
+			return new ArrayList<>(racialNames.get(Subspecies.getIdFromSubspecies(subspecies)));
+		}
+		return new ArrayList<>(human);
 	}
 	
 	private static NameTriplet getDemonName() {

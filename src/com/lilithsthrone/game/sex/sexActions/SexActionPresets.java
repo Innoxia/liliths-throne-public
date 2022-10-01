@@ -187,6 +187,7 @@ public class SexActionPresets {
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> lowerHalfToFinger = new HashMap<>();
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> upperHalfToFinger = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> upperHalfToTailTentacle = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> upperHalfToAppendages = new HashMap<>();
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> crotchBoobsToAppendages = new HashMap<>();
@@ -265,32 +266,35 @@ public class SexActionPresets {
 	static {
 		
 		allAreas = Util.mergeLists(appendageAreas, groinAreas, assAreas, mouthAreas, breastAreas);
-		
-		for(SexAreaInterface tailArea : tailAreas) {
-			tailToAllAreas = Util.newHashMapOfValues(new Value<>(tailArea, allAreas));
-			tailToUpperTorso = Util.newHashMapOfValues(new Value<>(tailArea, Util.mergeLists(mouthAreas, breastAreas)));
-			tailToLowerHalf = Util.newHashMapOfValues(new Value<>(tailArea, Util.mergeLists(groinAreas, lowerHalf, assAreas)));
-		}
-		
-		tentacleToAllAreas = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, allAreas));
-		
-		tentacleToUpperTorso = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, Util.mergeLists(mouthAreas, breastAreas)));
-		tentacleToLowerHalf = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, Util.mergeLists(groinAreas, lowerHalf, assAreas)));
-		
-		fingerToUpperTorso = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, Util.mergeLists(mouthAreas, breastAreas)));
-		fingerToLowerHalf = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, Util.mergeLists(groinAreas, lowerHalf, assAreas)));
-		
-		feetToGroin = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FOOT, groinAreas));
-		
-		handHolding = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, Util.mergeLists(mouthAreas, Util.newArrayListOfValues(SexAreaPenetration.FINGER))));
-		
-		
+
 		lowerHalf.addAll(groinAreas);
 		lowerHalf.addAll(thighAreas);
 		lowerHalf.addAll(feetAreas);
 		lowerHalf.addAll(vaginaAreas);
 		lowerHalf.addAll(penisAreas);
 		lowerHalf.addAll(assAreas);
+
+		tailToAllAreas = new HashMap<>();
+		tailToUpperTorso = new HashMap<>();
+		tailToLowerHalf = new HashMap<>();
+		
+		for(SexAreaInterface tailArea : tailAreas) {
+			tailToAllAreas.put(tailArea, allAreas);
+			tailToUpperTorso.put(tailArea, Util.mergeLists(mouthAreas, breastAreas));
+			tailToLowerHalf.put(tailArea, lowerHalf);
+		}
+		
+		tentacleToAllAreas = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, allAreas));
+		
+		tentacleToUpperTorso = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, Util.mergeLists(mouthAreas, breastAreas)));
+		tentacleToLowerHalf = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, lowerHalf));
+		
+		fingerToUpperTorso = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, Util.mergeLists(mouthAreas, breastAreas)));
+		fingerToLowerHalf = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, lowerHalf));
+		
+		feetToGroin = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FOOT, groinAreas));
+		
+		handHolding = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, Util.mergeLists(mouthAreas, Util.newArrayListOfValues(SexAreaPenetration.FINGER))));
 		
 		fingerToMouth.put(SexAreaPenetration.FINGER, mouthAreas);
 		fingerToPenis.put(SexAreaPenetration.FINGER, penisAreas);
@@ -326,6 +330,7 @@ public class SexActionPresets {
 		for(SexAreaInterface area : upperHalf) {
 			upperHalfToFinger.put(area, handAreas);
 			upperHalfToAppendages.put(area, appendageAreas);
+			upperHalfToTailTentacle.put(area, tailAndTentacle);
 		}
 		
 		for(SexAreaInterface area : crotchBoobAreas) {

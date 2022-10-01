@@ -30,5 +30,6 @@
 		<place colour="#ff00ff">innoxia_fields_elis_tavern_alley_locked_door</place>
 		<place colour="#404040">innoxia_fields_elis_tavern_alley_corridor</place>
 		<place colour="#00ff80">innoxia_fields_elis_tavern_alley_vip</place>
+		<place colour="#ffff00">innoxia_fields_elis_tavern_alley_bedroom</place>
 	</places>
 </worldType>

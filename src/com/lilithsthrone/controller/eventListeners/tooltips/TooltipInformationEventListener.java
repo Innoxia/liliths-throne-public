@@ -41,7 +41,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
-import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -94,7 +94,7 @@ public class TooltipInformationEventListener implements EventListener {
 	private AbstractPerk perk;
 	private AbstractPerk levelUpPerk;
 	private int perkRow;
-	private Fetish fetish;
+	private AbstractFetish fetish;
 	private boolean fetishExperience = false;
 	private FetishDesire desire;
 	private Spell spell;
@@ -127,8 +127,8 @@ public class TooltipInformationEventListener implements EventListener {
 
 			// I hate this. If only JavaFX's height detection and resizing methods actually worked...
 			int size = statusEffect.getModifiersAsStringList(owner).size() + statusEffect.getCombatMoves().size() + statusEffect.getSpells().size();
-			int yIncrease = (size > 4 ? size - 4 : 0)
-								+ (owner.hasStatusEffect(statusEffect)?(owner.getStatusEffectDuration(statusEffect) == -1 ? 0 : 2):0);
+			int yIncrease = (size > 4 ? size - 4 : 0) + (owner.hasStatusEffect(statusEffect)?(owner.getStatusEffectDuration(statusEffect)==-1 && !statusEffect.isCombatEffect() ? 0 : 2):0);
+//								+ (owner.hasStatusEffect(statusEffect)?(owner.getStatusEffectDuration(statusEffect) == -1 ? 0 : 2):0);
 			int spacingHeight = 0;
 			
 			List<Value<Integer, String>> additionalDescriptions = statusEffect.getAdditionalDescriptions(owner);
@@ -187,9 +187,16 @@ public class TooltipInformationEventListener implements EventListener {
 			}
 			
 			if(owner.hasStatusEffect(statusEffect)) {
-				if (owner.getStatusEffectDuration(statusEffect) != -1) {
+				if (owner.getStatusEffectDuration(statusEffect) != -1 || statusEffect.isCombatEffect()) {
 					if (statusEffect.isCombatEffect()) {
-						tooltipSB.append("<div class='subTitle'><b>Turns remaining: " + owner.getStatusEffectDuration(statusEffect) + "</b></div>");
+						tooltipSB.append("<div class='subTitle'><b>Turns remaining: ");
+						if(owner.getStatusEffectDuration(statusEffect) != -1) {
+							tooltipSB.append(owner.getStatusEffectDuration(statusEffect));
+						} else {
+							tooltipSB.append(UtilText.getBasicInfinitySymbol());
+						}
+						tooltipSB.append("</b></div>");
+						
 					} else {
 						int timerHeight = (int) ((owner.getStatusEffectDuration(statusEffect)/(60*60*6f))*100);
 
@@ -529,6 +536,7 @@ public class TooltipInformationEventListener implements EventListener {
 				} else if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 					specialIncrease += 8;
 				}
+				specialIncrease += LINE_HEIGHT; // For fetish level effects
 				
 				Main.mainController.setTooltipSize(360, 342 + specialIncrease + (yIncrease * LINE_HEIGHT));
 				
@@ -536,13 +544,23 @@ public class TooltipInformationEventListener implements EventListener {
 				tooltipSB.setLength(0);
 				tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(fetish.getName(owner)) + " fetish</div>");
 				FetishLevel level = FetishLevel.getFetishLevelFromValue(owner.getFetishExperience(fetish));
-				tooltipSB.append("<div class='subTitle'>Level "+level.getNumeral()+": <span style='color:"+level.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(level.getName())+"</span>"
-						+ " <span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>|</span> " + owner.getFetishExperience(fetish) +" / "+ level.getMaximumExperience() + " xp" + "</div>");
+				tooltipSB.append("<div class='subTitle'>");
+				tooltipSB.append("Level "+level.getNumeral()+": <span style='color:"+level.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(level.getName())+"</span>"
+						+ " <span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>|</span> " + owner.getFetishExperience(fetish) +" / "+ level.getMaximumExperience() + " xp");
+
+				String appliedFetishLevelDescription = fetish.getAppliedFetishLevelEffectDescription(owner);
+				tooltipSB.append("<br/>[style.boldFetish(Level Effects:)] ");
+				if(appliedFetishLevelDescription!=null && !appliedFetishLevelDescription.isEmpty()) {
+					tooltipSB.append(appliedFetishLevelDescription);
+				} else {
+					tooltipSB.append("[style.colourDisabled(None...)]");
+				}
+				tooltipSB.append("</div>");
 				
 				// Requirements:
 				if(!fetish.getFetishesForAutomaticUnlock().isEmpty() || (!owner.hasFetish(fetish) && !fetish.getPerkRequirements(owner).isEmpty())) {
 					tooltipSB.append("<div class='subTitle' style='font-weight:normal;'><b>Requirements</b>");
-					for(Fetish f : fetish.getFetishesForAutomaticUnlock()) {
+					for(AbstractFetish f : fetish.getFetishesForAutomaticUnlock()) {
 						if(owner.hasFetish(f)) {
 							tooltipSB.append("<br/>[style.italicsGood(" + Util.capitaliseSentence(f.getName(owner))+")]");
 						} else {
@@ -1980,14 +1998,14 @@ public class TooltipInformationEventListener implements EventListener {
 		return this;
 	}
 	
-	public TooltipInformationEventListener setFetish(Fetish fetish, GameCharacter owner) {
+	public TooltipInformationEventListener setFetish(AbstractFetish fetish, GameCharacter owner) {
 		resetFields();
 		this.fetish = fetish;
 		this.owner = owner;
 		return this;
 	}
 
-	public TooltipInformationEventListener setFetishExperience(Fetish fetish, GameCharacter owner) {
+	public TooltipInformationEventListener setFetishExperience(AbstractFetish fetish, GameCharacter owner) {
 		resetFields();
 		fetishExperience = true;
 		this.fetish = fetish;
@@ -1995,7 +2013,7 @@ public class TooltipInformationEventListener implements EventListener {
 		return this;
 	}
 	
-	public TooltipInformationEventListener setFetishDesire(Fetish fetish, FetishDesire desire, GameCharacter owner) {
+	public TooltipInformationEventListener setFetishDesire(AbstractFetish fetish, FetishDesire desire, GameCharacter owner) {
 		resetFields();
 		this.desire = desire;
 		this.fetish = fetish;

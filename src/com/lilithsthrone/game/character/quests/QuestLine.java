@@ -93,6 +93,10 @@ public enum QuestLine {
 	SIDE_OGLIX_BEER_BARRELS("Beer Bitch Bonanza", "You secured more barrels for Oglix, allowing you to send four criminals from the nearby alleyways to her to become new beer-bitches!",
 			QuestType.SIDE,
 			QuestTree.beerBarrelTree),
+
+	SIDE_LUNEXIS_ESCAPE("Serving Lunexis", "You obeyed your Mistress's orders and ensured that she was able to escape, thereby sealing your fate to become one of her personal cock-sleeves...",
+			QuestType.SIDE,
+			QuestTree.lunexisEscapeTree),
 	
 	// Romance quests:
 	

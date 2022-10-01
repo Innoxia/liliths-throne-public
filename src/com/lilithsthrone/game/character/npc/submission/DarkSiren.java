@@ -53,6 +53,8 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -178,6 +180,11 @@ public class DarkSiren extends NPC {
 //			// Reset body knowledge and fluids:
 //			this.areasKnownByCharactersMap = new HashMap<>();
 //			this.fluidsStoredMap = new HashMap<>();
+		}
+		if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
+			this.setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);
+		} else if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_3_B_MEETING_MERAXIS)) {
+			this.setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE, true);
 		}
 	}
 
@@ -442,13 +449,13 @@ public class DarkSiren extends NPC {
 
 	@Override
 	public void hourlyUpdate() {
-		if(!Main.game.getCharactersPresent().contains(this)
-//				&& !Main.game.getCurrentDialogueNode().isTravelDisabled() // Not sure why this was here, but it was causing issues with Meraxis not moving to the correct tile
-				) {
-			if(Main.game.getHourOfDay()>=1 && Main.game.getHourOfDay()<=8) { // In room from 01:00 - 09:00
-				this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_meraxis"), true);
-			} else {
-				this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f0"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f0_meraxis"));
+		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_3_B_MEETING_MERAXIS) && !Main.game.isBadEnd() && Main.game.getPlayer().getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_fields_themiscyra")) {
+			if(!Main.game.getCharactersPresent().contains(this)) {
+				if(Main.game.getHourOfDay()>=1 && Main.game.getHourOfDay()<=8) { // In room from 01:00 - 09:00
+					this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_meraxis"), true);
+				} else {
+					this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f0"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f0_meraxis"));
+				}
 			}
 		}
 	}

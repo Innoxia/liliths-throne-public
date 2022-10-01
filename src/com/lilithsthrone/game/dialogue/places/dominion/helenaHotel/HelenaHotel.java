@@ -164,6 +164,10 @@ public class HelenaHotel {
 				}
 				return super.getCharacterOrgasmBehaviour(character);
 			}
+			@Override
+			public boolean isPartnerWantingToStopSex(GameCharacter partner) {
+				return Main.sex.isSatisfiedFromOrgasms(partner, true);
+			}
 		};
 	}
 	
@@ -227,6 +231,10 @@ public class HelenaHotel {
 			@Override
 			public boolean isPlayerAbleToStopSex() {
 				return helenaToPlayerPreference==null;
+			}
+			@Override
+			public boolean isAbleToSkipSexScene() {
+				return true;
 			}
 			@Override
 			public boolean isPublicSex() {

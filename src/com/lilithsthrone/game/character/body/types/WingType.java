@@ -29,8 +29,8 @@ public class WingType {
 			Race.NONE,
 			false,
 			"none",
-			"",
-			"",
+			"wing",
+			"wings",
 			new ArrayList<>(),
 			new ArrayList<>(),
 			"#IF(npc.getLegConfiguration().isWingsOnLegConfiguration())"

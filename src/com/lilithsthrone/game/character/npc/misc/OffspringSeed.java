@@ -200,7 +200,7 @@ public class OffspringSeed implements XMLSaving {
 			this.setSurname(surnames[Util.random.nextInt(surnames.length)]);
 		}
 
-		setName(Name.getRandomTriplet(getRace()));
+		setName(Name.getRandomTriplet(this.getSubspecies()));
 		
 		this.setMother(mother);
 		
@@ -292,7 +292,7 @@ public class OffspringSeed implements XMLSaving {
 			String nameMasculine = nameElement.getAttribute("nameMasculine");
 			String nameAndrogynous = nameElement.getAttribute("nameAndrogynous");
 			String nameFeminine = nameElement.getAttribute("nameFeminine");
-			NameTriplet backup = Name.getRandomTriplet(Race.HUMAN);
+			NameTriplet backup = Name.getRandomTriplet(Subspecies.HUMAN);
 			os.setName(new NameTriplet(
 					nameMasculine.isEmpty()?backup.getMasculine():nameMasculine,
 					nameAndrogynous.isEmpty()?backup.getAndrogynous():nameAndrogynous,
@@ -528,6 +528,8 @@ public class OffspringSeed implements XMLSaving {
 	public void setConceptionDate(LocalDateTime conceptionDate) { this.conceptionDate = conceptionDate; }
 	
 	public Body getBody() {	return body; }
+
+	public BodyMaterial getBodyMaterial() { return getBody().getBodyMaterial(); }
 	
 	public void setBody(Body body) { this.body = body; }
 	

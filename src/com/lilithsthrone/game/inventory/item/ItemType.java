@@ -1757,16 +1757,20 @@ public class ItemType {
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return target.isPlayer()
-					&& (target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_ALLEY
-							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_CANAL
-							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.HARPY_NEST_WALKWAYS
-							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.SUBMISSION_TUNNELS
-							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.getEncounterFromId("innoxia_elis_alleyway"))
-					&& Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size()<=1;
+					&& Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size()==0
+					&& ((Util.newArrayListOfValues(
+							Encounter.DOMINION_ALLEY,
+							Encounter.DOMINION_CANAL,
+							Encounter.HARPY_NEST_WALKWAYS,
+							Encounter.SUBMISSION_TUNNELS,
+							Encounter.BAT_CAVERN,
+							Encounter.getEncounterFromId("innoxia_elis_alleyway")
+						).contains(target.getLocationPlace().getPlaceType().getEncounterType()))
+						|| Main.game.getPlayer().getLocationPlaceType()==PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_alley"));
 		}
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "In order to be able to use the map, you need to be in a vacant tile of one of the following types: Dominion alleyways; Dominion canals; Harpy Nest walkways; Submission tunnels; Elis alleyways.";
+			return "In order to be able to use the map, you need to be in a vacant tile of one of the following types: Dominion alleyways; Dominion canals; Harpy Nest walkways; Submission tunnels; Bat Caverns; Elis alleyways.";
 		}
 		@Override
 		public String getUseTooltipDescription(GameCharacter user, GameCharacter target) {
@@ -2417,6 +2421,8 @@ public class ItemType {
 	private static List<AbstractItemType> dominionAlleywayItems = new ArrayList<>();
 	private static List<AbstractItemType> submissionTunnelItems = new ArrayList<>();
 	private static List<AbstractItemType> batCavernItems = new ArrayList<>();
+	private static List<AbstractItemType> elisAlleywayItems = new ArrayList<>();
+	
 	private static List<AbstractItemType> essences = new ArrayList<>();
 	private static List<AbstractItemType> allItems = new ArrayList<>();
 	private static List<AbstractItemType> moddedItems = new ArrayList<>();
@@ -2612,18 +2618,6 @@ public class ItemType {
 					idToItemMap.put(f.getName(), item);
 					
 					allItems.add(item);
-					
-					if(item.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN)) {
-						dominionAlleywayItems.add(item);
-					}
-					
-					if(item.getItemTags().contains(ItemTag.SUBMISSION_TUNNEL_SPAWN)) {
-						submissionTunnelItems.add(item);
-					} 
-					
-					if(item.getItemTags().contains(ItemTag.BAT_CAVERNS_SPAWN)) {
-						batCavernItems.add(item);
-					} 
 					
 					if(item.getItemTags().contains(ItemTag.ESSENCE)) {
 						essences.add(item);
@@ -3164,6 +3158,22 @@ public class ItemType {
 			}
 
 		}
+		
+		// Add items to spawn lists:
+		for(AbstractItemType item : allItems) {
+			if(item.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN) || item.getItemTags().contains(ItemTag.ALL_AREAS_SPAWN)) {
+				dominionAlleywayItems.add(item);
+			}
+			if(item.getItemTags().contains(ItemTag.SUBMISSION_TUNNEL_SPAWN) || item.getItemTags().contains(ItemTag.ALL_AREAS_SPAWN)) {
+				submissionTunnelItems.add(item);
+			}
+			if(item.getItemTags().contains(ItemTag.BAT_CAVERNS_SPAWN) || item.getItemTags().contains(ItemTag.ALL_AREAS_SPAWN)) {
+				batCavernItems.add(item);
+			}
+			if(item.getItemTags().contains(ItemTag.ELIS_ALLEYWAY_SPAWN) || item.getItemTags().contains(ItemTag.ALL_AREAS_SPAWN)) {
+				elisAlleywayItems.add(item);
+			}
+		}
 	}
 	
 	private static AbstractItemEffectType generateBookEffect(AbstractSubspecies mainSubspecies, List<AbstractSubspecies> additionalUnlockSubspecies) {
@@ -3265,6 +3275,11 @@ public class ItemType {
 	public static List<AbstractItemType> getBatCavernItems() {
 		return batCavernItems;
 	}
+	
+	public static List<AbstractItemType> getElisAlleywayItems() {
+		return elisAlleywayItems;
+	}
+	
 	public static List<AbstractItemType> getEssences() {
 		return essences;
 	}

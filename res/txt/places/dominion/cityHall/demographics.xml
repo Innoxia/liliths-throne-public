@@ -224,26 +224,49 @@
 			The two of you spend the next couple of hours cataloguing papers, making small talk, and flirting with one another. [vanessa.NamePos] department is just as quiet as the last time you were here, and for the whole period during which the two of you are working, you're only interrupted by the ring of the front desk's bell once.
 		</p>
 		<p>
-			Before you know it, the two of you have worked you way through all of the boxes which needed to be sorted by the end of today. Heading back over to the front desk, [vanessa.name] collapses down onto her chair with a sigh, [vanessa.speech(Phew... Thank you for your help again, [pc.name]. You know, even with you doing over half of the work, my feet are still killing me after that...)]
+			Before you know it, the two of you have worked you way through all of the boxes which needed to be sorted by the end of today. Heading back over to the front desk, [vanessa.name] collapses down onto her chair with a sigh, [vanessa.speech(Phew... Thank you for your help again, [pc.name]. You know, even with you doing over half of the work,
+			#IF(game.isFootContentEnabled())
+				 my feet
+			#ELSE
+				 my shoulders 
+			#ENDIF
+			 are still killing me after that...)]
 		</p>
 		<p>
-			Leaning down to rub at the tops of her feet, [vanessa.name] looks up at you and flashes you a seductive smile. As the top couple of buttons of her shirt are undone, the fox-girl flashes you with a view straight down to her cleavage, and you find yourself with a clear view of not only her lacy black plunge bra, but also the tops of her [vanessa.breastSize], pale tits. Letting out a little laugh, she pushes out her chest and teases, [vanessa.speech(Did you think I flashed you by accident the first time you helped me? I just wanted to show off what you could get if you took some initiative... So, are you going to give me another of your foot massages again, or do I have to beg for it?)]
+			Leaning down to rub at the tops of her feet, [vanessa.name] looks up at you and flashes you a seductive smile. As the top couple of buttons of her shirt are undone, the fox-girl flashes you with a view straight down to her cleavage, and you find yourself with a clear view of not only her lacy black plunge bra, but also the tops of her [vanessa.breastSize], pale tits. Letting out a little laugh, she pushes out her chest and teases, [vanessa.speech(Did you think I flashed you by accident the first time you helped me? I just wanted to show off what you could get if you took some initiative... So, are you going to give me another of your massages again, or do I have to beg for it?)]
 		</p>
 		<p>
-			Smiling down at the horny fox-girl, you wonder if you should drop down onto your knees and start massaging her feet, or perhaps you could do as she suggests and get her to beg for it...
+			Smiling down at the horny fox-girl, you wonder if you should
+			#IF(game.isFootContentEnabled())
+				 drop down onto your knees and start massaging her feet,
+			#ELSE
+				 [pc.step] around behind her and start massaging her shoulders,
+			#ENDIF
+			 or perhaps you could do as she suggests and get her to beg for it...
 		</p>
 	#ELSE
 		<p>
 			The two of you spend the next couple of hours cataloguing papers and making small talk. [vanessa.NamePos] department turns out to be extremely quiet, and during the whole time that the two of you are working, you're only interrupted by the ring of the front desk's bell once.
 		</p>
 		<p>
-			Before you know it, the two of you have worked you way through all of the boxes which needed to be sorted by the end of today. Heading back over to the front desk, [vanessa.name] collapses down onto her chair with a sigh, [vanessa.speech(Phew... Thank you for your help, [pc.name]. You know, even with you doing over half of the work, my feet are still killing me after that...)]
+			Before you know it, the two of you have worked you way through all of the boxes which needed to be sorted by the end of today. Heading back over to the front desk, [vanessa.name] collapses down onto her chair with a sigh, [vanessa.speech(Phew... Thank you for your help, [pc.name]. You know, even with you doing over half of the work,
+			#IF(game.isFootContentEnabled())
+				 my feet
+			#ELSE
+				 my shoulders 
+			#ENDIF
+			 are still killing me after that...)]
 		</p>
 		<p>
 			Leaning down to rub at the tops of her feet, [vanessa.name] looks up at you and smiles. As the top couple of buttons of her shirt are undone, the fox-girl inadvertently flashes you with a view straight down to her cleavage, and you find yourself with a clear view of not only her lacy black plunge bra, but also the tops of her [vanessa.breastSize], pale tits.
 		</p>
 		<p>
-			[pc.speech(You're welcome,)] you reply in response to her thanks, before wondering if you should take advantage of the fact that [vanessa.namePos] feet are hurting to offer her a foot massage...
+			[pc.speech(You're welcome,)] you reply in response to her thanks, before wondering if you should take advantage of the fact that [vanessa.namePos]
+			#IF(game.isFootContentEnabled())
+				 feet are hurting to offer her a foot massage...
+			#ELSE
+				 shoulders are hurting to offer her a massage...
+			#ENDIF
 		</p>
 	#ENDIF
 	]]>
@@ -251,6 +274,7 @@
 	
 	
 	<!-- MASSAGE -->
+	<!-- FOOT -->
 	
 	<htmlContent tag="FOOT_MASSAGE"><![CDATA[
 	#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaFucked))
@@ -267,12 +291,9 @@
 		<p>
 			[vanessa.speech(Oh, yes, that'd be delightful,)] [vanessa.name] replies, smiling coyly as she swivels her chair to face you. Lifting her feet, she lets out a delighted sigh as you drop to your knees and slip off her flats, gaining access to her pantyhose-covered feet once again. Wiggling her toes at you, she bites her lip and teases, [vanessa.speech(Go on then, show me what you can do.)]
 		</p>
-		<p>
-			Dutifully dropping to your knees in front of the fox-girl, 
-		</p>
 	#ELSE
 		<p>
-			[pc.speech(Perhaps I can help get rid of the aches in your feet as well?)] you ask. [pc.speech(How long's it been since you had a foot massage?)]
+			[pc.speech(Perhaps I can help get rid of the aches in your feet as well?)] you ask, [pc.speech(How long's it been since you had a foot massage?)]
 		</p>
 		<p>
 			[vanessa.speech(Too long,)] [vanessa.name] replies, smiling coyly as she swivels her chair to face you. Lifting her feet, she lets out a delighted sigh as you drop to your knees and slip off her flats, gaining access to her pantyhose-covered feet. Wiggling her toes at you, she bites her lip and teases, [vanessa.speech(Go on then, show me what you can do.)]
@@ -378,14 +399,14 @@
 			Just as you start wondering what secret [vanessa.name] has to having such healthy skin, she moans down from above, [vanessa.speech(Mmm, you know, this takes me back again... Back to that time I told you about before, when I was a very special friend to a beautiful bee-girl...)]
 		</p>
 		<p>
-			You look up at [vanessa.name] just in time to see her pulling up her skirt and spreading her legs. Suddenly presented with the fox-girl's lacy black thong, you see that once again there's a slightly darker patch right in the middle, but before you can react, [vanessa.name] starts touching herself through the fabric of her underwear and moans, [vanessa.speech(You want another taste of my honey, don't you?)]
+			You look up at [vanessa.name] just in time to see her pulling up her skirt and spreading her legs. Suddenly presented with the fox-girl's lacy black panties, you see that once again there's a slightly darker patch right in the middle, but before you can react, [vanessa.name] starts touching herself through the fabric of her underwear and moans, [vanessa.speech(You want another taste of my honey, don't you?)]
 		</p>
 	#ELSE
 		<p>
 			Just as you start wondering what secret [vanessa.name] has to having such healthy skin, she moans down from above, [vanessa.speech(Mmm, this takes me back... When I was younger, I was very close friends with a really beautiful bee-girl, and she used to give me foot massages as well. And when I say a 'close' friend, I mean really close...)]
 		</p>
 		<p>
-			You look up at [vanessa.name] just in time to see her pulling up her skirt and spreading her legs. Suddenly presented with the fox-girl's lacy black thong, you see that there's a slightly darker patch right in the middle, but before you can react, [vanessa.name] moans once more, [vanessa.speech(You know, bee-girls <i>really</i> love the taste of honey, and my friend even went so far as to get me to drink a potion that would make a certain special area of mine taste just like it...)]
+			You look up at [vanessa.name] just in time to see her pulling up her skirt and spreading her legs. Suddenly presented with the fox-girl's lacy black panties, you see that there's a slightly darker patch right in the middle, but before you can react, [vanessa.name] moans once more, [vanessa.speech(You know, bee-girls <i>really</i> love the taste of honey, and my friend even went so far as to get me to drink a potion that would make a certain special area of mine taste just like it...)]
 		</p>
 		<p>
 			As [vanessa.name] runs her hands down between her legs, you find yourself knowing exactly which 'special area' she's talking about. As starts touching herself in front of you, [vanessa.name] offers, [vanessa.speech(Perhaps you'd like a taste?)]
@@ -395,6 +416,144 @@
 	</htmlContent>
 	
 	<htmlContent tag="BARE_FOOT_MASSAGE_STOP"><![CDATA[
+	<p>
+		Not wanting to go any further with [vanessa.name] right now, you shuffle back and say, [pc.speech(Sorry, [vanessa.name], but I don't have time for any more right now.)]
+	</p>
+	<p>
+		[vanessa.speech(Aww...)] [vanessa.name] whines as you help her put her pantyhose back on, before slipping her flats back onto her feet. Pouting at you for one more moment, her lips suddenly turn up into a happy smile. [vanessa.speech(Well, thanks for your help, and for the massage! If you wanted to go further, we can do it again tomorrow?)]
+	</p>
+	<p>
+		Giving the elderly fox-girl a non-committal response, you stand up and wonder what you should do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- SHOULDER -->
+	
+	<htmlContent tag="SHOULDER_MASSAGE"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaFucked))
+		<p>
+			[pc.speech(I'd love to give you another massage,)] you say, [pc.stepping] around to stand behind the horny fox-girl.
+		</p>
+		<p>
+			[vanessa.speech(Oh, yes, good [pc.girl],)] [vanessa.name] replies, smiling coyly as she leans back in her chair. Shrugging out of her cardigan, she unbuttons the top of her shirt, and in just a moment, you find yourself presented with her bare, pale shoulders once again. Letting out an excited sigh, she bites her lip and teases, [vanessa.speech(Go on then, let's get started.)]
+		</p>
+	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_vanessaMassaged))
+		<p>
+			[pc.speech(Perhaps I can help get rid of the aches in your shoulders again?)] you ask.
+		</p>
+		<p>
+			[vanessa.speech(Oh, yes, that'd be delightful,)] [vanessa.name] replies, smiling coyly as she leans back in her chair. Shrugging out of her cardigan, she unbuttons the top of her shirt, and in just a moment, you find yourself presented with her bare, pale shoulders once again. Letting out an excited sigh, she bites her lip and teases, [vanessa.speech(Go on then, show me what you can do.)]
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(Perhaps I can help get rid of the aches in your shoulders as well?)] you ask, [pc.speech(How long's it been since you had a shoulder massage?)]
+		</p>
+		<p>
+			[vanessa.speech(Too long,)] [vanessa.name] replies, smiling coyly as she leans back in her chair. Shrugging out of her cardigan, she unbuttons the top of her shirt, and in just a moment, you find yourself presented with her bare, pale shoulders. Letting out an excited sigh as you [pc.step] around behind her, she bites her lip and teases, [vanessa.speech(Go on then, show me what you can do.)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHOULDER_MASSAGE_BEG"><![CDATA[
+	<p>
+		[pc.speech(Getting you to beg sounds like fun,)] you tease, smiling at the elderly fox-girl. [pc.speech(Go on, tell me how much you want it.)]
+	</p>
+	<p>
+		Playfully pouting at you, [vanessa.name] whines, [vanessa.speech(Please, [pc.name]! Your massages are the best! You wouldn't be mean to me and leave me with aching shoulders, would you?)]
+	</p>
+	<p>
+		[pc.speech(I suppose not,)] you reply, [pc.stepping] around behind her.
+	</p>
+	<p>
+		Seeing that you're going to give her what she wants, [vanessa.name] lets out a delighted sigh, before shrugging out of her cardigan and unbuttoning the top of her shirt to present with her bare, pale shoulders once again. Letting out another excited sigh, she bites her lip and teases, [vanessa.speech(Go on then, let's get started.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHOULDER_MASSAGE_CORE"><![CDATA[
+	<p>
+		#IF(pc.getArmRows()>1)
+			Taking hold of [vanessa.namePos] shoulders, you prepare to get started. As you have [pc.armRows] [pc.arms], you aren't bound by the same restrictions that an ordinary person is, and so are able to use your extra [pc.hands] in order to give [vanessa.name] a very special message. As you start to move your multiple [pc.hands] over her shoulders, neck, and upper back, you can't help but think to yourself how slender and delicate this elderly fox-girl is. Careful not to press down too hard, you start kneading and massaging [vanessa.namePos] muscles, working your way over all parts of her upper torso.
+		#ELSE
+			Taking hold of [vanessa.namePos] shoulders, you run your [pc.hands] over her soft, pale skin, before pressing your [pc.fingers] in and applying a gentle pressure as you start giving her a massage. As you start to move your [pc.hands] over her shoulders, neck, and upper back, you can't help but think to yourself how slender and delicate this elderly fox-girl is. Careful not to press down too hard, you continue kneading and massaging [vanessa.namePos] muscles, working your way over all parts of her upper torso.
+		#ENDIF
+	</p>
+	<p>
+		[vanessa.speech(Aah... Yes...)] [vanessa.name] suddenly exhales in an incredibly erotic manner. Looking down at her face, you see that she's allowed her eyes to close, and that the light skin of her cheeks is flushing scarlet. Moving your gaze down, you see her [vanessa.breastSize], [vanessa.cupSize]-cup breasts heavily heaving up and down, while her fingers are going white with how tightly she's gripping the arms of her chair.
+	</p>
+	<p>
+		Encouraged by this, and now certain that you're doing a good job, you continue with the same rubbing, kneading motion over her tense muscles. With [vanessa.namePos] sighs and heavy breathing filling the room, you continue massaging her shoulders, neck, and upper back until eventually you've given her far more attention than you originally intended.
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaFucked))
+		<p>
+			Sensing that your massage is coming to an end, [vanessa.name] lets out a protesting whine, before opening her eyes and panting, [vanessa.speech(Please, [pc.name], do my thighs like you did before! Come on, I'm not satisfied with just having my shoulders done!)] 
+		</p>
+		<p>
+			As she says this, she begins to kick off her flats, before reaching under her skirt and hooking her fingers into the band of her pantyhose. You only have a moment in which to either tell her to stop, or to decide to help the obviously-horny fox-girl take off her pantyhose, in which case you'd end up giving her a thigh massage again...
+		</p>
+	#ELSE
+		<p>
+			Sensing that your massage is coming to an end, [vanessa.name] lets out a protesting whine, before opening her eyes and panting, [vanessa.speech(Please, [pc.name], don't stop just yet! It's not only my shoulders which are stiff and aching. My thighs are feeling so tired. You'll do them too, won't you?)] 
+		</p>
+		<p>
+			As she says this, she begins to kick off her flats, before reaching under her skirt and hooking her fingers into the band of her pantyhose. You only have a moment in which to either tell her to stop, or to decide to help the obviously-horny fox-girl take off her pantyhose, in which case you'd end up giving her a thigh massage...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHOULDER_MASSAGE_STOP"><![CDATA[
+	<p>
+		Not wanting to go any further with [vanessa.name] right now, you [pc.step] back and say, [pc.speech(Sorry, [vanessa.name], but I don't have time for any more right now.)]
+	</p>
+	<p>
+		[vanessa.speech(Aww...)] [vanessa.name] whines as she slips her feet back into her flats. After playfully pouting at you for a moment, she swivels around in her chair to give you a happy smile and say, [vanessa.speech(Well, thanks for your help, and for the massage! If you wanted to go further, we can do it again tomorrow?)]
+	</p>
+	<p>
+		Giving the elderly fox-girl a non-committal response, you [pc.step] back and wonder what you should do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="THIGH_MASSAGE"><![CDATA[
+	<p>
+		Wanting to take things further, you [pc.step] around in front of the fox-girl and drop down before her, before taking hold of her thighs, gripping the fabric of her pantyhose, and helping her to pull them down from around her hips. Letting out a delighted giggle, [vanessa.name] kicks off her flats, allowing you to pull her pantyhose all the way down over her knees and to her ankles. With one last tug, you pull them completely off, leaving her pale, slender legs and feet fully exposed.
+	</p>
+	<p>
+		[vanessa.speech(Come on, I don't bite,)] [vanessa.name] teases, pulling her skirt up in order to expose her thighs.
+	</p>
+	<p>
+		#IF(pc.getArmRows()>1)
+			Eager to oblige the fox-girl's request, you set about using your multiple pairs of hands to give her a thigh massage.
+		#ELSE
+			Eager to oblige the fox-girl's request, you set about giving her a thigh massage.
+		#ENDIF
+		 In contrast to the shoulder massage you've just given her, this one feels far more intimate, as instead of standing behind her, you're now kneeling between [vanessa.namePos] bare legs, and with her skirt pulled up, you're able to catch glimpses of her black, lacy panties. The skin of her thighs is soft and delicate to the touch, and every time your [pc.hands] move up towards her waist, the elderly fox-girl lets out a gentle, erotic moan.
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaFucked))
+		<p>
+			Just as you start wondering what secret [vanessa.name] has to having such healthy skin, she moans down from above, [vanessa.speech(Mmm, you know, this takes me back again... Back to that time I told you about before, when I was a very special friend to a beautiful bee-girl...)]
+		</p>
+		<p>
+			You look up at [vanessa.name] just in time to see her pulling her skirt all the way up around her waist and spreading her legs. Suddenly presented with the fox-girl's lacy black panties, you see that once again there's a slightly darker patch right in the middle, but before you can react, [vanessa.name] starts touching herself through the fabric of her underwear and moans, [vanessa.speech(You want another taste of my honey, don't you?)]
+		</p>
+	#ELSE
+		<p>
+			Just as you start wondering what secret [vanessa.name] has to having such healthy skin, she moans down from above, [vanessa.speech(Mmm, this takes me back... When I was younger, I was very close friends with a really beautiful bee-girl, and she used to give me massages like this as well. And when I say a 'close' friend, I mean really close...)]
+		</p>
+		<p>
+			You look up at [vanessa.name] just in time to see her pulling her skirt all the way up around her waist and spreading her legs. Suddenly presented with the fox-girl's lacy black panties, you see that there's a slightly darker patch right in the middle, but before you can react, [vanessa.name] moans once more, [vanessa.speech(You know, bee-girls <i>really</i> love the taste of honey, and my friend even went so far as to get me to drink a potion that would make a certain special area of mine taste just like it...)]
+		</p>
+		<p>
+			As [vanessa.name] runs her hands down between her legs, you find yourself knowing exactly which 'special area' she's talking about. As starts touching herself in front of you, [vanessa.name] offers, [vanessa.speech(Perhaps you'd like a taste?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="THIGH_MASSAGE_STOP"><![CDATA[
 	<p>
 		Not wanting to go any further with [vanessa.name] right now, you shuffle back and say, [pc.speech(Sorry, [vanessa.name], but I don't have time for any more right now.)]
 	</p>
@@ -418,7 +577,7 @@
 		[vanessa.speech(That's right,)] the elderly fox-girl teases, [vanessa.speech(come and get a taste of my honey...)]
 	</p>
 	<p>
-		Reaching down between her legs, [vanessa.name] pulls her lacy black thong to one side, presenting you with her dipping-wet pussy. Doing as you're told, you lean forwards and bring your lips to her hot cunt, before darting your tongue out and giving her labia a long, greedy lick. Immediately, the sweet taste of honey fills your mouth, but before you can react to this, you suddenly feel [vanessa.namePos] hands grab the back of your head, before firmly pulling your face into her groin.
+		Reaching down between her legs, [vanessa.name] pulls her lacy black panties to one side, presenting you with her dipping-wet pussy. Doing as you're told, you lean forwards and bring your lips to her hot cunt, before darting your tongue out and giving her labia a long, greedy lick. Immediately, the sweet taste of honey fills your mouth, but before you can react to this, you suddenly feel [vanessa.namePos] hands grab the back of your head, before firmly pulling your face into her groin.
 	</p>
 	<p>
 		[vanessa.speech(~Mmm!~ Yes! Get that tongue in deep!)] she cries, grinding her pussy against your lips and giving you no choice but to do as she says...

@@ -29,8 +29,6 @@
 		
 		<imageEquippedName/> 
 		
-		<enchantmentLimit/>
-		
 		<effects/>
 		
 		<blockedPartsList> 
@@ -56,7 +54,7 @@
 				<clothingAccessBlocked>
 					<clothingAccess>CHEST</clothingAccess>
 				</clothingAccessBlocked>
-				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO_STOMACH_VISIBLE"/>
 			</blockedParts>
 			
 		</blockedPartsList>

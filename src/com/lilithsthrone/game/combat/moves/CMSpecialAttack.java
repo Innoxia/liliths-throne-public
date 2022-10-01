@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.FootType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.race.Race;
@@ -148,10 +149,11 @@ public class CMSpecialAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, target,
             		"Deliver a vicious slash to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
-            				+ getFormattedDamage(damageType, getDamage(turnIndex, source, target, false), target, false, isTargetAtMaximumLust(target)) + " damage."
+            				+ getFormattedDamage(damageType, getDamage(turnIndex, source, target, isCrit), target, false, isTargetAtMaximumLust(target)) + " damage."
             				+ (source.isArmMovementHindered()?" [style.italicsMinorBad(Damage is reduced to 50% as [npc.her] clothing is hindering arm movement!)]":""));
         }
 
@@ -168,7 +170,7 @@ public class CMSpecialAttack {
             DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
-            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, false));
+            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, isCrit));
             
             return formatAttackOutcome(source, target,
             		(source.isArmMovementHindered()
@@ -197,18 +199,15 @@ public class CMSpecialAttack {
             false,
             true,
             false,
-			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 3))) {
-
+			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 2))) {
         protected int getBaseDamage(GameCharacter source) {
             return source.getUnarmedDamage()*3;
         }
-        
         @Override
         protected int getDamage(int turnIndex, GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(turnIndex, source);
             return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
-        
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
             return new Value<>(
@@ -216,28 +215,26 @@ public class CMSpecialAttack {
             			|| source.getLegConfiguration()==LegConfiguration.TAIL_LONG,
             		"Available to characters who have a suitable tail which is at least [units.sizeShort(100)] long, or a '"+LegConfiguration.TAIL_LONG.getName()+"' lower body.");
         }
-
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, target,
             		"Deliver a thunderous tail-smack to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
-            				+ getFormattedDamage(damageType, getDamage(turnIndex, source, target, false), target, false, isTargetAtMaximumLust(target)) + " damage.");
+            				+ getFormattedDamage(damageType, getDamage(turnIndex, source, target, isCrit), target, false, isTargetAtMaximumLust(target)) + " damage.");
         }
-
         @Override
         public String getDescription(int turnIndex, GameCharacter source) {
             DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] [npc.tailRace]-tail to deliver a thunderous smack to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source), null, false, false) + " damage.");
         }
-
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
-            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, false));
+            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, isCrit));
             
             return formatAttackOutcome(source, target,
             		"[npc.Name] [npc.verb(turn)] to one side, using the momentum to smack [npc.her] huge [npc.tailRace]-tail straight into [npc2.name]!"+damageValue.getKey(),
@@ -247,10 +244,21 @@ public class CMSpecialAttack {
             			:null),
                     "The duration of '"+StatusEffect.DAZED.getName(target)+"' is doubled!");
         }
-        
         @Override
         public float getCritStatusEffectDurationMultiplier() {
         	return 2;
+        }
+        @Override
+        public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            return Util.newArrayListOfValues(
+            		(source!=null?UtilText.parse(source,"[npc.NamePos]"):"Attacker's")+" tail is at least '<span style='color:"+PenetrationGirth.FIVE_THICK.getColour().toWebHexString()+";'>"+PenetrationGirth.FIVE_THICK.getName()+"</span>'.");
+        }
+        @Override
+        public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            if(source.getTailGirth().getValue()>=PenetrationGirth.FIVE_THICK.getValue()) {
+                return true;
+            }
+            return false;
         }
     };
 
@@ -303,7 +311,7 @@ public class CMSpecialAttack {
             DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
-            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, false));
+            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, isCrit));
             int dealtCritDamage2 = 0;
             int dealtCritDamage3 = 0;
             if(isCrit) {
@@ -352,10 +360,11 @@ public class CMSpecialAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, target,
             		"Deliver a savage series of slashes to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
-            				+ getFormattedDamage(damageType, getDamage(turnIndex, source, target, false), target, false, isTargetAtMaximumLust(target)) + " damage."
+            				+ getFormattedDamage(damageType, getDamage(turnIndex, source, target, isCrit), target, false, isTargetAtMaximumLust(target)) + " damage."
             				+ (source.isArmMovementHindered()?" [style.italicsMinorBad(Damage is reduced to 50% as [npc.her] clothing is hindering arm movement!)]":""));
         }
 
@@ -372,7 +381,7 @@ public class CMSpecialAttack {
             DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
-            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, false));
+            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, isCrit));
             
             return formatAttackOutcome(source, target,
             		(source.isArmMovementHindered()
@@ -412,7 +421,7 @@ public class CMSpecialAttack {
             false,
             true,
             false,
-			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 3))) {
+			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 2))) {
 
         protected int getBaseDamage(GameCharacter source) {
             return source.getUnarmedDamage()*2;
@@ -431,10 +440,11 @@ public class CMSpecialAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, target,
             		"Deliver a powerful headbutt to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
-            				+ getFormattedDamage(damageType, getDamage(turnIndex, source, target, false), target, false, isTargetAtMaximumLust(target)) + " damage.");
+            				+ getFormattedDamage(damageType, getDamage(turnIndex, source, target, isCrit), target, false, isTargetAtMaximumLust(target)) + " damage.");
         }
 
         @Override
@@ -449,7 +459,7 @@ public class CMSpecialAttack {
             DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
-            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, false));
+            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, isCrit));
             
             return formatAttackOutcome(source, target,
             		"With a burst of energy, [npc.name] [npc.verb(leap)] forwards, ramming [npc.her] forehead into [npc2.namePos] body and whacking [npc2.herHim] with the sides of [npc.her] antlers."+damageValue.getKey(),
@@ -464,6 +474,17 @@ public class CMSpecialAttack {
         public float getCritStatusEffectDurationMultiplier() {
         	return 2;
         }
+        @Override
+        public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            return Util.newArrayListOfValues((source!=null?UtilText.parse(source,"[npc.NameIsFull]"):"Attacker is")+" at least 50% taller than "+(target!=null?UtilText.parse(target,"[npc.name]"):"the target")+".");
+        }
+        @Override
+        public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            if(source.getHeightValue()>target.getHeightValue()*1.5f) {
+                return true;
+            }
+            return false;
+        }
     };
 
 	public static AbstractCombatMove COW_HEADBUTT = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
@@ -476,7 +497,7 @@ public class CMSpecialAttack {
             false,
             true,
             false,
-			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 3))) {
+			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 2))) {
         protected int getBaseDamage(GameCharacter source) {
             return source.getUnarmedDamage()*2;
         }
@@ -491,10 +512,11 @@ public class CMSpecialAttack {
         }
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, target,
             		"Deliver a powerful headbutt to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
-            				+ getFormattedDamage(damageType, getDamage(turnIndex, source, target, false), target, false, isTargetAtMaximumLust(target)) + " damage.");
+            				+ getFormattedDamage(damageType, getDamage(turnIndex, source, target, isCrit), target, false, isTargetAtMaximumLust(target)) + " damage.");
         }
         @Override
         public String getDescription(int turnIndex, GameCharacter source) {
@@ -507,7 +529,7 @@ public class CMSpecialAttack {
             DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
-            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, false));
+            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, isCrit));
             
             return formatAttackOutcome(source, target,
             		"With a burst of energy, [npc.name] [npc.verb(leap)] forwards, ramming [npc.her] forehead into [npc2.namePos] body and whacking [npc2.herHim] with the sides of [npc.her] horns."+damageValue.getKey(),
@@ -520,6 +542,17 @@ public class CMSpecialAttack {
         @Override
         public float getCritStatusEffectDurationMultiplier() {
         	return 2;
+        }
+        @Override
+        public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            return Util.newArrayListOfValues((source!=null?UtilText.parse(source,"[npc.NameIsFull]"):"Attacker is")+" at least 50% taller than "+(target!=null?UtilText.parse(target,"[npc.name]"):"the target")+".");
+        }
+        @Override
+        public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            if(source.getHeightValue()>target.getHeightValue()*1.5f) {
+                return true;
+            }
+            return false;
         }
     };
     
@@ -584,10 +617,11 @@ public class CMSpecialAttack {
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, target,
             		"Deliver a feral bite to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
-            				+ getFormattedDamage(damageType, getDamage(turnIndex, source, target, false), target, false, isTargetAtMaximumLust(target)) + " damage"
+            				+ getFormattedDamage(damageType, getDamage(turnIndex, source, target, isCrit), target, false, isTargetAtMaximumLust(target)) + " damage"
             				+ (source.getFaceType().getTags().contains(BodyPartTag.FACE_VENOMOUS_TEETH)
         						?" and applying 'poisoned' for 6 turns."
         						:(source.getFaceType().getTags().contains(BodyPartTag.FACE_VENOMOUS_TEETH_LUST)
@@ -614,7 +648,7 @@ public class CMSpecialAttack {
             DamageType damageType = getDamageType(turnIndex, source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             boolean maxLust = isTargetAtMaximumLust(target);
-            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, false));
+            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, isCrit));
             
             return formatAttackOutcome(source, target,
             		(!source.isCoverableAreaExposed(CoverableArea.MOUTH)

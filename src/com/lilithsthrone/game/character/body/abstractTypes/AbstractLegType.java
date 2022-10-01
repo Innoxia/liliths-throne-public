@@ -423,7 +423,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	 * Penis.class (type, size, cloaca)<br/>
 	 * Vagina.class (type, capacity, cloaca)<br/>
 	 * 
-	 * @param configuration The leg configuration to be applied.
+	 * @param legConfiguration The leg configuration to be applied.
 	 * @param character The character which is being transformed.
 	 * @param applyEffects Whether the transformative effects should be applied. Pass in false to get the transformation description without applying any of the actual effects.
 	 * @param applyFullEffects Pass in true if you want the additional transformations to include attribute changes (such as penis resizing, vagina capacity resetting, etc.).
@@ -649,7 +649,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				
 				if(applyEffects) {
 					applyExtraLegConfigurationTransformations(body, legConfiguration, legConfiguration.isLargeGenitals(), applyFullEffects);
-					body.setGenitalArrangement(GenitalArrangement.NORMAL);
+					body.setGenitalArrangement(body.getLegType().getRace().getRacialBody().getGenitalArrangement());
 				}
 				
 				feralStringBuilder.append(
@@ -668,6 +668,21 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 						+ "</p>");
 				break;
 		}
+
+		// Increase or decrease height based on configuration:
+		if(applyEffects) {
+			if(!body.getLegConfiguration().isTall() && legConfiguration.isTall()) {
+				body.setHeight((int) (body.getHeightValue()*1.33f));
+				String colouredHeightValue = "<span style='color:"+body.getHeight().getColour().toWebHexString()+";'>[npc.heightValue]</span>";
+				feralStringBuilder.append("<p>The size of [npc.namePos] new lower body has resulted in [npc.herHim] getting taller, so now when standing at full height [npc.she] [npc.verb(measure)] "+colouredHeightValue+".</p>");
+				
+			} else if(body.getLegConfiguration().isTall() && !legConfiguration.isTall()) {
+				body.setHeight((int) (body.getHeightValue()/1.33f));
+				String colouredHeightValue = "<span style='color:"+body.getHeight().getColour().toWebHexString()+";'>[npc.heightValue]</span>";
+				feralStringBuilder.append("<p>The reduced size of [npc.namePos] new lower body has resulted in [npc.herHim] getting shorter, so now when standing at full height [npc.she] [npc.verb(measure)] "+colouredHeightValue+".</p>");
+			}
+		}
+		
 		
 		if(legConfiguration.isTailLostOnInitialTF()) {
 			if(body.getTail().getType()!=TailType.NONE) {

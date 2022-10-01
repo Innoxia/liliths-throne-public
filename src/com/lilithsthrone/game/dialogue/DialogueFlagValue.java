@@ -139,6 +139,7 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue auntHomeJustEntered = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue hadSexWithLilaya = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue lilayaCondomBroke = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue lilayaAmazonsSecretImpregnation = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue reactedToPregnancyLilaya = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue waitingOnLilayaPregnancyResults = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue waitingOnLilayaBirthNews = new AbstractDialogueFlagValue();
@@ -199,6 +200,19 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue slaverAlleyCompanionAcceptedDeal = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue slaverAlleyTwoPartners = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue slaverAlleySlavesFreed = new AbstractDialogueFlagValue(); // Reset every day at midnight (as part of stocks reset method)
+
+	public static AbstractDialogueFlagValue slaverAlleyCafe1Visited = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue slaverAlleyCafe1Demonstrated = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue slaverAlleyCafe1DailyDemonstrated = new AbstractDialogueFlagValue(true);
+	public static AbstractDialogueFlagValue slaverAlleyCafe2Visited = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue slaverAlleyCafe2Demonstrated = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue slaverAlleyCafe2DailyDemonstrated = new AbstractDialogueFlagValue(true);
+	public static AbstractDialogueFlagValue slaverAlleyCafe3Visited = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue slaverAlleyCafe3Demonstrated = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue slaverAlleyCafe3DailyDemonstrated = new AbstractDialogueFlagValue(true);
+	public static AbstractDialogueFlagValue slaverAlleyCafe4Visited = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue slaverAlleyCafe4Demonstrated = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue slaverAlleyCafe4DailyDemonstrated = new AbstractDialogueFlagValue(true);
 	
 	// Wes:
 	public static AbstractDialogueFlagValue wesQuestLilayaHelp = new AbstractDialogueFlagValue();
@@ -442,6 +456,8 @@ public class DialogueFlagValue {
 
 	public static AbstractDialogueFlagValue murkLectured = new AbstractDialogueFlagValue(true);
 	public static AbstractDialogueFlagValue murkSpanked = new AbstractDialogueFlagValue(true);
+
+	public static AbstractDialogueFlagValue milkersClaireDialogue = new AbstractDialogueFlagValue(false);
 	
 	
 	//Felicia
@@ -484,6 +500,10 @@ public class DialogueFlagValue {
 		if(id.equals("ratWarrensRaid")
 				|| id.equals("suppliersTriedConvincing")) {
 			return null;
+		}
+		
+		if(id.equals("innoxia_elis_alleyway_transformations_applied")) {
+			id = "innoxia_alleyway_transformations_applied";
 		}
 		
 		id = Util.getClosestStringMatch(id, idToDialogueFlagValueMap.keySet(), 3);

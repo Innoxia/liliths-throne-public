@@ -694,21 +694,21 @@ public abstract class AbstractSubspecies {
 				this.regionLocations = new HashMap<>();
 				if(coreElement.getOptionalFirstOf("regionLocations").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("regionLocations").getAllOf("region")) {
-						regionLocations.put(WorldRegion.valueOf(e.getTextContent()), SubspeciesSpawnRarity.valueOf(e.getAttribute("rarity")));
+						regionLocations.put(WorldRegion.valueOf(e.getTextContent()), SubspeciesSpawnRarity.getSubspeciesSpawnRarityFromString(e.getAttribute("rarity")));
 					}
 				}
 				
 				this.worldLocations = new HashMap<>();
 				if(coreElement.getOptionalFirstOf("worldLocations").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("worldLocations").getAllOf("world")) {
-						worldLocations.put(WorldType.getWorldTypeFromId(e.getTextContent()), SubspeciesSpawnRarity.valueOf(e.getAttribute("rarity")));
+						worldLocations.put(WorldType.getWorldTypeFromId(e.getTextContent()), SubspeciesSpawnRarity.getSubspeciesSpawnRarityFromString(e.getAttribute("rarity")));
 					}
 				}
 				
 				this.placeLocations = new HashMap<>();
 				if(coreElement.getOptionalFirstOf("placeLocations").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("placeLocations").getAllOf("place")) {
-						placeLocations.put(PlaceType.getPlaceTypeFromId(e.getTextContent()), SubspeciesSpawnRarity.valueOf(e.getAttribute("rarity")));
+						placeLocations.put(PlaceType.getPlaceTypeFromId(e.getTextContent()), SubspeciesSpawnRarity.getSubspeciesSpawnRarityFromString(e.getAttribute("rarity")));
 					}
 				}
 				
@@ -811,7 +811,7 @@ public abstract class AbstractSubspecies {
 //			if(race==Race.HUMAN) {
 //				new IllegalArgumentException().printStackTrace();
 //			}
-			return Integer.valueOf(UtilText.parse(subspeciesWeighting.trim()));
+			return Integer.valueOf(UtilText.parse(subspeciesWeighting).trim());
 		}
 		return 0;
 	}
@@ -831,7 +831,7 @@ public abstract class AbstractSubspecies {
 		}
 		if(subspecies==null) {
 			if(Main.game.isStarted()) { // Races get recalculated after the game starts in Game.handlePostGameInit(), so only show errors if the detection is still failing after that
-				System.err.println("Error: getSubspeciesFromBody() did not find a suitable Subspecies!");
+				System.err.println("Error: getSubspeciesFromBody() did not find a suitable Subspecies! (Race: "+(race==null?"null":race.getName(false))+")");
 				new Exception().printStackTrace();
 			}
 			return Subspecies.HUMAN;
@@ -977,10 +977,11 @@ public abstract class AbstractSubspecies {
 		} else if(motherSubspecies==Subspecies.HALF_DEMON) {
 			if(motherHalfDemonSubspecies==Subspecies.HUMAN) {
 				if(fatherSubspecies==Subspecies.ELDER_LILIN || fatherSubspecies==Subspecies.LILIN || fatherSubspecies==Subspecies.DEMON || fatherSubspecies==Subspecies.HALF_DEMON) {
-					if(fatherHalfDemonSubspecies==Subspecies.HUMAN) {
+					if(fatherSubspecies==Subspecies.HALF_DEMON && fatherHalfDemonSubspecies==Subspecies.HUMAN) {
 						return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);	
+					} else {
+						return Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
 					}
-					return Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
 				} else {
 					return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);
 				}
@@ -1354,7 +1355,7 @@ public abstract class AbstractSubspecies {
 				Element coreElement = Element.getDocumentRootElement(bookFile); // Loads the document and returns the root element
 				
 				for(Element element : coreElement.getAllOf("htmlContent")) {
-					if(!element.getAttribute("author").isEmpty()) {
+					if(element.getAttribute("tag").equals(basicDescriptionId) && !element.getAttribute("author").isEmpty()) {
 						return element.getAttribute("author");
 					}
 				}
@@ -1714,6 +1715,21 @@ public abstract class AbstractSubspecies {
 		return getRegionLocations().containsKey(worldType.getWorldRegion())
 				|| getWorldLocations().containsKey(worldType)
 				|| (placeType!=null && getPlaceLocations().containsKey(placeType));
+	}
+	
+	public List<WorldRegion> getMostCommonWorldRegions() {
+		List<WorldRegion> mostCommonRegion = Util.newArrayListOfValues();
+		SubspeciesSpawnRarity highestRarity = SubspeciesSpawnRarity.ONE;
+		for(Map.Entry<WorldRegion, SubspeciesSpawnRarity> entry : getRegionLocations().entrySet()) {
+			if(entry.getValue().getChanceMultiplier()>=highestRarity.getChanceMultiplier()) {
+				if(entry.getValue().getChanceMultiplier()>highestRarity.getChanceMultiplier()) {
+					mostCommonRegion.clear();
+				}
+				mostCommonRegion.add(entry.getKey());
+				highestRarity = entry.getValue();
+			}
+		}
+		return mostCommonRegion;
 	}
 	
 	public List<SubspeciesFlag> getFlags() {
