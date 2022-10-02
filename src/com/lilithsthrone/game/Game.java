@@ -34,6 +34,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.lilithsthrone.game.character.npc.misc.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -149,19 +150,6 @@ import com.lilithsthrone.game.character.npc.fields.Vronti;
 import com.lilithsthrone.game.character.npc.fields.Wynter;
 import com.lilithsthrone.game.character.npc.fields.Yui;
 import com.lilithsthrone.game.character.npc.fields.Ziva;
-import com.lilithsthrone.game.character.npc.misc.ClubberImport;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
-import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
-import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
-import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
-import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
-import com.lilithsthrone.game.character.npc.misc.GenericTrader;
-import com.lilithsthrone.game.character.npc.misc.LodgerImport;
-import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
-import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
-import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
-import com.lilithsthrone.game.character.npc.misc.PrologueMale;
-import com.lilithsthrone.game.character.npc.misc.SlaveImport;
 import com.lilithsthrone.game.character.npc.submission.Axel;
 import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
@@ -528,6 +516,44 @@ public class Game implements XMLSaving {
 		}
 		
 		return null;
+	}
+
+	public Integer importModdedCharacter(String path, String parserTarget) {
+		File file = new File(path);
+
+		if (file.exists()) {
+			try {
+				Document doc = Main.getDocBuilder().parse(file);
+
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+
+				Element characterElement = (Element) doc.getElementsByTagName("moddedCharacter").item(0);
+
+				moddedCharacter npc = new moddedCharacter();
+				npc.loadFromXML(characterElement, doc, CharacterImportSetting.NO_LOCATION_SETUP);
+
+				Main.game.addNPC(npc, false, true);
+				if (parserTarget != null && !parserTarget.isEmpty()) {
+					ParserTarget.addAdditionalParserTarget(parserTarget, npc);
+				}
+				// id should be something like "123,moddedCharacter"
+				return Integer.parseInt(npc.getId().split(",")[0]);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		return null;
+	}
+
+	public void setModdedCharacterParserTarget(Long id, String parserTarget) {
+		try {
+			ParserTarget.addAdditionalParserTarget(parserTarget, (NPC) getNPCById(id + ",moddedCharacter"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static GameCharacter importCharacterAsLodger(String name) {
