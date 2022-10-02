@@ -67,6 +67,7 @@ import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
+import com.lilithsthrone.game.character.npc.dominion.DominionClubNPC;
 import com.lilithsthrone.game.character.npc.dominion.Elle;
 import com.lilithsthrone.game.character.npc.dominion.EnforcerPatrol;
 import com.lilithsthrone.game.character.npc.dominion.Felicia;
@@ -142,6 +143,7 @@ import com.lilithsthrone.game.character.npc.fields.Vronti;
 import com.lilithsthrone.game.character.npc.fields.Wynter;
 import com.lilithsthrone.game.character.npc.fields.Yui;
 import com.lilithsthrone.game.character.npc.fields.Ziva;
+import com.lilithsthrone.game.character.npc.misc.ClubberImport;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
@@ -567,6 +569,50 @@ public class Game implements XMLSaving {
 		
 		return null;
 	}
+
+	public static GameCharacter importCharacterAsClubber(String name) {
+		File file = new File("data/characters/"+name+".xml");
+		
+		if (file.exists()) {
+			try {
+				Document doc = Main.getDocBuilder().parse(file);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element characterElement = (Element) doc.getElementsByTagName("exportedCharacter").item(0);
+				if(characterElement == null) {
+					characterElement = (Element) doc.getElementsByTagName("playerCharacter").item(0);
+				}
+				
+				// Load NPCs:
+				ClubberImport importedClubber = new ClubberImport();
+				importedClubber.loadFromXML(characterElement, doc,
+						CharacterImportSetting.NO_PREGNANCY,
+						CharacterImportSetting.NO_COMPANIONS,
+						CharacterImportSetting.NO_ELEMENTAL,
+						CharacterImportSetting.CLEAR_SLAVERY,
+						CharacterImportSetting.NO_LOCATION_SETUP,
+						CharacterImportSetting.CLEAR_KEY_ITEMS,
+						CharacterImportSetting.CLEAR_COMBAT_HISTORY,
+						CharacterImportSetting.CLEAR_SEX_HISTORY,
+						CharacterImportSetting.REMOVE_RACE_CONCEALED);
+				try {
+					if(((Element)((Element)((Element)characterElement.getElementsByTagName("character").item(0)).getElementsByTagName("core").item(0)).getElementsByTagName("id").item(0)).getAttribute("value").equals("PlayerCharacter")) {
+						importedClubber.setBirthday(importedClubber.getBirthday().plusYears(18)); // If the imported character is a player character, they need to have their age adjusted to fit with the fact that NPCs start at age 18
+					}
+				} catch(Exception ex) {
+				}
+				Main.game.addNPC(importedClubber, false);
+				importedClubber.applyNewlyImportedClubberVariables();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return null;
+	}
 	
 	public static void exportGame(String exportFileName, boolean allowOverwrite) {
 		
@@ -944,12 +990,13 @@ public class Game implements XMLSaving {
 							&& (!worldType.equals("BAT_CAVERNS") || !Main.isVersionOlderThan(loadingVersion, "0.2.3.5"))
 							&& (!worldType.equals("LYSSIETH_PALACE") || !Main.isVersionOlderThan(loadingVersion, "0.3"))
 							&& (!worldType.equals("RAT_WARRENS") || !Main.isVersionOlderThan(loadingVersion, "0.3.5.6"))
-							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.3.5.6"))
 							&& (!worldType.equals("DOMINION_EXPRESS") || !Main.isVersionOlderThan(loadingVersion, "0.3.7.9"))
 							&& (!worldType.equals("SHOPPING_ARCADE") || !Main.isVersionOlderThan(loadingVersion, "0.3.14"))
 							&& (!worldType.equals("innoxia_fields_elis_market") || !Main.isVersionOlderThan(loadingVersion, "0.4.1.1"))
 							&& (!worldType.equals("innoxia_fields_elis_tavern_alley") || !Main.isVersionOlderThan(loadingVersion, "0.4.4"))
 							&& (!worldType.equals("innoxia_fields_themiscyra") || !Main.isVersionOlderThan(loadingVersion, "0.4.4.5"))
+							&& (!worldType.equals("EMPTY") || !Main.isVersionOlderThan(loadingVersion, "0.4.5.7"))
+							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.4.5.7"))
 							&& !worldType.equals("SUPPLIER_DEN") // Removed
 							&& !worldType.equals("JUNGLE") // Removed
 //                          && !worldType.equals("REBEL_BASE")
@@ -1021,6 +1068,12 @@ public class Game implements XMLSaving {
 				}
 				if(Main.isVersionOlderThan(loadingVersion, "0.4.3.9")) {
 					Main.game.getWorlds().put(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_alley"), gen.worldGeneration(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_alley")));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.5.7")) {
+					Main.game.getWorlds().put(WorldType.EMPTY, gen.worldGeneration(WorldType.EMPTY));
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.5.7")) {
+					Main.game.getWorlds().put(WorldType.SLAVER_ALLEY, gen.worldGeneration(WorldType.SLAVER_ALLEY));
 				}
 				for(AbstractWorldType wt : WorldType.getAllWorldTypes()) {
 					if(Main.game.worlds.get(wt)==null) {
@@ -1770,14 +1823,26 @@ public class Game implements XMLSaving {
 					}
 				}
 				
-				// Moving Ursa, Aurokaris, and Lunexis to their proper tiles:
-				if(Main.isVersionOlderThan(loadingVersion, "0.4.5.1") && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_3_E_THEMISCYRA_ATTACK)) {
-					Main.game.getNpc(Ursa.class).setLocation("innoxia_fields_elis_amazon_camp", "innoxia_fields_elis_amazon_camp_queen", true);
-					Main.game.getNpc(Aurokaris.class).setLocation("innoxia_fields_elis_amazon_camp", "innoxia_fields_elis_amazon_camp_trader", true);
-					Main.game.getNpc(Lunexis.class).setLocation("innoxia_fields_elis_amazon_camp", "innoxia_fields_elis_amazon_camp_lunexis", true);
-				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.5.7")) {
+					// Moving Ursa, Aurokaris, and Lunexis to their proper tiles:
+					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_3_E_THEMISCYRA_ATTACK)) {
+						Main.game.getNpc(Ursa.class).setLocation("innoxia_fields_elis_amazon_camp", "innoxia_fields_elis_amazon_camp_queen", true);
+						Main.game.getNpc(Aurokaris.class).setLocation("innoxia_fields_elis_amazon_camp", "innoxia_fields_elis_amazon_camp_aurokaris", true);
+						Main.game.getNpc(Lunexis.class).setLocation("innoxia_fields_elis_amazon_camp", "innoxia_fields_elis_amazon_camp_lunexis", true);
+					}
 				
-
+					// Moving clubber NPCs to the newly-added club holding cell:
+					for(NPC npc : Main.game.getAllNPCs()) {
+						if(npc instanceof DominionClubNPC) {
+							if(!npc.getHomeLocationPlace().getPlaceType().equals(PlaceType.DOMINION_BOULEVARD)) {
+								npc.setHomeLocation(WorldType.EMPTY, PlaceType.GENERIC_CLUB_HOLDING_CELL);
+							}
+							if(npc.getWorldLocation()==WorldType.EMPTY) {
+								npc.returnToHome();
+							}
+						}
+					}
+				}
 				
 				if(debug) {
 					System.out.println("New NPCs finished");
@@ -1808,6 +1873,7 @@ public class Game implements XMLSaving {
 		Main.game.setStarted(true); // Set started before setting content so that it parses correctly (as the scripting engine is initialised fully in the setStarted() method).
 		Main.game.setContent(new Response("", startingDialogueNode.getDescription(), startingDialogueNode), false);
 		
+		Main.game.occupancyUtil.updateSlavesResting(Main.game.getHourOfDay()); // Makes sure that resting slaves are correctly accounted for
 		Main.game.endTurn(0);
 		
 		// Do a zero-time status effect update after declaring that the game has started to make sure that everything is initialised properly (mainly just so external status effects are initialised):
@@ -2523,12 +2589,15 @@ public class Game implements XMLSaving {
 						&& npc.getHistory()==Occupation.NPC_PROSTITUTE
 						&& !npc.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)
 						&& !npc.getLocation().equals(Main.game.getPlayer().getLocation()))
-						|| (npc.isSlave() && npc.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS))) {
+						|| (npc.isSlave() && npc.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS))) {
 					npc.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), npc, false);
 				}
 				
-				if(npc.isSlave() && npc.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_VIXENS_VIRILITY)) {
+				if(npc.isSlave() && npc.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PILLS_VIXENS_VIRILITY)) {
 					npc.useItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), npc, false);
+				}
+				if(npc.isSlave() && npc.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PILLS_BROODMOTHER)) {
+					npc.useItem(Main.game.getItemGen().generateItem("innoxia_pills_broodmother"), npc, false);
 				}
 			}
 			
@@ -2544,18 +2613,23 @@ public class Game implements XMLSaving {
 					}
 					
 				} else {
-					npc.endPregnancy(true);
-					
 					if(npc.isSlave() && npc.getOwner().isPlayer()) {
-						List<String> events = Util.newArrayListOfValues(UtilText.parse(npc, "[npc.She] gave birth to:<br/>")+npc.getLastLitterBirthed().getBirthedDescription());
-						SlaveryEventLogEntry entry = new SlaveryEventLogEntry(getHourOfDay(),
-								npc,
-								null,
-								SlaveEvent.GAVE_BIRTH,
-								null,
-								events,
-								true);
-						Main.game.addSlaveryEvent(getDayNumber(), entry);
+						if(npc.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_ALLOW_BIRTHING)) {
+							npc.endPregnancy(true, false);
+							
+							List<String> events = Util.newArrayListOfValues(UtilText.parse(npc, "[npc.She] gave birth to:<br/>")+npc.getLastLitterBirthed().getBirthedDescription());
+							SlaveryEventLogEntry entry = new SlaveryEventLogEntry(getHourOfDay(),
+									npc,
+									null,
+									SlaveEvent.GAVE_BIRTH,
+									null,
+									events,
+									true);
+							Main.game.addSlaveryEvent(getDayNumber(), entry);
+						}
+						
+					} else {
+						npc.endPregnancy(true);
 					}
 					
 					if(npc instanceof Kate) {
@@ -2572,45 +2646,51 @@ public class Game implements XMLSaving {
 					long finalStageTime = npc.getTimeProgressedToFinalIncubationStage(entry.getKey());
 //					System.out.println(finalStageTime+", "+(Main.game.getSecondsPassed() - finalStageTime));
 					if(finalStageTime>0 && (Main.game.getSecondsPassed() - finalStageTime) > (12*60*60)) {
-						npc.endIncubationPregnancy(entry.getKey(), true);
-						
 						if(npc.isSlave() && npc.getOwner().isPlayer()) {
-							String areaEgged = "";
-							switch(entry.getKey()) {
-								case ANUS:
-								case MOUTH:
-									areaEgged = "stomach";
-									break;
-								case NIPPLE:
-									areaEgged = "[npc.breasts]";
-									break;
-								case NIPPLE_CROTCH:
-									areaEgged = "[npc.crotchBoobs]";
-									break;
-								case SPINNERET:
-									areaEgged = "[npc.spinneret]";
-									break;
-								case VAGINA:
-									areaEgged = "womb";
-									break;
-								case ARMPITS:
-								case ASS:
-								case BREAST:
-								case BREAST_CROTCH:
-								case THIGHS:
-								case URETHRA_PENIS:
-								case URETHRA_VAGINA:
-									break;
+							if(npc.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_ALLOW_EGG_LAYING)) {
+								npc.endIncubationPregnancy(entry.getKey(), true, false);
+								
+								String areaEgged = "";
+								switch(entry.getKey()) {
+									case ANUS:
+									case MOUTH:
+										areaEgged = "stomach";
+										break;
+									case NIPPLE:
+										areaEgged = "[npc.breasts]";
+										break;
+									case NIPPLE_CROTCH:
+										areaEgged = "[npc.crotchBoobs]";
+										break;
+									case SPINNERET:
+										areaEgged = "[npc.spinneret]";
+										break;
+									case VAGINA:
+										areaEgged = "womb";
+										break;
+									case ARMPITS:
+									case ASS:
+									case BREAST:
+									case BREAST_CROTCH:
+									case THIGHS:
+									case URETHRA_PENIS:
+									case URETHRA_VAGINA:
+										break;
+								}
+								List<String> events = Util.newArrayListOfValues(UtilText.parse(npc, "[npc.She] completed [npc.her] "+areaEgged+" incubation and gave birth to:<br/>")+npc.getLastLitterIncubated().getBirthedDescription());
+								SlaveryEventLogEntry incubationBirthEntry = new SlaveryEventLogEntry(getHourOfDay(),
+										npc,
+										null,
+										SlaveEvent.GAVE_BIRTH_INCUBATION,
+										null,
+										events,
+										true);
+								Main.game.addSlaveryEvent(getDayNumber(), incubationBirthEntry);
 							}
-							List<String> events = Util.newArrayListOfValues(UtilText.parse(npc, "[npc.She] completed [npc.her] "+areaEgged+" incubation and gave birth to:<br/>")+npc.getLastLitterIncubated().getBirthedDescription());
-							SlaveryEventLogEntry incubationBirthEntry = new SlaveryEventLogEntry(getHourOfDay(),
-									npc,
-									null,
-									SlaveEvent.GAVE_BIRTH_INCUBATION,
-									null,
-									events,
-									true);
-							Main.game.addSlaveryEvent(getDayNumber(), incubationBirthEntry);
+							
+						} else {
+							npc.endIncubationPregnancy(entry.getKey(), true);
+							
 						}
 					}
 				}
@@ -5192,6 +5272,10 @@ public class Game implements XMLSaving {
 
 	public boolean isFutanariTesticlesEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.futanariTesticles);
+	}
+
+	public boolean isFurryTailPenetrationContentEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent);
 	}
 
 	public boolean isVestigialMultiBreastsEnabled() {

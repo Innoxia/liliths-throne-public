@@ -2252,9 +2252,11 @@ public enum RenderingEngine {
 								// Put place icon onto tile:
 								if (cellFocused.getPlace().getSVGString() != null) {
 									if (y == playerPosition.getY() && x == playerPosition.getX()) {
-										mapSB.append("<div class='place-icon' style='margin:calc(18% - 4px); width:64%;'>"
+										mapSB.append("<div class='place-icon' style='margin:calc(18% - 1px); width:64%;'>"
 												+ "<div class='map-tile-content' style='background-color:"+getPlayerIconColour(cellFocused.getPlace().isDangerous()).toWebHexString()+";"
-														+ "border:4px solid "+getPlayerIconColour(cellFocused.getPlace().isDangerous()).toWebHexString()+"; border-radius:50%;'>"
+														+ "border:1px solid "
+															+getPlayerIconColour(cellFocused.getPlace().isDangerous()).getShades()[1]
+														+"; border-radius:50%;'>"
 												+ cellFocused.getPlace().getSVGString() + "</div></div>");
 									} else {
 										mapSB.append("<div class='place-icon' style='margin:18%;width:64%;'><div class='map-tile-content'>" + cellFocused.getPlace().getSVGString() + "</div></div>");

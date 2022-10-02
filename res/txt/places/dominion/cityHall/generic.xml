@@ -183,7 +183,10 @@
 	
 	<htmlContent tag="LODGER_IMPORT_START"><![CDATA[
 	<p>
-		You can import any of your previously exported characters in order to add them to the lodger list. (Export any character in the game by viewing their character sheet and pressing the little export button in the top-right of the screen.)
+		You can import any of your previously exported characters in order to add them to the lodger list. Once imported, this character will show up in this area, and by interacting with them you can add them as a friendly occupant.
+	</p>
+	<p>
+		<i>You can export any character in the game by viewing their character sheet and pressing the little export button in the bottom-right of the screen.</i>
 	</p>
 	]]>
 	</htmlContent>

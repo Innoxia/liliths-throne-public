@@ -45,13 +45,22 @@ public enum SlavePermission {
 					SlavePermissionSetting.SEX_IMPREGNATE),
 			false),
 
-	PREGNANCY(PresetColour.BASE_PURPLE_LIGHT,
+	PILLS(PresetColour.BASE_PURPLE_LIGHT,
+			"Pills",
+			Util.newArrayListOfValues(
+					SlavePermissionSetting.PILLS_PROMISCUITY_PILLS,
+					SlavePermissionSetting.PILLS_NO_PILLS,
+					SlavePermissionSetting.PILLS_VIXENS_VIRILITY,
+					SlavePermissionSetting.PILLS_BROODMOTHER),
+			true),
+
+	PREGNANCY(PresetColour.BASE_PINK,
 			"Pregnancy",
 			Util.newArrayListOfValues(
-					SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS,
-					SlavePermissionSetting.PREGNANCY_NO_PILLS,
-					SlavePermissionSetting.PREGNANCY_VIXENS_VIRILITY),
-			true),
+					SlavePermissionSetting.PREGNANCY_MOTHERS_MILK,
+					SlavePermissionSetting.PREGNANCY_ALLOW_BIRTHING,
+					SlavePermissionSetting.PREGNANCY_ALLOW_EGG_LAYING),
+			false),
 	
 	DIET(PresetColour.BODY_SIZE_TWO,
 			"Diet",

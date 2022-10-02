@@ -1695,9 +1695,9 @@ public class EnforcerAlleywayDialogue {
 								false, false,
 								new SMGeneric(
 										Util.newArrayListOfValues(Main.game.getPlayer()),
-										Util.newArrayListOfValues(getEnforcerSubordinate()),
+										Util.newArrayListOfValues(getEnforcerLeader(), getEnforcerSubordinate()),
 										null,
-										Util.newArrayListOfValues(getEnforcerLeader())),
+										null),
 								AFTER_SEX_VICTORY,
 								UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "AFTER_COMBAT_VICTORY_RAPE_THREESOME", getEnforcers()));
 						
@@ -1708,9 +1708,9 @@ public class EnforcerAlleywayDialogue {
 								true, false,
 								new SMGeneric(
 										Util.newArrayListOfValues(Main.game.getPlayer()),
-										Util.newArrayListOfValues(getEnforcerSubordinate()),
+										Util.newArrayListOfValues(getEnforcerLeader(), getEnforcerSubordinate()),
 										null,
-										Util.newArrayListOfValues(getEnforcerLeader())),
+										null),
 								AFTER_SEX_VICTORY,
 								UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "AFTER_COMBAT_VICTORY_SEX_THREESOME", getEnforcers()));
 					}

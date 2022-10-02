@@ -73,7 +73,7 @@ public class Population {
 			} else if(subspeciesIdToAdd!=null && !subspeciesIdToAdd.isEmpty()) { 
 				species = new HashMap<>();
 				for(String id : subspeciesIdToAdd) {
-					species.put(Subspecies.getSubspeciesFromId(id), SubspeciesSpawnRarity.FOUR_COMMON);
+					species.put(Subspecies.getSubspeciesFromId(id), SubspeciesSpawnRarity.TEN);
 				}
 				
 			} else {

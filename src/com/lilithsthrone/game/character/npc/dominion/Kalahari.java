@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
+import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -102,6 +103,9 @@ public class Kalahari extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.14")) {
 			this.setStartingBody(false);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.6")) { // For some reason Kalahari had cat-ears in one save, so added this to convert to panther ears
+			this.setEarType(EarType.getEarTypeFromId("innoxia_panther_ear"));
 		}
 	}
 

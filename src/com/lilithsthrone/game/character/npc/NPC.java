@@ -1040,11 +1040,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			return Math.round(this.getHomeLocationPlace().getHourlyAffectionChange()*100)/100f;
 		} else {
 			float overworkedPenalty = 1f;
-			if(this.hasStatusEffect(StatusEffect.OVERWORKED_1)) {
+			// Instead of checking for status effect, check if conditions met as this fixes a UI bug where the affection would not immediately account for the change in overworked status effects
+			if(StatusEffect.OVERWORKED_1.isConditionsMet(this)) {
 				overworkedPenalty = 0.5f;
-			} else if(this.hasStatusEffect(StatusEffect.OVERWORKED_2)) {
+			} else if(StatusEffect.OVERWORKED_2.isConditionsMet(this)) {
 				overworkedPenalty = 0.2f;
-			} else if(this.hasStatusEffect(StatusEffect.OVERWORKED_3)) {
+			} else if(StatusEffect.OVERWORKED_3.isConditionsMet(this)) {
 				overworkedPenalty = 0f;
 			}
 			float affectionGain = Math.round(job.getAffectionGain(hour, this)*100)/100f;
@@ -1055,14 +1056,25 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public float getDailyAffectionChange() {
 		float totalAffectionChange = 0;
 		
-		for (int hour = 0; hour < 24; hour++) {
-			SlaveJob job = this.getSlaveJob(hour);
-			if(this.getSlaveJob(hour)==SlaveJob.IDLE) {
-				totalAffectionChange += this.getHomeLocationPlace().getHourlyAffectionChange();
-			} else {
-				totalAffectionChange += job.getAffectionGain(hour, this);
-			}
-		}
+//		for (int hour = 0; hour < 24; hour++) {
+//			SlaveJob job = this.getSlaveJob(hour);
+//			if(this.getSlaveJob(hour)==SlaveJob.IDLE) {
+//				totalAffectionChange += this.getHomeLocationPlace().getHourlyAffectionChange();
+//			} else {
+//				totalAffectionChange += job.getAffectionGain(hour, this);
+//			}
+//		}
+	    for (int hour = 0; hour < 24; hour++) {
+	        totalAffectionChange += getHourlyAffectionChange(hour);
+	    }
+	    // Check conditions met as the status effects are updated AFTER the menu - UI bugfix
+	    if(StatusEffect.OVERWORKED_1.isConditionsMet(this)) {
+	        totalAffectionChange -= (0.5f*24);
+	    } else if(StatusEffect.OVERWORKED_2.isConditionsMet(this)) {
+	        totalAffectionChange -= (1f*24);
+	    } else if(StatusEffect.OVERWORKED_3.isConditionsMet(this)) {
+	        totalAffectionChange -= (2f*24);
+	    }
 
 		// Rounding is to get rid of floating point ridiculousness (e.g. 2.3999999999999999999999):
 		return Math.round(totalAffectionChange*100)/100f;

@@ -100,7 +100,7 @@ public class ZaranixHomeFirstFloorRepeat {
 						return new ResponseSex("Submit",
 								"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Kelly. Perhaps if you submitted, [kelly.she]'d be willing to fuck you?",
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
-								false, false,
+								true, false,
 								new SMGeneric(
 										Util.newArrayListOfValues(Main.game.getNpc(ZaranixMaidKelly.class)),
 										Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -210,7 +210,7 @@ public class ZaranixHomeFirstFloorRepeat {
 					return new ResponseSex("Submit",
 							"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Kelly. Perhaps if you submitted, [kelly.she]'d be willing to fuck you?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
-							false, false,
+							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getNpc(ZaranixMaidKelly.class)),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
