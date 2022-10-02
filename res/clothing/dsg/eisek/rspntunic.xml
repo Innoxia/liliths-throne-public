@@ -86,7 +86,6 @@
 		<tertiaryColoursDye values="ALL_METAL"/>
 
 		<itemTags> 
-			<tag>NOT_FOR_SALE</tag>
 			<tag>NO_RANDOM_SPAWN</tag>
 		</itemTags>
 	</coreAtributes>

@@ -3,7 +3,7 @@
 	<coreAttributes>
 		<authorTag><![CDATA[A faint inscription printed on the peel reads 'Picked by DSG Foodstuffs LLC']]></authorTag>
 		
-		<value>1000</value> 
+		<value>100</value> 
 		<determiner><![CDATA[]]></determiner>
 		<name><![CDATA[Yellow Dragonfruit]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Yellow Dragonfruits]]></namePlural>
@@ -44,7 +44,6 @@
 		
 		<itemTags>
 			<tag>RACIAL_TF_ITEM</tag>
-			<tag>SOLD_BY_RALPH</tag>
 		</itemTags>
 	</coreAttributes>
 

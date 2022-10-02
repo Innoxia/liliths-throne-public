@@ -214,10 +214,13 @@
 			Having earned his trust, the [eisek.race] opens up a little. [eisek.speech(I come from Cimryth's Crag, a rocky little valley high in the mountains far to the west of here. My family has farmed there for a hundred years.)]
 		</p>
 		<p>
-			Expressing surprise that his farm is in the mountains, you ask Eisek how he can grow anything up there and how he can carry enough to sell all the way down. Trying not to sound too proud, he explains [eisek.speech(Cimryth chose well when she decided where to settle my ancestors. Heat rises from the earth there, and ice never forms. She brought soil with her, and the greenhouses she designed took care of the rest. It is for this reason the Crag is named in her honour.)]
+			Expressing surprise that his farm is in the mountains, you ask Eisek how he can grow anything up there and how he can carry enough to sell all the way down. Trying not to sound too proud, he explains [eisek.speech(Cimryth chose well when she decided where to settle my ancestors. Heat rises from the earth there, and ice never touches the ground. She brought soil from the foothills with her, and the greenhouses she designed took care of the rest. It is for this reason the Crag is named after her, and it is my honour to carry on in her tradition.)]
 		</p>
 		<p>
-			Eisek flexes his wings slightly before continuing, [eisek.speech(It is easy enough to carry my weight in goods on a downward glide from the Crag, and the return trip is much easier.)]
+			Eisek flexes his wings slightly before continuing, [eisek.speech(It is easy enough to carry my weight in goods on a downward glide from the Crag, and after three days in the thick air down here the return trip is much easier.)]
+		</p>
+		<p>
+			From the sounds of things, the [eisek.race] is doing much or even all of this on his own. When you ask him if he's got anyone helping him, his face darkens. [eisek.speech(No,) he answers tersely.  You decide not to pry further.
 		</p>
 	#ELSE
 		<p>

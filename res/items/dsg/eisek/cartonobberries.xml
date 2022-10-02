@@ -2,7 +2,7 @@
 <item>
 	<coreAttributes>
 		<authorTag><![CDATA["Grown by the dragons of the DSG Farmer's Guild" is lightly embossed under the carton.]]></authorTag>
-		<value>10</value>
+		<value>5</value>
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[carton of blueberries]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[cartons of blueberries]]></namePlural>
@@ -43,7 +43,7 @@
 			#IF (npc.hasVagina())
 				[##npc.setGirlCumFlavour(FLUID_FLAVOUR_BLUEBERRY)]
 			#ENDIF
-			#IF (!npc.hasStatusEffect(SE_dsg_item_fruit_buff))
+			#IF (!(npc.hasStatusEffect(SE_dsg_item_fruit_buff_plus) || (npc.hasStatusEffect(SE_dsg_item_fruit_buff))
 				[##npc.addStatusEffect(SE_dsg_item_fruit_buff,3600)]
 			#ENDIF
 			<p style='margin-bottom:0; padding-bottom:0;'>
@@ -51,16 +51,18 @@
 			</p>
 		]]></applyEffects>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>SOLD_BY_EISEK</tag>
+		</itemTags>
 		
 	</coreAttributes>
 
 	<useDescriptions>
 		<selfUse><![CDATA[
-			[npc.Name] gingerly [npc.verb(pick)] a few blueberries from the carton and [npc.verb(start)] eating them, but before long [npc.she] [npc.verb(start)] dumping the whole thing into [npc.her] mouth. It doesn't take long to empty the carton after that...
+			[npc.Name] gingerly [npc.verb(pick)] a few blueberries from the carton and [npc.verb(start)] eating them, but soon [npc.she] [npc.verb(start)] dumping the whole thing into [npc.her] mouth. It doesn't take long to empty the carton after that...
 		]]></selfUse>
 		<otherUse><![CDATA[
-			[npc.Name] gingerly [npc.verb(pick)] a few blueberries from the carton for [npc2.name] to eat, but before long [npc2.name] takes the whole thing from [npc.her] and [npc2.verb(start)] dumping it into [npc.her] mouth. It doesn't take long to empty the carton after that...
+			[npc.Name] gingerly [npc.verb(pick)] a few blueberries from the carton for [npc2.name] to eat, but soon [npc2.name] takes the whole thing from [npc.her] and [npc2.verb(start)] dumping it into [npc.her] mouth. It doesn't take long to empty the carton after that...
 		]]></otherUse>
 	</useDescriptions>
 

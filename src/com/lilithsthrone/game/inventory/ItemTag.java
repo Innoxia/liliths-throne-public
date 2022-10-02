@@ -26,6 +26,7 @@ public enum ItemTag {
 	SOLD_BY_KATE, // Jewellery
 	SOLD_BY_FINCH, // BDSM and sex-related stuff
 	SOLD_BY_VICKY, // Weapons
+	SOLD_BY_EISEK, // Produce
 
 	// Items with these tags can randomly spawn in encounters in the commented area
 	// Please note that due to legacy issues, clothing and weapons only use the 'DOMINION_ALLEYWAY_SPAWN' tag to determine whether or not it can randomly spawn in any area.

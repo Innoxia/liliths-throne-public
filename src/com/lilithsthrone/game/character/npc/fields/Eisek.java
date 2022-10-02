@@ -22,6 +22,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
+import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
@@ -44,13 +45,18 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -140,7 +146,7 @@ public class Eisek extends NPC {
 
 	this.setHairCovering(new Covering("dsg_dragon_hair", PresetColour.COVERING_WHITE, PresetColour.COVERING_WHITE), false);
 	this.setHairType(HairType.getHairTypeFromId("dsg_dragon_hairMane"));
-	this.setHairLength(11);
+	this.setHairLength(HairLength.ZERO_BALD);
 	this.setHairStyle(HairStyle.NONE);
 
 	this.setHairCovering(new Covering("dsg_dragon_body_hair", PresetColour.COVERING_BLACK), false);
@@ -204,12 +210,37 @@ public class Eisek extends NPC {
     
     @Override
     public void equipClothing(List<EquipClothingSetting> settings) {
-	//TODO
+	this.unequipAllClothingIntoVoid(true, true);
+	
+	this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_boxers", PresetColour.CLOTHING_WHITE, false), InventorySlot.GROIN, true, this);
+	this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_GREY_LIGHT, false), InventorySlot.SOCK, true, this);
+	this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eisek_sundshirt", PresetColour.CLOTHING_WHITE, false), InventorySlot.TORSO_UNDER, true, this);
+	
+	this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eisek_rspntrousers", PresetColour.CLOTHING_GREY_LIGHT, false), InventorySlot.LEG, true, this);
+	this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eisek_rspntunic", PresetColour.CLOTHING_BLACK, false), InventorySlot.TORSO_OVER, true, this);
+	this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eisek_oleathboots", PresetColour.CLOTHING_DESATURATED_BROWN, false), InventorySlot.FOOT, true, this);
+	this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eisek_seawings_ring", PresetColour.CLOTHING_GOLD, false), InventorySlot.FINGER, true, this);
     }
     
     @Override
     public boolean isUnique() {
 	    return true;
+    }
+    
+    @Override
+    public String getDescription() {
+	    if(this.isPlayerKnowsName() == false) {
+		    return "You found this dragon-boy being harrassed by a mob while manning a stall at The Farmer's Market in Elis.";
+
+	    } else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_banished"))) {
+		    return "You found this dragon-boy being harrassed by a mob while manning a stall at The Farmer's Market in Elis. Intentionally or not, you sided with the mob and drove him off.";
+
+	    } else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_asked_himself"))) {
+		    return "Eisk is a produce merchant at The Farmer's Market in Elis. As a one dragon-morph operation, he spends most of his time tending to his crops high up in the mountains and only visits Elis three days out of the month.";
+
+	    } else {
+		    return "Eisk is a produce merchant at The Farmer's Market in Elis.";
+	    }
     }
     
     @Override
@@ -223,10 +254,28 @@ public class Eisek extends NPC {
     
     @Override
     public void dailyUpdate() {
+	
 	if (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_banished"))) {
 	    if (Main.game.getDateNow().getDayOfMonth() >= 1 && Main.game.getDateNow().getDayOfMonth() <= 3) {
-		this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_market"));
+		//Probably could reduce this to only update on the first day, but that might get annoying when adding items in future updates or for modders
+		clearNonEquippedInventory(false);	
+		for(AbstractItemType item : ItemType.getAllItems()) {
+			if(item.getItemTags().contains(ItemTag.SOLD_BY_EISEK)
+					&& (!item.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
+				this.addItem(Main.game.getItemGen().generateItem(item), !item.isConsumedOnUse()?1:(2+Util.random.nextInt(2)), false, false);
+			}
+		}
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_mob_quest_persuade"))) {
+		    this.addItem(Main.game.getItemGen().generateItem("dsg_race_dragon_dragonfruit_yellow"), 1+Util.random.nextInt(1), false, false);
+		    this.addItem(Main.game.getItemGen().generateItem("dsg_race_dragon_dragonfruit_red"), 1+Util.random.nextInt(1), false, false);
+		    this.addItem(Main.game.getItemGen().generateItem("dsg_race_dragon_dragonfruit_pink"), 1+Util.random.nextInt(1), false, false);
+		}
+		if (this.getLocationPlaceType() != PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_market")) {
+		    this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_market"));
+		}
+			
 	    } else {
+		//Shadow realm'd until his real home exists
 		this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE);
 	    }
 	}
