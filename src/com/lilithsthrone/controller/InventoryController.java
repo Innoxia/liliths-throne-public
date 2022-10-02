@@ -176,8 +176,8 @@ public class InventoryController {
 				id = "FLOOR_WEAPON_"+entry.getKey().hashCode();
 				if (MainController.document.getElementById(id) != null) {
 					MainController.addTooltipListeners(id,
-							new InventorySelectedItemEventListener().setWeaponInventory(entry.getKey(), null),
-							new TooltipInventoryEventListener().setWeapon(entry.getKey(), null, false), false);
+							new TooltipInventoryEventListener().setWeapon(entry.getKey(), null, false),
+							new InventorySelectedItemEventListener().setWeaponInventory(entry.getKey(), null), false);
 				}
 			}
 			
@@ -186,8 +186,8 @@ public class InventoryController {
 				id = "FLOOR_CLOTHING_"+entry.getKey().hashCode();
 				if (MainController.document.getElementById(id) != null) {
 					MainController.addTooltipListeners(id,
-							new InventorySelectedItemEventListener().setClothingInventory(entry.getKey(), null),
-							new TooltipInventoryEventListener().setClothing(entry.getKey(), null, null), false);
+							new TooltipInventoryEventListener().setClothing(entry.getKey(), null, null),
+							new InventorySelectedItemEventListener().setClothingInventory(entry.getKey(), null), false);
 				}
 			}
 			

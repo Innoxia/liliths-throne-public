@@ -354,7 +354,7 @@ public class OccupantController {
 		}
 	}
 	
-	public static void initSlaveListeners() {
+	public static void initSlaveJobListeners() {
 		String id;
 		// Job hours:
 		for (int i = 0; i<24; i++) {
@@ -483,11 +483,13 @@ public class OccupantController {
 				}
 			}
 		}
-		
+	}
+	
+	public static void initSlavePermissionsListeners() {
 		// Permissions:
 		for (SlavePermission permission : SlavePermission.values()) {
 			for (SlavePermissionSetting setting : permission.getSettings()) {
-				id = setting+"_ADD";
+				String id = setting+"_ADD";
 				if (MainController.document.getElementById(id) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 						Main.game.getDialogueFlags().getManagementCompanion().addSlavePermissionSetting(permission, setting);

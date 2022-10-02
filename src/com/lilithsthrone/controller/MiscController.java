@@ -344,24 +344,27 @@ public class MiscController {
 		}
 	}
 	
-	public static void initEncyclopediaListeners() {
-		String id;
+	public static void initEncyclopediaClothingListeners() {
 		for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			id = clothing.getId();
+			String id = clothing.getId();
 			if (MainController.document.getElementById(id) != null) {
 				MainController.addTooltipListeners(id, new TooltipInventoryEventListener().setGenericClothing(clothing));
 			}
 		}
-		
+	}
+	
+	public static void initEncyclopediaItemListeners() {
 		for (AbstractItemType item : ItemType.getAllItems()) {
-			id = ItemType.getItemToIdMap().get(item);
+			String id = ItemType.getItemToIdMap().get(item);
 			if (MainController.document.getElementById(id) != null) {
 				MainController.addTooltipListeners(id, new TooltipInventoryEventListener().setGenericItem(item));
 			}
 		}
-		
+	}
+	
+	public static void initEncyclopediaWeaponListeners() {
 		for (AbstractWeaponType weapon : WeaponType.getAllWeapons()) {
-			id = weapon.getId();
+			String id = weapon.getId();
 			if (MainController.document.getElementById(id) != null) {
 				MainController.addTooltipListeners(id, new TooltipInventoryEventListener().setGenericWeapon(weapon, weapon.getAvailableDamageTypes().get(0)));
 			}
@@ -570,9 +573,9 @@ public class MiscController {
 		for (int i = grid[0].length-1; i>=0; i--) {
 			for (int j = 0; j<grid.length; j++) {
 				Cell c = grid[j][i];
-				if (worldType.equals(WorldType.WORLD_MAP)
-						|| Main.game.isMapReveal()
-						|| c.isDiscovered()
+				if ((!worldType.equals(WorldType.WORLD_MAP)
+						&& !Main.game.isMapReveal()
+						&& !c.isDiscovered())
 						|| c.getPlace().getPlaceType().equals(PlaceType.GENERIC_IMPASSABLE)
 						|| !interactive) {
 					continue;
@@ -606,7 +609,7 @@ public class MiscController {
 	static void initMapLocationListeners(AbstractWorldType worldType, Cell c, int i, int j) {
 		String id = "MAP_NODE_"+i+"_"+j;
 		if (MainController.document.getElementById(id) != null) {
-			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setCell(c)); // TODO Why?
+			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setCell(c));
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 				Vector2i clickLocation = new Vector2i(j, i);
 				if (c.getDialogue(false) != null // Make sure the destination actually has an associated DialogueNode

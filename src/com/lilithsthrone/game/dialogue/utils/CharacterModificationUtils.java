@@ -1274,29 +1274,36 @@ public class CharacterModificationUtils {
 		GameCharacter target = BodyChanging.getTarget();
 		contentSB.setLength(0);
 		
-		for(WingSize wingSize : WingSize.values()) {
-			if(target.getWingType().getMinimumSize().getValue()>wingSize.getValue()
-					|| target.getWingType().getMaximumSize().getValue()<wingSize.getValue()) {
-				contentSB.append(
-						"<div class='cosmetics-button disabled'>"
-							+ Util.capitaliseSentence(wingSize.getName())
-							+ (wingSize.getValue()>=target.getLegConfiguration().getMinimumWingSizeForFlight(target.getBody()).getValue()?"*":"")
-						+ "</div>");
-			
-			} else {
-				if(BodyChanging.getTarget().getWingSize() == wingSize) {
+		if(!BodyChanging.getTarget().hasWings()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("N/A")
+							+"</div>");
+		} else {
+			for (WingSize wingSize : WingSize.values()) {
+				if (target.getWingType().getMinimumSize().getValue()>wingSize.getValue()
+						|| target.getWingType().getMaximumSize().getValue()<wingSize.getValue()) {
 					contentSB.append(
-							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(wingSize.getName())
-									+(wingSize.getValue()>=target.getLegConfiguration().getMinimumWingSizeForFlight(target.getBody()).getValue()?"*":"")+"</span>"
-							+ "</div>");
+							"<div class='cosmetics-button disabled'>"
+									+Util.capitaliseSentence(wingSize.getName())
+									+(wingSize.getValue()>=target.getLegConfiguration().getMinimumWingSizeForFlight(target.getBody()).getValue()?"*":"")
+									+"</div>");
 					
 				} else {
-					contentSB.append(
-							"<div id='WING_SIZE_"+wingSize+"' class='cosmetics-button'>"
-								+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(wingSize.getName())
-									+(wingSize.getValue()>=target.getLegConfiguration().getMinimumWingSizeForFlight(target.getBody()).getValue()?"*":"")+"</span>"
-							+ "</div>");
+					if (BodyChanging.getTarget().getWingSize() == wingSize) {
+						contentSB.append(
+								"<div class='cosmetics-button active'>"
+										+"<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(wingSize.getName())
+										+(wingSize.getValue()>=target.getLegConfiguration().getMinimumWingSizeForFlight(target.getBody()).getValue()?"*":"")+"</span>"
+										+"</div>");
+						
+					} else {
+						contentSB.append(
+								"<div id='WING_SIZE_"+wingSize+"' class='cosmetics-button'>"
+										+"<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(wingSize.getName())
+										+(wingSize.getValue()>=target.getLegConfiguration().getMinimumWingSizeForFlight(target.getBody()).getValue()?"*":"")+"</span>"
+										+"</div>");
+					}
 				}
 			}
 		}
@@ -1413,18 +1420,25 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformHornSizeDiv() {
 		contentSB.setLength(0);
 		
-		for(HornLength hornLength : HornLength.values()) {
-			if(HornLength.getLengthFromInt(BodyChanging.getTarget().getHornLengthValue()) == hornLength) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(hornLength.getDescriptor())+(hornLength.isSuitableAsHandles()?"*":"")+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='HORN_LENGTH_"+hornLength+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(hornLength.getDescriptor())+(hornLength.isSuitableAsHandles()?"*":"")+"</span>"
-						+ "</div>");
+		if(!BodyChanging.getTarget().hasHorns()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("N/A")
+							+"</div>");
+		} else {
+			for (HornLength hornLength : HornLength.values()) {
+				if (HornLength.getLengthFromInt(BodyChanging.getTarget().getHornLengthValue()) == hornLength) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(hornLength.getDescriptor())+(hornLength.isSuitableAsHandles()?"*":"")+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='HORN_LENGTH_"+hornLength+"' class='cosmetics-button'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(hornLength.getDescriptor())+(hornLength.isSuitableAsHandles()?"*":"")+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -1439,18 +1453,25 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformHornCountDiv() {
 		contentSB.setLength(0);
 		
-		for(int i=1; i <= Horn.MAXIMUM_ROWS; i++) {
-			if(BodyChanging.getTarget().getHornRows() == i) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='HORN_COUNT_"+i+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
-						+ "</div>");
+		if(!BodyChanging.getTarget().hasHorns()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("N/A")
+							+"</div>");
+		} else {
+			for (int i = 1; i<=Horn.MAXIMUM_ROWS; i++) {
+				if (BodyChanging.getTarget().getHornRows() == i) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='HORN_COUNT_"+i+"' class='cosmetics-button'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -1465,18 +1486,25 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformHornsPerRowCountDiv() {
 		contentSB.setLength(0);
 		
-		for(int i=1; i <= Horn.MAXIMUM_HORNS_PER_ROW; i++) {
-			if(BodyChanging.getTarget().getHornsPerRow() == i) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='HORN_COUNT_PER_ROW_"+i+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
-						+ "</div>");
+		if(!BodyChanging.getTarget().hasHorns()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("N/A")
+							+"</div>");
+		} else {
+			for (int i = 1; i<=Horn.MAXIMUM_HORNS_PER_ROW; i++) {
+				if (BodyChanging.getTarget().getHornsPerRow() == i) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='HORN_COUNT_PER_ROW_"+i+"' class='cosmetics-button'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+									+"</div>");
+				}
 			}
 		}
 		
@@ -1526,18 +1554,25 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformAntennaSizeDiv() {
 		contentSB.setLength(0);
 		
-		for(HornLength antennaLength : HornLength.values()) {
-			if(HornLength.getLengthFromInt(BodyChanging.getTarget().getAntennaLength()) == antennaLength) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(antennaLength.getDescriptor())+(antennaLength.isSuitableAsHandles()?"*":"")+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='ANTENNA_LENGTH_"+antennaLength+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(antennaLength.getDescriptor())+(antennaLength.isSuitableAsHandles()?"*":"")+"</span>"
-						+ "</div>");
+		if(!BodyChanging.getTarget().hasAntennae()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("N/A")
+							+"</div>");
+		} else {
+			for (HornLength antennaLength : HornLength.values()) {
+				if (HornLength.getLengthFromInt(BodyChanging.getTarget().getAntennaLength()) == antennaLength) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(antennaLength.getDescriptor())+(antennaLength.isSuitableAsHandles()?"*":"")+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='ANTENNA_LENGTH_"+antennaLength+"' class='cosmetics-button'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(antennaLength.getDescriptor())+(antennaLength.isSuitableAsHandles()?"*":"")+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -1552,18 +1587,25 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformAntennaCountDiv() {
 		contentSB.setLength(0);
 		
-		for(int i=1; i <= Antenna.MAXIMUM_ROWS; i++) {
-			if(BodyChanging.getTarget().getAntennaRows() == i) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='ANTENNA_COUNT_"+i+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
-						+ "</div>");
+		if(!BodyChanging.getTarget().hasAntennae()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("N/A")
+							+"</div>");
+		} else {
+			for (int i = 1; i<=Antenna.MAXIMUM_ROWS; i++) {
+				if (BodyChanging.getTarget().getAntennaRows() == i) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='ANTENNA_COUNT_"+i+"' class='cosmetics-button'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -1578,18 +1620,25 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformAntennaePerRowCountDiv() {
 		contentSB.setLength(0);
 		
-		for(int i=1; i <= Antenna.MAXIMUM_ANTENNAE_PER_ROW; i++) {
-			if(BodyChanging.getTarget().getAntennaePerRow() == i) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='ANTENNA_COUNT_PER_ROW_"+i+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
-						+ "</div>");
+		if(!BodyChanging.getTarget().hasAntennae()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("N/A")
+							+"</div>");
+		} else {
+			for (int i = 1; i<=Antenna.MAXIMUM_ANTENNAE_PER_ROW; i++) {
+				if (BodyChanging.getTarget().getAntennaePerRow() == i) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='ANTENNA_COUNT_PER_ROW_"+i+"' class='cosmetics-button'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+									+"</div>");
+				}
 			}
 		}
 		
@@ -2789,33 +2838,48 @@ public class CharacterModificationUtils {
 				true);
 	}
 
-	public static String getSelfTransformBreastRowsDiv(boolean halfWidth) {
+	public static String getSelfTransformBreastRowsDiv() {
 		contentSB.setLength(0);
 		
-		for(int i=1; i <= Breast.MAXIMUM_BREAST_ROWS; i++) {
-			if(BodyChanging.getTarget().getBreastRows() == i) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='BREAST_COUNT_"+i+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
-						+ "</div>");
+		if (Main.getProperties().multiBreasts == 0
+				|| (Main.getProperties().multiBreasts == 1
+				&& BodyChanging.getTarget().getTorsoType() == TorsoType.HUMAN)) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("One")
+							+"</div>");
+		} else {
+			for (int i = 1; i<=Breast.MAXIMUM_BREAST_ROWS; i++) {
+				if (BodyChanging.getTarget().getBreastRows() == i) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='BREAST_COUNT_"+i+"' class='cosmetics-button'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
 		return applyWrapper("Breast Pairs",
 				UtilText.parse(BodyChanging.getTarget(), "Change how many pairs of breasts [npc.name] [npc.has]."
-						+ "<br/><i>This is a mostly a cosmetic change, but is also taken into account when determining if there are any free nipples for use in sex.</i>"),
+						+ "<br/><i>This is a mostly a cosmetic change, but is also taken into account when determining if there are any free nipples for use in sex.</i>"
+						+(Main.getProperties().multiBreasts == 0
+						?"<br/>[style.italicsBad(Multi-Breasts are disabled in the content settings!)]"
+						:(Main.getProperties().multiBreasts == 1
+						&& BodyChanging.getTarget().getTorsoType() == TorsoType.HUMAN)
+						?"<br/>[style.italicsBad(Multi-Breasts are disabled for humans in the content settings!)]"
+						:"")),
 				"BREAST_ROWS",
 				contentSB.toString(),
-				halfWidth);
+				true);
 	}
 
-	public static String getSelfTransformBreastCrotchRowsDiv(boolean halfWidth) {
+	public static String getSelfTransformBreastCrotchRowsDiv() {
 		contentSB.setLength(0);
 		
 		int minimum = 1;
@@ -2848,7 +2912,7 @@ public class CharacterModificationUtils {
 						+ "<br/><i>This is a mostly a cosmetic change, but is also taken into account when determining if there are any free crotch-nipples for use in sex.</i>"),
 				"BREAST_CROTCH_ROWS",
 				contentSB.toString(),
-				halfWidth);
+				true);
 	}
 
 	public static String getSelfTransformNippleCountDiv() {
@@ -3072,18 +3136,25 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformNippleCapacityDiv() {
 		contentSB.setLength(0);
 		
-		for(Capacity value : Capacity.getCapacityListFromPreferences()) {
-			if(BodyChanging.getTarget().getNippleCapacity() == value) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='NIPPLE_CAPACITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
+		if (!Main.game.isNipplePenEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Nipple Pen Disabled")
+							+"</div>");
+		} else {
+			for (Capacity value : Capacity.getCapacityListFromPreferences()) {
+				if (BodyChanging.getTarget().getNippleCapacity() == value) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='NIPPLE_CAPACITY_"+value+"' class='cosmetics-button'>"
+									+"<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -3098,18 +3169,25 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformNippleCrotchCapacityDiv() {
 		contentSB.setLength(0);
 		
-		for(Capacity value : Capacity.getCapacityListFromPreferences()) {
-			if(BodyChanging.getTarget().getNippleCrotchCapacity() == value) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='NIPPLE_CROTCH_CAPACITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
+		if (!Main.game.isNipplePenEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Nipple Pen Disabled")
+							+"</div>");
+		} else {
+			for (Capacity value : Capacity.getCapacityListFromPreferences()) {
+				if (BodyChanging.getTarget().getNippleCrotchCapacity() == value) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='NIPPLE_CROTCH_CAPACITY_"+value+"' class='cosmetics-button'>"
+									+"<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -3122,7 +3200,7 @@ public class CharacterModificationUtils {
 	}
 	
 	public static int getLactationUpperLimit() {
-		if(Main.game.isInNewWorld()) {
+		if (Main.game.isInNewWorld()) {
 			return Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue();
 		} else {
 			return 150;
@@ -3130,18 +3208,28 @@ public class CharacterModificationUtils {
 	}
 	
 	public static String getSelfTransformLactationDiv() {
-		return applyVariableWrapperFluids("Lactation",
-				UtilText.parse(BodyChanging.getTarget(), "Change the maximum amount of milk [npc.name] can store in [npc.her] [npc.breasts]."
-						+ "<br/><i>Once drained, [npc.namePos] breasts fill with milk up to this value at a rate determined by [npc.her] milk regeneration value.</i>"),
-				"MILK_PRODUCTION",
-				Units.fluid(BodyChanging.getTarget().getBreastRawMilkStorageValue(), ValueType.PRECISE)
-					+"<br/><i>"+Util.capitaliseSentence(BodyChanging.getTarget().getBreastMilkStorage().getName())+"</i>",
-				BodyChanging.getTarget().getBreastRawMilkStorageValue()<=0,
-				BodyChanging.getTarget().getBreastRawMilkStorageValue()>=getLactationUpperLimit(),
-				FLUID_INCREMENT_SMALL,
-				FLUID_INCREMENT_AVERAGE,
-				FLUID_INCREMENT_LARGE,
-				FLUID_INCREMENT_HUGE);
+		String title = "Lactation";
+		String description = UtilText.parse(BodyChanging.getTarget(), "Change the maximum amount of milk [npc.name] can store in [npc.her] [npc.breasts]."
+				+"<br/><i>Once drained, [npc.namePos] breasts fill with milk up to this value at a rate determined by [npc.her] milk regeneration value.</i>");
+		String id = "MILK_PRODUCTION";
+		if (!Main.game.isLactationContentEnabled()) {
+			return applyWrapper(title, description, id,
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Lactation Disabled")
+							+"</div>", true);
+		} else {
+			return applyVariableWrapperFluids(title,
+					description,
+					id,
+					Units.fluid(BodyChanging.getTarget().getBreastRawMilkStorageValue(), ValueType.PRECISE)
+							+"<br/><i>"+Util.capitaliseSentence(BodyChanging.getTarget().getBreastMilkStorage().getName())+"</i>",
+					BodyChanging.getTarget().getBreastRawMilkStorageValue()<=0,
+					BodyChanging.getTarget().getBreastRawMilkStorageValue()>=getLactationUpperLimit(),
+					FLUID_INCREMENT_SMALL,
+					FLUID_INCREMENT_AVERAGE,
+					FLUID_INCREMENT_LARGE,
+					FLUID_INCREMENT_HUGE);
+		}
 	}
 	
 	public static int getLactationCrotchUpperLimit() {
@@ -3149,67 +3237,104 @@ public class CharacterModificationUtils {
 	}
 	
 	public static String getSelfTransformLactationCrotchDiv() {
-		return applyVariableWrapperFluids("Lactation",
-				UtilText.parse(BodyChanging.getTarget(), "Change the maximum amount of milk [npc.name] can store in [npc.her] [npc.crotchBoobs]."
-						+ "<br/><i>Once drained, [npc.namePos] [npc.crotchBoobs] fill with milk up to this value at a rate determined by [npc.her] crotch-milk regeneration value.</i>"),
-				"MILK_CROTCH_PRODUCTION",
-				Units.fluid(BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue(), ValueType.PRECISE)
-					+"<br/><i>"+Util.capitaliseSentence(BodyChanging.getTarget().getBreastCrotchMilkStorage().getName())+"</i>",
-				BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()<=0,
-				BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()>=getLactationCrotchUpperLimit(),
-				FLUID_INCREMENT_SMALL,
-				FLUID_INCREMENT_AVERAGE,
-				FLUID_INCREMENT_LARGE,
-				FLUID_INCREMENT_HUGE);
+		String title = "Lactation";
+		String description = UtilText.parse(BodyChanging.getTarget(), "Change the maximum amount of milk [npc.name] can store in [npc.her] [npc.crotchBoobs]."
+				+ "<br/><i>Once drained, [npc.namePos] [npc.crotchBoobs] fill with milk up to this value at a rate determined by [npc.her] crotch-milk regeneration value.</i>");
+		String id = "MILK_CROTCH_PRODUCTION";
+		if (!Main.game.isLactationContentEnabled()) {
+			return applyWrapper(title, description, id,
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Lactation Disabled")
+							+"</div>", true);
+		} else {
+			return applyVariableWrapperFluids(title,
+					description,
+					id,
+					Units.fluid(BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue(), ValueType.PRECISE)
+							+"<br/><i>"+Util.capitaliseSentence(BodyChanging.getTarget().getBreastCrotchMilkStorage().getName())+"</i>",
+					BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()<=0,
+					BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()>=getLactationCrotchUpperLimit(),
+					FLUID_INCREMENT_SMALL,
+					FLUID_INCREMENT_AVERAGE,
+					FLUID_INCREMENT_LARGE,
+					FLUID_INCREMENT_HUGE);
+		}
 	}
 	
 	public static String getSelfTransformLactationRegenerationDiv() {
-		return applyVariableWrapperFluids("Milk Regeneration Per Breast",
-				UtilText.parse(BodyChanging.getTarget(), "Alter the rate at which milk is produced in <b>each</b> of [npc.namePos] breasts. The more breasts [npc.sheHasFull], the more milk [npc.she] produces per second."
-						+ "<br/><i>Once drained, [npc.namePos] breasts fill with milk up to their maximum storage value at this rate.</i>"),
-				"MILK_REGENERATION",
-				Units.fluid(BodyChanging.getTarget().getBreastRawLactationRegenerationValue(), ValueType.PRECISE)+"/day"
-					+"<br/>("+Units.fluid(BodyChanging.getTarget().getLactationRegenerationPerSecond(false)*60, ValueType.PRECISE)+"/minute)"
-					+"<br/><i>"+Util.capitaliseSentence(BodyChanging.getTarget().getBreastLactationRegeneration().getName())+"</i>",
-				BodyChanging.getTarget().getBreastRawLactationRegenerationValue()<=0,
-				BodyChanging.getTarget().getBreastRawLactationRegenerationValue()>=FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay(),
-				FLUID_REGEN_INCREMENT_SMALL,
-				FLUID_REGEN_INCREMENT_AVERAGE,
-				FLUID_REGEN_INCREMENT_LARGE,
-				FLUID_REGEN_INCREMENT_HUGE);
+		String title = "Milk Regeneration Per Breast";
+		String description = UtilText.parse(BodyChanging.getTarget(), "Alter the rate at which milk is produced in <b>each</b> of [npc.namePos] breasts. The more breasts [npc.sheHasFull], the more milk [npc.she] produces per second."
+				+ "<br/><i>Once drained, [npc.namePos] breasts fill with milk up to their maximum storage value at this rate.</i>");
+		String id = "MILK_REGENERATION";
+		if (!Main.game.isLactationContentEnabled()) {
+			return applyWrapper(title, description, id,
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Lactation Disabled")
+							+"</div>", true);
+		} else {
+			return applyVariableWrapperFluids(title,
+					description,
+					id,
+					Units.fluid(BodyChanging.getTarget().getBreastRawLactationRegenerationValue(), ValueType.PRECISE)+"/day"
+							+"<br/>("+Units.fluid(BodyChanging.getTarget().getLactationRegenerationPerSecond(false)*60, ValueType.PRECISE)+"/minute)"
+							+"<br/><i>"+Util.capitaliseSentence(BodyChanging.getTarget().getBreastLactationRegeneration().getName())+"</i>",
+					BodyChanging.getTarget().getBreastRawLactationRegenerationValue()<=0,
+					BodyChanging.getTarget().getBreastRawLactationRegenerationValue()>=FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay(),
+					FLUID_REGEN_INCREMENT_SMALL,
+					FLUID_REGEN_INCREMENT_AVERAGE,
+					FLUID_REGEN_INCREMENT_LARGE,
+					FLUID_REGEN_INCREMENT_HUGE);
+		}
 	}
 
 	public static String getSelfTransformLactationCrotchRegenerationDiv() {
-		return applyVariableWrapperFluids("Milk Regeneration Per Crotch-boob",
-				UtilText.parse(BodyChanging.getTarget(), "Alter the rate at which milk is produced in <b>each</b> of [npc.namePos] [npc.crotchBoobs]. The more [npc.crotchBoobs] [npc.sheHasFull], the more milk [npc.she] produces per second."
-						+ "<br/><i>Once drained, [npc.namePos] [npc.crotchBoobs] fill with milk up to their maximum storage value at this rate.</i>"),
-				"MILK_CROTCH_REGENERATION",
-				Units.fluid(BodyChanging.getTarget().getBreastCrotchRawLactationRegenerationValue(), ValueType.PRECISE)+"/day"
-						+"<br/>("+Units.fluid(BodyChanging.getTarget().getCrotchLactationRegenerationPerSecond(false)*60, ValueType.PRECISE)+"/minute)"
-						+"<br/><i>"+Util.capitaliseSentence(BodyChanging.getTarget().getBreastCrotchLactationRegeneration().getName())+"</i>",
-				BodyChanging.getTarget().getBreastCrotchRawLactationRegenerationValue()<=0,
-				BodyChanging.getTarget().getBreastCrotchRawLactationRegenerationValue()>=FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay(),
-				FLUID_REGEN_INCREMENT_SMALL,
-				FLUID_REGEN_INCREMENT_AVERAGE,
-				FLUID_REGEN_INCREMENT_LARGE,
-				FLUID_REGEN_INCREMENT_HUGE);
+		String title = "Milk Regeneration Per Crotch-boob";
+		String description = UtilText.parse(BodyChanging.getTarget(), "Alter the rate at which milk is produced in <b>each</b> of [npc.namePos] [npc.crotchBoobs]. The more [npc.crotchBoobs] [npc.sheHasFull], the more milk [npc.she] produces per second."
+				+"<br/><i>Once drained, [npc.namePos] [npc.crotchBoobs] fill with milk up to their maximum storage value at this rate.</i>");
+		String id = "MILK_CROTCH_REGENERATION";
+		if (!Main.game.isLactationContentEnabled()) {
+			return applyWrapper(title, description, id,
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Lactation Disabled")
+							+"</div>", true);
+		} else {
+			return applyVariableWrapperFluids(title,
+					description,
+					id,
+					Units.fluid(BodyChanging.getTarget().getBreastCrotchRawLactationRegenerationValue(), ValueType.PRECISE)+"/day"
+							+"<br/>("+Units.fluid(BodyChanging.getTarget().getCrotchLactationRegenerationPerSecond(false)*60, ValueType.PRECISE)+"/minute)"
+							+"<br/><i>"+Util.capitaliseSentence(BodyChanging.getTarget().getBreastCrotchLactationRegeneration().getName())+"</i>",
+					BodyChanging.getTarget().getBreastCrotchRawLactationRegenerationValue()<=0,
+					BodyChanging.getTarget().getBreastCrotchRawLactationRegenerationValue()>=FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay(),
+					FLUID_REGEN_INCREMENT_SMALL,
+					FLUID_REGEN_INCREMENT_AVERAGE,
+					FLUID_REGEN_INCREMENT_LARGE,
+					FLUID_REGEN_INCREMENT_HUGE);
+		}
 	}
 
 	public static String getSelfTransformLactationFlavourDiv() {
 		contentSB.setLength(0);
 		
-		for(FluidFlavour flavour : FluidFlavour.values()) {
-			if(BodyChanging.getTarget().getMilkFlavour().equals(flavour)) {
-				contentSB.append(
-						"<div id='MILK_FLAVOUR_"+flavour+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+flavour.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(flavour.getName())+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='MILK_FLAVOUR_"+flavour+"' class='cosmetics-button'>"
-							+ "<span style='color:"+flavour.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(flavour.getName())+"</span>"
-						+ "</div>");
+		if (!Main.game.isLactationContentEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Lactation Disabled")
+							+"</div>");
+		} else {
+			for (FluidFlavour flavour : FluidFlavour.values()) {
+				if (BodyChanging.getTarget().getMilkFlavour().equals(flavour)) {
+					contentSB.append(
+							"<div id='MILK_FLAVOUR_"+flavour+"' class='cosmetics-button active'>"
+									+"<span style='color:"+flavour.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(flavour.getName())+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='MILK_FLAVOUR_"+flavour+"' class='cosmetics-button'>"
+									+"<span style='color:"+flavour.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(flavour.getName())+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -3224,18 +3349,25 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformLactationModifiersDiv() {
 		contentSB.setLength(0);
 		
-		for(FluidModifier modifier : FluidModifier.values()) {
-			if(BodyChanging.getTarget().hasMilkModifier(modifier)) {
-				contentSB.append(
-						"<div id='MILK_MODIFIER_"+modifier+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+modifier.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='MILK_MODIFIER_"+modifier+"' class='cosmetics-button'>"
-							+ "<span style='color:"+modifier.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
+		if (!Main.game.isLactationContentEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Lactation Disabled")
+							+"</div>");
+		} else {
+			for (FluidModifier modifier : FluidModifier.values()) {
+				if (BodyChanging.getTarget().hasMilkModifier(modifier)) {
+					contentSB.append(
+							"<div id='MILK_MODIFIER_"+modifier+"' class='cosmetics-button active'>"
+									+"<span style='color:"+modifier.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='MILK_MODIFIER_"+modifier+"' class='cosmetics-button'>"
+									+"<span style='color:"+modifier.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -3250,18 +3382,25 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformLactationCrotchFlavourDiv() {
 		contentSB.setLength(0);
 		
-		for(FluidFlavour flavour : FluidFlavour.values()) {
-			if(BodyChanging.getTarget().getMilkCrotchFlavour().equals(flavour)) {
-				contentSB.append(
-						"<div id='MILK_CROTCH_FLAVOUR_"+flavour+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+flavour.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(flavour.getName())+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='MILK_CROTCH_FLAVOUR_"+flavour+"' class='cosmetics-button'>"
-							+ "<span style='color:"+flavour.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(flavour.getName())+"</span>"
-						+ "</div>");
+		if (!Main.game.isLactationContentEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Lactation Disabled")
+							+"</div>");
+		} else {
+			for (FluidFlavour flavour : FluidFlavour.values()) {
+				if (BodyChanging.getTarget().getMilkCrotchFlavour().equals(flavour)) {
+					contentSB.append(
+							"<div id='MILK_CROTCH_FLAVOUR_"+flavour+"' class='cosmetics-button active'>"
+									+"<span style='color:"+flavour.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(flavour.getName())+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='MILK_CROTCH_FLAVOUR_"+flavour+"' class='cosmetics-button'>"
+									+"<span style='color:"+flavour.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(flavour.getName())+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -3276,18 +3415,25 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformLactationCrotchModifiersDiv() {
 		contentSB.setLength(0);
 		
-		for(FluidModifier modifier : FluidModifier.values()) {
-			if(BodyChanging.getTarget().hasMilkCrotchModifier(modifier)) {
-				contentSB.append(
-						"<div id='MILK_CROTCH_MODIFIER_"+modifier+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+modifier.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='MILK_CROTCH_MODIFIER_"+modifier+"' class='cosmetics-button'>"
-							+ "<span style='color:"+modifier.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
+		if (!Main.game.isLactationContentEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Lactation Disabled")
+							+"</div>");
+		} else {
+			for (FluidModifier modifier : FluidModifier.values()) {
+				if (BodyChanging.getTarget().hasMilkCrotchModifier(modifier)) {
+					contentSB.append(
+							"<div id='MILK_CROTCH_MODIFIER_"+modifier+"' class='cosmetics-button active'>"
+									+"<span style='color:"+modifier.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='MILK_CROTCH_MODIFIER_"+modifier+"' class='cosmetics-button'>"
+									+"<span style='color:"+modifier.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -3302,27 +3448,34 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformNippleDepthDiv() {
 		contentSB.setLength(0);
 		
-		for(OrificeDepth value : OrificeDepth.values()) {
-			if(BodyChanging.getTarget().getNippleDepth() == value) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
-				
-			} else {
-				if(!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()) {
+		if (!Main.game.isNipplePenEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Nipple Pen Disabled")
+							+"</div>");
+		} else {
+			for (OrificeDepth value : OrificeDepth.values()) {
+				if (BodyChanging.getTarget().getNippleDepth() == value) {
 					contentSB.append(
-							"<div class='cosmetics-button disabled'>"
-								+ "<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"
-									+Util.capitaliseSentence(value.getDescriptor())
-								+"</span>"
-							+ "</div>");
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
 					
 				} else {
-					contentSB.append(
-							"<div id='NIPPLE_DEPTH_"+value+"' class='cosmetics-button'>"
-								+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-							+ "</div>");
+					if (!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()) {
+						contentSB.append(
+								"<div class='cosmetics-button disabled'>"
+										+"<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"
+										+Util.capitaliseSentence(value.getDescriptor())
+										+"</span>"
+										+"</div>");
+						
+					} else {
+						contentSB.append(
+								"<div id='NIPPLE_DEPTH_"+value+"' class='cosmetics-button'>"
+										+"<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+										+"</div>");
+					}
 				}
 			}
 		}
@@ -3341,27 +3494,34 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformNippleCrotchDepthDiv() {
 		contentSB.setLength(0);
 		
-		for(OrificeDepth value : OrificeDepth.values()) {
-			if(BodyChanging.getTarget().getNippleCrotchDepth() == value) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
-				
-			} else {
-				if(!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()) {
+		if (!Main.game.isNipplePenEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Nipple Pen Disabled")
+							+"</div>");
+		} else {
+			for (OrificeDepth value : OrificeDepth.values()) {
+				if (BodyChanging.getTarget().getNippleCrotchDepth() == value) {
 					contentSB.append(
-							"<div class='cosmetics-button disabled'>"
-								+ "<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"
-									+Util.capitaliseSentence(value.getDescriptor())
-								+"</span>"
-							+ "</div>");
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
 					
 				} else {
-					contentSB.append(
-							"<div id='NIPPLE_CROTCH_DEPTH_"+value+"' class='cosmetics-button'>"
-								+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-							+ "</div>");
+					if (!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()) {
+						contentSB.append(
+								"<div class='cosmetics-button disabled'>"
+										+"<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"
+										+Util.capitaliseSentence(value.getDescriptor())
+										+"</span>"
+										+"</div>");
+						
+					} else {
+						contentSB.append(
+								"<div id='NIPPLE_CROTCH_DEPTH_"+value+"' class='cosmetics-button'>"
+										+"<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+										+"</div>");
+					}
 				}
 			}
 		}
@@ -3380,24 +3540,31 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformNippleElasticityDiv() {
 		contentSB.setLength(0);
 		
-		for(OrificeElasticity value : OrificeElasticity.values()) {
-			if(BodyChanging.getTarget().getNippleElasticity() == value) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
-								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
-							+ "</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='NIPPLE_ELASTICITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
-								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
-							+ "</span>"
-						+ "</div>");
+		if (!Main.game.isNipplePenEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Nipple Pen Disabled")
+							+"</div>");
+		} else {
+			for (OrificeElasticity value : OrificeElasticity.values()) {
+				if (BodyChanging.getTarget().getNippleElasticity() == value) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+value.getColour().toWebHexString()+";'>"
+									+Util.capitaliseSentence(value.getDescriptor())
+									+(value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+									+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='NIPPLE_ELASTICITY_"+value+"' class='cosmetics-button'>"
+									+"<span style='color:"+value.getColour().getShades()[0]+";'>"
+									+Util.capitaliseSentence(value.getDescriptor())
+									+(value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+									+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -3414,24 +3581,31 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformNippleCrotchElasticityDiv() {
 		contentSB.setLength(0);
 		
-		for(OrificeElasticity value : OrificeElasticity.values()) {
-			if(BodyChanging.getTarget().getNippleCrotchElasticity() == value) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
-								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
-							+ "</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='NIPPLE_CROTCH_ELASTICITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
-								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
-							+ "</span>"
-						+ "</div>");
+		if (!Main.game.isNipplePenEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Nipple Pen Disabled")
+							+"</div>");
+		} else {
+			for (OrificeElasticity value : OrificeElasticity.values()) {
+				if (BodyChanging.getTarget().getNippleCrotchElasticity() == value) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+value.getColour().toWebHexString()+";'>"
+									+Util.capitaliseSentence(value.getDescriptor())
+									+(value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+									+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='NIPPLE_CROTCH_ELASTICITY_"+value+"' class='cosmetics-button'>"
+									+"<span style='color:"+value.getColour().getShades()[0]+";'>"
+									+Util.capitaliseSentence(value.getDescriptor())
+									+(value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+									+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -3447,19 +3621,26 @@ public class CharacterModificationUtils {
 	
 	public static String getSelfTransformNipplePlasticityDiv() {
 		contentSB.setLength(0);
-
-		for(OrificePlasticity value : OrificePlasticity.values()) {
-			if(BodyChanging.getTarget().getNipplePlasticity() == value) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='NIPPLE_PLASTICITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
+		
+		if (!Main.game.isNipplePenEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Nipple Pen Disabled")
+							+"</div>");
+		} else {
+			for (OrificePlasticity value : OrificePlasticity.values()) {
+				if (BodyChanging.getTarget().getNipplePlasticity() == value) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='NIPPLE_PLASTICITY_"+value+"' class='cosmetics-button'>"
+									+"<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -3473,19 +3654,26 @@ public class CharacterModificationUtils {
 	
 	public static String getSelfTransformNippleCrotchPlasticityDiv() {
 		contentSB.setLength(0);
-
-		for(OrificePlasticity value : OrificePlasticity.values()) {
-			if(BodyChanging.getTarget().getNippleCrotchPlasticity() == value) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='NIPPLE_CROTCH_PLASTICITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
+		
+		if (!Main.game.isNipplePenEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Nipple Pen Disabled")
+							+"</div>");
+		} else {
+			for (OrificePlasticity value : OrificePlasticity.values()) {
+				if (BodyChanging.getTarget().getNippleCrotchPlasticity() == value) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='NIPPLE_CROTCH_PLASTICITY_"+value+"' class='cosmetics-button'>"
+									+"<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -3500,18 +3688,25 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformNippleModifiersDiv() {
 		contentSB.setLength(0);
 		
-		for(OrificeModifier orificeMod : OrificeModifier.values()) {
-			if(BodyChanging.getTarget().hasNippleOrificeModifier(orificeMod)) {
-				contentSB.append(
-						"<div id='NIPPLE_MOD_"+orificeMod+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='NIPPLE_MOD_"+orificeMod+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
+		if (!Main.game.isNipplePenEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Nipple Pen Disabled")
+							+"</div>");
+		} else {
+			for (OrificeModifier orificeMod : OrificeModifier.values()) {
+				if (BodyChanging.getTarget().hasNippleOrificeModifier(orificeMod)) {
+					contentSB.append(
+							"<div id='NIPPLE_MOD_"+orificeMod+"' class='cosmetics-button active'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='NIPPLE_MOD_"+orificeMod+"' class='cosmetics-button'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -3526,18 +3721,25 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformNippleCrotchModifiersDiv() {
 		contentSB.setLength(0);
 		
-		for(OrificeModifier orificeMod : OrificeModifier.values()) {
-			if(BodyChanging.getTarget().hasNippleCrotchOrificeModifier(orificeMod)) {
-				contentSB.append(
-						"<div id='NIPPLE_CROTCH_MOD_"+orificeMod+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='NIPPLE_CROTCH_MOD_"+orificeMod+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
+		if (!Main.game.isNipplePenEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Nipple Pen Disabled")
+							+"</div>");
+		} else {
+			for (OrificeModifier orificeMod : OrificeModifier.values()) {
+				if (BodyChanging.getTarget().hasNippleCrotchOrificeModifier(orificeMod)) {
+					contentSB.append(
+							"<div id='NIPPLE_CROTCH_MOD_"+orificeMod+"' class='cosmetics-button active'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='NIPPLE_CROTCH_MOD_"+orificeMod+"' class='cosmetics-button'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -3999,18 +4201,25 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformVaginaUrethraCapacityDiv() {
 		contentSB.setLength(0);
 		
-		for(Capacity value : Capacity.getCapacityListFromPreferences()) {
-			if(BodyChanging.getTarget().getVaginaUrethraCapacity() == value) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='VAGINA_URETHRA_CAPACITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
+		if (!Main.game.isUrethraEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Urethra Pen Disabled")
+							+"</div>");
+		} else {
+			for (Capacity value : Capacity.getCapacityListFromPreferences()) {
+				if (BodyChanging.getTarget().getVaginaUrethraCapacity() == value) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='VAGINA_URETHRA_CAPACITY_"+value+"' class='cosmetics-button'>"
+									+"<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -4025,27 +4234,34 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformVaginaUrethraDepthDiv() {
 		contentSB.setLength(0);
 		
-		for(OrificeDepth value : OrificeDepth.values()) {
-			if(BodyChanging.getTarget().getVaginaUrethraDepth() == value) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
-				
-			} else {
-				if(!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()) {
+		if (!Main.game.isUrethraEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Urethra Pen Disabled")
+							+"</div>");
+		} else {
+			for (OrificeDepth value : OrificeDepth.values()) {
+				if (BodyChanging.getTarget().getVaginaUrethraDepth() == value) {
 					contentSB.append(
-							"<div class='cosmetics-button disabled'>"
-								+ "<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"
-									+Util.capitaliseSentence(value.getDescriptor())
-								+"</span>"
-							+ "</div>");
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
 					
 				} else {
-					contentSB.append(
-							"<div id='VAGINA_URETHRA_DEPTH_"+value+"' class='cosmetics-button'>"
-								+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-							+ "</div>");
+					if (!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()) {
+						contentSB.append(
+								"<div class='cosmetics-button disabled'>"
+										+"<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"
+										+Util.capitaliseSentence(value.getDescriptor())
+										+"</span>"
+										+"</div>");
+						
+					} else {
+						contentSB.append(
+								"<div id='VAGINA_URETHRA_DEPTH_"+value+"' class='cosmetics-button'>"
+										+"<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+										+"</div>");
+					}
 				}
 			}
 		}
@@ -4064,24 +4280,31 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformVaginaUrethraElasticityDiv() {
 		contentSB.setLength(0);
 		
-		for(OrificeElasticity value : OrificeElasticity.values()) {
-			if(BodyChanging.getTarget().getVaginaUrethraElasticity() == value) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
-								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
-							+ "</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='VAGINA_URETHRA_ELASTICITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
-								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
-							+ "</span>"
-						+ "</div>");
+		if (!Main.game.isUrethraEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Urethra Pen Disabled")
+							+"</div>");
+		} else {
+			for (OrificeElasticity value : OrificeElasticity.values()) {
+				if (BodyChanging.getTarget().getVaginaUrethraElasticity() == value) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+value.getColour().toWebHexString()+";'>"
+									+Util.capitaliseSentence(value.getDescriptor())
+									+(value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+									+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='VAGINA_URETHRA_ELASTICITY_"+value+"' class='cosmetics-button'>"
+									+"<span style='color:"+value.getColour().getShades()[0]+";'>"
+									+Util.capitaliseSentence(value.getDescriptor())
+									+(value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+									+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -4097,19 +4320,26 @@ public class CharacterModificationUtils {
 	
 	public static String getSelfTransformVaginaUrethraPlasticityDiv() {
 		contentSB.setLength(0);
-
-		for(OrificePlasticity value : OrificePlasticity.values()) {
-			if(BodyChanging.getTarget().getVaginaUrethraPlasticity() == value) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='VAGINA_URETHRA_PLASTICITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
+		
+		if (!Main.game.isUrethraEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Urethra Pen Disabled")
+							+"</div>");
+		} else {
+			for (OrificePlasticity value : OrificePlasticity.values()) {
+				if (BodyChanging.getTarget().getVaginaUrethraPlasticity() == value) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='VAGINA_URETHRA_PLASTICITY_"+value+"' class='cosmetics-button'>"
+									+"<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -4124,18 +4354,25 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformVaginaUrethraModifiersDiv() {
 		contentSB.setLength(0);
 		
-		for(OrificeModifier orificeMod : OrificeModifier.values()) {
-			if(BodyChanging.getTarget().hasVaginaUrethraOrificeModifier(orificeMod)) {
-				contentSB.append(
-						"<div id='VAGINA_URETHRA_MOD_"+orificeMod+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='VAGINA_URETHRA_MOD_"+orificeMod+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
+		if (!Main.game.isUrethraEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Urethra Pen Disabled")
+							+"</div>");
+		} else {
+			for (OrificeModifier orificeMod : OrificeModifier.values()) {
+				if (BodyChanging.getTarget().hasVaginaUrethraOrificeModifier(orificeMod)) {
+					contentSB.append(
+							"<div id='VAGINA_URETHRA_MOD_"+orificeMod+"' class='cosmetics-button active'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='VAGINA_URETHRA_MOD_"+orificeMod+"' class='cosmetics-button'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -4311,18 +4548,25 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformUrethraCapacityDiv() {
 		contentSB.setLength(0);
 		
-		for(Capacity value : Capacity.getCapacityListFromPreferences()) {
-			if(BodyChanging.getTarget().getPenisCapacity() == value) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='URETHRA_CAPACITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
+		if (!Main.game.isUrethraEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Urethra Pen Disabled")
+							+"</div>");
+		} else {
+			for (Capacity value : Capacity.getCapacityListFromPreferences()) {
+				if (BodyChanging.getTarget().getPenisCapacity() == value) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='URETHRA_CAPACITY_"+value+"' class='cosmetics-button'>"
+									+"<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -4337,27 +4581,34 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformUrethraDepthDiv() {
 		contentSB.setLength(0);
 		
-		for(OrificeDepth value : OrificeDepth.values()) {
-			if(BodyChanging.getTarget().getUrethraDepth() == value) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
-				
-			} else {
-				if(!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()) {
+		if (!Main.game.isUrethraEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Urethra Pen Disabled")
+							+"</div>");
+		} else {
+			for (OrificeDepth value : OrificeDepth.values()) {
+				if (BodyChanging.getTarget().getUrethraDepth() == value) {
 					contentSB.append(
-							"<div class='cosmetics-button disabled'>"
-								+ "<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"
-									+Util.capitaliseSentence(value.getDescriptor())
-								+"</span>"
-							+ "</div>");
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
 					
 				} else {
-					contentSB.append(
-							"<div id='URETHRA_DEPTH_"+value+"' class='cosmetics-button'>"
-								+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-							+ "</div>");
+					if (!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()) {
+						contentSB.append(
+								"<div class='cosmetics-button disabled'>"
+										+"<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"
+										+Util.capitaliseSentence(value.getDescriptor())
+										+"</span>"
+										+"</div>");
+						
+					} else {
+						contentSB.append(
+								"<div id='URETHRA_DEPTH_"+value+"' class='cosmetics-button'>"
+										+"<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+										+"</div>");
+					}
 				}
 			}
 		}
@@ -4484,24 +4735,31 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformUrethraElasticityDiv() {
 		contentSB.setLength(0);
 		
-		for(OrificeElasticity value : OrificeElasticity.values()) {
-			if(BodyChanging.getTarget().getUrethraElasticity() == value) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"
-								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
-							+ "</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='URETHRA_ELASTICITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"
-								+ Util.capitaliseSentence(value.getDescriptor())
-								+ (value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
-							+ "</span>"
-						+ "</div>");
+		if (!Main.game.isUrethraEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Urethra Pen Disabled")
+							+"</div>");
+		} else {
+			for (OrificeElasticity value : OrificeElasticity.values()) {
+				if (BodyChanging.getTarget().getUrethraElasticity() == value) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+value.getColour().toWebHexString()+";'>"
+									+Util.capitaliseSentence(value.getDescriptor())
+									+(value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+									+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='URETHRA_ELASTICITY_"+value+"' class='cosmetics-button'>"
+									+"<span style='color:"+value.getColour().getShades()[0]+";'>"
+									+Util.capitaliseSentence(value.getDescriptor())
+									+(value.isExtendingUncomfortableDepth() && Main.game.isPenetrationLimitationsEnabled() && Main.game.isElasticityAffectDepthEnabled()?"*":"")
+									+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -4517,19 +4775,26 @@ public class CharacterModificationUtils {
 	
 	public static String getSelfTransformUrethraPlasticityDiv() {
 		contentSB.setLength(0);
-
-		for(OrificePlasticity value : OrificePlasticity.values()) {
-			if(BodyChanging.getTarget().getUrethraPlasticity() == value) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='URETHRA_PLASTICITY_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
+		
+		if (!Main.game.isUrethraEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Urethra Pen Disabled")
+							+"</div>");
+		} else {
+			for (OrificePlasticity value : OrificePlasticity.values()) {
+				if (BodyChanging.getTarget().getUrethraPlasticity() == value) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+									+"<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='URETHRA_PLASTICITY_"+value+"' class='cosmetics-button'>"
+									+"<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+									+"</div>");
+				}
 			}
 		}
 
@@ -4570,18 +4835,25 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformUrethraModifiersDiv() {
 		contentSB.setLength(0);
 		
-		for(OrificeModifier orificeMod : OrificeModifier.values()) {
-			if(BodyChanging.getTarget().hasUrethraOrificeModifier(orificeMod)) {
-				contentSB.append(
-						"<div id='URETHRA_MOD_"+orificeMod+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='URETHRA_MOD_"+orificeMod+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
+		if (!Main.game.isUrethraEnabled()) {
+			contentSB.append(
+					"<div class='cosmetics-button disabled'>"
+							+Util.capitaliseSentence("Urethra Pen Disabled")
+							+"</div>");
+		} else {
+			for (OrificeModifier orificeMod : OrificeModifier.values()) {
+				if (BodyChanging.getTarget().hasUrethraOrificeModifier(orificeMod)) {
+					contentSB.append(
+							"<div id='URETHRA_MOD_"+orificeMod+"' class='cosmetics-button active'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
+									+"</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='URETHRA_MOD_"+orificeMod+"' class='cosmetics-button'>"
+									+"<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+(orificeMod.isSpecialEffects()?"*":"")+"</span>"
+									+"</div>");
+				}
 			}
 		}
 

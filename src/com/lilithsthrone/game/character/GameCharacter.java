@@ -26915,12 +26915,21 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	// Regen:
 	public FluidRegeneration getBreastLactationRegeneration() {
+		if (!Main.game.isLactationContentEnabled()) {
+			return FluidRegeneration.ZERO_SLOW;
+		}
 		return body.getBreast().getLactationRegeneration();
 	}
 	public int getBreastRawLactationRegenerationValue() {
+		if (!Main.game.isLactationContentEnabled()) {
+			return 0;
+		}
 		return body.getBreast().getRawLactationRegenerationValue();
 	}
 	public float getLactationRegenerationPerSecond(boolean multiplyByBreastCount) {
+		if (!Main.game.isLactationContentEnabled()) {
+			return 0;
+		}
 		return (body.getBreast().getRawLactationRegenerationValue()/(60*60*24f)) * (multiplyByBreastCount?(this.getBreastRows()*2):1);
 	}
 	public String setBreastLactationRegeneration(int regenerationValue) {
@@ -27293,6 +27302,9 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getBreastCrotch().getLactationRegeneration();
 	}
 	public int getBreastCrotchRawLactationRegenerationValue() {
+		if (!Main.game.isLactationContentEnabled()) {
+			return 0;
+		}
 		return body.getBreastCrotch().getRawLactationRegenerationValue();
 	}
 	public float getCrotchLactationRegenerationPerSecond(boolean multiplyByBreastCount) {

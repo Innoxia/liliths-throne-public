@@ -153,8 +153,8 @@ public class EnchantmentController {
 			id = "MOD_PRIMARY_"+tfMod.hashCode();
 			if (MainController.document.getElementById(id) != null) {
 				MainController.addTooltipListeners(id,
-						new EnchantmentEventListener().setPrimaryModifier(tfMod),
-						new TooltipInventoryEventListener().setTFModifier(tfMod), false);
+						new TooltipInventoryEventListener().setTFModifier(tfMod),
+						new EnchantmentEventListener().setPrimaryModifier(tfMod),false);
 			}
 		}
 		// Choosing a secondary modifier:
@@ -162,8 +162,8 @@ public class EnchantmentController {
 			id = "MOD_SECONDARY_"+tfMod.hashCode();
 			if (MainController.document.getElementById(id) != null) {
 				MainController.addTooltipListeners(id,
-						new EnchantmentEventListener().setSecondaryModifier(tfMod),
-						new TooltipInventoryEventListener().setTFModifier(tfMod), false);
+						new TooltipInventoryEventListener().setTFModifier(tfMod),
+						new EnchantmentEventListener().setSecondaryModifier(tfMod),false);
 			}
 		}
 	}

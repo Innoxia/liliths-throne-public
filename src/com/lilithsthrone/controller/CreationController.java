@@ -783,7 +783,7 @@ public class CreationController {
 			if (MainController.document.getElementById(id) != null) {
 				int finalI = i;
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					BodyChanging.getTarget().setBreastRows(finalI);
+					BodyChanging.getTarget().setBreastCrotchRows(finalI);
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
@@ -851,31 +851,31 @@ public class CreationController {
 		String id = "MILK_CROTCH_PRODUCTION_INCREASE_SMALL";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().setBreastMilkStorage(Math.min(CharacterModificationUtils.getLactationUpperLimit(), BodyChanging.getTarget().getBreastRawMilkStorageValue()+CharacterModificationUtils.FLUID_INCREMENT_SMALL));
-				BodyChanging.getTarget().fillMilkToMaxStorage();
+				BodyChanging.getTarget().setBreastCrotchMilkStorage(Math.min(CharacterModificationUtils.getLactationUpperLimit(), BodyChanging.getTarget().getBreastRawMilkStorageValue()+CharacterModificationUtils.FLUID_INCREMENT_SMALL));
+				BodyChanging.getTarget().fillMilkCrotchToMaxStorage();
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 		id = "MILK_CROTCH_PRODUCTION_INCREASE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().setBreastMilkStorage(Math.min(CharacterModificationUtils.getLactationUpperLimit(), BodyChanging.getTarget().getBreastRawMilkStorageValue()+CharacterModificationUtils.FLUID_INCREMENT_AVERAGE));
-				BodyChanging.getTarget().fillMilkToMaxStorage();
+				BodyChanging.getTarget().setBreastCrotchMilkStorage(Math.min(CharacterModificationUtils.getLactationUpperLimit(), BodyChanging.getTarget().getBreastRawMilkStorageValue()+CharacterModificationUtils.FLUID_INCREMENT_AVERAGE));
+				BodyChanging.getTarget().fillMilkCrotchToMaxStorage();
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 		id = "MILK_CROTCH_PRODUCTION_INCREASE_LARGE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().setBreastMilkStorage(Math.min(CharacterModificationUtils.getLactationUpperLimit(), BodyChanging.getTarget().getBreastRawMilkStorageValue()+CharacterModificationUtils.FLUID_INCREMENT_LARGE));
-				BodyChanging.getTarget().fillMilkToMaxStorage();
+				BodyChanging.getTarget().setBreastCrotchMilkStorage(Math.min(CharacterModificationUtils.getLactationUpperLimit(), BodyChanging.getTarget().getBreastRawMilkStorageValue()+CharacterModificationUtils.FLUID_INCREMENT_LARGE));
+				BodyChanging.getTarget().fillMilkCrotchToMaxStorage();
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 		id = "MILK_CROTCH_PRODUCTION_INCREASE_HUGE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().setBreastMilkStorage(Math.min(CharacterModificationUtils.getLactationUpperLimit(), BodyChanging.getTarget().getBreastRawMilkStorageValue()+CharacterModificationUtils.FLUID_INCREMENT_HUGE));
+				BodyChanging.getTarget().setBreastCrotchMilkStorage(Math.min(CharacterModificationUtils.getLactationUpperLimit(), BodyChanging.getTarget().getBreastRawMilkStorageValue()+CharacterModificationUtils.FLUID_INCREMENT_HUGE));
 				BodyChanging.getTarget().fillMilkToMaxStorage();
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
@@ -883,28 +883,28 @@ public class CreationController {
 		id = "MILK_CROTCH_PRODUCTION_DECREASE_SMALL";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().incrementBreastMilkStorage(-CharacterModificationUtils.FLUID_INCREMENT_SMALL);
+				BodyChanging.getTarget().incrementBreastCrotchMilkStorage(-CharacterModificationUtils.FLUID_INCREMENT_SMALL);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 		id = "MILK_CROTCH_PRODUCTION_DECREASE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().incrementBreastMilkStorage(-CharacterModificationUtils.FLUID_INCREMENT_AVERAGE);
+				BodyChanging.getTarget().incrementBreastCrotchMilkStorage(-CharacterModificationUtils.FLUID_INCREMENT_AVERAGE);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 		id = "MILK_CROTCH_PRODUCTION_DECREASE_LARGE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().incrementBreastMilkStorage(-CharacterModificationUtils.FLUID_INCREMENT_LARGE);
+				BodyChanging.getTarget().incrementBreastCrotchMilkStorage(-CharacterModificationUtils.FLUID_INCREMENT_LARGE);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 		id = "MILK_CROTCH_PRODUCTION_DECREASE_HUGE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().incrementBreastMilkStorage(-CharacterModificationUtils.FLUID_INCREMENT_HUGE);
+				BodyChanging.getTarget().incrementBreastCrotchMilkStorage(-CharacterModificationUtils.FLUID_INCREMENT_HUGE);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
@@ -945,56 +945,56 @@ public class CreationController {
 		String id = "MILK_CROTCH_REGENERATION_INCREASE_SMALL";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().incrementBreastLactationRegeneration(CharacterModificationUtils.FLUID_REGEN_INCREMENT_SMALL);
+				BodyChanging.getTarget().incrementBreastCrotchLactationRegeneration(CharacterModificationUtils.FLUID_REGEN_INCREMENT_SMALL);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 		id = "MILK_CROTCH_REGENERATION_INCREASE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().incrementBreastLactationRegeneration(CharacterModificationUtils.FLUID_REGEN_INCREMENT_AVERAGE);
+				BodyChanging.getTarget().incrementBreastCrotchLactationRegeneration(CharacterModificationUtils.FLUID_REGEN_INCREMENT_AVERAGE);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 		id = "MILK_CROTCH_REGENERATION_INCREASE_LARGE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().incrementBreastLactationRegeneration(CharacterModificationUtils.FLUID_REGEN_INCREMENT_LARGE);
+				BodyChanging.getTarget().incrementBreastCrotchLactationRegeneration(CharacterModificationUtils.FLUID_REGEN_INCREMENT_LARGE);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 		id = "MILK_CROTCH_REGENERATION_INCREASE_HUGE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().incrementBreastLactationRegeneration(CharacterModificationUtils.FLUID_REGEN_INCREMENT_HUGE);
+				BodyChanging.getTarget().incrementBreastCrotchLactationRegeneration(CharacterModificationUtils.FLUID_REGEN_INCREMENT_HUGE);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 		id = "MILK_CROTCH_REGENERATION_DECREASE_SMALL";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().incrementBreastLactationRegeneration(-CharacterModificationUtils.FLUID_REGEN_INCREMENT_SMALL);
+				BodyChanging.getTarget().incrementBreastCrotchLactationRegeneration(-CharacterModificationUtils.FLUID_REGEN_INCREMENT_SMALL);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 		id = "MILK_CROTCH_REGENERATION_DECREASE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().incrementBreastLactationRegeneration(-CharacterModificationUtils.FLUID_REGEN_INCREMENT_AVERAGE);
+				BodyChanging.getTarget().incrementBreastCrotchLactationRegeneration(-CharacterModificationUtils.FLUID_REGEN_INCREMENT_AVERAGE);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 		id = "MILK_CROTCH_REGENERATION_DECREASE_LARGE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().incrementBreastLactationRegeneration(-CharacterModificationUtils.FLUID_REGEN_INCREMENT_LARGE);
+				BodyChanging.getTarget().incrementBreastCrotchLactationRegeneration(-CharacterModificationUtils.FLUID_REGEN_INCREMENT_LARGE);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 		id = "MILK_CROTCH_REGENERATION_DECREASE_HUGE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().incrementBreastLactationRegeneration(-CharacterModificationUtils.FLUID_REGEN_INCREMENT_HUGE);
+				BodyChanging.getTarget().incrementBreastCrotchLactationRegeneration(-CharacterModificationUtils.FLUID_REGEN_INCREMENT_HUGE);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
@@ -1005,7 +1005,7 @@ public class CreationController {
 			String id = "NIPPLE_CROTCH_CAPACITY_"+capacity;
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					BodyChanging.getTarget().setNippleCapacity(capacity.getMedianValue(), true);
+					BodyChanging.getTarget().setNippleCrotchCapacity(capacity.getMedianValue(), true);
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
@@ -1018,7 +1018,7 @@ public class CreationController {
 			if (MainController.document.getElementById(id) != null) {
 				int finalI = i;
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					BodyChanging.getTarget().setNippleCountPerBreast(finalI);
+					BodyChanging.getTarget().setNippleCrotchCountPerBreast(finalI);
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
@@ -1030,7 +1030,7 @@ public class CreationController {
 			String id = "NIPPLE_CROTCH_DEPTH_"+depth;
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					BodyChanging.getTarget().setNippleDepth(depth.getValue());
+					BodyChanging.getTarget().setNippleCrotchDepth(depth.getValue());
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
@@ -1042,7 +1042,7 @@ public class CreationController {
 			String id = "NIPPLE_CROTCH_ELASTICITY_"+elasticity;
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					BodyChanging.getTarget().setNippleElasticity(elasticity.getValue());
+					BodyChanging.getTarget().setNippleCrotchElasticity(elasticity.getValue());
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
@@ -1073,7 +1073,7 @@ public class CreationController {
 			String id = "NIPPLE_CROTCH_PLASTICITY_"+plasticity;
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					BodyChanging.getTarget().setNipplePlasticity(plasticity.getValue());
+					BodyChanging.getTarget().setNippleCrotchPlasticity(plasticity.getValue());
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}

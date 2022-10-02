@@ -2373,7 +2373,7 @@ public class OptionsDialogue {
 			}
 			return new Response("Sex & Fetishes", "View the game's sex & fetishes content options.", SEX);
 		} else if (index == 4) {
-			if (Main.game.getCurrentDialogueNode().equals(SEX)) {
+			if (Main.game.getCurrentDialogueNode().equals(BODIES)) {
 				return new Response("Bodies", "You are already viewing the bodies content options!", null);
 			}
 			return new Response("Bodies", "View the game's bodies content options.", BODIES);

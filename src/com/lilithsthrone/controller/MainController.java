@@ -1440,8 +1440,17 @@ public class MainController implements Initializable {
 			CreationController.initAssSizeListeners(true);
 			CreationController.initHipSizeListeners(true);
 		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_BREASTS)) {
+			CreationController.initAreolaeSizeListeners();
+			CreationController.initBreastShapeListeners();
 			CreationController.initBreastSizeListeners(true);
 			CreationController.initNipplePuffinessListeners();
+			CreationController.initNippleSizeListeners();
+			CreationController.initLactationCapacityListeners();
+		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_BODY_HAIR)) {
+			CoveringController.initAssHairListeners();
+			CoveringController.initFacialHairListeners();
+			CoveringController.initPubicHairListeners();
+			CoveringController.initUnderarmHairListeners();
 		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_CORE)) {
 			CreationController.initBodySizeListeners();
 			CreationController.initHeightListeners();
@@ -1459,6 +1468,12 @@ public class MainController implements Initializable {
 				CreationController.initLabiaSizeListeners();
 				CreationController.initVaginaCapacityListeners();
 			}
+		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_HAIR)) {
+			CoveringController.initHairLengthListeners();
+			CoveringController.initHairStyleListeners();
+		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_PIERCINGS)
+				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_PIERCINGS)) {
+			CoveringController.initPiercingsListeners();
 		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS)
 				|| currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_TATTOOS)
 				|| currentNode.equals(CosmeticsDialogue.BEAUTICIAN_TATTOOS)
@@ -1498,7 +1513,9 @@ public class MainController implements Initializable {
 				|| currentNode.equals(PhoneDialogue.CHARACTER_APPEARANCE)) {
 			FileController.initArtworkListeners();
 		} else if (currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_JOBS)) {
-			OccupantController.initSlaveListeners();
+			OccupantController.initSlaveJobListeners();
+		} else if (currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_PERMISSIONS)) {
+			OccupantController.initSlavePermissionsListeners();
 		} else if (currentNode.equals(CharactersPresentDialogue.PERKS)
 				|| currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_PERKS)
 				|| currentNode.equals(ElementalDialogue.ELEMENTAL_PERKS)
@@ -1566,7 +1583,7 @@ public class MainController implements Initializable {
 			OptionsController.initGenderListeners();
 		} else if (currentNode.equals(OptionsDialogue.FETISH_PREFERENCE)) {
 			OptionsController.initFetishListeners();
-		} else if (currentNode.equals(OptionsDialogue.FETISH_PREFERENCE)) {
+		} else if (currentNode.equals(OptionsDialogue.FURRY_PREFERENCE)) {
 			OptionsController.initFurryListeners();
 		} else if (currentNode.equals(OptionsDialogue.IMPORT_EXPORT)) {
 			FileController.initImportExportListeners();
@@ -1582,10 +1599,14 @@ public class MainController implements Initializable {
 			OptionsController.initSexListeners();
 		} else if (currentNode.equals(OptionsDialogue.UNIT_PREFERENCE)) {
 			OptionsController.initUnitListeners();
-		} else if (currentNode.equals(PhoneDialogue.ENCYCLOPEDIA)) {
-			MiscController.initEncyclopediaListeners();
+		} else if (currentNode.equals(PhoneDialogue.CLOTHING_CATALOGUE)) {
+			MiscController.initEncyclopediaClothingListeners();
+		} else if (currentNode.equals(PhoneDialogue.ITEM_CATALOGUE)) {
+			MiscController.initEncyclopediaItemListeners();
 		} else if (currentNode.equals(PhoneDialogue.MAP)) {
 			MiscController.initMapListeners(PhoneDialogue.worldTypeMap, true);
+		} else if (currentNode.equals(PhoneDialogue.WEAPON_CATALOGUE)) {
+			MiscController.initEncyclopediaWeaponListeners();
 		} else if (currentNode.equals(RoomPlayer.ROOM_SET_ALARM)) {
 			MiscController.initAlarmListeners();
 		} else if (currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY)) {
