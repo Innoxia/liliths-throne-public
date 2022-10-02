@@ -41,9 +41,9 @@
 		#IF(monica.isVisiblyPregnant() && monica.getPregnantLitter().getFather().equals(pc))
 			<p>
 				#IF(!monica.isCharacterReactedToPregnancy(pc))
-					Returning Monica's greeting, you [pc.step] past the exiting customers and head on over to the cow-girl's counter. As you approach, you suddenly notice that the cow-girl's belly is visibly swollen, and as she sees what it you're looking at, she brushes her hand through her hand and laughs, [monica.speech(Haha, yeah, you kind of got me pregnant... I haven't been sexually active with anyone else for a long time, so it had to have been you... I wonder if my boobs are going to get bigger from this?)]
+					Returning Monica's greeting, you [pc.step] past the exiting customers and head on over to the cow-girl's counter. As you approach, you suddenly notice that the cow-girl's belly is visibly swollen, and as she sees what you're looking at, she brushes her hand through her hand and laughs, [monica.speech(Haha, yeah, you kind of got me pregnant... I haven't been sexually active with anyone else for a long time, so it had to have been you... I wonder if my boobs are going to get bigger from this?)]
 				#ELSE
-					Returning Monica's greeting, you [pc.step] past the exiting customers and head on over to the cow-girl's counter. As you approach, you see that the cow-girl's belly is still visibly swollen, and as she sees what it you're looking at, she brushes her hand through her hand and laughs, [monica.speech(Haha, yeah, I'm still pregnant, thanks to you...)]
+					Returning Monica's greeting, you [pc.step] past the exiting customers and head on over to the cow-girl's counter. As you approach, you see that the cow-girl's belly is still visibly swollen, and as she sees what you're looking at, she brushes her hand through her hand and laughs, [monica.speech(Haha, yeah, I'm still pregnant, thanks to you...)]
 				#ENDIF
 			</p>
 			<p>

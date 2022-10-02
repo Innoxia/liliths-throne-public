@@ -1415,7 +1415,7 @@
 		Looking up at her mother to see a reassuring smile on her face, Meraxis gulps and consents, [siren.speech(Ok, I'll do it. B-But I must observe the metamorphosis of my elder sibling before undergoing my own demonic awakening.)]
 	</p>
 	<p>
-		[lilaya.speech(You mean you want to want to watch mommy and I fuck to get you in the mood?)] Lilaya crassly asks.
+		[lilaya.speech(You mean you want to watch mommy and I fuck to get you in the mood?)] Lilaya crassly asks.
 	</p>
 	<p>
 		Breaking out of her sister's embrace, Meraxis makes an affirmative nodding gesture, before trying to dart away to one side of the room. Before she's able to take more than two steps, Lyssieth reaches out and grabs her arm, before pulling her into her body and gently teasing, [lyssieth.speech(Mommy can help you with that...)]
@@ -2397,7 +2397,7 @@
 	#ELSE
 		#IF(flags.hasFlag(FLAG_innoxia_meraxis_demon_tf_teleported))
 			<p>
-				[siren.speech(Thanks again, mommy!)] Meraxis happily calls out as she gathering her clothes. Flashing you a surprisingly-warm smile, she grabs hold of your [pc.hand] and declares, [siren.speech(Now, I must plan for my next duel with you; my arch nemesis!)]
+				[siren.speech(Thanks again, mommy!)] Meraxis happily calls out as she's gathering her clothes. Flashing you a surprisingly-warm smile, she grabs hold of your [pc.hand] and declares, [siren.speech(Now, I must plan for my next duel with you; my arch nemesis!)]
 			</p>
 			<p>
 				[lyssieth.speech(I should take you back now,)] Lyssieth says to Lilaya, before stepping forwards and giving her daughter a loving hug. Turning to you and Meraxis, she continues, [lyssieth.speech(You two be careful out there in Elis, ok?)]
@@ -2410,7 +2410,7 @@
 			</p>
 		#ELSE
 			<p>
-				[siren.speech(Thanks again, mommy!)] Meraxis happily calls out as she gathering her clothes. Flashing you a surprisingly-warm smile, she strikes a dramatic pose, and right before disappearing in a flash of purple light, she declares, [siren.speech(Now, I must depart and plan for my next encounter with my arch nemesis!)]
+				[siren.speech(Thanks again, mommy!)] Meraxis happily calls out as she's gathering her clothes. Flashing you a surprisingly-warm smile, she strikes a dramatic pose, and right before disappearing in a flash of purple light, she declares, [siren.speech(Now, I must depart and plan for my next encounter with my arch nemesis!)]
 			</p>
 			<p>
 				[lyssieth.speech(I should take you back now,)] Lyssieth says to Lilaya, before stepping forwards and giving her daughter a loving hug. Turning to you, she continues, [lyssieth.speech(If you'd be so kind as to wait in the adjoining office, I'll be able to see you again in a few minutes if you have further things to discuss.)]

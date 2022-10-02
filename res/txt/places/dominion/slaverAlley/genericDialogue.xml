@@ -2167,7 +2167,7 @@
 		</p>
 	#ELSE
 		<p>
-			Doing as [sean.name] instructs, you follow him down the main street a short distance, before veering off to the right and stepping up to a weathered wooden door set into an otherwise featureless brick wall. Grabbing the handle the handle and giving it a forceful push, the [sean.race] demonstrates that this door is kept unlocked, and as it swings open, he strides through to the other side. Continuing to follow in [sean.namePos] footsteps, you step through the doorway.
+			Doing as [sean.name] instructs, you follow him down the main street a short distance, before veering off to the right and stepping up to a weathered wooden door set into an otherwise featureless brick wall. Grabbing the handle and giving it a forceful push, the [sean.race] demonstrates that this door is kept unlocked, and as it swings open, he strides through to the other side. Continuing to follow in [sean.namePos] footsteps, you step through the doorway.
 		</p>
 		<p>
 			Although the brick wall had given the impression that this door would lead into a building's enclosed interior, you instead discover that it was nothing more than a deceptive façade, as you now find yourself standing in a relatively wide alleyway, with the open sky above your head. Turning to face you, [sean.name] says, [sean.speech(Nobody knows about this place, and those that do have no reason to come here, as all it leads to is a dead end. It's the perfect place for a fight, so, are you ready to do it? I'm not going to go easy on you!)]

@@ -79,7 +79,7 @@
 			[npc3.speech(Yeah, I ain't wantin' ta get on the boss's bad side if we end up turnin' away people 'e was waitin' for,)] [npc3.name] replies, [npc3.speech(Let's let 'em in.)]
 		</p>
 		<p>
-			Reappearing at the hatch, [npc2.name] growls out, [npc2.speech(Right, we's goin' ta let yer in. Just stay there; these inner doors can't open unless them outer ones are shut first. It's security. Ya wouldn't understand, so don' ya be questionin' it.)]
+			Reappearing at the hatch, [npc2.name] growls out, [npc2.speech(Right, we's goin' ta let yer in. Just stay there; these inner doors can't open unless them outer ones are shut first. It's security. Ya wouldn't understand, so don't ya be questionin' it.)]
 		</p>
 		<p>
 			Convinced that these two guards don't have the mental capacity to trap you in this hallway, you allow them to activate the mechanism which shuts the doors behind you, and, sure enough, once they're firmly closed, the interior ones slowly open to grant you and your [npc.companion] access to the Rat Warrens.
@@ -98,7 +98,7 @@
 			[npc2.speech(Yeah, I ain't wantin' ta get on the boss's bad side if we end up turnin' away people 'e was waitin' for,)] [npc2.name] replies, [npc2.speech(Let's let [pc.herHim] in.)]
 		</p>
 		<p>
-			Reappearing at the hatch, [npc.name] growls out, [npc.speech(Right, we's goin' ta let yer in. Just stay there; these inner doors can't open unless them outer ones are shut first. It's security. Ya wouldn't understand, so don' ya be questionin' it.)]
+			Reappearing at the hatch, [npc.name] growls out, [npc.speech(Right, we's goin' ta let yer in. Just stay there; these inner doors can't open unless them outer ones are shut first. It's security. Ya wouldn't understand, so don't ya be questionin' it.)]
 		</p>
 		<p>
 			Convinced that these two guards don't have the mental capacity to trap you in this hallway, you allow them to activate the mechanism which shuts the doors behind you, and, sure enough, once they're firmly closed, the interior ones slowly open to grant you access to the Rat Warrens.

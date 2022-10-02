@@ -95,7 +95,7 @@
 		The six imps are no match for you and [npc.name], and you let out a triumphant laugh as the last of them falls to the floor, defeated.
 	</p>
 	<p>
-		Before either of you are able to take a breather, however, another group of imps arrive from elsewhere in the citadel, and jump forwards to avenge their fallen comrades!
+		Before either of you are able to take a breather, however, another group of imps arrives from elsewhere in the citadel, and jump forwards to avenge their fallen comrades!
 	</p>
 	]]>
 	</htmlContent>
@@ -160,7 +160,7 @@
 		[npc.speech(Stop it!)] [npc.name] scream, [npc.speech(Don't do it! I don't want to be a slave!)]
 	</p>
 	<p>
-		Grinning at this last defeated imp, you wonder whether you should enslaving [npc.herHim] as well, or leave [npc.herHim] be...
+		Grinning at this last defeated imp, you wonder whether you should be enslaving [npc.herHim] as well, or leave [npc.herHim] be...
 	</p>
 	]]>
 	</htmlContent>
@@ -2037,7 +2037,7 @@
 	
 	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_RESIST"><![CDATA[
 	<p>
-		You don't like the sound of that, and, as [siren.name] sits back on her throne to watch, you desperately struggle against the thee demons as they force you and your companion into position, ready to fuck the two of you...
+		You don't like the sound of that, and, as [siren.name] sits back on her throne to watch, you desperately struggle against the three demons as they force you and your companion into position, ready to fuck the two of you...
 	</p>
 	]]>
 	</htmlContent>
