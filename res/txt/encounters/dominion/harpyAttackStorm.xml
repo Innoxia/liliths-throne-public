@@ -37,7 +37,7 @@
 			#IF(game.isNonConEnabled())
 				 knowing that defeat will result in being raped by this horny [npc.race], you ready yourself for a fight.
 			#ELSE
-				 knowing that defeat will result in this horny [npc.race] wanting to have sex with the you, you ready yourself for a fight.
+				 knowing that defeat will result in this horny [npc.race] wanting to have sex with you, you ready yourself for a fight.
 			#ENDIF
 		</p>
 	#ENDIF
