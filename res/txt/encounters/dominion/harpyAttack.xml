@@ -1063,7 +1063,7 @@
 		Knowing that [npc.name] could always use some money with which to buy [npc.herself] some extra clothing or food, you step forwards and hold out some flames. [pc.speech(I'm worried about how poorly your matriarch is treating you. Here you go, you should buy yourself something nice for yourself with this.)]
 	</p>
 	<p>
-		[npc.speech(R-Really? That's for me?)] [npc.name] asks, stepping forwards and cautiously taking the flames from you. [npc.speech(I-I don't know what to say. Thank you so much, [pc.name]! I mean, I may have to buy my matriarch something with this if she find out about it, but I'll try to use it to buy myself something!)]
+		[npc.speech(R-Really? That's for me?)] [npc.name] asks, stepping forwards and cautiously taking the flames from you. [npc.speech(I-I don't know what to say. Thank you so much, [pc.name]! I mean, I may have to buy my matriarch something with this if she finds out about it, but I'll try to use it to buy myself something!)]
 	</p>
 	<p>
 		[pc.speech(You're very welcome,)] you reply. [pc.speech(Just promise to take care of yourself, ok?)]
@@ -1662,7 +1662,7 @@
 		[npc.speech(I hate you! <i>I hate you!</i>)] [npc.she] screams, tears running down [npc.her] face once more as [npc.she] fails to control [npc.her] emotions. Before you can say anything in your defence, [npc.she] turns around and sprints off at full speed, leaving you all alone once again...
 	</p>
 	<p style='text-align:center;'>
-		[style.italicsBad(After betraying [npc.namePos] trust in such a brutal manner, you can be sure that this was be the last time you'll ever see [npc.herHim].)]
+		[style.italicsBad(After betraying [npc.namePos] trust in such a brutal manner, you can be sure that this will be the last time you'll ever see [npc.herHim].)]
 	</p>
 	]]>
 	</htmlContent>

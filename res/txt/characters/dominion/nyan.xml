@@ -60,7 +60,7 @@
 				[nyan.speechNoEffects(O-Oh, well, I try my best, but I'm still not v-very good at dealing with customers,)] Nyan admits once again. Looking down at the floor and shuffling her feet, she continues, [nyan.speechNoEffects(I-I asked all the staff the other d-day if they'd like me to get m-more involved on the shop floor, b-but they all said that I can s-stick to doing the finances and ordering s-stock. They know how n-nervous I get around people, and they're a-all so considerate...)]
 			</p>
 			<p>
-				Curious to hear more about Nyan's role in her business, you continue talking with her about this topic for quite some time. While most of what she tells you is relatively mundane, she again reveals a hint at how she came to own this business, and says how she given it by someone close to her.
+				Curious to hear more about Nyan's role in her business, you continue talking with her about this topic for quite some time. While most of what she tells you is relatively mundane, she again reveals a hint at how she came to own this business, and says how she was given it by someone close to her.
 				#IF(!game.getDialogueFlags().hasFlag(FLAG_nyanRestaurantDateRequested))
 					 Not wanting to reveal much more than that, however, the nervous cat-girl quickly shifts the topic and starts talking about her long work-hours, and how at some point in the future she'd like to start taking weekends off.
 				#ELSE

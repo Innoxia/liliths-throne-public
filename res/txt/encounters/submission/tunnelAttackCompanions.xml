@@ -1358,7 +1358,7 @@
 		[npc.speech(I hate you! <i>I hate you!</i>)] [npc.she] screams, tears running down [npc.her] face once more as [npc.she] fails to control [npc.her] emotions. Before you can say anything in your defence, [npc.she] turns around and sprints off at full speed, leaving you all alone once again...
 	</p>
 	<p style='text-align:center;'>
-		[style.italicsBad(After betraying [npc.namePos] trust in such a brutal manner, you can be sure that this was be the last time you'll ever see [npc.herHim].)]
+		[style.italicsBad(After betraying [npc.namePos] trust in such a brutal manner, you can be sure that this will be the last time you'll ever see [npc.herHim].)]
 	</p>
 	]]>
 	</htmlContent>

@@ -9,7 +9,7 @@
 		[npc.speech(Ooh! It's you again!)] [npc.she] giggles, clearly high on mushrooms again. [npc.speech(Look! You went and got me all pregnant!)]
 	</p>
 	<p>
-		You look down at [npc.her] swollen belly, but before you can make a comment, [npc.she] continues, [npc.speech(So, I'm gonna need some cash from you, ok? I'm no going to take no for an answer.)]
+		You look down at [npc.her] swollen belly, but before you can make a comment, [npc.she] continues, [npc.speech(So, I'm gonna need some cash from you, ok? I'm not going to take no for an answer.)]
 	</p>
 	<p>
 		You can tell that [npc.name] is willing to fight, and you only have a moment in which to decide what to do...
@@ -25,7 +25,7 @@
 		[npc.speech(Ooh! It's you again!)] [npc.she] giggles, clearly high on mushrooms again. [npc.speech(Look! I'm still pregnant with our kids!)]
 	</p>
 	<p>
-		You look down at [npc.her] swollen belly, but before you can make a comment, [npc.she] continues, [npc.speech(So, I'm gonna need some cash from you, ok? I'm no going to take no for an answer.)]
+		You look down at [npc.her] swollen belly, but before you can make a comment, [npc.she] continues, [npc.speech(So, I'm gonna need some cash from you, ok? I'm not going to take no for an answer.)]
 	</p>
 	<p>
 		You can tell that [npc.name] is willing to fight, and you only have a moment in which to decide what to do...
