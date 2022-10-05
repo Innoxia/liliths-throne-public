@@ -892,10 +892,15 @@ public class Lyssieth extends NPC {
 						return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
 					}
 				}
+				
 			} else if((Main.sex.getSexPositionSlot(this)==SexSlotLyingDown.SIXTY_NINE || Main.sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotLyingDown.SIXTY_NINE)
 					&& !this.hasPenis()) {
-				if(Main.sex.getTurn()%2==0) {
-					return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
+				if(Main.sex.getOngoingCharactersUsingAreas(this, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE).contains(target)) {
+					if(target.hasPenis()) {
+						return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS);
+					} else {
+						return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
+					}
 				} else {
 					return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
 				}

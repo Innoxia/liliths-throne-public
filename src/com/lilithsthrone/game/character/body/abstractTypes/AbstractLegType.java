@@ -31,6 +31,7 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
+import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.race.AbstractRace;
@@ -672,12 +673,20 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 		// Increase or decrease height based on configuration:
 		if(applyEffects) {
 			if(!body.getLegConfiguration().isTall() && legConfiguration.isTall()) {
-				body.setHeight((int) (body.getHeightValue()*1.33f));
+				int newHeight = (int) (body.getHeightValue()*1.33f);
+				if(body.isShortStature()) {
+					newHeight = Math.min(Height.getShortStatureCutOff()-1, newHeight);
+				}
+				body.setHeight(newHeight);
 				String colouredHeightValue = "<span style='color:"+body.getHeight().getColour().toWebHexString()+";'>[npc.heightValue]</span>";
 				feralStringBuilder.append("<p>The size of [npc.namePos] new lower body has resulted in [npc.herHim] getting taller, so now when standing at full height [npc.she] [npc.verb(measure)] "+colouredHeightValue+".</p>");
 				
 			} else if(body.getLegConfiguration().isTall() && !legConfiguration.isTall()) {
-				body.setHeight((int) (body.getHeightValue()/1.33f));
+				int newHeight = (int) (body.getHeightValue()/1.33f);
+				if(!body.isShortStature()) {
+					newHeight = Math.max(Height.getShortStatureCutOff(), newHeight);
+				}
+				body.setHeight(newHeight);
 				String colouredHeightValue = "<span style='color:"+body.getHeight().getColour().toWebHexString()+";'>[npc.heightValue]</span>";
 				feralStringBuilder.append("<p>The reduced size of [npc.namePos] new lower body has resulted in [npc.herHim] getting shorter, so now when standing at full height [npc.she] [npc.verb(measure)] "+colouredHeightValue+".</p>");
 			}

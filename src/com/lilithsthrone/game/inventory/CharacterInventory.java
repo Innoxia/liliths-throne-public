@@ -372,10 +372,10 @@ public class CharacterInventory implements XMLSaving {
 				if(id.equals("GIFT_ROSE")) { // Changed the rose to a clothing item in v0.3.5.5
 					inventory.addClothing(Main.game.getItemGen().generateClothing("innoxia_hair_rose", PresetColour.CLOTHING_RED_DARK, PresetColour.CLOTHING_GREEN_DARK, null, false), count);
 					
-				} else if(id.equals(ItemType.getItemToIdMap().get(ItemType.CONDOM_USED))) {
+				} else if(id.equals(ItemType.getIdFromItemType(ItemType.CONDOM_USED)) || id.equals(ItemType.getIdFromItemType(ItemType.CONDOM_USED_WEBBING))) {
 					itemMapToAdd.put(AbstractFilledCondom.loadFromXML(e, doc), count);
 					
-				} else if(id.equals(ItemType.getItemToIdMap().get(ItemType.MOO_MILKER_FULL))) {
+				} else if(id.equals(ItemType.getIdFromItemType(ItemType.MOO_MILKER_FULL))) {
 					itemMapToAdd.put(AbstractFilledBreastPump.loadFromXML(e, doc), count);
 					
 				} else {

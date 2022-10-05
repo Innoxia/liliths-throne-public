@@ -98,7 +98,7 @@ public class LunetteRanged extends NPC {
 			
 			resetInventory(true);
 			inventory.setMoney(2500 + Util.random.nextInt(2500));
-			Main.game.getCharacterUtils().generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 			
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			

@@ -533,12 +533,12 @@ public class SlaveEncountersDialogue {
 	
 	private static void returnSlavesToHomeLilayasCorridor() {
 		if(slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING) {
-			SlaveJob.CLEANING.sendToWorkLocation(Main.game.getHourOfDay(), slave);
+			SlaveJob.CLEANING.sendToWorkLocation(slave);
 		} else {
 			slave.returnToHome();
 		}
 		if(characterForSex.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING) {
-			SlaveJob.CLEANING.sendToWorkLocation(Main.game.getHourOfDay(), characterForSex);
+			SlaveJob.CLEANING.sendToWorkLocation(characterForSex);
 		} else {
 			characterForSex.returnToHome();
 		}

@@ -508,6 +508,22 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 				}
 			}
+
+			for(AbstractTattooType tattooType : TattooType.getAllTattooTypes()) {
+				id = tattooType.getId() + "_SPAWN";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+//					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+//						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(Main.game.getItemGen().generateClothing(clothingType));
+//						MainController.updateUIRightPanel();
+//					}, false);
+
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					
+					TooltipInventoryEventListener el = new TooltipInventoryEventListener().setGenericTattoo(tattooType);
+					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+				}
+			}
 			
 			for(AbstractWeaponType weaponType : WeaponType.getAllWeapons()) {
 				id = weaponType.getId() + "_SPAWN";
@@ -599,15 +615,11 @@ public class MainControllerInitMethod {
 				id = "SET_BONUS_"+SetBonus.getIdFromSetBonus(sb);
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						for(AbstractWeaponType wt : WeaponType.getAllWeapons()) {
-							if(wt.getClothingSet()==sb) {
-								Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon(Main.game.getItemGen().generateWeapon(wt));
-							}
+						for(AbstractWeaponType wt : WeaponType.getAllWeaponsInSet(sb)) {
+							Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon(Main.game.getItemGen().generateWeapon(wt));
 						}
-						for(AbstractClothingType ct : ClothingType.getAllClothing()) {
-							if(ct.getClothingSet()==sb) {
-								Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(Main.game.getItemGen().generateClothing(ct));
-							}
+						for(AbstractClothingType ct : ClothingType.getAllClothingInSet(sb)) {
+							Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(Main.game.getItemGen().generateClothing(ct));
 						}
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
