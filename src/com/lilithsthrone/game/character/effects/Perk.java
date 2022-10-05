@@ -560,6 +560,29 @@ public class Perk {
 			return UtilText.parse(owner, "[npc.NamePos] training has given [npc.herHim] some defence against Lilith's forces.");
 		}
 	};
+	
+	public static AbstractPerk JOB_NPC_FARMER = new AbstractPerk(20,
+			true,
+			"Feeding the World",
+			PerkCategory.JOB,
+			"perks/jobs/farmer",
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5),
+					new Value<>(Attribute.RESISTANCE_FIRE, 1),
+					new Value<>(Attribute.RESISTANCE_ICE, 1)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"#IF(!game.SillyModeEnabled())"
+						+ "The back-breaking work required to make fields bloom has made [npc.Name] fit and tough. [npc.She] is also no stranger to the biting cold or the scorching sun."
+					+ "#ELSE"
+						+ "[npc.NameHasFull] a brand new combine harvester and [npc.she]'ll give you the key, but only after driving [npc.her] tractor through your haystack, ooar-ooar!"
+					+ "#ENDIF");
+		}
+	};
 
 	public static AbstractPerk JOB_NPC_OFFICE_WORKER = new AbstractPerk(20,
 			true,
@@ -825,29 +848,6 @@ public class Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
 					"Having had to make countless difficult decisions which affect the lives of thousands of people, [npc.nameHasFull] hardened [npc.her] mind and [npc.is] able to act with full conviction.");
-		}
-	};
-	
-	public static AbstractPerk JOB_NPC_FARMER = new AbstractPerk(20,
-			true,
-			"Feeding the World",
-			PerkCategory.JOB,
-			"perks/jobs/farmer",
-			PresetColour.DAMAGE_TYPE_PHYSICAL,
-			Util.newHashMapOfValues(
-					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
-					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5),
-					new Value<>(Attribute.RESISTANCE_FIRE, 1),
-					new Value<>(Attribute.RESISTANCE_ICE, 1)),
-			null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner,
-					"#IF(!game.SillyModeEnabled())"
-						+ "The back-breaking work required to make fields bloom has made [npc.Name] fit and tough. [npc.She] is also no stranger to the biting cold or the scorching sun."
-					+ "#ELSE"
-						+ "[npc.NameHasFull] a brand new combine harvester and [npc.she]'ll give you the key, but only after driving [npc.her] tractor through your haystack, ooar-ooar!"
-					+ "#ENDIF");
 		}
 	};
 	
@@ -3013,8 +3013,33 @@ public class Perk {
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner,
-					"The blood of Cimryth runs through [npc.namePos] veins and [npc.she] is long inured to the cold of living so high up in the mountains. However, being so removed from [npc.her] desert kin has lessened [npc.her] natural resistance to fire.");
+			return UtilText.parse(owner, "The blood of Cimryth runs through [npc.namePos] veins and [npc.she] is long inured to the cold of living so high up in the mountains. However, being so removed from [npc.her] desert kin has lessened [npc.her] natural resistance to fire.");
+	
+	
+	//**** Special perks which can be gained from in-game events: ****//
+
+	public static AbstractPerk PIX_TRAINING = new AbstractPerk(20,
+			false,
+			"Pix's Training",
+			PerkCategory.PHYSICAL,
+			"perks/pix_trained",
+			Util.newArrayListOfValues(
+				PresetColour.ATTRIBUTE_PHYSIQUE),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 2),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 1),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 1)),
+			null,
+			null,
+			null,
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "Having survived multiple intense workout sessions with Dominion's most excitable and motivated physical trainer, you feel noticeably stronger.");
+		}
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
 		}
 	};
 	
@@ -3103,6 +3128,8 @@ public class Perk {
 		}
 	};
 	
+	
+	//**** Elder lilin perks: ****//
 	
 	public static AbstractPerk POWER_OF_LIRECEA_1 = new AbstractPerk(20,
 			false,
