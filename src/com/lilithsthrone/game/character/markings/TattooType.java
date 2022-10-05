@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.colours.ColourListPresets;
 
 /**
  * @since 0.2.6
@@ -19,63 +18,73 @@ import com.lilithsthrone.utils.colours.ColourListPresets;
  */
 public class TattooType {
 
-	public static AbstractTattooType NONE = new AbstractTattooType(
-			"none",
-			"none",
-			"This tattoo has no particular pattern, and simply displays either writing or a counter.",
-			"a tattoo which lacks any kind of image or pattern",
-			ColourListPresets.JUST_GREY,
-			null,
-			null,
-			null);
+//	public static AbstractTattooType NONE = new AbstractTattooType(
+//			"none",
+//			"none",
+//			"This tattoo has no particular pattern, and simply displays either writing or a counter.",
+//			"a tattoo which lacks any kind of image or pattern",
+//			ColourListPresets.JUST_GREY,
+//			null,
+//			null,
+//			null);
 	
-	public static AbstractTattooType FLOWERS = new AbstractTattooType(
-			"flowers",
-			"flowers",
-			"This tattoo depicts a flowing series of intertwined flowers.",
-			"a floral-themed tattoo, depicting a flowing series of intertwined flowers",
-			ColourListPresets.ALL,
-			ColourListPresets.ALL,
-			ColourListPresets.ALL,
-			null);
+//	public static AbstractTattooType FLOWERS = new AbstractTattooType(
+//			"flowers",
+//			"flowers",
+//			"This tattoo depicts a flowing series of intertwined flowers.",
+//			"a floral-themed tattoo, depicting a flowing series of intertwined flowers",
+//			ColourListPresets.ALL,
+//			ColourListPresets.ALL,
+//			ColourListPresets.ALL,
+//			null);
 
-	public static AbstractTattooType TRIBAL = new AbstractTattooType(
-			"tribal",
-			"tribal",
-			"A series of flowing lines and intricate patterns.",
-			"a tattoo which consists of a series of flowing lines and intricate patterns",
-			ColourListPresets.ALL,
-			null,
-			null,
-			null);
+//	public static AbstractTattooType TRIBAL = new AbstractTattooType(
+//			"tribal",
+//			"tribal",
+//			"A series of flowing lines and intricate patterns.",
+//			"a tattoo which consists of a series of flowing lines and intricate patterns",
+//			ColourListPresets.ALL,
+//			null,
+//			null,
+//			null);
 
-	public static AbstractTattooType BUTTERFLIES = new AbstractTattooType(
-			"butterflies",
-			"butterflies",
-			"An artistic depiction of a trio of butterflies in mid-flight.",
-			"a tattoo of a trio of butterflies in mid-flight",
-			ColourListPresets.ALL,
-			ColourListPresets.ALL,
-			ColourListPresets.ALL,
-			null);
+//	public static AbstractTattooType BUTTERFLIES = new AbstractTattooType(
+//			"butterflies",
+//			"butterflies",
+//			"An artistic depiction of a trio of butterflies in mid-flight.",
+//			"a tattoo of a trio of butterflies in mid-flight",
+//			ColourListPresets.ALL,
+//			ColourListPresets.ALL,
+//			ColourListPresets.ALL,
+//			null);
 	
-	public static AbstractTattooType LINES = new AbstractTattooType(
-			"lines",
-			"lines",
-			"A series of flowing, swirling lines.",
-			"a tattoo which consists of a series of flowing, swirling lines",
-			ColourListPresets.ALL,
-			null,
-			null,
-			null);
+//	public static AbstractTattooType LINES = new AbstractTattooType(
+//			"lines",
+//			"lines",
+//			"A series of flowing, swirling lines.",
+//			"a tattoo which consists of a series of flowing, swirling lines",
+//			ColourListPresets.ALL,
+//			null,
+//			null,
+//			null);
 	
 	private static Map<AbstractTattooType, String> tattooToIdMap = new HashMap<>();
 	private static Map<String, AbstractTattooType> idToTattooMap = new HashMap<>();
 	
 	public static AbstractTattooType getTattooTypeFromId(String id) {
-//		System.out.print("ID: "+id);
+		if(id.equalsIgnoreCase("NONE")) {
+			id = "innoxia_misc_none";
+		} else if(id.equalsIgnoreCase("FLOWERS")) {
+			id = "innoxia_plant_flowers";
+		} else if(id.equalsIgnoreCase("TRIBAL")) {
+			id = "innoxia_symbol_tribal";
+		} else if(id.equalsIgnoreCase("BUTTERFLIES")) {
+			id = "innoxia_animal_butterflies";
+		} else if(id.equalsIgnoreCase("LINES")) {
+			id = "innoxia_symbol_lines";
+		}
+		
 		id = Util.getClosestStringMatch(id, idToTattooMap.keySet());
-//		System.out.println("  set to: "+id);
 		return idToTattooMap.get(id);
 	}
 	
@@ -95,7 +104,7 @@ public class TattooType {
 	public static List<AbstractTattooType> getAllTattooTypes() {
 		List<AbstractTattooType> allTattoos = new ArrayList<>(tattooToIdMap.keySet());
 		
-		allTattoos.sort((t1, t2) -> t1.equals(TattooType.NONE)?-1:(t1.getName().compareTo(t2.getName())));
+		allTattoos.sort((t1, t2) -> t1.equals(TattooType.getTattooTypeFromId("innoxia_misc_none"))?-1:(t1.getName().compareTo(t2.getName())));
 		
 		return allTattoos;
 	}

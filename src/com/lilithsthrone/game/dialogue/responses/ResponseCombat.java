@@ -208,7 +208,6 @@ public class ResponseCombat extends Response {
 			Main.combat.initialiseCombat(allies, addElementalsToAllies, enemyLeader, enemies, openingDescriptions);
 		}
 		
-		
 		return Main.combat.startCombat();
 	}
 	

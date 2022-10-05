@@ -236,8 +236,11 @@
 				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_escape_palace]]></nextDialogue>
 				<effects><![CDATA[
 					[#pc.setLocation(WORLD_TYPE_innoxia_fields_themiscyra, PLACE_TYPE_innoxia_fields_themiscyra_palace)]
-					[#meraxis.setLocation(pc)]
-					[#lunexis.setLocation(pc)]
+					[#meraxis.setLocation(pc, true)]
+					[#lunexis.setLocation(pc, true)]
+					
+					[#meraxis.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
+					[#lunexis.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
 				]]></effects>
 			</response>
 		</responses>
@@ -370,6 +373,9 @@
 	
 	<scene id="final">
 		<preParsingEffects><![CDATA[
+			[#lunexis.applyMeraxisBadEnd()]
+			[#lunexis.applyPlayerBadEnd()]
+			
 			[#pc.setLocation(WORLD_TYPE_innoxia_fields_themiscyra, PLACE_TYPE_innoxia_fields_themiscyra_plaza)]
 			[#meraxis.setLocation(pc)]
 			[#lunexis.setLocation(pc)]
@@ -457,6 +463,8 @@
 	
 	<scene id="final_epilogue">
 		<preParsingEffects><![CDATA[
+			[#lunexis.applyMeraxisBadEndFinal()]
+			
 			[#pc.setLocation(WORLD_TYPE_innoxia_fields_themiscyra, PLACE_TYPE_innoxia_fields_themiscyra_palace)]
 			[#meraxis.setLocation(pc)]
 			[#lunexis.setLocation(pc)]

@@ -49,6 +49,7 @@
 		<tertiaryColoursDye values="ALL_METAL"/>
 		
 		<itemTags> 
+			<tag>ENABLE_SEX_EQUIP</tag>
 			<tag>SOLD_BY_FINCH</tag>
 			<tag>RIGID_MATERIAL</tag>
 			<tag>CHASTITY</tag>

@@ -12,7 +12,7 @@
 		
 		<slotAvailability/>
 		
-		<primaryColours values="ALL"/> 
+		<primaryColours values="ALL" defaultColour="CLOTHING_TAN"/> 
 		<secondaryColours/>
 		<tertiaryColours/>
 		
