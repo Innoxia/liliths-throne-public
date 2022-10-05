@@ -1,75 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- For a version without all of the comments, see "rental_daddy.xml". -->
 <tattoo>
-	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help!
-	Your tattoo's id (which is very important to the game), is calculated from your tattoo's folder and .xml name using the following code:
-		modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0]
-	This results in this particular item's id being: "innoxia_hearts_hearts".
-	IMPORTANT: If you ever change the name of this .xml, or containing folder, any tattoos that exist in the game will be removed!-->
-	
 	<coreAttributes>
-		<!-- The base value of this tattoo. All of the standard tattoos are 500 flames. I roughly base things on 1 flame = 10p, so 10 flames = £1. -->
 		<value>500</value> 
 		
-		<!-- The name of this tattoo. -->
 		<name><![CDATA[hearts]]></name>
 		
-		<!-- The description that's shown in tooltips and on the item's inspection page. -->
 		<description><![CDATA[A series of hearts and swirling lines.]]></description> 
 		
 		<bodyOverviewDescription><![CDATA[a tattoo which depicts of a series of hearts and swirling lines]]></bodyOverviewDescription> 
 		
-		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
-		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
 		<imageName>hearts.svg</imageName> 
 		
-		<!-- Inventory slots that this tattoo can be assigned to. Leave blank to allow all slots to be used. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
 		<slotAvailability/> 
-		<!-- Example of how it looks when defining slots:
-		<slotAvailability> 
-			<slot>CHEST</slot>
-			<slot>NIPPLE</slot>
-			<slot>STOMACH</slot>
-			<slot>PIERCING_STOMACH</slot>
-			<slot>PIERCING_NIPPLE</slot>
-		</slotAvailability> 
-		-->
-		
-		<!-- Use this section to define available colours for your tattoo. The game detects specific colour values, and recolours them to the value chosen by the player. These values are as follows:
-		Red is used as base colour for changing the primary colour of the graphic in-game, and the game will only recognise and change the following colours:
-			#ff2a2a
-			#ff5555
-			#ff8080
-			#ffaaaa
-			#ffd5d5
-		Orange is used as base colour for changing the secondary colour of the graphic in-game, and the game will only recognise and change the following colours:
-			#ff7f2a
-			#ff9955
-			#ffb380
-			#ffccaa
-			#ffe6d5
-		Yellow is used as base colour for changing the tertiary colour of the graphic in-game, and the game will only recognise and change the following colours:
-			#ffd42a
-			#ffdd55
-			#ffe680
-			#ffeeaa
-			#fff6d5
-		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
-		You can see a visual representation of these colours here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
-		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
-		<primaryColours values="ALL"/> 
-		<secondaryColours values="ALL"/>
+		<primaryColours values="ALL" defaultColour="CLOTHING_PINK_LIGHT"/> 
+		<secondaryColours values="ALL" defaultColour="CLOTHING_PINK"/>
 		<tertiaryColours/>
-		<!-- You can also make your own, custom list of colours to be used. If you want to include custom colours, do not define a 'values' attribute, and instead, list each Colour, like in the example below.
-		 Colour types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java
-		 PLEASE USE THE 'Colour' VALUES THAT START WITH 'CLOTHING-'-->
-		<!--
-		<tertiaryColours>
-			<colour>CLOTHING_PINK</colour>
-			<colour>CLOTHING_PINK_LIGHT</colour>
-		</tertiaryColours>
-		-->
-		
 	</coreAttributes>
 	
 </tattoo>

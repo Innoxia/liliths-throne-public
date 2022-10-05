@@ -622,7 +622,7 @@ public enum RenderingEngine {
 				}
 				
 			} else { // Tattoos:
-				boolean disabled = !invSlot.isPhysicallyAvailable(charactersInventoryToRender);
+				boolean disabled = !invSlot.isPhysicallyAvailable(charactersInventoryToRender) && invSlot!=InventorySlot.HAIR; // Exception for hair as this slot corresponds to the 'ears' slot for tattoos
 //				switch(invSlot){
 //					case HORNS:
 //						disabled = charactersInventoryToRender.getHornType().equals(HornType.NONE);

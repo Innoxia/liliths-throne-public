@@ -469,6 +469,10 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		return description;
 	}
 
+	public boolean isAppendItemEffectLinesToTooltip() {
+		return true;
+	}
+	
 	public List<String> getEffectTooltipLines() {
 		List<String> parsed = new ArrayList<>();
 		for(String s : effectTooltipLines) {

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tattoo>
+	<coreAttributes>
+		<value>500</value> 
+		
+		<name><![CDATA[tribal]]></name>
+		
+		<description><![CDATA[A series of flowing lines and intricate patterns.]]></description> 
+		<bodyOverviewDescription><![CDATA[a tattoo which consists of a series of flowing lines and intricate patterns]]></bodyOverviewDescription> 
+		
+		<imageName>tribal.svg</imageName> 
+		
+		<slotAvailability/>
+		
+		<primaryColours values="ALL" defaultColour="CLOTHING_BLACK"/> 
+		<secondaryColours/> 
+		<tertiaryColours/> 
+		
+	</coreAttributes>
+	
+</tattoo>

@@ -290,12 +290,7 @@ public class PhoneDialogue {
 							Main.getProperties().hasValue(PropertyValue.levelUpHightlight)
 								? "<span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>Perk Tree</span>"
 								:"Perk Tree",
-							"View your character page.", CHARACTER_PERK_TREE) {
-						@Override
-						public void effects() {
-							Main.getProperties().setValue(PropertyValue.levelUpHightlight, false);
-						}
-					};
+							"View your character page.", CHARACTER_PERK_TREE);
 					
 				} else if (index == 3) {
 					return new Response("Spells", "View your spells page.", SpellManagement.CHARACTER_SPELLS_EARTH) {
@@ -3690,7 +3685,10 @@ public class PhoneDialogue {
 	};
 
 	public static final DialogueNode CHARACTER_PERK_TREE = new DialogueNode("Perk Tree", "", true) {
-
+		@Override
+		public void applyPreParsingEffects() {
+			Main.getProperties().setValue(PropertyValue.levelUpHightlight, false);
+		}
 		@Override
 		public String getHeaderContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -3730,18 +3728,11 @@ public class PhoneDialogue {
 					}
 				};
 				
-				
 			} else if (index == 0) {
-				return new Response("Back", "Return to your phone's main menu.", MENU) {
-					@Override
-					public void effects() {
-						Main.getProperties().setValue(PropertyValue.levelUpHightlight, false);
-					}
-				};
-			
-			} else {
-				return null;
+				return new Response("Back", "Return to your phone's main menu.", MENU);
 			}
+			
+			return null;
 		}
 
 		@Override
