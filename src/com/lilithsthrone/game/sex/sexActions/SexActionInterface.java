@@ -94,7 +94,10 @@ public interface SexActionInterface {
 			}
 			return true;
 		}
-		return this.getActionType()==SexActionType.SPEECH || this.getActionType()==SexActionType.SPEECH_WITH_ALTERNATIVE || this.getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM || this.getActionType()==SexActionType.ORGASM;
+		return this.getActionType()==SexActionType.SPEECH
+				|| this.getActionType()==SexActionType.SPEECH_WITH_ALTERNATIVE
+				|| this.getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM
+				|| this.getActionType()==SexActionType.ORGASM;
 	}
 	
 	/**
@@ -487,6 +490,10 @@ public interface SexActionInterface {
 	 */
 	public default String applyEndEffects(){
 		return "";
+	}
+	
+	public default boolean isQuickSexRequirementsMet(GameCharacter performer) {
+		return isBaseRequirementsMet();
 	}
 	
 	public default boolean isBaseRequirementsMet() {

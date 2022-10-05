@@ -3330,7 +3330,7 @@ public class Body implements XMLSaving {
 				} else {
 					tattooSB.append("On [npc.her] [style.boldBlueSteel("+tattooSlot.getTattooSlotName()+")], [npc.sheHasFull] ");
 					tattooSB.append(tattoo.getBodyOverviewDescription());
-					if(tattoo.getType()!=TattooType.NONE) {
+					if(tattoo.getType()!=TattooType.getTattooTypeFromId("innoxia_misc_none")) {
 						tattooSB.append(", which is primarily coloured ");
 						tattooSB.append("<span style='color:"+tattoo.getPrimaryColour().toWebHexString()+";'>"+tattoo.getPrimaryColour().getName()+"</span>");
 					}
@@ -3347,7 +3347,7 @@ public class Body implements XMLSaving {
 						tattooSB.append(" The tattoo is enchanted to keep ");
 					}
 					tattooSB.append(UtilText.generateSingularDeterminer(counterName)+" '"+counterName+"' count, which reads: '"+tattoo.getFormattedCounterOutput(owner)+"'.");
-				} else {
+				} else if(tattoo.getWriting()!=null && tattoo.getWriting().getText()!=null && !tattoo.getWriting().getText().isEmpty()) {
 					tattooSB.append(".");
 				}
 			}
@@ -6134,6 +6134,11 @@ public class Body implements XMLSaving {
 		}
 
 		return weight;
+	}
+	
+
+	public boolean isShortStature() {
+		return this.getHeightValue() < Height.getShortStatureCutOff();
 	}
 
 	/** Height is measured in cm. **/

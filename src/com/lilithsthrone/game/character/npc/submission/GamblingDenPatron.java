@@ -131,7 +131,7 @@ public class GamblingDenPatron extends NPC {
 			
 			resetInventory(true);
 			inventory.setMoney(750 + Util.random.nextInt(750));
-			Main.game.getCharacterUtils().generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, false);
 	
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			Main.game.getCharacterUtils().applyMakeup(this, true);

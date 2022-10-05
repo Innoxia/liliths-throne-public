@@ -499,7 +499,14 @@ public class MainController implements Initializable {
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
 
-							Main.game.getPlayer().incrementFetishExperience(Fetish.FETISH_DOMINANT, 200);
+							Main.game.getCharactersPresent().get(0).incrementAttribute(Attribute.MAJOR_CORRUPTION, 100);
+							Main.game.getCharactersPresent().get(0).addFetish(Fetish.FETISH_BONDAGE_APPLIER);
+							
+//							Main.game.getCharactersPresent().get(0).addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_PINK, false), 2, false, false);
+//							Main.game.getCharactersPresent().get(0).removeFetish(Fetish.FETISH_CUM_STUD);
+//							Main.game.getCharactersPresent().get(0).setFetishDesire(Fetish.FETISH_CUM_STUD, FetishDesire.TWO_NEUTRAL);
+							
+//							Main.game.getPlayer().incrementFetishExperience(Fetish.FETISH_DOMINANT, 200);
 //							if(Main.game.isInSex()) {
 //								for(GameCharacter c : Main.sex.getSubmissiveSpectators()) {
 //									c.setArousal(98);

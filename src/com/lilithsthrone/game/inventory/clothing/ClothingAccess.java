@@ -44,6 +44,12 @@ public enum ClothingAccess {
 	/** Sliding something over your groin, like a pair of panties.*/
 	GROIN("slide over groin"),
 
+	/** Sliding something onto your penis, like a condom. */
+	PENIS("slide onto penis"), // This gets automatically added to 'clothingAccessBlocked' values if clothing has 'PENIS' in 'blockedBodyParts'.
+
+	/** Inserting something into your vagina, like a dildo. */
+	VAGINA("insert into vagina"), // This gets automatically added to 'clothingAccessBlocked' values if clothing has 'VAGINA' in 'blockedBodyParts'.
+
 	/** Inserting something into your anus, like a butt-plug. */
 	ANUS("insert into anus"),
 
