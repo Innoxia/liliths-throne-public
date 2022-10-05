@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	
+	<name><![CDATA[
+	#IF(flags.hasFlag(FLAG_dsg_elis_eisek_banished))
+		Empty Lot
+	#ELSEIF(eisek.isPlayerKnowsName() && !pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_STALL))
+		Eisek's Produce Stall
+	#ELSEIF(pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_STALL))
+		Eisek's Alpine Produce
+	#ELSE
+		Produce Stall
+	#ENDIF
+	]]></name>
+
+	<tooltipDescription><![CDATA[
+	#IF(flags.hasFlag(FLAG_dsg_elis_eisek_banished))
+		An empty space that has yet to find a new tenet.
+	#ELSE
+		A dragon-boy runs this produce stall.
+	#ENDIF
+	]]></tooltipDescription>
+	
+	<virginityLossDescription><![CDATA[in the Farmer's Market in Elis]]></virginityLossDescription>
+	
+	<sexBlockedReason/>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	
+	<svgName>produce</svgName>
+	<colour>#55a2d5</colour>
+	
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	
+	<encounterType>dsg_places_fields_elis_market_eisek</encounterType>
+	
+	<dialogue>dsg_places_fields_elis_market_produce</dialogue>
+	
+	<populationPresent>
+		
+		<population startMinutes="480" endMinutes="1139">
+			
+			<conditional><![CDATA[
+			#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && !pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_MOB) && !pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_STALL))
+				true
+			#ENDIF
+			]]></conditional>
+	
+			<populationType plural="false" density="OCCASIONAL">SHOPPER</populationType>
+			
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+		<population day="true">
+			<conditional><![CDATA[
+			#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_MOB) && !pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_STALL))
+				true
+			#ENDIF
+			]]></conditional>
+			<populationType plural="false" density="OCCASIONAL">SHOPPER</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+	</populationPresent>
+	
+	<furniturePresent>false</furniturePresent>	
+	<wallsPresent>false</wallsPresent>	
+	<loiteringEnabled>false</loiteringEnabled>	
+	<globalMapTile>false</globalMapTile>	
+	<dangerous><![CDATA[false]]></dangerous>	
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>	
+	<aquatic><![CDATA[LAND]]></aquatic>	
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>	
+	<teleportPermissions>BOTH</teleportPermissions>	
+	<weatherImmunities/>
+	<applyInventoryInit/>
+	
+</placeType>

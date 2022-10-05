@@ -97,6 +97,7 @@ public class Eisek extends NPC {
     @Override
     public void setupPerks(boolean autoSelectPerks) {
 	    this.addSpecialPerk(Perk.SPECIAL_CHILD_OF_THE_CRAG);
+	    this.addPerk(Perk.JOB_NPC_FARMER);
 
 	    PerkManager.initialisePerks(this,
 			    Util.newArrayListOfValues(),
@@ -229,7 +230,7 @@ public class Eisek extends NPC {
     
     @Override
     public String getDescription() {
-	    if(this.isPlayerKnowsName() == false) {
+	    if(this.isPlayerKnowsName() == false && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_banished"))) {
 		    return "You found this dragon-boy being harrassed by a mob while manning a stall at The Farmer's Market in Elis.";
 
 	    } else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_banished"))) {

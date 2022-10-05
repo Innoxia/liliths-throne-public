@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
 	
-	<!-- EISEK_ENCOUNTER_INITIAL -->
+	<!-- ENCOUNTER_INITIAL -->
 	
-	<htmlContent tag="EISEK_ENCOUNTER_INITIAL"><![CDATA[
+	<htmlContent tag="ENCOUNTER_INITIAL"><![CDATA[
 	<p>
 		As you stroll through the market, you notice a small mob gathered around one of the stalls. It is composed of all sorts of plainly dressed animal morphs and a few are carrying simple wooden signs. They are angrily shouting or chanting something, but you can't quite make out what it is above the general hubbub and music around you. Those not in the mob are giving the area a wide berth, perhaps you should do the same.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_ENCOUNTER_BACK_OFF -->
+	<!-- ENCOUNTER_BACK_OFF -->
 	
-	<htmlContent tag="EISEK_ENCOUNTER_BACK_OFF"><![CDATA[
+	<htmlContent tag="ENCOUNTER_BACK_OFF"><![CDATA[
 	<p>
 		You decide not to get any closer to the stall or the crowd around it.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_ENCOUNTER_APPROACH -->
+	<!-- ENCOUNTER_APPROACH -->
 	
-	<htmlContent tag="EISEK_ENCOUNTER_APPROACH"><![CDATA[
+	<htmlContent tag="ENCOUNTER_APPROACH"><![CDATA[
 	<p>
 		Curious to see what the mob is so angry about, you decide to approach the stall. As you get closer, the crowd's shouting becomes clearer and you can make out a few phrases.
 	</p>
@@ -46,9 +46,9 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_ENCOUNTER_BANISHMENT -->
+	<!-- ENCOUNTER_BANISHMENT -->
 	
-	<htmlContent tag="EISEK_ENCOUNTER_BANISHMENT"><![CDATA[
+	<htmlContent tag="ENCOUNTER_BANISHMENT"><![CDATA[
 	<p>
 		#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_SELFISH))
 			You tell the [eisek.race] that you're neither a fool nor a friend of his. Before you can say anything else, a tough looking horse-girl interjects. [test.speechFeminine(Yeah! We're not fools and we don't want you in our town! Get out!)] she shouts.
@@ -80,9 +80,9 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_ENCOUNTER_DISPERSE_CROWD -->
+	<!-- ENCOUNTER_DISPERSE_CROWD -->
 	
-	<htmlContent tag="EISEK_ENCOUNTER_DISPERSE_CROWD"><![CDATA[
+	<htmlContent tag="ENCOUNTER_DISPERSE_CROWD"><![CDATA[
 	<p>
 		#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_SHY))
 			With every ounce of courage you can muster, you greet the [eisek.race]
@@ -117,28 +117,28 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_STALL_BANISHED -->
+	<!-- STALL_BANISHED -->
 	<!-- TODO: Merge all stall descriptions -->
 	
-	<htmlContent tag="EISEK_STALL_BANISHED"><![CDATA[
+	<htmlContent tag="STALL_BANISHED"><![CDATA[
 	<p>
 		The space previously occupied by that [eisek.race]'s stall still hasn't found a new occupant, but at least the ruins and the pile of pulverized produce have been cleared away.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_STALL_VACANT -->
+	<!-- STALL_VACANT -->
 	
-	<htmlContent tag="EISEK_STALL_VACANT"><![CDATA[
+	<htmlContent tag="STALL_VACANT"><![CDATA[
 	<p>
 		The space normally occupied by Eisek's stall is empty, he must not be around. You recall that he's only in town between the first and third of each month.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_STALL -->
+	<!-- STALL -->
 	
-	<htmlContent tag="EISEK_STALL"><![CDATA[
+	<htmlContent tag="STALL"><![CDATA[
 	<p>
 		Eisek's stall is constructed in much the same way as all the others lining the avenue although it does look comparatively dull and shabby. Stretched over the wooden counter is some sort of rough fabric, you guess burlap, stitched together into a crude cover and there's not even shade to keep the occupant out of the sun. The counter is split into a flat table area and an angled display area with a small chalkboard affixed to a post above it for displaying prices. The thin wooden placard hanging over the front is unpainted with the words "FRESH PRODUCE" simply burned into it.
 	</p>
@@ -148,7 +148,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="EISEK_STALL_FANCY"><![CDATA[
+	<htmlContent tag="STALL_FANCY"><![CDATA[
 	<p>
 		Eisek's stall now looks much more colourful and inviting. The counter is now covered in bright orange fabric much like the new awning it now sits under. Sewn to the front of the counter is the tapestry-like sign you had made, depicting a gust of wind descending from snow-capped mountains, carrying fruits and vegetables down the slopes while swirling blue letters proclaim "FRESH PRODUCE, MOUNTAIN GROWN". As before, the counter is split into a flat table area and an angled display area with a small chalkboard affixed to a post above it for displaying prices.
 	</p>
@@ -158,9 +158,9 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_TALK_MENU -->
+	<!-- TALK_MENU -->
 	
-	<htmlContent tag="EISEK_TALK_MENU"><![CDATA[
+	<htmlContent tag="TALK_MENU"><![CDATA[
 	#IF(pc.isQuestCompleted(QuestLine.SIDE_EISEK_MOB) && flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_persuade) && !flags.hasFlag(FLAG_dsg_elis_eisek_talk_post_mob_quest))
 		<p>
 			As you approach the stall, you notice a sheep-girl speaking with Eisek. A pang of adrenaline rushes through you as you recognise her from the same mob that had been trying to drive him out. Fearing the worst, you quicken your pace, but she leaves before you can do or say anything.
@@ -184,10 +184,10 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_TALK_DRAGONFALL_SPECIFIC -->
+	<!-- TALK_DRAGONFALL_SPECIFIC -->
 	<!-- TODO: Break up this wall of text -->
 	
-	<htmlContent tag="EISEK_TALK_DRAGONFALL_SPECIFIC"><![CDATA[
+	<htmlContent tag="TALK_DRAGONFALL_SPECIFIC"><![CDATA[
 	<p>
 		A puff of steam leaves Eisek's nostrils as you broach the subject again. He closes his eyes for a moment, thinking, before finally giving his response.
 	</p>
@@ -206,9 +206,9 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_TALK_HIMSELF -->
+	<!-- TALK_HIMSELF -->
 	
-	<htmlContent tag="EISEK_TALK_HIMSELF"><![CDATA[
+	<htmlContent tag="TALK_HIMSELF"><![CDATA[
 	#IF(eisek.getAffection(pc) >= 15)
 		<p>
 			Having earned his trust, the [eisek.race] opens up a little. [eisek.speech(I come from Cimryth's Crag, a rocky little valley high in the mountains far to the west of here. My family has farmed there for a hundred years.)]
@@ -236,10 +236,10 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_TALK_BUSINESS -->
+	<!-- TALK_BUSINESS -->
 	<!-- TODO: Merge variants -->
 	
-	<htmlContent tag="EISEK_TALK_BUSINESS"><![CDATA[
+	<htmlContent tag="TALK_BUSINESS"><![CDATA[
 	<p>
 		He ponders your question for a moment, looking off into the distance, before answering [eisek.speech(Well enough, I suppose. I never planned to succeed through volume. Although...) the [eisek.race] pauses as he surveys the other stalls up and down the avenue. [eisek.speech(My stall could use some work. There is nothing I can do about the size, I need to fly with it...although I would not mind an awning for some shade. It is definitely not as eye-catching compared with the others. If only I could get some better fabric and a better sign...hmm, but I cannot leave my stall undefended. I would come back to it in ruins for sure.)]
 	</p>
@@ -249,27 +249,27 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_TALK_BUSINESS_FANCY_STALL -->
+	<!-- TALK_BUSINESS_FANCY_STALL -->
 	
-	<htmlContent tag="EISEK_TALK_BUSINESS_FANCY_STALL"><![CDATA[
+	<htmlContent tag="TALK_BUSINESS_FANCY_STALL"><![CDATA[
 	<p>
 		[eisek.speech(You have done me a great service with this new stall,)] he says, trying not to sound too excited, [eisek.speech(I am on more equal footing with the others now, and I have even seen a few new customers.)] He scratches his chin in thought before flashing you a cheeky grin. [eisek.speech(Though, you still talk the most.)]
 	</p>
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_TALK_BUSINESS_POST_QUEST -->
+	<!-- TALK_BUSINESS_POST_QUEST -->
 	
-	<htmlContent tag="EISEK_TALK_BUSINESS_POST_QUEST"><![CDATA[
+	<htmlContent tag="TALK_BUSINESS_POST_QUEST"><![CDATA[
 	<p>
 		His eyes light up at the question. [eisek.speech(I cannot thank you enough, [pc.name]. Without that crowd of hooligans around I can focus on running this stall, for which I also owe you. Sales have really started to pick up and I have seen many new faces among my customers.)] He studies you intently for a brief instant before continuing with a warm smile. [eisek.speech(Don't worry, you will always be my favourite.)]
 	</p>
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_TALK_FAMILY -->
+	<!-- TALK_FAMILY -->
 	
-	<htmlContent tag="EISEK_TALK_FAMILY"><![CDATA[
+	<htmlContent tag="TALK_FAMILY"><![CDATA[
 	<p>
 		You ask Eisek about the family he mentioned. The question seems to hit him off-balance and he initially pretends that he didn't hear it as his expression darkens. When he finally does respond, he stares at the counter and says only [eisek.speech(I don't want to talk about that,)] in a barely audible whisper.
 	</p>
@@ -280,9 +280,9 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_TALK_WHY_ELIS -->
+	<!-- TALK_WHY_ELIS -->
 	
-	<htmlContent tag="EISEK_TALK_WHY_ELIS"><![CDATA[
+	<htmlContent tag="TALK_WHY_ELIS"><![CDATA[
 	<p>
 		From what you know about dragons, they dislike strangers. How did Eisek come to run a stall in a town full of them, especially when some of them are so hostile?
 	</p>
@@ -293,9 +293,9 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_TALK_OTHER_DRAGONS -->
+	<!-- TALK_OTHER_DRAGONS -->
 	
-	<htmlContent tag="EISEK_TALK_OTHER_DRAGONS"><![CDATA[
+	<htmlContent tag="TALK_OTHER_DRAGONS"><![CDATA[
 	<p>
 		[eisek.speech(Met? Only one. A family friend of sorts hailing from the desert. She was a skilled glassfromer who once helped me repair a greenhouse. We have not spoken in...a long time,)], he replies, looking slightly misty-eyed at the recall of some private memory, [eisek.speech(As for others, I only know about the existence of others from the sight of their fields in bloom during the day and the glow of the their kilns during the night. They were not so desperate as I was to make contact with strangers, however, and you would be wise to leave them alone should you encounter them in the wilds.)]
 	</p>
@@ -303,19 +303,19 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_VENDOR -->
+	<!-- VENDOR -->
 	<!-- TODO: Check if this is even necessary -->
 	
-	<htmlContent tag="EISEK_VENDOR"><![CDATA[
+	<htmlContent tag="VENDOR"><![CDATA[
 	<p>
 		[eisek.speech(The cream of the crop. You will not find better in the whole of this market.)]
 	</p>
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_TALK_ASK_ABOUT_MOB -->
+	<!-- TALK_ASK_ABOUT_MOB -->
 	<!-- TODO: Variants for quest completion -->
-	<htmlContent tag="EISEK_TALK_ASK_ABOUT_MOB"><![CDATA[
+	<htmlContent tag="TALK_ASK_ABOUT_MOB"><![CDATA[
 	<p>
 		Something about the crowd you dispersed when you first met Eisek bothers you. They seemed rather organized for a random bunch of thugs, and to their credit, they did at least leave without a fight. What did they hope to gain by driving him out?
 	</p>
@@ -331,9 +331,9 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_TALK_DRAGONFALL_VAGUE -->
+	<!-- TALK_DRAGONFALL_VAGUE -->
 	
-	<htmlContent tag="EISEK_TALK_DRAGONFALL_VAGUE"><![CDATA[
+	<htmlContent tag="TALK_DRAGONFALL_VAGUE"><![CDATA[
 	<p>
 		When you ask Eisek what he means by "dragons of old", he dodges your gaze. [eisek.speech(My ancestors did things to their ancestors. Things I am not proud of,)] he answers, as quietly as before.
 	</p>
@@ -343,9 +343,9 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_TALK_MOB_QUEST_START -->
+	<!-- TALK_MOB_QUEST_START -->
 	
-	<htmlContent tag="EISEK_TALK_MOB_QUEST_START"><![CDATA[
+	<htmlContent tag="TALK_MOB_QUEST_START"><![CDATA[
 	<p>
 		From the sound of things, it is the mob will return sooner or later and you're not sure a verbal telling off will be enough next time. They did appear to be common townsfolk, however, and a search around town could reveal more about them. You tell Eisek as much.
 	</p>
@@ -361,19 +361,19 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_FAREWELL -->
+	<!-- FAREWELL -->
 	<!-- TODO: Low and medium affection variants -->
 	
-	<htmlContent tag="EISEK_FAREWELL"><![CDATA[
+	<htmlContent tag="FAREWELL"><![CDATA[
 	<p>
 		The [eisek.race] nods his head slightly as you bid him farewell. [eisek.speech(Thank you for stopping by.)]
 	</p>
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_TALK_STALL_QUEST_START -->
+	<!-- TALK_STALL_QUEST_START -->
 	
-	<htmlContent tag="EISEK_TALK_STALL_QUEST_START"><![CDATA[
+	<htmlContent tag="TALK_STALL_QUEST_START"><![CDATA[
 	<p>
 		Thinking back to what Eisek accidentally let slip about improvements to his stall, you ask him what he'd like on a sign representing his business. The [eisek.race] tilts his head slightly at you. [eisek.speech(...Why do you ask? The details of an object out of my grasp matter little.)]
 	</p>
@@ -389,10 +389,10 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_STALL_QUEST_COMPLETE -->
+	<!-- STALL_QUEST_COMPLETE -->
 	<!-- Add variants for different PC personalities and body types-->
 	
-	<htmlContent tag="EISEK_STALL_QUEST_COMPLETE"><![CDATA[
+	<htmlContent tag="STALL_QUEST_COMPLETE"><![CDATA[
 	<p>
 		Eisek's eyes widen as his gaze catches the materials you have triumphantly brought back.
 	</p>
@@ -417,10 +417,10 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_MOB_QUEST_ENCOUNTER -->
+	<!-- MOB_QUEST_ENCOUNTER -->
 	<!-- TODO: Set exact conditions for each path and warn player if they do not meet at least one of them -->
 	
-	<htmlContent tag="EISEK_MOB_QUEST_ENCOUNTER"><![CDATA[
+	<htmlContent tag="MOB_QUEST_ENCOUNTER"><![CDATA[
 	<p>
 		As you walk down the street, a flyer plastered to a nearby building. In bright, bold letters it proclaims
 	</p>
@@ -433,18 +433,18 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_MOB_QUEST_DISCARD_FLYER -->
+	<!-- MOB_QUEST_DISCARD_FLYER -->
 	
-	<htmlContent tag="EISEK_MOB_QUEST_DISCARD_FLYER"><![CDATA[
+	<htmlContent tag="MOB_QUEST_DISCARD_FLYER"><![CDATA[
 	<p>
 		You don't want to confront the mob right now, but you decide to rip the flyer off and toss it in the nearest rubbish bin. Next time, you tell yourself.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_MOB_QUEST_MEET_MOB -->
+	<!-- MOB_QUEST_MEET_MOB -->
 	
-	<htmlContent tag="EISEK_MOB_QUEST_MEET_MOB"><![CDATA[
+	<htmlContent tag="MOB_QUEST_MEET_MOB"><![CDATA[
 	<p>
 		You descend the steps into the building's cellar, following the sound of voices. It is surprisingly well lit and spacious inside. Unmarked crates and barrels line the walls, providing most of the seating, but there are some chairs upon which you see some familiar faces. One of those familiar faces is the long-winded donkey-boy who takes notice of you the instant to you enter the room.
 	</p>
@@ -463,11 +463,11 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_MOB_QUEST_INTIMIDATE -->
+	<!-- MOB_QUEST_INTIMIDATE -->
 	<!-- TODO: Merge variants -->
 	<!-- TODO: Add variants for ferals who don't have hands (use teeth/hooves/horns/etc) and slimes -->
 	
-	<htmlContent tag="EISEK_MOB_QUEST_INTIMIDATE"><![CDATA[
+	<htmlContent tag="MOB_QUEST_INTIMIDATE"><![CDATA[
 	<p>
 		You crack your knuckles menacingly and explain that if they don't honour your request, the next time you see them anywhere near Eisek you'll give them a thrashing they'll never forget. And with their history with the Enforcers, somehow you don't think you're going to be the one getting arrested.
 	</p>
@@ -483,10 +483,10 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_MOB_QUEST_INTIMIDATE_ARCANE -->
+	<!-- MOB_QUEST_INTIMIDATE_ARCANE -->
 	<!-- TODO: Add variants for different spells that the player has (Fireball/Ice Shard/Poison Vapours/Slam)-->
 	
-	<htmlContent tag="EISEK_MOB_QUEST_INTIMIDATE_ARCANE"><![CDATA[
+	<htmlContent tag="MOB_QUEST_INTIMIDATE_ARCANE"><![CDATA[
 	<p>
 		You cast a ball of fire that flies right between the donkey-boy's legs and scorches the floor beneath his chair. You explain that if your request isn't honoured, the next time you see any of them anywhere near Eisek you won't miss. And with their history with the Enforcers, somehow you don't think you're going to be the one getting arrested.
 	</p>
@@ -502,9 +502,9 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_MOB_QUEST_INTIMIDATE_FAIL -->
+	<!-- MOB_QUEST_INTIMIDATE_FAIL -->
 	
-	<htmlContent tag="EISEK_MOB_QUEST_INTIMIDATE_FAIL"><![CDATA[
+	<htmlContent tag="MOB_QUEST_INTIMIDATE_FAIL"><![CDATA[
 	<p>
 		You explain that if they don't honour your request, the next time you see them anywhere near Eisek they'll be sorry.
 	</p>
@@ -520,9 +520,9 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_MOB_QUEST_PERSUADE -->
+	<!-- MOB_QUEST_PERSUADE -->
 	
-	<htmlContent tag="EISEK_MOB_QUEST_PERSUADE"><![CDATA[
+	<htmlContent tag="MOB_QUEST_PERSUADE"><![CDATA[
 	<p>
 		You explain that the mob's fears are baseless. Eisek isn't anything like his ancestors. If he really was going to burn and pillage the place, running a stall in the market is an awfully strange way to go about it. They have talked so much about what his kind is like and yet not one of them has tried to get to know him and find out what he's really like. Yet you have. The Eisek you know is a humble produce farmer who took a big gamble in coming down from the mountains. If any member of this twisted little group had actually taken the time as you did, they would have found out the same thing.
 	</p>
@@ -535,28 +535,28 @@
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_MOB_QUEST_SEDUCE -->
+	<!-- MOB_QUEST_SEDUCE -->
 	
-	<htmlContent tag="EISEK_MOB_QUEST_SEDUCE"><![CDATA[
+	<htmlContent tag="MOB_QUEST_SEDUCE"><![CDATA[
 	<p>
-		EISEK_MOB_QUEST_SEDUCE
+		MOB_QUEST_SEDUCE
 	</p>
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_MOB_QUEST_AFTERMATH -->
+	<!-- MOB_QUEST_AFTERMATH -->
 	
-	<htmlContent tag="EISEK_MOB_QUEST_SEDUCE_AFTERMATH"><![CDATA[
+	<htmlContent tag="MOB_QUEST_SEDUCE_AFTERMATH"><![CDATA[
 	<p>
-		EISEK_MOB_QUEST_AFTERMATH
+		MOB_QUEST_AFTERMATH
 	</p>
 	]]>
 	</htmlContent>
 	
-	<!-- EISEK_MOB_QUEST_COMPLETE -->
+	<!-- MOB_QUEST_COMPLETE -->
 	<!-- TODO: Variants based on how the player resolved the confrontation -->
 	
-	<htmlContent tag="EISEK_MOB_QUEST_COMPLETE"><![CDATA[
+	<htmlContent tag="MOB_QUEST_COMPLETE"><![CDATA[
 	<p>
 		You tell Eisek that the mob won't be returning but he doesn't look convinced.
 	</p>
