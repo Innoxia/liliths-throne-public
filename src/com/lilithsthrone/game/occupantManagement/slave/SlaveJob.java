@@ -521,10 +521,6 @@ public enum SlaveJob {
 //				System.out.println("2: "+slave.getName());
 				MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(slave.getWorldLocation(), slave.getLocation());
 				
-				if(slave.getName().equalsIgnoreCase("Tensi")) {
-					System.out.println(slave.getName()+": "+(room==null)+" | "+slave.getLocation());
-				}
-				
 				if(room!=null) {
 					AbstractClothing pump = slave.getClothingInSlot(InventorySlot.NIPPLE);
 					if(pump!=null && pump.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_milking_breast_pumps"))) {

@@ -232,8 +232,12 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] put mods list at top of error log
 	
 	
-	
 	--- PRS!!! ---
+	[] 1712
+	[] 1711
+	[] 1708
+	[] 1706
+	[] 1701
 	
 	
 	[] scar system
