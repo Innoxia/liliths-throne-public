@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tattoo>
+	<coreAttributes>
+		<value>100</value> 
+		
+		<name><![CDATA[none]]></name>
+		
+		<description><![CDATA[This tattoo has no particular pattern, and simply displays either writing or a counter.]]></description> 
+		<bodyOverviewDescription><![CDATA[a tattoo which lacks any kind of image or pattern]]></bodyOverviewDescription> 
+		
+		<imageName>none.svg</imageName> 
+		
+		<slotAvailability/>
+		
+		<primaryColours>
+			<colour>CLOTHING_GREY</colour>
+		</primaryColours>
+		<secondaryColours/> 
+		<tertiaryColours/> 
+		
+	</coreAttributes>
+	
+</tattoo>

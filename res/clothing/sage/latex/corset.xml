@@ -20,6 +20,7 @@
 			<blockedParts>
 				<displacementType>REMOVE_OR_EQUIP</displacementType>
 				<clothingAccessRequired>
+					<clothingAccess>WAIST</clothingAccess>
 				</clothingAccessRequired>
 				<blockedBodyParts/>
 				<clothingAccessBlocked/>
@@ -39,6 +40,7 @@
 		<secondaryColoursDye values="ALL_WITH_METALS"/>
 		
 		<itemTags> 
+			<tag>ENABLE_SEX_EQUIP</tag>
 			<tag>SOLD_BY_FINCH</tag>
 		</itemTags>
 	</coreAtributes>

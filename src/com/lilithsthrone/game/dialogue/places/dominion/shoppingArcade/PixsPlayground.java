@@ -5,7 +5,7 @@ import java.util.List;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.effects.PerkCategory;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.dominion.Pix;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -23,6 +23,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
@@ -51,29 +52,15 @@ public class PixsPlayground {
 			Main.game.getDialogueFlags().setSavedLong(PERK_PROGRESS_ID, 0);
 		}
 		Main.game.getDialogueFlags().incrementSavedLong(PERK_PROGRESS_ID, increment);
-		if(Main.game.getDialogueFlags().getSavedLong(PERK_PROGRESS_ID)>=100) {
-			Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.PHYSICAL, 1);
-		}
-	}
-	
-	private static void handlePerkProgressReset() {
-		if(!Main.game.getDialogueFlags().hasSavedLong(PERK_PROGRESS_ID)) {
-			Main.game.getDialogueFlags().setSavedLong(PERK_PROGRESS_ID, 0);
-		}
-		if(Main.game.getDialogueFlags().getSavedLong(PERK_PROGRESS_ID)>=100) {
-			Main.game.getDialogueFlags().setSavedLong(PERK_PROGRESS_ID, 0);
-		}
 	}
 	
 	private static String getPerkProgressString(int incremented) {
-		UtilText.addSpecialParsingString(String.valueOf(incremented), true);
-		if(Main.game.getDialogueFlags().getSavedLong(PERK_PROGRESS_ID)>=100) {
-			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "PERK_PROGRESS_COMPLETE");
-			
-		} else {
+		if(!Main.game.getPlayer().hasPerkAnywhereInTree(Perk.PIX_TRAINING)) {
+			UtilText.addSpecialParsingString(String.valueOf(incremented), true);
 			UtilText.addSpecialParsingString(String.valueOf(Main.game.getDialogueFlags().getSavedLong(PERK_PROGRESS_ID)), false);
 			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "PERK_PROGRESS");
 		}
+		return "";
 	}
 	
 	private static Response getResponseGym(int index) {
@@ -82,12 +69,7 @@ public class PixsPlayground {
 				return new Response("Cardio", "You are too tired to do any more exercise!", null);
 				
 			} else {
-				return new Response("Cardio", "Use the running and cycling machines to burn off some of your body size.", GYM_CARDIO){
-					@Override
-					public void effects(){
-						handlePerkProgressReset();
-					}
-				};
+				return new Response("Cardio", "Use the running and cycling machines to burn off some of your body size.", GYM_CARDIO);
 			}
 
 		} else if (index == 2) {
@@ -95,12 +77,7 @@ public class PixsPlayground {
 				return new Response("Weights", "You are too tired to do any more exercise!", null);
 				
 			} else {
-				return new Response("Weights", "Use the free weights and exercise machines to build up your strength.", GYM_WEIGHTS){
-					@Override
-					public void effects(){
-						handlePerkProgressReset();
-					}
-				};
+				return new Response("Weights", "Use the free weights and exercise machines to build up your strength.", GYM_WEIGHTS);
 			}
 
 		} else if (index == 3) {
@@ -112,21 +89,11 @@ public class PixsPlayground {
 					
 				} else {
 					return new Response("Pix",
-							"Pix is hovering close by, bouncing up and down on the spot while glancing your way. She obviously wants you to ask her for a personal training session. Call her over and grant her wish.", GYM_PIX_TRAINING){
-						@Override
-						public void effects(){
-							handlePerkProgressReset();
-						}
-					};
+							"Pix is hovering close by, bouncing up and down on the spot while glancing your way. She obviously wants you to ask her for a personal training session. Call her over and grant her wish.", GYM_PIX_TRAINING);
 				}
 				
 		} else if (index == 0) {
-			return new Response("Leave", "Decide to leave the gym.", GYM_EXTERIOR) {
-				@Override
-				public void effects(){
-					handlePerkProgressReset();
-				}
-			};
+			return new Response("Leave", "Decide to leave the gym.", GYM_EXTERIOR);
 		}
 		
 		return null;
@@ -304,7 +271,6 @@ public class PixsPlayground {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getPlayer().addStatusEffect(StatusEffect.GYM_FATIGUE, STATUS_EFFECT_SECONDS + (60*60*1)); // + 1 to account for the time that this dialogue takes
-			incrementPerkProgress(10);
 			Main.game.getTextEndStringBuilder().append(
 					"<p style='text-align:center'>[style.boldBad(-5)] <b style='color:"+PresetColour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
 					+Main.game.getPlayer().incrementBodySize(-5));
@@ -319,8 +285,6 @@ public class PixsPlayground {
 			
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_CARDIO"));
 
-			UtilText.nodeContentSB.append(getPerkProgressString(10));
-			
 			return UtilText.nodeContentSB.toString();
 		}
 		@Override
@@ -333,7 +297,6 @@ public class PixsPlayground {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getPlayer().addStatusEffect(StatusEffect.GYM_FATIGUE, STATUS_EFFECT_SECONDS + (60*60*1)); // + 1 to account for the time that this dialogue takes
-			incrementPerkProgress(10);
 			Main.game.getTextEndStringBuilder().append(
 					"<p style='text-align:center'>[style.boldGood(+5)] <b style='color:"+PresetColour.MUSCLE_THREE.toWebHexString()+";'>Muscle Definition</b></p>"
 					+Main.game.getPlayer().incrementMuscle(5));
@@ -348,8 +311,6 @@ public class PixsPlayground {
 			
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_WEIGHTS"));
 
-			UtilText.nodeContentSB.append(getPerkProgressString(10));
-			
 			return UtilText.nodeContentSB.toString();
 		}
 
@@ -467,6 +428,11 @@ public class PixsPlayground {
 		public void applyPreParsingEffects() {
 			Main.game.getPlayer().addStatusEffect(StatusEffect.GYM_FATIGUE, STATUS_EFFECT_SECONDS + (60*30)); // + 0.5 to account for the time that this dialogue takes
 			incrementPerkProgress(10+(savedCardioEnergy?0:5)+(savedWeightsEnergy?0:5));
+
+			if(!Main.game.getPlayer().hasPerkAnywhereInTree(Perk.PIX_TRAINING) && Main.game.getDialogueFlags().getSavedLong(PERK_PROGRESS_ID)>=100) {
+				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "PERK_PROGRESS_COMPLETE"));
+				Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addSpecialPerk(Perk.PIX_TRAINING));
+			}
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -495,8 +461,11 @@ public class PixsPlayground {
 									+ "<br/>[style.italicsGood(This will clean <b>only</b> your currently equipped clothing.)]",
 							GYM_PIX_ASSAULT) {
 						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.GENERIC_SEX;
+						}
+						@Override
 						public void effects() {
-							handlePerkProgressReset();
 							Main.game.getNpc(Pix.class).applyWash(true, true, StatusEffect.CLEANED_SHOWER, 240+30);
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.CLEANED_SHOWER, 240+30));
 						}
@@ -509,8 +478,11 @@ public class PixsPlayground {
 									+ "<br/>[style.italicsGood(This will clean <b>only</b> your currently equipped clothing.)]",
 							GYM_PIX_ASSAULT_CONSENSUAL) {
 						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.GENERIC_SEX;
+						}
+						@Override
 						public void effects() {
-							handlePerkProgressReset();
 							Main.game.getNpc(Pix.class).applyWash(true, true, StatusEffect.CLEANED_SHOWER, 240+30);
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.CLEANED_SHOWER, 240+30));
 						}
@@ -518,12 +490,7 @@ public class PixsPlayground {
 				}
 				
 			} else if (index == 2) {
-				return new Response("Leave", "You're far too tired to deal with Pix right now. Get changed and leave the gym, avoiding Pix in the showers as you do so.", GYM_EXTERIOR){
-					@Override
-					public void effects() {
-						handlePerkProgressReset();
-					}
-				};
+				return new Response("Leave", "You're far too tired to deal with Pix right now. Get changed and leave the gym, avoiding Pix in the showers as you do so.", GYM_EXTERIOR);
 			}
 			
 			return null;

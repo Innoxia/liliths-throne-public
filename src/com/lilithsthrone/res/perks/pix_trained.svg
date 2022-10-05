@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+ <rect x="4.6919" y="44.378" width="54.616" height="2.126" rx=".6" fill="#b3b3b3" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+ <g fill="#666" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5">
+  <rect x="13.013" y="36.864" width="3.8121" height="17.155" rx=".6"/>
+  <rect x="7.6243" y="38.807" width="3.7388" height="13.269" rx=".6"/>
+  <rect transform="scale(-1,1)" x="-50.969" y="36.864" width="3.8121" height="17.155" rx=".6"/>
+  <rect transform="scale(-1,1)" x="-56.357" y="38.807" width="3.7388" height="13.269" rx=".6"/>
+ </g>
+ <g transform="matrix(1.9754 0 0 1.9754 -31.396 1.988)" fill-rule="evenodd">
+  <path d="m23.053 8.9933c-0.0298-5.9971 7.7031-6.6663 9.0392-1.3246 1.3361-5.3417 9.069-4.6725 9.0392 1.3246-0.0225 4.5279-6.795 9.1126-9.0392 11.327-2.2442-2.2147-9.0167-6.7994-9.0392-11.327z" fill="#ff1b42" stroke="#000" stroke-width=".34212"/>
+ </g>
+ <path d="m17.008 27.004 10.518 0.04038 1.97-7.7815 3.1317 15.828 3.1991-12.068 1.9632 3.9546 9.385-0.0104" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+ <g transform="matrix(1.9754 0 0 1.9754 -31.396 1.988)" fill="none" fill-rule="evenodd" stroke="#000" stroke-width=".25311">
+  <path d="m23.053 8.9933c-0.0298-5.9971 7.7031-6.6663 9.0392-1.3246 1.3361-5.3417 9.069-4.6725 9.0392 1.3246-0.0225 4.5279-6.795 9.1126-9.0392 11.327-2.2442-2.2147-9.0167-6.7994-9.0392-11.327z" fill="none" stroke="#000" stroke-width=".25311"/>
+ </g>
+</svg>

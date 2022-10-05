@@ -47,7 +47,7 @@ public class SlaveForSale extends NPC {
 	}
 
 	public SlaveForSale(Gender gender, boolean isImported) {
-		this(Gender.getGenderFromUserPreferences(false, false), true, isImported);
+		this(gender, true, isImported);
 	}
 	
 	public SlaveForSale(Gender gender, boolean allowTaurSpawns, boolean isImported) {

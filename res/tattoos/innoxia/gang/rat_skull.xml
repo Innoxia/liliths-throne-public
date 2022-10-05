@@ -8,8 +8,8 @@
 		<availabilityRequirements unique="true"><![CDATA[!npc.isPlayer() || pc.isQuestCompleted(QUEST_LINE_SIDE_VENGAR)]]></availabilityRequirements>
 		<imageName>rat_skull.svg</imageName> 
 		<slotAvailability/> 
-		<primaryColours values="ALL"/> 
-		<secondaryColours values="ALL"/>
+		<primaryColours values="ALL" defaultColour="CLOTHING_GREY_DARK"/> 
+		<secondaryColours values="ALL" defaultColour="CLOTHING_GREY_DARK"/>
 		<tertiaryColours/>
 	</coreAttributes>
 </tattoo>

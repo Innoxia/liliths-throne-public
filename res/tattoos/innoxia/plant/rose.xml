@@ -12,8 +12,8 @@
 		
 		<slotAvailability/>
 		
-		<primaryColours values="ALL"/> 
-		<secondaryColours values="ALL"/> 
+		<primaryColours values="ALL" defaultColour="CLOTHING_RED"/> 
+		<secondaryColours values="ALL"  defaultColour="CLOTHING_GREEN"/> 
 		<tertiaryColours/>
 		
 	</coreAttributes>
