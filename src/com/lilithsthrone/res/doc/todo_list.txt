@@ -12,6 +12,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added regular arms and back wings to the raptor race. (PR#1712 by DSG)
 		Typo fixes. (PR#1711 by DuskitGalager)
 		Set the leopard, snow-leopard, and tiger subspecies icons to use the corresponding icons. (PR#1708 by MintyChip)
+		Improved default critical hit tooltips and logic, as the default 'crit on third use' effect was a bit ambiguous and unpredictable. (PR#1706 by CognitiveMist)
 	
 	Engine/Modding:
 		Moved hard-coded tattoo types out into the res folder (located at 'res/tattoos/innoxia').
