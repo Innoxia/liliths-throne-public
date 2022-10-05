@@ -449,7 +449,9 @@ public class DarkSiren extends NPC {
 
 	@Override
 	public void hourlyUpdate() {
-		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_3_B_MEETING_MERAXIS) && !Main.game.isBadEnd() && Main.game.getPlayer().getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_fields_themiscyra")) {
+		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_3_B_MEETING_MERAXIS)
+				&& !Main.game.isBadEnd()
+				&& Main.game.getPlayer().getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_fields_themiscyra")) {
 			if(!Main.game.getCharactersPresent().contains(this)) {
 				if(Main.game.getHourOfDay()>=1 && Main.game.getHourOfDay()<=8) { // In room from 01:00 - 09:00
 					this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_meraxis"), true);

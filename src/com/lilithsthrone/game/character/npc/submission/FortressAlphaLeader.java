@@ -44,7 +44,6 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.Tattoo;
-import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.markings.TattooWriting;
 import com.lilithsthrone.game.character.markings.TattooWritingStyle;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -303,7 +302,7 @@ public class FortressAlphaLeader extends NPC {
 			this.clearTattoosAndScars();
 			
 			Tattoo tat = new Tattoo(
-					TattooType.TRIBAL,
+					"innoxia_symbol_tribal",
 					PresetColour.CLOTHING_BLACK,
 					PresetColour.CLOTHING_BLACK,
 					PresetColour.CLOTHING_BLACK,
@@ -313,7 +312,7 @@ public class FortressAlphaLeader extends NPC {
 			this.addTattoo(InventorySlot.GROIN, tat);
 			
 			tat = new Tattoo(
-					TattooType.TRIBAL,
+					"innoxia_symbol_tribal",
 					PresetColour.CLOTHING_BLACK,
 					PresetColour.CLOTHING_BLACK,
 					PresetColour.CLOTHING_BLACK,
@@ -323,7 +322,7 @@ public class FortressAlphaLeader extends NPC {
 			this.addTattoo(InventorySlot.TORSO_OVER, tat);
 
 			tat = new Tattoo(
-					TattooType.TRIBAL,
+					"innoxia_symbol_tribal",
 					PresetColour.CLOTHING_BLACK,
 					PresetColour.CLOTHING_BLACK,
 					PresetColour.CLOTHING_BLACK,

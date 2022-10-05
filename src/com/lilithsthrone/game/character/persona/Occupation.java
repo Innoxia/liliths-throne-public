@@ -277,7 +277,7 @@ public enum Occupation {
 			"soldier",
 			"You're a soldier, and are currently making the most of your leave.",
 			OccupationTag.PLAYER_ONLY),
-	
+
 	ATHLETE(Perk.JOB_ATHLETE,
 			"athlete",
 			"You're an athlete, and are currently training for your next big event.",
