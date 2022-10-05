@@ -560,29 +560,6 @@ public class Perk {
 			return UtilText.parse(owner, "[npc.NamePos] training has given [npc.herHim] some defence against Lilith's forces.");
 		}
 	};
-	
-	public static AbstractPerk JOB_NPC_FARMER = new AbstractPerk(20,
-			true,
-			"Feeding the World",
-			PerkCategory.JOB,
-			"perks/jobs/farmer",
-			PresetColour.DAMAGE_TYPE_PHYSICAL,
-			Util.newHashMapOfValues(
-					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
-					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5),
-					new Value<>(Attribute.RESISTANCE_FIRE, 1),
-					new Value<>(Attribute.RESISTANCE_ICE, 1)),
-			null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner,
-					"#IF(!game.SillyModeEnabled())"
-						+ "The back-breaking work required to make fields bloom has made [npc.Name] fit and tough. [npc.She] is also no stranger to the biting cold or the scorching sun."
-					+ "#ELSE"
-						+ "[npc.NameHasFull] a brand new combine harvester and [npc.she]'ll give you the key, but only after driving [npc.her] tractor through your haystack, ooar-ooar!"
-					+ "#ENDIF");
-		}
-	};
 
 	public static AbstractPerk JOB_NPC_OFFICE_WORKER = new AbstractPerk(20,
 			true,
@@ -2999,21 +2976,6 @@ public class Perk {
 			return true;
 		}
 	};
-	
-	public static AbstractPerk SPECIAL_CHILD_OF_THE_CRAG = new AbstractPerk(20,
-			true,
-			"Child of the Crag",
-			PerkCategory.PHYSICAL_WATER,
-			"perks/cragchild",
-			PresetColour.DAMAGE_TYPE_COLD,
-			Util.newHashMapOfValues(
-					new Value<>(Attribute.DAMAGE_ICE, 30),
-					new Value<>(Attribute.RESISTANCE_ICE, 50),
-					new Value<>(Attribute.RESISTANCE_FIRE, -15)),
-			null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "The blood of Cimryth runs through [npc.namePos] veins and [npc.she] is long inured to the cold of living so high up in the mountains. However, being so removed from [npc.her] desert kin has lessened [npc.her] natural resistance to fire.");
 	
 	
 	//**** Special perks which can be gained from in-game events: ****//
