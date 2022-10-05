@@ -11,6 +11,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed bug in the slavery UI where the Affection & Obedience gain/loss would randomly change to unrelated amounts on unrelated jobs when interacting with any buttons. (by Maxis010)
 		Added regular arms and back wings to the raptor race. (PR#1712 by DSG)
 		Typo fixes. (PR#1711 by DuskitGalager)
+		Set the leopard, snow-leopard, and tiger subspecies icons to use the corresponding icons. (PR#1708 by MintyChip)
 	
 	Engine/Modding:
 		Moved hard-coded tattoo types out into the res folder (located at 'res/tattoos/innoxia').
@@ -237,7 +238,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	--- PRS!!! ---
 	[x] 1712
 	[x] 1711
-	[] 1708
+	[x] 1708
 	[] 1706
 	[] 1701
 	
