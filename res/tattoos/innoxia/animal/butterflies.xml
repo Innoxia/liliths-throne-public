@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tattoo>
+	<coreAttributes>
+		<value>500</value> 
+		
+		<name><![CDATA[butterflies]]></name>
+		
+		<description><![CDATA[An artistic depiction of a trio of butterflies in mid-flight..]]></description> 
+		<bodyOverviewDescription><![CDATA[a tattoo of a trio of butterflies in mid-flight]]></bodyOverviewDescription> 
+		
+		<imageName>butterflies.svg</imageName> 
+		
+		<slotAvailability/>
+		
+		<primaryColours values="ALL" defaultColour="CLOTHING_ORANGE"/> 
+		<secondaryColours values="ALL" defaultColour="CLOTHING_PINK"/>
+		<tertiaryColours values="ALL" defaultColour="CLOTHING_RED"/>
+		
+	</coreAttributes>
+	
+</tattoo>

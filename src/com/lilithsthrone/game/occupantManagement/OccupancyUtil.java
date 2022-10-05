@@ -13,6 +13,7 @@ import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.FluidStored;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -191,6 +192,10 @@ public class OccupancyUtil implements XMLSaving {
 		}
 	}
 	
+	public void handleSlaveRemoval(GameCharacter character) {
+		charactersAtJob.values().forEach(list->list.remove(character.getId()));
+		charactersResting.remove(character);
+	}
 	
 	private void clearJobTracking() {
 		for(SlaveJob job : SlaveJob.values()) {
@@ -213,7 +218,7 @@ public class OccupancyUtil implements XMLSaving {
 					continue;
 				}
 				if(currentJob==SlaveJob.IDLE) {
-					slavesResting.add(slave);
+					charactersResting.add(slave);
 				}
 			} catch (Exception e) {
 				Util.logGetNpcByIdError("updateSlavesResting()", id);
@@ -294,6 +299,15 @@ public class OccupancyUtil implements XMLSaving {
 		Map<String, SlaveJob> previousJobs = new HashMap<>();
 		for(Entry<SlaveJob, List<String>> entry : charactersAtJob.entrySet()) {
 			for(String npcId : entry.getValue()) {
+				NPC slave;
+				try {
+					slave = (NPC) Main.game.getNPCById(npcId);
+					if(slave.getName().equalsIgnoreCase("Tensi")) {
+						System.out.println(slave.getName()+"-0 ("+entry.getKey().getName(slave)+"): "+slave.getLocation());
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				previousJobs.put(npcId, entry.getKey());
 			}
 		}
@@ -304,25 +318,27 @@ public class OccupancyUtil implements XMLSaving {
 		List<NPC> charactersToSendToWork = new ArrayList<>();
 		for(String id : this.getAllCharacters()) {
 			try {
-				NPC slave = (NPC) Main.game.getNPCById(id);
+				NPC character = (NPC) Main.game.getNPCById(id);
 
-				SlaveJob currentJob = slave.getSlaveJob(hour);
+				SlaveJob currentJob = character.getSlaveJob(hour);
 				
-				if(Main.game.getPlayer().hasCompanion(slave)) {
+				if(Main.game.getPlayer().hasCompanion(character)) {
 					continue;
 				}
 				
-				if(slave.isVisiblyPregnant() && !slave.hasStatusEffect(StatusEffect.PREGNANT_3) && slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_MOTHERS_MILK)) {
-					ItemEffectType.MOTHERS_MILK.applyEffect(null, null, null, 0, slave, slave, null);
+				if(character.isVisiblyPregnant() && !character.hasStatusEffect(StatusEffect.PREGNANT_3) && character.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_MOTHERS_MILK)) {
+					ItemEffectType.MOTHERS_MILK.applyEffect(null, null, null, 0, character, character, null);
 				}
+
+				charactersAtJob.get(currentJob).add(character.getId());
 				
-				if(!Main.game.getPlayer().isActive() || !Main.game.getCharactersPresent().contains(slave) // If the player isn't interacting with them, then move them
+				if(!Main.game.getPlayer().isActive() || !Main.game.getCharactersPresent().contains(character) // If the player isn't interacting with them, then move them
 						|| Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.LILAYA_HOME_ROOM_PLAYER) { // Also move slaves who are in bedroom but have elsewhere to be
-					charactersAtJob.get(currentJob).add(slave.getId());
+					charactersAtJob.get(currentJob).add(character.getId());
 					
-					if(slave.getSlaveJob((hour-1<0?23:hour-1))==SlaveJob.PROSTITUTE) {
+					if(character.getSlaveJob((hour-1<0?23:hour-1))==SlaveJob.PROSTITUTE) {
 						// Remove client before leaving:
-						List<NPC> charactersPresent = Main.game.getCharactersPresent(slave.getWorldLocation(), slave.getLocation());
+						List<NPC> charactersPresent = Main.game.getCharactersPresent(character.getWorldLocation(), character.getLocation());
 						charactersPresent.removeAll(Main.game.getPlayer().getCompanions());
 						for(NPC npc : charactersPresent) {
 							if(npc instanceof GenericSexualPartner) {
@@ -332,9 +348,9 @@ public class OccupancyUtil implements XMLSaving {
 					}
 
 					if(currentJob==SlaveJob.IDLE) {
-						charactersResting.add(slave);
+						charactersResting.add(character);
 					} else {
-						charactersToSendToWork.add(slave);
+						charactersToSendToWork.add(character);
 					}
 
 				}
@@ -346,13 +362,20 @@ public class OccupancyUtil implements XMLSaving {
 			}
 		}
 
+		
 		// a slave's room always has enough room, so do this first
 		for(NPC slave : charactersResting) {
+			if(slave.getName().equalsIgnoreCase("Tensi")) {
+				System.out.println(slave.getName()+"-1: "+slave.getLocation());
+			}
 			updateJob(slave, hour, previousJobs);
 		}
 
 		// Send slaves to work after others have left, so that job rooms are emptied before trying to fill them:
 		for(NPC slave : charactersToSendToWork) {
+			if(slave.getName().equalsIgnoreCase("Tensi")) {
+				System.out.println(slave.getName()+"-2: "+slave.getLocation());
+			}
 			updateJob(slave, hour, previousJobs);
 		}
 		
@@ -631,7 +654,7 @@ public class OccupancyUtil implements XMLSaving {
 		if(previousJob!=null && previousJob!=currentJob) {
 			previousJob.applyJobEndEffects(slave);
 		}
-		currentJob.sendToWorkLocation(hour, slave);
+		currentJob.sendToWorkLocation(slave);
 		currentJob.applyJobStartEffects(slave);
 	}
 

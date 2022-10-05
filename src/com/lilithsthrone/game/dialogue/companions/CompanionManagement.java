@@ -954,8 +954,8 @@ public class CompanionManagement {
 				if(!character.isSlave() && !job.hasFlag(SlaveJobFlag.GUEST_CAN_WORK)) {
 					continue;
 				}
-				affectionChange = job.getAffectionGain(Main.game.getHourOfDay(), character);
-				obedienceChange = job.getObedienceGain(Main.game.getHourOfDay(), character);
+				affectionChange = job.getAffectionGain(character);
+				obedienceChange = job.getObedienceGain(character);
 				int income = job.getFinalHourlyIncomeAfterModifiers(character);
 				boolean isCurrentJob = character.hasSlaveJobAssigned(job);
 				
@@ -1627,7 +1627,7 @@ public class CompanionManagement {
 					return new Response("Apply ("+UtilText.formatAsMoneyUncoloured(value, "span")+")",
 							UtilText.parse(BodyChanging.getTarget(), "You don't have enough money to give [npc.name] a tattoo!"),  null);
 					
-				} else if(CharacterModificationUtils.tattoo.getType().equals(TattooType.NONE)
+				} else if(CharacterModificationUtils.tattoo.getType().equals(TattooType.getTattooTypeFromId("innoxia_misc_none"))
 						&& CharacterModificationUtils.tattoo.getWriting().getText().isEmpty()
 						&& CharacterModificationUtils.tattoo.getCounter().getType()==TattooCounterType.NONE) {
 					return new Response("Apply ("+UtilText.formatAsMoneyUncoloured(value, "span")+")", "You need to select a tattoo type, add some writing, or add a counter in order to make a tattoo!", null);
@@ -1888,6 +1888,7 @@ public class CompanionManagement {
 	public static final DialogueNode SET_SLAVE_FREE = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
+			Main.game.getPlayer().removeItemByType(ItemType.getItemTypeFromId("innoxia_slavery_freedom_certification"));
 			Main.game.getPlayer().removeSlave(characterSelected());
 			characterSelected().setEnslavementDialogue(SlaveDialogue.FREEDOM_DIALOG, false);
 			if(!isFreedSlaveAvailableAsGuest()) {
@@ -1926,7 +1927,6 @@ public class CompanionManagement {
 							Main.game.getDefaultDialogue(false)) {
 						@Override
 						public void effects() {
-							Main.game.getPlayer().removeItemByType(ItemType.getItemTypeFromId("innoxia_slavery_freedom_certification"));
 						}
 					};
 				}
@@ -1937,7 +1937,6 @@ public class CompanionManagement {
 							SET_SLAVE_FREE_GUEST_ROOM) {
 						@Override
 						public void effects() {
-							Main.game.getPlayer().removeItemByType(ItemType.getItemTypeFromId("innoxia_slavery_freedom_certification"));
 							Cell c = OccupancyUtil.getFreeRoomForOccupant();
 							characterSelected().setLocation(c.getType(), c.getLocation(), true);
 							Main.game.getPlayer().setLocation(c.getType(), c.getLocation(), false);
@@ -1956,7 +1955,6 @@ public class CompanionManagement {
 						}
 						@Override
 						public void effects() {
-							Main.game.getPlayer().removeItemByType(ItemType.getItemTypeFromId("innoxia_slavery_freedom_certification"));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/enslavement", "SET_SLAVE_FREE_GOODBYE", characterSelected()));
 							Main.game.banishNPC(characterSelected());
 							Main.game.getDialogueFlags().setManagementCompanion(null);
@@ -1973,7 +1971,6 @@ public class CompanionManagement {
 						}
 						@Override
 						public void effects() {
-							Main.game.getPlayer().removeItemByType(ItemType.getItemTypeFromId("innoxia_slavery_freedom_certification"));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/enslavement", "SET_SLAVE_FREE_THROWN_OUT", characterSelected()));
 							Main.game.banishNPC(characterSelected());
 							Main.game.getDialogueFlags().setManagementCompanion(null);

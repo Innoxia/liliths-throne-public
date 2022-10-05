@@ -88,7 +88,7 @@ public class RebelBaseInsaneSurvivor extends NPC {
             this.setEssenceCount(500);
             setDescription(UtilText.parse(this, "While apparently mostly human, [npc.name] has evidently spent a long time underground and has lost [npc.her] mind."));
             
-            Main.game.getCharacterUtils().generateItemsInInventory(this);
+            Main.game.getCharacterUtils().generateItemsInInventory(this, false, false, false);
             this.addItem(Main.game.getItemGen().generateItem(ItemType.MUSHROOM), 10, false, false);
         
             initPerkTreeAndBackgroundPerks();

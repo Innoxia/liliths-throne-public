@@ -57,7 +57,7 @@ public class OccupantDialogue {
 		
 		if(isApartment) {
 			CompanionManagement.initManagement(OCCUPANT_APARTMENT, 2, targetedOccupant);
-		} else if(targetedOccupant.isAtWork(Main.game.getHourOfDay()) || targetedOccupant.isAtHome()) {
+		} else if(targetedOccupant.isAtWork() || targetedOccupant.isAtHome()) {
 			CompanionManagement.initManagement(OCCUPANT_START, 2, targetedOccupant);
 		}
 		
