@@ -24,11 +24,13 @@ import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 public class CoveringController {
-	private static final boolean noCost = !Main.game.isInNewWorld()
-			|| ScarlettsShop.isSlaveCustomisationMenu()
-			|| Main.game.getCurrentDialogueNode() == MiscDialogue.getMakeupDialogueForEqualityCheck()
-			|| Main.game.getCurrentDialogueNode() == RoomPlayer.AUNT_HOME_PLAYERS_ROOM_MAKEUP
-			|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.PHONE;
+	private static boolean isNoCost() {
+		return !Main.game.isInNewWorld()
+				|| ScarlettsShop.isSlaveCustomisationMenu()
+				|| Main.game.getCurrentDialogueNode() == MiscDialogue.getMakeupDialogueForEqualityCheck()
+				|| Main.game.getCurrentDialogueNode() == RoomPlayer.AUNT_HOME_PLAYERS_ROOM_MAKEUP
+				|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.PHONE;
+	}
 	
 	public static void initCoveringChangeListeners() {
 		String id;
@@ -36,12 +38,12 @@ public class CoveringController {
 			id = "APPLY_COVERING_"+BodyCoveringType.getIdFromBodyCoveringType(bct);
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(bct) || noCost) {
+					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(bct) || isNoCost()) {
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
 							@Override
 							public void effects() {
 								if (CharacterModificationUtils.getCoveringsToBeApplied().containsKey(bct)) {
-									if (!noCost) {
+									if (!isNoCost()) {
 										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
 									}
 									
@@ -60,7 +62,7 @@ public class CoveringController {
 			id = "RESET_COVERING_"+BodyCoveringType.getIdFromBodyCoveringType(bct);
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(bct) || noCost) {
+					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(bct) || isNoCost()) {
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
 							@Override
 							public void effects() {
@@ -216,11 +218,11 @@ public class CoveringController {
 			String id = "HAIR_LENGTH_"+hairLength;
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_LENGTH_COST || noCost) {
+					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_LENGTH_COST || isNoCost()) {
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
 							@Override
 							public void effects() {
-								if (!noCost) {
+								if (!isNoCost()) {
 									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_HAIR_LENGTH_COST);
 								}
 								BodyChanging.getTarget().setHairLength(hairLength.getMedianValue());
@@ -237,11 +239,11 @@ public class CoveringController {
 			String id = "HAIR_STYLE_"+hairStyle;
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_STYLE_COST || noCost) {
+					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_STYLE_COST || isNoCost()) {
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
 							@Override
 							public void effects() {
-								if (!noCost) {
+								if (!isNoCost()) {
 									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_HAIR_STYLE_COST);
 								}
 								BodyChanging.getTarget().setHairStyle(hairStyle);
@@ -258,11 +260,11 @@ public class CoveringController {
 			String id = piercingType+"_PIERCE_REMOVE";
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getPiercingCost(piercingType) || noCost) {
+					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getPiercingCost(piercingType) || isNoCost()) {
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
 							@Override
 							public void effects() {
-								if (!noCost) {
+								if (!isNoCost()) {
 									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getPiercingCost(piercingType));
 								}
 								switch (piercingType) {
@@ -300,11 +302,11 @@ public class CoveringController {
 			id = piercingType+"_PIERCE";
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getPiercingCost(piercingType) || noCost) {
+					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getPiercingCost(piercingType) || isNoCost()) {
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
 							@Override
 							public void effects() {
-								if (!noCost) {
+								if (!isNoCost()) {
 									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getPiercingCost(piercingType));
 								}
 								switch (piercingType) {
@@ -344,11 +346,11 @@ public class CoveringController {
 	public static void initBleachingListeners() {
 		if (MainController.document.getElementById("BLEACHING_OFF") != null) {
 			((EventTarget) MainController.document.getElementById("BLEACHING_OFF")).addEventListener("click", e->{
-				if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_ANAL_BLEACHING_COST || noCost) {
+				if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_ANAL_BLEACHING_COST || isNoCost()) {
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
 						@Override
 						public void effects() {
-							if (!noCost) {
+							if (!isNoCost()) {
 								Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_ANAL_BLEACHING_COST);
 							}
 							BodyChanging.getTarget().setAssBleached(false);
@@ -360,11 +362,11 @@ public class CoveringController {
 		
 		if (MainController.document.getElementById("BLEACHING_ON") != null) {
 			((EventTarget) MainController.document.getElementById("BLEACHING_ON")).addEventListener("click", e->{
-				if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_ANAL_BLEACHING_COST || noCost) {
+				if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_ANAL_BLEACHING_COST || isNoCost()) {
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
 						@Override
 						public void effects() {
-							if (!noCost) {
+							if (!isNoCost()) {
 								Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_ANAL_BLEACHING_COST);
 							}
 							BodyChanging.getTarget().setAssBleached(true);
@@ -380,11 +382,11 @@ public class CoveringController {
 			String id = "ASS_HAIR_"+bodyHair;
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_BODY_HAIR_COST || noCost) {
+					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_BODY_HAIR_COST || isNoCost()) {
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
 							@Override
 							public void effects() {
-								if (!noCost) {
+								if (!isNoCost()) {
 									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
 								}
 								BodyChanging.getTarget().setAssHair(bodyHair);
@@ -401,11 +403,11 @@ public class CoveringController {
 			String id = "UNDERARM_HAIR_"+bodyHair;
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_BODY_HAIR_COST || noCost) {
+					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_BODY_HAIR_COST || isNoCost()) {
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
 							@Override
 							public void effects() {
-								if (!noCost) {
+								if (!isNoCost()) {
 									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
 								}
 								BodyChanging.getTarget().setUnderarmHair(bodyHair);
@@ -422,11 +424,11 @@ public class CoveringController {
 			String id = "PUBIC_HAIR_"+bodyHair;
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_BODY_HAIR_COST || noCost) {
+					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_BODY_HAIR_COST || isNoCost()) {
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
 							@Override
 							public void effects() {
-								if (!noCost) {
+								if (!isNoCost()) {
 									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
 								}
 								BodyChanging.getTarget().setPubicHair(bodyHair);
@@ -443,11 +445,11 @@ public class CoveringController {
 			String id = "FACIAL_HAIR_"+bodyHair;
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_BODY_HAIR_COST || noCost) {
+					if (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_BODY_HAIR_COST || isNoCost()) {
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
 							@Override
 							public void effects() {
-								if (!noCost) {
+								if (!isNoCost()) {
 									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
 								}
 								BodyChanging.getTarget().setFacialHair(bodyHair);
