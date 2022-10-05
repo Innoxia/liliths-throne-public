@@ -26854,15 +26854,9 @@ public abstract class GameCharacter implements XMLSaving {
 		return this.getBreastRawMilkStorageValue()>0;
 	}
 	public Lactation getBreastMilkStorage() {
-		if(!Main.game.isLactationContentEnabled()) {
-			return Lactation.ZERO_NONE;
-		}
 		return body.getBreast().getMilkStorage();
 	}
 	public int getBreastRawMilkStorageValue() {
-		if(!Main.game.isLactationContentEnabled()) {
-			return 0;
-		}
 		return body.getBreast().getRawMilkStorageValue();
 	}
 	public String setBreastMilkStorage(int lactation) {
@@ -26876,15 +26870,9 @@ public abstract class GameCharacter implements XMLSaving {
 		setBreastStoredMilk(getBreastRawMilkStorageValue());
 	}
 	public Lactation getBreastStoredMilk() {
-		if(!Main.game.isLactationContentEnabled()) {
-			return Lactation.ZERO_NONE;
-		}
 		return body.getBreast().getStoredMilk();
 	}
 	public float getBreastRawStoredMilkValue() {
-		if(!Main.game.isLactationContentEnabled()) {
-			return 0;
-		}
 		if(body.getBreast().getRawMilkStorageValue()<body.getBreast().getRawStoredMilkValue()) {
 			this.setBreastStoredMilk(body.getBreast().getRawMilkStorageValue());
 		}
@@ -26915,21 +26903,12 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	// Regen:
 	public FluidRegeneration getBreastLactationRegeneration() {
-		if (!Main.game.isLactationContentEnabled()) {
-			return FluidRegeneration.ZERO_SLOW;
-		}
 		return body.getBreast().getLactationRegeneration();
 	}
 	public int getBreastRawLactationRegenerationValue() {
-		if (!Main.game.isLactationContentEnabled()) {
-			return 0;
-		}
 		return body.getBreast().getRawLactationRegenerationValue();
 	}
 	public float getLactationRegenerationPerSecond(boolean multiplyByBreastCount) {
-		if (!Main.game.isLactationContentEnabled()) {
-			return 0;
-		}
 		return (body.getBreast().getRawLactationRegenerationValue()/(60*60*24f)) * (multiplyByBreastCount?(this.getBreastRows()*2):1);
 	}
 	public String setBreastLactationRegeneration(int regenerationValue) {
@@ -27238,15 +27217,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	// Lactation:
 	public Lactation getBreastCrotchMilkStorage() {
-		if(!Main.game.isLactationContentEnabled()) {
-			return Lactation.ZERO_NONE;
-		}
 		return body.getBreastCrotch().getMilkStorage();
 	}
 	public int getBreastCrotchRawMilkStorageValue() {
-		if(!Main.game.isLactationContentEnabled()) {
-			return 0;
-		}
 		return body.getBreastCrotch().getRawMilkStorageValue();
 	}
 	public String setBreastCrotchMilkStorage(int lactation) {
@@ -27260,15 +27233,9 @@ public abstract class GameCharacter implements XMLSaving {
 		setBreastCrotchStoredMilk(getBreastCrotchRawMilkStorageValue());
 	}
 	public Lactation getBreastCrotchStoredMilk() {
-		if(!Main.game.isLactationContentEnabled()) {
-			return Lactation.ZERO_NONE;
-		}
 		return body.getBreastCrotch().getStoredMilk();
 	}
 	public float getBreastCrotchRawStoredMilkValue() {
-		if(!Main.game.isLactationContentEnabled()) {
-			return 0;
-		}
 		if(body.getBreastCrotch().getRawMilkStorageValue()<body.getBreastCrotch().getRawStoredMilkValue()) {
 			this.setBreastCrotchStoredMilk(body.getBreastCrotch().getRawMilkStorageValue());
 		}
@@ -27302,9 +27269,6 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getBreastCrotch().getLactationRegeneration();
 	}
 	public int getBreastCrotchRawLactationRegenerationValue() {
-		if (!Main.game.isLactationContentEnabled()) {
-			return 0;
-		}
 		return body.getBreastCrotch().getRawLactationRegenerationValue();
 	}
 	public float getCrotchLactationRegenerationPerSecond(boolean multiplyByBreastCount) {
