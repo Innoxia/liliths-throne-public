@@ -299,15 +299,6 @@ public class OccupancyUtil implements XMLSaving {
 		Map<String, SlaveJob> previousJobs = new HashMap<>();
 		for(Entry<SlaveJob, List<String>> entry : charactersAtJob.entrySet()) {
 			for(String npcId : entry.getValue()) {
-				NPC slave;
-				try {
-					slave = (NPC) Main.game.getNPCById(npcId);
-					if(slave.getName().equalsIgnoreCase("Tensi")) {
-						System.out.println(slave.getName()+"-0 ("+entry.getKey().getName(slave)+"): "+slave.getLocation());
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 				previousJobs.put(npcId, entry.getKey());
 			}
 		}
@@ -365,17 +356,11 @@ public class OccupancyUtil implements XMLSaving {
 		
 		// a slave's room always has enough room, so do this first
 		for(NPC slave : charactersResting) {
-			if(slave.getName().equalsIgnoreCase("Tensi")) {
-				System.out.println(slave.getName()+"-1: "+slave.getLocation());
-			}
 			updateJob(slave, hour, previousJobs);
 		}
 
 		// Send slaves to work after others have left, so that job rooms are emptied before trying to fill them:
 		for(NPC slave : charactersToSendToWork) {
-			if(slave.getName().equalsIgnoreCase("Tensi")) {
-				System.out.println(slave.getName()+"-2: "+slave.getLocation());
-			}
 			updateJob(slave, hour, previousJobs);
 		}
 		
