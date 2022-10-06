@@ -6518,7 +6518,7 @@ public class CharacterModificationUtils {
 		tattooInventorySlot = slot;
 
 		tattoo = new Tattoo(
-				TattooType.TRIBAL,
+				"innoxia_symbol_tribal",
 				PresetColour.CLOTHING_GREY,
 				null,
 				null,
@@ -6641,7 +6641,7 @@ public class CharacterModificationUtils {
 			
 			if(Main.game.isInNewWorld()) {
 				contentSB.append("<div class='container-full-width'>");
-					if(tattoo.getType().equals(TattooType.NONE)) {
+					if(tattoo.getType().equals(TattooType.getTattooTypeFromId("innoxia_misc_none"))) {
 						contentSB.append(
 								"<div class='normal-button disabled' style='width:20%; margin:2% 40%; padding:0; text-align:center;'>"
 									+ "Glow"

@@ -3,6 +3,8 @@ package com.lilithsthrone.controller;
 import org.w3c.dom.events.EventTarget;
 
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInventoryEventListener;
+import com.lilithsthrone.game.character.markings.AbstractTattooType;
+import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.DebugDialogue;
 import com.lilithsthrone.game.inventory.AbstractSetBonus;
@@ -51,6 +53,13 @@ public class DebugController {
 						MainController.updateUIRightPanel();
 					}, false);
 					MainController.addTooltipListeners(id, new TooltipInventoryEventListener().setGenericItem(itemType));
+				}
+			}
+			
+			for(AbstractTattooType tattooType : TattooType.getAllTattooTypes()) {
+				id = tattooType.getId() + "_SPAWN";
+				if (MainController.document.getElementById(id) != null) {
+					MainController.addTooltipListeners(id, new TooltipInventoryEventListener().setGenericTattoo(tattooType));
 				}
 			}
 			
@@ -113,15 +122,11 @@ public class DebugController {
 				String id = "SET_BONUS_"+SetBonus.getIdFromSetBonus(sb);
 				if (MainController.document.getElementById(id) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-						for (AbstractWeaponType wt : WeaponType.getAllWeapons()) {
-							if (wt.getClothingSet() == sb) {
-								Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon(Main.game.getItemGen().generateWeapon(wt));
-							}
+						for (AbstractWeaponType wt : WeaponType.getAllWeaponsInSet(sb)) {
+							Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon(Main.game.getItemGen().generateWeapon(wt));
 						}
-						for (AbstractClothingType ct : ClothingType.getAllClothing()) {
-							if (ct.getClothingSet() == sb) {
-								Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(Main.game.getItemGen().generateClothing(ct));
-							}
+						for (AbstractClothingType ct : ClothingType.getAllClothingInSet(sb)) {
+							Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(Main.game.getItemGen().generateClothing(ct));
 						}
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);

@@ -434,7 +434,17 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				Value<AbstractClothing, String> sexClothingValue = partner.getSexClothingToSelfEquip(character, false);
 				if(sexClothingValue!=null) {
 					Main.sex.setClothingSelfEquipInformation(partner, character, sexClothingValue.getKey());
-					return SexActionUtility.PARTNER_SELF_EQUIP_CLOTHING;
+					if(SexActionUtility.PARTNER_SELF_EQUIP_CLOTHING.isBaseRequirementsMet()) {
+						return SexActionUtility.PARTNER_SELF_EQUIP_CLOTHING;
+					}
+				}
+
+				sexClothingValue = partner.getSexClothingToEquip(character, false);
+				if(sexClothingValue!=null) {
+					Main.sex.setClothingEquipInformation(partner, character, sexClothingValue.getKey());
+					if(SexActionUtility.PARTNER_EQUIP_CLOTHING.isBaseRequirementsMet()) {
+						return SexActionUtility.PARTNER_EQUIP_CLOTHING;
+					}
 				}
 			}
 		}
