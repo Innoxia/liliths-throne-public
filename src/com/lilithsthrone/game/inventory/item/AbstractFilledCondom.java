@@ -2,6 +2,8 @@ package com.lilithsthrone.game.inventory.item;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -165,6 +167,37 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 		}
 		
 	}
+
+	@Override
+	public boolean isAppendItemEffectLinesToTooltip() {
+		return getCumProvider()==null;
+	}
+	
+	@Override
+	public List<String> getEffectTooltipLines() {
+		List<String> descriptionsList = new ArrayList<>();
+		
+		if(getCumProvider()!=null) {
+			descriptionsList.add(UtilText.parse(getCumProvider(),
+					"Contains [units.fluid("+millilitresStored+")] of <span style='color:"+getCumProvider().getFemininity().getColour().toWebHexString()+";'>[npc.namePos]</span> [style.colourCum("+cum.getName(getCumProvider())+")]"));
+		} else {
+			descriptionsList.add("Contains [units.fluid("+millilitresStored+")] of [style.colourCum(cum)]");
+		}
+		
+		descriptionsList.add("It tastes of <span style='color:"+cum.getFlavour().getColour().toWebHexString()+";'>"+cum.getFlavour().getName()+"</span>");
+		if(!cum.getFluidModifiers().isEmpty()) {
+			StringBuilder modifiersSB = new StringBuilder();
+			modifiersSB.append("It is ");
+			List<String> modList = new ArrayList<>();
+			for(FluidModifier mod : cum.getFluidModifiers()) {
+				modList.add("<span style='color:"+mod.getColour().toWebHexString()+";'>"+mod.getName()+"</span>");
+			}
+			modifiersSB.append(Util.stringsToStringList(modList, false));
+			descriptionsList.add(modifiersSB.toString());
+		}
+		
+		return descriptionsList;
+	}
 	
 	public String getCumProviderId() {
 		return cumProvider;
@@ -174,7 +207,7 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 		try {
 			return Main.game.getNPCById(cumProvider);
 		} catch (Exception e) {
-			Util.logGetNpcByIdError("getCumProvider()", cumProvider);
+			Util.logGetNpcByIdError("AbstractFilledCondom.getCumProvider()", cumProvider);
 			return null;
 		}
 	}
@@ -190,5 +223,6 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 	public void setMillilitresStored(int millilitresStored) {
 		this.millilitresStored = millilitresStored;
 	}
+	
 	
 }

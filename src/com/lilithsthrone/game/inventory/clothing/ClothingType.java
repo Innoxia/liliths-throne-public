@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.AbstractSetBonus;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -3957,6 +3958,7 @@ public class ClothingType {
 	
 	private static List<AbstractClothingType> allClothing;
 	private static List<AbstractClothingType> moddedClothingList;
+	private static Map<AbstractSetBonus, List<AbstractClothingType>> setClothing;
 	
 	private static List<InventorySlot> coreClothingSlots;
 	private static List<InventorySlot> lingerieSlots;
@@ -4341,6 +4343,14 @@ public class ClothingType {
 				}
 			}
 		}
+
+		setClothing = new HashMap<>();
+		for(AbstractClothingType ct : allClothing) {
+			if(ct.getClothingSet()!=null) {
+				setClothing.putIfAbsent(ct.getClothingSet(), new ArrayList<>());
+				setClothing.get(ct.getClothingSet()).add(ct);
+			}
+		}
 		
 //  	System.out.println(allClothing.size());
 		
@@ -4399,6 +4409,10 @@ public class ClothingType {
 	
 	public static List<AbstractClothingType> getAllClothing() {
 		return allClothing;
+	}
+	
+	public static List<AbstractClothingType> getAllClothingInSet(AbstractSetBonus setBonus) {
+		return setClothing.get(setBonus);
 	}
 
 	public static List<AbstractClothingType> getModdedClothingList() {

@@ -86,7 +86,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4.6";
+	public static final String VERSION_NUMBER = "0.4.6.3";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 
 	public static boolean quickSaved = false;
@@ -660,6 +660,22 @@ public class Main extends Application {
 				System.setErr(stream);
 				System.err.println("Game Version: "+VERSION_NUMBER);
 				System.err.println("Java: "+System.getProperty("java.version"));
+				if (new File("res/mods").exists()) {
+					System.err.print("Mod folders present: ");
+					int i=0;
+					for(File f : new File("res/mods").listFiles()) {
+						if(f.isDirectory()) {
+							if(i>0) {
+								System.err.print(", ");
+							}
+							System.err.print(f.getName());
+						}
+						i++;
+					}
+					System.err.println();
+				}
+				
+				
 //				System.err.println("OS: "+System.getProperty("os.name"));
 				
 			} catch (FileNotFoundException e) {
@@ -823,8 +839,9 @@ public class Main extends Application {
 	public static void quickLoadGame() {
 		if(quickSaved) {
 			loadGame(Main.properties.lastQuickSaveName);
+		} else {
+			loadGame(getQuickSaveName());
 		}
-		loadGame(getQuickSaveName());
 	}
 
 	public static boolean isSaveGameAvailable() {

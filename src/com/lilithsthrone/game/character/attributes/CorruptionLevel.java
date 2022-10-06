@@ -125,9 +125,6 @@ public enum CorruptionLevel {
 		}
 	};
 	
-	
-	
-	
 	private String name;
 	private int minimumValue, maximumValue;
 	private Colour colour;
@@ -151,6 +148,10 @@ public enum CorruptionLevel {
 
 	public int getMinimumValue() {
 		return minimumValue;
+	}
+
+	public int getMedianValue() {
+		return (minimumValue + maximumValue) / 2;
 	}
 
 	public int getMaximumValue() {

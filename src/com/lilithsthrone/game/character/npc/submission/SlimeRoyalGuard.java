@@ -245,7 +245,7 @@ public class SlimeRoyalGuard extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-		Main.game.getCharacterUtils().generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, false);
 		
 		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_zweihander", DamageType.PHYSICAL));
 		

@@ -105,7 +105,7 @@ public class HarpyNestsAttacker extends NPC {
 			// INVENTORY:
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			Main.game.getCharacterUtils().generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 			
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			Main.game.getCharacterUtils().applyMakeup(this, true);
@@ -190,7 +190,7 @@ public class HarpyNestsAttacker extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
-		Main.game.getCharacterUtils().generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 		
 		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.CASUAL, settings);
 	}

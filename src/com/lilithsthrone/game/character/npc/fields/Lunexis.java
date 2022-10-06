@@ -36,6 +36,7 @@ import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
@@ -50,7 +51,14 @@ import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.markings.Tattoo;
+import com.lilithsthrone.game.character.markings.TattooCountType;
+import com.lilithsthrone.game.character.markings.TattooCounter;
+import com.lilithsthrone.game.character.markings.TattooCounterType;
+import com.lilithsthrone.game.character.markings.TattooWriting;
+import com.lilithsthrone.game.character.markings.TattooWritingStyle;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -63,6 +71,13 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -453,5 +468,421 @@ public class Lunexis extends NPC {
 		} else {
 			Main.game.getDialogueFlags().setSavedLong("lunexis_sex_choice", Util.randomItemFrom(availableChoices));
 		}
+	}
+
+	public void applyPlayerBadEnd() {
+		GameCharacter player = Main.game.getPlayer();
+		
+		if(Main.game.getDialogueFlags().hasFlag("innoxia_themiscyra_bad_end_oral")) {
+			player.setFaceCapacity(Capacity.FIVE_ROOMY, true);
+			player.setFaceDepth(OrificeDepth.FIVE_VERY_DEEP.getValue());
+			
+		} else if(Main.game.getDialogueFlags().hasFlag("innoxia_themiscyra_bad_end_vaginal")) {
+			player.setVaginaCapacity(Capacity.FIVE_ROOMY, true);
+			player.setVaginaWetness(Wetness.FIVE_SLOPPY);
+			player.setVaginaDepth(OrificeDepth.FOUR_DEEP.getValue());
+			
+		} else {
+			player.setAssCapacity(Capacity.FIVE_ROOMY, true);
+			player.setAssWetness(Wetness.FIVE_SLOPPY);
+			player.setAssDepth(OrificeDepth.FOUR_DEEP.getValue());
+		}
+	}
+	
+	public void applyMeraxisBadEnd() {
+		DarkSiren meraxis = (DarkSiren) Main.game.getNpc(DarkSiren.class);
+		
+		meraxis.unequipAllClothingIntoVoid(true, true); // No longer needs collar as she gets a naval piercing
+		
+		// Body changes:
+			// Coverings:
+			meraxis.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_PINK));
+			meraxis.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_PINK));
+			meraxis.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, CoveringPattern.NONE, PresetColour.COVERING_BLACK));
+			meraxis.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_PINK));
+			meraxis.addHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
+			meraxis.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
+			meraxis.addHeavyMakeup(BodyCoveringType.MAKEUP_EYE_LINER);
+			meraxis.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_PINK));
+			meraxis.addHeavyMakeup(BodyCoveringType.MAKEUP_EYE_SHADOW);
+			// Misc.:
+			meraxis.setHairStyle(HairStyle.NONE);
+			meraxis.setHairLength(0);
+			meraxis.setWingType(WingType.NONE);
+			meraxis.setLegType(LegType.DEMON_HOOFED);
+			// Breasts:
+			meraxis.setBreastRows(5);
+			meraxis.setBreastSize(CupSize.F);
+			meraxis.setBreastShape(BreastShape.PERKY);
+			meraxis.setNippleSize(NippleSize.FOUR_MASSIVE);
+			meraxis.setAreolaeSize(AreolaeSize.FOUR_MASSIVE);
+			meraxis.setNippleCapacity(Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue(), true);
+			meraxis.addNippleOrificeModifier(OrificeModifier.PUFFY);
+			// Vagina:
+			meraxis.setVaginaCapacity(Capacity.SIX_STRETCHED_OPEN, true);
+			meraxis.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
+			meraxis.setVaginaWetness(Wetness.SEVEN_DROOLING);
+			meraxis.setVaginaDepth(OrificeDepth.FOUR_DEEP.getValue());
+			meraxis.addVaginaOrificeModifier(OrificeModifier.PUFFY);
+			meraxis.addVaginaOrificeModifier(OrificeModifier.MUSCLE_CONTROL);
+			meraxis.addVaginaOrificeModifier(OrificeModifier.RIBBED);
+			meraxis.addVaginaOrificeModifier(OrificeModifier.TENTACLED);
+			// Ass:
+			meraxis.setAssSize(AssSize.FOUR_LARGE);
+			meraxis.setHipSize(HipSize.FOUR_WOMANLY);
+			meraxis.setAssCapacity(Capacity.FOUR_LOOSE, true);
+			meraxis.setAssDepth(OrificeDepth.FOUR_DEEP.getValue());
+			meraxis.addAssOrificeModifier(OrificeModifier.PUFFY);
+			meraxis.addAssOrificeModifier(OrificeModifier.MUSCLE_CONTROL);
+			meraxis.addAssOrificeModifier(OrificeModifier.RIBBED);
+			meraxis.addAssOrificeModifier(OrificeModifier.TENTACLED);
+			// Mouth:
+			meraxis.setFaceCapacity(Capacity.SEVEN_GAPING, true);
+			meraxis.setLipSize(LipSize.SEVEN_ABSURD);
+			meraxis.setFaceDepth(OrificeDepth.FIVE_VERY_DEEP.getValue());
+			meraxis.addFaceOrificeModifier(OrificeModifier.PUFFY);
+			meraxis.addFaceOrificeModifier(OrificeModifier.MUSCLE_CONTROL);
+			meraxis.addFaceOrificeModifier(OrificeModifier.RIBBED);
+			meraxis.addFaceOrificeModifier(OrificeModifier.TENTACLED);
+		// Fetish changes (super slut):
+			meraxis.clearFetishDesires();
+			meraxis.clearFetishes();
+			meraxis.addFetish(Fetish.FETISH_NON_CON_SUB);
+			meraxis.addFetish(Fetish.FETISH_SUBMISSIVE);
+			meraxis.addFetish(Fetish.FETISH_SIZE_QUEEN);
+			meraxis.addFetish(Fetish.FETISH_ANAL_GIVING);
+			meraxis.addFetish(Fetish.FETISH_ANAL_RECEIVING);
+			meraxis.addFetish(Fetish.FETISH_VAGINAL_GIVING);
+			meraxis.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
+			meraxis.addFetish(Fetish.FETISH_PENIS_RECEIVING);
+			meraxis.addFetish(Fetish.FETISH_ORAL_GIVING);
+			meraxis.addFetish(Fetish.FETISH_ARMPIT_GIVING);
+			meraxis.addFetish(Fetish.FETISH_BONDAGE_VICTIM);
+			meraxis.addFetish(Fetish.FETISH_BREASTS_OTHERS);
+			meraxis.addFetish(Fetish.FETISH_BREASTS_SELF);
+			meraxis.addFetish(Fetish.FETISH_PREGNANCY);
+			meraxis.addFetish(Fetish.FETISH_CUM_ADDICT);
+			meraxis.addFetish(Fetish.FETISH_DENIAL_SELF);
+			meraxis.addFetish(Fetish.FETISH_EXHIBITIONIST);
+			meraxis.addFetish(Fetish.FETISH_FOOT_RECEIVING);
+			meraxis.addFetish(Fetish.FETISH_LACTATION_SELF);
+			meraxis.addFetish(Fetish.FETISH_MASOCHIST);
+			meraxis.addFetish(Fetish.FETISH_STRUTTER);
+			meraxis.addFetish(Fetish.FETISH_VOYEURIST);
+		// Piercings:
+			meraxis.setPiercedEar(true);
+			meraxis.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_GOLD, false), true, meraxis);
+			meraxis.setPiercedLip(true);
+			meraxis.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_lip_double_ring", PresetColour.CLOTHING_GOLD, false), true, meraxis);
+			
+			meraxis.setPiercedNavel(true);
+			AbstractClothing pentagram = Main.game.getItemGen().generateClothing("norin_piercings_piercing_pentagram_navel", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_PINK_HOT, null, false);
+			pentagram.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0));
+			pentagram.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MAJOR_DRAIN, 0));
+			pentagram.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SERVITUDE, TFPotency.MINOR_BOOST, 0));
+			for(int i=0;i<33;i++) { //+100 corruption, -100 lust shielding
+				pentagram.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.CORRUPTION, TFPotency.MAJOR_BOOST, 0));
+				pentagram.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0));
+			}
+			pentagram.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.CORRUPTION, TFPotency.MINOR_BOOST, 0));
+			pentagram.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MINOR_DRAIN, 0));
+			pentagram.setName("Cock-sleeve's Reward");
+			meraxis.equipClothingFromNowhere(pentagram, true, meraxis);
+			
+			meraxis.setPiercedNipples(true);
+			meraxis.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_piercings_piercing_nipple_rings", PresetColour.CLOTHING_GOLD, false), true, meraxis);
+			meraxis.setPiercedNose(true);
+			meraxis.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_cattle_piercing_nose_ring", PresetColour.CLOTHING_GOLD, false), true, meraxis);
+			meraxis.setPiercedTongue(true);
+			meraxis.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_basic_barbell", PresetColour.CLOTHING_GOLD, false), true, meraxis);
+			meraxis.setPiercedVagina(true);
+			meraxis.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_piercings_piercing_vagina_sex", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_PINK_HOT, null, false), true, meraxis);
+		// Tattoos:
+			meraxis.addTattoo(InventorySlot.EYES,
+					new Tattoo(
+							"innoxia_animal_hoof",
+							PresetColour.CLOTHING_PURPLE,
+							false,
+							new TattooWriting("Hoof Cleaner", PresetColour.CLOTHING_PURPLE, false),
+							null));
+			meraxis.addTattoo(InventorySlot.HORNS,
+					new Tattoo(
+							"innoxia_symbol_lines",
+							PresetColour.CLOTHING_PURPLE_LIGHT,
+							false,
+							null,
+							null));
+			meraxis.addTattoo(InventorySlot.TORSO_OVER,
+					new Tattoo(
+							"innoxia_animal_hoof",
+							PresetColour.CLOTHING_PURPLE_DARK,
+							false,
+							new TattooWriting("Step On Me!", PresetColour.CLOTHING_PURPLE, false, TattooWritingStyle.BOLD),
+							null));
+			meraxis.addTattoo(InventorySlot.NECK,
+					new Tattoo(
+							"innoxia_symbol_lines",
+							PresetColour.CLOTHING_PURPLE,
+							false,
+							new TattooWriting("Choke Me!", PresetColour.CLOTHING_PURPLE, false, TattooWritingStyle.BOLD),
+							new TattooCounter(TattooCounterType.SEX_SUB, TattooCountType.NUMBERS, PresetColour.CLOTHING_PURPLE, false)));
+			meraxis.addTattoo(InventorySlot.WRIST,
+					new Tattoo(
+							"innoxia_hearts_hearts",
+							PresetColour.CLOTHING_PURPLE,
+							PresetColour.CLOTHING_PURPLE_DARK,
+							PresetColour.CLOTHING_PURPLE,
+							false,
+							null,
+							null));
+			meraxis.addTattoo(InventorySlot.TORSO_UNDER,
+					new Tattoo(
+							"innoxia_symbol_tribal",
+							PresetColour.CLOTHING_PINK_HOT,
+							false,
+							new TattooWriting("~Fill Me Up~", PresetColour.CLOTHING_PINK_HOT, false, TattooWritingStyle.ITALICISED),
+							new TattooCounter(TattooCounterType.CUM_TAKEN, TattooCountType.NUMBERS, PresetColour.CLOTHING_PINK_HOT, false)));
+			meraxis.addTattoo(InventorySlot.CHEST,
+					new Tattoo(
+							"innoxia_hearts_hearts",
+							PresetColour.CLOTHING_PINK_HOT,
+							PresetColour.CLOTHING_PURPLE_ROYAL,
+							PresetColour.CLOTHING_PURPLE,
+							false,
+							new TattooWriting("~Slap My Tits~", PresetColour.CLOTHING_PINK_HOT, false, TattooWritingStyle.ITALICISED),
+							new TattooCounter(TattooCounterType.UNIQUE_SEX_PARTNERS, TattooCountType.NUMBERS, PresetColour.CLOTHING_PINK_HOT, false)));
+			meraxis.addTattoo(InventorySlot.NIPPLE,
+					new Tattoo(
+							"innoxia_knot_spiral",
+							PresetColour.CLOTHING_RED_BURGUNDY,
+							false,
+							new TattooWriting("~Pinch & Pull~", PresetColour.CLOTHING_RED, false, TattooWritingStyle.ITALICISED),
+							null));
+			meraxis.addTattoo(InventorySlot.HAND,
+					new Tattoo(
+							"innoxia_hearts_hearts",
+							PresetColour.CLOTHING_PURPLE,
+							PresetColour.CLOTHING_PURPLE_DARK,
+							PresetColour.CLOTHING_PURPLE,
+							false,
+							null,
+							null));
+			meraxis.addTattoo(InventorySlot.HIPS,
+					new Tattoo(
+							"innoxia_animal_butterflies",
+							PresetColour.CLOTHING_PINK_HOT,
+							PresetColour.CLOTHING_PINK,
+							PresetColour.CLOTHING_PINK_LIGHT,
+							false,
+							null,
+							null));
+			meraxis.addTattoo(InventorySlot.STOMACH,
+					new Tattoo(
+							"innoxia_symbol_pentagram",
+							PresetColour.CLOTHING_PURPLE_VERY_DARK,
+							PresetColour.CLOTHING_PURPLE,
+							PresetColour.CLOTHING_PURPLE,
+							false,
+							new TattooWriting("Foal Factory", PresetColour.CLOTHING_PURPLE, false),
+							new TattooCounter(TattooCounterType.OFFSPRING_BIRTHED, TattooCountType.NUMBERS, PresetColour.CLOTHING_PURPLE, false)));
+			meraxis.addTattoo(InventorySlot.FINGER,
+					new Tattoo(
+							"innoxia_symbol_lines",
+							PresetColour.CLOTHING_BLACK,
+							false,
+							null,
+							null));
+			meraxis.addTattoo(InventorySlot.ANKLE,
+					new Tattoo(
+							"innoxia_knot_trinity",
+							PresetColour.CLOTHING_PURPLE,
+							false,
+							new TattooWriting("Trip Me Up!", PresetColour.CLOTHING_PURPLE, false, TattooWritingStyle.BOLD),
+							null));
+			meraxis.addTattoo(InventorySlot.LEG,
+					new Tattoo(
+							"innoxia_hearts_hearts",
+							PresetColour.CLOTHING_PURPLE,
+							PresetColour.CLOTHING_PURPLE_DARK,
+							PresetColour.CLOTHING_PURPLE,
+							false,
+							null,
+							null));
+			meraxis.addTattoo(InventorySlot.SOCK,
+					new Tattoo(
+							"innoxia_hearts_hearts",
+							PresetColour.CLOTHING_PURPLE,
+							PresetColour.CLOTHING_PURPLE_DARK,
+							PresetColour.CLOTHING_PURPLE,
+							false,
+							null,
+							null));
+			meraxis.addTattoo(InventorySlot.GROIN,
+					new Tattoo(
+							"innoxia_heartWomb_heart_womb",
+							PresetColour.CLOTHING_PINK_HOT,
+							PresetColour.CLOTHING_BLACK,
+							PresetColour.CLOTHING_PINK_HOT,
+							false,
+							new TattooWriting("~Knock Me Up~", PresetColour.CLOTHING_PINK_HOT, false, TattooWritingStyle.ITALICISED),
+							new TattooCounter(TattooCounterType.PREGNANCY, TattooCountType.TALLY, PresetColour.CLOTHING_PINK_HOT, false)));
+			meraxis.addTattoo(InventorySlot.ANUS,
+					new Tattoo(
+							"innoxia_symbol_pentagram",
+							PresetColour.CLOTHING_BLACK_JET,
+							PresetColour.CLOTHING_RED_VERY_DARK,
+							PresetColour.CLOTHING_PURPLE,
+							false,
+							new TattooWriting("Rough Anal Only!", PresetColour.CLOTHING_RED, false, TattooWritingStyle.BOLD),
+							new TattooCounter(TattooCounterType.CUM_TAKEN_ANUS, TattooCountType.NUMBERS, PresetColour.CLOTHING_RED, false)));
+			meraxis.addTattoo(InventorySlot.VAGINA,
+					new Tattoo(
+							"innoxia_animal_hoof",
+							PresetColour.CLOTHING_PURPLE_DARK,
+							false,
+							new TattooWriting("Break This Cunt!", PresetColour.CLOTHING_PURPLE, false, TattooWritingStyle.BOLD),
+							new TattooCounter(TattooCounterType.CUM_TAKEN_PUSSY, TattooCountType.NUMBERS, PresetColour.CLOTHING_PURPLE, false)));
+		// Increment stats for tattoo counters:
+			applyTrainingSexCounts(meraxis, new SexType(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), 1);
+			applyTrainingSexCounts(meraxis, new SexType(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS), 0.75f);
+			applyTrainingSexCounts(meraxis, new SexType(SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS), 0.8f);
+			applyTrainingSexCounts(meraxis, new SexType(SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS), 0.1f);
+			// Non-penetrative:
+			applyTrainingSexCounts(meraxis, new SexType(SexAreaOrifice.BREAST, SexAreaPenetration.PENIS), 0.1f);
+			applyTrainingSexCounts(meraxis, new SexType(SexAreaOrifice.ASS, SexAreaPenetration.PENIS), 0.05f);
+			applyTrainingSexCounts(meraxis, new SexType(SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS), 0.05f);
+			applyTrainingSexCounts(meraxis, new SexType(SexAreaOrifice.ARMPITS, SexAreaPenetration.PENIS), 0.05f);
+			for(int i=0; i<2+Util.random.nextInt(3); i++) {
+				meraxis.guaranteePregnancyOnNextRoll();
+				meraxis.rollForPregnancy(Subspecies.DEMON, Subspecies.HORSE_MORPH, 2500, true);
+				meraxis.endPregnancy(true);
+			}
+	}
+	
+	public void applyMeraxisBadEndFinal() {
+		DarkSiren meraxis = (DarkSiren) Main.game.getNpc(DarkSiren.class);
+		meraxis.addTattoo(InventorySlot.MOUTH,
+				new Tattoo(
+						"innoxia_symbol_tribal",
+						PresetColour.CLOTHING_PINK,
+						false,
+						new TattooWriting(Main.game.isAnalContentEnabled()?"Rimjob Whore":"Cunt Kisser", PresetColour.CLOTHING_PINK, false),
+						null));
+	}
+	
+	public void applyAurokarisBadEnd() {
+		Aurokaris aurokaris = (Aurokaris) Main.game.getNpc(Aurokaris.class);
+		
+		// Body changes:
+			// Vagina:
+			aurokaris.setVaginaCapacity(Capacity.SEVEN_GAPING, true);
+			aurokaris.setVaginaWetness(Wetness.FIVE_SLOPPY);
+			aurokaris.setVaginaDepth(OrificeDepth.FOUR_DEEP.getValue());
+			// Ass:
+			aurokaris.setAssCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
+		// Fetish changes:
+			aurokaris.clearFetishes();
+			aurokaris.addFetish(Fetish.FETISH_NON_CON_SUB);
+			aurokaris.addFetish(Fetish.FETISH_SUBMISSIVE);
+			aurokaris.addFetish(Fetish.FETISH_SIZE_QUEEN);
+			aurokaris.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
+			aurokaris.addFetish(Fetish.FETISH_PENIS_RECEIVING);
+			aurokaris.addFetish(Fetish.FETISH_PREGNANCY);
+			aurokaris.addFetish(Fetish.FETISH_CUM_ADDICT);
+			aurokaris.addFetish(Fetish.FETISH_EXHIBITIONIST);
+			aurokaris.addFetish(Fetish.FETISH_LACTATION_SELF);
+			aurokaris.addFetish(Fetish.FETISH_MASOCHIST);
+	
+			applyTrainingSexCountsAurokaris(aurokaris, new SexType(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), 1);
+			applyTrainingSexCountsAurokaris(aurokaris, new SexType(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS), 0.1f);
+			applyTrainingSexCountsAurokaris(aurokaris, new SexType(SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS), 0.1f);
+			
+			aurokaris.guaranteePregnancyOnNextRoll();
+			aurokaris.rollForPregnancy(Subspecies.DEMON, Subspecies.HORSE_MORPH, 2500, true);
+			ItemEffectType.MOTHERS_MILK.applyEffect(null, null, null, 0, aurokaris, aurokaris, null);
+			ItemEffectType.MOTHERS_MILK.applyEffect(null, null, null, 0, aurokaris, aurokaris, null);
+			ItemEffectType.MOTHERS_MILK.applyEffect(null, null, null, 0, aurokaris, aurokaris, null);
+	}
+
+	public void applyUrsaBadEnd() {
+		Ursa ursa = (Ursa) Main.game.getNpc(Ursa.class);
+
+		// Body changes:
+			// Vagina:
+			ursa.setVaginaCapacity(Capacity.SEVEN_GAPING, true);
+			ursa.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
+			ursa.setVaginaWetness(Wetness.SEVEN_DROOLING);
+			ursa.setVaginaDepth(OrificeDepth.FIVE_VERY_DEEP.getValue());
+			// Ass:
+			ursa.setAssCapacity(Capacity.SEVEN_GAPING, true);
+			ursa.setAssWetness(Wetness.SEVEN_DROOLING);
+			ursa.setAssDepth(OrificeDepth.FIVE_VERY_DEEP.getValue());
+			// Mouth:
+			ursa.setFaceCapacity(Capacity.SEVEN_GAPING, true);
+			ursa.setFaceDepth(OrificeDepth.SIX_CAVERNOUS.getValue());
+		// Fetish changes:
+			ursa.clearFetishDesires();
+			ursa.clearFetishes();
+			ursa.addFetish(Fetish.FETISH_NON_CON_SUB);
+			ursa.addFetish(Fetish.FETISH_SUBMISSIVE);
+			ursa.addFetish(Fetish.FETISH_SIZE_QUEEN);
+			ursa.addFetish(Fetish.FETISH_ANAL_RECEIVING);
+			ursa.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
+			ursa.addFetish(Fetish.FETISH_PENIS_RECEIVING);
+			ursa.addFetish(Fetish.FETISH_ORAL_GIVING);
+			ursa.addFetish(Fetish.FETISH_ARMPIT_GIVING);
+			ursa.addFetish(Fetish.FETISH_BONDAGE_VICTIM);
+			ursa.addFetish(Fetish.FETISH_BREASTS_SELF);
+			ursa.addFetish(Fetish.FETISH_CUM_ADDICT);
+			ursa.addFetish(Fetish.FETISH_EXHIBITIONIST);
+			ursa.addFetish(Fetish.FETISH_FOOT_RECEIVING);
+			ursa.addFetish(Fetish.FETISH_MASOCHIST);
+		// Clothing:
+			ursa.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_blindfold", PresetColour.CLOTHING_RED_BURGUNDY, PresetColour.CLOTHING_IRON, null, false), true, ursa);
+			ursa.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_croptop", PresetColour.CLOTHING_RED_BURGUNDY, PresetColour.CLOTHING_IRON, null, false), true, ursa);
+			ursa.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_clover_clamps_clover_clamps", PresetColour.CLOTHING_IRON, false), true, ursa);
+			ursa.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_corset", PresetColour.CLOTHING_RED_BURGUNDY, PresetColour.CLOTHING_IRON, null, false), true, ursa);
+			ursa.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_elbow_gloves", PresetColour.CLOTHING_RED_BURGUNDY, false), true, ursa);
+			ursa.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_wrist_restraints", PresetColour.CLOTHING_RED_BURGUNDY, PresetColour.CLOTHING_IRON, null, false), true, ursa);
+			ursa.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_goth_boots_fem", PresetColour.CLOTHING_RED_BURGUNDY, PresetColour.CLOTHING_IRON, PresetColour.CLOTHING_RED_BURGUNDY, false), true, ursa);
+			ursa.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_stockings", PresetColour.CLOTHING_RED_BURGUNDY, false), true, ursa);
+			ursa.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_spreaderbar", PresetColour.CLOTHING_RED_BURGUNDY, PresetColour.CLOTHING_IRON, null, false), true, ursa);
+		// Sex stats:
+			applyTrainingSexCounts(ursa, new SexType(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), 1);
+			applyTrainingSexCounts(ursa, new SexType(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS), 0.75f);
+			applyTrainingSexCounts(ursa, new SexType(SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS), 0.8f);
+			applyTrainingSexCounts(ursa, new SexType(SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS), 0.1f);
+			// Non-penetrative:
+			applyTrainingSexCounts(ursa, new SexType(SexAreaOrifice.BREAST, SexAreaPenetration.PENIS), 0.1f);
+			applyTrainingSexCounts(ursa, new SexType(SexAreaOrifice.ASS, SexAreaPenetration.PENIS), 0.05f);
+			applyTrainingSexCounts(ursa, new SexType(SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS), 0.05f);
+			applyTrainingSexCounts(ursa, new SexType(SexAreaOrifice.ARMPITS, SexAreaPenetration.PENIS), 0.05f);
+	}
+	
+	private void applyTrainingSexCounts(GameCharacter character, SexType sexType, float frequency) {
+		// Fucked by up to 200-300 different centauresses in this SexType:
+		int luckyCentauressCount = (int) ((200 + Util.random.nextInt(100)) * frequency);
+		
+		for(int i=0; i<luckyCentauressCount; i++) {
+			String centauressId = "lunexisCentauress"+i;
+			int sexCount = 1 + Util.random.nextInt(3);
+			if(character instanceof Ursa) {
+				sexCount*=4;// Ursa gets fucked a lot. What a sloot.
+			}
+			character.setSexAsSubCountById(centauressId, sexCount);
+			character.setSexCountById(centauressId, sexType, sexCount);
+			character.setCumCountById(centauressId, sexType, (Math.random()<0.75f?1:0)+Util.random.nextInt(sexCount));
+		}
+	}
+
+	private void applyTrainingSexCountsAurokaris(GameCharacter character, SexType sexType, float frequency) {
+		// Fucked by only her owner in this SexType:
+		String centauressId = "aurokarisOwner";
+		// She gets fucked a lot over 2 months:
+		int sexCount = (int) ((2000 + Util.random.nextInt(501)) * frequency);
+		character.setSexAsSubCountById(centauressId, sexCount);
+		character.setSexCountById(centauressId, sexType, sexCount);
+		character.setCumCountById(centauressId, sexType, sexCount-Util.random.nextInt(501));
+		
 	}
 }

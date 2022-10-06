@@ -290,6 +290,7 @@ public class Combat {
 			combatContent.get(combatant).add(startingEffect);
 		}
 		
+		Main.game.getPlayer().calculateStatusEffects(0); // Calculate status effects to make sure combat SEs are initialised before selecting moves
 		Main.game.getPlayer().resetSelectedMoves();
 		Main.game.getPlayer().resetMoveCooldowns();
 		applyNewTurnShielding(Main.game.getPlayer());
@@ -300,6 +301,7 @@ public class Combat {
 		Main.game.setInCombat(true);
 		
 		for(NPC npc : allCombatants) {
+			npc.calculateStatusEffects(0); // Calculate status effects to make sure combat SEs are initialised before selecting moves
 			combatTurnResolutionStringBuilder.append(getCharactersTurnDiv(npc, getTurn()==0?"Preparation":"", combatContent.get(npc)));
 			
 			npc.resetSelectedMoves();

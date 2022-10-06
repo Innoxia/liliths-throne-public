@@ -1194,6 +1194,18 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		SVGStringMap = new HashMap<>();
 		SVGStringEquippedMap = new HashMap<>();
 		
+		// Add PENIS and VAGINA from blocked parts to clothingAccessBlocked:
+		for(Entry<InventorySlot, List<BlockedParts>> entry : this.blockedPartsMap.entrySet()) {
+			for(BlockedParts bp : entry.getValue()) {
+				if(bp.blockedBodyParts.contains(CoverableArea.PENIS) && !bp.clothingAccessBlocked.contains(ClothingAccess.PENIS)) {
+					bp.clothingAccessBlocked.add(ClothingAccess.PENIS);
+				}
+				if(bp.blockedBodyParts.contains(CoverableArea.VAGINA)&& !bp.clothingAccessBlocked.contains(ClothingAccess.VAGINA)) {
+					bp.clothingAccessBlocked.add(ClothingAccess.VAGINA);
+				}
+			}
+		}
+		
 		// Add blocked parts due to sealing or plugging:
 		for(Entry<InventorySlot, List<ItemTag>> entry : this.itemTags.entrySet()) { //TODO check
 			for(ItemTag tag : entry.getValue()) {
