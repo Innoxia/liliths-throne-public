@@ -175,7 +175,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Sex]]></responseTitle>
-				<responseTooltip><![CDATA[You can tell that [attacker.name] isn't at all interested in having sex with you..]]></responseTooltip>
+				<responseTooltip><![CDATA[You can tell that [attacker.name] isn't at all interested in having sex with you...]]></responseTooltip>
 				<nextDialogue><![CDATA[null]]></nextDialogue>
 			</response>
 			<response>
@@ -220,7 +220,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[3]]></index>
 				<responseTitle><![CDATA[Sex (gentle)]]></responseTitle>
-				<responseTooltip><![CDATA[You can tell that [attacker.name] isn't at all interested in having sex with you..]]></responseTooltip>
+				<responseTooltip><![CDATA[You can tell that [attacker.name] isn't at all interested in having sex with you...]]></responseTooltip>
 				<nextDialogue><![CDATA[null]]></nextDialogue>
 			</response>
 			<response>
@@ -267,7 +267,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[4]]></index>
 				<responseTitle><![CDATA[Sex (rough)]]></responseTitle>
-				<responseTooltip><![CDATA[You can tell that [attacker.name] isn't at all interested in having sex with you..]]></responseTooltip>
+				<responseTooltip><![CDATA[You can tell that [attacker.name] isn't at all interested in having sex with you...]]></responseTooltip>
 				<nextDialogue><![CDATA[null]]></nextDialogue>
 			</response>
 			<response>

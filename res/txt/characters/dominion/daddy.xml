@@ -359,7 +359,7 @@
 		[genericMale.speech(Good evening, [daddy.name], may I assist you with anything this evening?)] the waiter responds in a friendly tone, clearly being on good terms with the incubus.
 	</p>
 	<p>
-		[daddy.speech(Yeah, you able to get the two of us a table?)] your companion asks.
+		[daddy.speech(Yeah, are you able to get the two of us a table?)] your companion asks.
 	</p>
 	<p>
 		[genericMale.speech(I don't think the boss would ever forgive me if I were to say no to you. Let me see what I can do,)] the waiter says, before stepping back into the restaurant.
@@ -390,7 +390,7 @@
 		[genericMale.speech(Good evening, [daddy.name], may I assist you and your partner with anything this evening?)] the waiter responds in a friendly tone, clearly being on good terms with your companion.
 	</p>
 	<p>
-		[daddy.speech(Yeah, you able to get the two of us a table?)]
+		[daddy.speech(Yeah, are you able to get the two of us a table?)]
 	</p>
 	<p>
 		[genericMale.speech(I don't think the boss would ever forgive me if I were to say no to you. Let me see what I can do,)] the waiter says, before stepping back into the restaurant.

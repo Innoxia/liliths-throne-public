@@ -181,7 +181,7 @@ public class SexPositionUnique {
 		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			// I spent several hours trying to figure out where UtilText.parse input NPCs were set.
 			// I gave up and decided to do it in here so we *KNOW* which [npc] tags are doing what.
-			// There is precedent for doing this in in SexPosition.java. 
+			// There is precedent for doing this in SexPosition.java.
 			
 			List<GameCharacter> characters = new ArrayList<>();
 			boolean isKneeling = false;

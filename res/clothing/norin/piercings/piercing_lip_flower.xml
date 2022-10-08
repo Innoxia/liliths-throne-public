@@ -53,25 +53,25 @@
 
   <replacementText type="REMOVE_OR_EQUIP">
     <self>
-      <![CDATA[[npc.Name] [npc.verb(clip)] a flowered lip peircing into [npc.her] [npc.lips+].]]>
+      <![CDATA[[npc.Name] [npc.verb(clip)] a flowered lip piercing into [npc.her] [npc.lips+].]]>
     </self>
     <other>
-      <![CDATA[[npc.Name] [npc.verb(clip)] a flowered lip peircing into [npc2.namePos] [npc2.lips+].]]>
+      <![CDATA[[npc.Name] [npc.verb(clip)] a flowered lip piercing into [npc2.namePos] [npc2.lips+].]]>
     </other>
     <otherRough>
-      <![CDATA[[npc.Name] [npc.verb(force)] a flowered lip peircing into [npc2.namePos] [npc2.lips+].]]>
+      <![CDATA[[npc.Name] [npc.verb(force)] a flowered lip piercing into [npc2.namePos] [npc2.lips+].]]>
     </otherRough>
   </replacementText>
 
   <displacementText type="REMOVE_OR_EQUIP">
     <self>
-      <![CDATA[[npc.Name] [npc.verb(remove)] a flowered lip peircing from [npc.her] [npc.lips+].]]>
+      <![CDATA[[npc.Name] [npc.verb(remove)] a flowered lip piercing from [npc.her] [npc.lips+].]]>
     </self>
     <other>
-      <![CDATA[[npc.Name] [npc.verb(remove)] a flowered lip peircing from [npc2.namePos] [npc2.lips+].]]>
+      <![CDATA[[npc.Name] [npc.verb(remove)] a flowered lip piercing from [npc2.namePos] [npc2.lips+].]]>
     </other>
     <otherRough>
-      <![CDATA[[npc.Name] [npc.verb(tug)] a flowered lip peircing out from [npc2.namePos] [npc2.lips+]..]]>
+      <![CDATA[[npc.Name] [npc.verb(tug)] a flowered lip piercing out from [npc2.namePos] [npc2.lips+].]]>
     </otherRough>
   </displacementText>
   

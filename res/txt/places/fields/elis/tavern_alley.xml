@@ -47,7 +47,7 @@
 			As you [pc.step] into the tavern, you hear a loud, womanly voice shouting out, [oglix.speech(You! Hey, you! Yeah, the [pc.race] who just came in! Get over here so I can say hello!)]
 		</p>
 		<p>
-			Realising that the you're the one that this voice is calling out for, you look over towards the source and see that it's coming from the tavern's bar. Your first thought as you see the person who's shouting out and waving at you is to wonder how you didn't immediately notice her upon your entry. Standing at
+			Realising that you're the one that this voice is calling out for, you look over towards the source and see that it's coming from the tavern's bar. Your first thought as you see the person who's shouting out and waving at you is to wonder how you didn't immediately notice her upon your entry. Standing at
 			#IF(game.isMetricSizes())
 				 well over two metres tall,
 			#ELSE
@@ -151,7 +151,7 @@
 		At that moment, you hear the sound of a loud grunt, followed by another of the beer-bitch's horny squeals, coming from the other side of the wooden barrel. With that, the pair of [beerBitch.cupSize]-cup tits stop bouncing, and Oglix states, [oglix.speech(Sounds like they just gave her a big creampie. You can have a go at fucking the beer-bitch too; I give out a token with every pint of beer that's sold, and if you trade in five tokens then you get to go around back and do what you want with her ass and cunt. So, you want to order a pint, [pc.name]?)]
 	</p>
 	<p>
-		Looking over at the milk that's being sucked out of the beer-bitch's nipples, you think to yourself that its colour and consistency do look exactly like regular beer. Beside the beer-bitch, you see see a blackboard which lists several meals, including burgers, pies, and steak. Looking back over at Oglix, you wonder whether to order anything, or perhaps you could ask her a question or two...
+		Looking over at the milk that's being sucked out of the beer-bitch's nipples, you think to yourself that its colour and consistency do look exactly like regular beer. Beside the beer-bitch, you see a blackboard which lists several meals, including burgers, pies, and steak. Looking back over at Oglix, you wonder whether to order anything, or perhaps you could ask her a question or two...
 	</p>
 	]]>
 	</htmlContent>
@@ -175,7 +175,7 @@
 		</p>
 		<p>
 			#IF(flags.hasFlag(FLAG_innoxia_oglix_flirted))
-				[oglix.speech(So, you going to order anything, or what?)] she asks, releasing your [pc.hand(true)]. Having already flirted with her today, it doesn't seem like Olix will be receptive to more of your advances until tomorrow. Flashing you a toothy grin, the orc-like succubus waits to hear whether or not you were planning on ordering some food or drink...
+				[oglix.speech(So, you going to order anything, or what?)] she asks, releasing your [pc.hand(true)]. Having already flirted with her today, it doesn't seem like Oglix will be receptive to more of your advances until tomorrow. Flashing you a toothy grin, the orc-like succubus waits to hear whether or not you were planning on ordering some food or drink...
 			#ELSE
 					[oglix.speech(Just because I'm pregnant, doesn't mean I'm not horny,)] Oglix bluntly states, before leaning forwards over the bar and giving you a clear view of her considerable cleavage. Licking her lips, she teases, [oglix.speech(You got a thing for fucking pregnant chicks? Come on, let's head back to my room and do it again...)]
 				</p>
@@ -417,7 +417,7 @@
 	]]>
 	</htmlContent>
 	
-	<!-- Punished by Golex: -->
+	<!-- Punished by Golix: -->
 	
 	<htmlContent tag="BAR_PUNISHMENT"><![CDATA[
 	#IF(oglixElemental.getTotalTimesHadSex(pc)>0)
@@ -649,7 +649,7 @@
 		After a few minutes of chatting with Oglix, you start to notice that the tone of her voice is subtly shifting and starting to sound a little more excited. A minute later, and she suddenly lets out a low, breathless moan. Realising that an explanation is required, she smirks and reveals, [oglix.speech(I've got a strong mental bond with Golix, what with her being my elemental and all. She's having a lot of fun with her 'good horsie' at the moment, which is getting me pretty turned on... Fuck...)]
 	</p>
 	<p>
-		As she's not wearing a bra, you're able to clearly see Oglix's large nipples stiffening beneath the fabric of her croptop. After letting out another moan, more sensual and desperate than the last, Oglix shakes her head and tries to keep her mind occupied by explaining, [oglix.speech(You know, Kheiron has a pretty complicated relationship with me and Golix. It's funny, because Golix is literally just a physical manifestation of my subconcious, but that dumb centaur is madly in love with her, while at the same time hating my guts.)]
+		As she's not wearing a bra, you're able to clearly see Oglix's large nipples stiffening beneath the fabric of her croptop. After letting out another moan, more sensual and desperate than the last, Oglix shakes her head and tries to keep her mind occupied by explaining, [oglix.speech(You know, Kheiron has a pretty complicated relationship with me and Golix. It's funny, because Golix is literally just a physical manifestation of my subconscious, but that dumb centaur is madly in love with her, while at the same time hating my guts.)]
 	</p>
 	<p>
 		Curious to find out more about this strange three-way relationship, you ask Oglix how that's even possible, if Golix is essentially just a part of her. Letting out a loud laugh, the orc-like succubus booms, [oglix.speech(Damned if I know! I've told Kheiron everything I've said to you, but that doesn't stop the big idiot from treating me like dirt while doing anything Golix asks. Oh, and by anything, I mean <i>anything</i>... Oh, and Kheiron's love of Golix isn't even the strangest part! The thing is, Golix loves him almost as much as he does her! And I hate that big, dumb horse! So how does that work?)]
@@ -767,7 +767,7 @@
 	
 	<htmlContent tag="BEER_BITCH_DELIVERED_FUCK"><![CDATA[
 	<p>
-		Deciding to take Oglix up on her offer, you tell her that you'd like to fuck [npc.name]. Flashing you a smirk, the green-skinned succubus steps past you and heads on over to the the door at the far end of the corridor, and before heading back out to the bar, calls out, [oglix.speech(Take your time, [pc.name]. Enjoy breaking that [npc.name] in.)]
+		Deciding to take Oglix up on her offer, you tell her that you'd like to fuck [npc.name]. Flashing you a smirk, the green-skinned succubus steps past you and heads on over to the door at the far end of the corridor, and before heading back out to the bar, calls out, [oglix.speech(Take your time, [pc.name]. Enjoy breaking that [npc.name] in.)]
 	</p>
 	<p>
 		As Oglix makes her exit, you turn to look at the [npc.race]'s exposed ass, and as you [pc.step] up behind her,
@@ -786,7 +786,7 @@
 		Not interested in fucking [npc.name], you turn down Oglix's offer and tell her that you'll head back out to the bar with her. Shrugging off your refusal, the succubus grunts, [oglix.speech(Some drunk's going to have her first time then.)]
 	</p>
 	<p>
-		A few moments later, and you're back at the bar, looking over at [npc.namePos] [npc.cupSize]-cup tits as they're greedily sucked on by the milking machine. Turning to see what it is you're looking at, Oglix gives you  abig, toothy grin and asks, [oglix.speech(You didn't want to fuck her, but perhaps you'd like a pint of her beer?)]
+		A few moments later, and you're back at the bar, looking over at [npc.namePos] [npc.cupSize]-cup tits as they're greedily sucked on by the milking machine. Turning to see what it is you're looking at, Oglix gives you a big, toothy grin and asks, [oglix.speech(You didn't want to fuck her, but perhaps you'd like a pint of her beer?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -992,7 +992,7 @@
 	</p>
 	<p>
 		#IF(game.isAnalContentEnabled())
-			Letting out a desperate moan, Kheiron quickly turns around and and drops down onto all fours, before swishing his tail to one side and presenting Golix with his [kheiron.asshole+]. Turning his head back, he bites his lip and begs, [kheiron.speech(Please, fill my ass with your fat cock! Fuck me good and hard!)]
+			Letting out a desperate moan, Kheiron quickly turns around and drops down onto all fours, before swishing his tail to one side and presenting Golix with his [kheiron.asshole+]. Turning his head back, he bites his lip and begs, [kheiron.speech(Please, fill my ass with your fat cock! Fuck me good and hard!)]
 		#ELSE
 			Letting out a desperate moan, Kheiron quickly drops down onto all fours before his lover, before opening his mouth and presenting Golix with his throat. Looking up into the elemental's grey eyes, he begs, [kheiron.speech(Please, fill my throat with your fat cock! Fuck my face good and hard!)]
 		#ENDIF
@@ -1026,7 +1026,7 @@
 		Stomping his powerful hoofs on the ground, Kheiron demonstrates his strength by dominantly sweeping his huge elemental lover up into a bridal carry. Trotting around the courtyard with her in his arms, he grunts, [kheiron.speech(This time, my love, you're mine!)]
 	</p>
 	<p>
-		Letting out a playful laugh, Golix wraps her arms around her lover's neck, before pulling herself up to plant a deep, passionate kiss on his lips. Breaking off with a horny moan, you hear her relent, [golix.speech(Fine... I'll let you have you have your fun with me... Besides, I've secretly been dreaming of getting stuffed full of your fat horse-cock all day...)]
+		Letting out a playful laugh, Golix wraps her arms around her lover's neck, before pulling herself up to plant a deep, passionate kiss on his lips. Breaking off with a horny moan, you hear her relent, [golix.speech(Fine... I'll let you have your fun with me... Besides, I've secretly been dreaming of getting stuffed full of your fat horse-cock all day...)]
 	</p>
 	<p>
 		Letting out a wild, passionate grunt as he hears this, Kheiron gently lowers his lover back down, before asking, [kheiron.speech(And how were you dreaming of taking it?)]
@@ -1067,7 +1067,7 @@
 			More than happy to oblige, her lover moves forwards, ramming his fat cock down her throat in the process. Letting out a deep, passionate grunt, he groans, [kheiron.speech(Fuck... You're so tight...)]
 		</p>
 		<p>
-			[golix.speech(~Mrph!~ ~Mmm!~)] the gargled, muffled response comes from Golix. Reaching up to fondle her lover's [kheiron.balls+], she continues making lewd noises as Kheiron's cock slams deep down her throat, spreading and stretching it out in the process. Desperate for more, the elemental leans forwards into the penetration, therby forcing herself to swallow a significant amount of the massive cock.
+			[golix.speech(~Mrph!~ ~Mmm!~)] the gargled, muffled response comes from Golix. Reaching up to fondle her lover's [kheiron.balls+], she continues making lewd noises as Kheiron's cock slams deep down her throat, spreading and stretching it out in the process. Desperate for more, the elemental leans forwards into the penetration, thereby forcing herself to swallow a significant amount of the massive cock.
 		</p>
 		<p>
 			[kheiron.speech(Take it all,)] Kheiron heavily grunts, before starting to rhythmically pump his cock in and out of the elemental's throat. Looking on, you watch as his cock sinks deeper and deeper with each thrust, turning his lover into a gargling, choking cock-sleeve...

@@ -1417,7 +1417,7 @@ public class Lyssieth extends NPC {
 			} else {
 				sb.append("<p>"
 							+ "Upon hearing your ear-splitting wail, [npc.name] stops thrusting forwards, and with her hot, throbbing cock still stuffed in your asshole, [npc.she] teases,"
-							+ " [npc.speechNoExtraEffects(~Mmm!~ It's nice knowing that my cock's the first one that's been up your ass.. You're going to become a horny little buttslut, I can just tell..."
+							+ " [npc.speechNoExtraEffects(~Mmm!~ It's nice knowing that my cock's the first one that's been up your ass... You're going to become a horny little buttslut, I can just tell..."
 							+ " ~Ooh!~ Now beg for my cock, like a good little anal-loving slut, and I'll give you the rest of it.)]"
 						+ "</p>");
 
