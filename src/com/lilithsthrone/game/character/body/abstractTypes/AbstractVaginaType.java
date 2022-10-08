@@ -336,7 +336,7 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 	}
 	
 	/**
-	 * This method is called immediately before and immediately after the target's vagina type is changed into into this type. When before, applicationAfterChangeApplied is false, and when after, applicationAfterChangeApplied is true.
+	 * This method is called immediately before and immediately after the target's vagina type is changed into this type. When before, applicationAfterChangeApplied is false, and when after, applicationAfterChangeApplied is true.
 	 * It is not called if owner is null.
 	 */
 	public String applyAdditionalTransformationEffects(GameCharacter owner, boolean applicationAfterChangeApplied) {

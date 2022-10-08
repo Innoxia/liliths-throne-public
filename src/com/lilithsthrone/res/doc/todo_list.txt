@@ -6,7 +6,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	
+	Contributors:
+		Fixed a significant amount of typos and grammatical errors. (PR#1701 by Lis)
 	
 	
 	
@@ -30,7 +31,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1658 - MintyChip races
 		[] #1692
 		[] #1693
-		[] #1701
+		[x] #1701
 	
 	[] Make a page on the blog about java/exe/32-bit exe versions
 	
@@ -3062,7 +3063,7 @@ Enchantment Suggestion: Emotion Mask - Enchanted clothing piece changes the pers
 	
 	after defeating the three Matriarchs Harpys, and "looking for trouble" for a very long time,  i can only find itens
 	
-	when clicking inspect, doens't show right slave
+	when clicking inspect, doesn't show right slave
 	
 	i was trying to breed two of my slaves and one of them took off my chest sarashi, afterwards i find the thing lying on the ground in that room and still on my body
 	

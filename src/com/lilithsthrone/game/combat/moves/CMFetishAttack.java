@@ -2367,7 +2367,7 @@ public class CMFetishAttack {
 						"Sliding [npc.her] [npc.hands] over [npc.her] pregnant bump, [npc.name] [npc.verb(pout)] at [npc2.name], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(Come have a feel!)]"
-									:"[npc.speech(Pregnant [npc.girls] are the the best fucks around!)]"),
+									:"[npc.speech(Pregnant [npc.girls] are the best fucks around!)]"),
 						"Posturing so as to draw attention to [npc.her] pregnant bump, [npc.name] [npc.verb(bite)] [npc.her] lip at [npc2.name], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(Come on, why don't we have some fun?!)]"

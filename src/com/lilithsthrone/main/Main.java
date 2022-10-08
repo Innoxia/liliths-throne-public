@@ -804,7 +804,7 @@ public class Main extends Application {
 			return "You cannot save the game during the character creation process or prologue!";
 			
 		} else if (Main.game.isInCombat()) {
-			return "You cannot save the game while while in combat!";
+			return "You cannot save the game while in combat!";
 			
 		} else if (Main.game.isInSex()) {
 			return "You cannot save the game while in a sex scene!";

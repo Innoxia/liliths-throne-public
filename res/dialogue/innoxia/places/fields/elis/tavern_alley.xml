@@ -464,7 +464,7 @@
 				<responseTitle><![CDATA[Report back]]></responseTitle>
 				<responseTooltip><![CDATA[
 					#IF(pc.getQuest(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS)==QUEST_OGLIX_BEER_BARRELS_2)
-						Report back to Oglix that Kheiron decided to be 'a good horsie' for Golex, and that four barrels are to be delivered to her.
+						Report back to Oglix that Kheiron decided to be 'a good horsie' for Golix, and that four barrels are to be delivered to her.
 					#ELSE
 						You need to get Kheiron to agree to send more barrels to Oglix before you can report back to her!
 					#ENDIF

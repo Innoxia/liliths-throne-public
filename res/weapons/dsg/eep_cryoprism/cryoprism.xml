@@ -54,7 +54,7 @@
 		
 		<onCriticalHitEffect><![CDATA[
 		#IF (!npc2.hasStatusEffect(SE_FREEZING_FOG))
-			[##npc2.addStatusEffect(SE_FREEZING_FOG, 4)] A [style.boldIce(freezing fog)] settles around around [npc2.name]!
+			[##npc2.addStatusEffect(SE_FREEZING_FOG, 4)] A [style.boldIce(freezing fog)] settles around [npc2.name]!
 		#ELSEIF (npc2.hasStatusEffect(SE_FREEZING_FOG) && !npc2.hasStatusEffect(SE_FROZEN))
 			[##npc2.addStatusEffect(SE_FROZEN, 2)]
 			[##npc2.removeStatusEffect(SE_FREEZING_FOG)]

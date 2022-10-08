@@ -6290,7 +6290,7 @@ public class Sex {
 	}
 	
 	/**
-	 * This method does <b>not</b> take into account whether the the slot is accessible or not. It only checks for ongoing actions involving the specified slot.<br/>
+	 * This method does <b>not</b> take into account whether the slot is accessible or not. It only checks for ongoing actions involving the specified slot.<br/>
 	 * It also only accounts for the following slots: <b>ANUS</b>, <b>MOUTH</b>, <b>NIPPLE</b>, <b>PENIS</b>, <b>VAGINA</b>, <b>STOMACH</b>.<br/>
 	 * Condoms are treated as always being able to be equipped.
 	 */

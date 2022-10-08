@@ -332,7 +332,7 @@ public class BreastCrotch implements BodyPartInterface {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] a strange bubbling and churning taking place deep within [npc.her] [npc.crotchBoobs], and [npc.a_moan+] drifts out from between [npc.her] [npc.lips] as a few drops of [npc.crotchMilk] suddenly leak"
-							+ " from [npc.her] [npc.crotchNipples]; clear evidence that that [npc.her] [npc.crotchMilk] production has [style.boldGrow(increased)].<br/>"
+							+ " from [npc.her] [npc.crotchNipples]; clear evidence that [npc.her] [npc.crotchMilk] production has [style.boldGrow(increased)].<br/>"
 						+ "[npc.NameIsFull] now able to produce [style.boldSex(" + lactationDescriptor + " [npc.crotchMilk])]!"
 					+ "</p>");
 			
@@ -418,7 +418,7 @@ public class BreastCrotch implements BodyPartInterface {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] an alarming bubbling and churning taking place deep within [npc.her] [npc.crotchBoobs], and [npc.a_moan+] drifts out from between [npc.her] [npc.lips] as a few drops of [npc.crotchMilk] suddenly leak"
-							+ " from [npc.her] [npc.crotchNipples]; clear evidence that that [npc.her] [npc.crotchMilk] regeneration has [style.boldGrow(increased)].<br/>"
+							+ " from [npc.her] [npc.crotchNipples]; clear evidence that [npc.her] [npc.crotchMilk] regeneration has [style.boldGrow(increased)].<br/>"
 						+ "[npc.NamePos] rate of [npc.crotchMilk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")] ("+Units.fluid(milkRegeneration)+"/day)!"
 					+ "</p>");
 			

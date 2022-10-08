@@ -89,7 +89,7 @@
 		As the incubus, who you now know is called [npc2.name], says this, you notice that he has an additional, smaller sword fastened at his waist, and you realise that the sounds you heard while outside the keep were of this swordsman testing the power of his two blades on the unfortunate poles of bamboo standing behind him. Impatient to hear who you and your companion might be, [npc2.name] doesn't give you enough time to answer, and quickly continues, [npc2.speech(None who enter my dojo uninvited may be permitted to leave without being duly punished. Fifteen years have I spent training with the youko of the Shinrin Highlands. Even though there are two of you, you still stand no chance against my katana and I. Submit to me!)]
 	</p>
 	<p>
-		As he says this, the incubus places one hand on the grip of the larger of his two swords, and readies himself for a fight. The three alpha-imps rush to back their leader up, and you realise that you only have a moment in which to either diffuse the situation, or ready yourself for combat...
+		As he says this, the incubus places one hand on the grip of the larger of his two swords, and readies himself for a fight. The three alpha-imps rush to back their leader up, and you realise that you only have a moment in which to either defuse the situation, or ready yourself for combat...
 	</p>
 	]]>
 	</htmlContent>
@@ -102,7 +102,7 @@
 		In the very centre of the hall, you spot the familiar occupants of [npc2.namePos] dojo gathered around the bamboo poles. The [npc2.race] [npc2.himself] is the first to notice your arrival, and, sheathing his sword and placing his hands on his hips, he booms, [npc2.speech(Back again, hmm?! You two stand no chance against me!)]
 	</p>
 	<p>
-		As he says this, the [npc2.race] places one hand on the grip of the larger of his two swords, and readies himself for a fight. The three alpha-imps rush to back their leader up, and you realise that you only have a moment in which to either diffuse the situation, or ready yourself for combat...
+		As he says this, the [npc2.race] places one hand on the grip of the larger of his two swords, and readies himself for a fight. The three alpha-imps rush to back their leader up, and you realise that you only have a moment in which to either defuse the situation, or ready yourself for combat...
 	</p>
 	]]>
 	</htmlContent>
@@ -890,7 +890,7 @@
 		[pc.speech(I see. So you're just following orders, huh?)] you ask, the tone of your voice making it clear that you don't approve of such an excuse.
 	</p>
 	<p>
-		[npc2.speech(Yes... Just... Please, let me go... I-I can give you one of the keys needed to get inside that place in exchange,)] [npc2.name] offers, reaching into a hidden pocket of [npc2.her] hakama and producing a producing a thick steel key, which, despite its considerable girth, is no more than five inches in length. Giving it to you, [npc2.name] continues, still panting, [npc2.speech(You'll need keys from the other two gang leaders if you want to confront her... Now just... Please let me go!)]
+		[npc2.speech(Yes... Just... Please, let me go... I-I can give you one of the keys needed to get inside that place in exchange,)] [npc2.name] offers, reaching into a hidden pocket of [npc2.her] hakama and producing a thick steel key, which, despite its considerable girth, is no more than five inches in length. Giving it to you, [npc2.name] continues, still panting, [npc2.speech(You'll need keys from the other two gang leaders if you want to confront her... Now just... Please let me go!)]
 	</p>
 	]]>
 	</htmlContent>

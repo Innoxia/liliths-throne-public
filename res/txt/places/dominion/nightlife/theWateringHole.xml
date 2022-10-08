@@ -665,7 +665,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_SEATING_SEX_AS_SUB_REJECTED"><![CDATA[
 	<p>
-		DEsperate to have sex with [npc.name], you start to make your move, but, sensing what it is you want, [npc.she] quickly lets out a frustrated sigh and pushes you away.
+		Desperate to have sex with [npc.name], you start to make your move, but, sensing what it is you want, [npc.she] quickly lets out a frustrated sigh and pushes you away.
 		#IF(npc.isShy())
 			 Stuttering in embarrassment, [npc.she] exclaims, [npc.speech(P-Please stay on your side!)]
 		#ELSE

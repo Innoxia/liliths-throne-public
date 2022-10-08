@@ -63,7 +63,7 @@
 
 	<hitDescriptions>
 		<hitText><![CDATA[
-		Making a downwards slashing motion with with [npc.her] kerambit, [npc.name] [npc.verb(manage)] to strike [npc2.name] in the chest; the ethereal arcane blade passing through [npc2.her] torso to drain [npc2.her] energy!
+		Making a downwards slashing motion with [npc.her] kerambit, [npc.name] [npc.verb(manage)] to strike [npc2.name] in the chest; the ethereal arcane blade passing through [npc2.her] torso to drain [npc2.her] energy!
 		]]></hitText>
 		<hitText><![CDATA[
 		Swiftly striking at [npc2.name] with [npc.her] kerambit, [npc.name] [npc.verb(manage)] to slash through [npc2.her] [npc2.arm] with the ethereal blade and drain [npc2.her] energy!

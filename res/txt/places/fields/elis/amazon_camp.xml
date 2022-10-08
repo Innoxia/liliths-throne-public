@@ -222,7 +222,7 @@
 	
 	<htmlContent tag="TRADER_AUROKARIS_LEAVE"><![CDATA[
 	<p>
-		Having concluded your business with Aurokaris, you tell her that that you need to leave now. Saying goodbye, the cow-girl waves to you as you [pc.step] away from her tent and head off into the camp, wondering what to do next...
+		Having concluded your business with Aurokaris, you tell her that you need to leave now. Saying goodbye, the cow-girl waves to you as you [pc.step] away from her tent and head off into the camp, wondering what to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -702,7 +702,7 @@
 		[ursa.speech(Well don't just stand there, come on in!)] Ursa booms in a friendly tone, before stepping back into her tent. Doing as she says, you [pc.step] past the guards and enter the queen's temporary home.
 	</p>
 	<p>
-		The tent's interior is absolutely gigantic, and is well lit by a series of arcane lanterns which hang down from the wooden poles that support the high canvas ceiling. To your left and right, separate wings have been formed out of adjoining tents, and while there are canvas screens for privacy, you can see that one is the queen's bedroom, while the other looks to be a well-equipped armoury. In the middle of the huge central room in which you're currently standing, a massive wooden table holds a map of Themiscrya and the surrounding countryside. Gesturing to this map, Ursa explains, [ursa.speech(We've been busy planning the recapture of our hometown, but there are so many pressing issues to deal with that it's going to take us a while to truly prepare for it.)]
+		The tent's interior is absolutely gigantic, and is well lit by a series of arcane lanterns which hang down from the wooden poles that support the high canvas ceiling. To your left and right, separate wings have been formed out of adjoining tents, and while there are canvas screens for privacy, you can see that one is the queen's bedroom, while the other looks to be a well-equipped armoury. In the middle of the huge central room in which you're currently standing, a massive wooden table holds a map of Themiscyra and the surrounding countryside. Gesturing to this map, Ursa explains, [ursa.speech(We've been busy planning the recapture of our hometown, but there are so many pressing issues to deal with that it's going to take us a while to truly prepare for it.)]
 	</p>
 	<p>
 		Not seeing any sign of the demonic centauress, you ask the bear-girl queen where Lunexis is being held. Flashing you a toothy grin, she gestures for you to follow her and strides off to the far side of the tent.
@@ -759,7 +759,7 @@
 		Wanting to visit Ursa again, you approach the entrance to her tent, and as you do so the two bear-girl guards on duty move to block your passage. Recognising you from your previous visit, the larger of the two states in a deep, rumbling voice, [style.speechFeminineStrong(You can go on in, but make sure that you're on your best behaviour when in the presence of our queen.)]
 	</p>
 	<p>
-		[pc.Walking] forwards between the guards, you open the canvas flap and enter the huge, purple tent. The interior is absolutely gigantic, and is well lit by a series of arcane lanterns which hang down from the wooden poles that support the high canvas ceiling. To your left and right, separate wings have been formed out of adjoining tents, and while there are canvas screens for privacy, you know very well that one is the queen's bedroom, while the other looks to be a well-equipped armoury. In the middle of the huge central room in which you're currently standing, a massive wooden table holds a map of Themiscrya and the surrounding countryside.
+		[pc.Walking] forwards between the guards, you open the canvas flap and enter the huge, purple tent. The interior is absolutely gigantic, and is well lit by a series of arcane lanterns which hang down from the wooden poles that support the high canvas ceiling. To your left and right, separate wings have been formed out of adjoining tents, and while there are canvas screens for privacy, you know very well that one is the queen's bedroom, while the other looks to be a well-equipped armoury. In the middle of the huge central room in which you're currently standing, a massive wooden table holds a map of Themiscyra and the surrounding countryside.
 	</p>
 	<p>
 		[ursa.speech(Back again, [pc.name]?)] Ursa calls out from behind the table as she sees you entering her tent.
@@ -843,7 +843,7 @@
 		Wanting to know more about the Amazons, you ask Ursa if she can tell you anything about their history and customs.
 	</p>
 	<p>
-		[ursa.speech(There's really not much about us that isn't common knowledge. We're a community of all-feminine warriors, and up until now, we've always kept to ourselves in Themiscyra,)] she replies, [ursa.speech(Under normal circumstances, anyone could present themselves to us and ask to join, but they had to be feminine in appearance, and willing to undergo rigorous physical and martial training. After what's recently happened,however, we're not accepting any new members into our community.)]
+		[ursa.speech(There's really not much about us that isn't common knowledge. We're a community of all-feminine warriors, and up until now, we've always kept to ourselves in Themiscyra,)] she replies, [ursa.speech(Under normal circumstances, anyone could present themselves to us and ask to join, but they had to be feminine in appearance, and willing to undergo rigorous physical and martial training. After what's recently happened, however, we're not accepting any new members into our community.)]
 	</p>
 	<p>
 		Thanking Ursa for the information, you ask her if there are any characteristics in particular which are prized amongst the Amazons.
@@ -933,7 +933,7 @@
 		 As you've been given permission to come and go as you please, the bear-girl sentinels stand aside to grant you access, allowing you to [pc.step] past them and enter the grand, purple tent.
 	</p>
 	<p>
-		Once inside, you see that Ursa, along with several senior-looking Amazons, is standing before the central table, and looks to be busy discussing plans on how to retake Themiscyra. Although she acknowledging your presence with a curt nod, the bear-girl doesn't have any time for you right now, and so you're able to pass her by and head on out into the small, walled compound without being delayed. [pc.Walking] straight on over to the large, pale-red tent which is positioned in the centre of this grassy area, you pass by the bear-girl guard who's on duty and open the entrance flap.
+		Once inside, you see that Ursa, along with several senior-looking Amazons, is standing before the central table, and looks to be busy discussing plans on how to retake Themiscyra. Although she's acknowledging your presence with a curt nod, the bear-girl doesn't have any time for you right now, and so you're able to pass her by and head on out into the small, walled compound without being delayed. [pc.Walking] straight on over to the large, pale-red tent which is positioned in the centre of this grassy area, you pass by the bear-girl guard who's on duty and open the entrance flap.
 	</p>
 	<p>
 		Ducking through the canvas parting, you find yourself in yet another large tent, with a ceiling high enough for the [ursa.heightValue] figure of Ursa to easily stand fully upright. It's not the impressive size of the interior which catches your attention, however, but the fact that the naked form of Lunexis is standing just a short way in front of you. Attached to four huge stakes which have been driven into the ground, a series of heavy, steel chains have been locked to a metal collar that's fastened around the demon's neck.
@@ -1152,7 +1152,7 @@
 	
 	<htmlContent tag="LUNEXIS_SEXUAL_END"><![CDATA[
 	<p>
-		Desperately turned on, the centauress quickly responds by moaning, [lunexis.speech(I don't know anything, you dumb cunt! WHy did you stop?! Come on, you started this, so finish it, you coward! Fuck me!)]
+		Desperately turned on, the centauress quickly responds by moaning, [lunexis.speech(I don't know anything, you dumb cunt! Why did you stop?! Come on, you started this, so finish it, you coward! Fuck me!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1401,16 +1401,6 @@
 	</htmlContent>
 	
 	<htmlContent tag="LUNEXIS_AFTER_SEX_SUBMITTED_OBEYED_SURRENDER"><![CDATA[
-	<p>
-		TODO You obediently do as you're told, and promise to be a good, loyal slave for Lunexis.
-		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
-			 She makes you deep-throat her and act as a cock-sleeve while she taunts you about how pathetic you are.
-		#ELSE
-			 She makes you play with her cock and balls while she taunts you about how pathetic you are.
-		#ENDIF
-		 Tells you to listen as she gives you your first truly important command.
-	</p>
-	
 	#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
 		<p>
 			Unable to resist, you plant a big, wet kiss on the flared head of Lunexis's cock, before completely surrendering to her and promising to always act as her good, obedient slave. Letting out a triumphant laugh as she hears this, your new Mistress commands, [lunexis.speech(Take my cock deep down your throat! You'd better start acting like a good cock-sleeve, or else I'll have to discipline you!)]
@@ -1420,7 +1410,7 @@
 		</p>
 	#ELSE
 		<p>
-			Unable to resist, you lovingly stroke Lunexis's thick cock as you competely surrender to her and promise to always act as her good, obedient slave. Letting out a triumphant laugh as she hears this, your new Mistress commands, [lunexis.speech(Keep stroking my cock! You'd better start acting like a good cock-sleeve, or else I'll have to discipline you!)]
+			Unable to resist, you lovingly stroke Lunexis's thick cock as you completely surrender to her and promise to always act as her good, obedient slave. Letting out a triumphant laugh as she hears this, your new Mistress commands, [lunexis.speech(Keep stroking my cock! You'd better start acting like a good cock-sleeve, or else I'll have to discipline you!)]
 		</p>
 		<p>
 			Hurrying to obey, you step up the pace and start eagerly running your [pc.hands] up and down the considerable length of your Mistress's massive, throbbing cock. Grunting in amusement, she taunts, [lunexis.speech(How pathetic you are! ~Mmm!~ Keep it up, you dumb cock-sleeve, and listen to my plan!)]
