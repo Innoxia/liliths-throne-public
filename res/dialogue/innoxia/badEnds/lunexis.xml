@@ -207,7 +207,7 @@
 				<responseTitle><![CDATA[Aurokaris]]></responseTitle>
 				<responseTooltip><![CDATA[
 					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_spectate_aurokaris))
-						You've already seen what fate has grated to the cock-sleeve formerly known as Aurokaris.
+						You've already seen what fate has befallen the cock-sleeve formerly known as Aurokaris.
 					#ELSE
 						From your position you're able to see what's being done to the cock-sleeve formerly known as Aurokaris.
 					#ENDIF

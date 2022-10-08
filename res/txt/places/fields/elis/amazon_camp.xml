@@ -1401,16 +1401,6 @@
 	</htmlContent>
 	
 	<htmlContent tag="LUNEXIS_AFTER_SEX_SUBMITTED_OBEYED_SURRENDER"><![CDATA[
-	<p>
-		You obediently do as you're told, and promise to be a good, loyal slave for Lunexis.
-		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
-			 She makes you deep-throat her and act as a cock-sleeve while she taunts you about how pathetic you are.
-		#ELSE
-			 She makes you play with her cock and balls while she taunts you about how pathetic you are.
-		#ENDIF
-		 Tells you to listen as she gives you your first truly important command.
-	</p>
-	
 	#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
 		<p>
 			Unable to resist, you plant a big, wet kiss on the flared head of Lunexis's cock, before completely surrendering to her and promising to always act as her good, obedient slave. Letting out a triumphant laugh as she hears this, your new Mistress commands, [lunexis.speech(Take my cock deep down your throat! You'd better start acting like a good cock-sleeve, or else I'll have to discipline you!)]

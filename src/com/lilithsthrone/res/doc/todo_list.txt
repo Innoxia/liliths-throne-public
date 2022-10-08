@@ -6,7 +6,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	
+	Contributors:
+		Fixed a significant amount of typos and grammatical errors. (PR#1701 by Lis)
 	
 	
 	
@@ -30,7 +31,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1658 - MintyChip races
 		[] #1692
 		[] #1693
-		[] #1701
+		[x] #1701
 	
 	[] Make a page on the blog about java/exe/32-bit exe versions
 	

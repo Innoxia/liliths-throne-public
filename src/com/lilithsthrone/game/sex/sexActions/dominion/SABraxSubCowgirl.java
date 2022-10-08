@@ -297,7 +297,7 @@ public class SABraxSubCowgirl {
 					UtilText.nodeContentSB.append("You decide to put Brax's tongue to use, and shuffle forwards until your crotch is positioned over his face.");
 				}
 				
-				UtilText.nodeContentSB.append(" You feel a big dollop of slimy cum drip out of your "+Main.game.getPlayer().getVaginaName(true)+", and you let out a giggle as you smash the slimy creampie down onto Brax's wolf-like muzzle."
+				UtilText.nodeContentSB.append(" You feel a big dollop of slimy cum drip out of your "+Main.game.getPlayer().getVaginaName(true)+", and you let out a giggle as you squash the slimy creampie down onto Brax's wolf-like muzzle."
 						+ " You hold the squirming wolf-boy's head still as you press your cum-filled cunt down over his mouth, giving him no choice but to start cleaning you out."
 						+ " After a moment, Brax stops squirming as he realises that it's useless to resist, and you let out a contented sigh as he starts licking out the cum from your creampied "+Main.game.getPlayer().getVaginaName(false)+".");
 				
@@ -389,7 +389,7 @@ public class SABraxSubCowgirl {
 					UtilText.nodeContentSB.append("You decide to put Brax's tongue to use, and shuffle forwards until your ass is positioned over his face.");
 				}
 				
-				UtilText.nodeContentSB.append(" You feel a big dollop of slimy cum drip out of your [pc.asshole+], and you let out a giggle as you smash the slimy creampie down onto Brax's wolf-like muzzle."
+				UtilText.nodeContentSB.append(" You feel a big dollop of slimy cum drip out of your [pc.asshole+], and you let out a giggle as you squash the slimy creampie down onto Brax's wolf-like muzzle."
 						+ " You hold the squirming wolf-boy's head still as you press your cum-filled asshole down over his mouth, giving him no choice but to start cleaning you out."
 						+ " After a moment, Brax stops squirming as he realises that it's useless to resist, and you let out a contented sigh as he starts licking out the cum from your creampied [pc.asshole].");
 				
