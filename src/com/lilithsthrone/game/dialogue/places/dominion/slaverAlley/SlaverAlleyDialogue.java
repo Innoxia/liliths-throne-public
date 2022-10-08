@@ -112,34 +112,6 @@ public class SlaverAlleyDialogue {
 		}
 		Main.game.getNpc(Finch.class).removeAllSlaves();
 		
-		if(Main.game.isStarted()) {
-			for(NPC npc : new ArrayList<>(Main.game.getCharactersPresent(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_ANAL))) {
-				if(npc.isSlave() && npc.getOwner().equals(Main.game.getNpc(Finch.class))) {
-					Main.game.banishNPC(npc);
-				}
-			}
-			for(NPC npc : new ArrayList<>(Main.game.getCharactersPresent(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_FEMALES))) {
-				if(npc.isSlave() && npc.getOwner().equals(Main.game.getNpc(Finch.class))) {
-					Main.game.banishNPC(npc);
-				}
-			}
-			for(NPC npc : new ArrayList<>(Main.game.getCharactersPresent(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_MALES))) {
-				if(npc.isSlave() && npc.getOwner().equals(Main.game.getNpc(Finch.class))) {
-					Main.game.banishNPC(npc);
-				}
-			}
-			for(NPC npc : new ArrayList<>(Main.game.getCharactersPresent(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_ORAL))) {
-				if(npc.isSlave() && npc.getOwner().equals(Main.game.getNpc(Finch.class))) {
-					Main.game.banishNPC(npc);
-				}
-			}
-			for(NPC npc : new ArrayList<>(Main.game.getCharactersPresent(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_VAGINAL))) {
-				if(npc.isSlave() && npc.getOwner().equals(Main.game.getNpc(Finch.class))) {
-					Main.game.banishNPC(npc);
-				}
-			}
-		}
-		
 		// Female stall:
 		Gender[] genders = new Gender[] {Gender.F_V_B_FEMALE, Gender.F_V_B_FEMALE, Gender.F_P_V_B_FUTANARI};
 		for (Gender gender : genders) {

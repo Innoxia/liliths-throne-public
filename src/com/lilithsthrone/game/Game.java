@@ -2395,6 +2395,7 @@ public class Game implements XMLSaving {
 	
 	private boolean isInNPCUpdateLoop = false;
 	public boolean pendingSlaveInStocksReset = true;
+	public boolean pendingSlaveShopsReset = true;
 	private List<NPC> npcsToRemove = new ArrayList<>();
 	private List<NPC> npcsToAdd = new ArrayList<>();
 	
@@ -2469,6 +2470,7 @@ public class Game implements XMLSaving {
 		boolean slavesUpdated = hoursPassed>0;
 		if(slavesUpdated) {
 			for(int i=1; i <= hoursPassed; i++) {
+				Main.game.getPlayer().performHourlyFluidsCheck();
 				occupancyUtil.performHourlyUpdate(this.getDayNumber((startHour*60*60) + (i*60)), (hourStartTo24+i)%24);
 				for(String slaveId : Main.game.getPlayer().getSlavesOwned()) { // Update slaves' status effects per hour to give them a chance to refill fluids and such.
 					try {
@@ -2497,6 +2499,7 @@ public class Game implements XMLSaving {
 		boolean newDay = getDayNumber(getSecondsPassed()) != getDayNumber(getSecondsPassed() - secondsPassedThisTurn);
 		
 		if(newDay) {
+			pendingSlaveShopsReset = true;
 			pendingSlaveInStocksReset = true;
 			Main.game.getPlayer().resetDaysOrgasmCount();
 			
@@ -2509,23 +2512,32 @@ public class Game implements XMLSaving {
 				}
 			}
 			if(loopDebug) {
-				System.out.println("starting slaver alley reset");
+				System.out.println("starting daily location reset");
 			}
 			
 			// Place resets:
 			LilayaHomeGeneric.dailyUpdate();
-			SlaverAlleyDialogue.dailyReset(); //TODO this method causes lag on new turn - change slaver alley so that slaves are only generated when entering shop and looking around
 			VengarCaptiveDialogue.applyDailyReset();
+		}
+		if (WorldType.SLAVER_ALLEY.getPlacesMap().values().contains(Main.game.getPlayer().getLocationPlaceType())) {
+			if (pendingSlaveShopsReset
+					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_ANAL)
+					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_FEMALES)
+					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_MALES)
+					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_ORAL)
+					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_VAGINAL)) {
+				SlaverAlleyDialogue.dailyReset();
+				pendingSlaveShopsReset = false;
+			}
+			if (pendingSlaveInStocksReset && !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS)) {
+				SlaverAlleyDialogue.stocksReset();
+				pendingSlaveInStocksReset = false;
+			}
 //			getDialogueFlags().dailyReset();
 		}
 		
-		if(pendingSlaveInStocksReset && !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS)) {
-			SlaverAlleyDialogue.stocksReset();
-			pendingSlaveInStocksReset = false;
-		}
-		
 		if(loopDebug) {
-			System.out.println("Slaver alley end");
+			System.out.println("Daily location end");
 		}
 		
 		handleAtmosphericConditions(secondsPassedThisTurn);
@@ -2798,8 +2810,8 @@ public class Game implements XMLSaving {
 			}
 			
 			// Companions:
-			companions = new ArrayList<>(npc.getCompanions());
-			for(GameCharacter companion : companions) {
+			ArrayList<GameCharacter> npcCompanions = new ArrayList<>(npc.getCompanions());
+			for(GameCharacter companion : npcCompanions) {
 				// Updating companion NPCs:
 				companion.companionshipCheck();
 			}
@@ -2839,14 +2851,6 @@ public class Game implements XMLSaving {
 			if(Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS) { // Handle status effects:
 				Main.game.getPlayer().calculateStatusEffects(secondsPassedThisTurn);
 			}
-		}
-		
-		for(int i=1; i <= hoursPassed; i++) {
-			Main.game.getPlayer().performHourlyFluidsCheck();
-		}
-
-		if(loopDebug) {
-			System.out.println("Fluid checks done: "+(System.nanoTime()-tLoopStart)/1000000000f+"s");
 		}
 		
 //		RenderingEngine.ENGINE.renderButtons();
