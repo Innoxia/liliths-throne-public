@@ -457,7 +457,7 @@ public class RatWarrensCaptiveDialogue {
 	private static void applyPlayerMilkingPumps(boolean equip, List<InventorySlot> slots) {
 		GameCharacter player = Main.game.getPlayer();
 		if(equip) {
-			// It really doens't make any narrative sense for the game's lactation content setting to limit the entire purpose of Murk's milkers. Instead of preventing milking, the lactation content setting just limits descriptions of it.
+			// It really doesn't make any narrative sense for the game's lactation content setting to limit the entire purpose of Murk's milkers. Instead of preventing milking, the lactation content setting just limits descriptions of it.
 			if(slots.contains(InventorySlot.NIPPLE) && player.hasBreasts()) {
 				player.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_breast_pumps"), false), InventorySlot.NIPPLE, true, player);
 			}

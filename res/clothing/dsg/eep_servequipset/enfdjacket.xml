@@ -593,7 +593,7 @@
 					<itemTagsRemoved/>
 					<unavailabilityText showDisabledButton="true"><![CDATA[
 						#IF(true)
-							Only Enforcers who hold a rank of Comissioner can use this aiguillette!
+							Only Enforcers who hold a rank of Commissioner can use this aiguillette!
 						#ENDIF
 					]]></unavailabilityText>
 					<availabilityText>

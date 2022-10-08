@@ -118,7 +118,7 @@
 			#IF(pc.hasCompanions() && com.isVisiblyPregnant())
 				#IF(pc.getPregnantLitter().isFatherId(npc.getId()))
 					#IF(com.getPregnantLitter().isFatherId(npc.getId()))
-						[npc.speech(Well, well, well, looks like I got you two sluts knocked up!)] [npc.name] sneers as [npc.she] looks down down at both your and [com.namePos] swollen bellies, [npc.speech(Seeing as I've laid claim to your wombs already, you horny breeding sluts should just submit for another good fucking right now!)]
+						[npc.speech(Well, well, well, looks like I got you two sluts knocked up!)] [npc.name] sneers as [npc.she] looks down at both your and [com.namePos] swollen bellies, [npc.speech(Seeing as I've laid claim to your wombs already, you horny breeding sluts should just submit for another good fucking right now!)]
 					#ELSE
 						[npc.speech(Well, well, well, looks like I got you knocked up, whore!)] [npc.name] sneers as [npc.she] looks down at your swollen belly, before glancing over at [com.name] and remarking, [npc.speech(I see your friend's been #IF(com.hasLegs())spreading [com.her] legs#ELSEgetting creampied#ENDIF as well! Hah! What a pair of sluts!)]
 					#ENDIF
@@ -1013,7 +1013,7 @@
 		Wanting to surprise [npc.name], you tell [npc.herHim] that instead of trying to convince [npc.her] with words, you'd prefer to directly show [npc.herHim] the room that you're offering [npc.herHim]. Agreeing to take a look, [npc.name] accompanies you back to the mansion which you call home, and as you lead [npc.herHim] up the front steps, [npc.she] gasps, [npc.speech(You live <i>here</i>? Wait... Doesn't Lyssieth's daughter live around here somewhere?)]
 	</p>
 	<p>
-		Turning to smirk at the [npc.race], you explain that this very building is Lilaya's mansion, and not only are you living here, but you also have free reign to invite anyone you please to come and live here with you. As you reach up to knock on the front door, [npc.name] lets out a low whistle and admits, [npc.speech(You know, I was prepared for something far smaller than my current apartment... I really wasn't expecting this... )]
+		Turning to smirk at the [npc.race], you explain that this very building is Lilaya's mansion, and not only are you living here, but you also have free rein to invite anyone you please to come and live here with you. As you reach up to knock on the front door, [npc.name] lets out a low whistle and admits, [npc.speech(You know, I was prepared for something far smaller than my current apartment... I really wasn't expecting this... )]
 	</p>
 	<p>
 		Before you can say anything in response, the front door swings open, and you're greeted by the familiar sight of the cat-girl maid, Rose. Taking a moment to look back and forth between you and [npc.name], she curtsies and says, [rose.speech(Welcome back, [pc.name]. I see you have company, would you like me to prepare a room?)]
@@ -1561,7 +1561,7 @@
 		[npc.speech(I hate you! <i>I hate you!</i>)] [npc.she] screams, tears running down [npc.her] face once more as [npc.she] fails to control [npc.her] emotions. Before you can say anything in your defence, [npc.she] turns around and sprints off at full speed, leaving you all alone once again...
 	</p>
 	<p style='text-align:center;'>
-		[style.italicsBad(After betraying [npc.namePos] trust in such a brutal manner, you can be sure that this was be the last time you'll ever see [npc.herHim].)]
+		[style.italicsBad(After betraying [npc.namePos] trust in such a brutal manner, you can be sure that you'll never see [npc.herHim] again...)]
 	</p>
 	]]>
 	</htmlContent>
@@ -2968,7 +2968,7 @@
 		Not at all interested in [stranger.namePos] cock, you turn away from [stranger.herHim] and remain seated outside the bistro. Grunting in disappointment, and to the sound of laughter from the other strangers who were watching, the [stranger.race] [stranger.walks] off and disappears from sight down a nearby alleyway.
 	</p>
 	<p>
-		After that, nothing eventful happens during the fifteen minutes you're left waiting for [npc.namePos] return. As [npc.she] makes [npc.her] eventual return and exits the bistro, the [npc.race] looks over at you with a a surprised look on [npc.her] face. Letting out a mocking laugh, [npc.she]
+		After that, nothing eventful happens during the fifteen minutes you're left waiting for [npc.namePos] return. As [npc.she] makes [npc.her] eventual return and exits the bistro, the [npc.race] looks over at you with a surprised look on [npc.her] face. Letting out a mocking laugh, [npc.she]
 		#IF(npc.isMute())
 			 gestures to imply that [npc.she]'d forgotten you were out here, before making a [npc.hand] movement to shoo you away.
 		#ELSE

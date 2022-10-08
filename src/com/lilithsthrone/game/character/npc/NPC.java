@@ -1549,7 +1549,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		boolean vaginaSet = target.getVaginaType()==body.getVagina().getType();
 		boolean penisSet = target.getPenisType()==body.getPenis().getType();
 		boolean humanGenitals = false;
-		boolean applyingCrotchBoobTF = Main.getProperties().getUddersLevel()==2 || (target.isTaur() && Main.getProperties().getUddersLevel()==1);
+		boolean applyingCrotchBoobTF = Main.game.isUdderContentEnabled();
 		
 		if(Main.getProperties().getForcedTFPreference()==FurryPreference.HUMAN || Main.getProperties().getForcedTFPreference()==FurryPreference.MINIMUM) {
 			humanGenitals = true;
@@ -2856,7 +2856,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_SUBMISSIVE, "Give in to it, and admit that you want nothing more than to be my plaything.");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_SUBMISSIVE, "Sometimes it's nice to get what you want too, right?");
 		
-		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_CUM_STUD, "Nothing really compares to filling a juicy hole hole with your seed, right?");
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_CUM_STUD, "Nothing really compares to filling a juicy hole with your seed, right?");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_CUM_STUD, "Sex should be about the journey, not the destination.");
 		
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_CUM_ADDICT, "I know a dirty little cum dumpster when I see one.");

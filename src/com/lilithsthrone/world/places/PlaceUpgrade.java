@@ -538,7 +538,7 @@ public class PlaceUpgrade {
 			"Lilaya has asked you if you'd consider installing one of her experimental devices in this room; a so-called 'obedience trainer'."
 					+ " This particular addition takes the form of a large, glowing crystal that is to be placed in the centre of the room."
 					+ " Whenever the room's occupant thinks a disobedient thought, the crystal will shoot out a shocking bolt of arcane energy, thereby training a slave's obedience in the most intrusive fashion imaginable.",
-			"You've installed one one of Lilaya's experimental devices in this room; a so-called 'obedience trainer'."
+			"You've installed one of Lilaya's experimental devices in this room; a so-called 'obedience trainer'."
 					+ " This particular addition takes the form of a large, glowing crystal that has been placed in the centre of the room."
 					+ " Whenever the room's occupant thinks a disobedient thought, the crystal shoots out a shocking bolt of arcane energy, thereby training a slave's obedience in the most intrusive fashion imaginable.",
 			"One of Lilaya's experimental devices, a so-called 'obedience trainer', has been installed in the middle of this room."

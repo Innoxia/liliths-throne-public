@@ -973,7 +973,7 @@ public class PrologueDialogue {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
-						Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(false), true);
+						Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(false), true, true);
 					}
 				};
 				

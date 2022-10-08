@@ -2019,11 +2019,11 @@ public class CharacterUtils {
 					&& character.getBreastCrotchShape()!=BreastShape.UDDERS) {
 				character.setNippleCrotchShape(NippleShape.INVERTED);
 			}
-		}
-		if(character.isFeminine()) {
-			int nippleCrotchVariation = Util.random.nextInt(2); // 0-1
-			character.incrementNippleCrotchSize(nippleCrotchVariation);
-			character.incrementAreolaeCrotchSize(nippleCrotchVariation);
+			if(character.isFeminine()) {
+				int nippleCrotchVariation = Util.random.nextInt(2); // 0-1
+				character.incrementNippleCrotchSize(nippleCrotchVariation);
+				character.incrementAreolaeCrotchSize(nippleCrotchVariation);
+			}
 		}
 		
 		// Face:

@@ -204,7 +204,7 @@
 			#ELSE
 				 Giving you one last scowl,
 			#ENDIF
-			 Scarlett follows her matriarch, and as the two of them fly off, the fans let out out a collective sigh of disappointment.
+			 Scarlett follows her matriarch, and as the two of them fly off, the fans let out a collective sigh of disappointment.
 		#ELSE
 			[style.speechFeminine(There she is! Helena! Helena! I'm your biggest fan!)] one of the members of the nearby crowd calls out as she sees the three of you exit the store. As the rest of Helena's fans start to shout and rush forwards, the harpy matriarch coolly tells them that she has no time at the moment, before gracefully striding off down the street.
 			#IF(scarlett.isLikesPlayer())
@@ -212,7 +212,7 @@
 			#ELSE
 				 Giving you one last scowl,
 			#ENDIF
-			 Scarlett follows her matriarch, and as the two of them head off on their way to see Scarlett's sister, the fans let out out a collective sigh of disappointment.
+			 Scarlett follows her matriarch, and as the two of them head off on their way to see Scarlett's sister, the fans let out a collective sigh of disappointment.
 		#ENDIF
 	</p>
 	<p>
@@ -442,7 +442,7 @@
 		[pc.speech(So you don't need my assistance then?)] you ask, seeking to force Helena into admitting that she is desperate for your help.
 	</p>
 	<p>
-		[helena.speech(If you would please be so kind, I would prefer it if you didn't put words into my mouth,)] the matriarch snaps, before closing her eyes for a moment and letting out a deep breath. After a moment spent in this meditative state, she opens her eyes again and admits, [helena.speech(I do still require your help. Despite your insufferable display of arrogance, I will be so kind as to waive your fee. I cannot impresses upon you enough how lucky you are to be getting away with this; if a member of my flock dared to treat me in this manner, then I would have seriously considered having them enslaved. As it so happens, you are not a member of my flock, so all I shall demand of you is that you properly apologise for your insolence.)]
+		[helena.speech(If you would please be so kind, I would prefer it if you didn't put words into my mouth,)] the matriarch snaps, before closing her eyes for a moment and letting out a deep breath. After a moment spent in this meditative state, she opens her eyes again and admits, [helena.speech(I do still require your help. Despite your insufferable display of arrogance, I will be so kind as to waive your fee. I cannot impress upon you enough how lucky you are to be getting away with this; if a member of my flock dared to treat me in this manner, then I would have seriously considered having them enslaved. As it so happens, you are not a member of my flock, so all I shall demand of you is that you properly apologise for your insolence.)]
 	</p>
 	<p>
 		Despite her haughtiness, you find yourself still wanting to help Helena, and so you do as she says and apologise to her. 
@@ -475,7 +475,7 @@
 	
 	<htmlContent tag="ROMANCE_OFFER_HELP_WAIT"><![CDATA[
 	<p>
-		It only takes a moment for Helena to find what it she was looking for, and with a graceful swish of her white-feathered wing, she throws what looks to be a promotional brochure down onto the counter-top in front of you. Opening it up onto a page which she's previously bookmarked, the harpy points to an image of a can of paint, saying, [helena.speech(This is the one you will purchase. Make sure that it's the 'Purple-star' brand; I will not accept anything less than the very best.)]
+		It only takes a moment for Helena to find what item she was looking for, and with a graceful swish of her white-feathered wing, she throws what looks to be a promotional brochure down onto the counter-top in front of you. Opening it up onto a page which she's previously bookmarked, the harpy points to an image of a can of paint, saying, [helena.speech(This is the one you will purchase. Make sure that it's the 'Purple-star' brand; I will not accept anything less than the very best.)]
 	</p>
 	<p>
 		Taking a closer look at the brochure, you see that it's advertising the home-improvements store, 'Argus's DIY Depot'. The can of golden paint which Helena is pointing to is marked up at the unbelievable price of [#SPECIAL_PARSE_0] flames. Advertised lower down, you see that there's a cheaper, 'Bronze-star' branded alternative, which costs just [#SPECIAL_PARSE_1] flames. As you start to wonder if you could get away with buying that cheaper one instead, Helena snaps the brochure shut and informs you, [helena.speech(The store which you need to go to is a short way south of Slaver Alley. You're to go there as soon as you possibly can, buy this paint, and then return here to me. Do you understand?)]
@@ -1502,7 +1502,7 @@
 	
 	<htmlContent tag="ROMANCE_7_WORKING_SCOLDING"><![CDATA[
 	<p>
-		Knowing that the best way to deal with Scarlett is to show her who's boss, you [pc.step] over to where she's is sitting on the counter and firmly scold her for lazing about while you're the one doing all the cleaning.
+		Knowing that the best way to deal with Scarlett is to show her who's boss, you [pc.step] over to where she's sitting on the counter and firmly scold her for lazing about while you're the one doing all the cleaning.
 	</p>
 	<p>
 		#IF(scarlett.isLikesPlayer())
@@ -1543,7 +1543,7 @@
 		Deciding to get started on it right away, the two of you set about putting up the decorations for tomorrow's grand opening. Just as you thought, the work takes you well into the night, and by the time you've pinned the last ribbon to the front of the store's counter, the clock on the wall reads [units.time(1)]. Letting out an exhausted sigh, your co-worker says, [scarlett.speech(Well, this place looks good now, but I'm completely fucking shattered. I'm going to bed.)]
 	</p>
 	<p>
-		Agreeing with Scarlet's chosen course of action, you follow her into the back room, before sitting down on one of the two sofas which have been set aside for use as your beds. Thankfully, not only is it extremely comfortable, but the blankets which Helena has provided are thick and warm, and you breath a sigh of relief as you realise that you'll be able to get a good night's sleep.
+		Agreeing with Scarlet's chosen course of action, you follow her into the back room, before sitting down on one of the two sofas which have been set aside for use as your beds. Thankfully, not only is it extremely comfortable, but the blankets which Helena has provided are thick and warm, and you breathe a sigh of relief as you realise that you'll be able to get a good night's sleep.
 	</p>
 	<p>
 		Without caring about your presence, Scarlett strips off her dress, revealing that she's wearing a matching pair of black boyshorts and croptop bra. Grabbing something from out of one of the fridges, she collapses down on the sofa opposite to yours, before showing off what turns out to be a bottle of whiskey and saying, [scarlett.speech(That fridge is stocked with some good shit. Helena said we could drink whatever's here, so I'm having this.)]

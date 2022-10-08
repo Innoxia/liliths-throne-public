@@ -645,7 +645,7 @@ public class Game implements XMLSaving {
 		return null;
 	}
 	
-	public static void exportGame(String exportFileName, boolean allowOverwrite) {
+	public static void exportGame(String exportFileName, boolean allowOverwrite, boolean isAutoSave) {
 		
 		File dir = new File("data/");
 		dir.mkdir();
@@ -837,7 +837,7 @@ public class Game implements XMLSaving {
 
 			transformer.transform(source, result);
 
-			if(!exportFileName.startsWith("AutoSave")) {
+			if(!isAutoSave) {
 				if(overwrite) {
 					Main.game.addEvent(new EventLogEntry("[style.colourGood(Game saved)]", saveLocation), false);
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), false, PresetColour.GENERIC_GOOD, "Save game overwritten!");
@@ -3202,7 +3202,7 @@ public class Game implements XMLSaving {
 						&& Main.game.isRequestAutosave()
 						&& (Main.game.getCurrentDialogueNode()!=null && !Main.game.getCurrentDialogueNode().isTravelDisabled())) {
 					lastAutoSaveTime = Main.game.getSecondsPassed();
-					Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(false), true);
+					Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(false), true, true);
 					Main.game.setRequestAutosave(false);
 				}
 				
@@ -3445,7 +3445,7 @@ public class Game implements XMLSaving {
 				&& Main.game.isRequestAutosave()
 				&& (Main.game.getCurrentDialogueNode()!=null && !Main.game.getCurrentDialogueNode().isTravelDisabled())) {
 			lastAutoSaveTime = Main.game.getSecondsPassed();
-			Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(false), true);
+			Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(false), true, true);
 			Main.game.setRequestAutosave(false);
 		}
 
@@ -5386,6 +5386,10 @@ public class Game implements XMLSaving {
 	public boolean isLactationContentEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.lactationContent);
 	}
+	
+	public boolean isUdderContentEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.udderContent);
+	}
 
 	public boolean isCumRegenerationEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.cumRegenerationContent);
@@ -5406,10 +5410,6 @@ public class Game implements XMLSaving {
 
 	public boolean isCompanionContentEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.companionContent);
-	}
-	
-	public boolean isCrotchBoobContentEnabled() {
-		return Main.getProperties().getUddersLevel()>0;
 	}
 	
 	public boolean isMuskContentEnabled() {

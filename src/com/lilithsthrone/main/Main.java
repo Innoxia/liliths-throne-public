@@ -86,7 +86,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4.6.3";
+	public static final String VERSION_NUMBER = "0.4.6.5";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 
 	public static boolean quickSaved = false;
@@ -804,7 +804,7 @@ public class Main extends Application {
 			return "You cannot save the game during the character creation process or prologue!";
 			
 		} else if (Main.game.isInCombat()) {
-			return "You cannot save the game while while in combat!";
+			return "You cannot save the game while in combat!";
 			
 		} else if (Main.game.isInSex()) {
 			return "You cannot save the game while in a sex scene!";
@@ -829,7 +829,7 @@ public class Main extends Application {
 	public static void quickSaveGame() {
 		if(isQuickSaveAvailable()){
 			Main.getProperties().lastQuickSaveName = getQuickSaveName();
-			saveGame(getQuickSaveName(), true);
+			saveGame(getQuickSaveName(), true, false);
 			quickSaved = true;
 		} else {
 			Main.game.flashMessage(PresetColour.GENERIC_BAD, getQuickSaveUnavailabilityDescription());
@@ -850,13 +850,13 @@ public class Main extends Application {
 						|| Main.game.getSavedDialogueNode().equals(Main.game.getDefaultDialogue(false)));
 	}
 	
-	public static void saveGame(String name, boolean allowOverwrite) {
+	public static void saveGame(String name, boolean allowOverwrite, boolean isAutoSave) {
 		name = Main.checkFileName(name);
 		if(name.isEmpty()) {
 			return;
 		}
 		
-		Game.exportGame(name, allowOverwrite);
+		Game.exportGame(name, allowOverwrite, isAutoSave);
 
 		try {
 			properties.lastSaveLocation = name;//"data/saves/"+name+".lts";
