@@ -2928,7 +2928,7 @@ public class CreationController {
 									if (SuccubisSecrets.invSlotTattooToRemove == invSlot || !Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations)) {
 										SuccubisSecrets.invSlotTattooToRemove = null;
 										if (Main.game.isInNewWorld()) {
-											Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-100)); //TODO Kate description
+											Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-100));
 										}
 										BodyChanging.getTarget().removeTattoo(invSlot);
 									} else {

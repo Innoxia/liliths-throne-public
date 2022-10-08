@@ -5360,6 +5360,10 @@ public class Game implements XMLSaving {
 	public boolean isLactationContentEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.lactationContent);
 	}
+	
+	public boolean isUdderContentEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.udderContent);
+	}
 
 	public boolean isCumRegenerationEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.cumRegenerationContent);

@@ -635,6 +635,7 @@ public class OptionsController {
 				new Util.Value<>("INVOLUNTARY_NTR", PropertyValue.involuntaryNTR),
 				new Util.Value<>("INCEST", PropertyValue.incestContent),
 				new Util.Value<>("LACTATION", PropertyValue.lactationContent),
+				new Util.Value<>("SEXUAL_UDDERS", PropertyValue.udderContent),
 				new Util.Value<>("URETHRAL", PropertyValue.urethralContent),
 				new Util.Value<>("NIPPLE_PEN", PropertyValue.nipplePenContent),
 				new Util.Value<>("ANAL", PropertyValue.analContent),

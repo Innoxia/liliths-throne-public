@@ -11,9 +11,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Reworked Controller classes and improved UI handling. (PR#1713 by Maxis010)
 	
 	Other:
-		The 'Crotch-boobs & Udders' setting now only applies to randomly-generated NPCs at the moment of their creation (as was stated in the option's tooltip), allowing all characters to gain crotch-boobs/udders via TF no matter the setting.
+		The 'Crotch-boobs & Udders' body setting now only applies to randomly-generated NPCs at the moment of their creation (as was stated in the option's tooltip), allowing all characters to gain crotch-boobs/udders via TF no matter the setting.
+		Added a new 'Crotch-boob & Udder Content' setting in the 'Sex & Fetishes' content options to enable/disable udder-related sex actions and udder transformations to be inflicted upon the player. (Enabled by default.)
 	
-	//TODO Kate description
 	
 	[x] Test
 		[x] New game full character creation
@@ -63,7 +63,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[x] slaves
 			[x] elemental
 		[x] Ordering slave from Helena
-	
+	[x] finish crotch-boob change
+		[x] add sexual udder content setting
+			[x] Evelyx
+			[x] random TF potions
+			[x] Murk TF
 	
 	[] Go over getter/setter methods in GameCharacter and check for content restrictions - move them to other parts of the code wherever possible
 	

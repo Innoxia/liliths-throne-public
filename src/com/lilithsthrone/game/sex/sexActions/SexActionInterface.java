@@ -536,7 +536,7 @@ public interface SexActionInterface {
 		
 		boolean crotchBoobsAllowed = true;
 		try { // Wrap in try/catch block as some sex actions may make calls to ongoing actions that aren't ongoing yet
-			crotchBoobsAllowed = (Main.getProperties().getUddersLevel()>0 || Main.sex.getCharacterTargetedForSexAction(this).isFeral())
+			crotchBoobsAllowed = Main.game.isUdderContentEnabled()
 									|| (!this.getTargetedCharacterAreas().contains(SexAreaOrifice.BREAST_CROTCH)
 											&& !this.getTargetedCharacterAreas().contains(SexAreaOrifice.NIPPLE_CROTCH)
 											&& !this.getPerformingCharacterAreas().contains(SexAreaOrifice.BREAST_CROTCH)

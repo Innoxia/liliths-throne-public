@@ -867,8 +867,7 @@ public class TooltipInformationEventListener implements EventListener {
 					}
 					
 					boolean crotchBreasts = owner.hasBreastsCrotch()
-							&& (Main.getProperties().getUddersLevel()>0 || owner.isFeral())
-							&& (owner.isBreastsCrotchVisibleThroughClothing()||owner.isAreaKnownByCharacter(CoverableArea.NIPPLES_CROTCH, Main.game.getPlayer()));
+							&& (owner.isBreastsCrotchVisibleThroughClothing() || owner.isAreaKnownByCharacter(CoverableArea.NIPPLES_CROTCH, Main.game.getPlayer()));
 					boolean spinneret = owner.hasSpinneret();
 					boolean elemental = owner.isElemental() && !((Elemental)owner).getSummoner().isElementalActive();
 					
@@ -1541,7 +1540,7 @@ public class TooltipInformationEventListener implements EventListener {
 			
 		} else if(loadedBody!=null) {
 			boolean feral = loadedBody.isFeral();
-			boolean crotchBreasts = loadedBody.hasBreastsCrotch() && (Main.getProperties().getUddersLevel()>0 || feral);
+			boolean crotchBreasts = loadedBody.hasBreastsCrotch();
 			boolean spinneret = loadedBody.hasSpinneret();
 			
 			int crotchBreastAddition = crotchBreasts?24:0;

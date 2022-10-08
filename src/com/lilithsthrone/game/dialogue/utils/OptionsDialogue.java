@@ -2697,6 +2697,12 @@ public class OptionsDialogue {
 					"Lactation",
 					"This enables lactation content.",
 					Main.getProperties().hasValue(PropertyValue.lactationContent)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv("SEXUAL_UDDERS",
+					PresetColour.BASE_ORANGE_LIGHT,
+					"Crotch-boob & Udder Content",
+					"This enables crotch-boob & udder-related sex actions and allows crotch-boob & udder transformations to be inflicted upon the player.",
+					Main.getProperties().hasValue(PropertyValue.udderContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("URETHRAL",
 					PresetColour.BASE_PINK_DEEP,

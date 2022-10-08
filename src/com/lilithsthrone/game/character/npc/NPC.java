@@ -1549,7 +1549,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		boolean vaginaSet = target.getVaginaType()==body.getVagina().getType();
 		boolean penisSet = target.getPenisType()==body.getPenis().getType();
 		boolean humanGenitals = false;
-		boolean applyingCrotchBoobTF = Main.getProperties().getUddersLevel()==2 || (target.isTaur() && Main.getProperties().getUddersLevel()==1);
+		boolean applyingCrotchBoobTF = Main.game.isUdderContentEnabled();
 		
 		if(Main.getProperties().getForcedTFPreference()==FurryPreference.HUMAN || Main.getProperties().getForcedTFPreference()==FurryPreference.MINIMUM) {
 			humanGenitals = true;

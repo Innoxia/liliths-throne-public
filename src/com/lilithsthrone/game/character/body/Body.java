@@ -2834,36 +2834,30 @@ public class Body implements XMLSaving {
 		
 		
 		// BreastsCrotch:
-		if(Main.getProperties().getUddersLevel()>0 || owner.isFeral()) {
-			if(owner.isAreaKnownByCharacter(CoverableArea.BREASTS_CROTCH, Main.game.getPlayer())) {
-				if(owner.hasBreastsCrotch()) {
-					sb.append(getHeader(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs"));
-					sb.append(getBreastCrotchDescription(owner, breastCrotch));
-					sb.append("</p>");
-					
-				} else {
-					if(this.leg.getLegConfiguration()!=LegConfiguration.BIPEDAL
-							|| this.isFeral()
-							|| (this.getRaceStage()==RaceStage.GREATER && RacialBody.valueOfRace(this.getRace()).getBreastCrotchType()!=BreastType.NONE && Main.getProperties().getUddersLevel()==2)) {
-						sb.append(getHeader(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs"));
-						sb.append("[style.colourDisabled([npc.She] [npc.do] not have any crotch-boobs or udders.)]");
-						sb.append("</p>");
-					}
-				}
+		if(owner.isAreaKnownByCharacter(CoverableArea.BREASTS_CROTCH, Main.game.getPlayer())) {
+			if(owner.hasBreastsCrotch()) {
+				sb.append(getHeader(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs"));
+				sb.append(getBreastCrotchDescription(owner, breastCrotch));
+				sb.append("</p>");
 				
-			} else {
-				if(leg.getLegConfiguration()!=LegConfiguration.BIPEDAL
-						|| this.isFeral()
-						|| (this.getRaceStage()==RaceStage.GREATER && Main.getProperties().getUddersLevel()==2)) {
-					sb.append(getHeader(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs"));
-					if(owner.hasBreastsCrotch() && owner.isBreastsCrotchVisibleThroughClothing() && leg.getLegConfiguration().isBipedalPositionedCrotchBoobs()) {
-						sb.append("Although you haven't seen [npc.her] exposed stomach before, [npc.her] [npc.crotchBoobsSize], [npc.crotchBoobsCups]-cup [npc.crotchBoobs] quite clearly bulge out from beneath [npc.her] [npc.topClothing(STOMACH)].");
-					} else {
-						sb.append("[style.colourDisabled(You haven't seen [npc.her] exposed stomach before, so you don't know if [npc.sheHasFull] any crotch-boobs or udders.)]");
-					}
-					sb.append("</p>");
-				}
+			} else if(this.leg.getLegConfiguration()!=LegConfiguration.BIPEDAL
+					|| this.isFeral()
+					|| (this.getRaceStage()==RaceStage.GREATER && RacialBody.valueOfRace(this.getRace()).getBreastCrotchType()!=BreastType.NONE && Main.getProperties().getUddersLevel()==2)) {
+				sb.append(getHeader(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs"));
+				sb.append("[style.colourDisabled([npc.She] [npc.do] not have any crotch-boobs or udders.)]");
+				sb.append("</p>");
 			}
+			
+		} else if(leg.getLegConfiguration()!=LegConfiguration.BIPEDAL
+				|| this.isFeral()
+				|| (this.getRaceStage()==RaceStage.GREATER && Main.getProperties().getUddersLevel()==2)) {
+			sb.append(getHeader(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs"));
+			if(owner.hasBreastsCrotch() && owner.isBreastsCrotchVisibleThroughClothing() && leg.getLegConfiguration().isBipedalPositionedCrotchBoobs()) {
+				sb.append("Although you haven't seen [npc.her] exposed stomach before, [npc.her] [npc.crotchBoobsSize], [npc.crotchBoobsCups]-cup [npc.crotchBoobs] quite clearly bulge out from beneath [npc.her] [npc.topClothing(STOMACH)].");
+			} else {
+				sb.append("[style.colourDisabled(You haven't seen [npc.her] exposed stomach before, so you don't know if [npc.sheHasFull] any crotch-boobs or udders.)]");
+			}
+			sb.append("</p>");
 		}
 		
 		

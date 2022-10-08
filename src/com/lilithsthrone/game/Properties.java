@@ -724,6 +724,9 @@ public class Properties {
 					if(Main.isVersionOlderThan(versionNumber, "0.4.1.5")) {
 						values.add(PropertyValue.vestigialMultiBreasts);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.4.6.5")) {
+						values.add(PropertyValue.udderContent);
+					}
 					
 					
 				} else {

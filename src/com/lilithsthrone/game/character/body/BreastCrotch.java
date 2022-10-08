@@ -186,14 +186,6 @@ public class BreastCrotch implements BodyPartInterface {
 			return UtilText.parse(owner, "<p style='text-align:center;'>Due to the fact that [npc.nameIsFull] incubating eggs in [npc.her] [npc.crotchBoobs],"
 					+ " [style.colourMinorBad("+(getShape()==BreastShape.UDDERS && this.getRows()==0?"it":"they")+" cannot be removed)]!</p>");
 		}
-
-		if(owner.getLegConfiguration().isBipedalPositionedCrotchBoobs()
-				&& Main.getProperties().getUddersLevel()==1
-				&& type!=BreastType.NONE
-				&& !owner.isFeral()) {
-			return UtilText.parse(owner, "<p style='text-align:center;'>As [npc.nameIsFull] not a taur, [style.colourBad([npc.she] cannot grow crotch-boobs)], and so nothing happens..."
-					+ "<br/>[style.colourDisabled(This is due to your 'crotch-boob' content option being set to 'taur only'.)]</p>");
-		}
 		
 		if (type == getType()) {
 			if(type.equals(BreastType.NONE)) {
