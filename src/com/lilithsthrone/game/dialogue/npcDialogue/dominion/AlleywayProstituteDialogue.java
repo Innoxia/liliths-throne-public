@@ -38,6 +38,7 @@ public class AlleywayProstituteDialogue {
 	
 	private static boolean inApartment = false;
 	private static boolean hadSex = false;
+	private static boolean confirmKickOut;
 	
 	private static int prostitutePrice(boolean threesome) {
 		return getProstitute().getProstitutePrice() * (threesome?2:1);
@@ -201,7 +202,39 @@ public class AlleywayProstituteDialogue {
 						};
 						
 					} else {
-						return new Response("Angel's Kiss", "There's no room available at Angel's Kiss for another prostitute...", null);
+						if(confirmKickOut) {
+							return new Response("Confirm removal", UtilText.parse(getProstitute(), "Angel will have to kick someone out to accept another prostitute.<br/>"
+									+ "[style.italicsBad(This will permanently remove a prostitute currently at Angels Kiss from the game!)]"),
+									ALLEY_PROSTITUTE_ANGELS_KISS) {
+								@Override
+								public Colour getHighlightColour() {
+									return PresetColour.GENERIC_NPC_REMOVAL;
+								}
+								@Override
+								public void effects() {
+									if(getProstitute().isVisiblyPregnant()){
+										getProstitute().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+									}
+									getProstitute().setDescription(UtilText.parse(getProstitute(), "You first found [npc.name] in the alleyways of Dominion, where [npc.she] was illegally selling [npc.her] body."
+											+ " You offered [npc.herHim] the chance to move and work out of Angel's Kiss; an offer that [npc.she] happily accepted."));
+									Main.game.getTextEndStringBuilder().append(getProstitute().incrementAffection(Main.game.getPlayer(), 50));
+									int banishTarget = Util.random.nextInt(10);
+									Main.game.banishNPC(RedLightDistrict.prostitutes.get(banishTarget));
+									RedLightDistrict.prostitutes.remove(banishTarget);
+									getProstitute().setRandomUnoccupiedLocation(WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_BEDROOM, true);
+									confirmKickOut = false;
+								}
+							};
+							
+						} else {
+							return new ResponseEffectsOnly("Angel's Kiss", UtilText.parse(getProstitute(), "Tell [npc.name] that [npc.she] can get back on the right side of the law if [npc.she] agrees to come and work at Angel's Kiss.<br/>"
+									+ "[style.italicsMinorBad(After choosing this action, you'll need to click again to confirm that you want a random prostitute from Angel's Kiss removed from the game forever.)]")) {
+								@Override
+								public void effects() {
+									confirmKickOut = true;
+								}
+							};
+						}
 					}
 				}
 			}

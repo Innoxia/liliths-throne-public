@@ -38,14 +38,21 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class RedLightDistrict {
 	
+	public static List<NPC> prostitutes = new ArrayList<>();
+	
 	public static boolean isSpaceForMoreProstitutes() {
 		Cell[][] grid = Main.game.getWorlds().get(WorldType.ANGELS_KISS_GROUND_FLOOR).getGrid();
 		
 		for(int i=0; i<grid.length; i++) {
 			for(int j=0; j<grid[0].length; j++) {
-				if(grid[i][j].getPlace().getPlaceType().equals(PlaceType.ANGELS_KISS_BEDROOM)
-						&& Main.game.getCharactersPresent(WorldType.ANGELS_KISS_GROUND_FLOOR, new Vector2i(i, j)).isEmpty()) {
-					return true;
+				if(grid[i][j].getPlace().getPlaceType().equals(PlaceType.ANGELS_KISS_BEDROOM)) {
+					List<NPC> charactersPresent = Main.game.getCharactersPresent(WorldType.ANGELS_KISS_GROUND_FLOOR, new Vector2i(i, j));
+					charactersPresent.removeIf(NPC->NPC instanceof GenericSexualPartner);
+					if (charactersPresent.isEmpty()) {
+						return true;
+					} else if (!prostitutes.contains(charactersPresent.get(0))) {
+						prostitutes.add(charactersPresent.get(0));
+					}
 				}
 			}
 		}
