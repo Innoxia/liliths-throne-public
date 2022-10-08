@@ -104,7 +104,7 @@ public class Properties {
 			"Randomly-generated NPCs will have multiple rows of breasts if their breast type is furry (starts at 'Minor morph' level)."};
 	
 	/** 0=off, 1=taur-only, 2=on*/
-	public int udders = 1;
+	private int udders = 1;
 	public static String[] uddersLabels = new String[] {"Off", "Taur-only", "On"};
 	public static String[] uddersDescriptions = new String[] {
 			"Neither randomly-generated taurs nor anthro-morphs will ever have udders or crotch-boobs.",

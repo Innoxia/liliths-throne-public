@@ -27315,10 +27315,6 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean hasBreastsCrotch() {
 		return  body.getBreastCrotch().getType()!=BreastType.NONE;
 	}
-	/** Based on character's leg configuration and crotch breast setting in properties. */
-	public boolean isCanGrowBreastsCrotch() {
-		return (this.isTaur() && Main.getProperties().udders>=1) || Main.getProperties().udders==2;
-	}
 	public boolean isBreastsCrotchVisibleThroughClothing() {
 		return body.getBreastCrotch().isVisibleThroughClothing(this);
 	}

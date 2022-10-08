@@ -8,8 +8,73 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Contributors:
 		Fixed a significant amount of typos and grammatical errors. (PR#1701 by Lis)
+		Reworked Controller classes and improved UI handling. (PR#1713 by Maxis010)
+	
+	Other:
+		The 'Crotch-boobs & Udders' setting now only applies to randomly-generated NPCs at the moment of their creation (as was stated in the option's tooltip), allowing all characters to gain crotch-boobs/udders via TF no matter the setting.
+	
+	//TODO Kate description
+	
+	[x] Test
+		[x] New game full character creation
+			[x] new character
+			[x] import
+				[x] back & resume throws errors
+		[x] TF menu
+			[x] test crotch-boobs TF when disabled
+				[x] Same issue as breast rows
+				[x] test isCrotchBoobContentEnabled()
+				[x] test isCanGrowBreastsCrotch()
+		[x] debug spawning
+		[x] enchanting
+		[x] saving/loading
+			[x] game
+				[x] loading
+				[x] using button to save doesn't flash message or append to log
+			[x] enchantments
+				[x] override saving doesn't update list
+				[x] sort alphabetically
+			[x] characters
+				[x] lodger
+				[x] slave
+				[x] club
+					[x] broken
+		[x] Maps
+			[x] phone
+			[x] library
+				[x] add tooltips to show what tiles of interest are
+				[x] disable travel while in these scenes?
+		[x] Inventory
+			[x] pc
+			[x] NPCs
+		[x] Slavery management
+			[x] jobs
+			[x] permissions
+			[x] names
+			[x] TF
+			[x] send to Kate
+				[x] not working:
+					[x] hair
+						[x] hair style ? tooltip
+					[x] piercings
+					[x] 'Other'
+		[x] perk & fetish management
+			[x] pc
+			[x] slaves
+			[x] elemental
+		[x] Ordering slave from Helena
 	
 	
+	[] Go over getter/setter methods in GameCharacter and check for content restrictions - move them to other parts of the code wherever possible
+	
+	[] watches are having random secondary colours
+	
+	[] When in tattoo menu show it somehow
+	
+	[] Improve sex history -- - + ++
+		[] character creation
+		[] slave ordering from Helena
+	[] Add custom virginity loss text
 	
 	[] PRs:
 		[] #94

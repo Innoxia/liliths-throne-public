@@ -3817,7 +3817,7 @@ public class PhoneDialogue {
 			for(AbstractFetish fetish : Fetish.getAllFetishes()) {
 				if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 					journalSB.append(
-							"<div id='fetishUnlock" + Fetish.getIdFromFetish(fetish) + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
+							"<div id='FETISH_" + Fetish.getIdFromFetish(fetish) + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
 							? " owned' style='border:2px solid " + PresetColour.FETISH.getShades()[1] + ";'>"
 							: (fetish.isAvailable(Main.game.getPlayer())
 									? " unlocked' style='border:2px solid " +  PresetColour.TEXT_GREY.toWebHexString() + ";" + "'>"
@@ -3881,7 +3881,7 @@ public class PhoneDialogue {
 						+getFetishDesireEntry(targetedCharacter, fetish, FetishDesire.FOUR_LOVE)
 					+ "</div>"
 					+"<div class='container-full-width' style='margin:0 8px; width: calc(22% - 16px);'>"
-						+ "<div id='fetishUnlock" + Fetish.getIdFromFetish(fetish) + "' class='fetish-icon full" + (targetedCharacter.hasFetish(fetish)
+						+ "<div id='FETISH_" + Fetish.getIdFromFetish(fetish) + "' class='fetish-icon full" + (targetedCharacter.hasFetish(fetish)
 							? " owned' style='border:2px solid " + PresetColour.FETISH.toWebHexString() + ";'>"
 							: (fetish.isAvailable(targetedCharacter)
 									? " unlocked' style='border:2px solid " + PresetColour.TEXT_GREY.toWebHexString() + ";" + "'>"

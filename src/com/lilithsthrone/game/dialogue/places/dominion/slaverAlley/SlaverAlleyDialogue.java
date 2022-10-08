@@ -354,7 +354,7 @@ public class SlaverAlleyDialogue {
 					+ baseName
 				+ "</td>"
 				+ "<td>"
-					+ "<div class='saveLoadButton' id='import_slave_" + identifier + "' style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Import</div>"
+					+ "<div class='saveLoadButton' id='IMPORT_SLAVE_" + identifier + "' style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Import</div>"
 				+ "</td>"
 				+ "</tr>";
 	}
