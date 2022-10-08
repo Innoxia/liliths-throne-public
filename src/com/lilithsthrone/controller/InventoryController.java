@@ -27,6 +27,11 @@ import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.colours.Colour;
 
+/**
+ * @since 0.4.6.4
+ * @version 0.4.6.4
+ * @author Maxis010, Innoxia
+ */
 public class InventoryController {
 	public static void initInventoryListeners() {
 		for (int i = 0; i<RenderingEngine.INVENTORY_PAGES; i++) {

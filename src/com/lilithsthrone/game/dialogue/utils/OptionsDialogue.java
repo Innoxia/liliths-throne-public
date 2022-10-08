@@ -2831,7 +2831,7 @@ public class OptionsDialogue {
 					Main.getProperties().hasValue(PropertyValue.vestigialMultiBreasts)));
 			
 			
-			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.NIPPLES, "Multi-breasts", "Choose how you want the game to display multi-breasts."));
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.NIPPLES, "Multi-breasts", "Choose whether randomly-generated furry characters should be given multiple rows of breasts."));
 			for (int i = 2; i>=0; i--) {
 				UtilText.nodeContentSB.append("<div id='MULTI_BREAST_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().multiBreasts == i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
 						+(Main.getProperties().multiBreasts == i
@@ -2841,7 +2841,7 @@ public class OptionsDialogue {
 			}
 			UtilText.nodeContentSB.append("</div></div>");
 			
-			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.NIPPLES_CROTCH, "Crotch-boobs & Udders", "Choose how you want the game to handle udders and crotch-boobs."));
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.NIPPLES_CROTCH, "Crotch-boobs & Udders", "Choose whether randomly-generated taurs and furry characters should be given udders or crotch-boobs."));
 			for (int i = 2; i>=0; i--) {
 				UtilText.nodeContentSB.append("<div id='UDDER_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().getUddersLevel() == i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
 						+(Main.getProperties().getUddersLevel() == i

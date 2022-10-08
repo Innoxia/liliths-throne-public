@@ -37,6 +37,11 @@ import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
 
+/**
+ * @since 0.4.6.4
+ * @version 0.4.6.4
+ * @author Maxis010, Innoxia
+ */
 public class OccupantController {
 	public static void initRoomManagerListeners() {
 		for (Cell c : OccupantManagementDialogue.getImportantCells()) {
@@ -225,6 +230,8 @@ public class OccupantController {
 													?" into your [pc.pussy]."
 													:" directly into your waiting womb.")));
 									break;
+								default:
+									break;
 							}
 						} else {
 							switch (area.getKey()) {
@@ -269,6 +276,8 @@ public class OccupantController {
 													+(MilkingRoom.getTargetedCharacter().isVisiblyPregnant()
 													?" into [npc.her] [npc.pussy]."
 													:" directly into [npc.her] waiting womb.")));
+									break;
+								default:
 									break;
 							}
 						}

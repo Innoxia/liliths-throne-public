@@ -23,6 +23,11 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
+/**
+ * @since 0.4.6.4
+ * @version 0.4.6.4
+ * @author Maxis010, Innoxia
+ */
 public class CoveringController {
 	private static boolean isNoCost() {
 		return !Main.game.isInNewWorld()

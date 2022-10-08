@@ -60,6 +60,11 @@ import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 import javafx.scene.input.KeyCode;
 
+/**
+ * @since 0.4.6.4
+ * @version 0.4.6.4
+ * @author Maxis010, Innoxia
+ */
 public class MiscController {
 	public static void initAlarmListeners() {
 		String id = "PLAYER_ALARM_DECREASE_LARGE";
@@ -574,13 +579,12 @@ public class MiscController {
 			for (int j = 0; j<grid.length; j++) {
 				Cell c = grid[j][i];
 				if ((!worldType.equals(WorldType.WORLD_MAP)
-						&& !Main.game.isMapReveal()
-						&& !c.isDiscovered())
-						|| c.getPlace().getPlaceType().equals(PlaceType.GENERIC_IMPASSABLE)
-						|| !interactive) {
+							&& !Main.game.isMapReveal()
+							&& !c.isDiscovered())
+						|| c.getPlace().getPlaceType().equals(PlaceType.GENERIC_IMPASSABLE)) {
 					continue;
 				}
-				MiscController.initMapLocationListeners(worldType, c, i, j);
+				MiscController.initMapLocationListeners(worldType, c, i, j, interactive);
 			}
 		}
 		
@@ -606,10 +610,13 @@ public class MiscController {
 		}
 	}
 	
-	static void initMapLocationListeners(AbstractWorldType worldType, Cell c, int i, int j) {
+	static void initMapLocationListeners(AbstractWorldType worldType, Cell c, int i, int j, boolean interactive) {
 		String id = "MAP_NODE_"+i+"_"+j;
 		if (MainController.document.getElementById(id) != null) {
 			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setCell(c));
+			if (!interactive) {
+			    return;
+			}
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 				Vector2i clickLocation = new Vector2i(j, i);
 				if (c.getDialogue(false) != null // Make sure the destination actually has an associated DialogueNode

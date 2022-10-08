@@ -19,6 +19,11 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
 
+/**
+ * @since 0.4.6.4
+ * @version 0.4.6.4
+ * @author Maxis010, Innoxia
+ */
 public class DebugController {
 	public static void initSpawnItemListeners() {
 		String id;

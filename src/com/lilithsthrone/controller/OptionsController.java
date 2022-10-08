@@ -35,6 +35,11 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
+/**
+ * @since 0.4.6.4
+ * @version 0.4.6.4
+ * @author Maxis010, Innoxia
+ */
 public class OptionsController {
 	public static void initKeybindListeners() {
 		for (KeyboardAction ka : KeyboardAction.values()) {
@@ -655,7 +660,10 @@ public class OptionsController {
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
-				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(Properties.multiBreastsLabels[i], Properties.multiBreastsDescriptions[i]));
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(
+						Properties.multiBreastsLabels[i],
+						Properties.multiBreastsDescriptions[i]
+								+"<br/><i>Characters can always gain additional breasts via transformations after they've spawned.</i>"));
 			}
 			id = "UDDER_PREFERENCE_"+i;
 			if (MainController.document.getElementById(id) != null) {
@@ -665,7 +673,10 @@ public class OptionsController {
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
-				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(Properties.uddersLabels[i], Properties.uddersDescriptions[i]));
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(
+						Properties.uddersLabels[i],
+						Properties.uddersDescriptions[i]
+								+"<br/><i>Characters can always gain udders/crotch-boobs via transformations after they've spawned.</i>"));
 			}
 		}
 		

@@ -2128,9 +2128,12 @@ public class CharacterCreation {
 				};
 
 
-			} else if (index == 0) {
-				return new Response("Back", "Return to new game screen.", OptionsDialogue.MENU);
-			} else {
+			}
+			// Throws error when going back and then resuming
+//			else if (index == 0) {
+//				return new Response("Back", "Return to new game screen.", OptionsDialogue.MENU);
+//			}
+			else {
 				return null;
 			}
 		}

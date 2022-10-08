@@ -70,6 +70,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemograp
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaMilkingRoomDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
+import com.lilithsthrone.game.dialogue.places.dominion.nightlife.NightlifeDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
@@ -129,6 +130,7 @@ import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.population.Population;
+
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
 import javafx.event.EventHandler;
@@ -147,8 +149,8 @@ import javafx.scene.web.WebView;
 
 /**
  * @since 0.1.0
- * @version 0.3.5.1
- * @author Innoxia
+ * @version 0.4.6.4
+ * @author Innoxia, Maxis010
  */
 public class MainController implements Initializable {
 
@@ -698,7 +700,7 @@ public class MainController implements Initializable {
 									enterConsumed = true;
 									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
 									if(Main.isSaveGameAvailable()) {
-										Main.saveGame(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
+										Main.saveGame(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false, false);
 									}
 									Main.game.setContent(new Response("Save", "", Main.game.getCurrentDialogueNode()));
 								}
@@ -722,7 +724,7 @@ public class MainController implements Initializable {
 								if (event.getCode() == KeyCode.ENTER) {
 									enterConsumed = true;
 									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
-									EnchantmentDialogue.saveEnchant(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
+									EnchantmentDialogue.saveEnchant(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false, EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD);
 									Main.game.setContent(new Response("Save", "", Main.game.getCurrentDialogueNode()));
 								}
 							}
@@ -1354,7 +1356,8 @@ public class MainController implements Initializable {
 			CreationController.initEyeShapeListeners();
 			CreationController.initEyeTypeListeners();
 		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_HAIR)
-				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR)) {
+				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR)
+				|| currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_COSMETICS_HAIR)) {
 			CoveringController.initHairLengthListeners();
 			CoveringController.initHairStyleListeners();
 			CreationController.initHairTypeListeners();
@@ -1442,6 +1445,12 @@ public class MainController implements Initializable {
 			FileController.initBodySaveLoadListeners();
 		} else if (currentNode.equals(CharacterCreation.BACKGROUND_SELECTION_MENU)) {
 			CreationController.initBackgroundSelectionListeners();
+		} else if (currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_COSMETICS_OTHER)) {
+			CoveringController.initBleachingListeners();
+			CoveringController.initAssHairListeners();
+			CoveringController.initFacialHairListeners();
+			CoveringController.initPubicHairListeners();
+			CoveringController.initUnderarmHairListeners();
 		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_ASS)) {
 			CoveringController.initBleachingListeners();
 			CreationController.initAssSizeListeners(true);
@@ -1479,7 +1488,8 @@ public class MainController implements Initializable {
 			CoveringController.initHairLengthListeners();
 			CoveringController.initHairStyleListeners();
 		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_PIERCINGS)
-				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_PIERCINGS)) {
+				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_PIERCINGS)
+				|| currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_COSMETICS_PIERCINGS)) {
 			CoveringController.initPiercingsListeners();
 		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS)
 				|| currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_TATTOOS)
@@ -1510,6 +1520,8 @@ public class MainController implements Initializable {
 			FileController.initLodgerImportListeners();
 		} else if (currentNode.equals(CityHall.CITY_HALL_WAITING_AREA_LODGER_LIST)) {
 			FileController.initLodgerWaitingListeners();
+		} else if (currentNode.equals(NightlifeDistrict.WATERING_HOLE_IMPORT)) {
+			FileController.initClubberImportListeners();
 		} else if (currentNode.equals(CombatMovesSetup.COMBAT_MOVES_CORE)) {
 			MiscController.initCombatMoveListeners();
 		} else if (currentNode.equals(CompanionManagement.OCCUPANT_CHOOSE_NAME)

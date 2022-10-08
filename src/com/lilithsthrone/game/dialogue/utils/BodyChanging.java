@@ -188,14 +188,6 @@ public class BodyChanging {
 			String title = BodyChanging.getTarget().getBreastCrotchShape() == BreastShape.UDDERS?"Udders":"Crotch-boobs";
 			if (Main.game.getCurrentDialogueNode() == BODY_CHANGING_BREASTS_CROTCH) {
 				return new Response(title, "You are already in this screen!", null);
-			} else if (Main.getProperties().udders == 0) {
-				return new Response(title, UtilText.parse(getTarget(), "Change aspects of [npc.namePos] [npc.crotchBoobs]."
-						+"<br/>[style.italicsBad(Crotch-boobs are disabled in the content settings!)]"), null);
-			} else if (!BodyChanging.getTarget().isCanGrowBreastsCrotch()) {
-				return new Response(title,
-						UtilText.parse(getTarget(), "Change aspects of [npc.namePos] [npc.crotchBoobs]."
-								+"<br/>[style.italicsBad(Crotch-boobs are disabled for non-taur characters in the content settings!)]"),
-						null);
 			}
 			return new Response(title,
 					UtilText.parse(getTarget(), "Change aspects of [npc.namePos] [npc.crotchBoobs]."),

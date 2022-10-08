@@ -975,8 +975,8 @@ public class CharacterModificationUtils {
 				UtilText.parse(BodyChanging.getTarget(), "Change how feminine or masculine [npc.namePos] body is."
 						+ "<br/><i>This affects speech colour text, determines whether clothing is too feminine or masculine for [npc.herHim] to wear, and is also used for determining sexual attraction (based on others' orientation).</i>"),
 				"FEMININITY",
-				"",
-				"",
+				"1",
+				"5",
 				BodyChanging.getTarget().getFemininityValue()
 					+"<br/><i style='color:"+BodyChanging.getTarget().getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getFemininity().getName(false))+"</i>",
 				BodyChanging.getTarget().getFemininityValue()<=0,
@@ -2751,8 +2751,8 @@ public class CharacterModificationUtils {
 					?"Change the size of your breasts."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] breasts."),
 				"BREAST_SIZE",
-				"",
-				"",
+				"1",
+				"5",
 				BodyChanging.getTarget().getBreastRawSizeValue()
 					+"<br/><i>"+Util.capitaliseSentence(BodyChanging.getTarget().getBreastSize().getCupSizeName())+(BodyChanging.getTarget().getBreastSize()==CupSize.FLAT?"":"-cup")+"</i>",
 				BodyChanging.getTarget().getBreastRawSizeValue()<=0
@@ -5818,9 +5818,9 @@ public class CharacterModificationUtils {
 						:" "+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_STYLE_COST
 								? UtilText.formatAsMoney(SuccubisSecrets.BASE_HAIR_STYLE_COST, "b")
 								: UtilText.formatAsMoney(SuccubisSecrets.BASE_HAIR_STYLE_COST, "b", PresetColour.GENERIC_BAD))),
-				description
-					+ "<br/><i>'"+Util.capitaliseSentence(HairStyle.TWIN_TAILS.getName(BodyChanging.getTarget()))+"' and '"+Util.capitaliseSentence(HairStyle.TWIN_BRAIDS.getName(BodyChanging.getTarget()))+"'"
-							+ " can be used as handles in some sex actions.</i>",
+				UtilText.parse(BodyChanging.getTarget(), description)
+					+ "<br/><i>'"+Util.capitaliseSentence(HairStyle.TWIN_TAILS.getName(BodyChanging.getTarget()))
+						+"' and '"+Util.capitaliseSentence(HairStyle.TWIN_BRAIDS.getName(BodyChanging.getTarget()))+"' can be used as handles in some sex actions.</i>",
 				"HAIR_STYLE",
 				contentSB.toString(),
 				false);

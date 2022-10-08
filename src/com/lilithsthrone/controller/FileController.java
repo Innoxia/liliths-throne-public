@@ -31,6 +31,11 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
 import javafx.stage.FileChooser;
 
+/**
+ * @since 0.4.6.4
+ * @version 0.4.6.4
+ * @author Maxis010, Innoxia
+ */
 public class FileController {
 	
 	private static File lastOpened = null;
@@ -169,7 +174,7 @@ public class FileController {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					if (!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || OptionsDialogue.overwriteConfirmationName.equals(f.getName())) {
 						OptionsDialogue.overwriteConfirmationName = "";
-						Main.saveGame(fileName, true);
+						Main.saveGame(fileName, true, false);
 					} else {
 						OptionsDialogue.overwriteConfirmationName = f.getName();
 						OptionsDialogue.loadConfirmationName = "";
@@ -225,9 +230,9 @@ public class FileController {
 		}
 		id = "NEW_SAVE";
 		if (MainController.document.getElementById(id) != null) {
-			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{//TODO
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 				Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
-				Main.saveGame(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
+				Main.saveGame(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false, false);
 			}, false);
 			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Save", ""));
 		} else {
@@ -265,7 +270,7 @@ public class FileController {
 		if (MainController.document.getElementById("NEW_SAVE") != null) {
 			((EventTarget) MainController.document.getElementById("NEW_SAVE")).addEventListener("click", e->{
 				Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
-				Main.saveGame(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
+				Main.saveGame(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false, false);
 			}, false);
 		}
 	}
@@ -354,6 +359,25 @@ public class FileController {
 		}
 	}
 	
+	public static void initClubberImportListeners() {
+		for (File f : Main.getSlavesForImport()) {
+			String fileIdentifier = Util.getFileIdentifier(f);
+			String fileName = Util.getFileName(f);
+			if (MainController.document.getElementById("IMPORT_CLUBBER_"+fileIdentifier) != null) {
+				((EventTarget) MainController.document.getElementById("IMPORT_CLUBBER_"+fileIdentifier)).addEventListener("click", e->{
+					try {
+						Game.importCharacterAsClubber(fileName);
+						MainController.updateUI();
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
+						Main.game.flashMessage(PresetColour.GENERIC_GOOD, "Imported Character!");
+					} catch (Exception ex) {
+						Main.game.flashMessage(PresetColour.GENERIC_BAD, "Import Failed!");
+					}
+				}, false);
+			}
+		}
+	}
+	
 	public static void initEnchantmentSaveLoadListeners() {
 		String id;
 		for (File f : EnchantmentDialogue.getSavedEnchants()) {
@@ -365,8 +389,7 @@ public class FileController {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					if (!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || EnchantmentDialogue.overwriteConfirmationName.equals(f.getName())) {
 						EnchantmentDialogue.overwriteConfirmationName = "";
-						EnchantmentDialogue.saveEnchant(fileName, true);
-						Main.game.setContent(new Response("Save/Load", "Open the save/load enchantment window.", EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD));
+						EnchantmentDialogue.saveEnchant(fileName, true, EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD);
 					} else {
 						EnchantmentDialogue.overwriteConfirmationName = f.getName();
 						EnchantmentDialogue.loadConfirmationName = "";
@@ -424,7 +447,7 @@ public class FileController {
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 				Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
-				EnchantmentDialogue.saveEnchant(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
+				EnchantmentDialogue.saveEnchant(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false, EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD);
 			}, false);
 			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Save", ""));
 		}

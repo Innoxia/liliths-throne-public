@@ -20122,7 +20122,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	/**
 	 * Ends the character's pregnancy. If ended with birth, also handles litters added to the littersBirthed list.
-	 *
+	 * 
 	 * @param withBirth true if this pregnancy ends by giving birth.
 	 * @param withClothingManagement true if vagina-blocking clothing should be unsealed.
 	 */
@@ -20240,7 +20240,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	/**
 	 * Ends the character's incubation pregnancy in the associated orifice, unsealing orifice-blocking clothing in the process.
-	 *
+	 * 
 	 * @param orifice The orifice in which the eggs are located.
 	 * @param withBirth true if this pregnancy ends by giving birth.
 	 */
@@ -20250,7 +20250,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 	/**
 	 * Ends the character's incubation pregnancy in the associated orifice.
-	 *
+	 * 
 	 * @param orifice The orifice in which the eggs are located.
 	 * @param withBirth true if this pregnancy ends by giving birth.
 	 * @param withClothingManagement true if orifice-blocking clothing should be unsealed.
@@ -27013,9 +27013,15 @@ public abstract class GameCharacter implements XMLSaving {
 		return this.getBreastRawMilkStorageValue()>0;
 	}
 	public Lactation getBreastMilkStorage() {
+		if(!Main.game.isLactationContentEnabled()) {
+			return Lactation.ZERO_NONE;
+		}
 		return body.getBreast().getMilkStorage();
 	}
 	public int getBreastRawMilkStorageValue() {
+		if(!Main.game.isLactationContentEnabled()) {
+			return 0;
+		}
 		return body.getBreast().getRawMilkStorageValue();
 	}
 	public String setBreastMilkStorage(int lactation) {
@@ -27029,9 +27035,15 @@ public abstract class GameCharacter implements XMLSaving {
 		setBreastStoredMilk(getBreastRawMilkStorageValue());
 	}
 	public Lactation getBreastStoredMilk() {
+		if(!Main.game.isLactationContentEnabled()) {
+			return Lactation.ZERO_NONE;
+		}
 		return body.getBreast().getStoredMilk();
 	}
 	public float getBreastRawStoredMilkValue() {
+		if(!Main.game.isLactationContentEnabled()) {
+			return 0;
+		}
 		if(body.getBreast().getRawMilkStorageValue()<body.getBreast().getRawStoredMilkValue()) {
 			this.setBreastStoredMilk(body.getBreast().getRawMilkStorageValue());
 		}
@@ -27050,7 +27062,7 @@ public abstract class GameCharacter implements XMLSaving {
 				&& this.isSlave()
 				&& this.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.MILKING
 				&& this.isAtWork()) {
-			Cell c = this.getCell();
+			Cell c = this.getCell();//MilkingRoom.getMilkingCell(this, true);
 			MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(c.getType(), c.getLocation());
 			room.incrementFluidStored(new FluidStored(this.getId(), this.getMilk(), -increment), -increment);
 			milked = "<p style='text-align:center; padding:0; margin:0;'>"
@@ -27303,10 +27315,6 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean hasBreastsCrotch() {
 		return  body.getBreastCrotch().getType()!=BreastType.NONE;
 	}
-	/** Based on character's leg configuration and crotch breast setting in properties. */
-	public boolean isCanGrowBreastsCrotch() {
-		return (this.isTaur() && Main.getProperties().udders>=1) || Main.getProperties().udders==2;
-	}
 	public boolean isBreastsCrotchVisibleThroughClothing() {
 		return body.getBreastCrotch().isVisibleThroughClothing(this);
 	}
@@ -27376,9 +27384,15 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	// Lactation:
 	public Lactation getBreastCrotchMilkStorage() {
+		if(!Main.game.isLactationContentEnabled()) {
+			return Lactation.ZERO_NONE;
+		}
 		return body.getBreastCrotch().getMilkStorage();
 	}
 	public int getBreastCrotchRawMilkStorageValue() {
+		if(!Main.game.isLactationContentEnabled()) {
+			return 0;
+		}
 		return body.getBreastCrotch().getRawMilkStorageValue();
 	}
 	public String setBreastCrotchMilkStorage(int lactation) {
@@ -27392,9 +27406,15 @@ public abstract class GameCharacter implements XMLSaving {
 		setBreastCrotchStoredMilk(getBreastCrotchRawMilkStorageValue());
 	}
 	public Lactation getBreastCrotchStoredMilk() {
+		if(!Main.game.isLactationContentEnabled()) {
+			return Lactation.ZERO_NONE;
+		}
 		return body.getBreastCrotch().getStoredMilk();
 	}
 	public float getBreastCrotchRawStoredMilkValue() {
+		if(!Main.game.isLactationContentEnabled()) {
+			return 0;
+		}
 		if(body.getBreastCrotch().getRawMilkStorageValue()<body.getBreastCrotch().getRawStoredMilkValue()) {
 			this.setBreastCrotchStoredMilk(body.getBreastCrotch().getRawMilkStorageValue());
 		}
@@ -29161,7 +29181,7 @@ public abstract class GameCharacter implements XMLSaving {
 				&& this.isSlave()
 				&& this.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.MILKING
 				&& this.isAtWork()) {
-			Cell c = this.getCell();
+			Cell c = this.getCell();//MilkingRoom.getMilkingCell(this, true);
 			MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(c.getType(), c.getLocation());
 			room.incrementFluidStored(new FluidStored(this, this.getCum(), -increment), -increment);
 			if(withFormatting) {
