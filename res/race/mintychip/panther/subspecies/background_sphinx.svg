@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="svg16" version="1.1" viewBox="0 0 64 64">
+  <circle id="circle2" cx="28.47" cy="35.07" r="29.83" fill="#ffe6d5" fill-rule="evenodd" style="isolation:auto;mix-blend-mode:normal" transform="rotate(-6)"/>
+  <g id="g3196" stroke="#000" stroke-dasharray="none" stroke-miterlimit="4" stroke-opacity="1" stroke-width="1" transform="translate(-13.56 -2.63) scale(1.57178)">
+    <path id="path1423" fill="#f95" fill-opacity="1" stroke-linecap="round" stroke-linejoin="round" d="M10.22 24.97 29 36.03l18.76-11.06L29 8.03 10.22 24.97"/>
+    <path id="path1775" fill="none" d="M28.99 8.03v28"/>
+  </g>
+  <g id="g2098" fill="none" stroke="#000" stroke-dasharray="none" stroke-miterlimit="4" stroke-opacity="1" stroke-width="1.57">
+    <path id="path2000" d="m24.41 16.4 7.75 4.55 7.55-4.55"/>
+    <path id="path2002" d="m20.36 19.85 11.47 6.98 11.92-6.98"/>
+    <path id="path2004" d="m17.15 22.85 14.75 8.8 15.05-8.8"/>
+    <path id="path2006" d="m13.88 25.58 17.98 10.75L50 25.58"/>
+    <path id="path2008" d="m11.07 29.37 20.98 12.37 20.99-12.37"/>
+    <path id="path2010" d="m6.45 32.37 25.6 15.1 25.6-15.1"/>
+  </g>
+  <circle id="circle14" cx="28.48" cy="35.17" r="30" fill="none" stroke="#000" stroke-width="2" style="isolation:auto;mix-blend-mode:normal" transform="rotate(-6)"/>
+</svg>
