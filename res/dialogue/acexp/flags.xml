@@ -15,5 +15,8 @@
 		<flag dailyReset="false">dungeon_sounds_heard</flag>
 		<flag dailyReset="false">dungeon_garden_access_found</flag>
 		<flag dailyReset="true">dungeon_sex</flag>
-		
+
+		<!-- Shady dealer: -->
+		<flag dailyReset="true">shady_dealer_found</flag>
+
 </dialogueFlags>

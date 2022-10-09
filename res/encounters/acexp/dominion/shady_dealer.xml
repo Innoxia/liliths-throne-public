@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+
+    <additionalPlaceTypeTriggers>
+        <placeType>DOMINION_BACK_ALLEYS</placeType>
+    </additionalPlaceTypeTriggers>
+
+    <possibleEncounters>
+        <encounter>
+            <name><![CDATA[Shady Dealer]]></name>
+            <chanceToTrigger opportunisticEncounter="false"><![CDATA[
+   				#IF(!game.isStarted() || flags.hasFlag(FLAG_acexp_shady_dealer_found))
+	        		0
+        		#ELSE
+                    75
+			    #ENDIF
+            ]]></chanceToTrigger>
+            <dialogueReturned><![CDATA[acexp_dominion_shady_dealer_intro]]></dialogueReturned>
+        </encounter>
+    </possibleEncounters>
+</encounterRoot>

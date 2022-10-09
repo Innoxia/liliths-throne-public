@@ -7,15 +7,20 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
+import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -37,10 +42,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Predicate;
 
 /**
@@ -49,6 +51,30 @@ import java.util.function.Predicate;
  * @author AceXp
  */
 public class moddedCharacter extends NPC {
+
+	protected boolean isTrader;
+
+	public void setTrader(boolean trader) {
+		isTrader = trader;
+	}
+
+	protected Set<ItemTag> itemTagsToBuy;
+
+	public void setItemTagsToBuy(ItemTag[] itemTagsToBuy) {
+		Collections.addAll(this.itemTagsToBuy, itemTagsToBuy);
+	}
+
+	protected boolean isAbleToBeImpregnated;
+
+	public void setAbleToBeImpregnated(boolean ableToBeImpregnated) {
+		isAbleToBeImpregnated = ableToBeImpregnated;
+	}
+
+	protected boolean isClothingStealable;
+
+	public void setClothingStealable(boolean clothingStealable) {
+		isClothingStealable = clothingStealable;
+	}
 
 	public moddedCharacter() {
 		this(Gender.getGenderFromUserPreferences(false, false), WorldType.EMPTY, new Vector2i(0, 0), false);
@@ -66,7 +92,6 @@ public class moddedCharacter extends NPC {
 		this(gender, worldLocation, Main.game.getWorlds().get(worldLocation).getCell(placeType).getLocation(), isImported, subspeciesRemovalFilter);
 	}
 
-	//Should not be needed, but leave it in anyway
 	public moddedCharacter(Gender gender, AbstractWorldType worldLocation, Vector2i location, boolean isImported, Predicate<AbstractSubspecies> subspeciesRemovalFilter) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
@@ -140,12 +165,22 @@ public class moddedCharacter extends NPC {
 			loadImages();
 
 			initHealthAndManaToMax();
+
+			this.isTrader = false;
+			this.itemTagsToBuy = new HashSet<>();
+			this.isAbleToBeImpregnated = false;
+			this.isClothingStealable = false;
 		}
 	}
 	
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+
+		this.isTrader = false;
+		this.itemTagsToBuy = new HashSet<>();
+		this.isAbleToBeImpregnated = false;
+		this.isClothingStealable = false;
 	}
 
 	@Override
@@ -169,12 +204,22 @@ public class moddedCharacter extends NPC {
 
 	@Override
 	public boolean isAbleToBeImpregnated() {
-		return true;
+		return this.isAbleToBeImpregnated;
 	}
 
 	@Override
 	public boolean isClothingStealable() {
-		return true;
+		return this.isClothingStealable;
 	}
 
+	@Override
+	public boolean isTrader() {
+		return this.isTrader;
+	}
+
+	@Override
+	public boolean willBuy(AbstractCoreItem item) {
+		//disjoint returns true if the two specified collections have no elements in common.
+		return !(Collections.disjoint(item.getItemTags(), itemTagsToBuy));
+	}
 }
