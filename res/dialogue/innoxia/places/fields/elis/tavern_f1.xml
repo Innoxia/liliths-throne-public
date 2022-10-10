@@ -217,7 +217,7 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Quick shower]]></responseTitle>
 				<responseTooltip><![CDATA[
-					Use your room's ensuite to take a quick shower.
+					Use your room's ensuite bathroom to take a quick shower.
 					<br/>[style.italicsGood(Cleans <b>a maximum of [style.fluid(500)]</b> of fluids from all orifices.)]
 					<br/>[style.italicsGood(This will clean <b>only</b> your currently equipped clothing.)]
 				]]></responseTooltip>

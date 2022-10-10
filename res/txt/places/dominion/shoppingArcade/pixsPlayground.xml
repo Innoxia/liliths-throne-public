@@ -200,8 +200,7 @@
 	<p style='text-align:center;'><i>
 		You feel completely exhausted from your workout, and will be unable to do any more exercise until you've had time to recover.
 		<br/>
-		You've [style.colourExcellent(completed your progress)] towards gaining a [style.colourPhysique(physical perk point)]!
-		<br/>[style.boldGood(+1)] [style.boldPhysique(physical perk point)]
+		You've [style.colourExcellent(completed your progress)] towards gaining a [style.colourPhysique(unique perk)]!
 	</i></p>
 	]]>
 	</htmlContent>
@@ -210,7 +209,7 @@
 	<p style='text-align:center;'><i>
 		You feel completely exhausted from your workout, and will be unable to do any more exercise until you've had time to recover.
 		<br/>
-		You've [style.colourMinorGood(gained [#SPECIAL_PARSE_0]% progress)] towards gaining a [style.colourPhysique(physical perk point)]!
+		You've [style.colourMinorGood(gained [#SPECIAL_PARSE_0]% progress)] towards gaining a [style.colourPhysique(unique perk)]!
 		<br/><b>Total progress: [#SPECIAL_PARSE_1]%</b>
 	</i></p>
 	]]>

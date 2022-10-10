@@ -12,12 +12,12 @@
 	<descriptorsMasculine/>
 	<descriptorsFeminine/>
 	<bodyDescription><![CDATA[
-		[npc.SheHasFull] [npc.lipSize], [npc.mouthColourPrimary(true)] [npc.lips],
+		[npc.SheHasFull] [npc.lipSize], [npc.mouthColourPrimary(true)]
 		#IF(npc.isWearingLipstick())
 			#IF(npc.isPiercedLip())
-				 which have been pierced, and
+				 [npc.lips], which have been pierced, and
 			#ELSE
-				 which
+				 [npc.lips], which
 			#ENDIF
 			 are currently [npc.materialCompositionDescriptor]
 			#IF(npc.isHeavyMakeup(BODY_COVERING_TYPE_MAKEUP_LIPSTICK) && game.isLipstickMarkingEnabled())
@@ -25,7 +25,11 @@
 			#ENDIF
 			 [#npc.getLipstick().getFullDescription(npc, true)].
 		#ELSE
-			#IF(npc.isPiercedLip()), which have been pierced#ENDIF.
+			#IF(npc.isPiercedLip())
+				 [npc.lips], which have been pierced.
+			#ELSE
+				 [npc.lips].
+			#ENDIF
 		#ENDIF
 		 [npc.Her] throat is [npc.mouthColourSecondary(true)] in colour.
 	]]></bodyDescription>

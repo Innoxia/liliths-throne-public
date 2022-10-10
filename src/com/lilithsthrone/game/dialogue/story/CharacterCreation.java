@@ -46,7 +46,6 @@ import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
-import com.lilithsthrone.game.dialogue.utils.OptionsDialogue.ContentOptionsPage;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -132,57 +131,7 @@ public class CharacterCreation {
 		public String getContent() {
 			return Main.getPatchNotes();
 		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Continue", "Continue to the next screen.", CONTENT_PREFERENCE){
-					@Override
-					public void effects() {
-						OptionsDialogue.contentOptionsPage = ContentOptionsPage.MISC;
-					}
-				};
-				
-			} else {
-				return null;
-			}
-		}
-	};
-
-	public static final DialogueNode CONTENT_PREFERENCE = new DialogueNode("Content Preferences", "", true) {
-		@Override
-		public String getLabel() {
-			switch(OptionsDialogue.contentOptionsPage) {
-				case BODIES:
-					return "Content Options (Bodies)";
-				case GAMEPLAY:
-					return "Content Options (Gameplay)";
-				case MISC:
-					return "Content Options (Misc.)";
-				case SEX:
-					return "Content Options (Sex & Fetishes)";
-				case UNIT_PREFERENCE:
-					break;
-			}
-			return "";
-		}
 		
-		@Override
-		public String getHeaderContent() {
-			return "<p>"
-						+ "The following options determine what content is enabled in the game."
-					+ "</p>"
-					+ "<p>"
-						+ "All of these options can be changed at any time by accessing the main menu (press Escape, or click on the cog icon in the bottom-left corner of the screen), and then navigating to 'options', then 'content preferences'."
-					+ "</p>"
-					+ OptionsDialogue.CONTENT_PREFERENCE.getHeaderContent();
-		}
-
-		@Override
-		public String getContent() {
-			return "";
-		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -214,81 +163,11 @@ public class CharacterCreation {
 						Main.game.getPlayerCell().resetInventory();
 					}
 				};
-				
-			} else if(index==6) {
-				return new Response("Misc.",
-						OptionsDialogue.contentOptionsPage==ContentOptionsPage.MISC
-							?"You are already viewing the miscellaneous content options!"
-							:"View the game's miscellaneous content options.",
-						OptionsDialogue.contentOptionsPage==ContentOptionsPage.MISC
-							?null
-							:CONTENT_PREFERENCE) {
-					@Override
-					public void effects() {
-						OptionsDialogue.contentOptionsPage=ContentOptionsPage.MISC;
-					}
-				};
-				
-			} else if(index==7) {
-				return new Response("Gameplay",
-						OptionsDialogue.contentOptionsPage==ContentOptionsPage.GAMEPLAY
-							?"You are already viewing the gameplay content options!"
-							:"View the game's gameplay content options.",
-						OptionsDialogue.contentOptionsPage==ContentOptionsPage.GAMEPLAY
-							?null
-							:CONTENT_PREFERENCE) {
-					@Override
-					public void effects() {
-						OptionsDialogue.contentOptionsPage=ContentOptionsPage.GAMEPLAY;
-					}
-				};
-				
-			} else if(index==8) {
-				return new Response("Sex & Fetishes",
-						OptionsDialogue.contentOptionsPage==ContentOptionsPage.SEX
-							?"You are already viewing the sex & fetishes content options!"
-							:"View the game's sex & fetishes content options.",
-						OptionsDialogue.contentOptionsPage==ContentOptionsPage.SEX
-							?null
-							:CONTENT_PREFERENCE) {
-					@Override
-					public void effects() {
-						OptionsDialogue.contentOptionsPage=ContentOptionsPage.SEX;
-					}
-				};
-				
-			} else if(index==9) {
-				return new Response("Bodies",
-						OptionsDialogue.contentOptionsPage==ContentOptionsPage.BODIES
-							?"You are already viewing the bodies content options!"
-							:"View the game's bodies content options.",
-						OptionsDialogue.contentOptionsPage==ContentOptionsPage.BODIES
-							?null
-							:CONTENT_PREFERENCE) {
-					@Override
-					public void effects() {
-						OptionsDialogue.contentOptionsPage=ContentOptionsPage.BODIES;
-					}
-				};
-				
-			} else if (index == 11) {
-				return new Response("[style.colourBad(Reset)]", "Resets <b>all</b> content preferences to their default values!", CONTENT_PREFERENCE) {
-					@Override
-					public void effects() {
-						for(PropertyValue pv : PropertyValue.values()) {
-							Main.getProperties().setValue(pv, pv.getDefaultValue());
-						}
-						Main.getProperties().resetContentOptions();
-						Main.saveProperties();
-					}
-				};
-				
-			} else {
-				return null;
 			}
-		}
+			return null;
+		};
 	};
-	
+
 	public static void resetBodyAppearance() {
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_LIGHT), true);
 		Main.game.getNpc(Lilaya.class).setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
@@ -751,15 +630,8 @@ public class CharacterCreation {
 					}
 				};
 				
-			}
-			else if (index == 0) {
-				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CONTENT_PREFERENCE){
-					@Override
-					public void effects() {
-						OptionsDialogue.contentOptionsPage = ContentOptionsPage.MISC;
-					}
-				};
-				
+			} else if (index == 0) {
+				return new Response("Back", "Return to the main menu.", OptionsDialogue.MENU);
 			} else {
 				return null;
 			}
@@ -779,7 +651,7 @@ public class CharacterCreation {
 					+ "</p>"
 					+ "<p>"
 						+ "You turn away from the glass and step forwards, smiling."
-						+ " [pc.speech(Yes, I have it right here... erm... hold on....)]"
+						+ " [pc.speech(Yes, I have it right here... erm... hold on...)]"
 					+ "</p>"
 					+ "<p>"
 						+ "Reaching into your "+(Main.game.getPlayer().isFeminine()?"purse":"pocket")+", you feel your heart start to race as you discover that the invitation isn't in there."
@@ -901,7 +773,7 @@ public class CharacterCreation {
 							Main.game.getPlayer().setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent());
 						}
 
-						Main.game.getPlayer().setName(Name.getRandomTriplet(Race.HUMAN));
+						Main.game.getPlayer().setName(Name.getRandomTriplet(Subspecies.HUMAN));
 					}
 				};
 				
@@ -1348,7 +1220,7 @@ public class CharacterCreation {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(CharacterModificationUtils.tattoo.getType().equals(TattooType.NONE)
+				if(CharacterModificationUtils.tattoo.getType().equals(TattooType.getTattooTypeFromId("innoxia_misc_none"))
 						&& CharacterModificationUtils.tattoo.getWriting().getText().isEmpty()
 						&& CharacterModificationUtils.tattoo.getCounter().getType()==TattooCounterType.NONE) {
 					return new Response("Apply", "You need to select a tattoo type, add some writing, or add a counter in order to make a tattoo!", null);
@@ -2012,7 +1884,7 @@ public class CharacterCreation {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS));
 						
 						Main.game.getPlayer().incrementMoney(5000);
-						
+
 						DamageType damageType = DamageType.FIRE;
 						switch(CharacterCreation.getStartingDemonstoneSpellSchool()) {
 							case AIR:
@@ -2029,7 +1901,11 @@ public class CharacterCreation {
 								damageType = DamageType.ICE;
 								break;
 						}
-						Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType));
+						if(Main.game.getPlayer().getMainWeapon(0)==null) {
+							Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType));
+						} else {
+							Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType), false);
+						}
 						
 						Spell startingSpell = Spell.FIREBALL;
 						switch(getStartingTomeSpellSchool()) {
@@ -2091,7 +1967,7 @@ public class CharacterCreation {
 					+ "<b>2.</b> Copy the exported .xml file (in the old version's <i>data/characters</i> folder).<br/>"
 					+ "<b>3.</b> Paste it into this version's <i>data/characters</i> folder.<br/>"
 					+ "<b>4.</b> Press 'Refresh', and your old character file should show up in the list below!<br/><br/>"
-					+ "(If it doesn't work, please let me know as a comment on my blog, and I'll get it fixed ASAP!)"
+//					+ "(If it doesn't work, please let me know as a comment on my blog, and I'll get it fixed ASAP!)"
 					+ "</p>"
 					+ "<p>"
 					+ "<table align='center'>"
@@ -2120,17 +1996,7 @@ public class CharacterCreation {
 				return new Response("Refresh", "Refresh this page.", IMPORT_CHOOSE);
 				
 			} else if (index == 0) {
-				return new ResponseEffectsOnly("Back", "Return to new game screen."){
-					@Override
-					public void effects() {
-						Main.mainController.setAttributePanelContent("");
-						Main.mainController.setButtonsLeftContent("");
-						Main.mainController.setButtonsRightContent("");
-
-						OptionsDialogue.contentOptionsPage = ContentOptionsPage.MISC;
-						Main.startNewGame(CharacterCreation.CONTENT_PREFERENCE);
-					}
-				};
+				return new Response("Back", "Return to main menu.", OptionsDialogue.MENU);
 				
 			} else {
 				return null;
@@ -2149,7 +2015,7 @@ public class CharacterCreation {
 					+ baseName
 				+ "</td>"
 				+ "<td>"
-					+ "<div class='saveLoadButton' id='character_import_" + identifier + "' style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Load</div>"
+					+ "<div class='saveLoadButton' id='IMPORT_CHARACTER_" + identifier + "' style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Load</div>"
 				+ "</td>"
 				+ "</tr>";
 	}
@@ -2226,7 +2092,11 @@ public class CharacterCreation {
 								damageType = DamageType.ICE;
 								break;
 						}
-						Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType));
+						if(Main.game.getPlayer().getMainWeapon(0)==null) {
+							Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType));
+						} else {
+							Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType), false);
+						}
 						
 						AbstractItem spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.FIREBALL));
 						if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 1) {
@@ -2258,20 +2128,12 @@ public class CharacterCreation {
 				};
 
 
-			} else if (index == 0) {
-				return new ResponseEffectsOnly("Back", "Return to new game screen."){
-					@Override
-					public void effects() {
-						Main.mainController.setAttributePanelContent("");
-						Main.mainController.setButtonsLeftContent("");
-						Main.mainController.setButtonsRightContent("");
-
-						OptionsDialogue.contentOptionsPage = ContentOptionsPage.MISC;
-						Main.startNewGame(CharacterCreation.CONTENT_PREFERENCE);
-					}
-				};
-				
-			} else {
+			}
+			// Throws error when going back and then resuming
+//			else if (index == 0) {
+//				return new Response("Back", "Return to new game screen.", OptionsDialogue.MENU);
+//			}
+			else {
 				return null;
 			}
 		}

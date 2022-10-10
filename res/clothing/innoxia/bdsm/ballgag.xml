@@ -43,7 +43,8 @@
 		<tertiaryColours values="JUST_STEEL"/>
 		<tertiaryColoursDye values="ALL_METAL"/>
 		
-		<itemTags> 
+		<itemTags>
+			<tag>ENABLE_SEX_EQUIP</tag>
 			<tag>MUFFLES_SPEECH</tag>
 			<tag>SOLD_BY_FINCH</tag>
 		</itemTags>

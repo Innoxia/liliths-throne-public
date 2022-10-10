@@ -1757,15 +1757,16 @@ public class ItemType {
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return target.isPlayer()
-					&& (Util.newArrayListOfValues(
-						Encounter.DOMINION_ALLEY,
-						Encounter.DOMINION_CANAL,
-						Encounter.HARPY_NEST_WALKWAYS,
-						Encounter.SUBMISSION_TUNNELS,
-						Encounter.BAT_CAVERN,
-						Encounter.getEncounterFromId("innoxia_elis_alleyway")
-					).contains(target.getLocationPlace().getPlaceType().getEncounterType()))
-					&& Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size()<=1;
+					&& Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size()==0
+					&& ((Util.newArrayListOfValues(
+							Encounter.DOMINION_ALLEY,
+							Encounter.DOMINION_CANAL,
+							Encounter.HARPY_NEST_WALKWAYS,
+							Encounter.SUBMISSION_TUNNELS,
+							Encounter.BAT_CAVERN,
+							Encounter.getEncounterFromId("innoxia_elis_alleyway")
+						).contains(target.getLocationPlace().getPlaceType().getEncounterType()))
+						|| Main.game.getPlayer().getLocationPlaceType()==PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_alley"));
 		}
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {

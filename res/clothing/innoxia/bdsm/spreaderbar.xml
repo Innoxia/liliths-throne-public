@@ -43,6 +43,7 @@
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
 		<itemTags> 
+			<tag>ENABLE_SEX_EQUIP</tag>
 			<tag>SPREADS_FEET</tag>
 			<tag>HINDERS_LEG_MOVEMENT</tag>
 			<tag>SOLD_BY_FINCH</tag>

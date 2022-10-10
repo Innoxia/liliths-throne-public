@@ -5,7 +5,7 @@
 	
 	<htmlContent tag="DATE_START"><![CDATA[
 	<p>
-		With your excitement outweighing your apprehension at the prospect of going out on a date with both Nyan and her mother, you swiftly [pc.walk] past the immaculately-clean, regency-styled residences which line their street,. Heading up the steps to the front door of their apartment building, you make use of the arcane intercom to buzz your girlfriend. After a momentary pause, you hear Nyan's voice call out over the intercom, [nyan.speechNoEffects(Hello? This is Ms. [nyan.surname], who is it?)]
+		With your excitement outweighing your apprehension at the prospect of going out on a date with both Nyan and her mother, you swiftly [pc.walk] past the immaculately-clean, regency-styled residences which line their street. Heading up the steps to the front door of their apartment building, you make use of the arcane intercom to buzz your girlfriend. After a momentary pause, you hear Nyan's voice call out over the intercom, [nyan.speechNoEffects(Hello? This is Ms. [nyan.surname], who is it?)]
 	</p>
 	<p>
 		After quickly telling her that it's you, and that you're here to pick her up for a date, Nyan lets out an excited squeak and quickly replies, [nyan.speechNoEffects([pc.Name]! Come on up!)]
@@ -17,7 +17,7 @@
 		[pc.Stepping] up to where your girlfriend is waiting, you confirm that that's what you're here for. As she hears you say this, Nyan's bright blue eyes light up, and she excitedly claps her hands together and exclaims, [nyan.speechNoEffects(Hooray! Come on in, [pc.name], we'll just take a moment to get ready!)]
 	</p>
 	<p>
-		Once more doing as she says, you enter your girlfriend's apartment, but as you [pc.walk] over to the other side of the the entrance hall, your way is suddenly blocked by the appearance of [nyanmum.name]. Flashing you a devious smirk, her yellow, predatory eyes roam down over your body, and after briefly licking her lips, she teases, [nyanmum.speech(I haven't been taken out on a date by someone as attractive as you for a very long time... Perhaps if you play your cards right, you'll be waking up in bed with both Nyan and I tomorrow morning...)]
+		Once more doing as she says, you enter your girlfriend's apartment, but as you [pc.walk] over to the other side of the entrance hall, your way is suddenly blocked by the appearance of [nyanmum.name]. Flashing you a devious smirk, her yellow, predatory eyes roam down over your body, and after briefly licking her lips, she teases, [nyanmum.speech(I haven't been taken out on a date by someone as attractive as you for a very long time... Perhaps if you play your cards right, you'll be waking up in bed with both Nyan and I tomorrow morning...)]
 	</p>
 	<p>
 		[nyan.speech(Mum!)] Nyan exclaims, and with her cheeks starting to flush red, she pushes her mother towards their bedrooms, calling behind her as she goes, [nyan.speech(Please wait in the lounge, [pc.name]! We won't take long to get ready!)]
@@ -76,7 +76,7 @@
 			[nyanmum.speech(What fun!)] [nyanmum.name] declares. The physical exertion seems to have got her pumped up, and with a wild look in her eyes, she smiles at you and pants, [nyanmum.speech(I've got a lot of stamina... I suppose you were going to find that out later this evening anyway...)]
 		</p>
 		<p>
-			After giving your girlfriend some time in which to catch her breath, you accompany her and her mother down the wide, marble walkways of the Arcade, and soon arrive at your destination of the restaurant, 'The Oaken Glade'. Holding open the front door and allowing your two companions to step inside, you follow them through and are immediately met by the same smartly-dressed otter-boy maître d' as the the last time you were here. After giving you and Nyan a friendly, familiar smile, he addresses [nyanmum.name] by bowing his head and saying, [style.speechMasculine(Good evening, Ms. [nyanmum.surname]! We are most delighted to see you here again. We always have a table for you, so if you'll please follow me, I'll get you seated.)]
+			After giving your girlfriend some time in which to catch her breath, you accompany her and her mother down the wide, marble walkways of the Arcade, and soon arrive at your destination of the restaurant, 'The Oaken Glade'. Holding open the front door and allowing your two companions to step inside, you follow them through and are immediately met by the same smartly-dressed otter-boy maître d' as the last time you were here. After giving you and Nyan a friendly, familiar smile, he addresses [nyanmum.name] by bowing his head and saying, [style.speechMasculine(Good evening, Ms. [nyanmum.surname]! We are most delighted to see you here again. We always have a table for you, so if you'll please follow me, I'll get you seated.)]
 		</p>
 	#ELSEIF(game.getCurrentWeather()==WEATHER_RAIN || game.getCurrentWeather()==WEATHER_SNOW)
 		<p>
@@ -98,7 +98,7 @@
 	#ENDIF
 	#IF(game.getCurrentWeather()!=WEATHER_MAGIC_STORM)
 		<p>
-			Heading inside, you accompany Nyan and [nyanmum.name] down the wide, marble walkways of the Arcade, and soon arrive at your destination of the restaurant, 'The Oaken Glade'. Holding open the front door and allowing your two companions to step inside, you follow them through and are immediately met by the same smartly-dressed otter-boy maître d' as the the last time you were here. After giving you and Nyan a friendly, familiar smile, he addresses [nyanmum.name] by bowing his head and saying, [style.speechMasculine(Good evening, Ms. [nyanmum.surname]! We are most delighted to see you here again. We always have a table for you, so if you'll please follow me, I'll get you seated.)]
+			Heading inside, you accompany Nyan and [nyanmum.name] down the wide, marble walkways of the Arcade, and soon arrive at your destination of the restaurant, 'The Oaken Glade'. Holding open the front door and allowing your two companions to step inside, you follow them through and are immediately met by the same smartly-dressed otter-boy maître d' as the last time you were here. After giving you and Nyan a friendly, familiar smile, he addresses [nyanmum.name] by bowing his head and saying, [style.speechMasculine(Good evening, Ms. [nyanmum.surname]! We are most delighted to see you here again. We always have a table for you, so if you'll please follow me, I'll get you seated.)]
 		</p>
 	#ENDIF
 	<p>
@@ -154,7 +154,7 @@
 		Realising that her mother is talking about you, Nyan pouts and mumbles, [nyan.speech(You can't just treat [pc.name] like an object, mum...)]
 	</p>
 	<p>
-		Laughing off her daughter's reply, [nyanmum.name] asks you what you're gong to order for your starter, and after telling her what you're thinking of, the three of you move on to deciding your main courses. Once again, Nyan decides to order tsipoura, while her mother immediately declares that she'll be having steak. Just as you've also decided what it is you'd to eat this evening, the otter-boy returns to take your orders...
+		Laughing off her daughter's reply, [nyanmum.name] asks you what you're going to order for your starter, and after telling her what you're thinking of, the three of you move on to deciding your main courses. Once again, Nyan decides to order tsipoura, while her mother immediately declares that she'll be having steak. Just as you've also decided what it is you'd to eat this evening, the otter-boy returns to take your orders...
 	</p>
 	]]>
 	</htmlContent>

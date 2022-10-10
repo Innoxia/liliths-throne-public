@@ -191,7 +191,7 @@ public class Kate extends NPC {
 				
 				this.addTattoo(InventorySlot.TORSO_OVER,
 						new Tattoo(
-							TattooType.BUTTERFLIES,
+							"innoxia_animal_butterflies",
 							PresetColour.CLOTHING_PURPLE,
 							PresetColour.CLOTHING_PINK,
 							PresetColour.CLOTHING_PINK_LIGHT,
@@ -201,7 +201,7 @@ public class Kate extends NPC {
 				
 				this.addTattoo(InventorySlot.TORSO_UNDER,
 						new Tattoo(
-							TattooType.TRIBAL,
+							"innoxia_symbol_tribal",
 							PresetColour.CLOTHING_BLACK,
 							null,
 							null,

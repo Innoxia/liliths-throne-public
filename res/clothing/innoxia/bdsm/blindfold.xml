@@ -46,6 +46,7 @@
 		<tertiaryColoursDye/>
 	
 		<itemTags> 
+			<tag>ENABLE_SEX_EQUIP</tag>
 			<tag>SOLD_BY_FINCH</tag>
 			<tag>BLOCKS_SIGHT</tag>
 		</itemTags>

@@ -92,7 +92,7 @@ import com.lilithsthrone.utils.comparators.ClothingZLayerComparator;
 import com.lilithsthrone.world.Cell;
 
 /**
- * Singleton enforced by Enum Call initialiseCombat() before using.
+ * Singleton enforced by Enum Call initialiseSex() before using.
  * Then call startSex(), which returns the starting DialogueNode.
  * 
  * Lasciate ogni speranza, voi ch'entrate.
@@ -184,6 +184,8 @@ public class Sex {
 	private GameCharacter characterLayingEggs; // Usually null, but if there is an ongoing egg-laying orgasm action, this variable is set to the character who is laying eggs
 	
 	private Value<GameCharacter, Value<GameCharacter, AbstractClothing>> clothingSelfEquipInformation; // The character self-equipping clothing, the character targeted, and the clothing being equipped.
+	private Value<GameCharacter, Value<GameCharacter, AbstractClothing>> clothingEquipInformation; // The character equipping clothing, the character targeted, and the clothing being equipped.
+	
 	private Value<GameCharacter, Value<GameCharacter, AbstractItem>> itemUseInformation; // The character using an item, the character targeted, and the item being used.
 	private Map<GameCharacter, Map<GameCharacter, List<AbstractItemType>>> itemUseDenials; // A map of item-using NPCs to a map of characters who they've tried, and failed, to use items on. This second map has the failed items in a List as its Value.
 	
@@ -276,6 +278,8 @@ public class Sex {
 	
 	private Map<GameCharacter, Map<InventorySlot, Map<AbstractClothing, List<DisplacementType>>>> clothingPreSexMap;
 	private Map<GameCharacter, Map<InventorySlot, AbstractWeapon>> weaponsPreSexMap;
+	
+	private Map<GameCharacter, Map<GameCharacter, List<AbstractClothing>>> clothingEquippedDuringSex; // Maps character who owned clothing -> character who had it equipped to them -> list of clothingclothing
 	
 	private boolean sexFinished;
 	
@@ -704,7 +708,6 @@ public class Sex {
 		}
 		
 		weaponsPreSexMap = new HashMap<>();
-
 		for(GameCharacter character : Main.sex.getAllParticipants()) {
 			weaponsPreSexMap.put(character, new HashMap<>());
 			// Main weapons:
@@ -734,7 +737,13 @@ public class Sex {
 				weaponsPreSexMap.get(character).put(InventorySlot.WEAPON_OFFHAND_3, w);
 			}
 		}
+
 		
+		clothingEquippedDuringSex = new HashMap<>();
+		for(GameCharacter character : Main.sex.getAllParticipants()) {
+			clothingEquippedDuringSex.put(character, new HashMap<>());
+		}
+
 		// Add known areas, so NPCs don't react to already-naked characters as though they are only just seeing them:
 
 		for(GameCharacter character : Main.sex.getAllParticipants()) {
@@ -767,7 +776,7 @@ public class Sex {
 				clothingToStrip.addAll(character.getClothingCurrentlyEquipped());
 				clothingToStrip.removeIf(c -> c.getSlotEquippedTo().isJewellery() || c.isMilkingEquipment());
 				for(AbstractClothing c : clothingToStrip) {
-					character.unequipClothingOntoFloor(c, true, character);
+					character.unequipClothingIntoInventory(c, true, character);
 				}
 				// If any clothing was unable to be removed, displace it in every way possible:
 				clothingToStrip.clear();
@@ -790,7 +799,7 @@ public class Sex {
 				clothingToStrip.removeIf(c -> c.getSlotEquippedTo().isJewellery() || c.isMilkingEquipment());
 				for(AbstractClothing c : clothingToStrip) {
 					if(Main.sex.getInitialSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), c)) {
-						character.unequipClothingOntoFloor(c, true, character);
+						character.unequipClothingIntoInventory(c, true, character);
 					}
 				}
 				// If any clothing was unable to be removed, displace it in every way possible:
@@ -920,6 +929,7 @@ public class Sex {
 								character.equipClothingOverride(c, entry2.getKey(), false, false);
 							}
 						}
+						
 						clothingEquipped = character.getClothingInSlot(entry2.getKey()); // check if now equipped
 						if(Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)) {
 							for(AbstractClothing clothing : new ArrayList<>(character.getClothingCurrentlyEquipped())) {
@@ -4320,7 +4330,7 @@ public class Sex {
 		clothingBeingRemoved = clothingRemoval.getKey();
 
 		if(clothingRemoval.getValue() == DisplacementType.REMOVE_OR_EQUIP) {
-			targetForManagement.unequipClothingOntoFloor(clothingBeingRemoved, false, characterManagingClothing);
+			targetForManagement.unequipClothingIntoInventory(clothingBeingRemoved, false, characterManagingClothing);
 			Main.sex.setUnequipClothingText(clothingBeingRemoved, targetForManagement.getUnequipDescription());
 
 		} else {
@@ -4834,6 +4844,17 @@ public class Sex {
 		return clothingSelfEquipInformation;
 	}
 	
+	public void setClothingEquipInformation(GameCharacter clothingEquipper, GameCharacter target, AbstractClothing clothing) {
+		this.clothingEquipInformation = new Value<>(clothingEquipper, new Value<>(target, clothing));
+	}
+	
+	/**
+	 * @return Value<> Key is character who is equipping, to Value of character targeted and clothing being equipped.
+	 */
+	public Value<GameCharacter, Value<GameCharacter, AbstractClothing>> getClothingEquipInformation() {
+		return clothingEquipInformation;
+	}
+	
 	public void setItemUseInformation(GameCharacter itemUser, GameCharacter itemTarget, AbstractItem item) {
 		this.itemUseInformation = new Value<>(itemUser, new Value<>(itemTarget, item));
 	}
@@ -4992,8 +5013,7 @@ public class Sex {
 	 */
 	public Set<GameCharacter> getOngoingCharactersUsingAreas(GameCharacter character, SexAreaInterface sexAreaBeingUsed, SexAreaInterface sexAreaUsing) {
 		Set<GameCharacter> characters = new HashSet<>();
-		
-		if(!ongoingActionsMap.get(character).containsKey(sexAreaBeingUsed)) {
+		if(ongoingActionsMap==null || !ongoingActionsMap.containsKey(character) || !ongoingActionsMap.get(character).containsKey(sexAreaBeingUsed)) { // Catch for if sex has not yet finished initialising
 			return characters;
 		}
 		
@@ -5010,7 +5030,10 @@ public class Sex {
 	 * Returns a list, not a single instance of GameCharacter, as the 'characterPenetrating' could be penetrating multiple characters with tentacles, tails, hands, etc.
 	 */
 	public List<SexAreaOrifice> getOrificesBeingPenetratedBy(GameCharacter characterPenetrating, SexAreaPenetration penetration, GameCharacter characterPenetrated) {
-		if(ongoingActionsMap.get(characterPenetrating).get(penetration).containsKey(characterPenetrated)) {
+		if(ongoingActionsMap!=null
+				&& ongoingActionsMap.containsKey(characterPenetrated)
+				&& ongoingActionsMap.get(characterPenetrating).containsKey(penetration)
+				&& ongoingActionsMap.get(characterPenetrating).get(penetration).containsKey(characterPenetrated)) {
 			List<SexAreaOrifice> returnList = new ArrayList<>();
 			for(SexAreaInterface sArea : ongoingActionsMap.get(characterPenetrating).get(penetration).get(characterPenetrated)) {
 				if(sArea.isOrifice()) {
@@ -5033,9 +5056,12 @@ public class Sex {
 	}
 	
 	/**
-	 * Returns a set, not a single instance of GameCharacter, as the 'characterPenetrating' could be penetrating multiple characters with tentacles, tails, hands, etc.
+	 * Returns a list, not a single instance of GameCharacter, as the 'characterPenetrating' could be penetrating multiple characters with tentacles, tails, hands, etc.
 	 */
 	public List<GameCharacter> getCharactersHavingOngoingActionWith(GameCharacter characterPenetrating, SexAreaPenetration penetration) {
+		if(ongoingActionsMap==null || !ongoingActionsMap.containsKey(characterPenetrating) || !ongoingActionsMap.get(characterPenetrating).containsKey(penetration)) {
+			return new ArrayList<>();
+		}
 		return new ArrayList<>(ongoingActionsMap.get(characterPenetrating).get(penetration).keySet());
 	}
 	
@@ -5753,7 +5779,8 @@ public class Sex {
 	/**
 	 * @param character The character to be checked.
 	 * @param factorInOrgasmBlockers If true, and the character cannot orgasm, then this method does not check for actual satisfaction of this character, and instead returns true if they are simply at their maximum arousal.
-	 *  Should probably always be left as true, as otherwise characters unable to orgasm will always have this method return false.
+	 * <br/>Note that this factors in denied orgasms if true.
+	 * <br/>Should probably always be left as true, as otherwise characters unable to orgasm will always have this method return false.
 	 * @return true if this character has orgasmed enough times to be satisfied.
 	 */
 	public boolean isSatisfiedFromOrgasms(GameCharacter character, boolean factorInOrgasmBlockers) {
@@ -5764,12 +5791,16 @@ public class Sex {
 	 * @param character The character to be checked.
 	 * @param timesOrgasmed The number of orgasms which the character needs to have had in order for this method to return true.
 	 * @param factorInOrgasmBlockers If true, and the character cannot orgasm, then this method does not check the character's orgasm count, and instead returns true if they are simply at their maximum arousal.
-	 *  Should probably always be left as true, as otherwise characters unable to orgasm will always have this method return false.
+	 * <br/>Note that this factors in denied orgasms if true.
+	 * <br/>Should probably always be left as true, as otherwise characters unable to orgasm will always have this method return false.
 	 * @return true if this character has orgasmed 'timesOrgasmed' times.
 	 */
 	public boolean isOrgasmCountMet(GameCharacter character, int timesOrgasmed, boolean factorInOrgasmBlockers) {
-		if(factorInOrgasmBlockers && !character.isAbleToOrgasm()) {
-			return character.getArousal()>=90f; // Although they stop at 95, some actions might be making them drop a little, so add some leeway down to 90
+		if(factorInOrgasmBlockers) {
+			if(!character.isAbleToOrgasm()) {
+				return character.getArousal()>=90f; // Although they stop at 95, some actions might be making them drop a little, so add some leeway down to 90
+			}
+			return getNumberOfDeniedOrgasms(character) + getNumberOfOrgasms(character) >= timesOrgasmed;
 		}
 		return getNumberOfOrgasms(character) >= timesOrgasmed;
 	}
@@ -6259,7 +6290,7 @@ public class Sex {
 	}
 	
 	/**
-	 * This method does <b>not</b> take into account whether the the slot is accessible or not. It only checks for ongoing actions involving the specified slot.<br/>
+	 * This method does <b>not</b> take into account whether the slot is accessible or not. It only checks for ongoing actions involving the specified slot.<br/>
 	 * It also only accounts for the following slots: <b>ANUS</b>, <b>MOUTH</b>, <b>NIPPLE</b>, <b>PENIS</b>, <b>VAGINA</b>, <b>STOMACH</b>.<br/>
 	 * Condoms are treated as always being able to be equipped.
 	 */
@@ -6321,7 +6352,24 @@ public class Sex {
 	public SexActionManager getSexActionManager() {
 		return sexActionManager;
 	}
+
+	public Map<GameCharacter, Map<InventorySlot, Map<AbstractClothing, List<DisplacementType>>>> getClothingPreSexMap() {
+		return clothingPreSexMap;
+	}
+
+	public Map<GameCharacter, Map<InventorySlot, AbstractWeapon>> getWeaponsPreSexMap() {
+		return weaponsPreSexMap;
+	}
+
+	public Map<GameCharacter, Map<GameCharacter, List<AbstractClothing>>> getClothingEquippedDuringSex() {
+		return clothingEquippedDuringSex;
+	}
 	
+	public void addClothingEquippedDuringSex(GameCharacter clothingOwner, GameCharacter target, AbstractClothing clothing) {
+		clothingEquippedDuringSex.get(clothingOwner).putIfAbsent(target, new ArrayList<>());
+		clothingEquippedDuringSex.get(clothingOwner).get(target).add(clothing);
+	}
+
 	// ------------------------------------------------------ //
 	
 	/**

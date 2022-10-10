@@ -10,6 +10,7 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractAntennaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
@@ -2709,6 +2710,8 @@ public abstract class AbstractItemEffectType {
 	
 	protected static RacialEffectUtil getRacialEffect(AbstractRace race, TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, GameCharacter user, GameCharacter target) {
 		
+		boolean revealTransformedPart = !user.equals(target);
+		
 		switch(primaryModifier) {
 			case TF_ANTENNA:
 				switch(secondaryModifier) {
@@ -2810,7 +2813,14 @@ public abstract class AbstractItemEffectType {
 					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
 						int index = Math.min(AssType.getAssTypes(race).size()-1, modifierTypeToInt(secondaryModifier));
 						return new RacialEffectUtil(Util.capitaliseSentence(AssType.getAssTypes(race).get(index).getTransformName())+" ass transformation.") {
-							@Override public String applyEffect() { return target.setAssType(AssType.getAssTypes(race).get(index)); } };
+							@Override public String applyEffect() {
+								String tfText = target.setAssType(AssType.getAssTypes(race).get(index));
+								if(revealTransformedPart) {
+									user.setKnowsCharacterArea(CoverableArea.ASS, target, true);
+									user.setKnowsCharacterArea(CoverableArea.ANUS, target, true);
+								}
+								return tfText;
+							} };
 	
 					case TF_MOD_SIZE:
 						switch(potency) {
@@ -2964,7 +2974,14 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Adds internal tentacles to anus.") { @Override public String applyEffect() { return target.addAssOrificeModifier(OrificeModifier.TENTACLED); } };
 						}
 					default:
-						return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" ass transformation.") { @Override public String applyEffect() { return target.setAssType(RacialBody.valueOfRace(race).getAssType()); } };
+						return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" ass transformation.") { @Override public String applyEffect() {
+							String tfText = target.setAssType(RacialBody.valueOfRace(race).getAssType());
+							if(revealTransformedPart) {
+								user.setKnowsCharacterArea(CoverableArea.ASS, target, true);
+								user.setKnowsCharacterArea(CoverableArea.ANUS, target, true);
+							}
+							return tfText;
+						} };
 				}
 				
 			case TF_BREASTS:
@@ -2972,7 +2989,14 @@ public abstract class AbstractItemEffectType {
 					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
 						int index = Math.min(BreastType.getBreastTypes(race).size()-1, modifierTypeToInt(secondaryModifier));
 						return new RacialEffectUtil(Util.capitaliseSentence(BreastType.getBreastTypes(race).get(index).getTransformName())+" breast transformation.") {
-							@Override public String applyEffect() { return target.setBreastType(BreastType.getBreastTypes(race).get(index)); } };
+							@Override public String applyEffect() {
+								String tfText = target.setBreastType(BreastType.getBreastTypes(race).get(index));
+								if(revealTransformedPart) {
+									user.setKnowsCharacterArea(CoverableArea.BREASTS, target, true);
+									user.setKnowsCharacterArea(CoverableArea.NIPPLES, target, true);
+								}
+								return tfText;
+							} };
 	
 					case REMOVAL:
 						return new RacialEffectUtil("Completely flattens breasts.") {
@@ -3189,19 +3213,39 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Adds internal tentacles to nipples.") { @Override public String applyEffect() { return target.addNippleOrificeModifier(OrificeModifier.TENTACLED); } };
 						}
 					default:
-						return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" breast transformation.") { @Override public String applyEffect() { return target.setBreastType(RacialBody.valueOfRace(race).getBreastType()); } };
+						return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" breast transformation.") { @Override public String applyEffect() {
+							String tfText = target.setBreastType(RacialBody.valueOfRace(race).getBreastType());
+							if(revealTransformedPart) {
+								user.setKnowsCharacterArea(CoverableArea.BREASTS, target, true);
+								user.setKnowsCharacterArea(CoverableArea.NIPPLES, target, true);
+							}
+							return tfText;
+						} };
 				}
 
 			case TF_BREASTS_CROTCH:
 				switch(secondaryModifier) {
 					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
 						int index = Math.min(BreastType.getBreastTypes(race).size()-1, modifierTypeToInt(secondaryModifier));
-						return new RacialEffectUtil(Util.capitaliseSentence(BreastType.getBreastTypes(race).get(index).getTransformName())+" crotch-boob transformation.") {
-							@Override public String applyEffect() { return target.setBreastCrotchType(BreastType.getBreastTypes(race).get(index)); } };
+						return new RacialEffectUtil(Util.capitaliseSentence(BreastType.getBreastTypes(race).get(index).getTransformName())+" crotch-boob transformation.") { @Override public String applyEffect() {
+							String tfText = target.setBreastCrotchType(BreastType.getBreastTypes(race).get(index));
+								if(revealTransformedPart) {
+									user.setKnowsCharacterArea(CoverableArea.BREASTS_CROTCH, target, true);
+									user.setKnowsCharacterArea(CoverableArea.NIPPLES_CROTCH, target, true);
+								}
+								return tfText;
+							} };
 	
 					case REMOVAL:
 						return new RacialEffectUtil("Removes crotch-boobs.") {
-							@Override public String applyEffect() { return target.setBreastCrotchType(BreastType.NONE); } };
+							@Override public String applyEffect() {
+								String tfText = target.setBreastCrotchType(BreastType.NONE);
+								if(revealTransformedPart) {
+									user.setKnowsCharacterArea(CoverableArea.BREASTS_CROTCH, target, true);
+									user.setKnowsCharacterArea(CoverableArea.NIPPLES_CROTCH, target, true);
+								}
+								return tfText;
+							} };
 							
 					case TF_MOD_COUNT:
 						switch(potency) {
@@ -3420,7 +3464,13 @@ public abstract class AbstractItemEffectType {
 						
 					default:
 						return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" crotch-boob transformation.") { @Override public String applyEffect() {
-							return target.setBreastCrotchType(RacialBody.valueOfRace(race).getBreastType()); } };
+							String tfText = target.setBreastCrotchType(RacialBody.valueOfRace(race).getBreastType());
+							if(revealTransformedPart) {
+								user.setKnowsCharacterArea(CoverableArea.BREASTS_CROTCH, target, true);
+								user.setKnowsCharacterArea(CoverableArea.NIPPLES_CROTCH, target, true);
+							}
+							return tfText;
+						} };
 				}
 				
 			case TF_CORE: 
@@ -4177,7 +4227,14 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("[style.colourExcellent(++)] Penis girth (+" + smallChangeMajorBoost + " girth)") { @Override public String applyEffect() { return target.incrementPenisGirth(smallChangeMajorBoost); } };
 						}
 					case REMOVAL:
-							return new RacialEffectUtil("Removes penis.") { @Override public String applyEffect() { return target.setPenisType(PenisType.NONE); } };
+							return new RacialEffectUtil("Removes penis.") { @Override public String applyEffect() {
+								String tfText = target.setPenisType(PenisType.NONE);
+								if(revealTransformedPart) {
+									user.setKnowsCharacterArea(CoverableArea.PENIS, target, true);
+									user.setKnowsCharacterArea(CoverableArea.TESTICLES, target, true);
+								}
+								return tfText;
+							} };
 
 					case TF_MOD_BODY_HAIR:
 						switch(potency) {
@@ -4461,11 +4518,24 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil(
 								PenisType.getPenisTypes(race).get(index)==PenisType.NONE
 									?"Removes penis."
-									:Util.capitaliseSentence(PenisType.getPenisTypes(race).get(index).getTransformName())+" penis transformation.") {
-							@Override public String applyEffect() { return target.setPenisType(PenisType.getPenisTypes(race).get(index)); } };
+									:Util.capitaliseSentence(PenisType.getPenisTypes(race).get(index).getTransformName())+" penis transformation.") { @Override public String applyEffect() {
+								String tfText = target.setPenisType(PenisType.getPenisTypes(race).get(index));
+								if(revealTransformedPart) {
+									user.setKnowsCharacterArea(CoverableArea.PENIS, target, true);
+									user.setKnowsCharacterArea(CoverableArea.TESTICLES, target, true);
+								}
+								return tfText;
+							} };
 							
 					default:
-						return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" penis transformation.") { @Override public String applyEffect() { return target.setPenisType(RacialBody.valueOfRace(race).getPenisType()); } };
+						return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" penis transformation.") { @Override public String applyEffect() {
+							String tfText = target.setPenisType(RacialBody.valueOfRace(race).getPenisType());
+							if(revealTransformedPart) {
+								user.setKnowsCharacterArea(CoverableArea.PENIS, target, true);
+								user.setKnowsCharacterArea(CoverableArea.TESTICLES, target, true);
+							}
+							return tfText;
+						} };
 				}
 				
 			case TF_SKIN:
@@ -4754,7 +4824,13 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("[style.colourExcellent(++)] Labia size (+" + smallChangeMajorBoost + " size)") { @Override public String applyEffect() { return target.incrementVaginaLabiaSize(smallChangeMajorBoost); } };
 						}
 					case REMOVAL:
-							return new RacialEffectUtil("Removes vagina.") { @Override public String applyEffect() { return target.setVaginaType(VaginaType.NONE); } };
+							return new RacialEffectUtil("Removes vagina.") { @Override public String applyEffect() {
+								String tfText = target.setVaginaType(VaginaType.NONE);
+								if(revealTransformedPart) {
+									user.setKnowsCharacterArea(CoverableArea.VAGINA, target, true);
+								}
+								return tfText;
+							} };
 							
 					case TF_MOD_BODY_HAIR:
 						switch(potency) {
@@ -5067,11 +5143,22 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil(
 								VaginaType.getVaginaTypes(race).get(index)==VaginaType.NONE
 									?"Removes penis."
-									:Util.capitaliseSentence(VaginaType.getVaginaTypes(race).get(index).getTransformName())+" vagina transformation.") {
-							@Override public String applyEffect() { return target.setVaginaType(VaginaType.getVaginaTypes(race).get(index)); } };
+									:Util.capitaliseSentence(VaginaType.getVaginaTypes(race).get(index).getTransformName())+" vagina transformation.") { @Override public String applyEffect() {
+								String tfText = target.setVaginaType(VaginaType.getVaginaTypes(race).get(index));
+								if(revealTransformedPart) {
+									user.setKnowsCharacterArea(CoverableArea.VAGINA, target, true);
+								}
+								return tfText;
+							} };
 							
 					default:
-						return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" vagina transformation.") { @Override public String applyEffect() { return target.setVaginaType(RacialBody.valueOfRace(race).getVaginaType()); } };
+						return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" vagina transformation.") { @Override public String applyEffect() {
+							String tfText = target.setVaginaType(RacialBody.valueOfRace(race).getVaginaType());
+							if(revealTransformedPart) {
+								user.setKnowsCharacterArea(CoverableArea.VAGINA, target, true);
+							}
+							return tfText;
+						} };
 				}
 				
 			case TF_WINGS:

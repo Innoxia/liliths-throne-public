@@ -372,10 +372,10 @@ public class CharacterInventory implements XMLSaving {
 				if(id.equals("GIFT_ROSE")) { // Changed the rose to a clothing item in v0.3.5.5
 					inventory.addClothing(Main.game.getItemGen().generateClothing("innoxia_hair_rose", PresetColour.CLOTHING_RED_DARK, PresetColour.CLOTHING_GREEN_DARK, null, false), count);
 					
-				} else if(id.equals(ItemType.getItemToIdMap().get(ItemType.CONDOM_USED))) {
+				} else if(id.equals(ItemType.getIdFromItemType(ItemType.CONDOM_USED)) || id.equals(ItemType.getIdFromItemType(ItemType.CONDOM_USED_WEBBING))) {
 					itemMapToAdd.put(AbstractFilledCondom.loadFromXML(e, doc), count);
 					
-				} else if(id.equals(ItemType.getItemToIdMap().get(ItemType.MOO_MILKER_FULL))) {
+				} else if(id.equals(ItemType.getIdFromItemType(ItemType.MOO_MILKER_FULL))) {
 					itemMapToAdd.put(AbstractFilledBreastPump.loadFromXML(e, doc), count);
 					
 				} else {
@@ -1579,7 +1579,7 @@ public class CharacterInventory implements XMLSaving {
 		
 		// Check for access needed: TODO check this works TODO it doesn't TODO I did a temporary fix. please come back and fix this properly some time
 		for (BlockedParts bp : clothing.getBlockedPartsMap(characterClothingOwner, clothing.getSlotEquippedTo())) {
-			// Keep iterating through until until we find the BlockedParts that corresponds to equipping (if not found, carry on, as this clothing doesn't need any access in order to be equipped):
+			// Keep iterating through until we find the BlockedParts that corresponds to equipping (if not found, carry on, as this clothing doesn't need any access in order to be equipped):
 			if (bp.displacementType == DisplacementType.REMOVE_OR_EQUIP) {
 				if (bp.clothingAccessRequired == null) { // This clothing doesn't need any access in order to be equipped, so just carry on.
 					break; 
@@ -1792,7 +1792,7 @@ public class CharacterInventory implements XMLSaving {
 		boolean displacementTypeFound = false;
 		// Check for access needed:
 		for (BlockedParts bp : clothing.getBlockedPartsMap(characterClothingOwner, clothing.getSlotEquippedTo())) {
-			// Keep iterating through until until we find the displacementType:
+			// Keep iterating through until we find the displacementType:
 			if (bp.displacementType == dt) {
 				displacementTypeFound = true;
 
@@ -1918,7 +1918,7 @@ public class CharacterInventory implements XMLSaving {
 		// Check for access needed: TODO check this works
 		for (BlockedParts bp : clothing.getBlockedPartsMap(characterClothingOwner, clothing.getSlotEquippedTo())) {
 
-			// Keep iterating through until until we find the displacementType:
+			// Keep iterating through until we find the displacementType:
 			if (bp.displacementType == dt) {
 				displacementTypeFound = true;
 
