@@ -10,7 +10,7 @@
 	<race>mintychip_salamander</race>
 	
 	<!-- The name that will be used when referring to transformations related to this type (such as when changing body parts in the self-TF menu). -->
-	<transformationName><![CDATA[aurora-tipped salamander]]></transformationName>
+	<transformationName><![CDATA[frost-tipped salamander]]></transformationName>
 	
 	<!-- The id of the material covering this tail.
 	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
@@ -81,21 +81,21 @@
 	This description immediately follows a brief description of the tail type beginning to transform. -->
 	<transformationDescription><![CDATA[
 		#IF(npc.getTailCount()==1)
-			A scaled, salamander-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about [npc.tailLength] long. 
+			A scaled, salamander-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about [npc.tailLength] long.
 			#IF(game.isSillyModeEnabled())
-				But wait, is that Ah- [style.italics(Aurora Borealis!?)] At this time of year, at this time of day, in this part of the country, [style.italics(localized entirely around the tip of your tail!?)] <br/> [style.boldSalamanderFrost(Yes.)]
+				 But wait, is that Ah- [style.italics(Aurora Borealis!?)] At this time of year, at this time of day, in this part of the country, [style.italics(localized entirely around the tip of your tail!?)] <br/> [style.boldSalamanderFrost(Yes.)]
 			#ELSE
-				Strangely, a cold aura begins emanating from its tip. Thankfully, the arcane aurora is revealed to be comfortably cool to the touch. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over [npc.her] new tail.
+				 Strangely, a cold, arcane aura soon begins emanating from its tip. Thankfully, the small, swirling cloud of frost is revealed to be comfortably cool to the touch. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over [npc.her] new tail.
 			#ENDIF
-			<br/>[npc.Name] now [npc.has] a [style.boldSalamanderFrost(aurora-tipped salamander tail)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+			<br/>[npc.Name] now [npc.has] a [style.boldSalamanderFrost(frost-tipped salamander tail)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
 		#ELSE
-			[npc.TailCount] scaled, salamander-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about [npc.tailLength] long. 
+			[npc.TailCount] scaled, salamander-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about [npc.tailLength] long.
 			#IF(game.isSillyModeEnabled())
-				But wait, is that Ah- [style.italics(Aurora Borealis!?)] At this time of year, at this time of day, in this part of the country, [style.italics(localized entirely around the tips of your tails!?)] <br/> [style.boldSalamanderFrost(Yes.)]
+				 But wait, is that Ah- [style.italics(Aurora Borealis!?)] At this time of year, at this time of day, in this part of the country, [style.italics(localized entirely around the tips of your tails!?)] <br/> [style.boldSalamanderFrost(Yes.)]
 			#ELSE
-				Strangely, a cold aura begins emanating from each tip. Thankfully, the arcane auroras are revealed to be comfortably cool to the touch. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over [npc.her] new tails.
+				 Strangely, a cold, arcane aura soon begins emanating from each tip. Thankfully, the small, swirling clouds of frost are revealed to be comfortably cool to the touch. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over [npc.her] new tails.
 			#ENDIF
-			<br/>[npc.Name] now [npc.has] [npc.tailCount] [style.boldSalamanderFrost(aurora-tipped salamander tails)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+			<br/>[npc.Name] now [npc.has] [npc.tailCount] [style.boldSalamanderFrost(frost-tipped salamander tails)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
 		#ENDIF
 	]]></transformationDescription>
 	
@@ -103,9 +103,9 @@
 	<bodyDescription><![CDATA[
 		Growing out from just above [npc.her] ass, [npc.sheHasFull]
 		#IF(npc.getTailCount()==1)
-			 a prehensile #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] salamander tail, whose chilled tip is surrounded in an arcane aurora.
+			 a prehensile #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] salamander tail, whose chilled tip is enveloped in a small, swirling cloud of frost.
 		#ELSE
-			 [npc.tailCount] prehensile #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] salamander tails, whose chilled tips are surrounded in arcane auroras.
+			 [npc.tailCount] prehensile #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] salamander tails, whose chilled tips are enveloped in small, swirling clouds of frost.
 		#ENDIF
 	]]></bodyDescription>
 	

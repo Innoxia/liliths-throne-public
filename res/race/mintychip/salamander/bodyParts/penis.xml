@@ -30,7 +30,7 @@
 	<testicleType>mintychip_salamander_testicle</testicleType>
 	
 	<additionalTransformationEffect><![CDATA[
-		#IF(npc.getTailType()==TAIL_TYPE_mintychip_salamander_tailAurora)
+		#IF(npc.getTailType()==TAIL_TYPE_mintychip_salamander_tailFrost)
 			[#npc.setSkinCovering(BODY_COVERING_TYPE_PENIS, COLOUR_SKIN_BLUE, false)]
 		#ELSE
 			[#npc.setSkinCovering(BODY_COVERING_TYPE_PENIS, COLOUR_SKIN_RED, false)]

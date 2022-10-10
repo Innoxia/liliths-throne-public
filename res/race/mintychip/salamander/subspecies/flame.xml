@@ -272,6 +272,7 @@
 		<region rarity="ZERO_EXTREMELY_RARE">DESERT_CITY</region>
 		<region rarity="ONE_VERY_RARE">DESERT</region>
 		<region rarity="THREE_UNCOMMON">VOLCANO</region>
+		<region rarity="NEGATIVE_TWO_MYTHICAL">FIELD_CITY</region>
 	</regionLocations>
 	
 	<!-- The world types in which this subspecies can spawn.

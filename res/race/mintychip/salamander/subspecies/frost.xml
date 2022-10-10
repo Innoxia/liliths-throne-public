@@ -53,7 +53,7 @@
 	
 	<!-- I have committed a crime against humanity in the lines below. Please don't look -->
 	<applySubspeciesChanges><![CDATA[
-	[#targetedBody.setTailType(TAIL_TYPE_mintychip_salamander_tailAurora)]
+	[#targetedBody.setTailType(TAIL_TYPE_mintychip_salamander_tailFrost)]
 	
 	#IF(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour().isOneOf(
 		COLOUR_COVERING_RED,
@@ -100,7 +100,7 @@
 	The body that's being checked can be accessed via using 'targetedBody'.
 	The race of the body that's being checked SHOULD NOT be accessed via targetedBody.getRace(), and should instead be accessed via using 'targetedRace'. -->
 	<subspeciesWeighting><![CDATA[
-		#IF(targetedRace==RACE_mintychip_salamander && targetedBody.getTailType()==TAIL_TYPE_mintychip_salamander_tailAurora)
+		#IF(targetedRace==RACE_mintychip_salamander && targetedBody.getTailType()==TAIL_TYPE_mintychip_salamander_tailFrost)
 			110
 		#ELSE
 			0
@@ -151,7 +151,25 @@
 	
 	<!-- A brief description and identification requirements of this subspecies. -->
 	<description><![CDATA[An anthropomorphic frost salamander, known as a 'frost salamander-morph' when bipedal, and a 'frost salamandertaur' when the lower body is that of a typically-oversized feral frost salamander.]]></description>
-
+	
+	<nameHalfDemon>
+		<namesDefault> <!-- You must include this 'namesDefault' element, which will be used for any undefined legConfiguration names (for example, if the player somehow became a TAIL_LONG salamander). -->
+			<name><![CDATA[hellfrost salamander-morph]]></name>
+			<namePlural><![CDATA[hellfrost salamander-morphs]]></namePlural>
+			<singularMaleName><![CDATA[hellfrost salamander-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[hellfrost salamander-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[hellfrost salamander-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[hellfrost salamander-girls]]></pluralFemaleName>
+		</namesDefault>
+		<names legConfiguration="QUADRUPEDAL"> <!-- This is the usual naming pattern for quadrupeds, even if the names do get a little unwieldy at times... -->
+			<name><![CDATA[hellfrost salamandertaur]]></name>
+			<namePlural><![CDATA[hellfrost salamandertaurs]]></namePlural>
+			<singularMaleName><![CDATA[hellfrost salamandertaur]]></singularMaleName>
+			<singularFemaleName><![CDATA[hellfrost salamandertauress]]></singularFemaleName>
+			<pluralMaleName><![CDATA[hellfrost salamandertaurs]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[hellfrost salamandertauresses]]></pluralFemaleName>
+		</names>
+	</nameHalfDemon>
 	
 	<!-- Attributes related to this subspecies when in a feral form. -->
 	<feralAttributes>
@@ -241,6 +259,7 @@
 	<regionLocations>
 		<region rarity="ONE_VERY_RARE">MOUNTAINS</region>
 		<region rarity="TWO_RARE">SNOW</region>
+		<region rarity="NEGATIVE_TWO_MYTHICAL">FIELD_CITY</region>
 	</regionLocations>
 	
 	<!-- The world types in which this subspecies can spawn.
@@ -249,6 +268,7 @@
 	This can be left blank, but if no 'regionLocations' or 'worldLocations' are defined, then this subspecies will never spawn as a randomly-encountered subspecies. -->
 	<worldLocations>
 		<world rarity="ONE_VERY_RARE">NIGHTLIFE_CLUB</world>
+		
 	</worldLocations>
 	
 	<!-- The place types in which this subspecies can spawn.

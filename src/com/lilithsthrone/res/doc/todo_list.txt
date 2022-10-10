@@ -8,9 +8,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Contributors:
 		Fixed a significant amount of typos and grammatical errors. (PR#1701 by Lis)
-		Reworked Controller classes and improved UI handling. (PR#1713 by Maxis010)
+		Reworked Controller classes and improved UI handling, as well as added a 4th +/- button to the fluid storage and regeneration transformation menus. (PR#1713 by Maxis010)
 		Fixed issue where subspecies changes for dragons, coatls, and gryphons didn't account for taur/lamia leg configurations when assigning minimum wing size. (by MintyChip)
 		Added 'banana' as a new fluid flavouring. (PR#1696 by DSG)
+		Added mythical 'salamander' race, with two subspecies; 'flame salanaders' and 'frost salamanders'. (PR#1707 by MintyChip)
 	
 	Other:
 		The 'Crotch-boobs & Udders' body setting now only applies to randomly-generated NPCs at the moment of their creation (as was stated in the option's tooltip), allowing all characters to gain crotch-boobs/udders via TF no matter the setting.
@@ -22,7 +23,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed several rendering issue with the buyback menu.
 		Fixed issue where the women's watch in character creation had random primary and secondary colours.
 		Fixed bug where penile virginity losses would be reset at the end of character creation.
-	
 	
 	[x] Test
 		[x] New game full character creation
@@ -88,6 +88,12 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[#pc.getVirginityLoss(sex.newSexType(PENETRATION_PENIS, ORIFICE_VAGINA))]
 		<br/>
 		[#pc.getVirginityLossDescription(sex.newSexType(PENETRATION_PENIS, ORIFICE_VAGINA))]
+	
+	[x] #1707
+		[x] aurora rename
+		[x] drinks icons edits
+		[x] add very rare spawning in Elis alleyways
+		[x] TF 1 should be flame for food enchant
 	
 	[] PRs:
 		[] #94

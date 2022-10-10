@@ -25,7 +25,7 @@
 	'formattedDamageInflicted' will parse to a formatted damage prediction, taking into account whether or not the target is at maximum lust (therefore taking into account conversion of lust damage to health/mana damage). -->
 	<description><![CDATA[
 		Use [npc.her] 
-		#IF(npc.getTailType() == (TAIL_TYPE_mintychip_salamander_tailAurora))
+		#IF(npc.getTailType() == (TAIL_TYPE_mintychip_salamander_tailFrost))
 			freezing
 		#ELSE
 			flaming
@@ -37,7 +37,7 @@
 	The parsing target of 'npc' corresponds to the character who is performing the move (and so conditional statements can be used to affect what damage type is inflicted).
 	All available values of DamageType can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/DamageType.java -->
 	<damageType><![CDATA[
-		#IF(npc.getTailType() == (TAIL_TYPE_mintychip_salamander_tailAurora))
+		#IF(npc.getTailType() == (TAIL_TYPE_mintychip_salamander_tailFrost))
 			ICE
 		#ELSE
 			FIRE
@@ -102,7 +102,7 @@
 	The parsing target of 'npc' corresponds to the character who is being checked to see if they have this move available to them.
 	All whitespace is stripped from the returned String before it is parsed into a Boolean. -->
 	<availabilityCondition><![CDATA[
-		[#npc.getTailType().isOneOf(TAIL_TYPE_mintychip_salamander_tailAurora, TAIL_TYPE_mintychip_salamander_tailFlame)]
+		[#npc.getTailType().isOneOf(TAIL_TYPE_mintychip_salamander_tailFrost, TAIL_TYPE_mintychip_salamander_tailFlame)]
 	]]>
 	</availabilityCondition>
 	
@@ -147,22 +147,22 @@
 	'isCritical' will parse to the boolean return value for isCritical, and will therefore be either 'true' or 'false'.
 	-->
 	<movePredictionDescriptionWithTarget><![CDATA[
-		Use [npc.her] 
-		#IF(npc.getTailType() == (TAIL_TYPE_mintychip_salamander_tailAurora))
-			freezing
+		Use [npc.her]
+		#IF(npc.getTailType() == (TAIL_TYPE_mintychip_salamander_tailFrost))
+			 freezing
 		#ELSE
-			flaming
+			 flaming
 		#ENDIF
 		 salamander tail to deliver a vicious swipe to [npc2.name], dealing formattedDamageInflicted damage.
 	]]></movePredictionDescriptionWithTarget>
 	
 	<!-- This is almost identical to the defined description above, with the difference being that there is no targeted character. As such, the description cannot use any 'npc2' parsing. -->
 	<movePredictionDescriptionNoTarget><![CDATA[
-		Use [npc.her] 
-		#IF(npc.getTailType() == (TAIL_TYPE_mintychip_salamander_tailAurora))
-			freezing
+		Use [npc.her]
+		#IF(npc.getTailType() == (TAIL_TYPE_mintychip_salamander_tailFrost))
+			 freezing
 		#ELSE
-			flaming
+			 flaming
 		#ENDIF
 		 salamander tail to deliver a vicious swipe to [npc.her] target, dealing formattedDamageInflicted damage.
 	]]></movePredictionDescriptionNoTarget>
@@ -179,12 +179,12 @@
 		NOTE: The damage is automatically applied to the target, so you don't need to handle parsing of that. -->
 		<execute><![CDATA[
 			The tip of [npc.namePos] tail flashes brightly as [npc.she] [npc.verb(rush)] at [npc2.name] and [npc.verb(land)] a
-			#IF(npc.getTailType() == (TAIL_TYPE_mintychip_salamander_tailAurora))
-				freezing cold
+			#IF(npc.getTailType() == (TAIL_TYPE_mintychip_salamander_tailFrost))
+				 freezing cold
 			#ELSE
-				burning hot
+				 burning hot
 			#ENDIF
-			swipe with it!
+			 swipe with it!
 			formattedHealthDamage
 		]]></execute>
 		<critDescription><![CDATA[
