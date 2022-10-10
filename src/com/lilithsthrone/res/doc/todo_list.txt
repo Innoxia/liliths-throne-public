@@ -10,6 +10,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed a significant amount of typos and grammatical errors. (PR#1701 by Lis)
 		Reworked Controller classes and improved UI handling. (PR#1713 by Maxis010)
 		Fixed issue where subspecies changes for dragons, coatls, and gryphons didn't account for taur/lamia leg configurations when assigning minimum wing size. (by MintyChip)
+		Added 'banana' as a new fluid flavouring. (PR#1696 by DSG)
 	
 	Other:
 		The 'Crotch-boobs & Udders' body setting now only applies to randomly-generated NPCs at the moment of their creation (as was stated in the option's tooltip), allowing all characters to gain crotch-boobs/udders via TF no matter the setting.

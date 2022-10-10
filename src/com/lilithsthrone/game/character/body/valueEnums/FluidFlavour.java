@@ -119,7 +119,11 @@ public enum FluidFlavour {
 	
 	BLUEBERRY("blueberry", PresetColour.BASE_BLUE_DARK,
 			Util.newArrayListOfValues(
-					"blueberry-flavoured"))
+					"blueberry-flavoured")),
+	
+	BANANA("banana", PresetColour.BASE_YELLOW_LIGHT,
+			Util.newArrayListOfValues(
+					"banana-flavoured"))
 	
 	// ------------ //
 	
