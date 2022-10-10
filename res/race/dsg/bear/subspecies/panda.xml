@@ -64,8 +64,10 @@
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_dsg_bear && 
 			targetedBody.getCoveringPattern(BODY_COVERING_TYPE_dsg_bear_fur, true)==COVERING_PATTERN_MARKED &&
-			targetedBody.getCovering(BODY_COVERING_TYPE_dsg_bear_fur, true).getPrimaryColour()==COLOUR_COVERING_WHITE &&
-			targetedBody.getCovering(BODY_COVERING_TYPE_dsg_bear_fur, true).getSecondaryColour()==COLOUR_COVERING_BLACK)
+			((targetedBody.getCovering(BODY_COVERING_TYPE_dsg_bear_fur, true).getPrimaryColour()==COLOUR_COVERING_WHITE && targetedBody.getCovering(BODY_COVERING_TYPE_dsg_bear_fur, true).getSecondaryColour()==COLOUR_COVERING_BLACK)
+				|| (targetedBody.getCovering(BODY_COVERING_TYPE_dsg_bear_fur, true).getPrimaryColour()==COLOUR_COVERING_BLACK && targetedBody.getCovering(BODY_COVERING_TYPE_dsg_bear_fur, true).getSecondaryColour()==COLOUR_COVERING_WHITE))
+				|| (targetedBody.getCovering(BODY_COVERING_TYPE_dsg_bear_fur, true).getPrimaryColour()==COLOUR_COVERING_WHITE && targetedBody.getCovering(BODY_COVERING_TYPE_dsg_bear_fur, true).getSecondaryColour()==COLOUR_COVERING_JET_BLACK)
+				|| (targetedBody.getCovering(BODY_COVERING_TYPE_dsg_bear_fur, true).getPrimaryColour()==COLOUR_COVERING_JET_BLACK && targetedBody.getCovering(BODY_COVERING_TYPE_dsg_bear_fur, true).getSecondaryColour()==COLOUR_COVERING_WHITE))
 			150
 		#ELSE
 			0
