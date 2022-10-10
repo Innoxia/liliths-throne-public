@@ -25,7 +25,7 @@
 		
 		<equipText><![CDATA[[npc.Name] [npc.verb(bring)] out the shield and [npc.verb(strap)] it to [npc.her] arm.]]></equipText>
 		
-		<unequipText><![CDATA[[npc.Name] [npc.verb(unstrap)] the the shield from [npc.her] arm before putting it away.]]></unequipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(unstrap)] the shield from [npc.her] arm before putting it away.]]></unequipText>
 		
 		<imageName>riotshield.svg</imageName> 
 		

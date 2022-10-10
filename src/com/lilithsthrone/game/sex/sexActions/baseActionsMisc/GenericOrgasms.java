@@ -1823,6 +1823,9 @@ public class GenericOrgasms {
 								case BLUEBERRY:
 									cumTargetSB.append(" The taste of [npc.namePos] blueberry-flavoured");
 									break;
+								case BANANA:
+									cumTargetSB.append(" The taste of [npc.namePos] banana-flavoured");
+									break;
 							}
 							cumTargetSB.append(" cum rises up to hit your [npc2.tongue], and you");
 							if(target.hasFetish(Fetish.FETISH_CUM_ADDICT) || Main.sex.getCharactersRequestingCreampie().contains(target) || Main.sex.getCharactersRequestingKnot().contains(target)) {
@@ -3041,7 +3044,7 @@ public class GenericOrgasms {
 		@Override
 		public boolean endsSex() {
 			return Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.INSIDE, true).isEndsSex()
-					|| Main.sex.getCharacterPerformingAction().getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_FUTA_PREGNANCY)//TODO should be moved out into preganncy roulette character method
+					|| Main.sex.getCharacterPerformingAction().getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_FUTA_PREGNANCY)//TODO should be moved out into pregnancy roulette character method
 					|| Main.sex.getCharacterPerformingAction().getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_PREGNANCY);
 		}
 	};

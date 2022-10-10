@@ -255,7 +255,41 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	
 	@Override
 	public int getValue() {
-		return itemType.getValue(this.getEffects());
+		float modifier = 1;
+		if(this.getEffects().size() > 0) {
+			for(ItemEffect ie : this.getEffects()) {
+				if(ie.getPotency()==null) {
+					continue;
+				}
+				float modIncrease = 0;
+				switch(ie.getPotency()) {
+					case MAJOR_BOOST:
+						modIncrease = 0.05f;
+						break;
+					case BOOST:
+						modIncrease = 0.025f;
+						break;
+					case MINOR_BOOST:
+						modIncrease = 0.01f;
+						break;
+					default:
+						break;
+				}
+				modifier += modIncrease;
+			}
+			
+//			List<TFPotency> potencies = this.getEffects().stream().map(ItemEffect::getPotency).collect(Collectors.toList());
+//			if (potencies.contains(TFPotency.MAJOR_BOOST)) {
+//				modifier += 0.5;
+//			} else if (potencies.contains(TFPotency.BOOST)) {
+//				modifier += 0.3;
+//			} else if (potencies.contains(TFPotency.MINOR_BOOST)) {
+//				modifier += 0.1;
+//			}
+//			
+//			modifier += itemEffects.size()*0.01f;
+		}
+		return (int) (itemType.getValue() * modifier);
 	}
 	
 	public boolean isAppendItemEffectLinesToTooltip() {

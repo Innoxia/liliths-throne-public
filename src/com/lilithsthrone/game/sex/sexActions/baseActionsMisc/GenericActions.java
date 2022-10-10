@@ -3410,7 +3410,7 @@ public class GenericActions {
 						"[npc.Name] [npc.verb(try)] to sit up on the altar, but [npc.sheIs] only able to squirm about a little under the immobilising effects of the Witch's Seal.",
 						"The soft purple glow of the Witch's Seal can be seen all around [npc.name] as [npc.she] [npc.verb(struggle)] to make a move.",
 						"[npc.speech(~Mmm!~)] [npc.name] [npc.verb(moan)], struggling in vain against the Witch's Seal.",
-						"[npc.speech(~Aah!~)] [npc.name] [npc.verb(whimper)], squirming about on the altar as the With's Seal keeps [npc.herHim] locked in place.");
+						"[npc.speech(~Aah!~)] [npc.name] [npc.verb(whimper)], squirming about on the altar as the Witch's Seal keeps [npc.herHim] locked in place.");
 				
 			} else {
 				return UtilText.returnStringAtRandom(
@@ -3419,7 +3419,7 @@ public class GenericActions {
 						"[npc.Name] [npc.verb(try)] to move, but [npc.sheIs] only able to squirm about a little under the immobilising effects of the Witch's Seal.",
 						"The soft purple glow of the Witch's Seal can be seen all around [npc.name] as [npc.she] [npc.verb(struggle)] to make a move.",
 						"[npc.speech(~Mmm!~)] [npc.name] [npc.verb(moan)], struggling in vain against the Witch's Seal.",
-						"[npc.speech(~Aah!~)] [npc.name] [npc.verb(whimper)], squirming about as the With's Seal keeps [npc.herHim] locked in place.");
+						"[npc.speech(~Aah!~)] [npc.name] [npc.verb(whimper)], squirming about as the Witch's Seal keeps [npc.herHim] locked in place.");
 			}
 		}
 		@Override

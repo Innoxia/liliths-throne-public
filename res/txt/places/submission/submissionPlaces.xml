@@ -608,7 +608,7 @@
 		[pc.speech(Don't worry, I've kept it a secret,)] you reply, [pc.speech(and there's nobody nearby who's going to overhear us.)]
 	</p>
 	<p>
-		[claire.speech(Y-Yes, well, you never know,)] Claire responds, and you notice that for some odd reason she's starting to blush. Before you can ask her what's wrong, she continues, [claire.speech(The truth is, I kind of found that whole experience to be... well.. pretty exciting...)]
+		[claire.speech(Y-Yes, well, you never know,)] Claire responds, and you notice that for some odd reason she's starting to blush. Before you can ask her what's wrong, she continues, [claire.speech(The truth is, I kind of found that whole experience to be... well... pretty exciting...)]
 	</p>
 	<p>
 		[pc.speech(I suppose it was,)] you reply.
@@ -621,7 +621,7 @@
 				Before you offer a response to this revelation, Claire suddenly leans in against you, crushing her huge, [claire.cupSize]-cup breasts into your torso. Craning her neck forwards, she presses her [claire.lips+] firmly against yours, and right in the middle of the busy Enforcer post, she passionately kisses you.
 			</p>
 			<p>
-				Almost immediately as she's started, the horny cat-girl breaks off the kiss. Quickly straightening back up, she glances around to make sure that nobody noticed what she just did. Sure enough, by some sort of miracle, none of the the dozen-or-so Enforcers around you noticed your brief kiss. Biting her lip and giggling in delight, Claire moans, [claire.speech(Fun, isn't it? You know, this room behind me is only used for storage. We could always sneak into there if you wanted to get another taste of me... We <i>probably</i> won't be discovered...)] 
+				Almost immediately as she's started, the horny cat-girl breaks off the kiss. Quickly straightening back up, she glances around to make sure that nobody noticed what she just did. Sure enough, by some sort of miracle, none of the dozen-or-so Enforcers around you noticed your brief kiss. Biting her lip and giggling in delight, Claire moans, [claire.speech(Fun, isn't it? You know, this room behind me is only used for storage. We could always sneak into there if you wanted to get another taste of me... We <i>probably</i> won't be discovered...)] 
 		#ELSE
 			Before you offer a response to this revelation, Claire continues, [claire.speech(You know, this room behind me is only used for storage... We could always sneak into there and have some fun if you wanted to re-enact that sense of danger... We <i>probably</i> won't be discovered...)]
 		#ENDIF
@@ -691,7 +691,7 @@
 	</p>
 	<p>
 		The damp atmosphere holds just enough chill to gently caress any exposed skin, but, thanks to the wide iron grates built into the ceiling, the air doesn't feel stagnant down here.
-		 Looking up trough the iron bars, you're granted an unobstructed view of the sky, and, every now and then, up the occasional skirt.
+		 Looking up through the iron bars, you're granted an unobstructed view of the sky, and, every now and then, up the occasional skirt.
 		 The dizzying network of pipes and valves that run along the upper-half of the walls makes you feel sorry for whoever has to map and maintain them.
 	</p>
 	<p>
@@ -778,7 +778,7 @@
 	</p>
 	<p>
 		Instantly, the dark grey hue of the staircase beneath your [pc.feet] is replaced by a soft, turquoise glow.
-		 Looking down, you see that the stone steps are coated in a blanket of bioluminescent lichens and mosses, which, when pressure is applied to them, light up to illuminate their the area around them.
+		 Looking down, you see that the stone steps are coated in a blanket of bioluminescent lichens and mosses, which, when pressure is applied to them, light up to illuminate the area around them.
 		 Although bright enough to allow you to see your immediate surroundings, the lichen's light drops off at a distance of about [unit.lSizes(1500)] or so, and you can't help but feel like it's painting you as a target to anyone lurking in the darkness beyond.
 	</p>
 	<p>
@@ -936,7 +936,7 @@
 		Having crossed the huge cavern, you find yourself approaching the massive Gothic palace that has been carved into the dark stone wall. In front of you, separating the huge front gates from the path that you're standing on, is a vast, seemingly bottomless ravine. A heavy wooden drawbridge crosses the pitch-black depths of the chasm, which appears to be the only means of entry to the palace.
 	</p>
 	<p>
-		A group of twenty-or-so half-succubi are standing on this side of the ravine, and are preventing any unwelcome visitors from proceeding across the drawbridge. The majority of them appear to be half-demons, and, much like Lilaya, they have human faces and bodies, with demonic wings, horns, tails, and ears. Rather curiously, they're all wearing drab olive uniforms, with matching hats, skirts, and shoes. At each guards' side, they appear to have a holstered revolver, although, with the nature of this world being as it is, you know that they're likely to fire condensed arcane essences rather than actual bullets. These weapons, in combination with their uniforms, makes them look very much like mid-twentieth century British soldiers.
+		A group of twenty-or-so half-succubi are standing on this side of the ravine, and are preventing any unwelcome visitors from proceeding across the drawbridge. The majority of them appear to be half-demons, and, much like Lilaya, they have human faces and bodies, with demonic wings, horns, tails, and ears. Rather curiously, they're all wearing drab olive uniforms, with matching hats, skirts, and shoes. At each guards' side, they appear to have a holstered revolver, although, with the nature of this world being as it is, you know that they're likely to fire condensed arcane essences rather than actual bullets. These weapons, in combination with their uniforms, make them look very much like mid-twentieth century British soldiers.
 	</p>
 	]]>
 	</htmlContent>
@@ -1270,7 +1270,7 @@
 	
 	<htmlContent tag="IMP_FORTRESS_ENTRY_DEFEATED"><![CDATA[
 	<p>
-		Glancing over at the rudimentary gate that's set in to one side of the wall, you see that it's been left wide open, and there's no sign of life within the courtyard beyond. The imps that once ruled over the surrounding tunnels are obviously still too frightened to return, but you can be sure that's it's just a matter of time before they gather their courage and lay claim to this fortress once again...
+		Glancing over at the rudimentary gate that's set in to one side of the wall, you see that it's been left wide open, and there's no sign of life within the courtyard beyond. The imps that once ruled over the surrounding tunnels are obviously still too frightened to return, but you can be sure that it's just a matter of time before they gather their courage and lay claim to this fortress once again...
 	</p>
 	]]>
 	</htmlContent>

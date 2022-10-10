@@ -763,7 +763,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[0]]></index>
 				<responseTitle><![CDATA[Back]]></responseTitle>
-				<responseTooltip><![CDATA[Decide against entering Ursa's tent and head abck into the Amazons' camp...]]></responseTooltip>
+				<responseTooltip><![CDATA[Decide against entering Ursa's tent and head back into the Amazons' camp...]]></responseTooltip>
 				<nextDialogue defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'QUEEN_BACK'))]
@@ -1727,7 +1727,7 @@
 	
 	<scene id="lunexis_after_sex_submitted">
 		<title><![CDATA[Finished]]></title>
-		<tooltip><![CDATA[Lunexis has had enough for now and brings a end to the sex...]]></tooltip>
+		<tooltip><![CDATA[Lunexis has had enough for now and brings an end to the sex...]]></tooltip>
 		<content folderPath="txt/places/fields/elis/amazon_camp">LUNEXIS_AFTER_SEX_SUBMITTED</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
@@ -1741,7 +1741,7 @@
 					#IF(game.isBadEndsEnabled())
 						You ignore Lunexis's command and take your leave...
 					#ELSE
-						having finished with her, you do as Lunexis says and take your leave...
+						Having finished with her, you do as Lunexis says and take your leave...
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_amazon_camp_pathway"/>

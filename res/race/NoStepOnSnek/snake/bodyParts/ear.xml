@@ -22,7 +22,7 @@
 		#ELSE
 			 Just like the rest of [npc.her] body, [npc.her] now-fully-internal ears are made out of [npc.earFullDescription],
 		#ENDIF
-		 and as the transformation finishes, [npc.sheIs] left with the ears of an snake-morph.
+		 and as the transformation finishes, [npc.sheIs] left with the ears of a snake-morph.
 		<br/>[npc.Name] now [npc.has] [style.boldSnake(internal, scale-covered snake ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].
 	]]></transformationDescription>
 	<bodyDescription><![CDATA[

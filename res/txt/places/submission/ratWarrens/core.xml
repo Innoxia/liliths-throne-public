@@ -79,7 +79,7 @@
 			[npc3.speech(Yeah, I ain't wantin' ta get on the boss's bad side if we end up turnin' away people 'e was waitin' for,)] [npc3.name] replies, [npc3.speech(Let's let 'em in.)]
 		</p>
 		<p>
-			Reappearing at the hatch, [npc2.name] growls out, [npc2.speech(Right, we's goin' ta let yer in. Just stay there; these inner doors can't open unless them outer ones are shut first. It's security. Ya wouldn't understand, so don' ya be questionin' it.)]
+			Reappearing at the hatch, [npc2.name] growls out, [npc2.speech(Right, we's goin' ta let yer in. Just stay there; these inner doors can't open unless them outer ones are shut first. It's security. Ya wouldn't understand, so don't ya be questionin' it.)]
 		</p>
 		<p>
 			Convinced that these two guards don't have the mental capacity to trap you in this hallway, you allow them to activate the mechanism which shuts the doors behind you, and, sure enough, once they're firmly closed, the interior ones slowly open to grant you and your [npc.companion] access to the Rat Warrens.
@@ -98,7 +98,7 @@
 			[npc2.speech(Yeah, I ain't wantin' ta get on the boss's bad side if we end up turnin' away people 'e was waitin' for,)] [npc2.name] replies, [npc2.speech(Let's let [pc.herHim] in.)]
 		</p>
 		<p>
-			Reappearing at the hatch, [npc.name] growls out, [npc.speech(Right, we's goin' ta let yer in. Just stay there; these inner doors can't open unless them outer ones are shut first. It's security. Ya wouldn't understand, so don' ya be questionin' it.)]
+			Reappearing at the hatch, [npc.name] growls out, [npc.speech(Right, we's goin' ta let yer in. Just stay there; these inner doors can't open unless them outer ones are shut first. It's security. Ya wouldn't understand, so don't ya be questionin' it.)]
 		</p>
 		<p>
 			Convinced that these two guards don't have the mental capacity to trap you in this hallway, you allow them to activate the mechanism which shuts the doors behind you, and, sure enough, once they're firmly closed, the interior ones slowly open to grant you access to the Rat Warrens.
@@ -337,7 +337,7 @@
 		[npc3.speech(This is gonna be good!)] [npc3.name] [npc3.moans], groping [npc.namePos] [npc.ass+] as [npc3.she] grinds up against [npc.herHim].
 	</p>
 	<p>
-		Letting out an excited [pc.moan], you tell the two guards that they can do whatever they want with [npc.name], before stepping abck and preparing to watch the show...
+		Letting out an excited [pc.moan], you tell the two guards that they can do whatever they want with [npc.name], before stepping back and preparing to watch the show...
 	</p>
 	]]>
 	</htmlContent>
@@ -1415,7 +1415,7 @@
 	<htmlContent tag="DICE_DEN_CHALLENGE"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
-			Deciding that this is the right time to get started on clearing out the Rat Warrens, you step step forwards and call out to the gambling rats that you're here to put an end to their criminal activities. As the gang members jump to their feet, you and [npc.name] ready yourselves for combat.
+			Deciding that this is the right time to get started on clearing out the Rat Warrens, you step forwards and call out to the gambling rats that you're here to put an end to their criminal activities. As the gang members jump to their feet, you and [npc.name] ready yourselves for combat.
 		</p>
 		<p>
 			[npc5.speech(You's 'ere ta do wot?!)] [npc5.name] exclaims, before rushing around from behind the bar and calling out, [npc5.speech(Come on everyone! Let's show 'em wot we do ta troublemakers!)]
@@ -1428,7 +1428,7 @@
 		</p>
 	#ELSE
 		<p>
-			Deciding that this is the right time to get started on clearing out the Rat Warrens, you step step forwards and call out to the gambling rats that you're here to put an end to their criminal activities. As the gang members jump to their feet, you ready yourself for combat.
+			Deciding that this is the right time to get started on clearing out the Rat Warrens, you step forwards and call out to the gambling rats that you're here to put an end to their criminal activities. As the gang members jump to their feet, you ready yourself for combat.
 		</p>
 		<p>
 			[npc4.speech(You's 'ere ta do wot?!)] [npc4.name] exclaims, before rushing around from behind the bar and calling out, [npc4.speech(Come on everyone! Let's show 'em wot we do ta troublemakers!)]
@@ -2277,13 +2277,13 @@
 		Wanting to know more about the milkers, you ask Murk how he came to own them, and if any of the other gang members in the Rat Warrens own slaves like he does.
 	</p>
 	<p>
-		[murk.speechNoeffects(Slaves?)] Murk rhetorically asks, before grunting in annoyance, [murk.speechNoeffects(These sluts ain't no slaves. I's don't see why I's should be tellin' ya anytin' 'bout 'em, but seein' as yer gonna go an' spread bullshit 'bout me ownin' slaves if I don't, I'll let ya know 'ow I came ta own these milkers.)]
+		[murk.speechNoeffects(Slaves?)] Murk rhetorically asks, before grunting in annoyance, [murk.speechNoeffects(These sluts ain't no slaves. I's don't see why I's should be tellin' ya anythin' 'bout 'em, but seein' as yer gonna go an' spread bullshit 'bout me ownin' slaves if I don't, I'll let ya know 'ow I came ta own these milkers.)]
 	</p>
 	<p>
 		With your curiosity piqued, you endure a few seconds of pause as Murk walks over to the nearest of the restrained women and sharply slaps her on the ass. Letting out a deeply erotic moan in response to the sudden attention, the milker calls out, [npc.speechNoeffects(~Aah!~ Master, please! Fuck my pussy! I need you inside of me!)]
 	</p>
 	<p>
-		[murk.speechNoeffects(Shut it, slut! I'll give ya a good rough poundin' later tonight!)] Murk snaps, before turning towards you and sneering, [murk.speechNoeffects(Ya see 'ow submissive an' 'ungy these fuckin' sluts are fer me cock? They's weren't always like this, y'know. It took real 'ard trainin' ta break 'em in an' make 'em realise they ain't nothin' but me milker cock-sleeves. This 'un 'ere was the first; I found the dumb bitch passed out from drinkin' too much over near the gamblin' den. Seemed a real waste ta leave 'er lyin' there, especially seein' as 'ow I'd recently scavenged these six milkers, so I dragged 'er back 'ere an' got 'er strapped up nice an' tight! When she woke up, she weren't too pleased 'bout 'er situation, but just look at 'er now! Heh-heh-heh!)]
+		[murk.speechNoeffects(Shut it, slut! I'll give ya a good rough poundin' later tonight!)] Murk snaps, before turning towards you and sneering, [murk.speechNoeffects(Ya see 'ow submissive an' 'ungry these fuckin' sluts are fer me cock? They's weren't always like this, y'know. It took real 'ard trainin' ta break 'em in an' make 'em realise they ain't nothin' but me milker cock-sleeves. This 'un 'ere was the first; I found the dumb bitch passed out from drinkin' too much over near the gamblin' den. Seemed a real waste ta leave 'er lyin' there, especially seein' as 'ow I'd recently scavenged these six milkers, so I dragged 'er back 'ere an' got 'er strapped up nice an' tight! When she woke up, she weren't too pleased 'bout 'er situation, but just look at 'er now! Heh-heh-heh!)]
 	</p>
 	<p>
 		To demonstrate his point, Murk 
@@ -2472,7 +2472,7 @@
 				Just as you're wondering where the other bodyguard must be, you suddenly notice a dark blur swiftly moving around in your peripheral vision. Spinning around to face this potential threat, you find yourself staring at a figure who's the complete opposite in appearance to her companion. With fur as black as pitch, and ebony skin covering her paw pads, nose, and tail, there's not a single inch of the maniacally-grinning rat-girl standing before you that isn't as dark as the night sky.
 			</p>
 			<p>
-				[shadow.speechNoEffects('Ow observant of ya, seein' little ol' Shadow movin' around ta make sure ya don't do anythin' stupid!)] this 'Shadow' teases, her voice dripping with malice. Dropping her hands to her hips, she unsheathes a pair of keramits; the green glow of their poisoned ethereal blades lights up first Shadow's black miniskirt, then her equally-dark tube top as she lifts the weapons up into a posture from which she's ready to strike at you. Casting a glance across at the other rat-girl, who now you know must be 'Silence', this black-furred rat-girl calls out, [shadow.speechNoEffects(Get ready, love! If this 'un ain't givin' Vengar a good reason ta be 'ere, we's gonna be seein' some action!)]
+				[shadow.speechNoEffects('Ow observant of ya, seein' little ol' Shadow movin' around ta make sure ya don't do anythin' stupid!)] this 'Shadow' teases, her voice dripping with malice. Dropping her hands to her hips, she unsheathes a pair of kerambits; the green glow of their poisoned ethereal blades lights up first Shadow's black miniskirt, then her equally-dark tube top as she lifts the weapons up into a posture from which she's ready to strike at you. Casting a glance across at the other rat-girl, who now you know must be 'Silence', this black-furred rat-girl calls out, [shadow.speechNoEffects(Get ready, love! If this 'un ain't givin' Vengar a good reason ta be 'ere, we's gonna be seein' some action!)]
 			</p>
 		#ENDIF
 	#ENDIF
@@ -2518,7 +2518,7 @@
 				As you prepare to fight Silence, your [npc.companion] suddenly notices a dark blur swiftly moving around in [npc.her] peripheral vision. As [npc.she] spins around to face this new threat, you too turn to see what [npc.sheHas] seen, and find yourself staring at a figure who's the complete opposite in appearance to Silence. With fur as black as pitch, and ebony skin covering her paw pads, nose, and tail, there's not a single inch of the maniacally-grinning rat-girl standing before you that isn't as dark as the night sky.
 			</p>
 			<p>
-				[shadow.speechNoEffects('Ow observant of ya, seein' little ol' Shadow movin' around ta give ya a lovin' kiss!)] this 'Shadow' teases, her voice dripping with malice. Dropping her hands to her hips, she unsheathes a pair of keramits; the green glow of their poisoned ethereal blades lights up first Shadow's black miniskirt, then her equally-dark tube top as she lifts the weapons up into a posture from which she's ready to strike at you. Casting a glance across at Silence, this black-furred rat-girl calls out, [shadow.speechNoEffects(Don't ya worry, love, I ain't gonna let any 'arm come ta ya. Let's finish this quick!)]
+				[shadow.speechNoEffects('Ow observant of ya, seein' little ol' Shadow movin' around ta give ya a lovin' kiss!)] this 'Shadow' teases, her voice dripping with malice. Dropping her hands to her hips, she unsheathes a pair of kerambits; the green glow of their poisoned ethereal blades lights up first Shadow's black miniskirt, then her equally-dark tube top as she lifts the weapons up into a posture from which she's ready to strike at you. Casting a glance across at Silence, this black-furred rat-girl calls out, [shadow.speechNoEffects(Don't ya worry, love, I ain't gonna let any 'arm come ta ya. Let's finish this quick!)]
 			</p>
 			<p>
 				With that, the two rat-girls suddenly launch into their attack, leaving you and [npc.name] with no choice but to defend yourselves against them!
@@ -2528,7 +2528,7 @@
 				As you prepare to fight Silence, you suddenly notice a dark blur swiftly moving around in your peripheral vision. Spinning around to face this new threat, you and [npc.name] find yourselves staring at a figure who's the complete opposite in appearance to Silence. With fur as black as pitch, and ebony skin covering her paw pads, nose, and tail, there's not a single inch of the maniacally-grinning rat-girl standing before you that isn't as dark as the night sky.
 			</p>
 			<p>
-				[shadow.speechNoEffects('Ow observant of ya, seein' little ol' Shadow movin' around ta give ya a lovin' kiss!)] this 'Shadow' teases, her voice dripping with malice. Dropping her hands to her hips, she unsheathes a pair of keramits; the green glow of their poisoned ethereal blades lights up first Shadow's black miniskirt, then her equally-dark tube top as she lifts the weapons up into a posture from which she's ready to strike at you. Casting a glance across at Silence, this black-furred rat-girl calls out, [shadow.speechNoEffects(Don't ya worry, love, I ain't gonna let any 'arm come ta ya. Let's finish this quick!)]
+				[shadow.speechNoEffects('Ow observant of ya, seein' little ol' Shadow movin' around ta give ya a lovin' kiss!)] this 'Shadow' teases, her voice dripping with malice. Dropping her hands to her hips, she unsheathes a pair of kerambits; the green glow of their poisoned ethereal blades lights up first Shadow's black miniskirt, then her equally-dark tube top as she lifts the weapons up into a posture from which she's ready to strike at you. Casting a glance across at Silence, this black-furred rat-girl calls out, [shadow.speechNoEffects(Don't ya worry, love, I ain't gonna let any 'arm come ta ya. Let's finish this quick!)]
 			</p>
 			<p>
 				With that, the two rat-girls suddenly launch into their attack, leaving you and [npc.name] with no choice but to defend yourselves against them!
@@ -2539,7 +2539,7 @@
 			As you prepare to fight Silence, you suddenly notice a dark blur swiftly moving around in your peripheral vision. Spinning around to face this new threat, you find yourself staring at a figure who's the complete opposite in appearance to Silence. With fur as black as pitch, and ebony skin covering her paw pads, nose, and tail, there's not a single inch of the maniacally-grinning rat-girl standing before you that isn't as dark as the night sky.
 		</p>
 		<p>
-			[shadow.speechNoEffects('Ow observant of ya, seein' little ol' Shadow movin' around ta give ya a lovin' kiss!)] this 'Shadow' teases, her voice dripping with malice. Dropping her hands to her hips, she unsheathes a pair of keramits; the green glow of their poisoned ethereal blades lights up first Shadow's black miniskirt, then her equally-dark tube top as she lifts the weapons up into a posture from which she's ready to strike at you. Casting a glance across at Silence, this black-furred rat-girl calls out, [shadow.speechNoEffects(Don't ya worry, love, I ain't gonna let any 'arm come ta ya. Let's finish this quick!)]
+			[shadow.speechNoEffects('Ow observant of ya, seein' little ol' Shadow movin' around ta give ya a lovin' kiss!)] this 'Shadow' teases, her voice dripping with malice. Dropping her hands to her hips, she unsheathes a pair of kerambits; the green glow of their poisoned ethereal blades lights up first Shadow's black miniskirt, then her equally-dark tube top as she lifts the weapons up into a posture from which she's ready to strike at you. Casting a glance across at Silence, this black-furred rat-girl calls out, [shadow.speechNoEffects(Don't ya worry, love, I ain't gonna let any 'arm come ta ya. Let's finish this quick!)]
 		</p>
 		<p>
 			With that, the two rat-girls suddenly launch into their attack, leaving you with no choice but to defend yourself against them!
@@ -2581,7 +2581,7 @@
 		Deciding that it would be best to truthfully explain the reason why you're here, you tell Vengar that Axel is struggling to make his payments, and ask him to stop extorting money from Submission's honest businesses. As you finish making your request, the rat-boy sits back down on his iron throne and sneers, [vengar.speechNoEffects(Why should I be listenin' ta someone who ain't shown me the proper amount o' respect!? Ain't that right, everyone?!)]
 	</p>
 	<p>
-		All of the rats in the hall, up until now having been staying quiet, let out a raucous cheer in response to Vengar's question. Grinning evilly down at you from his higher vantage point, Vengar allows his followers to continue shouting and jeering for a few moments longer, before holding up his hand and once again commanding them to silence. After letting out a long, ponderous humming noise, Vegnar says,
+		All of the rats in the hall, up until now having been staying quiet, let out a raucous cheer in response to Vengar's question. Grinning evilly down at you from his higher vantage point, Vengar allows his followers to continue shouting and jeering for a few moments longer, before holding up his hand and once again commanding them to silence. After letting out a long, ponderous humming noise, Vengar says,
 		#IF(pc.hasCompanions())
 			 [vengar.speechNoEffects(I's thought o' a couple o' ways fer ya ta show yer respect. If ya want ta do it in a way wot lets ya keep yer dignity, then you's gonna 'ave ta pay me [#SPECIAL_PARSE_0] flames. Otherwise, ya gots ta bow down before me an' say ya submit ta me! So, which one is it gonna be?!)]
 		#ELSE
@@ -2643,7 +2643,7 @@
 		[vengar.speechNoEffects('Cos it all depends on not losin' the respect 'o me gang, an' not gettin' arrested by the Enforcers once I's quit!)] Vengar exclaims in frustration, before sighing and explaining, [vengar.speechNoEffects(Look, I's recently acquired a large stake in a legit rum makin' business, but if I's just come out an' tell me gang that they's now me employees, an' we's followin' the law, I'd 'ave a mutiny on me 'ands quicker than you's can say 'please don't stab me in the back'!)]
 	</p>
 	<p>
-		[pc.speech(So how do I help you with that?)] you again ask, hoping that Vangar is soon going to get to the point.
+		[pc.speech(So how do I help you with that?)] you again ask, hoping that Vengar is soon going to get to the point.
 	</p>
 	<p>
 		[vengar.speechNoEffects(Right, well, I's thought o' a plan, ya see, but I was needin' someone 'o could convince Axel ta take part in it. That's where I's needin' someone like yerself,)] the rat-boy says, [vengar.speechNoEffects(There ain't no chance he'd listen to me or any o' me gang members, but if ya can convince that 'gator ta come 'ere an' publicly declare 'is submission ta me, then I's can set me other plans in motion. I's not gonna go inta any details, but trust me when I's sayin' that if me gang sees Axel submit, then I's can be gettin' rid o' the rats what might be prepared ta challenge me leadership. As fer the Enforcers, well, you's just gonna 'ave ta believe me when I's sayin' they won't be no trouble once all this is done.)]
@@ -3492,7 +3492,7 @@
 		#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_VENGAR, QUEST_VENGAR_OPTIONAL_CLAIRE))
 			, identical to the resonance stone which Claire gave to you,
 		#ENDIF
-		 from her pocket. Holding this sphere up to the Enforcers advancing on your location, she clears her throat, before shouting out to them, [shadow.speech(Ya took yer fuckin' time, didn't ya?! A few moments more, an' me an' Silence 'ere would'a been in serious trouble! These fuckin' rats ain't no joke when tehre's so many o' them!)]
+		 from her pocket. Holding this sphere up to the Enforcers advancing on your location, she clears her throat, before shouting out to them, [shadow.speech(Ya took yer fuckin' time, didn't ya?! A few moments more, an' me an' Silence 'ere would'a been in serious trouble! These fuckin' rats ain't no joke when there's so many o' them!)]
 	</p>
 	<p>
 		At that moment, power is returned to the lights in the hall, and you see that there's a muscular German-shepherd-boy leading the small group of SWORD Enforcers up to your hiding place. With the rest of the Enforcers setting about their task of arresting all of the rats in the hall, this imposing character marches right up to Shadow and snatches the small sphere out of her hands, before barking an order back to his group, [style.speechMasculineStrong(Clear those back rooms! I don't want a single fucking rat slipping out of our net!)]
@@ -3629,7 +3629,7 @@
 		#ENDIF
 		 you step forwards into the next room, only to discover that it's a small corridor with a couple of doors on each side. Moving past you, Vengar opens the nearest door on the left, and you step through into this next room to finally find yourself in a large, well-furnished bedroom. Pressing himself up against you, the rat-boy guides you over to the large, four-poster bed that dominates the room, growling in your ear as he does so,
 		#IF(pc.hasVagina() && !pc.isVisiblyPregnant())
-		 [vengar.speechNoEffects(So, ya came all this way ta 'ave a good, 'ard fuck, did ya? I's gonna giva ya cunt a good poundin' an' then breed ya!)]
+		 [vengar.speechNoEffects(So, ya came all this way ta 'ave a good, 'ard fuck, did ya? I's gonna give ya cunt a good poundin' an' then breed ya!)]
 		#ELSE
 		 [vengar.speechNoEffects(So, ya came all this way just ta 'ave a good, 'ard fuck, did ya? I's gonna give ya a good poundin'!)]
 		#ENDIF
@@ -3744,7 +3744,7 @@
 		Staggering back, Shadow releases her grip on her kerambits, and with a ringing, metallic clatter, they slip out of her hands and fall to the ground. With a deep sigh, the rat-girl mimics her weapons' sudden descent, and collapses down onto her knees, before keeling over onto the cold floor.
 	</p>
 	<p>
-		Instead of launching into her next attack and attempting to avenge her companion, Silence staggers back, looking like she's about to collapse herself. Staring down at the defeated form of Shadow with a anguished grimace on her face, the albino rat-girl grabs hold of the shard of demonstone hung around her neck, before looking up and furiously scowling at you. Before you can react, Silence's eyes suddenly become wreathed in phantasmal, purple flames, and with an upwards swipe of her free hand, she casts what turns out to be an immensely powerful spell.
+		Instead of launching into her next attack and attempting to avenge her companion, Silence staggers back, looking like she's about to collapse herself. Staring down at the defeated form of Shadow with an anguished grimace on her face, the albino rat-girl grabs hold of the shard of demonstone hung around her neck, before looking up and furiously scowling at you. Before you can react, Silence's eyes suddenly become wreathed in phantasmal, purple flames, and with an upwards swipe of her free hand, she casts what turns out to be an immensely powerful spell.
 	</p>
 	<p>
 		At first, the only sign of any spell being cast is an unnatural gust of wind which suddenly blows throughout the grand hall. Quickly increasing in strength, this arcane wind causes the fires burning in the hall's hearths to gutter and flicker, before they suddenly change colour into bright greens and purples. Reaching upwards with her free hand, Silence suddenly clenches her fist, and right there, before your eyes, the ethereal form of a demonic wind elemental takes shape. Speaking through this arcane creature, Silence projects a chilling, grief-stricken voice throughout the hall, [silence.speechNoEffects(You'll pay for what you've done!)]
@@ -3849,7 +3849,7 @@
 	
 	<htmlContent tag="BODYGUARDS_COMBAT_DEFEAT_DRAGGED_OFF"><![CDATA[
 	<p>
-		Ignoring the triumphant shouts of the gang-members gathered in his hall, Vengar roughly grabs hold you and starts dragging you back out into the tunnels through which you came. Letting out deep grunt as he kicks one of the more excitable members of his gang out of his way, the rat-boy growls down to you, [vengar.speech(I's gonna be usin' ya ta pay back back a favour ta Murk. I'm sure yer gonna 'ave lots o' fun with 'im as yer master; he's gonna transform ya into an 'orny milkin' bitch, an' get yer broken in an' worshippin' 'is cock! I's got all the rat-pussy I need, but some o' the members o' me gang'll pay Murk ta fuck ya!)]
+		Ignoring the triumphant shouts of the gang-members gathered in his hall, Vengar roughly grabs hold you and starts dragging you back out into the tunnels through which you came. Letting out deep grunt as he kicks one of the more excitable members of his gang out of his way, the rat-boy growls down to you, [vengar.speech(I's gonna be usin' ya ta pay back a favour ta Murk. I'm sure yer gonna 'ave lots o' fun with 'im as yer master; he's gonna transform ya into an 'orny milkin' bitch, an' get yer broken in an' worshippin' 'is cock! I's got all the rat-pussy I need, but some o' the members o' me gang'll pay Murk ta fuck ya!)]
 	</p>
 	#IF(game.getDialogueFlags().hasFlag(FLAG_murkIntroduced))
 		<p>
@@ -3916,7 +3916,7 @@
 		Stepping up to you, the chubby rat-boy reaches down and roughly locks this heavy collar into place around your neck. The very moment that it seals shut, you feel a powerful enchantment taking effect, and try as you might, you can't quite bring yourself to attempt to unseal it, or use any self-transformative powers you might possess in order to slip out of it.
 	</p>
 	<p>
-		[murk.speechNoEffects(Yeah, I's thinkin' that this 'un's gonna do nicely,)] Murk muses to himself, before looking up at his leader and thanking him, [murk.speechNoEffects(You's done be a real kindenss 'ere, boss! Consider that debt ya owes me ta be written off! If yer ok with it, I's wantin' ta save [pc.her] 'oles fer me fat cock, but you's can fuck [pc.her] face if ya want!)]
+		[murk.speechNoEffects(Yeah, I's thinkin' that this 'un's gonna do nicely,)] Murk muses to himself, before looking up at his leader and thanking him, [murk.speechNoEffects(You's done be a real kindness 'ere, boss! Consider that debt ya owes me ta be written off! If yer ok with it, I's wantin' ta save [pc.her] 'oles fer me fat cock, but you's can fuck [pc.her] face if ya want!)]
 	</p>
 	<p>
 		[vengar.speech(Sounds good to me,)] the gang leader grunts, before saying, [vengar.speech(I doubt this bitch can suck cock as good as them rat sluts I've got as me guards, but I could do with emptying me balls right now...)]
@@ -4099,7 +4099,7 @@
 		#ENDIF
 		 you quickly move over to where the rat-boy is standing, before stepping forwards into the small corridor beyond. Moving past you, Vengar opens the nearest door on the left, and you step through into this next room to finally find yourself in a large, well-furnished bedroom. Pressing himself up against you, the rat-boy guides you over to the large, four-poster bed that dominates the room, growling in your ear as he does so,
 		#IF(pc.hasVagina() && !pc.isVisiblyPregnant())
-		 [vengar.speechNoEffects(I's gonna giva ya cunt a good poundin' an' then breed ya!)]
+		 [vengar.speechNoEffects(I's gonna give ya cunt a good poundin' an' then breed ya!)]
 		#ELSE
 		 [vengar.speechNoEffects(I's gonna give ya a good poundin'!)]
 		#ENDIF
@@ -4169,7 +4169,7 @@
 		The two of you proceed through the tunnels of the Rat Warrens, before exiting out into Submission and making your way to the Gambling Den. On the way, Vengar continues making lewd comments about what he's planning to do with [axel.name], and by the time the two of you step into her premises, you think that you've heard every obscene word ever used to describe a person's cock.
 	</p>
 	<p>
-		Catching sight of you and Vengar as the two of you enter the Gambling Den, [axel.name] hurrys forwards to greet you, [axel.speech(Oh, fancy the two of you coming to visit here together! Is there anything I can offer you today?)]
+		Catching sight of you and Vengar as the two of you enter the Gambling Den, [axel.name] hurries forwards to greet you, [axel.speech(Oh, fancy the two of you coming to visit here together! Is there anything I can offer you today?)]
 	</p>
 	<p>
 		Stepping forwards, Vengar dominantly grabs a handful of [lexa.namePos] [lexa.ass+], before hungrily growling, [vengar.speechNoEffects(Yeah, ya can offer us this fine piece o' ass! Yer 'ungry fer a taste o' me fat rat cock, ain't ya, ya 'gator slut?)]

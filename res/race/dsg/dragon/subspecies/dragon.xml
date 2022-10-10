@@ -54,8 +54,8 @@
 		#IF(targetedBody.getWingType() != WING_TYPE_dsg_dragon_wing)
 			[#targetedBody.setWingType(WING_TYPE_dsg_dragon_wing)]
 		#ENDIF
-		#IF(targetedBody.getWingSizeValue() < WING_SIZE_THREE_LARGE)
-			[#targetedBody.setWingSize(WING_SIZE_THREE_LARGE)]
+		#IF(targetedBody.getWingSizeValue() < targetedBody.getLegConfiguration().getMinimumWingSizeForFlight(targetedBody).getValue())
+			[#targetedBody.setWingSize(targetedBody.getLegConfiguration().getMinimumWingSizeForFlight(targetedBody).getValue())]
 		#ENDIF
 		#IF(targetedBody.getHornType().isOneOf(HORN_TYPE_dsg_dragon_hornAntlers, HORN_TYPE_NONE))
 			[#targetedBody.setHornType(targetedBody.randomTypeFrom(

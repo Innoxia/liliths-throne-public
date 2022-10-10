@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<vagina>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractVaginaType.java -->
+	
+	<!-- The id of the race which this vagina belongs to.
+	This will almost always be the id of the race in which this type is found (in this case salamander). -->
+	<race>mintychip_salamander</race>
+	
+	<!-- The name that will be used when referring to transformations related to this type (such as when changing body parts in the self-TF menu). -->
+	<transformationName><![CDATA[salamander]]></transformationName>
+	
+	<!-- The id of the material covering this vagina.
+	This should always be left as 'VAGINA'.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>VAGINA</coveringType>
+	
+	<!-- The id of the fluid that's associated with this vagina type. -->
+	<fluidType>mintychip_salamander_girlcum</fluidType>
+	
+	<!-- Whether or not this vagina type can have pubic hair growing around it.
+	As a character's pubic hair is shared between their penis and vagina, I've taken the decision to give penis type priority in determining whether or not pubic hair is allowed (as the penis is above the vagina, it seemed logical to do it that way).
+		As such, if a character's vagina type does not allow pubic hair, but their penis type does, then they can grow pubic hair.
+		Conversely, if a character's vagina type does allow pubic hair, but their penis type does not, then they cannot grow pubic hair.
+		As an aside, a character lacking both penis and vagina cannot grow pubic hair.
+	By default, vagina types allow pubic hair if its race is of either the MAMMAL or BIRD RacialClass. As such, this vagina type would allow pubic hair even if this element was omitted (as salamanders are of the MAMMAL class), but I've included it here for demonstration purposes.
+	You should define this as either 'true' or 'false', or, if you'd like to leave it to its default value, then leave this element blank or omit it entirely. -->
+	<pubicHairAllowed>false</pubicHairAllowed>
+	
+	<!-- Whether this vagina type lays eggs (true) or gives birth to live young (false). -->
+	<eggLayer>true</eggLayer>
+	
+	<!-- The singular/plural names of this vagina.
+	One of the defined names will be chosen at random every time the name is displayed to the player. 
+	Names ending in '-' are handled in a special manner by appending a random, generic vagina name to the end of it before returning, so for this example of 'salamander-', the names 'salamander-pussy', 'salamander-twat', etc. will be returned. -->
+	<names>
+		<name><![CDATA[salamander-]]></name>
+	</names>
+	<namesPlural>
+		<name><![CDATA[salamander-]]></name>
+	</namesPlural>
+	
+	<!-- The descriptors which should be drawn upon when describing a character's vagina of this type.
+	Additional vagina descriptors are generated based on the vagina's properties (such as its modifiers, lubrication, capacity, etc.), so these descriptors should only be universal and ideally related to the race itself. -->
+	<descriptors>
+		<descriptor><![CDATA[hot]]></descriptor>
+	</descriptors>
+	
+	<!-- The orifice modifiers which this vagina has when first created (such as when a new salamander-morph is spawned).
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/OrificeModifier.java -->
+	<defaultOrificeModifiers/>
+	
+	<!-- The description which is shown when a character transforms to obtain this vagina type.
+	This description immediately follows a brief description of the vagina type beginning to transform. -->
+	<transformationDescription><![CDATA[
+			[npc.She] [npc.verb(let)] out a squeal of excitement as a wave of pleasure runs up through [npc.her] groin, which increases in intensity as [npc.she] [npc.verb(feel)] [npc.her] slit uncontrollably shifting and contracting. Within moments, the feeling fades away, and [npc.she] [npc.verb(discover)] that [npc.her] pussy [npc.has] reformed into a distinctly salamander-like form.
+		</p>
+		<p>
+			Just as [npc.she] [npc.verb(start)] think that the transformation [npc.has] come to an end, [npc.her] pussy involuntarily clenches down, and a desperate squeal escapes from between [npc.her] [npc.lips+] as a warm, tingling feeling spreads up through [npc.her] lower abdomen. Images of throbbing salamander-cocks slamming deep into [npc.her] new pussy flash before [npc.her] eyes, and [npc.her] squeal turns into a satisfied moan as [npc.she] [npc.verb(imagine)] them pumping their potent seed deep into [npc.her] new womb. Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body, [npc.she] [npc.verb(feel)] [npc.her] female reproductive organs finishing their transformation.
+			<br/>[npc.Name] now [npc.has] a [style.boldSalamander(salamander vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls.
+	]]></transformationDescription>
+	
+	<!-- How this torso is described in a character's description page.
+	Immediately follows on from:
+		'Between [npc.her] [npc.legs], ' -->
+	<bodyDescription><![CDATA[
+		[npc.she] [npc.has] #IF(npc.isPiercedVagina())a pierced#ELSEa#ENDIF salamander-pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.
+	]]></bodyDescription>
+	
+</vagina>

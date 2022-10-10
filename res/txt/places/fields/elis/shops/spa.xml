@@ -75,7 +75,7 @@
 		You tell Penelope that you'd like to make use of her services as an arcane beautician. Guiding you over to one side of the large reception area, she asks you to take a seat in front of a stylish mirror, before asking, [penelope.speech(So, what'll it be, [pc.sir]? Would you like to try a new hair style, or were you thinking of something a little more adventurous than that?)]
 	</p>
 	<p>
-		Gesturing over to a jewellery display cabinet situated a short distance from where you're sitting, the beautiful border collie-girl reminds you, [penelope.speech(I also have several items of jewellery for sale, so please don't hestiate to ask if you'd like to try anything on.)]
+		Gesturing over to a jewellery display cabinet situated a short distance from where you're sitting, the beautiful border collie-girl reminds you, [penelope.speech(I also have several items of jewellery for sale, so please don't hesitate to ask if you'd like to try anything on.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -113,7 +113,7 @@
 	
 	<htmlContent tag="TALK_SHEEP"><![CDATA[
 	<p>
-		Curious to find out why all of Penelope's employees are sheep-morphs, you ask her if that was a concious choice to fit with the name of her spa, or if it came about naturally and the name 'Woolly Heaven' was chosen afterwards.
+		Curious to find out why all of Penelope's employees are sheep-morphs, you ask her if that was a conscious choice to fit with the name of her spa, or if it came about naturally and the name 'Woolly Heaven' was chosen afterwards.
 	</p>
 	<p>
 		[penelope.speech(I'd always planned to hire only sheep-morphs,)] Penelope reveals, before stating, [penelope.speech(I find sheep-girls to be particularly easy to manage and control, and clients seem to really love their woolly bodies. Unlike feral sheep, the wool which covers a sheep-morph is soft and luxurious to the touch, doubly so after it's been treated with the right shampoo and conditioner.)]
@@ -181,7 +181,7 @@
 		Responding in the positive, you tell Penelope that you enjoyed using the facilities, and that you're now feeling well and truly relaxed and refreshed. Leaning forwards over her counter, the border collie-girl pushes out her chest to show off her [penelope.cupSize]-cup breasts and teases, [penelope.speech(Perhaps after that you're feeling in the mood for fucking one of my sheep-girls? Or perhaps even myself? How about you have a nice massage and see where it leads...)]
 	</p>
 	<p>
-		Playfully winking at you, Penelope waits to hear if you'll take her up on her offer, or perhaps ask for soemthing else...
+		Playfully winking at you, Penelope waits to hear if you'll take her up on her offer, or perhaps ask for something else...
 	</p>
 	]]>
 	</htmlContent>
@@ -304,7 +304,7 @@
 	
 	<htmlContent tag="MASSAGE_BACK"><![CDATA[
 	<p>
-		Changing your mind, you tell Penelope that you don't want a massage after all. The three sheep-girls each let out dissapointed whines and sighs as they hear this, before turning around and walking off back to their rooms. Giving you a polite smile, Penelope hands you back your flames and states, [penelope.speech(Very well, [pc.sir]. Here's your two hundred and fifty flames. Please let me know if there's anything else I can do for you today.)]
+		Changing your mind, you tell Penelope that you don't want a massage after all. The three sheep-girls each let out disappointed whines and sighs as they hear this, before turning around and walking off back to their rooms. Giving you a polite smile, Penelope hands you back your flames and states, [penelope.speech(Very well, [pc.sir]. Here's your two hundred and fifty flames. Please let me know if there's anything else I can do for you today.)]
 	</p>
 	<p>
 		Thanking the border collie-girl, you wonder what to ask of her next...
@@ -735,7 +735,7 @@
 		Wanting to have a session of full-on sex with Farah, and eager to have the chance to get her pregnant, you give her seven hundred and fifty flames and tell her that you want to knock her up. Letting out a soft moan, the sheep-girl safely stores your money in a nearby cabinet as you get up from the massage table and prepare to get started.
 	</p>
 	<p>
-		[farah.speech(Remember, sugar, I'm the one in charge here,)] Farah confidently states as she steps over to lie back on the table that you've just vacated. Producing a breeder pill, she pops it out of its protective packaging and swallows it, before spreading her legs she reaching down to use two of her digits to spread her [farah.labia+]. Lewdly presenting her [farah.pussyCapacity] cunt to you, she flashes you a sly smirk and says, [farah.speech(Come here, sugar. This pussy's getting hot and wet at the thought of being fertile and ready to receive a big creampie...)]
+		[farah.speech(Remember, sugar, I'm the one in charge here,)] Farah confidently states as she steps over to lie back on the table that you've just vacated. Producing a breeder pill, she pops it out of its protective packaging and swallows it, before spreading her legs she's reaching down to use two of her digits to spread her [farah.labia+]. Lewdly presenting her [farah.pussyCapacity] cunt to you, she flashes you a sly smirk and says, [farah.speech(Come here, sugar. This pussy's getting hot and wet at the thought of being fertile and ready to receive a big creampie...)]
 	</p>
 	<p>
 		Doing as you're told, you [pc.step] forwards and prepare to follow Farah's further instructions as she starts to dominantly have sex with you...
@@ -853,7 +853,7 @@
 		Pausing your massage for a moment, Penelope playfully teases her paw-like fingers over your body and offers, [penelope.speech(I can also give you one of my other very special services, both of which cost one thousand five hundred flames. One of these is where I give you what I like to call a double facial; I get you to eat me out then suck my cock, and then I cum and squirt all over your face...)]
 	</p>
 	<p>
-		Letting out a playfully laugh as she pointedly traces her fingers down over the growing bulge that's poking out beneath the bottom of her virgin-killer sweater, the border collie-girl finishes by explaining, [penelope.speech(The final thing I offer is to give you a little mock fashion show. I've got five of my favourite outfits from my time working as a model, and I can show one of these off to you before letting you fuck me while I'm still wearing it... So, what'll it be?)]
+		Letting out a playful laugh as she pointedly traces her fingers down over the growing bulge that's poking out beneath the bottom of her virgin-killer sweater, the border collie-girl finishes by explaining, [penelope.speech(The final thing I offer is to give you a little mock fashion show. I've got five of my favourite outfits from my time working as a model, and I can show one of these off to you before letting you fuck me while I'm still wearing it... So, what'll it be?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -911,7 +911,7 @@
 	</p>
 	<p>
 		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
-			Parting her lips, Penelope darts out her tongue and delivers a long, wet lick up the underside of your hard cock, before opening wide and taking your [pc.cockHead+] into her mouth. Letting out horny, muffled moans, she starts rapidly bobbing her head up and down as she gives you a submissive blowjob. As you feel your [pc.cock+] being taken deep down the beautiful beautiful border collie-girl's tight, wet throat, you quickly find yourself letting out a series of [pc.moans+], which encourages her to suddenly deepthroat you. After gazing lovingly up into your eyes for a moment, she pulls her head up and wetly sucks the [pc.cockHead+] of your [pc.cock+], before continuing to give you head...
+			Parting her lips, Penelope darts out her tongue and delivers a long, wet lick up the underside of your hard cock, before opening wide and taking your [pc.cockHead+] into her mouth. Letting out horny, muffled moans, she starts rapidly bobbing her head up and down as she gives you a submissive blowjob. As you feel your [pc.cock+] being taken deep down the beautiful border collie-girl's tight, wet throat, you quickly find yourself letting out a series of [pc.moans+], which encourages her to suddenly deepthroat you. After gazing lovingly up into your eyes for a moment, she pulls her head up and wetly sucks the [pc.cockHead+] of your [pc.cock+], before continuing to give you head...
 		#ELSE
 			After leaning in to plant a big, wet kiss on your [pc.clit+], Penelope darts out her tongue and delivers a series of long, wet licks to your [pc.labia+]. Letting out horny, muffled moans, she then presses her face into your groin and starts greedily pushing her tongue into your [pc.pussy+]. As the beautiful border collie-girl starts to submissively perform cunnilingus, you quickly find yourself letting out a series of [pc.moans+], which encourages her to press her face into your cunt and slide her tongue as deep as possible into your hot, wet pussy. After gazing lovingly up into your eyes for a moment, she pulls back and lifts her head up to wetly suck on your [pc.clit+], before continuing to eat you out...
 		#ENDIF
@@ -988,7 +988,7 @@
 	</p>
 	<p>
 		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
-			Parting her lips, Penelope darts out her tongue and delivers a long, wet lick up the underside of your hard cock, before opening wide and taking your [pc.cockHead+] into her mouth. Letting out horny, muffled moans, she starts rapidly bobbing her head up and down as she gives you a dominant blowjob. As you feel your [pc.cock+] being taken deep down the beautiful beautiful border collie-girl's tight, wet throat, you quickly find yourself letting out a series of [pc.moans+], which encourages her to suddenly deepthroat you. After gazing lovingly up into your eyes for a moment, she pulls her head up and wetly sucks the [pc.cockHead+] of your [pc.cock+], before continuing to give you head...
+			Parting her lips, Penelope darts out her tongue and delivers a long, wet lick up the underside of your hard cock, before opening wide and taking your [pc.cockHead+] into her mouth. Letting out horny, muffled moans, she starts rapidly bobbing her head up and down as she gives you a dominant blowjob. As you feel your [pc.cock+] being taken deep down the beautiful border collie-girl's tight, wet throat, you quickly find yourself letting out a series of [pc.moans+], which encourages her to suddenly deepthroat you. After gazing lovingly up into your eyes for a moment, she pulls her head up and wetly sucks the [pc.cockHead+] of your [pc.cock+], before continuing to give you head...
 		#ELSE
 			After leaning in to plant a big, wet kiss on your [pc.clit+], Penelope darts out her tongue and delivers a series of long, wet licks to your [pc.labia+]. Letting out horny, muffled moans, she then presses her face into your groin and starts greedily pushing her tongue into your [pc.pussy+]. As the beautiful border collie-girl starts to dominantly perform cunnilingus, you quickly find yourself letting out a series of [pc.moans+], which encourages her to press her face into your cunt and slide her tongue as deep as possible into your hot, wet pussy. After gazing lovingly up into your eyes for a moment, she pulls back and lifts her head up to wetly suck on your [pc.clit+], before continuing to eat you out...
 		#ENDIF
@@ -1132,7 +1132,7 @@
 		With that, Penelope slowly unzips her latex bra, before shrugging out of it to fully expose her big, [penelope.cupSize]-cup breasts. Teasing her paw-like hands over her tits, she gives her erect nipples a playful pinch, before letting out a sensual moan and sliding her fingers down over her corset towards her groin. Unzipping her latex panties, she tosses them over to join her bra on the floor, leaving her dog-cock, pussy, and asshole completely exposed. It's at this moment that you find out what the 'little surprise' which she alluded to earlier is, for as she teases her fingers down over her pussy, she starts to pull on something, and you watch in amazement as she slides a full-sized, realistic purple dildo out of her dripping cunt. Lifting it to her lips, she pushes it into her mouth, before letting out a wet gagging noise as she hilts it fully down her throat. After lewdly sucking and choking on it for a few moments, Penelope slides the dildo out of her mouth, before pushing the slimy, saliva-coated toy back into her hot twat.
 	</p>
 	<p>
-		[penelope.speech(i do so love playing with toys while wearing this outfit,)] she sighs, before letting out a deeply erotic moan and asking, [penelope.speech(So, would you like me to be a good, submissive little doggy for you, or should I take charge?)]
+		[penelope.speech(I do so love playing with toys while wearing this outfit,)] she sighs, before letting out a deeply erotic moan and asking, [penelope.speech(So, would you like me to be a good, submissive little doggy for you, or should I take charge?)]
 	</p>
 	]]>
 	</htmlContent>

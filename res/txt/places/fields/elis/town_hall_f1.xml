@@ -78,7 +78,7 @@
 		[arion.speech(Minotallys is very popular among the citizens,)] Arion adds, [arion.speech(We hold elections here every four years, and she always gets over ninety-five percent of the vote.)]
 	</p>
 	<p>
-		[minotallys.speech(There was one time where the opposing candidate got almost twenty percent,)] Minotallys corrects her assistant, before smiling at you and revealing in a happy tone, [minotallys.speech(Of course, after that, we found out that he was a member of a banned organisation, so I had him enslaved and sent to Lilith as a gift!)]
+		[minotallys.speech(There was one time when the opposing candidate got almost twenty percent,)] Minotallys corrects her assistant, before smiling at you and revealing in a happy tone, [minotallys.speech(Of course, after that, we found out that he was a member of a banned organisation, so I had him enslaved and sent to Lilith as a gift!)]
 	</p>
 	<p>
 		Having got the general gist of Minotallys's history and how she came to be the mayor, you wonder what to ask next...
@@ -110,7 +110,7 @@
 	
 	<htmlContent tag="MINOTALLYS_OFFICE_TALK_WORK"><![CDATA[
 	<p>
-		Interested in finding out what sort of work is involved in being ELis's mayor, you ask Minotallys what her average day is like.
+		Interested in finding out what sort of work is involved in being Elis's mayor, you ask Minotallys what her average day is like.
 	</p>
 	<p>
 		[minotallys.speech(Hmm, well, it's certainly not as glamorous as most people probably think,)] she replies with a smile on her face. Leaning back in her chair, she reveals, [minotallys.speech(Most of what I do is administrative paperwork, such as signing off on business permits or organising residential and commercial zoning.)]
@@ -119,7 +119,7 @@
 		[arion.speech(Recently we've been dealing with housing refugees from the Fields as well,)] Arion states, giving Minotallys a piercing look as he does so.
 	</p>
 	<p>
-		Ignoring her subordinate's comment, the lilin continues, [minotallys.speech(Oh, and although the local Enforcers deal with almost all of the law enforcement, I sometimes gets direct orders from Dominion bearing the authority of Lilith herself, so I have to carry those tasks out personally.)]
+		Ignoring her subordinate's comment, the lilin continues, [minotallys.speech(Oh, and although the local Enforcers deal with almost all of the law enforcement, I sometimes get direct orders from Dominion bearing the authority of Lilith herself, so I have to carry those tasks out personally.)]
 	</p>
 	<p>
 		Wondering what sort of orders those could be, you ask Minotallys what Lilith asks of her. Giving you a happy smile, she reveals, [minotallys.speech(Oh, you know, things like having to shut down businesses which are harming the public good, or arresting particularly dangerous criminals. The other week I got an order to shut down an unlicensed newspaper distribution cell. You should have seen the looks on their faces when I found them! Trust me, they were singing Lilith's praises by the time I'd finished with them...)]
@@ -164,7 +164,7 @@
 	
 	<htmlContent tag="MINOTALLYS_OFFICE_EXIT"><![CDATA[
 	<p>
-		having concluded your business, you thank Minotallys and Arion for their time and take your leave. Giving you a little wave, the lilin calls out, [minotallys.speech(Come back at any time, [pc.name]! Bye!)]
+		Having concluded your business, you thank Minotallys and Arion for their time and take your leave. Giving you a little wave, the lilin calls out, [minotallys.speech(Come back at any time, [pc.name]! Bye!)]
 	</p>
 	<p>
 		Returning her farewell, you [pc.step] out of her office and wonder what to do next...

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<penis>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractPenisType.java -->
+	
+	<!-- The id of the race which this penis belongs to.
+	This will almost always be the id of the race in which this type is found (in this case salamander). -->
+	<race>mintychip_salamander</race>
+	
+	<!-- The name that will be used when referring to transformations related to this type (such as when changing body parts in the self-TF menu). -->
+	<transformationName><![CDATA[salamander]]></transformationName>
+	
+	<!-- The id of the material covering this penis.
+	This should always be left as 'PENIS'.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>PENIS</coveringType>
+	
+	<!-- Whether or not this penis type can have pubic hair growing around it.
+	As a character's pubic hair is shared between their penis and vagina, I've taken the decision to give penis type priority in determining whether or not pubic hair is allowed (as the penis is above the vagina, it seemed logical to do it that way).
+		As such, if a character's vagina type does not allow pubic hair, but their penis type does, then they can grow pubic hair.
+		Conversely, if a character's vagina type does allow pubic hair, but their penis type does not, then they cannot grow pubic hair.
+		As an aside, a character lacking both penis and vagina cannot grow pubic hair.
+	By default, penis types allow pubic hair if its race is of either the MAMMAL or BIRD RacialClass. As such, this penis type would allow pubic hair even if this element was omitted (as salamanders are of the MAMMAL class), but I've included it here for demonstration purposes.
+	You should define this as either 'true' or 'false', or, if you'd like to leave it to its default value, then leave this element blank or omit it entirely. -->
+	<pubicHairAllowed>false</pubicHairAllowed>
+	
+	<!-- The id of the testicle that's associated with this penis type. -->
+	<testicleType>mintychip_salamander_testicle</testicleType>
+	
+	<additionalTransformationEffect><![CDATA[
+		#IF(npc.getTailType()==TAIL_TYPE_mintychip_salamander_tailFrost)
+			[#npc.setSkinCovering(BODY_COVERING_TYPE_PENIS, COLOUR_SKIN_BLUE, false)]
+		#ELSE
+			[#npc.setSkinCovering(BODY_COVERING_TYPE_PENIS, COLOUR_SKIN_RED, false)]
+		#ENDIF
+	]]></additionalTransformationEffect>
+	
+	<!-- The singular/plural names of this penis when on a masculine character.
+	One of the defined names will be chosen at random every time the name is displayed to the player. 
+	Names ending in '-' are handled in a special manner by appending a random, generic penis name to the end of it before returning, so for this example of 'salamander-', the names 'salamander-cock', 'salamander-dick', etc. will be returned. -->
+	<namesMasculine>
+		<name><![CDATA[salamander-]]></name>
+	</namesMasculine>
+	<namesPluralMasculine>
+		<name><![CDATA[salamander-]]></name>
+	</namesPluralMasculine>
+	
+	<!-- Same as above, but for when this penis is on a feminine character. -->
+	<namesFeminine>
+		<name><![CDATA[salamander-]]></name>
+	</namesFeminine>
+	<namesPluralFeminine>
+		<name><![CDATA[salamander-]]></name>
+	</namesPluralFeminine>
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's penis of this type.
+	Additional penis descriptors are generated based on the penis's properties (such as its modifiers, colour, etc.), so these descriptors should only be related to the race itself. -->
+	<descriptors/>
+	<!-- Salamander penises do not need any racial descriptors, but if you wanted to add some, use this format:
+	<descriptors>
+		<descriptor><![CDATA[hyaenidae]]></descriptor>
+	</descriptors>
+	-->
+	
+	<!-- The penetration modifiers which this penis has when first created (such as when a new salamander-morph is spawned).
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/PenetrationModifier.java -->
+	<defaultPenetrationModifiers>
+		<modifier>KNOTTED</modifier>
+		<modifier>TAPERED</modifier>
+	</defaultPenetrationModifiers>
+	
+	<!-- The description which is shown when a character transforms to obtain this penis type.
+	This description immediately follows a brief description of the penis type beginning to transform. -->
+	<transformationDescription><![CDATA[
+		Letting out an involuntary moan, [npc.name] [npc.verb(feel)] [npc.her] penis shifting into a new form, and [npc.sheIs] hit by a wave of overwhelming arousal as a thick knot suddenly presses out at the base of [npc.her] shaft. As [npc.she] [npc.verb(pant)] and [npc.verb(gasp)] for air, the tip of [npc.her] cock narrows down as it tapers into its new form.
+		<br/>[npc.She] now [npc.has] a [style.boldSalamander(salamander-like penis)], [npc.materialDescriptor] [npc.penisFullDescription(true)].
+		<br/>[npc.She] [npc.has] [style.boldSalamander([npc.ballsCount]#IF(npc.isInternalTesticles()) internal#ENDIF balls)], [npc.materialDescriptor] [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldSalamander(salamander cum)].
+	]]></transformationDescription>
+	
+	<!-- How this penis is described in a character's description page. -->
+	<bodyDescription><![CDATA[
+		[npc.She] [npc.has] [npc.a_cockGirth], [npc.cockLengthValue] salamander cock, which is [npc.materialCompositionDescriptor] [npc.cockFullDescription(true)].
+	]]></bodyDescription>
+	
+</penis>

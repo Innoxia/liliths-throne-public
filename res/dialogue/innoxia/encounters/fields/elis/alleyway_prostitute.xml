@@ -34,7 +34,7 @@
 				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
 				<responseTitle><![CDATA[Leave]]></responseTitle>
 				<responseTooltip><![CDATA[
-					You're not at all interested in having sex with a npc. Walk around [npc.herHim] and continue on your way.
+					You're not at all interested in having sex with a prostitute. Walk around [npc.herHim] and continue on your way.
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[default]]></nextDialogue>
 				<effects/>

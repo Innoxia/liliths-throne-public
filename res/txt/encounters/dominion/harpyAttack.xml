@@ -101,7 +101,7 @@
 					#IF(npc.hasFetish(FETISH_PREGNANCY))
 						You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] laughs, [npc.speech(That's right, I'm still pregnant, all thanks to you!)]
 					#ELSE
-						You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] scowls, [npc.speech(That's right, I'm still pregnant,and it's all your fault!)]
+						You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] scowls, [npc.speech(That's right, I'm still pregnant, and it's all your fault!)]
 					#ENDIF
 				#ELSEIF(companions && npc.getPregnantLitter().isFatherId(com.getId()))
 					#IF(npc.hasFetish(FETISH_PREGNANCY))
@@ -113,7 +113,7 @@
 					#IF(npc.hasFetish(FETISH_PREGNANCY))
 						You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] laughs, [npc.speech(That's right, I'm still pregnant, all thanks to [#npc.getPregnantLitter().getFatherName()]!)]
 					#ELSE
-						You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] scowls, [npc.speech(That's right, I'm still pregnant,and it's all your and [#npc.getPregnantLitter().getFatherName()]'s fault!)]
+						You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] scowls, [npc.speech(That's right, I'm still pregnant, and it's all your and [#npc.getPregnantLitter().getFatherName()]'s fault!)]
 					#ENDIF
 				#ENDIF
 			</p>
@@ -991,7 +991,7 @@
 			Wanting to find out how your friend has been recently, you ask [npc.herHim], [pc.speech(How are you these days, [npc.name]? Has your matriarch been kinder to you recently?)]
 		</p>
 		<p>
-			[npc.NamePos] [npc.eyes] immediately light up as [npc.she] hears that you're asking about [npc.her] well-being. Eager to spend some time talking with you, [npc.she] happily replies, [npc.speech(Oh, I've been fine, thank you, [pc.name]! Actually, my matriarch recently got rejected by a male harpy from another nest, so she's kind of taking her anger out on all of us... B-But aside from that, I'm feeling so much happier now that I've finally got a really close friend! M-Meeting you was the best thing that's ever happened to me..)]
+			[npc.NamePos] [npc.eyes] immediately light up as [npc.she] hears that you're asking about [npc.her] well-being. Eager to spend some time talking with you, [npc.she] happily replies, [npc.speech(Oh, I've been fine, thank you, [pc.name]! Actually, my matriarch recently got rejected by a male harpy from another nest, so she's kind of taking her anger out on all of us... B-But aside from that, I'm feeling so much happier now that I've finally got a really close friend! M-Meeting you was the best thing that's ever happened to me...)]
 		</p>
 		<p>
 			[pc.speech(I'm sorry to hear about your troubles with your matriarch,)] you reply, stepping forwards and throwing your [pc.arms] around [npc.name]. [pc.speech(I'm so happy that I met you, too. You just keep on hanging in there, ok?)]
@@ -1063,7 +1063,7 @@
 		Knowing that [npc.name] could always use some money with which to buy [npc.herself] some extra clothing or food, you step forwards and hold out some flames. [pc.speech(I'm worried about how poorly your matriarch is treating you. Here you go, you should buy yourself something nice for yourself with this.)]
 	</p>
 	<p>
-		[npc.speech(R-Really? That's for me?)] [npc.name] asks, stepping forwards and cautiously taking the flames from you. [npc.speech(I-I don't know what to say. Thank you so much, [pc.name]! I mean, I may have to buy my matriarch something with this if she find out about it, but I'll try to use it to buy myself something!)]
+		[npc.speech(R-Really? That's for me?)] [npc.name] asks, stepping forwards and cautiously taking the flames from you. [npc.speech(I-I don't know what to say. Thank you so much, [pc.name]! I mean, I may have to buy my matriarch something with this if she finds out about it, but I'll try to use it to buy myself something!)]
 	</p>
 	<p>
 		[pc.speech(You're very welcome,)] you reply. [pc.speech(Just promise to take care of yourself, ok?)]
@@ -1662,7 +1662,7 @@
 		[npc.speech(I hate you! <i>I hate you!</i>)] [npc.she] screams, tears running down [npc.her] face once more as [npc.she] fails to control [npc.her] emotions. Before you can say anything in your defence, [npc.she] turns around and sprints off at full speed, leaving you all alone once again...
 	</p>
 	<p style='text-align:center;'>
-		[style.italicsBad(After betraying [npc.namePos] trust in such a brutal manner, you can be sure that this was be the last time you'll ever see [npc.herHim].)]
+		[style.italicsBad(After betraying [npc.namePos] trust in such a brutal manner, you can be sure that you'll never see [npc.herHim] again...)]
 	</p>
 	]]>
 	</htmlContent>
@@ -3130,7 +3130,7 @@
 		Not at all interested in [stranger.namePos] cock, you turn away from [stranger.herHim] and remain seated outside the restaurant. Grunting in disappointment, and to the sound of laughter from the other strangers who were watching, the [stranger.race] [stranger.walks] off and disappears from sight around the corner at the far end of the corridor.
 	</p>
 	<p>
-		After that, nothing eventful happens during the fifteen minutes you're left waiting for [npc.namePos] return. As [npc.she] makes [npc.her] eventual return and exits the restaurant, the [npc.race] looks over at you with a a surprised look on [npc.her] face. Letting out a mocking laugh, [npc.she]
+		After that, nothing eventful happens during the fifteen minutes you're left waiting for [npc.namePos] return. As [npc.she] makes [npc.her] eventual return and exits the restaurant, the [npc.race] looks over at you with a surprised look on [npc.her] face. Letting out a mocking laugh, [npc.she]
 		#IF(npc.isMute())
 			 gestures to imply that [npc.she]'d forgotten you were out here, before making a [npc.hand] movement to shoo you away.
 		#ELSE
