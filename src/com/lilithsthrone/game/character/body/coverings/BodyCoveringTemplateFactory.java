@@ -56,16 +56,20 @@ public class BodyCoveringTemplateFactory {
 	}
 	
 	public static BodyCoveringTemplate createFurSkin(List<CoveringModifier> modifiers, Map<CoveringPattern, Integer> patterns) {
-		return createFur("a layer of", "fur", modifiers, patterns);
+		return createFur("a layer of", "fur", modifiers, null, patterns);
+	}
+
+	public static BodyCoveringTemplate createFurSkin(List<CoveringModifier> modifiers, List<CoveringModifier> extraModifiers, Map<CoveringPattern, Integer> patterns) {
+		return createFur("a layer of", "fur", modifiers, extraModifiers, patterns);
 	}
 	
-	private static BodyCoveringTemplate createFur(String determiner, String name, List<CoveringModifier> modifiers, Map<CoveringPattern, Integer> patterns) {
+	private static BodyCoveringTemplate createFur(String determiner, String name, List<CoveringModifier> modifiers, List<CoveringModifier> extraModifiers, Map<CoveringPattern, Integer> patterns) {
 		return new BodyCoveringTemplate(determiner,
 				false,
 				name,
 				name,
 				modifiers,
-				null,
+				extraModifiers,
 				patterns,
 				CoveringPattern.allStandardCoveringPatterns,
 				PresetColour.naturalFurColours,

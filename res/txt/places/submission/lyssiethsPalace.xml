@@ -979,7 +979,7 @@
 	</p>
 	<p>
 		#IF(flags.hasFlag(FLAG_lyssiethNoCockDemonTF))
-			Liking the sound of of what the elder lilin is saying, you let out a moan and grab her by her horns. Pulling her face into your groin, you pant,
+			Liking the sound of what the elder lilin is saying, you let out a moan and grab her by her horns. Pulling her face into your groin, you pant,
 		#ELSE
 			You aren't sure yet if you're going to allow Lyssieth to fuck you, but getting her to eat you out for a while sounds like fun regardless. Grabbing the elder lilin by her horns, you pull her face into your groin, moaning, 
 		#ENDIF
@@ -1045,7 +1045,7 @@
 	</p>
 	<p>
 		#IF(flags.hasFlag(FLAG_lyssiethNoCockDemonTF))
-			Liking the sound of of what the elder lilin is saying, you let out a horny groan and grab her by her horns. Pulling her face into your groin, you pant,
+			Liking the sound of what the elder lilin is saying, you let out a horny groan and grab her by her horns. Pulling her face into your groin, you pant,
 		#ELSE
 			You aren't sure about allowing Lyssieth to fuck you, but getting her to give you a blowjob sounds like fun regardless. Grabbing the elder lilin by her horns, you pull her face into your groin, thrusting your now-erect cock past her waiting lips as you groan,
 		#ENDIF
@@ -1085,7 +1085,7 @@
 	</p>
 	<p>
 		#IF(flags.hasFlag(FLAG_lyssiethNoCockDemonTF))
-			Liking the sound of of what the elder lilin is saying, you let out a horny groan and grab her by her horns. Pulling her face into your groin, you pant,
+			Liking the sound of what the elder lilin is saying, you let out a horny groan and grab her by her horns. Pulling her face into your groin, you pant,
 		#ELSE
 			You aren't sure about allowing Lyssieth to fuck you, but getting her to give you a blowjob sounds like fun regardless. Grabbing the elder lilin by her horns, you pull her face into your groin, thrusting your now-erect cock past her waiting lips as you groan,
 		#ENDIF
@@ -1119,7 +1119,7 @@
 	</p>
 	<p>
 		#IF(flags.hasFlag(FLAG_lyssiethNoCockDemonTF))
-			Liking the sound of of what the elder lilin is saying, you let out a moan and grab her by her horns. Pulling her face into your groin, you pant,
+			Liking the sound of what the elder lilin is saying, you let out a moan and grab her by her horns. Pulling her face into your groin, you pant,
 		#ELSE
 			You aren't sure yet if you're going to allow Lyssieth to fuck you, but getting her to eat you out for a while sounds like fun regardless. Grabbing the elder lilin by her horns, you pull her face into your groin, moaning, 
 		#ENDIF
@@ -1230,7 +1230,7 @@
 	
 	<htmlContent tag="AFTER_DEMON_TF_SIREN_OFFICE_LEAVE"><![CDATA[
 	<p>
-		[siren.speech(~Mwhahaha!~ You dare return to my domain?! What a foolis- W-Whoa...)] Maraxis's voice trails off as she sees your new body. As you close the door to Lyssieth's office behind you, she stammers, [siren.speech(M-Mommy made you... W-Wait... A-A <i>full</i> demon?! H-Hang on, so you're my [pc.sister] now?! Oh, what's Lilaya going to say?!)]
+		[siren.speech(~Mwhahaha!~ You dare return to my domain?! What a foolis- W-Whoa...)] Meraxis's voice trails off as she sees your new body. As you close the door to Lyssieth's office behind you, she stammers, [siren.speech(M-Mommy made you... W-Wait... A-A <i>full</i> demon?! H-Hang on, so you're my [pc.sister] now?! Oh, what's Lilaya going to say?!)]
 	</p>
 	<p>
 		[pc.speech(I'll speak to Lilaya about it,)] you reply, walking up to Meraxis's desk, [pc.speech(I'm not a recognised [pc.daughter] like you or her, but yes, I suppose that I'm your [pc.sister] now.)]
@@ -1252,7 +1252,7 @@
 	
 	<htmlContent tag="AFTER_DEMON_TF_SIREN_OFFICE_LEAVE_COMPANION"><![CDATA[
 	<p>
-		[siren.speech(~Mwhahaha!~ You dare return to my domain?! What a foolis- W-Whoa...)] Maraxis's voice trails off as she sees your new body. As you close the door to Lyssieth's office behind you, she stammers, [siren.speech(M-Mommy made you... W-Wait... A-A <i>full</i> demon?! H-Hang on, so you're my [pc.sister] now?! Oh, what's Lilaya going to say?!)]
+		[siren.speech(~Mwhahaha!~ You dare return to my domain?! What a foolis- W-Whoa...)] Meraxis's voice trails off as she sees your new body. As you close the door to Lyssieth's office behind you, she stammers, [siren.speech(M-Mommy made you... W-Wait... A-A <i>full</i> demon?! H-Hang on, so you're my [pc.sister] now?! Oh, what's Lilaya going to say?!)]
 	</p>
 	<p>
 		[pc.speech(I'll speak to Lilaya about it,)] you reply, walking up to Meraxis's desk, [pc.speech(I'm not a recognised [pc.daughter] like you or her, but yes, I suppose that I'm your [pc.sister] now.)]
@@ -1415,7 +1415,7 @@
 		Looking up at her mother to see a reassuring smile on her face, Meraxis gulps and consents, [siren.speech(Ok, I'll do it. B-But I must observe the metamorphosis of my elder sibling before undergoing my own demonic awakening.)]
 	</p>
 	<p>
-		[lilaya.speech(You mean you want to want to watch mommy and I fuck to get you in the mood?)] Lilaya crassly asks.
+		[lilaya.speech(You mean you want to watch mommy and I fuck to get you in the mood?)] Lilaya crassly asks.
 	</p>
 	<p>
 		Breaking out of her sister's embrace, Meraxis makes an affirmative nodding gesture, before trying to dart away to one side of the room. Before she's able to take more than two steps, Lyssieth reaches out and grabs her arm, before pulling her into her body and gently teasing, [lyssieth.speech(Mommy can help you with that...)]
@@ -1762,8 +1762,8 @@
 	</p>
 	<p>
 		#IF pc.hasFetish(FETISH_INCEST)
-		#THEN Before you can offer any words of your own, your [lilaya.relation(pc)] breaks off the hug with your mother, and immediately throws herself into your [pc.arms]. Gazing happily happily into your eyes, she sighs, [lilaya.speech(Thank you so much as well, [pc.name]! I'm so lucky to have such a loving [pc.sister]!)]
-		#ELSE Before you can offer any words of your own, your [lilaya.relation(pc)] breaks off the hug with your mother, and immediately throws herself into your [pc.arms]. Gazing happily happily into your eyes, she sighs, [lilaya.speech(Thank you so much as well, [pc.name]! I'm so lucky to have such a loving [pc.sister]!)]
+		#THEN Before you can offer any words of your own, your [lilaya.relation(pc)] breaks off the hug with your mother, and immediately throws herself into your [pc.arms]. Gazing happily into your eyes, she sighs, [lilaya.speech(Thank you so much as well, [pc.name]! I'm so lucky to have such a loving [pc.sister]!)]
+		#ELSE Before you can offer any words of your own, your [lilaya.relation(pc)] breaks off the hug with your mother, and immediately throws herself into your [pc.arms]. Gazing happily into your eyes, she sighs, [lilaya.speech(Thank you so much as well, [pc.name]! I'm so lucky to have such a loving [pc.sister]!)]
 		#ENDIF
 	</p>
 	<p>
@@ -1818,15 +1818,19 @@
 	</p>
 	<p>
 		With everyone now in position, and your hands still on Meraxis's hips, you move her down so that the [pc.cockHead+] of your cock is pushing up against her [siren.labia+]. Moaning into Lilaya's pussy, she allows you to pull her down onto your hard shaft.
-		#IF pc.hasFetish(FETISH_DEFLOWERING)
-		#THEN
-			 As your throbbing cock pushes into her vice-like cunt, she lets out a desperate, piercing squeal, and instinctively pulls her hips back up a little. Realising that your penetration is painfully breaking her hymen, Lyssieth leans in over her daughter's back and softly encourages her,
+		#IF(meraxis.isVaginaVirgin())
+			#IF(pc.hasFetish(FETISH_DEFLOWERING))
+				 As your throbbing cock pushes into her vice-like cunt, she lets out a desperate, piercing squeal and instinctively pulls her hips back up a little. Realising that your penetration is painfully breaking her hymen, Lyssieth leans in over her daughter's back and softly encourages her,
+			#ELSE
+				 As your throbbing cock pushes into her vice-like cunt, she lets out a high-pitched squeal and instinctively pulls her hips back up a little. Remembering that your penetration is Meraxis's first, Lyssieth leans in over her daughter's back and softly encourages her,
+			#ENDIF
 		#ELSE
-			 As your throbbing cock pushes into her vice-like cunt, she lets out a high-pitched squeal, and instinctively pulls her hips back up a little. Remembering that your penetration is Meraxis's first, Lyssieth leans in over her daughter's back and softly encourages her,
+			 As your throbbing cock pushes into her [meraxis.pussy+], she lets out a high-pitched squeal and instinctively starts rocking her hips. Approving of her daughter's movements, Lyssieth leans in over Meraxis's back and encourages her,
 		#ENDIF
-		#IF pc.hasFetish(FETISH_INCEST)
-		#THEN [lyssieth.speechNoEffects(That's mommy's good little girl! Go on, take it all, and show me that you're worthy of being a full demon!)]
-		#ELSE [lyssieth.speechNoEffects(Go on, take it all, and show me that you're worthy of being a full demon!)]
+		#IF(pc.hasFetish(FETISH_INCEST))
+			 [lyssieth.speechNoEffects(That's mommy's good little girl! Go on, take it all, and show me that you're worthy of being a full demon!)]
+		#ELSE
+			 [lyssieth.speechNoEffects(Go on, take it all, and show me that you're worthy of being a full demon!)]
 		#ENDIF
 	</p>
 	<p>
@@ -1877,15 +1881,19 @@
 	</p>
 	<p>
 		With everyone now in position, Lyssieth takes a firm hold of Meraxis's hips, before moving her down so that the [lyssieth.cockHead+] of her fat demonic cock is pushing up against her [siren.labia+]. Moaning into Lilaya's pussy, she allows her mother to pull her down onto her hard shaft.
-		#IF pc.hasFetish(FETISH_DEFLOWERING)
-		#THEN
-			 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a desperate, piercing squeal, and instinctively pulls her hips back up a little. Realising that Lyssieth's penetration is painfully breaking her hymen, you lean in over your [siren.relation(pc)]'s back and softly encourage her,
+		#IF(meraxis.isVaginaVirgin())
+			#IF(pc.hasFetish(FETISH_DEFLOWERING))
+				 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a desperate, piercing squeal and instinctively pulls her hips back up a little. Realising that Lyssieth's penetration is painfully breaking her hymen, you lean in over your [siren.relation(pc)]'s back and softly encourage her,
+			#ELSE
+				 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a high-pitched squeal and instinctively pulls her hips back up a little. Remembering that this penetration is Meraxis's first, you lean in over your [siren.relation(pc)]'s back and softly encourage her,
+			#ENDIF
 		#ELSE
-			 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a high-pitched squeal, and instinctively pulls her hips back up a little. Remembering that this penetration is Meraxis's first, you lean in over your [siren.relation(pc)]'s back and softly encourage her,
+			 As Lyssieth's throbbing cock pushes into her [meraxis.pussy+], she lets out a high-pitched squeal and instinctively starts rocking her hips. Approving of Meraxis's movements, you lean in over your [siren.relation(pc)]'s back and encourage her,
 		#ENDIF
-		#IF pc.hasFetish(FETISH_INCEST)
-		#THEN [pc.speechNoEffects(That's my good little sister! Go on, take it all, and show mommy that you're worthy of being a full demon!)]
-		#ELSE [pc.speechNoEffects(Go on, take it all, and show us that you're worthy of being a full demon!)]
+		#IF(pc.hasFetish(FETISH_INCEST))
+			 [pc.speechNoEffects(That's my good little sister! Go on, take it all, and show mommy that you're worthy of being a full demon!)]
+		#ELSE
+			 [pc.speechNoEffects(Go on, take it all, and show us that you're worthy of being a full demon!)]
 		#ENDIF
 	</p>
 	<p>
@@ -1931,15 +1939,19 @@
 	</p>
 	<p>
 		With everyone now in position, Lyssieth takes a firm hold of Meraxis's hips, before moving her down so that the [lyssieth.cockHead+] of her fat demonic cock is pushing up against her [siren.labia+]. Moaning into your pussy, she allows her mother to pull her down onto her hard shaft.
-		#IF pc.hasFetish(FETISH_DEFLOWERING)
-		#THEN
-			 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a desperate, piercing squeal, and instinctively pulls her hips back up a little. Realising that Lyssieth's penetration is painfully breaking her hymen, Lilaya leans in over her [siren.relation(lilaya)]'s back and softly encourages her,
+		#IF(meraxis.isVaginaVirgin())
+			#IF(pc.hasFetish(FETISH_DEFLOWERING))
+				 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a desperate, piercing squeal and instinctively pulls her hips back up a little. Realising that Lyssieth's penetration is painfully breaking her hymen, Lilaya leans in over her [siren.relation(lilaya)]'s back and softly encourages her,
+			#ELSE
+				 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a high-pitched squeal and instinctively pulls her hips back up a little. Remembering that this penetration is Meraxis's first, Lilaya leans in over her [siren.relation(lilaya)]'s back and softly encourages her,
+			#ENDIF
 		#ELSE
-			 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a high-pitched squeal, and instinctively pulls her hips back up a little. Remembering that this penetration is Meraxis's first, Lilaya leans in over her [siren.relation(lilaya)]'s back and softly encourages her,
+			 As Lyssieth's throbbing cock pushes into her [meraxis.pussy+], she lets out a high-pitched squeal and instinctively starts rocking her hips. Approving of Meraxis's movements, Lilaya leans in over her [siren.relation(lilaya)]'s back and encourages her,
 		#ENDIF
-		#IF pc.hasFetish(FETISH_INCEST)
-		#THEN [lilaya.speechNoEffects(That's my good little sister! Go on, take it all, and show mommy that you're worthy of being a full demon!)]
-		#ELSE [lilaya.speechNoEffects(Go on, take it all, and show us that you're worthy of being a full demon!)]
+		#IF(pc.hasFetish(FETISH_INCEST))
+			 [lilaya.speechNoEffects(That's my good little sister! Go on, take it all, and show mommy that you're worthy of being a full demon!)]
+		#ELSE
+			 [lilaya.speechNoEffects(Go on, take it all, and show us that you're worthy of being a full demon!)]
 		#ENDIF
 	</p>
 	<p>
@@ -1985,15 +1997,19 @@
 	</p>
 	<p>
 		With everyone now in position, Lyssieth takes a firm hold of Meraxis's hips, before moving her down so that the [lyssieth.cockHead+] of her fat demonic cock is pushing up against her [siren.labia+]. Moaning around your cock, she allows her mother to pull her down onto her hard shaft.
-		#IF pc.hasFetish(FETISH_DEFLOWERING)
-		#THEN
-			 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a desperate, piercing squeal, and instinctively pulls her hips back up a little. Realising that Lyssieth's penetration is painfully breaking her hymen, Lilaya leans in over her [siren.relation(lilaya)]'s back and softly encourages her,
+		#IF(meraxis.isVaginaVirgin())
+			#IF(pc.hasFetish(FETISH_DEFLOWERING))
+				 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a desperate, piercing squeal and instinctively pulls her hips back up a little. Realising that Lyssieth's penetration is painfully breaking her hymen, Lilaya leans in over her [siren.relation(lilaya)]'s back and softly encourages her,
+			#ELSE
+				 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a high-pitched squeal and instinctively pulls her hips back up a little. Remembering that this penetration is Meraxis's first, Lilaya leans in over her [siren.relation(lilaya)]'s back and softly encourages her,
+			#ENDIF
 		#ELSE
-			 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a high-pitched squeal, and instinctively pulls her hips back up a little. Remembering that this penetration is Meraxis's first, Lilaya leans in over her [siren.relation(lilaya)]'s back and softly encourages her,
+			 As Lyssieth's throbbing cock pushes into her [meraxis.pussy+], she lets out a high-pitched squeal and instinctively starts rocking her hips. Approving of Meraxis's movements, Lilaya leans in over her [siren.relation(lilaya)]'s back and encourages her,
 		#ENDIF
-		#IF pc.hasFetish(FETISH_INCEST)
-		#THEN [lilaya.speechNoEffects(That's my good little sister! Go on, take it all, and show mommy that you're worthy of being a full demon!)]
-		#ELSE [lilaya.speechNoEffects(Go on, take it all, and show us that you're worthy of being a full demon!)]
+		#IF(pc.hasFetish(FETISH_INCEST))
+			 [lilaya.speechNoEffects(That's my good little sister! Go on, take it all, and show mommy that you're worthy of being a full demon!)]
+		#ELSE
+			 [lilaya.speechNoEffects(Go on, take it all, and show us that you're worthy of being a full demon!)]
 		#ENDIF
 	</p>
 	<p>
@@ -2039,15 +2055,19 @@
 	</p>
 	<p>
 		With everyone now in position, Lyssieth takes a firm hold of Meraxis's hips, before moving her down so that the [lyssieth.cockHead+] of her fat demonic cock is pushing up against her [siren.labia+]. Letting out a high-pitched moan, she allows her mother to pull her down onto her hard shaft.
-		#IF pc.hasFetish(FETISH_DEFLOWERING)
-		#THEN
-			 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a desperate, piercing squeal, and instinctively pulls her hips back up a little. Realising that Lyssieth's penetration is painfully breaking her hymen, Lilaya leans in over her [siren.relation(lilaya)]'s back and softly encourages her,
+		#IF(meraxis.isVaginaVirgin())
+			#IF(pc.hasFetish(FETISH_DEFLOWERING))
+				 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a desperate, piercing squeal and instinctively pulls her hips back up a little. Realising that Lyssieth's penetration is painfully breaking her hymen, Lilaya leans in over her [siren.relation(lilaya)]'s back and softly encourages her,
+			#ELSE
+				 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a high-pitched squeal and instinctively pulls her hips back up a little. Remembering that this penetration is Meraxis's first, Lilaya leans in over her [siren.relation(lilaya)]'s back and softly encourages her,
+			#ENDIF
 		#ELSE
-			 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a high-pitched squeal, and instinctively pulls her hips back up a little. Remembering that this penetration is Meraxis's first, Lilaya leans in over her [siren.relation(lilaya)]'s back and softly encourages her,
+			 As Lyssieth's throbbing cock pushes into her [meraxis.pussy+], she lets out a high-pitched squeal and instinctively starts rocking her hips. Approving of Meraxis's movements, Lilaya leans in over her [siren.relation(lilaya)]'s back and encourages her,
 		#ENDIF
-		#IF pc.hasFetish(FETISH_INCEST)
-		#THEN [lilaya.speechNoEffects(That's my good little sister! Go on, take it all, and show mommy that you're worthy of being a full demon!)]
-		#ELSE [lilaya.speechNoEffects(Go on, take it all, and show us that you're worthy of being a full demon!)]
+		#IF(pc.hasFetish(FETISH_INCEST))
+			 [lilaya.speechNoEffects(That's my good little sister! Go on, take it all, and show mommy that you're worthy of being a full demon!)]
+		#ELSE
+			[lilaya.speechNoEffects(Go on, take it all, and show us that you're worthy of being a full demon!)]
 		#ENDIF
 	</p>
 	<p>
@@ -2377,7 +2397,7 @@
 	#ELSE
 		#IF(flags.hasFlag(FLAG_innoxia_meraxis_demon_tf_teleported))
 			<p>
-				[siren.speech(Thanks again, mommy!)] Meraxis happily calls out as she gathering her clothes. Flashing you a surprisingly-warm smile, she grabs hold of your [pc.hand] and declares, [siren.speech(Now, I must plan for my next duel with you; my arch nemesis!)]
+				[siren.speech(Thanks again, mommy!)] Meraxis happily calls out as she's gathering her clothes. Flashing you a surprisingly-warm smile, she grabs hold of your [pc.hand] and declares, [siren.speech(Now, I must plan for my next duel with you; my arch nemesis!)]
 			</p>
 			<p>
 				[lyssieth.speech(I should take you back now,)] Lyssieth says to Lilaya, before stepping forwards and giving her daughter a loving hug. Turning to you and Meraxis, she continues, [lyssieth.speech(You two be careful out there in Elis, ok?)]
@@ -2390,7 +2410,7 @@
 			</p>
 		#ELSE
 			<p>
-				[siren.speech(Thanks again, mommy!)] Meraxis happily calls out as she gathering her clothes. Flashing you a surprisingly-warm smile, she strikes a dramatic pose, and right before disappearing in a flash of purple light, she declares, [siren.speech(Now, I must depart and plan for my next encounter with my arch nemesis!)]
+				[siren.speech(Thanks again, mommy!)] Meraxis happily calls out as she's gathering her clothes. Flashing you a surprisingly-warm smile, she strikes a dramatic pose, and right before disappearing in a flash of purple light, she declares, [siren.speech(Now, I must depart and plan for my next encounter with my arch nemesis!)]
 			</p>
 			<p>
 				[lyssieth.speech(I should take you back now,)] Lyssieth says to Lilaya, before stepping forwards and giving her daughter a loving hug. Turning to you, she continues, [lyssieth.speech(If you'd be so kind as to wait in the adjoining office, I'll be able to see you again in a few minutes if you have further things to discuss.)]

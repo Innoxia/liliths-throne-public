@@ -795,7 +795,7 @@ public class PenisMouth {
 								UtilText.returnStringAtRandom(
 								"First pushing [npc3.name] back off of [npc.her] [npc.cock+], [npc.name] roughly [npc.verb(grasp)] [npc2.namePos] "+style+","
 										+ " before violently jerking [npc2.her] head forwards and forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
-								"After roughly pushing [npc3.name] back, [npc.name] [npc.verb(reach)] down down to grab [npc2.namePos] "+style+", before mercilessly yanking [npc2.her] head into [npc.her] groin,"
+								"After roughly pushing [npc3.name] back, [npc.name] [npc.verb(reach)] down to grab [npc2.namePos] "+style+", before mercilessly yanking [npc2.her] head into [npc.her] groin,"
 										+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.cock+].",
 								"Roughly pushing [npc3.name] back, [npc.name] then [npc.verb(reach)] down to grab [npc2.namePos] "+style+","
 										+ " before violently yanking [npc2.herHim] forwards, hilting [npc.her] [npc.cock+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
@@ -969,7 +969,7 @@ public class PenisMouth {
 								UtilText.returnStringAtRandom(
 								"First pushing [npc3.name] back off of [npc.her] [npc.cock+], [npc.name] roughly [npc.verb(grasp)] [npc2.namePos] [npc2.ears+],"
 										+ " before violently jerking [npc2.her] head forwards and forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
-								"After roughly pushing [npc3.name] back, [npc.name] [npc.verb(reach)] down down to grab [npc2.namePos] [npc2.ears+], before mercilessly yanking [npc2.her] head into [npc2.her] groin,"
+								"After roughly pushing [npc3.name] back, [npc.name] [npc.verb(reach)] down to grab [npc2.namePos] [npc2.ears+], before mercilessly yanking [npc2.her] head into [npc2.her] groin,"
 										+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.cock+].",
 								"Roughly pushing [npc3.name] back, [npc.name] then [npc.verb(reach)] down to grab [npc2.namePos] [npc2.ears+],"
 										+ " before violently yanking [npc2.herHim] forwards, hilting [npc.her] [npc.cock+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
@@ -1142,7 +1142,7 @@ public class PenisMouth {
 								UtilText.returnStringAtRandom(
 								"First pushing [npc3.name] back off of [npc.her] [npc.cock+], [npc.name] roughly [npc.verb(grasp)] [npc2.namePos] [npc2.horns+],"
 										+ " before violently jerking [npc2.her] head forwards and forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
-								"After roughly pushing [npc3.name] back, [npc.name] [npc.verb(reach)] down down to grab [npc2.namePos] [npc2.horns+], before mercilessly yanking [npc2.her] head into [npc2.her] groin,"
+								"After roughly pushing [npc3.name] back, [npc.name] [npc.verb(reach)] down to grab [npc2.namePos] [npc2.horns+], before mercilessly yanking [npc2.her] head into [npc2.her] groin,"
 										+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.cock+].",
 								"Roughly pushing [npc3.name] back, [npc.name] then [npc.verb(reach)] down to grab [npc2.namePos] [npc2.horns+],"
 										+ " before violently yanking [npc2.herHim] forwards, hilting [npc.her] [npc.cock+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
@@ -1315,7 +1315,7 @@ public class PenisMouth {
 								UtilText.returnStringAtRandom(
 								"First pushing [npc3.name] back off of [npc.her] [npc.cock+], [npc.name] roughly [npc.verb(grasp)] [npc2.namePos] [npc2.antennae+],"
 										+ " before violently jerking [npc2.her] head forwards and forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
-								"After roughly pushing [npc3.name] back, [npc.name] [npc.verb(reach)] down down to grab [npc2.namePos] [npc2.antennae+], before mercilessly yanking [npc2.her] head into [npc2.her] groin,"
+								"After roughly pushing [npc3.name] back, [npc.name] [npc.verb(reach)] down to grab [npc2.namePos] [npc2.antennae+], before mercilessly yanking [npc2.her] head into [npc2.her] groin,"
 										+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.cock+].",
 								"Roughly pushing [npc3.name] back, [npc.name] then [npc.verb(reach)] down to grab [npc2.namePos] [npc2.antennae+],"
 										+ " before violently yanking [npc2.herHim] forwards, hilting [npc.her] [npc.cock+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
@@ -2569,7 +2569,7 @@ public class PenisMouth {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] roughly [npc2.verb(slam)] [npc2.her] [npc2.hips] into [npc.namePos] [npc.face], [npc2.moaning+] as [npc.she] [npc.verb(suck)] [npc2.her] [npc2.cock+].",
 
-							" With an rough [npc.verb(thrust)] of [npc2.her] [npc2.hips],"
+							" With a rough [npc.verb(thrust)] of [npc2.her] [npc2.hips],"
 									+ " [npc2.name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(enjoy)] the feeling of [npc.namePos] [npc.lips+] sliding up and down the length of [npc2.her] [npc2.cock+]."));
 					break;
 				case SUB_NORMAL:

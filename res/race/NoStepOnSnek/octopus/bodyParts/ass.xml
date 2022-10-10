@@ -12,6 +12,6 @@
 		[npc.She] now [npc.has] a [style.boldOctopus(octopus-like)], [npc.assholeFullDescription].
 	]]></transformationDescription>
 	<bodyDescription><![CDATA[
-		[npc.SheHasFull] a octopus-like, [npc.anusFullDescription(true)]
+		[npc.SheHasFull] an octopus-like, [npc.anusFullDescription(true)]
 	]]></bodyDescription>
 </ass>

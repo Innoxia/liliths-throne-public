@@ -21,6 +21,8 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.markings.AbstractTattooType;
+import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
@@ -37,7 +39,6 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
-import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -546,21 +547,30 @@ public class DebugDialogue {
 					};
 
 				} else if(index == 10){
-					return new Response("Get slaver license", "Automatically completes the quest to get a slaver license. This will start the quest if you don't already have it, and finish it.", DEBUG_MENU){
-						@Override
-						public void effects(){
-							if(!Main.game.getPlayer().isHasSlaverLicense()){ //If the player doesn't have the slaver license
-								if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)){ //But has started the quest to get it
-									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLAVERY, Quest.SIDE_UTIL_COMPLETE)); //Finish it.
+					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLAVERY)) { //If the player doesn't have the slaver license
+						return new Response("Get slaver license", "Automatically completes the quest to get a slaver license. This will start the quest if you don't already have it, and finish it.", DEBUG_MENU){
+							@Override
+							public void effects() {
+								if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)){
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_SLAVERY));
 								}
-								else{ //But hasn't started the quest to get it
-									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_SLAVERY)); //Start the quest
-									Main.game.getDialogueFlags().values.add(DialogueFlagValue.finchIntroduced); //Introduce Finch
-									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLAVERY, Quest.SIDE_UTIL_COMPLETE)); //And finish it
+								List<Quest> slaverSkipQuests = Util.newArrayListOfValues(
+										Quest.SIDE_SLAVER_NEED_RECOMMENDATION,
+										Quest.SIDE_SLAVER_RECOMMENDATION_OBTAINED,
+										Quest.SIDE_UTIL_COMPLETE);
+								for(int i=0; i<slaverSkipQuests.size()-1; i++) {
+									Quest q = slaverSkipQuests.get(i);
+									if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY)==q) {
+										q.applySkipQuestEffects();
+										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLAVERY, slaverSkipQuests.get(i+1)));
+									}
 								}
 							}
-						}
-					};
+						};
+						
+					} else {
+						return new Response("Get slaver license", "You've already completed the side quest to obtain a slaver license.", null);
+					}
 					
 				} else if(index == 11){
 					return new Response("Centaur", "A wild centaur appears! (Please only use this on a completely neutral tile, as it will probably break things otherwise.)", CENTAUR_SEX){
@@ -663,7 +673,7 @@ public class DebugDialogue {
 				} else if(index==18) {
 					return new Response("Moo mode",
 							"Every feminine NPC will have their breast size incremented by 5,"
-									+ " gain the '"+Fetish.FETISH_LACTATION_SELF+"' fetish,"
+									+ " gain the '"+Fetish.FETISH_LACTATION_SELF.getName(null)+"' fetish,"
 									+ " gain 500ml breast milk storage,"
 									+ " ass size incremented by 1,"
 									+ " and hip size incremented by 1."
@@ -714,22 +724,38 @@ public class DebugDialogue {
 							Perk.POWER_OF_LUNETTE_5,
 							Perk.POWER_OF_LYXIAS_6,
 							Perk.POWER_OF_LISOPHIA_7);
+
+					ArrayList<AbstractPerk> powerPerksDemon = Util.newArrayListOfValues(Perk.POWER_OF_LIRECEA_1_DEMON,
+							Perk.POWER_OF_LOVIENNE_2_DEMON,
+							Perk.POWER_OF_LASIELLE_3_DEMON,
+							Perk.POWER_OF_LYSSIETH_4_DEMON,
+							Perk.POWER_OF_LUNETTE_5_DEMON,
+							Perk.POWER_OF_LYXIAS_6_DEMON,
+							Perk.POWER_OF_LISOPHIA_7_DEMON);
+					
 					AbstractPerk perk = powerPerks.get(index-20);
-						return new Response("Elder Lilin perk", "Toggle perk.", DEBUG_MENU) {
-							@Override
-							public String getTitle() {
-								return perk.getName(null)+": "+(Main.game.getPlayer().hasPerkAnywhereInTree(perk)?"[style.colourGood(ON)]":"[style.colourDisabled(OFF)]");
-							}
-							
-							@Override
-							public void effects() {
-								if(Main.game.getPlayer().hasPerkAnywhereInTree(perk)) {
-									Main.game.getPlayer().removeSpecialPerk(perk);
+					AbstractPerk perkDemon = powerPerksDemon.get(index-20);
+					
+					return new Response("Elder Lilin perk", "Toggle perk.", DEBUG_MENU) {
+						@Override
+						public String getTitle() {
+							return perk.getName(null)+": "+(Main.game.getPlayer().hasPerkAnywhereInTree(perk) || Main.game.getPlayer().hasPerkAnywhereInTree(perkDemon)?"[style.colourGood(ON)]":"[style.colourDisabled(OFF)]");
+						}
+						
+						@Override
+						public void effects() {
+							if(Main.game.getPlayer().hasPerkAnywhereInTree(perk) || Main.game.getPlayer().hasPerkAnywhereInTree(perkDemon)) {
+								Main.game.getPlayer().removeSpecialPerk(perk);
+								Main.game.getPlayer().removeSpecialPerk(perkDemon);
+							} else {
+								if(Main.game.getPlayer().getTrueRace()==Race.DEMON) {
+									Main.game.getPlayer().addSpecialPerk(perkDemon);
 								} else {
 									Main.game.getPlayer().addSpecialPerk(perk);
 								}
 							}
-						};
+						}
+					};
 					
 				} else if(index==29)  {
 					return new Response("Spawn rates", "List the spawn rates in the current location.", SPAWN_RATES) {
@@ -795,7 +821,7 @@ public class DebugDialogue {
 					
 				} else if(index==2) {
 					return new Response("Items",
-							"View icons and ids of all the items in the game. You can also spawn these items by clicking on their icons. <i>Warning: Very sluggish and slow to load.</i>",
+							"View icons and ids of all the items in the game. You can also spawn these items by clicking on their icons. <i>Warning: May be sluggish and slow to load.</i>",
 							ITEM_VIEWER) {
 						@Override
 						public void effects() {
@@ -805,7 +831,7 @@ public class DebugDialogue {
 					
 				} else if(index==3) {
 					return new Response("Weapons",
-							"View icons and ids of all the weapons in the game. You can also spawn these items by clicking on their icons. <i>Warning: May be very sluggish and slow to load.</i>",
+							"View icons and ids of all the weapons in the game. You can also spawn these items by clicking on their icons. <i>Warning: May be sluggish and slow to load.</i>",
 							ITEM_VIEWER) {
 						@Override
 						public void effects() {
@@ -837,7 +863,7 @@ public class DebugDialogue {
 					if(index-5 < clothingSlots.size()) {
 						InventorySlot is = clothingSlots.get(index-5);
 						return new Response(Util.capitaliseSentence(is.getName()),
-								"View icons and ids of all the clothing in the the slot '"+is.getName()+"'. You can also spawn these items by clicking on their icons. <i>Warning: May be very sluggish and slow to load.</i>",
+								"View icons and ids of all the clothing in the slot '"+is.getName()+"'. You can also spawn these items by clicking on their icons. <i>Warning: May be very sluggish and slow to load.</i>",
 								ITEM_VIEWER) {
 							@Override
 							public void effects() {
@@ -845,8 +871,19 @@ public class DebugDialogue {
 								itemViewSlot = is;
 							}
 						};
+					} else if(index-5 == clothingSlots.size()) {
+						return new Response("Tattoos",
+								"View icons and ids of all the tattoos in the game. <i>Warning: May be sluggish and slow to load.</i>",
+								ITEM_VIEWER) {
+							@Override
+							public void effects() {
+								viewItemVariablesReset();
+								viewAllTattoos = true;
+							}
+						};
 					}
 				}
+				
 			} else if(responseTab==4) {
 				List<PersonalityTrait> pt = Arrays.asList(PersonalityTrait.values());
 				for(int i=1; i<=pt.size();i++) {
@@ -962,6 +999,7 @@ public class DebugDialogue {
 	public static int spawnCount = 1;
 	public static List<AbstractItemType> itemsTotal = new ArrayList<>();
 	public static List<AbstractWeaponType> weaponsTotal = new ArrayList<>();
+	public static List<AbstractTattooType> tattoosTotal = new ArrayList<>();
 	static {
 		clothingTotal.addAll(ClothingType.getAllClothing());
 		clothingTotal.removeIf((c) -> c.getDefaultItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || c.getDefaultItemTags().contains(ItemTag.CHEAT_ITEM));
@@ -971,6 +1009,9 @@ public class DebugDialogue {
 		weaponsTotal.removeIf((w) -> w.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || w.getItemTags().contains(ItemTag.CHEAT_ITEM));
 		Collections.sort(weaponsTotal, (i1, i2) -> Main.game.getItemGen().generateWeapon(i1).getRarity().compareTo(Main.game.getItemGen().generateWeapon(i2).getRarity()));
 
+		tattoosTotal.addAll(TattooType.getAllTattooTypes());
+		Collections.sort(tattoosTotal, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
+		
 		itemsTotal.addAll(ItemType.getAllItems());
 		itemsTotal.removeIf((i) -> i.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || i.getItemTags().contains(ItemTag.CHEAT_ITEM));
 		Collections.sort(itemsTotal, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
@@ -1157,11 +1198,13 @@ public class DebugDialogue {
 	private static void viewItemVariablesReset() {
 		viewAll = false;
 		viewAllClothing = false;
+		viewAllTattoos = false;
 		itemViewSlot = null;
 	}
 	
 	private static boolean viewAll = false;
 	private static boolean viewAllClothing = false;
+	private static boolean viewAllTattoos = false;
 	private static InventorySlot itemViewSlot = null;
 	
 	public static final DialogueNode ITEM_VIEWER = new DialogueNode("", "", false) {
@@ -1176,7 +1219,7 @@ public class DebugDialogue {
 			}
 			int imgWidth = 15;
 			
-			if(!viewAllClothing && (viewAll || itemViewSlot == null)) {
+			if(!viewAllClothing && !viewAllTattoos && (viewAll || itemViewSlot == null)) {
 				inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
 						+ "<h5>Total items: "+itemsTotal.size()+"</h5>");
 				for(AbstractItemType itemType : itemsTotal) {
@@ -1234,6 +1277,22 @@ public class DebugDialogue {
 				}
 				inventorySB.append("</div>");
 				
+			} else if(viewAllTattoos) {
+				inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+						+ "<h5>Total tattoos: "+tattoosTotal.size()+"</h5>");
+				for(AbstractTattooType tattooType : tattoosTotal) {
+					inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
+											+ "<div class='inventory-item-slot unequipped' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0; background-color:"+tattooType.getRarity().getBackgroundColour().toWebHexString()+";'>"
+												+ "<div class='inventory-icon-content'>"
+													+tattooType.getSVGImage(Main.game.getPlayer())
+												+"</div>"
+												+ "<div class='overlay' id='" + tattooType.getId() + "_SPAWN'></div>"
+											+ "</div>"
+											+ TattooType.getIdFromTattooType(tattooType)
+										+ "</div>");
+				}
+				inventorySB.append("</div>");
+				
 			} else if(itemViewSlot!=null && !itemViewSlot.isWeapon()) {
 				List<AbstractClothingType> clothingToDisplay = clothingTotal.stream().filter((c) -> c.getEquipSlots().get(0)==itemViewSlot).collect(Collectors.toList());
 				inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
@@ -1251,8 +1310,6 @@ public class DebugDialogue {
 				}
 				inventorySB.append("</div>");
 			}
-			
-			
 			
 			return inventorySB.toString();
 		}
@@ -1398,7 +1455,7 @@ public class DebugDialogue {
 
 						attacker.resetInventory(true);
 						attacker.clearNonEquippedInventory(false);
-						Main.game.getCharacterUtils().generateItemsInInventory(attacker);
+						Main.game.getCharacterUtils().generateItemsInInventory(attacker, true, true, true);
 						attacker.equipClothing();
 						
 						Main.game.setContent(new Response("", "", attacker.getEncounterDialogue()));

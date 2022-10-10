@@ -102,7 +102,7 @@ public class EvelyxMilker extends NPC {
 				}
 			}
 			
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(false);
 			
 			// PERSONALITY & BACKGROUND:
@@ -123,7 +123,7 @@ public class EvelyxMilker extends NPC {
 			
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			Main.game.getCharacterUtils().generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, false);
 			
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			

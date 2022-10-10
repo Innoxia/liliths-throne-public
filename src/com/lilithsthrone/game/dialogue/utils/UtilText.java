@@ -666,10 +666,17 @@ public class UtilText {
 		return "&#9930;";
 	}
 
+	public static String getBasicInfinitySymbol() {
+		return "<span style='font-weight:normal; font-family:sans-serif; font-size:1.5em;'>&#8734;</span>";
+	}
+
+	/**
+	 * The infinity symbol really, really sucks in the default LT font.
+	 */
 	public static String getInfinitySymbol(boolean largerFont) {
 		//"&#9854;";
 //		return "<span style='font-family:serif; font-weight:normal; font-size:1.25em;'>&#8734;</span>";
-		return "<span style='font-weight:normal; color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+"; "+(largerFont?"font-size:28px;":"")+"'>&#8734;</span>";
+		return "<span style='font-weight:normal; font-family:sans-serif; color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+"; "+(largerFont?"font-size:28px;":"")+"'>&#8734;</span>";
 	}
 
 	public static String applyGlow(String input) {
@@ -1469,7 +1476,7 @@ public class UtilText {
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				List<String> strings = new ArrayList<>();
 				for(String s : arguments.split("\\|")) {
-					strings.add(UtilText.parse(s));
+					strings.add(UtilText.parse(s.trim()));
 				}
 				strings.removeIf(s->s.trim().isEmpty());
 				if(strings.isEmpty()) {
@@ -5496,7 +5503,7 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Returns the descriptor of the length of this cahracter's antennae.",
+				"Returns the descriptor of the length of this character's antennae.",
 				BodyPartType.ANTENNA){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
@@ -6883,11 +6890,11 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Returns the descriptor of the length of this cahracter's horns.",
+				"Returns the descriptor of the length of this character's horns.",
 				BodyPartType.HORN){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return HornLength.getLengthFromInt(character.getHornLength()).getDescriptor();
+				return HornLength.getLengthFromInt(character.getHornLengthValue()).getDescriptor();
 			}
 		});
 		

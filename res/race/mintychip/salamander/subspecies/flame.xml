@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<subspecies>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- The race which this subspecies belongs to. -->
+	<race>mintychip_salamander</race>
+	
+	<!-- The colour of this subspecies.
+	Will usually be the same as the race's colour.
+	The 'colour' value is used in most places as the base colour for this subspecies.
+	The 'secondaryColour' and 'tertiaryColour' are used alongside 'colour' in recolouring this subspecies' icon and background. -->
+	<colour>mintychip_salamander</colour>
+	<secondaryColour>mintychip_salamander</secondaryColour>
+	<tertiaryColour>mintychip_salamander</tertiaryColour>
+	
+	<!-- Whether or not this subspecies is considered the 'main' subspecies of its parent race.
+	One subspecies, no more, of each race should have this set as true. -->
+	<mainSubspecies>true</mainSubspecies>
+	
+	<!-- The base value of this subspecies when sold as a slave. -->
+	<baseSlaveValue>40000</baseSlaveValue>
+	
+	<!-- The id of the item associated with this race which can be enchanted to modify attributes.
+	If you do not have an associated item made for this race then use 'innoxia_race_human_vanilla_water'. -->
+	<attributeItemId>mintychip_race_salamander_hot_cocoa</attributeItemId>
+	
+	<!-- The id of the item associated with this race which can be enchanted to create a transformation potion.
+	If you do not have an associated item made for this race then use 'innoxia_race_human_bread_roll'. -->
+	<transformativeItemId>mintychip_race_salamander_apple_pie</transformativeItemId>
+	
+	<!-- An integer representing how important this Subspecies is to be defined as a character's Subspecies override (meaning that this Subspecies will always be their true Subspecies, no matter the race of their body parts).
+	The default value is 0, which, along with any negative integer value, means that this Subspecies does not set an Override.
+	A Subspecies which has a higher value than a character's current Subspecies Override will replace the current Override with this one.
+	This is only used for demons, and should always be left as 0 unless you ksnow what you're doing. -->
+	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	
+	<!-- Whether this race is of a small stature or not.
+	If set to true, then this race is limited to the game's smallest height categories (as is the case for imps). -->
+	<shortStature>false</shortStature>
+	
+	<!-- Whether or not this subspecies has the bipedal leg configuration by default.
+	Set to false for subspecies like centaurs. -->
+	<bipedalSubspecies>true</bipedalSubspecies>
+	
+	<!-- Whether or not this is a subspecies which prefers to live in an aquatic environment.
+	If set to true, then this subspecies will have the positive & negative aquatic status effects applied to it when in a tile with and without access to water, respectively. -->
+	<aquatic>false</aquatic>
+	
+	<!-- You can leave this section blank if you want to, but if your subspecies should have a non-default chance of having a certain personality type, then you can define it here.
+	These chances are rolled after the base personality chances for this race have been rolled (as defined in the RacialBody.xml file).
+	Personality traits can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/persona/PersonalityTrait.java -->
+	<personalityChances/>
+	
+	<!-- I have committed a crime against humanity in the lines below. Please don't look -->
+	<applySubspeciesChanges><![CDATA[
+	[#targetedBody.setTailType(TAIL_TYPE_mintychip_salamander_tailFlame)]
+	
+	#IF(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour().isOneOf(
+		COLOUR_COVERING_INDIGO, 
+		COLOUR_COVERING_BLUE_LIGHT, 
+		COLOUR_COVERING_BLUE,
+		COLOUR_COVERING_BLUE_DARK,
+		COLOUR_COVERING_PURPLE_LIGHT
+	))
+		#IF(RND.nextInt(4)<2)
+			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).setPrimaryColour(COLOUR_COVERING_RED)]
+		#ELSEIF(RND.nextInt(2)<1)
+			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).setPrimaryColour(COLOUR_COVERING_RED_DARK)]
+		#ELSE
+			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).setPrimaryColour(COLOUR_COVERING_ORANGE)]
+		#ENDIF
+	#ENDIF
+	
+	#IF(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).getPrimaryColour().isOneOf(
+		COLOUR_COVERING_INDIGO, 
+		COLOUR_COVERING_BLUE_LIGHT, 
+		COLOUR_COVERING_BLUE,
+		COLOUR_COVERING_BLUE_DARK,
+		COLOUR_COVERING_PURPLE_LIGHT
+	))
+		#IF(RND.nextInt(5)<1)
+			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).setPrimaryColour(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour())]
+		#ELSEIF(RND.nextInt(2)<1)
+			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).setPrimaryColour(COLOUR_COVERING_BLACK)]
+		#ELSE
+			[#targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).setPrimaryColour(COLOUR_COVERING_WHITE)]
+		#ENDIF
+	#ENDIF
+	
+	#IF(targetedBody.getPenisType()==PENIS_TYPE_mintychip_salamander_penis)
+		[#targetedBody.getCovering(BODY_COVERING_TYPE_PENIS, true).setPrimaryColour(COLOUR_SKIN_RED)]
+	#ENDIF
+	
+	[#targetedBody.updateCoverings(true, true, true, false)]
+	]]></applySubspeciesChanges>
+	
+	<!-- This conditional statement determines if a body is detected as being an instance of this subspecies.
+	It should return an integer value, with 0 being returned if this subspecies' requirements are not met by the supplied body/race.
+	You should usually return a value of 100 if the requirements are met, or something higher if this subspecies should have a higher priority than other subspecies which may also detect this body as being an instance of their subspecies.
+	The body that's being checked can be accessed via using 'targetedBody'.
+	The race of the body that's being checked SHOULD NOT be accessed via targetedBody.getRace(), and should instead be accessed via using 'targetedRace'. -->
+	<subspeciesWeighting><![CDATA[
+		#IF(targetedRace==RACE_mintychip_salamander)
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></subspeciesWeighting>
+	<!-- All non-striped salamanders are classified as flame just to catch any which have accidentally had their covering set to something other than flame or striped. -->
+	
+	<iconName displaySize="100">iconFlame</iconName>
+
+	<backgroundName>raceBackground</backgroundName>
+	
+	<!-- Book information:
+	Books are automatically-generated items which reveal information about the game's subspecies.
+	There is a unique book created for every unique value defined for each subspecies' 'advancedDescriptionId' field.
+	i.e. If I defined a different 'advancedDescriptionId' for flame and striped salamanders, the game would make a book for each of them.
+		As it stands, I have defined both flame and striped salamander subspecies to use the 'salamander_advanced' xml file, so there will only be one book type generated.	-->
+		
+	<!-- The icon to be used on the book's front cover.
+	It should be located in the same folder as this xml file. -->
+	<bookIconName>icon</bookIconName>
+	
+	<!-- The name for the book. -->
+	<bookName>Primal Salamanders</bookName>
+	
+	<!-- The element names which contain the book's basic and advanced descriptions.
+	These should be entered into the 'bookEntries.xml' file in the same folder location as this file. -->
+	<basicDescriptionId>SALAMANDER_BASIC</basicDescriptionId>
+	<advancedDescriptionId>SALAMANDER_ADVANCED</advancedDescriptionId>
+	
+	<!-- The default preference for this subspecies spawning.
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesPreference.java -->
+	<defaultPreference>TWO_AVERAGE</defaultPreference>
+	
+	<!-- Names for this subspecies when in a non-feral form.
+	Formatting for bipeds (which should probably be left to be covered by the 'namesDefault' element) should usually follow the pattern of X-morph, X-boy, X-girl. -->
+	<nameAnthro>
+		<namesDefault> <!-- You must include this 'namesDefault' element, which will be used for any undefined legConfiguration names (for example, if the player somehow became a TAIL_LONG salamander). -->
+			<name><![CDATA[flame salamander-morph]]></name>
+			<namePlural><![CDATA[flame salamander-morphs]]></namePlural>
+			<singularMaleName><![CDATA[flame salamander-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[flame salamander-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[flame salamander-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[flame salamander-girls]]></pluralFemaleName>
+		</namesDefault>
+		<names legConfiguration="QUADRUPEDAL"> <!-- This is the usual naming pattern for quadrupeds, even if the names do get a little unwieldy at times... -->
+			<name><![CDATA[flame salamandertaur]]></name>
+			<namePlural><![CDATA[flame salamandertaurs]]></namePlural>
+			<singularMaleName><![CDATA[flame salamandertaur]]></singularMaleName>
+			<singularFemaleName><![CDATA[flame salamandertauress]]></singularFemaleName>
+			<pluralMaleName><![CDATA[flame salamandertaurs]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[flame salamandertauresses]]></pluralFemaleName>
+		</names>
+	</nameAnthro>
+	
+	<!-- You can also define names for use in the game's silly mode by creating an element identical to the 'nameAnthro' one above, but instead called 'nameAnthroSillyMode'.
+	See the 'res/race/NoStepOnSnek/snake/subspecies/snake.xml' file for an example in use. -->
+	
+	<!-- A brief description and identification requirements of this subspecies. -->
+	<description><![CDATA[An anthropomorphic flame salamander, known as a 'flame salamander-morph' when bipedal, and a 'flame salamandertaur' when the lower body is that of a typically-oversized feral flame salamander.]]></description>
+	
+	<!-- Names for this subspecies when the character is a half-demon.
+	You can omit these altogether, in which case the game will automatically generate a generic half-demon name for your subspecies, based on the names you've defined in the 'nameAnthro' element up above. -->
+	<nameHalfDemon>
+		<namesDefault> <!-- You must include this 'namesDefault' element, which will be used for any undefined legConfiguration names (for example, if the player somehow became a TAIL_LONG salamander). -->
+			<name><![CDATA[hellfire salamander-morph]]></name>
+			<namePlural><![CDATA[hellfire salamander-morphs]]></namePlural>
+			<singularMaleName><![CDATA[hellfire salamander-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[hellfire salamander-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[hellfire salamander-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[hellfire salamander-girls]]></pluralFemaleName>
+		</namesDefault>
+		<names legConfiguration="QUADRUPEDAL"> <!-- This is the usual naming pattern for quadrupeds, even if the names do get a little unwieldy at times... -->
+			<name><![CDATA[hellfire salamandertaur]]></name>
+			<namePlural><![CDATA[hellfire salamandertaurs]]></namePlural>
+			<singularMaleName><![CDATA[hellfire salamandertaur]]></singularMaleName>
+			<singularFemaleName><![CDATA[hellfire salamandertauress]]></singularFemaleName>
+			<pluralMaleName><![CDATA[hellfire salamandertaurs]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[hellfire salamandertauresses]]></pluralFemaleName>
+		</names>
+	</nameHalfDemon>
+	
+	<!-- Attributes related to this subspecies when in a feral form. -->
+	<feralAttributes>
+		<!-- As ferals can only be of one leg configuration, there is no need to define names based on a 'legConfiguration' attribute as done with half-demons and anthro names.
+		As such, just define your names like so: -->
+		<name><![CDATA[flame salamander]]></name>
+		<namePlural><![CDATA[flame salamanders]]></namePlural>
+		<singularMaleName><![CDATA[flame salamander]]></singularMaleName>
+		<singularFemaleName><![CDATA[flame salamander]]></singularFemaleName>
+		<pluralMaleName><![CDATA[flame salamanders]]></pluralMaleName>
+		<pluralFemaleName><![CDATA[flame salamanders]]></pluralFemaleName>
+		
+		<!-- The leg configuration that a feral form of this subspecies has.
+		This determines their overall body shape. -->
+		<legConfiguration>QUADRUPEDAL</legConfiguration>
+		<!-- Whether or not this feral form's size is measured as height from floor to head, as for most mammals (true), or from head to tail (false), as for alligators and other low-lying animals which are far longer than they are tall. -->
+		<sizeHeight>false</sizeHeight>
+		<!-- The height/length of this subspecies' feral form, measured in cm. -->
+		<size>85</size>
+		<!-- The length of this feral form's tail when in the form of a serpent.
+		Hyenas cannot transform to gain a serpent-tail lower body, so this really has no effect whatsoever, but if your subspecies is something like a snake, you'll want to set this to a reasonable value.
+		Values are defined as a percentage of the character's 'size', with this percentage being added onto their size to generate their total length.
+		As most of a snake's length is in fact their body, not their tail, the usual value for this element is a lot lower than you might expect, and is by default 0.1 (which represents 10%).
+		For an example of how this works, if this salamander was to somehow become a serpent-tailed feral, they would have a body length of 85 (as defined above in the 'size' element) plus an additional 10% of that from their tail length as defined here.
+			So, they would be: 85 + (0.1*85) = 85 + 8.5 = 93.5cm long. -->
+		<serpentTailLength>0.1</serpentTailLength>
+		
+		<!-- The number of breast rows this feral form has on their chest.
+		This will usually be 0, as it refers to breasts in the position of humans, which most animals lack. -->
+		<breastRowCount>0</breastRowCount>
+		<!-- The number of nipples per breast.
+		If the 'breastRowCount' is 0, this value is never used. -->
+		<nipplesPerBreastCount>1</nipplesPerBreastCount>
+		<!-- The number of breast rows this feral form has near their crotch. -->
+		<crotchBreastRowCount>1</crotchBreastRowCount>
+		<!-- The number of nipples per crotch breast. -->
+		<nipplesPerCrotchBreastCount>1</nipplesPerCrotchBreastCount>
+		
+		<!-- Whether this feral form has arms or wings. -->
+		<armsOrWingsPresent>false</armsOrWingsPresent>
+		<!-- Whether this feral form has fingers which they can use to manipulate objects. -->
+		<fingerActionsAvailable>false</fingerActionsAvailable>
+		<!-- Whether or not this feral form has hair on its head that's clearly distinct from the rest of its fur (which also includes manes). -->
+		<hairPresent>false</hairPresent>
+	</feralAttributes>
+	
+	<!-- The description which is shown to the player in this subspecies' status effect tooltip. -->
+	<statusEffectDescription><![CDATA[
+		[npc.NamePos] salamander-like body is very fast which, along with a natural affinity for arcane fire, makes [npc.herHim] a formidable opponent.
+	]]></statusEffectDescription>
+	
+	<!-- The core attributes which a character of this subspecies benefits from.
+	The text inside the 'attribute' element corresponds to an Attribute found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/attributes/Attribute.java 
+	The 'value' field corresponds to a float of the magnitude of that Attribute. -->
+	<statusEffectAttributeModifiers>
+		<attribute value="10">MAJOR_PHYSIQUE</attribute>
+		<attribute value="5">MAJOR_ARCANE</attribute>
+		<attribute value="10">MAJOR_CORRUPTION</attribute>
+		<attribute value="75">DAMAGE_FIRE</attribute>
+		<attribute value="5">RESISTANCE_FIRE</attribute>
+		<attribute value="15">CRITICAL_DAMAGE</attribute>
+	</statusEffectAttributeModifiers>
+	
+	<!-- Any extra effects which should be listed in this subspecies' status effect tooltip.
+	As these extra effects require changes to the game's code to take effect, they should probably be left empty. -->
+	<extraEffects/>
+	<!-- If you did want to define any, do so like this:
+	<extraEffects>
+		<effect><![CDATA[Hyenas are basically just wolves]]></effect>
+	</extraEffects>
+	-->
+	
+	<!-- The likelihood of an AI of this subspecies choosing to select a perk from each of the three main perk categories.
+	The 'masculineWeighting' and 'feminineWeighting' values should be integers.
+	The weightings are relative to each other, and so you can use whatever values you want, but be aware that negative numbers, or a total number weight greater than 2,147,483,647 will produce unexpected results. -->
+	<perkWeightings>
+		<category masculineWeighting="10" feminineWeighting="5">PHYSICAL</category>
+		<category masculineWeighting="1" feminineWeighting="1">LUST</category>
+		<category masculineWeighting="0" feminineWeighting="0">ARCANE</category>
+	</perkWeightings>
+	
+	<!-- Along with 'worldLocations' below, this determines in what areas of the game this subspecies can spawn.
+	'regionLocations' covers a more general spawn area, whereas 'worldLocations' is a lot more precise in which areas should see this subspecies spawning.
+	The text inside the 'region' element corresponds to a WorldRegion as found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/world/WorldRegion.java 
+	The 'rarity' field corresponds to a SubspeciesSpawnRarity, values of which can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesSpawnRarity.java
+	This can be left blank, but if no 'regionLocations' or 'worldLocations' are defined, then this subspecies will never spawn as a randomly-encountered subspecies. -->
+	<regionLocations>
+		<region rarity="ZERO_EXTREMELY_RARE">SAVANNAH</region>
+		<region rarity="ZERO_EXTREMELY_RARE">DESERT_CITY</region>
+		<region rarity="ONE_VERY_RARE">DESERT</region>
+		<region rarity="THREE_UNCOMMON">VOLCANO</region>
+		<region rarity="NEGATIVE_TWO_MYTHICAL">FIELD_CITY</region>
+	</regionLocations>
+	
+	<!-- The world types in which this subspecies can spawn.
+	The text inside the 'world' element corresponds to a WorldType as found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/world/WorldType.java 
+	The 'rarity' field corresponds to a SubspeciesSpawnRarity, values of which can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesSpawnRarity.java
+	This can be left blank, but if no 'regionLocations' or 'worldLocations' are defined, then this subspecies will never spawn as a randomly-encountered subspecies. -->
+	<worldLocations>
+		<world rarity="ONE_VERY_RARE">NIGHTLIFE_CLUB</world>
+	</worldLocations>
+	
+	<!-- The place types in which this subspecies can spawn.
+	The text inside the 'world' element corresponds to a WorldType as found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/world/WorldType.java 
+	The 'rarity' field corresponds to a SubspeciesSpawnRarity, values of which can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesSpawnRarity.java
+	This can be left blank, but if no 'regionLocations' or 'worldLocations' are defined, then this subspecies will never spawn as a randomly-encountered subspecies.
+	-->
+	<placeLocations/>
+	
+	<!-- Any special flags which should be applied to this subspecies.
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesFlag.java -->
+	<flags/>
+	<!-- This subspecies does not require any special flags, but if you did want to define any, do so like this:
+	<flags>
+		<flag>DISABLE_FURRY_PREFERENCE</flag>
+	</flags>
+	-->
+	
+</subspecies>

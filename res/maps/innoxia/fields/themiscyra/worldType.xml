@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>FIELDS</worldRegion>
+	<name><![CDATA[Themiscyra]]></name>
+	<colour>BASE_TEAL</colour>
+	<sexBlockedReason/>
+	<furniturePresent>false</furniturePresent>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>false</loiteringEnabled>
+	<flightEnabled>false</flightEnabled>
+	<visibleFromStart>false</visibleFromStart>
+	<fullyRevealedFromStart>false</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_FIELDS</globalMapLocation>
+	<standardPlace>innoxia_fields_themiscyra_street</standardPlace>
+	<entryFromGlobalMapLocation>innoxia_fields_themiscyra_arch</entryFromGlobalMapLocation>
+	<teleportPermissions>NONE</teleportPermissions>
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		
+		<place colour="#808080">innoxia_fields_themiscyra_street</place>
+		
+		<place colour="#00ff00">innoxia_fields_themiscyra_arch</place>
+		<place colour="#ff8000">innoxia_fields_themiscyra_raiders</place>
+		<place colour="#ff0000">innoxia_fields_themiscyra_barricade</place>
+		<place colour="#80ff80">innoxia_fields_themiscyra_smithies</place>
+		<place colour="#ffff00">innoxia_fields_themiscyra_jewellery</place>
+		<place colour="#80ff00">innoxia_fields_themiscyra_wine</place>
+		<place colour="#ff00ff">innoxia_fields_themiscyra_plaza</place>
+		<place colour="#00ffff">innoxia_fields_themiscyra_palace</place>
+	</places>
+</worldType>

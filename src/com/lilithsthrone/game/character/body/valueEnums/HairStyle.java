@@ -52,11 +52,12 @@ public enum HairStyle {
 	PONYTAIL("ponytail", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH),
 	LOW_PONYTAIL("low ponytail", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH),
 	TWIN_TAILS("twintails", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH),
+	SIDE_BRAIDS("side braids", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH),
 	CHIGNON("chignon", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
 	BRAIDED("braided", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
 	TWIN_BRAIDS("twin braids", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
 	CROWN_BRAID("crown braid", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
-	DRILLS("drill hair", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
+	DRILLS("ojou ringlets", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
 	HIME_CUT("hime-cut", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
 	BIRD_CAGE("bird cage", Femininity.FEMININE, HairLength.SEVEN_TO_FLOOR);
 	

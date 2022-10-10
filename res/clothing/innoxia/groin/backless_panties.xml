@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>150</value> 
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[backless panties]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[backless panties]]></namePlural>
+		<description><![CDATA[A large piece of fabric is missing from the rear end of these panties, leaving their wearer's bottom completely exposed.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>GROIN</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/> 
+		<imageName>backless_panties.svg</imageName> 
+		<imageEquippedName/> 
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
+					<clothingAccess>LEGS_UP_TO_GROIN_LOW_LEVEL</clothingAccess>
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>SHIFTS_ASIDE</displacementType> 
+				<clothingAccessRequired> 
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots values="CONCEALED_GENITALS_NO_ANUS"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="LINGERIE"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(step)] into the backless panties, before pulling them up to cover [npc.her] private parts.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the backless panties up [npc2.namePos] [npc2.legs] to cover [npc2.her] private parts.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] the backless panties up [npc2.namePos] [npc2.legs] to cover [npc2.her] private parts.]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] backless panties down and [npc.verb(kick)] them off [npc.her] [npc.feet].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] down [npc2.namePos] backless panties and [npc.verb(pull)] them off [npc2.her] [npc2.feet].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] down [npc2.namePos] backless panties and [npc.verb(yank)] them off [npc2.her] [npc2.feet].]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

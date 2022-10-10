@@ -26,6 +26,15 @@ public class SexType implements XMLSaving {
 	private SexAreaInterface performingSexArea;
 	private SexAreaInterface targetedSexArea;
 
+	/**
+	 * Sets the SexParticipantType as NORMAL.
+	 * @param performingSexArea
+	 * @param targetedSexArea
+	 */
+	public SexType(SexAreaInterface performingSexArea, SexAreaInterface targetedSexArea) {
+		this (SexParticipantType.NORMAL, performingSexArea, targetedSexArea);
+	}
+	
 	public SexType(SexParticipantType asParticipant, SexAreaInterface performingSexArea, SexAreaInterface targetedSexArea) {
 		this.asParticipant = asParticipant;
 		this.performingSexArea = performingSexArea;

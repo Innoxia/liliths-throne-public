@@ -19,9 +19,9 @@
 			[#npc.removePersonalityTrait(PERSONALITY_TRAIT_SHY)]
 			
 			#IF(pc.getClothingInSlot(IS_TORSO_UNDER).getStickers().get('top_txt').equals('dommy'))
-				#IF(RND.nextInt(100)<90)[#npc.addFetish(FETISH_DOMINANT)]#ELSE[#npc.addFetish(FETISH_SUBMISSIVE)]#ENDIF
-			#ELSEIF(pc.getClothingInSlot(IS_TORSO_UNDER).getStickers().get('top_txt').equals('subby'))
 				#IF(RND.nextInt(100)<10)[#npc.addFetish(FETISH_DOMINANT)]#ELSE[#npc.addFetish(FETISH_SUBMISSIVE)]#ENDIF
+			#ELSEIF(pc.getClothingInSlot(IS_TORSO_UNDER).getStickers().get('top_txt').equals('subby'))
+				#IF(RND.nextInt(100)<90)[#npc.addFetish(FETISH_DOMINANT)]#ELSE[#npc.addFetish(FETISH_SUBMISSIVE)]#ENDIF
 			#ELSE
 				#IF(pc.hasFetish(FETISH_DOMINANT))
 					#IF(RND.nextInt(100)<40)[#npc.addFetish(FETISH_DOMINANT)]#ELSE[#npc.addFetish(FETISH_SUBMISSIVE)]#ENDIF
@@ -32,6 +32,11 @@
 				#ENDIF
 			#ENDIF
 			
+			#IF(pc.isFeminine() && !npc.getSexualOrientation().isAttractedToFeminine())
+				[#npc.setSexualOrientation(ORIENTATION_GYNEPHILIC)]
+			#ELSEIF(!pc.isFeminine() && !npc.getSexualOrientation().isAttractedToMasculine())
+				[#npc.setSexualOrientation(ORIENTATION_ANDROPHILIC)]
+			#ENDIF
 			
 			#IF(RND.nextInt(100)<50)
 				#IF(npc.hasFetish(FETISH_DOMINANT))

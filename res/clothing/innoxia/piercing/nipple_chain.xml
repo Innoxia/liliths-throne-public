@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>250</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[nipple chain]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[nipple chains]]></namePlural>
+		<description><![CDATA[A pair of ring piercings, which are intended to be inserted into pierced nipples, and which are connected via a series of decorative chains.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+		  <slot>PIERCING_NIPPLE</slot>
+		</equipSlots>
+		<rarity>COMMON</rarity>
+		<clothingSet/> 
+		<imageName>nipple_chain.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<stickers>
+			<category id="second_chain" priority="1">
+				<categoryName><![CDATA[Second chain]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="1">
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="add1" priority="1" defaultSticker="true" zLayer="2">
+					<stickerName><![CDATA[Medium]]></stickerName>
+					<namePrefix/>
+					<descriptionModification/>
+					<imageName>nipple_chain_add_1.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+			</category>
+			<category id="third_chain" priority="1">
+				<categoryName><![CDATA[Third chain]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="1">
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="add2" priority="2" defaultSticker="true" zLayer="3">
+					<stickerName><![CDATA[Thin]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>nipple_chain_add_2.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+			</category>
+		</stickers>
+		
+		<blockedPartsList slot="PIERCING_NIPPLE">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots slot="PIERCING_NIPPLE"/>
+		
+		<primaryColours values="ALL_METAL"/> 
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_KATE</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText slot="PIERCING_NIPPLE" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(clip)] the rings into [npc.her] nipple piercings, before allowing the connected chains to dangle free.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(clip)] the rings into [npc2.namePos] nipple piercings, before allowing the connected chains to dangle free.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(clip)] the rings into [npc2.namePos] nipple piercings, before allowing the connected chains to dangle free.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText slot="PIERCING_NIPPLE" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unclip)] [npc.her] rings from out of [npc.her] nipple piercings.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unclip)] [npc2.namePos] rings from out of [npc2.her] nipple piercings.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(unclip)] [npc2.namePos] rings from out of [npc2.her] nipple piercings.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -318,9 +319,15 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		} else {
 			try {
 				if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.4") || !weapon.getWeaponType().equals(WeaponType.getWeaponTypeFromId("innoxia_bow_shortbow"))){
-					weapon.setColour(0, PresetColour.getColourFromId(parentElement.getAttribute("colourPrimary")));
-					weapon.setColour(1, PresetColour.getColourFromId(parentElement.getAttribute("colourSecondary")));
-					weapon.setColour(2, PresetColour.getColourFromId(parentElement.getAttribute("colourTertiary")));
+					if(!parentElement.getAttribute("colourPrimary").isEmpty()) {
+						weapon.setColour(0, PresetColour.getColourFromId(parentElement.getAttribute("colourPrimary")));
+					}
+					if(!parentElement.getAttribute("colourSecondary").isEmpty()) {
+						weapon.setColour(1, PresetColour.getColourFromId(parentElement.getAttribute("colourSecondary")));
+					}
+					if(!parentElement.getAttribute("colourTertiary").isEmpty()) {
+						weapon.setColour(2, PresetColour.getColourFromId(parentElement.getAttribute("colourTertiary")));
+					}
 				}
 			} catch(Exception ex) {
 			}
@@ -537,34 +544,33 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 			modifier -= 0.25f;
 		}
 		
-		if(getColour(0)==PresetColour.CLOTHING_PLATINUM) {
-			modifier += 0.2f;
+		if(this.getEffects()!=null) {
+			List<TFModifier> types = effects.stream().map(ItemEffect::getPrimaryModifier).collect(Collectors.toList());
+			float typeModifier = 0.025f;
+			boolean clothingBonus = false;
+			if (types.contains(TFModifier.CLOTHING_MAJOR_ATTRIBUTE)) {
+				typeModifier = 0.5f;
+				clothingBonus = true;
+			} else if (types.contains(TFModifier.CLOTHING_ATTRIBUTE)
+					|| types.contains(TFModifier.DAMAGE_WEAPON)
+					|| types.contains(TFModifier.RESISTANCE_WEAPON)) {
+				typeModifier = 0.2f;
+				clothingBonus = true;
+			}
 			
-		} else if(getColour(0)==PresetColour.CLOTHING_GOLD) {
-			modifier += 0.15f;
-			
-		} else if(getColour(0)==PresetColour.CLOTHING_ROSE_GOLD) {
-			modifier += 0.1f;
-			
-		} else if(getColour(0)==PresetColour.CLOTHING_SILVER) {
-			modifier += 0.05f;
-		}
-		
-		for(ItemEffect e : this.getEffects()) {
-			if(e.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE
-					|| e.getPrimaryModifier()==TFModifier.DAMAGE_WEAPON
-					|| e.getPrimaryModifier()==TFModifier.RESISTANCE_WEAPON) {
-				modifier += e.getPotency().getClothingBonusValue()*0.05f;
-				
-			} else if(e.getPrimaryModifier()==TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
-				modifier += e.getPotency().getClothingBonusValue()*0.1f;
-				
-			} else {
-				modifier += e.getPotency().getValue()*0.025f;
+			List<TFPotency> potencies = effects.stream().map(ItemEffect::getPotency).collect(Collectors.toList());
+			if (potencies.contains(TFPotency.MAJOR_BOOST)) {
+				modifier += (clothingBonus?TFPotency.MAJOR_BOOST.getClothingBonusValue():TFPotency.MAJOR_BOOST.getValue())*typeModifier;
+			} else if (potencies.contains(TFPotency.BOOST)) {
+				modifier += (clothingBonus?TFPotency.BOOST.getClothingBonusValue():TFPotency.BOOST.getValue())*typeModifier;
+			} else if (potencies.contains(TFPotency.MINOR_BOOST)) {
+				modifier += (clothingBonus?TFPotency.MINOR_BOOST.getClothingBonusValue():TFPotency.MINOR_BOOST.getValue())*typeModifier;
 			}
 		}
 
-		modifier += this.getSpells().size()*0.2f;
+		modifier += this.getSpells().size()>0?0.2f:0;
+		
+		modifier += effects.size()*0.01f;
 		
 		if(getWeaponType().getClothingSet()!=null) {
 			modifier += 1;

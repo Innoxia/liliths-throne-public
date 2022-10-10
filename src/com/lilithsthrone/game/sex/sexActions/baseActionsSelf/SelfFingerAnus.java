@@ -47,7 +47,7 @@ public class SelfFingerAnus {
                     return UtilText.returnStringAtRandom(
                             "Reaching back with one [pc.hand], you grab your [pc.ass+] and pull to one side, letting out [pc.a_moan+] as you spread your [pc.asshole+].",
                             "You reach back with one [pc.hand], moaning softly as you take hold of your [pc.ass+], before invitingly pulling to one side and spreading your [pc.asshole+].",
-                            "Sliding your fingertips over your [pc.asshole+], you let out [pc.a_moan+] as you grab one of your [pc.assSize] ass cheeks and pull to one one side in order to present your [pc.asshole+].",
+                            "Sliding your fingertips over your [pc.asshole+], you let out [pc.a_moan+] as you grab one of your [pc.assSize] ass cheeks and pull to one side in order to present your [pc.asshole+].",
                             "You eagerly slide your [pc.fingers] over your needy [pc.asshole], [pc.moaning+] as you use your [pc.hand] to pull your ass cheek to one side and present yourself for anal penetration.");
                 } else {
                     return UtilText.returnStringAtRandom(

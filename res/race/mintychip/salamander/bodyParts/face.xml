@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<face>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractFaceType.java -->
+	
+	<!-- The id of the race which this face belongs to.
+	This will almost always be the id of the race in which this type is found (in this case salamander). -->
+	<race>mintychip_salamander</race>
+	
+	<!-- The name that will be used when referring to transformations related to this type (such as when changing body parts in the self-TF menu). -->
+	<transformationName><![CDATA[salamander]]></transformationName>
+	
+	<!-- The id of the material covering this face.
+	The id will typically take the form of 'mintychip_salamander_fur'.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>mintychip_salamander_scales</coveringType>
+	
+	<!-- Whether or not this face type can have a beard growing on it.
+	By default, face types allow beards if its race is of either the MAMMAL or BIRD RacialClass. As such, this face type would allow a beard even if this element was omitted (as salamanders are of the MAMMAL class), but I've included it here for demonstration purposes.
+	You should define this as either 'true' or 'false', or, if you'd like to leave it to its default value, then leave this element blank or omit it entirely. -->
+	<facialHairAllowed>false</facialHairAllowed>
+	
+	<!-- The id of the mouth that's associated with this face type. -->
+	<mouthType>mintychip_salamander_mouth</mouthType>
+	
+	<!-- Tags which are associated with this face type.
+	You should most likely only be using the 'faces' tags for your face type, which are:
+	FACE_STANDARD, FACE_MUZZLE, FACE_FANGS, FACE_BEAK, FACE_SHARK_TEETH, FACE_NATURAL_BALDNESS_FURRY, FACE_NATURAL_BALDNESS_AVIAN, FACE_NATURAL_BALDNESS_SCALY
+	You should use no more than one of the tags: FACE_NATURAL_BALDNESS_FURRY, FACE_NATURAL_BALDNESS_AVIAN, FACE_NATURAL_BALDNESS_SCALY
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/tags/BodyPartTag.java -->
+	<tags>
+		<tag>FACE_MUZZLE</tag>
+		<tag>FACE_FANGS</tag>
+		<tag>FACE_NATURAL_BALDNESS_SCALY</tag>
+	</tags>
+	
+	<!-- The singular and plural names of this face type.
+	These should probably be left empty so that the game's default names are used.
+	You can define your own names following this format:
+	<names>
+		<name><![CDATA[face]]></name>
+	</names>
+	-->
+	<names/>
+	<namesPlural/> 
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's face of this type.
+	Can be left blank. -->
+	<descriptorsMasculine>
+		<descriptor>anthropomorphic salamander-like</descriptor>
+		<descriptor>salamander-like</descriptor>
+		<descriptor>reptilian</descriptor>
+	</descriptorsMasculine>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine>
+		<descriptor>anthropomorphic salamander-like</descriptor>
+		<descriptor>salamander-like</descriptor>
+		<descriptor>reptilian</descriptor>
+	</descriptorsFeminine>
+	
+	
+	<!-- The singular and plural names of the nose associated with this face type.
+	For most faces, it will be 'nose' and 'noses'. -->
+	<noseName><![CDATA[nose]]></noseName>
+	<noseNamePlural><![CDATA[noses]]></noseNamePlural>
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's nose of this type.
+	If you decide to add any descriptors, define them like so:
+	<noseDescriptorsMasculine>
+		<descriptor>salamander-like</descriptor>
+	</noseDescriptorsMasculine>
+	-->
+	<noseDescriptorsMasculine/>
+	<!-- Same as above, but for feminine characters. -->
+	<noseDescriptorsFeminine/>
+	
+	<!-- The description which is shown when a character transforms to obtain this face type.
+	This description immediately follows a brief description of the face type beginning to transform. -->
+	<transformationDescription><![CDATA[
+		[npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic salamander-like muzzle, and [npc.her] tongue flattens and grows wider, turning into a similarly animalistic one.
+		#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)
+			 A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, 
+		#ELSE
+			 Just like the rest of [npc.her] body, [npc.her] new face is [npc.materialDescriptor] [npc.faceSkin+], 
+		#ENDIF
+		and as the transformation finally comes to an end, [npc.sheIs] left panting and sighing as [npc.she] [npc.verb(try)] to catch [npc.her] breath.
+		<br/>[npc.Name] now [npc.has] an anthropomorphic [style.boldSalamander(salamander-like face)], [npc.materialDescriptor] [npc.faceFullDescription]. Within [npc.her] [npc.mouth], [npc.she] [npc.has] a [style.boldSalamander(flat, salamander-like tongue)].
+	]]></transformationDescription>
+	
+	<!-- How this face is described in a character's description page. -->
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, salamander-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a pointed muzzle.
+	]]></bodyDescription>
+	
+	<!-- Feral variant of the above. -->
+	<bodyDescriptionFeral><![CDATA[
+		[npc.SheHasFull] the [npc.feminineDescriptor(true)] face of a feral [npc.legRace], which is [npc.materialDescriptor] [npc.faceFullDescription(true)] and complete with a pointed muzzle.
+	]]></bodyDescriptionFeral>
+	
+</face>

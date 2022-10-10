@@ -60,7 +60,6 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
-import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -431,8 +430,7 @@ public class Lyssieth extends NPC {
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.MOUTH, PresetColour.SKIN_RED, PresetColour.SKIN_RED_DARK), false);
 		
 		// Change perk to demon version:
-		Main.game.getPlayer().removeSpecialPerk(Perk.POWER_OF_LYSSIETH_4);
-		Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LYSSIETH_4_DEMON);
+		Main.game.getPlayer().handleDemonicTransformationPerkEffects();
 	}
 	
 	public void setDaughterToFullDemon(Class<? extends NPC> daughterClass) {
@@ -894,10 +892,15 @@ public class Lyssieth extends NPC {
 						return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
 					}
 				}
+				
 			} else if((Main.sex.getSexPositionSlot(this)==SexSlotLyingDown.SIXTY_NINE || Main.sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotLyingDown.SIXTY_NINE)
 					&& !this.hasPenis()) {
-				if(Main.sex.getTurn()%2==0) {
-					return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
+				if(Main.sex.getOngoingCharactersUsingAreas(this, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE).contains(target)) {
+					if(target.hasPenis()) {
+						return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS);
+					} else {
+						return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
+					}
 				} else {
 					return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
 				}
@@ -1414,7 +1417,7 @@ public class Lyssieth extends NPC {
 			} else {
 				sb.append("<p>"
 							+ "Upon hearing your ear-splitting wail, [npc.name] stops thrusting forwards, and with her hot, throbbing cock still stuffed in your asshole, [npc.she] teases,"
-							+ " [npc.speechNoExtraEffects(~Mmm!~ It's nice knowing that my cock's the first one that's been up your ass.. You're going to become a horny little buttslut, I can just tell..."
+							+ " [npc.speechNoExtraEffects(~Mmm!~ It's nice knowing that my cock's the first one that's been up your ass... You're going to become a horny little buttslut, I can just tell..."
 							+ " ~Ooh!~ Now beg for my cock, like a good little anal-loving slut, and I'll give you the rest of it.)]"
 						+ "</p>");
 

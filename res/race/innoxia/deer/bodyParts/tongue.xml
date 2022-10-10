@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tongue>
+	<race>innoxia_deer</race>
+	
+	<coveringType>TONGUE</coveringType>
+	
+	<defaultLength>12</defaultLength>
+	
+	<name><![CDATA[tongue]]></name>
+	<namePlural><![CDATA[tongues]]></namePlural>
+	
+	<descriptorsMasculine>
+		<descriptor><![CDATA[deer-like]]></descriptor>
+	</descriptorsMasculine>
+	
+	<descriptorsFeminine>
+		<descriptor><![CDATA[deer-like]]></descriptor>
+	</descriptorsFeminine>
+	
+	<bodyDescription><![CDATA[
+		[npc.Her] mouth holds [npc.a_tongueLength], [npc.tongueColour(true)], deer-like [npc.tongue]#IF(npc.isPiercedTongue()), which has been pierced#ENDIF.
+	]]></bodyDescription>
+	
+	<defaultTongueModifiers>
+		<modifier>STRONG</modifier>
+	</defaultTongueModifiers>
+</tongue>
