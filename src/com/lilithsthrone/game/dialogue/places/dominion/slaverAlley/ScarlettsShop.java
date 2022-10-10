@@ -3406,9 +3406,7 @@ public class ScarlettsShop {
 			
 			sb.append("<div class='container-full-width' style='text-align:center;'>"
 							+ "<i>"
-								+ "For each increase in sexual experience, your slave will gain 1 corruption."
-								+ "<br/>"
-								+ "Current corruption: [style.colourCorruption("+BodyChanging.getTarget().getAttributeValue(Attribute.MAJOR_CORRUPTION)+")]"
+								+ "More sexual experience will result in your slave gaining more corruption."
 							+ "</i>"
 						+ "</div>"
 						+CharacterModificationUtils.getSexualExperienceDiv());

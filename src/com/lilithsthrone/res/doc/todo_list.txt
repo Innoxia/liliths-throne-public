@@ -9,10 +9,18 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Contributors:
 		Fixed a significant amount of typos and grammatical errors. (PR#1701 by Lis)
 		Reworked Controller classes and improved UI handling. (PR#1713 by Maxis010)
+		Fixed issue where subspecies changes for dragons, coatls, and gryphons didn't account for taur/lamia leg configurations when assigning minimum wing size. (by MintyChip)
 	
 	Other:
 		The 'Crotch-boobs & Udders' body setting now only applies to randomly-generated NPCs at the moment of their creation (as was stated in the option's tooltip), allowing all characters to gain crotch-boobs/udders via TF no matter the setting.
 		Added a new 'Crotch-boob & Udder Content' setting in the 'Sex & Fetishes' content options to enable/disable udder-related sex actions and udder transformations to be inflicted upon the player. (Enabled by default.)
+		Darkened inventory slot icons in the tattoo view panel to differentiate it from normal inventory view.
+		Added finer control over sex experience count in character creation and custom slave ordering screens, added anilingus experience, and made it so anal sex experiences are hidden if anal content is disabled.
+	
+	Bugs:
+		Fixed several rendering issue with the buyback menu.
+		Fixed issue where the women's watch in character creation had random primary and secondary colours.
+		Fixed bug where penile virginity losses would be reset at the end of character creation.
 	
 	
 	[x] Test
@@ -68,17 +76,17 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[x] Evelyx
 			[x] random TF potions
 			[x] Murk TF
-	
-	[] Go over getter/setter methods in GameCharacter and check for content restrictions - move them to other parts of the code wherever possible
-	
-	[] watches are having random secondary colours
-	
-	[] When in tattoo menu show it somehow
-	
-	[] Improve sex history -- - + ++
-		[] character creation
-		[] slave ordering from Helena
-	[] Add custom virginity loss text
+	[x] feminine watches in character creation are having random primary & secondary colours
+	[x] When in tattoo menu show it somehow
+	[x] Improve sex history -- - + ++
+		[x] character creation
+		[x] slave ordering from Helena
+			[x] [#npc.getName()] [#npc.getTotalSexCount(sex.newSexType(SEX_PT_NORMAL, PENETRATION_TONGUE, ORIFICE_ANUS))]
+	[x] add anilingus
+	[x] penis virginity loss text not working
+		[#pc.getVirginityLoss(sex.newSexType(PENETRATION_PENIS, ORIFICE_VAGINA))]
+		<br/>
+		[#pc.getVirginityLossDescription(sex.newSexType(PENETRATION_PENIS, ORIFICE_VAGINA))]
 	
 	[] PRs:
 		[] #94
@@ -101,6 +109,32 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1692
 		[] #1693
 		[x] #1701
+	
+	
+	[] Maymay self-ovipositor dialogue
+	
+	[] Felicia content in writers channel
+		Felicia content expansion:
+			- Ask out on date (affection requirement first I guess)
+			- Repeat date until 3 dates completed
+			- Give her gift after 3rd date and she reveals how she transformed into a 'doll' to stop having lewd thoughts all the time
+			- Says she feels lewd towards player, can sex
+			- Option to give her TF potion to give her vagina (although she prefers giving oral)
+			- Repeat dates & sex is end content
+	
+	[] Dwight - submission & toggle for being able to encounter your offspring
+	
+	[] C4M cult
+	
+	[] FAF art Astrapi
+	
+	Need to contact kumiko
+		Kumiko dreams
+		Kumiko writing
+		
+	Merle
+	
+	
 	
 	[] Make a page on the blog about java/exe/32-bit exe versions
 	
@@ -141,37 +175,16 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					- Brittney: bird-brained bitch (member of the flock, riding cock while gossiping with other bimbos)
 					- Lexi: hen party (Lexi's pussy cleaner and fellow gang-bang slut)
 	
-	[] Maymay self-ovipositor dialogue
-	
-	[] Felicia content in writers channel
-		Felicia content expansion:
-			- Ask out on date (affection requirement first I guess)
-			- Repeat date until 3 dates completed
-			- Give her gift after 3rd date and she reveals how she transformed into a 'doll' to stop having lewd thoughts all the time
-			- Says she feels lewd towards player, can sex
-			- Option to give her TF potion to give her vagina (although she prefers giving oral)
-			- Repeat dates & sex is end content
-	
 	[] Need pure virginity loss to someone they love variation
 		[] remove fetish if virginity loss is to someone they at least love
 		[] generic dialogue
 		[] Helena dialogue
 		[] Aurokaris dialogue
 	
-	[] Dwight - submission & toggle for being able to encounter your offspring
-	
 	[] Sex additions:
 		[] Finger urethra insertion
 		[] Lick fluids off partner actions
 		[] Fisting
-	
-	[] FAF art Astrapi
-	
-	Need to contact kumiko
-		Kumiko dreams
-		Kumiko writing
-		
-	Merle
 	
 	Honeybitterchip
 	
