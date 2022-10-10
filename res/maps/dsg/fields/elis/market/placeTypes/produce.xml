@@ -3,9 +3,7 @@
 	<worldRegion>FIELD_CITY</worldRegion>
 	
 	<name><![CDATA[
-	#IF(flags.hasFlag(FLAG_dsg_elis_eisek_banished))
-		Empty Lot
-	#ELSEIF(eisek.isPlayerKnowsName() && !pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_STALL))
+	#IF(eisek.isPlayerKnowsName() && !pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_STALL))
 		Eisek's Produce Stall
 	#ELSEIF(pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_STALL))
 		Eisek's Alpine Produce
@@ -15,11 +13,7 @@
 	]]></name>
 
 	<tooltipDescription><![CDATA[
-	#IF(flags.hasFlag(FLAG_dsg_elis_eisek_banished))
-		An empty space that has yet to find a new tenet.
-	#ELSE
-		A dragon-boy runs this produce stall.
-	#ENDIF
+		A [eisek.race] runs this produce stall.
 	]]></tooltipDescription>
 	
 	<virginityLossDescription><![CDATA[in the Farmer's Market in Elis]]></virginityLossDescription>
@@ -32,11 +26,23 @@
 	
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	
-	<encounterType>dsg_places_fields_elis_market_eisek</encounterType>
+	<encounterType>null</encounterType>
 	
-	<dialogue>dsg_places_fields_elis_market_produce</dialogue>
+	<dialogue>dsg_places_fields_elis_market_produce_stall</dialogue>
 	
-	<populationPresent>
+	<populationPresent>		
+			<population startMinutes="480" endMinutes="1139">
+			
+			<conditional><![CDATA[
+			#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_introduced))
+				true
+			#ENDIF
+			]]></conditional>
+	
+			<populationType plural="false" density="MANY">CROWD</populationType>
+			
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
 		
 		<population startMinutes="480" endMinutes="1139">
 			
@@ -50,13 +56,27 @@
 			
 			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
 		</population>
+		
+		<population startMinutes="480" endMinutes="1139">
+			
+			<conditional><![CDATA[
+			#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_MOB) && !pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_STALL))
+				true
+			#ENDIF
+			]]></conditional>
+	
+			<populationType plural="false" density="COUPLE">SHOPPER</populationType>
+			
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+		
 		<population day="true">
 			<conditional><![CDATA[
 			#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_MOB) && !pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_STALL))
 				true
 			#ENDIF
 			]]></conditional>
-			<populationType plural="false" density="OCCASIONAL">SHOPPER</populationType>
+			<populationType plural="false" density="SEVERAL">SHOPPER</populationType>
 			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
 		</population>
 	</populationPresent>

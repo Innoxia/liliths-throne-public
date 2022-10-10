@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id ="stall">
+				
+		<author><![CDATA[DSG]]></author>			
+		<title/>
+		
+		<tooltip/>				
+		<preParsingEffects/>		
+		
+		<content folderPath="txt/dsg/places/fields/market/produce">STALL</content>		
+		<secondsPassed minutes="false"><![CDATA[5]]></secondsPassed>
+				
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>	
+		<travelDisabled><![CDATA[false]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responseTabs/>
+		
+		<responses>
+			
+			<response>
+					
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Approach]]></responseTitle>
+				<responseTooltip><![CDATA[Approach the stall.]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[dsg_characters_eisek_stall_talk_menu]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+				
+			</response>
+			
+		</responses>
+	</scene>
+	
+</dialogueNodes>

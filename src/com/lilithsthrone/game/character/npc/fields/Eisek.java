@@ -8,6 +8,7 @@ package com.lilithsthrone.game.character.npc.fields;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.HairType;
@@ -52,6 +53,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
@@ -97,7 +99,7 @@ public class Eisek extends NPC {
     @Override
     public void setupPerks(boolean autoSelectPerks) {
 	    this.addSpecialPerk(Perk.SPECIAL_CHILD_OF_THE_CRAG);
-	    this.addPerk(Perk.JOB_NPC_FARMER);
+	    this.setHistory(Occupation.NPC_FARMER);
 
 	    PerkManager.initialisePerks(this,
 			    Util.newArrayListOfValues(),
@@ -242,6 +244,7 @@ public class Eisek extends NPC {
 	    } else {
 		    return "Eisk is a produce merchant at The Farmer's Market in Elis.";
 	    }
+	    
     }
     
     @Override
@@ -251,6 +254,23 @@ public class Eisek extends NPC {
     @Override
     public DialogueNode getEncounterDialogue() {
 	return null;
+    }
+    
+    @Override
+    public boolean isTrader() {
+	    return true;
+    }
+    
+    @Override
+    public boolean willBuy(AbstractCoreItem item) {
+	    return false;
+    }
+    
+    @Override
+    public void applyItemTransactionEffects(AbstractCoreItem itemSold, int quantity, int individualPrice, boolean soldToPlayer) {
+	if(soldToPlayer && (this.getAffection(Main.game.getPlayer()) <= 15)) {
+	    Main.game.appendToTextStartStringBuilder(this.incrementAffection(Main.game.getPlayer(), 3));
+	}
     }
     
     @Override
@@ -266,18 +286,21 @@ public class Eisek extends NPC {
 				this.addItem(Main.game.getItemGen().generateItem(item), !item.isConsumedOnUse()?1:(2+Util.random.nextInt(2)), false, false);
 			}
 		}
-		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_mob_quest_persuade"))) {
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_mob_quest_persuade")) &&
+			Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_EISEK_MOB)) {
 		    this.addItem(Main.game.getItemGen().generateItem("dsg_race_dragon_dragonfruit_yellow"), 1+Util.random.nextInt(1), false, false);
 		    this.addItem(Main.game.getItemGen().generateItem("dsg_race_dragon_dragonfruit_red"), 1+Util.random.nextInt(1), false, false);
 		    this.addItem(Main.game.getItemGen().generateItem("dsg_race_dragon_dragonfruit_pink"), 1+Util.random.nextInt(1), false, false);
 		}
-		if (this.getLocationPlaceType() != PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_market")) {
-		    this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_market"));
+		if (this.getLocationPlaceType() != PlaceType.getPlaceTypeFromId("dsg_fields_elis_market_produce")) {
+		    this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town_market"), PlaceType.getPlaceTypeFromId("dsg_fields_elis_market_produce"));
 		}
 			
 	    } else {
 		//Shadow realm'd until his real home exists
 		this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE);
+		this.getLocation().getDistanceToVector(Main.game.getWorlds().get(WorldType.getWorldTypeFromId("innoxia_fields_elis_town_market")).getCell(PlaceType.getPlaceTypeFromId("dsg_fields_elis_market_produce")).getLocation());
+		
 	    }
 	}
 	

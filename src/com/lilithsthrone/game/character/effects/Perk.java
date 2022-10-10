@@ -3014,7 +3014,13 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "The blood of Cimryth runs through [npc.namePos] veins and [npc.she] is long inured to the cold of living so high up in the mountains. However, being so removed from [npc.her] desert kin has lessened [npc.her] natural resistance to fire.");
-	
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
 	
 	//**** Special perks which can be gained from in-game events: ****//
 

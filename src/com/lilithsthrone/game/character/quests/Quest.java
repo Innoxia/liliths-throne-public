@@ -1887,7 +1887,7 @@ public enum Quest {
 				return "You destroyed the mob's arguments with FACTS and LOGIC.";
 			    }
 			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_mob_quest_seduce"))) {
-			    return "You convinced the mob to leave Eisek alone by using your mastery of lust spells to fuel an orgy.";
+			    return "You convinced the mob to leave Eisek alone by using your mastery of lust magic to fuel an orgy.";
 			} else {
 			    return "You weren't able to convince the mob to leave Eisek alone.";
 			}
