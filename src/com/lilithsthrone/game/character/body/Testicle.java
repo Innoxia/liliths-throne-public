@@ -239,7 +239,7 @@ public class Testicle implements BodyPartInterface {
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] a strange bubbling and churning taking place deep within [npc.her] [npc.balls],"
 							+ " and [npc.she] can't help but let out [npc.a_moan+] as a small squirt of precum suddenly drools out from [npc.her] [npc.cock];"
-								+ " clear evidence that that [npc.her] [npc.cum] production has [style.boldGrow(increased)].<br/>"
+								+ " clear evidence that [npc.her] [npc.cum] production has [style.boldGrow(increased)].<br/>"
 						+ "[npc.SheIsFull] now able to produce [style.boldSex(" + cumDescriptor + " [npc.cum])]!"
 					+ "</p>");
 			
@@ -344,7 +344,7 @@ public class Testicle implements BodyPartInterface {
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] an alarming bubbling and churning taking place deep within [npc.her] [npc.balls],"
 							+ " and [npc.she] can't help but let out [npc.a_moan+] as a small squirt of precum suddenly drools out from [npc.her] [npc.cock];"
-								+ " clear evidence that that [npc.her] [npc.cum] regeneration has [style.boldGrow(increased)].<br/>"
+								+ " clear evidence that [npc.her] [npc.cum] regeneration has [style.boldGrow(increased)].<br/>"
 						+ "[npc.Her] rate of [npc.cum] regeneration is now [style.boldSex(" + regenerationDescriptor + ")] ("+Units.fluid(cumRegeneration)+"/day)!"
 					+ "</p>");
 			
@@ -387,7 +387,7 @@ public class Testicle implements BodyPartInterface {
 					"<p>"
 						+ "[npc.Name] suddenly [npc.verb(feel)] a strange tightening and building up of pressure deep within [npc.her] [npc.balls],"
 								+ " and [npc.she] can't help but let out [npc.a_moan+] as a small amount of precum powerfully squirts out from [npc.her] [npc.cock];"
-									+ " clear evidence that that [npc.her] [npc.cum] expulsion has [style.boldGrow(increased)].<br/>"
+									+ " clear evidence that [npc.her] [npc.cum] expulsion has [style.boldGrow(increased)].<br/>"
 						+ "[npc.She] will now expel [style.boldSex(" + UtilText.generateSingularDeterminer(expulsionDescriptor) + " "+expulsionDescriptor+")] amount of stored cum at each orgasm!"
 					+ "</p>");
 			
@@ -396,7 +396,7 @@ public class Testicle implements BodyPartInterface {
 					"<p>"
 						+ "[npc.Name] suddenly [npc.verb(feel)] a strange loosening and reduction of pressure deep within [npc.her] [npc.balls],"
 							+ " and [npc.she] can't help but let out [npc.a_moan+] as a small amount of precum weakly dribbles out from [npc.her] [npc.cock];"
-								+ " clear evidence that that [npc.her] [npc.cum] expulsion has [style.boldShrink(decreased)].<br/>"
+								+ " clear evidence that [npc.her] [npc.cum] expulsion has [style.boldShrink(decreased)].<br/>"
 						+ "[npc.She] will now expel [style.boldSex(" + UtilText.generateSingularDeterminer(expulsionDescriptor) + " "+expulsionDescriptor+")] amount of stored cum at each orgasm!"
 					+ "</p>");
 		}

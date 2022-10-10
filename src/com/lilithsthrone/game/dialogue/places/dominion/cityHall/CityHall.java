@@ -40,7 +40,7 @@ public class CityHall {
 					+ baseName
 				+ "</td>"
 				+ "<td>"
-					+ "<div class='saveLoadButton' id='import_lodger_" + identifier + "' style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Import</div>"
+					+ "<div class='saveLoadButton' id='IMPORT_LODGER_" + identifier + "' style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Import</div>"
 				+ "</td>"
 				+ "</tr>";
 	}
@@ -329,7 +329,7 @@ public class CityHall {
 		}
 	};
 	
-	public static final DialogueNode LODGER_IMPORT = new DialogueNode("Auctioning block", "", true) {
+	public static final DialogueNode LODGER_IMPORT = new DialogueNode("", "", true) {
 		@Override
 		public String getContent() {
 			return "";

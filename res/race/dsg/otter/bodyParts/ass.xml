@@ -63,7 +63,7 @@
 	<!-- How this ass is described in a character's description page.
 	You should not end this particular description with any punctuation, as the game adds an additional description onto the end of it. -->
 	<bodyDescription><![CDATA[
-		[npc.SheHasFull] a otter-like, [npc.anusFullDescription(true)]
+		[npc.SheHasFull] an otter-like, [npc.anusFullDescription(true)]
 	]]></bodyDescription>
 	
 </ass>

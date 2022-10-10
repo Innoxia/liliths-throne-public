@@ -278,6 +278,31 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		return sb.toString();
 	}
 	
+	/**
+	 * This equality check excludes equip slot checks, as it is intended to be used for if an unequipped item of clothing is to be compared to an equipped item of clothing.
+	 */
+	public boolean equalsWithoutEquippedSlot(Object o) {
+		if(super.equals(o)){
+			if(o instanceof AbstractClothing){
+				if(((AbstractClothing)o).getClothingType().equals(getClothingType())
+						&& ((AbstractClothing)o).getColours().equals(getColours())
+						&& ((AbstractClothing)o).getPattern().equals(getPattern())
+						&& (this.getPattern()!="none"
+							?((AbstractClothing)o).getPatternColours().equals(getPatternColours())
+							:true)
+						&& ((AbstractClothing)o).isSealed()==this.isSealed()
+						&& ((AbstractClothing)o).isDirty()==this.isDirty()
+						&& ((AbstractClothing)o).isEnchantmentKnown()==this.isEnchantmentKnown()
+						&& ((AbstractClothing)o).isBadEnchantment()==this.isBadEnchantment()
+						&& ((AbstractClothing)o).getEffects().equals(this.getEffects())
+						){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if(super.equals(o)){
@@ -561,7 +586,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(!parentElement.getAttribute("slotEquippedTo").isEmpty()) {
 			InventorySlot slot = InventorySlot.valueOf(parentElement.getAttribute("slotEquippedTo"));
 			if(!clothing.getClothingType().getEquipSlots().contains(slot)) {
-				return null; // If the clothing type doens't support this slot, then something has gone wrong and the clothing should not be laoded.
+				return null; // If the clothing type doesn't support this slot, then something has gone wrong and the clothing should not be laoded.
 			}
 			clothing.setSlotEquippedTo(slot);
 		}

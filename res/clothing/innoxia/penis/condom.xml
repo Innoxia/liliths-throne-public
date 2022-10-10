@@ -24,16 +24,13 @@
 
     <blockedPartsList>
       <blockedParts>
-
         <displacementType>REMOVE_OR_EQUIP</displacementType>
-
         <clothingAccessRequired>
-          <clothingAccess>GROIN</clothingAccess>
+			<clothingAccess>PENIS</clothingAccess>
         </clothingAccessRequired>
 		<blockedBodyParts/>
 		<clothingAccessBlocked/>
         <concealedSlots/>
-
       </blockedParts>
     </blockedPartsList>
 

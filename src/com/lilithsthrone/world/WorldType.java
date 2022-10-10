@@ -23,6 +23,23 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class WorldType {
+
+	public static AbstractWorldType EMPTY = new AbstractWorldType(WorldRegion.MISC,
+			"Empty (Holding world)",
+			PresetColour.BASE_BROWN,
+			false,
+			true,
+			TeleportPermissions.NONE,
+			"/com/lilithsthrone/res/map/empty.png",
+			PlaceType.WORLD_MAP_DOMINION,
+			PlaceType.GENERIC_EMPTY_TILE,
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0xff0000), PlaceType.GENERIC_EMPTY_TILE),
+					new Value<>(new Color(0xffff00), PlaceType.GENERIC_HOLDING_CELL),
+					new Value<>(new Color(0x0080ff), PlaceType.GENERIC_MUSEUM),
+					new Value<>(new Color(0xff00ff), PlaceType.GENERIC_CLUB_HOLDING_CELL))) {
+	};
 	
 	public static AbstractWorldType WORLD_MAP = new AbstractWorldType(WorldRegion.MISC,
 			"Lilith's Realm",
@@ -130,19 +147,6 @@ public class WorldType {
 		public int getMajorAreaIndex() {
 			return 1;
 		}
-	};
-	
-	public static AbstractWorldType EMPTY = new AbstractWorldType(WorldRegion.MISC,
-			"Empty (Holding world)",
-			PresetColour.BASE_BROWN,
-			false,
-			true,
-			TeleportPermissions.NONE,
-			"/com/lilithsthrone/res/map/empty.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.GENERIC_EMPTY_TILE, Util.newHashMapOfValues(
-					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
-					new Value<>(new Color(0xff0000), PlaceType.GENERIC_EMPTY_TILE),
-					new Value<>(new Color(0xffff00), PlaceType.GENERIC_HOLDING_CELL),
-					new Value<>(new Color(0x0080ff), PlaceType.GENERIC_MUSEUM))) {
 	};
 
 	public static AbstractWorldType MUSEUM = new AbstractWorldType(WorldRegion.OLD_WORLD,
@@ -345,7 +349,11 @@ public class WorldType {
 					
 					new Value<>(new Color(0x21bfc5), PlaceType.SLAVER_ALLEY_MARKET_STALL_EXCLUSIVE),
 					new Value<>(new Color(0x004080), PlaceType.SLAVER_ALLEY_MARKET_STALL_BULK),
-					new Value<>(new Color(0x008080), PlaceType.SLAVER_ALLEY_CAFE),
+					
+					new Value<>(new Color(0x008000), PlaceType.SLAVER_ALLEY_CAFE),
+					new Value<>(new Color(0x006600), PlaceType.SLAVER_ALLEY_CAFE_2),
+					new Value<>(new Color(0x004d00), PlaceType.SLAVER_ALLEY_CAFE_3),
+					new Value<>(new Color(0x003300), PlaceType.SLAVER_ALLEY_CAFE_4),
 					
 					new Value<>(new Color(0xbfff00), PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS),
 					

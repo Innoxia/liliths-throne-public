@@ -6,7 +6,7 @@
 		<determiner><![CDATA[the]]></determiner>
 		<name><![CDATA[Dark Siren's Seal]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Dark Siren's Seals]]></namePlural>
-		<description><![CDATA[A very ordinary-looking medicinal eyepatch, complete with elastic straps to hold in in place. It has been enchanted with a powerful arcane-drain by the demon calling herself 'The Dark Siren', so that she can seal away her immense destructive powers...]]></description>
+		<description><![CDATA[A very ordinary-looking medicinal eyepatch, complete with elastic straps to hold in place. It has been enchanted with a powerful arcane-drain by the demon calling herself 'The Dark Siren', so that she can seal away her immense destructive powers...]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>EYES</slot>

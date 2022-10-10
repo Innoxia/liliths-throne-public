@@ -41,6 +41,7 @@ public class LodgerImport extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		this.setLastTimeEncountered(DEFAULT_TIME_START_VALUE);
 		
 		if(!this.getId().endsWith("LodgerImport")) {
 			this.setId(Main.game.getNextNPCId(LodgerImport.class));

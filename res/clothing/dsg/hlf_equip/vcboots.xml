@@ -50,7 +50,7 @@
 		  <![CDATA[[npc.Name] [npc.verb(put)] the boots on and [npc.verb(adjust)] the laces until they're comfortable. [npc.She] then [npc.verb(wind)] the laces around the upper a few times, [npc.verb(tie)] a sturdy knot and [npc.verb(tuck)] the excess neatly between the lacing and the tongue.]]>
 		</self>
 		<other>
-		  <![CDATA[[npc.Name] [npc.verb(put)] [npc2.namePos] [npc2.feet] into the boots and [npc.verb(adjust)] the laces until they're comfortable. [npc.She] then [npc.verb(wind)] the laces around the upper a few times, [npc.verb(tie)] a strudy knot and [npc.verb(tuck)] the excess neatly between the lacing and the tongue.]]>
+		  <![CDATA[[npc.Name] [npc.verb(put)] [npc2.namePos] [npc2.feet] into the boots and [npc.verb(adjust)] the laces until they're comfortable. [npc.She] then [npc.verb(wind)] the laces around the upper a few times, [npc.verb(tie)] a sturdy knot and [npc.verb(tuck)] the excess neatly between the lacing and the tongue.]]>
 		</other>
 		<otherRough>
 		  <![CDATA[[npc.Name] [npc.verb(stuff)] [npc2.namePos] [npc2.feet] into the boots and [npc.verb(pull)] the laces as tightly as possible before tying a hasty knot.]]>

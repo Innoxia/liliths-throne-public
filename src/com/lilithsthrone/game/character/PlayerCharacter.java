@@ -40,7 +40,6 @@ import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.dominion.DominionClubNPC;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
@@ -822,7 +821,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		if(this.getWorldLocation()==WorldType.NIGHTLIFE_CLUB) {
 			List<GameCharacter> clubbers = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
-			clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC));
+//			clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC));
+			clubbers.removeIf((npc) -> npc.isUnique());
 			
 			AbstractWorldType worldLocationInitial = this.getWorldLocation();
 			Vector2i locationInitial = this.getLocation();
@@ -2000,7 +2000,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					sb.append(
 							"<p>"
 								+ "[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your anal virginity for me!"
-									+ " Remember this moment, remember that <i>my</i> "+(isPenis?"cock":"")+(isTail?"tail":"")+" was the the one that turned you into "+(Main.game.getPlayer().isFeminine()?"a horny buttslut":"a little fucktoy")+"!)]"
+									+ " Remember this moment, remember that <i>my</i> "+(isPenis?"cock":"")+(isTail?"tail":"")+" was the one that turned you into "+(Main.game.getPlayer().isFeminine()?"a horny buttslut":"a little fucktoy")+"!)]"
 							+ "</p>");
 				}
 				
@@ -2174,7 +2174,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 								case SUB_NORMAL:
 									sb.append("[npc.speech(Oh, yes!)] [npc.she] cries,"
 											+ " [npc.speech(Good [pc.girl], saving your virginity for me!"
-												+ " Remember this moment, remember that <i>my</i> "+penetration.getName(characterPenetrating, true)+" was the the one that broke you in!)]");
+												+ " Remember this moment, remember that <i>my</i> "+penetration.getName(characterPenetrating, true)+" was the one that broke you in!)]");
 									break;
 								case DOM_ROUGH:
 									sb.append("[npc.speech(This is just the start, slut!)] [npc.she] roughly [npc.moansVerb],"
@@ -2188,7 +2188,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 							}
 						} else {
 							sb.append("[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your virginity for me!"
-									+ " Remember this moment, remember that <i>my</i> "+penetration.getName(characterPenetrating, true)+" was the the one that broke you in!)]");
+									+ " Remember this moment, remember that <i>my</i> "+penetration.getName(characterPenetrating, true)+" was the one that broke you in!)]");
 						}
 					sb.append("</p>");
 				}

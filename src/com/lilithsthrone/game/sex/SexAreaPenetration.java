@@ -134,7 +134,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 									sb.append("[npc.Name] took great pleasure in [npc.sexPaceVerb] rubbing [npc.her] [npc.cock] over [npc2.namePos] [npc2.feet+].");
 									break;
 								case SUB_RESISTING:
-									sb.append("[npc.Name] tried to resist and pull away as as [npc2.name] rubbed [npc2.her] [npc2.feet+] up and down over [npc.her] [npc.cock].");
+									sb.append("[npc.Name] tried to resist and pull away as [npc2.name] rubbed [npc2.her] [npc2.feet+] up and down over [npc.her] [npc.cock].");
 									break;
 							}
 							switch(targetPace) {

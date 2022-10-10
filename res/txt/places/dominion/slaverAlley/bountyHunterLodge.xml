@@ -335,7 +335,7 @@
 	
 	<htmlContent tag="STAIRS_UPSTAIRS"><![CDATA[
 	<p>
-		Deciding that you want to to take a look at the tavern's first floor, you travel up the narrow staircase and prepare to explore... 
+		Deciding that you want to take a look at the tavern's first floor, you travel up the narrow staircase and prepare to explore...
 	</p>
 	]]>
 	</htmlContent>
@@ -366,7 +366,7 @@
 		#ELSE
 			Although it's not easy, you manage to push your way through the crowd and [pc.step] up to the bar.
 		#ENDIF
-		 While the menu hung up on the wall lists several different types of alcoholic beverage, the only item of food on offer is a bag of bar nuts. As you wonder whether to order soemthing or not, you can't help but notice the fact that there's a rusty old slave collar hung up on the wall behind the bar, which you assume must be the tavern's namesake.
+		 While the menu hung up on the wall lists several different types of alcoholic beverage, the only item of food on offer is a bag of bar nuts. As you wonder whether to order something or not, you can't help but notice the fact that there's a rusty old slave collar hung up on the wall behind the bar, which you assume must be the tavern's namesake.
 	</p>
 	<p>
 		Noticing you standing there, a rabbit-boy barman steps forwards and asks, [style.speechMasculine(So, what can I get for you?)]

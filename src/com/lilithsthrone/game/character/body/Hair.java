@@ -227,7 +227,7 @@ public class Hair implements BodyPartInterface {
 					sb.append("styled into twin braids.");
 					break;
 				case DRILLS:
-					sb.append("styled into drills.");
+					sb.append("styled into ojou ringlets.");
 					break;
 				case LOW_PONYTAIL:
 					sb.append("styled into a low ponytail.");
