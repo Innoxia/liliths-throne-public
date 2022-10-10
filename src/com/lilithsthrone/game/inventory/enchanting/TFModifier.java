@@ -1332,6 +1332,8 @@ public enum TFModifier {
 	
 	TF_MOD_FLAVOUR_BLUEBERRY(FluidFlavour.BLUEBERRY, "flavours/blueberry"),
 	
+	TF_MOD_FLAVOUR_BANANA(FluidFlavour.BANANA, "flavours/banana"),
+	
 	
 	// Fetishes:
 	
