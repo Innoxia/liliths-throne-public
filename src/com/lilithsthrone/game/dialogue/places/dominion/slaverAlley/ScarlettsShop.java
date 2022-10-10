@@ -1412,8 +1412,8 @@ public class ScarlettsShop {
 		}
 		@Override
 		public String getContent() {
-			UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN_PREMIUM.getValue(null)), true);
-			UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN.getValue(null)), false);
+			UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN_PREMIUM.getValue()), true);
+			UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN.getValue()), false);
 			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "ROMANCE_OFFER_HELP_WAIT");
 		}
 		@Override

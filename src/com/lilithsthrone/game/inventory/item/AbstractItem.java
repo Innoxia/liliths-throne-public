@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.w3c.dom.Document;
@@ -20,6 +21,7 @@ import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
@@ -255,7 +257,20 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	
 	@Override
 	public int getValue() {
-		return itemType.getValue(this.getEffects());
+		int modifier = 1;
+		if(this.getEffects().size() > 0) {
+			List<TFPotency> potencies = this.getEffects().stream().map(ItemEffect::getPotency).collect(Collectors.toList());
+			if (potencies.contains(TFPotency.MAJOR_BOOST)) {
+				modifier += 0.5;
+			} else if (potencies.contains(TFPotency.BOOST)) {
+				modifier += 0.3;
+			} else if (potencies.contains(TFPotency.MINOR_BOOST)) {
+				modifier += 0.1;
+			}
+			
+			modifier += itemEffects.size()*0.01f;
+		}
+		return itemType.getValue() * modifier;
 	}
 	
 	public boolean isAppendItemEffectLinesToTooltip() {
