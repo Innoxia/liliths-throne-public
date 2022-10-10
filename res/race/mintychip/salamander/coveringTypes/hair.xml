@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<coveringType>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- See fur.xml for a fully-commented coveringType example. -->
+	
+	<category>HAIR</category>
+	
+	<determiner><![CDATA[a layer of]]></determiner>
+	<name><![CDATA[hair]]></name>
+	<namePlural pluralByDefault="false"><![CDATA[hair]]></namePlural>
+
+	<naturalCoveringModifiers>
+		<modifier>COARSE</modifier>
+		<modifier>SILKEN</modifier>
+	</naturalCoveringModifiers>
+	
+	<extraCoveringModifiers/>
+	
+	<naturalPatterns>
+		<pattern weighting="1">NONE</pattern>
+	</naturalPatterns>
+	
+	<extraPatterns>
+		<pattern weighting="1">HIGHLIGHTS</pattern>
+		<pattern weighting="1">STRIPED</pattern>
+		<pattern weighting="1">SPOTTED</pattern>
+		<pattern weighting="1">MOTTLED</pattern>
+		<pattern weighting="1">MARKED</pattern>
+		<pattern weighting="1">OMBRE</pattern>
+	</extraPatterns>
+	
+	<naturalColoursPrimary>
+		<colour>COVERING_PINK_LIGHT</colour>
+		<colour>COVERING_RED</colour>
+		<colour>COVERING_RED_DARK</colour>
+		<colour>COVERING_SCARLET</colour>
+		<colour>COVERING_ORANGE</colour>
+
+		<colour>COVERING_INDIGO</colour>
+		<colour>COVERING_BLUE_LIGHT</colour>
+		<colour>COVERING_BLUE</colour>
+		<colour>COVERING_BLUE_DARK</colour>
+		<colour>COVERING_PURPLE_LIGHT</colour>
+
+		<colour>COVERING_BLACK</colour>
+		<colour>COVERING_WHITE</colour>
+	</naturalColoursPrimary> 
+	<extraColoursPrimary values="allCoveringColours"/>
+	
+	<naturalColoursSecondary/>
+	<extraColoursSecondary values="allCoveringColours"/>
+	
+</coveringType>
