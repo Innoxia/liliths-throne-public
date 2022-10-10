@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <subspecies>
 	<race>WOLF_MORPH</race>
-	<colour>mintychip_jackalYellow</colour>
-	<secondaryColour>mintychip_jackalYellow</secondaryColour>
-	<tertiaryColour>mintychip_jackalYellow</tertiaryColour>
+	<colour>mintychip_sandyYellow</colour>
+	<secondaryColour>mintychip_sandyYellow</secondaryColour>
+	<tertiaryColour>mintychip_sandyYellow</tertiaryColour>
 	<mainSubspecies>false</mainSubspecies>
 	<baseSlaveValue>15000</baseSlaveValue>
 	<attributeItemId>innoxia_race_wolf_wolf_whiskey</attributeItemId>
