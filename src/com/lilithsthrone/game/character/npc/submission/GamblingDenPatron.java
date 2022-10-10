@@ -111,7 +111,7 @@ public class GamblingDenPatron extends NPC {
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(false);
 			
 			// PERSONALITY & BACKGROUND:
@@ -131,10 +131,11 @@ public class GamblingDenPatron extends NPC {
 			
 			resetInventory(true);
 			inventory.setMoney(750 + Util.random.nextInt(750));
-			Main.game.getCharacterUtils().generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, false);
 	
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyTattoos(this, true);
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();

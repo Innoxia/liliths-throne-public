@@ -121,45 +121,87 @@ public class CityHallDemographics {
 				};
 				
 			} else if (index == 4 && (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vanessaDailyHelped) || Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vanessaMassaged))) {
-				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vanessaDailyMassage)) {
-					return new Response("Foot massage", "You've already given [vanessa.name] a foot massage today. She won't want another one until tomorrow.", null);
-				}
-				
-				return new Response("Foot massage", "Offer [vanessa.name] a foot massage.", FOOT_MASSAGE) {
-					@Override
-					public void effects() {
-						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaDailyMassage, true);
-						
-						try {
-							Main.game.getNpc(Vanessa.class).unequipClothingIntoVoid(Main.game.getNpc(Vanessa.class).getClothingInSlot(InventorySlot.FOOT), true, Main.game.getNpc(Vanessa.class));
-						} catch(Exception ex) { System.err.println("Vanessa is not wearing any shoes!"); }
-						
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "FOOT_MASSAGE"));
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "FOOT_MASSAGE_CORE"));
-						
-						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vanessa.class).incrementAffection(Main.game.getPlayer(), 5));
+				if(Main.game.isFootContentEnabled()) { // Foot massage:
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vanessaDailyMassage)) {
+						return new Response("Foot massage", "You've already given [vanessa.name] a foot massage today. She won't want another one until tomorrow.", null);
 					}
-				};
+					
+					return new Response("Foot massage", "Offer [vanessa.name] a foot massage.", FOOT_MASSAGE) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaDailyMassage, true);
+							
+							try {
+								Main.game.getNpc(Vanessa.class).unequipClothingIntoVoid(Main.game.getNpc(Vanessa.class).getClothingInSlot(InventorySlot.FOOT), true, Main.game.getNpc(Vanessa.class));
+							} catch(Exception ex) { System.err.println("Vanessa is not wearing any shoes!"); }
+							
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "FOOT_MASSAGE"));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "FOOT_MASSAGE_CORE"));
+							
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vanessa.class).incrementAffection(Main.game.getPlayer(), 5));
+						}
+					};
+					
+				} else { // Shoulder massage:
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vanessaDailyMassage)) {
+						return new Response("Shoulder massage", "You've already given [vanessa.name] a massage today. She won't want another one until tomorrow.", null);
+					}
+					
+					return new Response("Shoulder massage", "Offer [vanessa.name] a shoulder massage.", SHOULDER_MASSAGE) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaDailyMassage, true);
+
+							try {
+								Main.game.getNpc(Vanessa.class).unequipClothingIntoVoid(Main.game.getNpc(Vanessa.class).getClothingInSlot(InventorySlot.TORSO_OVER), true, Main.game.getNpc(Vanessa.class));
+							} catch(Exception ex) { System.err.println("Vanessa is not wearing a cardigan!"); }
+							
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "SHOULDER_MASSAGE"));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "SHOULDER_MASSAGE_CORE"));
+							
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vanessa.class).incrementAffection(Main.game.getPlayer(), 5));
+						}
+					};
+				}
 				
 			} else if (index == 5
 					&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vanessaDailyHelped)
 					&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vanessaFucked)
 					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vanessaDailyMassage)) {
-				return new Response("Make her beg", "Get [vanessa.name] to beg you for a foot massage.", FOOT_MASSAGE) {
-					@Override
-					public void effects() {
-						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaDailyMassage, true);
-						
-						try {
-							Main.game.getNpc(Vanessa.class).unequipClothingIntoVoid(Main.game.getNpc(Vanessa.class).getClothingInSlot(InventorySlot.FOOT), true, Main.game.getNpc(Vanessa.class));
-						} catch(Exception ex) { System.err.println("Vanessa is not wearing any shoes!"); }
-						
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "FOOT_MASSAGE_BEG"));
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "FOOT_MASSAGE_CORE"));
-						
-						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vanessa.class).incrementAffection(Main.game.getPlayer(), 5));
-					}
-				};
+				if(Main.game.isFootContentEnabled()) { // Foot massage:
+					return new Response("Make her beg", "Get [vanessa.name] to beg you for a foot massage.", FOOT_MASSAGE) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaDailyMassage, true);
+							
+							try {
+								Main.game.getNpc(Vanessa.class).unequipClothingIntoVoid(Main.game.getNpc(Vanessa.class).getClothingInSlot(InventorySlot.FOOT), true, Main.game.getNpc(Vanessa.class));
+							} catch(Exception ex) { System.err.println("Vanessa is not wearing any shoes!"); }
+							
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "FOOT_MASSAGE_BEG"));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "FOOT_MASSAGE_CORE"));
+							
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vanessa.class).incrementAffection(Main.game.getPlayer(), 5));
+						}
+					};
+					
+				} else { // Shoulder massage:
+					return new Response("Make her beg", "Get [vanessa.name] to beg you for a shoulder massage.", SHOULDER_MASSAGE) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaDailyMassage, true);
+
+							try {
+								Main.game.getNpc(Vanessa.class).unequipClothingIntoVoid(Main.game.getNpc(Vanessa.class).getClothingInSlot(InventorySlot.TORSO_OVER), true, Main.game.getNpc(Vanessa.class));
+							} catch(Exception ex) { System.err.println("Vanessa is not wearing a cardigan!"); }
+							
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "SHOULDER_MASSAGE_BEG"));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "SHOULDER_MASSAGE_CORE"));
+							
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vanessa.class).incrementAffection(Main.game.getPlayer(), 5));
+						}
+					};
+				}
 				
 			} else if (index == 6) {
 				return new Response("Cataloguing", "Ask [vanessa.name] about what sort of cataloguing work she's responsible for.", QUESTION_CATALOGUING) {
@@ -262,7 +304,10 @@ public class CityHallDemographics {
 				
 			} else {
 				if (index == 1) {
-					return new Response("Vanessa", "Tell the elderly fox-girl that you'd be happy to call her 'Vanessa', before getting to work on cataloguing papers.", OFFER_HELP_FINISH) {
+					return new Response("Vanessa",
+							"Tell the elderly fox-girl that you'd be happy to call her 'Vanessa', before getting to work on cataloguing papers."
+									+ "<br/><i>(You can later switch between calling her 'Vanessa' and 'Ms. Cunningham' at any time.)</i>",
+							OFFER_HELP_FINISH) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "OFFER_HELP_VANESSA"));
@@ -280,7 +325,10 @@ public class CityHallDemographics {
 					};	
 					
 				} else if(index==2) {
-					return new Response("Ms. Cunningham", "Tell the elderly fox-girl that you prefer to call her 'Ms. Cunningham', before getting to work on cataloguing papers.", OFFER_HELP_FINISH) {
+					return new Response("Ms. Cunningham",
+							"Tell the elderly fox-girl that you prefer to call her 'Ms. Cunningham', before getting to work on cataloguing papers."
+									+ "<br/><i>(You can later switch between calling her 'Vanessa' and 'Ms. Cunningham' at any time.)</i>",
+							OFFER_HELP_FINISH) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "OFFER_HELP_MS_CUNNINGHAM"));
@@ -403,6 +451,94 @@ public class CityHallDemographics {
 		}
 	};
 
+	public static final DialogueNode SHOULDER_MASSAGE = new DialogueNode("", "", true) {
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Thigh massage", "[vanessa.Name] kicks off her shoes and asks you to pull off her pantyhose so that you can massage her bare thighs.", THIGH_MASSAGE) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaMassaged, true);
+						try {
+							Main.game.getNpc(Vanessa.class).unequipClothingIntoVoid(Main.game.getNpc(Vanessa.class).getClothingInSlot(InventorySlot.FOOT), true, Main.game.getNpc(Vanessa.class));
+						} catch(Exception ex) { System.err.println("Vanessa is not wearing any shoes!"); }
+						try {
+							Main.game.getNpc(Vanessa.class).unequipClothingIntoVoid(Main.game.getNpc(Vanessa.class).getClothingInSlot(InventorySlot.SOCK), true, Main.game.getNpc(Vanessa.class));
+						} catch(Exception ex) { System.err.println("Vanessa is not wearing pantyhose!"); }
+						
+						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vanessa.class).incrementAffection(Main.game.getPlayer(), 5));
+					}
+				};
+				
+			} else if (index == 2) {
+				return new Response("Stop", "Stop giving [vanessa.name] a massage.", CITY_HALL_DEMOGRAPHICS_MAIN) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaMassaged, true);
+						Main.game.getNpc(Vanessa.class).endSex(); // Cleans & replaces clothing
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "SHOULDER_MASSAGE_STOP"));
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNode THIGH_MASSAGE = new DialogueNode("", "", true, true) {
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "THIGH_MASSAGE");
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+					return new Response("Perform cunnilingus", "You are unable to access your mouth, so cannot perform cunnilingus on [vanessa.name]!", null);
+				}
+				return new ResponseSex("Perform cunnilingus",
+						"Shuffle forwards between [vanessa.namePos] legs and start eating her out.",
+						true, true,
+						new SMVanessaOral(
+								SexPosition.SITTING,
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotSitting.SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.PERFORMING_ORAL))),
+						null,
+						null,
+						END_ORAL_SEX,
+						UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "START_ORAL")) {
+					@Override
+					public List<InitialSexActionInformation> getInitialSexActions() {
+						return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Vanessa.class), TongueVagina.CUNNILINGUS_START, false, true));
+					}
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaFucked, true);
+					}
+				};
+				
+			} else if (index == 2) {
+				return new Response("Stop", "Stop giving [vanessa.name] a thigh massage.", CITY_HALL_DEMOGRAPHICS_MAIN) {
+					@Override
+					public void effects() {
+						Main.game.getNpc(Vanessa.class).endSex(); // Cleans & replaces clothing
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "THIGH_MASSAGE_STOP"));
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
 	public static final DialogueNode END_ORAL_SEX = new DialogueNode("Pushed back", "[vanessa.Name] pushes you away from her pussy and grins down at you...", true) {
 		
 		@Override

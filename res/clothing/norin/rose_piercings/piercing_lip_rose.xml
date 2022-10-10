@@ -18,7 +18,6 @@
     
     <clothingSet/> <!-- No way to define custom sets yet -->
     <imageEquippedName/> <!-- The file path for this clothing's image while equipped -->
-    <enchantmentLimit/> <!-- Custom values override game -->
     <effects/> <!-- Default enchantments -->
 
     <blockedPartsList>
@@ -74,7 +73,7 @@
       <![CDATA[[npc.Name] [npc.verb(remove)] a rose lip piercing from [npc2.namePos] [npc2.lips+].]]>
     </other>
     <otherRough>
-      <![CDATA[[npc.Name] [npc.verb(tug)] a rose lip piercing out from [npc2.namePos] [npc2.lips+]..]]>
+      <![CDATA[[npc.Name] [npc.verb(tug)] a rose lip piercing out from [npc2.namePos] [npc2.lips+].]]>
     </otherRough>
   </displacementText>
   

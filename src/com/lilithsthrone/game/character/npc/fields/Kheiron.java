@@ -91,6 +91,9 @@ public class Kheiron extends NPC {
 			this.setFaceVirgin(false);
 			this.setAssVirgin(false);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.6.1")) {
+			this.setStartingBody(true);
+		}
 	}
 
 	@Override
@@ -134,7 +137,7 @@ public class Kheiron extends NPC {
 		setBody(Gender.M_P_MALE, Subspecies.CENTAUR, RaceStage.PARTIAL_FULL, false);
 		
 		// Core:
-		this.setHeight(220);
+		this.setHeight(230);
 		this.setFemininity(0);
 		this.setMuscle(100);
 		this.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
@@ -147,18 +150,18 @@ public class Kheiron extends NPC {
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HORSE_MORPH, PresetColour.EYE_HAZEL));
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, PresetColour.EYE_HAZEL));
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_OLIVE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_BROWN_DARK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_BLACK), true);
 
 		this.setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_DARK), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_DARK), false);
 
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, PresetColour.COVERING_BROWN_DARK), true);
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, PresetColour.COVERING_BROWN_DARK), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, PresetColour.COVERING_BLACK), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, PresetColour.COVERING_BLACK), true);
 		this.setHairLength(HairLength.TWO_SHORT.getMedianValue());
-		this.setHairStyle(HairStyle.CURLY);
+		this.setHairStyle(HairStyle.STRAIGHT);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, PresetColour.COVERING_BROWN_DARK), false);
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HORSE_HAIR, PresetColour.COVERING_BROWN_DARK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, PresetColour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HORSE_HAIR, PresetColour.COVERING_BLACK), false);
 		this.setUnderarmHair(BodyHair.FOUR_NATURAL);
 		this.setAssHair(BodyHair.ZERO_NONE);
 		this.setPubicHair(BodyHair.ZERO_NONE);
@@ -311,12 +314,17 @@ public class Kheiron extends NPC {
 		}
 	}
 	
-	public void applyGenericGolixSex() {
+	public void applyGenericGolixSex(boolean golixIsDom) {
 		SexType st = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS);
 		if(Main.game.isAnalContentEnabled()) {
 			st = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS);
 		}
-		this.calculateGenericSexEffects(false, true, Main.game.getNpc(Oglix.class).getElemental(), st, GenericSexFlag.NO_DESCRIPTION_NEEDED, GenericSexFlag.PREVENT_LEVEL_DRAIN);
+		if(golixIsDom) {
+			this.calculateGenericSexEffects(false, true, Main.game.getNpc(Oglix.class).getElemental(), st, GenericSexFlag.NO_DESCRIPTION_NEEDED, GenericSexFlag.PREVENT_LEVEL_DRAIN);
+			
+		} else {
+			Main.game.getNpc(Oglix.class).getElemental().calculateGenericSexEffects(false, true, this, st, GenericSexFlag.NO_DESCRIPTION_NEEDED, GenericSexFlag.PREVENT_LEVEL_DRAIN);
+		}
 	}
 
 }

@@ -21,6 +21,7 @@ import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -621,7 +622,7 @@ public enum RenderingEngine {
 				}
 				
 			} else { // Tattoos:
-				boolean disabled = !invSlot.isPhysicallyAvailable(charactersInventoryToRender);
+				boolean disabled = !invSlot.isPhysicallyAvailable(charactersInventoryToRender) && invSlot!=InventorySlot.HAIR; // Exception for hair as this slot corresponds to the 'ears' slot for tattoos
 //				switch(invSlot){
 //					case HORNS:
 //						disabled = charactersInventoryToRender.getHornType().equals(HornType.NONE);
@@ -1369,6 +1370,7 @@ public enum RenderingEngine {
 					uiAttributeSB.append("<div class='item-inline' style='float:left;'>"
 											+SVGImages.SVG_IMAGE_PROVIDER.getCalendarIcon()
 										+ "</div>");
+					
 					uiAttributeSB.append((Main.getProperties().hasValue(PropertyValue.calendarDisplay)
 													? Main.game.getDisplayDate(false)
 													:"Day "+Main.game.getDayNumber()));
@@ -1377,7 +1379,7 @@ public enum RenderingEngine {
 					uiAttributeSB.append("<div class='full-width-container' style='text-align:center; float:left; margin:0; padding:0; width:100%;'>");
 						String[] weekDays = new String[] {"M", "T", "W", "T", "F", "S", "S"};
 						for(int i=0; i<7; i++) {
-							if(Main.game.getDateNow().getDayOfWeek().getValue()==i+1) {
+							if(!Main.game.isBadEnd() && Main.game.getDateNow().getDayOfWeek().getValue()==i+1) {
 								uiAttributeSB.append("<div class='full-width-container' style='height:12px; box-sizing:border-box; text-align:center; border-radius:5px; font-size:10px;"
 										+ " border:1px solid "+PresetColour.TEXT.toWebHexString()+"; float:left; margin:0; padding:0; width:14.28%;'>");
 							} else {
@@ -1409,8 +1411,13 @@ public enum RenderingEngine {
 						+ "</div>");
 			}
 	
-			uiAttributeSB.append(Units.time(Main.game.getDateNow())
-							+ "</div>"
+			if(Main.game.isBadEnd()) {
+				uiAttributeSB.append("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>??:??</span>");
+			} else {
+				uiAttributeSB.append(Units.time(Main.game.getDateNow()));
+			}
+			
+			uiAttributeSB.append("</div>"
 						+ "</div>");
 			
 		}
@@ -2245,9 +2252,11 @@ public enum RenderingEngine {
 								// Put place icon onto tile:
 								if (cellFocused.getPlace().getSVGString() != null) {
 									if (y == playerPosition.getY() && x == playerPosition.getX()) {
-										mapSB.append("<div class='place-icon' style='margin:calc(18% - 4px); width:64%;'>"
+										mapSB.append("<div class='place-icon' style='margin:calc(18% - 1px); width:64%;'>"
 												+ "<div class='map-tile-content' style='background-color:"+getPlayerIconColour(cellFocused.getPlace().isDangerous()).toWebHexString()+";"
-														+ "border:4px solid "+getPlayerIconColour(cellFocused.getPlace().isDangerous()).toWebHexString()+"; border-radius:50%;'>"
+														+ "border:1px solid "
+															+getPlayerIconColour(cellFocused.getPlace().isDangerous()).getShades()[1]
+														+"; border-radius:50%;'>"
 												+ cellFocused.getPlace().getSVGString() + "</div></div>");
 									} else {
 										mapSB.append("<div class='place-icon' style='margin:18%;width:64%;'><div class='map-tile-content'>" + cellFocused.getPlace().getSVGString() + "</div></div>");
@@ -2696,12 +2705,12 @@ public enum RenderingEngine {
 			}
 			
 			if(!character.isPlayer()) {
-				for (Fetish f : character.getFetishes(true)) {
+				for (AbstractFetish f : character.getFetishes(true)) {
 					panelSB.append(
 						"<div class='icon effect'>"
 							+ "<div class='icon-content'>"
 									+ f.getSVGString(character)
-									+ "<div class='overlay' id='FETISH_"+idPrefix + f + "'></div>"
+									+ "<div class='overlay' id='FETISH_"+idPrefix + Fetish.getIdFromFetish(f) + "'></div>"
 							+ "</div>"
 						+ "</div>");
 				}
@@ -2853,15 +2862,6 @@ public enum RenderingEngine {
 							+ "</div>");
 				}
 			}
-//			for (Fetish f : elemental.getFetishes(true)) {
-//				panelSB.append(
-//					"<div class='icon effect' style='width:"+iconWidth+"%;'>"
-//						+ "<div class='icon-content'>"
-//								+ f.getSVGString(elemental)
-//								+ "<div class='overlay' id='FETISH_"+idPrefix + f + "'></div>"
-//						+ "</div>"
-//					+ "</div>");
-//			}
 			
 			panelSB.append("</div>");
 		}
@@ -3040,12 +3040,12 @@ public enum RenderingEngine {
 			}
 			
 			if(!character.isPlayer()) {
-				for (Fetish f : character.getFetishes(true)) {
+				for (AbstractFetish f : character.getFetishes(true)) {
 					panelSB.append(
 						"<div class='icon effect'>"
 							+ "<div class='icon-content'>"
 									+ f.getSVGString(character)
-									+ "<div class='overlay' id='FETISH_"+idPrefix + f + "'></div>"
+									+ "<div class='overlay' id='FETISH_"+idPrefix + Fetish.getIdFromFetish(f) + "'></div>"
 							+ "</div>"
 						+ "</div>");
 				}

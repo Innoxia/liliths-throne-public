@@ -26,6 +26,7 @@ public class QuestTree {
 	public static TreeNode<Quest> vengarTree = new TreeNode<Quest>(Quest.VENGAR_START);
 	public static TreeNode<Quest> wesTree = new TreeNode<Quest>(Quest.WES_START);
 	public static TreeNode<Quest> beerBarrelTree = new TreeNode<Quest>(Quest.OGLIX_BEER_BARRELS_1);
+	public static TreeNode<Quest> lunexisEscapeTree = new TreeNode<Quest>(Quest.LUNEXIS_ESCAPE);
 	
 	public static TreeNode<Quest> nyanTree = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_1_STOCK_ISSUES);
 	public static TreeNode<Quest> helenaTree = new TreeNode<Quest>(Quest.ROMANCE_HELENA_1_OFFER_HELP);
@@ -55,26 +56,28 @@ public class QuestTree {
 		node1.addChild(node2);
 		node1 = new TreeNode<Quest>(Quest.MAIN_1_I_ARTHURS_TALE);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_1_J_ARTHURS_ROOM);
+		node2 = new TreeNode<Quest>(Quest.MAIN_2_A_INTO_THE_DEPTHS);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.MAIN_2_A_INTO_THE_DEPTHS);
+		node1 = new TreeNode<Quest>(Quest.MAIN_2_B_SIRENS_CALL);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_2_B_SIRENS_CALL);
+		node2 = new TreeNode<Quest>(Quest.MAIN_2_C_SIRENS_FALL);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.MAIN_2_C_SIRENS_FALL);
+		node1 = new TreeNode<Quest>(Quest.MAIN_2_D_MEETING_A_LILIN);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_2_D_MEETING_A_LILIN);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_ELIS);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.MAIN_3_ELIS);
+		node1 = new TreeNode<Quest>(Quest.MAIN_3_B_MEETING_MERAXIS);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_3_B_MEETING_MERAXIS);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_C_MEETING_MINOTALLYS);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.MAIN_3_C_MEETING_MINOTALLYS);
+		node1 = new TreeNode<Quest>(Quest.MAIN_3_D_TO_THEMISCYRA);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_3_D_TO_THEMISCYRA);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_E_THEMISCYRA_ATTACK);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.MAIN_3_E_TODO);
+		node1 = new TreeNode<Quest>(Quest.MAIN_3_F_PREPARING_ELIS);
 		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_G_TODO);
+		node1.addChild(node2);
 
 		enchantmentTree.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
 
@@ -211,7 +214,7 @@ public class QuestTree {
 		node2.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
 		
 		
-        //Rebel base:
+        // Rebel base:
 		
         node1 = new TreeNode<Quest>(Quest.REBEL_BASE_HANDLE_REFUSED);
         rebelBaseTree.addChild(node1);
@@ -267,6 +270,14 @@ public class QuestTree {
 		beerBarrelTree.addChild(node1);
 		node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
 		node1.addChild(node2);
+		
+		
+		// Lunexis escape:
+		
+		node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		lunexisEscapeTree.addChild(node1);
+		
+		
 		
 		// Romance quests:
 

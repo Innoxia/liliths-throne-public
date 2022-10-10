@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -22,8 +23,23 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class WorldType {
-	
-	// Dominion:
+
+	public static AbstractWorldType EMPTY = new AbstractWorldType(WorldRegion.MISC,
+			"Empty (Holding world)",
+			PresetColour.BASE_BROWN,
+			false,
+			true,
+			TeleportPermissions.NONE,
+			"/com/lilithsthrone/res/map/empty.png",
+			PlaceType.WORLD_MAP_DOMINION,
+			PlaceType.GENERIC_EMPTY_TILE,
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0xff0000), PlaceType.GENERIC_EMPTY_TILE),
+					new Value<>(new Color(0xffff00), PlaceType.GENERIC_HOLDING_CELL),
+					new Value<>(new Color(0x0080ff), PlaceType.GENERIC_MUSEUM),
+					new Value<>(new Color(0xff00ff), PlaceType.GENERIC_CLUB_HOLDING_CELL))) {
+	};
 	
 	public static AbstractWorldType WORLD_MAP = new AbstractWorldType(WorldRegion.MISC,
 			"Lilith's Realm",
@@ -68,6 +84,12 @@ public class WorldType {
 					new Value<>(new Color(0xff8100), PlaceType.WORLD_MAP_VOLCANO), // volcano
 					new Value<>(new Color(0x3b3b3b), PlaceType.WORLD_MAP_LAVA_FLOWS) // lava flows
 					)) {
+
+//		@Override
+//		public String getOffspringTextFilePath(NPCOffspring o) {
+//			return o.getLocationPlace().getPlaceType().getWorldRegion().getOffspringTextFilePath();
+//		}
+
 		@Override
 		public boolean isDiscoveredOnStart() {
 			return true;
@@ -121,19 +143,10 @@ public class WorldType {
 					new Value<>(new Color(0xffbf00), PlaceType.DOMINION_HOME_IMPROVEMENT),
 					new Value<>(new Color(0xff0080), PlaceType.DOMINION_WAREHOUSES),
 					new Value<>(new Color(0x8d454e), PlaceType.DOMINION_CALLIE_BAKERY))) {
-	};
-	
-	public static AbstractWorldType EMPTY = new AbstractWorldType(WorldRegion.MISC,
-			"Empty (Holding world)",
-			PresetColour.BASE_BROWN,
-			false,
-			true,
-			TeleportPermissions.NONE,
-			"/com/lilithsthrone/res/map/empty.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.GENERIC_EMPTY_TILE, Util.newHashMapOfValues(
-					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
-					new Value<>(new Color(0xff0000), PlaceType.GENERIC_EMPTY_TILE),
-					new Value<>(new Color(0xffff00), PlaceType.GENERIC_HOLDING_CELL),
-					new Value<>(new Color(0x0080ff), PlaceType.GENERIC_MUSEUM))) {
+		@Override
+		public int getMajorAreaIndex() {
+			return 1;
+		}
 	};
 
 	public static AbstractWorldType MUSEUM = new AbstractWorldType(WorldRegion.OLD_WORLD,
@@ -305,6 +318,14 @@ public class WorldType {
 					new Value<>(new Color(0xff00ff), PlaceType.HARPY_NESTS_HARPY_NEST_PINK),
 					new Value<>(new Color(0xffff00), PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW),
 					new Value<>(new Color(0xff9100), PlaceType.HARPY_NESTS_HELENAS_NEST))) {
+		@Override
+		public int getMajorAreaIndex() {
+			return 2;
+		}
+		@Override
+		public String getOffspringTextFilePath(NPCOffspring o) {
+			return "characters/offspring/harpyNests";
+		}
 	};
 	
 	public static AbstractWorldType SLAVER_ALLEY = new AbstractWorldType(WorldRegion.DOMINION,
@@ -328,7 +349,11 @@ public class WorldType {
 					
 					new Value<>(new Color(0x21bfc5), PlaceType.SLAVER_ALLEY_MARKET_STALL_EXCLUSIVE),
 					new Value<>(new Color(0x004080), PlaceType.SLAVER_ALLEY_MARKET_STALL_BULK),
-					new Value<>(new Color(0x008080), PlaceType.SLAVER_ALLEY_CAFE),
+					
+					new Value<>(new Color(0x008000), PlaceType.SLAVER_ALLEY_CAFE),
+					new Value<>(new Color(0x006600), PlaceType.SLAVER_ALLEY_CAFE_2),
+					new Value<>(new Color(0x004d00), PlaceType.SLAVER_ALLEY_CAFE_3),
+					new Value<>(new Color(0x003300), PlaceType.SLAVER_ALLEY_CAFE_4),
 					
 					new Value<>(new Color(0xbfff00), PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS),
 					
@@ -817,6 +842,14 @@ public class WorldType {
 					
 					new Value<>(new Color(0x0096c9), PlaceType.SUBMISSION_IMP_FORTRESS_MALES),
 					new Value<>(new Color(0x65b0c9), PlaceType.SUBMISSION_IMP_TUNNELS_MALES))) {
+		@Override
+		public int getMajorAreaIndex() {
+			return 1;
+		}
+		@Override
+		public String getOffspringTextFilePath(NPCOffspring o) {
+			return "characters/offspring/submission_tunnel";
+		}
 	};
 
 
@@ -853,7 +886,7 @@ public class WorldType {
 			"Imp Fortress A",
 			PresetColour.BASE_CRIMSON,
 			false,
-			true,
+			false,
 			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress1Map.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_ALPHA_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
@@ -874,7 +907,7 @@ public class WorldType {
 			"Imp Citadel",
 			PresetColour.BASE_PURPLE,
 			false,
-			true,
+			false,
 			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress2Map.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_DEMON_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
@@ -901,7 +934,7 @@ public class WorldType {
 			"Imp Fortress F",
 			PresetColour.BASE_PINK,
 			false,
-			true,
+			false,
 			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress3Map.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_FEMALES_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
@@ -922,7 +955,7 @@ public class WorldType {
 			"Imp Fortress M",
 			PresetColour.BASE_BLUE,
 			false,
-			true,
+			false,
 			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress4Map.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_MALES_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
@@ -958,6 +991,14 @@ public class WorldType {
 					new Value<>(new Color(0x004080), PlaceType.BAT_CAVERN_RIVER_END),
 					
 					new Value<>(new Color(0xff80ff), PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR))) {
+		@Override
+		public int getMajorAreaIndex() {
+			return 2;
+		}
+		@Override
+		public String getOffspringTextFilePath(NPCOffspring o) {
+			return "characters/offspring/bat_cavern";
+		}
 	};
 
 	public static AbstractWorldType SLIME_QUEENS_LAIR_GROUND_FLOOR = new AbstractWorldType(WorldRegion.SUBMISSION,

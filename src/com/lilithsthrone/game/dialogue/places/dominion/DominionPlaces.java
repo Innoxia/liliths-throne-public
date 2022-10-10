@@ -284,12 +284,13 @@ public class DominionPlaces {
 		}
 		
 		if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.DOMINION_CALLIE_BAKERY) {
-			int hourOpen = !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("nnxx_callie_upgrade_2"))?7:9;
-			int hourClose = !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("nnxx_callie_upgrade_2"))?17:15;
+			int hourOpen = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("nnxx_callie_upgrade_2"))?7:9;
+			int hourClose = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("nnxx_callie_upgrade_2"))?17:15;
+			
 			if(Main.game.isHourBetween(hourOpen, hourClose) && Main.game.getDayOfWeek()!=DayOfWeek.SUNDAY) {
 				mommyResponses.add(new Response("The Creamy Bakey",
 						"Head over to the nearby bakery, 'The Creamy Bakey', and take a look inside."
-								+ "<br/><i>The bakery is open from [style.italicsMinorGood([unit.time(9)]-[unit.time(17)])].</i>",
+								+ "<br/><i>The bakery is open from [style.italicsMinorGood([unit.time("+hourOpen+")]-[unit.time("+hourClose+")])].</i>",
 						Main.game.getDialogueFlags().hasFlag("nnxx_callie_introduced")
 							?DialogueManager.getDialogueFromId("nnxx_callie_bakery_entry")
 							:DialogueManager.getDialogueFromId("nnxx_callie_bakery_entry_first_time")) {

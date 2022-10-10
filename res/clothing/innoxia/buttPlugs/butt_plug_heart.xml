@@ -14,14 +14,12 @@
 		<clothingSet/>
 		<imageName>butt_plug_heart.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit/>
 		<effects/>
 		
 		<blockedPartsList>
 			<blockedParts>
 				<displacementType>REMOVE_OR_EQUIP</displacementType>
 				<clothingAccessRequired>
-					<clothingAccess>GROIN</clothingAccess>
 					<clothingAccess>ANUS</clothingAccess>
 				</clothingAccessRequired>
 				<blockedBodyParts>

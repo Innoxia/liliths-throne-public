@@ -250,7 +250,7 @@ public class SlimeGuardIce extends NPC {
 		
 		this.setMoney(0);
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-		Main.game.getCharacterUtils().generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, false);
 		
 		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_arming_sword", DamageType.ICE));
 		this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_buckler_buckler", DamageType.ICE));

@@ -229,7 +229,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Before you can reply, Scarlett returns and places two stacks of forms down on on the coffee table in front of you, before saying, [scarlett.speech(I didn't know which template you wanted, so I got both the male and female ones.)]
+		Before you can reply, Scarlett returns and places two stacks of forms down on the coffee table in front of you, before saying, [scarlett.speech(I didn't know which template you wanted, so I got both the male and female ones.)]
 	</p>
 	<p>
 		[helena.speech(Thank you, Scarlett,)]
@@ -455,9 +455,9 @@
 	<p>
 		Having finished customising your slave, you stack the forms back up on top of one another and hand them over to Helena. Smiling as she takes them from you, she slightly nods her head and says,
 		#IF(helena.isSlutty())
-		 [helena.speech(Thank you, [pc.name]. I shall now quickly calculate the cost of of your slave. In the meantime, please decide upon whether you want your slave delivered as a virgin, or whether they should get a good fucking before delivery. These choices are free of charge.)]
+		 [helena.speech(Thank you, [pc.name]. I shall now quickly calculate the cost of your slave. In the meantime, please decide upon whether you want your slave delivered as a virgin, or whether they should get a good fucking before delivery. These choices are free of charge.)]
 		#ELSE
-		 [helena.speech(Thank you, [pc.name]. I shall now quickly calculate the cost of of your slave. In the meantime, please decide upon whether you want your slave delivered as a virgin, or whether they should be broken in before delivery. These choices are free of charge.)]
+		 [helena.speech(Thank you, [pc.name]. I shall now quickly calculate the cost of your slave. In the meantime, please decide upon whether you want your slave delivered as a virgin, or whether they should be broken in before delivery. These choices are free of charge.)]
 		#ENDIF
 	</p>
 	<p>
@@ -945,7 +945,7 @@
 				 slimy rear entrance. Not wanting to wait another moment, you immediately buck forwards, sinking your hard cock into her asshole and causing her to let out a desperate moan,
 			#ENDIF
 		#ELSE
-			 you stand up an move forwards and press the [pc.cockHead+] of your cock against her
+			 you stand up, move forwards and press the [pc.cockHead+] of your cock against her
 			#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
 				 slimy cloaca.
 			#ELSE

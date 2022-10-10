@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.inventory.AbstractSetBonus;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -18,6 +19,8 @@ public class WeaponType {
 	
 	private static List<AbstractWeaponType> allWeapons = new ArrayList<>();
 	public static List<AbstractWeaponType> moddedWeapons = new ArrayList<>();
+
+	public static Map<AbstractSetBonus, List<AbstractWeaponType>> setWeapons = new HashMap<>();
 	
 	public static Map<AbstractWeaponType, String> weaponToIdMap = new HashMap<>();
 	public static Map<String, AbstractWeaponType> idToWeaponMap = new HashMap<>();
@@ -145,9 +148,20 @@ public class WeaponType {
 			}
 		}
 		
+		setWeapons = new HashMap<>();
+		for(AbstractWeaponType wt : allWeapons) {
+			if(wt.getClothingSet()!=null) {
+				setWeapons.putIfAbsent(wt.getClothingSet(), new ArrayList<>());
+				setWeapons.get(wt.getClothingSet()).add(wt);
+			}
+		}
 	}
 
 	public static List<AbstractWeaponType> getAllWeapons() {
 		return allWeapons;
+	}
+	
+	public static List<AbstractWeaponType> getAllWeaponsInSet(AbstractSetBonus setBonus) {
+		return setWeapons.get(setBonus);
 	}
 }

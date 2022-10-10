@@ -8,7 +8,7 @@
 		An arrow-shaped sign sits in the middle of the street, and as you approach, you see that it's sporting the words <i>'Harpy Nests'</i>. Looking to the side of the road in the direction that the arrow is pointing, you find yourself looking up at one of the tallest buildings in Dominion.
 	</p>
 	<p>
-		At eight stories in height, it's not exactly a sky-scraper, but with the larger of Dominion's buildings typically only being four or five stories tall, this structure is large enough to clearly stand out as a building of some importance. Despite its unusual height, the only other feature setting it apart from all the other buildings in this area are the pair of huge glass doors set into its frontage.
+		At eight stories in height, it's not exactly a sky-scraper, but with most of Dominion's buildings typically only being four or five stories tall at most, this structure is large enough to clearly stand out as a building of some importance. Despite its unusual height, the only other feature setting it apart from all the other buildings in this area are the pair of huge glass doors set into its frontage.
 	</p>
 	<p>
 		Looking through the doors, you see a brightly-lit, extravagantly-decorated lobby. Rows of elevators are set into either side of the room, and you notice that there are an unusual amount of harpies loitering around on the many comfortable-looking sofas that litter the area.
@@ -162,7 +162,7 @@
 		[style.speechMasculineStrong(If we tried sending Enforcers in to do that, it'd be seen as an insult to all the harpy flocks. Helena would certainly get involved again, which is the last thing we need right now. I hate asking for help like this, but if by some miracle you're able to subdue those three,)] he points to the papers in your hand again, [style.speechMasculineStrong(I could offer a five thousand flame reward.)]
 	</p>
 	<p>
-		Telling the horse-boy that you'll get it done, you turn to take your leave. Ignoring the his dismissive grunt as he sinks down into his chair, you exit the sergeant's office and [pc.step] back out into the Enforcer Post...
+		Telling the horse-boy that you'll get it done, you turn to take your leave. Ignoring his dismissive grunt as he sinks down into his chair, you exit the sergeant's office and [pc.step] back out into the Enforcer Post...
 	</p>
 	]]>
 	</htmlContent>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>200</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[ear cuff chain studs]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[ear cuff chain studs]]></namePlural>
+		<description><![CDATA[A pair of stud earrings, each one of which is connected to an ear cuff by means of thin chains.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>PIERCING_EAR</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/> 
+		<imageName>ear_cuff_chains.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<stickers>
+			<category id="more_chains" priority="1">
+				<categoryName><![CDATA[Chain count]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="0" colourSelected="GENERIC_GOOD">
+					<stickerName><![CDATA[One chain]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="add1" priority="1" defaultSticker="true" zLayer="-1">
+					<stickerName><![CDATA[Two chains]]></stickerName>
+					<namePrefix/>
+					<descriptionModification/>
+					<imageName>ear_cuff_chains_extra_1.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="add2" priority="2" defaultSticker="true" zLayer="-2">
+					<stickerName><![CDATA[Three chains]]></stickerName>
+					<namePrefix/>
+					<descriptionModification/>
+					<imageName>ear_cuff_chains_extra_2.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+			</category>
+		</stickers>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL_METAL"/>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_STEEL</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_KATE</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(clip)] the stud earrings into [npc.her] [npc.ears], before attaching the cuffs to [npc.her] upper [npc.ears] and allowing the chains to hang loose.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(clip)] the stud earrings into [npc2.namePos] [npc2.ears], before attaching the cuffs to [npc2.her] upper [npc2.ears] and allowing the chains to hang loose.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(clip)] the stud earrings into [npc2.namePos] [npc2.ears], before attaching the cuffs to [npc2.her] upper [npc2.ears] and allowing the chains to hang loose.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(unclip)] [npc.her] stud earrings and [npc.verb(take)] them out, before removing the cuffs.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(unclip)] [npc2.namePos] stud earrings and [npc.verb(take)] them out, before removing the cuffs.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(unclip)] [npc2.namePos] stud earrings and roughly [npc.verb(pull)] them out, before removing the cuffs.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

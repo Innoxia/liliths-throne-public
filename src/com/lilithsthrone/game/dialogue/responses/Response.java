@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -43,7 +44,7 @@ public class Response {
 	protected String tooltipText;
 	protected DialogueNode nextDialogue;
 	
-	protected List<Fetish> fetishesRequired;
+	protected List<AbstractFetish> fetishesRequired;
 	protected CorruptionLevel corruptionBypass;
 	private List<AbstractPerk> perksRequired;
 	private Femininity femininityRequired;
@@ -95,7 +96,7 @@ public class Response {
 	public Response(String title,
 			String tooltipText,
 			DialogueNode nextDialogue,
-			List<Fetish> fetishesForUnlock,
+			List<AbstractFetish> fetishesForUnlock,
 			CorruptionLevel corruptionBypass,
 			List<AbstractPerk> perksRequired,
 			Femininity femininityRequired,
@@ -109,7 +110,7 @@ public class Response {
 	public Response(String title,
 			String tooltipText,
 			DialogueNode nextDialogue, 
-			List<Fetish> fetishesForUnlock,
+			List<AbstractFetish> fetishesForUnlock,
 			CorruptionLevel corruptionBypass,
 			List<AbstractPerk> perksRequired,
 			Femininity femininityRequired,
@@ -726,7 +727,7 @@ public class Response {
 		SB = new StringBuilder();
 		
 		if(getFetishesForUnlock()!=null) {
-			for(Fetish f : getFetishesForUnlock()){
+			for(AbstractFetish f : getFetishesForUnlock()){
 				if(Main.game.getPlayer().hasFetish(f)) {
 					SB.append("<br/>"
 							+"[style.colourFetish(Associated Fetish)]"
@@ -817,7 +818,7 @@ public class Response {
 			return false;
 		}
 		
-		for (Fetish f : getFetishesForUnlock()) {
+		for (AbstractFetish f : getFetishesForUnlock()) {
 			if(Main.game.getPlayer().hasFetish(f)) {
 				if(f==Fetish.FETISH_PURE_VIRGIN) {
 					if(Main.game.getPlayer().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)) { // Virginity fetish only blocks if player is still a virgin.
@@ -976,11 +977,11 @@ public class Response {
 		return true;
 	}
 
-	public List<Fetish> getFetishesForUnlock() {
+	public List<AbstractFetish> getFetishesForUnlock() {
 		if(fromExternalFile && fetishesRequired==null && fetishesRequiredId!=null && !fetishesRequiredId.isEmpty()) {
 			fetishesRequired = new ArrayList<>();
 			for(String fetishId : fetishesRequiredId) {
-				fetishesRequired.add(Fetish.valueOf(UtilText.parse(fetishId).trim()));
+				fetishesRequired.add(Fetish.getFetishFromId(UtilText.parse(fetishId).trim()));
 			}
 		}
 		return fetishesRequired;

@@ -358,7 +358,6 @@ public class ScarlettsShop {
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_ASS
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH
-				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_CORE
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD
@@ -3056,13 +3055,9 @@ public class ScarlettsShop {
 				}
 				return new Response("Spinneret", "Customise aspects of your slave's penis.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET);
 				
-			} else if(index==11 && Main.getProperties().getUddersLevel()!=0) {
+			} else if(index==11) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH) {
 					return new Response("Crotch-boobs", "You are already customising the aspects of your slave's crotch-boobs!", null);
-				}
-				
-				if(Main.getProperties().getUddersLevel()==1 && BodyChanging.getTarget().getLegConfiguration().isBipedalPositionedCrotchBoobs()) {
-					return new Response("Crotch-boobs", "As you have crotch-boobs disabled for non-taur characters, you cannot access this menu!", null);
 				}
 				
 				return new Response(
@@ -3085,7 +3080,12 @@ public class ScarlettsShop {
 			} else if(index==14) {
 				return new Response("[style.colourMinorGood(Finalise order)]",
 						"Tell Helena that you've completed the ordering forms, and see how much this is going to cost you...",
-						HELENAS_SHOP_CUSTOM_SLAVE_FINISH);
+						HELENAS_SHOP_CUSTOM_SLAVE_FINISH) {
+					@Override
+					public void effects() {
+						BodyChanging.getTarget().setAllAreasKnownByCharacter(Main.game.getPlayer(), true);
+					}
+				};
 				
 			} 
 			return null;

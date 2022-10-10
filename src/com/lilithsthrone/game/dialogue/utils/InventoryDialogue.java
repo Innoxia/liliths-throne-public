@@ -153,7 +153,7 @@ public class InventoryDialogue {
 		zlayerClothing.sort(new ClothingZLayerComparator());
 		
 		for(AbstractClothing c : zlayerClothing) { 
-			if((!Main.game.isInSex() || !c.getSlotEquippedTo().isJewellery()) && !c.isMilkingEquipment()) {
+			if((!Main.game.isInSex() || (!c.getSlotEquippedTo().isJewellery() && !c.isCondom())) && !c.isMilkingEquipment()) {
 				if (c.isDiscardedOnUnequip(null)) {
 					character.unequipClothingIntoVoid(c, true, Main.game.getPlayer());
 				} else {
@@ -8856,10 +8856,12 @@ public class InventoryDialogue {
 			return new Response("Sabotage", "By making a small tear in the end of this condom, you can ensure that it will break at the moment of orgasm!", CLOTHING_INVENTORY) {
 				@Override
 				public void effects(){
-					AbstractClothing c = (AbstractClothing) EnchantmentDialogue.craftAndApplyFullInventoryEffects(clothing, Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_CONDOM, TFModifier.ARCANE_BOOST, TFPotency.MAJOR_DRAIN, 0)));
-					
+					EnchantmentDialogue.setOutputName(clothing.getClothingType().getName());
+					AbstractClothing c = (AbstractClothing) EnchantmentDialogue.craftAndApplyFullInventoryEffects(clothing,
+							Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_CONDOM, TFModifier.ARCANE_BOOST, TFPotency.MAJOR_DRAIN, 0)),
+							false);
+
 					Main.game.getPlayer().removeClothing(c);
-					c.setName(c.getClothingType().getName());
 					setClothing(c);
 					Main.game.getPlayer().addClothing(c, false);
 

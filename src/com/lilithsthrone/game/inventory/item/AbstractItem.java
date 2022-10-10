@@ -71,11 +71,13 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 			XMLUtil.addAttribute(doc, element, "colour", this.getColour(0).getId());
 		}
 		
-		Element innerElement = doc.createElement("itemEffects");
-		element.appendChild(innerElement);
-		
-		for(ItemEffect ie : this.getEffects()) {
-			ie.saveAsXML(innerElement, doc);
+		if(!this.getEffects().isEmpty()) {
+			Element innerElement = doc.createElement("itemEffects");
+			element.appendChild(innerElement);
+			
+			for(ItemEffect ie : this.getEffects()) {
+				ie.saveAsXML(innerElement, doc);
+			}
 		}
 		
 		return element;
@@ -95,19 +97,26 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 			}
 			
 			List<ItemEffect> effectsToBeAdded = new ArrayList<>();
-			NodeList element = ((Element) parentElement.getElementsByTagName("itemEffects").item(0)).getElementsByTagName("effect");
-			for(int i = 0; i < element.getLength(); i++){
-				Element e = ((Element)element.item(i));
-				ItemEffect itemEffect = ItemEffect.loadFromXML(e, doc);
-				if(itemEffect != null) {
-					effectsToBeAdded.add(itemEffect);
+			Element ieElement = (Element) parentElement.getElementsByTagName("itemEffects").item(0);
+			if(ieElement!=null) {
+				NodeList element = ieElement.getElementsByTagName("effect");
+				for(int i = 0; i < element.getLength(); i++){
+					Element e = ((Element)element.item(i));
+					ItemEffect itemEffect = ItemEffect.loadFromXML(e, doc);
+					if(itemEffect != null) {
+						effectsToBeAdded.add(itemEffect);
+					}
 				}
+				item.setItemEffects(effectsToBeAdded);
 			}
-			item.setItemEffects(effectsToBeAdded);
+			item.setColour(0,
+					parentElement.getAttribute("colour").isEmpty()
+						?PresetColour.GENERIC_ARCANE
+						:PresetColour.getColourFromId(parentElement.getAttribute("colour")));
 			
 			if(!effectsToBeAdded.isEmpty()
 					&& (item.getItemType().getId().equals(ItemType.ELIXIR.getId()) || item.getItemType().getId().equals(ItemType.POTION.getId()) || item.getItemType().getId().equals(ItemType.ORIENTATION_HYPNO_WATCH.getId()))) {
-				item.setSVGString(EnchantingUtils.getImportedSVGString(item, (parentElement.getAttribute("colour").isEmpty()?PresetColour.GENERIC_ARCANE:PresetColour.getColourFromId(parentElement.getAttribute("colour"))), effectsToBeAdded));
+				item.setSVGString(EnchantingUtils.getImportedSVGString(item, item.getColour(0), effectsToBeAdded));
 			}
 			
 			return item;
@@ -249,6 +258,14 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		return itemType.getValue(this.getEffects());
 	}
 	
+	public boolean isAppendItemEffectLinesToTooltip() {
+		return this.getItemType().isAppendItemEffectLinesToTooltip();
+	}
+	
+	public List<String> getEffectTooltipLines() {
+		return this.getItemType().getEffectTooltipLines();
+	}
+	
 	public String getExtraDescription(GameCharacter user, GameCharacter target) {
 		StringBuilder sb = new StringBuilder();
 		
@@ -260,7 +277,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 				sb.append("<br/>"+s);
 			}
 		}
-		for(String s : this.getItemType().getEffectTooltipLines()) {
+		for(String s : this.getEffectTooltipLines()) {
 			sb.append("<br/>"+s);
 		}
 		for(ItemTag it : this.getItemTags()) {

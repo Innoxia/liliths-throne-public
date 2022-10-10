@@ -257,9 +257,15 @@ public abstract class DialogueNode {
 									String nextDialoguePlayerDefeat = combatElement.getMandatoryFirstOf("nextDialoguePlayerDefeat").getTextContent();
 									
 									List<String> alliesIds = new ArrayList<>();
-									boolean companionsAreAllies = false;
+									boolean companionsAreAllies = true;
+									boolean elementalsAreAllies = true;
 									if(combatElement.getOptionalFirstOf("allies").isPresent()) {
-										companionsAreAllies = Boolean.valueOf(combatElement.getMandatoryFirstOf("allies").getAttribute("companionsAreAllies"));
+										if(!combatElement.getMandatoryFirstOf("allies").getAttribute("companionsAreAllies").isEmpty()) {
+											companionsAreAllies = Boolean.valueOf(combatElement.getMandatoryFirstOf("allies").getAttribute("companionsAreAllies"));
+										}
+										if(!combatElement.getMandatoryFirstOf("allies").getAttribute("elementalsAreAllies").isEmpty()) {
+											elementalsAreAllies = Boolean.valueOf(combatElement.getMandatoryFirstOf("allies").getAttribute("elementalsAreAllies"));
+										}
 										for(Element ally : combatElement.getMandatoryFirstOf("allies").getAllOf("ally")) {
 											alliesIds.add(ally.getTextContent());
 										}
@@ -292,7 +298,8 @@ public abstract class DialogueNode {
 										escapeBlocked = Boolean.valueOf(UtilText.parse(combatElement.getMandatoryFirstOf("escapeBlocked").getTextContent()).trim());
 									}
 									
-									ResponseCombat combatResponse = new ResponseCombat(responseTitle, responseTooltip, alliesIds, companionsAreAllies, enemyLeaderId, enemiesIds, openingDescriptions, effectsResponse, escapeBlocked);
+									ResponseCombat combatResponse = new ResponseCombat(
+											responseTitle, responseTooltip, alliesIds, companionsAreAllies, elementalsAreAllies, enemyLeaderId, enemiesIds, openingDescriptions, effectsResponse, escapeBlocked);
 									combatResponse.setNextDialoguePlayerVictoryId(nextDialoguePlayerVictory);
 									combatResponse.setNextDialoguePlayerDefeatId(nextDialoguePlayerDefeat);
 									combatResponse.setConditional(availabilityConditional);

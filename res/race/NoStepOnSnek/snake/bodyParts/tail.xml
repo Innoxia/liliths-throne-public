@@ -38,7 +38,7 @@
 			A scaly, snake-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about [npc.tailLength] long. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over where it goes, allowing [npc.herHim] to use it like a third limb.
 			<br/>[npc.Name] now [npc.has] a [style.boldSnake(snake-like tail)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
 		#ELSE
-			[npc.TailCount] scaly, snake-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about [npc.tailLength] long. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over where they go, allowing [npc.herHim] to use ithem like extra limbs.
+			[npc.TailCount] scaly, snake-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about [npc.tailLength] long. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over where they go, allowing [npc.herHim] to use them like extra limbs.
 			<br/>[npc.Name] now [npc.has] [npc.tailCount] [style.boldSnake(snake-like tails)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
 		#ENDIF
 	]]></transformationDescription>

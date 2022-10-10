@@ -205,7 +205,7 @@
 			You find yourself walking down one of Dominion's main boulevards, which is at least twice the width of all the other streets that you've seen in the city. Large, immaculately-maintained residential and commercial buildings flank the road on each side; their white marble façades decorated with countless flags bearing the black pentagram of Lilith. Thanks to the ongoing arcane storm, these wide, paved roads which are normally home to horse or centaur-pulled wooden carts are almost completely deserted.
 		</p>
 		<p>
-			The only people who you see out and about all seem to be demons, including the occasional smartly-dressed Enforcer. Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you walk down quiet boulevard. There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace...
+			The only people who you see out and about all seem to be demons, including the occasional smartly-dressed Enforcer. Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you walk down quiet boulevard. There's no way anyone would be able to assault you while under their watchful gaze, allowing you to continue on your way in peace...
 		</p>
 	#ELSE
 		<p>
@@ -249,7 +249,7 @@
 	#ENDIF
 	#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
 		<p>
-			The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area. Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted plaza. There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace...
+			The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area. Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted plaza. There's no way anyone would be able to assault you while under their watchful gaze, allowing you to continue on your way in peace...
 		</p>
 	#ELSE
 		<p>

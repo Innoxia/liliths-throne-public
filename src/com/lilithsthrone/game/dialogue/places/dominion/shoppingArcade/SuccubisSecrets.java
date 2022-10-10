@@ -1003,7 +1003,7 @@ public class SuccubisSecrets {
 				if(Main.game.getPlayer().getMoney()<value) {
 					return new Response("Apply ("+UtilText.formatAsMoneyUncoloured(value, "span")+")", "You don't have enough money to get a tattoo!", null);
 					
-				} else if(CharacterModificationUtils.tattoo.getType().equals(TattooType.NONE)
+				} else if(CharacterModificationUtils.tattoo.getType().equals(TattooType.getTattooTypeFromId("innoxia_misc_none"))
 						&& CharacterModificationUtils.tattoo.getWriting().getText().isEmpty()
 						&& CharacterModificationUtils.tattoo.getCounter().getType()==TattooCounterType.NONE) {
 					return new Response("Apply ("+UtilText.formatAsMoneyUncoloured(value, "span")+")", "You need to select a tattoo type, add some writing, or add a counter in order to make a tattoo!", null);
@@ -1012,7 +1012,7 @@ public class SuccubisSecrets {
 					return new Response("Apply ("+UtilText.formatAsMoney(value, "span")+")", "Tell Kate that you'd like her to give you this tattoo.", SHOP_BEAUTY_SALON_TATTOOS) {
 						@Override
 						public void effects() {
-							Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-value)); //TODO Kate description
+							Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-value));
 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
 							CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());

@@ -3,9 +3,9 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -256,7 +256,7 @@ public class GenericTalk {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
 				return Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE);
 			} else {
@@ -280,10 +280,7 @@ public class GenericTalk {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
-					&& (Main.sex.getCharacterPerformingAction().isPlayer()
-						|| (Main.sex.getCharacterPerformingAction().getAffectionLevel(Main.sex.getCharacterTargetedForSexAction(this)).isGreaterThan(AffectionLevel.POSITIVE_TWO_LIKE)
-								&& !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST)));
+			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
 		}
 		
 		@Override
@@ -348,10 +345,7 @@ public class GenericTalk {
 		public boolean isBaseRequirementsMet() {
 			return !Main.sex.isSpectator(Main.sex.getCharacterPerformingAction())
 					&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
-					&& Main.sex.getLastUsedSexAction(Main.sex.getCharacterTargetedForSexAction(this))==LOVING_TALK
-					&& (Main.sex.getCharacterPerformingAction().isPlayer()
-							|| (Main.sex.getCharacterPerformingAction().getAffectionLevel(Main.sex.getCharacterTargetedForSexAction(this)).isGreaterThan(AffectionLevel.POSITIVE_TWO_LIKE)
-									&& !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST)));
+					&& Main.sex.getLastUsedSexAction(Main.sex.getCharacterTargetedForSexAction(this))==LOVING_TALK;
 		}
 		@Override
 		public String getActionTitle() {

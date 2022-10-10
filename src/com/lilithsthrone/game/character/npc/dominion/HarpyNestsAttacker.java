@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.fetishes.Fetish;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -88,7 +90,7 @@ public class HarpyNestsAttacker extends NPC {
 				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, this.getGender(), this.getBody().getFleshSubspecies(), true), true);
 			}
 			
-			setName(Name.getRandomTriplet(Race.HARPY));
+			setName(Name.getRandomTriplet(Subspecies.HARPY));
 			this.setPlayerKnowsName(false);
 
 			Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
@@ -103,11 +105,16 @@ public class HarpyNestsAttacker extends NPC {
 			// INVENTORY:
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			Main.game.getCharacterUtils().generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 			
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			Main.game.getCharacterUtils().applyMakeup(this, true);
-
+			Main.game.getCharacterUtils().applyTattoos(this, true);
+			
+			if(hasFetish(Fetish.FETISH_CUM_ADDICT) && Math.random() < 0.1) {
+				Main.game.getCharacterUtils().applyDirtiness(this);
+			}
+			
 			initHealthAndManaToMax();
 		}
 
@@ -183,7 +190,7 @@ public class HarpyNestsAttacker extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
-		Main.game.getCharacterUtils().generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 		
 		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.CASUAL, settings);
 	}

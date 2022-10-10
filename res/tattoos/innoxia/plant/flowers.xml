@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tattoo>
+	<coreAttributes>
+		<value>500</value> 
+		
+		<name><![CDATA[flowers]]></name>
+		
+		<description><![CDATA[This tattoo depicts a flowing series of intertwined flowers.]]></description> 
+		<bodyOverviewDescription><![CDATA[a floral-themed tattoo, depicting a flowing series of intertwined flowers]]></bodyOverviewDescription> 
+		
+		<imageName>flowers.svg</imageName> 
+		
+		<slotAvailability/>
+		
+		<primaryColours values="ALL" defaultColour="CLOTHING_PINK_LIGHT"/> 
+		<secondaryColours values="ALL" defaultColour="CLOTHING_GREEN"/> 
+		<tertiaryColours values="ALL" defaultColour="CLOTHING_YELLOW"/>
+		
+	</coreAttributes>
+	
+</tattoo>
