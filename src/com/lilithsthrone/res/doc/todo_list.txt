@@ -12,6 +12,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where subspecies changes for dragons, coatls, and gryphons didn't account for taur/lamia leg configurations when assigning minimum wing size. (by MintyChip)
 		Added 'banana' as a new fluid flavouring. (PR#1696 by DSG)
 		Added mythical 'salamander' race, with two subspecies; 'flame salanaders' and 'frost salamanders'. (PR#1707 by MintyChip)
+		Added 'panda' as a subspecies to the 'bear' race. (PR#1697 by DSG)
 	
 	Other:
 		The 'Crotch-boobs & Udders' body setting now only applies to randomly-generated NPCs at the moment of their creation (as was stated in the option's tooltip), allowing all characters to gain crotch-boobs/udders via TF no matter the setting.
@@ -23,6 +24,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed several rendering issue with the buyback menu.
 		Fixed issue where the women's watch in character creation had random primary and secondary colours.
 		Fixed bug where penile virginity losses would be reset at the end of character creation.
+	
+	
 	
 	[x] Test
 		[x] New game full character creation
