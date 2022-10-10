@@ -13,6 +13,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added 'banana' as a new fluid flavouring. (PR#1696 by DSG)
 		Added mythical 'salamander' race, with two subspecies; 'flame salanaders' and 'frost salamanders'. (PR#1707 by MintyChip)
 		Added 'panda' as a subspecies to the 'bear' race. (PR#1697 by DSG)
+		Balanced the flame value calculations for enchanted items, clothing and weapons. (PR#1695 by Maxis010)
 	
 	Other:
 		The 'Crotch-boobs & Udders' body setting now only applies to randomly-generated NPCs at the moment of their creation (as was stated in the option's tooltip), allowing all characters to gain crotch-boobs/udders via TF no matter the setting.
@@ -116,8 +117,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1690
 		[] nerdlinger combat PR
 		[] #1658 - MintyChip races
-		[] #1692
-		[] #1693
+		[-] #1692
+		[-] #1693
 		[x] #1701
 	
 	
