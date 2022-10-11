@@ -221,8 +221,8 @@
 		
 		<tooltip/>				
 		<preParsingEffects><![CDATA[
-			[#game.addNPC('fields.ElisAlleywayAttacker', 'muscle')]
-			[#game.setActiveNPC(muscle)]
+			[#game.addNPC('fields.ElisAlleywayAttacker', 'dsg_muscle')]
+			[#game.setActiveNPC(dsg_muscle)]
 			[#npc.setHistory(OCCUPATION_NPC_MUGGER)]
 			[#npc.equipClothing()]
 			[#npc.setLocation(pc, true)]
@@ -252,10 +252,10 @@
 					<nextDialoguePlayerDefeat><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_intimidate_lost]]></nextDialoguePlayerDefeat>
 					<allies/>
 					<enemies>
-						<enemy leader="true"><![CDATA[muscle]]></enemy>
+						<enemy leader="true"><![CDATA[dsg_muscle]]></enemy>
 					</enemies>
 					<openingDescriptions>
-						<combatant id="muscle"><![CDATA[[muscle.speech(Let's see if you're as strong as you think you are!)] [muscle.name] shouts.]]></combatant>
+						<combatant id="dsg_muscle"><![CDATA[[dsg_muscle.speech(Let's see if you're as strong as you think you are!)] [dsg_muscle.name] shouts.]]></combatant>
 					</openingDescriptions>
 					<escapeBlocked><![CDATA[true]]></escapeBlocked>
 				</combatVariables>
@@ -340,7 +340,7 @@
 				<secondsPassed/>
 				<effects><![CDATA[
 					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_THREE))]
-					[#game.banishNPC(muscle)]
+					[#game.banishNPC(dsg_muscle)]
 				]]></effects>	
 			</response>
 		</responses>
@@ -374,7 +374,7 @@
 				<secondsPassed/>
 				<effects><![CDATA[
 					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_TWO_FAILED))]
-					[#game.banishNPC(muscle)]
+					[#game.banishNPC(dsg_muscle)]
 				]]></effects>	
 			</response>
 		</responses>
