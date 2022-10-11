@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<hair>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractHairType.java -->
+	
+	<!-- The id of the race which this hair belongs to.
+	This will almost always be the id of the race in which this type is found (in this case salamander). -->
+	<race>mintychip_salamander</race>
+	
+	<!-- The name that will be used when referring to transformations related to this type (such as when changing body parts in the self-TF menu). -->
+	<transformationName><![CDATA[salamander]]></transformationName>
+	
+	<!-- The id of the material that this hair is made out of.
+	The id will typically take the form of 'mintychip_salamander_hair'.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>mintychip_salamander_hair</coveringType>
+	
+	<!-- The chance of this hair giving the owning character 'neck fluff' when they're first spawned-in, using a float value in the range of 0-100, representing 0-100%.
+		If you need to set neck fluff for just males or females for your subspecies, then use the 'applySubspeciesChanges' in your subspecies xml file, using the method 'targetedBody.getHair().setNeckFluff(null, true)'
+		The 'requiresGreaterMorph' attribute defines whether or not neck fluff is only applied on spawn if the character is a greater morph. -->
+	<neckFluffChance requiresGreaterMorph="true">0</neckFluffChance>
+	
+	<!-- Tags which are associated with this hair type.
+	You should most likely only be using the 'hair' tags for your hair type, which is just: HAIR_HANDLES_IN_SEX
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/tags/BodyPartTag.java -->
+	<tags>
+		<tag>HAIR_HANDLES_IN_SEX</tag>
+		<tag>HAIR_IGNORE_PLAYER_SETTINGS</tag>
+	</tags>
+	
+	<!-- The way in which this hair is referred to.
+	Will normally be 'a head of', but will sometimes be different (such as 'a plume of' for harpy head-feathers). -->
+	<determiner><![CDATA[a head of]]></determiner>
+	
+	<!-- The name of a singular piece of this hair type. -->
+	<name><![CDATA[hair]]></name>
+	
+	<!-- The name of many pieces of this hair type.
+	The 'pluralByDefault' attribute determines whether or not this hair is by default referred to as a plural (to fit into the sentence 'Her head is covered in X').
+	It should most likely always be left as false, but for bird feathers, it will be true. -->
+	<namePlural pluralByDefault="false"><![CDATA[hairs]]></namePlural> 
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's hair of this type.
+	Can be left blank. -->
+	<descriptorsMasculine/>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine/>
+	
+	<!-- The description which is shown when a character transforms to obtain this hair type.
+	This description immediately follows a brief description of the hair type beginning to transform. -->
+	<transformationDescription><![CDATA[
+		The transformation only lasts a matter of moments, leaving [npc.herHim] with salamander-like hair.
+		<br/>[npc.Name] now [npc.has] [npc.hairColour] [style.boldSalamander(salamander hair)].
+	]]></transformationDescription>
+	
+	<!-- How this hair is described in a character's description page. -->
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], salamander-like hair
+	]]></bodyDescription>
+	
+</hair>

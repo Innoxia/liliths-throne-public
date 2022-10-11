@@ -1079,7 +1079,9 @@
 					<br/>[style.italicsBadEnd(This will lead into both you and Meraxis falling into the clutches of Lunexis!)]
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_escape_start]]></nextDialogue>
-				<effects/>
+				<effects><![CDATA[
+					[#pc.incrementKarma(-500)]
+				]]></effects>
 			</response>
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>

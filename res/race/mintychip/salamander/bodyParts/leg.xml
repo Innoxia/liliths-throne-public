@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<leg>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractLegType.java -->
+	
+	<!-- The id of the race which this leg belongs to.
+	This will almost always be the id of the race in which this type is found (in this case salamander). -->
+	<race>mintychip_salamander</race>
+	
+	<!-- The name that will be used when referring to transformations related to this type (such as when changing body parts in the self-TF menu). -->
+	<transformationName><![CDATA[salamander]]></transformationName>
+	
+	<!-- The id of the material covering this leg.
+	The id will typically take the form of 'innoxia_salamander_fur'.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>mintychip_salamander_scales</coveringType>
+	
+	<!-- The default structure of the foot that's on the end of this leg.
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/FootStructure.java -->
+	<defaultFootStructure>PLANTIGRADE</defaultFootStructure>
+	<additionalFootStructure legConfiguration="QUADRUPEDAL">DIGITIGRADE</additionalFootStructure>
+	<!-- You can define multiple elements of a related 'additionalFootStructure' type and add a 'legConfiguration' attribute to them, e.g.:
+			<additionalFootStructure legConfiguration="QUADRUPEDAL">DIGITIGRADE</additionalFootStructure>
+		The value within this element will then override the default foot structure when the character has a "QUADRUPEDAL" foot structure.
+		For an example of this in practice, see: res/race/charisma/spider/bodyParts/leg.xml-->
+	
+	<!-- The type of the foot that's on the end of this leg.
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/FootType.java -->
+	<footType>REPTILIAN</footType>
+	
+	<!-- Whether this leg type has a spinneret when transformed into the 'ARACHNID' leg configuration. -->
+	<spinneret>false</spinneret>
+	
+	<!-- If this leg type consists of tentacles instead of legs, then define the type of the tentacle here.
+	For everything except cephalopod leg types, this should most likely be left as NONE.
+	Any value other than NONE replaces the character's legs with tentacles of this type.
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/FootType.java -->
+	<tentacleType>NONE</tentacleType>
+	
+	<!-- The number of tentacles that this leg type has, with an upper limit of 100. -->
+	<tentacleCount>0</tentacleCount>
+	
+	<!-- The configurations which this leg type can be transformed into.
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/LegConfiguration.java -->
+	<allowedLegConfigurations>
+		<configuration>BIPEDAL</configuration>
+		<configuration>QUADRUPEDAL</configuration>
+	</allowedLegConfigurations>
+	
+	<!-- The singular and plural name of this leg type.
+	These should be left as 'leg' and 'legs' for standard leg types.
+	The values 'tail/tails', 'tentacle/tentacles' should be used if this leg type is a serpent/fish tail or a collection of tentacles, respectively.
+	UPDATE: As of version 0.3.14, these values are overridden based on the character's leg configuration, so it doesn't really matter what you put here (although you should probably leave it as a sensible value).-->
+	<name><![CDATA[leg]]></name>
+	<namePlural><![CDATA[legs]]></namePlural> 
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's leg of this type.
+	Can be left blank. -->
+	<descriptorsMasculine>
+		<descriptor>masculine</descriptor>
+		<descriptor>reptilian</descriptor>
+		<descriptor>anthropomorphic, salamander-like</descriptor>
+		<descriptor>scaly</descriptor>
+	</descriptorsMasculine>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine>
+		<descriptor>feminine</descriptor>
+		<descriptor>reptilian</descriptor>
+		<descriptor>anthropomorphic, salamander-like</descriptor>
+		<descriptor>scaly</descriptor>
+	</descriptorsFeminine>
+	
+	<!-- Same descriptor formats as those for the leg type above, but these describe the leg's feet.
+	Foot type descriptors are also used, so these are extra definitions related to this leg type's race. -->
+	<footDescriptorsMasculine>
+		<descriptor>salamander-like</descriptor>
+	</footDescriptorsMasculine>
+	<footDescriptorsFeminine>
+		<descriptor>salamander-like</descriptor>
+	</footDescriptorsFeminine>
+	
+	<!-- Same naming formats as those for the leg type above, but these describe the leg's toes.
+	Foot type's toe descriptors are also used, so these are extra definitions related to this leg type's race. -->
+	<toeDescriptorsMasculine>
+		<descriptor>salamander-like</descriptor>
+	</toeDescriptorsMasculine>
+	<toeDescriptorsFeminine>
+		<descriptor>salamander-like</descriptor>
+	</toeDescriptorsFeminine>
+	
+	<!-- The description which is shown when a character transforms to obtain this leg type.
+	This description immediately follows a brief description of the leg type beginning to transform. -->
+	<transformationDescription><![CDATA[
+		A layer of salamander-like scales quickly grows over [npc.her] legs as they shift into a new form. As [npc.her] new scales spreads down to the ends of [npc.her] toes, [npc.her] toenails thicken into sharp claws, and little scales grow to cover [npc.her] soles, leaving [npc.herHim] with salamander-like feet. As the transformation ends, [npc.she] [npc.verb(see)] that [npc.her] new scales smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.
+		<br/>[npc.Name] now [npc.has] anthropomorphic, [style.boldSalamander(salamander-like legs and feet)], which are [npc.materialDescriptor] [npc.legFullDescription].
+	]]></transformationDescription>
+	
+	<!-- How these legs are described in a character's description page. -->
+	<bodyDescription><![CDATA[
+		[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic salamander-like feet, complete with sharp claws.
+	]]></bodyDescription>
+	
+</leg>

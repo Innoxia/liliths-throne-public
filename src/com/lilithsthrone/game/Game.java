@@ -1755,9 +1755,11 @@ public class Game implements XMLSaving {
 					Main.game.getNpc(Ashley.class).setAffection(Main.game.getNpc(Nyan.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 				}
 
-				if(Main.isVersionOlderThan(loadingVersion, "0.3.17") && Main.game.getPlayer().getTrueRace()==Race.DEMON) {
-					if(Main.game.getNpc(Lyssieth.class).getAffection(Main.game.getPlayer())<75) {
-						Main.game.getNpc(Lyssieth.class).setAffection(Main.game.getPlayer(), 75);
+				NPC lyssieth = Main.game.getNpc(Lyssieth.class);
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.17")
+						&& Main.game.getPlayer().getTrueRace()==Race.DEMON) { // Players could only become a demon via Lyssieth before 0.3.17, so it's ok to just check for true race being demon
+					if(lyssieth.getAffection(Main.game.getPlayer())<75) {
+						lyssieth.setAffection(Main.game.getPlayer(), 75);
 					}
 				}
 				
@@ -1880,6 +1882,10 @@ public class Game implements XMLSaving {
 				
 				if(Main.isVersionOlderThan(loadingVersion, "0.4.6.1") && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN)) {
 					Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("dsg_quest_hazmat_rat_card"), false);
+				}
+
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.6.6") && Main.game.getPlayer().getTrueRace()==Race.DEMON) {
+					Main.game.getDialogueFlags().setFlag("innoxia_child_of_lyssieth", true); // Players could only become a demon via Lyssieth before v0.4.6.6, so set the flag to represent this
 				}
 				
 				if(debug) {

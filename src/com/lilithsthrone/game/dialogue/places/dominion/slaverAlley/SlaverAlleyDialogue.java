@@ -1285,7 +1285,7 @@ public class SlaverAlleyDialogue {
 			
 			if(getCafeItems().containsKey(index)) {
 				AbstractItemType itemType = getCafeItems().get(index);
-				int itemValue = (int) (itemType.getValue(null)*1.8f);
+				int itemValue = (int) (itemType.getValue()*1.8f);
 				if(responseTab==0) {
 					if(Main.game.getPlayer().getMoney()<itemValue) {
 						return new Response(itemType.getName(false)+" ("+UtilText.formatAsMoneyUncoloured(itemValue, "span")+")",

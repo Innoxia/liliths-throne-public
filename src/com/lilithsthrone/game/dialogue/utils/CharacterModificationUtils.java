@@ -607,8 +607,11 @@ public class CharacterModificationUtils {
 	}
 	
 	
-	public static int[] normalSexExperienceValues = new int[] {0, 5, 25, 50, 100};
-	private static Colour[] sexColours = new Colour[] {PresetColour.GENERIC_EXCELLENT, PresetColour.BASE_PINK_LIGHT, PresetColour.BASE_PINK, PresetColour.BASE_PINK_DEEP, PresetColour.ATTRIBUTE_CORRUPTION};
+	public static int maxSexExperience = 500;
+	public static int[] normalSexExperienceValues = new int[] {0, 1, 25, 100, 250};
+	public static float[] sexExperienceCorruption = new float[] {0, 0.5f, 1, 2.5f, 5};
+	
+	private static Colour[] sexColours = new Colour[] {PresetColour.GENERIC_EXCELLENT, PresetColour.BASE_PINK_LIGHT, PresetColour.BASE_PINK_SALMON, PresetColour.BASE_PINK, PresetColour.BASE_PINK_DEEP};
 	public static String[] feminineNames = new String[] {"Virgin", "Inexperienced", "Experienced", "Expert", "Slut"};
 	public static String[] masculineNames = new String[] {"Virgin", "Inexperienced", "Experienced", "Expert", "Stud"};
 	
@@ -627,28 +630,29 @@ public class CharacterModificationUtils {
 		
 			contentSB.append(
 							getSexExperienceEntry("HANDJOBS_GIVEN", "Handjobs Given",
-									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaPenetration.PENIS),
-									normalSexExperienceValues, BodyChanging.getTarget().isFeminine()?feminineNames:masculineNames)
+									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaPenetration.PENIS))
 							
 							+ getSexExperienceEntry("FINGERINGS_GIVEN", "Fingerings Performed",
-									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA),
-									normalSexExperienceValues, BodyChanging.getTarget().isFeminine()?feminineNames:masculineNames)
+									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA))
 							
 							+ getSexExperienceEntry("BLOWJOBS_GIVEN", "Blowjobs Given",
-									new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS),
-									normalSexExperienceValues, BodyChanging.getTarget().isFeminine()?feminineNames:masculineNames)
+									new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS))
 							
 							+ getSexExperienceEntry("CUNNILINGUS_GIVEN", "Cunnilingus Performed",
-									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA),
-									normalSexExperienceValues, BodyChanging.getTarget().isFeminine()?feminineNames:masculineNames)
-							
+									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA))
+
+							+ (Main.game.isAnalContentEnabled()
+									?getSexExperienceEntry("ANILINGUS_GIVEN", "Anilingus Performed",
+										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS))
+									:"")
+			
 							+ getSexExperienceEntry("VAGINAL_GIVEN", "Vaginal Sex Performed",
-									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA),
-									normalSexExperienceValues, BodyChanging.getTarget().isFeminine()?feminineNames:masculineNames)
+									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))
 							
-							+ getSexExperienceEntry("ANAL_GIVEN", "Anal Sex Performed",
-									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS),
-									normalSexExperienceValues, BodyChanging.getTarget().isFeminine()?feminineNames:masculineNames));
+							+ (Main.game.isAnalContentEnabled()
+									?getSexExperienceEntry("ANAL_GIVEN", "Anal Sex Performed",
+										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS))
+									:""));
 		contentSB.append("</div>");
 
 		contentSB.append("<div class='container-full-width'>"
@@ -656,37 +660,38 @@ public class CharacterModificationUtils {
 			contentSB.append(
 							(BodyChanging.getTarget().hasPenis()
 									?getSexExperienceEntry("HANDJOBS_TAKEN", "Handjobs Received",
-										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FINGER),
-										normalSexExperienceValues, BodyChanging.getTarget().isFeminine()?feminineNames:masculineNames)
+										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FINGER))
 									:"")
 							
 							+ (BodyChanging.getTarget().hasVagina()
 									?getSexExperienceEntry("FINGERINGS_TAKEN", "Fingerings Received",
-										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER),
-										normalSexExperienceValues, BodyChanging.getTarget().isFeminine()?feminineNames:masculineNames)
+										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER))
 									:"")
 							
 							+ (BodyChanging.getTarget().hasPenis()
 									?getSexExperienceEntry("BLOWJOBS_TAKEN", "Blowjobs Received",
-										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
-										normalSexExperienceValues, BodyChanging.getTarget().isFeminine()?feminineNames:masculineNames)
+										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH))
 									:"")
 							
 							+ (BodyChanging.getTarget().hasVagina()
 									?getSexExperienceEntry("CUNNILINGUS_TAKEN", "Cunnilingus Received",
-										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
-										normalSexExperienceValues, BodyChanging.getTarget().isFeminine()?feminineNames:masculineNames)
+										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE))
+									:"")
+							
+							+ (Main.game.isAnalContentEnabled()
+									?getSexExperienceEntry("ANILINGUS_TAKEN", "Anilingus Received",
+										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE))
 									:"")
 							
 							+ (BodyChanging.getTarget().hasVagina()
 									?getSexExperienceEntry("VAGINAL_TAKEN", "Vaginal Sex Received",
-										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS),
-										normalSexExperienceValues, BodyChanging.getTarget().isFeminine()?feminineNames:masculineNames)
+										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS))
 									:"")
-							
-							+ getSexExperienceEntry("ANAL_TAKEN", "Anal Sex Received",
-									new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS),
-									normalSexExperienceValues, BodyChanging.getTarget().isFeminine()?feminineNames:masculineNames));
+
+							+ (Main.game.isAnalContentEnabled()
+									?getSexExperienceEntry("ANAL_TAKEN", "Anal Sex Received",
+										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS))
+									:""));
 		contentSB.append("</div>");
 		
 		return contentSB.toString();
@@ -703,22 +708,22 @@ public class CharacterModificationUtils {
 			CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FINGER), 0);
 		}
 	}
-	
-	public static void setSexExperience(SexType type, int index) {
-		int count = BodyChanging.getTarget().getTotalSexCount(type);
-		
-		for(int i =0; i<normalSexExperienceValues.length; i++) {
-			if(count == normalSexExperienceValues[i]) {
-				BodyChanging.getTarget().incrementAttribute(Attribute.MAJOR_CORRUPTION, -i);
-				break;
-			}
-		}
 
-		BodyChanging.getTarget().incrementAttribute(Attribute.MAJOR_CORRUPTION, index);
+	public static void incrementSexExperience(SexType type, int increment) {
+		int count = BodyChanging.getTarget().getSexCount(null, type) + increment;
+		setSexExperience(type, count);
+	}
+	
+	public static void setSexExperience(SexType type, int count) {
+		count = Math.min(maxSexExperience, Math.max(0, count));
+		int index = getSexExperienceIndex(type);
+		BodyChanging.getTarget().incrementAttribute(Attribute.MAJOR_CORRUPTION, -sexExperienceCorruption[index]);
+		BodyChanging.getTarget().setSexCount(null, type, count);
+		index = getSexExperienceIndex(type);
+		BodyChanging.getTarget().incrementAttribute(Attribute.MAJOR_CORRUPTION, sexExperienceCorruption[index]);
 		
-		BodyChanging.getTarget().setSexCount(null, type, CharacterModificationUtils.normalSexExperienceValues[index]);
 		
-		if(index!=0) {
+		if(count!=0) {
 			if(BodyChanging.getTarget().getSexualOrientation()==SexualOrientation.GYNEPHILIC
 					|| (BodyChanging.getTarget().getSexualOrientation()==SexualOrientation.AMBIPHILIC && !BodyChanging.getTarget().isFeminine())) {
 				BodyChanging.getTarget().setVirginityLoss(type, "", BodyChanging.getTarget().isPlayer()?"your girlfriend":"a stranger");
@@ -729,8 +734,10 @@ public class CharacterModificationUtils {
 			BodyChanging.getTarget().resetVirginityLoss(type);
 		}
 		
+//		System.out.println(BodyChanging.getTarget().getNameIgnoresPlayerKnowledge()+": "+type+" | "+BodyChanging.getTarget().getVirginityLossDescription(type));
+		
 		if(type.getPerformingSexArea()==SexAreaPenetration.PENIS) {
-			if(index==0 || type.getTargetedSexArea().isPenetration() || (type.getTargetedSexArea().isOrifice() && !((SexAreaOrifice)type.getTargetedSexArea()).isInternalOrifice())) {
+			if(count==0 || type.getTargetedSexArea().isPenetration() || (type.getTargetedSexArea().isOrifice() && !((SexAreaOrifice)type.getTargetedSexArea()).isInternalOrifice())) {
 				BodyChanging.getTarget().setPenisVirgin(true);
 			} else {
 				BodyChanging.getTarget().setPenisVirgin(false);
@@ -741,7 +748,7 @@ public class CharacterModificationUtils {
 			if(type.getPerformingSexArea().isOrifice()) {
 				switch((SexAreaOrifice)type.getPerformingSexArea()) {
 					case ANUS:
-						if(index==0) {
+						if(count==0) {
 							BodyChanging.getTarget().setAssVirgin(true);
 						} else {
 							BodyChanging.getTarget().setAssVirgin(false);
@@ -756,7 +763,7 @@ public class CharacterModificationUtils {
 					case BREAST_CROTCH:
 						break;
 					case MOUTH:
-						if(index==0) {
+						if(count==0) {
 							BodyChanging.getTarget().setFaceVirgin(true);
 						} else {
 							BodyChanging.getTarget().setFaceVirgin(false);
@@ -773,14 +780,14 @@ public class CharacterModificationUtils {
 					case URETHRA_VAGINA:
 						break;
 					case VAGINA:
-						if(index==0) {
+						if(count==0) {
 							BodyChanging.getTarget().setVaginaVirgin(true);
 						} else {
 							BodyChanging.getTarget().setVaginaVirgin(false);
 						}
 						break;
 					case SPINNERET:
-						if(index==0) {
+						if(count==0) {
 							BodyChanging.getTarget().setSpinneretVirgin(true);
 						} else {
 							BodyChanging.getTarget().setSpinneretVirgin(false);
@@ -791,31 +798,57 @@ public class CharacterModificationUtils {
 		}
 	}
 	
-	private static String getSexExperienceEntry(String id, String title, SexType associatedSexType, int[] values, String[] names) {
+	private static int getSexExperienceIndex(SexType associatedSexType) {
 		int index = 0;
-		for(int i=0; i<5; i++ ) {
-			if(values[i] == BodyChanging.getTarget().getTotalSexCount(associatedSexType)) {
+		for(int i=normalSexExperienceValues.length-1; i>=0; i--) {
+			if(BodyChanging.getTarget().getTotalSexCount(associatedSexType) >= normalSexExperienceValues[i]) {
 				index = i;
 				break;
 			}
 		}
+		return index;
+	}
+	
+	private static String getSexExperienceEntry(String id, String title, SexType associatedSexType) {
+		int index = getSexExperienceIndex(associatedSexType);
+		
+		String[] names = BodyChanging.getTarget().isFeminine()?feminineNames:masculineNames;
+		
+		int sexCount = BodyChanging.getTarget().getTotalSexCount(associatedSexType);
+		boolean decreaseDisabled = sexCount<=0;
+		boolean increaseDisabled = sexCount>=maxSexExperience;
+		int minorStep = 1;
+		int majorStep = 10;
 		
 		return "<div class='container-full-width inner'>"
-					+ "<div class='container-full-width inner' style='width:calc(50%);margin:0;padding:0;'>"
-						+ title+": <span style='color:"+sexColours[index].toWebHexString()+";'>"+names[index]+"</span>"
+					+ "<div class='container-full-width inner' style='width:calc(30%);margin:0;padding:0;'>"
+						+ title
 					+ "</div>"
-					+ "<div class='container-full-width inner' style='width:calc(50%);margin:0;padding:0;'>"
-						+ "<div class='normal-button"+(index==0?" selected":"")+"' id='"+id+"_0' style='width:18%; margin-right:2%; text-align:center;"+(index==0?" color:"+sexColours[index].toWebHexString()+";":"")+"'>"+values[0]+"</div>"
-						+ "<div class='normal-button"+(index==1?" selected":"")+"' id='"+id+"_1' style='width:18%; margin-right:2%; text-align:center;"+(index==1?" color:"+sexColours[index].toWebHexString()+";":"")+"'>"+values[1]+"</div>"
-						+ "<div class='normal-button"+(index==2?" selected":"")+"' id='"+id+"_2' style='width:18%; margin-right:2%; text-align:center;"+(index==2?" color:"+sexColours[index].toWebHexString()+";":"")+"'>"+values[2]+"</div>"
-						+ "<div class='normal-button"+(index==3?" selected":"")+"' id='"+id+"_3' style='width:18%; margin-right:2%; text-align:center;"+(index==3?" color:"+sexColours[index].toWebHexString()+";":"")+"'>"+values[3]+"</div>"
-						+ "<div class='normal-button"+(index==4?" selected":"")+"' id='"+id+"_4' style='width:18%; margin-right:2%; text-align:center;"+(index==4?" color:"+sexColours[index].toWebHexString()+";":"")+"'>"+values[4]+"</div>"
+					+ "<div class='container-full-width inner' style='width:calc(70%);margin:0;padding:0;'>"
+						+ "<div class='container-full-width' style='width:15%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
+							+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:48%; margin:1%; padding:0;'>"
+								+ (decreaseDisabled?"[style.boldDisabled(-"+majorStep+")]":"[style.boldBad(-"+majorStep+")]")
+							+ "</div>"
+							+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:48%; margin:1%; padding:0;'>"
+								+ (decreaseDisabled?"[style.boldDisabled(-"+minorStep+")]":"[style.boldBadMinor(-"+minorStep+")]")
+							+ "</div>"
+						+ "</div>"
+						+ "<div class='container-full-width' style='width:18%; margin:1%; padding:0; text-align:center; float:left; position:relative;'>"
+							+ sexCount
+						+ "</div>"
+						+ "<div class='container-full-width' style='width:15%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
+							+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:48%; margin:1%; padding:0;'>"
+								+ (increaseDisabled?"[style.boldDisabled(+"+minorStep+")]":"[style.boldGoodMinor(+"+minorStep+")]")
+							+ "</div>"
+							+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:48%; margin:1%; padding:0;'>"
+								+ (increaseDisabled?"[style.boldDisabled(+"+majorStep+")]":"[style.boldGood(+"+majorStep+")]")
+							+ "</div>"
+						+ "</div>"
+						+ "<div class='container-full-width inner' style='width:50%; margin:0;padding:0;text-align:center;'>"
+							+"<span style='color:"+sexColours[index].toWebHexString()+";'>"+names[index]+"</span>"
+							+" ([style.colourCorruption(+"+sexExperienceCorruption[index]+" corruption)])"
+						+ "</div>"
 					+ "</div>"
-						//TODO
-//					+ "<div class='container-full-width inner' style='width:calc(100%);margin:0;padding:0;'>"
-//						+ "Virginity lost: "
-//						+ (BodyChanging.getTarget().getVirginityLoss(associatedSexType)==null?"[style.boldDisabled(N/A)]":BodyChanging.getTarget().getVirginityLoss(associatedSexType))
-//					+ "</div>"
 				+ "</div>";
 	}
 	

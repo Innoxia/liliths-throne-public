@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mouth>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractMouthType.java -->
+	
+	<!-- The id of the race which this mouth belongs to.
+	This will almost always be the id of the race in which this type is found (in this case hyena). -->
+	<race>mintychip_salamander</race>
+	
+	<!-- The id of the material covering this mouth.
+	This should always be left as 'MOUTH'.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>MOUTH</coveringType>
+	
+	<!-- The id of the tongue that's associated with this mouth type. -->
+	<tongueType>mintychip_salamander_tongue</tongueType>
+	
+	<!-- The singular names of this mouth.
+	One of the defined names will be chosen at random every time the name is displayed to the player. 
+	This will most often just be 'mouth', but for bird-faces, such as harpies, you will most likely want to define it as 'beak'. -->
+	<names>
+		<name><![CDATA[mouth]]></name>
+	</names>
+	
+	<!-- The plural names of this mouth.
+	One of the defined names will be chosen at random every time the name is displayed to the player.
+	This will most often just be 'mouth', but for bird-faces, such as harpies, you will most likely want to define it as 'beaks'. -->
+	<namesPlural>
+		<name><![CDATA[mouths]]></name>
+	</namesPlural>
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's mouth of this type.
+	Additional mouth descriptors are generated based on the mouth's properties (such as its modifiers, lubrication, capacity, etc.), so these descriptors should only be related to the race itself. -->
+	<descriptorsMasculine/>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine/>
+	<!-- Hyena mouths do not need any racial descriptors, but if you wanted to add some, use this format:
+	<descriptorsMasculine>
+		<descriptor><![CDATA[hyena-like]]></descriptor>
+	</descriptorsMasculine>
+	-->
+	
+	<!-- How this mouth is described in a character's description page. -->
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.lipSize], [npc.mouthColourPrimary(true)]
+		#IF(npc.isWearingLipstick())
+			#IF(npc.isPiercedLip())
+				 [npc.lips], which have been pierced, and
+			#ELSE
+				 [npc.lips], which
+			#ENDIF
+			 are currently [npc.materialCompositionDescriptor]
+			#IF(npc.isHeavyMakeup(BODY_COVERING_TYPE_MAKEUP_LIPSTICK) && game.isLipstickMarkingEnabled())
+				 a [style.colourPinkDeep(heavy layer)] of
+			#ENDIF
+			 [#npc.getLipstick().getFullDescription(npc, true)].
+		#ELSE
+			#IF(npc.isPiercedLip())
+				 [npc.lips], which have been pierced.
+			#ELSE
+				 [npc.lips].
+			#ENDIF
+		#ENDIF
+		 [npc.Her] throat is [npc.mouthColourSecondary(true)] in colour.
+	]]></bodyDescription>
+	
+	<!-- The orifice modifiers which this mouth has when first created (such as when a new hyena-morph is spawned).
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/OrificeModifier.java -->
+	<defaultOrificeModifiers/>
+	<!-- Hyena mouths do not spawn with any modifiers by default, but if you wanted to add some, use this format:
+	<defaultOrificeModifiers>
+		<modifier>PUFFY</modifier>
+	</defaultOrificeModifiers>
+	-->
+	
+</mouth>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ear>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractEarType.java -->
+	
+	<!-- The id of the race which this ear belongs to.
+	This will almost always be the id of the race in which this type is found (in this case hyena). -->
+	<race>mintychip_salamander</race>
+	
+	<!-- The name that will be used when referring to transformations related to this type (such as when changing body parts in the self-TF menu). -->
+	<transformationName><![CDATA[salamander]]></transformationName>
+	
+	<!-- The id of the material covering this ear.
+	The id will typically take the form of 'innoxia_hyena_fur'.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>mintychip_salamander_scales</coveringType>
+	
+	<!-- Tags which are associated with this ear type.
+	You should most likely only be using the 'ears' tags for your ear type, which is just: EAR_HANDLES_IN_SEX
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/tags/BodyPartTag.java -->
+	<tags/>
+	<!-- Hyena ears don't have any special tags, but if they did, this section would look like this:
+	<tags>
+		<tag>EAR_HANDLES_IN_SEX</tag>
+	</tags>
+	-->
+	
+	<!-- The singular and plural names of this ear type.-->
+	<name><![CDATA[ear]]></name>
+	<namePlural><![CDATA[ears]]></namePlural>
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's ear of this type.
+	Can be left blank. -->
+	<descriptorsMasculine>
+		<descriptor>frilled</descriptor>
+		<descriptor>salamander-like</descriptor>
+	</descriptorsMasculine>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine>
+		<descriptor>feminine</descriptor>
+		<descriptor>frilled</descriptor>
+		<descriptor>salamander-like</descriptor>
+	</descriptorsFeminine>
+	
+	<!-- The description which is shown when a character transforms to obtain this ear type.
+	This description immediately follows a brief description of the ear type beginning to transform. -->
+	<transformationDescription><![CDATA[
+		They quickly begin to grow larger and shift into a frilled shape.
+		#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)
+		 A layer of [npc.earFullDescriptionColour] quickly grows to cover them,
+		#ELSE
+		 Just like the rest of [npc.her] body, they're made out of [npc.earFullDescription],
+		#ENDIF
+		 and as the transformation finishes, [npc.she] experimentally [npc.verb(twitch)] [npc.her] new salamander-like ears back and forth.
+		<br/>[npc.Name] now [npc.has] [style.boldSalamander(large, salamander-like ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].
+	]]></transformationDescription>
+	
+	<!-- How this ear is described in a character's description page. -->
+	<bodyDescription><![CDATA[
+		[npc.She] [npc.has] a pair of frilled,#IF(npc.isPiercedEar()) pierced,#ENDIF salamander-like ears, which are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].
+	]]></bodyDescription>
+	
+</ear>
