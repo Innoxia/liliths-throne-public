@@ -8,6 +8,8 @@
 	<!-- Eisek -->
 	<!-- additional numerical flags not stored here: 
 	elis_eisek_talk_score
+	elis_eisek_banished_date
+	elis_eisek_mob_quest_completion_date
 	elis_eisek_stall_quest_completion_date
 	-->
 	
@@ -21,10 +23,13 @@
 	<flag dailyReset="false">elis_eisek_asked_himself_low</flag>
 	<flag dailyReset="false">elis_eisek_asked_himself</flag>
 	<flag dailyReset="false">elis_eisek_asked_about_mob</flag>
+	<flag dailyReset="false">elis_eisek_asked_about_dragonfall_specific</flag>
 	
 	<flag dailyReset="false">elis_eisek_mob_quest_intimidate</flag>
 	<flag dailyReset="false">elis_eisek_mob_quest_intimidate_arcane</flag>
 	<flag dailyReset="false">elis_eisek_mob_quest_persuade</flag>
 	<flag dailyReset="false">elis_eisek_mob_quest_seduce</flag>
+	
+	<flag dailyReset="false">elis_eisek_talk_post_mob_quest</flag>
 	
 </dialogueFlags>

@@ -87,12 +87,13 @@ public class Eisek extends NPC {
 		Gender.M_P_MALE, Subspecies.getSubspeciesFromId("dsg_dragon_subspecies_dragon"),
 		RaceStage.GREATER,
 		new CharacterInventory(10),
-		WorldType.getWorldTypeFromId("innoxia_fields_elis_town"),
-		PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_market"),
+		WorldType.getWorldTypeFromId("innoxia_fields_elis_market"),
+		PlaceType.getPlaceTypeFromId("dsg_fields_elis_market_produce"),
 		true);
 	if(!isImported) {
 	    this.setPlayerKnowsName(false);
-            setDescription(UtilText.parse(this, "[npc.Name] runs a produce stall in the Elis Farmer's Market. As a dragon, [npc.he] is often unwelcome in civilised areas, a fact that he is well aware of."));
+            this.dailyUpdate();
+	    
 	}
     }
     
@@ -232,17 +233,17 @@ public class Eisek extends NPC {
     
     @Override
     public String getDescription() {
-	    if(this.isPlayerKnowsName() == false && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_banished"))) {
+	    if(this.isPlayerKnowsName() == false && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_banished"))) {
 		    return "You found this dragon-boy being harrassed by a mob while manning a stall at The Farmer's Market in Elis.";
 
-	    } else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_banished"))) {
+	    } else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_banished"))) {
 		    return "You found this dragon-boy being harrassed by a mob while manning a stall at The Farmer's Market in Elis. Intentionally or not, you sided with the mob and drove him off.";
 
-	    } else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_asked_himself"))) {
-		    return "Eisk is a produce merchant at The Farmer's Market in Elis. As a one dragon-morph operation, he spends most of his time tending to his crops high up in the mountains and only visits Elis three days out of the month.";
+	    } else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_asked_himself"))) {
+		    return "Eisek is a produce merchant at The Farmer's Market in Elis. As a dragon, [npc.he] is often unwelcome in civilised areas, a fact that he is well aware of. He spends most of his time tending to his crops high up in the mountains and only visits Elis three days out of the month.";
 
 	    } else {
-		    return "Eisk is a produce merchant at The Farmer's Market in Elis.";
+		    return "Eisek runs a produce stall in the Elis Farmer's Market. As a dragon, [npc.he] is often unwelcome in civilised areas, a fact that he is well aware of.";
 	    }
 	    
     }
@@ -268,16 +269,17 @@ public class Eisek extends NPC {
     
     @Override
     public void applyItemTransactionEffects(AbstractCoreItem itemSold, int quantity, int individualPrice, boolean soldToPlayer) {
-	if(soldToPlayer && (this.getAffection(Main.game.getPlayer()) <= 15)) {
-	    Main.game.appendToTextStartStringBuilder(this.incrementAffection(Main.game.getPlayer(), 3));
+	if(soldToPlayer && (this.getAffection(Main.game.getPlayer()) < 3)) {
+	    Main.game.appendToTextEndStringBuilder(UtilText.parse(this, "[eisek.speech([game.random(Thank you for your patronage.|I hope you enjoy it.|A handy snack, is it not?)])]"));
+	    Main.game.appendToTextEndStringBuilder(this.incrementAffection(Main.game.getPlayer(), 3));
 	}
     }
     
     @Override
     public void dailyUpdate() {
 	
-	if (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_banished"))) {
-	    if (Main.game.getDateNow().getDayOfMonth() >= 1 && Main.game.getDateNow().getDayOfMonth() <= 3) {
+	if (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_banished"))) {
+	    if (Main.game.getDateNow().getDayOfMonth() >= 1 && Main.game.getDateNow().getDayOfMonth() <= 15) {
 		//Probably could reduce this to only update on the first day, but that might get annoying when adding items in future updates or for modders
 		clearNonEquippedInventory(false);	
 		for(AbstractItemType item : ItemType.getAllItems()) {
@@ -286,20 +288,19 @@ public class Eisek extends NPC {
 				this.addItem(Main.game.getItemGen().generateItem(item), !item.isConsumedOnUse()?1:(2+Util.random.nextInt(2)), false, false);
 			}
 		}
-		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_mob_quest_persuade")) &&
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_persuade")) &&
 			Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_EISEK_MOB)) {
 		    this.addItem(Main.game.getItemGen().generateItem("dsg_race_dragon_dragonfruit_yellow"), 1+Util.random.nextInt(1), false, false);
 		    this.addItem(Main.game.getItemGen().generateItem("dsg_race_dragon_dragonfruit_red"), 1+Util.random.nextInt(1), false, false);
 		    this.addItem(Main.game.getItemGen().generateItem("dsg_race_dragon_dragonfruit_pink"), 1+Util.random.nextInt(1), false, false);
 		}
 		if (this.getLocationPlaceType() != PlaceType.getPlaceTypeFromId("dsg_fields_elis_market_produce")) {
-		    this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town_market"), PlaceType.getPlaceTypeFromId("dsg_fields_elis_market_produce"));
+		    this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_market"), PlaceType.getPlaceTypeFromId("dsg_fields_elis_market_produce"));
 		}
 			
 	    } else {
 		//Shadow realm'd until his real home exists
 		this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE);
-		this.getLocation().getDistanceToVector(Main.game.getWorlds().get(WorldType.getWorldTypeFromId("innoxia_fields_elis_town_market")).getCell(PlaceType.getPlaceTypeFromId("dsg_fields_elis_market_produce")).getLocation());
 		
 	    }
 	}

@@ -62,7 +62,7 @@
 				]]></effects>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#eisek.getAffection(pc) > 15]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#eisek.getAffection(pc) >= 15]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[4]]></index>
 				<responseTitle><![CDATA[Other dragons]]></responseTitle>
@@ -77,12 +77,12 @@
 				]]></effects>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#(!pc.hasQuest(QUEST_LINE_EISEK_SIDE_MOB) && !pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_MOB))]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#(!pc.hasQuest(QUEST_LINE_SIDE_EISEK_MOB) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[5]]></index>
 				<responseTitle><![CDATA[Mob]]></responseTitle>
 				<responseTooltip><![CDATA[Ask Eisek about the mob that was around his stall the first time you met him.]]></responseTooltip>
-				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_mob]]></nextDialogue>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_ask_about_mob]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
 					#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_asked_about_mob))
@@ -91,17 +91,17 @@
 				]]></effects>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#(pc.hasQuest(QUEST_LINE_EISEK_SIDE_MOB) && !pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_MOB))]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#(pc.hasQuest(QUEST_LINE_SIDE_EISEK_MOB) && pc.isQuestProgressLessThan(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_TWO) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[5]]></index>
 				<responseTitle><![CDATA[Mob]]></responseTitle>
-				<responseTooltip><![CDATA[Probably best not bring up this topic back up without some results to show.]]></responseTooltip>
+				<responseTooltip><![CDATA[Probably best to not bring up this topic back up without some results to show.]]></responseTooltip>
 				<nextDialogue><![CDATA[null]]></nextDialogue>
 				<secondsPassed/>
 				<effects/>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#pc.hasQuestInLine(QUEST_LINE_EISEK_SIDE_MOB, QUEST_EISEK_MOB_STAGE_TWO_FAILED)]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#(pc.hasQuestInLine(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_TWO_FAILED) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[5]]></index>
 				<responseTitle><![CDATA[[style.boldBad(Mob)]]]></responseTitle>
@@ -109,11 +109,11 @@
 				<nextDialogue><![CDATA[dsg_characters_eisek_stall_mob_quest_complete]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(pc.setQuestFailed(QUEST_LINE_EISEK_SIDE_MOB, QUEST_EISEK_MOB_STAGE_TWO_FAILED))]
+					[#game.appendToTextEndStringBuilder(pc.setQuestFailed(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_TWO_FAILED))]
 				]]></effects>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#pc.hasQuestInLine(QUEST_EISEK_MOB_STAGE_THREE)]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#(pc.hasQuestInLine(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_THREE) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[5]]></index>
 				<responseTitle><![CDATA[[style.boldGood(Mob)]]]></responseTitle>
@@ -121,18 +121,19 @@
 				<nextDialogue><![CDATA[dsg_characters_eisek_stall_mob_quest_complete]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(pc.setQuestProgress(QUEST_LINE_EISEK_SIDE_MOB, SIDE_UTIL_COMPLETE))]
-					#IF(flags.hasFlag(elis_eisek_mob_quest_persuade))
-						[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_dsg_item_race_dragon_dragonfruit_yellow), 3, false, true))]
-						[#game.appendToTextStartStringBuilder(eisek.incrementAffection(pc,15))]
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_MOB, QUEST_SIDE_UTIL_COMPLETE))]
+					#IF(flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_persuade))
+						[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_dsg_race_dragon_dragonfruit_yellow), 3, false, true))]
+						[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc,15))]
+						[#flags.setSavedLong("elis_eisek_mob_quest_completion_date", game.getDayNumber())]
 					#ELSE
-						[#game.appendToTextStartStringBuilder(pc.incrementMoney(500)]
-						[#game.appendToTextStartStringBuilder(eisek.incrementAffection(pc,5))]
+						[#game.appendToTextEndStringBuilder(pc.incrementMoney(500))]
+						[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc,5))]
 					#ENDIF
 				]]></effects>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[#pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_MOB)]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[5]]></index>
 				<responseTitle><![CDATA[Mob]]></responseTitle>
@@ -142,7 +143,7 @@
 				<effects/>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[#pc.isQuestFailed(QUEST_LINE_EISEK_SIDE_MOB)]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#pc.isQuestFailed(QUEST_LINE_SIDE_EISEK_MOB)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[5]]></index>
 				<responseTitle><![CDATA[Ask about mob]]></responseTitle>
@@ -152,7 +153,7 @@
 				<effects/>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#eisek.getAffection(pc) > 15]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#eisek.getAffection(pc) >= 15]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[6]]></index>
 				<responseTitle><![CDATA[Why Elis?]]></responseTitle>
@@ -187,7 +188,7 @@
 				<effects/>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#eisek.getAffection(pc) > 15]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#eisek.getAffection(pc) >= 15 && flags.hasFlag(FLAG_dsg_elis_eisek_asked_himself)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[10]]></index>
 				<responseTitle><![CDATA[Family]]></responseTitle>
@@ -202,24 +203,28 @@
 				]]></effects>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#(flags.hasFlag(FLAG_dsg_elis_eisek_asked_about_mob) && !pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_MOB))]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#(flags.hasFlag(FLAG_dsg_elis_eisek_asked_about_mob) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[11]]></index>
 				<responseTitle><![CDATA[Dragonfall?]]></responseTitle>
 				<responseTooltip><![CDATA[Eisek mentioned something about 'the dragons of old' and a 'Dragonfall' when you asked him about the mob. What did he mean by that?]]></responseTooltip>
-				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_dragonfall_vague]]></nextDialogue>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_ask_about_dragonfall_vague]]></nextDialogue>
 				<secondsPassed/>
 				<effects/>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_MOB)]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[11]]></index>
 				<responseTitle><![CDATA[Dragonfall?]]></responseTitle>
 				<responseTooltip><![CDATA[You've earned the right to know the truth about the 'dragons of old'.]]></responseTooltip>
-				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_dragonfall_specific]]></nextDialogue>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_ask_about_dragonfall_specific]]></nextDialogue>
 				<secondsPassed/>
-				<effects/>
+				<effects><![CDATA[
+					#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_asked_about_mob))
+						[#flags.setFlag(FLAG_dsg_elis_eisek_asked_about_dragonfall_specific, true)]
+					#ENDIF
+				]]></effects>
 			</response>
 		</responses>
 	</scene>
@@ -233,7 +238,7 @@
 		<secondsPassed minutes="false"><![CDATA[10]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>false</travelDisabled>
-		<responses copyFromDialogueId="dsg_places_fields_market_produce"/>
+		<responses copyFromDialogueId="dsg_places_fields_elis_market_produce_stall"/>
 	</scene>
 	
 	<scene id="talk_himself">
@@ -311,10 +316,10 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Focus on mob]]></responseTitle>
 				<responseTooltip><![CDATA[Come up with a solution with Eisek's problem.]]></responseTooltip>
-				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_mob_quest_start]]></nextDialogue>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_mob_quest_start]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(pc.startQuest(QUEST_LINE_EISEK_SIDE_MOB))]
+					[#game.appendToTextEndStringBuilder(pc.startQuest(QUEST_LINE_SIDE_EISEK_MOB))]
 				]]></effects>
 			</response>
 			<response>
@@ -367,7 +372,7 @@
 		<title/>
 		<tooltip/>
 		<preParsingEffects/>
-		<content folderPath="txt/dsg/characters/eisek/stall">TALK_MOB_QUEST_START</content>
+		<content folderPath="txt/dsg/characters/eisek/stall">MOB_QUEST_START</content>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>

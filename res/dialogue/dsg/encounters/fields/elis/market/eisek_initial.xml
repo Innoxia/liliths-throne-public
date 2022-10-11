@@ -30,7 +30,7 @@
 				<nextDialogue stripContent="false"><![CDATA[dsg_encounters_fields_elis_market_eisek_initial_approach]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
-					[#flags.setFlag(FLAG_elis_eisek_introduced, true)]
+					[#flags.setFlag(FLAG_dsg_elis_eisek_introduced, true)]
 				]]></effects>
 				
 			</response>
@@ -109,7 +109,7 @@
 				<secondsPassed/>
 				<effects><![CDATA[
 					[#eisek.setPlayerKnowsName(true)]
-					[#eisek.incrementAffection(pc, 3)]
+					[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc, 3))]
 				]]></effects>
 				
 			</response>
@@ -121,9 +121,12 @@
 				<responseTooltip><![CDATA[There's no way you're going to let someone you don't even know take advantage of you.]]></responseTooltip>
 				<nextDialogue><![CDATA[dsg_encounters_fields_elis_market_eisek_initial_side_with_mob]]></nextDialogue>
 				<secondsPassed/>
-				<effects><![CDATA[
-					[#flags.setFlag(FLAG_elis_eisek_banished, true)]
-					[#pc.getLocationPlace().setPlaceType(PLACE_TYPE_dsg_fields_elis_market_produce_banished)]
+				<effects><![CDATA[					
+					[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_dsg_fields_elis_market_produce_banished)]
+					[#eisek.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_EMPTY_TILE)]
+					[#game.banishNPC(eisek)]
+					[#flags.setFlag(FLAG_dsg_elis_eisek_banished, true)]
+					[#flags.setSavedLong("elis_eisek_banished_date", game.getDayNumber())]
 				]]></effects>
 			</response>
 			
@@ -155,7 +158,7 @@
 				<responseTitle><![CDATA[Continue]]></responseTitle>
 				<responseTooltip><![CDATA[Nothing left to see here, might as well move on.]]></responseTooltip>
 				<colour><![CDATA[TEXT]]></colour>
-				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<nextDialogue><![CDATA[dsg_places_fields_elis_market_produce_banished_stall]]></nextDialogue>
 				<secondsPassed/>
 				<effects/>				
 			</response>
@@ -171,7 +174,7 @@
 		<tooltip/>				
 		<preParsingEffects/>		
 		
-		<content folderPath="txt/dsg/encounters/fields/elis/market/eisek_initial">PLAY_ALONG</content>		
+		<content folderPath="txt/dsg/encounters/fields/elis/market/eisek_initial">ENCOUNTER_PLAY_ALONG</content>		
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 				
 		<continuesDialogue><![CDATA[false]]></continuesDialogue>	

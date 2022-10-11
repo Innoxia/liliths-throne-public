@@ -1876,17 +1876,17 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_mob_quest_intimidate"))) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_intimidate"))) {
 			    return "You convinced the mob to leave Eisek alone with your intimidating physique.";
-			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_mob_quest_intimidate_arcane"))) {
+			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_intimidate_arcane"))) {
 			    return "You convinced the mob to leave Eisek alone with your arcane prowess.";
-			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_mob_quest_persuade"))) {
+			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_persuade"))) {
 			    if(!Main.game.isSillyModeEnabled()) {
 				return "You convinced the mob to leave Eisek alone with a heartfelt speech.";
 			    } else {
 				return "You destroyed the mob's arguments with FACTS and LOGIC.";
 			    }
-			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("elis_eisek_mob_quest_seduce"))) {
+			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_seduce"))) {
 			    return "You convinced the mob to leave Eisek alone by using your mastery of lust magic to fuel an orgy.";
 			} else {
 			    return "You weren't able to convince the mob to leave Eisek alone.";

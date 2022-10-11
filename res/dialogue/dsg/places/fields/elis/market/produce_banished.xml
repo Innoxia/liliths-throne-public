@@ -10,7 +10,7 @@
 		<preParsingEffects/>		
 		
 		<content folderPath="txt/dsg/places/fields/market/produce_banished">STALL</content>		
-		<secondsPassed minutes="false"><![CDATA[5]]></secondsPassed>
+		<secondsPassed minutes="false"><![CDATA[2]]></secondsPassed>
 				
 		<continuesDialogue><![CDATA[false]]></continuesDialogue>	
 		<travelDisabled><![CDATA[false]]></travelDisabled>	

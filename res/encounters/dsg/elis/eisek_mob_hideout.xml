@@ -8,10 +8,10 @@
 		<encounter>
 			<name><![CDATA[A Dragon Poster]]></name>
 			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
-				#IF(pc.hasQuest(QUEST_LINE_EISEK_SIDE_MOB) && !pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_MOB))
+				#IF(pc.hasQuest(QUEST_LINE_SIDE_EISEK_MOB) && pc.isQuestProgressLessThan(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_TWO))
 					10
-				#ELSEIF(pc.hasQuest(QUEST_LINE_EISEK_SIDE_MOB) && !pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_MOB) && pc.hasTraitActivated(PERK_OBSERVANT))
-					15
+				#ELSEIF(pc.hasQuest(QUEST_LINE_SIDE_EISEK_MOB) && pc.isQuestProgressLessThan(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_TWO) && pc.hasTraitActivated(PERK_OBSERVANT))
+					20
 				#ELSE
 					0
 				#ENDIF

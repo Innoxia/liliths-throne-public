@@ -8,13 +8,13 @@
 		<encounter>
 			<name><![CDATA[Heckling A Dragon]]></name>
 			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
-				#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_introduced) && eisek.getLocationPlace() == PLACE_TYPE_dsg_fields_elis_market_produce)
+				#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_introduced) && eisek.getLocationPlaceType() == PLACE_TYPE_dsg_fields_elis_market_produce)
 					100
 				#ELSE
 					0
 				#ENDIF
 			]]></chanceToTrigger>
-			<dialogueReturned><![CDATA[dsg_encounters_fields_elis_market_eisek_initial]]></dialogueReturned>
+			<dialogueReturned><![CDATA[dsg_encounters_fields_elis_market_eisek_initial_start]]></dialogueReturned>
 		</encounter>
 	</possibleEncounters>
 	

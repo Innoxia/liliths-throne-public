@@ -14,12 +14,9 @@
 	
 	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>false</sexBlockedFromCharacterPresent>
+	<colour>BASE_GREY</colour>
 	
-	<svgName/>
-	<colour/>
-	
-	<backgroundColour>MAP_BACKGROUND</backgroundColour>
-	
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>	
 	<encounterType/>
 	
 	<dialogue>dsg_places_fields_elis_market_produce_banished_stall</dialogue>

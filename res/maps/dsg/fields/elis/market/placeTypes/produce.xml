@@ -3,9 +3,9 @@
 	<worldRegion>FIELD_CITY</worldRegion>
 	
 	<name><![CDATA[
-	#IF(eisek.isPlayerKnowsName() && !pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_STALL))
+	#IF(eisek.isPlayerKnowsName() && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))
 		Eisek's Produce Stall
-	#ELSEIF(pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_STALL))
+	#ELSEIF(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))
 		Eisek's Alpine Produce
 	#ELSE
 		Produce Stall
@@ -39,7 +39,7 @@
 			#ENDIF
 			]]></conditional>
 	
-			<populationType plural="false" density="MANY">CROWD</populationType>
+			<populationType plural="true" density="ONE">CROWD</populationType>
 			
 			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
 		</population>
@@ -47,7 +47,7 @@
 		<population startMinutes="480" endMinutes="1139">
 			
 			<conditional><![CDATA[
-			#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && !pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_MOB) && !pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_STALL))
+			#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))
 				true
 			#ENDIF
 			]]></conditional>
@@ -60,7 +60,7 @@
 		<population startMinutes="480" endMinutes="1139">
 			
 			<conditional><![CDATA[
-			#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_MOB) && !pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_STALL))
+			#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))
 				true
 			#ENDIF
 			]]></conditional>
@@ -72,7 +72,7 @@
 		
 		<population day="true">
 			<conditional><![CDATA[
-			#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_MOB) && !pc.isQuestCompleted(QUEST_LINE_EISEK_SIDE_STALL))
+			#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))
 				true
 			#ENDIF
 			]]></conditional>

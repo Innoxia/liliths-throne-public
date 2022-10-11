@@ -24,20 +24,20 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Confront mob]]></responseTitle>
 				<responseTooltip><![CDATA[Follow the directions on the poster and confront the mob that has been harassing Eisek.
-				#IF(flags.getSavedLong("elis_eisek_talk_score") < 5 && 
+				#IF(flags.getSavedLong("elis_eisek_talk_score") < 4 && 
 					pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE) < 30 && 
 					pc.getAttributeValue(ATTRIBUTE_MAJOR_ARCANE) < 30 && 
-					!pc.isSpellSchoolSpecialAbilityUnlocked(SPELL_SCHOOL_LUST))
+					!pc.isSpellSchoolSpecialAbilityUnlocked(SPELL_SCHOOL_ARCANE))
 					<br/>[style.colourBad(You probably won't fare very well in your current state.)]
-				#ELSEIF (flags.getSavedLong("elis_eisek_talk_score") < 5)
+				#ELSEIF (flags.getSavedLong("elis_eisek_talk_score") < 4)
 					<br/>[style.colourBad(You don't know Eisek that well, so you'll likely have to use force.)]
 				#ENDIF
 				]]></responseTooltip>
 				<colour><![CDATA[TEXT]]></colour>
-				<nextDialogue stripContent="false"><![CDATA[dsg_encounters_fields_elis_market_eisek_mob_hideout_confront]]></nextDialogue>
+				<nextDialogue stripContent="false"><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_confront]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(pc.setQuestProgress(QUEST_LINE_EISEK_SIDE_MOB, QUEST_EISEK_MOB_STAGE_TWO))]
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_TWO))]
 				]]></effects>
 			</response>
 			
@@ -46,7 +46,7 @@
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Discard poster]]></responseTitle>
 				<responseTooltip><![CDATA[You don't want to confront the mob right now, but you can do a public service and rip the poster off the wall.]]></responseTooltip>
-				<nextDialogue><![CDATA[dsg_encounters_fields_elis_market_eisek_mob_hideout_discard_poster]]></nextDialogue>
+				<nextDialogue><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_discard_poster]]></nextDialogue>
 				<secondsPassed/>
 				<effects/>
 			</response>
@@ -76,7 +76,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Continue]]></responseTitle>
-				<responseTooltip/>
+				<responseTooltip><![CDATA[Be on your way.]]></responseTooltip>
 				<colour><![CDATA[TEXT]]></colour>
 				<nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
 				<secondsPassed/>
@@ -104,17 +104,17 @@
 		
 		<responses>			
 			<response>					
-				<availabilityConditional><![CDATA[[#flags.getSavedLong("elis_eisek_talk_score") >= 5]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#flags.getSavedLong("elis_eisek_talk_score") >= 4]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Persuade]]></responseTitle>
-				<responseTooltip><![CDATA[You know Eisek. There is no danger to start with.]]></responseTooltip>
+				<responseTooltip><![CDATA[You know Eisek. There is no danger to start with.<br/>[style.colourGood(Eisek would probably appreciate you solving this non-violently.)]]]></responseTooltip>
 				<colour><![CDATA[GENERIC_GOOD]]></colour>
-				<nextDialogue><![CDATA[dsg_encounters_fields_elis_market_eisek_mob_hideout_persuade]]></nextDialogue>
+				<nextDialogue><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_persuade]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
 					[#flags.setFlag(FLAG_dsg_elis_eisek_mob_quest_persuade, true)]
-					[#game.appendToTextStartStringBuilder(pc.setQuestProgress(QUEST_LINE_EISEK_SIDE_MOB, QUEST_EISEK_MOB_STAGE_THREE))]
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_THREE))]
 				]]></effects>				
 			</response>
 			
@@ -122,17 +122,17 @@
 				<availabilityConditional><![CDATA[[#(
 					pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE) < 30 && 
 					pc.getAttributeValue(ATTRIBUTE_MAJOR_ARCANE) < 30 && 
-					!pc.isSpellSchoolSpecialAbilityUnlocked(SPELL_SCHOOL_LUST))
+					!pc.isSpellSchoolSpecialAbilityUnlocked(SPELL_SCHOOL_ARCANE))
 				]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Intimidate]]></responseTitle>
 				<responseTooltip><![CDATA[They will leave Eisek alone, or uh...]]></responseTooltip>
 				<colour><![CDATA[TEXT]]></colour>
-				<nextDialogue><![CDATA[dsg_encounters_fields_elis_market_eisek_mob_hideout_intimidate_fail]]></nextDialogue>
+				<nextDialogue><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_intimidate_fail]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(pc.setQuestProgress(QUEST_LINE_EISEK_SIDE_MOB, QUEST_EISEK_MOB_STAGE_TWO_FAILED))]
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_TWO_FAILED))]
 				]]></effects>				
 			</response>
 			
@@ -143,7 +143,7 @@
 				<responseTitle><![CDATA[Intimidate]]></responseTitle>
 				<responseTooltip><![CDATA[They will leave Eisek alone, or else.]]></responseTooltip>
 				<colour><![CDATA[ATTRIBUTE_PHYSIQUE]]></colour>
-				<nextDialogue><![CDATA[dsg_encounters_fields_elis_market_eisek_mob_hideout_intimidate]]></nextDialogue>
+				<nextDialogue><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_intimidate]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
 					[#flags.setFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate, true)]
@@ -156,8 +156,8 @@
 				<index><![CDATA[3]]></index>
 				<responseTitle><![CDATA[Intimidate (Arcane)]]></responseTitle>
 				<responseTooltip><![CDATA[They will get a taste of your arcane prowess if they do not leave Eisek alone.]]></responseTooltip>
-				<colour><![CDATA[ATTRIBUTE_PHYSIQUE]]></colour>
-				<nextDialogue><![CDATA[dsg_encounters_fields_elis_market_eisek_mob_hideout_intimidate_arcane]]></nextDialogue>
+				<colour><![CDATA[ATTRIBUTE_ARCANE]]></colour>
+				<nextDialogue><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_intimidate_arcane]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
 					[#flags.setFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate_arcane, true)]
@@ -166,7 +166,7 @@
 			
 			<response>					
 				<availabilityConditional><![CDATA[[# 
-					pc.isSpellSchoolSpecialAbilityUnlocked(SPELL_SCHOOL_LUST)
+					pc.isSpellSchoolSpecialAbilityUnlocked(SPELL_SCHOOL_ARCANE)
 				]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[4]]></index>
@@ -244,18 +244,18 @@
 				<responseTitle><![CDATA[Fight]]></responseTitle>
 				<responseTooltip><![CDATA[Looks like you're going to have to prove your point!]]></responseTooltip>
 				<colour><![CDATA[GENERIC_COMBAT]]></colour>
-				<nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
-				<secondsPassed/>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
 				<effects/>
-				<combatVariables>
-					<nextDialoguePlayerVictory><![CDATA[dsg_encounters_fields_elis_market_eisek_mob_hideout_intimidate_won]]></nextDialoguePlayerVictory>
-					<nextDialoguePlayerDefeat><![CDATA[dsg_encounters_fields_elis_market_eisek_mob_hideout_intimidate_lost]]></nextDialoguePlayerDefeat>
+				<combatVariables enabled="true">
+					<nextDialoguePlayerVictory><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_intimidate_won]]></nextDialoguePlayerVictory>
+					<nextDialoguePlayerDefeat><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_intimidate_lost]]></nextDialoguePlayerDefeat>
 					<allies/>
 					<enemies>
 						<enemy leader="true"><![CDATA[muscle]]></enemy>
 					</enemies>
 					<openingDescriptions>
-						<combatant id="muscle"><![CDATA[[muscle.speech(Let's see if you're as strong as you think you are!) [muscle.name] shouts.]]]></combatant>
+						<combatant id="muscle"><![CDATA[[muscle.speech(Let's see if you're as strong as you think you are!)] [muscle.name] shouts.]]></combatant>
 					</openingDescriptions>
 					<escapeBlocked><![CDATA[true]]></escapeBlocked>
 				</combatVariables>
@@ -297,8 +297,8 @@
 				<secondsPassed/>
 				<effects/>
 				<combatVariables enabled="true">
-					<nextDialoguePlayerVictory><![CDATA[dsg_encounters_fields_elis_market_eisek_mob_hideout_intimidate_won]]></nextDialoguePlayerVictory>
-					<nextDialoguePlayerDefeat><![CDATA[dsg_encounters_fields_elis_market_eisek_mob_hideout_intimidate_lost]]></nextDialoguePlayerDefeat>
+					<nextDialoguePlayerVictory><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_intimidate_won]]></nextDialoguePlayerVictory>
+					<nextDialoguePlayerDefeat><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_intimidate_lost]]></nextDialoguePlayerDefeat>
 					<allies/>
 					<enemies>
 						<enemy leader="true"><![CDATA[muscle]]></enemy>
@@ -339,7 +339,7 @@
 				<nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(pc.setQuestProgress(QUEST_LINE_EISEK_SIDE_MOB, QUEST_EISEK_MOB_STAGE_THREE))]
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_THREE))]
 					[#game.banishNPC(muscle)]
 				]]></effects>	
 			</response>
@@ -373,7 +373,7 @@
 				<nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(pc.setQuestProgress(QUEST_LINE_EISEK_SIDE_MOB, QUEST_EISEK_MOB_STAGE_TWO_FAILED))]
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_TWO_FAILED))]
 					[#game.banishNPC(muscle)]
 				]]></effects>	
 			</response>
