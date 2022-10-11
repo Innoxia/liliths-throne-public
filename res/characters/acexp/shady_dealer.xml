@@ -16,7 +16,7 @@
       <monthOfBirth value="OCTOBER"/>
       <dayOfBirth value="21"/>
       <version value="0.4.6.3"/>
-      <history value="NPC_UNEMPLOYED"/>
+      <history value="NPC_TRADER"/>
       <elemental value=""/>
       <elementalSummoned value="false"/>
       <combatBehaviour value="BALANCED"/>
@@ -268,14 +268,11 @@
       <upgradeEntry points="0" school="ARCANE"/>
     </spellUpgradePoints>
     <fetishes>
-      <f xp="20">FETISH_PREGNANCY</f>
-      <f xp="190">FETISH_VAGINAL_RECEIVING</f>
-      <f xp="34">FETISH_VAGINAL_GIVING</f>
-      <f xp="108">FETISH_ORAL_GIVING</f>
-      <f xp="96">FETISH_ORAL_RECEIVING</f>
-      <f xp="86">FETISH_MASTURBATION</f>
-      <f xp="28">FETISH_ANAL_RECEIVING</f>
-      <f xp="176">FETISH_PENIS_RECEIVING</f>
+      <f desire="1" xp="20">FETISH_PREGNANCY</f>
+      <f desire="3" xp="190">FETISH_VAGINAL_RECEIVING</f>
+      <f desire="1" xp="108">FETISH_ORAL_GIVING</f>
+      <f desire="3" xp="96">FETISH_ORAL_RECEIVING</f>
+      <f desire="1" xp="86">FETISH_MASTURBATION</f>
     </fetishes>
     <fetishExperience/>
     <statusEffects>

@@ -12,7 +12,11 @@
    				#IF(!game.isStarted() || flags.hasFlag(FLAG_acexp_shady_dealer_found))
 	        		0
         		#ELSE
-                    75
+        		    #IF(game.getPlayer().hasAnyEnforcerStatusEffect())
+        		        0
+        		    #ELSE
+                        5
+                    #ENDIF
 			    #ENDIF
             ]]></chanceToTrigger>
             <dialogueReturned><![CDATA[acexp_dominion_shady_dealer_intro]]></dialogueReturned>

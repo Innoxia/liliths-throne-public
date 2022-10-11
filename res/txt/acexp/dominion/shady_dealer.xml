@@ -8,7 +8,7 @@
 		You find yourself walking through labyrinthine alleyways, with not a soul in sight. Back-doors and steaming vents line the dark brick walls, and you often have to navigate around overflowing bins and stacks of empty crates in order to make progress.<br/><br/>
 	#IF(flags.hasSavedLong('AceXpShadyDealer'))
 		Once again you hear a voice coming from behind one of those stacks of crates.<br/>
-		[style.speechAndrogynous(Hey, we meet again. Do you want to make a deal?)]<br/><br/>
+		[style.speechAndrogynous(Hey, we meet again. Do you want to make a deal? Still no questions asked, of course.)]<br/><br/>
 		Knowing that you have once again come across that shady dealer, you take a moment to decide what to do.
 	#ELSE
 	    Suddenly you hear a voice coming from behind one of those stacks of crates.<br/>
@@ -25,8 +25,8 @@
 	    Approaching the stack of crates, you see the shady dealer once again.<br/><br/>
 	    Quickly looking you up and down they say: [style.speechAndrogynous(You know the drill, don't ya. Only the best wares, for bargain prices! But make it quick, I don't want any more trouble with the Enforcers than I already have!)]<br/><br/>
 	#ELSE
-		Carefully approaching the stack of crates, you see the person addressing you. They have a quite androgynous look, and are mostly clad in dark clothes. Casting a quick glance left and right to check if anyone else is around they start what is probably a well rehearsed sales pitch:<br/>
-		[style.speechAndrogynous(I have only the best wares, you won't find anything like this anywhere else, I guarantee you! All for a price of course! Oh, and if you happen to have come across some interesting items, just show 'em! I might take them off your hands. Can't offer much though, you know, money being tight.)]<br/><br/>
+		Carefully approaching the stack of crates, you see the person addressing you. The single horn on their forehead, horse like appearance and powerful wings identify them as an alicorn. You get the feeling that they are quite proficient at magic, but right now they don't seem to pose a threat. They have a quite androgynous look, and are mostly clad in dark clothes. Bits of their gear seem to be illegally purloined from the Enforcers, and the many pockets on their trousers, shirt and jacket are bulging with various items that are tucked away in them. Casting a quick glance left and right to check if anyone else is around they start what is probably a well rehearsed sales pitch:<br/>
+		[style.speechAndrogynous(I have only the best wares, you won't find anything like this anywhere else, I guarantee you! All for a price of course! Oh, and if you happen to have come across some interesting items, just show 'em! I might want to take them off your hands. Can't offer much though, you know, money being tight.)]<br/><br/>
 	#ENDIF
 	    You take a moment to consider if you should make a deal with this shady trader.
 	</p>
