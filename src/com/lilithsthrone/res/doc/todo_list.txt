@@ -15,6 +15,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added 'panda' as a subspecies to the 'bear' race. (PR#1697 by DSG)
 		Balanced the flame value calculations for enchanted items, clothing and weapons. (PR#1695 by Maxis010)
 		Improved error reporting for parser state errors and improved the parser so that it skips svg files within the parsed input. (PR#1690 by CognitiveMist)
+		Added a specific flag to indicate the player's lilin heritage rather than just checking if they are a demon. (PR#1688 by MintyChip)
 	
 	Other:
 		The 'Crotch-boobs & Udders' body setting now only applies to randomly-generated NPCs at the moment of their creation (as was stated in the option's tooltip), allowing all characters to gain crotch-boobs/udders via TF no matter the setting.
