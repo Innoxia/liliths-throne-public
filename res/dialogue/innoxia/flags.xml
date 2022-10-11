@@ -32,7 +32,9 @@
 			<flag dailyReset="false">meraxis_duel_reward_money</flag>
 			<flag dailyReset="false">meraxis_duel_reward_transform</flag>
 			<flag dailyReset="false">meraxis_duel_reward_sex</flag>
-	
+
+	<!-- Lilin Relations: -->
+		<flag dailyReset="false">child_of_lyssieth</flag>
 	
 	<!-- Foloi Fields: -->
 		

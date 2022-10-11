@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.lilithsthrone.game.dialogue.DialogueFlags;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -896,7 +897,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	@Override
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
 		if(character instanceof Lilaya) {
-			if(this.getRace()==Race.DEMON) {
+			if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
 				Set<Relationship> rSet = new LinkedHashSet<>();
 				rSet.add(Relationship.HalfSibling);
 				rSet.add(Relationship.Nibling);
@@ -904,7 +905,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			}
 			return Util.newHashSetOfValues(Relationship.Nibling);
 		}
-		if(this.getRace()==Race.DEMON) {
+		if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
 			if(character instanceof Lyssieth) {
 				return Util.newHashSetOfValues(Relationship.Parent);
 			}
@@ -914,7 +915,15 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		}
 		return super.getRelationshipsTo(character, excludedRelationships);
 	}
-	
+
+	public GameCharacter getLilinMother(){
+		DialogueFlags dialogueFlags = Main.game.getDialogueFlags();
+		if(dialogueFlags.hasFlag("innoxia_child_of_lyssieth")){
+			return Main.game.getNpc(Lyssieth.class);
+		}
+		return null;
+	}
+
 	// Quests:
 
 	public void resetAllQuests() {

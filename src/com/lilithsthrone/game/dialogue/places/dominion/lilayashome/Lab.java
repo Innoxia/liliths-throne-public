@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
+import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
@@ -53,7 +54,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 public class Lab {
 	
 	public static boolean isLilayaAngryAtPlayerDemonTF() {
-		return Main.game.getPlayer().getTrueRace()==Race.DEMON
+		return Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")
 				&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN)
 				&& Main.game.getNpc(Lilaya.class).getSubspeciesOverride()!=Subspecies.DEMON;
 	}
