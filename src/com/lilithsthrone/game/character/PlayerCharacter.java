@@ -919,8 +919,25 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		DialogueFlags dialogueFlags = Main.game.getDialogueFlags();
 		if(dialogueFlags.hasFlag("innoxia_child_of_lyssieth")){
 			return Main.game.getNpc(Lyssieth.class);
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lunette")){
+			//TODO
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lirecea")){
+			//TODO
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lovienne")){
+			//TODO
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lasielle")){
+			//TODO
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lyxias")){
+			//TODO
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lisophia")){
+			//TODO
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lilith")){
+			//TODO
 		}
-		return null;
+		
+		System.err.println("Warning: Did not find a suitable lilin in getLilinMother()!");
+		new Exception().printStackTrace();
+		return Main.game.getNpc(Lyssieth.class);
 	}
 
 	// Quests:

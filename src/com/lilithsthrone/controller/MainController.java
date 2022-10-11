@@ -1511,6 +1511,7 @@ public class MainController implements Initializable {
 		} else if (currentNode.equals(CharacterCreation.CHOOSE_SEX_EXPERIENCE)
 				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_FINISH)) {
 			CreationController.initSexExperienceListeners();
+			CreationController.initFetishListeners();
 		} else if (currentNode.equals(CharacterCreation.IMPORT_CHOOSE)) {
 			FileController.initPlayerImportListeners();
 		} else if (currentNode.equals(CharactersPresentDialogue.MENU)) {
