@@ -897,13 +897,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	@Override
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
 		if(character instanceof Lilaya) {
+			Set<Relationship> rSet = new LinkedHashSet<>();
+			rSet.add(Relationship.Nibling);
 			if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
-				Set<Relationship> rSet = new LinkedHashSet<>();
 				rSet.add(Relationship.HalfSibling);
-				rSet.add(Relationship.Nibling);
-				return rSet;
 			}
-			return Util.newHashSetOfValues(Relationship.Nibling);
+			return rSet;
 		}
 		if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
 			if(character instanceof Lyssieth) {

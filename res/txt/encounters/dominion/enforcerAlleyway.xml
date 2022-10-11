@@ -1278,7 +1278,7 @@
 			[npc2.speech(Wait, what?!)] [npc2.name] exclaims, [npc2.speech(Demons can't transform like that!)]
 		</p>
 		<p>
-			Informing the Enforcers that your abilities come from being a direct [pc.daughter] of #IF(pc.getLilinMother()!=null)[#pc.getLilinMother().name()]#ELSEa lilin#ENDIF herself, you again ask them if they're planning on treating you any differently now that you've revealed your demonic form. Just as expected, the two officers seem suitably impressed and intimidated, and they quickly start apologising for wasting your time. Smugly smirking at them in triumphant glee, you quickly self-transform back into your previous form, before wondering what to do next...
+			Informing the Enforcers that your abilities come from being a direct [pc.daughter] of #IF(pc.getLilinMother()!=null)[#pc.getLilinMother().getName()]#ELSEa lilin#ENDIF herself, you again ask them if they're planning on treating you any differently now that you've revealed your demonic form. Just as expected, the two officers seem suitably impressed and intimidated, and they quickly start apologising for wasting your time. Smugly smirking at them in triumphant glee, you quickly self-transform back into your previous form, before wondering what to do next...
 		</p>
 	#ENDIF
 	]]>

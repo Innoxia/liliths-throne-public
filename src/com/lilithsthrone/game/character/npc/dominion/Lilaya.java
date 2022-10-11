@@ -57,7 +57,6 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -421,13 +420,13 @@ public class Lilaya extends NPC {
 	@Override
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
 		if(character.isPlayer()) {
+			Set<Relationship> rSet = new LinkedHashSet<>();
+			rSet.add(Relationship.Pibling);
 			if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
-				Set<Relationship> rSet = new LinkedHashSet<>();
 				rSet.add(Relationship.HalfSibling);
-				rSet.add(Relationship.Pibling);
 				return rSet;
 			}
-			return Util.newHashSetOfValues(Relationship.Pibling);
+			return rSet;
 		}
 		return super.getRelationshipsTo(character, excludedRelationships);
 	}
