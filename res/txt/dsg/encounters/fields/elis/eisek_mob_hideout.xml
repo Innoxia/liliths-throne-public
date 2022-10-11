@@ -125,7 +125,7 @@
 		#ELSEIF(pc.hasSpell(SPELL_POISON_VAPOURS))
 			You summon a few wisps of a poisonous vapour and swirl them around the room.
 		#ELSEIF(pc.hasSpell(SPELL_ICE_SHARD))
-			You cast a shard of ice right that flies right between the donkey-boy's legs and freezes patch of floor beneath his chair.
+			You cast a shard of ice that flies right between the donkey-boy's legs and freezes a patch of floor beneath his chair.
 		#ELSEIF(pc.hasSpell(SPELL_ARCANE_CHAIN_LIGHTNING) || pc.hasSpell(SPELL_ARCANE_LIGHTNING_SUPERBOLT))
 			You send a thin bolt of arcane lightning right between the donkey-boy's legs that scorches the floor beneath his chair.
 		#ELSE

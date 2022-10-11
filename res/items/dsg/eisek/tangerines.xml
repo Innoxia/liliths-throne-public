@@ -59,10 +59,10 @@
 
 	<useDescriptions>
 		<selfUse><![CDATA[
-			[npc.Name] [npc.verb(find)] the tangerine surprisingly easy to peel and [npc.verb(start)] eating it wedge by wedge. It doesn't take long to consume the whole thing.
+			[npc.Name] [npc.verb(find)] the tangerine surprisingly easy to peel and [npc.verb(start)] eating it wedge by wedge. It doesn't take long to consume the whole thing after that...
 		]]></selfUse>
 		<otherUse><![CDATA[
-			[npc.Name] [npc.verb(find)] the tangerine surprisingly easy to peel and [npc.verb(start)] feeding it to [npc2.name] wedge by wedge. It doesn't take long to empty the carton after that...
+			[npc.Name] [npc.verb(find)] the tangerine surprisingly easy to peel and [npc.verb(start)] feeding it to [npc2.name] wedge by wedge. It doesn't take long to consume the whole thing after that...
 		]]></otherUse>
 	</useDescriptions>
 
