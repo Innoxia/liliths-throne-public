@@ -1078,29 +1078,28 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			modifier -= 0.25f;
 		}
 		
-		if(getColour(0)==PresetColour.CLOTHING_PLATINUM) {
-			modifier += 0.2f;
-			
-		} else if(getColour(0)==PresetColour.CLOTHING_GOLD) {
-			modifier += 0.15f;
-			
-		} else if(getColour(0)==PresetColour.CLOTHING_ROSE_GOLD) {
-			modifier += 0.1f;
-			
-		} else if(getColour(0)==PresetColour.CLOTHING_SILVER) {
-			modifier += 0.05f;
-		}
-		
-		for(ItemEffect e : this.getEffects()) {
-			if(e.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE) {
-				modifier += e.getPotency().getClothingBonusValue()*0.05f;
-				
-			} else if(e.getPrimaryModifier()==TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
-				modifier += e.getPotency().getClothingBonusValue()*0.1f;
-				
-			} else {
-				modifier += e.getPotency().getValue()*0.025f;
+		if(this.getEffects()!=null) {
+			List<TFModifier> types = effects.stream().map(ItemEffect::getPrimaryModifier).collect(Collectors.toList());
+			float typeModifier = 0.1f;
+			boolean clothingBonus = false;
+			if (types.contains(TFModifier.CLOTHING_MAJOR_ATTRIBUTE)) {
+				typeModifier = 0.75f;
+				clothingBonus = true;
+			} else if (types.contains(TFModifier.CLOTHING_ATTRIBUTE)) {
+				typeModifier = 0.35f;
+				clothingBonus = true;
 			}
+			
+			List<TFPotency> potencies = effects.stream().map(ItemEffect::getPotency).collect(Collectors.toList());
+			if (potencies.contains(TFPotency.MAJOR_BOOST)) {
+				modifier += (clothingBonus?TFPotency.MAJOR_BOOST.getClothingBonusValue():TFPotency.MAJOR_BOOST.getValue())*typeModifier;
+			} else if (potencies.contains(TFPotency.BOOST)) {
+				modifier += (clothingBonus?TFPotency.BOOST.getClothingBonusValue():TFPotency.BOOST.getValue())*typeModifier;
+			} else if (potencies.contains(TFPotency.MINOR_BOOST)) {
+				modifier += (clothingBonus?TFPotency.MINOR_BOOST.getClothingBonusValue():TFPotency.MINOR_BOOST.getValue())*typeModifier;
+			}
+			
+			modifier += effects.size()*0.01f;
 		}
 		
 		if(getClothingType().getClothingSet()!=null) {

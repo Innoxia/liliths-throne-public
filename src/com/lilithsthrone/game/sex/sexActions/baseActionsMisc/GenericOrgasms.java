@@ -1823,6 +1823,9 @@ public class GenericOrgasms {
 								case BLUEBERRY:
 									cumTargetSB.append(" The taste of [npc.namePos] blueberry-flavoured");
 									break;
+								case BANANA:
+									cumTargetSB.append(" The taste of [npc.namePos] banana-flavoured");
+									break;
 							}
 							cumTargetSB.append(" cum rises up to hit your [npc2.tongue], and you");
 							if(target.hasFetish(Fetish.FETISH_CUM_ADDICT) || Main.sex.getCharactersRequestingCreampie().contains(target) || Main.sex.getCharactersRequestingKnot().contains(target)) {
