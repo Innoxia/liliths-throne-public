@@ -95,7 +95,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[5]]></index>
 				<responseTitle><![CDATA[Mob]]></responseTitle>
-				<responseTooltip><![CDATA[Probably best to not bring up this topic back up without some results to show.]]></responseTooltip>
+				<responseTooltip><![CDATA[Probably best to not bring this topic back up without some results to show.]]></responseTooltip>
 				<nextDialogue><![CDATA[null]]></nextDialogue>
 				<secondsPassed/>
 				<effects/>
@@ -315,7 +315,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Focus on mob]]></responseTitle>
-				<responseTooltip><![CDATA[Come up with a solution with Eisek's problem.]]></responseTooltip>
+				<responseTooltip><![CDATA[Come up with a solution to Eisek's problem.]]></responseTooltip>
 				<nextDialogue><![CDATA[dsg_characters_eisek_stall_mob_quest_start]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[

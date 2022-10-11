@@ -270,8 +270,8 @@
 		
 		<tooltip/>				
 		<preParsingEffects><![CDATA[
-			[#game.addNPC('fields.ElisAlleywayAttacker', 'muscle')]
-			[#game.setActiveNPC(muscle)]
+			[#game.addNPC('fields.ElisAlleywayAttacker', 'dsg_muscle')]
+			[#game.setActiveNPC(dsg_muscle)]
 			[#npc.setHistory(OCCUPATION_NPC_MUGGER)]
 			[#npc.equipClothing()]
 			[#npc.setLocation(pc, true)]
@@ -301,10 +301,10 @@
 					<nextDialoguePlayerDefeat><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_intimidate_lost]]></nextDialoguePlayerDefeat>
 					<allies/>
 					<enemies>
-						<enemy leader="true"><![CDATA[muscle]]></enemy>
+						<enemy leader="true"><![CDATA[dsg_muscle]]></enemy>
 					</enemies>
 					<openingDescriptions>
-						<combatant id="muscle"><![CDATA[[muscle.speech(Spell this, spell that. You won't even be able to spell your own name after I'm done with you!) [muscle.name] shouts.]]]></combatant>
+						<combatant id="dsg_muscle"><![CDATA[[dsg_muscle.speech(Spell this, spell that. You won't even be able to spell your own name after I'm done with you!) [dsg_muscle.name] shouts.]]]></combatant>
 					</openingDescriptions>
 					<escapeBlocked><![CDATA[true]]></escapeBlocked>
 				</combatVariables>
