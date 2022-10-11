@@ -1338,7 +1338,11 @@ public class UtilText {
 				{
 					int errContext = 30;
 					errMsg.append("\nContext:  " + input.substring(Math.max(0, startIndex - errContext), Math.min(input.length(), startIndex + errContext)));
-					errMsg.append("\nLocation: " + "-".repeat(Math.min(errContext, startIndex)) + "^");
+					errMsg.append("\nLocation: ");// + "-".repeat(Math.min(errContext, startIndex)) + "^"); // .repeat was introduced in Java 11 and I use an older version
+					for(int i=0;i<Math.min(errContext, startIndex);i++) {
+						errMsg.append("-");
+					}
+					errMsg.append("^");
 				}
 				System.err.println(errMsg);
 				parsingCharactersForSpeech = parsingCharactersForSpeechSaved;
