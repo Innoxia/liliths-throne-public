@@ -11,7 +11,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Reworked Controller classes and improved UI handling, as well as added a 4th +/- button to the fluid storage and regeneration transformation menus. (PR#1713 by Maxis010)
 		Fixed issue where subspecies changes for dragons, coatls, and gryphons didn't account for taur/lamia leg configurations when assigning minimum wing size. (by MintyChip)
 		Added 'banana' as a new fluid flavouring. (PR#1696 by DSG)
-		Added mythical 'salamander' race, with two subspecies; 'flame salanaders' and 'frost salamanders'. (PR#1707 by MintyChip)
+		Added mythical 'salamander' race, with two subspecies; 'flame salamanders' and 'frost salamanders'. (PR#1707 by MintyChip)
 		Added 'panda' as a subspecies to the 'bear' race. (PR#1697 by DSG)
 		Balanced the flame value calculations for enchanted items, clothing and weapons. (PR#1695 by Maxis010)
 	
@@ -25,7 +25,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed several rendering issue with the buyback menu.
 		Fixed issue where the women's watch in character creation had random primary and secondary colours.
 		Fixed bug where penile virginity losses would be reset at the end of character creation.
-	
+		World and place names in the UI are now correctly parsed.
 	
 	
 	[x] Test
