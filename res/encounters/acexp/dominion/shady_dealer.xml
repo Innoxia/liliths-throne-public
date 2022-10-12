@@ -4,7 +4,7 @@
     <additionalPlaceTypeTriggers>
         <placeType>DOMINION_BACK_ALLEYS</placeType>
     </additionalPlaceTypeTriggers>
-
+    <!--Not during loading, only once per day, no one present and player does not look like an Enforcer-->
     <possibleEncounters>
         <encounter>
             <name><![CDATA[Shady Dealer]]></name>
@@ -12,10 +12,10 @@
    				#IF(!game.isStarted() || flags.hasFlag(FLAG_acexp_shady_dealer_found))
 	        		0
         		#ELSE
-        		    #IF(game.getPlayer().hasAnyEnforcerStatusEffect())
+        		    #IF(game.getCharactersPresent().length > 0 || game.getPlayer().hasAnyEnforcerStatusEffect())
         		        0
         		    #ELSE
-                        5
+                        75
                     #ENDIF
 			    #ENDIF
             ]]></chanceToTrigger>

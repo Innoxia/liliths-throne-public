@@ -138,27 +138,7 @@ public class moddedCharacter extends NPC {
 			this.setPlayerKnowsName(false);
 			setDescription(UtilText.parse(this,
 					"[npc.Name] is a [npc.fullRace]."));
-			
-			// PERSONALITY & BACKGROUND:
-			
-			Main.game.getCharacterUtils().setHistoryAndPersonality(this, false);
-			
-			// ADDING FETISHES:
-			
-			Main.game.getCharacterUtils().addFetishes(this);
-			
-			// BODY RANDOMISATION:
-			
-			Main.game.getCharacterUtils().randomiseBody(this, true);
-			
-			// INVENTORY:
-			
-			resetInventory(true);
-			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 
-			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
-			Main.game.getCharacterUtils().applyMakeup(this, true);
-			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
 			this.setStartingCombatMoves();

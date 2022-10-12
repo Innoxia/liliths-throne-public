@@ -75,12 +75,6 @@
         <bodyCovering c1="COVERING_WHITE" c2="COVERING_WHITE" modifier="FLUID" pattern="FLUID" type="CUM"/>
         <bodyCovering c1="COVERING_CLEAR" c2="COVERING_CLEAR" modifier="FLUID" pattern="FLUID" type="GIRL_CUM"/>
         <bodyCovering c1="COVERING_WHITE" c2="COVERING_WHITE" modifier="FLUID" pattern="FLUID" type="MILK"/>
-        <bodyCovering c1="COVERING_RED" c2="COVERING_NONE" modifier="MAKEUP" pattern="NONE" type="MAKEUP_BLUSHER"/>
-        <bodyCovering c1="COVERING_BLACK" c2="COVERING_NONE" modifier="MAKEUP" pattern="NONE" type="MAKEUP_EYE_LINER"/>
-        <bodyCovering c1="COVERING_INDIGO" c2="COVERING_NONE" modifier="SPARKLY" pattern="NONE" type="MAKEUP_EYE_SHADOW"/>
-        <bodyCovering c1="COVERING_RED_DARK" c2="COVERING_NONE" modifier="SPARKLY" pattern="NONE" type="MAKEUP_LIPSTICK"/>
-        <bodyCovering c1="COVERING_INDIGO" c2="COVERING_NONE" modifier="SPARKLY" pattern="NONE" type="MAKEUP_NAIL_POLISH_HANDS"/>
-        <bodyCovering c1="COVERING_INDIGO" c2="COVERING_NONE" modifier="SPARKLY" pattern="NONE" type="MAKEUP_NAIL_POLISH_FEET"/>
       </bodyCore>
       <antennae antennaePerRow="2" length="22" rows="1" type="NONE"/>
       <arm rows="1" type="HUMAN" underarmHair="ZERO_NONE"/>
