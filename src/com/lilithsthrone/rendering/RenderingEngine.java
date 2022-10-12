@@ -1236,12 +1236,12 @@ public enum RenderingEngine {
 			
 			return "<div class='full-width-container'>"
 						+ "<p class='character-name' style='color:"+ mainTitleColour + ";'>"
-							+ Util.capitaliseSentence(mainTitle)
+							+ Util.capitaliseSentence(Util.capitaliseSentence(UtilText.parse(mainTitle)))
 						+ "</p>"
 					+ "</div>"
 					+ "<div class='full-width-container' style='margin:0;padding:0;'>"
 						+ "<p style='text-align:center;"+ (placeColour.isEmpty()?"":" color:"+placeColour+";")+ "'>"
-							+ Util.capitaliseSentence(placeTitle)
+							+ Util.capitaliseSentence(Util.capitaliseSentence(UtilText.parse(placeTitle)))
 						+"</p>"
 					+ "</div>";
 		}

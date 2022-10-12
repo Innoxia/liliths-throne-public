@@ -269,7 +269,7 @@ public class Eisek extends NPC {
     
     @Override
     public void applyItemTransactionEffects(AbstractCoreItem itemSold, int quantity, int individualPrice, boolean soldToPlayer) {
-	if(soldToPlayer && (this.getAffection(Main.game.getPlayer()) < 3)) {
+	if(soldToPlayer && (this.getAffection(Main.game.getPlayer()) < 15)) {
 	    Main.game.appendToTextEndStringBuilder(UtilText.parse(this, "[eisek.speech([game.random(Thank you for your patronage.|I hope you enjoy it.|A handy snack, is it not?)])]"));
 	    Main.game.appendToTextEndStringBuilder(this.incrementAffection(Main.game.getPlayer(), 3));
 	}
@@ -279,7 +279,7 @@ public class Eisek extends NPC {
     public void dailyUpdate() {
 	
 	if (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_banished"))) {
-	    if (Main.game.getDateNow().getDayOfMonth() >= 1 && Main.game.getDateNow().getDayOfMonth() <= 15) {
+	    if (Main.game.getDateNow().getDayOfMonth() >= 1 && Main.game.getDateNow().getDayOfMonth() <= 3) {
 		//Probably could reduce this to only update on the first day, but that might get annoying when adding items in future updates or for modders
 		clearNonEquippedInventory(false);	
 		for(AbstractItemType item : ItemType.getAllItems()) {
