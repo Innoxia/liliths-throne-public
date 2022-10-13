@@ -143,82 +143,24 @@ jobs:
       - name: version
         run: echo "::set-output name=version::${GITHUB_REF#refs/*/}"
         id: version
-      
-      - name: release
-        uses: actions/create-release@v1
-        id: create_release
-        with:
-          draft: false
-          prerelease: false
-          release_name: ${{ steps.version.outputs.version }}
-          tag_name: ${{ github.ref }}
-          body_path: CHANGELOG.md
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-      
+
       - run: mkdir staging
 
       - name: donwload generated artifacts
         uses: actions/download-artifact@v3
         with:
           path: ./staging
-
-      - name: upload linux artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "./staging/Lilith's Throne (linux)/Lilith's Throne (linux).zip"
-          asset_name: "Lilith's Throne ${{ steps.version.outputs.version }} (linux).zip"
-          asset_content_type: application/zip
-
-      - name: upload linux-aarch64 artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "./staging/Lilith's Throne (linux-aarch64)/Lilith's Throne (linux-aarch64).zip"
-          asset_name: "Lilith's Throne ${{ steps.version.outputs.version }} (linux-aarch64).zip"
-          asset_content_type: application/zip
       
-      - name: upload win artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "./staging/Lilith's Throne (win)/Lilith's Throne (win).zip"
-          asset_name: "Lilith's Throne ${{ steps.version.outputs.version }} (win).zip"
-          asset_content_type: application/zip
-      
-      - name: upload win-x86 artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "./staging/Lilith's Throne (win-x86)/Lilith's Throne (win-x86).zip"
-          asset_name: "Lilith's Throne ${{ steps.version.outputs.version }} (win-x86).zip"
-          asset_content_type: application/zip
-
-      - name: upload mac artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "./staging/Lilith's Throne (mac)/Lilith's Throne (mac).zip"
-          asset_name: "Lilith's Throne ${{ steps.version.outputs.version }} (mac).zip"
-          asset_content_type: application/zip
-
-      - name: upload mac-aarch64 artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "./staging/Lilith's Throne (mac-aarch64)/Lilith's Throne (mac-aarch64).zip"
-          asset_name: "Lilith's Throne ${{ steps.version.outputs.version }} (mac-aarch64).zip"
-          asset_content_type: application/zip
+          body_path: CHANGELOG.md
+          token: ${{ github.token }}
+          files: |
+            "./staging/Lilith's Throne (linux)/Lilith's Throne (linux).zip"
+            "./staging/Lilith's Throne (linux-aarch64)/Lilith's Throne (linux-aarch64).zip"
+            "./staging/Lilith's Throne (win)/Lilith's Throne (win).zip"
+            "./staging/Lilith's Throne (win-x86)/Lilith's Throne (win-x86).zip"
+            "./staging/Lilith's Throne (mac)/Lilith's Throne (mac).zip"
+            "./staging/Lilith's Throne (mac-aarch64)/Lilith's Throne (mac-aarch64).zip"
