@@ -98,7 +98,7 @@ public class Main extends Application {
 	 */
 	public final static boolean DEBUG = Boolean.valueOf(System.getProperty("debug", "false"));
 
-	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
+	public static final String WINDOW_IMAGE_PATH = "/com/lilithsthrone/res/images/windowIcon32.png";
 	
 	private static Properties properties;
 	
@@ -461,7 +461,7 @@ public class Main extends Application {
 			}
 		});
 
-		Main.primaryStage.getIcons().add(WINDOW_IMAGE);
+		Main.primaryStage.getIcons().add(new Image(WINDOW_IMAGE_PATH));
 
 		Main.primaryStage.setTitle(GAME_NAME+" " + VERSION_NUMBER + " " + VERSION_DESCRIPTION+(DEBUG?" (Debug Mode)":""));
 
@@ -641,8 +641,7 @@ public class Main extends Application {
 		return patchNotes;
 	}
 
-	public static void main(String[] args) {
-		
+	public static void init_env() {
 		// Create folders:
 		File dir = new File("data/");
 		dir.mkdir();
@@ -678,7 +677,7 @@ public class Main extends Application {
 				
 				
 //				System.err.println("OS: "+System.getProperty("os.name"));
-				
+
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -695,7 +694,10 @@ public class Main extends Application {
 			properties = new Properties();
 			properties.savePropertiesAsXML();
 		}
+	}
 
+	public static void main(String[] args) {
+		init_env();
 		launch(args);
 	}
 	
