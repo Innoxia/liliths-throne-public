@@ -551,7 +551,7 @@ public class LyssiethPalaceDialogue {
 				}
 				
 			} else if(index==11) { // Teleport
-				if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon)) {
+				if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth") && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon)) {
 					return new Response("Lilaya's lab", "Lyssieth is unwilling to face her daughter until you've broken the news to her that you're now a full demon. You'll have to make your own way back to the lab...", null);
 				}
 
@@ -729,8 +729,8 @@ public class LyssiethPalaceDialogue {
 						((Lyssieth)Main.game.getNpc(Lyssieth.class)).growCock(PenisType.HUMAN);
 					}
 				};
-				
-			} else if(index==3 && Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
+
+			} else if(index==3 && Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
 				return new ResponseSex("Use pussy (lilin)",
 						"Tell Lyssieth that you want her to take on her lilin form, and that you want to use her pussy.",
 						true,
@@ -761,7 +761,7 @@ public class LyssiethPalaceDialogue {
 					}
 				};
 				
-			} else if(index==4 && Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
+			} else if(index==4 && Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
 				return new ResponseSex("Grow cock (lilin)",
 						"Tell Lyssieth that you want her to take on her lilin form, and that she should grow a cock.",
 						true,
@@ -867,6 +867,7 @@ public class LyssiethPalaceDialogue {
 					}
 					@Override
 					public void effects() {
+						Main.game.getDialogueFlags().setFlag("innoxia_child_of_lyssieth", true);
 						// Lyssieth strips and transforms to full lilin
 						((Lyssieth) Main.game.getNpc(Lyssieth.class)).setLilinBody();
 						for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
@@ -888,6 +889,7 @@ public class LyssiethPalaceDialogue {
 					}
 					@Override
 					public void effects() {
+						Main.game.getDialogueFlags().setFlag("innoxia_child_of_lyssieth", true);
 						// Lyssieth strips and transforms to full lilin
 						((Lyssieth) Main.game.getNpc(Lyssieth.class)).setLilinBody();
 						Main.game.getNpc(Lyssieth.class).setPenisType(PenisType.NONE);

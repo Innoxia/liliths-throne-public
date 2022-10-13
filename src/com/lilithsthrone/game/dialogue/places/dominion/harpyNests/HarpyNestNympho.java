@@ -228,7 +228,7 @@ public class HarpyNestNympho {
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyNympho.lips+]."
 						+ "</p>"
 						+ "<p>"
-							+ "[harpyNympho.Name] responds to your dominant move by letting out a excited squeal, and, enthusiastically wrapping her wings around your back, she passionately starts returning your kiss..."
+							+ "[harpyNympho.Name] responds to your dominant move by letting out an excited squeal, and, enthusiastically wrapping her wings around your back, she passionately starts returning your kiss..."
 						+ "</p>");
 						
 			} else if (index == 0) {
@@ -540,7 +540,7 @@ public class HarpyNestNympho {
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyNympho.lips+]."
 						+ "</p>"
 						+ "<p>"
-							+ "[harpyNympho.Name] responds to your dominant move by letting out a excited squeal, and, enthusiastically wrapping her wings around your back, she passionately starts returning your kiss..."
+							+ "[harpyNympho.Name] responds to your dominant move by letting out an excited squeal, and, enthusiastically wrapping her wings around your back, she passionately starts returning your kiss..."
 						+ "</p>");
 							
 				} else if (index == 0) {

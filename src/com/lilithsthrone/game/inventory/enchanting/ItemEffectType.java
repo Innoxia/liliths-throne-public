@@ -603,7 +603,6 @@ public class ItemEffectType {
 				target.setNippleStretchedCapacity(target.getNippleRawCapacityValue());
 			}
 			if (target.hasBreastsCrotch()
-					&& (Main.getProperties().getUddersLevel()>0 || target.isFeral())
 					&& target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
 				areasTightened.add("crotch-nipples");
 				target.setNippleCrotchStretchedCapacity(target.getNippleCrotchRawCapacityValue());

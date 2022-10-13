@@ -18,6 +18,9 @@
 	<p>
 		As usual, you see the short, busty form of the cat-girl Enforcer, Claire, hurrying around as she fetches and delivers all sorts of miscellaneous paperwork. If you wanted to, you could approach her and ask for some more information about Submission.
 	</p>
+	<p>
+		Just a short distance from the Enforcer post's main entrance, there's a small alcove set into the tunnel's wall. Placed within this cavity there's a fully-functioning vending machine. Above the yellow machine's glass display, the words 'Hazmat Rat' have been written in bold, green letters, while on both of its sides there are stylised images of rat-morphs wearing hazmat suits.
+	</p>
 	]]>
 	</htmlContent>
 	
@@ -36,7 +39,7 @@
 		#ENDIF
 	</p>
 	<p>
-		[claire.speech(Well, as we discovered as we cleared out the place, that nasty little rat had kidnapped four humans from Dominion. We'd had them on our missing persons list for so long that we'd given up ever finding them,)] she reveals, before letting out a sigh and allowing an uncharacteristically sad look to settle on her face. As you state that surely it's a good thing that these people were found, the cat-girl shakes her head and reveals, [claire.speech(That rat really messed their heads up. All they keep asking for is to be put back into chains and milked while being treated as sex slaves. We've had one of our demon Enforcers who specialises in psychological damage take a look at them, but she said that there's nothing we can do with the limited budget that our department has.)]
+		[claire.speech(Well, as we discovered as we cleared out the place, that nasty little rat had kidnapped four humans from Dominion. We'd had them on our missing persons list for so long that we'd given up on ever finding them,)] she reveals, before letting out a sigh and allowing an uncharacteristically sad look to settle on her face. As you state that surely it's a good thing that these people were found, the cat-girl shakes her head and reveals, [claire.speech(That rat really messed their heads up. All they keep asking for is to be put back into chains and milked while being treated as sex slaves. We've had one of our demon Enforcers who specialises in psychological damage take a look at them, but she said that there's nothing we can do with the limited budget that our department has.)]
 	</p>
 	<p>
 		Wanting to know what the point is that Claire's getting to, you ask the cat-girl what's going to become of these captives, and what she wants you to do about it.
@@ -78,6 +81,81 @@
 	</p>
 	<p>
 		With that, the busty cat-girl skips off, leaving you to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENDING_MACHINE -->
+	
+	<htmlContent tag="VENDING_MACHINE"><![CDATA[
+	<p>
+		Thinking that you might like to buy something from the nearby vending machine, you head over to it and look through the glass at what items are on display. As you come to a halt in front of the machine, a speaker on the front of it blares out,
+		 [hazmatRat.speech([style.random(
+		A fine day for capitalism!|
+		Heading into the tunnels? Remember to stock up on food, available at Hazmat Rat vending machines everywhere!|
+		Others have done the hard work, so you don't have to!|
+		What's yours is mine and what's mine is yours... for a price.|
+		You buy-trade things, yes-yes? *Ahem* I mean, you're here to buy stuff, right?|
+		Hazmat Rat has wares if you have coin!
+		)])]
+	</p>
+	#IF(pc.hasItemType(ITEM_dsg_quest_hazmat_rat_card))
+		<p>
+			Rusted at the edges, and with its yellow, metal structure dented and scratched in several places, this vending machine looks to have seen better days. Being in possession of a HappyRat Gold+ discount card, you present it to the slot in the front of the machine. Before you can react, a gloved paw reaches out from this slot and grabs it from you, putting to rest any doubts you may still have had about there being an operator within. You hear some muffled grumbling before the card is unceremoniously tossed back out.
+		</p>
+		<p>
+			[hazmatRat.speech(Congratulations, customer. Your HappyRat card is valid! A discount has been applied,)] the speaker scratches out.
+		</p>
+	#ELSE
+		<p>
+			Rusted at the edges, and with its yellow, metal structure dented and scratched in several places, this vending machine looks to have seen better days. Despite this, however, it appears to be in fully working condition, and you wonder whether to pay the extortionately high prices to obtain one of the items on sale...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENDING_MACHINE_TRANSACTION_START"><![CDATA[
+	<p>
+		[hazmatRat.speech(All purchases are final! No refunds!)] the speaker blares.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENDING_MACHINE_INSPECT"><![CDATA[
+	<p>
+		Intrigued by the appearance and location of this vending machine, you decide to take a closer look at it. At its top, the words 'Hazmat Rat' are displayed in bold, green letters, along with a similarly-coloured biohazard icon. Beneath this, a sheet of thick glass separates you from the items which are on sale, and judging by a large, radial fracture, it looks to have been hit with considerable force at some point in the past. The yellow metal of the machine also looks to have been subjected to attacks in the past, for it sports numerous dents, scratches, and other such signs of abuse. Although it's quite snugly nestled into an alcove within the tunnel's wall, there's space enough for you to see that there's a stylised image of a rat wearing a hazmat suit painted on each of its sides.
+	</p>
+	<p>
+		[hazmatRat.speech(You going to buy something or what?!)] the speaker on the front of the machine blares out.
+	</p>
+	<p>
+		Wondering how the machine has detected both your presence and your current behaviour, you take a closer look at the features on its front surface. Above the delivery compartment at the bottom, there are a couple of warning signs, a mechanism for inserting coins and receiving change, a lock, a speaker, and finally a curious slot which doesn't seem to serve any obvious purpose. As you lean down to try to look through this slot, an angry voice shouts out through the speaker, [hazmatRat.speech(Do not attempt to inspect the card-reader! Don't make me press the button!)]
+	</p>
+	<p>
+		Although it's seeming to be increasingly-likely that there's someone inside of it, a fine metal mesh positioned within the curious slot prevents you from seeing very far into the inner workings of the machine, and so you can't confirm for sure if that's the case. As the back of the machine is pushed up against the wall, you can't help but wonder whether there's some sort of tunnel or cavity behind it that would be able to house an operator.
+	</p>
+	<p>
+		[hazmatRat.speech(I know what you're thinking! If you try to lewd the machine, I'll press the button for sure!)] the speaker threatens.
+	</p>
+	<p>
+		Not able to find out anything else from inspecting the vending machine, you [pc.step] back and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENDING_MACHINE_TALK"><![CDATA[
+	<p>
+		Strongly suspecting that there's an operator inside of the vending machine, you decide to try to engage them in conversation. Looking at the slot which you're sure is acting as a peep hole for the operator, you ask them if they've had a busy day so far.
+	</p>
+	<p>
+		[hazmatRat.speech(This machine is automated; do not try to talk to me- I mean it!)] the speaker blares out.
+	</p>
+	<p>
+		Convinced that there is indeed someone inside the machine, you try to ask them several more questions, but each time you receive a similar answer. Finally, the voice through the speaker declares, [hazmatRat.speech(Enough of this! Either buy something or I'll press the button! You won't like it if you make me do that!)]
+	</p>
+	<p>
+		Unable to strike up a conversation with the machine's operator, all that's left for you to do is either buy something or take your leave...
 	</p>
 	]]>
 	</htmlContent>
@@ -292,10 +370,10 @@
 		[claire.speech(You've been such a huge help,)] Claire sighs, [claire.speech(With the sheer number of new cases of forced slime transformations, we were close to breaking point. You've no idea how much this is going to help us out. Let me get that reward I promised!)]
 	</p>
 	<p>
-		You watch as Claire hurries off into one of the back rooms, and, just a moment later, returns with a bag of coins in her hand. [claire.speech(Here you are!)] she squeaks, [claire.speech(Thank you so much, [pc.name]!)]
+		You watch as Claire hurries off into one of the back rooms, and just a moment later, she returns with a bag of coins in one hand, and a small, plastic card in the other. Handing both to you, she squeaks, [claire.speech(When I was fetching your reward, I saw this old card lying around gathering dust, and thought that you'd be able to make some use of it! So here you go! Thank you so much, [pc.name]! )]
 	</p>
 	<p>
-		[pc.speech(You're welcome,)] you reply, smiling at the little cat-girl.
+		Telling the little cat-girl that she's welcome, you take your reward, before looking at the plastic card that's just been given to you. The same size as a credit card, it bears a golden, holographic icon of a smiling rat's face. The writing on the front identifies it as a 'HappyRat Gold+ discount card', which can be used at 'any Hazmat Rat vending machine'.
 	</p>
 	<p>
 		#IF(game.getDialogueFlags().hasFlag(FLAG_claireAskedTeleportation))
@@ -327,10 +405,10 @@
 		[claire.speech(You've been such a huge help,)] Claire sighs, [claire.speech(With the sheer number of new cases of forced slime transformations, we were close to breaking point. You've no idea how much this is going to help us out. Let me get that reward I promised!)]
 	</p>
 	<p>
-		You watch as Claire hurries off into one of the back rooms, and, just a moment later, returns with a bag of coins in her hand. [claire.speech(Here you are!)] she squeaks. [claire.speech(Thank you so much, [pc.name]!)]
+		You watch as Claire hurries off into one of the back rooms, and just a moment later, she returns with a bag of coins in one hand, and a small, plastic card in the other. Handing both to you, she squeaks, [claire.speech(When I was fetching your reward, I saw this old card lying around gathering dust, and thought that you'd be able to make some use of it! So here you go! Thank you so much, [pc.name]! )]
 	</p>
 	<p>
-		[pc.speech(You're welcome,)] you reply, smiling at the little cat-girl.
+		Telling the little cat-girl that she's welcome, you take your reward, before looking at the plastic card that's just been given to you. The same size as a credit card, it bears a golden, holographic icon of a smiling rat's face. The writing on the front identifies it as a 'HappyRat Gold+ discount card', which can be used at 'any Hazmat Rat vending machine'.
 	</p>
 	<p>
 		#IF(game.getDialogueFlags().hasFlag(FLAG_claireAskedTeleportation))
@@ -530,7 +608,7 @@
 		[pc.speech(Don't worry, I've kept it a secret,)] you reply, [pc.speech(and there's nobody nearby who's going to overhear us.)]
 	</p>
 	<p>
-		[claire.speech(Y-Yes, well, you never know,)] Claire responds, and you notice that for some odd reason she's starting to blush. Before you can ask her what's wrong, she continues, [claire.speech(The truth is, I kind of found that whole experience to be... well.. pretty exciting...)]
+		[claire.speech(Y-Yes, well, you never know,)] Claire responds, and you notice that for some odd reason she's starting to blush. Before you can ask her what's wrong, she continues, [claire.speech(The truth is, I kind of found that whole experience to be... well... pretty exciting...)]
 	</p>
 	<p>
 		[pc.speech(I suppose it was,)] you reply.
@@ -543,7 +621,7 @@
 				Before you offer a response to this revelation, Claire suddenly leans in against you, crushing her huge, [claire.cupSize]-cup breasts into your torso. Craning her neck forwards, she presses her [claire.lips+] firmly against yours, and right in the middle of the busy Enforcer post, she passionately kisses you.
 			</p>
 			<p>
-				Almost immediately as she's started, the horny cat-girl breaks off the kiss. Quickly straightening back up, she glances around to make sure that nobody noticed what she just did. Sure enough, by some sort of miracle, none of the the dozen-or-so Enforcers around you noticed your brief kiss. Biting her lip and giggling in delight, Claire moans, [claire.speech(Fun, isn't it? You know, this room behind me is only used for storage. We could always sneak into there if you wanted to get another taste of me... We <i>probably</i> won't be discovered...)] 
+				Almost immediately as she's started, the horny cat-girl breaks off the kiss. Quickly straightening back up, she glances around to make sure that nobody noticed what she just did. Sure enough, by some sort of miracle, none of the dozen-or-so Enforcers around you noticed your brief kiss. Biting her lip and giggling in delight, Claire moans, [claire.speech(Fun, isn't it? You know, this room behind me is only used for storage. We could always sneak into there if you wanted to get another taste of me... We <i>probably</i> won't be discovered...)] 
 		#ELSE
 			Before you offer a response to this revelation, Claire continues, [claire.speech(You know, this room behind me is only used for storage... We could always sneak into there and have some fun if you wanted to re-enact that sense of danger... We <i>probably</i> won't be discovered...)]
 		#ENDIF
@@ -613,7 +691,7 @@
 	</p>
 	<p>
 		The damp atmosphere holds just enough chill to gently caress any exposed skin, but, thanks to the wide iron grates built into the ceiling, the air doesn't feel stagnant down here.
-		 Looking up trough the iron bars, you're granted an unobstructed view of the sky, and, every now and then, up the occasional skirt.
+		 Looking up through the iron bars, you're granted an unobstructed view of the sky, and, every now and then, up the occasional skirt.
 		 The dizzying network of pipes and valves that run along the upper-half of the walls makes you feel sorry for whoever has to map and maintain them.
 	</p>
 	<p>
@@ -700,7 +778,7 @@
 	</p>
 	<p>
 		Instantly, the dark grey hue of the staircase beneath your [pc.feet] is replaced by a soft, turquoise glow.
-		 Looking down, you see that the stone steps are coated in a blanket of bioluminescent lichens and mosses, which, when pressure is applied to them, light up to illuminate their the area around them.
+		 Looking down, you see that the stone steps are coated in a blanket of bioluminescent lichens and mosses, which, when pressure is applied to them, light up to illuminate the area around them.
 		 Although bright enough to allow you to see your immediate surroundings, the lichen's light drops off at a distance of about [unit.lSizes(1500)] or so, and you can't help but feel like it's painting you as a target to anyone lurking in the darkness beyond.
 	</p>
 	<p>
@@ -858,7 +936,7 @@
 		Having crossed the huge cavern, you find yourself approaching the massive Gothic palace that has been carved into the dark stone wall. In front of you, separating the huge front gates from the path that you're standing on, is a vast, seemingly bottomless ravine. A heavy wooden drawbridge crosses the pitch-black depths of the chasm, which appears to be the only means of entry to the palace.
 	</p>
 	<p>
-		A group of twenty-or-so half-succubi are standing on this side of the ravine, and are preventing any unwelcome visitors from proceeding across the drawbridge. The majority of them appear to be half-demons, and, much like Lilaya, they have human faces and bodies, with demonic wings, horns, tails, and ears. Rather curiously, they're all wearing drab olive uniforms, with matching hats, skirts, and shoes. At each guards' side, they appear to have a holstered revolver, although, with the nature of this world being as it is, you know that they're likely to fire condensed arcane essences rather than actual bullets. These weapons, in combination with their uniforms, makes them look very much like mid-twentieth century British soldiers.
+		A group of twenty-or-so half-succubi are standing on this side of the ravine, and are preventing any unwelcome visitors from proceeding across the drawbridge. The majority of them appear to be half-demons, and, much like Lilaya, they have human faces and bodies, with demonic wings, horns, tails, and ears. Rather curiously, they're all wearing drab olive uniforms, with matching hats, skirts, and shoes. At each guards' side, they appear to have a holstered revolver, although, with the nature of this world being as it is, you know that they're likely to fire condensed arcane essences rather than actual bullets. These weapons, in combination with their uniforms, make them look very much like mid-twentieth century British soldiers.
 	</p>
 	]]>
 	</htmlContent>
@@ -1192,7 +1270,7 @@
 	
 	<htmlContent tag="IMP_FORTRESS_ENTRY_DEFEATED"><![CDATA[
 	<p>
-		Glancing over at the rudimentary gate that's set in to one side of the wall, you see that it's been left wide open, and there's no sign of life within the courtyard beyond. The imps that once ruled over the surrounding tunnels are obviously still too frightened to return, but you can be sure that's it's just a matter of time before they gather their courage and lay claim to this fortress once again...
+		Glancing over at the rudimentary gate that's set in to one side of the wall, you see that it's been left wide open, and there's no sign of life within the courtyard beyond. The imps that once ruled over the surrounding tunnels are obviously still too frightened to return, but you can be sure that it's just a matter of time before they gather their courage and lay claim to this fortress once again...
 	</p>
 	]]>
 	</htmlContent>

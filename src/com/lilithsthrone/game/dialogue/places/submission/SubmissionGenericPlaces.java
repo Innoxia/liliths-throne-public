@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.character.npc.submission.GamblingDenPatron;
+import com.lilithsthrone.game.character.npc.submission.HazmatRat;
 import com.lilithsthrone.game.character.npc.submission.RatWarrensCaptive;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -28,6 +29,7 @@ import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensDi
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.story.LyssiethReveal;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -1019,6 +1021,9 @@ public class SubmissionGenericPlaces {
 
 				} else if (index == 2) {
 					return new Response("Claire", "Approach Claire and say hello to her.", CLAIRE);
+					
+				} else if (index == 3) {
+					return new Response("Vending machine", "Approach the vending machine that's located just outside of the Enforcer outpost.", VENDING_MACHINE);
 				}
 			}
 			
@@ -1175,6 +1180,7 @@ public class SubmissionGenericPlaces {
 					public void effects() {
 						applyClaireMeetingEffects();
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(20000));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("dsg_quest_hazmat_rat_card"), false));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SIDE_UTIL_COMPLETE));
 					}
 				});
@@ -1472,5 +1478,88 @@ public class SubmissionGenericPlaces {
 			return CLAIRE.getResponse(responseTab, index);
 		}
 	};
+	
+	private static boolean vendingMachineInspected = false;
+	private static boolean vendingMachineTalked = false;
+	
+	public static final DialogueNode VENDING_MACHINE = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			vendingMachineInspected = false;
+			vendingMachineTalked = false;
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 1*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "VENDING_MACHINE");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new ResponseTrade("Trade",
+						"Take a look at what the vending machine has for sale today.",
+						Main.game.getNpc(HazmatRat.class)) {
+					@Override
+					public void effects() {
+						((HazmatRat)Main.game.getNpc(HazmatRat.class)).applyRestock();
+					}
+				};
+				
+			} else if(index==2) {
+				return new Response("Inspect",
+						vendingMachineInspected
+							?"You've already taken a closer look at this vending machine..."
+							:"Take a closer look at this vending machine.",
+						vendingMachineInspected
+							?null
+							:VENDING_MACHINE_MISC) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "VENDING_MACHINE_INSPECT"));
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vendingMachineTalked, true);
+						vendingMachineInspected = true;
+					}
+				};
+				
+			} else if(index==3 && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vendingMachineTalked)) {
+				return new Response("Talk",
+						vendingMachineTalked
+							?"You've already tried to talk to this vending machine..."
+							:"Convinced that there must be someone inside of it, you decide to try to engage the vending machine in conversation.",
+							vendingMachineTalked
+								?null
+								:VENDING_MACHINE_MISC) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "VENDING_MACHINE_TALK"));
+						vendingMachineTalked = true;
+					}
+				};
+				
+			} else if(index==0) {
+				return new Response("Back",
+						"[pc.Step] away from the vending machine and go elsewhere...",
+						SEWER_ENTRANCE);
+			}
+			return null;
+		}
+	};
 
+	public static final DialogueNode VENDING_MACHINE_MISC = new DialogueNode("", "", true, true) {
+		@Override
+		public int getSecondsPassed() {
+			return 2*60;
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return VENDING_MACHINE.getResponse(responseTab, index);
+		}
+	};
 }

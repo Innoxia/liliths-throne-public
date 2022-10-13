@@ -83,7 +83,7 @@
 	
 	<!-- How these arms are described in a character's description page. -->
 	<bodyDescription><![CDATA[
-	[npc.She] [npc.has] [npc.armRows] arms, which are [npc.materialCompositionDescriptor] [npc.armFullDescription(true)]. [npc.Her] formed into anthropomorphic, gryphon-like hands with sharp talons on each digit. Tough, heavily scaled skin covers [npc.her] hands and forearms.
+	[npc.She] [npc.has] [npc.armRows] arms, which are [npc.materialCompositionDescriptor] [npc.armFullDescription(true)]. [npc.Her] hands are formed into anthropomorphic, gryphon-like hands with sharp talons on each digit. Tough, heavily scaled skin covers [npc.her] hands and forearms.
 	]]></bodyDescription>
 	
 </arm>

@@ -555,7 +555,7 @@
 		Getting up off [npc.namePos] bed, you turn to face [npc.herHim] and pointedly ask what [npc.she] did in order to have earned a [#SPECIAL_PARSE_0] flame fine from the Enforcers. Letting out an exasperated sigh, the [npc.race] prostitute snaps, [npc.speech(That's none of your business! I should never have mentioned that...)]
 	</p>
 	<p>
-		Having already got what you wanted from [npc.herHim], you continue with your plan to get rid of [npc.name], and casually wonder out loud what what the Enforcers would do to [npc.herHim] if they knew where [npc.she] was living. As the [npc.race] turns to look at you with a shocked expression on [npc.her] face, you tell [npc.herHim] that you're looking forward to finding out, before heading towards the door and stating your intention to report [npc.herHim] to the nearest constable.
+		Having already got what you wanted from [npc.herHim], you continue with your plan to get rid of [npc.name], and casually wonder out loud what the Enforcers would do to [npc.herHim] if they knew where [npc.she] was living. As the [npc.race] turns to look at you with a shocked expression on [npc.her] face, you tell [npc.herHim] that you're looking forward to finding out, before heading towards the door and stating your intention to report [npc.herHim] to the nearest constable.
 	</p>
 	<p>
 		Frantically grabbing [npc.her] bag and stuffing [npc.her] personal possessions into it, [npc.name]
@@ -576,7 +576,7 @@
 		Not wanting this lowlife hanging around in this area for any longer, you pointedly ask what [npc.she] did in order to have earned a [#SPECIAL_PARSE_0] flame fine from the Enforcers. Letting out an exasperated sigh, the [npc.race] prostitute snaps, [npc.speech(That's none of your business! I should never have mentioned that...)]
 	</p>
 	<p>
-		Continuing with your plan to get rid of [npc.name], you casually wonder out loud what what the Enforcers would do to [npc.herHim] if they knew where [npc.she] was living. As a shocked expression quickly settles on the [npc.race]'s face, you tell [npc.herHim] that you're looking forward to finding out, before starting to [pc.walk] off and call out your intention to report [npc.herHim] to the nearest constable.
+		Continuing with your plan to get rid of [npc.name], you casually wonder out loud what the Enforcers would do to [npc.herHim] if they knew where [npc.she] was living. As a shocked expression quickly settles on the [npc.race]'s face, you tell [npc.herHim] that you're looking forward to finding out, before starting to [pc.walk] off and call out your intention to report [npc.herHim] to the nearest constable.
 	</p>
 	<p>
 		[npc.NamePos] look of complete disbelief is quickly replaced by one of fear and anger as [npc.she] hears what it is you're saying, and as you [pc.walk] off, [npc.she]
@@ -603,7 +603,7 @@
 		Clearly on-edge about the fact that [npc.sheHasFull] such a huge fine to pay off, you don't let [npc.namePos] hostile reaction put you off from continuing with your plan. Getting up from off of [npc.her] bed, you [pc.step] over to the [npc.race] and offer [npc.herHim] the [#SPECIAL_PARSE_1] flames [npc.she] needs to pay off [npc.her] fine.
 	</p>
 	<p>
-		[npc.speech(Are you serious?!)] [npc.name] cries out in shock, before clasping [npc.her] [npc.hands] over [npc.her] mouth as [npc.she] sees the amount of flames which you're giving [npc.herHim]. After a moment, [npc.she] tentatively reaches out to take the money, almost as if [npc.she] expects you to pull it away a the last moment. No such thing is on your mind, however, and you let [npc.name] take the flames from you.
+		[npc.speech(Are you serious?!)] [npc.name] cries out in shock, before clasping [npc.her] [npc.hands] over [npc.her] mouth as [npc.she] sees the amount of flames which you're giving [npc.herHim]. After a moment, [npc.she] tentatively reaches out to take the money, almost as if [npc.she] expects you to pull it away at the last moment. No such thing is on your mind, however, and you let [npc.name] take the flames from you.
 	</p>
 	<p>
 		[npc.speech(I don't know what to say... Thank you! Thank you so much! I'm finally going to be able to get out of here!)] [npc.name] sobs, crying tears of joy as [npc.she] looks up into your [pc.eyes] with a huge smile on [npc.her] face. Before you can react to her tearful display, [npc.she] suddenly seems to think of something, and quickly darts over to the other side of the room, before bending down and prising up a loose floorboard. Grabbing something which [npc.she] was hiding under there, [npc.name] skips back over to where you're standing and says, [npc.speech(Don't ask me how I got this, but I was planning on using it as a last resort if the Enforcers found me here. I want you to take it!)]
@@ -624,7 +624,7 @@
 		Clearly on-edge about the fact that [npc.sheHasFull] such a huge fine to pay off, you don't let [npc.namePos] hostile reaction put you off from continuing with your plan. [pc.Stepping] towards the [npc.race], you offer [npc.herHim] the [#SPECIAL_PARSE_1] flames [npc.she] needs to pay off [npc.her] fine.
 	</p>
 	<p>
-		[npc.speech(Are you serious?!)] [npc.name] cries out in shock, before clasping [npc.her] [npc.hands] over [npc.her] mouth as [npc.she] sees the amount of flames which you're giving [npc.herHim]. After a moment, [npc.she] tentatively reaches out to take the money, almost as if [npc.she] expects you to pull it away a the last moment. No such thing is on your mind, however, and you let [npc.name] take the flames from you.
+		[npc.speech(Are you serious?!)] [npc.name] cries out in shock, before clasping [npc.her] [npc.hands] over [npc.her] mouth as [npc.she] sees the amount of flames which you're giving [npc.herHim]. After a moment, [npc.she] tentatively reaches out to take the money, almost as if [npc.she] expects you to pull it away at the last moment. No such thing is on your mind, however, and you let [npc.name] take the flames from you.
 	</p>
 	<p>
 		[npc.speech(I don't know what to say... Thank you! Thank you so much! I'm finally going to be able to get out of here!)] [npc.name] sobs, crying tears of joy as [npc.she] looks up into your [pc.eyes] with a huge smile on [npc.her] face. Before you can react to her tearful display, [npc.she] suddenly seems to think of something, and quickly darts a little way down the alleyway, before bending down and sliding a loose wall-grate to one side. Grabbing something which [npc.she] was hiding behind it, [npc.name] skips back over to where you're standing and says, [npc.speech(Don't ask me how I got this, but I was planning on using it as a last resort if the Enforcers found me here. I want you to take it!)]

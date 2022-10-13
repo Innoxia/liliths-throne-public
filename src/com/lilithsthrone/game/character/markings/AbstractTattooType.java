@@ -10,11 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.lilithsthrone.main.Main;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
+import com.lilithsthrone.controller.xmlParsing.Element;
+import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
@@ -49,6 +46,10 @@ public class AbstractTattooType extends AbstractCoreType {
 	private List<Colour> availablePrimaryColours;
 	private List<Colour> availableSecondaryColours;
 	private List<Colour> availableTertiaryColours;
+
+	private Colour defaultPrimaryColour;
+	private Colour defaultSecondaryColour;
+	private Colour defaultTertiaryColour;
 	
 	private String pathName;
 	private Map<Colour, Map<Colour, Map<Colour, String>>> SVGStringMap;
@@ -104,6 +105,10 @@ public class AbstractTattooType extends AbstractCoreType {
 			this.availableTertiaryColours.addAll(availableTertiaryColours);
 		}
 		
+		defaultPrimaryColour = this.availablePrimaryColours.get(0);
+		defaultSecondaryColour = this.availableSecondaryColours.size()>0?this.availableSecondaryColours.get(0):defaultPrimaryColour;
+		defaultTertiaryColour = this.availableTertiaryColours.size()>0?this.availableTertiaryColours.get(0):defaultPrimaryColour;
+		
 		SVGStringMap = new HashMap<>();
 		
 		if(slotAvailability==null) {
@@ -118,57 +123,45 @@ public class AbstractTattooType extends AbstractCoreType {
 
 		if (tattooXMLFile.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(tattooXMLFile);
-				
-				// Cast magic:
-				doc.getDocumentElement().normalize();
-				
-				Element clothingElement = (Element) doc.getElementsByTagName("tattoo").item(0);
-				
-				Element coreAttributes;
-				if(clothingElement.getElementsByTagName("coreAtributes").getLength()>0) {
-					coreAttributes = (Element) clothingElement.getElementsByTagName("coreAtributes").item(0); // Support for old versions
-				} else {
-					coreAttributes = (Element) clothingElement.getElementsByTagName("coreAttributes").item(0); // Fix typo
-				}
-				
-				List<InventorySlot> slotAvailability = new ArrayList<>();
-				NodeList slotAvailabilityNodeList = ((Element)coreAttributes.getElementsByTagName("slotAvailability").item(0)).getElementsByTagName("slot");
+				Element tattooElement = Element.getDocumentRootElement(tattooXMLFile); // Loads the document and returns the root element - in item mods it's <tattoo>
+				Element coreAttributes = null;
 				try {
-					for(int i = 0; i < slotAvailabilityNodeList.getLength(); i++){
-						Element e = ((Element)slotAvailabilityNodeList.item(i));
-						slotAvailability.add(InventorySlot.valueOf(e.getTextContent()));
-					}
-					if (slotAvailability.isEmpty()) {
-						slotAvailability = standardInventorySlots;
-					}
-				} catch(Exception ex) {
-					System.err.println("AbstractTattooType loading failed. Cause: 'slotAvailability' element unable to be parsed. (" + tattooXMLFile.getName() + ")\n" + ex);
+					coreAttributes = tattooElement.getMandatoryFirstOf("coreAtributes");
+				} catch (XMLMissingTagException ex) {
+					coreAttributes = tattooElement.getMandatoryFirstOf("coreAttributes");
 				}
-				this.slotAvailability = slotAvailability;
+
+				List<InventorySlot> slotAvailability = new ArrayList<>();
+				if(coreAttributes.getOptionalFirstOf("slotAvailability").isPresent()) {
+					for(Element slotElement : coreAttributes.getMandatoryFirstOf("slotAvailability").getAllOf("slot")) {
+						slotAvailability.add(InventorySlot.valueOf(slotElement.getTextContent()));
+					}
+				}
+				if(slotAvailability.isEmpty()) {
+					this.slotAvailability = new ArrayList<>(standardInventorySlots);
+				} else {
+					this.slotAvailability = slotAvailability;
+				}
 				
 				this.isMod = true;
 				
-				this.value = Integer.valueOf(coreAttributes.getElementsByTagName("value").item(0).getTextContent());
-				this.pathName = tattooXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getElementsByTagName("imageName").item(0).getTextContent();
-				this.name = coreAttributes.getElementsByTagName("name").item(0).getTextContent();
-				this.description = coreAttributes.getElementsByTagName("description").item(0).getTextContent();
+				this.value = Integer.valueOf(coreAttributes.getMandatoryFirstOf("value").getTextContent());
+				this.pathName = tattooXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getMandatoryFirstOf("imageName").getTextContent();
+				this.name = coreAttributes.getMandatoryFirstOf("name").getTextContent();
+				this.description = coreAttributes.getMandatoryFirstOf("description").getTextContent();
 				
 				this.bodyOverviewDescription = "";
-				if(coreAttributes.getElementsByTagName("bodyOverviewDescription").item(0)!=null) {
-					this.bodyOverviewDescription = coreAttributes.getElementsByTagName("bodyOverviewDescription").item(0).getTextContent();
+				if(coreAttributes.getOptionalFirstOf("bodyOverviewDescription").isPresent()) {
+					this.bodyOverviewDescription = coreAttributes.getMandatoryFirstOf("bodyOverviewDescription").getTextContent();
 				}
 				
 				this.unique = false;
-				try {
-					this.unique = Boolean.valueOf(coreAttributes.getElementsByTagName("availabilityRequirements").item(0).getAttributes().getNamedItem("unique").getTextContent());
-//					System.out.println(this.name+" | "+unique);
-				} catch(Exception ex) {
+				this.availabilityRequirements = "";
+				if(coreAttributes.getOptionalFirstOf("availabilityRequirements").isPresent()) {
+					this.unique = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("availabilityRequirements").getAttribute("unique"));
+					this.availabilityRequirements = coreAttributes.getMandatoryFirstOf("availabilityRequirements").getTextContent();
 				}
-				try {
-					this.availabilityRequirements = coreAttributes.getElementsByTagName("availabilityRequirements").item(0).getTextContent();
-				} catch(Exception ex) {
-				}
+				
 				
 				List<Colour> importedPrimaryColours = new ArrayList<>();
 				try {
@@ -192,10 +185,24 @@ public class AbstractTattooType extends AbstractCoreType {
 				}
 				
 				this.availablePrimaryColours = new ArrayList<>(importedPrimaryColours);
-
 				this.availableSecondaryColours = new ArrayList<>(importedSecondaryColours);
-
 				this.availableTertiaryColours = new ArrayList<>(importedTertiaryColours);
+				
+				defaultPrimaryColour = this.availablePrimaryColours.get(0);
+				String defaultColour = coreAttributes.getMandatoryFirstOf("primaryColours").getAttribute("defaultColour");
+				if(!defaultColour.isEmpty()) {
+					defaultPrimaryColour = PresetColour.getColourFromId(defaultColour);
+				}
+				defaultSecondaryColour = this.availableSecondaryColours.size()>0?this.availableSecondaryColours.get(0):defaultPrimaryColour;
+				defaultColour = coreAttributes.getMandatoryFirstOf("secondaryColours").getAttribute("defaultColour");
+				if(!defaultColour.isEmpty()) {
+					defaultSecondaryColour = PresetColour.getColourFromId(defaultColour);
+				}
+				defaultTertiaryColour = this.availableTertiaryColours.size()>0?this.availableTertiaryColours.get(0):defaultPrimaryColour;
+				defaultColour = coreAttributes.getMandatoryFirstOf("tertiaryColours").getAttribute("defaultColour");
+				if(!defaultColour.isEmpty()) {
+					defaultTertiaryColour = PresetColour.getColourFromId(defaultColour);
+				}
 				
 				SVGStringMap = new HashMap<>();
 
@@ -206,13 +213,12 @@ public class AbstractTattooType extends AbstractCoreType {
 	}
 
 
-	private List<Colour> readColoursFromElement(Element coreAttributes, String elementTagName) {
-		Element coloursElement = ((Element)coreAttributes.getElementsByTagName(elementTagName).item(0));
+	private List<Colour> readColoursFromElement(Element coreAttributes, String elementTagName) throws XMLMissingTagException {
+		Element coloursElement = coreAttributes.getMandatoryFirstOf(elementTagName);
 		if(coloursElement.getAttribute("values").isEmpty()) {
-			NodeList coloursNodeList = coloursElement.getElementsByTagName("colour");
-			List<Colour> result = new ArrayList<>(coloursNodeList.getLength());
-			for(int i = 0; i < coloursNodeList.getLength(); i++){
-				result.add(PresetColour.getColourFromId(((Element)coloursNodeList.item(i)).getTextContent()));
+			List<Colour> result = new ArrayList<>();
+			for(Element colourElement : coloursElement.getAllOf("colour")) {
+				result.add(PresetColour.getColourFromId(colourElement.getTextContent()));
 			}
 			return result;
 		}
@@ -287,6 +293,18 @@ public class AbstractTattooType extends AbstractCoreType {
 		return availableTertiaryColours;
 	}
 
+	public Colour getDefaultPrimaryColour() {
+		return defaultPrimaryColour;
+	}
+
+	public Colour getDefaultSecondaryColour() {
+		return defaultSecondaryColour;
+	}
+
+	public Colour getDefaultTertiaryColour() {
+		return defaultTertiaryColour;
+	}
+
 	public List<InventorySlot> getSlotAvailability() {
 		return new ArrayList<>(slotAvailability);
 	}
@@ -340,6 +358,13 @@ public class AbstractTattooType extends AbstractCoreType {
 				return SVGStringMap.get(colour).get(colourSecondary).get(colourTertiary);
 			}
 		}
+	}
+
+	/**
+	 * @return The svg using default colours.
+	 */
+	public String getSVGImage(GameCharacter character) {
+		return getSVGImage(character, getDefaultPrimaryColour(), getDefaultSecondaryColour(), getDefaultTertiaryColour());
 	}
 	
 	public String getSVGImage(GameCharacter character, Colour colour, Colour colourSecondary, Colour colourTertiary) {

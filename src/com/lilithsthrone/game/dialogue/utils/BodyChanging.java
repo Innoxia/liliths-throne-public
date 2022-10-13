@@ -49,7 +49,6 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -148,8 +147,7 @@ public class BodyChanging {
 		} else if(index==6) {
 			if(Main.game.getCurrentDialogueNode()==BODY_CHANGING_BREASTS) {
 				return new Response("Breasts", "You are already in this screen!", null);
-			}
-			if(!BodyChanging.getTarget().hasNipples()) {
+			} else if(!BodyChanging.getTarget().hasNipples()) {
 				return new Response("Breasts",
 						UtilText.parse(getTarget(), "[npc.Name] [npc.do] not have any breasts!"),
 						null);
@@ -177,8 +175,7 @@ public class BodyChanging {
 		} else if(index==9) {
 			if(Main.game.getCurrentDialogueNode()==BODY_CHANGING_SPINNERET) {
 				return new Response("Spinneret", "You are already in this screen!", null);
-			}
-			if(!BodyChanging.getTarget().hasSpinneret()) {
+			} else if(!BodyChanging.getTarget().hasSpinneret()) {
 				return new Response("Spinneret",
 						UtilText.parse(getTarget(), "[npc.Name] [npc.do] not have a spinneret!<br/><i>Spinnerets are gained via certain tail or leg types.</i>"),
 						null);
@@ -187,43 +184,12 @@ public class BodyChanging {
 					UtilText.parse(getTarget(), "Change aspects of [npc.namePos] spinneret."),
 					BODY_CHANGING_SPINNERET);
 			
-		} else if(index==10 && (BodyChanging.getTarget().isFeral() || Main.getProperties().getUddersLevel()!=0 || debugMenu)) {
-			if(Main.game.getCurrentDialogueNode()==BODY_CHANGING_BREASTS_CROTCH) {
-				return new Response(BodyChanging.getTarget().getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs", "You are already in this screen!", null);
+		} else if(index == 10) {
+			String title = BodyChanging.getTarget().getBreastCrotchShape() == BreastShape.UDDERS?"Udders":"Crotch-boobs";
+			if (Main.game.getCurrentDialogueNode() == BODY_CHANGING_BREASTS_CROTCH) {
+				return new Response(title, "You are already in this screen!", null);
 			}
-			if(BodyChanging.getTarget().isFeral() || debugMenu) {
-				if(!BodyChanging.getTarget().isFeral() && Main.getProperties().getUddersLevel()==0) {
-					return new Response(
-							BodyChanging.getTarget().getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs",
-							UtilText.parse(getTarget(), "Change aspects of [npc.namePos] [npc.crotchBoobs]."
-									+ "<br/>[style.italicsBad(Crotch-boobs are disabled in the content settings! You cannot access these options outside of this debug menu!)]"),
-							BODY_CHANGING_BREASTS_CROTCH) {
-						@Override
-						public Colour getHighlightColour() {
-							return PresetColour.GENERIC_BAD;
-						}
-					};
-				}
-				if(!BodyChanging.getTarget().isFeral() && Main.getProperties().getUddersLevel()==1 && BodyChanging.getTarget().getLegConfiguration().isBipedalPositionedCrotchBoobs()) {
-					return new Response(
-							BodyChanging.getTarget().getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs",
-							UtilText.parse(getTarget(), "Change aspects of [npc.namePos] [npc.crotchBoobs]."
-									+ "<br/>[style.italicsMinorBad(Crotch-boobs are disabled for non-taur characters in the content settings! As a result of this, you cannot access these options outside of this debug menu!)]"),
-							BODY_CHANGING_BREASTS_CROTCH) {
-						@Override
-						public Colour getHighlightColour() {
-							return PresetColour.GENERIC_MINOR_BAD;
-						}
-					};
-				}
-			}
-			
-			if(!BodyChanging.getTarget().isFeral() && Main.getProperties().getUddersLevel()==1 && BodyChanging.getTarget().getLegConfiguration().isBipedalPositionedCrotchBoobs()) {
-				return new Response("Crotch-boobs", "As you have crotch-boobs disabled for non-taur characters, you cannot access this menu!", null);
-			}
-			
-			return new Response(
-					BodyChanging.getTarget().getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs",
+			return new Response(title,
 					UtilText.parse(getTarget(), "Change aspects of [npc.namePos] [npc.crotchBoobs]."),
 					BODY_CHANGING_BREASTS_CROTCH);
 			
@@ -773,7 +739,7 @@ public class BodyChanging {
 						true));
 			}
 
-			if(Main.getProperties().hasValue(PropertyValue.bodyHairContent)) {
+			if(Main.game.isBodyHairEnabled()) {
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivUnderarmHair(false, "Underarm hair",
 						UtilText.parse(BodyChanging.getTarget(), "Change the amount of hair in [npc.namePos] underarms."))
 				
@@ -1085,7 +1051,7 @@ public class BodyChanging {
 							+ CharacterModificationUtils.getSelfTransformAntennaePerRowCountDiv()
 						+"</div>"
 						
-						+ (BodyChanging.getTarget().getHornType()!=HornType.NONE
+						+ (BodyChanging.getTarget().hasHorns()
 								?CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getHornRace(),
 									BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHornCovering()).getType(), "Horn Colour",
 									UtilText.parse(BodyChanging.getTarget(), "The colour of [npc.namePos] horns."),
@@ -1352,7 +1318,7 @@ public class BodyChanging {
 								true, true));
 			}
 			
-			if(Main.getProperties().hasValue(PropertyValue.facialHairContent) && (!getTarget().isFeminine() || Main.getProperties().hasValue(PropertyValue.feminineBeardsContent))) {
+			if(Main.game.isFacialHairEnabled() && (!getTarget().isFeminine() || Main.game.isFemaleFacialHairEnabled())) {
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivFacialHair(false, "Beard length",
 						UtilText.parse(BodyChanging.getTarget(), "Change the length of [npc.namePos] beard."))
 				
@@ -1418,7 +1384,7 @@ public class BodyChanging {
 							UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] asshole."),
 							true, true));
 				
-			if(Main.getProperties().hasValue(PropertyValue.assHairContent)) {
+			if(Main.game.isAssHairEnabled()) {
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivAssHair(false, "Ass hair",
 						UtilText.parse(BodyChanging.getTarget(), "Change the amount of hair around [npc.namePos] anus."))
 				
@@ -1450,8 +1416,6 @@ public class BodyChanging {
 
 		@Override
 		public String getHeaderContent() {
-			boolean isNipplePenOptions = isDebugMenu() || Main.game.isNipplePenEnabled();
-			
 			return getSelfTransformDescription("breasts")
 					
 					+ CharacterModificationUtils.getSelfTransformBreastChoiceDiv(getRacesForMinorPartSelfTransform())
@@ -1462,10 +1426,8 @@ public class BodyChanging {
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformBreastRowsDiv(isNipplePenOptions)
-						+ (isNipplePenOptions
-							?CharacterModificationUtils.getSelfTransformNippleModifiersDiv()
-							:"")
+						+ CharacterModificationUtils.getSelfTransformBreastRowsDiv()
+						+ CharacterModificationUtils.getSelfTransformNippleModifiersDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
@@ -1488,17 +1450,15 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getSelfTransformAreolaeSizeDiv()
 					+"</div>"
 
-					+(isNipplePenOptions
-						?"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformNippleCapacityDiv()
-							+ CharacterModificationUtils.getSelfTransformNippleDepthDiv()
-						+"</div>"
-	
-						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformNippleElasticityDiv()
-							+ CharacterModificationUtils.getSelfTransformNipplePlasticityDiv()
-						+"</div>"
-						:"")
+					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getSelfTransformNippleCapacityDiv()
+						+ CharacterModificationUtils.getSelfTransformNippleDepthDiv()
+					+"</div>"
+
+					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getSelfTransformNippleElasticityDiv()
+						+ CharacterModificationUtils.getSelfTransformNipplePlasticityDiv()
+					+"</div>"
 					
 					+ CharacterModificationUtils.getKatesDivCoveringsNew(false,
 							BodyChanging.getTarget().getBreastRace(),
@@ -1539,79 +1499,69 @@ public class BodyChanging {
 			
 			UtilText.nodeContentSB.append(
 					getSelfTransformDescription("vagina")
-					
-					+ CharacterModificationUtils.getSelfTransformVaginaChoiceDiv(getRacesForMinorPartSelfTransform())
-					
-					+ CharacterModificationUtils.getSelfTransformGirlcumFlavourDiv()
-
-					+ CharacterModificationUtils.getSelfTransformGirlcumModifiersDiv()
-
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformVaginaSquirterDiv()
-						+ CharacterModificationUtils.getSelfTransformVaginaHymenDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformLabiaSizeDiv()
-						+ CharacterModificationUtils.getSelfTransformVaginaEggLayerDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformVaginaModifiersDiv()
-						+ CharacterModificationUtils.getSelfTransformVaginaWetnessDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformVaginaCapacityDiv()
-						+ CharacterModificationUtils.getSelfTransformVaginaDepthDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformVaginaElasticityDiv()
-						+ CharacterModificationUtils.getSelfTransformVaginaPlasticityDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformClitorisSizeDiv()
-						+ CharacterModificationUtils.getSelfTransformClitorisGirthDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformClitorisModifiersDiv()
-						+ CharacterModificationUtils.getSelfTransformVaginaUrethraModifiersDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformVaginaUrethraCapacityDiv()
-						+ CharacterModificationUtils.getSelfTransformVaginaUrethraDepthDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformVaginaUrethraElasticityDiv()
-						+ CharacterModificationUtils.getSelfTransformVaginaUrethraPlasticityDiv()
-					+"</div>"
-					
-					+ CharacterModificationUtils.getKatesDivCoveringsNew(false,
-							BodyChanging.getTarget().getVaginaRace(),
-							BodyChanging.getTarget().getCovering(BodyCoveringType.VAGINA).getType(),
-							"Vagina Colour", 
-							UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] vagina."),
-							true, true)
-
-					+ CharacterModificationUtils.getKatesDivCoveringsNew(false,
-							Race.NONE,
-							BodyChanging.getTarget().getCovering(BodyCoveringType.GIRL_CUM).getType(),
-							"Girlcum Colour", 
-							UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] [npc.girlcum]."),
-							true, true));
-
-			if(Main.getProperties().hasValue(PropertyValue.pubicHairContent)) {
-				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivPubicHair(false, "Pubic hair",
-						UtilText.parse(BodyChanging.getTarget(), "Change the amount of hair around [npc.namePos] genitals."))
+					+ CharacterModificationUtils.getSelfTransformVaginaChoiceDiv(getRacesForMinorPartSelfTransform()));
+			if (getTarget().hasVagina()) {
+				UtilText.nodeContentSB.append(CharacterModificationUtils.getSelfTransformGirlcumFlavourDiv()
+						+CharacterModificationUtils.getSelfTransformGirlcumModifiersDiv()
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformVaginaSquirterDiv()
+						+CharacterModificationUtils.getSelfTransformVaginaHymenDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformLabiaSizeDiv()
+						+CharacterModificationUtils.getSelfTransformVaginaEggLayerDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformVaginaModifiersDiv()
+						+CharacterModificationUtils.getSelfTransformVaginaWetnessDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformVaginaCapacityDiv()
+						+CharacterModificationUtils.getSelfTransformVaginaDepthDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformVaginaElasticityDiv()
+						+CharacterModificationUtils.getSelfTransformVaginaPlasticityDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformClitorisSizeDiv()
+						+CharacterModificationUtils.getSelfTransformClitorisGirthDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformClitorisModifiersDiv()
+						+CharacterModificationUtils.getSelfTransformVaginaUrethraModifiersDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformVaginaUrethraCapacityDiv()
+						+CharacterModificationUtils.getSelfTransformVaginaUrethraDepthDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformVaginaUrethraElasticityDiv()
+						+CharacterModificationUtils.getSelfTransformVaginaUrethraPlasticityDiv()
+						+"</div>");
 				
-				+ CharacterModificationUtils.getKatesDivCoveringsNew(false, Race.NONE, getTarget().getPubicHairType().getType(), "Pubic hair colour",
-						UtilText.parse(BodyChanging.getTarget(), "The colour of [npc.namePos] pubic hair."),
+				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(false,
+						BodyChanging.getTarget().getVaginaRace(),
+						BodyChanging.getTarget().getCovering(BodyCoveringType.VAGINA).getType(),
+						"Vagina Colour",
+						UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] vagina."),
+						true, true)
+						
+						+CharacterModificationUtils.getKatesDivCoveringsNew(false,
+						Race.NONE,
+						BodyChanging.getTarget().getCovering(BodyCoveringType.GIRL_CUM).getType(),
+						"Girlcum Colour",
+						UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] [npc.girlcum]."),
 						true, true));
+				
+				if (Main.game.isPubicHairEnabled()) {
+					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivPubicHair(false, "Pubic hair",
+							UtilText.parse(BodyChanging.getTarget(), "Change the amount of hair around [npc.namePos] genitals."))
+							
+							+CharacterModificationUtils.getKatesDivCoveringsNew(false, Race.NONE, getTarget().getPubicHairType().getType(), "Pubic hair colour",
+							UtilText.parse(BodyChanging.getTarget(), "The colour of [npc.namePos] pubic hair."),
+							true, true));
+				}
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -1641,70 +1591,60 @@ public class BodyChanging {
 			
 			UtilText.nodeContentSB.append(
 					getSelfTransformDescription("penis")
-
-					+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(getRacesForMinorPartSelfTransform(), false)
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformPenisSizeDiv()
-						+ CharacterModificationUtils.getSelfTransformPenisGirthDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformPenisModifiersDiv()
-						+ CharacterModificationUtils.getSelfTransformCumExplusionDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformCumProductionDiv()
-						+ CharacterModificationUtils.getSelfTransformCumRegenerationDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformCumFlavourDiv()
-						+ CharacterModificationUtils.getSelfTransformCumModifiersDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformTesticleCountDiv()
-						+ CharacterModificationUtils.getSelfTransformInternalTesticleDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformTesticleSizeDiv()
-						+ CharacterModificationUtils.getSelfTransformUrethraModifiersDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformUrethraCapacityDiv()
-						+ CharacterModificationUtils.getSelfTransformUrethraDepthDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformUrethraElasticityDiv()
-						+ CharacterModificationUtils.getSelfTransformUrethraPlasticityDiv()
-					+"</div>"
-
-					+ CharacterModificationUtils.getKatesDivCoveringsNew(false,
-							BodyChanging.getTarget().getPenisRace(),
-							BodyChanging.getTarget().getCovering(BodyCoveringType.PENIS).getType(),
-							"Penis Colour", 
-							UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] penis."),
-							true, true)
-
-					+ CharacterModificationUtils.getKatesDivCoveringsNew(false,
-							Race.NONE,
-							BodyChanging.getTarget().getCovering(BodyCoveringType.CUM).getType(),
-							"Cum Colour", 
-							UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] [npc.cum]."),
-							true, true));
-
-			if(Main.getProperties().hasValue(PropertyValue.pubicHairContent)) {
-				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivPubicHair(false, "Pubic hair",
-						UtilText.parse(BodyChanging.getTarget(), "Change the amount of hair around [npc.namePos] genitals."))
-				
-				+ CharacterModificationUtils.getKatesDivCoveringsNew(false, Race.NONE, getTarget().getPubicHairType().getType(), "Pubic hair colour",
-						UtilText.parse(BodyChanging.getTarget(), "The colour of [npc.namePos] pubic hair."),
+					+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(getRacesForMinorPartSelfTransform(), false));
+			if (getTarget().hasPenis()) {
+				UtilText.nodeContentSB.append("<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformPenisSizeDiv()
+						+CharacterModificationUtils.getSelfTransformPenisGirthDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformPenisModifiersDiv()
+						+CharacterModificationUtils.getSelfTransformCumExplusionDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformCumProductionDiv()
+						+CharacterModificationUtils.getSelfTransformCumRegenerationDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformCumFlavourDiv()
+						+CharacterModificationUtils.getSelfTransformCumModifiersDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformTesticleCountDiv()
+						+CharacterModificationUtils.getSelfTransformInternalTesticleDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformTesticleSizeDiv()
+						+CharacterModificationUtils.getSelfTransformUrethraModifiersDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformUrethraCapacityDiv()
+						+CharacterModificationUtils.getSelfTransformUrethraDepthDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformUrethraElasticityDiv()
+						+CharacterModificationUtils.getSelfTransformUrethraPlasticityDiv()
+						+"</div>"
+						+CharacterModificationUtils.getKatesDivCoveringsNew(false,
+						BodyChanging.getTarget().getPenisRace(),
+						BodyChanging.getTarget().getCovering(BodyCoveringType.PENIS).getType(),
+						"Penis Colour",
+						UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] penis."),
+						true, true)
+						+CharacterModificationUtils.getKatesDivCoveringsNew(false,
+						Race.NONE,
+						BodyChanging.getTarget().getCovering(BodyCoveringType.CUM).getType(),
+						"Cum Colour",
+						UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] [npc.cum]."),
 						true, true));
+				
+				if (Main.game.isPubicHairEnabled()) {
+					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivPubicHair(false, "Pubic hair",
+							UtilText.parse(BodyChanging.getTarget(), "Change the amount of hair around [npc.namePos] genitals."))
+							+CharacterModificationUtils.getKatesDivCoveringsNew(false, Race.NONE, getTarget().getPubicHairType().getType(), "Pubic hair colour",
+							UtilText.parse(BodyChanging.getTarget(), "The colour of [npc.namePos] pubic hair."),
+							true, true));
+				}
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -1731,69 +1671,59 @@ public class BodyChanging {
 
 		@Override
 		public String getHeaderContent() {
-			boolean isNipplePenOptions = isDebugMenu() || Main.game.isNipplePenEnabled();
+			UtilText.nodeContentSB.setLength(0);
 			
-			return getSelfTransformDescription("[npc.crotchBoobs]")
-					
-					+ CharacterModificationUtils.getSelfTransformBreastCrotchChoiceDiv(getRacesForMinorPartSelfTransform())
-
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformBreastCrotchSizeDiv()
-						+ CharacterModificationUtils.getSelfTransformBreastCrotchShapeDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformBreastCrotchRowsDiv(isNipplePenOptions)
-						+ (isNipplePenOptions
-							?CharacterModificationUtils.getSelfTransformNippleCrotchModifiersDiv()
-							:"")
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformLactationCrotchDiv()
-						+ CharacterModificationUtils.getSelfTransformLactationCrotchRegenerationDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformLactationCrotchFlavourDiv()
-						+ CharacterModificationUtils.getSelfTransformLactationCrotchModifiersDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformNippleCrotchCountDiv()
-						+ CharacterModificationUtils.getSelfTransformNippleCrotchShapeDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformNippleCrotchSizeDiv()
-						+ CharacterModificationUtils.getSelfTransformAreolaeCrotchSizeDiv()
-					+"</div>"
-
-					+(isNipplePenOptions
-						?"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformNippleCrotchCapacityDiv()
-							+ CharacterModificationUtils.getSelfTransformNippleCrotchDepthDiv()
+			UtilText.nodeContentSB.append(
+					getSelfTransformDescription("[npc.crotchBoobs]")
+							+CharacterModificationUtils.getSelfTransformBreastCrotchChoiceDiv(getRacesForMinorPartSelfTransform()));
+			if (BodyChanging.getTarget().hasBreastsCrotch()) {
+				UtilText.nodeContentSB.append("<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformBreastCrotchSizeDiv()
+						+CharacterModificationUtils.getSelfTransformBreastCrotchShapeDiv()
 						+"</div>"
-						
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformNippleCrotchElasticityDiv()
-							+ CharacterModificationUtils.getSelfTransformNippleCrotchPlasticityDiv()
+						+CharacterModificationUtils.getSelfTransformBreastCrotchRowsDiv()
+						+CharacterModificationUtils.getSelfTransformNippleCrotchModifiersDiv()
 						+"</div>"
-						:"")
-					
-					+ CharacterModificationUtils.getKatesDivCoveringsNew(false,
-							BodyChanging.getTarget().getBreastCrotchRace(),
-							BodyChanging.getTarget().getCovering(BodyCoveringType.NIPPLES_CROTCH).getType(),
-							"Nipple Colour", 
-							UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] [npc.crotchNipples]."),
-							true, true)
-
-					+ CharacterModificationUtils.getKatesDivCoveringsNew(false,
-							Race.NONE,
-							BodyChanging.getTarget().getCovering(BodyCoveringType.MILK).getType(),
-							"Milk Colour", 
-							UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] [npc.milk]."),
-							true, true);
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformLactationCrotchDiv()
+						+CharacterModificationUtils.getSelfTransformLactationCrotchRegenerationDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformLactationCrotchFlavourDiv()
+						+CharacterModificationUtils.getSelfTransformLactationCrotchModifiersDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformNippleCrotchCountDiv()
+						+CharacterModificationUtils.getSelfTransformNippleCrotchShapeDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformNippleCrotchSizeDiv()
+						+CharacterModificationUtils.getSelfTransformAreolaeCrotchSizeDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformNippleCrotchCapacityDiv()
+						+CharacterModificationUtils.getSelfTransformNippleCrotchDepthDiv()
+						+"</div>"
+						+"<div style='clear:left;'>"
+						+CharacterModificationUtils.getSelfTransformNippleCrotchElasticityDiv()
+						+CharacterModificationUtils.getSelfTransformNippleCrotchPlasticityDiv()
+						+"</div>"
+						+CharacterModificationUtils.getKatesDivCoveringsNew(false,
+						BodyChanging.getTarget().getBreastCrotchRace(),
+						BodyChanging.getTarget().getCovering(BodyCoveringType.NIPPLES_CROTCH).getType(),
+						"Nipple Colour",
+						UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] [npc.crotchNipples]."),
+						true, true)
+						
+						+CharacterModificationUtils.getKatesDivCoveringsNew(false,
+						Race.NONE,
+						BodyChanging.getTarget().getCovering(BodyCoveringType.MILK).getType(),
+						"Milk Colour",
+						UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] [npc.milk]."),
+						true, true));
+			}
+			return UtilText.nodeContentSB.toString();
 		}
 		
 		@Override
@@ -2067,20 +1997,20 @@ public class BodyChanging {
 						+ "<div class='container-full-width' style='width:calc(25% - 16px);text-align:center; background:transparent;'>"
 							+ (Main.game.isStarted()
 									?(fileName.equals(overwriteConfirmationName)
-										?"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveConfirm()+"</div></div>"
-										:"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskOverwrite()+"</div></div>")
+										?"<div class='square-button saveIcon' id='OVERWRITE_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveConfirm()+"</div></div>"
+										:"<div class='square-button saveIcon' id='OVERWRITE_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskOverwrite()+"</div></div>")
 									:"<div class='square-button saveIcon disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
 							
 							+ (canTransform
 									? (fileName.equals(loadConfirmationName)
-										?"<div class='square-button saveIcon' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadConfirm()+"</div></div>"
-										:"<div class='square-button saveIcon' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoad()+"</div></div>")
-									:"<div class='square-button saveIcon disabled' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadDisabled()+"</div></div>")
+										?"<div class='square-button saveIcon' id='LOAD_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadConfirm()+"</div></div>"
+										:"<div class='square-button saveIcon' id='LOAD_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoad()+"</div></div>")
+									:"<div class='square-button saveIcon disabled' id='LOAD_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadDisabled()+"</div></div>")
 	
 	
 							+ (fileName.equals(deleteConfirmationName)
-								?"<div class='square-button saveIcon' id='delete_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
-								:"<div class='square-button saveIcon' id='delete_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
+								?"<div class='square-button saveIcon' id='DELETE_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
+								:"<div class='square-button saveIcon' id='DELETE_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
 						+ "</div>"
 					+ "</div>";
 			
@@ -2107,7 +2037,7 @@ public class BodyChanging {
 						+ "</div>"
 					
 						+ "<div class='container-full-width' style='width:calc(25% - 16px); text-align:center; background:transparent;'>"
-							+ "<div class='square-button saveIcon' id='new_saved' style='float:left;'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSave()+"</div></div>"
+							+ "<div class='square-button saveIcon' id='NEW_SAVE' style='float:left;'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSave()+"</div></div>"
 						+ "</div>"
 					+ "</div>";
 		}

@@ -21,6 +21,8 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.markings.AbstractTattooType;
+import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
@@ -37,6 +39,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
+import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -819,7 +822,7 @@ public class DebugDialogue {
 					
 				} else if(index==2) {
 					return new Response("Items",
-							"View icons and ids of all the items in the game. You can also spawn these items by clicking on their icons. <i>Warning: Very sluggish and slow to load.</i>",
+							"View icons and ids of all the items in the game. You can also spawn these items by clicking on their icons. <i>Warning: May be sluggish and slow to load.</i>",
 							ITEM_VIEWER) {
 						@Override
 						public void effects() {
@@ -829,7 +832,7 @@ public class DebugDialogue {
 					
 				} else if(index==3) {
 					return new Response("Weapons",
-							"View icons and ids of all the weapons in the game. You can also spawn these items by clicking on their icons. <i>Warning: May be very sluggish and slow to load.</i>",
+							"View icons and ids of all the weapons in the game. You can also spawn these items by clicking on their icons. <i>Warning: May be sluggish and slow to load.</i>",
 							ITEM_VIEWER) {
 						@Override
 						public void effects() {
@@ -861,7 +864,7 @@ public class DebugDialogue {
 					if(index-5 < clothingSlots.size()) {
 						InventorySlot is = clothingSlots.get(index-5);
 						return new Response(Util.capitaliseSentence(is.getName()),
-								"View icons and ids of all the clothing in the the slot '"+is.getName()+"'. You can also spawn these items by clicking on their icons. <i>Warning: May be very sluggish and slow to load.</i>",
+								"View icons and ids of all the clothing in the slot '"+is.getName()+"'. You can also spawn these items by clicking on their icons. <i>Warning: May be very sluggish and slow to load.</i>",
 								ITEM_VIEWER) {
 							@Override
 							public void effects() {
@@ -869,8 +872,19 @@ public class DebugDialogue {
 								itemViewSlot = is;
 							}
 						};
+					} else if(index-5 == clothingSlots.size()) {
+						return new Response("Tattoos",
+								"View icons and ids of all the tattoos in the game. <i>Warning: May be sluggish and slow to load.</i>",
+								ITEM_VIEWER) {
+							@Override
+							public void effects() {
+								viewItemVariablesReset();
+								viewAllTattoos = true;
+							}
+						};
 					}
 				}
+				
 			} else if(responseTab==4) {
 				List<PersonalityTrait> pt = Arrays.asList(PersonalityTrait.values());
 				for(int i=1; i<=pt.size();i++) {
@@ -986,6 +1000,7 @@ public class DebugDialogue {
 	public static int spawnCount = 1;
 	public static List<AbstractItemType> itemsTotal = new ArrayList<>();
 	public static List<AbstractWeaponType> weaponsTotal = new ArrayList<>();
+	public static List<AbstractTattooType> tattoosTotal = new ArrayList<>();
 	static {
 		clothingTotal.addAll(ClothingType.getAllClothing());
 		clothingTotal.removeIf((c) -> c.getDefaultItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || c.getDefaultItemTags().contains(ItemTag.CHEAT_ITEM));
@@ -995,6 +1010,9 @@ public class DebugDialogue {
 		weaponsTotal.removeIf((w) -> w.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || w.getItemTags().contains(ItemTag.CHEAT_ITEM));
 		Collections.sort(weaponsTotal, (i1, i2) -> Main.game.getItemGen().generateWeapon(i1).getRarity().compareTo(Main.game.getItemGen().generateWeapon(i2).getRarity()));
 
+		tattoosTotal.addAll(TattooType.getAllTattooTypes());
+		Collections.sort(tattoosTotal, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
+		
 		itemsTotal.addAll(ItemType.getAllItems());
 		itemsTotal.removeIf((i) -> i.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || i.getItemTags().contains(ItemTag.CHEAT_ITEM));
 		Collections.sort(itemsTotal, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
@@ -1181,11 +1199,13 @@ public class DebugDialogue {
 	private static void viewItemVariablesReset() {
 		viewAll = false;
 		viewAllClothing = false;
+		viewAllTattoos = false;
 		itemViewSlot = null;
 	}
 	
 	private static boolean viewAll = false;
 	private static boolean viewAllClothing = false;
+	private static boolean viewAllTattoos = false;
 	private static InventorySlot itemViewSlot = null;
 	
 	public static final DialogueNode ITEM_VIEWER = new DialogueNode("", "", false) {
@@ -1200,7 +1220,7 @@ public class DebugDialogue {
 			}
 			int imgWidth = 15;
 			
-			if(!viewAllClothing && (viewAll || itemViewSlot == null)) {
+			if(!viewAllClothing && !viewAllTattoos && (viewAll || itemViewSlot == null)) {
 				inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
 						+ "<h5>Total items: "+itemsTotal.size()+"</h5>");
 				for(AbstractItemType itemType : itemsTotal) {
@@ -1258,6 +1278,22 @@ public class DebugDialogue {
 				}
 				inventorySB.append("</div>");
 				
+			} else if(viewAllTattoos) {
+				inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+						+ "<h5>Total tattoos: "+tattoosTotal.size()+"</h5>");
+				for(AbstractTattooType tattooType : tattoosTotal) {
+					inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
+											+ "<div class='inventory-item-slot unequipped' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0; background-color:"+tattooType.getRarity().getBackgroundColour().toWebHexString()+";'>"
+												+ "<div class='inventory-icon-content'>"
+													+tattooType.getSVGImage(Main.game.getPlayer())
+												+"</div>"
+												+ "<div class='overlay' id='" + tattooType.getId() + "_SPAWN'></div>"
+											+ "</div>"
+											+ TattooType.getIdFromTattooType(tattooType)
+										+ "</div>");
+				}
+				inventorySB.append("</div>");
+				
 			} else if(itemViewSlot!=null && !itemViewSlot.isWeapon()) {
 				List<AbstractClothingType> clothingToDisplay = clothingTotal.stream().filter((c) -> c.getEquipSlots().get(0)==itemViewSlot).collect(Collectors.toList());
 				inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
@@ -1275,8 +1311,6 @@ public class DebugDialogue {
 				}
 				inventorySB.append("</div>");
 			}
-			
-			
 			
 			return inventorySB.toString();
 		}
@@ -1422,7 +1456,7 @@ public class DebugDialogue {
 
 						attacker.resetInventory(true);
 						attacker.clearNonEquippedInventory(false);
-						Main.game.getCharacterUtils().generateItemsInInventory(attacker);
+						Main.game.getCharacterUtils().generateItemsInInventory(attacker, true, true, true);
 						attacker.equipClothing();
 						
 						Main.game.setContent(new Response("", "", attacker.getEncounterDialogue()));
@@ -1514,6 +1548,18 @@ public class DebugDialogue {
 							
 							if(subspecies==Subspecies.DEMON) {
 								stage = RaceStage.GREATER;
+								
+								DialogueFlags dialogueFlags = Main.game.getDialogueFlags();
+								if(!dialogueFlags.hasFlag("innoxia_child_of_lyssieth")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lunette")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lirecea")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lovienne")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lasielle")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lyxias")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lisophia")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lilith")){
+									Main.game.getDialogueFlags().setFlag("innoxia_child_of_lyssieth", true);
+								}
 							}
 							
 							Main.game.getCharacterUtils().reassignBody(

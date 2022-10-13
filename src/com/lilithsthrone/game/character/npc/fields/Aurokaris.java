@@ -303,7 +303,8 @@ public class Aurokaris extends NPC {
 	@Override
 	public void hourlyUpdate() {
 		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_3_E_THEMISCYRA_ATTACK)
-				&& !Main.game.getCharactersPresent().contains(this)) {
+				&& !Main.game.getCharactersPresent().contains(this)
+				 && !Main.game.isBadEnd()) {
 			if(Main.game.isHourBetween(8, 18)) {
 				this.setLocation("innoxia_fields_elis_amazon_camp", "innoxia_fields_elis_amazon_camp_trader", false);
 			} else {
@@ -314,7 +315,7 @@ public class Aurokaris extends NPC {
 
 	@Override
 	public void dailyUpdate() {
-		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_3_E_THEMISCYRA_ATTACK)) {
+		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_3_E_THEMISCYRA_ATTACK) && !Main.game.isBadEnd()) {
 			clearNonEquippedInventory(false);
 			
 			// Clothing:
@@ -358,7 +359,6 @@ public class Aurokaris extends NPC {
 			for(AbstractItemType type : itemTypesToSell) {
 				this.addItem(Main.game.getItemGen().generateItem(type), !type.isConsumedOnUse()?1:(4+Util.random.nextInt(7)), false, false);
 			}
-	//		
 			
 			// Specials:
 			itemTypesToSell.clear();

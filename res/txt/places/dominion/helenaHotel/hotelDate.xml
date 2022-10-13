@@ -403,7 +403,7 @@
 	
 	<htmlContent tag="RESPONSE_SLAVES_NECESSITY"><![CDATA[
 	<p>
-		Although you know that Helena won't agree with what you're saying, you think it best to give her your honest opinion on the matter of slavery. Telling her that you disapprove of it from a moral standpoint, you reluctantly concede the fact that it seems like a necessity in Dominion's society. After all, without slavery as a means of deterring and punishing criminals, the Enforcers might struggle to keep law and order in a city which already seems to have a serious problem with muggers and rapists.
+		Although you know that Helena won't agree with what you're saying, you think it's best to give her your honest opinion on the matter of slavery. Telling her that you disapprove of it from a moral standpoint, you reluctantly concede the fact that it seems like a necessity in Dominion's society. After all, without slavery as a means of deterring and punishing criminals, the Enforcers might struggle to keep law and order in a city which already seems to have a serious problem with muggers and rapists.
 	</p>
 	<p>
 		Although your point of view doesn't entirely line up with hers, Helena appears to be happy that you've given her your honest opinion, and after you've finished speaking, she respectfully argues that slavery is both natural and beneficial to society. In this manner, the two of you continue your discussion on slavery, and before you know it, almost twenty minutes have passed.
@@ -725,7 +725,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Although you think it best to do as she asks, you're still interested in Helena's views on politics, and so ask her instead about how the matriarchs in the Harpy Nests organise and control their flocks. Although she lets out an exasperated sigh, Helena nevertheless gives you what you want and starts to engage you in a discussion about harpy politics.
+		Although you think it's best to do as she asks, you're still interested in Helena's views on politics, and so ask her instead about how the matriarchs in the Harpy Nests organise and control their flocks. Although she lets out an exasperated sigh, Helena nevertheless gives you what you want and starts to engage you in a discussion about harpy politics.
 	</p>
 	]]>
 	</htmlContent>
@@ -1242,7 +1242,7 @@
 		#ELSE
 			Reassuring her that she's doing fine, you push your throbbing cock up between Helena's breasts, causing her to let out an excited squeal. Unfortunately, she's clearly not very competent at performing titjobs, and accidentally lets your hard shaft slip out from between her breasts as she awkwardly tries to use them to jerk you off.
 		#ENDIF
-		 Encouraging her to try again, you sit back and relax as the gorgeous matriarch shifts position and attempts to perform paziuri on you for a second time. While still a little clumsy at first, she soon figures out how best to do it, and within a few minutes you find yourself happily [pc.moaning] as Helena's tits slide up and down around your [pc.cock+]...
+		 Encouraging her to try again, you sit back and relax as the gorgeous matriarch shifts position and attempts to perform paizuri on you for a second time. While still a little clumsy at first, she soon figures out how best to do it, and within a few minutes you find yourself happily [pc.moaning] as Helena's tits slide up and down around your [pc.cock+]...
 	</p>
 	]]>
 	</htmlContent>
@@ -1550,7 +1550,7 @@
 		#ELSE
 			 Helping her to slide off her lacy white thong, you reach down to give Helena's [helena.labia+] a quick stroke, before gently pushing her down onto her back and positioning your own pussy up against hers.
 		#ENDIF
-		 IMpatient to get started, the beautiful matriarch impatiently shuffles forwards to bump her [helena.pussy+] against yours. Biting her lip and starting to gyrate her hips, she breathlessly pants, [helena.speechNoEffects(Come on, [pc.name], get those hips moving!)]
+		 Impatient to get started, the beautiful matriarch impatiently shuffles forwards to bump her [helena.pussy+] against yours. Biting her lip and starting to gyrate her hips, she breathlessly pants, [helena.speechNoEffects(Come on, [pc.name], get those hips moving!)]
 	</p>
 	<p>
 		Doing as you're told, you start gyrating your [pc.hips+], letting out [pc.a_moan+] of your own as you rub and bump your [pc.pussy+] against the gorgeous matriarch's hot cunt. Having already gained experience with you in this position, Helena confidently grinds her clit up and down over your [pc.pussy+], moaning, [helena.speechNoEffects(~Mmm!~ Oh, yes! ~Ooh!~ Keep moving like that, [pc.name]!)]
@@ -1747,7 +1747,7 @@
 	<p>
 		Not wanting to give the nervous matriarch any time in which to change her mind,
 		#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
-			 you drop down behind her and quickly press your [pc.lips] against her bird-like claoca. Knowing that you're not interested in her pussy, Helena shifts about a little until her asshole is pointing directly towards your mouth, before calling out,
+			 you drop down behind her and quickly press your [pc.lips] against her bird-like cloaca. Knowing that you're not interested in her pussy, Helena shifts about a little until her asshole is pointing directly towards your mouth, before calling out,
 		#ELSE
 			 you take hold of her perfectly-smooth ass cheeks and spread them apart, before dropping down behind her and quickly pressing your [pc.lips] against her [helena.asshole+]. Feeling your mouth make contact with her butt, Helena calls out,
 		#ENDIF
@@ -1777,7 +1777,7 @@
 	<p>
 		More than happy to do as she demands,
 		#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
-			 you drop down behind Helena and quickly press your [pc.lips] against her bird-like claoca. Knowing that you're not interested in her pussy, the gorgeous matriarch shifts about a little until her asshole is pointing directly towards your mouth, before calling out,
+			 you drop down behind Helena and quickly press your [pc.lips] against her bird-like cloaca. Knowing that you're not interested in her pussy, the gorgeous matriarch shifts about a little until her asshole is pointing directly towards your mouth, before calling out,
 		#ELSE
 			 you take hold of Helena's perfectly-smooth ass cheeks and spread them apart, before dropping down behind her and quickly pressing your [pc.lips] against her [helena.asshole+]. Feeling your mouth make contact with her butt, the gorgeous matriarch calls out,
 		#ENDIF
@@ -1837,7 +1837,7 @@
 		<p>
 			Finding yourself at the mercy of Helena's dominant demand, you do as she orders and beg for her to slip your cock into her rear entrance. Flashing you one last cheeky smirk, the gorgeous matriarch reaches down between her legs, before guiding your throbbing shaft up to her
 			#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
-				 claoca
+				 cloaca
 			#ELSE
 				 asshole
 			#ENDIF
@@ -1853,7 +1853,7 @@
 		<p>
 			Not wanting to waste another moment, you quickly reposition yourself behind Helena, before pointing your throbbing cock at her
 			#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
-				 claoca
+				 cloaca
 			#ELSE
 				 [helena.ass+]
 			#ENDIF
@@ -2010,7 +2010,7 @@
 			Reassuring Helena by telling her that you'll let her go at her own pace, you awkwardly roll over onto your back and present your [pc.cock+] for her to ride. Gaining more confidence with each passing second, the gorgeous matriarch begins by throwing one of her bird-like legs over your stomach, before lowering herself down and straddling you in the cowgirl position. Moving her hips back, she brushes her ass against your feral cock, before sliding her slimy, saliva-coated labia up and down over your throbbing shaft. Really starting to get into the flow of things, Helena starts to show a real dominant streak as she looks down into your eyes and demands, [helena.speechNoEffects(Tell me that you want me, [pc.name]! Go on, I want to hear you begging for my virgin cunt!)]
 		</p>
 		<p>
-			Doing as Helena says, you beg for her to penetrate herself on your cock and give up her precious virginity to you. Satisfied with your display of submission, the beautiful harpy continues teasing you for a few moments more, before very slowly dropping down and letting the [pc.cockHead+] of your [pc.cock+] push its way past her [helena.labia+]. Pausing before you fully penetrate her, Helena bites her lip and moans, [helena.speechNoEffects(~Mmm!~ So, [pc.name], are you ready to to take my virginity?)]
+			Doing as Helena says, you beg for her to penetrate herself on your cock and give up her precious virginity to you. Satisfied with your display of submission, the beautiful harpy continues teasing you for a few moments more, before very slowly dropping down and letting the [pc.cockHead+] of your [pc.cock+] push its way past her [helena.labia+]. Pausing before you fully penetrate her, Helena bites her lip and moans, [helena.speechNoEffects(~Mmm!~ So, [pc.name], are you ready to take my virginity?)]
 		</p>
 		<p>
 			Eagerly replying in the affirmative, you let out a desperate [pc.moan] as Helena very slowly drops her hips all the way down, forcing your [pc.cock+] [style.size]-by-[style.size] into her virginal cunt. Although she's very well lubricated from the combination of your saliva and her girlcum, the tearing of her hymen still causes Helena to let out a frantic wail as she spears herself on your feral cock. Thankfully, this almost immediately turns into a desperate moan, and with her tight, wet pussy still filled with your cock, the gorgeous matriarch calls out, [helena.speechNoEffects(~Aah!~ Yes! Fuck! ~Ooh!~ That feels so good, [pc.name]! Fuck, I want more!)]
@@ -2026,7 +2026,7 @@
 			Reassuring Helena by telling her that you'll let her go at her own pace, you lie down on your back and present your [pc.cock+] for her to ride. Gaining more confidence with each passing second, the gorgeous matriarch begins by throwing one of her bird-like legs over your stomach, before lowering herself down and straddling you in the cowgirl position. Moving her hips back, she brushes her ass against your hard cock, before sliding her slimy, saliva-coated labia up and down over your throbbing shaft. Really starting to get into the flow of things, Helena starts to show a real dominant streak as she looks down into your eyes and demands, [helena.speechNoEffects(Tell me that you want me, [pc.name]! Go on, I want to hear you begging for my virgin cunt!)]
 		</p>
 		<p>
-			Doing as Helena says, you beg for her to penetrate herself on your cock and give up her precious virginity to you. Satisfied with your display of submission, the beautiful harpy continues teasing you for a few moments more, before very slowly dropping down and letting the [pc.cockHead+] of your [pc.cock+] push its way past her [helena.labia+]. Pausing before you fully penetrate her, Helena bites her lip and moans, [helena.speechNoEffects(~Mmm!~ So, [pc.name], are you ready to to take my virginity?)]
+			Doing as Helena says, you beg for her to penetrate herself on your cock and give up her precious virginity to you. Satisfied with your display of submission, the beautiful harpy continues teasing you for a few moments more, before very slowly dropping down and letting the [pc.cockHead+] of your [pc.cock+] push its way past her [helena.labia+]. Pausing before you fully penetrate her, Helena bites her lip and moans, [helena.speechNoEffects(~Mmm!~ So, [pc.name], are you ready to take my virginity?)]
 		</p>
 		<p>
 			Eagerly replying in the affirmative, you let out a desperate [pc.moan] as Helena very slowly drops her hips all the way down, forcing your [pc.cock+] [style.size]-by-[style.size] into her virginal cunt. Although she's very well lubricated from the combination of your saliva and her girlcum, the tearing of her hymen still causes Helena to let out a frantic wail as she spears herself on your [pc.cock+]. Thankfully, this almost immediately turns into a desperate moan, and with her tight, wet pussy still filled with your cock, the gorgeous matriarch calls out, [helena.speechNoEffects(~Aah!~ Yes! Fuck! ~Ooh!~ That feels so good, [pc.name]! Fuck, I want more!)]

@@ -5,7 +5,7 @@
 		<determiner><![CDATA[a box of]]></determiner>
 		<name><![CDATA[Oinkers Fries]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Oinkers Fries']]></namePlural>
-		<description><![CDATA[A cardboard box stuffed full of greasy, curly fries. The barnding on the front of the packet declares it to be from the fast food outlet, 'Oinkers!', while a list of ingredients on the back worryingly reassures you that the fat content is less than 50%.]]></description> 
+		<description><![CDATA[A cardboard box stuffed full of greasy, curly fries. The branding on the front of the packet declares it to be from the fast food outlet, 'Oinkers!', while a list of ingredients on the back worryingly reassures you that the fat content is less than 50%.]]></description> 
 		
 		<useDescriptor>eat</useDescriptor>
 		

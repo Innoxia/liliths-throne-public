@@ -16,10 +16,15 @@
 				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_plaza_bad_end_palace]]></nextDialogue>
 				<effects><![CDATA[
 					[#pc.setLocation(WORLD_TYPE_innoxia_fields_themiscyra, PLACE_TYPE_innoxia_fields_themiscyra_palace)]
-					[#meraxis.setLocation(pc)]
-					[#ursa.setLocation(pc)]
-					[#aurokaris.setLocation(pc)]
-					[#lunexis.setLocation(pc)]
+					[#meraxis.setLocation(pc, true)]
+					[#ursa.setLocation(pc, true)]
+					[#aurokaris.setLocation(pc, true)]
+					[#lunexis.setLocation(pc, true)]
+					
+					[#meraxis.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
+					[#ursa.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
+					[#aurokaris.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
+					[#lunexis.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
 				]]></effects>
 			</response>
 		</responses>
@@ -156,6 +161,11 @@
 	
 	<scene id="plaza_bad_end_final">
 		<preParsingEffects><![CDATA[
+			[#lunexis.applyMeraxisBadEnd()]
+			[#lunexis.applyAurokarisBadEnd()]
+			[#lunexis.applyUrsaBadEnd()]
+			[#lunexis.applyPlayerBadEnd()]
+			
 			[#pc.setLocation(WORLD_TYPE_innoxia_fields_themiscyra, PLACE_TYPE_innoxia_fields_themiscyra_plaza)]
 			[#meraxis.setLocation(pc)]
 			[#ursa.setLocation(pc)]
@@ -197,9 +207,9 @@
 				<responseTitle><![CDATA[Aurokaris]]></responseTitle>
 				<responseTooltip><![CDATA[
 					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_bad_end_spectate_aurokaris))
-						You've already seen what fate has grated to the cock-sleeve formally known as Aurokaries.
+						You've already seen what fate has befallen the cock-sleeve formerly known as Aurokaris.
 					#ELSE
-						From your position you're able to see what's being done to the cock-sleeve formally known as Aurokaris.
+						From your position you're able to see what's being done to the cock-sleeve formerly known as Aurokaris.
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
@@ -293,6 +303,8 @@
 	
 	<scene id="plaza_bad_end_final_epilogue">
 		<preParsingEffects><![CDATA[
+			[#lunexis.applyMeraxisBadEndFinal()]
+			
 			[#pc.setLocation(WORLD_TYPE_innoxia_fields_themiscyra, PLACE_TYPE_innoxia_fields_themiscyra_palace)]
 			[#meraxis.setLocation(pc)]
 			[#ursa.setLocation(pc)]

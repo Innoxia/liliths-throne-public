@@ -386,7 +386,7 @@ public class LilayaSpa {
 			new Value<>(
 					SlavePermissionSetting.BEHAVIOUR_PROFESSIONAL,
 					Util.newArrayListOfValues(
-						"Sinking down into the pool's warm warm water, [npc.name] sighs,",
+						"Sinking down into the pool's warm water, [npc.name] sighs,",
 						"Letting out a deep sigh as [npc.she] enters the pool, [npc.name] remarks,")),
 			new Value<>(
 					SlavePermissionSetting.BEHAVIOUR_SEDUCTIVE,
@@ -409,7 +409,7 @@ public class LilayaSpa {
 			new Value<>(
 					SlavePermissionSetting.BEHAVIOUR_STANDARD,
 					Util.newArrayListOfValues(
-						"Sinking down into the pool's warm warm water, [npc.name] sighs,",
+						"Sinking down into the pool's warm water, [npc.name] sighs,",
 						"Letting out a deep sigh as [npc.she] enters the pool, [npc.name] remarks,")),
 			new Value<>(
 					SlavePermissionSetting.BEHAVIOUR_WHOLESOME,
@@ -421,7 +421,7 @@ public class LilayaSpa {
 			new Value<>(
 					SlavePermissionSetting.BEHAVIOUR_PROFESSIONAL,
 					Util.newArrayListOfValues(
-						"Sinking down into the pool's warm warm water, [npc.name] lets out a quiet sigh and simply enjoys this opportunity to relax.",
+						"Sinking down into the pool's warm water, [npc.name] lets out a quiet sigh and simply enjoys this opportunity to relax.",
 						"Letting out a barely-audible sigh as [npc.she] enters the pool, [npc.name] closes [npc.her] [npc.eyes] and relaxes in the warm water.")),
 			new Value<>(
 					SlavePermissionSetting.BEHAVIOUR_SEDUCTIVE,
@@ -440,7 +440,7 @@ public class LilayaSpa {
 			new Value<>(
 					SlavePermissionSetting.BEHAVIOUR_STANDARD,
 					Util.newArrayListOfValues(
-							"Sinking down into the pool's warm warm water, [npc.name] lets out a quiet sigh and simply enjoys this opportunity to relax.",
+							"Sinking down into the pool's warm water, [npc.name] lets out a quiet sigh and simply enjoys this opportunity to relax.",
 							"Letting out a barely-audible sigh as [npc.she] enters the pool, [npc.name] closes [npc.her] [npc.eyes] and relaxes in the warm water.")),
 			new Value<>(
 					SlavePermissionSetting.BEHAVIOUR_WHOLESOME,

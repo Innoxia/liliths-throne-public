@@ -94,7 +94,7 @@
 			Despite their claustrophobic nature and the dilapidated state of the surrounding structures, these alleyways don't have the same dangerous feeling to them as those in Dominion, largely due to the fact that there's always at least a few harmless residents either loitering about or travelling past you. There are also numerous clotheslines linking the buildings above your head, and the bright colours of the clothing hung out to dry helps to lend a cheery atmosphere to what would otherwise be some very drab surroundings.
 		</p>
 		<p>
-			While you're confident that these alleyways are safe to be travelling through during daylight hours, you can't help but notice how they're home to the town's more disreputable elements. Thanks to the fact that there's a back-alley brothel or a sleazy gambling den never more than a few turns away, you find yourself often having to filter out the sounds of whorish moaning or drunken laughter. As you as you travel ever onwards, you find yourself spotting countless places from which an ambush could be sprung, and you realise that these alleyways must be a very dangerous place to be at night... 
+			While you're confident that these alleyways are safe to be travelling through during daylight hours, you can't help but notice how they're home to the town's more disreputable elements. Thanks to the fact that there's a back-alley brothel or a sleazy gambling den never more than a few turns away, you find yourself often having to filter out the sounds of whorish moaning or drunken laughter. As you travel ever onwards, you find yourself spotting countless places from which an ambush could be sprung, and you realise that these alleyways must be a very dangerous place to be at night... 
 		</p>
 	#ELSE
 		<p>
@@ -234,7 +234,7 @@
 	
 	<htmlContent tag="GATEHOUSE"><![CDATA[
 	<p>
-		Consisting of a pair of crenellated towers flanking a pair of huge wooden gates, this gatehouse guards one of the the two roads which grant access to the town of Elis. Standing guard to one side of the open gates, a pair of Enforcers are keeping a very casual watch over anyone who passes them by.
+		Consisting of a pair of crenellated towers flanking a pair of huge wooden gates, this gatehouse guards one of the two roads which grant access to the town of Elis. Standing guard to one side of the open gates, a pair of Enforcers are keeping a very casual watch over anyone who passes them by.
 	</p>
 	<p>
 		#IF(pc.getLastPlaceType()==PLACE_TYPE_innoxia_fields_elis_town_wall)
@@ -406,7 +406,7 @@
 		#IF(game.isDayTime())
 			Due to the current hour, there are a lot of people out and about, with those that you see walking the streets mostly taking the form of some kind of domestic animal-morph. Cows, sheep, dogs, and all other manner of morphs are able to be sighted.
 		#ELSE
-			Due to the current hour, there are far fewer people out and about, with those that you do see walking the streets mostly taking the form of a nocturnal animal-morph. Foxes, badgers, and even the occasional owl-harpy who's decided to walk instead of fly are just some of the morphs which you're able see.
+			Due to the current hour, there are far fewer people out and about, with those that you do see walking the streets mostly taking the form of a nocturnal animal-morph. Foxes, badgers, and even the occasional owl-harpy who's decided to walk instead of fly are just some of the morphs which you're able to see.
 		#ENDIF
 		 Although this town is far smaller than Dominion, it's not so rural as to be home to the sort of behaviour where strangers say hello to one another, and so none of the people who you pass pay you any attention as they continue on their way to whatever destination awaits them.
 	</p>
@@ -478,7 +478,7 @@
 			An oddity in amongst the narrow alleyways of the northern half of Elis, the large, paved courtyard in front of you is filled with wooden picnic tables, each one of which is vacant. The establishment to which this array of empty seating belongs is situated on the far side of the courtyard, and takes the form of a rather dilapidated, timber-framed structure. A weathered sign hanging precariously from a drooping metal pole displays an image of two crossed daggers, with the words 'The Crossed Blades' written in black, bold letting below.
 		</p>
 		<p>
-			Just like the empty courtyard before you suggests, the the tavern itself seems to be closed, as there's no light nor sounds coming from within. Although there are large, leaded windows on the ground floor, they're so grimy that you can't see much of the interior through them, and so if you wanted to find out what this tavern is like, you'll have to come back again when it's open. Looking across to the tavern's front door, you see that there's an old, weathered sign which declares its opening hours to be from [style.colourMinorBad([units.time(14)]-[units.time(5)])].
+			Just like the empty courtyard before you suggests, the tavern itself seems to be closed, as there's no light nor sounds coming from within. Although there are large, leaded windows on the ground floor, they're so grimy that you can't see much of the interior through them, and so if you wanted to find out what this tavern is like, you'll have to come back again when it's open. Looking across to the tavern's front door, you see that there's an old, weathered sign which declares its opening hours to be from [style.colourMinorBad([units.time(14)]-[units.time(5)])].
 		</p>
 	#ENDIF
 	#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS))

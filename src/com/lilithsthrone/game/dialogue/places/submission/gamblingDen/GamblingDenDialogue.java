@@ -252,7 +252,7 @@ public class GamblingDenDialogue {
 				} else if(index==6) {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelFeminised)) {
 						return new Response("Clothing",
-								"Tell [axel.name] that [axel.she] should change the sort of outfit [axel.she] chooses to wear..",
+								"Tell [axel.name] that [axel.she] should change the sort of outfit [axel.she] chooses to wear.",
 								OFFICE_WITH_LEXA_CLOTHING);
 					}
 					return new Response("Feminise",

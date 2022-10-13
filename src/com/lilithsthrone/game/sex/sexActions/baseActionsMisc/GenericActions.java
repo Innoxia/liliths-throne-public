@@ -46,6 +46,7 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -291,11 +292,34 @@ public class GenericActions {
 				// Foreplay:
 				SexType preference;
 				if(Main.sex.isInForeplay(dom)) {
+					// Self-equip clothing:
 					if(dom instanceof NPC) {
 						Value<AbstractClothing, String> clothingValue = ((NPC)dom).getSexClothingToSelfEquip(sub, true);
-						while(clothingValue!=null) {
+						while(clothingValue!=null && SexActionUtility.PARTNER_SELF_EQUIP_CLOTHING.isQuickSexRequirementsMet(dom)) {
 							dom.equipClothingFromInventory(clothingValue.getKey(), true, dom, dom);
 							clothingValue = ((NPC)dom).getSexClothingToSelfEquip(sub, true);
+						}
+					}
+					if(sub instanceof NPC) {
+						Value<AbstractClothing, String> clothingValue = ((NPC)sub).getSexClothingToSelfEquip(dom, true);
+						while(clothingValue!=null && SexActionUtility.PARTNER_SELF_EQUIP_CLOTHING.isQuickSexRequirementsMet(sub)) {
+							sub.equipClothingFromInventory(clothingValue.getKey(), true, sub, sub);
+							clothingValue = ((NPC)sub).getSexClothingToSelfEquip(dom, true);
+						}
+					}
+					// Equip clothing on partner:
+					if(dom instanceof NPC) {
+						Value<AbstractClothing, String> clothingValue = ((NPC)dom).getSexClothingToEquip(sub, true);
+						while(clothingValue!=null && SexActionUtility.PARTNER_EQUIP_CLOTHING.isQuickSexRequirementsMet(dom)) {
+							sub.equipClothingFromInventory(clothingValue.getKey(), true, dom, dom);
+							clothingValue = ((NPC)dom).getSexClothingToEquip(sub, true);
+						}
+					}
+					if(sub instanceof NPC) {
+						Value<AbstractClothing, String> clothingValue = ((NPC)sub).getSexClothingToEquip(dom, true);
+						while(clothingValue!=null && SexActionUtility.PARTNER_EQUIP_CLOTHING.isQuickSexRequirementsMet(sub)) {
+							dom.equipClothingFromInventory(clothingValue.getKey(), true, sub, sub);
+							clothingValue = ((NPC)sub).getSexClothingToEquip(dom, true);
 						}
 					}
 					preference = getForeplayPreference(dom, sub);
@@ -319,16 +343,43 @@ public class GenericActions {
 					dom.incrementPenisStoredCum((5*60) * dom.getCumRegenerationPerSecond());
 					sub.incrementPenisStoredCum((5*60) * sub.getCumRegenerationPerSecond());
 
+					// Self-equip clothing:
 					if(dom instanceof NPC) {
 						Value<AbstractClothing, String> clothingValue = ((NPC)dom).getSexClothingToSelfEquip(sub, true);
-						while(clothingValue!=null) {
+						while(clothingValue!=null && SexActionUtility.PARTNER_SELF_EQUIP_CLOTHING.isQuickSexRequirementsMet(dom)) {
 							dom.equipClothingFromInventory(clothingValue.getKey(), true, dom, dom);
 							clothingValue = ((NPC)dom).getSexClothingToSelfEquip(sub, true);
+						}
+					}
+					if(sub instanceof NPC) {
+						Value<AbstractClothing, String> clothingValue = ((NPC)sub).getSexClothingToSelfEquip(dom, true);
+						while(clothingValue!=null && SexActionUtility.PARTNER_SELF_EQUIP_CLOTHING.isQuickSexRequirementsMet(sub)) {
+							sub.equipClothingFromInventory(clothingValue.getKey(), true, sub, sub);
+							clothingValue = ((NPC)sub).getSexClothingToSelfEquip(dom, true);
+						}
+					}
+					// Equip clothing on partner:
+					if(dom instanceof NPC) {
+						Value<AbstractClothing, String> clothingValue = ((NPC)dom).getSexClothingToEquip(sub, true);
+						while(clothingValue!=null && SexActionUtility.PARTNER_EQUIP_CLOTHING.isQuickSexRequirementsMet(dom)) {
+							sub.equipClothingFromInventory(clothingValue.getKey(), true, dom, dom);
+							clothingValue = ((NPC)dom).getSexClothingToEquip(sub, true);
+						}
+					}
+					if(sub instanceof NPC) {
+						Value<AbstractClothing, String> clothingValue = ((NPC)sub).getSexClothingToEquip(dom, true);
+						while(clothingValue!=null && SexActionUtility.PARTNER_EQUIP_CLOTHING.isQuickSexRequirementsMet(sub)) {
+							dom.equipClothingFromInventory(clothingValue.getKey(), true, sub, sub);
+							clothingValue = ((NPC)sub).getSexClothingToEquip(dom, true);
 						}
 					}
 					sb.append("<p style='margin:0; padding:0; text-align:center;'>");
 					sb.append("[style.boldPurple(Sex)] ([style.colourSexDom("+Util.capitaliseSentence(preference.getPerformingSexArea().getName(dom, true))+")]-[style.colourSexSub("+preference.getTargetedSexArea().getName(sub, true)+")]): ");
 					sb.append(dom.calculateGenericSexEffects(true, true, sub, preference, GenericSexFlag.EXTENDED_DESCRIPTION_NEEDED, (preventCreampie?GenericSexFlag.PREVENT_CREAMPIE:null))); // This increments orgasms
+//					if(sub.hasPenisIgnoreDildo() && !dom.hasFetish(Fetish.FETISH_DENIAL) && Main.sex.getSexPace(sub)!=SexPace.SUB_RESISTING) {
+//						sb.append(sub.calculateGenericSexEffects(true, true, dom, new SexType(SexAreaPenetration.PENIS, SexAreaPenetration.FINGER), GenericSexFlag.EXTENDED_DESCRIPTION_NEEDED, (preventCreampie?GenericSexFlag.PREVENT_CREAMPIE:null))); // This increments orgasms
+//						//TODO
+//					}
 					sb.append("</p>");
 					
 					if(orgamsNeeded>1) {
@@ -355,6 +406,30 @@ public class GenericActions {
 				}
 			}
 		}
+		
+		// Append description of what clothing was equipped during sex:
+		StringBuilder equippedClothingSB = new StringBuilder();
+		for(Entry<GameCharacter, Map<GameCharacter, List<AbstractClothing>>> equippedMapEntry : Main.sex.getClothingEquippedDuringSex().entrySet()) {
+			if(equippedMapEntry.getValue().isEmpty()) {
+				continue;
+			}
+			if(equippedClothingSB.length()>0) {
+				equippedClothingSB.append("<br/>");
+			}
+			GameCharacter equipper = equippedMapEntry.getKey();
+			equippedClothingSB.append(UtilText.parse(equipper, "<b><span style='color:"+(equipper.getFemininity().getColour().toWebHexString())+"'>[npc.Name]</span> equipped the following clothing during sex:</b>"));
+			for(Entry<GameCharacter, List<AbstractClothing>> characterEntry : equippedMapEntry.getValue().entrySet()) {
+				GameCharacter target = characterEntry.getKey();
+				for(AbstractClothing clothing : characterEntry.getValue()) {
+					equippedClothingSB.append(UtilText.parse(target, "<br/>"+clothing.getDisplayName(true)+" onto <span style='color:"+(target.getFemininity().getColour().toWebHexString())+"'>[npc.name]</span>"));
+				}
+			}
+		}
+		if(equippedClothingSB.length()>0) {
+			equippedClothingSB.insert(0, "<p style='text-align:center;'>");
+			equippedClothingSB.append("</p>");
+		}
+		sb.append(equippedClothingSB.toString());
 		
 		return sb.toString();
 	}
@@ -3335,7 +3410,7 @@ public class GenericActions {
 						"[npc.Name] [npc.verb(try)] to sit up on the altar, but [npc.sheIs] only able to squirm about a little under the immobilising effects of the Witch's Seal.",
 						"The soft purple glow of the Witch's Seal can be seen all around [npc.name] as [npc.she] [npc.verb(struggle)] to make a move.",
 						"[npc.speech(~Mmm!~)] [npc.name] [npc.verb(moan)], struggling in vain against the Witch's Seal.",
-						"[npc.speech(~Aah!~)] [npc.name] [npc.verb(whimper)], squirming about on the altar as the With's Seal keeps [npc.herHim] locked in place.");
+						"[npc.speech(~Aah!~)] [npc.name] [npc.verb(whimper)], squirming about on the altar as the Witch's Seal keeps [npc.herHim] locked in place.");
 				
 			} else {
 				return UtilText.returnStringAtRandom(
@@ -3344,7 +3419,7 @@ public class GenericActions {
 						"[npc.Name] [npc.verb(try)] to move, but [npc.sheIs] only able to squirm about a little under the immobilising effects of the Witch's Seal.",
 						"The soft purple glow of the Witch's Seal can be seen all around [npc.name] as [npc.she] [npc.verb(struggle)] to make a move.",
 						"[npc.speech(~Mmm!~)] [npc.name] [npc.verb(moan)], struggling in vain against the Witch's Seal.",
-						"[npc.speech(~Aah!~)] [npc.name] [npc.verb(whimper)], squirming about as the With's Seal keeps [npc.herHim] locked in place.");
+						"[npc.speech(~Aah!~)] [npc.name] [npc.verb(whimper)], squirming about as the Witch's Seal keeps [npc.herHim] locked in place.");
 			}
 		}
 		@Override

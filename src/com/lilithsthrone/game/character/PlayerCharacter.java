@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.lilithsthrone.game.dialogue.DialogueFlags;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -896,15 +897,14 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	@Override
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
 		if(character instanceof Lilaya) {
-			if(this.getRace()==Race.DEMON) {
-				Set<Relationship> rSet = new LinkedHashSet<>();
+			Set<Relationship> rSet = new LinkedHashSet<>();
+			rSet.add(Relationship.Nibling);
+			if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
 				rSet.add(Relationship.HalfSibling);
-				rSet.add(Relationship.Nibling);
-				return rSet;
 			}
-			return Util.newHashSetOfValues(Relationship.Nibling);
+			return rSet;
 		}
-		if(this.getRace()==Race.DEMON) {
+		if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
 			if(character instanceof Lyssieth) {
 				return Util.newHashSetOfValues(Relationship.Parent);
 			}
@@ -914,7 +914,32 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		}
 		return super.getRelationshipsTo(character, excludedRelationships);
 	}
-	
+
+	public GameCharacter getLilinMother(){
+		DialogueFlags dialogueFlags = Main.game.getDialogueFlags();
+		if(dialogueFlags.hasFlag("innoxia_child_of_lyssieth")){
+			return Main.game.getNpc(Lyssieth.class);
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lunette")){
+			//TODO
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lirecea")){
+			//TODO
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lovienne")){
+			//TODO
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lasielle")){
+			//TODO
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lyxias")){
+			//TODO
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lisophia")){
+			//TODO
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lilith")){
+			//TODO
+		}
+		
+		System.err.println("Warning: Did not find a suitable lilin in getLilinMother()!");
+		new Exception().printStackTrace();
+		return Main.game.getNpc(Lyssieth.class);
+	}
+
 	// Quests:
 
 	public void resetAllQuests() {
@@ -2000,7 +2025,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					sb.append(
 							"<p>"
 								+ "[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your anal virginity for me!"
-									+ " Remember this moment, remember that <i>my</i> "+(isPenis?"cock":"")+(isTail?"tail":"")+" was the the one that turned you into "+(Main.game.getPlayer().isFeminine()?"a horny buttslut":"a little fucktoy")+"!)]"
+									+ " Remember this moment, remember that <i>my</i> "+(isPenis?"cock":"")+(isTail?"tail":"")+" was the one that turned you into "+(Main.game.getPlayer().isFeminine()?"a horny buttslut":"a little fucktoy")+"!)]"
 							+ "</p>");
 				}
 				
@@ -2174,7 +2199,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 								case SUB_NORMAL:
 									sb.append("[npc.speech(Oh, yes!)] [npc.she] cries,"
 											+ " [npc.speech(Good [pc.girl], saving your virginity for me!"
-												+ " Remember this moment, remember that <i>my</i> "+penetration.getName(characterPenetrating, true)+" was the the one that broke you in!)]");
+												+ " Remember this moment, remember that <i>my</i> "+penetration.getName(characterPenetrating, true)+" was the one that broke you in!)]");
 									break;
 								case DOM_ROUGH:
 									sb.append("[npc.speech(This is just the start, slut!)] [npc.she] roughly [npc.moansVerb],"
@@ -2188,7 +2213,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 							}
 						} else {
 							sb.append("[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your virginity for me!"
-									+ " Remember this moment, remember that <i>my</i> "+penetration.getName(characterPenetrating, true)+" was the the one that broke you in!)]");
+									+ " Remember this moment, remember that <i>my</i> "+penetration.getName(characterPenetrating, true)+" was the one that broke you in!)]");
 						}
 					sb.append("</p>");
 				}

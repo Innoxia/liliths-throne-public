@@ -72,7 +72,7 @@ public class BackToWall {
 //				default:
 //					descriptionSB.append("As you feel the "+Sex.getPartner().getName()+"'s sticky cum sliding down around the entrance to your pussy, a fun idea suddenly springs into your mind."
 //							+ " You reach down and take hold of his hand, grinning devilishly as you pull his fingers out of your slit."
-//							+ " Guiding his fingers over your cum-drenched sex, you get him to scoop up all of his his sticky white cream."
+//							+ " Guiding his fingers over your cum-drenched sex, you get him to scoop up all of his sticky white cream."
 //							+ " Once you're satisfied that he's collected enough, you guide his digits back into your hungry pussy."
 //							+ " You feel a large glob of sperm on his fingers as he pushes deep into your cunt, and you moan and squeal at the feeling as he starts fingering you once again, using his salty seed as lubricant."
 //							+ " Grinding your hips against his hand, you see him grinning as he eagerly inseminates you with his potent horse-cum.");
