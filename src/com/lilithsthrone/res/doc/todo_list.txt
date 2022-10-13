@@ -17,6 +17,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Improved error reporting for parser state errors and improved the parser so that it skips svg files within the parsed input. (PR#1690 by CognitiveMist)
 		Added a specific flag to indicate the player's lilin heritage rather than just checking if they are a demon. (PR#1688 by MintyChip)
 		Added fetish selection options to sexual experience menu during the prologue's character creation process. (PR#1687 by MintyChip)
+		Added Java vendor and basic OS information to error.log to help improve troubleshooting. (by CognitiveMist)
+		Fixed grammatical issues in the alligator-morph's racial descriptions. (PR#1685 by Thernn)
 	
 	Other:
 		The 'Crotch-boobs & Udders' body setting now only applies to randomly-generated NPCs at the moment of their creation (as was stated in the option's tooltip), allowing all characters to gain crotch-boobs/udders via TF no matter the setting.
@@ -95,12 +97,12 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[#pc.getVirginityLoss(sex.newSexType(PENETRATION_PENIS, ORIFICE_VAGINA))]
 		<br/>
 		[#pc.getVirginityLossDescription(sex.newSexType(PENETRATION_PENIS, ORIFICE_VAGINA))]
-	
 	[x] #1707
 		[x] aurora rename
 		[x] drinks icons edits
 		[x] add very rare spawning in Elis alleyways
 		[x] TF 1 should be flame for food enchant
+	[x] error log info expansion
 	
 	[] PRs:
 		[] #94
@@ -117,13 +119,23 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1658
 		[] #1489
 		[] #1560 - Maxis PR
-		[] #1690
+		[x] #1690
 		[] nerdlinger combat PR
 		[] #1658 - MintyChip races
 		[-] #1692
 		[-] #1693
 		[x] #1701
 	
+	[] KingKuron slave issues in bug reports
+		java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.Float
+			at com.lilithsthrone.game.character.GameCharacter.saveAsXML(GameCharacter.java:1158)
+			at com.lilithsthrone.game.character.npc.NPC.saveAsXML(NPC.java:329)
+			at com.lilithsthrone.game.character.npc.submission.HazmatRat.saveAsXML(HazmatRat.java:99)
+			at com.lilithsthrone.game.Game.exportGame(Game.java:774)
+			at com.lilithsthrone.main.Main.saveGame(Main.java:859)
+			at com.lilithsthrone.main.Main.quickSaveGame(Main.java:832)
+			at com.lilithsthrone.controller.MainController$3.handle(MainController.java:628)
+			at com.lilithsthrone.controller.MainController$3.handle(MainController.java:1)
 	
 	[] Maymay self-ovipositor dialogue
 	
