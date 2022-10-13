@@ -659,7 +659,8 @@ public class Main extends Application {
 				PrintStream stream = new PrintStream("data/error.log");
 				System.setErr(stream);
 				System.err.println("Game Version: "+VERSION_NUMBER);
-				System.err.println("Java: "+System.getProperty("java.version"));
+				System.err.println("Java: "+System.getProperty("java.version")+" ("+System.getProperty("java.vendor")+")");
+				System.err.println("OS: "+System.getProperty("os.name")+" ("+System.getProperty("os.arch")+")");
 				if (new File("res/mods").exists()) {
 					System.err.print("Mod folders present: ");
 					int i=0;

@@ -1155,7 +1155,7 @@ public abstract class GameCharacter implements XMLSaving {
 		Element characterRelationships = doc.createElement("characterRelationships");
 		properties.appendChild(characterRelationships);
 		for(Entry<String, Float> entry : this.getAffectionMap().entrySet()){
-			if(entry.getValue()!=0) { // Do not save relationship values if they are 0
+			if(entry.getValue()!=0f) { // Do not save relationship values if they are 0
 				Element relationship = doc.createElement("relationship");
 				characterRelationships.appendChild(relationship);
 				
