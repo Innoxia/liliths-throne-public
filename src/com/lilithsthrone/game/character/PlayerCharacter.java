@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.lilithsthrone.game.dialogue.DialogueFlags;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -896,15 +897,14 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	@Override
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
 		if(character instanceof Lilaya) {
-			if(this.getRace()==Race.DEMON) {
-				Set<Relationship> rSet = new LinkedHashSet<>();
+			Set<Relationship> rSet = new LinkedHashSet<>();
+			rSet.add(Relationship.Nibling);
+			if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
 				rSet.add(Relationship.HalfSibling);
-				rSet.add(Relationship.Nibling);
-				return rSet;
 			}
-			return Util.newHashSetOfValues(Relationship.Nibling);
+			return rSet;
 		}
-		if(this.getRace()==Race.DEMON) {
+		if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
 			if(character instanceof Lyssieth) {
 				return Util.newHashSetOfValues(Relationship.Parent);
 			}
@@ -914,7 +914,32 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		}
 		return super.getRelationshipsTo(character, excludedRelationships);
 	}
-	
+
+	public GameCharacter getLilinMother(){
+		DialogueFlags dialogueFlags = Main.game.getDialogueFlags();
+		if(dialogueFlags.hasFlag("innoxia_child_of_lyssieth")){
+			return Main.game.getNpc(Lyssieth.class);
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lunette")){
+			//TODO
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lirecea")){
+			//TODO
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lovienne")){
+			//TODO
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lasielle")){
+			//TODO
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lyxias")){
+			//TODO
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lisophia")){
+			//TODO
+		} else if(dialogueFlags.hasFlag("innoxia_child_of_lilith")){
+			//TODO
+		}
+		
+		System.err.println("Warning: Did not find a suitable lilin in getLilinMother()!");
+		new Exception().printStackTrace();
+		return Main.game.getNpc(Lyssieth.class);
+	}
+
 	// Quests:
 
 	public void resetAllQuests() {

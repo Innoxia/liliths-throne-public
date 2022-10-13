@@ -380,7 +380,7 @@ public class RatWarrensDialogue {
 	}
 	
 	private static int getRumPrice() {
-		return ItemType.getItemTypeFromId("innoxia_race_rat_black_rats_rum").getValue(null)/2;
+		return ItemType.getItemTypeFromId("innoxia_race_rat_black_rats_rum").getValue()/2;
 	}
 
 	private static boolean isMouthAccess(GameCharacter target) {

@@ -86,7 +86,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4.6.5";
+	public static final String VERSION_NUMBER = "0.4.6.6";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 
 	public static boolean quickSaved = false;
@@ -659,7 +659,8 @@ public class Main extends Application {
 				PrintStream stream = new PrintStream("data/error.log");
 				System.setErr(stream);
 				System.err.println("Game Version: "+VERSION_NUMBER);
-				System.err.println("Java: "+System.getProperty("java.version"));
+				System.err.println("Java: "+System.getProperty("java.version")+" ("+System.getProperty("java.vendor")+")");
+				System.err.println("OS: "+System.getProperty("os.name")+" ("+System.getProperty("os.arch")+")");
 				if (new File("res/mods").exists()) {
 					System.err.print("Mod folders present: ");
 					int i=0;

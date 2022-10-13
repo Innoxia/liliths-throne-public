@@ -1034,6 +1034,12 @@ public class UtilText {
 			for (int i = 0; i < input.length(); i++) {
 				char c = input.charAt(i);
 				
+				// Advance the parser index to the final `>` if we encounter an SVG
+				if(c == 'g' && substringMatchesInReverseAtIndex(input, "<svg", i)) {
+					i = input.indexOf("</svg>", i) + 5; // 5 == "</svg>".length() - 1
+					continue;
+				}
+
 				if(usingConditionalBrackets) {
 					if(input.charAt(i)=='(') {
 						conditionalOpenBrackets++;
@@ -1324,14 +1330,30 @@ public class UtilText {
 				}
 				errMsg.append(startIndex);
 				if(target != null) {
-					errMsg.append(" Target: "+target);
+					errMsg.append(" Target: '" + target + "'");
 				}
 				if(command != null) {
-					errMsg.append(" Command: "+command);
+					errMsg.append(" Command: '" + command + "'");
 				}
-				errMsg.append(" "+input.substring(startIndex, Math.min(input.length()-1, startIndex+20)));
+				{
+					int errContext = 30;
+					errMsg.append("\nContext:  " + input.substring(Math.max(0, startIndex - errContext), Math.min(input.length(), startIndex + errContext)));
+					errMsg.append("\nLocation: ");// + "-".repeat(Math.min(errContext, startIndex)) + "^"); // .repeat was introduced in Java 11 and I use an older version
+					for(int i=0;i<Math.min(errContext, startIndex);i++) {
+						errMsg.append("-");
+					}
+					errMsg.append("^");
+				}
 				System.err.println(errMsg);
 				parsingCharactersForSpeech = parsingCharactersForSpeechSaved;
+				switch(input.charAt(startIndex)) {
+					// Replace the problematic character with its html entity, so that the error does
+					// not propagate further.
+					case '#':
+						return input.substring(0, startIndex) + "&#35;" + input.substring(startIndex+1);
+					case '[':
+						return input.substring(0, startIndex) + "&#91;" + input.substring(startIndex+1);
+				}
 				return input;
 			}
 			if (startedParsingSegmentAt < input.length()) {

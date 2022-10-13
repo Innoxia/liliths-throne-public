@@ -208,7 +208,7 @@ public class SlaveryAdministration {
 		}
 		@Override
 		public String getContent() {
-			UtilText.addSpecialParsingString(Util.intToString(ItemType.getItemTypeFromId("innoxia_slavery_freedom_certification").getValue(null)), true);
+			UtilText.addSpecialParsingString(Util.intToString(ItemType.getItemTypeFromId("innoxia_slavery_freedom_certification").getValue()), true);
 			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/slaveryAdministration", "SLAVE_FREEDOM_TALK");
 		}
 		@Override

@@ -355,7 +355,7 @@ public class Colour {
 		}
 		return tags;
 	}
-	
+
 	/**
 	* Checks if the given Colour is in the list of Colours.
 	* @param values The list of Colours to match the type against.

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>400</value> 
+		<determiner><![CDATA[a slice of]]></determiner>
+		<name><![CDATA[Apple Pie à la Mode]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Apple Pie à la Mode]]></namePlural>
+		<description><![CDATA[A plate container with a slice of pie and a scoop of vanilla ice cream all underneath a glass cover. Even though the container is freezing cold, the label states that the pie will be arcanely heated instantly when the glass is lifted. The label also features a salamander-girl allowing melted ice cream to drip on her naked body as she eats the pie.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<!-- instead of defining a simple path name for your image, you can use the layering system as shown here.
+		Each of the svg images you define here will be rendered on top of or beneath the others, based on the zLayer attribute defined for it.
+			zLayers of a higher value will be rendered on top of lower zLayers.
+		'imageRotation' and 'imageSize' affect the image's rotation and size, respectively.
+			You should define imageRotation in degrees, from 0 to 360.
+			You should define imageSize as a percentage, from 1 to 100.
+		Text inside of the svg image can be replaced at time of rendering, via the target/replacement attributes.
+			You can define any number of target/replacement pairs, but they must follow the naming convention: 'targetX' 'replacementX', where X is the number of the replacement pair, starting at 1.
+			The contents of the 'targetX' attribute will be searched for in the svg file and replaced with the contents of the corresponding 'replacementX' attribute.
+			In this example, I use the target/replacement pairs to recolour all edge strokes of colour #000 with the colour #ff5555 (which effectively removes the black edges of the icon.svg by recolouring it to the same colour as the interior.)
+			I also replace all instances of the colour '#ff8080' with 'ff5555'. While this isn't necessary for the hyena icon, it's designed to remove the lighter shade from an icon and replace it with the same 'ff5555' colour as the rest of the icon so as to make it a uniform colour for the item's background icon.
+		So, with the 4 imageName elements defined below, I'm:
+			1) Rendering the bottom background.
+			2) Recolouring an rendering the hyena race icon on top of that.
+			3) Rendering the item icon on top of those two.
+			4) Finally, rendering the highlights of the background on top of everything. -->
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="100" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/mintychip/salamander/subspecies/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">salamander_apple_pie.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>mintychip_salamander</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[salamander]]></potionDescriptor>
+		<associatedRace>mintychip_salamander</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_MANA_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(3)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel lot more energetic...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 3)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(remove)] the glass cover and [npc.verb(watch)] as the ice cream begins to melt. Unable to allow the delicious-looking pie to cool any further, [npc.she] [npc.verb(grab)] the complimentary fork and [npc.verb(start)] eagerly consuming the delicious sweet dessert, and in a matter of moments [npc.has] completely devoured the entire bag.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(remove)] the glass cover and [npc.verb(hold)] it out to [npc2.name], allowing [npc2.herHim] to [npc2.verb(watch)] as the ice cream begins to melt. Unable to allow the delicious-looking pie to cool any further, [npc2.she] [npc2.verb(grab)] the complimentary fork and [npc2.verb(start)] eagerly consuming the delicious sweet dessert, and in a matter of moments [npc2.has] completely devoured the entire bag.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

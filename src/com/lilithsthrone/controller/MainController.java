@@ -510,9 +510,9 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-
-							Main.game.getCharactersPresent().get(0).incrementAttribute(Attribute.MAJOR_CORRUPTION, 100);
-							Main.game.getCharactersPresent().get(0).addFetish(Fetish.FETISH_BONDAGE_APPLIER);
+							
+//							Main.game.getCharactersPresent().get(0).incrementAttribute(Attribute.MAJOR_CORRUPTION, 100);
+//							Main.game.getCharactersPresent().get(0).addFetish(Fetish.FETISH_BONDAGE_APPLIER);
 							
 //							Main.game.getCharactersPresent().get(0).addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_PINK, false), 2, false, false);
 //							Main.game.getCharactersPresent().get(0).removeFetish(Fetish.FETISH_CUM_STUD);
@@ -1511,6 +1511,7 @@ public class MainController implements Initializable {
 		} else if (currentNode.equals(CharacterCreation.CHOOSE_SEX_EXPERIENCE)
 				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_FINISH)) {
 			CreationController.initSexExperienceListeners();
+			CreationController.initFetishListeners();
 		} else if (currentNode.equals(CharacterCreation.IMPORT_CHOOSE)) {
 			FileController.initPlayerImportListeners();
 		} else if (currentNode.equals(CharactersPresentDialogue.MENU)) {
