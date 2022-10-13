@@ -30,12 +30,8 @@
 	]]></applySubspeciesChanges>
 	
 	<subspeciesWeighting><![CDATA[
-		#IF(targetedRace==RACE_HORSE_MORPH)
-			#IF(targetedBody.getLegType()==LEG_TYPE_mintychip_horse_legFeathered)
-				105
-			#ELSE
-				0
-			#ENDIF
+		#IF(targetedRace==RACE_HORSE_MORPH && targetedBody.getLegType()==LEG_TYPE_mintychip_horse_legFeathered)
+			105
 		#ELSE
 			0
 		#ENDIF
