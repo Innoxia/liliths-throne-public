@@ -158,9 +158,9 @@ jobs:
           body_path: CHANGELOG.md
           token: ${{ github.token }}
           files: |
-            "./staging/Lilith's Throne (linux)/Lilith's Throne (linux).zip"
-            "./staging/Lilith's Throne (linux-aarch64)/Lilith's Throne (linux-aarch64).zip"
-            "./staging/Lilith's Throne (win)/Lilith's Throne (win).zip"
-            "./staging/Lilith's Throne (win-x86)/Lilith's Throne (win-x86).zip"
-            "./staging/Lilith's Throne (mac)/Lilith's Throne (mac).zip"
-            "./staging/Lilith's Throne (mac-aarch64)/Lilith's Throne (mac-aarch64).zip"
+            ./staging/Lilith's Throne (linux)/Lilith's Throne (linux).zip
+            ./staging/Lilith's Throne (linux-aarch64)/Lilith's Throne (linux-aarch64).zip
+            ./staging/Lilith's Throne (win)/Lilith's Throne (win).zip
+            ./staging/Lilith's Throne (win-x86)/Lilith's Throne (win-x86).zip
+            ./staging/Lilith's Throne (mac)/Lilith's Throne (mac).zip
+            ./staging/Lilith's Throne (mac-aarch64)/Lilith's Throne (mac-aarch64).zip
