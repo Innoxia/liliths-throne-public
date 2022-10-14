@@ -30,7 +30,7 @@
 					!pc.isSpellSchoolSpecialAbilityUnlocked(SPELL_SCHOOL_ARCANE))
 					<br/>[style.colourBad(You probably won't fare very well in your current state.)]
 				#ELSEIF (flags.getSavedLong("elis_eisek_talk_score") < 4)
-					<br/>[style.colourBad(You don't know Eisek that well, so you'll likely have to use force.)]
+					<br/>[style.colourBad(You don't know Eisek that well, so you'll likely have to use force. He may not appreciate the outcome as much.)]
 				#ENDIF
 				]]></responseTooltip>
 				<colour><![CDATA[TEXT]]></colour>

@@ -4,59 +4,67 @@
 	<!-- STALL -->
 	
 	<htmlContent tag="STALL"><![CDATA[
-	#IF(eisek.getLocationPlaceType() == PLACE_TYPE_dsg_fields_elis_market_produce)
-		#IF(!pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))
-				<p>
-					Eisek's stall is constructed in much the same way as all the others lining the avenue although it does look comparatively dull and shabby. Stretched over the wooden counter is some sort of rough fabric, you guess burlap, stitched together into a crude cover and there's not even shade to keep the occupant out of the sun. The counter is split into a flat table area and an angled display area with a small chalkboard affixed to a post above it for displaying prices. The thin wooden placard hanging over the front is unpainted with the words "FRESH PRODUCE" simply burned into it.
-				</p>
-			#IF(game.getDateNow().getHour()<=9)
-				<p>
-					Presently, the display area is filled with a sampling of today's offerings, but Eisek himself is still sorting through the crates behind the stall. He seems tired. You guess from 
-					#IF(flags.hasFlag(FLAG_dsg_elis_eisek_asked_himself))
-						 his flight down from the mountains.
-					#ELSE
-						 his journey into town.
-					#ENDIF
-				</p>
-			#ELSEIF(game.getDateNow().getHour()>=17)
-				<p>
-					Although the display area is filled with a sampling of today's offerings, Eisek is busying himself with counting up the day's sales now that closing time is near.
-				</p>				
+	#IF(flags.hasFlag(FLAG_dsg_elis_eisek_introduced))
+		#IF(eisek.getLocationPlaceType() == PLACE_TYPE_dsg_fields_elis_market_produce)
+			#IF(!pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))
+					<p>
+						Eisek's stall is constructed in much the same way as all the others lining the avenue although it does look comparatively dull and shabby. Stretched over the wooden counter is some sort of rough fabric, you guess burlap, stitched together into a crude cover and there's not even shade to keep the occupant out of the sun. The counter is split into a flat table area and an angled display area with a small chalkboard affixed to a post above it for displaying prices. The thin wooden placard hanging over the front is unpainted with the words "FRESH PRODUCE" simply burned into it.
+					</p>
+				#IF(game.getDateNow().getHour()<=9)
+					<p>
+						Presently, the display area is filled with a sampling of today's offerings, but Eisek himself is still sorting through the crates behind the stall. He seems tired. You guess from 
+						#IF(flags.hasFlag(FLAG_dsg_elis_eisek_asked_himself))
+							 his flight down from the mountains.
+						#ELSE
+							 his journey into town.
+						#ENDIF
+					</p>
+				#ELSEIF(game.getDateNow().getHour()>=17)
+					<p>
+						Although the display area is filled with a sampling of today's offerings, Eisek is busying himself with counting up the day's sales now that closing time is near.
+					</p>				
+				#ELSE
+					<p>
+						It is presently being manned by Eisek and the display area is filled with a sampling of today's offerings. His movements are careful and deliberate as the stall seems to be just slightly too small for him. Every once in a while, you see him blowing a gentle stream of frosty air over both the produce on display and in the crates behind him.
+					</p>
+				#ENDIF
 			#ELSE
 				<p>
-					It is presently being manned by Eisek and the display area is filled with a sampling of today's offerings. His movements are careful and deliberate as the stall seems to be just slightly too small for him. Every once in a while, you see him blowing a gentle stream of frosty air over both the produce on display and in the crates behind him.
+					Eisek's stall now looks much more colourful and inviting. The counter is now covered in bright orange fabric much like the new awning it now sits under. Sewn to the front of the counter is the tapestry-like sign you had made, depicting a gust of wind descending from snow-capped mountains, carrying fruits and vegetables down the slopes while swirling blue letters proclaim "ALPINE PRODUCE". As before, the counter is split into a flat table area and an angled display area with a small chalkboard affixed to a post above it for displaying prices.
 				</p>
+				#IF(game.getDateNow().getHour()<=9)
+					<p>
+						Presently, the display area is filled with a sampling of today's offerings, but Eisek himself is still sorting through the crates behind the stall. He seems tired. You guess from 
+						#IF(flags.hasFlag(FLAG_dsg_elis_eisek_asked_himself))
+							 his flight down from the mountains.
+						#ELSE
+							 his journey into town.
+						#ENDIF
+					</p>
+				#ELSEIF(game.getDateNow().getHour()>=17)
+					<p>
+						Although the display area is filled with a sampling of today's offerings, Eisek is busying himself with counting up the day's sales now that closing time is near.
+					</p>				
+				#ELSE
+					<p>
+						It is presently being manned by Eisek and the display area is filled with a sampling of today's offerings. His movements are careful and deliberate as the stall seems to be just slightly too small for him. Every once in a while, you see him blowing a gentle stream of frosty air over both the produce on display and in the crates behind him.
+					</p>
+				#ENDIF
 			#ENDIF
 		#ELSE
 			<p>
-				Eisek's stall now looks much more colourful and inviting. The counter is now covered in bright orange fabric much like the new awning it now sits under. Sewn to the front of the counter is the tapestry-like sign you had made, depicting a gust of wind descending from snow-capped mountains, carrying fruits and vegetables down the slopes while swirling blue letters proclaim "ALPINE PRODUCE". As before, the counter is split into a flat table area and an angled display area with a small chalkboard affixed to a post above it for displaying prices.
+				The space normally occupied by Eisek's stall is empty, he must not be around. 
+				#IF(flags.hasFlag(FLAG_dsg_elis_eisek_asked_himself_low))
+					You recall that he's only in town between the first and third of each month.
+				#ENDIF
 			</p>
-			#IF(game.getDateNow().getHour()<=9)
-				<p>
-					Presently, the display area is filled with a sampling of today's offerings, but Eisek himself is still sorting through the crates behind the stall. He seems tired. You guess from 
-					#IF(flags.hasFlag(FLAG_dsg_elis_eisek_asked_himself))
-						 his flight down from the mountains.
-					#ELSE
-						 his journey into town.
-					#ENDIF
-				</p>
-			#ELSEIF(game.getDateNow().getHour()>=17)
-				<p>
-					Although the display area is filled with a sampling of today's offerings, Eisek is busying himself with counting up the day's sales now that closing time is near.
-				</p>				
-			#ELSE
-				<p>
-					It is presently being manned by Eisek and the display area is filled with a sampling of today's offerings. His movements are careful and deliberate as the stall seems to be just slightly too small for him. Every once in a while, you see him blowing a gentle stream of frosty air over both the produce on display and in the crates behind him.
-				</p>
-			#ENDIF
 		#ENDIF
-	#ELSE
-		<p>
-			The space normally occupied by Eisek's stall is empty, he must not be around. 
-			#IF(flags.hasFlag(FLAG_dsg_elis_eisek_asked_himself_low))
-				You recall that he's only in town between the first and third of each month.
-			#ENDIF
-		</p>
+	#ELSEIF(eisek.getLocationPlaceType() != PLACE_TYPE_dsg_fields_elis_market_produce)
+		There is a conspicuously empty spot	in this part of the market that another stall could probably fit in.
+		#IF(pc.hasTraitActivated(PERK_OBSERVANT))
+			 In fact, judging by the faint imprint in the grass, there probably was one here at some point.
+		#ENDIF
+		 When you ask a passer-by, they explain that there's a produce stand that opens in this spot around the beginning of the month.
 	#ENDIF
 	]]>
 	</htmlContent>

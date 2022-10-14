@@ -92,12 +92,17 @@
 	
 	<htmlContent tag="INTIMIDATE"><![CDATA[
 	<p>
-		#IF(pc.isFeral())
-			You bare your teeth
-		#ELSEIF(pc.getRace() == RACE_SLIME)
-			You increase your bulk by ingesting air
+		#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_SHY))
+			With your superior physique providing a much needed confidence boost, y
 		#ELSE
-			You crack your knuckles
+			Y
+		#ENDIF
+		#IF(pc.isFeral())
+			 ou bare your teeth
+		#ELSEIF(pc.getRace() == RACE_SLIME)
+			 ou increase your bulk by ingesting air
+		#ELSE
+			 ou crack your knuckles
 		#ENDIF
 		 menacingly and explain that if they don't honour your request, the next time you see them anywhere near Eisek you'll give them a thrashing they'll never forget. And with their history with the Enforcers, somehow you don't think you're going to be the one getting arrested.
 	</p>
@@ -111,25 +116,30 @@
 	
 	<htmlContent tag= "INTIMIDATE_ARCANE"><![CDATA[
 	<p>
+		#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_SHY))
+			With your superior arcane ability providing a much needed confidence boost, y
+		#ELSE
+			Y
+		#ENDIF
 		#IF(pc.hasSpell(SPELL_FIREBALL))
-			You cast a ball of fire that flies right between the donkey-boy's legs and scorches the floor beneath his chair.
+			ou cast a ball of fire that flies right between the donkey-boy's legs and scorches the floor beneath his chair.
 		#ELSEIF(pc.hasSpell(SPELL_SLAM))
 			#IF(game.isSillyMode())
-				With a cry of [pc.speech(C'mon and slam!)] you punch the ground beneath you, causing
+				ou punch the ground with a cry of [pc.speech(C'mon and slam!)], causing
 			#ELSE
-				You cause
+				ou cause
 			#ENDIF
 			 a small earthquake in the cellar. Dust rains down from the ceiling.
 		#ELSEIF(pc.hasSpell(SPELL_TELEKENETIC_SHOWER))
-			You lift a few small pebbles and make them orbit around the donkey-boy's head.
+			ou lift a few small pebbles and make them orbit around the donkey-boy's head.
 		#ELSEIF(pc.hasSpell(SPELL_POISON_VAPOURS))
-			You summon a few wisps of a poisonous vapour and swirl them around the room.
+			ou summon a few wisps of a poisonous vapour and swirl them around the room.
 		#ELSEIF(pc.hasSpell(SPELL_ICE_SHARD))
-			You cast a shard of ice that flies right between the donkey-boy's legs and freezes a patch of floor beneath his chair.
+			ou cast a shard of ice that flies right between the donkey-boy's legs and freezes a patch of floor beneath his chair.
 		#ELSEIF(pc.hasSpell(SPELL_ARCANE_CHAIN_LIGHTNING) || pc.hasSpell(SPELL_ARCANE_LIGHTNING_SUPERBOLT))
-			You send a thin bolt of arcane lightning right between the donkey-boy's legs that scorches the floor beneath his chair.
+			ou send a thin bolt of arcane lightning right between the donkey-boy's legs that scorches the floor beneath his chair.
 		#ELSE
-			You make your aura glow menacingly in a show of arcane prowess.
+			ou make your aura glow menacingly in a show of arcane prowess.
 		#ENDIF
 		 You explain that if your request isn't honoured, the next time you see any of them anywhere near Eisek you won't miss. And with their history with the Enforcers, somehow you don't think you're going to be the one getting arrested.
 	</p>
@@ -163,7 +173,12 @@
 	
 	<htmlContent tag="INTIMIDATE_FAIL"><![CDATA[
 	<p>
-		You explain that if they don't honour your request, the next time you see them anywhere near Eisek they'll be sorry.
+		#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_SHY))
+			Trying your best to put on a brave face, y
+		#ELSE
+			Y
+		#ENDIF
+		ou explain that if they don't honour your request, the next time you see them anywhere near Eisek they'll be sorry.
 	</p>
 	<p>
 		More derisve laughter meets your threat. [test.speechFeminine(We'll be sorry?)] says a tough-looking horse-girl as she walks up to you, [test.speechFeminine(No, I think <i>you'll</i> be sorry.)]
@@ -181,7 +196,20 @@
 	
 	<htmlContent tag="PERSUADE"><![CDATA[
 	<p>
-		You explain that the mob's fears are baseless. Eisek isn't anything like his ancestors. If he really was going to burn and pillage the place, running a stall in the market is an awfully strange way to go about it. They have talked so much about what his kind is like and yet not one of them has tried to get to know him and find out what if that was true or not. You have. The Eisek you know is a humble produce farmer who took a big gamble in coming down from the mountains. If any member of this twisted little group had actually taken the time as you did, they would have found out the same thing.
+		#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_SHY))
+			The conviction that you have the truth on your side provides a much needed confidence boost. 
+		#ELSEIF (pc.hasPersonalityTrait(PERSONALITY_TRAIT_CONFIDENT))
+			You confidently walk into the middle of the cellar as if you were lecturing a bunch of schoolyard bullies rather than metaphorical den of vipers.
+		#ENDIF
+		You explain that the mob's fears are baseless. Eisek isn't anything like his ancestors. If he really was going to burn and pillage the place, running a stall in the market is an awfully strange way to go about it. 
+		#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_SELFISH))
+			In fact, it's totally wrong. Even if he was just casing the town, there are easier and cheaper ways to do it. 
+		#ENDIF
+		They have talked so much about what his kind is like and yet not one of them has tried to get to know him and find out what if that was true or not. You have. 
+		#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_CYNICAL))
+			And you're not even the trusting sort. 
+		#ENDIF		
+		The Eisek you know is a humble produce farmer who took a big gamble in coming down from the mountains. If any member of this twisted little group had actually taken the time as you did, they would have found out the same thing.
 	</p>
 	<p>
 		The room is as silent as a tomb in response to your impassioned speech. After what seems like an eternity, the donkey-boy speaks again. [test.speechMasculine(Alright, you've made your point. Perhaps...we have been too quick to judge. Let us verify these claims.)]
@@ -196,7 +224,7 @@
 	
 	<htmlContent tag="SEDUCE"><![CDATA[
 	<p>
-		You channel your aura into your mastery of lust magic, letting fly with every spell you know until the room practically reeks of arousal. With glazed eyes and unable to resist your power, the townsfolk immediately begin tearing at each other's clothing. The room is soon filled an orchestra of moans as they use each other to sate the burning lust you've called forth. They haven't even shut the doors to the cellar. Do you use this opportunity to join in or wait until they are finished and perhaps more suggestible?
+		You channel your aura into your mastery of lust magic, letting fly with every spell you know until the room practically reeks of arousal. With glazed eyes and unable to resist your power, the townsfolk immediately begin tearing at each other's clothing. The room is soon filled with an orchestra of moans as they use each other to sate the burning lust you've called forth. Do you use this opportunity to join in or wait until they are finished and perhaps more suggestible?
 	</p>
 	]]>
 	</htmlContent>
@@ -205,7 +233,7 @@
 	
 	<htmlContent tag="SEDUCE_AFTERMATH"><![CDATA[
 	<p>
-		You shakily stand up, soaked through with the fluids of the past two hours but more conscious than everyone else. You promise the pile of limp bodies beneath you that if they leave Eisek alone, there's more where that came from. A groggy sea of vaguely affirmative noises replies to your offer. Of course, you don't intend to actually follow through. More likely when the spells wear off, this motley little crew will realize the whole town got a free show through the open door and disband out of sheer embarrassment.
+		You shakily stand up, soaked through with the fluids of the past two hours but more conscious than everyone else. You promise the pile of limp bodies beneath you that if they leave Eisek alone, there's more where that came from. A groggy sea of vaguely affirmative noises replies to your offer. Of course, you don't intend to actually follow through. More likely when the spells wear off, this motley little crew will realize that nobody shut the cellar door during their magic-fueled orgy. They've just given every passerby a free show and will probably disband out of sheer embarrassment.
 	</p>
 	]]>
 	</htmlContent>

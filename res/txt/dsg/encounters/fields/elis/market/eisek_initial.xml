@@ -32,7 +32,13 @@
 		[test.speechFeminine(We're not here as plunder!)] bleets the sheep-girl next to him.
 	</p>
 	<p>
-		Fortunately, they are not packed in so close together that you cannot squeeze through and after a bit of effort you are able to make your way to the front. The object of the crowd's ire is a [eisek.raceFull(true)] [eisek.materialDescriptor] [eisek.skinFullDescription(true)] who seems to be a bit oversized for his stall. His clothing looks primitive and hard-worn, but the produce on display before him almost glows with health. You can tell from his expression that he's trying very hard to look unperturbed by the crowd and he hasn't said a word so far, but the puffs of steam occasionally emitting from his nostrils must surely mean he's very close to breaking point.
+		Fortunately, they are not packed in so close together that you cannot squeeze through and after a bit of effort you are able to make your way to the front. The object of the crowd's ire is a [eisek.raceFull(true)] [eisek.materialDescriptor] [eisek.skinFullDescription(true)] who seems to be a bit oversized for his stall.
+		#IF(pc.hasTraitActivated(PERK_OBSERVANT))
+			 Save for the briefest glint of gold around one of his fingers, h
+		#ELSE
+			 H
+		#ENDIF
+		is clothing looks positively medieval and hard-worn, but the produce on display before him almost glows with health. You can tell from his expression that he's trying very hard to look unperturbed by the crowd and while he hasn't said a word so far, but the puffs of steam occasionally emitting from his nostrils must surely mean he's very close to breaking point.
 	</p>
 	<p>
 		Perhaps spurred on by your intense visual study, his [eisek.eyeColour(true)] eyes lock with yours.

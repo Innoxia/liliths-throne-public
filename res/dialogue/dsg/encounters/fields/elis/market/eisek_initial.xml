@@ -109,6 +109,7 @@
 				<secondsPassed/>
 				<effects><![CDATA[
 					[#eisek.setPlayerKnowsName(true)]
+					[#flags.setFlag(FLAG_dsg_elis_eisek_introduced, true)]
 					[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc, 3))]
 				]]></effects>
 				

@@ -88,24 +88,39 @@
 	<!-- TALK_BUSINESS -->
 	
 	<htmlContent tag="TALK_BUSINESS"><![CDATA[
-	#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))
-		#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))
-			<p>
-				His eyes light up at the question. [eisek.speech(I cannot thank you enough, [pc.name]. With this new stall I am on equal footing with the other merchants, and since you drove away that crowd of hooligans I can actually focus on running it. Sales have really started to pick up and I have seen many new customers.)] He studies you intently for a brief instant before continuing with a warm smile. [eisek.speech(Do not worry, you will always be my favourite.)]
-			</p>
+	#IF(eisek.getAffection(pc) >= 15)
+		#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))
+			#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))
+				<p>
+					His eyes light up at the question. [eisek.speech(I cannot thank you enough, [pc.name]. With this new stall I am on equal footing with the other merchants, and since you drove away that crowd of hooligans I can actually focus on running it. Sales have really started to pick up and I have seen many new customers.)] He studies you intently for a brief instant before continuing with a warm smile. [eisek.speech(Do not worry, you will always be my favourite.)]
+				</p>
+			#ELSE
+				<p>
+					[eisek.speech(You have done me a great service in convincing that mob of the truth,)] he says, trying not to sound too excited, [eisek.speech(without them to frighten away customers, I have been selling through my stock on some days.)]
+				</p>
+				<p>
+					Surveying the other stalls in the avenue, he continues, half talking to himself, [eisek.speech(Perhaps I should use this time to make improvements to my stall. There is nothing I can do about the size, I need to fly with it...although some shade would be nice. It is definitely not as eye-catching as the others...)]
+				</p>
+				<p>
+					Suddenly realizing he's rambling
+					#IF(flags.hasFlag(FLAG_dsg_elis_eisek_asked_business))
+						 again
+					#ENDIF
+					 , the [eisek.race] straightens up. [eisek.speech(But that can wait for some other time. More customers is always a good thing.)] He scratches his chin in thought before flashing you a cheeky grin. [eisek.speech(Though, you still talk the most.)]
+				</p>
+			#ENDIF
 		#ELSE
 			<p>
-				eisek.speech(You have done me a great service in convincing that mob of the truth,)] he says, trying not to sound too excited, [eisek.speech(without them to frighten away customers, I have been selling through my stock on some days.)] He scratches his chin in thought before flashing you a cheeky grin. [eisek.speech(Though, you still talk the most.)]
+				He ponders your question for a moment, looking off into the distance, before answering [eisek.speech(Well enough, I suppose. I never planned to succeed through volume. Although...)] the [eisek.race] pauses as he surveys the other stalls up and down the avenue. [eisek.speech(My stall could use some work...hmm, but I cannot leave it undefended with that mob out there. It would be in ruins when I returned, that is for sure.)]
+			</p>
+			<p>
+				As if suddenly aware that he's been thinking aloud, he snaps out of his trance and looks back at you, doing his best to hide his embarrassment. [eisek.speech(Ah, but I am sure you that did not come to hear me ramble. I am fortunate that not all of the locals are thick-skulled. They are not talkative like you, but they buy what I have to sell, and that is good enough for me.)]
 			</p>
 		#ENDIF
 	#ELSE
-		<p>
-			He ponders your question for a moment, looking off into the distance, before answering [eisek.speech(Well enough, I suppose. I never planned to succeed through volume. Although...)] the [eisek.race] pauses as he surveys the other stalls up and down the avenue. [eisek.speech(My stall could use some work. There is nothing I can do about the size, I need to fly with it...although I would not mind an awning for some shade. It is definitely not as eye-catching compared with the others. If only I could get some better fabric and a better sign...hmm, but I cannot leave my stall undefended with that mob out there. I would come back to it in ruins for sure.)]
-		</p>
-		<p>
-			As if suddenly aware that he's been thinking aloud, he snaps out of his trance and looks back at you, doing his best to hide his embarrassment. [eisek.speech(Ah, but I am sure you that did not come to hear me ramble. I am fortunate that not all of the locals are thick-skulled. They are not talkative like you, but they buy what I have to sell, and that is good enough for me.)]
-		</p>
-	#ENDIF
+	<p>
+		The [eisek.race] responds with a dispassionate smoothness born of frequent practice. [eisek.speech(Well enough. Though I would much prefer to <i>do</i> business than merely talk about it. Perhaps this is something you can assist me with.)]
+	</p>
 	]]>
 	</htmlContent>
 	
@@ -113,7 +128,11 @@
 	
 	<htmlContent tag="TALK_FAMILY"><![CDATA[
 	<p>
-		You ask Eisek about the family he mentioned. The question seems to hit him off-balance and he initially pretends that he didn't hear it as his expression darkens. When he finally does respond, he stares at the counter and says only [eisek.speech(I do not wish to talk about that,)] in a barely audible whisper.
+		You ask Eisek about the family he mentioned. The question seems to hit him off-balance and he initially pretends that he didn't hear it as his expression darkens.
+		#IF (pc.hasTraitActivated(PERK_OBSERVANT))
+			 You notice him fiddling with a curious gold ring around his finger. A nervous tic perhaps?
+		#ENDIF
+		 When he finally does respond, he stares at the counter and says only [eisek.speech(I do not wish to talk about that,)] in a barely audible whisper.
 	</p>
 	<p>
 		Probably not a good idea to push further.

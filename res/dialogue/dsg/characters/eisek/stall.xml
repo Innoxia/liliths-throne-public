@@ -55,7 +55,7 @@
 				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_business]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
-					#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_asked_business))
+					#IF(eisek.getAffection(pc) >= 15 && !flags.hasFlag(FLAG_dsg_elis_eisek_asked_business))
 						[#flags.setFlag(FLAG_dsg_elis_eisek_asked_business, true)]
 						[#flags.incrementSavedLong("elis_eisek_talk_score", 1)]
 					#ENDIF
