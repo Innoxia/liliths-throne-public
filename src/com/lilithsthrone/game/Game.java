@@ -1133,6 +1133,16 @@ public class Game implements XMLSaving {
 					}
 				}
 				
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.7")) {
+					// Add produce market stall:
+					Vector2i vec = Main.game.getWorlds().get(WorldType.getWorldTypeFromId("innoxia_fields_elis_market")).getCell(PlaceType.getPlaceTypeFromId("innoxia_fields_elis_market_exit_west")).getLocation();
+					vec.setX(vec.getX()+1);
+					vec.setY(vec.getY()+3);
+					Main.game.getWorlds().get(WorldType.getWorldTypeFromId("innoxia_fields_elis_market")).getCell(vec).getPlace().setPlaceType(PlaceType.getPlaceTypeFromId("dsg_fields_elis_market_produce"));
+					Main.game.getWorlds().get(WorldType.getWorldTypeFromId("innoxia_fields_elis_market")).getCell(vec).getPlace().setName(PlaceType.getPlaceTypeFromId("dsg_fields_elis_market_produce").getName());
+					Main.game.getWorlds().get(WorldType.getWorldTypeFromId("innoxia_fields_elis_market")).getCell(vec).setDiscovered(true);
+				}
+				
 				if(debug) {
 					System.out.println("Maps finished: "+ (System.nanoTime()-time)/1000000000d);
 				}
