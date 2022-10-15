@@ -567,6 +567,9 @@ public class OffspringSeed implements XMLSaving {
 	
 	public AbstractSubspecies getSubspecies() { return subspecies; }
 	
+	public boolean isFeral() {
+		return getBody().isFeral();
+	}
 	public boolean isFeminine() {
 		return body==null || body.isFeminine();
 	}
