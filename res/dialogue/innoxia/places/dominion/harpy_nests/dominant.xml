@@ -204,11 +204,36 @@
                     <sexStartContent folderPath="txt/places/dominion/harpyNests/dominant">PACIFIED_DOMINANT_SEX_START</sexStartContent>
                 </sexVariables>
             </response>
+            <response>
+                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_dominantPacified)]]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[2]]></index>
+                <responseTitle><![CDATA[Get dominated]]></responseTitle>
+                <responseTooltip><![CDATA[Ask [harpyDominant.name] to dominate you.]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+                <effects/>
+                <sexVariables enabled="true">
+                    <conditional><![CDATA[false]]></conditional>
+                    <consensual><![CDATA[true]]></consensual>
+                    <subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+                    <dominants>
+                        <character><![CDATA[harpyDominant]]></character>
+                    </dominants>
+                    <submissives>
+                        <character><![CDATA[pc]]></character>
+                    </submissives>
+                    <dominantSpectators/>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/places/dominion/harpyNests/dominant">PACIFIED_DOMINANT_SEX_START_AS_SUB</sexStartContent>
+                </sexVariables>
+            </response>
 			<!-- Threesome sex -->
             <response>
                 <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_dominantPacified) && !harpyDominantCompanion.isAttractedTo(pc) && !game.isNonConEnabled()]]]></availabilityConditional>
                 <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[2]]></index>
+                <index><![CDATA[3]]></index>
                 <responseTitle><![CDATA[Threesome (oral)]]></responseTitle>
                 <responseTooltip><![CDATA[As [harpyDominantCompanion.name] is not attracted to you, she's unwilling to take part in a threesome with you and [harpyDominant.name]...]]></responseTooltip>
                 <nextDialogue><![CDATA[null]]></nextDialogue>
@@ -216,7 +241,7 @@
             <response>
                 <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_dominantPacified) && (harpyDominantCompanion.isAttractedTo(pc) || game.isNonConEnabled())]]]></availabilityConditional>
                 <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[2]]></index>
+                <index><![CDATA[3]]></index>
                 <responseTitle><![CDATA[Threesome (oral)]]></responseTitle>
                 <responseTooltip><![CDATA[
                     Have [harpyDominant.name] and [harpyDominantCompanion.name] service you with their mouths.
@@ -250,7 +275,7 @@
             <response>
                 <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_dominantPacified) && !harpyDominantCompanion.isAttractedTo(pc) && !game.isNonConEnabled()]]]></availabilityConditional>
                 <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[3]]></index>
+                <index><![CDATA[4]]></index>
                 <responseTitle><![CDATA[Threesome (doggy style)]]></responseTitle>
                 <responseTooltip><![CDATA[As [harpyDominantCompanion.name] is not attracted to you, she's unwilling to take part in a threesome with you and [harpyDominant.name]...]]></responseTooltip>
                 <nextDialogue><![CDATA[null]]></nextDialogue>
@@ -258,7 +283,7 @@
             <response>
                 <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_dominantPacified) && (harpyDominantCompanion.isAttractedTo(pc) || game.isNonConEnabled())]]]></availabilityConditional>
                 <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[3]]></index>
+                <index><![CDATA[4]]></index>
                 <responseTitle><![CDATA[Threesome (doggy style)]]></responseTitle>
                 <responseTooltip><![CDATA[
                     Fuck [harpyDominant.name] and [harpyDominantCompanion.name] side by side in the doggy style position.

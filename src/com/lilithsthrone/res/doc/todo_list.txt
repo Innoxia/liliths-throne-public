@@ -18,7 +18,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added a specific flag to indicate the player's lilin heritage rather than just checking if they are a demon. (PR#1688 by MintyChip)
 		Added fetish selection options to sexual experience menu during the prologue's character creation process. (PR#1687 by MintyChip)
 		Added Java vendor and basic OS information to error.log to help improve troubleshooting. (by CognitiveMist)
-		Fixed grammatical issues in the alligator-morph's racial descriptions. (PR#1685 by Thernn)
+		Fixed grammatical issues in the alligator-morph's racial descriptions. (PR#1685 by Maymay)
 	
 	Other:
 		The 'Crotch-boobs & Udders' body setting now only applies to randomly-generated NPCs at the moment of their creation (as was stated in the option's tooltip), allowing all characters to gain crotch-boobs/udders via TF no matter the setting.
@@ -103,6 +103,20 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] add very rare spawning in Elis alleyways
 		[x] TF 1 should be flame for food enchant
 	[x] error log info expansion
+	[x] for the bad end, the game will still act like your cow buddy is a virgin even if you lost to one of the NPC encounters on the way and she loses it then
+	
+	[] Felicia content in writers channel
+		Felicia content expansion:
+			- Ask out on date (affection requirement first I guess)
+			- Repeat date until 3 dates completed
+			- Give her gift after 3rd date and she reveals how she transformed into a 'doll' to stop having lewd thoughts all the time
+			- Says she feels lewd towards player, can sex
+			- Option to give her TF potion to give her vagina (although she prefers giving oral)
+			- Repeat dates & sex is end content
+	
+	[] Dwight - submission & toggle for being able to encounter your offspring
+	
+	[] FAF art Astrapi
 	
 	[] PRs:
 		[] #94
@@ -139,20 +153,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] Maymay self-ovipositor dialogue
 	
-	[] Felicia content in writers channel
-		Felicia content expansion:
-			- Ask out on date (affection requirement first I guess)
-			- Repeat date until 3 dates completed
-			- Give her gift after 3rd date and she reveals how she transformed into a 'doll' to stop having lewd thoughts all the time
-			- Says she feels lewd towards player, can sex
-			- Option to give her TF potion to give her vagina (although she prefers giving oral)
-			- Repeat dates & sex is end content
-	
-	[] Dwight - submission & toggle for being able to encounter your offspring
-	
 	[] C4M cult
-	
-	[] FAF art Astrapi
 	
 	Need to contact kumiko
 		Kumiko dreams
@@ -160,7 +161,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		
 	Merle
 	
-	
+	[]  Milk room bug. If I creampie someone and then have them vaginally milked the creampie is sucked away but is not stored in the milker.
 	
 	[] Make a page on the blog about java/exe/32-bit exe versions
 	
@@ -184,8 +185,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] The options for slaves to take pills or mothers milk don't actually consume any items from the slaves or the player. I'll add that to the tooltips to make it clear.
 	
 	[] harpy nests
-		[] add option to be dominated by Diana
-		[] harpy nests improve quest start dialogue flow
+		[x] add option to be dominated by Diana
+		[x] harpy nests improve quest start dialogue flow
 		[] bad ends
 			Losses apply (transformed at the start of each one if necessary):
 				- fucked

@@ -199,6 +199,16 @@
 	]]>
     </htmlContent>
 	
+    <htmlContent tag="PACIFIED_DOMINANT_SEX_START_AS_SUB"><![CDATA[
+    <p>
+        Although you've asserted your superiority over [harpyDominant.name], you find yourself wanting nothing more than to submit to her. Revealing your desire to the harpy matriarch, you ask her to dominate you and put you in your place.
+    </p>
+    <p>
+        A wicked smirk flashes across [harpyDominant.namePos] face as she hears this, and after swiftly stepping forwards and wrapping her wings around your back, she roughly pulls you into a deep, passionate kiss...
+    </p>
+	]]>
+    </htmlContent>
+	
     <htmlContent tag="DOMINANT_SEX_START_ORAL"><![CDATA[
     <p>
         Eager to put [harpyDominant.name] and [harpyDominantCompanion.name] in their place in front of their nest's inner-circle, you reach down and grab the dominant matriarch's wings. Pulling her to her feet, you [pc.step] forwards and plant a deep kiss on her [harpyDominant.lips+], drawing a series of lustful moans from the surrounding harpies as you do so.
