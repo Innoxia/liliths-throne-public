@@ -13,7 +13,7 @@
 		
 		<namePlural pluralByDefault="false"><![CDATA[Eisek's Rings]]></namePlural>
 		
-		<description><![CDATA[A strange piece of jewellery with an inscription in an unknown language inside the band. Eisek won't talk about its origins, but it looks very old and you feel like the eye-shaped gem in the middle is watching you.]]></description>
+		<description><![CDATA[A strange piece of jewellery with an inscription in an unknown language inside the band. It looks very old and you feel like the eye-shaped gem in the middle is watching you.]]></description>
 		
 		<physicalResistance>0</physicalResistance>
 		
@@ -49,7 +49,7 @@
 					<stickerName><![CDATA[Scratches]]></stickerName> 
 					<namePrefix/> 
 					<namePostfix/> 
-					<descriptionModification fullReplacement="true" priority="1"><![CDATA[A rare example of pre-Dragonfall craftsmanship, this ring was given by Lisophia to those she considered especially loyal. Considered by most modern dragons to be a symbol of slavery, they are nonetheless kept by a few as family heirlooms to remind them of mistakes committed in an ancient age. The inscription once read "faithful servant" but Eisek has scratched out the word "servant", turning the grim artefact into a symbol of hope for a future spent by your side.]]></descriptionModification> 
+					<descriptionModification fullReplacement="true" priority="1"><![CDATA[A rare example of pre-Dragonfall craftsmanship, this ring was given by Lisophia to those she considered especially loyal. Considered by most modern dragons to be a symbol of slavery, they are nonetheless kept by a few as family heirlooms to remind them of mistakes committed in an ancient age. The inscription once read "faithful servant" but [eisek.Name] has scratched out the word "servant", turning the grim artefact into a symbol of hope for a future spent at your side.]]></descriptionModification> 
 					<imageName zLayer="1">seawings_ring_st_scratch.svg</imageName> 					
 					<itemTagsAdded/> 
 					<itemTagsRemoved/> 

@@ -565,7 +565,7 @@ public class Perk {
 			true,
 			"Feeding the World",
 			PerkCategory.JOB,
-			"perks/jobs/farmer",
+			"perks/jobs/npc_farmer",
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
@@ -576,8 +576,8 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
-					"#IF(!game.SillyModeEnabled())"
-						+ "The back-breaking work required to make fields bloom has made [npc.Name] fit and tough. [npc.She] is also no stranger to the biting cold or the scorching sun."
+					"#IF(!game.isSillyMode())"
+						+ "The back-breaking work required to make fields bloom has made [npc.name] strong and tough. [npc.She] is also no stranger to the biting cold or the scorching sun."
 					+ "#ELSE"
 						+ "[npc.NameHasFull] a brand new combine harvester and [npc.she]'ll give you the key, but only after driving [npc.her] tractor through your haystack, ooar-ooar!"
 					+ "#ENDIF");
