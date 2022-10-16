@@ -869,6 +869,13 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="CLOTHING_ASK_FABRIC"><![CDATA[
+	<p>
+		It occurs to you that since the foxtauresses sell clothing, they might deal in fabric as well. Fae's shakes her head when you ask, however. [fae.speech(Sorry, we deal in finished clothing only. It'd be way too much stuff to keep around our little stall. But if you were wanting to make some clothing on your own, maybe it's already here at a great price.)] she says, emphasizing the last part with a wink.
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	
 	<!-- Alcoholic drinks -->

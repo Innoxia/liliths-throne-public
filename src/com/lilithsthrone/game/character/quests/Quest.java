@@ -1787,7 +1787,7 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "You've learned what Eisek needs to fix up his stall, as well as what he would like on a new sign. Now you just need to gather some materials for a nice surprise. First stop: a fabric shop.";
+			return "You've learned what Eisek needs to fix up his stall, as well as what he would like on a new sign. Now you just need to gather some materials from the merchants around town for a nice surprise. Maybe there's one that deals in fabric?";
 		}
 		@Override
 		public String getCompletedDescription() {
@@ -1804,7 +1804,7 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "While you're waiting for Monica to finish your commission, you need to find some wooden poles for the awning. Next stop: a DIY shop.";
+			return "While you're waiting for Monica to finish your order, you need to find some wooden poles for the awning. Perhaps the local smithy could modify the haft of a polearm could be modified somehow?";
 		}
 		@Override
 		public String getCompletedDescription() {
@@ -1817,11 +1817,11 @@ public enum Quest {
 			10) {
 		@Override
 		public String getName() {
-			return "Putting it all together";
+			return "It's All Coming Together";
 		}
 		@Override
 		public String getDescription() {
-			return "You should check back in with Monica after three days to see if your sign commission is done yet.";
+			return "You should check back in with Monica after three days to see if your order is ready yet.";
 		}
 		@Override
 		public String getCompletedDescription() {

@@ -294,11 +294,11 @@
 		</p
 	#ELSEIF(eisek.getAffection(pc) >= 15)
 		<p>
-			The [eisek.race] closes his eyes and nods his head slightly as you bid him farewell. [eisek.speech(Thank you for stopping by,)] he says, before quickly adding [eisek.speech(Please come visit again.)]
+			The [eisek.race] bows his head slightly and closes his eyes as you bid him farewell. [eisek.speech(Thank you for stopping by,)] he says, before quickly adding [eisek.speech(Please come visit again.)]
 		</p>
 	#ELSE
 		<p>
-			The [eisek.race] closes his eyes and nods his head slightly as you bid him farewell. [eisek.speech(Thank you for stopping by.)]
+			The [eisek.race] bows his head slightly as you bid him farewell. [eisek.speech(Thank you for stopping by.)]
 		</p>
 	#ENDIF
 	]]>
@@ -311,13 +311,13 @@
 		Thinking back to what Eisek accidentally let slip about improvements to his stall, you ask him what he'd like on a sign representing his business. The [eisek.race] tilts his head slightly at you. [eisek.speech(...Why do you ask? The details of an object out of my grasp matter little.)]
 	</p>
 	<p>
-		You evade his suspicion and reframe the question as wanting to know what qualities his goods posses that are so important that he'd put them on a sign if he had one, hypothetically. [eisek.speech(Hmm...)] he rumbles, leaning forward slightly on the counter, [eisek.speech(They are brought down from the mountains, yes, from the clear air. And I keep them cold while I am here, they stay fresh that way.)]
+		You evade his suspicion and reframe the question as wanting to know what qualities his goods posses that are so important that he'd put them on a sign if he had one, hypothetically. [eisek.speech(Hmm...)] he rumbles, leaning forward slightly on the counter, [eisek.speech(They are brought down from the mountains, yes, from the clear air. And I keep them cold while I am here, they stay fresh that way even when the summer sun beats down upon them.)]
 	</p>
 	<p>
-		While his guard is still down, you slip in another question about his favourite colour to which he responds [eisek.speech(Orange. Is there...an aim behind this?)]
+		While his guard is still down, you slip in another question about his favourite colour to which he responds [eisek.speech(Forest green. Is there...an aim behind this?)]
 	</p>
 	<p>
-		You don't bother trying to worm your way out with a grand explanation and admit to only being curious. With this new information, it seems you have some shopping to do. Perhaps there's a store in town that deals in fabric?
+		You don't bother trying to worm your way out with a grand explanation and admit to only being curious. With this new information, it seems you have some shopping to do. First, you'll need to find some dark green cloth for a new table cloth and an awning, as well as someone who can make a new sign for you.
 	</p>
 	]]>
 	</htmlContent>

@@ -182,4 +182,20 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="TALK_ASK_AWNING_POLE"><![CDATA[
+	<p>
+		You notice pole-arms among the things that Imsu has for sale and enquire as to whether or not you could just buy the haft of one, maybe from an unfinished piece, and get it modified. Imsu and Hale briefly glance at each other at your unusual request.
+	</p>
+	<p>
+		The black-furred baphomet is the first to speak. [imsu.speech(You could, yes. But unless that modification is a blade, it won't do you much good.)] You elaborate that you need some folding wooden poles rather than a weapon to fix up a stall in the Farmer's Market. [hale.speech(Fair enough,)] Hale replies, [hale.speech(Leave it to me then, I'll have it ready by tommorrow. This brute over here only knows how to hammer metal flat.)]
+	</p>
+	<p>
+		Taking offence to the accusation, Imsu is quick to fire back at his grey-furred counterpart. [imsu.speech(And I suppose you think these axes just grow on trees like this? Your head is harder than that of any axe I've ever made!)] 
+	</p>
+	<p>
+		Your order apparently placed, you should probably steer the coversation towards something else, or leave before you lose the baphomet pair to their argument.
+	</p>
+	]]>
+	</htmlContent>
+	
 </dialogue>

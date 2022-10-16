@@ -8,7 +8,6 @@ package com.lilithsthrone.game.character.npc.fields;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.HairType;
@@ -46,7 +45,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -273,6 +271,11 @@ public class Eisek extends NPC {
 	    Main.game.appendToTextEndStringBuilder(UtilText.parse(this, "[eisek.speech([game.random(Thank you for your patronage.|I hope you enjoy it.|A handy snack, is it not?)])]"));
 	    Main.game.appendToTextEndStringBuilder(this.incrementAffection(Main.game.getPlayer(), 3));
 	}
+    }
+    
+    @Override
+    public float getSellModifier(AbstractCoreItem item) {
+	    return 1.1f;
     }
     
     @Override
