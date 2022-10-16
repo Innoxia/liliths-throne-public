@@ -5,10 +5,10 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -89,6 +89,10 @@ public class EnchantmentDialogue {
 	private static boolean isEquipped = false;
 	private static GameCharacter isEquippedTo = null;
 	private static InventorySlot isEquippedIn = null;
+
+	public static String loadConfirmationName = "";
+	public static String overwriteConfirmationName = "";
+	public static String deleteConfirmationName = "";
 	
 	private static String inventoryView() {
 		inventorySB.setLength(0);
@@ -578,7 +582,6 @@ public class EnchantmentDialogue {
 					public void effects() {
 						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('output_name').value;");
 						EnchantmentDialogue.setOutputName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
-						initSaveLoadMenu();
 					}
 				};
 			
@@ -730,7 +733,7 @@ public class EnchantmentDialogue {
 	}
 
 	public static void initSaveLoadMenu() {
-		loadedEnchantmentsMap = new HashMap<>();
+		loadedEnchantmentsMap = new TreeMap<>();
 		
 		for(File f : getSavedEnchants()) {
 			try {
@@ -744,14 +747,15 @@ public class EnchantmentDialogue {
 		}
 	}
 	
-	public static String loadConfirmationName = "", overwriteConfirmationName = "", deleteConfirmationName = "";
 	public static final DialogueNode ENCHANTMENT_SAVE_LOAD = new DialogueNode("Save enchantment files", "", true) {
-
+		@Override
+		public void applyPreParsingEffects() {
+			initSaveLoadMenu();
+		}
 		@Override
 		public String getContent() {
 			return "";
 		}
-		
 		@Override
 		public String getHeaderContent(){
 			StringBuilder saveLoadSB = new StringBuilder();
@@ -866,20 +870,20 @@ public class EnchantmentDialogue {
 						+ "<div class='container-full-width' style='width:calc(25% - 16px);text-align:center; background:transparent;'>"
 							+ (Main.game.isStarted() && !Main.game.isInCombat() && !Main.game.isInSex() && !EnchantmentDialogue.getEffects().isEmpty()
 									?(fileName.equals(overwriteConfirmationName)
-										?"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveConfirm()+"</div></div>"
-										:"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskOverwrite()+"</div></div>")
+										?"<div class='square-button saveIcon' id='OVERWRITE_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveConfirm()+"</div></div>"
+										:"<div class='square-button saveIcon' id='OVERWRITE_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskOverwrite()+"</div></div>")
 									:"<div class='square-button saveIcon disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
 							
 							+ (suitableItemAvailable
 									? (fileName.equals(loadConfirmationName)
-										?"<div class='square-button saveIcon' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadConfirm()+"</div></div>"
-										:"<div class='square-button saveIcon' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoad()+"</div></div>")
+										?"<div class='square-button saveIcon' id='LOAD_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadConfirm()+"</div></div>"
+										:"<div class='square-button saveIcon' id='LOAD_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoad()+"</div></div>")
 									:"<div class='square-button saveIcon disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadDisabled()+"</div></div>")
 	
 	
 							+ (fileName.equals(deleteConfirmationName)
-								?"<div class='square-button saveIcon' id='delete_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
-								:"<div class='square-button saveIcon' id='delete_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
+								?"<div class='square-button saveIcon' id='DELETE_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
+								:"<div class='square-button saveIcon' id='DELETE_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
 						+ "</div>"
 					+ "</div>";
 			
@@ -931,7 +935,7 @@ public class EnchantmentDialogue {
 							+ "</div>"
 						
 							+ "<div class='container-full-width' style='width:calc(25% - 16px); text-align:center; background:transparent;'>"
-								+ "<div class='square-button saveIcon' id='new_saved' style='float:left;'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSave()+"</div></div>"
+								+ "<div class='square-button saveIcon' id='NEW_SAVE' style='float:left;'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSave()+"</div></div>"
 							+ "</div>"
 						+ "</div>";
 			}
@@ -939,7 +943,7 @@ public class EnchantmentDialogue {
 		}
 	}
 
-	public static void saveEnchant(String name, boolean allowOverwrite) {
+	public static void saveEnchant(String name, boolean allowOverwrite, DialogueNode dialogueNode) {
 		name = Main.checkFileName(name);
 		if(name.isEmpty()) {
 			return;
@@ -1026,7 +1030,11 @@ public class EnchantmentDialogue {
 		} catch (TransformerException tfe) {
 			tfe.printStackTrace();
 		}
-		Main.game.setContent(new Response("Save", "", EnchantmentDialogue.ENCHANTMENT_MENU));
+
+		if(dialogueNode!=null) {
+			Main.game.setContent(new Response("", "", dialogueNode));
+		}
+		Main.game.flashMessage(PresetColour.GENERIC_GOOD, "Enchantment saved!");
 	}
 
 	public static LoadedEnchantment loadEnchant(String name) {

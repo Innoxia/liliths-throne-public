@@ -49,7 +49,6 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.Tattoo;
-import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.markings.TattooWriting;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.submission.RatGangMember;
@@ -295,7 +294,7 @@ public class VengarCaptiveDialogue {
 	}
 	
 	private static void applyTattoo(GameCharacter target, String text) {
-		Tattoo tattoo = new Tattoo(TattooType.NONE, PresetColour.CLOTHING_GREY, null, null, false, new TattooWriting(text, PresetColour.BASE_PINK, false), null);
+		Tattoo tattoo = new Tattoo("innoxia_misc_none", PresetColour.CLOTHING_GREY, null, null, false, new TattooWriting(text, PresetColour.BASE_PINK, false), null);
 		tattoo.setName("'"+text+"' tattoo");
 		target.addTattoo(InventorySlot.GROIN, tattoo);
 	}
@@ -347,7 +346,7 @@ public class VengarCaptiveDialogue {
 				CorruptionLevel applicableCorruptionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 				return new Response(
 						"Obey",
-						"Due to the potion you were just forced to drink, you're now so desperate to submit and be transformed that you can't bring yourself to to anything other than exactly what Shadow commands...",
+						"Due to the potion you were just forced to drink, you're now so desperate to submit and be transformed that you can't bring yourself to do anything other than exactly what Shadow commands...",
 						START_VENGAR_PUBLIC_FUCK,
 						applicableFetishes,
 						applicableCorruptionLevel,

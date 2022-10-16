@@ -140,14 +140,15 @@ public class BodyCoveringType {
 	public static AbstractBodyCoveringType CANINE_FUR = new AbstractBodyCoveringType(
 			BodyCoveringCategory.MAIN_FUR,
 			BodyCoveringTemplateFactory.createFurSkin(
-			Util.newArrayListOfValues(
-					CoveringModifier.FLUFFY,
-					CoveringModifier.SHORT,
-					CoveringModifier.SHAGGY),
-			Util.newHashMapOfValues(
-					new Value<>(CoveringPattern.NONE, 30),
-					new Value<>(CoveringPattern.SPOTTED, 5),
-					new Value<>(CoveringPattern.MARKED, 5)))) {
+				Util.newArrayListOfValues(
+						CoveringModifier.SHORT,
+						CoveringModifier.SHAGGY),
+				Util.newArrayListOfValues(
+						CoveringModifier.FLUFFY), // Put it as non-standard covering so that dog-morphs doen't spawn as samoyed-morphs.
+				Util.newHashMapOfValues(
+						new Value<>(CoveringPattern.NONE, 30),
+						new Value<>(CoveringPattern.SPOTTED, 5),
+						new Value<>(CoveringPattern.MARKED, 5)))) {
 	};
 	
 	public static AbstractBodyCoveringType LYCAN_FUR = new AbstractBodyCoveringType(
@@ -224,6 +225,8 @@ public class BodyCoveringType {
 			Util.newArrayListOfValues(
 					CoveringModifier.SHORT,
 					CoveringModifier.SMOOTH),
+			Util.newArrayListOfValues(
+					CoveringModifier.SHAGGY),
 			Util.newHashMapOfValues(
 					new Value<>(CoveringPattern.NONE, 10),
 					new Value<>(CoveringPattern.SPOTTED, 5),

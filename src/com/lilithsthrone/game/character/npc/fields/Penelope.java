@@ -422,7 +422,7 @@ public class Penelope extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_plunge_club_dress", PresetColour.CLOTHING_PINK_DARK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_strappy_sandals", PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_TAN, PresetColour.CLOTHING_ROSE_GOLD, false), true, this);
 		
-		AbstractClothing thong = Main.game.getItemGen().generateClothing(ClothingType.GROIN_VSTRING, PresetColour.CLOTHING_ORANGE_DARK, false);
+		AbstractClothing thong = Main.game.getItemGen().generateClothing("innoxia_groin_vstring", PresetColour.CLOTHING_ORANGE_DARK, false);
 		thong.setPattern(Pattern.getPatternIdByName("tiger_striped"));
 		thong.setPatternColour(0, PresetColour.CLOTHING_BLACK);
 		thong.setPatternColour(1, PresetColour.CLOTHING_ORANGE_BRIGHT);
@@ -445,7 +445,7 @@ public class Penelope extends NPC {
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_CHEMISE, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.HIPS_SUSPENDER_BELT, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_crotchless_thong", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("corpseBloom_toeless_stockings_toeless_stockings", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_ball_studs", PresetColour.CLOTHING_SILVER, false), true, this);

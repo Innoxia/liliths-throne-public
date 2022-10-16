@@ -2,6 +2,8 @@ package com.lilithsthrone.game.inventory.item;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -141,22 +143,60 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 	
 	@Override
 	public String applyEffect(GameCharacter user, GameCharacter target) {
+		if(cum==null) {
+			System.err.println("WARNING: AbstractFilledCondom is calling applyEffect() when cum variable is null!!!");
+		}
 		if(target.hasFetish(Fetish.FETISH_CUM_ADDICT)) {
 			return UtilText.parse(target, user,
 					"<p>"
 						+ "[npc.Name] can't help but let out a delighted [npc.moan] as [npc.she] greedily [npc.verb(gulp)] down the slimy fluid."
-						+ " Darting [npc.her] [npc.tongue] out, [npc.she] desperately [npc.verb(lick)] up every last drop of cum; only discarding the condom once [npc.sheIs] sure that's it's completely empty."
+						+ " Darting [npc.her] [npc.tongue] out, [npc.she] desperately [npc.verb(lick)] up every last drop of cum; only discarding the condom once [npc.sheIs] sure that it's completely empty."
 					+ "</p>"
-					+ target.ingestFluid(getCumProvider(), cum, SexAreaOrifice.MOUTH, millilitresStored));
+					+ (cum==null
+						?""
+						:target.ingestFluid(getCumProvider(), cum, SexAreaOrifice.MOUTH, millilitresStored)));
 		} else {
 			return UtilText.parse(target, user,
 					"<p>"
 						+ "[npc.Name] [npc.verb(scrunch)] [npc.her] [npc.eyes] shut as [npc.she] [npc.verb(gulp)] down the slimy fluid,"
 						+ " trying [npc.her] best not to think about what [npc.sheHas] just done as "+(user.equals(target)?"[npc.she] [npc.verb(throw)]":"[npc2.name] [npc2.verb(throw)]")+" the now-empty condom to the floor..."
 					+ "</p>"
-					+ target.ingestFluid(getCumProvider(), cum, SexAreaOrifice.MOUTH, millilitresStored));
+					+ (cum==null
+						?""
+						:target.ingestFluid(getCumProvider(), cum, SexAreaOrifice.MOUTH, millilitresStored)));
 		}
 		
+	}
+
+	@Override
+	public boolean isAppendItemEffectLinesToTooltip() {
+		return getCumProvider()==null;
+	}
+	
+	@Override
+	public List<String> getEffectTooltipLines() {
+		List<String> descriptionsList = new ArrayList<>();
+		
+		if(getCumProvider()!=null) {
+			descriptionsList.add(UtilText.parse(getCumProvider(),
+					"Contains [units.fluid("+millilitresStored+")] of <span style='color:"+getCumProvider().getFemininity().getColour().toWebHexString()+";'>[npc.namePos]</span> [style.colourCum("+cum.getName(getCumProvider())+")]"));
+		} else {
+			descriptionsList.add("Contains [units.fluid("+millilitresStored+")] of [style.colourCum(cum)]");
+		}
+		
+		descriptionsList.add("It tastes of <span style='color:"+cum.getFlavour().getColour().toWebHexString()+";'>"+cum.getFlavour().getName()+"</span>");
+		if(!cum.getFluidModifiers().isEmpty()) {
+			StringBuilder modifiersSB = new StringBuilder();
+			modifiersSB.append("It is ");
+			List<String> modList = new ArrayList<>();
+			for(FluidModifier mod : cum.getFluidModifiers()) {
+				modList.add("<span style='color:"+mod.getColour().toWebHexString()+";'>"+mod.getName()+"</span>");
+			}
+			modifiersSB.append(Util.stringsToStringList(modList, false));
+			descriptionsList.add(modifiersSB.toString());
+		}
+		
+		return descriptionsList;
 	}
 	
 	public String getCumProviderId() {
@@ -167,7 +207,7 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 		try {
 			return Main.game.getNPCById(cumProvider);
 		} catch (Exception e) {
-			Util.logGetNpcByIdError("getCumProvider()", cumProvider);
+			Util.logGetNpcByIdError("AbstractFilledCondom.getCumProvider()", cumProvider);
 			return null;
 		}
 	}
@@ -183,5 +223,6 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 	public void setMillilitresStored(int millilitresStored) {
 		this.millilitresStored = millilitresStored;
 	}
+	
 	
 }

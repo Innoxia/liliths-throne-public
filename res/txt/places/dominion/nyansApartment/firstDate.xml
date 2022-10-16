@@ -193,7 +193,7 @@
 		Looking over the menu, you see that there isn't a very big selection on offer, but if what Nyan has just said is true, you can be sure that you'll like anything which you decide to order. Asking Nyan what she's thinking of having, you're a little taken aback by the speed of her response, as she happily exclaims, [nyan.speechNoEffects(I'm ordering the tsipoura! I-It's the name for oven-baked, gilt-head bream, and it's my a-absolute favourite food ever! I'm so happy that they're serving this...)]
 	</p>
 	<p>
-		After you've spend a moment in which to decide, you tell Nyan what you're going to order, to which she coyly bites her lip and asks, [nyan.speechNoEffects(Is is ok if I o-order a starter as well? Y-You'll order one too, won't you, [pc.name]?)]
+		After you've spend a moment in which to decide, you tell Nyan what you're going to order, to which she coyly bites her lip and asks, [nyan.speechNoEffects(Is it ok if I o-order a starter as well? Y-You'll order one too, won't you, [pc.name]?)]
 	</p>
 	<p>
 		Not wanting your girlfriend to feel awkward at being the only one to order a starter, and being unable to say no to her cute smile, you agree to her demands and ask her what you think you should go for. Happily expressing her opinion on the different starters that are on offer, your girlfriend helps you to decide on what to get. As soon as you've both decided, the waiter swiftly returns and prepares to take your order...
@@ -423,7 +423,7 @@
 	
 	<htmlContent tag="POST_DATE_APARTMENT_LOUNGE"><![CDATA[
 	<p>
-		Still passionately kissing one another, you and Nyan enter her lounge, but as you do so, you have a suddenly moment of clarity in which you realise that all of the lights in her apartment are already turned on. At that same moment, you notice out of the corner of your eye that there's an unfamiliar figure leaning back on the sofa furthest from the door. Before you have a chance to react, this stranger calls out in a mature, feminine voice, [nyanmum.speech(Well, well, well. I didn't know you had a thing for [pc.racePlural]...)]
+		Still passionately kissing one another, you and Nyan enter her lounge, but as you do so, you have a sudden moment of clarity in which you realise that all of the lights in her apartment are already turned on. At that same moment, you notice out of the corner of your eye that there's an unfamiliar figure leaning back on the sofa furthest from the door. Before you have a chance to react, this stranger calls out in a mature, feminine voice, [nyanmum.speech(Well, well, well. I didn't know you had a thing for [pc.racePlural]...)]
 	</p>
 	<p>
 		Immediately breaking off from your kiss, both you and Nyan quickly turn to face the source of this voice. Just like your girlfriend, the stranger leaning back on the sofa appears to be some kind of lesser cat-girl, although unlike Nyan's black colouration, the fur covering her cat-like parts is a uniform shade of tan. Although she looks to be in her mid-forties, there's a bright spark of youthful energy in this woman's predatory, yellow eyes, and as she looks across to your girlfriend, her full lips turn up into a big smile. As she spreads her arms and beckons Nyan forwards for a hug, you notice that she's significantly more muscular than your girlfriend, leading you to realise that she's a cougar-morph. Letting out an impatient huff, she calls out, [nyanmum.speech(Come on, Nyan, mummy wants a hug!)]
@@ -490,7 +490,12 @@
 	
 	<htmlContent tag="POST_DATE_APARTMENT_INTERVIEW_2_DEMON"><![CDATA[
 	<p>
-		Seeing that [nyanmum.name] is the sort of shallow person who's impressed by wealth and prestige, you decide to fall back on the names of both your demonic [lilaya.relation(pc)] and mother. As you tell the cougar-girl that Lilaya is your [lilaya.relation(pc)], you see her eyes widen in surprise, and as you then reveal that you're a direct daughter of Lyssieth herself, she momentarily loses her composure and asks in awe, [nyanmum.speech(Wait... <i>You're</i> the one who Lyssieth transformed into her new [pc.daughter]?! Hmm... Well, with family like that, I guess you'll be able to provide for Nyan...)]
+		Seeing that [nyanmum.name] is the sort of shallow person who's impressed by wealth and prestige, you decide to fall back on the names of both your demonic [lilaya.relation(pc)] and mother. As you tell the cougar-girl that Lilaya is your [lilaya.relation(pc)], you see her eyes widen in surprise, and as you then reveal that you're a direct daughter of
+		#IF(flags.hasFlag(FLAG_innoxia_child_of_lyssieth))
+			 Lyssieth herself, she momentarily loses her composure and asks in awe, [nyanmum.speech(Wait... <i>You're</i> the one who Lyssieth transformed into her new [pc.daughter]?! Hmm... Well, with family like that, I guess you'll be able to provide for Nyan...)]
+		#ELSE
+ 			 [#pc.getLilinMother().getName()] herself, she momentarily loses her composure and asks in awe, [nyanmum.speech(Wait... <i>You're</i> one of [#pc.getLilinMother().getName()]'s children?! Hmm... Well, with family like that, I guess you'll be able to provide for Nyan...)]
+ 		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -772,7 +777,7 @@
 		Answering with action instead of words, you lean forwards and plant a big, wet kiss on Nyan's tiny labia, causing her to let out a shocked moan and instinctively grab the back of your head. Liking the cute sounds which you're able to elicit from your shy girlfriend, you start passionately kissing her pussy, before sliding your [pc.tongue+] into her wet cunt and starting to greedily eat her out.
 	</p>
 	<p>
-		[nyan.speechNoEffects(~Aah!~ [pc.Name]! ~Ooh!~ More! Yes, like that! ~Aah!~)] she squeals as she discovers that receiving oral is every bit as good as she imagined it to be....
+		[nyan.speechNoEffects(~Aah!~ [pc.Name]! ~Ooh!~ More! Yes, like that! ~Aah!~)] she squeals as she discovers that receiving oral is every bit as good as she imagined it to be...
 	</p>
 	]]>
 	</htmlContent>
@@ -799,7 +804,7 @@
 		Doing as she asks, you continue sliding your [pc.fingers+] up and down over Nyan's pussy, and by teasing her sensitive clit, you get your shy girlfriend to let out a series of cute moans. Once again encouraged by her reaction, you gently push your [pc.fingers] into Nyan's pussy, before starting to eagerly finger her.
 	</p>
 	<p>
-		[nyan.speechNoEffects(~Aah!~ [pc.Name]! ~Ooh!~ More! Yes, like that! ~Aah!~)] she squeals, before once again starting to passionately kiss you ....
+		[nyan.speechNoEffects(~Aah!~ [pc.Name]! ~Ooh!~ More! Yes, like that! ~Aah!~)] she squeals, before once again starting to passionately kiss you...
 	</p>
 	]]>
 	</htmlContent>
@@ -942,7 +947,7 @@
 		Sensing that Nyan would like to go again, you suggest that she sit on your face so that you can eat her out for a second time. Blushing at the suggestion, she lets out an excited giggle and replies, [nyan.speech(That sounds fun!)]
 	</p>
 	<p>
-		As you lie back on her bed, the realisation of what she's about to do suddenly dawns on your shy girlfriend, and she mutters, [nyan.speech(I've never... I mean, I've read about this, but..)]
+		As you lie back on her bed, the realisation of what she's about to do suddenly dawns on your shy girlfriend, and she mutters, [nyan.speech(I've never... I mean, I've read about this, but...)]
 	</p>
 	<p>
 		Reassuring her that her lack of experience isn't an issue, you tell Nyan to kneel down over your face. Following your instructions, the cute cat-girl drops down into position, before suddenly letting her legs give way and smothering your mouth with her [nyan.pussy+]. Finding yourself in the perfect position, you reach up and take hold of Nyan's [nyan.assSize] ass as you start to enthusiastically eat her out. Happily grinding her [nyan.pussy+] down over your face, your girlfriend starts letting out a series of lewd moans as you orally service her...

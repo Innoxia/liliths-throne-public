@@ -6,94 +6,105 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	FriendlyAlienFriend's artwork:
-		Added new pregnant variations for Nyan's clothed, lingerie, and naked artwork.
-	
 	Contributors:
-		Fixed latex stocks always being referred to as black in their description. (PR#1671 by Anonymous-BCFED)
-		Added a delete button to custom character images, enabling you to remove custom images without having to manually delete the image from the charatcer's 'custom' artwork folder. (PR#1637 by NoStepOnSneks)
-		Fully implemented all of the Elder Lilin perk checks, which for the time being can be turned on/off via the debug menu. (PR#1631 by Maxis010)
-		Removed the 'enchantmentLimit' element from all xml files, and from the Java code that parses those xmls, as support for this element was dropped in a prior enchantment update. (PR#1618 by CognitiveMist)
-		Updated 'hyena_bone_crush.xml' to include damage variance, and changed links from master branch to dev branch in 'dagger.xml'. (PR#1616 by CognitiveMist)
-		Added warnings for if a weighted map contains bad values. (PR#1614 by CognitiveMist)
-		Adds an alarm clock function to places where you can rest: Lilaya's house room; Friendly apartment sofa; Elis tavern room; Dairy farm dormitory. (PR#1606 by CognitiveMist)
-		If a random NPC attacker (in Dominion, Submission, Harpy Nests, or Elis) has the 'cum addict' fetish, or they are under the effects of an arcane storm, there is a 10% chance that they will spawn with some dirty inventory slots. (PR#1582 by CognitiveMist)
-		Added sorting options to the slave list. (PR#1662 by Anonymous-BCFED)
-		Changed all old FITS_HARPY_WINGS item tags to FITS_ARM_WINGS as the former is no longer supported. (PR#1663 by DSG)
-		NPCs who are freed via use of a Freedom Certificate are no longer able to be re-enslaved afterwards. (PR#1649 by Maxis010)
-		Fixed some sizing issues with item tooltips. (PR#1674 by Nonny5Mouse)
-		Fixed incorrect parsing in tail type transformation text. (by Stadler)
-		Typo fixes and fixes to descriptions in role-reversed witch altar scenes. (PR#1677 by Anonymous-BCFED)
-	
-	Misc fixes contribution (PR#1664 by MintyChip):
-		Added spaces before the fluid modifier descriptions in the appearance screens.
-		Taurs now spawn with their race's default GenitalArrangement (e.g. alligator-taurs now have cloacas).
-		Fixed the params of the method applyLegConfigurationTransformation's javadoc.
-		Fixed visual bug where displayed file path for transformation presets was set to the same one as enchantments.
-		Improved positioning of the infertility/fertility perks so that their connecting lines no longer appear to be connected to unrelated perks.
-		Changed the octopus hair covering type to mimic the octopus skin covering type.
-		Imported characters now correctly receive Lilaya's 5k flames if they skip the prologue.
-		Made it so that half-demons lay eggs if their other half's race lays eggs.
-		Added a 'clear alerts' button to the encyclopedia menu.
-		added a 'clear stats' button when importing a character.
-	
-	Slime tweaks contribution (PR#1665 by MintyChip):
-		Made it so that the slime attacker's slime transformation applies the same effects as the biojuice for the sake of consistency.
-		Added flavor text to the biojuice description to mention that it's "heavily processed" and thus corruptive where the source (slime queen in the bath scene) is not.
-		Nerfed the permanent corruption gain from biojuice, as it seemed like a harsh effect if a new player just wandered into the submission.
-		Made it so that elementals can't have their body material transformed into SLIME or FLESH using the biojuice or flesh potions.
-	
-	
-	Engine/Modding:
-		Added a new element, 'bodyOverviewDescription', to tattoo xml files, which is used in the newly-added tattoo section of the character appearance page. (If missing, the basic description is used instead.)
-		Converted Fetish enums to instances of AbstractFetish classes.
-	
-	Gameplay:
-		Added a minor expansion to Lilaya's panties content, where after threatening Rose you can gain access to a submissive threesome scene with her and Lilaya.
-	
-	Items:
-		Added new tattoo types: spider; rose; crossed blades; pentagram; trinity and spiral Celtic knots.
-	
-	Sex:
-		Hand-holding is now tagged as a 'loving' action (similar to 'Caress face', 'Kiss cheek', etc.), so NPCs will now only use this action if they do not have the sadist fetish and their affection towards their target is at least 'caring'.
+		Fixed a significant amount of typos and grammatical errors. (PR#1701 by Lis)
+		Significant rework and refactor of Controller classes, improved UI handling, and added a 4th +/- button to the fluid storage and regeneration transformation menus. (PR#1713 by Maxis010)
+		Fixed issue where subspecies changes for dragons, coatls, and gryphons didn't account for taur/lamia leg configurations when assigning minimum wing size. (by MintyChip)
+		Added 'banana' as a new fluid flavouring. (PR#1696 by DSG)
+		Added mythical 'salamander' race, with two subspecies; 'flame salamanders' and 'frost salamanders'. (PR#1707 by MintyChip)
+		Added 'panda' as a subspecies to the 'bear' race. (PR#1697 by DSG)
+		Balanced the flame value calculations for enchanted items, clothing and weapons. (PR#1695 by Maxis010)
+		Improved error reporting for parser state errors and improved the parser so that it skips svg files within the parsed input. (PR#1690 by CognitiveMist)
+		Added a specific flag to indicate the player's lilin heritage rather than just checking if they are a demon. (PR#1688 by MintyChip)
+		Added fetish selection options to sexual experience menu during the prologue's character creation process. (PR#1687 by MintyChip)
+		Added Java vendor and basic OS information to error.log to help improve troubleshooting. (by CognitiveMist)
+		Fixed grammatical issues in the alligator-morph's racial descriptions. (PR#1685 by Thernn)
 	
 	Other:
-		In the character appearance page, a description of the character's tattoos is now shown at the bottom.
-		In the rental mommy random customer encounter, the chance for the customer to be a dom or a sub is now 60/40 based on your fetishes instead of 100/0, and 90/10 based on the writing on your tshirt instead of 100/0.
-		The map screen in your phone menu now lists major maps within the selected region before all other maps.
-		Bat eyes now grant the night vision ability (which negates the 'darkness' status effect).
-		Siblings who are born at the same time are now defined as being twins to one another. Katherine and Kelly have now also been correctly defined as being twin sisters.
-		The random NPC who spawns during the 'walkies' content for the new repeated-submission alleyway content can now spawn with a pussy instead of always spawning with a cock.
-		The 'Lyssieth's power' perk now changes into 'Lyssieth's true power' after transforming into a demon, granting stronger attribute buffs.
-		Added a 'begging' alternative to Amber's walkies scene to remove foot worshipping content for if foot content is turned off in your settings.
-		Added a 'shoulder massage' alternative to Vanessa/Ms. Cunningham's foot massage scene to remove foot massage content for if foot content is turned off in your settings.
-		Arthur's room no longer takes up one of the available rooms in Lilaya's house, and instead is now placed adjacent to the lab. (This will be retroactively applied when loading into this version if you have already placed Arthur's room.)
-		Added a couple of options in the debug menu which allow you to skip Dominion and Submission quests (located on the second page of the 'Main' tab).
-		While an arcane storm is raging, storm-immune NPCs who treat you as their bitch will now only use the 'fuck' option in encounters, so as to address the inconsistency of being taken to public places that were seemingly unaffected by the storm.
-		Added some minor description variations for the 'seductive look' sex action (available while in the 'all fours' sex slot) for if the performer is identified as an owl-morph and has a 'raptor' race face type.
-		Added ability to manage your elemental's fetishes to their management dialogue options.
-		Gaining levels for fetishes now applies increased base damage to any associated tease attacks, up to a maximum of +4 at level 5. Base damage for all fetish tease attacks was reduced from 5 to 3 as part of this.
-		Added a new 'Pregnancy duration' option in 'Gameplay' settings to define the length of pregnancies, with the default being 1 week and the maximum being 40 weeks.
-		Scarlett's oral sex scene for the romantic setup for Helena now ends after Scarlett has orgasmed once, and you can now use the 'Skip sex' action in Helena's sex scenes.
-		After completing the 'Vengar's Tyranny' side quest, the next time you enter an Enforcer Checkpoint tile in Submission while in possession of a slaver license, Claire will offer you the option of taking ownership of the four milkers from the Rat Warrens.
+		The 'Crotch-boobs & Udders' body setting now only applies to randomly-generated NPCs at the moment of their creation (as was stated in the option's tooltip), allowing all characters to gain crotch-boobs/udders via TF no matter the setting.
+		Added a new 'Crotch-boob & Udder Content' setting in the 'Sex & Fetishes' content options to enable/disable udder-related sex actions and udder transformations to be inflicted upon the player. (Enabled by default.)
+		Darkened inventory slot icons in the tattoo view panel to differentiate it from normal inventory view.
+		Added finer control over sex experience count in character creation and custom slave ordering screens, added anilingus experience, and made it so anal sex experiences are hidden if anal content is disabled.
 	
 	Bugs:
-		Typo fixes and minor text improvements.
-		Fixed several places in the new repeated-submission alleyway content where vagina interaction content would be used even if the player didn't have a vagina.
-		Fixed issue where many racial books incorrectly had their author listed as 'Professor Webster'.
-		Fixed several instances where, during Lyssieth's demon TF scenes, after starting the sex scene with the 'pussy only' action, there were references to her having a cock.
-		Fixed bug where Meraxis would always be located in the tavern in Elis, even when she should have been in her citadel or in Lyssieth's palace.
-		Fixed bug where tail interactions in sex scenes would not be available in some positions, such as when kneeling behind a partner in the all fours position.
-		Fixed bugs with incorrectly-defined perk categories, which should fix issues with incorrect tracking of perk points when spending 'physical-only' perk points (earned from Pix's gym).
-		Fixed bug where if you teleported to the lake in the Elis map, then selected 'Back', you would return to the tile from which you teleported, instead of to an adjacent fields tile.
-		Sabotaging a condom no longer costs essences, and also now displays the condom's correct name in the event log.
-		Fixed minor issue with configuration of several clothing items which meant that coverable areas were being incorrectly concealed. Clothing fixed: tied-up croptop; one-strap crop top; cropped tank-top; cropped T-shirt; cropped sweater.
-		The exit icons in the Farmer's Market in Elis should now correctly be displayed on the map.
+		Fixed several rendering issue with the buyback menu.
+		Fixed issue where the women's watch in character creation had random primary and secondary colours.
+		Fixed bug where penile virginity losses would be reset at the end of character creation.
+		World and place names in the UI are now correctly parsed.
 	
+	
+	[x] Test
+		[x] New game full character creation
+			[x] new character
+			[x] import
+				[x] back & resume throws errors
+		[x] TF menu
+			[x] test crotch-boobs TF when disabled
+				[x] Same issue as breast rows
+				[x] test isCrotchBoobContentEnabled()
+				[x] test isCanGrowBreastsCrotch()
+		[x] debug spawning
+		[x] enchanting
+		[x] saving/loading
+			[x] game
+				[x] loading
+				[x] using button to save doesn't flash message or append to log
+			[x] enchantments
+				[x] override saving doesn't update list
+				[x] sort alphabetically
+			[x] characters
+				[x] lodger
+				[x] slave
+				[x] club
+					[x] broken
+		[x] Maps
+			[x] phone
+			[x] library
+				[x] add tooltips to show what tiles of interest are
+				[x] disable travel while in these scenes?
+		[x] Inventory
+			[x] pc
+			[x] NPCs
+		[x] Slavery management
+			[x] jobs
+			[x] permissions
+			[x] names
+			[x] TF
+			[x] send to Kate
+				[x] not working:
+					[x] hair
+						[x] hair style ? tooltip
+					[x] piercings
+					[x] 'Other'
+		[x] perk & fetish management
+			[x] pc
+			[x] slaves
+			[x] elemental
+		[x] Ordering slave from Helena
+	[x] finish crotch-boob change
+		[x] add sexual udder content setting
+			[x] Evelyx
+			[x] random TF potions
+			[x] Murk TF
+	[x] feminine watches in character creation are having random primary & secondary colours
+	[x] When in tattoo menu show it somehow
+	[x] Improve sex history -- - + ++
+		[x] character creation
+		[x] slave ordering from Helena
+			[x] [#npc.getName()] [#npc.getTotalSexCount(sex.newSexType(SEX_PT_NORMAL, PENETRATION_TONGUE, ORIFICE_ANUS))]
+	[x] add anilingus
+	[x] penis virginity loss text not working
+		[#pc.getVirginityLoss(sex.newSexType(PENETRATION_PENIS, ORIFICE_VAGINA))]
+		<br/>
+		[#pc.getVirginityLossDescription(sex.newSexType(PENETRATION_PENIS, ORIFICE_VAGINA))]
+	[x] #1707
+		[x] aurora rename
+		[x] drinks icons edits
+		[x] add very rare spawning in Elis alleyways
+		[x] TF 1 should be flame for food enchant
+	[x] error log info expansion
 	
 	[] PRs:
-		[x] PR#1617
-	[] Reverse-order merge:
 		[] #94
 		[] #895
 		[] #508
@@ -103,194 +114,127 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1003
 		[] #1004
 		[] #1289
-		[-] #1305
-		[-] #1320
-		[x] #1582
-		[x] #1606
-		[x] #1614
-		[x] #1616
-		[x] #1618
-		[x] #1631
-		[x] #1637
-			[x] test
-				[x] unique character
-				[x] generic character
-		[-] #1639
 		[] #1642
-		[x] #1662
-			[x] button names overlap
-			[x] condense sorting button panel
-			[x] improve tooltip descriptions
-			[x] text areas are far too laggy for some reason, so have to remove category and notes
-				[-] tooltips for 'Additional Book-Keeping Information' need moving to information icon
-				[-] text area formatting is broken
-					[-] remove notes as it's laggy and unresponsive
-				[-] move category definition to above 'Available Jobs' section 
-		[x] #1663
-		[x] #1664
-		[x] #1665
-		[x] #1649
-		[x] #1674
 		[] #1657
 		[] #1658
-		[] #1626
 		[] #1489
+		[] #1560 - Maxis PR
+		[x] #1690
+		[] nerdlinger combat PR
+		[] #1658 - MintyChip races
+		[-] #1692
+		[-] #1693
+		[x] #1701
+	
+	[] KingKuron slave issues in bug reports
+		java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.Float
+			at com.lilithsthrone.game.character.GameCharacter.saveAsXML(GameCharacter.java:1158)
+			at com.lilithsthrone.game.character.npc.NPC.saveAsXML(NPC.java:329)
+			at com.lilithsthrone.game.character.npc.submission.HazmatRat.saveAsXML(HazmatRat.java:99)
+			at com.lilithsthrone.game.Game.exportGame(Game.java:774)
+			at com.lilithsthrone.main.Main.saveGame(Main.java:859)
+			at com.lilithsthrone.main.Main.quickSaveGame(Main.java:832)
+			at com.lilithsthrone.controller.MainController$3.handle(MainController.java:628)
+			at com.lilithsthrone.controller.MainController$3.handle(MainController.java:1)
+	
+	[] Maymay self-ovipositor dialogue
+	
+	[] Felicia content in writers channel
+		Felicia content expansion:
+			- Ask out on date (affection requirement first I guess)
+			- Repeat date until 3 dates completed
+			- Give her gift after 3rd date and she reveals how she transformed into a 'doll' to stop having lewd thoughts all the time
+			- Says she feels lewd towards player, can sex
+			- Option to give her TF potion to give her vagina (although she prefers giving oral)
+			- Repeat dates & sex is end content
+	
+	[] Dwight - submission & toggle for being able to encounter your offspring
+	
+	[] C4M cult
+	
+	[] FAF art Astrapi
+	
+	Need to contact kumiko
+		Kumiko dreams
+		Kumiko writing
 		
-	[x] add tattoos to description page
-	
-	[x] I got pimped out and got my trap PC got pregnant even though he only has a penis?!  I was confused when the prompt at the NPCs home said "Present pussy", but it actually came true
-		[x] hasVagina() checks missing for every vagina action...
-	[x] tag hand holding as a romantic action?
-	[x] change rental mommy encounter to 60/40 either way for if you have the dom or sub fetish instead of 100/0
-	[x] In map screen, make core map the first action and highlight/bold it
-	[-] Masturbation scene with panties charter as cum like 8 times can't stop
-	[x] Add 'Threaten' threesome sex
-	[x] relationship twin support
-	[x] add NPC pussy interactions for walkies bitch content
-	[x] add some more tattoo styles
-		[x] rose
-		[x] spider
-		[x] crossed blades
-		[x] pentagram
-		[x] celtic knots
-	[x] Nyan preg art
-	[x] buff elder lilin perks for if player is a demon
-		[x] buff
-		[x] add dialogue to gaining perk
-		[x] add dialogue to demon TF scene
-			[x] pre TF
-			[x] at full TF stage
-		[x] refresh perks upon load
-			[x] convert Lyssieth power
-			[x] add special player aura perk
-				[x] loading
-				[x] prologue/skip
-			[x] test NPC aura amount
-			[x] test perk change on:
-				[x] loading
-				[x] TF
-	[x] Lyssieth references her non-existent cock (1st orgasm) and then fucking player (2nd orgasm) in demon TF "pussy only" mode:
-		[x] " nice, tight, demonic pussy, ready to be fucked by my big cock!"
-		[x] " I need you to be on the receiving end now, so that I can fuck you and turn you into a good little futa succubus.​"
-		[x] "As she says this, her fat, demonic cock shrinks down and disappears into the skin above her pussy"
-	[-] Teleport seems to be busted. It costs nothing and lets me tele to tiles I haven't been to.
-	[x] Vicky, Amber, and yea Ms. Cunningham don't have an alternative if you're not into feet or anal
-		[-] Vicky
-			[-] anal -> pussy
-		[x] Amber (repeat content)
-			[x] foot kissing -> beg like a dog
-		[x] Ms. Cunningham
-			[x] foot massage -> shoulder massage into thigh massage		
-	[x] add a debug option to skip the dominion quests
-		[x] add skipQuest method to all quests
-			[x] arthur room
-				[x] change to next to lab
-				[x] handle loading of versions to remove arthur room
-				[x] handle removal of MAIN_1_J_ARTHURS_ROOM
-				[x] test
-				[x] test loading
-				[x] handle loading room position
-				[x] move Lilaya and Rose out
-		[x] final test
-	[x] siren not present in citadel tile?
-	[x] Shouldn't NPCs be moved out of hiding for other 3 tunnels when Meraxis is defeated? Only for quest skip
-	[x] Brittany and Lauren harpies sex scene, behind with them both on all fours, player's tapered demon tail can't penetrate?
-		[x] Let AceXp know
-	[x] SS messages
-	[x] bitch content arcane storm when visiting restaurant doesn't make sense
-		[x] when NPC is storm immune, the other NPCs encountered aren't acting like there's a storm on
-	[x] add sex action 'look back' variation for owl morphs
-	[x] make fetish management for elementals
-	[x] Implement: Higher level fetishes will cause both [el.name] and [el.her] partner to gain more arousal from related sex actions, as well as increase the fetish's bonuses.
-		[x] make Fetish abstract class
-			[x] check toString() calls
-			[x] maincontroller init method id setting
-			[x] fetish status effect tooltip not working
-		[x] add experience effect to tooltip
-		[x] teases should gain damage
-	[x] Pregnancy mechanics update
-		[-] Cycle
-			[x] revert - doesn't work well
-			[-] add toggle for this
-			[-] 14 day menstrual cycle, days:
-				[-] 1-3: -50 fertility
-				[-] 4-6: -25 fertility
-				[-] 7-10: +25 fertility
-				[-] 11-14: +0 fertility
-			[-] heat/rut triggers when arcane storm happens, applies to storm-vulnerable races, lasts for 48 hours
-				[-] arcane heat: +25 fertility
-				[-] arcane rut: +25 virility
-		[x] Increase pregnancy time
-			[x] add an option
-	[x] bugs
-		[-] beer bitch has no pussy and should have one
-		[x] Using your last gym 'physical-only' perk point also costs an actual perk point.
-				So using your last 'Physical-only' perk point after spending all other perk points puts you at -1 total perk points.
-				I've also noticed though that when you have 'Physical-only' perk points, the first non-physical perk you buy doesn't cost any perk points at all.
-			[x] need to fix perks' assigned categories
-		[x] When teleporting into the lake inside of Elis, you get the three options (back, and two 'added later'). Pressing back teleports you back to wherever you were before
-		[x] Sabotaging a condom costs 17 essences each, as it says I'm enchanting a bangle instead?
-		[-]  If you make an item for slot GROIN and mark it FITS_TAUR_BODY or FITS_NON_BIPED_BODY_HUMANOID
-			it lights up as if it can be equipped but if you select 'wear groin' nothing seems to happen until you change screens and then the item vanishes.
-		[x] cropped t-shirt and cropped sweater do not reveal stomach piercings
-		[x] Helena issues
-			[x] Scarlett eat her out for romantic scene should end after she's orgasmed once
-			[x] you can get trapped in Helena's sex scene because it's impossible to skip or end it early
-			[-] I've also noticed that Helena doesn't refuse potions, so I was able to turn her into a slime wolf-girl using the slime cannister and the wolf potion
-		[x] Farmer's market should have icons on exit tiles
-	[x] Test fetish preferences in watering hole
-	[x] milk slaves
-		[x] rat guards need to be removed and not regenerated
-		[x] After cleared, Claire mentions them on first dialogue with her
-			[x] take care of them
-			[x] allow them to be sold
-	
-	[] PR#1677
+	Merle
 	
 	
-	[] Main quest Thmyscra
-		[] Add consumable item 'Amazonian's Secret': For 24 hours, when orgasming during a tribbing action, there's a chance to impregnate your partner (chance uses fertility instead of virility)
-		[] make map
-		[] add Lunette recognised daughter NPC
-		[] add Cow amazon leader NPC
-		[] add dialogue
-			[] map navigation section
-				[] encounters
-					[] avoid
-					[] fight
-				[] treasures
-			[] Town square fight
-				[] avoid
-					[] Meraxis teleports all to Minotallys
-					[] Minotallys subdues Lunette's daughter
-				[] fight
-					[] win
-						[] subdue Lunette's daughter
-						[] Meraxis teleports all to Minotallys
-					[] lose
-						[] fucked
-						[] Meraxis teleports all to Minotallys
-					
+	
+	[] Make a page on the blog about java/exe/32-bit exe versions
+	
+	[] scar system
+		[x] add bruise
+			[] bruises disappear after a week
+		[] add slap mark
+			[] gained by rough spanking
+			[] disappears after a day
+		[] add way to get scarred/bruised
+			[] critically hit by weapons/special attacks can cause it
+			[] add toggle for this
+			[] bruise
+				[] unarmed
+				[] blunt weapons
+			[] scar
+				[] talon/scratch attack
+				[] bladed weapons
+				[] ranged weapons
+	
+	[] The options for slaves to take pills or mothers milk don't actually consume any items from the slaves or the player. I'll add that to the tooltips to make it clear.
+	
+	[] harpy nests
+		[] add option to be dominated by Diana
+		[] harpy nests improve quest start dialogue flow
+		[] bad ends
+			Losses apply (transformed at the start of each one if necessary):
+				- fucked
+					- Diana: put in stocks and fucked by Harley
+					- Brittany: eat her out while she makes out with Lauren
+					- Lexi: clean her pussy after Max creampies her
+				- fucked, kept in nest for 24 hours and made to serve matriarch
+					- Diana: kept in bondage with Diana feet or Harley fucking content, ends with roughly strap-on fucking a flock member
+					- Brittney: kept as pet and fucked by male harpies or eat out females, ends with putting another harpy in her place by being bustier than she is
+					- Lexi: keep her pussy clean and join her in getting fucked, ends with a private threesome making out with Lexi while Max fucks you both
+				- bad end: kept in nest and become part of harpy society
+					- Diana: bound bird (BDSM slut, being punished by Diana and used to punish flock members)
+					- Brittney: bird-brained bitch (member of the flock, riding cock while gossiping with other bimbos)
+					- Lexi: hen party (Lexi's pussy cleaner and fellow gang-bang slut)
+	
+	[] Need pure virginity loss to someone they love variation
+		[] remove fetish if virginity loss is to someone they at least love
+		[] generic dialogue
+		[] Helena dialogue
+		[] Aurokaris dialogue
+	
 	[] Sex additions:
 		[] Finger urethra insertion
 		[] Lick fluids off partner actions
 		[] Fisting
 	
-	[] Kay female TF
+	Honeybitterchip
 	
-	Felicia content expansion:
-		- Ask out on date (affection requirement first I guess)
-		- Repeat date until 3 dates completed
-		- Give her gift after 3rd date and she reveals how she transformed into a 'doll' to stop having lewd thoughts all the time
-		- Says she feels lewd towards player, can sex
-		- Option to give her TF potion to give her vagina (although she prefers giving oral)
-		- Repeat dates & sex is end content
+	Silence/Shadow mini-quest
+	
+	[] NPC TFs
+		[] The eagle morph seems to be stuck at the leg Tf, owl morph seems to get stuck with the eye-TF,  falcon morph works as intended. 
+		[] It is still odd, that aside horse-taurs and snake taurs (centaur, unitaur, lamia ,melusine, etc.)  no other taur NPC inflicts a taur TF on the PC. , you never get TFed into any other taur
+	
+	[] add self-cleaning clothing enchantment (handle dirtying when covering dirty orifice)
+	
+	[] Angel should reward us if we manage to get 10 prostitutes working for her at angel's kiss not counting slaves. But, she should give you a partnership arrangement if you have a certain number of slaves working at angel's kiss
+	
+	[] Kay female TF
 	
 	[] Add Elis bank
 	[] Add an associated bank in Dominion
 	
 	[] Add Dominion hospital and Elis clinic as alternatives to Lilaya
+		[] clothing
 	
+	[] C4M cult
+	
+	[] add more pregnant interactions for offspring/occupants
 	
 	[] save the time at the game's start as a unique ID and use that for the quick/auto save file identifiers
 	[] Custom artwork for characters who have the same name have the same artwork?
@@ -298,14 +242,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] parent folder name should be unique ID of player
 			[] child folders should be unique ID of NPCs
 	
-	[] bug reports
-		[-] artisan and industrial milkers extract the same amount
-		[] Not sure if this counts as a bug, but you're able to get infinite fare tickets at Kazik
-	
 	[] skunk
-	[] deer
-		glade springs - sparkling mineral water
-		tree shoots salad
+	
+	[] add alt start where TF happens during new game into new world
 	
 	[] Add to alleyway bitch content:
 		[] 7) specials
@@ -361,6 +300,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] need mute dialogue handling for offspring encounters
 	
+	[] Skull head option for demons, preferably able to take morph type into account
+	
 	[] meraxis
 		[] cock content
 		[] strip dice poker in tavern to "steal" clothing
@@ -395,18 +336,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			
 	
 	[] cuddle actions?
-	
-	[] add law enforcement background
-	
-	[] harpy nests
-		[] add option to be dominated by Diana
-		[] harpy nests improve quest start dialogue flow
-		[] bad ends
-			Lose to harpy once, forcibly transformed
-			After being transformed once, losses apply:
-				- transformed again and fucked
-				- transformed, fucked, kept in nest for 24 hours and made to serve matriarch
-				- bad end: transformed, kept in nest and become part of harpy society
 	
 	[] dungeon additions
 		[] slave job 'dungeon master/mistress'
@@ -758,13 +687,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Jaguar subspecies
 		Black big cats should be panthers
-	
-	[] Make karada have stomach/hips/torso/over-torso/groin slots
-	[] Make wrist restraints 'leather restraints' and allow ankle equip
-	[] Add blindfold for locked in bondage set
-		[] Add blinded status effect (Doubles all travel times, -50 critical, -50 melee/ranged/unarmed)
 		
 	[] Add ability to lay unfertilised eggs (fertilise during sex, if not, then laid some time afterwards)
+		[] make it so eggs can always be laid if the targeted orifice is empty
+			[] no need for vagina at all
+				[] unfertilised eggs support
+					[] method handling
+					[] status effects
+					[] if cum in orifice with unfertilised eggs, handle pregnancy rolls
 	
 	Frustrated when chastity orgasm?
 	Also, cumming without producing any cum leaves someone frustrated, but the frustrated condition is removed at the end of sex because the code checks for the number of orgasms and removes the frustrated effect if it's >1
@@ -945,8 +875,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		add arcane webbing
 	make vaccum upgrades do -1AP
 	
-	add a way to import characters without them being slaves
-	
 	If exposed and sit on bar stool in club, add event where someone fucks you from behind
 	
 	Fix options page and improve difficulty settings (human, demon, lilin, lilith)
@@ -1097,6 +1025,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	make Roxy charge more every time you visit
 	
+	If player is a rat-morph, make it so they can get into the rat warrens
+	
 	I've run into half-demon pegasi and unicorns, never alicorns
 	
 	you get jumped and ur catgirl gf is just jacking off in the corner
@@ -1118,8 +1048,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Add custom clothing sets (and DSG requests)
 	
-	Buying imported slaves does not give you a key to their collar if they're wearing one
-	
 	set slaves to be given Mother's Milk, so that we don't have to wait days until they give birth? I remember us talking at one point about changing the pregnancy length in the settings, but I imagine that's a way off, so having the option to speed it up through an item in the world would be nice
 	
 	Angels nectar being able to be enchanted into a potion that restores hymens
@@ -1137,8 +1065,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	add forced TF covering changes to account for subspecies
 	
 	 slaves should have a rule that makes them remove all clothing and keep it in their inventory
-	 Also, I don't know if this was intended, but if you import a character that has a weapon already equipped, the demonstone that you start with overrides it and replaces it
-	 it would also be kinda neat if rando npcs spawned with tattoos!
+	 
 	
 	[] Need Helena dirty talk override
 	[] you should probably tell the user they can't take Helena's virginity if they don't have a penis (as I usually grow one during the scene), cuz it only told me I should set up the roses and all which I had already done
@@ -1202,10 +1129,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	"bring back missionary footjobs"?
 	
 	When you pull out of someone you cummed inside, could we get a blurb about your cum leaking out
-	
-	Bug reports pings
-	
-	Make taurs taller
 	
 	being able to raise cum volume of static NPCs alot
 	
@@ -1316,8 +1239,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Somehow slave sending to Kate is bugged? hard to reproduce error.
 	
 	Make skin colours a shade darker for orifices
-	
-	How does enslavement enchantment work when equipped during sex...
 	
 	If spectator is disliking voyeurism, or not attracted to participants, they should always do nothing
 	
@@ -1432,8 +1353,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			subspecies TFs
 		Add slow-acting TF
 			Add to potions
-			Add to clothing
-			NPCs to force equip clothing?
 	
 	weather based on time of year
 	
@@ -1572,8 +1491,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Improve combat outcome tracking (place, enemies, allies)
 	
 	I would like to see a buggy addition that allows you to add xp to and transform the current member of your party, if that's at all possible.
-	
-	Kumiko dreams
 	
 	resistance from clothing encahnts is far too high
 	
@@ -1806,8 +1723,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	plans still for being able to masturbate the other partner through their clothes if you are dominant
 	
-	Bug: 0.3.1.1: Sex-equip enabled items can be enchanted with "Enslave", but equipping them during sex does not enslave the wearer.
-	
 	insertable dildo needs to stretch orifice over time
 	orifice rejuvination item
 	
@@ -1886,8 +1801,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Need scene in bath or shower with them
 		
 	need to make a more unified NPC class
-	
-	import characters as friendly occupants
 	
 	refine clothing presets
 	
@@ -2425,8 +2338,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Add offspring-unique dialogue for moving in
 	
-	Kumiko writing
-	
 	Improve sex & combat UI for lots of AI
 	
 	you can have children with alpha imps and they can be of your species (although with imp-like geinitalia) despite the fact that the imp text says that all imp offspring become imps.
@@ -2472,10 +2383,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	add a method at some point which would append related dialogue to each action that an NPC performs during sex
 	
 	Submission dialogue sorted
-	
-	Add wanted board to Enforcer HQ, where can import as attackers
-	
-	Add character import to club
 	
 	Finish bat-morphs
 	
@@ -3264,7 +3171,7 @@ Enchantment Suggestion: Emotion Mask - Enchanted clothing piece changes the pers
 	
 	after defeating the three Matriarchs Harpys, and "looking for trouble" for a very long time,  i can only find itens
 	
-	when clicking inspect, doens't show right slave
+	when clicking inspect, doesn't show right slave
 	
 	i was trying to breed two of my slaves and one of them took off my chest sarashi, afterwards i find the thing lying on the ground in that room and still on my body
 	

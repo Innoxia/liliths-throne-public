@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.quests;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -11,6 +12,9 @@ import com.lilithsthrone.game.character.npc.dominion.Helena;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
+import com.lilithsthrone.game.character.npc.fields.Aurokaris;
+import com.lilithsthrone.game.character.npc.fields.Lunexis;
+import com.lilithsthrone.game.character.npc.fields.Ursa;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -25,6 +29,7 @@ import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
@@ -207,6 +212,22 @@ public enum Quest {
 			if (ballgag != null) {
 				ballgag.setSealed(false);
 				Main.game.getNpc(Scarlett.class).unequipClothingIntoVoid(ballgag, true, Main.game.getNpc(Helena.class));
+			}
+			
+			// Complete slavery side quest:
+			if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)) {
+				Main.game.getPlayer().startQuest(QuestLine.SIDE_SLAVERY);
+			}
+			List<Quest> slaverSkipQuests = Util.newArrayListOfValues(
+					Quest.SIDE_SLAVER_NEED_RECOMMENDATION,
+					Quest.SIDE_SLAVER_RECOMMENDATION_OBTAINED,
+					Quest.SIDE_UTIL_COMPLETE);
+			for(int i=0; i<slaverSkipQuests.size()-1; i++) {
+				Quest q = slaverSkipQuests.get(i);
+				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY)==q) {
+					q.applySkipQuestEffects();
+					Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLAVERY, slaverSkipQuests.get(i+1));
+				}
 			}
 			
 			Main.game.getNpc(Scarlett.class).setAffection(Main.game.getNpc(Helena.class), AffectionLevel.NEGATIVE_FIVE_LOATHE.getMedianValue());
@@ -434,7 +455,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "As you left Elis, you were approached by Meraxis, who told you to meet her in the tavern 'The Red Dragon' at Elis, which is apparently near to the town's eastern gate."
+			return "As you left Dominion, you were approached by Meraxis, who told you to meet her in the tavern 'The Red Dragon' at Elis, which is apparently near to the town's eastern gate."
 					+ " Meraxis also said that she'll set up a meeting with Minotallys when you arrive, and that she'll have secured accommodation for you.";
 		}
 
@@ -444,7 +465,7 @@ public enum Quest {
 		}
 		@Override
 		public void applySkipQuestEffects() {
-			// No effects applied
+			// TODO
 		}
 	},
 	
@@ -467,7 +488,7 @@ public enum Quest {
 		}
 		@Override
 		public void applySkipQuestEffects() {
-			// No effects applied
+			// TODO
 		}
 	},
 	
@@ -479,24 +500,70 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in future updates!)]<br/>"
-					+ "You agreed to travel to Themiscyra with Meraxis and find out whether or not the town is being threatened by Lunette's army of demonic centaurs.";
+			return "You agreed to travel to Themiscyra with Meraxis and find out whether or not the town is being threatened by Lunette's army.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "-";//TODO
+			return "You travelled to Themiscyra with Meraxis, but upon reaching the town, you discovered that it was being destroyed by Lunette's army!";
 		}
 		@Override
 		public void applySkipQuestEffects() {
-			// No effects applied
+			if(Main.game.getWorlds().get(WorldType.WORLD_MAP).getCell(PlaceType.getPlaceTypeFromId("innoxia_fields_themiscyra"))==null) {
+				Main.game.getWorlds().get(WorldType.WORLD_MAP).getCell(11, 32).getPlace().setPlaceType(PlaceType.getPlaceTypeFromId("innoxia_fields_themiscyra"));
+			}
 		}
 	},
 	
-	MAIN_3_E_TODO(QuestType.MAIN, 1, 25) {//TODO
+	MAIN_3_E_THEMISCYRA_ATTACK(QuestType.MAIN, 1, 250) {
 		@Override
 		public String getName() {
-			return "TODO";
+			return "Save the Queen";
+		}
+		@Override
+		public String getDescription() {
+			return "Separated from Meraxis, you've teamed up with an Amazon cow-girl named Aurokaris."
+					+ " You need to travel through Themiscyra and find both Meraxis and Ursa, the queen of the Amazons, who should be at the palace.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Alongside Aurokaris, you travelled through Themiscyra and found both Meraxis and Ursa at the plaza before the palace."
+					+ " After encountering Lunexis, the leader of Lunette's army, Meraxis teleported the five of you back to Elis's town hall, where Minotallys was finally convinced that Lunette is a threat to Elis.";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			if(Main.game.getWorlds().get(WorldType.getWorldTypeFromId("innoxia_fields_elis_town")).getCell(PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_amazon_camp"))==null) {
+				Main.game.getWorlds().get(WorldType.getWorldTypeFromId("innoxia_fields_elis_town")).getCell(10, 20).getPlace().setPlaceType(PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_amazon_camp"));
+			}
+			Main.game.getNpc(Ursa.class).setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_amazon_camp"), true);
+			Main.game.getNpc(Aurokaris.class).setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_amazon_camp"), true);
+			Main.game.getNpc(Lunexis.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
+		}
+	},
+	
+	MAIN_3_F_PREPARING_ELIS(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "Defence of Elis";
+		}
+
+		@Override
+		public String getDescription() {
+			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in future updates!)]<br/>"
+					+ "With Lunette planning to attack Elis at some point in the near future, you've been tasked by Minotallys with helping get the town's defences in order."
+					+ " You need to travel to the Enforcer station in Elis and ask for their assistance.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "-";
+		}
+	},
+	
+	MAIN_3_G_TODO(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "";
 		}
 
 		@Override
@@ -509,6 +576,7 @@ public enum Quest {
 			return "-";
 		}
 	},
+	
 
 	// Side Quests:
 
@@ -670,7 +738,12 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "Lilaya gave you a letter of recommendation, and what's more, she also offered to let you house your slaves in her mansion.";
 		}
+		@Override
+		public void applySkipQuestEffects() {
+			Main.game.getDialogueFlags().values.add(DialogueFlagValue.finchIntroduced);
+		}
 	},
+	
 	SIDE_SLAVER_RECOMMENDATION_OBTAINED(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
@@ -684,7 +757,11 @@ public enum Quest {
 
 		@Override
 		public String getCompletedDescription() {
-			return "You presented the letter of recommendation to [finch.name], and, after paying the 500 flame fee, you obtained a slaver license!";
+			return "You presented the letter of recommendation to [finch.name], and after paying the fee, you obtained a slaver license!";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.SLAVER_LICENSE), false));
 		}
 	},
 	
@@ -1734,7 +1811,42 @@ public enum Quest {
 					+ " Additionally, she told you to sneak around the back of her tavern between [units.time(6)]-[units.time(7)] if you wanted to see what the phrase 'Golix says to be a good horsie' meant...";
 		}
 	},
+
 	
+	// Helping Lunexis to escape:
+	
+	LUNEXIS_ESCAPE(QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Free Lunexis";
+		}
+		@Override
+		public String getDescription() {
+			return "Having surrendered to Lunexis and pledged to be her obedient cock-sleeve, you've been ordered by your new Mistress to assist her in escaping from captivity."
+					+ " Wanting to get her revenge on the one who teleported her to Elis, the centauress has devised a plan where you're to convince Meraxis to teleport the three of you back to Themiscyra."
+					+ " Once there, your Mistress will reward you by keeping you as one of her personal cock-sleeve slaves...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You convinced Meraxis to teleport herself, along with you and Lunexis, back to Themiscyra."
+					+ " Once there, your deception was made clear, and although she tried to fight, Meraxis was soon subdued and used by your Mistress to win back the wavering loyalty of her centauress army.";
+		}
+	},
+
+	LUNEXIS_ESCAPE_FAILED(QuestType.SIDE, 1, 0) {
+		@Override
+		public String getName() {
+			return "Lunexis Betrayed";
+		}
+		@Override
+		public String getDescription() {
+			return "Deciding to reveal everything to Meraxis, you betrayed Lunexis, and were banned from having any further contact with the demonic centauress.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
 	
 	// Romance quests:
 

@@ -114,9 +114,9 @@ public class LilayasRoom {
 					public void effects() {
 						List<AbstractClothingType> panties = new ArrayList<>();
 						panties.add(ClothingType.getClothingTypeFromId("innoxia_groin_lacy_panties"));
-						panties.add(ClothingType.GROIN_PANTIES);
-						panties.add(ClothingType.GROIN_SHIMAPAN);
-						panties.add(ClothingType.GROIN_CROTCHLESS_PANTIES);
+						panties.add(ClothingType.getClothingTypeFromId("innoxia_groin_panties"));
+						panties.add(ClothingType.getClothingTypeFromId("innoxia_groin_shimapan"));
+						panties.add(ClothingType.getClothingTypeFromId("innoxia_groin_crotchless_panties"));
 						
 						lilayasPanties = Main.game.getItemGen().generateClothing(panties.get(Util.random.nextInt(panties.size())), false);
 					}
@@ -391,7 +391,9 @@ public class LilayasRoom {
 					@Override
 					public void effects() {
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Rose.class).incrementAffection(Main.game.getPlayer(), 15));
-						Main.game.getNpc(Rose.class).unequipClothingIntoVoid(Main.game.getNpc(Rose.class).getClothingInSlot(InventorySlot.GROIN), true, Main.game.getNpc(Rose.class));
+						if(Main.game.getNpc(Rose.class).getClothingInSlot(InventorySlot.GROIN)!=null) {
+							Main.game.getNpc(Rose.class).unequipClothingIntoVoid(Main.game.getNpc(Rose.class).getClothingInSlot(InventorySlot.GROIN), true, Main.game.getNpc(Rose.class));
+						}
 						Main.game.getNpc(Rose.class).displaceClothingForAccess(CoverableArea.PENIS, null);
 						Main.game.getNpc(Rose.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_penis_strapon", PresetColour.CLOTHING_PURPLE_DARK, false), true, Main.game.getNpc(Rose.class));
 					}
@@ -647,7 +649,9 @@ public class LilayasRoom {
 					}
 					@Override
 					public void effects() {
-						Main.game.getNpc(Rose.class).unequipClothingIntoVoid(Main.game.getNpc(Rose.class).getClothingInSlot(InventorySlot.GROIN), true, Main.game.getNpc(Rose.class));
+						if(Main.game.getNpc(Rose.class).getClothingInSlot(InventorySlot.GROIN)!=null) {
+							Main.game.getNpc(Rose.class).unequipClothingIntoVoid(Main.game.getNpc(Rose.class).getClothingInSlot(InventorySlot.GROIN), true, Main.game.getNpc(Rose.class));
+						}
 						Main.game.getNpc(Rose.class).displaceClothingForAccess(CoverableArea.PENIS, null);
 						Main.game.getNpc(Rose.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_penis_strapon", PresetColour.CLOTHING_PURPLE_DARK, false), true, Main.game.getNpc(Rose.class));
 					}
@@ -752,7 +756,9 @@ public class LilayasRoom {
 						Main.game.getNpc(Lilaya.class).setVaginaType(VaginaType.NONE);
 						((Lilaya)Main.game.getNpc(Lilaya.class)).growCock();
 						
-						Main.game.getNpc(Rose.class).unequipClothingIntoVoid(Main.game.getNpc(Rose.class).getClothingInSlot(InventorySlot.GROIN), true, Main.game.getNpc(Rose.class));
+						if(Main.game.getNpc(Rose.class).getClothingInSlot(InventorySlot.GROIN)!=null) {
+							Main.game.getNpc(Rose.class).unequipClothingIntoVoid(Main.game.getNpc(Rose.class).getClothingInSlot(InventorySlot.GROIN), true, Main.game.getNpc(Rose.class));
+						}
 						Main.game.getNpc(Rose.class).displaceClothingForAccess(CoverableArea.PENIS, null);
 						Main.game.getNpc(Rose.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_penis_strapon", PresetColour.CLOTHING_PURPLE_DARK, false), true, Main.game.getNpc(Rose.class));
 					}

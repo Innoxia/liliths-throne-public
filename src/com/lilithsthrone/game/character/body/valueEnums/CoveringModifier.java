@@ -44,7 +44,7 @@ public enum CoveringModifier {
 	SILKEN("silken", true),
 	FLUFFY("fluffy", true),
 	SHAGGY("shaggy", true),
-	FURRY("fur-like", true),
+	FURRY("fur-like", true), // FURRY is only used for head hair, not body-covering fur.
 	COARSE("coarse", true);
 	
 	private String descriptor;

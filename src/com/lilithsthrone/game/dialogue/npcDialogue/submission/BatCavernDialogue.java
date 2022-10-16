@@ -15,7 +15,6 @@ import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
-import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueManager;
@@ -133,9 +132,8 @@ public class BatCavernDialogue {
 						Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", 2);
 					}
 					if(Main.game.getDialogueFlags().getSavedLong("randomResponseIndex")==6
-							&& (!getMugger().hasPersonalityTrait(PersonalityTrait.SELFISH)
-									|| ((Main.game.getPlayer().getTattooInSlot(InventorySlot.GROIN)!=null || !Main.game.getPlayer().hasVagina() || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
-										&& (!Main.game.isAnalContentEnabled() || Main.game.getPlayer().getTattooInSlot(InventorySlot.TORSO_UNDER)!=null || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true))))) {
+							&& ((Main.game.getPlayer().getTattooInSlot(InventorySlot.GROIN)!=null || !Main.game.getPlayer().hasVagina() || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
+										&& (!Main.game.isAnalContentEnabled() || Main.game.getPlayer().getTattooInSlot(InventorySlot.TORSO_UNDER)!=null || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)))) {
 						Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", 4);
 					}
 					if(Main.game.getDialogueFlags().getSavedLong("randomResponseIndex")==4 && (!getMugger().isAttractedTo(Main.game.getPlayer()) || getMugger().hasStatusEffect(StatusEffect.RECOVERING_AURA))) {
@@ -980,7 +978,7 @@ public class BatCavernDialogue {
 							"You're not really sure what to do now... Perhaps it would be best to let [npc.name] choose what to do next?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
 							null, CorruptionLevel.THREE_DIRTY, null, null, null,
-							false, false,
+							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(getMugger()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),

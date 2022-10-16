@@ -666,10 +666,17 @@ public class UtilText {
 		return "&#9930;";
 	}
 
+	public static String getBasicInfinitySymbol() {
+		return "<span style='font-weight:normal; font-family:sans-serif; font-size:1.5em;'>&#8734;</span>";
+	}
+
+	/**
+	 * The infinity symbol really, really sucks in the default LT font.
+	 */
 	public static String getInfinitySymbol(boolean largerFont) {
 		//"&#9854;";
 //		return "<span style='font-family:serif; font-weight:normal; font-size:1.25em;'>&#8734;</span>";
-		return "<span style='font-weight:normal; color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+"; "+(largerFont?"font-size:28px;":"")+"'>&#8734;</span>";
+		return "<span style='font-weight:normal; font-family:sans-serif; color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+"; "+(largerFont?"font-size:28px;":"")+"'>&#8734;</span>";
 	}
 
 	public static String applyGlow(String input) {
@@ -1027,6 +1034,12 @@ public class UtilText {
 			for (int i = 0; i < input.length(); i++) {
 				char c = input.charAt(i);
 				
+				// Advance the parser index to the final `>` if we encounter an SVG
+				if(c == 'g' && substringMatchesInReverseAtIndex(input, "<svg", i)) {
+					i = input.indexOf("</svg>", i) + 5; // 5 == "</svg>".length() - 1
+					continue;
+				}
+
 				if(usingConditionalBrackets) {
 					if(input.charAt(i)=='(') {
 						conditionalOpenBrackets++;
@@ -1317,14 +1330,30 @@ public class UtilText {
 				}
 				errMsg.append(startIndex);
 				if(target != null) {
-					errMsg.append(" Target: "+target);
+					errMsg.append(" Target: '" + target + "'");
 				}
 				if(command != null) {
-					errMsg.append(" Command: "+command);
+					errMsg.append(" Command: '" + command + "'");
 				}
-				errMsg.append(" "+input.substring(startIndex, Math.min(input.length()-1, startIndex+20)));
+				{
+					int errContext = 30;
+					errMsg.append("\nContext:  " + input.substring(Math.max(0, startIndex - errContext), Math.min(input.length(), startIndex + errContext)));
+					errMsg.append("\nLocation: ");// + "-".repeat(Math.min(errContext, startIndex)) + "^"); // .repeat was introduced in Java 11 and I use an older version
+					for(int i=0;i<Math.min(errContext, startIndex);i++) {
+						errMsg.append("-");
+					}
+					errMsg.append("^");
+				}
 				System.err.println(errMsg);
 				parsingCharactersForSpeech = parsingCharactersForSpeechSaved;
+				switch(input.charAt(startIndex)) {
+					// Replace the problematic character with its html entity, so that the error does
+					// not propagate further.
+					case '#':
+						return input.substring(0, startIndex) + "&#35;" + input.substring(startIndex+1);
+					case '[':
+						return input.substring(0, startIndex) + "&#91;" + input.substring(startIndex+1);
+				}
 				return input;
 			}
 			if (startedParsingSegmentAt < input.length()) {
@@ -1469,7 +1498,7 @@ public class UtilText {
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				List<String> strings = new ArrayList<>();
 				for(String s : arguments.split("\\|")) {
-					strings.add(UtilText.parse(s));
+					strings.add(UtilText.parse(s.trim()));
 				}
 				strings.removeIf(s->s.trim().isEmpty());
 				if(strings.isEmpty()) {
@@ -5496,7 +5525,7 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Returns the descriptor of the length of this cahracter's antennae.",
+				"Returns the descriptor of the length of this character's antennae.",
 				BodyPartType.ANTENNA){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
@@ -6883,11 +6912,11 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Returns the descriptor of the length of this cahracter's horns.",
+				"Returns the descriptor of the length of this character's horns.",
 				BodyPartType.HORN){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return HornLength.getLengthFromInt(character.getHornLength()).getDescriptor();
+				return HornLength.getLengthFromInt(character.getHornLengthValue()).getDescriptor();
 			}
 		});
 		

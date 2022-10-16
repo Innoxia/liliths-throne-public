@@ -673,7 +673,7 @@ public class Encounter {
 		
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
-			if (node == EncounterType.HARPY_NEST_ATTACK && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
+			if (node == EncounterType.HARPY_NEST_ATTACK && (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION) || Main.game.getCurrentWeather()==Weather.MAGIC_STORM)) {
 				// Prioritise re-encountering the NPC on this tile:
 				List<NPC> encounterPossibilities = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
 				if(!encounterPossibilities.isEmpty()) {

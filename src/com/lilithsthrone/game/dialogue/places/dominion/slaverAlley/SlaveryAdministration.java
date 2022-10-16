@@ -105,7 +105,8 @@ public class SlaveryAdministration {
 					} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY) == Quest.SIDE_SLAVER_RECOMMENDATION_OBTAINED) {
 						if(Main.game.getPlayer().getMoney() >= slaverLicenseCost) {
 							return new Response("Present letter (<span style='color:" + PresetColour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</span> "+slaverLicenseCost+")",
-									"Show Finch the letter of recommendation you obtained from Lilaya, and then pay "+slaverLicenseCost+" flames to obtain a slaver license.", SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED) {
+									"Show Finch the letter of recommendation you obtained from Lilaya, and then pay "+slaverLicenseCost+" flames to obtain a slaver license.",
+									SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED) {
 								@Override
 								public void effects() {
 									Main.game.getPlayer().incrementMoney(-slaverLicenseCost);
@@ -207,7 +208,7 @@ public class SlaveryAdministration {
 		}
 		@Override
 		public String getContent() {
-			UtilText.addSpecialParsingString(Util.intToString(ItemType.getItemTypeFromId("innoxia_slavery_freedom_certification").getValue(null)), true);
+			UtilText.addSpecialParsingString(Util.intToString(ItemType.getItemTypeFromId("innoxia_slavery_freedom_certification").getValue()), true);
 			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/slaveryAdministration", "SLAVE_FREEDOM_TALK");
 		}
 		@Override

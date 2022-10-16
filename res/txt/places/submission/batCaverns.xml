@@ -78,7 +78,7 @@
 	
 	<htmlContent tag="SLIME_LAKE"><![CDATA[
 	<p>
-		The underground river before you widens out into a huge, still body of water. You can't help but stop in your tracks as you find yourself looking upon a gigantic underground lake, its still, black waters illuminated by the countless mushrooms of the bioluminescent fungi forests that line its banks.  
+		The underground river before you widens out into a huge, still body of water. You can't help but stop in your tracks as you find yourself looking upon a gigantic underground lake, it's still, black waters illuminated by the countless mushrooms of the bioluminescent fungi forests that line its banks.  
 	</p>
 	<p>
 		Out in the middle of the lake, you see a small island, covered in glowing lichens, mosses, and mushrooms. On the island's highest point, you can see that someone's built a stout stone tower, complete with medieval-style crenellations. Although it's quite some distance away, you can see light shining out from the arrow slits in the tower's walls, and at the base, a large wooden door appears to be firmly closed and barred. 
@@ -278,7 +278,7 @@
 	
 	<htmlContent tag="REBEL_BASE_DOOR_PASS_LIGHT"><![CDATA[
 	<p>
-		[pc.Walking] through the bioluminescent forest, you find yourself passing by an absolutely gigantic specimen of mushroom-tree, as as you do so, you just so happen to see something glinting by its base. Taking a closer look, you push a small patch of mushrooms aside to see that the source of the reflected light is a piece of laminated paper.
+		[pc.Walking] through the bioluminescent forest, you find yourself passing by an absolutely gigantic specimen of mushroom-tree, as you do so, you just so happen to see something glinting by its base. Taking a closer look, you push a small patch of mushrooms aside to see that the source of the reflected light is a piece of laminated paper.
 	</p>
 	]]>
 	</htmlContent>

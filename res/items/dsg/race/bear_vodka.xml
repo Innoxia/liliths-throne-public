@@ -6,7 +6,7 @@
 		<value>200</value> 
 		<determiner><![CDATA[a bottle of]]></determiner>
 		<name><![CDATA[Vodka]]></name>
-		<namePlural pluralByDefault="false"><![CDATA[Grogs]]></namePlural>
+		<namePlural pluralByDefault="false"><![CDATA[Vodkas]]></namePlural>
 		<description><![CDATA[A glass bottle containing a highly alcoholic beverage made from potatoes.
 		#IF(!game.isSillyModeEnabled())
 		 The label depicts a bear-boy hard at work loading a still.
@@ -42,7 +42,7 @@
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
-			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/15)]
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM) * 0.15)]
 			
 			<p style='margin-bottom:0; padding-bottom:0;'>
 				A powerful wave of arcane energy washes over [npc.name]...

@@ -2506,7 +2506,7 @@ public class SexPosition {
 			for(int i=0; i<4; i++) {
 				if(Main.sex.getCharacterInPosition(allFoursList.get(i))!=null && !Main.sex.getCharacterInPosition(allFoursList.get(i)).isTaur()) {
 					for(SexSlot inFrontSlot : inFrontList) {
-						interactions.add(StandardSexActionInteractions.allFourscharacterBehindToCharactersFront.getSexActionInteractions(behindList.get(i), inFrontSlot));
+						interactions.add(StandardSexActionInteractions.allFoursCharacterBehindToCharactersFront.getSexActionInteractions(behindList.get(i), inFrontSlot));
 					}
 				}
 			}
@@ -2914,7 +2914,7 @@ public class SexPosition {
 							sb.append(UtilText.parse(lyingDown,
 									(!lyingDown.isTaur()
 										?"[npc.NameIsFull] lying down on [npc.her] back, submissively exposing [npc.her] stomach, [npc.face], and groin. "
-										:"[npc.NameHasFull] lay down on [npc.her] feral [npc.legRace]'s body, before rolling over onto [npc.her] back in order to submissively expose [npc.her] stomach. ")));
+										:"[npc.NameHasFull] lain down on [npc.her] feral [npc.legRace]'s body, before rolling over onto [npc.her] back in order to submissively expose [npc.her] stomach. ")));
 							break;
 						case 1:
 							sb.append(UtilText.parse(lyingDown, fallBackLyingDown3,
@@ -3363,13 +3363,13 @@ public class SexPosition {
 				}
 			}
 			
-			if(characterToTakeSlot.isTaur()
-					&& (slot==SexSlotSitting.SITTING
-							|| slot==SexSlotSitting.SITTING_TWO
-							|| slot==SexSlotSitting.SITTING_THREE
-							|| slot==SexSlotSitting.SITTING_FOUR)) {
-				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, "Due to the proportions of [npc.her] animalistic lower body, [npc.nameIsFull] unable to use the '"+Util.capitaliseSentence(slot.getDescription())+"' slot."));
-			}
+//			if(characterToTakeSlot.isTaur()
+//					&& (slot==SexSlotSitting.SITTING
+//							|| slot==SexSlotSitting.SITTING_TWO
+//							|| slot==SexSlotSitting.SITTING_THREE
+//							|| slot==SexSlotSitting.SITTING_FOUR)) {
+//				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, "Due to the proportions of [npc.her] animalistic lower body, [npc.nameIsFull] unable to use the '"+Util.capitaliseSentence(slot.getDescription())+"' slot."));
+//			}
 			if(!characterToTakeSlot.isTaur()
 					&& (slot==SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL
 							|| slot==SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL_TWO

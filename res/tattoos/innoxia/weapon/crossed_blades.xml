@@ -12,9 +12,9 @@
 		
 		<slotAvailability/>
 		
-		<primaryColours values="ALL"/> 
-		<secondaryColours values="ALL"/> 
-		<tertiaryColours values="ALL"/> 
+		<primaryColours values="ALL" defaultColour="CLOTHING_GREY"/> 
+		<secondaryColours values="ALL" defaultColour="CLOTHING_BLACK"/> 
+		<tertiaryColours values="ALL" defaultColour="CLOTHING_WHITE"/> 
 		
 	</coreAttributes>
 	

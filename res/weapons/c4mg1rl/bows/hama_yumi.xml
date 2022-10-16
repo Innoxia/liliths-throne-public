@@ -9,7 +9,7 @@
 		<namePlural pluralByDefault="false"><![CDATA[Cheater's Yumi]]></namePlural> 
 		<description><![CDATA[A yumi crafted for the youko lilin to smite those who threaten the weak. Arcane arrows fired from this weapon strike hard, strike true, and with grace to match.]]></description> 
 		<attackDescriptor>loose</attackDescriptor>
-		<attackTooltipDescription><![CDATA[Loose an etherial arrow at [npc2.name].]]></attackTooltipDescription>
+		<attackTooltipDescription><![CDATA[Loose an ethereal arrow at [npc2.name].]]></attackTooltipDescription>
 		<rarity>LEGENDARY</rarity> 
 		<weaponSet>c4mg1rl_benevolent</weaponSet>
 		<equipText><![CDATA[[npc.Name] [npc.verb(draw)] the Hama Yumi, readying it for combat.]]></equipText>
@@ -51,7 +51,7 @@
 		Taking aim with [npc.her] yumi, [npc.name] [npc.verb(manage)] to strike through [npc2.her] [npc2.arm] with the ethereal arrow and drain [npc2.her] energy!
 		]]></hitText>
 		<hitText><![CDATA[
-		With a bated breath, [npc.name] looses an etherial arrow at [npc2.name], sinking into [npc2.her] shoulder and causing [npc2.herHim] to lose some energy!
+		With a bated breath, [npc.name] looses an ethereal arrow at [npc2.name], sinking into [npc2.her] shoulder and causing [npc2.herHim] to lose some energy!
 		]]></hitText>
 		<criticalHitText><![CDATA[
 		With focused breath [npc.name] let loose a charged arrow delivering a devastating shot to [npc2.her] neck!
@@ -65,7 +65,7 @@
 		Taking aim at [npc2.name] with [npc.her] yumi, [npc.name] [npc.verb(let)] out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
 		]]></missText>
 		<missText><![CDATA[
-		With a bated breath, [npc.name] looses an etherial arrow at [npc2.name] with [npc.her] yumi, but [npc.she] [npc.verb(miss)] [npc.her] target!
+		With a bated breath, [npc.name] looses an ethereal arrow at [npc2.name] with [npc.her] yumi, but [npc.she] [npc.verb(miss)] [npc.her] target!
 		]]></missText>
 	</missDescriptions>
 	

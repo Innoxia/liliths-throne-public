@@ -57,6 +57,7 @@ public enum PropertyValue {
 	nonConContent(true, true),
 	incestContent(true, true),
 	lactationContent(true, true),
+	udderContent(true, true),
 	urethralContent(false, true),
 	analContent(true, true),
 	footContent(true, true),

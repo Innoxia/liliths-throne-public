@@ -28,10 +28,11 @@ public class SelfFingerMouth {
 			SexParticipantType.SELF) {
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.sex.hasLubricationTypeFromAnyone(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)
-					&& Main.sex.isInForeplay(Main.sex.getCharacterPerformingAction())
-					&& (Main.sex.getForeplayPreference(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))!=null
-						&& Main.sex.getForeplayPreference(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this)).getPerformingSexArea()==SexAreaPenetration.FINGER);
+			return Main.sex.getCharacterPerformingAction().isPlayer()
+					|| (!Main.sex.hasLubricationTypeFromAnyone(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)
+							&& Main.sex.isInForeplay(Main.sex.getCharacterPerformingAction())
+							&& (Main.sex.getForeplayPreference(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))!=null
+								&& Main.sex.getForeplayPreference(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this)).getPerformingSexArea()==SexAreaPenetration.FINGER));
 		}
 		
 		@Override

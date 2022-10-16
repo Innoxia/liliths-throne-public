@@ -44,6 +44,7 @@
 		<tertiaryColoursDye/>
 		
 		<itemTags> 
+			<tag>ENABLE_SEX_EQUIP</tag>
 			<tag>SOLD_BY_FINCH</tag>
 		</itemTags>
 	</coreAttributes>
@@ -56,7 +57,7 @@
       <![CDATA[[npc.Name] [npc.verb(pull)] the latex stockings onto [npc2.namePos] [npc2.feet], before pulling them all the way up to [npc2.her] mid-thigh.]]>
     </other>
     <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(pull)] the latex sstockings onto [npc2.namePos] [npc2.feet], before pulling them all the way up to [npc2.her] mid-thigh.]]>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] the latex stockings onto [npc2.namePos] [npc2.feet], before pulling them all the way up to [npc2.her] mid-thigh.]]>
     </otherRough>
   </replacementText>
 

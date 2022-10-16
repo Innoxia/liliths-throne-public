@@ -26,6 +26,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
 import com.lilithsthrone.game.dialogue.companions.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
@@ -877,7 +878,7 @@ public class RoomPlayer {
 								+ " His huge muscles are flexing as he carries a felled tree over one shoulder, while between his legs, you can't help but notice that he's got a massive bulge pressing out against the fabric of his shorts.");
 					} else {
 						sb.append("a black-and-white "+Subspecies.COW_MORPH.getSingularFemaleName(null)+", who's sitting on a small milking stool."
-								+ " With a happy smile on her face, she's busily pinching and tugging at at her engorged nipples, causing a stream of milk to flow out into a metal bucket.");
+								+ " With a happy smile on her face, she's busily pinching and tugging at her engorged nipples, causing a stream of milk to flow out into a metal bucket.");
 					}
 					break;
 				case MARCH:
@@ -1254,7 +1255,6 @@ public class RoomPlayer {
 	}
 	
 	public static final DialogueNode ROOM_SET_ALARM = new DialogueNode("Set Alarm", "", true) {
-
 		@Override
 		public void applyPreParsingEffects() {
 			super.applyPreParsingEffects();
@@ -1263,13 +1263,12 @@ public class RoomPlayer {
 				Main.game.getDialogueFlags().setSavedLong("player_phone_alarm", 8*60);
 			}
 		}
-
 		@Override
 		public String getContent() {
 			long alarmTime = Main.game.getDialogueFlags().getSavedLong("player_phone_alarm");
 			String alarmTimeStr = Units.time(LocalTime.ofSecondOfDay(alarmTime*60));
 			return "<div><p style='text-align:center;'>Taking out your phone, you open the alarm app and prepare to set a time for it to go off...</p></div>"
-					+ "<div class='cosmetics-inner-container' style='margin:1% 20%; width:58%; padding:1%; box-sizing:border-box; position:relative;'>"
+					+ "<div class='cosmetics-inner-container' style='margin:1% 10%; width:78%; padding:1%; box-sizing:border-box; position:relative;'>"
 						+ "<p style='margin:0; padding:0;'>"
 							+ "<b>Set Alarm</b>"
 						+"</p>"
@@ -1294,21 +1293,26 @@ public class RoomPlayer {
 						+ "</div>"
 					+ "</div>";
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
-				return new Response("Set Alarm", "Change your alarm to the new time.", Main.game.getSavedDialogueNode());
+				return new Response("Set alarm", "Your alarm will be set to the time that you've entered.", Main.game.getSavedDialogueNode());
+				
 			} else if(index == 2) {
-				return new Response("Unset Alarm", "Delete your alarm, leaving it unset.", Main.game.getSavedDialogueNode()) {
+				return new Response("Delete alarm", "Delete your alarm, leaving it unset.", Main.game.getSavedDialogueNode()) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().removeSavedLong("player_phone_alarm");
 					}
 				};
-			} else {
-				return null;
+				
 			}
+			
+			return null;
+		}
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	

@@ -90,7 +90,7 @@ public class LunetteRanged extends NPC {
 			this.setStartingBody(true);
 			
 			this.setGenericName(Util.randomItemFrom(namePrefixes)+" "+name);
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setSurname("Lunettemartu");
 			this.setPlayerKnowsName(false);
 			
@@ -98,7 +98,7 @@ public class LunetteRanged extends NPC {
 			
 			resetInventory(true);
 			inventory.setMoney(2500 + Util.random.nextInt(2500));
-			Main.game.getCharacterUtils().generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 			
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			
@@ -354,7 +354,11 @@ public class LunetteRanged extends NPC {
 
 	@Override
 	public void applyEscapeCombatEffects() {
-		Main.game.banishNPC(this);
+		if(this.getLocationPlace().getPlaceType()==PlaceType.getPlaceTypeFromId("innoxia_fields_themiscyra_raiders")) {
+			Main.game.getPlayer().setLocation(Main.game.getPlayer().getLastCell());
+		} else {
+			Main.game.banishNPC(this); // Only remove if this NPC is not a raider in Themiscyra
+		}
 	}
 	
 	@Override

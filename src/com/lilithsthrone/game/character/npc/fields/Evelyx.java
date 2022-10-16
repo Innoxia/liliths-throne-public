@@ -72,7 +72,6 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.Tattoo;
-import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.markings.TattooWriting;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
@@ -494,7 +493,7 @@ public class Evelyx extends NPC {
 		}
 		
 		// Crotch boobs:
-		if(crotchBoobs && ((Main.getProperties().getUddersLevel()==1 && worker.isTaur()) || (Main.getProperties().getUddersLevel()==2 && worker.getRace().getRacialBody().getBreastCrotchType()!=BreastType.NONE))) {
+		if(crotchBoobs && Main.game.isUdderContentEnabled() && (worker.isTaur() || worker.getRace().getRacialBody().getBreastCrotchType()!=BreastType.NONE)) {
 			boolean applyCrotchBoobs = !worker.hasBreastsCrotch();
 			if(!anyTransformationAvailable) {
 				anyTransformationAvailable = applyCrotchBoobs;
@@ -926,7 +925,7 @@ public class Evelyx extends NPC {
 	public void applyCowTattoo(GameCharacter worker, boolean slave) {
 		worker.addTattoo(InventorySlot.ANUS,
 				new Tattoo(
-					TattooType.NONE,
+					"innoxia_misc_none",
 					PresetColour.CLOTHING_BLACK,
 					null,
 					null,

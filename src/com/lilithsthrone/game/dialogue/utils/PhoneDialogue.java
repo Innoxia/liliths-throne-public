@@ -290,12 +290,7 @@ public class PhoneDialogue {
 							Main.getProperties().hasValue(PropertyValue.levelUpHightlight)
 								? "<span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>Perk Tree</span>"
 								:"Perk Tree",
-							"View your character page.", CHARACTER_PERK_TREE) {
-						@Override
-						public void effects() {
-							Main.getProperties().setValue(PropertyValue.levelUpHightlight, false);
-						}
-					};
+							"View your character page.", CHARACTER_PERK_TREE);
 					
 				} else if (index == 3) {
 					return new Response("Spells", "View your spells page.", SpellManagement.CHARACTER_SPELLS_EARTH) {
@@ -1364,6 +1359,13 @@ public class PhoneDialogue {
 				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Hair Length",
 						PresetColour.TEXT, Units.size(character.getHairRawLengthValue()),
 						character.getHairLength().getColour(), Util.capitaliseSentence(character.getHairLength().getDescriptor()))
+				+ (character.hasHorns()
+						?statRow(PresetColour.TRANSFORMATION_GENERIC, "Horn Length",
+							PresetColour.TEXT, Units.size(character.getHornLengthValue()),
+							character.getHornLength().getColour(), Util.capitaliseSentence(character.getHornLength().getDescriptor()))
+						:statRow(PresetColour.TRANSFORMATION_GENERIC, "Horn Length",
+								PresetColour.TEXT, Units.size(0),
+								PresetColour.TEXT_GREY, "N/A"))
 				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Tongue Length",
 						PresetColour.TEXT, Units.size(character.getTongueLengthValue()),
 						PresetColour.TRANSFORMATION_GENERIC, Util.capitaliseSentence(character.getTongueLength().getDescriptor()))
@@ -2773,6 +2775,8 @@ public class PhoneDialogue {
 			valueForDisplay = (value>=0?"+":"")+valueForDisplay+"%";
 		}
 		
+		float bonusAttributeValue = owner.getBonusAttributeValue(att) + (att==Attribute.RESISTANCE_PHYSICAL?owner.getPhysicalResistanceAttributeFromClothingAndWeapons():0);
+		
 		return "<div class='container-full-width' style='background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'>"
 				
 					+ "<div class='container-full-width' style='background:transparent;margin:0;padding:0;width:30%;'>"
@@ -2791,12 +2795,12 @@ public class PhoneDialogue {
 
 					+ "<div class='container-full-width' style='background:transparent;margin:0;padding:0;width:6%;text-align:left;'>"
 						+" | "	
-						+ (owner.getBonusAttributeValue(att) > 0 
+						+ (bonusAttributeValue > 0 
 								? "<b style='color:" + PresetColour.GENERIC_MINOR_GOOD.getShades()[1] + ";"
-								: (owner.getBonusAttributeValue(att) < 0
+								: (bonusAttributeValue < 0
 									? "<b style='color:" + PresetColour.GENERIC_MINOR_BAD.getShades()[1] + ";"
 									: "<b style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";"))+"'>"
-							+Units.number(owner.getBonusAttributeValue(att), 0, 1)
+							+Units.number(bonusAttributeValue, 0, 1)
 						+"</b>"
 					+ "</div>"
 						
@@ -3681,7 +3685,10 @@ public class PhoneDialogue {
 	};
 
 	public static final DialogueNode CHARACTER_PERK_TREE = new DialogueNode("Perk Tree", "", true) {
-
+		@Override
+		public void applyPreParsingEffects() {
+			Main.getProperties().setValue(PropertyValue.levelUpHightlight, false);
+		}
 		@Override
 		public String getHeaderContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -3721,18 +3728,11 @@ public class PhoneDialogue {
 					}
 				};
 				
-				
 			} else if (index == 0) {
-				return new Response("Back", "Return to your phone's main menu.", MENU) {
-					@Override
-					public void effects() {
-						Main.getProperties().setValue(PropertyValue.levelUpHightlight, false);
-					}
-				};
-			
-			} else {
-				return null;
+				return new Response("Back", "Return to your phone's main menu.", MENU);
 			}
+			
+			return null;
 		}
 
 		@Override
@@ -3817,7 +3817,7 @@ public class PhoneDialogue {
 			for(AbstractFetish fetish : Fetish.getAllFetishes()) {
 				if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 					journalSB.append(
-							"<div id='fetishUnlock" + Fetish.getIdFromFetish(fetish) + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
+							"<div id='FETISH_" + Fetish.getIdFromFetish(fetish) + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
 							? " owned' style='border:2px solid " + PresetColour.FETISH.getShades()[1] + ";'>"
 							: (fetish.isAvailable(Main.game.getPlayer())
 									? " unlocked' style='border:2px solid " +  PresetColour.TEXT_GREY.toWebHexString() + ";" + "'>"
@@ -3881,7 +3881,7 @@ public class PhoneDialogue {
 						+getFetishDesireEntry(targetedCharacter, fetish, FetishDesire.FOUR_LOVE)
 					+ "</div>"
 					+"<div class='container-full-width' style='margin:0 8px; width: calc(22% - 16px);'>"
-						+ "<div id='fetishUnlock" + Fetish.getIdFromFetish(fetish) + "' class='fetish-icon full" + (targetedCharacter.hasFetish(fetish)
+						+ "<div id='FETISH_" + Fetish.getIdFromFetish(fetish) + "' class='fetish-icon full" + (targetedCharacter.hasFetish(fetish)
 							? " owned' style='border:2px solid " + PresetColour.FETISH.toWebHexString() + ";'>"
 							: (fetish.isAvailable(targetedCharacter)
 									? " unlocked' style='border:2px solid " + PresetColour.TEXT_GREY.toWebHexString() + ";" + "'>"
@@ -3989,7 +3989,7 @@ public class PhoneDialogue {
 				
 				if(correctRegion
 						&& world != WorldType.WORLD_MAP
-						&& world != WorldType.EMPTY
+						&& (world != WorldType.EMPTY || Main.game.isDebugMode())
 						&& world != WorldType.MUSEUM
 						&& world != WorldType.MUSEUM_LOST) {
 					if(index==i) {
@@ -4006,6 +4006,9 @@ public class PhoneDialogue {
 								public Colour getHighlightColour() {
 									if(playerPresent) {
 										return PresetColour.GENERIC_GOOD;
+									}
+									if(world==WorldType.EMPTY) {
+										return PresetColour.GENERIC_BAD;
 									}
 									return super.getHighlightColour();
 								}

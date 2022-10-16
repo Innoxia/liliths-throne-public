@@ -27,6 +27,7 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.ColourListPresets;
 
 
 /**
@@ -148,6 +149,21 @@ public class ItemGeneration {
 	
 	public AbstractClothing generateClothing(AbstractClothingType clothingType, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
 		List<Colour> colours = Util.newArrayListOfValues(primaryColour, secondaryColour, tertiaryColour);
+		
+		if(Main.DEBUG) {
+			if(primaryColour!=null && !ColourListPresets.ALL_WITH_METALS.contains(primaryColour)) {
+				System.err.println("Clothing primaryColour incompatibility: "+clothingType.getName()+" | "+primaryColour.getId());
+				new Exception().printStackTrace();
+			}
+			if(secondaryColour!=null && !ColourListPresets.ALL_WITH_METALS.contains(secondaryColour)) {
+				System.err.println("Clothing secondaryColour incompatibility: "+clothingType.getName()+" | "+secondaryColour.getId());
+				new Exception().printStackTrace();
+			}
+			if(tertiaryColour!=null && !ColourListPresets.ALL_WITH_METALS.contains(tertiaryColour)) {
+				System.err.println("Clothing tertiaryColour incompatibility: "+clothingType.getName()+" | "+tertiaryColour.getId());
+				new Exception().printStackTrace();
+			}
+		}
 		
 		int index = 0;
 		ColourReplacement cr = clothingType.getColourReplacement(index);
