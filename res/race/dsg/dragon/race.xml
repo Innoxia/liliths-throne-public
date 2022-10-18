@@ -60,7 +60,7 @@
 	
 	<!-- Whether this is a race capable of flight or not. -->
 	<flyingRace>true</flyingRace>
-
+	
 	
 	<!-- Combat: -->
 	
