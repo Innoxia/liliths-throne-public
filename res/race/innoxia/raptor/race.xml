@@ -28,8 +28,6 @@
 	
 	<flyingRace>true</flyingRace>
 	
-	<wingsNormal>true</wingsNormal>
-	
 	<combatBehaviour>ATTACK</combatBehaviour>
 	
 	<chanceForMaleOffspring>0.5</chanceForMaleOffspring>

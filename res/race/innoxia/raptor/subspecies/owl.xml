@@ -12,6 +12,7 @@
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
 	<aquatic>false</aquatic>
+	<winged>true</winged>
 	<applySubspeciesChanges><![CDATA[
 		#IF(targetedBody.getEyeType()==EYE_TYPE_DEMON_COMMON)
 			[#targetedBody.setEyeType(null, EYE_TYPE_DEMON_OWL)]

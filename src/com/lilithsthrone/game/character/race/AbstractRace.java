@@ -59,7 +59,6 @@ public abstract class AbstractRace {
 	private boolean feralPartsAvailable;
 	private boolean ableToSelfTransform;
 	private boolean flyingRace;
-	private boolean wingsNormal;
 	
 	public AbstractRace(String name,
 			String namePlural,
@@ -149,7 +148,6 @@ public abstract class AbstractRace {
 		this.feralPartsAvailable = true;
 		this.ableToSelfTransform = false;
 		this.flyingRace = false;
-		this.wingsNormal = false;
 	}
 	
 	public AbstractRace(File XMLFile, String author, boolean mod) {
@@ -283,7 +281,6 @@ public abstract class AbstractRace {
 				this.feralPartsAvailable = Boolean.valueOf(coreElement.getMandatoryFirstOf("feralPartsAvailable").getTextContent());
 				this.ableToSelfTransform = Boolean.valueOf(coreElement.getMandatoryFirstOf("ableToSelfTransform").getTextContent());
 				this.flyingRace = Boolean.valueOf(coreElement.getMandatoryFirstOf("flyingRace").getTextContent());
-				this.wingsNormal = coreElement.getOptionalFirstOf("wingsNormal").isPresent() ? Boolean.valueOf(coreElement.getMandatoryFirstOf("wingsNormal").getTextContent()) : false;
 				
 			} catch(Exception ex) {
 				ex.printStackTrace();
@@ -324,10 +321,6 @@ public abstract class AbstractRace {
 	
 	public boolean isFlyingRace() {
 		return flyingRace;
-	}
-
-	public boolean isWingsNormal() {
-		return wingsNormal;
 	}
 
 	public boolean isAbleToSelfTransform() {

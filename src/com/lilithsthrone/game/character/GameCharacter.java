@@ -3773,7 +3773,7 @@ public abstract class GameCharacter implements XMLSaving {
 			return getName(true);
 			
 		} else {
-			boolean showWinged = (hasWings() || isArmWings()) && !getRace().isWingsNormal();
+			boolean showWinged = (hasWings() || isArmWings()) && !getSubspecies().isWinged();
 			if(this.isUnique()) {
 				determiner = "the";
 			}

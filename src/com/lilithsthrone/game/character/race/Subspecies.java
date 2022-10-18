@@ -255,6 +255,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 
 	// DEMON:
@@ -318,6 +322,10 @@ public class Subspecies {
 		public AbstractAttribute getDamageMultiplier() {
 			return Attribute.DAMAGE_ELDER_LILIN;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 	
 	public static AbstractSubspecies LILIN = new AbstractSubspecies(false,
@@ -379,6 +387,10 @@ public class Subspecies {
 		@Override
 		public AbstractAttribute getDamageMultiplier() {
 			return Attribute.DAMAGE_LILIN;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 	
@@ -556,6 +568,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 	
 	public static AbstractSubspecies HALF_DEMON = new AbstractSubspecies(false,
@@ -705,6 +721,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 	
 	public static AbstractSubspecies IMP = new AbstractSubspecies(false,
@@ -778,6 +798,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 	
 	public static AbstractSubspecies IMP_ALPHA = new AbstractSubspecies(false,
@@ -850,6 +874,10 @@ public class Subspecies {
 				}
 			}
 			return 0;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 	
@@ -3246,6 +3274,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 	public static AbstractSubspecies HORSE_MORPH_ALICORN = new AbstractSubspecies(false,
 			60000,
@@ -3349,6 +3381,10 @@ public class Subspecies {
 				}
 			}
 			return 0;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 	
@@ -3511,6 +3547,10 @@ public class Subspecies {
 				}
 			}
 			return 0;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 	public static AbstractSubspecies UNITAUR = new AbstractSubspecies(false,
@@ -3681,6 +3721,10 @@ public class Subspecies {
 				}
 			}
 			return 0;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 	
@@ -4623,6 +4667,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 	
 	// AVIAN:
@@ -4752,6 +4800,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 	
 	public static AbstractSubspecies HARPY_RAVEN = new AbstractSubspecies(false,
@@ -4857,6 +4909,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 	
 	public static AbstractSubspecies HARPY_SWAN = new AbstractSubspecies(false,
@@ -4959,6 +5015,10 @@ public class Subspecies {
 				}
 			}
 			return 0;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 	
@@ -5185,6 +5245,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 	
 	
@@ -5269,6 +5333,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 	
 	public static AbstractSubspecies ELEMENTAL_EARTH = new AbstractSubspecies(false,
@@ -5348,6 +5416,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 
 	public static AbstractSubspecies ELEMENTAL_WATER = new AbstractSubspecies(false,
@@ -5425,6 +5497,10 @@ public class Subspecies {
 				return 100;
 			}
 			return 0;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 
@@ -5504,6 +5580,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 
 	public static AbstractSubspecies ELEMENTAL_ARCANE = new AbstractSubspecies(true,
@@ -5581,6 +5661,10 @@ public class Subspecies {
 				return 100;
 			}
 			return 0;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 

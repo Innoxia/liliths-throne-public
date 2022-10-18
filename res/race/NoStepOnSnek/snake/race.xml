@@ -28,7 +28,6 @@
 	<feralPartsAvailable>true</feralPartsAvailable>
 	<ableToSelfTransform>false</ableToSelfTransform>
 	<flyingRace>false</flyingRace>
-	<wingsNormal>true</wingsNormal>
 	<combatBehaviour>ATTACK</combatBehaviour>
 	<chanceForMaleOffspring>0.5</chanceForMaleOffspring>
 	<numberOfOffspringLow>2</numberOfOffspringLow>

@@ -45,6 +45,10 @@
 	<!-- Whether or not this is a subspecies which prefers to live in an aquatic environment.
 	If set to true, then this subspecies will have the positive & negative aquatic status effects applied to it when in a tile with and without access to water, respectively. -->
 	<aquatic>false</aquatic>
+
+	<!-- Whether or not this is a subspecies with either arm or back wings (optional).
+	If set to false (the default) and the NPC or player is winged it will be displayed as winged subspecies (e. g. winged hyena-boy). -->
+	<winged>true</winged>
 	
 	<!-- Any special changes which should be applied to a newly-spawned character of this subspecies.
 	This is applied *after* the parent race's 'applyRaceChanges' method.

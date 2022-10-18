@@ -62,9 +62,6 @@
 	<!-- Whether this is a race capable of flight or not. -->
 	<flyingRace>false</flyingRace>
 	
-	<!-- Whether it is normal for this race to have subspecies with wings (Optional. Defaults to false) -->
-	<!--<wingsNormal>false</wingsNormal>-->
-	
 	<!-- Combat: -->
 	
 	<!-- This race's typical behaviour in combat can be defined here.

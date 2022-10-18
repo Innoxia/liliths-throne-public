@@ -66,6 +66,7 @@ public abstract class AbstractSubspecies {
 	private boolean shortStature;
 	private boolean bipedalSubspecies;
 	private boolean aquatic;
+	private boolean winged;
 
 	private Map<PersonalityTrait, Float> personalityChanceOverrides;
 	
@@ -280,6 +281,7 @@ public abstract class AbstractSubspecies {
 		this.baseSlaveValue = baseSlaveValue;
 		this.subspeciesOverridePriority = 0;
 		
+		this.winged = false;
 		this.aquatic = false;
 		this.shortStature = false;
 		this.bipedalSubspecies = true;
@@ -413,6 +415,7 @@ public abstract class AbstractSubspecies {
 				this.shortStature = Boolean.valueOf(coreElement.getMandatoryFirstOf("shortStature").getTextContent());
 				this.bipedalSubspecies = Boolean.valueOf(coreElement.getMandatoryFirstOf("bipedalSubspecies").getTextContent());
 				this.aquatic = Boolean.valueOf(coreElement.getMandatoryFirstOf("aquatic").getTextContent());
+				this.winged = coreElement.getOptionalFirstOf("winged").isPresent() ? Boolean.valueOf(coreElement.getMandatoryFirstOf("winged").getTextContent()) : false;
 				
 				personalityChanceOverrides = new HashMap<>();
 				if(coreElement.getOptionalFirstOf("personalityChances").isPresent()) {
@@ -1416,6 +1419,10 @@ public abstract class AbstractSubspecies {
 		return description;
 	}
 	
+	public boolean isWinged() {
+		return winged;
+	}
+
 	/**
 	 * @param character The character being checked
 	 * @return true if the supplied character has a LegConfiguration of type TAIL, or if the aquatic variable is set to true.

@@ -12,6 +12,7 @@
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
 	<aquatic>false</aquatic>
+	<winged>true</winged>
 	<applySubspeciesChanges/>
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_innoxia_raptor)

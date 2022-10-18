@@ -1287,7 +1287,7 @@ public class OccupantManagementDialogue {
 	}
 	
 	private static String getSlaveryEntry(boolean slaveOwned, GenericPlace place, NPC slave, AffectionLevel affection, float affectionChange, ObedienceLevel obedience, float obedienceChange, boolean alternateBackground) {
-		boolean showWinged = (slave.hasWings() || slave.isArmWings()) && !slave.getRace().isWingsNormal();
+		boolean showWinged = (slave.hasWings() || slave.isArmWings()) && !slave.getSubspecies().isWinged();
 		
 		miscDialogueSB.setLength(0);
 		miscDialogueSB.append(
@@ -1385,7 +1385,7 @@ public class OccupantManagementDialogue {
 	}
 	
 	private static String getOccupantEntry(GenericPlace place, NPC occupant, AffectionLevel affection, float affectionChange, ObedienceLevel obedience, float obedienceChange, boolean alternateBackground) {
-		boolean showWinged = (occupant.hasWings() || occupant.isArmWings()) && !occupant.getRace().isWingsNormal();
+		boolean showWinged = (occupant.hasWings() || occupant.isArmWings()) && !occupant.getSubspecies().isWinged();
 
 		miscDialogueSB.setLength(0);
 		miscDialogueSB.append(
