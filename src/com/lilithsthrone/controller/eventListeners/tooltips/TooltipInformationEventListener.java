@@ -889,6 +889,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 					Main.mainController.setTooltipSize(dimensions[0], dimensions[1]);
 					
+					boolean showWinged = (owner.hasWings() || owner.isArmWings()) && !owner.getRace().isWingsNormal();
 					tooltipSB.setLength(0);
 					tooltipSB.append("<div class='title' style='color:" + owner.getRace().getColour().toWebHexString() + ";'>"
 							+(owner.getRaceStage().getName()!=""
@@ -896,8 +897,8 @@ public class TooltipInformationEventListener implements EventListener {
 								:"")
 							+ "<b style='color:"+owner.getSubspecies().getColour(owner).toWebHexString()+";'>"
 								+ (owner.isFeminine()
-										?Util.capitaliseSentence(owner.getSubspecies().getSingularFemaleName(owner.getBody()))
-										:Util.capitaliseSentence(owner.getSubspecies().getSingularMaleName(owner.getBody())))
+										?Util.capitaliseSentence((showWinged ? "winged " : "") + owner.getSubspecies().getSingularFemaleName(owner.getBody()))
+										:Util.capitaliseSentence((showWinged ? "winged " : "") + owner.getSubspecies().getSingularMaleName(owner.getBody())))
 							+ "</b>"
 							+ "</div>");
 					

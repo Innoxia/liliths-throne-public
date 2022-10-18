@@ -3773,6 +3773,7 @@ public abstract class GameCharacter implements XMLSaving {
 			return getName(true);
 			
 		} else {
+			boolean showWinged = (hasWings() || isArmWings()) && !getRace().isWingsNormal();
 			if(this.isUnique()) {
 				determiner = "the";
 			}
@@ -3781,6 +3782,7 @@ public abstract class GameCharacter implements XMLSaving {
 								?Util.capitaliseSentence(UtilText.generateSingularDeterminer(getName(true)))
 								:UtilText.generateSingularDeterminer(getName(true)))
 						:determiner)
+					+ (showWinged ? " winged" : "")
 					+ " " + getName(true);
 		}
 	}

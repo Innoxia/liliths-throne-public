@@ -110,6 +110,10 @@ public class Race {
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.ANGEL;
 		}
+		@Override
+		public boolean isWingsNormal() {
+			return true;
+		}
 	};
 
 	// DEMON:
@@ -236,6 +240,10 @@ public class Race {
 //			}
 //			return "demon";
 //		}
+		@Override
+		public boolean isWingsNormal() {
+			return true;
+		}
 		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.DEMON;
@@ -479,6 +487,10 @@ public class Race {
 			}
 		}
 		@Override
+		public boolean isWingsNormal() {
+			return true;
+		}
+		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.HORSE_MORPH;
 		}
@@ -610,6 +622,10 @@ public class Race {
 			return true;
 		}
 		@Override
+		public boolean isWingsNormal() {
+			return true;
+		}
+		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.BAT_MORPH;
 		}
@@ -697,6 +713,10 @@ public class Race {
 			return true;
 		}
 		@Override
+		public boolean isWingsNormal() {
+			return true;
+		}
+		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.HARPY;
 		}
@@ -722,6 +742,10 @@ public class Race {
 				false) {
 		@Override
 		public boolean isAbleToSelfTransform() {
+			return true;
+		}
+		@Override
+		public boolean isWingsNormal() {
 			return true;
 		}
 		@Override
