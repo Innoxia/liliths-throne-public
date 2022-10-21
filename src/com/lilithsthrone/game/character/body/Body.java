@@ -3735,6 +3735,10 @@ public class Body implements XMLSaving {
 		return wing.getSizeValue();
 	}
 
+	public int getMinimumWingSizeValueForFlight() {
+		return leg.getLegConfiguration().getMinimumWingSizeForFlight(this).getValue();
+	}
+
 	public AbstractWingType getWingType() {
 		return wing.getType();
 	}
@@ -3937,6 +3941,14 @@ public class Body implements XMLSaving {
 
 	public String setWingSize(GameCharacter owner, int size) {
 		return this.wing.setSize(owner, size);
+	}
+
+	public String setWingSizeToMinimumWingSizeForFlight() {
+		return wing.setSize(null, getMinimumWingSizeValueForFlight());
+	}
+
+	public String setWingSizeToMinimumWingSizeForFlight(GameCharacter owner) {
+		return wing.setSize(owner, getMinimumWingSizeValueForFlight());
 	}
 
 	public String setWingType(AbstractWingType type) {
@@ -6294,7 +6306,11 @@ public class Body implements XMLSaving {
 	public boolean isFeral() {
 		return feral;
 	}
-	
+
+	public boolean isFeralOrHasLegConfiguration(LegConfiguration... values) {
+		return feral || leg.getLegConfiguration().isOneOf(values);
+	}
+
 	/**
 	 * @param subspecies Pass in the AbstractSubspecies to which this character should be transformed into a feral version of. Pass in null to transform back from feral to a standard anthro.
 	 */
