@@ -39,7 +39,7 @@
 			#ENDIF
 			]]></conditional>
 	
-			<populationType plural="true" density="ONE">CROWD</populationType>
+			<populationType plural="false" density="ONE">CROWD</populationType>
 			
 			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
 		</population>
@@ -49,12 +49,12 @@
 			<conditional><![CDATA[
 			#IF((!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL)) || 
 			eisek.getLocationPlaceType() != PLACE_TYPE_dsg_fields_elis_market_produce ||
-			(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && !flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_persuade))
+			(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && !flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_persuade)))
 				true
 			#ENDIF
 			]]></conditional>
 	
-			<populationType plural="false" density="OCCASIONAL">SHOPPER</populationType>
+			<populationType plural="true" density="OCCASIONAL">SHOPPER</populationType>
 			
 			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
 		</population>
@@ -67,7 +67,7 @@
 			#ENDIF
 			]]></conditional>
 	
-			<populationType plural="false" density="COUPLE">SHOPPER</populationType>
+			<populationType plural="true" density="COUPLE">SHOPPER</populationType>
 			
 			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
 		</population>
@@ -78,7 +78,7 @@
 				true
 			#ENDIF
 			]]></conditional>
-			<populationType plural="false" density="SEVERAL">SHOPPER</populationType>
+			<populationType plural="true" density="SEVERAL">SHOPPER</populationType>
 			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
 		</population>
 	</populationPresent>

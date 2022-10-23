@@ -153,9 +153,10 @@
 					]]></effects>
 				</response>
 				<response>
-					<availabilityConditional><![CDATA[[#(flags.getSavedLong("elis_eisek_hale_order_date") + 1 < game.getDayNumber()] && 
-													pc.isQuestProgressLessThan(QUEST_LINE_SIDE_EISEK_STALL, QUEST_EISEK_STALL_QUEST_STAGE_FOUR) &&
-													!pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))]
+					<availabilityConditional><![CDATA[
+						[#(flags.getSavedLong("elis_eisek_hale_order_date") + 1 > game.getDayNumber() && 
+						pc.isQuestProgressLessThan(QUEST_LINE_SIDE_EISEK_STALL, QUEST_EISEK_STALL_QUEST_STAGE_FOUR) &&
+						!pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))]
 					]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[14]]></index>
@@ -167,9 +168,12 @@
 					<effects/>
 				</response>
 				<response>
-					<availabilityConditional><![CDATA[[#(flags.getSavedLong("elis_eisek_monica_order_date") + 1 >= game.getDayNumber()] && 
-													pc.isQuestProgressLessThan(QUEST_LINE_SIDE_EISEK_STALL, QUEST_EISEK_STALL_QUEST_STAGE_FOUR) &&
-													!pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))]
+					<availabilityConditional><![CDATA[
+						[#(flags.getSavedLong("elis_eisek_hale_order_date") + 1 <= game.getDayNumber() &&
+						!pc.hasItem(itemGen.generateItem(ITEM_dsg_quest_awningpoles)) &&
+						pc.isQuestProgressLessThan(QUEST_LINE_SIDE_EISEK_STALL, QUEST_EISEK_STALL_QUEST_STAGE_FOUR) &&
+						pc.hasQuestInLine(QUEST_LINE_SIDE_EISEK_STALL, QUEST_EISEK_STALL_QUEST_STAGE_THREE) &&
+						!pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))]
 					]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[14]]></index>
@@ -191,8 +195,8 @@
 					<effects><![CDATA[
 						[#game.appendToTextEndStringBuilder(pc.incrementMoney(-550))]
 						[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_dsg_quest_awningpoles), 4, false, true))]
-						#IF(pc.hasItem(itemGen.generateItem(ITEM_dsg_quest_fabricbolt), 1, false, true) &&
-							pc.hasItem(itemGen.generateItem(ITEM_dsg_quest_embsign), 1, false, true))
+						#IF(pc.hasItem(itemGen.generateItem(ITEM_dsg_quest_fabricbolt)) &&
+							pc.hasItem(itemGen.generateItem(ITEM_dsg_quest_embsign)))
 							[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_STALL, QUEST_EISEK_STALL_QUEST_STAGE_FOUR))]
 						#ENDIF					
 					]]></effects>

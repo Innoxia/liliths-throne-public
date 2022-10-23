@@ -250,12 +250,16 @@ public class QuestTree {
 
 		// Eisek stall quest
 
-		node1 = new TreeNode<Quest>(Quest.EISEK_STALL_QUEST_STAGE_TWO);
+		node1 = new TreeNode<Quest>(Quest.EISEK_STALL_QUEST_STAGE_ONE);
 		eisekStallTree.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.EISEK_STALL_QUEST_STAGE_THREE);
-		node1.addChild(node1);
-		node1 = new TreeNode<Quest>(Quest.EISEK_STALL_QUEST_STAGE_FOUR);
-		node2.addChild(node2);
+		node2 = new TreeNode<Quest>(Quest.EISEK_STALL_QUEST_STAGE_TWO);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.EISEK_STALL_QUEST_STAGE_THREE);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.EISEK_STALL_QUEST_STAGE_FOUR);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		node2.addChild(node1);
 
 
 		// Eisek mob quest

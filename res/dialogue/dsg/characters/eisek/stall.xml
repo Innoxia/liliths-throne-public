@@ -168,7 +168,10 @@
 				]]></effects>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL) && flags.hasFlag(FLAG_dsg_elis_eisek_asked_business))]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && 
+				!pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL) && 
+				!pc.hasQuest(QUEST_LINE_SIDE_EISEK_STALL) &&
+				flags.hasFlag(FLAG_dsg_elis_eisek_asked_business))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[8]]></index>
 				<responseTitle><![CDATA[Stall]]></responseTitle>
@@ -180,7 +183,7 @@
 				]]></effects>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#!pc.hasQuestInLine(QUEST_LINE_SIDE_EISEK_STALL, QUEST_EISEK_MOB_QUEST_STAGE_FOUR)]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#(pc.isQuestProgressLessThan(QUEST_LINE_SIDE_EISEK_STALL, QUEST_EISEK_STALL_QUEST_STAGE_FOUR) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[8]]></index>
 				<responseTitle><![CDATA[Stall]]></responseTitle>
@@ -190,10 +193,10 @@
 				<effects/>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[#(pc.hasItem(itemGen.generateItem("dsg_quest_embsign")) && pc.hasItem(itemGen.generateItem("dsg_quest_fabricbolt")) && pc.hasItem(itemGen.generateItem("dsg_quest_awningpoles")))]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#(pc.hasQuestInLine(QUEST_LINE_SIDE_EISEK_STALL, QUEST_EISEK_STALL_QUEST_STAGE_FOUR) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[8]]></index>
-				<responseTitle><![CDATA[style.boldGood(Stall)]]></responseTitle>
+				<responseTitle><![CDATA[[style.boldGood(Stall)]]]></responseTitle>
 				<responseTooltip><![CDATA[You've gathered what you need to improve Eisek's stall. Time to show him.]]></responseTooltip>
 				<nextDialogue><![CDATA[dsg_characters_eisek_stall_stall_quest_complete]]></nextDialogue>
 				<secondsPassed/>
@@ -201,10 +204,21 @@
 					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_STALL, QUEST_SIDE_UTIL_COMPLETE))]
 					[#game.appendToTextEndStringBuilder(pc.incrementMoney(1000))]
 					[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc,20))]
+					[#flags.setSavedLong("elis_eisek_stall_quest_completion_date", game.getDayNumber())]
 				]]></effects>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#eisek.getAffection(pc) >= 15 && flags.hasFlag(FLAG_dsg_elis_eisek_asked_himself)]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Stall]]></responseTitle>
+				<responseTooltip><![CDATA[You've built the stall of Eisek's dreams.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#(eisek.getAffection(pc) >= 15 && flags.hasFlag(FLAG_dsg_elis_eisek_asked_himself))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[10]]></index>
 				<responseTitle><![CDATA[Family]]></responseTitle>
@@ -405,8 +419,9 @@
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
 		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>
+	</scene>
 		
-		<scene id="stall_quest_start">
+	<scene id="stall_quest_start">
 		<author><![CDATA[DSG]]></author>
 		<title/>
 		<tooltip/>

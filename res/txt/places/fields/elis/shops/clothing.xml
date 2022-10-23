@@ -385,10 +385,10 @@
 		Taking a look around you, you suddenly remember your quest for fabric. Monica makes a show of considering your question when you ask about it. [monica.speech(Hmm...yes, I suppose I could order some for you. How come? Are you looking to get something custom made? Or are you looking to muscle in on my business?)] she answers playfully. You explain that you need the fabric to fix up a certain friend's stall, and since she brought it up, you are actually looking to get something custom made.
 	</p>
 	<p>
-		Monica's ears swivel forward. [monica.speech(Oh? Like what?)] You mention that the same stall needs a new sign but you're not really sure how to go about getting one printed. [monica.speech(Well, printing is one way to do it, or...)] she pauses for a moment before continuing with an up-seller's twinkle in her eye [monica.speec(...an embroidery would be much more eye-catching, not to mention long-lasting. Maybe with metallic thread?)]
+		Monica's ears swivel forward. [monica.speech(Oh? Like what?)] You mention that the same stall needs a new sign but you're not really sure how to go about getting one printed. [monica.speech(Well, printing is one way to do it, or...)] she pauses for a moment before continuing with an up-seller's twinkle in her eye [monica.speech(...an embroidery would be much more eye-catching, not to mention long-lasting. Maybe with metallic thread?)]
 	</p>
 	<p>
-		Well, you <i>do</i> want to make it a nice surprise for Eisek. When you assent to an embroidered sign, Monica fishes a small notepad from her considerable bust and begins writing down the description you give of what should be on the sign. [monica.speech(I'll need about three days to get this ready for you and it'll probably run you around [style.moneyFormat(2500, span)] she says as you finish your order, [monica.speech(Do feel free to stop by in the meantime.)]
+		Well, you <i>do</i> want to make it a nice surprise for Eisek. When you assent to an embroidered sign, Monica fishes a small notepad from her considerable bust and begins writing down the description you give of what should be on the sign. [monica.speech(I'll need about three days to get this ready and it'll probably run you around [style.moneyFormat(2500, span)].)] she says as you finish your order, [monica.speech(Do feel free to stop by in the meantime.)]
 	</p>
 	<p>
 		With two items down, you look out the window at the smithy across the cobblestone path. You'll need some wooden poles to hold up the awning, preferably the sort that can be folded up. Maybe they can help?
