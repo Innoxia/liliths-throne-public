@@ -127,8 +127,8 @@
 						[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc,15))]
 						[#flags.setSavedLong("elis_eisek_mob_quest_completion_date", game.getDayNumber())]
 					#ELSE
-						[#game.appendToTextEndStringBuilder(pc.incrementMoney(500))]
-						[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc,5))]
+						[#game.appendToTextEndStringBuilder(pc.incrementMoney(5000))]
+						[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc,-10))]
 					#ENDIF
 				]]></effects>
 			</response>
@@ -168,24 +168,40 @@
 				]]></effects>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[false]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL) && flags.hasFlag(FLAG_dsg_elis_eisek_asked_business))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[8]]></index>
 				<responseTitle><![CDATA[Stall]]></responseTitle>
-				<responseTooltip><![CDATA[See if there's anything you can do to help Eisek about the state of his stall.]]></responseTooltip>
-				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_stall_quest_start]]></nextDialogue>
+				<responseTooltip><![CDATA[See if there's anything more you can do to help Eisek. Maybe about the state of his stall?]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_stall_quest_start]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.startQuest(QUEST_LINE_SIDE_EISEK_STALL))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.hasQuestInLine(QUEST_LINE_SIDE_EISEK_STALL, QUEST_EISEK_MOB_QUEST_STAGE_FOUR)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Stall]]></responseTitle>
+				<responseTooltip><![CDATA[Probably don't want to talk about this until you have everything you need.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
 				<secondsPassed/>
 				<effects/>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[false]]></availabilityConditional>
+				<availabilityConditional><![CDATA[#(pc.hasItem(itemGen.generateItem("dsg_quest_embsign")) && pc.hasItem(itemGen.generateItem("dsg_quest_fabricbolt")) && pc.hasItem(itemGen.generateItem("dsg_quest_awningpoles")))]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[8]]></index>
-				<responseTitle><![CDATA[style.boldGood(Materials)]]></responseTitle>
+				<responseTitle><![CDATA[style.boldGood(Stall)]]></responseTitle>
 				<responseTooltip><![CDATA[You've gathered what you need to improve Eisek's stall. Time to show him.]]></responseTooltip>
-				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_stall_quest_complete]]></nextDialogue>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_stall_quest_complete]]></nextDialogue>
 				<secondsPassed/>
-				<effects/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_STALL, QUEST_SIDE_UTIL_COMPLETE))]
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(1000))]
+					[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc,20))]
+				]]></effects>
 			</response>
 			<response>
 				<availabilityConditional><![CDATA[[#eisek.getAffection(pc) >= 15 && flags.hasFlag(FLAG_dsg_elis_eisek_asked_himself)]]]></availabilityConditional>
@@ -386,6 +402,29 @@
 		<preParsingEffects/>
 		<content folderPath="txt/dsg/characters/eisek/stall">MOB_QUEST_COMPLETE</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>
+		
+		<scene id="stall_quest_start">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/characters/eisek/stall">STALL_QUEST_START</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>
+	</scene>
+	
+	<scene id="stall_quest_complete">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/characters/eisek/stall">STALL_QUEST_COMPLETE</content>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
 		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>

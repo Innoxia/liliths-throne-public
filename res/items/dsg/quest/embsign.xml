@@ -3,7 +3,7 @@
 	<coreAttributes>
 		<authorTag><![CDATA['Woven by the DSG Textile Guild' in very small print is woven in one corner.]]></authorTag>
 		
-		<value>2500</value> 
+		<value>2480</value> 
 		<determiner><![CDATA[an]]></determiner>
 		<name><![CDATA[embroidered sign]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[embroidered signs]]></namePlural>
@@ -30,7 +30,7 @@
 		
 		<applyEffects><![CDATA[
 		<p>
-			This sign is made from canvas, rolled at the edges for durability. Embroidered on its otherwise featureless surface is a stylized depiction of many different types of fruits and vegetables carried by an avalanche descending down the side of a mountain. In the upper right, the words "ALPINE PRODUCE" are similarly sewn in with metallic thread.
+			This sign is made from canvas, rolled at the edges for durability. Embroidered on its otherwise featureless surface is a stylized depiction of many different types of fruits and vegetables carried by an avalanche descending down the side of a mountain. In the upper right, the words "ALPINE PRODUCE" are similarly sewn in with metallic blue thread.
 		</p>
 		]]></applyEffects>
 		

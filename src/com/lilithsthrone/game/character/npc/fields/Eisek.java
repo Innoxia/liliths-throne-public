@@ -267,9 +267,11 @@ public class Eisek extends NPC {
     
     @Override
     public void applyItemTransactionEffects(AbstractCoreItem itemSold, int quantity, int individualPrice, boolean soldToPlayer) {
-	if(soldToPlayer && (this.getAffection(Main.game.getPlayer()) < 15)) {
+	if(soldToPlayer) {
 	    Main.game.appendToTextEndStringBuilder(UtilText.parse(this, "[eisek.speech([game.random(Thank you for your patronage.|I hope you enjoy it.|A handy snack, is it not?)])]"));
-	    Main.game.appendToTextEndStringBuilder(this.incrementAffection(Main.game.getPlayer(), 3));
+	    if (this.getAffection(Main.game.getPlayer()) < 15 && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_EISEK_MOB)) {
+		Main.game.appendToTextEndStringBuilder(this.incrementAffection(Main.game.getPlayer(), 3));
+	    }
 	}
     }
     

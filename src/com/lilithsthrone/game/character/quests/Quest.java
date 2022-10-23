@@ -1808,7 +1808,7 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You've gotten the wooden poles."; 			
+			return "You've placed an order with Imsu and Hale for some modified axe hafts."; 			
 		}
 	},
 	
@@ -1821,7 +1821,7 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "You should check back in with Monica after three days to see if your order is ready yet.";
+			return "You should check back in with Hale in a day and Monica in three days to see if your order is ready yet.";
 		}
 		@Override
 		public String getCompletedDescription() {

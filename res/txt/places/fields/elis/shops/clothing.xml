@@ -388,10 +388,23 @@
 		Monica's ears swivel forward. [monica.speech(Oh? Like what?)] You mention that the same stall needs a new sign but you're not really sure how to go about getting one printed. [monica.speech(Well, printing is one way to do it, or...)] she pauses for a moment before continuing with an up-seller's twinkle in her eye [monica.speec(...an embroidery would be much more eye-catching, not to mention long-lasting. Maybe with metallic thread?)]
 	</p>
 	<p>
-		Well, you <i>do</i> want to make it a nice surprise for Eisek. When you assent to an embroidered sign, Monica fishes a small notepad from her considerable bust and begins writing down the description you give of what should be on the sign. [monica.speech(I'll need about three days to get this ready for you)] she says as you finish your order, [monica.speech(Do feel free to stop by in the meantime.)]
+		Well, you <i>do</i> want to make it a nice surprise for Eisek. When you assent to an embroidered sign, Monica fishes a small notepad from her considerable bust and begins writing down the description you give of what should be on the sign. [monica.speech(I'll need about three days to get this ready for you and it'll probably run you around [style.moneyFormat(2500, span)] she says as you finish your order, [monica.speech(Do feel free to stop by in the meantime.)]
 	</p>
 	<p>
-		With two items down, you look out the window at the smithy across the cobblestone path. You'll need some wooden poles, preferably the sort that can be folded up. Maybe they can help?
+		With two items down, you look out the window at the smithy across the cobblestone path. You'll need some wooden poles to hold up the awning, preferably the sort that can be folded up. Maybe they can help?
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_TALK_PICKUP_ORDER"><![CDATA[
+	<p>
+		Monica lights up when you mention the custom order you placed. [monica.speech(Oh yes, they just arrived this morning,)] she says cheerfully, [monica.speech(I think you'll like them a lot!)]
+	</p>
+	<p>
+		Monica places a bolt of green fabric and a folded piece of canvas next to each other on the counter. You carefully unfold the canvas to find an embroidered, stylized depiction of many different types of fruits and vegetables carried by an avalanche descending the side of a mountain while in the corner letters sewn in metallic blue thread proclaim "ALPINE PRODUCE". Whatever your trepidations about how Eisek will react to this tapestry of a sign, the craftsmanship is beyond reproach. You must have been staring for a while, since in the corner of your mind you hear Monica ask [monica.speech(Well? Do you like it?)] You answer affirmatively as you fold up the canvas and hand over the payment.
+	</p>
+	<p>
+		[monica.speech(Your friend is very lucky you came to me,)] she says with a teasing smile, [monica.speech(Now, is there anything else I can do for you?)]
 	</p>
 	]]>
 	</htmlContent>

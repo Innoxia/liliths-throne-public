@@ -1961,13 +1961,13 @@
 				Although it's very busy, with crowds of shoppers occupying large parts of the market, you can't help but notice that some of the stalls look to be quite low on goods for sale. Catching brief snippets of conversation as you [pc.walk] past, you soon get the impression that Lunette's raiding is having an effect on both the quantity and quality of produce which the vendors are able to acquire. Despite this, however, there are still a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some some time out of your day in which to do a spot of shopping...
 			#ENDIF
 		</p>
-		#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_banished))
-		    #IF(!eisek.isPlayerKnowsName() &&
-			    pc.getLocation().getDistanceToVector(game.getWorlds().get(WORLD_TYPE_innoxia_fields_elis_market).getCell(PLACE_TYPE_dsg_fields_elis_market_produce).getLocation()) < 3.3)
-			    <p>
-				    You hear some kind of commotion nearby. There seems to be a crowd gathered around something...or someone, and they don't sound very happy.
-			    </p>
-		    #ENDIF
+		#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && 
+			eisek.getLocationPlaceType() == PLACE_TYPE_dsg_fields_elis_market_produce &&
+			!eisek.isPlayerKnowsName() &&
+			pc.getLocation().getDistanceToVector(game.getWorlds().get(WORLD_TYPE_innoxia_fields_elis_market).getCell(PLACE_TYPE_dsg_fields_elis_market_produce).getLocation()) < 3.3)
+			<p>
+				You hear some kind of commotion nearby. There seems to be a crowd gathered around something...or someone, and they don't sound very happy.
+			</p>
 		#ENDIF
 		#IF(game.getMinutesUntilTimeInMinutes(1080)<30)
 			<p style='text-align:center;'>

@@ -47,7 +47,9 @@
 		<population startMinutes="480" endMinutes="1139">
 			
 			<conditional><![CDATA[
-			#IF((!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL)) || eisek.getLocationPlaceType() != PLACE_TYPE_dsg_fields_elis_market_produce)
+			#IF((!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL)) || 
+			eisek.getLocationPlaceType() != PLACE_TYPE_dsg_fields_elis_market_produce ||
+			(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && !flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_persuade))
 				true
 			#ENDIF
 			]]></conditional>
@@ -72,7 +74,7 @@
 		
 		<population day="true">
 			<conditional><![CDATA[
-			#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL) && eisek.getLocationPlaceType() == PLACE_TYPE_dsg_fields_elis_market_produce)
+			#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL) && eisek.getLocationPlaceType() == PLACE_TYPE_dsg_fields_elis_market_produce)
 				true
 			#ENDIF
 			]]></conditional>

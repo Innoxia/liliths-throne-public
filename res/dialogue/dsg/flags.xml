@@ -11,6 +11,8 @@
 	elis_eisek_banished_date
 	elis_eisek_mob_quest_completion_date
 	elis_eisek_stall_quest_completion_date
+	elis_eisek_monica_order_date
+	elis_eisek_hale_order_date
 	-->
 	
 	<flag dailyReset="false">elis_eisek_introduced</flag>

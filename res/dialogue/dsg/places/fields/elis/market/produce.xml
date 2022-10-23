@@ -21,7 +21,7 @@
 		<responses>
 			
 			<response>
-					
+				<availabilityConditional><![CDATA[[#eisek.getLocationPlaceType() == PLACE_TYPE_dsg_fields_elis_market_produce]]]></availabilityConditional>	
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Approach]]></responseTitle>
@@ -29,10 +29,8 @@
 				<colour><![CDATA[TEXT]]></colour>
 				<nextDialogue stripContent="false"><![CDATA[dsg_characters_eisek_stall_talk_menu]]></nextDialogue>
 				<secondsPassed/>
-				<effects/>
-				
-			</response>
-			
+				<effects/>				
+			</response>			
 		</responses>
 	</scene>
 	

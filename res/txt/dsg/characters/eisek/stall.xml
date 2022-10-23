@@ -99,10 +99,10 @@
 					[eisek.speech(You have done me a great service in convincing that mob of the truth,)] he says, trying not to sound too excited, [eisek.speech(without them to frighten away customers, I have been selling through my stock on some days.)]
 				</p>
 				<p>
-					Surveying the other stalls in the avenue, he continues, half talking to himself, [eisek.speech(Perhaps I should use this time to make improvements to my stall. There is nothing I can do about the size, I need to fly with it...although some shade would be nice. It is definitely not as eye-catching as the others...)]
+					Surveying the other stalls in the avenue, he continues, half talking to himself, [eisek.speech(Perhaps I should use this time to make improvements to my stall...but who...)]
 				</p>
 				<p>
-					Suddenly realizing he's rambling
+					Suddenly realizing he's thinking aloud
 					#IF(flags.hasFlag(FLAG_dsg_elis_eisek_asked_business))
 						 again
 					#ENDIF
@@ -111,16 +111,17 @@
 			#ENDIF
 		#ELSE
 			<p>
-				He ponders your question for a moment, looking off into the distance, before answering [eisek.speech(Well enough, I suppose. I never planned to succeed through volume. Although...)] the [eisek.race] pauses as he surveys the other stalls up and down the avenue. [eisek.speech(My stall could use some work...hmm, but I cannot leave it undefended with that mob out there. It would be in ruins when I returned, that is for sure.)]
+				He ponders your question for a moment, looking off into the distance, before answering [eisek.speech(Well enough, I suppose. I never planned to succeed through volume. Although...)] the [eisek.race] pauses as he surveys the other stalls up and down the avenue. [eisek.speech(My stall could use some work...hmm, but I cannot leave it undefended with that mob out there. It would be in ruins when I returned, that is for sure. And even if I did not, who is to say they will not destroy it regardless?)]
 			</p>
 			<p>
 				As if suddenly aware that he's been thinking aloud, he snaps out of his trance and looks back at you, doing his best to hide his embarrassment. [eisek.speech(Ah, but I am sure you that did not come to hear me ramble. I am fortunate that not all of the locals are thick-skulled. They are not talkative like you, but they buy what I have to sell, and that is good enough for me.)]
 			</p>
 		#ENDIF
 	#ELSE
-	<p>
-		The [eisek.race] responds with a dispassionate smoothness born of frequent practice. [eisek.speech(Well enough. Though I would much prefer to <i>do</i> business than merely talk about it. Perhaps this is something you can assist me with.)]
-	</p>
+		<p>
+			The [eisek.race] responds with a dispassionate smoothness born of frequent practice. [eisek.speech(Well enough. Though I would much prefer to <i>do</i> business than merely talk about it. Perhaps this is something you can assist me with.)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -143,8 +144,7 @@
 	<!-- TALK_WHY_ELIS -->
 	
 	<htmlContent tag="TALK_WHY_ELIS"><![CDATA[
-	<p>
-		
+	<p>		
 		#IF(pc.isAdvancedRaceKnowledgeDiscovered(SUBSPECIES_dsg_dragon_subspecies_dragon))
 			 From what you read about dragons
 		#ELSE
@@ -259,7 +259,7 @@
 			You explain that you beat up the mob's strongest member in front of them and threatened the rest with a good thrashing.
 		</p>
 		<p>
-			The [eisek.race]'s eyes narrow slightly. [eisek.speech(So...you convinced them that I was not in fact a violent beast with feats of violence?)] he asks rhetorically. After pondering this for a moment, he continues flatly [eisek.speech(It seems I have misjudged the ways of civilized folk. Forgive me. I do not mean to sound ungrateful. For your trouble.)] And with that, he places a small sack of flames on the counter.
+			The [eisek.race]'s eyes narrow slightly. [eisek.speech(So...you convinced them that I was not in fact a violent beast with feats of violence?)] he asks rhetorically. After pondering this for a moment, he continues flatly [eisek.speech(It seems I have misjudged the ways of civilized folk. Forgive me. I do not mean to sound ungrateful. For your trouble.)] And with that, he places a sack of flames on the counter.
 		</p>
 	#ELSEIF(flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate_arcane))
 		<p>
@@ -272,14 +272,14 @@
 			You explain that you demonstrated your arcane prowess and defeated the mob's strongest member. That was enough to cow the townsfolk.
 		</p>
 		<p>
-			The [eisek.race]'s eyes narrow slightly. [eisek.speech(So...you convinced them that I was not in fact a violent beast with feats of arcane violence?)] he asks rhetorically. After pondering this for a moment, he continues flatly [eisek.speech(It seems I have misjudged the ways of civilized folk. Forgive me. I do not mean to sound ungrateful. For your trouble.)] And with that, he places a small sack of flames on the counter.
+			The [eisek.race]'s eyes narrow slightly. [eisek.speech(So...you convinced them that I was not in fact a violent beast with feats of arcane violence?)] he asks rhetorically. After pondering this for a moment, he continues flatly [eisek.speech(It seems I have misjudged the ways of civilized folk. Forgive me. I do not mean to sound ungrateful. For your trouble.)] And with that, he places a sack of flames on the counter.
 		</p>
 	#ELSEIF(flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_failed))
 		<p>
 			You tell Eisek apologetically that you weren't able to convince the mob to leave him alone. A look of concern crosses his face. [eisek.race(Were you...harmed?)] 
 		</p>
 		<p>
-			The [eisek.race] relaxes slightly when you tell him your pride was more wounded than anything else. A small wisp of steam escapes from one side of his mouth on his otherwise stony face. [eisek.speech(I see,)] he says simply, [eisek.speech(Regardless, you have my thanks for trying.)]
+			The [eisek.race] relaxes slightly when you tell him your pride was more wounded than anything else but his face darkens. A small wisp of steam escapes from one side of his mouth. [eisek.speech(I see,)] he says simply, [eisek.speech(Regardless, you have my thanks for trying.)]
 		</p>
 	#ENDIF
 	]]>
@@ -308,16 +308,19 @@
 	
 	<htmlContent tag="STALL_QUEST_START"><![CDATA[
 	<p>
-		Thinking back to what Eisek accidentally let slip about improvements to his stall, you ask him what he'd like on a sign representing his business. The [eisek.race] tilts his head slightly at you. [eisek.speech(...Why do you ask? The details of an object out of my grasp matter little.)]
+		Thinking back to what Eisek accidentally let slip about improvements to his stall, you ask him about what sort of improvements he'd like for his stall. [eisek.speech(Ah, you need not burden yourself with my idle thoughts. You have already done so much for me. I could never ask for such a thing from you,)] the [eisek.race] responds. He seems to be uncharacteristically flustered. Deflecting the question, however, is something you expected from him.
+	</p>
+	</p>
+		The indirect approach, then. You change the subject. What sort of difficulties does he run into in the market? At this, Eisek is more open. [eisek.speech(The sun is not always a source of comfort. Tilling a field and standing here under it are quite different. And...)] He looks around the avenue before continuing [eisek.speech(This stall is definitely not as eye catching as the others.)]
 	</p>
 	<p>
-		You evade his suspicion and reframe the question as wanting to know what qualities his goods posses that are so important that he'd put them on a sign if he had one, hypothetically. [eisek.speech(Hmm...)] he rumbles, leaning forward slightly on the counter, [eisek.speech(They are brought down from the mountains, yes, from the clear air. And I keep them cold while I am here, they stay fresh that way even when the summer sun beats down upon them.)]
+		Finally having something to work with, you briefly glance at the crude sign and dull burlap currently decorating the stall. You reframe your original question as wanting to know what qualities his goods posses that are so important that he'd put them on a sign if he had one, hypothetically, of course. [eisek.speech(Hmm...)] he rumbles, leaning forward slightly on the counter, [eisek.speech(They are brought down from the mountains, yes, from the clear alpine air. And I keep them cold while I am here, they stay fresh that way even when the summer sun beats down upon them.)]
 	</p>
 	<p>
-		While his guard is still down, you slip in another question about his favourite colour to which he responds [eisek.speech(Forest green. Is there...an aim behind this?)]
+		While his guard is still down, you slip in another question about what his favourite colour is to which he responds [eisek.speech(Green. Is there...an aim behind this?)]
 	</p>
 	<p>
-		You don't bother trying to worm your way out with a grand explanation and admit to only being curious. With this new information, it seems you have some shopping to do. First, you'll need to find some dark green cloth for a new table cloth and an awning, as well as someone who can make a new sign for you.
+		You don't bother trying to worm your way out with a grand explanation and admit to only being curious. With this new information, it seems you have some shopping to do. First, you'll need to find some green fabric for a new tablecloth and an awning, as well as someone who can make a new sign for you. Perhaps there is a local merchant who can help?
 	</p>
 	]]>
 	</htmlContent>

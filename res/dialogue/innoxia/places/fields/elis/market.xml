@@ -1064,6 +1064,18 @@
 					#ENDIF
 				]]></effects>
 			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#(pc.isQuestProgressLessThan(QUEST_LINE_SIDE_EISEK_STALL, QUEST_EISEK_STALL_QUEST_STAGE_TWO) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[14]]></index>
+				<responseTitle><![CDATA[Fabric?]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Ask Fae and Silvia if they have any fabric to sell you.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					innoxia_places_fields_elis_market_clothing_ask_fabric
+				]]></nextDialogue>
+			</response>
 		</responses>
 	</scene>
 	
@@ -1163,6 +1175,15 @@
 				]]></effects>
 			</response>
 		</responses>
+	</scene>
+	
+	<!-- Red herring for Eisek stall quest -->
+	<scene id="clothing_ask_fabric">
+		<author><![CDATA[DSG]]></author>
+		<content folderPath="txt/places/fields/elis/market">CLOTHING_ASK_FABRIC</content>
+		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_market_clothing"/>
 	</scene>
 	
 	<!-- Place type id: innoxia_places_fields_elis_market_drinks_alcohol -->
