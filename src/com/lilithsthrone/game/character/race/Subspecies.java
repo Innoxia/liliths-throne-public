@@ -4746,6 +4746,10 @@ public class Subspecies {
 			return "harpy";
 		}
 		@Override
+		public LegConfiguration getTaurSpawnLegConfiguration() {
+			return LegConfiguration.AVIAN;
+		}
+		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.HARPY) {
 				return 100;
@@ -4844,6 +4848,10 @@ public class Subspecies {
 			}
 			
 			return names;
+		}
+		@Override
+		public LegConfiguration getTaurSpawnLegConfiguration() {
+			return LegConfiguration.AVIAN;
 		}
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
@@ -4945,6 +4953,10 @@ public class Subspecies {
 			}
 			
 			return names;
+		}
+		@Override
+		public LegConfiguration getTaurSpawnLegConfiguration() {
+			return LegConfiguration.AVIAN;
 		}
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
@@ -5169,6 +5181,10 @@ public class Subspecies {
 			}
 			
 			return names;
+		}
+		@Override
+		public LegConfiguration getTaurSpawnLegConfiguration() {
+			return LegConfiguration.AVIAN;
 		}
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {

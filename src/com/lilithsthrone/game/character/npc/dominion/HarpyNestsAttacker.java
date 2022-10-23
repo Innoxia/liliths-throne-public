@@ -90,6 +90,8 @@ public class HarpyNestsAttacker extends NPC {
 				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, this.getGender(), this.getBody().getFleshSubspecies(), true), true);
 			}
 			
+			handleTaurSpawnRate();
+			
 			setName(Name.getRandomTriplet(Subspecies.HARPY));
 			this.setPlayerKnowsName(false);
 

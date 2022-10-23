@@ -80,6 +80,7 @@ public abstract class AbstractSubspecies {
 	private Map<LegConfiguration, String[]> halfDemonNames;
 	
 	private FeralAttributes feralAttributes;
+	private LegConfiguration taurSpawnLegConfiguration;
 	
 	private String statusEffectDescription;
 	private Map<PerkCategory, Integer> perkWeightingFeminine;
@@ -302,6 +303,7 @@ public abstract class AbstractSubspecies {
 		this.halfDemonNames = new HashMap<>();
 		
 		this.feralAttributes = feralAttributes;
+		this.taurSpawnLegConfiguration = LegConfiguration.QUADRUPEDAL;
 		
 		this.statusEffectDescription = statusEffectDescription;
 		
@@ -669,6 +671,8 @@ public abstract class AbstractSubspecies {
 						System.err.println("Error in AbstractSubspecies loading: feralAttributes failed to initialise!<br/>"+ex.getMessage());
 					}
 				}
+
+				this.taurSpawnLegConfiguration = coreElement.getOptionalFirstOf("taurSpawnLegConfiguration").isPresent() ? LegConfiguration.valueOf(coreElement.getMandatoryFirstOf("taurSpawnLegConfiguration").getTextContent()) : LegConfiguration.QUADRUPEDAL;
 
 				this.statusEffectDescription = coreElement.getMandatoryFirstOf("statusEffectDescription").getTextContent();
 				
@@ -1271,6 +1275,10 @@ public abstract class AbstractSubspecies {
 
 	public FeralAttributes getFeralAttributes() {
 		return feralAttributes;
+	}
+
+	public LegConfiguration getTaurSpawnLegConfiguration() {
+		return taurSpawnLegConfiguration;
 	}
 	
 	public boolean isFeralConfigurationAvailable() {

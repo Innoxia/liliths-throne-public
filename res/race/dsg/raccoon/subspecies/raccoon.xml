@@ -38,6 +38,9 @@
 	If set to true, then this race is limited to the game's smallest height categories (as is the case for imps). -->
 	<shortStature>false</shortStature>
 	
+	<!-- Which LegConfiguration should be used, when that NPC is set to spawn as a taur. Optional. Defaults to QUADRUPEDAL -->
+	<!--<taurSpawnLegConfiguration>QUADRUPEDAL</taurSpawnLegConfiguration>-->
+	
 	<!-- Whether or not this subspecies has the bipedal leg configuration by default.
 	Set to false for subspecies like centaurs. -->
 	<bipedalSubspecies>true</bipedalSubspecies>

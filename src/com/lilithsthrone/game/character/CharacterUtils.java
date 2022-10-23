@@ -1575,7 +1575,7 @@ public class CharacterUtils {
 				break;
 		}
 		
-		character.setLegConfiguration(LegConfiguration.QUADRUPEDAL, true);
+		character.setLegConfiguration(character.getSubspecies().getTaurSpawnLegConfiguration(), true);
 		
 		if(raceStage==null) {
 			return;

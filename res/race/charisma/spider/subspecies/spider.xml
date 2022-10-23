@@ -11,6 +11,7 @@
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
+	<taurSpawnLegConfiguration>ARACHNID</taurSpawnLegConfiguration>
 	<aquatic>false</aquatic>
 	<applySubspeciesChanges><![CDATA[
 		#IF(targetedBody.getFace().getType()!=FACE_TYPE_HUMAN)

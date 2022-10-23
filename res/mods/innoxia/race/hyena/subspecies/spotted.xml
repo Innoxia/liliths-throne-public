@@ -42,6 +42,9 @@
 	Set to false for subspecies like centaurs. -->
 	<bipedalSubspecies>true</bipedalSubspecies>
 	
+	<!-- Which LegConfiguration should be used, when that NPC is set to spawn as a taur. Optional. Defaults to QUADRUPEDAL -->
+	<!--<taurSpawnLegConfiguration>QUADRUPEDAL</taurSpawnLegConfiguration>-->
+
 	<!-- Whether or not this is a subspecies which prefers to live in an aquatic environment.
 	If set to true, then this subspecies will have the positive & negative aquatic status effects applied to it when in a tile with and without access to water, respectively. -->
 	<aquatic>false</aquatic>
