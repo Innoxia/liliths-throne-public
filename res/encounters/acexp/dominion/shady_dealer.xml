@@ -15,7 +15,7 @@
         		    #IF(game.getCharactersPresent().length > 0 || game.getPlayer().hasAnyEnforcerStatusEffect())
         		        0
         		    #ELSE
-                        75
+                        5
                     #ENDIF
 			    #ENDIF
             ]]></chanceToTrigger>

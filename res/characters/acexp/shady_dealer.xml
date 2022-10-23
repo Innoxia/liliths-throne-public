@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<moddedCharacter>
+<exportedCharacter>
   <character>
     <!--If you want to edit any of these values, just be warned that it might break the game...-->
     <core>
@@ -345,4 +345,4 @@
       <NPCValues/>
     </npcSpecific>
   </character>
-</moddedCharacter>
+</exportedCharacter>

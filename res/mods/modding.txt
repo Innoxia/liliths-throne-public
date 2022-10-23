@@ -51,7 +51,7 @@ An example of this can be found here:
 This loads the .xml character file from
     res/characters/acexp/shady_dealer.xml
 But note that these character files can be located anywhere, and for mods it's probably best to place them in res/mods/(yourname)/characters/
-Note that any character file that is to be used as a modded character needs to start (and end) with the <moddedCharacter> tag.
+Note that any character file that is to be used as a modded character needs to start (and end) with the <exportedCharacter> tag.
 
 Loading a modded character is done with two methods in the main game object.
 -- game.importModdedCharacter needs the .xml file with the modded character, and the parser target that it will use.

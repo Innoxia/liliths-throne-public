@@ -529,7 +529,7 @@ public class Game implements XMLSaving {
 				// Cast magic:
 				doc.getDocumentElement().normalize();
 
-				Element characterElement = (Element) doc.getElementsByTagName("moddedCharacter").item(0);
+				Element characterElement = (Element) doc.getElementsByTagName("exportedCharacter").item(0);
 
 				moddedCharacter npc = new moddedCharacter();
 				npc.loadFromXML(characterElement, doc, CharacterImportSetting.NO_LOCATION_SETUP);
