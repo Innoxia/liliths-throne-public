@@ -3773,7 +3773,7 @@ public abstract class GameCharacter implements XMLSaving {
 			return getName(true);
 			
 		} else {
-			boolean showWinged = (hasWings() || isArmWings()) && !getSubspecies().isWinged();
+			boolean showWinged = (hasWings() || isArmWings()) && !getFleshSubspecies().isWinged();
 			if(this.isUnique()) {
 				determiner = "the";
 			}
@@ -25000,6 +25000,13 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getSubspecies();
 	}
 
+	/**
+	 * Get the subspecies which this character appears to be if they were made of flesh.
+	 * @return The subspecies.
+	 */
+	public AbstractSubspecies getFleshSubspecies() {
+		return body.getFleshSubspecies();
+	}
 
 	/**
 	 * @return This character's true subspecies. If this character does not have a subspecies override, this will be the same as getSubspecies(). If they do have an override, however, it will return that override.
