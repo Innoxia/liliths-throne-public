@@ -24273,6 +24273,10 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public void handleTaurSpawnRate() {
+		if (getSubspecies().isTaurSpawnDisabled()) {
+			return;
+		}
+
 		if (Math.random() < Main.getProperties().taurSpawnRate / 100f &&
 			// Do not reset this character's taur body if they spawned as a taur,
 			// as otherwise subspecies-specific settings get overridden by global taur settings.

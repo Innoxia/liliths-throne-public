@@ -80,6 +80,8 @@ public abstract class AbstractSubspecies {
 	private Map<LegConfiguration, String[]> halfDemonNames;
 	
 	private FeralAttributes feralAttributes;
+
+	private boolean taurSpawnDisabled;
 	private LegConfiguration taurSpawnLegConfiguration;
 	
 	private String statusEffectDescription;
@@ -303,6 +305,8 @@ public abstract class AbstractSubspecies {
 		this.halfDemonNames = new HashMap<>();
 		
 		this.feralAttributes = feralAttributes;
+
+		this.taurSpawnDisabled = false;
 		this.taurSpawnLegConfiguration = LegConfiguration.QUADRUPEDAL;
 		
 		this.statusEffectDescription = statusEffectDescription;
@@ -672,6 +676,7 @@ public abstract class AbstractSubspecies {
 					}
 				}
 
+				this.taurSpawnDisabled = coreElement.getOptionalFirstOf("taurSpawnDisabled").isPresent() ? Boolean.valueOf(coreElement.getMandatoryFirstOf("taurSpawnDisabled").getTextContent()) : false;
 				this.taurSpawnLegConfiguration = coreElement.getOptionalFirstOf("taurSpawnLegConfiguration").isPresent() ? LegConfiguration.valueOf(coreElement.getMandatoryFirstOf("taurSpawnLegConfiguration").getTextContent()) : LegConfiguration.QUADRUPEDAL;
 
 				this.statusEffectDescription = coreElement.getMandatoryFirstOf("statusEffectDescription").getTextContent();
@@ -1275,6 +1280,10 @@ public abstract class AbstractSubspecies {
 
 	public FeralAttributes getFeralAttributes() {
 		return feralAttributes;
+	}
+
+	public boolean isTaurSpawnDisabled() {
+		return taurSpawnDisabled;
 	}
 
 	public LegConfiguration getTaurSpawnLegConfiguration() {

@@ -4617,6 +4617,10 @@ public class Subspecies {
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE)),
 			null, null) {
 		@Override
+		public boolean isTaurSpawnDisabled() {
+			return true;
+		}
+		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.BAT_MORPH) {
 				return 100;

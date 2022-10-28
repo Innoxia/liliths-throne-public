@@ -11,7 +11,7 @@
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>false</bipedalSubspecies>
-	<taurSpawnLegConfiguration>CEPHALOPOD</taurSpawnLegConfiguration>
+	<taurSpawnDisabled>true</taurSpawnDisabled>
 	<aquatic>false</aquatic>
 	<applySubspeciesChanges><![CDATA[
 		[#targetedBody.applyLegConfigurationTransformation(LEG_TYPE_NoStepOnSnek_octopus_leg, LEG_CONFIGURATION_CEPHALOPOD, true)]
