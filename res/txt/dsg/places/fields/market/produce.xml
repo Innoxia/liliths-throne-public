@@ -10,6 +10,21 @@
 				<p>
 					Eisek's stall is constructed in much the same way as all the others lining the avenue although it does look comparatively dull and shabby. Stretched over the wooden counter is some sort of rough fabric, you guess burlap, stitched together into a crude cover and there's not even shade to keep the occupant out of the sun. The counter is split into a flat table area and an angled display area with a small chalkboard affixed to a post above it for displaying prices. The thin wooden placard hanging over the front is unpainted with the words "FRESH PRODUCE" simply burned into it.
 				</p>
+				#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))
+					#IF((flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate) || flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate_arcane))
+						<p>
+							Although you drove off the mob that had been hounding Eisek, you notice what few shoppers happen to wander into the area giving the [eisek.race]'s stall a wider berth than before. Occasionally you see groups of them whispering to each other as they hurry out of the area.
+						</p>
+					#ELSE
+						<p>
+							Ever since you drove off the mob that had been hounding Eisek, the area in front of his stall feels much more like any other part of the market.
+						</p>
+					#ENDIF
+				#ELSE
+					<p>
+						Although the mob that had been trying to drive Eisek out is nowhere to be seen, you nonetheless see noticeably fewer shoppers than in other parts of the market.
+					</p>
+				#ENDIF
 			#ELSE
 				<p>
 					Eisek's stall now looks much more colourful and inviting. The counter is now covered in dark green fabric much like the new awning it now sits under. Sewn to the front of the counter is the tapestry-like sign you had made, depicting a gust of wind descending from snow-capped mountains, carrying fruits and vegetables down the slopes while swirling blue letters proclaim "ALPINE PRODUCE". As before, the counter is split into a flat table area and an angled display area with a small chalkboard affixed to a post above it for displaying prices.
@@ -32,6 +47,21 @@
 				<p>
 					It is presently being manned by Eisek and the display area is filled with a sampling of today's offerings. His movements are careful and deliberate as the stall seems to be just slightly too small for him. Every once in a while, you see him blowing a gentle stream of frosty air over both the produce on display and in the crates behind him.
 				</p>
+				#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))
+					#IF(RND.nextInt(100) <= 33)
+						<p>
+							At present he's busy with a small queue of customers, but he will probably make time for you if you should wish it.
+						</p>
+					#ENDIF
+				#ELSEIF(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))
+					#IF((flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_persuade) || flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate_seduce))
+						#IF(RND.nextInt(100) <= 20)
+							<p>
+								At present he's busy with a customer, but he will probably make time for you if you should wish it.
+							</p>
+						#ENDIF
+					#ENDIF
+				#ENDIF
 			#ENDIF
 		#ELSE
 			<p>
