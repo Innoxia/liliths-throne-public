@@ -1401,7 +1401,7 @@ public abstract class AbstractSubspecies {
 		switch (body.getLegConfiguration()) {
 //			case ARACHNID:
 //				return Affinity.TERRESTRIAL;
-//			case CEPHALOPOD:
+			case CEPHALOPOD:
 			case TAIL:
 				return Affinity.AQUATIC;
 			default:
@@ -1413,7 +1413,7 @@ public abstract class AbstractSubspecies {
 		switch (character.getLegConfiguration()) {
 //			case ARACHNID:
 //				return Affinity.TERRESTRIAL;
-//			case CEPHALOPOD:
+			case CEPHALOPOD:
 			case TAIL:
 				return Affinity.AQUATIC;
 			default:

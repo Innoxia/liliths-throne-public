@@ -11,6 +11,7 @@
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>false</bipedalSubspecies>
+	<affinity>AQUATIC</affinity>
 	<applySubspeciesChanges><![CDATA[
 		[#targetedBody.applyLegConfigurationTransformation(LEG_TYPE_NoStepOnSnek_octopus_leg, LEG_CONFIGURATION_CEPHALOPOD, true)]
 		[#targetedBody.getTentacle().setType(null, TENTACLE_TYPE_NoStepOnSnek_octopus_tentacle)]
