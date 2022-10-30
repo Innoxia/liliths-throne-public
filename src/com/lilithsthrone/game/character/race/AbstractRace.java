@@ -10,7 +10,8 @@ import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.LegConfigurationAquatic;
+import com.lilithsthrone.game.character.body.LegConfigurationAffinity;
+import com.lilithsthrone.game.character.body.valueEnums.Affinity;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -38,8 +39,8 @@ public abstract class AbstractRace {
 	private String namePlural;
 	private String nameSillyMode;
 	private String namePluralSillyMode;
-	private Map<LegConfigurationAquatic, String> nameFeral;
-	private Map<LegConfigurationAquatic, String> nameFeralPlural;
+	private Map<LegConfigurationAffinity, String> nameFeral;
+	private Map<LegConfigurationAffinity, String> nameFeralPlural;
 	private String defaultTransformName;
 	
 	private Colour colour;
@@ -77,8 +78,8 @@ public abstract class AbstractRace {
 			boolean affectedByFurryPreference) {
 		this(name,
 				namePlural,
-				LegConfigurationAquatic.getFeralNamesMap(new HashMap(), LegConfiguration.BIPEDAL, nameFeral),
-				LegConfigurationAquatic.getFeralNamesMap(new HashMap(), LegConfiguration.BIPEDAL, nameFeralPlural),
+				LegConfigurationAffinity.getFeralNamesMap(new HashMap(), LegConfiguration.BIPEDAL, nameFeral),
+				LegConfigurationAffinity.getFeralNamesMap(new HashMap(), LegConfiguration.BIPEDAL, nameFeralPlural),
 				defaultTransformName,
 				colour,
 				disposition,
@@ -94,8 +95,8 @@ public abstract class AbstractRace {
 	
 	public AbstractRace(String name,
 			String namePlural,
-			Map<LegConfigurationAquatic, String> nameFeral,
-			Map<LegConfigurationAquatic, String> nameFeralPlural,
+			Map<LegConfigurationAffinity, String> nameFeral,
+			Map<LegConfigurationAffinity, String> nameFeralPlural,
 			String defaultTransformName,
 			Colour colour,
 			Disposition disposition,
@@ -115,17 +116,17 @@ public abstract class AbstractRace {
 		this.nameSillyMode = name;
 		this.namePluralSillyMode = namePlural;
 		this.nameFeral = nameFeral;
-		for (boolean isAquatic : Util.newArrayListOfValues(false, true)) {
-			if (!nameFeral.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, isAquatic))) {
-				System.err.println("Warning: AbstractRace '"+name+"' did not have a definition for nameFeral BIPEDAL and aquatic = "+String.valueOf(isAquatic)+"!");
-				this.nameFeral.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, isAquatic), name);
+		for (Affinity affinity : Affinity.getAllAffinities()) {
+			if (!nameFeral.containsKey(new LegConfigurationAffinity(LegConfiguration.BIPEDAL, affinity))) {
+				System.err.println("Warning: AbstractRace '"+name+"' did not have a definition for nameFeral BIPEDAL and affinity = "+String.valueOf(affinity)+"!");
+				this.nameFeral.put(new LegConfigurationAffinity(LegConfiguration.BIPEDAL, affinity), name);
 			}
 		}
 		this.nameFeralPlural = nameFeralPlural;
-		for (boolean isAquatic : Util.newArrayListOfValues(false, true)) {
-			if (!nameFeralPlural.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, isAquatic))) {
-				System.err.println("Warning: AbstractRace '"+name+"' did not have a definition for nameFeralPlural BIPEDAL and aquatic = "+String.valueOf(isAquatic)+"!");
-				this.nameFeralPlural.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, isAquatic), namePlural);
+		for (Affinity affinity : Affinity.getAllAffinities()) {
+			if (!nameFeralPlural.containsKey(new LegConfigurationAffinity(LegConfiguration.BIPEDAL, affinity))) {
+				System.err.println("Warning: AbstractRace '"+name+"' did not have a definition for nameFeralPlural BIPEDAL and affinity = "+String.valueOf(affinity)+"!");
+				this.nameFeralPlural.put(new LegConfigurationAffinity(LegConfiguration.BIPEDAL, affinity), namePlural);
 			}
 		}
 		this.defaultTransformName = defaultTransformName;
@@ -194,17 +195,17 @@ public abstract class AbstractRace {
 							if(anyFeralName.isEmpty()) {
 								anyFeralName = loadedFeralName;
 							}
-							if (e.getAttribute("isAquatic").isEmpty()) {
-								for (boolean isAquatic : Util.newArrayListOfValues(false, true)) {
-									LegConfigurationAquatic configAquatic = new LegConfigurationAquatic(LegConfiguration.valueOf(e.getAttribute("legConfiguration")), isAquatic);
-									if (!this.nameFeral.containsKey(configAquatic)) {
-										this.nameFeral.put(configAquatic, loadedFeralName);
+							if (e.getAttribute("affinity").isEmpty()) {
+								for (Affinity affinity : Affinity.getAllAffinities()) {
+									LegConfigurationAffinity configAffinity = new LegConfigurationAffinity(LegConfiguration.valueOf(e.getAttribute("legConfiguration")), affinity);
+									if (!this.nameFeral.containsKey(configAffinity)) {
+										this.nameFeral.put(configAffinity, loadedFeralName);
 									}
 								}
 							} else {
-								this.nameFeral.put(new LegConfigurationAquatic(
+								this.nameFeral.put(new LegConfigurationAffinity(
 									LegConfiguration.valueOf(e.getAttribute("legConfiguration")),
-									Boolean.valueOf(e.getAttribute("isAquatic"))
+									Affinity.getAffinityFromId(e.getAttribute("affinity"))
 								), loadedFeralName);
 							}
 						} catch(Exception ex) {
@@ -213,9 +214,9 @@ public abstract class AbstractRace {
 						}
 					}
 				}
-				for (boolean isAquatic : Util.newArrayListOfValues(false, true)) {
-					if(!this.nameFeral.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, isAquatic))) {
-						this.nameFeral.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, isAquatic), anyFeralName);
+				for (Affinity affinity : Affinity.getAllAffinities()) {
+					if(!this.nameFeral.containsKey(new LegConfigurationAffinity(LegConfiguration.BIPEDAL, affinity))) {
+						this.nameFeral.put(new LegConfigurationAffinity(LegConfiguration.BIPEDAL, affinity), anyFeralName);
 					}
 				}
 
@@ -228,17 +229,17 @@ public abstract class AbstractRace {
 							if(anyFeralName.isEmpty()) {
 								anyFeralName = loadedFeralName;
 							}
-							if (e.getAttribute("isAquatic").isEmpty()) {
-								for (boolean isAquatic : Util.newArrayListOfValues(false, true)) {
-									LegConfigurationAquatic configAquatic = new LegConfigurationAquatic(LegConfiguration.valueOf(e.getAttribute("legConfiguration")), isAquatic);
-									if (!this.nameFeralPlural.containsKey(configAquatic)) {
-										this.nameFeralPlural.put(configAquatic, loadedFeralName);
+							if (e.getAttribute("affinity").isEmpty()) {
+								for (Affinity affinity : Affinity.getAllAffinities()) {
+									LegConfigurationAffinity configAffinity = new LegConfigurationAffinity(LegConfiguration.valueOf(e.getAttribute("legConfiguration")), affinity);
+									if (!this.nameFeralPlural.containsKey(configAffinity)) {
+										this.nameFeralPlural.put(configAffinity, loadedFeralName);
 									}
 								}
 							} else {
-								this.nameFeralPlural.put(new LegConfigurationAquatic(
+								this.nameFeralPlural.put(new LegConfigurationAffinity(
 									LegConfiguration.valueOf(e.getAttribute("legConfiguration")),
-									Boolean.valueOf(e.getAttribute("isAquatic"))
+									Affinity.getAffinityFromId(e.getAttribute("affinity"))
 								), loadedFeralName);
 							}
 						} catch(Exception ex) {
@@ -247,9 +248,9 @@ public abstract class AbstractRace {
 						}
 					}
 				}
-				for (boolean isAquatic : Util.newArrayListOfValues(false, true)) {
-					if(!this.nameFeralPlural.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, isAquatic))) {
-						this.nameFeralPlural.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, isAquatic), anyFeralName);
+				for (Affinity affinity : Affinity.getAllAffinities()) {
+					if(!this.nameFeralPlural.containsKey(new LegConfigurationAffinity(LegConfiguration.BIPEDAL, affinity))) {
+						this.nameFeralPlural.put(new LegConfigurationAffinity(LegConfiguration.BIPEDAL, affinity), anyFeralName);
 					}
 				}
 				
@@ -359,8 +360,8 @@ public abstract class AbstractRace {
 		if(feral) {
 			return getFeralName(
 				body != null ? 
-					new LegConfigurationAquatic(body.getLegConfiguration(), body.getSubspecies().isAquatic(body)) :
-					new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false),
+					new LegConfigurationAffinity(body.getLegConfiguration(), body.getSubspecies().getAffinity(body)) :
+					new LegConfigurationAffinity(LegConfiguration.BIPEDAL, Affinity.AMPHIBIOUS),
 				false);
 		}
 		if(Main.game!=null && Main.game.isSillyMode()) {
@@ -377,8 +378,8 @@ public abstract class AbstractRace {
 		if(feral) {
 			return getFeralName(
 				body != null ? 
-					new LegConfigurationAquatic(body.getLegConfiguration(), body.getSubspecies().isAquatic(body)) :
-					new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false),
+					new LegConfigurationAffinity(body.getLegConfiguration(), body.getSubspecies().getAffinity(body)) :
+					new LegConfigurationAffinity(LegConfiguration.BIPEDAL, Affinity.AMPHIBIOUS),
 				true);
 		}
 		if(Main.game!=null && Main.game.isSillyMode()) {
@@ -391,18 +392,18 @@ public abstract class AbstractRace {
 		return getNamePlural(null, feral);
 	}
 	
-	public String getFeralName(LegConfigurationAquatic legConfigurationAquatic, boolean plural) {
+	public String getFeralName(LegConfigurationAffinity legConfigurationAffinity, boolean plural) {
 		if(plural) {
-			if(nameFeralPlural.containsKey(legConfigurationAquatic)) {
-				return nameFeralPlural.get(legConfigurationAquatic);
+			if(nameFeralPlural.containsKey(legConfigurationAffinity)) {
+				return nameFeralPlural.get(legConfigurationAffinity);
 			} else {
-				return nameFeralPlural.get(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false));
+				return nameFeralPlural.get(new LegConfigurationAffinity(LegConfiguration.BIPEDAL, Affinity.AMPHIBIOUS));
 			}
 		} else {
-			if(nameFeral.containsKey(legConfigurationAquatic)) {
-				return nameFeral.get(legConfigurationAquatic);
+			if(nameFeral.containsKey(legConfigurationAffinity)) {
+				return nameFeral.get(legConfigurationAffinity);
 			} else {
-				return nameFeral.get(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false));
+				return nameFeral.get(new LegConfigurationAffinity(LegConfiguration.BIPEDAL, Affinity.AMPHIBIOUS));
 			}
 		}
 	}

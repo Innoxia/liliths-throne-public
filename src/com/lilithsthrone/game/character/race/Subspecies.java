@@ -14,7 +14,7 @@ import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.LegConfigurationAquatic;
+import com.lilithsthrone.game.character.body.LegConfigurationAffinity;
 import com.lilithsthrone.game.character.body.Wing;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
@@ -452,7 +452,7 @@ public class Subspecies {
 				case AVIAN:
 				case WINGED_BIPED:
 					return r==Race.HUMAN || r==Race.DEMON
-							?Race.DEMON.getFeralName(new LegConfigurationAquatic(legConfiguration, this.isAquatic()), false)
+							?Race.DEMON.getFeralName(new LegConfigurationAffinity(legConfiguration, this.getAffinity()), false)
 							:"demonic-"+r.getName(body, true);
 			}
 			

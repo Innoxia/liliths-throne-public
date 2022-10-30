@@ -11,7 +11,6 @@
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
-	<aquatic>false</aquatic>
 	<applySubspeciesChanges><![CDATA[
 		#IF(targetedBody.getFace().getType()!=FACE_TYPE_HUMAN)
 			[#targetedBody.getFace().setType(null, FACE_TYPE_charisma_spider_face)]

@@ -25,13 +25,13 @@
 	<nameFeral>
 		<name legConfiguration="QUADRUPEDAL"><![CDATA[dragon]]></name>
 		<name legConfiguration="TAIL_LONG"><![CDATA[wyrm]]></name>
-		<name legConfiguration="TAIL_LONG" isAquatic="true"><![CDATA[sea serpent]]></name>
+		<name legConfiguration="TAIL_LONG" affinity="AQUATIC"><![CDATA[sea serpent]]></name>
 		<name legConfiguration="TAIL"><![CDATA[sea serpent]]></name>
 	</nameFeral>
 	<nameFeralPlural>
 		<name legConfiguration="QUADRUPEDAL"><![CDATA[dragons]]></name>
 		<name legConfiguration="TAIL_LONG"><![CDATA[wyrms]]></name>
-		<name legConfiguration="TAIL_LONG" isAquatic="true"><![CDATA[sea serpents]]></name>
+		<name legConfiguration="TAIL_LONG" affinity="AQUATIC"><![CDATA[sea serpents]]></name>
 		<name legConfiguration="TAIL"><![CDATA[sea serpents]]></name>
 	</nameFeralPlural>
 	

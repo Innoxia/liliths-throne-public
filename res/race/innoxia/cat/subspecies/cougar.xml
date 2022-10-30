@@ -11,7 +11,6 @@
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
-	<aquatic>false</aquatic>
 	<applySubspeciesChanges><![CDATA[
 		[#targetedBody.setCovering(BODY_COVERING_TYPE_FELINE_FUR, COVERING_PATTERN_NONE, COVERING_MODIFIER_SHORT, COLOUR_COVERING_TAN, false, COLOUR_COVERING_BLACK, false)]
 		[#targetedBody.setCovering(BODY_COVERING_TYPE_HAIR_FELINE_FUR, COVERING_PATTERN_NONE, COLOUR_COVERING_TAN, false, COLOUR_COVERING_BLACK, false)]
