@@ -70,6 +70,8 @@ public class Combat {
 	private StringBuilder postCombatStringBuilder = new StringBuilder();
 	
 	private StringBuilder combatTurnResolutionStringBuilder = new StringBuilder();
+
+	private Map<GameCharacter, GameCharacter> preferredTargets;
 	
 	private Map<GameCharacter, Stack<Float>> manaBurnStack;
 	
@@ -94,17 +96,33 @@ public class Combat {
 	public Combat() {
 	}
 
+	public void initialiseCombat(
+			List<NPC> allies,
+			boolean addElementalsToAllies,
+			NPC enemyLeader,
+			List<NPC> enemies,
+			Map<GameCharacter, String> openingDescriptions) {
+		initialiseCombat(allies,
+				addElementalsToAllies,
+				enemyLeader,
+				enemies,
+				openingDescriptions,
+				false);
+	}
 	/**
 	 * @param allies A list of allies who are fighting with you. <b>Do not include Main.game.getPlayer() in this!</b>
 	 * @param enemies A list of enemies you're fighting. The first enemy in the list is considered the leader.
 	 * @param escapePercentage The base chance of escaping in this combat situation. TODO
 	 * @param openingDescriptions A map of opening descriptions for characters. If a description is not provided, one is generated automatically.
+	 * @param escapeBlocked Whether or not escape action is blocked during this combat.
 	 */
 	public void initialiseCombat(
 			List<NPC> allies,
+			boolean addElementalsToAllies,
 			NPC enemyLeader,
 			List<NPC> enemies,
-			Map<GameCharacter, String> openingDescriptions) {
+			Map<GameCharacter, String> openingDescriptions,
+			boolean escapeBlocked) {
 		
 		// These should be set manually after initialising combat
 		playerPostVictoryDialogue = null;
@@ -120,6 +138,7 @@ public class Combat {
 		combatContent = new HashMap<>();
 		escapeDescriptionMap = new HashMap<>();
 		itemsToBeUsed = new HashMap<>();
+		preferredTargets = new HashMap<>();
 		manaBurnStack = new HashMap<>();
 		statusEffectsToApply = new HashMap<>();
 		
@@ -137,16 +156,18 @@ public class Combat {
 		resetWeaponsThrownDuringCombat(Main.game.getPlayer());
 		resetThrownWeaponsDepleted(Main.game.getPlayer());
 		
-		if(Main.game.getPlayer().isElementalSummoned()) {
-			this.addAlly(Main.game.getPlayer().getElemental());
-			Main.game.getPlayer().getElemental().setLocation(Main.game.getPlayer(), false);
-		}
-		if(allies!=null){
-			for(NPC ally : allies) {
-				this.addAlly(ally);
-				if(ally.isElementalSummoned()) {
-					this.addAlly(ally.getElemental());
-					ally.getElemental().setLocation(ally, false);
+		if(addElementalsToAllies) {
+			if(Main.game.getPlayer().isElementalSummoned()) {
+				this.addAlly(Main.game.getPlayer().getElemental());
+				Main.game.getPlayer().getElemental().setLocation(Main.game.getPlayer(), false);
+			}
+			if(allies!=null){
+				for(NPC ally : allies) {
+					this.addAlly(ally);
+					if(ally.isElementalSummoned()) {
+						this.addAlly(ally.getElemental());
+						ally.getElemental().setLocation(ally, false);
+					}
 				}
 			}
 		}
@@ -173,26 +194,28 @@ public class Combat {
 		postCombatStringBuilder.setLength(0);
 		combatTurnResolutionStringBuilder.setLength(0);
 		
-		
-
-		escapeChance = ((NPC) enemies.get(0)).getEscapeChance();
-		if (Main.game.getPlayer().hasTrait(Perk.RUNNER, true)) {
-			escapeChance *= 1.5f;
-		} else if (Main.game.getPlayer().hasTrait(Perk.RUNNER_2, true)) {
-			escapeChance *= 2f;
-		}
-		if(escapeChance >0 && Main.game.getPlayer().hasTrait(Perk.JOB_ATHLETE, true)) {
-			escapeChance = 100;
-		}
-		if(escapeChance >0 && Main.game.getPlayer().getSubspecies()==Subspecies.CAT_MORPH_CHEETAH) {
-			boolean cheetahEnemy = false;
-			for(GameCharacter enemy : getEnemies(Main.game.getPlayer())) {
-				if(enemy.getSubspecies()==Subspecies.CAT_MORPH_CHEETAH) {
-					cheetahEnemy = true;
-				}
+		if(escapeBlocked) {
+			escapeChance = 0;
+		} else {
+			escapeChance = ((NPC) enemies.get(0)).getEscapeChance();
+			if (Main.game.getPlayer().hasTrait(Perk.RUNNER, true)) {
+				escapeChance *= 1.5f;
+			} else if (Main.game.getPlayer().hasTrait(Perk.RUNNER_2, true)) {
+				escapeChance *= 2f;
 			}
-			if(!cheetahEnemy) {
+			if(escapeChance >0 && Main.game.getPlayer().hasTrait(Perk.JOB_ATHLETE, true)) {
 				escapeChance = 100;
+			}
+			if(escapeChance >0 && Main.game.getPlayer().getSubspecies()==Subspecies.CAT_MORPH_CHEETAH) {
+				boolean cheetahEnemy = false;
+				for(GameCharacter enemy : getEnemies(Main.game.getPlayer())) {
+					if(enemy.getSubspecies()==Subspecies.CAT_MORPH_CHEETAH) {
+						cheetahEnemy = true;
+					}
+				}
+				if(!cheetahEnemy) {
+					escapeChance = 100;
+				}
 			}
 		}
 		
@@ -211,11 +234,13 @@ public class Combat {
 			startingEffect = Spell.getBasicStatusEffectApplication(Main.game.getPlayer(), true, Util.newHashMapOfValues(new Value<>(StatusEffect.TELEPATHIC_COMMUNICATION, 10)));
 		}
 		
-		combatContent.get(Main.game.getPlayer()).add(
-				(Main.game.getPlayer().hasTrait(Perk.JOB_SOLDIER, true)
-					?"Any "+Attribute.HEALTH_MAXIMUM.getName()+" damage you deal in this first turn is [style.boldExcellent(doubled)] thanks to your"
-							+ " <b style='color:"+Perk.JOB_SOLDIER.getColour().toWebHexString()+";'>"+Perk.JOB_SOLDIER.getName(Main.game.getPlayer())+"</b> ability."
-					:""));
+		// Soldier:
+		if(Main.game.getPlayer().hasTrait(Perk.JOB_SOLDIER, true)) {
+			Main.game.getPlayer().addStatusEffect(StatusEffect.COMBAT_JOB_SOLDIER, 2);
+			combatContent.get(Main.game.getPlayer()).add(
+					"Any "+Attribute.HEALTH_MAXIMUM.getName()+" damage you deal in this first turn is [style.boldExcellent(doubled)] thanks to your"
+						+ " <b style='color:"+Perk.JOB_SOLDIER.getColour().toWebHexString()+";'>"+Perk.JOB_SOLDIER.getName(Main.game.getPlayer())+"</b> ability.");
+		}
 		
 		combatContent.get(Main.game.getPlayer()).add(
 				openingDescriptions!=null && openingDescriptions.containsKey(Main.game.getPlayer())
@@ -243,13 +268,14 @@ public class Combat {
 				combatant.addStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION, 11);
 				startingEffect = Spell.getBasicStatusEffectApplication(combatant, true, Util.newHashMapOfValues(new Value<>(StatusEffect.TELEPATHIC_COMMUNICATION, 10)));
 			}
-			
-			combatContent.get(combatant).add(UtilText.parse(combatant,
-					(combatant.hasTrait(Perk.JOB_SOLDIER, true)
-						?"Any "+Attribute.HEALTH_MAXIMUM.getName()+" damage [npc.name] deals in this first turn is [style.boldExcellent(doubled)] thanks to [npc.her]"
-								+ " <b style='color:"+Perk.JOB_SOLDIER.getColour().toWebHexString()+";'>"+Perk.JOB_SOLDIER.getName(combatant)+"</b> ability."
-						:"")
-					));
+
+			// Soldier:
+			if(combatant.hasTrait(Perk.JOB_SOLDIER, true)) {
+				combatant.addStatusEffect(StatusEffect.COMBAT_JOB_SOLDIER, 2);
+				combatContent.get(combatant).add(UtilText.parse(combatant,
+						"Any "+Attribute.HEALTH_MAXIMUM.getName()+" damage [npc.name] deals in this first turn is [style.boldExcellent(doubled)] thanks to [npc.her]"
+								+ " <b style='color:"+Perk.JOB_SOLDIER.getColour().toWebHexString()+";'>"+Perk.JOB_SOLDIER.getName(combatant)+"</b> ability."));
+			}
 			
 			combatContent.get(combatant).add(UtilText.parse(combatant,
 					openingDescriptions!=null && openingDescriptions.containsKey(combatant)
@@ -264,6 +290,7 @@ public class Combat {
 			combatContent.get(combatant).add(startingEffect);
 		}
 		
+		Main.game.getPlayer().calculateStatusEffects(0); // Calculate status effects to make sure combat SEs are initialised before selecting moves
 		Main.game.getPlayer().resetSelectedMoves();
 		Main.game.getPlayer().resetMoveCooldowns();
 		applyNewTurnShielding(Main.game.getPlayer());
@@ -274,6 +301,7 @@ public class Combat {
 		Main.game.setInCombat(true);
 		
 		for(NPC npc : allCombatants) {
+			npc.calculateStatusEffects(0); // Calculate status effects to make sure combat SEs are initialised before selecting moves
 			combatTurnResolutionStringBuilder.append(getCharactersTurnDiv(npc, getTurn()==0?"Preparation":"", combatContent.get(npc)));
 			
 			npc.resetSelectedMoves();
@@ -1015,7 +1043,7 @@ public class Combat {
 							CombatBehaviour behaviour = CombatBehaviour.values()[i-1];
 							
 							if(targetedAlly.isPlayer()) {
-								return new Response(Util.capitaliseSentence(behaviour.getName()), UtilText.parse(targetedAlly, "You cannot issue commands to yourself!"), null);
+								return new Response(Util.capitaliseSentence(behaviour.getName()), "You cannot issue commands to yourself!", null);
 							}
 							return new Response(
 									Util.capitaliseSentence(behaviour.getName()),
@@ -1060,6 +1088,111 @@ public class Combat {
 								}
 							};
 						}
+					}
+					// Change targets:
+					if(index==CombatBehaviour.values().length+1) {
+						if(targetedAlly.isPlayer()) {
+							return new Response("Cycle target", "You cannot issue commands to yourself!", null);
+						}
+						return new Response(
+								"Cycle target",
+								UtilText.parse(targetedAlly, "Tell [npc.name] to change [npc.her] target. [npc.She] is currently targeting [style.colourBad("
+									+ (getPreferredTarget(targetedAlly)==null
+										?" whoever [npc.she] wants"
+										:UtilText.parse(getPreferredTarget(targetedAlly), " [npc.name]"))
+									+")].")
+									+costDescription,
+								ENEMY_ATTACK) {
+							@Override
+							public void effects() {
+								// Sets up NPC ally/enemy lists that include player
+								List<GameCharacter> npcAllies= getAllies(targetedAlly);
+								List<GameCharacter> npcEnemies = getEnemies(targetedAlly);
+								npcAllies.removeIf((character)->isCombatantDefeated(character));
+								npcEnemies.removeIf((character)->isCombatantDefeated(character));
+								
+								// Figures out the new moves
+								int i = 0;
+								for(Value<GameCharacter, AbstractCombatMove> move : targetedAlly.getSelectedMoves()) {
+									move.getValue().performOnDeselection(i,
+											targetedAlly,
+											move.getKey(),
+											new ArrayList<>(npcEnemies),
+											new ArrayList<>(npcAllies));
+									targetedAlly.setCooldown(move.getValue().getIdentifier(), 0);
+									i++;
+								}
+								
+								// Set the preferred target:
+								int currentTargetIndex = 0;
+								if(getPreferredTarget(targetedAlly)!=null) {
+									currentTargetIndex = enemies.indexOf(getPreferredTarget(targetedAlly));
+								}
+								List<GameCharacter> enemiesDoubled = new ArrayList<>(enemies);
+								enemiesDoubled.addAll(enemies);
+								for(int enemyIdx=0; enemyIdx<enemiesDoubled.size(); enemyIdx++) {
+									GameCharacter enemyAtIndex = enemiesDoubled.get(enemyIdx);
+									if(!isCombatantDefeated(enemyAtIndex) && getPreferredTarget(targetedAlly)!=enemyAtIndex && (enemyIdx>currentTargetIndex || getPreferredTarget(targetedAlly)==null)) {
+										setPreferredTarget(targetedAlly, enemyAtIndex);
+										break;
+									}
+								}
+								
+								targetedAlly.resetSelectedMoves();
+								targetedAlly.setRemainingAP(targetedAlly.getMaxAP(), npcEnemies, npcAllies);
+								targetedAlly.selectMoves(npcEnemies, npcAllies);
+								
+								predictionContent.put(targetedAlly, targetedAlly.getMovesPredictionString(npcEnemies, npcAllies));
+							}
+						};
+					}
+					// Clear target:
+					if(index==CombatBehaviour.values().length+2) {
+						if(targetedAlly.isPlayer()) {
+							return new Response("Clear target", "You cannot issue commands to yourself!", null);
+						}
+						if(getPreferredTarget(targetedAlly)==null) {
+							return new Response("Clear target", UtilText.parse(targetedAlly, "[npc.Name] is already targeting whoever [npc.she] wants!"), null);
+						}
+						return new Response(
+								"Clear target",
+								UtilText.parse(targetedAlly, "Tell [npc.name] to target whoever [npc.she] wants. [npc.She] is currently targeting [style.colourBad("
+									+ (getPreferredTarget(targetedAlly)==null
+										?" whoever [npc.she] wants"
+										:UtilText.parse(getPreferredTarget(targetedAlly), " [npc.name]"))
+									+")].")
+									+costDescription,
+								ENEMY_ATTACK) {
+							@Override
+							public void effects() {
+								// Sets up NPC ally/enemy lists that include player
+								List<GameCharacter> npcAllies= getAllies(targetedAlly);
+								List<GameCharacter> npcEnemies = getEnemies(targetedAlly);
+								npcAllies.removeIf((character)->isCombatantDefeated(character));
+								npcEnemies.removeIf((character)->isCombatantDefeated(character));
+								
+								// Figures out the new moves
+								int i = 0;
+								for(Value<GameCharacter, AbstractCombatMove> move : targetedAlly.getSelectedMoves()) {
+									move.getValue().performOnDeselection(i,
+											targetedAlly,
+											move.getKey(),
+											new ArrayList<>(npcEnemies),
+											new ArrayList<>(npcAllies));
+									targetedAlly.setCooldown(move.getValue().getIdentifier(), 0);
+									i++;
+								}
+								
+								// Set the preferred target:
+								setPreferredTarget(targetedAlly, null);
+								
+								targetedAlly.resetSelectedMoves();
+								targetedAlly.setRemainingAP(targetedAlly.getMaxAP(), npcEnemies, npcAllies);
+								targetedAlly.selectMoves(npcEnemies, npcAllies);
+								
+								predictionContent.put(targetedAlly, targetedAlly.getMovesPredictionString(npcEnemies, npcAllies));
+							}
+						};
 					}
 				}
 				
@@ -1684,6 +1817,7 @@ public class Combat {
 				if(appliedSe.getEffect().getEffectInterval()<=0 || ((turn-appliedSe.getLastTimeAppliedEffect())>appliedSe.getEffect().getEffectInterval())) {
 					if(appliedSe.getEffect().getEffectInterval()<=0) {
 						s.append(se.applyEffect(character, 1, appliedSe.getSecondsPassed()));
+						
 					} else {
 						for(int i=0; i<((Main.game.getSecondsPassed()-appliedSe.getLastTimeAppliedEffect())/appliedSe.getEffect().getEffectInterval()); i++) {
 							if(s.length()>0) {
@@ -1704,7 +1838,9 @@ public class Combat {
 //				if(!effectString.isEmpty()) {
 //					endTurnStatusEffectText.append("<p><b style='color: " + se.getColour().toWebHexString() + "'>" + Util.capitaliseSentence(se.getName(character)) + ":</b> " + effectString+ "</p>");
 //				}
-				character.setCombatStatusEffectDuration(se, character.getStatusEffectDuration(se) - 1);
+				if(character.getStatusEffectDuration(se)>=0) { // Don't decrement below -1
+					character.setCombatStatusEffectDuration(se, character.getStatusEffectDuration(se) - 1);
+				}
 				if (character.getStatusEffectDuration(se) == 0) { // Do not remove special effects (i.e. ones set at -1 duration)
 					effectsToRemove.add(se);
 				}
@@ -1726,7 +1862,7 @@ public class Combat {
 	}
 	
 	/**
-	 * @return The enemy NPC which the player is targeting. Use COmbatMove's getPreferredTarget for NPC targeting.
+	 * @return The enemy NPC which the player is targeting. Use CombatMove's getPreferredTarget for NPC targeting.
 	 */
 	public GameCharacter getTargetedCombatant() {
 		return targetedEnemy;
@@ -1994,6 +2130,27 @@ public class Combat {
 	
 	public Map<GameCharacter, Stack<Float>> getManaBurnStack() {
 		return manaBurnStack;
+	}
+
+	/**
+	 * Set target to null to remove preferred targeting behaviour.
+	 */
+	public void setPreferredTarget(GameCharacter character, GameCharacter target) {
+		if(target==null) {
+			preferredTargets.remove(character);
+		} else {
+			preferredTargets.put(character, target);
+		}
+	}
+	
+	/**
+	 * Will typically be null, unless a target has been manually set. If the preferred target is defeated, this will return null.
+	 */
+	public GameCharacter getPreferredTarget(GameCharacter character) {
+		if(!preferredTargets.containsKey(character) || isCombatantDefeated(preferredTargets.get(character))) {
+			return null;
+		}
+		return preferredTargets.get(character);
 	}
 	
 	public void addStatusEffectToApply(GameCharacter target, AbstractStatusEffect effect, int duration) {

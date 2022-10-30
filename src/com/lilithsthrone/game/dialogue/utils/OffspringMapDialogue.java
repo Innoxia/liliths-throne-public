@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.encounters.AbstractEncounter;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.main.Main;
@@ -20,7 +21,7 @@ import com.lilithsthrone.world.places.AbstractPlaceType;
 
 /**
  * @since 0.3.2
- * @version 0.3.5.5
+ * @version 0.4.4
  * @author Innoxia
  */
 public class OffspringMapDialogue {
@@ -29,29 +30,40 @@ public class OffspringMapDialogue {
 		AbstractWorldType worldType = Main.game.getPlayer().getWorldLocation();
 		AbstractPlaceType placeType = Main.game.getPlayer().getLocationPlace().getPlaceType();
 		
+		AbstractEncounter enc = Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType();
 		return Main.game.getOffspringNotSpawned(os->
 			os.getSubspecies().isAbleToNaturallySpawnInLocation(worldType, placeType)
 				&& (worldType==WorldType.HARPY_NEST
 						?(os.getHalfDemonSubspecies()==null || os.getHalfDemonSubspecies().getRace()==Race.HARPY)
 						:(os.getHalfDemonSubspecies()==null || os.getHalfDemonSubspecies().getRace()!=Race.HARPY))
-				|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_ALLEY
-						&& (os.getSubspecies()==Subspecies.ANGEL
-							|| os.getSubspecies()==Subspecies.FOX_ASCENDANT
+				// Allow youko in Elis alleyways:
+				|| (enc==Encounter.getEncounterFromId("innoxia_elis_alleyway")
+						&& (os.getSubspecies()==Subspecies.FOX_ASCENDANT
 							|| os.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
 							|| os.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC))
-				|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_CANAL
+				// Allow Angels in Dominion:
+				|| (enc==Encounter.DOMINION_ALLEY
+						&& (os.getSubspecies()==Subspecies.ANGEL))
+				// Allow alligators, slimes, and rats in Dominion canals:
+				|| (enc==Encounter.DOMINION_CANAL
 						&& (os.getSubspecies()==Subspecies.ALLIGATOR_MORPH
 							|| os.getSubspecies()==Subspecies.SLIME
-							|| os.getSubspecies()==Subspecies.RAT_MORPH)));
+							|| os.getSubspecies()==Subspecies.RAT_MORPH))
+				);
 	}
 	
 	
 	public static final DialogueNode OFFSPRING_CHOICE = new DialogueNode("Offspring list", "-", true) {
+		List<OffspringSeed> offspringList;
+		@Override
+		public void applyPreParsingEffects() {
+			offspringList = getOffspringList();
+		}
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			boolean noOffspring = getOffspringList().isEmpty();
+			boolean noOffspring = offspringList.isEmpty();
 			
 			UtilText.nodeContentSB.append(
 					"<p>"
@@ -68,7 +80,7 @@ public class OffspringMapDialogue {
 				
 			} else {
 				boolean foundAnyInArea = false;
-				List<OffspringSeed> offspringToShow = Main.game.getOffspringNotSpawned(npc->getOffspringList().contains(npc));
+				List<OffspringSeed> offspringToShow = Main.game.getOffspringNotSpawned(npc->offspringList.contains(npc));
 				if(!offspringToShow.isEmpty()) {
 					foundAnyInArea = true;
 					UtilText.nodeContentSB.append("Offspring [style.colourMinorGood(possibly in this area)]:<br/>");
@@ -91,7 +103,7 @@ public class OffspringMapDialogue {
 							+ "<br/>");
 				}
 				
-				offspringToShow = Main.game.getOffspringNotSpawned(npc->!getOffspringList().contains(npc));
+				offspringToShow = Main.game.getOffspringNotSpawned(npc->!offspringList.contains(npc));
 				if(!offspringToShow.isEmpty()) {
 					if(foundAnyInArea) {
 						UtilText.nodeContentSB.append("<br/>");
@@ -124,8 +136,8 @@ public class OffspringMapDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			List<OffspringSeed> offspringToShow = Main.game.getOffspringNotSpawned(npc->getOffspringList().contains(npc));
-			offspringToShow.addAll(Main.game.getOffspringNotSpawned(npc->!getOffspringList().contains(npc)));
+			List<OffspringSeed> offspringToShow = Main.game.getOffspringNotSpawned(npc->offspringList.contains(npc));
+			offspringToShow.addAll(Main.game.getOffspringNotSpawned(npc->!offspringList.contains(npc)));
 			
 			if (index == 0) {
 				return new Response("Back", "Decide not to look for any of your offspring in this location after all.", Main.game.getDefaultDialogue(false));
@@ -133,7 +145,7 @@ public class OffspringMapDialogue {
 			} else if(index-1 < offspringToShow.size()) {
 				OffspringSeed offspring = offspringToShow.get(index-1);
 				
-				if(!getOffspringList().contains(offspring)) {
+				if(!offspringList.contains(offspring)) {
 					return new Response(offspring.getName(),
 							offspring.getName()+" cannot be found in this area, due to "+offspring.hisHer()+" subspecies...",
 							null);

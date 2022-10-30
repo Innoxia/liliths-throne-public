@@ -207,10 +207,10 @@ public class Dale extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 		
 		if(this.getLocationPlaceType()==PlaceType.getPlaceTypeFromId("innoxia_fields_dairyFarm_dormitory")) { // Sleeping
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BOXERS, PresetColour.CLOTHING_DESATURATED_BROWN, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_boxers", PresetColour.CLOTHING_DESATURATED_BROWN, false), true, this);
 			
 		} else {
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BOXERS, PresetColour.CLOTHING_DESATURATED_BROWN, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_boxers", PresetColour.CLOTHING_DESATURATED_BROWN, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_IRON, PresetColour.CLOTHING_IRON, PresetColour.CLOTHING_IRON, false), true, this);
 			
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_trousers", PresetColour.CLOTHING_BLACK, false), true, this);
@@ -318,8 +318,8 @@ public class Dale extends NPC {
 									+ " but as [npc.namePos] [npc.cock+] claims your precious virginity, you don't have any time to reflect on your choice."
 								+ " The only thing that's on your mind is the fact that you've being broken in by the [npc.cockGirth] donkey-dick that's been pushed into your now-despoiled cunt.");
 					} else {
-						sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+] claim your virginity, you can't help but let out a desperately lewd [pc.moan]."
-								+ " [npc.NamePos] [npc.cockGirth] donkey-dick is giving you a feeling unlike any you've felt before, and you can't help but continue to scream and [pc.moan] in a delightful haze of overwhelming ecstasy.");
+						sb.append("As [npc.namePos] [npc.cock+] is slowly pushed into your [pc.pussy+] to claim your virginity, you can't help but let out a desperately lewd [pc.moan]."
+								+ " [npc.NamePos] [npc.cockGirth] donkey-dick is giving you an intense pleasure unlike any you've felt before, and you can't help but continue to scream and [pc.moan] in a delightful haze of overwhelming ecstasy.");
 					}
 				sb.append("</p>");
 			}
@@ -351,7 +351,7 @@ public class Dale extends NPC {
 		} else if(penetrated == SexAreaOrifice.ANUS) {
 			sb.append("<p>");
 				sb.append("As [npc.name] slowly pushes [npc.her] [npc.cock+] into your [pc.asshole+] to claim your virginity, you can't help but let out a desperate, shuddering wail."
-						+ " The uncomfortable sensation of having [npc.namePos] [npc.cockGirth] donkey-dick slowly forcing its way inside of you causes you to squirm about in discomfort..");
+						+ " The uncomfortable sensation of having [npc.namePos] [npc.cockGirth] donkey-dick slowly forcing its way inside of you causes you to squirm about in discomfort.");
 			sb.append("</p>");
 			
 			sb.append("<p>"

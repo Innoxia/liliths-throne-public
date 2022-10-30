@@ -295,7 +295,7 @@ public abstract class AbstractStatusEffect {
 				
 			} catch(Exception ex) {
 				ex.printStackTrace();
-				System.err.println("SetBonus was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+				System.err.println("StatusEffect was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
 			}
 		}
 	}
@@ -554,7 +554,11 @@ public abstract class AbstractStatusEffect {
 						SVGString = SvgUtil.colourReplacement(this.getId(), colourShades, null, SVGString);
 						
 					} else {
-						InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/" + pathName + ".svg");
+						String path = "/com/lilithsthrone/res/statusEffects/" + pathName + ".svg";
+						if(pathName.startsWith("res/")) {
+							path = "/com/lilithsthrone/"+pathName+".svg";
+						}
+						InputStream is = this.getClass().getResourceAsStream(path);
 						if(is==null) {
 							System.err.println("Error! StatusEffect icon file does not exist (Trying to read from '"+pathName+"')!");
 						}
@@ -1200,9 +1204,7 @@ public abstract class AbstractStatusEffect {
 		} else if (owner.isFeminine() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES)) {
 			names.add("nipples");
 		}
-		if(owner.hasBreastsCrotch()
-				&& (Main.getProperties().getUddersLevel()>0 || owner.isFeral())
-				&& owner.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH)) {
+		if(owner.hasBreastsCrotch() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH)) {
 			names.add(UtilText.parse(owner, "[npc.crotchBoobs]"));
 		}
 		if(owner.isCoverableAreaVisible(CoverableArea.ANUS)) {
@@ -1229,9 +1231,7 @@ public abstract class AbstractStatusEffect {
 		
 		boolean breastsExposed = owner.hasBreasts() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES);
 		boolean nipplesExposed = ! breastsExposed && owner.isFeminine() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES);
-		boolean crotchBoobsExposed = owner.hasBreastsCrotch()
-				&& (Main.getProperties().getUddersLevel()>0 || owner.isFeral())
-				&& owner.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH);
+		boolean crotchBoobsExposed = owner.hasBreastsCrotch() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH);
 
 		boolean anusExposed = owner.isCoverableAreaVisible(CoverableArea.ANUS);
 		
@@ -1291,9 +1291,7 @@ public abstract class AbstractStatusEffect {
 		boolean anusRecovering = owner.getAssRawCapacityValue()!=owner.getAssStretchedCapacity();
 		boolean throatRecovering = owner.getFaceRawCapacityValue()!=owner.getFaceStretchedCapacity();
 		boolean nipplesRecovering = owner.getNippleRawCapacityValue()!=owner.getNippleStretchedCapacity();
-		boolean nipplesCrotchRecovering = owner.hasBreastsCrotch()
-				&& (Main.getProperties().getUddersLevel()>0 || owner.isFeral())
-				&& owner.getNippleCrotchRawCapacityValue()!=owner.getNippleCrotchStretchedCapacity();
+		boolean nipplesCrotchRecovering = owner.hasBreastsCrotch() && owner.getNippleCrotchRawCapacityValue()!=owner.getNippleCrotchStretchedCapacity();
 		boolean penileUrethraRecovering = owner.hasPenis() && owner.getPenisRawCapacityValue()!=owner.getPenisStretchedCapacity();
 		boolean vaginalUrethraRecovering = owner.hasVagina() && owner.getVaginaUrethraRawCapacityValue()!=owner.getVaginaUrethraStretchedCapacity();
 		

@@ -112,6 +112,9 @@ public enum BodyPartTag {
 
 	/** Whether this tail unlocks lust-applying sting attacks. (Not yet implemented) */
 	TAIL_VENOMOUS_STING_LUST,
+
+	/** Whether this tail can act as an ovipositor. */
+	TAIL_OVIPOSITOR,
 	
 	// Tail types:
 	/** Of a type which is covered in skin. Used for girth descriptors and descriptions. Examples would be demonic, rat.*/
@@ -142,7 +145,7 @@ public enum BodyPartTag {
 	/** The tail's diameter tapers off at a steady rate from the base. An example would be for alligator tails. */
 	TAIL_TAPERING_LINEAR,
 
-	/** The tail's diameter expands from from the base and then tapers off, creating a bulbous, oval shape. Examples would be for spider-morph abdomen-tails. */
+	/** The tail's diameter expands from the base and then tapers off, creating a bulbous, oval shape. Examples would be for spider-morph abdomen-tails. */
 	TAIL_TAPERING_BULBOUS,
 	
 	/** The tail's diameter does not taper off from the base. Examples would be for cat, dog, rat tails. */

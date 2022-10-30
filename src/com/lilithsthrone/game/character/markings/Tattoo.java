@@ -56,6 +56,46 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	
 	private static Map<Colour, String> SVGGlowMap = new HashMap<>();
 
+	public Tattoo(String typeId,
+			boolean glowing,
+			TattooWriting writing,
+			TattooCounter counter) {
+		this(TattooType.getTattooTypeFromId(typeId),
+				TattooType.getTattooTypeFromId(typeId).getDefaultPrimaryColour(),
+				TattooType.getTattooTypeFromId(typeId).getDefaultSecondaryColour(),
+				TattooType.getTattooTypeFromId(typeId).getDefaultTertiaryColour(),
+				glowing, writing, counter);
+	}
+	
+	public Tattoo(String typeId,
+			Colour allThreeColours,
+			boolean glowing,
+			TattooWriting writing,
+			TattooCounter counter) {
+		this(TattooType.getTattooTypeFromId(typeId), allThreeColours, allThreeColours, allThreeColours, glowing, writing, counter);
+	}
+	
+	public Tattoo(String typeId,
+			Colour primaryColour,
+			Colour secondaryColour,
+			Colour tertiaryColour,
+			boolean glowing,
+			TattooWriting writing,
+			TattooCounter counter) {
+		this(TattooType.getTattooTypeFromId(typeId), primaryColour, secondaryColour, tertiaryColour, glowing, writing, counter);
+	}
+	
+	public Tattoo(AbstractTattooType type,
+			boolean glowing,
+			TattooWriting writing,
+			TattooCounter counter) {
+		this(type,
+				type.getDefaultPrimaryColour(),
+				type.getDefaultSecondaryColour(),
+				type.getDefaultTertiaryColour(),
+				glowing, writing, counter);
+	}
+	
 	public Tattoo(AbstractTattooType type,
 			Colour primaryColour,
 			Colour secondaryColour,
@@ -265,19 +305,23 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	}
 
 	public String getDisplayName(boolean withRarityColour) {
-
-		if(!this.getName().replaceAll("\u00A0"," ").equalsIgnoreCase(this.getType().getName().replaceAll("\u00A0"," "))) { // If this tattoo has a custom name, just display that:
+		String baseName = this.getName();
+		if(baseName.trim().isEmpty()) {
+			baseName = this.getType().getName();
+		}
+		
+		if(!baseName.replaceAll("\u00A0"," ").equalsIgnoreCase(this.getType().getName().replaceAll("\u00A0"," "))) { // If this tattoo has a custom name, just display that:
 			return (withRarityColour
-						? " <span style='color: " + this.getRarity().getColour().toWebHexString() + ";'>" + getName() + "</span>"
-						: getName());
+						? " <span style='color: " + this.getRarity().getColour().toWebHexString() + ";'>" + baseName + "</span>"
+						: baseName);
 //					+" tattoo";
 		}
 		
 		return Util.capitaliseSentence(this.getPrimaryColour().getName()) + " "
 				+ (withRarityColour?" <span style='color: " + this.getRarity().getColour().toWebHexString() + ";'>":"")
-					+ (this.getType()==TattooType.NONE
+					+ (this.getType()==TattooType.getTattooTypeFromId("innoxia_misc_none")
 						?"tattoo"
-						:this.getName() + " tattoo")
+						:baseName + " tattoo")
 				+ (withRarityColour?"</span>":"")
 				+(!this.getEffects().isEmpty()
 						? " "+getEnchantmentPostfix(withRarityColour, "b")
@@ -403,6 +447,14 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	public TattooWriting getWriting() {
 		return writing;
 	}
+
+	public void setWriting(TattooWriting writing) {
+		this.writing = writing;
+	}
+
+	public void setWriting(String text, Colour colour, boolean glow, TattooWritingStyle... styles) {
+		this.writing = new TattooWriting(text, colour, glow, styles);
+	}
 	
 	/**
 	 * For examples.
@@ -427,6 +479,14 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		return counter;
 	}
 
+	public void setCounter(TattooCounter counter) {
+		this.counter = counter;
+	}
+
+	public void setCounter(TattooCounterType type, TattooCountType countType, Colour colour, boolean glow) {
+		this.counter = new TattooCounter(type, countType, colour, glow);
+	}
+	
 	/**
 	 * For examples.
 	 */
@@ -464,6 +524,10 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		return this.getType().getDescription();
 	}
 
+	public String getBodyOverviewDescription() {
+		return this.getType().getBodyOverviewDescription();
+	}
+	
 	@Override
 	public int getValue() {
 		return this.getType().getValue();

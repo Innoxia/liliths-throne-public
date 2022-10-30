@@ -1,9 +1,12 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 
-import com.lilithsthrone.game.character.attributes.AffectionLevel;
+import java.util.List;
+import java.util.Map;
+
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -38,8 +41,14 @@ public class LovingActions {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			Map<InventorySlot, List<AbstractClothing>> concealedMap = Main.sex.getCharacterTargetedForSexAction(this).getInventorySlotsConcealed(Main.sex.getCharacterPerformingAction());
+			if(concealedMap.containsKey(InventorySlot.MOUTH) && concealedMap.containsKey(InventorySlot.EYES)) {
+				return false; // If mouth and eyes are concealed, treat face as being concealed and so unavailable
+			}
+			
 			boolean mouthFinger = false;
 			boolean mouthFingerReversed = false;
+			
 			try {
 				mouthFinger = Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())).get(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)))
 						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH);
@@ -54,10 +63,7 @@ public class LovingActions {
 			}
 			return SexAreaPenetration.FINGER.isFree(Main.sex.getCharacterPerformingAction())
 					&& !Main.sex.isDom(Main.sex.getCharacterTargetedForSexAction(this))
-					&& (mouthFinger || mouthFingerReversed)
-					&& (Main.sex.getCharacterPerformingAction().isPlayer()
-							|| (Main.sex.getCharacterPerformingAction().getAffectionLevel(Main.sex.getCharacterTargetedForSexAction(this)).isGreaterThan(AffectionLevel.POSITIVE_TWO_LIKE)
-									&& !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST)));
+					&& (mouthFinger || mouthFingerReversed);
 		}
 		
 		@Override
@@ -115,6 +121,11 @@ public class LovingActions {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			Map<InventorySlot, List<AbstractClothing>> concealedMap = Main.sex.getCharacterTargetedForSexAction(this).getInventorySlotsConcealed(Main.sex.getCharacterPerformingAction());
+			if(concealedMap.containsKey(InventorySlot.MOUTH) && concealedMap.containsKey(InventorySlot.EYES)) {
+				return false; // If mouth and eyes are concealed, treat face as being concealed and so unavailable
+			}
+			
 			boolean mouthTongue = false;
 			boolean mouthTongueReversed = false;
 			try {
@@ -131,10 +142,7 @@ public class LovingActions {
 			}
 			return SexAreaOrifice.MOUTH.isFree(Main.sex.getCharacterPerformingAction())
 					&& !Main.sex.isDom(Main.sex.getCharacterTargetedForSexAction(this))
-					&& (mouthTongue || mouthTongueReversed)
-					&& (Main.sex.getCharacterPerformingAction().isPlayer()
-							|| (Main.sex.getCharacterPerformingAction().getAffectionLevel(Main.sex.getCharacterTargetedForSexAction(this)).isGreaterThan(AffectionLevel.POSITIVE_TWO_LIKE)
-									&& !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST)));
+					&& (mouthTongue || mouthTongueReversed);
 		}
 		
 		@Override

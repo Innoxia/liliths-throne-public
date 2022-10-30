@@ -86,7 +86,7 @@
 	<bodyDescription><![CDATA[
 	In place of arms and hands, [npc.she] [npc.has] [npc.armRows] huge draconic wings which are [npc.materialCompositionDescriptor] [npc.armFullDescription(true)].
 	#IF(!npc.isFeral())
-	 [npc.Her] hands are comprised of two forefingers and a thumb, each tipped with a sharp talon. Although slightly less dextrous than a five-digit hand, [npc.sheIs] still able to use them to form a hand-like grip.
+	 [npc.Her] hands are comprised of two forefingers and a thumb, each tipped with a sharp talon. Although slightly less dexterous than a five-digit hand, [npc.sheIs] still able to use them to form a hand-like grip.
 	#ENDIF
 	]]></bodyDescription>
 	

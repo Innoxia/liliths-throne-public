@@ -67,11 +67,11 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.Tattoo;
-import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.markings.TattooWriting;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
@@ -493,7 +493,7 @@ public class Evelyx extends NPC {
 		}
 		
 		// Crotch boobs:
-		if(crotchBoobs && ((Main.getProperties().getUddersLevel()==1 && worker.isTaur()) || (Main.getProperties().getUddersLevel()==2 && worker.getRace().getRacialBody().getBreastCrotchType()!=BreastType.NONE))) {
+		if(crotchBoobs && Main.game.isUdderContentEnabled() && (worker.isTaur() || worker.getRace().getRacialBody().getBreastCrotchType()!=BreastType.NONE)) {
 			boolean applyCrotchBoobs = !worker.hasBreastsCrotch();
 			if(!anyTransformationAvailable) {
 				anyTransformationAvailable = applyCrotchBoobs;
@@ -606,7 +606,7 @@ public class Evelyx extends NPC {
 		StringBuilder sbAppliedTransformation = new StringBuilder();
 		boolean anyFetishChangesAvailable = false;
 		
-		Map<Fetish, String> fetishesToBeAdded = new HashMap<>();
+		Map<AbstractFetish, String> fetishesToBeAdded = new HashMap<>();
 		
 		// Trainee values:
 		fetishesToBeAdded.put(Fetish.FETISH_LACTATION_SELF, "Cows should love to be milked.");
@@ -629,7 +629,7 @@ public class Evelyx extends NPC {
 			fetishesToBeAdded.put(Fetish.FETISH_SIZE_QUEEN, "No insertion is too big for a good cow.");
 		}
 		
-		for(Entry<Fetish, String> fetishToAdd : fetishesToBeAdded.entrySet()) {
+		for(Entry<AbstractFetish, String> fetishToAdd : fetishesToBeAdded.entrySet()) {
 			boolean applyFetish = !worker.hasFetish(fetishToAdd.getKey());
 			if(!anyFetishChangesAvailable) {
 				anyFetishChangesAvailable = applyFetish;
@@ -925,7 +925,7 @@ public class Evelyx extends NPC {
 	public void applyCowTattoo(GameCharacter worker, boolean slave) {
 		worker.addTattoo(InventorySlot.ANUS,
 				new Tattoo(
-					TattooType.NONE,
+					"innoxia_misc_none",
 					PresetColour.CLOTHING_BLACK,
 					null,
 					null,
@@ -1195,7 +1195,7 @@ public class Evelyx extends NPC {
 						new Value<>(PerkCategory.LUST, 0),
 						new Value<>(PerkCategory.ARCANE, 1)));
 		
-		princess.setSpeechColour(PresetColour.BASE_RED.toWebHexString());
+		princess.setSpeechColour(PresetColour.BASE_RED);
 		
 		// Persona:
 		princess.setPersonalityTraits(

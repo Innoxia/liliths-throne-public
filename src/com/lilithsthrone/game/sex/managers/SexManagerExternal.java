@@ -2,6 +2,7 @@ package com.lilithsthrone.game.sex.managers;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +16,7 @@ import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -33,6 +35,7 @@ import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotManager;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionManager;
 import com.lilithsthrone.main.Main;
@@ -203,6 +206,9 @@ public class SexManagerExternal extends SexManagerDefault {
 		public String canChangePositions;
 		public boolean canChangePositionsBool;
 		
+		public String canSwapPositions;
+		public boolean canSwapPositionsBool;
+		
 		public String endSexAffectionChanges;
 		public boolean endSexAffectionChangesBool;
 
@@ -269,6 +275,7 @@ public class SexManagerExternal extends SexManagerDefault {
 		// Concealed slots:
 		public Map<String, List<String>> concealedSlotIds;
 		public Map<String, List<InventorySlot>> concealedSlots;
+		public boolean concealedSlotsExclusive;
 
 		// Preferences:
 		/** Maps target id to a Value of performing-targeted area IDs */
@@ -329,6 +336,7 @@ public class SexManagerExternal extends SexManagerDefault {
 			// Booleans:
 			canStopSexBool = initBool(canStopSex, true);
 			canChangePositionsBool = initBool(canChangePositions, true);
+			canSwapPositionsBool = initBool(canSwapPositions, true);
 			endSexAffectionChangesBool = initBool(endSexAffectionChanges, true);
 			showStartingExposedDescriptionsBool = initBool(showStartingExposedDescriptions, true);
 			canSelfTransformBool = initBool(canSelfTransform, true);
@@ -341,11 +349,11 @@ public class SexManagerExternal extends SexManagerDefault {
 			
 			// Other values:
 			if(sexPace!=null && !sexPace.isEmpty()) {
-				sexPaceParsed = SexPace.valueOf(sexPace);
+				sexPaceParsed = SexPace.valueOf(UtilText.parse(sexPace).trim());
 			}
 			
 			if(control!=null && !control.isEmpty()) {
-				controlParsed = SexControl.valueOf(control);
+				controlParsed = SexControl.valueOf(UtilText.parse(control).trim());
 			}
 			
 			
@@ -394,10 +402,19 @@ public class SexManagerExternal extends SexManagerDefault {
 			if(concealedSlotIds!=null) {
 				for(Entry<String, List<String>> entry : concealedSlotIds.entrySet()) {
 					List<InventorySlot> slots = new ArrayList<>();
+					if(concealedSlotsExclusive) {
+						for(InventorySlot slot : InventorySlot.values()) {
+							slots.add(slot);
+						}
+					}
 					for(String id : entry.getValue()) {
 						String slotParsed = UtilText.parse(id).trim();
 						if(!slotParsed.isEmpty()) {
-							slots.add(InventorySlot.valueOf(slotParsed));
+							if(concealedSlotsExclusive) {
+								slots.remove(InventorySlot.valueOf(slotParsed));
+							} else {
+								slots.add(InventorySlot.valueOf(slotParsed));
+							}
 						}
 					}
 					concealedSlots.put(UtilText.findFirstCharacterFromParserTarget(entry.getKey()).getId(), slots);
@@ -562,6 +579,10 @@ public class SexManagerExternal extends SexManagerDefault {
 
 		public boolean isCanChangePositionsBool() {
 			return canChangePositionsBool;
+		}
+
+		public boolean isCanSwapPositionsBool() {
+			return canSwapPositionsBool;
 		}
 		
 		public boolean isEndSexAffectionChangesBool() {
@@ -860,6 +881,10 @@ public class SexManagerExternal extends SexManagerDefault {
 							behaviour.canChangePositions = characterElement.getMandatoryFirstOf("canChangePositions").getTextContent();
 						}
 						
+						if(characterElement.getOptionalFirstOf("canSwapPositions").isPresent()) {
+							behaviour.canSwapPositions = characterElement.getMandatoryFirstOf("canSwapPositions").getTextContent();
+						}
+						
 						if(characterElement.getOptionalFirstOf("endSexAffectionChanges").isPresent()) {
 							behaviour.endSexAffectionChanges = characterElement.getMandatoryFirstOf("endSexAffectionChanges").getTextContent();
 						}
@@ -963,6 +988,7 @@ public class SexManagerExternal extends SexManagerDefault {
 
 						behaviour.concealedSlotIds = new HashMap<>();
 						if(characterElement.getOptionalFirstOf("concealedSlots").isPresent()) {
+							behaviour.concealedSlotsExclusive = Boolean.valueOf(characterElement.getMandatoryFirstOf("concealedSlots").getAttribute("exclusive"));
 							for(Element viewingCharacterElement : characterElement.getMandatoryFirstOf("concealedSlots").getAllOf("viewingCharacter")) {
 								String targetId = viewingCharacterElement.getAttribute("id");
 								List<String> slotIds = new ArrayList<>();
@@ -1381,6 +1407,14 @@ public class SexManagerExternal extends SexManagerDefault {
 		}
 		return super.isPositionChangingAllowed(character);
 	}
+
+	@Override
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
+		if(characterBehaviours.containsKey(character.getId()) && !characterBehaviours.get(character.getId()).isCanSwapPositionsBool()) {
+			return false;
+		}
+		return super.isSwapPositionAllowed(character, target);
+	}
 	
 	@Override
 	public boolean isEndSexAffectionChangeEnabled(GameCharacter character) {
@@ -1546,10 +1580,76 @@ public class SexManagerExternal extends SexManagerDefault {
 	
 	@Override
 	public List<InventorySlot> getSlotsConcealed(GameCharacter characterBeingExposed, GameCharacter characterViewing) {
+		if(position==SexPosition.GLORY_HOLE || position==SexPosition.GLORY_HOLE_SEX) {
+			return getSlotsConcealedForGloryHole(characterBeingExposed, characterViewing);
+		}
 		if(characterBehaviours.containsKey(characterBeingExposed.getId())) {
 			return characterBehaviours.get(characterBeingExposed.getId()).getConcealedSlots(characterViewing);
 		}
 		return super.getSlotsConcealed(characterBeingExposed, characterViewing);
+	}
+	
+	/**
+	 * Special concealed slots for glory hole, as it was too much of a pain to get this defined in external file...
+	 */
+	private List<InventorySlot> getSlotsConcealedForGloryHole(GameCharacter characterBeingExposed, GameCharacter characterViewing) {
+		List<InventorySlot> concealedSlots = new ArrayList<>();
+		
+		if(Main.sex.getSexPositionSlot(characterBeingExposed).equals(SexSlotUnique.GLORY_HOLE_KNEELING)) {
+			Collections.addAll(concealedSlots, InventorySlot.values());
+			concealedSlots.remove(InventorySlot.MOUTH);
+			return concealedSlots;
+			
+		} else if(Main.sex.getSexPositionSlot(characterBeingExposed).equals(SexSlotUnique.GLORY_HOLE_FUCKED)) {
+			Collections.addAll(concealedSlots, InventorySlot.values());
+			concealedSlots.remove(InventorySlot.MOUTH);
+			concealedSlots.remove(InventorySlot.PENIS);
+			concealedSlots.remove(InventorySlot.VAGINA);
+			concealedSlots.remove(InventorySlot.GROIN);
+			return concealedSlots;
+			
+		} else if(Main.sex.getSexPositionSlot(characterBeingExposed).equals(SexSlotUnique.GLORY_HOLE_ANALLY_FUCKED)) {
+			Collections.addAll(concealedSlots, InventorySlot.values());
+			concealedSlots.remove(InventorySlot.MOUTH);
+			concealedSlots.remove(InventorySlot.ANUS);
+			concealedSlots.remove(InventorySlot.GROIN);
+			return concealedSlots;
+		}
+		
+		// The ones on the other side of the hole cannot see one another
+		if(Main.sex.getSexPositionSlot(characterViewing).equals(SexSlotUnique.GLORY_HOLE_FUCKING)
+				|| Main.sex.getSexPositionSlot(characterViewing).equals(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)
+				|| Main.sex.getSexPositionSlot(characterViewing).equals(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO)) {
+			Collections.addAll(concealedSlots, InventorySlot.values());
+			return concealedSlots;
+		}
+		
+		if(Main.sex.getSexPositionSlot(characterBeingExposed).equals(SexSlotUnique.GLORY_HOLE_FUCKING)) {
+			Collections.addAll(concealedSlots, InventorySlot.values());
+			if(!characterBeingExposed.isTaur()) {
+				concealedSlots.remove(InventorySlot.PENIS);
+			}
+			concealedSlots.remove(InventorySlot.VAGINA);
+			concealedSlots.remove(InventorySlot.GROIN);
+			
+		} else if(Main.sex.getSexPositionSlot(characterBeingExposed).equals(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)
+					|| Main.sex.getSexPositionSlot(characterBeingExposed).equals(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO)) {
+			Collections.addAll(concealedSlots, InventorySlot.values());
+			
+			if(!characterBeingExposed.isTaur()) {
+				concealedSlots.remove(InventorySlot.PENIS);
+			}
+			if(characterBeingExposed.getGenitalArrangement()==GenitalArrangement.CLOACA
+					|| characterBeingExposed.getGenitalArrangement()==GenitalArrangement.CLOACA_BEHIND) {
+				concealedSlots.remove(InventorySlot.ANUS);
+				concealedSlots.remove(InventorySlot.PENIS);
+			}
+			concealedSlots.remove(InventorySlot.VAGINA);
+			concealedSlots.remove(InventorySlot.GROIN);
+			
+		}
+		
+		return concealedSlots;
 	}
 
 	@Override

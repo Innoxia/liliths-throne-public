@@ -35,7 +35,7 @@ public class QuickTransformations {
 	
 	// Quick transformations:
 	
-	private static final DialogueNode QUICK_TRANSFORMATIONS_FEMININITY = new DialogueNode("Transformations", "", true, true) {
+	public static final DialogueNode QUICK_TRANSFORMATIONS_FEMININITY = new DialogueNode("Transformations", "", true, true) {
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile(dialoguePath, "QUICK_TRANSFORMATIONS_FEMININITY", targetedNpc);

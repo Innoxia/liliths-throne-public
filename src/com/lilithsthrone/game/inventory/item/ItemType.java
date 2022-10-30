@@ -224,31 +224,6 @@ public class ItemType {
 		}
 		
 		@Override
-		public int getValue(List<ItemEffect> effects) {
-			int value = 0;
-			if(effects!=null) {
-				for(ItemEffect ie : effects) {
-					switch(ie.getPotency()) {
-						case BOOST:
-							value += 1000;
-							break;
-						case MAJOR_BOOST:
-							value += 1500;
-							break;
-						case MINOR_BOOST:
-							value += 500;
-							break;
-						case MINOR_DRAIN:
-						case DRAIN:
-						case MAJOR_DRAIN:
-							break;
-					}
-				}
-			}
-			return value;
-		}
-		
-		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"You pull the stopper out from the top of the glass vial of 'Angel's Purity', before bringing it to your lips and gulping down the cool, refreshing liquid which is contained within.",
@@ -585,14 +560,6 @@ public class ItemType {
 			null,
 			null) {
 		@Override
-		public int getValue(List<ItemEffect> effects) {
-			int val = super.getValue(effects);
-			
-			val += (effects.size() * 25);
-			
-			return val;
-		}
-		@Override
 		public boolean isTransformative() {
 			return false;
 		}
@@ -626,14 +593,6 @@ public class ItemType {
 			Rarity.EPIC,
 			null,
 			null) {
-		@Override
-		public int getValue(List<ItemEffect> effects) {
-			int val = super.getValue(effects);
-			
-			val += (effects.size() * 50);
-			
-			return val;
-		}
 		@Override
 		public boolean isTransformative() {
 			return true;
@@ -1734,7 +1693,7 @@ public class ItemType {
 			false,
 			"arcane offspring map",
 			"arcane offspring maps",
-			"An arcane-enchanted map, obtained from Dominion's city hall, which is able to track the rough location of any of your offspring.",
+			"An arcane-enchanted map, obtained from Dominion's city hall, which is able to track the rough location of any of your nearby offspring.",
 			"offspring_map",
 			PresetColour.BASE_BROWN,
 			null,
@@ -1757,15 +1716,20 @@ public class ItemType {
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return target.isPlayer()
-					&& (target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_ALLEY
-							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_CANAL
-							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.HARPY_NEST_WALKWAYS
-							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.SUBMISSION_TUNNELS)
-					&& Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size()<=1;
+					&& Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size()==0
+					&& ((Util.newArrayListOfValues(
+							Encounter.DOMINION_ALLEY,
+							Encounter.DOMINION_CANAL,
+							Encounter.HARPY_NEST_WALKWAYS,
+							Encounter.SUBMISSION_TUNNELS,
+							Encounter.BAT_CAVERN,
+							Encounter.getEncounterFromId("innoxia_elis_alleyway")
+						).contains(target.getLocationPlace().getPlaceType().getEncounterType()))
+						|| Main.game.getPlayer().getLocationPlaceType()==PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_alley"));
 		}
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You need to be in one of Dominion's alleyway or canal tiles, a Harpy Nest walkway tile, or a Submission tunnel tile, and with no more than one character already present in that tile, in order to be able to use the map!";
+			return "In order to be able to use the map, you need to be in a vacant tile of one of the following types: Dominion alleyways; Dominion canals; Harpy Nest walkways; Submission tunnels; Bat Caverns; Elis alleyways.";
 		}
 		@Override
 		public String getUseTooltipDescription(GameCharacter user, GameCharacter target) {
@@ -2416,6 +2380,8 @@ public class ItemType {
 	private static List<AbstractItemType> dominionAlleywayItems = new ArrayList<>();
 	private static List<AbstractItemType> submissionTunnelItems = new ArrayList<>();
 	private static List<AbstractItemType> batCavernItems = new ArrayList<>();
+	private static List<AbstractItemType> elisAlleywayItems = new ArrayList<>();
+	
 	private static List<AbstractItemType> essences = new ArrayList<>();
 	private static List<AbstractItemType> allItems = new ArrayList<>();
 	private static List<AbstractItemType> moddedItems = new ArrayList<>();
@@ -2611,18 +2577,6 @@ public class ItemType {
 					idToItemMap.put(f.getName(), item);
 					
 					allItems.add(item);
-					
-					if(item.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN)) {
-						dominionAlleywayItems.add(item);
-					}
-					
-					if(item.getItemTags().contains(ItemTag.SUBMISSION_TUNNEL_SPAWN)) {
-						submissionTunnelItems.add(item);
-					} 
-					
-					if(item.getItemTags().contains(ItemTag.BAT_CAVERNS_SPAWN)) {
-						batCavernItems.add(item);
-					} 
 					
 					if(item.getItemTags().contains(ItemTag.ESSENCE)) {
 						essences.add(item);
@@ -2978,6 +2932,11 @@ public class ItemType {
 							null,
 							Util.newArrayListOfValues(ItemTag.BOOK)) {
 				@Override
+				public String getDescription() {
+					return super.getDescription()
+							+(mainSubspecies.getBookAuthor().isEmpty()?"":" The book's author is identified as '"+mainSubspecies.getBookAuthor()+"'.");
+				}
+				@Override
 				public List<ItemEffect> getEffects() {
 					AbstractSubspecies mainSubspecies = entry.getValue().contains(AbstractSubspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace()))
 							?AbstractSubspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace())
@@ -3158,6 +3117,22 @@ public class ItemType {
 			}
 
 		}
+		
+		// Add items to spawn lists:
+		for(AbstractItemType item : allItems) {
+			if(item.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN) || item.getItemTags().contains(ItemTag.ALL_AREAS_SPAWN)) {
+				dominionAlleywayItems.add(item);
+			}
+			if(item.getItemTags().contains(ItemTag.SUBMISSION_TUNNEL_SPAWN) || item.getItemTags().contains(ItemTag.ALL_AREAS_SPAWN)) {
+				submissionTunnelItems.add(item);
+			}
+			if(item.getItemTags().contains(ItemTag.BAT_CAVERNS_SPAWN) || item.getItemTags().contains(ItemTag.ALL_AREAS_SPAWN)) {
+				batCavernItems.add(item);
+			}
+			if(item.getItemTags().contains(ItemTag.ELIS_ALLEYWAY_SPAWN) || item.getItemTags().contains(ItemTag.ALL_AREAS_SPAWN)) {
+				elisAlleywayItems.add(item);
+			}
+		}
 	}
 	
 	private static AbstractItemEffectType generateBookEffect(AbstractSubspecies mainSubspecies, List<AbstractSubspecies> additionalUnlockSubspecies) {
@@ -3259,6 +3234,11 @@ public class ItemType {
 	public static List<AbstractItemType> getBatCavernItems() {
 		return batCavernItems;
 	}
+	
+	public static List<AbstractItemType> getElisAlleywayItems() {
+		return elisAlleywayItems;
+	}
+	
 	public static List<AbstractItemType> getEssences() {
 		return essences;
 	}

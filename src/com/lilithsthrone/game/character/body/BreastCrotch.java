@@ -186,14 +186,6 @@ public class BreastCrotch implements BodyPartInterface {
 			return UtilText.parse(owner, "<p style='text-align:center;'>Due to the fact that [npc.nameIsFull] incubating eggs in [npc.her] [npc.crotchBoobs],"
 					+ " [style.colourMinorBad("+(getShape()==BreastShape.UDDERS && this.getRows()==0?"it":"they")+" cannot be removed)]!</p>");
 		}
-
-		if(owner.getLegConfiguration().isBipedalPositionedCrotchBoobs()
-				&& Main.getProperties().getUddersLevel()==1
-				&& type!=BreastType.NONE
-				&& !owner.isFeral()) {
-			return UtilText.parse(owner, "<p style='text-align:center;'>As [npc.nameIsFull] not a taur, [style.colourBad([npc.she] cannot grow crotch-boobs)], and so nothing happens..."
-					+ "<br/>[style.colourDisabled(This is due to your 'crotch-boob' content option being set to 'taur only'.)]</p>");
-		}
 		
 		if (type == getType()) {
 			if(type.equals(BreastType.NONE)) {
@@ -332,7 +324,7 @@ public class BreastCrotch implements BodyPartInterface {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] a strange bubbling and churning taking place deep within [npc.her] [npc.crotchBoobs], and [npc.a_moan+] drifts out from between [npc.her] [npc.lips] as a few drops of [npc.crotchMilk] suddenly leak"
-							+ " from [npc.her] [npc.crotchNipples]; clear evidence that that [npc.her] [npc.crotchMilk] production has [style.boldGrow(increased)].<br/>"
+							+ " from [npc.her] [npc.crotchNipples]; clear evidence that [npc.her] [npc.crotchMilk] production has [style.boldGrow(increased)].<br/>"
 						+ "[npc.NameIsFull] now able to produce [style.boldSex(" + lactationDescriptor + " [npc.crotchMilk])]!"
 					+ "</p>");
 			
@@ -418,7 +410,7 @@ public class BreastCrotch implements BodyPartInterface {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] an alarming bubbling and churning taking place deep within [npc.her] [npc.crotchBoobs], and [npc.a_moan+] drifts out from between [npc.her] [npc.lips] as a few drops of [npc.crotchMilk] suddenly leak"
-							+ " from [npc.her] [npc.crotchNipples]; clear evidence that that [npc.her] [npc.crotchMilk] regeneration has [style.boldGrow(increased)].<br/>"
+							+ " from [npc.her] [npc.crotchNipples]; clear evidence that [npc.her] [npc.crotchMilk] regeneration has [style.boldGrow(increased)].<br/>"
 						+ "[npc.NamePos] rate of [npc.crotchMilk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")] ("+Units.fluid(milkRegeneration)+"/day)!"
 					+ "</p>");
 			

@@ -78,13 +78,13 @@
 			#IF(!game.isWorkTime())
 				While there's an Enforcer stationed behind the nearby requisitions desk at all times, Elle only works from [style.colourMinorBad([units.time(9)]-[units.time(17)])]. As you're only able to make use of the requisitions area while she's present, there's not much for you to do here except head out of the Enforcer HQ...
 			#ELSE
-				As you're here during Elle's work hours ([style.colourMinorGood([units.time(9)]-[units.time(17)])]), you could head over to where she's working at the requisitions area, or instead simply continue on your way deeper into into or out of the Enforcer HQ...
+				As you're here during Elle's work hours ([style.colourMinorGood([units.time(9)]-[units.time(17)])]), you could head over to where she's working at the requisitions area, or instead simply continue on your way deeper into or out of the Enforcer HQ...
 			#ENDIF
 		#ELSE
 			#IF(!game.isWorkTime())
 				While there's an Enforcer stationed behind the nearby requisitions desk at all times, Wes only works from [style.colourMinorBad([units.time(9)]-[units.time(17)])]. As you're only able to make use of the requisitions area while he's present, there's not much for you to do here except head out of the Enforcer HQ...
 			#ELSE
-				As you're here during Wes's work hours ([style.colourMinorGood([units.time(9)]-[units.time(17)])]), you could head over to where he's working at the requisitions area, or instead simply continue on your way deeper into into or out of the Enforcer HQ...
+				As you're here during Wes's work hours ([style.colourMinorGood([units.time(9)]-[units.time(17)])]), you could head over to where he's working at the requisitions area, or instead simply continue on your way deeper into or out of the Enforcer HQ...
 			#ENDIF
 		#ENDIF
 	</p>
@@ -456,7 +456,7 @@
 			<p>
 				In amongst her messy collection of beauty products scattered all over the desk, you see a little placard with the name 'Candi' on it. It seems as though Candi is completely oblivious to the world outside of her mirror,
 				#IF(pc.isQuestProgressLessThan(QUEST_LINE_MAIN, QUEST_MAIN_1_C_WOLFS_DEN))
-					 and as you don't have anything to ask of her, you think it best to leave her to it and [pc.step] away from the desk...
+					 and as you don't have anything to ask of her, you think it's best to leave her to it and [pc.step] away from the desk...
 				#ELSE
 					 so you'll need to raise your voice in order to get her attention if you wanted to ask anything of her.
 				#ENDIF
@@ -610,7 +610,7 @@
 		[candi.speechNoEffects(Ooh! You're, like, super lucky and stuff! [brax.name] is, like, totally the hottest guy here!)] Candi squeals, excitedly reaching down to get something from under her desk. [candi.speechNoEffects(When you see him, tell him that his little slut's, like, super horny and stuff, will ya? And tell him he'd, like, better have given up on tryin' to use that stupid little potion of his on me again!)]
 	</p>
 	<p>
-		With a huge smile plastered on her face, Candi hands you a slip of paper. Taking a look, you see that's it's some kind of pass that will grant you access to the interior parts of the building.
+		With a huge smile plastered on her face, Candi hands you a slip of paper. Taking a look, you see that it's some kind of pass that will grant you access to the interior parts of the building.
 	</p>
 	<p>
 		[candi.speechNoEffects(Y'know, I'm sure he, like, told me something about these passes... Huh... Well, if I can't remember, it's, like, not important, right? Anyway, his office is, umm, like, down there, then over to the left... no... right! Then, like, just look for his name on one of the doors! That's how I find him!)]
@@ -661,7 +661,7 @@
 		[candi.speechNoEffects(Like, no way! Well, you're actually, like, super lucky and stuff! [brax.name] is, like, totally the hottest guy here!)] Candi squeals, excitedly reaching down to get something from under her desk. [candi.speechNoEffects(When you see him, tell him that his little slut's, like, super horny and stuff, will ya? And tell him he'd, like, better have given up on tryin' to use that stupid little potion of his on me again!)]
 	</p>
 	<p>
-		With a huge smile plastered on her face, Candi hands you a slip of paper. Taking a look, you see that's it's some kind of pass that will grant you access to the interior parts of the building.
+		With a huge smile plastered on her face, Candi hands you a slip of paper. Taking a look, you see that it's some kind of pass that will grant you access to the interior parts of the building.
 	</p>
 	<p>
 		[candi.speechNoEffects(Y'know, I'm sure he, like, told me something about these passes... Huh... Well, if I can't remember, it's, like, not important, right? Anyway, his office is, umm, like, down there, then over to the left... no... right! Then, like, just look for his name on one of the doors! That's how I find him!)]
@@ -712,7 +712,7 @@
 			[candi.speechNoEffects(Bad Brax!)] Candi shouts. [candi.speechNoEffects(You're going to need an extra special punishment this time!)]
 		</p>
 		<p>
-			Candi reacted just as you though she would, and, still grinning at Brax, you reveal your idea, [pc.speech(Hey Candi, why don't we give him a taste of his own medicine?)]
+			Candi reacted just as you thought she would, and, still grinning at Brax, you reveal your idea, [pc.speech(Hey Candi, why don't we give him a taste of his own medicine?)]
 		</p>
 	#ENDIF
 	<p>
@@ -872,12 +872,10 @@
 	</p>
 	<p>
 		Just like her lower body, Bree's upper body starts to expand, and you watch, wide-eyed, as her breasts swell up. Her Enforcer uniform can't take the stress, and you watch as the buttons of her shirt ping off to reveal her massive breasts.
-	</p>
-	<p>
 		#IF(brax.hasPenis())
-			This time, however, Bree doesn't bother to try and cover herself up. Leaning back in her chair, she lets out an extremely lewd moan, and, seeming to forget where she is, she reaches down between her legs, dropping her torn shorts and panties to the floor as she starts stroking her huge knotted cock in one hand, while fingering her dripping wolf-pussy with the other.
+			 This time, however, Bree doesn't bother to try and cover herself up. Leaning back in her chair, she lets out an extremely lewd moan, and, seeming to forget where she is, she reaches down between her legs, dropping her torn shorts and panties to the floor as she starts stroking her huge knotted cock in one hand, while fingering her dripping wolf-pussy with the other.
 		#ELSE
-			This time, however, Bree doesn't bother to try and cover herself up. Leaning back in her chair, she lets out an extremely lewd moan, and, seeming to forget where she is, she reaches down between her legs, dropping her torn shorts and panties to the floor as she starts fingering her dripping pussy.
+			 This time, however, Bree doesn't bother to try and cover herself up. Leaning back in her chair, she lets out an extremely lewd moan, and, seeming to forget where she is, she reaches down between her legs, dropping her torn shorts and panties to the floor as she starts fingering her dripping pussy.
 		#ENDIF
 	</p>
 	<p>
@@ -887,13 +885,13 @@
 		[candi.speechNoEffects(Ooh! Bree! You naughty slut! Y'know, you, like, need a new name to go with your new attitude! Erm... How about Candi?!)] Candi exclaims, before realising what's wrong. [candi.speechNoEffects(Wait, no, that's, like, my name... You can be Brandi!)]
 	</p>
 	<p>
-		As Candi gives her a new name, you see Brandi's hair lengthening and turning bleach-blonde. That seems to be the final transformation, leaving her with KK-cup breasts, a massive ass, wide hips, and an overwhelming lust for sex.
+		As Candi gives her a new name, you see Brandi's now-massive breasts finally stop growing, leaving them as KK-cups. Letting out a little sigh, the bimbo wolf-girl looks down over her shoulder at her massive ass and wide hips. Looking over at you, her moan turns into a hungry moan, and she pants, [brax.speechNoEffects(Heya babe... Wanna fuck?)]
 	</p>
 	<p>
-		Before you have any time to comment on her new body and personality, Candi grabs her arm and pulls her into her office, shouting behind her, [candi.speechNoEffects(I'm gonna give Brandi some of my old clothes, give us five mins, then come have some fun with her!)]
+		Before you have any time to respond, or to comment on Brandi's new body and personality, Candi grabs her arm and pulls her into her office, shouting behind her, [candi.speechNoEffects(I'm gonna give Brandi some of my old clothes, give us five mins, then come have some fun with her!)]
 	</p>
 	<p>
-		You could either do as Candi says, and go into the office after five minutes, or leave and come back another time to have some fun with Brandi.
+		You could either do as Candi says, and go into the office after five minutes, or leave and come back another time to have some fun with Brandi...
 	</p>
 	]]>
 	</htmlContent>

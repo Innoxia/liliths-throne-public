@@ -71,11 +71,13 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 			XMLUtil.addAttribute(doc, element, "colour", this.getColour(0).getId());
 		}
 		
-		Element innerElement = doc.createElement("itemEffects");
-		element.appendChild(innerElement);
-		
-		for(ItemEffect ie : this.getEffects()) {
-			ie.saveAsXML(innerElement, doc);
+		if(!this.getEffects().isEmpty()) {
+			Element innerElement = doc.createElement("itemEffects");
+			element.appendChild(innerElement);
+			
+			for(ItemEffect ie : this.getEffects()) {
+				ie.saveAsXML(innerElement, doc);
+			}
 		}
 		
 		return element;
@@ -95,19 +97,26 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 			}
 			
 			List<ItemEffect> effectsToBeAdded = new ArrayList<>();
-			NodeList element = ((Element) parentElement.getElementsByTagName("itemEffects").item(0)).getElementsByTagName("effect");
-			for(int i = 0; i < element.getLength(); i++){
-				Element e = ((Element)element.item(i));
-				ItemEffect itemEffect = ItemEffect.loadFromXML(e, doc);
-				if(itemEffect != null) {
-					effectsToBeAdded.add(itemEffect);
+			Element ieElement = (Element) parentElement.getElementsByTagName("itemEffects").item(0);
+			if(ieElement!=null) {
+				NodeList element = ieElement.getElementsByTagName("effect");
+				for(int i = 0; i < element.getLength(); i++){
+					Element e = ((Element)element.item(i));
+					ItemEffect itemEffect = ItemEffect.loadFromXML(e, doc);
+					if(itemEffect != null) {
+						effectsToBeAdded.add(itemEffect);
+					}
 				}
+				item.setItemEffects(effectsToBeAdded);
 			}
-			item.setItemEffects(effectsToBeAdded);
+			item.setColour(0,
+					parentElement.getAttribute("colour").isEmpty()
+						?PresetColour.GENERIC_ARCANE
+						:PresetColour.getColourFromId(parentElement.getAttribute("colour")));
 			
 			if(!effectsToBeAdded.isEmpty()
 					&& (item.getItemType().getId().equals(ItemType.ELIXIR.getId()) || item.getItemType().getId().equals(ItemType.POTION.getId()) || item.getItemType().getId().equals(ItemType.ORIENTATION_HYPNO_WATCH.getId()))) {
-				item.setSVGString(EnchantingUtils.getImportedSVGString(item, (parentElement.getAttribute("colour").isEmpty()?PresetColour.GENERIC_ARCANE:PresetColour.getColourFromId(parentElement.getAttribute("colour"))), effectsToBeAdded));
+				item.setSVGString(EnchantingUtils.getImportedSVGString(item, item.getColour(0), effectsToBeAdded));
 			}
 			
 			return item;
@@ -246,7 +255,49 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	
 	@Override
 	public int getValue() {
-		return itemType.getValue(this.getEffects());
+		float modifier = 1;
+		if(this.getEffects().size() > 0) {
+			for(ItemEffect ie : this.getEffects()) {
+				if(ie.getPotency()==null) {
+					continue;
+				}
+				float modIncrease = 0;
+				switch(ie.getPotency()) {
+					case MAJOR_BOOST:
+						modIncrease = 0.05f;
+						break;
+					case BOOST:
+						modIncrease = 0.025f;
+						break;
+					case MINOR_BOOST:
+						modIncrease = 0.01f;
+						break;
+					default:
+						break;
+				}
+				modifier += modIncrease;
+			}
+			
+//			List<TFPotency> potencies = this.getEffects().stream().map(ItemEffect::getPotency).collect(Collectors.toList());
+//			if (potencies.contains(TFPotency.MAJOR_BOOST)) {
+//				modifier += 0.5;
+//			} else if (potencies.contains(TFPotency.BOOST)) {
+//				modifier += 0.3;
+//			} else if (potencies.contains(TFPotency.MINOR_BOOST)) {
+//				modifier += 0.1;
+//			}
+//			
+//			modifier += itemEffects.size()*0.01f;
+		}
+		return (int) (itemType.getValue() * modifier);
+	}
+	
+	public boolean isAppendItemEffectLinesToTooltip() {
+		return this.getItemType().isAppendItemEffectLinesToTooltip();
+	}
+	
+	public List<String> getEffectTooltipLines() {
+		return this.getItemType().getEffectTooltipLines();
 	}
 	
 	public String getExtraDescription(GameCharacter user, GameCharacter target) {
@@ -260,7 +311,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 				sb.append("<br/>"+s);
 			}
 		}
-		for(String s : this.getItemType().getEffectTooltipLines()) {
+		for(String s : this.getEffectTooltipLines()) {
 			sb.append("<br/>"+s);
 		}
 		for(ItemTag it : this.getItemTags()) {

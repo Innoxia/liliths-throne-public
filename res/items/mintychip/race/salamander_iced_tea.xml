@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>150</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Iced Tea]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Iced Tea]]></namePlural>
+		<description><![CDATA[An insulated metal bottle containing ice and mint tea. A sticker on the side claims the drink is the perfect refreshment for a hot summer day. The sticker also depicts a sweaty frost salamander-girl drinking from a similar bottle.]]></description> 
+		<useDescriptor>drink</useDescriptor>
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<!-- There is a fully commented example of this in 'hyena_bone_crunchers.xml' -->
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">salamander_insulated_bottle.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_PHYSIQUE</colourPrimary>
+		<colourSecondary>mintychip_salamanderFrost</colourSecondary>
+		<colourTertiary>CLOTHING_STEEL</colourTertiary>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_PHYSIQUE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldMana([#ATTRIBUTE_MANA_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_RESISTANCE_FIRE.getFormattedValue(5)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementMana(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM)/20)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A cold wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_RESISTANCE_FIRE, 5)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		After unscrewing the cap, [npc.name] [npc.verb(bring)] the bottle of iced tea up to [npc.her] [npc.mouth]. [npc.She] [npc.is] pleased to find that the label wasn't lying about the drink being refreshing and swiftly [npc.verb(drink)] the minty beverage.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		After unscrewing the cap, [npc.name] [npc.verb(bring)] the bottle of iced tea up to [npc2.namePos] waiting [npc2.lips]. [npc2.name] [npc2.is] pleased to find that the label wasn't lying about the drink being refreshing and swiftly [npc2.verb(drink)] the minty beverage.
+		]]></otherUse>
+	</useDescriptions>
+</item>

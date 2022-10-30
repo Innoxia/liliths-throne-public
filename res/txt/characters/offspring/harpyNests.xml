@@ -209,7 +209,7 @@
 					#ELSEIF(npc.getFather()!=null && npc.getFather().isPlayer())
 						 [pc.speech([npc.Name], was it? I'm so happy to meet you! I didn't get a chance to speak to you after you'd hatched, but I'm your father. You can call me [pc.name].)]
 					#ELSE
-						 [pc.speech([npc.Name], was it? I'm so happy to meet you! I didn't get a chance to speak to you after you'd hatched. I'm neither your mother or father, but I did incubate you until you were ready to hatch... You can call me [pc.name].)]
+						 [pc.speech([npc.Name], was it? I'm so happy to meet you! I didn't get a chance to speak to you after you'd hatched. I'm neither your mother nor father, but I did incubate you until you were ready to hatch... You can call me [pc.name].)]
 					#ENDIF
 				#ENDIF
 			#ELSE
@@ -268,7 +268,7 @@
 					#ELSEIF(npc.getFather()!=null && npc.getFather().isPlayer())
 						 [pc.speech([npc.Name], was it? I'm so happy to meet you! I didn't get a chance to speak to you after you'd hatched, but I'm your father. You can call me [pc.name].)]
 					#ELSE
-						 [pc.speech([npc.Name], was it? I'm so happy to meet you! I didn't get a chance to speak to you after you'd hatched. I'm neither your mother or father, but I did incubate you until you were ready to hatch... You can call me [pc.name].)]
+						 [pc.speech([npc.Name], was it? I'm so happy to meet you! I didn't get a chance to speak to you after you'd hatched. I'm neither your mother nor father, but I did incubate you until you were ready to hatch... You can call me [pc.name].)]
 					#ENDIF
 				#ENDIF
 			#ELSE
@@ -327,7 +327,7 @@
 					#ELSEIF(npc.getFather()!=null && npc.getFather().isPlayer())
 						 [pc.speech([npc.Name], was it? I'm so happy to meet you! I didn't get a chance to speak to you after you'd hatched, but I'm your father. You can call me [pc.name].)]
 					#ELSE
-						 [pc.speech([npc.Name], was it? I'm so happy to meet you! I didn't get a chance to speak to you after you'd hatched. I'm neither your mother or father, but I did incubate you until you were ready to hatch... You can call me [pc.name].)]
+						 [pc.speech([npc.Name], was it? I'm so happy to meet you! I didn't get a chance to speak to you after you'd hatched. I'm neither your mother nor father, but I did incubate you until you were ready to hatch... You can call me [pc.name].)]
 					#ENDIF
 				#ENDIF
 			#ELSE
@@ -477,7 +477,7 @@
 			#ENDIF
 		#ELSE
 			<p>
-				You're the first to recover from the shock of your surprise meeting, and as your initial surprise fades away, you find that you're shaking your head in utter disbelief. Looking into your [npc.relation(pc)]'s [npc.eyes], you frown in disapproval as you start to voice your concerns, [pc.speech([npc.Name]! Please don't tell me that you're just another low-life mugger!)]
+				You're the first to recover from the shock of your surprise meeting, and as your initial surprise fades away, you find that you're shaking your head in utter disbelief. Looking into your [npc.relation(pc)]'s [npc.eyes], you frown in disapproval as you start to voice your concerns, [pc.speech([npc.Name]! Please don't tell me that you're just another lowlife mugger!)]
 			</p>
 			#IF(npc.isConfident())
 				<p>
@@ -1465,7 +1465,7 @@
 	
 	<htmlContent tag="OFFSPRING_OFFER_ROOM_BACK_HOME"><![CDATA[
 	<p>
-		It doesn't take long for you and your [npc.relation(pc)] to arrive at [npc.her] new room, and after you've opened the door and lead [npc.her] inside, you turn to [npc.name] and say, [pc.speech(This is your room now, so please make yourself feel at home. You've got an en suite bathroom over there, and if you put your dirty clothes in the laundry basket, they'll be cleaned for you for the next day. You can leave all of your worries behind, now that you're living here with me.)]
+		It doesn't take long for you and your [npc.relation(pc)] to arrive at [npc.her] new room, and after you've opened the door and lead [npc.her] inside, you turn to [npc.name] and say, [pc.speech(This is your room now, so please make yourself feel at home. You've got an ensuite bathroom over there, and if you put your dirty clothes in the laundry basket, they'll be cleaned for you for the next day. You can leave all of your worries behind, now that you're living here with me.)]
 	</p>
 	<p>
 		Dropping [npc.her] suitcase to the floor, your [npc.relation(pc)] once again launches [npc.herself] at you, and as [npc.she] pulls you into a big hug, [npc.she] exclaims, [npc.speech(I love you, [pc.mom]! Thank you so much! I-I can't believe this is really happening!)]

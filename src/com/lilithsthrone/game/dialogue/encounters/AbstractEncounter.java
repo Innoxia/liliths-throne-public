@@ -192,7 +192,7 @@ public abstract class AbstractEncounter {
 		}
 	}
 	
-	protected static DialogueNode SpawnAndStartChildHere(List<OffspringSeed> offspringAvailable)  {
+	public static DialogueNode SpawnAndStartChildHere(List<OffspringSeed> offspringAvailable)  {
 		NPC offspring = new NPCOffspring(offspringAvailable.get(Util.random.nextInt(offspringAvailable.size())));
 
 		offspring.setLocation(Main.game.getPlayer(), true);
@@ -560,7 +560,9 @@ public abstract class AbstractEncounter {
 			}
 		}
 
-		setEncounterDialogue(null, forceEncounter);
+		// This line was causing an issue where encounters could only be triggered on the first tile during fast travel,
+			// as it stores null in Main.game.encounterAtSeconds and then skips further checks because Main.game.encounterAtSeconds is set and time doesn't advance until the fast travel is completed, or interrupted by an encounter
+//		setEncounterDialogue(null, forceEncounter);
 		return null;
 	}
 	

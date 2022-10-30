@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testicle>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractTesticleType.java -->
+	
+	<!-- The id of the race which this testicle belongs to.
+	This will almost always be the id of the race in which this type is found (in this case hyena). -->
+	<race>mintychip_salamander</race>
+	
+	<!-- The id of the material covering this testicle.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>mintychip_salamander_scales</coveringType>
+	
+	<!-- The id of the fluid that's associated with this testicle type. -->
+	<fluidType>mintychip_salamander_cum</fluidType>
+	
+	<!-- Whether this testicle type is located internally or not by default. -->
+	<internal>false</internal>
+	
+	<!-- The singular/plural names of this testicle when on a masculine character.
+	One of the defined names will be chosen at random every time the name is displayed to the player.
+	These should probably be left empty so that the game's default names are used.
+	You can define your own names following this format:
+	<names>
+		<name><![CDATA[ball]]></name>
+		<name><![CDATA[testicle]]></name>
+	</names> -->
+	<names/>
+	<namesPlural/>
+	
+	<!-- The descriptors which should be drawn upon when describing a testicle of this type.
+	Additional testicle descriptors are generated based on the testicle's properties (such as their size, count, etc.), so these descriptors should only be related to the race itself. -->
+	<descriptors/>
+	<!-- Hyena testicles do not need any racial descriptors, but if you wanted to add some, use this format:
+	<descriptors>
+		<descriptor><![CDATA[hyaenidae]]></descriptor>
+	</descriptors>
+	-->
+	
+</testicle>

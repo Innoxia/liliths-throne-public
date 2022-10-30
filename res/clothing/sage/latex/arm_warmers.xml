@@ -17,7 +17,6 @@
 		<clothingSet>sage_ltxset</clothingSet>
 		<imageName>arm_warmers.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit/>
 		<effects/>
 		
 		<blockedPartsList slot="HAND">
@@ -54,6 +53,7 @@
 		<tertiaryColoursDye/>
 		
 		<itemTags> 
+			<tag>ENABLE_SEX_EQUIP</tag>
 			<tag>SOLD_BY_FINCH</tag>
 		</itemTags>
 	</coreAtributes>

@@ -26,7 +26,6 @@
 		
 		<clothingSet/> <!-- No way to define custom sets yet -->
 		<imageEquippedName/> <!-- The file path for this clothing's image while equipped -->
-		<enchantmentLimit/> <!-- Custom values override game -->
 		<effects/> <!-- Default enchantments -->
 		
 		
@@ -34,7 +33,7 @@
 			<blockedParts>
 			  <displacementType>REMOVE_OR_EQUIP</displacementType> <!-- displacementType values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 			  <clothingAccessRequired> <!-- clothingAccess values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
-				<clothingAccess>GROIN</clothingAccess>
+				<clothingAccess>VAGINA</clothingAccess>
 			  </clothingAccessRequired>
 			  <blockedBodyParts/> <!--bodyPart values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
 			  <clothingAccessBlocked/> <!-- clothingAccess -->
@@ -46,7 +45,7 @@
 			<blockedParts>
 			  <displacementType>REMOVE_OR_EQUIP</displacementType>
 			  <clothingAccessRequired>
-				<clothingAccess>GROIN</clothingAccess>
+				<clothingAccess>ANUS</clothingAccess>
 			  </clothingAccessRequired>
 			  <blockedBodyParts/>
 			  <clothingAccessBlocked/>

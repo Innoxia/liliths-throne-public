@@ -1321,20 +1321,42 @@ public class ImpFortressDialogue {
 	};
 
 	
-	public static final DialogueNode ENTRANCE_ELEMENTAL = new DialogueNode("Keep", ".", false, true) {
-
+	public static final DialogueNode ENTRANCE_ELEMENTAL = new DialogueNode("Keep", "", true, true) {
 		@Override
 		public int getSecondsPassed() {
 			return 60;
 		}
-
 		@Override
 		public String getContent() {
 			return "";
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Now that these imps have been suitably intimidated, you're free to continue on your way into the fortress.", Main.game.getDefaultDialogue()) {
+					@Override
+					public void effects() {
+						Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_ELEMENTAL_CONTINUE", getAllCharacters()));
+						if(Main.game.getPlayer().getWorldLocation()==WorldType.IMP_FORTRESS_ALPHA) {
+							Main.game.getPlayer().setNearestLocation(PlaceType.FORTRESS_ALPHA_COURTYARD);
+						} else if(Main.game.getPlayer().getWorldLocation()==WorldType.IMP_FORTRESS_MALES) {
+							Main.game.getPlayer().setNearestLocation(PlaceType.FORTRESS_MALES_COURTYARD);
+						} else {
+							Main.game.getPlayer().setNearestLocation(PlaceType.FORTRESS_FEMALES_COURTYARD);
+						}
+					}
+					@Override
+					public DialogueNode getNextDialogue() {
+						if(Main.game.getPlayer().getWorldLocation()==WorldType.IMP_FORTRESS_ALPHA) {
+							return PlaceType.FORTRESS_ALPHA_COURTYARD.getDialogue(false);
+						} else if(Main.game.getPlayer().getWorldLocation()==WorldType.IMP_FORTRESS_MALES) {
+							return PlaceType.FORTRESS_MALES_COURTYARD.getDialogue(false);
+						} else {
+							return PlaceType.FORTRESS_FEMALES_COURTYARD.getDialogue(false);
+						}
+					}
+				};
+			}
 			return null;
 		}
 	};
@@ -1404,7 +1426,7 @@ public class ImpFortressDialogue {
 						
 					} else if (index == 3) {
 						return new ResponseSex("Gentle Sex",
-								"Well, they <i>are</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
+								"Well, they <i>are</i> asking for it!",
 								true,
 								false,
 								getPartyForSex(),
@@ -1416,7 +1438,7 @@ public class ImpFortressDialogue {
 						
 					} else if (index == 4) {
 						return new ResponseSex("Rough Sex",
-								"Well, they <i>are</i> asking for it! (Start the sex scene in the 'rough' pace.)",
+								"Well, they <i>are</i> asking for it!",
 								true,
 								false,
 								getPartyForSex(),
@@ -3141,7 +3163,7 @@ public class ImpFortressDialogue {
 						
 					} else if (index == 3) {
 						return new ResponseSex("Gentle Sex",
-								UtilText.parse(getBoss(), "Now that they've been defeated, there's nothing stopping you from having sex with [npc.name] and [npc.her] imp gang. (Start the sex scene in the 'gentle' pace.)"),
+								UtilText.parse(getBoss(), "Now that they've been defeated, there's nothing stopping you from having sex with [npc.name] and [npc.her] imp gang."),
 								true,
 								false,
 								getPartyForSex(),
@@ -3153,7 +3175,7 @@ public class ImpFortressDialogue {
 						
 					} else if (index == 4) {
 						return new ResponseSex("Rough Sex",
-								UtilText.parse(getBoss(), "Now that they've been defeated, there's nothing stopping you from having sex with [npc.name] and [npc.her] imp gang. (Start the sex scene in the 'rough' pace.)"),
+								UtilText.parse(getBoss(), "Now that they've been defeated, there's nothing stopping you from having sex with [npc.name] and [npc.her] imp gang."),
 								true,
 								false,
 								getPartyForSex(),
@@ -3949,7 +3971,7 @@ public class ImpFortressDialogue {
 							FortressMalesLeader boss = (FortressMalesLeader) Main.game.getNpc(FortressMalesLeader.class);
 							
 							if(boss.isAbleToEquipThong(Main.game.getPlayer())) {
-								AbstractClothing thong = Main.game.getItemGen().generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, PresetColour.CLOTHING_RED_DARK, effects);
+								AbstractClothing thong = Main.game.getItemGen().generateClothing("innoxia_groin_crotchless_thong", PresetColour.CLOTHING_RED_DARK, effects);
 								thong.setName(UtilText.parse(boss,"[npc.NamePos] 'Breeder' Crotchless thong"));
 								Main.game.getPlayer().equipClothingFromNowhere(thong, true, boss);
 								Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+UtilText.parse(boss,"[npc.Name]")+" has forced you to wear:<br/>"
@@ -3965,7 +3987,7 @@ public class ImpFortressDialogue {
 							
 							if(ImpFortressDialogue.getMainCompanion()!=null && Main.sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())
 									&& boss.isAbleToEquipThong(ImpFortressDialogue.getMainCompanion())) {
-								AbstractClothing thong = Main.game.getItemGen().generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, PresetColour.CLOTHING_PINK_LIGHT, effects);
+								AbstractClothing thong = Main.game.getItemGen().generateClothing("innoxia_groin_crotchless_thong", PresetColour.CLOTHING_PINK_LIGHT, effects);
 								thong.setName(UtilText.parse(boss,"[npc.NamePos] 'Breeder' Crotchless thong"));
 								ImpFortressDialogue.getMainCompanion().equipClothingFromNowhere(thong, true, boss);
 								Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+UtilText.parse(boss,"[npc.Name]")+" has forced "

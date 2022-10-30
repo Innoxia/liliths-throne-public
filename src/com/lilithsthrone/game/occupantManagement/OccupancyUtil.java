@@ -13,6 +13,7 @@ import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.FluidStored;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -38,6 +39,7 @@ import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJobFlag;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJobSetting;
@@ -75,6 +77,7 @@ public class OccupancyUtil implements XMLSaving {
 	/** Maps job to ids of slaves who are currently at that job. */
 	private Map<SlaveJob, List<String>> slavesAtJob;
 	private List<NPC> slavesResting;
+	
 	private int generatedIncome;
 	private int generatedUpkeep;
 	
@@ -189,12 +192,38 @@ public class OccupancyUtil implements XMLSaving {
 		}
 	}
 	
+	public void handleSlaveRemoval(GameCharacter slave) {
+		slavesAtJob.values().forEach(list->list.remove(slave.getId()));
+		slavesResting.remove(slave);
+	}
 	
 	private void clearSlavesJobTracking() {
 		for(SlaveJob job : SlaveJob.values()) {
 			slavesAtJob.get(job).clear();
 		}
 		slavesResting.clear();
+	}
+
+	/**
+	 * Should only be used at the end of a game import to populate the slavesResting list.
+	 */
+	public void updateSlavesResting(int hour) {
+		for(String id : Main.game.getPlayer().getSlavesOwned()) {
+			try {
+				NPC slave = (NPC) Main.game.getNPCById(id);
+
+				SlaveJob currentJob = slave.getSlaveJob(hour);
+				
+				if(Main.game.getPlayer().hasCompanion(slave)) {
+					continue;
+				}
+				if(currentJob==SlaveJob.IDLE) {
+					slavesResting.add(slave);
+				}
+			} catch (Exception e) {
+				Util.logGetNpcByIdError("updateSlavesResting()", id);
+			}
+		}
 	}
 	
 	/**
@@ -241,7 +270,7 @@ public class OccupancyUtil implements XMLSaving {
 		
 		clearSlavesJobTracking(); // Reset slavesAtJob and slavesResting
 		
-		// First need to set correct jobs:
+		// First need to set correct jobs and handle miscellaneous updates:
 		List<NPC> slavesToSendToWork = new ArrayList<>();
 		for(String id : Main.game.getPlayer().getSlavesOwned()) {
 			try {
@@ -253,9 +282,14 @@ public class OccupancyUtil implements XMLSaving {
 					continue;
 				}
 				
+				if(slave.isVisiblyPregnant() && !slave.hasStatusEffect(StatusEffect.PREGNANT_3) && slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_MOTHERS_MILK)) {
+					ItemEffectType.MOTHERS_MILK.applyEffect(null, null, null, 0, slave, slave, null);
+				}
+
+				slavesAtJob.get(currentJob).add(slave.getId());
+				
 				if(!Main.game.getPlayer().isActive() || !Main.game.getCharactersPresent().contains(slave) // If the player isn't interacting with them, then move them
 						|| Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.LILAYA_HOME_ROOM_PLAYER) { // Also move slaves who are in bedroom but have elsewhere to be
-					slavesAtJob.get(currentJob).add(slave.getId());
 					
 					if(slave.getSlaveJob((hour-1<0?23:hour-1))==SlaveJob.PROSTITUTE) {
 						// Remove client before leaving:
@@ -283,6 +317,7 @@ public class OccupancyUtil implements XMLSaving {
 			}
 		}
 
+		
 		// a slave's room always has enough room, so do this first
 		for(NPC slave : slavesResting) {
 			updateSlaveJob(slave, hour, previousJobs);
@@ -311,9 +346,9 @@ public class OccupancyUtil implements XMLSaving {
 			SlaveJob currentJob = slave.getSlaveJob(hour);
 			
 			slave.incrementAffection(slave.getOwner(), slave.getHourlyAffectionChange(hour));
-			slave.incrementObedience(slave.getHourlyObedienceChange(hour), false);
+			slave.incrementObedience(slave.getHourlyObedienceChange(hour), true);
 			
-			boolean isAtWork = slave.isAtWork(hour);
+			boolean isAtWork = slave.isAtWork();
 			
 			// If at work:
 			if(isAtWork) {
@@ -328,16 +363,16 @@ public class OccupancyUtil implements XMLSaving {
 				
 				// Overworked effect:
 				if(slave.hasStatusEffect(StatusEffect.OVERWORKED_1)) {
-					slave.incrementAffection(slave.getOwner(), -0.05f);
-					workQuality *= 0.75f; // If overworked, they have a a lowered chance to gain experience.
+					slave.incrementAffection(slave.getOwner(), -0.5f);
+					workQuality *= 0.75f; // If overworked, they have a lowered chance to gain experience.
 					
 				} else if(slave.hasStatusEffect(StatusEffect.OVERWORKED_2)) {
-					slave.incrementAffection(slave.getOwner(), -0.1f);
-					workQuality *= 0.5f; // If overworked, they have a a lowered chance to gain experience.
+					slave.incrementAffection(slave.getOwner(), -1f);
+					workQuality *= 0.5f; // If overworked, they have a lowered chance to gain experience.
 					
 				} else if(slave.hasStatusEffect(StatusEffect.OVERWORKED_3)) {
-					slave.incrementAffection(slave.getOwner(), -0.15f);
-					workQuality *= 0.25f; // If overworked, they have a a lowered chance to gain experience.
+					slave.incrementAffection(slave.getOwner(), -2f);
+					workQuality *= 0.25f; // If overworked, they have a lowered chance to gain experience.
 				}
 				
 				// chance to gain experience based on profits
@@ -568,7 +603,7 @@ public class OccupancyUtil implements XMLSaving {
 		if(previousJob!=null && previousJob!=currentJob) {
 			previousJob.applyJobEndEffects(slave);
 		}
-		currentJob.sendToWorkLocation(hour, slave);
+		currentJob.sendToWorkLocation(slave);
 		currentJob.applyJobStartEffects(slave);
 	}
 
@@ -927,7 +962,7 @@ public class OccupancyUtil implements XMLSaving {
 										effects.add("<span style='color:"+PresetColour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
 										
-									} else if(!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS)) {
+									} else if(!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS)) {
 										effectDescriptions.append(UtilText.parse(slave, "resulting in a risk of pregnancy!"));
 										effects.add("<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Pregnancy Risk:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
@@ -1123,7 +1158,7 @@ public class OccupancyUtil implements XMLSaving {
 										effects.add("<span style='color:"+PresetColour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
 										
-									} else if(!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS)) {
+									} else if(!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS)) {
 										effectDescriptions.append(UtilText.parse(slave, "resulting in a risk of pregnancy!"));
 										effects.add("<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Pregnancy Risk:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
@@ -1152,7 +1187,7 @@ public class OccupancyUtil implements XMLSaving {
 										effects.add("<span style='color:"+PresetColour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
 										
-									} else if(!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS)) {
+									} else if(!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS)) {
 										effectDescriptions.append(UtilText.parse(slave, "resulting in a risk of pregnancy!"));
 										effects.add("<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Pregnancy Risk:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);

@@ -5,10 +5,10 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -89,6 +89,10 @@ public class EnchantmentDialogue {
 	private static boolean isEquipped = false;
 	private static GameCharacter isEquippedTo = null;
 	private static InventorySlot isEquippedIn = null;
+
+	public static String loadConfirmationName = "";
+	public static String overwriteConfirmationName = "";
+	public static String deleteConfirmationName = "";
 	
 	private static String inventoryView() {
 		inventorySB.setLength(0);
@@ -578,7 +582,6 @@ public class EnchantmentDialogue {
 					public void effects() {
 						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('output_name').value;");
 						EnchantmentDialogue.setOutputName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
-						initSaveLoadMenu();
 					}
 				};
 			
@@ -599,14 +602,18 @@ public class EnchantmentDialogue {
 		}
 		return Main.game.getPlayer().getEssenceCount() >= EnchantingUtils.getCost(ingredient, itemEffects);
 	}
-	
+
 	public static AbstractCoreItem craftAndApplyFullInventoryEffects(AbstractCoreItem ingredient, List<ItemEffect> effects) {
+		return craftAndApplyFullInventoryEffects(ingredient, effects, true);
+	}
+	
+	public static AbstractCoreItem craftAndApplyFullInventoryEffects(AbstractCoreItem ingredient, List<ItemEffect> effects, boolean applyCost) {
 		if(ingredient instanceof AbstractItem) {
 			Main.game.getPlayer().removeItem((AbstractItem) ingredient);
 			AbstractItem craftedItem = EnchantingUtils.craftItem(ingredient, effects);
 			Main.game.getPlayer().addItem(craftedItem, false);
 			Main.game.addEvent(new EventLogEntry("[style.colourExcellent(Item Enchanted)]", Util.capitaliseSentence(craftedItem.getName(false, true))), false);
-			finaliseCrafting(ingredient, effects);
+			finaliseCrafting(ingredient, effects, applyCost);
 			return craftedItem;
 			
 		} else if(ingredient instanceof AbstractClothing) {
@@ -614,7 +621,7 @@ public class EnchantmentDialogue {
 			AbstractClothing craftedClothing = EnchantingUtils.craftClothing(ingredient, effects);
 			Main.game.getPlayer().addClothing(craftedClothing, false);
 			Main.game.addEvent(new EventLogEntry("[style.colourExcellent(Clothing Enchanted)]", Util.capitaliseSentence(craftedClothing.getName(false, true))), false);
-			finaliseCrafting(ingredient, effects);
+			finaliseCrafting(ingredient, effects, applyCost);
 			return craftedClothing;
 			
 		} else if(ingredient instanceof AbstractWeapon) {
@@ -622,11 +629,13 @@ public class EnchantmentDialogue {
 			AbstractWeapon craftedWeapon = EnchantingUtils.craftWeapon(ingredient, effects);
 			Main.game.getPlayer().addWeapon(craftedWeapon, false);
 			Main.game.addEvent(new EventLogEntry("[style.colourExcellent(Weapon Enchanted)]", Util.capitaliseSentence(craftedWeapon.getName(false, true))), false);
-			finaliseCrafting(ingredient, effects);
+			finaliseCrafting(ingredient, effects, applyCost);
 			return craftedWeapon;
 			
 		} else if(ingredient instanceof Tattoo) {
-			Main.game.getPlayer().incrementMoney(-EnchantingUtils.getCost(ingredient, effects)*EnchantingUtils.FLAME_COST_MODIFER);
+			if(applyCost) {
+				Main.game.getPlayer().incrementMoney(-EnchantingUtils.getCost(ingredient, effects)*EnchantingUtils.FLAME_COST_MODIFER);
+			}
 			Tattoo tattoo;
 			if (EnchantmentDialogue.isEquipped) {
 				EnchantmentDialogue.isEquippedTo.removeTattoo(EnchantmentDialogue.isEquippedIn);
@@ -637,15 +646,15 @@ public class EnchantmentDialogue {
 				tattoo = EnchantingUtils.craftTattoo(ingredient, effects);
 			}
 			Main.game.addEvent(new EventLogEntry("[style.colourExcellent(Tattoo Enchanted)]", Util.capitaliseSentence(((Tattoo)ingredient).getName())), false);
-			finaliseCrafting(ingredient, effects);
+			finaliseCrafting(ingredient, effects, applyCost);
 			return tattoo;
 		}
 		
 		return null;
 	}
 	
-	private static void finaliseCrafting(AbstractCoreItem ingredient, List<ItemEffect> effects) {
-		if(!(ingredient instanceof Tattoo)) {
+	private static void finaliseCrafting(AbstractCoreItem ingredient, List<ItemEffect> effects, boolean applyCost) {
+		if(!(ingredient instanceof Tattoo) && applyCost) {
 			Main.game.getPlayer().incrementEssenceCount(-EnchantingUtils.getCost(ingredient, effects), false);
 		}
 		
@@ -724,7 +733,7 @@ public class EnchantmentDialogue {
 	}
 
 	public static void initSaveLoadMenu() {
-		loadedEnchantmentsMap = new HashMap<>();
+		loadedEnchantmentsMap = new TreeMap<>();
 		
 		for(File f : getSavedEnchants()) {
 			try {
@@ -738,26 +747,25 @@ public class EnchantmentDialogue {
 		}
 	}
 	
-	public static String loadConfirmationName = "", overwriteConfirmationName = "", deleteConfirmationName = "";
 	public static final DialogueNode ENCHANTMENT_SAVE_LOAD = new DialogueNode("Save enchantment files", "", true) {
-
+		@Override
+		public void applyPreParsingEffects() {
+			initSaveLoadMenu();
+		}
 		@Override
 		public String getContent() {
 			return "";
 		}
-		
 		@Override
 		public String getHeaderContent(){
 			StringBuilder saveLoadSB = new StringBuilder();
 			
 			saveLoadSB.append(
-					"<div class='container-full-width'>"
-						+ "<list style='padding:0;margin:0;'>"
-							+ "<ul style='padding-left:8px;'>Only standard characters (letters and numbers) will work for save file names.</ul>"
-							+ "<ul style='padding-left:8px;'>Hover over each item's icon to see the effects to be saved/loaded.</ul>"
-							+ "<ul style='padding-left:8px;'>If a name is [style.colourBad(red)], then you don't have a suitable item in your inventory, and cannot load that effect.</ul>"
-							+ "<ul style='padding-left:8px;'>You can only save/overwrite saves if your enchantment has at least one effect added.</ul>"
-						+ "</list>"
+					"<div class='container-full-width' style='padding:0; margin:0 0 8px 0;'>"
+							+ "Only standard characters (letters and numbers) will work for save file names."
+							+ "<br/>Hover over each item's icon to see the effects to be saved/loaded."
+							+ "<br/>If a name is [style.colourBad(red)], then you don't have a suitable item in your inventory, and cannot load that effect."
+							+ "<br/>You can only save/overwrite saves if your enchantment has at least one effect added."
 					+ "</div>"
 					+ "<div class='container-full-width' style='padding:0; margin:0;'>"
 						+ "<div class='container-full-width' style='width:calc(75% - 16px); text-align:center; background:transparent;'>"
@@ -862,20 +870,20 @@ public class EnchantmentDialogue {
 						+ "<div class='container-full-width' style='width:calc(25% - 16px);text-align:center; background:transparent;'>"
 							+ (Main.game.isStarted() && !Main.game.isInCombat() && !Main.game.isInSex() && !EnchantmentDialogue.getEffects().isEmpty()
 									?(fileName.equals(overwriteConfirmationName)
-										?"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveConfirm()+"</div></div>"
-										:"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskOverwrite()+"</div></div>")
+										?"<div class='square-button saveIcon' id='OVERWRITE_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveConfirm()+"</div></div>"
+										:"<div class='square-button saveIcon' id='OVERWRITE_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskOverwrite()+"</div></div>")
 									:"<div class='square-button saveIcon disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
 							
 							+ (suitableItemAvailable
 									? (fileName.equals(loadConfirmationName)
-										?"<div class='square-button saveIcon' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadConfirm()+"</div></div>"
-										:"<div class='square-button saveIcon' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoad()+"</div></div>")
+										?"<div class='square-button saveIcon' id='LOAD_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadConfirm()+"</div></div>"
+										:"<div class='square-button saveIcon' id='LOAD_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoad()+"</div></div>")
 									:"<div class='square-button saveIcon disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadDisabled()+"</div></div>")
 	
 	
 							+ (fileName.equals(deleteConfirmationName)
-								?"<div class='square-button saveIcon' id='delete_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
-								:"<div class='square-button saveIcon' id='delete_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
+								?"<div class='square-button saveIcon' id='DELETE_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
+								:"<div class='square-button saveIcon' id='DELETE_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
 						+ "</div>"
 					+ "</div>";
 			
@@ -927,7 +935,7 @@ public class EnchantmentDialogue {
 							+ "</div>"
 						
 							+ "<div class='container-full-width' style='width:calc(25% - 16px); text-align:center; background:transparent;'>"
-								+ "<div class='square-button saveIcon' id='new_saved' style='float:left;'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSave()+"</div></div>"
+								+ "<div class='square-button saveIcon' id='NEW_SAVE' style='float:left;'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSave()+"</div></div>"
 							+ "</div>"
 						+ "</div>";
 			}
@@ -935,7 +943,7 @@ public class EnchantmentDialogue {
 		}
 	}
 
-	public static void saveEnchant(String name, boolean allowOverwrite) {
+	public static void saveEnchant(String name, boolean allowOverwrite, DialogueNode dialogueNode) {
 		name = Main.checkFileName(name);
 		if(name.isEmpty()) {
 			return;
@@ -1022,7 +1030,11 @@ public class EnchantmentDialogue {
 		} catch (TransformerException tfe) {
 			tfe.printStackTrace();
 		}
-		Main.game.setContent(new Response("Save", "", EnchantmentDialogue.ENCHANTMENT_MENU));
+
+		if(dialogueNode!=null) {
+			Main.game.setContent(new Response("", "", dialogueNode));
+		}
+		Main.game.flashMessage(PresetColour.GENERIC_GOOD, "Enchantment saved!");
 	}
 
 	public static LoadedEnchantment loadEnchant(String name) {

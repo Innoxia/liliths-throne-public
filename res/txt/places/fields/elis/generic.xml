@@ -87,14 +87,28 @@
 	
 	<htmlContent tag="ALLEY"><![CDATA[
 	<p>
-		The northern half of Elis is quite unlike the rest of the town, as it's home to an intricate, twisting network of narrow alleyways. Permanently cast in shade from the ramshackle buildings teetering precariously overhead, the cobblestone which the ground is pathed in is poorly maintained and filled with potholes and puddles.
+		The northern half of Elis is quite unlike the rest of the town, as it's home to an intricate, twisting network of narrow alleyways. Permanently cast in shade from the ramshackle buildings teetering precariously overhead, the poorly-maintained cobblestone path is littered with potholes and puddles.
 	</p>
-	<p>
-		Despite their claustrophobic nature and the dilapidated state of the surrounding structures, these alleyways don't have the same dangerous feeling to them as those in Dominion, largely due to the fact that there's always at least a few harmless residents either loitering about or travelling past you. There are also numerous clotheslines linking the buildings above your head, and the bright colours of the clothing hung out to dry helps to lend a cheery atmosphere to what would otherwise be some very drab surroundings.
-	</p>
-	<p>
-		While you're confident that these alleyways are safe to be travelling through, you can't help but notice how they're home to the town's more disreputable elements. Thanks to the fact that there's a backalley brothel or a sleazy gambling den never more than a few turns away, you find yourself often having to filter out the sounds of whorish moaning or drunken laughter as you travel ever onwards... 
-	</p>
+	#IF(game.isDayTime())
+		<p>
+			Despite their claustrophobic nature and the dilapidated state of the surrounding structures, these alleyways don't have the same dangerous feeling to them as those in Dominion, largely due to the fact that there's always at least a few harmless residents either loitering about or travelling past you. There are also numerous clotheslines linking the buildings above your head, and the bright colours of the clothing hung out to dry helps to lend a cheery atmosphere to what would otherwise be some very drab surroundings.
+		</p>
+		<p>
+			While you're confident that these alleyways are safe to be travelling through during daylight hours, you can't help but notice how they're home to the town's more disreputable elements. Thanks to the fact that there's a back-alley brothel or a sleazy gambling den never more than a few turns away, you find yourself often having to filter out the sounds of whorish moaning or drunken laughter. As you travel ever onwards, you find yourself spotting countless places from which an ambush could be sprung, and you realise that these alleyways must be a very dangerous place to be at night... 
+		</p>
+	#ELSE
+		<p>
+			Although safe to travel through during daylight hours, these claustrophobic alleyways have a particularly dangerous feeling to them at night. The harmless residents who can be found loitering about while the sun's out have all disappeared into the surrounding dilapidated structures which they call home, leaving the area completely deserted.
+		</p>
+		<p>
+			Apart from the occasional sounds of whorish moaning or drunken laughter which burst out from an upper-floor window, there's absolutely no sign of life as you continue down the dark, twisting passageways. Feeling like you're being watched, you realise that it must only be a matter of time before you encounter one of the town's more disreputable elements...
+		</p>
+	#ENDIF
+	#IF(!game.getNonCompanionCharactersPresent().isEmpty())
+		[#game.getNonCompanionCharactersPresent().get(0).getPresentInTileDescription()]
+	#ELSEIF(!game.getCharactersTreatingCellAsHome(pc.getCell()).isEmpty())
+		[#game.getCharactersTreatingCellAsHome(pc.getCell()).get(0).getPresentInTileDescription(true)]
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -220,7 +234,7 @@
 	
 	<htmlContent tag="GATEHOUSE"><![CDATA[
 	<p>
-		Consisting of a pair of crenellated towers flanking a pair of huge wooden gates, this gatehouse guards one of the the two roads which grant access to the town of Elis. Standing guard to one side of the open gates, a pair of Enforcers are keeping a very casual watch over anyone who passes them by.
+		Consisting of a pair of crenellated towers flanking a pair of huge wooden gates, this gatehouse guards one of the two roads which grant access to the town of Elis. Standing guard to one side of the open gates, a pair of Enforcers are keeping a very casual watch over anyone who passes them by.
 	</p>
 	<p>
 		#IF(pc.getLastPlaceType()==PLACE_TYPE_innoxia_fields_elis_town_wall)
@@ -392,7 +406,7 @@
 		#IF(game.isDayTime())
 			Due to the current hour, there are a lot of people out and about, with those that you see walking the streets mostly taking the form of some kind of domestic animal-morph. Cows, sheep, dogs, and all other manner of morphs are able to be sighted.
 		#ELSE
-			Due to the current hour, there are far fewer people out and about, with those that you do see walking the streets mostly taking the form of a nocturnal animal-morph. Foxes, badgers, and even the occasional owl-harpy who's decided to walk instead of fly are just some of the morphs which you're able see.
+			Due to the current hour, there are far fewer people out and about, with those that you do see walking the streets mostly taking the form of a nocturnal animal-morph. Foxes, badgers, and even the occasional owl-harpy who's decided to walk instead of fly are just some of the morphs which you're able to see.
 		#ENDIF
 		 Although this town is far smaller than Dominion, it's not so rural as to be home to the sort of behaviour where strangers say hello to one another, and so none of the people who you pass pay you any attention as they continue on their way to whatever destination awaits them.
 	</p>
@@ -446,18 +460,46 @@
 	</htmlContent>
 	
 	<htmlContent tag="TAVERN_SEEDY"><![CDATA[
-	<p>
-		An oddity in amongst the narrow alleyways of the northern half of Elis, the large, paved courtyard in front of you is filled with wooden picnic tables, at which a dozen or so locals are sitting and passing the hours by drinking and gambling with one another. The establishment responsible for their supply of alcohol is situated on the far side of the courtyard, and takes the form of a rather dilapidated timber-framed structure. A weathered sign precariously hanging from a sagging metal pole displays an image of two crossed daggers, with the words 'The Crossed Blades' written in black, bold letting below.
-	</p>
-	<p>
-		While the patrons who're sitting out in the courtyard seem to be relatively well-behaved, there are some very rowdy sounds of laughter, cursing, and the occasional cheer coming from within the pub itself. Although there are large, leaded windows on the ground floor, they're so grimy that
-		#IF(game.isDayTime())
-			 you can't see much of the interior through them, 
-		#ELSE
-			 you can only barely tell that the lights are on inside,
-		#ENDIF
-		 and so if you wanted to find out what this pub is like, you'll have to risk heading inside...
-	</p>
+	#IF(game.getHourOfDay()<5 || game.getHourOfDay()>=14)
+		<p>
+			An oddity in amongst the narrow alleyways of the northern half of Elis, the large, paved courtyard in front of you is filled with wooden picnic tables, at which a dozen or so locals are sitting and passing the hours by drinking and gambling with one another. The establishment responsible for their supply of alcohol is situated on the far side of the courtyard, and takes the form of a rather dilapidated, timber-framed structure. A weathered sign hanging precariously from a drooping metal pole displays an image of two crossed daggers, with the words 'The Crossed Blades' written in black, bold letting below.
+		</p>
+		<p>
+			While the patrons who're sitting out in the courtyard seem to be relatively well-behaved, there are some very rowdy sounds of laughter, cursing, and the occasional cheer coming from within the tavern itself. Although there are large, leaded windows on the ground floor, they're so grimy that
+			#IF(game.isDayTime())
+				 you can't see much of the interior through them, 
+			#ELSE
+				 you can only barely tell that the lights are on inside,
+			#ENDIF
+			 and so if you wanted to find out what this tavern is like, you'll have to risk heading inside. As you approach the door, you see that there's an old, weathered sign which declares the tavern's opening hours to be from [style.colourMinorGood([units.time(14)]-[units.time(5)])].
+		</p>
+	#ELSE
+		<p>
+			An oddity in amongst the narrow alleyways of the northern half of Elis, the large, paved courtyard in front of you is filled with wooden picnic tables, each one of which is vacant. The establishment to which this array of empty seating belongs is situated on the far side of the courtyard, and takes the form of a rather dilapidated, timber-framed structure. A weathered sign hanging precariously from a drooping metal pole displays an image of two crossed daggers, with the words 'The Crossed Blades' written in black, bold letting below.
+		</p>
+		<p>
+			Just like the empty courtyard before you suggests, the tavern itself seems to be closed, as there's no light nor sounds coming from within. Although there are large, leaded windows on the ground floor, they're so grimy that you can't see much of the interior through them, and so if you wanted to find out what this tavern is like, you'll have to come back again when it's open. Looking across to the tavern's front door, you see that there's an old, weathered sign which declares its opening hours to be from [style.colourMinorBad([units.time(14)]-[units.time(5)])].
+		</p>
+	#ENDIF
+	#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS))
+		<p>
+			<i>
+			#IF(game.isHourBetween(6, 7))
+				#IF(flags.hasFlag(FLAG_innoxia_oglix_kheiron_spectated_today))
+					You've already seen what Kheiron and Golix get up to in the old stables today. If you wanted to watch them again, then you'll have to come back tomorrow between [units.time(6)]-[units.time(7)]...
+				#ELSE
+					Remembering what Oglix said, as it's currently between [units.time(6)]-[units.time(7)], you could sneak around behind the tavern to the old stables, where Kheiron and Golix should be having their meeting...
+				#ENDIF
+			#ELSE
+				Remembering what Oglix said, if you were to come back here
+				#IF(game.getHourOfDay()>7)
+					 tomorrow
+				#ENDIF
+				 between [units.time(6)]-[units.time(7)], you could sneak around behind the tavern to the old stables, where Kheiron and Golix will be having their meeting...
+			#ENDIF
+			</i>
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -466,7 +508,7 @@
 		Positioned on the street corner directly adjacent to the Farmer's Market, 'The Centaur's Sword' tavern occupies one of the largest two-story buildings within Elis. Prominently displayed beside each of its two remarkably-wide entrances, information boards declare this tavern to have a 'taur-friendly interior design' and a bar that's able to 'accommodate more than a dozen centaurs'.
 	</p>
 	<p>
-		The tavern's sign hangs from a purpose-built post situated a few [style.lSizes] away from the building's corner, and displays an image of a naked, muscular centaur showing off his enormous erection. The words 'The Centaur's Sword' are written beneath this in flowing gold script, while an additional sign hanging beneath that reads 'Open 24/7'.
+		The tavern's sign hangs from a purpose-built post situated a few [style.lSizes] away from the building's corner, and displays an image of a naked, muscular centaur showing off his enormous erection. The words 'The Centaur's Sword' are written beneath this in flowing gold script, while an additional sign hanging beneath that reads '[style.colourMinorGood(Open 24/7)]'.
 	</p>
 	<p>
 		#IF((game.getHourOfDay()>=15 && game.getHourOfDay()<=23))

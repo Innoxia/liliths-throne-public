@@ -29,7 +29,7 @@
 			0
 		#ENDIF
 	]]></subspeciesWeighting>
-	<iconName displaySize="80">icon</iconName>
+	<iconName displaySize="100">icon_leopard</iconName>
 	<backgroundName>background_leopard</backgroundName>
 	<bookIconName>icon</bookIconName>
 	<bookName>Big Cats</bookName>

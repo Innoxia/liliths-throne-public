@@ -1095,7 +1095,7 @@ public class FingerVagina {
 							+ " forcing [npc2.her] [npc2.fingers+] ever deeper into [npc.her] [npc.pussy+].",
 
 					"Slowly thrusting [npc.her] [npc.hips] against [npc2.namePos] [npc2.hand],"
-							+ " a soft [npc.moan] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements [npc.verb(force)] [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.pussy+]."));
+							+ " a soft [npc.moan] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.pussy+]."));
 
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1133,7 +1133,7 @@ public class FingerVagina {
 							+ " forcing [npc2.her] [npc2.fingers+] ever deeper into [npc.her] [npc.pussy+].",
 
 					"Enthusiastically thrusting [npc.her] [npc.hips] against [npc2.namePos] [npc2.hand],"
-							+ " [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements [npc.verb(force)] [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.pussy+]."));
+							+ " [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.pussy+]."));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1209,7 +1209,7 @@ public class FingerVagina {
 							+ " forcing [npc2.her] [npc2.fingers+] ever deeper into [npc.her] [npc.pussy+].",
 
 					"Enthusiastically thrusting [npc.her] [npc.hips] against [npc2.namePos] [npc2.hand],"
-							+ " [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements [npc.verb(force)] [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.pussy+]."));
+							+ " [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.pussy+]."));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1247,7 +1247,7 @@ public class FingerVagina {
 							+ " forcing [npc2.her] [npc2.fingers+] ever deeper into [npc.her] [npc.pussy+].",
 
 					"Enthusiastically thrusting [npc.her] [npc.hips] against [npc2.namePos] [npc2.hand],"
-							+ " [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements [npc.verb(force)] [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.pussy+]."));
+							+ " [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.pussy+]."));
 			
 			return UtilText.nodeContentSB.toString();
 		}
