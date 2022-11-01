@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<!-- ENCOUNTER_START -->
+	
+	<htmlContent tag="ENCOUNTER_START"><![CDATA[
+	<p>
+		Approaching Eisek's stall once more, you see...a small mob gathered around it. Exasperated that some of the townsfolk still do not believe you, you quicken your pace. Yet as you get closer, you see that this crowd is not like the previous one. For one, they sound less angry and more annoyed, and for two, their state of dress would suggest they have not washed in some time.
+	</p>
+	<p>
+		They don't seem to be an immediate threat. Perhaps this isn't the best time?
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- ENCOUNTER_BACK_OFF -->
+	
+	<htmlContent tag="ENCOUNTER_BACK_OFF"><![CDATA[
+	<p>
+		You decide that Eisek can handle this on his own for now and step away. As you do, you see a bright blue flash between the press of bodies around the stall. The crowd bursts into...cheering? And then reverently haul away several vaguely bipedal lumps of ice like some sort of holy relics. When you turn back towards the [eisek.race], he only shrugs. [eisek.speech(They asked me for it. Some sort of rite of passage. I obliged. You have some very strange customs in this town.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- ENCOUNTER_APPROACH -->
+	
+	<htmlContent tag="ENCOUNTER_APPROACH"><![CDATA[
+	<p>
+		Faintly dreading to see what trouble has found the draconic merchant this time, you work your way through the haze of body odour. As you do so, you see what appears to be the ringleader of this particular mob: a scrawny human, hooded and cloaked.
+	</p>
+	<p>
+		[test.speechMasculine(Come on! What kind of dragon are you? If you're not going to blast me or raze this stinking town, you could at least help us out with our live action game. We need a good final boss! Haven't you ever wanted to own a dungeon?)] His sentiments are echoed by some members of the crowd, while others make general noises of assent.
+	</p>
+	<p>
+		[eisek.speech(I am already the owner of my business. I have no desire to own anything else,)] Eisek replies calmly.
+	</p>
+	<p>
+		Out of patience, the ringleader suddenly tries to push the stall over. But even though the weight and leverage are to his advantage, he strains for some time before giving up with a huff. [test.speechMasculine(Fine, be a vegan cuck!)] he exclaims, turning around to leave, [test.speech(Nobody wants a lame dragon as a final boss anyhow. Let's get out of here.)]
+	</p>
+	<p>
+		You turn towards Eisek as the crowd moves on, who only scratches his chin. [eisek.speech(Hmm,) he rumbles, [eisek.speech(There are some very strange customs in this town.)]
+	</p>
+	<p>
+		For some reason, you don't share Eisek's sense of ease. The dungeon that the ringleader mentioned might warrant a visit, just in case, and a faint stench could very well lead you right to it.
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

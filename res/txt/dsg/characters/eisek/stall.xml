@@ -184,9 +184,9 @@
 	<p>
 		Eisek meets your question with a steaming snort. 
 		#IF (flags.hasFlag(FLAG_dsg_elis_eisek_asked_about_mob))
-			 [eisek.speech(As I said before, the first one showed up maybe three months ago. I ignored him and he came back with friends. The Enforcers came two or three times, but harassment is hardly a serious crime. The ones that got arrested would be absent for the next day or so, but they'd always come back, none the worse for wear. They were a nuisance more than anything and I was mostly concerned that they were scaring away customers. Well, that was before their friends came back with more friends...)]
+			 [eisek.speech(As I said before, the first one showed up maybe three months ago. I ignored him and he came back with friends. The town guards came two or three times, but harassment is hardly a serious crime. The ones that were taken away would be absent for the next day or so, but they would always come back, none the worse for wear. They were a nuisance more than anything and I was mostly concerned that they were scaring away customers. Well, that was before their friends came back with more friends...)]
 		#ELSE
-			 [eisek.speech(Oh them. The first one showed up maybe three months ago. I ignored him and he came back with friends. The Enforcers came two or three times, but harassment is hardly a serious crime. The ones that got arrested would be absent for the next day or so, but they'd always come back, none the worse for wear. They were a nuisance more than anything and I was mostly concerned that they were scaring away customers. Well, that was before their friends came back with more friends...)]
+			 [eisek.speech(Oh them. The first one showed up maybe three months ago. I ignored him and he came back with friends. The town guards came two or three times, but harassment is hardly a serious crime. The ones that were taken away would be absent for the next day or so, but they'd always come back, none the worse for wear. They were a nuisance more than anything and I was mostly concerned that they were scaring away customers. Well, that was before their friends came back with more friends...)]
 		#ENDIF
 	</p>
 	<p>
@@ -259,7 +259,7 @@
 			You explain that you beat up the mob's strongest member in front of them and threatened the rest with a good thrashing.
 		</p>
 		<p>
-			The [eisek.race]'s eyes narrow slightly. [eisek.speech(So...you convinced them that I was not in fact a violent beast with feats of violence?)] he asks rhetorically. After pondering this for a moment, he continues flatly [eisek.speech(It seems I have misjudged the ways of civilized folk. Forgive me. I do not mean to sound ungrateful. For your trouble.)] And with that, he places a sack of flames on the counter.
+			The [eisek.race]'s eyes narrow slightly. [eisek.speech(So...you convinced them that I was not in fact a violent beast with feats of violence?)] he asks rhetorically. After pondering this for a moment, he continues flatly [eisek.speech(It seems I have misjudged the ways of civilized folk. Forgive me. I do not mean to sound ungrateful.)] And with that, he places a sack of flames on the counter. [eisek.speech(For your trouble.)]
 		</p>
 	#ELSEIF(flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate_arcane))
 		<p>
@@ -272,14 +272,14 @@
 			You explain that you demonstrated your arcane prowess and defeated the mob's strongest member. That was enough to cow the townsfolk.
 		</p>
 		<p>
-			The [eisek.race]'s eyes narrow slightly. [eisek.speech(So...you convinced them that I was not in fact a violent beast with feats of arcane violence?)] he asks rhetorically. After pondering this for a moment, he continues flatly [eisek.speech(It seems I have misjudged the ways of civilized folk. Forgive me. I do not mean to sound ungrateful. For your trouble.)] And with that, he places a sack of flames on the counter.
+			The [eisek.race]'s eyes narrow slightly. [eisek.speech(So...you convinced them that I was not in fact a violent beast with feats of arcane violence?)] he asks rhetorically. After pondering this for a moment, he continues flatly [eisek.speech(It seems I have misjudged the ways of civilized folk. Forgive me. I do not mean to sound ungrateful.)] And with that, he places a sack of flames on the counter. [eisek.speech(For your trouble.)]
 		</p>
 	#ELSEIF(flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_failed))
 		<p>
-			You tell Eisek apologetically that you weren't able to convince the mob to leave him alone. A look of concern crosses his face. [eisek.race(Were you...harmed?)] 
+			You tell Eisek apologetically that you weren't able to convince the mob to leave him alone. A look of concern crosses his face. [eisek.race(Are you...were you...injured?)] 
 		</p>
 		<p>
-			The [eisek.race] relaxes slightly when you tell him your pride was more wounded than anything else but his face darkens. A small wisp of steam escapes from one side of his mouth. [eisek.speech(I see,)] he says simply, [eisek.speech(Regardless, you have my thanks for trying.)]
+			The [eisek.race] relaxes slightly when you tell him your pride was more wounded than anything else but his face darkens. A small wisp of steam escapes from one side of his mouth. [eisek.speech(I see. At least we have that small comfort,)] he says simply, [eisek.speech(Regardless, you have my thanks for trying.)]
 		</p>
 	#ENDIF
 	]]>
