@@ -28,7 +28,10 @@ public class LegConfigurationAffinity {
 		return affinity;
 	}
 
-	public static HashMap<LegConfigurationAffinity, String> getFeralNamesMap(HashMap<LegConfigurationAffinity, String> list, LegConfiguration legConfiguration, String feralName) {
+	public static HashMap<LegConfigurationAffinity, String> getFeralNamesMap(
+			HashMap<LegConfigurationAffinity, String> list,
+			LegConfiguration legConfiguration,
+			String feralName) {
 		for (Affinity affinity : Affinity.getAllAffinities()) {
 			list.put(new LegConfigurationAffinity(legConfiguration, affinity), feralName);
 		}
@@ -38,10 +41,8 @@ public class LegConfigurationAffinity {
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof LegConfigurationAffinity) {
-			if (((LegConfigurationAffinity) o).affinity == this.affinity &&
-				((LegConfigurationAffinity) o).legConfiguration == this.legConfiguration) {
-				return true;
-			}
+			return ((LegConfigurationAffinity) o).affinity == affinity &&
+					((LegConfigurationAffinity) o).legConfiguration == legConfiguration;
 		}
 		return false;
 	}
@@ -49,8 +50,8 @@ public class LegConfigurationAffinity {
 	@Override
 	public int hashCode() {
 		int hash = 17;
-		hash = 31 * hash + this.legConfiguration.hashCode();
-		hash = 31 * hash + this.affinity.hashCode();
+		hash = 31 * hash + legConfiguration.hashCode();
+		hash = 31 * hash + affinity.hashCode();
 		return hash;
 	}
 

@@ -22,9 +22,9 @@ public enum Affinity {
 	/** Hates water. The opposite of AQUATIC. */
 	TERRESTRIAL;
 
-	public static List<Affinity> allAffinities = new ArrayList<>();
-	public static Map<Affinity, String> affinityToIdMap = new HashMap<>();
-	public static Map<String, Affinity> idToAffinityMap = new HashMap<>();
+	public static final List<Affinity> allAffinities = new ArrayList<>();
+	public static final Map<Affinity, String> affinityToIdMap = new HashMap<>();
+	public static final Map<String, Affinity> idToAffinityMap = new HashMap<>();
 
 	static {
 		for(Affinity a : Affinity.values()) {

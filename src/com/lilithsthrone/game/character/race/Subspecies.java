@@ -441,7 +441,7 @@ public class Subspecies {
 			AbstractRace r = body.getLegType().getRace();
 			LegConfiguration legConfiguration = body.getLegConfiguration();
 			
-			switch(body.getLegConfiguration()) {
+			switch(legConfiguration) {
 				case BIPEDAL:
 					return "demon";
 				case ARACHNID:
@@ -452,7 +452,7 @@ public class Subspecies {
 				case AVIAN:
 				case WINGED_BIPED:
 					return r==Race.HUMAN || r==Race.DEMON
-							?Race.DEMON.getFeralName(new LegConfigurationAffinity(legConfiguration, this.getAffinity()), false)
+							?Race.DEMON.getFeralName(new LegConfigurationAffinity(legConfiguration, getAffinity()), false)
 							:"demonic-"+r.getName(body, true);
 			}
 			
