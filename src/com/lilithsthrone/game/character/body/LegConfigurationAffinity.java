@@ -28,14 +28,12 @@ public class LegConfigurationAffinity {
 		return affinity;
 	}
 
-	public static HashMap<LegConfigurationAffinity, String> getFeralNamesMap(
-			HashMap<LegConfigurationAffinity, String> list,
-			LegConfiguration legConfiguration,
-			String feralName) {
+	public static HashMap<LegConfigurationAffinity, String> getFeralNamesMap(LegConfiguration legConfiguration, String feralName) {
+		HashMap<LegConfigurationAffinity, String> feralNamesMap = new HashMap<>();
 		for (Affinity affinity : Affinity.getAllAffinities()) {
-			list.put(new LegConfigurationAffinity(legConfiguration, affinity), feralName);
+			feralNamesMap.put(new LegConfigurationAffinity(legConfiguration, affinity), feralName);
 		}
-		return list;
+		return feralNamesMap;
 	}
 
 	@Override

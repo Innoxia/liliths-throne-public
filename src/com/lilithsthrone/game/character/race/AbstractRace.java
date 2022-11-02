@@ -78,8 +78,8 @@ public abstract class AbstractRace {
 			boolean affectedByFurryPreference) {
 		this(name,
 				namePlural,
-				LegConfigurationAffinity.getFeralNamesMap(new HashMap<>(), LegConfiguration.BIPEDAL, nameFeral),
-				LegConfigurationAffinity.getFeralNamesMap(new HashMap<>(), LegConfiguration.BIPEDAL, nameFeralPlural),
+				LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.BIPEDAL, nameFeral),
+				LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.BIPEDAL, nameFeralPlural),
 				defaultTransformName,
 				colour,
 				disposition,

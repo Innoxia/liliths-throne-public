@@ -117,26 +117,26 @@ public class Race {
 	// DEMON:
 	private static HashMap<LegConfigurationAffinity, String> generateDemonNameFeralMap() {
 		HashMap<LegConfigurationAffinity, String> names = new HashMap<>();
-		names = LegConfigurationAffinity.getFeralNamesMap(names, LegConfiguration.BIPEDAL, "demon");
-		names = LegConfigurationAffinity.getFeralNamesMap(names, LegConfiguration.ARACHNID, "demonic-spider");
-		names = LegConfigurationAffinity.getFeralNamesMap(names, LegConfiguration.CEPHALOPOD, "demonic-octopus");
-		names = LegConfigurationAffinity.getFeralNamesMap(names, LegConfiguration.QUADRUPEDAL, "demonic-horse");
-		names = LegConfigurationAffinity.getFeralNamesMap(names, LegConfiguration.AVIAN, "demonic-eagle");
-		names = LegConfigurationAffinity.getFeralNamesMap(names, LegConfiguration.TAIL, "demonic-fish");
-		names = LegConfigurationAffinity.getFeralNamesMap(names, LegConfiguration.TAIL_LONG, "demonic-snake");
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.BIPEDAL, "demon"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.ARACHNID, "demonic-spider"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.CEPHALOPOD, "demonic-octopus"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.QUADRUPEDAL, "demonic-horse"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.AVIAN, "demonic-eagle"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.TAIL, "demonic-fish"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.TAIL_LONG, "demonic-snake"));
 		names.put(new LegConfigurationAffinity(LegConfiguration.TAIL_LONG, Affinity.AQUATIC), "demonic-sea-serpent");
 
 		return names;
 	}
 	private static HashMap<LegConfigurationAffinity, String> generateDemonNameFeralPluralMap() {
 		HashMap<LegConfigurationAffinity, String> names = new HashMap<>();
-		names = LegConfigurationAffinity.getFeralNamesMap(names, LegConfiguration.BIPEDAL, "demons");
-		names = LegConfigurationAffinity.getFeralNamesMap(names, LegConfiguration.ARACHNID, "demonic-spiders");
-		names = LegConfigurationAffinity.getFeralNamesMap(names, LegConfiguration.CEPHALOPOD, "demonic-octopuses");
-		names = LegConfigurationAffinity.getFeralNamesMap(names, LegConfiguration.QUADRUPEDAL, "demonic-horses");
-		names = LegConfigurationAffinity.getFeralNamesMap(names, LegConfiguration.AVIAN, "demonic-eagles");
-		names = LegConfigurationAffinity.getFeralNamesMap(names, LegConfiguration.TAIL, "demonic-fish");
-		names = LegConfigurationAffinity.getFeralNamesMap(names, LegConfiguration.TAIL_LONG, "demonic-snakes");
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.BIPEDAL, "demons"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.ARACHNID, "demonic-spiders"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.CEPHALOPOD, "demonic-octopuses"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.QUADRUPEDAL, "demonic-horses"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.AVIAN, "demonic-eagles"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.TAIL, "demonic-fish"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.TAIL_LONG, "demonic-snakes"));
 		names.put(new LegConfigurationAffinity(LegConfiguration.TAIL_LONG, Affinity.AQUATIC), "demonic-sea-serpents");
 
 		return names;
