@@ -1405,7 +1405,9 @@ public abstract class AbstractSubspecies {
 			case TAIL:
 				return Affinity.AQUATIC;
 			default:
-				return affinity;
+				return body.getHalfDemonSubspecies() != null
+					? body.getHalfDemonSubspecies().getAffinity()
+					: affinity;
 		}
 	}
 
@@ -1417,7 +1419,9 @@ public abstract class AbstractSubspecies {
 			case TAIL:
 				return Affinity.AQUATIC;
 			default:
-				return affinity;
+				return character.getHalfDemonSubspecies() != null
+					? character.getHalfDemonSubspecies().getAffinity()
+					: affinity;
 		}
 	}
 

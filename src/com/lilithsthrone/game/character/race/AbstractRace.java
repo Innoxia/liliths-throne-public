@@ -358,10 +358,15 @@ public abstract class AbstractRace {
 	
 	public String getName(Body body, boolean feral) {
 		if(feral) {
+			Affinity affinity = body != null
+				? body.getHalfDemonSubspecies() != null
+					? body.getHalfDemonSubspecies().getAffinity(body)
+					: body.getSubspecies().getAffinity(body)
+				: Affinity.AMPHIBIOUS;
 			return getFeralName(
 				body != null ? 
-					new LegConfigurationAffinity(body.getLegConfiguration(), body.getSubspecies().getAffinity(body)) :
-					new LegConfigurationAffinity(LegConfiguration.BIPEDAL, Affinity.AMPHIBIOUS),
+					new LegConfigurationAffinity(body.getLegConfiguration(), affinity) :
+					new LegConfigurationAffinity(LegConfiguration.BIPEDAL, affinity),
 				false);
 		}
 		if(Main.game!=null && Main.game.isSillyMode()) {
@@ -376,10 +381,15 @@ public abstract class AbstractRace {
 	
 	public String getNamePlural(Body body, boolean feral) {
 		if(feral) {
+			Affinity affinity = body != null
+				? body.getHalfDemonSubspecies() != null
+					? body.getHalfDemonSubspecies().getAffinity(body)
+					: body.getSubspecies().getAffinity(body)
+				: Affinity.AMPHIBIOUS;
 			return getFeralName(
 				body != null ? 
-					new LegConfigurationAffinity(body.getLegConfiguration(), body.getSubspecies().getAffinity(body)) :
-					new LegConfigurationAffinity(LegConfiguration.BIPEDAL, Affinity.AMPHIBIOUS),
+					new LegConfigurationAffinity(body.getLegConfiguration(), affinity) :
+					new LegConfigurationAffinity(LegConfiguration.BIPEDAL, affinity),
 				true);
 		}
 		if(Main.game!=null && Main.game.isSillyMode()) {
