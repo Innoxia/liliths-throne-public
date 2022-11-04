@@ -206,7 +206,12 @@ public class HarpyNestsDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
-				return new Response("Continue", "Having agreed to help pacify the Harpy Nests, you leave the horse-boy's office...", ENTRANCE_ENFORCER_POST);
+				return new Response("Leave", "Having agreed to help pacify the Harpy Nests, you leave the horse-boy's office...", ENTRANCE_ENFORCER_POST) {
+					@Override
+					public void effects() {
+						Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS_NEXT_LEAVE"));
+					}
+				};
 			}
 			return null;
 		}

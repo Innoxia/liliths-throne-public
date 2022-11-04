@@ -4966,12 +4966,10 @@ public class GenericOrgasms {
 		public String getActionTitle() {
 			return "Prepare";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "You can feel that [npc2.name] is fast approaching [npc2.her] orgasm. Prepare yourself for it.";
 		}
-		
 		@Override
 		public String getDescription() {
 			String description = "";
@@ -5000,8 +4998,12 @@ public class GenericOrgasms {
 					}
 					break;
 			}
-			
-			return UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterOrgasming(), description);}
+			GameCharacter orgasming = Main.sex.getCharacterOrgasming();
+			if(orgasming==null) {
+				orgasming = Main.sex.getCharacterTargetedForSexAction(this);
+			}
+			return UtilText.parse(Main.sex.getCharacterPerformingAction(), orgasming, description);
+		}
 	};
 	
 	private static boolean isAreaFuckedByTarget(SexAction sexAction, GameCharacter characterFucked, SexAreaInterface areaFucked) {

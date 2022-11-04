@@ -1585,7 +1585,9 @@ public class CharacterInventory implements XMLSaving {
 					break; 
 					
 				} else { // This clothing has access requirements in order to be unequipped. Check each piece of equipped clothing to see if it's blocking the access required:
-					for (AbstractClothing equippedClothing : clothingCurrentlyEquipped) {
+					List<AbstractClothing> equippedClothingSorted = new ArrayList<>(clothingCurrentlyEquipped);
+					equippedClothingSorted.sort(new ClothingZLayerComparator());
+					for (AbstractClothing equippedClothing : equippedClothingSorted) {
 						if (equippedClothing != clothing) {
 							for (BlockedParts bpEquipped : equippedClothing.getBlockedPartsMap(characterClothingOwner, equippedClothing.getSlotEquippedTo())) {
 								for (ClothingAccess caBlocked : bpEquipped.clothingAccessBlocked) {
@@ -1614,12 +1616,14 @@ public class CharacterInventory implements XMLSaving {
 
 										} else {
 											if(equippedClothing.equals(previousClothingCheck)) {
-												System.err.println("Error: "+clothing.getName()+" and "+equippedClothing.getName()+" are blocking one another's removal!!!");
-//												throw new IllegalArgumentException();
-												return true;
+												//TODO commented this out as it was causing issues, mainly in the situation where:
+												// Unequipping karada with maid's dress and open-front cardigan equipped would cause bugs even though it was possible to unequip
+//												System.err.println("Error: "+clothing.getName()+" and "+equippedClothing.getName()+" are blocking one another's removal!!!");
+////												throw new IllegalArgumentException();
+//												return true;
 											}
 											previousClothingCheck = clothing;
-											if (isAbleToUnequip(equippedClothing, false, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, true)) { // Can  be removed:
+											if (isAbleToUnequip(equippedClothing, false, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, true)) { // Can be removed:
 												clothingToRemove.put(equippedClothing, DisplacementType.REMOVE_OR_EQUIP);
 												
 											} else {

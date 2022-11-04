@@ -237,7 +237,7 @@ public class DominionSuccubusAttacker extends NPC {
 	
 	@Override
 	public String getCondomEquipEffects(AbstractClothingType condomClothingType, GameCharacter equipper, GameCharacter target, boolean rough) {
-		if(Main.game.isInSex()) {
+		if(!target.equals(equipper) && Main.game.isInSex()) {
 			if((Main.sex.isDom(Main.game.getPlayer()) || Main.sex.isSubHasEqualControl()) && !target.isPlayer()) {
 				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
 					return null;

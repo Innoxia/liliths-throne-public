@@ -6,6 +6,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
+	FriendlyAlienFriend's Artwork (https://twitter.com/thealienfriend):
+		Added artwork for Astrapi, including pregnant and crotch-boob variations. (Crotch boobs will be shown if your 'Crotch-boob & Udder Content' content setting is turned on.)
+		Added artwork for Vronti.
+	
 	Contributors:
 		Fixed a significant amount of typos and grammatical errors. (PR#1701 by Lis)
 		Significant rework and refactor of Controller classes, improved UI handling, and added a 4th +/- button to the fluid storage and regeneration transformation menus. (PR#1713 by Maxis010)
@@ -19,6 +23,18 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added fetish selection options to sexual experience menu during the prologue's character creation process. (PR#1687 by MintyChip)
 		Added Java vendor and basic OS information to error.log to help improve troubleshooting. (by CognitiveMist)
 		Fixed grammatical issues in the alligator-morph's racial descriptions. (PR#1685 by Maymay)
+		Fixed a cause of the issue where NPCs self-equipping condoms would react as though someone else had equipped the condom. (by Maxis010)
+		Fixed bug where a character with an aquatic-tailed lower body would have their leg and feet equipment incorrectly blocked and unblocked, due to the wrong status effects being checked. (by Stadler)
+		Added 'latex leggings' (feminine, leg slot, sold by Finch, latex lover set). (by Sage)
+		Fixed issue with some buttons in Kate's cosmetics dialogues being unresponsive. (by Maxis010)
+	
+	Gameplay:
+		Added bad ends to losing combat against the harpy matriarchs in the Harpy Nests.
+	
+	Sex:
+		Characters with a spinneret can now only apply webbing to themselves or their sexual partners if they have the related permission to manage their own/others clothing.
+		NPCs will now only equip condoms to themselves or their partners if they dislike the associated 'cum stud' or 'cum addict' fetishes. Previous behaviour was to equip if they disliked or were neutral to the fetishes, so this should reduce the amount of NPCs wanting to equip condoms. 
+		NPCs will now only equip BDSM or latex gear onto their partners if they like or love the 'bondage applier' fetish.
 	
 	Other:
 		The 'Crotch-boobs & Udders' body setting now only applies to randomly-generated NPCs at the moment of their creation (as was stated in the option's tooltip), allowing all characters to gain crotch-boobs/udders via TF no matter the setting.
@@ -27,10 +43,19 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added finer control over sex experience count in character creation and custom slave ordering screens, added anilingus experience, and made it so anal sex experiences are hidden if anal content is disabled.
 	
 	Bugs:
+		Parsing fixes.
 		Fixed several rendering issue with the buyback menu.
 		Fixed issue where the women's watch in character creation had random primary and secondary colours.
 		Fixed bug where penile virginity losses would be reset at the end of character creation.
 		World and place names in the UI are now correctly parsed.
+		Fixed issue in the 'owned by random NPC' content, where when the NPC took you to get tattooed, the tattoo in the 'lower abdomen' slot would work fine, but the one in the 'lower back' slot would never be given.
+		Fixed bug in the post-fight scenes when encountering centauresses in Themiscyra, where sometimes Aurokaris would be identified by the game as being one of the two centauress attackers.
+		Fixed issue where unequipping clothing when multiple layers were covering the clothing to be unequipped would sometimes not work correctly. (This is likely still slightly bugged, but I will properly fix it for the update.)
+		Fixed issue where imported characters would sometimes fail to load in correctly.
+		Fixed causes of the issue where Dominion-alley-demons, cultists, Kate, and Ralph would react to self-equipping condoms as though someone else had equipped the condom.
+		The special 'beer barrel' and 'Hazmat Rat Vending Machine' clothing items will no longer potentially be equipped to randomly spawned NPCs, or show up as random loot in alleyway tiles.
+		Fixed issue where Rose's sex preferences would ignore your anal content setting in the sex scene after being discovered by her in Lilaya's room.
+		Fixed bug where molesting a slave who has the 'unwilling fuck-toy' or 'submissive' fetishes would cause an affection loss, despite the description saying otherwise.
 	
 	
 	[x] Test
@@ -104,6 +129,138 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] TF 1 should be flame for food enchant
 	[x] error log info expansion
 	[x] for the bad end, the game will still act like your cow buddy is a virgin even if you lost to one of the NPC encounters on the way and she loses it then
+	[x] harpy nests
+		[x] add option to be dominated by Diana
+		[x] harpy nests improve quest start dialogue flow
+		[x] bad ends
+			[x] mouth seals check
+			[x] Brittany Bird-brained Bitch
+				[x] add warning of bad end to dialogue tooltips
+				[x] eat her out
+					[x] vagina - Lauren makes out with Brittany while male harpies fuck player, ends with riding cock while gossiping with other bimbos
+					[x] no vagina - Lauren rides player's cock, ends with female harpies using player as fuck toy, player is too dumb to oppose it
+			[x] Diana Bound Bird
+				[x] add warning of bad end to dialogue tooltips
+				[x] put in stocks and fucked by Harley
+					[x] vagina - Harley's fuck-toy content, take out frustrations by roughly (strap-on if needed) fucking flock members
+					[x] no vagina - kept in bondage with Diana feet, being punished by Diana and used to punish flock members
+			[x] Lexi Hen Party
+				[x] add warning of bad end to dialogue tooltips
+				[x] clean her pussy after Max creampies her while Max fucks player or 69'd
+					[x] vagina - serve as submissive pussy-cleaner and get constantly fucked
+					[x] no vagina - become yet another of Lexi's boytoys, fucking he whenever you can
+		[x] clothing changes
+		[x] writing
+			[x] bimbo
+			[x] dominant
+			[x] nympho
+		[x] test
+			[x] item IDs not correct
+			[x] bad end response number
+			[x] bimbo
+				[x] ending parsing bugs
+				[x] vagina
+				[x] penis
+					[x] frontal face sitting kissing available?
+			[x] dominant
+				[x] vagina
+					[x] harley quick sex crash?
+				[x] penis
+					[x] sex start error
+					[x] clothing issues
+			[x] nympho
+				[x] vagina
+					[x] parsing error
+					[x] vagina penetration bug
+				[x] penis
+				[x] improve vagina sex start description
+		[x] Add bad end warning to intro text
+		[x] remove extra characters at end
+		[x] check character speech consistency
+			[x] bimbo
+				[x] 'bitch' doesn't fit
+			[x] dominant
+			[x] nympho
+	[x] NPC self condom equipping triggers standard responses
+		[x] "Do I really have to?... etc.
+	[x] FAF art Astrapi & Vronti
+	[x] Add sage's leggings
+	
+	[] bugs
+		[x] the "tattooed" event with the alley npc isnt giving me a tattoo. Ive done it two or three times in a row and no tattoo shows up
+			[x] I could get the lower abdomen tattoo but not the lower back one
+			[x] I can get the womb one on the lower abdomen, but the other one they talk about(probably on the lower back) never shows up
+		[x] Themiscyra centaur fights gives Inventory for Aurokaris as an option (parsig Aurokaris as the second attacker...)
+		[x] Spectator 'prepare' sex action has npc2 parser error: "as [npc.she] [npc.verb(prepare)] for ["
+			Issue is that within a single sex turn:
+			- targeted NPC reached 100 arousal on end of their action
+			- performing NPC then wants to use GENERIC_PREPARATION_PREPARE
+			- Main.sex.getCharacterOrgasming() has not been set yet (it's set at the start of a new sex turn)
+		[-] I'm pretty sure the NPCs are bugged to where they sometimes will just not accept doing anal sex. Like it will say they want your cock in their ass, but they just won't do it.
+			[-] NPCs now WILL NOT engage in anal sex acts if they DO NOT have the Buttslutt fetish. I do not know if it works on "likes" or just "loves", all I know is that NPCs that engage in receiving anal are those who have anal set to love.
+			[-] OK, so receiving anal only works if the NPC likes or loves the Buttslut Perk.
+		[-] when you cum over someone, it doesn't get over torso and hips
+		[-] plus it when I cum on the legs, apparently it gets the breasts, arms, stomach, etc
+		[x]  So for some reason  having anything equipped to my over-torso and a hard working maid set maid's dress on I can unequip  the karada unlimited times.
+			[x] The over-torso does not seem to be as important as the maid dress since it is the only item that I can find that has this affect tied to it. It seems any over-torso will work fine.
+			[x] Also if I do unequip the over -torso or maid's dress I can unequip the karada just fine and it gets rid of the extra copies of the karada. However if I don't do this I can sell them forever or store them all over the place.
+			[x] plunge blouse test
+		[-]  Every phoenix or phoenix/fury spawns with a Slovenly personality
+		[x] Failed to load NPC class: com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker
+			java.lang.reflect.InvocationTargetException
+				at sun.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+				at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+				at java.lang.reflect.Method.invoke(Unknown Source)
+				at com.lilithsthrone.game.Game.loadNPC(Game.java:1934)
+				at com.lilithsthrone.game.Game.lambda$2(Game.java:1177)
+				at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(Unknown Source)
+				at java.util.stream.IntPipeline$4$1.accept(Unknown Source)
+			...
+			Caused by: java.lang.NullPointerException
+				at com.lilithsthrone.game.character.GameCharacter.loadGameCharacterVariablesFromXML(GameCharacter.java:2945)
+				at com.lilithsthrone.game.character.npc.NPC.loadNPCVariablesFromXML(NPC.java:362)
+				at com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker.loadFromXML(DominionAlleywayAttacker.java:185)
+		[x] check condom self equipping bug is fixed
+		[x] Even when fully restricted, a sex partner with Spinneret may randomly apply web condom to other participant (not self, however).
+		[-] my npcs that I encountered or bought after loading just disappear
+		[x] submissive sex with two slaves in the bath
+			"you slide your wet body up against" - X and npc2 error
+			Said second NPC is not a part of this sexual interaction
+		[x] NPC equipping quirks:
+			[x] every NPC equips a condom before penetration no matter what fetish is enabled/disabled, or game setting toggle is on/off
+			[x] It seems like no matter what kinks, the AI will try to shove something on your dick.
+				Recently had a slave who I left their chastity cage off (on accident) seal it onto me. Didn't like applying bondage.
+				And no matter what, NPCs with condoms use them all immediately if you remove one on you
+		[x] Encountered my daughter wearing Oglix's beer barrel in the Harpy Nests
+		[x] Quick Sex feature not following disabled content settings
+			[x] Tried in the sex scene after masturbating with Lilaya's panty (getting caught by Rose), pressing Quick Sex will make her using the strap-on to anal my character despite the content being disabled
+		[x] The set spawns debug menu has a number of items that won't spawn. Milk maid, rainbow set, locked in bondage, latex lover
+			 [x] some other buttons on some other menus (hair length, style) also don't work
+				(already fixed? no.)
+		[x] Molesting a masochistic, submissive, rape loving slave causes an affection loss, despite the description saying otherwise
+			"neither losing nor gaining affection towards you" yet increments by -10
+		[] bat caverns tiles issues
+		[] Decided to earn that discount from Ralph with oral.
+			He puts on a rubber, ok I guess, he doesn't look like he would care.
+			Then proceeds to break it with the sheer volume of his load but in the description that ends the scene he puts filled and intact condom on a counter.
+			Something doesn't add up
+	
+	[] error log handling:
+		Warning: all weights are zero in weighted map!
+		First 10 elements: GYNEPHILIC=0, ANDROPHILIC=0, AMBIPHILIC=0
+		Warning: all weights are zero in weighted map!
+		First 10 elements: TWENTIES_LATE=0, TWENTIES_EARLY=0, FIFTIES_MIDDLE=0, SIXTIES_MIDDLE=0, SIXTIES_EARLY=0, THIRTIES_EARLY=0, FIFTIES_EARLY=0, FORTIES_EARLY=0, TWENTIES_MIDDLE=0, THIRTIES_MIDDLE=0
+	
+	[] PRs
+	
+	[] Really need to fix the isAbleToUnequip() method in CharacterInventory
+	
+	[] allow lust damage to 1-shot
+	[] gyno/andro orientation completely negating all nonmagical lust gains from what you're not attracted to when
+	[] add consumable which lowers lust
+	[] angel magic tree
+		[] anti-horny
+		[] buffs based on lust level
 	
 	[] Felicia content in writers channel
 		Felicia content expansion:
@@ -116,7 +273,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] Dwight - submission & toggle for being able to encounter your offspring
 	
-	[] FAF art Astrapi
+	[] fix taur spawns for non-quads
+		[] Issue is that some races aren't spawning as their tauric versions
+		[] the game is not ready for non-quadruped taurs?
+		[] when it tries to spawn snek-taurs or raptor-taurs and so on when taurs are at 100% spawns - it spawns normal snakes and raptors instead of lamias and big birb legs
 	
 	[] PRs:
 		[] #94
@@ -183,24 +343,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[] ranged weapons
 	
 	[] The options for slaves to take pills or mothers milk don't actually consume any items from the slaves or the player. I'll add that to the tooltips to make it clear.
-	
-	[] harpy nests
-		[x] add option to be dominated by Diana
-		[x] harpy nests improve quest start dialogue flow
-		[] bad ends
-			Losses apply (transformed at the start of each one if necessary):
-				- fucked
-					- Diana: put in stocks and fucked by Harley
-					- Brittany: eat her out while she makes out with Lauren
-					- Lexi: clean her pussy after Max creampies her
-				- fucked, kept in nest for 24 hours and made to serve matriarch
-					- Diana: kept in bondage with Diana feet or Harley fucking content, ends with roughly strap-on fucking a flock member
-					- Brittney: kept as pet and fucked by male harpies or eat out females, ends with putting another harpy in her place by being bustier than she is
-					- Lexi: keep her pussy clean and join her in getting fucked, ends with a private threesome making out with Lexi while Max fucks you both
-				- bad end: kept in nest and become part of harpy society
-					- Diana: bound bird (BDSM slut, being punished by Diana and used to punish flock members)
-					- Brittney: bird-brained bitch (member of the flock, riding cock while gossiping with other bimbos)
-					- Lexi: hen party (Lexi's pussy cleaner and fellow gang-bang slut)
 	
 	[] Need pure virginity loss to someone they love variation
 		[] remove fetish if virginity loss is to someone they at least love

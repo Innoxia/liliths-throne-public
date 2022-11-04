@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	
+	<coreAttributes>
+		<value>2500</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[maid's dress]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[maid's dresses]]></namePlural>
+		<description><![CDATA[A heavily stylised Maid's dress, it consists of a coloured one-piece dress with decorative white lace trimmings. A small white apron is attached to the front, and is similarly trimmed in white lace.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>TORSO_UNDER</slot>
+		<rarity>EPIC</rarity>
+		<clothingSet>innoxia_maid</clothingSet>
+		<imageName>dress.svg</imageName>
+		<imageEquippedName/>
+		
+		<effects> 
+			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+		</effects>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts> 
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>WAIST</clothingAccess>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>ASS</bodyPart>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>MOUND</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>TESTICLES</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+					<bodyPart>THIGHS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>LEGS_UP_TO_GROIN_LOW_LEVEL</clothingAccess>
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_GROIN"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values="MAID"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_WHITE"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>DRESS</tag>
+			<tag>FITS_ARM_WINGS</tag>
+		</itemTags>
+	</coreAttributes>
+
+	
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(reach)] back and [npc.verb(unzip)] [npc.her] maid's dress, before pulling [npc.her] [npc.arms] out, sliding it down [npc.her] body, and finally [npc.stepping] out of it.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(unzip)] the back of [npc2.namePos] maid's dress, before pulling [npc2.her] [npc2.arms] free to allow the dress to fall to the floor.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] impatiently [npc.verb(unzip)] the back of [npc2.namePos] maid's dress, before roughly pulling [npc2.her] [npc2.arms] free and yanking the dress to the floor.
+		]]></otherRough>
+	</displacementText>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.step] into the dress and [npc.verb(pull)] it up over [npc.her] torso, zipping [npc.herself] up at the back before making sure the trimmings and apron are neatly arranged.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(get)] [npc2.name] to [npc2.step] into the dress, before pulling it up over [npc2.her] torso. Zipping [npc2.herHim] up at the back, [npc.she] then [npc.verb(make)] sure that the trimmings and apron are neatly arranged.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] [npc.verb(force)] [npc2.name] to [npc2.step] into the dress, before yanking it up over [npc2.her] torso. Forcefully zipping [npc2.herHim] up at the back, [npc.she] then [npc.verb(make)] sure that the trimmings and apron are neatly arranged.
+		]]></otherRough>
+	</replacementText>
+
+	
+	<displacementText type="PULLS_UP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(pull)] up the skirt of [npc.her] maid's dress.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(pull)] up the skirt of [npc2.namePos] maid's dress.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(pull)] up the skirt of [npc2.namePos] maid's dress.
+		]]></otherRough>
+	</displacementText>
+	
+	<replacementText type="PULLS_UP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(pull)] down the skirt of [npc.her] maid's dress.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(pull)] down the skirt of [npc2.namePos] maid's dress.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(pull)] down the skirt of [npc2.namePos] maid's dress.
+		]]></otherRough>
+	</replacementText>
+</clothing>

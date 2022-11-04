@@ -171,6 +171,12 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS_NEXT_LEAVE"><![CDATA[
+	<p>
+		[pc.Stepping] out of the sergeant's office, you once again find yourself standing in the Enforcer Post...
+	</p>
+	]]>
+	</htmlContent>
 	
 	<!-- ENTRANCE_ENFORCER_POST_COMPLETED_PACIFICATION -->
 	
