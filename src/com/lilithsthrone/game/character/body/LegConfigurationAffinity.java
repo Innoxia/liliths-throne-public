@@ -28,6 +28,15 @@ public class LegConfigurationAffinity {
 		return affinity;
 	}
 
+	public LegConfigurationAffinity(Body body) {
+		this(body != null ? body.getLegConfiguration() : LegConfiguration.BIPEDAL,
+			body != null
+				? body.getHalfDemonSubspecies() != null
+					? body.getHalfDemonSubspecies().getAffinity(body)
+					: body.getSubspecies().getAffinity(body)
+				: Affinity.AMPHIBIOUS);
+	}
+
 	public static HashMap<LegConfigurationAffinity, String> getFeralNamesMap(LegConfiguration legConfiguration, String feralName) {
 		HashMap<LegConfigurationAffinity, String> feralNamesMap = new HashMap<>();
 		for (Affinity affinity : Affinity.getAllAffinities()) {
