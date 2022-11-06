@@ -159,9 +159,9 @@ public class Colour {
 		return "#"+getColor().toString().substring(2, 8);
 	}
 
-	public String toRGBA(Double alpha) {
+	public String toRGBA(double alpha) {
 		Color color = Color.web(this.toWebHexString());
-		return "rgba(" + (color.getRed()*255) + ", " + (color.getGreen()*255) + ",  " + (color.getBlue()*255) + ", " + alpha + ")";
+		return "rgba(" + (int)(color.getRed()*255) + ", " + (int)(color.getGreen()*255) + ",  " + (int)(color.getBlue()*255) + ", " + alpha + ")";
 	}
 
 	/**

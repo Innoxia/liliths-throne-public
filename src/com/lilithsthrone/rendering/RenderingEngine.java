@@ -1822,17 +1822,16 @@ public enum RenderingEngine {
 	}
 
 	private String generateBackgroundStyle(AbstractPlaceType placeType, boolean dangerousTile, boolean discovered, Double alpha) {
-		String background;
 		if(placeType.equals(PlaceType.GENERIC_IMPASSABLE)) {
-			background = "background:transparent;";
+			return "background:transparent;";
+			
 		} else {
-			background = dangerousTile && discovered //&& !worldMap
+			return dangerousTile && discovered //&& !worldMap
 					?getDangerousBackground(placeType)
 					:discovered
 						?"background-color:"+placeType.getBackgroundColour().toRGBA(alpha)+";"
 						:"background-color:"+PresetColour.MAP_BACKGROUND_UNEXPLORED.toRGBA(alpha)+";";
 		}
-		return background;
 	}
 	
 	public String getFullMap(AbstractWorldType world, boolean withFastTravel, boolean withNPCIcons) {
@@ -1893,7 +1892,7 @@ public enum RenderingEngine {
 //					}
 					
 					mapSB.append(
-							"<div class='map-icon' style='width:"+(width-0.5)+"%; margin:0.25%; "+border+" "+generateBackgroundStyle(placeType, dangerousTile, discovered, (c.isTravelledTo()||path?1:0.5))+""
+							"<div class='map-icon' style='width:"+(width-0.5)+"%; margin:0.25%; "+border+" "+generateBackgroundStyle(placeType, dangerousTile, discovered, 1.0)+""
 										+(canTeleportToTile?"cursor:pointer;":"")+"' id='MAP_NODE_" + i + "_" + j + "'>"
 								+(playerOnTile?"<div class='overlay map-player' style='background-color:"+BaseColour.AQUA.toWebHexString()+";'></div>":"")
 								+(showPathing && endPath && !playerOnTile?"<div class='overlay map-player' style='background-color:"+(dangerousTile?BaseColour.ORANGE:BaseColour.YELLOW).toWebHexString()+";'></div>":"")
@@ -1914,7 +1913,7 @@ public enum RenderingEngine {
 						appendNPCIcon(Main.game.getWorlds().get(world), j, i, width);
 						appendItemsInAreaIcon(Main.game.getWorlds().get(world), j, i);
 					}
-//					appendNotVisitedLayer(Main.game.getWorlds().get(world), j, i);
+					appendNotVisitedLayer(Main.game.getWorlds().get(world), j, i);
 					
 					mapSB.append("</div>");
 				}

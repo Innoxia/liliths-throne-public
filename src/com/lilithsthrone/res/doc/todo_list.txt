@@ -27,6 +27,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed bug where a character with an aquatic-tailed lower body would have their leg and feet equipment incorrectly blocked and unblocked, due to the wrong status effects being checked. (by Stadler)
 		Added 'latex leggings' (feminine, leg slot, sold by Finch, latex lover set). (by Sage)
 		Fixed issue with some buttons in Kate's cosmetics dialogues being unresponsive. (by Maxis010)
+		Made LT runnable directly on the most recent Java LTS (17) and created an automatic build and release pipeline to reduce workload using Maven. Also fixed several opaque elements which were supposed to be transparent. (PR#1684 by Tazze)
 	
 	Gameplay:
 		Added bad ends to losing combat against the harpy matriarchs in the Harpy Nests.
@@ -35,6 +36,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Characters with a spinneret can now only apply webbing to themselves or their sexual partners if they have the related permission to manage their own/others clothing.
 		NPCs will now only equip condoms to themselves or their partners if they dislike the associated 'cum stud' or 'cum addict' fetishes. Previous behaviour was to equip if they disliked or were neutral to the fetishes, so this should reduce the amount of NPCs wanting to equip condoms. 
 		NPCs will now only equip BDSM or latex gear onto their partners if they like or love the 'bondage applier' fetish.
+		If she doesn't have a fetish that's associated with her post-duel sex scenes, Meraxis will now end sex after she's orgasmed once, instead of when the player has orgasmed once, thereby always giving you the opportunity to influence her fetishes when she orgasms.
 	
 	Other:
 		The 'Crotch-boobs & Udders' body setting now only applies to randomly-generated NPCs at the moment of their creation (as was stated in the option's tooltip), allowing all characters to gain crotch-boobs/udders via TF no matter the setting.
@@ -185,8 +187,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] "Do I really have to?... etc.
 	[x] FAF art Astrapi & Vronti
 	[x] Add sage's leggings
-	
-	[] bugs
+	[x] bugs
 		[x] the "tattooed" event with the alley npc isnt giving me a tattoo. Ive done it two or three times in a row and no tattoo shows up
 			[x] I could get the lower abdomen tattoo but not the lower back one
 			[x] I can get the womb one on the lower abdomen, but the other one they talk about(probably on the lower back) never shows up
@@ -239,19 +240,25 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				(already fixed? no.)
 		[x] Molesting a masochistic, submissive, rape loving slave causes an affection loss, despite the description saying otherwise
 			"neither losing nor gaining affection towards you" yet increments by -10
-		[] bat caverns tiles issues
-		[] Decided to earn that discount from Ralph with oral.
+		[-] bat caverns tiles issues
+		[-] Decided to earn that discount from Ralph with oral.
 			He puts on a rubber, ok I guess, he doesn't look like he would care.
 			Then proceeds to break it with the sheer volume of his load but in the description that ends the scene he puts filled and intact condom on a counter.
 			Something doesn't add up
-	
-	[] error log handling:
+		[x] Can't unlock vaginal/boobs related fetishes from besting Meraxis in duel.
+			The sex scene after winning duel will always stops midway before the trigger for her loving boobs/vaginal fetishes (oral works fine).
+			She stopped at >90% without "Object of Desire" perk before cumming even once, or if it's with the perk, right after cumming once.
+	[-] error log handling:
 		Warning: all weights are zero in weighted map!
 		First 10 elements: GYNEPHILIC=0, ANDROPHILIC=0, AMBIPHILIC=0
 		Warning: all weights are zero in weighted map!
 		First 10 elements: TWENTIES_LATE=0, TWENTIES_EARLY=0, FIFTIES_MIDDLE=0, SIXTIES_MIDDLE=0, SIXTIES_EARLY=0, THIRTIES_EARLY=0, FIFTIES_EARLY=0, FORTIES_EARLY=0, TWENTIES_MIDDLE=0, THIRTIES_MIDDLE=0
+	[] Game treats milking equipment as clothing. As a result if you inspect a naked slave who is being milked, it displays text stating you ordered them to take off their clothes and strip
+		"Deciding that you'd like to inspect {Char}'s body, you order her to strip naked, before taking a step back in order to get a better view of her.​"
 	
 	[] PRs
+	
+	[x] FAF
 	
 	[] Really need to fix the isAbleToUnequip() method in CharacterInventory
 	
