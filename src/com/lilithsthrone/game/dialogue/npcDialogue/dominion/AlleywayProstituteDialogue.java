@@ -219,8 +219,7 @@ public class AlleywayProstituteDialogue {
 											+ " You offered [npc.herHim] the chance to move and work out of Angel's Kiss; an offer that [npc.she] happily accepted."));
 									Main.game.getTextEndStringBuilder().append(getProstitute().incrementAffection(Main.game.getPlayer(), 50));
 									int banishTarget = Util.random.nextInt(10);
-									Main.game.banishNPC(RedLightDistrict.prostitutes.get(banishTarget));
-									RedLightDistrict.prostitutes.remove(banishTarget);
+									Main.game.banishNPC(RedLightDistrict.getProstitutes(false).get(banishTarget));
 									getProstitute().setRandomUnoccupiedLocation(WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_BEDROOM, true);
 									confirmKickOut = false;
 								}
@@ -516,7 +515,7 @@ public class AlleywayProstituteDialogue {
 			AbstractWeapon weapon;
 			if(rnd<0.60f) {
 				weapon = Main.game.getItemGen().generateWeapon("dsg_eep_enbaton_enbaton"); // 60% chance of getting a baton
-			} else if(rnd<0.30f){
+			} else if(rnd>0.70f){
 				weapon = Main.game.getItemGen().generateWeapon("dsg_eep_pbweap_pbpistol"); // 30% chance of getting a pistol
 			} else {
 				weapon = Main.game.getItemGen().generateWeapon("dsg_eep_taser_taser"); // 10% chance of getting a taser

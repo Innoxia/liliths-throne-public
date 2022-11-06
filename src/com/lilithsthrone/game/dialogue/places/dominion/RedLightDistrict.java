@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
@@ -13,6 +14,7 @@ import com.lilithsthrone.game.character.npc.dominion.Angel;
 import com.lilithsthrone.game.character.npc.dominion.Bunny;
 import com.lilithsthrone.game.character.npc.dominion.Loppy;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueManager;
@@ -26,6 +28,7 @@ import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
@@ -37,28 +40,6 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class RedLightDistrict {
-	
-	public static List<NPC> prostitutes = new ArrayList<>();
-	
-	public static boolean isSpaceForMoreProstitutes() {
-		Cell[][] grid = Main.game.getWorlds().get(WorldType.ANGELS_KISS_GROUND_FLOOR).getGrid();
-		
-		for(int i=0; i<grid.length; i++) {
-			for(int j=0; j<grid[0].length; j++) {
-				if(grid[i][j].getPlace().getPlaceType().equals(PlaceType.ANGELS_KISS_BEDROOM)) {
-					List<NPC> charactersPresent = Main.game.getCharactersPresent(WorldType.ANGELS_KISS_GROUND_FLOOR, new Vector2i(i, j));
-					charactersPresent.removeIf(NPC->NPC instanceof GenericSexualPartner);
-					if (charactersPresent.isEmpty()) {
-						return true;
-					} else if (!prostitutes.contains(charactersPresent.get(0))) {
-						prostitutes.add(charactersPresent.get(0));
-					}
-				}
-			}
-		}
-		
-		return false;
-	}
 	
 	public static final DialogueNode OUTSIDE = new DialogueNode("Red-light District", "Red-light District", false) {
 		
@@ -1186,4 +1167,66 @@ public class RedLightDistrict {
 		}
 	};
 	
+	public static List<NPC> getProstitutes(boolean includeSlaves) {
+		List<NPC> prostitutes = new ArrayList<>();
+		Cell[][] grid = Main.game.getWorlds().get(WorldType.ANGELS_KISS_GROUND_FLOOR).getGrid();
+		for(int i = 0; i<grid.length; i++) {
+			for(int j=0; j<grid[0].length; j++) {
+				if(grid[i][j].getPlace().getPlaceType().equals(PlaceType.ANGELS_KISS_BEDROOM)) {
+					List<NPC> charactersPresent = Main.game.getCharactersPresent(WorldType.ANGELS_KISS_GROUND_FLOOR, new Vector2i(i, j));
+					charactersPresent.removeIf(NPC->NPC.getHistory() != Occupation.NPC_PROSTITUTE);
+					prostitutes.add(charactersPresent.get(0));
+				}
+			}
+		}
+		if (includeSlaves) {
+			grid = Main.game.getWorlds().get(WorldType.ANGELS_KISS_FIRST_FLOOR).getGrid();
+			for(int i = 0; i<grid.length; i++) {
+				for(int j=0; j<grid[0].length; j++) {
+					if(grid[i][j].getPlace().getPlaceType().equals(PlaceType.ANGELS_KISS_BEDROOM)) {
+						List<NPC> charactersPresent = Main.game.getCharactersPresent(WorldType.ANGELS_KISS_GROUND_FLOOR, new Vector2i(i, j));
+						charactersPresent.removeIf(NPC->!NPC.isSlave());
+						if (!charactersPresent.isEmpty()) {
+							prostitutes.add(charactersPresent.get(0));
+						}
+					}
+				}
+			}
+		}
+		return prostitutes;
+	}
+	
+	public static boolean isSpaceForMoreProstitutes() {
+		return getProstitutes(false).size()<10;
+	}
+	
+	public static void prostituteUpdate() {
+		for (NPC prostitute : getProstitutes(true)) {
+			if (Main.game.isLipstickMarkingEnabled()
+					&& !prostitute.isSlave()
+					&& !Main.game.getPlayer().getFriendlyOccupants().contains(prostitute.getId())
+					&& prostitute.getLipstick().getPrimaryColour() != PresetColour.COVERING_NONE) {
+				prostitute.addHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
+			}
+			
+			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent(prostitute.getWorldLocation(), prostitute.getLocation()));
+			charactersPresent.removeAll(Main.game.getPlayer().getCompanions());
+			charactersPresent.remove(prostitute);
+			if(!charactersPresent.isEmpty()) {
+				for(NPC npc : charactersPresent) {
+					if(npc instanceof GenericSexualPartner) {
+						Main.game.banishNPC(npc);
+					}
+				}
+				
+			} else if(Math.random()<0.33f) { // Add client:
+				GenericSexualPartner partner = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, false), prostitute.getWorldLocation(), prostitute.getLocation(), false);
+				try {
+					Main.game.addNPC(partner, false, true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }

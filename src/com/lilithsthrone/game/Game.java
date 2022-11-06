@@ -2536,6 +2536,11 @@ public class Game implements XMLSaving {
 //			getDialogueFlags().dailyReset();
 		}
 		
+		// Angels Kiss update
+		for(int i=1; i <= hoursPassed; i++) {
+			RedLightDistrict.prostituteUpdate();
+		}
+		
 		if(loopDebug) {
 			System.out.println("Daily location end");
 		}
