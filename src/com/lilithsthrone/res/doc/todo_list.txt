@@ -36,7 +36,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Characters with a spinneret can now only apply webbing to themselves or their sexual partners if they have the related permission to manage their own/others clothing.
 		NPCs will now only equip condoms to themselves or their partners if they dislike the associated 'cum stud' or 'cum addict' fetishes. Previous behaviour was to equip if they disliked or were neutral to the fetishes, so this should reduce the amount of NPCs wanting to equip condoms. 
 		NPCs will now only equip BDSM or latex gear onto their partners if they like or love the 'bondage applier' fetish.
-		If she doesn't have a fetish that's associated with her post-duel sex scenes, Meraxis will now end sex after she's orgasmed once, instead of when the player has orgasmed once, thereby always giving you the opportunity to influence her fetishes when she orgasms.
+		If Meraxis doesn't have a fetish that's associated with her post-duel sex scenes, she will now end sex after she's orgasmed once, instead of when the player has orgasmed once, thereby always giving you the opportunity to influence her fetishes when she orgasms.
 	
 	Other:
 		The 'Crotch-boobs & Udders' body setting now only applies to randomly-generated NPCs at the moment of their creation (as was stated in the option's tooltip), allowing all characters to gain crotch-boobs/udders via TF no matter the setting.
