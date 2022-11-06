@@ -1823,7 +1823,7 @@ public abstract class AbstractSubspecies {
 	 * @return true if this subspecies can have its FurryPreference modified in the furry preferences options screen.
 	 */
 	public boolean isFurryPreferencesEnabled() {
-		return !this.hasFlag(SubspeciesFlag.DISABLE_FURRY_PREFERENCE);
+		return race.isAffectedByFurryPreference() && !hasFlag(SubspeciesFlag.DISABLE_FURRY_PREFERENCE);
 	}
 
 	/**
