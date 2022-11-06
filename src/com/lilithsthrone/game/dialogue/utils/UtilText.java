@@ -223,6 +223,9 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+// Use the following imports when using the org.openjdk.nashorn dependency:
+//import org.openjdk.nashorn.api.scripting.NashornScriptEngine;
+//import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 /**
  * @since 0.1.0
@@ -9899,7 +9902,10 @@ public class UtilText {
 		// Spelling errors which were corrected in PR#1603 but which now need correct parser references for old mod version support:
 		engine.put("BODY_PART_TAG_TAIL_SUTABLE_FOR_PENETRATION", BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION);
 		engine.put("BODY_PART_TAG_TAIL_NEVER_SUTABLE_FOR_PENETRATION", BodyPartTag.TAIL_NEVER_SUITABLE_FOR_PENETRATION);
-		
+
+		for(PenetrationGirth girth : PenetrationGirth.values()) {
+			engine.put("PENETRATION_GIRTH_"+girth.toString(), girth);
+		}
 		for(PenetrationModifier penMod : PenetrationModifier.values()) {
 			engine.put("PENETRATION_MODIFIER_"+penMod.toString(), penMod);
 		}

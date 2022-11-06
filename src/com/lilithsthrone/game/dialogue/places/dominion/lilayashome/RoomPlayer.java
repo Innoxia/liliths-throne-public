@@ -2118,7 +2118,7 @@ public class RoomPlayer {
 				for(int i=0 ; i<attractedSlaves.size(); i++) {
 					slaveSlots.put(attractedSlaves.get(i), bathSlots[i]);
 				}
-				UtilText.addSpecialParsingString(String.valueOf(slavesWashing.size()), true);
+				UtilText.addSpecialParsingString(String.valueOf(attractedSlaves.size()), true);
 				return new ResponseSex("Submissive sex",
 						attractedSlaves.size()==1
 								?UtilText.parse(attractedSlaves, "Let [npc.name] dominantly fuck you in the bath.")

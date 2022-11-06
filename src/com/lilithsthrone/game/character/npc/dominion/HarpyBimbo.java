@@ -48,6 +48,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -311,7 +312,7 @@ public class HarpyBimbo extends NPC {
 				}
 			};
 		} else {
-			return new Response("", "", HarpyNestBimbo.HARPY_NEST_BIMBO_FIGHT_LOSE_TO_MATRIARCH);
+			return new Response("", "", DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_bimbo_combat_lost_matriarch"));
 		}
 	}
 	
@@ -327,6 +328,22 @@ public class HarpyBimbo extends NPC {
 		}
 		
 		return super.getItemUseEffects(item, itemOwner, user, target);
+	}
+	
+	public void applyBadEndClothing(GameCharacter target) {
+		target.unequipAllClothingIntoVoid(true, true);
+		
+		target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_shimapan", PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_WHITE, null, false), true, target);
+		target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_STRIPED_BRA, PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_WHITE, null, false), true, target);
+		
+		target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_VIRGIN_KILLER_SWEATER, PresetColour.CLOTHING_PINK_LIGHT, false), true, target);
+
+		target.setPiercedEar(true);
+		target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_GOLD, false), true, target);
+		target.setPiercedNose(true);
+		target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_nose_ball_stud", PresetColour.CLOTHING_GOLD, false), true, target);
+		target.setPiercedNipples(true);
+		target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_basic_barbell_pair", PresetColour.CLOTHING_GOLD, false), true, target);
 	}
 
 }
