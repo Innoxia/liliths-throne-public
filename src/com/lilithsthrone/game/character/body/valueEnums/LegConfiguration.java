@@ -357,7 +357,7 @@ public enum LegConfiguration {
 									Util.newArrayListOfValues(
 											ItemTag.WEAPON_FERAL_EQUIPPABLE)));
 				
-			} else if(character.hasStatusEffect(StatusEffect.AQUATIC_POSITIVE)) {
+			} else if(character.hasStatusEffect(StatusEffect.AQUATIC_TAIL_POSITIVE)) {
 				return Util.newArrayListOfValues(
 						new BodyPartClothingBlock(
 								Util.newArrayListOfValues(

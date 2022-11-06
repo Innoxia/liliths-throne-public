@@ -113,7 +113,7 @@ public class FortressMalesLeaderSA {
 					+ " Pulling out the stopper with [npc.her] teeth, [npc.she] quickly downs the potion, before throwing the now-empty vial to one side.</br>"
 					+ "Pulling [npc.her] [npc.hips] back, [npc.name] then starts to rhythmically fuck [npc2.name] once more,"
 						+ " with each of [npc.her] thrusts being accompanied by a lewd squelching sound as the cum filling [npc2.namePos] pussy drools out around [npc.her] thick shaft.</br>"
-					+ "[npc2.Name] soon [npc2.verb(realise)] what the the potion [npc.name] just drank was for, as each time the [npc.race]'s balls slap against [npc2.her] [npc2.assSkin], they feel noticeably heavier and heavier."
+					+ "[npc2.Name] soon [npc2.verb(realise)] what the potion [npc.name] just drank was for, as each time the [npc.race]'s balls slap against [npc2.her] [npc2.assSkin], they feel noticeably heavier and heavier."
 					+ " To confirm [npc2.her] suspicions, [npc.name] grunts, [npc.speech(Fuck, my balls feel so full again! Your womb's going to be pumped full of my seed!)]";
 		}
 
@@ -169,7 +169,7 @@ public class FortressMalesLeaderSA {
 					+ " Pulling out the stopper with [npc.her] teeth, [npc.she] quickly downs the potion, before throwing the now-empty vial to one side.</br></br>"
 					+ "Pulling [npc.her] [npc.hips] back, [npc.name] then starts to rhythmically fuck [npc3.name],"
 						+ " with each of [npc.her] thrusts easily sliding in and out, thanks to the cum and juices from [npc2.namePos] pussy lubricating [npc.her] thick shaft.</br>"
-					+ "[npc3.Name] soon [npc3.verb(realise)] what the the potion [npc.name] just drank was for, as each time the [npc.race]'s balls slap against [npc3.her] [npc3.assSkin], they feel noticeably heavier and heavier."
+					+ "[npc3.Name] soon [npc3.verb(realise)] what the potion [npc.name] just drank was for, as each time the [npc.race]'s balls slap against [npc3.her] [npc3.assSkin], they feel noticeably heavier and heavier."
 					+ " To confirm [npc3.her] suspicions, [npc.name] grunts, [npc.speech(Fuck, my balls feel so full again! Your womb's going to be pumped full of my seed!)]");
 		}
 		
@@ -250,7 +250,7 @@ public class FortressMalesLeaderSA {
 					+ " Pulling out the stopper with [npc.her] teeth, [npc.she] quickly downs the potion, before throwing the now-empty vial to one side.</br>"
 					+ "Pulling [npc.her] [npc.hips] back, [npc.name] then starts to rhythmically fuck [npc2.name] once more,"
 						+ " with each of [npc.her] thrusts being accompanied by a lewd squelching sound as the cum filling [npc2.namePos] pussy drools out around [npc.her] thick shaft.</br>"
-					+ "[npc2.Name] soon [npc2.verb(realise)] what the the potion [npc.name] just drank was for, as each time the [npc.race]'s balls slap against [npc2.her] [npc2.assSkin], they feel noticeably heavier and heavier."
+					+ "[npc2.Name] soon [npc2.verb(realise)] what the potion [npc.name] just drank was for, as each time the [npc.race]'s balls slap against [npc2.her] [npc2.assSkin], they feel noticeably heavier and heavier."
 					+ " To confirm [npc2.her] suspicions, [npc.name] grunts, [npc.speech(Fuck, my balls feel so full again! Your womb's going to be pumped full of my seed!)]";
 		}
 
@@ -305,7 +305,7 @@ public class FortressMalesLeaderSA {
 					+ " Pulling out the stopper with [npc.her] teeth, [npc.she] quickly downs the potion, before throwing the now-empty vial to one side.</br></br>"
 					+ "Pulling [npc.her] [npc.hips] back, [npc.name] then starts to rhythmically fuck [npc3.name],"
 						+ " with each of [npc.her] thrusts easily sliding in and out of [npc3.her] [npc3.pussy+], thanks to the cum and juices from [npc2.namePos] pussy lubricating [npc.her] thick shaft.</br>"
-					+ "[npc3.Name] soon [npc3.verb(realise)] what the the potion [npc.name] just drank was for, as each time the [npc.race]'s balls slap against [npc3.her] [npc3.assSkin], they feel noticeably heavier and heavier."
+					+ "[npc3.Name] soon [npc3.verb(realise)] what the potion [npc.name] just drank was for, as each time the [npc.race]'s balls slap against [npc3.her] [npc3.assSkin], they feel noticeably heavier and heavier."
 					+ " To confirm [npc3.her] suspicions, [npc.name] grunts, [npc.speech(Fuck, my balls feel so full again! Your womb's going to be pumped full of my seed!)]");
 		}
 		

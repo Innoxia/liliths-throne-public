@@ -57,7 +57,7 @@ public enum HairStyle {
 	BRAIDED("braided", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
 	TWIN_BRAIDS("twin braids", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
 	CROWN_BRAID("crown braid", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
-	DRILLS("drill hair", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
+	DRILLS("ojou ringlets", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
 	HIME_CUT("hime-cut", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
 	BIRD_CAGE("bird cage", Femininity.FEMININE, HairLength.SEVEN_TO_FLOOR);
 	

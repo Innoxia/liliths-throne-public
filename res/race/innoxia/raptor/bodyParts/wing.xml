@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wing>
+	<race>innoxia_raptor</race>
+
+	<transformationName><![CDATA[raptor]]></transformationName>
+
+	<coveringType>innoxia_raptor_feathers</coveringType>
+
+	<allowsFlight>true</allowsFlight>
+
+	<name><![CDATA[wing]]></name>
+	<namePlural><![CDATA[wings]]></namePlural>
+
+	<descriptorsMasculine>
+		<descriptor><![CDATA[feathered]]></descriptor>
+		<descriptor><![CDATA[bird-like]]></descriptor>
+	</descriptorsMasculine>
+
+	<descriptorsFeminine>
+		<descriptor><![CDATA[feathered]]></descriptor>
+		<descriptor><![CDATA[bird-like]]></descriptor>
+	</descriptorsFeminine>
+
+	<transformationDescription><![CDATA[
+		#IF(npc.getLegConfiguration().isWingsOnLegConfiguration())
+			[npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], feathered wings push out from the sides of [npc.her] [npc.legConfiguration] body.
+		#ELSE
+			[npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], feathered wings push out from [npc.her] shoulder blades.
+		#ENDIF
+		<br/>[npc.Name] now [npc.has] [style.boldRaptor(wings)].
+	]]></transformationDescription>
+
+	<bodyDescription><![CDATA[
+		[npc.sheHasFull] a pair of [npc.wingSize] wings, which are [npc.materialDescriptor] [npc.wingFullDescription(true)].
+	]]></bodyDescription>
+	
+</wing>

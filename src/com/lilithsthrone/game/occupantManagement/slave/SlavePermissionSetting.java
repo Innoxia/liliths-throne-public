@@ -20,13 +20,16 @@ public enum SlavePermissionSetting {
 	GENERAL_HOUSE_FREEDOM(false, "House Freedom", "Grant this slave the freedom to walk around Lilaya's house in their free time."),
 	GENERAL_OUTSIDE_FREEDOM(false, "Outside Freedom", "Grant this slave the freedom to leave Lilaya's house in their free time."),
 	
+	
 	// Behaviour:
+	
 	BEHAVIOUR_WHOLESOME(false, "Wholesome", "Get this slave to act in a loving and wholesome manner around you. [style.italics(This will only take effect if they like you or are obedient.)]"),
 	BEHAVIOUR_PROFESSIONAL(false, "Professional", "Get this slave to act in a professional manner when interacting with you. [style.italics(This will only take effect if they like you or are obedient.)]"),
 	BEHAVIOUR_STANDARD(true, "Standard", "Do not give this slave any instructions as to how they should act around you."),
 	BEHAVIOUR_SEDUCTIVE(false, "Seductive", "Get this slave to act in a refined, seductive manner when interacting with you. [style.italics(This will only take effect if they like you or are obedient.)]"),
 	BEHAVIOUR_SLUTTY(false, "Slutty", "Get this slave to act in a trashy, slutty manner when interacting with you. [style.italics(This will only take effect if they like you or are obedient.)]"),
 
+	
 	// Sex:
 	
 	SEX_MASTURBATE(false, "Masturbation", "Allow this slave to masturbate."),
@@ -37,9 +40,10 @@ public enum SlavePermissionSetting {
 	SEX_IMPREGNATED(false, "Breeding Bitch", "Allow this slave to be impregnated during sexual events with any other slave that has the 'Slave Stud' permission enabled."),
 	SEX_IMPREGNATE(false, "Slave Stud", "Allow this slave to impregnate any other slave that has the 'Breeding Bitch' permission enabled during sexual events."),
 
-	// Pregnancy:
 	
-	PREGNANCY_PROMISCUITY_PILLS(false, "", "") {
+	// Pills:
+	
+	PILLS_PROMISCUITY_PILLS(false, "", "") {
 		@Override
 		public String getName() {
 			return Util.capitaliseSentence(ItemType.getItemTypeFromId("innoxia_pills_sterility").getName(false));
@@ -49,8 +53,10 @@ public enum SlavePermissionSetting {
 			return UtilText.parse("Keep this slave on [#ITEM_innoxia_pills_sterility.getNamePlural(false)], greatly reducing both their fertility and virility.");
 		}
 	},
-	PREGNANCY_NO_PILLS(true, "No Pills", "Don't give this slave any sort of fertility modification pills, resulting in a natural chance of them getting pregnant."),
-	PREGNANCY_VIXENS_VIRILITY(false, "", "") {
+	
+	PILLS_NO_PILLS(true, "No Pills", "Don't give this slave any sort of fertility modification pills, resulting in a natural chance of them getting pregnant."),
+	
+	PILLS_VIXENS_VIRILITY(false, "", "") {
 		@Override
 		public String getName() {
 			return Util.capitaliseSentence(ItemType.getItemTypeFromId("innoxia_pills_fertility").getName(false));
@@ -61,6 +67,25 @@ public enum SlavePermissionSetting {
 		}
 	},
 
+	PILLS_BROODMOTHER(false, "", "") {
+		@Override
+		public String getName() {
+			return Util.capitaliseSentence(ItemType.getItemTypeFromId("innoxia_pills_broodmother").getName(false));
+		}
+		@Override
+		public String getDescription() {
+			return UtilText.parse("Keep this slave on [#ITEM_innoxia_pills_broodmother.getNamePlural(false)], massively increasing both their fertility and virility and [style.colourExcellent(doubling)] how many offspring they conceive.");
+		}
+	},
+	
+	
+	// Pregnancy:
+
+	PREGNANCY_MOTHERS_MILK(false, "Mother's Milk", "Order this slave to regularly consume Mother's Milk while pregnant, which will result in them completing their pregnancy within a few hours of becoming visibly pregnant."),
+	PREGNANCY_ALLOW_BIRTHING(true, "Allow Birthing", "Allow this slave to go to Lilaya's birthing room to give birth whenever they need to."),
+	PREGNANCY_ALLOW_EGG_LAYING(true, "Allow Egg Laying", "Allow this slave to go to Lilaya's birthing room to lay any eggs which have been implanted in them whenever they need to."),
+	
+	
 	// Diet/Body size:
 	
 	FOOD_DIET_EXTREME(false,
@@ -88,6 +113,7 @@ public enum SlavePermissionSetting {
 			"Make an abundance of food available to this slave, which will result in a large daily change to their body size,"
 					+ " eventually making them <b style='color:"+BodySize.FOUR_HUGE.getColour().toWebHexString()+";'>"+BodySize.FOUR_HUGE.getName(false)+"</b>."),
 
+	
 	// Exercise/Muscle:
 	
 	EXERCISE_FORBIDDEN(false,
@@ -114,6 +140,7 @@ public enum SlavePermissionSetting {
 			Util.capitaliseSentence(Muscle.FOUR_RIPPED.getName(false)),
 			"Give this slave a strenuous exercise routine, which will result in their muscles getting a lot bigger every day,"
 					+ " eventually making them <b style='color:"+Muscle.FOUR_RIPPED.getColour().toWebHexString()+";'>"+Muscle.FOUR_RIPPED.getName(false)+"</b>."),
+	
 	
 	// Claenliness:
 	

@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.quests;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -28,6 +29,7 @@ import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
@@ -35,7 +37,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.4.4.1
+ * @version 0.4.6.3
  * @author Innoxia
  */
 public enum Quest {
@@ -119,7 +121,7 @@ public enum Quest {
 		@Override
 		public void applySkipQuestEffects() {
 			BraxOffice.setBraxsPostQuestStatus(false);
-			BraxOffice.givePlayerEnforcerUniform(null);
+			BraxOffice.givePlayerEnforcerUniform(null,-1);
 		}
 	},
 
@@ -210,6 +212,22 @@ public enum Quest {
 			if (ballgag != null) {
 				ballgag.setSealed(false);
 				Main.game.getNpc(Scarlett.class).unequipClothingIntoVoid(ballgag, true, Main.game.getNpc(Helena.class));
+			}
+			
+			// Complete slavery side quest:
+			if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)) {
+				Main.game.getPlayer().startQuest(QuestLine.SIDE_SLAVERY);
+			}
+			List<Quest> slaverSkipQuests = Util.newArrayListOfValues(
+					Quest.SIDE_SLAVER_NEED_RECOMMENDATION,
+					Quest.SIDE_SLAVER_RECOMMENDATION_OBTAINED,
+					Quest.SIDE_UTIL_COMPLETE);
+			for(int i=0; i<slaverSkipQuests.size()-1; i++) {
+				Quest q = slaverSkipQuests.get(i);
+				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY)==q) {
+					q.applySkipQuestEffects();
+					Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLAVERY, slaverSkipQuests.get(i+1));
+				}
 			}
 			
 			Main.game.getNpc(Scarlett.class).setAffection(Main.game.getNpc(Helena.class), AffectionLevel.NEGATIVE_FIVE_LOATHE.getMedianValue());
@@ -720,7 +738,12 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "Lilaya gave you a letter of recommendation, and what's more, she also offered to let you house your slaves in her mansion.";
 		}
+		@Override
+		public void applySkipQuestEffects() {
+			Main.game.getDialogueFlags().values.add(DialogueFlagValue.finchIntroduced);
+		}
 	},
+	
 	SIDE_SLAVER_RECOMMENDATION_OBTAINED(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
@@ -734,7 +757,11 @@ public enum Quest {
 
 		@Override
 		public String getCompletedDescription() {
-			return "You presented the letter of recommendation to [finch.name], and, after paying the 500 flame fee, you obtained a slaver license!";
+			return "You presented the letter of recommendation to [finch.name], and after paying the fee, you obtained a slaver license!";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.SLAVER_LICENSE), false));
 		}
 	},
 	

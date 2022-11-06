@@ -78,7 +78,7 @@ public class RatWarrensCaptive extends NPC {
 		if(!isImported) {
 			// RACE:
 			
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(false);
 			this.setGenericName("captive");
 

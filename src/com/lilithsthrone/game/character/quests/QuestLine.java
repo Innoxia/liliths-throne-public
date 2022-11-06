@@ -104,7 +104,7 @@ public enum QuestLine {
 			QuestType.RELATIONSHIP,
 			QuestTree.nyanTree),
 
-	ROMANCE_HELENA("Her Highness's Helper", "You successfully completed every task which Helena gave to you, and as a reward, you can both order custom slaves from her an take her on a date each Friday evening.",
+	ROMANCE_HELENA("Her Highness's Helper", "You successfully completed every task which Helena gave to you, and as a reward, you can both order custom slaves from her and take her on a date each Friday evening.",
 			QuestType.RELATIONSHIP,
 			QuestTree.helenaTree),
 

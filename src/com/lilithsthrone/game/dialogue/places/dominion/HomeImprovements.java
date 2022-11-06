@@ -130,7 +130,7 @@ public class HomeImprovements {
 			if(Main.game.getPlayer().getQuest(QuestLine.ROMANCE_HELENA)==Quest.ROMANCE_HELENA_2_PURCHASE_PAINT) {
 				if(!Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN_PREMIUM)
 						&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN)) {
-					UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN_PREMIUM.getValue(null)), true);
+					UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN_PREMIUM.getValue()), true);
 					sb.append(UtilText.parseFromXMLFile("places/dominion/homeImprovements/generic", "SHELVING_PREMIUM_PRICE"));
 				} else {
 					sb.append(UtilText.parseFromXMLFile("places/dominion/homeImprovements/generic", "SHELVING_PAINT_PURCHASED"));
@@ -145,19 +145,19 @@ public class HomeImprovements {
 					&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN_PREMIUM)
 					&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN)) {
 				if(index==1) {
-					if(Main.game.getPlayer().getMoney()<ItemType.PAINT_CAN_PREMIUM.getValue(null)) {
-						return new Response("Purchase ("+UtilText.formatAsMoneyUncoloured(ItemType.PAINT_CAN_PREMIUM.getValue(null), "span")+")",
+					if(Main.game.getPlayer().getMoney()<ItemType.PAINT_CAN_PREMIUM.getValue()) {
+						return new Response("Purchase ("+UtilText.formatAsMoneyUncoloured(ItemType.PAINT_CAN_PREMIUM.getValue(), "span")+")",
 								"Although this can of paint [style.colourGood(is the one Helena requested)], you [style.colourbad(cannot afford to buy it)]!",
 								null);
 					}
-					return new Response("Purchase ("+UtilText.formatAsMoney(ItemType.PAINT_CAN_PREMIUM.getValue(null), "span")+")",
+					return new Response("Purchase ("+UtilText.formatAsMoney(ItemType.PAINT_CAN_PREMIUM.getValue(), "span")+")",
 							"Purchase a can of "+ItemType.PAINT_CAN_PREMIUM.getName(false)+", which [style.colourGood(is the one Helena requested)].",
 							PAINT_PURCHASED) {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.HOME_IMPROVEMENTS, PlaceType.HOME_IMPROVEMENTS_ENTRANCE);
-							UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN_PREMIUM.getValue(null)), true);
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-ItemType.PAINT_CAN_PREMIUM.getValue(null)));
+							UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN_PREMIUM.getValue()), true);
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-ItemType.PAINT_CAN_PREMIUM.getValue()));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.PAINT_CAN_PREMIUM), false, true));
 							((Helena)Main.game.getNpc(Helena.class)).sellOffRemainingSlaves();
 						}
@@ -181,7 +181,7 @@ public class HomeImprovements {
 			if(Main.game.getPlayer().getQuest(QuestLine.ROMANCE_HELENA)==Quest.ROMANCE_HELENA_2_PURCHASE_PAINT) {
 				if(!Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN_PREMIUM)
 						&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN)) {
-					UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN.getValue(null)), true);
+					UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN.getValue()), true);
 					sb.append(UtilText.parseFromXMLFile("places/dominion/homeImprovements/generic", "SHELVING_STANDARD_PRICE"));
 				} else {
 					sb.append(UtilText.parseFromXMLFile("places/dominion/homeImprovements/generic", "SHELVING_PAINT_PURCHASED"));
@@ -196,19 +196,19 @@ public class HomeImprovements {
 					&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN_PREMIUM)
 					&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN)) {
 				if(index==1) {
-					if(Main.game.getPlayer().getMoney()<ItemType.PAINT_CAN.getValue(null)) {
-						return new Response("Purchase ("+UtilText.formatAsMoneyUncoloured(ItemType.PAINT_CAN.getValue(null), "span")+")",
+					if(Main.game.getPlayer().getMoney()<ItemType.PAINT_CAN.getValue()) {
+						return new Response("Purchase ("+UtilText.formatAsMoneyUncoloured(ItemType.PAINT_CAN.getValue(), "span")+")",
 								"This can of paint [style.colourBad(is not the one Helena requested)], and even if you did want to purchase it, you [style.colourbad(cannot afford it)]!",
 								null);
 					}
-					return new Response("Purchase ("+UtilText.formatAsMoney(ItemType.PAINT_CAN.getValue(null), "span")+")",
+					return new Response("Purchase ("+UtilText.formatAsMoney(ItemType.PAINT_CAN.getValue(), "span")+")",
 							"Purchase a can of "+ItemType.PAINT_CAN.getName(false)+", which [style.colourBad(is not the one Helena requested)]!",
 							PAINT_PURCHASED) {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.HOME_IMPROVEMENTS, PlaceType.HOME_IMPROVEMENTS_ENTRANCE);
-							UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN.getValue(null)), true);
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-ItemType.PAINT_CAN.getValue(null)));
+							UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN.getValue()), true);
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-ItemType.PAINT_CAN.getValue()));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.PAINT_CAN), false, true));
 							((Helena)Main.game.getNpc(Helena.class)).sellOffRemainingSlaves();
 						}

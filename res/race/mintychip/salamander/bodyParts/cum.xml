@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fluid>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- For a commented example of a fluid type, see 'milk.xml'. -->
+	
+	<race>mintychip_salamander</race>
+	
+	<transformationName><![CDATA[salamander]]></transformationName>
+	
+	<baseFluidType>CUM</baseFluidType>
+	
+	<flavour>CUM</flavour>
+	
+	<namesMasculine>
+		<name><![CDATA[salamander]]></name>
+	</namesMasculine>
+	
+	<namesFeminine>
+		<name><![CDATA[salamander]]></name>
+	</namesFeminine>
+	
+	<descriptorsMasculine/>
+	
+	<descriptorsFeminine/>
+	
+	<defaultFluidModifiers>
+		<modifier>MUSKY</modifier>
+		<modifier>STICKY</modifier>
+		<modifier>SLIMY</modifier>
+	</defaultFluidModifiers>
+	
+</fluid>

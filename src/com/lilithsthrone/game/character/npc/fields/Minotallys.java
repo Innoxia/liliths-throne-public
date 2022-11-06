@@ -89,7 +89,7 @@ public class Minotallys extends NPC {
 			new Value<>(DayOfWeek.THURSDAY, new FlavourInformation(FluidFlavour.CHOCOLATE, PresetColour.COVERING_BROWN_LIGHT, PresetColour.COVERING_BROWN, PresetColour.COVERING_BROWN_DARK, PresetColour.CLOTHING_BROWN_DARK)),
 			new Value<>(DayOfWeek.FRIDAY, new FlavourInformation(FluidFlavour.HONEY, PresetColour.COVERING_AMBER, PresetColour.COVERING_YELLOW, PresetColour.COVERING_AMBER, PresetColour.CLOTHING_YELLOW)),
 			new Value<>(DayOfWeek.SATURDAY, new FlavourInformation(FluidFlavour.MINT, PresetColour.COVERING_GREEN_LIGHT, PresetColour.COVERING_GREEN, PresetColour.COVERING_GREEN_DARK, PresetColour.CLOTHING_GREEN)),
-			new Value<>(DayOfWeek.SUNDAY, new FlavourInformation(FluidFlavour.CHERRY, PresetColour.COVERING_RED, PresetColour.COVERING_RED, PresetColour.COVERING_RED_DARK, PresetColour.COVERING_RED_DARK)));
+			new Value<>(DayOfWeek.SUNDAY, new FlavourInformation(FluidFlavour.CHERRY, PresetColour.COVERING_RED, PresetColour.COVERING_RED, PresetColour.COVERING_RED_DARK, PresetColour.CLOTHING_RED_DARK)));
 
 	private static FluidFlavour milkFlavour = FluidFlavour.VANILLA;
 	private static Colour coveringColour = PresetColour.COVERING_BLACK;
