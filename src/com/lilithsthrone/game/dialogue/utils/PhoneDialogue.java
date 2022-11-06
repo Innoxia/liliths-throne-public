@@ -3618,11 +3618,13 @@ public class PhoneDialogue {
 					+ "<br/>"
 					+ "Feminine: <span style='color:"+Femininity.valueOf(femaleBody.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspeciesSelected.getSingularFemaleName(null))+"</span>");
 
-			subspeciesSB.append("<br/><br/>"
-					+ "<b>Race bonuses:</b>");
-			for(String s : getSubspeciesModifiersAsStringList(subspeciesSelected)) {
-				subspeciesSB.append("<br/>");
-				subspeciesSB.append(s);
+			if(Main.getProperties().isAdvancedRaceKnowledgeDiscovered(subspeciesSelected)) {
+				subspeciesSB.append("<br/><br/>"
+						+"<b>Race bonuses:</b>");
+				for (String s : getSubspeciesModifiersAsStringList(subspeciesSelected)) {
+					subspeciesSB.append("<br/>");
+					subspeciesSB.append(s);
+				}
 			}
 			
 			subspeciesSB.append("<br/><br/>"
