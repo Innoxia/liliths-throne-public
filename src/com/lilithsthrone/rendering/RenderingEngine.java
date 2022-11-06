@@ -1821,7 +1821,7 @@ public enum RenderingEngine {
 		}
 	}
 
-	private String generateBackgroundStyle(AbstractPlaceType placeType, boolean dangerousTile, boolean discovered, Double alpha) {
+	private String generateBackgroundStyle(AbstractPlaceType placeType, boolean dangerousTile, boolean discovered, double alpha) {
 		if(placeType.equals(PlaceType.GENERIC_IMPASSABLE)) {
 			return "background:transparent;";
 			

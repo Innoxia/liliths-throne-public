@@ -91,6 +91,7 @@ public class BraxOffice {
 			AbstractClothing hat = Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_pcap", PresetColour.CLOTHING_BLACK, false);
 			hat.setSticker("badge", "badge_dominion");
 			sb.append(Main.game.getPlayer().addClothing(hat, false));
+			
 		} else {
 			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfskirt", PresetColour.CLOTHING_BLACK, false), false));
 			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_flsldshirt", PresetColour.CLOTHING_PINK, false), false));
@@ -266,7 +267,12 @@ public class BraxOffice {
 				};
 					
 			} else if (index == 2) {
-				return new Response("Stop [brax.name]", "Tell [brax.name] that he's an idiot and you're going to beat him up for being such a gullible fool.", INTERIOR_BRAX_LIE_BLUFFING_IDIOT_BRAX);
+				return new Response("Stop [brax.name]", "Tell [brax.name] that he's an idiot and you're going to beat him up for being such a gullible fool.", INTERIOR_BRAX_LIE_BLUFFING_IDIOT_BRAX) {
+					@Override
+					public boolean isCombatHighlight() {
+						return true;
+					}
+				};
 					
 			} else {
 				return null;
@@ -284,19 +290,19 @@ public class BraxOffice {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Fem. Uniform", "Take the feminine uniform and leave the Enforcer HQ.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
+				return new Response("Fem. uniform", "Take the feminine uniform and leave the Enforcer HQ.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
 					@Override
 					public void effects() {
-						givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder(),1);
+						givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder(), 1);
 						setBraxsPostQuestStatus(true);
 					}
 				};
 				
 			} else if (index == 2) {
-				return new Response("Masc. Uniform", "Take the masculine uniform and leave the Enforcer HQ.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
+				return new Response("Masc. uniform", "Take the masculine uniform and leave the Enforcer HQ.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
 					@Override
 					public void effects() {
-						givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder(),0);
+						givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder(), 0);
 						setBraxsPostQuestStatus(true);
 					}
 				};
@@ -405,19 +411,19 @@ public class BraxOffice {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Fem. Uniform", "You take the feminine uniform and leave the enforcer HQ.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
+				return new Response("Fem. uniform", "You take the feminine uniform and leave the enforcer HQ.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
 					@Override
 					public void effects() {
-						givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder(),1);
+						givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder(), 1);
 						setBraxsPostQuestStatus(true);
 					}
 				};
 				
 			} else if (index == 2) {
-				return new Response("Masc. Uniform", "You take the manly uniform and leave the enforcer HQ.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
+				return new Response("Masc. uniform", "You take the manly uniform and leave the enforcer HQ.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
 					@Override
 					public void effects() {
-						givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder(),0);
+						givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder(), 0);
 						setBraxsPostQuestStatus(true);
 					}
 				};
@@ -655,6 +661,7 @@ public class BraxOffice {
 							setBraxsPostQuestStatus(true);
 						}
 					};
+					
 				} else if (index == 2) {
 					return new Response("Masc. Uniform", "You take the masculine uniform and continue on your way.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
 						public void effects( ) {
@@ -662,9 +669,8 @@ public class BraxOffice {
 							setBraxsPostQuestStatus(true);
 						}
 					};
-				} else {
-					return null;
 				}
+				
 			} else {
 				if (index == 1) {
 					return new Response("Carry on", "Get up and carry on your way.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
@@ -673,17 +679,13 @@ public class BraxOffice {
 							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_ENFORCER_HQ, false);
 						}
 					};
-				
-				} else {
-					return null;
 				}
 			}
+			return null;
 		}
 	};
 
 	public static final DialogueNode AFTER_DOMINANT_SEX = new DialogueNode("Brax collapses", "Brax collapses and you return to his office.", true) {
-		
-		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "AFTER_DOMINANT_SEX");

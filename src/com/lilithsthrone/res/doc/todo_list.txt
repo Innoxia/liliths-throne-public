@@ -28,6 +28,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added 'latex leggings' (feminine, leg slot, sold by Finch, latex lover set). (by Sage)
 		Fixed issue with some buttons in Kate's cosmetics dialogues being unresponsive. (by Maxis010)
 		Made LT runnable directly on the most recent Java LTS (17) and created an automatic build and release pipeline to reduce workload using Maven. Also fixed several opaque elements which were supposed to be transparent. (PR#1684 by Tazze)
+		Added the ability to choose either the feminine or masculine Enforcer's uniform when progressing past Brax's stage of the main quest. (PR#1721 by Nonny5Mouse)
 	
 	Gameplay:
 		Added bad ends to losing combat against the harpy matriarchs in the Harpy Nests.
@@ -331,6 +332,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[]  Milk room bug. If I creampie someone and then have them vaginally milked the creampie is sucked away but is not stored in the milker.
 	
 	[] Make a page on the blog about java/exe/32-bit exe versions
+	
+	[] add ability to pick Nyan's outfit when relationship quest completed
 	
 	[] scar system
 		[x] add bruise
