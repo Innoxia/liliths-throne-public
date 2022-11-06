@@ -1,7 +1,8 @@
 bin/
 data/
 target/
-.*
+.idea
+.vscode
 *.bak
 *~
 *.old
@@ -11,6 +12,7 @@ target/
 *.jar
 desktop.ini
 nbactions.xml
+dependency-reduced-pom.xml
 
 # Ignore all generic character images
 res/images/characters/generic/

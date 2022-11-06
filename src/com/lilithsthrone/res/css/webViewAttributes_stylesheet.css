@@ -216,8 +216,7 @@ h6{
 	-webkit-user-select: none;
 }
 .overlay:hover{
-	background-color:#fff;
-	opacity:0.20;
+	background-color:rgba(255,255,255,0.2);
 	border-radius:5px;
 }
 .overlay-alt {
@@ -514,8 +513,7 @@ h6{
 	-webkit-user-select: none;
 }
 .overlay-inventory:hover{
-	background-color:#fff;
-	opacity:0.20;
+	background-color:rgba(255,255,255,0.2);
 	border-radius:5px;
 	cursor:pointer;
 }
