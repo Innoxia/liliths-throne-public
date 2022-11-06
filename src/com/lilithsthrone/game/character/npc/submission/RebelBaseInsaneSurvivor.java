@@ -82,13 +82,13 @@ public class RebelBaseInsaneSurvivor extends NPC {
             // Spawn with level between 12 and 15
             setLevel(12 + Util.random.nextInt(4));
             
-            setName(Name.getRandomTriplet(this.getRace()));
+            setName(Name.getRandomTriplet(this.getSubspecies()));
             this.setPlayerKnowsName(false);
             this.setGenericName("insane survivor");
             this.setEssenceCount(500);
             setDescription(UtilText.parse(this, "While apparently mostly human, [npc.name] has evidently spent a long time underground and has lost [npc.her] mind."));
             
-            Main.game.getCharacterUtils().generateItemsInInventory(this);
+            Main.game.getCharacterUtils().generateItemsInInventory(this, false, false, false);
             this.addItem(Main.game.getItemGen().generateItem(ItemType.MUSHROOM), 10, false, false);
         
             initPerkTreeAndBackgroundPerks();

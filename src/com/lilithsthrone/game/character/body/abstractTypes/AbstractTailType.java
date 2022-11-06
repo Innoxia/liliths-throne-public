@@ -321,8 +321,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	public String getGirthDescription(GameCharacter owner) {
 		StringBuilder sb = new StringBuilder();
 		
-		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_SKIN)
-				|| this.getTags().contains(BodyPartTag.TAIL_TYPE_SCALES)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_SKIN) || this.getTags().contains(BodyPartTag.TAIL_TYPE_SCALES)) {
 			if(owner.getTailCount()>1) {
 				sb.append(UtilText.parse(owner, " [npc.Her] [npc.tails] are"));
 			} else {
@@ -330,28 +329,28 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 			}
 			switch(owner.getTailGirth()) {
 				case ZERO_THIN:
-					sb.append(UtilText.parse(owner, " very thin in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>very thin<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case ONE_SLENDER:
-					sb.append(UtilText.parse(owner, " slender in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>slender<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case TWO_NARROW:
-					sb.append(UtilText.parse(owner, " quite narrow in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>quite narrow<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case THREE_AVERAGE:
-					sb.append(UtilText.parse(owner, " of an average thickness in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " of an <colourStart>average thickness<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case FOUR_GIRTHY:
-					sb.append(UtilText.parse(owner, " quite thick in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>quite thick<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case FIVE_THICK:
-					sb.append(UtilText.parse(owner, " very thick in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>very thick<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case SIX_CHUBBY:
-					sb.append(UtilText.parse(owner, " incredibly thick and girthy in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>incredibly thick and girthy<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case SEVEN_FAT:
-					sb.append(UtilText.parse(owner, " extremely thick and girthy in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>extremely thick and girthy<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
@@ -363,28 +362,28 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 			}
 			switch(owner.getTailGirth()) {
 				case ZERO_THIN:
-					sb.append(UtilText.parse(owner, " very thin and severely lacking in fluffiness in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>very thin and severely lacking in fluffiness<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case ONE_SLENDER:
-					sb.append(UtilText.parse(owner, " slender and lacking in fluffiness in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>slender and lacking in fluffiness<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case TWO_NARROW:
-					sb.append(UtilText.parse(owner, " quite narrow and a little lacking in fluffiness in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>quite narrow and a little lacking in fluffiness<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case THREE_AVERAGE:
-					sb.append(UtilText.parse(owner, " of an average thickness and fluffiness in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " of an <colourStart>average thickness and fluffiness<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case FOUR_GIRTHY:
-					sb.append(UtilText.parse(owner, " quite big and very fluffy in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>quite big and very fluffy<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case FIVE_THICK:
-					sb.append(UtilText.parse(owner, " very big and fluffy in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>very big and fluffy<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case SIX_CHUBBY:
-					sb.append(UtilText.parse(owner, " incredibly thick and fluffy in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>incredibly thick and fluffy<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case SEVEN_FAT:
-					sb.append(UtilText.parse(owner, " extremely thick and fluffy in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>extremely thick and fluffy<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
@@ -396,28 +395,28 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 			}
 			switch(owner.getTailGirth()) {
 				case ZERO_THIN:
-					sb.append(UtilText.parse(owner, " very small and significantly lacking in fluffiness in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>very small and significantly lacking in fluffiness<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case ONE_SLENDER:
-					sb.append(UtilText.parse(owner, " quite small and lacking in fluffiness in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>quite small and lacking in fluffiness<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case TWO_NARROW:
-					sb.append(UtilText.parse(owner, " a little small and lacking in fluffiness in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>a little small and lacking in fluffiness<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case THREE_AVERAGE:
-					sb.append(UtilText.parse(owner, " of an average size and fluffiness in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " of an <colourStart>average size and fluffiness<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case FOUR_GIRTHY:
-					sb.append(UtilText.parse(owner, " quite big and very fluffy in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>quite big and very fluffy<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case FIVE_THICK:
-					sb.append(UtilText.parse(owner, " very big and extremely fluffy in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>very big and extremely fluffy<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case SIX_CHUBBY:
-					sb.append(UtilText.parse(owner, " incredibly thick and fluffy in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>incredibly thick and fluffy<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case SEVEN_FAT:
-					sb.append(UtilText.parse(owner, " extremely thick and fluffy in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>extremely thick and fluffy<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
@@ -429,28 +428,28 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 			}
 			switch(owner.getTailGirth()) {
 				case ZERO_THIN:
-					sb.append(UtilText.parse(owner, " very much lacking in volume in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>very much lacking in volume<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case ONE_SLENDER:
-					sb.append(UtilText.parse(owner, " lacking in volume in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>lacking in volume<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case TWO_NARROW:
-					sb.append(UtilText.parse(owner, " a little lacking in volume in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>a little lacking in volume<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case THREE_AVERAGE:
-					sb.append(UtilText.parse(owner, " of an average volume in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " of an <colourStart>average volume<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case FOUR_GIRTHY:
-					sb.append(UtilText.parse(owner, " quite voluminous in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>quite voluminous<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case FIVE_THICK:
-					sb.append(UtilText.parse(owner, " very voluminous in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>very voluminous<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case SIX_CHUBBY:
-					sb.append(UtilText.parse(owner, " incredibly voluminous in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>incredibly voluminous<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case SEVEN_FAT:
-					sb.append(UtilText.parse(owner, " extremely voluminous in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>extremely voluminous<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
@@ -462,28 +461,28 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 			}
 			switch(owner.getTailGirth()) {
 				case ZERO_THIN:
-					sb.append(UtilText.parse(owner, " very small and lacking in volume in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>very small and lacking in volume<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case ONE_SLENDER:
-					sb.append(UtilText.parse(owner, " small and somewhat lacking in volume in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>small and somewhat lacking in volume<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case TWO_NARROW:
-					sb.append(UtilText.parse(owner, " a little narrow and lacking in volume in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>a little narrow and lacking in volume<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case THREE_AVERAGE:
-					sb.append(UtilText.parse(owner, " of an average size and volume in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " of an <colourStart>average size and volume<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case FOUR_GIRTHY:
-					sb.append(UtilText.parse(owner, " quite large and voluminous in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>quite large and voluminous<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case FIVE_THICK:
-					sb.append(UtilText.parse(owner, " very large and voluminous in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>very large and voluminous<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case SIX_CHUBBY:
-					sb.append(UtilText.parse(owner, " incredibly voluminous in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>incredibly voluminous<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case SEVEN_FAT:
-					sb.append(UtilText.parse(owner, " extremely voluminous in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>extremely voluminous<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
@@ -495,32 +494,39 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 			}
 			switch(owner.getTailGirth()) {
 				case ZERO_THIN:
-					sb.append(UtilText.parse(owner, " very small in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>very small<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case ONE_SLENDER:
-					sb.append(UtilText.parse(owner, " somewhat small in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>somewhat small<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case TWO_NARROW:
-					sb.append(UtilText.parse(owner, " a little narrow in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>a little narrow<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case THREE_AVERAGE:
-					sb.append(UtilText.parse(owner, " of an average size in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " of an <colourStart>average size<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case FOUR_GIRTHY:
-					sb.append(UtilText.parse(owner, " quite large in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>quite large<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case FIVE_THICK:
-					sb.append(UtilText.parse(owner, " very large in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>very large<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case SIX_CHUBBY:
-					sb.append(UtilText.parse(owner, " incredibly large in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>incredibly large<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 				case SEVEN_FAT:
-					sb.append(UtilText.parse(owner, " extremely large in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " <colourStart>extremely large<colourEnd> in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
-		return sb.toString();
+		
+		String returnString = sb.toString();
+		String colourStartTag = "<span style='color:"+owner.getTailGirth().getColour().toWebHexString()+";'>";
+		String colourEndTag = "</span>";
+		returnString = returnString.replaceAll("<colourStart>", colourStartTag);
+		returnString = returnString.replaceAll("<colourEnd>", colourEndTag);
+		
+		return returnString;
 	}
 
 	public String getGirthDescriptor(GameCharacter owner) {
@@ -945,6 +951,10 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	
 	public boolean isSuitableForAttack() {
 		return tags.contains(BodyPartTag.TAIL_ATTACK);
+	}
+
+	public boolean isOvipositor() {
+		return tags.contains(BodyPartTag.TAIL_OVIPOSITOR);
 	}
 
 	@Override

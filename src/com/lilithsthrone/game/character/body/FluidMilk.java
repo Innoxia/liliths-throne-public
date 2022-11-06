@@ -528,7 +528,7 @@ public class FluidMilk implements FluidInterface {
 	}
 	
 	public float getValuePerMl() {
-		return (0.1f + (this.getFluidModifiers().size()*0.1f)) + (this.getFlavour()!=FluidFlavour.MILK?1.5f:1);
+		return 0.01f;
 	}
 
 	public boolean isCrotchMilk() {

@@ -246,10 +246,10 @@
 				<index><![CDATA[4]]></index>
 				<responseTitle><![CDATA[Lunette's attack]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_aurokaris_talk_ursa))
-						You've already asked Aurokaris about the current situation in Themsicyra, and she doesn't have the patience to repeat herself right now.
+					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_aurokaris_talk_raiders))
+						You've already asked Aurokaris about the current situation in Themiscyra, and she doesn't have the patience to repeat herself right now.
 					#ELSE
-						Ask Aurokaris about the current situation in Themsicyra.
+						Ask Aurokaris about the current situation in Themiscyra.
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
@@ -573,7 +573,7 @@
 				<responseTooltip><![CDATA[
 					Join Ursa in fighting Lunexis as Meraxis and Aurokaris hold back the demonic centauresses.
 					#IF(game.isBadEndsEnabled())
-						[style.boldBadEnd(BAD END:)] If you lose this fight, Lunexis won't let you ever get away!
+						<br/>[style.boldBadEnd(BAD END:)] If you lose this fight, Lunexis won't let you ever get away!
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue/>
@@ -589,7 +589,7 @@
 					</enemies>
 					<openingDescriptions>
 						<combatant id="pc"><![CDATA[With Ursa, the queen of the Amazons, at your side, you prepare to fight Lunexis.]]></combatant>
-						<combatant id="ursa"><![CDATA[[ursa.speech(I haven't got much strength left,)] Ursa pants to you, [ursa.speech(I'll be relying on you, [pc.name]...)]]]></combatant>
+						<combatant id="ursa"><![CDATA[[ursa.speech(I haven't got much strength left,)] Ursa pants, [ursa.speech(I'll be relying on you, [pc.name]...)]]]></combatant>
 						<combatant id="lunexis"><![CDATA[[lunexis.speech(I'll be taking the two of you as my slaves!)] Lunexis gleefully shouts as she effortlessly swirls her four morning stars around.]]></combatant>
 					</openingDescriptions>
 					<escapeBlocked><![CDATA[true]]></escapeBlocked>
@@ -598,10 +598,28 @@
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Shielding]]></responseTitle>
+				<responseTooltip><![CDATA[Use every ounce of your strength to summon forth a protective arcane shield to assist Meraxis, Aurokaris, and Ursa.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_non_combatant]]></nextDialogue>
+				<requiredPerks>
+					<perk><![CDATA[SACRIFICIAL_SHIELDING]]></perk>
+				</requiredPerks>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/themiscyra', 'PLAZA_SHIELDING'))]
+					[#game.appendToTextEndStringBuilder(aurokaris.incrementAffection(pc, 10))]
+					[#game.appendToTextEndStringBuilder(ursa.incrementAffection(pc, 10))]
+					[#game.appendToTextEndStringBuilder(meraxis.incrementAffection(pc, 10))]
+					[#lunexis.unequipAllWeaponsIntoVoid(true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
 				<responseTitle><![CDATA[Watch]]></responseTitle>
 				<responseTooltip><![CDATA[Hang back and watch as Meraxis, Ursa, and Aurokaris fight Lunexis and her demonic centauresses.]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_watch]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_non_combatant]]></nextDialogue>
 				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/themiscyra', 'PLAZA_WATCH'))]
 					[#game.appendToTextEndStringBuilder(aurokaris.incrementAffection(pc, -10))]
 					[#game.appendToTextEndStringBuilder(ursa.incrementAffection(pc, -10))]
 					[#game.appendToTextEndStringBuilder(meraxis.incrementAffection(pc, -10))]
@@ -610,8 +628,8 @@
 		</responses>
 	</scene>
 	
-	<scene id="plaza_watch">
-		<content folderPath="txt/places/fields/themiscyra">PLAZA_WATCH</content>
+	<scene id="plaza_non_combatant">
+		<content/>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -622,6 +640,9 @@
 				<responseTitle><![CDATA[Teleported]]></responseTitle>
 				<responseTooltip><![CDATA[Summoning the last of her energy, Meraxis manages to teleport all of you to safety!]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_themiscyra_plaza_teleported]]></nextDialogue>
+				<effects><![CDATA[
+					[#lunexis.unequipAllWeaponsIntoVoid(true)]
+				]]></effects>
 			</response>
 		</responses>
 	</scene>
@@ -781,7 +802,7 @@
 				<nextDialogue/>
 				<effects/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_fields_themiscyra_lunexis_sex]]></id>
+					<id><![CDATA[innoxia_fields_themiscyra_lunexis_sex_sub]]></id>
 					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
 					<dominants>
 						<character>
@@ -913,8 +934,8 @@
 	
 	<scene id="raiders">
 		<preParsingEffects><![CDATA[
-			[#game.setParserTarget('attacker', game.getNonCompanionCharactersPresent().get(0))]
-			[#game.setParserTarget('attacker2', game.getNonCompanionCharactersPresent().get(1))]
+			[#game.setParserTarget('attacker', game.getNonCompanionCharactersPresent(false).get(0))]
+			[#game.setParserTarget('attacker2', game.getNonCompanionCharactersPresent(false).get(1))]
 			[#attacker2.setSpeechColour(COLOUR_BASE_PURPLE_LIGHT)]
 			[#flags.setFlag(FLAG_innoxia_themiscyra_centauresses_question, false)]
 		]]></preParsingEffects>
@@ -1204,8 +1225,17 @@
 			#ELSE
 				[#flags.setFlag(FLAG_innoxia_themiscyra_raider_sex_player_targeted_by_leader, false)]
 			#ENDIF
+			
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/themiscyra', 'RAIDERS_COMBAT_LOST'))]
+			
+			#IF(!attacker.hasPenis())
+				[#attacker.growPenis()]
+			#ENDIF
+			#IF(!attacker2.hasPenis())
+				[#attacker2.growPenis()]
+			#ENDIF
 		]]></preParsingEffects>
-		<content folderPath="txt/places/fields/themiscyra">RAIDERS_COMBAT_LOST</content>
+		<content/>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -1473,9 +1503,9 @@
 			#IF(game.getWorlds().get(WORLD_TYPE_innoxia_fields_elis_town).getCell(PLACE_TYPE_innoxia_fields_elis_town_amazon_camp)==null)
 				[#game.getWorlds().get(WORLD_TYPE_innoxia_fields_elis_town).getCell(1, 11).getPlace().setPlaceType(PLACE_TYPE_innoxia_fields_elis_town_amazon_camp)]
 			#ENDIF
-			[#ursa.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_amazon_camp, true)]
-			[#aurokaris.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_amazon_camp, true)]
-			[#lunexis.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, true)]
+			[#ursa.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_amazon_camp_queen, true)]
+			[#aurokaris.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_amazon_camp_aurokaris, true)]
+			[#lunexis.setLocation(WORLD_TYPE_innoxia_fields_elis_amazon_camp, PLACE_TYPE_innoxia_fields_elis_amazon_camp_lunexis, true)]
 		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/themiscyra">ELIS_HELP</content>
 		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>

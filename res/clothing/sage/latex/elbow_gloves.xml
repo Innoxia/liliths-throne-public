@@ -5,7 +5,7 @@
 		<determiner><![CDATA[a pair of]]></determiner>
 		<name><![CDATA[latex elbow-length glove]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[latex elbow-length gloves]]></namePlural>
-		<description><![CDATA[A pair of latex elbow-length gloves. They're have a shiny look, and are silky-smooth to the touch.]]></description> 
+		<description><![CDATA[A pair of latex elbow-length gloves. They have a shiny look, and are silky-smooth to the touch.]]></description> 
 		<physicalResistance>0</physicalResistance> 
 		<femininity>ANDROGYNOUS</femininity> 
 		<slot>HAND</slot> 
@@ -39,6 +39,7 @@
 		<tertiaryColoursDye/>
 		
 		<itemTags> 
+			<tag>ENABLE_SEX_EQUIP</tag>
 			<tag>SOLD_BY_FINCH</tag>
 		</itemTags>
 	</coreAttributes>

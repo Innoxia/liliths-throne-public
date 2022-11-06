@@ -98,7 +98,7 @@
 			</areasBanned>
 			<stopSexCondition><![CDATA[
 				#IF(!meraxis.hasFetish(FETISH_VAGINAL_RECEIVING))
-					[#sex.isOrgasmCountMet(pc, 1, true)]
+					[#sex.isOrgasmCountMet(meraxis, 1, true)]
 				#ELSE
 					[#sex.isSatisfiedFromOrgasms(pc, true) && sex.isSatisfiedFromOrgasms(meraxis, true)]
 				#ENDIF

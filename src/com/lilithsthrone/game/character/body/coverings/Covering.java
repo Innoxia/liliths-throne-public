@@ -76,6 +76,22 @@ public class Covering implements XMLSaving {
 						?primaryColour
 						:type.getNaturalColoursSecondary().get(Util.random.nextInt(type.getNaturalColoursSecondary().size()))), false);
 	}
+
+	/**
+	 * Constructor.<br/>
+	 * Initialises boolean glowing to false and secondaryColour to same as primaryColour (where available).
+	 * @param type
+	 * @param pattern The CoveringPattern to set this skin to.
+	 * @param primaryColour
+	 */
+	public Covering(AbstractBodyCoveringType type, CoveringPattern pattern, Colour primaryColour) {
+		this(type,
+				pattern,
+				primaryColour, false,
+				(type.getNaturalColoursSecondary().contains(primaryColour) || type.getNaturalColoursSecondary().isEmpty()
+						?primaryColour
+						:type.getNaturalColoursSecondary().get(Util.random.nextInt(type.getNaturalColoursSecondary().size()))), false);
+	}
 	
 	/**
 	 * Constructor.<br/>

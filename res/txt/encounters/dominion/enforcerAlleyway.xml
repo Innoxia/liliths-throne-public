@@ -113,10 +113,10 @@
 					 Putting on your best [wes.Name] impression, you affirm that you are.
 				</p>
 				<p>
-					 [npc2.speech(Didn't know [pc.she] was even capable of taking breaks,)] the [npc2.name] mutters mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.name]'s elbow. 
+					 [npc2.speech(Didn't know [pc.she] was even capable of taking breaks,)] the [npc2.name] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.name]'s elbow. 
 				</p>
 				<p>
-					Quickly changing the subject, the [npc.name] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week...if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will.
+					Quickly changing the subject, the [npc.name] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week... if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will.
 				</p>
 			#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_elle") > 0)
 				<p>
@@ -132,7 +132,7 @@
 					 [npc2.speech(Armory must get real stuffy from all the fucking,)] the [npc2.name] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.name]'s elbow. 
 				</p>
 				<p>
-					Quickly changing the subject, the [npc.name] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week...if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will and take note of the names on their vests.
+					Quickly changing the subject, the [npc.name] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week... if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will and take note of the names on their vests.
 				</p>
 			#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_nysa") > 0)
 				<p>
@@ -376,10 +376,10 @@
 				 Putting on your best [wes.Name] impression, you affirm that you are.
 			</p>
 			<p>
-				 [npc2.speech(Didn't know [pc.she] was even capable of taking breaks,)] the [npc2.race] mutters mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.race]'s elbow. 
+				 [npc2.speech(Didn't know [pc.she] was even capable of taking breaks,)] the [npc2.race] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.race]'s elbow. 
 			</p>
 			<p>
-				Quickly changing the subject, the [npc.race] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week...if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will and take note of the names on their vests.
+				Quickly changing the subject, the [npc.race] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week... if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will and take note of the names on their vests.
 			</p>
 		#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_elle") > 0)
 			<p>
@@ -395,7 +395,7 @@
 				 [npc2.speech(Armory must get real stuffy from all the fucking,)] the [npc2.race] mutters under [npc2.her] breath, promptly earning [npc2.her] a prod from the [npc.race]'s elbow. 
 			</p>
 			<p>
-				Quickly changing the subject, the [npc.race] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week...if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will and take note of the names on their vests.
+				Quickly changing the subject, the [npc.race] asks you for a favour, [npc.speech(You'll have to excuse [npc.herHim], we're behind on our quota this week... if you could point out any nearby opportunities to us, it would really help us out.)] Once again mustering your acting ability, you tell the two officers you will and take note of the names on their vests.
 			</p>
 		#ELSEIF(game.getDialogueFlags().getSavedLong("impersonating_nysa") > 0)
 			<p>
@@ -773,7 +773,7 @@
 		#ELSE
 			 Running [npc.her] [npc.hands] down over your ass, [npc.she] lets out an amused grunt as [npc.she] gives your cheeks a firm squeeze.
 		#ENDIF
-		 Before you're able to react to react to this sexual harassment, the [npc.race] suddenly finds some items that you aren't supposed to have, and grunts, [npc.speech(I'm going to have to confiscate these...)]
+		 Before you're able to react to this sexual harassment, the [npc.race] suddenly finds some items that you aren't supposed to have, and grunts, [npc.speech(I'm going to have to confiscate these...)]
 	</p>
 	<p>
 		With [npc2.name] keeping watch to make sure that you don't try anything funny, [npc.name] quickly confiscates your [style.colourBlueDark(illegal)] items
@@ -801,7 +801,7 @@
 		#ELSE
 			 Running [npc.her] [npc.hands] down over your ass, [npc.she] lets out an amused grunt as [npc.she] gives your cheeks a firm squeeze.
 		#ENDIF
-		 Before you're able to react to react to this sexual harassment, the [npc.race] asks, [npc.speech(You're hiding something, aren't you?)]
+		 Before you're able to react to this sexual harassment, the [npc.race] asks, [npc.speech(You're hiding something, aren't you?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1278,7 +1278,7 @@
 			[npc2.speech(Wait, what?!)] [npc2.name] exclaims, [npc2.speech(Demons can't transform like that!)]
 		</p>
 		<p>
-			Informing the Enforcers that your abilities come from being a direct [pc.daughter] of Lyssieth herself, you again ask them if they're planning on treating you any differently now that you've revealed your demonic form. Just as expected, the two officers seem suitably impressed and intimidated, and they quickly start apologising for wasting your time. Smugly smirking at them in triumphant glee, you quickly self-transform back into your previous form, before wondering what to do next... 
+			Informing the Enforcers that your abilities come from being a direct [pc.daughter] of #IF(pc.getLilinMother()!=null)[#pc.getLilinMother().getName()]#ELSEa lilin#ENDIF herself, you again ask them if they're planning on treating you any differently now that you've revealed your demonic form. Just as expected, the two officers seem suitably impressed and intimidated, and they quickly start apologising for wasting your time. Smugly smirking at them in triumphant glee, you quickly self-transform back into your previous form, before wondering what to do next...
 		</p>
 	#ENDIF
 	]]>
@@ -1803,7 +1803,7 @@
 			#ELSE
 				 Running [npc2.her] [npc2.hands] down over your ass, [npc2.she] lets out an amused grunt as [npc2.she] gives your cheeks a firm squeeze.
 			#ENDIF
-			 Before you're able to react to react to this sexual harassment, the [npc2.race] suddenly lets out a triumphant laugh as [npc2.she] suddenly finds some items that you aren't supposed to have.
+			 Before you're able to react to this sexual harassment, the [npc2.race] suddenly lets out a triumphant laugh as [npc2.she] suddenly finds some items that you aren't supposed to have.
 		#ELSE
 			 Running [npc2.her] [npc2.hands] all over your body, [npc2.she] lets out a triumphant laugh as [npc2.she] suddenly finds some items that you aren't supposed to have.
 		#ENDIF
@@ -2364,7 +2364,7 @@
 		Misinterpreting your question as an accusation of neglect, the dog-boy stammers, [style.speechMasculine(I-I'm so sorry! I only had confirmation that Lilaya had vouched for your release just five minutes ago! I hurried to set you free as soon as I could!)]
 	</p>
 	<p>
-		With the mystery of your sudden release solved, you allow the dog-boy to hurry off back into the Enforcer HQ, before turning around and preapring to continue on your way...
+		With the mystery of your sudden release solved, you allow the dog-boy to hurry off back into the Enforcer HQ, before turning around and preparing to continue on your way...
 	</p>
 	]]>
 	</htmlContent>

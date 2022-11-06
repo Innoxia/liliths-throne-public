@@ -25,7 +25,8 @@
 		#ELSE
 			 Although your powerful arcane aura is quite clearly turning [npc.herHim] on a little, it doesn't look as though [npc.sheIs] really all that interested in your body, and will most likely only rob you if you were to resist and lose the subsequent fight. With just moments to spare before [npc.sheIs] upon you, the choice of whether to defend yourself or pay up must be quickly made...
 		#ENDIF
-	</p>	]]>
+	</p>
+	]]>
 	</htmlContent>
 	
 	<htmlContent tag="START_REPEAT_SUBMITTED"><![CDATA[
@@ -689,7 +690,9 @@
 	
 	<!-- Won combat: -->
 	
-	<htmlContent tag="COMBAT_WON"><![CDATA[	<p>		Staggering back, the [npc.race] sinks down onto the ground,
+	<htmlContent tag="COMBAT_WON"><![CDATA[
+	<p>
+		Staggering back, the [npc.race] sinks down onto the ground,
 		#IF(!npc.isMute())
 			#IF(npc.getPlayerSurrenderCount()>=4)
 				#IF(npc.isAttractedTo(pc))
@@ -710,7 +713,8 @@
 			#ELSE
 				 holding up [npc.her] [npc.hands] in a clear sign of surrender.
 			#ENDIF
-		#ENDIF	</p>
+		#ENDIF
+	</p>
 	<p>
 		#IF(npc.getPlayerSurrenderCount()>=4)
 			Having broken free from being [npc.namePos] bitch, 
@@ -718,10 +722,12 @@
 			Feeling encouraged by your triumph,
 		#ENDIF
 		 you confidently [pc.step] forwards and wonder what to do with this defeated [npc.race]...
-	</p>	]]>
+	</p>
+	]]>
 	</htmlContent>
 	
-	<htmlContent tag="COMBAT_WON_END"><![CDATA[	<p>
+	<htmlContent tag="COMBAT_WON_END"><![CDATA[
+	<p>
 		Not wanting anything more to do with this [npc.race], you turn around and [pc.walk] off.
 		#IF(!npc.isMute())
 			#IF(npc.isAttractedTo(pc))
@@ -735,19 +741,23 @@
 			#ELSE
 				 Letting out a deep sigh as you [pc.step] past [npc.herHim], [npc.name] taunts you by throwing up a rude hand gesture.
 			#ENDIF
-		#ENDIF	</p>
+		#ENDIF
+	</p>
 	<p>
 		Ignoring [npc.her] pathetic display, you leave [npc.name] behind and continue on your way through the dark, twisting alleyways of northern Elis...
-	</p>	]]>
+	</p>
+	]]>
 	</htmlContent>
 	
 	<htmlContent tag="COMBAT_WON_SEX"><![CDATA[
 	<p>
-		#IF(npc.isAttractedTo(pc))			More than happy to give [npc.name] what [npc.she] wants, you [pc.step] up to [npc.herHim] and pull [npc.herHim] to [npc.her] [npc.feet]. Leaning forwards to plant a dominant kiss on [npc.her] [npc.lips+], you can't help but let out an eager [pc.moan] as you prepare to fuck [npc.herHim]...
+		#IF(npc.isAttractedTo(pc))
+			More than happy to give [npc.name] what [npc.she] wants, you [pc.step] up to [npc.herHim] and pull [npc.herHim] to [npc.her] [npc.feet]. Leaning forwards to plant a dominant kiss on [npc.her] [npc.lips+], you can't help but let out an eager [pc.moan] as you prepare to fuck [npc.herHim]...
 		#ELSE
 			Ignoring the fact that [npc.name] doesn't seem at all attracted to you, you [pc.step] up to [npc.herHim] and pull [npc.herHim] to [npc.her] [npc.feet]. Ignoring [npc.her] protests, you lean forwards to plant a dominant kiss on [npc.her] [npc.lips+], and can't help but let out an eager [pc.moan] as you prepare to rape [npc.herHim]...
 		#ENDIF
-	</p>	]]>
+	</p>
+	]]>
 	</htmlContent>
 	
 	<htmlContent tag="COMBAT_WON_SEX_GENTLE"><![CDATA[
@@ -757,7 +767,8 @@
 		#ELSE
 			Ignoring the fact that [npc.name] doesn't seem at all attracted to you, you [pc.step] up to [npc.herHim] and gently, yet firmly, pull [npc.herHim] to [npc.her] [npc.feet]. Ignoring [npc.her] protests, you lean forwards to plant a soft kiss on [npc.her] [npc.lips+], and can't help but let out a quiet [pc.moan] as you prepare to rape [npc.herHim]...
 		#ENDIF
-	</p>	]]>
+	</p>
+	]]>
 	</htmlContent>
 	
 	<htmlContent tag="COMBAT_WON_SEX_ROUGH"><![CDATA[
@@ -767,7 +778,8 @@
 		#ELSE
 			Ignoring the fact that [npc.name] doesn't seem at all attracted to you, you [pc.step] up to [npc.herHim] and roughly pull [npc.herHim] to [npc.her] [npc.feet]. Ignoring [npc.her] protests, you lean forwards to plant a forceful, dominant kiss on [npc.her] [npc.lips+], and can't help but let out an eager [pc.moan] as you prepare to rape [npc.herHim]...
 		#ENDIF
-	</p>	]]>
+	</p>
+	]]>
 	</htmlContent>
 	
 	<htmlContent tag="COMBAT_WON_SEX_SUBMIT_START"><![CDATA[
@@ -781,10 +793,12 @@
 	</p>
 	<p>
 		Confirming to [npc.herHim] that you'll let [npc.herHim] use you in any way [npc.she] sees fit, you allow [npc.name] to take hold of you and pull you into [npc.her] body. Planting a dominant kiss on your [pc.lips+], and realising that you're truly going to submit to [npc.herHim], the [npc.race] lets out [npc.a_moan+] and prepares to fuck you...
-	</p>	]]>
+	</p>
+	]]>
 	</htmlContent>
 	
-	<htmlContent tag="AFTER_SEX_DOM"><![CDATA[	<p>
+	<htmlContent tag="AFTER_SEX_DOM"><![CDATA[
+	<p>
 		Feeling satisfied from your dominant sex with the [npc.race], you [pc.step] away from [npc.herHim] and start to get your things back in order.
 		#IF(!npc.isMute())
 			#IF(npc.isSatisfiedFromLastSex())
@@ -798,13 +812,16 @@
 			#ELSE
 				 Not feeling as happy as you are, [npc.name] lets out a frustrated sigh and moans in annoyance to convey the fact that [npc.sheIs] not satisfied.
 			#ENDIF
-		#ENDIF	</p>
+		#ENDIF
+	</p>
 	<p>
 		Continuing to get your things back in order, you brush yourself off and wonder what to do next. You could always help yourself to any items or cash that the [npc.race] is carrying, or instead simply set off and continue on your way... 
-	</p>	]]>
+	</p>
+	]]>
 	</htmlContent>
 	
-	<htmlContent tag="COMBAT_WON_TALK"><![CDATA[	<p>
+	<htmlContent tag="COMBAT_WON_TALK"><![CDATA[
+	<p>
 		As you look down at the defeated form of the [npc.race] before you, you can't help but feel sorry for [npc.herHim]. After all, [npc.she] must really have been desperate to have attacked you like this, and is undoubtedly the victim of unfortunate circumstances. Taking a step back to show [npc.herHim] that you're no further threat, you ask [npc.herHim] why [npc.she] decided to attack you and try to take your money.
 	</p>
 	#IF(!npc.isMute())
@@ -857,7 +874,8 @@
 		<p>
 			Clearly not being used to such amicable interactions with strangers, [npc.name] doesn't even give you a chance to say anything else before hastily turning around and sprinting off down the dark alleyway. Left alone and finding yourself with a moment in which to think, you reflect upon the fact that you might have just made a new friend, before setting off and continuing on your way...
 		</p>
-	#ENDIF	]]>
+	#ENDIF
+	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_COMBAT_VICTORY_BANISH_NPC"><![CDATA[
@@ -1009,7 +1027,8 @@
 				</p>
 			#ENDIF
 		#ENDIF
-	#ENDIF	]]>
+	#ENDIF
+	]]>
 	</htmlContent>
 	
 	<htmlContent tag="COMBAT_LOST_SPIT"><![CDATA[
@@ -1043,7 +1062,8 @@
 	<htmlContent tag="COMBAT_LOST_FUCKED"><![CDATA[
 	<p>
 		Giving you no say in the matter, [npc.name] continues to grope you, and as you open your mouth to say something, [npc.she] leans forwards and pulls you into a dominant kiss. After grinding up against you for a few moments, [npc.she] pulls back and prepares to fuck you...
-	</p>	]]>
+	</p>
+	]]>
 	</htmlContent>
 	
 	<htmlContent tag="COMBAT_LOST_CONTINUE"><![CDATA[
@@ -1063,13 +1083,15 @@
 		<p>
 			With one last triumphant sneer thrown your way, [npc.she] turns around and runs off down the dark alleyway, before quickly disappearing from your sight. After taking a moment in which to recover your energy, you look around to make sure that there's no other immediate danger and then prepare to continue on your way...
 		</p>
-	#ENDIF	]]>
+	#ENDIF
+	]]>
 	</htmlContent>
 	
 	<htmlContent tag="COMBAT_LOST_FUCKED_WILLING"><![CDATA[
 	<p>
 		Agreeing to have sex with [npc.herHim], you let the bandit continue to grope you, and as you open your mouth to say something, [npc.she] leans forwards and pulls you into a dominant kiss. After grinding up against you for a few moments, [npc.she] pulls back and prepares to fuck you...
-	</p>	]]>
+	</p>
+	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_COMBAT_TRANSFORMATIONS"><![CDATA[
@@ -2499,7 +2521,7 @@
 		Not at all interested in [stranger.namePos] cock, you turn away from [stranger.herHim] and remain seated outside the bistro. Grunting in disappointment, and to the sound of laughter from the other strangers who were watching, the [stranger.race] [stranger.walks] off and disappears from sight down a nearby alleyway.
 	</p>
 	<p>
-		After that, nothing eventful happens during the fifteen minutes you're left waiting for [npc.namePos] return. As [npc.she] makes [npc.her] eventual return and exits the bistro, the [npc.race] looks over at you with a a surprised look on [npc.her] face. Letting out a mocking laugh, [npc.she]
+		After that, nothing eventful happens during the fifteen minutes you're left waiting for [npc.namePos] return. As [npc.she] makes [npc.her] eventual return and exits the bistro, the [npc.race] looks over at you with a surprised look on [npc.her] face. Letting out a mocking laugh, [npc.she]
 		#IF(npc.isMute())
 			 gestures to imply that [npc.she]'d forgotten you were out here, before making a [npc.hand] movement to shoo you away.
 		#ELSE

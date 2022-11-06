@@ -103,6 +103,9 @@ public class Astrapi extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1")) {
 			this.setFetishDesire(Fetish.FETISH_ARMPIT_RECEIVING, FetishDesire.THREE_LIKE);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.5.5")) {
+			this.setHeight(215);
+		}
 	}
 
 	@Override
@@ -152,7 +155,7 @@ public class Astrapi extends NPC {
 		// Body:
 		
 		// Core:
-		this.setHeight(205);
+		this.setHeight(215);
 		this.setFemininity(50);
 		this.setMuscle(90);
 		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
@@ -312,6 +315,21 @@ public class Astrapi extends NPC {
 	@Override
 	public boolean isUnique() {
 		return true;
+	}
+
+	@Override
+	public String getArtworkFolderName() {
+		if(Main.game.isUdderContentEnabled()) {
+			if(this.isVisiblyPregnant()) {
+				return "AstrapiCrotchBoobsPregnant";
+			}
+			return "AstrapiCrotchBoobs";
+		} else {
+			if(this.isVisiblyPregnant()) {
+				return "AstrapiPregnant";
+			}
+			return "Astrapi";
+		}
 	}
 	
 	@Override

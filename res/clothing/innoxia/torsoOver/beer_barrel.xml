@@ -98,6 +98,7 @@
 		<tertiaryColoursDye/>
 		
 		<itemTags> 
+			<tag>NO_RANDOM_SPAWN</tag>
 			<tag>MUFFLES_SPEECH</tag>
 			<tag>BLOCKS_SIGHT</tag>
 			<tag>HINDERS_ARM_MOVEMENT</tag>

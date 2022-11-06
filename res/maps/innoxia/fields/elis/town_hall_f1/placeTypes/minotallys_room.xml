@@ -2,7 +2,7 @@
 <placeType>
 	<worldRegion>FIELD_CITY</worldRegion>
 	<name><![CDATA[Minotallys's bedroom]]></name>
-	<tooltipDescription><![CDATA[Out of a matter of convenience, Minotallys has has one of the rooms opposite her office converted into her living quarters.]]></tooltipDescription>
+	<tooltipDescription><![CDATA[Out of a matter of convenience, Minotallys has one of the rooms opposite her office converted into her living quarters.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in Minotallys's bedroom in Elis's town hall]]></virginityLossDescription>
 	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>

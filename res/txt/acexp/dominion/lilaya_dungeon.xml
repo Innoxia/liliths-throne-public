@@ -104,10 +104,10 @@
 		At the end of the passageway before you stands a solid wooden door, which unlike the ones leading into the dungeon's cells, lacks a barred window, preventing you from peeking in from the outside. Taking hold of the handle and giving it a tentative turn, you discover that it's unlocked, and so proceed to slowly push it open and venture into the room beyond.
 	</p>
 	<p>
-		Once inside, you're able to see that this room is remarkably different from the dungeon's cells. Red velvet drapes, which have been elegantly decorated with intricate floral patterns, cover most of the the walls and ceiling. The floor is likewise mostly covered by a luxuriant burgundy rug, although around its edges you can see that the flagstones have been carved and polished to a smooth finish. A large, four-poster bed stands in the centre of the room, which is made up with red satin sheets and pillows. Overhead, a circular metal chandelier holds a dozen arcane candles, the light from which is surprisingly enough to illuminate the entire room.
+		Once inside, you're able to see that this room is remarkably different from the dungeon's cells. Red velvet drapes, which have been elegantly decorated with intricate floral patterns, cover most of the walls and ceiling. The floor is likewise mostly covered by a luxuriant burgundy rug, although around its edges you can see that the flagstones have been carved and polished to a smooth finish. A large, four-poster bed stands in the centre of the room, which is made up with red satin sheets and pillows. Overhead, a circular metal chandelier holds a dozen arcane candles, the light from which is surprisingly enough to illuminate the entire room.
     </p>
 	<p>
-		Turning to look into each corner of the room, you quickly discover that this is no ordinary bedroom. To your left stands a black metal cage, which looks to be just about large enough to fit a person. In the opposite corner, a wooden pillory has been constructed, and behind that a series of whips, ropes, and leather bindings are handing from a wall-mounted rack.
+		Turning to look into each corner of the room, you quickly discover that this is no ordinary bedroom. To your left stands a black metal cage, which looks to be just about large enough to fit a person. In the opposite corner, a wooden pillory has been constructed, and behind that a series of whips, ropes, and leather bindings are hanging from a wall-mounted rack.
 	</p>
     <p>
         #IF(pc.isLewd())
@@ -230,7 +230,7 @@
 
     <htmlContent tag="AFTER_SEX"><![CDATA[
    	<p>
-		having had her fun, Rose quickly gets her clothing back in order, and after unlocking the stocks, she smirks at you and teases, [rose.speech(I hope you had as much fun as I did, [pc.name]. We can do this again if you'd like, but not today; I have far too much housekeeping work to be getting on with.)]
+		Having had her fun, Rose quickly gets her clothing back in order, and after unlocking the stocks, she smirks at you and teases, [rose.speech(I hope you had as much fun as I did, [pc.name]. We can do this again if you'd like, but not today; I have far too much housekeeping work to be getting on with.)]
 	</p>
 	<p>
 		With that, Rose struts out of the room, leaving you to recover on your own. Gathering all of your belongings, you spend a moment in which to recover from Rose's treatment, before standing up and preparing to continue on your way...

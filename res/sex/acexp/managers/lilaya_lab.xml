@@ -15,14 +15,14 @@
 	<characterInformationContainer>
 		<characterInformation>
 			<characterId>pc</characterId>
-			<canStopSex><![CDATA[false]]></canStopSex>
+			<canStopSex/>
 			<canChangePositions><![CDATA[false]]></canChangePositions>
 			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
 			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
-			<sexPace locked="false"><![CDATA[SUB_NORMAL]]></sexPace>
+			<sexPace/>
 			<canSelfTransform><![CDATA[true]]></canSelfTransform>		
 			<hidden><![CDATA[true]]></hidden>
-			<control><![CDATA[SELF]]></control>
+			<control/>
 			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
 			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
 			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>

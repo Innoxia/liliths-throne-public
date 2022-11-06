@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -1333,6 +1332,8 @@ public enum TFModifier {
 	
 	TF_MOD_FLAVOUR_BLUEBERRY(FluidFlavour.BLUEBERRY, "flavours/blueberry"),
 	
+	TF_MOD_FLAVOUR_BANANA(FluidFlavour.BANANA, "flavours/banana"),
+	
 	
 	// Fetishes:
 	
@@ -1793,9 +1794,6 @@ public enum TFModifier {
 	}
 
 	public static List<TFModifier> getTFRacialBodyPartsList() {
-		if(Main.getProperties().getUddersLevel()==0) {
-			return TFRacialBodyPartsList.stream().filter(mod -> mod!=TFModifier.TF_BREASTS_CROTCH && mod!=TFModifier.TF_MILK_CROTCH).collect(Collectors.toList());
-		}
 		return TFRacialBodyPartsList;
 	}
 

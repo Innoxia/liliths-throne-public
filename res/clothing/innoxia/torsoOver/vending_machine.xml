@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>50000</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Hazmat Rat Vending Machine]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Hazmat Rat Vending Machines]]></namePlural> 
+		<description><![CDATA[This vending machine bears the words 'Hazmat Rat' in bold, green letters, while on both of its sides there are stylised images of rat-morphs wearing hazmat suits. Although it looks to have seen better days, it's still in fully-functioning condition.]]></description> 
+		<physicalResistance>50</physicalResistance> 
+		<femininity>ANDROGYNOUS</femininity> 
+		<slot>TORSO_OVER</slot> 
+		<rarity>COMMON</rarity> 
+		<clothingSet/> 
+		<imageName>vending_machine.svg</imageName> 
+		<imageEquippedName/> 
+		<enchantmentLimit/>
+		
+		<effects/>
+		
+		<blockedPartsList> 	
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts> 
+					<bodyPart>HANDS</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+					<bodyPart>LEGS</bodyPart>
+					<bodyPart>FEET</bodyPart>
+					<bodyPart>THIGHS</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
+					<bodyPart>BREASTS_CROTCH</bodyPart>
+					<bodyPart>NIPPLES_CROTCH</bodyPart>
+					<bodyPart>HAIR</bodyPart>
+					<bodyPart>MOUTH</bodyPart>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>EYES</clothingAccess>
+					<clothingAccess>MOUTH</clothingAccess>
+					<clothingAccess>HEAD</clothingAccess>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>WRISTS</clothingAccess>
+					<clothingAccess>FINGERS</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+					<clothingAccess>LEGS_UP_TO_GROIN_LOW_LEVEL</clothingAccess>
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+					<clothingAccess>CALVES</clothingAccess>
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots>
+					<slot>ANKLE</slot>
+					<slot>FINGER</slot>
+					<slot>FOOT</slot>
+					<slot>HAIR</slot>
+					<slot>HAND</slot>
+					<slot>HEAD</slot>
+					<slot>EYES</slot>
+					<slot>HIPS</slot>
+					<slot>HORNS</slot>
+					<slot>LEG</slot>
+					<slot>MOUTH</slot>
+					<slot>NECK</slot>
+					<slot>PIERCING_EAR</slot>
+					<slot>PIERCING_LIP</slot>
+					<slot>PIERCING_NOSE</slot>
+					<slot>PIERCING_STOMACH</slot>
+					<slot>PIERCING_TONGUE</slot>
+					<slot>PIERCING_NIPPLE</slot>
+					<slot>PIERCING_VAGINA</slot>
+					<slot>PIERCING_PENIS</slot>
+					<slot>SOCK</slot>
+					<slot>STOMACH</slot>
+					<slot>TORSO_UNDER</slot>
+					<slot>CHEST</slot>
+					<slot>NIPPLE</slot>
+					<slot>WEAPON_MAIN_1</slot>
+					<slot>WEAPON_MAIN_2</slot>
+					<slot>WEAPON_MAIN_3</slot>
+					<slot>WEAPON_OFFHAND_1</slot>
+					<slot>WEAPON_OFFHAND_2</slot>
+					<slot>WEAPON_OFFHAND_3</slot>
+					<slot>WRIST</slot>
+					<slot>TAIL</slot>
+					<slot>PENIS</slot>
+					<slot>VAGINA</slot>
+					<slot>WINGS</slot>
+					<slot>GROIN</slot>
+					<slot>ANUS</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_YELLOW</colour> 
+		</primaryColours>
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>NO_RANDOM_SPAWN</tag>
+			<tag>HINDERS_ARM_MOVEMENT</tag>
+			<tag>HINDERS_LEG_MOVEMENT</tag>
+			<tag>PREVENTS_COMBAT_ESCAPE</tag>
+			<tag>NOT_FOR_SALE</tag>
+			<tag>FITS_ARM_WINGS</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(climb)] into the vending machine.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(push)] [npc2.name] into the vending machine.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(push)] [npc2.name] into the vending machine.]]>
+		</otherRough>
+	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(climb)] out of the vending machine.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.name] out of the vending machine.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.name] out of the vending machine.]]>
+		</otherRough>
+	</displacementText>
+</clothing>

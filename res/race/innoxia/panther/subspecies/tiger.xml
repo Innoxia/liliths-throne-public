@@ -44,7 +44,7 @@
 			0
 		#ENDIF
 	]]></subspeciesWeighting>
-	<iconName displaySize="80">icon</iconName>
+	<iconName displaySize="100">icon_tiger</iconName>
 	<backgroundName>background_tiger</backgroundName>
 	<bookIconName>icon</bookIconName>
 	<bookName>Big Cats</bookName>

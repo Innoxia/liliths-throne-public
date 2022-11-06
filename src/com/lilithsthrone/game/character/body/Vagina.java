@@ -347,6 +347,10 @@ public class Vagina implements BodyPartInterface {
 		int oldSize = this.labiaSize;
 		this.labiaSize = Math.max(0, Math.min(labiaSize, LabiaSize.FOUR_MASSIVE.getValue()));
 		int sizeChange = this.labiaSize - oldSize;
+
+		if(!Main.game.isStarted() || owner==null) {
+			return "";
+		}
 		
 		if (sizeChange == 0) {
 			if(owner.isPlayer()) {
@@ -392,7 +396,7 @@ public class Vagina implements BodyPartInterface {
 	}
 
 	public String setPierced(GameCharacter owner, boolean pierced) {
-		if(owner==null) {
+		if(!Main.game.isStarted() || owner==null) {
 			this.pierced = pierced;
 			return "";
 		}
@@ -427,7 +431,7 @@ public class Vagina implements BodyPartInterface {
 	}
 
 	public String setEggLayer(GameCharacter owner, boolean eggLayer) {
-		if(owner==null) {
+		if(!Main.game.isStarted() || owner==null) {
 			this.eggLayer = eggLayer;
 			return "";
 		}
