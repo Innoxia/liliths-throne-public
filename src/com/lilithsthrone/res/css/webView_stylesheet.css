@@ -1755,52 +1755,47 @@ position:relative;
 }
 .overlay.dark{
 	border-radius:5px;
-	background-color:#000;
-	opacity:0.40;
+	background-color:rgba(0,0,0,0.4);
 }
 .overlay.disabled{
 	border-radius:5px;
 	background: repeating-linear-gradient(
 	  135deg,
-	  #333,
-	  #333 10px,
-	  #222 10px,
-	  #222 20px
+	  rgba(51,51,51,0.6),
+	  rgba(51,51,51,0.6) 10px,
+	  rgba(34,34,34,0.6) 10px,
+	  rgba(34,34,34,0.6) 20px
 	);
-	opacity:0.60;
 }
 .overlay.disabled-dark{
 	border-radius:5px;
 	background: repeating-linear-gradient(
 	  135deg,
-	  #1a1a1a,
-	  #1a1a1a 10px,
-	  #000 10px,
-	  #000 20px
+	  rgb(26, 26, 26, 0.8),
+	  rgb(26, 26, 26, 0.8) 10px,
+	  rgb(0, 0, 0, 0.8) 10px,
+	  rgb(0, 0, 0, 0.8) 20px
 	);
-	opacity:0.80;
 }
 .overlay.disabled:hover{
 	border-radius:5px;
 	background: repeating-linear-gradient(
 	  135deg,
-	  #333,
-	  #333 10px,
-	  #222 10px,
-	  #222 20px
+	  rgba(51,51,51,0.6),
+	  rgba(51,51,51,0.6) 10px,
+	  rgba(34,34,34,0.6) 10px,
+	  rgba(34,34,34,0.6) 20px
 	);
-	opacity:0.60;
 }
 .overlay.disabled-dark:hover{
 	border-radius:5px;
 	background: repeating-linear-gradient(
 	  135deg,
-	  #1a1a1a,
-	  #1a1a1a 10px,
-	  #000 10px,
-	  #000 20px
+	  rgb(26, 26, 26, 0.8),
+	  rgb(26, 26, 26, 0.8) 10px,
+	  rgb(0, 0, 0, 0.8) 10px,
+	  rgb(0, 0, 0, 0.8) 20px
 	);
-	opacity:0.80;
 }
 .overlay.no-pointer{
 	cursor:default;
@@ -1810,8 +1805,7 @@ position:relative;
 	opacity:1;
 }
 .overlay:hover{
-	background-color:#fff;
-	opacity:0.20;
+	background-color:rgb(255, 255, 255, 0.2);
 	border-radius:5px;
 }
 
@@ -1969,24 +1963,22 @@ position:relative;
 	border-radius:5px;
 	background: repeating-linear-gradient(
 	  135deg,
-	  #333,
-	  #333 10px,
-	  #222 10px,
-	  #222 20px
+	  rgb(51, 51, 51, 0.6),
+	  rgb(51, 51, 51, 0.6) 10px,
+	  rgb(34, 34, 34, 0.6) 10px,
+	  rgb(34, 34, 34, 0.6) 20px
 	);
-	opacity:0.60;
 	cursor:default;
 }
 .overlay.disabled:hover{
 	border-radius:5px;
 	background: repeating-linear-gradient(
 	  135deg,
-	  #333,
-	  #333 10px,
-	  #222 10px,
-	  #222 20px
+	  rgb(51, 51, 51, 0.6),
+	  rgb(51, 51, 51, 0.6) 10px,
+	  rgb(34, 34, 34, 0.6) 10px,
+	  rgb(34, 34, 34, 0.6) 20px
 	);
-	opacity:0.60;
 }
 
 /*INVENTORY BOX*/
@@ -2373,8 +2365,7 @@ position:relative;
 }
 .overlay.map-player {
 	border-radius:5px;
-    opacity: 0;
-    background-color:yellow;
+    background-color:rgb(255, 255, 0, 0);
     -webkit-animation-name: flashColour;
     -webkit-animation-duration: 3s;
     -webkit-animation-iteration-count: infinite;
