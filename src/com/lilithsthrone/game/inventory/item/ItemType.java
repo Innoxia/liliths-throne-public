@@ -2406,7 +2406,6 @@ public class ItemType {
 
 	public static AbstractItemType getItemTypeFromId(String id) {
 		
-		
 		if(id.equalsIgnoreCase("PROMISCUITY_PILL")) {
 			id = "innoxia_pills_sterility";
 			

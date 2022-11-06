@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>600</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[maid's headpiece]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[maid's headpieces]]></namePlural>
+		<description><![CDATA[A heavily stylised maid's headpiece, it consists of a coloured headband with a decorative white lace attached on top.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>HEAD</slot>
+		<rarity>EPIC</rarity>
+		<clothingSet>innoxia_maid</clothingSet>
+		<imageName>headpiece.svg</imageName>
+		<imageEquippedName/>
+		
+		<effects> 
+			<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+		</effects>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values="MAID"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_WHITE"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+	
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+		<![CDATA[[npc.Name] [npc.verb(place)] the headpiece onto [npc.her] head.]]>
+    </self>
+    <other>
+		<![CDATA[[npc.Name] [npc.verb(place)] the headpiece onto [npc2.namePos] head.]]>
+    </other>
+    <otherRough>
+		<![CDATA[[npc.Name] roughly [npc.verb(push)] the headpiece onto [npc2.namePos] head.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+		<![CDATA[[npc.Name] [npc.verb(take)] off [npc.her] headpiece.]]>
+    </self>
+    <other>
+		<![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] headpiece.]]>
+    </other>
+    <otherRough>
+		<![CDATA[[npc.Name] [npc.verb(snatch)] off [npc2.namePos] headpiece.]]>
+    </otherRough>
+  </displacementText>
+  
+</clothing>

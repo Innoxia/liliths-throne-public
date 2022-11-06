@@ -106,6 +106,7 @@
 		<tertiaryColoursDye/>
 		
 		<itemTags> 
+			<tag>NO_RANDOM_SPAWN</tag>
 			<tag>HINDERS_ARM_MOVEMENT</tag>
 			<tag>HINDERS_LEG_MOVEMENT</tag>
 			<tag>PREVENTS_COMBAT_ESCAPE</tag>

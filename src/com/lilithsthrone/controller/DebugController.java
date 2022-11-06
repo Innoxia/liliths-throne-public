@@ -124,11 +124,15 @@ public class DebugController {
 			String id = "SET_BONUS_"+SetBonus.getIdFromSetBonus(sb);
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					for (AbstractWeaponType wt : WeaponType.getAllWeaponsInSet(sb)) {
-						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon(Main.game.getItemGen().generateWeapon(wt));
+					if(WeaponType.getAllWeaponsInSet(sb)!=null) {
+						for (AbstractWeaponType wt : WeaponType.getAllWeaponsInSet(sb)) {
+							Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon(Main.game.getItemGen().generateWeapon(wt));
+						}
 					}
-					for (AbstractClothingType ct : ClothingType.getAllClothingInSet(sb)) {
-						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(Main.game.getItemGen().generateClothing(ct));
+					if(ClothingType.getAllClothingInSet(sb)!=null) {
+						for (AbstractClothingType ct : ClothingType.getAllClothingInSet(sb)) {
+							Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(Main.game.getItemGen().generateClothing(ct));
+						}
 					}
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
