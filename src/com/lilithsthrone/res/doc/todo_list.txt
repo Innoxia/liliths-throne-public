@@ -29,6 +29,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue with some buttons in Kate's cosmetics dialogues being unresponsive. (by Maxis010)
 		Made LT runnable directly on the most recent Java LTS (17) and created an automatic build and release pipeline to reduce workload using Maven. Also fixed several opaque elements which were supposed to be transparent. (PR#1684 by Tazze)
 		Added the ability to choose either the feminine or masculine Enforcer's uniform when progressing past Brax's stage of the main quest. (PR#1721 by Nonny5Mouse)
+		Enabled setting furry level for salamander spawns. (PR#1730 by Stadler)
+		Replaced an instance of a deprecated newInstance() method. (by AceXP)
 	
 	Gameplay:
 		Added bad ends to losing combat against the harpy matriarchs in the Harpy Nests.
@@ -254,10 +256,15 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		First 10 elements: GYNEPHILIC=0, ANDROPHILIC=0, AMBIPHILIC=0
 		Warning: all weights are zero in weighted map!
 		First 10 elements: TWENTIES_LATE=0, TWENTIES_EARLY=0, FIFTIES_MIDDLE=0, SIXTIES_MIDDLE=0, SIXTIES_EARLY=0, THIRTIES_EARLY=0, FIFTIES_EARLY=0, FORTIES_EARLY=0, TWENTIES_MIDDLE=0, THIRTIES_MIDDLE=0
+	
+	[] Update build instructions (Dream's message in tech):
+		Fatal error compiling: invalid flag: --release and lambda expressions are not supported in -source (number with comma here)
+		
+	
 	[] Game treats milking equipment as clothing. As a result if you inspect a naked slave who is being milked, it displays text stating you ordered them to take off their clothes and strip
 		"Deciding that you'd like to inspect {Char}'s body, you order her to strip naked, before taking a step back in order to get a better view of her.​"
 	
-	[] PRs
+	[x] PRs
 	
 	[x] FAF
 	
@@ -285,6 +292,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Issue is that some races aren't spawning as their tauric versions
 		[] the game is not ready for non-quadruped taurs?
 		[] when it tries to spawn snek-taurs or raptor-taurs and so on when taurs are at 100% spawns - it spawns normal snakes and raptors instead of lamias and big birb legs
+	
+	[] string bikini
+	[] cute pawprint pattern pajamas
 	
 	[] PRs:
 		[] #94
