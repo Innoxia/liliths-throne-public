@@ -452,7 +452,7 @@
 		[claire.speech(I-Is that thing safe to touch?)] Claire asks, her voice still a little shaky as she desperately tries to keep her lust under control. 
 	</p>
 	<p>
-		[pc.speech(Yes, I don't think it's going to discharge again without having some kind of arcane energy channelled into it,)] you reply, your natural affinity for the arcane instincively telling you that this is the case. Deciding to take this lightning globe with you, you tell your cat-girl companion, [pc.speech(Perhaps it will be useful in helping us to escape from this place.)]
+		[pc.speech(Yes, I don't think it's going to discharge again without having some kind of arcane energy channelled into it,)] you reply, your natural affinity for the arcane instinctively telling you that this is the case. Deciding to take this lightning globe with you, you tell your cat-girl companion, [pc.speech(Perhaps it will be useful in helping us to escape from this place.)]
 	</p>
 	<p>
 		Looking back into the crate, you see that a few of the bottled essences are still intact.
@@ -521,7 +521,7 @@
 	</p>
 	<p>
 		#IF(claire.getLust()>75)
-		[claire.speech(Sure, you can take that, just please, I need to get out of here and have a good fuck!)] she whines, clearly not interested by anything but satiating her overwhelming lust.
+		[claire.speech(Sure, you can take that, just please, I need to get out of here and have a good fuck!)] she whines, clearly not interested in anything but satiating her overwhelming lust.
 		#ELSE
 		[claire.speech(Fine, I suppose you can take that,)] she says, placing her hands on her massive hips and frowning at you, [claire.speech(Maybe you could use it to trick some of these guards or something.)]
 		#ENDIF
@@ -593,14 +593,14 @@
 			Looking across to where this unexpected attack came from, you see Claire still pointing her discharged taser at the SWORD guard. Glaring at you with a mixture of aroused anger in her eyes, she quickly moves forwards and deftly uses the [npc.race]'s own handcuffs to shackle [npc.herHim] to a nearby crate. Still struggling to control her lust, she whines, [claire.speech(~Mmm!~ Look what you made me do! [npc.She] almost saw me! Y-You know, you can't just assault Enforcers like that! If this were any other situation, I'd have arrested you for what you've just done!)]
 		</p>
 		<p>
-			Pointing out that the [npc.race] was the one who shot at you first, you tell Claire that you were simply defending yourself, and, furthermore, that the [npc.race] was blocking your escape route. Subconsciously groping her breasts with one hand, Claire tuts, [claire.speech(W-Well, I don't know about that. ~Mmm!~ Let's just never speak of this again, ok? Oh, and don't even think about trying to take any of [npc.her] gear or anything. As it stands, [npc.she] probably won't even report this to [npc.her] superiors, as that'd mean [npc.herHim] losing a lot of face for being defeated like this. ~Aah!~ I-If you were to take [npc.her] gear, then it's be a different matter entirely. You don't want SWORD after you for the rest of your life, do you?)]
+			Pointing out that the [npc.race] was the one who shot at you first, you tell Claire that you were simply defending yourself, and, furthermore, that the [npc.race] was blocking your escape route. Subconsciously groping her breasts with one hand, Claire tuts, [claire.speech(W-Well, I don't know about that. ~Mmm!~ Let's just never speak of this again, ok? Oh, and don't even think about trying to take any of [npc.her] gear or anything. As it stands, [npc.she] probably won't even report this to [npc.her] superiors, as that'd mean [npc.herHim] losing a lot of face for being defeated like this. ~Aah!~ I-If you were to take [npc.her] gear, then it'd be a different matter entirely. You don't want SWORD after you for the rest of your life, do you?)]
 		</p>
 	#ELSE
 		<p>
 			Looking across to where this unexpected attack came from, you see Claire still pointing her discharged taser at the SWORD guard. Glaring angrily at you, she then quickly moves forwards and deftly uses the [npc.race]'s own handcuffs to shackle [npc.herHim] to a nearby crate. Letting out a little huff, she asks, [claire.speech(Look what you made me do! [npc.She] almost saw me! You know, you can't just assault Enforcers like that! If this were any other situation, I'd have arrested you for what you've just done!)]
 		</p>
 		<p>
-			Pointing out that the [npc.race] was the one who shot at you first, you tell Claire that you were simply defending yourself, and, furthermore, that the [npc.race] was blocking your escape route. Placing her hands on her hips, Claire tuts, [claire.speech(Well, I don't know about that. Let's just never speak of this again, ok? Oh, and don't even think about trying to take any of [npc.her] gear or anything. As it stands, [npc.she] probably won't even report this to [npc.her] superiors, as that'd mean [npc.herHim] losing a lot of face for being defeated like this. If you were to take [npc.her] gear, then it's be a different matter entirely. You don't want SWORD after you for the rest of your life, do you?)]
+			Pointing out that the [npc.race] was the one who shot at you first, you tell Claire that you were simply defending yourself, and, furthermore, that the [npc.race] was blocking your escape route. Placing her hands on her hips, Claire tuts, [claire.speech(Well, I don't know about that. Let's just never speak of this again, ok? Oh, and don't even think about trying to take any of [npc.her] gear or anything. As it stands, [npc.she] probably won't even report this to [npc.her] superiors, as that'd mean [npc.herHim] losing a lot of face for being defeated like this. If you were to take [npc.her] gear, then it'd be a different matter entirely. You don't want SWORD after you for the rest of your life, do you?)]
 		</p>
 	#ENDIF
 	<p>
@@ -760,7 +760,7 @@
 	</p>
 	<p>
 		#IF(claire.getLust()>75)
-			[claire.speech(~Mmm!~ Y-Yeah, it's just down the road,)] she sensually replies, and, clearly desperate to find somewhere where she can masturate, she continues, [claire.speech(I-I'd better get going right now, before anyone notices that I'm missing! ~Mmm!~ T-Thanks for getting me out of that warehouse, [pc.name]. Come and visit me down in Submission again some time!)]
+			[claire.speech(~Mmm!~ Y-Yeah, it's just down the road,)] she sensually replies, and, clearly desperate to find somewhere where she can masturbate, she continues, [claire.speech(I-I'd better get going right now, before anyone notices that I'm missing! ~Mmm!~ T-Thanks for getting me out of that warehouse, [pc.name]. Come and visit me down in Submission again some time!)]
 		#ELSE
 			[claire.speech(Oh, yeah, it's just down the road,)] she replies, [claire.speech(I'd better get going right now, before anyone notices that I'm missing. Thanks for getting me out of that warehouse, [pc.name]. Come and visit me down in Submission again some time!)]
 		#ENDIF

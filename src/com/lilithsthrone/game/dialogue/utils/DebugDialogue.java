@@ -39,6 +39,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
+import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -863,7 +864,7 @@ public class DebugDialogue {
 					if(index-5 < clothingSlots.size()) {
 						InventorySlot is = clothingSlots.get(index-5);
 						return new Response(Util.capitaliseSentence(is.getName()),
-								"View icons and ids of all the clothing in the the slot '"+is.getName()+"'. You can also spawn these items by clicking on their icons. <i>Warning: May be sluggish and slow to load.</i>",
+								"View icons and ids of all the clothing in the slot '"+is.getName()+"'. You can also spawn these items by clicking on their icons. <i>Warning: May be very sluggish and slow to load.</i>",
 								ITEM_VIEWER) {
 							@Override
 							public void effects() {
@@ -1547,6 +1548,18 @@ public class DebugDialogue {
 							
 							if(subspecies==Subspecies.DEMON) {
 								stage = RaceStage.GREATER;
+								
+								DialogueFlags dialogueFlags = Main.game.getDialogueFlags();
+								if(!dialogueFlags.hasFlag("innoxia_child_of_lyssieth")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lunette")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lirecea")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lovienne")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lasielle")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lyxias")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lisophia")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lilith")){
+									Main.game.getDialogueFlags().setFlag("innoxia_child_of_lyssieth", true);
+								}
 							}
 							
 							Main.game.getCharacterUtils().reassignBody(

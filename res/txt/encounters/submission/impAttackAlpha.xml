@@ -16,11 +16,12 @@
 	</p>
 	<p>
 		As they catch sight of you, the two alpha-imps stop in their tracks. The one on the
-		#IF RND.nextInt(2)==0
-		#THEN left
-		#ELSE right
+		#IF(RND.nextInt(2)==0)
+			 left,
+		#ELSE
+			 right,
 		#ENDIF
-		, armed with the pipe and shield, appears to be the leader, and [npc.she] steps forwards and sizes you up, before declaring, [npc.speech(Yer a cheeky [pc.insult], ain't yer?! Runnin' round in our territory, thinkin' you ain't gonna get caught!)]
+		 armed with the pipe and shield, appears to be the leader, and [npc.she] steps forwards and sizes you up, before declaring, [npc.speech(Yer a cheeky [pc.insult], ain't yer?! Runnin' round in our territory, thinkin' you ain't gonna get caught!)]
 	</p>
 	<p>
 		The two smaller imps flutter forwards to back their leader up, and [npc3.name] sneers, [npc3.speech([pc.Insult]! You're gonna be in for it now!)]

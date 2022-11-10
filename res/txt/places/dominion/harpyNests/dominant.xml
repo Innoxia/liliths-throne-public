@@ -12,8 +12,8 @@
 		</p>
 	#ELSEIF(!game.isExtendedWorkTime())
 		<p>
-			#IF(game.getDialogueFlags().hasFlag(FLAG_bimboEncountered))
-				Due to the current hour, [bimboHarpy.namePos] nest is completed deserted; both she and her flock have retired to the comfort of the buildings below in order to get a good night's rest. With the entrances to their night-time residence being securely locked, you're left with no choice but to return at another time if you wanted to speak to her.
+			#IF(game.getDialogueFlags().hasFlag(FLAG_dominantEncountered))
+				Due to the current hour, [dominantHarpy.namePos] nest is completed deserted; both she and her flock have retired to the comfort of the buildings below in order to get a good night's rest. With the entrances to their night-time residence being securely locked, you're left with no choice but to return at another time if you wanted to speak to her.
 			#ELSE
 				Due to the current hour, this nest is completed deserted; both the matriarch and her flock have retired to the comfort of the buildings below in order to get a good night's rest. With the entrances to their night-time residence being securely locked, you're left with no choice but to return at another time if you wanted to speak to her.
 			#ENDIF
@@ -162,6 +162,11 @@
 			#ENDIF
 		</p>
 	#ENDIF
+	#IF(!flags.hasFlag(FLAG_dominantPacified) && game.isBadEndsEnabled() && pc.isAbleToHaveRaceTransformed())
+		<p style='text-align:center;'><i>
+			[style.italicsBadEnd(You get the feeling that you'd be in serious trouble if you were to lose a fight against these harpies...)]
+		</i></p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -199,6 +204,16 @@
 	]]>
     </htmlContent>
 	
+    <htmlContent tag="PACIFIED_DOMINANT_SEX_START_AS_SUB"><![CDATA[
+    <p>
+        Although you've asserted your superiority over [harpyDominant.name], you find yourself wanting nothing more than to submit to her. Revealing your desire to the harpy matriarch, you ask her to dominate you and put you in your place.
+    </p>
+    <p>
+        A wicked smirk flashes across [harpyDominant.namePos] face as she hears this, and after swiftly stepping forwards and wrapping her wings around your back, she roughly pulls you into a deep, passionate kiss...
+    </p>
+	]]>
+    </htmlContent>
+	
     <htmlContent tag="DOMINANT_SEX_START_ORAL"><![CDATA[
     <p>
         Eager to put [harpyDominant.name] and [harpyDominantCompanion.name] in their place in front of their nest's inner-circle, you reach down and grab the dominant matriarch's wings. Pulling her to her feet, you [pc.step] forwards and plant a deep kiss on her [harpyDominant.lips+], drawing a series of lustful moans from the surrounding harpies as you do so.
@@ -214,7 +229,7 @@
 			Wanting the matriarch's and her subordinate's lips to be employed elsewhere, you break off your kiss, before taking hold of both of the harpies' shoulders and pushing them to their knees before you. Realising what it is you want, [harpyDominant.Name] eagerly shuffles forwards towards your groin, pulling [harpyDominantCompanion.name] along beside her as she does so. Gazing up into your eyes, she moans, [harpyDominant.speech(Don't worry about [harpyDominantCompanion.name]. She'll do what I tell her to.)]
 		</p>
 		<p>
-			[harpyDominantCompanion.speech(Eugh... Yes, I'll do what you say, Mistress...)] [harpyDominantCompanion.name] groans as her matriarch forcer her to join in with performing oral on you...
+			[harpyDominantCompanion.speech(Eugh... Yes, I'll do what you say, Mistress...)] [harpyDominantCompanion.name] groans as her matriarch forces her to join in with performing oral on you...
 		</p>
 	#ELSE
 		<p>
@@ -304,6 +319,306 @@
 			Having shown [harpyDominant.name] her place, you set off down the staircase, and after walking back across the lower platform, you quickly find yourself on the outskirts of [harpyDominant.namePos] nest once again.
 		</p>
 	#ENDIF
+    ]]>
+    </htmlContent>
+	
+	
+	<!-- After losing fight: -->
+	
+    <htmlContent tag="COMBAT_LOST"><![CDATA[
+	<p>
+		You fall to the floor, totally beaten. As you collapse, [harpyDominantCompanion.name] jumps down on top of you, pinning you to the floor as she calls out to her matriarch, [harpyDominantCompanion.speechNoEffects([harpyDominant.Name]! The stupid bitch is ready for [pc.her] punishment now!)]
+	</p>
+	<p>
+		[harpyDominant.speech(Good girl, [harpyDominantCompanion.name]!)] you hear her respond. [harpyDominant.speech(I think it's time to teach this insolent little [pc.race] a lesson!)]
+	</p>
+	<p>
+		As [harpyDominantCompanion.name] continues holding you down, [harpyDominant.name] calls out for the rest of the surrounding harpies to help. Rushing to obey their mistress, several of the red-and-black harpies dash forwards and help to pin your [pc.arms] and [pc.legs] to the floor.
+	</p>
+	<p>
+		[harpyDominant.speech(That's right, hold [pc.herHim] still!)] [harpyDominant.name] calls out, stepping down from her podium before strutting over to you. [harpyDominant.speech(Fucking bitch! I know just what you need! Coming into <i>my</i> nest, then trying to act all tough?! You just want to be one of my bitches, don't you?!)]
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_MATRIARCH"><![CDATA[
+	<p>
+		You fall to the floor, totally beaten. As you collapse, [dominantHarpy.name] orders her flock to hold you still, and, rushing to obey their matriarch, you're quickly pinned to the floor.
+	</p>
+	<p>
+		[dominantHarpy.speech([dominantHarpyCompanion.name], get up!)] you hear [dominantHarpy.name] shouting to her companion. [dominantHarpy.speech(It's time to teach this insolent [pc.race] a lesson!)]
+	</p>
+	<p>
+		As the members of [dominantHarpy.namePos] inner-circle continue to hold you down, you hear the dominant matriarch and her companion walking towards you. The harpies start laughing as you try to wriggle free, but you're too weak from the fight to offer any real resistance.
+	</p>
+	<p>
+		[dominantHarpy.speech(Time for some revenge, [dominantHarpyCompanion.name]!)] [dominantHarpy.name] shouts out, and as her companion moves to help the other harpies hold you down, she laughs, [harpyDominant.speech(You dumb cunt! I know just what you need! Coming into <i>my</i> nest, then trying to act all tough?! You just want to be one of my bitches, don't you?!)]
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_END"><![CDATA[
+	<p>
+		[pc.speechNoEffects(Let me go!)] you shout, struggling against the harpies holding you down. You're too weak to shake them off, however, and they easily continue to pin you to the floor, holding you quite still as [harpyDominant.name] sneers down at you.
+	</p>
+	#IF(game.isBadEndsEnabled())
+		<p>
+			[harpyDominant.speech([dominantHarpyCompanion.Name], strip this bitch!)] she commands her subordinate, and as she watches you helplessly trying to resist as her harpies strip you out of all your clothing, she teases, [harpyDominant.speech(You're so feisty! I can already see that you're going to turn out to be one of my most interesting pets!)]
+		</p>
+		<p>
+			Now completely naked, you're once again forced down onto your back, before [dominantHarpyCompanion.name] sits on your chest. As the sadistic harpy laughs at your fruitless attempts to pull free, her matriarch brings a dark red perfume bottle up to your face. Grinning evilly, she leans in to you, and as she prepares to spray the bottle's contents onto your helpless body, she teases, [harpyDominant.speech(Breathe in deeply! In just a moment you'll be nothing more than one of my angry little bitches!)]
+		</p>
+	#ELSE
+		<p>
+			[harpyDominant.speech(That's the spirit!)] she laughs. [harpyDominant.speech(You're so feisty! It's better to channel all that pent up energy elsewhere though. Don't worry, <i>this</i> will help you with that!)]
+		</p>
+		<p>
+			As [dominantHarpyCompanion.name] sits on your chest, laughing at your fruitless attempts to pull free, [harpyDominant.name] brings a dark red perfume bottle up to your face. Grinning evilly, she leans in to you, ready to spray the bottle's contents onto your helpless body...
+		</p>
+	#ENDIF
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_NO_TF"><![CDATA[
+	<p>
+		Unwilling to be transformed into one of [harpyDominant.namePos] harpies, you furiously yank your arm free of their grip. In the seconds you have before you're restrained again, you reach up to grab the bottle of perfume from [harpyDominant.namePos] feathered had, before hurling it across the nest to smash into pieces against the hard wooden floor.
+	</p>
+	<p>
+		[harpyDominant.speech(You fucking bitch!)] [harpyDominant.name] screams, grabbing your chin and squeezing cruelly down as she scowls at you. [harpyDominant.speech(You're going to fucking pay for that! [harpyDominantCompanion.Name]! This bitch wants my full attention! How about you help [pc.herHim] entertain me?!)]
+	</p>
+	<p>
+		Any protests or objections that you might have are muffled as [harpyDominantCompanion.namePos] feathered hand clamps down over your mouth. Leaning down to stare into your eyes, she chuckles, [harpyDominantCompanion.speech(Let's put on a show!)]
+	</p>
+	<p>
+		For the next few hours, you're forced to act as [harpyDominantCompanion.namePos] play-thing. Tying you up in bondage, publicly spanking you in front of [harpyDominant.name], and being walked around the nest on a leash are amongst the least humiliating things you suffer. Thankfully, the harpies don't show any interest in forcing you to perform any penetrative sexual acts, and they eventually all lose interest.
+	</p>
+	<p>
+		As [harpyDominantCompanion.name] declares that she's bored of playing with you, [harpyDominant.name] finally sets you free. [harpyDominant.speech(Alright bitch! I think you've had enough! Now get the fuck out of my nest!)]
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_TF_START"><![CDATA[
+	<p>
+		You stay still, allowing [harpyDominant.name] to spray the bottle's contents onto your face and neck as she taunts you, [harpyDominant.speech(You want to act like an angry, bitchy little harpy? You'd better have the body to match it!)]
+	</p>
+	<p>
+		You try to make a response, but as you open your mouth, the choking perfume enters your airways, leaving you coughing and spluttering on the floor. Before you know what you're doing, you're breathing in deeply, letting out little whining noises as you find yourself desperate to inhale as much of the sweet-smelling perfume as you possibly can...
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_TF_END"><![CDATA[
+	<p>
+		As the perfume's transformative effects come to an end, the harpies' grip on your [pc.arms] and [pc.legs] loosens. Blinking slowly a few times, you let out an exhausted moan, [pc.speech(~Ahh!~ You bitch...)]
+	</p>
+	<p>
+		The flock of harpies bursts out into laughter, and the ones who were holding you down finally release you before backing off. Scrambling to your knees, you find yourself looking up at [harpyDominant.Name] as she continues towering over you.
+	</p>
+	<p>
+		[harpyDominant.speech(Good little harpy! Now, after you apologise, you can fuck off and make your own flock!)]
+	</p>
+	<p>
+		With the effects of the perfume still lingering in your mind, you find yourself blurting out, [pc.speech(I'm not apologising to you! Fucking bitch, I'm out of here!)]
+	</p>
+	<p>
+		[harpyDominant.Name] grins down at you, and, to the background noise of dozens of harpies' laughter, she shouts, [harpyDominant.speech([harpyDominantCompanion.Name]! This bitch wants my full attention! How about you help [pc.herHim] entertain me?!)]
+	</p>
+	<p>
+		Any protests or objections that you might have are muffled as [harpyDominantCompanion.namePos] feathered hand clamps down over your mouth. Leaning down to stare into your eyes, she chuckles, [harpyDominantCompanion.speech(Let's put on a show!)]
+	</p>
+	<p>
+		For the next few hours, you're forced to act as [harpyDominantCompanion.namePos] play-thing. Tying you up in bondage, publicly spanking you in front of [harpyDominant.name], and being walked around the nest on a leash are amongst the least humiliating things you suffer. Thankfully, the harpies don't show any interest in forcing you to perform any penetrative sexual acts, and they eventually all lose interest.
+	</p>
+	<p>
+		As [harpyDominantCompanion.name] declares that she's bored of playing with you, [harpyDominant.name] finally sets you free. [harpyDominant.speech(Alright, bitch! I think you've had enough! Now get the fuck out of my nest!)]
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_THROWN_OUT"><![CDATA[
+	<p>
+		Finally given an opportunity to leave, you do as [harpyDominant.name] commands. Running away from the harpies' mocking laughter, you dash across the platform, and before you know it, you find yourself back on the outskirts of the nest...
+	</p>
+    ]]>
+    </htmlContent>
+	
+	<!-- Bad end: -->
+	
+    <htmlContent tag="COMBAT_LOST_BAD_END_TF_START"><![CDATA[
+	<p>
+		Completely overpowered by the aggressive harpies and totally at their mercy, you can't do anything but obey [dominantHarpy.namePos] command. As she starts liberally spraying you with the sweet-smelling perfume, you're unable to prevent the choking vapour from entering your airways, leaving you coughing and spluttering on the floor. Before you know what you're doing, you're breathing in deeply, letting out little whining noises as you find yourself desperate to inhale as much of the sweet-smelling perfume as you possibly can.
+	</p>
+	<p>
+		[dominantHarpy.speechNoEffects(That's right, you pathetic bitch, breathe it all in!)] she mocks, [dominantHarpy.speechNoEffects(Now turn into an angry little harpy bitch for me!)]
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_BAD_END_TF_END"><![CDATA[
+	<p>
+		As the perfume's transformative effects come to an end, the harpies' grip on your [pc.arms] and [pc.legs] loosens. Blinking slowly a few times, you let out an exhausted moan, [pc.speech(~Ahh!~ You bitch...)]
+	</p>
+	<p>
+		The flock of harpies bursts out into laughter, and the ones who were holding you down finally release you before backing off. Scrambling to your knees, you find yourself looking up at [harpyDominant.Name] as she continues towering over you. With an evil smirk on her face, she demands, [harpyDominant.speech(Apologise to me, you worthless slut! Grovel before me and tell me that you'll serve me!)]
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_BAD_END_RETORT"><![CDATA[
+	<p>
+		With the effects of the perfume still lingering in your mind, you find yourself furiously shouting out, [pc.speech(Fuck you, bitch! I'm not saying sorry!)]
+	</p>
+	<p>
+		Clearly having expected this, [harpyDominant.name] continues evilly grinning down at you, and to the background noise of dozens of dominant harpies hurling insults at you, she shouts, [harpyDominant.speech(So, it would seem that I need to put you in your place! You're just one of my worthless harpy bitches now, understand? I'm your matriarch, and I'll do whatever I want with you!)]
+	</p>
+	<p>
+		Before you can respond to this, the matriarch snaps her fingers and orders her subordinates, [harpyDominant.speech(Restrain this bitch! I know just how to train her!)]
+	</p>
+	#IF(pc.hasVagina())
+		<p>
+			Once again, you find yourself being overpowered by [harpyDominant.namePos] harpies, and as they roughly restrain you, the sadistic matriarch sneers, [harpyDominant.speech(Some time in the stocks will make it clear to you what your place is... [harpyDominantCompanion.Name]! Break this bitch!)]
+		</p>
+		<p>
+			Although you struggle against them, the harpies manage to manhandle you over to a nearby set of stocks, and after a brief scuffle, you find your [pc.arms] and head securely locked into the wooden device. From the big grin on her face, you can see that [harpyDominantCompanion.name] is delighted to be carrying out her matriarch's orders, and with a skip in her step she swiftly moves around behind you.
+		</p>
+		<p>
+			[harpyDominantCompanion.speech(Please do try to resist for as long as you can. It's no fun otherwise!)] [harpyDominantCompanion.name] laughs, before swinging her hand down as hard as she can to forcefully slap your exposed ass. Moaning in delight in response to the alarmed cry which involuntarily bursts out from between your [pc.lips], [harpyDominantCompanion.name] wastes no time in lifting her hand and slapping your ass once again. Repeating this movement over and over again, [harpyDominantCompanion.name] soon reduces you to a squirming, crying mess.
+		</p>
+		<p>
+			[pc.speech(No more! Please!)] you desperately cry out, unable to endure any more of this ruthless punishment.
+		</p>
+		<p>
+			[harpyDominantCompanion.speech(Had enough already?)] [harpyDominantCompanion.name] whines in disappointment, before eagerly moaning, [harpyDominantCompanion.speech(It's time to start your training then! You're going to be my bitch!)]
+		</p>
+		<p>
+			After a brief moment as she displaces her clothing, [harpyDominantCompanion.name] steps up right behind you, and you can't help but let out a shocked gasp as you feel the head of her cock sliding up and down over your [pc.labia+]...
+		</p>
+	#ELSE
+		<p>
+			Once again, you find yourself being overpowered by [harpyDominant.namePos] harpies, and as they roughly restrain you, the sadistic matriarch sneers, [harpyDominant.speech(Giving you your new uniform should show you what your place is... [harpyDominantCompanion.Name]! Dress this bitch!)]
+		</p>
+		<p>
+			Although you struggle against them, the harpies prove to be too strong for you, and so after a brief scuffle, you're left with a ballgag firmly fitted into your mouth, a choker fastened around your neck, and a set of revealing, dark purple latex clothing snugly hugging your legs, stomach, and arms. Although your [pc.breasts+] are fully on display, a pair of tape crosses have been stuck over your nipples, and as you reach up to touch them, [harpyDominantCompanion.name] suddenly slaps you and hisses, [harpyDominantCompanion.speech(You're not to move unless ordered to, bitch! Now kneel down before your matriarch!)]
+		</p>
+		<p>
+			Not giving you any choice in the matter, [harpyDominantCompanion.name] forcefully pushes you down before [harpyDominant.name], who lets out a cruel, mocking laugh and declares, [harpyDominant.speech(That's better! Do you understand your place now, slut? That tag on your choker says 'obedient toy', and that's exactly what you'll be, <i>or else</i>!)]
+		</p>
+		<p>
+			With those final, threatening words, the matriarch stoops down to deliver a stinging slap across your face. Unable to respond due to the ballgag in your mouth, you have no other option but to kneel before her and wait to see what it is these harpies will do with you. You're not waiting for long, however, as after straightening up, [harpyDominant.name] calls out, [harpyDominant.speech(Bring that slut, [harpyDominantVictim.name], here! It's time for her punishment!)]
+		</p>
+		<p>
+			A few moments later, a female harpy is led into the area. Blindfolded and bound from head-to-toe in bondage gear, she's forced to crawl forwards on all fours, and as she comes to a halt before [harpyDominant.name], you see that her breasts and groin are exposed in much the same way that yours are. After briefly smirking down at this unfortunate harpy, the matriarch looks over to you and states, [harpyDominant.speech(This worthless bitch is being punished for bringing me the wrong drink that I'd asked for. To remind her of what a dumb cunt she is, she's going to be publicly fucked by an equally-worthless slut. So go on, bitch, mount her! Look, the slut's already wet and ready for it!)]
+		</p>
+		<p>
+			Looking over at [harpyDominantVictim.name], you see that her pussy is indeed already wet, and as she lifts her hips so as to present herself, you realise that you've got very little choice but to do as you're told...
+		</p>
+	#ENDIF
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="BAD_END_SEX_VAGINA_START"><![CDATA[
+	<p>
+		Locked in the stocks and unable to do resist, you're powerless to prevent [harpyDominantCompanion.name] from continuing to tease her cock up and down over your [pc.labia+]. Grabbing your [pc.hips+], she teases, [harpyDominantCompanion.speech(Come on, bitch, beg for it! Or would you like to go back to the spanking?)]
+	</p>
+	<p>
+		With your sore ass proving to be a potent reminder of the pain you were just forced to endure, you find yourself opting for the easier choice, and find yourself moaning, [pc.speech(Please, fuck me! No more spankings!)]
+	</p>
+	<p>
+		[harpyDominantCompanion.speech(Good bitch!)] [harpyDominantCompanion.name] triumphantly moans, before thrusting forwards and roughly ramming her [harpyDominantCompanion.cock+] deep into your [pc.pussy+]. Letting out a series of dominant groans, she proceeds to rhythmically fuck you in front of all the other harpies...
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="BAD_END_SEX_PENIS_START"><![CDATA[
+	<p>
+		Before you can make a move, [harpyDominantCompanion.name] aggressively hisses down at you, [harpyDominantCompanion.speech(Either fuck her, or else I'll spend the rest of today making you wish you'd never even heard of harpies!)]
+	</p>
+	<p>
+		With a choice between fucking [harpyDominantVictim.name] or being forced to endure some kind of brutal punishment, you decide to go with the easier of the two options. Shuffling forwards, you clamber up over [harpyDominantVictim.namePos] back, and once you've mounted her, you feel your rapidly-hardening cock prod at her [harpyDominantVictim.labia+].
+	</p>
+	<p>
+		[harpyDominant.speech(You can put your tongue to work while my pet fucks you,)] [harpyDominant.name] suddenly states, and after quickly exposing her pussy, she roughly pulls [harpyDominantVictim.namePos] face into her groin. Forcing her victim to eat her out, the sadistic matriarch growls down at you, [harpyDominant.speech(What are you waiting for, bitch? Fuck her worthless cunt!)]
+	</p>
+	<p>
+		The matriarch's order, combined with the feeling of [harpyDominantVictim.namePos] wet pussy rubbing against your cock, is too much for you to refuse, and so with a buck of your hips, you thrust your [pc.cock+] into [harpyDominantVictim.namePos] cunt and start fucking her while she eats out [harpyDominant.name]...
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="BAD_END_AFTER_SEX"><![CDATA[
+	#IF(pc.hasVagina())
+		<p>
+			Having had her fun, [harpyDominantCompanion.name] pulls her softening cock out of your well-fucked pussy, and after giving your ass one final, stinging slap, she struts off to another part of the nest. A moment later another male harpy approaches you, and without even saying a word, steps around behind you and impatiently shoves her cock into your pussy. As your new partner starts groaning and frantically thrusting her cock in and out of your quivering cunt, [harpyDominantCompanion.name] returns with a very familiar-looking bottle of perfume in her hands.
+		</p>
+		<p>
+			[harpyDominant.speech(The mind-altering effects of this perfume can wear off after a while, but I've been reliably informed that prolonged exposure to it will make the changes permanent,)] [harpyDominant.name] sneers as she steps up beside [harpyDominantCompanion.name]. Giving her subordinate a nod, she commands, [harpyDominant.speech(Keep on spraying her until she sees herself as nothing more than another one of my bitches.)]
+		</p>
+		<p>
+			Letting out a cruel laugh, [harpyDominant.name] then struts off, leaving [harpyDominantCompanion.name] to carry out her orders. As your pussy continues to stretch and spasm around the cock that's hammering in and out of it, the matriarch's subordinate delights in repeatedly spraying the perfume bottle's contents directly into your face. With each inhalation, you find yourself getting angrier and angrier, while at the same time coming to think of [harpyDominant.name], [harpyDominantCompanion.name], and all of the other harpies as your superiors.
+		</p>
+		<p>
+			Several bottles of perfume, and multiple sexual partners later, and [harpyDominantCompanion.name] finally releases you from the stocks. Although you want to slap her and scream obscenities directly in her face, you don't dare to displease a harpy who's of a higher social standing than you are. Looking to one side, you see your matriarch, [harpyDominant.name], looking at you with an expression of arrogant amusement on her face. Snapping her fingers, she points to the floor and commands, [harpyDominantCompanion.speech(Kneel down before me, bitch, and tell me who's your matriarch.)]
+		</p>
+	#ELSE
+		<p>
+			Having had her fun, [harpyDominant.name] kicks [harpyDominantVictim.name] away from her, before looking at you and commanding, [harpyDominant.speech(Get off her, bitch! Your work is done!)]
+		</p>
+		<p>
+			Sliding your cock out of [harpyDominantVictim.namePos] quivering pussy, you decide that the only option for you right now is to play the obedient pet, and so dutifully kneel down and await further orders. You don't have to wait long for your next command, as the matriarch snaps her fingers and exclaims, [harpyDominant.speech(Lie on your back, bitch! [harpyDominantVictim.Name], if you can swallow five of her loads, then your punishment is over.)]
+		</p>
+		<p>
+			As you do as you're told and lie on your back, [harpyDominantVictim.name] frantically pounces on you, and within a moment, she's got your cock in her mouth. Doing her best to give you the best blowjob she can, [harpyDominantVictim.name] keeps you pinned to the floor and as you see [harpyDominantCompanion.name] approaching with a very familiar-looking bottle of perfume in her hands.
+		</p>
+		<p>
+			[harpyDominant.speech(The mind-altering effects of this perfume can wear off after a while, but I've been reliably informed that prolonged exposure to it will make the changes permanent,)] [harpyDominant.name] sneers as she steps up beside [harpyDominantCompanion.name]. Giving her subordinate a nod, she commands, [harpyDominant.speech(Keep on spraying her until she sees herself as nothing more than another one of my bitches.)]
+		</p>
+		<p>
+			Letting out a cruel laugh, [harpyDominant.name] then struts off, leaving [harpyDominantCompanion.name] to carry out her orders. As [harpyDominantVictim.namePos] lips slide up and down around your cock, the matriarch's subordinate delights in repeatedly spraying the perfume bottle's contents directly into your face. With each inhalation, you find yourself getting angrier and angrier, while at the same time coming to think of [harpyDominant.name], [harpyDominantCompanion.name], and all of the other harpies as your superiors.
+		</p>
+		<p>
+			Several bottles of perfume, and multiple orgasms later, and [harpyDominantVictim.name] is finally pulled off of you by [harpyDominantCompanion.name]. Although you want to slap her and scream obscenities directly in her face, you don't dare to displease a harpy who's of a higher social standing than you are. Looking to one side, you see your matriarch, [harpyDominant.name], looking at you with an expression of arrogant amusement on her face. Snapping her fingers, she points to the floor and commands, [harpyDominantCompanion.speech(Kneel down before me, bitch, and tell me who's your matriarch.)]
+		</p>
+	#ENDIF
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="BAD_END_FINAL"><![CDATA[
+	<p>
+		Obediently kneeling down before her, you declare, [pc.speech(You're my matriarch, [harpyDominant.name]... I'll do whatever you command...)]
+	</p>
+	<p style='text-align:center;'>
+		...
+	</p>
+	#IF(pc.hasVagina())
+		<p>
+			Months later, [harpyDominantCompanion.name] is pinning you to the floor as she thrusts her cock in and out of your pussy. Well and truly established as a harpy at the bottom of the nest's female hierarchy, you're often used like this, and more often than not it's [harpyDominantCompanion.name] who's the one to be enjoying your cunt. Soon enough, she's letting out a series of desperate moans, and then a moment later you feel her hot cum filling your pussy.
+		</p>
+		<p>
+			#IF(game.isAnalContentEnabled())
+				[harpyDominantCompanion.speech(Next time I'm using your ass, bitch!)]
+			#ELSE
+				[harpyDominantCompanion.speech(Next time I'm using your mouth, bitch!)]
+			#ENDIF
+			 the harpy sneers, before slapping you across the face and strutting off to another part of the nest.
+		</p>
+		<p>
+			As you watch [harpyDominantCompanion.name] depart, you furiously summon a nearby male harpy to your side; she's one of a few who are actually beneath you in the flock's pecking order. Taking out your frustrations on her, you sadistically slap her ass before forcing her to clean your pussy, muttering under your breath that one day you'll be above [harpyDominantCompanion.name], and then she'll pay...
+		</p>
+	#ELSE
+		<p>
+			Months later, [harpyDominant.name] is once again using you to punish a disobedient harpy. Well and truly established as a harpy at the bottom of the nest's male hierarchy, you're exclusively used by [harpyDominant.name] to punish those who have displeased her, a job which you've grown to love.
+		</p>
+		<p>
+			You mount the disobedient harpy and pin her to the floor, before roughly forcing your cock into her wet pussy and energetically pounding her cunt. Soon enough, you're finishing inside of her, and after giving her ass a rough slap, you're recalled to your matriarch's side, ready to do it all again to the next harpy unfortunate enough to displease [harpyDominant.name]...
+		</p>
+	#ENDIF
+	<p style='text-align:center;'>
+		...
+	</p>
+	<p><i>
+		With your mind having been permanently changed by being subjected to such a huge quantity of transformative perfume, you never once think of trying to escape from [harpyDominant.namePos] nest. Even if you did somehow become aware of what had happened, you're far too angry to listen to reason, and can't see yourself as anything more than one of [harpyDominant.namePos] bitches...
+	</i></p>
     ]]>
     </htmlContent>
 	

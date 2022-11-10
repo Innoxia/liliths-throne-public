@@ -1579,13 +1579,15 @@ public class CharacterInventory implements XMLSaving {
 		
 		// Check for access needed: TODO check this works TODO it doesn't TODO I did a temporary fix. please come back and fix this properly some time
 		for (BlockedParts bp : clothing.getBlockedPartsMap(characterClothingOwner, clothing.getSlotEquippedTo())) {
-			// Keep iterating through until until we find the BlockedParts that corresponds to equipping (if not found, carry on, as this clothing doesn't need any access in order to be equipped):
+			// Keep iterating through until we find the BlockedParts that corresponds to equipping (if not found, carry on, as this clothing doesn't need any access in order to be equipped):
 			if (bp.displacementType == DisplacementType.REMOVE_OR_EQUIP) {
 				if (bp.clothingAccessRequired == null) { // This clothing doesn't need any access in order to be equipped, so just carry on.
 					break; 
 					
 				} else { // This clothing has access requirements in order to be unequipped. Check each piece of equipped clothing to see if it's blocking the access required:
-					for (AbstractClothing equippedClothing : clothingCurrentlyEquipped) {
+					List<AbstractClothing> equippedClothingSorted = new ArrayList<>(clothingCurrentlyEquipped);
+					equippedClothingSorted.sort(new ClothingZLayerComparator());
+					for (AbstractClothing equippedClothing : equippedClothingSorted) {
 						if (equippedClothing != clothing) {
 							for (BlockedParts bpEquipped : equippedClothing.getBlockedPartsMap(characterClothingOwner, equippedClothing.getSlotEquippedTo())) {
 								for (ClothingAccess caBlocked : bpEquipped.clothingAccessBlocked) {
@@ -1614,12 +1616,14 @@ public class CharacterInventory implements XMLSaving {
 
 										} else {
 											if(equippedClothing.equals(previousClothingCheck)) {
-												System.err.println("Error: "+clothing.getName()+" and "+equippedClothing.getName()+" are blocking one another's removal!!!");
-//												throw new IllegalArgumentException();
-												return true;
+												//TODO commented this out as it was causing issues, mainly in the situation where:
+												// Unequipping karada with maid's dress and open-front cardigan equipped would cause bugs even though it was possible to unequip
+//												System.err.println("Error: "+clothing.getName()+" and "+equippedClothing.getName()+" are blocking one another's removal!!!");
+////												throw new IllegalArgumentException();
+//												return true;
 											}
 											previousClothingCheck = clothing;
-											if (isAbleToUnequip(equippedClothing, false, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, true)) { // Can  be removed:
+											if (isAbleToUnequip(equippedClothing, false, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, true)) { // Can be removed:
 												clothingToRemove.put(equippedClothing, DisplacementType.REMOVE_OR_EQUIP);
 												
 											} else {
@@ -1792,7 +1796,7 @@ public class CharacterInventory implements XMLSaving {
 		boolean displacementTypeFound = false;
 		// Check for access needed:
 		for (BlockedParts bp : clothing.getBlockedPartsMap(characterClothingOwner, clothing.getSlotEquippedTo())) {
-			// Keep iterating through until until we find the displacementType:
+			// Keep iterating through until we find the displacementType:
 			if (bp.displacementType == dt) {
 				displacementTypeFound = true;
 
@@ -1918,7 +1922,7 @@ public class CharacterInventory implements XMLSaving {
 		// Check for access needed: TODO check this works
 		for (BlockedParts bp : clothing.getBlockedPartsMap(characterClothingOwner, clothing.getSlotEquippedTo())) {
 
-			// Keep iterating through until until we find the displacementType:
+			// Keep iterating through until we find the displacementType:
 			if (bp.displacementType == dt) {
 				displacementTypeFound = true;
 

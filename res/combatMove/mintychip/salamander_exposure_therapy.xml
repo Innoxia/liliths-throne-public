@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<combatMove>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- The category which this status effect falls into. You can omit this field if you want it to be set to SPECIAL (which should be considered to be the standard category).
+	Categories, along with their meanings, can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/moves/CombatMoveCategory.java -->
+	<category>SPECIAL</category>
+	
+	<!-- What kind of attack this is, which primarily determines when and how often NPCs will decide to use this attack during combat.
+	All available values of CombatMoveType can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/moves/CombatMoveType.java -->
+	<type>ATTACK</type>
+	
+	<!-- How likely it is that the NPC who has this move available to them will select it as one of their equipped moves.
+	The default weighting is 1, and if you want it to be more likely to be chosen, then give it a higher weighting. -->
+	<equipWeighting>10</equipWeighting>
+	
+	<!-- The name of this move.
+	The character using this move is passed in as the 'npc' target for parsing, so commands such as [npc.name] will work. -->
+	<name><![CDATA[Exposure therapy]]></name>
+	
+	<!-- The description of this move.
+	The character using this move is passed in as the 'npc' target for parsing, so commands such as [npc.name] will work.
+	Special parsing arguments which can be used here are as follows:
+	'damageInflicted' will parse to the attacker's projected damage of this attack (using the defined 'baseDamage' field defined below).
+	'formattedDamageInflicted' will parse to a formatted damage prediction, taking into account whether or not the target is at maximum lust (therefore taking into account conversion of lust damage to health/mana damage). -->
+	<description><![CDATA[
+		Use [npc.her] 
+		#IF(npc.getTailType() == (TAIL_TYPE_mintychip_salamander_tailFrost))
+			freezing
+		#ELSE
+			flaming
+		#ENDIF
+		 salamander tail to deliver a vicious swipe to [npc.her] target, dealing formattedDamageInflicted damage.
+	]]></description>
+	
+	<!-- The type of damage that this move inflicts. 
+	The parsing target of 'npc' corresponds to the character who is performing the move (and so conditional statements can be used to affect what damage type is inflicted).
+	All available values of DamageType can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/DamageType.java -->
+	<damageType><![CDATA[
+		#IF(npc.getTailType() == (TAIL_TYPE_mintychip_salamander_tailFrost))
+			ICE
+		#ELSE
+			FIRE
+		#ENDIF
+	]]></damageType>
+	
+	<!-- The amount of damage this move does to the target, assuming that no modifiers are taken into account.
+	The parsing target of 'npc' corresponds to the character who is performing the move. -->
+	<baseDamage><![CDATA[
+		[#npc.getUnarmedDamage() * 3 + 20]
+	]]></baseDamage>
+	
+	<!-- How much damage this move blocks.
+	The block type corresponds to the 'damageType' defined above.
+	The parsing target of 'npc' corresponds to the character who is performing the move.
+	'isCritical' will parse to the boolean return value for isCritical, and will therefore be either 'true' or 'false', depending on if the move is critically hitting or not. -->
+	<blockAmount><![CDATA[
+		0
+	]]></blockAmount>
+	
+	<!-- The number of turns it takes for this move to become available for use after using it.
+	The parsing target of 'npc' corresponds to the character who is performing the move.
+	A value of 0 (or less) means that it can be used as many times as the attacker wants.
+	The cooldown is decremented at the end of each combat round, including the current one, so a value of 1 means that this move will be available next turn (and so effectively just limits its use to once per combat turn). -->
+	<cooldown><![CDATA[
+		3
+	]]></cooldown>
+	
+	<!-- The number of Action Points that this move costs.
+	The parsing target of 'npc' corresponds to the character who is performing the move.
+	Only exceptional abilities or circumstances will alter a character's AP, which is by default 3, so you should take that into account when deciding upon an AP cost (it would normally be best to have it as just 1). -->
+	<APcost><![CDATA[
+		2
+	]]></APcost>
+	
+	<!-- These three values set whether or not the move can target enemies, allies, or the performer of the move themselves. -->
+	<canTargetEnemies>true</canTargetEnemies>
+	<canTargetAllies>false</canTargetAllies>
+	<canTargetSelf>false</canTargetSelf>
+	
+	<!-- The name of the icon which should be used to represent this combat move. The icon must be an svg file, and must be placed in the same folder as this XML file. -->
+	<imageName>salamander_exposure_therapy.svg</imageName>
+	
+	<!-- The colours which should be associated with this status effect. Just like with clothing and weapon recolouring, this is used to recolour the image you used above.
+	A PresetColour value should be used here, drawn from: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
+	<colourPrimary>DAMAGE_TYPE_FIRE</colourPrimary> <!-- This has to have a value defined, or else this XML file will fail to load. -->
+	<colourSecondary>DAMAGE_TYPE_COLD</colourSecondary> <!-- This can optionally be left blank, like the 'colourTertiary' element below. -->
+	<colourTertiary>BASE_PURPLE</colourTertiary>
+	
+	<!-- The StatusEffects which should be applied to the target of this move.
+	The 'turnLength' attribute defines for how many combat turns the effect should last.
+	The 'onCrit' attribute determines whether this effect is only applied on a critical hit or not. -->
+	<statusEffects>
+		<effect turnLength="4" onCrit="true">ARCANE_WEAKNESS</effect>
+	</statusEffects>
+	
+	
+	<!-- Effect logic -->
+	
+	<!-- The condition upon which this move is available to characters.
+	You must use the game's parsing engine to get what you want.
+	The parsing target of 'npc' corresponds to the character who is being checked to see if they have this move available to them.
+	All whitespace is stripped from the returned String before it is parsed into a Boolean. -->
+	<availabilityCondition><![CDATA[
+		[#npc.getTailType().isOneOf(TAIL_TYPE_mintychip_salamander_tailFrost, TAIL_TYPE_mintychip_salamander_tailFlame)]
+	]]>
+	</availabilityCondition>
+	
+	<!-- A short description to let the player know what the conditions are for this move being available to them. -->
+	<availabilityDescription><![CDATA[
+		Available to characters who have a salamander tail.
+	]]></availabilityDescription>
+	
+	<!-- The weighting for this action's chance of being selected by an AI combatant.
+	The standard value for weighting is 1.0.
+	The parsing target of 'npc' corresponds to the character who is using the move.
+	The parsing target of 'npc2' corresponds to the character who is being targeted by the move.
+	Note that this weighting is parsed for every combatant, enemy and ally alike, so the method npc2.isCombatAlly(npc) (or npc2.isCombatEnemy(npc)) should most likely be used to differentiate between friend and foe (if you have set this move as being able to be used on both allies and enemies).
+	For an interesting example, see the 'spinneret_webbing.xml' file. -->
+	<weighting><![CDATA[
+		1.0
+	]]></weighting>
+	
+	<!-- To return true or false based on whether or not this move will be a critical hit.
+	The parsing target of 'npc' corresponds to the character who is using the move.
+	The parsing target of 'npc2' corresponds to the character who is being targeted by this move.
+	Special parsing arguments which can be used here are as follows:
+	'turnIndex' will parse to an integer corresponding to the current turn index. (i.e. The position of this move in the performing character's planned moves.)
+	'damageInflicted' will parse to an integer corresponding to the amount of damage that will be inflicted upon the target during the move's execution.
+	'damageType' will parse to this move's DamageType.
+	-->
+	<criticalCondition><![CDATA[
+		[#npc.getAttributeValue(ATTRIBUTE_LUST) > 80]
+	]]></criticalCondition>
+	
+	<!-- A short description to let the player know what the conditions are for this move to inflict a critical hit. -->
+	<criticalDescription><![CDATA[
+		Attacker's lust is greater than [style.boldMagenta(80%)].
+	]]></criticalDescription>
+	
+	<!-- The description that is shown to the player to let them know what this move's effects will be.
+	The parsing target of 'npc' corresponds to the character who is using the move.
+	The parsing target of 'npc2' corresponds to the character who is being targeted by this move.
+	Special parsing arguments which can be used here are as follows:
+	'damageInflicted' will parse to the attacker's projected damage of this attack (using the defined 'baseDamage' field defined above). If isCritical is true, the damageInflicted value will represent this (via increased damage).
+	'formattedDamageInflicted' will parse to the same damage as the command above, but will be formatted nicely.
+	'isCritical' will parse to the boolean return value for isCritical, and will therefore be either 'true' or 'false'.
+	-->
+	<movePredictionDescriptionWithTarget><![CDATA[
+		Use [npc.her]
+		#IF(npc.getTailType() == (TAIL_TYPE_mintychip_salamander_tailFrost))
+			 freezing
+		#ELSE
+			 flaming
+		#ENDIF
+		 salamander tail to deliver a vicious swipe to [npc2.name], dealing formattedDamageInflicted damage.
+	]]></movePredictionDescriptionWithTarget>
+	
+	<!-- This is almost identical to the defined description above, with the difference being that there is no targeted character. As such, the description cannot use any 'npc2' parsing. -->
+	<movePredictionDescriptionNoTarget><![CDATA[
+		Use [npc.her]
+		#IF(npc.getTailType() == (TAIL_TYPE_mintychip_salamander_tailFrost))
+			 freezing
+		#ELSE
+			 flaming
+		#ENDIF
+		 salamander tail to deliver a vicious swipe to [npc.her] target, dealing formattedDamageInflicted damage.
+	]]></movePredictionDescriptionNoTarget>
+	
+	<!-- The code that's executed when this move is performed.
+	The parsing target of 'npc' corresponds to the character who is using the move.
+	The parsing target of 'npc2' corresponds to the character who is being targeted by this move.
+	Special parsing arguments which can be used here are as follows:
+	'damageInflicted' will parse to the attacker's projected damage of this attack (using the defined 'baseDamage' field defined above). If isCritical is true, the damageInflicted value will represent this (via increased damage).
+	'formattedDamageInflicted' will parse to the same damage as the command above, but will be formatted nicely.
+	'formattedHealthDamage' will parse to a brief, formatted description of how much damage the target took. -->
+	<performMove>
+		<!-- The 'execute' section should be used for the main description of the attack, as well as any extra effects you want to apply.
+		NOTE: The damage is automatically applied to the target, so you don't need to handle parsing of that. -->
+		<execute><![CDATA[
+			The tip of [npc.namePos] tail flashes brightly as [npc.she] [npc.verb(rush)] at [npc2.name] and [npc.verb(land)] a
+			#IF(npc.getTailType() == (TAIL_TYPE_mintychip_salamander_tailFrost))
+				 freezing cold
+			#ELSE
+				 burning hot
+			#ENDIF
+			 swipe with it!
+			formattedHealthDamage
+		]]></execute>
+		<critDescription><![CDATA[
+			[npc.NamePos] vicious strike was extremely effective!
+		]]></critDescription>
+		<critEffectDescription><![CDATA[
+			[npc2.Name] [npc2.has] been weakened by the attack!
+		]]></critEffectDescription>
+	</performMove>
+	
+</combatMove>

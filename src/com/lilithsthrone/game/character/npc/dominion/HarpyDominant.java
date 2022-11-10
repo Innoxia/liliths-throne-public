@@ -47,10 +47,13 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -295,7 +298,7 @@ public class HarpyDominant extends NPC {
 				}
 			};
 		} else {
-			return new Response("", "", HarpyNestDominant.HARPY_NEST_DOMINANT_FIGHT_LOSE_TO_MATRIARCH);
+			return new Response("", "", DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_dominant_combat_lost_matriarch"));
 		}
 	}
 	
@@ -313,4 +316,38 @@ public class HarpyDominant extends NPC {
 		return super.getItemUseEffects(item, itemOwner, user, target);
 	}
 
+	public void applyBadEndClothing(GameCharacter target, boolean applyPiercings) {
+		target.unequipAllClothingIntoVoid(true, true);
+		
+		if(target.hasVagina()) {
+			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_BLACK, false), true, target);
+			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_strapless_bra", PresetColour.CLOTHING_BLACK, false), true, target);
+			
+			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_CORSET_DRESS, PresetColour.CLOTHING_BLACK, false), true, target);
+			
+		} else {
+			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_ballgag", PresetColour.CLOTHING_RED_DARK, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL, false), true, target);
+
+			AbstractClothing choker = Main.game.getItemGen().generateClothing("innoxia_bdsm_choker", PresetColour.CLOTHING_PURPLE_VERY_DARK, PresetColour.CLOTHING_STEEL, null, false);
+			choker.setSticker("top_txt", "obedient");
+			choker.setSticker("btm_txt", "toy");
+			target.equipClothingFromNowhere(choker, true, target);
+
+//			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_croptop", PresetColour.CLOTHING_PURPLE_VERY_DARK, PresetColour.CLOTHING_STEEL, null, false), true, target);
+			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.NIPPLE_TAPE_CROSSES, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, target);
+			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_corset", PresetColour.CLOTHING_PURPLE_VERY_DARK, PresetColour.CLOTHING_STEEL, null, false), true, target);
+			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_stockings_open", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, target);
+			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_wrist_bracelets", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, target);
+			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_wrist_bracelets", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), InventorySlot.ANKLE, true, target);
+		}
+		
+		if(applyPiercings) {
+			target.setPiercedEar(true);
+			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_ball_studs", PresetColour.CLOTHING_STEEL, false), true, target);
+			target.setPiercedNose(true);
+			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_nose_ring", PresetColour.CLOTHING_STEEL, false), true, target);
+			target.setPiercedLip(true);
+			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_lip_double_ring", PresetColour.CLOTHING_STEEL, false), true, target);
+		}
+	}
 }

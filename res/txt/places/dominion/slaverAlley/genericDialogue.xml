@@ -136,7 +136,7 @@
 		Replying in the affirmative, you finish putting up the next poster, which causes the younger of the two horse-boys to excitedly comment, [style.speechMasculine(Woah! This one's in a different pose to the last! Look at her tits! Harpies don't usually have them that big!)]
 	</p>
 	<p>
-		Sure enough, this second poster you've just put up shows Helena in a different pose to the first; provocatively leaning forwards towards the viewer, she's gently swaying her body from side-to-side, which is causing her [helena.cupSize]-cup breasts to ponderously swing back and forth. Urged to continue by the two horse-boys, you put up the third poster beside the second, before [pc.stepping] over to the opposite wall and putting up the remaining three on that side. Each of the six posters turns out to display a bikini-clad Helena in an unique pose, and as you finish putting up the last one, the senior horse-boy comments, [style.speechMasculineStrong(There's no way I'm letting anyone put their posters over the top of these! Damn... This job suddenly became a lot more bearable!)]
+		Sure enough, this second poster you've just put up shows Helena in a different pose to the first; provocatively leaning forwards towards the viewer, she's gently swaying her body from side-to-side, which is causing her [helena.cupSize]-cup breasts to ponderously swing back and forth. Urged to continue by the two horse-boys, you put up the third poster beside the second, before [pc.stepping] over to the opposite wall and putting up the remaining three on that side. Each of the six posters turns out to display a bikini-clad Helena in a unique pose, and as you finish putting up the last one, the senior horse-boy comments, [style.speechMasculineStrong(There's no way I'm letting anyone put their posters over the top of these! Damn... This job suddenly became a lot more bearable!)]
 	</p>
 	<p>
 		Before you can respond to this, you suddenly notice a dark figure quickly approaching from one side, and you turn to see that it's none other than Scarlett herself. With the usual scowl on her face, she's making her way directly towards you, and you wonder what it is she wants...
@@ -242,7 +242,7 @@
 	
 	<htmlContent tag="MARKET_STALL_MALE"><![CDATA[
 	<p>
-		In the far left corner of Slaver Alley's main square, there's a slave shop that's quite unlike most of the others. Whereas all the other buildings that you've passed have had ornately-painted signs and decorative frontages, the one before you is of a plain wooden finish, and has it's name, 'Iron & Steel', burnt into the framework.
+		In the far left corner of Slaver Alley's main square, there's a slave shop that's quite unlike most of the others. Whereas all the other buildings that you've passed have had ornately-painted signs and decorative frontages, the one before you is of a plain wooden finish, and has its name, 'Iron & Steel', burnt into the framework.
 	</p>
 	<p>
 		Most of the other shops have large glass windows by which to show off their goods to passers-by, but this one goes a step further, and the whole wooden frontage is actually a series of cleverly-designed sliding panels, about half of which have been pulled to one side. Looking into the open store, you see that all the slaves within appear to be males, and as you pass, a bulky bull-boy steps out and blocks your way, before cheerfully booming, [genericMale.speech(Taking a good look at our stock, I see! Why not come on in?! I'm sure we've got the right guy for you! Breeding studs, manual labourers, even pretty-boy models! We've got it all!)]
@@ -477,7 +477,7 @@
 			#IF(flags.hasFlag(FLAG_slaverAlleyCafe1Visited))
 				 [npc.speech(Welcome to our café, [pc.sir]; it's good to see you again. Please follow me and I'll show you to your table.)]
 			#ELSE
-				 [npc.speech(Welcome to our café, [pc.sir]. My name is [npc.name]; I'm a slave from the shop 'Viva Voca', and if you're impressed by my service then you can find many slaves like me for sale there. Please follow me and I'll show you to your table.)]
+				 [npc.speech(Welcome to our café, [pc.sir]. My name is [npc.name]; I'm a slave from the shop 'Viva Voce', and if you're impressed by my service then you can find many slaves like me for sale there. Please follow me and I'll show you to your table.)]
 			#ENDIF
 		</p>
 		#IF(pc.getTotalTimesHadSex(npc)>0)
@@ -798,7 +798,7 @@
 		#IF(pc.isTaur())
 			 Stepping forwards, he strokes his cock a few times, and thanks to the sight of your [pc.pussy+], he's rock-hard in just a moment. Wasting no time, he lines his [npc.cock+] up to your cunt, and after sliding the [npc.cockHead+] up and down over your [pc.labia+] a couple of times, he thrusts forwards, sinking his [npc.cock+] into your [pc.pussy+]. Pushing forwards, he fills you with his massive shaft, grunting as he does so, [npc.speech(I'll make you cum in no time! ~Mmm!~ Remember, after you've orgasmed once, the demo's over...)]
 		#ELSE
-			 Stepping forwards, he strokes his cock a few times, and thanks to the sight of your submissive posture and exposed [pc.pussy], he's rock-hard in just a moment. Wasting no time, he drops down over the top of you, grabbing your [pc.legs] and pushing them up and back towards your head as he does so. Locking you in the mating press position, he lets out anotehr deep grunt as he lines his [npc.cock+] up to your cunt, and after sliding the [npc.cockHead+] up and down over your [pc.labia+] a couple of times, he drops down, sinking his [npc.cock+] into your [pc.pussy+] in the process. Ignoring your lewd squeals as he fills you with his massive shaft, he declares, [npc.speech(I'll make you cum in no time! ~Mmm!~ Remember, after you've orgasmed once, the demo's over...)]
+			 Stepping forwards, he strokes his cock a few times, and thanks to the sight of your submissive posture and exposed [pc.pussy], he's rock-hard in just a moment. Wasting no time, he drops down over the top of you, grabbing your [pc.legs] and pushing them up and back towards your head as he does so. Locking you in the mating press position, he lets out another deep grunt as he lines his [npc.cock+] up to your cunt, and after sliding the [npc.cockHead+] up and down over your [pc.labia+] a couple of times, he drops down, sinking his [npc.cock+] into your [pc.pussy+] in the process. Ignoring your lewd squeals as he fills you with his massive shaft, he declares, [npc.speech(I'll make you cum in no time! ~Mmm!~ Remember, after you've orgasmed once, the demo's over...)]
 		#ENDIF
 	</p>
 	]]>
@@ -938,7 +938,7 @@
 	
 	<htmlContent tag="MARKET_STALL_CAFE_AFTER_SEX_LEAVE"><![CDATA[
 	<p>
-		Replying in the positive, you head back out into the café and allow [npc.name] to lead you back over to your table. Before departing, [npc.she] states, [npc.speech(Please call for me if you want to order anything. Oh, and I can't give you anotehr demonstration until tomorrow at the earliest.)]
+		Replying in the positive, you head back out into the café and allow [npc.name] to lead you back over to your table. Before departing, [npc.she] states, [npc.speech(Please call for me if you want to order anything. Oh, and I can't give you another demonstration until tomorrow at the earliest.)]
 	</p>
 	<p>
 		At that moment, another customer calls for [npc.namePos] attention, and as the [npc.race] heads over to see what they want, you're left wondering what to do next...
@@ -2167,7 +2167,7 @@
 		</p>
 	#ELSE
 		<p>
-			Doing as [sean.name] instructs, you follow him down the main street a short distance, before veering off to the right and stepping up to a weathered wooden door set into an otherwise featureless brick wall. Grabbing the handle the handle and giving it a forceful push, the [sean.race] demonstrates that this door is kept unlocked, and as it swings open, he strides through to the other side. Continuing to follow in [sean.namePos] footsteps, you step through the doorway.
+			Doing as [sean.name] instructs, you follow him down the main street a short distance, before veering off to the right and stepping up to a weathered wooden door set into an otherwise featureless brick wall. Grabbing the handle and giving it a forceful push, the [sean.race] demonstrates that this door is kept unlocked, and as it swings open, he strides through to the other side. Continuing to follow in [sean.namePos] footsteps, you step through the doorway.
 		</p>
 		<p>
 			Although the brick wall had given the impression that this door would lead into a building's enclosed interior, you instead discover that it was nothing more than a deceptive façade, as you now find yourself standing in a relatively wide alleyway, with the open sky above your head. Turning to face you, [sean.name] says, [sean.speech(Nobody knows about this place, and those that do have no reason to come here, as all it leads to is a dead end. It's the perfect place for a fight, so, are you ready to do it? I'm not going to go easy on you!)]

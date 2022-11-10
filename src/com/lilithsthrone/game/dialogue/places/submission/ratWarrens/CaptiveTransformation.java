@@ -370,8 +370,8 @@ public enum CaptiveTransformation {
 						target.setLipSize(LipSize.THREE_PLUMP));
 			}
 			
-			if((target.isTaur() && Main.getProperties().getUddersLevel()>=1) || (target.getRaceStage()==RaceStage.GREATER && Main.getProperties().getUddersLevel()==2)
-//					&& Main.game.isLactationContentEnabled()
+			if((target.isTaur() || target.getRaceStage()==RaceStage.GREATER)
+					&& Main.game.isUdderContentEnabled()
 					&& RacialBody.valueOfRace(target.getRace()).getBreastCrotchType()!=BreastType.NONE) {
 				map.put("Let's give yer some fuckin' udders with nice big teats! We's gotta get yer milk production up as 'igh as we can!",
 						target.setBreastCrotchType(RacialBody.valueOfRace(target.getRace()).getBreastCrotchType())

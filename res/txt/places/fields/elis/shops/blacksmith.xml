@@ -56,7 +56,7 @@
 			#IF(!game.getDialogueFlags().hasFlag(FLAG_innoxia_elis_blacksmith_visited))
 				 but two muscular baphomets can quite clearly be seen using one of the anvils. The grey-furred one is using a pair of tongs to hold and turn a piece of red-hot metal, while his black-furred companion is tirelessly hammering it into what looks like the shape of a sword. The two of them are so engrossed in their work that they haven't noticed you yet, and you wonder whether you should interrupt them and inquire about what they have for sale or instead leave them to their smithing and come back at another time...
 			#ELSE
-				 but the familiar forms of two muscular baphomets can quite clearly be seen using two of the anvils. Both the black-furred Imsu and the grey-furred Hale are each hammering their own pieces of red-hot metal into some kind of useful object, exchanging argumentative words as they do so. As usual, the two of them are so engrossed in their work and argument that they haven't notice your approach, and you wonder whether you should interrupt them and inquire about what they have for sale or instead leave them to their smithing and come back at another time...
+				 but the familiar forms of two muscular baphomets can quite clearly be seen using two of the anvils. Both the black-furred Imsu and the grey-furred Hale are each hammering their own pieces of red-hot metal into some kind of useful object, exchanging argumentative words as they do so. As usual, the two of them are so engrossed in their work and argument that they haven't noticed your approach, and you wonder whether you should interrupt them and inquire about what they have for sale or instead leave them to their smithing and come back at another time...
 			#ENDIF
 		</p>
 	#ELSE
@@ -146,7 +146,7 @@
 	
 	<htmlContent tag="TALK_NAME"><![CDATA[
 	<p>
-		Wanting to know the story behind the forge's name, you ask the two baphoments why they chose to call this place 'The Ninth Strike'.
+		Wanting to know the story behind the forge's name, you ask the two baphomets why they chose to call this place 'The Ninth Strike'.
 	</p>
 	<p>
 		[imsu.speech(It represents our ultimate goal,)] Imsu explains, [imsu.speech(Hale and I are trying to discover the secret to the arcane forging technique which nine-tailed youkos are capable of using.)]

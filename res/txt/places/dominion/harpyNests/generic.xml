@@ -8,7 +8,7 @@
 		An arrow-shaped sign sits in the middle of the street, and as you approach, you see that it's sporting the words <i>'Harpy Nests'</i>. Looking to the side of the road in the direction that the arrow is pointing, you find yourself looking up at one of the tallest buildings in Dominion.
 	</p>
 	<p>
-		At eight stories in height, it's not exactly a sky-scraper, but with the larger of Dominion's buildings typically only being four or five stories tall, this structure is large enough to clearly stand out as a building of some importance. Despite its unusual height, the only other feature setting it apart from all the other buildings in this area are the pair of huge glass doors set into its frontage.
+		At eight stories in height, it's not exactly a sky-scraper, but with most of Dominion's buildings typically only being four or five stories tall at most, this structure is large enough to clearly stand out as a building of some importance. Despite its unusual height, the only other feature setting it apart from all the other buildings in this area are the pair of huge glass doors set into its frontage.
 	</p>
 	<p>
 		Looking through the doors, you see a brightly-lit, extravagantly-decorated lobby. Rows of elevators are set into either side of the room, and you notice that there are an unusual amount of harpies loitering around on the many comfortable-looking sofas that litter the area.
@@ -132,7 +132,7 @@
 		[style.speechMasculineStrong(Alright, report back here as soon as you get that warrant,)] you hear him say, [style.speechMasculineStrong(These harpies are getting out of control... Oh, and Alice, before you go, if I hear just <i>one more</i> rumour about you shirking your duties to go visit your boyfriend, I'll fuck you myself! Now get out of my sight!)]
 	</p>
 	<p>
-		[style.speechFeminine(Yes sir!)] the cat-girls call out in unison, before running off.
+		[style.speechFeminine(Yes, sir!)] the cat-girls call out in unison, before running off.
 	</p>
 	<p>
 		Seeing your opportunity to find out more about what's going on in the Harpy Nests, you walk up to the muscular horse-boy. Noticing your approach, he grunts, [style.speechMasculineStrong(What is it now? If one of those harpy bitches out there did something, I don't have the time to help you. You should have known the risks before going out there!)]
@@ -144,10 +144,14 @@
 		[style.speechMasculineStrong(Hah!)] the horse-boy laughs, [style.speechMasculineStrong(Do you really think that you can do what I can't?!)]
 	</p>
 	<p>
-		Choosing not to answer his question, you wait for the horse-boy to continue talking, and after a moment of trying to stare you down, he throws his arms up in the air and exclaims, [style.speechMasculineStrong(Fine! I can't believe it's come to this, but I've run out of ideas.)]
+		Choosing not to answer his question, you wait for the horse-boy to continue talking, and after a moment of trying to stare you down, he throws his arms up in the air and exclaims, [style.speechMasculineStrong(Fine! I can't believe it's come to this, but I've run out of ideas. Follow me.)]
 	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS_NEXT"><![CDATA[
 	<p>
-		Stepping over to push open a nearby door, he beckons for you to follow him inside. Doing so, you find yourself entering a small office, and as you close the door behind you, the horse-boy steps around to the other side of a solid wooden desk, before sinking down into his chair. Leafing through the pile of papers in front of him, he pulls out three separate sheets, before handing them over to you. Leafing through them, you see that there's a portrait of an exceptionally beautiful harpy on each one, and as you take a closer look, the Enforcer explains, [style.speechMasculineStrong(So, as everyone's aware, the Harpy Nests are exceptionally dangerous right now. The more prominent of the matriarchs have been at each other's throats ever since that business with the dog-girl.)]
+		Stepping over to push open a nearby door, the horse-boy beckons for you to follow him inside. Doing so, you find yourself entering a small office, and as you close the door behind you, the horse-boy steps around to the other side of a solid wooden desk, before sinking down into his chair. Leafing through the pile of papers in front of him, he pulls out three separate sheets, before handing them over to you. Leafing through them, you see that there's a portrait of an exceptionally beautiful harpy on each one, and as you take a closer look, the Enforcer explains, [style.speechMasculineStrong(So, as everyone's aware, the Harpy Nests are exceptionally dangerous right now. The more prominent of the matriarchs have been at each other's throats ever since that business with the dog-girl.)]
 	</p>
 	<p>
 		Clenching his fists and gritting his teeth for a moment, he angrily admits, [style.speechMasculineStrong(We managed to come to an agreement with Helena, who, if you didn't know, is the most important and powerful of all the Nests' matriarchs. Those other three you're looking at, however, are refusing to cooperate.)]
@@ -156,17 +160,23 @@
 		You flick between the papers as he continues, [style.speechMasculineStrong(That one with the blonde feathers is [bimboHarpy.name], the mean-looking one is [dominantHarpy.name], and the other one is called [nymphoHarpy.name]. They outright refuse to get along with one another, and their ongoing feud is causing the Nests to descend into absolute anarchy. Every day we get a half-dozen new reports of harpies attacking travellers in broad daylight! No matter how many patrols we send out, nothing changes. As much as I hate to admit it, it's the matriarchs who are the ones responsible for keeping law and order up here.)]
 	</p>
 	<p>
-		[pc.speech(So you need someone to get these matriarchs under control?)] you ask.
+		Having got an idea of what the situation is, you ask the Enforcer why he hasn't sent his subordinates to get these matriarchs under control.
 	</p>
 	<p>
-		[style.speechMasculineStrong(If we tried sending Enforcers in to do that, it'd be seen as an insult to all the harpy flocks. Helena would certainly get involved again, which is the last thing we need right now. I hate asking for help like this, but if by some miracle you're able to subdue those three,)] he points to the papers in your hand again, [style.speechMasculineStrong(I could offer a five thousand flame reward.)]
+		[style.speechMasculineStrong(If I tried sending patrols in to do that, it'd be seen as an insult to all the harpy flocks. Helena would certainly get involved again, which is the last thing we need right now. I hate asking for help like this, but if by some miracle you're able to subdue those three,)] he points to the papers in your hand again, [style.speechMasculineStrong(I could offer a five thousand flame reward.)]
 	</p>
 	<p>
-		Telling the horse-boy that you'll get it done, you turn to take your leave. Ignoring the his dismissive grunt as he sinks down into his chair, you exit the sergeant's office and [pc.step] back out into the Enforcer Post...
+		Telling the horse-boy that you'll get it done, you turn to take your leave. Ignoring his dismissive grunt as he sinks down into his chair, you exit the sergeant's office and [pc.step] back out into the Enforcer Post...
 	</p>
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS_NEXT_LEAVE"><![CDATA[
+	<p>
+		[pc.Stepping] out of the sergeant's office, you once again find yourself standing in the Enforcer Post...
+	</p>
+	]]>
+	</htmlContent>
 	
 	<!-- ENTRANCE_ENFORCER_POST_COMPLETED_PACIFICATION -->
 	

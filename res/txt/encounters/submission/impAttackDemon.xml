@@ -101,7 +101,7 @@
 		[npc.speech(Stop it!)] [npc.name] scream, [npc.speech(Don't do it! I don't want to be a slave!)]
 	</p>
 	<p>
-		Grinning at this last defeated imp, you wonder whether you should enslaving [npc.herHim] as well, or leave [npc.herHim] be...
+		Grinning at this last defeated imp, you wonder whether you should be enslaving [npc.herHim] as well, or leave [npc.herHim] be...
 	</p>
 	]]>
 	</htmlContent>

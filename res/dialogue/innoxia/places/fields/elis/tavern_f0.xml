@@ -944,7 +944,7 @@
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_f0', 'MERAXIS_TALK_TAKAHASHI'))]
 				]]></effects>
 			</response>
-			<!-- All under index 3, as each one can only be accessed at stages of quest progress whihc are mutually exclusive of one another -->
+			<!-- All under index 3, as each one can only be accessed at stages of quest progress which are mutually exclusive of one another -->
 				<!-- Minotallys meeting -->
 				<response>
 					<availabilityConditional><![CDATA[
@@ -1079,7 +1079,9 @@
 					<br/>[style.italicsBadEnd(This will lead into both you and Meraxis falling into the clutches of Lunexis!)]
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_badEnds_lunexis_escape_start]]></nextDialogue>
-				<effects/>
+				<effects><![CDATA[
+					[#pc.incrementKarma(-500)]
+				]]></effects>
 			</response>
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>

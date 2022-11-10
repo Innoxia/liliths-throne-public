@@ -15,7 +15,7 @@
 		#ENDIF
 	#ELSE
 		<p>
-			Lilaya's laboratory is located in this particular corner of the house, and as you approach it, you see that the door has been firmly [style.colourBad(closed)]. Considering the current hour, it's most likely that your [lilaya.relation(pc)] and and her cat-girl maid have both retired to their rooms in order to get a good night's sleep. If you wanted to discuss something with Lilaya, you'll have to come back later during the day.
+			Lilaya's laboratory is located in this particular corner of the house, and as you approach it, you see that the door has been firmly [style.colourBad(closed)]. Considering the current hour, it's most likely that your [lilaya.relation(pc)] and her cat-girl maid have both retired to their rooms in order to get a good night's sleep. If you wanted to discuss something with Lilaya, you'll have to come back later during the day.
 		</p>
 	#ENDIF
 	]]>
@@ -514,7 +514,7 @@
 	
 	<htmlContent tag="LAB_EXIT_THROWN_OUT"><![CDATA[
 	<p>
-		You find yourself standing outside the door to Lilaya's laboratory. Your demonic [lilaya.relation(pc)] seemed pretty angry, and you think that it's probably a good idea if you gave her some time to cool off before trying to speak to her again....
+		You find yourself standing outside the door to Lilaya's laboratory. Your demonic [lilaya.relation(pc)] seemed pretty angry, and you think that it's probably a good idea if you gave her some time to cool off before trying to speak to her again...
 	</p>
 	]]>
 	</htmlContent>
@@ -1491,7 +1491,7 @@
 		Seeing your reaction, Lilaya lets out a sigh of her own, before offering you a sliver of hope, [lilaya.speech(Well... I suppose there is <i>one</i> way we could find out more... but it means I'd have to talk to <i>him</i> again. There's no way I'm going over there to ask for his help though!)]
 	</p>
 	<p>
-		You look up to see Lilaya's face turned up into a scowl as she continues, [lilaya.speech(If you ever want to find a way to go back home, you're going to have to get the help of Arthur... <i>that bastard!</i>)] she spits, before realising how angry she's become. Lilaya closes her eyes for a moment and takes a deep breath, calming herself down before continuing, [lilaya.speech(He and I used to work together, and with the exception of the Lilin themselves, he probably understands more about the arcane than anyone currently living. His apartment's over in Demon Home, but despite the name, people of all races live there. He's actually just a human, which makes his knowledge of the arcane all the more impressive. Here's his address...look for a building called 'Sawlty Towers'. So if you want his help, you're going to have to convince him to stop being such a <i>selfish bastard!</i> He'll need access to my research, and the only way he's going to get it is if he comes crawling to my front door, begging for my forgiveness.)]
+		You look up to see Lilaya's face turned up into a scowl as she continues, [lilaya.speech(If you ever want to find a way to go back home, you're going to have to get the help of Arthur... <i>that bastard!</i>)] she spits, before realising how angry she's become. Lilaya closes her eyes for a moment and takes a deep breath, calming herself down before continuing, [lilaya.speech(He and I used to work together, and with the exception of the Lilin themselves, he probably understands more about the arcane than anyone currently living. His apartment's over in Demon Home, but despite the name, people of all races live there. He's actually just a human, which makes his knowledge of the arcane all the more impressive. Here's his address... look for a building called 'Sawlty Towers'. So if you want his help, you're going to have to convince him to stop being such a <i>selfish bastard!</i> He'll need access to my research, and the only way he's going to get it is if he comes crawling to my front door, begging for my forgiveness.)]
 	</p>
 	<p>
 		You're quite taken aback at Lilaya's apparent hatred for Arthur. You assume, seeing as he shares the same name, that he's this world's version of your [lilaya.relation(pc)] Lily's colleague from the museum. Back there, they were close friends, and you wonder what's happened in this reality to cause Lilaya to dislike him so much. Seeing how angry she's gotten just at the thought of him, you decide that it would be wise not to press the matter further, and instead you just agree to convince Arthur to apologise.
