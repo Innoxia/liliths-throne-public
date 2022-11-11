@@ -132,7 +132,7 @@
 	<htmlContent tag="MERAXIS_NO_DUEL"><![CDATA[
 	<p>
 		#IF(pc.hasTraitActivated(PERK_CHUUNI))
-			Knowing that you're the superior combatant, and therefore having no need to prove yourself to anyone, you refuse Meraxis's challenge by striking an extremely impressive, heroic pose and coolly stating, [pc.speech(You'd need to be a lot stronger before I'd considering duelling you. My supreme powers would destroy you in an instant!)]
+			Knowing that you're the superior combatant, and therefore having no need to prove yourself to anyone, you refuse Meraxis's challenge by striking an extremely impressive, heroic pose and coolly stating, [pc.speech(You'd need to be a lot stronger before I'd consider duelling you. My supreme powers would destroy you in an instant!)]
 		#ELSE
 			You really don't want to waste any time playing along with Meraxis and engaging her in combat, and so let her down by truthfully stating that you have neither the time nor inclination to duel her.
 		#ENDIF

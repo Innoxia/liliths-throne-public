@@ -19,9 +19,13 @@ import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.markings.AbstractTattooType;
 import com.lilithsthrone.game.character.markings.Scar;
 import com.lilithsthrone.game.character.markings.Tattoo;
+import com.lilithsthrone.game.character.markings.TattooCountType;
+import com.lilithsthrone.game.character.markings.TattooCounter;
 import com.lilithsthrone.game.character.markings.TattooCounterType;
+import com.lilithsthrone.game.character.markings.TattooWriting;
 import com.lilithsthrone.game.character.markings.TattooWritingStyle;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
@@ -68,8 +72,6 @@ public class TooltipInventoryEventListener implements EventListener {
 	private AbstractCoreItem coreItem;
 	private InventorySlot invSlot;
 	
-	private Tattoo tattoo;
-	
 	private AbstractItem item;
 	private AbstractItemType genericItem;
 	
@@ -82,6 +84,9 @@ public class TooltipInventoryEventListener implements EventListener {
 	private AbstractClothing clothing;
 	private AbstractClothingType genericClothing;
 	private AbstractClothing dyeClothing;
+
+	private Tattoo tattoo;
+	private AbstractTattooType genericTattoo;
 	
 	private int colourIndex;
 	
@@ -212,6 +217,20 @@ public class TooltipInventoryEventListener implements EventListener {
 			} else {
 				clothingTooltip(Main.game.getItemGen().generateClothing(genericClothing, false));
 			}
+
+		} else if (genericTattoo != null) {
+			tattooTooltip(new Tattoo(
+					genericTattoo,
+					false,
+					new TattooWriting(
+							"The quick brown fox jumps over the lazy dog.",
+							genericTattoo.getAvailablePrimaryColours().get(0),
+							false),
+					new TattooCounter(
+							TattooCounterType.UNIQUE_SEX_PARTNERS,
+							TattooCountType.NUMBERS,
+							genericTattoo.getAvailablePrimaryColours().get(0),
+							false)));
 
 		} else if (genericWeapon != null) {
 			weaponTooltip(Main.game.getItemGen().generateWeapon(genericWeapon, dt));
@@ -717,6 +736,13 @@ public class TooltipInventoryEventListener implements EventListener {
 		this.colour = colour;
 		return this;
 	}
+	
+	public TooltipInventoryEventListener setGenericTattoo(AbstractTattooType genericTattoo) {
+		resetVariables();
+		this.genericTattoo = genericTattoo;
+		invSlot = genericTattoo.getSlotAvailability().contains(InventorySlot.TORSO_UNDER)?InventorySlot.TORSO_UNDER:genericTattoo.getSlotAvailability().get(0);
+		return this;
+	}
 
 	public TooltipInventoryEventListener setGenericWeapon(AbstractWeaponType genericWeapon, DamageType dt) {
 		resetVariables();
@@ -773,6 +799,7 @@ public class TooltipInventoryEventListener implements EventListener {
 		dyeWeapon = null;
 		damageType = null;
 		genericClothing = null;
+		genericTattoo = null;
 		invSlot = null;
 		enchantmentModifier = null;
 		potency = null;
@@ -793,7 +820,7 @@ public class TooltipInventoryEventListener implements EventListener {
 			for(ItemEffect ie : absItem.getEffects()) {
 				listIncrease += ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).size();
 			}
-			listIncrease+=absItem.getItemType().getEffectTooltipLines().size();
+			listIncrease+=absItem.getEffectTooltipLines().size();
 		}
 		
 		if(!absItem.getExtraDescriptions(equippedToCharacter).isEmpty()) { //TODO
@@ -820,35 +847,37 @@ public class TooltipInventoryEventListener implements EventListener {
 				);
 		
 		
-		String effectEntry = "";
-		int effectMulti = 0;
-		for(int it = 0; it<absItem.getEffects().size(); it++) {
-			ItemEffect ie = absItem.getEffects().get(it);
-			StringBuilder effectSB = new StringBuilder();
-			for(int i=0; i<ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).size(); i++) {
-				if(i!=0) {
-					effectSB.append("</br>");
+		if(absItem.isAppendItemEffectLinesToTooltip()) {
+			String effectEntry = "";
+			int effectMulti = 0;
+			for(int it = 0; it<absItem.getEffects().size(); it++) {
+				ItemEffect ie = absItem.getEffects().get(it);
+				StringBuilder effectSB = new StringBuilder();
+				for(int i=0; i<ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).size(); i++) {
+					if(i!=0) {
+						effectSB.append("</br>");
+					}
+					effectSB.append(ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).get(i));
 				}
-				effectSB.append(ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).get(i));
-			}
-
-			effectEntry = effectSB.toString();
-			if(it==absItem.getEffects().size()-1 || !absItem.getEffects().get(it+1).equals(ie)) {
-				tooltipSB.append("</br>");
-				if(effectMulti>0) {
-					tooltipSB.append("[style.colourArcane(x"+(effectMulti+1)+")] ");
-					listIncrease-=effectMulti;
+	
+				effectEntry = effectSB.toString();
+				if(it==absItem.getEffects().size()-1 || !absItem.getEffects().get(it+1).equals(ie)) {
+					tooltipSB.append("</br>");
+					if(effectMulti>0) {
+						tooltipSB.append("[style.colourArcane(x"+(effectMulti+1)+")] ");
+						listIncrease-=effectMulti;
+					}
+					tooltipSB.append(effectEntry);
+					effectMulti = 0;
+					
+				} else {
+					effectMulti++;
 				}
-				tooltipSB.append(effectEntry);
-				effectMulti = 0;
-				
-			} else {
-				effectMulti++;
 			}
 		}
 		yIncrease += Math.max(0, listIncrease-4);
 		
-		for(String s : absItem.getItemType().getEffectTooltipLines()) {
+		for(String s : absItem.getEffectTooltipLines()) {
 			tooltipSB.append("</br>"+s);
 		}
 		
@@ -1423,12 +1452,9 @@ public class TooltipInventoryEventListener implements EventListener {
 		int lipstickYIncrease = 0;
 		
 		if (tattoo.getWriting()!=null && !tattoo.getWriting().getText().isEmpty()) {
-			specialIncrease+=8;
 			yIncrease++;
 		}
 		if (tattoo.getCounter()!=null && tattoo.getCounter().getType()!=TattooCounterType.NONE) {
-			specialIncrease+=16;
-			yIncrease++;
 			yIncrease++;
 		}
 		int lSize=0;
@@ -1454,12 +1480,13 @@ public class TooltipInventoryEventListener implements EventListener {
 
 		// Core info:
 		tooltipSB.append("<div class='container-half-width titular'>" + (invSlot.getTattooSlotName()==null?"[style.colourDisabled(Cannot be tattooed)]":Util.capitaliseSentence(invSlot.getTattooSlotName())) + "</div>");
-		tooltipSB.append("<div class='container-half-width titular'>"
-							+ (owner.getScarInSlot(invSlot)==null
-									? "<span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>No scars</span>"
-									: "<span style='color:" + PresetColour.SCAR.toWebHexString() + ";'>"+Util.capitaliseSentence(owner.getScarInSlot(invSlot).getName())+"</span>")
-						+ "</div>");
-		
+		if(owner!=null) {
+			tooltipSB.append("<div class='container-half-width titular'>"
+								+ (owner.getScarInSlot(invSlot)==null
+										? "<span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>No scars</span>"
+										: "<span style='color:" + PresetColour.SCAR.toWebHexString() + ";'>"+Util.capitaliseSentence(owner.getScarInSlot(invSlot).getName())+"</span>")
+							+ "</div>");
+		}
 		// Attribute modifiers:
 		tooltipSB.append("<div class='container-full-width'>"
 				+ "<div class='container-half-width titular' style='width:calc(66.6% - 16px);'>");
@@ -1487,7 +1514,10 @@ public class TooltipInventoryEventListener implements EventListener {
 		
 		// Picture:
 		tooltipSB.append("<div class='container-half-width' style='width:calc(33.3% - 16px);'>"
-						+ tattoo.getSVGImage(equippedToCharacter)
+						+ tattoo.getSVGImage(
+								equippedToCharacter==null
+									?Main.game.getPlayer()
+									:equippedToCharacter)
 					+ "</div>");
 
 		tooltipSB.append("</div>");
@@ -1532,7 +1562,10 @@ public class TooltipInventoryEventListener implements EventListener {
 			tooltipSB.append("<div class='container-full-width' style='padding:4px; height:42px; text-align:center;'>"
 								+ "The '"+tattoo.getCounter().getType().getName()+"' counter displays:<br/>"
 									+ "<span style='color:"+tattoo.getCounter().getColour().toWebHexString()+";'>"
-											+tattoo.getFormattedCounterOutput(equippedToCharacter)
+											+tattoo.getFormattedCounterOutput(
+													equippedToCharacter==null
+														?Main.game.getPlayer()
+														:equippedToCharacter)
 									+"</span>"
 							+ "</div>");
 		} else {
@@ -1554,15 +1587,17 @@ public class TooltipInventoryEventListener implements EventListener {
 		
 		tooltipSB.append("</div>");
 
-		SizedStack<Covering> lipsticks = owner.getLipstickMarkingsInSlot(invSlot);
-		if(lipsticks!=null) {
-			lipstickYIncrease = 24 + (1+lipsticks.size())*LINE_HEIGHT;
-			tooltipSB.append("<div class='container-full-width' style='text-align:center; padding:8px; height:"+(16+(1+lipsticks.size())*LINE_HEIGHT)+"px;'>");
-			tooltipSB.append(UtilText.parse(owner, "[npc.NamePos] ")+invSlot.getNameOfAssociatedPart(owner)+" "+(invSlot.isPlural()?"have":"has")+" been marked by:");
-				for(int i=lipsticks.size()-1; i>=0; i--) {
-					tooltipSB.append("<br/>"+Util.capitaliseSentence(lipsticks.get(i).getFullDescription(owner, true)));
-				}
-			tooltipSB.append("</div>");
+		if(owner!=null) {
+			SizedStack<Covering> lipsticks = owner.getLipstickMarkingsInSlot(invSlot);
+			if(lipsticks!=null) {
+				lipstickYIncrease = 24 + (1+lipsticks.size())*LINE_HEIGHT;
+				tooltipSB.append("<div class='container-full-width' style='text-align:center; padding:8px; height:"+(16+(1+lipsticks.size())*LINE_HEIGHT)+"px;'>");
+				tooltipSB.append(UtilText.parse(owner, "[npc.NamePos] ")+invSlot.getNameOfAssociatedPart(owner)+" "+(invSlot.isPlural()?"have":"has")+" been marked by:");
+					for(int i=lipsticks.size()-1; i>=0; i--) {
+						tooltipSB.append("<br/>"+Util.capitaliseSentence(lipsticks.get(i).getFullDescription(owner, true)));
+					}
+				tooltipSB.append("</div>");
+			}
 		}
 		
 		tooltipSB.append("</body>");
@@ -1570,7 +1605,7 @@ public class TooltipInventoryEventListener implements EventListener {
 		if(tattoo.getDisplayName(false).length()>40) {
 			specialIncrease = 26;
 		}
-		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 392 + (Main.game.isEnchantmentCapacityEnabled()?32:0) + (yIncrease * LINE_HEIGHT) + lipstickYIncrease + specialIncrease);
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 404 + (Main.game.isEnchantmentCapacityEnabled()?32:0) + (yIncrease * LINE_HEIGHT) + lipstickYIncrease + specialIncrease);
 		Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 	}
 	

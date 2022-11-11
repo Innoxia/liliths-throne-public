@@ -878,7 +878,7 @@ public class RoomPlayer {
 								+ " His huge muscles are flexing as he carries a felled tree over one shoulder, while between his legs, you can't help but notice that he's got a massive bulge pressing out against the fabric of his shorts.");
 					} else {
 						sb.append("a black-and-white "+Subspecies.COW_MORPH.getSingularFemaleName(null)+", who's sitting on a small milking stool."
-								+ " With a happy smile on her face, she's busily pinching and tugging at at her engorged nipples, causing a stream of milk to flow out into a metal bucket.");
+								+ " With a happy smile on her face, she's busily pinching and tugging at her engorged nipples, causing a stream of milk to flow out into a metal bucket.");
 					}
 					break;
 				case MARCH:
@@ -2118,7 +2118,7 @@ public class RoomPlayer {
 				for(int i=0 ; i<attractedSlaves.size(); i++) {
 					slaveSlots.put(attractedSlaves.get(i), bathSlots[i]);
 				}
-				UtilText.addSpecialParsingString(String.valueOf(slavesWashing.size()), true);
+				UtilText.addSpecialParsingString(String.valueOf(attractedSlaves.size()), true);
 				return new ResponseSex("Submissive sex",
 						attractedSlaves.size()==1
 								?UtilText.parse(attractedSlaves, "Let [npc.name] dominantly fuck you in the bath.")

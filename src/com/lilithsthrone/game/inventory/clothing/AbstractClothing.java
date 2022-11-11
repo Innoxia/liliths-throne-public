@@ -278,6 +278,31 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		return sb.toString();
 	}
 	
+	/**
+	 * This equality check excludes equip slot checks, as it is intended to be used for if an unequipped item of clothing is to be compared to an equipped item of clothing.
+	 */
+	public boolean equalsWithoutEquippedSlot(Object o) {
+		if(super.equals(o)){
+			if(o instanceof AbstractClothing){
+				if(((AbstractClothing)o).getClothingType().equals(getClothingType())
+						&& ((AbstractClothing)o).getColours().equals(getColours())
+						&& ((AbstractClothing)o).getPattern().equals(getPattern())
+						&& (this.getPattern()!="none"
+							?((AbstractClothing)o).getPatternColours().equals(getPatternColours())
+							:true)
+						&& ((AbstractClothing)o).isSealed()==this.isSealed()
+						&& ((AbstractClothing)o).isDirty()==this.isDirty()
+						&& ((AbstractClothing)o).isEnchantmentKnown()==this.isEnchantmentKnown()
+						&& ((AbstractClothing)o).isBadEnchantment()==this.isBadEnchantment()
+						&& ((AbstractClothing)o).getEffects().equals(this.getEffects())
+						){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if(super.equals(o)){
@@ -561,7 +586,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(!parentElement.getAttribute("slotEquippedTo").isEmpty()) {
 			InventorySlot slot = InventorySlot.valueOf(parentElement.getAttribute("slotEquippedTo"));
 			if(!clothing.getClothingType().getEquipSlots().contains(slot)) {
-				return null; // If the clothing type doens't support this slot, then something has gone wrong and the clothing should not be laoded.
+				return null; // If the clothing type doesn't support this slot, then something has gone wrong and the clothing should not be laoded.
 			}
 			clothing.setSlotEquippedTo(slot);
 		}
@@ -1053,29 +1078,28 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			modifier -= 0.25f;
 		}
 		
-		if(getColour(0)==PresetColour.CLOTHING_PLATINUM) {
-			modifier += 0.2f;
-			
-		} else if(getColour(0)==PresetColour.CLOTHING_GOLD) {
-			modifier += 0.15f;
-			
-		} else if(getColour(0)==PresetColour.CLOTHING_ROSE_GOLD) {
-			modifier += 0.1f;
-			
-		} else if(getColour(0)==PresetColour.CLOTHING_SILVER) {
-			modifier += 0.05f;
-		}
-		
-		for(ItemEffect e : this.getEffects()) {
-			if(e.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE) {
-				modifier += e.getPotency().getClothingBonusValue()*0.05f;
-				
-			} else if(e.getPrimaryModifier()==TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
-				modifier += e.getPotency().getClothingBonusValue()*0.1f;
-				
-			} else {
-				modifier += e.getPotency().getValue()*0.025f;
+		if(this.getEffects()!=null) {
+			List<TFModifier> types = effects.stream().map(ItemEffect::getPrimaryModifier).collect(Collectors.toList());
+			float typeModifier = 0.1f;
+			boolean clothingBonus = false;
+			if (types.contains(TFModifier.CLOTHING_MAJOR_ATTRIBUTE)) {
+				typeModifier = 0.75f;
+				clothingBonus = true;
+			} else if (types.contains(TFModifier.CLOTHING_ATTRIBUTE)) {
+				typeModifier = 0.35f;
+				clothingBonus = true;
 			}
+			
+			List<TFPotency> potencies = effects.stream().map(ItemEffect::getPotency).collect(Collectors.toList());
+			if (potencies.contains(TFPotency.MAJOR_BOOST)) {
+				modifier += (clothingBonus?TFPotency.MAJOR_BOOST.getClothingBonusValue():TFPotency.MAJOR_BOOST.getValue())*typeModifier;
+			} else if (potencies.contains(TFPotency.BOOST)) {
+				modifier += (clothingBonus?TFPotency.BOOST.getClothingBonusValue():TFPotency.BOOST.getValue())*typeModifier;
+			} else if (potencies.contains(TFPotency.MINOR_BOOST)) {
+				modifier += (clothingBonus?TFPotency.MINOR_BOOST.getClothingBonusValue():TFPotency.MINOR_BOOST.getValue())*typeModifier;
+			}
+			
+			modifier += effects.size()*0.01f;
 		}
 		
 		if(getClothingType().getClothingSet()!=null) {

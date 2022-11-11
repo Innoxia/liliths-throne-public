@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<arm>
+	<race>innoxia_raptor</race>
+
+	<transformationName><![CDATA[raptor taloned]]></transformationName>
+
+	<coveringType>innoxia_raptor_feathers</coveringType>
+	
+	<allowsFlight>false</allowsFlight>
+	
+	<tags>
+		<tag>ARM_STANDARD</tag>
+	</tags>
+	
+	<name><![CDATA[arm]]></name>
+	<namePlural><![CDATA[arms]]></namePlural> 
+	
+	<descriptorsMasculine>
+		<descriptor>feathered</descriptor>
+		<descriptor>bird-like</descriptor>
+		<descriptor>feather-coated</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>feathered</descriptor>
+		<descriptor>bird-like</descriptor>
+		<descriptor>feather-coated</descriptor>
+	</descriptorsFeminine>
+	
+	<handName><![CDATA[hand]]></handName>
+	<handNamePlural><![CDATA[hands]]></handNamePlural>
+	<handDescriptorsMasculine>
+		<descriptor>bird-like</descriptor>
+		<descriptor>scaly</descriptor>
+	</handDescriptorsMasculine>
+	<handDescriptorsFeminine>
+		<descriptor>soft</descriptor>
+		<descriptor>feminine</descriptor>
+		<descriptor>bird-like</descriptor>
+		<descriptor>scaly</descriptor>
+	</handDescriptorsFeminine>
+	
+	<fingerName><![CDATA[finger]]></fingerName>
+	<fingerNamePlural><![CDATA[fingers]]></fingerNamePlural>
+	<fingerDescriptorsMasculine>
+		<descriptor>talon-tipped</descriptor>
+		<descriptor>bird-like</descriptor>
+	</fingerDescriptorsMasculine>
+	<fingerDescriptorsFeminine>
+		<descriptor>soft</descriptor>
+		<descriptor>feminine</descriptor>
+		<descriptor>talon-tipped</descriptor>
+		<descriptor>bird-like</descriptor>
+	</fingerDescriptorsFeminine>
+	
+	<transformationDescription><![CDATA[
+		Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down, [npc.she] [npc.verb(see)] heavily scaled skin growing over the backs of [npc.her] hands as sharp talons push out to replace [npc.her] fingernails. [npc.Her] palms are rapidly covered by the same scaly skin that travels up her forearms before blending in with the feathers that cover her [npc.her] upper-biceps where [npc.her] new feathers smoothly transition into the [npc.skin] that's covering the rest of [npc.her] body.
+		<br/>As the transformation comes to an end, [npc.nameIsFull] left with anthropomorphic, [style.boldRaptor(gryphon-like arms and hands)], which are [npc.materialDescriptor] [npc.armFullDescription].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+	[npc.She] [npc.has] [npc.armRows] arms, which are [npc.materialCompositionDescriptor] [npc.armFullDescription(true)]. [npc.Her] hands are formed into anthropomorphic, bird-like hands with sharp talons on each digit. Tough, heavily scaled skin covers [npc.her] hands and forearms.
+	]]></bodyDescription>
+	
+</arm>

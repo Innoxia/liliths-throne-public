@@ -26,6 +26,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Antenna;
 import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.Ass;
@@ -117,6 +118,7 @@ import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.SetBonus;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
@@ -1333,15 +1335,26 @@ public class CharacterUtils {
 			body.setCovering(BodyCoveringType.HUMAN, Util.getRandomObjectFromWeightedMap(BodyCoveringType.HUMAN.getNaturalPatterns()), CoveringModifier.SMOOTH, skinColour, false, skinColour, false);
 			body.updateCoverings(true, true, true, true);
 		}
-
 		
+		// Set breast rows based on preferences:
+		if(Main.getProperties().multiBreasts==0) {
+			body.getBreast().setRows(null, 1);
+			
+		} else if(Main.getProperties().multiBreasts==1) {
+			if(body.getTorsoType()==TorsoType.HUMAN) {
+				body.getBreast().setRows(null, 1);
+			}
+		}
+
+		// Set crotch boobs based on preferences:
 		if(!body.isFeral()
 				&& (Main.getProperties().getUddersLevel()==0
 					|| (body.getLeg().getLegConfiguration()==LegConfiguration.BIPEDAL && Main.getProperties().getUddersLevel()==1)
 					|| (body.getLeg().getLegConfiguration()==LegConfiguration.BIPEDAL && body.getRaceStage()!=RaceStage.GREATER))) {
 			body.getBreastCrotch().setType(null, BreastType.NONE);
 		}
-		
+
+		// Set external futa testicles based on preferences:
 		if(body.getPenis().getType()!=PenisType.NONE
 				&& body.getPenis().getType()!=PenisType.DILDO
 				&& body.getVagina().getType()!=VaginaType.NONE
@@ -2006,11 +2019,11 @@ public class CharacterUtils {
 					&& character.getBreastCrotchShape()!=BreastShape.UDDERS) {
 				character.setNippleCrotchShape(NippleShape.INVERTED);
 			}
-		}
-		if(character.isFeminine()) {
-			int nippleCrotchVariation = Util.random.nextInt(2); // 0-1
-			character.incrementNippleCrotchSize(nippleCrotchVariation);
-			character.incrementAreolaeCrotchSize(nippleCrotchVariation);
+			if(character.isFeminine()) {
+				int nippleCrotchVariation = Util.random.nextInt(2); // 0-1
+				character.incrementNippleCrotchSize(nippleCrotchVariation);
+				character.incrementAreolaeCrotchSize(nippleCrotchVariation);
+			}
 		}
 		
 		// Face:
@@ -2311,7 +2324,26 @@ public class CharacterUtils {
 		}
 	}
 	
-	public void generateItemsInInventory(NPC character) {
+	/**
+	 * Calls generateItemsInInventory() with arguments based on the last time that method was called on this character.
+	 */
+	public void regenerateItemsInInventory(NPC character) {
+		generateItemsInInventory(character, character.isGenerateExtraItems(), character.isGenerateDisposableClothing(), character.isGenerateExtraClothing());
+	}
+	
+	/**
+	 * This method will always generate items, clothing, and weapons based on the character's items that are rewarded to the player via the method getLootItems() 
+	 * 
+	 * @param character The character who is to receive items and clothing in their inventory.
+	 * @param generateExtraItems true if you want this character to generate items that are not awarded via their getLootItems() method.  i.e. <b>pills</b>
+	 * @param generateDisposableClothing true if you want this character to generate disposable clothing that is not awarded via their getLootItems() method. i.e. <b>condoms</b>
+	 * @param generateExtraClothing true if you want this character to generate clothing that is not awarded via their getLootItems() method.  i.e. <b>BDSM gear and sex toys</b>
+	 */
+	public void generateItemsInInventory(NPC character, boolean generateExtraItems, boolean generateDisposableClothing, boolean generateExtraClothing) {
+		character.setGenerateExtraItems(generateExtraItems);
+		character.setGenerateDisposableClothing(generateDisposableClothing);
+		character.setGenerateExtraClothing(generateExtraClothing);
+		
 		List<AbstractCoreItem> items;
 		List<AbstractCoreItem> itemsRemoved = new ArrayList<>();
 		
@@ -2336,7 +2368,10 @@ public class CharacterUtils {
 				}
 			}
 		}
+
+		//**** ITEMS ****//
 		
+		// Pills:
 		if(character.getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive()
 				&& !character.isPregnant()
 				&& !character.hasIncubationLitter(SexAreaOrifice.VAGINA)
@@ -2352,7 +2387,6 @@ public class CharacterUtils {
 				character.addItem(Main.game.getItemGen().generateItem("innoxia_pills_broodmother"), 1+Util.random.nextInt(2), false, false);
 			}
 		}
-
 		if(character.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 				&& !character.isPregnant()
 				&& !character.hasIncubationLitter(SexAreaOrifice.VAGINA)
@@ -2361,6 +2395,83 @@ public class CharacterUtils {
 		}
 		if(character.getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative() && character.hasPenisIgnoreDildo()) {
 			character.addItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), 2+Util.random.nextInt(4), false, false);
+		}
+		
+		//**** CLOTHING ****//
+		
+		// Condoms:
+		Colour condomColour = ClothingType.getClothingTypeFromId("innoxia_penis_condom").getColourReplacement(0).getRandomOfDefaultColours();
+		if(character.hasPenis()
+				&& !character.getFetishDesire(Fetish.FETISH_PENIS_GIVING).isNegative() // doesn't mind using penis
+				&& !character.getFetishDesire(Fetish.FETISH_CUM_STUD).isPositive() // neutral towards or dislikes cum play
+				&& !character.getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive()) { // neutral towards or dislikes impregnating others
+			character.addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", condomColour, false), 1+Util.random.nextInt(3), false, false);
+		}
+		condomColour = ClothingType.getClothingTypeFromId("innoxia_penis_condom").getColourReplacement(0).getRandomOfDefaultColours();
+		if(!character.getFetishDesire(Fetish.FETISH_PENIS_RECEIVING).isNegative() // doesn't mind receiving cock
+				&& (!character.getFetishDesire(Fetish.FETISH_CUM_ADDICT).isPositive()  // neutral towards or dislikes others' cum
+						|| (character.hasVagina() && !character.getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive()))) { // has vagina and neutral towards or dislikes getting pregnant
+			character.addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", condomColour, false), 1+Util.random.nextInt(3), false, false);
+		}
+		
+		int maxClothingCount = 1;
+		// Spawning additional clothing:
+		List<AbstractClothingType> availableClothing = new ArrayList<>();
+		// Only bondage fetishists spawn with BDSM clothing:
+		if(character.hasFetish(Fetish.FETISH_BONDAGE_APPLIER)) {
+			maxClothingCount+=1;
+			for(AbstractClothingType ct : ClothingType.getAllClothingInSet(SetBonus.getSetBonusFromId("innoxia_bdsm"))) {
+				InventorySlot defaultSlot = ct.getEquipSlots().get(0);
+				if(defaultSlot!=InventorySlot.VAGINA && defaultSlot!=InventorySlot.PENIS && defaultSlot!=InventorySlot.ANUS && defaultSlot!=InventorySlot.NIPPLE && defaultSlot!=InventorySlot.GROIN) {
+					availableClothing.add(ct); // Do not add clothing types whihc are sex toys, as conditionals for those are added in the next logic block
+				}
+			}
+		}
+		// Sex toys:
+		if(character.getCorruptionLevel().getMinimumValue()>=CorruptionLevel.THREE_DIRTY.getMinimumValue()) { // Only 'dirty' corruption characters carry sex toys around
+			maxClothingCount+=1;
+			for(AbstractClothingType ct : ClothingType.getAllClothing()) {
+				InventorySlot defaultSlot = ct.getEquipSlots().get(0);
+				if(ct.getDefaultItemTags().contains(ItemTag.ENABLE_SEX_EQUIP)) {
+					// Conditionals for equipping sex toys are if this character is not averse to using the associated area
+						// (choosing to equip them is handled in NPC.getSexClothingToEquip(), so it's ok to give them clothing which they might not want to equip)
+					if(defaultSlot==InventorySlot.VAGINA) {
+						if(!character.getFetishDesire(Fetish.FETISH_VAGINAL_GIVING).isNegative()) {
+							availableClothing.add(ct);
+						}
+					} else if(defaultSlot==InventorySlot.PENIS && !ct.getDefaultItemTags().contains(ItemTag.CONDOM) && !ct.getDefaultItemTags().contains(ItemTag.DILDO_OTHER)) { //Don't equip dildos on others
+						if(!character.getFetishDesire(Fetish.FETISH_PENIS_RECEIVING).isNegative()
+								&& (Collections.disjoint(ct.getDefaultItemTags(), Util.newArrayListOfValues(ItemTag.RIGID_MATERIAL, ItemTag.PREVENTS_ERECTION_PHYSICAL, ItemTag.PREVENTS_ERECTION_OTHER))
+										|| character.getFetishDesire(Fetish.FETISH_DENIAL).isPositive())) {
+							availableClothing.add(ct);
+						}
+					} else if(defaultSlot==InventorySlot.ANUS) {
+						if(Main.game.isAnalContentEnabled() && !character.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isNegative()) {
+							availableClothing.add(ct);
+						}
+					} else if(defaultSlot==InventorySlot.NIPPLE) {
+						if(!character.getFetishDesire(Fetish.FETISH_BREASTS_OTHERS).isNegative()) {
+							availableClothing.add(ct);
+						}
+					} else if(defaultSlot==InventorySlot.GROIN) {
+						if(ct.getDefaultItemTags().contains(ItemTag.RIGID_MATERIAL) && character.getFetishDesire(Fetish.FETISH_DENIAL).isPositive()) {
+							availableClothing.add(ct); // Only add chastity devices into groin slot (which I am assuming will be tagged as RIGID_MATERIAL...)
+						}
+					}
+				}
+			}
+		}
+		
+		availableClothing.removeIf(ct->ct.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN) || ct.getRarity()==Rarity.QUEST);
+		
+		// Adding clothing to inventory:
+		maxClothingCount+=Util.random.nextInt(3);
+		for(AbstractClothingType ct : availableClothing) {
+			character.addClothing(Main.game.getItemGen().generateClothing(ct, false), 1, false, false);
+			maxClothingCount--;
+			if(maxClothingCount<=0) {
+				break;
+			}
 		}
 	}
 	
@@ -3050,7 +3161,7 @@ public class CharacterUtils {
 		List<Colour> colourList = Util.getRandomObjectFromWeightedMap(colourMap);
 		
 		List<AbstractTattooType> availableTypes = new ArrayList<>(TattooType.getAllTattooTypes());
-		availableTypes.remove(TattooType.NONE);
+		availableTypes.remove(TattooType.getTattooTypeFromId("innoxia_misc_none"));
 		availableTypes.removeIf(tattoo->tattoo.isUnique());
 		
 		List<InventorySlot> commonSlots = new ArrayList<>(InventorySlot.getCommonTattooSlots());

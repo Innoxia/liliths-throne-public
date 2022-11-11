@@ -63,6 +63,7 @@
 		<tertiaryColoursDye/>
 		
 		<itemTags>
+			<tag>ENABLE_SEX_EQUIP</tag>
 			<tag>FITS_ARM_WINGS</tag>
 			<tag>SOLD_BY_FINCH</tag>
 			<tag>PROVIDES_KEY</tag>

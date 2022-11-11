@@ -394,6 +394,8 @@ public class DialogueFlagValue {
 
 	public static AbstractDialogueFlagValue lyssiethNoCockDemonTF = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue meraxisRepeatDemonTF = new AbstractDialogueFlagValue();
+
+	public static AbstractDialogueFlagValue vendingMachineTalked = new AbstractDialogueFlagValue();
 	
 	
 	// Rebel base:

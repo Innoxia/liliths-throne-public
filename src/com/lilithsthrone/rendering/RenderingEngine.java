@@ -622,7 +622,7 @@ public enum RenderingEngine {
 				}
 				
 			} else { // Tattoos:
-				boolean disabled = !invSlot.isPhysicallyAvailable(charactersInventoryToRender);
+				boolean disabled = !invSlot.isPhysicallyAvailable(charactersInventoryToRender) && invSlot!=InventorySlot.HAIR; // Exception for hair as this slot corresponds to the 'ears' slot for tattoos
 //				switch(invSlot){
 //					case HORNS:
 //						disabled = charactersInventoryToRender.getHornType().equals(HornType.NONE);
@@ -647,9 +647,13 @@ public enum RenderingEngine {
 					
 				} else {
 					Tattoo tattoo = charactersInventoryToRender.getTattooInSlot(invSlot);
-					
+					inventorySlotId = "inventory-item-slot dark";
+					if(isSecondary) {
+						inventorySlotId = "inventory-item-slot secondary dark";
+					}
+					String backgroundColourStyle = "style='background-color:#"+(Main.game.isLightTheme()?"bfbfbf":"2a2a2a")+";'";
 					if(tattoo != null) {
-						equippedPanelSB.append("<div class='"+inventorySlotId + getClassRarityIdentifier(tattoo.getRarity()) +"'>");
+						equippedPanelSB.append("<div class='"+inventorySlotId + getClassRarityIdentifier(tattoo.getRarity()) +"' "+backgroundColourStyle+">");
 						equippedPanelSB.append("<div class='inventory-icon-content'>"+tattoo.getSVGImage(charactersInventoryToRender)+"</div>");
 						if(charactersInventoryToRender.getScarInSlot(invSlot)!=null) {
 							equippedPanelSB.append("<div class='scarIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getScarIcon() + "</div>");
@@ -669,7 +673,7 @@ public enum RenderingEngine {
 							equippedPanelSB.append("</div>");
 							
 						} else {
-							equippedPanelSB.append("<div class='"+inventorySlotId+"' id='" + invSlot.toString() + "Slot'>");
+							equippedPanelSB.append("<div class='"+inventorySlotId+"' "+backgroundColourStyle+" id='" + invSlot.toString() + "Slot'>");
 							if(charactersInventoryToRender.getScarInSlot(invSlot)!=null) {
 								equippedPanelSB.append("<div class='scarIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getScarIcon() + "</div>");
 							}
@@ -750,37 +754,46 @@ public enum RenderingEngine {
 					+ "<div class='square-button max"+(currentPage==0?" selected":"")+"'>"
 							+ "<div style='width:80%;height:80%;position:absolute;left:0; bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon()+"</div>"
 							+ "<div style='width:50%;height:50%;position:absolute;right:4px; top:0;'>"+(currentPage==0?SVGImages.SVG_IMAGE_PROVIDER.getCounterOne():SVGImages.SVG_IMAGE_PROVIDER.getCounterOneDisabled())+"</div>"
-							+ (!buyback
-									?"<div class='overlay' "+(currentPage==0?"":"id='"+pageIdMod+"0'")+"></div>"
-									:"<div class='overlay disabled'></div>")
+//							+ (!buyback
+//									?
+											+ "<div class='overlay' "+(currentPage==0?"":"id='"+pageIdMod+"0'")+"></div>"
+//									:"<div class='overlay disabled'></div>")
 					+ "</div>"
 					+ "<div class='square-button max"+(currentPage==1?" selected":"")+"'>"
-							+ "<div style='width:80%;height:80%;position:absolute;left:0; bottom:0;'>"+(totalUniques>1*ITEMS_PER_PAGE?SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon():SVGImages.SVG_IMAGE_PROVIDER.getInventoryIconDisabled())+"</div>"
+							+ "<div style='width:80%;height:80%;position:absolute;left:0; bottom:0;'>"
+								+(totalUniques>1*ITEMS_PER_PAGE && !buyback?SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon():SVGImages.SVG_IMAGE_PROVIDER.getInventoryIconDisabled())
+							+"</div>"
 							+ "<div style='width:50%;height:50%;position:absolute;right:4px; top:0;'>"+(currentPage==1?SVGImages.SVG_IMAGE_PROVIDER.getCounterTwo():SVGImages.SVG_IMAGE_PROVIDER.getCounterTwoDisabled())+"</div>"
 							+ (totalUniques>1*ITEMS_PER_PAGE && !buyback
 									?"<div class='overlay' "+(currentPage==1?"":"id='"+pageIdMod+"1'")+"></div>"
 									:"<div class='overlay disabled'></div>")
 					+ "</div>"
 					+ "<div class='square-button max"+(currentPage==2?" selected":"")+"'>"
-							+ "<div style='width:80%;height:80%;position:absolute;left:0; bottom:0;'>"+(totalUniques>2*ITEMS_PER_PAGE?SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon():SVGImages.SVG_IMAGE_PROVIDER.getInventoryIconDisabled())+"</div>"
+							+ "<div style='width:80%;height:80%;position:absolute;left:0; bottom:0;'>"
+								+(totalUniques>2*ITEMS_PER_PAGE && !buyback?SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon():SVGImages.SVG_IMAGE_PROVIDER.getInventoryIconDisabled())
+							+"</div>"
 							+ "<div style='width:50%;height:50%;position:absolute;right:4px; top:0;'>"+(currentPage==2?SVGImages.SVG_IMAGE_PROVIDER.getCounterThree():SVGImages.SVG_IMAGE_PROVIDER.getCounterThreeDisabled())+"</div>"
 							+ (totalUniques>2*ITEMS_PER_PAGE && !buyback
 									?"<div class='overlay' "+(currentPage==2?"":"id='"+pageIdMod+"2'")+"></div>"
 									:"<div class='overlay disabled'></div>")
 					+ "</div>"
 					+ "<div class='square-button max"+(currentPage==3?" selected":"")+"'>"
-							+ "<div style='width:80%;height:80%;position:absolute;left:0; bottom:0;'>"+(totalUniques>3*ITEMS_PER_PAGE?SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon():SVGImages.SVG_IMAGE_PROVIDER.getInventoryIconDisabled())+"</div>"
+							+ "<div style='width:80%;height:80%;position:absolute;left:0; bottom:0;'>"
+								+(totalUniques>3*ITEMS_PER_PAGE && !buyback?SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon():SVGImages.SVG_IMAGE_PROVIDER.getInventoryIconDisabled())
+							+"</div>"
 							+ "<div style='width:50%;height:50%;position:absolute;right:4px; top:0;'>"+(currentPage==3?SVGImages.SVG_IMAGE_PROVIDER.getCounterFour():SVGImages.SVG_IMAGE_PROVIDER.getCounterFourDisabled())+"</div>"
 							+ (totalUniques>3*ITEMS_PER_PAGE && !buyback
 									?"<div class='overlay' "+(currentPage==3?"":"id='"+pageIdMod+"3'")+"></div>"
 									:"<div class='overlay disabled'></div>")
 					+ "</div>"
 					+ "<div class='square-button max"+(currentPage==4?" selected":"")+"'>"
-						+ "<div style='width:80%;height:80%;position:absolute;left:0; bottom:0;'>"+(totalUniques>4*ITEMS_PER_PAGE?SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon():SVGImages.SVG_IMAGE_PROVIDER.getInventoryIconDisabled())+"</div>"
-						+ "<div style='width:50%;height:50%;position:absolute;right:4px; top:0;'>"+(currentPage==4?SVGImages.SVG_IMAGE_PROVIDER.getCounterFive():SVGImages.SVG_IMAGE_PROVIDER.getCounterFiveDisabled())+"</div>"
-						+ (totalUniques>4*ITEMS_PER_PAGE && !buyback
-								?"<div class='overlay' "+(currentPage==4?"":"id='"+pageIdMod+"4'")+"></div>"
-								:"<div class='overlay disabled'></div>")
+							+ "<div style='width:80%;height:80%;position:absolute;left:0; bottom:0;'>"
+								+(totalUniques>4*ITEMS_PER_PAGE && !buyback?SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon():SVGImages.SVG_IMAGE_PROVIDER.getInventoryIconDisabled())
+							+"</div>"
+							+ "<div style='width:50%;height:50%;position:absolute;right:4px; top:0;'>"+(currentPage==4?SVGImages.SVG_IMAGE_PROVIDER.getCounterFive():SVGImages.SVG_IMAGE_PROVIDER.getCounterFiveDisabled())+"</div>"
+							+ (totalUniques>4*ITEMS_PER_PAGE && !buyback
+									?"<div class='overlay' "+(currentPage==4?"":"id='"+pageIdMod+"4'")+"></div>"
+									:"<div class='overlay disabled'></div>")
 					+ "</div>"
 					+ (renderQuestTab
 							?"<div class='square-button max"+(currentPage==5?" selected":"")+"'>"
@@ -814,7 +827,7 @@ public enum RenderingEngine {
 			}
 			
 			// Fill space:
-			for (int i = 24; i > Main.game.getPlayer().getBuybackStack().size(); i--) {
+			for (int i = ITEMS_PER_PAGE; i > Main.game.getPlayer().getBuybackStack().size(); i--) {
 				inventorySB.append("<div class='inventory-item-slot'></div>");
 			}
 			
@@ -1236,12 +1249,12 @@ public enum RenderingEngine {
 			
 			return "<div class='full-width-container'>"
 						+ "<p class='character-name' style='color:"+ mainTitleColour + ";'>"
-							+ Util.capitaliseSentence(mainTitle)
+							+ Util.capitaliseSentence(UtilText.parse(mainTitle))
 						+ "</p>"
 					+ "</div>"
 					+ "<div class='full-width-container' style='margin:0;padding:0;'>"
 						+ "<p style='text-align:center;"+ (placeColour.isEmpty()?"":" color:"+placeColour+";")+ "'>"
-							+ Util.capitaliseSentence(placeTitle)
+							+ Util.capitaliseSentence(UtilText.parse(placeTitle))
 						+"</p>"
 					+ "</div>";
 		}
@@ -1580,7 +1593,7 @@ public enum RenderingEngine {
 										+ "<p style='white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;'>"
 											+ (getCharacterToRender()==null
 												?"No Character"
-												:UtilText.parse(getCharacterToRender(), "[npc.NamePos] Inventory"))
+												:UtilText.parse(getCharacterToRender(), "[npc.NamePos] "+(isRenderingTattoosRight()?"Markings":"Inventory")))
 										+ "</p>"
 								+ "</div>");
 			}
@@ -1807,6 +1820,19 @@ public enum RenderingEngine {
 			return Main.game.getPlayer().getFemininity().getColour();
 		}
 	}
+
+	private String generateBackgroundStyle(AbstractPlaceType placeType, boolean dangerousTile, boolean discovered, double alpha) {
+		if(placeType.equals(PlaceType.GENERIC_IMPASSABLE)) {
+			return "background:transparent;";
+			
+		} else {
+			return dangerousTile && discovered //&& !worldMap
+					?getDangerousBackground(placeType)
+					:discovered
+						?"background-color:"+placeType.getBackgroundColour().toRGBA(alpha)+";"
+						:"background-color:"+PresetColour.MAP_BACKGROUND_UNEXPLORED.toRGBA(alpha)+";";
+		}
+	}
 	
 	public String getFullMap(AbstractWorldType world, boolean withFastTravel, boolean withNPCIcons) {
 
@@ -1836,19 +1862,9 @@ public enum RenderingEngine {
 				boolean dangerousTile = c.getPlace().getPlaceType().isDangerous();
 				AbstractPlaceType placeType = c.getPlace().getPlaceType();
 				
-				String background;
-				if(placeType.equals(PlaceType.GENERIC_IMPASSABLE)) {
-					background = "background:transparent;";
-				} else {
-					background = dangerousTile && discovered //&& !worldMap
-							?getDangerousBackground(placeType)
-							:discovered
-								?"background-color:"+placeType.getBackgroundColour().toWebHexString()+";"
-								:"background-color:"+PresetColour.MAP_BACKGROUND_UNEXPLORED.toWebHexString()+";";
-				}
 				
 				if(!discovered || placeType.equals(PlaceType.GENERIC_IMPASSABLE)) {
-					mapSB.append("<div class='map-icon' style='width:"+(width-0.5)+"%; margin:0.25%; "+background+"'></div>");
+					mapSB.append("<div class='map-icon' style='width:"+(width-0.5)+"%; margin:0.25%; "+generateBackgroundStyle(placeType, dangerousTile, discovered, 1.0)+"'></div>");
 					
 				} else {
 					String border = (c.getPlace()!=null && placeType.getColour()!=null
@@ -1876,7 +1892,7 @@ public enum RenderingEngine {
 //					}
 					
 					mapSB.append(
-							"<div class='map-icon' style='width:"+(width-0.5)+"%; margin:0.25%; "+border+" "+background+" opacity:"+(c.isTravelledTo()||path?1:0.5)+"; "
+							"<div class='map-icon' style='width:"+(width-0.5)+"%; margin:0.25%; "+border+" "+generateBackgroundStyle(placeType, dangerousTile, discovered, 1.0)+""
 										+(canTeleportToTile?"cursor:pointer;":"")+"' id='MAP_NODE_" + i + "_" + j + "'>"
 								+(playerOnTile?"<div class='overlay map-player' style='background-color:"+BaseColour.AQUA.toWebHexString()+";'></div>":"")
 								+(showPathing && endPath && !playerOnTile?"<div class='overlay map-player' style='background-color:"+(dangerousTile?BaseColour.ORANGE:BaseColour.YELLOW).toWebHexString()+";'></div>":"")
@@ -1897,7 +1913,7 @@ public enum RenderingEngine {
 						appendNPCIcon(Main.game.getWorlds().get(world), j, i, width);
 						appendItemsInAreaIcon(Main.game.getWorlds().get(world), j, i);
 					}
-//					appendNotVisitedLayer(Main.game.getWorlds().get(world), j, i);
+					appendNotVisitedLayer(Main.game.getWorlds().get(world), j, i);
 					
 					mapSB.append("</div>");
 				}
@@ -2304,7 +2320,7 @@ public enum RenderingEngine {
 		
 		
 		if(!Main.game.isInNewWorld() || Main.game.getCurrentDialogueNode().isTravelDisabled()) {
-			mapSB.append("<div style='left:0; top:0; margin:0; padding:0; width:100%; height:100vw; background-color:#000; opacity:0.7; border-radius:5px;'></div>");
+			mapSB.append("<div style='position:relative; left:0; top:0; margin:0; padding:0; width:100%; height:100vw; background-color:rgba(0,0,0,0.7); border-radius:5px;'></div>");
 			renderedDisabledMap = true;
 			
 		} else {
@@ -2364,7 +2380,7 @@ public enum RenderingEngine {
 	
 	private void appendNotVisitedLayer(World world, int x, int y) {
 		if(!world.getCell(x, y).isTravelledTo()) {
-			mapSB.append("<div style='position:absolute;width:100%;height:100%;top:0;left:0;background-color:#000;opacity:0.5;'></div>");
+			mapSB.append("<div style='position:absolute;width:100%;height:100%;top:0;left:0;background-color:rgba(0,0,0,0.5);'></div>");
 		}
 	}
 

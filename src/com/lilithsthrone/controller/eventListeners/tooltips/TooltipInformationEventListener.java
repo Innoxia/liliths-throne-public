@@ -867,8 +867,7 @@ public class TooltipInformationEventListener implements EventListener {
 					}
 					
 					boolean crotchBreasts = owner.hasBreastsCrotch()
-							&& (Main.getProperties().getUddersLevel()>0 || owner.isFeral())
-							&& (owner.isBreastsCrotchVisibleThroughClothing()||owner.isAreaKnownByCharacter(CoverableArea.NIPPLES_CROTCH, Main.game.getPlayer()));
+							&& (owner.isBreastsCrotchVisibleThroughClothing() || owner.isAreaKnownByCharacter(CoverableArea.NIPPLES_CROTCH, Main.game.getPlayer()));
 					boolean spinneret = owner.hasSpinneret();
 					boolean elemental = owner.isElemental() && !((Elemental)owner).getSummoner().isElementalActive();
 					
@@ -1417,13 +1416,15 @@ public class TooltipInformationEventListener implements EventListener {
 			if(!cell.equals(Main.game.getWorlds().get(WorldType.DOMINION).getCell(0, 0))) { // Override as NPCs had their home placed here... Add a version catch?
 				charactersPresent.addAll(Main.game.getCharactersTreatingCellAsHome(cell));
 			}
-
-			boolean teleport = Main.game.getPlayer().hasSpell(Spell.TELEPORT);
+			
+			boolean libraryMap = Main.game.getCurrentDialogueNode()==Library.DOMINION_MAP;
+			
+			boolean teleport = !libraryMap && Main.game.getPlayer().hasSpell(Spell.TELEPORT);
 			
 			int yIncrease = 0;
 			StringBuilder charactersPresentDescription = new StringBuilder();
 			StringBuilder teleportingDescription = new StringBuilder();
-			if(Main.game.getCurrentDialogueNode() != Library.DOMINION_MAP) {
+			if(!libraryMap) {
 				if(!charactersPresent.isEmpty()) {
 					for(NPC character : charactersPresent) {
 						yIncrease++;
@@ -1539,7 +1540,7 @@ public class TooltipInformationEventListener implements EventListener {
 			
 		} else if(loadedBody!=null) {
 			boolean feral = loadedBody.isFeral();
-			boolean crotchBreasts = loadedBody.hasBreastsCrotch() && (Main.getProperties().getUddersLevel()>0 || feral);
+			boolean crotchBreasts = loadedBody.hasBreastsCrotch();
 			boolean spinneret = loadedBody.hasSpinneret();
 			
 			int crotchBreastAddition = crotchBreasts?24:0;

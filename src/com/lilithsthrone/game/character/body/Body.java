@@ -2485,7 +2485,7 @@ public class Body implements XMLSaving {
 							sb.append(" [npc.SheHasFull] a natural-looking rough patch of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on [npc.her] [npc.face], which resembles a beard.");
 							break;
 						case FIVE_UNKEMPT:
-							sb.append(" [npc.SheHasFull] a unkempt, rough patch of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on [npc.her] [npc.face], which resembles a beard.");
+							sb.append(" [npc.SheHasFull] an unkempt, rough patch of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on [npc.her] [npc.face], which resembles a beard.");
 							break;
 						case SIX_BUSHY:
 							sb.append(" [npc.SheHasFull] a thick, rough patch of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on [npc.her] [npc.face], which resembles a beard.");
@@ -2514,7 +2514,7 @@ public class Body implements XMLSaving {
 							sb.append(" [npc.SheHasFull] a natural-looking beard of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on [npc.her] [npc.face].");
 							break;
 						case FIVE_UNKEMPT:
-							sb.append(" [npc.SheHasFull] a unkempt, bushy beard of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on [npc.her] [npc.face].");
+							sb.append(" [npc.SheHasFull] an unkempt, bushy beard of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on [npc.her] [npc.face].");
 							break;
 						case SIX_BUSHY:
 							sb.append(" [npc.SheHasFull] a thick, bushy beard of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on [npc.her] [npc.face].");
@@ -2665,7 +2665,7 @@ public class Body implements XMLSaving {
 						sb.append(" [npc.Her] mouth and throat are [style.colourWetness(wetter than most)], and [npc.she] produces more saliva than an average person.");
 						break;
 					case FIVE_SLOPPY:
-						sb.append(" [npc.Her] mouth and throat are [style.colourWetness(considerably wetter than most)], and [npc.she] produces a lot more more saliva than an average person.");
+						sb.append(" [npc.Her] mouth and throat are [style.colourWetness(considerably wetter than most)], and [npc.she] produces a lot more saliva than an average person.");
 						break;
 					case SIX_SOPPING_WET:
 						sb.append(" [npc.Her] mouth and throat are [style.colourWetness(always wet and slimy)], and [npc.she] produces so much saliva that [npc.she] finds [npc.herself] having to swallow every few seconds.");
@@ -2834,36 +2834,30 @@ public class Body implements XMLSaving {
 		
 		
 		// BreastsCrotch:
-		if(Main.getProperties().getUddersLevel()>0 || owner.isFeral()) {
-			if(owner.isAreaKnownByCharacter(CoverableArea.BREASTS_CROTCH, Main.game.getPlayer())) {
-				if(owner.hasBreastsCrotch()) {
-					sb.append(getHeader(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs"));
-					sb.append(getBreastCrotchDescription(owner, breastCrotch));
-					sb.append("</p>");
-					
-				} else {
-					if(this.leg.getLegConfiguration()!=LegConfiguration.BIPEDAL
-							|| this.isFeral()
-							|| (this.getRaceStage()==RaceStage.GREATER && RacialBody.valueOfRace(this.getRace()).getBreastCrotchType()!=BreastType.NONE && Main.getProperties().getUddersLevel()==2)) {
-						sb.append(getHeader(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs"));
-						sb.append("[style.colourDisabled([npc.She] [npc.do] not have any crotch-boobs or udders.)]");
-						sb.append("</p>");
-					}
-				}
+		if(owner.isAreaKnownByCharacter(CoverableArea.BREASTS_CROTCH, Main.game.getPlayer())) {
+			if(owner.hasBreastsCrotch()) {
+				sb.append(getHeader(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs"));
+				sb.append(getBreastCrotchDescription(owner, breastCrotch));
+				sb.append("</p>");
 				
-			} else {
-				if(leg.getLegConfiguration()!=LegConfiguration.BIPEDAL
-						|| this.isFeral()
-						|| (this.getRaceStage()==RaceStage.GREATER && Main.getProperties().getUddersLevel()==2)) {
-					sb.append(getHeader(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs"));
-					if(owner.hasBreastsCrotch() && owner.isBreastsCrotchVisibleThroughClothing() && leg.getLegConfiguration().isBipedalPositionedCrotchBoobs()) {
-						sb.append("Although you haven't seen [npc.her] exposed stomach before, [npc.her] [npc.crotchBoobsSize], [npc.crotchBoobsCups]-cup [npc.crotchBoobs] quite clearly bulge out from beneath [npc.her] [npc.topClothing(STOMACH)].");
-					} else {
-						sb.append("[style.colourDisabled(You haven't seen [npc.her] exposed stomach before, so you don't know if [npc.sheHasFull] any crotch-boobs or udders.)]");
-					}
-					sb.append("</p>");
-				}
+			} else if(this.leg.getLegConfiguration()!=LegConfiguration.BIPEDAL
+					|| this.isFeral()
+					|| (this.getRaceStage()==RaceStage.GREATER && RacialBody.valueOfRace(this.getRace()).getBreastCrotchType()!=BreastType.NONE && Main.getProperties().getUddersLevel()==2)) {
+				sb.append(getHeader(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs"));
+				sb.append("[style.colourDisabled([npc.She] [npc.do] not have any crotch-boobs or udders.)]");
+				sb.append("</p>");
 			}
+			
+		} else if(leg.getLegConfiguration()!=LegConfiguration.BIPEDAL
+				|| this.isFeral()
+				|| (this.getRaceStage()==RaceStage.GREATER && Main.getProperties().getUddersLevel()==2)) {
+			sb.append(getHeader(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs"));
+			if(owner.hasBreastsCrotch() && owner.isBreastsCrotchVisibleThroughClothing() && leg.getLegConfiguration().isBipedalPositionedCrotchBoobs()) {
+				sb.append("Although you haven't seen [npc.her] exposed stomach before, [npc.her] [npc.crotchBoobsSize], [npc.crotchBoobsCups]-cup [npc.crotchBoobs] quite clearly bulge out from beneath [npc.her] [npc.topClothing(STOMACH)].");
+			} else {
+				sb.append("[style.colourDisabled(You haven't seen [npc.her] exposed stomach before, so you don't know if [npc.sheHasFull] any crotch-boobs or udders.)]");
+			}
+			sb.append("</p>");
 		}
 		
 		
@@ -2908,7 +2902,7 @@ public class Body implements XMLSaving {
 							sb.append(" [npc.SheHasFull] a natural amount of rough "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
 							break;
 						case FIVE_UNKEMPT:
-							sb.append(" [npc.SheHasFull] a unkempt mass of rough "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
+							sb.append(" [npc.SheHasFull] an unkempt mass of rough "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
 							break;
 						case SIX_BUSHY:
 							sb.append(" [npc.SheHasFull] a thick, rough mass of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
@@ -2935,7 +2929,7 @@ public class Body implements XMLSaving {
 							sb.append(" [npc.SheHasFull] a natural amount of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
 							break;
 						case FIVE_UNKEMPT:
-							sb.append(" [npc.SheHasFull] a unkempt mass of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
+							sb.append(" [npc.SheHasFull] an unkempt mass of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
 							break;
 						case SIX_BUSHY:
 							sb.append(" [npc.SheHasFull] a thick, bushy mass of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
@@ -3330,7 +3324,7 @@ public class Body implements XMLSaving {
 				} else {
 					tattooSB.append("On [npc.her] [style.boldBlueSteel("+tattooSlot.getTattooSlotName()+")], [npc.sheHasFull] ");
 					tattooSB.append(tattoo.getBodyOverviewDescription());
-					if(tattoo.getType()!=TattooType.NONE) {
+					if(tattoo.getType()!=TattooType.getTattooTypeFromId("innoxia_misc_none")) {
 						tattooSB.append(", which is primarily coloured ");
 						tattooSB.append("<span style='color:"+tattoo.getPrimaryColour().toWebHexString()+";'>"+tattoo.getPrimaryColour().getName()+"</span>");
 					}
@@ -3347,7 +3341,7 @@ public class Body implements XMLSaving {
 						tattooSB.append(" The tattoo is enchanted to keep ");
 					}
 					tattooSB.append(UtilText.generateSingularDeterminer(counterName)+" '"+counterName+"' count, which reads: '"+tattoo.getFormattedCounterOutput(owner)+"'.");
-				} else {
+				} else if(tattoo.getWriting()!=null && tattoo.getWriting().getText()!=null && !tattoo.getWriting().getText().isEmpty()) {
 					tattooSB.append(".");
 				}
 			}
@@ -5866,7 +5860,7 @@ public class Body implements XMLSaving {
 				GameCharacter mother = entry.getValue().getMother();
 				descriptionSB.append("<span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>");
 					if(mother == null) {
-						descriptionSB.append("From one of [npc.her] sexual encounters, [npc.name] has has [npc.her] "+areaEgged+" filled with eggs.");
+						descriptionSB.append("From one of [npc.her] sexual encounters, [npc.name] has [npc.her] "+areaEgged+" filled with eggs.");
 					} else if(mother.isPlayer()) {
 						descriptionSB.append("From one of your sexual encounters, you've ended up filling [npc.namePos] "+areaEgged+" with eggs.");
 					} else {
@@ -6134,6 +6128,11 @@ public class Body implements XMLSaving {
 		}
 
 		return weight;
+	}
+	
+
+	public boolean isShortStature() {
+		return this.getHeightValue() < Height.getShortStatureCutOff();
 	}
 
 	/** Height is measured in cm. **/

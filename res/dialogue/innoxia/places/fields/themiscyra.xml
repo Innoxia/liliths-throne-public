@@ -247,9 +247,9 @@
 				<responseTitle><![CDATA[Lunette's attack]]></responseTitle>
 				<responseTooltip><![CDATA[
 					#IF(flags.hasFlag(FLAG_innoxia_themiscyra_aurokaris_talk_raiders))
-						You've already asked Aurokaris about the current situation in Themsicyra, and she doesn't have the patience to repeat herself right now.
+						You've already asked Aurokaris about the current situation in Themiscyra, and she doesn't have the patience to repeat herself right now.
 					#ELSE
-						Ask Aurokaris about the current situation in Themsicyra.
+						Ask Aurokaris about the current situation in Themiscyra.
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
@@ -573,7 +573,7 @@
 				<responseTooltip><![CDATA[
 					Join Ursa in fighting Lunexis as Meraxis and Aurokaris hold back the demonic centauresses.
 					#IF(game.isBadEndsEnabled())
-						[style.boldBadEnd(BAD END:)] If you lose this fight, Lunexis won't let you ever get away!
+						<br/>[style.boldBadEnd(BAD END:)] If you lose this fight, Lunexis won't let you ever get away!
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue/>
@@ -934,8 +934,8 @@
 	
 	<scene id="raiders">
 		<preParsingEffects><![CDATA[
-			[#game.setParserTarget('attacker', game.getNonCompanionCharactersPresent().get(0))]
-			[#game.setParserTarget('attacker2', game.getNonCompanionCharactersPresent().get(1))]
+			[#game.setParserTarget('attacker', game.getNonCompanionCharactersPresent(false).get(0))]
+			[#game.setParserTarget('attacker2', game.getNonCompanionCharactersPresent(false).get(1))]
 			[#attacker2.setSpeechColour(COLOUR_BASE_PURPLE_LIGHT)]
 			[#flags.setFlag(FLAG_innoxia_themiscyra_centauresses_question, false)]
 		]]></preParsingEffects>

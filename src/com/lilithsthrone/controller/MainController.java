@@ -38,6 +38,7 @@ import com.lilithsthrone.controller.eventListeners.tooltips.TooltipResponseMoveE
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterChangeEventListener;
+import com.lilithsthrone.game.character.FluidStored;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -56,36 +57,48 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
 import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.elemental.ElementalDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemographics;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaMilkingRoomDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
+import com.lilithsthrone.game.dialogue.places.dominion.nightlife.NightlifeDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
+import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict.KaysWarehouse;
+import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePoker;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
+import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
 import com.lilithsthrone.game.dialogue.utils.CosmeticsDialogue;
 import com.lilithsthrone.game.dialogue.utils.DebugDialogue;
 import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
+import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
+import com.lilithsthrone.game.dialogue.utils.SpellManagement;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
-import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
@@ -113,7 +126,6 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.time.DateAndTime;
 import com.lilithsthrone.utils.time.DayPeriod;
 import com.lilithsthrone.utils.time.SolarElevationAngle;
-import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -137,8 +149,8 @@ import javafx.scene.web.WebView;
 
 /**
  * @since 0.1.0
- * @version 0.3.5.1
- * @author Innoxia
+ * @version 0.4.6.4
+ * @author Innoxia, Maxis010
  */
 public class MainController implements Initializable {
 
@@ -428,7 +440,7 @@ public class MainController implements Initializable {
 	/**
 	 * Sets up buttons and hotkeys.
 	 */
-	private List<KeyCode> buttonsPressed = new ArrayList<>();
+	public List<KeyCode> buttonsPressed = new ArrayList<>();
 
 	private void setUpButtons() {
 		// HOTKEYS:
@@ -475,7 +487,7 @@ public class MainController implements Initializable {
 								|| handleExistingBindings(Main.getProperties().hotkeyMapSecondary, event, "secondary")) {
 								return; //such a binding already exists
 							}
-							KeyCodeWithModifiers newBinding = new KeyCodeWithModifiers(eventCode, event.isControlDown(), event.isShiftDown()); 
+							KeyCodeWithModifiers newBinding = new KeyCodeWithModifiers(eventCode, event.isControlDown(), event.isShiftDown());
 							if (primaryBinding)
 								Main.getProperties().hotkeyMapPrimary.put(actionToBind, newBinding);
 							else
@@ -498,8 +510,15 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-
-							Main.game.getPlayer().incrementFetishExperience(Fetish.FETISH_DOMINANT, 200);
+							
+//							Main.game.getCharactersPresent().get(0).incrementAttribute(Attribute.MAJOR_CORRUPTION, 100);
+//							Main.game.getCharactersPresent().get(0).addFetish(Fetish.FETISH_BONDAGE_APPLIER);
+							
+//							Main.game.getCharactersPresent().get(0).addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_PINK, false), 2, false, false);
+//							Main.game.getCharactersPresent().get(0).removeFetish(Fetish.FETISH_CUM_STUD);
+//							Main.game.getCharactersPresent().get(0).setFetishDesire(Fetish.FETISH_CUM_STUD, FetishDesire.TWO_NEUTRAL);
+							
+//							Main.game.getPlayer().incrementFetishExperience(Fetish.FETISH_DOMINANT, 200);
 //							if(Main.game.isInSex()) {
 //								for(GameCharacter c : Main.sex.getSubmissiveSpectators()) {
 //									c.setArousal(98);
@@ -537,7 +556,7 @@ public class MainController implements Initializable {
 //									System.out.println(character.getName()+" -> "+Main.sex.getTargetedPartner(character).getName());
 //								}
 //							}
-							
+
 //							for(NPC npc : Main.game.getAllNPCs()) {
 //								if(npc.isUnique() && !npc.hasArtwork()
 ////										&& (npc.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION)
@@ -561,7 +580,7 @@ public class MainController implements Initializable {
 //							System.out.println(UtilText.parse("#IF([#SPECIAL_PARSE_0]):3#ELSE:(#ENDIF"));
 //							System.out.println(Main.sex.isSexStarted());
 						}
-						 
+						
 
 						// Escape Menu:
 						if (keyEventMatchesBindings(KeyboardAction.MENU, event)) {
@@ -646,15 +665,14 @@ public class MainController implements Initializable {
 								}
 							}
 						}
-						if(Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.ROOM_UPGRADES
-								|| Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.ROOM_UPGRADES_MANAGEMENT){
+						if(Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.ROOM_UPGRADES){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput') === document.activeElement")) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
 									enterConsumed = true;
 									boolean unsuitableName = false;
 									if(Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput')")!=null) {
-										 
+										
 										Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
 										if(Main.mainController.getWebEngine().getDocument()!=null) {
 											unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
@@ -682,7 +700,7 @@ public class MainController implements Initializable {
 									enterConsumed = true;
 									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
 									if(Main.isSaveGameAvailable()) {
-										Main.saveGame(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
+										Main.saveGame(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false, false);
 									}
 									Main.game.setContent(new Response("Save", "", Main.game.getCurrentDialogueNode()));
 								}
@@ -706,7 +724,7 @@ public class MainController implements Initializable {
 								if (event.getCode() == KeyCode.ENTER) {
 									enterConsumed = true;
 									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
-									EnchantmentDialogue.saveEnchant(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
+									EnchantmentDialogue.saveEnchant(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false, EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD);
 									Main.game.setContent(new Response("Save", "", Main.game.getCurrentDialogueNode()));
 								}
 							}
@@ -940,7 +958,7 @@ public class MainController implements Initializable {
 								Main.mainController.getWebEngine().executeScript("document.getElementById('main-content').scrollTop += 50");
 							
 							// Responses:
-							KeyboardAction[] keyboardActionsForResponses = 
+							KeyboardAction[] keyboardActionsForResponses =
 								{
 										KeyboardAction.RESPOND_0, KeyboardAction.RESPOND_1, KeyboardAction.RESPOND_2, KeyboardAction.RESPOND_3, KeyboardAction.RESPOND_4,
 										KeyboardAction.RESPOND_5, KeyboardAction.RESPOND_6, KeyboardAction.RESPOND_7, KeyboardAction.RESPOND_8, KeyboardAction.RESPOND_9,
@@ -1063,6 +1081,19 @@ public class MainController implements Initializable {
 	static void addEventListener(Document document, String ID, String type, EventListener listener, boolean useCapture) {
 		((EventTarget) document.getElementById(ID)).addEventListener(type, listener, useCapture);
 		EventListenerDataMap.get(document).add(new EventListenerData(ID, type, listener, useCapture));
+	}
+	
+	public static void addTooltipListeners(String id, EventListener tooltip) {
+		addTooltipListeners(id, tooltip, null, false);
+	}
+	
+	public static void addTooltipListeners(String id, EventListener tooltip, EventListener click, boolean capture) {
+		addEventListener(document, id, "mousemove", moveTooltipListener, false);
+		addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+		addEventListener(document, id, "mouseenter", tooltip, false);
+		if(click !=null) {
+			addEventListener(document, id, "click", click, capture);
+		}
 	}
 	
 	public static Document document, documentButtonsLeft, documentButtonsRight, documentAttributes, documentRight, documentInventory, documentMap, documentMapTitle;
@@ -1194,7 +1225,442 @@ public class MainController implements Initializable {
 	}
 	
 	private void manageMainListeners() {
-		MainControllerInitMethod.initMainControllerListeners();
+		document = (Document) webEngine.executeScript("document");
+		EventListenerDataMap.put(document, new ArrayList<>());
+		
+		if (flashMessageColour != null && flashMessageText != null) {
+			Main.game.flashMessage(flashMessageColour, flashMessageText);
+			flashMessageColour = null;
+			flashMessageText = null;
+		}
+		
+		// Initialise tooltip listeners if there are tooltips to be initialised
+		if (Game.informationTooltips.size() > 0) {
+			MiscController.initInfoTooltipListeners();
+		}
+		
+		// There are too many dialogue nodes that require CoveringChangeListeners so better to check by flag
+		if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.coveringChangeListenersRequired)) {
+			CoveringController.initCoveringChangeListeners();
+		}
+		
+		// Initialise dice listeners if there are dice to be initialised
+		if (Main.game.isStarted() && DicePoker.progress>0) {
+			for (int i = 0; i<DicePoker.getPlayerDice().size(); i++) {
+				String id = "DICE_PLAYER_"+i;
+				if ((MainController.document.getElementById(id)) != null) {
+					int finalI = i;
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						if(DicePoker.isAbleToSelectReroll()) {
+							DicePoker.setReroll(DicePoker.getPlayerDice().get(finalI));
+						}
+					}, false);
+					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(
+							"Mark for reroll",
+							DicePoker.isAbleToSelectReroll()?"":"[style.italicsBad(You cannot mark your dice for reroll in this scene!)]"));
+				}
+			}
+		}
+		
+		DialogueNode currentNode = Main.game.getCurrentDialogueNode();
+		if (Main.game.isInCombat()) {
+			MiscController.initCombatListeners();
+		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_ASS)
+				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_ASS)) {
+			CreationController.initAnusCapacityListeners();
+			CreationController.initAnusDepthListeners();
+			CreationController.initAnusElasticityListeners();
+			CreationController.initAnusModifierListeners();
+			CreationController.initAnusPlasticityListeners();
+			CreationController.initAnusWetnessListeners();
+			CreationController.initAssTypeListeners();
+			CreationController.initAssSizeListeners(false);
+			CreationController.initHipSizeListeners(false);
+			if (Main.game.isAssHairEnabled()) {
+				CoveringController.initAssHairListeners();
+			}
+		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_BREASTS)
+				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS)) {
+			CreationController.initAreolaeSizeListeners();
+			CreationController.initBreastCountListeners();
+			CreationController.initBreastShapeListeners();
+			CreationController.initBreastSizeListeners(false);
+			CreationController.initBreastTypeListeners();
+			CreationController.initLactationCapacityListeners();
+			CreationController.initLactationFlavourListeners();
+			CreationController.initLactationModifierListeners();
+			CreationController.initLactationRegenListeners();
+			CreationController.initNippleCountListeners();
+			CreationController.initNippleModifierListeners();
+			CreationController.initNippleShapeListeners();
+			CreationController.initNippleSizeListeners();
+			if (BodyChanging.isDebugMenu() || Main.game.isNipplePenEnabled()) {
+				CreationController.initNippleCapacityListeners();
+				CreationController.initNippleDepthListeners();
+				CreationController.initNippleElasticityListeners();
+				CreationController.initNipplePlasticityListeners();
+			}
+		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_BREASTS_CROTCH)
+				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH)) {
+			CreationController.initCrotchAreolaeSizeListeners();
+			CreationController.initCrotchBreastCountListeners();
+			CreationController.initCrotchBreastShapeListeners();
+			CreationController.initCrotchBreastSizeListeners();
+			CreationController.initCrotchBreastTypeListeners();
+			CreationController.initCrotchLactationCapacityListeners();
+			CreationController.initCrotchLactationFlavourListeners();
+			CreationController.initCrotchLactationModifierListeners();
+			CreationController.initCrotchLactationRegenListeners();
+			CreationController.initCrotchNippleCountListeners();
+			CreationController.initCrotchNippleModifierListeners();
+			CreationController.initCrotchNippleShapeListeners();
+			CreationController.initCrotchNippleSizeListeners();
+			if (BodyChanging.isDebugMenu() || Main.game.isNipplePenEnabled()) {
+				CreationController.initCrotchNippleCapacityListeners();
+				CreationController.initCrotchNippleDepthListeners();
+				CreationController.initCrotchNippleElasticityListeners();
+				CreationController.initCrotchNipplePlasticityListeners();
+			}
+		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_CORE)
+				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_CORE)) {
+			CreationController.initAgeAppearanceListeners();
+			CreationController.initArmCountListeners();
+			CreationController.initArmTypeListeners();
+			CreationController.initBodySizeListeners();
+			CreationController.initFaceTypeListeners();
+			CreationController.initFemininityListeners();
+			CreationController.initFootStructureListeners();
+			CreationController.initGenitalArrangementListeners();
+			CreationController.initHeightListeners();
+			CreationController.initLegConfigListeners();
+			CreationController.initLegTypeListeners();
+			CreationController.initMuscleListeners();
+			CreationController.initTailCountListeners();
+			CreationController.initTailGirthListeners();
+			CreationController.initTailLengthListeners();
+			CreationController.initTailTypeListeners();
+			CreationController.initTentacleGirthListeners();
+			CreationController.initTentacleLengthListeners();
+			CreationController.initTorsoTypeListeners();
+			CreationController.initWingSizeListeners();
+			CreationController.initWingTypeListeners();
+			if (BodyChanging.getTarget().isElemental()) {
+				CreationController.initBodyMaterialListeners();
+			}
+			if (Main.game.isBodyHairEnabled()) {
+				CoveringController.initUnderarmHairListeners();
+			}
+		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_EYES)
+				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES)) {
+			CreationController.initEyeCountListeners();
+			CreationController.initEyeShapeListeners();
+			CreationController.initEyeTypeListeners();
+		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_HAIR)
+				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR)
+				|| currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_COSMETICS_HAIR)) {
+			CoveringController.initHairLengthListeners();
+			CoveringController.initHairStyleListeners();
+			CreationController.initHairTypeListeners();
+			CreationController.initNeckFluffListeners();
+		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_HEAD)
+				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD)) {
+			CreationController.initAntennaCountListeners();
+			CreationController.initAntennaLengthListeners();
+			CreationController.initAntennaRowsListeners();
+			CreationController.initAntennaTypeListeners();
+			CreationController.initEarTypeListeners();
+			CreationController.initHornCountListeners();
+			CreationController.initHornLengthListeners();
+			CreationController.initHornRowsListeners();
+			CreationController.initHornTypeListeners();
+			CreationController.initLipSizeListeners();
+			CreationController.initThroatCapacityListeners();
+			CreationController.initThroatDepthListeners();
+			CreationController.initThroatElasticityListeners();
+			CreationController.initThroatModifierListeners();
+			CreationController.initThroatPlasticityListeners();
+			CreationController.initThroatWetnessListeners();
+			CreationController.initTongueLengthListeners();
+			CreationController.initTongueModifierListeners();
+			if (Main.game.isFacialHairEnabled() && (!BodyChanging.getTarget().isFeminine() || Main.game.isFemaleFacialHairEnabled())) {
+				CoveringController.initFacialHairListeners();
+			}
+		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_PENIS)
+				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_PENIS)) {
+			CreationController.initPenisGirthListeners();
+			CreationController.initPenisModifierListeners();
+			CreationController.initPenisSizeListeners(false);
+			CreationController.initPenisTypeListeners();
+			CreationController.initPenisCumExpulsionListeners();
+			CreationController.initPenisCumFlavourListeners();
+			CreationController.initPenisCumModifierListeners();
+			CreationController.initPenisCumProductionListeners();
+			CreationController.initPenisCumRegenListeners();
+			CreationController.initTesticleCountListeners();
+			CreationController.initTesticleInternalListeners();
+			CreationController.initTesticleSizeListeners(false);
+			CreationController.initUrethraCapacityListeners();
+			CreationController.initUrethraDepthListeners();
+			CreationController.initUrethraElasticityListeners();
+			CreationController.initUrethraModifierListeners();
+			CreationController.initUrethraPlasticityListeners();
+			if (Main.game.isPubicHairEnabled()) {
+				CoveringController.initPubicHairListeners();
+			}
+		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_SPINNERET)
+				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET)) {
+			CreationController.initSpinneretCapacityListeners();
+			CreationController.initSpinneretDepthListeners();
+			CreationController.initSpinneretElasticityListeners();
+			CreationController.initSpinneretModifierListeners();
+			CreationController.initSpinneretPlasticityListeners();
+			CreationController.initSpinneretWetnessListeners();
+		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_VAGINA)
+				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_VAGINA)) {
+			CreationController.initVaginaCapacityListeners();
+			CreationController.initVaginaDepthListeners();
+			CreationController.initVaginaEggLayerListeners();
+			CreationController.initVaginaElasticityListeners();
+			CreationController.initVaginaHymenListeners();
+			CreationController.initVaginaModifierListeners();
+			CreationController.initVaginaPlasticityListeners();
+			CreationController.initVaginaSquinterListeners();
+			CreationController.initVaginaTypeListeners();
+			CreationController.initVaginaWetnessListeners();
+			CreationController.initVaginaCumFlavourListeners();
+			CreationController.initVaginaCumModifierListeners();
+			CreationController.initClitorisGirthListeners();
+			CreationController.initClitorisModifierListeners();
+			CreationController.initClitorisSizeListeners(false);
+			CreationController.initLabiaSizeListeners();
+			CreationController.initVaginaUrethraCapacityListeners();
+			CreationController.initVaginaUrethraDepthListeners();
+			CreationController.initVaginaUrethraElasticityListeners();
+			CreationController.initVaginaUrethraModifierListeners();
+			CreationController.initVaginaUrethraPlasticityListeners();
+			if (Main.game.isPubicHairEnabled()) {
+				CoveringController.initPubicHairListeners();
+			}
+		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_SAVE_LOAD)) {
+			FileController.initBodySaveLoadListeners();
+		} else if (currentNode.equals(CharacterCreation.BACKGROUND_SELECTION_MENU)) {
+			CreationController.initBackgroundSelectionListeners();
+		} else if (currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_COSMETICS_OTHER)) {
+			CoveringController.initBleachingListeners();
+			CoveringController.initAssHairListeners();
+			CoveringController.initFacialHairListeners();
+			CoveringController.initPubicHairListeners();
+			CoveringController.initUnderarmHairListeners();
+		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_ASS)) {
+			CoveringController.initBleachingListeners();
+			CreationController.initAssSizeListeners(true);
+			CreationController.initHipSizeListeners(true);
+		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_BREASTS)) {
+			CreationController.initAreolaeSizeListeners();
+			CreationController.initBreastShapeListeners();
+			CreationController.initBreastSizeListeners(true);
+			CreationController.initNipplePuffinessListeners();
+			CreationController.initNippleSizeListeners();
+			CreationController.initLactationCapacityListeners();
+		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_BODY_HAIR)) {
+			CoveringController.initAssHairListeners();
+			CoveringController.initFacialHairListeners();
+			CoveringController.initPubicHairListeners();
+			CoveringController.initUnderarmHairListeners();
+		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_CORE)) {
+			CreationController.initBodySizeListeners();
+			CreationController.initHeightListeners();
+			CreationController.initMuscleListeners();
+		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_FACE)) {
+			CreationController.initLipSizeListeners();
+			CreationController.initLipPuffinessListeners();
+		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_GENITALS)) {
+			if (Main.game.getPlayer().hasPenis()) {
+				CreationController.initPenisSizeListeners(true);
+				CreationController.initTesticleSizeListeners(true);
+				CreationController.initPenisCumProductionListeners();
+			} else {
+				CreationController.initClitorisSizeListeners(true);
+				CreationController.initLabiaSizeListeners();
+				CreationController.initVaginaCapacityListeners();
+			}
+		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_HAIR)) {
+			CoveringController.initHairLengthListeners();
+			CoveringController.initHairStyleListeners();
+		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_PIERCINGS)
+				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_PIERCINGS)
+				|| currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_COSMETICS_PIERCINGS)
+				|| currentNode.equals(SuccubisSecrets.SHOP_BEAUTY_SALON_PIERCINGS)) {
+			CoveringController.initPiercingsListeners();
+		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS)
+				|| currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_TATTOOS)
+				|| currentNode.equals(CosmeticsDialogue.BEAUTICIAN_TATTOOS)
+				|| currentNode.equals(SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS)) {
+			CreationController.initTattooInfoListeners(currentNode);
+		} else if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS_ADD)
+				|| currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_TATTOOS_ADD)
+				|| currentNode.equals(CosmeticsDialogue.BEAUTICIAN_TATTOOS_ADD)
+				|| currentNode.equals(SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS_ADD)) {
+			CreationController.initTattooAddListeners();
+		} else if (currentNode.equals(CharacterCreation.CHOOSE_APPEARANCE)) {
+			CreationController.initAgeListeners();
+			CreationController.initBirthdayListeners();
+			CreationController.initFemininityPresetListeners();
+			CreationController.initGenderListeners();
+			CreationController.initOrientationListeners();
+			CreationController.initPersonalityListeners();
+		} else if (currentNode.equals(CharacterCreation.CHOOSE_SEX_EXPERIENCE)
+				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_FINISH)) {
+			CreationController.initSexExperienceListeners();
+			CreationController.initFetishListeners();
+		} else if (currentNode.equals(CharacterCreation.IMPORT_CHOOSE)) {
+			FileController.initPlayerImportListeners();
+		} else if (currentNode.equals(CharactersPresentDialogue.MENU)) {
+			FileController.initArtworkListeners();
+			MiscController.initPerkListeners(currentNode);
+		} else if (currentNode.equals(CityHall.LODGER_IMPORT)) {
+			FileController.initLodgerImportListeners();
+		} else if (currentNode.equals(CityHall.CITY_HALL_WAITING_AREA_LODGER_LIST)) {
+			FileController.initLodgerWaitingListeners();
+		} else if (currentNode.equals(NightlifeDistrict.WATERING_HOLE_IMPORT)) {
+			FileController.initClubberImportListeners();
+		} else if (currentNode.equals(CombatMovesSetup.COMBAT_MOVES_CORE)) {
+			MiscController.initCombatMoveListeners();
+		} else if (currentNode.equals(CompanionManagement.OCCUPANT_CHOOSE_NAME)
+				|| currentNode.equals(ElementalDialogue.ELEMENTAL_CHOOSE_NAME)) {
+			MiscController.initRenameListeners();
+		} else if (currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_INSPECT)
+				|| currentNode.equals(PhoneDialogue.CONTACTS_CHARACTER)
+				|| currentNode.equals(PhoneDialogue.CHARACTER_APPEARANCE)) {
+			FileController.initArtworkListeners();
+		} else if (currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_JOBS)) {
+			OccupantController.initSlaveJobListeners();
+		} else if (currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_PERMISSIONS)) {
+			OccupantController.initSlavePermissionsListeners();
+		} else if (currentNode.equals(CharactersPresentDialogue.PERKS)
+				|| currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_PERKS)
+				|| currentNode.equals(ElementalDialogue.ELEMENTAL_PERKS)
+				|| currentNode.equals(PhoneDialogue.CHARACTER_APPEARANCE)
+				|| currentNode.equals(PhoneDialogue.CHARACTER_PERK_TREE)) {
+			MiscController.initPerkListeners(currentNode);
+		} else if (currentNode.equals(DebugDialogue.SPAWN_MENU)
+				|| currentNode.equals(DebugDialogue.ITEM_VIEWER)) {
+			DebugController.initSpawnItemListeners();
+		} else if (currentNode.equals(DebugDialogue.SPAWN_MENU_SET)) {
+			DebugController.initSpawnSetListeners();
+		} else if (currentNode.equals(ElementalDialogue.ELEMENTAL_FETISHES)
+				|| currentNode.equals(PhoneDialogue.CHARACTER_FETISHES)) {
+			MiscController.initFetishListeners();
+		} else if (currentNode.equals(EnchantmentDialogue.ENCHANTMENT_MENU)) {
+			EnchantmentController.initEnchantmentMenuListeners();
+		} else if (currentNode.equals(EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD)) {
+			FileController.initEnchantmentSaveLoadListeners();
+		} else if (currentNode.equals(GenericOffspringDialogue.OFFSPRING_ENCOUNTER_CHOOSE_NAME)) {
+			MiscController.initFamilyRenameListeners();
+		} else if (currentNode.equals(GiftDialogue.GIFT_DIALOGUE)) {
+			MiscController.initGiftListeners();
+		} else if (currentNode.getDialogueNodeType() == DialogueNodeType.INVENTORY) {
+			if (currentNode.equals(InventoryDialogue.DYE_CLOTHING)
+					|| currentNode.equals(InventoryDialogue.DYE_CLOTHING_CHARACTER_CREATION)
+					|| currentNode.equals(InventoryDialogue.DYE_EQUIPPED_CLOTHING)
+					|| currentNode.equals(InventoryDialogue.DYE_EQUIPPED_CLOTHING_CHARACTER_CREATION)) {
+				InventoryController.initClothingDyeListeners();
+				InventoryController.initPatternListeners();
+				InventoryController.initPatternRecolourListeners();
+				InventoryController.initStickerListeners();
+			} else if (currentNode.equals(InventoryDialogue.DYE_WEAPON)
+					|| currentNode.equals(InventoryDialogue.DYE_EQUIPPED_WEAPON)) {
+				InventoryController.initWeaponDyeListeners();
+				InventoryController.initDamageTypeListeners();
+			} else {
+				InventoryController.initInventoryListeners();
+			}
+		} else if (currentNode.equals(Library.DOMINION_MAP)) {
+			MiscController.initMapListeners(WorldType.DOMINION, false);
+		} else if (currentNode.equals(LilayaMilkingRoomDialogue.MILKING_ROOM)) {
+			MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(Main.game.getPlayerCell().getType(), Main.game.getPlayerCell().getLocation());
+			for (FluidStored fluid : room.getFluidsStored()) {
+				OccupantController.fluidHandler(room, fluid);
+			}
+		} else if (currentNode.equals(OccupantManagementDialogue.ROOM_MANAGEMENT)) {
+			OccupantController.initRoomManagerListeners();
+		} else if (currentNode.equals(OccupantManagementDialogue.ROOM_UPGRADES)) {
+			OccupantController.initRoomUpgradesListeners();
+		} else if (currentNode.equals(OccupantManagementDialogue.SLAVE_LIST)
+				|| currentNode.equals(OccupantManagementDialogue.SLAVE_LIST_MANAGEMENT)) {
+			OccupantController.initOccupantListListeners();
+			if (Main.game.getDialogueFlags().getSlaveTrader() != null) {
+				OccupantController.initSlaveTraderListeners();
+			}
+		} else if (currentNode.equals(OccupantManagementDialogue.OCCUPANT_OVERVIEW)) {
+			OccupantController.initOverviewListeners();
+		} else if (currentNode.equals(OptionsDialogue.AGE_PREFERENCE)) {
+			OptionsController.initAgeListeners();
+		} else if (currentNode.equals(OptionsDialogue.BODIES)) {
+			OptionsController.initBodiesListeners();
+		} else if (currentNode.equals(OptionsDialogue.GAMEPLAY)) {
+			OptionsController.initGameplayListeners();
+		} else if (currentNode.equals(OptionsDialogue.GENDER_PREFERENCE)) {
+			OptionsController.initGenderListeners();
+		} else if (currentNode.equals(OptionsDialogue.FETISH_PREFERENCE)) {
+			OptionsController.initFetishListeners();
+		} else if (currentNode.equals(OptionsDialogue.FURRY_PREFERENCE)) {
+			OptionsController.initFurryListeners();
+		} else if (currentNode.equals(OptionsDialogue.IMPORT_EXPORT)) {
+			FileController.initImportExportListeners();
+		} else if (currentNode.equals(OptionsDialogue.KEYBINDS)) {
+			OptionsController.initKeybindListeners();
+		} else if (currentNode.equals(OptionsDialogue.MISCELLANEOUS)) {
+			OptionsController.initMiscellaneousListeners();
+		} else if (currentNode.equals(OptionsDialogue.ORIENTATION_PREFERENCE)) {
+			OptionsController.initOrientationListeners();
+		} else if (currentNode.equals(OptionsDialogue.SAVE_LOAD)) {
+			FileController.initSaveLoadListeners();
+		} else if (currentNode.equals(OptionsDialogue.SEX)) {
+			OptionsController.initSexListeners();
+		} else if (currentNode.equals(OptionsDialogue.UNIT_PREFERENCE)) {
+			OptionsController.initUnitListeners();
+		} else if (currentNode.equals(PhoneDialogue.CLOTHING_CATALOGUE)) {
+			MiscController.initEncyclopediaClothingListeners();
+		} else if (currentNode.equals(PhoneDialogue.ITEM_CATALOGUE)) {
+			MiscController.initEncyclopediaItemListeners();
+		} else if (currentNode.equals(PhoneDialogue.MAP)) {
+			MiscController.initMapListeners(PhoneDialogue.worldTypeMap, true);
+		} else if (currentNode.equals(PhoneDialogue.WEAPON_CATALOGUE)) {
+			MiscController.initEncyclopediaWeaponListeners();
+		} else if (currentNode.equals(RoomPlayer.ROOM_SET_ALARM)) {
+			MiscController.initAlarmListeners();
+		} else if (currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY)) {
+			CreationController.initAffectionListeners();
+			CreationController.initAgeListeners();
+			CreationController.initFetishListeners();
+			CreationController.initObedienceListeners();
+			CreationController.initOrientationListeners();
+			CreationController.initPersonalityListeners();
+			MiscController.initRenameListeners();
+		} else if (currentNode.equals(SlaverAlleyDialogue.AUCTION_BLOCK_LIST)) {
+			FileController.initAuctionListeners();
+		} else if (currentNode.equals(SlaverAlleyDialogue.AUCTION_IMPORT)) {
+			FileController.initSlaveImportListeners();
+		} else if (currentNode.equals(SpellManagement.CHARACTER_SPELLS_ARCANE)) {
+			MiscController.initSpellListeners(SpellSchool.ARCANE);
+		} else if (currentNode.equals(SpellManagement.CHARACTER_SPELLS_AIR)) {
+			MiscController.initSpellListeners(SpellSchool.AIR);
+		} else if (currentNode.equals(SpellManagement.CHARACTER_SPELLS_EARTH)) {
+			MiscController.initSpellListeners(SpellSchool.EARTH);
+		} else if (currentNode.equals(SpellManagement.CHARACTER_SPELLS_FIRE)) {
+			MiscController.initSpellListeners(SpellSchool.FIRE);
+		} else if (currentNode.equals(SpellManagement.CHARACTER_SPELLS_MISC)) {
+			MiscController.initSpellListeners(null);
+		} else if (currentNode.equals(SpellManagement.CHARACTER_SPELLS_WATER)) {
+			MiscController.initSpellListeners(SpellSchool.WATER);
+		} else if (currentNode.equals(SuccubisSecrets.SHOP_BEAUTY_SALON_OTHER)) {
+			CoveringController.initBleachingListeners();
+		} else if (currentNode.equals(SuccubisSecrets.SHOP_BEAUTY_SALON_HAIR)) {
+			CoveringController.initHairLengthListeners();
+			CoveringController.initHairStyleListeners();
+		}
+		setResponseEventListeners();
 	}
 	
 	public static void setResponseEventListeners() {
@@ -1228,133 +1694,6 @@ public class MainController implements Initializable {
 		}
 	}
 	
-	static void setMapLocationListeners(Cell c, int i, int j) {
-		String id = "MAP_NODE_" + i + "_" + j;
-
-		if (((EventTarget) document.getElementById(id)) != null) {
-			addEventListener(document, id, "mousemove", moveTooltipListener, false);
-			addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-			
-			boolean moveFromMapMenu = Main.game.getCurrentDialogueNode()==PhoneDialogue.MAP;
-			AbstractWorldType worldType = moveFromMapMenu?PhoneDialogue.worldTypeMap:Main.game.getPlayer().getWorldLocation();
-			
-			TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setCell(c);
-			
-			addEventListener(document, id, "mouseenter", el2, false);
-			
-			if(Main.game.getCurrentDialogueNode() == PhoneDialogue.MAP) { // Do not allow fast travel from the library map
-				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-					Vector2i clickLocation = new Vector2i(j, i);
-					
-					if(Main.game.getWorlds().get(worldType).getCell(clickLocation).getDialogue(false)!=null // Make sure the destination actually has an associated DialogueNode
-							&& (c.isTravelledTo() || Main.game.isDebugMode()) // The player needs to have travelled here before (or have debug active)
-							&& (Main.game.getSavedDialogueNode()!=null && !Main.game.getSavedDialogueNode().isTravelDisabled()) // You can't fast travel out of a special dialogue
-							&& Pathing.getMapTravelType().isAvailable(c, Main.game.getPlayer()) // Make sure the travel type is actually available
-							) {
-						if(!clickLocation.equals(Main.game.getPlayer().getLocation()) || !worldType.equals(Main.game.getPlayer().getWorldLocation())) {
-							switch(Pathing.getMapTravelType()) {
-								case TELEPORT:
-									if(clickLocation.equals(Pathing.getEndPoint())) {
-										if(!Main.game.isDebugMode()) {
-											Main.game.getPlayer().incrementMana(-Spell.TELEPORT.getModifiedCost(Main.game.getPlayer()));
-										}
-										Main.game.getPlayer().setLocation(PhoneDialogue.worldTypeMap, clickLocation, false);
-										DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true);
-										Main.game.getTextStartStringBuilder().append(
-												"<p style='text-align:center'>"
-													+ "[style.italicsArcane(Recalling what your destination looked like the last time you were there, you cast the teleportation spell, and in an instant, you appear there!)]"
-												+ "</p>");
-										Main.game.setContent(new Response("", "", dn) {
-											@Override
-											public int getSecondsPassed() {
-												return 5;
-											}
-										});
-										
-									} else {
-										Pathing.setEndPoint(clickLocation, Main.game.getWorlds().get(PhoneDialogue.worldTypeMap).getCell(clickLocation), null);
-										Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-									}
-									break;
-								case FLYING:
-									if(worldType.equals(Main.game.getPlayer().getWorldLocation())) {
-										if(clickLocation.equals(Pathing.getEndPoint())) {
-											if(Pathing.isImpossibleDestination()) {
-												Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot travel here!");
-											} else {
-												Main.game.getPlayer().setLocation(PhoneDialogue.worldTypeMap, new Vector2i(j, i), false);
-												DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true);
-												Main.game.getTextStartStringBuilder()
-													.append("<p style='text-align:center'>[style.italicsAir(")
-													.append(!Main.game.getPlayer().isAbleToFlyFromExtraParts() ? "With a flap of your wings, you" : "You")
-													.append(" launch yourself into the air, before swiftly flying to your destination!)]</p>");
-												Main.game.setContent(new Response("", "", dn) {
-													@Override
-													public int getSecondsPassed() {
-														return Pathing.getTravelTime();
-													}
-												});
-											}
-											
-										} else {
-											Pathing.setEndPoint(clickLocation, Main.game.getWorlds().get(PhoneDialogue.worldTypeMap).getCell(clickLocation), worldType);
-											Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-										}
-									}
-									break;
-								case WALK_DANGEROUS:
-									if(worldType.equals(Main.game.getPlayer().getWorldLocation())) {
-										if(clickLocation.equals(Pathing.getEndPoint())) {
-											if(Pathing.isImpossibleDestination()) {
-												Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot travel here!");
-											} else {
-												Main.game.setContent(Pathing.walkPath(Pathing.getMapTravelType()));
-											}
-											
-										} else {
-											if(Main.mainController.buttonsPressed.contains(KeyCode.SHIFT)) {
-												Pathing.appendPathingCells(Pathing.aStarPathing(Main.game.getWorlds().get(worldType).getCellGrid(), Pathing.getEndPoint(), clickLocation, false), clickLocation);
-											} else {
-												Pathing.setPathingCells(Pathing.aStarPathing(Main.game.getWorlds().get(worldType).getCellGrid(), Main.game.getPlayer().getLocation(), clickLocation, false), clickLocation);
-											}
-											Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-										}
-									}
-									break;
-								case WALK_SAFE:
-									if(worldType.equals(Main.game.getPlayer().getWorldLocation())) {
-										if(clickLocation.equals(Pathing.getEndPoint())) {
-											if(Pathing.isImpossibleDestination()) {
-												Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot travel here!");
-											} else {
-												Main.game.setContent(Pathing.walkPath(Pathing.getMapTravelType()));
-											}
-											
-										} else {
-											if(Main.mainController.buttonsPressed.contains(KeyCode.SHIFT)) {
-												Pathing.appendPathingCells(Pathing.aStarPathing(Main.game.getWorlds().get(worldType).getCellGrid(), Pathing.getEndPoint(), clickLocation, true), clickLocation);
-											} else {
-												Pathing.setPathingCells(Pathing.aStarPathing(Main.game.getWorlds().get(worldType).getCellGrid(), Main.game.getPlayer().getLocation(), clickLocation, true),  clickLocation);
-											}
-											Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-										}
-									}
-									break;
-							}
-						}
-					} else {
-						if(!c.isTravelledTo()) {
-							Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot fast-travel to unexplored locations!");
-						} else {
-							Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot travel here!");
-						}
-					}
-					
-				}, false);
-			}
-		}
-	}
-	
 	private static void setResponseTabListeners(int responsePageCounter) {
 		String id = "tab_" + responsePageCounter;
 
@@ -1362,32 +1701,6 @@ public class MainController implements Initializable {
 				Main.game.setResponseTab(responsePageCounter);
 				Main.game.updateResponses();
 			}, false);
-	}
-	
-	static void allocateWorkTime(int i) {
-		String id = i+"_WORK";
-		if (((EventTarget) document.getElementById(id)) != null) {
-			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				SlaveJob job = Main.game.getDialogueFlags().getSlaveryManagerJobSelected();
-				if(Main.game.getDialogueFlags().getManagementCompanion().getSlaveJob(i)==job) {
-					Main.game.getDialogueFlags().getManagementCompanion().setSlaveJob(i, SlaveJob.IDLE);
-				} else {
-					Main.game.getDialogueFlags().getManagementCompanion().setSlaveJob(i, job);
-				}
-				Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getManagementCompanion())));
-			}, false);
-			
-		} else {
-			id = i+"_WORK_DISABLED";
-			if (((EventTarget) document.getElementById(id)) != null) {
-				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
-						"[style.colourBad(Unavailable Time Slot)]",
-						Main.game.getDialogueFlags().getSlaveryManagerJobSelected().getAvailabilityText(i, Main.game.getDialogueFlags().getManagementCompanion()));
-				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-			}
-		}
 	}
 	
 	static void setInventoryPageLeft(int i) {
@@ -1413,127 +1726,6 @@ public class MainController implements Initializable {
 		if (((EventTarget) document.getElementById(id)) != null) {
 			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 				RenderingEngine.setPageRight(i);
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
-		}
-	}
-	
-	static void setBreastCountListener(int i) {
-		String id = "BREAST_COUNT_"+i;
-		if (((EventTarget) document.getElementById(id)) != null) {
-			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				BodyChanging.getTarget().setBreastRows(i);
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
-		}
-	}
-	
-	static void setBreastCrotchCountListener(int i) {
-		String id = "CROTCH_BOOB_COUNT_"+i;
-		if (((EventTarget) document.getElementById(id)) != null) {
-			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				BodyChanging.getTarget().setBreastCrotchRows(i);
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
-		}
-	}
-	
-	static void setNippleCountListener(int i) {
-		String id = "NIPPLE_COUNT_"+i;
-		if (((EventTarget) document.getElementById(id)) != null) {
-			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				BodyChanging.getTarget().setNippleCountPerBreast(i);
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
-		}
-	}
-	
-	static void setNippleCrotchCountListener(int i) {
-		String id = "NIPPLE_CROTCH_COUNT_"+i;
-		if (((EventTarget) document.getElementById(id)) != null) {
-			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				BodyChanging.getTarget().setNippleCrotchCountPerBreast(i);
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
-		}
-	}
-	
-	static void setArmCountListener(int i) {
-		String id = "ARM_COUNT_"+i;
-		if (((EventTarget) document.getElementById(id)) != null) {
-			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				BodyChanging.getTarget().setArmRows(i);
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
-		}
-	}
-	
-	static void setAntennaCountListener(int i) {
-		String id = "ANTENNA_COUNT_"+i;
-		if (((EventTarget) document.getElementById(id)) != null) {
-			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				BodyChanging.getTarget().setAntennaRows(i);
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
-		}
-	}
-	
-	static void setAntennaePerRowCountListener(int i) {
-		String id = "ANTENNA_COUNT_PER_ROW_"+i;
-		if (((EventTarget) document.getElementById(id)) != null) {
-			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				BodyChanging.getTarget().setAntennaePerRow(i);
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
-		}
-	}
-	
-	static void setHornCountListener(int i) {
-		String id = "HORN_COUNT_"+i;
-		if (((EventTarget) document.getElementById(id)) != null) {
-			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				BodyChanging.getTarget().setHornRows(i);
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
-		}
-	}
-	
-	static void setHornsPerRowCountListener(int i) {
-		String id = "HORN_COUNT_PER_ROW_"+i;
-		if (((EventTarget) document.getElementById(id)) != null) {
-			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				BodyChanging.getTarget().setHornsPerRow(i);
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
-		}
-	}
-	
-	static void setEyeCountListener(int i) {
-		String id = "EYE_COUNT_"+i;
-		if (((EventTarget) document.getElementById(id)) != null) {
-			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				BodyChanging.getTarget().setEyePairs(i);
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
-		}
-	}
-	
-	static void setTailCountListener(int i) {
-		String id = "TAIL_COUNT_"+i;
-		if (((EventTarget) document.getElementById(id)) != null) {
-			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				BodyChanging.getTarget().setTailCount(i, BodyChanging.isDebugMenu());
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
-		}
-	}
-	
-	
-	static void setTesticleCountListener(int i) {
-		String id = "TESTICLE_COUNT_"+i;
-		if (((EventTarget) document.getElementById(id)) != null) {
-			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				BodyChanging.getTarget().setTesticleCount(i);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
@@ -1940,12 +2132,12 @@ public class MainController implements Initializable {
 							Main.sex.recalculateSexActions();
 							updateUI();
 							Main.game.updateResponses();
-								
+							
 						} else if(Main.game.isInCombat()) {
 							Main.combat.setTargetedCombatant((NPC) character);
 							updateUI();
 							Main.game.updateResponses();
-								
+							
 						} else {
 							openCharactersPresent(character);
 						}
@@ -2221,7 +2413,7 @@ public class MainController implements Initializable {
 					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
 					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setItem(entry.getKey(), null, null);
-					addEventListener(documentRight, id, "mouseenter", el2, false);	
+					addEventListener(documentRight, id, "mouseenter", el2, false);
 				}
 			}
 		}
@@ -2467,18 +2659,18 @@ public class MainController implements Initializable {
 	/**
 	 * Sets the tooltip content, and returns the pixel height
 	 * of the resultant tooltip content.
-	 * 
+	 *
 	 * To calculate height, wraps the content in a #sizing-box
 	 * div, and checks that element's height.
-	 * 
+	 *
 	 * This does not set the tooltip height, but only measures
 	 * the content height. The tooltip must be manually
 	 * resized as needed.
-	 * 
+	 *
 	 * Additionally, this should be called before setting the
 	 * tooltip position, if that requires knowledge of the
 	 * final height.
-	 * 
+	 *
 	 * @param content HTML content to display in the tooltip
 	 * @return the calculated height of the tooltip content
 	 */

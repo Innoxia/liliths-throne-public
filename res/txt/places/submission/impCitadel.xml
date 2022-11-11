@@ -78,7 +78,7 @@
 		The six imps are no match for you, and you let out a triumphant laugh as the last of them falls to the floor, defeated.
 	</p>
 	<p>
-		Before you're able to take a breather, however, another group of imps arrive from elsewhere in the citadel, and jump forwards to avenge their fallen comrades!
+		Before you're able to take a breather, however, another group of imps arrives from elsewhere in the citadel, and jump forwards to avenge their fallen comrades!
 	</p>
 	]]>
 	</htmlContent>
@@ -143,7 +143,7 @@
 		[npc.speech(Stop it!)] [npc.name] scream, [npc.speech(Don't do it! I don't want to be a slave!)]
 	</p>
 	<p>
-		Grinning at this last defeated imp, you wonder whether you should enslaving [npc.herHim] as well, or leave [npc.herHim] be...
+		Grinning at this last defeated imp, you wonder whether you should be enslaving [npc.herHim] as well, or leave [npc.herHim] be...
 	</p>
 	]]>
 	</htmlContent>
@@ -268,7 +268,7 @@
 		[npc.speech(Hah! What was all that about?!)] [npc.name] sneers, stepping forwards to grin hungrily down at you. [npc.speech(I bet yer was just hopin' we'd win, so that we'd give yer a good fucking!)]
 	</p>
 	<p>
-		The other imps all agree with their leader, and quickly conclude that you only started this fight in the hopes that they'd beat and fuck you. Before you can say anything to the contrary, they've convinced themselves that this must be your fetish, and agree amongst one another that they'd be more than happy to help indulge you in it. Before you know what's happing, the imps are swarming all over you, and as they push you into position, [npc.name] calls out, [npc.speech(Let's give [pc.herHim] what [pc.she] wants; a good, hard, fuckin'!)]
+		The other imps all agree with their leader, and quickly conclude that you only started this fight in the hopes that they'd beat and fuck you. Before you can say anything to the contrary, they've convinced themselves that this must be your fetish, and agree amongst one another that they'd be more than happy to help indulge you in it. Before you know what's happening, the imps are swarming all over you, and as they push you into position, [npc.name] calls out, [npc.speech(Let's give [pc.herHim] what [pc.she] wants; a good, hard, fuckin'!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1401,7 +1401,7 @@
 	
 	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_RESIST"><![CDATA[
 	<p>
-		You don't like the sound of that, and, as [siren.name] sits back on her throne to watch, you desperately struggle against the thee demons as they force you into position, ready to fuck you...
+		You don't like the sound of that, and, as [siren.name] sits back on her throne to watch, you desperately struggle against the three demons as they force you into position, ready to fuck you...
 	</p>
 	]]>
 	</htmlContent>

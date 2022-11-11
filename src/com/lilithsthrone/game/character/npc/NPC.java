@@ -82,7 +82,10 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.SetBonus;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
@@ -137,6 +140,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	protected Gender genderPreference = null;
 	protected AbstractSubspecies subspeciesPreference = null;
 	protected RaceStage raceStagePreference = null;
+
+	// Tracks what items/clothing should be generated for this NPC:
+	protected boolean generateExtraItems;
+	protected boolean generateDisposableClothing;
+	protected boolean generateExtraClothing;
 	
 	protected NPC(boolean isImported,
 			NameTriplet nameTriplet,
@@ -163,6 +171,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		List<NPCGenerationFlag> flags = Arrays.asList(generationFlags);
 		
 		this.addedToContacts = addedToContacts;
+		
+		this.generateExtraItems = false;
+		this.generateDisposableClothing = false;
+		this.generateExtraClothing = false;
 		
 		sexPositionPreferences = new HashSet<>();
 		
@@ -325,6 +337,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		XMLUtil.createXMLElementWithValue(doc, npcSpecific, "playerSurrenderCount", String.valueOf(playerSurrenderCount));
 		XMLUtil.createXMLElementWithValue(doc, npcSpecific, "addedToContacts", String.valueOf(addedToContacts));
 
+		XMLUtil.createXMLElementWithValue(doc, npcSpecific, "generateExtraItems", String.valueOf(generateExtraItems));
+		XMLUtil.createXMLElementWithValue(doc, npcSpecific, "generateDisposableClothing", String.valueOf(generateDisposableClothing));
+		XMLUtil.createXMLElementWithValue(doc, npcSpecific, "generateExtraClothing", String.valueOf(generateExtraClothing));
+		
 		Element valuesElement = doc.createElement("NPCValues");
 		npcSpecific.appendChild(valuesElement);
 		for(NPCFlagValue value : NPCFlagValues) {
@@ -350,19 +366,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		if(npcSpecificElement!=null) {
 			npc.setLastTimeEncountered(Long.valueOf(((Element)npcSpecificElement.getElementsByTagName("lastTimeEncountered").item(0)).getAttribute("value")));
 			
-			// Moved to GameCharacter element some time long ago...
-//			Element e = (Element)npcSpecificElement.getElementsByTagName("lastTimeHadSex").item(0);
-//			if(e!=null) {
-//				npc.setLastTimeHadSex(Long.valueOf(e.getAttribute("value")), false);
-//			}
-//			
-//			e = (Element)npcSpecificElement.getElementsByTagName("lastTimeOrgasmed").item(0);
-//			if(e!=null) {
-//				npc.setLastTimeOrgasmed(Long.valueOf(e.getAttribute("value")));
-//			} else {
-//				npc.setLastTimeOrgasmed(npc.getLastTimeHadSex());
-//			}
-			
 			npc.setBuyModifier(Float.valueOf(((Element)npcSpecificElement.getElementsByTagName("buyModifier").item(0)).getAttribute("value")));
 			npc.setSellModifier(Float.valueOf(((Element)npcSpecificElement.getElementsByTagName("sellModifier").item(0)).getAttribute("value")));
 			if(((Element)npcSpecificElement.getElementsByTagName("playerSurrenderCount").item(0))!=null) {
@@ -370,6 +373,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			}
 			npc.addedToContacts = (Boolean.valueOf(((Element)npcSpecificElement.getElementsByTagName("addedToContacts").item(0)).getAttribute("value")));
 		
+
+			if(((Element)npcSpecificElement.getElementsByTagName("generateExtraItems").item(0))!=null) {
+				npc.generateExtraItems = (Boolean.valueOf(((Element)npcSpecificElement.getElementsByTagName("generateExtraItems").item(0)).getAttribute("value")));
+			}
+			if(((Element)npcSpecificElement.getElementsByTagName("generateDisposableClothing").item(0))!=null) {
+				npc.generateDisposableClothing = (Boolean.valueOf(((Element)npcSpecificElement.getElementsByTagName("generateDisposableClothing").item(0)).getAttribute("value")));
+			}
+			if(((Element)npcSpecificElement.getElementsByTagName("generateExtraClothing").item(0))!=null) {
+				npc.generateExtraClothing = (Boolean.valueOf(((Element)npcSpecificElement.getElementsByTagName("generateExtraClothing").item(0)).getAttribute("value")));
+			}
 	
 			NodeList npcValues = ((Element) npcSpecificElement.getElementsByTagName("NPCValues").item(0)).getElementsByTagName("NPCValue");
 			for(int i = 0; i < npcValues.getLength(); i++){
@@ -1028,7 +1041,33 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public int getLootEssenceDrops() {
 		return Util.random.nextInt(this.getLevel())+1;
 	}
-	
+
+	// Item generation:
+
+	public boolean isGenerateExtraItems() {
+		return generateExtraItems;
+	}
+
+	public void setGenerateExtraItems(boolean generateExtraItems) {
+		this.generateExtraItems = generateExtraItems;
+	}
+
+	public boolean isGenerateDisposableClothing() {
+		return generateDisposableClothing;
+	}
+
+	public void setGenerateDisposableClothing(boolean generateDisposableClothing) {
+		this.generateDisposableClothing = generateDisposableClothing;
+	}
+
+	public boolean isGenerateExtraClothing() {
+		return generateExtraClothing;
+	}
+
+	public void setGenerateExtraClothing(boolean generateExtraClothing) {
+		this.generateExtraClothing = generateExtraClothing;
+	}
+
 	
 	// Relationships:
 	
@@ -1048,7 +1087,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			} else if(StatusEffect.OVERWORKED_3.isConditionsMet(this)) {
 				overworkedPenalty = 0f;
 			}
-			float affectionGain = Math.round(job.getAffectionGain(hour, this)*100)/100f;
+			float affectionGain = Math.round(job.getAffectionGain(this)*100)/100f;
 			return Math.min(affectionGain, affectionGain*overworkedPenalty);
 		}
 	}
@@ -1510,7 +1549,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		boolean vaginaSet = target.getVaginaType()==body.getVagina().getType();
 		boolean penisSet = target.getPenisType()==body.getPenis().getType();
 		boolean humanGenitals = false;
-		boolean applyingCrotchBoobTF = Main.getProperties().getUddersLevel()==2 || (target.isTaur() && Main.getProperties().getUddersLevel()==1);
+		boolean applyingCrotchBoobTF = Main.game.isUdderContentEnabled();
 		
 		if(Main.getProperties().getForcedTFPreference()==FurryPreference.HUMAN || Main.getProperties().getForcedTFPreference()==FurryPreference.MINIMUM) {
 			humanGenitals = true;
@@ -2817,7 +2856,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_SUBMISSIVE, "Give in to it, and admit that you want nothing more than to be my plaything.");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_SUBMISSIVE, "Sometimes it's nice to get what you want too, right?");
 		
-		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_CUM_STUD, "Nothing really compares to filling a juicy hole hole with your seed, right?");
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_CUM_STUD, "Nothing really compares to filling a juicy hole with your seed, right?");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_CUM_STUD, "Sex should be about the journey, not the destination.");
 		
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_CUM_ADDICT, "I know a dirty little cum dumpster when I see one.");
@@ -2949,6 +2988,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return this.getFetishDesire(Fetish.FETISH_CUM_ADDICT).isNegative() || (this.hasVagina() && !this.isVisiblyPregnant() && !this.getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive());
 	}
 
+	/**
+	 *  Finds an item of clothing from this character's inventory that this character wants to equip.
+	 *  <br/>Handles condom equipping.
+	 */
 	public Value<AbstractClothing, String> getSexClothingToSelfEquip(GameCharacter partner, boolean inQuickSex) {
 		if(Main.game.isInSex() && (inQuickSex || !Main.sex.getInitialSexManager().isPartnerWantingToStopSex(this))) {
 			if(this.hasPenisIgnoreDildo()
@@ -2964,6 +3007,93 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				if(condom!=null && this.isAbleToEquip(condom, inQuickSex, this)) {
 //					System.out.println("Condom");
 					return new Value<>(condom, UtilText.parse(this, "[npc.Name] grabs a "+condom.getName()+" from out of [npc.her] inventory..."));
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 *  Finds an item of clothing from this character's inventory that this character wants to equip on the targeted partner.
+	 *  <br/>Handles condom equipping.
+	 */
+	public Value<AbstractClothing, String> getSexClothingToEquip(GameCharacter partner, boolean inQuickSex) {
+		if(Main.game.isInSex() && (inQuickSex || !Main.sex.getInitialSexManager().isPartnerWantingToStopSex(this))) {
+			// Condoms:
+			if(partner.hasPenisIgnoreDildo()
+					&& partner.getClothingInSlot(InventorySlot.PENIS)==null
+					&& isWantingToEquipCondomOnPartner(partner)) {
+				AbstractClothing condom = null;
+				for(AbstractClothing clothing : this.getAllClothingInInventory().keySet()) {
+					if(clothing.isCondom()) {
+						condom = clothing;
+						break;
+					}
+				}
+				if(condom!=null && partner.isAbleToEquip(condom, inQuickSex || !Main.sex.isInForeplay(this), this)) { // Auto management in quick sex and if this NPC is past foreplay, as as otherwise clothing removals would take forever
+					return new Value<>(condom, UtilText.parse(this, "[npc.Name] grabs a "+condom.getName()+" from out of [npc.her] inventory..."));
+				}
+			}
+			
+			// Other clothing (only doms equip clothing on sub partners during sex):
+			if(Main.sex.isDom(this) && !Main.sex.isDom(partner)) {
+				Map<AbstractClothing, Integer> availableClothingInInventory = new HashMap<>(this.getAllClothingInInventory());
+				// Remove clothing from available map if this clothing has been unequipped from the NPC (to prevent the NPC from equipping their own clothing onto their partner)
+				for(Entry<InventorySlot, Map<AbstractClothing, List<DisplacementType>>> entry : Main.sex.getClothingPreSexMap().get(this).entrySet()) {
+					for(AbstractClothing clothing : entry.getValue().keySet()) {
+						for(AbstractClothing c : new HashSet<>(availableClothingInInventory.keySet())) {
+							if(c.equalsWithoutEquippedSlot(clothing) && availableClothingInInventory.get(c)==1) {
+								availableClothingInInventory.remove(c);
+							}
+						}
+					}
+				}
+				
+				for(AbstractClothing clothing : availableClothingInInventory.keySet()) {
+					boolean wantsToEquip = false;
+					if(clothing.getClothingType().getDefaultItemTags().contains(ItemTag.ENABLE_SEX_EQUIP)) {
+						// Sex toys (NPC will not equip sex toys that block the areas they're interested in):
+						if(clothing.getBlockedPartsMap(partner, clothing.getClothingType().getEquipSlots().get(0)).stream().anyMatch(bp->bp.blockedBodyParts.contains(CoverableArea.PENIS)) && partner.hasPenisIgnoreDildo()) {
+							if((this.getMainSexPreference(partner)!=null && this.getMainSexPreference(partner).getTargetedSexArea()==SexAreaPenetration.PENIS)) {
+								continue;
+							}
+							wantsToEquip = true;
+						} else if(clothing.getBlockedPartsMap(partner, clothing.getClothingType().getEquipSlots().get(0)).stream().anyMatch(bp->bp.blockedBodyParts.contains(CoverableArea.VAGINA)) && partner.hasVagina()) {
+							if((this.getMainSexPreference(partner)!=null && this.getMainSexPreference(partner).getTargetedSexArea()==SexAreaOrifice.VAGINA)) {
+								continue;
+							}
+							wantsToEquip = true;
+						} else if(clothing.getBlockedPartsMap(partner, clothing.getClothingType().getEquipSlots().get(0)).stream().anyMatch(bp->bp.blockedBodyParts.contains(CoverableArea.ANUS)) && Main.game.isAnalContentEnabled()) {
+							if((this.getMainSexPreference(partner)!=null && this.getMainSexPreference(partner).getTargetedSexArea()==SexAreaOrifice.ANUS)) {
+								continue;
+							}
+							wantsToEquip = true;
+						} else if(clothing.getBlockedPartsMap(partner, clothing.getClothingType().getEquipSlots().get(0)).stream().anyMatch(bp->bp.blockedBodyParts.contains(CoverableArea.NIPPLES))) {
+							if((this.getMainSexPreference(partner)!=null && this.getMainSexPreference(partner).getTargetedSexArea()==SexAreaOrifice.NIPPLE)) {
+								continue;
+							}
+							wantsToEquip = true;
+						} else if(clothing.getBlockedPartsMap(partner, clothing.getClothingType().getEquipSlots().get(0)).stream().anyMatch(bp->bp.blockedBodyParts.contains(CoverableArea.MOUTH))) {
+							if((this.getMainSexPreference(partner)!=null && this.getMainSexPreference(partner).getTargetedSexArea()==SexAreaOrifice.MOUTH)) {
+								continue;
+							}
+							wantsToEquip = true;
+						}
+						
+						// BDSM:
+						if((clothing.getClothingType().getClothingSet()==SetBonus.getSetBonusFromId("innoxia_bdsm") || clothing.getClothingType().getClothingSet()==SetBonus.getSetBonusFromId("sage_ltxset"))) {
+							wantsToEquip = this.getFetishDesire(Fetish.FETISH_BONDAGE_APPLIER).isPositive();
+						}
+					}
+					// Always auto manage clothing, as NPCs use clothing removal methods in SexManagerDefault, so clothing additions should take place after removals.
+					// If auto management was disabled, then the NPC would equip clothing onto their partner as soon as that slot became free, which makes sex feel quite disjointed
+						// e.g. An NPC deciding to equip latex stockings on their parter only when their partner has removed their shoes.
+					if(wantsToEquip
+							&& clothing.isAbleToBeEquippedDuringSex(clothing.getClothingType().getEquipSlots().get(0)).getKey()
+							&& partner.getClothingInSlot(clothing.getClothingType().getEquipSlots().get(0))==null
+							&& partner.isAbleToEquip(clothing, true, this)) {
+						return new Value<>(clothing, UtilText.parse(this, "[npc.Name] grabs "+clothing.getName(true, true)+" from out of [npc.her] inventory..."));
+					}
 				}
 			}
 		}

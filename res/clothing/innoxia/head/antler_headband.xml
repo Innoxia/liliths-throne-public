@@ -6,7 +6,7 @@
 		<determiner><![CDATA[]]></determiner>
 		<name><![CDATA[antler headband]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[antler headbands]]></namePlural>
-		<description><![CDATA[A felt-covered headband with a pair of novelty plush reindeer antlers attached to the top..]]></description>
+		<description><![CDATA[A felt-covered headband with a pair of novelty plush reindeer antlers attached to the top.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>HEAD</slot>

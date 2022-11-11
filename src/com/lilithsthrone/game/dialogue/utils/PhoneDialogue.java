@@ -290,12 +290,7 @@ public class PhoneDialogue {
 							Main.getProperties().hasValue(PropertyValue.levelUpHightlight)
 								? "<span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>Perk Tree</span>"
 								:"Perk Tree",
-							"View your character page.", CHARACTER_PERK_TREE) {
-						@Override
-						public void effects() {
-							Main.getProperties().setValue(PropertyValue.levelUpHightlight, false);
-						}
-					};
+							"View your character page.", CHARACTER_PERK_TREE);
 					
 				} else if (index == 3) {
 					return new Response("Spells", "View your spells page.", SpellManagement.CHARACTER_SPELLS_EARTH) {
@@ -3690,7 +3685,10 @@ public class PhoneDialogue {
 	};
 
 	public static final DialogueNode CHARACTER_PERK_TREE = new DialogueNode("Perk Tree", "", true) {
-
+		@Override
+		public void applyPreParsingEffects() {
+			Main.getProperties().setValue(PropertyValue.levelUpHightlight, false);
+		}
 		@Override
 		public String getHeaderContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -3730,18 +3728,11 @@ public class PhoneDialogue {
 					}
 				};
 				
-				
 			} else if (index == 0) {
-				return new Response("Back", "Return to your phone's main menu.", MENU) {
-					@Override
-					public void effects() {
-						Main.getProperties().setValue(PropertyValue.levelUpHightlight, false);
-					}
-				};
-			
-			} else {
-				return null;
+				return new Response("Back", "Return to your phone's main menu.", MENU);
 			}
+			
+			return null;
 		}
 
 		@Override
@@ -3826,7 +3817,7 @@ public class PhoneDialogue {
 			for(AbstractFetish fetish : Fetish.getAllFetishes()) {
 				if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 					journalSB.append(
-							"<div id='fetishUnlock" + Fetish.getIdFromFetish(fetish) + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
+							"<div id='FETISH_" + Fetish.getIdFromFetish(fetish) + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
 							? " owned' style='border:2px solid " + PresetColour.FETISH.getShades()[1] + ";'>"
 							: (fetish.isAvailable(Main.game.getPlayer())
 									? " unlocked' style='border:2px solid " +  PresetColour.TEXT_GREY.toWebHexString() + ";" + "'>"
@@ -3835,8 +3826,8 @@ public class PhoneDialogue {
 							+ (Main.game.getPlayer().hasFetish(fetish) // Overlay to create disabled effect:
 									? ""
 									: (fetish.isAvailable(Main.game.getPlayer())
-											? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.5; border-radius:5px;'></div>"
-											: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>"))
+											? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); border-radius:5px;'></div>"
+											: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.7); border-radius:5px;'></div>"))
 							+ "</div>");
 				}
 			}
@@ -3890,7 +3881,7 @@ public class PhoneDialogue {
 						+getFetishDesireEntry(targetedCharacter, fetish, FetishDesire.FOUR_LOVE)
 					+ "</div>"
 					+"<div class='container-full-width' style='margin:0 8px; width: calc(22% - 16px);'>"
-						+ "<div id='fetishUnlock" + Fetish.getIdFromFetish(fetish) + "' class='fetish-icon full" + (targetedCharacter.hasFetish(fetish)
+						+ "<div id='FETISH_" + Fetish.getIdFromFetish(fetish) + "' class='fetish-icon full" + (targetedCharacter.hasFetish(fetish)
 							? " owned' style='border:2px solid " + PresetColour.FETISH.toWebHexString() + ";'>"
 							: (fetish.isAvailable(targetedCharacter)
 									? " unlocked' style='border:2px solid " + PresetColour.TEXT_GREY.toWebHexString() + ";" + "'>"
@@ -3900,8 +3891,8 @@ public class PhoneDialogue {
 										+ (targetedCharacter.hasFetish(fetish) // Overlay to create disabled effect:
 											? ""
 											: (fetish.isAvailable(targetedCharacter)
-													? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.5; border-radius:5px;'></div>"
-													: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>"))
+													? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); border-radius:5px;'></div>"
+													: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.7); border-radius:5px;'></div>"))
 						+ "</div>"
 					+ "</div>"
 					+"<div class='container-full-width' style='margin:0; padding:0; width:100%;'>"
@@ -3927,9 +3918,9 @@ public class PhoneDialogue {
 								:"")+"width:10%; margin:0 5%; float:left; cursor:pointer;'>"
 				+ "<div class='square-button-content'>"+(targetedCharacter.getFetishDesire(fetish)==desire?desire.getSVGImage():desire.getSVGImageDesaturated())+"</div>"
 				+ (targetedCharacter.hasFetish(fetish) && targetedCharacter.getFetishDesire(fetish)!=desire
-					?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; border-radius:5px;'></div>"
+					?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); border-radius:5px;'></div>"
 					:targetedCharacter.getFetishDesire(fetish)!=desire
-						?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.6; border-radius:5px;'></div>"
+						?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6); border-radius:5px;'></div>"
 						:"")
 			+ "</div>";
 	}

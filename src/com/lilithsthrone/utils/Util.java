@@ -413,6 +413,23 @@ public class Util {
 		
 		return mergedList;
 	}
+
+	@SafeVarargs
+	/**
+	 * @param collections The collections to merge.
+	 * @return A new ArrayList which contains all the elements from all collections.
+	 */
+	public static <U> ArrayList<U> mergeCollectionsToList(Collection<U>... collections) {
+		ArrayList<U> mergedList = new ArrayList<>();
+		for(Collection<U> collection : collections) {
+			if(collection!=null) {
+				for(U value : collection) {
+					mergedList.add(value);
+				}
+			}
+		}
+		return mergedList;
+	}
 	
 	@SafeVarargs
 	public static <U> HashSet<U> newHashSetOfValues(U... values) {

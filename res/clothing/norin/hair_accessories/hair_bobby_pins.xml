@@ -57,10 +57,10 @@
 	</displacementText>
 	<replacementText type="REMOVE_OR_EQUIP">
 		<self>
-		  <![CDATA[[npc.Name] [npc.verb(gather)] [npc.her] [npc.hairSkin+] and [npc.verb(slide)] in some bobby pins to keep in in place.]]>
+		  <![CDATA[[npc.Name] [npc.verb(gather)] [npc.her] [npc.hairSkin+] and [npc.verb(slide)] in some bobby pins to keep in place.]]>
 		</self>
 		<other>
-		  <![CDATA[[npc.Name] [npc.verb(gather)] [npc2.NamePos] [npc2.hairSkin+] and [npc.verb(slide)] in some bobby pins to keep in in place.]]>
+		  <![CDATA[[npc.Name] [npc.verb(gather)] [npc2.NamePos] [npc2.hairSkin+] and [npc.verb(slide)] in some bobby pins to keep in place.]]>
 		</other>
 		<otherRough>
 		  <![CDATA[[npc.Name] roughly [npc.verb(gather)] [npc2.NamePos] [npc2.hairSkin+] and [npc.verb(force)] in some bobby pins.]]>

@@ -52,7 +52,7 @@
 		As you enter the gambling den, you once again spot the large, muscular figure of [axel.name] happily welcoming visitors to his establishment. Upon catching sight of you, his smile widens, and he hurries over to thank you for what you've done, [axel.speech([pc.Name]! I can't thank you enough for helping me sort out that whole Vengar situation! If I'm honest, I didn't really expect you to be able to do it, but I'm finally free of him! Well... Almost free, that is...)]
 	</p>
 	<p>
-		Asking Axel what he means by that, and also how he found out that Vengar had been dealt with so quickly, you listen as the albino alligator-boy explains, [axel.speech(Well, I had a visit from the Enforcers, you see. Apparently, they confiscated all of of Vengar's wealth as 'evidence', so they couldn't give me any of my money back. Instead, they gave me a different form of compensation...)]
+		Asking Axel what he means by that, and also how he found out that Vengar had been dealt with so quickly, you listen as the albino alligator-boy explains, [axel.speech(Well, I had a visit from the Enforcers, you see. Apparently, they confiscated all of Vengar's wealth as 'evidence', so they couldn't give me any of my money back. Instead, they gave me a different form of compensation...)]
 	</p>
 	<p>
 		At that moment, you notice the familiar figure of Roxy swiftly walking over from her shop, and, not caring at all about interrupting your conversation, she shouts out, [roxy.speech('Ey! Lizard! I's got another question 'bout Vengar!)]
@@ -410,7 +410,7 @@
 		Thinking about fully feminising [axel.name], you ask [axel.herHim] if [axel.sheHas] still got the potions which Silence gave to [axel.herHim]. Heading over to [axel.her] desk, [axel.name] opens a drawer and produces them, before setting them down on the surface and sighing, [axel.speech(Yeah, I've got them. I've been thinking a lot about whether to drink them or not. I mean, I'm actually feeling pretty good with the way my body is now, which makes me think that maybe I'd feel even better if I went fully feminine...)]
 	</p>
 	<p>
-		Realising that you have the opportunity to persuade [axel.name] to [style.italicsFeminine(permanently fully femininse)] [axel.herself], you wonder what you should say next...
+		Realising that you have the opportunity to persuade [axel.name] to [style.italicsFeminine(permanently fully feminise)] [axel.herself], you wonder what you should say next...
 	</p>
 	]]>
 	</htmlContent>
@@ -547,7 +547,7 @@
 		Thinking that it would be best for [axel.name] to wear clothes which make her look like a slutty whore, you order her to wear the set of trashy, revealing clothing. Although she heavily blushes as you say this, she's obviously not opposed to the idea, as she quickly retreats into what's become her dressing room, clearly eager to change into the outfit you suggested.
 	</p>
 	<p>
-		After a few moments, [axel.name] walks back out into the office wearing the fishnets, micro skirt, thigh-high boots, and leather jacket. Striking a pose, the [axel.race] smirks and says, [axel.speech(You know, this feels really liberating! Thanks, [pc.name], I I would never have worn this without your encouragement!)]
+		After a few moments, [axel.name] walks back out into the office wearing the fishnets, micro skirt, thigh-high boots, and leather jacket. Striking a pose, the [axel.race] smirks and says, [axel.speech(You know, this feels really liberating! Thanks, [pc.name], I would never have worn this without your encouragement!)]
 	</p>
 	<p>
 		Pleased to see how happy the [axel.race] is, you can't help but smile as you wonder what to do next...
@@ -1026,7 +1026,7 @@
 		Barking out an order for the SWORD Enforcers to leave you alone, the muscular leader steps forwards and scowls at Shadow, [style.speechMasculineStrong(Catching Vengar red-handed is all we needed. You've upheld your end of the bargain, so you and your girlfriend here can join these two in getting out of our way. Constable Adams! Take these four back the way we came!)]
 	</p>
 	<p>
-		One of the SWORD Enforcers, who you assume must be Constable Adams, hurries forwards and prepares to do as he's told. Wanting to find out what's going on, and thinking it best not to get in the way of this group of heavily-armed Enforcers, you decide to comply and allow yourself to be escorted to the nearest Enforcer post...
+		One of the SWORD Enforcers, who you assume must be Constable Adams, hurries forwards and prepares to do as he's told. Wanting to find out what's going on, and thinking it's best not to get in the way of this group of heavily-armed Enforcers, you decide to comply and allow yourself to be escorted to the nearest Enforcer post...
 	</p>
 	]]>
 	</htmlContent>

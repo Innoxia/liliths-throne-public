@@ -101,7 +101,7 @@
 		#IF(flags.hasFlag(FLAG_innoxia_elis_minotallys_introduced))
 			Thanks to the pass which you obtained from Minotallys, you know that you could easily get past this Enforcer and head up the stairs if you wanted to...
 		#ELSE
-			From the stern expression on this Enforcer's face, as well as the fact that their hand is hovering close to the taser on their hip, you think it best not to try and force your way past them. If you wanted to meet Minotallys, you should seek out Meraxis in 'The Red Dragon' tavern and ask her to introduce you to her.
+			From the stern expression on this Enforcer's face, as well as the fact that their hand is hovering close to the taser on their hip, you think it's best not to try and force your way past them. If you wanted to meet Minotallys, you should seek out Meraxis in 'The Red Dragon' tavern and ask her to introduce you to her.
 		#ENDIF
 	</p>
 	]]>

@@ -47,6 +47,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -308,7 +309,7 @@ public class HarpyNympho extends NPC {
 				}
 			};
 		} else {
-			return new Response("", "", HarpyNestNympho.HARPY_NEST_NYMPHO_FIGHT_LOSE_TO_MATRIARCH);
+			return new Response("", "", DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_nympho_combat_lost_matriarch"));
 		}
 	}
 
@@ -325,5 +326,20 @@ public class HarpyNympho extends NPC {
 		}
 		
 		return super.getItemUseEffects(item, itemOwner, user, target);
+	}
+	
+	public void applyBadEndClothing(GameCharacter target) {
+		target.unequipAllClothingIntoVoid(true, true);
+
+		target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_crotchless_panties", PresetColour.CLOTHING_BLACK, false), true, target);
+
+		target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_FISHNET_TOP, PresetColour.CLOTHING_PINK_HOT, false), true, target);
+		target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_micro_skirt_pleated", PresetColour.CLOTHING_PINK_HOT, false), true, target);
+		
+
+		target.setPiercedEar(true);
+		target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_pearl_studs", PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GOLD, null, false), true, target);
+		target.setPiercedNavel(true);
+		target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_GOLD, false), true, target);
 	}
 }

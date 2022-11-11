@@ -15,7 +15,7 @@ public enum LipSize {
 	TWO_FULL(2, "full", PresetColour.GENERIC_SIZE_THREE, false),
 	THREE_PLUMP(3, "plump", PresetColour.GENERIC_SIZE_FOUR, false),
 	FOUR_HUGE(4, "huge", PresetColour.GENERIC_SIZE_FIVE, false),
-	FIVE_MASSIVE(5, "massive", PresetColour.GENERIC_SIZE_SIX, true),
+	FIVE_MASSIVE(5, "massive", PresetColour.GENERIC_SIZE_SIX, false),
 	SIX_GIGANTIC(6, "gigantic", PresetColour.GENERIC_SIZE_SEVEN, true),
 	SEVEN_ABSURD(7, "absurdly colossal", PresetColour.GENERIC_SIZE_EIGHT, true);
 	

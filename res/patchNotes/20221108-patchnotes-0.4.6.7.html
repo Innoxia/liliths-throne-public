@@ -1,0 +1,69 @@
+<h2>v0.4.6.7</h2>
+
+<h3>FriendlyAlienFriend's Artwork (https://twitter.com/thealienfriend):</h3>
+<ul>
+	<li>Added artwork for Astrapi, including pregnant and crotch-boob variations. (Crotch boobs will be shown if your 'Crotch-boob & Udder Content' content setting is turned on.)</li>
+	<li>Added artwork for Vronti.</li>
+</ul>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Fixed a significant amount of typos and grammatical errors. (PR#1701 by Lis)</li>
+	<li>Significant rework and refactor of Controller classes, improved UI handling, and added a 4th +/- button to the fluid storage and regeneration transformation menus. (PR#1713 by Maxis010)</li>
+	<li>Fixed issue where subspecies changes for dragons, coatls, and gryphons didn't account for taur/lamia leg configurations when assigning minimum wing size. (by MintyChip)</li>
+	<li>Added 'banana' as a new fluid flavouring. (PR#1696 by DSG)</li>
+	<li>Added mythical 'salamander' race, with two subspecies; 'flame salamanders' and 'frost salamanders'. (PR#1707 by MintyChip)</li>
+	<li>Added 'panda' as a subspecies to the 'bear' race. (PR#1697 by DSG)</li>
+	<li>Balanced the flame value calculations for enchanted items, clothing and weapons. (PR#1695 by Maxis010)</li>
+	<li>Improved error reporting for parser state errors and improved the parser so that it skips svg files within the parsed input. (PR#1690 by CognitiveMist)</li>
+	<li>Added a specific flag to indicate the player's lilin heritage rather than just checking if they are a demon. (PR#1688 by MintyChip)</li>
+	<li>Added fetish selection options to sexual experience menu during the prologue's character creation process. (PR#1687 by MintyChip)</li>
+	<li>Added Java vendor and basic OS information to error.log to help improve troubleshooting. (by CognitiveMist)</li>
+	<li>Fixed grammatical issues in the alligator-morph's racial descriptions. (PR#1685 by Maymay)</li>
+	<li>Fixed a cause of the issue where NPCs self-equipping condoms would react as though someone else had equipped the condom. (by Maxis010)</li>
+	<li>Fixed bug where a character with an aquatic-tailed lower body would have their leg and feet equipment incorrectly blocked and unblocked, due to the wrong status effects being checked. (by Stadler)</li>
+	<li>Added 'latex leggings' (feminine, leg slot, sold by Finch, latex lover set). (by Sage)</li>
+	<li>Fixed issue with some buttons in Kate's cosmetics dialogues being unresponsive. (by Maxis010)</li>
+	<li>Made LT runnable directly on the most recent Java LTS (17) and created an automatic build and release pipeline to reduce workload using Maven. Also fixed several opaque elements which were supposed to be transparent. (PR#1684 by Tazze)</li>
+	<li>Added the ability to choose either the feminine or masculine Enforcer's uniform when progressing past Brax's stage of the main quest. (PR#1721 by Nonny5Mouse)</li>
+	<li>Enabled setting furry level for salamander spawns. (PR#1730 by Stadler)</li>
+	<li>Replaced an instance of a deprecated newInstance() method. (by AceXP)</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Added bad ends to losing combat against the harpy matriarchs in the Harpy Nests.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>Characters with a spinneret can now only apply webbing to themselves or their sexual partners if they have the related permission to manage their own/others clothing.</li>
+	<li>NPCs will now only equip condoms to themselves or their partners if they dislike the associated 'cum stud' or 'cum addict' fetishes. Previous behaviour was to equip if they disliked or were neutral to the fetishes, so this should reduce the amount of NPCs wanting to equip condoms. </li>
+	<li>NPCs will now only equip BDSM or latex gear onto their partners if they like or love the 'bondage applier' fetish.</li>
+	<li>If Meraxis doesn't have a fetish that's associated with her post-duel sex scenes, she will now end sex after she's orgasmed once, instead of when the player has orgasmed once, thereby always giving you the opportunity to influence her fetishes when she orgasms.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>The 'Crotch-boobs & Udders' body setting now only applies to randomly-generated NPCs at the moment of their creation (as was stated in the option's tooltip), allowing all characters to gain crotch-boobs/udders via TF no matter the setting.</li>
+	<li>Added a new 'Crotch-boob & Udder Content' setting in the 'Sex & Fetishes' content options to enable/disable udder-related sex actions and udder transformations to be inflicted upon the player. (Enabled by default.)</li>
+	<li>Darkened inventory slot icons in the tattoo view panel to differentiate it from normal inventory view.</li>
+	<li>Added finer control over sex experience count in character creation and custom slave ordering screens, added anilingus experience, and made it so anal sex experiences are hidden if anal content is disabled.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Parsing fixes.</li>
+	<li>Fixed several rendering issue with the buyback menu.</li>
+	<li>Fixed issue where the women's watch in character creation had random primary and secondary colours.</li>
+	<li>Fixed bug where penile virginity losses would be reset at the end of character creation.</li>
+	<li>World and place names in the UI are now correctly parsed.</li>
+	<li>Fixed issue in the 'owned by random NPC' content, where when the NPC took you to get tattooed, the tattoo in the 'lower abdomen' slot would work fine, but the one in the 'lower back' slot would never be given.</li>
+	<li>Fixed bug in the post-fight scenes when encountering centauresses in Themiscyra, where sometimes Aurokaris would be identified by the game as being one of the two centauress attackers.</li>
+	<li>Fixed issue where unequipping clothing when multiple layers were covering the clothing to be unequipped would sometimes not work correctly. (This is likely still slightly bugged, but I will properly fix it for the update.)</li>
+	<li>Fixed issue where imported characters would sometimes fail to load in correctly.</li>
+	<li>Fixed causes of the issue where Dominion-alley-demons, cultists, Kate, and Ralph would react to self-equipping condoms as though someone else had equipped the condom.</li>
+	<li>The special 'beer barrel' and 'Hazmat Rat Vending Machine' clothing items will no longer potentially be equipped to randomly spawned NPCs, or show up as random loot in alleyway tiles.</li>
+	<li>Fixed issue where Rose's sex preferences would ignore your anal content setting in the sex scene after being discovered by her in Lilaya's room.</li>
+	<li>Fixed bug where molesting a slave who has the 'unwilling fuck-toy' or 'submissive' fetishes would cause an affection loss, despite the description saying otherwise.</li>
+</ul>

@@ -1747,7 +1747,7 @@ public class OccupantDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Wake up", "You wake up some time later....", OCCUPANT_APARTMENT_SLEEP_OVER_WAKE_UP);
+				return new Response("Wake up", "You wake up some time later...", OCCUPANT_APARTMENT_SLEEP_OVER_WAKE_UP);
 				
 			} else {
 				return null;

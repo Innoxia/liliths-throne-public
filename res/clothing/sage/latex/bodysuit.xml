@@ -21,6 +21,7 @@
 				<displacementType>REMOVE_OR_EQUIP</displacementType>
 				<clothingAccessRequired> 
 					<clothingAccess>LEGS_UP_TO_GROIN_LOW_LEVEL</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
 				</clothingAccessRequired>
 				<blockedBodyParts>
 					<bodyPart>ASS</bodyPart>
@@ -102,6 +103,7 @@
 		<tertiaryColoursDye values="ALL"/>
 
 		<itemTags> 
+			<tag>ENABLE_SEX_EQUIP</tag>
 			<tag>SOLD_BY_FINCH</tag>
 		</itemTags>
 	</coreAtributes>

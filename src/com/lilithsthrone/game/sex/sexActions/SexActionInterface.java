@@ -85,7 +85,10 @@ public interface SexActionInterface {
 			}
 			return true;
 		}
-		return this.getActionType()==SexActionType.SPEECH || this.getActionType()==SexActionType.SPEECH_WITH_ALTERNATIVE || this.getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM || this.getActionType()==SexActionType.ORGASM;
+		return this.getActionType()==SexActionType.SPEECH
+				|| this.getActionType()==SexActionType.SPEECH_WITH_ALTERNATIVE
+				|| this.getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM
+				|| this.getActionType()==SexActionType.ORGASM;
 	}
 	
 	/**
@@ -480,6 +483,10 @@ public interface SexActionInterface {
 		return "";
 	}
 	
+	public default boolean isQuickSexRequirementsMet(GameCharacter performer) {
+		return isBaseRequirementsMet();
+	}
+	
 	public default boolean isBaseRequirementsMet() {
 		return true;
 	}
@@ -520,7 +527,7 @@ public interface SexActionInterface {
 		
 		boolean crotchBoobsAllowed = true;
 		try { // Wrap in try/catch block as some sex actions may make calls to ongoing actions that aren't ongoing yet
-			crotchBoobsAllowed = (Main.getProperties().getUddersLevel()>0 || Main.sex.getCharacterTargetedForSexAction(this).isFeral())
+			crotchBoobsAllowed = Main.game.isUdderContentEnabled()
 									|| (!this.getTargetedCharacterAreas().contains(SexAreaOrifice.BREAST_CROTCH)
 											&& !this.getTargetedCharacterAreas().contains(SexAreaOrifice.NIPPLE_CROTCH)
 											&& !this.getPerformingCharacterAreas().contains(SexAreaOrifice.BREAST_CROTCH)

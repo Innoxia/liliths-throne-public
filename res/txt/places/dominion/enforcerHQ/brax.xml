@@ -49,7 +49,7 @@
 
 	<htmlContent tag="INTERIOR_BRAX_TRUTH"><![CDATA[
 	<p>
-		You decide that's it's probably for the best if you just tell the truth, [pc.speech(I'm here to find out what's happened to my friend, Arthur. His apartment was empty, and your name was on the arrest warrant stamped to his door.)]
+		You decide that it's probably for the best if you just tell the truth, [pc.speech(I'm here to find out what's happened to my friend, Arthur. His apartment was empty, and your name was on the arrest warrant stamped to his door.)]
 	</p>
 	<p>
 		As you mention Arthur's name, [brax.name] lets out a dismissive grunt, and as you finish speaking, he huffs, [brax.speech(As if I'd tell you that! You come barging into my office, then expect me to hand out classified information?! I think you need to be the first test subject for a special punishment I've recently thought of!)]
@@ -150,7 +150,7 @@
 		Contact address: <i>Scarlett's shop, Slaver Alley</i>
 	</p>
 	<p>
-		After reading it over a second time, you realise that you're going to have to make your way to Slaver Alley and see if you can find some way to buy Arthur. Taking one last look around [brax.namePos] office, you notice that there's a neatly-folded spare Enforcer's uniform lying on top of a cabinet. Deciding to punish [brax.name] a little more for falling for such an obvious trick, <b>you take the spare uniform and add it to your inventory</b>.
+		After reading it over a second time, you realise that you're going to have to make your way to Slaver Alley and see if you can find some way to buy Arthur. Taking one last look around [brax.namePos] office, you notice that there's two neatly-folded Enforcer's uniforms lying on top of a cabinet. To punish [brax.name] a little more for falling for such an obvious trick, <b>you could take a spare uniform and add it to your inventory</b>.
 	</p>
 	]]>
 	</htmlContent>
@@ -308,7 +308,7 @@
 		Making more vague promises, you step back out into the corridor, breathing a sigh of relief as you pull the door firmly shut behind you. Turning to leave by the same route as which you arrived, you quickly set off towards the exit.
 	</p>
 	<p>
-		As you pass an empty office, you look in and notice that there's a neatly-folded spare uniform lying on top of a cabinet. Deciding that you need a little compensation after being forcefully kissed by [brax.name], <b>you take the spare uniform and add it to your inventory on your way out</b>.
+		As you pass an empty office, you look in and notice that there are two neatly-folded Enforcer's uniforms lying on top of a cabinet. Deciding that you need a little compensation after being forcefully kissed by [brax.name], <b>you take one of the spare uniforms and add it to your inventory on your way out</b>.
 	</p>
 	]]>
 	</htmlContent>
@@ -426,7 +426,7 @@
 		You really don't feel like having sex with the guy who just tried to beat you up. Instead, you push Brax back into his chair, tutting in disapproval as he lets out a desperate whine.
 	</p>
 	<p>
-		Taking one last look around Brax's office, you notice that there's a neatly-folded spare uniform lying on top of a cabinet. Deciding to punish Brax a little more for trying to beat you up, <b>you take the spare uniform and add it to your inventory</b>.
+		Taking one last look around Brax's office, you notice that there are two neatly-folded Enforcer's uniforms lying on top of a cabinet. In order to punish Brax a little more for trying to beat you up, <b>you could take one of the uniforms and add it to your inventory</b>.
 	</p>
 	]]>
 	</htmlContent>
@@ -598,7 +598,7 @@
 			Although you've been thrown out without so much as a goodbye, you feel a big smile spreading across your face. You found out where Arthur is, and what's more, you got to have a good fuck with that hunk of a wolf-boy.
 		</p>
 		<p>
-			As you walk out from behind the Enforcer HQ, you see that an open crate, full of spare uniforms, is sitting outside a side door. The crate is too big to fit through the doorway, and the person in charge of bringing them inside isn't anywhere to be seen. Deciding that you want a little memento of your time with Brax, <b>you take a spare uniform and add it to your inventory as you continue on your way</b>.
+			As you walk out from behind the Enforcer HQ, you see that an open crate, full of spare uniforms, is sitting outside a side door. The crate is too big to fit through the doorway, and the person in charge of bringing them inside isn't anywhere to be seen. Deciding that you want a little memento of your time with Brax, <b>you pick a spare uniform to add it to your inventory</b> as you continue on your way.
 		</p>
 	#ELSE
 		<p>
@@ -615,7 +615,7 @@
 		Brax is completely exhausted, and collapses harmlessly to the floor as he passes out. Letting out a triumphant laugh, you look down at your latest sexual conquest, smirking in satisfaction as you see the happy smile covering his unconscious face.
 	</p>
 	<p>
-		Taking one last look around Brax's office, you notice that there's a neatly-folded spare uniform lying on top of a cabinet. Deciding that you want a little memento of your time with Brax, <b>you take the spare uniform and add it to your inventory</b>, before heading downstairs and back outside.
+		Taking one last look around Brax's office, you notice that there's a neatly-folded spare uniform lying on top of a cabinet. Thinking of how you could have a little memento of your time with Brax, <b>you think to take a spare uniform</b> before heading downstairs and back outside.
 	</p>
 	]]>
 	</htmlContent>
