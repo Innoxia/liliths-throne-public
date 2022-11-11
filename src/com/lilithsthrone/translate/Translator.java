@@ -6,6 +6,9 @@ package com.lilithsthrone.translate;
 
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -161,7 +164,20 @@ public class Translator {
     private static String doTrans(AtomicReference<String> value) {
         String originText = value.get();
         try {
-            return originText + "T";
+            Map<String, String> param = Maps.newHashMap();
+            param.put("from", "en");
+            param.put("to", "zh");
+            param.put("content", value.get());
+            String post = HttpUtil.post("http://localhost:8888/translate", JSONUtil.toJsonStr(param));
+            JSONObject result = JSONUtil.parseObj(post);
+            if (!result.getBool("success", false)) {
+                throw new RuntimeException("req not successfully");
+            }
+            String str = result.getStr("result");
+            if (StrUtil.isBlank(str)) {
+                throw new RuntimeException("result blank");
+            }
+            return str;
         } catch (Exception e) {
             System.out.println("translate error: " + originText);
             e.printStackTrace();
