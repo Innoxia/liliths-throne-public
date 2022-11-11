@@ -867,9 +867,9 @@ public enum PerkManager {
 									:"")+"' id='"+perkEntry.getRow()+"_"+perkEntry.getCategory()+"_"+Perk.getIdFromPerk(perkEntry.getEntry())+"'>"
 				+ "<div class='square-button-content'>"+perkEntry.getEntry().getSVGString(character)+"</div>"
 				+ (disabled
-					?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; "+(perkEntry.getEntry().isEquippableTrait()?"border-radius:5px;":" border-radius:50%;")+"'></div>"
+					?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); "+(perkEntry.getEntry().isEquippableTrait()?"border-radius:5px;":" border-radius:50%;")+"'></div>"
 					:!isPerkOwned(character, perkEntry)
-						?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.6; "+(perkEntry.getEntry().isEquippableTrait()?"border-radius:5px;":" border-radius:50%;")+"'></div>"
+						?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6); "+(perkEntry.getEntry().isEquippableTrait()?"border-radius:5px;":" border-radius:50%;")+"'></div>"
 						:"")
 			+ "</div>");
 		

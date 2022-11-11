@@ -354,7 +354,7 @@ public class SlaverAlleyDialogue {
 					+ baseName
 				+ "</td>"
 				+ "<td>"
-					+ "<div class='saveLoadButton' id='import_slave_" + identifier + "' style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Import</div>"
+					+ "<div class='saveLoadButton' id='IMPORT_SLAVE_" + identifier + "' style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Import</div>"
 				+ "</td>"
 				+ "</tr>";
 	}
@@ -1171,11 +1171,11 @@ public class SlaverAlleyDialogue {
 					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_vstring", PresetColour.CLOTHING_PURPLE_DARK, false), true, slave);
 					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_PURPLE_DARK, false), true, slave);
 					
-					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_DRESS, PresetColour.CLOTHING_BLUE_LIGHT, false), true, slave);
-					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_HEADPIECE, PresetColour.CLOTHING_BLUE_LIGHT, false), true, slave);
-					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_SLEEVES, PresetColour.CLOTHING_BLUE_LIGHT, false), true, slave);
-					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_STOCKINGS, PresetColour.CLOTHING_BLUE_LIGHT, false), true, slave);
-					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_HEELS, PresetColour.CLOTHING_BLUE_LIGHT, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_maid_dress", PresetColour.CLOTHING_BLUE_LIGHT, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_maid_headpiece", PresetColour.CLOTHING_BLUE_LIGHT, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_maid_sleeves", PresetColour.CLOTHING_BLUE_LIGHT, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_maid_stockings", PresetColour.CLOTHING_BLUE_LIGHT, false), true, slave);
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_maid_heels", PresetColour.CLOTHING_BLUE_LIGHT, false), true, slave);
 					
 					slave.setPiercedEar(true);
 					slave.setPiercedTongue(true);
@@ -1285,7 +1285,7 @@ public class SlaverAlleyDialogue {
 			
 			if(getCafeItems().containsKey(index)) {
 				AbstractItemType itemType = getCafeItems().get(index);
-				int itemValue = (int) (itemType.getValue(null)*1.8f);
+				int itemValue = (int) (itemType.getValue()*1.8f);
 				if(responseTab==0) {
 					if(Main.game.getPlayer().getMoney()<itemValue) {
 						return new Response(itemType.getName(false)+" ("+UtilText.formatAsMoneyUncoloured(itemValue, "span")+")",

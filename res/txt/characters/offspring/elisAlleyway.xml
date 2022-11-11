@@ -213,7 +213,7 @@
 					#ELSEIF(npc.getFather()!=null && npc.getFather().isPlayer())
 						 [pc.speech([npc.Name], was it? I'm so happy to meet you! I didn't get a chance to speak to you after you'd hatched, but I'm your father. You can call me [pc.name].)]
 					#ELSE
-						 [pc.speech([npc.Name], was it? I'm so happy to meet you! I didn't get a chance to speak to you after you'd hatched. I'm neither your mother or father, but I did incubate you until you were ready to hatch... You can call me [pc.name].)]
+						 [pc.speech([npc.Name], was it? I'm so happy to meet you! I didn't get a chance to speak to you after you'd hatched. I'm neither your mother nor father, but I did incubate you until you were ready to hatch... You can call me [pc.name].)]
 					#ENDIF
 				#ENDIF
 			#ELSE
@@ -272,7 +272,7 @@
 					#ELSEIF(npc.getFather()!=null && npc.getFather().isPlayer())
 						 [pc.speech([npc.Name], was it? I'm so happy to meet you! I didn't get a chance to speak to you after you'd hatched, but I'm your father. You can call me [pc.name].)]
 					#ELSE
-						 [pc.speech([npc.Name], was it? I'm so happy to meet you! I didn't get a chance to speak to you after you'd hatched. I'm neither your mother or father, but I did incubate you until you were ready to hatch... You can call me [pc.name].)]
+						 [pc.speech([npc.Name], was it? I'm so happy to meet you! I didn't get a chance to speak to you after you'd hatched. I'm neither your mother nor father, but I did incubate you until you were ready to hatch... You can call me [pc.name].)]
 					#ENDIF
 				#ENDIF
 			#ELSE
@@ -331,7 +331,7 @@
 					#ELSEIF(npc.getFather()!=null && npc.getFather().isPlayer())
 						 [pc.speech([npc.Name], was it? I'm so happy to meet you! I didn't get a chance to speak to you after you'd hatched, but I'm your father. You can call me [pc.name].)]
 					#ELSE
-						 [pc.speech([npc.Name], was it? I'm so happy to meet you! I didn't get a chance to speak to you after you'd hatched. I'm neither your mother or father, but I did incubate you until you were ready to hatch... You can call me [pc.name].)]
+						 [pc.speech([npc.Name], was it? I'm so happy to meet you! I didn't get a chance to speak to you after you'd hatched. I'm neither your mother nor father, but I did incubate you until you were ready to hatch... You can call me [pc.name].)]
 					#ENDIF
 				#ENDIF
 			#ELSE

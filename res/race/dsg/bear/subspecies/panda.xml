@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<subspecies>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- The race which this subspecies belongs to. -->
+	<race>dsg_bear</race>
+	
+	<!-- The colour of this subspecies.
+	Will usually be the same as the race's colour.
+	The 'colour' value is used in most places as the base colour for this subspecies.
+	The 'secondaryColour' and 'tertiaryColour' are used alongside 'colour' in recolouring this subspecies' icon and background. -->
+	<colour>dsg_pandaBeige</colour>
+	<secondaryColour>dsg_pandaBeige</secondaryColour>
+	<tertiaryColour>dsg_pandaBlack</tertiaryColour>
+	
+	<!-- Whether or not this subspecies is considered the 'main' subspecies of its parent race.
+	One subspecies, no more, of each race should have this set as true. -->
+	<mainSubspecies>false</mainSubspecies>
+	
+	<!-- The base value of this subspecies when sold as a slave. -->
+	<baseSlaveValue>11000</baseSlaveValue>
+	
+	<!-- The id of the item associated with this race which can be enchanted to modify attributes.
+	If you do not have an associated item made for this race then use 'innoxia_race_human_vanilla_water'. -->
+	<attributeItemId>dsg_race_bear_vodka</attributeItemId>
+	
+	<!-- The id of the item associated with this race which can be enchanted to create a transformation potion.
+	If you do not have an associated item made for this race then use 'innoxia_race_human_bread_roll'. -->
+	<transformativeItemId>dsg_race_bear_honey_bread</transformativeItemId>
+	
+	<!-- An integer representing how important this Subspecies is to be defined as a character's Subspecies override (meaning that this Subspecies will always be their true Subspecies, no matter the race of their body parts).
+	The default value is 0, which, along with any negative integer value, means that this Subspecies does not set an Override.
+	A Subspecies which has a higher value than a character's current Subspecies Override will replace the current Override with this one.
+	This is only used for demons, and should always be left as 0 unless you know what you're doing. -->
+	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	
+	<!-- Whether this race is of a small stature or not.
+	If set to true, then this race is limited to the game's smallest height categories (as is the case for imps). -->
+	<shortStature>false</shortStature>
+	
+	<!-- Whether or not this subspecies has the bipedal leg configuration by default.
+	Set to false for subspecies like centaurs. -->
+	<bipedalSubspecies>true</bipedalSubspecies>
+	
+	<!-- Whether or not this is a subspecies which prefers to live in an aquatic environment.
+	If set to true, then this subspecies will have the positive & negative aquatic status effects applied to it when in a tile with and without access to water, respectively. -->
+	<aquatic>false</aquatic>
+	
+	<!-- Any special changes which should be applied to a newly-spawned character of this subspecies.
+	This is applied *after* the parent race's 'applyRaceChanges' method.
+	The character's body that's being changed can be accessed via using 'targetedBody'.
+	The code here is redundant, as clitoris girth & size is set to 4 & 18 in both the race.xml and the racialBody.xml files, but I've added it in here to show a working example. -->
+	<applySubspeciesChanges><![CDATA[
+		[#targetedBody.setCovering(BODY_COVERING_TYPE_dsg_bear_fur, COVERING_PATTERN_MARKED, COLOUR_COVERING_WHITE, false, COLOUR_COVERING_BLACK, false)]
+		[#targetedBody.setCovering(BODY_COVERING_TYPE_dsg_bear_hair, COVERING_PATTERN_NONE, COLOUR_COVERING_BLACK, false, COLOUR_COVERING_BLACK, false)]
+		[#targetedBody.updateCoverings(true, true, true, true)]
+	]]></applySubspeciesChanges>
+	
+	<!-- This conditional statement determines if a body is detected as being an instance of this subspecies.
+	It should return an integer value, with 0 being returned if this subspecies' requirements are not met by the supplied body/race.
+	You should usually return a value of 100 if the requirements are met, or something higher if this subspecies should have a higher priority than other subspecies which may also detect this body as being an instance of their subspecies.
+	The body that's being checked can be accessed via using 'targetedBody'.
+	The race of the body that's being checked SHOULD NOT be accessed via targetedBody.getRace(), and should instead be accessed via using 'targetedRace'. -->
+	<subspeciesWeighting><![CDATA[
+		#IF(targetedRace==RACE_dsg_bear && 
+			targetedBody.getCoveringPattern(BODY_COVERING_TYPE_dsg_bear_fur, true)==COVERING_PATTERN_MARKED &&
+			((targetedBody.getCovering(BODY_COVERING_TYPE_dsg_bear_fur, true).getPrimaryColour()==COLOUR_COVERING_WHITE && targetedBody.getCovering(BODY_COVERING_TYPE_dsg_bear_fur, true).getSecondaryColour()==COLOUR_COVERING_BLACK)
+				|| (targetedBody.getCovering(BODY_COVERING_TYPE_dsg_bear_fur, true).getPrimaryColour()==COLOUR_COVERING_BLACK && targetedBody.getCovering(BODY_COVERING_TYPE_dsg_bear_fur, true).getSecondaryColour()==COLOUR_COVERING_WHITE))
+				|| (targetedBody.getCovering(BODY_COVERING_TYPE_dsg_bear_fur, true).getPrimaryColour()==COLOUR_COVERING_WHITE && targetedBody.getCovering(BODY_COVERING_TYPE_dsg_bear_fur, true).getSecondaryColour()==COLOUR_COVERING_JET_BLACK)
+				|| (targetedBody.getCovering(BODY_COVERING_TYPE_dsg_bear_fur, true).getPrimaryColour()==COLOUR_COVERING_JET_BLACK && targetedBody.getCovering(BODY_COVERING_TYPE_dsg_bear_fur, true).getSecondaryColour()==COLOUR_COVERING_WHITE))
+			150
+		#ELSE
+			0
+		#ENDIF
+	]]></subspeciesWeighting>
+	<!-- All non-striped hyenas are classified as spotted just to catch any which have accidentally had their covering set to something other than spotted or striped. -->
+	
+	<!-- The name of the svg file which represents this subspecies' icon.
+	It should be located in the same folder as this xml file. -->
+	<iconName displaySize="95">pandaicon</iconName>
+	
+	<!-- The name of the svg file which represents the background for this subspecies' icon.
+	It should be located in the same folder as this xml file.
+	You can leave this blank to use the game's default background. -->
+	<backgroundName>raceBackground</backgroundName>
+	
+	<!-- Book information:
+	Books are automatically-generated items which reveal information about the game's subspecies.
+	There is a unique book created for every unique value defined for each subspecies' 'advancedDescriptionId' field.
+	i.e. If I defined a different 'advancedDescriptionId' for spotted and striped hyenas, the game would make a book for each of them.
+		As it stands, I have defined both spotted and striped hyena subspecies to use the 'hyena_advanced' xml file, so there will only be one book type generated.	-->
+		
+	<!-- The icon to be used on the book's front cover.
+	It should be located in the same folder as this xml file. -->
+	<bookIconName>bearicon</bookIconName>
+	
+	<!-- The name for the book. -->
+	<bookName>Strolling Bears</bookName>
+	
+	<!-- The element names which contain the book's basic and advanced descriptions.
+	These should be entered into the 'bookEntries.xml' file in the same folder location as this file. -->
+	<basicDescriptionId>BEAR_BASIC</basicDescriptionId>
+	<advancedDescriptionId>BEAR_ADVANCED</advancedDescriptionId>
+	
+	<!-- The default preference for this subspecies spawning.
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesPreference.java -->
+	<defaultPreference>TWO_AVERAGE</defaultPreference>
+	
+	<nameAnthro>
+		<namesDefault>
+			<name><![CDATA[panda-morph]]></name>
+			<namePlural><![CDATA[panda-morphs]]></namePlural>
+			<singularMaleName><![CDATA[panda-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[panda-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[panda-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[panda-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthro>
+	
+	<nameAnthroSillyMode>
+		<namesDefault>
+			<name><![CDATA[pamba-morph]]></name>
+			<namePlural><![CDATA[pamba-morphs]]></namePlural>
+			<singularMaleName><![CDATA[pamba-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[pamba-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[pamba-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[pamba-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthroSillyMode>
+	
+	<!-- A brief description and identification requirements of this subspecies. -->
+	<description><![CDATA[An anthropomorphic panda, known as a 'panda-morph' when bipedal, and a 'pandataur' when the lower body is that of a typically-oversized feral bear.]]></description>
+	
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[zhouyu]]></name>
+			<namePlural><![CDATA[zhouyu]]></namePlural>
+			<singularMaleName><![CDATA[zhouyu]]></singularMaleName>
+			<singularFemaleName><![CDATA[zhouyu]]></singularFemaleName>
+			<pluralMaleName><![CDATA[zhouyu]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[zhouyu]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
+	
+	<!-- Attributes related to this subspecies when in a feral form. -->
+	<feralAttributes>
+		<!-- Naming: -->
+		<feralName><![CDATA[panda]]></feralName>
+		<feralNamePlural><![CDATA[panda]]></feralNamePlural>
+		<feralSingularMaleName><![CDATA[panda]]></feralSingularMaleName>
+		<feralSingularFemaleName><![CDATA[panda]]></feralSingularFemaleName>
+		<feralPluralMaleName><![CDATA[pandas]]></feralPluralMaleName>
+		<feralPluralFemaleName><![CDATA[pandas]]></feralPluralFemaleName>
+		
+		<!-- The leg configuration that a feral form of this subspecies has.
+		This determines their overall body shape. -->
+		<legConfiguration>QUADRUPEDAL</legConfiguration>
+		<!-- Whether or not this feral form's size is measured as height from floor to head, as for most mammals (true), or from head to tail (false), as for alligators and other low-lying animals which are far longer than they are tall. -->
+		<sizeHeight>true</sizeHeight>
+		<!-- The height/length of this subspecies' feral form, measured in cm. -->
+		<size>100</size>
+		
+		<!-- The number of breast rows this feral form has on their chest.
+		This will usually be 0, as it refers to breasts in the position of humans, which most animals lack. -->
+		<breastRowCount>1</breastRowCount>
+		<!-- The number of nipples per breast.
+		If the 'breastRowCount' is 0, this value is never used. -->
+		<nipplesPerBreastCount>1</nipplesPerBreastCount>
+		<!-- The number of breast rows this feral form has near their crotch. -->
+		<crotchBreastRowCount>2</crotchBreastRowCount>
+		<!-- The number of nipples per crotch breast. -->
+		<nipplesPerCrotchBreastCount>1</nipplesPerCrotchBreastCount>
+		
+		<!-- Whether this feral form has arms or wings. -->
+		<armsOrWingsPresent>false</armsOrWingsPresent>
+		<!-- Whether this feral form has fingers which they can use to manipulate objects. -->
+		<fingerActionsAvailable>false</fingerActionsAvailable>
+		<!-- Whether or not this feral form has hair on its head that's clearly distinct from the rest of its fur (which also includes manes). -->
+		<hairPresent>false</hairPresent>
+	</feralAttributes>
+	
+	<!-- The description which is shown to the player in this subspecies' status effect tooltip. -->
+	<statusEffectDescription><![CDATA[
+		[npc.NamePos] panda-like body is strong, and [npc.she] [npc.verb(exude)] a sense of single-minded calm.
+	]]></statusEffectDescription>
+	
+	<!-- The core attributes which a character of this subspecies benefits from.
+	The text inside the 'attribute' element corresponds to an Attribute found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/attributes/Attribute.java 
+	The 'value' field corresponds to a float of the magnitude of that Attribute. -->
+	<statusEffectAttributeModifiers>
+		<attribute value="15">MAJOR_PHYSIQUE</attribute>
+		<attribute value="25">RESISTANCE_LUST</attribute>
+		<attribute value="5">DAMAGE_PHYSICAL</attribute>
+		<attribute value="10">HEALTH_MAXIMUM</attribute>
+	</statusEffectAttributeModifiers>
+	
+	<!-- Any extra effects which should be listed in this subspecies' status effect tooltip.
+	As these extra effects require changes to the game's code to take effect, they should probably be left empty. -->
+	<extraEffects/>
+	<!-- If you did want to define any, do so like this:
+	<extraEffects>
+		<effect><![CDATA[Hyenas are basically just wolves]]></effect>
+	</extraEffects>
+	-->
+	
+	<!-- The likelihood of an AI of this subspecies choosing to select a perk from each of the three main perk categories.
+	The 'masculineWeighting' and 'feminineWeighting' values should be integers.
+	The weightings are relative to each other, and so you can use whatever values you want, but be aware that negative numbers, or a total number weight greater than 2,147,483,647 will produce unexpected results. -->
+	<perkWeightings>
+		<category masculineWeighting="10" feminineWeighting="5">PHYSICAL</category>
+		<category masculineWeighting="1" feminineWeighting="1">LUST</category>
+		<category masculineWeighting="0" feminineWeighting="0">ARCANE</category>
+	</perkWeightings>
+	
+	<!-- Along with 'worldLocations' below, this determines in what areas of the game this subspecies can spawn.
+	'regionLocations' covers a more general spawn area, whereas 'worldLocations' is a lot more precise in which areas should see this subspecies spawning.
+	The text inside the 'region' element corresponds to a WorldRegion as found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/world/WorldRegion.java 
+	The 'rarity' field corresponds to a SubspeciesSpawnRarity, values of which can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesSpawnRarity.java
+	This can be left blank, but if no 'regionLocations' or 'worldLocations' are defined, then this subspecies will never spawn as a randomly-encountered subspecies. -->
+	<regionLocations>
+		<region rarity="ZERO_EXTREMELY_RARE">DOMINION</region>
+		<region rarity="FOUR_COMMON">YOUKO_FOREST</region>
+	</regionLocations>
+	
+	<!-- The places in which this subspecies can spawn.
+	The text inside the 'world' element corresponds to a WorldType as found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/world/WorldType.java 
+	The 'rarity' field corresponds to a SubspeciesSpawnRarity, values of which can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesSpawnRarity.java
+	This can be left blank, but if no 'regionLocations' or 'worldLocations' are defined, then this subspecies will never spawn as a randomly-encountered subspecies. -->
+	<worldLocations>
+		<world rarity="ZERO_EXTREMELY_RARE">NIGHTLIFE_CLUB</world>
+	</worldLocations>
+	
+	<!-- Any special flags which should be applied to this subspecies.
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesFlag.java -->
+	<flags/>
+	<!-- This subspecies does not require any special flags, but if you did want to define any, do so like this:
+	<flags>
+		<flag>DISABLE_FURRY_PREFERENCE</flag>
+	</flags>
+	-->
+	
+</subspecies>

@@ -284,9 +284,9 @@
 	</p>
 	<p>
 		#IF(pc.hasAnyEnforcerStatusEffect())
-			Picking up what he's just said, you point out to Wolfgang that if 'what they're doing right now' isn't written in their contract, then they potentially doing something illegal after all. Playing up to the fact that they've mistaken you for an Enforcer, you subtly suggest that everyone would like to avoid all of the work involved in making arrests. Seeing the worried look on Karl's face, you know that you've hit your mark, and once again ask the dobermanns if they'd like to take the easy way out and have the remainder of their contract paid off.
+			Picking up on what he's just said, you point out to Wolfgang that if 'what they're doing right now' isn't written in their contract, then they are potentially doing something illegal after all. Playing up to the fact that they've mistaken you for an Enforcer, you subtly suggest that everyone would like to avoid all of the work involved in making arrests. Seeing the worried look on Karl's face, you know that you've hit your mark, and once again ask the dobermanns if they'd like to take the easy way out and have the remainder of their contract paid off.
 		#ELSE
-			Picking up what he's just said, you point out to Wolfgang that if 'what they're doing right now' isn't written in their contract, then they're sure to be found guilty of something if the Enforcers were ever to get involved. Subtly suggesting that everyone would like to avoid that particular legal process, you say how easy it would be for someone to walk over to the Enforcer HQ and bring this matter to the attention of the authorities. Seeing the worried look on Karl's face, you know that you've hit your mark, and once again ask the dobermanns if they'd like to have the remainder of their contract paid off.
+			Picking up on what he's just said, you point out to Wolfgang that if 'what they're doing right now' isn't written in their contract, then they're sure to be found guilty of something if the Enforcers were ever to get involved. Subtly suggesting that everyone would like to avoid that particular legal process, you say how easy it would be for someone to walk over to the Enforcer HQ and bring this matter to the attention of the authorities. Seeing the worried look on Karl's face, you know that you've hit your mark, and once again ask the dobermanns if they'd like to have the remainder of their contract paid off.
 		#ENDIF
 	</p>
 	<p>
@@ -362,7 +362,7 @@
 	
 	<htmlContent tag="DOBERMANNS_DEMONIC_INTIMIDATION"><![CDATA[
 	<p>
-		Thinking that these lowly dobermanns aren't showing a [pc.daughter] of Lyssieth herself the respect you deserve, you [pc.step] forwards and prepare to let these two lowly bounty hunters know who you really are. Sensing that something's not quite right, Wolfgang stands up and glares at you, before grunting, [wolfgang.speech(What're you planning?! You may be a demon, but we're not going to be intimidated by any of your tricks!)]
+		Thinking that these lowly dobermanns aren't showing a [pc.daughter] of [#pc.getLilinMother().getName()] the respect you deserve, you [pc.step] forwards and prepare to let these two lowly bounty hunters know who you really are. Sensing that something's not quite right, Wolfgang stands up and glares at you, before grunting, [wolfgang.speech(What're you planning?! You may be a demon, but we're not going to be intimidated by any of your tricks!)]
 	</p>
 	<p>
 		Deciding that now's the perfect time to reveal your true identity, you use your self-transformative powers to reshape your body into your old human form. Unable to contain an amused laugh as you see the looks of shock and horror on the dobermanns' faces, you quickly transform back into your previous, demonic body, before [pc.stepping] forwards and asking Wolfgang to repeat what he just said about not being intimidated by the likes of you.
@@ -647,7 +647,7 @@
 			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 				 [pc.pussy+] and impatiently spreading your [pc.labia+] with both hands. Clearly having never seen a demon's pussy up close before, he spends a moment using his thick, paw-like fingers to experimentally prod and stroke your clit and inner walls. Grunting in approval both at what he sees and at the horny noises you're making, the dominant dobermann wastes no further time, and after grabbing hold of your [pc.hips+], he violently thrusts forwards and slams his hot dog-cock deep into your [pc.pussy+].
 			#ELSE
-				 [pc.asshole+] and impatiently spreading your [pc.assSize] ass cheeks with both hands. Clearly having never seen a demon's asshole up close before, he spends a moment using his thick, paw-like fingers to experimentally prod and and stroke your rear-entrance. Grunting in approval both at what he sees and at the horny noises you're making, the dominant dobermann wastes no further time, and after grabbing hold of your [pc.hips+], he violently thrusts forwards and slams his hot dog-cock deep into your [pc.asshole+].
+				 [pc.asshole+] and impatiently spreading your [pc.assSize] ass cheeks with both hands. Clearly having never seen a demon's asshole up close before, he spends a moment using his thick, paw-like fingers to experimentally prod and stroke your rear-entrance. Grunting in approval both at what he sees and at the horny noises you're making, the dominant dobermann wastes no further time, and after grabbing hold of your [pc.hips+], he violently thrusts forwards and slams his hot dog-cock deep into your [pc.asshole+].
 			#ENDIF
 		</p>
 		<p>
@@ -723,7 +723,7 @@
 			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 				 [pc.pussy+] and impatiently spreading your [pc.labia+] with both hands. Clearly having never seen a demon's pussy up close before, he spends a moment using his thick, paw-like fingers to experimentally prod and stroke your clit and inner walls. Grunting in approval both at what he sees and at the horny noises you're making, the dominant dobermann wastes no further time, and after grabbing hold of your [pc.hips+], he violently pulls you down and sinks his hot dog-cock deep into your [pc.pussy+].
 			#ELSE
-				 [pc.asshole+] and impatiently spreading your [pc.assSize] ass cheeks with both hands. Clearly having never fucked demon's asshole before, he spends a moment using his thick, paw-like fingers to experimentally prod and and stroke your rear-entrance. Grunting in approval both at what he feels and at the horny noises you're making, the dominant dobermann wastes no further time, and after grabbing hold of your [pc.hips+], he violently pulls you down and sinks his hot dog-cock deep into your [pc.asshole+].
+				 [pc.asshole+] and impatiently spreading your [pc.assSize] ass cheeks with both hands. Clearly having never fucked demon's asshole before, he spends a moment using his thick, paw-like fingers to experimentally prod and stroke your rear-entrance. Grunting in approval both at what he feels and at the horny noises you're making, the dominant dobermann wastes no further time, and after grabbing hold of your [pc.hips+], he violently pulls you down and sinks his hot dog-cock deep into your [pc.asshole+].
 			#ENDIF
 		</p>
 		<p>
@@ -1697,7 +1697,7 @@
 	
 	<htmlContent tag="KAY_OFFICE_DOMINATE_CAGE_UNEQUIP"><![CDATA[
 	<p>
-		Thinking that you've left [kay.name] locked up in chastity for long enough, you order [kay.herHim] to present you with [kay.her] cock. Letting out a excited whimper, the [kay.race] jump to [kay.her] feet and drops [kay.her] trousers and underwear, exposing both [kay.her] chastity cage and the soft, [kay.cockColour]-skinned shaft which it contains. Producing the key to this cage, you quickly unlock it and return it to the desk's drawer.
+		Thinking that you've left [kay.name] locked up in chastity for long enough, you order [kay.herHim] to present you with [kay.her] cock. Letting out an excited whimper, the [kay.race] jump to [kay.her] feet and drops [kay.her] trousers and underwear, exposing both [kay.her] chastity cage and the soft, [kay.cockColour]-skinned shaft which it contains. Producing the key to this cage, you quickly unlock it and return it to the desk's drawer.
 	</p>
 	<p>
 		#IF(kay.hasStatusEffect(SE_CHASTITY_REMOVED_2))
@@ -1880,7 +1880,7 @@
 	
 	<htmlContent tag="KAY_OFFICE_DOMINATE_BUTTPLUG_DESK_ANILINGUS"><![CDATA[
 	<p>
-		Unable to resist the sight of [kay.namePos] submissively-presented ass, you lean forwards and plant a big, wet kiss directly on [kay.her] still-winking asshole. Caught by surprise, the cute [kay.race] lets out an excited sqeuak, before turning [kay.her] head back and panting, [kay.speech([pc.Name]... ~Aah!~ You like my ass that much?)]
+		Unable to resist the sight of [kay.namePos] submissively-presented ass, you lean forwards and plant a big, wet kiss directly on [kay.her] still-winking asshole. Caught by surprise, the cute [kay.race] lets out an excited squeak, before turning [kay.her] head back and panting, [kay.speech([pc.Name]... ~Aah!~ You like my ass that much?)]
 	</p>
 	<p>
 		Replying in the affirmative, you dominantly grab hold of [kay.namePos] [kay.hips+], and after swiftly pushing [kay.herHim] face-first over [kay.her] desk, you drop down behind [kay.herHim] and prepare to show [kay.herHim] just how much you love [kay.her] ass. Reaching back to spread [kay.her] ass cheeks, [kay.name] continues to eagerly pant and moan as you lean forwards and start greedily eating [kay.her] cute ass...
@@ -1890,7 +1890,7 @@
 	
 	<htmlContent tag="KAY_OFFICE_DOMINATE_BUTTPLUG_DESK_FUCK"><![CDATA[
 	<p>
-		Unable to resist the sight of [kay.namePos] submissively-presented ass, you tell your cute pet how sexy [kay.her] still-winking asshole is. Caught by surprise, the cute [kay.race] lets out an excited sqeuak, before turning [kay.her] head back and panting, [kay.speech([pc.Name]... ~Aah!~ You like my ass that much?)]
+		Unable to resist the sight of [kay.namePos] submissively-presented ass, you tell your cute pet how sexy [kay.her] still-winking asshole is. Caught by surprise, the cute [kay.race] lets out an excited squeak, before turning [kay.her] head back and panting, [kay.speech([pc.Name]... ~Aah!~ You like my ass that much?)]
 	</p>
 	<p>
 		#IF(pc.isTaur())

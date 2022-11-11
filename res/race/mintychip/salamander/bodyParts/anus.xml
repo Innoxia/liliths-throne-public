@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<anus>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractAnusType.java -->
+	
+	<!-- The id of the race which this anus belongs to.
+	This will almost always be the id of the race in which this type is found (in this case hyena). -->
+	<race>mintychip_salamander</race>
+	
+	<!-- The id of the material covering this anus.
+	This should always be left as 'ANUS', but I've included the option to change it here in case you wanted to experiment.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>ANUS</coveringType>
+	
+	<!-- Whether or not this anus type can have ass hair growing around it.
+	By default, anus types allow ass hair if its race is of either the MAMMAL or BIRD RacialClass. As such, this anus type would allow ass hair even if this element was omitted (as hyenas are of the MAMMAL class), but I've included it here for demonstration purposes.
+	You should define this as either 'true' or 'false', or, if you'd like to leave it to its default value, then leave this element blank or omit it entirely. -->
+	<assHairAllowed>false</assHairAllowed>
+	
+	<!-- The singular names of this anus.
+	One of the defined names will be chosen at random every time the name is displayed to the player.-->
+	<names/>
+	<!-- You can do as I've done here and leave this empty to use the game's default names for an anus ('asshole', 'backdoor', and 'rear entrance'), or define your own anus names like so:
+	<names>
+		<name><![CDATA[asshole]]></name>
+		<name><![CDATA[back door]]></name>
+		<name><![CDATA[rear entrance]]></name>
+	</names>
+	-->
+	
+	<!-- The plural names of this anus.
+	One of the defined names will be chosen at random every time the name is displayed to the player.-->
+	<namesPlural/>
+	<!-- You can do as I've done here and leave this empty to use the game's default plural names for an anus ('assholes', 'backdoors', and 'rear entrances'), or define your own plural anus names like so:
+	<namesPlural>
+		<name><![CDATA[assholes]]></name>
+		<name><![CDATA[back doors]]></name>
+		<name><![CDATA[rear entrances]]></name>
+	</namesPlural>
+	-->
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's anus of this type.
+	Additional anus descriptors are generated based on the anus's properties (such as its modifiers, lubrication, capacity, etc.), so these descriptors should only be related to the race itself. -->
+	<descriptorsMasculine/>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine/>
+	<!-- Hyena anuses do not need any racial descriptors, but if you wanted to add some, use this format:
+	<descriptorsMasculine>
+		<descriptor><![CDATA[hyena-like]]></descriptor>
+	</descriptorsMasculine>
+	-->
+	
+	<!-- The orifice modifiers which this anus has when first created (such as when a new hyena-morph is spawned).
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/OrificeModifier.java -->
+	<defaultOrificeModifiers>
+		<modifier>PUFFY</modifier>
+	</defaultOrificeModifiers>	
+</anus>

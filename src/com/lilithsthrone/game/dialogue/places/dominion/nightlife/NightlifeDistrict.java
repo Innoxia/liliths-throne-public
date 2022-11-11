@@ -1288,7 +1288,7 @@ public class NightlifeDistrict {
 					+ baseName
 				+ "</td>"
 				+ "<td>"
-					+ "<div class='saveLoadButton' id='import_clubber_" + identifier + "' style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Import</div>"
+					+ "<div class='saveLoadButton' id='IMPORT_CLUBBER_" + identifier + "' style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Import</div>"
 				+ "</td>"
 				+ "</tr>";
 	}

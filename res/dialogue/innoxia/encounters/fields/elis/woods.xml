@@ -10,7 +10,7 @@
 		If omitted or left blank, then your mod's folder name will be used instead. -->
 		<author><![CDATA[Innoxia]]></author>
 		
-		<!-- The title of this scene, which will be displayed as the title at the the top-centre of the UI.
+		<!-- The title of this scene, which will be displayed as the title at the top-centre of the UI.
 		This can be omitted entirely, and is done so in most of the game's scenes, as when omitted the game instead uses the name of the tile which the player is current in as the title. -->
 		<title><![CDATA[Berry bounty]]></title>
 		
@@ -48,7 +48,7 @@
 			This is just so that it's easier to input values, so you don't need to calculate your minutes*60 for every scene. -->
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		
-		<!-- This defines whether or not this scene carries on from the one before it (so that the scene is appended to the end of the previous scene, allowing the player to scoll up and re-read what's happened prior to this scene).
+		<!-- This defines whether or not this scene carries on from the one before it (so that the scene is appended to the end of the previous scene, allowing the player to scroll up and re-read what's happened prior to this scene).
 		I usually define this as true when the scene forms part of a multi-scene conversation, or in any other case when this scene is logically part of whatever has happened prior to it.
 		I don't want an encounter to display the tile's default dialogue above it (which is what would be the scene prior to this), so I'll leave this as false.
 		Please use either 'true' or 'false' for the values here.

@@ -1823,6 +1823,9 @@ public class GenericOrgasms {
 								case BLUEBERRY:
 									cumTargetSB.append(" The taste of [npc.namePos] blueberry-flavoured");
 									break;
+								case BANANA:
+									cumTargetSB.append(" The taste of [npc.namePos] banana-flavoured");
+									break;
 							}
 							cumTargetSB.append(" cum rises up to hit your [npc2.tongue], and you");
 							if(target.hasFetish(Fetish.FETISH_CUM_ADDICT) || Main.sex.getCharactersRequestingCreampie().contains(target) || Main.sex.getCharactersRequestingKnot().contains(target)) {
@@ -3041,7 +3044,7 @@ public class GenericOrgasms {
 		@Override
 		public boolean endsSex() {
 			return Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.INSIDE, true).isEndsSex()
-					|| Main.sex.getCharacterPerformingAction().getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_FUTA_PREGNANCY)//TODO should be moved out into preganncy roulette character method
+					|| Main.sex.getCharacterPerformingAction().getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_FUTA_PREGNANCY)//TODO should be moved out into pregnancy roulette character method
 					|| Main.sex.getCharacterPerformingAction().getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_PREGNANCY);
 		}
 	};
@@ -4963,12 +4966,10 @@ public class GenericOrgasms {
 		public String getActionTitle() {
 			return "Prepare";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "You can feel that [npc2.name] is fast approaching [npc2.her] orgasm. Prepare yourself for it.";
 		}
-		
 		@Override
 		public String getDescription() {
 			String description = "";
@@ -4997,8 +4998,12 @@ public class GenericOrgasms {
 					}
 					break;
 			}
-			
-			return UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterOrgasming(), description);}
+			GameCharacter orgasming = Main.sex.getCharacterOrgasming();
+			if(orgasming==null) {
+				orgasming = Main.sex.getCharacterTargetedForSexAction(this);
+			}
+			return UtilText.parse(Main.sex.getCharacterPerformingAction(), orgasming, description);
+		}
 	};
 	
 	private static boolean isAreaFuckedByTarget(SexAction sexAction, GameCharacter characterFucked, SexAreaInterface areaFucked) {

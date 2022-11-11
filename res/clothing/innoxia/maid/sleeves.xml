@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>350</value> 
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[maid's sleeve]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[maid's sleeves]]></namePlural>
+		<description><![CDATA[A pair of maid's sleeves that end just past the elbow. They're made of soft coloured fabric and sport lace trimmings.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>HAND</slot>
+		<rarity>EPIC</rarity>
+		<clothingSet>innoxia_maid</clothingSet>
+		<imageName>sleeves.svg</imageName>
+		<imageEquippedName/>
+		
+		<effects> 
+			<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+		</effects>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>WRISTS</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="MAID"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_WHITE"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the sleeves down onto [npc.her] [npc.arms].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the sleeves down onto [npc2.namePos] [npc2.arms].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] the sleeves down onto [npc2.namePos] [npc2.arms].]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] off [npc.her] sleeves.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] off [npc2.namePos] sleeves.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(yank)] off [npc2.namePos] sleeves.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

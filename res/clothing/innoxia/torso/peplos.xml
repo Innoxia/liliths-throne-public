@@ -6,7 +6,7 @@
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[peplos]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[peploses]]></namePlural>
-		<description><![CDATA[A a body-length garment, consisting of a long, rectangular cloth which is gathered about the waist and then pinned into place over the shoulders. The top half of the peplos is folded down, giving the appearance of a second piece of clothing.]]></description>
+		<description><![CDATA[A body-length garment, consisting of a long, rectangular cloth which is gathered about the waist and then pinned into place over the shoulders. The top half of the peplos is folded down, giving the appearance of a second piece of clothing.]]></description>
 		<physicalResistance>0</physicalResistance> 
 		<femininity>FEMININE</femininity>
 		<slot>TORSO_UNDER</slot> 

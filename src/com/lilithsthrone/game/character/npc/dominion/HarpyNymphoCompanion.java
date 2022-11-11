@@ -42,6 +42,7 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -256,7 +257,7 @@ public class HarpyNymphoCompanion extends NPC {
 		if (victory) {
 			return new Response("", "", HarpyNestNympho.HARPY_NEST_NYMPHO_FIGHT_BEAT_BF);
 		} else {
-			return new Response("", "", HarpyNestNympho.HARPY_NEST_NYMPHO_FIGHT_LOSE);
+			return new Response("", "", DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_nympho_combat_lost"));
 		}
 	}
 

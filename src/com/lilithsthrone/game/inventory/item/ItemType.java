@@ -224,31 +224,6 @@ public class ItemType {
 		}
 		
 		@Override
-		public int getValue(List<ItemEffect> effects) {
-			int value = 0;
-			if(effects!=null) {
-				for(ItemEffect ie : effects) {
-					switch(ie.getPotency()) {
-						case BOOST:
-							value += 1000;
-							break;
-						case MAJOR_BOOST:
-							value += 1500;
-							break;
-						case MINOR_BOOST:
-							value += 500;
-							break;
-						case MINOR_DRAIN:
-						case DRAIN:
-						case MAJOR_DRAIN:
-							break;
-					}
-				}
-			}
-			return value;
-		}
-		
-		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"You pull the stopper out from the top of the glass vial of 'Angel's Purity', before bringing it to your lips and gulping down the cool, refreshing liquid which is contained within.",
@@ -585,14 +560,6 @@ public class ItemType {
 			null,
 			null) {
 		@Override
-		public int getValue(List<ItemEffect> effects) {
-			int val = super.getValue(effects);
-			
-			val += (effects.size() * 25);
-			
-			return val;
-		}
-		@Override
 		public boolean isTransformative() {
 			return false;
 		}
@@ -626,14 +593,6 @@ public class ItemType {
 			Rarity.EPIC,
 			null,
 			null) {
-		@Override
-		public int getValue(List<ItemEffect> effects) {
-			int val = super.getValue(effects);
-			
-			val += (effects.size() * 50);
-			
-			return val;
-		}
 		@Override
 		public boolean isTransformative() {
 			return true;
@@ -2446,7 +2405,6 @@ public class ItemType {
 	
 
 	public static AbstractItemType getItemTypeFromId(String id) {
-		
 		
 		if(id.equalsIgnoreCase("PROMISCUITY_PILL")) {
 			id = "innoxia_pills_sterility";
