@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayProstituteDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
@@ -28,6 +29,7 @@ import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.Weather;
@@ -403,6 +405,24 @@ public class RedLightDistrict {
 								};
 							}
 							
+						} else if (index == 3) {
+							int fineAmount = AlleywayProstituteDialogue.getModifiedFineAmount(npc);
+							if(Main.game.getPlayer().getMoney()<fineAmount) {
+								return new Response("Remove ("+UtilText.formatAsMoney(fineAmount, "span")+")",
+										UtilText.parse(npc, "You don't have "+Util.intToString(fineAmount)+" flames, so you can't afford to pay off [npc.namePos] debt."),
+										null);
+							} else {
+								return new Response(
+										"Remove ("+UtilText.formatAsMoney(fineAmount, "span")+")",
+										UtilText.parse(npc, "Even though [npc.name] no longer has an arrest warrant, [npc.she] still has to pay off [npc.herHis] fine. Give [npc.name] enough money to pay off the remainder, which would allow [npc.herHim] the freedom to leave the city."
+												+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]"),
+										ANGELS_KISS_PROSTITUTE_REMOVAL_PAID) {
+									@Override
+									public Colour getHighlightColour() {
+										return PresetColour.GENERIC_NPC_REMOVAL;
+									}
+								};
+							}
 						}
 					}
 				}
@@ -1164,6 +1184,31 @@ public class RedLightDistrict {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return ANGELS_KISS_OFFICE.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode ANGELS_KISS_PROSTITUTE_REMOVAL_PAID = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
+			NPC npc = charactersPresent.get(0);
+			UtilText.addSpecialParsingString(Util.intToString(AlleywayProstituteDialogue.getModifiedFineAmount(npc)), true);
+			Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "PROSTITUTE_REMOVAL_PAID", npc));
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-AlleywayProstituteDialogue.getModifiedFineAmount(npc)));
+			Main.game.banishNPC(npc);
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Feeling happy to have been able to help out one of Dominion's troubled citizens, you continue on your way...", Main.game.getDefaultDialogue(false));
+			}
+			return null;
 		}
 	};
 	

@@ -7580,6 +7580,14 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	// Helper methods:
 	
+	public int getTotalSexConsensualCount() {
+		int i=0;
+		for(SexCount count : sexCount.values()) {
+			i+=count.getSexConsensualCount();
+		}
+		return i;
+	}
+	
 	public int getSexConsensualCount(GameCharacter partner) {
 		return getSexCount(partner).getSexConsensualCount();
 	}
