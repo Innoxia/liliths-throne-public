@@ -45,6 +45,8 @@ import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -276,6 +278,42 @@ public class SlaverAlleyDialogue {
 		}
 		for(NPC npc : npcsToBanish) {
 			Main.game.banishNPC(npc);
+		}
+	}
+	
+	
+	public static void stocksUpdate() {
+		float chanceToBeUsed = (12 - Main.game.getHourOfDay()%12)/12f;
+		for(NPC npc : Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.SLAVER_ALLEY).getCell(PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS))) {
+			if((npc instanceof SlaveInStocks) && !Main.game.getPlayer().getCompanions().contains(npc)) {
+				if (Math.random()<chanceToBeUsed) {
+					if (!Main.game.getCharactersPresent().contains(npc)) {
+						Gender gender = Gender.getGenderFromUserPreferences(false, true);
+						
+						Map<AbstractSubspecies, Integer> availableRaces = AbstractSubspecies.getGenericSexPartnerSubspeciesMap(gender);
+						
+						AbstractSubspecies subspecies = Subspecies.HUMAN;
+						AbstractSubspecies halfDemonSubspecies = null;
+						if (!availableRaces.isEmpty()) {
+							subspecies = Util.getRandomObjectFromWeightedMap(availableRaces);
+						}
+						if (Math.random()<Main.getProperties().halfDemonSpawnRate) {
+							halfDemonSubspecies = subspecies;
+							subspecies = Subspecies.HALF_DEMON;
+						}
+						
+						if (npc.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ORAL)) {
+							npc.calculateGenericSexEffects(false, true, null, subspecies, halfDemonSubspecies, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED);
+						}
+						if (npc.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL)) {
+							npc.calculateGenericSexEffects(false, true, null, subspecies, halfDemonSubspecies, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED);
+						}
+						if (npc.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_VAGINAL) && npc.hasVagina()) {
+							npc.calculateGenericSexEffects(false, true, null, subspecies, halfDemonSubspecies, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED);
+						}
+					}
+				}
+			}
 		}
 	}
 	

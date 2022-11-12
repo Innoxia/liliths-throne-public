@@ -2539,6 +2539,7 @@ public class Game implements XMLSaving {
 		// Angels Kiss update
 		for(int i=1; i <= hoursPassed; i++) {
 			RedLightDistrict.prostituteUpdate();
+			SlaverAlleyDialogue.stocksUpdate();
 		}
 		
 		if(loopDebug) {
