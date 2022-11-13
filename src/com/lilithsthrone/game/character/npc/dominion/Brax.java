@@ -482,7 +482,6 @@ public class Brax extends NPC {
 		return 8;
 	}
 
-	@SuppressWarnings("fallthrough")
 	@Override
 	public TransformativePotion generateTransformativePotion(GameCharacter target) {
 		AbstractItemType itemType = ItemType.getItemTypeFromId("innoxia_race_wolf_meat_and_marrow");

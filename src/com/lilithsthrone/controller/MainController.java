@@ -1655,7 +1655,11 @@ public class MainController implements Initializable {
 		} else if (currentNode.equals(SpellManagement.CHARACTER_SPELLS_WATER)) {
 			MiscController.initSpellListeners(SpellSchool.WATER);
 		} else if (currentNode.equals(SuccubisSecrets.SHOP_BEAUTY_SALON_OTHER)) {
+			CoveringController.initAssHairListeners();
 			CoveringController.initBleachingListeners();
+			CoveringController.initFacialHairListeners();
+			CoveringController.initPubicHairListeners();
+			CoveringController.initUnderarmHairListeners();
 		} else if (currentNode.equals(SuccubisSecrets.SHOP_BEAUTY_SALON_HAIR)) {
 			CoveringController.initHairLengthListeners();
 			CoveringController.initHairStyleListeners();

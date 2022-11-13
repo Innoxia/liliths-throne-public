@@ -400,6 +400,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			} catch(Exception ex) {
 			}
 		}
+		// It seems, that upon loading an NPC, the fleshSubspecies unintentionally gets set to Subspecies.HUMAN, even if it's clearly not a human. 
+		// This clears the cached value, so it's being recalculated just-in-time. ~Stadler76
+		npc.getBody().setFleshSubspecies(null);
 	}
 	
 	public void resetSlaveFlags() {
