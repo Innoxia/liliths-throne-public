@@ -4,6 +4,11 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.character.body.valueEnums.*;
+import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
+import com.lilithsthrone.game.character.effects.PerkManager;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -16,21 +21,6 @@ import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.FluidType;
-import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
-import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
-import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
-import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
-import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
-import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
-import com.lilithsthrone.game.character.body.valueEnums.Lactation;
-import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
-import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
-import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -42,6 +32,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -53,6 +44,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -65,7 +57,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class RatWarrensCaptive extends NPC {
 
 	public RatWarrensCaptive() {
-		this(Gender.F_V_B_FEMALE, false);
+		this(Gender.getGenderFromUserPreferences(Femininity.FEMININE), false);
 	}
 	
 	public RatWarrensCaptive(Gender gender) {
@@ -86,11 +78,12 @@ public class RatWarrensCaptive extends NPC {
 		if(!isImported) {
 			// RACE:
 			
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(false);
 			this.setGenericName("captive");
 
 			Main.game.getCharacterUtils().randomiseBody(this, true);
+			setStartingBody(false);
 			
 			// INVENTORY:
 			
@@ -128,8 +121,22 @@ public class RatWarrensCaptive extends NPC {
 			setStartingBody(true);
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.3.3")) {
+			this.resetPerksMap(true);
+		}
 	}
 
+	@Override
+	public void setupPerks(boolean autoSelectPerks) {
+		PerkManager.initialisePerks(this,
+				Util.newArrayListOfValues(
+						Perk.AHEGAO),
+				Util.newHashMapOfValues(
+						new Value<>(PerkCategory.PHYSICAL, 0),
+						new Value<>(PerkCategory.LUST, 1),
+						new Value<>(PerkCategory.ARCANE, 0)));
+	}
+	
 	@Override
 	public void setStartingBody(boolean setPersona) {
 		if(setPersona) {
@@ -143,6 +150,7 @@ public class RatWarrensCaptive extends NPC {
 			this.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING);
 			
 			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			this.addFetish(Fetish.FETISH_MASOCHIST);
 			this.addFetish(Fetish.FETISH_EXHIBITIONIST);
 			
 			this.addFetish(Fetish.FETISH_BREASTS_SELF);
@@ -216,13 +224,27 @@ public class RatWarrensCaptive extends NPC {
 	@Override
 	public String getDescription() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("This woman is one of Murk's 'milkers', and is whored out to anyone who can afford her."
-				+ " While not being fucked by Murk or some stranger, this 'milker' earns her name by having her breasts milked by an arcane-powered machine.");
-		
-		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensMilkersBackground)) {
-			sb.append("<br/>"
-					+ "After asking Murk about the milkers, you discovered that they were originally kidnapped and forced to be milked against their will."
-					+ " Over time, however, the rat-boy totally broke their will to resist, to the point where they now desperately plead to get fucked by him...");
+		if(this.getHomeWorldLocation()==WorldType.RAT_WARRENS) {
+			sb.append("This woman is one of Murk's 'milkers', and is whored out to anyone who can afford her."
+					+ " While not being fucked by Murk or some stranger, this 'milker' earns her name by having her breasts milked by an arcane-powered machine.");
+			
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensMilkersBackground)) {
+				sb.append("<br/>"
+						+ "After asking Murk about the milkers, you discovered that they were originally kidnapped and forced to be milked against their will."
+						+ " Over time, however, the rat-boy totally broke their will to resist, to the point where they now desperately plead to get fucked by him...");
+			}
+			
+		} else {
+			sb.append(UtilText.parse(this,
+					"This [npc.race] used to be one of Murk's 'milkers', and was whored out to anyone who can afford [npc.herHim]."
+						+ " While not being fucked by Murk or some stranger, this 'milker' used to earn [npc.her] name by having [npc.her] breasts milked by an arcane-powered machine."
+						+ "<br/>"
+						+ "Claire informed you that [npc.she] was originally kidnapped by Murk and forced to be milked against [npc.her] will."
+						+ " Over time, however, the rat-boy totally broke [npc.her] will to resist,"
+							+ " to the point where [npc.she] was so desperate to continue being milked and fucked that the Enforcers had no other choice but to enslave [npc.herHim] to give [npc.herHim] the life [npc.she] craved."
+						+ "<br/>"
+						+ "Having agreed to take care of [npc.herHim], Claire signed possession of this slave over to you."
+						+ " It's now completely up to you whether you subject [npc.herHim] to the abusive treatment [npc.she] craves, or to instead choose to give [npc.herHim] a different type of life..."));
 		}
 		return sb.toString();
 	}
@@ -267,14 +289,16 @@ public class RatWarrensCaptive extends NPC {
 	
 	@Override
 	public void hourlyUpdate() {
-		// If the player is not a captive, and Murk has not been enslaved, then keep rolling for sex effects:
-		if(!Main.game.getPlayer().isCaptive() && !Main.game.getNpc(Murk.class).isSlave()) {
-			float rnd = (float) Math.random();
-			if(rnd<0.005f && Main.game.isAnalContentEnabled()) { // Average fucked once every week
-				this.ingestFluid(null, Subspecies.RAT_MORPH, Subspecies.RAT_MORPH, new FluidCum(FluidType.CUM_RAT_MORPH), SexAreaOrifice.ANUS, 20+Util.random.nextInt(100));
-				
-			} else if(rnd<0.05f) { // Average fucked once or twice a day
-				this.ingestFluid(null, Subspecies.RAT_MORPH, Subspecies.RAT_MORPH, new FluidCum(FluidType.CUM_RAT_MORPH), SexAreaOrifice.VAGINA, 20+Util.random.nextInt(100));
+		if(this.getHomeWorldLocation()==WorldType.RAT_WARRENS) {
+			// If the player is not a captive, and Murk has not been enslaved, then keep rolling for sex effects:
+			if(!Main.game.getPlayer().isCaptive() && !Main.game.getNpc(Murk.class).isSlave()) {
+				float rnd = (float) Math.random();
+				if(rnd<0.005f && Main.game.isAnalContentEnabled()) { // Average fucked once every week
+					this.ingestFluid(null, Subspecies.RAT_MORPH, Subspecies.RAT_MORPH, new FluidCum(FluidType.CUM_RAT_MORPH), SexAreaOrifice.ANUS, 20+Util.random.nextInt(100));
+					
+				} else if(rnd<0.05f) { // Average fucked once or twice a day
+					this.ingestFluid(null, Subspecies.RAT_MORPH, Subspecies.RAT_MORPH, new FluidCum(FluidType.CUM_RAT_MORPH), SexAreaOrifice.VAGINA, 20+Util.random.nextInt(100));
+				}
 			}
 		}
 	}

@@ -143,7 +143,7 @@
 						innoxia_characters_meraxis_duel_won
 					#ENDIF]]></nextDialoguePlayerVictory>
 					<nextDialoguePlayerDefeat><![CDATA[innoxia_characters_meraxis_duel_lost]]></nextDialoguePlayerDefeat>
-					<allies companionsAreAllies="false"/>
+					<allies companionsAreAllies="false" elementalsAreAllies="false"/>
 					<enemies>
 						<enemy leader="true"><![CDATA[meraxis]]></enemy>
 					</enemies>
@@ -881,7 +881,6 @@
 				<nextDialogue>innoxia_characters_meraxis_duel_won_sex_end</nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_SEX_NOTHING'))]
-					[#game.appendToTextStartStringBuilder(meraxis.incrementAffection(pc, -1))]
 				]]></effects>
 			</response>
 		</responses>
@@ -987,7 +986,7 @@
 				<responseTooltip><![CDATA[
 					#IF(!pc.hasVagina())
 						You don't have a vagina, so Meraxis couldn't finger you even if she wanted to!
-					#ELSEIF(pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 						You can't gain access to your vagina, so Meraxis couldn't finger you even if she wanted to!
 					#ELSE
 						Meraxis doesn't feel comfortable enough to finger you!
@@ -1052,7 +1051,7 @@
 				<responseTooltip><![CDATA[
 					#IF(!pc.hasPenis())
 						You don't have a penis, so Meraxis couldn't give you a handjob even if she wanted to!
-					#ELSEIF(pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_PENIS, true))
 						You can't gain access to your penis, so Meraxis couldn't give you a handjob even if she wanted to!
 					#ELSE
 						Meraxis doesn't feel comfortable enough to give you a handjob!
@@ -1201,7 +1200,7 @@
 				<index><![CDATA[3]]></index>
 				<responseTitle><![CDATA[Anilingus]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+					#IF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
 						You can't gain access to your mouth, so can't perform anilingus on Meraxis even if she'd let you!
 					#ELSE
 						Meraxis doesn't feel comfortable enough to let you perform anilingus on her!
@@ -1254,7 +1253,7 @@
 				<responseTooltip><![CDATA[
 					#IF(!pc.hasPenis())
 						You don't have a penis so couldn't hotdog Meraxis even if she'd let you!
-					#ELSEIF(pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_PENIS, true))
 						You can't gain access to your penis, so can't hotdog Meraxis even if she'd let you!
 					#ELSE
 						Meraxis doesn't feel comfortable enough to let you hotdog her!
@@ -1325,7 +1324,7 @@
 				<responseTooltip><![CDATA[
 					#IF(!pc.hasPenis())
 						You don't have a penis so couldn't fuck Meraxis's ass even if she'd let you!
-					#ELSEIF(pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_PENIS, true))
 						You can't gain access to your penis, so can't fuck Meraxis's ass even if she'd let you!
 					#ELSE
 						Meraxis doesn't feel comfortable enough to let you fuck her ass!

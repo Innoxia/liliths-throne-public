@@ -39,21 +39,21 @@ public class CMWeaponSpecials {
         }
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, target,
             		"Empty an entire 30-round magazine in full-auto, dealing "+getFormattedDamage(damageType, getBulletDamage(), target, false, isTargetAtMaximumLust(target))+" damage for each bullet that hits."
             				+ "<br/>[style.italicsGood(Targets every enemy!)]");
         }
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can switch to full-auto and empty an entire 30-round magazine at [npc.her] enemies, dealing "+getFormattedDamage(damageType, getBulletDamage(), null, false, false)+" damage for each bullet that hits."
             				+ "<br/>[style.italicsGood(Targets every enemy!)]");
         }
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             
             StringBuilder attackDesc = new StringBuilder();
             StringBuilder attackEffects = new StringBuilder();
@@ -126,21 +126,21 @@ public class CMWeaponSpecials {
         }
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, target,
             		"Empty an entire 20-round magazine in full-auto, dealing "+getFormattedDamage(damageType, getBulletDamage(), target, false, isTargetAtMaximumLust(target))+" damage for each bullet that hits."
             				+ "<br/>[style.italicsGood(Targets every enemy!)]");
         }
         @Override
-        public String getDescription(GameCharacter source) {
-            DamageType damageType = getDamageType(source);
+        public String getDescription(int turnIndex, GameCharacter source) {
+            DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can switch to full-auto and empty an entire 20-round magazine at [npc.her] enemies, dealing "+getFormattedDamage(damageType, getBulletDamage(), null, false, false)+" damage for each bullet that hits."
             				+ "<br/>[style.italicsGood(Targets every enemy!)]");
         }
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             
             StringBuilder attackDesc = new StringBuilder();
             StringBuilder attackEffects = new StringBuilder();

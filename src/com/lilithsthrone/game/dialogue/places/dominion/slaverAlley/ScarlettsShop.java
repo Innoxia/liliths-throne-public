@@ -184,8 +184,8 @@ public class ScarlettsShop {
 				return SexControl.ONGOING_ONLY; // So Scarlett doesn't start anything else.
 			}
 			@Override
-			public boolean isAbleToEquipSexClothing(GameCharacter character){
-				return false;
+			public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip){
+				return clothingToEquip.isCondom();
 			}
 			@Override
 			public boolean isAbleToRemoveSelfClothing(GameCharacter character){
@@ -276,8 +276,8 @@ public class ScarlettsShop {
 				return SexControl.ONGOING_ONLY; // So Scarlett doesn't start anything else.
 			}
 			@Override
-			public boolean isAbleToEquipSexClothing(GameCharacter character){
-				return false;
+			public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip){
+				return clothingToEquip.isCondom();
 			}
 			@Override
 			public boolean isAbleToRemoveSelfClothing(GameCharacter character){
@@ -358,7 +358,6 @@ public class ScarlettsShop {
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_ASS
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH
-				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_CORE
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD
@@ -583,7 +582,7 @@ public class ScarlettsShop {
 							AbstractClothing collar = Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false);
 							collar.setSealed(true);
 							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(collar, true, Main.game.getNpc(Helena.class));
-							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_BALLGAG, PresetColour.CLOTHING_PINK, false), true, Main.game.getNpc(Helena.class));
+							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_ballgag", PresetColour.CLOTHING_PINK, false), true, Main.game.getNpc(Helena.class));
 						}
 					};
 					
@@ -1413,8 +1412,8 @@ public class ScarlettsShop {
 		}
 		@Override
 		public String getContent() {
-			UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN_PREMIUM.getValue(null)), true);
-			UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN.getValue(null)), false);
+			UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN_PREMIUM.getValue()), true);
+			UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN.getValue()), false);
 			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "ROMANCE_OFFER_HELP_WAIT");
 		}
 		@Override
@@ -3056,13 +3055,9 @@ public class ScarlettsShop {
 				}
 				return new Response("Spinneret", "Customise aspects of your slave's penis.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET);
 				
-			} else if(index==11 && Main.getProperties().getUddersLevel()!=0) {
+			} else if(index==11) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH) {
 					return new Response("Crotch-boobs", "You are already customising the aspects of your slave's crotch-boobs!", null);
-				}
-				
-				if(Main.getProperties().getUddersLevel()==1 && BodyChanging.getTarget().getLegConfiguration().isBipedalPositionedCrotchBoobs()) {
-					return new Response("Crotch-boobs", "As you have crotch-boobs disabled for non-taur characters, you cannot access this menu!", null);
 				}
 				
 				return new Response(
@@ -3085,7 +3080,12 @@ public class ScarlettsShop {
 			} else if(index==14) {
 				return new Response("[style.colourMinorGood(Finalise order)]",
 						"Tell Helena that you've completed the ordering forms, and see how much this is going to cost you...",
-						HELENAS_SHOP_CUSTOM_SLAVE_FINISH);
+						HELENAS_SHOP_CUSTOM_SLAVE_FINISH) {
+					@Override
+					public void effects() {
+						BodyChanging.getTarget().setAllAreasKnownByCharacter(Main.game.getPlayer(), true);
+					}
+				};
 				
 			} 
 			return null;
@@ -3406,9 +3406,7 @@ public class ScarlettsShop {
 			
 			sb.append("<div class='container-full-width' style='text-align:center;'>"
 							+ "<i>"
-								+ "For each increase in sexual experience, your slave will gain 1 corruption."
-								+ "<br/>"
-								+ "Current corruption: [style.colourCorruption("+BodyChanging.getTarget().getAttributeValue(Attribute.MAJOR_CORRUPTION)+")]"
+								+ "More sexual experience will result in your slave gaining more corruption."
 							+ "</i>"
 						+ "</div>"
 						+CharacterModificationUtils.getSexualExperienceDiv());

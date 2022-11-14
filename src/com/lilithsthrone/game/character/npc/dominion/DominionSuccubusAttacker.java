@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
@@ -20,7 +21,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
@@ -59,16 +59,21 @@ public class DominionSuccubusAttacker extends NPC {
 	public DominionSuccubusAttacker(boolean isImported) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(50)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				5, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.GREATER,
+				5, Gender.getGenderFromUserPreferences(Femininity.FEMININE), Subspecies.DEMON, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
 			this.setLocation(Main.game.getPlayer(), true);
 			
-			if(!Gender.getGenderFromUserPreferences(false, false).isFeminine()) {
-				this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, true);
-				this.setGenderIdentity(Gender.M_P_MALE);
-			}
+//			if(!Gender.getGenderFromUserPreferences(false, false).isFeminine()) {
+//				this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, true);
+//				this.setGenderIdentity(Gender.M_P_MALE);
+//			}
+			
+			Gender gender = Gender.getGenderFromUserPreferences(false, false);
+			this.setBody(gender, Subspecies.DEMON, RaceStage.GREATER, true);
+			this.setGenderIdentity(gender);
+			
 			
 			Main.game.getCharacterUtils().randomiseBody(this, true);
 
@@ -92,19 +97,24 @@ public class DominionSuccubusAttacker extends NPC {
 			
 			setLevel(Util.random.nextInt(5) + 4);
 			
-			setName(Name.getRandomTriplet(Race.DEMON));
+			setName(Name.getRandomTriplet(Subspecies.DEMON));
 			this.setPlayerKnowsName(false);
 			
 			// Set random inventory & weapons:
 			resetInventory(true);
 			inventory.setMoney(50);
-			Main.game.getCharacterUtils().generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 			
 			// CLOTHING:
 			
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyTattoos(this, true);
+
+			if(hasFetish(Fetish.FETISH_CUM_ADDICT) && Math.random() < 0.1) {
+				Main.game.getCharacterUtils().applyDirtiness(this);
+			}
 			
 			this.addSpell(Spell.ARCANE_AROUSAL);
 			this.addSpell(Spell.TELEPATHIC_COMMUNICATION);
@@ -141,7 +151,7 @@ public class DominionSuccubusAttacker extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
-		Main.game.getCharacterUtils().generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 		
 		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
 	}
@@ -227,7 +237,7 @@ public class DominionSuccubusAttacker extends NPC {
 	
 	@Override
 	public String getCondomEquipEffects(AbstractClothingType condomClothingType, GameCharacter equipper, GameCharacter target, boolean rough) {
-		if(Main.game.isInSex()) {
+		if(!target.equals(equipper) && Main.game.isInSex()) {
 			if((Main.sex.isDom(Main.game.getPlayer()) || Main.sex.isSubHasEqualControl()) && !target.isPlayer()) {
 				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
 					return null;

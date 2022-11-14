@@ -107,8 +107,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private Set<OrificeModifier> orificeOtherModifiers;
 
 	// Enchantments:
-	@SuppressWarnings("unused")
-	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment capacity mechanics.
 	protected List<ItemEffect> effects;
 
 	// Images:
@@ -245,8 +243,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		
 		this.isPatternAvailable = false;
 		this.isPatternAvailableInitCompleted = false;
-
-		enchantmentLimit = -1;
 		
 		// Attribute modifiers:
 		if (effects != null) {
@@ -555,11 +551,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			
 			Predicate<Element> filterEmptyElements = element -> !element.getTextContent().isEmpty(); //helper function to filter out empty elements.
 
-			this.enchantmentLimit = coreAttributes.getOptionalFirstOf("enchantmentLimit") // three possible cases
-				.filter(filterEmptyElements) // <enchantmentLimit> or <enchantmentLimit></enchantmentLimit> - text content is "" - trying to convert to Integer throws  - filter it out so default value gets assigned
-				.map(Element::getTextContent).map(Integer::valueOf) //<enchantmentLimit>x</enchantmentLimit>, x being Integer		
-				.orElse(-1);// empty element or no value in element, assign default value;
-
 			this.clothingSet = coreAttributes.getOptionalFirstOf("clothingSet")
 				.filter(filterEmptyElements)
 				.map(Element::getTextContent).map(SetBonus::getSetBonusFromId)
@@ -716,7 +707,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			Function<Element, List<Pattern> > getPatternsFromElement = (patternsElement) -> { //Helper function to get the patterns
 				try {
 					return patternsElement.getAllOf("pattern").stream()
-							.map(Element::getTextContent).map(Pattern::getPattern)
+							.map(Element::getTextContent).map(Pattern::getPatternByIdOrName)
 							.collect(Collectors.toList());
 				} catch (Exception e) {
 					printHelpfulErrorForEnumValueMismatches(e);
@@ -1203,6 +1194,18 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		SVGStringMap = new HashMap<>();
 		SVGStringEquippedMap = new HashMap<>();
 		
+		// Add PENIS and VAGINA from blocked parts to clothingAccessBlocked:
+		for(Entry<InventorySlot, List<BlockedParts>> entry : this.blockedPartsMap.entrySet()) {
+			for(BlockedParts bp : entry.getValue()) {
+				if(bp.blockedBodyParts.contains(CoverableArea.PENIS) && !bp.clothingAccessBlocked.contains(ClothingAccess.PENIS)) {
+					bp.clothingAccessBlocked.add(ClothingAccess.PENIS);
+				}
+				if(bp.blockedBodyParts.contains(CoverableArea.VAGINA)&& !bp.clothingAccessBlocked.contains(ClothingAccess.VAGINA)) {
+					bp.clothingAccessBlocked.add(ClothingAccess.VAGINA);
+				}
+			}
+		}
+		
 		// Add blocked parts due to sealing or plugging:
 		for(Entry<InventorySlot, List<ItemTag>> entry : this.itemTags.entrySet()) { //TODO check
 			for(ItemTag tag : entry.getValue()) {
@@ -1365,18 +1368,30 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	public String equipText(GameCharacter clothingOwner, GameCharacter clothingEquipper, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 		if(clothing.isCondom(slotToEquipInto) && applyEffects) {
-			NPC interactingTarget = InventoryDialogue.getInventoryNPC();
-			if(interactingTarget==null) {
-				if(Main.game.isInSex() && !Main.sex.isMasturbation() && Main.sex.getTargetedPartner(Main.game.getPlayer())!=null && Main.sex.getTargetedPartner(Main.game.getPlayer()) instanceof NPC) {
-					interactingTarget = (NPC) Main.sex.getTargetedPartner(Main.game.getPlayer());
-				}
+			NPC interactingTarget;
+			if(Main.game.isInSex() && !Main.sex.isMasturbation() && Main.sex.getTargetedPartner(clothingEquipper)!=null && Main.sex.getTargetedPartner(clothingEquipper) instanceof NPC) {
+			    interactingTarget = (NPC) Main.sex.getTargetedPartner(clothingEquipper);
+			} else {
+			    interactingTarget = InventoryDialogue.getInventoryNPC();
 			}
 			if(interactingTarget!=null) {
-				String condomEquip = interactingTarget.getCondomEquipEffects(this, clothingEquipper, clothingOwner, rough);
+			    String condomEquip = interactingTarget.getCondomEquipEffects(this, clothingEquipper, interactingTarget, rough);
 				if(condomEquip!=null) {
 					return condomEquip;
 				}
 			}
+//			NPC interactingTarget = InventoryDialogue.getInventoryNPC();
+//			if(interactingTarget==null) {
+//				if(Main.game.isInSex() && !Main.sex.isMasturbation() && Main.sex.getTargetedPartner(Main.game.getPlayer())!=null && Main.sex.getTargetedPartner(Main.game.getPlayer()) instanceof NPC) {
+//					interactingTarget = (NPC) Main.sex.getTargetedPartner(Main.game.getPlayer());
+//				}
+//			}
+//			if(interactingTarget!=null) {
+//				String condomEquip = interactingTarget.getCondomEquipEffects(this, clothingEquipper, clothingOwner, rough);
+//				if(condomEquip!=null) {
+//					return condomEquip;
+//				}
+//			}
 		}
 		
 		if(clothingOwner==null || clothingEquipper==null || !Main.game.isStarted()) {

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[locked door]]></name>
+	<tooltipDescription><![CDATA[A locked door bars members of the public from accessing the VIP area.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in 'The Crossed Blades' tavern]]></virginityLossDescription>
+	<sexBlockedReason/>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<svgName>door</svgName>
+	<colour>BASE_CRIMSON</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_tavern_alley_locked_door</dialogue>
+	<populationPresent/>
+	<furniturePresent>false</furniturePresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions/>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

@@ -37,7 +37,7 @@ public class KneelingOral {
 		
 		@Override
 		public SexActionPriority getPriority() {
-			if(Main.sex.getCreampieLockedBy()!=null) {
+			if(!Main.sex.getCreampieLockedBy().containsKey(Main.sex.getCharacterPerformingAction())) {
 				return SexActionPriority.UNIQUE_MAX;
 			}
 			return super.getPriority();

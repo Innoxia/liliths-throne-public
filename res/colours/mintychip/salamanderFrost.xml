@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<colour>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- Whether this is a metallic colour or not.
+	If metallic, the game generates a metallic effect for this colour's icon. -->
+	<metallic>false</metallic>
+	
+	<!-- The name of this colour. -->
+	<name><![CDATA[Celestial Blue]]></name>
+	
+	<!-- This colour's hex code, which is used when the game is set in the default 'dark' theme. -->
+	<colour>4997D0</colour>
+	<!-- This colour's hex code, which is used when the game is set in the 'light' theme.
+	In the case of colours intended for item or race recolouring, this will almost always be the same as the 'colour' value above (as is the case here). -->
+	<lightColour>4997D0</lightColour>
+	<!-- This colour's hex code to be used when displaying this colour's icon in covering transformation screens.
+	You can omit this field entirely, in which case the icon colour will be the same as the 'colour' value above (as is the case here). -->
+	<coveringIconColour/>
+	
+	<!-- here you can define names to be recognised by the parser for formatting.
+	e.g. After defining this colour's formattingNames as below, the parsing command '[style.colourFuchsia(This is coloured text!)]' will now work. -->
+	<formattingNames>
+		<name><![CDATA[salamanderFrost]]></name>
+	</formattingNames>
+	
+</colour>

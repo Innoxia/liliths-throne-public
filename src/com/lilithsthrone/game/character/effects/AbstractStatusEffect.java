@@ -295,7 +295,7 @@ public abstract class AbstractStatusEffect {
 				
 			} catch(Exception ex) {
 				ex.printStackTrace();
-				System.err.println("SetBonus was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+				System.err.println("StatusEffect was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
 			}
 		}
 	}
@@ -554,7 +554,11 @@ public abstract class AbstractStatusEffect {
 						SVGString = SvgUtil.colourReplacement(this.getId(), colourShades, null, SVGString);
 						
 					} else {
-						InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/" + pathName + ".svg");
+						String path = "/com/lilithsthrone/res/statusEffects/" + pathName + ".svg";
+						if(pathName.startsWith("res/")) {
+							path = "/com/lilithsthrone/"+pathName+".svg";
+						}
+						InputStream is = this.getClass().getResourceAsStream(path);
 						if(is==null) {
 							System.err.println("Error! StatusEffect icon file does not exist (Trying to read from '"+pathName+"')!");
 						}
@@ -964,8 +968,12 @@ public abstract class AbstractStatusEffect {
 		
 		return SVGImageSB.toString();
 	}
-	
+
 	public String getOrificeSVGString(GameCharacter owner, SexAreaInterface orifice, String baseSVG) {
+		return getOrificeSVGString(owner, orifice, baseSVG, null);
+	}
+	
+	public String getOrificeSVGString(GameCharacter owner, SexAreaInterface orifice, String baseSVG, List<SexAreaInterface> limitInteractionsTo) {
 		StringBuilder SVGImageSB = new StringBuilder();
 
 		if(!Main.sex.getOngoingSexAreas(owner, orifice).isEmpty()) {
@@ -980,31 +988,33 @@ public abstract class AbstractStatusEffect {
 				for(SexAreaInterface sArea : entry.getValue()) {
 					if(sArea.isPenetration()) {
 						GameCharacter penetrationOwner = Main.sex.getOngoingCharactersUsingAreas(owner, orifice, sArea).iterator().next();
-						switch((SexAreaPenetration)sArea) {
-							case FINGER:
-								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
-								break;
-							case PENIS:
-								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
-								break;
-							case TAIL:
-								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"
-										+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail(penetrationOwner.getLegConfiguration()==LegConfiguration.TAIL_LONG)+"</div>");
-								break;
-							case TONGUE:
-								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
-								break;
-							case CLIT:
-								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeClit()+"</div>");
-								break;
-							case FOOT:
-								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFoot()+"</div>");
-								break;
-							case TENTACLE:
-								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTentacle()+"</div>");
-								break;
+						if(limitInteractionsTo==null || limitInteractionsTo.contains(sArea)) {
+							switch((SexAreaPenetration)sArea) {
+								case FINGER:
+									SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
+									break;
+								case PENIS:
+									SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
+									break;
+								case TAIL:
+									SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"
+											+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail(penetrationOwner.getLegConfiguration()==LegConfiguration.TAIL_LONG)+"</div>");
+									break;
+								case TONGUE:
+									SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
+									break;
+								case CLIT:
+									SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeClit()+"</div>");
+									break;
+								case FOOT:
+									SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFoot()+"</div>");
+									break;
+								case TENTACLE:
+									SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTentacle()+"</div>");
+									break;
+							}
+							rightOffset+=8;
 						}
-						rightOffset+=8;
 					}
 				}
 			}
@@ -1194,9 +1204,7 @@ public abstract class AbstractStatusEffect {
 		} else if (owner.isFeminine() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES)) {
 			names.add("nipples");
 		}
-		if(owner.hasBreastsCrotch()
-				&& (Main.getProperties().getUddersLevel()>0 || owner.isFeral())
-				&& owner.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH)) {
+		if(owner.hasBreastsCrotch() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH)) {
 			names.add(UtilText.parse(owner, "[npc.crotchBoobs]"));
 		}
 		if(owner.isCoverableAreaVisible(CoverableArea.ANUS)) {
@@ -1223,9 +1231,7 @@ public abstract class AbstractStatusEffect {
 		
 		boolean breastsExposed = owner.hasBreasts() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES);
 		boolean nipplesExposed = ! breastsExposed && owner.isFeminine() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES);
-		boolean crotchBoobsExposed = owner.hasBreastsCrotch()
-				&& (Main.getProperties().getUddersLevel()>0 || owner.isFeral())
-				&& owner.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH);
+		boolean crotchBoobsExposed = owner.hasBreastsCrotch() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH);
 
 		boolean anusExposed = owner.isCoverableAreaVisible(CoverableArea.ANUS);
 		
@@ -1285,9 +1291,7 @@ public abstract class AbstractStatusEffect {
 		boolean anusRecovering = owner.getAssRawCapacityValue()!=owner.getAssStretchedCapacity();
 		boolean throatRecovering = owner.getFaceRawCapacityValue()!=owner.getFaceStretchedCapacity();
 		boolean nipplesRecovering = owner.getNippleRawCapacityValue()!=owner.getNippleStretchedCapacity();
-		boolean nipplesCrotchRecovering = owner.hasBreastsCrotch()
-				&& (Main.getProperties().getUddersLevel()>0 || owner.isFeral())
-				&& owner.getNippleCrotchRawCapacityValue()!=owner.getNippleCrotchStretchedCapacity();
+		boolean nipplesCrotchRecovering = owner.hasBreastsCrotch() && owner.getNippleCrotchRawCapacityValue()!=owner.getNippleCrotchStretchedCapacity();
 		boolean penileUrethraRecovering = owner.hasPenis() && owner.getPenisRawCapacityValue()!=owner.getPenisStretchedCapacity();
 		boolean vaginalUrethraRecovering = owner.hasVagina() && owner.getVaginaUrethraRawCapacityValue()!=owner.getVaginaUrethraStretchedCapacity();
 		

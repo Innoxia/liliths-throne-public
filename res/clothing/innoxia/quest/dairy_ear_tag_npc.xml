@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>500</value>
+		<determiner><![CDATA[an]]></determiner>
+		<name appendColourName="false"><![CDATA[Evelyx's Dairy ear tag]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Evelyx's Dairy ear tags]]></namePlural>
+		<description><![CDATA[A plastic tag with metal trimmings, of the sort typically worn in a pierced ear by domestic animals for identification purposes. This particular tag grants the holder access to ]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>PIERCING_EAR</slot>
+		<rarity>EPIC</rarity>
+		<clothingSet>CATTLE</clothingSet>
+		<imageName>dairy_ear_tag.svg</imageName>
+		<imageEquippedName/>
+		<effects>
+            <effect limit="20" mod1="TF_BREASTS" mod2="TF_MOD_SIZE" potency="BOOST" timer="0" type="CLOTHING"/>
+            <effect limit="80" mod1="TF_CORE" mod2="TF_MOD_FEMININITY" potency="BOOST" timer="0" type="CLOTHING"/>
+            <effect limit="5000" mod1="TF_BREASTS" mod2="TF_MOD_WETNESS" potency="BOOST" timer="0" type="CLOTHING"/>
+            <effect limit="50000" mod1="TF_BREASTS" mod2="TF_MOD_REGENERATION" potency="BOOST" timer="0" type="CLOTHING"/>
+            <effect limit="0" mod1="TF_BREASTS" mod2="TF_MOD_ORIFICE_PUFFY" potency="MINOR_BOOST" timer="0" type="CLOTHING"/>
+		</effects>
+		
+		<stickers>
+			<category id="level" priority="1">
+				<categoryName><![CDATA[Access Level]]></categoryName>
+				<sticker id="trainee" priority="0" defaultSticker="true" zLayer="1" colourDisabled="" colourSelected="BASE_YELLOW_LIGHT">
+					<stickerName><![CDATA[Trainee]]></stickerName>
+					<namePrefix/>
+					<namePostfix priority="1"><![CDATA[(trainee)]]></namePostfix>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[ the 'Training' barn in Evelyx's Dairy.]]></descriptionModification>
+					<imageName zLayer="1" slot="PIERCING_EAR">dairy_ear_tag_level1.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="true"><![CDATA[Access Level cannot be manually changed!]]></unavailabilityText> 
+					<availabilityText/>
+				</sticker>
+				<sticker id="heifer" priority="1" defaultSticker="false" zLayer="1" colourDisabled="" colourSelected="BASE_YELLOW">
+					<stickerName><![CDATA[Heifer]]></stickerName>
+					<namePrefix/>
+					<namePostfix priority="1"><![CDATA[(heifer)]]></namePostfix>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[ the 'Breeding' barn in Evelyx's Dairy.]]></descriptionModification>
+					<imageName zLayer="1" slot="PIERCING_EAR">dairy_ear_tag_level2.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="true"><![CDATA[Access Level cannot be manually changed!]]></unavailabilityText> 
+					<availabilityText/>
+				</sticker>
+				<sticker id="cow" priority="2" defaultSticker="false" zLayer="1" colourDisabled="" colourSelected="BASE_GOLD">
+					<stickerName><![CDATA[Cow]]></stickerName>
+					<namePrefix/>
+					<namePostfix priority="1"><![CDATA[(cow)]]></namePostfix>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[ the 'Milking' barn in Evelyx's Dairy.]]></descriptionModification>
+					<imageName zLayer="1" slot="PIERCING_EAR">dairy_ear_tag_level3.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="true"><![CDATA[Access Level cannot be manually changed!]]></unavailabilityText> 
+					<availabilityText/>
+				</sticker>
+			</category>
+		</stickers>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/> 
+		<secondaryColours recolouringAllowed="false">
+			<colour>CLOTHING_BRONZE</colour>
+		</secondaryColours>
+		<secondaryColoursDye>
+			<colour>CLOTHING_SILVER</colour>
+			<colour>CLOTHING_GOLD</colour>
+		</secondaryColoursDye>
+		<tertiaryColours/> 
+		<tertiaryColoursDye/>
+		
+		<itemTags/>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(clip)] the tag into [npc.her] [npc.ear(true)].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(clip)] the tag into [npc2.namePos] [npc2.ear(true)].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(clip)] the tag into [npc2.namePos] [npc2.ear(true)].]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unclip)] [npc.her] tag and [npc.verb(take)] it out of [npc.her] [npc.ear(true)] piercing.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unclip)] [npc2.namePos] tag and [npc.verb(take)] it out of [npc2.her] [npc2.ear(true)] piercing.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(unclip)] [npc2.namePos] tag and roughly [npc.verb(yank)] it out of [npc2.her] [npc2.ear(true)] piercing.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

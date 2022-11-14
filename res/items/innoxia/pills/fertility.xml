@@ -126,9 +126,7 @@
 		
 		<!-- Special item tags that apply to this item. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags>
-			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
-			<tag>SUBMISSION_TUNNEL_SPAWN</tag>
-			<tag>BAT_CAVERNS_SPAWN</tag>
+			<tag>ALL_AREAS_SPAWN</tag>
 			<tag>ATTRIBUTE_TF_ITEM</tag>
 			<tag>SOLD_BY_RALPH</tag>
 		</itemTags>

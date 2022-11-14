@@ -41,9 +41,11 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
+import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.AbstractRace;
@@ -436,7 +438,7 @@ public class ItemEffectType {
 				String unknownFatherName = "Unknown!";
 				if(father==null) {
 					try {
-						GameCharacter offspring0 = target.getPregnantLitter().getOffspringCharacters().iterator().next();
+						OffspringSeed offspring0 = target.getPregnantLitter().getOffspringSeed().iterator().next();
 						if(!offspring0.getFatherName().equals("???")) {
 							unknownFatherName = offspring0.getFatherName();
 						}
@@ -444,15 +446,16 @@ public class ItemEffectType {
 					}
 				}
 				
-				return "<p>"
-						+ "The digital readout lights up with two parallel red lines, with flashing pink text next to that displaying: '[style.italicsArcane(Pregnant!)]'"
+				return "<p style='text-align:center;'>"
+						+ "The digital readout lights up with two parallel red lines, with flashing pink text next to that displaying:"
+						+ "<br/><b>'[style.italicsArcane(Pregnant!)]'</b>"
 					+ "</p>"
-					+ "<p>"
+					+ "<p style='text-align:center;'>"
 						+ "Underneath the flashing pregnancy confirmation, there's some extra information, which reads:<br/>"
 						+ "<i>"
 						+ "Father: "+(father!=null
-										?father.getNameIgnoresPlayerKnowledge()+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(father))+")"
-										:unknownFatherName+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(Main.game.getNpc(GenericAndrogynousNPC.class)))+")")+"<br/>"
+										?father.getNameIgnoresPlayerKnowledge()+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(father.getBody()))+")"
+										:unknownFatherName+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName(Main.game.getNpc(GenericAndrogynousNPC.class).getBody()))+")")+"<br/>"
 						+ "Litter size: " +target.getPregnantLitter().getTotalLitterCount()+"<br/>"
 						+ "[style.colourFeminine(Daughters)]: " +(target.getPregnantLitter().getDaughtersFromFather()+target.getPregnantLitter().getDaughtersFromMother())+"<br/>"
 						+ "[style.colourMasculine(Sons)]: " +(target.getPregnantLitter().getSonsFromFather()+target.getPregnantLitter().getSonsFromMother())+"<br/>"
@@ -460,8 +463,9 @@ public class ItemEffectType {
 					+ "</p>";
 				
 			} else {
-				return "<p>"
-					+ "The digital readout lights up with a single red line, with solid black text next to that displaying: '<i>Not Pregnant.</i>'"
+				return "<p style='text-align:center;'>"
+					+ "The digital readout lights up with a single red line, with solid black text next to that displaying:"
+					+ "<br/><b>'<i>Not Pregnant.</i>'</b>"
 				+ "</p>";
 			}
 		}
@@ -599,7 +603,6 @@ public class ItemEffectType {
 				target.setNippleStretchedCapacity(target.getNippleRawCapacityValue());
 			}
 			if (target.hasBreastsCrotch()
-					&& (Main.getProperties().getUddersLevel()>0 || target.isFeral())
 					&& target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
 				areasTightened.add("crotch-nipples");
 				target.setNippleCrotchStretchedCapacity(target.getNippleCrotchRawCapacityValue());
@@ -717,9 +720,9 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			List<Fetish> fetishesToAdd = new ArrayList<>();
-			List<Fetish> fetishesToRemove = new ArrayList<>();
-			for(Fetish f : Fetish.values()) {
+			List<AbstractFetish> fetishesToAdd = new ArrayList<>();
+			List<AbstractFetish> fetishesToRemove = new ArrayList<>();
+			for(AbstractFetish f : Fetish.getAllFetishes()) {
 				if(f.getFetishesForAutomaticUnlock().isEmpty()) {
 					if(target.hasFetish(f)) {
 						fetishesToRemove.add(f);
@@ -767,7 +770,7 @@ public class ItemEffectType {
 			}
 
 			if((Math.random()>0.33f && !fetishesToAdd.isEmpty()) || fetishesToRemove.isEmpty()) {
-				Fetish f = fetishesToAdd.get(Util.random.nextInt(fetishesToAdd.size()));
+				AbstractFetish f = fetishesToAdd.get(Util.random.nextInt(fetishesToAdd.size()));
 				target.addFetish(f);
 				
 				return "<p style='text-align:center;'>"
@@ -779,7 +782,7 @@ public class ItemEffectType {
 						+"</p>";
 				
 			} else {
-				Fetish f = fetishesToRemove.get(Util.random.nextInt(fetishesToRemove.size()));
+				AbstractFetish f = fetishesToRemove.get(Util.random.nextInt(fetishesToRemove.size()));
 				target.removeFetish(f);
 				
 				return "<p style='text-align:center;'>"
@@ -815,16 +818,16 @@ public class ItemEffectType {
 			sb.append("<p style='text-align:center;'>");
 				sb.append("[npc.Name] [npc.verb(feel)] a blissful sense of inner-peace wash over [npc.herHim]...");
 				if(hadAddictions) {
-					sb.append("<i>[npc.SheIsFull] no longer addicted to any substances!</i>");
+					sb.append("<br/><i>[npc.SheIsFull] no longer addicted to any substances!</i>");
 				}
 				if(drunk) {
-					sb.append("<i>The alcohol still in [npc.her] system instantly metabolises!</i>");
+					sb.append("<br/><i>The alcohol still in [npc.her] system instantly metabolises!</i>");
 				}
 				if(psychoactive) {
-					sb.append("<i>The psychoactive trip which [npc.she] [npc.was] experiencing suddenly comes to an end!</i>");
+					sb.append("<br/><i>The psychoactive trip which [npc.she] [npc.was] experiencing suddenly comes to an end!</i>");
 				}
 				if(!hadAddictions && !drunk && !psychoactive) {
-					sb.append("[style.italicsDisabled(Other than experiencing this pleasant feeling, nothing happens...)]");
+					sb.append("<br/>[style.italicsDisabled(Other than experiencing this pleasant feeling, nothing happens...)]");
 				}
 			sb.append("</p>");
 			
@@ -1145,6 +1148,22 @@ public class ItemEffectType {
 					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 2)
 					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 5);
+		}
+	};
+	
+	/**
+	 * This is just to provide a hard-coded hook to the biojuice canister's effects, for use in NPC.generateTransformativePotion()
+	 */
+	public static AbstractItemEffectType RACE_SLIME_TF_UTIL_EFFECT = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"Transforms the consumer into a slime!"),
+			PresetColour.RACE_HUMAN) {
+		@Override
+		public String getPotionDescriptor() {
+			return "slime";
+		}
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return Main.game.getItemGen().generateItem(ItemType.getItemTypeFromId("innoxia_race_slime_biojuice_canister")).applyEffect(user, target);
 		}
 	};
 	
@@ -1998,7 +2017,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			List<Fetish> availableFetishes = new ArrayList<>();
+			List<AbstractFetish> availableFetishes = new ArrayList<>();
 			
 			if(primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR) {
 				for(TFModifier mod : TFModifier.getTFBehaviouralFetishList()) {
@@ -2016,8 +2035,8 @@ public class ItemEffectType {
 			
 			if(potency==TFPotency.BOOST) {
 				if(secondaryModifier == TFModifier.NONE) {
-					List<Fetish> fetishesToAdd = new ArrayList<>();
-					for(Fetish f : availableFetishes) {
+					List<AbstractFetish> fetishesToAdd = new ArrayList<>();
+					for(AbstractFetish f : availableFetishes) {
 						if(f.getFetishesForAutomaticUnlock().isEmpty() && !target.hasFetish(f)) {
 							if(f.isAvailable(target)) {
 								fetishesToAdd.add(f);
@@ -2026,7 +2045,7 @@ public class ItemEffectType {
 					}
 					
 					if(!fetishesToAdd.isEmpty()) {
-						Fetish f = fetishesToAdd.get(Util.random.nextInt(fetishesToAdd.size()));
+						AbstractFetish f = fetishesToAdd.get(Util.random.nextInt(fetishesToAdd.size()));
 						return target.addFetish(f);
 						
 					} else {
@@ -2036,15 +2055,15 @@ public class ItemEffectType {
 					}
 					
 				} else {
-					Fetish fetish = secondaryModifier.getFetish();
+					AbstractFetish fetish = secondaryModifier.getFetish();
 					
 					return target.addFetish(fetish);
 				}
 				
 			} else if(potency==TFPotency.MINOR_BOOST) {
 				if(secondaryModifier == TFModifier.NONE) {
-					List<Fetish> fetishesToBoost = new ArrayList<>();
-					for(Fetish f : availableFetishes) {
+					List<AbstractFetish> fetishesToBoost = new ArrayList<>();
+					for(AbstractFetish f : availableFetishes) {
 						if(f.getFetishesForAutomaticUnlock().isEmpty() && !target.hasFetish(f)) {
 							if(f.isAvailable(target)) {
 								fetishesToBoost.add(f);
@@ -2053,7 +2072,7 @@ public class ItemEffectType {
 					}
 					
 					if(!fetishesToBoost.isEmpty()) {
-						Fetish f = fetishesToBoost.get(Util.random.nextInt(fetishesToBoost.size()));
+						AbstractFetish f = fetishesToBoost.get(Util.random.nextInt(fetishesToBoost.size()));
 						FetishDesire newDesire = target.getFetishDesire(f).getNextDesire();
 						
 						return target.setFetishDesire(f, newDesire);
@@ -2065,7 +2084,7 @@ public class ItemEffectType {
 					}
 					
 				} else {
-					Fetish fetish = secondaryModifier.getFetish();
+					AbstractFetish fetish = secondaryModifier.getFetish();
 					FetishDesire newDesire = target.getFetishDesire(fetish).getNextDesire();
 					
 					return target.setFetishDesire(fetish, newDesire);
@@ -2073,8 +2092,8 @@ public class ItemEffectType {
 				
 			} else if(potency==TFPotency.MINOR_DRAIN) {
 				if(secondaryModifier == TFModifier.NONE) {
-					List<Fetish> fetishesToDrain = new ArrayList<>();
-					for(Fetish f : availableFetishes) {
+					List<AbstractFetish> fetishesToDrain = new ArrayList<>();
+					for(AbstractFetish f : availableFetishes) {
 						if(f.getFetishesForAutomaticUnlock().isEmpty() && !target.hasFetish(f)) {
 							if(f.isAvailable(target)) {
 								fetishesToDrain.add(f);
@@ -2083,7 +2102,7 @@ public class ItemEffectType {
 					}
 					
 					if(!fetishesToDrain.isEmpty()) {
-						Fetish f = fetishesToDrain.get(Util.random.nextInt(fetishesToDrain.size()));
+						AbstractFetish f = fetishesToDrain.get(Util.random.nextInt(fetishesToDrain.size()));
 						FetishDesire newDesire = target.getFetishDesire(f).getPreviousDesire();
 						
 						return target.setFetishDesire(f, newDesire);
@@ -2095,7 +2114,7 @@ public class ItemEffectType {
 					}
 					
 				} else {
-					Fetish fetish = secondaryModifier.getFetish();
+					AbstractFetish fetish = secondaryModifier.getFetish();
 					FetishDesire newDesire = target.getFetishDesire(fetish).getPreviousDesire();
 					
 					return target.setFetishDesire(fetish, newDesire);
@@ -2103,8 +2122,8 @@ public class ItemEffectType {
 				
 			} else {
 				if(secondaryModifier == TFModifier.NONE) {
-					List<Fetish> fetishesToRemove = new ArrayList<>();
-					for(Fetish f : availableFetishes) {
+					List<AbstractFetish> fetishesToRemove = new ArrayList<>();
+					for(AbstractFetish f : availableFetishes) {
 						if(f.getFetishesForAutomaticUnlock().isEmpty()) {
 							if(target.hasFetish(f)) {
 								fetishesToRemove.add(f);
@@ -2113,7 +2132,7 @@ public class ItemEffectType {
 					}
 					
 					if(!fetishesToRemove.isEmpty()) {
-						Fetish f = fetishesToRemove.get(Util.random.nextInt(fetishesToRemove.size()));
+						AbstractFetish f = fetishesToRemove.get(Util.random.nextInt(fetishesToRemove.size()));
 						return target.removeFetish(f);
 						
 					} else {
@@ -2123,7 +2142,7 @@ public class ItemEffectType {
 					}
 					
 				} else {
-					Fetish fetish = secondaryModifier.getFetish();
+					AbstractFetish fetish = secondaryModifier.getFetish();
 					
 					return target.removeFetish(fetish);
 				}
@@ -2158,7 +2177,7 @@ public class ItemEffectType {
 				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on non-slave unique characters...)]</p>";
 			}
 			
-			AbstractSubspecies sub = target.getFleshSubspecies();
+			AbstractSubspecies sub = target.getBody().getFleshSubspecies();
 			if(sub.getRace()!=Race.DEMON) {
 				target.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(target, target.getGender(), sub, true), false);
 				return UtilText.parse(target, "<p style='text-align:center; color:"+PresetColour.RACE_DEMON.toWebHexString()+";'><i>[npc.Name] is now [npc.a_race]!</i></p>");
@@ -2603,7 +2622,11 @@ public class ItemEffectType {
 							}
 							@Override
 							public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-								return target.setBodyMaterial(BodyMaterial.FLESH);
+								return target.getBodyMaterial() == BodyMaterial.SLIME
+										? target.setBodyMaterial(BodyMaterial.FLESH)
+										: "<p style='margin-bottom:0; padding-bottom:0;'>" +
+											"[style.colourDisabled([npc.NameIsFull] an elemental, so nothing happens...)]" +
+											"</p>";
 							}
 						});
 				
@@ -2641,7 +2664,6 @@ public class ItemEffectType {
 		}
 		
 		for(Entry<AbstractRace, AbstractItemEffectType> entry : racialEffectTypes.entrySet()) {
-
 			allEffectTypes.add(entry.getValue());
 			
 			String id = "RACE_"+Race.getIdFromRace(entry.getKey());

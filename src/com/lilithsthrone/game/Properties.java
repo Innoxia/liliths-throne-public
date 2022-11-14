@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.xml.transform.OutputKeys;
@@ -21,6 +23,7 @@ import org.w3c.dom.NodeList;
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -47,6 +50,8 @@ import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -99,7 +104,7 @@ public class Properties {
 			"Randomly-generated NPCs will have multiple rows of breasts if their breast type is furry (starts at 'Minor morph' level)."};
 	
 	/** 0=off, 1=taur-only, 2=on*/
-	public int udders = 1;
+	private int udders = 1;
 	public static String[] uddersLabels = new String[] {"Off", "Taur-only", "On"};
 	public static String[] uddersDescriptions = new String[] {
 			"Neither randomly-generated taurs nor anthro-morphs will ever have udders or crotch-boobs.",
@@ -119,6 +124,8 @@ public class Properties {
 			"There will be no options to bypass sex action corruption requirements, you are limited in your actions based on your corruption and fetishes.",
 			"Sex action corruption requirements may be bypassed if your corruption level is one level below the required corruption level of the action, but you will gain corruption if you do so.",
 			"All sex action corruption requirements may be bypassed, but you will gain corruption if you do so."};
+
+	public int pregnancyDuration = 1;
 	
 	public int forcedTFPercentage = 40;
 	public int forcedFetishPercentage = 0;
@@ -165,7 +172,7 @@ public class Properties {
 	public Map<Gender, Integer> genderPreferencesMap;
 	
 	public Map<SexualOrientation, Integer> orientationPreferencesMap;
-	public EnumMap<Fetish, Integer> fetishPreferencesMap;
+	public Map<AbstractFetish, Integer> fetishPreferencesMap;
 
 	public Map<PronounType, Map<AgeCategory, Integer>> agePreferencesMap;
 	
@@ -174,6 +181,8 @@ public class Properties {
 	
 	private Map<AbstractSubspecies, SubspeciesPreference> subspeciesFemininePreferencesMap;
 	private Map<AbstractSubspecies, SubspeciesPreference> subspeciesMasculinePreferencesMap;
+
+	public Map<Colour, Integer> skinColourPreferencesMap;
 	
 	// Transformation Settings
 	private FurryPreference forcedTFPreference;
@@ -223,15 +232,9 @@ public class Properties {
 		
 		resetGenderPreferences();
 
-		orientationPreferencesMap = new EnumMap<>(SexualOrientation.class);
-		for(SexualOrientation o : SexualOrientation.values()) {
-			orientationPreferencesMap.put(o, o.getOrientationPreferenceDefault().getValue());
-		}
+		resetOrientationPreferences();
 		
-		fetishPreferencesMap = new EnumMap<>(Fetish.class);
-		for(Fetish f : Fetish.values()) {
-			fetishPreferencesMap.put(f, f.getFetishPreferenceDefault().getValue());
-		}
+		resetFetishPreferences();
 
 		resetAgePreferences();
 		
@@ -251,6 +254,11 @@ public class Properties {
 		for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
 			subspeciesFemininePreferencesMap.put(s, s.getSubspeciesPreferenceDefault());
 			subspeciesMasculinePreferencesMap.put(s, s.getSubspeciesPreferenceDefault());
+		}
+		
+		skinColourPreferencesMap = new LinkedHashMap<>();
+		for(Entry<Colour, Integer> entry : PresetColour.getHumanSkinColoursMap().entrySet()) {
+			skinColourPreferencesMap.put(entry.getKey(), entry.getValue());
 		}
 		
 		itemsDiscovered = new HashSet<>();
@@ -308,6 +316,7 @@ public class Properties {
 			createXMLElementWithValue(doc, settings, "udders", String.valueOf(udders));
 			createXMLElementWithValue(doc, settings, "autoSaveFrequency", String.valueOf(autoSaveFrequency));
 			createXMLElementWithValue(doc, settings, "bypassSexActions", String.valueOf(bypassSexActions));
+			createXMLElementWithValue(doc, settings, "pregnancyDuration", String.valueOf(pregnancyDuration));
 			createXMLElementWithValue(doc, settings, "forcedTFPercentage", String.valueOf(forcedTFPercentage));
 			createXMLElementWithValue(doc, settings, "randomRacePercentage", String.valueOf(randomRacePercentage)); 
 
@@ -458,12 +467,12 @@ public class Properties {
 			// Fetish preferences:
 			Element fetishPreferences = doc.createElement("fetishPreferences");
 			properties.appendChild(fetishPreferences);
-			for (Fetish f : Fetish.values()) {
+			for (AbstractFetish f : Fetish.getAllFetishes()) {
 				Element element = doc.createElement("preference");
 				fetishPreferences.appendChild(element);
 				
 				Attr fetish = doc.createAttribute("fetish");
-				fetish.setValue(f.toString());
+				fetish.setValue(Fetish.getIdFromFetish(f));
 				element.setAttributeNode(fetish);
 				
 				Attr value = doc.createAttribute("value");
@@ -527,6 +536,22 @@ public class Properties {
 				preference = doc.createAttribute("furryPreference");
 				preference.setValue(subspeciesMasculineFurryPreferencesMap.get(subspecies).toString());
 				element.setAttributeNode(preference);
+			}
+
+			// Skin colour preferences:
+			Element skinColourPreferences = doc.createElement("skinColourPreferences");
+			properties.appendChild(skinColourPreferences);
+			for (Entry<Colour, Integer> colour : skinColourPreferencesMap.entrySet()) {
+				Element element = doc.createElement("preference");
+				skinColourPreferences.appendChild(element);
+				
+				Attr skinColour = doc.createAttribute("colour");
+				skinColour.setValue(colour.getKey().getId());
+				element.setAttributeNode(skinColour);
+				
+				Attr value = doc.createAttribute("value");
+				value.setValue(String.valueOf(colour.getValue()));
+				element.setAttributeNode(value);
 			}
 			
 			// Discoveries:
@@ -699,6 +724,9 @@ public class Properties {
 					if(Main.isVersionOlderThan(versionNumber, "0.4.1.5")) {
 						values.add(PropertyValue.vestigialMultiBreasts);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.4.6.5")) {
+						values.add(PropertyValue.udderContent);
+					}
 					
 					
 				} else {
@@ -832,7 +860,12 @@ public class Properties {
 				} else {
 					bypassSexActions = 2;
 				}
-
+				
+				
+				if(element.getElementsByTagName("pregnancyDuration").item(0)!=null) {
+					pregnancyDuration = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyDuration").item(0)).getAttribute("value"));
+				}
+				
 				if(element.getElementsByTagName("forcedTFPercentage").item(0)!=null) {
 					forcedTFPercentage = Integer.valueOf(((Element)element.getElementsByTagName("forcedTFPercentage").item(0)).getAttribute("value"));
 				}
@@ -1015,7 +1048,7 @@ public class Properties {
 						
 						try {
 							if(!e.getAttribute("fetish").isEmpty()) {
-								fetishPreferencesMap.put(Fetish.valueOf(e.getAttribute("fetish")), Integer.valueOf(e.getAttribute("value")));
+								fetishPreferencesMap.put(Fetish.getFetishFromId(e.getAttribute("fetish")), Integer.valueOf(e.getAttribute("value")));
 							}
 						} catch(IllegalArgumentException ex){
 							System.err.println("loadPropertiesFromXML() error: fetishPreferences preference");
@@ -1050,6 +1083,21 @@ public class Properties {
 								
 							} catch(Exception ex) {
 							}
+						}
+					}
+				}
+
+				// Skin colour preferences:
+				nodes = doc.getElementsByTagName("skinColourPreferences");
+				element = (Element) nodes.item(0);
+				if(element!=null && element.getElementsByTagName("preference")!=null) {
+					for(int i=0; i<element.getElementsByTagName("preference").getLength(); i++){
+						Element e = ((Element)element.getElementsByTagName("preference").item(i));
+						
+						try {
+							skinColourPreferencesMap.put(PresetColour.getColourFromId(e.getAttribute("colour")), Integer.valueOf(e.getAttribute("value")));
+						} catch(IllegalArgumentException ex){
+							System.err.println("loadPropertiesFromXML() error: skinColourPreferences preference");
 						}
 					}
 				}
@@ -1225,6 +1273,7 @@ public class Properties {
 		bypassSexActions = 2;
 		multiBreasts = 1;
 		udders = 1;
+		pregnancyDuration = 1;
 		forcedTFPercentage = 40;
 		forcedFetishPercentage = 40;
 		setForcedFetishTendency(ForcedFetishTendency.NEUTRAL);
@@ -1249,6 +1298,11 @@ public class Properties {
 		udderSizePreference = 0;
 		penisSizePreference = 0;
 		trapPenisSizePreference = -70;
+
+		skinColourPreferencesMap = new LinkedHashMap<>();
+		for(Entry<Colour, Integer> entry : PresetColour.getHumanSkinColoursMap().entrySet()) {
+			skinColourPreferencesMap.put(entry.getKey(), entry.getValue());
+		}
 	}
 	
 	// Add discoveries:
@@ -1499,6 +1553,20 @@ public class Properties {
 			genderPreferencesMap.put(g, g.getGenderPreferenceDefault().getValue());
 		}
 	}
+
+	public void resetOrientationPreferences() {
+		orientationPreferencesMap = new EnumMap<>(SexualOrientation.class);
+		for(SexualOrientation o : SexualOrientation.values()) {
+			orientationPreferencesMap.put(o, o.getOrientationPreferenceDefault().getValue());
+		}
+	}
+
+	public void resetFetishPreferences() {
+		fetishPreferencesMap = new HashMap<>();
+		for(AbstractFetish f : Fetish.getAllFetishes()) {
+			fetishPreferencesMap.put(f, f.getFetishPreferenceDefault().getValue());
+		}
+	}
 	
 	public void resetAgePreferences() {
 		agePreferencesMap = new HashMap<>();
@@ -1537,7 +1605,8 @@ public class Properties {
 	public float getRandomRacePercentage() {
 		return randomRacePercentage;
 	}
-
+	
+	/** 0=off, 1=taur-only, 2=on*/
 	public int getUddersLevel() {
 		return udders;
 	}

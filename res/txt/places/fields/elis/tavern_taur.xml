@@ -87,7 +87,7 @@
 		Wanting to know more, you ask the muscular centaur why that's the case, to which he sighs and replies, [kheiron.speech(Lunette's daughters seem to have a particular fondness for taurs. Many of the folk in here used to live out in the fields, and so have been the target of those demonic centaurs' affections, whether they wanted it or not. Let's just leave it at that, ok?)]
 	</p>
 	<p>
-		As Kheiron is clearly unwilling to say any more about the subject, you decide to move on to something else..
+		As Kheiron is clearly unwilling to say any more about the subject, you decide to move on to something else...
 	</p>
 	]]>
 	</htmlContent>
@@ -104,6 +104,53 @@
 	</p>
 	<p>
 		Having had enough of recounting his past, the muscular centaur quickly follows up on his last sentence by asking, [kheiron.speech(Anyway, can I get you a drink, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_TALK_GOLIX"><![CDATA[
+	<p>
+		Wanting to hear what Kheiron has to say about Oglix's elemental, you ask him what kind of relationship he has with Golix.
+	</p>
+	<p>
+		[kheiron.speech(Well, I don't see how that's any of your business,)] the centaur snorts, before crossing his arms and firmly stating, [kheiron.speech(I'm not going to say anything more on the matter.)]
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_oglix_kheiron_spectated))
+			Having witnessed Kheiron's and Golix's meeting in the old stables behind 'The Crossed Blades', you can't help but give the centaur a knowing look as he says this. Realising that you're aware of at least some of the details of his relationship with the elemental, he lowers his voice and admits, [kheiron.speech(Fine, Golix and I are, well, I suppose you could say that we're dating... Now I'm serious; no more questions about this. Is there anything else can I do for you, [pc.name]?)]
+		#ELSE
+			Not wanting to pry too far into his personal affairs and risk getting on his bad side, you decide to leave it at that for now. Nodding as he sees that you're not going to press him on the matter, the centaur asks, [kheiron.speech(So, what else can I do for you, [pc.name]?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_BARRELS"><![CDATA[
+	<p>
+		Wanting to bring back good news to Oglix as soon as possible, you ask Kheiron if he has four large barrels which you could have. Raising his eyebrow as he hears you ask this, the centaur asks, [kheiron.speech(What would you need those for? I'd be happy to give you some if it's for a good reason.)]
+	</p>
+	<p>
+		As he'd find out the barrels' destination one way or another, and with no reason to lie, you truthfully tell Kheiron that Oglix wants them so that she could use them to house some more beer-bitches. Snorting in disgust as he hears the name 'Oglix', the muscular centaur shakes his head and firmly states, [kheiron.speech(In that case, no. I don't hold anything against you for working for her, but I'm not going to do anything to help Oglix.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_BARRELS_END"><![CDATA[
+	<p>
+		Realising that you have no other choice, you use the phrase which Oglix's elemental gave you, and tell Kheiron that 'Golix says to be a good horsie'. As he hears you say this, Kheiron's eyes open wide, and with a loud snort, he starts forcefully pawing at the ground with one of his huge, strong hoofs.
+	</p>
+	<p>
+		[kheiron.speech(Golix told you to say that?!)] he asks, with a tone of frustrated desperation in his voice. Letting out another snort as you reply in the positive, the centaur grinds his teeth for a moment, before grunting, [kheiron.speech(Fine... I'll bring the four barrels over as soon as I can, but on one condition. You're not to tell a soul about the relationship I have with Golix, understand?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_BARRELS_END_CONTINUE"><![CDATA[
+	<p>
+		As you don't know any details about Golix's relationship with Kheiron, you see no reason not to agree to keep quiet about it. After you've given Kheiron your word that you won't mention their relationship to anyone, the centaur lets out a relieved sigh and grunts, [kheiron.speech(Good. As I said, I'll get those barrels over to Oglix's place as soon as I can.)]
+	</p>
+	<p>
+		Thanking the centaur for his cooperation, you wonder whether to order anything from the bar before you head off and report back to Oglix...
 	</p>
 	]]>
 	</htmlContent>
@@ -183,7 +230,7 @@
 	
 	<htmlContent tag="BAR_DRINK_BEER"><![CDATA[
 	<p>
-		Feeling thirsty, you ask Kheiron for a pint of beer. Grabbing a clean glass, he opens one of the arcane fridges positioned behind the bar and produces a bottle of 'Canine Crush'. Using his large fingers to operate a bottle opener, he pops off the cap and pours the alcoholic beverage into the glass, saying, [kheiron.speech(That'll be forty flames, please.)]
+		Feeling thirsty, you ask Kheiron for a pint of beer. Grabbing a clean glass, he places it under the tap and pours the alcoholic beverage, 'Canine Crush', into it, before placing your pint down on the bar and saying, [kheiron.speech(That'll be forty flames, please.)]
 	</p>
 	<p>
 		Handing over the forty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
@@ -193,7 +240,7 @@
 	
 	<htmlContent tag="BAR_DRINK_CIDER"><![CDATA[
 	<p>
-		Feeling thirsty, you ask Kheiron for a pint of cider. Grabbing a clean glass, he opens one of the arcane fridges positioned behind the bar and produces a bottle of 'Equine Cider'. Using his large fingers to operate a bottle opener, he pops off the cap and pours the alcoholic beverage into the glass, saying, [kheiron.speech(That'll be forty flames, please.)]
+		Feeling thirsty, you ask Kheiron for a pint of cider. Grabbing a clean glass, he places it under the tap and pours the alcoholic beverage, 'Equine Cider', into it, before placing your pint down on the bar and saying, [kheiron.speech(That'll be forty flames, please.)]
 	</p>
 	<p>
 		Handing over the forty flames, you bring the glass up to your waiting [pc.lips] and quickly gulp down the cool, refreshing beverage. Leaving the now-empty glass on the bar, you wonder whether to order anything else...
@@ -922,7 +969,7 @@
 		Wanting to have some company tonight, you ask the sisters if they'd like to sleep here with you. Exchanging a happy smirk with one another, Fae and Silvia strip out of their remaining clothes, throw back the covers, and slide into your bed. Patting the space between them, Silvia sighs, [silvia.speech(Come on, [pc.name]... Plenty of room for all three of us in here...)]
 	</p>
 	<p>
-		Stripping naked, you drop down onto the bed between the two foxtauresses. Letting out a synchronised moan, Fae and Silvia flick their big, fluffy tails over the top of you, before pulling the covers up and snuggling in against you. With their big, naked breasts squished up against you on either side, and with their fluffy tails providing you with an extra layer of comfort, the two foxtaruesses let out satisfied sighs and join you in quickly falling asleep...
+		Stripping naked, you drop down onto the bed between the two foxtauresses. Letting out a synchronised moan, Fae and Silvia flick their big, fluffy tails over the top of you, before pulling the covers up and snuggling in against you. With their big, naked breasts squished up against you on either side, and with their fluffy tails providing you with an extra layer of comfort, the two foxtauresses let out satisfied sighs and join you in quickly falling asleep...
 	</p>
 	<p>
 		...

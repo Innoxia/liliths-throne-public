@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<racialBody>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If defining large numbers, DO NOT use commas or decimals as period separators.
+	i.e. Define a lactation value of ten thousand as: <femaleLactationRate>10000</femaleLactationRate>, NOT <femaleLactationRate>10,000</femaleLactationRate> -->
+	
+	<!-- All BodyPart types will be in the form 'mintychip_salamander', following the folder structure in which they're defined: 'res/race/innoxia/bodyTypes/TYPE/hyena'
+	Hard-coded values (if you wanted to re-use one that's currently in the game) can be found using the link in the comment above each type.
+	Most of the other attributes defined here have names which are self-explanatory, but if you want to compare to the values which are already defined in-game, then check here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/RacialBody.java
+	I have also added comments above some of the attributes to let you know what value ranges are accepted and/or links to where associated values are located in the code. -->
+	
+	
+	<!-- Miscellaneous attributes: -->
+	
+	<!-- You can leave this section blank if you want to, but if your race should have a non-default chance of having a certain personality type, then you can define it here.
+	Personality traits can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/persona/PersonalityTrait.java -->
+	<personalityChances>
+		<entry chance="0.35">CONFIDENT</entry> <!-- The 'chance' attribute corresponds to a percentage chance of this personality trait being selected, and is of a range of 0.0 to 1.0, with the defined 0.25 corresponding to 25%. -->
+	</personalityChances>
+	
+	
+	<!-- These are weightings of the chance for a feminine and masculine character of this race to be gynephilic, ambiphilic, or androphilic.
+	For an example of how this works, if you define feminine sexual orientation weights to be: gynephilic = 10, ambiphilic = 5, and androphilic = 20, then a random number between 1 and 35 will be rolled, with a result of 1-10 meaning that gynephilic will be chosen, 11-15 being ambiphilic, and 16-35 being androphilic.
+	You can use whatever weighted numbers you like, but be aware that negative numbers, or a total number weight greater than 2,147,483,647 will produce unexpected results.
+	Also, be aware that this can be modified by the player via the content settings, so don't worry too much about defining orientations to please everyone here. -->
+	<!-- Sexual orientation weightings for a feminine character of this race: -->
+	<orientationFeminineGynephilic>20</orientationFeminineGynephilic>
+	<orientationFeminineAmbiphilic>40</orientationFeminineAmbiphilic>
+	<orientationFeminineAndrophilic>40</orientationFeminineAndrophilic>
+	<!-- Sexual orientation weightings for a masculine character of this race: -->
+	<orientationMasculineGynephilic>60</orientationMasculineGynephilic>
+	<orientationMasculineAmbiphilic>30</orientationMasculineAmbiphilic>
+	<orientationMasculineAndrophilic>10</orientationMasculineAndrophilic>
+	
+	
+	<!-- Core body info: -->
+	
+	<!-- Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/BodyMaterial.java -->
+	<bodyMaterial>FLESH</bodyMaterial>
+	
+	<!-- The id of the body covering which should be used for this race's body hair. -->
+	<bodyHair>mintychip_salamander_body_hair</bodyHair>
+	
+	<!-- Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/GenitalArrangement.java -->
+	<genitalArrangement>CLOACA</genitalArrangement>
+	
+	<!-- The following values are slightly randomised upon a character of this race being spawned to give some variation.
+	e.g. A newly-spawned hyena-girl might be 179cm tall (which would have been randomised based on the defined height of 175).
+	
+	Height is defined in cm, and should be no smaller than 61 and no larger than 366.
+	Values associated with height can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/Height.java
+	
+	Femininity is defined from 0 to 100, with 0 being maximum masculine and 100 being maximum feminine.
+	Values associated with femininity can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/Femininity.java
+	
+	BodySize is defined from 0 to 100, with 0 being minimum fat and 100 being maximum fat.
+	Values associated with femininity can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/BodySize.java
+	
+	Muscle is defined from 0 to 100, with 0 being minimum muscle and 100 being maximum muscle.
+	Values associated with femininity can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/Muscle.java
+	
+	The	values for BodySize and Muscle are used to determine a character's BodyShape, as defined here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/BodyShape.java -->
+	
+	<maleHeight>190</maleHeight>
+	<maleFemininity>15</maleFemininity>
+	<maleBodySize>60</maleBodySize>
+	<maleMuscle>70</maleMuscle>
+	
+	<femaleHeight>180</femaleHeight>
+	<femaleFemininity>75</femaleFemininity>
+	<femaleBodySize>50</femaleBodySize>
+	<femaleMuscle>60</femaleMuscle>
+	
+	
+	<!-- Antenna: -->
+	
+	<!-- Multiple antenna types can be defined for one race, from which a random type will be selected upon spawning an instance of this race.https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/AntennaType.java -->
+	<antennaTypes>
+		<type>NONE</type>
+	</antennaTypes>
+	
+	<!-- Antenna length is from 0 to 75, measured in cm. Values are the same as for horn lengths: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/HornLength.java -->
+	<maleAntennaLength>0</maleAntennaLength>
+	<femaleAntennaLength>0</femaleAntennaLength>
+	
+	
+	<!-- Arms: -->
+	
+	<!-- https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/ArmType.java -->
+	<armType>mintychip_salamander_arm</armType>
+	
+	<!-- How many pairs of arms this race has. -->
+	<armRows>1</armRows>
+	
+	
+	<!-- Ass: -->
+	
+	<!-- https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/ArmType.java -->
+	<assType>mintychip_salamander_ass</assType>
+	
+	<!-- Ass sizes are from 0 to 7. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/AssSize.java -->
+	<maleAssSize>2</maleAssSize>
+	<femaleAssSize>3</femaleAssSize>
+	
+	<!-- Hip sizes are from 0 to 7. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/HipSize.java -->
+	<maleHipSize>2</maleHipSize>
+	<femaleHipSize>3</femaleHipSize>
+	
+	<!-- Capacity is a float from 0.0 to 25.0. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/Capacity.java -->
+	<anusCapacity>1.5</anusCapacity>
+	<!-- Depth is from 0 to 7. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/OrificeDepth.java -->
+	<anusDepth>2</anusDepth>
+	<!-- Wetness is from 0 to 7. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/Wetness.java -->
+	<anusWetness>0</anusWetness>
+	<!-- Elasticity is from 0 to 7. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/OrificeElasticity.java -->
+	<anusElasticity>4</anusElasticity>
+	<!-- Plasticity is from 0 to 7. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/OrificePlasticity.java -->
+	<anusPlasticity>3</anusPlasticity>
+	
+	
+	<!-- Breasts: -->
+	
+	<!-- https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/BreastType.java -->
+	<breastType>mintychip_salamander_breast</breastType>
+	
+	<!-- The shape which this race's breasts can be.
+	You can define shapes individually, as shown below, using values from this list: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/BreastShape.java
+	Alternatively, you can leave 'breastShapes' empty and use the boolean attribute 'udderShapes' to automatically select all udder shapes or all non-udder shapes.
+	e.g. Instead of what's defined below, you could use:
+	<breastShapes udderShapes="false"/>
+	or
+	<breastShapes udderShapes="true"/>
+	The first would allow all non-udder shapes to be used by this race, while the second would allow only udder shapes. -->
+	<breastShapes>
+		<shape>ROUND</shape>
+		<shape>POINTY</shape>
+		<shape>PERKY</shape>
+		<shape>SIDE_SET</shape>
+		<shape>WIDE</shape>
+		<shape>NARROW</shape>
+	</breastShapes>
+	
+	<!-- Masculine characteristics: -->
+	<!-- Breast size is from 0 to 91. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/CupSize.java -->
+	<maleBreastSize>0</maleBreastSize>
+	<!-- How many pairs of breasts this race has. From 1 to 6. -->
+	<maleBreastRows>1</maleBreastRows>
+	<!-- Nipple size is from 0 to 4. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/NippleSize.java -->
+	<maleNippleSize>0</maleNippleSize>
+	<!-- Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/NippleShape.java -->
+	<maleNippleShape>NORMAL</maleNippleShape>
+	<!-- Areolae size is from 0 to 4. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/AreolaeSize.java -->
+	<maleAreolaeSize>0</maleAreolaeSize>
+	<!-- Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/AreolaeShape.java -->
+	<maleAreolaeShape>NORMAL</maleAreolaeShape>
+	<!-- Values from 1 to 4. -->
+	<maleNippleCountPerBreast>1</maleNippleCountPerBreast>
+	<!-- How many ml of milk this race's breasts hold, from 0 to 100000. Lactation automatically increases when pregnant, so this value should probably always be left at 0 unless your race naturally produces milk even if not pregnant.
+	Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/Lactation.java -->
+	<maleLactationRate>0</maleLactationRate>
+	<!-- These values correspond to the attributes of the breasts when nipples are penetrated.
+	Nipples can only be penetrated if capacity is greater than 0 and breasts are of size 7 (C-cups) or greater.
+	These have the same limitations and values as the definitions used for ass capacity/depth/elasticity/plasticity above.
+	The values 2/3/3 are just average values, and won't ever come into play as long as capacity remains 0. -->
+	<maleBreastCapacity>0</maleBreastCapacity>
+	<maleBreastDepth>2</maleBreastDepth>
+	<maleBreastElasticity>3</maleBreastElasticity>
+	<maleBreastPlasticity>3</maleBreastPlasticity>
+	
+	<!-- Feminine characteristics: -->
+	<!-- All of these attributes use the same value definitions as those for masculine characteristics above. -->
+	<femaleBreastSize>7</femaleBreastSize>
+	<femaleBreastRows>1</femaleBreastRows>
+	<femaleNippleSize>2</femaleNippleSize>
+	<femaleNippleShape>NORMAL</femaleNippleShape>
+	<femaleAreolaeSize>2</femaleAreolaeSize>
+	<femaleAreolaeShape>NORMAL</femaleAreolaeShape>
+	<femaleNippleCountPerBreast>1</femaleNippleCountPerBreast>
+	<femaleLactationRate>0</femaleLactationRate>
+	<femaleBreastCapacity>0</femaleBreastCapacity>
+	<femaleBreastDepth>2</femaleBreastDepth>
+	<femaleBreastElasticity>4</femaleBreastElasticity>
+	<femaleBreastPlasticity>3</femaleBreastPlasticity>
+	
+	
+	<!-- Crotch-boobs/udders: -->
+	
+	<!-- This section defines the attributes for crotch-boobs.
+	Crotch-boobs are only present on feminine characters, so there is no section for masculine crotch-boob definitions.
+	All of these attributes use the same value definitions as those for normal breasts above.
+	Define the 'breastCrotchType' as NONE if you want this race to always spawn without crotch boobs. -->
+	<breastCrotchType>NONE</breastCrotchType>
+	<breastCrotchShapes udderShapes="false"/>
+	
+	<breastCrotchSize>6</breastCrotchSize>
+	<breastCrotchRows>2</breastCrotchRows>
+	<breastCrotchNippleSize>2</breastCrotchNippleSize>
+	<breastCrotchNippleShape>NORMAL</breastCrotchNippleShape>
+	<breastCrotchAreolaeSize>2</breastCrotchAreolaeSize>
+	<breastCrotchAreolaeShape>NORMAL</breastCrotchAreolaeShape>
+	<nippleCountPerBreastCrotch>1</nippleCountPerBreastCrotch>
+	<breastCrotchLactationRate>0</breastCrotchLactationRate>
+	<breastCrotchCapacity>0</breastCrotchCapacity>
+	<breastCrotchDepth>2</breastCrotchDepth>
+	<breastCrotchElasticity>3</breastCrotchElasticity>
+	<breastCrotchPlasticity>3</breastCrotchPlasticity>
+	
+	
+	<!-- Face: -->
+	
+	<!-- https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/FaceType.java -->
+	<faceType>mintychip_salamander_face</faceType>
+	
+	<!-- https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/EyeType.java -->
+	<eyeType>mintychip_salamander_eye</eyeType>
+	
+	<!-- https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/EarType.java -->
+	<earType>mintychip_salamander_ear</earType>
+	
+	<!-- Lip size is from 0 to 7. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/LipSize.java -->
+	<maleLipSize>1</maleLipSize>
+	<femaleLipSize>2</femaleLipSize>
+	
+	
+	<!-- Hair: -->
+	
+	<!-- https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/HairType.java -->
+	<hairType>mintychip_salamander_hair</hairType>
+	
+	<!-- Hair length is from 0 to 350, measured in cm. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/HairLength.java -->
+	<maleHairLength>12</maleHairLength>
+	<femaleHairLength>25</femaleHairLength>
+	
+	
+	<!-- Horns: -->
+	
+	<!-- Multiple horn types can be defined for one race, from which a random type will be selected upon spawning an instance of this race.
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/HornType.java -->
+	<hornTypes>
+		<type>SWEPT_BACK</type>
+	</hornTypes>
+	
+	<!-- Horn length is from 0 to 75, measured in cm.
+	If the length is defined as 0, it will ignore they hornTypes above and spawn with NONE.
+		This can be useful for preventing either males or females from spawning with horns by setting their length to 0.
+		As hyenas already have NONE defined as their only HornType, this behaviour isn't seen in this race, but you can take a look at the sheep race's racialBody.xml file for an example of this behaviour in use.
+	Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/HornLength.java -->
+	<maleHornLength>15</maleHornLength>
+	<femaleHornLength>15</femaleHornLength>
+	
+	
+	<!-- Legs: -->
+	
+	<!-- https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/LegType.java -->
+	<legType>mintychip_salamander_leg</legType>
+	
+	<!-- https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/LegConfiguration.java -->
+	<legConfiguration>BIPEDAL</legConfiguration>
+	
+	
+	<!-- Penis: -->
+	
+	<!-- https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/PenisType.java -->
+	<penisType>mintychip_salamander_penis</penisType>
+	
+	<!-- Values from 0 to 100, measured in cm (don't use -1). Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/PenisLength.java -->
+	<penisLength>22</penisLength>
+	<!-- Values from 0 to 6. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/PenetrationGirth.java -->
+	<penisGirth>4</penisGirth>
+	<!-- Values from 0 to 7. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/TesticleSize.java -->
+	<testicleSize>3</testicleSize>
+	<!-- Values from 2 to 8, representing the number of testicles this race has. -->
+	<testicleQuantity>2</testicleQuantity>
+	<!-- How many ml of cum this race's testicles hold, from 0 to 10000.
+	Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/CumProduction.java -->
+	<cumProduction>80</cumProduction>
+	
+	
+	<!-- Tail: -->
+	
+	<!-- Multiple tail types can be defined for one race, from which a random type will be selected upon spawning an instance of this race.
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/TailType.java -->
+	<tailTypes>
+		<type>mintychip_salamander_tailFlame</type>
+	</tailTypes>
+	
+	
+	<!-- Tentacle: -->
+	<!-- Tentacles are currently only used when a character's LegConfiguration is set to CEPHALOPOD.
+	As such, this definition currently does nothing, and so should be left as NONE. -->
+	<!-- https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/TentacleType.java -->
+	<tentacleType>NONE</tentacleType>
+	
+	
+	<!-- Torso: -->
+	
+	<!-- https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/TorsoType.java -->
+	<torsoType>mintychip_salamander_torso</torsoType>
+	
+	
+	<!-- Vagina: -->
+	
+	<!-- https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/VaginaType.java -->
+	<vaginaType>mintychip_salamander_vagina</vaginaType>
+	
+	<!-- Values from 0 to 100, with any value over 4 enabling the clit to be used as a penetrative object in sex (i.e. as a pseudo-penis).
+	Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/ClitorisSize.java -->
+	<clitSize>1</clitSize> <!-- As with all other values, this can be changed in the individual subspecies XML files, so striped hyenas will be given a 0-length clit from the adjustment in that file. -->
+	
+	<!-- Values from 0 to 6. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/PenetrationGirth.java -->
+	<clitGirth>3</clitGirth>
+	
+	<!-- All of these attributes use the same value definitions as those for anus in the Ass section above. -->
+	<vaginaCapacity>2.5</vaginaCapacity>
+	<vaginaDepth>2</vaginaDepth>
+	<vaginaWetness>2</vaginaWetness>
+	<vaginaElasticity>4</vaginaElasticity>
+	<vaginaPlasticity>3</vaginaPlasticity>
+	
+	
+	<!-- Wings: -->
+	
+	<!-- Multiple wing types can be defined for one race, from which a random type will be selected upon spawning an instance of this race.
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/WingType.java -->
+	<wingTypes>
+		<type>NONE</type>
+	</wingTypes>
+	
+	<!-- Values from 0 to 4. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/WingSize.java -->
+	<maleWingSize>0</maleWingSize>
+	<femaleWingSize>0</femaleWingSize>
+	
+</racialBody>

@@ -130,11 +130,11 @@
 	<htmlContent tag="OCCUPANT_START_FINISH_WITH_NEW_JOB"><![CDATA[
 	#IF (npc.getAffection(pc) < AFFECTION_NEGATIVE_TWO_DISLIKE.getMaximumValue())
 		<p>
-			[npc.speech(Oh, I suppose I should tell you, by the way,)] [npc.name] says, [npc.speech(I got a job. I'm working as [npc.a_job], from [npc.jobStartHour]:00 to [npc.jobEndHour]:00, [npc.jobStartDay] to [npc.jobEndDay]. One of my new colleagues said there's a cheap apartment available near to where they live, so if you want me to move out at any time, just let me know. Oh, and I've also talked to Lilaya already about all this, and I told her that I wanted to start paying rent, so from now on I can cover the cost of my upkeep.)]
+			[npc.speech(Oh, I suppose I should tell you, by the way,)] [npc.name] says, [npc.speech(I got a job. I'm working as [npc.a_job], from [npc.jobStartTime] to [npc.jobEndTime], [npc.jobStartDay] to [npc.jobEndDay]. One of my new colleagues said there's a cheap apartment available near to where they live, so if you want me to move out at any time, just let me know. Oh, and I've also talked to Lilaya already about all this, and I told her that I wanted to start paying rent, so from now on I can cover the cost of my upkeep.)]
 		</p>
 	#ELSE
 		<p>
-			[npc.speech(Oh, by the way, I have some really exciting news, [pc.name]!)] [npc.name] happily exclaims, beaming at you in delight as [npc.she] delivers it to you, [npc.speech(I got a job working as [npc.a_job]! From now on, I'm going to be out at work from [npc.jobStartHour]:00 to [npc.jobEndHour]:00, [npc.jobStartDay] to [npc.jobEndDay]. Isn't that exciting?!)]
+			[npc.speech(Oh, by the way, I have some really exciting news, [pc.name]!)] [npc.name] happily exclaims, beaming at you in delight as [npc.she] delivers it to you, [npc.speech(I got a job working as [npc.a_job]! From now on, I'm going to be out at work from [npc.jobStartTime] to [npc.jobEndTime], [npc.jobStartDay] to [npc.jobEndDay]. Isn't that exciting?!)]
 		</p>
 		<p>
 			[pc.speech(Congratulations!)] you reply, stepping forwards and pulling [npc.name] into a big hug. [pc.speech(I knew you could do it! I'm so proud of you, [npc.name]!)]
@@ -544,7 +544,7 @@
 			#IF(!npc.isTaur() && !pc.isTaur())
 				Moving around in front of you, [npc.name] then reaches up to grab your shoulders, before pulling down and forcing you onto all fours.
 			#ELSEIF(npc.isTaur())
-				Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc.legConfiguration] body to one side in order to present [npc2.her] groin to you.
+				Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc2.legConfiguration] body to one side in order to present [npc2.her] groin to you.
 			#ELSE
 				Moving around in front of you, [npc.name] lets out a hungry [npc2.moan] as [npc.she] prepares to present [npc2.her] groin to you.
 			#ENDIF
@@ -576,16 +576,16 @@
 		</p>
 		<p>
 			#IF(!npc2.isTaur())
-				With agreement from [npc.your] [npc.relation(pc)], [npc2.name] takes hold of your [pc.hips] and pulls you down onto your knees as [npc2.she] drops down behind you.
+				With agreement from your [npc.relation(pc)], [npc2.name] takes hold of your [pc.hips] and pulls you down onto your knees as [npc2.she] drops down behind you.
 			#ELSE
-				With agreement from [npc.your] [npc.relation(pc)], [npc2.name] takes hold of your [pc.hips] and pushes you down onto your knees, before stepping forwards and positioning [npc2.her] [npc2.legConfiguration] body over the top of you, ready to mount you.
+				With agreement from your [npc.relation(pc)], [npc2.name] takes hold of your [pc.hips] and pushes you down onto your knees, before stepping forwards and positioning [npc2.her] [npc2.legConfiguration] body over the top of you, ready to mount you.
 			#ENDIF
 		</p>
 		<p>
 			#IF(!npc.isTaur() && !pc.isTaur())
 				Kneeling down before you, [npc.name] then reaches up to grab your shoulders, before pulling down and forcing you onto all fours.
 			#ELSEIF(npc.isTaur())
-				Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc.legConfiguration] body to one side in order to present [npc2.her] groin to you.
+				Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc2.legConfiguration] body to one side in order to present [npc2.her] groin to you.
 			#ELSE
 				Moving around in front of you, [npc.name] lets out a hungry [npc2.moan] as [npc.she] prepares to present [npc2.her] groin to you.
 			#ENDIF
@@ -618,7 +618,7 @@
 			#IF(!npc.isTaur() && !pc.isTaur())
 				Kneeling down before you, [npc.name] then reaches up to grab your shoulders, before pulling down and forcing you onto all fours.
 			#ELSEIF(!npc.isTaur())
-				Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc.legConfiguration] body to one side in order to present [npc2.her] groin to you.
+				Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc2.legConfiguration] body to one side in order to present [npc2.her] groin to you.
 			#ELSE
 				Moving around in front of you, [npc.name] lets out a hungry [npc2.moan] as [npc.she] prepares to present [npc2.her] groin to you.
 			#ENDIF
@@ -705,7 +705,7 @@
 		Wanting to know how [npc.namePos] job as [npc.a_job] is going, you ask [npc.herHim] how [npc.sheIs] finding it. All too eager to try and impress you with [npc.her] tales of finally being a productive member of society, [npc.name] starts recounting some of [npc.her] recent experiences at work, pausing every now and then to allow you to compliment [npc.herHim] or make a comment on [npc.her] story-telling.
 	</p>
 	<p>
-		After a little while of this, [npc.name] draws the conversation to a close, finishing by reminding you that <b>[npc.her] work hours are from [npc.jobStartHour]:00 to [npc.jobEndHour]:00, [npc.jobStartDay] to [npc.jobEndDay]</b>.
+		After a little while of this, [npc.name] draws the conversation to a close, finishing by reminding you that <b>[npc.her] work hours are from [npc.jobStartTime] to [npc.jobEndTime], [npc.jobStartDay] to [npc.jobEndDay]</b>.
 	</p>
 	<p>
 		Having exhausted this line of conversation for the time being, you wonder what to do next...
@@ -1203,7 +1203,7 @@
 		Walking up to the door of [npc.namePos] flat, you give it a firm knock, but even after waiting a minute and knocking again, there's no sign of anyone being inside. Realising that [npc.name] must be out at work, there's nothing more for you to do except turn and head back out into Dominion.
 	</p>
 	<p>
-		Letting out a sigh, you remember what [npc.name] told you once before... [npc.speech(<i>My work hours are from [npc.jobStartHour]:00 to [npc.jobEndHour]:00, [npc.jobStartDay] to [npc.jobEndDay]!</i>)]
+		Letting out a sigh, you remember what [npc.name] told you once before... [npc.speech(<i>My work hours are from [npc.jobStartTime] to [npc.jobEndTime], [npc.jobStartDay] to [npc.jobEndDay]!</i>)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1325,7 +1325,7 @@
 		Wanting to know how [npc.namePos] job as [npc.a_job] is going, you ask [npc.herHim] how [npc.sheIs] finding it. All too eager to try and impress you with [npc.her] tales of finally being a productive member of society, [npc.name] starts recounting some of [npc.her] recent experiences at work, pausing every now and then to allow you to compliment [npc.herHim] or make a comment on [npc.her] story-telling.
 	</p>
 	<p>
-		After a little while of this, [npc.name] draws the conversation to a close, finishing by reminding you that <b>[npc.her] work hours are from [npc.jobStartHour]:00 to [npc.jobEndHour]:00, [npc.jobStartDay] to [npc.jobEndDay]</b>.
+		After a little while of this, [npc.name] draws the conversation to a close, finishing by reminding you that <b>[npc.her] work hours are from [npc.jobStartTime] to [npc.jobEndTime], [npc.jobStartDay] to [npc.jobEndDay]</b>.
 	</p>
 	<p>
 		Having exhausted this line of conversation for the time being, you wonder what to do next...
@@ -1353,7 +1353,7 @@
 	<p style='text-align:center;'><i>
 		Hi, [npc.pcName]!<br/>
 		I hope you slept well! You looked so happy fast asleep that I couldn't wake you to tell you that I needed to go to work, but that's where I am!<br/>
-		I'll be back at [npc.jobEndHour]:00, so if you wanted to drop by again after that time, I'll be here!<br/>
+		I'll be back at [npc.jobEndTime], so if you wanted to drop by again after that time, I'll be here!<br/>
 		See you soon,<br/>
 		[npc.name] x
 	</i></p>

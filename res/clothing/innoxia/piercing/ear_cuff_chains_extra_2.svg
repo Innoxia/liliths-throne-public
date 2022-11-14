@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg cursor="default" version="1.1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path d="m53.061 22.676c-20.625-0.9336-12.401 175.14 20.61 170.49 34.301-4.8342 46.136-79.062 43.049-87.116" stroke="#000" stroke-dashoffset="7.6" stroke-width="2.8"/>
+  <path d="m52.563 31.986c-5.7653 6.4612 0.13435 27.723 3.7022 43.805 9.5083 42.858 36.611 90.301 55.726 32.203" stroke="#000" stroke-dashoffset="5.4" stroke-width="2.8"/>
+  <path d="m53.061 22.676c-20.625-0.9336-12.401 175.14 20.61 170.49 34.301-4.8342 46.136-79.062 43.049-87.116" stroke="#ff8080" stroke-dasharray="2, 2" stroke-dashoffset="7.6" stroke-width="2"/>
+  <path d="m52.563 31.986c-5.7653 6.4612 0.13435 27.723 3.7022 43.805 9.5083 42.858 36.611 90.301 55.726 32.203" stroke="#ff8080" stroke-dasharray="2, 2" stroke-dashoffset="5.4" stroke-width="2"/>
+  <path d="m202.94 70.483c20.625-0.9336 12.401 175.14-20.61 170.49-34.301-4.8342-46.136-79.062-43.049-87.116" stroke="#000" stroke-dashoffset="7.6" stroke-width="2.8"/>
+  <path d="m203.44 79.792c5.7653 6.4612-0.13435 27.723-3.7022 43.805-9.5083 42.858-36.611 90.301-55.726 32.203" stroke="#000" stroke-dashoffset="5.4" stroke-width="2.8"/>
+  <path d="m202.94 70.483c20.625-0.9336 12.401 175.14-20.61 170.49-34.301-4.8342-46.136-79.062-43.049-87.116" stroke="#ff8080" stroke-dasharray="2, 2" stroke-dashoffset="7.6" stroke-width="2"/>
+  <path d="m203.44 79.792c5.7653 6.4612-0.13435 27.723-3.7022 43.805-9.5083 42.858-36.611 90.301-55.726 32.203" stroke="#ff8080" stroke-dasharray="2, 2" stroke-dashoffset="5.4" stroke-width="2"/>
+ </g>
+</svg>

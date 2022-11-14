@@ -57,7 +57,6 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -80,7 +79,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.9
+ * @version 0.4.4.1
  * @author Innoxia
  */
 public class Lilaya extends NPC {
@@ -298,7 +297,7 @@ public class Lilaya extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 		this.setHairStyle(HairStyle.LOOSE);
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_PANTIES, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_panties", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_pencil_skirt", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_torso_feminine_short_sleeve_shirt"), PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GREY, PresetColour.CLOTHING_GREY, false), true, this);
@@ -346,6 +345,10 @@ public class Lilaya extends NPC {
 
 	public boolean isCondomBroke() {
 		return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaCondomBroke);
+	}
+
+	public boolean isAmazonsSecretImpregnation() {
+		return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaAmazonsSecretImpregnation);
 	}
 	
 	@Override
@@ -417,13 +420,13 @@ public class Lilaya extends NPC {
 	@Override
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
 		if(character.isPlayer()) {
-			if(character.getSubspeciesOverrideRace()==Race.DEMON) {
-				Set<Relationship> rSet = new LinkedHashSet<>();
+			Set<Relationship> rSet = new LinkedHashSet<>();
+			rSet.add(Relationship.Pibling);
+			if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
 				rSet.add(Relationship.HalfSibling);
-				rSet.add(Relationship.Pibling);
 				return rSet;
 			}
-			return Util.newHashSetOfValues(Relationship.Pibling);
+			return rSet;
 		}
 		return super.getRelationshipsTo(character, excludedRelationships);
 	}
@@ -441,6 +444,17 @@ public class Lilaya extends NPC {
 	@Override
 	public boolean isAbleToBeImpregnated() {
 		return true;
+	}
+	
+	public void growCock() {
+		this.setPenisType(PenisType.DEMON_COMMON);
+		this.setPenisVirgin(false);
+		this.setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
+		this.setPenisSize(28);
+		this.setTesticleSize(TesticleSize.THREE_LARGE);
+		this.setInternalTesticles(false);
+		this.setPenisCumStorage(2000);
+		this.fillCumToMaxStorage();
 	}
 	
 	@Override
@@ -542,7 +556,7 @@ public class Lilaya extends NPC {
 
 		speech.add("Fuck, why do demons always have to feel so horny?! All I ever think about is fucking you or Rose!");
 		speech.add("I'm sure I can collect some valuable data from this...");
-		if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
+		if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
 			speech.add("Horny for your new half-sister, hmm?");
 			speech.add("There's nothing wrong with demonic siblings fucking one another...");
 		} else {

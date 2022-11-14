@@ -68,7 +68,7 @@ public class Pix extends NPC {
 	
 	public Pix(boolean isImported) {
 		super(isImported, new NameTriplet("Pix"), "Fear",
-				"An extremely energetic border-collie-girl, who is the owner and manager of the Shopping Arcade's gym; 'Pix's Playground'.",
+				"An extremely energetic border collie-girl, who is the owner and manager of the Shopping Arcade's gym; 'Pix's Playground'.",
 				29, Month.FEBRUARY, 21, 
 				10, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH_BORDER_COLLIE, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_PIXS_GYM, true);
@@ -207,7 +207,7 @@ public class Pix extends NPC {
 
 		this.unequipAllClothingIntoVoid(true, true);
 
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BOYSHORTS, PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_boyshorts", PresetColour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_SPORTS_BRA, PresetColour.CLOTHING_GREEN_LIME, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_sport_shorts", PresetColour.CLOTHING_BLUE_LIGHT, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_WHITE, false), true, this);

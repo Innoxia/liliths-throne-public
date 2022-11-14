@@ -39,14 +39,18 @@ import com.lilithsthrone.world.places.PlaceType;
 public class SlaveForSale extends NPC {
 
 	public SlaveForSale() {
-		this(false);
+		this(Gender.getGenderFromUserPreferences(false, false), true, false);
 	}
 
 	public SlaveForSale(boolean isImported) {
-		this(Gender.F_V_B_FEMALE, isImported);
+		this(Gender.getGenderFromUserPreferences(false, false), true, isImported);
+	}
+
+	public SlaveForSale(Gender gender, boolean isImported) {
+		this(gender, true, isImported);
 	}
 	
-	public SlaveForSale(Gender gender, boolean isImported) {
+	public SlaveForSale(Gender gender, boolean allowTaurSpawns, boolean isImported) {
 		super(isImported,
 				new NameTriplet("Slave"), "",
 				"",
@@ -68,6 +72,9 @@ public class SlaveForSale extends NPC {
 				if(s.getSubspeciesOverridePriority()>0) { // Do not spawn demonic races, elementals, or youko
 					continue;
 				}
+				if(s.isNonBiped() && !allowTaurSpawns) {
+					continue;
+				}
 				if(Subspecies.getWorldSpecies(WorldType.DOMINION, null, false).containsKey(s)) {
 					AbstractSubspecies.addToSubspeciesMap((int) (10000 * Subspecies.getWorldSpecies(WorldType.DOMINION, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 				}
@@ -79,12 +86,13 @@ public class SlaveForSale extends NPC {
 			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
 			
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f && this.getSubspecies()!=Subspecies.SLIME) {
-				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getFleshSubspecies(), true), true);
+				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getBody().getFleshSubspecies(), true), true);
 			}
 			
-			if(Math.random()<Main.getProperties().taurSpawnRate/100f
-					&& this.getLegConfiguration()!= LegConfiguration.QUADRUPEDAL) { // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
-				// Check for race's leg type as taur, otherwise NPCs which sapwn with human legs won't be affected by taur conversion rate:
+			if(allowTaurSpawns
+					&& Math.random()<Main.getProperties().taurSpawnRate/100f
+					&& this.getLegConfiguration()!= LegConfiguration.QUADRUPEDAL) { // Do not reset this character's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
+				// Check for race's leg type as taur, otherwise NPCs which spawn with human legs won't be affected by taur conversion rate:
 				if(this.getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
 					this.setLegType(this.getRace().getRacialBody().getLegType());
 					Main.game.getCharacterUtils().applyTaurConversion(this);
@@ -93,21 +101,24 @@ public class SlaveForSale extends NPC {
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 			
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(true);
 			
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 0);
 			
 			// PERSONALITY & BACKGROUND:
-			
+
+//			this.clearPersonalityTraits();
+			Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
 			this.setHistory(Occupation.NPC_SLAVE);
 			
 			// ADDING FETISHES:
 		
 			this.clearFetishDesires();
 			this.clearFetishes();
-			this.clearPersonalityTraits();
-			this.clearTattoosAndScars();
+			Main.game.getCharacterUtils().addFetishes(this);
+			
+//			this.clearTattoosAndScars();
 			
 			this.setObedience(100);
 			
@@ -128,6 +139,11 @@ public class SlaveForSale extends NPC {
 			
 			this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
 		}
+	}
+
+	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
 	}
 	
 	@Override

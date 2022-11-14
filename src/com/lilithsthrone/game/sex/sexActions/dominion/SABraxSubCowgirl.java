@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -148,7 +149,7 @@ public class SABraxSubCowgirl {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
 				return Util.newArrayListOfValues(Fetish.FETISH_DOMINANT);
 			} else {
@@ -227,7 +228,7 @@ public class SABraxSubCowgirl {
 						return "You feel Brax's [npc.penis+] bumping uselessly against your lower back as you pull him into a desperate kiss."
 						+ " After a few moments of tongue-fucking one another's mouths, you sit back up, noticing a strand of saliva briefly linking your lips before breaking and falling onto his furry chest.";
 					case 3:
-						return "As you lean forwards, Brax props himself on on his elbows, eagerly meeting your lips with his. Your moans are muffled in each other's mouths as Brax's "+Main.sex.getCharacterTargetedForSexAction(this).getPenisName(true)
+						return "As you lean forwards, Brax props himself on his elbows, eagerly meeting your lips with his. Your moans are muffled in each other's mouths as Brax's "+Main.sex.getCharacterTargetedForSexAction(this).getPenisName(true)
 								+" bumps fruitlessly against your lower back.";
 					default:
 						return "Leaning down, you take a moment to admire Brax's masculine form, letting out a little moan before pressing your lips against his and starting to eagerly kiss him.";
@@ -296,7 +297,7 @@ public class SABraxSubCowgirl {
 					UtilText.nodeContentSB.append("You decide to put Brax's tongue to use, and shuffle forwards until your crotch is positioned over his face.");
 				}
 				
-				UtilText.nodeContentSB.append(" You feel a big dollop of slimy cum drip out of your "+Main.game.getPlayer().getVaginaName(true)+", and you let out a giggle as you smush the slimy creampie down onto Brax's wolf-like muzzle."
+				UtilText.nodeContentSB.append(" You feel a big dollop of slimy cum drip out of your "+Main.game.getPlayer().getVaginaName(true)+", and you let out a giggle as you squash the slimy creampie down onto Brax's wolf-like muzzle."
 						+ " You hold the squirming wolf-boy's head still as you press your cum-filled cunt down over his mouth, giving him no choice but to start cleaning you out."
 						+ " After a moment, Brax stops squirming as he realises that it's useless to resist, and you let out a contented sigh as he starts licking out the cum from your creampied "+Main.game.getPlayer().getVaginaName(false)+".");
 				
@@ -318,7 +319,7 @@ public class SABraxSubCowgirl {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
 				if(Main.game.getPlayer().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)) {
 					return Util.newArrayListOfValues(Fetish.FETISH_DOMINANT, Fetish.FETISH_ORAL_RECEIVING, Fetish.FETISH_CUM_STUD);
@@ -388,7 +389,7 @@ public class SABraxSubCowgirl {
 					UtilText.nodeContentSB.append("You decide to put Brax's tongue to use, and shuffle forwards until your ass is positioned over his face.");
 				}
 				
-				UtilText.nodeContentSB.append(" You feel a big dollop of slimy cum drip out of your [pc.asshole+], and you let out a giggle as you smush the slimy creampie down onto Brax's wolf-like muzzle."
+				UtilText.nodeContentSB.append(" You feel a big dollop of slimy cum drip out of your [pc.asshole+], and you let out a giggle as you squash the slimy creampie down onto Brax's wolf-like muzzle."
 						+ " You hold the squirming wolf-boy's head still as you press your cum-filled asshole down over his mouth, giving him no choice but to start cleaning you out."
 						+ " After a moment, Brax stops squirming as he realises that it's useless to resist, and you let out a contented sigh as he starts licking out the cum from your creampied [pc.asshole].");
 				
@@ -407,7 +408,7 @@ public class SABraxSubCowgirl {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
 				if(Main.game.getPlayer().hasStatusEffect(StatusEffect.CREAMPIE_ANUS)) {
 					return Util.newArrayListOfValues(Fetish.FETISH_DOMINANT, Fetish.FETISH_ORAL_RECEIVING, Fetish.FETISH_ANAL_RECEIVING, Fetish.FETISH_CUM_STUD);
@@ -459,7 +460,7 @@ public class SABraxSubCowgirl {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(Fetish.FETISH_DOMINANT, Fetish.FETISH_ORAL_RECEIVING);
 		}
 	};
@@ -498,7 +499,7 @@ public class SABraxSubCowgirl {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(Fetish.FETISH_DOMINANT, Fetish.FETISH_ORAL_RECEIVING, Fetish.FETISH_ANAL_RECEIVING);
 		}
 	};
@@ -550,7 +551,7 @@ public class SABraxSubCowgirl {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(Fetish.FETISH_DOMINANT, Fetish.FETISH_ORAL_RECEIVING);
 		}
 	};
@@ -590,7 +591,7 @@ public class SABraxSubCowgirl {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(Fetish.FETISH_DOMINANT, Fetish.FETISH_ORAL_RECEIVING, Fetish.FETISH_ANAL_RECEIVING);
 		}
 	};
@@ -678,7 +679,7 @@ public class SABraxSubCowgirl {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(Fetish.FETISH_ANAL_RECEIVING);
 		}
 	};
@@ -866,7 +867,7 @@ public class SABraxSubCowgirl {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(Fetish.FETISH_BREASTS_SELF);
 		}
 	};
@@ -942,7 +943,7 @@ public class SABraxSubCowgirl {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(Fetish.FETISH_ANAL_RECEIVING);
 		}
 	};
@@ -1073,7 +1074,7 @@ public class SABraxSubCowgirl {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
 				return Util.newArrayListOfValues(Fetish.FETISH_CUM_STUD);
 			} else {
@@ -1135,7 +1136,7 @@ public class SABraxSubCowgirl {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
 				return Util.newArrayListOfValues(Fetish.FETISH_CUM_STUD);
 			} else {
@@ -1290,7 +1291,7 @@ public class SABraxSubCowgirl {
 		}
 
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(Fetish.FETISH_ORAL_RECEIVING);
 		}
 	};
@@ -1329,7 +1330,7 @@ public class SABraxSubCowgirl {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(Fetish.FETISH_ORAL_RECEIVING, Fetish.FETISH_ANAL_RECEIVING);
 		}
 	};
@@ -1402,7 +1403,7 @@ public class SABraxSubCowgirl {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(Fetish.FETISH_ANAL_RECEIVING);
 		}
 		
@@ -1582,7 +1583,7 @@ public class SABraxSubCowgirl {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(Fetish.FETISH_BREASTS_SELF);
 		}
 	};
@@ -1892,22 +1893,22 @@ public class SABraxSubCowgirl {
 					UtilText.nodeContentSB.append("A small amount of cum squirts onto Brax's chest, and you groan in satisfaction as you spurt out your sticky seed.");
 					break;
 				case THREE_AVERAGE:
-					UtilText.nodeContentSB.append("Your cum shoots out as your cock throbs, and you groan in satisfaction as as you spurt your sticky seed all over Brax's chest.");
+					UtilText.nodeContentSB.append("Your cum shoots out as your cock throbs, and you groan in satisfaction as you spurt your sticky seed all over Brax's chest.");
 					break;
 				case FOUR_LARGE:
-					UtilText.nodeContentSB.append("Your cum shoots out as your cock throbs, and you groan in satisfaction as as you spurt your sticky seed all over Brax's chest."
+					UtilText.nodeContentSB.append("Your cum shoots out as your cock throbs, and you groan in satisfaction as you spurt your sticky seed all over Brax's chest."
 							+ " A few drops even reach up to his face, and he flinches as your salty cum lands around his mouth.");
 					break;
 				case FIVE_HUGE:
-					UtilText.nodeContentSB.append("Your large load pours out as your cock throbs, and you groan in satisfaction as as you spurt your sticky seed all over Brax's chest."
+					UtilText.nodeContentSB.append("Your large load pours out as your cock throbs, and you groan in satisfaction as you spurt your sticky seed all over Brax's chest."
 							+ " A splatter of cum manages to reach up to his face, and he flinches as your salty cum lands around his mouth.");
 					break;
 				case SIX_EXTREME:
-					UtilText.nodeContentSB.append("Your huge load pours out as your cock throbs, and you groan in satisfaction as as you spurt your sticky seed all over Brax's chest."
+					UtilText.nodeContentSB.append("Your huge load pours out as your cock throbs, and you groan in satisfaction as you spurt your sticky seed all over Brax's chest."
 							+ " A few thick ropes of cum manage to reach up to his face, and he flinches as your salty cum lands all around his mouth.");
 					break;
 				case SEVEN_MONSTROUS:
-					UtilText.nodeContentSB.append("Your enormous load pours out as your cock throbs, and you groan in satisfaction as as you spurt your sticky seed all over Brax's chest."
+					UtilText.nodeContentSB.append("Your enormous load pours out as your cock throbs, and you groan in satisfaction as you spurt your sticky seed all over Brax's chest."
 							+ " Several thick ropes of cum manage to reach up to his face, and he flinches as your salty cum completely covers his torso and face.");
 					break;
 				default:
@@ -1953,7 +1954,7 @@ public class SABraxSubCowgirl {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(Fetish.FETISH_DOMINANT);
 		}
 	};
@@ -2049,7 +2050,7 @@ public class SABraxSubCowgirl {
 		}
 		
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			if (!Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isEmpty())
 				return Util.newArrayListOfValues(Fetish.FETISH_PREGNANCY);
 			else if (!Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).isEmpty())

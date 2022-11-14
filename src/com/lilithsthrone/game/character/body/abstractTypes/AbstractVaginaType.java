@@ -255,19 +255,27 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 		} else {
 			name = Util.randomItemFrom(names);
 		}
+
+		if(!Main.game.isStarted()) {
+			return name;
+		}
+		
+		if(!Main.game.isStarted()) {
+			return name;
+		}
 		
 		if(name.endsWith("-")) {
 			if(Math.random()<0.25f) { // 25% chance to return this '-' name.
-				return name + Util.getRandomObjectFromWeightedMap(returnNames);
+				return UtilText.parse(gc, name + Util.getRandomObjectFromWeightedMap(returnNames));
 			} else {
-				return Util.getRandomObjectFromWeightedMap(returnNames);
+				return UtilText.parse(gc, Util.getRandomObjectFromWeightedMap(returnNames));
 			}
 		}
 		if(name.isEmpty()) {
-			return Util.getRandomObjectFromWeightedMap(returnNames);
+			return UtilText.parse(gc, Util.getRandomObjectFromWeightedMap(returnNames));
 		}
 		
-		return name;
+		return UtilText.parse(gc, name);
 	}
 	
 	@Override
@@ -287,16 +295,16 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 		
 		if(name.endsWith("-")) {
 			if(Math.random()<0.25f) { // 25% chance to return this '-' name.
-				return name + Util.getRandomObjectFromWeightedMap(returnNames);
+				return UtilText.parse(gc, name + Util.getRandomObjectFromWeightedMap(returnNames));
 			} else {
-				return name + Util.getRandomObjectFromWeightedMap(returnNames);
+				return UtilText.parse(gc, name + Util.getRandomObjectFromWeightedMap(returnNames));
 			}
 		}
 		if(name.isEmpty()) {
-			return Util.getRandomObjectFromWeightedMap(returnNames);
+			return UtilText.parse(gc, Util.getRandomObjectFromWeightedMap(returnNames));
 		}
-		
-		return name;
+
+		return UtilText.parse(gc, name);
 	}
 
 	@Override
@@ -328,7 +336,7 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 	}
 	
 	/**
-	 * This method is called immediately before and immediately after the target's vagina type is changed into into this type. When before, applicationAfterChangeApplied is false, and when after, applicationAfterChangeApplied is true.
+	 * This method is called immediately before and immediately after the target's vagina type is changed into this type. When before, applicationAfterChangeApplied is false, and when after, applicationAfterChangeApplied is true.
 	 * It is not called if owner is null.
 	 */
 	public String applyAdditionalTransformationEffects(GameCharacter owner, boolean applicationAfterChangeApplied) {

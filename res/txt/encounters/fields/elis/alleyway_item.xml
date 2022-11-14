@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<!-- Item/clothing/weapon found: -->
+	
+	<htmlContent tag="ITEM_FOUND"><![CDATA[
+	<p>
+		As you travel down the dark, twisting alleyways of northern Elis, you suddenly hear an alarming scream and a shout coming from somewhere up ahead. As there's no other way to go, you continue forwards towards the origin of this noise, but after turning a couple of corners and finding yourself in the area from which the cries must have originated, you find the alleyway to be completely deserted.
+	</p>
+	<p>
+		Although you stop for a moment to listen for any further noises, you're not able to hear anything out of the ordinary, and so decide to continue on your way. As you [pc.step] forwards to do so, however, you suddenly spot something lying on the floor to one side of the cobblestone path. Assuming that the people whose cries you heard must have dropped it, you [pc.step] over to where this item is lying and see:
+	</p>
+	<p style='text-align:center;'>
+		<b>[#SPECIAL_PARSE_0]</b>
+	</p>
+	<p>
+		Although you look up and down the alleyway to see if the owner is coming back for it, there's absolutely no sign of anybody nearby. Looking back down at the item, you wonder whether or not to take it...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_FOUND"><![CDATA[
+	<p>
+		Although the alleyways are completely deserted, the dilapidated, multi-story structures which tilt precariously overhead are home to countless people, as can be evidenced by the flickering lights, drunken laughter, and whorish moaning which emanate from their upper-story windows. As you pass by a particularly shabby building, one of the crooked windows on its top floor is flung open with a loud creak, and then a second later a stream of climactic squeals and desperate grunts burst out from this opening.
+	</p>
+	<p>
+		Your attention is naturally drawn for a moment to this unexpected event, and as you look up towards the origin of these sexual sounds, you suddenly see that an item of clothing has been carelessly discarded and thrown out of the window. As it falls to the ground in front of your path, you see:
+	</p>
+	<p style='text-align:center;'>
+		<b>[#SPECIAL_PARSE_0]</b>
+	</p>
+	<p>
+		Either unaware or unconcerned that they've just lost something, the pair up in the room above continue to moan and grunt away, leaving you to consider whether or not to take this item of clothing...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WEAPON_FOUND"><![CDATA[
+	<p>
+		As you continue to travel down the dark, twisting alleyways of Elis, you suddenly hear a muffled series of shouts, cries, and the breaking of glass coming from behind a nearby, tightly-shut wooden door. Pausing to see how this situation evolves, you watch as this door suddenly explodes open with a deafening bang, and then from out of this doorway a cloaked, feminine figure leaps into the alleyway. After scrambling for a moment to gain her footing, this mysterious character bolts off down the cobblestone pathway before you.
+	</p>
+	<p>
+		Following hot on the cloaked figure's heels, a trio of burly wolf-boys burst out from the doorway, before sprinting after their quarry. Not one of these three characters seem to have noticed you, and in their haste to catch the fleeing, feminine figure, they leave the door to their room wide open. As the sound of their shouts and heavy footfalls fade into the distance, you [pc.walk] forwards and pass by the open doorway. Looking inside, you see an overturned table and chairs in the middle of a dingy, smoke-filled room, while scatted all over the floor are a great deal of playing cards and the remains of several shattered glasses.
+	</p>
+	<p>
+		As you turn away from this room and prepare to continue on your way, you suddenly spot something lying in the gutter just up ahead, and you [pc.walk] forwards to see:
+	</p>
+	<p style='text-align:center;'>
+		<b>[#SPECIAL_PARSE_0]</b>
+	</p>
+	<p>
+		Realising that either the cloaked figure or one of the wolf-boys must have dropped it, you wonder whether to pick this weapon up or leave it behind...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

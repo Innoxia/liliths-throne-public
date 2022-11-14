@@ -1,7 +1,11 @@
 package com.lilithsthrone.game.dialogue.companions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -31,6 +35,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
+import com.lilithsthrone.game.sex.ImmobilisationType;
 import com.lilithsthrone.game.sex.managers.dominion.SMMilkingStall;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMilkingStall;
@@ -40,6 +45,7 @@ import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
 
@@ -137,7 +143,91 @@ public class SlaveDialogue {
 	public static void setFollowupEnslavementDialogue(DialogueNode followupEnslavementDialogue) {
 		SlaveDialogue.followupEnslavementDialogue = followupEnslavementDialogue;
 	}
-
+	
+	private static SMGeneric getGenericSlaveSexManager(
+			List<GameCharacter> dominantParticipants,
+			List<GameCharacter> submissiveParticipants,
+			List<ResponseTag> tags) {
+		return new SMGeneric(
+				dominantParticipants,
+				submissiveParticipants,
+				getDominantSpectators(),
+				getSubmissiveSpectators(),
+				tags) {
+			@Override
+			public boolean isPublicSex() {
+				return isCompanionSexPublic();
+			}
+			@Override
+			public Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
+				ImmobilisationType immobilisationType = null;
+				for(AbstractPlaceUpgrade upgrade : Main.game.getPlayer().getLocationPlace().getPlaceUpgrades()) {
+					immobilisationType = upgrade.getImmobilisationType();
+					if(immobilisationType!=null) {
+						break;
+					}
+				}
+				
+				Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> map = new HashMap<>();
+				map.put(immobilisationType, new HashMap<>());
+				map.get(immobilisationType).put(dominantParticipants.get(0), new HashSet<>());
+				if(immobilisationType!=null) {
+					for(GameCharacter character : submissiveParticipants) {
+						if(character.isSlave()) {
+							map.get(immobilisationType).get(dominantParticipants.get(0)).add(character);
+						}
+					}
+				}
+				return map;
+			}
+		};
+	}
+	
+	private static void applyImmobilisationText(List<GameCharacter> submissiveParticipants) {
+		ImmobilisationType immobilisationType = null;
+		for(AbstractPlaceUpgrade upgrade : Main.game.getPlayer().getLocationPlace().getPlaceUpgrades()) {
+			immobilisationType = upgrade.getImmobilisationType();
+			if(immobilisationType!=null) {
+				break;
+			}
+		}
+		if(immobilisationType!=null) {
+			List<GameCharacter> slaveSubs = new ArrayList<>(submissiveParticipants);
+			slaveSubs.removeIf(s->!s.isSlave());
+			if(!slaveSubs.isEmpty()) {
+				List<String> names = new ArrayList<>();
+				for(GameCharacter slave : slaveSubs) {
+					names.add(UtilText.parse(slave, "[npc.name]"));
+				}
+				StringBuilder sb = new StringBuilder();
+				sb.append("<p style='text-align:center;'>[style.italicsTerrible(");
+					switch(immobilisationType) {
+						case CHAINS:
+							sb.append("Thanks to the chains which have been added to this cell, ");
+							break;
+						case ROPE:
+							sb.append("Thanks to the ropes which have been added to this cell, ");
+							break;
+						case COCOON:
+						case TAIL_CONSTRICTION:
+						case TENTACLE_RESTRICTION:
+						case WITCH_SEAL:
+							break;
+					}
+					sb.append(Util.stringsToStringList(names, false));
+					if(names.size()>1) {
+						sb.append(" are");
+					} else {
+						sb.append(" is");
+					}
+					sb.append(" bound and unable to move!");
+				sb.append(")]</p>");
+				
+				Main.game.appendToTextEndStringBuilder(sb.toString());
+			}
+		}
+	}
+	
 	private static List<GameCharacter> getDominantSpectators() {
 		return Main.game.getPlayer().getCompanions();
 	}
@@ -165,6 +255,7 @@ public class SlaveDialogue {
 		return new ArrayList<>(characters);
 	}
 	
+	private static boolean enslavementWorked = false;
 	public static final DialogueNode DEFAULT_ENSLAVEMENT_DIALOGUE = new DialogueNode("New Slave", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
@@ -174,9 +265,8 @@ public class SlaveDialogue {
 			} else {
 				Main.game.getTextEndStringBuilder().append(enslavementTarget.incrementAffection(Main.game.getPlayer(), -25));
 			}
-		}
-		@Override
-		public String getContent() {
+			
+			// Generate content:
 			GameCharacter target = enslavementTarget;
 			AbstractClothing enslavementClothing = target.getEnslavementClothing();
 			UtilText.addSpecialParsingString(enslavementClothing.getName(), true);
@@ -186,43 +276,51 @@ public class SlaveDialogue {
 				path = "characters/offspring/enslavement";
 			}
 			
-			
 			if(!target.isSlave() && target.isAbleToBeEnslaved() && Main.game.getPlayer().isHasSlaverLicense()) {
 				if(enslavementClothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"))) {
-					return UtilText.parseFromXMLFile(path, "ENSLAVEMENT_SUCCESS_COLLAR", target);
+					Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile(path, "ENSLAVEMENT_SUCCESS_COLLAR", target));
 				} else {
-					return UtilText.parseFromXMLFile(path, "ENSLAVEMENT_SUCCESS", target);
+					Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile(path, "ENSLAVEMENT_SUCCESS", target));
 				}
+				enslavementWorked = true;
 				
 			} else {
 				if(target.isSlave()) {
-					return UtilText.parseFromXMLFile(path, "ENSLAVEMENT_FAIL_ALREADY_SLAVE", target);
+					Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile(path, "ENSLAVEMENT_FAIL_ALREADY_SLAVE", target));
 					
 				} else if(!target.isAbleToBeEnslaved()) {
 					if(target.getSubspecies()==Subspecies.DEMON) {
-						return UtilText.parseFromXMLFile(path, "ENSLAVEMENT_FAIL_NOT_WANTED_DEMON", target);
+						Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile(path, "ENSLAVEMENT_FAIL_NOT_WANTED_DEMON", target));
 						
 					} else {
-						return UtilText.parseFromXMLFile(path, "ENSLAVEMENT_FAIL_NOT_WANTED", target);
+						Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile(path, "ENSLAVEMENT_FAIL_NOT_WANTED", target));
 					}
 					
 				} else {
-					return UtilText.parseFromXMLFile(path, "ENSLAVEMENT_FAIL_NO_LICENSE", target);
+					Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile(path, "ENSLAVEMENT_FAIL_NO_LICENSE", target));
 				}
+				enslavementWorked = false;
 			}
+			
+			// Apply effects after content has been generated due to conditional checks:
+			Main.game.getPlayer().addSlave((NPC) enslavementTarget);
+			enslavementTarget.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
 		}
-
+		@Override
+		public String getContent() {
+			return "";
+		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
-				if(!SlaveDialogue.getEnslavementTarget().isSlave() && SlaveDialogue.getEnslavementTarget().isAbleToBeEnslaved() && Main.game.getPlayer().isHasSlaverLicense()) {
+				if(enslavementWorked) {
 					return new Response("Continue",
 							"Carry on your way.",
 							SlaveDialogue.getFollowupEnslavementDialogue()){
 						@Override
 						public void effects() {
-							Main.game.getPlayer().addSlave((NPC) enslavementTarget);
-							enslavementTarget.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
+//							Main.game.getPlayer().addSlave((NPC) enslavementTarget);
+//							enslavementTarget.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
 						}
 						@Override
 						public DialogueNode getNextDialogue(){
@@ -239,6 +337,30 @@ public class SlaveDialogue {
 			} else {
 				return null;
 			}
+		}
+	};
+	
+	public static final DialogueNode FREEDOM_DIALOG = new DialogueNode("Freed Slave", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getTextEndStringBuilder().append(enslavementTarget.incrementAffection(Main.game.getPlayer(), -25));
+		}
+		@Override
+		public String getContent() {
+			GameCharacter target = enslavementTarget;
+			AbstractClothing enslavementClothing = target.getEnslavementClothing();
+			UtilText.addSpecialParsingString(enslavementClothing.getName(), true);
+			UtilText.addSpecialParsingString(enslavementClothing.getClothingType().isPlural()?"them":"it", false);
+			return UtilText.parseFromXMLFile("characters/enslavement", "ENSLAVEMENT_FAIL_FREEDOM_CERTIFICATION", target);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue",
+						UtilText.parse(SlaveDialogue.getEnslavementTarget(), "That didn't work, but it doesn't mean you're finished with [npc.name] yet!"),
+						SlaveDialogue.getFollowupEnslavementDialogue());
+			}
+			return null;
 		}
 	};
 	
@@ -758,7 +880,7 @@ public class SlaveDialogue {
 										&& (getSlave().getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive() || getSlave().getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive())) {
 									Main.game.getTextEndStringBuilder().append(getSlave().incrementAffection(Main.game.getPlayer(), 10));
 									
-								} else if(!getSlave().isAttractedTo(Main.game.getPlayer())) {
+								} else if(!getSlave().isAttractedTo(Main.game.getPlayer()) && !getSlave().hasFetish(Fetish.FETISH_SUBMISSIVE) && !getSlave().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 									Main.game.getTextEndStringBuilder().append(getSlave().incrementAffection(Main.game.getPlayer(), -10));
 								}
 							}
@@ -844,14 +966,12 @@ public class SlaveDialogue {
 						} else if(Main.game.isNonConEnabled() && !characterForSex.isAttractedTo(Main.game.getPlayer())) {
 							return new ResponseSex("Rape", UtilText.parse(characterForSex, "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.sheHasFull] a choice in the matter..."), 
 									false, false,
-									new SMGeneric(
+									getGenericSlaveSexManager(
 											Util.newArrayListOfValues(Main.game.getPlayer()),
 											Util.newArrayListOfValues(characterForSex),
-									getDominantSpectators(),
-									getSubmissiveSpectators(),
-									(characterForSex.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
-										?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
-										:new ArrayList<>())),
+											(characterForSex.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
+												?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
+												:new ArrayList<>())),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getTextFilePath(), "RAPE_START", characterForSex)) {
 								@Override
@@ -862,26 +982,26 @@ public class SlaveDialogue {
 									} else {
 										Main.game.getTextEndStringBuilder().append(characterForSex.incrementAffection(Main.game.getPlayer(), -25));
 									}
+									applyImmobilisationText(Util.newArrayListOfValues(characterForSex));
 								}
 							};
 						
 						} else {
 							return new ResponseSex("Sex", UtilText.parse(characterForSex, "Have sex with [npc.name]."), 
 									true, false,
-									new SMGeneric(
+									getGenericSlaveSexManager(
 											Util.newArrayListOfValues(Main.game.getPlayer()),
 											Util.newArrayListOfValues(characterForSex),
-									getDominantSpectators(),
-									getSubmissiveSpectators(),
-									(characterForSex.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
-											?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
-											:new ArrayList<>())),
+											(characterForSex.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
+													?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
+													:new ArrayList<>())),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getTextFilePath(), "SEX_START", characterForSex)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
 									Main.game.getTextEndStringBuilder().append(characterForSex.incrementAffection(Main.game.getPlayer(), 5));
+									applyImmobilisationText(Util.newArrayListOfValues(characterForSex));
 								}
 							};
 						}
@@ -920,22 +1040,16 @@ public class SlaveDialogue {
 									UtilText.parse(characterForSex, characterForSexSecondary, "Move around in front of [npc.name] so that you can use [npc.her] mouth while [npc2.name] takes [npc.her] rear."),
 									null, null, null, null, null, null,
 									!isRape, false,
-									new SMGeneric(
+									getGenericSlaveSexManager(
 											Util.newArrayListOfValues(characterForSexSecondary, Main.game.getPlayer()),
 											Util.newArrayListOfValues(characterForSex),
-											getDominantSpectators(),
-											getSubmissiveSpectators(),
-											ResponseTag.PREFER_DOGGY) {
-										@Override
-										public boolean isPublicSex() {
-											return isCompanionSexPublic();
-										}
-									},
+											Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROAST_FRONT_START", characterForSex, characterForSexSecondary)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
+									applyImmobilisationText(Util.newArrayListOfValues(characterForSex));
 								}
 							};
 						}
@@ -976,22 +1090,16 @@ public class SlaveDialogue {
 										UtilText.parse(characterForSex, characterForSexSecondary, "Move around behind [npc.name] so that you can use [npc.her] rear while [npc2.name] takes [npc.her] mouth."),
 										null, null, null, null, null, null,
 										!isRape, false,
-										new SMGeneric(
+										getGenericSlaveSexManager(
 												Util.newArrayListOfValues(Main.game.getPlayer(), characterForSexSecondary),
 												Util.newArrayListOfValues(characterForSex),
-												getDominantSpectators(),
-												getSubmissiveSpectators(),
-												ResponseTag.PREFER_DOGGY) {
-											@Override
-											public boolean isPublicSex() {
-												return isCompanionSexPublic();
-											}
-										},
+												Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)),
 										getAfterSexDialogue(),
 										UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROAST_BEHIND_START", characterForSex, characterForSexSecondary)) {
 									@Override
 									public void effects() {
 										applyReactionReset();
+										applyImmobilisationText(Util.newArrayListOfValues(characterForSex));
 									}
 								};
 							}
@@ -1025,22 +1133,16 @@ public class SlaveDialogue {
 									UtilText.parse(characterForSex, characterForSexSecondary, "Push [npc.name] and [npc2.name] down onto all fours, before kneeling behind [npc.name], ready to fuck them both side-by-side."),
 									null, null, null, null, null, null,
 									!isRape, false,
-									new SMGeneric(
+									getGenericSlaveSexManager(
 											Util.newArrayListOfValues(Main.game.getPlayer()),
 											Util.newArrayListOfValues(characterForSex, characterForSexSecondary),
-											getDominantSpectators(),
-											getSubmissiveSpectators(),
-											ResponseTag.PREFER_DOGGY) {
-										@Override
-										public boolean isPublicSex() {
-											return isCompanionSexPublic();
-										}
-									},
+											Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SIDE_BY_SIDE_START", characterForSex, characterForSexSecondary)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
+									applyImmobilisationText(Util.newArrayListOfValues(characterForSex, characterForSexSecondary));
 								}
 							};
 						}
@@ -1060,20 +1162,19 @@ public class SlaveDialogue {
 									UtilText.parse(characterForSex, "Have submissive sex with [npc.name]."), 
 									Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 									true, true,
-									new SMGeneric(
-											Util.newArrayListOfValues(characterForSex),
-											Util.newArrayListOfValues(Main.game.getPlayer()),
-											getDominantSpectators(),
-											getSubmissiveSpectators(),
-									(characterForSex.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
-											?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
-											:new ArrayList<>())),
-										getAfterSexDialogue(),
-										UtilText.parseFromXMLFile(getTextFilePath(), "SEX_AS_SUB_START", characterForSex)) {
+									getGenericSlaveSexManager(
+										Util.newArrayListOfValues(characterForSex),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										(characterForSex.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
+												?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
+												:new ArrayList<>())),
+									getAfterSexDialogue(),
+									UtilText.parseFromXMLFile(getTextFilePath(), "SEX_AS_SUB_START", characterForSex)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
 									Main.game.getTextEndStringBuilder().append(characterForSex.incrementAffection(Main.game.getPlayer(), 5));
+									applyImmobilisationText(Util.newArrayListOfValues(Main.game.getPlayer()));
 								}
 							};
 						}
@@ -1119,22 +1220,16 @@ public class SlaveDialogue {
 									UtilText.parse(characterForSex, characterForSexSecondary, "Get down on all fours facing [npc.name], so that [npc.she] can use your mouth while [npc2.name] takes your rear."),
 									null, null, null, null, null, null,
 									true, true,
-									new SMGeneric(
-											Util.newArrayListOfValues(characterForSexSecondary, characterForSex),
-											Util.newArrayListOfValues(Main.game.getPlayer()),
-											getDominantSpectators(),
-											getSubmissiveSpectators(),
-											ResponseTag.PREFER_DOGGY) {
-										@Override
-										public boolean isPublicSex() {
-											return isCompanionSexPublic();
-										}
-									},
+									getGenericSlaveSexManager(
+										Util.newArrayListOfValues(characterForSexSecondary, characterForSex),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROASTED_START", characterForSex, characterForSexSecondary)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
+									applyImmobilisationText(Util.newArrayListOfValues(Main.game.getPlayer()));
 								}
 							};
 						}
@@ -1181,22 +1276,16 @@ public class SlaveDialogue {
 									UtilText.parse(characterForSex, characterForSexSecondary, "Get down on all fours and present your rear to [npc.name], so that [npc.she] can fuck you while [npc2.name] uses your mouth."),
 									null, null, null, null, null, null,
 									true, true,
-									new SMGeneric(
+									getGenericSlaveSexManager(
 											Util.newArrayListOfValues(characterForSex, characterForSexSecondary),
 											Util.newArrayListOfValues(Main.game.getPlayer()),
-											getDominantSpectators(),
-											getSubmissiveSpectators(),
-											ResponseTag.PREFER_DOGGY) {
-										@Override
-										public boolean isPublicSex() {
-											return isCompanionSexPublic();
-										}
-									},
+											Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROASTED_START", characterForSexSecondary, characterForSex)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
+									applyImmobilisationText(Util.newArrayListOfValues(Main.game.getPlayer()));
 								}
 							};
 						}
@@ -1233,22 +1322,16 @@ public class SlaveDialogue {
 									UtilText.parse(characterForSex, characterForSexSecondary, "Get down on all fours beside [npc2.name], so that [npc.name] can kneel down behind the two of you, ready to fuck you both side-by-side."),
 									null, null, null, null, null, null,
 									true, false,
-									new SMGeneric(
+									getGenericSlaveSexManager(
 											Util.newArrayListOfValues(characterForSex),
 											Util.newArrayListOfValues(Main.game.getPlayer(), characterForSexSecondary),
-											getDominantSpectators(),
-											getSubmissiveSpectators(),
-											ResponseTag.PREFER_DOGGY) {
-										@Override
-										public boolean isPublicSex() {
-											return isCompanionSexPublic();
-										}
-									},
+											Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SIDE_BY_SIDE_AS_SUB_START", characterForSex, characterForSexSecondary)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
+									applyImmobilisationText(Util.newArrayListOfValues(Main.game.getPlayer(), characterForSexSecondary));
 								}
 							};
 						}
@@ -1369,7 +1452,7 @@ public class SlaveDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Talking with [npc.Name]";
+			return UtilText.parse(getSlave(), "Talking with [npc.Name]");
 		}
 
 		@Override
@@ -1461,7 +1544,7 @@ public class SlaveDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Talking with [npc.Name]";
+			return UtilText.parse(getSlave(), "Talking with [npc.Name]");
 		}
 
 		@Override
@@ -1607,7 +1690,7 @@ public class SlaveDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Encouraging [npc.Name]";
+			return UtilText.parse(getSlave(), "Encouraging [npc.Name]");
 		}
 
 		@Override
@@ -1803,7 +1886,7 @@ public class SlaveDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Hugging [npc.Name]";
+			return UtilText.parse(getSlave(), "Hugging [npc.Name]");
 		}
 
 		@Override
@@ -2000,7 +2083,7 @@ public class SlaveDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Petting [npc.Name]";
+			return UtilText.parse(getSlave(), "Petting [npc.Name]");
 		}
 
 		@Override
@@ -2149,7 +2232,7 @@ public class SlaveDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Giving [npc.Name] a present";
+			return UtilText.parse(getSlave(), "Giving [npc.Name] a present");
 		}
 
 		@Override
@@ -2275,7 +2358,7 @@ public class SlaveDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Inspecting [npc.Name]";
+			return UtilText.parse(getSlave(), "Inspecting [npc.Name]");
 		}
 
 		@Override
@@ -2644,7 +2727,7 @@ public class SlaveDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Spanking [npc.Name]";
+			return UtilText.parse(getSlave(), "Spanking [npc.Name]");
 		}
 
 		@Override
@@ -2855,7 +2938,7 @@ public class SlaveDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Molesting [npc.Name]";
+			return UtilText.parse(getSlave(), "Molesting [npc.Name]");
 		}
 
 		@Override

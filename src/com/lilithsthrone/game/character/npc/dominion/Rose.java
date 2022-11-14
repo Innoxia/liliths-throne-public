@@ -48,7 +48,6 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -223,13 +222,13 @@ public class Rose extends NPC {
 
 		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_cleaning_feather_duster"));
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_VSTRING, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_vstring", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_DRESS, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_HEADPIECE, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_SLEEVES, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_STOCKINGS, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_HEELS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_maid_dress", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_maid_headpiece", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_maid_sleeves", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_maid_stockings", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_maid_heels", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_bell_collar", PresetColour.CLOTHING_BLACK, false), true, this);
 
 	}
@@ -273,11 +272,13 @@ public class Rose extends NPC {
 			return null;
 		}
 		
-		if(target.hasVagina() && target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
-			
-		} else if(target.isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
-			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
+		if(this.hasPenis()) { // Only if Rose has a dildo equipped
+			if(target.hasVagina() && target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+				
+			} else if(Main.game.isAnalContentEnabled() && target.isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
+				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
+			}
 		}
 		
 		return super.getMainSexPreference(target);
@@ -289,7 +290,7 @@ public class Rose extends NPC {
 			return super.calculateSexTypeWeighting(type, target, request, lustOrArousalCalculation);
 		}
 		
-		if(type.getPerformingSexArea()!=null && type.getPerformingSexArea().isOrifice()) { // Do not get penetrated:
+		if(target.isPlayer() && type.getPerformingSexArea()!=null && type.getPerformingSexArea().isOrifice()) { // Do not get penetrated:
 			return -10_000;
 		}
 		
@@ -302,13 +303,14 @@ public class Rose extends NPC {
 	
 	@Override
 	public void endSex() {
-		if(this.getClothingInSlot(InventorySlot.PENIS)!=null) {
-			this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.PENIS), true, this);
-			if(this.getClothingInSlot(InventorySlot.GROIN)==null) {
-				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_VSTRING, PresetColour.CLOTHING_BLACK, false), true, this);
-			}
-			this.replaceAllClothing();
-		}
+//		if(this.getClothingInSlot(InventorySlot.PENIS)!=null) {
+//			this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.PENIS), true, this);
+//			if(this.getClothingInSlot(InventorySlot.GROIN)==null) {
+//				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_vstring", PresetColour.CLOTHING_BLACK, false), true, this);
+//			}
+//			this.replaceAllClothing();
+//		}
+		this.equipClothing();
 	}
 	
 	public static final DialogueNode END_HAND_SEX = new DialogueNode("Recover", "Both you and Rose and exhausted from your hand-holding session.", true) {

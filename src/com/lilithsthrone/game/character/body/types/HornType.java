@@ -30,8 +30,8 @@ public class HornType {
 			Race.NONE,
 			2,
 			"none",
-			"",
-			"",
+			"horn",
+			"horns",
 			new ArrayList<>(),
 			new ArrayList<>(),
 			"<br/>[npc.Name] now [npc.has] [style.boldTfGeneric(no horns)].",
@@ -101,6 +101,24 @@ public class HornType {
 	};
 
 	// Generic:
+
+	public static final AbstractHornType ANTLERS = new AbstractHornType(
+			BodyCoveringType.ANTLER,
+			Race.NONE,
+			2,
+			"pronged",
+			"antler",
+			"antlers",
+			Util.newArrayListOfValues("pronged"),
+			Util.newArrayListOfValues("pronged"),
+			" multi-pronged #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF."
+					+ "<br/>[npc.Name] now [npc.has] [npc.hornsDeterminer] [style.boldTfGeneric(pronged #IFnpc.getTotalHorns()==1#THEN[npc.horn]#ELSE[npc.horns]#ENDIF)].",
+			"[npc.HornsDeterminer] [npc.hornSize], [npc.hornColour(true)], pronged #IFnpc.getTotalHorns()==1#THEN[npc.horn] grows#ELSE[npc.horns] grow#ENDIF out of the #IFnpc.getHornsPerRow()==1#THENmiddle#ELSEupper sides#ENDIF of [npc.her] forehead.") {
+		@Override
+		public boolean isGeneric() {
+			return true;
+		}
+	};
 	
 	public static final AbstractHornType CURLED = new AbstractHornType(
 			BodyCoveringType.HORN,

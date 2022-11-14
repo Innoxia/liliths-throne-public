@@ -207,7 +207,7 @@ public abstract class DialogueNode {
 								
 								List<String> requiredFetishes = new ArrayList<>();
 								if(response.getOptionalFirstOf("requiredFetishes").isPresent()) {
-									for(Element fetish : node.getMandatoryFirstOf("requiredFetishes").getAllOf("fetish")) {
+									for(Element fetish : response.getMandatoryFirstOf("requiredFetishes").getAllOf("fetish")) {
 										requiredFetishes.add(fetish.getTextContent());
 									}
 								}
@@ -225,23 +225,23 @@ public abstract class DialogueNode {
 								
 								List<String> requiredPerks = new ArrayList<>();
 								if(response.getOptionalFirstOf("requiredPerks").isPresent()) {
-									for(Element perk : node.getMandatoryFirstOf("requiredPerks").getAllOf("perk")) {
+									for(Element perk : response.getMandatoryFirstOf("requiredPerks").getAllOf("perk")) {
 										requiredPerks.add(perk.getTextContent());
 									}
 								}
 	
 								List<String> subspeciesRequired = new ArrayList<>();
 								if(response.getOptionalFirstOf("requiredSubspecies").isPresent()) {
-									for(Element subspecies : node.getMandatoryFirstOf("requiredSubspecies").getAllOf("subspecies")) {
+									for(Element subspecies : response.getMandatoryFirstOf("requiredSubspecies").getAllOf("subspecies")) {
 										subspeciesRequired.add(subspecies.getTextContent());
 									}
 								}
 								
 								
 								// Trading:
-								if(response.getOptionalFirstOf("tradingVariables").isPresent() && Boolean.valueOf(node.getMandatoryFirstOf("tradingVariables").getAttribute("enabled"))) {
-									String tradeTarget = node.getMandatoryFirstOf("tradingVariables").getMandatoryFirstOf("tradePartner").getTextContent();
-									ResponseTrade tradeResponse = new ResponseTrade(responseTitle, responseTooltip, tradeTarget);
+								if(response.getOptionalFirstOf("tradingVariables").isPresent() && Boolean.valueOf(response.getMandatoryFirstOf("tradingVariables").getAttribute("enabled"))) {
+									String tradeTarget = response.getMandatoryFirstOf("tradingVariables").getMandatoryFirstOf("tradePartner").getTextContent();
+									ResponseTrade tradeResponse = new ResponseTrade(responseTitle, responseTooltip, tradeTarget, effectsResponse);
 									tradeResponse.setConditional(availabilityConditional);
 									
 									loadedResponses.putIfAbsent(responseTabIndex, new HashMap<>());
@@ -250,16 +250,22 @@ public abstract class DialogueNode {
 								}
 								
 								// Combat:
-								else if(response.getOptionalFirstOf("combatVariables").isPresent() && Boolean.valueOf(node.getMandatoryFirstOf("combatVariables").getAttribute("enabled"))) {
-									Element combatElement = node.getMandatoryFirstOf("combatVariables");
+								else if(response.getOptionalFirstOf("combatVariables").isPresent() && Boolean.valueOf(response.getMandatoryFirstOf("combatVariables").getAttribute("enabled"))) {
+									Element combatElement = response.getMandatoryFirstOf("combatVariables");
 									
 									String nextDialoguePlayerVictory = combatElement.getMandatoryFirstOf("nextDialoguePlayerVictory").getTextContent();
 									String nextDialoguePlayerDefeat = combatElement.getMandatoryFirstOf("nextDialoguePlayerDefeat").getTextContent();
 									
 									List<String> alliesIds = new ArrayList<>();
-									boolean companionsAreAllies = false;
+									boolean companionsAreAllies = true;
+									boolean elementalsAreAllies = true;
 									if(combatElement.getOptionalFirstOf("allies").isPresent()) {
-										companionsAreAllies = Boolean.valueOf(combatElement.getMandatoryFirstOf("allies").getAttribute("companionsAreAllies"));
+										if(!combatElement.getMandatoryFirstOf("allies").getAttribute("companionsAreAllies").isEmpty()) {
+											companionsAreAllies = Boolean.valueOf(combatElement.getMandatoryFirstOf("allies").getAttribute("companionsAreAllies"));
+										}
+										if(!combatElement.getMandatoryFirstOf("allies").getAttribute("elementalsAreAllies").isEmpty()) {
+											elementalsAreAllies = Boolean.valueOf(combatElement.getMandatoryFirstOf("allies").getAttribute("elementalsAreAllies"));
+										}
 										for(Element ally : combatElement.getMandatoryFirstOf("allies").getAllOf("ally")) {
 											alliesIds.add(ally.getTextContent());
 										}
@@ -287,7 +293,13 @@ public abstract class DialogueNode {
 										}
 									}
 									
-									ResponseCombat combatResponse = new ResponseCombat(responseTitle, responseTooltip, alliesIds, companionsAreAllies, enemyLeaderId, enemiesIds, openingDescriptions);
+									boolean escapeBlocked = false;
+									if(combatElement.getOptionalFirstOf("escapeBlocked").isPresent()) {
+										escapeBlocked = Boolean.valueOf(UtilText.parse(combatElement.getMandatoryFirstOf("escapeBlocked").getTextContent()).trim());
+									}
+									
+									ResponseCombat combatResponse = new ResponseCombat(
+											responseTitle, responseTooltip, alliesIds, companionsAreAllies, elementalsAreAllies, enemyLeaderId, enemiesIds, openingDescriptions, effectsResponse, escapeBlocked);
 									combatResponse.setNextDialoguePlayerVictoryId(nextDialoguePlayerVictory);
 									combatResponse.setNextDialoguePlayerDefeatId(nextDialoguePlayerDefeat);
 									combatResponse.setConditional(availabilityConditional);
@@ -298,7 +310,7 @@ public abstract class DialogueNode {
 								}
 								
 								// Sex:
-								else if(response.getOptionalFirstOf("sexVariables").isPresent() && Boolean.valueOf(node.getMandatoryFirstOf("sexVariables").getAttribute("enabled"))) {
+								else if(response.getOptionalFirstOf("sexVariables").isPresent() && Boolean.valueOf(response.getMandatoryFirstOf("sexVariables").getAttribute("enabled"))) {
 									Element sexElement = response.getMandatoryFirstOf("sexVariables");
 									
 									String consensual = sexElement.getMandatoryFirstOf("consensual").getTextContent();
@@ -397,7 +409,7 @@ public abstract class DialogueNode {
 								}
 								
 								// Sex with manager:
-								else if(response.getOptionalFirstOf("sexVariablesWithManager").isPresent() && Boolean.valueOf(node.getMandatoryFirstOf("sexVariablesWithManager").getAttribute("enabled"))) {
+								else if(response.getOptionalFirstOf("sexVariablesWithManager").isPresent() && Boolean.valueOf(response.getMandatoryFirstOf("sexVariablesWithManager").getAttribute("enabled"))) {
 									Element sexElement = response.getMandatoryFirstOf("sexVariablesWithManager");
 									
 									String sexManagerId = sexElement.getMandatoryFirstOf("id").getTextContent();

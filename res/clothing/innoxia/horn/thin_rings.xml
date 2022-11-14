@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>500</value>
+		<determiner><![CDATA[a collection of]]></determiner>
+		<name><![CDATA[thin horn rings]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[thin horn rings]]></namePlural>
+		<description><![CDATA[A dozen thin rings, each one being of a size suitable for being slotted onto someone's horns.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+			<slot>HORNS</slot>
+		</equipSlots>
+		<rarity>COMMON</rarity>
+		<clothingSet/> 
+		<imageName>thin_rings.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<blockedPartsList slot="HORNS">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots slot="HORNS"/>
+		
+		<primaryColours values="ALL_METAL"/> 
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_KATE</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText slot="PIERCING_NIPPLE" type="REMOVE_OR_EQUIP">
+	<self>
+		<![CDATA[[npc.Name] [npc.verb(slide)] the dozen thin rings onto [npc.her] [npc.horns].]]>
+	</self>
+	<other>
+		<![CDATA[[npc.Name] [npc.verb(slide)] the dozen thin rings onto [npc2.namePos] [npc2.horns].]]>
+	</other>
+	<otherRough>
+		<![CDATA[[npc.Name] roughly [npc.verb(slide)] the dozen thin rings onto [npc2.namePos] [npc2.horns].]]>
+	</otherRough>
+	</replacementText>
+
+	<displacementText slot="PIERCING_NIPPLE" type="REMOVE_OR_EQUIP">
+	<self>
+		<![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] rings from off of [npc.her] [npc.horns].]]>
+	</self>
+	<other>
+		<![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] rings from off of [npc2.her] [npc2.horns].]]>
+	</other>
+	<otherRough>
+		<![CDATA[[npc.Name] roughly [npc.verb(slide)] [npc2.namePos] rings from off of [npc2.her] [npc2.horns].]]>
+	</otherRough>
+	</displacementText>
+	
+</clothing>

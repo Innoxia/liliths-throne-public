@@ -3,17 +3,18 @@ package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -24,16 +25,15 @@ import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
-import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
-import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.78
- * @version 0.4
+ * @version 0.4.3.4
  * @author Innoxia, Rfpnj
  */
 public class Library {
@@ -52,16 +52,9 @@ public class Library {
 		Set<AbstractSubspecies> aisleSubspecies = new HashSet<>();
 
 		for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
-			List<WorldRegion> mostCommonRegion = Util.newArrayListOfValues(WorldRegion.DOMINION);
-			SubspeciesSpawnRarity highestRarity = SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE;
-			for(Entry<WorldRegion, SubspeciesSpawnRarity> entry : subspecies.getRegionLocations().entrySet()) {
-				if(entry.getValue().getChanceMultiplier()>=highestRarity.getChanceMultiplier()) {
-					if(entry.getValue().getChanceMultiplier()>highestRarity.getChanceMultiplier()) {
-						mostCommonRegion.clear();
-					}
-					mostCommonRegion.add(entry.getKey());
-					highestRarity = entry.getValue();
-				}
+			List<WorldRegion> mostCommonRegion = subspecies.getMostCommonWorldRegions();
+			if(mostCommonRegion.isEmpty()) {
+				mostCommonRegion.add(WorldRegion.DOMINION);
 			}
 			boolean add = false;
 			boolean demonic = subspecies.getRace()==Race.DEMON || subspecies.getRace()==Race.ANGEL || subspecies.getRace()==Race.ELEMENTAL;
@@ -196,47 +189,56 @@ public class Library {
 				List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
 				
 				if (index == 1) {
+					if(Main.game.getCurrentDialogueNode()==ARCANE_AROUSAL) {
+						return new Response("Arcane Arousal", "You are already reading this book!", null);
+					}
 					return new Response("Arcane Arousal", "A leather-bound tome that seems to offer an insight into how the arcane works.", ARCANE_AROUSAL) {
 						@Override
 						public void effects() {
-							if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook1)) {
-								Main.game.getPlayer().incrementAttribute(Attribute.SPELL_COST_MODIFIER, 1f);
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.readBook1);
+							if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.readBook1)) {
+								Main.game.getPlayer().incrementAttribute(Attribute.SPELL_COST_MODIFIER, 1f);//TODO replace with something else
 							}
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.readBook1, true);
 						}
 					};
 
 				} else if (index == 2) {
+					if(Main.game.getCurrentDialogueNode()==LILITHS_DYNASTY) {
+						return new Response("Lilith's Dynasty", "You are already reading this book!", null);
+					}
 					return new Response("Lilith's Dynasty", "A hardback book that might give some clues as to who exactly Lilith is.", LILITHS_DYNASTY) {
 						@Override
 						public void effects() {
-							if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook2)) {
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.readBook2);
-							}
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.readBook2, true);
 						}
 					};
 
 				} else if (index == 3) {
+					if(Main.game.getCurrentDialogueNode()==DOMINION_HISTORY) {
+						return new Response("Dominion's History", "You are already reading this book!", null);
+					}
 					return new Response("Dominion's History", "A paperback book describing the events that led to the creation of the city you currently find yourself in.", DOMINION_HISTORY) {
 						@Override
 						public void effects() {
-							if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook3)) {
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.readBook3);
-							}
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.readBook3, true);
 						}
 					};
 
 				} else if (index == 4) {
-					return new Response("Knocked up", "A small paperback book which contains all the information you'd ever need concerning pregnancies in this world.", PREGNANCY_INFO) {
+					if(Main.game.getCurrentDialogueNode()==PREGNANCY_INFO) {
+						return new Response("Knocked Up", "You are already reading this book!", null);
+					}
+					return new Response("Knocked Up", "A small paperback book which contains all the information you'd ever need concerning pregnancies in this world.", PREGNANCY_INFO) {
 						@Override
 						public void effects() {
-							if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook4)) {
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.readBook4);
-							}
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.readBook4, true);
 						}
 					};
 
 				} else if (index == 5) {
+					if(Main.game.getCurrentDialogueNode()==DOMINION_MAP) {
+						return new Response("City Map", "You are already viewing the map of Dominion!", null);
+					}
 					return new Response("City Map", "A large, framed map of Dominion hangs on one wall. Take a picture of it.", DOMINION_MAP) {
 						@Override
 						public void effects() {
@@ -249,8 +251,42 @@ public class Library {
 						}
 					};
 	
-				} else if(index>=6 && index-6<charactersPresent.size()) {
-					NPC slave = charactersPresent.get(index-6);
+				} else if (index == 6 && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_SLAVERY, Quest.SIDE_SLAVER_NEED_RECOMMENDATION)) {
+					if(Main.game.getCurrentDialogueNode()==SLAVERY_HISTORY) {
+						return new Response("People as Property", "You are already reading this book!", null);
+					}
+					return new Response("People as Property", "A thick, hardback book detailing the history and legality of slavery in Lilith's Realm.", SLAVERY_HISTORY) {
+						@Override
+						public void effects() {
+							Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/dominion/lilayasHome/library", "SLAVERY_HISTORY"));
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.readBookSlavery, true);
+						}
+					};
+	
+				} else if (index == 7 && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.readBookSlavery)) {
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("acexp_dungeon_found"))) {
+						return new Response("Lilaya's dungeon",
+								"Pull the thick book bearing the title 'Lilaya's Dirty Secrets' to open the secret passage down to Lilaya's dungeon.",
+								DialogueManager.getDialogueFromId("acexp_dominion_lilaya_dungeon_stairsUp")) {
+							@Override
+							public void effects() {
+								Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/dominion/lilayasHome/library", "DUNGEON_OPENS"));
+								Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("acexp/dominion/lilaya_dungeon", "DUNGEON_ENTRY"));
+								Main.game.getPlayer().setLocation(WorldType.getWorldTypeFromId("acexp_dungeon"), PlaceType.getPlaceTypeFromId("acexp_dungeon_stairs"), false);
+							}
+						};
+						
+					} else {
+						return new Response("'Lilaya's Dirty Secrets'", "A thick book bearing the title 'Lilaya's Dirty Secrets' has caught your eye...", DUNGEON_TRIGGER) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.getDialogueFlagValueFromId("acexp_dungeon_found"), true);
+							}
+						};
+					}
+	
+				} else if(index>=8 && index-8<charactersPresent.size()) {
+					NPC slave = charactersPresent.get(index-8);
 					return new Response(UtilText.parse(slave, "[npc.Name]"), UtilText.parse(slave, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 						@Override
 						public Colour getHighlightColour() {
@@ -345,42 +381,12 @@ public class Library {
 	public static final DialogueNode ARCANE_AROUSAL = new DialogueNode("", "", false) {
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "Sliding the large leather-bound tome out from the bookshelf, you then walk over to sit down on one of the library's comfortable chairs."
-						+ " The spine creaks as you open the cover, and as you start reading, you quickly discover that this book is way above your level of understanding."
-						+ " You decide to persist, and by flipping through the pages and skimming over some of the more intelligible passages, you do manage to discover some things."
-					+ "</p>"
-					+ "<p>"
-						+ "For one, it seems as though arcane power is found all throughout this world, and although it's mostly concentrated in people's arcane auras, you discover that there are some places out in the wilderness"
-							+ " where the arcane condenses into little micro-storms of activity."
-						+ " These places allow even the most novice of arcane users to harness its power, but for the most part, a person can only use arcane spells if they train their aura to become strong enough."
-						+ " This training process appears to take several years, and you realise how fortunate you are to have an aura with demon-like strength."
-					+ "</p>"
-					+ "<p>"
-						+ "After reading through these technical aspects of the arcane, you move on to the nature of the arcane itself."
-						+ " You realise that this section is what must have given the book its title; 'Arcane Arousal'."
-						+ " It appears as though the arcane is some kind of primal force that feeds on a person's sexual energy."
-						+ " Although a person may normally be able to easily resist their aura's influence, when they get fatigued, their own aura will amplify their sexual desires, causing them to become obsessed with sex."
-						+ " This is the power that's behind the arcane storms that often erupt over Dominion, and you once again reflect on how lucky you are to have an aura powerful enough to cancel out the storm's potent effects."
-					+ "</p>"
-					+ "<p>"
-						+ "Finally, you skim over the book's last few chapters, which define 'arcane essences'."
-						+ " These essences are described as being physical, gaseous manifestations of arcane power, and are able to be infused into clothing and items of food in order to create enchanted items and potions."
-						+ " People who have a very high level of arcane power are able to absorb arcane essences from out of the aura of people orgasming or being defeated in combat near them,"
-							+ " with lilin even being able to passively absorb essences in a radius of several thousand metres."
-						+ " This does <i>not</i> diminish the aura of the orgasming person, but it does cause their aura to strengthen, preventing additional essence absorption for a few hours."
-					+ "</p>"
-					+ "<p>"
-						+ "The book finishes by noting that, due to the sexual pleasure derived from beating others, powerful arcane users who are sadists are able to absorb essences from those they abuse or beat in fights."
-						+ " Conversely, powerful arcane users who are masochists absorb essences from being beaten."
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/library", "ARCANE_AROUSAL");
 		}
-
 		@Override
 		public String getResponseTabTitle(int index) {
 			return LIBRARY.getResponseTabTitle(index);
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return LIBRARY.getResponse(responseTab, index);
@@ -390,92 +396,12 @@ public class Library {
 	public static final DialogueNode LILITHS_DYNASTY = new DialogueNode("", "", false) {
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "You take the hardback book out of the bookshelf and walk over to sit down on one of the library's comfortable chairs."
-						+ " Opening the cover and flipping through the pages reveals that most of this book is taken up by descriptions of trivial events and tedious demon politics."
-						+ " In general, however, it does provide a good insight into how this world is ruled, and you spend a short while reading through the pages as you familiarise yourself with Lilith's dynasty."
-					+ "</p>"
-					+ "<p>"
-						+ "You already knew that the demon queen Lilith was the reigning monarch of this world, but what you find interesting is that there is no record of her predecessor."
-						+ " In fact, from what you're reading, it sounds as though Lilith has ruled this world since the beginning of recorded history."
-						+ " You wonder what sort of immense power she must possess in order to keep control for such a length of time."
-					+ "</p>"
-					+ "<p>"
-						+ "Your question is half-answered as you turn the next few pages."
-						+ " It seems as though Lilith's offspring, referred to as lilin, act as regional rulers, and are unquestionably loyal to their mother."
-						+ " Each Lilin appears to be an immensely powerful demon in her own right, and you realise that with an army of these subordinates ruling over her domain, Lilith's power base is incredibly secure."
-					+ "</p>"
-					+ "<p>"
-						+ "Apparently, all of the lilin in the world were once common races, who were corrupted by Lilith into their new forms."
-						+ " The book makes a prominent mention that there are seven exceptions to this; those being the seven of Lilith's natural-born daughters, who are referred to as the 'elder lilin'."
-						+ " In order of seniority, these seven elders are:<br/>"
-						+ "<i>Lirecea, Lovienne, Lasielle, Lyssieth, Lunette, Lyxias, and Lisophia.</i>"
-					+ "</p>"
-					+ "<p>"
-						+ "The final part of the introduction describes how, in a way similar to their mother's, lilin usually corrupt their partners into demons before sex, so that the resulting offspring will be pure demons."
-						+ " Half-demons are considered to be lower in social standing than pure demons, with half-demons being born of a lilin and human being regarded as particularly shameful."
-					+ "</p>"
-					+ "<p>"
-						+ "Apparently, although many Lilin end up giving birth to hundreds, if not thousands, of demons, it's incredibly rare for a lilin to publicly acknowledge any of her demonic children as her own."
-						+ " Recognised half-demons seem to be almost unheard of, with just a handful of mentions throughout the entire book."
-					+ "</p>"
-					+ "<p style='text-align:center;'>"
-						+ "In the book's centre-fold, there's a table which shows how demonic breeding works:<br/><br/>"
-						+ "<table style='margin: 0px auto;'>"
-						+ "<tr style='font-weight:bold; text-align:left; color:"+PresetColour.MASCULINE.toWebHexString()+";'>"
-							+ "<td>[style.boldFeminine(Mother)]/[style.boldMasculine(Father)]</td><td>Lilin</td><td>Demon</td><td>Half-demon</td><td>Human half-demon</td><td>Non-demon</td><td>Human</td><td>Imp</td>"
-						+ "</tr>"
-						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Lilin</td><td>[style.boldtfGreater(Ln)]</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td>"
-						+ "</tr>"
-						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Demon</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td>"
-						+ "</tr>"
-						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Half-demon</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td>"
-						+ "</tr>"
-						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Human half-demon</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td>"
-						+ "</tr>"
-						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Non-demon</td><td>[style.boldtfMinor(Hdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldBad(Ip)]</td>"
-						+ "</tr>"
-						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Human</td><td>[style.boldtfPartial(Hhdn)]</td</td><td>[style.boldtfPartial(Hhdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldHuman(Hn)]</td><td>[style.boldBad(Ip)]</td>"
-						+ "</tr>"
-						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Imp</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td>"
-						+ "</tr>"
-						+ "</table>"
-						+ "<br/><br/>"
-						+ "[style.boldtfGreater(Ln)] = Lilin&nbsp;&nbsp;&nbsp;&nbsp;"
-						+ "[style.boldtfLesser(Dn)] = Demon&nbsp;&nbsp;&nbsp;&nbsp;"
-						+ "[style.boldtfMinor(Hdn)] = Half-demon&nbsp;&nbsp;&nbsp;&nbsp;"
-						+ "[style.boldtfPartial(Hhdn)] = Human half-demon</br>"
-						+ "[style.boldtfGeneric(Nd)] = Non-demon (non-human)&nbsp;&nbsp;&nbsp;&nbsp;"
-						+ "[style.boldHuman(Hn)] = Human&nbsp;&nbsp;&nbsp;&nbsp;"
-						+ "[style.boldBad(Ip)] = Imp"
-					+ "</p>"
-					+ "<p>"
-						+ "After this, the book goes on to describe human half-demons as being particularly despised in the demon's social hierarchy."
-						+ " It explains that this is due to the fact that they are the only demon-kind to produce imp offspring, and imps are considered to be the lowest of all (even below humans)."
-						+ " While still of a higher social standing than any non-demon, human half-demons are typically treated very poorly by their 'purer' relatives,"
-							+ " who will often insult them with terms such as 'imp-breeder', 'imp-factory', 'imp-fucker', or other such profanities."
-					+ "</p>"
-					+ "<p>"
-						+ "Your eyes widen as you read that Lilaya is one of only two recorded human half-demons in history to be publicly recognised by their lilin mother (who, in Lilaya's case, is the elder lilin, Lyssieth)."
-						+ (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonBossEncountered)
-								?" The other half-demon mentioned is Lilaya's sister, [siren.name]."
-								:" The other half-demon to be mentioned is someone by the name of [siren.name], who is another of Lyssieth's daughters.")
-						+ " After reading about this, you can understand why Lilaya is extremely sensitive about her human half-demon form."
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/library", "LILITHS_DYNASTY");
 		}
-
 		@Override
 		public String getResponseTabTitle(int index) {
 			return LIBRARY.getResponseTabTitle(index);
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int lore) {
 			return LIBRARY.getResponse(responseTab, lore);
@@ -485,32 +411,12 @@ public class Library {
 	public static final DialogueNode DOMINION_HISTORY = new DialogueNode("", "", false) {
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "As you slide the history book out from the bookshelf and flip through the pages, you see that there's not much content in it, and most of the pages are taken up by large illustrations."
-						+ " Looking at the front cover again, you see that the title is in fact 'A horse-morph's guide to Dominion's history'."
-						+ " Tutting at the author's apparent assumption about the intelligence of horse-morphs, you nevertheless have a quick read through the book's pages."
-					+ "</p>"
-					+ "<p>"
-						+ "There isn't really much useful information inside, and you quickly finish the book from cover to cover."
-						+ " There's an interesting passage about the construction of Dominion by Lilith and the demons many centuries ago, but it doesn't really go into any detail."
-					+ "</p>"
-					+ "<p>"
-						+ " Apart from that, the only other part of the book that piques your interest is a small section justifying the practice of slavery as a necessary evil."
-						+ " The passage explains how demons, not including half-demons, are the only race which are almost never seen to be enslaved."
-						+ " Apparently, this is due to a non-demon owning a demonic slave being considered completely unacceptable in Dominion's society, and requires a very hard-to-obtain license."
-						+ " It also mentions that Enforcers are very hesitant to sign off on any demon enslavement order,"
-							+ " as for all they know, the demon in question could turn out to be the favourite offspring of a lilin, who would be sure to bring their wrath down upon them..."
-					+ "</p>"
-					+ "<p>"
-						+ "Other than that snippet of trivia, the book doesn't contain anything useful."
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/library", "DOMINION_HISTORY");
 		}
-
 		@Override
 		public String getResponseTabTitle(int index) {
 			return LIBRARY.getResponseTabTitle(index);
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int lore) {
 			return LIBRARY.getResponse(responseTab, lore);
@@ -520,33 +426,12 @@ public class Library {
 	public static final DialogueNode PREGNANCY_INFO = new DialogueNode("", "", false) {
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "You slide the small paperback book out from the shelf, and, turning it over in your [pc.hands], you take a look at the front cover."
-						+ " On it, the title 'Knocked up' is displayed in bold pink lettering, and beneath that, there's a picture of a heavily-pregnant rabbit-girl cradling her swollen belly."
-						+ " A little speech-bubble is drawn coming from her mouth, and in it, you read the words 'All you need to know about being a parent!'."
-					+ "</p>"
-					+ "<p>"
-						+ "Opening its pages, you find that the information contained within the book is laid out in a very neat and easy-to-read format, and it only takes you a few minutes to read through the entire thing."
-						+ " One of the most striking facts is that in this world, the full cycle of pregnancy only lasts for a few weeks."
-						+ " What's more, once the mother is ready to give birth, she's able to stay in that state indefinitely, until such time as she feels comfortable giving birth."
-					+ "<p>"
-					+ "<p>"
-						+ "The second alarming fact contained within these pages is related to the development of children."
-						+ " It only takes a few minutes for new-borns to develop and mature into adults, and they will inherit all of the common knowledge held by their parents."
-						+ " This doesn't include specific memories, so for example, if a child's mother knows how to read and write, they will too, but they won't have the memory of their mother learning this information."
-					+ "</p>"
-					+ "<p>"
-						+ "After reaching full maturity within a matter of hours, the vast majority of children will immediately leave their parents in order to strike out for themselves and become fully independent."
-						+ " Despite this almost-immediate separation, a parent will always share special maternal or paternal bonds with their children, and, whether due to the arcane or some natural intuition,"
-							+ " a parent and child, as well as siblings, will always recognise each other at first sight."
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/library", "PREGNANCY_INFO");
 		}
-
 		@Override
 		public String getResponseTabTitle(int index) {
 			return LIBRARY.getResponseTabTitle(index);
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return LIBRARY.getResponse(responseTab, index);
@@ -556,29 +441,73 @@ public class Library {
 	public static final DialogueNode DOMINION_MAP = new DialogueNode("", "", false) {
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			UtilText.nodeContentSB.append("<p>"
-						+ "Hanging on one of the walls of the library, a huge map of Dominion is displayed in a wooden frame."
-						+ " Using your phone, you take a picture of it for future reference."
-					+ "</p>"
-					+ "<p style='text-align:center;'>"
-						+ "[style.italicsExcellent(Dominion Map fully revealed!)]"
-					+ "</p>"
-					+ RenderingEngine.ENGINE.getFullMap(WorldType.DOMINION, false, false));
-			
-			return UtilText.nodeContentSB.toString();
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/library", "DOMINION_MAP"));
+			sb.append(RenderingEngine.ENGINE.getFullMap(WorldType.DOMINION, false, false));
+			return sb.toString();
 		}
-
 		@Override
 		public String getResponseTabTitle(int index) {
 			return LIBRARY.getResponseTabTitle(index);
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return LIBRARY.getResponse(responseTab, index);
 		}
-		
+	};
+
+	public static final DialogueNode SLAVERY_HISTORY = new DialogueNode("", "", false) {
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LIBRARY.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return LIBRARY.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode DUNGEON_TRIGGER = new DialogueNode("", "", true) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/library", "DUNGEON_TRIGGER");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Lilaya's dungeon",
+						"Head down the spiral staircase to Lilaya's dungeon.",
+						DialogueManager.getDialogueFromId("acexp_dominion_lilaya_dungeon_stairsUp")) {
+					@Override
+					public void effects() {
+						Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("acexp/dominion/lilaya_dungeon", "DUNGEON_ENTRY"));
+						Main.game.getPlayer().setLocation(WorldType.getWorldTypeFromId("acexp_dungeon"), PlaceType.getPlaceTypeFromId("acexp_dungeon_stairs"), false);
+					}
+				};
+			} else if(index==2) {
+				return new Response("Maybe later", "Decide against heading down to Lilaya's dungeon for now...", DUNGEON_TRIGGER_BACK);
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNode DUNGEON_TRIGGER_BACK = new DialogueNode("", "", false, true) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/library", "DUNGEON_TRIGGER_BACK");
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LIBRARY.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return LIBRARY.getResponse(responseTab, index);
+		}
 	};
 	
 	public static final DialogueNode ELDER_RACES = new DialogueNode("", "", false) {
@@ -884,7 +813,7 @@ public class Library {
 	
 	private static Response bookResponse(DialogueNode nodeToReturnTo, AbstractSubspecies subspecies) {
 		AbstractItemType book = ItemType.getLoreBook(subspecies);
-		
+
 		if(Main.getProperties().isAdvancedRaceKnowledgeDiscovered(subspecies)) {
 			return new Response(book.getName(false), book.getDescription(), nodeToReturnTo) {
 				@Override
@@ -892,6 +821,7 @@ public class Library {
 					Main.game.getTextEndStringBuilder().append(book.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
 				}
 			};
+			
 		} else {
 			return new Response(book.getName(false), "You haven't discovered this book yet!", null);
 		}

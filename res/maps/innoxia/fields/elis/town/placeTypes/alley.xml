@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[narrow alleyways]]></name>
+	<tooltipDescription><![CDATA[Instead of cobbled streets, the northern part of Elis consists of a maze-like network of narrow alleyways.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the alleyways of Elis]]></virginityLossDescription>
+	<sexBlockedReason/>
+	<sexBlockedFromCharacterPresent>false</sexBlockedFromCharacterPresent>
+	<colour>BASE_BLACK</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_generic_alley</dialogue>
+	<populationPresent>
+		<population day="true">
+			<populationType plural="true" density="FEW">PERSON</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+		<population day="true">
+			<populationType plural="false" density="OCCASIONAL">ENFORCER</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town">
+				<subspeciesToRemove>HUMAN</subspeciesToRemove>
+			</subspeciesPresent>
+		</population>
+	</populationPresent>
+	<furniturePresent>false</furniturePresent>
+	<loiteringEnabled>true</loiteringEnabled>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[[#!game.isDayTime()]]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

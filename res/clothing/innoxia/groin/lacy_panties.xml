@@ -4,7 +4,7 @@
 	<coreAttributes>
 		<authorTag><![CDATA[A small tag sewn into the band reads "MFD by DSG Apparel LLC.".]]></authorTag>
 		<value>200</value> 
-		<determiner><![CDATA[a]]></determiner>
+		<determiner><![CDATA[a pair of]]></determiner>
 		<name><![CDATA[lacy panties]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[lacy panties]]></namePlural>
 		<description><![CDATA[A pair of distinctly feminine panties, made from soft cotton. This particular design has large sections of semi-transparent fabric, and is trimmed with lace.]]></description>
@@ -15,7 +15,6 @@
 		<clothingSet/> 
 		<imageName>lacy_panties.svg</imageName> 
 		<imageEquippedName/> 
-		<enchantmentLimit/>
 		<effects/>
 		
 		<blockedPartsList>

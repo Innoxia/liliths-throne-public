@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.w3c.dom.Document;
 
@@ -101,7 +103,7 @@ public abstract class AbstractCombatMove {
     		boolean canTargetEnemies,
     		boolean canTargetSelf,
     		Map<AbstractStatusEffect, Integer> statusEffects) {
-    	this(category, name, cooldown, APcost, 1, type, damageType, DamageVariance.NONE, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects, Util.newHashMapOfValues());
+    	this(category, name, cooldown, APcost, 1, type, damageType, DamageVariance.NONE, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects, statusEffects);
     }
 
 	public AbstractCombatMove(CombatMoveCategory category,
@@ -116,7 +118,7 @@ public abstract class AbstractCombatMove {
     		boolean canTargetEnemies,
     		boolean canTargetSelf,
     		Map<AbstractStatusEffect, Integer> statusEffects) {
-    	this(category, name, cooldown, APcost, 1, type, damageType, damageVariance, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects, Util.newHashMapOfValues());
+    	this(category, name, cooldown, APcost, 1, type, damageType, damageVariance, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects, statusEffects);
     }
 
 	public AbstractCombatMove(CombatMoveCategory category,
@@ -131,7 +133,7 @@ public abstract class AbstractCombatMove {
 			boolean canTargetEnemies,
 			boolean canTargetSelf,
 			Map<AbstractStatusEffect, Integer> statusEffects) {
-		this(category, name, cooldown, APcost, 1, type, damageType, DamageVariance.NONE, pathName, iconColours, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects, Util.newHashMapOfValues());
+		this(category, name, cooldown, APcost, 1, type, damageType, DamageVariance.NONE, pathName, iconColours, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects, statusEffects);
 	}
     
     /**
@@ -472,6 +474,13 @@ public abstract class AbstractCombatMove {
      * @return Character to target with this action.
      */
     public GameCharacter getPreferredTarget(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+		if(Main.game.isInCombat()) {
+	    	GameCharacter preferredTarget = Main.combat.getPreferredTarget(source);
+	    	if(preferredTarget!=null && !Main.combat.isCombatantDefeated(preferredTarget)) {
+	    		return preferredTarget;
+	    	}
+		}
+		
         if(weightingText!=null && !weightingText.isEmpty()) {
         	float maxWeight = 0.0f;
         	GameCharacter target = null;
@@ -479,7 +488,7 @@ public abstract class AbstractCombatMove {
         		if((isCanTargetSelf() && character.equals(source))
         				|| (isCanTargetAllies() && character.isCombatAlly(source))
         				|| (isCanTargetEnemies() && character.isCombatEnemy(source))) {
-        			float weight = Float.valueOf(UtilText.parse(source, character, weightingText).trim());
+        			float weight = Float.valueOf(UtilText.parse(source, character, weightingText).trim()) * (Main.combat.isCombatantDefeated(character)?0:1);
         			if(weight>maxWeight) {
         				target = character;
         				maxWeight = weight;
@@ -492,8 +501,10 @@ public abstract class AbstractCombatMove {
         }
         
         if(isCanTargetEnemies()) {
-            if(shouldBlunder()) {
-                return enemies.get(Util.random.nextInt(enemies.size()));
+            if(shouldBlunder() && enemies.stream().anyMatch(enemy->!Main.combat.isCombatantDefeated(enemy))) {
+            	List<GameCharacter> nonDefeatedEnemies = new ArrayList<>(enemies);
+            	nonDefeatedEnemies.removeIf(enemy->Main.combat.isCombatantDefeated(enemy));
+                return nonDefeatedEnemies.get(Util.random.nextInt(nonDefeatedEnemies.size()));
             } else {
                 float lowestHP = -1;
                 GameCharacter potentialCharacter = null;
@@ -507,8 +518,10 @@ public abstract class AbstractCombatMove {
             }
         }
         if(isCanTargetAllies() && !allies.isEmpty()) {
-            if(shouldBlunder()) {
-                return allies.get(Util.random.nextInt(allies.size()));
+            if(shouldBlunder() && allies.stream().anyMatch(ally->!Main.combat.isCombatantDefeated(ally))) {
+            	List<GameCharacter> nonDefeatedAllies = new ArrayList<>(allies);
+            	nonDefeatedAllies.removeIf(ally->Main.combat.isCombatantDefeated(ally));
+                return nonDefeatedAllies.get(Util.random.nextInt(nonDefeatedAllies.size()));
             }
             else {
                 float lowestHP = -1;
@@ -547,9 +560,9 @@ public abstract class AbstractCombatMove {
     	if(fromExternalFile) {
 	    	boolean crit = canCrit(turnIndex, source, target, enemies, allies);
 	    	parseText = parseText.replaceAll("isCritical", String.valueOf(crit));
-	    	parseText = parseText.replaceAll("damageInflicted", String.valueOf(getDamage(source, target, crit)));
+	    	parseText = parseText.replaceAll("damageInflicted", String.valueOf(getDamage(turnIndex, source, target, crit)));
 //	    	parseText = parseText.replaceAll("damageInflictedNoCrit", String.valueOf(getDamage(source, target, false)));
-	    	parseText = parseText.replaceAll("formattedDamageInflicted", getFormattedDamage(getDamageType(source), getDamage(source, target, crit), target, false, isTargetAtMaximumLust(target)));
+	    	parseText = parseText.replaceAll("formattedDamageInflicted", getFormattedDamage(getDamageType(turnIndex, source), getDamage(turnIndex, source, target, crit), target, false, isTargetAtMaximumLust(target)));
 //	    	parseText = parseText.replaceAll("formattedDamageInflictedNoCrit", getFormattedDamage(damageType, getDamage(source, target, false), target, false, isTargetAtMaximumLust(target)));
     	}
     	
@@ -571,9 +584,9 @@ public abstract class AbstractCombatMove {
 	    	boolean crit = canCrit(turnIndex, source, target, enemies, allies);
 	    	parseText = parseText.replaceAll("isCritical", String.valueOf(crit));
 	    	
-            DamageType damageType = getDamageType(source);
+            DamageType damageType = getDamageType(turnIndex, source);
             boolean maxLust = isTargetAtMaximumLust(target);
-            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(source, target, crit));
+            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, crit));
 	    	parseText = parseText.replaceAll("damageInflicted", String.valueOf(damageValue.getValue()));
 	    	parseText = parseText.replaceAll("formattedDamageInflicted", getFormattedDamage(damageType, damageValue.getValue(), target, true, maxLust));
 	    	parseText = parseText.replaceAll("formattedHealthDamage", damageValue.getKey());
@@ -652,12 +665,13 @@ public abstract class AbstractCombatMove {
 
     /**
      * Returns a string if action can't be used either due to special constraints or because of AP/cooldowns on a specified target; string specifies rejection reason. Returns null if action can be used without an issue.
+     * @param turnIndex The turn index in which this move is to be performed.
      * @param source Character that uses the action.
      * @param source Target for the action. Can be null.
      * @param enemies Enemies of the character
      * @param allies Allies of the character
      */
-    public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    public String isUsable(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
         if(target != null) {
             if(!canTargetSelf && source == target) {
                 return "This action can't be used on yourself!";
@@ -734,7 +748,7 @@ public abstract class AbstractCombatMove {
         return type;
     }
 
-    public DamageType getDamageType(GameCharacter source) {
+    public DamageType getDamageType(int turnIndex, GameCharacter source) {
     	if(fromExternalFile) {
     		DamageType dt = DamageType.PHYSICAL;
     		try{
@@ -762,11 +776,11 @@ public abstract class AbstractCombatMove {
         return baseDamage;
     }
     
-    protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
+    protected int getDamage(int turnIndex, GameCharacter source, GameCharacter target, boolean isCrit) {
     	if(getBaseDamage(source)==0) {
     		return 0;
     	}
-        DamageType damageType = getDamageType(source);
+        DamageType damageType = getDamageType(turnIndex, source);
         return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
     }
 
@@ -812,11 +826,11 @@ public abstract class AbstractCombatMove {
         return UtilText.parse(source, name);
     }
 
-    public String getDescription(GameCharacter source) {
+    public String getDescription(int turnIndex, GameCharacter source) {
     	String parseText = description;
     	
-    	parseText = parseText.replaceAll("damageInflicted", String.valueOf(getDamage(source, null, false)));
-    	parseText = parseText.replaceAll("formattedDamageInflicted", getFormattedDamage(getDamageType(source), getBaseDamage(source), null, false, false));
+    	parseText = parseText.replaceAll("damageInflicted", String.valueOf(getDamage(turnIndex, source, null, false)));
+    	parseText = parseText.replaceAll("formattedDamageInflicted", getFormattedDamage(getDamageType(turnIndex, source), getBaseDamage(source), null, false, false));
     	
         return UtilText.parse(source, parseText);
     }
@@ -836,7 +850,7 @@ public abstract class AbstractCombatMove {
     	if(fromExternalFile) {
         	return Util.newArrayListOfValues(criticalDescription);
     	}
-    	return Util.newArrayListOfValues("It's the third time being used.");
+        return Util.newArrayListOfValues("It's the third time being used this turn.");
     }
     
     public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -844,21 +858,22 @@ public abstract class AbstractCombatMove {
         	String parseText = criticalCondition;
         	
         	parseText = parseText.replaceAll("turnIndex", String.valueOf(turnIndex));
-        	parseText = parseText.replaceAll("damageInflicted", String.valueOf(getDamage(source, target, false)));
-        	parseText = parseText.replaceAll("damageType", "DAMAGE_TYPE_"+this.getDamageType(source));
+        	parseText = parseText.replaceAll("damageInflicted", String.valueOf(getDamage(turnIndex, source, target, false)));
+        	parseText = parseText.replaceAll("damageType", "DAMAGE_TYPE_"+this.getDamageType(turnIndex, source));
         	
             return Boolean.valueOf(UtilText.parse(source, target, parseText).trim());
     		
     	} else {
-	    	// Normally moves crit on three hits in a row.
+	        // Normally moves crit on every third use per turn.
 	        int thisMoveSelected = 0;
-	        for(Value<GameCharacter, AbstractCombatMove> move : source.getSelectedMoves()) {
-	            if(move.getValue().getIdentifier() == this.getIdentifier()) {
+	        for(int i = 0; i < source.getSelectedMoves().size(); i++) {
+	            Value<GameCharacter, AbstractCombatMove> move = source.getSelectedMoves().get(i);
+	            if(Objects.equals(move.getValue().getIdentifier(), this.getIdentifier())) {
 	                thisMoveSelected++;
 	            }
-	        }
-	        if(thisMoveSelected>=3 && (turnIndex+1)%3==0) {
-	            return true;
+	            if(i == turnIndex) {
+	                return thisMoveSelected % 3 == 0;
+	            }
 	        }
 	        return false;
     	}
@@ -875,9 +890,9 @@ public abstract class AbstractCombatMove {
 		return this.getType().getColour();
     }
 
-	public Colour getColourByDamageType(GameCharacter source) {
+	public Colour getColourByDamageType(int turnIndex, GameCharacter source) {
 		if (Util.newArrayListOfValues(CombatMoveType.SPELL, CombatMoveType.POWER).contains(type)) {
-			return getDamageType(source).getColour();
+			return getDamageType(turnIndex, source).getColour();
 		}
 
 		return type.getColour();

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexManager>
+	<deskName><![CDATA[bench]]></deskName>
+	<title/>
+	<consensual><![CDATA[true]]></consensual>
+	<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+	<canSkipSex><![CDATA[true]]></canSkipSex>
+	<washingScene><![CDATA[false]]></washingScene>
+	<sadisticActionsAllowed><![CDATA[true]]></sadisticActionsAllowed>
+	<canItemsBeUsed><![CDATA[true]]></canItemsBeUsed>
+	<exposingReactions><![CDATA[true]]></exposingReactions>
+	<positionsAvailable/>
+	<publicSex>
+		<isPublic><![CDATA[true]]></isPublic>
+		<startingDescription><![CDATA[
+			As [npc.name] loudly declares that [npc.sheIs] going to enjoy
+			#IF(npc.hasFetish(FETISH_DOMINANT))
+				 fucking [npc.her] [npc.petName(pc)],
+			#ELSE
+				 getting fucking by [npc.her] [npc.petName(pc)],
+			#ENDIF
+			 several passersby stop and watch to find out what's about to happen. Clearly being turned on by the prospect of putting on a show for the public, [npc.name] lets out an erotic [npc.moan] and hurries to get started...
+		]]></startingDescription>
+		<randomDescriptions enabled="false"/>
+	</publicSex>
+	<characterInformationContainer>
+		<characterInformation>
+			<characterId>pc</characterId>
+			<slotsAvailable/>
+			<canStopSex><![CDATA[false]]></canStopSex>
+			<canChangePositions><![CDATA[true]]></canChangePositions>
+			<canSwapPositions><![CDATA[true]]></canSwapPositions>
+			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace/>
+			<canSelfTransform><![CDATA[true]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control/>
+			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[true]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart/>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmCumTargetsBlocked/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<preferences/>
+			<uniqueSexActions/>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk/>
+		</characterInformation>
+		<characterInformation>
+			<characterId>npc</characterId>
+			<slotsAvailable/>
+			<canStopSex><![CDATA[true]]></canStopSex>
+			<canChangePositions><![CDATA[true]]></canChangePositions>
+			<canSwapPositions><![CDATA[true]]></canSwapPositions>
+			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace/>
+			<canSelfTransform><![CDATA[true]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control/>
+			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[true]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart/>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmCumTargetsBlocked/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<preferences/>
+			<uniqueSexActions/>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk/>
+		</characterInformation>
+	</characterInformationContainer>
+</sexManager>

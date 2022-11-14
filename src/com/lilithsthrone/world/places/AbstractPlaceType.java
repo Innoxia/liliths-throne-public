@@ -521,23 +521,30 @@ public class AbstractPlaceType {
 		}
 		return backgroundColour;
 	}
-
+	
 	public AbstractEncounter getEncounterType() {
-		List<AbstractEncounter> possibleEncounters = new ArrayList<>();
+		Map<AbstractEncounter, Float> possibleEncountersMap = new HashMap<>();
 		
-		if(encounterType!=null) {
-			possibleEncounters.add(encounterType);
+		if(encounterType!=null && encounterType.getTotalChanceValue()>0) {
+			possibleEncountersMap.put(encounterType, encounterType.getTotalChanceValue());
 		}
-		possibleEncounters.addAll(Encounter.getAddedEncounters(this.getId()));
+		for(AbstractEncounter enc : Encounter.getAddedEncounters(this.getId())) {
+			if(enc.getTotalChanceValue()>0) {
+				possibleEncountersMap.put(enc, enc.getTotalChanceValue());
+			}
+		}
 		
-		if(possibleEncounters.isEmpty()) {
+		if(possibleEncountersMap.isEmpty()) {
 			return null;
 		}
 		
-		// Need to always return the same encounter in case it gets triggered multiple times in logic somewhere
-		Util.random.setSeed(Main.game.getSecondsPassed());
-		AbstractEncounter ae = Util.randomItemFrom(possibleEncounters);
-		Util.random.setSeed(System.nanoTime()); // Reset seed to be close to random
+		// If a value of >100 is used for the encounter chance, then all other encounters with chances of <=100 are discarded
+		if(possibleEncountersMap.keySet().stream().anyMatch(en->en.isAnyBaseTriggerChanceOverOneHundred())) {
+			possibleEncountersMap.keySet().removeIf(en->!en.isAnyBaseTriggerChanceOverOneHundred());
+		}
+		
+		AbstractEncounter ae = Util.getRandomObjectFromWeightedFloatMap(possibleEncountersMap);
+		
 		return ae;
 	}
 	
@@ -554,10 +561,13 @@ public class AbstractPlaceType {
 	}
 	
 	public DialogueNode getDialogue(Cell cell, boolean withRandomEncounter, boolean forceEncounter) {
-		if(getEncounterType()!=null && withRandomEncounter) {
-			DialogueNode dn = getEncounterType().getRandomEncounter(forceEncounter);
-			if (dn != null) {
-				return dn;
+		if(withRandomEncounter) {
+			AbstractEncounter encounterType = getEncounterType();
+			if(encounterType!=null) {
+				DialogueNode dn = encounterType.getRandomEncounter(forceEncounter);
+				if (dn != null) {
+					return dn;
+				}
 			}
 		}
 		return getBaseDialogue(cell);

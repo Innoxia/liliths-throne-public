@@ -89,6 +89,14 @@ public enum QuestLine {
     SIDE_REBEL_BASE_FIREBOMBS("Spicy Meatballs", "You've gotten yourself a steady supply of Arcane Firebombs. At the usual premium, of course.",
             QuestType.SIDE,
             QuestTree.rebelBaseFirebombTree),
+
+	SIDE_OGLIX_BEER_BARRELS("Beer Bitch Bonanza", "You secured more barrels for Oglix, allowing you to send four criminals from the nearby alleyways to her to become new beer-bitches!",
+			QuestType.SIDE,
+			QuestTree.beerBarrelTree),
+
+	SIDE_LUNEXIS_ESCAPE("Serving Lunexis", "You obeyed your Mistress's orders and ensured that she was able to escape, thereby sealing your fate to become one of her personal cock-sleeves...",
+			QuestType.SIDE,
+			QuestTree.lunexisEscapeTree),
 	
 	// Romance quests:
 	
@@ -96,13 +104,17 @@ public enum QuestLine {
 			QuestType.RELATIONSHIP,
 			QuestTree.nyanTree),
 
-	ROMANCE_HELENA("Her Highness's Helper", "You successfully completed every task which Helena gave to you, and as a reward, you can both order custom slaves from her an take her on a date each Friday evening.",
+	ROMANCE_HELENA("Her Highness's Helper", "You successfully completed every task which Helena gave to you, and as a reward, you can both order custom slaves from her and take her on a date each Friday evening.",
 			QuestType.RELATIONSHIP,
 			QuestTree.helenaTree),
 
 	ROMANCE_NATALYA("Filly Training", "Having completed Mistress Natalya's training, you are now a qualified filly and are expected to sexually service Dominion Express's centaur slaves.",
 			QuestType.RELATIONSHIP,
 			QuestTree.natalyaTree),
+
+	ROMANCE_MONICA("Monica's Milker", "You successfully retrieved Monica's personalised Moo Milker, and as a result she is very grateful to you.",
+			QuestType.RELATIONSHIP,
+			QuestTree.monicaTree),
 	;
 
 	private String name, completedDescription;

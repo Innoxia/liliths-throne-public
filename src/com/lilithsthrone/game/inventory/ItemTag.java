@@ -8,7 +8,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.1
- * @version 0.3.9.5
+ * @version 0.4.5.5
  * @author Innoxia
  */
 public enum ItemTag {
@@ -21,10 +21,20 @@ public enum ItemTag {
 	
 	REINDEER_GIFT, // Can be found in the presents that the reindeer sell (who appear in Dominion during winter months).
 	SOLD_BY_RALPH, // Will also be used for any future consumable and miscellaneous item vendors.
-	SOLD_BY_NYAN, // Clothing
+	SOLD_BY_NYAN, // Clothing (is added to all clothing vendors)
+	SOLD_BY_MONICA, // Clothing (is added to Elis only)
 	SOLD_BY_KATE, // Jewellery
 	SOLD_BY_FINCH, // BDSM and sex-related stuff
 	SOLD_BY_VICKY, // Weapons
+
+	// Items with these tags can randomly spawn in encounters in the commented area
+	// Please note that due to legacy issues, clothing and weapons only use the 'DOMINION_ALLEYWAY_SPAWN' tag to determine whether or not it can randomly spawn in any area.
+		// This will liekly be changed at a later date, so please use the appropriate area spawn tag for your clothing/weapon, even though it does nothing for now
+	ALL_AREAS_SPAWN, // Every area in the game
+	DOMINION_ALLEYWAY_SPAWN, // Dominion
+	SUBMISSION_TUNNEL_SPAWN, // Submission (excluding Bat Caverns)
+	BAT_CAVERNS_SPAWN, // Bat Caverns
+	ELIS_ALLEYWAY_SPAWN, // Foloi Fields
 	
 	SPELL_BOOK,
 	SPELL_SCROLL,
@@ -32,12 +42,22 @@ public enum ItemTag {
 	ATTRIBUTE_TF_ITEM,
 	RACIAL_TF_ITEM,
 	MISC_TF_ITEM, // Fetish or non-racial body part transformations
-	BOOK, 
+	BOOK,
 	GIFT,
-	DOMINION_ALLEYWAY_SPAWN,
-	SUBMISSION_TUNNEL_SPAWN,
-	BAT_CAVERNS_SPAWN,
 	ALCOHOLIC, // For easy detection of alcoholic items in some scenes
+	
+	// To mark consumables as containing caffeine, with the number representing the equivalent alcoholic level to be applied to spider-morphs
+	// Only one of these should be applied to an item
+	CAFFEINATED_005(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 5% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
+	CAFFEINATED_010(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 10% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
+	CAFFEINATED_015(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 15% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
+	CAFFEINATED_020(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 20% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
+	CAFFEINATED_025(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 25% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
+	CAFFEINATED_030(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 30% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
+	CAFFEINATED_040(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 40% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
+	CAFFEINATED_050(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 50% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
+	CAFFEINATED_075(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 75% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
+	CAFFEINATED_100(Util.newArrayListOfValues("[style.boldMinorBad(Adds)] 100% to [style.boldAlcohol(intoxication level)] for [style.boldSpider(spider-morphs)]"), false),
 	
 	CONTRABAND_LIGHT(// 'Restricted' items will not be bought by honest shopkeepers
 			Util.newArrayListOfValues(
@@ -64,7 +84,14 @@ public enum ItemTag {
 	 *  This only really affects common-rarity clothing, as all clothing of a rarity higher than common are typically only able to be added to characters directly. */
 	NO_RANDOM_SPAWN,
 	
-	NIGHT_VISION_SELF(  // Makes this clothing or weapon provide immunity to the darkness debuff for just the wearer while equipped
+	UNIQUE_NO_NPC_EQUIP, // Prevents the clothing/weapon from being equipped onto an NPC. Only works on items with a 'UNIQUE' rarity level
+
+	UNLOCKS_ENCOUNTER( // Special tag which has no effect other than displaying text for clothing stickers. Used for the 'rental mommy' tshirt, so look there for an example.
+			Util.newArrayListOfValues(
+			"[style.colourBlueLight(Can cause an encounter)]"),
+			false),
+	
+	NIGHT_VISION_SELF( // Makes this clothing or weapon provide immunity to the darkness debuff for just the wearer while equipped
 			Util.newArrayListOfValues(
 					"[style.colourGood(Negates 'Darkness' effect)]"),
 			false),
@@ -112,6 +139,11 @@ public enum ItemTag {
 					"[style.colourBad(Muffles speech)]"),
 			false),
 
+	BLOCKS_SIGHT( // Causes the wearer to suffer from 'blinded' status effect
+			Util.newArrayListOfValues(
+					"[style.colourBad(Blocks sight)]"),
+			false),
+	
 	HINDERS_ARM_MOVEMENT( // Hinders the ability of the wearer to use their arms. E.g. Hand cuffs
 			Util.newArrayListOfValues(
 					"[style.colourBad(Hinders arm movement)]",

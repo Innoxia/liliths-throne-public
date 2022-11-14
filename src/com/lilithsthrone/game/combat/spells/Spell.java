@@ -1560,6 +1560,7 @@ public enum Spell {
 			
 			boolean elementalAlreadySummoned = false;
 			if(!caster.hasDiscoveredElemental()) {
+//				System.out.println(caster.getName());
 				caster.createElemental();
 			} else {
 				elementalAlreadySummoned = caster.isElementalSummoned();
@@ -2008,8 +2009,9 @@ public enum Spell {
 										"",
 										"You can't help but let out an embarrassed cry as [npc.name] steals the "+clothingToSteal.getName()+" that you're currently wearing, [pc.speech(Y-You pervert!)]",
 										"[npc2.Name] lets out an embarrassed cry as [npc1.name] steals the "+clothingToSteal.getName()+" that [npc2.sheIs] currently wearing, [npc2.speech(Y-You pervert!)]")
-								+ "<br/>"
-								+ caster.addClothing(clothingToSteal, true));
+								+ "<br/>");
+						clothingToSteal.setName(target.getNameIgnoresPlayerKnowledge() + "'s " +clothingToSteal.getName());
+						descriptionSB.append(caster.addClothing(clothingToSteal, true));
 					}
 				}
 				
@@ -2163,8 +2165,9 @@ public enum Spell {
 										"",
 										"You can't help but let out an embarrassed cry as [npc.name] steals the "+clothingToSteal.getName()+" that you're currently wearing!",
 										"[npc2.Name] lets out an embarrassed cry as [npc1.name] steals the "+clothingToSteal.getName()+" that [npc2.sheIs] currently wearing!")
-								+ "<br/>"
-								+ caster.addClothing(clothingToSteal, true));
+								+ "<br/>");
+						clothingToSteal.setName(target.getNameIgnoresPlayerKnowledge() + "'s " +clothingToSteal.getName());
+						descriptionSB.append(caster.addClothing(clothingToSteal, true));
 						
 					} else {
 						descriptionSB.append("<br/>[style.italicsDisabled(There's nothing to steal...)]");
@@ -3531,7 +3534,7 @@ public enum Spell {
 									+ (!hasSpell
 										?(forbidden
 											?"<div class='overlay disabled-dark' style='cursor:default;'></div>"
-											:"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8;'></div>")
+											:"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); '></div>")
 										:"")
 								+ "</div>");
 				
@@ -3620,9 +3623,9 @@ public enum Spell {
 							+ (!hasUpgrade && !isUpgradeAvailable
 								?(forbidden
 										?"<div class='overlay disabled-dark' style='border-radius:50%;'></div>"
-										:"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; border-radius:50%; cursor: default;'></div>")
+										:"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); border-radius:50%; cursor: default;'></div>")
 								:(!hasUpgrade
-									?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.6; border-radius:50%; cursor:pointer;'></div>"
+									?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6); border-radius:50%; cursor:pointer;'></div>"
 									:""))
 						+ "</div>");
 		
@@ -3817,6 +3820,14 @@ public enum Spell {
 		if(Main.game.isInCombat() && source.isPlayer()) {
 			return Main.combat.getTargetedCombatant();
 		}
+		
+		if(Main.game.isInCombat()) {
+			GameCharacter preferredTarget = Main.combat.getPreferredTarget(source);
+	    	if(preferredTarget!=null && !Main.combat.isCombatantDefeated(preferredTarget)) {
+	    		return preferredTarget;
+	    	}
+		}
+		
 		if(isCanTargetEnemies()) {
 			if(AbstractCombatMove.shouldBlunder()) {
 				return enemies.get(Util.random.nextInt(enemies.size()));
@@ -3941,7 +3952,7 @@ public enum Spell {
 		
 		sb.append(this.applyEffect(source, target, enemies, allies, true, isCrit));
 		
-		if(isCrit && !this.isBeneficial() && source.hasTraitActivated(Perk.ARCANE_CRITICALS)) {
+		if(isCrit && !this.isBeneficial() && source.hasPerkAnywhereInTree(Perk.ARCANE_CRITICALS)) {
 			sb.append(UtilText.parse(source, "<br/>[npc.NamePos] [style.boldExcellent(critical)] spell applies [style.boldArcane(arcane weakness)] to "+(target.isPlayer()?"you":UtilText.parse(target, "[npc.name]"))+"!"));
 			target.addStatusEffect(StatusEffect.ARCANE_WEAKNESS, 2);
 			sb.append(

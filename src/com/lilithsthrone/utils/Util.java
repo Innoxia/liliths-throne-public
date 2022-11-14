@@ -11,6 +11,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -55,8 +56,6 @@ public class Util {
 
 	private static StringBuilder utilitiesStringBuilder = new StringBuilder();
 	
-	private static int stringMatchDistance;
-	
 	private static Map<KeyCode, String> KEY_NAMES = new LinkedHashMap<KeyCode, String>() {
 		private static final long serialVersionUID = 1L;
 	{
@@ -82,7 +81,7 @@ public class Util {
 		put(KeyCode.ENTER, "Enter");
 		put(KeyCode.EQUALS, "=");
 		put(KeyCode.ESCAPE, "Esc");
-		put(KeyCode.EURO_SIGN, "&euro"); // €
+		put(KeyCode.EURO_SIGN, "&euro;"); // €
 		put(KeyCode.EXCLAMATION_MARK, "!");
 		put(KeyCode.GREATER, ">");
 		put(KeyCode.KP_DOWN, "Down");
@@ -108,7 +107,7 @@ public class Util {
 		put(KeyCode.PAGE_UP, "Pg Up");
 		put(KeyCode.PERIOD, ".");
 		put(KeyCode.PLUS, "+");
-		put(KeyCode.POUND, "&pound"); // £
+		put(KeyCode.POUND, "&pound;"); // £
 		put(KeyCode.POWER, "^");
 		put(KeyCode.QUOTE, "\"");
 		put(KeyCode.RIGHT, "Right");
@@ -414,6 +413,23 @@ public class Util {
 		
 		return mergedList;
 	}
+
+	@SafeVarargs
+	/**
+	 * @param collections The collections to merge.
+	 * @return A new ArrayList which contains all the elements from all collections.
+	 */
+	public static <U> ArrayList<U> mergeCollectionsToList(Collection<U>... collections) {
+		ArrayList<U> mergedList = new ArrayList<>();
+		for(Collection<U> collection : collections) {
+			if(collection!=null) {
+				for(U value : collection) {
+					mergedList.add(value);
+				}
+			}
+		}
+		return mergedList;
+	}
 	
 	@SafeVarargs
 	public static <U> HashSet<U> newHashSetOfValues(U... values) {
@@ -440,7 +456,90 @@ public class Util {
 		return mergedMap;
 	}
 	
+	/**
+	 * Check a weighted Integer map for validity.
+	 * A valid map has no negative weights, and at least one positive weight.
+	 * 
+	 * @param map The weighted map to check
+	 * @param printWarning If true, print a warning to {@link System#err}
+	 * @return True if the map is valid; false otherwise
+	 */
+	public static <T> boolean checkWeightedMap(Map<T, Integer> map, boolean printWarning) {
+		if(map.isEmpty()) {
+			return true;
+		}
+		boolean hasPositiveValue = false;
+		for(Integer weight : map.values()) {
+			if(weight > 0) {
+				hasPositiveValue = true;
+			} else if(weight < 0) {
+				if(printWarning) {
+					System.err.println("Warning: negative weights within weighted map!\nFirst 10 elements: "
+							+ map.entrySet().stream().limit(10)
+							.map(e -> e.getKey().toString() + "=" + e.getValue().toString())
+							.collect(Collectors.joining(", ")));
+					if(Main.DEBUG) {
+						new IllegalArgumentException().printStackTrace();
+					}
+				}
+				return false;
+			}
+		}
+		if(printWarning && !hasPositiveValue) {
+			System.err.println("Warning: all weights are zero in weighted map!\nFirst 10 elements: "
+					+ map.entrySet().stream().limit(10)
+					.map(e -> e.getKey().toString() + "=" + e.getValue().toString())
+					.collect(Collectors.joining(", ")));
+			if(Main.DEBUG) {
+				new IllegalArgumentException().printStackTrace();
+			}
+		}
+		return hasPositiveValue;
+	}
+
+	/**
+	 * Check a weighted Float map for validity.
+	 * A valid map has no negative weights, and at least one positive weight.
+	 * 
+	 * @param map The weighted map to check
+	 * @param printWarning If true, print a warning to {@link System#err}
+	 * @return True if the map is valid; false otherwise
+	 */
+	public static <T> boolean checkWeightedFloatMap(Map<T, Float> map, boolean printWarning) {
+		if(map.isEmpty()) {
+			return true;
+		}
+		boolean hasPositiveValue = false;
+		for(Float weight : map.values()) {
+			if(weight > 0f) {
+				hasPositiveValue = true;
+			} else if(weight < 0f) {
+				if(printWarning) {
+					System.err.println("Warning: negative weights within weighted map!\nFirst 10 elements: "
+							+ map.entrySet().stream().limit(10)
+							.map(e -> e.getKey().toString() + "=" + e.getValue().toString())
+							.collect(Collectors.joining(", ")));
+					if(Main.DEBUG) {
+						new IllegalArgumentException().printStackTrace();
+					}
+				}
+				return false;
+			}
+		}
+		if(printWarning && !hasPositiveValue) {
+			System.err.println("Warning: all weights are zero in weighted map!\nFirst 10 elements: "
+					+ map.entrySet().stream().limit(10)
+					.map(e -> e.getKey().toString() + "=" + e.getValue().toString())
+					.collect(Collectors.joining(", ")));
+			if(Main.DEBUG) {
+				new IllegalArgumentException().printStackTrace();
+			}
+		}
+		return hasPositiveValue;
+	}
+
 	public static <T> T getHighestProbabilityEntryFromWeightedMap(Map<T, Integer> map) {
+		checkWeightedMap(map, true);
 		T top = null;
 		int high = 0;
 		for(Entry<T, Integer> entry : map.entrySet()) {
@@ -457,6 +556,7 @@ public class Util {
 	}
 	
 	public static <T> T getRandomObjectFromWeightedMap(Map<T, Integer> map, Random rnd) {
+		checkWeightedMap(map, true);
 		int total = 0;
 		for(int i : map.values()) {
 			total+=i;
@@ -480,6 +580,7 @@ public class Util {
 	}
 	
 	public static <T> T getRandomObjectFromWeightedFloatMap(Map<T, Float> map) {
+		checkWeightedFloatMap(map, true);
 		float total = 0;
 		for(float f : map.values()) {
 			total+=f;
@@ -860,6 +961,44 @@ public class Util {
 		return endOfSentence.matcher(String.valueOf(c)).matches();
 	}
 
+//	private static String insertIntoSentences(String sentence, int frequency, String[] inserts, boolean middle) {
+//		StringBuilder modifiedSentence = new StringBuilder();
+//		int openingCurly = 0;
+//		int closingCurly = 0;
+//		int openingSquare = 0;
+//		int closingSquare = 0;
+//		float chance = 1f/frequency;
+//		for(int i = sentence.length()-1; i>=0; i--) {
+//			if(sentence.charAt(i)=='(') {
+//				openingCurly++;
+//			} else if(sentence.charAt(i)==')') {
+//				closingCurly++;
+//			} else if(sentence.charAt(i)=='[') {
+//				openingSquare++;
+//			} else if(sentence.charAt(i)==']') {
+//				closingSquare++;
+//			}
+//			if(i!=sentence.length()-1
+//					&& sentence.charAt(i+1)==' '
+//					&& !isEndOfSentence(sentence.charAt(i))
+//					&& (i==0 || !middle || !isEndOfSentence(sentence.charAt(i-1)))
+//					&& openingCurly==closingCurly
+//					&& openingSquare==closingSquare) {
+//				if(Math.random()<chance) {
+//					String word = Util.randomItemFrom(inserts);
+//					char[] charArray = word.toCharArray();
+//					for(int cIndex=charArray.length-1; cIndex>=0; cIndex--) {
+//						modifiedSentence.append(charArray[cIndex]);
+//					}
+//				}
+//			}
+//			modifiedSentence.append(sentence.charAt(i));
+//		}
+//		
+//		modifiedSentence.reverse();
+//		return modifiedSentence.toString();
+//	}
+
 	/**
 	 * Inserts words randomly into a sentence.<br/>
 	 *
@@ -875,49 +1014,249 @@ public class Util {
 	 * @return
 	 *            modified sentence
 	 */
-	private static String insertIntoSentences(String sentence, int frequency, String[] inserts, boolean middle) {
-		StringBuilder modifiedSentence = new StringBuilder();
+	public static String insertIntoSentences(String sentence, int frequency, String[] inserts, boolean middle) {//TODO middle does nothing
+		boolean debug = false;
+		// So it begins...
+		// This long and highly inefficient method splits the sentence into sections which consist of either nested brackets or conditional hash tags
+		// I tried to use regex but nested brackets proved to be troublesome
+			// String WITH_DELIMITER_CONDITIONAL = "((?=(#IF))|(?<=(#ENDIF)))"; // Selects an empty character before #IF or after #ENDIF
+			// String WITH_DELIMITER_PARSING = "((?=(\\[))|(?<=(\\])))"; // Selects an empty character before [ or after ]
+		List<String> splitSentence = new ArrayList<>();
+		List<String> conditionalTags = Util.newArrayListOfValues("#ENDIF", "#ELSEIF", "#ELSE", "#IF");
 		int openingCurly = 0;
 		int closingCurly = 0;
 		int openingSquare = 0;
 		int closingSquare = 0;
-		float chance = 1f/frequency;
-		for(int i = sentence.length()-1; i>=0; i--) {
+		int conditionalHashIndex = -1;
+		int conditionalHashIndexEnd = -1;
+		StringBuilder currentString = new StringBuilder();
+		for(int i=0; i<sentence.length(); i++) {
+			boolean noBrackets = openingCurly==closingCurly && openingSquare==closingSquare;
+			boolean opening = false;
+			boolean conditionalHashFound = false;
 			if(sentence.charAt(i)=='(') {
 				openingCurly++;
+				opening = true;
 			} else if(sentence.charAt(i)==')') {
 				closingCurly++;
 			} else if(sentence.charAt(i)=='[') {
 				openingSquare++;
+				opening = true;
 			} else if(sentence.charAt(i)==']') {
 				closingSquare++;
-			}
-			if(i!=sentence.length()-1
-					&& sentence.charAt(i+1)==' '
-					&& !isEndOfSentence(sentence.charAt(i))
-					&& (i==0 || !middle || !isEndOfSentence(sentence.charAt(i-1)))
-					&& openingCurly==closingCurly
-					&& openingSquare==closingSquare) {
-				if(Math.random()<chance) {
-					String word = Util.randomItemFrom(inserts);
-					char[] charArray = word.toCharArray();
-					for(int cIndex=charArray.length-1; cIndex>=0; cIndex--) {
-						modifiedSentence.append(charArray[cIndex]);
+			} else if(sentence.charAt(i)=='#') {
+				conditionalHashFound = true;
+				conditionalHashIndex = i;
+				for(String s : conditionalTags) {
+					try {
+						if(sentence.substring(conditionalHashIndex, conditionalHashIndex+s.length()).equals(s)) {
+							conditionalHashIndexEnd = conditionalHashIndex+s.length();
+							break;
+						}
+					} catch(Exception ex) {
+						// I can't be bothered to check if the index goes below 0 so I'll just throw this Exception in the bin :^)
 					}
 				}
 			}
-			modifiedSentence.append(sentence.charAt(i));
+			
+			if(conditionalHashFound) {
+				splitSentence.add(currentString.toString());
+				currentString.setLength(0);
+				currentString.append(sentence.charAt(i));
+				
+			} else if(conditionalHashIndex>-1) {
+				if(i==conditionalHashIndexEnd) {
+					conditionalHashIndex = -1;
+					conditionalHashIndexEnd = -1;
+					splitSentence.add(currentString.toString());
+					currentString.setLength(0);
+				}
+				currentString.append(sentence.charAt(i));
+				
+			} else {
+				if(!noBrackets && openingCurly==closingCurly && openingSquare==closingSquare
+						|| (noBrackets && (openingCurly!=closingCurly || openingSquare!=closingSquare))) { // If brackets have just opened or all nested brackets have just closed, then finish this segment and append to list
+					if(!opening) {
+						currentString.append(sentence.charAt(i));
+					}
+					splitSentence.add(currentString.toString());
+					currentString.setLength(0);
+					if(opening) {
+						currentString.append(sentence.charAt(i));
+					}
+				} else {
+					currentString.append(sentence.charAt(i));
+				}
+			}
+		}
+		if(currentString.length()>0) { // Add final string
+			splitSentence.add(currentString.toString());
+		}
+		// So it ends...
+		
+		List<String> finalSplitSentence = new ArrayList<>();
+		for(String s : splitSentence) {
+			if(!s.contains("#") && !s.contains("[") && !s.contains("(")) {
+				Collections.addAll(finalSplitSentence, s.split("(?<=(\\s))"));
+			} else {
+				finalSplitSentence.add(s);
+			}
+		}
+
+		List<Integer> availableIndexes = new ArrayList<>();
+		List<Integer> availableCommaIndexes = new ArrayList<>();
+		for(int i=0; i<finalSplitSentence.size(); i++) {
+			String s = finalSplitSentence.get(i);
+			if(s.matches(".*[a-zA-Z,]+.*")
+					&& !s.contains("#") && !s.contains("[") && !s.contains("(")
+					&& !isEndOfSentence(s.charAt(s.length()-1))
+					&& (i==finalSplitSentence.size()-1 || !isEndOfSentence(finalSplitSentence.get(i+1).charAt(0)))) {
+				if(s.contains(",")) {
+					availableCommaIndexes.add(i);
+				} else {
+					availableIndexes.add(i);
+				}
+				if(debug) {
+					System.out.println(s);
+				}
+			}
+		}
+
+		int totalInserts = Math.max(1, (int) (1f/frequency * availableIndexes.size()+availableCommaIndexes.size()));
+		List<String> availableInserts = new ArrayList<>();
+		Collections.addAll(availableInserts, inserts);
+		List<String> availableCommaInserts = new ArrayList<>(availableInserts);
+		availableInserts.removeIf(i->i.contains(","));
+		availableCommaInserts.removeIf(i->!i.contains(","));
+
+		if(debug) {
+			System.out.println("Total inserts:"+totalInserts);
 		}
 		
-		modifiedSentence.reverse();
-		return modifiedSentence.toString();
+		List<String> insertPool = new ArrayList<>();
+		
+		while(((!availableIndexes.isEmpty() && (!availableInserts.isEmpty() || !availableCommaInserts.isEmpty())) || (!availableCommaIndexes.isEmpty() && !availableCommaInserts.isEmpty()))
+				&& totalInserts>0) {
+			// Prioritise replacing commas with comma inserts, as these are the easiest to read:
+			if(!availableCommaIndexes.isEmpty() && !availableCommaInserts.isEmpty()) {
+				int randomindex = Util.randomItemFrom(availableCommaIndexes);
+				String sentenceToReplace = finalSplitSentence.get(randomindex);
+				
+				// Try not to repeat random inserts:
+				
+				if(insertPool.isEmpty()) {
+					insertPool.addAll(availableCommaInserts);
+				}
+				// Remove inserts which are the same as either the word to be replaced or those to either side of it (to avoid instances such as 'would you like, like, to do it')
+				List<String> adjacentsRemovedPool = new ArrayList<>(insertPool);
+				String adjacentLeft = randomindex>0?finalSplitSentence.get(randomindex-1):"";
+				String adjacentRight = randomindex<finalSplitSentence.size()-1?finalSplitSentence.get(randomindex+1):"";
+				adjacentsRemovedPool.removeIf(i->i.contains(adjacentLeft.trim().replaceAll("[,.!?]", "")));
+				adjacentsRemovedPool.removeIf(i->i.contains(sentenceToReplace.trim().replaceAll("[,.!?]", "")));
+				adjacentsRemovedPool.removeIf(i->i.contains(adjacentRight.trim().replaceAll("[,.!?]", "")));
+				if(debug) {
+					System.out.println("comma adjL: "+adjacentLeft);
+					System.out.println("comma adjR: "+adjacentRight);
+				}
+				if(adjacentsRemovedPool.isEmpty()) {
+					adjacentsRemovedPool = new ArrayList<>(insertPool);
+				}
+				String insert = Util.randomItemFrom(insertPool);
+				if(insertPool.size()!=availableCommaInserts.size()) {
+					insertPool = new ArrayList<>(availableCommaInserts);
+				}
+				insertPool.removeIf(i->i.equals(insert));
+				
+				finalSplitSentence.set(randomindex, sentenceToReplace.replaceFirst(",", insert));
+				
+				// Make sure that indexes adjacent to one another aren't replaced:
+				availableIndexes.remove(Integer.valueOf(randomindex-1));
+				availableCommaIndexes.remove(Integer.valueOf(randomindex-1));
+				availableCommaIndexes.remove(Integer.valueOf(randomindex));
+				availableCommaIndexes.remove(Integer.valueOf(randomindex+1));
+				availableIndexes.remove(Integer.valueOf(randomindex+1));
+				totalInserts--;
+				
+			// If no comma inserts are left, then proceed to inserting anywhere in the sentence:
+			} else if(!availableIndexes.isEmpty() && (!availableInserts.isEmpty() || !availableCommaInserts.isEmpty())) {
+				int randomindex = Util.randomItemFrom(availableIndexes);
+				String sentenceToReplace = finalSplitSentence.get(randomindex);
+				String insert;
+				List<String> availableInsertsPool;
+				if(!availableInserts.isEmpty()) {
+					availableInsertsPool = availableInserts;
+				} else {
+					availableInsertsPool = availableCommaInserts;
+				}
+				
+//				if(!availableInserts.isEmpty()) {
+//					if(insertPool.isEmpty()) {
+//						insertPool.addAll(availableInserts);
+//					}
+//					insert = Util.randomItemFrom(insertPool);
+//					if(insertPool.size()!=availableInserts.size()) {
+//						insertPool = new ArrayList<>(availableInserts);
+//					}
+//					insertPool.removeIf(i->i.equals(insert));
+//					
+//				} else {
+				// Try not to repeat random inserts:
+				if(insertPool.isEmpty()) {
+					insertPool.addAll(availableInsertsPool);
+				}
+				// Remove inserts which are the same as either the word to be replaced or those to either side of it (to avoid instances such as 'would you like, like, to do it')
+				List<String> adjacentsRemovedPool = new ArrayList<>(insertPool);
+				String adjacentLeft = randomindex>0?finalSplitSentence.get(randomindex-1):"";
+				String adjacentRight = randomindex<finalSplitSentence.size()-1?finalSplitSentence.get(randomindex+1):"";
+				adjacentsRemovedPool.removeIf(i->i.contains(adjacentLeft.trim().replaceAll("[,.!?]", "")));
+				adjacentsRemovedPool.removeIf(i->i.contains(sentenceToReplace.trim().replaceAll("[,.!?]", "")));
+				adjacentsRemovedPool.removeIf(i->i.contains(adjacentRight.trim().replaceAll("[,.!?]", "")));
+				if(debug) {
+					System.out.println("adjL: "+adjacentLeft);
+					System.out.println("adjR: "+adjacentRight);
+				}
+				if(adjacentsRemovedPool.isEmpty()) {
+					adjacentsRemovedPool = new ArrayList<>(insertPool);
+				}
+				insert = Util.randomItemFrom(adjacentsRemovedPool);
+				if(insertPool.size()!=availableInsertsPool.size()) {
+					insertPool = new ArrayList<>(availableInsertsPool);
+				}
+				insertPool.removeIf(i->i.equals(insert));
+//				}
+				
+				if(sentenceToReplace.contains(" ")) {
+					finalSplitSentence.set(randomindex, sentenceToReplace.replaceFirst(" ", insert+" "));
+				} else if(!Character.isUpperCase(sentenceToReplace.charAt(0))) {
+					finalSplitSentence.set(randomindex, insert+" "+sentenceToReplace);
+				} else {
+					finalSplitSentence.set(randomindex, sentenceToReplace+insert);
+				}
+				
+				// Make sure that indexes adjacent to one another aren't replaced:
+				availableIndexes.remove(Integer.valueOf(randomindex-1));
+				availableIndexes.remove(Integer.valueOf(randomindex));
+				availableIndexes.remove(Integer.valueOf(randomindex+1));
+				totalInserts--;
+			}
+		}
+
+		StringBuilder sb = new StringBuilder();
+		for(String s : finalSplitSentence) {
+			sb.append(s);
+		}
+		if(debug) {
+			System.out.println("-----");
+			System.out.println(sb.toString());
+		}
+		return sb.toString();
 	}
 
 	private static String insertIntoSentences(String sentence, int frequency, String[] inserts) {
 		return insertIntoSentences(sentence, frequency, inserts, true);
 	}
 
-	private static String[] bimboWords = new String[] { ", like,", ", like,", ", like,", ", um,", ", uh,", ", ah," };
+	public static String[] bimboWords = new String[] { ", like,", ", like,", ", like,", ", um,", ", uh,", ", ah," };
 	/**
 	 * Turns a normal sentence into the kind of thing a Bimbo would come out with.
 	 * Can be safely used in conjunction with addStutter.
@@ -943,15 +1282,21 @@ public class Util {
 		
 		// 1/3 chance of having a bimbo sentence ending: TODO improve so it can be added anywhere
 		if(!sentence.endsWith("~") && !sentence.endsWith("-") && !sentence.endsWith("#ENDIF")) {
+			int deleteindex = utilitiesStringBuilder.length() - 1;
+			if(sentence.endsWith("?!")) {
+				deleteindex = utilitiesStringBuilder.length() - 2;
+			} else if(sentence.endsWith("...")) {// || sentence.endsWith("&hellip;")
+				deleteindex = utilitiesStringBuilder.length() - 3;
+			}
 			switch (random.nextInt(6)) {
 				case 0:
-					char end = utilitiesStringBuilder.charAt(utilitiesStringBuilder.length() - 1);
-					utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
+					CharSequence cs = utilitiesStringBuilder.subSequence(deleteindex, utilitiesStringBuilder.length());
+					utilitiesStringBuilder.delete(deleteindex, utilitiesStringBuilder.length());
 					utilitiesStringBuilder.append(" and stuff");
-					utilitiesStringBuilder.append(end);
+					utilitiesStringBuilder.append(cs);
 					break;
 				case 1:
-					utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
+					utilitiesStringBuilder.delete(deleteindex, utilitiesStringBuilder.length());
 					utilitiesStringBuilder.append(", y'know?");
 					break;
 				default:
@@ -959,7 +1304,12 @@ public class Util {
 			}
 		}
 
-		return utilitiesStringBuilder.toString();
+		String returnString = utilitiesStringBuilder.toString();
+		returnString = returnString.replaceAll("Hello", "Heya");
+		returnString = returnString.replaceAll("hello", "heya");
+		returnString = returnString.replaceAll("Goodbye", "Bye");
+		returnString = returnString.replaceAll("goodbye", "bye");
+		return returnString;
 	}
 	
 	private static String[] broWords = new String[] { ", like,", ", like, dude,", ", like, bro,", ", like,", ", um,", ", uh,", ", ah," };
@@ -1115,7 +1465,7 @@ public class Util {
 		slovenlySpeechReplacementMap.put("Your", "Yer");
 		slovenlySpeechReplacementMap.put("your", "yer");
 		
-		slovenlySpeechReplacementMap.put("You", "Ya");
+		slovenlySpeechReplacementMap.put("You ", "Ya "); // End with a space as sentences which are simply 'You.' are awkward to read when converted to 'Ya.'
 		slovenlySpeechReplacementMap.put("you", "ya");
 		
 		slovenlySpeechReplacementMap.put("Yourself", "Yerself");
@@ -1201,6 +1551,9 @@ public class Util {
 		slovenlySpeechReplacementMap.put("My", "Me");
 		slovenlySpeechReplacementMap.put("my", "me");
 
+		slovenlySpeechReplacementMap.put("Myself", "Meself");
+		slovenlySpeechReplacementMap.put("myself", "meself");
+		
 		slovenlySpeechReplacementMap.put("That", "Dat");
 		slovenlySpeechReplacementMap.put("that", "dat");
 
@@ -1218,9 +1571,15 @@ public class Util {
 		
 		slovenlySpeechReplacementMap.put("Yes", "Yeah");
 		slovenlySpeechReplacementMap.put("yes", "yeah");
-		
+
 		slovenlySpeechReplacementMap.put("Hurry", "'Urry");
 		slovenlySpeechReplacementMap.put("hurry", "'urry");
+		
+		slovenlySpeechReplacementMap.put("Doesn't", "Don't");
+		slovenlySpeechReplacementMap.put("doesn't", "don't");
+		
+		slovenlySpeechReplacementMap.put("Because", "'Cause");
+		slovenlySpeechReplacementMap.put("because", "'cause");
 	}
 	/**
 	 * Replaces words in the sentence to give the impression that the speaker is talking in a slovenly manner. The replacements are:
@@ -1256,6 +1615,7 @@ public class Util {
 			<br/>Haven't -> 'aven't
 			<br/>Have -> 'ave
 			<br/>My -> Me
+			<br/>Myself -> Meself
 			<br/>That -> Dat
 			<br/>Some -> Sum
 			<br/>For -> Fer
@@ -1263,6 +1623,8 @@ public class Util {
 			<br/>Very -> Real
 			<br/>Yes -> Yeah
 			<br/>Hurry -> 'Urry
+			<br/>Doesn't -> Don't
+			<br/>Because -> 'Cause
 	 *
 	 * @param sentence The speech to which the lisp should be applied.
 	 * @return The modified sentence.
@@ -1449,15 +1811,16 @@ public class Util {
 	 * @param input String for which to find the closest match.
 	 * @param choices Collection of valid Strings, among which the closest match to {@code input}
 	 *                   will be found.
+	 * @param maxDistance The maximum distance for a match. If no match within this distance,
+	 *                    return null.
 	 * @return The closest match.
 	 */
-	public static String getClosestStringMatch(String input, Collection<String> choices) {
+	public static String getClosestStringMatch(String input, Collection<String> choices, int maxDistance) {
 		// If input is empty, just return the empty string. It would make no sense to guess, so hopefully the caller will handle the case correctly.
 		if (input.isEmpty() || choices.contains(input)) {
-			stringMatchDistance = Integer.MIN_VALUE;
 			return input;
 		}
-		stringMatchDistance = Integer.MAX_VALUE;
+		int stringMatchDistance = Integer.MAX_VALUE;
 		String closestString = input;
 		for(String choice : choices) {
 			int newDistance = getLevenshteinDistance(input, choice);
@@ -1465,6 +1828,10 @@ public class Util {
 				closestString = choice;
 				stringMatchDistance = newDistance;
 			}
+		}
+		if(stringMatchDistance>maxDistance) {
+			System.err.println("Warning: getClosestStringMatch() did not find a close enough match for '"+input+"'; returning null. (Closest match was '"+closestString+"' at distance: "+stringMatchDistance+")");
+			return null;
 		}
 		if(stringMatchDistance>0) { // Only show error message if difference is more than just capitalisation differences
 			System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead. (Distance: "+stringMatchDistance+")");
@@ -1475,8 +1842,8 @@ public class Util {
 		return closestString;
 	}
 	
-	public static int getLastStringMatchDistance() {
-		return stringMatchDistance;
+	public static String getClosestStringMatch(String input, Collection<String> choices) {
+		return getClosestStringMatch(input, choices, Integer.MAX_VALUE);
 	}
 
 	private static String unordered(String input, int prefix) {

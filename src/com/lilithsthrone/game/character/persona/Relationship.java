@@ -9,7 +9,7 @@ import java.util.Set;
 // TODO: needs plural forms
 /**
  * @since 0.2.0
- * @version 0.4
+ * @version 0.4.4.1
  * @author Innoxia, orvail
  */
 public enum Relationship {
@@ -37,6 +37,7 @@ public enum Relationship {
     GrandGrandGrandGrandGrandGrandGrandChild(false, 7),
     GrandGrandGrandGrandGrandGrandGrandGrandChild(false, 8),
     Sibling("sister", "brother", "sibling", 0),
+    SiblingTwin("twin-sister", "twin-brother", "twin", 0),
     HalfSibling("half-sister", "half-brother", "half-sibling", 1.25),
     Cousin("cousin", 2),
     Pibling("aunt", "uncle", "pibling", 1.5),

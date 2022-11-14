@@ -36,7 +36,6 @@ import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.Tattoo;
-import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.markings.TattooWriting;
 import com.lilithsthrone.game.character.markings.TattooWritingStyle;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -215,7 +214,7 @@ public class Angel extends NPC {
 		// No weapons
 		
 		this.addTattoo(InventorySlot.TORSO_UNDER,
-				new Tattoo(TattooType.TRIBAL, PresetColour.COVERING_BLACK, PresetColour.COVERING_BLACK, PresetColour.COVERING_BLACK, false,
+				new Tattoo("innoxia_symbol_tribal", PresetColour.COVERING_BLACK, PresetColour.COVERING_BLACK, PresetColour.COVERING_BLACK, false,
 						new TattooWriting("I'm all yours", PresetColour.COVERING_BLACK, false, TattooWritingStyle.ITALICISED), null));
 		
 		// No scars

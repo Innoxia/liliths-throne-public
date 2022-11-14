@@ -44,7 +44,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class SlaveInStocks extends NPC {
 
 	public SlaveInStocks() {
-		this(Gender.F_V_B_FEMALE, false);
+		this(Gender.getGenderFromUserPreferences(false, false), false);
 	}
 	
 	public SlaveInStocks(Gender gender) {
@@ -93,7 +93,7 @@ public class SlaveInStocks extends NPC {
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(false);
 			setDescription(UtilText.parse(this,
 					"[npc.Name] is a slave, who, for one reason or another, has been locked into the stocks for public use."));
@@ -118,6 +118,7 @@ public class SlaveInStocks extends NPC {
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyTattoos(this, true);
 
 			this.setPlayerKnowsName(true);
 

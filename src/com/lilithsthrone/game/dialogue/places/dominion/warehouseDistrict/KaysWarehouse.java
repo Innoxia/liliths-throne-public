@@ -36,6 +36,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -377,8 +378,8 @@ public class KaysWarehouse {
 							return null;
 						}
 						@Override
-						public boolean isAbleToEquipSexClothing(GameCharacter character){
-							return false; // Do not let sex clothing be equipped onto Kay, as they have special actions for this and it would otherwise break the flow of their scenes
+						public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip){
+							return clothingToEquip.isCondom(); // Do not let sex clothing be equipped onto Kay, as they have special actions for this and it would otherwise break the flow of their scenes
 						}
 						@Override
 						public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
@@ -2069,6 +2070,7 @@ public class KaysWarehouse {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kayFeminised, true);
 				Main.game.getNpc(Kay.class).equipClothing(EquipClothingSetting.getAllClothingSettings());
 			}
+			Main.game.getNpc(Kay.class).loadImages(true); // reload images to use correct artwork
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -2094,7 +2096,7 @@ public class KaysWarehouse {
 					
 				} else if(index==2) {
 					return new Response("Jackie",
-							"Tell the the cute [kay.race] that she looks very pretty, and that the name of 'Jackie' is more suitable for [kay.herHim] when [kay.she] looks like this."
+							"Tell the cute [kay.race] that she looks very pretty, and that the name of 'Jackie' is more suitable for [kay.herHim] when [kay.she] looks like this."
 							+ "<br/>[style.colourFeminine(Kay will be renamed to 'Jackie' until (if ever) you tell [kay.herHim] to start wearing masculine clothing again.)]",
 							KAY_OFFICE_DOMINATE_UTIL_EMPTY) {
 						@Override
@@ -2110,7 +2112,7 @@ public class KaysWarehouse {
 					
 				} else if(index==3) {
 					return new Response("Kaytie",
-							"Tell the the cute [kay.race] that she looks very pretty, and that the name of 'Kaytie' is more suitable for [kay.herHim] when [kay.she] looks like this."
+							"Tell the cute [kay.race] that she looks very pretty, and that the name of 'Kaytie' is more suitable for [kay.herHim] when [kay.she] looks like this."
 							+ "<br/>[style.colourFeminine(Kay will be renamed to 'Kaytie' until (if ever) you tell [kay.herHim] to start wearing masculine clothing again.)]",
 							KAY_OFFICE_DOMINATE_UTIL_EMPTY) {
 						@Override
@@ -2126,7 +2128,7 @@ public class KaysWarehouse {
 					
 				} else if(index==4) {
 					return new Response("Mikayla",
-							"Tell the the cute [kay.race] that she looks very pretty, and that the name of 'Mikayla' is more suitable for [kay.herHim] when [kay.she] looks like this."
+							"Tell the cute [kay.race] that she looks very pretty, and that the name of 'Mikayla' is more suitable for [kay.herHim] when [kay.she] looks like this."
 							+ "<br/>[style.colourFeminine(Kay will be renamed to 'Mikayla' until (if ever) you tell [kay.herHim] to start wearing masculine clothing again.)]",
 							KAY_OFFICE_DOMINATE_UTIL_EMPTY) {
 						@Override

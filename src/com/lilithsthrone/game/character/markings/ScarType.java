@@ -13,7 +13,9 @@ public enum ScarType {
 	
 	STRAIGHT_SCAR("straight scar", "straight scars", false),
 	
-	JAGGED_SCAR("jagged scar", "jagged scars", false);
+	JAGGED_SCAR("jagged scar", "jagged scars", false),
+	
+	BRUIS("bruise", "bruises", false);
 	
 	private String name;
 	private String namePlural;

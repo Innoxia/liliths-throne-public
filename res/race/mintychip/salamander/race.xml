@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<race>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- Core definitions: -->
+	
+	<!-- The id for this race's associated RacialBody.
+	This should most often be the 'racialBody.xml' file found alongside this 'race.xml' file, and will follow the id generation of 'author_raceName'. -->
+	<racialBody>mintychip_salamander</racialBody>
+	
+	<!-- Any special changes which should be applied to a newly-spawned character of this race.
+	This is applied *before* individual Subspecies' 'applySubspeciesChanges' method.
+	The character's body that's being changed can be accessed via using 'targetedBody'.
+	The code here is redundant, as clitoris girth is set to 4 in the racialBody.xml file, and modified in the spotted and striped subspecies files, but I've added it in here to show a working example. -->
+	<applyRaceChanges><![CDATA[
+		#IF(RND.nextInt(100)<95)
+			[#targetedBody.setHornType(HORN_TYPE_NONE)]
+		#ENDIF
+	]]></applyRaceChanges>
+	
+	<!-- The non-gendered name and plural name of this race when in anthropomorphic form. -->
+	<name><![CDATA[salamander-morph]]></name>
+	<namePlural><![CDATA[salamander-morphs]]></namePlural>
+	
+	<!-- You can also define names for use in the game's silly mode by creating elements identical to the 'name' and 'namePlural' ones above, but instead calling them 'nameSillyMode' and namePluralSillyMode.
+	See the 'res/race/NoStepOnSnek/snake/race.xml' file for an example in use. -->
+	
+	<!-- The non-gendered name and plural name of this race when in feral form.
+	The name corresponds to the name of this race when in the 'legConfiguration' form defined. 
+	LegConfiguration values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/LegConfiguration.java
+	(Just use 'BIPEDAL' if you're unsure of what to use, and the game will handle the rest.) -->
+	<nameFeral>
+		<name legConfiguration="QUADRUPEDAL"><![CDATA[salamander]]></name>
+	</nameFeral>
+	<nameFeralPlural>
+		<name legConfiguration="QUADRUPEDAL"><![CDATA[salamanders]]></name>
+	</nameFeralPlural>
+	
+	<!-- The name that will be used when referring to transformations related to this race (such as when changing body parts in the self-TF menu).
+	It should most likely be the same value as that defined as 'nameFeral'. -->
+	<defaultTransformName><![CDATA[salamander]]></defaultTransformName>
+	
+	<!-- The colour of this race.
+	A PresetColour value should be used here, defined as a modded colour, or drawn from: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
+	<colour>mintychip_salamander</colour>
+	
+	<!-- How this race will typically treat strangers.
+	This value is not really used much in the game, so don't worry if you're unsure of which value to use.
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/Disposition.java -->
+	<disposition>UNPREDICTABLE</disposition>
+	
+	<!-- What kind of animal this race is based on.
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/RacialClass.java -->
+	<racialClass>REPTILE</racialClass>
+	
+	<!-- Whether this race can be transformed into a feral form or not.
+	This should typically be left as true, unless the race you are creating has no animal equivalent (examples of a false value would be for humans, demons, and angels). -->
+	<feralPartsAvailable>true</feralPartsAvailable>
+	
+	<!-- Whether this race has access to the self-transformation menu or not.
+	This should typically be left as false. -->
+	<ableToSelfTransform>false</ableToSelfTransform>
+	
+	<!-- Whether this is a race capable of flight or not. -->
+	<flyingRace>false</flyingRace>
+	
+	
+	<!-- Combat: -->
+	
+	<!-- This race's typical behaviour in combat can be defined here.
+	This behaviour will determine what attacks the race typically prefers to use in combat, and will be used if no specific combat behaviour has been defined for a character.
+	The default value is 'BALANCED'.
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/CombatBehaviour.java -->
+	<combatBehaviour>ATTACK</combatBehaviour>
+	
+	
+	<!-- Breeding: -->
+	
+	<!-- The percentage chance for offspring of this race to be male.
+	Acceptable values are floats between 0 and 1, representing 0% to 100%, with the standard value being 0.5 (representing 50%). -->
+	<chanceForMaleOffspring>0.5</chanceForMaleOffspring>
+	
+	<!-- The minimum and maximum number of offspring in each litter which females of this race produce. -->
+	<numberOfOffspringLow>1</numberOfOffspringLow>
+	<numberOfOffspringHigh>3</numberOfOffspringHigh>
+	
+	
+	<!-- Gameplay preferences: -->
+	
+	<!-- In a new game using completely default settings, what level of 'furry' should this race be for females and males.
+	Provided that you allow the player to adjust this via the content settings, this value isn't really too important, and should probably be left as 'NORMAL' unless there's a specific reason to change it.
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/FurryPreference.java -->
+	<defaultFemininePreference>NORMAL</defaultFemininePreference>
+	<defaultMasculinePreference>NORMAL</defaultMasculinePreference>
+	
+	<!-- Whether or not the player can change this race's default furry level via the content settings screen.
+	This should probably be left as 'true', but if you want to make a race like harpies, which requires all newly-spawned characters to be created at a 'NORMAL' level of FurryPreference, then set this to false. -->
+	<affectedByFurryPreference>true</affectedByFurryPreference>
+	
+	<!-- The weighting of this race's fetishes.
+		Newly-spawned characters of this race will have their starting fetishes affected by the weightings defined in this section. -->
+	<racialFetishModifiers/>
+</race>

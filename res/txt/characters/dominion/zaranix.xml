@@ -63,13 +63,13 @@
 	<htmlContent tag="AFTER_SEX_VICTORY"><![CDATA[
 	<p>
 		#IF(sex.getNumberOfOrgasms(zaranix) >= zaranix.getOrgasmsBeforeSatisfied())
-			[npc.Name] steps back and sinks down into a nearby chair, a happy smile on [npc.her] face as [npc.she] gazes up at you, [npc.speech(That was fun... I guess losing Arthur for that wasn't too bad a deal...)]
+			[zaranix.Name] steps back and sinks down into a nearby chair, a happy smile on [zaranix.her] face as [zaranix.she] gazes up at you, [zaranix.speech(That was fun... I guess losing Arthur for that wasn't too bad a deal...)]
 		#ELSE
-			[npc.Name] steps back and sinks down to the floor, letting out [npc.a_moan+] as [npc.her] hands drop down between [npc.her] legs, [npc.speech(Ah! You didn't even satisfy me...)]
+			[zaranix.Name] steps back and sinks down to the floor, letting out [zaranix.a_moan+] as [zaranix.her] hands drop down between [zaranix.her] legs, [zaranix.speech(Ah! You didn't even satisfy me...)]
 		#ENDIF
 	</p>
 	<p>
-		Smirking down at the [npc.race] one last time, you turn around and take your leave. Retracing your steps through [npc.her] house, you soon find yourself back out in the streets of Demon Home. Now that Arthur's been rescued, you realise that you should probably head over to Lilaya's house to find out what your next step will be...
+		Smirking down at the [zaranix.race] one last time, you turn around and take your leave. Retracing your steps through [zaranix.her] house, you soon find yourself back out in the streets of Demon Home. Now that Arthur's been rescued, you realise that you should probably head over to Lilaya's house to find out what your next step will be...
 	</p>
 	]]>
 	</htmlContent>

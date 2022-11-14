@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+    <!-- Dungeon under Lilaya's mansion: -->
+	
+    <htmlContent tag="DUNGEON_ENTRY"><![CDATA[
+   	<p>
+        [pc.Stepping] forwards, you enter the secret passageway and make your way down the spiral staircase. The flickering light cast by the wall-mounted arcane torches creates dancing shadows underfoot, and so you're forced to slowly and cautiously descend so as to avoid slipping and taking a tumble. Thankfully, the staircase doesn't go on for too long, and within a few moments you find yourself at the bottom.
+	</p>
+	]]>
+    </htmlContent>
+	
+    <htmlContent tag="STAIRS_UP"><![CDATA[
+   	<p>
+		Standing at the bottom of the spiral staircase which leads up to the library, you take a look around at your surroundings. Arcane torches slotted into metal, wall-mounted sconces illuminate not only the stone staircase, but also the narrow passage which leads off into the rest of the dungeon. The walls, floor, and ceiling are all constructed out of the same type of rough-hewn, grey stone blocks, giving the subterranean structure a gloomy, oppressive atmosphere.
+	</p>
+	<p>
+        From here you could either head up the spiral staircase to return to the mansion's library, or set off down the passageway and head further into the dungeon...
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="STAIRS_UP_EXIT"><![CDATA[
+   	<p>
+		Deciding that you've had enough of Lilaya's dungeon, you set off up the spiral staircase to return to the mansion. The wall-mounted arcane torches blow themselves out as you pass, and so by the time that you've reached the top and pushed open the bookcase, all that's left behind you is a gloomy, black abyss.
+	</p>
+	<p>
+		[pc.Stepping] out into the library, you watch as the bookcase swings shut behind you, before wondering what to do next...
+	</p>
+	]]>
+    </htmlContent>
+	
+    <htmlContent tag="STAIRS_UP_GARDEN"><![CDATA[
+   	<p>
+		Standing at the bottom of the second spiral staircase that's to be found in Lilaya's dungeon, you take a look around at your surroundings. Arcane torches slotted into metal, wall-mounted sconces illuminate not only the stone staircase, but also the narrow passage which leads off into the rest of the dungeon. The walls, floor, and ceiling are all constructed out of the same type of rough-hewn, grey stone blocks, giving the subterranean structure a gloomy, oppressive atmosphere.
+	</p>
+	<p>
+        A small, bronze plaque fixed to the nearby wall simply states that this staircase provides 'Garden Access'.
+		#IF(flags.hasFlag(FLAG_acexp_dungeon_garden_access_found))
+			 From here you could either head up the spiral staircase to once again exit out into the mansion's garden, or set off down the passageway and head further into the dungeon...
+		#ELSE
+			 From here you could either head up the spiral staircase to discover the secret dungeon passage that must be located somewhere in the mansion's garden, or set off down the passageway and head further into the dungeon...
+		#ENDIF
+	</p>
+	]]>
+    </htmlContent>
+	
+    <htmlContent tag="STAIRS_UP_GARDEN_EXIT"><![CDATA[
+   	#IF(flags.hasFlag(FLAG_acexp_dungeon_garden_access_found))
+		<p>
+			Deciding that you've had enough of Lilaya's dungeon, you set off up the spiral staircase to return to the mansion's garden. The wall-mounted arcane torches blow themselves out as you pass, and so by the time that you've reached the top and activated the nearby lever, all that's left behind you is a gloomy, black abyss.
+		</p>
+		<p>
+			After waiting for a moment while the stone slab slides to one side, you travel up the final few steps to once again find yourself beside the garden's central fountain. Turning around, you watch as the slab slides shut behind you, before looking around and wondering what to do next...
+		</p>
+	#ELSE
+		<p>
+			Deciding that you've had enough of Lilaya's dungeon, you set off up the spiral staircase to discover where exactly this secret passage connects to the mansion's garden. The wall-mounted arcane torches blow themselves out as you pass, and so by the time that you've reached the top and seen the exit is sealed off by means of a large, stone slab, all that's left behind you is a gloomy, black abyss. Thankfully, the final arcane torch beside you remains lit, allowing you to quickly locate a prominent lever that's attached to the wall just in front of you.
+		</p>
+		<p>
+			Seeing no other means by which this exit could be unsealed, you pull on the lever. Immediately, the stone slab above you starts to rumble and slide to one side, allowing
+			#IF(game.isDayTime())
+				 daylight to stream down into the stairwell.
+			#ELSE
+				 you to look up into the night sky.
+			#ENDIF
+			 Travelling up the final few steps, you find yourself [pc.stepping] out into the mansion's garden, right beside the central fountain. Turning around, you see that the slab which was blocking your exit forms part of the stone path which surrounds the base of the fountain, and you watch as it automatically slides shut behind you.
+		</p>
+		<p>
+			Taking a closer look at the area beside this slab, you find a button that's been cunningly disguised as part of the fountain's decorative stonework. Experimentally pressing this button, you smile in satisfaction as you watch the slab grind open to once again reveal the secret staircase. After you've waited for a moment to make sure that it automatically slides shut, you wonder what to do next...
+		</p>
+	#ENDIF
+	]]>
+    </htmlContent>
+	
+    <htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+	    As you [pc.walk] down the dungeon's narrow passageways, you look around to see that the walls, floor, and ceiling are all constructed out of the same type of rough-hewn, grey stone blocks, giving the subterranean structure a gloomy, oppressive atmosphere. At regular intervals, torches are fitted into wall-mounted, metal sconces. As you approach each one of these torches, some sort of arcane enchantment causes them to splutter and spring to life. Their flickering flames cast dancing shadows down the passageway before you, adding to the dungeon's dingy ambience.
+	</p>
+	<p>
+	    Although not as immaculately spotless as the mansion proper, you were told by Rose that she cleans this dungeon on a regular basis, and as such there are none of the cobwebs and dust that you'd otherwise be likely to find.
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="CORRIDOR_NOISE"><![CDATA[
+	<p><i>
+		[style.random(
+		You suddenly hear a little giggle behind you...|
+		A vague moaning sound can be heard coming from somewhere ahead...|
+		The flapping of wings can be heard coming from somewhere behind you...|
+		You can just make out little squeaks and a scratching sound up ahead...|
+		You can hear the sound of dripping water somewhere off in the distance...|
+		The torches seem to grow dim and splutter for a bit, before returning to normal...|
+		All of a sudden, there is a gust of wind and the torches flare brightly for a moment...|
+		The faint, mechanical sounds of cogs and wheels whirring and clanking suddenly echoes through the corridor...
+		)]
+	</i></p>
+	]]>
+    </htmlContent>
+	
+    <htmlContent tag="ROOM"><![CDATA[
+	<p>
+		At the end of the passageway before you stands a solid wooden door, which unlike the ones leading into the dungeon's cells, lacks a barred window, preventing you from peeking in from the outside. Taking hold of the handle and giving it a tentative turn, you discover that it's unlocked, and so proceed to slowly push it open and venture into the room beyond.
+	</p>
+	<p>
+		Once inside, you're able to see that this room is remarkably different from the dungeon's cells. Red velvet drapes, which have been elegantly decorated with intricate floral patterns, cover most of the walls and ceiling. The floor is likewise mostly covered by a luxuriant burgundy rug, although around its edges you can see that the flagstones have been carved and polished to a smooth finish. A large, four-poster bed stands in the centre of the room, which is made up with red satin sheets and pillows. Overhead, a circular metal chandelier holds a dozen arcane candles, the light from which is surprisingly enough to illuminate the entire room.
+    </p>
+	<p>
+		Turning to look into each corner of the room, you quickly discover that this is no ordinary bedroom. To your left stands a black metal cage, which looks to be just about large enough to fit a person. In the opposite corner, a wooden pillory has been constructed, and behind that a series of whips, ropes, and leather bindings are hanging from a wall-mounted rack.
+	</p>
+    <p>
+        #IF(pc.isLewd())
+            There's no doubt about it. This looks like just the place where all kinds of depraved and unspeakable acts are carried out, and your mind starts racing at the endless possibilities. You're sure that your aunt Lily never had anything like this, and you can't help but let out an amused moan as you think about how much kinkier Lilaya is.
+        #ELSEIF(pc.isInnocent())
+            To your innocent mind, you can't quite imagine what this place is used for. Thinking that it looks like some kind of exhibition of medieval artefacts, you decide that it must be a private museum of some sort. After all, your aunt Lily <i>was</i> a museum curator, and so surely this reality's version of her would also have the same sort of interests.
+        #ELSE
+            There's no doubt about it. This definitely looks like a sex dungeon. You couldn't quite imagine that Lilaya would have something as depraved as this, but with the evidence right before your eyes, you think that it might be time to reassess how kinky she is.
+        #ENDIF
+	</p>
+	<p>
+		Over in one of the far corners of the room, you see a familiar-looking bell-pull. Knowing that pulling on it is sure to summon Rose, you wonder whether to call for the cat-girl maid or instead take your leave...
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="ROOM_ROSE"><![CDATA[
+  	<p>
+ 	    Deciding that you'd like to summon Rose to this room, you [pc.step] over to the bell-pull and give it a tug. Although no ringing noise can be heard from where you're standing, the bell-pull is quite clearly working correctly, as after just a couple of minutes Lilaya's cat-girl maid rushes into the room. Performing a little curtsy, she asks, [rose.speech(Do you require my services, [pc.name]?)]
+    </p>
+	<p>
+		#IF(!flags.hasFlag(FLAG_acexp_dungeon_sex))
+			Before you can reply, she gestures towards the nearby pillory, and with a sinister smirk on her face, she asks,
+			#IF(pc.hasFetish(FETISH_MASOCHIST)||pc.hasFetish(FETISH_SUBMISSIVE)||pc.hasFetish(FETISH_BONDAGE_VICTIM))
+				 [rose.speech(Perhaps you'd like me to show you a good time? I think I know just the thing for you. You'd really like me to dominate you by putting you in those stocks, wouldn't you?)]
+			#ELSE
+				 [rose.speech(Perhaps you'd like me to show you a good time? I have something in mind, but I think that you might not like it... How would you feel if I were to put you in those stocks and dominate you?)]
+			#ENDIF
+		#ELSE
+			Before you can reply, she gestures towards the nearby pillory, and with a sinister smirk on her face, she asks, [rose.speech(Perhaps you'd like me to dominate you in those stocks again?)]
+		#ENDIF
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="TALK_DUNGEON"><![CDATA[
+	<p>
+	    Wanting to know a bit more about this dungeon, you ask Rose for more information about it, noting that it seems quite different from the rest of the mansion, almost as if it was built as an afterthought.
+    </p>
+    <p>
+        [rose.speech(There isn't too much to tell about it,)] Rose answers, before revealing, [rose.speech(Lilaya had this dungeon constructed more or less on a whim, while she was in the middle of an experimental phase. It was all about the atmosphere you see. She wanted a place where she could really get in the mood for... Well, I'll let you use your imagination for that...)]
+    </p>
+    <p>
+		Pointing out that the many cells and long passageways seem to be a little excessive for a place that was to be used for just Lilaya and Rose, you ask the cat-girl maid if your [lilaya.relation(pc)] ever kept any slaves down here.
+    </p>
+    <p>
+        [rose.speech(The cells were added with the intention of using them to house unruly slaves, yes, although Lilaya never got around to purchasing any slaves,)] Rose explains, before adding, [rose.speech(Oh, and if you hear any strange noises while travelling through the passageways, then there's no need to worry; there are several minor enchantments in place which create those sounds.)]
+	</p>
+  	<p>
+		Telling Rose that
+		#IF(flags.hasFlag(FLAG_acexp_dungeon_sounds_heard))
+			 you've heard the noises which she's referring to,
+		#ELSE
+			 you haven't yet heard the noises which she's referring to,
+		#ENDIF
+	     you thank her for the information. Politely nodding her head, the cat-girl maid asks, [rose.speech(So, is there anything else I can do for you, [pc.name]?)]
+    </p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="TALK_ROOM"><![CDATA[
+	#IF(pc.isLewd())
+		<p>
+			Wanting to know everything about the room you currently find yourself standing in, you ask Rose what she can tell you about it, insisting that she reveal all of its lewd and kinky secrets.
+		</p>
+		<p>
+			Although she blushes profusely as she hears you say this, Rose can't help but smirk a little as she answers, [rose.speech(Maybe you should really ask Mistress Lilaya about that... I am not at liberty to discuss such intimate matters.)]
+		</p>
+		<p>
+			Despite saying this, after pausing to think for a moment, she continues, [rose.speech(I suppose you can easily guess what Mistress Lilaya did in here while she was in her experimental phase. She had quite the desire to play around with bondage, and being locked in those stocks was one of her favourite things...)]
+		</p>
+	#ELSEIF(pc.isInnocent())
+		<p>
+			Wanting to know everything about the room you currently find yourself standing in, you ask Rose what she can tell you about it. Thanks to your innocent mind, you can't quite comprehend what the stocks and cage in here are for, and so you ask the cat-girl maid why Lilaya has them in a bedroom.
+		</p>
+		<p>
+			Taken aback by your innocence, Rose raises her eyebrows and replies, [rose.speech(You can't imagine what we did in here? Well, if that's the case, it's not my place to say... You should really ask Mistress Lilaya about it.)]
+		</p>
+		<p>
+			Unsatisfied by Rose's answer, you insist that she tell you, and so after letting out a sigh, she reveals, much to your embarrassment, [rose.speech(Mistress Lilaya liked to be locked in the stocks and punished in an erotic manner. She had quite the desire to play around with bondage while she was in her experimental phase.)]
+		</p>
+	#ELSE
+		<p>
+			Wanting to know everything about the room you currently find yourself standing in, you ask Rose why there's a sex dungeon under Lilaya's mansion.
+		</p>
+		<p>
+			Although she blushes profusely as she hears you say this, Rose can't help but smirk a little as she answers, [rose.speech(Maybe you should really ask Mistress Lilaya about that... I am not at liberty to discuss such intimate matters.)]
+		</p>
+		<p>
+			Despite saying this, after pausing to think for a moment, she continues, [rose.speech(I suppose you can easily guess what Mistress Lilaya did in here while she was in her experimental phase. She had quite the desire to play around with bondage, and being locked in those stocks was one of her favourite things...)]
+		</p>
+	#ENDIF
+    <p>
+        With that being said, Rose lets out a wistful sigh and continues, [rose.speech(Sadly, Mistress Lilaya's interest in this room has waned. She spends all of her time on arcane research these days, to the exclusion of most other activities.)]
+    </p>
+  	<p>
+	    Performing a polite curtsy, the cat-girl maid concludes your conversation by asking, [rose.speech(Is there anything else I can do for you, [pc.name]?)]
+    </p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="SEX_START"><![CDATA[
+	<p>
+		Knowing that Rose has a dominant, sadistic streak, you tell her that the thought of being at her mercy down here in this dungeon is turning you on. A wicked smirk quickly settles on the cat-girl's face as she hears you say this, and in a stern tone very much unlike her usual voice, she demands, [rose.speech(Tell me more, [pc.name]. What dirty thoughts are you having about me?)]
+	</p>
+	<p>
+		Rose's reaction serves to make you even more aroused, and so you quickly tell her that you were imagining how hot it would be for her to dominate you and use you as her submissive fuck-toy. A predatory gleam appears in the cat-girl's [rose.eyeColour] eyes as you say this, and in a harsh tone she dominantly orders, [rose.speech(You are to strip naked and kneel before me! Be quick about it, I don't have all day!)]
+	</p>
+	<p>
+   	    Finding yourself unable to refuse the cat-girl's command, you hastily do as she says and remove all your clothing, before dropping down onto the floor before her. Strutting over to the nearby stocks, Rose snaps her fingers and points to it, ordering, [rose.speech(Crawl over here and place your head and [pc.hands] through the holes. Do it quickly!)]
+	</p>
+	<p>
+	    Hurrying to obey, you crawl over to the stocks and willingly slide your head and [pc.arms] through the holes. Dropping the device's upper board shut, Rose slides a large lock into position and snaps it closed, locking you in place. She then proceeds to take off her maid's dress, panties, and bra, before grabbing a large pink strap-on from a nearby chest and fastening it in place with well-trained motions. Stepping around in front of the stocks, she evilly grins down at you and teases, [rose.speech(This position suits you, [pc.name]. Completely at my mercy... I wonder how I'll use you...)]
+	</p>
+	<p>
+		Strutting around behind you, the sadistic cat-girl delivers a ruthlessly-harsh slap to your exposed rear-end, causing you to let out a shocked cry. Laughing in amusement at your response, Rose slaps her pink strap-on against your ass and moans, [rose.speech(I'm going to enjoy this, you submissive little slut!)]
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="AFTER_SEX"><![CDATA[
+   	<p>
+		Having had her fun, Rose quickly gets her clothing back in order, and after unlocking the stocks, she smirks at you and teases, [rose.speech(I hope you had as much fun as I did, [pc.name]. We can do this again if you'd like, but not today; I have far too much housekeeping work to be getting on with.)]
+	</p>
+	<p>
+		With that, Rose struts out of the room, leaving you to recover on your own. Gathering all of your belongings, you spend a moment in which to recover from Rose's treatment, before standing up and preparing to continue on your way...
+	</p>
+	]]>
+    </htmlContent>
+
+</dialogue>

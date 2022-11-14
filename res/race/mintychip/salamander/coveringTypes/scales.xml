@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<coveringType>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where the default hard-coded values for BodyCoveringType are found, then please look here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	
+	<!-- The category of this covering type, as defined here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringCategory.java -->
+	<category>MAIN_SCALES</category>
+	
+	<!-- The determiner which should be used when describing this covering.
+	For feathers, it would be something like 'a plume of'. -->
+	<determiner><![CDATA[a layer of]]></determiner>
+	
+	<!-- The name of this covering. -->
+	<name><![CDATA[scale]]></name>
+	
+	<!-- The plural of this covering.
+	The 'pluralByDefault' attribute determines whether or not this covering is by default referred to as a plural.
+	For example, a covering of feathers would be pluralByDefault="true", as it should be referred to as 'a plume of feathers', not 'a plume of feather'. -->
+	<namePlural pluralByDefault="true"><![CDATA[scales]]></namePlural> 
+	
+	<!-- Which modifiers this covering should *naturally* have available to it.
+	The first modifier defined will be used as the default modifier, which in this case is 'FLUFFY'.
+	i.e. Which modifiers can be randomly applied to this covering when first created.
+	Values for covering modifiers can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/CoveringModifier.java -->
+	<naturalCoveringModifiers>
+		<modifier>SMOOTH</modifier>
+	</naturalCoveringModifiers>
+	
+	<!-- Which modifiers this covering should have available to it under special transformative circumstances.
+	If you want some modifiers to only be available via transformations, and not applied randomly during the natural creation process, then define them here in the same way as the natural modifiers are defined above.-->
+	<extraCoveringModifiers>
+		<modifier>ROUGH</modifier>
+	</extraCoveringModifiers>
+	
+	<!-- The patterns which can be applied to this covering type.
+	The 'weighting' attribute determines the weighted chance of the pattern being randomly chosen when first created for a character.
+	Values for covering patterns can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/CoveringPattern.java -->
+	<naturalPatterns>
+		<pattern weighting="1">NONE</pattern> <!-- As SPOTTED or STRIPED is applied to spotted and striped hyenas in their subspecies XML, it doesn't really matter which is randomly chosen here (as it will be overwritten). -->
+	</naturalPatterns>
+	
+	<!-- In the same manner as covering modifiers above, you can define extra patterns which will only be available via transformations.
+	If you want to add any, then define them here in the same way as the natural patterns are defined above. -->
+	<extraPatterns>
+		<pattern weighting="1">MARKED</pattern>
+		<pattern weighting="1">MOTTLED</pattern>
+		<pattern weighting="1">OMBRE</pattern>
+	</extraPatterns>
+	
+	
+	<!-- The colours which this covering has available to it.
+	'natural' colours are those which can be chosen when a race with this covering is spawning in naturally.
+	The 'extra' colours are those which are available via transformation.
+	Colour values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java
+	Instead of defining colours individually, you can use the 'values' attribute to apply pre-defined colours.
+	Acceptable 'values' are found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
+	
+	<naturalColoursPrimary>
+		<colour>COVERING_PINK_LIGHT</colour>
+		<colour>COVERING_RED</colour>
+		<colour>COVERING_RED_DARK</colour>
+		<colour>COVERING_SCARLET</colour>
+		<colour>COVERING_ORANGE</colour>
+		
+		<colour>COVERING_INDIGO</colour>
+		<colour>COVERING_BLUE_LIGHT</colour>
+		<colour>COVERING_BLUE</colour>
+		<colour>COVERING_BLUE_DARK</colour>
+		<colour>COVERING_PURPLE_LIGHT</colour>
+		
+		<colour>COVERING_BLACK</colour>
+		<colour>COVERING_WHITE</colour>
+	</naturalColoursPrimary> 
+	
+	<extraColoursPrimary values="allCoveringColours"/>
+	
+	<naturalColoursSecondary/>
+	
+	<extraColoursSecondary values="allCoveringColours"/>
+	
+</coveringType>

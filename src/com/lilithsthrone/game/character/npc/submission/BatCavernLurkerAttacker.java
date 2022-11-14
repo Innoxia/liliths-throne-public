@@ -10,6 +10,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
@@ -38,7 +39,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class BatCavernLurkerAttacker extends NPC {
 
 	public BatCavernLurkerAttacker() {
-		this(Gender.F_V_B_FEMALE, false);
+		this(Gender.getGenderFromUserPreferences(false, false), false);
 	}
 	
 	public BatCavernLurkerAttacker(Gender gender) {
@@ -86,7 +87,7 @@ public class BatCavernLurkerAttacker extends NPC {
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
-			setName(Name.getRandomTriplet(species.getRace()));
+			setName(Name.getRandomTriplet(species));
 			this.setPlayerKnowsName(false);
 			
 			// PERSONALITY & BACKGROUND:
@@ -105,10 +106,15 @@ public class BatCavernLurkerAttacker extends NPC {
 			
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			Main.game.getCharacterUtils().generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 	
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyTattoos(this, true);
+
+			if(hasFetish(Fetish.FETISH_CUM_ADDICT) && Math.random() < 0.1) {
+				Main.game.getCharacterUtils().applyDirtiness(this);
+			}
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
@@ -135,7 +141,7 @@ public class BatCavernLurkerAttacker extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
-		Main.game.getCharacterUtils().generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 		
 		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
 	}
@@ -149,10 +155,13 @@ public class BatCavernLurkerAttacker extends NPC {
 	public String getDescription() {
 		if(this.isSlave()) {
 			return (UtilText.parse(this,
-					"[npc.NamePos] days of attacking innocent travellers in the bat caverns are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
+					"[npc.NamePos] days of attacking innocent travellers in the Bat Caverns are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
+		} else if(Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())){
+			return (UtilText.parse(this,
+					"[npc.NamePos] days of attacking innocent travellers in the Bat Caverns are now over. Having befriended [npc.herHim], you invited [npc.name] to move in with you and helped [npc.herHim] to start a new life."));
 		} else {
 			return (UtilText.parse(this,
-					"[npc.Name] is a resident of the bat caverns, and enjoys nothing more than attacking innocent travellers that pass by [npc.her] roost."));
+					"[npc.Name] is a resident of the Bat Caverns, and enjoys nothing more than attacking innocent travellers that pass by [npc.her] roost."));
 		}
 	}
 	

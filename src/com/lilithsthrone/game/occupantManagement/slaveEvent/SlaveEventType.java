@@ -7,7 +7,7 @@ package com.lilithsthrone.game.occupantManagement.slaveEvent;
  */
 public enum SlaveEventType {
 	
-	BONDING("Bonding", "Events in which two slaves spend some time either getting to know one another or agruing about soemthing."),
+	BONDING("Bonding", "Events in which two slaves spend some time either getting to know one another or arguing about something."),
 	
 	JOB("Job", "Events related to the slave's job. This includes sex events if the slave's job involves sex."),
 	

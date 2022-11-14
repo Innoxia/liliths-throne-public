@@ -26,7 +26,6 @@
 		
 		<clothingSet/> <!-- No way to define custom sets yet -->
 		<imageEquippedName/> <!-- The file path for this clothing's image while equipped -->
-		<enchantmentLimit/> <!-- Custom values override game -->
 		<effects/> <!-- Default enchantments -->
 		
 		
@@ -34,7 +33,7 @@
 			<blockedParts>
 			  <displacementType>REMOVE_OR_EQUIP</displacementType> <!-- displacementType values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 			  <clothingAccessRequired> <!-- clothingAccess values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
-				<clothingAccess>GROIN</clothingAccess>
+				<clothingAccess>VAGINA</clothingAccess>
 			  </clothingAccessRequired>
 			  <blockedBodyParts/> <!--bodyPart values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
 			  <clothingAccessBlocked/> <!-- clothingAccess -->
@@ -46,7 +45,7 @@
 			<blockedParts>
 			  <displacementType>REMOVE_OR_EQUIP</displacementType>
 			  <clothingAccessRequired>
-				<clothingAccess>GROIN</clothingAccess>
+				<clothingAccess>ANUS</clothingAccess>
 			  </clothingAccessRequired>
 			  <blockedBodyParts/>
 			  <clothingAccessBlocked/>
@@ -114,7 +113,7 @@
 			<![CDATA[[npc.Name] [npc.verb(slide)] the dildo into [npc.her] [npc.vagina+].]]>
 		</self>
 		<other>
-			<![CDATA[[npc.Name] [npc.verb(push)] the dildo into [npc2.namePos] [npc.vagina+].]]>
+			<![CDATA[[npc.Name] [npc.verb(push)] the dildo into [npc2.namePos] [npc2.vagina+].]]>
 		</other>
 		<otherRough>
 			<![CDATA[[npc.Name] [npc.verb(force)] the dildo into [npc2.namePos] [npc2.vagina+].]]>
@@ -126,7 +125,7 @@
 			<![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc.her] [npc.vagina+].]]>
 		</self>
 		<other>
-			<![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc2.namePos] [npc.vagina+].]]>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc2.namePos] [npc2.vagina+].]]>
 		</other>
 		<otherRough>
 			<![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] dildo and [npc.verb(yank)] it out of [npc2.her] [npc2.vagina+].]]>
@@ -138,7 +137,7 @@
 			<![CDATA[[npc.Name] [npc.verb(slide)] the dildo into [npc.her] [npc.anus+].]]>
 		</self>
 		<other>
-			<![CDATA[[npc.Name] [npc.verb(push)] the dildo into [npc2.namePos] [npc.anus+].]]>
+			<![CDATA[[npc.Name] [npc.verb(push)] the dildo into [npc2.namePos] [npc2.anus+].]]>
 		</other>
 		<otherRough>
 			<![CDATA[[npc.Name] [npc.verb(force)] the dildo into [npc2.namePos] [npc2.anus+].]]>
@@ -150,7 +149,7 @@
 			<![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc.her] [npc.anus+].]]>
 		</self>
 		<other>
-			<![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc2.namePos] [npc.anus+].]]>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc2.namePos] [npc2.anus+].]]>
 		</other>
 		<otherRough>
 			<![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] dildo and [npc.verb(yank)] it out of [npc2.her] [npc2.anus+].]]>
@@ -162,7 +161,7 @@
 			<![CDATA[[npc.Name] [npc.verb(slide)] the dildo into [npc.her] [npc.mouth+].]]>
 		</self>
 		<other>
-			<![CDATA[[npc.Name] [npc.verb(push)] the dildo into [npc2.namePos] [npc.mouth+].]]>
+			<![CDATA[[npc.Name] [npc.verb(push)] the dildo into [npc2.namePos] [npc2.mouth+].]]>
 		</other>
 		<otherRough>
 			<![CDATA[[npc.Name] [npc.verb(force)] the dildo into [npc2.namePos] [npc2.mouth+].]]>
@@ -174,7 +173,7 @@
 			<![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc.her] [npc.mouth+].]]>
 		</self>
 		<other>
-			<![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc2.namePos] [npc.mouth+].]]>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc2.namePos] [npc2.mouth+].]]>
 		</other>
 		<otherRough>
 			<![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] dildo and [npc.verb(yank)] it out of [npc2.her] [npc2.mouth+].]]>

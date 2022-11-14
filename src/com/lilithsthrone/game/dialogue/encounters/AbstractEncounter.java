@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
+import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -176,6 +178,7 @@ public abstract class AbstractEncounter {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 		} else {
 			List<String> enforcerIds = Util.randomItemFrom(savedEnforcerIds);
 			for(String id : enforcerIds) {
@@ -189,9 +192,8 @@ public abstract class AbstractEncounter {
 		}
 	}
 	
-	protected static DialogueNode SpawnAndStartChildHere(List<NPC> offspringAvailable) {
-		NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
-		Main.game.getOffspringSpawned().add(offspring);
+	public static DialogueNode SpawnAndStartChildHere(List<OffspringSeed> offspringAvailable)  {
+		NPC offspring = new NPCOffspring(offspringAvailable.get(Util.random.nextInt(offspringAvailable.size())));
 
 		offspring.setLocation(Main.game.getPlayer(), true);
 		
@@ -312,7 +314,10 @@ public abstract class AbstractEncounter {
 			try {
 				NPC slave = (NPC) Main.game.getNPCById(id);
 				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_SLAVES)
-						&& ((slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE && slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)) || slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING)
+						&& ((slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE
+								&& !slave.getLocationPlace().getPlaceUpgrades().stream().anyMatch(upgrade->upgrade.getImmobilisationType()!=null)
+								&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM))
+							|| slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING)
 						&& slave.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) {
 					if(slave.getLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {
 						hornySlaves.put(slave, new ArrayList<>());
@@ -328,7 +333,10 @@ public abstract class AbstractEncounter {
 			try {
 				NPC slave = (NPC) Main.game.getNPCById(id);
 				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RECEIVE_SLAVES)
-						&& ((slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE && slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)) || slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING)
+						&& ((slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE
+								&& !slave.getLocationPlace().getPlaceUpgrades().stream().anyMatch(upgrade->upgrade.getImmobilisationType()!=null)
+								&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM))
+							|| slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING)
 						&& slave.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) {
 					for(NPC horny : hornySlaves.keySet()) {
 						if(!horny.equals(slave) && horny.isAttractedTo(slave)) {
@@ -377,7 +385,63 @@ public abstract class AbstractEncounter {
 		return getBaseRandomEncounter(forceEncounter);
 	}
 
+	public boolean isAnyBaseTriggerChanceOverOneHundred() {
+		if(this.isFromExternalFile()) {
+			for(ExternalEncounterData data : possibleEncounters) {
+				if(data.getTriggerChance()>100) {
+					return true;
+				}
+			}
+			
+		} else {
+			for(Entry<EncounterType, Float> e : getDialogues().entrySet()) {
+				if(e.getValue()>100) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * @return The sum of all possible encounter chances which this AbstractEncounter contains. Will typically be a value under 100.
+	 */
+	public float getTotalChanceValue() {
+		float total = 0;
+		if(this.isFromExternalFile()) {
+			for(ExternalEncounterData data : possibleEncounters) {
+				float weighting = data.getTriggerChance();
+				total += weighting;
+			}
+		} else {
+			for(Entry<EncounterType, Float> e : getDialogues().entrySet()) {
+				float weighting = e.getValue();
+				total += weighting;
+			}
+		}
+		return total;
+	}
+
+	private void setEncounterDialogue(DialogueNode dialogueNode, boolean forced) {
+		if(forced) {
+			Main.game.forcedEncounterAtSeconds = new Value<>(Main.game.getSecondsPassed(), dialogueNode);
+		} else {
+			Main.game.encounterAtSeconds = new Value<>(Main.game.getSecondsPassed(), dialogueNode);
+		}
+	}
+	
 	protected DialogueNode getBaseRandomEncounter(boolean forceEncounter) {
+		if(forceEncounter) {
+			if(Main.game.forcedEncounterAtSeconds.getKey()==Main.game.getSecondsPassed()) {
+				return Main.game.forcedEncounterAtSeconds.getValue();
+			}
+			
+		} else {
+			if(Main.game.encounterAtSeconds.getKey()==Main.game.getSecondsPassed()) {
+				return Main.game.encounterAtSeconds.getValue();
+			}
+		}
+		
 		float opportunisticMultiplier = 1;
 		if(Main.game.isOpportunisticAttackersEnabled()) {
 			// lust: linear boost; 25% max
@@ -421,29 +485,45 @@ public abstract class AbstractEncounter {
 		}
 		
 		if(this.isFromExternalFile()) {
+//			System.out.println("--- Encounter Generation Start ---");
 			float total = 0;
 			float opportunisticIncrease = 0;
 			Map<ExternalEncounterData, Float> finalMap = new HashMap<>();
 			for(ExternalEncounterData data : possibleEncounters) {
-//				new NullPointerException().printStackTrace();
 				float weighting = data.getTriggerChance();
-				if(data.isOpportunistic()) {
-					weighting *= opportunisticMultiplier;
-					opportunisticIncrease+=opportunisticMultiplier;
+				if(!this.isAnyBaseTriggerChanceOverOneHundred() || data.getTriggerChance()>100) { // If a value of >100 is used for the encounter chance, then all other encounters with chances of <=100 are discarded
+					if(data.isOpportunistic()) {
+						weighting *= opportunisticMultiplier;
+						opportunisticIncrease+=opportunisticMultiplier;
+					}
+					total+=weighting;
+					finalMap.put(data, weighting);
+//					System.out.println("Weighting add: "+weighting+" ("+data.getName()+")");
 				}
-				total+=weighting;
-				finalMap.put(data, weighting);
 			}
 			if(total==0) {
+				setEncounterDialogue(null, forceEncounter);
 				return null;
 			}
-
+//			System.out.println("Final total: "+total);
+//			System.out.println("Final opportunisticIncrease: "+opportunisticIncrease);
+			
 			if(forceEncounter || Math.random()*(100+opportunisticIncrease)<total) {
-				ExternalEncounterData encounter = Util.getRandomObjectFromWeightedFloatMap(finalMap);
-				DialogueNode dn = DialogueManager.getDialogueFromId(UtilText.parse(encounter.getDialogueId()).trim());
+				ExternalEncounterData encounter;
+				DialogueNode dn = null;
+				int tries = 0;
+				while(dn==null && tries<=3) { // As some Encounters rarely return null, try 3 times to get an Encounter. Yes this is not ideal, but it was either this or suffer performance issues in calculating Encounter availabilities.
+					tries++;
+					encounter = Util.getRandomObjectFromWeightedFloatMap(finalMap);
+					finalMap.remove(encounter);
+					dn = DialogueManager.getDialogueFromId(UtilText.parse(encounter.getDialogueId()).trim());
+				}
 //				System.out.println("Returning: "+dn.getId());
+//				System.out.println("--- END ---");
+				setEncounterDialogue(dn, forceEncounter);
 				return dn;
 			}
+//			System.out.println("--- END ---");
 			
 		} else {
 			float total = 0;
@@ -451,26 +531,41 @@ public abstract class AbstractEncounter {
 			Map<EncounterType, Float> finalMap = new HashMap<>();
 			for(Entry<EncounterType, Float> e : getDialogues().entrySet()) { // Iterate through the base encounter map, apply opportunisticMultiplier if applicable, and create a new 'finalMap' of these weighted chances.
 				float weighting = e.getValue();
-				if(e.getKey().isOpportunistic()) {
-					weighting *= opportunisticMultiplier;
-					opportunisticIncrease+=opportunisticMultiplier;
+				if(!this.isAnyBaseTriggerChanceOverOneHundred() || weighting>100) { // If a value of >100 is used for the encounter chance, then all other encounters with chances of <=100 are discarded
+					if(e.getKey().isOpportunistic()) {
+						weighting *= opportunisticMultiplier;
+						opportunisticIncrease+=opportunisticMultiplier;
+					}
+					total+=weighting;
+					finalMap.put(e.getKey(), weighting);
 				}
-				total+=weighting;
-				finalMap.put(e.getKey(), weighting);
 			}
 			if(total==0) {
+				setEncounterDialogue(null, forceEncounter);
 				return null;
 			}
 			
 			if(forceEncounter || Math.random()*(100+opportunisticIncrease)<total) {
-				EncounterType encounter = Util.getRandomObjectFromWeightedFloatMap(finalMap);
-				return initialiseEncounter(encounter);
+				EncounterType encounter;
+				DialogueNode dn = null;
+				int tries = 0;
+				while(dn==null && tries<=3) { // As some Encounters rarely return null, try 3 times to get an Encounter. Yes this is not ideal, but it was either this or suffer performance issues in calculating Encounter availabilities.
+					tries++;
+					encounter = Util.getRandomObjectFromWeightedFloatMap(finalMap);
+					finalMap.remove(encounter);
+					dn = initialiseEncounter(encounter);
+				}
+				setEncounterDialogue(dn, forceEncounter);
+				return dn;
 			}
 		}
-		
+
+		// This line was causing an issue where encounters could only be triggered on the first tile during fast travel,
+			// as it stores null in Main.game.encounterAtSeconds and then skips further checks because Main.game.encounterAtSeconds is set and time doesn't advance until the fast travel is completed, or interrupted by an encounter
+//		setEncounterDialogue(null, forceEncounter);
 		return null;
 	}
-
+	
 	public static AbstractCoreItem getRandomItem() {
 		return randomItem;
 	}

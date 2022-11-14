@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+	
+	<additionalPlaceTypeTriggers>
+		<placeType>WORLD_MAP_FIELDS</placeType>
+	</additionalPlaceTypeTriggers>
+	
+	<possibleEncounters>
+		<encounter>
+			<name><![CDATA[dairy farm discovered]]></name>
+			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
+				#IF(pc.getLocation().equals(13, 23))
+					101
+				#ELSE
+					0
+				#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[innoxia_encounters_fields_dairyFarm_discovered]]></dialogueReturned>
+		</encounter>
+	</possibleEncounters>
+	
+</encounterRoot>

@@ -141,7 +141,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		// --- Priority 1 | If orgasming, bypass everything and use an orgasm option ---
 		
-		if (Main.sex.isReadyToOrgasm(partner) && SexFlags.playerPreparedForCharactersOrgasm.contains(partner)) {
+		if (Main.sex.isReadyToOrgasm(partner)
+				&& (SexFlags.playerPreparedForCharactersOrgasm.contains(partner) || Main.sex.isSpectator(partner))) { // Player does not prepare for spectator orgasms
 			List<SexActionInterface> priorityOrgasms = new ArrayList<>();
 			
 			for(SexActionInterface action : availableActions) {
@@ -184,19 +185,23 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		// --- Priority 2 | Resisting and Cocooned ---
 		
 		// If the partner is resisting, they will not want to remove any clothing, and will instead simply use an available option. (Which will be a SUB_RESIST or neutral pace one.)
-		Value<ImmobilisationType, GameCharacter> value = Main.sex.getImmobilisationType(Main.sex.getCharacterPerformingAction());
-		if(value!=null) {
-			switch(value.getKey()) {
-				case COCOON:
-					return GenericActions.COCOONED;
-				case TAIL_CONSTRICTION:
-					return GenericActions.TAIL_CONSTRICTED;
-				case TENTACLE_RESTRICTION:
-					return GenericActions.TENTACLE_BOUND;
-				case WITCH_SEAL:
-					return GenericActions.WITCH_SEALED;
-			}
-		}
+//		Value<ImmobilisationType, GameCharacter> value = Main.sex.getImmobilisationType(Main.sex.getCharacterPerformingAction());
+//		if(value!=null) {
+//			switch(value.getKey()) {
+//				case ROPE:
+//					return GenericActions.ROPE_BOUND;
+//				case CHAINS:
+//					return GenericActions.CHAINS_BOUND;
+//				case COCOON:
+//					return GenericActions.COCOONED;
+//				case TAIL_CONSTRICTION:
+//					return GenericActions.TAIL_CONSTRICTED;
+//				case TENTACLE_RESTRICTION:
+//					return GenericActions.TENTACLE_BOUND;
+//				case WITCH_SEAL:
+//					return GenericActions.WITCH_SEALED;
+//			}
+//		}
 		if(Main.sex.getSexPace(partner)==SexPace.SUB_RESISTING) {
 			possibleActions.addAll(Main.sex.getAvailableSexActionsPartner());
 			
@@ -429,7 +434,17 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				Value<AbstractClothing, String> sexClothingValue = partner.getSexClothingToSelfEquip(character, false);
 				if(sexClothingValue!=null) {
 					Main.sex.setClothingSelfEquipInformation(partner, character, sexClothingValue.getKey());
-					return SexActionUtility.PARTNER_SELF_EQUIP_CLOTHING;
+					if(SexActionUtility.PARTNER_SELF_EQUIP_CLOTHING.isBaseRequirementsMet()) {
+						return SexActionUtility.PARTNER_SELF_EQUIP_CLOTHING;
+					}
+				}
+
+				sexClothingValue = partner.getSexClothingToEquip(character, false);
+				if(sexClothingValue!=null) {
+					Main.sex.setClothingEquipInformation(partner, character, sexClothingValue.getKey());
+					if(SexActionUtility.PARTNER_EQUIP_CLOTHING.isBaseRequirementsMet()) {
+						return SexActionUtility.PARTNER_EQUIP_CLOTHING;
+					}
 				}
 			}
 		}
@@ -1032,7 +1047,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		availableTargets.removeIf((character) -> Main.sex.getSexPositionSlot(character)==SexSlotGeneric.MISC_WATCHING);
 		
-		GameCharacter preferredTarget = ((NPC) targeter).getPreferredSexTarget();
+		GameCharacter preferredTarget = Main.sex.getInitialSexManager().getPreferredSexTarget((NPC) targeter);
 		
 		// Always target those who are about to cum:
 		if(Main.sex.isReadyToOrgasm(targeter) && SexFlags.playerPreparedForCharactersOrgasm.contains(targeter)) {

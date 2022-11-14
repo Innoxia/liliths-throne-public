@@ -51,7 +51,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class EnforcerWarehouseGuard extends NPC {
 
 	public EnforcerWarehouseGuard() {
-		this(Occupation.NPC_ENFORCER_SWORD_SERGEANT, Subspecies.WOLF_MORPH, RaceStage.GREATER, Gender.F_V_B_FEMALE, false);
+		this(Occupation.NPC_ENFORCER_SWORD_SERGEANT, Subspecies.WOLF_MORPH, RaceStage.GREATER, Gender.getGenderFromUserPreferences(false, false), false);
 	}
 	
 	public EnforcerWarehouseGuard(boolean isImported) {
@@ -70,7 +70,7 @@ public class EnforcerWarehouseGuard extends NPC {
 			
 			setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			
 			this.setPlayerKnowsName(false);
 			
@@ -84,12 +84,13 @@ public class EnforcerWarehouseGuard extends NPC {
 			
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			Main.game.getCharacterUtils().generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, false);
 			
 			if(!Arrays.asList(generationFlags).contains(NPCGenerationFlag.NO_CLOTHING_EQUIP)) {
 				this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			}
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyTattoos(this, true);
 			
 			initPerkTreeAndBackgroundPerks(); // Set starting perks based on the character's race
 			

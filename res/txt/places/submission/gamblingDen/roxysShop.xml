@@ -35,7 +35,7 @@
 		Suddenly noticing your approach out of the corner of her eye, Roxy turns towards you with an angry snarl on her face. Upon recognising you, however, her scowl shifts into a devious grin. Leaning heavily on the counter-top, she takes a deep drag of her cigarette and teases, [roxy.speech(If yer back ta get another taste o' me cunt, ya know ya gotta pay a thousand flames! Ya ain't gonna resist gettin' a taste o' me flowin' juices now, are ya?)]
 	</p>
 	<p>
-		Having rid yourself of your addiction to Roxy's girlcum, you tell the rat-girl that you have absolutely no interest in paying any money to eat her out. Raising one eyebrow, the foul-mouther rat-girl jeers, [roxy.speech(Oh, you's fuckin' gone an' cured yeself, 'ave ya? Well, 'ow about I offer ya the chance to earn an item by eatin' me out again? Come on, ya know yer cravin' a taste o' me wet little cunt again, ain't ya?! Me little slave 'ere sure seems ta love it! Heh-heh-heh!)]
+		Having rid yourself of your addiction to Roxy's girlcum, you tell the rat-girl that you have absolutely no interest in paying any money to eat her out. Raising one eyebrow, the foul-mouthed rat-girl jeers, [roxy.speech(Oh, you's fuckin' gone an' cured yeself, 'ave ya? Well, 'ow about I offer ya the chance to earn an item by eatin' me out again? Come on, ya know yer cravin' a taste o' me wet little cunt again, ain't ya?! Me little slave 'ere sure seems ta love it! Heh-heh-heh!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -232,12 +232,17 @@
 	]]>
 	</htmlContent>
 	
-	<!-- FIREBOMBS -->
 	
+	<!-- FIREBOMBS -->
 	
 	<htmlContent tag="FIREBOMBS"><![CDATA[
 	<p>
-		You think back to the arcane firebombs you got from the mysterious cave. Surely Roxy still has some connections from her time with Vengar's gang? You bring out a firebomb and set it down on the counter.
+		You think back to the arcane firebombs you got from the mysterious cave.
+		#IF(flags.hasFlag(FLAG_axelExplainedVengar))
+			 Surely Roxy still has some connections from her time with Vengar's gang? You bring out a firebomb and set it down on the counter.
+		#ELSE
+			 Surely Roxy is the sort of rat who'd have some shady connections? You bring out a firebomb and set it down on the counter.
+		#ENDIF
 	</p>
 	<p>
 		[roxy.speech(What's that yer got there?)] Roxy asks, raising an eyebrow, [roxy.speech(The newest thing y'been jammin' up yer arse?)]

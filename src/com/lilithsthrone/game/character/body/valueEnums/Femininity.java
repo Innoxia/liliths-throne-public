@@ -9,31 +9,33 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.8.9
+ * @version 0.4.2
  * @author Innoxia
  */
 public enum Femininity {
 	
-	MASCULINE_STRONG(Util.newArrayListOfValues("very masculine", "manly"), 0, 19, PresetColour.MASCULINE_PLUS),
+	MASCULINE_STRONG(Util.newArrayListOfValues("very masculine", "manly"), 0, 19, PresetColour.MASCULINE_PLUS, PresetColour.MASCULINE_PLUS_NPC),
 	
-	MASCULINE(Util.newArrayListOfValues("masculine", "boyish"), 20, 39, PresetColour.MASCULINE),
+	MASCULINE(Util.newArrayListOfValues("masculine", "boyish"), 20, 39, PresetColour.MASCULINE, PresetColour.MASCULINE_NPC),
 	
-	ANDROGYNOUS(Util.newArrayListOfValues("androgynous"), 40, 59, PresetColour.ANDROGYNOUS),
+	ANDROGYNOUS(Util.newArrayListOfValues("androgynous"), 40, 59, PresetColour.ANDROGYNOUS, PresetColour.ANDROGYNOUS_NPC),
 	
-	FEMININE(Util.newArrayListOfValues("feminine", "girly"), 60, 79, PresetColour.FEMININE),
+	FEMININE(Util.newArrayListOfValues("feminine", "girly"), 60, 79, PresetColour.FEMININE, PresetColour.FEMININE_NPC),
 	
-	FEMININE_STRONG(Util.newArrayListOfValues("very feminine", "womanly"), 80, 100, PresetColour.FEMININE_PLUS);
+	FEMININE_STRONG(Util.newArrayListOfValues("very feminine", "womanly"), 80, 100, PresetColour.FEMININE_PLUS, PresetColour.FEMININE_PLUS_NPC);
 
 	private List<String> names;
 	private int minimumFemininity;
 	private int maximumFemininity;
 	private Colour colour;
+	private Colour speechColour;
 
-	private Femininity(List<String> names, int minimumFemininity, int maximumFemininity, Colour colour) {
+	private Femininity(List<String> names, int minimumFemininity, int maximumFemininity, Colour colour, Colour speechColour) {
 		this.names = names;
 		this.minimumFemininity = minimumFemininity;
 		this.maximumFemininity = maximumFemininity;
 		this.colour = colour;
+		this.speechColour = speechColour;
 	}
 	
 	public String getName(boolean withDeterminer) {
@@ -46,6 +48,10 @@ public enum Femininity {
 		}
 	}
 
+	public List<String> getNames() {
+		return names;
+	}
+	
 	public int getMinimumFemininity() {
 		return minimumFemininity;
 	}
@@ -60,6 +66,10 @@ public enum Femininity {
 
 	public Colour getColour() {
 		return colour;
+	}
+
+	public Colour getSpeechColour() {
+		return speechColour;
 	}
 
 	public static Femininity valueOf(int femininity) {

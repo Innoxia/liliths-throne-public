@@ -211,7 +211,7 @@ public class Kay extends NPC {
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_WOMENS_WATCH, PresetColour.CLOTHING_PERIWINKLE, PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_SILVER, false), true, this);
 			
 		} else {
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_briefs", PresetColour.CLOTHING_BLACK, false), true, this);
 			
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_headband", PresetColour.CLOTHING_WHITE, false), true, this);
 			
@@ -249,10 +249,10 @@ public class Kay extends NPC {
 			}
 			
 			if(isFeminine()) {
-				return getSubspecies().getSingularFemaleName(this);
+				return getSubspecies().getSingularFemaleName(this.getBody());
 				
 			} else {
-				return getSubspecies().getSingularMaleName(this);
+				return getSubspecies().getSingularMaleName(this.getBody());
 			}
 			
 		} else {
@@ -264,6 +264,14 @@ public class Kay extends NPC {
 		}
 	}
 
+	@Override
+	public String getArtworkFolderName() {
+		if(this.isFeminine()) {
+			return "KayFeminine";
+		}
+		return "Kay";
+	}
+	
 	@Override
 	public boolean isFeminine() {
 		return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kayFeminised);

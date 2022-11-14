@@ -12,7 +12,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
-import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -134,8 +134,8 @@ public class ResponseSex extends Response {
 	 */
 	public ResponseSex(String title,
 			String tooltipText,
-			List<Fetish> fetishesForUnlock,
-			List<Fetish> fetishesBlocking,
+			List<AbstractFetish> fetishesForUnlock,
+			List<AbstractFetish> fetishesBlocking,
 			CorruptionLevel corruptionBypass,
 			List<AbstractPerk> perksRequired,
 			Femininity femininityRequired,
@@ -413,8 +413,8 @@ public class ResponseSex extends Response {
 	
 	public ResponseSex(String title,
 			String tooltipText,
-			List<Fetish> fetishesForUnlock,
-			List<Fetish> fetishesBlocking,
+			List<AbstractFetish> fetishesForUnlock,
+			List<AbstractFetish> fetishesBlocking,
 			CorruptionLevel corruptionBypass,
 			List<AbstractPerk> perksRequired,
 			Femininity femininityRequired,
@@ -457,8 +457,8 @@ public class ResponseSex extends Response {
 	
 	public ResponseSex(String title,
 			String tooltipText,
-			List<Fetish> fetishesForUnlock,
-			List<Fetish> fetishesBlocking,
+			List<AbstractFetish> fetishesForUnlock,
+			List<AbstractFetish> fetishesBlocking,
 			CorruptionLevel corruptionBypass,
 			List<AbstractPerk> perksRequired,
 			Femininity femininityRequired,
@@ -630,6 +630,59 @@ public class ResponseSex extends Response {
 		} else {
 			return (sexManager!=null && sexManager.isPlayerDom()) || dominantSpectators.contains(Main.game.getPlayer());
 		}
+	}
+	
+	/**
+	 * @return true if any subs are not attracted to any doms
+	 */
+	public boolean isNonConWarning() {
+		if(Main.game.isNonConEnabled()) {
+			if(isFromExternalFile) {
+				if(isUsingExternalManager) {
+					try {
+						for(String domId : dominantPositionIds.keySet()) {
+							for(String subId : submissivePositionIds.keySet()) {
+								try {
+									GameCharacter dom = Main.game.getNPCById(domId);
+									GameCharacter sub = Main.game.getNPCById(subId);
+									if(!sub.isAttractedTo(dom)) {
+										return true;
+									}
+								} catch(Exception exInner) {
+								}
+							}
+						}
+					} catch(Exception ex) {
+					}
+				} else {
+					try {
+						for(String domId : dominantIds) {
+							for(String subId : submissiveIds) {
+								try {
+									GameCharacter dom = Main.game.getNPCById(domId);
+									GameCharacter sub = Main.game.getNPCById(subId);
+									if(!sub.isAttractedTo(dom)) {
+										return true;
+									}
+								} catch(Exception exInner) {
+								}
+							}
+						}
+					} catch(Exception ex) {
+					}
+				}
+				
+			} else {
+				for(GameCharacter dom : sexManager.getDominants().keySet()) {
+					for(GameCharacter sub : sexManager.getSubmissives().keySet()) {
+						if(!sub.isAttractedTo(dom) && (sexManager.getForcedSexPace(sub)==null || sexManager.getForcedSexPace(sub)==SexPace.SUB_RESISTING)) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 	
 	public List<InitialSexActionInformation> getInitialSexActions() {

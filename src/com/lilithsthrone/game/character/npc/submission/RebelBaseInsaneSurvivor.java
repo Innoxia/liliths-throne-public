@@ -39,7 +39,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
@@ -59,7 +58,7 @@ public class RebelBaseInsaneSurvivor extends NPC {
     public static final int RECRUITMENT_YEAR = 1990;
     
     public RebelBaseInsaneSurvivor() {
-        this(Gender.M_P_MALE, false);
+        this(Gender.getGenderFromUserPreferences(false, false), false);
     }
     
     public RebelBaseInsaneSurvivor(Gender gender) {
@@ -83,13 +82,13 @@ public class RebelBaseInsaneSurvivor extends NPC {
             // Spawn with level between 12 and 15
             setLevel(12 + Util.random.nextInt(4));
             
-            setName(Name.getRandomTriplet(this.getRace()));
+            setName(Name.getRandomTriplet(this.getSubspecies()));
             this.setPlayerKnowsName(false);
             this.setGenericName("insane survivor");
             this.setEssenceCount(500);
             setDescription(UtilText.parse(this, "While apparently mostly human, [npc.name] has evidently spent a long time underground and has lost [npc.her] mind."));
             
-            Main.game.getCharacterUtils().generateItemsInInventory(this);
+            Main.game.getCharacterUtils().generateItemsInInventory(this, false, false, false);
             this.addItem(Main.game.getItemGen().generateItem(ItemType.MUSHROOM), 10, false, false);
         
             initPerkTreeAndBackgroundPerks();
@@ -199,7 +198,7 @@ public class RebelBaseInsaneSurvivor extends NPC {
         
         this.setMoney(0);
         
-        this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.STOMACH_SARASHI, PresetColour.CLOTHING_WHITE, false), true, this);
+        this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_stomach_sarashi", PresetColour.CLOTHING_WHITE, false), true, this);
         this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_WHITE, false), true, this);
         
         AbstractClothing tunic = Main.game.getItemGen().generateClothing("dsg_hlf_equip_rtunic", false);
@@ -222,11 +221,11 @@ public class RebelBaseInsaneSurvivor extends NPC {
         }
         if(this.isFeminine())
         {
-            this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_PANTIES, false), true, this);
+            this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_panties", false), true, this);
         }
         else
         {
-            this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BRIEFS, false), true, this);
+            this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_briefs", false), true, this);
         }
         
     }

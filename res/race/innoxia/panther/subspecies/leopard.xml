@@ -23,13 +23,13 @@
 		[#targetedBody.updateCoverings(true, true, true, true)]
 	]]></applySubspeciesChanges>
 	<subspeciesWeighting><![CDATA[
-		#IF(targetedRace==RACE_innoxia_panther && targetedBody.getCovering(BODY_COVERING_TYPE_innoxia_panther_fur, true).getPattern()==COVERING_PATTERN_SPOTTED && targetedBody.getCovering(BODY_COVERING_TYPE_innoxia_panther_fur, true).getModifier()==COVERING_MODIFIER_SHORT)
+		#IF(targetedRace==RACE_innoxia_panther && targetedBody.getCovering(BODY_COVERING_TYPE_innoxia_panther_fur, true).getPattern()==COVERING_PATTERN_SPOTTED && targetedBody.getCovering(BODY_COVERING_TYPE_innoxia_panther_fur, true).getModifier()!=COVERING_MODIFIER_FLUFFY)
 			100
 		#ELSE
 			0
 		#ENDIF
 	]]></subspeciesWeighting>
-	<iconName displaySize="80">icon</iconName>
+	<iconName displaySize="100">icon_leopard</iconName>
 	<backgroundName>background_leopard</backgroundName>
 	<bookIconName>icon</bookIconName>
 	<bookName>Big Cats</bookName>

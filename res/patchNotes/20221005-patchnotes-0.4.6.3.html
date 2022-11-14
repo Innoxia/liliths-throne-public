@@ -1,0 +1,79 @@
+<h2>v0.4.6.3</h2>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Fixed issue where combat would sometimes become unresponsive when your companion (most likely your fire elemental) was under the effect of 'Aura Burn'. This also addressed an issue where combat status effects were being added to all NPCs upon game load and not cleared until after that NPC had been in combat. (by CognitiveMist and Maxis010)</li>
+	<li>Fixed bug in the slavery UI where the Affection & Obedience gain/loss would randomly change to unrelated amounts on unrelated jobs when interacting with any buttons. (by Maxis010)</li>
+	<li>Added regular arms and back wings to the raptor race. (PR#1712 by DSG)</li>
+	<li>Typo fixes. (PR#1711 by DuskitGalager)</li>
+	<li>Set the leopard, snow-leopard, and tiger subspecies icons to use the corresponding icons. (PR#1708 by MintyChip)</li>
+	<li>Improved default critical hit tooltips and logic, as the default 'crit on third use' effect was a bit ambiguous and unpredictable. (PR#1706 by CognitiveMist)</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Moved hard-coded tattoo types out into the res folder (located at 'res/tattoos/innoxia').</li>
+	<li>Added ability to set default colours for tattoo mods (see 'res/mods/innoxia/items/tattoos/heartWomb/hear_womb.xml' for a commented example).</li>
+	<li>Added 'PENIS' and 'VAGINA' to ClothingAccess values, allowing you to define clothing as requiring access to the wearer's penis or vagina in order to be equipped (as the existing 'GROIN' value was not specific enough for these slots). If VAGINA or PENIS are defined as a 'bodyPart' in 'blockedBodyParts', these new values will automatically be added, so refactoring of clothing files should not be required.</li>
+	<li>Made several optimisations to save game formatting, which should result in quicker load times and smaller save files. (Testing a gigantic save file reduced size by 20% and slightly reduced loading time.)</li>
+	<li>Mod folders are now listed at the top of the error.log file (to assist in troubleshooting bug reports).</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Added vending machines to the entrance tiles in Submission, and added a vending machine discount card as an additional reward to completing the slime queen side quest (this is added to your inventory if you've already completed it when loading into this version).</li>
+</ul>
+
+<h3>Clothing/Items:</h3>
+<ul>
+	<li>All BDSM and latex clothing now has the 'ENABLE_SEX_EQUIP' tag.</li>
+	<li>The tooltip for filled condoms now lists how much cum is in the condom, whose cum it is (so long as the cum provider has not been removed from the game), and what flavour/modifiers the cum has.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>NPCs will now use condoms in their inventory by equipping them on their partner's penis. (They will not use condoms if they like the associated cum fetish, like getting pregnant, or lack permission to manage clothing.)</li>
+	<li>NPCs will now be able to equip any clothing that's tagged as 'ENABLE_SEX_EQUIP' onto their partners during sex. This requires the NPC to be the dom, their partner to be a sub, and the clothing to not interfere with their sex preferences (i.e. NPCs will not equip chastity cages on their partner if they want to use their partner's cock). BDSM and latex clothing will only be equipped by NPCs who have a positive desire towards the 'bondage applier' fetish.</li>
+	<li>NPCs who don't have a positive desire towards receiving anal will no longer generate 'receiving anal' sex preferences, and NPCs who have a negative desire towards giving anal will likewise no longer generate 'giving anal' sex preferences.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Added tattoos to the debug's item view menu (as the final option, after piercings).</li>
+	<li>Applied transformations, clothing, and tattoo changes to all characters involved in Lunexis's bad ends to reflect what's happened to them in the dialogue.</li>
+	<li>Non-unique, non-slave NPCs will now generate condoms in their inventory (when time passes into a new day) if they have a penis or vagina, are neutral towards or dislike associated cum fetish, are neutral towards or dislike impregnating/getting pregnant, and are are neutral towards or dislike the giving or receiving penis fetishes.</li>
+	<li>The 'Multi breasts' setting now only affects the number of breast rows a character is given at the time of their creation, allowing characters to gain more breast rows via transformations regardless of what this preference is set to.</li>
+	<li>Having a 'massive' lip size no longer causes a character to have a lisp (only the 'gigantic' and 'absurdly colossal' sizes apply a lisp now).</li>
+	<li>When using a potion to transform the type of an NPC's penis, vagina, ass, breast, or crotch-boob, the NPC's affected area will be set as being known to you.</li>
+	<li>Training at Pix's gym no longer rewards you with potentially infinite physical perk points, and instead via training with Pix (unlocked after paying to become a gym member) you can earn a one-off unique perk.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Typo, parsing, and formatting fixes.</li>
+	<li>Fixed bug where even after 'tipping' enough to extend the opening hours for The Creamy Bakery to 07:00-17:00, it would still only let you enter between 09:00-15:00.</li>
+	<li>Fixed issue where newly imported characters at the nightclub could sometimes be marked as having already been encountered that day.</li>
+	<li>Fixed bug which was causing all of the slavery 'pill' permissions to do nothing.</li>
+	<li>Fixed issue where slaves would not properly end their jobs if the player was present in their tile either during the hour of their job ending or the hour prior to that. (This is what was causing milking pumps to sometimes remain on slaves after they'd left the milking room.)</li>
+	<li>Slightly improved tattoo tooltip height.</li>
+	<li>Fixed rendering issue where the 'ears' slot for tattoos would display as being blocked if the character had no hair.</li>
+	<li>Fixed bug where slaves in the shops in Slaver Alley would always be generated with a gender based on user preferences, instead of using a gender that's applicable to their shop.</li>
+	<li>The 'style.random' parsing argument now correctly trims whitespace.</li>
+	<li>Fixed issue where most groin clothing (i.e. underwear) would not prevent clothing from being equipped into/onto the wearer's vagina or penis (e.g. underwear would not block the equipping or removal of condoms, dildos, etc.).</li>
+	<li>Using the 'Quick sex' action now correctly handles condom effects from both partners upon orgasm, instead of only handling it if the sex type involved a penis.</li>
+	<li>The latex bodysuit and latex corset now require access to a character's wait in order to be equipped.</li>
+	<li>The 'Freedom Certification' item now correctly displays it as being consumed on use.</li>
+	<li>Fixed harmless(?) background error sometimes being thrown when setting a slave free.</li>
+	<li>After a slave has been removed from the game (such as when using the 'Freedom Certification'), the occupancy ledger should now correctly display events which involved that deleted slave without throwing background errors.</li>
+	<li>Fixed bug where filled webbing condoms would forget all attributes associated with their cum storage after performing a save and reload.</li>
+	<li>Fixed issue where using the quick-load hotkey would result in the game performing a quick-load twice, thereby doubling the time it took to load your saved game.</li>
+	<li>Significantly improved the time it takes to use the 'arcane offspring map', which should be noticeable in games where the player has hundreds (or even thousands) of offspring.</li>
+	<li>Fixed bug where NPCs in the harpy nests were not being affected by the effects of arcane storms, with the tooltip saying that they were too far away from it to suffer the storm's full effects.</li>
+	<li>Fixed bug in Lyssieth's demon TF sex scene, where if you had a penis and no vagina in the final 'sixty-nine' position, Lyssieth would not fully finish your demon TF at the end of sex, leaving you as a half-demon. (If you have experienced this bug in a previous version, you can use the debug menu's 'Race resets' options to turn yourself into a greater demon to fix it. Type 'buggy' at any point to open the debug menu.)</li>
+	<li>Fixed issue where if you were immobilised in sex (e.g. from being cocooned), and your partner offered you an item (such as a pill), there would be no actions to choose from, effectively soft-locking the game.</li>
+	<li>Fixed issue in some sex scenes where if the player's orgasms were being denied, then the sex scene would never end (e.g. sex scenes in slaver alley's cafes).</li>
+	<li>Fixed issue where the yellow highlighting which indicates that you have perk points to spend would not be removed if you opened and closed the perk menu via clicking on your name in the top-left of the UI rather than through the phone menu.</li>
+	<li>Fixed bug where loading a game which was saved in a version prior to v0.3.7.8 would cause a background error to be thrown when attempting to open inventories.</li>
+	<li>Fixed background parsing errors sometimes being thrown when loading a saved game (related to insufficient checks in the Vagina.setLabiaSize() method).</li>
+	<li>Transforming a character into a taur will no longer pass the 'short stature' cutoff, meaning that imps cannot transform into demons and vice-versa when transforming leg configurations.</li>
+</ul>

@@ -12,6 +12,7 @@ import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
@@ -70,11 +71,13 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 			XMLUtil.addAttribute(doc, element, "colour", this.getColour(0).getId());
 		}
 		
-		Element innerElement = doc.createElement("itemEffects");
-		element.appendChild(innerElement);
-		
-		for(ItemEffect ie : this.getEffects()) {
-			ie.saveAsXML(innerElement, doc);
+		if(!this.getEffects().isEmpty()) {
+			Element innerElement = doc.createElement("itemEffects");
+			element.appendChild(innerElement);
+			
+			for(ItemEffect ie : this.getEffects()) {
+				ie.saveAsXML(innerElement, doc);
+			}
 		}
 		
 		return element;
@@ -94,19 +97,26 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 			}
 			
 			List<ItemEffect> effectsToBeAdded = new ArrayList<>();
-			NodeList element = ((Element) parentElement.getElementsByTagName("itemEffects").item(0)).getElementsByTagName("effect");
-			for(int i = 0; i < element.getLength(); i++){
-				Element e = ((Element)element.item(i));
-				ItemEffect itemEffect = ItemEffect.loadFromXML(e, doc);
-				if(itemEffect != null) {
-					effectsToBeAdded.add(itemEffect);
+			Element ieElement = (Element) parentElement.getElementsByTagName("itemEffects").item(0);
+			if(ieElement!=null) {
+				NodeList element = ieElement.getElementsByTagName("effect");
+				for(int i = 0; i < element.getLength(); i++){
+					Element e = ((Element)element.item(i));
+					ItemEffect itemEffect = ItemEffect.loadFromXML(e, doc);
+					if(itemEffect != null) {
+						effectsToBeAdded.add(itemEffect);
+					}
 				}
+				item.setItemEffects(effectsToBeAdded);
 			}
-			item.setItemEffects(effectsToBeAdded);
+			item.setColour(0,
+					parentElement.getAttribute("colour").isEmpty()
+						?PresetColour.GENERIC_ARCANE
+						:PresetColour.getColourFromId(parentElement.getAttribute("colour")));
 			
 			if(!effectsToBeAdded.isEmpty()
 					&& (item.getItemType().getId().equals(ItemType.ELIXIR.getId()) || item.getItemType().getId().equals(ItemType.POTION.getId()) || item.getItemType().getId().equals(ItemType.ORIENTATION_HYPNO_WATCH.getId()))) {
-				item.setSVGString(EnchantingUtils.getImportedSVGString(item, (parentElement.getAttribute("colour").isEmpty()?PresetColour.GENERIC_ARCANE:PresetColour.getColourFromId(parentElement.getAttribute("colour"))), effectsToBeAdded));
+				item.setSVGString(EnchantingUtils.getImportedSVGString(item, item.getColour(0), effectsToBeAdded));
 			}
 			
 			return item;
@@ -146,6 +156,52 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 			sb.append(UtilText.parse(target, ie.applyEffect(user, target, 1)));
 		}
 		sb.append(UtilText.parse(target, user, this.getItemType().getSpecialEffect()));
+		
+		for(ItemTag tag : this.getItemTags()) {
+			int intoxicationLevel = 0;
+			switch(tag) {
+				case CAFFEINATED_005:
+					intoxicationLevel = 5;
+					break;
+				case CAFFEINATED_010:
+					intoxicationLevel = 10;
+					break;
+				case CAFFEINATED_015:
+					intoxicationLevel = 15;
+					break;
+				case CAFFEINATED_020:
+					intoxicationLevel = 20;
+					break;
+				case CAFFEINATED_025:
+					intoxicationLevel = 25;
+					break;
+				case CAFFEINATED_030:
+					intoxicationLevel = 30;
+					break;
+				case CAFFEINATED_040:
+					intoxicationLevel = 40;
+					break;
+				case CAFFEINATED_050:
+					intoxicationLevel = 50;
+					break;
+				case CAFFEINATED_075:
+					intoxicationLevel = 75;
+					break;
+				case CAFFEINATED_100:
+					intoxicationLevel = 100;
+					break;
+				default:
+					break;
+			}
+			if(intoxicationLevel>0 && target.getRace()==Race.getRaceFromId("charisma_spider")) {
+				sb.append(UtilText.parse(target,
+						"<p style='text-align:center;'>"
+							+ "Due to [npc.her] spider physiology, the caffeine in the "+this.getName()+" acts in a similar manner to alcohol, and as a result [npc.she] [npc.verb(feel)] [npc.herself] getting [style.boldAlcohol(drunk)]..."
+						+ "</p>"));
+				sb.append(user.incrementAlcoholLevel(intoxicationLevel/100f));
+				break;
+			}
+		}
 		
 		return sb.toString();
 	}
@@ -199,7 +255,49 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	
 	@Override
 	public int getValue() {
-		return itemType.getValue(this.getEffects());
+		float modifier = 1;
+		if(this.getEffects().size() > 0) {
+			for(ItemEffect ie : this.getEffects()) {
+				if(ie.getPotency()==null) {
+					continue;
+				}
+				float modIncrease = 0;
+				switch(ie.getPotency()) {
+					case MAJOR_BOOST:
+						modIncrease = 0.05f;
+						break;
+					case BOOST:
+						modIncrease = 0.025f;
+						break;
+					case MINOR_BOOST:
+						modIncrease = 0.01f;
+						break;
+					default:
+						break;
+				}
+				modifier += modIncrease;
+			}
+			
+//			List<TFPotency> potencies = this.getEffects().stream().map(ItemEffect::getPotency).collect(Collectors.toList());
+//			if (potencies.contains(TFPotency.MAJOR_BOOST)) {
+//				modifier += 0.5;
+//			} else if (potencies.contains(TFPotency.BOOST)) {
+//				modifier += 0.3;
+//			} else if (potencies.contains(TFPotency.MINOR_BOOST)) {
+//				modifier += 0.1;
+//			}
+//			
+//			modifier += itemEffects.size()*0.01f;
+		}
+		return (int) (itemType.getValue() * modifier);
+	}
+	
+	public boolean isAppendItemEffectLinesToTooltip() {
+		return this.getItemType().isAppendItemEffectLinesToTooltip();
+	}
+	
+	public List<String> getEffectTooltipLines() {
+		return this.getItemType().getEffectTooltipLines();
 	}
 	
 	public String getExtraDescription(GameCharacter user, GameCharacter target) {
@@ -213,8 +311,13 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 				sb.append("<br/>"+s);
 			}
 		}
-		for(String s : this.getItemType().getEffectTooltipLines()) {
+		for(String s : this.getEffectTooltipLines()) {
 			sb.append("<br/>"+s);
+		}
+		for(ItemTag it : this.getItemTags()) {
+			for(String s : it.getClothingTooltipAdditions()) {
+				sb.append("<br/>"+s);
+			}
 		}
 
 		sb.append("</p>"

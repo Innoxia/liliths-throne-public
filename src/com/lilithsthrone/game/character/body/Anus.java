@@ -78,7 +78,7 @@ public class Anus implements BodyPartInterface {
 		if(owner.isAnusFeral()) {
 			descriptorList.add(Util.randomItemFrom(Util.newArrayListOfValues(
 					"feral",
-					owner.getAssRace().getName(owner, true)+"-",
+					owner.getAssRace().getName(owner.getBody(), true)+"-",
 					"bestial",
 					"animalistic")));
 		} else {
@@ -165,7 +165,7 @@ public class Anus implements BodyPartInterface {
 					transformation = UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a natural amount of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
 					break;
 				case FIVE_UNKEMPT:
-					transformation = UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a unkempt bush of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
+					transformation = UtilText.parse(owner, "<p>[npc.Name] now [npc.has] an unkempt bush of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
 					break;
 				case SIX_BUSHY:
 					transformation = UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a thick, bushy mass of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");

@@ -6,6 +6,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -37,6 +38,17 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.game.sex.GenericSexFlag;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -46,7 +58,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.4.1
- * @version 0.4.1
+ * @version 0.4.4
  * @author Innoxia
  */
 public class Kheiron extends NPC {
@@ -74,6 +86,14 @@ public class Kheiron extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.3.9")) {
+			this.setFaceVirgin(false);
+			this.setAssVirgin(false);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.6.1")) {
+			this.setStartingBody(true);
+		}
 	}
 
 	@Override
@@ -117,7 +137,7 @@ public class Kheiron extends NPC {
 		setBody(Gender.M_P_MALE, Subspecies.CENTAUR, RaceStage.PARTIAL_FULL, false);
 		
 		// Core:
-		this.setHeight(220);
+		this.setHeight(230);
 		this.setFemininity(0);
 		this.setMuscle(100);
 		this.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
@@ -130,18 +150,18 @@ public class Kheiron extends NPC {
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HORSE_MORPH, PresetColour.EYE_HAZEL));
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, PresetColour.EYE_HAZEL));
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_OLIVE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_BROWN_DARK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_BLACK), true);
 
 		this.setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_DARK), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_DARK), false);
 
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, PresetColour.COVERING_BROWN_DARK), true);
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, PresetColour.COVERING_BROWN_DARK), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, PresetColour.COVERING_BLACK), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, PresetColour.COVERING_BLACK), true);
 		this.setHairLength(HairLength.TWO_SHORT.getMedianValue());
-		this.setHairStyle(HairStyle.CURLY);
+		this.setHairStyle(HairStyle.STRAIGHT);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, PresetColour.COVERING_BROWN_DARK), false);
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HORSE_HAIR, PresetColour.COVERING_BROWN_DARK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, PresetColour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HORSE_HAIR, PresetColour.COVERING_BLACK), false);
 		this.setUnderarmHair(BodyHair.FOUR_NATURAL);
 		this.setAssHair(BodyHair.ZERO_NONE);
 		this.setPubicHair(BodyHair.ZERO_NONE);
@@ -155,7 +175,7 @@ public class Kheiron extends NPC {
 //		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_PURPLE));
 		
 		// Face:
-		this.setFaceVirgin(true);
+		this.setFaceVirgin(false);
 		this.setLipSize(LipSize.ONE_AVERAGE);
 //		this.setFaceCapacity(Capacity.FIVE_ROOMY, true);
 		// Throat settings and modifiers
@@ -171,7 +191,7 @@ public class Kheiron extends NPC {
 		// Nipple settings and modifiers
 		
 		// Ass:
-		this.setAssVirgin(true);
+		this.setAssVirgin(false);
 		this.setAssBleached(false);
 		this.setAssSize(AssSize.THREE_NORMAL);
 		this.setHipSize(HipSize.TWO_NARROW);
@@ -263,6 +283,48 @@ public class Kheiron extends NPC {
 	@Override
 	public boolean isAbleToBeImpregnated() {
 		return false;
+	}
+	
+	public void applyGolixCollar(boolean equip) {
+		if(equip) {
+			AbstractClothing collar = Main.game.getItemGen().generateClothing("innoxia_bdsm_choker", PresetColour.CLOTHING_DESATURATED_BROWN_DARK, PresetColour.CLOTHING_BRASS, null, false);
+			collar.setSticker("top_txt", "good");
+			collar.setSticker("btm_txt", "horsie");
+			collar.setName("Kheiron's Good Horsie Collar");
+			
+			collar.clearEffects();
+			
+			if(Main.game.isAnalContentEnabled()) {
+				collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_MOD_FETISH_ANAL_RECEIVING, TFPotency.MAJOR_BOOST, 0));
+			} else {
+				collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_MOD_FETISH_ORAL_RECEIVING, TFPotency.MAJOR_BOOST, 0));
+			}
+			collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_MOD_FETISH_PENIS_RECEIVING, TFPotency.MAJOR_BOOST, 0));
+	
+			collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_SUBMISSIVE, TFPotency.MAJOR_BOOST, 0));
+			collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_MASOCHIST, TFPotency.MAJOR_BOOST, 0));
+			collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_SIZE_QUEEN, TFPotency.MAJOR_BOOST, 0));
+			
+			this.equipClothingFromNowhere(collar, true, this);
+			
+		} else {
+			if(this.getClothingInSlot(InventorySlot.NECK)!=null) {
+				this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.NECK), true, this);
+			}
+		}
+	}
+	
+	public void applyGenericGolixSex(boolean golixIsDom) {
+		SexType st = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS);
+		if(Main.game.isAnalContentEnabled()) {
+			st = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS);
+		}
+		if(golixIsDom) {
+			this.calculateGenericSexEffects(false, true, Main.game.getNpc(Oglix.class).getElemental(), st, GenericSexFlag.NO_DESCRIPTION_NEEDED, GenericSexFlag.PREVENT_LEVEL_DRAIN);
+			
+		} else {
+			Main.game.getNpc(Oglix.class).getElemental().calculateGenericSexEffects(false, true, this, st, GenericSexFlag.NO_DESCRIPTION_NEEDED, GenericSexFlag.PREVENT_LEVEL_DRAIN);
+		}
 	}
 
 }

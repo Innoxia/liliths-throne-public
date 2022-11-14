@@ -14,7 +14,6 @@
 		<clothingSet/>
 		<imageName>slime_queens_tiara.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit/>
 		
 		<effects> 
             <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>

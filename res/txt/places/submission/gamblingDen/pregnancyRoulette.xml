@@ -123,7 +123,7 @@
 		[pc.speech(I'm going to be the one in charge,)] you reply, stepping around behind the counter before moving up next to Epona and giving her [epona.ass+] a firm squeeze.
 	</p>
 	<p>
-		[epona.speech(~Mmm!~ Excellent! Right this way!)] the horse-girl squeals, placing a 'Be back soon' sign on the counter, before quickly leading you towards a a door marked 'Staff Room'. Hurriedly opening it and stepping inside, Epona pulls you after her, and you suddenly find yourself standing in a rather plain-looking staff room, furnished with a couple of leather sofas and a low table.
+		[epona.speech(~Mmm!~ Excellent! Right this way!)] the horse-girl squeals, placing a 'Be back soon' sign on the counter, before quickly leading you towards a door marked 'Staff Room'. Hurriedly opening it and stepping inside, Epona pulls you after her, and you suddenly find yourself standing in a rather plain-looking staff room, furnished with a couple of leather sofas and a low table.
 	</p>
 	<p>
 		Turning to face you, Epona leans in and kisses you hotly on the lips, before pulling back and moaning, [epona.speech(~Mmm!~ Yes! Now come fuck me!)]
@@ -142,7 +142,7 @@
 		[pc.speech(If it's ok with you, could you take charge?)] you ask, stepping around behind the counter before moving up next to Epona.
 	</p>
 	<p>
-		[epona.speech(Of course! Don't you worry, I'll take you for a real good ride! Right this way!)] the horse-girl says, placing a 'Be back soon' sign on the counter, before quickly leading you towards a a door marked 'Staff Room'. Hurriedly opening it and stepping inside, Epona dominantly pulls you after her, and you suddenly find yourself standing in a rather plain-looking staff room, furnished with a couple of leather sofas and a low table.
+		[epona.speech(Of course! Don't you worry, I'll take you for a real good ride! Right this way!)] the horse-girl says, placing a 'Be back soon' sign on the counter, before quickly leading you towards a door marked 'Staff Room'. Hurriedly opening it and stepping inside, Epona dominantly pulls you after her, and you suddenly find yourself standing in a rather plain-looking staff room, furnished with a couple of leather sofas and a low table.
 	</p>
 	<p>
 		Turning to face you, Epona leans in and kisses you hotly on the lips, before pulling back and moaning, [epona.speech(~Mmm!~ Yes! I hope you're ready for a good, hard fucking!)]
@@ -791,9 +791,9 @@
 					#IF(game.getDialogueFlags().hasFlag(FLAG_murkCaptiveBlowjob))
 						A wicked grin instantly crosses Murk's face as he sees that it's you who's come to pay him a visit, and after letting out a loud belch, he spreads his legs and presents you with his exposed groin, sneering,
 						#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
-							 [murk.speech(I's 'appy ta see yer 'ere, slut! Me fat balls ain't been emptied since them Enforcer cunts nabbed me an' 'ad me locked up in 'ere! You's may 'ave escaped from yer milkin' stall, but yer 'ungery fer anotha taste o' me stinkin' cock, ain't ya?! Come on, get down an' give it a kiss, slut!)]
+							 [murk.speech(I's 'appy ta see yer 'ere, slut! Me fat balls ain't been emptied since them Enforcer cunts nabbed me an' 'ad me locked up in 'ere! You's may 'ave escaped from yer milkin' stall, but yer 'ungry fer anotha taste o' me stinkin' cock, ain't ya?! Come on, get down an' give it a kiss, slut!)]
 						#ELSE
-							 [murk.speech(I's 'appy ta see yer 'ere, slut! Me fat balls ain't been emptied since them Enforcer cunts nabbed me an' 'ad me locked up in 'ere! You's may 'ave escaped from yer milkin' stall, but yer 'ungery fer anotha taste o' me stinkin' cum, ain't ya?! Come on, get down an' give it a stroke, slut!)]
+							 [murk.speech(I's 'appy ta see yer 'ere, slut! Me fat balls ain't been emptied since them Enforcer cunts nabbed me an' 'ad me locked up in 'ere! You's may 'ave escaped from yer milkin' stall, but yer 'ungry fer anotha taste o' me stinkin' cum, ain't ya?! Come on, get down an' give it a stroke, slut!)]
 						#ENDIF
 					#ELSE
 						A look of surprise crosses Murk's face as he sees that someone other than Epona has come to pay him a visit, but after letting out a loud belch, he flashes you an arrogant smirk and spreads his legs to present you with his exposed groin. Looking down, you see that although Murk's cock is currently sheathed, it's quite clearly absolutely massive, and you can't help but imagine how disproportionately huge it must look to his relatively short stature when fully erect. Seeing what it is you're glancing at, the rat-boy spits on the floor and sneers,
@@ -903,7 +903,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Doing as you're told, you drop down onto the floor in front of Murk, before leaning in and planting a big, wet kiss on his sheathed cock. Quickly pushing out and rising to full erection in response to your oral attention, Murk's huge, fat cock starts leaking a steady stream of musky precum, and you can't help but lick it up as he grunts, [murk.speech(That's it, slut! Now call me yer Masta an' give me cock one last kiss, then I'll shove it down yer thraot an' give yer face a real good ruttin'!)]
+		Doing as you're told, you drop down onto the floor in front of Murk, before leaning in and planting a big, wet kiss on his sheathed cock. Quickly pushing out and rising to full erection in response to your oral attention, Murk's huge, fat cock starts leaking a steady stream of musky precum, and you can't help but lick it up as he grunts, [murk.speech(That's it, slut! Now call me yer Masta an' give me cock one last kiss, then I'll shove it down yer throat an' give yer face a real good ruttin'!)]
 	</p>
 	<p>
 		[pc.speech(Yes, Master,)] you submissively reply, before planting one last big, wet kiss on the head of your Master's cock.
@@ -1088,13 +1088,13 @@
 	</p>
 	<p>
 		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
-			Doing as you're told, you lean forwards and plant a big, wet kiss on Murk's sheathed cock. The musky smell of his groin overwhelmes your senses as his fat shaft quickly rises into a full erection, and you can't help but let out a hungry whine as you eagerly lap up the salty precum which starts to ooze from the tip.
+			Doing as you're told, you lean forwards and plant a big, wet kiss on Murk's sheathed cock. The musky smell of his groin overwhelms your senses as his fat shaft quickly rises into a full erection, and you can't help but let out a hungry whine as you eagerly lap up the salty precum which starts to ooze from the tip.
 		#ELSE
-			Doing as you're told, you lean forwards and start to lovingly stroke Murk's sheathed cock. The musky smell of his groin overwhelmes your senses as his fat shaft quickly rises into a full erection, and you can't help but let out a hungry whine as you eagerly smear his salty precum over your [pc.fingers+].
+			Doing as you're told, you lean forwards and start to lovingly stroke Murk's sheathed cock. The musky smell of his groin overwhelms your senses as his fat shaft quickly rises into a full erection, and you can't help but let out a hungry whine as you eagerly smear his salty precum over your [pc.fingers+].
 		#ENDIF
 	</p>
 	<p>
-		Letting out yet another deep grunt, Murk scratches his chubby belly and sneers, [murk.speech(That's it, slut! You's me good submissive bitch, ain' ya? Now ta use ya ta 'elp me empty me balls! Heh-heh-heh!)]
+		Letting out yet another deep grunt, Murk scratches his chubby belly and sneers, [murk.speech(That's it, slut! You's me good submissive bitch, ain't ya? Now ta use ya ta 'elp me empty me balls! Heh-heh-heh!)]
 	</p>
 	]]>
 	</htmlContent>

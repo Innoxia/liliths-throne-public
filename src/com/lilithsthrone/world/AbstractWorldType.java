@@ -9,6 +9,7 @@ import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -45,6 +46,10 @@ public abstract class AbstractWorldType {
 	private String deskName;
 	private boolean wallsPresent;
 	private String wallName;
+
+	private int majorAreaIndex;
+
+	private String offspringTextFilePath;
 
 	private AbstractPlaceType globalMapLocation;
 	private AbstractPlaceType standardPlace;
@@ -85,11 +90,15 @@ public abstract class AbstractWorldType {
 		this.wallsPresent = true; // Default to true for hard coded values, as these are all Dominion/Submission (which obviously have walls)
 		this.wallName = "wall";
 		
+		this.offspringTextFilePath = "characters/offspring/dominionAlleyway";
+		
 		this.teleportPermissions = teleportPermissions;
 		
 		this.fileLocation = fileLocation;
 		this.usesFile = true;
 		this.placesMap = placesMap;
+		
+		this.majorAreaIndex = 0;
 	}
 	
 	public AbstractWorldType(File XMLFile, String author, boolean mod) {
@@ -144,6 +153,12 @@ public abstract class AbstractWorldType {
 						this.wallName = coreElement.getMandatoryFirstOf("wallsPresent").getAttribute("wallName");
 					}
 				}
+
+				if(coreElement.getOptionalFirstOf("majorAreaIndex").isPresent()) {
+					majorAreaIndex = Integer.valueOf(coreElement.getMandatoryFirstOf("majorAreaIndex").getTextContent().trim());
+				} else {
+					majorAreaIndex = 0;
+				}
 				
 				this.loiteringEnabled = Boolean.valueOf(coreElement.getMandatoryFirstOf("loiteringEnabled").getTextContent().trim());
 				this.flightEnabled = Boolean.valueOf(coreElement.getMandatoryFirstOf("flightEnabled").getTextContent().trim());
@@ -162,6 +177,13 @@ public abstract class AbstractWorldType {
 						placesMap.put(Color.decode(e.getAttribute("colour")), PlaceType.getPlaceTypeFromId(e.getTextContent()));
 					} catch(Exception ex) {
 						System.err.println("WorldType loading error in '"+XMLFile.getName()+"': PlaceType '"+e.getTextContent()+"' not recognised! (Not added)");
+					}
+				}
+				
+				this.offspringTextFilePath = "characters/offspring/dominionAlleyway";
+				if(coreElement.getOptionalFirstOf("offspringTextFilePath").isPresent()) {
+					if(!coreElement.getMandatoryFirstOf("offspringTextFilePath").getTextContent().isEmpty()) {
+						this.offspringTextFilePath = coreElement.getMandatoryFirstOf("offspringTextFilePath").getTextContent();
 					}
 				}
 				
@@ -198,6 +220,10 @@ public abstract class AbstractWorldType {
 //		throw new IllegalAccessError();
 		System.err.println("Warning: AbstractWorldType's toString() method is being called!");
 		return super.toString();
+	}
+
+	public String getOffspringTextFilePath(NPCOffspring o) {
+		return offspringTextFilePath;
 	}
 
 	public boolean isMod() {
@@ -315,5 +341,19 @@ public abstract class AbstractWorldType {
 	 */
 	public String getWallName() {
 		return wallName;
+	}
+
+	/**
+	 * @return The index which this world should be placed at. Returns Integer.MAX_VALUE if it's not a major world which requires ordering.
+	 */
+	public int getMajorAreaIndex() {
+		if(majorAreaIndex<=0) {
+			return Integer.MAX_VALUE;
+		}
+		return majorAreaIndex;
+	}
+	
+	public boolean isMajorArea() {
+		return getMajorAreaIndex()>0 && getMajorAreaIndex()!=Integer.MAX_VALUE;
 	}
 }

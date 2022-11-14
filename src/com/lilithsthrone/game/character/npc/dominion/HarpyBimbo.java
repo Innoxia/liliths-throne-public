@@ -48,6 +48,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -66,7 +67,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.8
- * @version 0.2.11
+ * @version 0.4.4
  * @author Innoxia
  */
 public class HarpyBimbo extends NPC {
@@ -108,6 +109,9 @@ public class HarpyBimbo extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.20")) {
 			this.setSkinCovering(new Covering(BodyCoveringType.HARPY_SKIN, PresetColour.SKIN_YELLOW), false);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.4")) {
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_TANNED), true);
 		}
 	}
 
@@ -152,7 +156,7 @@ public class HarpyBimbo extends NPC {
 		
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, PresetColour.EYE_AQUA));
 		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, PresetColour.COVERING_BLEACH_BLONDE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_LIGHT), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_TANNED), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HARPY_SKIN, PresetColour.SKIN_YELLOW), false);
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, PresetColour.COVERING_BLEACH_BLONDE), true);
@@ -223,7 +227,7 @@ public class HarpyBimbo extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_eye_aviators", PresetColour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_VSTRING, PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_vstring", PresetColour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_CROPTOP_BRA, PresetColour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, PresetColour.CLOTHING_BLUE_LIGHT, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_micro_skirt_belted", PresetColour.CLOTHING_BLUE_LIGHT, PresetColour.CLOTHING_SILVER, null, false), true, this);
@@ -308,7 +312,7 @@ public class HarpyBimbo extends NPC {
 				}
 			};
 		} else {
-			return new Response("", "", HarpyNestBimbo.HARPY_NEST_BIMBO_FIGHT_LOSE_TO_MATRIARCH);
+			return new Response("", "", DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_bimbo_combat_lost_matriarch"));
 		}
 	}
 	
@@ -324,6 +328,22 @@ public class HarpyBimbo extends NPC {
 		}
 		
 		return super.getItemUseEffects(item, itemOwner, user, target);
+	}
+	
+	public void applyBadEndClothing(GameCharacter target) {
+		target.unequipAllClothingIntoVoid(true, true);
+		
+		target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_shimapan", PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_WHITE, null, false), true, target);
+		target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_STRIPED_BRA, PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_WHITE, null, false), true, target);
+		
+		target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_VIRGIN_KILLER_SWEATER, PresetColour.CLOTHING_PINK_LIGHT, false), true, target);
+
+		target.setPiercedEar(true);
+		target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_GOLD, false), true, target);
+		target.setPiercedNose(true);
+		target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_nose_ball_stud", PresetColour.CLOTHING_GOLD, false), true, target);
+		target.setPiercedNipples(true);
+		target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_basic_barbell_pair", PresetColour.CLOTHING_GOLD, false), true, target);
 	}
 
 }

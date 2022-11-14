@@ -44,6 +44,7 @@ import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -200,7 +201,7 @@ public class HarpyDominantCompanion extends NPC {
 
 		this.unequipAllClothingIntoVoid(true, true);
 
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_THONG, PresetColour.CLOTHING_RED, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_thong", PresetColour.CLOTHING_RED, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_PLUNGE_BRA, PresetColour.CLOTHING_RED, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_SKATER_DRESS, PresetColour.CLOTHING_WHITE, false), true, this);
 
@@ -228,6 +229,11 @@ public class HarpyDominantCompanion extends NPC {
 		} else {
 			return "#E36D71";
 		}
+	}
+
+	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
 	}
 	
 	@Override
@@ -261,7 +267,7 @@ public class HarpyDominantCompanion extends NPC {
 		if (victory) {
 			return new Response("", "", HarpyNestDominant.HARPY_NEST_DOMINANT_FIGHT_BEAT_PET);
 		} else {
-			return new Response("", "", HarpyNestDominant.HARPY_NEST_DOMINANT_FIGHT_LOSE);
+			return new Response("", "", DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_dominant_combat_lost"));
 		}
 	}
 

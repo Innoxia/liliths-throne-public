@@ -249,11 +249,11 @@ public class Heather extends NPC {
 		this.setMoney(5000);
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_crotchless_thong", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_stockings", PresetColour.CLOTHING_BLACK, false), true, this);
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_hat_wide", PresetColour.CLOTHING_GREY_DARK, PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_CHOKER, PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_SILVER, null, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_choker", PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_SILVER, null, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_dress", PresetColour.CLOTHING_GREY_DARK, PresetColour.CLOTHING_SILVER, null, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_boots_thigh_high", PresetColour.CLOTHING_GREY_DARK, PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_BLACK, false), true, this);
 		
@@ -462,14 +462,16 @@ public class Heather extends NPC {
 
 	@Override
 	public void applyItemTransactionEffects(AbstractCoreItem itemSold, int quantity, int individualPrice, boolean soldToPlayer) {
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.removeTraderDescription, true);
-		UtilText.addSpecialParsingString(itemSold.getName(), true);
-		
-		if((itemSold instanceof AbstractClothing) && itemSold.getName().contains("Heather's")) {
-			Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/fields/elis/market", "FORTUNES_TRANSACTION_TICKET"));
-			Main.game.appendToTextStartStringBuilder(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_quest_faire_ticket"), false, true));
-		} else {
-			Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/fields/elis/market", "FORTUNES_TRANSACTION_NO_TICKET"));
+		if(soldToPlayer) {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.removeTraderDescription, true);
+			UtilText.addSpecialParsingString(itemSold.getName(), true);
+			
+			if((itemSold instanceof AbstractClothing) && itemSold.getName().contains("Heather's")) {
+				Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/fields/elis/market", "FORTUNES_TRANSACTION_TICKET"));
+				Main.game.appendToTextStartStringBuilder(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_quest_faire_ticket"), false, true));
+			} else {
+				Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/fields/elis/market", "FORTUNES_TRANSACTION_NO_TICKET"));
+			}
 		}
 	}
 	

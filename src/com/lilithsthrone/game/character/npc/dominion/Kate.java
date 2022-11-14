@@ -191,7 +191,7 @@ public class Kate extends NPC {
 				
 				this.addTattoo(InventorySlot.TORSO_OVER,
 						new Tattoo(
-							TattooType.BUTTERFLIES,
+							"innoxia_animal_butterflies",
 							PresetColour.CLOTHING_PURPLE,
 							PresetColour.CLOTHING_PINK,
 							PresetColour.CLOTHING_PINK_LIGHT,
@@ -201,7 +201,7 @@ public class Kate extends NPC {
 				
 				this.addTattoo(InventorySlot.TORSO_UNDER,
 						new Tattoo(
-							TattooType.TRIBAL,
+							"innoxia_symbol_tribal",
 							PresetColour.CLOTHING_BLACK,
 							null,
 							null,
@@ -304,10 +304,10 @@ public class Kate extends NPC {
 
 		this.setMoney(10);
 
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_VSTRING, PresetColour.CLOTHING_PINK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_vstring", PresetColour.CLOTHING_PINK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_micro_skirt_belted", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, PresetColour.CLOTHING_PINK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_OVER_WOMENS_LEATHER_JACKET, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torsoOver_womens_leather_jacket", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_fishnets", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_heels", PresetColour.CLOTHING_BLACK, false), true, this);
 
@@ -540,7 +540,7 @@ public class Kate extends NPC {
 	
 	@Override
 	public String getCondomEquipEffects(AbstractClothingType condomClothingType, GameCharacter equipper, GameCharacter target, boolean rough) {
-		if(Main.game.isInSex()) {
+		if(!target.equals(equipper) && Main.game.isInSex()) {
 			if(!target.isPlayer()) {
 				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
 					return null;

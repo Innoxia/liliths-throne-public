@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.misc;
 
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -12,13 +13,10 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
-import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.Relationship;
-import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -52,69 +50,60 @@ public class NPCOffspring extends NPC {
 				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 	}
 	
+	public NPCOffspring(OffspringSeed os) {
+		super(false, os.nameTriplet, os.surname, os.description,
+				0, os.getBirthday().getMonth(), os.getBirthday().getDayOfMonth(),
+				1, os.body.getGender(), os.subspecies, os.body.getRaceStage(), new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
+		
+		this.birthday = LocalDateTime.of(os.getBirthday().getYear(), this.getBirthday().getMonth(), this.getBirthday().getDayOfMonth(), this.getBirthday().getHour(), this.getBirthday().getMinute());
+		this.conceptionDate = os.conceptionDate;
+		this.motherName = os.getMotherName();
+		this.motherFemininity = os.getMotherFemininity();
+		this.motherSubspecies = os.getMotherSubspecies();
+		this.fatherName = os.getFatherName();
+		this.fatherFemininity = os.getFatherFemininity();
+		this.fatherSubspecies = os.getFatherSubspecies();
+		this.incubatorName = os.getIncubatorName();
+		this.incubatorFemininity = os.getIncubatorFemininity();
+		this.incubatorSubspecies = os.getIncubatorSubspecies();
 
-	public NPCOffspring(GameCharacter mother, GameCharacter father) {
-		this(mother, father, father.getTrueSubspecies(), father.getHalfDemonSubspecies());
-	}
-	
-	public NPCOffspring(GameCharacter mother, GameCharacter father, AbstractSubspecies fatherSubspecies, AbstractSubspecies fatherHalfDemonSubspecies) {
-		super(false, null, null, "",
-				0, Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(),
-				3,
-				null, null, null,
-				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
-		
-		if(mother.getTrueSubspecies()==Subspecies.LILIN || mother.getTrueSubspecies()==Subspecies.ELDER_LILIN) {
-			this.setSurname(mother.getName(false)+"martuilani");
-			
-		} else if(father!=null && (father.getTrueSubspecies()==Subspecies.LILIN || father.getTrueSubspecies()==Subspecies.ELDER_LILIN)) {
-			this.setSurname(father.getName(false)+"martuilani");
-				
-		} else if(mother.getSurname()!=null && !mother.getSurname().isEmpty()) {
-			this.setSurname(mother.getSurname());
-		}
-		
+        // The body should be copied from the one generated earlier
+        this.body = os.getBody();
+        this.body.calculateRace(this);
+
 		// Set random level from 1 to 3:
 		setLevel(Util.random.nextInt(3) + 1);
 		
-		// BODY GENERATION:
-		
-		Gender gender = Gender.getGenderFromUserPreferences(false, false);
-		Body preGeneratedBody = null;
-		if(father!=null) {
-			preGeneratedBody = AbstractSubspecies.getPreGeneratedBody(this, gender, mother, father);
-		} else {
-			preGeneratedBody = AbstractSubspecies.getPreGeneratedBody(this, gender, mother.getTrueSubspecies(), mother.getHalfDemonSubspecies(), fatherSubspecies, fatherHalfDemonSubspecies);
-		}
-		if(preGeneratedBody!=null) {
-			setBody(preGeneratedBody, true);
-		} else {
-			setBody(gender, mother, father, true);
-		}
-		
 		setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(getGender()));
-
-		setName(Name.getRandomTriplet(getRace()));
-
-		this.setMother(mother);
-		this.setAffection(mother, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
 		
-		if(father!=null) {
-			this.setFather(father);
-			this.setAffection(father, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+		if(os.getMother()!=null) {
+			this.setMother(os.getMother());
+			this.setAffection(os.getMother(), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+		}
+		
+		if(os.getFather()!=null) {
+			this.setFather(os.getFather());
+			this.setAffection(os.getFather(), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+		}
+		
+		if(os.getIncubator()!=null) {
+			this.setIncubator(os.getIncubatorId());
+			this.setAffection(os.getIncubator(), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
 		}
 		
 		// PERSONALITY & BACKGROUND:
 		
-		Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
+        Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
+        // Undo any name change when spawned as prostitute:
+        this.setName(os.nameTriplet);
 		
 		// ADDING FETISHES:
 		
 		Main.game.getCharacterUtils().addFetishes(this);
-
+		
 		// BODY RANDOMISATION:
 		
-		Main.game.getCharacterUtils().randomiseBody(this, true);
+		Main.game.getCharacterUtils().randomiseBody(this, false);
 		
 		// INVENTORY:
 		
@@ -124,14 +113,26 @@ public class NPCOffspring extends NPC {
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		
 		Main.game.getCharacterUtils().applyMakeup(this, true);
-
+		Main.game.getCharacterUtils().applyTattoos(this, true);
+		
 		initHealthAndManaToMax();
-
+		
 		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
+		
+		String npcId = Main.game.safeAddNPC(this, false);
+		if(os.getMother()!=null) {
+			os.getMother().swapLitters(os.getId(), npcId);
+		}
+		if(os.getFather()!=null){
+			os.getFather().swapLitters(os.getId(), npcId);
+		}
+		if(os.getIncubator()!=null){
+			os.getIncubator().swapLitters(os.getId(), npcId);
+		}
+		Main.game.getOffspring().add(this);
+		Main.game.removeOffspringSeed(os);
 	}
 	
-	
-
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
@@ -154,7 +155,7 @@ public class NPCOffspring extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
-		Main.game.getCharacterUtils().generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 
 		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
 			Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.PROSTITUTE, settings);
@@ -206,10 +207,10 @@ public class NPCOffspring extends NPC {
 						+ getRelationshipFromPlayer()
 						+ " [npc.She] was conceived on "+Units.date(this.getConceptionDate(), Units.DateType.LONG)+", and "
 						+(daysToBirth==0
-							?"later that same day"
-							:daysToBirth>1?Util.intToString(daysToBirth)+" days later":Util.intToString(daysToBirth)+" day later")
+							?"later that same day "
+							:daysToBirth>1?Util.intToString(daysToBirth)+" days later ":Util.intToString(daysToBirth)+" day later ")
 						+(this.getMother()!=null && this.getMother().isPlayer()
-							?" you gave birth to [npc.herHim]."
+							?(this.getIncubator()!=null && !this.getIncubator().isPlayer()?this.getIncubator().getName():"you")+" gave birth to [npc.herHim]."
 							:" [npc.she] was born.")
 						+ " You first encountered [npc.herHim] prowling the alleyways of Dominion, and, through some arcane-influenced instinct, you both recognised your relationship at first sight."));
 	}

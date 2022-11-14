@@ -83,7 +83,7 @@ public class Elemental extends NPC {
 					:summoner.getBirthMonth(),
 				summoner==null
 					?1
-					:summoner.getBirthMonth()==Month.FEBRUARY&&summoner.getDayOfBirth()==29?28:summoner.getDayOfBirth(),
+					:summoner.getDayOfBirth(),
 				20,
 				gender,
 				Subspecies.DEMON, RaceStage.GREATER,
@@ -92,13 +92,15 @@ public class Elemental extends NPC {
 		if(!isImported) {
 //			this.setLocation(summoner, false);
 			
-			setLevel(summoner.getLevel());
+			setLevel(summoner==null?1:summoner.getLevel());
 			
 			this.setSummoner(summoner);
-			this.setSurname(this.getSummoner().getNameIgnoresPlayerKnowledge()+"kamu"); // Akkadian for bind
+			this.setSurname(summoner==null?"":this.getSummoner().getNameIgnoresPlayerKnowledge()+"kamu"); // Akkadian for bind
 			this.setStartingBody(true);
 			setPassiveForm(null);
-			this.setAffection(getSummoner(), 100);
+			if(summoner!=null) {
+				this.setAffection(getSummoner(), 100);
+			}
 			
 			this.setLegType(LegType.DEMON_COMMON);
 			
@@ -108,7 +110,7 @@ public class Elemental extends NPC {
 			
 			setSexualOrientation(SexualOrientation.AMBIPHILIC);
 	
-			setName(Name.getRandomTriplet(Race.DEMON));
+			setName(Name.getRandomTriplet(Subspecies.DEMON));
 			this.setPlayerKnowsName(true);
 			
 			// INVENTORY:
@@ -452,7 +454,9 @@ public class Elemental extends NPC {
 	}
 	
 	public void setSummoner(GameCharacter summoner) {
-		this.summonerID = summoner.getId();
+		if(summoner!=null) {
+			this.summonerID = summoner.getId();
+		}
 	}
 
 	public boolean isActive() {

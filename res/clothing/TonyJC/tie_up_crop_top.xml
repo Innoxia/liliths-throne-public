@@ -29,42 +29,30 @@
 		
 		<imageEquippedName/> 
 		
-		<enchantmentLimit/>
-		
 		<effects/>
 		
 		<blockedPartsList> 
 			<blockedParts>
 				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				
 				<clothingAccessRequired> 
 					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>HEAD</clothingAccess>
 				</clothingAccessRequired>
-				
-				<blockedBodyParts>
-					<bodyPart>BACK</bodyPart>
-				</blockedBodyParts>
-				
+				<blockedBodyParts/>
 				<clothingAccessBlocked/>
-				
 				<concealedSlots/>
 			</blockedParts>
 			
 			<blockedParts>
-				<displacementType>UNTIE</displacementType> 
-				
+				<displacementType>UNTIE</displacementType>
 				<clothingAccessRequired/>
-				
 				<blockedBodyParts>
 					<bodyPart>NIPPLES</bodyPart>
-					<bodyPart>BACK</bodyPart>
 				</blockedBodyParts>
-				
 				<clothingAccessBlocked>
 					<clothingAccess>CHEST</clothingAccess>
 				</clothingAccessBlocked>
-				
-				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO_STOMACH_VISIBLE"/>
 			</blockedParts>
 			
 		</blockedPartsList>

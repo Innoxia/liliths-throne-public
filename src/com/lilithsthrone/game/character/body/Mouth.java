@@ -82,24 +82,21 @@ public class Mouth implements BodyPartInterface {
 	}
 	
 	public String getLipsNameSingular(GameCharacter gc) {
-		return UtilText.returnStringAtRandom("lip");
+		return type.getLipsNameSingular(gc);
 	}
 	
 	public String getLipsNamePlural(GameCharacter gc) {
-		return UtilText.returnStringAtRandom("lips");
+		return type.getLipsNamePlural(gc);
 	}
 
 	public String getLipsDescriptor(GameCharacter gc) {
 		List<String> descriptorList = new ArrayList<>();
 		
-		if(!Main.game.isInSex() || getLipSize()!=LipSize.ONE_AVERAGE) {
+		if(type.isLipsDescriptorSizeAllowed(gc) && (!Main.game.isInSex() || getLipSize()!=LipSize.ONE_AVERAGE)) {
 			descriptorList.add(getLipSize().getName());
 		}
 		
-		if (gc.isFeminine()) {
-			descriptorList.add("soft");
-			descriptorList.add("delicate");
-		}
+		descriptorList.addAll(type.getLipsDescriptors(gc));
 
 		return Util.randomItemFrom(descriptorList);
 	}

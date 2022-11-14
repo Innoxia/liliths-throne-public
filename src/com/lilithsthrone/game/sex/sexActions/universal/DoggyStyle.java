@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.SexAreaInterface;
@@ -655,12 +656,25 @@ public class DoggyStyle {
 
 		@Override
 		public String getDescription() {
-			return UtilText.returnStringAtRandom(
-					"Turning [npc.her] head back, [npc.name] [npc.verb(look)] up at [npc2.name] and [npc.verb(bite)] [npc.her] [npc.lip], putting on [npc.her] most seductive look as [npc.she] [npc.verb(entice)] [npc2.herHim] to use [npc.herHim].",
-					"Looking back at [npc2.name] as [npc2.she] [npc2.verb(tower)] over [npc.her] [npc.ass+], [npc.name] [npc.verb(put)] on a seductive look,"
-							+ " [npc.moaning] in delight as [npc.she] [npc.verb(entice)] [npc2.herHim] into using [npc.her] body.",
-					"[npc.Name] [npc.verb(turn)] [npc.her] head and [npc.verb(bite)] [npc.her] [npc.lip] at [npc2.name], doing [npc.her] best to look as seductive as possible.",
-					"Looking back, [npc.name] [npc.verb(put)] on a seductive look for [npc2.name], feeling extremely pleased with [npc.herself] as [npc.she] [npc.verb(see)] [npc2.herHim] gazing hungrily down at [npc.herHim] in return.");
+			if(Main.sex.getCharacterPerformingAction().getSubspecies()==Subspecies.getSubspeciesFromId("innoxia_raptor_subspecies_owl")
+					&& Main.sex.getCharacterPerformingAction().getFaceType().getRace()==Race.getRaceFromId("innoxia_raptor")) {
+				return UtilText.returnStringAtRandom(
+						"In a rather creepy and alarming move, [npc.name] [npc.verb(use)] the mobility of [npc.her] owl-like neck to twist [npc.her] head a full one hundred and eighty degrees,"
+								+ " before looking up at [npc2.name] and putting on [npc.her] most seductive look as [npc.she] [npc.verb(entice)] [npc2.herHim] to use [npc.herHim].",
+						"Fully twisting [npc.her] owl-like neck around, [npc.name] [npc.verb(end)] up looking straight up at [npc2.name] as [npc2.she] [npc2.verb(tower)] over [npc.her] [npc.ass+]."
+								+ " Hoping that this alarming and slightly creepy move won't prove to be a turn-off, [npc.name] [npc.verb(put)] on a seductive look,"
+								+ " [npc.moaning] in delight as [npc.she] [npc.verb(entice)] [npc2.name] into using [npc.her] body.",
+						"Making use of the large range of movement which [npc.her] owl-like neck grants [npc.herHim], [npc.name] [npc.verb(turn)] [npc.her] head fully around so that [npc.sheIs] facing [npc2.name] without moving [npc.her] body,"
+								+ " before doing [npc.her] best to look as seductive as possible.");
+				
+			} else {
+				return UtilText.returnStringAtRandom(
+						"Turning [npc.her] head back, [npc.name] [npc.verb(look)] up at [npc2.name] and [npc.verb(bite)] [npc.her] [npc.lip], putting on [npc.her] most seductive look as [npc.she] [npc.verb(entice)] [npc2.herHim] to use [npc.herHim].",
+						"Looking back at [npc2.name] as [npc2.she] [npc2.verb(tower)] over [npc.her] [npc.ass+], [npc.name] [npc.verb(put)] on a seductive look,"
+								+ " [npc.moaning] in delight as [npc.she] [npc.verb(entice)] [npc2.herHim] into using [npc.her] body.",
+						"[npc.Name] [npc.verb(turn)] [npc.her] head and [npc.verb(bite)] [npc.her] [npc.lip] at [npc2.name], doing [npc.her] best to look as seductive as possible.",
+						"Looking back, [npc.name] [npc.verb(put)] on a seductive look for [npc2.name], feeling extremely pleased with [npc.herself] as [npc.she] [npc.verb(see)] [npc2.herHim] gazing hungrily down at [npc.herHim] in return.");
+			}
 		}
 	};
 	

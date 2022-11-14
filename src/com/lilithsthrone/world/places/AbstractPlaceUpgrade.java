@@ -6,6 +6,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.sex.ImmobilisationType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
@@ -113,6 +114,10 @@ public abstract class AbstractPlaceUpgrade {
 	public boolean isCoreRoomUpgrade() {
 		return isCoreRoomUpgrade;
 	}
+	
+	public ImmobilisationType getImmobilisationType() {
+		return null;
+	}
 
 	public Colour getColour() {
 		return colour;
@@ -135,7 +140,7 @@ public abstract class AbstractPlaceUpgrade {
 	}
 
 	/**
-	 * @return An SVG that should be ued for the cell's tile when this upgrade is in place. Returns null by default.
+	 * @return An SVG that should be used for the cell's tile when this upgrade is in place. Returns null by default.
 	 */
 	public String getSVGOverride() {
 		return null;
