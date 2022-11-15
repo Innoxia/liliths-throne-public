@@ -10,22 +10,66 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where you'd be unable to change your ass/facial/pubic/underarm hair values in Kate's shop. (by Maxis)
 		Fixed issue where NPCs' 'fleshSubspecies' variable would unintentionally get set to Subspecies.HUMAN, even if it shouldn't be a human. (by Stadler76)
 	
+	Engine/Modding:
+		Moved all 'Over-torso' clothing entries from being hard-coded into the external 'res/clothing/innoxia/torsoOver' folder.
+	
+	Sex:
+		The 'Automatic stripping' content option no longer causes spectating NPCs to be stripped a the start of sex.
+		Characters who are in the 'resisting' pace during sex will now correctly respond to an orgasm denial by using the 'Denied!' action.
+		When removing the seal on an item and then taking it off during sex, the auto-equip after the sex scene will now trigger the item's sealed state, thereby re-sealing it back onto the character.
+	
+	Other:
+		Slightly improved colours in clothing/tattoo UI.
+	
+	Bugs:
+		Formatting fixes.
+		Fixed bug in the self-transformation UI where the buttons that increase/decrease a character's udder/crotchboob lactation were setting the lactation based on the character's regular breast lactation.
+		Fixed issue where if an NPC's 'pet name' was 'Mr./Mrs./Miss X', it would not automatically change based on their femininity.
+		Slaves who are only wearing milking equipment will no longer be described as taking off their clothes prior to being inspected.
+		The imp guards for each of the three demons in Submission's fortresses no longer spawn with condoms/clothing in their inventories, thereby preventing them from interfering in sex scenes with the demons.
+		Fixed issue with salamander cum always being called simply 'salamander' instead of 'salamander-cum'.
+		Fixed inconsistency in dialogue when submitting to a demon in the alleyways of Dominion, where it was implied that the demon would be growing a cock even though they didn't do that.
+	
 	
 	
 	[x] 4 pings in developers
+	[x] bug reports
+		[-] the most recent build breaks getting a tramp stamp tattoo after submitting and becoming a bitch for a hostile NPC. The womb tattoo still works as normal, however
+		[x] 'Bow down' should be marked as sex
+		[x] tattoo background should be lighter grey, like for clothing/weapons
+		[x] the MC addresses a male dark alley encounter NPC (demon) as "Miss" - in 'Leg Lock' sex action
+		[x] Game treats milking equipment as clothing. As a result if you inspect a naked slave who is being milked, it displays text stating you ordered them to take off their clothes and strip
+			"Deciding that you'd like to inspect {Char}'s body, you order her to strip naked, before taking a step back in order to get a better view of her.​"
+		[x] When I sex a slave in the milking room, auto-strip strips all of the watching NPCs of their milking equipment. Hard to say this is intended. All these slaves are nude except for piercings and breast pumps
+			[x] change setting behaviour to strip only non-spectators
+		[x] NPCs in Resisting pace seem unable/unwilling to react with the Denied! action when denied during sex which means they don't get the second arousal reduction and you are unable to further deny them until you change the pace,
+			 at which point they'll do as they are supposed to and immediately react with Denied!. Tested on an NPC with the Unwilling Fuck-toy fetish but I wouldn't be surprised if this was the case across all instances. 
+		[-] So had a bug where everytime stage one pregnancy reached its end. It would just reset back to stage 1
+		[x] When removing the seal on an item and then taking it off during sex, the auto-equip after the sex scene will not trigger the item's sealed state, meaning the NPCs can take that item off again without you having to unseal it in the first place.
+			Tested on a collar: During sex, used key and then removed it. After the sex, the collar was re-equipped alongside all the NPCs clothes, but the collar was no longer sealed.
+		[-] A lot of male characters put on condoms regardless of kinks and I had a bug where my character kept trying to put a condom on Ralph during his breeding scene
+		[x] I'm experiencing something similar. The imps that are present during Jhortax's breeding scene keep inserting things into my character/equipping condoms to Jhortax.
+		[x] Not so much a bug, but the status effect of a TF enchantment is missing the word cum
+			"an extreme amount of salamander"
+			While funny it should say "an extreme amount of salamander cum/jizz/cream"
+		[x] The "Submit to succubus"-Text implies they're growing a dick, but none of them do
+	[x] move more clothing out to res
+	
+	[] Playthrough notes
+		- NPCs should say what their preferences are at the start of sex
+		- You have not discovered... text should mention Lilaya
+		- Ralph discount actions need titles
+		- Ralph discount customers should only appear on turn2+, and never in a row
 	
 	[] Elizabeth sex content
 		Ace - Line 510 in the todo_list or thereabouts
 	
 	[] Astrapi impregnation
 	
-	[] github permissions
-	
 	[] Update build instructions (Dream's message in tech):
 		Fatal error compiling: invalid flag: --release and lambda expressions are not supported in -source (number with comma here)
 		
-	[] Game treats milking equipment as clothing. As a result if you inspect a naked slave who is being milked, it displays text stating you ordered them to take off their clothes and strip
-		"Deciding that you'd like to inspect {Char}'s body, you order her to strip naked, before taking a step back in order to get a better view of her.​"
+	[] github permissions
 	
 	[] Really need to fix the isAbleToUnequip() method in CharacterInventory
 	
@@ -137,6 +181,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Honeybitterchip
 	
 	Silence/Shadow mini-quest
+	
+	[] When you add the enforcer content in Elis please add a coffee machine and let us share a cup of coffee with the officers while chatting
 	
 	[] NPC TFs
 		[] The eagle morph seems to be stuck at the leg Tf, owl morph seems to get stuck with the eye-TF,  falcon morph works as intended. 

@@ -793,13 +793,15 @@ public class Sex {
 								+ "</p>");
 				}
 				
-			} else if(Main.getProperties().hasValue(PropertyValue.autoSexStrip) && !character.isPlayer()) {
+			} else if(Main.getProperties().hasValue(PropertyValue.autoSexStrip) && !character.isPlayer() && !Main.sex.isSpectator(character)) {
+				boolean anyClothingStripped = false;
 				clothingToStrip.clear();
 				clothingToStrip.addAll(character.getClothingCurrentlyEquipped());
 				clothingToStrip.removeIf(c -> c.getSlotEquippedTo().isJewellery() || c.isMilkingEquipment());
 				for(AbstractClothing c : clothingToStrip) {
 					if(Main.sex.getInitialSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), c)) {
 						character.unequipClothingIntoInventory(c, true, character);
+						anyClothingStripped = true;
 					}
 				}
 				// If any clothing was unable to be removed, displace it in every way possible:
@@ -810,12 +812,15 @@ public class Sex {
 					if(Main.sex.getInitialSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), c)) {
 						for(DisplacementType dt : c.getBlockedPartsKeysAsListWithoutNONE(character, c.getSlotEquippedTo())) {
 							character.isAbleToBeDisplaced(c, dt, true, true, character);
+							anyClothingStripped = true;
 						}
 					}
 				}
-				sexSB.append("<p style='text-align:center;'>"
-								+ UtilText.parse(character, "[style.italicsSex(You quickly strip off all of [npc.namePos] clothes!)]")
-							+ "</p>");
+				if(anyClothingStripped) {
+					sexSB.append("<p style='text-align:center;'>"
+									+ UtilText.parse(character, "[style.italicsSex(You quickly strip off all of [npc.namePos] clothes!)]")
+								+ "</p>");
+				}
 			}
 		}
 		
@@ -922,10 +927,13 @@ public class Sex {
 						if(clothingEquipped==null) {
 							// Only re-equip if that slot is empty, as some endSex methods force clothing on the player:
 							if(character.getCell().getInventory().hasClothing(c) || character.hasClothing(c)) {
+								c.setUnlocked(false); // Reset seal status
 								character.equipClothingOverride(c, entry2.getKey(), false, true);
 							} else if(character.getCell().getInventory().hasClothing(dirtyClone) || character.hasClothing(dirtyClone)) {
+								dirtyClone.setUnlocked(false); // Reset seal status
 								character.equipClothingOverride(dirtyClone, entry2.getKey(), false, true);
 							} else if(c.isMilkingEquipment()) {
+								c.setUnlocked(false); // Reset seal status
 								character.equipClothingOverride(c, entry2.getKey(), false, false);
 							}
 						}

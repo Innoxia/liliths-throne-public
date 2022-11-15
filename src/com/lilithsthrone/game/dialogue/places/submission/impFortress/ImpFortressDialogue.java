@@ -301,6 +301,8 @@ public class ImpFortressDialogue {
 				for(GameCharacter impCharacter : impGroup) {
 					impCharacter.setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
 					((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
+					impCharacter.clearNonEquippedInventory(true);
+					impCharacter.setMoney(50+Util.random.nextInt(100));
 				}
 	
 			} catch (Exception e) {
@@ -368,6 +370,8 @@ public class ImpFortressDialogue {
 				for(GameCharacter impCharacter : impGroup) {
 					impCharacter.setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP, true);
 					((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
+					impCharacter.clearNonEquippedInventory(true);
+					impCharacter.setMoney(50+Util.random.nextInt(100));
 				}
 	
 			} catch (Exception e) {
@@ -436,6 +440,8 @@ public class ImpFortressDialogue {
 				for(GameCharacter impCharacter : impGroup) {
 					impCharacter.setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);
 					((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
+					impCharacter.clearNonEquippedInventory(true);
+					impCharacter.setMoney(50+Util.random.nextInt(100));
 				}
 	
 			} catch (Exception e) {

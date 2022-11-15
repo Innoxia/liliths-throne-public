@@ -486,7 +486,7 @@ public enum RenderingEngine {
 			appendEquippedClothingSlot(charactersInventoryToRender, invSlot, blockedSlots, concealedSlots, true);
 		}
 		
-		equippedPanelSB.append("<div class='inventory-item-slot secondary'>");
+		equippedPanelSB.append("<div class='inventory-item-slot secondary "+getClassRarityIdentifier(Rarity.COMMON)+"'>");
 		if(charactersInventoryToRender.isPlayer()) {
 			equippedPanelSB.append("<div class='inventory-icon-content'>"
 										+(this.isRenderingTattoosLeft()
@@ -496,7 +496,7 @@ public enum RenderingEngine {
 									+ "<div class='overlay-inventory' id='TATTOO_SWITCH_LEFT'></div>");
 			
 		} else {
-			equippedPanelSB.append("<div class='inventory-icon-content'>"
+			equippedPanelSB.append("<div class='inventory-icon-content"+getClassRarityIdentifier(Rarity.COMMON)+"'>"
 										+(this.isRenderingTattoosRight()
 												?SVGImages.SVG_IMAGE_PROVIDER.getTattooSwitchTattoo()
 												:SVGImages.SVG_IMAGE_PROVIDER.getTattooSwitchClothing())
@@ -516,7 +516,7 @@ public enum RenderingEngine {
 		if(!disabled && block!=null) {
 			return "<div class='inventory-item-slot "+(block.getRace()!=null?"disabled-light":"disabled")+"' style='"+weaponStyle+"'>"
 						+ (block.getRace()!=null
-								?"<div class='raceBlockIcon' style='opacity:0.5;'>" + AbstractSubspecies.getMainSubspeciesOfRace(block.getRace()).getSVGStringDesaturated(charactersInventoryToRender) + "</div>"
+								?"<div class='raceBlockIcon'>" + AbstractSubspecies.getMainSubspeciesOfRace(block.getRace()).getSVGStringDesaturated(charactersInventoryToRender, PresetColour.BASE_BLACK) + "</div>"
 								:"")
 						+ "<div class='overlay-inventory' id='" + slot.toString() + "Slot' style='cursor:default;'></div>"
 					+ "</div>";
@@ -543,7 +543,7 @@ public enum RenderingEngine {
 				+ "</div>");
 			
 		} else {
-			if((charactersInventoryToRender.isPlayer() && !this.isRenderingTattoosLeft()) || (!charactersInventoryToRender.isPlayer() && !this.isRenderingTattoosRight())
+			if(((charactersInventoryToRender.isPlayer() && !this.isRenderingTattoosLeft()) || (!charactersInventoryToRender.isPlayer() && !this.isRenderingTattoosRight()))
 					&& !invSlot.isJewellery()) {
 				AbstractClothing clothing = charactersInventoryToRender.getClothingInSlot(invSlot);
 
@@ -553,7 +553,7 @@ public enum RenderingEngine {
 
 						equippedPanelSB.append(
 								(block!=null && block.getRace()!=null
-									?"<div class='raceBlockIcon' style='opacity:0.5;'>" + AbstractSubspecies.getMainSubspeciesOfRace(block.getRace()).getSVGStringDesaturated(charactersInventoryToRender) + "</div>"
+									?"<div class='raceBlockIcon'>" + AbstractSubspecies.getMainSubspeciesOfRace(block.getRace()).getSVGStringDesaturated(charactersInventoryToRender, PresetColour.BASE_BLACK) + "</div>"
 									:""));
 						
 						equippedPanelSB.append("<div class='inventory-icon-content'>"+clothing.getSVGEquippedString(charactersInventoryToRender)+"</div>");
@@ -585,35 +585,16 @@ public enum RenderingEngine {
 						
 					} else if (block != null) {
 						equippedPanelSB.append(
-								"<div class='"+inventorySlotId+" "+(block.getRace()!=null?"disabled-light":"disabled")+"'>"
+								"<div class='"+inventorySlotId+" disabled'>"
 									+ (charactersInventoryToRender.isDirtySlot(invSlot) ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDirtyIcon() + "</div>" : "")
 									+ "<div class='overlay' id='" + invSlot.toString() + "Slot'></div>"
 									+ (block.getRace()!=null
-											?"<div class='raceBlockIcon' style='opacity:0.5;'>" + AbstractSubspecies.getMainSubspeciesOfRace(block.getRace()).getSVGStringDesaturated(charactersInventoryToRender) + "</div>"
+											?"<div class='raceBlockIcon'>" + AbstractSubspecies.getMainSubspeciesOfRace(block.getRace()).getSVGStringDesaturated(charactersInventoryToRender, PresetColour.BASE_BLACK) + "</div>"
 											:"")
 								+ "</div>");
 						
 					} else {
 						boolean disabled = !invSlot.isPhysicallyAvailable(charactersInventoryToRender);
-//						switch(invSlot){
-//							case HORNS:
-//								disabled = charactersInventoryToRender.getHornType().equals(HornType.NONE);
-//								break;
-//							case PENIS:
-//								disabled = !charactersInventoryToRender.hasPenisIgnoreDildo();
-//								break;
-//							case TAIL:
-//								disabled = charactersInventoryToRender.getTailType()==TailType.NONE;
-//								break;
-//							case VAGINA:
-//								disabled = !charactersInventoryToRender.hasVagina();
-//								break;
-//							case WINGS:
-//								disabled = charactersInventoryToRender.getWingType()==WingType.NONE;
-//								break;
-//							default:
-//								break;
-//						}
 						
 						equippedPanelSB.append("<div class='"+inventorySlotId+""+(disabled?" disabled":"")+"' id='" + invSlot.toString() + "Slot'>"
 								+ (charactersInventoryToRender.isDirtySlot(invSlot) ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDirtyIcon() + "</div>" : "")
@@ -623,25 +604,7 @@ public enum RenderingEngine {
 				
 			} else { // Tattoos:
 				boolean disabled = !invSlot.isPhysicallyAvailable(charactersInventoryToRender) && invSlot!=InventorySlot.HAIR; // Exception for hair as this slot corresponds to the 'ears' slot for tattoos
-//				switch(invSlot){
-//					case HORNS:
-//						disabled = charactersInventoryToRender.getHornType().equals(HornType.NONE);
-//						break;
-//					case PENIS:
-//						disabled = !charactersInventoryToRender.hasPenisIgnoreDildo();
-//						break;
-//					case TAIL:
-//						disabled = charactersInventoryToRender.getTailType()==TailType.NONE;
-//						break;
-//					case VAGINA:
-//						disabled = !charactersInventoryToRender.hasVagina();
-//						break;
-//					case WINGS:
-//						disabled = charactersInventoryToRender.getWingType()==WingType.NONE;
-//						break;
-//					default:
-//						break;
-//				}
+				
 				if(disabled) {
 					equippedPanelSB.append("<div class='"+inventorySlotId+" disabled' id='" + invSlot.toString() + "Slot'></div>");
 					
@@ -651,9 +614,8 @@ public enum RenderingEngine {
 					if(isSecondary) {
 						inventorySlotId = "inventory-item-slot secondary dark";
 					}
-					String backgroundColourStyle = "style='background-color:#"+(Main.game.isLightTheme()?"bfbfbf":"2a2a2a")+";'";
 					if(tattoo != null) {
-						equippedPanelSB.append("<div class='"+inventorySlotId + getClassRarityIdentifier(tattoo.getRarity()) +"' "+backgroundColourStyle+">");
+						equippedPanelSB.append("<div class='"+inventorySlotId + getClassRarityIdentifier(tattoo.getRarity()) +"'>");
 						equippedPanelSB.append("<div class='inventory-icon-content'>"+tattoo.getSVGImage(charactersInventoryToRender)+"</div>");
 						if(charactersInventoryToRender.getScarInSlot(invSlot)!=null) {
 							equippedPanelSB.append("<div class='scarIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getScarIcon() + "</div>");
@@ -673,7 +635,7 @@ public enum RenderingEngine {
 							equippedPanelSB.append("</div>");
 							
 						} else {
-							equippedPanelSB.append("<div class='"+inventorySlotId+"' "+backgroundColourStyle+" id='" + invSlot.toString() + "Slot'>");
+							equippedPanelSB.append("<div class='"+inventorySlotId+"' id='" + invSlot.toString() + "Slot'>");
 							if(charactersInventoryToRender.getScarInSlot(invSlot)!=null) {
 								equippedPanelSB.append("<div class='scarIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getScarIcon() + "</div>");
 							}

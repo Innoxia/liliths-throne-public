@@ -196,7 +196,7 @@ public class Felicia extends NPC {
             this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.TORSO_OVER), true, this);
         }
         
-        this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_RIBBED_SWEATER, PresetColour.CLOTHING_BROWN, false), true, this); 
+        this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torsoOver_ribbed_jumper", PresetColour.CLOTHING_BROWN, false), true, this); 
     }
     
     public void equipOutsideClothing() {

@@ -8274,6 +8274,10 @@ public class GenericOrgasms {
 			null,
 			SexParticipantType.NORMAL) {
 		@Override
+		public boolean isOverrideAvailableDuringResisting() {
+			return true;
+		}
+		@Override
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.isCharacterDeniedOrgasm(Main.sex.getCharacterPerformingAction());
 		}
