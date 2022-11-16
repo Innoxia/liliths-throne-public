@@ -4175,21 +4175,29 @@ public class Game implements XMLSaving {
 			return getCharactersPresent(player.getWorldLocation(), player.getLocation());
 		}
 	}
-	
-	public List<NPC> getNonCompanionCharactersPresent() {
+
+	public List<NPC> getNonCompanionCharactersPresent(boolean includeUniqueNPCs) {
 		List<NPC> nonCompanionCharactersPresent = new ArrayList<>();
 		nonCompanionCharactersPresent.addAll(getCharactersPresent());
-		nonCompanionCharactersPresent.removeIf((npc) -> Main.game.getPlayer().hasCompanion(npc) || (npc.getPartyLeader()!=null && Main.game.getPlayer().hasCompanion(npc.getPartyLeader())));
+		nonCompanionCharactersPresent.removeIf((npc) -> (Main.game.getPlayer().hasCompanion(npc) || (npc.getPartyLeader()!=null && Main.game.getPlayer().hasCompanion(npc.getPartyLeader()))) && (includeUniqueNPCs || !npc.isUnique()));
+		return nonCompanionCharactersPresent;
+	}
+	
+	public List<NPC> getNonCompanionCharactersPresent() {
+		return getNonCompanionCharactersPresent(true);
+	}
+
+	public List<NPC> getNonCompanionCharactersPresent(Cell cell, boolean includeUniqueNPCs) {
+		List<NPC> nonCompanionCharactersPresent = new ArrayList<>();
+		nonCompanionCharactersPresent.addAll(getCharactersPresent(cell));
+		nonCompanionCharactersPresent.removeIf((npc) -> (Main.game.getPlayer().hasCompanion(npc) || (npc.getPartyLeader()!=null && Main.game.getPlayer().hasCompanion(npc.getPartyLeader()))) && (includeUniqueNPCs || !npc.isUnique()));
 		return nonCompanionCharactersPresent;
 	}
 
 	public List<NPC> getNonCompanionCharactersPresent(Cell cell) {
-		List<NPC> nonCompanionCharactersPresent = new ArrayList<>();
-		nonCompanionCharactersPresent.addAll(getCharactersPresent(cell));
-		nonCompanionCharactersPresent.removeIf((npc) -> Main.game.getPlayer().hasCompanion(npc) || (npc.getPartyLeader()!=null && Main.game.getPlayer().hasCompanion(npc.getPartyLeader())));
-		return nonCompanionCharactersPresent;
+		return getNonCompanionCharactersPresent(cell, true);
 	}
-
+	
 	/**
 	 * Uses the player's current location.
 	 */
@@ -4750,7 +4758,7 @@ public class Game implements XMLSaving {
 		}
 		if(npc==null) {
 			try {
-				npc = (NPC) Class.forName("com.lilithsthrone.game.character.npc."+npcGenerationId).newInstance();
+				npc = (NPC) Class.forName("com.lilithsthrone.game.character.npc."+npcGenerationId).getConstructor().newInstance();
 			} catch (Exception ex) {
 				System.err.println("Failed to add NPC: "+npcGenerationId);
 				ex.printStackTrace();

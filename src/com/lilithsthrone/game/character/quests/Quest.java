@@ -37,7 +37,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.4.4.1
+ * @version 0.4.6.3
  * @author Innoxia
  */
 public enum Quest {
@@ -121,7 +121,7 @@ public enum Quest {
 		@Override
 		public void applySkipQuestEffects() {
 			BraxOffice.setBraxsPostQuestStatus(false);
-			BraxOffice.givePlayerEnforcerUniform(null);
+			BraxOffice.givePlayerEnforcerUniform(null,-1);
 		}
 	},
 

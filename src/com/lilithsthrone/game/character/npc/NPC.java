@@ -400,6 +400,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			} catch(Exception ex) {
 			}
 		}
+		// It seems, that upon loading an NPC, the fleshSubspecies unintentionally gets set to Subspecies.HUMAN, even if it's clearly not a human. 
+		// This clears the cached value, so it's being recalculated just-in-time. ~Stadler76
+		npc.getBody().setFleshSubspecies(null);
 	}
 	
 	public void resetSlaveFlags() {
@@ -2976,7 +2979,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isWantingToEquipCondom(GameCharacter partner) {
-		boolean wantingToEquip = !this.getFetishDesire(Fetish.FETISH_CUM_STUD).isPositive() || (partner.hasVagina() && !partner.isVisiblyPregnant() && !this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive());
+		boolean wantingToEquip = this.getFetishDesire(Fetish.FETISH_CUM_STUD).isNegative() || (partner.hasVagina() && !partner.isVisiblyPregnant() && !this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive());
 //		System.out.println("isWantingToEquipCondom("+partner.getName()+"): "+wantingToEquip);
 		return wantingToEquip;
 	}
@@ -2985,7 +2988,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		if(!partner.hasPenisIgnoreDildo()) {
 			return false;
 		}
-		return !this.getFetishDesire(Fetish.FETISH_CUM_ADDICT).isPositive() || (this.hasVagina() && !this.isVisiblyPregnant() && !this.getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive());
+		return this.getFetishDesire(Fetish.FETISH_CUM_ADDICT).isNegative() || (this.hasVagina() && !this.isVisiblyPregnant() && !this.getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive());
 	}
 
 	/**
@@ -3081,9 +3084,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						}
 						
 						// BDSM:
-						if(this.getFetishDesire(Fetish.FETISH_BONDAGE_APPLIER).isPositive()
-								&& (clothing.getClothingType().getClothingSet()==SetBonus.getSetBonusFromId("innoxia_bdsm") || clothing.getClothingType().getClothingSet()==SetBonus.getSetBonusFromId("sage_ltxset"))) {
-							wantsToEquip = true;
+						if((clothing.getClothingType().getClothingSet()==SetBonus.getSetBonusFromId("innoxia_bdsm") || clothing.getClothingType().getClothingSet()==SetBonus.getSetBonusFromId("sage_ltxset"))) {
+							wantsToEquip = this.getFetishDesire(Fetish.FETISH_BONDAGE_APPLIER).isPositive();
 						}
 					}
 					// Always auto manage clothing, as NPCs use clothing removal methods in SexManagerDefault, so clothing additions should take place after removals.

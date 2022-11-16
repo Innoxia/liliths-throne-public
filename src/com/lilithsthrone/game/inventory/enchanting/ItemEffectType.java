@@ -1079,7 +1079,7 @@ public class ItemEffectType {
 			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_elemental_snowflake_necklace"), 11);
 			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_elemental_piercing_ear_snowflakes"), 11);
 			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_elemental_piercing_nose_snowflake"), 11);
-			clothingMap.put(ClothingType.TORSO_OVER_CHRISTMAS_SWEATER, 11);
+			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_torsoOver_christmas_jumper"), 11);
 			
 			// Uncommon clothing (44%):
 			clothingMap.put(ClothingType.JOLNIR_BOOTS, 4);
