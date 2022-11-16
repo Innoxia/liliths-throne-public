@@ -267,6 +267,7 @@
 					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()==3 && (!game.isFootContentEnabled() || !npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() || !pc.isAbleToAccessCoverableArea(CA_MOUTH, true)) && !npc.getFetishDesire(FETISH_SADIST).isPositive()]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[2]]></index>
+					<colour><![CDATA[GENERIC_SEX]]></colour>
 					<requiredFetishes>
 						<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
 						<fetish><![CDATA[FETISH_MASOCHIST]]></fetish>

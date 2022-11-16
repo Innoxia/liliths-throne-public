@@ -2777,7 +2777,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("AUTO_SEX_CLOTHING_STRIP",
 					PresetColour.BASE_PINK_LIGHT,
 					"Automatic stripping",
-					"When enabled, all characters which you are allowed to strip during sex (including yourself) will start sex naked.",
+					"When enabled, all non-spectating characters which you are allowed to strip during sex (including yourself) will start sex naked.",
 					Main.getProperties().hasValue(PropertyValue.autoSexStrip)));
 			
 			return UtilText.nodeContentSB.toString();

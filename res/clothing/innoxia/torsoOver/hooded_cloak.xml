@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>500</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[hooded cloak]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[hooded cloaks]]></namePlural>
+		<description><![CDATA[A floor-length cloak, complete with hood. It's able to almost completely conceal the wearer's body.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>TORSO_OVER</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>hooded_cloak.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots>
+					<slot>ANKLE</slot>
+					<slot>ANUS</slot>
+					<slot>FINGER</slot>
+					<slot>FOOT</slot>
+					<slot>GROIN</slot>
+					<slot>HAND</slot>
+					<slot>HIPS</slot>
+					<slot>LEG</slot>
+					<slot>PENIS</slot>
+					<slot>PIERCING_PENIS</slot>
+					<slot>PIERCING_VAGINA</slot>
+					<slot>SOCK</slot>
+					<slot>TAIL</slot>
+					<slot>VAGINA</slot>
+					<slot>WRIST</slot>
+				</concealedSlots>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>SHIFTS_ASIDE</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots>
+					<slot>ANKLE</slot>
+					<slot>ANUS</slot>
+					<slot>CHEST</slot>
+					<slot>FINGER</slot>
+					<slot>FOOT</slot>
+					<slot>GROIN</slot>
+					<slot>HAIR</slot>
+					<slot>HAND</slot>
+					<slot>HEAD</slot>
+					<slot>HIPS</slot>
+					<slot>HORNS</slot>
+					<slot>LEG</slot>
+					<slot>NECK</slot>
+					<slot>NIPPLE</slot>
+					<slot>PENIS</slot>
+					<slot>PIERCING_EAR</slot>
+					<slot>PIERCING_NIPPLE</slot>
+					<slot>PIERCING_PENIS</slot>
+					<slot>PIERCING_STOMACH</slot>
+					<slot>PIERCING_VAGINA</slot>
+					<slot>SOCK</slot>
+					<slot>STOMACH</slot>
+					<slot>TAIL</slot>
+					<slot>TORSO_UNDER</slot>
+					<slot>VAGINA</slot>
+					<slot>WEAPON_MAIN_1</slot>
+					<slot>WEAPON_MAIN_2</slot>
+					<slot>WEAPON_MAIN_3</slot>
+					<slot>WEAPON_OFFHAND_1</slot>
+					<slot>WEAPON_OFFHAND_2</slot>
+					<slot>WEAPON_OFFHAND_3</slot>
+					<slot>WRIST</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values="LEATHER"/>
+		<primaryColoursDye/>
+		<secondaryColours values="ALL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>FITS_ARM_WINGS</tag>
+			<tag>FITS_FERAL_ALL_BODY</tag>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(pull)] on the cloak.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(pull)] the cloak onto [npc2.name].
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(force)] the cloak onto [npc2.name].
+		]]></otherRough>
+	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(pull)] off [npc.her] cloak.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(pull)] off [npc2.namePos] cloak.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] cloak.
+		]]></otherRough>
+	</displacementText>
+	
+</clothing>
