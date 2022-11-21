@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+    <!-- Elizabeth encounter: -->
+
+    <scene id ="elizabeth">
+        <author><![CDATA[AceXp]]></author>
+        <content folderPath="txt/acexp/submission/elizabeth">INTRO</content>
+        <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+        <continuesDialogue>false</continuesDialogue>
+        <travelDisabled>true</travelDisabled>
+        <responses>
+            <response>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Approach]]></responseTitle>
+                <responseTooltip><![CDATA[
+                    Approach Elizabeth and greet her.
+                ]]></responseTooltip>
+                <nextDialogue><![CDATA[acexp_submission_palace_music]]></nextDialogue>
+                <effects/>
+            </response>
+            <response>
+                <availabilityConditional/>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[0]]></index>
+                <responseTitle><![CDATA[Leave]]></responseTitle>
+                <responseTooltip><![CDATA[
+                    Leave Elizabeth alone for now.
+                ]]></responseTooltip>
+                <nextDialogue defaultPlaceType="LYSSIETH_PALACE_CORRIDOR"/>
+                <effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/submission/elizabeth', 'INTRO_EXIT'))]
+                   	[#pc.setNearestLocation(PLACE_TYPE_LYSSIETH_PALACE_CORRIDOR)]
+				]]></effects>
+            </response>
+        </responses>
+    </scene>
+
+    <scene id ="music">
+        <author><![CDATA[AceXp]]></author>
+        <preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/submission/elizabeth', 'MUSIC'))]
+			#IF(elizabeth.isVisiblyPregnant())
+				[#elizabeth.setCharacterReactedToPregnancy(pc, true)]
+			#ENDIF
+			[#flags.setFlag(FLAG_acexp_elizabeth_introduced, true)]
+			[#flags.setFlag(FLAG_acexp_elizabeth_daily_meeting, true)]
+		]]></preParsingEffects>
+        <content/>
+        <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+        <continuesDialogue>true</continuesDialogue>
+        <travelDisabled>true</travelDisabled>
+        <responses>
+            <response>
+                <availabilityConditional/>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Talk]]></responseTitle>
+                <responseTooltip><![CDATA[
+                    Talk with Elizabeth about her role as a palace guard for a while.
+					<br/><i>Elizabeth will be impressed if you have
+					#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=50)
+						 [style.italicsGood(a high physique)]
+					#ELSE
+						 [style.italicsBad(a high physique)]
+					#ENDIF
+					 or if you were
+					#IF(pc.hasTraitActivated(PERK_JOB_SOLDIER))
+						 [style.italicsGood(a soldier)]
+					#ELSE
+						 [style.italicsBad(a soldier)]
+					#ENDIF
+					 in your old world.</i>
+                ]]></responseTooltip>
+                <nextDialogue><![CDATA[acexp_submission_palace_interact]]></nextDialogue>
+                <effects><![CDATA[
+					#IF(elizabeth.getAffection(pc)<40)
+						#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=50 || pc.hasTraitActivated(PERK_JOB_SOLDIER))
+							[#game.appendToTextEndStringBuilder(elizabeth.incrementAffection(pc, 25))]
+						#ELSE
+							[#game.appendToTextEndStringBuilder(elizabeth.incrementAffection(pc, 5))]
+						#ENDIF
+					#ENDIF
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/submission/elizabeth', 'CHAT'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/submission/elizabeth', 'INTERACTION_END'))]
+				]]></effects>
+            </response>
+            <response>
+                <availabilityConditional/>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[2]]></index>
+                <responseTitle><![CDATA[Compliment]]></responseTitle>
+                <responseTooltip><![CDATA[
+                    Compliment Elizabeth on her proficiency at playing the piano.
+					<br/><i>Elizabeth will be impressed if you are
+					#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_ARCANE)>=50)
+						 [style.italicsGood(proficient with the arcane)]
+					#ELSE
+						 [style.italicsBad(proficient with the arcane)]
+					#ENDIF
+					 or if you were
+					#IF(pc.hasTraitActivated(PERK_JOB_MUSICIAN))
+						 [style.italicsGood(a musician)]
+					#ELSE
+						 [style.italicsBad(a musician)]
+					#ENDIF
+					 in your old world.</i>
+                ]]></responseTooltip>
+                <nextDialogue><![CDATA[acexp_submission_palace_interact]]></nextDialogue>
+                <effects><![CDATA[
+					#IF(elizabeth.getAffection(pc)<40)
+						#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_ARCANE)>=50 || pc.hasTraitActivated(PERK_JOB_MUSICIAN))
+							[#game.appendToTextEndStringBuilder(elizabeth.incrementAffection(pc, 25))]
+						#ELSE
+							[#game.appendToTextEndStringBuilder(elizabeth.incrementAffection(pc, 5))]
+						#ENDIF
+					#ENDIF
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/submission/elizabeth', 'PRAISE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/submission/elizabeth', 'INTERACTION_END'))]
+				]]></effects>
+            </response>
+            <response>
+                <availabilityConditional/>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[3]]></index>
+                <responseTitle><![CDATA[Flirt]]></responseTitle>
+                <responseTooltip><![CDATA[
+                    Flirt with Elizabeth.
+					<br/><i>Elizabeth will be impressed if you have
+					#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_CORRUPTION)>=50)
+						 [style.italicsGood(a high corruption)]
+					#ELSE
+						 [style.italicsBad(a high corruption)]
+					#ENDIF
+					 or if you were
+					#IF(pc.hasTraitActivated(PERK_JOB_ARISTOCRAT))
+						 [style.italicsGood(an aristocrat)]
+					#ELSE
+						 [style.italicsBad(an aristocrat)]
+					#ENDIF
+					 in your old world.</i>
+                ]]></responseTooltip>
+                <nextDialogue><![CDATA[acexp_submission_palace_interact]]></nextDialogue>
+                <effects><![CDATA[
+					#IF(elizabeth.getAffection(pc)<40)
+						#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_CORRUPTION)>=50 || pc.hasTraitActivated(PERK_JOB_ARISTOCRAT))
+							[#game.appendToTextEndStringBuilder(elizabeth.incrementAffection(pc, 25))]
+						#ELSE
+							[#game.appendToTextEndStringBuilder(elizabeth.incrementAffection(pc, 5))]
+						#ENDIF
+					#ENDIF
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/submission/elizabeth', 'FLIRT'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/submission/elizabeth', 'INTERACTION_END'))]
+				]]></effects>
+            </response>
+            <response>
+                <availabilityConditional/>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[0]]></index>
+                <responseTitle><![CDATA[Leave]]></responseTitle>
+                <responseTooltip><![CDATA[
+                    Tell Elizabeth that you'd better be going.
+                ]]></responseTooltip>
+                <nextDialogue defaultPlaceType="LYSSIETH_PALACE_CORRIDOR"/>
+                <effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/submission/elizabeth', 'MUSIC_EXIT'))]
+                   	[#pc.setNearestLocation(PLACE_TYPE_LYSSIETH_PALACE_CORRIDOR)]
+		        	[#elizabeth.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, false)]
+				]]></effects>
+            </response>
+        </responses>
+    </scene>
+
+    <scene id ="interact">
+        <author><![CDATA[AceXp]]></author>
+        <content/>
+        <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+        <continuesDialogue>true</continuesDialogue>
+        <travelDisabled>true</travelDisabled>
+        <responses>
+			<!-- Player has penis: -->
+            <response>
+                <availabilityConditional><![CDATA[
+                    [#elizabeth.getAffection(pc)>=25 && pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]
+                ]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Sex]]></responseTitle>
+                <responseTooltip><![CDATA[
+                    Take Elizabeth up on her offer.
+                ]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+                <effects/>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[acexp_elizabeth_sex]]></id>
+                    <startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>elizabeth</id>
+                            <slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators/>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[acexp_submission_palace_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/acexp/submission/elizabeth">SEX_START</sexStartContent>
+                    <ongoingActionsAtStart>
+                        <action>
+                            <id><![CDATA[PenisThighs_THIGH_FUCKING_START]]></id>
+                            <performer><![CDATA[pc]]></performer>
+                            <target><![CDATA[elizabeth]]></target>
+                            <showDescription><![CDATA[false]]></showDescription>
+                            <showEffects><![CDATA[true]]></showEffects>
+                        </action>
+                    </ongoingActionsAtStart>
+                </sexVariablesWithManager>
+            </response>
+			<!-- Player has vagina: -->
+            <response>
+                <availabilityConditional><![CDATA[
+                    [#elizabeth.getAffection(pc)>=25 && (!pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]
+                ]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Sex]]></responseTitle>
+                <responseTooltip><![CDATA[
+                    Take Elizabeth up on her offer.
+                ]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+                <effects/>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[acexp_elizabeth_scissoring]]></id>
+                    <startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>elizabeth</id>
+                            <slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators/>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[acexp_submission_palace_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/acexp/submission/elizabeth">SEX_START</sexStartContent>
+                    <ongoingActionsAtStart>
+                        <action>
+                            <id><![CDATA[ClitClit_TRIBBING_START]]></id>
+                            <performer><![CDATA[elizabeth]]></performer>
+                            <target><![CDATA[pc]]></target>
+                            <showDescription><![CDATA[false]]></showDescription>
+                            <showEffects><![CDATA[true]]></showEffects>
+                        </action>
+                    </ongoingActionsAtStart>
+                </sexVariablesWithManager>
+            </response>
+			<!-- Player has no penis and no vagina: -->
+            <response>
+                <availabilityConditional><![CDATA[
+                    [#elizabeth.getAffection(pc)>=25 && (!pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && (!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true))]
+                ]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Sex]]></responseTitle>
+                <responseTooltip><![CDATA[
+                    Take Elizabeth up on her offer.
+                ]]></responseTooltip>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+                <effects/>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[acexp_elizabeth_standard]]></id>
+                    <startingPosition><![CDATA[SITTING]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>elizabeth</id>
+                            <slot><![CDATA[SITTING_SITTING]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[SITTING_SITTING_TWO]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators/>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[acexp_submission_palace_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/acexp/submission/elizabeth">SEX_START</sexStartContent>
+                    <ongoingActionsAtStart>
+                        <action>
+							<condition><![CDATA[[#pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></condition>
+                            <id><![CDATA[TongueMouth_KISS_START]]></id>
+                            <performer><![CDATA[elizabeth]]></performer>
+                            <target><![CDATA[pc]]></target>
+                            <showDescription><![CDATA[false]]></showDescription>
+                            <showEffects><![CDATA[true]]></showEffects>
+                        </action>
+                    </ongoingActionsAtStart>
+                </sexVariablesWithManager>
+            </response>
+			<!-- No sex: -->
+            <response>
+                <availabilityConditional><![CDATA[
+                    [#elizabeth.getAffection(pc)<25]
+                ]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Sex]]></responseTitle>
+                <responseTooltip><![CDATA[
+                    You're going to have to do better than that to get Elizabeth to want to have sex with you...
+                ]]></responseTooltip>
+                <nextDialogue><![CDATA[null]]></nextDialogue>
+                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+                <effects/>
+            </response>
+            <response>
+                <availabilityConditional/>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[2]]></index>
+                <responseTitle><![CDATA[Leave]]></responseTitle>
+                <responseTooltip><![CDATA[
+                    Say goodbye to Elizabeth and take your leave.
+                ]]></responseTooltip>
+                <nextDialogue defaultPlaceType="LYSSIETH_PALACE_CORRIDOR"/>
+                <effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/submission/elizabeth', 'INTERACTION_EXIT'))]
+                   	[#pc.setNearestLocation(PLACE_TYPE_LYSSIETH_PALACE_CORRIDOR)]
+		        	[#elizabeth.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, false)]
+				]]></effects>
+            </response>
+        </responses>
+    </scene>
+
+    <scene id ="after_sex">
+        <author><![CDATA[AceXp]]></author>
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[Say goodbye and prepare to move on...]]></tooltip>
+        <content folderPath="txt/acexp/submission/elizabeth">AFTER_SEX</content>
+        <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+        <continuesDialogue>false</continuesDialogue>
+        <travelDisabled>true</travelDisabled>
+        <responses>
+            <response>
+                <availabilityConditional/>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Leave]]></responseTitle>
+                <responseTooltip><![CDATA[
+                    Say goodbye to Elizabeth and take your leave.
+                ]]></responseTooltip>
+                <nextDialogue defaultPlaceType="LYSSIETH_PALACE_CORRIDOR"/>
+                <effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/submission/elizabeth', 'AFTER_SEX_EXIT'))]
+					[#elizabeth.applyWash(true, true, null, 0)]
+                   	[#pc.setNearestLocation(PLACE_TYPE_LYSSIETH_PALACE_CORRIDOR)]
+		        	[#elizabeth.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, false)]
+				]]></effects>
+            </response>
+        </responses>
+    </scene>
+
+</dialogueNodes>

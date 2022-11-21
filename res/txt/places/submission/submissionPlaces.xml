@@ -884,35 +884,26 @@
 	
 	<htmlContent tag="GAMBLING_DEN"><![CDATA[
 	<p>
-		Over the past several minutes, you've noticed that the walkways that you're travelling down have steadily been getting busier and busier.
-		 Up in the wide streets of Dominion, this volume of traffic wouldn't be a problem, but down here, there's not much room on the narrow pathways in which to manoeuvre, and you soon find yourself having to physically push your way through the bustling crowds.
+		Over the past several minutes, you've noticed that the walkways that you're travelling down have steadily been getting busier and busier. Up in the wide streets of Dominion, this volume of traffic wouldn't be a problem, but down here, there's not much room on the narrow pathways in which to manoeuvre, and you soon find yourself having to physically push your way through the bustling crowds.
 	</p>
 	<p>
-		Just as you're thinking about turning back in order to find another way past this area, the tunnel that you're travelling through starts to widen out, and, mercifully, so do the walkways.
-		 Afforded a little space at last, you're able to quickly weave through the crowds, and soon find yourself in a particularly large and spacious area of Submission, being at least double the height and four-times the width of all the other tunnels you've travelled through.
+		Just as you're thinking about turning back in order to find another way past this area, the tunnel that you're travelling through starts to widen out, and, mercifully, so do the walkways. Afforded a little space at last, you're able to quickly weave through the crowds, and soon find yourself in a particularly large and spacious area of Submission, being at least double the height and four-times the width of all the other tunnels you've travelled through.
 	</p>
 	<p>
-		As you step forwards onto the wide, well-maintained walkways, you quickly discover the reason behind the abnormal amount of people that are in this area.
-		 All around you, brightly coloured canvas stalls have been erected, and as you pass, you see that they're selling all sorts of different goods.
-		 This area is obviously Submission's main marketplace, and although the wares for sale aren't of any interest to you, they're enough to attract crowds of shoppers from all over Submission.
+		As you step forwards onto the wide, well-maintained walkways, you quickly discover the reason behind the abnormal amount of people that are in this area. All around you, brightly coloured canvas stalls have been erected, and as you pass, you see that they're selling all sorts of different goods. This area is obviously Submission's main marketplace, and although the wares for sale aren't of any interest to you, they're enough to attract crowds of shoppers from all over Submission.
 	</p>
 	<p>
-		A huge, two-story building, reaching up to the tunnel's ceiling, has been built into the wall on one side of this area.
-		 A sign above the entrance declares it to be the 'Gambling Den'.
-		 While the market stalls aren't worth your time, this building looks as though it contains something of interest.
-		 Walking up to the open doorway, you see a little sign fixed onto the wall, which bears the words '[style.colourMinorGood(Open 24/7)]'.
+		A huge, two-story building, reaching up to the tunnel's ceiling, has been built into the wall on one side of this area. A sign above the entrance declares it to be the 'Gambling Den'. While the market stalls aren't worth your time, this building looks as though it contains something of interest. Walking up to the open doorway, you see a little sign fixed onto the wall, which bears the words '[style.colourMinorGood(Open 24/7)]'.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LILIN_PALACE_CAVERN"><![CDATA[
 	<p>
-		You find yourself walking down a stone pathway, which has been cut out of the rock floor of a colossal underground cavern.
-		 The waterway that runs through Submission's tunnels continues on to one side of the path, flowing down the gently sloping floor to eventually fall away into a wide chasm that cuts across the far side of the cavern.
+		You find yourself walking down a stone pathway, which has been cut out of the rock floor of a colossal underground cavern. The waterway that runs through Submission's tunnels continues on to one side of the path, flowing down the gently sloping floor to eventually fall away into a wide chasm that cuts across the far side of the cavern.
 	</p>
 	<p>
-		This chasm serves as a protective moat for a massive, Gothic-styled palace that has been half-built, half-carved into the far stone wall.
-		 A huge wooden drawbridge links the stone path that you're walking on to the palace's front gate.
+		This chasm serves as a protective moat for a massive, Gothic-styled palace that has been half-built, half-carved into the far stone wall. A huge wooden drawbridge links the stone path that you're walking on to the palace's front gate.
 	</p>
 	]]>
 	</htmlContent>
@@ -926,7 +917,12 @@
 	
 	<htmlContent tag="LILIN_PALACE_CAVERN_MET_ELIZABETH"><![CDATA[
 	<p>
-		While you appear to be the only person making use of the path, you're not alone in this area. Up ahead, standing to attention beside the drawbridge, are the familiar figures of at least twenty of Lyssieth's royal guards. Although it's hard to see her clearly from this distance, you're still able to recognise Elizabeth at the head of them.
+		While you appear to be the only person making use of the path, you're not alone in this area. Up ahead, standing to attention beside the drawbridge, are the familiar figures of at least twenty of Lyssieth's royal guards.
+		#IF(elizabeth.getWorldLocation()==WORLD_TYPE_SUBMISSION)
+			 Although it's hard to see her clearly from this distance, you're still able to recognise Elizabeth at the head of them.
+		#ELSE
+			 Although they're quite a distance from where you're standing, you're able to see that Elizabeth isn't present.
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -942,18 +938,50 @@
 	</htmlContent>
 	
 	<htmlContent tag="LILIN_PALACE_GATE_ENTRY_GRANTED"><![CDATA[
-	<p>
-		Walking up to the drawbridge, you smile at Elizabeth as she calls out, [elizabeth.speech(Well, hello again, [pc.name]. I can escort you into the palace, if you wish.)]
-	</p>
-	<p>
-		The demons around you step aside, allowing you to continue onwards over the drawbridge to Lyssieth's palace.
-	</p>
+	#IF(elizabeth.getWorldLocation()==WORLD_TYPE_SUBMISSION)
+		#IF(elizabeth.isVisiblyPregnant())
+			#IF(!elizabeth.isCharacterReactedToPregnancy(pc))
+				<p>
+					[pc.Walking] up to the drawbridge, you suddenly notice that there's something different about the way Elizabeth is standing. As you draw nearer, you can't fail to notice the fact that she's sporting a [style.colourSex(pregnant belly)]. Smiling at you, the [elizabeth.race] calls out, [elizabeth.speech(Hey, [pc.name]! Yeah, before you ask, it was you who got me knocked up...)]
+				</p>
+				<p>
+					Elizabeth's subordinates all look at you as she says this, and you suddenly find yourself on the receiving end of about twenty accusing stares. To avoid a potential confrontation with Elizabeth's sisters, it seems like you'll have to offer her as much support as she needs...
+				</p>
+			#ELSE
+				<p>
+					[pc.Walking] up to the drawbridge, you see that Elizabeth is still sporting a [style.colourSex(pregnant belly)]. Smiling at you, the [elizabeth.race] calls out as you approach, [elizabeth.speech(Hey, [pc.name]! Yeah, I'm still pregnant with our kids... I don't need any help don't worry. I can escort you into the palace, if you wish.)]
+				</p>
+			#ENDIF
+		#ELSE
+			<p>
+				[pc.Walking] up to the drawbridge, you smile at Elizabeth as she calls out, [elizabeth.speech(Well, hello again, [pc.name]. I can escort you into the palace, if you wish.)]
+			</p>
+			<p>
+				With that, the half-demon guards step aside, allowing you to continue onwards over the drawbridge to Lyssieth's palace.
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			[pc.Walking] up to the drawbridge, you smile at the guards as the one who's currently standing in for Elizabeth states, [style.speechFeminine(Hello again, [pc.name]. You're free to enter the palace at any time.)]
+		</p>
+		<p>
+			With that, the half-demon guards step aside, allowing you to continue onwards over the drawbridge to Lyssieth's palace.
+		</p>
+		<p style='text-align:center;'><i>
+			Remembering what she told you, Elizabeth is only present here between the hours of [style.italicsMinorBad([units.time(8)]-[units.time(20)])], so if you wanted to speak with her again you'll have to return during that time period.
+			#IF(game.isHourBetween(20, 23))
+				<br/>She also mentioned that she'll be in a room within Lyssieth's palace in the evening, so you might be able to find her there between the hours of [style.italicsMinorGood([units.time(20)]-[units.time(23)])].
+			#ELSE
+				<br/>She also mentioned that she'll be in a room within Lyssieth's palace in the evening, so you might be able to find her there between the hours of [style.italicsMinorBad([units.time(20)]-[units.time(23)])].
+			#ENDIF
+		</i></p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LILIN_PALACE_GATE_ENTRY_BLOCKED_QUEST_COMPLETED"><![CDATA[
 	<p>
-		Walking up to the drawbridge, you smile at Elizabeth as she calls out, [elizabeth.speech(Well, if it isn't the [pc.hero] of the hour [pc.herself]. Her Highness has already sent word that her daughter is safely locked in her room, awaiting her punishment. Now, as a formality, I'll need to take a statement of how you defeated her before I can allow you to enter the palace.)]
+		[pc.Walking] up to the drawbridge, you smile at Elizabeth as she calls out, [elizabeth.speech(Well, if it isn't the [pc.hero] of the hour [pc.herself]. Her Highness has already sent word that her daughter is safely locked in her room, awaiting her punishment. Now, as a formality, I'll need to take a statement of how you defeated her before I can allow you to enter the palace.)]
 	</p>
 	<p>
 		It looks as though Elizabeth really wants you to deliver the report right at this moment, and, thinking that it would be best to stay on her good side, you decide to do just that...
@@ -1158,6 +1186,22 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="LILIN_PALACE_GATE_PREGNANCY"><![CDATA[
+	<p>
+		Not wanting to get on the bad side of Elizabeth's sisters, not to mention Lyssieth herself, you ask the [elizabeth.race] if there's anything you can do to help. The sincerity of your question causes several of the nearby guards to visibly relax, with the rest following suite as Elizabeth smiles and replies, [elizabeth.speech(Thank you, [pc.name], but I can manage on my own.)]
+	</p>
+	<p>
+		Having averted a potential disaster, you ask the [elizabeth.race] if she's sure that there's nothing you can do for her. Flashing you a quick smile, she teases, [elizabeth.speech(Well, I suppose it would be nice for you to come and have a feel.)]
+	</p>
+	<p>
+		With that, she lifts her shirt, revealing the stretched skin of her swollen belly. [pc.Stepping] forwards, you run your [pc.hands] over Elizabeth's pregnant bump, causing her to let out a gentle sigh. Leaning forwards, she plants a tender kiss on your cheek, before quickly regaining her composure and stating, [elizabeth.speech(I'm still on duty... I can escort you into the palace, if you wish.)]
+	</p>
+	<p>
+		As the [elizabeth.race] tucks her shirt back into her skirt, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="LILIN_PALACE_GATE_UNIFORMS"><![CDATA[
 	<p>
 		Curious about the royal guard's uniform and weaponry, you ask Elizabeth, [pc.speech(Why are you all wearing these uniforms? And where did you get those revolvers from? I haven't seen anyone else carrying guns in the city...)]
@@ -1196,6 +1240,22 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="LILIN_PALACE_GATE_ROUTINE"><![CDATA[
+	<p>
+		Remembering that Elizabeth has previously informed you of her work hours, you find yourself wanting to know more about her routine, and so ask the half-demon what her typical day looks like.
+	</p>
+	<p>
+		[elizabeth.speech(Well, as I told you before, I'm on duty every day from eight in the morning to eight in the evening,)] she replies, [elizabeth.speech(I often spend my evenings in the palace, after which I retire to my bedchamber on the upper floor.)]
+	</p>
+	<p>
+		With her subordinates looking on, Elizabeth seems reluctant to reveal any more personal information, and so tries to direct the conversation elsewhere by asking, [elizabeth.speech(Is there anything else you needed?)]
+	</p>
+	<p>
+		Having heard enough about the half-demon's routine, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="LILIN_PALACE"><![CDATA[
 	<p>
 		The sheer obsidian walls of Lyssieth's palace drop away into the inky blankness of the ravine below you, and with the sole exception of the massive wooden gates before you, there's not a single weak point to be seen in the entire face of the carved structure. The few windows that break up the smooth, glass-like surface take the form of narrow arrow-slits, and all but the very smallest of these are covered with what look to be iron bars.
@@ -1204,7 +1264,12 @@
 		A pair of masterfully-carved stone gargoyles, each one standing at well over [units.size(250)] in height, snarl down at anyone crossing the drawbridge. Every time you glance up at one of them, they seem to be wearing a slightly different expression, but whether this is some arcane-enchantment, or just your imagination, you can't tell. As you've come to expect from this world, the two sculptures are completely naked, and while each of the masculine figures are sporting balls large enough to put a horse to shame, it's what their cocks are buried in that catches your attention the most. Appearing to be carved out of the same jet-black obsidian, a rat-girl and succubus are being restrained in full-nelson holds; their legs lifted from the floor as the gargoyles' cocks slam deep into their exposed pussies.
 	</p>
 	<p>
-		Casting your gaze back down from the lewd expressions on each of the girls' faces, you turn your attention to the huge wooden gates before you. Set into the wall of the palace by about two or three feet, the only observable entrance boasts an extra line of defence, in the form of a thick metal portcullis. Thankfully, this has been raised, allowing Elizabeth to freely approach the doors before you.
+		Casting your gaze back down from the lewd expressions on each of the girls' faces, you turn your attention to the huge wooden gates before you. Set into the wall of the palace by about two or three feet, the only observable entrance boasts an extra line of defence, in the form of a thick metal portcullis. Thankfully, this has been raised,
+		#IF(elizabeth.getWorldLocation()==WORLD_TYPE_SUBMISSION)
+			 allowing Elizabeth to freely approach the doors before you.
+		#ELSE
+			 allowing you to freely approach the doors before you.
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -1230,12 +1295,18 @@
 	</htmlContent>
 	
 	<htmlContent tag="LILIN_PALACE_ELIZABETH_ESCORT"><![CDATA[
-	<p>
-		[elizabeth.speech(As Her Highness has given you permission to come and go as you please, I will unlock the doors for you, should you wish to enter,)] Elizabeth states.
-	</p>
-	<p>
-		You could take Elizabeth up on her offer, or turn around and head back out into Submission...
-	</p>
+	#IF(elizabeth.getWorldLocation()==WORLD_TYPE_SUBMISSION)
+		<p>
+			[elizabeth.speech(As Her Highness has given you permission to come and go as you please, I will unlock the doors for you, should you wish to enter,)] Elizabeth states.
+		</p>
+		<p>
+			You could take Elizabeth up on her offer, or turn around and head back out into Submission...
+		</p>
+	#ELSE
+		<p>
+			Now that you're at the gates of Lyssieth's palace, there's nothing stopping you from heading inside...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	

@@ -4545,12 +4545,22 @@ public class Game implements XMLSaving {
 	}
 
 	/**
+	 * This method works with hours that pass over midnight into the next day.
+	 * <br/><i>e.g. isHourBetween(22, 8) will return true when the time is 23:00, 00:00, 01:00, etc.</i>
+	 * 
 	 * @param startHour The starting hour, with decimal places correctly converted to fraction of hour.
 	 * @param endHour The end hour, with decimal places correctly converted to fraction of hour.
 	 * @return true If the hour is between startHour and endHour, inclusive of start and exclusive of end.
 	 */
 	public boolean isHourBetween(float startHour, float endHour) {
-		return this.getDayMinutes()>=(startHour*60) && this.getDayMinutes()<(endHour*60);
+		int dayMinutes = this.getDayMinutes();
+		if(endHour<startHour) {
+			endHour+=24;
+			if(dayMinutes<startHour*60) {
+				dayMinutes+=(24*60);
+			}
+		}
+		return dayMinutes>=(startHour*60) && dayMinutes<(endHour*60);
 	}
 	
 	/**
@@ -5510,6 +5520,10 @@ public class Game implements XMLSaving {
 	
 	public boolean isOpportunisticAttackersEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.opportunisticAttackers);
+	}
+	
+	public boolean isOffspringEncountersEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.offspringEncounters);
 	}
 	
 	public boolean isBypassSexActionsEnabled() {

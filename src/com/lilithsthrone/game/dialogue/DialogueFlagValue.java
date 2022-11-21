@@ -385,6 +385,7 @@ public class DialogueFlagValue {
 	
 	public static AbstractDialogueFlagValue elizabethAskedAboutUniforms = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue elizabethAskedAboutSurname = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue elizabethAskedAboutRoutine = new AbstractDialogueFlagValue();
 	
 	public static AbstractDialogueFlagValue lyssiethQuestionAsked1 = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue lyssiethQuestionAsked2 = new AbstractDialogueFlagValue();

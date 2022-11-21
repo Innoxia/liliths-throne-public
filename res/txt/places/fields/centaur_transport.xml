@@ -199,9 +199,22 @@
 		<p>
 			The familiar form of the muscular centauress, Astrapi, can be seen lying down and relaxing beside her carriage. As you enter the barn she sees you and stands up, before cheerfully calling out, [astrapi.speech(Hi, [pc.name]! I'm planning on setting off for Elis in a few minutes, so if you want a ride just let me know!)]
 		</p>
-		<p>
-			As usual, Astrapi isn't wearing any clothing other than the sweatbands around her wrists and head, and as such her huge, [astrapi.cupSize]-cup breasts are fully on display. Completely unconcerned about her exhibitionism, she turns around and starts checking over her carriage to make sure it's in working condition, shamelessly flashing you her [astrapi.pussyColour] horse-pussy in the process. Turning her head back towards you, she calls out, [astrapi.speech(Remember, it's only two-hundred and fifty flames! You can't pass up a bargain like that, can you?!)] 
-		</p>
+		#IF(astrapi.isVisiblyPregnant())
+			<p>
+				#IF(!astrapi.isCharacterReactedToPregnancy(pc))
+					As usual, Astrapi isn't wearing any clothing other than the sweatbands around her wrists and head, and as such her huge, [astrapi.cupSize]-cup breasts are fully on display. However, it isn't the centauress's massive tits that draw your attention, but instead the fact that her lower horse's body is sporting a [style.colourSex(pregnant belly)]. Seeing what it is you're looking at, Astrapi absent-mindedly runs one of her hands through her [astrapi.hairColour] hair and laughs, [astrapi.speech(Hah! Yeah, that pill I took was supposed to prevent this, but I guess your seed was too strong for it! Anyway, yeah, you got me pregnant, but it's no big deal really. Sure, I might be a little slower on my routes and need more rest in the evenings, but I can handle it all just fine.)]
+				#ELSE
+					As usual, Astrapi isn't wearing any clothing other than the sweatbands around her wrists and head, and as such her huge, [astrapi.cupSize]-cup breasts are fully on display. However, it isn't the centauress's massive tits that draw your attention, but instead the fact that her lower horse's body is still sporting a [style.colourSex(pregnant belly)]. Seeing what it is you're looking at, Astrapi absent-mindedly runs one of her hands through her [astrapi.hairColour] hair and laughs, [astrapi.speech(Hah! Yeah, I'm still carrying our kids around, but it's no big deal. Sure, I might be a little slower on my routes and need more rest in the evenings, but I can handle it all just fine.)]
+				#ENDIF
+			</p>
+			<p>
+				Nonchalantly waving you off as you ask her if there's anything you can do to help, the muscular centauress turns around and starts checking over her carriage to make sure that it's in working condition. Turning her head back, she flashes you a playful grin, and with a quick flick of her tail, shamelessly flashes you her [astrapi.pussyColour] horse-pussy. Turning her attention back to her cart, she shouts out, [astrapi.speech(Remember, it's only two-hundred and fifty flames for a ride! You can't pass up a bargain like that, can you?! And hey, who knows, maybe you'll get to creampie me again? After all, we don't have to worry about you knocking me up anymore!)]
+			</p>
+		#ELSE
+			<p>
+				As usual, Astrapi isn't wearing any clothing other than the sweatbands around her wrists and head, and as such her huge, [astrapi.cupSize]-cup breasts are fully on display. Completely unconcerned about her exhibitionism, she turns around and starts checking over her carriage to make sure that it's in working condition, shamelessly flashing you her [astrapi.pussyColour] horse-pussy in the process. Turning her head back towards you, she calls out, [astrapi.speech(Remember, it's only two-hundred and fifty flames! You can't pass up a bargain like that, can you?!)] 
+			</p>
+		#ENDIF
 	#ELSEIF(game.getCharactersPresent().contains(vronti))
 		<p>
 			[pc.Walking] up to the barn's half-open door, you peer inside to see that most of the straw-strewn interior is once again empty. As you [pc.step] through the doorway and enter the barn, you take note of the fact that less than one quarter of the barn's available space is in use, and houses not only a large, four-wheeled wooden carriage, but also a dozen crates and a couple of workshop benches.
@@ -210,7 +223,7 @@
 			The familiar form of the muscular centaur, Vronti, can be seen lying down and relaxing beside his carriage. As you enter the barn he sees you and stands up, before giving you a nod and grunting, [vronti.speech(Hey there...)]
 		</p>
 		<p>
-			As usual, Vronti isn't wearing any clothing at all, and as such as he stands up you're able to see not only the [vronti.cockSize] sheath of his cock but also his [vronti.ballSize] balls. Completely unconcerned about his exhibitionism, he turns around and starts checking over his carriage to make sure it's in working condition, shamelessly flashing you his puffy, [vronti.anusColour] horse-anus in the process. Turning his head back towards you, he calls out, [vronti.speech(It's two-hundred and fifty flames for a ride. I'm leaving in a few minutes.)]
+			As usual, Vronti isn't wearing any clothing at all, and as such as he stands up you're able to see not only the [vronti.cockSize] sheath of his cock but also his [vronti.ballSize] balls. Completely unconcerned about his exhibitionism, he turns around and starts checking over his carriage to make sure that it's in working condition, shamelessly flashing you his puffy, [vronti.anusColour] horse-anus in the process. Turning his head back towards you, he calls out, [vronti.speech(It's two-hundred and fifty flames for a ride. I'm leaving in a few minutes.)]
 		</p>
 	#ELSE
 		<p>
@@ -467,7 +480,12 @@
 		Wanting to push Astrapi even further, you tell her that her pussy is starting to look like it's getting wet, and you ask her if she's got any pent-up sexual tension that needs to be dealt with. Although for all this time she's been pulling your carriage at an impressive rate, Astrapi hasn't once seemed to be getting out of breath, but now she pants as she responds, [astrapi.speech(You're making me like this... I can't help it... If my pussy gets wet...)]
 	</p>
 	<p>
-		Telling the centauress that she's a bad girl for getting wet while at work seems to be the last straw, and with a desperate whine, Astrapi abruptly makes a short diversion off the road. Cantering down a gravel track, she pulls up behind a half-collapsed barn, where she swiftly throws off her harness and pulls off her sports bra. Grabbing what looks like a sterility pill out of the carriage's storage box, she swallows it and demands, [astrapi.speech(You've made this problem, now you fix it! Fuck me as much as you want; I'm not going to get pregnant after taking that pill, so do whatever you want with my pussy, just make me cum!)]
+		Telling the centauress that she's a bad girl for getting wet while at work seems to be the last straw, and with a desperate whine, Astrapi abruptly makes a short diversion off the road. Cantering down a gravel track, she pulls up behind a half-collapsed barn, where she swiftly throws off her harness and pulls off her sports bra.
+		#IF(astrapi.isVisiblyPregnant())
+			 Gesturing towards her pregnant belly, she moans, [astrapi.speech(You've made this problem, now you fix it! Fuck me as much as you want; you've already got me pregnant, so do whatever you want with my pussy, just make me cum!)]
+		#ELSE
+			 Grabbing what looks like a sterility pill out of the carriage's storage box, she swallows it and demands, [astrapi.speech(You've made this problem, now you fix it! Fuck me as much as you want; I'm not going to get pregnant after taking that pill, so do whatever you want with my pussy, just make me cum!)]
+		#ENDIF
 	</p>
 	<p>
 		Presenting her rear-end to you, the horny centauress flicks her tail aside and shows you her now-dripping horse-pussy. In a distinctly animal-like behaviour, her clit is rhythmically winking at you, and as she reaches up to play with her huge, [astrapi.cupSize]-cup breasts, she whines, [astrapi.speech(Come on... You want to make my pussy happy, don't you?)]

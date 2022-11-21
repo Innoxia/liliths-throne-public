@@ -825,14 +825,14 @@ public class Sex {
 		}
 		
 		// Starting exposed:
-		for(GameCharacter character : Main.sex.getAllParticipants()) {
-			if(Main.sex.getSexPositionSlot(character)!=SexSlotGeneric.MISC_WATCHING) {
+		for(GameCharacter character : Main.sex.getAllParticipants(false)) {
+//			if(Main.sex.getSexPositionSlot(character)!=SexSlotGeneric.MISC_WATCHING) {
 				if(sexManager.isAppendStartingExposedDescriptions(character)) {
 					sexSB.append(handleExposedDescriptions(character, true));
 				} else {
 					handleExposedDescriptions(character, true);
 				}
-			}
+//			}
 		}
 		
 		StringBuilder initialSexActionSB = new StringBuilder();
@@ -3142,6 +3142,21 @@ public class Sex {
 		
 		List<GameCharacter> charactersReacting = new ArrayList<>(Main.sex.getAllParticipants());
 		charactersReacting.remove(characterBeingExposed);
+		
+		// Just have one character react, as otherwise the spam is too much:
+		if(charactersReacting.contains(Main.game.getPlayer()) && !isSpectator(Main.game.getPlayer())) {
+			charactersReacting.removeIf(c->!c.isPlayer());
+		} else {
+			if(isDom(characterBeingExposed)) {
+				if(charactersReacting.stream().anyMatch(c->!Main.sex.isDom(c))) {
+					charactersReacting.removeIf(c->Main.sex.isDom(c));
+					charactersReacting = charactersReacting.subList(0, 1);
+				}
+			} else if(charactersReacting.stream().anyMatch(c->Main.sex.isDom(c))) {
+				charactersReacting.removeIf(c->!Main.sex.isDom(c));
+				charactersReacting = charactersReacting.subList(0, 1);
+			}
+		}
 		
 		// Asshole and genitals:
 		

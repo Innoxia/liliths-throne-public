@@ -727,6 +727,9 @@ public class Properties {
 					if(Main.isVersionOlderThan(versionNumber, "0.4.6.5")) {
 						values.add(PropertyValue.udderContent);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.4.6.9")) {
+						values.add(PropertyValue.offspringEncounters);
+					}
 					
 					
 				} else {

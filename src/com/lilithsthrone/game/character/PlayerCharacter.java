@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.lilithsthrone.game.dialogue.DialogueFlags;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -45,7 +44,6 @@ import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
-import com.lilithsthrone.game.character.npc.submission.Elizabeth;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
@@ -59,6 +57,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -836,14 +835,6 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				if(worldLocation!=worldLocationInitial || !location.equals(locationInitial)) {
 					Main.game.getWorlds().get(worldLocationInitial).getCell(locationInitial).removeCharacterPresentId(clubber.getId());
 				}
-			}
-			
-		} else if(worldLocation==WorldType.SUBMISSION) {
-			super.setLocation(worldLocation, location, setAsHomeLocation);
-			
-			AbstractPlaceType place = Main.game.getWorlds().get(WorldType.SUBMISSION).getCell(location).getPlace().getPlaceType();
-			if(Main.game.isStarted() && Main.game.getNpc(Elizabeth.class)!=null && (place.equals(PlaceType.SUBMISSION_LILIN_PALACE_GATE) || place.equals(PlaceType.SUBMISSION_LILIN_PALACE))) {
-				Main.game.getNpc(Elizabeth.class).setLocation(this, false);
 			}
 			
 		} else {

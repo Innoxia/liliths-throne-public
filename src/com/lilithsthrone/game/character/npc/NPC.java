@@ -3087,6 +3087,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if((clothing.getClothingType().getClothingSet()==SetBonus.getSetBonusFromId("innoxia_bdsm") || clothing.getClothingType().getClothingSet()==SetBonus.getSetBonusFromId("sage_ltxset"))) {
 							wantsToEquip = this.getFetishDesire(Fetish.FETISH_BONDAGE_APPLIER).isPositive();
 						}
+						// Chastity cages are only equipped if NPC has like or love attitude towards denier fetish:
+						if(clothing.getItemTags().contains(ItemTag.CHASTITY)) {
+							wantsToEquip = this.getFetishDesire(Fetish.FETISH_DENIAL).isPositive();
+						}
 					}
 					// Always auto manage clothing, as NPCs use clothing removal methods in SexManagerDefault, so clothing additions should take place after removals.
 					// If auto management was disabled, then the NPC would equip clothing onto their partner as soon as that slot became free, which makes sex feel quite disjointed

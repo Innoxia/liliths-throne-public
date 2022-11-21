@@ -2642,7 +2642,6 @@ public class RoomPlayer {
 			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME", NightlifeDistrict.getClubbersPresent());
 		}
 
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {

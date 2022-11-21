@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+    <!-- Elizabeth encounter: -->
+
+    <htmlContent tag="INTRO"><![CDATA[
+	<p>
+		In the evening, the palace corridors are mostly empty, with only the occasional half-demon or human maid to be seen.
+		#IF(flags.hasFlag(FLAG_acexp_elizabeth_introduced))
+		     Once again, as you pass by one of the palace's many rooms, you hear a familiar melody being played on a piano. Immediately recognising the pianist's style, you realise that it's [elizabeth.name] who must be playing the instrument.
+		#ELSE
+		     As you pass by one of the palace's many rooms, you hear a familiar melody being played on a piano. Drifting out through the half-open door, this soft and gentle music has a sad, wistful sound, and strikes you as being full of regret and longing.
+		#ENDIF
+	</p>
+	#IF(!flags.hasFlag(FLAG_acexp_elizabeth_introduced))
+		<p>
+			#IF(pc.hasTraitActivated(PERK_JOB_MUSICIAN))
+				Being a musician yourself, you instantly identify the tune as <i>F&uuml;r Elise</i>, and can tell that it's being played on a grand piano of exceptional quality. The performance is nothing short of exceptional, with all the expression and tempo variations of someone who knows the piece inside out. Ludwig von Beethoven really was at his best with this.
+			#ELSE
+				Although you can tell that it's being played on a piano, you lack the musical knowledge to determine anything else about the piece. Although you're unsure of the name of music, it does sound quite familiar, and must be one of those classics you hear everywhere.
+			#ENDIF
+		</p>
+	#ENDIF
+	<p>
+		#IF(flags.hasFlag(FLAG_acexp_elizabeth_introduced))
+		    Taking a look at the half-open door, you wonder whether to head on inside and pay [elizabeth.name] another visit...
+		#ELSE
+    		Taking a look at the half-open door, you wonder whether you should investigate and find out who's playing this music at this hour...
+    	#ENDIF
+	</p>
+	]]>
+    </htmlContent>
+	
+    <htmlContent tag="INTRO_EXIT"><![CDATA[
+	<p>
+		#IF(flags.hasFlag(FLAG_acexp_elizabeth_introduced))
+			Deciding that you don't want to see Elizabeth again right now, you turn around and head back out into the corridor...
+		#ELSE
+			Deciding that you don't want to head inside and find out who's playing the piano, you turn around and head back out into the corridor...
+		#ENDIF
+	</p>
+	]]>
+    </htmlContent>
+	
+    <htmlContent tag="MUSIC"><![CDATA[
+	<p>
+		Pushing open the door, you [pc.step] forwards and enter what looks to be a well-furnished drawing room. Plush sofas, extravagantly-carved coffee tables, and a magnificent grand piano are just a few of the many items of furniture within this cavernous room. In a similar fashion to the palace's corridors, portraits of demons and humans hang from the walls, while underfoot, luxuriant carpeting provides a comfortable surface upon which to stand.
+	</p>
+	<p>
+		A couple of maids are standing to attention on one side of the room, but it's the room's third occupant which draws your attention. Sitting behind the grand piano, you see the familiar figure of Elizabeth, who's playing the instrument with such gusto that she's subconsciously sweeping her [elizabeth.tail+] from side to side in time with the music.
+	</p>
+	<p>
+		Not wanting to disturb the [elizabeth.race], you quietly take a seat on one of the sofas and listen to her fabulous performance. Not noticing your presence, Elizabeth continues playing for the next several minutes, and when she finishes, you stand up and applaud her. Upon hearing you, [elizabeth.name] quickly turns around and exclaims, [elizabeth.speech(Oh, [pc.name]! How long have you been here?)]
+	</p>
+	#IF(flags.hasFlag(FLAG_acexp_elizabeth_introduced))
+		#IF(elizabeth.isVisiblyPregnant())
+			#IF(!elizabeth.isCharacterReactedToPregnancy(pc))
+				<p>
+					It's at this moment that you suddenly notice the fact that Elizabeth is sporting a [style.colourSex(pregnant belly)]. Smiling at you as she notices what it is you're looking at, the [elizabeth.race] confirms, [elizabeth.speech(Yes, [pc.name], you're the one who got me pregnant. Please don't be concerned, however, there's nothing that I require from you.)]
+				</p>
+				<p>
+					Despite her words, you find yourself asking the mother of your children if there's anything that you can do to help her. Shaking her head, she holds up a hand to prevent you from asking the same thing again, before repeating herself and stating, [elizabeth.speech(Thank you, [pc.name], but I really can manage fine by myself. Now, is there anything I can do for you?)]
+				</p>
+			#ELSE
+				<p>
+					It's at this moment that you notice the fact that Elizabeth is still sporting a [style.colourSex(pregnant belly)]. Smiling at you as she notices what it is you're looking at, the [elizabeth.race] once again states, [elizabeth.speech(Don't worry about me, [pc.name], I really can manage this pregnancy by myself. Now, is there anything I can do for you?)]
+				</p>
+			#ENDIF
+			<p>
+				From the way she's beaming at you, it's obvious that Elizabeth is genuinely happy to see you again. Encouraged by this, you wonder what your next move should be...
+			</p>
+		#ELSE
+			<p>
+				Responding that you've been here long enough to appreciate her skill at playing the piano, you tell the [elizabeth.race] that you've once again enjoyed her performance.
+			</p>
+			<p>
+				[elizabeth.speech(Thank you, [pc.Name]. I'm happy to hear that you like it,)] [elizabeth.name] responds with a big smile on her face. Placing her hands in her lap, she asks, [elizabeth.speech(So, is there anything I can do for you?)]
+			</p>
+			<p>
+				From the way she's beaming at you, it's obvious that Elizabeth is genuinely liking the attention that you're giving her. Encouraged by this, you wonder what your next move should be...
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			You respond by explaining that you heard music playing, and after entering the room to investigate, you sat down and have been listening to her play for just a short while. At the end of your response, you finish by asking the [elizabeth.race] if she plays the piano often.
+		</p>
+		<p>
+			[elizabeth.speech(Well, not very often, but every once in a while. It helps me relax after a long day of guarding the gates of Mommy- ~Ahem!~ I mean Her Highness's palace,)] she responds in a slightly flustered manner. Quickly regaining her composure, she continues, [elizabeth.speech(So, is there anything I can do for you?)]
+		</p>
+		<p>
+			Discovering that this stern soldier is also an excellent pianist strikes you as a rather unexpected turn of events. Encouraged by the friendly smile on Elizabeth's face, you wonder what your next move should be...
+		</p>
+	#ENDIF
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="MUSIC_EXIT"><![CDATA[
+	<p>
+		Telling Elizabeth that you simply wanted to hear her playing the piano for a short while, you excuse yourself and prepare to head back out into the corridor. As you turn to leave, the [elizabeth.race] strides forwards to join you, and as the two of you exit the room, she states, [elizabeth.speech(I've got other matters to attend to this evening, so I'll see you another time, [pc.name].)]
+	</p>
+	<p>
+		With that, Elizabeth hurries off down the corridor, leaving you wondering where to go to next...
+	</p>
+	]]>
+    </htmlContent>
+	
+    <htmlContent tag="CHAT"><![CDATA[
+	<p>
+	    Wanting to spend some time getting to know her, you tell Elizabeth that you were hoping to talk with her, and ask her if she'd like to sit with you for a while.
+		#IF(elizabeth.getAffection(pc)>=25)
+			 The smile on her face subtly shifts to a little grin, and as she happily stands up and steps over to sit beside you, she states, [elizabeth.speech(I'd love to, [pc.name]. So, tell me what you'd like to talk about.)]
+		#ELSE
+			 Although the smile on her face remains, you can tell that the [elizabeth.race] is a little hesitant as she stands up and steps over to sit beside you. Crossing her legs, she somewhat-stiffly asks, [elizabeth.speech(So, what did you want to talk about?)]
+		#ENDIF
+	</p>
+	<p>
+	    #IF(pc.hasTraitActivated(PERK_JOB_SOLDIER))
+			Telling Elizabeth that the two of you have more in common that she might think, you tell her that you used to be a soldier, and so you know a lot about the sort of guard duties she's expected to perform. The [elizabeth.race]'s [elizabeth.eyes+] light up as she hears this, and at her eager encouragement, you soon find yourself recounting stories from your life in the forces to her. As you talk, you see Elizabeth's rigid posture visibly softening, and as you finish one of your more exciting tales, she exclaims, [elizabeth.speech(I've never heard of these places you're speaking of, but I wish I could have been there! You have no idea how boring my life is, guarding the gates all the time... You've lived such an interesting life, [pc.name].)]
+	    #ELSE
+            #IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=50)
+				Not having anything in particular that you wanted to talk to Elizabeth about, you find yourself making small talk by asking her about her daily life. As she mentions the fact that she works out every day, you seize upon this and tell her that you also work hard to maintain your physique. The [elizabeth.race]'s [elizabeth.eyes+] light up as she hears this, and at her encouragement, you soon find yourself talking about all that you've learned regarding nutrition, health, and fitness. As you talk, you see Elizabeth's rigid posture visibly softening, and as you finish, she excitedly reveals, [elizabeth.speech(None of my sisters ever like to talk about this kind of thing. I'm so happy that I've got you to talk to, [pc.name]!)]
+            #ELSE
+                Not having anything in particular that you wanted to talk to Elizabeth about, you find yourself making small talk by asking her about her daily life. Although she politely engages in conversation with you, it seems like the [elizabeth.race] isn't particularly interested in what you have to say. Nevertheless, the more you talk, the more her rigid posture visibly softens, and as your conversation comes to an end, she smiles and says in a genuine tone of voice, [elizabeth.speech(I enjoyed talking with you, [pc.name]. It makes a nice change to be able to speak to someone other than my sisters.)]
+            #ENDIF
+        #ENDIF
+	</p>
+	<p>
+	    #IF(elizabeth.getAffection(pc)>=25)
+			#IF(pc.hasTraitActivated(PERK_JOB_SOLDIER) || pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=50)
+				Having bonded over the subject matter of your conversation, you feel that you and Elizabeth have got a lot closer to one another.
+			#ELSE
+				Although the two of you haven't managed to find anything in common to talk about, you feel that from your repeated meetings you've by now got a lot closer to one another.
+			#ENDIF
+			 Telling her that you've enjoyed her company, you suggest that the two of you could do this again some time. Instead of politely responding in the affirmative as you expected, however, the [elizabeth.race] shuffles a little closer to you and reveals her true feelings.
+		#ELSE
+			Although she seems to have enjoyed your time together, you can tell that Elizabeth is wanting to head off and do something else now. Telling her that you've enjoyed her company, you suggest that the two of you could do this again some time. 
+		#ENDIF
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="PRAISE"><![CDATA[
+	<p>
+	    Wanting to spend some time with this [elizabeth.race], you compliment Elizabeth on her proficiency at playing the piano, and ask her if she'd like to sit with you for a while.
+		#IF(elizabeth.getAffection(pc)>=25)
+			 The smile on her face subtly shifts to a little grin, and as she happily stands up and steps over to sit beside you, she states, [elizabeth.speech(I'd love to, [pc.name]. So, you care about music, do you?)]
+		#ELSE
+			 Although the smile on her face remains, you can tell that the [elizabeth.race] is a little hesitant as she stands up and steps over to sit beside you. Crossing her legs, she somewhat-stiffly asks, [elizabeth.speech(So, you care about music, do you?)]
+		#ENDIF
+	</p>
+	<p>
+	    #IF(pc.hasTraitActivated(PERK_JOB_MUSICIAN))
+			Revealing to Elizabeth your background as a musician, you tell her that you're also able to play the piano, and once again compliment her on her proficiency with the instrument. The [elizabeth.race]'s [elizabeth.eyes+] light up as you reveal this to her, and she eagerly asks you to tell her more about your musical background. Soon enough, the two of you are engaged in an animated discussion concerning the finer points of playing the piano. Before long, you notice Elizabeth's rigid posture visibly softening, and as you recount how you've played in several concerts, she exclaims, [elizabeth.speech(Oh, I wish that I could perform for a large audience one day! You have no idea how boring my life is, guarding these gates all the time... Music is my one escape; I love playing the piano!)]
+	    #ELSE
+            #IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_ARCANE)>=50)
+				Although you truthfully tell Elizabeth that you appreciate music, you feel compelled to reveal to her that you can't play an instrument yourself. Seeing the disappointment in the [elizabeth.race]'s [elizabeth.eyes+], you quickly tell her that you do have a real interest in music, and suggest that harnessing the arcane feels sort of like playing an instrument at times. This remark saves the day, as Elizabeth's look of disappointment rapidly shifts into one of excitement, and she begins explaining in an animated manner how casting spells and playing instruments are indeed alike. Soon enough, the two of you are having an engaging discussion on the similarities of music and spell casting, and as you reveal how harnessing the arcane comes naturally to you, Elizabeth exclaims, [elizabeth.speech(Oh, I'm so envious! I have to spend so much time guarding the palace gates that I'm not able to study the arcane as much as I'd like... What little free time I have, I devote to playing the piano.)]
+            #ELSE
+                Although you truthfully tell Elizabeth that you appreciate music, you feel compelled to reveal to her that you can't play an instrument yourself. Although she politely responds to your follow-up requests to tell her more about her musical hobby, it seems like the [elizabeth.race] isn't particularly interested in what you have to say. Nevertheless, the more you talk about music, the more her rigid posture visibly softens, and as your conversation comes to an end, she smiles and says in a genuine tone of voice, [elizabeth.speech(I enjoyed talking with you, [pc.name]. It makes a nice change to be able to speak to someone other than my sisters.)]
+            #ENDIF
+        #ENDIF
+	</p>
+	<p>
+	    #IF(elizabeth.getAffection(pc)>=25)
+			#IF(pc.hasTraitActivated(PERK_JOB_MUSICIAN) || pc.getAttributeValue(ATTRIBUTE_MAJOR_ARCANE)>=50)
+				Having bonded over the subject of music, you feel that you and Elizabeth have got a lot closer to one another.
+			#ELSE
+				Although the two of you haven't really managed to get on the same page regarding music, you feel that from your repeated meetings you've by now got a lot closer to one another.
+			#ENDIF
+			 Telling her that you've enjoyed her company, you suggest that the two of you could do this again some time. Instead of politely responding in the affirmative as you expected, however, the [elizabeth.race] shuffles a little closer to you and reveals her true feelings.
+		#ELSE
+			Although she seems to have enjoyed your time together, you can tell that Elizabeth is wanting to head off and do something else now. Telling her that you've enjoyed her company, you suggest that the two of you could do this again some time. 
+		#ENDIF
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="FLIRT"><![CDATA[
+	<p>
+	    Finding Elizabeth to be irresistibly attractive, you decide to make a move on her, and so ask her if she'd like to sit with you and chat for a while.
+		#IF(elizabeth.getAffection(pc)>=25)
+			 Sensing what it is you're after, the smile on the [elizabeth.race]'s face subtly shifts to a sly smirk, and as she happily stands up and steps over to sit beside you, she teases, [elizabeth.speech(Go on then, hit me with your best pick-up line.)]
+		#ELSE
+			 Although the smile on her face remains, you can tell that the [elizabeth.race] is a little hesitant as she stands up and steps over to sit beside you. Clearly having realised what it is you're after, she crosses her legs and somewhat-stiffly sighs, [elizabeth.speech(Go on then, hit me with your best pick-up line.)]
+		#ENDIF
+	</p>
+	<p>
+	    #IF(pc.hasTraitActivated(PERK_JOB_ARISTOCRAT))
+			Deciding to rely on the conversational skills taught to you during your aristocratic upbringing, you tactfully compliment Elizabeth's appearance, before telling her that you hope that she's engaging with you willingly, and not out of obligation due to noblesse oblige. Quickly charmed by your smooth talking, Elizabeth visibly relaxes and seems more comfortable in your presence when you go on to reveal to her that you're also from an aristocratic family. Soon enough, the two of you are alternating between flirting and talking about the finer points of duty and nobility. After delivering a compliment that makes your companion blush and smile, you remark upon the fact that the obligations of nobility are expected to come before personal happiness. It's at this point that the [elizabeth.race]'s [elizabeth.eyes+] light up and she exclaims, [elizabeth.speech(You're right! Oh, how I wish that I could abandon my boring duties, but I couldn't betray the expectations of my mother or sisters... I'm sure you know how that feels too, [pc.name].)]
+	    #ELSE
+            #IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_CORRUPTION)>=50)
+				Doing as she asks, you give the [elizabeth.race] your best line, which results in her blushing a little and reluctantly admitting that it wasn't too bad. Following up with a flirtatious comment, you soon have Elizabeth giggling and responding in kind. Both from her reaction and the grin which soon settles on her face, you can tell that you're making a very good impression, and you soon notice that Elizabeth's rigid posture has visibly softened. As you give the pretty [elizabeth.race] another flirtatious compliment, she can't help but playfully laugh and exclaim, [elizabeth.speech(Oh really, [pc.name]! Now I understand how you were able to so easily deal with Lyssieth...)]
+            #ELSE
+				Doing as she asks, you give the [elizabeth.race] your best line, which unfortunately falls flat and results in her letting out an awkward laugh. Doing your best to salvage the situation, you follow up with a flirtatious comment, which seems to be appreciated by Elizabeth, but in itself is not enough to wipe away the memory of your failed pick-up line. Not letting your initial failure discourage you, you continue to flirt with your companion, and after a short while you see her rigid posture visibly softening. Eventually, however, your flirtatious conversation comes to an end, and Elizabeth smiles and says in a slightly horny manner, [elizabeth.speech(That was fun, [pc.name]. It makes a nice change to be able to speak to someone other than my sisters.)]
+            #ENDIF
+        #ENDIF
+	</p>
+	<p>
+	    #IF(elizabeth.getAffection(pc)>=25)
+			#IF(pc.hasTraitActivated(PERK_JOB_ARISTOCRAT) || pc.getAttributeValue(ATTRIBUTE_MAJOR_CORRUPTION)>=50)
+				Having her right where you want her, you tell Elizabeth that you feel like the two of you have got a lot closer to one another.
+			#ELSE
+				Although the two of you haven't really managed to hit it off, you feel that from your repeated meetings you've by now got a lot closer to one another.
+			#ENDIF
+			 Telling her that you've enjoyed her company, you suggest that the two of you could do this again some time. Instead of politely responding in the affirmative as you expected, however, the [elizabeth.race] shuffles a little closer to you and reveals her true feelings.
+		#ELSE
+			Although she seems to have enjoyed your time together, you can tell that Elizabeth is wanting to head off and do something else now. Telling her that you've enjoyed her company, you suggest that the two of you could do this again some time. 
+		#ENDIF
+	</p>
+    ]]>
+    </htmlContent>
+
+    <htmlContent tag="INTERACTION_END"><![CDATA[
+	<p>
+	    #IF(elizabeth.getAffection(pc)>=25)
+            [elizabeth.speech(You know [pc.name], I may look mostly human, but in times like this I feel more like a succubus,)] [elizabeth.name] teases, and as her tail snakes around to wrap around your [pc.leg(true)], she gazes at you with an unmistakable hunger in [elizabeth.her] eyes. Placing one of her feminine hands on your [pc.arm(true)], she leans in a little closer and suggests, [elizabeth.speech(Why don't we take this a bit further? I can tell that you want it...)]
+        #ELSE
+            [elizabeth.speech(Yes, it's been nice spending time with you [pc.name],)] [elizabeth.Name] says, and as she stands up she states, [elizabeth.speech(I wouldn't mind doing this again. For now, however, I have other matters to attend to...)]
+        #ENDIF
+	</p>
+	]]>
+    </htmlContent>
+	
+    <htmlContent tag="INTERACTION_EXIT"><![CDATA[
+	<p>
+	    #IF(elizabeth.getAffection(pc)>=25)
+			Not wanting to go all the way and have sex with Elizabeth, you let her down as gently as you can. Excusing yourself, you then stand up and prepare to head back out into the corridor. As you turn to leave, the [elizabeth.race] strides forwards to join you, and as the two of you exit the room, she states in a disappointed tone, [elizabeth.speech(Well, I suppose that I've got other matters to attend to this evening... I'll see you another time, [pc.name].)]
+		#ELSE
+			Sensing that your time with Elizabeth is at an end, you excuse yourself and stand up. As you turn to leave, the [elizabeth.race] strides forwards to join you, and as the two of you exit the room, she states, [elizabeth.speech(Well, I suppose that I'll see you another time, [pc.name].)]
+		#ENDIF
+	</p>
+	<p>
+		With that, Elizabeth hurries off down the corridor, leaving you wondering where to go to next...
+	</p>
+	]]>
+    </htmlContent>
+	
+    <htmlContent tag="SEX_START"><![CDATA[
+	<p>
+	    Unable to deny your feelings towards this horny [elizabeth.race], you ask her what exactly she had in mind.
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+			Choosing to give you a physical response, Elizabeth leans in towards you, and before you can react, she presses her [elizabeth.lips+] against yours and desperately thrusts her tongue into your mouth. Making erotic, muffled moans, she passionately starts making out with you.
+		#ELSE
+			Choosing to give you a physical response, Elizabeth leans in towards you, and before you can react, she plants a series of passionate kisses over your body.
+		#ENDIF
+	</p>
+	<p>
+		Out of the corner of your eye you see the couple of maids standing on one side of the room casting fleeting glances at you and Elizabeth. Not deterred by the onlookers, your partner continues passionately grinding up against you and showering you with kisses.
+	</p>
+	#IF(pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+		<p>
+			Her [elizabeth.hands+] then find their way down to your groin, before quickly freeing your [pc.penis+]. Breaking off the kiss, she lies back on the sofa and pushes her thighs together, before grabbing your hard [pc.penis] and guiding it between her [elizabeth.legs+]. Letting out a deep, erotic moan as your cock slides between her thighs, the [elizabeth.race] exclaims, [elizabeth.speech(~Ooh!~ Come on, [pc.name]! Let me give you the best thigh-job ever!)]
+		</p>
+	#ELSEIF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+		<p>
+			Her [elizabeth.hands+] then find their way down to your groin, before quickly freeing your [pc.pussy+]. Breaking off the kiss, she pushes you back on the sofa, before moving up between your [pc.legs]. Letting out a deep, erotic moan, she presses her pussy down against yours, and as she starts tribbing with you, she exclaims, [elizabeth.speech(~Ooh!~ Yes, [pc.name]! Your pussy feels so good!)]
+		</p>
+	#ELSE
+		<p>
+			[elizabeth.speech(~Mmm!~ Come on, [pc.name]! Let's fuck!)] she passionately exclaims.
+		</p>
+	#ENDIF
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="AFTER_SEX"><![CDATA[
+	#IF(sex.isSatisfiedFromOrgasms(elizabeth, true))
+		<p>
+			Letting out a deeply satisfied sigh, Elizabeth pulls back and collapses down onto the plush sofa. With her [elizabeth.breasts+] rising and falling with every breath, the [elizabeth.race] smiles at you and states, [elizabeth.speech(Damn, that was good... We should do this more often!)]
+		</p>
+		<p>
+			Agreeing with her statement, you copy Elizabeth as she starts gathering her discarded clothing and getting dressed. A moment later, and the two of you are ready to go, at which point your partner reveals, [elizabeth.speech(I've got some other things to be doing this evening, so I'll see you around, [pc.name]!)]
+		</p>
+		<p>
+	        With your intimate experience with Elizabeth at an end, you join her in heading over to the room's exit, leaving a couple of furiously blushing maids in your wake...
+		</p>
+	#ELSE
+		<p>
+			Seeing that you've had enough, Elizabeth lets out a frustrated sigh, before pulling back and collapsing down onto the plush sofa. With her [elizabeth.breasts+] rising and falling with every breath, the [elizabeth.race] frowns at you and exclaims, [elizabeth.speech(Well! That really wasn't good enough, [pc.name!)]
+		</p>
+		<p>
+			Huffing and puffing in annoyance, the [elizabeth.race] quickly sets about gathering her discarded clothing and getting dressed. A moment later, and the two of you are ready to go, at which point your partner pouts and exclaims, [elizabeth.speech(Next time, pay some more attention to my needs!)]
+		</p>
+		<p>
+	        With your intimate experience with Elizabeth at an end, you join her in heading over to the room's exit, leaving a couple of furiously blushing maids in your wake...
+		</p>
+	#ENDIF
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="AFTER_SEX_EXIT"><![CDATA[
+	<p>
+		You and Elizabeth exit the room, at which point the [elizabeth.race]
+		#IF(sex.isSatisfiedFromOrgasms(elizabeth, true))
+			 winks at you and teases, [elizabeth.speech(I look forward to your next visit, [pc.name]...)]
+		#ELSE
+			 pouts at you one last time and demands, [elizabeth.speech(Next time, [pc.name], make sure that I'm satisfied too!)]
+		#ENDIF
+	</p>
+	<p>
+		With that, Elizabeth hurries off down the corridor, leaving you wondering where to go to next...
+	</p>
+	]]>
+    </htmlContent>
+	
+</dialogue>

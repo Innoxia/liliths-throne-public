@@ -6520,7 +6520,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean hasTraitActivated(AbstractPerk perk) {
-		return traits.contains(perk);
+		return traits.contains(perk) || perk==getHistory().getAssociatedPerk();
 	}
 
 	public boolean removeTrait(AbstractPerk perk) {
