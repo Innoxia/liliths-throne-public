@@ -12,6 +12,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where NPCs' 'fleshSubspecies' variable would unintentionally get set to Subspecies.HUMAN, even if it shouldn't be a human. (by Stadler76)
 		Fixed some incorrect daughter/son relationship references. (by Lio)
 		Fixed bug where stickers for clothing which fitted into multiple slots would not be initialised correctly. (PR#1733 by CognitiveMist)
+		Added Maven profiles to auto detect which OS the build is running on. (PR#1732 by AlacoGit)
 	
 	Engine/Modding:
 		Moved all 'Over-torso' clothing entries from being hard-coded into the external 'res/clothing/innoxia/torsoOver' folder.
@@ -182,7 +183,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] PRs
 		[x] Lio patches
 		[x] #1733
-		[] #1732
+		[x] #1732
 		[] #1731
 	
 	[] string bikini
