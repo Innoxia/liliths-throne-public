@@ -1375,7 +1375,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			    interactingTarget = InventoryDialogue.getInventoryNPC();
 			}
 			if(interactingTarget!=null) {
-			    String condomEquip = interactingTarget.getCondomEquipEffects(this, clothingEquipper, interactingTarget, rough);
+			    String condomEquip = interactingTarget.getCondomEquipEffects(this, clothingEquipper, clothingOwner, rough);
 				if(condomEquip!=null) {
 					return condomEquip;
 				}

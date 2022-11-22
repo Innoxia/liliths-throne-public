@@ -4743,10 +4743,16 @@ public class Sex {
 
 	// Free area convenience methods:
 
+	/**
+	 * Note that this only checks if an ongoing action is currently using the orifice. You will likely still need to check if the orifice is covered by clothing or not.
+	 */
 	public boolean isOrificeFree(GameCharacter character, SexAreaOrifice orifice) {
 		return ongoingActionsMap.get(character).get(orifice).isEmpty();
 	}
-	
+
+	/**
+	 * Note that this only checks if an ongoing action is currently using the orifice. You will likely still need to check if the orifice is covered by clothing or not.
+	 */
 	public boolean isOrificeNonSelfOngoingAction(GameCharacter characterOrifice, SexAreaOrifice orifice) {
 		for(GameCharacter penetrator : Main.sex.allParticipants) {
 			if(!penetrator.equals(characterOrifice)) {

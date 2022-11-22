@@ -10,6 +10,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added more content for Elizabeth (the guard at Lyssieth's palace), including sex content, which starts by meeting her in one of the rooms within the palace between 20:00-23:00. (by AceXP)
 		Fixed issue where you'd be unable to change your ass/facial/pubic/underarm hair values in Kate's shop. (by Maxis)
 		Fixed issue where NPCs' 'fleshSubspecies' variable would unintentionally get set to Subspecies.HUMAN, even if it shouldn't be a human. (by Stadler76)
+		Fixed some incorrect daughter/son relationship references. (by Lio)
 	
 	Engine/Modding:
 		Moved all 'Over-torso' clothing entries from being hard-coded into the external 'res/clothing/innoxia/torsoOver' folder.
@@ -33,6 +34,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Other:
 		Slightly improved colours in clothing/tattoo UI.
+		The clothing types (such as sex toys and BDSM gear) which NPCs spawn with are now more randomly selected, which should result in NPCs spawning with a broader range of sex toys.
 	
 	Bugs:
 		Parsing and formatting fixes and minor text improvements.
@@ -52,6 +54,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		The 'femininity' parsing command will now always apply the correct 'a' or 'an' determiner.
 		Fixed bug where dying a weapon that's on the floor while having an identical weapon equipped would throw background errors.
 		Fixed issue where at the start of sex in which there are X characters, NPCs' area reveal descriptions would be duplicated X times.
+		Fixed issue where the guards at the imp fortresses would always act as though they knew you were a demon even if you were appearing as a different race.
+		Fixed bug where self-equipping a condom during sex would give a description as though it was being equipped on your partner.
+		The sex actions 'Paizuri/Naizuri into mouth' and 'Thrust into mouth' now correctly check to see if the target's mouth is blocked by clothing when checking for availability.
 	
 	
 	[x] 4 pings in developers
@@ -167,19 +172,27 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] test
 	[x] When character is on all fours, they can finger character behind them?
 	[x] toggle for being able to encounter your offspring
+	[x] bug reports
+		[x] imp fortress entries "...leader and hisses..." refer to player as appearance race, not as a demon
+		[x] self-equipping a condom gave description as though it was being equipped on partner
+		[x] orgasm denier NPCs never spawn with chastity belts but always spawn with chastity cages
+		[x] Paizurai into mouth currently doesn't check if you have anything blocking your mouth. Such as a ball gag
 	
-	[] bug reports
+	[] PRs
+		[x] Lio patches
+		[] #1733
+		[] #1732
+		[] #1731
 	
 	[] string bikini
 	[] cute pawprint pattern pajamas
 	[x] FAMAS
 	
-	[] PRs
-		[] Lio patches
-	
 	[] Really need to fix the isAbleToUnequip() method in CharacterInventory
+		[] I ran into a issue that if I put on the lowback body suit and pantyhose then in sex scenes neither could be removed because they where bein blocked by each other. I could remove them however outside of sex scenes
 	
 	
+	[] Jhortax imps - it is possible to both get penetrated and a vaginal item equipped at the same turn
 	
 	[] Update build instructions (Dream's message in tech):
 		Fatal error compiling: invalid flag: --release and lambda expressions are not supported in -source (number with comma here)

@@ -2423,7 +2423,7 @@ public class CharacterUtils {
 			for(AbstractClothingType ct : ClothingType.getAllClothingInSet(SetBonus.getSetBonusFromId("innoxia_bdsm"))) {
 				InventorySlot defaultSlot = ct.getEquipSlots().get(0);
 				if(defaultSlot!=InventorySlot.VAGINA && defaultSlot!=InventorySlot.PENIS && defaultSlot!=InventorySlot.ANUS && defaultSlot!=InventorySlot.NIPPLE && defaultSlot!=InventorySlot.GROIN) {
-					availableClothing.add(ct); // Do not add clothing types whihc are sex toys, as conditionals for those are added in the next logic block
+					availableClothing.add(ct); // Do not add clothing types which are sex toys, as conditionals for those are added in the next logic block
 				}
 			}
 		}
@@ -2441,7 +2441,7 @@ public class CharacterUtils {
 						}
 					} else if(defaultSlot==InventorySlot.PENIS && !ct.getDefaultItemTags().contains(ItemTag.CONDOM) && !ct.getDefaultItemTags().contains(ItemTag.DILDO_OTHER)) { //Don't equip dildos on others
 						if(!character.getFetishDesire(Fetish.FETISH_PENIS_RECEIVING).isNegative()
-								&& (Collections.disjoint(ct.getDefaultItemTags(), Util.newArrayListOfValues(ItemTag.RIGID_MATERIAL, ItemTag.PREVENTS_ERECTION_PHYSICAL, ItemTag.PREVENTS_ERECTION_OTHER))
+								&& (Collections.disjoint(ct.getDefaultItemTags(), Util.newArrayListOfValues(ItemTag.CHASTITY, ItemTag.PREVENTS_ERECTION_PHYSICAL, ItemTag.PREVENTS_ERECTION_OTHER))
 										|| character.getFetishDesire(Fetish.FETISH_DENIAL).isPositive())) {
 							availableClothing.add(ct);
 						}
@@ -2454,8 +2454,8 @@ public class CharacterUtils {
 							availableClothing.add(ct);
 						}
 					} else if(defaultSlot==InventorySlot.GROIN) {
-						if(ct.getDefaultItemTags().contains(ItemTag.RIGID_MATERIAL) && character.getFetishDesire(Fetish.FETISH_DENIAL).isPositive()) {
-							availableClothing.add(ct); // Only add chastity devices into groin slot (which I am assuming will be tagged as RIGID_MATERIAL...)
+						if(ct.getDefaultItemTags().contains(ItemTag.CHASTITY) && character.getFetishDesire(Fetish.FETISH_DENIAL).isPositive()) {
+							availableClothing.add(ct); // Only add chastity devices into groin slot
 						}
 					}
 				}
@@ -2466,6 +2466,7 @@ public class CharacterUtils {
 		
 		// Adding clothing to inventory:
 		maxClothingCount+=Util.random.nextInt(3);
+		Collections.shuffle(availableClothing);
 		for(AbstractClothingType ct : availableClothing) {
 			character.addClothing(Main.game.getItemGen().generateClothing(ct, false), 1, false, false);
 			maxClothingCount--;
