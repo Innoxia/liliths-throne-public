@@ -300,6 +300,9 @@ public class GenericActions {
 					allSubsAssigned = true;
 				}
 				targetedCharacters.put(dom, target);
+				// Don't forget to update the global set
+				Main.sex.setTargetedPartner(dom, target);
+
 				if(allDomsAssigned && allSubsAssigned) { // If this is the second+ time going through the loop, break as soon as all subs are accounted for
 					break;
 				}
@@ -425,6 +428,9 @@ public class GenericActions {
 				} else if (!dom.isAbleToOrgasm() && !allSubsAssigned) {
 					// Anorgasmic Doms rove between targets instead of giving up.
 					targetedCharacters.put(dom, null);
+
+					// Don't forget to clear the global partner mapping eithe
+					Main.sex.setTargetedPartner(dom, null);
 				}
 			}
 			
