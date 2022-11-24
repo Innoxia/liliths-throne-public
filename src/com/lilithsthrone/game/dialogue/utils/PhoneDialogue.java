@@ -3619,10 +3619,17 @@ public class PhoneDialogue {
 					+ "Feminine: <span style='color:"+Femininity.valueOf(femaleBody.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspeciesSelected.getSingularFemaleName(null))+"</span>");
 
 			subspeciesSB.append("<br/><br/>"
-					+ "<b>Race bonuses:</b>");
-			for(String s : getSubspeciesModifiersAsStringList(subspeciesSelected)) {
+					+"<b>Race bonuses:</b>");
+			if(Main.getProperties().isAdvancedRaceKnowledgeDiscovered(subspeciesSelected)) {
+				for (String s : getSubspeciesModifiersAsStringList(subspeciesSelected)) {
+					subspeciesSB.append("<br/>");
+					subspeciesSB.append(s);
+				}
+			} else {
 				subspeciesSB.append("<br/>");
-				subspeciesSB.append(s);
+				subspeciesSB.append("<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>");
+					subspeciesSB.append("Race bonuses can be discovered in books!");
+				subspeciesSB.append("</span>");
 			}
 			
 			subspeciesSB.append("<br/><br/>"

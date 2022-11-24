@@ -4,13 +4,13 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.imageio.ImageIO;
 
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.places.GenericPlace;
-
 import javafx.concurrent.Task;
 
 /**
@@ -28,17 +28,15 @@ public class Generation extends Task<Boolean> {
 	@Override
 	public Boolean call() {
 		int maxSize = WorldType.getAllWorldTypes().size();
-		int count = 0;
+		AtomicInteger count = new AtomicInteger();
 		
-		for(AbstractWorldType wt : WorldType.getAllWorldTypes()) {
-			if(debug) {
+		WorldType.getAllWorldTypes().parallelStream().forEach(wt->{
+			if (debug) {
 				System.out.println(wt);
 			}
 			Main.game.getWorlds().put(wt, worldGeneration(wt));
-			count++;
-			updateProgress(count, maxSize);
-		}
-		
+			updateProgress(count.incrementAndGet(), maxSize);
+		});
 		return true;
 	}
 
