@@ -1220,7 +1220,9 @@ public class RedLightDistrict {
 				if(grid[i][j].getPlace().getPlaceType().equals(PlaceType.ANGELS_KISS_BEDROOM)) {
 					List<NPC> charactersPresent = Main.game.getCharactersPresent(WorldType.ANGELS_KISS_GROUND_FLOOR, new Vector2i(i, j));
 					charactersPresent.removeIf(NPC->NPC.getHistory() != Occupation.NPC_PROSTITUTE);
-					prostitutes.add(charactersPresent.get(0));
+					if(!charactersPresent.isEmpty()) {
+						prostitutes.add(charactersPresent.get(0));
+					}
 				}
 			}
 		}
