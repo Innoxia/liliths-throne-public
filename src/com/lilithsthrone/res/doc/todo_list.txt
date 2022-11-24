@@ -16,6 +16,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Minor optimisations; Added ability to pay to remove prostitutes in Angel's Kiss; Improved several update methods; Racial tooltips are now hidden for characters who have their race hidden; Advanced race knowledge is now required to see racial status effect attributes. (PR#1731 by Maxis010 and CognitiveMist)
 		Added the same SVG zLayer, resizing, and rotation functionality to tattoos which was added to clothing/weapons a while ago - see the 'imageName' attribute in the 'res\mods\innoxia\items\tattoos\heartWomb\heartWomb.xml' file for comments on how to use the new functionality. (PR#1739 by NoHornyOnMain)
 		Fixed serpent-tailed coatls being named coatl-lamias. (PR#1725 by Stadler76)
+		Added 'feral' to litters when giving birth, viewing pregnancy stats or the offspring map. (PR#1723 by Stadler76)
 	
 	Engine/Modding:
 		Moved all 'Over-torso' clothing entries from being hard-coded into the external 'res/clothing/innoxia/torsoOver' folder.
@@ -197,8 +198,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] #1739
 		[x] #1725
 		[] #1724
-		[] #1723
+		[x] #1723
 		[] #1716
+	
+	[] the tooltip for unknown race is applying to desires, sex areas, etc.
 	
 	[] add colour tooltips to tattoo addition UI
 	
