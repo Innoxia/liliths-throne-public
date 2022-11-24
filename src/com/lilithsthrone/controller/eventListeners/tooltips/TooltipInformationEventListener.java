@@ -150,7 +150,7 @@ public class TooltipInformationEventListener implements EventListener {
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>");// style='white-space: nowrap'>");
 				boolean effectsFound = false;
-				if(Main.getProperties().isAdvancedRaceKnowledgeDiscovered(owner.getTrueSubspecies()) && !owner.isRaceConcealed()) {
+				if((Main.getProperties().isAdvancedRaceKnowledgeDiscovered(owner.getTrueSubspecies()) && !owner.isRaceConcealed()) || owner.isPlayer()) {
 					if (!statusEffect.getModifiersAsStringList(owner).isEmpty()) {
 						for (String s : statusEffect.getModifiersAsStringList(owner)) {
 							tooltipSB.append((effectsFound?"<br/>":"")+UtilText.parse(owner, s));
@@ -159,7 +159,7 @@ public class TooltipInformationEventListener implements EventListener {
 					}
 				} else {
 					tooltipSB.append("<p style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>");
-					tooltipSB.append("You don't know enough about this person to know their strengths and weaknesses...</p>");
+					tooltipSB.append(UtilText.parse(owner, "You don't know enough about [npc.racePlural] to know [npc.namePos] strengths and weaknesses...</p>"));
 					effectsFound = true;
 				}
 				for (AbstractCombatMove cm : statusEffect.getCombatMoves()) {

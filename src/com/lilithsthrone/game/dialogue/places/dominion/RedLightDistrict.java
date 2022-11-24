@@ -405,7 +405,7 @@ public class RedLightDistrict {
 								};
 							}
 							
-						} else if (index == 3) {
+						} else if (index == 5) {
 							int fineAmount = AlleywayProstituteDialogue.getModifiedFineAmount(npc);
 							if(Main.game.getPlayer().getMoney()<fineAmount) {
 								return new Response("Remove ("+UtilText.formatAsMoney(fineAmount, "span")+")",
