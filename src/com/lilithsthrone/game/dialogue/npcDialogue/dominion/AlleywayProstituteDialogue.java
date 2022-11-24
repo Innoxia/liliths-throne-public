@@ -6,6 +6,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.QuickTransformations;
@@ -38,6 +39,62 @@ public class AlleywayProstituteDialogue {
 	
 	private static boolean inApartment = false;
 	private static boolean hadSex = false;
+	
+	/**
+	 * Generate an estimate for the remaining value of the prostitute's fine.
+	 * DOES NOT use randomness, so that the value is repeatable without requiring
+	 * storage (and may change as the player interacts with them).
+	 */
+	public static int getModifiedFineAmount(GameCharacter character) {
+		/*
+		 * Estimate the maximum number of times they've had sex as an illegal prostitute:
+		 * - percentageNonProstitute = sexCount ^ -0.33
+		 *          1 -> 1.00
+		 *         10 -> 0.47
+		 *        100 -> 0.22
+		 *       1000 -> 0.10
+		 * - percentageProstitute = 1 - percentageNonProstitute
+		 *          1 -> 0.00
+		 *         10 -> 0.53
+		 *        100 -> 0.78
+		 *       1000 -> 0.90
+		 * - countProstitute = sexCount * percentageProstitute
+		 *          1 ->   0
+		 *         10 ->   5
+		 *        100 ->  78
+		 *       1000 -> 897
+		 */
+		int maxSexCountAsProstitute = (int)((1 - Math.pow(character.getTotalSexConsensualCount(), -0.33)) * character.getTotalSexConsensualCount());
+		
+		/*
+		 * Assume the profits are split:
+		 * - 60% for food, pills, clothing, rent
+		 * - 20% for 'protection' money
+		 * - 5% of customers don't pay (10% if physically weak, or naive)
+		 */
+		double savingsPercentage = character.hasPersonalityTrait(PersonalityTrait.NAIVE) ? 0.10 : 0.15;
+		
+		/*
+		 * For simplicity, assume threesomes are already accounted-for within sex-count.
+		 */
+		int maxSavings = (int)(maxSexCountAsProstitute * prostitutePrice(false) * savingsPercentage);
+		
+		/*
+		 * We don't actually know how long ago (in lore) they got into debt
+		 * So adjust their savings, so that it doesn't exceed the debt amount
+		 * (to prevent issues where the effective fine is negative)
+		 *        0 ->    0
+		 *     1000 -> 1500
+		 *     5000 -> 4500
+		 *    10000 -> 6000
+		 *   100000 -> 8571
+		 * 13212918 -> 8997 (this is the current theoretical maximum -- 100yr old, 500sex/yr, max price of 2215)
+		 */
+		int fineAmount = Main.game.getDialogueFlags().getProstituteFine();
+		int actualSavings = (int)(maxSavings * (fineAmount * 0.9) / (maxSavings + (fineAmount / 2)));
+		
+		return fineAmount - actualSavings;
+	}
 	
 	private static int prostitutePrice(boolean threesome) {
 		return getProstitute().getProstitutePrice() * (threesome?2:1);
@@ -199,7 +256,6 @@ public class AlleywayProstituteDialogue {
 								getProstitute().setRandomUnoccupiedLocation(WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_BEDROOM, true);
 							}
 						};
-						
 					} else {
 						return new Response("Angel's Kiss", "There's no room available at Angel's Kiss for another prostitute...", null);
 					}
@@ -388,13 +444,14 @@ public class AlleywayProstituteDialogue {
 					};
 					
 				} else if (index == 10) {
-					if(Main.game.getPlayer().getMoney()<Main.game.getDialogueFlags().getProstituteFine()) {
-						return new Response("Remove ("+UtilText.formatAsMoney(Main.game.getDialogueFlags().getProstituteFine(), "span")+")",
-								UtilText.parse(getProstitute(), "You don't have "+Util.intToString(Main.game.getDialogueFlags().getProstituteFine())+" flames, so you can't afford to pay [npc.name] to leave this area."),
+					int fineAmount = getModifiedFineAmount(getProstitute());
+					if(Main.game.getPlayer().getMoney()<fineAmount) {
+						return new Response("Remove ("+UtilText.formatAsMoney(fineAmount, "span")+")",
+								UtilText.parse(getProstitute(), "You don't have "+Util.intToString(fineAmount)+" flames, so you can't afford to pay [npc.name] to leave this area."),
 								null);
 					} else {
 						return new Response(
-								"Remove ("+UtilText.formatAsMoney(Main.game.getDialogueFlags().getProstituteFine(), "span")+")",
+								"Remove ("+UtilText.formatAsMoney(fineAmount, "span")+")",
 								UtilText.parse(getProstitute(), "Give [npc.name] enough money to pay off the Enforcers who are after [npc.herHim], which would allow [npc.herHim] to stop having to work in these dangerous alleyways."
 										+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]"),
 								PROSTITUTE_REMOVAL_PAID) {
@@ -414,7 +471,7 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public String getContent() {
 			StringBuilder sb = new StringBuilder();
-			UtilText.addSpecialParsingString(Util.intToString(Main.game.getDialogueFlags().getProstituteFine()), true);
+			UtilText.addSpecialParsingString(Util.intToString(getModifiedFineAmount(getProstitute())), true);
 			if(inApartment) {
 				sb.append(UtilText.parseFromXMLFile("encounters/dominion/prostitute", "ALLEY_PROSTITUTE_QUESTION_APARTMENT", getProstitute()));
 			} else {
@@ -455,7 +512,7 @@ public class AlleywayProstituteDialogue {
 	public static final DialogueNode PROSTITUTE_REMOVAL_THREATENED = new DialogueNode("", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
-			UtilText.addSpecialParsingString(Util.intToString(Main.game.getDialogueFlags().getProstituteFine()), true);
+			UtilText.addSpecialParsingString(Util.intToString(getModifiedFineAmount(getProstitute())), true);
 			if(inApartment) {
 				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/prostitute", "PROSTITUTE_REMOVAL_THREATENED_APARTMENT", getProstitute()));
 			} else {
@@ -483,19 +540,19 @@ public class AlleywayProstituteDialogue {
 			AbstractWeapon weapon;
 			if(rnd<0.60f) {
 				weapon = Main.game.getItemGen().generateWeapon("dsg_eep_enbaton_enbaton"); // 60% chance of getting a baton
-			} else if(rnd<0.30f){
+			} else if(rnd>0.70f){
 				weapon = Main.game.getItemGen().generateWeapon("dsg_eep_pbweap_pbpistol"); // 30% chance of getting a pistol
 			} else {
 				weapon = Main.game.getItemGen().generateWeapon("dsg_eep_taser_taser"); // 10% chance of getting a taser
 			}
 			UtilText.addSpecialParsingString(weapon.getName(true, true), true);
-			UtilText.addSpecialParsingString(Util.intToString(Main.game.getDialogueFlags().getProstituteFine()), false);
+			UtilText.addSpecialParsingString(Util.intToString(getModifiedFineAmount(getProstitute())), false);
 			if(inApartment) {
 				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/prostitute", "PROSTITUTE_REMOVAL_PAID_APARTMENT", getProstitute()));
 			} else {
 				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/prostitute", "PROSTITUTE_REMOVAL_PAID", getProstitute()));
 			}
-			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-Main.game.getDialogueFlags().getProstituteFine()));
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-getModifiedFineAmount(getProstitute())));
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addWeapon(weapon, false));
 			Main.game.banishNPC(getProstitute());
 		}

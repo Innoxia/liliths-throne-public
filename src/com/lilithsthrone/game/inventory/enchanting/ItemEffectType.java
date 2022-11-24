@@ -2280,16 +2280,16 @@ public class ItemEffectType {
 				
 			} else if(secondaryModifier == TFModifier.CLOTHING_SEALING) {
 				if(potency==TFPotency.MINOR_DRAIN) {
-					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Unseal: [style.boldArcane(25)])</b>");
+					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Unseal: [style.boldArcane(" + ItemEffect.SEALED_COST_MINOR_DRAIN + ")])</b>");
 					
 				} else if(potency==TFPotency.DRAIN) {
-					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Unseal: [style.boldArcane(100)])</b>");
+					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Unseal: [style.boldArcane(" + ItemEffect.SEALED_COST_DRAIN + ")])</b>");
 					
 				} else if(potency==TFPotency.MAJOR_DRAIN) {
-					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Unseal: [style.boldArcane(500)])</b>");
+					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Unseal: [style.boldArcane(" + ItemEffect.SEALED_COST_MAJOR_DRAIN + ")])</b>");
 					
 				} else {
-					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Unseal: [style.boldArcane(5)])</b>");
+					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Unseal: [style.boldArcane(" + ItemEffect.SEALED_COST_MINOR_BOOST + ")])</b>");
 				}
 				
 			} else if(secondaryModifier == TFModifier.CLOTHING_SERVITUDE) {
