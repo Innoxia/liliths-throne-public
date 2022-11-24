@@ -1513,12 +1513,14 @@ public class TooltipInventoryEventListener implements EventListener {
 		tooltipSB.append("</div>");
 		
 		// Picture:
-		tooltipSB.append("<div class='container-half-width' style='width:calc(33.3% - 16px);'>"
-						+ tattoo.getSVGImage(
-								equippedToCharacter==null
-									?Main.game.getPlayer()
-									:equippedToCharacter)
-					+ "</div>");
+		tooltipSB.append("<div class='item-image'>"
+								+ "<div class='item-image-content'>"
+									+ tattoo.getSVGImage(
+										equippedToCharacter==null
+											?Main.game.getPlayer()
+											:equippedToCharacter)
+								+ "</div>"
+							+ "</div>");
 
 		tooltipSB.append("</div>");
 
