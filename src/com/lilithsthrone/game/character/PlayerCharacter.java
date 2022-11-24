@@ -2114,14 +2114,14 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				if(Main.game.getPlayer().hasHymen()) {
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
 						sb.append("With the initial pain now having faded away into a faint, dull ache, you can't help but let out one final whimper as you feel a little trickle of blood running out of your broken-in pussy."
-									+ " Picking up the pace, you thrust your "+penetrationName+" into your [pc.pussy+] once again, letting out [pc.moan+] as you succumb to this new pleasurable experience...");
+									+ " Picking up the pace, you thrust your "+penetrationName+" into your [pc.pussy+] once again, letting out [pc.a_moan+] as you succumb to this new pleasurable experience...");
 					} else {
 						sb.append("With the initial pain now having faded away into a faint, dull ache, you let out one final whimper as you reflect on the fact that this is how you'll always remember losing your virginity."
-								+ " Picking up the pace, you thrust your "+penetrationName+" into your [pc.pussy+] once again, letting out [pc.moan+] as you succumb to this new pleasurable experience...");
+								+ " Picking up the pace, you thrust your "+penetrationName+" into your [pc.pussy+] once again, letting out [pc.a_moan+] as you succumb to this new pleasurable experience...");
 					}
 				} else {
 					sb.append("Not having had to experience the pain of losing your hymen, you let out a deep [pc.moan] as you reflect on the fact that this is how you'll always remember losing your virginity."
-							+ " Picking up the pace, you thrust your "+penetrationName+" into your [pc.pussy+] once again, letting out [pc.moan+] as you succumb to this new pleasurable experience...");
+							+ " Picking up the pace, you thrust your "+penetrationName+" into your [pc.pussy+] once again, letting out [pc.a_moan+] as you succumb to this new pleasurable experience...");
 				}
 			sb.append("</p>");
 			
@@ -2214,14 +2214,14 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					if(Main.game.getPlayer().hasHymen()) {
 						if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
 							sb.append("With the initial pain now having faded away into a faint, dull ache, you can't help but let out one final whimper as you feel a little trickle of blood running out of your broken-in pussy."
-										+ " With [npc.namePos] "+penetrationName+" thrusting into your [pc.pussy+] once again, you find yourself letting out [pc.moan+] as you succumb to this new pleasurable experience...");
+										+ " With [npc.namePos] "+penetrationName+" thrusting into your [pc.pussy+] once again, you find yourself letting out [pc.a_moan+] as you succumb to this new pleasurable experience...");
 						} else {
 							sb.append("With the initial pain now having faded away into a faint, dull ache, you let out one final whimper as you reflect on the fact that this is how you'll always remember losing your virginity."
-									+ " With [npc.namePos] "+penetrationName+" thrusting into your [pc.pussy+] once again, you find yourself letting out [pc.moan+] as you succumb to this new pleasurable experience...");
+									+ " With [npc.namePos] "+penetrationName+" thrusting into your [pc.pussy+] once again, you find yourself letting out [pc.a_moan+] as you succumb to this new pleasurable experience...");
 						}
 					} else {
 						sb.append("Not having had to experience the pain of losing your hymen, you let out a deep [pc.moan] as you reflect on the fact that this is how you'll always remember losing your virginity."
-								+ " With [npc.namePos] "+penetrationName+" thrusting into your [pc.pussy+] once again, you find yourself letting out [pc.moan+] as you succumb to this new pleasurable experience...");
+								+ " With [npc.namePos] "+penetrationName+" thrusting into your [pc.pussy+] once again, you find yourself letting out [pc.a_moan+] as you succumb to this new pleasurable experience...");
 					}
 				sb.append("</p>");
 			}

@@ -150,7 +150,7 @@ public class TooltipInformationEventListener implements EventListener {
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>");// style='white-space: nowrap'>");
 				boolean effectsFound = false;
-				if((Main.getProperties().isAdvancedRaceKnowledgeDiscovered(owner.getTrueSubspecies()) && !owner.isRaceConcealed()) || owner.isPlayer()) {
+				if(statusEffect!=StatusEffect.SUBSPECIES_BONUS || (Main.getProperties().isAdvancedRaceKnowledgeDiscovered(owner.getTrueSubspecies()) && !owner.isRaceConcealed()) || owner.isPlayer()) {
 					if (!statusEffect.getModifiersAsStringList(owner).isEmpty()) {
 						for (String s : statusEffect.getModifiersAsStringList(owner)) {
 							tooltipSB.append((effectsFound?"<br/>":"")+UtilText.parse(owner, s));

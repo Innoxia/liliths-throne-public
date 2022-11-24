@@ -201,6 +201,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] #1723
 		[] #1716
 	
+	[x] find yourself letting out lewd moan as you
+	[x] you realise that if you isn't already pregnant, there's a chance you is now
+	
 	[] the tooltip for unknown race is applying to desires, sex areas, etc.
 	
 	[] add colour tooltips to tattoo addition UI
