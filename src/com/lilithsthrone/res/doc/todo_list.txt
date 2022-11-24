@@ -185,19 +185,33 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] #1733
 		[x] #1732
 		[] #1731
+		[] #1739
+		[] #1725
+		[] #1724
+		[] #1723
 	
 	[] string bikini
 	[] cute pawprint pattern pajamas
+		[] pajamas
+		[] pawprint pattern
 	[x] FAMAS
 	
-	[] Really need to fix the isAbleToUnequip() method in CharacterInventory
-		[] I ran into a issue that if I put on the lowback body suit and pantyhose then in sex scenes neither could be removed because they where bein blocked by each other. I could remove them however outside of sex scenes
+	[] bug reports
+		[]  When enchanting a kimono, the name of the color is gone and the name of the pattern is multiplied
+		[] Looking at the guts of some race mods and just noticed that the game seems to be ignoring their height settings,
+				for example the Kobold mod (1.9ft/60cm) and the Goblin mod (3ft~/91cm & 95cm) both have heights well under the limits but constantly seeing greater kobolds and goblins that are over 6ft and closer to 7ft.
+		 	The heights make more sense if it's rolling them as inches for modded races
+		[] In version 0.4.6.3 (.exe) there is an error in the hair.xml for the otter race. the <coveringType> was set to "dsg_otter_fur" instead of "dsg_otter_hair".
 	
+	[] Really need to fix the isAbleToUnequip() method in CharacterInventory
+		[] I ran into a issue that if I put on the lowback body suit and pantyhose then in sex scenes neither could be removed because they where being blocked by each other. I could remove them however outside of sex scenes
 	
 	[] Jhortax imps - it is possible to both get penetrated and a vaginal item equipped at the same turn
 	
 	[] Update build instructions (Dream's message in tech):
 		Fatal error compiling: invalid flag: --release and lambda expressions are not supported in -source (number with comma here)
+	
+	
 	
 	[] Combat improvements:
 		[] nerdlinger combat PR
