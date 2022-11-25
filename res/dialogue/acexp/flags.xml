@@ -16,9 +16,14 @@
 		<flag dailyReset="false">dungeon_garden_access_found</flag>
 		<flag dailyReset="true">dungeon_sex</flag>
 		
+		<!-- Shady dealer: -->
+		<flag dailyReset="false">shady_dealer_discovered</flag>
+		<flag dailyReset="true">shady_dealer_daily_interaction</flag>
+		
 	<!-- Submission: -->
 		<!-- Elizabeth: -->
 		<flag dailyReset="false">elizabeth_introduced</flag>
 		<flag resetHour="6">elizabeth_daily_meeting</flag>
 		
+
 </dialogueFlags>

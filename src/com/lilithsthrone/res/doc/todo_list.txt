@@ -14,9 +14,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed bug where stickers for clothing which fitted into multiple slots would not be initialised correctly. (PR#1733 by CognitiveMist)
 		Added Maven profiles to auto detect which OS the build is running on. (PR#1732 by AlacoGit)
 		Minor optimisations; Added ability to pay to remove prostitutes in Angel's Kiss; Improved several update methods; Racial tooltips are now hidden for characters who have their race hidden; Advanced race knowledge is now required to see racial status effect attributes. (PR#1731 by Maxis010 and CognitiveMist)
-		Added the same SVG zLayer, resizing, and rotation functionality to tattoos which was added to clothing/weapons a while ago - see the 'imageName' attribute in the 'res\mods\innoxia\items\tattoos\heartWomb\heartWomb.xml' file for comments on how to use the new functionality. (PR#1739 by NoHornyOnMain)
+		Added the same SVG zLayer, resizing, and rotation functionality to tattoos which was added to clothing/weapons a while ago - see the 'imageName' attribute in the 'res/mods/innoxia/items/tattoos/heartWomb/heartWomb.xml' file for comments on how to use the new functionality. (PR#1739 by NoHornyOnMain)
 		Fixed serpent-tailed coatls being named coatl-lamias. (PR#1725 by Stadler76)
 		Added 'feral' to litters when giving birth, viewing pregnancy stats or the offspring map. (PR#1723 by Stadler76)
+		Added support for loading character .xml files as modded characters (see 'res/mods/modding.txt' for information on how to use this). Also added a small 'shady trader' encounter to Dominion alleyway tiles which uses this new modding functionality. (PR#1716 by AceXP)
 	
 	Engine/Modding:
 		Moved all 'Over-torso' clothing entries from being hard-coded into the external 'res/clothing/innoxia/torsoOver' folder.
@@ -199,12 +200,26 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] #1725
 		[] #1724
 		[x] #1723
-		[] #1716
+		[x] #1716
+			- Renamed class: moddedCharacter -> ModdedCharacter
+			- Minor changes to the modding txt file.
+			- Minor edits to dialogue.
+			- Added text for leaving trader.
+			- Adjusted random generation of items so that the trader has more to offer the player.
+			- Slight change to flag name and encounter tracking.
 	
 	[x] find yourself letting out lewd moan as you
 	[x] you realise that if you isn't already pregnant, there's a chance you is now
+	[x] the tooltip for unknown race is applying to desires, sex areas, etc.
 	
-	[] the tooltip for unknown race is applying to desires, sex areas, etc.
+	[] PR mentions
+		[] #1438
+		[] #1489
+		[] #1560
+		[] #1591
+	[] PR#1727
+	
+	[] Do not check encounters until game is started (to prevent need for !game.isStarted() in encounter dialogue)
 	
 	[] add colour tooltips to tattoo addition UI
 	
