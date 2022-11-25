@@ -4,7 +4,40 @@
     <scene id ="intro">
         <author><![CDATA[AceXp]]></author>
         <preParsingEffects><![CDATA[
-			[#flags.setFlag(FLAG_acexp_shady_dealer_found, true)]
+			[#flags.setFlag(FLAG_acexp_shady_dealer_daily_interaction, true)]
+			[#var shadyDealerRnd = RND.nextInt(10)+1]
+		
+            #IF(flags.hasSavedLong('AceXpShadyDealer'))
+                [#game.setModdedCharacterParserTarget(flags.getSavedLong('AceXpShadyDealer'), 'AceXpShadyDealer')]
+            #ELSE
+                [#flags.setSavedLong('AceXpShadyDealer', game.importModdedCharacter('res/characters/acexp/shady_dealer.xml', 'AceXpShadyDealer'))]
+            #ENDIF
+            [#AceXpShadyDealer.setTrader(true)]
+            [#AceXpShadyDealer.setItemTagsToBuy(Array(ITEM_TAG_CONTRABAND_LIGHT, ITEM_TAG_CONTRABAND_MEDIUM, ITEM_TAG_CONTRABAND_HEAVY))]
+   			[#AceXpShadyDealer.clearNonEquippedInventory(false)];
+			
+			[#AceXpShadyDealer.addClothing(game.getItemGen().generateClothing('dsg_hndcuffs_hndcuffs', false), RND.nextInt(2)+1, false, false)]
+			[#AceXpShadyDealer.addWeapon(game.getItemGen().generateWeapon('dsg_eep_enbaton_enbaton'), RND.nextInt(2)+1, false, false)]
+			
+   			#IF(shadyDealerRnd<=8)
+    		    [#AceXpShadyDealer.addItem(game.getItemGen().generateItem('MUSHROOM'), RND.nextInt(5)+1, false, false)]
+    		#ENDIF
+   			#IF(RND.nextInt(10)<=7)
+    		    [#AceXpShadyDealer.addItem(game.getItemGen().generateItem('innoxia_race_slime_biojuice_canister'), RND.nextInt(3)+1, false, false)]
+    		#ENDIF
+   			#IF(shadyDealerRnd<=6)
+		        [#AceXpShadyDealer.addWeapon(game.getItemGen().generateWeapon('dsg_eep_pbweap_pbpistol'), RND.nextInt(1)+1, false, false)]
+		        [#AceXpShadyDealer.addWeapon(game.getItemGen().generateWeapon('dsg_eep_taser_taser'), RND.nextInt(1)+1, false, false)]
+    		#ENDIF
+   			#IF(shadyDealerRnd<=4)
+		        [#AceXpShadyDealer.addWeapon(game.getItemGen().generateWeapon('dsg_eep_riotshield_riotshield'), RND.nextInt(1)+1, false, false)]
+		        [#AceXpShadyDealer.addWeapon(game.getItemGen().generateWeapon('dsg_eep_pbweap_pbrifle'), 1, false, false)]
+    		#ENDIF
+   			#IF(shadyDealerRnd<=2)
+		        [#AceXpShadyDealer.addWeapon(game.getItemGen().generateWeapon('innoxia_gun_revolver'), 1, false, false)]
+    		#ENDIF
+			
+			[#AceXpShadyDealer.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, true)]
 		]]></preParsingEffects>
         <content folderPath="txt/acexp/dominion/shady_dealer">INTRO</content>
         <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
@@ -40,7 +73,9 @@
 	                #ENDIF
  			    ]]></responseTooltip>
                 <nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
-                <effects/>
+                <effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/dominion/shady_dealer', 'INTRO_LEAVE'))]
+				]]></effects>
             </response>
         </responses>
     </scene>
@@ -48,34 +83,9 @@
     <scene id ="trade">
         <author><![CDATA[AceXp]]></author>
         <preParsingEffects><![CDATA[
-            [#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/dominion/shady_dealer', 'TRADE'))]
-            #IF(flags.hasSavedLong('AceXpShadyDealer'))
-                [#game.setModdedCharacterParserTarget(flags.getSavedLong('AceXpShadyDealer'), 'AceXpShadyDealer')]
-            #ELSE
-                [#flags.setSavedLong('AceXpShadyDealer', game.importModdedCharacter('res/characters/acexp/shady_dealer.xml', 'AceXpShadyDealer'))]
-            #ENDIF
-            [#AceXpShadyDealer.setTrader(true)]
-            [#AceXpShadyDealer.setItemTagsToBuy(Array(ITEM_TAG_CONTRABAND_LIGHT, ITEM_TAG_CONTRABAND_MEDIUM, ITEM_TAG_CONTRABAND_HEAVY))]
-   			[#AceXpShadyDealer.clearNonEquippedInventory(false)];
-   			#IF(RND.nextInt(10)<=6)
-    		    [#AceXpShadyDealer.addItem(game.getItemGen().generateItem('MUSHROOM'), RND.nextInt(5)+1, false, false)]
-    		#ENDIF
-   			#IF(RND.nextInt(10)<=5)
-    		    [#AceXpShadyDealer.addItem(game.getItemGen().generateItem('innoxia_race_slime_biojuice_canister'), RND.nextInt(3)+1, false, false)]
-    		#ENDIF
-   			#IF(RND.nextInt(10)<=5)
-    		    [#AceXpShadyDealer.addClothing(game.getItemGen().generateClothing('dsg_hndcuffs_hndcuffs', COLOUR_CLOTHING_BLACK_STEEL, false), RND.nextInt(2)+1, false, false)]
-    		#ENDIF
-   			#IF(RND.nextInt(10)<=5)
-    		    [#AceXpShadyDealer.addWeapon(game.getItemGen().generateWeapon('dsg_eep_enbaton_enbaton'), RND.nextInt(2)+1, false, false)]
-    		#ENDIF
-   			#IF(RND.nextInt(10)<=3)
-		        [#AceXpShadyDealer.addWeapon(game.getItemGen().generateWeapon('dsg_eep_pbweap_pbpistol'), RND.nextInt(1)+1, false, false)]
-    		#ENDIF
-   			#IF(RND.nextInt(10)<=3)
-		        [#AceXpShadyDealer.addWeapon(game.getItemGen().generateWeapon('dsg_eep_taser_taser'), RND.nextInt(1)+1, false, false)]
-    		#ENDIF
    			[#AceXpShadyDealer.setLocation(pc, true)]
+            [#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/dominion/shady_dealer', 'TRADE'))]
+			[#flags.setFlag(FLAG_acexp_shady_dealer_discovered, true)]
 		]]></preParsingEffects>
         <content/>
         <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
@@ -105,9 +115,10 @@
 				    Time to leave...
  			    ]]></responseTooltip>
                 <nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
-                <effects>
+                <effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/dominion/shady_dealer', 'TRADE_LEAVE'))]
                     [#AceXpShadyDealer.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, true)]
-                </effects>
+				]]></effects>
             </response>
         </responses>
     </scene>

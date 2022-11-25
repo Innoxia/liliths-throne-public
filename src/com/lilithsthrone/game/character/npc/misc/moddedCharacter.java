@@ -33,54 +33,37 @@ import java.util.function.Predicate;
  * @version 0.4.5.5
  * @author AceXp
  */
-public class moddedCharacter extends NPC {
+public class ModdedCharacter extends NPC {
 
 	protected boolean isTrader;
-
-	public void setTrader(boolean trader) {
-		isTrader = trader;
-	}
-
+	protected boolean isClothingStealable;
+	protected boolean isAbleToBeImpregnated;
 	protected Set<ItemTag> itemTagsToBuy;
 
-	public void setItemTagsToBuy(ItemTag[] itemTagsToBuy) {
-		Collections.addAll(this.itemTagsToBuy, itemTagsToBuy);
-	}
-
-	protected boolean isAbleToBeImpregnated;
-
-	public void setAbleToBeImpregnated(boolean ableToBeImpregnated) {
-		isAbleToBeImpregnated = ableToBeImpregnated;
-	}
-
-	protected boolean isClothingStealable;
-
-	public void setClothingStealable(boolean clothingStealable) {
-		isClothingStealable = clothingStealable;
-	}
-
-	public moddedCharacter() {
+	public ModdedCharacter() {
 		this(Gender.getGenderFromUserPreferences(false, false), WorldType.EMPTY, new Vector2i(0, 0), false);
 	}
 
-	public moddedCharacter(boolean isImported) {
+	public ModdedCharacter(boolean isImported) {
 		this(Gender.getGenderFromUserPreferences(false, false), WorldType.EMPTY, new Vector2i(0, 0), isImported);
 	}
 
-	public moddedCharacter(Gender gender, AbstractWorldType worldLocation, Vector2i location, boolean isImported) {
+	public ModdedCharacter(Gender gender, AbstractWorldType worldLocation, Vector2i location, boolean isImported) {
 		this(gender, worldLocation, location, isImported, null);
 	}
 
-	public moddedCharacter(Gender gender, AbstractWorldType worldLocation, AbstractPlaceType placeType, boolean isImported, Predicate<AbstractSubspecies> subspeciesRemovalFilter) {
+	public ModdedCharacter(Gender gender, AbstractWorldType worldLocation, AbstractPlaceType placeType, boolean isImported, Predicate<AbstractSubspecies> subspeciesRemovalFilter) {
 		this(gender, worldLocation, Main.game.getWorlds().get(worldLocation).getCell(placeType).getLocation(), isImported, subspeciesRemovalFilter);
 	}
 
-	public moddedCharacter(Gender gender, AbstractWorldType worldLocation, Vector2i location, boolean isImported, Predicate<AbstractSubspecies> subspeciesRemovalFilter) {
+	public ModdedCharacter(Gender gender, AbstractWorldType worldLocation, Vector2i location, boolean isImported, Predicate<AbstractSubspecies> subspeciesRemovalFilter) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3,
 				null, null, null,
-				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
+				new CharacterInventory(10),
+				WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL,
+				false);
 
 		if(!isImported) {
 			this.setLocation(worldLocation, location, false);
@@ -119,8 +102,7 @@ public class moddedCharacter extends NPC {
 	
 			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(false);
-			setDescription(UtilText.parse(this,
-					"[npc.Name] is a [npc.fullRace]."));
+			setDescription(UtilText.parse(this, "[npc.Name] is [npc.a_fullRace]."));
 
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
@@ -165,24 +147,40 @@ public class moddedCharacter extends NPC {
 		return null;
 	}
 
+	public void setAbleToBeImpregnated(boolean ableToBeImpregnated) {
+		isAbleToBeImpregnated = ableToBeImpregnated;
+	}
 	@Override
 	public boolean isAbleToBeImpregnated() {
 		return this.isAbleToBeImpregnated;
 	}
 
+	public void setClothingStealable(boolean clothingStealable) {
+		isClothingStealable = clothingStealable;
+	}
+	
 	@Override
 	public boolean isClothingStealable() {
 		return this.isClothingStealable;
 	}
 
+	public void setTrader(boolean trader) {
+		isTrader = trader;
+	}
+	
 	@Override
 	public boolean isTrader() {
 		return this.isTrader;
 	}
 
+	public void setItemTagsToBuy(ItemTag[] itemTagsToBuy) {
+		Collections.addAll(this.itemTagsToBuy, itemTagsToBuy);
+	}
+	
 	@Override
 	public boolean willBuy(AbstractCoreItem item) {
 		//disjoint returns true if the two specified collections have no elements in common.
 		return !(Collections.disjoint(item.getItemTags(), itemTagsToBuy));
 	}
+
 }

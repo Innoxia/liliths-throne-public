@@ -531,7 +531,7 @@ public class Game implements XMLSaving {
 
 				Element characterElement = (Element) doc.getElementsByTagName("exportedCharacter").item(0);
 
-				moddedCharacter npc = new moddedCharacter();
+				ModdedCharacter npc = new ModdedCharacter();
 				npc.loadFromXML(characterElement, doc, CharacterImportSetting.NO_LOCATION_SETUP);
 
 				Main.game.addNPC(npc, false, true);
@@ -551,7 +551,7 @@ public class Game implements XMLSaving {
 
 	public void setModdedCharacterParserTarget(Long id, String parserTarget) {
 		try {
-			ParserTarget.addAdditionalParserTarget(parserTarget, (NPC) getNPCById(id + ",moddedCharacter"));
+			ParserTarget.addAdditionalParserTarget(parserTarget, (NPC) getNPCById(id + ",ModdedCharacter"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -9,10 +9,10 @@
         <encounter>
             <name><![CDATA[Shady Dealer]]></name>
             <chanceToTrigger opportunisticEncounter="false"><![CDATA[
-   				#IF(!game.isStarted() || flags.hasFlag(FLAG_acexp_shady_dealer_found))
+   				#IF(!game.isStarted() || flags.hasFlag(FLAG_acexp_shady_dealer_daily_interaction))
 	        		0
         		#ELSE
-        		    #IF(game.getCharactersPresent().length > 0 || game.getPlayer().hasAnyEnforcerStatusEffect())
+        		    #IF(game.getNonCompanionCharactersPresent().length > 0 || game.getPlayer().hasAnyEnforcerStatusEffect())
         		        0
         		    #ELSE
                         5

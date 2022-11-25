@@ -17,7 +17,8 @@
 		<flag dailyReset="true">dungeon_sex</flag>
 		
 		<!-- Shady dealer: -->
-		<flag dailyReset="true">shady_dealer_found</flag>
+		<flag dailyReset="false">shady_dealer_discovered</flag>
+		<flag dailyReset="true">shady_dealer_daily_interaction</flag>
 		
 	<!-- Submission: -->
 		<!-- Elizabeth: -->
