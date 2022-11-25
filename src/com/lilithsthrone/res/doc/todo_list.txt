@@ -184,8 +184,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] self-equipping a condom gave description as though it was being equipped on partner
 		[x] orgasm denier NPCs never spawn with chastity belts but always spawn with chastity cages
 		[x] Paizurai into mouth currently doesn't check if you have anything blocking your mouth. Such as a ball gag
-	
-	[] PRs
+	[x] PRs
 		[x] Lio patches
 		[x] #1733
 		[x] #1732
@@ -198,7 +197,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			- Moved the 'Remove' action from index 3 to 5
 		[x] #1739
 		[x] #1725
-		[] #1724
 		[x] #1723
 		[x] #1716
 			- Renamed class: moddedCharacter -> ModdedCharacter
@@ -207,17 +205,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			- Added text for leaving trader.
 			- Adjusted random generation of items so that the trader has more to offer the player.
 			- Slight change to flag name and encounter tracking.
-	
 	[x] find yourself letting out lewd moan as you
 	[x] you realise that if you isn't already pregnant, there's a chance you is now
 	[x] the tooltip for unknown race is applying to desires, sex areas, etc.
-	
-	[] PR mentions
-		[] #1438
-		[] #1489
-		[] #1560
-		[] #1591
-	[] PR#1727
 	
 	[] Do not check encounters until game is started (to prevent need for !game.isStarted() in encounter dialogue)
 	
@@ -241,10 +231,19 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] Jhortax imps - it is possible to both get penetrated and a vaginal item equipped at the same turn
 	
+	[] mystery content
+	
+	
 	[] Update build instructions (Dream's message in tech):
 		Fatal error compiling: invalid flag: --release and lambda expressions are not supported in -source (number with comma here)
 	
-	
+	[] PRs
+		[] #1724
+		[] #1438
+		[] #1489
+		[] #1560
+		[] #1591
+	[] PR#1727
 	
 	[] Combat improvements:
 		[] nerdlinger combat PR
