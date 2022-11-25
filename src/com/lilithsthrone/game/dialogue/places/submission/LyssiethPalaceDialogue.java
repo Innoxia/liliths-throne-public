@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.submission;
 
+import java.util.List;
+
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -13,6 +15,7 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
+import com.lilithsthrone.game.character.npc.submission.Elizabeth;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -26,14 +29,23 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
-import com.lilithsthrone.game.sex.*;
+import com.lilithsthrone.game.sex.InitialSexActionInformation;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.submission.SMLilayaDemonTF;
 import com.lilithsthrone.game.sex.managers.submission.SMLyssiethDemonTF;
 import com.lilithsthrone.game.sex.managers.submission.SMLyssiethSex;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
-import com.lilithsthrone.game.sex.sexActions.baseActions.*;
+import com.lilithsthrone.game.sex.sexActions.baseActions.FingerVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.game.sex.sexActions.submission.SALyssiethSpecials;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -42,8 +54,6 @@ import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
-
-import java.util.List;
 
 /**
  * @since 0.3
@@ -67,12 +77,48 @@ public class LyssiethPalaceDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Leave", "Leave Lyssieth's palace and head back out into Submission.", ENTRANCE_LEAVING) {
+				return new Response("Leave",
+						"Leave Lyssieth's palace and head back out into Submission.",
+						!Main.game.getDialogueFlags().hasFlag("innoxia_elizabeth_routine_started")
+							?ENTRANCE_LEAVING_FIRST_TIME
+							:ENTRANCE_LEAVING) {
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_GATE);
+						if(!Main.game.getDialogueFlags().hasFlag("innoxia_elizabeth_routine_started")) {
+							Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_GATE);
+							
+						} else {
+							Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_GATE);
+							Main.game.getPlayer().setNearestLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_CAVERN, false);
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "ENTRANCE_LEAVING"));
+						}
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode ENTRANCE_LEAVING_FIRST_TIME = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "ENTRANCE_LEAVING_FIRST_TIME");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue",
+						"Say goodbye to Elizabeth and continue on your way...",
+						PlaceType.SUBMISSION_LILIN_PALACE_CAVERN.getDialogue(false)) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag("innoxia_elizabeth_routine_started", true);
 						Main.game.getPlayer().setNearestLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_CAVERN, false);
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "ENTRANCE_LEAVING"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "ENTRANCE_LEAVING_FIRST_TIME_END"));
 					}
 				};
 			}
@@ -96,17 +142,17 @@ public class LyssiethPalaceDialogue {
 	};
 	
 	public static final DialogueNode CORRIDOR = new DialogueNode("", "", false) {
-
 		@Override
 		public int getSecondsPassed() {
 			return 10;
 		}
-
 		@Override
 		public String getContent() {
+			if(Main.game.getNpc(Elizabeth.class).getWorldLocation()==WorldType.LYSSIETH_PALACE && Main.game.getNpc(Elizabeth.class).getLocation().getDistanceToVector(Main.game.getPlayer().getLocation())<=1) {
+				return UtilText.parseFromXMLFile("acexp/submission/elizabeth", "INTRO");
+			}
 			return UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "CORRIDOR");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return null;
@@ -132,17 +178,14 @@ public class LyssiethPalaceDialogue {
 	};
 
 	public static final DialogueNode ROOM = new DialogueNode("", "", false) {
-
 		@Override
 		public int getSecondsPassed() {
 			return 10;
 		}
-
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "ROOM");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return null;

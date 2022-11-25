@@ -13,6 +13,9 @@
 			<flag dailyReset="false">alleyway_submission_tattooed_ass</flag>
 			<flag dailyReset="false">alleyway_transformations_applied</flag>
 	
+	<!-- Submission:-->
+		<flag dailyReset="false">elizabeth_routine_started</flag>
+	
 	<!-- Meraxis: -->
 	
 		<!-- Sex flags -->

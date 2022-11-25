@@ -859,7 +859,7 @@ public class CreationController {
 		String id = "MILK_CROTCH_PRODUCTION_INCREASE_SMALL";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().setBreastCrotchMilkStorage(Math.min(CharacterModificationUtils.getLactationUpperLimit(), BodyChanging.getTarget().getBreastRawMilkStorageValue()+CharacterModificationUtils.FLUID_INCREMENT_SMALL));
+				BodyChanging.getTarget().setBreastCrotchMilkStorage(Math.min(CharacterModificationUtils.getLactationUpperLimit(), BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()+CharacterModificationUtils.FLUID_INCREMENT_SMALL));
 				BodyChanging.getTarget().fillMilkCrotchToMaxStorage();
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
@@ -867,7 +867,7 @@ public class CreationController {
 		id = "MILK_CROTCH_PRODUCTION_INCREASE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().setBreastCrotchMilkStorage(Math.min(CharacterModificationUtils.getLactationUpperLimit(), BodyChanging.getTarget().getBreastRawMilkStorageValue()+CharacterModificationUtils.FLUID_INCREMENT_AVERAGE));
+				BodyChanging.getTarget().setBreastCrotchMilkStorage(Math.min(CharacterModificationUtils.getLactationUpperLimit(), BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()+CharacterModificationUtils.FLUID_INCREMENT_AVERAGE));
 				BodyChanging.getTarget().fillMilkCrotchToMaxStorage();
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
@@ -875,7 +875,7 @@ public class CreationController {
 		id = "MILK_CROTCH_PRODUCTION_INCREASE_LARGE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().setBreastCrotchMilkStorage(Math.min(CharacterModificationUtils.getLactationUpperLimit(), BodyChanging.getTarget().getBreastRawMilkStorageValue()+CharacterModificationUtils.FLUID_INCREMENT_LARGE));
+				BodyChanging.getTarget().setBreastCrotchMilkStorage(Math.min(CharacterModificationUtils.getLactationUpperLimit(), BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()+CharacterModificationUtils.FLUID_INCREMENT_LARGE));
 				BodyChanging.getTarget().fillMilkCrotchToMaxStorage();
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
@@ -883,7 +883,7 @@ public class CreationController {
 		id = "MILK_CROTCH_PRODUCTION_INCREASE_HUGE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().setBreastCrotchMilkStorage(Math.min(CharacterModificationUtils.getLactationUpperLimit(), BodyChanging.getTarget().getBreastRawMilkStorageValue()+CharacterModificationUtils.FLUID_INCREMENT_HUGE));
+				BodyChanging.getTarget().setBreastCrotchMilkStorage(Math.min(CharacterModificationUtils.getLactationUpperLimit(), BodyChanging.getTarget().getBreastCrotchRawMilkStorageValue()+CharacterModificationUtils.FLUID_INCREMENT_HUGE));
 				BodyChanging.getTarget().fillMilkToMaxStorage();
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);

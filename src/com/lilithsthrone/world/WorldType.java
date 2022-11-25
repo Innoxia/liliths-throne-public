@@ -858,7 +858,7 @@ public class WorldType {
 			PresetColour.BASE_PURPLE,
 			false,
 			false,
-			TeleportPermissions.OUTGOING_ONLY,
+			TeleportPermissions.NONE,
 			"/com/lilithsthrone/res/map/submission/lyssiethsPalace/groundFloor.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.LYSSIETH_PALACE_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.LYSSIETH_PALACE_CORRIDOR),

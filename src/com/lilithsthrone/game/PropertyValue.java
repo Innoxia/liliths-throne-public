@@ -81,6 +81,7 @@ public enum PropertyValue {
 
 	spittingEnabled(true),
 	opportunisticAttackers(true),
+	offspringEncounters(true),
 	
 	// Game properties:
 	levelUpHightlight(false),

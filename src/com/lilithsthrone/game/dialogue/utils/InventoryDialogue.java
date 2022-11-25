@@ -170,6 +170,20 @@ public class InventoryDialogue {
 		return sb.toString();
 	}
 	
+	private static String getEnchantmentNotDiscoveredText(String item) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("You have not discovered how to enchant ");
+		sb.append(item);
+		sb.append(" yet...");
+		sb.append("<br/>");
+		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+			sb.append("[style.italicsArcane(You should go and talk to Lilaya about essences...)]");
+		} else {
+			sb.append("[style.italicsArcane(You need to absorb an essence after combat or sex, or via purchasing one, to discover more about enchanting...)]");
+		}
+		return sb.toString();
+	}
+	
 	/**
 	 * The main DialogueNode. From here, the player can gain access to all parts
 	 * of their inventory.
@@ -1133,7 +1147,7 @@ public class InventoryDialogue {
 									};
 									
 								} else {
-									return new Response("Enchant", "You have not discovered how to enchant items yet...", null);
+									return new Response("Enchant", getEnchantmentNotDiscoveredText("items"), null);
 								}
 								
 							} else if(index == 6) {
@@ -1390,7 +1404,7 @@ public class InventoryDialogue {
 										};
 								
 								} else {
-									return new Response("Enchant", "You have not discovered how to enchant items yet...", null);
+									return new Response("Enchant", getEnchantmentNotDiscoveredText("items"), null);
 								}
 							
 							} else if(index == 6) {
@@ -1776,7 +1790,7 @@ public class InventoryDialogue {
 									};
 									
 								} else {
-									return new Response("Enchant", "You have not discovered how to enchant items yet...", null);
+									return new Response("Enchant", getEnchantmentNotDiscoveredText("items"), null);
 								}
 								
 							} else if(index == 6) {
@@ -2753,7 +2767,7 @@ public class InventoryDialogue {
 									};
 									
 								} else {
-									return new Response("Enchant", "You have not discovered how to enchant weapons yet...", null);
+									return new Response("Enchant", getEnchantmentNotDiscoveredText("weapons"), null);
 								}
 								
 							} else if(index == 6) {
@@ -2934,7 +2948,7 @@ public class InventoryDialogue {
 									};
 									
 								} else {
-									return new Response("Enchant", "You have not discovered how to enchant weapons yet...", null);
+									return new Response("Enchant", getEnchantmentNotDiscoveredText("weapons"), null);
 								}
 								
 							} else if(index == 6) {
@@ -3157,7 +3171,7 @@ public class InventoryDialogue {
 									};
 									
 								} else {
-									return new Response("Enchant", "You have not discovered how to enchant weapons yet...", null);
+									return new Response("Enchant", getEnchantmentNotDiscoveredText("weapons"), null);
 								}
 								
 							} else if(index == 6) {
@@ -4018,7 +4032,7 @@ public class InventoryDialogue {
 									};
 									
 								} else {
-									return new Response("Enchant", "You have not discovered how to enchant clothing yet...", null);
+									return new Response("Enchant", getEnchantmentNotDiscoveredText("clothing"), null);
 								}
 								
 							} else if(index >= 6 && index <= 9 && index-6<clothing.getClothingType().getEquipSlots().size()) {
@@ -4203,7 +4217,7 @@ public class InventoryDialogue {
 									};
 									
 								} else {
-									return new Response("Enchant", "You have not discovered how to enchant clothing yet...", null);
+									return new Response("Enchant", getEnchantmentNotDiscoveredText("clothing"), null);
 								}
 								
 							} else if(index >= 6 && index <= 9 && index-6<clothing.getClothingType().getEquipSlots().size()) {
@@ -4557,7 +4571,7 @@ public class InventoryDialogue {
 									};
 									
 								} else {
-									return new Response("Enchant", "You have not discovered how to enchant clothing yet...", null);
+									return new Response("Enchant", getEnchantmentNotDiscoveredText("clothing"), null);
 								}
 
 							} else if(index >= 6 && index <= 9 && index-6<clothing.getClothingType().getEquipSlots().size()) {
@@ -7295,6 +7309,7 @@ public class InventoryDialogue {
 							dyedWeapon.setColours(dyePreviews);
 							owner.addWeapon(dyedWeapon, false);
 							Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
+							weapon = dyedWeapon;
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon);
@@ -7302,6 +7317,7 @@ public class InventoryDialogue {
 							dyedWeapon.setColours(dyePreviews);
 							Main.game.getPlayerCell().getInventory().addWeapon(dyedWeapon);
 							Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
+							weapon = dyedWeapon;
 						}
 					}
 				};

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>300</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[hoodie]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[hoodies]]></namePlural>
+		<description><![CDATA[A long-sleeved pullover shirt, fashioned out of thick cotton and complete with a hood.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>TORSO_OVER</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>hoodie.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_FULL_TORSO"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values="ALL"/>
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(pull)] on the hoodie.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(guide)] [npc2.namePos] [npc2.arms] through the hoodie's sleeves as [npc.she] [npc.verb(pull)] it on [npc2.herHim].
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(force)] [npc2.namePos] [npc2.arms] through the hoodie's sleeves as [npc.she] [npc.verb(pull)] it on [npc2.herHim].
+		]]></otherRough>
+	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(take)] off [npc.her] hoodie.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(take)] off [npc2.namePos] hoodie.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] hoodie.
+		]]></otherRough>
+	</displacementText>
+	
+	
+	<replacementText type="PULLS_UP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(pull)] [npc.her] hoodie back down to cover [npc.her] torso.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(pull)] [npc2.namePos] hoodie back down to cover [npc2.her] torso.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(yank)] [npc2.namePos] hoodie back down to cover [npc2.her] torso.
+		]]></otherRough>
+	</replacementText>
+	<displacementText type="PULLS_UP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(pull)] [npc.her] hoodie up to just below [npc.her] chin, letting the elastic rim hold it in place.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(pull)] [npc2.namePos] hoodie up to just below [npc2.her] chin, letting the elastic rim hold it in place.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(yank)] [npc2.namePos] hoodie up to just below [npc2.her] chin, letting the elastic rim hold it in place.
+		]]></otherRough>
+	</displacementText>
+</clothing>

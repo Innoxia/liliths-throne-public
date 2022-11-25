@@ -6,9 +6,11 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
@@ -18,6 +20,7 @@ import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
+import com.lilithsthrone.game.inventory.item.SvgInformation;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
@@ -51,7 +54,7 @@ public class AbstractTattooType extends AbstractCoreType {
 	private Colour defaultSecondaryColour;
 	private Colour defaultTertiaryColour;
 	
-	private String pathName;
+	private List<SvgInformation> svgPathInformation;
 	private Map<Colour, Map<Colour, Map<Colour, String>>> SVGStringMap;
 
 	private String availabilityRequirements;
@@ -83,7 +86,7 @@ public class AbstractTattooType extends AbstractCoreType {
 		
 		value = 500;
 		
-		this.pathName = pathName;
+		this.svgPathInformation = Util.newArrayListOfValues(new SvgInformation(1, pathName==null?"":pathName, 100, 0, new HashMap<>()));
 		this.name = name;
 		this.description = description;
 		this.bodyOverviewDescription = bodyOverviewDescription;
@@ -145,8 +148,49 @@ public class AbstractTattooType extends AbstractCoreType {
 				
 				this.isMod = true;
 				
+				this.svgPathInformation = new ArrayList<>();
+
+				for(Element imagePathElement : coreAttributes.getAllOf("imageName")) {
+					String rawPath = imagePathElement.getTextContent();
+					String pathName;
+					if(rawPath.contains("res/")) {
+						pathName = rawPath;
+					} else {
+						pathName = tattooXMLFile.getParentFile().getAbsolutePath() + "/"+ rawPath;
+					}
+					int zLayer = 1;
+					int imageSize = 100;
+					int imageRotation = 0;
+					Map<String, String> replacements = new HashMap<>();
+
+					if(!imagePathElement.getAttribute("zLayer").isEmpty()) {
+						try {
+							zLayer = Integer.valueOf(imagePathElement.getAttribute("zLayer"));
+						} catch(Exception ex) {
+						}
+					}
+					if(!imagePathElement.getAttribute("imageSize").isEmpty()) {
+						try {
+							imageSize = Math.min(100, Math.max(1, Integer.valueOf(imagePathElement.getAttribute("imageSize"))));
+						} catch(Exception ex) {
+						}
+					}
+					if(!imagePathElement.getAttribute("imageRotation").isEmpty()) {
+						try {
+							imageRotation = Math.min(360, Math.max(-360, Integer.valueOf(imagePathElement.getAttribute("imageRotation"))));
+						} catch(Exception ex) {
+						}
+					}
+					int i=1;
+					while(!imagePathElement.getAttribute("target"+i).isEmpty()) {
+						replacements.put(imagePathElement.getAttribute("target"+i), imagePathElement.getAttribute("replacement"+i));
+						i++;
+					}
+					
+					svgPathInformation.add(new SvgInformation(zLayer, pathName, imageSize, imageRotation, replacements));
+				}
+
 				this.value = Integer.valueOf(coreAttributes.getMandatoryFirstOf("value").getTextContent());
-				this.pathName = tattooXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getMandatoryFirstOf("imageName").getTextContent();
 				this.name = coreAttributes.getMandatoryFirstOf("name").getTextContent();
 				this.description = coreAttributes.getMandatoryFirstOf("description").getTextContent();
 				
@@ -268,6 +312,9 @@ public class AbstractTattooType extends AbstractCoreType {
 		return value;
 	}
 
+	public List<SvgInformation> getSvgPathInformation() {
+		return svgPathInformation;
+	}
 
 	public String getName() {
 		return name;
@@ -368,7 +415,7 @@ public class AbstractTattooType extends AbstractCoreType {
 	}
 	
 	public String getSVGImage(GameCharacter character, Colour colour, Colour colourSecondary, Colour colourTertiary) {
-		if (!availablePrimaryColours.contains(colour) || pathName==null || pathName.isEmpty()) {
+		if (!availablePrimaryColours.contains(colour) || svgPathInformation==null || svgPathInformation.isEmpty()) {
 			return "";
 		}
 		
@@ -382,15 +429,36 @@ public class AbstractTattooType extends AbstractCoreType {
 					InputStream is;
 					String s;
 					if(isMod) {
-						List<String> lines = Files.readAllLines(Paths.get(pathName));
-						StringBuilder sb = new StringBuilder();
-						for(String line : lines) {
-							sb.append(line);
+						Collections.sort(svgPathInformation, (i1, i2)->i1.getZLayer()-i2.getZLayer());
+						StringBuilder svgBuilder = new StringBuilder();
+						for(SvgInformation info : getSvgPathInformation()) {
+							List<String> lines = Files.readAllLines(Paths.get(info.getPathName()));
+							StringBuilder sb = new StringBuilder();
+							for(String line : lines) {
+								sb.append(line);
+							}
+							int sizeOffset = (100-info.getImageSize())/2;
+							svgBuilder.append("<div style='"
+									+ "width:"+info.getImageSize()+"%;"
+									+ "height:"+info.getImageSize()+"%;"
+									+ "transform:rotate("+info.getImageRotation()+"deg);"
+									+ "position:absolute;"
+									+ "left:"+sizeOffset+"%;"
+									+ "bottom:"+sizeOffset+"%;"
+									+ "padding:0;"
+									+ "margin:0;'>");
+							String finalSvg = sb.toString();
+							for(Entry<String, String> entry : info.getReplacements().entrySet()) {
+								finalSvg = finalSvg.replaceAll(entry.getKey(), entry.getValue());
+							}
+							svgBuilder.append(finalSvg);
+							svgBuilder.append("</div>");
 						}
-						s = sb.toString();
+
+						s = svgBuilder.toString();
 						
 					} else {
-						is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/tattoos/" + pathName + ".svg");
+						is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/tattoos/" + getPathName() + ".svg");
 						s = Util.inputStreamToString(is);
 						is.close();
 					}
@@ -410,6 +478,6 @@ public class AbstractTattooType extends AbstractCoreType {
 	}
 
 	public String getPathName() {
-		return pathName;
+		return svgPathInformation.get(0).getPathName();
 	}
 }

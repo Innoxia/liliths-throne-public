@@ -400,6 +400,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			} catch(Exception ex) {
 			}
 		}
+		// It seems, that upon loading an NPC, the fleshSubspecies unintentionally gets set to Subspecies.HUMAN, even if it's clearly not a human. 
+		// This clears the cached value, so it's being recalculated just-in-time. ~Stadler76
+		npc.getBody().setFleshSubspecies(null);
 	}
 	
 	public void resetSlaveFlags() {
@@ -3083,6 +3086,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						// BDSM:
 						if((clothing.getClothingType().getClothingSet()==SetBonus.getSetBonusFromId("innoxia_bdsm") || clothing.getClothingType().getClothingSet()==SetBonus.getSetBonusFromId("sage_ltxset"))) {
 							wantsToEquip = this.getFetishDesire(Fetish.FETISH_BONDAGE_APPLIER).isPositive();
+						}
+						// Chastity cages are only equipped if NPC has like or love attitude towards denier fetish:
+						if(clothing.getItemTags().contains(ItemTag.CHASTITY)) {
+							wantsToEquip = this.getFetishDesire(Fetish.FETISH_DENIAL).isPositive();
 						}
 					}
 					// Always auto manage clothing, as NPCs use clothing removal methods in SexManagerDefault, so clothing additions should take place after removals.

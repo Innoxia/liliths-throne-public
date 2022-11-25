@@ -356,21 +356,22 @@ public class SubmissionGenericPlaces {
 	};
 	
 	public static final DialogueNode LILIN_PALACE_GATE = new DialogueNode("Lyssieth's Palace Gate", "", true) {
-
 		@Override
 		public boolean isTravelDisabled() {
-			return !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL);
+			return !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)
+					|| (Main.game.getNpc(Elizabeth.class).getWorldLocation()==WorldType.SUBMISSION
+						&& Main.game.getNpc(Elizabeth.class).isVisiblyPregnant()
+						&& !Main.game.getNpc(Elizabeth.class).isCharacterReactedToPregnancy(Main.game.getPlayer()));
 		}
-		
 		@Override
 		public int getSecondsPassed() {
 			return 60;
 		}
-		
 		@Override
 		public String getContent() {
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.elizabethAskedAboutUniforms, false);
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.elizabethAskedAboutSurname, false);
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.elizabethAskedAboutRoutine, false);
 			
 			UtilText.nodeContentSB.setLength(0);
 			
@@ -391,7 +392,6 @@ public class SubmissionGenericPlaces {
 			} else {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_ENTRY_BLOCKED"));
 			}
-			
 			return UtilText.nodeContentSB.toString();
 		}
 
@@ -416,29 +416,56 @@ public class SubmissionGenericPlaces {
 			
 			// Completed the Siren's quest:
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
-				if (index == 1) {
-					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethAskedAboutUniforms)) {
-						return new Response("Uniforms", "You've just asked Elizabeth about her uniforms...", null);
-					}
-					return new Response("Uniforms", "Ask Elizabeth why she and her troops are wearing historical uniforms.", LILIN_PALACE_GATE_GENERIC_TALK) {
-						@Override
-						public void effects() {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.elizabethAskedAboutUniforms, true);
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_UNIFORMS"));
+				if(Main.game.getNpc(Elizabeth.class).getWorldLocation()==WorldType.SUBMISSION) {
+					if(Main.game.getNpc(Elizabeth.class).isVisiblyPregnant() && !Main.game.getNpc(Elizabeth.class).isCharacterReactedToPregnancy(Main.game.getPlayer())) {
+						if (index == 1) {
+							return new Response("Pregnancy", "Ask Elizabeth if she needs any help with her pregnancy.", LILIN_PALACE_GATE_GENERIC_TALK) {
+								@Override
+								public void effects() {
+									Main.game.getNpc(Elizabeth.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_PREGNANCY"));
+								}
+							};
 						}
-					};
-					
-				} else if (index == 2) {
-					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethAskedAboutSurname)) {
-						return new Response("Surname", "You've just asked Elizabeth about her surname...", null);
-					}
-					return new Response("Surname", "Ask Elizabeth why she didn't want to be addressed by her surname.", LILIN_PALACE_GATE_GENERIC_TALK) {
-						@Override
-						public void effects() {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.elizabethAskedAboutSurname, true);
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_SURNAME"));
+						
+					} else {
+						if (index == 1) {
+							if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethAskedAboutUniforms)) {
+								return new Response("Uniforms", "You've just asked Elizabeth about her uniforms...", null);
+							}
+							return new Response("Uniforms", "Ask Elizabeth why she and her troops are wearing historical uniforms.", LILIN_PALACE_GATE_GENERIC_TALK) {
+								@Override
+								public void effects() {
+									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.elizabethAskedAboutUniforms, true);
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_UNIFORMS"));
+								}
+							};
+							
+						} else if (index == 2) {
+							if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethAskedAboutSurname)) {
+								return new Response("Surname", "You've just asked Elizabeth about her surname...", null);
+							}
+							return new Response("Surname", "Ask Elizabeth why she didn't want to be addressed by her surname.", LILIN_PALACE_GATE_GENERIC_TALK) {
+								@Override
+								public void effects() {
+									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.elizabethAskedAboutSurname, true);
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_SURNAME"));
+								}
+							};
+							
+						} else if (index == 3) {
+							if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethAskedAboutRoutine)) {
+								return new Response("Routine", "You've just asked Elizabeth about her daily routine...", null);
+							}
+							return new Response("Routine", "Ask Elizabeth about her daily routine.", LILIN_PALACE_GATE_GENERIC_TALK) {
+								@Override
+								public void effects() {
+									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.elizabethAskedAboutRoutine, true);
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_ROUTINE"));
+								}
+							};
 						}
-					};
+					}
 				}
 				return null;
 			}

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.EquipClothingSetting;
@@ -21,6 +20,7 @@ import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
@@ -136,6 +136,26 @@ public class ImpFortressDialogue {
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressFemalesGuardsPacified, true);
 		} else {
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressMalesGuardsPacified, true);
+		}
+	}
+
+	private static boolean isGuardsKnowPlayerDemon() {
+		if(isAlphaFortress()) {
+			return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaGuardsKnowPlayerDemon);
+		} else if(isFemalesFortress()) {
+			return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesGuardsKnowPlayerDemon);
+		} else {
+			return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesGuardsKnowPlayerDemon);
+		}
+	}
+	
+	private static void setGuardsKnowPlayerDemon() {
+		if(isAlphaFortress()) {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressAlphaGuardsKnowPlayerDemon, true);
+		} else if(isFemalesFortress()) {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressFemalesGuardsKnowPlayerDemon, true);
+		} else {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressMalesGuardsKnowPlayerDemon, true);
 		}
 	}
 	
@@ -301,6 +321,8 @@ public class ImpFortressDialogue {
 				for(GameCharacter impCharacter : impGroup) {
 					impCharacter.setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
 					((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
+					impCharacter.clearNonEquippedInventory(true);
+					impCharacter.setMoney(50+Util.random.nextInt(100));
 				}
 	
 			} catch (Exception e) {
@@ -368,6 +390,8 @@ public class ImpFortressDialogue {
 				for(GameCharacter impCharacter : impGroup) {
 					impCharacter.setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP, true);
 					((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
+					impCharacter.clearNonEquippedInventory(true);
+					impCharacter.setMoney(50+Util.random.nextInt(100));
 				}
 	
 			} catch (Exception e) {
@@ -436,6 +460,8 @@ public class ImpFortressDialogue {
 				for(GameCharacter impCharacter : impGroup) {
 					impCharacter.setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP, true);
 					((NPC)impCharacter).equipClothing(EquipClothingSetting.getAllClothingSettings());
+					impCharacter.clearNonEquippedInventory(true);
+					impCharacter.setMoney(50+Util.random.nextInt(100));
 				}
 	
 			} catch (Exception e) {
@@ -640,6 +666,7 @@ public class ImpFortressDialogue {
 			
 			if(!isPacified()) {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressAlphaGuardsPacified, false);
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressAlphaGuardsKnowPlayerDemon, false);
 			}
 
 		} else if(fortress==WorldType.IMP_FORTRESS_FEMALES) {
@@ -667,6 +694,7 @@ public class ImpFortressDialogue {
 			
 			if(!isPacified()) {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressFemalesGuardsPacified, false);
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressFemalesGuardsKnowPlayerDemon, false);
 			}
 
 		} else if(fortress==WorldType.IMP_FORTRESS_MALES) {
@@ -698,6 +726,7 @@ public class ImpFortressDialogue {
 			
 			if(!isPacified()) {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressMalesGuardsPacified, false);
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressMalesGuardsKnowPlayerDemon, false);
 			}
 		}
 	}
@@ -1017,7 +1046,12 @@ public class ImpFortressDialogue {
 	// Dialogues:
 	
 	public static final DialogueNode ENTRANCE = new DialogueNode("Gateway", "", false) {
-
+		@Override
+		public void applyPreParsingEffects() {
+			if(Main.game.getPlayer().getRace()==Race.DEMON) {
+				setGuardsKnowPlayerDemon();
+			}
+		}
 		@Override
 		public boolean isTravelDisabled() {
 			return !isGuardsPacified() && !isGuardsDefeated();
@@ -1039,20 +1073,20 @@ public class ImpFortressDialogue {
 				}
 				
 			} else if(isGuardsPacifiedBySex()) {
-				if(Objects.equals(Main.game.getPlayer().getSubspeciesOverride(), Subspecies.DEMON)) {
+				if(Main.game.getPlayer().getRace()==Race.DEMON) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED_BY_SEX_DEMON", getAllCharacters()));
 				} else {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED_BY_SEX", getAllCharacters()));
 				}
 				
 			} else if(isGuardsPacified()) {
-				if(Objects.equals(Main.game.getPlayer().getSubspeciesOverride(), Subspecies.DEMON)) {
+				if(Main.game.getPlayer().getRace()==Race.DEMON || isGuardsKnowPlayerDemon()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED_DEMON", getAllCharacters()));
 				} else {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_PACIFIED", getAllCharacters()));
 				}
 				
-			} else if(Objects.equals(Main.game.getPlayer().getSubspeciesOverride(), Subspecies.DEMON)) {
+			} else if(Main.game.getPlayer().getRace()==Race.DEMON) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "ENTRANCE_DEMON", getAllCharacters()));
 				
 			} else if(Main.game.getPlayer().isElementalSummoned()) {
@@ -1146,15 +1180,19 @@ public class ImpFortressDialogue {
 				
 			} else {
 				if (index == 1) {
-					if(Objects.equals(Main.game.getPlayer().getSubspeciesOverride(), Subspecies.DEMON)) {
+					if(Main.game.getPlayer().getTrueRace()==Race.DEMON) {
 						return new Response("Command",
-								"The imps seem incredibly nervous at the prospect of being confronted by a demon. Use this to your advantage and order them to step aside.",
+								Main.game.getPlayer().getRace()==Race.DEMON
+									?"The imps seem incredibly nervous at the prospect of being confronted by a demon. Use this to your advantage and order them to step aside."
+									:"Reveal your true demonic form to the imps and order them to step aside.",
 								ENTRANCE_DEMONIC_COMMAND) {
 							@Override
 							public void effects() {
 								setGuardsPacified();
+								setGuardsKnowPlayerDemon();
 							}
 						};
+						
 					} else {
 						return new Response("Command",
 								"If you were a demon, perhaps you'd be able to intimidate the imps. As you're not, however, it looks like you're going to have to fight them...",

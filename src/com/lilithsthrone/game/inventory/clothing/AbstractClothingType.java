@@ -894,18 +894,21 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 									path = clothingXMLFile.getParentFile().getAbsolutePath() + "/"+ svgPathElement.getTextContent();
 									svgImageFound = true;
 								}
-								InventorySlot slot = this.getEquipSlots().get(0);
+								InventorySlot slot = null;
 								if(!svgPathElement.getAttribute("slot").isEmpty()) {
 									slot = InventorySlot.valueOf(svgPathElement.getAttribute("slot"));
 								}
-								stickerSvgPaths.putIfAbsent(slot, new HashMap<>());
-								
 								int zLayer = stickerZLayer;
 								if(!svgPathElement.getAttribute("zLayer").isEmpty()) {
 									zLayer = Integer.valueOf(svgPathElement.getAttribute("zLayer"));
 //									System.out.println(zLayer);
 								}
-								stickerSvgPaths.get(slot).put(zLayer, path);
+								for (InventorySlot equipSlot : this.getEquipSlots()) {
+									stickerSvgPaths.putIfAbsent(equipSlot, new HashMap<>());
+									if(slot == null || slot == equipSlot) {
+										stickerSvgPaths.get(equipSlot).put(zLayer, path);
+									}
+								}
 							}
 							if(!svgImageFound && stickerElement.getAttribute("colourSelected").isEmpty()) {
 								colourSelected = PresetColour.TEXT_GREY;
@@ -1376,7 +1379,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			    interactingTarget = InventoryDialogue.getInventoryNPC();
 			}
 			if(interactingTarget!=null) {
-			    String condomEquip = interactingTarget.getCondomEquipEffects(this, clothingEquipper, interactingTarget, rough);
+			    String condomEquip = interactingTarget.getCondomEquipEffects(this, clothingEquipper, clothingOwner, rough);
 				if(condomEquip!=null) {
 					return condomEquip;
 				}

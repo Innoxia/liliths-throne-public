@@ -128,7 +128,6 @@ public enum SVGImages {
 	private Map<Colour, String> refinedBackgroundMap = new HashMap<>();
 	private Map<Colour, String> refinedSwirlsMap = new HashMap<>();
 
-	@SuppressWarnings("resource")
 	private SVGImages() {
 
 		try {

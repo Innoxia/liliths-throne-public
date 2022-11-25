@@ -16,4 +16,9 @@
 		<flag dailyReset="false">dungeon_garden_access_found</flag>
 		<flag dailyReset="true">dungeon_sex</flag>
 		
+	<!-- Submission: -->
+		<!-- Elizabeth: -->
+		<flag dailyReset="false">elizabeth_introduced</flag>
+		<flag resetHour="6">elizabeth_daily_meeting</flag>
+		
 </dialogueFlags>

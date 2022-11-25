@@ -463,8 +463,8 @@ public class CharacterCreation {
 				generateClothingOnFloor("innoxia_hand_gloves", PresetColour.CLOTHING_BLACK);
 				generateClothingOnFloor("innoxia_head_cap", PresetColour.CLOTHING_BLUE);
 				generateClothingOnFloor("innoxia_neck_scarf", PresetColour.CLOTHING_BLACK);
-				generateClothingOnFloor(ClothingType.TORSO_OVER_HOODIE, PresetColour.CLOTHING_BLACK);
-				generateClothingOnFloor(ClothingType.TORSO_RIBBED_SWEATER, PresetColour.CLOTHING_GREY);
+				generateClothingOnFloor("innoxia_torsoOver_hoodie", PresetColour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_torsoOver_ribbed_jumper", PresetColour.CLOTHING_GREY);
 				generateClothingOnFloor("innoxia_torso_short_sleeved_shirt", PresetColour.CLOTHING_WHITE);
 				generateClothingOnFloor("innoxia_torso_tshirt", PresetColour.CLOTHING_BLUE_LIGHT);
 				generateClothingOnFloor("innoxia_groin_briefs", PresetColour.CLOTHING_WHITE);
@@ -504,8 +504,8 @@ public class CharacterCreation {
 				generateClothingOnFloor("innoxia_torso_blouse", PresetColour.CLOTHING_BLUE_LIGHT);
 				generateClothingOnFloor(ClothingType.TORSO_CAMITOP_STRAPS, PresetColour.CLOTHING_GREEN);
 				
-				generateClothingOnFloor(ClothingType.TORSO_OVER_HOODIE, PresetColour.CLOTHING_PINK_LIGHT);
-				generateClothingOnFloor(ClothingType.TORSO_OVER_OPEN_CARDIGAN, PresetColour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_torsoOver_hoodie", PresetColour.CLOTHING_PINK_LIGHT);
+				generateClothingOnFloor("innoxia_torsoOver_open_front_cardigan", PresetColour.CLOTHING_BLACK);
 
 				generateClothingOnFloor("innoxia_finger_ring", PresetColour.CLOTHING_SILVER);
 				generateClothingOnFloor("innoxia_neck_heart_necklace", PresetColour.CLOTHING_SILVER);
@@ -569,7 +569,7 @@ public class CharacterCreation {
 				generateClothingOnFloor(ClothingType.TORSO_SLIP_DRESS, PresetColour.CLOTHING_RED);
 				generateClothingOnFloor(ClothingType.TORSO_SKATER_DRESS, PresetColour.CLOTHING_BLACK);
 				
-				generateClothingOnFloor(ClothingType.TORSO_OVER_OPEN_CARDIGAN, PresetColour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_torsoOver_open_front_cardigan", PresetColour.CLOTHING_BLACK);
 				
 				generateClothingOnFloor(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_GOLD);
 				generateClothingOnFloor("innoxia_ankle_anklet", PresetColour.CLOTHING_GOLD);

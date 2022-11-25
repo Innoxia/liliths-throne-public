@@ -4228,12 +4228,12 @@ public abstract class GameCharacter implements XMLSaving {
 			} else if (petName.equalsIgnoreCase("Ma'am") || petName.equalsIgnoreCase("Sir")) {
 				return target.isFeminine()?"Ma'am":"Sir";
 				
-			} else if (petName.equalsIgnoreCase("Mr. "+this.getSurname()) || petName.equalsIgnoreCase("Mrs. "+this.getSurname()) || petName.equalsIgnoreCase("Miss "+this.getSurname())) {
+			} else if (petName.equalsIgnoreCase("Mr. "+target.getSurname()) || petName.equalsIgnoreCase("Mrs. "+target.getSurname()) || petName.equalsIgnoreCase("Miss "+target.getSurname())) {
 				return target.isFeminine()
-						?(petName.equalsIgnoreCase("Mrs. "+this.getSurname())
-							?"Mrs. "+this.getSurname()
-							:"Miss "+this.getSurname())
-						:"Mr. "+this.getSurname();
+						?(petName.equalsIgnoreCase("Mrs. "+target.getSurname())
+							?"Mrs. "+target.getSurname()
+							:"Miss "+target.getSurname())
+						:"Mr. "+target.getSurname();
 			}
 			return petName;
 		}
@@ -6520,7 +6520,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean hasTraitActivated(AbstractPerk perk) {
-		return traits.contains(perk);
+		return traits.contains(perk) || perk==getHistory().getAssociatedPerk();
 	}
 
 	public boolean removeTrait(AbstractPerk perk) {
@@ -7580,6 +7580,14 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	// Helper methods:
+	
+	public int getTotalSexConsensualCount() {
+		int i=0;
+		for(SexCount count : sexCount.values()) {
+			i+=count.getSexConsensualCount();
+		}
+		return i;
+	}
 	
 	public int getSexConsensualCount(GameCharacter partner) {
 		return getSexCount(partner).getSexConsensualCount();
@@ -23067,7 +23075,7 @@ public abstract class GameCharacter implements XMLSaving {
 			Main.game.addEvent(new EventLogEntry("Equipped", newClothing.getDisplayName(true)), false);
 		}
 		
-		if (characterClothingEquipper != null) { // If no equipper do not reset the seal status
+		if (characterClothingEquipper!=null) { // If no equipper do not reset the seal status
 			newClothing.setUnlocked(false);
 		}
 		
