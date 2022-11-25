@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+    <coreAttributes>
+        <value>2000</value>
+        <determiner><![CDATA[a]]></determiner>
+        <name><![CDATA[dose of release]]></name>
+        <namePlural pluralByDefault="false"><![CDATA[doses of release]]></namePlural>
+        <description>
+            <![CDATA[A small, red pill, individually packaged in a foil and plastic wrapper. While the text printed on the foil identifies this pill as an 'Orally-Administered Release', it's colloquially known as either an 'o-pill', and temporarily allows orgasm when it is otherwise inhibited.]]></description>
+
+        <useDescriptor>swallow</useDescriptor>
+
+        <sexUse>true</sexUse>
+        <combatUseAllies>true</combatUseAllies>
+        <combatUseEnemies>false</combatUseEnemies>
+        <consumedOnUse>true</consumedOnUse>
+
+        <rarity>COMMON</rarity>
+
+        <imageName>pill.svg</imageName>
+
+        <colourPrimary>CLOTHING_RED</colourPrimary>
+        <colourSecondary/>
+        <colourTertiary/>
+
+        <effectTooltipLines>
+            <line><![CDATA[[style.boldGood(Adds status effects:)]]]></line>
+            <line><![CDATA['<i>[#SE_deniedDollMaker_denied_doll_release.getName(null)]</i>']]></line>
+        </effectTooltipLines>
+
+        <applyEffects><![CDATA[
+			[##npc.addStatusEffect(SE_deniedDollMaker_denied_doll_release, 60*60)]
+			<p style='margin-bottom:0; padding-bottom:0;'>
+        The small red pill easily slides down [npc.namePos] throat, and after only a few moments [npc.she] [npc.verb(feel)] a pulsing warmth taking root deep within [npc.her] loins.
+        An arcane glow surrounds [npc.her] crotch and then fades away. 
+      </p>
+			<p style='text-align:center; margin-top:0; padding-top:0;'>
+				[style.colourSex([npc.Name] [npc.is] now experiencing <i>'[#SE_deniedDollMaker_denied_doll_release.getName(npc)]'</i> for the next hour!)]
+			</p>
+		]]></applyEffects>
+
+        <itemTags>
+            <tag>ALLOW_ORGASM</tag>
+            <tag>ATTRIBUTE_TF_ITEM</tag>
+            <tag>NOT_FOR_SALE</tag>
+        </itemTags>
+        <modTags>
+            <tag>SOLD_BY_DOLL_MAKER</tag>
+        </modTags>
+    </coreAttributes>
+
+    <useDescriptions>
+        <selfUse><![CDATA[
+		[npc.Name] [npc.verb(pop)] a small red pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.
+		]]></selfUse>
+        <otherUse><![CDATA[
+		[npc.Name] [npc.verb(pop)] a small red pill out of its little foil wrapper, before bringing it up to [npc2.namePos] [npc2.lips], forcing it into [npc2.her] mouth, and making sure that [npc2.she] [npc2.verb(swallow)] it down.
+		]]></otherUse>
+    </useDescriptions>
+</item>

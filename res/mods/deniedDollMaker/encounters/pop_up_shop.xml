@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+    <additionalPlaceTypeTriggers>
+        <placeType>DOMINION_DARK_ALLEYS</placeType>
+    </additionalPlaceTypeTriggers>
+
+    <possibleEncounters>
+        <encounter>
+            <name>Pop Up Shop</name>
+
+            <!-- High for testing -->
+            <chanceToTrigger opportunisticEncounter="true">15</chanceToTrigger>
+            <dialogueReturned>deniedDollMaker_encounters_dominion_alleys_pop_up_shop_start</dialogueReturned>
+        </encounter>
+    </possibleEncounters>
+</encounterRoot>

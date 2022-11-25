@@ -4,15 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.Set;
-import java.util.StringJoiner;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -116,12 +109,8 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	/** Key is the colour index which should copy another colour upon weapon generation. Value is the colour index which should be copied. */
 	public Map<Integer, Integer> copyGenerationColours;
 
-	private List<ItemTag> itemTags;
-
 	@SuppressWarnings("deprecation")
 	public AbstractWeaponType(File weaponXMLFile, String author, boolean mod) {
-		this.itemTags = new ArrayList<>();
-
 		if (weaponXMLFile.exists()) {
 			try {
 				Document doc = Main.getDocBuilder().parse(weaponXMLFile);
@@ -136,8 +125,9 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				} catch (XMLMissingTagException ex) {
 					coreAttributes = weaponElement.getMandatoryFirstOf("coreAttributes");
 				}
-				
-				this.itemTags = Util.toEnumList(coreAttributes.getMandatoryFirstOf("itemTags").getAllOf("tag"), ItemTag.class);
+
+				loadModTags(coreAttributes);
+				this.itemTags = new HashSet<>(Util.toEnumList(coreAttributes.getMandatoryFirstOf("itemTags").getAllOf("tag"), ItemTag.class));
 				
 				this.mod = mod;
 				
@@ -1058,7 +1048,4 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return this;
 	}
 
-	public List<ItemTag> getItemTags() {
-		return itemTags;
-	}
 }

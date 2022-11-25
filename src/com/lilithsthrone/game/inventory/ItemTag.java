@@ -320,6 +320,14 @@ public enum ItemTag {
 			Util.newArrayListOfValues(
 					"[style.colourTerrible(Prevents erection)]"),
 			false),
+	PREVENTS_ORGASM( // Prevents the user from orgasming.
+			Util.newArrayListOfValues(
+					"[style.colourTerrible(Prevents orgasm)]"),
+			false),
+	ALLOW_ORGASM( // Negates the effect of orgasm blocking items.
+			Util.newArrayListOfValues(
+					"[style.colourSex(Negates orgasm prevention)]"),
+			false),
 	
 	// Sex-related clothing:
 
