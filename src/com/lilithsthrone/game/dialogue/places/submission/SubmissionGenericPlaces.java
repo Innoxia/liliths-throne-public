@@ -631,7 +631,11 @@ public class SubmissionGenericPlaces {
 					};
 					
 				} else if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN)) {
-					return new Response("Enter", "Tell Elizabeth that you'd like to enter the palace, and have her unlock the doors for you.", PlaceType.LYSSIETH_PALACE_ENTRANCE.getDialogue(false)) {
+					return new Response("Enter",
+							Main.game.getNpc(Elizabeth.class).getWorldLocation()==WorldType.SUBMISSION
+								?"Tell Elizabeth that you'd like to enter the palace, and have her unlock the doors for you."
+								:"Tell the guard that you'd like to enter the palace, and have her unlock the doors for you.",
+							PlaceType.LYSSIETH_PALACE_ENTRANCE.getDialogue(false)) {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_ENTRANCE);

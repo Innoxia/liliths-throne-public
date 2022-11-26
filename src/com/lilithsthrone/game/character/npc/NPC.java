@@ -2979,7 +2979,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isWantingToEquipCondom(GameCharacter partner) {
-		boolean wantingToEquip = this.getFetishDesire(Fetish.FETISH_CUM_STUD).isNegative() || (partner.hasVagina() && !partner.isVisiblyPregnant() && !this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive());
+		boolean wantingToEquip = this.getFetishDesire(Fetish.FETISH_CUM_STUD).isNegative() || (partner.hasVagina() && !partner.isVisiblyPregnant() && this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative());
 //		System.out.println("isWantingToEquipCondom("+partner.getName()+"): "+wantingToEquip);
 		return wantingToEquip;
 	}
@@ -2988,7 +2988,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		if(!partner.hasPenisIgnoreDildo()) {
 			return false;
 		}
-		return this.getFetishDesire(Fetish.FETISH_CUM_ADDICT).isNegative() || (this.hasVagina() && !this.isVisiblyPregnant() && !this.getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive());
+		return this.getFetishDesire(Fetish.FETISH_CUM_ADDICT).isNegative() || (this.hasVagina() && !this.isVisiblyPregnant() && this.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative());
 	}
 
 	/**
@@ -3095,9 +3095,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					// Always auto manage clothing, as NPCs use clothing removal methods in SexManagerDefault, so clothing additions should take place after removals.
 					// If auto management was disabled, then the NPC would equip clothing onto their partner as soon as that slot became free, which makes sex feel quite disjointed
 						// e.g. An NPC deciding to equip latex stockings on their parter only when their partner has removed their shoes.
+					InventorySlot defaultSlot = clothing.getClothingType().getEquipSlots().get(0);
 					if(wantsToEquip
-							&& clothing.isAbleToBeEquippedDuringSex(clothing.getClothingType().getEquipSlots().get(0)).getKey()
-							&& partner.getClothingInSlot(clothing.getClothingType().getEquipSlots().get(0))==null
+							&& Main.sex.isClothingEquipAvailable(partner, defaultSlot, clothing)
+							&& clothing.isAbleToBeEquippedDuringSex(defaultSlot).getKey()
+							&& partner.getClothingInSlot(defaultSlot)==null
 							&& partner.isAbleToEquip(clothing, true, this)) {
 						return new Value<>(clothing, UtilText.parse(this, "[npc.Name] grabs "+clothing.getName(true, true)+" from out of [npc.her] inventory..."));
 					}

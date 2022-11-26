@@ -29,6 +29,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Clothing:
 		Skirts now need to be pulled up to access the 'thighs' area.
+		Improved method for determining which extra items of clothing need to be removed before an item of clothing can be removed, which should prevent issues where items of clothing were blocking one another's removal.
+		Improved tooltip for when unequipping/displacing clothing is disabled, so that it tells you which other item of clothing is responsible for preventing the clothing from being unequipped/displaced.
 	
 	Sex:
 		The 'Automatic stripping' content option no longer causes spectating NPCs to be stripped a the start of sex.
@@ -38,10 +40,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		NPCs will now only equip chastity devices on their sexual partners if they either like or love the denial fetish.
 		The 'Desires' status effect tooltip now always uses standard names for sex areas instead of random ones.
 		Character who are on all fours can no longer use finger actions on a character who's fucking them from behind.
+		Further restricted the desire of NPCs to equip condoms; they now only equip condoms on self/partners if their impregnation/pregnancy fetish is negative, instead of neutral or negative.
 	
 	Other:
 		Slightly improved colours in clothing/tattoo UI.
 		The clothing types (such as sex toys and BDSM gear) which NPCs spawn with are now more randomly selected, which should result in NPCs spawning with a broader range of sex toys.
+		Encounters are now only checked for after the game has started (to prevent the need for !game.isStarted() in encounter triggers).
+		Added tooltips for colours to the 'Add tattoo' UI.
+		NPCs will now only spawn with condoms in their inventory if they have the requirements to equip them during sex (i.e. negative towards cum stud/addict fetishes, or negative towards impregnation/pregnancy fetishes).
 	
 	Bugs:
 		Parsing and formatting fixes and minor text improvements.
@@ -64,7 +70,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where the guards at the imp fortresses would always act as though they knew you were a demon even if you were appearing as a different race.
 		Fixed bug where self-equipping a condom during sex would give a description as though it was being equipped on your partner.
 		The sex actions 'Paizuri/Naizuri into mouth' and 'Thrust into mouth' now correctly check to see if the target's mouth is blocked by clothing when checking for availability.
-	
+		Fixed bug in sex where it was possible for NPCs to equip clothing on the player or other NPCs even if the equip slot was involved in an ongoing sex action.
+		
 	
 	[x] 4 pings in developers
 	[x] bug reports
@@ -208,17 +215,15 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] find yourself letting out lewd moan as you
 	[x] you realise that if you isn't already pregnant, there's a chance you is now
 	[x] the tooltip for unknown race is applying to desires, sex areas, etc.
-	
-	[] Do not check encounters until game is started (to prevent need for !game.isStarted() in encounter dialogue)
-	
-	[] add colour tooltips to tattoo addition UI
-	
-	[] string bikini
-	[] cute pawprint pattern pajamas
-		[] pajamas
-		[] pawprint pattern
-	[x] FAMAS
-	
+	[x] Do not check encounters until game is started (to prevent need for !game.isStarted() in encounter dialogue)
+	[x] add colour tooltips to tattoo addition UI
+	[x] it is possible to both get penetrated and a vaginal item equipped at the same turn
+	[x] Really need to fix the isAbleToUnequip() method in CharacterInventory
+		[x] I ran into a issue that if I put on the lowback body suit and pantyhose then in sex scenes neither could be removed because they where being blocked by each other. I could remove them however outside of sex scenes
+		[x] Can't equip dildo as sweater is sealed???
+		[x] add blocking clothing to the tooltip to let player know exactly why the clothing can't be unequipped/displaced
+		[x] add tooltip behaviour for displacement too
+		
 	[] bug reports
 		[]  When enchanting a kimono, the name of the color is gone and the name of the pattern is multiplied
 		[] Looking at the guts of some race mods and just noticed that the game seems to be ignoring their height settings,
@@ -226,12 +231,21 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		 	The heights make more sense if it's rolling them as inches for modded races
 		[] In version 0.4.6.3 (.exe) there is an error in the hair.xml for the otter race. the <coveringType> was set to "dsg_otter_fur" instead of "dsg_otter_hair".
 	
-	[] Really need to fix the isAbleToUnequip() method in CharacterInventory
-		[] I ran into a issue that if I put on the lowback body suit and pantyhose then in sex scenes neither could be removed because they where being blocked by each other. I could remove them however outside of sex scenes
+	[] string bikini
+	[] cute pawprint pattern pajamas
+		[] pajamas
+		[] pawprint pattern
+	[x] FAMAS
 	
-	[] Jhortax imps - it is possible to both get penetrated and a vaginal item equipped at the same turn
+	[] Elizabeth content trigger
 	
 	[] mystery content
+		[] move Pix's gym to Dominion
+			[] Add internal map
+		[] Add coffee shop to where Pix's gym was
+			[] 
+		[] Add Bat Caverns entrance to Dominion
+			[] Only accessible if can fly
 	
 	
 	[] Update build instructions (Dream's message in tech):

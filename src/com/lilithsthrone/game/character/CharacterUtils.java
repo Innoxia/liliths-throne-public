@@ -2403,14 +2403,14 @@ public class CharacterUtils {
 		Colour condomColour = ClothingType.getClothingTypeFromId("innoxia_penis_condom").getColourReplacement(0).getRandomOfDefaultColours();
 		if(character.hasPenis()
 				&& !character.getFetishDesire(Fetish.FETISH_PENIS_GIVING).isNegative() // doesn't mind using penis
-				&& !character.getFetishDesire(Fetish.FETISH_CUM_STUD).isPositive() // neutral towards or dislikes cum play
-				&& !character.getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive()) { // neutral towards or dislikes impregnating others
+				&& (character.getFetishDesire(Fetish.FETISH_CUM_STUD).isNegative() // dislikes cum play or impregnating others
+						|| character.getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative())) {
 			character.addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", condomColour, false), 1+Util.random.nextInt(3), false, false);
 		}
 		condomColour = ClothingType.getClothingTypeFromId("innoxia_penis_condom").getColourReplacement(0).getRandomOfDefaultColours();
 		if(!character.getFetishDesire(Fetish.FETISH_PENIS_RECEIVING).isNegative() // doesn't mind receiving cock
-				&& (!character.getFetishDesire(Fetish.FETISH_CUM_ADDICT).isPositive()  // neutral towards or dislikes others' cum
-						|| (character.hasVagina() && !character.getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive()))) { // has vagina and neutral towards or dislikes getting pregnant
+				&& (character.getFetishDesire(Fetish.FETISH_CUM_ADDICT).isNegative()  // dislikes others' cum or has vagina and dislikes getting pregnant
+						|| (character.hasVagina() && character.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()))) {
 			character.addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", condomColour, false), 1+Util.random.nextInt(3), false, false);
 		}
 		
