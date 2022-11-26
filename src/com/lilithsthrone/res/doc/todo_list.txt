@@ -71,6 +71,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed bug where self-equipping a condom during sex would give a description as though it was being equipped on your partner.
 		The sex actions 'Paizuri/Naizuri into mouth' and 'Thrust into mouth' now correctly check to see if the target's mouth is blocked by clothing when checking for availability.
 		Fixed bug in sex where it was possible for NPCs to equip clothing on the player or other NPCs even if the equip slot was involved in an ongoing sex action.
+		Fixed issue where enchanting an item of clothing which had name prefix or postfixes (such as '(flowers)' or '(blossom)' for the kimono) would duplicate the enchantment prefix/postfix.
 		
 	
 	[x] 4 pings in developers
@@ -225,12 +226,17 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] add tooltip behaviour for displacement too
 		
 	[] bug reports
-		[]  When enchanting a kimono, the name of the color is gone and the name of the pattern is multiplied
-		[] Looking at the guts of some race mods and just noticed that the game seems to be ignoring their height settings,
+		[x] When enchanting a kimono, the name of the color is gone and the name of the pattern is multiplied
+		[-] Looking at the guts of some race mods and just noticed that the game seems to be ignoring their height settings,
 				for example the Kobold mod (1.9ft/60cm) and the Goblin mod (3ft~/91cm & 95cm) both have heights well under the limits but constantly seeing greater kobolds and goblins that are over 6ft and closer to 7ft.
-		 	The heights make more sense if it's rolling them as inches for modded races
 		[] In version 0.4.6.3 (.exe) there is an error in the hair.xml for the otter race. the <coveringType> was set to "dsg_otter_fur" instead of "dsg_otter_hair".
-	
+		[] Bondage gear disabling the surrender option and transformation fight loss result for npcs with the transformer fetish
+		[] Kay's Chastity Cage has faulty logic, and will not display the other written lines relevant to the time he has spent locked in his cage.
+			This occurs because the status effect he's supposed to have upon being released in the relevant scene is not being properly added which results in you always getting the 'short while' message no matter how long he's locked for.
+		[] Template sock doesn't actually mention which part of the xml is important if your item is or isn't compatible with hooves. Which also begs the question of do we have tags for things that people might want to be unwearable with horns, wings, tails, etc
+		[] Missing spaces in Heather's content "silken hair.Unable to resist" and "stroking them.Clearly liking this"
+		[] Drake Morph Encyclopedia page calls it a "Wyvern" in the description - "To be identified as a wyven-morph,"
+		
 	[] string bikini
 	[] cute pawprint pattern pajamas
 		[] pajamas

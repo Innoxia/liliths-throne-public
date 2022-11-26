@@ -1124,6 +1124,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	public String getName() {
 		String parsedName = this.getClothingType().getName();
 		
+		if(!name.isEmpty() && !name.equals(parsedName)) {
+			return name; // If name has been manually set, return it without running through prefixes and postfixes
+		}
+		
 		if(!this.getEffects().isEmpty() || !name.isEmpty()) {
 			parsedName = name;
 		}

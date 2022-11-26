@@ -25765,14 +25765,17 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		return this.getSubspecies().isShortStature()
 				?Height.NEGATIVE_TWO_MINIMUM.getMinimumValue()
-				:Height.ZERO_TINY.getMinimumValue();
+				:Height.getShortStatureCutOff();
 	}
 	
 	public int getMaximumHeight() {
 //		if(this.isFeral()) {
 //			return Math.max(Height.SEVEN_COLOSSAL.getMaximumValue(), (int) (this.getFeralAttributes().getSize()*2f));
 //		}
-		return Height.SEVEN_COLOSSAL.getMaximumValue();
+
+		return this.getSubspecies().isShortStature()
+				?Height.getShortStatureCutOff()-1
+				:Height.SEVEN_COLOSSAL.getMaximumValue();
 	}
 
 	public String setHeight(int height) {
@@ -25783,13 +25786,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public String setHeight(int height, boolean ignoreHeightRestrictions) {
 		if(!ignoreHeightRestrictions) {
-			if(this.getHeightValue()<Height.ZERO_TINY.getMinimumValue()) {
-				height = Math.min(Height.ZERO_TINY.getMinimumValue()-1,
-							Math.max(Height.NEGATIVE_TWO_MINIMUM.getMinimumValue(), height));
-			} else {
-				height = Math.min(Height.SEVEN_COLOSSAL.getMaximumValue(),
-							Math.max(Height.ZERO_TINY.getMinimumValue(), height));
-			}
+			height = Math.min(getMaximumHeight(), Math.max(getMinimumHeight(), height));
 		}
 		
 		if (body.getHeightValue() < height) {
