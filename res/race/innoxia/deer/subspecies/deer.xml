@@ -36,12 +36,12 @@
 	<description><![CDATA[An anthropomorphic deer, known as a 'deer-morph' when bipedal, and a 'deer-taur' when the lower body is that of a feral deer.]]></description>
 	<nameHalfDemon>
 		<namesDefault>
-			<name><![CDATA[baphomet]]></name>
-			<namePlural><![CDATA[baphomets]]></namePlural>
-			<singularMaleName><![CDATA[baphomet]]></singularMaleName>
-			<singularFemaleName><![CDATA[baphomet]]></singularFemaleName>
-			<pluralMaleName><![CDATA[baphomets]]></pluralMaleName>
-			<pluralFemaleName><![CDATA[baphomets]]></pluralFemaleName>
+			<name><![CDATA[peryton]]></name>
+			<namePlural><![CDATA[perytons]]></namePlural>
+			<singularMaleName><![CDATA[peryton]]></singularMaleName>
+			<singularFemaleName><![CDATA[peryton]]></singularFemaleName>
+			<pluralMaleName><![CDATA[perytons]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[perytons]]></pluralFemaleName>
 		</namesDefault>
 	</nameHalfDemon>
 	<feralAttributes>

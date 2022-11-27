@@ -143,6 +143,11 @@ public class LyssiethPalaceDialogue {
 	
 	public static final DialogueNode CORRIDOR = new DialogueNode("", "", false) {
 		@Override
+		public boolean isTravelDisabled() {
+			
+			return Main.game.getNpc(Elizabeth.class).getWorldLocation()==WorldType.LYSSIETH_PALACE && Main.game.getNpc(Elizabeth.class).getLocation().getDistanceToVector(Main.game.getPlayer().getLocation())<=1;
+		}
+		@Override
 		public int getSecondsPassed() {
 			return 10;
 		}
@@ -155,6 +160,9 @@ public class LyssiethPalaceDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(Main.game.getNpc(Elizabeth.class).getWorldLocation()==WorldType.LYSSIETH_PALACE && Main.game.getNpc(Elizabeth.class).getLocation().getDistanceToVector(Main.game.getPlayer().getLocation())<=1) {
+				return DialogueManager.getDialogueFromId("acexp_submission_palace_elizabeth").getResponse(responseTab, index);
+			}
 			return null;
 		}
 	};

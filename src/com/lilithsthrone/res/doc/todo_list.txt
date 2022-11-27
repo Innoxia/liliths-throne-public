@@ -25,7 +25,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Gameplay:
 		Astrapi can now be impregnated.
-		Added a new 'Offspring Encounters' content option (under the 'Gameplay' options), which allows you to enable/disable randomly encountering your offspring.
 	
 	Clothing:
 		Skirts now need to be pulled up to access the 'thighs' area.
@@ -48,9 +47,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Encounters are now only checked for after the game has started (to prevent the need for !game.isStarted() in encounter triggers).
 		Added tooltips for colours to the 'Add tattoo' UI.
 		NPCs will now only spawn with condoms in their inventory if they have the requirements to equip them during sex (i.e. negative towards cum stud/addict fetishes, or negative towards impregnation/pregnancy fetishes).
+		Gave the name of 'peryton' to half-demon deers.
+		Added a new 'Offspring Encounters' content option (under the 'Gameplay' options), which allows you to enable/disable randomly encountering your offspring.
 	
 	Bugs:
-		Parsing and formatting fixes and minor text improvements.
+		Typo, parsing, and formatting fixes, along with some minor text improvements.
 		Fixed bug in the self-transformation UI where the buttons that increase/decrease a character's udder/crotchboob lactation were setting the lactation based on the character's regular breast lactation.
 		Fixed issue where if an NPC's 'pet name' was 'Mr./Mrs./Miss X', it would not automatically change based on their femininity.
 		Slaves who are only wearing milking equipment will no longer be described as taking off their clothes prior to being inspected.
@@ -72,7 +73,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		The sex actions 'Paizuri/Naizuri into mouth' and 'Thrust into mouth' now correctly check to see if the target's mouth is blocked by clothing when checking for availability.
 		Fixed bug in sex where it was possible for NPCs to equip clothing on the player or other NPCs even if the equip slot was involved in an ongoing sex action.
 		Fixed issue where enchanting an item of clothing which had name prefix or postfixes (such as '(flowers)' or '(blossom)' for the kimono) would duplicate the enchantment prefix/postfix.
-		
+		Fixed issue where otters were having their hair covering set to otter fur instead of hair.
+		Demon attackers in the alleyways in Dominion are now correctly spawned with the 'mugger' background.
+	
 	
 	[x] 4 pings in developers
 	[x] bug reports
@@ -224,35 +227,28 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] Can't equip dildo as sweater is sealed???
 		[x] add blocking clothing to the tooltip to let player know exactly why the clothing can't be unequipped/displaced
 		[x] add tooltip behaviour for displacement too
-		
-	[] bug reports
+	[x] bug reports
 		[x] When enchanting a kimono, the name of the color is gone and the name of the pattern is multiplied
 		[-] Looking at the guts of some race mods and just noticed that the game seems to be ignoring their height settings,
 				for example the Kobold mod (1.9ft/60cm) and the Goblin mod (3ft~/91cm & 95cm) both have heights well under the limits but constantly seeing greater kobolds and goblins that are over 6ft and closer to 7ft.
-		[] In version 0.4.6.3 (.exe) there is an error in the hair.xml for the otter race. the <coveringType> was set to "dsg_otter_fur" instead of "dsg_otter_hair".
-		[] Bondage gear disabling the surrender option and transformation fight loss result for npcs with the transformer fetish
-		[] Kay's Chastity Cage has faulty logic, and will not display the other written lines relevant to the time he has spent locked in his cage.
+		[x] In version 0.4.6.3 (.exe) there is an error in the hair.xml for the otter race. the <coveringType> was set to "dsg_otter_fur" instead of "dsg_otter_hair".
+		[x] Kay's Chastity Cage has faulty logic, and will not display the other written lines relevant to the time he has spent locked in his cage.
 			This occurs because the status effect he's supposed to have upon being released in the relevant scene is not being properly added which results in you always getting the 'short while' message no matter how long he's locked for.
-		[] Template sock doesn't actually mention which part of the xml is important if your item is or isn't compatible with hooves. Which also begs the question of do we have tags for things that people might want to be unwearable with horns, wings, tails, etc
-		[] Missing spaces in Heather's content "silken hair.Unable to resist" and "stroking them.Clearly liking this"
-		[] Drake Morph Encyclopedia page calls it a "Wyvern" in the description - "To be identified as a wyven-morph,"
-		
-	[] string bikini
-	[] cute pawprint pattern pajamas
-		[] pajamas
-		[] pawprint pattern
+		[x] Template sock doesn't actually mention which part of the xml is important if your item is or isn't compatible with hooves.
+			Which also begs the question of do we have tags for things that people might want to be unwearable with horns, wings, tails, etc
+		[-] Missing spaces in content "silken hair.Unable to resist" and "stroking them.Clearly liking this"
+		[x] Drake Morph Encyclopedia page calls it a "Wyvern" in the description - "To be identified as a wyvern-morph,"
+	[x] Elizabeth content trigger
 	[x] FAMAS
 	
-	[] Elizabeth content trigger
+	[] Add Bat Caverns entrance to Dominion
+		[] Revealed once used from Bat Caverns for first time
+		[] Only accessible if can fly
 	
-	[] mystery content
-		[] move Pix's gym to Dominion
-			[] Add internal map
-		[] Add coffee shop to where Pix's gym was
-			[] 
-		[] Add Bat Caverns entrance to Dominion
-			[] Only accessible if can fly
-	
+	[] Pix
+		[] pregnancy reaction
+		[] Add gym map
+		[] Armpit licking
 	
 	[] Update build instructions (Dream's message in tech):
 		Fatal error compiling: invalid flag: --release and lambda expressions are not supported in -source (number with comma here)
@@ -265,6 +261,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1591
 	[] PR#1727
 	
+	[] blocked mouth should grey-out 'Surrender' - add tooltip text to say that this is the reason TF isn't happening
+			
 	[] Combat improvements:
 		[] nerdlinger combat PR
 			I just remembered one major bug: I made some of the existing Status Effects lower Arcane stats to give a bit more depth to Lust Damage-based build against Arcane capable opponents but against groups,
@@ -448,16 +446,21 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] Add 'corkscrew' penis modifier
 		[] And glue as a fluid mod (congealing)? IE like how pig cum hardens in contact with air to seal up the female's vagina and trap the rest of the cum inside
-		
-	[] balaclava
-	[] jewellery for blank slots (horns, wings)
-		[] tail ring clothing
-		[] horn chains & rings clothing
-	[] Nipple piercings
-		[] rounded
-		[] square
-	[] tail cuffs/rings
 	
+	[] Clothing additions:
+		[] balaclava
+		[] jewellery for blank slots (horns, wings)
+			[] tail ring clothing
+			[] horn chains & rings clothing
+		[] Nipple piercings
+			[] rounded
+			[] square
+		[] tail cuffs/rings
+		[] string bikini
+		[] cute pawprint pattern pajamas
+			[] pajamas
+			[] pawprint pattern
+		
 		
 	[] add generic tentacle legs for slime and demon(tentacle-girl/boy)
 	
@@ -1424,9 +1427,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Is it a bug if Candi's bimbo intro dosen't have any lisping if you have one or oversized lips and are also a bimbo?
 	
 	Add Arthur quest to acquire potion to set gender identity to: Current gender, Male, Female
-	
-	Add gym map
-	Pix armpit licking
 	
 	[] Skull bandana
 	[] vagina ring(s)
@@ -3467,7 +3467,6 @@ It'd be even better if this could be extended to potions as well, allowing us to
 	Duner's stuff
 	
 	Preg reactions (including first time seeing them) for:
-		Pix
 		Amber
 		Katherine
 		Kelly
@@ -8208,8 +8207,6 @@ When it should be an indication that I'm gaining testicles, and the three messag
 	
 	
 	I've been using the masturbation fetish for those sort of options, but that doesn't really make much sense. I'll add a fetish for 'manual stimulation' (both for giving and receiving)
-	
-	While the shop is renamed 'Pix's Playground', the fast-travel button at the mall entrance is still 'City Gym'.
 	
 	Since v0.1.81 at least, there's a bug involving the standing/sitting NPC sex scenes (Lilaya, Kate), where trying to do self-penetration (pink-text) actions will lock up the dialogue.
 	 Specifically, the scene won't progress and the only working button is 'Use item'; clicking on it will advance arousal but returning to the main screen doesn't advance the scene, and some of the options disappear.

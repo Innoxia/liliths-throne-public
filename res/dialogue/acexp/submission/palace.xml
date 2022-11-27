@@ -12,25 +12,35 @@
             <response>
                 <responseTabIndex><![CDATA[0]]></responseTabIndex>
                 <index><![CDATA[1]]></index>
-                <responseTitle><![CDATA[Approach]]></responseTitle>
+                <responseTitle><![CDATA[Enter room]]></responseTitle>
                 <responseTooltip><![CDATA[
-                    Approach Elizabeth and greet her.
+					#IF(flags.hasFlag(FLAG_acexp_elizabeth_introduced))
+						Approach Elizabeth and greet her.
+					#ELSE
+						Enter the room and find out who's playing the piano.
+					#ENDIF
                 ]]></responseTooltip>
                 <nextDialogue><![CDATA[acexp_submission_palace_music]]></nextDialogue>
-                <effects/>
+                <effects><![CDATA[
+                   	[#pc.setNearestLocation(PLACE_TYPE_LYSSIETH_PALACE_ROOM)]
+				]]></effects>
             </response>
             <response>
                 <availabilityConditional/>
                 <responseTabIndex><![CDATA[0]]></responseTabIndex>
                 <index><![CDATA[0]]></index>
-                <responseTitle><![CDATA[Leave]]></responseTitle>
+                <responseTitle><![CDATA[Continue]]></responseTitle>
                 <responseTooltip><![CDATA[
-                    Leave Elizabeth alone for now.
+					Decide against entering the room and instead continue on your way through the palace.
                 ]]></responseTooltip>
                 <nextDialogue defaultPlaceType="LYSSIETH_PALACE_CORRIDOR"/>
                 <effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/submission/elizabeth', 'INTRO_EXIT'))]
-                   	[#pc.setNearestLocation(PLACE_TYPE_LYSSIETH_PALACE_CORRIDOR)]
+					#IF(pc.getLastCell().getLocation().getY() > pc.getLocation().getY())
+						[#pc.moveLocation(0, -1)]
+					#ELSE
+						[#pc.moveLocation(0, 1)]
+					#ENDIF
 				]]></effects>
             </response>
         </responses>

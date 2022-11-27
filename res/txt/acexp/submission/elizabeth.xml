@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
     <!-- Elizabeth encounter: -->
-
+	
     <htmlContent tag="INTRO"><![CDATA[
 	<p>
 		In the evening, the palace corridors are mostly empty, with only the occasional half-demon or human maid to be seen.
@@ -16,7 +16,7 @@
 			#IF(pc.hasTraitActivated(PERK_JOB_MUSICIAN))
 				Being a musician yourself, you instantly identify the tune as <i>F&uuml;r Elise</i>, and can tell that it's being played on a grand piano of exceptional quality. The performance is nothing short of exceptional, with all the expression and tempo variations of someone who knows the piece inside out. Ludwig von Beethoven really was at his best with this.
 			#ELSE
-				Although you can tell that it's being played on a piano, you lack the musical knowledge to determine anything else about the piece. Although you're unsure of the name of music, it does sound quite familiar, and must be one of those classics you hear everywhere.
+				Although you can tell that it's being played on a piano, you lack the musical knowledge to determine anything else about the piece. While you're unsure of the name of the piece of music, it does sound quite familiar, and must be one of those classics you hear everywhere.
 			#ENDIF
 		</p>
 	#ENDIF
