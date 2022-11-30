@@ -793,13 +793,15 @@ public class Sex {
 								+ "</p>");
 				}
 				
-			} else if(Main.getProperties().hasValue(PropertyValue.autoSexStrip) && !character.isPlayer()) {
+			} else if(Main.getProperties().hasValue(PropertyValue.autoSexStrip) && !character.isPlayer() && !Main.sex.isSpectator(character)) {
+				boolean anyClothingStripped = false;
 				clothingToStrip.clear();
 				clothingToStrip.addAll(character.getClothingCurrentlyEquipped());
 				clothingToStrip.removeIf(c -> c.getSlotEquippedTo().isJewellery() || c.isMilkingEquipment());
 				for(AbstractClothing c : clothingToStrip) {
 					if(Main.sex.getInitialSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), c)) {
 						character.unequipClothingIntoInventory(c, true, character);
+						anyClothingStripped = true;
 					}
 				}
 				// If any clothing was unable to be removed, displace it in every way possible:
@@ -810,24 +812,27 @@ public class Sex {
 					if(Main.sex.getInitialSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), c)) {
 						for(DisplacementType dt : c.getBlockedPartsKeysAsListWithoutNONE(character, c.getSlotEquippedTo())) {
 							character.isAbleToBeDisplaced(c, dt, true, true, character);
+							anyClothingStripped = true;
 						}
 					}
 				}
-				sexSB.append("<p style='text-align:center;'>"
-								+ UtilText.parse(character, "[style.italicsSex(You quickly strip off all of [npc.namePos] clothes!)]")
-							+ "</p>");
+				if(anyClothingStripped) {
+					sexSB.append("<p style='text-align:center;'>"
+									+ UtilText.parse(character, "[style.italicsSex(You quickly strip off all of [npc.namePos] clothes!)]")
+								+ "</p>");
+				}
 			}
 		}
 		
 		// Starting exposed:
-		for(GameCharacter character : Main.sex.getAllParticipants()) {
-			if(Main.sex.getSexPositionSlot(character)!=SexSlotGeneric.MISC_WATCHING) {
+		for(GameCharacter character : Main.sex.getAllParticipants(false)) {
+//			if(Main.sex.getSexPositionSlot(character)!=SexSlotGeneric.MISC_WATCHING) {
 				if(sexManager.isAppendStartingExposedDescriptions(character)) {
 					sexSB.append(handleExposedDescriptions(character, true));
 				} else {
 					handleExposedDescriptions(character, true);
 				}
-			}
+//			}
 		}
 		
 		StringBuilder initialSexActionSB = new StringBuilder();
@@ -922,10 +927,13 @@ public class Sex {
 						if(clothingEquipped==null) {
 							// Only re-equip if that slot is empty, as some endSex methods force clothing on the player:
 							if(character.getCell().getInventory().hasClothing(c) || character.hasClothing(c)) {
+								c.setUnlocked(false); // Reset seal status
 								character.equipClothingOverride(c, entry2.getKey(), false, true);
 							} else if(character.getCell().getInventory().hasClothing(dirtyClone) || character.hasClothing(dirtyClone)) {
+								dirtyClone.setUnlocked(false); // Reset seal status
 								character.equipClothingOverride(dirtyClone, entry2.getKey(), false, true);
 							} else if(c.isMilkingEquipment()) {
+								c.setUnlocked(false); // Reset seal status
 								character.equipClothingOverride(c, entry2.getKey(), false, false);
 							}
 						}
@@ -3135,6 +3143,21 @@ public class Sex {
 		List<GameCharacter> charactersReacting = new ArrayList<>(Main.sex.getAllParticipants());
 		charactersReacting.remove(characterBeingExposed);
 		
+		// Just have one character react, as otherwise the spam is too much:
+		if(charactersReacting.contains(Main.game.getPlayer()) && !isSpectator(Main.game.getPlayer())) {
+			charactersReacting.removeIf(c->!c.isPlayer());
+		} else {
+			if(isDom(characterBeingExposed)) {
+				if(charactersReacting.stream().anyMatch(c->!Main.sex.isDom(c))) {
+					charactersReacting.removeIf(c->Main.sex.isDom(c));
+					charactersReacting = charactersReacting.subList(0, 1);
+				}
+			} else if(charactersReacting.stream().anyMatch(c->Main.sex.isDom(c))) {
+				charactersReacting.removeIf(c->!Main.sex.isDom(c));
+				charactersReacting = charactersReacting.subList(0, 1);
+			}
+		}
+		
 		// Asshole and genitals:
 		
 		if(!areasExposed.get(characterBeingExposed).contains(CoverableArea.ANUS) && isAnyCharacterAbleToSeeArea(characterBeingExposed, charactersReacting, InventorySlot.ANUS)) {
@@ -4720,10 +4743,16 @@ public class Sex {
 
 	// Free area convenience methods:
 
+	/**
+	 * Note that this only checks if an ongoing action is currently using the orifice. You will likely still need to check if the orifice is covered by clothing or not.
+	 */
 	public boolean isOrificeFree(GameCharacter character, SexAreaOrifice orifice) {
 		return ongoingActionsMap.get(character).get(orifice).isEmpty();
 	}
-	
+
+	/**
+	 * Note that this only checks if an ongoing action is currently using the orifice. You will likely still need to check if the orifice is covered by clothing or not.
+	 */
 	public boolean isOrificeNonSelfOngoingAction(GameCharacter characterOrifice, SexAreaOrifice orifice) {
 		for(GameCharacter penetrator : Main.sex.allParticipants) {
 			if(!penetrator.equals(characterOrifice)) {

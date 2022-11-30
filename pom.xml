@@ -13,9 +13,35 @@
 		<javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
 		<maven-shade-plugin.version>3.3.0</maven-shade-plugin.version>
 		<maven-compile-plugin.version>3.10.1</maven-compile-plugin.version>
-		<target.platform>linux</target.platform>
-		<exclude.platform>win</exclude.platform>
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>profile-windows</id>
+			<activation>
+				<os>
+					<family>Windows</family>
+				</os>
+			</activation>
+			<properties>
+				<target.platform>win</target.platform>
+				<exclude.platform>linux</exclude.platform>
+			</properties>
+		</profile>
+		<profile>
+			<id>profile-linux</id>
+			<activation>
+				<os>
+					<family>Linux</family>
+				</os>
+			</activation>
+			<properties>
+				<target.platform>linux</target.platform>
+				<exclude.platform>win</exclude.platform>
+			</properties>
+		</profile>
+	</profiles>
+
 	<dependencies>
 
 		<dependency>

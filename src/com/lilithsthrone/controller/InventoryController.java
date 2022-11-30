@@ -33,6 +33,7 @@ import com.lilithsthrone.utils.colours.Colour;
  * @author Maxis010, Innoxia
  */
 public class InventoryController {
+	
 	public static void initInventoryListeners() {
 		for (int i = 0; i<RenderingEngine.INVENTORY_PAGES; i++) {
 			MainController.setInventoryPageLeft(i);

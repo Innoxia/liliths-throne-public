@@ -365,16 +365,19 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue impCitadelPrisonerAlpha = new AbstractDialogueFlagValue();
 	
 	public static AbstractDialogueFlagValue impFortressAlphaGuardsPacified = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue impFortressAlphaGuardsKnowPlayerDemon = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue impFortressAlphaBossEncountered = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue impFortressAlphaPacified = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue impFortressAlphaDefeated = new AbstractDialogueFlagValue();
 	
 	public static AbstractDialogueFlagValue impFortressFemalesGuardsPacified = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue impFortressFemalesGuardsKnowPlayerDemon = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue impFortressFemalesBossEncountered = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue impFortressFemalesPacified = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue impFortressFemalesDefeated = new AbstractDialogueFlagValue();
 	
 	public static AbstractDialogueFlagValue impFortressMalesGuardsPacified = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue impFortressMalesGuardsKnowPlayerDemon = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue impFortressMalesBossEncountered = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue impFortressMalesPacified = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue impFortressMalesDefeated = new AbstractDialogueFlagValue();
@@ -385,6 +388,7 @@ public class DialogueFlagValue {
 	
 	public static AbstractDialogueFlagValue elizabethAskedAboutUniforms = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue elizabethAskedAboutSurname = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue elizabethAskedAboutRoutine = new AbstractDialogueFlagValue();
 	
 	public static AbstractDialogueFlagValue lyssiethQuestionAsked1 = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue lyssiethQuestionAsked2 = new AbstractDialogueFlagValue();

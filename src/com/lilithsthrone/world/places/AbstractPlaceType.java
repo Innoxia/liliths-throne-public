@@ -561,7 +561,7 @@ public class AbstractPlaceType {
 	}
 	
 	public DialogueNode getDialogue(Cell cell, boolean withRandomEncounter, boolean forceEncounter) {
-		if(withRandomEncounter) {
+		if(withRandomEncounter && Main.game.isStarted()) {
 			AbstractEncounter encounterType = getEncounterType();
 			if(encounterType!=null) {
 				DialogueNode dn = encounterType.getRandomEncounter(forceEncounter);

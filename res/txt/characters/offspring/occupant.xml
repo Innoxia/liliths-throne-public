@@ -477,21 +477,21 @@
 			 Throwing [npc.herHim] your most charming smile, you tease,
 		#ENDIF
 		#IF (npc.isFeminine())
-			 [pc.speech(I'm the luckiest [pc.relation(npc)] in the world, to have such a beautiful, loving daughter as yourself...)]
+			 [pc.speech(I'm the luckiest [pc.relation(npc)] in the world, to have such a beautiful, loving [npc.relation(pc)] as yourself...)]
 		#ELSE
-			 [pc.speech(I'm the luckiest [pc.relation(npc)] in the world, to have such a strong, handsome son as yourself...)]
+			 [pc.speech(I'm the luckiest [pc.relation(npc)] in the world, to have such a strong, handsome [npc.relation(pc)] as yourself...)]
 		#ENDIF
 	</p>
 	<p>
 		#IF(npc.isFeminine())
-			Staring lustfully into your [pc.eyes], [npc.name] wraps [npc.her] [npc.arms] around your lower back and dominantly pulls you into [npc.her] embrace. Letting out a desperate, lustful moan, [npc.she] says, [npc.speech(I'm going to show you how a daughter ought to treat her [pc.relation(npc)]; I'll make you submit
+			Staring lustfully into your [pc.eyes], [npc.name] wraps [npc.her] [npc.arms] around your lower back and dominantly pulls you into [npc.her] embrace. Letting out a desperate, lustful moan, [npc.she] says, [npc.speech(I'm going to show you how [npc.a_relation(pc)] ought to treat her [pc.relation(npc)]; I'll make you submit
 			#IF(npc.hasVagina() && !npc.getFetishDesire(FETISH_VAGINAL_RECEIVING).isNegative())
 			 and service my pussy!
 			#ELSE
 			 and pleasure me!
 			#ENDIF)]
 		#ELSE
-			Staring lustfully into your [pc.eyes], [npc.name] wraps [npc.her] [npc.arms] around your lower back and dominantly pulls you into [npc.her] embrace. Letting out a deep, horny growl, [npc.she] says, [npc.speech(I'm going to show you how a son ought to treat his [pc.relation(npc)]; I'll make you submit
+			Staring lustfully into your [pc.eyes], [npc.name] wraps [npc.her] [npc.arms] around your lower back and dominantly pulls you into [npc.her] embrace. Letting out a deep, horny growl, [npc.she] says, [npc.speech(I'm going to show you how [npc.a_relation(pc)] ought to treat his [pc.relation(npc)]; I'll make you submit
 			#IF(npc.hasPenis() && !npc.getFetishDesire(FETISH_PENIS_GIVING).isNegative())
 			 and service my cock!
 			#ELSE
