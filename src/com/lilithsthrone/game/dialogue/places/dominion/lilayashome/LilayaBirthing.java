@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -553,6 +554,7 @@ public class LilayaBirthing {
 						UtilText.nodeContentSB.append("<br/>"
 								+ Util.capitaliseSentence(UtilText.generateSingularDeterminer(descriptor))+" "+descriptor
 								+ " <i style='color:"+offspring.getGender().getColour().toWebHexString()+";'>"+offspring.getGender().getName()+"</i>"
+								+ (offspring.isFeral() ? " <i style='color:"+RaceStage.FERAL.getColour().toWebHexString()+";'>"+RaceStage.FERAL.getName()+"</i>" : "")
 								+ " <i style='color:"+offspring.getSubspecies().getColour(offspring).toWebHexString()+";'>"+UtilText.parse(offspring,"[npc.race]")+"</i>");
 						
 					} else {
@@ -560,6 +562,7 @@ public class LilayaBirthing {
 						String descriptor = getOffspringDescriptor(offspring);
 						UtilText.nodeContentSB.append("<br/>"
 								+ Util.capitaliseSentence(UtilText.generateSingularDeterminer(descriptor))+" "+descriptor
+								+ (offspring.isFeral() ? " <i style='color:"+RaceStage.FERAL.getColour().toWebHexString()+";'>"+RaceStage.FERAL.getName()+"</i>" : "")
 								+ " <i style='color:"+offspring.getSubspecies().getColour(null).toWebHexString()+";'>"+offspring.getSubspecies().getName(offspring.getBody())+"</i>"
 								+ " <i style='color:"+offspring.getGender().getColour().toWebHexString()+";'>"+offspring.getGenderName()+"</i>");
 					}

@@ -1513,17 +1513,19 @@ public class TooltipInventoryEventListener implements EventListener {
 		tooltipSB.append("</div>");
 		
 		// Picture:
-		tooltipSB.append("<div class='container-half-width' style='width:calc(33.3% - 16px);'>"
-						+ tattoo.getSVGImage(
-								equippedToCharacter==null
-									?Main.game.getPlayer()
-									:equippedToCharacter)
-					+ "</div>");
+		tooltipSB.append("<div class='item-image'>");
+			tooltipSB.append("<div class='item-image-content'>");
+				tooltipSB.append(tattoo.getSVGImage(
+										equippedToCharacter==null
+											?Main.game.getPlayer()
+											:equippedToCharacter));
+			tooltipSB.append("</div>");
+		tooltipSB.append("</div>");
 
 		tooltipSB.append("</div>");
 
-		tooltipSB.append("<div class='container-full-width' style='padding:8px; height:106px;'>"
-						+ tattoo.getType().getDescription());
+		tooltipSB.append("<div class='container-full-width' style='padding:8px; height:106px;'>");
+				tooltipSB.append(tattoo.getType().getDescription());
 		
 			if (tattoo.getWriting()!=null && !tattoo.getWriting().getText().isEmpty()) {
 				tooltipSB.append("<br/>");

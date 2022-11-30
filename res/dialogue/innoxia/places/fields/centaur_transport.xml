@@ -330,6 +330,9 @@
 					#ENDIF
 				]]></nextDialogue>
 				<effects><![CDATA[
+					#IF(game.getCharactersPresent().contains(astrapi) && astrapi.isVisiblyPregnant())
+						[#astrapi.setCharacterReactedToPregnancy(pc, true)]
+					#ENDIF
 					[#flags.setFlag(FLAG_innoxia_centaur_travel_to_elis, true)]
 				]]></effects>
 			</response>
@@ -343,6 +346,9 @@
 				<responseTooltip><![CDATA[Tell Astrapi that you don't want a ride to Elis right now and exit the barn.]]></responseTooltip>
 				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
 				<effects><![CDATA[
+					#IF(game.getCharactersPresent().contains(astrapi) && astrapi.isVisiblyPregnant())
+						[#astrapi.setCharacterReactedToPregnancy(pc, true)]
+					#ENDIF
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'LEAVE_BARN'))]
 					[#astrapi.returnToHome()]
 					[#vronti.returnToHome()]
@@ -551,7 +557,9 @@
 			[#astrapi.setLocation(pc)]
 			[#astrapi.applySportsBra(false)]
 			[#game.appendToTextEndStringBuilder(astrapi.incrementLust(25, false))]
-			[#game.appendToTextEndStringBuilder(astrapi.useItem(game.getItemGen().generateItem('innoxia_pills_sterility'), astrapi, false, true))]
+			#IF(!astrapi.isVisiblyPregnant())
+				[#game.appendToTextEndStringBuilder(astrapi.useItem(game.getItemGen().generateItem('innoxia_pills_sterility'), astrapi, false, true))]
+			#ENDIF
 		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/centaur_transport">ASTRAPI_FLIRT_PUSHED</content>
 		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>

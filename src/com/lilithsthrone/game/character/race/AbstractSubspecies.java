@@ -1668,12 +1668,16 @@ public abstract class AbstractSubspecies {
 			return getSVGStringDesaturated(character);
 		}
 	}
-	
+
 	public String getSVGStringDesaturated(GameCharacter character) {
+		return getSVGStringDesaturated(character, PresetColour.BASE_GREY);
+	}
+	
+	public String getSVGStringDesaturated(GameCharacter character, Colour colour) {
 		if(SVGString==null) {
 			initSVGStrings();
 		}
-		return getBipedBackground(SVGStringDesaturated, character, PresetColour.BASE_GREY);
+		return getBipedBackground(SVGStringDesaturated, character, colour);
 	}
 
 	public String getSlimeSVGString(GameCharacter character) {

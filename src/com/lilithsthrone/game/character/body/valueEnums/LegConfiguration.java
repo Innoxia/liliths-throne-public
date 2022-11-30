@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -963,6 +964,10 @@ public enum LegConfiguration {
 
 	public boolean isThighSexAvailable() {
 		return true;
+	}
+
+	public boolean isOneOf(LegConfiguration... values) {
+		return Arrays.asList(values).contains(this);
 	}
 	
 	public int getNumberOfLegs() {

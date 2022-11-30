@@ -230,7 +230,9 @@
 		<!-- Custom pattern colours can be defined just like the customColours up above. -->
 		<customPatternColours/>
 		
-		<!-- These tags determine where in the world your clothing can be found, and what special attributes your clothing should have. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+		<!-- These tags determine where in the world your clothing can be found, and what special attributes your clothing should have.
+			There are several ItemTags which start with 'FITS', which are used to check for whether clothing is suitable for certain body parts (such as hoof or wing compatibility).
+			Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> <!-- itemTags without a 'slot' defined will have these tags added to every equippable slot. Should only be used for generic tags like those related to which vendors sell it. -->
 			<tag>NOT_FOR_SALE</tag>
 		</itemTags>

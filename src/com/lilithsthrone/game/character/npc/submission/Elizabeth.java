@@ -59,6 +59,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -260,6 +261,29 @@ public class Elizabeth extends NPC {
 	@Override
 	public boolean isAbleToBeImpregnated() {
 		return true;
+	}
+	
+	@Override
+	public void turnUpdate() {
+		if(!Main.game.getCharactersPresent().contains(this)) {
+			if(Main.game.getDialogueFlags().hasFlag("innoxia_elizabeth_routine_started") && Main.game.isHourBetween(20, 8)) {
+				if(Main.game.isHourBetween(20, 23) && !Main.game.getDialogueFlags().hasFlag("acexp_elizabeth_daily_meeting")) {
+					if(this.getLocationPlaceType()!=PlaceType.LYSSIETH_PALACE_ROOM) {
+						this.setRandomLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_ROOM);
+					}
+				} else {
+					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+				}
+				
+			} else {
+				AbstractPlaceType place = Main.game.getPlayer().getLocationPlaceType();
+				if(place.equals(PlaceType.SUBMISSION_LILIN_PALACE_GATE) || place.equals(PlaceType.SUBMISSION_LILIN_PALACE)) {
+					this.setLocation(WorldType.SUBMISSION, place);
+				} else {
+					this.setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_GATE);
+				}
+			}
+		}
 	}
 	
 	// Combat:

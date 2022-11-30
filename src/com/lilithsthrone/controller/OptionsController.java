@@ -622,6 +622,7 @@ public class OptionsController {
 				new Util.Value<>("BAD_END", PropertyValue.badEndContent),
 				new Util.Value<>("LEVEL_DRAIN", PropertyValue.levelDrain),
 				new Util.Value<>("OPPORTUNISTIC_ATTACKERS", PropertyValue.opportunisticAttackers),
+				new Util.Value<>("OFFSPRING_ENCOUNTERS", PropertyValue.offspringEncounters),
 				new Util.Value<>("SPITTING_ENABLED", PropertyValue.spittingEnabled),
 				new Util.Value<>("COMPANION", PropertyValue.companionContent)));
 	}
