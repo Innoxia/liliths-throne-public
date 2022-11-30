@@ -893,18 +893,21 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 									path = clothingXMLFile.getParentFile().getAbsolutePath() + "/"+ svgPathElement.getTextContent();
 									svgImageFound = true;
 								}
-								InventorySlot slot = this.getEquipSlots().get(0);
+								InventorySlot slot = null;
 								if(!svgPathElement.getAttribute("slot").isEmpty()) {
 									slot = InventorySlot.valueOf(svgPathElement.getAttribute("slot"));
 								}
-								stickerSvgPaths.putIfAbsent(slot, new HashMap<>());
-								
 								int zLayer = stickerZLayer;
 								if(!svgPathElement.getAttribute("zLayer").isEmpty()) {
 									zLayer = Integer.valueOf(svgPathElement.getAttribute("zLayer"));
 //									System.out.println(zLayer);
 								}
-								stickerSvgPaths.get(slot).put(zLayer, path);
+								for (InventorySlot equipSlot : this.getEquipSlots()) {
+									stickerSvgPaths.putIfAbsent(equipSlot, new HashMap<>());
+									if(slot == null || slot == equipSlot) {
+										stickerSvgPaths.get(equipSlot).put(zLayer, path);
+									}
+								}
 							}
 							if(!svgImageFound && stickerElement.getAttribute("colourSelected").isEmpty()) {
 								colourSelected = PresetColour.TEXT_GREY;
@@ -1368,18 +1371,30 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	public String equipText(GameCharacter clothingOwner, GameCharacter clothingEquipper, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 		if(clothing.isCondom(slotToEquipInto) && applyEffects) {
-			NPC interactingTarget = InventoryDialogue.getInventoryNPC();
-			if(interactingTarget==null) {
-				if(Main.game.isInSex() && !Main.sex.isMasturbation() && Main.sex.getTargetedPartner(Main.game.getPlayer())!=null && Main.sex.getTargetedPartner(Main.game.getPlayer()) instanceof NPC) {
-					interactingTarget = (NPC) Main.sex.getTargetedPartner(Main.game.getPlayer());
-				}
+			NPC interactingTarget;
+			if(Main.game.isInSex() && !Main.sex.isMasturbation() && Main.sex.getTargetedPartner(clothingEquipper)!=null && Main.sex.getTargetedPartner(clothingEquipper) instanceof NPC) {
+			    interactingTarget = (NPC) Main.sex.getTargetedPartner(clothingEquipper);
+			} else {
+			    interactingTarget = InventoryDialogue.getInventoryNPC();
 			}
 			if(interactingTarget!=null) {
-				String condomEquip = interactingTarget.getCondomEquipEffects(this, clothingEquipper, clothingOwner, rough);
+			    String condomEquip = interactingTarget.getCondomEquipEffects(this, clothingEquipper, clothingOwner, rough);
 				if(condomEquip!=null) {
 					return condomEquip;
 				}
 			}
+//			NPC interactingTarget = InventoryDialogue.getInventoryNPC();
+//			if(interactingTarget==null) {
+//				if(Main.game.isInSex() && !Main.sex.isMasturbation() && Main.sex.getTargetedPartner(Main.game.getPlayer())!=null && Main.sex.getTargetedPartner(Main.game.getPlayer()) instanceof NPC) {
+//					interactingTarget = (NPC) Main.sex.getTargetedPartner(Main.game.getPlayer());
+//				}
+//			}
+//			if(interactingTarget!=null) {
+//				String condomEquip = interactingTarget.getCondomEquipEffects(this, clothingEquipper, clothingOwner, rough);
+//				if(condomEquip!=null) {
+//					return condomEquip;
+//				}
+//			}
 		}
 		
 		if(clothingOwner==null || clothingEquipper==null || !Main.game.isStarted()) {

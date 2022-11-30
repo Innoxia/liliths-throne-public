@@ -659,7 +659,7 @@ public class StandardSexActionInteractions {
 									SexActionPresets.vaginaToVagina,
 									SexActionPresets.tailToLowerHalf,
 									SexActionPresets.tentacleToLowerHalf,
-									SexActionPresets.lowerHalfToAppendages,
+									SexActionPresets.lowerHalfToTailTentacle,
 									(!performer.isTaur()
 										?SexActionPresets.fingerToLowerHalf
 										:null),

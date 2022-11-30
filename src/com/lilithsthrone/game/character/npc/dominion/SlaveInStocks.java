@@ -25,11 +25,6 @@ import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJobSetting;
 import com.lilithsthrone.game.occupantManagement.slave.SlavePermission;
 import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
-import com.lilithsthrone.game.sex.GenericSexFlag;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
-import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.Season;
@@ -168,43 +163,6 @@ public class SlaveInStocks extends NPC {
 	@Override
 	public DialogueNode getEncounterDialogue() {
 		return null; //TODO
-	}
-	
-	@Override
-	public void hourlyUpdate() {
-		if(Main.game.isStarted() && !Main.game.getCharactersPresent().contains(this) && this.getLocationPlace().getPlaceType()!=PlaceType.GENERIC_EMPTY_TILE) {
-			float chanceToBeUsed = (12 - Main.game.getHourOfDay()%12)/12f;
-			if(Math.random()<chanceToBeUsed) {
-//				System.out.println(this.getName()+" "+this.getLocationPlace().getPlaceType().getName()+" : Stocks slave being used!");
-				
-				if(!Main.game.getCharactersPresent().contains(this)) {
-					Gender gender = Gender.getGenderFromUserPreferences(false, true);
-					
-					Map<AbstractSubspecies, Integer> availableRaces = AbstractSubspecies.getGenericSexPartnerSubspeciesMap(gender);
-					
-					AbstractSubspecies subspecies = Subspecies.HUMAN;
-					AbstractSubspecies halfDemonSubspecies = null;
-					if(!availableRaces.isEmpty()) {
-						subspecies = Util.getRandomObjectFromWeightedMap(availableRaces);
-					}
-					if(Math.random()<0.05f) {
-						halfDemonSubspecies = subspecies;
-						subspecies = Subspecies.HALF_DEMON;
-					}
-					
-					if(this.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ORAL)) {
-						this.calculateGenericSexEffects(false, true, null, subspecies, halfDemonSubspecies, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED);
-					}
-					if(this.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL)) {
-						this.calculateGenericSexEffects(false, true, null, subspecies, halfDemonSubspecies, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED);
-					}
-					if(this.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_VAGINAL) && this.hasVagina()) {
-						this.calculateGenericSexEffects(false, true, null, subspecies, halfDemonSubspecies, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED);
-					}
-				}
-				
-			}
-		}
 	}
 	
 	public void initSlavePermissions() {

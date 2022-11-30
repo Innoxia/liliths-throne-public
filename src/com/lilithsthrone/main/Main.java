@@ -86,7 +86,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4.6.6";
+	public static final String VERSION_NUMBER = "0.4.7";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 
 	public static boolean quickSaved = false;
@@ -98,7 +98,7 @@ public class Main extends Application {
 	 */
 	public final static boolean DEBUG = Boolean.valueOf(System.getProperty("debug", "false"));
 
-	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
+	public static Image WINDOW_IMAGE;
 	
 	private static Properties properties;
 	
@@ -461,6 +461,8 @@ public class Main extends Application {
 			}
 		});
 
+		WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
+
 		Main.primaryStage.getIcons().add(WINDOW_IMAGE);
 
 		Main.primaryStage.setTitle(GAME_NAME+" " + VERSION_NUMBER + " " + VERSION_DESCRIPTION+(DEBUG?" (Debug Mode)":""));
@@ -655,7 +657,6 @@ public class Main extends Application {
 		if(!DEBUG) {
 			System.out.println("Printing to error.log");
 			try {
-				@SuppressWarnings("resource")
 				PrintStream stream = new PrintStream("data/error.log");
 				System.setErr(stream);
 				System.err.println("Game Version: "+VERSION_NUMBER);

@@ -1791,11 +1791,12 @@ public class KaysWarehouse {
 				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_CAGE_EQUIP"));
 				
 			} else {
+				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_CAGE_UNEQUIP"));
 				Main.game.getNpc(Kay.class).getClothingInSlot(InventorySlot.PENIS).setSealed(false);
 				UtilText.addSpecialParsingString(
 						Main.game.getNpc(Kay.class).unequipClothingIntoVoid(Main.game.getNpc(Kay.class).getClothingInSlot(InventorySlot.PENIS), true, Main.game.getPlayer()),
 						true);
-				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_CAGE_UNEQUIP"));
+				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_CAGE_UNEQUIP_END"));
 			}
 		}
 		@Override

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>800</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[maid's high heel]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[maid's high heels]]></namePlural>
+		<description><![CDATA[A pair of stylised, maid-themed high heels. They're made of coloured leather and sport a small amount of decorative lace.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>FOOT</slot> 
+		<rarity>EPIC</rarity>
+		<clothingSet>innoxia_maid</clothingSet>
+		<imageName>heels.svg</imageName>
+		<imageEquippedName/>
+		
+		<effects> 
+			<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+		</effects>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>FEET</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="MAID"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_WHITE"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_STEEL"/>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+		<![CDATA[[npc.Name] [npc.verb(slip)] [npc.her] [npc.feet] into the heels and [npc.verb(buckle)] up the straps.]]>
+    </self>
+    <other>
+		<![CDATA[[npc.Name] [npc.verb(slip)] [npc2.namePos] [npc2.feet] into the heels and [npc.verb(buckle)] up the straps.]]>
+    </other>
+    <otherRough>
+		<![CDATA[[npc.Name] roughly [npc.verb(push)] [npc2.namePos] [npc2.feet] into the heels and impatiently [npc.verb(buckle)] up the straps.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+		<![CDATA[[npc.Name] [npc.verb(unbuckle)] [npc.her] heels and [npc.verb(slip)] them off.]]>
+    </self>
+    <other>
+		<![CDATA[[npc.Name] [npc.verb(unbuckle)] [npc2.namePos] heels and [npc.verb(slip)] them off.]]>
+    </other>
+    <otherRough>
+		<![CDATA[[npc.Name] roughly [npc.verb(unbuckle)] [npc2.namePos] heels and [npc.verb(slip)] them off.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

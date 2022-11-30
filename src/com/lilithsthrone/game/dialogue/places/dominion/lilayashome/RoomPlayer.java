@@ -2118,7 +2118,7 @@ public class RoomPlayer {
 				for(int i=0 ; i<attractedSlaves.size(); i++) {
 					slaveSlots.put(attractedSlaves.get(i), bathSlots[i]);
 				}
-				UtilText.addSpecialParsingString(String.valueOf(slavesWashing.size()), true);
+				UtilText.addSpecialParsingString(String.valueOf(attractedSlaves.size()), true);
 				return new ResponseSex("Submissive sex",
 						attractedSlaves.size()==1
 								?UtilText.parse(attractedSlaves, "Let [npc.name] dominantly fuck you in the bath.")
@@ -2641,7 +2641,6 @@ public class RoomPlayer {
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME", NightlifeDistrict.getClubbersPresent());
 		}
-
 
 		@Override
 		public Response getResponse(int responseTab, int index) {

@@ -880,7 +880,7 @@ public class SlaveDialogue {
 										&& (getSlave().getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive() || getSlave().getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive())) {
 									Main.game.getTextEndStringBuilder().append(getSlave().incrementAffection(Main.game.getPlayer(), 10));
 									
-								} else if(!getSlave().isAttractedTo(Main.game.getPlayer())) {
+								} else if(!getSlave().isAttractedTo(Main.game.getPlayer()) && !getSlave().hasFetish(Fetish.FETISH_SUBMISSIVE) && !getSlave().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 									Main.game.getTextEndStringBuilder().append(getSlave().incrementAffection(Main.game.getPlayer(), -10));
 								}
 							}
@@ -2344,10 +2344,10 @@ public class SlaveDialogue {
 	};
 	
 	private static boolean isSlaveNaked() {
-		return getSlave().isCoverableAreaExposed(CoverableArea.ANUS)
-				&& getSlave().isCoverableAreaExposed(CoverableArea.NIPPLES)
-				&& getSlave().isCoverableAreaExposed(CoverableArea.PENIS)
-				&& getSlave().isCoverableAreaExposed(CoverableArea.VAGINA);
+		return getSlave().isCoverableAreaVisible(CoverableArea.ANUS)
+				&& getSlave().isCoverableAreaVisible(CoverableArea.NIPPLES)
+				&& getSlave().isCoverableAreaVisible(CoverableArea.PENIS)
+				&& getSlave().isCoverableAreaVisible(CoverableArea.VAGINA);
 	}
 	
 	public static final DialogueNode SLAVE_INSPECT = new DialogueNode("", "", true) {

@@ -1,0 +1,84 @@
+<h2>v0.4.7</h2>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Added more content for Elizabeth (the guard at Lyssieth's palace), including sex content, which starts by meeting her in one of the rooms within the palace between 20:00-23:00. (by AceXP)</li>
+	<li>Fixed issue where you'd be unable to change your ass/facial/pubic/underarm hair values in Kate's shop. (by Maxis010)</li>
+	<li>Fixed issue where NPCs' 'fleshSubspecies' variable would unintentionally get set to Subspecies.HUMAN, even if it shouldn't be a human. (by Stadler76)</li>
+	<li>Fixed some incorrect daughter/son relationship references. (by Lio)</li>
+	<li>Fixed bug where stickers for clothing which fitted into multiple slots would not be initialised correctly. (PR#1733 by CognitiveMist)</li>
+	<li>Added Maven profiles to auto detect which OS the build is running on. (PR#1732 by AlacoGit)</li>
+	<li>Minor optimisations; Added ability to pay to remove prostitutes in Angel's Kiss; Improved several update methods; Racial tooltips are now hidden for characters who have their race hidden; Advanced race knowledge is now required to see racial status effect attributes. (PR#1731 by Maxis010 and CognitiveMist)</li>
+	<li>Added the same SVG zLayer, resizing, and rotation functionality to tattoos which was added to clothing/weapons a while ago - see the 'imageName' attribute in the 'res/mods/innoxia/items/tattoos/heartWomb/heartWomb.xml' file for comments on how to use the new functionality. (PR#1739 by NoHornyOnMain)</li>
+	<li>Fixed serpent-tailed coatls being named coatl-lamias. (PR#1725 by Stadler76)</li>
+	<li>Added 'feral' to litters when giving birth, viewing pregnancy stats or the offspring map. (PR#1723 by Stadler76)</li>
+	<li>Added support for loading character .xml files as modded characters (see 'res/mods/modding.txt' for information on how to use this). Also added a small 'shady trader' encounter to Dominion alleyway tiles which uses this new modding functionality. (PR#1716 by AceXP)</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Moved all 'Over-torso' clothing entries from being hard-coded into the external 'res/clothing/innoxia/torsoOver' folder.</li>
+	<li>Fixed the isHourBetween() method not working for time ranges which passed midnight.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Astrapi can now be impregnated.</li>
+</ul>
+
+<h3>Clothing:</h3>
+<ul>
+	<li>Skirts now need to be pulled up to access the 'thighs' area.</li>
+	<li>Improved method for determining which extra items of clothing need to be removed before an item of clothing can be removed, which should prevent issues where items of clothing were blocking one another's removal.</li>
+	<li>Improved tooltip for when unequipping/displacing clothing is disabled, so that it tells you which other item of clothing is responsible for preventing the clothing from being unequipped/displaced.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>The 'Automatic stripping' content option no longer causes spectating NPCs to be stripped a the start of sex.</li>
+	<li>Characters who are in the 'resisting' pace during sex will now correctly respond to an orgasm denial by using the 'Denied!' action.</li>
+	<li>When removing the seal on an item and then taking it off during sex, the auto-equip after the sex scene will now trigger the item's sealed state, thereby re-sealing it back onto the character.</li>
+	<li>The 'Customer approaches' sex action in Ralph's oral sex scene will now only trigger once every two turns at maximum.</li>
+	<li>NPCs will now only equip chastity devices on their sexual partners if they either like or love the denial fetish.</li>
+	<li>The 'Desires' status effect tooltip now always uses standard names for sex areas instead of random ones.</li>
+	<li>Character who are on all fours can no longer use finger actions on a character who's fucking them from behind.</li>
+	<li>Further restricted the desire of NPCs to equip condoms; they now only equip condoms on self/partners if their impregnation/pregnancy fetish is negative, instead of neutral or negative.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Slightly improved colours in clothing/tattoo UI.</li>
+	<li>The clothing types (such as sex toys and BDSM gear) which NPCs spawn with are now more randomly selected, which should result in NPCs spawning with a broader range of sex toys.</li>
+	<li>Encounters are now only checked for after the game has started (to prevent the need for !game.isStarted() in encounter triggers).</li>
+	<li>Added tooltips for colours to the 'Add tattoo' UI.</li>
+	<li>NPCs will now only spawn with condoms in their inventory if they have the requirements to equip them during sex (i.e. negative towards cum stud/addict fetishes, or negative towards impregnation/pregnancy fetishes).</li>
+	<li>Gave the name of 'peryton' to half-demon deers.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Typo, parsing, and formatting fixes, along with some minor text improvements.</li>
+	<li>Fixed bug in the self-transformation UI where the buttons that increase/decrease a character's udder/crotchboob lactation were setting the lactation based on the character's regular breast lactation.</li>
+	<li>Fixed issue where if an NPC's 'pet name' was 'Mr./Mrs./Miss X', it would not automatically change based on their femininity.</li>
+	<li>Slaves who are only wearing milking equipment will no longer be described as taking off their clothes prior to being inspected.</li>
+	<li>The imp guards for each of the three demons in Submission's fortresses no longer spawn with condoms/clothing in their inventories, thereby preventing them from interfering in sex scenes with the demons.</li>
+	<li>Fixed issue with salamander cum always being called simply 'salamander' instead of 'salamander-cum'.</li>
+	<li>Fixed inconsistency in dialogue when submitting to a demon in the alleyways of Dominion, where it was implied that the demon would be growing a cock even though they didn't do that.</li>
+	<li>Fixed issue where if you took someone home from the nightclub and you currently had slaves tending to your bedroom, you could end up having sex with a slave instead of the clubber.</li>
+	<li>Fixed issue where some of Ralph's unique sex actions didn't have titles.</li>
+	<li>Fixed bug where none of the buttons in your inventory would work during combat.</li>
+	<li>Possibly fixed an unpredictable bug where an action that starts combat would very rarely not work and require you to load a saved game to work properly.</li>
+	<li>Added missing tooltip for the 'Reset' action in combat.</li>
+	<li>Fixed minor issue in the main quest where Lilaya would sometimes not be present in her lab during Lyssieth's visit.</li>
+	<li>Fixed bug where Meraxis would sometimes be incorrectly placed in Lyssieth's office when loading a saved game.</li>
+	<li>The 'femininity' parsing command will now always apply the correct 'a' or 'an' determiner.</li>
+	<li>Fixed bug where dying a weapon that's on the floor while having an identical weapon equipped would throw background errors.</li>
+	<li>Fixed issue where at the start of sex in which there are X characters, NPCs' area reveal descriptions would be duplicated X times.</li>
+	<li>Fixed issue where the guards at the imp fortresses would always act as though they knew you were a demon even if you were appearing as a different race.</li>
+	<li>Fixed bug where self-equipping a condom during sex would give a description as though it was being equipped on your partner.</li>
+	<li>The sex actions 'Paizuri/Naizuri into mouth' and 'Thrust into mouth' now correctly check to see if the target's mouth is blocked by clothing when checking for availability.</li>
+	<li>Fixed bug in sex where it was possible for NPCs to equip clothing on the player or other NPCs even if the equip slot was involved in an ongoing sex action.</li>
+	<li>Fixed issue where enchanting an item of clothing which had name prefix or postfixes (such as '(flowers)' or '(blossom)' for the kimono) would duplicate the enchantment prefix/postfix.</li>
+	<li>Fixed issue where otters were having their hair covering set to otter fur instead of hair.</li>
+	<li>Demon attackers in the alleyways in Dominion are now correctly spawned with the 'mugger' background.</li>
+</ul>

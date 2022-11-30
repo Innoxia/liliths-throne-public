@@ -91,6 +91,7 @@ public class PhoneDialogue {
 	
 	private static class offspringTableLineSubject {
 		boolean female;
+		boolean is_feral;
 		String child_name;
 		String race_color;
 		String species_name;
@@ -101,6 +102,7 @@ public class PhoneDialogue {
 
 		offspringTableLineSubject(NPC npc) {
 			this.female = npc.isFeminine();
+			this.is_feral = npc.isFeral();
 			this.child_name = npc.getName(true);
 			this.race_color = npc.getRace().getColour().toWebHexString();
 			this.species_name = this.female
@@ -144,6 +146,7 @@ public class PhoneDialogue {
 
 		offspringTableLineSubject(OffspringSeed os) {
 			this.female = os.isFeminine();
+			this.is_feral = os.isFeral();
 			this.child_name = "Unknown";
 			this.race_color = os.getRace().getColour().toWebHexString();
 			this.species_name = this.female
@@ -2009,6 +2012,7 @@ public class PhoneDialogue {
 
 		private void offspringTableLine(StringBuilder output, offspringTableLineSubject subject, boolean evenRow, boolean includeIncubationColumn) {
 			String color = subject.female ? PresetColour.FEMININE.toWebHexString() : PresetColour.MASCULINE.toWebHexString();
+			String feralString = "<span style='color:" + RaceStage.FERAL.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(RaceStage.FERAL.getName()) + "</span> ";
 			
 			String innerEntryStyle = "background:transparent; margin:0; padding:0; width:"+(includeIncubationColumn?"15":"20")+"%;";
 			String innerEntryStyle2 = "background:transparent; margin:0; padding:0; width:15%;";
@@ -2023,8 +2027,9 @@ public class PhoneDialogue {
 				output.append("</div>");
 	
 				output.append("<div class='container-full-width' style='"+innerEntryStyle2+"'>");
+					output.append(subject.is_feral ? feralString : "");
 					output.append("<span style='color:").append(subject.race_color).append(";'>");
-						output.append(subject.species_name);
+						output.append(subject.is_feral ? subject.species_name.toLowerCase() : subject.species_name);
 					output.append("</span>");
 				output.append("</div>");
 	
@@ -3619,10 +3624,17 @@ public class PhoneDialogue {
 					+ "Feminine: <span style='color:"+Femininity.valueOf(femaleBody.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(subspeciesSelected.getSingularFemaleName(null))+"</span>");
 
 			subspeciesSB.append("<br/><br/>"
-					+ "<b>Race bonuses:</b>");
-			for(String s : getSubspeciesModifiersAsStringList(subspeciesSelected)) {
+					+"<b>Race bonuses:</b>");
+			if(Main.getProperties().isAdvancedRaceKnowledgeDiscovered(subspeciesSelected)) {
+				for (String s : getSubspeciesModifiersAsStringList(subspeciesSelected)) {
+					subspeciesSB.append("<br/>");
+					subspeciesSB.append(s);
+				}
+			} else {
 				subspeciesSB.append("<br/>");
-				subspeciesSB.append(s);
+				subspeciesSB.append("<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>");
+					subspeciesSB.append("Race bonuses can be discovered in books!");
+				subspeciesSB.append("</span>");
 			}
 			
 			subspeciesSB.append("<br/><br/>"
@@ -3826,8 +3838,8 @@ public class PhoneDialogue {
 							+ (Main.game.getPlayer().hasFetish(fetish) // Overlay to create disabled effect:
 									? ""
 									: (fetish.isAvailable(Main.game.getPlayer())
-											? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.5; border-radius:5px;'></div>"
-											: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>"))
+											? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); border-radius:5px;'></div>"
+											: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.7); border-radius:5px;'></div>"))
 							+ "</div>");
 				}
 			}
@@ -3891,8 +3903,8 @@ public class PhoneDialogue {
 										+ (targetedCharacter.hasFetish(fetish) // Overlay to create disabled effect:
 											? ""
 											: (fetish.isAvailable(targetedCharacter)
-													? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.5; border-radius:5px;'></div>"
-													: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>"))
+													? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); border-radius:5px;'></div>"
+													: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.7); border-radius:5px;'></div>"))
 						+ "</div>"
 					+ "</div>"
 					+"<div class='container-full-width' style='margin:0; padding:0; width:100%;'>"
@@ -3918,9 +3930,9 @@ public class PhoneDialogue {
 								:"")+"width:10%; margin:0 5%; float:left; cursor:pointer;'>"
 				+ "<div class='square-button-content'>"+(targetedCharacter.getFetishDesire(fetish)==desire?desire.getSVGImage():desire.getSVGImageDesaturated())+"</div>"
 				+ (targetedCharacter.hasFetish(fetish) && targetedCharacter.getFetishDesire(fetish)!=desire
-					?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; border-radius:5px;'></div>"
+					?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); border-radius:5px;'></div>"
 					:targetedCharacter.getFetishDesire(fetish)!=desire
-						?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.6; border-radius:5px;'></div>"
+						?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6); border-radius:5px;'></div>"
 						:"")
 			+ "</div>";
 	}
