@@ -49,7 +49,7 @@ public class LegConfigurationAffinity {
 	public boolean equals(Object o) {
 		if (o instanceof LegConfigurationAffinity) {
 			return ((LegConfigurationAffinity) o).affinity == affinity &&
-					((LegConfigurationAffinity) o).legConfiguration == legConfiguration;
+			       ((LegConfigurationAffinity) o).legConfiguration == legConfiguration;
 		}
 		return false;
 	}
@@ -61,5 +61,4 @@ public class LegConfigurationAffinity {
 		hash = 31 * hash + affinity.hashCode();
 		return hash;
 	}
-
 }
