@@ -72,8 +72,20 @@
 		You descend the steps into the building's cellar, following the sound of voices. It is surprisingly well lit and spacious inside. Unmarked crates and barrels line the walls, providing most of the seating, but there are some chairs upon which you see some familiar faces. One of those familiar faces is the long-winded donkey-boy who takes notice of you the instant to you enter the room.
 	</p>
 	<p>
-		[test.speechMasculine(You,)] he says, his face twisted in disgust as he extends an accusatory digit, [test.speechMasculine(Come to settle the score? You don't know anything about that [eisek.race] and what his kind is really like, what they did for generations to us common folk before they fell from favour.)]
-	</p>
+		[test.speechMasculine(You,)] he says, his face twisted in disgust as he extends an accusatory digit, 
+	#IF(flags.hasFlag(FLAG_dsg_elis_eisek_introduced_as_dragon) && pc.getRace().equals(RACE_dsg_dragon))
+		[test.speechMasculine(Come to settle the score? You may have the rest of the town fooled, but we know all about your kind! What they did for generations to us common folk before they fell from favour.)]
+	#ELSEIF(!flags.hasFlag(FLAG_dsg_elis_eisek_introduced_as_dragon) && pc.getRace().equals(RACE_dsg_dragon))
+		#IF(game.isSillyMode())
+			[test.speechMasculine(It's not enough that that [eisek.race] has to pollute our market with his presence but now our inaction has led to an invasion.)]
+		#ELSE
+			[test.speechMasculine(It's not enough that one dragon pollutes our city with his presence but now...! We should have acted! They're already here!)]
+		#ENDIF
+	#ELSEIF(flags.hasFlag(FLAG_dsg_elis_eisek_introduced_as_dragon) && !pc.getRace().equals(RACE_dsg_dragon))
+			[test.speechMasculine(You can't fool us by wearing the guise of decent folk! We know who you really are.)]
+	#ELSE
+		[test.speechMasculine(Come to settle the score? You don't know anything about that [eisek.race] and what his kind is really like, what they did for generations to us common folk before they fell from favour.)]
+	#ENDIF
 	<p>
 		You tell the donkey-boy, who you assume to be a leader of sorts, that you want them to leave Eisek alone. Your request is met by derisive laughter.
 	</p>
@@ -224,7 +236,7 @@
 	
 	<htmlContent tag="SEDUCE"><![CDATA[
 	<p>
-		You channel your aura into your mastery of lust magic, letting fly with every spell you know until the room practically reeks of arousal. With glazed eyes and unable to resist your power, the townsfolk immediately begin tearing at each other's clothing. The room is soon filled with an orchestra of moans as they use each other to sate the burning lust you've called forth. Do you use this opportunity to join in or wait until they are finished and perhaps more suggestible?
+		You channel your aura into your mastery of lust magic, letting fly with every spell you know until the room practically reeks of arousal. Unable to resist your power, the townsfolk immediately begin tearing at each other's clothing with glazed eyes and soaked crotches. The room is soon filled with an orchestra of moans as they use each other to sate the burning lust you've called forth and they haven't even shut the cellar door. Do you use this opportunity to join in or wait until they are finished and perhaps more suggestible?
 	</p>
 	]]>
 	</htmlContent>

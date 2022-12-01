@@ -16,6 +16,7 @@
 	-->
 	
 	<flag dailyReset="false">elis_eisek_introduced</flag>
+	<flag dailyReset="false">elis_eisek_introduced_as_dragon</flag>
 	<flag dailyReset="false">elis_eisek_banished</flag>
 	
 	<flag dailyReset="false">elis_eisek_asked_family</flag>

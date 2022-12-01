@@ -40,15 +40,35 @@
 		#ENDIF
 		is clothing looks positively medieval and hard-worn, but the produce on display before him almost glows with health. You can tell from his expression that he's trying very hard to look unperturbed by the crowd and while he hasn't said a word so far, but the puffs of steam occasionally emitting from his nostrils must surely mean he's very close to breaking point.
 	</p>
-	<p>
-		Perhaps spurred on by your intense visual study, his [eisek.eyeColour(true)] eyes lock with yours.
-	</p>
-	<p>
-		[eisek.speech(Ah, you again! Would you like the usual?)] he asks, his rumbling baritone cutting across the din, [eisek.speech(They are all fresh in today.)] His face has brightened somewhat, but you recognise the pleading look in his eyes.
-	</p>
-	<p>
-		It's obvious he wants you to play along, but should you? Perhaps the angry mob is right. After all, you don't know anything about this [eisek.race], what if all this is just a front? With all the shouting about plunder that the crowd is doing, he could be back tonight to raze and loot the place.
-	</p>
+	#IF(pc.getRace().equals(RACE_dsg_dragon))
+		<p>
+			He takes notice of your draconic features almost immediately, [eisek.eyeColour(true)] eyes locking with yours. 
+		</p>
+		<p>
+			[eisek.speech(Kin! It is not safe here, you must get away!)] he warns in a rumbling baritone.
+		</p>
+		<p>
+			Unfortunately, this shifts the attention of the crowd from the [eisek.race] to you instead. Before you can even think of a response or an excuse, panic begins to spread.
+		</p>
+		<p>
+		#IF(game.isSillyMode())
+			[test.speechMasculine(This is getting out of hand! Now there are two of them!)] 
+		#ELSE
+			[test.speechMasculine(I knew it! We've been invaded!)]
+		#ENDIF
+		 brays a scrawny donkey-boy. His words are soon drowned out by the screams and footfalls of the rapidly dispersing crowd.
+		</p>
+	#ELSE
+		<p>
+			Perhaps spurred on by your intense visual study, his [eisek.eyeColour(true)] eyes lock with yours.
+		</p>
+		<p>
+			[eisek.speech(Ah, you again! Would you like the usual?)] he asks, his rumbling baritone cutting across the din, [eisek.speech(They are all fresh in today.)] His face has brightened somewhat, but you recognise the pleading look in his eyes.
+		</p>
+		<p>
+			It's obvious he wants you to play along, but should you? Perhaps the angry mob is right. After all, you don't know anything about this [eisek.race], what if all this is just a front? With all the shouting about plunder that the crowd is doing, he could be back tonight to raze and loot the place.
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -87,37 +107,55 @@
 	<!-- ENCOUNTER_PLAY_ALONG -->
 	
 	<htmlContent tag="ENCOUNTER_PLAY_ALONG"><![CDATA[
-	<p>
-		#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_SHY))
-			With every ounce of courage you can muster, you greet the [eisek.race]
-		#ELSEIF (pc.hasPersonalityTrait(PERSONALITY_TRAIT_CONFIDENT))
-			Confidently striding forward, you greet the [eisek.race] like an old friend
-		#ELSE
-			You greet the [eisek.race] on familiar terms
-		#ENDIF
-		and respond affirmatively to his question. To really make it look convincing, you also ask if he has a new crop in today as you close the distance with the stall and casually lean on the counter.
-	</p>
-	<p>
-		It's subtle, but relief washes across the [eisek.race]'s face as he continues the charade, [eisek.speech(You have a keen eye, [pc.sir], it is indeed a new crop.)]
-	</p>
-	<p>
-		The mob, having been stunned into silence by your friendly exchange with what by all accounts should be a violent creature of unequal greed, regains its composure.
-	</p>
-	<p>
-		[test.speechMasculine(Hey! What's wrong with you?)] a scrawny donkey-boy asks indignantly, [test.speechMasculine(He's a looting, plundering animal!)]
-	</p>
-	<p>
-		You look back towards the angry mob and, looking as disinterested in their arguments as possible, tell them that the that if they're here to buy they should get in line or else you are going to call in the Enforcers. You don't catch what the donkey-boy's long-winded response is, preferring to make banter about the weather with the [eisek.race] instead.
-	</p>
-	<p>
-		Finding themselves ignored in favor of the most mundane of topics, most of the mob awkwardly disperses, leaving only the still-rambling donkey-boy behind. Eventually realizing he's alone, the donkey-boy points in the general direction of the stall and brays [test.speechMasculine(This isn't over!)] before trotting off.
-	</p>
-	<p>
-		With the mob now gone, the [eisek.race] bows his head slightly and lets out a long sigh of relief. [eisek.speech(Thank you,)] he says in the first bit of genuine conversation between the two of you, [eisek.speech(If you had not shown up, I do not know what I might have done. Somebody could have gotten hurt. Here, for your trouble.)] He gives you a small pouch that jingles with the sound of flames before continuing. [eisek.speech(The name is Eisek, Eisek Seawings, by the way...I do not believe I know yours, or else I would have used it in our little subterfuge.)]
-	</p>
-	<p>
-		You stash away the money and, seeing no reason to keep your name from the [eisek.race], introduce yourself. He acknowledges you with a nod. [eisek.speech([pc.Name]...I will remember you. Now then, can interest I you in some fine fruits and vegetables?)]
-	</p>
+	#IF(pc.getRace().equals(RACE_dsg_dragon))
+		<p>
+			With the mob now gone, the [eisek.race] bows his head slightly and lets out a long sigh of relief. [eisek.speech(Thank you, kin)] he says, [eisek.speech(Truly, I did not expect another dragon in this place. If you had not shown up, I do not know what I might have done. Somebody could have gotten hurt. Here, for your trouble.)] He gives you a small pouch that jingles with the sound of flames before continuing. [eisek.speech(I am Eisek, of the Seawings line. How shall I address you?)]
+		</p>
+		<p>
+			You stash away the money and, seeing no reason to keep your name from the [eisek.race], introduce yourself. 
+			#IF(pc.getSurname() == eisek.getSurname())
+				He acknowledges you with a nod. [eisek.speech([pc.Name]...I will remember you. Yet I do not recall another branch in my line. From whence do you hail? The dunes?)]
+			#ELSE
+				He acknowledges you with a nod. [eisek.speech([pc.Name]...I will remember you. Yet I do not recall your line. From whence do you hail? The mountains? The dunes?)]
+			#ENDIF
+			You somewhat sheepishly explain you were not born a dragon and became one through...other means. Eisek scratches his chin in thought at your revelation. 
+		</p>
+		<p>
+			[eisek.speech(Truly? Then things must be...)] he trails off as he notices bystanders and stall owners alike staring at the two of you and whispering amongst themselves. Probably your handiwork. [eisek.speech(Ah, we should not linger. Can I interest you in some find produce?)]
+		</p>
+	#ELSE
+		<p>
+			#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_SHY))
+				With every ounce of courage you can muster, you greet the [eisek.race]
+			#ELSEIF (pc.hasPersonalityTrait(PERSONALITY_TRAIT_CONFIDENT))
+				Confidently striding forward, you greet the [eisek.race] like an old friend
+			#ELSE
+				You greet the [eisek.race] on familiar terms
+			#ENDIF
+			and respond affirmatively to his question. To really make it look convincing, you also ask if he has a new crop in today as you close the distance with the stall and casually lean on the counter.
+		</p>
+		<p>
+			It's subtle, but relief washes across the [eisek.race]'s face as he continues the charade, [eisek.speech(You have a keen eye, [pc.sir], it is indeed a new crop.)]
+		</p>
+		<p>
+			The mob, having been stunned into silence by your friendly exchange with what by all accounts should be a violent creature of unequal greed, regains its composure.
+		</p>
+		<p>
+			[test.speechMasculine(Hey! What's wrong with you?)] a scrawny donkey-boy asks indignantly, [test.speechMasculine(He's a looting, plundering animal!)]
+		</p>
+		<p>
+			You look back towards the angry mob and, looking as disinterested in their arguments as possible, tell them that the that if they're here to buy they should get in line or else you are going to call in the Enforcers. You don't catch what the donkey-boy's long-winded response is, preferring to make banter about the weather with the [eisek.race] instead.
+		</p>
+		<p>
+			Finding themselves ignored in favor of the most mundane of topics, most of the mob awkwardly disperses, leaving only the still-rambling donkey-boy behind. Eventually realizing he's alone, the donkey-boy points in the general direction of the stall and brays [test.speechMasculine(This isn't over!)] before trotting off.
+		</p>
+		<p>
+			With the mob now gone, the [eisek.race] bows his head slightly and lets out a long sigh of relief. [eisek.speech(Thank you,)] he says in the first bit of genuine conversation between the two of you, [eisek.speech(If you had not shown up, I do not know what I might have done. Somebody could have gotten hurt. Here, for your trouble.)] He gives you a small pouch that jingles with the sound of flames before continuing. [eisek.speech(The name is Eisek, Eisek Seawings, by the way...I do not believe I know yours, or else I would have used it in our little subterfuge.)]
+		</p>
+		<p>
+			You stash away the money and, seeing no reason to keep your name from the [eisek.race], introduce yourself. He acknowledges you with a nod. [eisek.speech([pc.Name]...I will remember you. Now then, can interest I you in some fine fruits and vegetables?)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	

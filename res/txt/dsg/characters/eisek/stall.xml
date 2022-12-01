@@ -246,7 +246,12 @@
 			You explain that since you'd learned so much about him, you were able to persuade the townsfolk into listening to the truth: that Eisek wasn't anything like his ancestors and wasn't here to hurt anybody.
 		</p>
 		<p>
-			The [eisek.race]'s eyes widen slightly in surprise. He speaks haltingly, each word carefully chosen, [eisek.speech(I admit, I did not think you actually cared. Forgive me for doubting you.)] He then reaches under the counter and retrieves something. [eisek.speech(I have little in the way of rewarding you but perhaps these will do,)] he says as he places three bright yellow fruit covered in green, scale-like leaves on the counter, [eisek.speech(My orchards can produce very few of these now, but if you would like to...empathize with my kind further, they will help you. And if you should require more, I will keep some on hand, just for you.)]
+			The [eisek.race]'s eyes widen slightly in surprise. He speaks haltingly, each word carefully chosen, [eisek.speech(I admit, I did not think you actually cared. Forgive me for doubting you.)] He then reaches under the counter and retrieves something. [eisek.speech(I have little in the way of rewarding you but perhaps these will do,)] he says as he places three bright yellow fruit covered in green, scale-like leaves on the counter, 
+			#IF(!pc.getRace().equals(RACE_dsg_dragon))
+				[eisek.speech(My orchards can produce very few of these now, but if you would like to...empathize with my kind further, they will help you. And if you should require more, I will keep some on hand, just for you.)]
+			#ELSE
+				[eisek.speech(My orchards can produce very few of these now, but if you should find your form straying, they will help you . And if you should require more, I will keep some on hand, just for you.)]
+			#ENDIF
 		</p>
 	#ELSEIF(flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate))
 		<p>
