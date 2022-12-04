@@ -69,53 +69,65 @@
 				<maven.compiler.release>17</maven.compiler.release>
 			</properties>
 		</profile>
+		<profile>
+			<id>external-javafx</id>
+			<activation>
+				<jdk>[11,)</jdk>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.openjfx</groupId>
+					<artifactId>javafx-base</artifactId>
+					<version>${javafx.version}</version>
+					<classifier>${target.platform}</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.openjfx</groupId>
+					<artifactId>javafx-fxml</artifactId>
+					<version>${javafx.version}</version>
+					<classifier>${target.platform}</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.openjfx</groupId>
+					<artifactId>javafx-web</artifactId>
+					<version>${javafx.version}</version>
+					<classifier>${target.platform}</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.openjfx</groupId>
+					<artifactId>javafx-graphics</artifactId>
+					<version>${javafx.version}</version>
+					<classifier>${target.platform}</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.openjfx</groupId>
+					<artifactId>javafx-controls</artifactId>
+					<version>${javafx.version}</version>
+					<classifier>${target.platform}</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.openjfx</groupId>
+					<artifactId>javafx-media</artifactId>
+					<version>${javafx.version}</version>
+					<classifier>${target.platform}</classifier>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>external-nashorn</id>
+			<activation>
+				<jdk>[11,)</jdk>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.openjdk.nashorn</groupId>
+					<artifactId>nashorn-core</artifactId>
+					<version>${nashorn.version}</version>
+				</dependency>
+			</dependencies>
+		</profile>
 	</profiles>
 
-	<dependencies>
-
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-base</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>${target.platform}</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-fxml</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>${target.platform}</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-web</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>${target.platform}</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-graphics</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>${target.platform}</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-controls</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>${target.platform}</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-media</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>${target.platform}</classifier>
-		</dependency>
-
-		<dependency>
-			<groupId>org.openjdk.nashorn</groupId>
-			<artifactId>nashorn-core</artifactId>
-			<version>${nashorn.version}</version>
-		</dependency>
-	</dependencies>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
