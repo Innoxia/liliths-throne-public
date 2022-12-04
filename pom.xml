@@ -7,7 +7,7 @@
 	<name>Lilith's Throne</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.release>17</maven.compiler.release>
+		<maven.compiler.release>11</maven.compiler.release>
 		<javafx.version>18.0.2</javafx.version>
 		<nashorn.version>15.4</nashorn.version>
 		<javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
@@ -38,6 +38,35 @@
 			<properties>
 				<target.platform>linux</target.platform>
 				<exclude.platform>win</exclude.platform>
+			</properties>
+		</profile>
+		<profile>
+			<id>jdk8</id>
+			<activation>
+				<jdk>1.8</jdk>
+			</activation>
+			<properties>
+				<maven.compiler.release>${maven.compiler}</maven.compiler.release>
+				<maven.compiler.source>1.8</maven.compiler.source>
+				<maven.compiler.target>1.8</maven.compiler.target>
+			</properties>
+		</profile>
+		<profile>
+			<id>jdk11</id>
+			<activation>
+				<jdk>11</jdk>
+			</activation>
+			<properties>
+				<maven.compiler.release>11</maven.compiler.release>
+			</properties>
+		</profile>
+		<profile>
+			<id>jdk17</id>
+			<activation>
+				<jdk>17</jdk>
+			</activation>
+			<properties>
+				<maven.compiler.release>17</maven.compiler.release>
 			</properties>
 		</profile>
 	</profiles>
