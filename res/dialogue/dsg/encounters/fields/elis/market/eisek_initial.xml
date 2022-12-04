@@ -109,6 +109,7 @@
 				<nextDialogue stripContent="false"><![CDATA[dsg_encounters_fields_elis_market_eisek_initial_play_along]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(500))]
 					[#eisek.setPlayerKnowsName(true)]
 					[#flags.setFlag(FLAG_dsg_elis_eisek_introduced, true)]
 					[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc, 3))]
@@ -125,6 +126,7 @@
 				<nextDialogue stripContent="false"><![CDATA[dsg_encounters_fields_elis_market_eisek_initial_play_along]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(500))]
 					[#eisek.setPlayerKnowsName(true)]
 					[#flags.setFlag(FLAG_dsg_elis_eisek_introduced, true)]
 					[#flags.setFlag(FLAG_dsg_elis_eisek_introduced_as_dragon, true)]

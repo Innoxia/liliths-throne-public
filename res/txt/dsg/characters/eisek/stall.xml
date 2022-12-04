@@ -362,7 +362,7 @@
 		#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_CYNICAL))
 			You bear it for a few long seconds. 
 		#ENDIF
-		Then, just as suddenly, he releases you, leaving you in a cloud of steam as he turns away and coughs nervously. Returning to his side of the stall, he places a hefty sack of flames on the counter. [eisek.speech(Ahem. Still, the fabric will need to be sewn up around the edges, but it is nothing I cannot manage on my own. You have my sincerest thanks.)]
+		Then, just as suddenly, he releases you, leaving you in a cloud of steam as he turns away and coughs nervously. Returning to his side of the stall, he places a hefty sack of flames on the counter. [eisek.speech(Ahem. Still, the fabric will need to be sewn up around the edges, but it is nothing I cannot manage on my own and...it would be wrong of me to profit from someone who has aided me so greatly. I will sell you my goods at cost. You have my sincerest thanks.)]
 	</p>
 	]]>
 	</htmlContent>
