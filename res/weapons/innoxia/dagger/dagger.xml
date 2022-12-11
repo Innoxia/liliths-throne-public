@@ -127,7 +127,7 @@
 		...
 		Note that the damageType does not have to correspond to the spell's school (so FIRE can unlock ICE_SHARD, etc.).
 		
-		Values for spells can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/Spell.java -->
+		Values for spells can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/spells/Spell.java -->
 		<spells/>
 		
 		<!-- The combat moves that are unlocked when equipping this weapon. IF you want to add any, use the format:
