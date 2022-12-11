@@ -63,7 +63,7 @@
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
 	
-		<itemTags> <!-- tag values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+		<itemTags> <!-- tag values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 			<tag>MILKING_EQUIPMENT</tag>
 			<tag>TRANSPARENT</tag>
 			<tag>ENABLE_SEX_EQUIP</tag>

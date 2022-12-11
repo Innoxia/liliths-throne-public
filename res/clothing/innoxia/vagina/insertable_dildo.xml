@@ -46,7 +46,7 @@
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
 	
-		<itemTags> <!-- tag values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+		<itemTags> <!-- tag values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 			<tag>SOLD_BY_FINCH</tag>
 			<tag>REQUIRES_VAGINA</tag>
 			<tag>PLUGS_VAGINA</tag>

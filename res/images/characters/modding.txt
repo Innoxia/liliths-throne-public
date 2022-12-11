@@ -4,7 +4,7 @@ All images must be in PNG (.png) or JPEG (.jpg) format and are scaled down inter
 Animations in GIF (.gif) format are also supported. Note that large GIFs may slow down the game, which is why the animation is not played in tooltips and may not be over 10 MB in size.
 
 In order to add your own images to the game, you first need to figure out where to put the files. For unique NPCs, the folder has the same name as the class. For reference, check:
-https://github.com/Innoxia/liliths-throne-public/tree/master/src/com/lilithsthrone/game/character/npc
+https://github.com/Innoxia/liliths-throne-public/tree/dev/src/com/lilithsthrone/game/character/npc
 
 For generic characters (generated dynamically, e.g. slaves), you can create a "generic" folder (without quotation marks) and then create a subfolder using the in-game name of the character. The game will not check for duplicates, but reload images when you rename a character.
 

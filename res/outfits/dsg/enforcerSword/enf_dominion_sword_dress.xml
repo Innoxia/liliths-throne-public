@@ -25,9 +25,9 @@
 		</acceptableLegConfigurations>
 		
 		<!-- The condition that needs to be satisfied for someone to generate this outfit. "npc.hasFetish(FETISH_EXHIBITIONIST)" should probably always be taken into account. This conditional instance does NOT support the "clothingConditionalX" elements.
-		Accepted method calls for the "npc" can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/GameCharacter.java 
-		Accepted method calls for the main game (using the "game" tag) can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/Game.java
-		And also here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/dialogue/utils/UtilText.java 
+		Accepted method calls for the "npc" can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/GameCharacter.java 
+		Accepted method calls for the main game (using the "game" tag) can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/Game.java
+		And also here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/dialogue/utils/UtilText.java 
 		The method "initScriptEngine()" in UtiLText.java shows you what you can get a handle on.-->
 		<conditional><![CDATA[npc.hasOccupationTag(OCCUPATION_TAG_ENFORCER_SWORD)]]></conditional>
 		

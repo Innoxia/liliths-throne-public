@@ -12,14 +12,14 @@
 		<!-- The femininity needed for someone to generate this outfit. MASCULINE, ANDROGYNOUS, and FEMININE are the three acceptable values. ANDROGYNOUS means anyone can use this outfit, while the other two are self-explanatory.-->
 		<femininity>FEMININE</femininity>
 
-		<!-- The regions in which this outfit may be used for randomly generated characters. You can leave this empty, or delete the element entirely, if you do not want this outfit to be restricted based on WorldRegion (so it can be used anywhere). Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/world/WorldRegion.java -->
+		<!-- The regions in which this outfit may be used for randomly generated characters. You can leave this empty, or delete the element entirely, if you do not want this outfit to be restricted based on WorldRegion (so it can be used anywhere). Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/world/WorldRegion.java -->
 		<!-- If a region is present, the outfit can appear in any WorldType in that region. If there are also worldTypes elements, these will apply in addition to those of the WorldRegion. Only if both types are empty will the outfit apply anywhere. -->
 		<worldRegions>
 			<region>DOMINION</region>
 			<region>SUBMISSION</region>
 		</worldRegions>
 
-		<!-- The worlds (places/maps) in which this outfit may be used for randomly generated characters. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/world/WorldType.java -->
+		<!-- The worlds (places/maps) in which this outfit may be used for randomly generated characters. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/world/WorldType.java -->
 		<worldTypes>
 			<world>DOMINION</world>
 			<world>SUBMISSION</world>
@@ -36,9 +36,9 @@
 		</acceptableLegConfigurations>
 		
 		<!-- The condition that needs to be satisfied for someone to generate this outfit. "npc.hasFetish(FETISH_EXHIBITIONIST)" should probably always be taken into account. This conditional instance does NOT support the "clothingConditionalX" elements.
-		Accepted method calls for the "npc" can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/GameCharacter.java 
-		Accepted method calls for the main game (using the "game" tag) can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/Game.java
-		And also here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/dialogue/utils/UtilText.java 
+		Accepted method calls for the "npc" can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/GameCharacter.java 
+		Accepted method calls for the main game (using the "game" tag) can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/Game.java
+		And also here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/dialogue/utils/UtilText.java 
 		The method "initScriptEngine()" in UtiLText.java shows you what you can get a handle on.-->
 		<conditional><![CDATA[!npc.hasFetish(FETISH_EXHIBITIONIST) && npc.hasFetish(FETISH_MASTURBATION) && npc.getFetishDesire(FETISH_SUBMISSIVE).isPositive()]]></conditional>
 		
@@ -102,14 +102,14 @@
 		
 		<!-- "genericClothingType" elements automatically populate the possible clothing lists with all clothing in the game that satisfies the conditionals.-->
 		<genericClothingType>
-			<itemTags> <!-- If tags are defined, then only clothing with the provided tags will be included for random selection. May be left empty. Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+			<itemTags> <!-- If tags are defined, then only clothing with the provided tags will be included for random selection. May be left empty. Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 				<tag>DRESS</tag><!-- All items in the game marked as a "DRESS" will be included for random selection.-->
 			</itemTags>
 			<acceptableFemininities> <!-- If femininities are defined (MASCULINE, ANDROGYNOUS, or FEMININE), then only clothing suitable for this femininity will be included for random selection. -->
 				<femininity>FEMININE</femininity>
 			</acceptableFemininities>
-			<slot/> <!-- If a slot (of type InventorySlot) is defined, then only clothing that fits into this slot will be included for random selection. Use the Enum values as defined in https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
-			<rarity>COMMON</rarity>  <!-- If a rarity is defined, then only clothing that has this rarity will be included for random selection. Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
+			<slot/> <!-- If a slot (of type InventorySlot) is defined, then only clothing that fits into this slot will be included for random selection. Use the Enum values as defined in https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
+			<rarity>COMMON</rarity>  <!-- If a rarity is defined, then only clothing that has this rarity will be included for random selection. Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/Rarity.java -->
 			<conditional/> <!-- If a condition is defined, then only clothing that satisfies this condition will be included for random selection. Wrap the conditional statement in CDATA tags if used. -->
 			<primaryColours>
 				<colour>presetColourGroup1</colour>
