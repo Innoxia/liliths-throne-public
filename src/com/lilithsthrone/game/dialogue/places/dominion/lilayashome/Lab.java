@@ -397,8 +397,9 @@ public class Lab {
 				@Override
 				public void effects() {
 					for(AbstractClothing clothing : new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped())) {
-						if(clothing.isSealed()) && (clothing.isSelfTransformationInhibiting()):
+						if(clothing.isSealed()) && (clothing.isSelfTransformationInhibiting()) {
 							clothing.setSealed(false);
+						}
 					}
 				}
 			});
