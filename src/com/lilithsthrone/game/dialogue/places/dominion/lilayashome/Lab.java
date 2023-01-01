@@ -389,16 +389,16 @@ public class Lab {
 		}
 		
 		if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)
-				&& Main.game.getPlayer().getClothingCurrentlyEquipped().stream().anyMatch(c -> c.isSelfTransformationInhibiting())
-				&& Main.game.getPlayer().getClothingCurrentlyEquipped().stream().anyMatch(c -> c.isSealed())) {
+				&& Main.game.getPlayer().getClothingCurrentlyEquipped().stream().anyMatch(c -> (c.isSelfTransformationInhibiting() && c.isSealed()))
 			generatedResponses.add(new Response("Sealed problem",
 					"Tell Lilaya that you have some enchanted clothing sealed onto you, and that due to another enchantment on some of your clothing, you cannot remove it."
-							+ "<br/>[style.italicsMinorGood(Lilaya will unseal all your clothing!)]",
+							+ "<br/>[style.italicsMinorGood(Lilaya will unseal all of your sealed servitude clothing!)]",
 						LAB_JINX_REMOVAL){
 				@Override
 				public void effects() {
 					for(AbstractClothing clothing : new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped())) {
-						clothing.setSealed(false);
+						if(clothing.isSealed()) && (clothing.isSelfTransformationInhibiting()):
+							clothing.setSealed(false);
 					}
 				}
 			});
