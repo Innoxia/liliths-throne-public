@@ -389,7 +389,7 @@ public class Lab {
 		}
 		
 		if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)
-				&& Main.game.getPlayer().getClothingCurrentlyEquipped().stream().anyMatch(c -> (c.isSelfTransformationInhibiting() && c.isSealed()))
+				&& Main.game.getPlayer().getClothingCurrentlyEquipped().stream().anyMatch(c -> (c.isSelfTransformationInhibiting() && c.isSealed())) {
 			generatedResponses.add(new Response("Sealed problem",
 					"Tell Lilaya that you have some enchanted clothing sealed onto you, and that due to another enchantment on some of your clothing, you cannot remove it."
 							+ "<br/>[style.italicsMinorGood(Lilaya will unseal all of your sealed servitude clothing!)]",
