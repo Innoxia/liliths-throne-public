@@ -80,7 +80,8 @@
 		<secondaryColoursDye values="ALL_WITH_METALS"/>
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
-		<itemTags> 
+		<itemTags>
+			<tag>LOOSE_GROIN</tag>
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
 	</coreAttributes>
