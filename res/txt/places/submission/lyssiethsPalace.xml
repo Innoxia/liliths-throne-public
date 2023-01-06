@@ -12,17 +12,53 @@
 	</htmlContent>
 	
 	<htmlContent tag="ENTRANCE_LEAVING"><![CDATA[
+	#IF(elizabeth.getWorldLocation()==WORLD_TYPE_SUBMISSION)
+		<p>
+			Deciding to leave Lyssieth's palace, you exit through the same wicket gate by which you entered, before heading out over the drawbridge. Once at the far side, Elizabeth turns to face you and asks, [elizabeth.speech(Ah, [pc.name], are you leaving already?)]
+		</p>
+		<p>
+			Responding in the positive, you tell Elizabeth that you've got to be on your way.
+		</p>
+		<p>
+			[elizabeth.speech(Very well,)] Elizabeth responds, [elizabeth.speech(If you ever need to visit Lyssieth again, you have full permission to come and go from her palace as you please.)]
+		</p>
+	#ELSE
+		<p>
+			Deciding to leave Lyssieth's palace, you exit through the same wicket gate by which you entered, before heading out over the drawbridge. Once at the far side, the guard who's taken Elizabeth's usual position turns to face you and asks, [style.speechFeminine(Hello again, [pc.name]. Are you leaving?)]
+		</p>
+		<p>
+			Responding in the positive, you tell the half-demon that you've got to be on your way.
+		</p>
+		<p>
+			[style.speechFeminine(Very well,)] Elizabeth's sister responds, [style.speechFeminine(If you ever need to visit Lyssieth again, you have full permission to come and go from her palace as you please.)]
+		</p>
+
+	#ENDIF
 	<p>
-		Deciding to leave Lyssieth's palace, you exit through the same wicket gate by which you entered, and head out over the drawbridge back into Submission. Once at the far side, Elizabeth turns to face you, and asks, [elizabeth.speech(Ah, [pc.name], did your business with Lyssieth go well?)]
+		Thanking the half-succubus for the information, you continue on your way into Submission and start heading back across the huge cavern's floor...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_LEAVING_FIRST_TIME"><![CDATA[
+	<p>
+		Deciding to leave Lyssieth's palace, you exit through the same wicket gate by which you entered, before heading out over the drawbridge. Once at the far side, Elizabeth turns to face you and asks, [elizabeth.speech(Ah, [pc.name], did your business with Lyssieth go well?)]
 	</p>
 	<p>
-		[pc.speech(Yes, thank you,)] you respond, before quickly saying that you need to be on your way.
+		Responding in the positive, you tell Elizabeth that you've got to be on your way.
 	</p>
 	<p>
-		[elizabeth.speech(Very well,)] Elizabeth responds, [elizabeth.speech(If you ever need to visit Lyssieth again, you have full permission to come and go from her palace as you please.)]
+		[elizabeth.speech(Before you go, I'd like to thank you again for your help in dealing with Meraxis,)] Elizabeth responds, [elizabeth.speech(Now that we don't have to worry about her turning up here and causing trouble, I'll finally be able to go back to my regular work hours. If you ever need me in the future, I'll be on duty here between eight in the morning and eight in the evening. Oh, and I suppose you might be able to find me in the palace during the evening.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_LEAVING_FIRST_TIME_END"><![CDATA[
+	<p>
+		Thanking Elizabeth for the information, you say goodbye to her and prepare to leave.
 	</p>
 	<p>
-		Thanking the half-succubus for the information, you continue on your way into Submission, and start heading back across the huge cavern's floor...
+		[elizabeth.speech(If you ever need to visit Lyssieth again, you have full permission to come and go from her palace as you please,)] the half-demon finally states. Nodding in acknowledgement, you leave her behind and set off into Submission...
 	</p>
 	]]>
 	</htmlContent>

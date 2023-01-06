@@ -150,11 +150,17 @@ public class TooltipInformationEventListener implements EventListener {
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>");// style='white-space: nowrap'>");
 				boolean effectsFound = false;
-				if(!statusEffect.getModifiersAsStringList(owner).isEmpty()) {
-					for (String s : statusEffect.getModifiersAsStringList(owner)) {
-						tooltipSB.append((effectsFound?"<br/>":"") + UtilText.parse(owner, s));
-						effectsFound =true;
+				if(statusEffect!=StatusEffect.SUBSPECIES_BONUS || (Main.getProperties().isAdvancedRaceKnowledgeDiscovered(owner.getTrueSubspecies()) && !owner.isRaceConcealed()) || owner.isPlayer()) {
+					if (!statusEffect.getModifiersAsStringList(owner).isEmpty()) {
+						for (String s : statusEffect.getModifiersAsStringList(owner)) {
+							tooltipSB.append((effectsFound?"<br/>":"")+UtilText.parse(owner, s));
+							effectsFound = true;
+						}
 					}
+				} else {
+					tooltipSB.append("<p style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>");
+					tooltipSB.append(UtilText.parse(owner, "You don't know enough about [npc.racePlural] to know [npc.namePos] strengths and weaknesses...</p>"));
+					effectsFound = true;
 				}
 				for (AbstractCombatMove cm : statusEffect.getCombatMoves()) {
 					tooltipSB.append((effectsFound?"<br/>":"")+"[style.boldExcellent(Grants)] [style.boldCombat(Move)]: "+Util.capitaliseSentence(cm.getName(0, owner)));

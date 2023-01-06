@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+    <!-- Shady dealer encounter: -->
+
+    <htmlContent author="AceXP" tag="INTRO"><![CDATA[
+   	<p>
+		You find yourself walking through labyrinthine alleyways, with not a soul in sight. Back-doors and steaming vents line the dark brick walls, and you often have to navigate around overflowing bins and stacks of empty crates in order to make progress.
+	</p>
+	#IF(flags.hasFlag(FLAG_acexp_shady_dealer_discovered))
+		<p>
+			As you pass by a stack of crates, you suddenly hear a familiar, androgynous voice calling out from the shadows, [AceXpShadyDealer.speech(Hey, we meet again. Do you want to make a deal? Still no questions asked, of course.)]
+		</p>
+		<p>
+			Turning to face the shady alicorn, you wonder whether to take them up on their offer, or instead simply continue on your way...
+		</p>
+	#ELSE
+		<p>
+			As you pass by a stack of crates, you suddenly hear an androgynous voice calling out from the shadows, [AceXpShadyDealer.speech(Psst! You, yes you! Are you up for the bargain of your life?)]
+		</p>
+		<p>
+			Looking over towards the source of this voice, you see a shady figure lurking behind the crates. Not knowing what to make of this, you take a moment to decide whether to approach this mysterious salesperson or instead simply continue on your way...
+		</p>
+	#ENDIF
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="INTRO_LEAVE"><![CDATA[
+   	<p>
+		Not interested in whatever this shady figure is trying to sell, you ignore them and continue on your way. As you leave this dodgy character behind, their androgynous voice calls out after you, [AceXpShadyDealer.speech(We'll meet again! I'll try to find you tomorrow!)]
+	</p>
+	]]>
+    </htmlContent>
+	
+    <htmlContent author="AceXP" tag="TRADE"><![CDATA[
+	#IF(flags.hasFlag(FLAG_acexp_shady_dealer_discovered))
+		<p>
+			Carefully approaching the stack of crates, you once again find yourself face to face with the shady dealer. The single horn on their forehead, along with their horse like appearance and powerful wings, are enough to identify them as [AceXpShadyDealer.a_raceFull(true)]. You get the feeling that they are quite proficient at magic, but right now they don't seem to pose a threat. They're mostly clad in dark clothes, with some of their gear clearly having been illegally purloined from the Enforcers. The many pockets on their trousers, shirt, and jacket are bulging with various items that are tucked away in them.
+		</p>
+		<p>
+			Quickly looking you up and down, this shady alicorn states, [AceXpShadyDealer.speech(You know the drill, don't ya. Only the best wares, for bargain prices! But make it quick, I don't want any more trouble with the Enforcers than I already have!)]
+		</p>
+	#ELSE
+		<p>
+			Carefully approaching the stack of crates, you find yourself face to face with a shady-looking individual. The single horn on their forehead, along with their horse like appearance and powerful wings, are enough to identify them as [AceXpShadyDealer.a_raceFull(true)]. You get the feeling that they are quite proficient at magic, but right now they don't seem to pose a threat. They're mostly clad in dark clothes, with some of their gear clearly having been illegally purloined from the Enforcers. The many pockets on their trousers, shirt, and jacket are bulging with various items that are tucked away in them.
+		</p>
+		<p>
+			Casting a quick glance left and right to check if anyone else is around, they start what is probably a well-rehearsed sales pitch, [AceXpShadyDealer.speech(I have only the best wares; you won't find anything like this anywhere else, I guarantee you! All for a price of course! Oh, and if you happen to have some interesting items, just show 'em! I might want to take them off your hands. Can't offer much though, you know, what with money being tight and all...)]
+		</p>
+	#ENDIF
+   	<p>
+	    You take a moment to consider if you should make a deal with this shady dealer...
+	</p>
+	]]>
+    </htmlContent>
+
+    <htmlContent tag="TRADE_LEAVE"><![CDATA[
+   	<p>
+		Having seen enough, you tell the alicorn that you've got to be on your way, before setting off down the alleyway. As you leave the shady figure behind, their androgynous voice calls out after you, [AceXpShadyDealer.speech(We'll meet again! I'll try to find you tomorrow!)]
+	</p>
+	]]>
+    </htmlContent>
+
+</dialogue>

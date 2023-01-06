@@ -2527,6 +2527,12 @@ public class OptionsDialogue {
 					"Opportunistic attackers",
 					"This makes random attacks more likely when you're high on lust, low on health, covered in fluids, exposed, or drunk.",
 					Main.game.isOpportunisticAttackersEnabled()));
+			UtilText.nodeContentSB.append(getContentPreferenceDiv("OFFSPRING_ENCOUNTERS",
+					PresetColour.BASE_INDIGO,
+					"Offspring Encounters",
+					"This enables you to randomly encounter your offspring throught the world."
+					+ "<br/><i>This setting has no effect on the Offspring Map, nor on offspring who you've already met.</i>",
+					Main.game.isOffspringEncountersEnabled()));
 			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_PINK, "Sex action bypass", "If this is enabled, sex action corruption requirements may be bypassed."));
 			for (int i = 2; i>=0; i--) {
@@ -2777,7 +2783,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("AUTO_SEX_CLOTHING_STRIP",
 					PresetColour.BASE_PINK_LIGHT,
 					"Automatic stripping",
-					"When enabled, all characters which you are allowed to strip during sex (including yourself) will start sex naked.",
+					"When enabled, all non-spectating characters which you are allowed to strip during sex (including yourself) will start sex naked.",
 					Main.getProperties().hasValue(PropertyValue.autoSexStrip)));
 			
 			return UtilText.nodeContentSB.toString();

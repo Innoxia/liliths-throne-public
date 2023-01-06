@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+
+    <additionalPlaceTypeTriggers>
+        <placeType>DOMINION_BACK_ALLEYS</placeType>
+    </additionalPlaceTypeTriggers>
+    <!--Not during loading, only once per day, no one present and player does not look like an Enforcer-->
+    <possibleEncounters>
+        <encounter>
+            <name><![CDATA[Shady Dealer]]></name>
+            <chanceToTrigger opportunisticEncounter="false"><![CDATA[
+   				#IF(!game.isStarted() || flags.hasFlag(FLAG_acexp_shady_dealer_daily_interaction))
+	        		0
+        		#ELSE
+        		    #IF(game.getNonCompanionCharactersPresent().length > 0 || game.getPlayer().hasAnyEnforcerStatusEffect())
+        		        0
+        		    #ELSE
+                        5
+                    #ENDIF
+			    #ENDIF
+            ]]></chanceToTrigger>
+            <dialogueReturned><![CDATA[acexp_dominion_shady_dealer_intro]]></dialogueReturned>
+        </encounter>
+    </possibleEncounters>
+</encounterRoot>

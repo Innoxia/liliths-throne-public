@@ -802,7 +802,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_EAGER:
 								case SUB_NORMAL:
 								case DOM_ROUGH:
-									sb.append("[npc.Name] [npc.sexPaseVerb] rubbed [npc.her] [npc.pussy+] against [npc2.namePos], [npc.moaning+] as [npc.her] [npc.clit+] bumped against [npc2.hers].");
+									sb.append("[npc.Name] [npc.sexPaceVerb] rubbed [npc.her] [npc.pussy+] against [npc2.namePos], [npc.moaning+] as [npc.her] [npc.clit+] bumped against [npc2.hers].");
 									break;
 								case SUB_RESISTING:
 									sb.append("[npc.Name] tried to pull away as [npc2.name] started rubbing [npc2.her] [npc2.pussy+] against [npc.hers], but [npc.her] efforts proved to be futile.");
