@@ -49,6 +49,11 @@
 	e.g. A newly-spawned hyena-girl might be 179cm tall (which would have been randomised based on the defined height of 175).
 	
 	Height is defined in cm, and should be no smaller than 61 and no larger than 366.
+	Please be aware that height values from 61 to 151, inclusive, are categorised by the game as being 'short stature'.
+		If an NPC's height value is within this range, AND the subspecies is defined as 'shortStature' (via defining the 'shortStature' element in the subspecies file as 'true'), then the character's height cannot be transformed to be any bigger than 151.
+		If an NPC has a height value within 61 to 151, but is NOT defined as 'shortStature', then they can only be transformed to gain height, until they're in a normal height range (>151cm).
+		So if you want an NPC to be a small-statured subspecies, then set the starting height to be within 61 to 151, inclusive, and also define the 'shortStature' element in the subspecies file as 'true'.
+		If you need most subspecies of this race to have a higher height, but want one subspecies to be short-statured, then instead use the subspecies' 'applySubspeciesChanges' element, and within it set the desired height, such as: [#targetedBody.setHeight(75)]
 	Values associated with height can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/Height.java
 	
 	Femininity is defined from 0 to 100, with 0 being maximum masculine and 100 being maximum feminine.

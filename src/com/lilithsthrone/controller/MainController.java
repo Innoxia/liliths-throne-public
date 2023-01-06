@@ -1291,6 +1291,9 @@ public class MainController implements Initializable {
 		DialogueNode currentNode = Main.game.getCurrentDialogueNode();
 		if (Main.game.isInCombat()) {
 			MiscController.initCombatListeners();
+			if(currentNode.getDialogueNodeType() == DialogueNodeType.INVENTORY) {
+				InventoryController.initInventoryListeners();
+			}
 		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_ASS)
 				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_ASS)) {
 			CreationController.initAnusCapacityListeners();

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -57,6 +58,7 @@ public class PenisBreasts {
 			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& Main.sex.getCharacterPerformingAction().getPenisRawSizeValue()>=6
 					&& Main.sex.isOrificeFree(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH)
+					&& Main.sex.getCharacterTargetedForSexAction(this).isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)
 //					&& Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckablePaizuri()
 					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.SIXTY_NINE);
 		}
@@ -199,6 +201,7 @@ public class PenisBreasts {
 			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& Main.sex.getCharacterTargetedForSexAction(this).getPenisRawSizeValue()>=6
 					&& Main.sex.isOrificeFree(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH)
+					&& Main.sex.getCharacterPerformingAction().isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)
 //					&& Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckablePaizuri()
 					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.SIXTY_NINE);
 		}

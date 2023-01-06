@@ -11277,12 +11277,12 @@ public class StatusEffect {
 								:"Somehow, you're able to instinctively sense what [npc.namePos] sexual preferences are:")
 						+ "<br/>[style.italics"+(Main.sex.isInForeplay(target)?"PinkLight(<b>Foreplay</b>: ":"Disabled(Foreplay: ")
 							+ (foreplayPreference!=null
-									?"[npc.Her] "+foreplayPreference.getPerformingSexArea().getName(target)+" and [npc2.namePos] "+foreplayPreference.getTargetedSexArea().getName(targetedCharacter)+"."
+									?"[npc.Her] "+foreplayPreference.getPerformingSexArea().getName(target, true)+" and [npc2.namePos] "+foreplayPreference.getTargetedSexArea().getName(targetedCharacter, true)+"."
 									:"[npc.She] [npc.has] no preference...")
 							+ ")]"
 						+ "<br/>[style.italics"+(!Main.sex.isInForeplay(target)?"Pink(<b>Sex</b>: ":"Disabled(Sex: ")
 						+ (mainPreference!=null
-								?"[npc.Her] "+mainPreference.getPerformingSexArea().getName(target)+" and [npc2.namePos] "+mainPreference.getTargetedSexArea().getName(targetedCharacter)+"."
+								?"[npc.Her] "+mainPreference.getPerformingSexArea().getName(target, true)+" and [npc2.namePos] "+mainPreference.getTargetedSexArea().getName(targetedCharacter, true)+"."
 								:"[npc.She] [npc.has] no preference...")
 						+ ")]")
 						+ (Main.sex.isCharacterObeyingTarget(target, Main.game.getPlayer())

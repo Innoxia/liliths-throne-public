@@ -367,7 +367,7 @@ public class Astrapi extends NPC {
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {
-		return false;
+		return true;
 	}
 
 }

@@ -3069,6 +3069,7 @@ public class CreationController {
 						}
 					});
 				}, false);
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(c.getName()), ""));
 			}
 		}
 		
@@ -3085,6 +3086,7 @@ public class CreationController {
 						}
 					});
 				}, false);
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(c.getName()), ""));
 			}
 		}
 		
@@ -3101,6 +3103,7 @@ public class CreationController {
 						}
 					});
 				}, false);
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(c.getName()), ""));
 			}
 		}
 		
@@ -3152,6 +3155,7 @@ public class CreationController {
 						}
 					});
 				}, false);
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(c.getName()), ""));
 			}
 		}
 		
@@ -3220,6 +3224,7 @@ public class CreationController {
 						}
 					});
 				}, false);
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(c.getName()), ""));
 			}
 		}
 		

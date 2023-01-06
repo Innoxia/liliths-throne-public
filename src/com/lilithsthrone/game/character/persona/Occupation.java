@@ -227,6 +227,8 @@ public enum Occupation {
 	NPC_ATHLETE(Perk.JOB_MISC, "athlete", "-", OccupationTag.HAS_PREREQUISITES),
 	
 	NPC_MODEL(Perk.JOB_MISC, "model", "-"),
+
+	NPC_TRADER(Perk.JOB_NPC_SHOP_MANAGER, "trader", "[npc.Name] is a trader and makes a living by buying and selling various goods."),
 	
 	
 	
