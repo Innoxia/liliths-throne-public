@@ -15,7 +15,7 @@
 	<!-- The id of the material that this hair is made out of.
 	The id will typically take the form of 'innoxia_hyena_hair'.
 	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
-	<coveringType>dsg_otter_fur</coveringType>
+	<coveringType>dsg_otter_hair</coveringType>
 	
 	<!-- Tags which are associated with this hair type.
 	You should most likely only be using the 'hair' tags for your hair type, which is just: HAIR_HANDLES_IN_SEX

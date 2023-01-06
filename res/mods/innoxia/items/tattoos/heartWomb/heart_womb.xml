@@ -32,7 +32,15 @@
 		<availabilityRequirements unique="false"/>
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
-		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
+				.svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).
+			You can define any number of 'imageName' elements, all of which will be added to the final svg image.
+			Optional attributes are:
+				'zLayer' - Use an integer value to determine the layering order of the image, with higher values being rendered on top of images with a lower zLayer value.
+				'imageSize' - Use an integer value to scale the image, with 100 being the default size and 0 being so tiny you can't see it.
+				'imageRotation' - Use an integer value from 0 to 360, corresponding to the image's rotation in degrees.
+			e.g.:
+				<imageName zLayer="0" imageSize="25" imageRotation="45">butterflies.svg</imageName>
+		 -->
 		<imageName>heart_womb.svg</imageName> 
 		
 		<!-- Inventory slots that this tattoo can be assigned to. Leave blank to allow all slots to be used. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->

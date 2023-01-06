@@ -222,7 +222,7 @@ public class Flash extends NPC {
 					PresetColour.CLOTHING_BLUE_NAVY,
 					PresetColour.CLOTHING_BLUE_GREY
 			});
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_RIBBED_SWEATER, sweaterColour, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torsoOver_ribbed_jumper", sweaterColour, false), true, this);
 		}
 	}
 

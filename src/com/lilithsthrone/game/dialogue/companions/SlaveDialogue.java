@@ -2344,10 +2344,10 @@ public class SlaveDialogue {
 	};
 	
 	private static boolean isSlaveNaked() {
-		return getSlave().isCoverableAreaExposed(CoverableArea.ANUS)
-				&& getSlave().isCoverableAreaExposed(CoverableArea.NIPPLES)
-				&& getSlave().isCoverableAreaExposed(CoverableArea.PENIS)
-				&& getSlave().isCoverableAreaExposed(CoverableArea.VAGINA);
+		return getSlave().isCoverableAreaVisible(CoverableArea.ANUS)
+				&& getSlave().isCoverableAreaVisible(CoverableArea.NIPPLES)
+				&& getSlave().isCoverableAreaVisible(CoverableArea.PENIS)
+				&& getSlave().isCoverableAreaVisible(CoverableArea.VAGINA);
 	}
 	
 	public static final DialogueNode SLAVE_INSPECT = new DialogueNode("", "", true) {

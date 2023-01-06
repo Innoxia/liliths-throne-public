@@ -3136,7 +3136,7 @@ public class ItemType {
 	
 	private static AbstractItemEffectType generateBookEffect(AbstractSubspecies mainSubspecies, List<AbstractSubspecies> additionalUnlockSubspecies) {
 		return new AbstractItemEffectType(Util.newArrayListOfValues(
-				"Adds "+mainSubspecies.getName(null)+" encyclopedia entry.",
+				"Adds "+mainSubspecies.getName(null)+" encyclopedia entry and reveals racial status effect attributes",
 				"[style.boldExcellent(+10)] <b style='color:"+mainSubspecies.getColour(null).toWebHexString()+";'>"+mainSubspecies.getDamageMultiplier().getName()+"</b>"),
 				mainSubspecies.getColour(null)) {
 			@Override
