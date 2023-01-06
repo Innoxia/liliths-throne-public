@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.npc.dominion.Elle;
 import com.lilithsthrone.game.character.npc.dominion.Helena;
 import com.lilithsthrone.game.character.npc.dominion.Wes;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
+import com.lilithsthrone.game.character.npc.submission.Elizabeth;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
@@ -4695,6 +4696,13 @@ public class PlaceType {
 			Darkness.ALWAYS_LIGHT,
 			null, "in Lyssieth's Palace"
 			) {
+		@Override
+		public DialogueNode getBaseDialogue(Cell cell) {
+			if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Elizabeth.class))) {
+				return DialogueManager.getDialogueFromId("acexp_submission_palace_elizabeth");
+			}
+			return LyssiethPalaceDialogue.ROOM;
+		}
 		@Override
 		public List<Population> getPopulation() {
 			return LYSSIETH_PALACE_CORRIDOR.getPopulation();

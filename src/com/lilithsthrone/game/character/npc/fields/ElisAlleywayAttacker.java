@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.character.npc.fields;
 
 import java.time.Month;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -13,13 +12,11 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
-import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -36,7 +33,6 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -187,46 +183,6 @@ public class ElisAlleywayAttacker extends NPC {
 				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE);
 			} else {
 				this.returnToHome();
-			}
-		}
-	}
-	
-	@Override
-	public void hourlyUpdate() {
-		if(this.getHistory()==Occupation.NPC_PROSTITUTE
-				&& Main.game.isLipstickMarkingEnabled()
-				&& !this.isSlave()
-				&& !Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())
-				&& this.getLipstick().getPrimaryColour()!=PresetColour.COVERING_NONE) {
-			this.addHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
-		}
-		if(this.getHistory()==Occupation.NPC_PROSTITUTE && this.getLocationPlace().getPlaceType().equals(PlaceType.ANGELS_KISS_BEDROOM)) { //TODO need to move this to Angel's Kiss
-			// Remove client:
-			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent(this.getWorldLocation(), this.getLocation()));
-			charactersPresent.removeAll(Main.game.getPlayer().getCompanions());
-			if(charactersPresent.size()>1) {
-				for(NPC npc : charactersPresent) {
-					if(npc instanceof GenericSexualPartner) {
-//						System.out.println("partner removed for "+this.getName());
-//						System.out.println(npc.getId());
-						Main.game.banishNPC(npc);
-					}
-				}
-				
-			} else if(Math.random()<0.33f) { // Add client:
-				GenericSexualPartner partner;
-//				System.out.println("partner generated for "+this.getNameIgnoresPlayerKnowledge()+" "+this.getLocation().toString()+", "+this.getLocationPlace().getPlaceType().getName());
-				
-				if(Math.random()<0.25f) {
-					partner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, this.getWorldLocation(), this.getLocation(), false);
-				} else {
-					partner = new GenericSexualPartner(Gender.M_P_MALE, this.getWorldLocation(), this.getLocation(), false);
-				}
-				try {
-					Main.game.addNPC(partner, false, true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 			}
 		}
 	}

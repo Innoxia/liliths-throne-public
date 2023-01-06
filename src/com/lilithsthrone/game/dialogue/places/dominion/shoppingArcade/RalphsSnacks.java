@@ -21,6 +21,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexControl;
+import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.managers.dominion.SexManagerRalphDiscount;
@@ -301,6 +302,8 @@ public class RalphsSnacks {
 					public void effects() {
 						Main.game.getNpc(Ralph.class).setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						Main.game.getNpc(Ralph.class).displaceClothingForAccess(CoverableArea.PENIS, null);
+						SexFlags.customerAtCounter = false;
+						SexFlags.customerTurnAppearance = 0;
 					}
 				};
 				

@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -78,6 +79,7 @@ public class DominionSuccubusAttacker extends NPC {
 			Main.game.getCharacterUtils().randomiseBody(this, true);
 
 			Main.game.getCharacterUtils().setHistoryAndPersonality(this, false);
+			this.setHistory(Occupation.NPC_MUGGER); // All demon alleyway attackers are muggers
 			
 			addFetish(Fetish.FETISH_DEFLOWERING);
 			addFetish(Fetish.FETISH_DOMINANT);

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexManager>
+    <title/>
+    <wallName/>
+    <deskName><![CDATA[sofa]]></deskName>
+    <consensual><![CDATA[true]]></consensual>
+    <subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+    <canSkipSex><![CDATA[true]]></canSkipSex>
+    <washingScene><![CDATA[false]]></washingScene>
+    <sadisticActionsAllowed><![CDATA[true]]></sadisticActionsAllowed>
+    <canItemsBeUsed><![CDATA[true]]></canItemsBeUsed>
+    <exposingReactions><![CDATA[true]]></exposingReactions>
+    <positionsAvailable/>
+    <publicSex>
+        <startingDescription><![CDATA[
+			The maids that are present in the room pretend not to pay any attention to what is happening in front of them...
+		]]></startingDescription>
+        <randomDescriptions enabled="true">
+            <description><![CDATA[One of the maids casts a quick glance at the pair of you.]]></description>
+            <description><![CDATA[A maid sucks in her breath and then exhales sharply.]]></description>
+            <description><![CDATA[You see one of the maids groping herself.]]></description>
+            <description><![CDATA[One of the maids is moaning audibly.]]></description>
+            <description><![CDATA[A maid licks her lips while pretending to look the other way.]]></description>
+        </randomDescriptions>
+    </publicSex>
+    <characterInformationContainer>
+        <characterInformation>
+            <characterId>pc</characterId>
+            <slotsAvailable/>
+            <canStopSex><![CDATA[true]]></canStopSex>
+            <canChangePositions><![CDATA[true]]></canChangePositions>
+            <endSexAffectionChanges><![CDATA[true]]></endSexAffectionChanges>
+            <showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+            <sexPace locked="false"><![CDATA[SUB_NORMAL]]></sexPace>
+            <canSelfTransform><![CDATA[true]]></canSelfTransform>
+            <hidden><![CDATA[false]]></hidden>
+            <control/>
+            <sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
+            <selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
+            <partnerClothingRemoval><![CDATA[true]]></partnerClothingRemoval>
+            <startNaked><![CDATA[false]]></startNaked>
+            <exposeAtStart preferRemoval="false">
+                <coverableArea><![CDATA[PENIS]]></coverableArea>
+            </exposeAtStart>
+            <forcedCreampiesDisabled/>
+            <orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+            <orgasmCumTarget/>
+            <orgasmCumTargetsBlocked/>
+            <orgasmEncourageBehaviours/>
+            <concealedSlots/>
+            <preferredTarget/>
+            <preferences/>
+            <uniqueSexActions/>
+            <sexTypesBanned/>
+            <areasBanned/>
+            <stopSexCondition/>
+            <dirtyTalk/>
+        </characterInformation>
+
+        <characterInformation>
+            <characterId>elizabeth</characterId>
+            <slotsAvailable/>
+            <canStopSex><![CDATA[true]]></canStopSex>
+            <canChangePositions><![CDATA[true]]></canChangePositions>
+            <endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+            <showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+            <sexPace locked="false"><![CDATA[DOM_NORMAL]]></sexPace>
+            <canSelfTransform><![CDATA[true]]></canSelfTransform>
+            <hidden><![CDATA[false]]></hidden>
+            <control/>
+            <sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
+            <selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
+            <partnerClothingRemoval><![CDATA[true]]></partnerClothingRemoval>
+            <startNaked><![CDATA[false]]></startNaked>
+            <exposeAtStart preferRemoval="false">
+                <coverableArea><![CDATA[THIGHS]]></coverableArea>
+            </exposeAtStart>
+            <forcedCreampiesDisabled/>
+            <orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+            <orgasmCumTarget/>
+            <orgasmEncourageBehaviours/>
+            <concealedSlots/>
+            <preferredTarget/>
+            <uniqueSexActions/>
+            <preferences>
+                <character id="pc">
+                    <foreplay copyForMain="false">
+                        <performing><![CDATA[ORIFICE_THIGHS]]></performing>
+                        <targeted><![CDATA[PENETRATION_PENIS]]></targeted>
+                    </foreplay>
+                    <mainSex>
+                        <performing><![CDATA[ORIFICE_VAGINA]]></performing>
+                        <targeted><![CDATA[PENETRATION_PENIS]]></targeted>
+                    </mainSex>
+                </character>
+            </preferences>
+            <sexTypesBanned/>
+            <areasBanned/>
+            <stopSexCondition/>
+            <dirtyTalk/>
+        </characterInformation>
+
+    </characterInformationContainer>
+
+</sexManager>

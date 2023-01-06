@@ -1668,12 +1668,16 @@ public abstract class AbstractSubspecies {
 			return getSVGStringDesaturated(character);
 		}
 	}
-	
+
 	public String getSVGStringDesaturated(GameCharacter character) {
+		return getSVGStringDesaturated(character, PresetColour.BASE_GREY);
+	}
+	
+	public String getSVGStringDesaturated(GameCharacter character, Colour colour) {
 		if(SVGString==null) {
 			initSVGStrings();
 		}
-		return getBipedBackground(SVGStringDesaturated, character, PresetColour.BASE_GREY);
+		return getBipedBackground(SVGStringDesaturated, character, colour);
 	}
 
 	public String getSlimeSVGString(GameCharacter character) {
@@ -1823,7 +1827,7 @@ public abstract class AbstractSubspecies {
 	 * @return true if this subspecies can have its FurryPreference modified in the furry preferences options screen.
 	 */
 	public boolean isFurryPreferencesEnabled() {
-		return !this.hasFlag(SubspeciesFlag.DISABLE_FURRY_PREFERENCE);
+		return race.isAffectedByFurryPreference() && !hasFlag(SubspeciesFlag.DISABLE_FURRY_PREFERENCE);
 	}
 
 	/**
