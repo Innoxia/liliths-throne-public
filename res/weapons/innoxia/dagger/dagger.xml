@@ -146,8 +146,8 @@
 			<move damageType="FIRE">EXAMPLE_MOVE_4</move>
 		...
 		
-		Values for combat moves can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/CMWeaponSpecials.java
-		There will be a way to add modded combat moves soon! -->
+		Values for combat moves can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/moves/CMWeaponSpecials.java
+		For an annotated example on how custom combat moves are defined, please see the 'res/mods/innoxia/combatMove/hyena_bone_crush.xml' file. -->
 		<combatMoves/>
 		
 		<!-- The effects that this weapon spawns in with. Remember that the player can remove/change/add effects. To know what to put in here, it would probably be easiest to enchant a weapon in your game, save the game, then copy over that weapon's 'effects' in your save file.
