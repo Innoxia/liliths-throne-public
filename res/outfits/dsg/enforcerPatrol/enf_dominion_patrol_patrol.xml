@@ -14,7 +14,7 @@
 		
 		<worldTypes/>
 		
-		<!-- Outfit types that this outfit can be used in. For a list of acceptable OutfitTypes, consult: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/clothing/OutfitType.java -->
+		<!-- Outfit types that this outfit can be used in. For a list of acceptable OutfitTypes, consult: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/outfit/OutfitType.java -->
 		<outfitTypes>
 		  <type>ATHLETIC</type> <!-- At the time of creation (v0.3.0.6), only the MUGGER outfitType is used in the game. All outfit types will be added eventually. -->
 		</outfitTypes>
