@@ -62,7 +62,8 @@
 			Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/Rarity.java -->
 		<rarity>COMMON</rarity>
 		
-		<!-- What set this weapon is a part of. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
+		<!-- For an annotated example on how custom sets are defined, please see the 'res/mods/innoxia/setBonuses/template.xml' file.
+		Alternatively, existing sets can be found in the 'res/setBonuses' folder. -->
 		<weaponSet/> 
 		
 		<!-- The description that's used when equipping this weapon. The description should be generic, able to be used by both the player and NPCs. Just make sure to use the tag "[npc.verb()]" whenever using a verb, which will then, for example, parse like this:
