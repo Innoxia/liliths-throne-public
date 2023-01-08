@@ -124,7 +124,7 @@
 	<breastType>dsg_gryphon_breast</breastType>
 	
 	<!-- The shape which this race's breasts can be.
-	You can define shapes individually, as shown below, using values from this list: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/BreastShape.java
+	You can define shapes individually, as shown below, using values from this list: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/BreastShape.java
 	Alternatively, you can leave 'breastShapes' empty and use the boolean attribute 'udderShapes' to automatically select all udder shapes or all non-udder shapes.
 	e.g. Instead of what's defined below, you could use:
 	<breastShapes udderShapes="false"/>
