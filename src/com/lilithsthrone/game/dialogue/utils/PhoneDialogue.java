@@ -3782,7 +3782,11 @@ public class PhoneDialogue {
 				AbstractFetish fetish = pairedFetishList.remove(0);
 				if(fetish!=null) {
 					pairedFetishList.remove(fetish.getOpposite());
-					journalSB.append(getFetishEntry(Main.game.getPlayer(), fetish, fetish.getOpposite()));
+					if (fetish.isTopFetish()) {
+						journalSB.append(getFetishEntry(Main.game.getPlayer(), fetish, fetish.getOpposite()));
+					} else {
+						journalSB.append(getFetishEntry(Main.game.getPlayer(), fetish.getOpposite(), fetish));
+					}
 				}
 			}
 			while (soloFetishList.size() > 0) {

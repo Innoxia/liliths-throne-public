@@ -69,6 +69,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_ANAL_RECEIVING; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_ANAL_RECEIVING = new AbstractFetish(60,
@@ -191,6 +194,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_VAGINAL_GIVING; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_ORAL_RECEIVING = new AbstractFetish(60,
@@ -231,6 +237,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_ORAL_GIVING; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_ORAL_GIVING = new AbstractFetish(60,
@@ -311,6 +320,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_BREASTS_SELF; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_BREASTS_SELF = new AbstractFetish(60,
@@ -437,6 +449,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_LACTATION_OTHERS; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_LEG_LOVER = new AbstractFetish(60,
@@ -477,6 +492,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_STRUTTER; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_STRUTTER = new AbstractFetish(60,
@@ -560,6 +578,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_FOOT_RECEIVING; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_FOOT_RECEIVING = new AbstractFetish(60,
@@ -643,6 +664,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_ARMPIT_RECEIVING; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_ARMPIT_RECEIVING = new AbstractFetish(60,
@@ -722,6 +746,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_PENIS_RECEIVING; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_PENIS_RECEIVING = new AbstractFetish(60,
@@ -798,6 +825,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_CUM_ADDICT; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_CUM_ADDICT = new AbstractFetish(60,
@@ -1018,6 +1048,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_PREGNANCY; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_PREGNANCY = new AbstractFetish(60,
@@ -1096,6 +1129,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_TRANSFORMATION_RECEIVING; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_TRANSFORMATION_RECEIVING = new AbstractFetish(60,
@@ -1175,6 +1211,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_KINK_RECEIVING; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_KINK_RECEIVING = new AbstractFetish(60,
@@ -1255,6 +1294,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_DENIAL_SELF; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_DENIAL_SELF = new AbstractFetish(60,
@@ -1334,6 +1376,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_SUBMISSIVE; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_SUBMISSIVE = new AbstractFetish(60,
@@ -1459,6 +1504,9 @@ public class Fetish {
 		}
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_MASOCHIST; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_MASOCHIST = new AbstractFetish(60,
@@ -1540,6 +1588,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_NON_CON_SUB; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_NON_CON_SUB = new AbstractFetish(60,
@@ -1613,6 +1664,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_BONDAGE_VICTIM; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_BONDAGE_VICTIM = new AbstractFetish(60,
@@ -1690,6 +1744,9 @@ public class Fetish {
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.THREE_DIRTY;
 		}
+
+		@Override
+		public AbstractFetish getOpposite() { return Fetish.FETISH_VOYEURIST; }
 	};
 	
 	public static AbstractFetish FETISH_VOYEURIST = new AbstractFetish(60,
@@ -1724,6 +1781,12 @@ public class Fetish {
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.THREE_DIRTY;
 		}
+		
+		@Override
+		public AbstractFetish getOpposite() { return Fetish.FETISH_EXHIBITIONIST; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_BIMBO = new AbstractFetish(60,

@@ -225,6 +225,10 @@ public abstract class AbstractFetish {
 		return null;
 	}
 	
+	public boolean isTopFetish() {
+		return false;
+	}
+	
 	public int getRenderingPriority() {
 		return renderingPriority;
 	}
