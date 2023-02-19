@@ -358,6 +358,7 @@ public class UtilText {
 			new Value<>("paediatric", "pediatric"),
 
 			// -ise words change to -ize:
+			new Value<>("aerosolise", "aerosolize"),
 			new Value<>("apologise", "apologize"),
 			new Value<>("appetiser", "appetizer"),
 			new Value<>("authorise", "authorize"),
@@ -369,14 +370,18 @@ public class UtilText {
 			new Value<>("dramatise", "dramatize"),
 			new Value<>("emphasise", "emphasize"),
 			new Value<>("equalise", "equalize"),
+			new Value<>("localise", "localize"),
 			new Value<>("mobilise", "mobilize"),
 			new Value<>("naturalise", "naturalize"),
+			new Value<>("normalise", "normalize"),
 			new Value<>("organise", "organize"),
+			new Value<>("pluralise", "pluralize"),
 			new Value<>("popularise", "popularize"),
 			new Value<>("realise", "realize"),
 			new Value<>("recognise", "recognize"),
 			new Value<>("satirise", "satirize"),
 			new Value<>("standardise", "standardize"),
+			new Value<>("stylise", "stylize"),
 			new Value<>("symbolise", "symbolize"),
 			new Value<>("vaporise", "vaporize"),
 			new Value<>("analyse", "analyze"),
@@ -3355,7 +3360,7 @@ public class UtilText {
 				false,
 				false,
 				"",
-				"Returns the character's weight in the long, localized format.") {
+				"Returns the character's weight in the long, localised format.") {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return Units.weight(character.getWeight() / 1000.0, Units.ValueType.NUMERIC, Units.UnitType.LONG);
@@ -5167,7 +5172,7 @@ public class UtilText {
 				true,
 				false,
 				"(cm to convert)",
-				"Returns the converted size in the localized, singular form. " +
+				"Returns the converted size in the localised, singular form. " +
 						"If no argument is given, returns the small singular length unit.") {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
@@ -5185,7 +5190,7 @@ public class UtilText {
 				true,
 				false,
 				"(cm to convert)",
-				"Returns the converted size in the long, localized form. " +
+				"Returns the converted size in the long, localised form. " +
 						"If no argument is given, returns the small plural length unit.") {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
@@ -5202,7 +5207,7 @@ public class UtilText {
 				true,
 				false,
 				"(cm to convert)",
-				"Returns the converted size in the localized, singular form. " +
+				"Returns the converted size in the localised, singular form. " +
 						"If no argument is given, returns the small singular length unit.") {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
@@ -5220,7 +5225,7 @@ public class UtilText {
 				true,
 				false,
 				"(cm to convert)",
-				"Returns the converted size in the localized, singular text form. " +
+				"Returns the converted size in the localised, singular text form. " +
 						"If no argument is given, returns the large singular length unit.") {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
@@ -5238,7 +5243,7 @@ public class UtilText {
 				true,
 				false,
 				"(cm to convert)",
-				"Returns the converted size in the localized text form. " +
+				"Returns the converted size in the localised text form. " +
 						"If no argument is given, returns the large plural length unit.") {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
@@ -7675,7 +7680,7 @@ public class UtilText {
 				false,
 				false,
 				"(short)",
-				"Returns the localized, formatted size of the penis with long *singular* units ('centimetre'). Pass in true to return as short measurement ('cm').",
+				"Returns the localised, formatted size of the penis with long *singular* units ('centimetre'). Pass in true to return as short measurement ('cm').",
 				BodyPartType.PENIS) {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
@@ -7695,7 +7700,7 @@ public class UtilText {
 				false,
 				false,
 				"(short)",
-				"Returns the localized, formatted size of the penis with long *plural* units ('centimetres'). Pass in true to return as short measurement ('cm').",
+				"Returns the localised, formatted size of the penis with long *plural* units ('centimetres'). Pass in true to return as short measurement ('cm').",
 				BodyPartType.PENIS) {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
@@ -7778,7 +7783,7 @@ public class UtilText {
 				false,
 				false,
 				"",
-				"Returns the localized, formatted size of the second penis with long units.",
+				"Returns the localised, formatted size of the second penis with long units.",
 				BodyPartType.PENIS) {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {

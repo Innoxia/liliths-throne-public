@@ -83,7 +83,7 @@
 		#IF(npc.getTailCount()==1)
 			A scaled, salamander-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about [npc.tailLength] long.
 			#IF(game.isSillyModeEnabled())
-				 But wait, is that Ah- [style.italics(Aurora Borealis!?)] At this time of year, at this time of day, in this part of the country, [style.italics(localized entirely around the tip of your tail!?)] <br/> [style.boldSalamanderFrost(Yes.)]
+				 But wait, is that Ah- [style.italics(Aurora Borealis!?)] At this time of year, at this time of day, in this part of the country, [style.italics(localised entirely around the tip of your tail!?)] <br/> [style.boldSalamanderFrost(Yes.)]
 			#ELSE
 				 Strangely, a cold, arcane aura soon begins emanating from its tip. Thankfully, the small, swirling cloud of frost is revealed to be comfortably cool to the touch. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over [npc.her] new tail.
 			#ENDIF
@@ -91,7 +91,7 @@
 		#ELSE
 			[npc.TailCount] scaled, salamander-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about [npc.tailLength] long.
 			#IF(game.isSillyModeEnabled())
-				 But wait, is that Ah- [style.italics(Aurora Borealis!?)] At this time of year, at this time of day, in this part of the country, [style.italics(localized entirely around the tips of your tails!?)] <br/> [style.boldSalamanderFrost(Yes.)]
+				 But wait, is that Ah- [style.italics(Aurora Borealis!?)] At this time of year, at this time of day, in this part of the country, [style.italics(localised entirely around the tips of your tails!?)] <br/> [style.boldSalamanderFrost(Yes.)]
 			#ELSE
 				 Strangely, a cold, arcane aura soon begins emanating from each tip. Thankfully, the small, swirling clouds of frost are revealed to be comfortably cool to the touch. [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over [npc.her] new tails.
 			#ENDIF

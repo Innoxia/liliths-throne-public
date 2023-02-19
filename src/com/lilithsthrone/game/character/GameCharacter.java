@@ -742,7 +742,7 @@ public abstract class GameCharacter implements XMLSaving {
 		mana = getAttributeValue(Attribute.MANA_MAXIMUM);
 		setLustNoText(getRestingLust());
 		
-		//Companion initialization
+		//Companion initialisation
 		elementalSummoned = false;
 		elementalID = "";
 		companions = new ArrayList<>();
@@ -3299,7 +3299,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 		// ************** Artwork **************//
 
-		// Initialize artworks (name and femininity must be set at this point)
+		// Initialise artworks (name and femininity must be set at this point)
 		character.loadImages();
 
 		if (character.hasArtwork() && Main.getProperties().hasValue(PropertyValue.artwork)) {
@@ -5490,7 +5490,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	/**
-	 * Called when the player does something in relation to the value and it's important to the NPC. Override for custom behavior.
+	 * Called when the player does something in relation to the value and it's important to the NPC. Override for custom behaviour.
 	 * @param source
 	 * @param moral
 	 * @param power

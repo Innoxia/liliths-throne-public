@@ -10,11 +10,11 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public enum ForcedFetishTendency {
 	
-	BOTTOM_HEAVY("Bottoming+", "Forced fetishes will almost always add bottoming and remove topping activities and behaviors.", PresetColour.BASE_PINK_LIGHT),
-	BOTTOM("Bottoming", "While NPC tastes still matter, forced fetishes will usually add bottoming and remove topping activities and behaviors.", PresetColour.BASE_PINK),
+	BOTTOM_HEAVY("Bottoming+", "Forced fetishes will almost always add bottoming and remove topping activities and behaviours.", PresetColour.BASE_PINK_LIGHT),
+	BOTTOM("Bottoming", "While NPC tastes still matter, forced fetishes will usually add bottoming and remove topping activities and behaviours.", PresetColour.BASE_PINK),
 	NEUTRAL("Neutral", "Forced fetishes will be determined solely by the tastes and whims of the controlling NPC, and the inherent randomness of the universe.", PresetColour.ANDROGYNOUS),
-	TOP ("Topping", "While NPC tastes still matter, forced fetishes will usually add topping and remove bottoming activities and behaviors.", PresetColour.BASE_PURPLE_LIGHT),
-	TOP_HEAVY("Topping+", "Forced fetishes will almost always add topping and remove bottoming activities and behaviors.", PresetColour.BASE_PURPLE);
+	TOP ("Topping", "While NPC tastes still matter, forced fetishes will usually add topping and remove bottoming activities and behaviours.", PresetColour.BASE_PURPLE_LIGHT),
+	TOP_HEAVY("Topping+", "Forced fetishes will almost always add topping and remove bottoming activities and behaviours.", PresetColour.BASE_PURPLE);
 
 	private final String name;
 	private final String description;

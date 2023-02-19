@@ -9,7 +9,7 @@
 		<determiner><![CDATA[a pair of]]></determiner>
 		<name><![CDATA[kitty panties]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[kitty panties]]></namePlural> 
-		<description><![CDATA[A pair of tie-up, very low riding panties with a pair of stylized cat ears attached to the front.]]></description> 
+		<description><![CDATA[A pair of tie-up, very low riding panties with a pair of stylised cat ears attached to the front.]]></description> 
 		<physicalResistance>0</physicalResistance> 
 		<femininity>FEMININE</femininity> 
 		<slot>GROIN</slot> 

@@ -8,7 +8,7 @@
 		<determiner><![CDATA[a pair of]]></determiner>
 		<name appendColourName="true"><![CDATA[kitty gloves]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[kitty gloves]]></namePlural>
-		<description><![CDATA[A pair of plush gloves in the shape of stylized cat paws.]]></description>
+		<description><![CDATA[A pair of plush gloves in the shape of stylised cat paws.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<equipSlots>

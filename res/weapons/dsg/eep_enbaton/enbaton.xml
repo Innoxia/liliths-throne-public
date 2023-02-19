@@ -15,7 +15,7 @@
 		
 		<namePlural pluralByDefault="false"><![CDATA[Enforcer's Batons]]></namePlural> 
 		
-		<description><![CDATA[A standard issue baton for Enforcers. It is favored for its ability to collapse into a more discrete form factor but offers little in the way of defensive techniques.]]></description> 
+		<description><![CDATA[A standard issue baton for Enforcers. It is favoured for its ability to collapse into a more discrete form factor but offers little in the way of defensive techniques.]]></description> 
 		
 		<attackDescriptor>Bludgeon</attackDescriptor>
 		

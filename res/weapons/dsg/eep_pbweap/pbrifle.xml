@@ -16,7 +16,7 @@
 		
 		<namePlural pluralByDefault="false"><![CDATA[pepperball rifles]]></namePlural> 
 		
-		<description><![CDATA[This weapon uses an air spell to propel fin-stabilized capsules much farther than a conventional paintball marker. The capsules shatter on impact with auras, showering the immediate area with a pepper-based oil that produces an extremely painful burning sensation akin to being on fire.]]></description> 
+		<description><![CDATA[This weapon uses an air spell to propel fin-stabilised capsules much farther than a conventional paintball marker. The capsules shatter on impact with auras, showering the immediate area with a pepper-based oil that produces an extremely painful burning sensation akin to being on fire.]]></description> 
 		
 		<attackDescriptor>shoot</attackDescriptor>
 		
