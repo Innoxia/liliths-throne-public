@@ -4941,6 +4941,13 @@ public class Game implements XMLSaving {
 				npc.removeSlave(c);
 			}
 		}
+
+		for(NPC loopNpc : Main.game.getAllNPCs()) {
+			loopNpc.setAllAreasKnownByCharacter(npc, false);
+			loopNpc.setAffection(npc, 0f);
+		}
+		
+		//TODO Why are the unique checks necessary?
 		// Use separate loops so that we only check if the banished npc isUnique once
 		if(npc.isUnique()) {
 			for(NPC loopNpc : Main.game.getAllNPCs()) {

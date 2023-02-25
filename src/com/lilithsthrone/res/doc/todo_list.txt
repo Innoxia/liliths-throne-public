@@ -19,6 +19,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where you couldn't change your hairstyle in your room's 'Hairstyle & Makeup' menu. (by Maxis010)
 		Fixed bug where certain black-white colouring combinations wouldn't correctly identify someone as a panda-morph. (by CognitiveMist)
 		Fixed bug where the 'New Game' button would sometimes not work, requiring a game restart to get it working again. (PR#1752 by CognitiveMist)
+		Fixed issue where characters who were imported into a game would remain related to the player (or other characters by chance) if they were related to them in the save where they were exported. (PR#1743 by Maxis010)
 		
 	Engine/Modding:
 		Added 'FertilisationType' enum (game/character/pregnancy/FertilisationType.java) to track fertilisation type of Litters.
