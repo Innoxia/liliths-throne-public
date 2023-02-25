@@ -1513,6 +1513,7 @@ public abstract class GameCharacter implements XMLSaving {
 		boolean clearCombatHistory = Arrays.asList(settings).contains(CharacterImportSetting.CLEAR_COMBAT_HISTORY);
 		boolean clearSexHistory = Arrays.asList(settings).contains(CharacterImportSetting.CLEAR_SEX_HISTORY);
 		boolean removeRaceConcealed = Arrays.asList(settings).contains(CharacterImportSetting.REMOVE_RACE_CONCEALED);
+		boolean clearFamilyIDs = Arrays.asList(settings).contains(CharacterImportSetting.CLEAR_FAMILY_ID);
 		
 		// ************** Core information **************//
 		
@@ -2702,7 +2703,9 @@ public abstract class GameCharacter implements XMLSaving {
 		nodes = parentElement.getElementsByTagName("family");
 		Element familyElement = (Element) nodes.item(0);
 		if(familyElement!=null) {
-			character.setMother(((Element)familyElement.getElementsByTagName("motherId").item(0)).getAttribute("value"));
+			if (!clearFamilyIDs) {
+				character.setMother(((Element) familyElement.getElementsByTagName("motherId").item(0)).getAttribute("value"));
+			}
 			try {
 				character.motherName = (((Element)familyElement.getElementsByTagName("motherName").item(0)).getAttribute("value"));
 				character.motherFemininity = Femininity.valueOf(((Element)familyElement.getElementsByTagName("motherFemininity").item(0)).getAttribute("value"));
@@ -2710,7 +2713,9 @@ public abstract class GameCharacter implements XMLSaving {
 			} catch(Exception ex) {
 			}
 			
-			character.setFather(((Element)familyElement.getElementsByTagName("fatherId").item(0)).getAttribute("value"));
+			if (!clearFamilyIDs) {
+				character.setFather(((Element) familyElement.getElementsByTagName("fatherId").item(0)).getAttribute("value"));
+			}
 			try {
 				character.fatherName = (((Element)familyElement.getElementsByTagName("fatherName").item(0)).getAttribute("value"));
 				character.fatherFemininity = Femininity.valueOf(((Element)familyElement.getElementsByTagName("fatherFemininity").item(0)).getAttribute("value"));
@@ -2718,7 +2723,7 @@ public abstract class GameCharacter implements XMLSaving {
 			} catch(Exception ex) {
 			}
 			
-			if(familyElement.getElementsByTagName("incubatorId").getLength()>0) {
+			if(familyElement.getElementsByTagName("incubatorId").getLength()>0 && !clearFamilyIDs) {
 				character.setIncubator(((Element)familyElement.getElementsByTagName("incubatorId").item(0)).getAttribute("value"));
 			}
 			try {

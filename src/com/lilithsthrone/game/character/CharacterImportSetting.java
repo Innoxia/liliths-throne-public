@@ -25,6 +25,8 @@ public enum CharacterImportSetting {
 	
 	CLEAR_SEX_HISTORY,
 	
-	REMOVE_RACE_CONCEALED;
+	REMOVE_RACE_CONCEALED,
+	
+	CLEAR_FAMILY_ID;
 	
 }
