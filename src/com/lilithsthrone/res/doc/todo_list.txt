@@ -18,6 +18,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue in Meraxis's blowjob and cunnilingus sex scenes, where the game was checking for incorrect fetishes to determine when to end the sex scenes. (by Maxis010)
 		Fixed issue where you couldn't change your hairstyle in your room's 'Hairstyle & Makeup' menu. (by Maxis010)
 		Fixed bug where certain black-white colouring combinations wouldn't correctly identify someone as a panda-morph. (by CognitiveMist)
+		Fixed bug where the 'New Game' button would sometimes not work, requiring a game restart to get it working again. (PR#1752 by CognitiveMist)
 		
 	Engine/Modding:
 		Added 'FertilisationType' enum (game/character/pregnancy/FertilisationType.java) to track fertilisation type of Litters.
