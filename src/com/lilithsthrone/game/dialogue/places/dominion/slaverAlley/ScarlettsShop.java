@@ -383,6 +383,9 @@ public class ScarlettsShop {
 		SuccubisSecrets.initCoveringsMap(slave);
 	}
 	
+	private static boolean isFilly() {
+		return Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA) || Main.game.getPlayer().hasQuest(QuestLine.ROMANCE_NATALYA) || Main.game.getPlayer().hasItemType(ItemType.NATALYA_BUSINESS_CARD);
+	}
 	
 	public static final DialogueNode SCARLETTS_SHOP_EXTERIOR = new DialogueNode("", "", false) {
 		@Override
@@ -1500,9 +1503,19 @@ public class ScarlettsShop {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Introduction",
-						"Introduce yourself as the person this [natalya.race] is looking for, and then proceed to take delivery of the furniture which must be in the back of the cart.",
-						ROMANCE_PAINTING_FURNITURE_DELIVERY);
+				return new Response(
+						isFilly()
+							?"Greet Natalya"
+							:"Introduction",
+						isFilly()
+							?"Greet your Mistress and tell her that you're here to take delivery of the furniture which must be in the back of the cart."
+							:"Introduce yourself as the person this [natalya.race] is looking for, and then proceed to take delivery of the furniture which must be in the back of the cart.",
+						ROMANCE_PAINTING_FURNITURE_DELIVERY) {
+					@Override
+					public void effects() {
+						Main.game.getNpc(Helena.class).setPlayerKnowsName(true);
+					}
+				};
 			}
 			return null;
 		}
@@ -1555,35 +1568,50 @@ public class ScarlettsShop {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Remain", "Wait next to the cart for Natalya to return.", ROMANCE_PAINTING_FURNITURE_DELIVERY_END) {
-					@Override
-					public int getSecondsPassed() {
-						return 15*60;
-					}
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "ROMANCE_PAINTING_FURNITURE_DELIVERY_WAIT"));
-					}
-				};
-				
-			} else if(index==2) {
-				if(!Main.game.isAnalContentEnabled()) {
+			if(isFilly()) {
+				if(index==1) {
 					return new Response("Follow",
-							"You get the feeling that following Natalya down the alleyway would lead to something you'd rather not see..."
-									+ "<br/>[style.italicsMinorBad(Natalya's scenes involve anal content, and as such will be disabled for as long as your 'Anal Content' setting is turned off.)]",
-							null);
+							"Follow Mistress Natalya down the alleyway to see what she requires of you.",
+							ROMANCE_PAINTING_FURNITURE_DELIVERY_FOLLOW_SUBMIT) {
+						@Override
+						public void effects() {
+							Main.game.getNpc(Natalya.class).displaceClothingForAccess(CoverableArea.PENIS, null);
+							((Natalya)Main.game.getNpc(Natalya.class)).insertDildo();
+						}
+					};
 				}
-				return new Response("Follow",
-						"Follow Natalya down the alleyway and see what she's up to."
-								+ "<br/>[style.italicsSex(You get the feeling that you might see something quite lewd...)]",
-						ROMANCE_PAINTING_FURNITURE_DELIVERY_FOLLOW) {
-					@Override
-					public void effects() {
-						Main.game.getNpc(Natalya.class).displaceClothingForAccess(CoverableArea.PENIS, null);
-						((Natalya)Main.game.getNpc(Natalya.class)).insertDildo();
+				
+			} else {
+				if(index==1) {
+					return new Response("Remain", "Wait next to the cart for Natalya to return.", ROMANCE_PAINTING_FURNITURE_DELIVERY_END) {
+						@Override
+						public int getSecondsPassed() {
+							return 15*60;
+						}
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "ROMANCE_PAINTING_FURNITURE_DELIVERY_WAIT"));
+						}
+					};
+					
+				} else if(index==2) {
+					if(!Main.game.isAnalContentEnabled()) {
+						return new Response("Follow",
+								"You get the feeling that following Natalya down the alleyway would lead to something you'd rather not see..."
+										+ "<br/>[style.italicsMinorBad(Natalya's scenes involve anal content, and as such will be disabled for as long as your 'Anal Content' setting is turned off.)]",
+								null);
 					}
-				};
+					return new Response("Follow",
+							"Follow Natalya down the alleyway and see what she's up to."
+									+ "<br/>[style.italicsSex(You get the feeling that you might see something quite lewd...)]",
+							ROMANCE_PAINTING_FURNITURE_DELIVERY_FOLLOW) {
+						@Override
+						public void effects() {
+							Main.game.getNpc(Natalya.class).displaceClothingForAccess(CoverableArea.PENIS, null);
+							((Natalya)Main.game.getNpc(Natalya.class)).insertDildo();
+						}
+					};
+				}
 			}
 			return null;
 		}
@@ -1597,7 +1625,12 @@ public class ScarlettsShop {
 			}
 			Main.game.getNpc(Natalya.class).returnToHome();
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_C_EXTERIOR_DECORATOR));
-			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.NATALYA_BUSINESS_CARD), false));
+			if(!Main.game.getPlayer().isQuestFailed(QuestLine.ROMANCE_NATALYA)
+					&& !Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA)
+					&& !Main.game.getPlayer().hasQuest(QuestLine.ROMANCE_NATALYA)
+					&& !Main.game.getPlayer().hasItemType(ItemType.NATALYA_BUSINESS_CARD)) {
+				Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.NATALYA_BUSINESS_CARD), false));
+			}
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -1705,6 +1738,13 @@ public class ScarlettsShop {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Natalya.class), SexSlotStanding.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.PERFORMING_ORAL))) {
+							@Override
+							public SexControl getSexControl(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexControl.ONGOING_ONLY;
+								}
+								return super.getSexControl(character);
+							}
 							@Override
 							public boolean isAbleToSkipSexScene() {
 								return false;

@@ -843,5 +843,26 @@
 	</p>
 	]]>
 	</htmlContent>
+
+	<htmlContent tag="PROSTITUTE_REMOVAL_PAID"><![CDATA[
+	<p>
+		Wanting to give [npc.name] an opportunity to escape from working as a prostitute, you ask [npc.herHim] if [npc.sheIs] still trying to pay off the [#SPECIAL_PARSE_0] flame fine [npc.she] mentioned back in the alleyways. Letting out a wistful sigh, the [npc.race] responds, [npc.speech(Yes, but thanks to you, I no longer have a warrant out for my arrest. I still have to pay the fine, but at least I don't have to worry about going to prison.)]
+	</p>
+	<p>
+		[pc.Stepping] towards [npc.herHim], you offer [npc.name] the [#SPECIAL_PARSE_0] flames [npc.she] needs to pay off [npc.her] fine.
+	</p>
+	<p>
+		[npc.speech(Are you serious?!)] [npc.she] cries out in shock, before clasping [npc.her] [npc.hands] over [npc.her] mouth as [npc.she] sees the amount of flames which you're giving [npc.herHim]. After a moment, [npc.she] tentatively reaches out to take the money, almost as if [npc.she] expects you to pull it away a the last moment. No such thing is on your mind, however, and you let [npc.name] take the flames from you.
+	</p>
+	<p>
+		[npc.speech(I don't know what to say... Thank you! Thank you so much! I'm finally going to be able to get out of this city! I haven't been able to visit my family in so long!)] the [npc.race] sobs, crying tears of joy as [npc.she] looks [npc.heightUp(pc)] into your [pc.eyes] with a huge smile on [npc.her] face. Before you can react to her tearful display, [npc.she] manages to get [npc.her] emotions under control for long enough to seriously state, [npc.speech(But I don't have anything to give you in return... I don't think I could ever repay you...)]
+	</p>
+	<p>
+		Shaking your head as [npc.she] says this, you tell [npc.name] that the only repayment you require is for [npc.herHim] to get back on [npc.her] feet and to not let [npc.herself] get into such a bad position again. Nodding [npc.her] head in agreement, [npc.race] takes a deep breath and simply says, [npc.speech(Thank you, [pc.name].)]
+	</p>
+	<p>
+		With that, [npc.she] gives you one last hug, before turning away and swiftly running off to go and pay [npc.her] fine and settle [npc.her] business with Angel. Satisfied that you've done a good deed, you hold your head up high as you prepare to follow in [npc.namePos] footsteps and continue on your journey...
+	</p>
+	]]></htmlContent>
 	
 </dialogue>

@@ -200,7 +200,7 @@ public class Cultist extends NPC {
 		
 		clothingChoices.clear();
 		clothingChoices.add(ClothingType.getClothingTypeFromId("innoxia_chest_lacy_plunge_bra"));
-		clothingChoices.add(ClothingType.CHEST_PLUNGE_BRA);
+		clothingChoices.add(ClothingType.getClothingTypeFromId("innoxia_chest_plunge_bra"));
 		equipClothingFromNowhere(Main.game.getItemGen().generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
 		
 		clothingChoices.clear();
@@ -406,7 +406,7 @@ public class Cultist extends NPC {
 	
 	@Override
 	public String getCondomEquipEffects(AbstractClothingType condomClothingType, GameCharacter equipper, GameCharacter target, boolean rough) {
-		if(Main.game.isInSex()) {
+		if(!target.equals(equipper) && Main.game.isInSex()) {
 			if((Main.sex.isDom(Main.game.getPlayer()) || Main.sex.isSubHasEqualControl()) && !target.isPlayer()) {
 				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
 					return null;

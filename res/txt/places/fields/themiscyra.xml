@@ -712,7 +712,12 @@
 			#ENDIF
 		</p>
 		<p>
-			Seeing that all of the nearby centauresses, including Lunexis, have been distracted by the spectacle of Aurokaris losing her virginity, Ursa somehow manages to summon enough energy to pick up her spear and lunge at the demon leader. Caught completely by surprise, although Lunexis sees the attack coming, she doesn't have time to evade. Your hopes of a sudden reversal of fate are quickly dashed, however, as an ebony-skinned centauress manages to dart forwards and deliver a truly crushing blow to the Amazon queen. Having been the one to fell Ursa, this centauress boldly claims out loud, [style.speechFeminineStrong(I was the one to deliver the final blow! As is custom, I lay claim to this bitch!)]
+			#IF(aurokaris.isVaginaVirgin())
+				Seeing that all of the nearby centauresses, including Lunexis, have been distracted by the spectacle of Aurokaris losing her virginity,
+			#ELSE
+				Seeing that all of the nearby centauresses, including Lunexis, have been distracted by the spectacle of Aurokaris being broken in by her new owner's cock,
+			#ENDIF
+			 Ursa somehow manages to summon enough energy to pick up her spear and lunge at the demon leader. Caught completely by surprise, although Lunexis sees the attack coming, she doesn't have time to evade. Your hopes of a sudden reversal of fate are quickly dashed, however, as an ebony-skinned centauress manages to dart forwards and deliver a truly crushing blow to the Amazon queen. Having been the one to fell Ursa, this centauress boldly claims out loud, [style.speechFeminineStrong(I was the one to deliver the final blow! As is custom, I lay claim to this bitch!)]
 		</p>
 		<p>
 			Furiously pawing at the ground with her huge hoofs, Lunexis growls and snaps, [lunexis.speech(Such is Lunette's law. I grant you your right, but know that Ursa's cunt should have been mine!)]
@@ -1283,7 +1288,7 @@
 		[lunexis.speech(Do you really think that I'll fit through there?!)] Lunexis objects as she sees how narrow the passageway is.
 	</p>
 	<p>
-		Slapping Lunexis's flank, Usa growls, [ursa.speech(Don't you worry about it, we'll get you to fit.)]
+		Slapping Lunexis's flank, Ursa growls, [ursa.speech(Don't you worry about it, we'll get you to fit.)]
 	</p>
 	<p>
 		With that, the two Amazons show off their strength by manhandling the huge centauress into the passage with surprising ease. Ignoring the demon's insults and threats of retribution, they begin their descent, but not before Ursa has turned to look at you and say, [ursa.speech(You have my thanks for your timely arrival back in the plaza. Come and see me at our camp if ever you need anything.)]

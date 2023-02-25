@@ -15,7 +15,6 @@ import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -53,7 +52,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 public class Lab {
 	
 	public static boolean isLilayaAngryAtPlayerDemonTF() {
-		return Main.game.getPlayer().getTrueRace()==Race.DEMON
+		return Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")
 				&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN)
 				&& Main.game.getNpc(Lilaya.class).getSubspeciesOverride()!=Subspecies.DEMON;
 	}
@@ -1300,8 +1299,9 @@ public class Lab {
 							Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME);
 							((Arthur) Main.game.getNpc(Arthur.class)).generateNewTile();
 						}
-						if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya))
+						if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya)) {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.reactedToPregnancyLilaya, true);
+						}
 					}
 				};
 
@@ -1330,8 +1330,9 @@ public class Lab {
 						AUNT_HOME_LABORATORY_TESTING_HORNY_LILAYA){
 					@Override
 					public void effects() {
-						if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya))
+						if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya)) {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.reactedToPregnancyLilaya, true);
+						}
 					}
 				};
 

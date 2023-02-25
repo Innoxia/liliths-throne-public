@@ -563,11 +563,9 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		contentSB.append("<div class='container-full-width'>");
-		
 			contentSB.append("<div class='container-full-width' style='padding:0;'>");
 				contentSB.append("<p style='text-align:center; margin:0; padding:0;'><b>Fetishes</b></p>");
 				
-				// Like/dislike/owned
 				int i=0;
 				for(AbstractFetish fetish : Fetish.getAllFetishes()) {
 					if(fetish.isAvailable(BodyChanging.getTarget()) && fetish.getFetishesForAutomaticUnlock().isEmpty()) {
@@ -626,7 +624,7 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		contentSB.append("<div class='container-full-width'>"
-							+ "<div class='container-full-width' style='text-align:center;'><h6>Sex Actions Performed</h6></div>");
+							+ "<div class='container-full-width' style='text-align:center;'><b>Sex Actions Performed</b></div>");
 		
 			contentSB.append(
 							getSexExperienceEntry("HANDJOBS_GIVEN", "Handjobs Given",
@@ -656,7 +654,7 @@ public class CharacterModificationUtils {
 		contentSB.append("</div>");
 
 		contentSB.append("<div class='container-full-width'>"
-							+ "<div class='container-full-width' style='text-align:center;'><h6>Sex Actions Received</h6></div>");
+							+ "<div class='container-full-width' style='text-align:center;'><b>Sex Actions Received</b></div>");
 			contentSB.append(
 							(BodyChanging.getTarget().hasPenis()
 									?getSexExperienceEntry("HANDJOBS_TAKEN", "Handjobs Received",
@@ -3788,8 +3786,9 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		for(AbstractVaginaType vagina : VaginaType.getAllVaginaTypes()) {
-			if((vagina.getRace() !=null && availableRaces.contains(vagina.getRace()))
-					|| vagina==VaginaType.NONE) {
+			if(((vagina.getRace() !=null && availableRaces.contains(vagina.getRace()))
+					|| vagina==VaginaType.NONE)
+					&& vagina!=VaginaType.ONAHOLE) {
 				
 				Colour c = PresetColour.TEXT_GREY;
 				

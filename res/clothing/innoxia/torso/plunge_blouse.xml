@@ -30,37 +30,29 @@
 		
 		<blockedPartsList> 
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
 				<clothingAccessRequired> 
 					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
 				</clothingAccessRequired>
-				
 				<blockedBodyParts>
 					<bodyPart>BACK</bodyPart>
 					<bodyPart>ARMPITS</bodyPart>
 				</blockedBodyParts>
-				
 				<clothingAccessBlocked/>
-				
 				<concealedSlots/>
 			</blockedParts>
 			
 			<blockedParts>
-				<displacementType>UNTIE</displacementType> 
-				
+				<displacementType>UNTIE</displacementType>
 				<clothingAccessRequired/>
-				
 				<blockedBodyParts>
 					<bodyPart>NIPPLES</bodyPart>
 					<bodyPart>STOMACH</bodyPart>
 				</blockedBodyParts>
-				
 				<clothingAccessBlocked>
 					<clothingAccess>CHEST</clothingAccess>
 					<clothingAccess>WAIST</clothingAccess>
 				</clothingAccessBlocked>
-				
 				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
 			</blockedParts>
 			

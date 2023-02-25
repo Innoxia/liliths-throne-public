@@ -129,15 +129,17 @@
  	    Deciding that you'd like to summon Rose to this room, you [pc.step] over to the bell-pull and give it a tug. Although no ringing noise can be heard from where you're standing, the bell-pull is quite clearly working correctly, as after just a couple of minutes Lilaya's cat-girl maid rushes into the room. Performing a little curtsy, she asks, [rose.speech(Do you require my services, [pc.name]?)]
     </p>
 	<p>
-		#IF(!flags.hasFlag(FLAG_acexp_dungeon_sex))
+		#IF(!flags.hasFlag(FLAG_acexp_dungeon_sex_revealed))
 			Before you can reply, she gestures towards the nearby pillory, and with a sinister smirk on her face, she asks,
 			#IF(pc.hasFetish(FETISH_MASOCHIST)||pc.hasFetish(FETISH_SUBMISSIVE)||pc.hasFetish(FETISH_BONDAGE_VICTIM))
 				 [rose.speech(Perhaps you'd like me to show you a good time? I think I know just the thing for you. You'd really like me to dominate you by putting you in those stocks, wouldn't you?)]
 			#ELSE
 				 [rose.speech(Perhaps you'd like me to show you a good time? I have something in mind, but I think that you might not like it... How would you feel if I were to put you in those stocks and dominate you?)]
 			#ENDIF
-		#ELSE
+		#ELSEIF(!flags.hasFlag(FLAG_acexp_dungeon_sex))
 			Before you can reply, she gestures towards the nearby pillory, and with a sinister smirk on her face, she asks, [rose.speech(Perhaps you'd like me to dominate you in those stocks again?)]
+		#ELSE
+			Before you can reply, she warns, [rose.speech(I don't have time to play with you again today. If you want another session in the stocks, it'll have to wait until tomorrow.)]
 		#ENDIF
 	</p>
 	]]>

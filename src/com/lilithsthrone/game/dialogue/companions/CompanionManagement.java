@@ -898,17 +898,37 @@ public class CompanionManagement {
 			UtilText.nodeContentSB.append("<div style='width:100%;margin-top:8px;'><b>Time Slots</b></div>");
 			float stamina = character.getDailySlaveJobStamina();
 			for(int i=0 ; i< 24; i++) {
-				Colour c = character.getSlaveJob(i).getColour();
+				Colour colour = character.getSlaveJob(i).getColour();
+				Colour borderColour = colour;
+				Colour backgroundColour = colour;
+				String background = "background:"+backgroundColour.getShades()[0]+";";
+//				if(character.isSleepingAtHour(i)) {
+////					colour = PresetColour.BASE_PURPLE_DARK;
+////					background = "background:"+PresetColour.BASE_PURPLE.getShades()[0]+";";
+////					String c1 = backgroundColour.getShades()[0];
+////					String c2 = PresetColour.BASE_PURPLE_LIGHT.getShades()[0];
+////					background = "background: repeating-linear-gradient(135deg, "+c1+", "+c1+" 10px, "+c2+" 10px, "+c2+" 20px);";
+//				}
 				SlaveJob jobSelected = Main.game.getDialogueFlags().getSlaveryManagerJobSelected();
 				
 				if(!jobSelected.isAvailable(i, character) || stamina-jobSelected.getHourlyStaminaDrain()+character.getSlaveJob(i).getHourlyStaminaDrain()<0f) {
 					UtilText.nodeContentSB.append(
-							"<div class='normal-button hour disabled' style='background:"+c.getShades()[0]+";border-color:"+c.toWebHexString()+";color:"+c.getShades()[4]+";' id='"+i+"_WORK_DISABLED'>");
+							"<div class='normal-button hour disabled' style='"+background+"border-color:"+borderColour.toWebHexString()+";color:"+colour.getShades()[4]+";' id='"+i+"_WORK_DISABLED'>");
 				} else {
 					UtilText.nodeContentSB.append(
-							"<div class='normal-button hour' style='background:"+c.getShades()[0]+";border-color:"+c.toWebHexString()+";color:"+c.getShades()[4]+";' id='"+i+"_WORK'>");
+							"<div class='normal-button hour' style='"+background+"border-color:"+borderColour.toWebHexString()+";color:"+colour.getShades()[4]+";' id='"+i+"_WORK'>");
 				}
-				UtilText.nodeContentSB.append(String.format("%02d", i)+":00</div>");
+				UtilText.nodeContentSB.append(String.format("%02d", i)+":00");
+				if(character.isSleepingAtHour(i)) { // Sleeping indication via 'zzZ'
+					String stroke = "text-shadow:"
+									+ "1px 1px 0 #000,"
+									+ "-1px -1px 0 #000, "
+									+ "1px -1px 0 #000,"
+									+ "-1px 1px 0 #000,"
+									+ "1px 1px 0 #000;";
+					UtilText.nodeContentSB.append("<b class='hotkey-icon' style='color:"+PresetColour.SLEEP.toWebHexString()+";"+stroke+"'><span style='font-size:0.8em;'>z</span>zZ</b>");
+				}
+				UtilText.nodeContentSB.append("</div>");
 			}
 			UtilText.nodeContentSB.append(
 								"<div style='width:100%;margin-top:8px;'>"

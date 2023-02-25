@@ -101,8 +101,8 @@
 				<sexArea><![CDATA[ORIFICE_ANUS]]></sexArea>
 			</areasBanned>
 			<stopSexCondition><![CDATA[
-				#IF(!meraxis.hasFetish(FETISH_ORAL_PERFORMING))
-					[#sex.isOrgasmCountMet(pc, 1, true)]
+				#IF(!meraxis.hasFetish(FETISH_ORAL_GIVING))
+					[#sex.isOrgasmCountMet(meraxis, 1, true)]
 				#ELSE
 					[#sex.isSatisfiedFromOrgasms(pc, true) && sex.isSatisfiedFromOrgasms(meraxis, true)]
 				#ENDIF

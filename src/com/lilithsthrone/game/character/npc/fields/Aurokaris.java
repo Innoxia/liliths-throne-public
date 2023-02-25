@@ -250,7 +250,7 @@ public class Aurokaris extends NPC {
 		this.equipMainWeapon(Main.game.getItemGen().generateWeapon("innoxia_spear_dory", DamageType.FIRE), 0, false);
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_peplos", PresetColour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_fullcup_bra", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_panties", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_hair_accessories_hair_celtic_barrette", PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_SILVER, false), true, this);

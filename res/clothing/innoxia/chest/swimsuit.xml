@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>250</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[one-piece swimsuit]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[one-piece swimsuits]]></namePlural>
+		<description><![CDATA[A sporty one-piece swimsuit.]]></description>
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity>
+		<slot>CHEST</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>swimsuit.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots>
+					<slot>PIERCING_STOMACH</slot>
+				</concealedSlots>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>SHIFTS_ASIDE</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots>
+					<slot>PENIS</slot>
+					<slot>VAGINA</slot>
+					<slot>PIERCING_PENIS</slot>
+					<slot>PIERCING_VAGINA</slot>
+				</concealedSlots>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_DOWN</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots>
+					<slot>NIPPLE</slot>
+					<slot>PIERCING_NIPPLE</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		
+        <incompatibleSlots>
+            <slot>GROIN</slot>
+            <slot>STOMACH</slot>
+        </incompatibleSlots>
+		
+		<primaryColours values="ALL"/>
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(step)] into the swimsuit and [npc.verb(pull)] it up to cover [npc.her] torso.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(guide)] [npc2.name] into the swimsuit and [npc.verb(pull)] it up over [npc2.her] torso.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(guide)] [npc2.name] into the swimsuit and [npc.verb(yank)] it up over [npc2.her] torso.]]>
+	  </otherRough>
+	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the swimsuit's straps down [npc.her] [npc.arms] and [npc.verb(tug)] it off [npc.her] [npc.legs].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the swimsuit's straps down [npc2.namePos] [npc2.arms] and [npc.verb(tug)] it off [npc2.her] [npc2.legs].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(yank)] the swimsuit's straps down [npc2.namePos] [npc2.arms] and [npc.verb(tug)] it off [npc2.her] [npc2.legs].]]>
+		</otherRough>
+	</displacementText>
+	
+	<displacementText type="PULLS_DOWN">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] down the top half of [npc.her] swimsuit.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] down the top half of [npc2.namePos] swimsuit.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] down the top half of [npc2.namePos] swimsuit.]]>
+	  </otherRough>
+	</displacementText>
+	<replacementText type="PULLS_DOWN">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] swimsuit up into its correct position.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] swimsuit up into its correct position.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] swimsuit up into its correct position.]]>
+		</otherRough>
+	</replacementText>
+	
+	<displacementText type="SHIFTS_ASIDE">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the lower part of [npc.her] swimsuit to one side.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the lower part of [npc2.namePos] swimsuit to one side.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] the lower part of [npc2.namePos] swimsuit to one side.]]>
+	  </otherRough>
+	</displacementText>
+	<replacementText type="SHIFTS_ASIDE">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the lower part of [npc.her] swimsuit back into its correct position.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the lower part of [npc2.namePos] swimsuit back into its correct position.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] the lower part of [npc2.namePos] swimsuit back into its correct position.]]>
+		</otherRough>
+	</replacementText>
+</clothing>

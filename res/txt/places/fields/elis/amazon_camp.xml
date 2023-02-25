@@ -1024,7 +1024,7 @@
 	
 	<htmlContent tag="LUNEXIS_QUESTION"><![CDATA[
 	<p>
-		Deciding to try the obvious, you start by simply asking Lunexis what she knows of Lunette's plans. Predictably, the demon offers you noting but angry curses and threats of violence. Although you persist in your questioning for a short while, the most useful piece of information you get is when the centauress declares, [lunexis.speech(Once mother finds out who's responsible for my abduction, she's going to march on Elis and raze this wretched town to the ground! You'll be begging to be my cock-sleeve before she's done with you!)]
+		Deciding to try the obvious, you start by simply asking Lunexis what she knows of Lunette's plans. Predictably, the demon offers you nothing but angry curses and threats of violence. Although you persist in your questioning for a short while, the most useful piece of information you get is when the centauress declares, [lunexis.speech(Once mother finds out who's responsible for my abduction, she's going to march on Elis and raze this wretched town to the ground! You'll be begging to be my cock-sleeve before she's done with you!)]
 	</p>
 	<p>
 		Not giving up just yet, you try several different tactics in trying to get Lunexis to reveal what she knows to you. As stubborn as she is loud, the centauress doesn't give you any useful information, and you soon begin to suspect that she may actually not know much at all. With this impression being reinforced by several idiotic comments that the demon makes, you finally realise that Lunexis is all brawn and no brains, and that any further attempts at questioning her are completely pointless.
@@ -1053,7 +1053,7 @@
 		Ignoring her demands, you continue rubbing, patting, and stroking her for some time, calling her a 'good horsie' now and then to cause her some additional embarrassment. Eventually, this treatment proves to be too much for Lunexis to bear, and she frantically declares, [lunexis.speech(I don't know anything! Lunette's going to attack to save me, but other than that I don't know! Now stop this! You'll pay for this! Cease!)]
 	</p>
 	<p>
-		Sensing some sincerity in Lunexis's admission that she knows nothing, you decide to bring this treatment to and end, and so after giving her belly one last good rub, you pat her flank and [pc.step] back, wondering what to do with her next...
+		Sensing some sincerity in Lunexis's admission that she knows nothing, you decide to bring this treatment to an end, and so after giving her belly one last good rub, you pat her flank and [pc.step] back, wondering what to do with her next...
 	</p>
 	]]>
 	</htmlContent>
@@ -1301,7 +1301,7 @@
 	</p>
 	<p>
 		#IF(lunexis.isSatisfiedFromLastSex())
-			[lunexis.speech(Fuck you...)] the centauress pants, but despite her hostile words you can tell from the toe in her voice that you've thoroughly satisfied her. To confirm this, as you finish getting yourself sorted out, she snaps, [lunexis.speech(You'd better come back and do this with me again, or else!)]
+			[lunexis.speech(Fuck you...)] the centauress pants, but despite her hostile words you can tell from the tone in her voice that you've thoroughly satisfied her. To confirm this, as you finish getting yourself sorted out, she snaps, [lunexis.speech(You'd better come back and do this with me again, or else!)]
 		#ELSE
 			[lunexis.speech(You couldn't even satisfy me, you worthless cunt...)] the centauress pants. Despite her words, she soon betrays her desire for another round of this, for as you finish getting yourself sorted out, she snaps, [lunexis.speech(You'd better come back again and do it properly next time, or else!)]
 		#ENDIF

@@ -13,6 +13,9 @@
 			<flag dailyReset="false">alleyway_submission_tattooed_ass</flag>
 			<flag dailyReset="false">alleyway_transformations_applied</flag>
 	
+	<!-- Submission:-->
+		<flag dailyReset="false">elizabeth_routine_started</flag>
+	
 	<!-- Meraxis: -->
 	
 		<!-- Sex flags -->
@@ -32,7 +35,16 @@
 			<flag dailyReset="false">meraxis_duel_reward_money</flag>
 			<flag dailyReset="false">meraxis_duel_reward_transform</flag>
 			<flag dailyReset="false">meraxis_duel_reward_sex</flag>
-	
+
+	<!-- Lilin Relations: -->
+		<flag dailyReset="false">child_of_lyssieth</flag>
+		<flag dailyReset="false">child_of_lunette</flag>
+		<flag dailyReset="false">child_of_lirecea</flag>
+		<flag dailyReset="false">child_of_lovienne</flag>
+		<flag dailyReset="false">child_of_lasielle</flag>
+		<flag dailyReset="false">child_of_lyxias</flag>
+		<flag dailyReset="false">child_of_lisophia</flag>
+		<flag dailyReset="false">child_of_lilith</flag>
 	
 	<!-- Foloi Fields: -->
 		
@@ -51,6 +63,7 @@
 			<flag dailyReset="false">vronti_anilingus_given</flag>
 			<flag dailyReset="false">vronti_anal_sex_given</flag>
 			<flag dailyReset="false">astrapi_not_shaving</flag>
+			<flag dailyReset="false">astrapi_impregnation_talk</flag>
 			
 		<!-- Evelyx's Dairy: -->
 			<flag dailyReset="true">dale_talk_himself</flag>

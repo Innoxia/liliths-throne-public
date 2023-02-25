@@ -34,6 +34,11 @@
 	This is only used for demons, and should always be left as 0 unless you know what you're doing. -->
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
 	
+	<!-- The nocturnal behaviour of this subspecies.
+	If this value is omitted, then it will default to DIURNAL.
+	Nocturnality values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/Nocturnality.java -->
+	<nocturnality>NOCTURNAL</nocturnality>
+	
 	<!-- Whether this race is of a small stature or not.
 	If set to true, then this race is limited to the game's smallest height categories (as is the case for imps). -->
 	<shortStature>false</shortStature>
@@ -69,6 +74,7 @@
 	<!-- This conditional statement determines if a body is detected as being an instance of this subspecies.
 	It should return an integer value, with 0 being returned if this subspecies' requirements are not met by the supplied body/race.
 	You should usually return a value of 100 if the requirements are met, or something higher if this subspecies should have a higher priority than other subspecies which may also detect this body as being an instance of their subspecies.
+	Note that slimes have a weighting of 10,000 to ensure that it always takes priority (as slimes are a special case), but your values should really be 100 or maybe slightly higher to take priority over other subspecies of the same race.
 	The body that's being checked can be accessed via using 'targetedBody'.
 	The race of the body that's being checked SHOULD NOT be accessed via targetedBody.getRace(), and should instead be accessed via using 'targetedRace'. -->
 	<subspeciesWeighting><![CDATA[
@@ -265,7 +271,7 @@
 	</worldLocations>
 	
 	<!-- The place types in which this subspecies can spawn.
-	The text inside the 'world' element corresponds to a WorldType as found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/world/WorldType.java 
+	The text inside the 'place' element corresponds to a WorldType as found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/world/WorldType.java 
 	The 'rarity' field corresponds to a SubspeciesSpawnRarity, values of which can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesSpawnRarity.java
 	This can be left blank, but if no 'regionLocations' or 'worldLocations' are defined, then this subspecies will never spawn as a randomly-encountered subspecies.
 	-->

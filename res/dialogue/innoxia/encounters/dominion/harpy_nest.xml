@@ -1560,7 +1560,7 @@
 					#IF(game.isAnalContentEnabled() && pc.getTattooInSlot(IS_TORSO_UNDER)==null && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
 						[#flags.setFlag(FLAG_innoxia_alleyway_submission_tattooed_ass, true)]
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/dominion/harpyAttack', 'SUBMITTED_REPEAT_TATTOOED_ASS'))]
-						[#pc.addTattoo(IS_TORSO_UNDER, TATTOO_TRIBAL, COLOUR_CLOTHING_BLACK, COLOUR_CLOTHING_BLACK, COLOUR_CLOTHING_BLACK, false)]
+						[#pc.addTattoo(IS_TORSO_UNDER, TATTOO_innoxia_symbol_tribal, COLOUR_CLOTHING_BLACK, COLOUR_CLOTHING_BLACK, COLOUR_CLOTHING_BLACK, false)]
 						[#pc.getTattooInSlot(IS_TORSO_UNDER).setWriting('Property of '+[npc.name], COLOUR_CLOTHING_BLACK, false)]
 					#ENDIF
 					#IF(pc.getTattooInSlot(IS_GROIN)==null && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))

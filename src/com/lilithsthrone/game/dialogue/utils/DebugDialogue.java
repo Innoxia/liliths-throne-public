@@ -39,6 +39,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
+import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -1171,9 +1172,14 @@ public class DebugDialogue {
 			
 			inventorySB.append("<div class='container-full-width'>");
 			
-			for(AbstractSetBonus sb : SetBonus.allSetBonuses) {
-				inventorySB.append("<div class='normal-button' id='SET_BONUS_"+SetBonus.getIdFromSetBonus(sb)+"' style='width:23%; margin:1%; padding:2px; font-size:0.9em; color:"+sb.getAssociatedStatusEffect().getColour().toWebHexString()+";'>");
+			List<AbstractSetBonus> bonuses = new ArrayList<>(SetBonus.allSetBonuses);
+			bonuses.sort((sb1, sb2) -> sb1.getName().compareTo(sb2.getName()));
+			
+			for(AbstractSetBonus sb : bonuses) {
+				inventorySB.append("<div class='normal-button' id='SET_BONUS_"+SetBonus.getIdFromSetBonus(sb)+"' style='text-align:center;width:23%; margin:1%; padding:2px; font-size:0.9em;'>");
+				inventorySB.append("<b style='color:"+sb.getAssociatedStatusEffect().getColour().toWebHexString()+";'>#</b>");
 				inventorySB.append(sb.getName());
+				inventorySB.append("<b style='color:"+sb.getAssociatedStatusEffect().getColour().toWebHexString()+";'>#</b>");
 				inventorySB.append("</div>");
 			}
 			
@@ -1547,6 +1553,18 @@ public class DebugDialogue {
 							
 							if(subspecies==Subspecies.DEMON) {
 								stage = RaceStage.GREATER;
+								
+								DialogueFlags dialogueFlags = Main.game.getDialogueFlags();
+								if(!dialogueFlags.hasFlag("innoxia_child_of_lyssieth")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lunette")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lirecea")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lovienne")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lasielle")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lyxias")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lisophia")
+										&& !dialogueFlags.hasFlag("innoxia_child_of_lilith")){
+									Main.game.getDialogueFlags().setFlag("innoxia_child_of_lyssieth", true);
+								}
 							}
 							
 							Main.game.getCharacterUtils().reassignBody(
@@ -1678,11 +1696,14 @@ public class DebugDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Parse!", "Parse the text you've entered.", PARSER){
+				return new ResponseEffectsOnly("Parse!", "Parse the text you've entered."){
 					@Override
 					public void effects() {
 						rawText = (String) Main.mainController.getWebEngine().executeScript("document.getElementById('parseInput').value");
 						parsedText = UtilText.parse(rawText);
+						if(Main.game.getCurrentDialogueNode()==PARSER) {
+							Main.game.setContent(new Response("", "", PARSER));
+						}
 					}
 				};
 				

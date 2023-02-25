@@ -1,8 +1,10 @@
-package com.lilithsthrone.game.character;
+package com.lilithsthrone.game.character.pregnancy;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
+import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -19,7 +21,7 @@ import java.util.Map.Entry;
 
 /**
  * @since 0.1.62
- * @version 0.4
+ * @version 0.4.7.1
  * @author Innoxia, orvail
  */
 public class Litter implements XMLSaving {
@@ -39,6 +41,8 @@ public class Litter implements XMLSaving {
 	private int sonsFather;
 	private int daughtersFather;
 	
+	private FertilisationType fertilisationType;
+	
 	private List<String> offspring;
 	
 	private String birthedDescription;
@@ -46,12 +50,14 @@ public class Litter implements XMLSaving {
 	private AbstractSubspecies motherRace;
 	private AbstractSubspecies fatherRace;
 
-	public Litter(LocalDateTime conceptionDate, LocalDateTime birthDate, GameCharacter mother, GameCharacter father, List<OffspringSeed> offspring) {
+	public Litter(LocalDateTime conceptionDate, LocalDateTime birthDate, GameCharacter mother, GameCharacter father, FertilisationType fertilisationType, List<OffspringSeed> offspring) {
 		this.id = mother.getId()+mother.getLittersGenerated();
 		
 		this.conceptionDate = LocalDateTime.of(conceptionDate.getYear(), conceptionDate.getMonth(), conceptionDate.getDayOfMonth(), 12, 0);
 		this.birthDate = LocalDateTime.of(birthDate.getYear(), birthDate.getMonth(), birthDate.getDayOfMonth(), 12, 0);
 		this.incubationStartDate = null;
+		
+		this.fertilisationType = fertilisationType;
 		
 		motherId = mother.getId();
 		motherRace = mother.getSubspecies();
@@ -94,6 +100,7 @@ public class Litter implements XMLSaving {
 			LocalDateTime conceptionDate,
 			LocalDateTime birthDate,
 			String motherId, String fatherId,
+			FertilisationType fertilisationType,
 			int sonsMother, int daughtersMother,
 			int sonsFather, int daughtersFather,
 			List<String> offspring,
@@ -108,6 +115,8 @@ public class Litter implements XMLSaving {
 		this.motherId = motherId;
 		this.fatherId = fatherId;
 		incubatorId = "";
+
+		this.fertilisationType = fertilisationType;
 		
 		this.sonsMother = sonsMother;
 		this.daughtersMother = daughtersMother;
@@ -146,7 +155,8 @@ public class Litter implements XMLSaving {
 		XMLUtil.addAttribute(doc, element, "motherId", this.getMotherId());
 		XMLUtil.addAttribute(doc, element, "fatherId", this.getFatherId());
 		XMLUtil.addAttribute(doc, element, "incubatorId", this.getIncubatorId());
-		
+
+		XMLUtil.addAttribute(doc, element, "fertilisationType", this.getFertilisationType().toString());
 		
 		XMLUtil.addAttribute(doc, element, "sonsMother", String.valueOf(this.getSonsFromMother()));
 		XMLUtil.addAttribute(doc, element, "daughtersMother", String.valueOf(this.getDaughtersFromMother()));
@@ -243,6 +253,7 @@ public class Litter implements XMLSaving {
 				loadedBirthDate,
 				parentElement.getAttribute("motherId"),
 				parentElement.getAttribute("fatherId"),
+				FertilisationType.NORMAL,
 				Integer.valueOf(parentElement.getAttribute("sonsMother")),
 				Integer.valueOf(parentElement.getAttribute("daughtersMother")),
 				Integer.valueOf(parentElement.getAttribute("sonsFather")),
@@ -255,7 +266,11 @@ public class Litter implements XMLSaving {
 		if(parentElement.hasAttribute("incubatorId")) {
 			litter.setIncubatorId(parentElement.getAttribute("incubatorId"));
 		}
-		
+
+		if(parentElement.hasAttribute("fertilisationType")) {
+			litter.setFertilisationType(FertilisationType.valueOf(parentElement.getAttribute("fertilisationType")));
+		}
+
 		if(loadedIncubationStartDate!=null) {
 			litter.setIncubationStartDate(loadedIncubationStartDate);
 		}
@@ -355,6 +370,14 @@ public class Litter implements XMLSaving {
 		return this.fatherId.equals(fatherId);
 	}
 	
+	public FertilisationType getFertilisationType() {
+		return fertilisationType;
+	}
+
+	public void setFertilisationType(FertilisationType fertilisationType) {
+		this.fertilisationType = fertilisationType;
+	}
+	
 	/**
 	 * This is currently unused, as usually offspring may be both GameCharacter and OffspringSeed classes.
 	 * To access all offspring, use getOffspring which returns the Id of the offspring as a string, and then check which one it is.
@@ -426,21 +449,34 @@ public class Litter implements XMLSaving {
 	
 	public void generateBirthedDescription() {
 		Map<String, Integer> sons = new HashMap<>();
+		Map<String, Integer> feralSons = new HashMap<>();
 		Map<String, Integer> daughters = new HashMap<>();
+		Map<String, Integer> feralDaughters = new HashMap<>();
+		String feralString = "<b style='color:" + RaceStage.FERAL.getColour().toWebHexString() + ";'>" + RaceStage.FERAL.getName() + "</b>";
 		
 		for(String id : this.getOffspring()) {
 			try {
 				
-				OffspringSeed character = Main.game.getOffspringSeedById(id);
-				AbstractSubspecies subspecies = character.getSubspecies();
-				if(character.isFeminine()) {
-					String nameId = subspecies.getSingularFemaleName(character.getBody())+"|"+subspecies.getPluralFemaleName(character.getBody());
-					daughters.putIfAbsent(nameId, 0);
-					daughters.put(nameId, daughters.get(nameId)+1);
+				OffspringSeed offspring = Main.game.getOffspringSeedById(id);
+				AbstractSubspecies subspecies = offspring.getSubspecies();
+				if(offspring.isFeminine()) {
+					String nameId = subspecies.getSingularFemaleName(offspring.getBody())+"|"+subspecies.getPluralFemaleName(offspring.getBody());
+					if(offspring.isFeral()) {
+						feralDaughters.putIfAbsent(nameId, 0);
+						feralDaughters.put(nameId, feralDaughters.get(nameId)+1);
+					} else {
+						daughters.putIfAbsent(nameId, 0);
+						daughters.put(nameId, daughters.get(nameId)+1);
+					}
 				} else {
-					String nameId = subspecies.getSingularMaleName(character.getBody())+"|"+subspecies.getPluralMaleName(character.getBody());
-					sons.putIfAbsent(nameId, 0);
-					sons.put(nameId, sons.get(nameId)+1);
+					String nameId = subspecies.getSingularMaleName(offspring.getBody())+"|"+subspecies.getPluralMaleName(offspring.getBody());
+					if(offspring.isFeral()) {
+						feralSons.putIfAbsent(nameId, 0);
+						feralSons.put(nameId, feralSons.get(nameId)+1);
+					} else {
+						sons.putIfAbsent(nameId, 0);
+						sons.put(nameId, sons.get(nameId)+1);
+					}
 				}
 			} catch (Exception e) {
 			}
@@ -455,8 +491,22 @@ public class Litter implements XMLSaving {
 							: entry.getKey().split("\\|")[0])
 						+"</b>");
 		}
+		for(Entry<String, Integer> entry : feralSons.entrySet()) {
+			entries.add("<b>"+Util.intToString(entry.getValue())+"</b> "+feralString+" <b style='color:"+ PresetColour.MASCULINE.toWebHexString()+ ";'>"
+						+(entry.getValue() > 1
+							? entry.getKey().split("\\|")[1]
+							: entry.getKey().split("\\|")[0])
+						+"</b>");
+		}
 		for(Entry<String, Integer> entry : daughters.entrySet()) {
 			entries.add("<b>"+Util.intToString(entry.getValue())+"</b> <b style='color:"+ PresetColour.FEMININE.toWebHexString()+ ";'>"
+						+(entry.getValue() > 1
+							? entry.getKey().split("\\|")[1]
+							: entry.getKey().split("\\|")[0])
+						+"</b>");
+		}
+		for(Entry<String, Integer> entry : feralDaughters.entrySet()) {
+			entries.add("<b>"+Util.intToString(entry.getValue())+"</b> "+feralString+" <b style='color:"+ PresetColour.FEMININE.toWebHexString()+ ";'>"
 						+(entry.getValue() > 1
 							? entry.getKey().split("\\|")[1]
 							: entry.getKey().split("\\|")[0])

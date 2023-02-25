@@ -1524,13 +1524,35 @@ public class LilayaSpa {
 				for(int i=0 ; i<slavesSexNoNulls.size() && i<bathingSlots.length; i++) {
 					slaveSlots.put(slavesSexNoNulls.get(i), bathingSlots[i]);
 				}
-				UtilText.addSpecialParsingString(String.valueOf(slavesSexNoNulls.size()), true);
-				return new ResponseSex("Sex",
-						slavesSexNoNulls.size()==1
+//				UtilText.addSpecialParsingString(String.valueOf(slavesSexNoNulls.size()), true);
+				List<GameCharacter> notAttractedList = new ArrayList<>();
+				List<String> notAttractedNamesList = new ArrayList<>();
+				
+				for(GameCharacter slaveTarget : slavesSexNoNulls) {
+					if(!slaveTarget.isAttractedTo(Main.game.getPlayer())) {
+						notAttractedList.add(slaveTarget);
+						notAttractedNamesList.add(UtilText.parse(slaveTarget, "[npc.name]"));
+					}
+				}
+				
+				if(!Main.game.isNonConEnabled() && !notAttractedList.isEmpty()) {
+					return new Response("Sex",
+							notAttractedList.size()==1
+								?UtilText.parse(notAttractedList.get(0), "[npc.Name] is not attracted to you, and so [npc.she] isn't willing to let you have sex with [npc.herHim]...")
+								:Util.stringsToStringList(notAttractedNamesList, true)+" are not attracted to you, and so they aren't willing to let you have sex with them...",
+							null);
+				}
+				return new ResponseSex(slavesSexNoNulls.stream().anyMatch(c->!c.isAttractedTo(Main.game.getPlayer()))?"Rape":"Sex",
+						(slavesSexNoNulls.size()==1
 							?UtilText.parse(slavesSexNoNulls, "Have dominant sex with [npc.name].")
 							:(slavesSexNoNulls.size()==2
 								?UtilText.parse(slavesSexNoNulls, "Have dominant sex with [npc.name] while [npc2.name] sits beside you.")
-								:UtilText.parse(slavesSexNoNulls, "Have dominant sex with [npc.name] while [npc2.name] and [npc3.name] sit beside you.")),
+								:UtilText.parse(slavesSexNoNulls, "Have dominant sex with [npc.name] while [npc2.name] and [npc3.name] sit beside you.")))
+						+(notAttractedList.isEmpty()
+							?""
+							:(notAttractedList.size()==1
+								?UtilText.parse(notAttractedList.get(0), "<br/>[style.italicsBad([npc.Name] is not attracted to you, and so would consider this to be rape...)]")
+								:"<br/>[style.italicsBad("+Util.stringsToStringList(notAttractedNamesList, true)+" are not attracted to you, and so would consider this to be rape...)]")),
 						true, false,
 						new SMBath(SexPosition.SITTING,
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING)),
@@ -1543,10 +1565,11 @@ public class LilayaSpa {
 						null,
 						null,
 						BATHING_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_CORE_BATHING_SEX_DOM", slavesSexNoNulls)) {
+						"") {
 					@Override
 					public void effects() {
 						UtilText.addSpecialParsingString(String.valueOf(slavesSexNoNulls.size()), true);
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_CORE_BATHING_SEX_DOM", slavesSexNoNulls));
 					}
 				};
 				
@@ -1586,10 +1609,11 @@ public class LilayaSpa {
 						null,
 						null,
 						BATHING_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_CORE_BATHING_SEX_SUB", attractedSlaves)) {
+						"") {
 					@Override
 					public void effects() {
 						UtilText.addSpecialParsingString(String.valueOf(attractedSlaves.size()), true);
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_CORE_BATHING_SEX_SUB", attractedSlaves));
 					}
 				};
 			}

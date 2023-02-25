@@ -826,7 +826,7 @@
 	</p>
 	#IF(!npc.isMute())
 		<p>
-			[npc.speech(What?)] the [npc.race] asks in confusion, clearly caught off-guard by your question. With a suspicious look in [npc.her] [npc.eyes+], [npc.she] hesitantly asks, [npc.speech(This isn't some kid of trick, is it?)]
+			[npc.speech(What?)] the [npc.race] asks in confusion, clearly caught off-guard by your question. With a suspicious look in [npc.her] [npc.eyes+], [npc.she] hesitantly asks, [npc.speech(This isn't some kind of trick, is it?)]
 		</p>
 		<p>
 			Pointing out to the [npc.race] that there's no motive for you to try and trick [npc.herHim], you reassure [npc.herHim] by saying that all you want to do is talk.

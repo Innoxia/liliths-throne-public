@@ -240,7 +240,7 @@
 					Only the 'index', 'title', 'tooltip', and 'effects' elements are used from those defined above.
 				Additional note: The parser targets 'npc', 'npc2', etc. correspond to characters who are present in the player's tile, which are sorted by level and then by name.
 					NOTE: If an npc who is present in the player's tile is the currently active npc, then that npc will always be in index 0 (i.e. assigned to the parser target 'npc').
-				Do not pass in the player character here ('pc' or 'player'), otherwise you'll get a NPE and the game will freeze and/or crash. -->
+				Do not pass in the player character here ('pc' or 'player'), otherwise you'll get a NullPointerException error and the game will freeze and/or crash. -->
 				<tradingVariables enabled="false">
 					<tradePartner><![CDATA[nyan]]></tradePartner>
 				</tradingVariables>

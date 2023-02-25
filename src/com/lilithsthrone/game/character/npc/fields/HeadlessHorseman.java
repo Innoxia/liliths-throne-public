@@ -39,7 +39,6 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
@@ -160,7 +159,7 @@ public class HeadlessHorseman extends NPC {
 //		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_PURPLE));
 		
 		// Face:
-		this.setFaceVirgin(true);
+//		this.setFaceVirgin(true);
 		this.setLipSize(LipSize.ONE_AVERAGE);
 //		this.setFaceCapacity(Capacity.FIVE_ROOMY, true);
 		// Throat settings and modifiers
@@ -168,7 +167,7 @@ public class HeadlessHorseman extends NPC {
 		// Tongue modifiers
 		
 		// Chest:
-		this.setNippleVirgin(true);
+//		this.setNippleVirgin(true);
 //		this.setBreastSize(CupSize.E.getMeasurement());
 //		this.setBreastShape(BreastShape.ROUND);
 //		this.setNippleSize(NippleSize.THREE_LARGE);
@@ -176,7 +175,7 @@ public class HeadlessHorseman extends NPC {
 		// Nipple settings and modifiers
 		
 		// Ass:
-		this.setAssVirgin(true);
+//		this.setAssVirgin(true);
 		this.setAssBleached(false);
 		this.setAssSize(AssSize.THREE_NORMAL);
 		this.setHipSize(HipSize.TWO_NARROW);
@@ -209,7 +208,7 @@ public class HeadlessHorseman extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 
 		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_zweihander", DamageType.PHYSICAL));
-		AbstractClothing cloak = Main.game.getItemGen().generateClothing(ClothingType.TORSO_OVER_CLOAK, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK_STEEL, null, false);
+		AbstractClothing cloak = Main.game.getItemGen().generateClothing("innoxia_torsoOver_hooded_cloak", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK_STEEL, null, false);
 		this.equipClothingFromNowhere(cloak, true, this);
 		this.isAbleToBeDisplaced(this.getClothingInSlot(InventorySlot.TORSO_OVER), DisplacementType.SHIFTS_ASIDE, true, true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_jack_o_lantern", false), true, this);

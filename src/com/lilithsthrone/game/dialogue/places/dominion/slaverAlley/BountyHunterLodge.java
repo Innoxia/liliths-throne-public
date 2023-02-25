@@ -208,14 +208,14 @@ public class BountyHunterLodge {
 				if(!KaysWarehouse.isSexAvailable()) {
 					return new Response("Seduce", "As you're unable to access any of your orifices, you're unable to seduce the dobermanns...", null);
 				}
-				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.dobermannDefeatSeduced)) {
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.dobermannDefeatSeduced) || Main.game.getNpc(SupplierLeader.class).getSexCount(Main.game.getPlayer()).getTotalTimesHadSex()>0) {
 					return new Response("Seduce",
 							"Offer to let the dobermanns fuck you again..."
 								+ "<br/>"
 								+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_DOMINANT)
 										?"[style.italicsSexDom(As you)]"
 												+ " [style.italicsMinorGood(have the "+Fetish.FETISH_DOMINANT.getName(Main.game.getPlayer())+" fetish)]"
-												+ "[style.italicsSexDom(, you will be able to take the dominant role in the following sex scene.)]"
+												+ "[style.italicsSexDom(, you will be able to take either the dominant or submissive role in the following sex scene.)]"
 										:"[style.italicsSex(As you)]"
 												+ " [style.italicsMinorBad(do not have the "+Fetish.FETISH_DOMINANT.getName(Main.game.getPlayer())+" fetish)]"
 												+ "[style.italicsSex(, you will only be able to take the submissive role in the following sex scene.)]"),
@@ -237,7 +237,7 @@ public class BountyHunterLodge {
 									+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_DOMINANT)
 											?"[style.italicsSexDom(As you)]"
 													+ " [style.italicsMinorGood(have the "+Fetish.FETISH_DOMINANT.getName(Main.game.getPlayer())+" fetish)]"
-													+ "[style.italicsSexDom(, you will be able to take the dominant role in the following sex scene.)]"
+													+ "[style.italicsSexDom(, you will be able to take either the dominant or submissive role in the following sex scene.)]"
 											:"[style.italicsSex(As you)]"
 													+ " [style.italicsMinorBad(do not have the "+Fetish.FETISH_DOMINANT.getName(Main.game.getPlayer())+" fetish)]"
 													+ "[style.italicsSex(, you will only be able to take the submissive role in the following sex scene.)]"),

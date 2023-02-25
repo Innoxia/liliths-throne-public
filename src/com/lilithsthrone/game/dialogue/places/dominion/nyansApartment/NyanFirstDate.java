@@ -440,6 +440,10 @@ public class NyanFirstDate {
 		public void applyPreParsingEffects() {
 			travelTo(WorldType.DOMINION, PlaceType.DOMINION_NYAN_APARTMENT);
 			((Nyan)getNyan()).wearCoat(true, false);
+			Main.game.getPlayer().applyFoodConsumed(10);
+			Main.game.getPlayer().applyDrinkConsumed(10);
+			getNyan().applyFoodConsumed(10);
+			getNyan().applyDrinkConsumed(10);
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -541,7 +545,9 @@ public class NyanFirstDate {
 				if(Main.game.getPlayer().getSlavesOwned().size()<20) {
 					return new Response("Slaves", "You require at least twenty slaves in order to impress [nyanmum.name]!", null);
 				}
-				return new Response("Slaves", "Tell [nyanmum.name] that you own a considerable amount of slaves, and so money will never be a problem for you or Nyan.", POST_DATE_APARTMENT_INTERVIEW_2_FOOD) {
+				return new Response("Slaves",
+						"Tell [nyanmum.name] that you own a considerable amount of slaves, and so money will never be a problem for you or Nyan.",
+						POST_DATE_APARTMENT_INTERVIEW_2_FOOD) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nyansApartment/firstDate", "POST_DATE_APARTMENT_INTERVIEW_2_SLAVES"));
@@ -554,7 +560,9 @@ public class NyanFirstDate {
 				if(Main.game.getPlayer().getSubspeciesOverrideRace()!=Race.DEMON) {
 					return new Response("Demon", "You are not a demon, and so cannot impress [nyanmum.name] in this manner...", null);
 				}
-				return new Response("Lyssieth's [pc.daughter]", "Reveal to [nyanmum.name] that you're a direct [pc.daughter] of Lyssieth herself, and so you'll never struggle to provide for Nyan.", POST_DATE_APARTMENT_INTERVIEW_2_FOOD) {
+				return new Response("[#pc.getLilinMother().getName()]'s [pc.daughter]",
+						"Reveal to [nyanmum.name] that you're a direct [pc.daughter] of a lilin, and so you'll never struggle to provide for Nyan.",
+						POST_DATE_APARTMENT_INTERVIEW_2_FOOD) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nyansApartment/firstDate", "POST_DATE_APARTMENT_INTERVIEW_2_DEMON"));

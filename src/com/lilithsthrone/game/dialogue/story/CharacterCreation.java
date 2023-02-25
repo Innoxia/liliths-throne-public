@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.markings.TattooType;
@@ -373,9 +374,9 @@ public class CharacterCreation {
 			case ANDROGYNOUS:
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_panties", PresetColour.CLOTHING_WHITE, false), true, character);
 				if(character.getBreastRawSizeValue()!=0) {
-					character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_CROPTOP_BRA, PresetColour.CLOTHING_WHITE, false), true, character);
+					character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_croptop_bra", PresetColour.CLOTHING_WHITE, false), true, character);
 				} else {
-					Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing(ClothingType.CHEST_CROPTOP_BRA, PresetColour.CLOTHING_WHITE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing("innoxia_chest_croptop_bra", PresetColour.CLOTHING_WHITE, false));
 				}
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_short_sleeved_shirt", PresetColour.CLOTHING_WHITE, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_jeans", PresetColour.CLOTHING_BLUE_GREY, false), true, character);
@@ -389,7 +390,7 @@ public class CharacterCreation {
 				
 			case FEMININE:
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_panties", PresetColour.CLOTHING_WHITE, false), true, character);
-				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_PLUNGE_BRA, PresetColour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_plunge_bra", PresetColour.CLOTHING_WHITE, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_SKATER_DRESS, PresetColour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_trainer_socks", PresetColour.CLOTHING_WHITE, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_heels", PresetColour.CLOTHING_BLACK, false), true, character);
@@ -404,7 +405,7 @@ public class CharacterCreation {
 				
 			case FEMININE_STRONG:
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_thong", PresetColour.CLOTHING_BLACK, false), true, character);
-				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_PLUNGE_BRA, PresetColour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_plunge_bra", PresetColour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_SLIP_DRESS, PresetColour.CLOTHING_RED_BURGUNDY, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_pantyhose", PresetColour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_stiletto_heels", PresetColour.CLOTHING_RED_BURGUNDY, false), true, character);
@@ -462,8 +463,8 @@ public class CharacterCreation {
 				generateClothingOnFloor("innoxia_hand_gloves", PresetColour.CLOTHING_BLACK);
 				generateClothingOnFloor("innoxia_head_cap", PresetColour.CLOTHING_BLUE);
 				generateClothingOnFloor("innoxia_neck_scarf", PresetColour.CLOTHING_BLACK);
-				generateClothingOnFloor(ClothingType.TORSO_OVER_HOODIE, PresetColour.CLOTHING_BLACK);
-				generateClothingOnFloor(ClothingType.TORSO_RIBBED_SWEATER, PresetColour.CLOTHING_GREY);
+				generateClothingOnFloor("innoxia_torsoOver_hoodie", PresetColour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_torsoOver_ribbed_jumper", PresetColour.CLOTHING_GREY);
 				generateClothingOnFloor("innoxia_torso_short_sleeved_shirt", PresetColour.CLOTHING_WHITE);
 				generateClothingOnFloor("innoxia_torso_tshirt", PresetColour.CLOTHING_BLUE_LIGHT);
 				generateClothingOnFloor("innoxia_groin_briefs", PresetColour.CLOTHING_WHITE);
@@ -503,8 +504,8 @@ public class CharacterCreation {
 				generateClothingOnFloor("innoxia_torso_blouse", PresetColour.CLOTHING_BLUE_LIGHT);
 				generateClothingOnFloor(ClothingType.TORSO_CAMITOP_STRAPS, PresetColour.CLOTHING_GREEN);
 				
-				generateClothingOnFloor(ClothingType.TORSO_OVER_HOODIE, PresetColour.CLOTHING_PINK_LIGHT);
-				generateClothingOnFloor(ClothingType.TORSO_OVER_OPEN_CARDIGAN, PresetColour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_torsoOver_hoodie", PresetColour.CLOTHING_PINK_LIGHT);
+				generateClothingOnFloor("innoxia_torsoOver_open_front_cardigan", PresetColour.CLOTHING_BLACK);
 
 				generateClothingOnFloor("innoxia_finger_ring", PresetColour.CLOTHING_SILVER);
 				generateClothingOnFloor("innoxia_neck_heart_necklace", PresetColour.CLOTHING_SILVER);
@@ -527,7 +528,7 @@ public class CharacterCreation {
 				generateClothingOnFloor("innoxia_groin_vstring", PresetColour.CLOTHING_BLACK);
 
 				generateClothingOnFloor("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_RED);
-				generateClothingOnFloor(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_chest_fullcup_bra", PresetColour.CLOTHING_BLACK);
 
 				generateClothingOnFloor("innoxia_sock_pantyhose", PresetColour.CLOTHING_BLACK);
 				generateClothingOnFloor("innoxia_sock_kneehigh_socks", PresetColour.CLOTHING_WHITE);
@@ -568,7 +569,7 @@ public class CharacterCreation {
 				generateClothingOnFloor(ClothingType.TORSO_SLIP_DRESS, PresetColour.CLOTHING_RED);
 				generateClothingOnFloor(ClothingType.TORSO_SKATER_DRESS, PresetColour.CLOTHING_BLACK);
 				
-				generateClothingOnFloor(ClothingType.TORSO_OVER_OPEN_CARDIGAN, PresetColour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_torsoOver_open_front_cardigan", PresetColour.CLOTHING_BLACK);
 				
 				generateClothingOnFloor(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_GOLD);
 				generateClothingOnFloor("innoxia_ankle_anklet", PresetColour.CLOTHING_GOLD);
@@ -1748,9 +1749,13 @@ public class CharacterCreation {
 			
 			UtilText.nodeContentSB.append(
 						"<div class='container-full-width' style='text-align:center;'>"
-							+ "<i>More sexual experience will result in gaining more corruption. (You can see your corruption, along with your other attributes, in the character panel to the left of the screen.)</i>"
+							+ "<i>More sexual experience will result in gaining more corruption. (You can see your corruption, along with your other attributes, in the character panel to the left of the screen.)"
+							+ "<br/>"
+							+ "Selecting '<span style='color:"+FetishDesire.FOUR_LOVE.getColour().toWebHexString()+";'>"+FetishDesire.FOUR_LOVE.getName()+"</span>'"
+								+ " for any fetish desire will result in your character starting the game with that fetish, while the other four desires simply determine your character's attitude towards that fetish.</i>"
 						+ "</div>"
-						+CharacterModificationUtils.getSexualExperienceDiv());
+						+CharacterModificationUtils.getSexualExperienceDiv()
+						+CharacterModificationUtils.getFetishChoiceDiv());
 			
 			return UtilText.nodeContentSB.toString();
 		}

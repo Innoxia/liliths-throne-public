@@ -145,7 +145,14 @@ public enum SlavePermissionSetting {
 	// Claenliness:
 	
 	CLEANLINESS_WASH_CLOTHES(true, "Wash Clothing", "Tell this slave to keep their clothing washed and clean."),
-	CLEANLINESS_WASH_BODY(true, "Wash Body", "Tell this slave to keep their body washed and clean, which will keep their orifices free of creampies.")
+	CLEANLINESS_WASH_BODY(true, "Wash Body", "Tell this slave to keep their body washed and clean, which will keep their orifices free of creampies."),
+	
+	
+	// Sleeping:
+	SLEEPING_DEFAULT(true, "Sleep Whenever", "Tell this slave to sleep whenever they like, which will be during the night for diurnal races and during the day for nocturnal races."),
+	SLEEPING_NIGHT(false, "Sleep At Night", "Tell this slave to sleep during the night. This will have neither a positive nor negative effect on them."),
+	SLEEPING_DAY(false, "Sleep During Day", "Tell this slave to sleep during the day. This will have neither a positive nor negative effect on them.")
+	
 	;
 	
 	private String name;

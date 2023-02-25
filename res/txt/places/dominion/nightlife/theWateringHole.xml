@@ -2265,6 +2265,67 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_LEAVES"><![CDATA[
+	<p>
+		Letting out a frustrated sigh, [npc.name] [npc.steps] away from you and says,
+		#IF(npc.isKind())
+			[npc.speech(This really isn't working out. I think I'm going to leave now...)]
+		#ELSE
+			#IF(npc.isSelfish())
+				[npc.speech(You're being a real cunt. Fuck this, I'm off.)]
+			#ELSE
+				[npc.speech(This isn't working out. I'm off.)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		As the [npc.race] turns and starts to head off into the club, you wonder how to respond...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_LEAVES_SAVE_CLUBBER"><![CDATA[
+	<p>
+		Not wanting this to be the end of your relation with [npc.name], you quickly say that despite how the evening has gone, you hope to see [npc.herHim] again.
+	</p>
+	<p>
+		#IF(npc.isKind())
+			[npc.speech(Fine... I guess I could meet up with you here again some other time... See you later,)] [npc.name] sighs, before continuing forwards and taking [npc.her] leave.
+		#ELSE
+			#IF(npc.isSelfish())
+				[npc.speech(Really? After all the shit you just pulled? You'd better not be such a drag the next time we're doing this,)] [npc.name] bluntly responds, before abruptly turning and taking [npc.her] leave.
+			#ELSE
+				[npc.speech(Really? Well, I guess we could give it another go. I'll catch you around some other time,)] [npc.name] responds, before continuing forwards and taking [npc.her] leave.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Now that you're alone once more, you wonder what you should do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_LEAVES_LOSE_COMPANY"><![CDATA[
+	<p>
+		Feeling as though you've had enough of [npc.namePos] company to last a lifetime, you call out after [npc.herHim] that you don't ever want to see [npc.herHim] again.
+	</p>
+	<p>
+		#IF(npc.isKind())
+			[npc.speech(That suits me. Bye, [pc.name],)] [npc.name] unhappily responds, before continuing forwards and taking [npc.her] leave.
+		#ELSE
+			#IF(npc.isSelfish())
+				[npc.speech(Yeah, fuck you too, [pc.bitch]. Have fun getting fucked by one of your other cunt friends,)] [npc.name] rudely responds, before storming off to another part of the club.
+			#ELSE
+				[npc.speech(The feeling's mutual,)] [npc.name] dismissively responds, before continuing forwards and taking [npc.her] leave.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Now that you're alone once more, you wonder what you should do next...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_DRINK"><![CDATA[
 	<p>
 		#IF npc.isKind()
