@@ -1048,7 +1048,8 @@ public class Main extends Application {
 						CharacterImportSetting.CLEAR_KEY_ITEMS,
 						CharacterImportSetting.CLEAR_COMBAT_HISTORY,
 						CharacterImportSetting.CLEAR_SEX_HISTORY,
-						CharacterImportSetting.REMOVE_RACE_CONCEALED));
+						CharacterImportSetting.REMOVE_RACE_CONCEALED,
+						CharacterImportSetting.CLEAR_FAMILY_ID));
 				
 				Main.game.getPlayer().getSlavesOwned().clear();
 				Main.game.getPlayer().endPregnancy(false);
