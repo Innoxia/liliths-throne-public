@@ -1473,7 +1473,9 @@ public class OptionsDialogue {
 				sb.append("<div style='display:inline-block;'><span class='option-disabled'>Fetish forcibly disabled due to "+disabledMsg+" setting!</span></div>");
 				break;
 			} else {
-				sb.append("<div id='"+preference+"_"+Fetish.getIdFromFetish(fetish)+"' class='preference-button"+(Main.getProperties().fetishPreferencesMap.get(fetish)==preference.getValue()?" selected":"")+"'>"
+				sb.append("<div id='"+preference+"_"+Fetish.getIdFromFetish(fetish)+"' class='preference-button"+(Main.getProperties().fetishPreferencesMap.get(fetish)==preference.getValue()?" selected":"")+"'"
+						+ " style='width:70px;'"
+						+ ">"
 							+Util.capitaliseSentence(preference.getName())
 						+"</div>");
 			}
@@ -2525,6 +2527,26 @@ public class OptionsDialogue {
 					"Opportunistic attackers",
 					"This makes random attacks more likely when you're high on lust, low on health, covered in fluids, exposed, or drunk.",
 					Main.game.isOpportunisticAttackersEnabled()));
+			UtilText.nodeContentSB.append(getContentPreferenceDiv("OFFSPRING_ENCOUNTERS",
+					PresetColour.BASE_INDIGO,
+					"Offspring Encounters",
+					"This enables you to randomly encounter your offspring throught the world."
+					+ "<br/><i>This setting has no effect on the Offspring Map, nor on offspring who you've already met.</i>",
+					Main.game.isOffspringEncountersEnabled()));
+			
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_BLUE_LIGHT, "Clothing Femininity", "This sets the limitations of clothings' femininity values."));
+			for (int i=Main.getProperties().clothingFemininityTitles.length-1; i>=0; i--) {
+				if (Main.getProperties().getClothingFemininityLevel() == i) {
+					UtilText.nodeContentSB.append("<div id='CLOTHING_FEMININITY_"+i
+							+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"
+							+Main.getProperties().clothingFemininityColours[i].toWebHexString()+";'><b>"+Main.getProperties().clothingFemininityTitles[i]+"</b></div>");
+				} else {
+					UtilText.nodeContentSB.append("<div id='CLOTHING_FEMININITY_"+i
+							+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+							+"[style.colourDisabled("+Main.getProperties().clothingFemininityTitles[i]+")]</div>");
+				}
+			}
+			UtilText.nodeContentSB.append("</div></div>");
 			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_PINK, "Sex action bypass", "If this is enabled, sex action corruption requirements may be bypassed."));
 			for (int i = 2; i>=0; i--) {
@@ -2690,7 +2712,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("INCEST",
 					PresetColour.BASE_ROSE,
 					"Incest",
-					"This will enable sexual actions with all of your blood-relatives.",
+					"This will enable sexual actions between characters who are related to one another.",
 					Main.getProperties().hasValue(PropertyValue.incestContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("LACTATION",
@@ -2698,7 +2720,7 @@ public class OptionsDialogue {
 					"Lactation",
 					"This enables lactation content.",
 					Main.getProperties().hasValue(PropertyValue.lactationContent)));
-
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("SEXUAL_UDDERS",
 					PresetColour.BASE_ORANGE_LIGHT,
 					"Crotch-boob & Udder Content",
@@ -2775,7 +2797,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("AUTO_SEX_CLOTHING_STRIP",
 					PresetColour.BASE_PINK_LIGHT,
 					"Automatic stripping",
-					"When enabled, all characters which you are allowed to strip during sex (including yourself) will start sex naked.",
+					"When enabled, all non-spectating characters which you are allowed to strip during sex (including yourself) will start sex naked.",
 					Main.getProperties().hasValue(PropertyValue.autoSexStrip)));
 			
 			return UtilText.nodeContentSB.toString();

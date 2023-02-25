@@ -416,6 +416,37 @@
 	]]>
 	</htmlContent>
 
+	<!-- Description is more generic as with more than 2 characters the combinations of attracted/non-attracted would be quite complex to fully detail. -->
+	<htmlContent tag="SEX_GANGBANG_3"><![CDATA[
+	<p>
+		Wanting to have sex with everyone present, you tell [npc.name], [npc2.name], and [npc3.name] what's on your mind.
+	</p>
+	<p>
+		#IF(npc.isAttractedTo(pc) && npc2.isAttractedTo(pc) && npc3.isAttractedTo(pc))
+			As all three of them give positive responses,
+		#ELSE
+			Before any of them have any time in which to respond,
+		#ENDIF
+		 you [pc.step] forwards and prepare to get started...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_GANGBANG_4"><![CDATA[
+	<p>
+		Wanting to have sex with everyone present, you tell [npc.name], [npc2.name], [npc3.name], and [npc4.name] what's on your mind.
+	</p>
+	<p>
+		#IF(npc.isAttractedTo(pc) && npc2.isAttractedTo(pc) && npc3.isAttractedTo(pc) && npc4.isAttractedTo(pc))
+			As all four of them give positive responses,
+		#ELSE
+			Before any of them have any time in which to respond,
+		#ENDIF
+		 you [pc.step] forwards and prepare to get started...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<!-- END Dominant sex actions -->
 	
 	
@@ -701,6 +732,27 @@
 	]]>
 	</htmlContent>
 	
+	<!-- Description is more generic as with more than 2 characters the combinations of attracted/non-attracted would be quite complex to fully detail. -->
+	<htmlContent tag="SEX_GANGBANG_AS_SUB_3"><![CDATA[
+	<p>
+		Wanting everyone present to dominantly fuck you, you tell [npc.name], [npc2.name], and [npc3.name] what's on your mind.
+	</p>
+	<p>
+		As all three of them give positive responses, you [pc.step] forwards and prepare to submit to them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_GANGBANG_AS_SUB_4"><![CDATA[
+	<p>
+		Wanting everyone present to dominantly fuck you, you tell [npc.name], [npc2.name], [npc3.name], and [npc4.name] what's on your mind.
+	</p>
+	<p>
+		As all four of them give positive responses, you [pc.step] forwards and prepare to submit to them...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<!-- END Submissive sex actions -->
 	
 	<htmlContent tag="AFTER_SEX_THREESOME"><![CDATA[
@@ -790,6 +842,20 @@
 			[npc.speech(Ok, [pc.name]...)] [npc.she] reluctantly replies, before hurrying to gather [npc.her] things and then quickly running forwards to join you as you set off on your way once more...
 		</p>
 	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_GANGBANG_3"><![CDATA[
+	<p>
+		Having had your fun, you disentangle yourself from [npc.name], [npc2.name], and [npc3.name], before starting to get your things back in order. Grinning at your three partners, you tell them that you should do this again some time, before [pc.stepping] back and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_GANGBANG_4"><![CDATA[
+	<p>
+		Having had your fun, you disentangle yourself from [npc.name], [npc2.name], [npc3.name], and [npc4.name], before starting to get your things back in order. Grinning at your four partners, you tell them that you should do this again some time, before [pc.stepping] back and wondering what to do next...
+	</p>
 	]]>
 	</htmlContent>
 	

@@ -327,7 +327,11 @@ public class Combat {
 			predictionContent.put(npc, npc.getMovesPredictionString(npcEnemies, npcAllies));
 		}
 		
-		Main.mainController.openInventory();
+		// I don't know why openInventory() was being called here, so I commented it out in v0.4.6.8. It caused a bug that was hard to reproduce but which threw this error:
+			//Exception in thread "JavaFX Application Thread" java.lang.NullPointerException
+			//at com.lilithsthrone.rendering.RenderingEngine.getInventoryIconsForPage(RenderingEngine.java:954)
+			//at com.lilithsthrone.rendering.RenderingEngine.getInventoryDiv(RenderingEngine.java:797)
+//		Main.mainController.openInventory();
 	}
 
 	public void setCharacterTurnContent(GameCharacter character, List<String> descriptions) {
@@ -1246,8 +1250,8 @@ public class Combat {
 			} else if(index==14) {
 				return new Response("Reset",
 						Main.game.getPlayer().getSelectedMoves().size()==0
-								?""
-								:".",
+								?"You cannot reset your selected moves as you haven't selected any yet!"
+								:"Resets your selected moves, allowing you to choose different ones for this turn of combat.",
 							Main.game.getPlayer().getSelectedMoves().size()==0
 								?null
 								:ENEMY_ATTACK) {
@@ -1320,7 +1324,13 @@ public class Combat {
 			@Override
 			public void effects() {
 				Main.game.getPlayer().selectMove(Main.game.getPlayer().getSelectedMoves().size(), move, moveTarget, pcEnemies, pcAllies);
-				predictionContent.get(Main.game.getPlayer()).add(move.getPrediction(selectedMoveIndex, Main.game.getPlayer(), moveTarget, pcEnemies, pcAllies));
+				// Reset prediction content as this selected move may have altered the prediction of previous moves:
+				predictionContent.put(Main.game.getPlayer(), new ArrayList<>());
+				int i=0;
+				for(Value<GameCharacter, AbstractCombatMove> selectedMove : Main.game.getPlayer().getSelectedMoves()) {
+					predictionContent.get(Main.game.getPlayer()).add(selectedMove.getValue().getPrediction(i, Main.game.getPlayer(), selectedMove.getKey(), pcEnemies, pcAllies));
+					i++;
+				}
 			}
 			@Override
 			public Colour getHighlightColour() {
@@ -1545,7 +1555,7 @@ public class Combat {
 		for(GameCharacter character : getAllCombatants(true)) {
 			combatContent.put(character, new ArrayList<>());
 		}
-		for(int i=0;i<3;i++) {
+		for(int i=0;i<order.length;i++) {
 			for(GameCharacter character : combatants) {
 				if(attackCharacter(character)) {
 					List<GameCharacter> npcAllies = getAllies(character);

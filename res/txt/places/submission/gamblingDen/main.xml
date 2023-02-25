@@ -8,7 +8,7 @@
 		The wooden doors of the Gambling Den's front entrance are propped open, allowing you to easily make your way forwards into the establishment. As you enter, you find yourself standing in a very large entrance hall. A sign hanging from the ceiling in front of you reads 'Welcome to the Gambling Den!', and from somewhere further within the building, you hear the distinctive sounds of laughter, conversation, and then of a slot machine dispensing coins to a lucky winner. 
 	</p>
 	<p>
-		Although there only a few people loitering around in this entrance hall, the constant drone of chatter coming from up ahead lets you know that this place must be quite popular. As you start to walk forwards, intent on exploring the establishment, a voice suddenly calls out from your right-hand side, [axel.speech(Hello there! I haven't seen you here before!)]
+		Although there are only a few people loitering around in this entrance hall, the constant drone of chatter coming from up ahead lets you know that this place must be quite popular. As you start to walk forwards, intent on exploring the establishment, a voice suddenly calls out from your right-hand side, [axel.speech(Hello there! I haven't seen you here before!)]
 	</p>
 	<p>
 		Turning towards the source of the voice, you see a tall, muscular alligator-boy grinning at you. The scales covering his body are all a brilliant white, and as he comes to a halt in front of you, his pair of bright blue eyes lock onto yours, and he continues, [axel.speech(I'm [axel.name], the owner of this place, and I like to say hello to every fresh face I see!)]

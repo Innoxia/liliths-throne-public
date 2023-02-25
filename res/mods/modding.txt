@@ -1,4 +1,4 @@
-***** MODDING *****
+****************************** MODDING ******************************
 
 If you want to make mods, make a new folder, using the (hopefully unique) name of your mod. (Like the 'innoxia' folder in this directory.)
 
@@ -22,10 +22,9 @@ MAPS: res/mods/(yourname)/maps/
 
 Just to clarify, (yourName) should be whatever nickname the mod creator is using, or any unique name which encompasses everything inside your created mod folder (e.g. 'beeModding').
 
-
 Within these mod folders (which you create), place the .xml and .svg files that are needed for each piece of clothing/tattoo.
 
-I've included at least one example in each directory for you to reference (the 'clothing' example is in the 'template' folder). If you need any help, there is a 'mod-discussion' channel in the LT discord. ^^
+I've included at least one example in each directory for you to reference (the 'clothing' example is in the 'template' folder). If you need any help, there is a 'mod-discussion' channel in the LT discord.
 
 Commented examples not found in the mod folder can be found here:
 Patterns:
@@ -42,9 +41,39 @@ Sex:
 	res/sex/innoxia/managers/meraxis/duel/masturbation.xml for sex managers
 	res/sex/innoxia/actions/meraxis/duel/orgasm_panties_cum.xml for sex actions
 
+	
+****************************** MODDED NPCS ******************************
+
+While full NPCs are currently only available by creating them as a .java class file and building the game, there is an alternative.
+An NPC .xml file can be loaded back into the game as a 'moddedCharacter', which can then be used in an encounter.
+An example of this can be found here:
+    res/dialogue/acexp/dominion/shady_dealer.xml
+This loads the .xml character file from
+    res/characters/acexp/shady_dealer.xml
+But note that these character files can be located anywhere, and for mods it's probably best to place them in res/mods/(yourname)/characters/
+Note that any character file that is to be used as a modded character needs to start (and end) with the <exportedCharacter> tag.
+
+Loading a modded character is done with two methods in the main game object:
+-- game.importModdedCharacter needs the .xml file with the modded character, and the parser target that it will use.
+-- game.setModdedCharacterParserTarget will take the ID of the character (which should have been saved) and assigns a parser target to it.
+
+The code below checks if the character has already been loaded, and the ID saved. If so, it just assigns the parser target to the correct ID. If not, it will create the NPC by
+loading the .xml file, assign a parser target to it and also save the ID of the newly created NPC.
+
+#IF(flags.hasSavedLong('AceXpShadyDealer'))
+    [#game.setModdedCharacterParserTarget(flags.getSavedLong('AceXpShadyDealer'), 'AceXpShadyDealer')]
+#ELSE
+    [#flags.setSavedLong('AceXpShadyDealer', game.importModdedCharacter('res/characters/acexp/shady_dealer.xml', 'AceXpShadyDealer'))]
+#ENDIF
+
+The parser target can than be used to do anything that can be done with a NPC. For modded characters, there are a few new methods:
+-- setTrader(true) makes the character a Trader (default false)
+-- setItemTagsToBuy(Array of ITEM_TAGS) determines which items (if any) the Trader will buy. (default none)
+-- setAbleToBeImpregnated(true) allows the character to be impregnated during sex (default false)
+-- setClothingStealable(true) allows clothing of the character to be removed (by spells) (default false)
 
 
-***** Optimizing SVG images *****
+****************************** OPTIMISING SVG IMAGES ******************************
 
 Once you have made your .svg images, you can optimise them (so that the game runs faster when rendering them), by doing the following:
 
@@ -55,3 +84,5 @@ Once you have made your .svg images, you can optimise them (so that the game run
 note 1: https://github.com/svg/svgo
 
 note 2: https://github.com/Innoxia/liliths-throne-public/blob/83f67383dc826b097de428813dd93e82a00350f0/svgoConfig.yml
+
+3) Alternatively, if you use Inkscape, there is a pre-installed plugin. An optimized file can be created using "Save as" and selecting "Optimized SVG" as the file type. Make sure to uncheck the export options "Collapse groups" in the options tab, "Shorten IDs" in the id tab, and add "patternLayer" to the list of preserved ids. (Thanks to DJ Addi for this.)

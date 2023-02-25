@@ -380,6 +380,16 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="RESIST_TRANSFORMED_NO_RAPE"><![CDATA[
+	<p>
+		You can't help but smirk as you realise that you've ruined [npc.name]'s plans. Seeing the smile on your face makes [npc.herHim] even angrier, and with a final rough shove, [npc.she] pushes you down and shouts, [npc.speech(I'm gonna go get another one of those canisters, and next time you'll drink it!)]
+	</p>
+	<p>
+		With that, [npc.name] suddenly stand up and runs off, leaving you to brush yourself down and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="OFFER_MONEY"><![CDATA[
 	<p>
 		Wanting to avoid a fight if at all possible, you take a step backwards, fumbling about to grab a handful of flames to offer to [npc.name].

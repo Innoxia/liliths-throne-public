@@ -34,6 +34,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.lilithsthrone.game.character.npc.misc.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -46,7 +47,6 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.SexCount;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -149,19 +149,6 @@ import com.lilithsthrone.game.character.npc.fields.Vronti;
 import com.lilithsthrone.game.character.npc.fields.Wynter;
 import com.lilithsthrone.game.character.npc.fields.Yui;
 import com.lilithsthrone.game.character.npc.fields.Ziva;
-import com.lilithsthrone.game.character.npc.misc.ClubberImport;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
-import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
-import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
-import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
-import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
-import com.lilithsthrone.game.character.npc.misc.GenericTrader;
-import com.lilithsthrone.game.character.npc.misc.LodgerImport;
-import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
-import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
-import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
-import com.lilithsthrone.game.character.npc.misc.PrologueMale;
-import com.lilithsthrone.game.character.npc.misc.SlaveImport;
 import com.lilithsthrone.game.character.npc.submission.Axel;
 import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
@@ -186,6 +173,7 @@ import com.lilithsthrone.game.character.npc.submission.Takahashi;
 import com.lilithsthrone.game.character.npc.submission.Vengar;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.pregnancy.Litter;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
@@ -256,6 +244,7 @@ import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
@@ -529,6 +518,44 @@ public class Game implements XMLSaving {
 		}
 		
 		return null;
+	}
+
+	public Integer importModdedCharacter(String path, String parserTarget) {
+		File file = new File(path);
+
+		if (file.exists()) {
+			try {
+				Document doc = Main.getDocBuilder().parse(file);
+
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+
+				Element characterElement = (Element) doc.getElementsByTagName("exportedCharacter").item(0);
+
+				ModdedCharacter npc = new ModdedCharacter();
+				npc.loadFromXML(characterElement, doc, CharacterImportSetting.NO_LOCATION_SETUP);
+
+				Main.game.addNPC(npc, false, true);
+				if (parserTarget != null && !parserTarget.isEmpty()) {
+					ParserTarget.addAdditionalParserTarget(parserTarget, npc);
+				}
+				// id should be something like "123,moddedCharacter"
+				return Integer.parseInt(npc.getId().split(",")[0]);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		return null;
+	}
+
+	public void setModdedCharacterParserTarget(Long id, String parserTarget) {
+		try {
+			ParserTarget.addAdditionalParserTarget(parserTarget, (NPC) getNPCById(id + ",ModdedCharacter"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static GameCharacter importCharacterAsLodger(String name) {
@@ -1130,6 +1157,15 @@ public class Game implements XMLSaving {
 						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(vec).getPlace().setName(PlaceType.LILAYA_HOME_STAIR_DOWN_SECONDARY.getName());
 						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(vec).setDiscovered(true);
 					}
+				}
+				
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.7.2")) {
+					// Add shaft tile:
+					Vector2i vec = Main.game.getWorlds().get(WorldType.BAT_CAVERNS).getCell(PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR).getLocation();
+					vec.setY(vec.getY()-3);
+					Main.game.getWorlds().get(WorldType.BAT_CAVERNS).getCell(vec).getPlace().setPlaceType(PlaceType.BAT_CAVERN_SHAFT);
+					Main.game.getWorlds().get(WorldType.BAT_CAVERNS).getCell(vec).getPlace().setName(PlaceType.BAT_CAVERN_SHAFT.getName());
+					
 				}
 				
 				if(debug) {
@@ -1861,6 +1897,13 @@ public class Game implements XMLSaving {
 				if(Main.isVersionOlderThan(loadingVersion, "0.4.6.6") && Main.game.getPlayer().getTrueRace()==Race.DEMON) {
 					Main.game.getDialogueFlags().setFlag("innoxia_child_of_lyssieth", true); // Players could only become a demon via Lyssieth before v0.4.6.6, so set the flag to represent this
 				}
+
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.7.2")) {
+					Main.game.getNpc(Lunexis.class).setAffection(Main.game.getPlayer(), -100);
+					Main.game.getNpc(Lunexis.class).setAffection(Main.game.getNpc(DarkSiren.class), -100);
+					Main.game.getNpc(Lunexis.class).setAffection(Main.game.getNpc(Aurokaris.class), -100);
+					Main.game.getNpc(Lunexis.class).setAffection(Main.game.getNpc(Ursa.class), -100);
+				}
 				
 				if(debug) {
 					System.out.println("New NPCs finished");
@@ -2401,6 +2444,7 @@ public class Game implements XMLSaving {
 	
 	private boolean isInNPCUpdateLoop = false;
 	public boolean pendingSlaveInStocksReset = true;
+	public boolean pendingSlaveShopsReset = true;
 	private List<NPC> npcsToRemove = new ArrayList<>();
 	private List<NPC> npcsToAdd = new ArrayList<>();
 	
@@ -2475,6 +2519,7 @@ public class Game implements XMLSaving {
 		boolean slavesUpdated = hoursPassed>0;
 		if(slavesUpdated) {
 			for(int i=1; i <= hoursPassed; i++) {
+				Main.game.getPlayer().performHourlyFluidsCheck();
 				occupancyUtil.performHourlyUpdate(this.getDayNumber((startHour*60*60) + (i*60)), (hourStartTo24+i)%24);
 				for(String slaveId : Main.game.getPlayer().getSlavesOwned()) { // Update slaves' status effects per hour to give them a chance to refill fluids and such.
 					try {
@@ -2503,6 +2548,7 @@ public class Game implements XMLSaving {
 		boolean newDay = getDayNumber(getSecondsPassed()) != getDayNumber(getSecondsPassed() - secondsPassedThisTurn);
 		
 		if(newDay) {
+			pendingSlaveShopsReset = true;
 			pendingSlaveInStocksReset = true;
 			Main.game.getPlayer().resetDaysOrgasmCount();
 			
@@ -2515,23 +2561,38 @@ public class Game implements XMLSaving {
 				}
 			}
 			if(loopDebug) {
-				System.out.println("starting slaver alley reset");
+				System.out.println("starting daily location reset");
 			}
 			
 			// Place resets:
 			LilayaHomeGeneric.dailyUpdate();
-			SlaverAlleyDialogue.dailyReset(); //TODO this method causes lag on new turn - change slaver alley so that slaves are only generated when entering shop and looking around
 			VengarCaptiveDialogue.applyDailyReset();
+		}
+		if (WorldType.SLAVER_ALLEY.getPlacesMap().values().contains(Main.game.getPlayer().getLocationPlaceType())) {
+			if (pendingSlaveShopsReset
+					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_ANAL)
+					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_FEMALES)
+					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_MALES)
+					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_ORAL)
+					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_VAGINAL)) {
+				SlaverAlleyDialogue.dailyReset();
+				pendingSlaveShopsReset = false;
+			}
+			if (pendingSlaveInStocksReset && !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS)) {
+				SlaverAlleyDialogue.stocksReset();
+				pendingSlaveInStocksReset = false;
+			}
 //			getDialogueFlags().dailyReset();
 		}
 		
-		if(pendingSlaveInStocksReset && !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS)) {
-			SlaverAlleyDialogue.stocksReset();
-			pendingSlaveInStocksReset = false;
+		// Angels Kiss update
+		for(int i=1; i <= hoursPassed; i++) {
+			RedLightDistrict.prostituteUpdate();
+			SlaverAlleyDialogue.stocksUpdate();
 		}
 		
 		if(loopDebug) {
-			System.out.println("Slaver alley end");
+			System.out.println("Daily location end");
 		}
 		
 		handleAtmosphericConditions(secondsPassedThisTurn);
@@ -2804,8 +2865,8 @@ public class Game implements XMLSaving {
 			}
 			
 			// Companions:
-			companions = new ArrayList<>(npc.getCompanions());
-			for(GameCharacter companion : companions) {
+			ArrayList<GameCharacter> npcCompanions = new ArrayList<>(npc.getCompanions());
+			for(GameCharacter companion : npcCompanions) {
 				// Updating companion NPCs:
 				companion.companionshipCheck();
 			}
@@ -2845,14 +2906,6 @@ public class Game implements XMLSaving {
 			if(Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS) { // Handle status effects:
 				Main.game.getPlayer().calculateStatusEffects(secondsPassedThisTurn);
 			}
-		}
-		
-		for(int i=1; i <= hoursPassed; i++) {
-			Main.game.getPlayer().performHourlyFluidsCheck();
-		}
-
-		if(loopDebug) {
-			System.out.println("Fluid checks done: "+(System.nanoTime()-tLoopStart)/1000000000f+"s");
 		}
 		
 //		RenderingEngine.ENGINE.renderButtons();
@@ -4545,12 +4598,22 @@ public class Game implements XMLSaving {
 	}
 
 	/**
+	 * This method works with hours that pass over midnight into the next day.
+	 * <br/><i>e.g. isHourBetween(22, 8) will return true when the time is 23:00, 00:00, 01:00, etc.</i>
+	 * 
 	 * @param startHour The starting hour, with decimal places correctly converted to fraction of hour.
 	 * @param endHour The end hour, with decimal places correctly converted to fraction of hour.
 	 * @return true If the hour is between startHour and endHour, inclusive of start and exclusive of end.
 	 */
 	public boolean isHourBetween(float startHour, float endHour) {
-		return this.getDayMinutes()>=(startHour*60) && this.getDayMinutes()<(endHour*60);
+		int dayMinutes = this.getDayMinutes();
+		if(endHour<startHour) {
+			endHour+=24;
+			if(dayMinutes<startHour*60) {
+				dayMinutes+=(24*60);
+			}
+		}
+		return dayMinutes>=(startHour*60) && dayMinutes<(endHour*60);
 	}
 	
 	/**
@@ -4566,6 +4629,11 @@ public class Game implements XMLSaving {
 	
 	public DayPeriod getCurrentDayPeriod() {
 		return DateAndTime.getDayPeriod(this.getDateNow(), Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
+	}
+
+	public DayPeriod getDayPeriodAtHour(int hourOfDay) {
+		LocalDateTime ldt = this.getDateNow().withHour(hourOfDay);
+		return DateAndTime.getDayPeriod(ldt, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
 	}
 	
 	public boolean isMorning() {
@@ -4757,7 +4825,7 @@ public class Game implements XMLSaving {
 		}
 		if(npc==null) {
 			try {
-				npc = (NPC) Class.forName("com.lilithsthrone.game.character.npc."+npcGenerationId).newInstance();
+				npc = (NPC) Class.forName("com.lilithsthrone.game.character.npc."+npcGenerationId).getConstructor().newInstance();
 			} catch (Exception ex) {
 				System.err.println("Failed to add NPC: "+npcGenerationId);
 				ex.printStackTrace();
@@ -5512,6 +5580,10 @@ public class Game implements XMLSaving {
 		return Main.getProperties().hasValue(PropertyValue.opportunisticAttackers);
 	}
 	
+	public boolean isOffspringEncountersEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.offspringEncounters);
+	}
+	
 	public boolean isBypassSexActionsEnabled() {
 		return Main.getProperties().bypassSexActions!=0;
 	}
@@ -5822,6 +5894,26 @@ public class Game implements XMLSaving {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	// For use in debug menu:
+
+	public void startGenericSex(GameCharacter character) {
+//		Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
+		Main.game.setContent(
+				new ResponseSex(UtilText.parse(character, "Sex with [npc.name]"),
+					UtilText.parse(character, "Start a generic sex scene with [npc.name]"),
+					true,
+					true,
+					new SMGeneric(
+							Util.newArrayListOfValues(Main.game.getPlayer()),
+							Util.newArrayListOfValues(character),
+					null,
+					null),
+					Main.game.getDefaultDialogue(false),
+					"<p>"
+						+ UtilText.parse(character, "You start having sex with [npc.name]")
+					+ "</p>"));
 	}
 	
 }

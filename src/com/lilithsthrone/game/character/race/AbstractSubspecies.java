@@ -81,6 +81,8 @@ public abstract class AbstractSubspecies {
 	
 	private FeralAttributes feralAttributes;
 	
+	private Nocturnality nocturnality;
+	
 	private String statusEffectDescription;
 	private Map<PerkCategory, Integer> perkWeightingFeminine;
 	private Map<PerkCategory, Integer> perkWeightingMasculine;
@@ -257,6 +259,7 @@ public abstract class AbstractSubspecies {
 			String pluralMaleName,
 			String pluralFemaleName,
 			FeralAttributes feralAttributes,
+			Nocturnality nocturnality,
 			String statusEffectDescription,
 			Map<AbstractAttribute, Float> statusEffectAttributeModifiers,
 			List<String> extraEffects,
@@ -272,8 +275,7 @@ public abstract class AbstractSubspecies {
 			String description,
 			Map<WorldRegion, SubspeciesSpawnRarity> regionLocations,
 			Map<AbstractWorldType, SubspeciesSpawnRarity> worldLocations,
-			Map<AbstractPlaceType, SubspeciesSpawnRarity> placeLocations,
-			List<SubspeciesFlag> flags) {
+			Map<AbstractPlaceType, SubspeciesSpawnRarity> placeLocations, List<SubspeciesFlag> flags) {
 		
 		this.mainSubspecies = mainSubspecies;
 		
@@ -302,6 +304,7 @@ public abstract class AbstractSubspecies {
 		this.halfDemonNames = new HashMap<>();
 		
 		this.feralAttributes = feralAttributes;
+		this.nocturnality = nocturnality;
 		
 		this.statusEffectDescription = statusEffectDescription;
 		
@@ -410,6 +413,10 @@ public abstract class AbstractSubspecies {
 				
 				this.subspeciesOverridePriority = Integer.valueOf(coreElement.getMandatoryFirstOf("subspeciesOverridePriority").getTextContent());
 				
+				this.nocturnality = Nocturnality.DIURNAL;
+				if(coreElement.getOptionalFirstOf("nocturnality").isPresent()) {
+					this.nocturnality = Nocturnality.valueOf(coreElement.getMandatoryFirstOf("nocturnality").getTextContent());
+				}
 				this.shortStature = Boolean.valueOf(coreElement.getMandatoryFirstOf("shortStature").getTextContent());
 				this.bipedalSubspecies = Boolean.valueOf(coreElement.getMandatoryFirstOf("bipedalSubspecies").getTextContent());
 				this.aquatic = Boolean.valueOf(coreElement.getMandatoryFirstOf("aquatic").getTextContent());
@@ -824,7 +831,7 @@ public abstract class AbstractSubspecies {
 		for(AbstractSubspecies sub : Subspecies.getAllSubspecies()) {
 			newWeighting = sub.getSubspeciesWeighting(body, race);
 			if(newWeighting>highestWeighting
-					&& (!body.isFeral() || sub.isFeralConfigurationAvailable())) {
+					&& (!body.isFeral() || sub.isFeralConfigurationAvailable(body))) {
 				subspecies = sub;
 				highestWeighting = newWeighting;
 			}
@@ -1132,8 +1139,8 @@ public abstract class AbstractSubspecies {
 	 */
 	public String getName(Body body) {
 		if(body !=null) {
-			if(this.isFeralConfigurationAvailable() && body.isFeral()) {
-				return getFeralAttributes().getFeralName();
+			if(this.isFeralConfigurationAvailable(body) && body.isFeral()) {
+				return getFeralAttributes(body).getFeralName();
 			}
 			LegConfiguration conf = body.getLegConfiguration();
 			if(getAnthroNamesMap().containsKey(conf)) {
@@ -1153,8 +1160,8 @@ public abstract class AbstractSubspecies {
 	 */
 	public String getNamePlural(Body body) {
 		if(body !=null) {
-			if(this.isFeralConfigurationAvailable() && body.isFeral()) {
-				return getFeralAttributes().getFeralNamePlural();
+			if(this.isFeralConfigurationAvailable(body) && body.isFeral()) {
+				return getFeralAttributes(body).getFeralNamePlural();
 			}
 			LegConfiguration conf = body.getLegConfiguration();
 			if(getAnthroNamesMap().containsKey(conf)) {
@@ -1174,8 +1181,8 @@ public abstract class AbstractSubspecies {
 	 */
 	public String getSingularMaleName(Body body) {
 		if(body !=null) {
-			if(this.isFeralConfigurationAvailable() && body.isFeral()) {
-				return getFeralAttributes().getFeralSingularMaleName();
+			if(this.isFeralConfigurationAvailable(body) && body.isFeral()) {
+				return getFeralAttributes(body).getFeralSingularMaleName();
 			}
 			LegConfiguration conf = body.getLegConfiguration();
 			if(getAnthroNamesMap().containsKey(conf)) {
@@ -1195,8 +1202,8 @@ public abstract class AbstractSubspecies {
 	 */
 	public String getSingularFemaleName(Body body) {
 		if(body !=null) {
-			if(this.isFeralConfigurationAvailable() && body.isFeral()) {
-				return getFeralAttributes().getFeralSingularFemaleName();
+			if(this.isFeralConfigurationAvailable(body) && body.isFeral()) {
+				return getFeralAttributes(body).getFeralSingularFemaleName();
 			}
 			LegConfiguration conf = body.getLegConfiguration();
 			if(getAnthroNamesMap().containsKey(conf)) {
@@ -1216,8 +1223,8 @@ public abstract class AbstractSubspecies {
 	 */
 	public String getPluralMaleName(Body body) {
 		if(body !=null) {
-			if(this.isFeralConfigurationAvailable() && body.isFeral()) {
-				return getFeralAttributes().getFeralPluralMaleName();
+			if(this.isFeralConfigurationAvailable(body) && body.isFeral()) {
+				return getFeralAttributes(body).getFeralPluralMaleName();
 			}
 			LegConfiguration conf = body.getLegConfiguration();
 			if(getAnthroNamesMap().containsKey(conf)) {
@@ -1237,8 +1244,8 @@ public abstract class AbstractSubspecies {
 	 */
 	public String getPluralFemaleName(Body body) {
 		if(body !=null) {
-			if(this.isFeralConfigurationAvailable() && body.isFeral()) {
-				return getFeralAttributes().getFeralPluralFemaleName();
+			if(this.isFeralConfigurationAvailable(body) && body.isFeral()) {
+				return getFeralAttributes(body).getFeralPluralFemaleName();
 			}
 			LegConfiguration conf = body.getLegConfiguration();
 			if(getAnthroNamesMap().containsKey(conf)) {
@@ -1256,25 +1263,29 @@ public abstract class AbstractSubspecies {
 	}
 	
 	public String getFeralName(Body body) {
-		if(isFeralConfigurationAvailable()) {
-			return getFeralAttributes().getFeralName();
+		if(isFeralConfigurationAvailable(body)) {
+			return getFeralAttributes(body).getFeralName();
 		}
 		return getAnthroNamesMap().get(null)[0];
 	}
 	
 	public String getFeralNamePlural(Body body) {
-		if(isFeralConfigurationAvailable()) {
-			return getFeralAttributes().getFeralNamePlural();
+		if(isFeralConfigurationAvailable(body)) {
+			return getFeralAttributes(body).getFeralNamePlural();
 		}
 		return getAnthroNamesMap().get(null)[1];
 	}
 
-	public FeralAttributes getFeralAttributes() {
+	public FeralAttributes getFeralAttributes(Body body) {
 		return feralAttributes;
 	}
+
+	public Nocturnality getNocturnality() {
+		return nocturnality;
+	}
 	
-	public boolean isFeralConfigurationAvailable() {
-		return getFeralAttributes()!=null;
+	public boolean isFeralConfigurationAvailable(Body body) {
+		return getFeralAttributes(body)!=null;
 	}
 
 	public String getStatusEffectDescription(GameCharacter character) {
@@ -1668,12 +1679,16 @@ public abstract class AbstractSubspecies {
 			return getSVGStringDesaturated(character);
 		}
 	}
-	
+
 	public String getSVGStringDesaturated(GameCharacter character) {
+		return getSVGStringDesaturated(character, PresetColour.BASE_GREY);
+	}
+	
+	public String getSVGStringDesaturated(GameCharacter character, Colour colour) {
 		if(SVGString==null) {
 			initSVGStrings();
 		}
-		return getBipedBackground(SVGStringDesaturated, character, PresetColour.BASE_GREY);
+		return getBipedBackground(SVGStringDesaturated, character, colour);
 	}
 
 	public String getSlimeSVGString(GameCharacter character) {
@@ -1823,7 +1838,7 @@ public abstract class AbstractSubspecies {
 	 * @return true if this subspecies can have its FurryPreference modified in the furry preferences options screen.
 	 */
 	public boolean isFurryPreferencesEnabled() {
-		return !this.hasFlag(SubspeciesFlag.DISABLE_FURRY_PREFERENCE);
+		return race.isAffectedByFurryPreference() && !hasFlag(SubspeciesFlag.DISABLE_FURRY_PREFERENCE);
 	}
 
 	/**

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+    <scene id ="intro">
+        <author><![CDATA[AceXp]]></author>
+        <preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_acexp_shady_dealer_daily_interaction, true)]
+			[#var shadyDealerRnd = RND.nextInt(10)+1]
+		
+            #IF(flags.hasSavedLong('AceXpShadyDealer'))
+                [#game.setModdedCharacterParserTarget(flags.getSavedLong('AceXpShadyDealer'), 'AceXpShadyDealer')]
+            #ELSE
+                [#flags.setSavedLong('AceXpShadyDealer', game.importModdedCharacter('res/characters/acexp/shady_dealer.xml', 'AceXpShadyDealer'))]
+            #ENDIF
+            [#AceXpShadyDealer.setTrader(true)]
+            [#AceXpShadyDealer.setItemTagsToBuy(Array(ITEM_TAG_CONTRABAND_LIGHT, ITEM_TAG_CONTRABAND_MEDIUM, ITEM_TAG_CONTRABAND_HEAVY))]
+   			[#AceXpShadyDealer.clearNonEquippedInventory(false)];
+			
+			[#AceXpShadyDealer.addClothing(game.getItemGen().generateClothing('dsg_hndcuffs_hndcuffs', false), RND.nextInt(2)+1, false, false)]
+			[#AceXpShadyDealer.addWeapon(game.getItemGen().generateWeapon('dsg_eep_enbaton_enbaton'), RND.nextInt(2)+1, false, false)]
+			
+   			#IF(shadyDealerRnd<=8)
+    		    [#AceXpShadyDealer.addItem(game.getItemGen().generateItem('MUSHROOM'), RND.nextInt(5)+1, false, false)]
+    		#ENDIF
+   			#IF(RND.nextInt(10)<=7)
+    		    [#AceXpShadyDealer.addItem(game.getItemGen().generateItem('innoxia_race_slime_biojuice_canister'), RND.nextInt(3)+1, false, false)]
+    		#ENDIF
+   			#IF(shadyDealerRnd<=6)
+		        [#AceXpShadyDealer.addWeapon(game.getItemGen().generateWeapon('dsg_eep_pbweap_pbpistol'), RND.nextInt(1)+1, false, false)]
+		        [#AceXpShadyDealer.addWeapon(game.getItemGen().generateWeapon('dsg_eep_taser_taser'), RND.nextInt(1)+1, false, false)]
+    		#ENDIF
+   			#IF(shadyDealerRnd<=4)
+		        [#AceXpShadyDealer.addWeapon(game.getItemGen().generateWeapon('dsg_eep_riotshield_riotshield'), RND.nextInt(1)+1, false, false)]
+		        [#AceXpShadyDealer.addWeapon(game.getItemGen().generateWeapon('dsg_eep_pbweap_pbrifle'), 1, false, false)]
+    		#ENDIF
+   			#IF(shadyDealerRnd<=2)
+		        [#AceXpShadyDealer.addWeapon(game.getItemGen().generateWeapon('innoxia_gun_revolver'), 1, false, false)]
+    		#ENDIF
+			
+			[#AceXpShadyDealer.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, true)]
+		]]></preParsingEffects>
+        <content folderPath="txt/acexp/dominion/shady_dealer">INTRO</content>
+        <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+        <continuesDialogue>false</continuesDialogue>
+        <travelDisabled>true</travelDisabled>
+        <inventoryDisabled>true</inventoryDisabled>
+        <regenerationDisabled>false</regenerationDisabled>
+        <responseTabs/>
+        <responses>
+            <response>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Approach]]></responseTitle>
+                <responseTooltip><![CDATA[
+                	#IF(flags.hasSavedLong('AceXpShadyDealer'))
+		                Approach the shady dealer.
+	                #ELSE
+		                Find out what is going on...
+	                #ENDIF
+                ]]></responseTooltip>
+                <nextDialogue><![CDATA[acexp_dominion_shady_dealer_trade]]></nextDialogue>
+                <effects/>
+            </response>
+            <response>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[0]]></index>
+                <responseTitle><![CDATA[Ignore]]></responseTitle>
+                <responseTooltip><![CDATA[
+                	#IF(flags.hasSavedLong('AceXpShadyDealer'))
+		                Don't pay attention to the shady dealer.
+	                #ELSE
+		                It's probably best to ignore who or whatever is lurking in the shadows...
+	                #ENDIF
+ 			    ]]></responseTooltip>
+                <nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
+                <effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/dominion/shady_dealer', 'INTRO_LEAVE'))]
+				]]></effects>
+            </response>
+        </responses>
+    </scene>
+
+    <scene id ="trade">
+        <author><![CDATA[AceXp]]></author>
+        <preParsingEffects><![CDATA[
+   			[#AceXpShadyDealer.setLocation(pc, true)]
+            [#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/dominion/shady_dealer', 'TRADE'))]
+			[#flags.setFlag(FLAG_acexp_shady_dealer_discovered, true)]
+		]]></preParsingEffects>
+        <content/>
+        <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+        <continuesDialogue>false</continuesDialogue>
+        <travelDisabled>true</travelDisabled>
+        <inventoryDisabled>true</inventoryDisabled>
+        <regenerationDisabled>false</regenerationDisabled>
+        <responseTabs/>
+        <responses>
+            <response>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Trade]]></responseTitle>
+                <responseTooltip><![CDATA[
+					See if you can strike a bargain...
+                ]]></responseTooltip>
+                <effects/>
+                <tradingVariables enabled="true">
+                    <tradePartner><![CDATA[AceXpShadyDealer]]></tradePartner>
+                </tradingVariables>
+            </response>
+            <response>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[0]]></index>
+                <responseTitle><![CDATA[Leave]]></responseTitle>
+                <responseTooltip><![CDATA[
+				    Time to leave...
+ 			    ]]></responseTooltip>
+                <nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
+                <effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/dominion/shady_dealer', 'TRADE_LEAVE'))]
+                    [#AceXpShadyDealer.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, true)]
+				]]></effects>
+            </response>
+        </responses>
+    </scene>
+
+</dialogueNodes>

@@ -89,7 +89,6 @@ public class PositioningMenu {
 		Main.sex.setPositionRequest(null);
 	}
 	
-	@SuppressWarnings("fallthrough")
 	private static List<SexSlot> getAvailableSlots(GameCharacter character) {
 		List<SexSlot> slotsOne = new ArrayList<>();
 		List<SexSlot> slotsTwo = new ArrayList<>();

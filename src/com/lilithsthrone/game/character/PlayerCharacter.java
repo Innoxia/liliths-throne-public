@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.lilithsthrone.game.dialogue.DialogueFlags;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -45,7 +44,6 @@ import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
-import com.lilithsthrone.game.character.npc.submission.Elizabeth;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
@@ -59,6 +57,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -836,14 +835,6 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				if(worldLocation!=worldLocationInitial || !location.equals(locationInitial)) {
 					Main.game.getWorlds().get(worldLocationInitial).getCell(locationInitial).removeCharacterPresentId(clubber.getId());
 				}
-			}
-			
-		} else if(worldLocation==WorldType.SUBMISSION) {
-			super.setLocation(worldLocation, location, setAsHomeLocation);
-			
-			AbstractPlaceType place = Main.game.getWorlds().get(WorldType.SUBMISSION).getCell(location).getPlace().getPlaceType();
-			if(Main.game.isStarted() && Main.game.getNpc(Elizabeth.class)!=null && (place.equals(PlaceType.SUBMISSION_LILIN_PALACE_GATE) || place.equals(PlaceType.SUBMISSION_LILIN_PALACE))) {
-				Main.game.getNpc(Elizabeth.class).setLocation(this, false);
 			}
 			
 		} else {
@@ -2123,14 +2114,14 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				if(Main.game.getPlayer().hasHymen()) {
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
 						sb.append("With the initial pain now having faded away into a faint, dull ache, you can't help but let out one final whimper as you feel a little trickle of blood running out of your broken-in pussy."
-									+ " Picking up the pace, you thrust your "+penetrationName+" into your [pc.pussy+] once again, letting out [pc.moan+] as you succumb to this new pleasurable experience...");
+									+ " Picking up the pace, you thrust your "+penetrationName+" into your [pc.pussy+] once again, letting out [pc.a_moan+] as you succumb to this new pleasurable experience...");
 					} else {
 						sb.append("With the initial pain now having faded away into a faint, dull ache, you let out one final whimper as you reflect on the fact that this is how you'll always remember losing your virginity."
-								+ " Picking up the pace, you thrust your "+penetrationName+" into your [pc.pussy+] once again, letting out [pc.moan+] as you succumb to this new pleasurable experience...");
+								+ " Picking up the pace, you thrust your "+penetrationName+" into your [pc.pussy+] once again, letting out [pc.a_moan+] as you succumb to this new pleasurable experience...");
 					}
 				} else {
 					sb.append("Not having had to experience the pain of losing your hymen, you let out a deep [pc.moan] as you reflect on the fact that this is how you'll always remember losing your virginity."
-							+ " Picking up the pace, you thrust your "+penetrationName+" into your [pc.pussy+] once again, letting out [pc.moan+] as you succumb to this new pleasurable experience...");
+							+ " Picking up the pace, you thrust your "+penetrationName+" into your [pc.pussy+] once again, letting out [pc.a_moan+] as you succumb to this new pleasurable experience...");
 				}
 			sb.append("</p>");
 			
@@ -2223,14 +2214,14 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					if(Main.game.getPlayer().hasHymen()) {
 						if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
 							sb.append("With the initial pain now having faded away into a faint, dull ache, you can't help but let out one final whimper as you feel a little trickle of blood running out of your broken-in pussy."
-										+ " With [npc.namePos] "+penetrationName+" thrusting into your [pc.pussy+] once again, you find yourself letting out [pc.moan+] as you succumb to this new pleasurable experience...");
+										+ " With [npc.namePos] "+penetrationName+" thrusting into your [pc.pussy+] once again, you find yourself letting out [pc.a_moan+] as you succumb to this new pleasurable experience...");
 						} else {
 							sb.append("With the initial pain now having faded away into a faint, dull ache, you let out one final whimper as you reflect on the fact that this is how you'll always remember losing your virginity."
-									+ " With [npc.namePos] "+penetrationName+" thrusting into your [pc.pussy+] once again, you find yourself letting out [pc.moan+] as you succumb to this new pleasurable experience...");
+									+ " With [npc.namePos] "+penetrationName+" thrusting into your [pc.pussy+] once again, you find yourself letting out [pc.a_moan+] as you succumb to this new pleasurable experience...");
 						}
 					} else {
 						sb.append("Not having had to experience the pain of losing your hymen, you let out a deep [pc.moan] as you reflect on the fact that this is how you'll always remember losing your virginity."
-								+ " With [npc.namePos] "+penetrationName+" thrusting into your [pc.pussy+] once again, you find yourself letting out [pc.moan+] as you succumb to this new pleasurable experience...");
+								+ " With [npc.namePos] "+penetrationName+" thrusting into your [pc.pussy+] once again, you find yourself letting out [pc.a_moan+] as you succumb to this new pleasurable experience...");
 					}
 				sb.append("</p>");
 			}

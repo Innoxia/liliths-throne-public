@@ -486,6 +486,19 @@ public class OptionsController {
 			}
 		}
 		
+		for (int i=0; i<Main.getProperties().clothingFemininityTitles.length; i++) {
+			id = "CLOTHING_FEMININITY_"+i;
+			int i2 = i; // "Local variable i defined in an enclosing scope must be final or effectively final" ...
+			if (MainController.document.getElementById(id) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					Main.getProperties().setClothingFemininityLevel(i2);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(Main.getProperties().clothingFemininityTitles[i], Main.getProperties().clothingFemininityDescriptions[i]));
+			}
+		}
+		
 		id = "PREGNANCY_DURATION_ON";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
@@ -607,6 +620,7 @@ public class OptionsController {
 				new Util.Value<>("BAD_END", PropertyValue.badEndContent),
 				new Util.Value<>("LEVEL_DRAIN", PropertyValue.levelDrain),
 				new Util.Value<>("OPPORTUNISTIC_ATTACKERS", PropertyValue.opportunisticAttackers),
+				new Util.Value<>("OFFSPRING_ENCOUNTERS", PropertyValue.offspringEncounters),
 				new Util.Value<>("SPITTING_ENABLED", PropertyValue.spittingEnabled),
 				new Util.Value<>("COMPANION", PropertyValue.companionContent)));
 	}

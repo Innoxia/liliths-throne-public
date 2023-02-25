@@ -261,7 +261,8 @@ public class LunetteRanged extends NPC {
 		);
 		
 		if(!this.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(Util.randomItemFromValues(ClothingType.CHEST_TUBE_TOP, ClothingType.CHEST_SPORTS_BRA), clothingColour, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(
+					Util.randomItemFromValues(ClothingType.getClothingTypeFromId("innoxia_chest_tube_top"), ClothingType.getClothingTypeFromId("innoxia_chest_sports_bra")), clothingColour, false), true, this);
 		}
 		
 		if(Math.random()<0.2f) {

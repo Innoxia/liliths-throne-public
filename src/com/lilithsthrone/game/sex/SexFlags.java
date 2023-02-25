@@ -34,6 +34,7 @@ public class SexFlags {
 	public static boolean alertedCustomer;
 	public static boolean askedForBigDiscount;
 	public static int ralphDiscount;
+	public static int customerTurnAppearance;
 	
 	//Pix
 	public static boolean pixDemandedPromise;

@@ -9,6 +9,7 @@
 	<attributeItemId>NoStepOnSnek_race_snake_oil</attributeItemId>
 	<transformativeItemId>NoStepOnSnek_race_snake_eggs</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>CATHEMERAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>false</bipedalSubspecies>
 	<aquatic>false</aquatic>

@@ -31,7 +31,12 @@
 			[pc.speech(Erm... Lilaya? Just so you know, you <i>might</i> be the one who got me pregnant...)] you explain, nervously shuffling your [pc.feet] once again.
 		</p>
 		<p>
-			[lilaya.speech(Well, you're the one who wanted me to grow a cock, remember?)] Lilaya laughs, clearly not at all worried by the fact that she might be the 'father' to your children.
+			#IF(pc.getPregnantLitter().getFertilisationType()==FERTILISATION_NORMAL)
+				[lilaya.speech(Well, you're the one who wanted me to grow a cock, remember?)]
+			#ELSE
+				[lilaya.speech(Well, you're the one who wanted me to drink that bottle of Amazon's Secret, remember?)]
+			#ENDIF
+			 Lilaya laughs, clearly not at all worried by the fact that she might be the 'father' to your children.
 		</p>
 		<p>
 			You feel very conscious of the fact that you just admitted to having had other sexual partners to Lilaya. As you glance over to the nearby chair that you both had sex on, the feeling of guilt in the back of your mind causes you to start explaining yourself to your demonic [lilaya.relation(pc)], [pc.speech(Well... You don't mind that I've been with other partners, do you? I mean, I still like you and everything...)]
@@ -44,7 +49,7 @@
 			[pc.speech(Oh, yeah, and it <i>might</i> be you who got me pregnant,)] you explain, thinking that you should probably let Lilaya know that she could be the 'father' of your children.
 		</p>
 		<p>
-			[lilaya.speech(Well, you're the one who wanted me to grow a cock, remember?)] Lilaya laughs, seemingly not picking up on the fact that you've slept with someone other than her.
+			[lilaya.speech(Well, you seemed to be up for it at the time, remember?)] Lilaya laughs, seemingly not picking up on the fact that you've slept with someone other than her.
 		</p>
 		<p>
 			Wanting to make sure that Lilaya understands what it is you're trying to say, you explain to your demonic [lilaya.relation(pc)], [pc.speech(I didn't mean it like that; I meant that the father could be someone else... You don't mind that I've been with other partners, do you? I mean, I still like you and everything...)]
@@ -65,7 +70,12 @@
 		#ENDIF
 	</p>
 	<p>
-		[lilaya.speech(Well, you're the one who wanted me to grow a cock, remember?)] Lilaya laughs, clearly not at all worried by the fact that she's the 'father' to your children.
+		#IF(pc.getPregnantLitter().getFertilisationType()==FERTILISATION_NORMAL)
+			[lilaya.speech(Well, you're the one who wanted me to grow a cock, remember?)]
+		#ELSE
+			[lilaya.speech(Well, you're the one who wanted me to drink that bottle of Amazon's Secret, remember?)]
+		#ENDIF
+		 Lilaya laughs, clearly not at all worried by the fact that she's the 'father' to your children.
 	</p>
 	]]>
 	</htmlContent>
@@ -94,7 +104,12 @@
 		She suddenly breaks off from fondling your abdomen, before grabbing your wrist and starting to pull you further into her lab. Looking around, you see that Rose has vacated the area, leaving you alone with your demonic [lilaya.relation(pc)].
 	</p>
 	<p>
-		[lilaya.speech(This is so exciting! I wonder how your body's going to react, what with you coming from another universe and everything!)] she exclaims, getting you to sit down on a nearby chair before running off to rummage around in some nearby boxes. As she does so, she shouts back over her shoulder, [lilaya.speech(I'm guessing you're not aware of how pregnancies work here, huh? Well, seeing as the arcane has a massive effect on it, I'm guessing it's pretty different than it is in your world! Hmm... Where did it go?)]
+		#IF(game.isPlotDiscovered())
+			[lilaya.speech(This is so exciting! I wonder how your body's going to react, what with you having been unaffected by Lilith's spell and everything!)]
+		#ELSE
+			[lilaya.speech(This is so exciting! I wonder how your body's going to react, what with you coming from another universe and everything!)]
+		#ENDIF
+		 she exclaims, getting you to sit down on a nearby chair before running off to rummage around in some nearby boxes. As she does so, she shouts back over her shoulder, [lilaya.speech(I'm guessing you're not aware of how pregnancies work here, huh? Well, seeing as the arcane has a massive effect on it, I'm guessing it's pretty different than it is in your world! Hmm... Where did it go?)]
 	</p>
 	<p>
 		Lilaya stops talking for a moment as she concentrates on searching through the boxes. You aren't given much time to think about what she's saying before you see her straighten up and turn around, and as she starts walking back over towards you, you notice that she's holding another of those wand-like instruments in her right hand.
@@ -145,7 +160,7 @@
 		</p>
 		<p>
 			#IF(pc.isVisiblyPregnant() && !game.getDialogueFlags().hasFlag(FLAG_reactedToPregnancyLilaya))
-				[lilaya.speech(Wait... Are you <i>pregnant</i>?!)] she asks.
+				[lilaya.speech(Wait... Are you pregnant <i>again</i>?!)] she asks.
 			#ELSE
 				[lilaya.speech(So, you're ready to do something about your little pregnancy problem, huh?)] she asks.
 			#ENDIF
@@ -178,6 +193,25 @@
 			#ELSE
 				 [lilaya.speech(You're not quite ready to give birth just yet... Come back when your belly's really nice and round!)]
 			#ENDIF
+		</p>
+	#ENDIF
+	#IF(pc.isCharacterPossiblyFather(lilaya))
+		<p>
+			As nothing's been said on the matter yet, you take this opportunity to tell Lilaya that
+			#IF(pc.getPotentialPartnersAsMother().size()==1)
+				 she's
+			#ELSE
+				 she might be
+			#ENDIF
+			 the one who got you knocked up.
+		</p>
+		<p>
+			#IF(pc.getPregnantLitter().getFertilisationType()==FERTILISATION_NORMAL)
+				[lilaya.speech(Well, you're the one who wanted me to grow a cock, remember?)]
+			#ELSE
+				[lilaya.speech(Well, you're the one who wanted me to drink that bottle of Amazon's Secret, remember?)]
+			#ENDIF
+			 Lilaya laughs, clearly not at all worried by the fact that she's the 'father' to your children. Taking her hands off your swollen belly, she steps back and finishes by asking, [lilaya.speech(So, is there anything else I can do for you, [pc.name]?)]
 		</p>
 	#ENDIF
 	]]>
