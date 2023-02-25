@@ -89,6 +89,7 @@ public class OptionsDialogue {
 					+ "</p>"
 					+"<p>"
 						+ "You can visit my blog (https://lilithsthrone.blogspot.co.uk) to check on development progress (use the 'Blog' button below to open the blog in your default browser)."
+						+ " [style.italicsMinorBad(<b>Note:</b> Intrusive age verification is being rolled out on blogspot, so I will likely create a new blog soon.)]"
 					+ "</p>"
 					+ "<p style='text-align:center'>"
 						+ "<b>Please use either my blog or github to get the latest official version of Lilith's Throne!</b>"
