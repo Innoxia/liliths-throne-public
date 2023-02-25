@@ -86,11 +86,8 @@ public class NightlifeDistrict {
 
 	public static List<GameCharacter> getClubbersPresent() {
 		List<GameCharacter> clubbers = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
-//		for(GameCharacter clubber : clubbers) {
-//			System.out.println(clubber.getClass().getName());
-//		}
-//		clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC));
-		clubbers.removeIf((npc) -> npc.isUnique());
+		// Do not filter by checking for DominionClubNPC classes, as imported clubbers are not of this class
+		clubbers.removeIf((npc) -> npc.isUnique() || npc.isSlave() || Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())); // So that when player takes clubber home, slaves/occupants in player's room are not added to this list
 		return clubbers;
 	}
 	
@@ -1288,7 +1285,7 @@ public class NightlifeDistrict {
 					+ baseName
 				+ "</td>"
 				+ "<td>"
-					+ "<div class='saveLoadButton' id='import_clubber_" + identifier + "' style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Import</div>"
+					+ "<div class='saveLoadButton' id='IMPORT_CLUBBER_" + identifier + "' style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Import</div>"
 				+ "</td>"
 				+ "</tr>";
 	}

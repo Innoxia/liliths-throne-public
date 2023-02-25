@@ -141,6 +141,11 @@
 			Stepping forwards, [harpyNymphoCompanion.name] moves to protect her matriarch. [harpyNymphoCompanion.speech(You heard her! What do you want?!)]
 		</p>
 	#ENDIF
+	#IF(!flags.hasFlag(FLAG_nymphoPacified) && game.isBadEndsEnabled() && pc.isAbleToHaveRaceTransformed())
+		<p style='text-align:center;'><i>
+			[style.italicsBadEnd(You get the feeling that you'd be in serious trouble if you were to lose a fight against these harpies...)]
+		</i></p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -174,7 +179,7 @@
         Eager to help satisfy [harpyNympho.namePos] craving for sex, you reach down and grab her wings. Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyNympho.lips+].
 	</p>
 	<p>
-		[harpyNympho.Name] responds to your dominant move by letting out a excited squeal, and, enthusiastically wrapping her wings around your back, she passionately starts returning your kiss...
+		[harpyNympho.Name] responds to your dominant move by letting out an excited squeal, and, enthusiastically wrapping her wings around your back, she passionately starts returning your kiss...
     </p>
 	]]>
     </htmlContent>
@@ -280,6 +285,280 @@
 			Having shown [harpyNympho.name] her place, you set off down the staircase, and after walking back across the lower platform, you quickly find yourself on the outskirts of [harpyNympho.namePos] nest once again.
 		</p>
 	#ENDIF
+    ]]>
+    </htmlContent>
+	
+	
+	<!-- After losing fight: -->
+	
+    <htmlContent tag="COMBAT_LOST"><![CDATA[
+	<p>
+		You fall to the floor, totally beaten. As you collapse, [harpyNymphoCompanion.name] jumps down on top of you, pinning you to the floor as she calls out to her matriarch, [harpyNymphoCompanion.speech([harpyNympho.Name]! I did it!)]
+	</p>
+	<p>
+		[harpyNympho.speech(Well done, [harpyNymphoCompanion.name]!)] you hear [harpyNympho.name] respond. [harpyNympho.speech(You're going to get a reward for this!)]
+	</p>
+	<p>
+		As [harpyNymphoCompanion.name] continues holding you down, [harpyNympho.name] calls out for her flock to come and help. Rushing to obey their matriarch, several harpies dash forwards and pin your [pc.arms] and [pc.legs] to the floor.
+	</p>
+	<p>
+		[harpyNympho.speech(Keep on holding [pc.herHim] still, everyone!)] [harpyNympho.name] calls out, pulling [harpyNymphoCompanion.name] off of you. [harpyNympho.speech(I've got a fun little punishment planned!)]
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_MATRIARCH"><![CDATA[
+	<p>
+		You fall to the floor, totally beaten. As you collapse, you hear [harpyNympho.name] ordering her flock to retrain you, and, rushing to obey their matriarch, you're quickly pinned to the floor by a group of her obedient harpies.
+	</p>
+	<p>
+		[harpyNympho.speech([nymphoHarpyCompanion.name], are you ok?!)] you hear [nymphoHarpy.name] asking her boy-toy. [harpyNympho.speech(Come on, I'll make you feel better!)]
+	</p>
+	<p>
+		As the members of [harpyNympho.namePos] flock continue to hold you down, you hear the matriarch and her companion walking towards you. Some of the harpies start laughing as you try to wriggle free, but you're too weak from the fight to offer any real resistance.
+	</p>
+	<p>
+		[harpyNympho.speech(Keep on holding [pc.herHim] still!)] [harpyNympho.name] calls out. [harpyNympho.speech(I've got a fun little punishment planned!)]
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_END"><![CDATA[
+	#IF(game.isBadEndsEnabled())
+		<p>
+			[harpyNympho.speech([harpyNymphoCompanion.Name], strip [pc.herHim] naked and then fetch me some of our lollipops!)] [harpyNympho.name] laughs. As her subordinate hastily pulls off all of your clothing, the matriarch steps forwards to tower over you and tease, [harpyNympho.speech(I know what your problem is; you just wish you were part of my flock! Well, my special little lollipops can help with that!)]
+		</p>
+		<p>
+			[pc.speechNoEffects(Let me go!)] you shout, struggling against the harpies holding you down. You're too weak to shake them off, however, and they easily continue to pin your now-naked body to the floor, holding you quite still as [harpyNympho.name] stoops down next to your face.
+		</p>
+		<p>
+			[harpyNympho.speech(Don't struggle so much!)] she excitedly moans, [harpyNympho.speech(You're going to be one of us soon!)]
+		</p>
+		<p>
+			At that moment, [harpyNymphoCompanion.name] comes running back from her errand, and you see her hand over several pink, cock-shaped lollipops to [harpyNympho.name]. With a mischievous grin on her face, the pink-feathered matriarch orders her boy-toy to hold your mouth open, and, leaning in, [harpyNympho.name] forcefully shoves the lollipops into your mouth.
+		</p>
+		<p>
+			[harpyNympho.speech(Be a good [pc.girl]! You'll like it, I promise!)]
+		</p>
+	#ELSEIF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+		<p>
+			[harpyNympho.speech([harpyNymphoCompanion.name], fetch me one of my lollipops!)] [harpyNympho.name] laughs, stepping forwards to tower over you. [harpyNympho.speech(I know what your problem is; you just wish you were me! Well, my special little lollipops can help with that!)]
+		</p>
+		<p>
+			[pc.speechNoEffects(Let me go!)] you shout, struggling against the harpies holding you down. You're too weak to shake them off, however, and they easily continue to pin you to the floor, holding you quite still as [harpyNympho.name] stoops down next to your face.
+		</p>
+		<p>
+			[harpyNympho.speech(Shh! Don't struggle so much,)] she moans, [harpyNympho.speech(this will all be over soon!)]
+		</p>
+		<p>
+			[harpyNymphoCompanion.name] comes running over, and you see her hand over a pink, cock-shaped lollipop to [harpyNympho.name]. With a mischievous grin on her face, the pink-feathered matriarch orders her boy-toy to hold your mouth open, and, leaning in, [harpyNympho.name] forcefully tries to shove the lollipop into your mouth.
+		</p>
+		<p>
+			[harpyNympho.speech(Be a good [pc.girl]! You'll like it, I promise!)]
+		</p>
+	#ELSE
+		<p>
+			[nymphoHarpy.speech(Oh... Well that's not fair...)] she suddenly whines as she sees that your mouth is inaccessible. Pouting at you, she exclaims, [nymphoHarpy.speechNoEffects(I wanted to turn you into one of us, but you can't suck on our special lollipops while your mouth's like that! Well... I guess I'll just have you thrown out of here instead!)]
+		</p>
+	#ENDIF
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_MOUTH_BLOCKED"><![CDATA[
+	<p>
+		[harpyNympho.speechNoEffects(Go on, girls!)] [harpyNympho.name] exclaims, before dismissively gesturing towards you and demanding, [harpyNympho.speechNoEffects(Throw [pc.herHim] out of my nest so we can get back to fucking!)]
+	</p>
+	<p>
+		Hurrying to carry out their matriarch's order, [harpyNymphoCompanion.name] and several other harpies pull you to your [pc.feet], before roughly marching you out of their nest and physically throwing you down onto a nearby walkway. Not wanting to stick around and give them a chance to abuse you further, you leave the harpies' mocking laughter behind and hurry away from [nymphoHarpy.namePos] nest...
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_NO_TF"><![CDATA[
+	<p>
+		With a determined yank, you finally manage to pull one of your [pc.arms] free from the harpy's clutches. Before they're able to restrain you again, you grab the lollipop out of [harpyNympho.namePos] feathered hand, before smashing it on the floor beneath you.
+	</p>
+	<p>
+		[harpyNympho.speech(Silly [pc.girl]! That's not going to make this any easier for you!)] [harpyNympho.name] laughs, dropping down onto all fours directly over your face. [harpyNympho.speech(Come on [harpyNymphoCompanion.name]! Let's carry on from where we left off! This naughty [pc.girl] can be on cleanup duty!)]
+	</p>
+	<p>
+		[harpyNymphoCompanion.name] lets out a little laugh, [harpyNymphoCompanion.speech(That sounds fun!)]
+	</p>
+	<p>
+		With [harpyNympho.namePos] pussy hovering above your face, you're held in position and forced to watch as [harpyNymphoCompanion.name] lifts up her skirt and pulls down her underwear. Stepping forwards, you see her tiny little avian cock standing to attention, and with a thrust of her hips, she slides into [harpyNympho.namePos] wet cunt. Some of the cum from [harpyNympho.namePos] previous creampie oozes out around [harpyNymphoCompanion.namePos] little cock, and you flinch as the salty jizz drips down onto your face.
+	</p>
+	<p>
+		For the next few hours, you're forced to act as [harpyNympho.namePos] personal pussy-cleaner. One after another, the harpies of [harpyNympho.namePos] flock take turns fucking their sex-crazed matriarch. She insists that each one finish inside of her, and after receiving each creampie, she lowers herself down onto your face, forcing you to lick her clean before the next excited harpy's turn.
+	</p>
+	<p>
+		You eventually lose count of how many times you're forced to endure this humiliation, but, after what seems like an eternity, [harpyNympho.name] declares that she needs a break. Standing up, she orders her harpies to release you, before grinning down at your cum-coated face. [harpyNympho.speech(I think you've learnt your lesson, haven't you?! Now, get out my sight!)]
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_TF_START"><![CDATA[
+	<p>
+		Obediently doing as you're told, you open your mouth and let the lollipop slide past your [pc.lips+]. An intense, sweet flavour hits your tongue, and you find that it's quite unlike anything you've ever tasted before. Before you know what you're doing, you're eagerly sucking and licking on the delicious candy, letting out little whining noises as you find yourself unable to stop...
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_TF_END"><![CDATA[
+	<p>
+		As the lollipop's transformative effects come to an end, the harpies' grip on your [pc.arms] and [pc.legs] loosens. Blinking slowly a few times, you let out a lewd moan, [pc.speech(Oh, fuck! I need to fuck something, right now!)]
+	</p>
+	<p>
+		The flock of harpies bursts out into laughter, and the ones who were holding you down finally release you before backing off. Scrambling to your knees, you find yourself looking up at [harpyNympho.Name] as she continues towering over you.
+	</p>
+	<p>
+		[harpyNympho.speech(Well, you're not taking any of <i>my</i> playthings! And anyway, before you run off and get fucked like a horny slut, I've still got some plans for you!)] [harpyNympho.name] laughs, dropping down onto all fours directly over your face and forcing you down onto your back once more. [harpyNympho.speech(Come on, [harpyNymphoCompanion.name]! Let's carry on from where we left off! This naughty [pc.girl] can be on cleanup duty!)]
+	</p>
+	<p>
+		[harpyNymphoCompanion.name] lets out a little laugh, [harpyNymphoCompanion.speech(That sounds fun!)]
+	</p>
+	<p>
+		With [harpyNympho.namePos] pussy hovering above your face, you're held in position and forced to watch as [harpyNymphoCompanion.name] lifts up her skirt and pulls down her underwear. Stepping forwards, you see her tiny little avian cock standing to attention, and with a thrust of her hips, she slides into [harpyNympho.namePos] wet cunt. Some of the cum from [harpyNympho.namePos] previous creampie oozes out around [harpyNymphoCompanion.namePos] little cock, and you flinch as the salty jizz drips down onto your face.
+	</p>
+	<p>
+		For the next few hours, you're forced to act as [harpyNympho.namePos] personal pussy-cleaner. One after another, the harpies of [harpyNympho.namePos] flock take turns fucking their sex-crazed matriarch. She insists that each one finish inside of her, and, after receiving each creampie, she lowers herself down onto your face, forcing you to lick her clean before the next excited harpy's turn.
+	</p>
+	<p>
+		You eventually lose count of how many times you're forced to endure this humiliation, but, after what seems like an eternity, [harpyNympho.name] declares that she needs a break. Standing up, she orders her harpies to release you, before grinning down at your cum-coated face. [harpyNympho.speech(I think you've learnt your lesson, haven't you?! Now, get out my sight!)]
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_THROWN_OUT"><![CDATA[
+	<p>
+		Finally given an opportunity to escape, you do as [harpyNympho.name] commands. Jumping to your feet, you run away across the platform, leaving the harpies' mocking laughter behind as you quickly find yourself on the outskirts of the nest once again...
+	</p>
+    ]]>
+    </htmlContent>
+	
+	<!-- Bad end: -->
+	
+    <htmlContent tag="COMBAT_LOST_BAD_END_TF_START"><![CDATA[
+	<p>
+		Completely overpowered by the nympho harpies and totally at their mercy, you can't do anything but obey [nymphoHarpy.namePos] command. With the matriarch still forcefully shoving several of the cock-shaped lollipops into your mouth, you reluctantly start to suck on them. An intense, sweet flavour hits your tongue, and you find that it's quite unlike anything you've ever tasted before. Before you know what you're doing, you're eagerly sucking and licking on the delicious candy, letting out little whining noises as you find yourself unable to stop.
+	</p>
+	<p>
+		[nymphoHarpy.speechNoEffects(That's it, suck on them real good!)] [nymphoHarpy.name] excitedly teases, [nymphoHarpy.speechNoEffects(Now turn into a sexy little nympho slut for me!)]
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_BAD_END_TF_END"><![CDATA[
+	<p>
+		As the lollipop's transformative effects come to an end, the harpies' grip on your [pc.arms] and [pc.legs] loosens. Blinking slowly a few times, you let out a lewd moan, [pc.speech(Oh, fuck! I need to fuck something, right now!)]
+	</p>
+	<p>
+		The flock of harpies bursts out into laughter, and the ones who were holding you down finally release you before backing off. Scrambling to your knees, you find yourself looking up at [harpyNympho.Name] as she continues towering over you.
+	</p>
+	<p>
+		[harpyNympho.speech(Feeling all pent-up and wanting to show me what a horny slut you are?)] [harpyNympho.name] asks, before reaching down to spread her labia and show off the fact that she's been recently creampied. As fresh cum oozes out of her cunt to drip down one of her feathered thighs, she demands, [harpyNympho.speech(Beg for it and tell me that I'm your matriarch, and I'll let you act as my pussy cleaner!)]
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_BAD_END_BEG"><![CDATA[
+	<p>
+		With the effects of the lollipops still lingering in your mind, you find yourself staring at [harpyNympho.namePos] pussy and desperately moaning, [pc.speechNoEffects(You're my matriarch, [harpyNympho.name]! Please, let me clean your pussy!)]
+	</p>
+	<p>
+		[harpyNympho.Name] grins down at you, and to the background noise of dozens of giggling nympho harpies, she teases, [harpyNympho.speechNoEffects(That's a good girl! You're nothing but another one of my fuck-toys now, understand? Now lie down so I can sit on your face.)]
+	</p>
+	#IF(pc.hasVagina())
+		<p>
+			Before you can move to obey, [harpyNymphoCompanion.name] whines, [harpyNymphoCompanion.speech([harpyNympho.Name]... Please can I be the first to fuck your new slut?)] 
+		</p>
+		<p>
+			[harpyNympho.speechNoEffects(Of course you can, [harpyNymphoCompanion.name]! You can do her while she's swallowing down all that yummy cum you pumped into my pussy,)] your new matriarch replies, before once again addressing you and commanding, [harpyNympho.speechNoEffects(Come on, slut, we haven't got all day! Lie down and spread your legs for [harpyNymphoCompanion.name]!)]
+		</p>
+	#ENDIF
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="BAD_END_SEX_VAGINA_START"><![CDATA[
+	<p>
+		More than happy to obey, you quickly lie down before your matriarch, who wastes no time in stepping over your and lowering herself down onto your face. As her cum-stuffed cunt is pushed down against your [pc.lips], she moans, [harpyNympho.speechNoEffects(Get started, slut!)] 
+	</p>
+	<p>
+		As you thrust your tongue into [harpyNympho.namePos] cum-stuffed pussy, you feel [harpyNymphoCompanion.namePos] hands running up the inside of your thighs. Submissively spreading your legs, you let out a desperate, muffled moan as you feel the head of her cock sliding up and down over your [pc.labia+]. Desperate to get fucked, you eagerly keep your legs spread wide apart, before trying to shuffle forwards and encourage the harpy to get started. Letting out an amused giggle, [harpyNymphoCompanion.name] grabs hold of your legs and gives you want you want. Thrusting her cock into your [pc.pussy+], she starts rapidly pumping her throbbing length in and out of your cunt as your moans of pleasure are muffled in [harpyNympho.namePos] pussy...
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="BAD_END_SEX_PENIS_START"><![CDATA[
+	<p>
+		More than happy to obey, you quickly lie down before your matriarch, who wastes no time in stepping over your and lowering herself down onto your face. As her cum-stuffed cunt is pushed down against your [pc.lips], she moans, [harpyNympho.speechNoEffects(Get started, slut!)] 
+	</p>
+	<p>
+		As you thrust your tongue into [harpyNympho.namePos] cum-stuffed pussy, you feel her bending over and lowering her face towards your groin. Bucking your hips in anticipation of what's about to happen, you let out a deep, erotic moan into your matriarch's pussy as she wraps her lips around your cock and starts giving you a blowjob...
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="BAD_END_AFTER_SEX"><![CDATA[
+	#IF(pc.hasVagina())
+		<p>
+			Having had enough, your matriarch slides off of you, leaving your face thoroughly soaked in saliva and girlcum. [harpyNymphoCompanion.Name] is far from done, however, and while your matriarch struts off to another part of the nest, she keeps on thrusting her cock in and out of your well-fucked pussy. Able to look down into your eyes for the first time, [harpyNymphoCompanion.name] teases, [harpyNymphoCompanion.speechNoEffects(~Mmm!~ You like my cock, babe?)]
+		</p>
+		<p>
+			As you open your mouth to eagerly respond in the positive, you find it suddenly being filled by yet another cock-shaped lollipop. Having returned from wherever she went, you look up to see your matriarch leering over you with at least a dozen more of the transformative candies clutched in her wings. With a big smile on her face, she states, [harpyNympho.speechNoEffects(The mental effects of these lollipops wear off after a while, but if you eat loads at once, then the changes are permanent! Isn't that great?! All you need to do is eat all of these, and you'll be part of my flock forever!)]
+		</p>
+	#ELSE
+		<p>
+			Having had enough, your matriarch slides off of you, leaving your face thoroughly soaked in saliva and girlcum. Looking over at [harpyNymphoCompanion.name], she commands, [harpyNympho.speech(Go and fetch all of the lollipops we have! I'll keep [pc.name] happy while we wait...)]
+		</p>
+		<p>
+			As [harpyNymphoCompanion.name] hurries off to carry out her matriarch's orders, [harpyNympho.name] kneels down beside you and grabs hold of your softening cock. Eagerly starting to jerk you off, she teases, [harpyNympho.speech(I'm not finished with you yet, babe! You want to cum for me some more, don't you?)]
+		</p>
+		<p>
+			As you open your mouth to eagerly respond in the positive, you find it suddenly being filled by yet another cock-shaped lollipop. Having returned from wherever she went, you look up to see [harpyNymphoCompanion.name] leering over you with at least a dozen more of the transformative candies clutched in her wings. As her subordinate feeds you the transformative candies, your matriarch states, [harpyNympho.speechNoEffects(The mental effects of these lollipops wear off after a while, but if you eat loads at once, then the changes are permanent! Isn't that great?! All you need to do is eat all of these, and you'll be part of my flock forever!)]
+		</p>
+	#ENDIF
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="BAD_END_FINAL"><![CDATA[
+	#IF(pc.hasVagina())
+		<p>
+			Eagerly agreeing with what your matriarch says, you slowly but surely make your way through all of the lollipops she's brought for you, all the while being fucked by [harpyNymphoCompanion.name]...
+		</p>
+		<p style='text-align:center;'>
+			...
+		</p>
+		<p>
+			Months later, [harpyNymphoCompanion.name] has you in the mating-press position as her cock thrusts in and out of your pussy. Although you're at the bottom of the nest's female hierarchy, the vast majority of the nest's flock are males, and so despite being at the bottom of the females' pecking order, you're still one of the most important members of the flock due to your gender.
+		</p>
+		<p>
+			Of course, you have duties befitting your importance. As [harpyNymphoCompanion.name] finishes inside of you and moves off to wait for a turn at fucking your matriarch, a couple of males step up to where you're lying. Knowing what it is that they want, you tell the males that in exchange for access to your pussy they're to act as your servants for the rest of the day. Smiling as they eagerly agree to your terms, you roll over and push yourself up on all fours, before allowing one of them to start humping you doggy-style, while the other frantically fucks your face...
+		</p>
+	#ELSE
+		<p>
+			Eagerly agreeing with what your matriarch says, you slowly but surely make your way through all of the lollipops that [harpyNymphoCompanion.name] has brought for you, all the while being jerked off by [harpyNympho.name]...
+		</p>
+		<p style='text-align:center;'>
+			...
+		</p>
+		<p>
+			Months later, [harpyNympho.name] is on top of you, riding your cock. Well and truly established as a harpy at the bottom of the nest's male hierarchy, you often have to wait at the back of the line to fuck your matriarch, but thanks to her insatiable nymphomania, you're still able to rut her at least half a dozen times a day.
+		</p>
+		<p>
+			While you're treated as just another fuck-toy by your matriarch, one of the few other females in your flock has taken a particular liking to you, and so after you've finished inside of [harpyNympho.name], you're called over to submissively service this other female's pussy. As you start to eagerly eat her out, she suggests that if you do a good job then she'll allow you to
+			#IF(game.isAnalContentEnabled())
+				 fuck her ass tonight...
+			#ELSE
+				 fuck her all through the night...
+			#ENDIF
+		</p>
+	#ENDIF
+	<p style='text-align:center;'>
+		...
+	</p>
+	<p><i>
+		With your mind having been permanently changed by consuming so many of the transformative lollipops, you never once think of trying to escape from [harpyNympho.namePos] nest. Even if you did somehow become aware of what had happened, you enjoy your new life far too much to ever want to give it up...
+	</i></p>
     ]]>
     </htmlContent>
 	

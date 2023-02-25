@@ -455,7 +455,7 @@
 	
 	<htmlContent tag="GAME_STRENGTH_LOST"><![CDATA[
 	<p>
-		Not wanting to waste any more money on trying to win, you take a [pc.step] back and wonder what to do next. Seeing that you don't want to play any more, Moreno flashes you a friendly smile and reminds you, [moreno.speech(If you've already got any tickets, you can trade them in for a prize here..)]
+		Not wanting to waste any more money on trying to win, you take a [pc.step] back and wonder what to do next. Seeing that you don't want to play any more, Moreno flashes you a friendly smile and reminds you, [moreno.speech(If you've already got any tickets, you can trade them in for a prize here.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -465,7 +465,7 @@
 		Liking the look of what's in Moreno's pants, you flit back and tease him by saying that you were showing your strength off in order to get him excited. Looking down at the expanding bulge in his shorts, you tell him that you're pleased to see his cock appears to be nicely proportioned to his huge muscles and towering height.
 	</p>
 	<p>
-		Your words cause Moreno to let out a horny grunt, and in a attempt to regain control of the conversation, he motions down to his groin and states, [moreno.speech(Well, I've shown you something of mine, so you should give me something in return. Tell me, [pc.name], what's your secret? How did you get to be so strong?)]
+		Your words cause Moreno to let out a horny grunt, and in an attempt to regain control of the conversation, he motions down to his groin and states, [moreno.speech(Well, I've shown you something of mine, so you should give me something in return. Tell me, [pc.name], what's your secret? How did you get to be so strong?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -475,7 +475,7 @@
 		Feeling like things have gone too far, you playfully wink at Moreno and tell him that some things are best left as secrets, before moving away from him and making it clear that your flirting has coe to an end.
 	</p>
 	<p>
-		[moreno.speech(You shouldn't tease people like that,)] Moreno grunts in frustration, but after letting out a deep sigh, he quickly calms down and asks, [moreno.speech(Anyway, do you want to trade your ticket in for a prize? Or amybe you'd like to play again?)]
+		[moreno.speech(You shouldn't tease people like that,)] Moreno grunts in frustration, but after letting out a deep sigh, he quickly calms down and asks, [moreno.speech(Anyway, do you want to trade your ticket in for a prize? Or maybe you'd like to play again?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -810,7 +810,7 @@
 		[silvia.speech(Here you go, [pc.name]...)] Silvia whines as she hands you a silver ring. [silvia.speech(These are what the tourism board gives us to hand out as a prize.)]
 	</p>
 	<p>
-		Quick to change her attitude, Far leans forwards and flashes you a smile, before aking, [fae.speech(Hey, why don't you buy some expensive clothing to get another ticket? I'm sure you're regretting not choosing a kiss, right? You should keep on rolling until you get a six again!)]
+		Quick to change her attitude, Far leans forwards and flashes you a smile, before asking, [fae.speech(Hey, why don't you buy some expensive clothing to get another ticket? I'm sure you're regretting not choosing a kiss, right? You should keep on rolling until you get a six again!)]
 	</p>
 	<p>
 		Taking a [pc.step] back from the counter, you wonder whether to do as Fae suggests and buy some clothing in order to get another Faire ticket, or instead head off and forget about trying to win another prize...
@@ -884,7 +884,7 @@
 		</p>
 		#IF(game.getHourOfDay()>=18)
 			<p>
-				As it's past closing time, the trio of boisterous, broad-shouldered bog-boys who work here are busily packing away their stall. If you wanted to buy anything from them, you'll have to return here tomorrow...
+				As it's past closing time, the trio of boisterous, broad-shouldered dog-boys who work here are busily packing away their stall. If you wanted to buy anything from them, you'll have to return here tomorrow...
 			</p>
 		#ELSE
 			<p>
@@ -1149,7 +1149,7 @@
 	
 	<htmlContent tag="FOOD_SNACKS_CANDY_FLOSS"><![CDATA[
 	<p>
-		Deciding that you'd like to get something to eat, you [pc.step] up to the counter and pick up a 'Wooly Goodness' from one of the wicker baskets. The nearest sheep-girl behind the counter asks you for [#SPECIAL_PARSE_0] flames, and after you've handed over the money, she flashes you a big smile and says that she hopes that you'll enjoy your candy floss.
+		Deciding that you'd like to get something to eat, you [pc.step] up to the counter and pick up a 'Woolly Goodness' from one of the wicker baskets. The nearest sheep-girl behind the counter asks you for [#SPECIAL_PARSE_0] flames, and after you've handed over the money, she flashes you a big smile and says that she hopes that you'll enjoy your candy floss.
 	</p>
 	]]>
 	</htmlContent>
@@ -1285,7 +1285,7 @@
 				<p>
 					[heather.speech(Those who wish for me to glance into the mists of their future name me as Heather,)] [heather.she] reveals in a quiet voice.
 					#IF(heather.isAttractedTo(pc))
-						 Clearly liking the look of you, [heather.she] flashes you a sly smile and asks, [heather.speech(Who do I have the please of entertaining today?)]
+						 Clearly liking the look of you, [heather.she] flashes you a sly smile and asks, [heather.speech(Who do I have the pleasure of entertaining today?)]
 					#ELSE
 						 As you move forwards, [heather.she] flashes you a quick smile and asks, [heather.speech(May I ask for your name?)]
 					#ENDIF
@@ -1760,7 +1760,7 @@
 	
 	<htmlContent tag="KISSING_KISS_ZIVA_MORE"><![CDATA[
 	<p>
-		Unable to look away from the sight of [ziva.namePos] massive, thick nipples pressing out beneath the thin fabric of her plunge blouse, you give in to your horny thoughts and and ask the mature goat-girl if you can kiss them. Letting out a shocked sigh, [ziva.name] starts to admonish you for your outrageous request, but once again quickly stops herself. Narrowing her gaze a little, she peers at you through her glasses and slowly says, [ziva.speech(Let me get this straight, hun. You're telling me that you want me to take my tits out, so you can kiss my nipples? That's seriously what you're asking me right now?)]
+		Unable to look away from the sight of [ziva.namePos] massive, thick nipples pressing out beneath the thin fabric of her plunge blouse, you give in to your horny thoughts and ask the mature goat-girl if you can kiss them. Letting out a shocked sigh, [ziva.name] starts to admonish you for your outrageous request, but once again quickly stops herself. Narrowing her gaze a little, she peers at you through her glasses and slowly says, [ziva.speech(Let me get this straight, hun. You're telling me that you want me to take my tits out, so you can kiss my nipples? That's seriously what you're asking me right now?)]
 	</p>
 	<p>
 		Responding in the positive, you confirm to [ziva.name] that that's what you want. Letting out a laugh in disbelief at what she's hearing, the mature goat-girl gestures towards her young, voluptuous cow-girl slaves and asks, [ziva.speech(You're asking to kiss <i>my</i> tits, when you could have asked me about fucking one of my slaves instead? You've really got a thing for older goat-girls, huh? And here I was thinking that you'd be happy with just a kiss from me...)]
@@ -1867,7 +1867,7 @@
 		With a triumphant smirk on her face, [ziva.name] leans back, before reaching down to once again spread her dangling, ebony labia. Presenting her slimy cunt to you, she moans, [ziva.speech(Get started then, hun. I want to feel your cock <i>deep</i> in my cunt... Oh, and you're not to stop until I say so. Understood?)]
 	</p>
 	<p>
-		[pc.speech(Yes, [ziva.name],)] you reply as you move forwards and press the [pc.cockHead+] of your rapidly-hardening cock against the mature goat-girl's pussy. Breathing in her feminine musk, you slide your throbbig shaft up and down over her massive labia a few times, before pushing forwards and starting to sink your [pc.cockGirth] cock into her slimy twat. As she feels you entering her, [ziva.name] lets out long, deep moan, which encourages you to push forwards and sink your cock deep into her slimy pussy, before quickly pulling back and thrusting forwards once again. Within moments, the goat-girl is panting and moaning beneath you as you repeatedly thrust your [pc.cock+] in and out of her mature cunt...
+		[pc.speech(Yes, [ziva.name],)] you reply as you move forwards and press the [pc.cockHead+] of your rapidly-hardening cock against the mature goat-girl's pussy. Breathing in her feminine musk, you slide your throbbing shaft up and down over her massive labia a few times, before pushing forwards and starting to sink your [pc.cockGirth] cock into her slimy twat. As she feels you entering her, [ziva.name] lets out long, deep moan, which encourages you to push forwards and sink your cock deep into her slimy pussy, before quickly pulling back and thrusting forwards once again. Within moments, the goat-girl is panting and moaning beneath you as you repeatedly thrust your [pc.cock+] in and out of her mature cunt...
 	</p>
 	]]>
 	</htmlContent>
@@ -1883,7 +1883,7 @@
 		With a triumphant smirk on her face, [ziva.name] reaches back to spread her ass cheeks, presenting you with her ebony-rimmed asshole. Presenting her back door to you, she moans, [ziva.speech(Get started then, hun. I want to feel your cock <i>deep</i> in my butt... Oh, and you're not to stop until I say so. Understood?)]
 	</p>
 	<p>
-		[pc.speech(Yes, [ziva.name],)] you reply as you move forwards and press the [pc.cockHead+] of your rapidly-hardening cock against the mature goat-girl's ass. Breathing in her feminine musk, you slide your throbbig shaft up and down over her rear entrance a few times, before pushing forwards and starting to sink your [pc.cockGirth] cock into her ass. As she feels you entering her, [ziva.name] lets out long, deep moan, which encourages you to push forwards and sink your cock deep into her asshole, before quickly pulling back and thrusting forwards once again. Within moments, the goat-girl is panting and moaning beneath you as you repeatedly thrust your [pc.cock+] in and out of her ass...
+		[pc.speech(Yes, [ziva.name],)] you reply as you move forwards and press the [pc.cockHead+] of your rapidly-hardening cock against the mature goat-girl's ass. Breathing in her feminine musk, you slide your throbbing shaft up and down over her rear entrance a few times, before pushing forwards and starting to sink your [pc.cockGirth] cock into her ass. As she feels you entering her, [ziva.name] lets out long, deep moan, which encourages you to push forwards and sink your cock deep into her asshole, before quickly pulling back and thrusting forwards once again. Within moments, the goat-girl is panting and moaning beneath you as you repeatedly thrust your [pc.cock+] in and out of her ass...
 	</p>
 	]]>
 	</htmlContent>
@@ -1951,7 +1951,7 @@
 			#IF(game.getDialogueFlags().hasFlag(FLAG_lunetteTerrorEnded))
 				Thanks to the fact that Lunette is no longer raiding the surrounding farmland, the market seems to be busier than ever. Catching brief snippets of conversation as you [pc.walk] past some of the stalls, you soon get the impression that the quantity and quality of produce which the vendors are able to acquire is better than it's ever been. Thanks to this, there are a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some time out of your day in which to do a spot of shopping...
 			#ELSE
-				Although it's very busy, with crowds of shoppers occupying large parts of the market, you can't help but notice that some of the stalls look to be quite low on goods for sale. Catching brief snippets of conversation as you [pc.walk] past, you soon get the impression that Lunette's raiding is having an effect on both the quantity and quality of produce which the vendors are able to acquire. Despite this, however, there are still a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some some time out of your day in which to do a spot of shopping...
+				Although it's very busy, with crowds of shoppers occupying large parts of the market, you can't help but notice that some of the stalls look to be quite low on goods for sale. Catching brief snippets of conversation as you [pc.walk] past, you soon get the impression that Lunette's raiding is having an effect on both the quantity and quality of produce which the vendors are able to acquire. Despite this, however, there are still a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some time out of your day in which to do a spot of shopping...
 			#ENDIF
 		</p>
 		#IF(game.getMinutesUntilTimeInMinutes(1080)<30)
@@ -1992,7 +1992,7 @@
 				</p>
 			#ELSE
 				<p>
-					In stark contrast to the colourful canvas seen throughout most of the Farmer's Market, the awning which covers the stall in front of you is a dark shade of purple. The counter upon which dozens of sex toys are on display is draped in a black cloth, which combined with the dark purple curtains that hang from three of the stall's four sides, gives this business a very ominous appearance. Thick strands of white spider webbing have not only been spun into webs in each of the corners of this stall, but have also have been skilfully woven into the words 'Yui's Toys'.
+					In stark contrast to the colourful canvas seen throughout most of the Farmer's Market, the awning which covers the stall in front of you is a dark shade of purple. The counter upon which dozens of sex toys are on display is draped in a black cloth, which combined with the dark purple curtains that hang from three of the stall's four sides, gives this business a very ominous appearance. Thick strands of white spider webbing have not only been spun into webs in each of the corners of this stall, but also have been skilfully woven into the words 'Yui's Toys'.
 				</p>
 				<p>
 					You almost don't notice this stall's unusual décor, as your attention is immediately drawn to the demonic spider-girl who's standing behind the counter. Although she's standing at a relatively small [yui.heightValue], this [yui.race] gives off an incredibly threatening vibe. It's not the striking, black-and-yellow stripes of her chitinous skin that sends a shudder down your spine, nor the jet-black leather fetish gear that she's wearing, nor even the fact that she's got six arms that are all quickly moving as they play with strands of thin spider webbing shot out of the spinneret at the end of her bulbous, spider-like tail. What really makes you stop dead in your tracks is the fact that this spider-girl has eight glowing-crimson eyes spread across her upper face, each one of which is gazing at you with a look of petrifying malice.
@@ -2231,7 +2231,7 @@
 		</p>
 	#ENDIF
 	<p>
-		[yui.speech(It would be fun to keep you as my toy,)] she muses with a evil smirk on her face, [yui.speech(but I've already got a few tied up and waiting to be played with back home. I suppose I'll let you go...)]
+		[yui.speech(It would be fun to keep you as my toy,)] she muses with an evil smirk on her face, [yui.speech(but I've already got a few tied up and waiting to be played with back home. I suppose I'll let you go...)]
 	</p>
 	<p>
 		With a flick of her wrists, the [yui.race] severs the webbing that's been binding your cocoon in place, and as the strands fall away from your body, you suddenly find yourself able to move freely again. Reaching under the counter, Yui produces a Faire ticket, and as she hands it to you, she says, [yui.speech(There you go, toy. It should really be reward enough just getting to be dominated by me, but the tourism board thinks otherwise... Now go on, back around to the other side of my counter.)]
@@ -2629,7 +2629,7 @@
 	
 	<htmlContent tag="TRINKETS_SPELLS"><![CDATA[
 	<p>
-		Wanting Kazik to demonstrate his arcane abilities, you give him one of your Faire tickets and ask him to cast a spell for you. Tearing the ticket in half and discarding it in a bin beneath his coutner, the handsome ferret-boy asks, [kazik.speech(What spell would you like to see? I can cast 'Fireball', 'Flash', 'Ice Shard', and 'Rain Cloud'.)] 
+		Wanting Kazik to demonstrate his arcane abilities, you give him one of your Faire tickets and ask him to cast a spell for you. Tearing the ticket in half and discarding it in a bin beneath his counter, the handsome ferret-boy asks, [kazik.speech(What spell would you like to see? I can cast 'Fireball', 'Flash', 'Ice Shard', and 'Rain Cloud'.)]
 	</p>
 	<p>
 		#IF(flags.hasFlag(FLAG_innoxia_elis_market_kazik_arcane_cast))

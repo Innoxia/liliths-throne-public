@@ -1641,7 +1641,7 @@ public class PenisAnus {
 
 			if(PenisAnus.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).size()>1) {
 				UtilText.nodeContentSB.append(UtilText.parse(PenisAnus.getCharactersForParsing(Main.sex.getCharacterPerformingAction()), UtilText.returnStringAtRandom(
-						"With a eager bucking of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(help)] to sink the two [npc2.cocks(true)] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
+						"With an eager bucking of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(help)] to sink the two [npc2.cocks(true)] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
 						"With [npc.a_moan+], [npc.name] enthusiastically [npc.verb(start)] bucking [npc.her] [npc.hips], forcing #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+(true)] ever deeper into [npc.her] [npc.asshole+].",
 						"Energetically gyrating [npc.her] [npc.hips], [npc.a_moan+] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force the two [npc2.cocks(true)] deep into [npc.her] [npc.asshole+].")));
 				
@@ -1770,7 +1770,7 @@ public class PenisAnus {
 
 			if(PenisAnus.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).size()>1) {
 				UtilText.nodeContentSB.append(UtilText.parse(PenisAnus.getCharactersForParsing(Main.sex.getCharacterPerformingAction()), UtilText.returnStringAtRandom(
-						"With a eager bucking of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(help)] to sink the two [npc2.cocks(true)] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
+						"With an eager bucking of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(help)] to sink the two [npc2.cocks(true)] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
 						"With [npc.a_moan+], [npc.name] enthusiastically [npc.verb(start)] bucking [npc.her] [npc.hips], forcing #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+(true)] ever deeper into [npc.her] [npc.asshole+].",
 						"Energetically gyrating [npc.her] [npc.hips], [npc.a_moan+] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force the two [npc2.cocks(true)] deep into [npc.her] [npc.asshole+].")));
 				

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<colour>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- Whether this is a metallic colour or not.
+	If metallic, the game generates a metallic effect for this colour's icon. -->
+	<metallic>false</metallic>
+	
+	<!-- The name of this colour. -->
+	<name><![CDATA[Panda Black]]></name>
+	
+	<!-- This colour's hex code, which is used when the game is set in the default 'dark' theme. -->
+	<!-- Resene Y45-027-086 Panda-->
+	<colour>544f3a</colour>
+	<!-- This colour's hex code, which is used when the game is set in the 'light' theme.
+	In the case of colours intended for item or race recolouring, this will almost always be the same as the 'colour' value above (as is the case here). -->
+	<lightColour>544f3a</lightColour>
+	
+	<!-- here you can define names to be recognised by the parser for formatting.
+	e.g. After defining this colour's formattingNames as below, the parsing command '[style.colourFuchsia(This is coloured text!)]' will now work. -->
+	<formattingNames>
+		<name><![CDATA[pandaBlack]]></name>
+	</formattingNames>
+	
+</colour>

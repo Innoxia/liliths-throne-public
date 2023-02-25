@@ -388,6 +388,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			} catch(Exception ex) {
 			}
 		}
+		// It seems, that upon loading an NPC, the fleshSubspecies unintentionally gets set to Subspecies.HUMAN, even if it's clearly not a human. 
+		// This clears the cached value, so it's being recalculated just-in-time. ~Stadler76
+		npc.getBody().setFleshSubspecies(null);
 	}
 	
 	public void resetSlaveFlags() {
@@ -1539,7 +1542,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		boolean vaginaSet = target.getVaginaType()==body.getVagina().getType();
 		boolean penisSet = target.getPenisType()==body.getPenis().getType();
 		boolean humanGenitals = false;
-		boolean applyingCrotchBoobTF = Main.getProperties().getUddersLevel()==2 || (target.isTaur() && Main.getProperties().getUddersLevel()==1);
+		boolean applyingCrotchBoobTF = Main.game.isUdderContentEnabled();
 		
 		if(Main.getProperties().getForcedTFPreference()==FurryPreference.HUMAN || Main.getProperties().getForcedTFPreference()==FurryPreference.MINIMUM) {
 			humanGenitals = true;
@@ -2846,7 +2849,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_SUBMISSIVE, "Give in to it, and admit that you want nothing more than to be my plaything.");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_SUBMISSIVE, "Sometimes it's nice to get what you want too, right?");
 		
-		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_CUM_STUD, "Nothing really compares to filling a juicy hole hole with your seed, right?");
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_CUM_STUD, "Nothing really compares to filling a juicy hole with your seed, right?");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_CUM_STUD, "Sex should be about the journey, not the destination.");
 		
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_CUM_ADDICT, "I know a dirty little cum dumpster when I see one.");
@@ -2966,7 +2969,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isWantingToEquipCondom(GameCharacter partner) {
-		boolean wantingToEquip = !this.getFetishDesire(Fetish.FETISH_CUM_STUD).isPositive() || (partner.hasVagina() && !partner.isVisiblyPregnant() && !this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive());
+		boolean wantingToEquip = this.getFetishDesire(Fetish.FETISH_CUM_STUD).isNegative() || (partner.hasVagina() && !partner.isVisiblyPregnant() && this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative());
 //		System.out.println("isWantingToEquipCondom("+partner.getName()+"): "+wantingToEquip);
 		return wantingToEquip;
 	}
@@ -2975,7 +2978,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		if(!partner.hasPenisIgnoreDildo()) {
 			return false;
 		}
-		return !this.getFetishDesire(Fetish.FETISH_CUM_ADDICT).isPositive() || (this.hasVagina() && !this.isVisiblyPregnant() && !this.getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive());
+		return this.getFetishDesire(Fetish.FETISH_CUM_ADDICT).isNegative() || (this.hasVagina() && !this.isVisiblyPregnant() && this.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative());
 	}
 
 	/**
@@ -3071,17 +3074,22 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						}
 						
 						// BDSM:
-						if(this.getFetishDesire(Fetish.FETISH_BONDAGE_APPLIER).isPositive()
-								&& (clothing.getClothingType().getClothingSet()==SetBonus.getSetBonusFromId("innoxia_bdsm") || clothing.getClothingType().getClothingSet()==SetBonus.getSetBonusFromId("sage_ltxset"))) {
-							wantsToEquip = true;
+						if((clothing.getClothingType().getClothingSet()==SetBonus.getSetBonusFromId("innoxia_bdsm") || clothing.getClothingType().getClothingSet()==SetBonus.getSetBonusFromId("sage_ltxset"))) {
+							wantsToEquip = this.getFetishDesire(Fetish.FETISH_BONDAGE_APPLIER).isPositive();
+						}
+						// Chastity cages are only equipped if NPC has like or love attitude towards denier fetish:
+						if(clothing.getItemTags().contains(ItemTag.CHASTITY)) {
+							wantsToEquip = this.getFetishDesire(Fetish.FETISH_DENIAL).isPositive();
 						}
 					}
 					// Always auto manage clothing, as NPCs use clothing removal methods in SexManagerDefault, so clothing additions should take place after removals.
 					// If auto management was disabled, then the NPC would equip clothing onto their partner as soon as that slot became free, which makes sex feel quite disjointed
 						// e.g. An NPC deciding to equip latex stockings on their parter only when their partner has removed their shoes.
+					InventorySlot defaultSlot = clothing.getClothingType().getEquipSlots().get(0);
 					if(wantsToEquip
-							&& clothing.isAbleToBeEquippedDuringSex(clothing.getClothingType().getEquipSlots().get(0)).getKey()
-							&& partner.getClothingInSlot(clothing.getClothingType().getEquipSlots().get(0))==null
+							&& Main.sex.isClothingEquipAvailable(partner, defaultSlot, clothing)
+							&& clothing.isAbleToBeEquippedDuringSex(defaultSlot).getKey()
+							&& partner.getClothingInSlot(defaultSlot)==null
 							&& partner.isAbleToEquip(clothing, true, this)) {
 						return new Value<>(clothing, UtilText.parse(this, "[npc.Name] grabs "+clothing.getName(true, true)+" from out of [npc.her] inventory..."));
 					}

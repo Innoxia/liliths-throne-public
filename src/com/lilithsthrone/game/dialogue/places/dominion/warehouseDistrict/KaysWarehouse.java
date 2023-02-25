@@ -1791,11 +1791,12 @@ public class KaysWarehouse {
 				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_CAGE_EQUIP"));
 				
 			} else {
+				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_CAGE_UNEQUIP"));
 				Main.game.getNpc(Kay.class).getClothingInSlot(InventorySlot.PENIS).setSealed(false);
 				UtilText.addSpecialParsingString(
 						Main.game.getNpc(Kay.class).unequipClothingIntoVoid(Main.game.getNpc(Kay.class).getClothingInSlot(InventorySlot.PENIS), true, Main.game.getPlayer()),
 						true);
-				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_CAGE_UNEQUIP"));
+				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_CAGE_UNEQUIP_END"));
 			}
 		}
 		@Override
@@ -2096,7 +2097,7 @@ public class KaysWarehouse {
 					
 				} else if(index==2) {
 					return new Response("Jackie",
-							"Tell the the cute [kay.race] that she looks very pretty, and that the name of 'Jackie' is more suitable for [kay.herHim] when [kay.she] looks like this."
+							"Tell the cute [kay.race] that she looks very pretty, and that the name of 'Jackie' is more suitable for [kay.herHim] when [kay.she] looks like this."
 							+ "<br/>[style.colourFeminine(Kay will be renamed to 'Jackie' until (if ever) you tell [kay.herHim] to start wearing masculine clothing again.)]",
 							KAY_OFFICE_DOMINATE_UTIL_EMPTY) {
 						@Override
@@ -2112,7 +2113,7 @@ public class KaysWarehouse {
 					
 				} else if(index==3) {
 					return new Response("Kaytie",
-							"Tell the the cute [kay.race] that she looks very pretty, and that the name of 'Kaytie' is more suitable for [kay.herHim] when [kay.she] looks like this."
+							"Tell the cute [kay.race] that she looks very pretty, and that the name of 'Kaytie' is more suitable for [kay.herHim] when [kay.she] looks like this."
 							+ "<br/>[style.colourFeminine(Kay will be renamed to 'Kaytie' until (if ever) you tell [kay.herHim] to start wearing masculine clothing again.)]",
 							KAY_OFFICE_DOMINATE_UTIL_EMPTY) {
 						@Override
@@ -2128,7 +2129,7 @@ public class KaysWarehouse {
 					
 				} else if(index==4) {
 					return new Response("Mikayla",
-							"Tell the the cute [kay.race] that she looks very pretty, and that the name of 'Mikayla' is more suitable for [kay.herHim] when [kay.she] looks like this."
+							"Tell the cute [kay.race] that she looks very pretty, and that the name of 'Mikayla' is more suitable for [kay.herHim] when [kay.she] looks like this."
 							+ "<br/>[style.colourFeminine(Kay will be renamed to 'Mikayla' until (if ever) you tell [kay.herHim] to start wearing masculine clothing again.)]",
 							KAY_OFFICE_DOMINATE_UTIL_EMPTY) {
 						@Override

@@ -493,7 +493,7 @@ public class Evelyx extends NPC {
 		}
 		
 		// Crotch boobs:
-		if(crotchBoobs && ((Main.getProperties().getUddersLevel()==1 && worker.isTaur()) || (Main.getProperties().getUddersLevel()==2 && worker.getRace().getRacialBody().getBreastCrotchType()!=BreastType.NONE))) {
+		if(crotchBoobs && Main.game.isUdderContentEnabled() && (worker.isTaur() || worker.getRace().getRacialBody().getBreastCrotchType()!=BreastType.NONE)) {
 			boolean applyCrotchBoobs = !worker.hasBreastsCrotch();
 			if(!anyTransformationAvailable) {
 				anyTransformationAvailable = applyCrotchBoobs;

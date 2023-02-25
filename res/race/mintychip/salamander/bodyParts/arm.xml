@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<arm>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractArmType.java -->
+	
+	<!-- The id of the race which this arm belongs to.
+	This will almost always be the id of the race in which this type is found (in this case hyena). -->
+	<race>mintychip_salamander</race>
+	
+	<!-- The name that will be used when referring to transformations related to this type (such as when changing body parts in the self-TF menu). -->
+	<transformationName><![CDATA[salamander]]></transformationName>
+	
+	<!-- The id of the material covering this arm.
+	The id will typically take the form of 'innoxia_hyena_fur'.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>mintychip_salamander_scales</coveringType>
+	
+	<!-- Whether or not this ass type can have underarm hair growing on it.
+	By default, arm types allow underarm hair if its race is of either the MAMMAL or BIRD RacialClass. As such, this arm type would allow ass hair even if this element was omitted (as hyenas are of the MAMMAL class), but I've included it here for demonstration purposes.
+	You should define this as either 'true' or 'false', or, if you'd like to leave it to its default value, then leave this element blank or omit it entirely. -->
+	<underarmHairAllowed>false</underarmHairAllowed>
+	
+	<!-- Whether this arm type grants the ability to fly. -->
+	<allowsFlight>false</allowsFlight>
+	
+	<!-- Tags which are associated with this arm type.
+	You should most likely only be using the 'arms' tags for your arm type, which are: ARM_STANDARD, ARM_WINGS, ARM_WINGS_FEATHERED, ARM_WINGS_LEATHERY.
+	You should use either 'ARM_STANDARD' or 'ARM_WINGS', but not both.
+	If you use 'ARM_WINGS', then you should also define either 'ARM_WINGS_FEATHERED' or 'ARM_WINGS_LEATHERY'.
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/tags/BodyPartTag.java -->
+	<tags>
+		<tag>ARM_STANDARD</tag>
+	</tags>
+	
+	<!-- The singular and plural name of this arm type.
+	These should be left as 'arm' and 'arms' for standard arm types, and changed to 'wing' and 'wings' if your arm type are wings (such as those found on harpies or bat-morphs). -->
+	<name><![CDATA[arm]]></name>
+	<namePlural><![CDATA[arms]]></namePlural> 
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's arm of this type.
+	Can be left blank. -->
+	<descriptorsMasculine>
+		<descriptor>scaled</descriptor>
+		<descriptor>scaly</descriptor>
+	</descriptorsMasculine>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine>
+		<descriptor>scaled</descriptor>
+		<descriptor>scaly</descriptor>
+	</descriptorsFeminine>
+	
+	<!-- Same naming formats as those for the arm type above, but these describe the arm's hands: -->
+	<handName><![CDATA[hand]]></handName>
+	<handNamePlural><![CDATA[hands]]></handNamePlural>
+	<handDescriptorsMasculine>
+		<descriptor>salamander-like</descriptor>
+		<descriptor>scaled</descriptor>
+	</handDescriptorsMasculine>
+	<handDescriptorsFeminine>
+		<descriptor>feminine</descriptor>
+		<descriptor>salamander-like</descriptor>
+		<descriptor>scaled</descriptor>
+	</handDescriptorsFeminine>
+	
+	<!-- Same naming formats as those for the arm type above, but these describe the arm's fingers: -->
+	<fingerName><![CDATA[finger]]></fingerName>
+	<fingerNamePlural><![CDATA[fingers]]></fingerNamePlural>
+	<fingerDescriptorsMasculine>
+		<descriptor>scaled</descriptor>
+		<descriptor>salamander-like</descriptor>
+	</fingerDescriptorsMasculine>
+	<fingerDescriptorsFeminine>
+		<descriptor>feminine</descriptor>
+		<descriptor>scaled</descriptor>
+		<descriptor>salamander-like</descriptor>
+	</fingerDescriptorsFeminine>
+	
+	<!-- The description which is shown when a character transforms to obtain this arm type.
+	This description immediately follows a brief description of the arm type beginning to transform. -->
+	<transformationDescription><![CDATA[
+		Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down, [npc.she] [npc.verb(see)] [npc.her] new scales growing over the backs of [npc.her] hands as sharp claws push out to replace [npc.her] fingernails. At [npc.her] upper-biceps, [npc.her] scales smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] body.
+		<br/>As the transformation comes to an end, [npc.nameIsFull] left with anthropomorphic, [style.boldSalamander(salamander-like arms and hands)], which are [npc.materialDescriptor] [npc.armFullDescription].
+	]]></transformationDescription>
+	
+	<!-- How these arms are described in a character's description page. -->
+	<bodyDescription><![CDATA[
+	[npc.She] [npc.has] [npc.armRows] arms, which are [npc.materialCompositionDescriptor] [npc.armFullDescription(true)]. [npc.Her] hands are formed into anthropomorphic, salamander-like hands, complete with sharp claws.
+	]]></bodyDescription>
+	
+</arm>

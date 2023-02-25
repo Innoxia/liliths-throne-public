@@ -461,7 +461,7 @@ public class ZaranixHomeGroundFloor {
 	public static final DialogueNode MEETING_ZARANIX = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			// Set this to true here so that the repeat encounter with Amber at the door doens't end up with her acting as though you broke in
+			// Set this to true here so that the repeat encounter with Amber at the door doesn't end up with her acting as though you broke in
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.amberRepeatEncountered, true);
 		}
 		@Override
@@ -637,7 +637,7 @@ public class ZaranixHomeGroundFloor {
 					return new Response("'Thank' Zaranix", "You're unable to suck Zaranix's cock, as you can't get access to your mouth!", null);
 					
 				} else {
-					return new Response("'Thank' Zaranix", "Show Zaranix how grateful you are. (Suck his cock.)", MEETING_ZARANIX_ARTHUR_THANK_ZARANIX) {
+					return new Response("'Thank' Zaranix", "Show Zaranix how grateful you are.<br/>[style.italicsSex(This will result in you giving Zaranix a blowjob!)]", MEETING_ZARANIX_ARTHUR_THANK_ZARANIX) {
 						@Override
 						public boolean isSexHighlight() {
 							return true;
@@ -658,7 +658,7 @@ public class ZaranixHomeGroundFloor {
 					return new Response("'Thank' Amber", "You're unable to get fucked by Amber, as you can't get access to your asshole"+(Main.game.getPlayer().hasVagina()?" or vagina":"")+"!", null);
 					
 				} else {
-					return new Response("'Thank' Amber", "Show Amber how grateful you are. (Get fucked by Amber, doggy-style.)", MEETING_ZARANIX_ARTHUR_THANK_AMBER) {
+					return new Response("'Thank' Amber", "Show Amber how grateful you are.<br/>[style.italicsSex(This will result in you getting fucked by Amber!)]", MEETING_ZARANIX_ARTHUR_THANK_AMBER) {
 						@Override
 						public boolean isSexHighlight() {
 							return true;

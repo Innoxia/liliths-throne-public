@@ -16,7 +16,7 @@
 		<descriptor>octopus-like</descriptor>
 	</descriptorsFeminine>
 	<transformationDescription><![CDATA[
-		They quickly quickly grow into delicate, almost translucent frills where [npc.herHim] ears would normally be.
+		They quickly grow into delicate, almost translucent frills where [npc.herHim] ears would normally be.
 		<br/>[npc.Name] now [npc.has] [style.boldOctopus(large, octopus-like ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].
 	]]></transformationDescription>
 	<bodyDescription><![CDATA[

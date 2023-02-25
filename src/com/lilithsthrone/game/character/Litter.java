@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character;
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
+import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -426,21 +427,34 @@ public class Litter implements XMLSaving {
 	
 	public void generateBirthedDescription() {
 		Map<String, Integer> sons = new HashMap<>();
+		Map<String, Integer> feralSons = new HashMap<>();
 		Map<String, Integer> daughters = new HashMap<>();
+		Map<String, Integer> feralDaughters = new HashMap<>();
+		String feralString = "<b style='color:" + RaceStage.FERAL.getColour().toWebHexString() + ";'>" + RaceStage.FERAL.getName() + "</b>";
 		
 		for(String id : this.getOffspring()) {
 			try {
 				
-				OffspringSeed character = Main.game.getOffspringSeedById(id);
-				AbstractSubspecies subspecies = character.getSubspecies();
-				if(character.isFeminine()) {
-					String nameId = subspecies.getSingularFemaleName(character.getBody())+"|"+subspecies.getPluralFemaleName(character.getBody());
-					daughters.putIfAbsent(nameId, 0);
-					daughters.put(nameId, daughters.get(nameId)+1);
+				OffspringSeed offspring = Main.game.getOffspringSeedById(id);
+				AbstractSubspecies subspecies = offspring.getSubspecies();
+				if(offspring.isFeminine()) {
+					String nameId = subspecies.getSingularFemaleName(offspring.getBody())+"|"+subspecies.getPluralFemaleName(offspring.getBody());
+					if(offspring.isFeral()) {
+						feralDaughters.putIfAbsent(nameId, 0);
+						feralDaughters.put(nameId, feralDaughters.get(nameId)+1);
+					} else {
+						daughters.putIfAbsent(nameId, 0);
+						daughters.put(nameId, daughters.get(nameId)+1);
+					}
 				} else {
-					String nameId = subspecies.getSingularMaleName(character.getBody())+"|"+subspecies.getPluralMaleName(character.getBody());
-					sons.putIfAbsent(nameId, 0);
-					sons.put(nameId, sons.get(nameId)+1);
+					String nameId = subspecies.getSingularMaleName(offspring.getBody())+"|"+subspecies.getPluralMaleName(offspring.getBody());
+					if(offspring.isFeral()) {
+						feralSons.putIfAbsent(nameId, 0);
+						feralSons.put(nameId, feralSons.get(nameId)+1);
+					} else {
+						sons.putIfAbsent(nameId, 0);
+						sons.put(nameId, sons.get(nameId)+1);
+					}
 				}
 			} catch (Exception e) {
 			}
@@ -455,8 +469,22 @@ public class Litter implements XMLSaving {
 							: entry.getKey().split("\\|")[0])
 						+"</b>");
 		}
+		for(Entry<String, Integer> entry : feralSons.entrySet()) {
+			entries.add("<b>"+Util.intToString(entry.getValue())+"</b> "+feralString+" <b style='color:"+ PresetColour.MASCULINE.toWebHexString()+ ";'>"
+						+(entry.getValue() > 1
+							? entry.getKey().split("\\|")[1]
+							: entry.getKey().split("\\|")[0])
+						+"</b>");
+		}
 		for(Entry<String, Integer> entry : daughters.entrySet()) {
 			entries.add("<b>"+Util.intToString(entry.getValue())+"</b> <b style='color:"+ PresetColour.FEMININE.toWebHexString()+ ";'>"
+						+(entry.getValue() > 1
+							? entry.getKey().split("\\|")[1]
+							: entry.getKey().split("\\|")[0])
+						+"</b>");
+		}
+		for(Entry<String, Integer> entry : feralDaughters.entrySet()) {
+			entries.add("<b>"+Util.intToString(entry.getValue())+"</b> "+feralString+" <b style='color:"+ PresetColour.FEMININE.toWebHexString()+ ";'>"
 						+(entry.getValue() > 1
 							? entry.getKey().split("\\|")[1]
 							: entry.getKey().split("\\|")[0])

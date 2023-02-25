@@ -53,14 +53,14 @@
 	<htmlContent tag="NYAN_TALK_NYAN_WORK"><![CDATA[
 	#IF(game.getDialogueFlags().getSavedLong('NYAN_WORK')>-1)
 		<p>
-			Deciding that it would be a good idea to find out how how Nyan's work has been going lately, you ask her how she's coping with being this store's owner and manager.
+			Deciding that it would be a good idea to find out how Nyan's work has been going lately, you ask her how she's coping with being this store's owner and manager.
 		</p>
 		#IF(!game.getDialogueFlags().hasFlag(FLAG_nyanRestaurantDateCompleted))
 			<p>
 				[nyan.speechNoEffects(O-Oh, well, I try my best, but I'm still not v-very good at dealing with customers,)] Nyan admits once again. Looking down at the floor and shuffling her feet, she continues, [nyan.speechNoEffects(I-I asked all the staff the other d-day if they'd like me to get m-more involved on the shop floor, b-but they all said that I can s-stick to doing the finances and ordering s-stock. They know how n-nervous I get around people, and they're a-all so considerate...)]
 			</p>
 			<p>
-				Curious to hear more about Nyan's role in her business, you continue talking with her about this topic for quite some time. While most of what she tells you is relatively mundane, she again reveals a hint at how she came to own this business, and says how she given it by someone close to her.
+				Curious to hear more about Nyan's role in her business, you continue talking with her about this topic for quite some time. While most of what she tells you is relatively mundane, she again reveals a hint at how she came to own this business, and says how she was given it by someone close to her.
 				#IF(!game.getDialogueFlags().hasFlag(FLAG_nyanRestaurantDateRequested))
 					 Not wanting to reveal much more than that, however, the nervous cat-girl quickly shifts the topic and starts talking about her long work-hours, and how at some point in the future she'd like to start taking weekends off.
 				#ELSE
@@ -736,7 +736,7 @@
 		Answering with action instead of words, you lean forwards and plant a big, wet kiss on Nyan's tiny labia, causing her to let out a high-pitched moan and instinctively grab the back of your head. Liking the cute sounds which you're able to elicit from your shy girlfriend, you start passionately kissing her pussy, before sliding your [pc.tongue+] into her wet cunt and starting to greedily eat her out.
 	</p>
 	<p>
-		[nyan.speechNoEffects(~Aah!~ [pc.Name]! ~Ooh!~ More! Yes, like that! ~Aah!~)] she squeals as she leans back against the wall and pulls your head in between her legs....
+		[nyan.speechNoEffects(~Aah!~ [pc.Name]! ~Ooh!~ More! Yes, like that! ~Aah!~)] she squeals as she leans back against the wall and pulls your head in between her legs...
 	</p>
 	]]>
 	</htmlContent>
@@ -760,7 +760,7 @@
 		Doing as she asks, you continue sliding your [pc.fingers+] up and down over Nyan's pussy, and by teasing her sensitive clit, you get your shy girlfriend to let out a series of cute moans. Once again encouraged by her reaction, you gently push your [pc.fingers] into Nyan's pussy, before starting to eagerly finger her.
 	</p>
 	<p>
-		[nyan.speechNoEffects(~Aah!~ [pc.Name]! ~Ooh!~ More! Yes, like that! ~Aah!~)] she squeals, before once again starting to passionately kiss you ....
+		[nyan.speechNoEffects(~Aah!~ [pc.Name]! ~Ooh!~ More! Yes, like that! ~Aah!~)] she squeals, before once again starting to passionately kiss you...
 	</p>
 	]]>
 	</htmlContent>
@@ -822,7 +822,7 @@
 		Answering with action instead of words, you lean forwards and plant a series of quick kisses on Nyan's [nyan.ass+], causing her to let out a high-pitched moan and instinctively push her hips back into your face. Liking the cute sounds which you're able to elicit from your shy girlfriend, you move down between her cheeks and passionately kiss her [nyan.asshole+], before using your [pc.tongue+] to start rimming her.
 	</p>
 	<p>
-		[nyan.speechNoEffects(~Aah!~ [pc.Name]! ~Ooh!~ More! Yes, like that! ~Aah!~)] she squeals as she leans forwards against the wall and pushes her ass back against your mouth....
+		[nyan.speechNoEffects(~Aah!~ [pc.Name]! ~Ooh!~ More! Yes, like that! ~Aah!~)] she squeals as she leans forwards against the wall and pushes her ass back against your mouth...
 	</p>
 	]]>
 	</htmlContent>

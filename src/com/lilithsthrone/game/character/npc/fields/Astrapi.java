@@ -316,6 +316,21 @@ public class Astrapi extends NPC {
 	public boolean isUnique() {
 		return true;
 	}
+
+	@Override
+	public String getArtworkFolderName() {
+		if(Main.game.isUdderContentEnabled()) {
+			if(this.isVisiblyPregnant()) {
+				return "AstrapiCrotchBoobsPregnant";
+			}
+			return "AstrapiCrotchBoobs";
+		} else {
+			if(this.isVisiblyPregnant()) {
+				return "AstrapiPregnant";
+			}
+			return "Astrapi";
+		}
+	}
 	
 	@Override
 	public String getSpeechColour() {
@@ -352,7 +367,7 @@ public class Astrapi extends NPC {
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {
-		return false;
+		return true;
 	}
 
 }

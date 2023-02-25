@@ -40,14 +40,10 @@
 				#ENDIF
 			</p>
 			<p>
-				Whereas most nests contain a variety of differently-coloured harpies, the overwhelming majority of this particular flock have bleach-blonde feathers.
-				 Looking closer, you see that their proportions are rather unusual as well.
-				 From those that you've seen in other nests, you know that the average breast size for a harpy is about a B-cup, but the ones in this particular nest seem to all be at least a D-cup or bigger.
-				 Their hips and asses are also far larger than the average, leading you to the obvious conclusion that this particular nest prizes large proportions.
+				Whereas most nests contain a variety of differently-coloured harpies, the overwhelming majority of this particular flock have bleach-blonde feathers. Looking closer, you see that their proportions are rather unusual as well. From those that you've seen in other nests, you know that the average breast size for a harpy is about a B-cup, but the ones in this particular nest seem to all be at least a D-cup or bigger. Their hips and asses are also far larger than the average, leading you to the obvious conclusion that this particular nest prizes large proportions.
 			</p>
 			<p>
-				Up on one of the highest platforms, you see a large gathering of harpies surrounding what must be this nest's matriarch.
-				 It seems as though the residents of this particular nest aren't too bothered about outsiders, and if you had any business with her, it would be quite easy to approach the matriarch's platform.
+				Up on one of the highest platforms, you see a large gathering of harpies surrounding what must be this nest's matriarch. It seems as though the residents of this particular nest aren't too bothered about outsiders, and if you had any business with her, it would be quite easy to approach the matriarch's platform.
 			</p>
 		#ENDIF
 	#ENDIF
@@ -109,7 +105,7 @@
 			</p>
 			<p>
 				#IF(pc.getFemininityValue()>=FEMININITY_FEMININE_STRONG.getMinimumFemininity())
-					Letting out an annoyed sigh, [bimboHarpy.name] props herself up on the sunbed, and, raising her aviators to look you up-and-down, she makes a dismissive gesture. [bimboHarpy.speechNoEffects(Eugh! Like, what are <i>you</i> doin' here again? Why don't you, like go get your own flock or something! You're, like, being super rude and stuff comin' here and flaunting yourself in front of my girls!)]
+					Letting out an annoyed sigh, [bimboHarpy.name] props herself up on the sunbed, and, raising her aviators to look you up-and-down, she makes a dismissive gesture. [bimboHarpy.speechNoEffects(Eugh! Like, what are <i>you</i> doin' here again? Why don't you, like go get your own flock or something?! You're, like, being super rude and stuff comin' here and flaunting yourself in front of my girls!)]
 				#ELSE
 					Letting out an annoyed sigh, [bimboHarpy.name] props herself up on the sunbed, and, raising her aviators to look you up-and-down, she makes a dismissive gesture. [bimboHarpy.speechNoEffects(Eugh! Like, what are <i>you</i> doin' here again? Y'know, you're like, super annoying and stuff!)]
 				#ENDIF
@@ -126,7 +122,7 @@
 			[style.speechFeminine(...and he was, like, 'I'll do whatever you say!', and I was like, 'Uhh, duh!'...)]
 		</p>
 		<p>
-			Combined with their large assets and choice of feather colour, you're left with no doubt as to what's going on here. Every single one of this nest's occupants is a bimbo. Before you know it, you've reached the staircase that leads to the upper platform, and, taking one look back at the crowd of bimbos, you set off up the the stairs, and quickly reach the top.
+			Combined with their large assets and choice of feather colour, you're left with no doubt as to what's going on here. Every single one of this nest's occupants is a bimbo. Before you know it, you've reached the staircase that leads to the upper platform, and, taking one look back at the crowd of bimbos, you set off up the stairs, and quickly reach the top.
 		</p>
 		<p>
 			You'd already seen a picture of [bimboHarpy.name] in the Enforcer's papers, but even if you hadn't, it's clearly obvious who the matriarch is. With large, perfectly shaped breasts, the tanned body of a super-model, and one of the most gorgeous faces you've ever seen, [bimboHarpy.name] is the centre of attention. Her inner-circle of bimbo harpies are gathered around her, vying for their leader's attention as they giggle and agree with every word she speaks. One harpy in particular seems to be the closest to her, and it's this particular bimbo who's the first one to notice your approach.
@@ -142,6 +138,11 @@
 				 [bimboHarpy.speechNoEffects(Like, who do you think you are?! Coming up here uninvited is, like, super rude y'know?!)]
 			#ENDIF
 		</p>
+	#ENDIF
+	#IF(!flags.hasFlag(FLAG_bimboPacified) && game.isBadEndsEnabled() && pc.isAbleToHaveRaceTransformed())
+		<p style='text-align:center;'><i>
+			[style.italicsBadEnd(You get the feeling that you'd be in serious trouble if you were to lose a fight against these harpies...)]
+		</i></p>
 	#ENDIF
 	]]>
 	</htmlContent>
@@ -285,6 +286,300 @@
 			Having shown [harpyBimbo.name] her place, you set off down the staircase, and after walking back across the lower platform, you quickly find yourself on the outskirts of [harpyBimbo.namePos] nest once again.
 		</p>
 	#ENDIF
+    ]]>
+    </htmlContent>
+	
+	
+	<!-- After losing fight: -->
+	
+    <htmlContent tag="COMBAT_LOST"><![CDATA[
+	<p>
+		You fall to the floor, totally beaten. As you collapse, [bimboHarpyCompanion.name] jumps down on top of you, pinning you to the floor as she calls out to her matriarch, [bimboHarpyCompanion.speechNoEffects([bimboHarpy.Name]! Like, I did it! I got [pc.herHim]!)]
+	</p>
+	<p>
+		[bimboHarpy.speechNoEffects(Good girl, [bimboHarpyCompanion.name]!)] you hear her respond. [bimboHarpy.speechNoEffects(Like, help her out, girls! It's time to teach this little [pc.race] a lesson!)]
+	</p>
+	<p>
+		As [bimboHarpyCompanion.name] continues holding you down, the rest of [bimboHarpy.NamePos] inner-circle moves in. Several of them help to pin your [pc.arms] and [pc.legs] to the floor, giggling all the while.
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_MATRIARCH"><![CDATA[
+	<p>
+		You fall to the floor, totally beaten. As you collapse, [bimboHarpy.name] orders her flock to hold you still, and, quickly jumping down on top of you, you're quickly pinned to the floor by several bimbo harpies.
+	</p>
+	<p>
+		[bimboHarpy.speechNoEffects(Like, [bimboHarpyCompanion.name], are you ok?!)] you hear [bimboHarpy.name] softly calling out to her friend. [bimboHarpy.speechNoEffects(Come on, it's time to teach this little [pc.race] a lesson!)]
+	</p>
+	<p>
+		As the members of [bimboHarpy.namePos] inner-circle continue to hold you down, you hear the bimbo matriarch and her companion walking towards you. The bimbo harpies start giggling as you try to wriggle free, but you're too weak from the fight to offer any real resistance.
+	</p>
+	<p>
+		[bimboHarpy.speechNoEffects(Time for some revenge [bimboHarpyCompanion.name]! We're gonna, like, have to punish this one!)] [bimboHarpy.name] shouts out, and, as her companion moves to help the other bimbos hold you down, she laughs, [bimboHarpy.speechNoEffects(Time for some fun!)]
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_END"><![CDATA[
+	<p>
+		[bimboHarpy.speechNoEffects(Y'know, I think I understand why, like, you're so angry and rude and stuff!)] [bimboHarpy.name] giggles, stepping forwards to tower over you. [bimboHarpy.speechNoEffects(You're just, like, frustrated and jealous of how super hot all my girls are!)]
+	</p>
+	<p>
+		[pc.speechNoEffects(Let me go!)] you shout, struggling against the bimbo harpies. You're too weak to shake them off, however, and they easily continue to pin you to the floor, holding you quite still as [bimboHarpy.name] stoops down next to your face.
+	</p>
+	#IF(game.isBadEndsEnabled())
+		<p>
+			[bimboHarpy.speechNoEffects(Don't worry, babe, you're gonna love being one of my girls!)] she laughs, before turning to address her subordinate and commanding, [bimboHarpy.speechNoEffects(Strip her, [bimboHarpyCompanion.name], then, like, hold [pc.her] mouth open! I'm gonna feed her, like, so many of our special lollipops!)]
+		</p>
+		<p>
+			With the group of bimbo harpies continuing to overpower you, [bimboHarpyCompanion.name] sets about stripping you of all your clothing, laughing at your fruitless attempt to pull free. Out of the corner of your eye, you see [bimboHarpy.name] stepping forwards with several pink-and-white swirly lollipops clutched in her bird-like hands. A moment later, and you find your mouth being forced open by [bimboHarpyCompanion.name], while her matriarch leans in and forcefully shoves the sweets into your mouth.
+		</p>
+		<p>
+			[bimboHarpy.speechNoEffects(Suck on these, babe!)] [bimboHarpy.name] laughs, [bimboHarpy.speechNoEffects(You're, like, gonna become one of my bimbo harpy sluts!)]
+		</p>
+	#ELSEIF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+		<p>
+			[bimboHarpy.speechNoEffects(Like, <i>you're</i> the one who needs to calm down now!)] she laughs, [bimboHarpy.speechNoEffects(Hold [pc.her] mouth open [bimboHarpyCompanion.name]! I think this little troublemaker needs one of our special lollipops!)]
+		</p>
+		<p>
+			Quickly grabbing your [pc.face+], [bimboHarpyCompanion.name] tries to pull your mouth open, laughing at your fruitless attempt to shake your head free. Out of the corner of your eye, you see [bimboHarpy.name] pull out a pink-and-white swirly lollipop, and, leaning in, she forcefully tries to shove it into your mouth.
+		</p>
+		<p>
+			[bimboHarpy.speechNoEffects(This is gonna, like, totally chill you out!)]
+		</p>
+	#ELSE
+		<p>
+			[bimboHarpy.speechNoEffects(Like, <i>you're</i> the one who needs to calm down now!)] she laughs, before letting out a frustrated sigh as she sees that your mouth is inaccessible. Pouting at you, she whines, [bimboHarpy.speechNoEffects(That's, like, totally not fair! I wanted to turn you into one of us bimbo harpies, but, like, you can't suck on our special lollipops while your mouth's like that! Eugh! I guess I'll just have you thrown out of here instead!)]
+		</p>
+	#ENDIF
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_MOUTH_BLOCKED"><![CDATA[
+	<p>
+		[harpyBimbo.speechNoEffects(So, [harpyBimboCompanion.name], like what are you waiting for?!)] [harpyBimbo.name] exclaims, before dismissively gesturing towards you and demanding, [harpyBimbo.speechNoEffects(Throw [pc.herHim] out of my nest! I, like, totally don't want to see [pc.herHim] again!)]
+	</p>
+	<p>
+		Hurrying to carry out their matriarch's order, [harpyBimboCompanion.name] and several other harpies pull you to your [pc.feet], before roughly marching you out of their nest and physically throwing you down onto a nearby walkway. Not wanting to stick around and give them a chance to abuse you further, you leave the harpies' mocking laughter behind and hurry away from [bimboHarpy.namePos] nest...
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_NO_TF"><![CDATA[
+	<p>
+		With a determined yank, you finally manage to pull one of your [pc.arms] free from the harpy's clutches. Before they're able to restrain you again, you grab the lollipop out of [bimboHarpy.namePos] feathered hand, before smashing it on the floor beneath you.
+	</p>
+	<p>
+		[bimboHarpy.speechNoEffects(Aaah! You stupid whore!)] [bimboHarpy.name] screams, jumping to her feet and towering over you. [bimboHarpy.speechNoEffects(You're gonna, like, pay for wasting that! You're gonna, like, do <i>exactly</i> what we say, or else you're gonna be our little pet forever!)]
+	</p>
+	<p>
+		After flapping her wings and jumping around in anger for a little while, [bimboHarpy.name] storms off to elsewhere in the nest. Only a few moments later, she returns and kneels down beside you, setting a makeup bag down next to your face before letting out a giggle. [bimboHarpy.speechNoEffects(So, like, first, how about us girls give you a makeover?!)]
+	</p>
+	<p>
+		Any protests or objections that leave your mouth are drowned out by a chorus of laughter, and as one, the group of bimbo harpies descend upon you...
+	</p>
+	<p>
+		For the next few hours, you're the centre of the harpies' attention. Applying heavy layers of makeup, dressing you up in frilly clothes, and parading you around in front of one another are amongst the least humiliating things you suffer. Eventually, however, [bimboHarpy.name] loses interest, and one-by-one, the rest of the harpies move onto other things.
+	</p>
+	<p>
+		As the last bimbo declares that she's bored of playing with you, the matriarch walks over to you. [bimboHarpy.speechNoEffects(I hope you, like, learned your lesson! Now get out of my nest!)]
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_TF_START"><![CDATA[
+	<p>
+		Obediently doing as you're told, you open your mouth and let the lollipop slide past your [pc.lips+]. An intense, sweet flavour hits your tongue, and you find that it's quite unlike anything you've ever tasted before. Before you know what you're doing, you're wrapping your [pc.lips] around the delicious candy, letting out little whining noises as you find yourself unable to stop sucking and licking it...
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_TF_END"><![CDATA[
+	<p>
+		As the lollipop's transformative effects come to an end, the harpies' grip on your [pc.arms] and [pc.legs] loosens. Blinking slowly a few times, you let out an exhausted little moan. [pc.speechNoEffects(Like, I feel all bubbly inside! That was, like, super intense!)]
+	</p>
+	<p>
+		The flock of bimbo harpies bursts out into laughter, and the ones who were holding you down finally release you before backing off. Scrambling to your knees, you find yourself looking up at [bimboHarpy.Name] as she continues towering over you.
+	</p>
+	<p>
+		[harpyBimbo.speechNoEffects(Lookin' good! Now, before you get out of my nest, you're gonna tell me how sorry you are!)]
+	</p>
+	<p>
+		With the effects of the lollipop still lingering in your mind, you find yourself blurting out, [pc.speechNoEffects(Like, I'm so super sorry for causing you so much trouble and stuff! Please, [harpyBimbo.name], forgive me!)]
+	</p>
+	<p>
+		[harpyBimbo.Name] grins down at you, and, to the background noise of dozens of bimbo harpies laughing at you, she shouts, [harpyBimbo.speechNoEffects(That's better! Now, like, I can't have you leaving lookin' so, like, plain! Us girls need to give you a makeover!)]
+	</p>
+	<p>
+		For the next few hours, you're the centre of the harpies' attention. Applying heavy layers of makeup, dressing you up in frilly clothes, and parading you around in front of one another are amongst the least humiliating things you suffer. Eventually, however, [bimboHarpy.name] loses interest, and one-by-one, the rest of the harpies move onto other things.
+	</p>
+	<p>
+		As the last bimbo declares that she's bored of playing with you, the matriarch walks over to you. [bimboHarpy.speechNoEffects(I hope you, like, learned your lesson! Now get out of my nest!)]
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_THROWN_OUT"><![CDATA[
+	<p>
+		Finally given an opportunity to escape, you do as [bimboHarpy.name] commands. Running down the staircase, you leave the harpies' mocking laughter behind, and, dashing across the lower platform, you quickly find yourself back on the outskirts of [bimboHarpy.namePos] nest...
+	</p>
+    ]]>
+    </htmlContent>
+	
+	<!-- Bad end: -->
+	
+    <htmlContent tag="COMBAT_LOST_BAD_END_TF_START"><![CDATA[
+	<p>
+		Completely overpowered by the bimbo harpies and totally at their mercy, you can't do anything but obey [bimboHarpy.namePos] command. With the matriarch still forcefully shoving several of the large, pink-and-white lollipops into your mouth, you reluctantly start to suck on them. An intense, sweet flavour hits your tongue, and you find that it's quite unlike anything you've ever tasted before. Before you know what you're doing, you're eagerly wrapping your [pc.lips] around the delicious candies, letting out little whining noises as you find yourself unable to stop sucking and licking them.
+	</p>
+	<p>
+		[bimboHarpy.speechNoEffects(That's it, babe, they taste, like, sooo good, don't they?)] she teases, [bimboHarpy.speechNoEffects(Now turn into a sexy, bimbo harpy for me!)]
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_BAD_END_TF_END"><![CDATA[
+	<p>
+		As the lollipop's transformative effects come to an end, the harpies' grip on your [pc.arms] and [pc.legs] loosens. Blinking slowly a few times, you let out an exhausted little moan and whine, [pc.speechNoEffects(Like, I feel all bubbly inside! That was, like, super intense!)]
+	</p>
+	<p>
+		The flock of bimbo harpies bursts out into laughter, and the ones who were holding you down finally release you before backing off. Scrambling to your knees, you find yourself looking up at [bimboHarpy.Name] as she continues towering over you.
+	</p>
+	<p>
+		[harpyBimbo.speechNoEffects(Lookin' good, babe! Now, like, say sorry for being so super rude to me!)] she demands.
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="COMBAT_LOST_BAD_END_APLOGISE"><![CDATA[
+	<p>
+		With the effects of the lollipops still lingering in your mind, you find yourself blurting out, [pc.speechNoEffects(Like, I'm so super sorry for causing you so much trouble and stuff! Please, [harpyBimbo.name], forgive me!)]
+	</p>
+	<p>
+		[harpyBimbo.Name] grins down at you, and to the background noise of dozens of bimbo harpies laughing at you, she shouts, [harpyBimbo.speechNoEffects(That's better! Now, like, I need to put you in your place! You're just one of my sexy little bimbo harpies, understand? Now, like, tell me who your matriarch is!)]
+	</p>
+	<p>
+		An effect of eating so many lollipops at once seems to be that you've now got a heavy fog in your mind, and so you struggle to understand what [harpyBimbo.name] is saying. Thankfully, [harpyBimboCompanion.name] comes to your rescue, as she impatiently hisses, [harpyBimboCompanion.speechNoEffects(It's, like, [harpyBimbo.name]! Tell her that she's totally your matriarch and you're hers to do with as she pleases!)]
+	</p>
+	<p>
+		Repeating what you've just been told, you absent-mindedly squeeze your [pc.breasts+] as you declare, [pc.speechNoEffects(You're my matriarch, [harpyBimbo.name]! I'll, like, totally do anything you tell me to!)]
+	</p>
+	#IF(pc.hasVagina())
+		<p>
+			[harpyBimbo.speechNoEffects(Stacy! Like, get over here, you dumb slut!)] your matriarch suddenly shouts, before pointing at the ground and commanding you, [harpyBimbo.speechNoEffects(Lie down on your back, babe! You need to learn, like, how good your matriarch's pussy tastes!)]
+		</p>
+		<p>
+			Before you can obey, a busty harpy, who you assume to be Stacy, responds to [harpyBimbo.namePos] call by stepping forwards and asking, [harpyBimboMale.speechNoEffects(Heya, [harpyBimbo.name], like, what'd ya need me for?)]
+		</p>
+		<p>
+			Looking over at Stacy, you see that she's wearing nothing but a light blue bikini. As she looks down at your exposed body, a huge bulge starts to press out from beneath the fabric of her bikini bottoms, which causes [harpyBimbo.name] to tut and say, [harpyBimbo.speechNoEffects(Ew! Your cock's, like, sooo too big! There's, like, no way I'm letting it near me, but this slut needs to know her place, so you can, like, stick it in her pussy and show her that she's at the bottom of the pecking order around here.)]
+		</p>
+		<p>
+			Shifting aside her bikini, Stacy reveals her cock, which at [harpyBimboMale.penisLengthValue] long would be considered large for anyone, but for a harpy it's absolutely colossal. A chorus of disgusted exclamations and mocking giggles breaks out amongst the surrounding harpies at the sight of Stacy's massive cock. Seemingly used to this sort of reaction, the well-endowed harpy places one hand on her wide hips and retorts, [harpyBimboMale.speechNoEffects(You can all, like, so totally fuck off! You all know you love it!)] 
+		</p>
+		<p>
+			Wanting to get started, your matriarch points to the ground once again and commands you, [harpyBimbo.speechNoEffects(Get down already! I'm, like, gonna sit on your face while Stacy here breaks your pussy!)]
+		</p>
+	#ELSE
+		<p>
+			[harpyBimbo.speechNoEffects(That's right, babe, and don't you forget it!)] your matriarch sneers, before pointing at the ground and commanding you, [harpyBimbo.speechNoEffects(Now, like, lie down on your back! You need to, like, learn what your role is in my nest!)]
+		</p>
+		<p>
+			[harpyBimboCompanion.speechNoEffects(I could totally go with riding her cock,)] [harpyBimboCompanion.name] drawls, before asking, [harpyBimboCompanion.speechNoEffects([harpyBimbo.Name], can I be, like, the one to use her first?)]
+		</p>
+		<p>
+			[harpyBimbo.speechNoEffects(Well, duh!)] [harpyBimbo.name] exclaims, [harpyBimbo.speechNoEffects(That's what I was planning, like, this entire time! Now get down, slut, and let [harpyBimboCompanion.name] ride your cock!)]
+		</p>
+	#ENDIF
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="BAD_END_SEX_VAGINA_START"><![CDATA[
+	<p>
+		Not wanting to displease your matriarch, you do as you're told and quickly lie down before her. Wasting no time, [harpyBimbo.name] steps over the top of you, and after shifting aside her v-string panties, she drops down and firmly plants her [harpyBimbo.pussy+] over your [pc.lips+]. Letting out a little giggle, she moans, [harpyBimbo.speechNoEffects(Like, come on, babe! Get that tongue of yours in deep!)]
+	</p>
+	<p>
+		As you dart out your tongue and start to eagerly eat out your matriarch, you suddenly feel your legs being impatiently pushes apart. A moment later, and you feel the unmistakable touch of [harpyBimboMale.namePos] [harpyBimboMale.cock+] as she rubs it up and down over your [pc.labia+]. With a firm grip on your legs, the well-endowed harpy thrusts forwards, sinking her [harpyBimboMale.cock+] into your pussy and causing you to let out a muffled moan into [harpyBimbo.namePos] cunt. Pushing forwards until she's balls-deep inside of you, [harpyBimboMale.name] moans, [harpyBimboMale.speechNoEffects(~Mmm!~ Like, this bitch's pussy feels good! ~Aah!~ I could, like, totally fuck her all day!)]
+	</p>
+	<p>
+		Completely at the mercy of these harpies, you continue to eat out [harpyBimbo.name] while [harpyBimboMale.name] thrusts her fat cock in and out of your [pc.pussy+]...
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="BAD_END_SEX_PENIS_START"><![CDATA[
+	<p>
+		Not wanting to displease your matriarch, you do as you're told and quickly lie down before her. Wasting no time, [harpyBimbo.name] steps over the top of you, and after shifting aside her v-string panties, she drops down and firmly plants her [harpyBimbo.pussy+] over your [pc.lips+]. Letting out a little giggle, she moans, [harpyBimbo.speechNoEffects(Like, come on, babe! Get that tongue of yours in deep!)]
+	</p>
+	<p>
+		As you dart out your tongue and start to eagerly eat out your matriarch, you suddenly feel a feathered finger tease over your [pc.cock+]. As your shaft rises to attention, it's suddenly grabbed by who you assume to be [harpyBimboCompanion.name], before being teased up and down against her [harpyBimboCompanion.labia+]. A moment later, and the harpy drops down, forcing your [pc.cock+] into her [harpyBimboCompanion.pussy+]. Letting out a whorish moan, she pants, [harpyBimboCompanion.speech(~Aah!~ Oh yeah, like, your cock feels super good!)]
+	</p>
+	<p>
+		Completely at the mercy of these harpies, you continue to eat out [harpyBimbo.name] while [harpyBimboCompanion.name] bounces up and down on your [pc.cock+]...
+	</p>
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="BAD_END_AFTER_SEX"><![CDATA[
+	#IF(pc.hasVagina())
+		<p>
+			Having had enough, your matriarch slides off of you, leaving your face thoroughly soaked in saliva and girlcum. [harpyBimboMale.Name] is far from done, however, and while your matriarch struts off to another part of the nest, she keeps on thrusting her fat cock in and out of your well-fucked pussy. Able to look down into your eyes for the first time, [harpyBimboMale.name] teases, [harpyBimboMale.speechNoEffects(~Mmm!~ You like my cock, bitch?)]
+		</p>
+		<p>
+			As you open your mouth to eagerly respond in the positive, you find it suddenly being filled by yet another pink-and-white swirly lollipop. Having returned from wherever she went, you look up to see your matriarch leering over you with at least a dozen more of the transformative candies clutched in her wings. Suppressing a sinister giggle, she states, [harpyBimbo.speechNoEffects(I was told that, like, the effects of these can wear off after a bit, y'know? But if someone eats at least, like, ten or whatever, then the effects are permanent! You're gonna love being permanently turned into another of my bimbo babes!)]
+		</p>
+	#ELSE
+		<p>
+			Having had enough, your matriarch slides off of you, leaving your face thoroughly soaked in saliva and girlcum. [harpyBimboCompanion.Name] is far from done, however, and while your matriarch struts off to another part of the nest, she keeps on bouncing up and down, forcing your [pc.cock+] in and out of her well-fucked pussy. Able to look down into your eyes for the first time, [harpyBimboCompanion.name] teases, [harpyBimboCompanion.speechNoEffects(~Mmm!~ You like my pussy, babe?)]
+		</p>
+		<p>
+			As you open your mouth to eagerly respond in the positive, you find it suddenly being filled by yet another pink-and-white swirly lollipop. Having returned from wherever she went, you look up to see your matriarch leering over you with at least a dozen more of the transformative candies clutched in her wings. Suppressing a sinister giggle, she states, [harpyBimbo.speechNoEffects(I was told that, like, the effects of these can wear off after a bit, y'know? But if someone eats at least, like, ten or whatever, then the effects are permanent! You're gonna love being permanently turned into another of my bimbo babes!)]
+		</p>
+	#ENDIF
+    ]]>
+    </htmlContent>
+	
+    <htmlContent tag="BAD_END_FINAL"><![CDATA[
+	#IF(pc.hasVagina())
+		<p>
+			Absent-mindedly agreeing with what your matriarch says, you slowly but surely make your way through all of the lollipops she's brought for you, all the while being fucked by [harpyBimboMale.name]...
+		</p>
+		<p style='text-align:center;'>
+			...
+		</p>
+		<p>
+			Months later, and you find yourself in what has by now become a very familiar situation. [harpyBimboMale.Name] has you pinned down in the mating press position as her massive cock thrusts in and out of your wet pussy. Letting out a lewd moan, you squeal, [pc.speechNoEffects(~Mmm!~ Yeah, babe, give it to me! ~Ooh!~ Fuck my little pussy good and hard!)]
+		</p>
+		<p>
+			More than happy to oblige, [harpyBimboMale.name] thrusts her fat cock deep into your cunt, before pumping your womb full of her hot, thick cum. Leaning down to press her big lips against yours, she thrusts her tongue into your mouth as your quivering pussy eagerly drains her balls. Satisfied for now, she then stands up, leaving you to be seized by yet another of the nest's male harpies.
+		</p>
+		<p>
+			Having been well and truly established as a harpy at the bottom of the nest's hierarchy, you're expected to service any male who wants you, which is a job that you very quickly grew to love. Spreading your legs for your next partner, you let out another excited, giggly moan as she thrusts her cock into your cum-stuffed cunt...
+		</p>
+	#ELSE
+		<p>
+			Absent-mindedly agreeing with what your matriarch says, you slowly but surely make your way through all of the lollipops she's brought for you, all the while being ridden by [harpyBimboCompanion.name]...
+		</p>
+		<p style='text-align:center;'>
+			...
+		</p>
+		<p>
+			Months later, and you find yourself in what has by now become a very familiar situation. [harpyBimboCompanion.Name] is once again bouncing up and down on your cock, letting out whorish moans as your shaft is forced deep inside her wet pussy. Letting out a lewd moan, you squeal, [pc.speechNoEffects(~Mmm!~ Yeah, babe, keep going! ~Ooh!~ Ride my cock!)]
+		</p>
+		<p>
+			More than happy to oblige, [harpyBimboCompanion.name] bounces up and down several more times, before dropping down and hilting your cock inside of her just in time for you to start pumping her womb full of your hot, thick cum. Leaning down to press her big lips against yours, she thrusts her tongue into your mouth as her quivering pussy eagerly drains your balls. Satisfied for now, she then stands up, leaving you to be mounted by yet another of the nest's female harpies.
+		</p>
+		<p>
+			Having been well and truly established as a harpy at the bottom of the nest's hierarchy, you're expected to please any female who wants you, which is a job that you very quickly grew to love. Presenting your cock to your next partner, you let out another excited, giggly moan as she drops down and eagerly pushes it into her hot, wet cunt...
+		</p>
+	#ENDIF
+	<p style='text-align:center;'>
+		...
+	</p>
+	<p><i>
+		With your mind having been permanently changed by consuming so many of the transformative lollipops, you never once think of trying to escape from [harpyBimbo.namePos] nest. Even if you did somehow become aware of what had happened, you enjoy your new life far too much to ever want to give it up...
+	</i></p>
     ]]>
     </htmlContent>
 	

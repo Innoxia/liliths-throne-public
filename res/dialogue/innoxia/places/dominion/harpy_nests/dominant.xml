@@ -1,147 +1,147 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogueNodes>
 
-    <!-- Most of these scenes are copied from the original ones by Innoxia, with additions by AceXP. -->
+	<!-- Most of these scenes are copied from the original ones by Innoxia, with additions by AceXP. -->
 	
-    <!-- Updated harpy nests encounters: Dominant -->
+	<!-- Updated harpy nests encounters: Dominant -->
 
-    <scene id ="exterior">
-        <author><![CDATA[Innoxia]]></author>
-        <title><![CDATA[[harpyDominant.NamePos] nest]]></title>
-        <content folderPath="txt/places/dominion/harpyNests/dominant">HARPY_NEST_DOMINANT</content>
-        <secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
-        <continuesDialogue>false</continuesDialogue>
-        <travelDisabled>false</travelDisabled>
-        <responses>
-            <response>
-                <availabilityConditional><![CDATA[[#!game.isExtendedWorkTime()]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[1]]></index>
-                <responseTitle><![CDATA[
+	<scene id ="exterior">
+		<author><![CDATA[Innoxia]]></author>
+		<title><![CDATA[[harpyDominant.NamePos] nest]]></title>
+		<content folderPath="txt/places/dominion/harpyNests/dominant">HARPY_NEST_DOMINANT</content>
+		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#!game.isExtendedWorkTime()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
 					#IF(flags.hasFlag(FLAG_dominantEncountered))
 						Approach [harpyDominant.name]
 					#ELSE
 						Approach matriarch
 					#ENDIF
 				]]></responseTitle>
-                <responseTooltip><![CDATA[
+				<responseTooltip><![CDATA[
 					#IF(flags.hasFlag(FLAG_dominantEncountered))
 						Both [harpyDominant.name] and her flock are sleeping in the buildings below her nest. You'll have to come back during the day if you want to speak with her.
 					#ELSE
 						The matriarch and her flock are sleeping in the buildings below her nest. You'll have to come back during the day if you want to speak with her.
 					#ENDIF
 				]]></responseTooltip>
-                <nextDialogue><![CDATA[null]]></nextDialogue>
-            </response>
-            <response>
-                <availabilityConditional><![CDATA[[#game.getCurrentWeather()==WEATHER_MAGIC_STORM]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[1]]></index>
-                <responseTitle><![CDATA[
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.getCurrentWeather()==WEATHER_MAGIC_STORM]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
 					#IF(flags.hasFlag(FLAG_dominantEncountered))
 						Approach [harpyDominant.name]
 					#ELSE
 						Approach matriarch
 					#ENDIF
 				]]></responseTitle>
-                <responseTooltip><![CDATA[
+				<responseTooltip><![CDATA[
 					#IF(flags.hasFlag(FLAG_dominantEncountered))
 						If you want to talk to [dominantHarpy.name], you'll have to come back after the arcane storm has passed.
 					#ELSE
 						If you want to talk to the matriarch, you'll have to come back after the arcane storm has passed.
 					#ENDIF
 				]]></responseTooltip>
-                <nextDialogue><![CDATA[null]]></nextDialogue>
-            </response>
-            <response>
-                <availabilityConditional><![CDATA[[#!pc.hasQuest(QUEST_LINE_SIDE_HARPY_PACIFICATION)]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[1]]></index>
-                <responseTitle><![CDATA[Approach matriarch]]></responseTitle>
-                <responseTooltip><![CDATA[You have no need to talk to the matriarch of this nest.]]></responseTooltip>
-                <nextDialogue><![CDATA[null]]></nextDialogue>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects/>
-            </response>
-            <response>
-                <availabilityConditional><![CDATA[[#game.isExtendedWorkTime() && game.getCurrentWeather()!=WEATHER_MAGIC_STORM && pc.hasQuest(QUEST_LINE_SIDE_HARPY_PACIFICATION)]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[1]]></index>
-                <responseTitle><![CDATA[
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.hasQuest(QUEST_LINE_SIDE_HARPY_PACIFICATION)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Approach matriarch]]></responseTitle>
+				<responseTooltip><![CDATA[You have no need to talk to the matriarch of this nest.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects/>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isExtendedWorkTime() && game.getCurrentWeather()!=WEATHER_MAGIC_STORM && pc.hasQuest(QUEST_LINE_SIDE_HARPY_PACIFICATION)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
 					#IF(flags.hasFlag(FLAG_dominantEncountered))
 						Approach [harpyDominant.name]
 					#ELSE
 						Approach matriarch
 					#ENDIF
 				]]></responseTitle>
-                <responseTooltip><![CDATA[
+				<responseTooltip><![CDATA[
 					#IF(flags.hasFlag(FLAG_dominantEncountered))
 						[pc.Walk] to the centre of the nest and talk to [dominantHarpy.name].
 					#ELSE
 						Walk to the centre of the nest and talk to the matriarch.
 					#ENDIF
 				]]></responseTooltip>
-                <nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_approach]]></nextDialogue>
-            </response>
-        </responses>
-    </scene>
+				<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_approach]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
 
-    <scene id ="approach">
-        <author><![CDATA[AceXp]]></author>
-        <title><![CDATA[[harpyDominant.NamePos] nest]]></title>
-        <preParsingEffects><![CDATA[
+	<scene id ="approach">
+		<author><![CDATA[AceXp]]></author>
+		<title><![CDATA[[harpyDominant.NamePos] nest]]></title>
+		<preParsingEffects><![CDATA[
 			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'HARPY_NEST_DOMINANT_APPROACH'))]
-            [#harpyDominantCompanion.setAreaKnownByCharacter(CA_PENIS, harpyDominant, true)]
+			[#harpyDominantCompanion.setAreaKnownByCharacter(CA_PENIS, harpyDominant, true)]
 			[#harpyDominant.setCharacterReactedToPregnancy(pc, true)]
 			[#harpyDominantCompanion.setCharacterReactedToPregnancy(pc, true)]
-        ]]></preParsingEffects>
-        <content/>
-        <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
-        <continuesDialogue>false</continuesDialogue>
-        <travelDisabled>true</travelDisabled>
-        <responses>
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
 			<!-- Angry nest responses: -->
-            <response>
-                <availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_dominantPacified)]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[0]]></index>
-                <responseTitle><![CDATA[Leave]]></responseTitle>
-                <responseTooltip><![CDATA[Tell [dominantHarpy.name] that you'll be back later.]]></responseTooltip>
-                <nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_exterior]]></nextDialogue>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects><![CDATA[
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_dominantPacified)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Tell [dominantHarpy.name] that you'll be back later.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_exterior]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
 					[#flags.setFlag(FLAG_dominantEncountered, true)]
-                    [#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'DOMINANT_LEAVE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'DOMINANT_LEAVE'))]
 				]]></effects>
-            </response>
-            <response>
-                <availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_dominantPacified)]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[1]]></index>
-                <responseTitle><![CDATA[Talk]]></responseTitle>
-                <responseTooltip><![CDATA[Try to convince [dominantHarpy.name] to calm down.]]></responseTooltip>
-                <nextDialogue><![CDATA[HARPY_NEST_DOMINANT_TALK]]></nextDialogue>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects><![CDATA[
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_dominantPacified)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Talk]]></responseTitle>
+				<responseTooltip><![CDATA[Try to convince [dominantHarpy.name] to calm down.]]></responseTooltip>
+				<nextDialogue><![CDATA[HARPY_NEST_DOMINANT_TALK]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
 					[#flags.setFlag(FLAG_dominantEncountered, true)]
 				]]></effects>
-            </response>
-            <response>
-                <availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_dominantPacified)]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[2]]></index>
-                <responseTitle><![CDATA[Usurp throne]]></responseTitle>
-                <responseTooltip><![CDATA[How <i>dare</i> she speak to you like that! It's time to show her who's really in control here!]]></responseTooltip>
-                <nextDialogue><![CDATA[HARPY_NEST_DOMINANT_QUEEN]]></nextDialogue>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_dominantPacified)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Usurp throne]]></responseTitle>
+				<responseTooltip><![CDATA[How <i>dare</i> she speak to you like that! It's time to show her who's really in control here!]]></responseTooltip>
+				<nextDialogue><![CDATA[HARPY_NEST_DOMINANT_QUEEN]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 				<requiredFetishes>
 					<fetish><![CDATA[FETISH_DOMINANT]]></fetish>
 				</requiredFetishes>
 				<requiredFemininity><![CDATA[FEMININE_STRONG]]></requiredFemininity>
-                <effects><![CDATA[
+				<effects><![CDATA[
 					[#flags.setFlag(FLAG_dominantEncountered, true)]
 					[#flags.setFlag(FLAG_dominantPacified, true)]
-                    [#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_HARPY_MATRIARCH_DOMINANT_PERFUME), false, true))]
+					[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_HARPY_MATRIARCH_DOMINANT_PERFUME), false, true))]
 					
 					#IF(pc.getQuest(QUEST_LINE_SIDE_HARPY_PACIFICATION)==QUEST_HARPY_PACIFICATION_ONE)
 						[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_HARPY_PACIFICATION, QUEST_HARPY_PACIFICATION_TWO))]
@@ -151,170 +151,513 @@
 						[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_HARPY_PACIFICATION, QUEST_HARPY_PACIFICATION_REWARD))]
 					#ENDIF
 				]]></effects>
-            </response>
-            <response>
-                <availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_dominantPacified)]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[3]]></index>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_dominantPacified)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
 				<colour><![CDATA[GENERIC_COMBAT]]></colour>
-                <responseTitle><![CDATA[Call her ugly]]></responseTitle>
-                <responseTooltip><![CDATA[You know that this would be a terrible idea...]]></responseTooltip>
-                <nextDialogue><![CDATA[HARPY_NEST_DOMINANT_UGLY]]></nextDialogue>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects><![CDATA[
+				<responseTitle><![CDATA[Call her ugly]]></responseTitle>
+				<responseTooltip><![CDATA[
+					You know that this would be a terrible idea...
+					#IF(game.isBadEndsEnabled() && pc.isAbleToHaveRaceTransformed())
+						<br/>[style.boldBadEnd(BAD END:)] If you lose this fight, the harpies won't ever let you leave!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[HARPY_NEST_DOMINANT_UGLY]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
 					[#flags.setFlag(FLAG_dominantEncountered, true)]
 				]]></effects>
-            </response>
+			</response>
 		
 			<!-- Pacified nest responses: -->
-            <response>
-                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_dominantPacified)]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[0]]></index>
-                <responseTitle><![CDATA[Leave]]></responseTitle>
-                <responseTooltip><![CDATA[Tell [dominantHarpy.name] that you'll be back later.]]></responseTooltip>
-                <nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_exterior]]></nextDialogue>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects><![CDATA[
-                    [#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'PACIFIED_DOMINANT_LEAVE'))]
-                ]]></effects>
-            </response>
-            <response>
-                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_dominantPacified)]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[1]]></index>
-                <responseTitle><![CDATA[Sex]]></responseTitle>
-                <responseTooltip><![CDATA[Have dominant sex with [harpyDominant.name].]]></responseTooltip>
-                <nextDialogue/>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects/>
-                <sexVariables enabled="true">
-                    <conditional><![CDATA[false]]></conditional>
-                    <consensual><![CDATA[true]]></consensual>
-                    <subHasEqualControl><![CDATA[false]]></subHasEqualControl>
-                    <dominants>
-                        <character><![CDATA[pc]]></character>
-                    </dominants>
-                    <submissives>
-                        <character><![CDATA[harpyDominant]]></character>
-                    </submissives>
-                    <dominantSpectators/>
-                    <submissiveSpectators/>
-                    <postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_after_sex]]></postSexDialogue>
-                    <sexStartContent folderPath="txt/places/dominion/harpyNests/dominant">PACIFIED_DOMINANT_SEX_START</sexStartContent>
-                </sexVariables>
-            </response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_dominantPacified)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Tell [dominantHarpy.name] that you'll be back later.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_exterior]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'PACIFIED_DOMINANT_LEAVE'))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_dominantPacified)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Sex]]></responseTitle>
+				<responseTooltip><![CDATA[Have dominant sex with [harpyDominant.name].]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects/>
+				<sexVariables enabled="true">
+					<conditional><![CDATA[false]]></conditional>
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[harpyDominant]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/harpyNests/dominant">PACIFIED_DOMINANT_SEX_START</sexStartContent>
+				</sexVariables>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_dominantPacified)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Get dominated]]></responseTitle>
+				<responseTooltip><![CDATA[Ask [harpyDominant.name] to dominate you.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects/>
+				<sexVariables enabled="true">
+					<conditional><![CDATA[false]]></conditional>
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[harpyDominant]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[pc]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/harpyNests/dominant">PACIFIED_DOMINANT_SEX_START_AS_SUB</sexStartContent>
+				</sexVariables>
+			</response>
 			<!-- Threesome sex -->
-            <response>
-                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_dominantPacified) && !harpyDominantCompanion.isAttractedTo(pc) && !game.isNonConEnabled()]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[2]]></index>
-                <responseTitle><![CDATA[Threesome (oral)]]></responseTitle>
-                <responseTooltip><![CDATA[As [harpyDominantCompanion.name] is not attracted to you, she's unwilling to take part in a threesome with you and [harpyDominant.name]...]]></responseTooltip>
-                <nextDialogue><![CDATA[null]]></nextDialogue>
-            </response>
-            <response>
-                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_dominantPacified) && (harpyDominantCompanion.isAttractedTo(pc) || game.isNonConEnabled())]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[2]]></index>
-                <responseTitle><![CDATA[Threesome (oral)]]></responseTitle>
-                <responseTooltip><![CDATA[
-                    Have [harpyDominant.name] and [harpyDominantCompanion.name] service you with their mouths.
-                    #IF(!harpyDominantCompanion.isAttractedTo(pc))
-                        <br/>[style.italicsBad([harpyDominantCompanion.Name] will not like this!)]
-                    #ENDIF
-                ]]></responseTooltip>
-                <nextDialogue/>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects/>
-                <sexVariables enabled="true">
-                    <conditional><![CDATA[false]]></conditional>
-                    <consensual><![CDATA[true]]></consensual>
-                    <subHasEqualControl><![CDATA[false]]></subHasEqualControl>
-                    <dominants>
-                        <character><![CDATA[pc]]></character>
-                    </dominants>
-                    <submissives>
-                        <character><![CDATA[harpyDominant]]></character>
-                        <character><![CDATA[harpyDominantCompanion]]></character>
-                    </submissives>
-                    <dominantSpectators/>
-                    <submissiveSpectators/>
-                    <postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_after_sex]]></postSexDialogue>
-                    <sexStartContent folderPath="txt/places/dominion/harpyNests/dominant">DOMINANT_SEX_START_ORAL</sexStartContent>
-                    <tags>
-                        <tag>PREFER_ORAL</tag>
-                    </tags>
-                </sexVariables>
-            </response>
-            <response>
-                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_dominantPacified) && !harpyDominantCompanion.isAttractedTo(pc) && !game.isNonConEnabled()]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[3]]></index>
-                <responseTitle><![CDATA[Threesome (doggy style)]]></responseTitle>
-                <responseTooltip><![CDATA[As [harpyDominantCompanion.name] is not attracted to you, she's unwilling to take part in a threesome with you and [harpyDominant.name]...]]></responseTooltip>
-                <nextDialogue><![CDATA[null]]></nextDialogue>
-            </response>
-            <response>
-                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_dominantPacified) && (harpyDominantCompanion.isAttractedTo(pc) || game.isNonConEnabled())]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[3]]></index>
-                <responseTitle><![CDATA[Threesome (doggy style)]]></responseTitle>
-                <responseTooltip><![CDATA[
-                    Fuck [harpyDominant.name] and [harpyDominantCompanion.name] side by side in the doggy style position.
-                    #IF(!harpyDominantCompanion.isAttractedTo(pc))
-                        <br/>[style.italicsBad([harpyDominantCompanion.Name] will not like this!)]
-                    #ENDIF
-                ]]></responseTooltip>
-                <nextDialogue/>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects/>
-                <sexVariables enabled="true">
-                    <conditional><![CDATA[false]]></conditional>
-                    <consensual><![CDATA[true]]></consensual>
-                    <subHasEqualControl><![CDATA[false]]></subHasEqualControl>
-                    <dominants>
-                        <character><![CDATA[pc]]></character>
-                    </dominants>
-                    <submissives>
-                        <character><![CDATA[harpyDominant]]></character>
-                        <character><![CDATA[harpyDominantCompanion]]></character>
-                    </submissives>
-                    <dominantSpectators/>
-                    <submissiveSpectators/>
-                    <postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_after_sex]]></postSexDialogue>
-                    <sexStartContent folderPath="txt/places/dominion/harpyNests/dominant">DOMINANT_SEX_START_DOGGY</sexStartContent>
-                    <tags>
-                        <tag>PREFER_DOGGY</tag>
-                    </tags>
-                </sexVariables>
-            </response>
-        </responses>
-    </scene>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_dominantPacified) && !harpyDominantCompanion.isAttractedTo(pc) && !game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Threesome (oral)]]></responseTitle>
+				<responseTooltip><![CDATA[As [harpyDominantCompanion.name] is not attracted to you, she's unwilling to take part in a threesome with you and [harpyDominant.name]...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_dominantPacified) && (harpyDominantCompanion.isAttractedTo(pc) || game.isNonConEnabled())]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Threesome (oral)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Have [harpyDominant.name] and [harpyDominantCompanion.name] service you with their mouths.
+					#IF(!harpyDominantCompanion.isAttractedTo(pc))
+						<br/>[style.italicsBad([harpyDominantCompanion.Name] will not like this!)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects/>
+				<sexVariables enabled="true">
+					<conditional><![CDATA[false]]></conditional>
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[harpyDominant]]></character>
+						<character><![CDATA[harpyDominantCompanion]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/harpyNests/dominant">DOMINANT_SEX_START_ORAL</sexStartContent>
+					<tags>
+						<tag>PREFER_ORAL</tag>
+					</tags>
+				</sexVariables>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_dominantPacified) && !harpyDominantCompanion.isAttractedTo(pc) && !game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Threesome (doggy style)]]></responseTitle>
+				<responseTooltip><![CDATA[As [harpyDominantCompanion.name] is not attracted to you, she's unwilling to take part in a threesome with you and [harpyDominant.name]...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_dominantPacified) && (harpyDominantCompanion.isAttractedTo(pc) || game.isNonConEnabled())]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Threesome (doggy style)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Fuck [harpyDominant.name] and [harpyDominantCompanion.name] side by side in the doggy style position.
+					#IF(!harpyDominantCompanion.isAttractedTo(pc))
+						<br/>[style.italicsBad([harpyDominantCompanion.Name] will not like this!)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects/>
+				<sexVariables enabled="true">
+					<conditional><![CDATA[false]]></conditional>
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[harpyDominant]]></character>
+						<character><![CDATA[harpyDominantCompanion]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/harpyNests/dominant">DOMINANT_SEX_START_DOGGY</sexStartContent>
+					<tags>
+						<tag>PREFER_DOGGY</tag>
+					</tags>
+				</sexVariables>
+			</response>
+		</responses>
+	</scene>
 
-    <scene id ="after_sex">
-        <author><![CDATA[Innoxia]]></author>
-        <title><![CDATA[Finished]]></title>
-        <tooltip><![CDATA[You've finished having your fun...]]></tooltip>
-        <preParsingEffects/>
-        <content folderPath="txt/places/dominion/harpyNests/dominant">DOMINANT_AFTER_SEX</content>
-        <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
-        <continuesDialogue>false</continuesDialogue>
-        <travelDisabled>true</travelDisabled>
-        <responses>
-            <response>
-                <availabilityConditional><![CDATA[true]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[0]]></index>
-                <responseTitle><![CDATA[Leave]]></responseTitle>
-                <responseTooltip><![CDATA[Having had your fun, you decide to leave.]]></responseTooltip>
-                <nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_exterior]]></nextDialogue>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects><![CDATA[
-                    [#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'DOMINANT_LEAVE_AFTER_SEX'))]
-                ]]></effects>
-            </response>
-        </responses>
-    </scene>
+	<scene id ="after_sex">
+		<author><![CDATA[Innoxia]]></author>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[You've finished having your fun...]]></tooltip>
+		<preParsingEffects/>
+		<content folderPath="txt/places/dominion/harpyNests/dominant">DOMINANT_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Having had your fun, you decide to leave.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_exterior]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'DOMINANT_LEAVE_AFTER_SEX'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
 
+	
+	<!-- After losing fight: -->
+	
+	<scene id="combat_lost">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'COMBAT_LOST'))]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'COMBAT_LOST_END'))]
+			#IF(game.isBadEndsEnabled() && pc.isAbleToHaveRaceTransformed())
+				[#pc.unequipAllClothingIntoVoid(true, true)]
+				[#game.setBadEnd("Bound Bird")]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Bad ends disabled: -->
+				<!-- Refusing TF: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!game.isBadEnd() && game.isSpittingDisabled()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Smash bottle]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Don't let [harpyDominant.Name] spray you with that strange perfume!
+						<br/>[style.italicsBad(Rejection of TF potions is disabled in the gameplay options!)]
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#!game.isBadEnd() && !game.isSpittingDisabled()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Smash bottle]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Don't let [harpyDominant.Name] spray you with that strange perfume!
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_combat_lost_punished]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'COMBAT_LOST_NO_TF'))]
+					]]></effects>
+				</response>
+				<!-- Accepting TF: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!game.isBadEnd() && !game.isSpittingDisabled()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Stay still]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Allow [harpyDominant.name] to spray you with the strange perfume...
+						<br/>[style.italicsMinorBad(This is a unique transformation, and so bypasses your TF preferences!)]
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_combat_lost_punished]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'COMBAT_LOST_TF_START'))]
+						[#game.appendToTextStartStringBuilder(itemGen.generateItem(ITEM_HARPY_MATRIARCH_DOMINANT_PERFUME).applyEffect(pc, pc))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'COMBAT_LOST_TF_END'))]
+					]]></effects>
+				</response>
+			<!-- bad ends enabled: -->
+				<response>
+					<availabilityConditional><![CDATA[[#game.isBadEnd()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Breathe in]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Completely overpowered and at the mercy of these harpies, all you can do is breathe in as [harpyDominant.name] sprays the perfume all over you...
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_bad_end]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'COMBAT_LOST_BAD_END_TF_START'))]
+						[#game.appendToTextStartStringBuilder(itemGen.generateItem(ITEM_HARPY_MATRIARCH_DOMINANT_PERFUME).applyEffect(pc, pc))]
+						#IF(pc.hasVagina())
+							#IF(pc.hasPenisIgnoreDildo())
+								[#game.appendToTextStartStringBuilder(pc.setPenisType(PENIS_TYPE_NONE))]
+							#ENDIF
+						#ELSE
+							[#game.appendToTextStartStringBuilder(pc.setPenisType(PENIS_TYPE_HARPY))]
+						#ENDIF
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'COMBAT_LOST_BAD_END_TF_END'))]
+					]]></effects>
+				</response>
+		</responses>
+	</scene>
+	
+	<scene id="combat_lost_matriarch">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'COMBAT_LOST_MATRIARCH'))]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'COMBAT_LOST_END'))]
+			#IF(game.isBadEndsEnabled() && pc.isAbleToHaveRaceTransformed())
+				[#pc.unequipAllClothingIntoVoid(true, true)]
+				[#game.setBadEnd("Bound Bird")]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_harpy_nests_dominant_combat_lost"/>
+	</scene>
+	
+	<scene id="combat_lost_punished">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Thrown out]]></responseTitle>
+				<responseTooltip><![CDATA[Having had their fun, the harpies throw you out of their nest.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_exterior]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'COMBAT_LOST_THROWN_OUT'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="bad_end">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fuck off]]></responseTitle>
+				<responseTooltip><![CDATA[You can't help but react with fury at [harpyDominant.namePos] outrageous demand!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_bad_end_retort]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="bad_end_retort">
+		<preParsingEffects><![CDATA[
+			[#game.addNPC('dominion.HarpyNestsAttacker', 'harpyDominantVictim')]
+			#IF(!pc.hasVagina())
+				[#harpyDominantVictim.setBody(GENDER_F_V_B_FEMALE, SUBSPECIES_HARPY, RACE_STAGE_LESSER, true)]
+				[#itemGen.generateItem(ITEM_HARPY_MATRIARCH_DOMINANT_PERFUME).applyEffect(harpyDominantVictim, harpyDominantVictim)]
+				[#harpyDominantVictim.unequipAllClothingIntoVoid(true, true)]
+				
+				[#harpyDominantVictim.equipClothingFromNowhere(itemGen.generateClothing('sage_latex_corset', COLOUR_CLOTHING_RED_VERY_DARK, COLOUR_CLOTHING_IRON, null, false), true, harpyDominantVictim)]
+				[#harpyDominantVictim.equipClothingFromNowhere(itemGen.generateClothing('innoxia_bdsm_choker', COLOUR_CLOTHING_RED_VERY_DARK, COLOUR_CLOTHING_IRON, null, false), true, harpyDominantVictim)]
+				[#harpyDominantVictim.equipClothingFromNowhere(itemGen.generateClothing('innoxia_bdsm_blindfold', COLOUR_CLOTHING_RED_VERY_DARK, COLOUR_CLOTHING_IRON, null, false), true, harpyDominantVictim)]
+				[#harpyDominantVictim.equipClothingFromNowhere(itemGen.generateClothing('norin_clover_clamps_clover_clamps', COLOUR_CLOTHING_IRON, false), true, harpyDominantVictim)]
+				[#harpyDominantVictim.equipClothingFromNowhere(itemGen.generateClothing('innoxia_bdsm_wrist_restraints', COLOUR_CLOTHING_RED_VERY_DARK, COLOUR_CLOTHING_IRON, null, false), true, harpyDominantVictim)]
+				[#harpyDominantVictim.equipClothingFromNowhere(itemGen.generateClothing('innoxia_buttPlugs_butt_plug_heart', COLOUR_CLOTHING_IRON, COLOUR_CLOTHING_RED_VERY_DARK, null, false), true, harpyDominantVictim)]
+				[#harpyDominantVictim.equipClothingFromNowhere(itemGen.generateClothing('innoxia_bdsm_spreaderbar', COLOUR_CLOTHING_RED_VERY_DARK, COLOUR_CLOTHING_IRON, null, false), true, harpyDominantVictim)]
+				
+				[#harpyDominantVictim.setLocation(pc, false)]
+				[#harpyDominantVictim.setName('Judy')]
+				[#harpyDominantVictim.setPlayerKnowsName(true)]
+				[#harpyDominantVictim.setSexualOrientation(ORIENTATION_GYNEPHILIC)]
+				[#harpyDominantVictim.removePersonalityTrait(PERSONALITY_TRAIT_MUTE)]
+			#ENDIF
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'COMBAT_LOST_BAD_END_RETORT'))]
+			#IF(!pc.hasVagina())
+				[#harpyDominant.applyBadEndClothing(pc, false)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Player has vagina: -->
+			<response>
+				<availabilityConditional><![CDATA[[#pc.hasVagina()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fucked]]></responseTitle>
+				<responseTooltip><![CDATA[You can't do anything but accept the fact that [harpyDominantCompanion.name] is about to make you her bitch...]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_harpy_nests_dominant_bad_end_vagina]]></id>
+					<startingPosition><![CDATA[STOCKS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>harpyDominantCompanion</id>
+							<slot><![CDATA[STOCKS_BEHIND_STOCKS]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STOCKS_LOCKED_IN_STOCKS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_bad_end_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/harpyNests/dominant">BAD_END_SEX_VAGINA_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[harpyDominantCompanion]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Player has penis: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.hasVagina()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Hump her]]></responseTitle>
+				<responseTooltip><![CDATA[Do as your matriarch commands and mount [harpyDominantVictim.name] before giving her a good, rough fucking.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_harpy_nests_dominant_bad_end_penis]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>harpyDominant</id>
+							<slot><![CDATA[ALL_FOURS_IN_FRONT]]></slot>
+						</character>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[ALL_FOURS_HUMPING]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>harpyDominantVictim</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_dominant_bad_end_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/harpyNests/dominant">BAD_END_SEX_PENIS_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueVagina_RECEIVING_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[harpyDominant]]></performer>
+							<target><![CDATA[harpyDominantVictim]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[harpyDominantVictim]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="bad_end_after_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[
+			#IF(pc.hasVagina())
+				[harpyDominantCompanion.Name] has had her fun, and so brings an end to the sex...
+			#ELSE
+				You've punished [harpyDominantVictim.name] enough, and so [harpyDominant.name] commands you to bring an end to the sex...
+			#ENDIF
+		]]></tooltip>
+		<preParsingEffects/>
+		<content folderPath="txt/places/dominion/harpyNests/dominant">BAD_END_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Sprayed more until player becomes angry harpy -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Angry bitch]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell [harpyDominant.name] the truth...
+				]]></responseTooltip>
+				<nextDialogue>innoxia_places_dominion_harpy_nests_dominant_bad_end_final</nextDialogue>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="bad_end_final">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'BAD_END_FINAL'))]
+			[#game.banishNPC(harpyDominantVictim)]
+			[#harpyDominant.applyBadEndClothing(pc, true)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[The End...]]></responseTitle>
+				<responseTooltip><![CDATA[[style.italicsBadEnd(With this end to your journey, the thread of prophecy is severed. Restore a saved game to restore the weave of fate, or persist in the doomed world you have created.)]]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
 </dialogueNodes>

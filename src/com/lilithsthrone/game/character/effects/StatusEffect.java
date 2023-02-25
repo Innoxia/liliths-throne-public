@@ -5090,7 +5090,6 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.hasBreastsCrotch()
-					&& (Main.getProperties().getUddersLevel()>0 || target.isFeral())
 					&& target.getBreastCrotchRawMilkStorageValue()>0
 					&& target.getBreastCrotchRawStoredMilkValue()!=target.getBreastCrotchRawMilkStorageValue();
 		}
@@ -5130,7 +5129,6 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.hasBreastsCrotch()
-					&& (Main.getProperties().getUddersLevel()>0 || target.isFeral())
 					&& target.getBreastCrotchRawMilkStorageValue()>0
 					&& target.getBreastCrotchRawStoredMilkValue()==target.getBreastCrotchRawMilkStorageValue();
 		}
@@ -5375,7 +5373,6 @@ public class StatusEffect {
 				i++;
 			}
 			if (target.hasBreastsCrotch()
-					&& (Main.getProperties().getUddersLevel()>0 || target.isFeral())
 					&& target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
 				sb.append(" Crotch Nipples");
 				i++;
@@ -5596,9 +5593,7 @@ public class StatusEffect {
 					|| (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity())
 					|| (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity())
 					|| (target.getFaceRawCapacityValue()!=target.getFaceStretchedCapacity())
-					|| (target.hasBreastsCrotch()
-							&& (Main.getProperties().getUddersLevel()>0 || target.isFeral())
-							&& target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity())
+					|| (target.hasBreastsCrotch() && target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity())
 					|| (target.hasPenis() && target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity())
 					|| (target.hasVagina() && target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()));
 		}
@@ -7312,9 +7307,7 @@ public class StatusEffect {
 			return !target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 					&& (target.getLegConfiguration()!=LegConfiguration.BIPEDAL || target.isFeral())
 					&& !((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaVisible(CoverableArea.NIPPLES))
-					&& ((target.hasBreastsCrotch()
-							&& (Main.getProperties().getUddersLevel()>0 || target.isFeral())
-							&& target.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH))
+					&& ((target.hasBreastsCrotch() && target.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH))
 						|| target.isCoverableAreaVisible(CoverableArea.ANUS)
 						|| (target.isCoverableAreaVisible(CoverableArea.PENIS) && target.hasPenis())
 						|| (target.isCoverableAreaVisible(CoverableArea.VAGINA) && target.hasVagina()));
@@ -8579,7 +8572,7 @@ public class StatusEffect {
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, "[npc.NamePos] head is spinning and [npc.sheIs] struggling to stay upright..");
+			return UtilText.parse(target, "[npc.NamePos] head is spinning and [npc.sheIs] struggling to stay upright...");
 		}
 		@Override
 		public boolean isCombatEffect() {
@@ -11284,12 +11277,12 @@ public class StatusEffect {
 								:"Somehow, you're able to instinctively sense what [npc.namePos] sexual preferences are:")
 						+ "<br/>[style.italics"+(Main.sex.isInForeplay(target)?"PinkLight(<b>Foreplay</b>: ":"Disabled(Foreplay: ")
 							+ (foreplayPreference!=null
-									?"[npc.Her] "+foreplayPreference.getPerformingSexArea().getName(target)+" and [npc2.namePos] "+foreplayPreference.getTargetedSexArea().getName(targetedCharacter)+"."
+									?"[npc.Her] "+foreplayPreference.getPerformingSexArea().getName(target, true)+" and [npc2.namePos] "+foreplayPreference.getTargetedSexArea().getName(targetedCharacter, true)+"."
 									:"[npc.She] [npc.has] no preference...")
 							+ ")]"
 						+ "<br/>[style.italics"+(!Main.sex.isInForeplay(target)?"Pink(<b>Sex</b>: ":"Disabled(Sex: ")
 						+ (mainPreference!=null
-								?"[npc.Her] "+mainPreference.getPerformingSexArea().getName(target)+" and [npc2.namePos] "+mainPreference.getTargetedSexArea().getName(targetedCharacter)+"."
+								?"[npc.Her] "+mainPreference.getPerformingSexArea().getName(target, true)+" and [npc2.namePos] "+mainPreference.getTargetedSexArea().getName(targetedCharacter, true)+"."
 								:"[npc.She] [npc.has] no preference...")
 						+ ")]")
 						+ (Main.sex.isCharacterObeyingTarget(target, Main.game.getPlayer())
@@ -12723,8 +12716,7 @@ public class StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.isInSex()
 					&& Main.sex.getAllParticipants(true).contains(target)
-					&& target.hasBreastsCrotch()
-					&& (Main.getProperties().getUddersLevel()>0 || target.isFeral());
+					&& target.hasBreastsCrotch();
 		}
 		@Override
 		public boolean isSexEffect() {
@@ -12884,7 +12876,6 @@ public class StatusEffect {
 			return Main.game.isInSex()
 					&& Main.sex.getAllParticipants(true).contains(target)
 					&& target.hasBreastsCrotch()
-					&& (Main.getProperties().getUddersLevel()>0 || target.isFeral())
 					&& target.isBreastCrotchFuckableNipplePenetration()
 					&& Main.getProperties().hasValue(PropertyValue.nipplePenContent);
 		}

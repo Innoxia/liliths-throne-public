@@ -124,7 +124,7 @@
 	</nameAnthro>
 	
 	<!-- A brief description and identification requirements of this subspecies. -->
-	<description><![CDATA[An anthropomorphic dragon, known as a 'dragon-morph' when bipedal, and a 'dragontaur' when the lower body is that of a typically-oversized feral dragon. To be identified as a wyvern-morph, a character must be a dragon-morph with no wings or arm-wings.]]></description>
+	<description><![CDATA[An anthropomorphic dragon, known as a 'drake-morph' when bipedal, and a 'draketaur' when the lower body is that of a typically-oversized feral dragon. To be identified as a drake-morph, a character must be a dragon-morph with no wings or arm-wings.]]></description>
 	
 	<nameHalfDemon>
 		<namesDefault>

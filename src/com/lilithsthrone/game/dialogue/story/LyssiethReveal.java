@@ -264,6 +264,7 @@ public class LyssiethReveal {
 						Main.game.getNpc(DarkSiren.class).setLocation(Main.game.getPlayer(), false);
 						Main.game.getNpc(Lyssieth.class).setLocation(Main.game.getPlayer(), false);
 						Main.game.getNpc(Arthur.class).setLocation(Main.game.getPlayer(), false);
+						Main.game.getNpc(Lilaya.class).setLocation(Main.game.getPlayer(), false);
 						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE);
 					}
 				};

@@ -335,7 +335,6 @@ public class Takahashi extends NPC {
 
 	// TF potion:
 	
-	@SuppressWarnings("fallthrough")
 	@Override
 	public TransformativePotion generateTransformativePotion(GameCharacter target) {
 		

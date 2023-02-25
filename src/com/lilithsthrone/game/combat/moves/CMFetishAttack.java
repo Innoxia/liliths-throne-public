@@ -12,7 +12,6 @@ import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -2048,7 +2047,7 @@ public class CMFetishAttack {
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
-            if((target.getBreastRawMilkStorageValue()==0 && (!target.hasBreastsCrotch() || !(Main.game.isCrotchBoobContentEnabled() || target.isFeral()) || target.getBreastCrotchRawMilkStorageValue()==0))
+            if((target.getBreastRawMilkStorageValue()==0 && (!target.hasBreastsCrotch() || target.getBreastCrotchRawMilkStorageValue()==0))
             	|| target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
@@ -2069,7 +2068,7 @@ public class CMFetishAttack {
             			(isCrit?"[style.colourExcellent(Critical)]: ":"")
             				+ "[npc.Name] [npc.verb(beg)] to milk [npc2.namePos] [npc2.breasts+], dealing "
             					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false, isTargetAtMaximumLust(target)) + " damage."
-            				+ (target.getBreastRawMilkStorageValue()==0 && (!target.hasBreastsCrotch() || !(Main.game.isCrotchBoobContentEnabled() || target.isFeral()) || target.getBreastCrotchRawMilkStorageValue()==0)
+            				+ (target.getBreastRawMilkStorageValue()==0 && (!target.hasBreastsCrotch() || target.getBreastCrotchRawMilkStorageValue()==0)
             						?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] is not lactating!)]"
             						:(target.getFetishDesire(oppositeFetish).isNegative()
                     						?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]"
@@ -2108,7 +2107,7 @@ public class CMFetishAttack {
 							"Gazing lustfully at [npc2.namePos] [npc2.breasts+], [npc.name] [npc.verb(let)] out [npc.a_moan+],"
 									+" [npc.speech(I'm going to have fun milking those [npc2.breasts+] of yours!)]")));
 				
-            } else if(target.hasBreastsCrotch() && (Main.game.isCrotchBoobContentEnabled() || target.isFeral()) && target.getBreastCrotchRawMilkStorageValue()>0) {
+            } else if(target.hasBreastsCrotch() && target.getBreastCrotchRawMilkStorageValue()>0) {
 				attackText = UtilText.parse(source, target,
 						(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(grin)] at [npc2.name], gazing at [npc2.her] [npc2.crotchBoobs+] as [npc.she] [npc.moansVerb],"
@@ -2176,7 +2175,7 @@ public class CMFetishAttack {
         }
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
-            if((source.getBreastRawMilkStorageValue()==0 && (!source.hasBreastsCrotch() || !(Main.game.isCrotchBoobContentEnabled() || target.isFeral()) || source.getBreastCrotchRawMilkStorageValue()==0))
+            if((source.getBreastRawMilkStorageValue()==0 && (!source.hasBreastsCrotch() || source.getBreastCrotchRawMilkStorageValue()==0))
             		|| target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
@@ -2185,8 +2184,8 @@ public class CMFetishAttack {
         
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
-            return new Value<>(source.hasFetish(associatedFetish) && (source.hasBreasts() || (source.hasBreastsCrotch() && (Main.game.isCrotchBoobContentEnabled() || source.isFeral()))),
-            		"Available to characters who both have breasts and who have the "+associatedFetish.getName(source)+" fetish.");
+            return new Value<>(source.hasFetish(associatedFetish) && (source.hasBreasts() || source.hasBreastsCrotch()),
+            		"Available to characters who have breasts and who also have the "+associatedFetish.getName(source)+" fetish.");
         }
 
         @Override
@@ -2200,7 +2199,7 @@ public class CMFetishAttack {
             					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false, isTargetAtMaximumLust(target)) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()
             						?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]"
-            						:(source.getBreastRawMilkStorageValue()==0 && (!source.hasBreastsCrotch() || !(Main.game.isCrotchBoobContentEnabled() || target.isFeral()) || source.getBreastCrotchRawMilkStorageValue()==0)
+            						:(source.getBreastRawMilkStorageValue()==0 && (!source.hasBreastsCrotch() || source.getBreastCrotchRawMilkStorageValue()==0)
             							?" [style.italicsMinorBad(Damage is reduced to 1 as [npc.nameIsFull] not lactating!)]"
             							:"")));
         }
@@ -2367,7 +2366,7 @@ public class CMFetishAttack {
 						"Sliding [npc.her] [npc.hands] over [npc.her] pregnant bump, [npc.name] [npc.verb(pout)] at [npc2.name], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(Come have a feel!)]"
-									:"[npc.speech(Pregnant [npc.girls] are the the best fucks around!)]"),
+									:"[npc.speech(Pregnant [npc.girls] are the best fucks around!)]"),
 						"Posturing so as to draw attention to [npc.her] pregnant bump, [npc.name] [npc.verb(bite)] [npc.her] lip at [npc2.name], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(Come on, why don't we have some fun?!)]"
