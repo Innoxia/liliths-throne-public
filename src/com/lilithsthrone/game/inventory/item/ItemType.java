@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
@@ -41,6 +40,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.places.PlaceType;
@@ -2616,7 +2616,7 @@ public class ItemType {
 			AbstractItemEffectType effectType = new AbstractItemEffectType(effectsString, s.getSpellSchool().getColour()) {
 				
 				@Override
-				public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+				public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 					boolean hasSpell = target.hasSpell(s);
 					target.addSpell(s);
 					
@@ -2834,7 +2834,7 @@ public class ItemType {
 							school.getColour()) {
 						
 						@Override
-						public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+						public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 							target.incrementSpellUpgradePoints(school, 1);
 							return "<p style='text-align:center;'>"
 										+ (target.isPlayer()?"You gain":UtilText.parse(target, "[npc.Name] gains"))+" an upgrade point for the spell school <b style='color:"+school.getColour().toWebHexString()+";'>"+school.getName()+"</b>!<br/>"
@@ -2927,7 +2927,7 @@ public class ItemType {
 							mainSubspecies.getColour(null),
 							PresetColour.CLOTHING_GOLD,
 							mainSubspecies.getColour(null),
-							Rarity.LEGENDARY,
+							Rarity.RARE,
 							null,
 							Util.newArrayListOfValues(ItemTag.BOOK)) {
 				@Override
@@ -2995,8 +2995,8 @@ public class ItemType {
 			if(mainSubspecies!=Subspecies.CENTAUR) { // a CENTAUR essence is identical to a HORSE_MORPH essence
 
 				int override = mainSubspecies.getSubspeciesOverridePriority();
-				String raceName = (override>0?mainSubspecies.getName(null):mainSubspecies.getRace().getName(false));
-				String raceNamePlural = (override>0?mainSubspecies.getNamePlural(null):mainSubspecies.getRace().getNamePlural(false));
+				String raceName = (override>0?mainSubspecies.getFeralName(null):mainSubspecies.getRace().getName(true));
+				String raceNamePlural = (override>0?mainSubspecies.getFeralNamePlural(null):mainSubspecies.getRace().getNamePlural(true));
 
 				AbstractStatusEffect statusEffect = new AbstractStatusEffect(80,
 						(mainSubspecies.getRace()==Race.ANGEL
@@ -3049,18 +3049,22 @@ public class ItemType {
 						"[style.boldGood(+1)] [style.boldArcane(Arcane essence)]"),
 						mainSubspecies.getColour(null)) {
 					@Override
-					public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-						List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
-						list.add("Applies <i style='color:"+statusEffect.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(statusEffect.getName(target))+"'</i>:");
-						for(Entry<AbstractAttribute, Float> entry : statusEffect.getAttributeModifiers(target).entrySet()) {
-							list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
-						}
-						return list;
+					public Map<AbstractStatusEffect, Integer> getAppliedStatusEffects() {
+						return Util.newHashMapOfValues(new Value<>(statusEffect, 60*4*60));
 					}
+//					@Override
+//					public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+//						List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
+//						list.add("Applies <i style='color:"+statusEffect.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(statusEffect.getName(target))+"'</i>:");
+//						for(Entry<AbstractAttribute, Float> entry : statusEffect.getAttributeModifiers(target).entrySet()) {
+//							list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
+//						}
+//						return list;
+//					}
 					@Override
-					public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+					public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 						target.incrementEssenceCount(1, false);
-						target.addStatusEffect(statusEffect, 60*4*60);
+//						target.addStatusEffect(statusEffect, 60*4*60);
 						return UtilText.parse(target,
 								"<p style='text-align:center;'>"
 									+ "[npc.NameHasFull] absorbed [style.boldGood(+1)] [style.boldArcane(arcane essence)], and [npc.is] also temporarily far more effective at fighting "
@@ -3140,7 +3144,7 @@ public class ItemType {
 				"[style.boldExcellent(+10)] <b style='color:"+mainSubspecies.getColour(null).toWebHexString()+";'>"+mainSubspecies.getDamageMultiplier().getName()+"</b>"),
 				mainSubspecies.getColour(null)) {
 			@Override
-			public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 				return getBookEffect(target, mainSubspecies, additionalUnlockSubspecies, true);
 			}
 		};

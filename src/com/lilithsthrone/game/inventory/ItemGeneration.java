@@ -151,15 +151,15 @@ public class ItemGeneration {
 		List<Colour> colours = Util.newArrayListOfValues(primaryColour, secondaryColour, tertiaryColour);
 		
 		if(Main.DEBUG) {
-			if(primaryColour!=null && !ColourListPresets.ALL_WITH_METALS.contains(primaryColour)) {
+			if(primaryColour!=null && !ColourListPresets.ALL_WITH_METALS.contains(primaryColour) && !ColourListPresets.ALL_SKIN_COLOURS.contains(primaryColour)) {
 				System.err.println("Clothing primaryColour incompatibility: "+clothingType.getName()+" | "+primaryColour.getId());
 				new Exception().printStackTrace();
 			}
-			if(secondaryColour!=null && !ColourListPresets.ALL_WITH_METALS.contains(secondaryColour)) {
+			if(secondaryColour!=null && !ColourListPresets.ALL_WITH_METALS.contains(secondaryColour) && !ColourListPresets.ALL_SKIN_COLOURS.contains(secondaryColour)) {
 				System.err.println("Clothing secondaryColour incompatibility: "+clothingType.getName()+" | "+secondaryColour.getId());
 				new Exception().printStackTrace();
 			}
-			if(tertiaryColour!=null && !ColourListPresets.ALL_WITH_METALS.contains(tertiaryColour)) {
+			if(tertiaryColour!=null && !ColourListPresets.ALL_WITH_METALS.contains(tertiaryColour) && !ColourListPresets.ALL_SKIN_COLOURS.contains(tertiaryColour)) {
 				System.err.println("Clothing tertiaryColour incompatibility: "+clothingType.getName()+" | "+tertiaryColour.getId());
 				new Exception().printStackTrace();
 			}

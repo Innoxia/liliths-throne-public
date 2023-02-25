@@ -1738,6 +1738,13 @@ public class Util {
 					+"</span>",
 				"and");
 	}
+	
+	public static String charactersToStringListOfNames(Collection<GameCharacter> characters) {
+		return Util.toStringList(characters,
+				(GameCharacter c) -> 
+					UtilText.parse(c, "[npc.name]"),
+				"and");
+	}
 
 	public static String clothesToStringList(Collection<AbstractClothing> clothingSet, boolean capitalise) {
 		return Util.toStringList(clothingSet, (AbstractClothing o) -> (capitalise?Util.capitaliseSentence(o.getClothingType().getName()):o.getClothingType().getName()), "and");

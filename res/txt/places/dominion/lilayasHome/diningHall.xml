@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- AFTER_BATH_SEX -->
+	
+	<htmlContent tag="ROOM_DINING_HALL_ORDER_MEAL"><![CDATA[
+	<p>
+		Feeling a little hungry, you decide to make use of this dining hall and get something to eat.
+		#IF(pc.isTaur())
+			 Having had taur-compatible chairs placed around the long, wooden table in the centre of the room, you [pc.step] over to one of them and sit down.
+		#ELSE
+			 [pc.Stepping] around to the head of the long, wooden table in the centre of the room, you allow [npc.name] to dutifully pull the chair out for you, before taking a seat.
+		#ENDIF
+	</p>
+	<p>
+		Knowing that there are enough ingredients in the kitchen for your slaves to make anything you desire, you wonder what to order... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_DINING_HALL_RECEIVE_MEAL"><![CDATA[
+	<p>
+		Calling [npc.name] over to your side, you tell [npc.herHim] that [npc.she]'ll be acting as your
+		#IF(npc.isFeminine())
+			 waitress,
+		#ELSE
+			 waiter,
+		#ENDIF
+		before informing [npc.herHim] of what you want to eat.
+		#IF(npc.getObedienceBasic()==OBEDIENCE_BASIC_DISOBEDIENT && npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+			 Although [npc.she] insolently tells you how much [npc.she] hates doing this sort of work, [npc.she] has no choice but to take your order. Scowling at you as [npc.she] departs, your slave hurries off to the kitchen to relay your choice to the chef.
+		#ELSE
+			 After taking your order, your slave hurries off to the kitchen to relay your choice to the chef.
+		#ENDIF
+	</p>
+	<p>
+		Although your meal is freshly prepared for you, the top-of-the-range arcane ovens which are installed in the kitchen allow your selected dish to be ready within ten minutes. Bringing you your food on a silver platter, [npc.name] places it before you, and then after pouring you a drink [npc.she] [npc.steps] back and waits while you tuck in.
+	</p>
+	<p>
+		Soon enough you've finished every last bite, and as [npc.name] clears the dishes away, you wonder whether to order some 'dessert' from [npc.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_DINING_HALL_RECEIVE_MEAL_DESSERT_COCK"><![CDATA[
+	<p>
+		Starting to feel a different sort of hunger, you reach across to give [npc.namePos] groin a grope as [npc.she] leans forwards to pick up your plate. Smirking as you feel [npc.her] shaft twitch in response to your touch, you tell your slave to go to the kitchen and have the chef turn [npc.her] cock into a dessert for you to enjoy.
+	</p>
+	<p>
+		Doing as [npc.sheIs] told, [npc.name] picks up your plate and hurries away to the kitchen. A short while later [npc.she] returns, and you lick your [pc.lips] in anticipation as you see that [npc.her] cock is covered in whipped cream, [style.random(chocolate|caramel|strawberry)] sauce, and [style.random(sprinkles|has a cherry perched on top)].
+	</p>
+	<p>
+		#IF(npc.isTaur())
+			[npc.Stepping] over to stand beside you, [npc.name] lifts [npc.her] hind leg so as to present you with [npc.her] cream-covered cock.
+		#ELSE
+			Sitting down on the table before you, [npc.name] spreads [npc.her] [npc.legs+] and presents you with [npc.her] cream-covered cock.
+		#ENDIF
+		 Unable to resist, you slowly lick the sweet, sugary coating off of [npc.her] hard shaft. Soon enough, you're wrapping your [pc.lips+] around [npc.her] [npc.cock+] and [pc.moaning] in delight as you give [npc.herHim] a blowjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_DINING_HALL_RECEIVE_MEAL_DESSERT_PUSSY"><![CDATA[
+	<p>
+		Starting to feel a different sort of hunger, you reach across to give [npc.namePos] groin a grope as [npc.she] leans forwards to pick up your plate. Smirking as [npc.she] lets out a surprised gasp, you tell your slave to go to the kitchen and have the chef turn [npc.her] pussy into a dessert for you to enjoy.
+	</p>
+	<p>
+		Doing as [npc.sheIs] told, [npc.name] picks up your plate and hurries away to the kitchen. A short while later [npc.she] returns, and you lick your [pc.lips] in anticipation as you see that [npc.her] [npc.pussy] is covered in whipped cream, [style.random(chocolate|caramel|strawberry)] sauce, and [style.random(sprinkles|has a cherry perched on top)].
+	</p>
+	<p>
+		#IF(npc.isTaur())
+			[npc.Stepping] over to stand in front of you, [npc.name] turns around and backs up so as to present you with [npc.her] cream-covered cunt.
+		#ELSE
+			Sitting down on the table before you, [npc.name] spreads [npc.her] [npc.legs+] and presents you with [npc.her] cream-covered cunt.
+		#ENDIF
+		 Unable to resist, you slowly lick the sweet, sugary coating off of [npc.her] [npc.labia+]. Soon enough, you're pressing your [pc.lips+] against [npc.her] [npc.pussy+] and [pc.moaning] in delight as you eat [npc.herHim] out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_DINING_HALL_RECEIVE_MEAL_DESSERT_ASS"><![CDATA[
+	<p>
+		Starting to feel a different sort of hunger, you reach across to give [npc.namePos] ass a slap as [npc.she] leans forwards to pick up your plate. Smirking as [npc.she] lets out a surprised gasp, you tell your slave to go to the kitchen and have the chef turn [npc.her] butt into a dessert for you to enjoy.
+	</p>
+	<p>
+		Doing as [npc.sheIs] told, [npc.name] picks up your plate and hurries away to the kitchen. A short while later [npc.she] returns, and you lick your [pc.lips] in anticipation as you see that [npc.her] rear end is covered in whipped cream, [style.random(chocolate|caramel|strawberry)] sauce, and [style.random(sprinkles|has a cherry perched on top)].
+	</p>
+	<p>
+		#IF(npc.isTaur())
+			[npc.Stepping] over to stand in front of you, [npc.name] turns around and backs up so as to present you with [npc.her] cream-covered ass.
+		#ELSE
+			Lying down face-first on the table before you, [npc.name] lifts [npc.her] [npc.hips+] and presents you with [npc.her] cream-covered ass.
+		#ENDIF
+		 Unable to resist, you slowly lick the sweet, sugary coating off of [npc.her] [npc.ass+]. Soon enough, you're pressing your [pc.lips+] against [npc.her] [npc.asshole+] and [pc.moaning] in delight as you perform anilingus on [npc.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_DINING_HALL_AFTER_SEX"><![CDATA[
+	<p>
+		Having enjoyed your dessert, you stand up and get your things back in order. As [npc.name] returns to [npc.her] place at the edge of the room, you look around and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

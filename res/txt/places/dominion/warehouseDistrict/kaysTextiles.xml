@@ -861,14 +861,20 @@
 		Karl likewise steps away from you, and after grabbing a bottle of Canine Crush, popping off the cap and downing the entire contents, he loudly burps and exclaims, [karl.speech(When you're hungry for another taste of my cock, come back here and try to pull the same shit again!)]
 	</p>
 	<p>
-		After watching you get your things back in order, Wolfgang steps over to roughly grab hold of you, and before you know what's going on, you're being dragged over to a door on one side of the room. As you get closer, you see that there's a sign affixed to it which declares it to be a fire escape. Before you have any time in which to react to your current situation, Wolfgang unlocks and pushes this door open, before unceremoniously dragging you down a series of hard metal steps and then hurling you to the ground.
-	</p>
-	<p>
-		Feeling completely exhausted from your lost fight and the subsequent rough sex, all you're able to do is sit up and look back towards the top of the stairs just in time to see Wolfgang stepping back inside and then slamming the door firmly shut behind him. Taking a brief moment in which to catch your breath, you stand up and continue on your way back out into Dominion's warehouse district, wondering what you can do differently next time to avoid such a humiliating defeat...
+		After watching you get your things back in order, Wolfgang steps over to roughly grab hold of you, and before you know what's going on, you're being dragged over to a door on one side of the room. As you get closer, you see that there's a sign affixed to it which declares it to be a fire escape...
 	</p>
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="AFTER_SEX_FUCKED_THROWN_OUT"><![CDATA[
+	<p>
+		Before you have any time in which to react to your current situation, Wolfgang unlocks and pushes the fire escape door open, before unceremoniously dragging you down a series of hard metal steps and then hurling you to the ground. Feeling completely exhausted from your lost fight and the subsequent rough sex, you simply lie there for a moment as you try to catch your breath.
+	</p>
+	<p>
+		Casting a glance up the stairs down which you've just been dragged, you see Wolfgang stepping back into the warehouse and then slamming the door firmly shut behind him. After taking a brief moment in which to get some energy back, you stand up and wonder what you can do differently next time to avoid such a humiliating defeat...
+	</p>
+	]]>
+	</htmlContent>
 	
 	<!-- DOBERMANNS_BANISHED -->
 	
@@ -1219,7 +1225,17 @@
 	
 	<htmlContent tag="KAY_OFFICE_DOMINATE_POST_SEX"><![CDATA[
 	<p>
-		Having had enough fun for now, you order [kay.name] to step back, and as [kay.she] does so, you stand up and let out a deeply-satisfied sigh.
+		Having had enough fun for now, you order [kay.name] to step back, and as [kay.she] does so,
+		#IF(kay.isSatisfiedFromLastSex())
+			 [kay.she] lets out a deeply satisfied sigh.
+		#ELSE
+			 [kay.she] lets out a frustrated, horny whine.
+			#IF(sex.getNumberOfOrgasms(kay)>0)
+				 Although you allowed [kay.herHim] to cum, it seems as though [kay.she] didn't find that to be enough for [kay.herHim].
+			#ELSE
+				 Having not let [kay.herHim] cum even once, it seems as though [kay.sheIs] feeling somewhat dissatisfied.
+			#ENDIF
+		#ENDIF
 	</p>
 	<p>
 		#IF(sex.getSexTypeCount(kay, pc, sex.newSexType(PENETRATION_PENIS, ORIFICE_VAGINA))>0)
@@ -1700,11 +1716,11 @@
 		Thinking that you've left [kay.name] locked up in chastity for long enough, you order [kay.herHim] to present you with [kay.her] cock. Letting out an excited whimper, the [kay.race] jump to [kay.her] feet and drops [kay.her] trousers and underwear, exposing both [kay.her] chastity cage and the soft, [kay.cockColour]-skinned shaft which it contains. Producing the key to this cage, you quickly unlock it and return it to the desk's drawer.
 	</p>
 	<p>
-		#IF(kay.hasStatusEffect(SE_CHASTITY_REMOVED_2))
+		#IF(kay.hasStatusEffect(SE_CHASTITY_2))
 			Having left [kay.name] locked up for several days, [kay.sheIs] clearly relieved to be set free. [kay.She] can't help but start to get erect as soon as you've taken [kay.her] cage off, and you wonder whether you should reward [kay.herHim] for being such a good pet...
-		#ELSEIF(kay.hasStatusEffect(SE_CHASTITY_REMOVED_3))
+		#ELSEIF(kay.hasStatusEffect(SE_CHASTITY_3))
 			Having left [kay.name] locked up for over a week, [kay.sheIs] very clearly relieved to be set free. [kay.She] immediately gets an erection the moment you've taken [kay.her] cage off, and you wonder whether you should reward [kay.herHim] for being such a good pet...
-		#ELSEIF(kay.hasStatusEffect(SE_CHASTITY_REMOVED_4))
+		#ELSEIF(kay.hasStatusEffect(SE_CHASTITY_4))
 			Having left [kay.name] locked up for over two weeks, [kay.sheIs] desperately relieved to be set free. [kay.SheIs] erect the moment you take [kay.her] cage off, and you wonder whether you should reward [kay.herHim] for being such a good pet...
 		#ELSE
 			Having left [kay.name] locked up for just a short while, [kay.sheIs] not too desperate to be set free. [kay.She] does, however, start to get an erection as you touch [kay.her] cock, and you wonder whether you should reward [kay.herHim] for being such a good pet...

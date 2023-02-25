@@ -154,12 +154,14 @@ import com.lilithsthrone.game.character.persona.OccupationTag;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.pregnancy.FertilisationType;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.FurryPreference;
+import com.lilithsthrone.game.character.race.Nocturnality;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -9857,6 +9859,12 @@ public class UtilText {
 		}
 		for(Gender gender : Gender.values()) {
 			engine.put("GENDER_"+gender.toString(), gender);
+		}
+		for(FertilisationType ft : FertilisationType.values()) {
+			engine.put("FERTILISATION_"+ft.toString(), ft);
+		}
+		for(Nocturnality noc : Nocturnality.values()) {
+			engine.put("NOCTURNALITY_"+noc.toString(), noc);
 		}
 		for(LegConfiguration legConf : LegConfiguration.values()) {
 			engine.put("LEG_CONFIGURATION_"+legConf.toString(), legConf);

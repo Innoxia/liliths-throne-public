@@ -202,7 +202,7 @@
 		#IF(astrapi.isVisiblyPregnant())
 			<p>
 				#IF(!astrapi.isCharacterReactedToPregnancy(pc))
-					As usual, Astrapi isn't wearing any clothing other than the sweatbands around her wrists and head, and as such her huge, [astrapi.cupSize]-cup breasts are fully on display. However, it isn't the centauress's massive tits that draw your attention, but instead the fact that her lower horse's body is sporting a [style.colourSex(pregnant belly)]. Seeing what it is you're looking at, Astrapi absent-mindedly runs one of her hands through her [astrapi.hairColour] hair and laughs, [astrapi.speech(Hah! Yeah, that pill I took was supposed to prevent this, but I guess your seed was too strong for it! Anyway, yeah, you got me pregnant, but it's no big deal really. Sure, I might be a little slower on my routes and need more rest in the evenings, but I can handle it all just fine.)]
+					As usual, Astrapi isn't wearing any clothing other than the sweatbands around her wrists and head, and as such her huge, [astrapi.cupSize]-cup breasts are fully on display. However, it isn't the centauress's massive tits that draw your attention, but instead the fact that her lower horse's body is sporting a [style.colourSex(pregnant belly)]. Seeing what it is you're looking at, Astrapi absent-mindedly runs one of her hands through her [astrapi.hairColour] hair and laughs, [astrapi.speech(Hah! Yeah, you got me pregnant, but it's no big deal really. Sure, I might be a little slower on my routes and need more rest in the evenings, but I can handle it all just fine.)]
 				#ELSE
 					As usual, Astrapi isn't wearing any clothing other than the sweatbands around her wrists and head, and as such her huge, [astrapi.cupSize]-cup breasts are fully on display. However, it isn't the centauress's massive tits that draw your attention, but instead the fact that her lower horse's body is still sporting a [style.colourSex(pregnant belly)]. Seeing what it is you're looking at, Astrapi absent-mindedly runs one of her hands through her [astrapi.hairColour] hair and laughs, [astrapi.speech(Hah! Yeah, I'm still carrying our kids around, but it's no big deal. Sure, I might be a little slower on my routes and need more rest in the evenings, but I can handle it all just fine.)]
 				#ENDIF
@@ -483,6 +483,8 @@
 		Telling the centauress that she's a bad girl for getting wet while at work seems to be the last straw, and with a desperate whine, Astrapi abruptly makes a short diversion off the road. Cantering down a gravel track, she pulls up behind a half-collapsed barn, where she swiftly throws off her harness and pulls off her sports bra.
 		#IF(astrapi.isVisiblyPregnant())
 			 Gesturing towards her pregnant belly, she moans, [astrapi.speech(You've made this problem, now you fix it! Fuck me as much as you want; you've already got me pregnant, so do whatever you want with my pussy, just make me cum!)]
+		#ELSEIF(flags.hasFlag(FLAG_innoxia_astrapi_impregnation_talk))
+			 Flashing you a horny look, she moans, [astrapi.speech(You've made this problem, now you fix it! If you want to try and get me pregnant, then that's fine... Just make me cum!)]
 		#ELSE
 			 Grabbing what looks like a sterility pill out of the carriage's storage box, she swallows it and demands, [astrapi.speech(You've made this problem, now you fix it! Fuck me as much as you want; I'm not going to get pregnant after taking that pill, so do whatever you want with my pussy, just make me cum!)]
 		#ENDIF
@@ -581,6 +583,19 @@
 	</p>
 	<p>
 		It's only after several more miles of travel that Astrapi eventually calms down, at which point you're able to make some small-talk about the weather, the lack of the maintenance done on the roads, and the state of the burnt-out farmsteads and abandoned fields which you pass by. In this manner the rest of your journey continues in an uneventful manner, and before you even know it you're approaching your destination...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ASTRAPI_IMPREGNATION_TALK"><![CDATA[
+	<p>
+		Wanting to knock Astrapi up, you ask her why she doesn't want to get pregnant. After letting out a frustrated moan as she hears that you want to talk instead of moving right on to having sex, she sighs and replies, [astrapi.speech(Well, call me strange, but I didn't want to have kids with someone I barely knew. I suppose that doesn't really apply to you any more, though, what with how well we know each other by now...)]
+	</p>
+	<p>
+		Asking her if the two of you are close enough for her to rethink her stance on getting pregnant, you can't help but smile as the horny centauress grins and continues, [astrapi.speech(You really want to knock me up, huh? Well, seeing as it's you, [pc.name], I guess I wouldn't mind... I won't take a pill next time, and if you've got a breeder pill on you then just throw me one and we can make some babies together right now...)]
+	</p>
+	<p>
+		Impatiently flicking her horse tail back and forth, she doesn't give you any time to respond as she loudly moans, [astrapi.speech(Come on, [pc.name], let's just fuck already!)]
 	</p>
 	]]>
 	</htmlContent>

@@ -1211,6 +1211,16 @@ public class CMBasicAttack {
         		}
         	}
         }
+
+        @Override
+        public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+        	return Util.newArrayListOfValues("This is the only move that's being used.");
+        }
+        
+        @Override
+        public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		return source.getSelectedMoves().stream().anyMatch(move->move.getValue()==BASIC_TWIN_STRIKE) && source.getSelectedMoves().size()==1;
+        }
     };
     
     public static AbstractCombatMove BASIC_BLOCK = new AbstractCombatMove(CombatMoveCategory.BASIC,

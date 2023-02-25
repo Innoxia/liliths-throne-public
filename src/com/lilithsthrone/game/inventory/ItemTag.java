@@ -44,6 +44,9 @@ public enum ItemTag {
 	MISC_TF_ITEM, // Fetish or non-racial body part transformations
 	BOOK,
 	GIFT,
+
+	DRINK, // All drink items should be tagged as such so that any future status effects can be easily associated with them
+	FOOD, // Food items apply the 'recently eaten' status effect upon use
 	ALCOHOLIC, // For easy detection of alcoholic items in some scenes
 	
 	// To mark consumables as containing caffeine, with the number representing the equivalent alcoholic level to be applied to spider-morphs

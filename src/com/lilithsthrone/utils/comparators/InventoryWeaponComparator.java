@@ -19,6 +19,19 @@ public class InventoryWeaponComparator implements Comparator<AbstractWeapon> {
 			return result;
 			
 		} else {
+			// If rarity is equal, sort by set type:
+			int resultSet = first.getWeaponType().getClothingSet()==second.getWeaponType().getClothingSet()
+					?0
+					:first.getWeaponType().getClothingSet()==null
+						?-1
+						:second.getWeaponType().getClothingSet()==null
+							?1
+							:first.getWeaponType().getClothingSet().getName().compareTo(second.getWeaponType().getClothingSet().getName());
+			
+			if(resultSet!=0) {
+				return resultSet;
+			}
+			
 			result = first.getWeaponType().toString().compareTo(second.getWeaponType().toString());
 			
 			if(result!=0) {

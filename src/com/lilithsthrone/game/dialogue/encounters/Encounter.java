@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -43,6 +44,7 @@ import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DominionExpressCenta
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.SlaveEncountersDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.WesQuest;
+import com.lilithsthrone.game.dialogue.places.dominion.DominionPark;
 import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -193,12 +195,38 @@ public class Encounter {
 	public static AbstractEncounter DOMINION_STREET = new AbstractEncounter() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
-			boolean cultistAvailable = 
-					Main.game.getCurrentWeather() != Weather.MAGIC_STORM
+			boolean cultistAvailable = Main.game.getCurrentWeather() != Weather.MAGIC_STORM
 						&& Main.game.getDateNow().getMonth().equals(Month.OCTOBER)
 						&& Main.game.getNumberOfWitches()<4
 						&& Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.DOMINION_STREET);
-
+			
+			if(cultistAvailable) {
+				boolean cultistSuitableTile = true;
+				for(GameCharacter character : Main.game.getNonCompanionCharactersPresent()) {
+					if(!Main.game.getPlayer().getFriendlyOccupants().contains(character.getId())) {
+						cultistSuitableTile = false;
+						break;
+					}
+				}
+				// Do not spawn a cultist if there is already one in an adjacent tile:
+				int[][] tileChecks = new int[][] {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
+				for(int i=0; i<tileChecks.length; i++) {
+					int x = Main.game.getPlayer().getLocation().getX() + tileChecks[i][0];
+					int y = Main.game.getPlayer().getLocation().getY() + tileChecks[i][1];
+					try {
+						List<NPC> chPres = Main.game.getNonCompanionCharactersPresent(Main.game.getActiveWorld().getCell(x, y));
+						if(!chPres.isEmpty() && chPres.stream().anyMatch(c->c instanceof Cultist)) {
+							cultistSuitableTile = false;
+							break;
+						}
+					} catch(Exception ex) {
+						// Tile was out of bounds for the map
+					}
+				}
+				if(!cultistSuitableTile) {
+					cultistAvailable = false;
+				}
+			}
 			
 			boolean wesQuestAvailable = false;
 			
@@ -218,6 +246,8 @@ public class Encounter {
 										&& Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
 										&& Main.game.getHourOfDay()>=17 && Main.game.getHourOfDay()<=21;
 			}
+
+			AbstractClothing collar = Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK);
 			
 			return Util.newHashMapOfValues(
 					Main.game.getCurrentWeather()==Weather.MAGIC_STORM
@@ -226,10 +256,12 @@ public class Encounter {
 					cultistAvailable
 						?new Value<EncounterType, Float>(EncounterType.SPECIAL_DOMINION_CULTIST, 5f)
 						:null,
-					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM && collar!=null && collar.getClothingType().getId().equals("innoxia_neck_filly_choker")
 						?new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f)
 						:null,
-					new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f),
+					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM && getSlaveWantingToUseYouInDominion()!=null
+						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
+						:null,
 					wesQuestAvailable
 						?new Value<EncounterType, Float>(EncounterType.WES_QUEST_START, 50f)
 						:null,
@@ -240,7 +272,7 @@ public class Encounter {
 		
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
-			if(node == EncounterType.DOMINION_STORM_ATTACK && Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
+			if(node == EncounterType.DOMINION_STORM_ATTACK) {
 				NPC npc = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.DIRTY);
 				try {
 					Main.game.addNPC(npc, false);
@@ -253,32 +285,19 @@ public class Encounter {
 			}
 			
 			if(node == EncounterType.SPECIAL_DOMINION_CULTIST) {
-				boolean suitableTile = true;
-				for(GameCharacter character : Main.game.getNonCompanionCharactersPresent()) {
-					if(!Main.game.getPlayer().getFriendlyOccupants().contains(character.getId())) {
-						suitableTile = false;
-						break;
-					}
-				}
+				Main.game.setActiveNPC(new Cultist());
 				
-				if(suitableTile) {
-					Main.game.setActiveNPC(new Cultist());
-					
-					try {
-						Main.game.addNPC(Main.game.getActiveNPC(), false);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-		
-					return Main.game.getActiveNPC().getEncounterDialogue();
+				try {
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
+	
+				return Main.game.getActiveNPC().getEncounterDialogue();
 			}
 			
 			if(node==EncounterType.DOMINION_EXPRESS_CENTAUR) {
-				AbstractClothing collar = Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK);
-				if(collar!=null && collar.getClothingType().getId().equals("innoxia_neck_filly_choker")) { // When wearing filly choker, get approached by horny centaurs:
-					return DominionExpressCentaurDialogue.initEncounter(); // Can return null if player cannot access mouth or anus.
-				}
+				return DominionExpressCentaurDialogue.initEncounter(); // Can return null if player cannot access mouth or anus.
 			}
 			
 			if(node == EncounterType.DOMINION_STREET_FIND_HAPPINESS) {
@@ -287,12 +306,11 @@ public class Encounter {
 				
 			}
 			
-			if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
+			if(node == EncounterType.SLAVE_USES_YOU) {
 				NPC slave = getSlaveWantingToUseYouInDominion();
-				if(slave==null) {
-					return null;
+				if(slave!=null) {
+					return SlaveEncountersDialogue.getSlaveUsesYouStreet(slave);
 				}
-				return SlaveEncountersDialogue.getSlaveUsesYouStreet(slave);
 			}
 			
 			if(node == EncounterType.WES_QUEST_START) {
@@ -306,46 +324,53 @@ public class Encounter {
 	public static AbstractEncounter DOMINION_BOULEVARD = new AbstractEncounter() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
-			return Util.newHashMapOfValues(
-					new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_RENTAL_MOMMY, 10f),
-					new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_PILL_HANDOUT, 5f),
-					new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f),
-					new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f));
+			Map<EncounterType, Float> dialogueMap = new HashMap<>();
+			LocalDateTime time = Main.game.getDateNow();
+			
+			// Mother's day timing, 2nd week of May:
+			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM && time.getMonth().equals(Month.MAY) && time.getDayOfMonth()>7 && time.getDayOfMonth()<=14) {
+				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.mommyFound)) {
+					dialogueMap.put(EncounterType.DOMINION_STREET_RENTAL_MOMMY, 10f);
+				}
+				dialogueMap.put(EncounterType.DOMINION_STREET_PILL_HANDOUT, 5f);
+			}
+			
+			 // Father's day timing, 3rd week of June:
+			if(time.getMonth().equals(Month.JUNE) && time.getDayOfMonth()>14 && time.getDayOfMonth()<=21) {
+				dialogueMap.put(EncounterType.DOMINION_STREET_PILL_HANDOUT, 5f);
+			}
+			
+			AbstractClothing collar = Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK);
+			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM && collar!=null && collar.getClothingType().getId().equals("innoxia_neck_filly_choker")) {
+				dialogueMap.put(EncounterType.DOMINION_EXPRESS_CENTAUR, 2.5f);
+			}
+			
+			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM && getSlaveWantingToUseYouInDominion()!=null) {
+				dialogueMap.put(EncounterType.SLAVE_USES_YOU, 5f);
+			}
+			
+			return dialogueMap;
 		}
 		
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
-			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) { // None of these encounters work during a storm
-				return null;
+			if(node == EncounterType.DOMINION_STREET_RENTAL_MOMMY) {
+				Main.game.setActiveNPC(Main.game.getNpc(RentalMommy.class));
+				Main.game.getNpc(RentalMommy.class).setLocation(WorldType.DOMINION, Main.game.getPlayer().getLocation(), true);
+				
+				try {
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return Main.game.getActiveNPC().getEncounterDialogue();
+				
 			}
 			
-			LocalDateTime time = Main.game.getDateNow();
-			
-			if(time.getMonth().equals(Month.MAY) && time.getDayOfMonth()>7 && time.getDayOfMonth()<=14) { // Mother's day timing, 2nd week of May
-				if(node == EncounterType.DOMINION_STREET_RENTAL_MOMMY && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.mommyFound)) {
-					Main.game.setActiveNPC(Main.game.getNpc(RentalMommy.class));
-					Main.game.getNpc(RentalMommy.class).setLocation(WorldType.DOMINION, Main.game.getPlayer().getLocation(), true);
-					
-					try {
-						Main.game.addNPC(Main.game.getActiveNPC(), false);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					return Main.game.getActiveNPC().getEncounterDialogue();
-					
-				} else if(node==EncounterType.DOMINION_STREET_PILL_HANDOUT) {
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), 3+Util.random.nextInt(4), false, true));
-					
-					return DominionEncounterDialogue.DOMINION_STREET_PILL_HANDOUT;
-				}
-			}
-			
-			if(time.getMonth().equals(Month.JUNE) && time.getDayOfMonth()>14 && time.getDayOfMonth()<=21) { // Father's day timing, 3rd week of June
-				if(node==EncounterType.DOMINION_STREET_PILL_HANDOUT) {
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), 3+Util.random.nextInt(4), false, true));
-					
-					return DominionEncounterDialogue.DOMINION_STREET_PILL_HANDOUT;
-				}
+			if(node==EncounterType.DOMINION_STREET_PILL_HANDOUT) {
+				Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), 3+Util.random.nextInt(4), false, true));
+				
+				return DominionEncounterDialogue.DOMINION_STREET_PILL_HANDOUT;
 			}
 
 			if(node==EncounterType.DOMINION_EXPRESS_CENTAUR) {
@@ -357,10 +382,9 @@ public class Encounter {
 			
 			if(node == EncounterType.SLAVE_USES_YOU) {
 				NPC slave = getSlaveWantingToUseYouInDominion();
-				if(slave==null) {
-					return null;
+				if(slave!=null) {
+					return SlaveEncountersDialogue.getSlaveUsesYouStreet(slave);
 				}
-				return SlaveEncountersDialogue.getSlaveUsesYouStreet(slave);
 			}
 			
 			return null;
@@ -374,7 +398,7 @@ public class Encounter {
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_ITEM, 3f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_CLOTHING, 2f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_WEAPON, 1f),
-					(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+					(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM && getSlaveWantingToUseYouInDominion()!=null
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null),
 					(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
@@ -486,10 +510,9 @@ public class Encounter {
 				
 			} else if(node == EncounterType.SLAVE_USES_YOU) {
 				NPC slave = getSlaveWantingToUseYouInDominion();
-				if(slave==null) {
-					return null;
+				if(slave!=null) {
+					return SlaveEncountersDialogue.getSlaveUsesYouAlleyway(slave);
 				}
-				return SlaveEncountersDialogue.getSlaveUsesYouAlleyway(slave);
 				
 			} else if(node==EncounterType.SLAVE_USING_OTHER_SLAVE) {
 				Value<NPC, NPC> slaves = getSlaveUsingOtherSlaveInDominion();
@@ -514,7 +537,6 @@ public class Encounter {
         }
         @Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
-				
 			// Prioritise re-encountering the NPC on this tile:
 			List<NPC> encounterPossibilities = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
 			if(!encounterPossibilities.isEmpty()) {
@@ -546,7 +568,7 @@ public class Encounter {
 							&& (!Main.game.getDialogueFlags().hasSavedLong("enforcer_encounter_minutes") || Main.game.getDialogueFlags().getSavedLong("enforcer_encounter_minutes")+(4*60)<Main.game.getMinutesPassed())
 						?new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ENFORCERS, 2.5f)
 						:null,
-					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM && getSlaveWantingToUseYouInDominion()!=null
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null);
 		}
@@ -1300,6 +1322,73 @@ public class Encounter {
 				
 			} else if(node == EncounterType.VENGAR_CAPTIVE_ROOM_BARRED) {
 				return VengarCaptiveDialogue.VENGARS_BEDROOM_BARRED;
+			}
+			
+			return null;
+		}
+	};
+
+	public static AbstractEncounter DOMINION_PARK = new AbstractEncounter() {
+		@Override
+		public Map<EncounterType, Float> getDialogues() {
+			Map<EncounterType, Float> map = new HashMap<>();
+			
+			// If at least 2 park tiles have been travelled to,
+			// if it's between 09:00 and 15:00 and there's no storm,
+			// and if the player has either not started the Natalya quest or if they have fully completed it
+			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.natalyaParkEncounter)
+					&& Main.game.isHourBetween(9, 15)
+					&& Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+					&& Main.game.getCurrentWeather()!=Weather.MAGIC_STORM_GATHERING
+					&& !Main.game.getPlayer().isQuestFailed(QuestLine.ROMANCE_NATALYA)
+					&& (Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA) || (!Main.game.getPlayer().hasQuest(QuestLine.ROMANCE_NATALYA) && !Main.game.getPlayer().hasItemType(ItemType.NATALYA_BUSINESS_CARD)))
+					&& Main.game.getWorlds().get(WorldType.DOMINION).getCells(PlaceType.DOMINION_PARK).stream().filter(c->c.isTravelledTo()).collect(Collectors.toList()).size()>=2) {
+				map.put(EncounterType.DOMINION_PARK_NATALYA, 100f);
+				
+			} else {
+				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+					map.put(EncounterType.DOMINION_STORM_ATTACK, 15f);
+				} else {
+					map.put(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f);
+					if(getSlaveWantingToUseYouInDominion()!=null) {
+						map.put(EncounterType.SLAVE_USES_YOU, 5f);
+					}
+				}
+			}
+			
+			return map;
+		}
+		@Override
+		protected DialogueNode initialiseEncounter(EncounterType node) {
+			if(node == EncounterType.DOMINION_PARK_NATALYA) {
+				return DominionPark.NATALYA_ENCOUNTER_START;
+			}
+			
+			if(node == EncounterType.DOMINION_STORM_ATTACK && Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
+				NPC npc = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.DIRTY);
+				try {
+					Main.game.addNPC(npc, false);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				npc.setLocation(Main.game.getPlayer(), true);
+				Main.game.setActiveNPC(npc);
+				return Main.game.getActiveNPC().getEncounterDialogue();
+			}
+			
+			if(node==EncounterType.DOMINION_EXPRESS_CENTAUR) {
+				AbstractClothing collar = Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK);
+				if(collar!=null && collar.getClothingType().getId().equals("innoxia_neck_filly_choker")) { // When wearing filly choker, get approached by horny centaurs:
+					return DominionExpressCentaurDialogue.initEncounter(); // Can return null if player cannot access mouth or anus.
+				}
+			}
+			
+			if(node == EncounterType.SLAVE_USES_YOU) {
+				NPC slave = getSlaveWantingToUseYouInDominion();
+				if(slave==null) {
+					return null;
+				}
+				return SlaveEncountersDialogue.getSlaveUsesYouStreet(slave);
 			}
 			
 			return null;

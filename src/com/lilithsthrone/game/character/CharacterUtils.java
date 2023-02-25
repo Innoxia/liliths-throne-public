@@ -75,6 +75,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
+import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
@@ -904,7 +905,10 @@ public class CharacterUtils {
 		}
 
 		if(mother.isFeral()) { // Feral mothers always birth feral offspring. This is done after the genetics section to make sure that the feral offspring is not modified in an unintended manner (such as making them as tall as the father).
-			body.setFeral(raceTakesAfter.isFeralConfigurationAvailable()?raceTakesAfter:mother.getSubspecies());
+			body.setFeral(mother.getSubspecies()); // Feral offspring should always be the race of the feral mother to avoid very odd birthings (e.g. elephants born from a wolf)
+//			body.setFeral(raceTakesAfter.isFeralConfigurationAvailable(body)
+//							?raceTakesAfter
+//							:mother.getSubspecies());
 		}
 		
 		if(!body.isFeral()
@@ -1117,6 +1121,7 @@ public class CharacterUtils {
 		if(body.getPenis().getType()!=PenisType.NONE
 				&& body.getPenis().getType()!=PenisType.DILDO
 				&& body.getVagina().getType()!=VaginaType.NONE
+				&& body.getVagina().getType()!=VaginaType.ONAHOLE
 				&& !Main.game.isFutanariTesticlesEnabled()) {
 			body.getPenis().getTesticle().setInternal(null, true);
 		}
@@ -1358,6 +1363,7 @@ public class CharacterUtils {
 		if(body.getPenis().getType()!=PenisType.NONE
 				&& body.getPenis().getType()!=PenisType.DILDO
 				&& body.getVagina().getType()!=VaginaType.NONE
+				&& body.getVagina().getType()!=VaginaType.ONAHOLE
 				&& !Main.game.isFutanariTesticlesEnabled()) {
 			body.getPenis().getTesticle().setInternal(null, true);
 		}
@@ -1519,6 +1525,7 @@ public class CharacterUtils {
 		if(body.getPenis().getType()!=PenisType.NONE
 				&& body.getPenis().getType()!=PenisType.DILDO
 				&& body.getVagina().getType()!=VaginaType.NONE
+				&& body.getVagina().getType()!=VaginaType.ONAHOLE
 				&& !Main.game.isFutanariTesticlesEnabled()) {
 			body.getPenis().getTesticle().setInternal(null, true);
 		}
@@ -1677,7 +1684,7 @@ public class CharacterUtils {
 		boolean pubicHair;
 		if(body.getPenis().getType()!=PenisType.NONE && body.getPenis().getType()!=PenisType.DILDO) {
 			pubicHair = body.getPenis().getType().getRace().getRacialClass().isAnthroHair() || Main.game.isScalyHairEnabled();
-		} else if(body.getVagina().getType()!=VaginaType.NONE) {
+		} else if(body.getVagina().getType()!=VaginaType.NONE && body.getVagina().getType()!=VaginaType.ONAHOLE) {
 			pubicHair = body.getVagina().getType().getRace().getRacialClass().isAnthroHair() || Main.game.isScalyHairEnabled();
 		} else {
 			pubicHair = body.getTorso().getType().getRace().getRacialClass().isAnthroHair() || Main.game.isScalyHairEnabled();
@@ -2402,17 +2409,24 @@ public class CharacterUtils {
 		//**** CLOTHING ****//
 		
 		// Condoms:
-		Colour condomColour = ClothingType.getClothingTypeFromId("innoxia_penis_condom").getColourReplacement(0).getRandomOfDefaultColours();
 		if(character.hasPenis()
 				&& !character.getFetishDesire(Fetish.FETISH_PENIS_GIVING).isNegative() // doesn't mind using penis
 				&& (character.getFetishDesire(Fetish.FETISH_CUM_STUD).isNegative() // dislikes cum play or impregnating others
 						|| character.getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative())) {
-			character.addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", condomColour, false), 1+Util.random.nextInt(3), false, false);
+			String condomType = "innoxia_penis_condom";
+			int cumQuantity = character.getPenisRawOrgasmCumQuantity();
+			if(cumQuantity>CumProduction.FIVE_HUGE.getMaximumValue()) {
+				condomType = "innoxia_penis_condom_strong";
+			} else if(cumQuantity>CumProduction.SIX_EXTREME.getMaximumValue()) {
+				condomType = "innoxia_penis_condom_super_strong";
+			}
+			Colour condomColour = ClothingType.getClothingTypeFromId(condomType).getColourReplacement(0).getRandomOfDefaultColours();
+			character.addClothing(Main.game.getItemGen().generateClothing(condomType, condomColour, false), 1+Util.random.nextInt(3), false, false);
 		}
-		condomColour = ClothingType.getClothingTypeFromId("innoxia_penis_condom").getColourReplacement(0).getRandomOfDefaultColours();
 		if(!character.getFetishDesire(Fetish.FETISH_PENIS_RECEIVING).isNegative() // doesn't mind receiving cock
 				&& (character.getFetishDesire(Fetish.FETISH_CUM_ADDICT).isNegative()  // dislikes others' cum or has vagina and dislikes getting pregnant
 						|| (character.hasVagina() && character.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()))) {
+			Colour condomColour = ClothingType.getClothingTypeFromId("innoxia_penis_condom").getColourReplacement(0).getRandomOfDefaultColours();
 			character.addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", condomColour, false), 1+Util.random.nextInt(3), false, false);
 		}
 		
@@ -2464,7 +2478,7 @@ public class CharacterUtils {
 			}
 		}
 		
-		availableClothing.removeIf(ct->ct.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN) || ct.getRarity()==Rarity.QUEST);
+		availableClothing.removeIf(ct->ct.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN) || ct.getDefaultItemTags().contains(ItemTag.CHEAT_ITEM) || ct.getRarity()==Rarity.QUEST);
 		
 		// Adding clothing to inventory:
 		maxClothingCount+=Util.random.nextInt(3);
@@ -2686,15 +2700,20 @@ public class CharacterUtils {
 		Map<AbstractFetish, Integer> fetishMap = new HashMap<>();
 		Map<AbstractFetish, Map<String, Integer>> raceModifiers = character.getRace().getRacialFetishModifiers();
 		for(AbstractFetish fetish : availableFetishes) {
-			int weight = 0;
-			if(raceModifiers.containsKey(fetish)) {
-				// Racial modifier acts as a multiplier so fetishes can be disabled by race or player preferences
-				weight = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLove() * raceModifiers.get(fetish).getOrDefault("love", 1);
+			if(Main.getProperties().fetishPreferencesMap.get(fetish)==FetishPreference.SIX_ALWAYS.getValue()) {
+				character.addFetish(fetish);
+				
 			} else {
-				weight = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLove();
-			}
-			if(weight!=0) {
-				fetishMap.put(fetish, weight);
+				int weight = 0;
+				if(raceModifiers.containsKey(fetish)) {
+					// Racial modifier acts as a multiplier so fetishes can be disabled by race or player preferences
+					weight = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLove() * raceModifiers.get(fetish).getOrDefault("love", 1);
+				} else {
+					weight = FetishPreference.valueOf(Main.getProperties().fetishPreferencesMap.get(fetish)).getLove();
+				}
+				if(weight!=0) {
+					fetishMap.put(fetish, weight);
+				}
 			}
 		}
 		while(fetishesAssigned < numberOfFetishes && !fetishMap.isEmpty()) {

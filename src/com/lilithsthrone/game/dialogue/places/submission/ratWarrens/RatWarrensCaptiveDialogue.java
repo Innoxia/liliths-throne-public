@@ -971,6 +971,7 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public void applyPreParsingEffects() {
 			getMurk().returnToHome();
+			Main.game.getPlayer().applyFoodConsumed(15);
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -1493,6 +1494,7 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public void applyPreParsingEffects() {
 			getMurk().returnToHome();
+			Main.game.getPlayer().applyFoodConsumed(15);
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -2152,6 +2154,7 @@ public class RatWarrensCaptiveDialogue {
 			milker.calculateGenericSexEffects(false, true, getMurk(), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.FORCE_CREAMPIE);
 			Main.game.getPlayer().addDirtySlot(InventorySlot.MOUTH);
 			getMurk().returnToHome();
+			Main.game.getPlayer().applyFoodConsumed(15);
 		}
 		@Override
 		public int getSecondsPassed() {
