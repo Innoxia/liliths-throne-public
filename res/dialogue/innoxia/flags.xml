@@ -63,6 +63,7 @@
 			<flag dailyReset="false">vronti_anilingus_given</flag>
 			<flag dailyReset="false">vronti_anal_sex_given</flag>
 			<flag dailyReset="false">astrapi_not_shaving</flag>
+			<flag dailyReset="false">astrapi_impregnation_talk</flag>
 			
 		<!-- Evelyx's Dairy: -->
 			<flag dailyReset="true">dale_talk_himself</flag>

@@ -87,7 +87,15 @@ public enum SlavePermission {
 			Util.newArrayListOfValues(
 					SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES,
 					SlavePermissionSetting.CLEANLINESS_WASH_BODY),
-			false);
+			false),
+	
+	SLEEPING(PresetColour.BASE_PURPLE_LIGHT,
+			"Sleeping",
+			Util.newArrayListOfValues(
+					SlavePermissionSetting.SLEEPING_DEFAULT,
+					SlavePermissionSetting.SLEEPING_NIGHT,
+					SlavePermissionSetting.SLEEPING_DAY),
+			true);
 	
 	private Colour colour;
 	private String name;

@@ -2237,6 +2237,18 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		return new Value<>(false, "This item of clothing cannot be equipped during sex!");
 	}
 	
+	public Value<Boolean, String> isAbleToBeEquippedDuringSexInAnySlot() {
+		for(InventorySlot slot : this.getClothingType().getEquipSlots()) {
+			if(getItemTags(slot).contains(ItemTag.ENABLE_SEX_EQUIP)) {
+				if(isEnslavementClothing()) {
+					return new Value<>(false, "Clothing with enslavement enchantments cannot be equipped during sex!");
+				}
+				return new Value<>(true, "");
+			}
+		}
+		return new Value<>(false, "This item of clothing cannot be equipped during sex!");
+	}
+	
 	@Override
 	public List<ItemEffect> getEffects() {
 		return effects;

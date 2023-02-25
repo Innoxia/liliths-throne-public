@@ -174,6 +174,7 @@ import com.lilithsthrone.game.character.npc.submission.Takahashi;
 import com.lilithsthrone.game.character.npc.submission.Vengar;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.pregnancy.Litter;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
@@ -244,6 +245,7 @@ import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
@@ -1172,6 +1174,15 @@ public class Game implements XMLSaving {
 					}
 				}
 				
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.7.2")) {
+					// Add shaft tile:
+					Vector2i vec = Main.game.getWorlds().get(WorldType.BAT_CAVERNS).getCell(PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR).getLocation();
+					vec.setY(vec.getY()-3);
+					Main.game.getWorlds().get(WorldType.BAT_CAVERNS).getCell(vec).getPlace().setPlaceType(PlaceType.BAT_CAVERN_SHAFT);
+					Main.game.getWorlds().get(WorldType.BAT_CAVERNS).getCell(vec).getPlace().setName(PlaceType.BAT_CAVERN_SHAFT.getName());
+					
+				}
+				
 				if(debug) {
 					System.out.println("Maps finished: "+ (System.nanoTime()-time)/1000000000d);
 				}
@@ -1902,6 +1913,13 @@ public class Game implements XMLSaving {
 
 				if(Main.isVersionOlderThan(loadingVersion, "0.4.6.6") && Main.game.getPlayer().getTrueRace()==Race.DEMON) {
 					Main.game.getDialogueFlags().setFlag("innoxia_child_of_lyssieth", true); // Players could only become a demon via Lyssieth before v0.4.6.6, so set the flag to represent this
+				}
+
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.7.2")) {
+					Main.game.getNpc(Lunexis.class).setAffection(Main.game.getPlayer(), -100);
+					Main.game.getNpc(Lunexis.class).setAffection(Main.game.getNpc(DarkSiren.class), -100);
+					Main.game.getNpc(Lunexis.class).setAffection(Main.game.getNpc(Aurokaris.class), -100);
+					Main.game.getNpc(Lunexis.class).setAffection(Main.game.getNpc(Ursa.class), -100);
 				}
 				
 				if(debug) {
@@ -4629,6 +4647,11 @@ public class Game implements XMLSaving {
 	public DayPeriod getCurrentDayPeriod() {
 		return DateAndTime.getDayPeriod(this.getDateNow(), Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
 	}
+
+	public DayPeriod getDayPeriodAtHour(int hourOfDay) {
+		LocalDateTime ldt = this.getDateNow().withHour(hourOfDay);
+		return DateAndTime.getDayPeriod(ldt, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
+	}
 	
 	public boolean isMorning() {
 		return getMinutesPassed() % (24 * 60) >= 0 && getMinutesPassed() % (24 * 60) < (60 * 12);
@@ -5892,6 +5915,26 @@ public class Game implements XMLSaving {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	// For use in debug menu:
+
+	public void startGenericSex(GameCharacter character) {
+//		Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
+		Main.game.setContent(
+				new ResponseSex(UtilText.parse(character, "Sex with [npc.name]"),
+					UtilText.parse(character, "Start a generic sex scene with [npc.name]"),
+					true,
+					true,
+					new SMGeneric(
+							Util.newArrayListOfValues(Main.game.getPlayer()),
+							Util.newArrayListOfValues(character),
+					null,
+					null),
+					Main.game.getDefaultDialogue(false),
+					"<p>"
+						+ UtilText.parse(character, "You start having sex with [npc.name]")
+					+ "</p>"));
 	}
 	
 }

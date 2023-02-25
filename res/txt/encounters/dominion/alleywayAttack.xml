@@ -1156,7 +1156,7 @@
 		[pc.speech(Yes, this is your room now. Is everything ok?)]
 	</p>
 	<p>
-		[npc.speech(It's more than ok... I don't know what to say... This is the best thing that's ever happened to me!)] [npc.name] replies, trying to hold back tears of joy. before you can reply, [npc.she] suddenly rushes forwards and throws [npc.her] [npc.arms] around you. [npc.speech(Thank you so, so much! You've changed my life!)]
+		[npc.speech(It's more than ok... I don't know what to say... This is the best thing that's ever happened to me!)] [npc.name] replies, trying to hold back tears of joy. Before you can reply, [npc.she] suddenly rushes forwards and throws [npc.her] [npc.arms] around you. [npc.speech(Thank you so, so much! You've changed my life!)]
 	</p>
 	<p>
 		You happily return [npc.namePos] hug for a moment, before [npc.she] pulls back and wipes the tears from [npc.her] [npc.eyes]. [npc.speech(I'll keep on looking for a job, and once I've got one, I'll start paying rent. I'll repay you for all of this, I promise!)]

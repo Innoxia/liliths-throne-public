@@ -293,7 +293,10 @@ public class NightlifeDistrict {
 		return Math.max(0, (int) (35 - (Main.game.getMinutesPassed() - Main.game.getDialogueFlags().getSavedLong(Kalahari.KALAHARI_BREAK_TIMER_ID))));
 	}
 
-	private static boolean isPartnerLeaving() {
+	private static boolean isPartnerLeaving(boolean isDominantPartner) {
+		if(isDominantPartner) {
+			return hasPartner() && domPartnerNightlyAffection<AffectionLevel.NEGATIVE_THREE_STRONG_DISLIKE.getMedianValue();
+		}
 		return hasPartner() && getPartner().getAffection(Main.game.getPlayer())<AffectionLevel.NEGATIVE_THREE_STRONG_DISLIKE.getMedianValue();
 	}
 	
@@ -305,7 +308,7 @@ public class NightlifeDistrict {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("<p style='text-align:center;'>");
-		if(isPartnerLeaving()) {
+		if(isPartnerLeaving(false)) {
 			sb.append(UtilText.parse(getClubbersPresent(), "[style.boldTerrible([npc.Name] leaves you!)]</br>"
 					+ "[npc.Name] is fed up, and with a dismissive wave of [npc.her] [npc.hand], [npc.she] turns around and leaves you!"));
 		
@@ -330,11 +333,11 @@ public class NightlifeDistrict {
 	}
 	
 	private static boolean isEndConditionMet(int minutesPassedForNextScene) {
-		return isPartnerLeaving() || isPartnerPassingOut() || (!isClubOpen(minutesPassedForNextScene) && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.passedJules));
+		return isPartnerLeaving(false) || isPartnerPassingOut() || (!isClubOpen(minutesPassedForNextScene) && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.passedJules));
 	}
 	
 	private static Response getEndResponse(int index, int minutesPassedForNextScene) {
-		if(isPartnerLeaving()) {
+		if(isPartnerLeaving(false)) {
 			if(index==1) {
 				return new Response("Continue", UtilText.parse(getClubbersPresent(), "Perhaps you should have treated [npc.name] a little better..."), Main.game.getDefaultDialogue(false)) {
 					@Override
@@ -4296,6 +4299,7 @@ public class NightlifeDistrict {
 		currentBehaviour = ClubberBehaviour.INTRODUCTION;
 		turnsAtPlace = 0;
 		buyingDrinks = true;
+		domPartnerNightlyAffection = 0;
 	}
 	
 	private static AbstractPlaceType getCurrentPlaceType() {
@@ -4338,7 +4342,11 @@ public class NightlifeDistrict {
 	 */
 	
 	private static ClubberBehaviour getClubberBehaviour() {
-
+		
+		if(isPartnerLeaving(true)) {
+			return ClubberBehaviour.LEAVES;
+		}
+		
 		if(getPartner().hasPersonalityTrait(PersonalityTrait.SELFISH)) { // Only goes to: Bar, dance floor, and toilets.
 			if(currentBehaviour!=ClubberBehaviour.BAR_DRINK
 				&& isPartnerOfferingDrinks()
@@ -4529,8 +4537,13 @@ public class NightlifeDistrict {
 	
 	private static void applyBehaviourEffects() {
 		ClubberBehaviour newBehaviour = getClubberBehaviour();
-
+		
 		turnsAtPlace++;
+
+		if(newBehaviour==ClubberBehaviour.LEAVES) {
+			currentBehaviour = newBehaviour;
+			return;
+		}
 		
 		if(currentBehaviour.getPlaceType()!=newBehaviour.getPlaceType()) {
 			if(newBehaviour.getPlaceType().equals(PlaceType.WATERING_HOLE_BAR)) {
@@ -4584,6 +4597,31 @@ public class NightlifeDistrict {
 			ClubberBehaviour behaviour = currentBehaviour;
 			
 			switch(behaviour) {
+				case LEAVES:
+					if(index==9) {
+						return new Response("Say goodbye",
+								UtilText.parse(getClubbersPresent(), "Tell [npc.name] that despite how you've treated [npc.herHim] this evening, you hope to see [npc.herHim] again."
+										+ "</br>[style.italicsGood(Saves this character, who can then be encountered in the club again.)]"),
+								UTIL_NEUTRAL_DIALOGUE_NO_TEXT) {
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_LEAVES_SAVE_CLUBBER", getClubbersPresent()));
+								saveClubbers();
+							}
+						};
+						
+					} else if(index==10) {
+						return new Response("Lose company",
+								UtilText.parse(getClubbersPresent(), "Tell [npc.name] that you don't want to see [npc.herHim] again.</br>[style.italicsBad(Removes this character from the game.)]"),
+								UTIL_NEUTRAL_DIALOGUE_NO_TEXT) {
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_LEAVES_LOSE_COMPANY", getClubbersPresent()));
+								removeClubbers();
+							}
+						};
+					}
+					break;
 				case BAR_DRINK:
 					if(getPartner().hasPersonalityTrait(PersonalityTrait.SELFISH)) {
 						if(index==1) {
@@ -5215,29 +5253,30 @@ public class NightlifeDistrict {
 					}
 			}
 			
-			if(index==9) {
-				return new Response("Say goodbye",
-						UtilText.parse(getClubbersPresent(), "Tell [npc.name] that you've got to head off for a little while, but that you hope to see [npc.herHim] again."
-								+ "</br>[style.italicsGood(Saves this character, who can then be encountered in the club again.)]"),
-						WATERING_HOLE_SEATING_LOSE_COMPANY) {
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_SAVE_CLUBBER", getClubbersPresent()));
-						saveClubbers();
-					}
-				};
-				
-			} else if(index==10) {
-				return new Response("Lose company",
-						UtilText.parse(getClubbersPresent(), "Make up an excuse to get rid of [npc.name].</br>[style.italicsBad(Removes this character from the game.)]"),
-						WATERING_HOLE_SEATING_LOSE_COMPANY) {
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_LOSE_COMPANY", getClubbersPresent()));
-						removeClubbers();
-					}
-				};
-				
+			if(behaviour!=ClubberBehaviour.LEAVES) {
+				if(index==9) {
+					return new Response("Say goodbye",
+							UtilText.parse(getClubbersPresent(), "Tell [npc.name] that you've got to head off for a little while, but that you hope to see [npc.herHim] again."
+									+ "</br>[style.italicsGood(Saves this character, who can then be encountered in the club again.)]"),
+							UTIL_NEUTRAL_DIALOGUE_NO_TEXT) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_SAVE_CLUBBER", getClubbersPresent()));
+							saveClubbers();
+						}
+					};
+					
+				} else if(index==10) {
+					return new Response("Lose company",
+							UtilText.parse(getClubbersPresent(), "Make up an excuse to get rid of [npc.name].</br>[style.italicsBad(Removes this character from the game.)]"),
+							UTIL_NEUTRAL_DIALOGUE_NO_TEXT) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_LOSE_COMPANY", getClubbersPresent()));
+							removeClubbers();
+						}
+					};
+				}
 			}
 			
 			return null;

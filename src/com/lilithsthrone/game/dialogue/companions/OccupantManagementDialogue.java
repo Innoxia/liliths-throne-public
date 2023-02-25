@@ -601,13 +601,16 @@ public class OccupantManagementDialogue {
 	
 	public static List<Cell> getImportantCells() {
 		if(importantCells.isEmpty()) {
-			AbstractWorldType[] importantWorlds = new AbstractWorldType[] {WorldType.LILAYAS_HOUSE_GROUND_FLOOR, WorldType.LILAYAS_HOUSE_FIRST_FLOOR};
+			AbstractWorldType[] importantWorlds = new AbstractWorldType[] {WorldType.LILAYAS_HOUSE_GROUND_FLOOR, WorldType.LILAYAS_HOUSE_FIRST_FLOOR, WorldType.getWorldTypeFromId("acexp_dungeon")};
 			for(AbstractWorldType wt : importantWorlds) {
 				Cell[][] cellGrid = Main.game.getWorlds().get(wt).getCellGrid();
 				for(int i = 0; i< cellGrid.length; i++) {
 					for(int j = 0; j < cellGrid[0].length; j++) {
 						if(!cellGrid[i][j].getPlace().getPlaceType().equals(PlaceType.LILAYA_HOME_CORRIDOR)
-								&& !cellGrid[i][j].getPlace().getPlaceType().equals(PlaceType.GENERIC_IMPASSABLE)) {
+								&& !cellGrid[i][j].getPlace().getPlaceType().equals(PlaceType.GENERIC_IMPASSABLE)
+								&& !cellGrid[i][j].getPlace().getPlaceType().equals(PlaceType.getPlaceTypeFromId("acexp_dungeon_corridor"))
+								&& !cellGrid[i][j].getPlace().getPlaceType().equals(PlaceType.getPlaceTypeFromId("acexp_dungeon_stairs"))
+								&& !cellGrid[i][j].getPlace().getPlaceType().equals(PlaceType.getPlaceTypeFromId("acexp_dungeon_stairs_garden"))) {
 							importantCells.add(cellGrid[i][j]);
 						}
 					}

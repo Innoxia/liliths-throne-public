@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.BreastType;
@@ -52,6 +53,7 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
@@ -106,17 +108,21 @@ public class Astrapi extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.5.5")) {
 			this.setHeight(215);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.7.2")) {
+			this.setupPerks(true);
+		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
+		this.completePerkReset();
+		
 		this.addSpecialPerk(Perk.SPECIAL_HEALTH_FANATIC);
 		this.addSpecialPerk(Perk.SPECIAL_RANGED_EXPERT);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(
-						Perk.RANGED_DAMAGE,
-						Perk.BARREN),
+						Perk.RANGED_DAMAGE),
 				Util.newHashMapOfValues(
 						new Value<>(PerkCategory.PHYSICAL, 1),
 						new Value<>(PerkCategory.LUST, 0),
@@ -272,7 +278,7 @@ public class Astrapi extends NPC {
 			// Bra:
 			AbstractClothing bra = null;
 			for(AbstractClothing c : this.getAllClothingInInventory().keySet()) {
-				if(c.getClothingType()==ClothingType.CHEST_SPORTS_BRA) {
+				if(c.getClothingType()==ClothingType.getClothingTypeFromId("innoxia_chest_sports_bra")) {
 					bra = c;
 					break;
 				}
@@ -280,7 +286,7 @@ public class Astrapi extends NPC {
 			if(bra!=null) {
 				this.equipClothingFromInventory(bra, true, this, this);
 			} else {
-				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_SPORTS_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
+				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_sports_bra", PresetColour.CLOTHING_BLACK, false), true, this);
 			}
 
 			// Weapon:
@@ -367,7 +373,37 @@ public class Astrapi extends NPC {
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {
-		return true;
+		return Main.game.getDialogueFlags().hasFlag("innoxia_astrapi_impregnation_talk");
+	}
+	
+	@Override
+	public Value<Boolean, String> getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
+		if(user.isPlayer() && !target.isPlayer() && item.isTypeOneOf("innoxia_pills_fertility", "innoxia_pills_broodmother")) {
+			if(!Main.game.getDialogueFlags().hasFlag("innoxia_astrapi_impregnation_talk")) {
+				itemOwner.removeItem(item);
+				return new Value<>(false,
+						"<p>"
+							+ "Producing a "+item.getColour(0).getName()+" "+item.getName(false, false)+" from your inventory, you pop it out of its plastic wrapper before handing it over to Astrapi."
+							+ " Seeing what it is you're trying to get her to swallow, she laughs and tosses the pill away, saying, "
+							+ " [astrapi.speech(I'm not interested in getting pregnant. Nice try, though!)]"
+						+ "</p>");
+				
+			} else {
+				itemOwner.useItem(item, this, false);
+				String returnText = "Producing a "+item.getName(false, false)+" from your inventory, you pop it out of its plastic wrapper before handing it over to Astrapi."
+							+ " Seeing what it is you're trying to get her to swallow, she laughs and swallows the little "+ item.getColour(0).getName() +" pill, before saying,";
+				if(this.isVisiblyPregnant()) {
+					returnText += " [astrapi.speechNoEffects(~Mmm!~ Well, I mean, I'm clearly already pregnant, but whatever...)]";
+				} else {
+					returnText += " [astrapi.speechNoEffects(~Mmm!~ Fine, you can go ahead and get me knocked up, if that's what'll make you happy...)]";
+				}
+				return new Value<>(true,
+						"<p>"
+							+ returnText
+						+ "</p>");
+			}
+		}
+		return super.getItemUseEffects(item, itemOwner, user, target);
 	}
 
 }

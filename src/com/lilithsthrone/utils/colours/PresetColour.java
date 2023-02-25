@@ -255,6 +255,7 @@ public class PresetColour {
 	public static Colour COMPANION = new Colour(false, BaseColour.GREEN_LIGHT, "light green", Util.newArrayListOfValues("companion", "companions")) {};
 
 	public static Colour STAMINA = new Colour(false, BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues("stamina")) {};
+	public static Colour SLEEP = new Colour(false, BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues("sleep", "sleeping")) {};
 	
 	public static Colour AFFECTION = new Colour(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("affection")) {};
 	public static Colour OBEDIENCE = new Colour(false, BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues("obedience")) {};

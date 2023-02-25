@@ -2,7 +2,6 @@ package com.lilithsthrone.game.character.npc.misc;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -10,6 +9,7 @@ import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.pregnancy.Litter;
 import com.lilithsthrone.game.character.race.*;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDialogue;
