@@ -158,6 +158,10 @@ public class GenericOffspringDialogue {
 								setOffspringFlags();
 								return Main.game.getDefaultDialogue(false);
 							}
+							@Override
+							public void effects() {
+								offspring().setProtectedFromArcaneStorm(false);
+							}
 						};
 					
 				} else {
@@ -287,8 +291,8 @@ public class GenericOffspringDialogue {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OFFSPRING_ENCOUNTER_LEAVE", offspring()));
-								
 								setOffspringFlags();
+								offspring().setProtectedFromArcaneStorm(false);
 							}	
 						};
 					
@@ -331,6 +335,10 @@ public class GenericOffspringDialogue {
 					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogue(false);
 					}
+					@Override
+					public void effects() {
+						offspring().setProtectedFromArcaneStorm(false);
+					}
 				};
 				
 			} else {
@@ -364,7 +372,10 @@ public class GenericOffspringDialogue {
 	};
 	
 	public static final DialogueNode OFFSPRING_ENCOUNTER_TALKING = new DialogueNode("", "", true) {
-
+		@Override
+		public void applyPreParsingEffects() {
+			offspring().setProtectedFromArcaneStorm(true);
+		}
 		@Override
 		public String getLabel(){
 			return getOffspringLabel();
@@ -390,6 +401,7 @@ public class GenericOffspringDialogue {
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OFFSPRING_ENCOUNTER_TALKING_OUT_OF_TIME", offspring()));
 							offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
+							offspring().setProtectedFromArcaneStorm(false);
 						}
 						@Override
 						public DialogueNode getNextDialogue() {
@@ -554,6 +566,7 @@ public class GenericOffspringDialogue {
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OFFSPRING_ENCOUNTER_TALKING_LEAVE", offspring()));
 								offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
+								offspring().setProtectedFromArcaneStorm(false);
 							}
 							@Override
 							public DialogueNode getNextDialogue() {
@@ -972,6 +985,7 @@ public class GenericOffspringDialogue {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_COMBAT_VICTORY_APOLOGISE", offspring()));
 						Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 25));
 						offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, false);
+						offspring().setProtectedFromArcaneStorm(false);
 					}
 				};
 				
@@ -1143,6 +1157,7 @@ public class GenericOffspringDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_COMBAT_VICTORY_LEAVE", offspring()));
+						offspring().setProtectedFromArcaneStorm(false);
 					}
 				};
 				
@@ -1234,6 +1249,7 @@ public class GenericOffspringDialogue {
 						@Override
 						public void effects() {
 							offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, false);
+							offspring().setProtectedFromArcaneStorm(false);
 						}
 					};
 					
@@ -1264,6 +1280,10 @@ public class GenericOffspringDialogue {
 					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogue(false);
 					}
+					@Override
+					public void effects() {
+						offspring().setProtectedFromArcaneStorm(false);
+					}
 				};
 				
 			} else {
@@ -1291,6 +1311,7 @@ public class GenericOffspringDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX_VICTORY_LEAVING", offspring()));
+						offspring().setProtectedFromArcaneStorm(false);
 					}
 					@Override
 					public DialogueNode getNextDialogue(){
@@ -1358,6 +1379,10 @@ public class GenericOffspringDialogue {
 					@Override
 					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogue(false);
+					}
+					@Override
+					public void effects() {
+						offspring().setProtectedFromArcaneStorm(false);
 					}
 				};
 				

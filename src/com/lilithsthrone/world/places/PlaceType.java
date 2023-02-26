@@ -12,6 +12,7 @@ import java.util.Set;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.npc.dominion.Elle;
 import com.lilithsthrone.game.character.npc.dominion.Helena;
+import com.lilithsthrone.game.character.npc.dominion.Natalya;
 import com.lilithsthrone.game.character.npc.dominion.Wes;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.Elizabeth;
@@ -31,6 +32,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerWarehouse;
 import com.lilithsthrone.game.dialogue.places.dominion.HomeImprovements;
 import com.lilithsthrone.game.dialogue.places.dominion.LilithsTower;
+import com.lilithsthrone.game.dialogue.places.dominion.DominionPark;
 import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemographics;
@@ -679,15 +681,27 @@ public class PlaceType {
 			"There are several large parks found throughout Dominion, all of which are fully open to the public.",
 			"dominion/park",
 			PresetColour.BASE_GREEN,
-			DominionPlaces.PARK,
-			Darkness.DAYLIGHT, Encounter.DOMINION_STREET, "in one of Dominion's parks") {
+			DominionPark.PARK,
+			Darkness.DAYLIGHT,
+			Encounter.DOMINION_PARK,
+			"in one of Dominion's parks") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
 		@Override
 		public List<Population> getPopulation() {
-			return DOMINION_STREET.getPopulation();
+			List<Population> pop = new ArrayList<>();
+			
+			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
+				if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Natalya.class))) {
+					pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.TEN))));
+				}
+			}
+			
+			return pop;
 		}
 	};
 
@@ -823,6 +837,30 @@ public class PlaceType {
 			DominionPlaces.CITY_EXIT_SEWERS,
 			Darkness.ALWAYS_LIGHT,
 			null, "in the streets of Dominion") {
+		@Override
+		public boolean isDangerous() {
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
+		}
+		@Override
+		public List<Population> getPopulation() {
+			return DOMINION_PLAZA.getPopulation();
+		}
+		@Override
+		public Bearing getBearing() {
+			return Bearing.RANDOM;
+		}
+	};
+
+	public static final AbstractPlaceType DOMINION_EXIT_TO_BAT_CAVERNS = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Shaft to the Bat Caverns",
+			"This deep, twisting shaft is surrounded by a high chain-link fence, with nearby signs indicating that it leads down to the Bat Caverns beneath Submission.",
+			"dominion/batCaverns",
+			PresetColour.BASE_BLUE,
+			DominionPlaces.CITY_EXIT_BAT_CAVERNS,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -1914,6 +1952,12 @@ public class PlaceType {
 				
 			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SPA)) {
 				return PlaceUpgrade.getSpaUpgrades();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_DINING_HALL)) {
+				return PlaceUpgrade.getDiningHallUpgrades();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_LOUNGE)) {
+				return PlaceUpgrade.getSlaveLoungeUpgrades();
 			}
 			
 			return PlaceUpgrade.getCoreRoomUpgrades();
@@ -4713,8 +4757,8 @@ public class PlaceType {
 			WorldRegion.SUBMISSION,
 			"Hall",
 			"In each wing of the palace, there is a long, extravagantly-furnished dining hall, which Lyssieth uses to entertain her particularly-important guests.",
-			"submission/lyssiethsPalace/throneRoom",
-			PresetColour.BASE_ORANGE,
+			"submission/lyssiethsPalace/hall",
+			PresetColour.BASE_ORANGE_LIGHT,
 			LyssiethPalaceDialogue.HALL,
 			Darkness.ALWAYS_LIGHT,
 			null, "in Lyssieth's Palace"
@@ -4885,6 +4929,18 @@ public class PlaceType {
 			).initDangerous()
 			.initWeatherImmune()
 			.initAquatic(Aquatic.MIXED);
+
+	public static final AbstractPlaceType BAT_CAVERN_SHAFT = new AbstractPlaceType(
+			WorldRegion.SUBMISSION,
+			"Shaft to Dominion",
+			"A large, winding shaft set into the ceiling provides a direct link between the Bat Caverns and Dominion.",
+			"submission/batCaverns/cavernShaft",
+			PresetColour.BASE_GREEN,
+			BatCaverns.SHAFT,
+			Darkness.DAYLIGHT,
+			null,
+			"in the Bat Caverns"
+			).initWeatherImmune();
 	
 	// HLF Quest places:
 	

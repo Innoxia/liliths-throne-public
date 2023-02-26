@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>180</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[micro bikini top]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[micro bikini tops]]></namePlural>
+		<description><![CDATA[A triangle-shaped micro bikini top. It uses loose strings tied around the neck and back to keep it in place and has only just enough material to cover the wearer's nipples.]]></description>
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity>
+		<slot>CHEST</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>micro_bikini.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>NIPPLES</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_BREASTS"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/>
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(place)] the skimpy fabric of the micro bikini top over [npc.her] [npc.nipples] before tying up the strings at [npc.her] back.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(place)] the skimpy fabric of the micro bikini top over [npc2.namePos] [npc2.nipples] before tying up the strings at [npc2.her] back.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(place)] the skimpy fabric of the micro bikini top over [npc2.namePos] [npc2.nipples] before roughly tying up the strings at [npc2.her] back.]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(untie)] the strings of [npc.her] micro bikini top and [npc.verb(take)] it off.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(untie)] the strings of [npc2.namePos] micro bikini top and [npc.verb(take)] it off.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(untie)] the strings of [npc2.namePos] micro bikini top and [npc.verb(pull)] it off.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

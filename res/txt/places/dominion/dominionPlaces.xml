@@ -378,7 +378,7 @@
 	
 	<htmlContent tag="ENTER_SUBMISSION_FIRST_TIME"><![CDATA[
 	<p>
-		As the door swings shut behind you, a short, pink-furred, greater cat-girl Enforcer rushes forwards. Even with the high heels that she's currently wearing, she can't be any more than [units.size(152)] in height, but her breasts, hips, and thighs are without doubt the largest of any of the Enforcers in the room. As she comes to a rather unsteady halt in front of you, a big grin breaks out across her face, and she cries out in a very friendly voice, [claire.speech(Hey, I haven't seen you down here before, so this must be your first time in Submission!)]
+		As the door swings shut behind you, a short, pink-furred, greater cat-girl Enforcer rushes forwards. Even with the high heels that she's currently wearing, she can't be any more than [units.sizes(152)] in height, but her breasts, hips, and thighs are without doubt the largest of any of the Enforcers in the room. As she comes to a rather unsteady halt in front of you, a big grin breaks out across her face, and she cries out in a very friendly voice, [claire.speech(Hey, I haven't seen you down here before, so this must be your first time in Submission!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -435,5 +435,47 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	
+	<!-- CITY_EXIT_BAT_CAVERNS -->
+
+	<htmlContent tag="CITY_EXIT_BAT_CAVERNS"><![CDATA[
+	<p>
+		Once again you find yourself near to the shaft which links Dominion to the Bat Caverns far below. The tunnel entrance itself is completely concealed behind a brick wall that's topped with barbed wire, with only an old, rusted sign to declare its presence.
+	</p>
+	<p>
+		#IF(pc.isAbleToFly())
+			#IF(!pc.isPartyAbleToFly())
+				Although you're able to fly, your companion cannot, and so you can't make use of this shaft to swiftly return to the Bat Caverns...
+			#ELSE
+				As you're able to fly, you could travel down this shaft to swiftly return to the Bat Caverns...
+			#ENDIF
+		#ELSE
+			As you're unable to fly, you can't make use of this shaft to swiftly return to the Bat Caverns...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CITY_EXIT_BAT_CAVERNS_FLY_DOWN"><![CDATA[
+	<p>
+		Deciding that you'd like to return to the Bat Caverns, you leap into the air and take off. Flying up above the shaft, you dive down into its dark depths, confident from your last journey through it that you know the way.
+	</p>
+	<p>
+		As you delve down into the darkness, you once again see the series of dim lights and aggressive proximity warning buzzers which have been fitted to the jagged walls.
+		#IF(pc.hasEchoLocation())
+			 What's more, you're able to use echolocation to navigate through dark areas, and so you're able to speedily dive down through the shaft without fear of hitting the uneven walls.
+		#ELSEIF(pc.isSelfImmuneToDarkness())
+			 What's more, you're able to see in the dark, and so you're able to speedily dive down through the shaft without fear of hitting the uneven walls.
+		#ELSE
+			 Thanks to these safety devices, you're able to speedily dive down through the shaft without fear of hitting the uneven walls.
+		#ENDIF
+	</p>
+	<p>
+		A minute later and you're swooping down to land. Settling to the floor, you look around to make sure that you're not in any danger before continuing on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 </dialogue>

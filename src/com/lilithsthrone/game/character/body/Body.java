@@ -18,8 +18,6 @@ import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.Litter;
-import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractAssType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
@@ -99,6 +97,8 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.markings.TattooType;
+import com.lilithsthrone.game.character.pregnancy.Litter;
+import com.lilithsthrone.game.character.pregnancy.PregnancyPossibility;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
@@ -2442,19 +2442,11 @@ public class Body implements XMLSaving {
 		}
 		
 		// Eyes:
-		
-		if(owner.isFeral()) {
-			sb.append(" [npc.SheHasFull] [npc.eyePairs] [npc.eyeRace] eyes, with [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.");
+
+		if(owner.isAreaKnownByCharacter(CoverableArea.EYES, Main.game.getPlayer())) {
+			sb.append(getEyeDescription(owner));
 		} else {
-			sb.append(" "+eye.getType().getBodyDescription(owner));
-		}
-		
-		// Eye makeup:
-		if(owner.getEyeLiner().getPrimaryColour()!=PresetColour.COVERING_NONE) {
-			sb.append(" Around [npc.her] [npc.eyes], [npc.sheHas] got a layer of "+owner.getEyeLiner().getColourDescriptor(owner, true, false)+" eye liner.");
-		}
-		if(owner.getEyeShadow().getPrimaryColour()!=PresetColour.COVERING_NONE) {
-			sb.append(" [npc.SheIs] wearing a tasteful amount of "+owner.getEyeShadow().getFullDescription(owner, true)+".");
+			sb.append(" [style.colourDisabled(You haven't seen [npc.her] eyes before, so you don't know what they look like.)]");
 		}
 		
 		// Ear:
@@ -3727,6 +3719,10 @@ public class Body implements XMLSaving {
 		return vagina.getType() != VaginaType.NONE;
 	}
 
+	public boolean hasVaginaIgnoreOnahole() {
+		return hasVagina() && vagina.getType() != VaginaType.ONAHOLE;
+	}
+	
 	public Wing getWing() {
 		return wing;
 	}
@@ -3991,6 +3987,26 @@ public class Body implements XMLSaving {
 	// Descriptions:
 	private StringBuilder descriptionSB;
 
+	public String getEyeDescription(GameCharacter owner) {
+		StringBuilder sb = new StringBuilder();
+		
+		if(owner.isFeral()) {
+			sb.append(" [npc.SheHasFull] [npc.eyePairs] [npc.eyeRace] eyes, with [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.");
+		} else {
+			sb.append(" "+eye.getType().getBodyDescription(owner));
+		}
+		
+		// Eye makeup:
+		if(owner.getEyeLiner().getPrimaryColour()!=PresetColour.COVERING_NONE) {
+			sb.append(" Around [npc.her] [npc.eyes], [npc.sheHas] got a layer of "+owner.getEyeLiner().getColourDescriptor(owner, true, false)+" eye liner.");
+		}
+		if(owner.getEyeShadow().getPrimaryColour()!=PresetColour.COVERING_NONE) {
+			sb.append(" [npc.SheIs] wearing a tasteful amount of "+owner.getEyeShadow().getFullDescription(owner, true)+".");
+		}
+		
+		return sb.toString();
+	}
+	
 	/**
 	 * @param owner The person whose ass is to be described.
 	 * @param locationSpecific Whether this description is specific to looking at the person's ass. If they have a cloaca, and you pass in true, it will say something along the lines of "there's no asshole here".
@@ -6012,8 +6028,8 @@ public class Body implements XMLSaving {
 		boolean hasPenis = penis.getType() != PenisType.NONE;
 		boolean hasVagina = vagina.getType() != VaginaType.NONE;
 		boolean hasBreasts = breast.hasBreasts();
-		if(this.isFeral() && this.getSubspecies().getFeralAttributes()!=null) {
-			hasBreasts = this.getSubspecies().getFeralAttributes().isBreastsPresent() || this.getBreastCrotch().hasBreasts();
+		if(this.isFeral() && this.getSubspecies().getFeralAttributes(this)!=null) {
+			hasBreasts = this.getSubspecies().getFeralAttributes(this).isBreastsPresent() || this.getBreastCrotch().hasBreasts();
 		}
 		
 		// Looks male:
@@ -6317,7 +6333,7 @@ public class Body implements XMLSaving {
 	public void setFeral(AbstractSubspecies subspecies) {
 		this.feral = subspecies!=null;
 		
-		FeralAttributes attributes = subspecies==null?null:subspecies.getFeralAttributes();
+		FeralAttributes attributes = subspecies==null?null:subspecies.getFeralAttributes(this);
 		if(attributes==null) {
 			System.err.println("Error in Body.setFeral(): subspecies '"+Subspecies.getIdFromSubspecies(subspecies)+"' does not support FeralAttributes!");
 			return;

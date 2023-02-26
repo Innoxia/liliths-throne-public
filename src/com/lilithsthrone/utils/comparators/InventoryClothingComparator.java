@@ -13,6 +13,7 @@ public class InventoryClothingComparator implements Comparator<AbstractClothing>
 
 	@Override
 	public int compare(AbstractClothing first, AbstractClothing second) {
+		// Sort by enchantment known status above all else:
 		if(!first.isEnchantmentKnown() && !second.isEnchantmentKnown()) {
 			return 0;
 		} else if(first.isEnchantmentKnown() && !second.isEnchantmentKnown()) {
@@ -27,6 +28,19 @@ public class InventoryClothingComparator implements Comparator<AbstractClothing>
 			return result;
 			
 		} else {
+			// If rarity is equal, sort by set type:
+			int resultSet = first.getClothingType().getClothingSet()==second.getClothingType().getClothingSet()
+					?0
+					:first.getClothingType().getClothingSet()==null
+						?-1
+						:second.getClothingType().getClothingSet()==null
+							?1
+							:first.getClothingType().getClothingSet().getName().compareTo(second.getClothingType().getClothingSet().getName());
+			
+			if(resultSet!=0) {
+				return resultSet;
+			}
+			
 			result = first.getClothingType().toString().compareTo(second.getClothingType().toString());
 			
 			if(result!=0) {

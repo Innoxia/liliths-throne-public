@@ -501,6 +501,19 @@ public class OptionsController {
 			}
 		}
 		
+		for (int i=0; i<Main.getProperties().clothingFemininityTitles.length; i++) {
+			id = "CLOTHING_FEMININITY_"+i;
+			int i2 = i; // "Local variable i defined in an enclosing scope must be final or effectively final" ...
+			if (MainController.document.getElementById(id) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					Main.getProperties().setClothingFemininityLevel(i2);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(Main.getProperties().clothingFemininityTitles[i], Main.getProperties().clothingFemininityDescriptions[i]));
+			}
+		}
+		
 		id = "PREGNANCY_DURATION_ON";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{

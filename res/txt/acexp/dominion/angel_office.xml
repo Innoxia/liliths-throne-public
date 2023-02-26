@@ -63,7 +63,7 @@
 
     <htmlContent tag="AFTER_SEX_LEAVE"><![CDATA[
 	<p>
-		Returning Angel's farewell, you [pc.walk] on over to the door of her office and make your exit. Continuing on out into the corridor beyond, you look around and wonder where to go next...
+		Returning Angel's farewell, you [pc.walk] on over to the door of her office and make your exit. [pc.Stepping] out into the corridor beyond, you look around and wonder where to go next...
 	</p>
 	]]>
     </htmlContent>

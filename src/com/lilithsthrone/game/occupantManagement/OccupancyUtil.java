@@ -632,6 +632,16 @@ public class OccupancyUtil implements XMLSaving {
 					//TODO
 //					events.add(new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_COOKING, true));
 					return events;
+
+				case GARDEN:
+					//TODO
+//					events.add(new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_GARDEN, true));
+					return events;
+					
+				case SECURITY:
+					//TODO
+//					events.add(new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_SECURITY, true));
+					return events;
 					
 				case LAB_ASSISTANT:
 					//TODO
@@ -659,6 +669,10 @@ public class OccupancyUtil implements XMLSaving {
 					return events;
 
 				case SPA_RECEPTIONIST:
+					//TODO
+					return events;
+					
+				case DINING_HALL:
 					//TODO
 					return events;
 					
@@ -722,7 +736,7 @@ public class OccupancyUtil implements XMLSaving {
 									room.incrementFluidStored(new FluidStored(slave, slave.getCum(), milked), milked);
 									milkingStored.add("[style.colourCum("+ Units.fluid(milked) +")] [npc.cum] stored.");
 								}
-								slave.setLastTimeOrgasmedSeconds(((Main.game.getDayNumber()*24)+hour)*60*60);
+								slave.setLastTimeOrgasmedSeconds((((Main.game.getDayNumber()-1)*24)+hour)*60*60);
 							}
 						}
 						if(slave.getClothingInSlot(InventorySlot.VAGINA)!=null
@@ -738,7 +752,7 @@ public class OccupancyUtil implements XMLSaving {
 									room.incrementFluidStored(new FluidStored(slave.getId(), slave.getGirlcum(), milked), milked);
 									milkingStored.add("[style.colourGirlCum("+ Units.fluid(milked) +")] [npc.girlcum] stored.");
 								}
-								slave.setLastTimeOrgasmedSeconds(((Main.game.getDayNumber()*24)+hour)*60*60);
+								slave.setLastTimeOrgasmedSeconds((((Main.game.getDayNumber()-1)*24)+hour)*60*60);
 							}
 						}
 						generatedIncome += income;
@@ -1535,7 +1549,13 @@ public class OccupancyUtil implements XMLSaving {
 		switch(currentJob) {
 			case CLEANING:
 				descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
-								"While dusting one of the first-floor corridors, [npc1.name] caught sight of [npc2.name],"
+								"While dusting one of the corridors, [npc1.name] caught sight of [npc2.name],"
+								+ " and couldn't resist pulling [npc2.herHim] into an empty room for some "+paceName+" sex.")
+								+ "<br/>[style.italicsSex("+sexDescription+")]");
+				break;
+			case SECURITY:
+				descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
+								"While patrolling one of the corridors, [npc1.name] caught sight of [npc2.name],"
 								+ " and couldn't resist pulling [npc2.herHim] into an empty room for some "+paceName+" sex.")
 								+ "<br/>[style.italicsSex("+sexDescription+")]");
 				break;
@@ -1548,6 +1568,10 @@ public class OccupancyUtil implements XMLSaving {
 				descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
 								"While working in the kitchen, [npc1.name] saw [npc2.name] enter the pantry alone,"
 										+ " and couldn't resist following [npc2.herHim] inside, before locking the door and having some "+paceName+" sex with [npc2.herHim].")
+								+ "<br/>[style.italicsSex("+sexDescription+")]");
+			case GARDEN:
+				descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
+								"[npc1.Name] pulled [npc2.name] behind one of the bushes in the garden, before having some "+paceName+" sex with [npc2.herHim].")
 								+ "<br/>[style.italicsSex("+sexDescription+")]");
 				break;
 			case LAB_ASSISTANT: case TEST_SUBJECT:
@@ -1579,6 +1603,11 @@ public class OccupancyUtil implements XMLSaving {
 			case SPA_RECEPTIONIST:
 				descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
 								"[npc1.Name] took advantage of being assigned to the spa's reception desk with [npc2.name], and had some "+paceName+" sex with [npc2.herHim].")
+								+ "<br/>[style.italicsSex("+sexDescription+")]");
+				break;
+			case DINING_HALL:
+				descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
+								"[npc1.Name] pushed [npc2.name] over the dining hall's table, before having some "+paceName+" sex with [npc2.herHim].")
 								+ "<br/>[style.italicsSex("+sexDescription+")]");
 				break;
 			case PUBLIC_STOCKS:
@@ -1826,5 +1855,16 @@ public class OccupancyUtil implements XMLSaving {
 
 	public void setEnabledByDefaultJobSettings(Map<SlaveJob, List<SlaveJobSetting>> enabledByDefaultJobSettings) {
 		this.enabledByDefaultJobSettings = enabledByDefaultJobSettings;
+	}
+	
+	/**
+	 * @return A List of ids of slaves who are currently working at the job.
+	 * <br/>Modifications to this List will not affect the underlying List.
+	 */
+	public List<String> getSlavesAtJob(SlaveJob job) {
+		if(!slavesAtJob.containsKey(job) || slavesAtJob.get(job)==null) {
+			return new ArrayList<>();
+		}
+		return new ArrayList<>(slavesAtJob.get(job));
 	}
 }

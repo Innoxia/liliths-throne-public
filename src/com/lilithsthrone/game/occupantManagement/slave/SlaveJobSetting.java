@@ -35,7 +35,9 @@ public enum SlaveJobSetting {
 	
 	TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE(PresetColour.FEMININE, "Feminine TF", "TF (F)", "Allow this slave to receive feminine transformations."),
 	TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE(PresetColour.MASCULINE, "Masculine TF", "TF (M)", "Allow this slave to receive masculine transformations."),
-	
+
+	SECURITY_ENTRANCE_PRIORITY(PresetColour.BASE_GOLD, "Entrance priority", "EP", "This slave will be chosen above others to be positioned at the entrance. (If multiple slaves have this permission, the one who gets there first will remain there.)"),
+	SECURITY_ANSWER_DOOR(PresetColour.BASE_GREEN_LIGHT, "Answer door", "AD", "If this slave is located at the entrance, they will answer the door instead of Rose."),
 	
 	BEDROOM_GREETING(PresetColour.GENERIC_MINOR_GOOD, "Greeting", "BG", "Instruct this slave to greet you whenever you enter your room."),
 	BEDROOM_CLEAN(PresetColour.BASE_BLUE_LIGHT, "Cleaning", "BC", "Tell this slave to keep your room clean."),

@@ -1444,7 +1444,7 @@ public class OccupantDialogue {
 			if(responseTab == 0) {
 				if (index == 1) {
 					if(!occupant().NPCFlagValues.contains(NPCFlagValue.occupantTalkLife)) {
-						return new Response("Life", "Ask [npc.name] about [npc.her] past life.", OCCUPANT_APARTMENT_TALK_LIFE) {
+						return new Response("Life", UtilText.parse(occupant(), "Ask [npc.name] about [npc.her] past life."), OCCUPANT_APARTMENT_TALK_LIFE) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -1454,7 +1454,7 @@ public class OccupantDialogue {
 						};
 						
 					} else {
-						return new Response("Life", "You've already talked with [npc.name] about [npc.her] past life today.", null);
+						return new Response("Life", UtilText.parse(occupant(), "You've already talked with [npc.name] about [npc.her] past life today."), null);
 					}
 					
 				} else if (index == 2) {
@@ -1478,7 +1478,7 @@ public class OccupantDialogue {
 				}
 				else if (index == 3) {
 					return new Response("Rest",
-							"Ask [npc.name] if you can crash on [npc.her] sofa for four hours."
+							UtilText.parse(occupant(), "Ask [npc.name] if you can crash on [npc.her] sofa for four hours.")
 							+ " As well as replenishing your "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+", you will also get the 'Well Rested' status effect.",
 							OCCUPANT_APARTMENT_SLEEP_OVER){
 						@Override
@@ -1492,7 +1492,8 @@ public class OccupantDialogue {
 					int timeUntilChange = Main.game.getMinutesUntilNextMorningOrEvening() + 5; // Add 5 minutes so that if the days are drawing in, you don't get stuck in a loop of always sleeping to sunset/sunrise
 					LocalDateTime[] sunriseSunset = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
 					return new Response("Rest until " + (Main.game.isDayTime() ? "Sunset" : "Sunrise"),
-							"Ask [npc.name] if you can crash on [npc.her] sofa for " + (timeUntilChange >= 60 ?timeUntilChange / 60 + " hours " : " ")
+							UtilText.parse(occupant(), "Ask [npc.name] if you can crash on [npc.her] sofa for ")
+								+ (timeUntilChange >= 60 ?timeUntilChange / 60 + " hours " : " ")
 								+ (timeUntilChange % 60 != 0 ? timeUntilChange % 60 + " minutes" : "")
 								+ (Main.game.isDayTime()
 										? " until five minutes past sunset ("+Units.time(sunriseSunset[1].plusMinutes(5))+")."
