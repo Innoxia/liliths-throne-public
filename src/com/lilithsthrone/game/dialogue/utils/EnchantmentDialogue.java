@@ -776,13 +776,37 @@ public class EnchantmentDialogue {
 						+ "</div>"
 					+ "</div>");
 
+			List<LoadedEnchantment> loadedEnchantmentsList = new ArrayList<LoadedEnchantment>();
+			List<String> loadedEnchantmentKeyList = new ArrayList<String>();
+			for(Entry<String, LoadedEnchantment> entry : loadedEnchantmentsMap.entrySet()){
+				int insertIndex = 0;
+				boolean inserted = false;
+				LoadedEnchantment enchA = entry.getValue();
+				String enchAname = enchA.getName();
+				for (LoadedEnchantment enchB : loadedEnchantmentsList) {
+					String enchBname = enchB.getName();
+					if (enchAname.compareTo(enchBname) < 0) {
+						loadedEnchantmentsList.add(insertIndex, enchA);
+						loadedEnchantmentKeyList.add(insertIndex, entry.getKey());
+						inserted = true;
+						break;
+					} else {
+						insertIndex++;
+					}
+				}
+				if (!inserted) {
+					loadedEnchantmentsList.add(enchA);
+					loadedEnchantmentKeyList.add(entry.getKey());
+				}
+			}
+
 			int i=0;
 			
 			saveLoadSB.append(getSaveLoadRow(null, null, i%2==0));
 			i++;
-			
-			for(Entry<String, LoadedEnchantment> entry : loadedEnchantmentsMap.entrySet()){
-				saveLoadSB.append(getSaveLoadRow(entry.getKey(), entry.getValue(), i%2==0));
+
+			for (int enchIndex=0; enchIndex < loadedEnchantmentsList.size(); enchIndex++) {
+				saveLoadSB.append(getSaveLoadRow(loadedEnchantmentKeyList.get(enchIndex), loadedEnchantmentsList.get(enchIndex), i%2==0));
 				i++;
 			}
 			
