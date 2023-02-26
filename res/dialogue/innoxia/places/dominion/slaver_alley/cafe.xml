@@ -119,7 +119,7 @@
 							</character>
 						</submissives>
 						<postSexDialogue><![CDATA[innoxia_places_dominion_slaver_alley_cafe_after_sex]]></postSexDialogue>
-						<sexStartContent folderPath="txt/places/dominion/slaverAlley/genericDialogue">MARKET_STALL_CAFE_ORAL_CUNNILINGUS</sexStartContent>
+						<sexStartContent folderPath="txt/places/dominion/slaverAlley/genericDialogue">MARKET_STALL_CAFE_ORAL_CUNNILINGUS_RECEIVE</sexStartContent>
 						<ongoingActionsAtStart>
 							<action>
 								<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
@@ -616,7 +616,7 @@
 							</character>
 						</submissives>
 						<postSexDialogue><![CDATA[innoxia_places_dominion_slaver_alley_cafe_after_sex]]></postSexDialogue>
-						<sexStartContent folderPath="txt/places/dominion/slaverAlley/genericDialogue">MARKET_STALL_CAFE_ORAL_CUNNILINGUS</sexStartContent>
+						<sexStartContent folderPath="txt/places/dominion/slaverAlley/genericDialogue">MARKET_STALL_CAFE_ORAL_CUNNILINGUS_GIVE</sexStartContent>
 						<ongoingActionsAtStart>
 							<action>
 								<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>

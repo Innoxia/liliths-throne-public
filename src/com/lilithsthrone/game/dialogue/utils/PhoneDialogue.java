@@ -14,8 +14,6 @@ import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.Litter;
-import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -40,6 +38,8 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.persona.Relationship;
+import com.lilithsthrone.game.character.pregnancy.Litter;
+import com.lilithsthrone.game.character.pregnancy.PregnancyPossibility;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
@@ -3431,6 +3431,7 @@ public class PhoneDialogue {
 	private static List<AbstractSubspecies> subspeciesDiscovered = new ArrayList<>();
 	private static AbstractRace raceSelected;
 	private static AbstractSubspecies subspeciesSelected;
+	private static Body bodyForSubspeciesSelected;
 	private static StringBuilder subspeciesSB = new StringBuilder();
 	
 	public static void resetContentForRaces() {
@@ -3504,6 +3505,7 @@ public class PhoneDialogue {
 								}
 							}
 						}
+						bodyForSubspeciesSelected = Main.game.getCharacterUtils().generateBody(null, Gender.M_P_MALE, subspeciesSelected, RaceStage.GREATER);
 					}
 				};
 			
@@ -3526,7 +3528,7 @@ public class PhoneDialogue {
 		ArrayList<String> fullModList = new ArrayList<>(getSubspeciesAttributeModifiersToStringList(attMods));
 		fullModList.addAll(subspecies.getExtraEffects(null));
 		
-		if(subspecies.isFeralConfigurationAvailable()) {
+		if(subspecies.isFeralConfigurationAvailable(null)) {
 			fullModList.add("<br/><b>Additional bonuses when in [style.boldFeral(feral form)]:</b>");
 			
 			for(String s : subspecies.getFeralEffects()) {
@@ -3611,6 +3613,16 @@ public class PhoneDialogue {
 							+ "<td>-</td>"
 						+ "</tr>"
 					+ "</table>"
+					+ "<hr/>"
+					+ "<p style='width:100%; text-align:center;'>"
+						+ "Nocturnality: "+Util.capitaliseSentence(subspeciesSelected.getNocturnality().getName())
+						+ "<br/>"
+						+ "Aquatic: "+(subspeciesSelected.isAquatic(null)?"Yes":"No")
+						+ "<br/>"
+						+ "Leg configuration: "+Util.capitaliseSentence(bodyForSubspeciesSelected.getLegConfiguration().getName())
+						+ "<br/>"
+						+ "Short stature: "+(subspeciesSelected.isShortStature()?"Yes":"No")
+					+"</p>"
 				+ "</div>");
 					
 			subspeciesSB.append("<p>"
@@ -3682,6 +3694,7 @@ public class PhoneDialogue {
 					@Override
 					public void effects() {
 						subspeciesSelected = indexSubspecies;
+						bodyForSubspeciesSelected = Main.game.getCharacterUtils().generateBody(null, Gender.M_P_MALE, subspeciesSelected, RaceStage.GREATER);
 					}
 				};
 			

@@ -580,25 +580,15 @@ public class Kate extends NPC {
 	/**
 	 * @return A <b>non-formatted</b> String of this NPCs speech related to no ongoing penetration.
 	 */
-	public String getDirtyTalkNoPenetration(boolean isPlayerDom){
+	@Override
+	public String getDirtyTalkNoPenetration(GameCharacter target, boolean isPlayerDom){
 		List<String> speech = new ArrayList<>();
 
 		speech.add("Come on! Fuck me already!");
 		speech.add("Please, let's get started!");
 		speech.add("My little pussy needs you so bad!");
-		
-		return speech.get(Util.random.nextInt(speech.size()));
-	}
-	
-	/**
-	 * @return A <b>non-formatted</b> String of this NPCs speech related to no ongoing penetration.
-	 */
-	public String getPlayerDirtyTalkNoPenetration(boolean isPlayerDom){
-		List<String> speech = new ArrayList<>();
-		
-		speech.add("You're so hot!");
-		speech.add("What a cute little demon you are!");
-		
-		return speech.get(Util.random.nextInt(speech.size()));
+
+		String returnedLine = speech.get(Util.random.nextInt(speech.size()));
+		return UtilText.parse(this, target, "[npc.speech("+returnedLine+")]");
 	}
 }

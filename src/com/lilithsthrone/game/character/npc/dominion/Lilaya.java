@@ -298,7 +298,7 @@ public class Lilaya extends NPC {
 		this.setHairStyle(HairStyle.LOOSE);
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_panties", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_fullcup_bra", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_pencil_skirt", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_torso_feminine_short_sleeve_shirt"), PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GREY, PresetColour.CLOTHING_GREY, false), true, this);
 		
@@ -551,33 +551,25 @@ public class Lilaya extends NPC {
 	/**
 	 * @return A <b>non-formatted</b> String of this NPCs speech related to no ongoing penetration.
 	 */
-	public String getDirtyTalkNoPenetration(boolean isPlayerDom){
+	@Override
+	public String getDirtyTalkNoPenetration(GameCharacter target, boolean isPlayerDom){
 		List<String> speech = new ArrayList<>();
 
 		speech.add("Fuck, why do demons always have to feel so horny?! All I ever think about is fucking you or Rose!");
 		speech.add("I'm sure I can collect some valuable data from this...");
-		if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
-			speech.add("Horny for your new half-sister, hmm?");
-			speech.add("There's nothing wrong with demonic siblings fucking one another...");
-		} else {
-			speech.add("I wonder if you ever did this with your real aunt?");
-			speech.add("Wait, you still see me as your aunt, right? I guess I can go along with that...");
+		
+		if(Main.game.isIncestEnabled()) {
+			if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
+				speech.add("Horny for your new half-sister, hmm?");
+				speech.add("There's nothing wrong with demonic siblings fucking one another...");
+			} else {
+				speech.add("I wonder if you ever did this with your real aunt?");
+				speech.add("Wait, you still see me as your aunt, right? I guess I can go along with that...");
+			}
 		}
 		
-		return speech.get(Util.random.nextInt(speech.size()));
-	}
-	
-	/**
-	 * @return A <b>non-formatted</b> String of this NPCs speech related to no ongoing penetration.
-	 */
-	public String getPlayerDirtyTalkNoPenetration(boolean isPlayerDom){
-		List<String> speech = new ArrayList<>();
-		
-		speech.add("Ah yes! I've wanted to fuck you for so long...");
-		speech.add("You're so hot!");
-		speech.add("I've wanted this for so long...");
-		
-		return speech.get(Util.random.nextInt(speech.size()));
+		String returnedLine = speech.get(Util.random.nextInt(speech.size()));
+		return UtilText.parse(this, target, "[npc.speech("+returnedLine+")]");
 	}
 
 }

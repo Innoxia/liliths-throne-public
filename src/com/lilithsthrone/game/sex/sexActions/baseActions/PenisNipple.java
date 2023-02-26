@@ -680,12 +680,12 @@ public class PenisNipple {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Eagerly sinking [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.nipple+],"
-							+ " [npc.name] [npc.verb(start)] enthusiastically rocking [npc.her] [npc.breasts] back and forth, letting out [npc.a_moan+] with every thrust as [npc.she] happily [npc.verb(fuck)] [npc2.namePos] [npc2.breasts].",
+							+ " [npc.name] [npc.verb(start)] enthusiastically rocking [npc.her] [npc.hips] back and forth, letting out [npc.a_moan+] with every thrust as [npc.she] happily [npc.verb(fuck)] [npc2.namePos] [npc2.breasts].",
 
 					"Enthusiastically pushing [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.nipple+],"
-							+ " [npc.name] frantically thrusting [npc.her] [npc.breasts] forwards, letting out [npc.a_moan+] as [npc.she] greedily [npc.verb(fuck)] [npc2.herHim].",
+							+ " [npc.name] frantically thrusting [npc.her] [npc.hips] forwards, letting out [npc.a_moan+] as [npc.she] greedily [npc.verb(fuck)] [npc2.herHim].",
 
-					"Thrusting [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.nipple+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pump [npc.her] [npc.breasts] back and forth,"
+					"Thrusting [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.nipple+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pump [npc.her] [npc.hips] back and forth,"
 							+ " breathing in [npc2.namePos] [npc2.scent] as [npc.she] desperately [npc.verb(fuck)] [npc2.herHim]."));
 
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));

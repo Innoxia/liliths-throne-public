@@ -151,6 +151,15 @@ public class Properties {
 	public int penisSizePreference = 0;
 	public int trapPenisSizePreference = -70;
 	
+	private int clothingFemininityLevel = 3;
+	public Colour[] clothingFemininityColours = new Colour[] {PresetColour.GENERIC_BAD, PresetColour.MASCULINE, PresetColour.FEMININE, PresetColour.GENERIC_GOOD};
+	public String[] clothingFemininityTitles = new String[] {"None", "Masculine", "Feminine", "All"};
+	public String[] clothingFemininityDescriptions = new String[] {
+			"No clothing will have a femininity value associated with it, allowing clothing of all types to be worn by any character without penalty.",
+			"Only clothing which is marked as 'masculine' will retain its femininty value, resulting in masculine characters being able to wear any clothing without penalty.",
+			"Only clothing which is marked as 'feminine' will retain its femininty value, resulting in feminine characters being able to wear any clothing without penalty.",
+			"All clothing will have their intended femininity values, resulting in a negative status effect for characters who wear clothing that's either too masculine or too feminine for them."};
+	
 	public Set<PropertyValue> values;
 
 	// Difficulty settings
@@ -335,6 +344,8 @@ public class Properties {
 			createXMLElementWithValue(doc, settings, "udderSizePreference", String.valueOf(udderSizePreference));
 			createXMLElementWithValue(doc, settings, "penisSizePreference", String.valueOf(penisSizePreference));
 			createXMLElementWithValue(doc, settings, "trapPenisSizePreference", String.valueOf(trapPenisSizePreference));
+
+			createXMLElementWithValue(doc, settings, "clothingFemininityLevel", String.valueOf(clothingFemininityLevel));
 			
 			createXMLElementWithValue(doc, settings, "forcedFetishPercentage", String.valueOf(forcedFetishPercentage));
 
@@ -864,6 +875,9 @@ public class Properties {
 					bypassSexActions = 2;
 				}
 				
+				if(element.getElementsByTagName("clothingFemininityLevel").item(0)!=null) {
+					clothingFemininityLevel = Integer.valueOf(((Element)element.getElementsByTagName("clothingFemininityLevel").item(0)).getAttribute("value"));
+				}
 				
 				if(element.getElementsByTagName("pregnancyDuration").item(0)!=null) {
 					pregnancyDuration = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyDuration").item(0)).getAttribute("value"));
@@ -1301,6 +1315,8 @@ public class Properties {
 		udderSizePreference = 0;
 		penisSizePreference = 0;
 		trapPenisSizePreference = -70;
+		
+		clothingFemininityLevel = 3;
 
 		skinColourPreferencesMap = new LinkedHashMap<>();
 		for(Entry<Colour, Integer> entry : PresetColour.getHumanSkinColoursMap().entrySet()) {
@@ -1603,6 +1619,23 @@ public class Properties {
 
 	public void setForcedFetishTendency(ForcedFetishTendency forcedFetishTendency) {
 		this.forcedFetishTendency = forcedFetishTendency;
+	}
+
+	/**
+	 * 0 = None
+	 * <br/>
+	 * 1 = Masculine only
+	 * <br/>
+	 * 2 = Feminine only
+	 * <br/>
+	 * 3 = All
+	 */
+	public int getClothingFemininityLevel() {
+		return clothingFemininityLevel;
+	}
+
+	public void setClothingFemininityLevel(int clothingFemininityLevel) {
+		this.clothingFemininityLevel = clothingFemininityLevel;
 	}
 	
 	public float getRandomRacePercentage() {

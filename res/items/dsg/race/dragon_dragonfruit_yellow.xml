@@ -43,6 +43,7 @@
 		]]></applyEffects>
 		
 		<itemTags>
+			<tag>FOOD</tag>
 			<tag>RACIAL_TF_ITEM</tag>
 		</itemTags>
 	</coreAttributes>

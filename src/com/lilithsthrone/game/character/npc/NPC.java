@@ -22,8 +22,6 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.Litter;
-import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -68,6 +66,8 @@ import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
 import com.lilithsthrone.game.character.npc.misc.PrologueMale;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.pregnancy.Litter;
+import com.lilithsthrone.game.character.pregnancy.PregnancyPossibility;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.FurryPreference;
@@ -1579,7 +1579,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				} else {
 					possibleEffects.add(new PossibleItemEffect(
 						new ItemEffect(getItemEnchantmentEffect(genitalsItemType, body.getVagina()), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
-						"Let's give you a nice "+(humanGenitals?"human":body.getVagina().getType().getTransformName())+" "+body.getVagina().getName(target, false)+"!"));
+						"Let's give you a nice "+(humanGenitals?"human":body.getVagina().getType().getTransformName())+" pussy!"));
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 				}
 			}
@@ -1594,7 +1594,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				} else {
 					possibleEffects.add(new PossibleItemEffect(
 						new ItemEffect(getItemEnchantmentEffect(genitalsItemType, body.getPenis()), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
-						"Let's give you a nice "+(humanGenitals?"human":body.getPenis().getType().getTransformName())+" "+body.getPenis().getName(target, false)+"!"));
+						"Let's give you a nice "+(humanGenitals?"human":body.getPenis().getType().getTransformName())+" cock!"));
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 				}
 			}
@@ -3100,7 +3100,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							&& Main.sex.isClothingEquipAvailable(partner, defaultSlot, clothing)
 							&& clothing.isAbleToBeEquippedDuringSex(defaultSlot).getKey()
 							&& partner.getClothingInSlot(defaultSlot)==null
-							&& partner.isAbleToEquip(clothing, true, this)) {
+							&& partner.isAbleToEquip(clothing, inQuickSex, this)) {
 						return new Value<>(clothing, UtilText.parse(this, "[npc.Name] grabs "+clothing.getName(true, true)+" from out of [npc.her] inventory..."));
 					}
 				}

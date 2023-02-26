@@ -1324,7 +1324,13 @@ public class Combat {
 			@Override
 			public void effects() {
 				Main.game.getPlayer().selectMove(Main.game.getPlayer().getSelectedMoves().size(), move, moveTarget, pcEnemies, pcAllies);
-				predictionContent.get(Main.game.getPlayer()).add(move.getPrediction(selectedMoveIndex, Main.game.getPlayer(), moveTarget, pcEnemies, pcAllies));
+				// Reset prediction content as this selected move may have altered the prediction of previous moves:
+				predictionContent.put(Main.game.getPlayer(), new ArrayList<>());
+				int i=0;
+				for(Value<GameCharacter, AbstractCombatMove> selectedMove : Main.game.getPlayer().getSelectedMoves()) {
+					predictionContent.get(Main.game.getPlayer()).add(selectedMove.getValue().getPrediction(i, Main.game.getPlayer(), selectedMove.getKey(), pcEnemies, pcAllies));
+					i++;
+				}
 			}
 			@Override
 			public Colour getHighlightColour() {

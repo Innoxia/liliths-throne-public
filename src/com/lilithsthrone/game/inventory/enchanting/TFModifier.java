@@ -1794,7 +1794,12 @@ public enum TFModifier {
 	}
 
 	public static List<TFModifier> getTFRacialBodyPartsList() {
-		return TFRacialBodyPartsList;
+		List<TFModifier> returnList = new ArrayList<>(TFRacialBodyPartsList);
+		if(!Main.game.isUdderContentEnabled()) {
+			returnList.remove(TFModifier.TF_BREASTS_CROTCH);
+			returnList.remove(TFModifier.TF_MILK_CROTCH);
+		}
+		return returnList;
 	}
 
 	public static List<TFModifier> getTFAttributeList() {
@@ -1814,6 +1819,10 @@ public enum TFModifier {
 		if(!Main.game.isLactationContentEnabled()) {
 			returnList.remove(TFModifier.TF_MOD_FETISH_LACTATION_OTHERS);
 			returnList.remove(TFModifier.TF_MOD_FETISH_LACTATION_SELF);
+		}
+		if(!Main.game.isArmpitContentEnabled()) {
+			returnList.remove(TFModifier.TF_MOD_FETISH_ARMPIT_GIVING);
+			returnList.remove(TFModifier.TF_MOD_FETISH_ARMPIT_RECEIVING);
 		}
 		return returnList;
 	}
@@ -1846,12 +1855,15 @@ public enum TFModifier {
 	}
 
 	public static List<TFModifier> getClothingPrimaryList() {
+		List<TFModifier> returnList = new ArrayList<>(clothingPrimaryList);
 		if(!Main.game.isBodyHairEnabled()) {
-			List<TFModifier> noArms = new ArrayList<>(clothingPrimaryList);
-			noArms.remove(TF_ARMS);
-			return noArms;
+			returnList.remove(TF_ARMS);
 		}
-		return clothingPrimaryList;
+		if(!Main.game.isUdderContentEnabled()) {
+			returnList.remove(TFModifier.TF_BREASTS_CROTCH);
+			returnList.remove(TFModifier.TF_MILK_CROTCH);
+		}
+		return returnList;
 	}
 
 	public static List<TFModifier> getTattooPrimaryList() {

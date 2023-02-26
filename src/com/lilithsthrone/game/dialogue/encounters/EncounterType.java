@@ -30,6 +30,8 @@ public enum EncounterType {
 	
 	WES_QUEST_START,
 	
+	DOMINION_PARK_NATALYA,
+	
 	
 	// Harpy nests:
 	

@@ -11,6 +11,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -49,6 +50,7 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.pregnancy.FertilisationType;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -363,10 +365,10 @@ public class Fae extends NPC {
 	}
 
 	@Override
-	public String rollForPregnancy(GameCharacter partner, float cumQuantity, boolean directSexInsemination) {
+	public String rollForPregnancy(GameCharacter partner, float cumQuantity, boolean directSexInsemination, FertilisationType fertilisationType, AbstractAttribute virilityAttribute) {
 		if(!partner.isPlayer()) { // Only the player can impregnate Fae & Silvia
 			return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner, directSexInsemination);
 		}
-		return super.rollForPregnancy(partner, cumQuantity, directSexInsemination);
+		return super.rollForPregnancy(partner, cumQuantity, directSexInsemination, fertilisationType, virilityAttribute);
 	}
 }

@@ -65,6 +65,7 @@ public class Eye implements BodyPartInterface {
 			irisShape = type.getDefaultIrisShape();
 			pupilShape = type.getDefaultPupilShape();
 			if(owner!=null) {
+				owner.resetAreaKnownByCharacters(CoverableArea.EYES);
 				owner.postTransformationCalculation();
 			}
 			return "";
@@ -91,6 +92,7 @@ public class Eye implements BodyPartInterface {
 		this.type = type;
 		irisShape = type.getDefaultIrisShape();
 		pupilShape = type.getDefaultPupilShape();
+		owner.resetAreaKnownByCharacters(CoverableArea.EYES);
 
 		sb.append(type.getTransformationDescription(owner));
 		

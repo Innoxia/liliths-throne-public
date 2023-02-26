@@ -185,7 +185,7 @@ public class SexPosition {
 			List<String> subSizeDiffBehindNames = new ArrayList<>();
 			List<String> domNames = new ArrayList<>();
 			
-			List<String> sizeDifferenceAdditions = new ArrayList<>();
+//			List<String> sizeDifferenceAdditions = new ArrayList<>();
 			Map<GameCharacter, SexSlot> doms = new HashMap<>();
 			Map<GameCharacter, SexSlot> domTaurs = new HashMap<>();
 			Map<GameCharacter, SexSlot> subs = new HashMap<>();
@@ -444,65 +444,85 @@ public class SexPosition {
 			
 
 			// Size difference:
-			List<GameCharacter> allDoms = new ArrayList<>(doms.keySet());
-			allDoms.addAll(domTaurs.keySet());
-			playerInDoms = false;
-			playerInSubs = false;
-			for(GameCharacter sub : subsStanding) {
-				mainSub = sub;
-				List<String> names = new ArrayList<>();
-				for(GameCharacter dom : allDoms) {
-					if(sub.isSizeDifferenceShorterThan(dom)) {
-						names.add(UtilText.parse(dom, "[npc.name]"));
-						if(dom.isPlayer()) {
-							playerInDoms = true;
-						}
-					}
-				}
-				if(!names.isEmpty()) {
-					sizeDifferenceAdditions.add(UtilText.parse(sub,
-							"As [npc.nameIsFull] considerably shorter than "+Util.stringsToStringList(names, false)
-								+", [npc.sheIs] in a position to perform oral on "+(names.size()>1?(playerInDoms?"you":"them"):UtilText.parse(mainDom, "[npc.herHim]"))+", even though [npc.sheIs] standing fully upright."));
-				}
-			}
-			for(GameCharacter sub : subsStandingBehind) {
-				mainSub = sub;
-				List<String> names = new ArrayList<>();
-				for(GameCharacter dom : allDoms) {
-					if(sub.isSizeDifferenceShorterThan(dom)) {
-						names.add(UtilText.parse(dom, "[npc.name]"));
-						if(dom.isPlayer()) {
-							playerInDoms = true;
-						}
-					}
-				}
-				if(!names.isEmpty()) {
-					sizeDifferenceAdditions.add(UtilText.parse(sub,
-							"As [npc.nameIsFull] considerably shorter than "+Util.stringsToStringList(names, false)
-								+", [npc.sheIs] in a position to perform oral on "
-									+(names.size()>1?(playerInDoms?"your rear end":"their rear ends"):UtilText.parse(mainDom, "[npc.namePos] [npc.ass+]"))+", even though [npc.sheIs] standing fully upright."));
-				}
-			}
-			for(GameCharacter dom : allDoms) {
-				List<String> names = new ArrayList<>();
-				for(GameCharacter sub : subsStanding) {
-					if(dom.isSizeDifferenceShorterThan(sub)) {
-						names.add(UtilText.parse(sub, "[npc.name]"));
-					}
-					if(sub.isPlayer()) {
-						playerInSubs = true;
-					}
-				}
-				if(!names.isEmpty()) {
-					sizeDifferenceAdditions.add(UtilText.parse(dom,
-							"As [npc.nameIsFull] considerably shorter than "+Util.stringsToStringList(names, false)
-								+", [npc.sheIs] in a position to perform oral on "+(names.size()>1?(playerInSubs?"you":"them"):UtilText.parse(mainSub, "[npc.herHim]"))+", even though [npc.sheIs] standing fully upright."));
-				}
-			}
-			for(String s : sizeDifferenceAdditions) {
-				sb.append("<br/>[style.italicsOrange("+s+")]");
-			}
+//			List<GameCharacter> allDoms = new ArrayList<>(doms.keySet());
+//			allDoms.addAll(domTaurs.keySet());
+//			playerInDoms = false;
+//			playerInSubs = false;
+//			for(GameCharacter sub : subsStanding) {
+//				mainSub = sub;
+//				List<String> names = new ArrayList<>();
+//				for(GameCharacter dom : allDoms) {
+//					if(sub.isSizeDifferenceShorterThan(dom)) {
+//						names.add(UtilText.parse(dom, "[npc.name]"));
+//						if(dom.isPlayer()) {
+//							playerInDoms = true;
+//						}
+//					}
+//				}
+//				if(!names.isEmpty()) {
+//					sizeDifferenceAdditions.add(UtilText.parse(sub,
+//							"As [npc.nameIsFull] considerably shorter than "+Util.stringsToStringList(names, false)
+//								+", [npc.sheIs] in a position to perform oral on "+(names.size()>1?(playerInDoms?"you":"them"):UtilText.parse(mainDom, "[npc.herHim]"))+", even though [npc.sheIs] standing fully upright."));
+//				}
+//			}
+//			for(GameCharacter sub : subsStandingBehind) {
+//				mainSub = sub;
+//				List<String> names = new ArrayList<>();
+//				for(GameCharacter dom : allDoms) {
+//					if(sub.isSizeDifferenceShorterThan(dom)) {
+//						names.add(UtilText.parse(dom, "[npc.name]"));
+//						if(dom.isPlayer()) {
+//							playerInDoms = true;
+//						}
+//					}
+//				}
+//				if(!names.isEmpty()) {
+//					sizeDifferenceAdditions.add(UtilText.parse(sub,
+//							"As [npc.nameIsFull] considerably shorter than "+Util.stringsToStringList(names, false)
+//								+", [npc.sheIs] in a position to perform oral on "
+//									+(names.size()>1?(playerInDoms?"your rear end":"their rear ends"):UtilText.parse(mainDom, "[npc.namePos] [npc.ass+]"))+", even though [npc.sheIs] standing fully upright."));
+//				}
+//			}
+//			for(GameCharacter dom : allDoms) {
+//				List<String> names = new ArrayList<>();
+//				for(GameCharacter sub : subsStanding) {
+//					if(dom.isSizeDifferenceShorterThan(sub)) {
+//						names.add(UtilText.parse(sub, "[npc.name]"));
+//					}
+//					if(sub.isPlayer()) {
+//						playerInSubs = true;
+//					}
+//				}
+//				if(!names.isEmpty()) {
+//					sizeDifferenceAdditions.add(UtilText.parse(dom,
+//							"As [npc.nameIsFull] considerably shorter than "+Util.stringsToStringList(names, false)
+//								+", [npc.sheIs] in a position to perform oral on "+(names.size()>1?(playerInSubs?"you":"them"):UtilText.parse(mainSub, "[npc.herHim]"))+", even though [npc.sheIs] standing fully upright."));
+//				}
+//			}
+//			for(String s : sizeDifferenceAdditions) {
+//				sb.append("<br/>[style.italicsOrange("+s+")]");
+//			}
 			
+			// Size difference:
+			Map<GameCharacter, List<String>> shorterMap = new HashMap<>(); // Mapping short character to list of larger characters
+			for(GameCharacter c1 : occupiedSlots.keySet()) {
+				for(GameCharacter c2 : occupiedSlots.keySet()) {
+					if(c1!=c2 && c1.isSizeDifferenceShorterThan(c2)) {
+						shorterMap.putIfAbsent(c1, new ArrayList<>());
+						shorterMap.get(c1).add(UtilText.parse(c2, "<span style='color:"+c2.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</span>"));
+					}
+				}
+			}
+			if(!shorterMap.isEmpty()) {
+				sb.append("<br/>[style.italicsOrange(Some characters are significantly shorter than others, and as such will be in a position to perform oral on their larger partners even while standing:)]");
+				for(Entry<GameCharacter, List<String>> entry : shorterMap.entrySet()) {
+					sb.append(UtilText.parse(entry.getKey(), "<br/><span style='color:"+entry.getKey().getFemininity().getColour().toWebHexString()+";'>[npc.Name]</span> [npc.is] shorter than "));
+					sb.append("");
+					sb.append(Util.stringsToStringList(entry.getValue(), false));
+					sb.append(".");
+				}
+			}
+						
 			return sb.toString();
 		}
 		@Override
@@ -791,6 +811,27 @@ public class SexPosition {
 					sb.append(", ready to have some fun with the "+Util.intToString(totalAgainstWall)+" of "+(playerFacingWall?"you":"them")+".");
 				} else {
 					sb.append(", ready to have some fun with "+UtilText.parse(mainWall,"[npc.herHim]")+".");
+				}
+			}
+			
+
+			// Size difference:
+			Map<GameCharacter, List<String>> shorterMap = new HashMap<>(); // Mapping short character to list of larger characters
+			for(GameCharacter c1 : occupiedSlots.keySet()) {
+				for(GameCharacter c2 : occupiedSlots.keySet()) {
+					if(c1!=c2 && c1.isSizeDifferenceShorterThan(c2)) {
+						shorterMap.putIfAbsent(c1, new ArrayList<>());
+						shorterMap.get(c1).add(UtilText.parse(c2, "<span style='color:"+c2.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</span>"));
+					}
+				}
+			}
+			if(!shorterMap.isEmpty()) {
+				sb.append("<br/>[style.italicsOrange(Some characters are significantly shorter than others, and as such will be in a position to perform oral on their larger partners even while standing:)]");
+				for(Entry<GameCharacter, List<String>> entry : shorterMap.entrySet()) {
+					sb.append(UtilText.parse(entry.getKey(), "<br/><span style='color:"+entry.getKey().getFemininity().getColour().toWebHexString()+";'>[npc.Name]</span> [npc.is] shorter than "));
+					sb.append("");
+					sb.append(Util.stringsToStringList(entry.getValue(), false));
+					sb.append(".");
 				}
 			}
 			

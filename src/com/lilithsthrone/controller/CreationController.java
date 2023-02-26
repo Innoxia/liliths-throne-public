@@ -1791,7 +1791,7 @@ public class CreationController {
 			String id = "URETHRA_ELASTICITY_"+elasticity;
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					BodyChanging.getTarget().setFaceElasticity(elasticity.getValue());
+					BodyChanging.getTarget().setUrethraElasticity(elasticity.getValue());
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
@@ -1822,7 +1822,7 @@ public class CreationController {
 			String id = "URETHRA_PLASTICITY_"+plasticity;
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					BodyChanging.getTarget().setFacePlasticity(plasticity.getValue());
+					BodyChanging.getTarget().setUrethraPlasticity(plasticity.getValue());
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}

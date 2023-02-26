@@ -66,8 +66,8 @@
 	You can define any number of attribute modifiers, but it's usually best to keep it limited to just a few.
 	Values for attributes should be drawn from here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/attributes/Attribute.java-->
 	<attributeModifiers>
-		<modifier value="15.0">MAJOR_PHYSIQUE</modifier>
-		<modifier value="15.0">MAJOR_ARCANE</modifier>
+		<modifier value="20.0">MAJOR_PHYSIQUE</modifier>
+		<modifier value="20.0">MAJOR_ARCANE</modifier>
 	</attributeModifiers>
 	
 	<!-- The CombatMoves which should be unlocked for the character affected by this status effect.

@@ -11,6 +11,52 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="SHAFT"><![CDATA[
+	<p>
+		Here, on the far side of the Bat Caverns, the ceiling high up above you gives way to a huge, twisting shaft. Formed out of the rock either naturally or through arcane means,
+		#IF(game.isDayTime())
+			 this shaft provides the only source of natural light to this cave system, which takes the form of a small amount of sunlight that manages to penetrate all the way down to dimly illuminate the cavern around you.
+		#ELSE
+			 during daylight hours this shaft provides the only source of natural light to this cave system. As it's currently night-time, however, the shaft above is just as dark as the rest of the Bat Caverns.
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.isAbleToFly())
+			#IF(!pc.isPartyAbleToFly())
+				Although you're able to fly, your companion cannot, and so you can't make use of this shaft to swiftly return to Dominion...
+			#ELSE
+				As you're able to fly, you could travel up this shaft to swiftly return to Dominion...
+			#ENDIF
+		#ELSE
+			As you're unable to fly, you can't make use of this shaft to swiftly return to Dominion...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHAFT_FLY_UP_FIRST_TIME"><![CDATA[
+	<p>
+		Deciding that you want to find out where this shaft leads to, you launch yourself into the air and fly up into the rocky passage. As you enter the shaft, you discover that a series of dim lights and aggressive proximity warning buzzers have been fitted to the jagged walls, making it far safer to traverse than you expected.
+	</p>
+	<p>
+		Within a couple of minutes, you're able to see the sky above you, and then a moment later you're out into the air above Dominion. After getting your bearings and seeing that you're above some alleyways in the north-west of the city, you swoop around to land. As you settle down beside the shaft's entrance, you see that it's completely concealed behind a brick wall that's topped with barbed wire. An old, rusted sign declares the shaft's presence, but if you didn't already know that it's there, you're sure that you'd never find it.
+	</p>
+	<p>
+		Knowing that the alleyways in Dominion are sketchy at the best of times, you look around to make sure that you're safe, and after confirming that you're in no immediate danger, you wonder where to go to from here...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHAFT_FLY_UP"><![CDATA[
+	<p>
+		Deciding that you want to head back up into Dominion, you launch yourself into the air and fly up into the rocky passage. As you enter the shaft, you once again see the series of dim lights and aggressive proximity warning buzzers which have been fitted to the jagged walls, but as you're already familiar with the tunnel's twists and turns, you don't have to rely on them for guidance.
+	</p>
+	<p>
+		Within a couple of minutes, you're able to see the sky above you, and then a moment later you're out into the air above Dominion. Swooping above the alleyways in the north-west of the city, you glide down to settle beside the shaft's entrance. With the tunnel now concealed from your position by a brick wall that's topped with barbed wire, you look around to make sure that you're safe, and after confirming that you're in no immediate danger, you wonder where to go to from here...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="CAVERN_DARK"><![CDATA[
 	<p>
 		The oppressive, inky blackness of the bat caverns is kept at bay by the softly glowing moss beneath your feet. With every step, a new pool of the low light blooms outward as the previous one fades, allowing you to see out to roughly [unit.lSizes(1500)] all around you. Above your head, the cavern's roof is so high that all you can see is a blanket of completely impenetrable darkness. Occasionally you think you hear a sound, a high-pitched keening, from somewhere up there, but you try not to think too hard about it.

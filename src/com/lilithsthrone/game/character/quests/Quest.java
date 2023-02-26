@@ -943,9 +943,11 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "When you first arrived in Submission, an Enforcer informed you of an ongoing situation in the tunnels."
+			return "When you first arrived in Submission, an Enforcer named Claire informed you of an ongoing situation in the tunnels."
 					+ " Apparently, there are an increasing number of Slimes who are attacking innocent travellers and transforming them into more Slimes."
-					+ " If you're able to offer any information on where these aggressive Slimes are coming from, you could earn a one-thousand flame reward.";
+					+ " If you're able to offer any information on where these aggressive Slimes are coming from, you could earn a five-thousand flame reward."
+					+ "<br/>"
+					+ "<p style='text-align:center;'><i>You'll need to defeat a slime in <b>Submission's tunnels</b> to find out more.</i></p>";
 		}
 
 		@Override

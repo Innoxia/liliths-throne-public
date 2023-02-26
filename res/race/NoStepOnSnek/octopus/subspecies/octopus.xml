@@ -9,6 +9,7 @@
 	<attributeItemId>NoStepOnSnek_race_octopus_ink_vodka</attributeItemId>
 	<transformativeItemId>NoStepOnSnek_race_octopus_shrimp_cocktail</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>NOCTURNAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>false</bipedalSubspecies>
 	<aquatic>false</aquatic>

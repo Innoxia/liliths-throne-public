@@ -942,7 +942,7 @@ public class ParserTarget {
 	
 	// Submission:
 	
-	public static AbstractParserTarget IMP_FORTRESS_ALPHA_LEADER = new AbstractParserTarget(Util.newArrayListOfValues("impAlphaLeader"), "") {
+	public static AbstractParserTarget IMP_FORTRESS_ALPHA_LEADER = new AbstractParserTarget(Util.newArrayListOfValues("impAlphaLeader", "fyrsia"), "") {
 		public String getDescription() {
 			return Main.game.getNpc(FortressAlphaLeader.class).getDescription();
 		}
@@ -953,7 +953,7 @@ public class ParserTarget {
 		}
 	};
 	
-	public static AbstractParserTarget IMP_FORTRESS_FEMALES_LEADER = new AbstractParserTarget(Util.newArrayListOfValues("impFemalesLeader", "impFemaleLeader"), "") {
+	public static AbstractParserTarget IMP_FORTRESS_FEMALES_LEADER = new AbstractParserTarget(Util.newArrayListOfValues("impFemalesLeader", "impFemaleLeader", "hyorlyss"), "") {
 		public String getDescription() {
 			return Main.game.getNpc(FortressFemalesLeader.class).getDescription();
 		}
@@ -964,7 +964,7 @@ public class ParserTarget {
 		}
 	};
 	
-	public static AbstractParserTarget IMP_FORTRESS_MALES_LEADER = new AbstractParserTarget(Util.newArrayListOfValues("impMalesLeader", "impMaleLeader"), "") {
+	public static AbstractParserTarget IMP_FORTRESS_MALES_LEADER = new AbstractParserTarget(Util.newArrayListOfValues("impMalesLeader", "impMaleLeader", "jhortrax"), "") {
 		public String getDescription() {
 			return Main.game.getNpc(FortressMalesLeader.class).getDescription();
 		}
