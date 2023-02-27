@@ -108,26 +108,7 @@ public class LilayaOfficeDialogue {
 			if(index-indexPresentStart<slavesAssignedToRoom.size()) {
 				NPC character = slavesAssignedToRoom.get(index-indexPresentStart);
 				if(charactersPresent.contains(character) || (character.getHomeCell().equals(Main.game.getPlayerCell()) && Main.game.getPlayer().getCompanions().contains(character))) {
-					return new Response(
-							UtilText.parse(character, "[npc.Name]"),
-							UtilText.parse(character, "Interact with [npc.name]."),
-							character.isSlave()
-								?SlaveDialogue.SLAVE_START
-								:OccupantDialogue.OCCUPANT_START) {
-						@Override
-						public Colour getHighlightColour() {
-							return character.getFemininity().getColour();
-						}
-						@Override
-						public void effects() {
-							if(character.isSlave()) {
-								SlaveDialogue.initDialogue(character, false);
-							} else {
-								OccupantDialogue.initDialogue(character, false, false);
-							}
-						}
-					};
-					
+					return LilayaHomeGeneric.interactWithNPC(character);
 				} else {
 					return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Although this is [npc.namePos] room, [npc.sheIs] out at work at the moment."), null);
 				}

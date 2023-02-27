@@ -33,6 +33,7 @@ import com.lilithsthrone.utils.time.DateAndTime;
 import com.lilithsthrone.utils.time.SolarElevationAngle;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
+import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.2.10
@@ -56,8 +57,7 @@ public class OccupantDialogue {
 		
 		if(isApartment) {
 			CompanionManagement.initManagement(OCCUPANT_APARTMENT, 2, targetedOccupant);
-			
-		} else if(targetedOccupant.isAtHome()) {
+		} else if(targetedOccupant.isAtWork() || targetedOccupant.isAtHome()) {
 			CompanionManagement.initManagement(OCCUPANT_START, 2, targetedOccupant);
 		}
 		
@@ -152,7 +152,11 @@ public class OccupantDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_START", occupant()));
+			if(Main.game.getPlayer().getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_GUEST_ROOM)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_START", occupant()));
+			} else {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_WORKING", occupant()));
+			}
 			
 			if(occupant().isVisiblyPregnant()) {
 				if(!occupant().isCharacterReactedToPregnancy(Main.game.getPlayer())) {

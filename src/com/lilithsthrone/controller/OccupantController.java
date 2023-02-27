@@ -761,7 +761,20 @@ public class OccupantController {
 				
 				id = occupantId+"_JOB";
 				if (MainController.document.getElementById(id) != null) {
-					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Job", "You cannot manage a free-willed occupant's job."));
+					if(occupant.hasJob()) {
+						MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Occupant's Temporary Job", "[npc.name] already has a permanent job outside of the mansion."));
+					} else {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlaveJobsDialogue(occupant)) {
+								@Override
+								public void effects() {
+									CompanionManagement.initManagement(Main.game.getCurrentDialogueNode(), CompanionManagement.getDefaultResponseTab(), occupant);
+									Main.game.setResponseTab(CompanionManagement.getDefaultResponseTab());
+								}
+							});
+						}, false);
+						MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Occupant's Temporary Job", "Assign [npc.name] some temporary work."));
+					}
 				}
 				
 				id = occupantId+"_PERMISSIONS";

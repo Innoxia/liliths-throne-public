@@ -1323,7 +1323,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		XMLUtil.createXMLElementWithValue(doc, slaveryElement, "owner", this.getOwner()==null?"":this.getOwner().getId());
 		
-		if(this.isSlave()) {
+		if(this.isSlave() || !this.hasJob()) {
 			Element slaveJobSettings = doc.createElement("slaveJobSettings");
 			slaveryElement.appendChild(slaveJobSettings);
 			for(SlaveJob job : SlaveJob.values()) {
@@ -4409,6 +4409,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void assignNewJob() {
+		this.resetWorkHours();
 		List<Occupation> occupations = new ArrayList<>(desiredJobs);
 		if(occupations.isEmpty()) {
 			for(Occupation occ : Occupation.values()) {
@@ -4693,37 +4694,6 @@ public abstract class GameCharacter implements XMLSaving {
 		return (Math.round(totalObedienceChange*100)/100f) * (this.isSlave() && this.getOwner().hasTrait(Perk.JOB_TEACHER, true)?3:1);
 	}
 
-	public int getTotalSlavesWorkingJob(SlaveJob job) {
-		int i=0;
-		for(String id : this.getSlavesOwned()) {
-			try {
-				for(int hour=0; hour<24; hour++) {
-					if(Main.game.getNPCById(id).getSlaveJob(hour)==job) {
-						i++;
-						break;
-					}
-				}
-			} catch (Exception e) {
-				Util.logGetNpcByIdError("getTotalSlavesWorkingJob()", id);
-			}
-		}
-		return i;
-	}
-	
-	public int getSlavesWorkingJob(int hour, SlaveJob job) {
-		int i=0;
-		for(String id : this.getSlavesOwned()) {
-			try {
-				if(Main.game.getNPCById(id).getSlaveJob(hour)==job) {
-					i++;
-				}
-			} catch (Exception e) {
-				Util.logGetNpcByIdError("getSlavesWorkingJob()", id);
-			}
-		}
-		return i;
-	}
-	
 	public int getValueAsSlave(boolean includeInventory) {
 		int value = this.getSubspecies().getBaseSlaveValue(this);
 		
@@ -4771,7 +4741,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return true if this character is at their job's location, and that job is not SlaveJob.IDLE. This also takes into account if this character is in the player's party (in which case they are not at work).
 	 */
 	public boolean isAtWork() {
-		return !Main.game.getOccupancyUtil().getSlavesResting().contains(this);
+		return !Main.game.getOccupancyUtil().getCharactersResting().contains(this);
 	}
 	
 	public float getDailySlaveJobStamina() {

@@ -238,25 +238,7 @@ public class RoomPlayer {
 			int indexPresentStart = 11;
 			if(index-indexPresentStart<charactersPresent.size() && index-indexPresentStart>=0) {
 				NPC character = charactersPresent.get(index-indexPresentStart);
-				return new Response(
-						UtilText.parse(character, "[npc.Name]"),
-						UtilText.parse(character, "Interact with [npc.name]."),
-						character.isSlave()
-							?SlaveDialogue.SLAVE_START
-							:OccupantDialogue.OCCUPANT_START) {
-					@Override
-					public Colour getHighlightColour() {
-						return character.getFemininity().getColour();
-					}
-					@Override
-					public void effects() {
-						if(character.isSlave()) {
-							SlaveDialogue.initDialogue(character, false);
-						} else {
-							OccupantDialogue.initDialogue(character, false, false);
-						}
-					}
-				};
+				return LilayaHomeGeneric.interactWithNPC(character);
 			}
 			
 		} else if(responseTab==2) {

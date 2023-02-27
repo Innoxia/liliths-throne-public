@@ -502,16 +502,7 @@ public class LilayaMilkingRoomDialogue {
 				
 			} else if(index-11<charactersPresent.size()) {
 				GameCharacter slave = charactersPresent.get(index-11);
-				return new Response(UtilText.parse(slave, "[npc.Name]"), UtilText.parse(slave, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
-					@Override
-					public Colour getHighlightColour() {
-						return slave.getFemininity().getColour();
-					}
-					@Override
-					public void effects() {
-						SlaveDialogue.initDialogue((NPC) slave, false);
-					}
-				};
+				return LilayaHomeGeneric.interactWithNPC(slave);
 			}
 				
 			return null;
