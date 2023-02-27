@@ -56,6 +56,27 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
  */
 public class LilayaHomeGeneric {
 	
+	static Response interactWithNPC(GameCharacter slave) {
+		return new Response(UtilText.parse(slave, "[npc.Name]"), UtilText.parse(slave, "Interact with [npc.name]."), slave.isSlave()?SlaveDialogue.SLAVE_START:OccupantDialogue.OCCUPANT_START) {
+			@Override
+			public Colour getHighlightColour() {
+				return slave.getFemininity().getColour();
+			}
+			@Override
+			public void effects() {
+				if(slave.isSlave()) {
+					SlaveDialogue.initDialogue((NPC) slave, false);
+				} else {
+					OccupantDialogue.initDialogue((NPC) slave, false, false);
+				}
+				if(slave.isSleepingAtHour(Main.game.getHourOfDay())) {
+					Main.game.appendToTextEndStringBuilder(slave.incrementAffection(Main.game.getPlayer(), -1));
+				}
+			}
+		};
+		
+	}
+	
 	public static void dailyUpdate() {
 		if(Main.game.getDialogueFlags().hasSavedLong(LilayaSpa.SPA_CONSTRUCTTION_TIMER_ID)) {
 			Cell constructionCell = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_UNDER_CONSTRUCTION);
@@ -249,29 +270,7 @@ public class LilayaHomeGeneric {
 		if(index-indexPresentStart<slavesAssignedToRoom.size()) {
 			NPC character = slavesAssignedToRoom.get(index-indexPresentStart);
 			if(charactersPresent.contains(character) || (character.getHomeCell().equals(Main.game.getPlayerCell()) && Main.game.getPlayer().getCompanions().contains(character))) {
-				return new Response(
-						UtilText.parse(character, "[npc.Name]"),
-						UtilText.parse(character, "Interact with [npc.name]."),
-						character.isSlave()
-							?SlaveDialogue.SLAVE_START
-							:OccupantDialogue.OCCUPANT_START) {
-					@Override
-					public Colour getHighlightColour() {
-						return character.getFemininity().getColour();
-					}
-					@Override
-					public void effects() {
-						if(character.isSlave()) {
-							SlaveDialogue.initDialogue(character, false);
-						} else {
-							OccupantDialogue.initDialogue(character, false, false);
-						}
-						if(character.isSleepingAtHour(Main.game.getHourOfDay())) {
-							Main.game.appendToTextEndStringBuilder(character.incrementAffection(Main.game.getPlayer(), -1));
-						}
-					}
-				};
-				
+				return interactWithNPC(character);
 			} else {
 				return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Although this is [npc.namePos] room, [npc.sheIs] out at work at the moment."), null);
 			}
@@ -353,17 +352,21 @@ public class LilayaHomeGeneric {
 					if(!Main.game.getCharactersPresent().contains(npc)) {
 						sb.append(UtilText.parse(npc,
 									"[style.colourMinorBad(is not here)] at the moment, and as you briefly scan the room for any sign of [npc.herHim], you see a little note has been left on [npc.her] bedside cabinet."
-											+ " Walking over and picking it up, you read:"
-								+ "</p>"
-								+ "<p style='text-align:center;'><i>"
-									+ "Hi, [pc.name]!<br/>"
-									+ "I'm out at work at the moment, my hours are from "+npc.getHistory().getWorkHourStart()+":00 to "+npc.getHistory().getWorkHourEnd()+":00, "
-										+npc.getHistory().getStartDay().getDisplayName(TextStyle.FULL, Locale.ENGLISH)+"-"+npc.getHistory().getEndDay().getDisplayName(TextStyle.FULL, Locale.ENGLISH)+"<br/>"
-									+ "Come and see me when I'm not at work!<br/>"
-									+ "- [npc.Name]"
-								+ "</i>"
-								+ "</p>"
-								+ "<p>"));
+								+" Walking over and picking it up, you read:"
+								+"</p>"+
+								"<p style='text-align:center;'><i>"
+								+"Hi, [pc.name]!<br/>"));
+						if(npc.hasJob()) {
+							sb.append("I'm out at work at the moment, my hours are from "+npc.getHistory().getWorkHourStart()+":00 to "+npc.getHistory().getWorkHourEnd()+":00, "
+									+npc.getHistory().getStartDay().getDisplayName(TextStyle.FULL, Locale.ENGLISH)+"-"+npc.getHistory().getEndDay().getDisplayName(TextStyle.FULL, Locale.ENGLISH)+"<br/>");
+						} else {
+							sb.append(UtilText.parse(npc, "I'm helping around the mansion right now<br/>"));
+						}
+						sb.append(UtilText.parse(npc,
+								"- [npc.Name]"
+								+"</i>"
+							+ "</p>"
+							+ "<p>"));
 						sb.append(UtilText.parse(npc, "<i>[npc.Name] sleeps between the hours of [style.time("+npc.getSleepStartHour()+")]-[style.time("+npc.getSleepEndHour()+")]</i>"));
 						
 					} else {
@@ -628,17 +631,7 @@ public class LilayaHomeGeneric {
 				
 			} else if(index-1<charactersPresent.size()) {
 				GameCharacter slave = charactersPresent.get(index-1);
-				return new Response(UtilText.parse(slave, "[npc.Name]"), UtilText.parse(slave, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
-					@Override
-					public Colour getHighlightColour() {
-						return slave.getFemininity().getColour();
-					}
-					@Override
-					public void effects() {
-						SlaveDialogue.initDialogue((NPC) slave, false);
-					}
-				};
-					
+				return interactWithNPC(slave);
 			} else {
 				return null;
 			}
@@ -834,17 +827,7 @@ public class LilayaHomeGeneric {
 				
 			} else if(index-1<charactersPresent.size()) {
 				GameCharacter slave = charactersPresent.get(index-1);
-				return new Response(UtilText.parse(slave, "[npc.Name]"), UtilText.parse(slave, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
-					@Override
-					public Colour getHighlightColour() {
-						return slave.getFemininity().getColour();
-					}
-					@Override
-					public void effects() {
-						SlaveDialogue.initDialogue((NPC) slave, false);
-					}
-				};
-					
+				return interactWithNPC(slave);
 			} else {
 				return null;
 			}
@@ -1212,7 +1195,7 @@ public class LilayaHomeGeneric {
 						SlaveDialogue.initDialogue((NPC) slave, false);
 					}
 				};
-					
+				
 			}
 			return null;
 		}
