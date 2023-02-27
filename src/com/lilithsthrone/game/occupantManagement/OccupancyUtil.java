@@ -240,6 +240,9 @@ public class OccupancyUtil implements XMLSaving {
 		}
 	}
 	
+	/**
+	 * @return A List of all slaves owner by the player, plus all friendly occupants.
+	 */
 	public List<String> getAllCharacters() {
 		return Util.mergeLists(Main.game.getPlayer().getFriendlyOccupants(), Main.game.getPlayer().getSlavesOwned());
 	}
@@ -273,6 +276,17 @@ public class OccupancyUtil implements XMLSaving {
 			}
 		}
 		return i;
+	}
+	
+	/**
+	 * @return A List of ids of characters who are currently working at the job.
+	 * <br/>Modifications to this List will not affect the underlying List.
+	 */
+	public List<String> getCharactersCurrentlyAtJob(SlaveJob job) {
+		if(!charactersAtJob.containsKey(job) || charactersAtJob.get(job)==null) {
+			return new ArrayList<>();
+		}
+		return new ArrayList<>(charactersAtJob.get(job));
 	}
 	
 	public void performHourlyUpdate(int day, int hour) {
@@ -1892,15 +1906,5 @@ public class OccupancyUtil implements XMLSaving {
 	public void setEnabledByDefaultJobSettings(Map<SlaveJob, List<SlaveJobSetting>> enabledByDefaultJobSettings) {
 		this.enabledByDefaultJobSettings = enabledByDefaultJobSettings;
 	}
-	
-	/**
-	 * @return A List of ids of slaves who are currently working at the job.
-	 * <br/>Modifications to this List will not affect the underlying List.
-	 */
-	public List<String> getSlavesAtJob(SlaveJob job) {
-		if(!slavesAtJob.containsKey(job) || slavesAtJob.get(job)==null) {
-			return new ArrayList<>();
-		}
-		return new ArrayList<>(slavesAtJob.get(job));
-	}
+
 }

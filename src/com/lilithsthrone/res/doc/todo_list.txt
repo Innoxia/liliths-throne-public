@@ -6,11 +6,21 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
+	Contributors:
+		Added ability to let friendly occupants take on some of the more mundane slave jobs (Maid, Security guard, Librarian, Cook, Lab assistant, Office worker, and Waitress). (PR#1560 by Maxis010)
 	
 	
 	
-	[] PR#1560 - guest jobs
-	
+	[x] PR#1560 - guest jobs
+		[x] check all files
+		[x] testing
+			[x] set jobs
+			[x] encounters
+			[x] sex when slave + occupant on tile
+		[x] add security & waiter
+			[x] handle interaction/responses
+		[x] slave lounge dialogue
+			
 	[] PRs
 		[] #1724
 		[] #1438

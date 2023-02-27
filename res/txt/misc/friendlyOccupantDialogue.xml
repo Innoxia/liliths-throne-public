@@ -48,10 +48,7 @@
 	
 	<htmlContent tag="OCCUPANT_WORKING"><![CDATA[
 	<p>
-		Wanting to see how [npc.name] is getting on, helping around the mansion, you go to where they are working.
-	</p>
-	<p>
-		As you approach you call out to [npc.her] [pc.speech(Hi, [npc.name].)]
+		Wanting to see how [npc.name] is getting on with [npc.her] job, you approach [npc.herHim] and call out, [pc.speech(Hi, [npc.name].)]
 	</p>
 	#IF (npc.getAffection(pc) < AFFECTION_NEGATIVE_TWO_DISLIKE.getMaximumValue())
 		<p>
@@ -63,7 +60,7 @@
 		</p>
 	#ELSE
 		<p>
-			[npc.speech([npc.PcName]!)] [npc.name] happily shouts, after quickly finishing [npc.her] current task [npc.she] bounds forwards with a huge grin on [npc.her] face before wrapping [npc.her] [npc.arms] around you and giving you a big hug. After spending a moment together in one another's loving embrace, [npc.name] pulls back and joyously exclaims, [npc.speech(Thank you so much for everything again! If there's anything you ever need, just let me know! So, what did you want to talk about?)]
+			[npc.speech([npc.PcName]!)] [npc.name] happily shouts. Quickly finishing [npc.her] current task, [npc.she] bounds forwards with a huge grin on [npc.her] face, before wrapping [npc.her] [npc.arms] around you and giving you a big hug. After spending a moment together in one another's loving embrace, [npc.name] pulls back and joyously exclaims, [npc.speech(Thank you so much for everything again! If there's anything you ever need, just let me know! So, what did you want to talk about?)]
 		</p>
 	#ENDIF
 	]]>

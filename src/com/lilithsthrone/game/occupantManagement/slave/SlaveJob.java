@@ -183,7 +183,8 @@ public enum SlaveJob {
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
 					SlaveJobFlag.INTERACTION_SEX,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL) {
 		private void moveToCorridor(GameCharacter slave) {
 			if(slave.getLocationPlace().getPlaceType().equals(PlaceType.LILAYA_HOME_CORRIDOR)) {
@@ -257,7 +258,8 @@ public enum SlaveJob {
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
 					SlaveJobFlag.INTERACTION_SEX,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_KITCHEN),
 
 	GARDEN(PresetColour.BASE_GREEN,
@@ -965,7 +967,8 @@ public enum SlaveJob {
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
 					SlaveJobFlag.INTERACTION_SEX,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
 		@Override
 		public int getSlaveLimit() {

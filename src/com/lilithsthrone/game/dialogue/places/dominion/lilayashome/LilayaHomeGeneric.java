@@ -69,8 +69,8 @@ public class LilayaHomeGeneric {
 				} else {
 					OccupantDialogue.initDialogue((NPC) slave, false, false);
 				}
-				if(character.isSleepingAtHour(Main.game.getHourOfDay())) {
-					Main.game.appendToTextEndStringBuilder(character.incrementAffection(Main.game.getPlayer(), -1));
+				if(slave.isSleepingAtHour(Main.game.getHourOfDay())) {
+					Main.game.appendToTextEndStringBuilder(slave.incrementAffection(Main.game.getPlayer(), -1));
 				}
 			}
 		};
@@ -356,16 +356,17 @@ public class LilayaHomeGeneric {
 								+"</p>"+
 								"<p style='text-align:center;'><i>"
 								+"Hi, [pc.name]!<br/>"));
-						if(occupant.hasJob()) {
-							roomSB.append("I'm out at work at the moment, my hours are from "+npc.getHistory().getWorkHourStart()+":00 to "+npc.getHistory().getWorkHourEnd()+":00, "
+						if(npc.hasJob()) {
+							sb.append("I'm out at work at the moment, my hours are from "+npc.getHistory().getWorkHourStart()+":00 to "+npc.getHistory().getWorkHourEnd()+":00, "
 									+npc.getHistory().getStartDay().getDisplayName(TextStyle.FULL, Locale.ENGLISH)+"-"+npc.getHistory().getEndDay().getDisplayName(TextStyle.FULL, Locale.ENGLISH)+"<br/>");
 						} else {
-							roomSB.append(UtilText.parse(occupant, "I'm helping around the mansion right now<br/>"
-									+"- [npc.Name]"
-									+"</i>"
-								+ "</p>"
-								+ "<p>"));
+							sb.append(UtilText.parse(npc, "I'm helping around the mansion right now<br/>"));
 						}
+						sb.append(UtilText.parse(npc,
+								"- [npc.Name]"
+								+"</i>"
+							+ "</p>"
+							+ "<p>"));
 						sb.append(UtilText.parse(npc, "<i>[npc.Name] sleeps between the hours of [style.time("+npc.getSleepStartHour()+")]-[style.time("+npc.getSleepEndHour()+")]</i>"));
 						
 					} else {

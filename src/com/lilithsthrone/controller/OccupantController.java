@@ -762,7 +762,8 @@ public class OccupantController {
 				id = occupantId+"_JOB";
 				if (MainController.document.getElementById(id) != null) {
 					if(occupant.hasJob()) {
-						MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Occupant's Temporary Job", "[npc.name] already has a permanent job outside of the mansion."));
+						MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Job", "[npc.name] already has a permanent job, so cannot be assigned to work within the mansion..."));
+						
 					} else {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlaveJobsDialogue(occupant)) {
@@ -773,7 +774,7 @@ public class OccupantController {
 								}
 							});
 						}, false);
-						MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Occupant's Temporary Job", "Assign [npc.name] some temporary work."));
+						MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Job", "Assign [npc.name] some temporary work."));
 					}
 				}
 				

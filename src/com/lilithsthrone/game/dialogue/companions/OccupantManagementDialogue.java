@@ -1429,7 +1429,9 @@ public class OccupantManagementDialogue {
 				
 				+ "<div id='"+occupant.getId()+"' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveInspect()+"</div></div>"
 
-				+ "<div id='"+occupant.getId()+"_JOB' class='square-button big"+(occupant.hasJob()?" disabled":"")+"'><div class='square-button-content'>"+(occupant.hasJob()?SVGImages.SVG_IMAGE_PROVIDER.getSlaveJobDisabled():SVGImages.SVG_IMAGE_PROVIDER.getSlaveJob())+"</div></div>"
+				+ (occupant.hasJob()
+						?"<div id='"+occupant.getId()+"_JOB' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveJobDisabled()+"</div></div>"
+						:"<div id='"+occupant.getId()+"_JOB' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveJob()+"</div></div>")
 
 				+ "<div id='"+occupant.getId()+"_PERMISSIONS' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlavePermissionsDisabled()+"</div></div>"
 				
