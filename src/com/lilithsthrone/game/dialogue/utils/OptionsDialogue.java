@@ -1449,26 +1449,24 @@ public class OptionsDialogue {
 		
 		for(FetishPreference preference : FetishPreference.values()) {
 			String disabledMsg=null;
-			if(!Main.game.isPenetrationLimitationsEnabled() && fetish == Fetish.FETISH_SIZE_QUEEN) {
-				disabledMsg="Penetrative size-difference";
-			}
-			if(!Main.game.isNonConEnabled() && (fetish == Fetish.FETISH_NON_CON_DOM || fetish == Fetish.FETISH_NON_CON_SUB)) {
-				disabledMsg="Non-consent";
-			}
-			if(!Main.game.isIncestEnabled() && fetish == Fetish.FETISH_INCEST) {
-				disabledMsg="Incest";
-			}
-			if(!Main.game.isLactationContentEnabled() && (fetish == Fetish.FETISH_LACTATION_OTHERS || fetish == Fetish.FETISH_LACTATION_SELF)) {
-				disabledMsg="Lactation";
-			}
-			if(!Main.game.isAnalContentEnabled() && (fetish == Fetish.FETISH_ANAL_GIVING || fetish == Fetish.FETISH_ANAL_RECEIVING)) {
-				disabledMsg="Anal Content";
-			}
-			if(!Main.game.isFootContentEnabled() && (fetish == Fetish.FETISH_FOOT_GIVING || fetish == Fetish.FETISH_FOOT_RECEIVING)) {
-				disabledMsg="Foot Content";
-			}
-			if(!Main.game.isArmpitContentEnabled() && (fetish == Fetish.FETISH_ARMPIT_GIVING || fetish == Fetish.FETISH_ARMPIT_RECEIVING)) {
-				disabledMsg="Armpit Content";
+			if(!fetish.isContentEnabled()) {
+				if (Fetish.FETISH_SIZE_QUEEN.equals(fetish)) {
+					disabledMsg = "Penetrative size-difference";
+				} else if (Fetish.FETISH_NON_CON_DOM.equals(fetish) || Fetish.FETISH_NON_CON_SUB.equals(fetish)) {
+					disabledMsg = "Non-consent";
+				} else if (Fetish.FETISH_INCEST.equals(fetish)) {
+					disabledMsg = "Incest";
+				} else if (Fetish.FETISH_LACTATION_SELF.equals(fetish) || Fetish.FETISH_LACTATION_OTHERS.equals(fetish)) {
+					disabledMsg = "Lactation";
+				} else if (Fetish.FETISH_ANAL_RECEIVING.equals(fetish) || Fetish.FETISH_ANAL_GIVING.equals(fetish)) {
+					disabledMsg = "Anal Content";
+				} else if (Fetish.FETISH_FOOT_RECEIVING.equals(fetish) || Fetish.FETISH_FOOT_GIVING.equals(fetish)) {
+					disabledMsg = "Foot Content";
+				} else if (Fetish.FETISH_ARMPIT_RECEIVING.equals(fetish) || Fetish.FETISH_ARMPIT_GIVING.equals(fetish)) {
+					disabledMsg = "Armpit Content";
+				} else {
+					disabledMsg = "Unspecified Content";
+				}
 			}
 			if(disabledMsg!=null) {
 				// Disabled fetishes to default, the fetish won't be a valid option for the generator anyway

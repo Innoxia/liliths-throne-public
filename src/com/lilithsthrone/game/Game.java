@@ -5938,5 +5938,4 @@ public class Game implements XMLSaving {
 						+ UtilText.parse(character, "You start having sex with [npc.name]")
 					+ "</p>"));
 	}
-	
 }
