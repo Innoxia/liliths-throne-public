@@ -415,7 +415,7 @@ public class OccupantController {
 			
 			id = preset+"_TIME_DISABLED";
 			if (MainController.document.getElementById(id) != null) {
-				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Set Preset Work Hours", "You can't assign hours to a slave who is idle. Assign them a job first."));
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("[style.colourBad(Set Preset Work Hours)]", "You cannot assign these hours. Either the job is not available for these hours, or it is too much work."));
 			}
 		}
 		
