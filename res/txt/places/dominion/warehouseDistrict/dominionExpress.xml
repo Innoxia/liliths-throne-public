@@ -48,7 +48,7 @@
 			Due to the fact that the warehouse is closed to the public at this hour, there's only a single smartly-dressed horse-girl sitting behind the counter. Noticing your entry, she stifles a yawn and turns to face you.
 		#ENDIF
 		#IF(pc.isQuestCompleted(QUEST_LINE_ROMANCE_NATALYA) && collar!=null && collar.getClothingType().getId().equals("innoxia_neck_filly_choker"))
-			 Noticing the fact that you're wearing a filly collar, she waves you through and says, [style.speechFeminine(Go on through, filly. I'm sure there are plenty of slaves waiting for you in the stables...)]
+			 Noticing the fact that you're wearing a filly choker, she waves you through and says, [style.speechFeminine(Go on through, filly. I'm sure there are plenty of slaves waiting for you in the stables...)]
 		#ELSEIF(pc.hasQuest(QUEST_LINE_ROMANCE_NATALYA))
 			 Not wanting to be delayed, you've already got your stamped business card out, and as you show it to the receptionist, she waves you past and says,
 			#IF(game.isExtendedWorkTime())
@@ -117,7 +117,7 @@
 			Despite the hour of day, you find yourself passing the occasional centaur or centauress slave on your way down the corridor. Unlike in daylight hours, however, these slaves don't seem to be picking up or dropping off cargo, and instead appear to be tasked with reorganising the goods already stored here.
 		#ENDIF
 		#IF(pc.isQuestCompleted(QUEST_LINE_ROMANCE_NATALYA) && collar!=null && collar.getClothingType().getId().equals("innoxia_neck_filly_choker"))
-			 Catching sight of your filly collar, these centaurs hungrily stare at you as you pass,
+			 Catching sight of your filly choker, these centaurs hungrily stare at you as you pass,
 			#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
 				 and you realise that [style.colourPink(it's only a matter of time before one of them tries to make you service them)].
 			#ELSE
@@ -151,7 +151,7 @@
 			It's through the labyrinth-like aisles formed by these stacks of stored goods which you're currently [pc.walking], and despite the hour of day, you find yourself passing the occasional centaur or centauress slave. 
 		#ENDIF
 		#IF(pc.isQuestCompleted(QUEST_LINE_ROMANCE_NATALYA) && collar!=null && collar.getClothingType().getId().equals("innoxia_neck_filly_choker"))
-			 Noticing the filly collar around your neck, these centaurs make lewd comments as you pass,
+			 Noticing the filly choker around your neck, these centaurs make lewd comments as you pass,
 			#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
 				 and you realise that [style.colourPink(it's only a matter of time before one of them tries to make you service them)].
 			#ELSE
@@ -911,6 +911,8 @@
 	<p>
 		#IF(game.getDialogueFlags().hasFlag(FLAG_playerSubmittedToNatalya))
 			[natalya.speech(I am pleased to see you here again, filly. I bet you've been thinking of nothing but my cock since I had you jerk me off in that alleyway,)]
+		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_playerSubmittedToNatalyaInPark))
+			[natalya.speech(I am pleased to see you here again, filly. I bet you've been thinking of nothing but my cock since I had you jerk me off in that park,)]
 		#ELSE
 			[natalya.speech(I am pleased to see you here again, filly. I knew you'd come and see me again,)]
 		#ENDIF
@@ -1206,7 +1208,7 @@
 	<htmlContent tag="OFFICE_STABLE_INTERVIEW_3"><![CDATA[
 	<p>
 		Hurrying to do as you're told, you reach up to lift Mistress Natalya's skirt, fully revealing her black-haired horse-like body.
-		#IF(game.getDialogueFlags().hasFlag(FLAG_playerSubmittedToNatalya))
+		#IF(game.getDialogueFlags().hasFlag(FLAG_playerSubmittedToNatalya) || game.getDialogueFlags().hasFlag(FLAG_playerSubmittedToNatalyaInPark))
 			 Although you've seen it before, you still find yourself staring in awe at how huge the [natalya.race]'s [natalya.penisLengthValue] cock is, especially in proportion to her relatively small body.
 		#ELSE
 			 As you kneel back down beside her, you find yourself staring in awe at how huge the [natalya.race]'s [natalya.penisLengthValue] cock is, especially in proportion to her relatively small body.

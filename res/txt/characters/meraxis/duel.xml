@@ -397,7 +397,7 @@
 	
 	<htmlContent tag="WON_TRANSFORM_BREASTS_DONE"><![CDATA[
 	<p>
-		Looking down at her inflated, [meraxis.cupSize]-cup breasts, Meraxis experimentally reaches up and gives them a squeeze, and with her cheeks still burning bight red, she looks at you and stutters, [meraxis.speech(Y-You will regret this, my nemesis! The next time we duel, I shall surely destroy you for making me look like a cow!)]
+		Looking down at her inflated, [meraxis.cupSize]-cup breasts, Meraxis experimentally reaches up and gives them a squeeze, and with her cheeks still burning bright red, she looks at you and stutters, [meraxis.speech(Y-You will regret this, my nemesis! The next time we duel, I shall surely destroy you for making me look like a cow!)]
 	</p>
 	<p>
 		Spinning around on the spot, the chuuni [meraxis.race] strikes a heroic pose, but as she does so her arms bump into her large boobs, which combined with the fact that her body is far more top-heavy that she's used to, causes her to stumble and fall right into your arms. Catching the unbalanced [meraxis.race] before she falls to the ground, you end up with her [meraxis.breastSize] boobs squished into your chest.
@@ -420,7 +420,7 @@
 	
 	<htmlContent tag="WON_TRANSFORM_BREASTS_REVERSE_DONE"><![CDATA[
 	<p>
-		Meraxis runs her hands over her tiny breasts, and with her cheeks still burning bight red, she mutters, [meraxis.speech(I'd kind of got used to having big ones...)]
+		Meraxis runs her hands over her tiny breasts, and with her cheeks still burning bright red, she mutters, [meraxis.speech(I'd kind of got used to having big ones...)]
 	</p>
 	<p>
 		Before you can respond to this, the blushing [meraxis.race] clears her throat and declares, [meraxis.speech(A-Anyway, I feel better like this! Now tremble before me and listen to what I have to say!)]
@@ -1025,16 +1025,16 @@
 		#ELSE
 			 flat chest,
 		#ENDIF
-		 you tell Meraxis that you want to see her naked breasts. As she hears what it is you're asking of her, Meraxis's cheeks flush a bight shade of red, and she pants, [meraxis.speech(M-My naked breasts? You're so lewd, [pc.name]...)]
+		 you tell Meraxis that you want to see her naked breasts. As she hears what it is you're asking of her, Meraxis's cheeks flush a bright shade of red, and she pants, [meraxis.speech(M-My naked breasts? You're so lewd, [pc.name]...)]
 	</p>
 	<p>
 		With her cheeks continuing to burn a bright shade of red, the embarrassed [meraxis.race] reveals just how horny she is by grabbing hold of your [pc.hand] and leading you over behind a nearby tree. Without needing any more encouragement, she turns around and swiftly strips out of her dress and cape, before taking off her bra and revealing her tits.
 	</p>
 	<p>
-		#IF(meraxis.isBreastsChanged())
-			Having previously told Meraxis to transform her breasts, you find yourself looking at a pair of round, DD-cup boobs. Meraxis's large nipples and areolae make her breasts look very lewd, and you find yourself getting turned on by the sight of them.
+		#IF(meraxis.getBreastRawSizeValue()>5)
+			Although Meraxis once had an almost completely flat chest, you find yourself looking at a pair of round, [meraxis.cupSize]-cup boobs. Her large nipples and areolae make her breasts look very lewd, and you find yourself getting turned on by the sight of them.
 		#ELSE
-			Having an almost completely-flat chest, you find yourself looking at a pair of round, AA-cup boobs. Despite their tiny size, Meraxis's big nipples and areolae make her breasts look quite lewd, and you find yourself getting turned on by the sight of them.
+			Having an almost completely-flat chest, you find yourself looking at a pair of round, [meraxis.cupSize]-cup boobs. Despite their tiny size, Meraxis's big nipples and areolae make her breasts look quite lewd, and you find yourself getting turned on by the sight of them.
 		#ENDIF
 		 Biting her lip and continuing to blush, the horny [meraxis.race] asks, [meraxis.speech(So, is this all you wanted? I-I mean, you could ask for more if you want...)]
 	</p>

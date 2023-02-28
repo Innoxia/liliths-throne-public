@@ -316,6 +316,14 @@ public class NyanFirstDoubleDate {
 			if(shoes!=null) {
 				getNyan().unequipClothingIntoVoid(shoes, true, getNyan());
 			}
+			Main.game.getPlayer().applyFoodConsumed(10);
+			Main.game.getPlayer().applyDrinkConsumed(10);
+			getNyan().applyFoodConsumed(10);
+			getNyan().applyDrinkConsumed(10);
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumGirlfriend)) {
+				getNyanMum().applyFoodConsumed(10);
+				getNyanMum().applyDrinkConsumed(10);
+			}
 		}
 		@Override
 		public int getSecondsPassed() {

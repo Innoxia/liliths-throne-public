@@ -52,6 +52,7 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -109,6 +110,9 @@ public class FortressMalesLeader extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
 			this.setTesticleCount(2);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.7.2")) {
+			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
 	}
 
@@ -247,8 +251,13 @@ public class FortressMalesLeader extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_leg_mens_hakama"), PresetColour.CLOTHING_BLACK, false), true, this);
 
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_katana"), DamageType.PHYSICAL));
-			this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_wakizashi"), DamageType.FIRE));
+			AbstractWeapon katana = Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_katana"), DamageType.PHYSICAL);
+			katana.setColours(Util.newArrayListOfValues(PresetColour.CLOTHING_RED_VERY_DARK, PresetColour.CLOTHING_YELLOW, PresetColour.CLOTHING_RED_VERY_DARK, PresetColour.CLOTHING_YELLOW));
+			this.equipMainWeaponFromNowhere(katana);
+
+			AbstractWeapon wakizashi = Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_wakizashi"), DamageType.FIRE);
+			wakizashi.setColours(Util.newArrayListOfValues(PresetColour.CLOTHING_RED_VERY_DARK, PresetColour.CLOTHING_YELLOW, PresetColour.CLOTHING_RED_VERY_DARK, PresetColour.CLOTHING_YELLOW));
+			this.equipMainWeaponFromNowhere(wakizashi);
 		}
 	}
 	

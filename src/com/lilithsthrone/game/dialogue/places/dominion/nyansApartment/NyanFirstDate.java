@@ -440,6 +440,10 @@ public class NyanFirstDate {
 		public void applyPreParsingEffects() {
 			travelTo(WorldType.DOMINION, PlaceType.DOMINION_NYAN_APARTMENT);
 			((Nyan)getNyan()).wearCoat(true, false);
+			Main.game.getPlayer().applyFoodConsumed(10);
+			Main.game.getPlayer().applyDrinkConsumed(10);
+			getNyan().applyFoodConsumed(10);
+			getNyan().applyDrinkConsumed(10);
 		}
 		@Override
 		public int getSecondsPassed() {

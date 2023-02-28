@@ -36,6 +36,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.ImmobilisationType;
+import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.dominion.SMMilkingStall;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMilkingStall;
@@ -147,7 +148,8 @@ public class SlaveDialogue {
 	private static SMGeneric getGenericSlaveSexManager(
 			List<GameCharacter> dominantParticipants,
 			List<GameCharacter> submissiveParticipants,
-			List<ResponseTag> tags) {
+			List<ResponseTag> tags,
+			boolean forcePlayerFullControl) {
 		return new SMGeneric(
 				dominantParticipants,
 				submissiveParticipants,
@@ -157,6 +159,13 @@ public class SlaveDialogue {
 			@Override
 			public boolean isPublicSex() {
 				return isCompanionSexPublic();
+			}
+			@Override
+			public SexControl getSexControl(GameCharacter participant) {
+				if(participant.isPlayer() && forcePlayerFullControl) {
+					return SexControl.FULL;
+				}
+				return super.getSexControl(participant);
 			}
 			@Override
 			public Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
@@ -228,11 +237,11 @@ public class SlaveDialogue {
 		}
 	}
 	
-	private static List<GameCharacter> getDominantSpectators() {
+	public static List<GameCharacter> getDominantSpectators() {
 		return Main.game.getPlayer().getCompanions();
 	}
 
-	private static List<GameCharacter> getSubmissiveSpectators() {
+	public static List<GameCharacter> getSubmissiveSpectators() {
 		// Removed in 0.4.1.5, as this was allowing sex with random characters who were on the tile that shouldn't have been involved in sex
 //		List<NPC> characters = Main.game.getCharactersPresent();
 //		characters.removeAll(Main.game.getPlayer().getCompanions());
@@ -377,13 +386,20 @@ public class SlaveDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
+			UtilText.nodeContentSB.append("<p>");
+			if(getSlave().isSleepingAtHour(Main.game.getHourOfDay())) {
+				UtilText.nodeContentSB.append("As [npc.name] is sleeping at this time, you [pc.walk] over to [npc.herHim] and wake [npc.herHim] up, before [pc.stepping] back and giving [npc.herHim] room to get out of bed.");
+			} else {
+				UtilText.nodeContentSB.append("Deciding that you'd like to interact with [npc.name], you [pc.walk] over to [npc.herHim] and get [npc.her] attention.");
+			}
+			UtilText.nodeContentSB.append("</p>");
+			
 			if(getSlave().isVisiblyPregnant()){
 				// Pregnant encounters:
 				if(!getSlave().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
-					UtilText.nodeContentSB.append(
-							"<p>"
-								+ "As you approach [npc.name], it's impossible not to notice the fact that [npc.sheIs] sporting a round belly."
-								+ " [npc.She] absent-mindedly strokes [npc.her] swollen bump as [npc.she] looks up at you,");
+					UtilText.nodeContentSB.append("<p>");
+						UtilText.nodeContentSB.append("As you look at the [npc.race], it's impossible not to notice the fact that [npc.sheIs] sporting a round belly.");
+						UtilText.nodeContentSB.append(" [npc.She] absent-mindedly strokes [npc.her] swollen bump as [npc.she] returns your gaze,");
 					
 					GameCharacter father = getSlave().getPregnantLitter().getFather();
 					
@@ -438,13 +454,14 @@ public class SlaveDialogue {
 								}
 								break;
 						}
-						UtilText.nodeContentSB.append("</p>"
-								+ "<p>"
-									+ "You walk over to your slave, and, running your [pc.hands] over [npc.her] pregnant belly, you smile reassuringly at the mother of your children."
-									+ " [pc.speech(When the time's right, Lilaya will be able to help you give birth, ok?)]"
+						UtilText.nodeContentSB.append("</p>");
+						UtilText.nodeContentSB.append(
+								"<p>"
+									+ "You [pc.step] up to your slave and run your [pc.hands] over [npc.her] pregnant belly."
+									+ " Smiling reassuringly at the mother of your children, you tell [npc.herHim] that Lilaya will be able to help [npc.herHim] give birth once the time is right."
 								+ "</p>"
 								+ "<p>"
-									+ "[npc.Name] responds in the affirmative, and after stroking and caressing [npc.her] belly for a little while, you wonder what to do next..."
+									+ "[npc.Name] acknowledges this with a nod, and so after you've stroked and caressed [npc.her] belly for a little while longer, you [pc.step] back and wonder what to do next..."
 								+ "</p>");
 						
 					} else {
@@ -462,20 +479,21 @@ public class SlaveDialogue {
 										+ " [npc.speech(Hello, [npc.pcName]. "+(father==null?"I ended up getting pregnant":father.getName("A")+" got me pregnant")+", but I won't let it get in the way of my duties!)]");
 								break;
 						}
-						UtilText.nodeContentSB.append("</p>"
-								+ "<p>"
-									+ "You walk over to your slave, and, running your [pc.hands] over [npc.her] pregnant belly, you smile reassuringly at [npc.herHim]."
-									+ " [pc.speech(When the time's right, Lilaya will be able to help you give birth, ok?)]"
+						UtilText.nodeContentSB.append("</p>");
+						UtilText.nodeContentSB.append(
+								"<p>"
+									+ "You [pc.step] up to your slave and run your [pc.hands] over [npc.her] pregnant belly."
+									+ " Smiling reassuringly at the [npc.race], you tell [npc.herHim] that Lilaya will be able to help [npc.herHim] give birth once the time is right."
 								+ "</p>"
 								+ "<p>"
-									+ "[npc.Name] responds in the affirmative, and after stroking and caressing [npc.her] belly for a little while, you wonder what to do next..."
+									+ "[npc.Name] acknowledges this with a nod, and so after you've stroked and caressed [npc.her] belly for a little while longer, you [pc.step] back and wonder what to do next..."
 								+ "</p>");
 					}
 				
 				} else {
 					UtilText.nodeContentSB.append(
 							"<p>"
-								+ "As you approach [npc.name], you see that [npc.sheIs] still sporting a round belly, and [npc.she] absent-mindedly strokes [npc.her] pregnant bump as [npc.she] looks up at you,");
+								+ "As you look at the [npc.race], you see that [npc.sheIs] still sporting a round belly, and [npc.she] absent-mindedly strokes [npc.her] pregnant bump as [npc.she] returns your gaze,");
 					switch(AffectionLevelBasic.getAffectionLevelFromValue(getSlave().getAffection(Main.game.getPlayer()))) {
 						case DISLIKE:
 							switch(ObedienceLevelBasic.getObedienceLevelFromValue(getSlave().getObedienceValue())) {
@@ -526,13 +544,14 @@ public class SlaveDialogue {
 							}
 							break;
 					}
-					UtilText.nodeContentSB.append("</p>"
-							+ "<p>"
-								+ "You walk over to your slave, and, running your [pc.hands] over [npc.her] pregnant belly, you smile reassuringly at [npc.herHim]."
-								+ " [pc.speech(Remember that Lilaya will be able to help you to give birth. Make sure you visit her when the time's right, ok?)]"
+					UtilText.nodeContentSB.append("</p>");
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "You [pc.step] up to your slave and run your [pc.hands] over [npc.her] pregnant belly."
+								+ " Smiling reassuringly at the [npc.race], you tell [npc.herHim] that Lilaya will be able to help [npc.herHim] give birth once the time is right."
 							+ "</p>"
 							+ "<p>"
-								+ "[npc.Name] responds in the affirmative, and after stroking and caressing [npc.her] belly for a little while, you wonder what to do next..."
+								+ "[npc.Name] acknowledges this with a nod, and so after you've stroked and caressed [npc.her] belly for a little while longer, you [pc.step] back and wonder what to do next..."
 							+ "</p>");
 				}
 				
@@ -540,7 +559,7 @@ public class SlaveDialogue {
 				// Standard repeat encounter:
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "As you approach [npc.name], [npc.she] looks up at you,");
+							+ "As you look at the [npc.race], [npc.she] returns your gaze,");
 				switch(AffectionLevelBasic.getAffectionLevelFromValue(getSlave().getAffection(Main.game.getPlayer()))) {
 					case DISLIKE:
 						switch(ObedienceLevelBasic.getObedienceLevelFromValue(getSlave().getObedienceValue())) {
@@ -591,9 +610,10 @@ public class SlaveDialogue {
 						}
 						break;
 				}
-				UtilText.nodeContentSB.append("</p>"
-						+ "<p>"
-							+ "You walk over to your slave, wondering what to do next..."
+				UtilText.nodeContentSB.append("</p>");
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "With your slave waiting to hear what your command will be, you wonder what to do with [npc.herHim] now..."
 						+ "</p>");
 			}
 			
@@ -971,7 +991,7 @@ public class SlaveDialogue {
 											Util.newArrayListOfValues(characterForSex),
 											(characterForSex.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
 												?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
-												:new ArrayList<>())),
+												:new ArrayList<>()), false),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getTextFilePath(), "RAPE_START", characterForSex)) {
 								@Override
@@ -994,7 +1014,7 @@ public class SlaveDialogue {
 											Util.newArrayListOfValues(characterForSex),
 											(characterForSex.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
 													?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
-													:new ArrayList<>())),
+													:new ArrayList<>()), false),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getTextFilePath(), "SEX_START", characterForSex)) {
 								@Override
@@ -1043,7 +1063,7 @@ public class SlaveDialogue {
 									getGenericSlaveSexManager(
 											Util.newArrayListOfValues(characterForSexSecondary, Main.game.getPlayer()),
 											Util.newArrayListOfValues(characterForSex),
-											Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)),
+											Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY), false),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROAST_FRONT_START", characterForSex, characterForSexSecondary)) {
 								@Override
@@ -1093,7 +1113,7 @@ public class SlaveDialogue {
 										getGenericSlaveSexManager(
 												Util.newArrayListOfValues(Main.game.getPlayer(), characterForSexSecondary),
 												Util.newArrayListOfValues(characterForSex),
-												Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)),
+												Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY), false),
 										getAfterSexDialogue(),
 										UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROAST_BEHIND_START", characterForSex, characterForSexSecondary)) {
 									@Override
@@ -1136,13 +1156,85 @@ public class SlaveDialogue {
 									getGenericSlaveSexManager(
 											Util.newArrayListOfValues(Main.game.getPlayer()),
 											Util.newArrayListOfValues(characterForSex, characterForSexSecondary),
-											Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)),
+											Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY), false),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SIDE_BY_SIDE_START", characterForSex, characterForSexSecondary)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
 									applyImmobilisationText(Util.newArrayListOfValues(characterForSex, characterForSexSecondary));
+								}
+							};
+						}
+						
+					} else if(index==5) {
+						if(charactersPresent.size()<3) {
+							return new Response("Gangbang (as dom)",
+									"There need to be at least three characters present in order to start a gangbang.",
+									null);
+							
+						} else {
+							boolean isRape = charactersPresent.stream().anyMatch(c->!c.isAttractedTo(Main.game.getPlayer()));
+							// Handle attraction/non-con:
+							if(isRape) {
+								if(charactersPresent.stream().anyMatch(c->!c.isSlave())) {
+									List<GameCharacter> nonSlaves = new ArrayList<>();
+									for(GameCharacter character : charactersPresent) {
+										if(!character.isSlave() && !character.isAttractedTo(Main.game.getPlayer())) {
+											nonSlaves.add(character);
+										}
+									}
+									String isAre = nonSlaves.size()==1?"is":"are";
+									String slavePural = nonSlaves.size()==1?"slave":"slaves";
+									String them = nonSlaves.size()==1?UtilText.parse(nonSlaves.get(0), "[npc.herHim]"):"them";
+									return new Response("Gangbang (as dom)",
+											"As "+Util.charactersToStringListOfNames(nonSlaves)+" "+isAre+" not attracted to you, and "+isAre+" not your "+slavePural+", you cannot have a gangbang with "+them+".",
+											null);
+									
+								} else if(!Main.game.isNonConEnabled()) {
+									List<GameCharacter> nonAttracted = new ArrayList<>();
+									for(GameCharacter character : charactersPresent) {
+										if(!character.isAttractedTo(Main.game.getPlayer())) {
+											nonAttracted.add(character);
+										}
+									}
+									String isAre = nonAttracted.size()==1?"is":"are";
+									String them = nonAttracted.size()==1?UtilText.parse(nonAttracted.get(0), "[npc.herHim]"):"them";
+									return new Response("Gangbang (as dom)",
+											"As "+Util.charactersToStringListOfNames(nonAttracted)+" "+isAre+" not attracted to you, you cannot have a gangbang with "+them+".",
+											null);
+								}
+							}
+							
+							List<GameCharacter> nonAttracted = new ArrayList<>();
+							for(GameCharacter character : charactersPresent) {
+								if(!character.isAttractedTo(Main.game.getPlayer())) {
+									nonAttracted.add(character);
+								}
+							}
+							String isAre = nonAttracted.size()==1?"is":"are";
+							String them = nonAttracted.size()==1?UtilText.parse(nonAttracted.get(0), "[npc.herHim]"):"them";
+							List<GameCharacter> sexParticipants = new ArrayList<GameCharacter>(charactersPresent);
+							return new ResponseSex(
+									isRape
+										?"Gangbang rape (as dom)"
+										:"Gangbang (as dom)",
+									"Have sex with "+Util.charactersToStringListOfNames(sexParticipants)+"."
+										+ (isRape
+											?" As "+Util.charactersToStringListOfNames(nonAttracted)+" "+isAre+" not attracted to you, you will have to force "+them+" into it..."
+											:""),
+									null, null, null, null, null, null,
+									!isRape, false,
+									getGenericSlaveSexManager(
+											Util.newArrayListOfValues(Main.game.getPlayer()),
+											sexParticipants,
+											Util.newArrayListOfValues(), false),
+									getAfterSexDialogue(),
+									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), sexParticipants.size()==3?"SEX_GANGBANG_3":"SEX_GANGBANG_4", sexParticipants)) {
+								@Override
+								public void effects() {
+									applyReactionReset();
+									applyImmobilisationText(sexParticipants);
 								}
 							};
 						}
@@ -1167,7 +1259,7 @@ public class SlaveDialogue {
 										Util.newArrayListOfValues(Main.game.getPlayer()),
 										(characterForSex.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
 												?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
-												:new ArrayList<>())),
+												:new ArrayList<>()), false),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getTextFilePath(), "SEX_AS_SUB_START", characterForSex)) {
 								@Override
@@ -1223,7 +1315,7 @@ public class SlaveDialogue {
 									getGenericSlaveSexManager(
 										Util.newArrayListOfValues(characterForSexSecondary, characterForSex),
 										Util.newArrayListOfValues(Main.game.getPlayer()),
-										Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)),
+										Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY), false),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROASTED_START", characterForSex, characterForSexSecondary)) {
 								@Override
@@ -1279,7 +1371,7 @@ public class SlaveDialogue {
 									getGenericSlaveSexManager(
 											Util.newArrayListOfValues(characterForSex, characterForSexSecondary),
 											Util.newArrayListOfValues(Main.game.getPlayer()),
-											Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)),
+											Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY), false),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROASTED_START", characterForSexSecondary, characterForSex)) {
 								@Override
@@ -1325,7 +1417,7 @@ public class SlaveDialogue {
 									getGenericSlaveSexManager(
 											Util.newArrayListOfValues(characterForSex),
 											Util.newArrayListOfValues(Main.game.getPlayer(), characterForSexSecondary),
-											Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)),
+											Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY), false),
 									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SIDE_BY_SIDE_AS_SUB_START", characterForSex, characterForSexSecondary)) {
 								@Override
@@ -1336,6 +1428,50 @@ public class SlaveDialogue {
 							};
 						}
 					
+					}else if(index==10) {
+						if(charactersPresent.size()<3) {
+							return new Response("Gangbang (as sub)",
+									"There need to be at least three characters present in order to start a gangbang.",
+									null);
+							
+						} else {
+							boolean isRape = charactersPresent.stream().anyMatch(c->!c.isAttractedTo(Main.game.getPlayer()));
+							// Handle attraction/non-con:
+							if(isRape) {
+								List<GameCharacter> nonAttracted = new ArrayList<>();
+								for(GameCharacter character : charactersPresent) {
+									if(!character.isAttractedTo(Main.game.getPlayer())) {
+										nonAttracted.add(character);
+									}
+								}
+								String isAre = nonAttracted.size()==1?"is":"are";
+								String them = nonAttracted.size()==1?UtilText.parse(nonAttracted.get(0), "[npc.herHim]"):"them";
+								return new Response("Gangbang (as sub)",
+										"As "+Util.charactersToStringListOfNames(nonAttracted)+" "+isAre+" not attracted to you, you cannot make "+them+" dominantly participate in a gangbang you.",
+										null);
+							}
+							
+							List<GameCharacter> sexParticipants = new ArrayList<GameCharacter>(charactersPresent);
+							return new ResponseSex(
+									"Gangbang (as sub)",
+									"Have "+Util.charactersToStringListOfNames(sexParticipants)+" take the dominant roles and get them to gangbang you.",
+									null, null, null, null, null, null,
+									true, false,
+									getGenericSlaveSexManager(
+											sexParticipants,
+											Util.newArrayListOfValues(Main.game.getPlayer()),
+											Util.newArrayListOfValues(),
+											true),
+									getAfterSexDialogue(),
+									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), sexParticipants.size()==3?"SEX_GANGBANG_AS_SUB_3":"SEX_GANGBANG_AS_SUB_4", sexParticipants)) {
+								@Override
+								public void effects() {
+									applyReactionReset();
+									applyImmobilisationText(sexParticipants);
+								}
+							};
+						}
+						
 					} else if(index==11) {
 						if(characterForSexSecondary!=null) {
 							return new ResponseEffectsOnly(
@@ -1701,10 +1837,18 @@ public class SlaveDialogue {
 			
 			switch(getSlave().getSlaveJob(Main.game.getHourOfDay())) {
 				case CLEANING:
-					UtilText.nodeContentSB.append("Wanting to encourage [npc.name] to do [npc.her] best while working as your "+Util.capitaliseSentence(SlaveJob.CLEANING.getName(getSlave()))+", you ask [npc.her] how [npc.sheIs] finding it.");
+					UtilText.nodeContentSB.append("Wanting to encourage [npc.name] to do [npc.her] best while working as your ");
+					UtilText.nodeContentSB.append(Util.capitaliseSentence(SlaveJob.CLEANING.getName(getSlave())));
+					UtilText.nodeContentSB.append(", you ask [npc.her] how [npc.sheIs] finding it.");
 					break;
 				case IDLE:
 					UtilText.nodeContentSB.append("Although [npc.name] hasn't been assigned to a job, you ask [npc.her] how [npc.sheIs] finding life as your slave.");
+					break;
+				case GARDEN:
+					UtilText.nodeContentSB.append("Wanting to encourage [npc.name] to do [npc.her] best while working as a gardener, you ask [npc.her] how [npc.sheIs] finding it.");
+					break;
+				case SECURITY:
+					UtilText.nodeContentSB.append("Wanting to encourage [npc.name] to do [npc.her] best while working as a security guard, you ask [npc.her] how [npc.sheIs] finding it.");
 					break;
 				case KITCHEN:
 					UtilText.nodeContentSB.append("Wanting to encourage [npc.name] to do [npc.her] best while working in the kitchen as your cook, you ask [npc.her] how [npc.sheIs] finding it.");
@@ -1738,6 +1882,11 @@ public class SlaveDialogue {
 					break;
 				case SPA_RECEPTIONIST:
 					UtilText.nodeContentSB.append("Wanting to make sure that [npc.nameIsFull] happy, you ask [npc.herHim] how [npc.she] feels about being assigned to work in the spa.");
+					break;
+				case DINING_HALL:
+					UtilText.nodeContentSB.append("Wanting to encourage [npc.name] to do [npc.her] best while working as your ");
+					UtilText.nodeContentSB.append(Util.capitaliseSentence(SlaveJob.DINING_HALL.getName(getSlave())));
+					UtilText.nodeContentSB.append(", you ask [npc.her] how [npc.sheIs] finding it.");
 					break;
 			}
 			
@@ -3203,36 +3352,46 @@ public class SlaveDialogue {
 
 		@Override
 		public String getContent() {
-			if(!getSlave().isAttractedTo(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
-				return UtilText.parse(getSlave(),
-						"<p>"
-							+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a thankful sob as [npc.she] realises that you've finished."
-						+ "</p>");
+			if(Main.sex.getAllParticipants(false).size()==4) {
+				List<GameCharacter> sexParticipants = new ArrayList<GameCharacter>(charactersPresent);
+				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX_GANGBANG_3", sexParticipants);
 				
-			} else {
-				if(Main.sex.getNumberOfOrgasms(getSlave()) >= getSlave().getOrgasmsBeforeSatisfied()) {
+			} else if(Main.sex.getAllParticipants(false).size()==5) {
+				List<GameCharacter> sexParticipants = new ArrayList<GameCharacter>(charactersPresent);
+				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX_GANGBANG_4", sexParticipants);
+				
+			}else {
+				if(!getSlave().isAttractedTo(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
 					return UtilText.parse(getSlave(),
 							"<p>"
-								+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Main.sex.getNumberOfOrgasms(getSlave()) > 1?"s":"")+"."
-								+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
+								+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a thankful sob as [npc.she] realises that you've finished."
 							+ "</p>");
+					
 				} else {
-					return UtilText.parse(getSlave(),
-							"<p>"
-								+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished."
-								+ (getSlave().hasSlavePermissionSetting(SlavePermissionSetting.SEX_MASTURBATE)
-									?"#IF(npc.isTaur())"
-											+ "Unable to reach back to [npc.her] groin, [npc.she] frantically starts rubbing [npc.her] rear-end up against a nearby piece of furniture in a desperate attempt to masturbate and finish what you started."
-										+ "#ELSEIF(npc.hasLegs())"
-											+ " [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started."
-										+ "#ELSE"
-											+ " [npc.Her] [npc.hands] dart down to [npc.her] groin, and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started."
-										+ "#ENDIF"
-									:" Forbidden from masturbating, all [npc.she] can do is fruitlessly buck [npc.her] hips towards you and beg for you to give [npc.herHim] an orgasm.")
-							+ "</p>"
-							+ "<p>"
-								+ "[npc.speech([pc.Name]! I'm still horny!)] [npc.she] cries."
-							+ "</p>");
+					if(Main.sex.getNumberOfOrgasms(getSlave()) >= getSlave().getOrgasmsBeforeSatisfied()) {
+						return UtilText.parse(getSlave(),
+								"<p>"
+									+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Main.sex.getNumberOfOrgasms(getSlave()) > 1?"s":"")+"."
+									+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
+								+ "</p>");
+					} else {
+						return UtilText.parse(getSlave(),
+								"<p>"
+									+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished."
+									+ (getSlave().hasSlavePermissionSetting(SlavePermissionSetting.SEX_MASTURBATE)
+										?"#IF(npc.isTaur())"
+												+ "Unable to reach back to [npc.her] groin, [npc.she] frantically starts rubbing [npc.her] rear-end up against a nearby piece of furniture in a desperate attempt to masturbate and finish what you started."
+											+ "#ELSEIF(npc.hasLegs())"
+												+ " [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started."
+											+ "#ELSE"
+												+ " [npc.Her] [npc.hands] dart down to [npc.her] groin, and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started."
+											+ "#ENDIF"
+										:" Forbidden from masturbating, all [npc.she] can do is fruitlessly buck [npc.her] hips towards you and beg for you to give [npc.herHim] an orgasm.")
+								+ "</p>"
+								+ "<p>"
+									+ "[npc.speech([pc.Name]! I'm still horny!)] [npc.she] cries."
+								+ "</p>");
+					}
 				}
 			}
 		}

@@ -1034,7 +1034,7 @@ public enum RenderingEngine {
 				if (Main.game.isInCombat()
 						|| (Main.game.isInSex()
 								&& (isTraderInv
-										|| !clothing.isAbleToBeEquippedDuringSex(clothing.getClothingType().getEquipSlots().get(0)).getKey()
+										|| !clothing.isAbleToBeEquippedDuringSexInAnySlot().getKey()
 										|| (!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer(), Main.game.getPlayer(), clothing)
 												&& (InventoryDialogue.getInventoryNPC()==null || !Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer(), InventoryDialogue.getInventoryNPC(), clothing)))))) {
 					overlay += " disabled";
@@ -1073,7 +1073,7 @@ public enum RenderingEngine {
 			
 		} else if (item instanceof AbstractClothing) {
 			AbstractClothing clothing = (AbstractClothing)item;
-			if (Main.game.isInCombat() || (Main.game.isInSex() && !clothing.isAbleToBeEquippedDuringSex(clothing.getClothingType().getEquipSlots().get(0)).getKey())) {
+			if (Main.game.isInCombat() || (Main.game.isInSex() && !clothing.isAbleToBeEquippedDuringSexInAnySlot().getKey())) {
 				overlay += " disabled";
 			}
 			

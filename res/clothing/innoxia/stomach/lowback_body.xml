@@ -134,17 +134,6 @@
 	
 	<replacementText type="SHIFTS_ASIDE">
 		<self><![CDATA[
-			[npc.Name] [npc.verb(slide)] the lower part of [npc.her] bodysuit to one side in order to gain access to [npc.her] groin.
-		]]></self>
-		<other><![CDATA[
-			[npc.Name] [npc.verb(slide)] the lower part of [npc2.namePos] bodysuit to one side in order to gain access to [npc2.her] groin.
-		]]></other>
-		<otherRough><![CDATA[
-			[npc.Name] impatiently [npc.verb(yank)] the lower part of [npc2.namePos] bodysuit to one side in order to gain access to [npc2.her] groin.
-		]]></otherRough>
-	</replacementText>
-	<displacementText type="SHIFTS_ASIDE">
-		<self><![CDATA[
 			[npc.Name] [npc.verb(slide)] the lower part of [npc.her] bodysuit back into its correct position so that [npc.her] groin is covered.
 		]]></self>
 		<other><![CDATA[
@@ -153,20 +142,20 @@
 		<otherRough><![CDATA[
 			[npc.Name] roughly [npc.verb(yank)] the lower part of [npc2.namePos] bodysuit back into its correct position so that [npc2.her] groin is covered.
 		]]></otherRough>
+	</replacementText>
+	<displacementText type="SHIFTS_ASIDE">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(slide)] the lower part of [npc.her] bodysuit to one side in order to gain access to [npc.her] groin.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(slide)] the lower part of [npc2.namePos] bodysuit to one side in order to gain access to [npc2.her] groin.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] impatiently [npc.verb(yank)] the lower part of [npc2.namePos] bodysuit to one side in order to gain access to [npc2.her] groin.
+		]]></otherRough>
 	</displacementText>
 	
 	<replacementText type="PULLS_DOWN">
-		<self><![CDATA[
-			[npc.Name] [npc.verb(pull)] down the top half of [npc.her] bodysuit.
-		]]></self>
-		<other><![CDATA[
-			[npc.Name] [npc.verb(pull)] down the top half of [npc2.namePos] bodysuit.
-		]]></other>
-		<otherRough><![CDATA[
-			[npc.Name] roughly [npc.verb(pull)] down the top half of [npc2.namePos] bodysuit.
-		]]></otherRough>
-	</replacementText>
-	<displacementText type="PULLS_DOWN">
 		<self><![CDATA[
 			[npc.Name] [npc.verb(pull)] the top part of [npc.her] bodysuit up into its correct position.
 		]]></self>
@@ -175,6 +164,17 @@
 		]]></other>
 		<otherRough><![CDATA[
 			[npc.Name] roughly [npc.verb(yank)] the top part of [npc2.namePos] bodysuit up into its correct position.
+		]]></otherRough>
+	</replacementText>
+	<displacementText type="PULLS_DOWN">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(pull)] down the top half of [npc.her] bodysuit.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(pull)] down the top half of [npc2.namePos] bodysuit.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(pull)] down the top half of [npc2.namePos] bodysuit.
 		]]></otherRough>
 	</displacementText>
 	

@@ -11,7 +11,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
@@ -31,6 +30,8 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.pregnancy.FertilisationType;
+import com.lilithsthrone.game.character.pregnancy.Litter;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -225,7 +226,7 @@ public class EvelyxMilker extends NPC {
 			}
 			// Pregnancy preference:
 			if(Main.game.getDialogueFlags().hasFlag("innoxia_evelyx_cow_search_pregnant")) {
-				this.setPregnantLitter(new Litter(Main.game.getDateNow(), Main.game.getDateNow(), this, this, new ArrayList<>()));
+				this.setPregnantLitter(new Litter(Main.game.getDateNow(), Main.game.getDateNow(), this, this, FertilisationType.NORMAL, new ArrayList<>()));
 			}
 			// Mileage preference:
 			if(Main.game.getDialogueFlags().hasFlag("innoxia_evelyx_cow_search_high_mileage")) {

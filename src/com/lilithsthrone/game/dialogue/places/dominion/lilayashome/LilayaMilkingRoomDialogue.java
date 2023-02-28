@@ -12,14 +12,12 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
-import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
-import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.PlaceUpgrade;
@@ -502,16 +500,7 @@ public class LilayaMilkingRoomDialogue {
 				
 			} else if(index-11<charactersPresent.size()) {
 				GameCharacter slave = charactersPresent.get(index-11);
-				return new Response(UtilText.parse(slave, "[npc.Name]"), UtilText.parse(slave, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
-					@Override
-					public Colour getHighlightColour() {
-						return slave.getFemininity().getColour();
-					}
-					@Override
-					public void effects() {
-						SlaveDialogue.initDialogue((NPC) slave, false);
-					}
-				};
+				return LilayaHomeGeneric.interactWithNPC(slave);
 			}
 				
 			return null;

@@ -19,7 +19,11 @@
 
 	<htmlContent tag="OCCUPANT_START"><![CDATA[
 	<p>
-		Wanting to pay your [npc.relation(pc)] a visit to find out how [npc.sheIs] getting on, you knock on [npc.namePos] door, and after just a second, you hear [npc.herHim] call out, [npc.speech(Come on in!)]
+		#IF(npc.isSleepingAtHour())
+			Wanting to pay your [npc.relation(pc)] a visit to find out how [npc.sheIs] getting on, you knock on [npc.namePos] door and wait for an answer. Clearly having just woken [npc.herHim] up, you soon hear [npc.herHim] sleepily calling out, [npc.speech(Come on in...)]
+		#ELSE
+			Wanting to pay your [npc.relation(pc)] a visit to find out how [npc.sheIs] getting on, you knock on [npc.namePos] door, and after just a second, you hear [npc.herHim] call out, [npc.speech(Come on in!)]
+		#ENDIF
 	</p>
 	<p>
 		Doing as [npc.she] says, you push open the door and step inside [npc.her] room, greeting [npc.herHim] as you enter, [pc.speech(Hi, [npc.name].)]
@@ -35,6 +39,26 @@
 	#ELSE
 		<p>
 			[npc.speech([npc.PcName]!)] [npc.name] happily shouts, bounding forwards with a huge grin on [npc.her] face before wrapping [npc.her] [npc.arms] around you and giving you a big hug. After spending a moment together in one another's loving embrace, [npc.name] pulls back and joyously exclaims, [npc.speech(Thank you so much for everything again; I'm so lucky to be your [npc.relation(pc)]! If there's anything you ever need, just let me know! So, what did you want to talk about?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_WORKING"><![CDATA[
+	<p>
+		Wanting to see how your [npc.relation(pc)] is getting on with [npc.her] job, you approach [npc.herHim] and call out, [pc.speech(Hi, [npc.name].)]
+	</p>
+	#IF (npc.getAffection(pc) < AFFECTION_NEGATIVE_TWO_DISLIKE.getMaximumValue())
+		<p>
+			[npc.speech(Oh. It's you,)] [npc.name] replies, doing [npc.her] best to hide [npc.her] animosity towards you as [npc.she] stops what she is doing and crosses [npc.her] [npc.arms]. [npc.speech(Look, I'm really grateful for everything you've done for me, but can you make this quick? I'm busy.)]
+		</p>
+	#ELSEIF (npc.getAffection(pc) < AFFECTION_POSITIVE_ONE_FRIENDLY.getMaximumValue())
+		<p>
+			[npc.speech(Hi, [npc.pcName]!)] [npc.name] happily replies, [npc.she] sets aside what [npc.she] was working on to give you [npc.her] full attention. [npc.speech(Thank you so much for everything again; I'm so lucky to be your [npc.relation(pc)]! What can I do for you?)]
+		</p>
+	#ELSE
+		<p>
+			[npc.speech([npc.PcName]!)] [npc.name] happily shouts. After quickly finishing [npc.her] current task, [npc.she] bounds forwards with a huge grin on [npc.her] face, before wrapping [npc.her] [npc.arms] around you and giving you a big hug. After spending a moment together in one another's loving embrace, [npc.name] pulls back and joyously exclaims, [npc.speech(Thank you so much for everything again; I'm so lucky to be your [npc.relation(pc)]! If there's anything you ever need, just let me know! So, what did you want to talk about?)]
 		</p>
 	#ENDIF
 	]]>
@@ -459,6 +483,37 @@
 	]]>
 	</htmlContent>
 
+	<!-- Description is more generic as with more than 2 characters the combinations of attracted/non-attracted would be quite complex to fully detail. -->
+	<htmlContent tag="SEX_GANGBANG_3"><![CDATA[
+	<p>
+		Wanting to have sex with everyone present, you tell [npc.name], [npc2.name], and [npc3.name] what's on your mind.
+	</p>
+	<p>
+		#IF(npc.isAttractedTo(pc) && npc2.isAttractedTo(pc) && npc3.isAttractedTo(pc))
+			As all three of them give positive responses,
+		#ELSE
+			Before any of them have any time in which to respond,
+		#ENDIF
+		 you [pc.step] forwards and prepare to get started...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_GANGBANG_4"><![CDATA[
+	<p>
+		Wanting to have sex with everyone present, you tell [npc.name], [npc2.name], [npc3.name], and [npc4.name] what's on your mind.
+	</p>
+	<p>
+		#IF(npc.isAttractedTo(pc) && npc2.isAttractedTo(pc) && npc3.isAttractedTo(pc) && npc4.isAttractedTo(pc))
+			As all four of them give positive responses,
+		#ELSE
+			Before any of them have any time in which to respond,
+		#ENDIF
+		 you [pc.step] forwards and prepare to get started...
+	</p>
+	]]>
+	</htmlContent>
+
 	<!-- END Dominant sex actions -->
 	
 	
@@ -674,6 +729,27 @@
 		#ELSE
 			Stepping forwards and preparing to use [npc.her] [npc.legConfiguration] body to mount one of you, [npc.name] wonders out loud, [npc.speech(I wonder which of you I'll rut first...)]
 		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Description is more generic as with more than 2 characters the combinations of attracted/non-attracted would be quite complex to fully detail. -->
+	<htmlContent tag="SEX_GANGBANG_AS_SUB_3"><![CDATA[
+	<p>
+		Wanting everyone present to dominantly fuck you, you tell [npc.name], [npc2.name], and [npc3.name] what's on your mind.
+	</p>
+	<p>
+		As all three of them give positive responses, you [pc.step] forwards and prepare to submit to them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_GANGBANG_AS_SUB_4"><![CDATA[
+	<p>
+		Wanting everyone present to dominantly fuck you, you tell [npc.name], [npc2.name], [npc3.name], and [npc4.name] what's on your mind.
+	</p>
+	<p>
+		As all four of them give positive responses, you [pc.step] forwards and prepare to submit to them...
 	</p>
 	]]>
 	</htmlContent>
@@ -992,6 +1068,20 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="AFTER_SEX_GANGBANG_3"><![CDATA[
+	<p>
+		Having had your fun, you disentangle yourself from [npc.name], [npc2.name], and [npc3.name], before starting to get your things back in order. Grinning at your three partners, you tell them that you should do this again some time, before [pc.stepping] back and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_GANGBANG_4"><![CDATA[
+	<p>
+		Having had your fun, you disentangle yourself from [npc.name], [npc2.name], [npc3.name], and [npc4.name], before starting to get your things back in order. Grinning at your four partners, you tell them that you should do this again some time, before [pc.stepping] back and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="LEAVE_AFTER_SEX"><![CDATA[
 	<p>
 		As [npc.name] looks exhausted, you decide to take your leave and give [npc.herHim] some time to recover. Heading over to the door, you call out, [pc.speech(I'll be back later, [npc.name]. Maybe we can have some more fun when I return...)]
@@ -1113,7 +1203,11 @@
 		Finding yourself near to where [npc.name] lives, you decide to pay [npc.herHim] a visit. Cutting across the street towards [npc.her] apartment building, you push open the front door and step into the building's foyer, before heading over to the staircase and making your way up to the second floor.
 	</p>
 	<p>
-		Walking up to the door of [npc.namePos] flat, you give it a firm knock, smiling to yourself as you hear a muffled response from somewhere within, [npc.speech(Hold on! I'm coming!)]
+		#IF(npc.isSleepingAtHour())
+			Walking up to the door of [npc.namePos] flat, you give it a firm knock and wait for an answer. Clearly having just woken [npc.herHim] up, you soon hear [npc.herHim] sleepily calling out, [npc.speech(Hold on... I'm coming...)]
+		#ELSE
+			Walking up to the door of [npc.namePos] flat, you give it a firm knock, smiling to yourself as you hear a muffled response from somewhere within, [npc.speech(Hold on! I'm coming!)]
+		#ENDIF
 	</p>
 	<p>
 		After just a moment, the door swings inwards, and you find yourself looking upon the delighted face of [npc.name], who instantly calls out, [npc.speech([npc.PcName]! Oh, I'm so happy to see you again!)]

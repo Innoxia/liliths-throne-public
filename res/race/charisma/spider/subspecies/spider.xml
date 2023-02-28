@@ -9,6 +9,7 @@
 	<attributeItemId>charisma_race_spider_jet_black_coffee</attributeItemId>
 	<transformativeItemId>charisma_race_spider_chocolate_coated_cocoa_beans</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>NOCTURNAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
 	<aquatic>false</aquatic>

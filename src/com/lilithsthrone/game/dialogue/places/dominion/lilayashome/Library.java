@@ -16,16 +16,12 @@ import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
-import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
-import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
@@ -120,45 +116,12 @@ public class Library {
 						+ "</p>");
 			} else {
 				for(NPC slave : charactersPresent) {
-					UtilText.nodeContentSB.append(UtilText.parse(slave,
-							"<p>"
-								+ "Having been assigned to work as a "+(SlaveJob.LIBRARY.getName(slave))+", <b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.name]</b> is present in this area."));
-					
-					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)) {
-						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								" As you've instructed [npc.herHim] to crawl, [npc.sheIs] down on all fours, and "));
-					} else {
-						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								" [npc.She] "));
-					}
-					
-					switch(slave.getObedience()) {
-						case NEGATIVE_FIVE_REBELLIOUS: case NEGATIVE_FOUR_DEFIANT: case NEGATIVE_THREE_STRONG_INSUBORDINATE:
-							UtilText.nodeContentSB.append(UtilText.parse(slave,
-										" is not even bothering to pretend that [npc.sheIs] working."
-									+ "</p>"));
-							break;
-						case NEGATIVE_ONE_DISOBEDIENT:  case NEGATIVE_TWO_UNRULY:
-							UtilText.nodeContentSB.append(UtilText.parse(slave,
-										" appears to be half-heartedly ordering some books."
-									+ "</p>"));
-							break;
-						case ZERO_FREE_WILLED:
-							UtilText.nodeContentSB.append(UtilText.parse(slave,
-										" is currently dusting the shelves and making sure that everything is in order."
-									+ "</p>"));
-							break;
-						case POSITIVE_ONE_AGREEABLE: case POSITIVE_TWO_OBEDIENT:
-							UtilText.nodeContentSB.append(UtilText.parse(slave,
-										" is currently reorganising one of the shelves."
-									+ "</p>"));
-							break;
-						case POSITIVE_THREE_DISCIPLINED: case POSITIVE_FOUR_DUTIFUL: case POSITIVE_FIVE_SUBSERVIENT:
-							UtilText.nodeContentSB.append(UtilText.parse(slave,
-										" is dutifully making a catalogue of all the books available in the library."
-									+ "</p>"));
-							break;
-					}
+					UtilText.nodeContentSB.append(LilayaHomeGeneric.getSlavePresentDescription(slave,
+							"is not even bothering to pretend that [npc.sheIs] working.",
+							"appears to be half-heartedly ordering some books.",
+							"is currently dusting the shelves and making sure that everything is in order.",
+							"is currently reorganising one of the shelves.",
+							"is dutifully making a catalogue of all the books available in the library."));
 				}
 			}
 			
@@ -287,16 +250,7 @@ public class Library {
 	
 				} else if(index>=8 && index-8<charactersPresent.size()) {
 					NPC slave = charactersPresent.get(index-8);
-					return new Response(UtilText.parse(slave, "[npc.Name]"), UtilText.parse(slave, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
-						@Override
-						public Colour getHighlightColour() {
-							return slave.getFemininity().getColour();
-						}
-						@Override
-						public void effects() {
-							SlaveDialogue.initDialogue(slave, false);
-						}
-					};
+					return LilayaHomeGeneric.interactWithNPC(slave);
 				}
 				
 			} else if(responseTab==1) {
