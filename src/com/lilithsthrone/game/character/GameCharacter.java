@@ -6882,9 +6882,10 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String addFetish(AbstractFetish fetish, boolean shortDescription) {
-		if(!fetish.isContentEnabled()) {
-			return "";
-		}
+		// Do not limit by content setting as this will impact unique NPCs who will lack their intended fetishes if the fetish content is later re-enabled by the player
+//		if(!fetish.isContentEnabled()) {
+//			return "";
+//		}
 		if (fetishes.contains(fetish)) {
 			if(!Main.game.isStarted() || this.getBody()==null) {
 				return "";
@@ -7011,7 +7012,8 @@ public abstract class GameCharacter implements XMLSaving {
 			} else {
 				fetishDesireMap.put(fetish, desire);
 			}
-			if(!Main.game.isStarted() || this.getBody()==null || !fetish.isContentEnabled()) {
+			// Do not limit desire based on fetish content for the same reason as described in addFetish()
+			if(!Main.game.isStarted() || this.getBody()==null) { //  || !fetish.isContentEnabled()
 				return "";
 			}
 			if(this.hasFetish(fetish)) {
