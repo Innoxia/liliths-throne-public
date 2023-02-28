@@ -871,9 +871,6 @@ public class CompanionManagement {
 		public String getContent() {
 			NPC character = characterSelected();
 			ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(character.getObedienceValue());
-			float affectionChange = character.getDailyAffectionChange();
-			float obedienceChange = character.getDailyObedienceChange();
-			
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(getSlaveInformationHeader(character));
@@ -897,6 +894,7 @@ public class CompanionManagement {
 								
 			UtilText.nodeContentSB.append("<div style='width:100%;margin-top:8px;'><b>Time Slots</b></div>");
 			float stamina = character.getDailySlaveJobStamina();
+			SlaveJob jobSelected = Main.game.getDialogueFlags().getSlaveryManagerJobSelected();
 			for(int i=0 ; i< 24; i++) {
 				Colour colour = character.getSlaveJob(i).getColour();
 				Colour borderColour = colour;
@@ -909,9 +907,10 @@ public class CompanionManagement {
 ////					String c2 = PresetColour.BASE_PURPLE_LIGHT.getShades()[0];
 ////					background = "background: repeating-linear-gradient(135deg, "+c1+", "+c1+" 10px, "+c2+" 10px, "+c2+" 20px);";
 //				}
-				SlaveJob jobSelected = Main.game.getDialogueFlags().getSlaveryManagerJobSelected();
-				
-				if(!jobSelected.isAvailable(i, character) || stamina-jobSelected.getHourlyStaminaDrain()+character.getSlaveJob(i).getHourlyStaminaDrain()<0f) {
+				if(!jobSelected.isAvailable(i, character)
+						|| (!character.isSlave()
+						&& stamina-jobSelected.getHourlyStaminaDrain()+character.getSlaveJob(i).getHourlyStaminaDrain()<0f)
+						&& !jobSelected.equals(SlaveJob.IDLE)) { // Always allow idle job
 					UtilText.nodeContentSB.append(
 							"<div class='normal-button hour disabled' style='"+background+"border-color:"+borderColour.toWebHexString()+";color:"+colour.getShades()[4]+";' id='"+i+"_WORK_DISABLED'>");
 				} else {
@@ -935,11 +934,26 @@ public class CompanionManagement {
 									+"<i>[style.colourStamina(Current daily stamina:)] "+(stamina>=0?"[style.colourGood(":"[style.colourBad(")+stamina+")]/"+SlaveJob.BASE_STAMINA+"</i>"
 								+ "</div>");
 								for(SlaveJobHours preset : SlaveJobHours.values()) {
-									float totalStaminaCost=0f;
-									if(!character.isSlave()) {
-										totalStaminaCost=Main.game.getDialogueFlags().getSlaveryManagerJobSelected().getHourlyStaminaDrain()*preset.getLength();
+									boolean jobDisabled = false;
+									boolean resetI = false;
+									for (int i = preset.getStartHour(); i<preset.getStartHour()+preset.getLength(); i++) {
+										if (i>23) {
+											i = i-24; // Wrap around to 0
+											resetI = true;
+										}
+										if (!jobSelected.isAvailable(i, character)) {
+											jobDisabled = true;
+											break;
+										}
+										if (resetI) {
+											i = i+24; // Reset i to maintain the loop
+										}
 									}
-									UtilText.nodeContentSB.append("<div class='normal-button"+(totalStaminaCost>stamina?" disabled'":"' id='"+preset+"_TIME'")+" style='width:16%; margin:2px;'>"+preset.getName()+"</div>");
+									if ((!character.isSlave() && jobSelected.getHourlyStaminaDrain()*preset.getLength()>stamina) || jobDisabled) {
+										UtilText.nodeContentSB.append("<div class='normal-button disabled' id='"+preset+"_TIME_DISABLED' style='width:16%; margin:2px;'>"+preset.getName()+"</div>");
+									} else {
+										UtilText.nodeContentSB.append("<div class='normal-button' id='"+preset+"_TIME' style='width:16%; margin:2px;'>"+preset.getName()+"</div>");
+									}
 								}
 			UtilText.nodeContentSB.append(
 							"</div>"
@@ -974,8 +988,8 @@ public class CompanionManagement {
 				if(!character.isSlave() && !job.hasFlag(SlaveJobFlag.GUEST_CAN_WORK)) {
 					continue;
 				}
-				affectionChange = job.getAffectionGain(character);
-				obedienceChange = job.getObedienceGain(character);
+				float affectionChange = job.getAffectionGain(character);
+				float obedienceChange = job.getObedienceGain(character);
 				int income = job.getFinalHourlyIncomeAfterModifiers(character);
 				boolean isCurrentJob = character.hasSlaveJobAssigned(job);
 				

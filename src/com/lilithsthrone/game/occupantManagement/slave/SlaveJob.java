@@ -169,7 +169,7 @@ public enum SlaveJob {
 			2f,
 			"security guard",
 			"security guard",
-			"Assign this slave to act as a security guard. A guard will always be posted at the entrance, with other guards patrolling the corridors.",
+			"Assign this character to act as a security guard. A guard will always be posted at the entrance, with other guards patrolling the corridors.",
 			0, 0.5f,
 			80,
 			0f, 0.1f,
@@ -268,7 +268,7 @@ public enum SlaveJob {
 			2,
 			"gardener",
 			"gardener",
-			"Assign this slave to work as a gardener in Lilaya's courtyard garden.",
+			"Assign this character to work as a gardener in Lilaya's courtyard garden.",
 			0, 0.25f,
 			80,
 			0, 0.05f,
@@ -279,7 +279,8 @@ public enum SlaveJob {
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
 					SlaveJobFlag.INTERACTION_SEX,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_GARDEN),
 	
 	LAB_ASSISTANT(PresetColour.BASE_GREEN_LIME,
@@ -311,7 +312,7 @@ public enum SlaveJob {
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
 			if(hour<6 || hour>=22) {
-				return "Slaves cannot work in Lilaya's lab while she is sleeping!";
+				return "No-one can work in Lilaya's lab while she is sleeping!";
 			}
 			return super.getAvailabilityText(hour, character);
 		}
@@ -354,7 +355,7 @@ public enum SlaveJob {
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
 			if(hour<6 || hour>=22) {
-				return "Slaves cannot work in Lilaya's lab while she is sleeping!";
+				return "No-one can work in Lilaya's lab while she is sleeping!";
 			}
 			return super.getAvailabilityText(hour, character);
 		}
@@ -956,7 +957,7 @@ public enum SlaveJob {
 			2f,
 			"waitress",
 			"waiter",
-			"Assign this slave to serve food in a dining hall.",
+			"Assign this character to serve food in a dining hall.",
 			0, 0,
 			50,
 			0, 0.05f,
@@ -1017,6 +1018,20 @@ public enum SlaveJob {
 			} else {
 				slave.returnToHome();
 			}
+		}
+		@Override
+		public boolean isAvailable(int hour, GameCharacter character) {
+			if(getDiningHallCell()==null) {
+				return false;
+			}
+			return super.isAvailable(hour, character);
+		}
+		@Override
+		public String getAvailabilityText(int hour, GameCharacter character) {
+			if(getDiningHallCell()==null) {
+				return "The dining hall upgrade must be constructed before this job is available!";
+			}
+			return super.getAvailabilityText(hour, character);
 		}
 	},
 
@@ -1279,7 +1294,7 @@ public enum SlaveJob {
 	
 	public String getAvailabilityText(int hour, GameCharacter character) {
 		if(Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, this)>=this.getSlaveLimit()) {
-			return "You have already assigned the maximum number of slaves to this job!";
+			return "You have already assigned the maximum number of people to this job!";
 			
 		} else if(character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)) {
 			return "Slaves cannot work out of the cells at slavery administration. Move them into a room first!";
