@@ -12,7 +12,6 @@
 	<nocturnality>CATHEMERAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
-	<aquatic>false</aquatic>
 	<applySubspeciesChanges/>
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_NoStepOnSnek_snake)

@@ -24,9 +24,14 @@
 	See the 'res/race/NoStepOnSnek/snake/race.xml' file for an example in use. -->
 	
 	<!-- The non-gendered name and plural name of this race when in feral form.
-	The name corresponds to the name of this race when in the 'legConfiguration' form defined. 
-	LegConfiguration values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/LegConfiguration.java
-	(Just use 'BIPEDAL' if you're unsure of what to use, and the game will handle the rest.) -->
+		The name corresponds to the name of this race when in the 'legConfiguration' form defined. 
+		LegConfiguration values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/LegConfiguration.java
+		(Just use 'BIPEDAL' if you're unsure of what to use, and the game will handle the rest.)
+		You can add the optional parameter 'affinity' to name elements to handle cases where the name should differ based on whether or not there are multiple subspecies which have the same legConfiguration.
+			e.g.:
+			<name legConfiguration="TAIL_LONG" affinity="AQUATIC"><![CDATA[sea-snake-hyena]]></name>
+			<name legConfiguration="TAIL_LONG"><![CDATA[snake-hyena]]></name>
+	-->
 	<nameFeral>
 		<name legConfiguration="QUADRUPEDAL"><![CDATA[hyena]]></name>
 	</nameFeral>
