@@ -156,7 +156,7 @@ public class BraxOffice {
 					
 			} else if (index == 3) {
 				return new Response("Wolf-tease", "Use your feminine wolf-like body to tease [brax.name] into giving you information about Arthur.", INTERIOR_BRAX_GETTING_TEASED,
-						null, null, null, Femininity.FEMININE, Util.newArrayListOfValues(Subspecies.WOLF_MORPH)){
+						null, null, null, Femininity.FEMININE, Util.newArrayListOfValues(Subspecies.WOLF_MORPH, Subspecies.getSubspeciesFromId("innoxia_wolf_subspecies_arctic"))){
 					@Override
 					public void effects(){
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.braxEncountered, true);

@@ -860,6 +860,13 @@ public class DaddyDialogue {
 	};
 	
 	public static final DialogueNode DINNER_END = new DialogueNode("Temptation", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getPlayer().applyFoodConsumed();
+			Main.game.getPlayer().applyDrinkConsumed();
+			Main.game.getNpc(Daddy.class).applyFoodConsumed();
+			Main.game.getNpc(Daddy.class).applyDrinkConsumed();
+		}
 		
 		@Override
 		public String getContent() {

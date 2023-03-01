@@ -240,6 +240,12 @@
 				PARSER: Initial -->
 			<canSelfTransform><![CDATA[true]]></canSelfTransform>
 	
+			<!-- Whether or not this character starts the sex scene being banned from rape-play (i.e. going into the 'resisting' pace in consensual sex scenes due to having the 'unwilling fuck-toy' fetish).
+				The default is true, thereby making it so NPCs don't start sex resisting, as it without a scene which leads into it (such as that with the slime queen), the resisting behaviour is quite jarring.
+				OPTIONAL: Default true
+				PARSER: Initial -->
+			<rapePlayBannedAtStart><![CDATA[true]]></rapePlayBannedAtStart>
+			
 			<!-- Set this to true to make this character hidden to the other participants in this sex scene, which restricts their ability to end sex, and they can only use 'self' sex actions.
 				This should only ever be applied to spectators, as it makes no sense otherwise.
 				OPTIONAL: Default false
@@ -527,6 +533,7 @@
 			<startingImmobilisation/>
 			<startingLubrications/>
 			<canSelfTransform><![CDATA[false]]></canSelfTransform>
+			<rapePlayBannedAtStart><![CDATA[true]]></rapePlayBannedAtStart>
 			<hidden><![CDATA[false]]></hidden>
 			<control><![CDATA[SELF]]></control>
 			<sexClothingEquippable><![CDATA[false]]></sexClothingEquippable>

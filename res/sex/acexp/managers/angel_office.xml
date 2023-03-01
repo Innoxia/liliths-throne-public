@@ -101,7 +101,7 @@
 			<sexTypesBanned/>
 			<areasBanned/>
 			<stopSexCondition><![CDATA[
-				[#sex.isSatisfiedFromOrgasms(pc, true)]
+				[#sex.isSatisfiedFromOrgasms(pc, true) && (!pc.hasTrait(PERK_OBJECT_OF_DESIRE, true) || sex.isSatisfiedFromOrgasms(angel, true))]
 			]]></stopSexCondition>
 			<dirtyTalk>
 				<character id="pc">

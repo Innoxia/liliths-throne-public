@@ -34,6 +34,8 @@
 	This is only used for demons, and should always be left as 0 unless you know what you're doing. -->
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
 	
+	<nocturnality>DIURNAL</nocturnality>
+	
 	<!-- Whether this race is of a small stature or not.
 	If set to true, then this race is limited to the game's smallest height categories (as is the case for imps). -->
 	<shortStature>false</shortStature>

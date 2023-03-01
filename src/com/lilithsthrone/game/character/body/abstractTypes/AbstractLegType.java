@@ -490,12 +490,17 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	
 	/**
 	 * For use in modifying bodies without an attached character. Outside of the Subspecies class, you should probably always be calling the version of this method that takes in a GameCharacter.
+	 * <br/>
+	 * <b>Note:</b> If the body's LegConfiguration is already set to legConfiguration, then nothing will happen!
 	 * 
 	 * @param body The body to be modified.
 	 * @param legConfiguration The LegConfiguration to be applied.
 	 * @param applyFullEffects Pass in true if you want the additional transformations to include attribute changes (such as penis resizing, vagina capacity resetting, etc.).
 	 */
 	public void applyLegConfigurationTransformation(Body body, LegConfiguration legConfiguration, boolean applyFullEffects) {
+		if(body.getLegConfiguration()==legConfiguration) {
+			return;
+		}
 		handleLegConfigurationChanges(body, legConfiguration, true, applyFullEffects);
 		body.getLeg().setLegConfigurationForced(this, legConfiguration);
 	}
@@ -937,7 +942,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 		}
 		if(legConfiguration.getFeralParts().contains(Vagina.class)) { // Vagina (includes Clitoris):
 			if(!applyFullEffects) {
-				if(body.getVagina().getType()!=VaginaType.NONE) {
+				if(body.getVagina().getType()!=VaginaType.NONE && body.getVagina().getType()!=VaginaType.ONAHOLE) {
 					body.getVagina().setType(null,
 								(demon
 									?VaginaType.DEMON_COMMON
@@ -947,7 +952,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 			} else {
 				boolean virgin = body.getVagina().getType()!=VaginaType.NONE?body.getVagina().getOrificeVagina().isVirgin():true;
 				body.setVagina(
-						body.getVagina().getType()!=VaginaType.NONE
+						body.getVagina().getType()!=VaginaType.NONE && body.getVagina().getType()!=VaginaType.ONAHOLE
 							? new Vagina(
 									(demon
 										?VaginaType.DEMON_COMMON

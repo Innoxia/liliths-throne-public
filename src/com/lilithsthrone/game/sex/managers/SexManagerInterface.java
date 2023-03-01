@@ -181,6 +181,10 @@ public interface SexManagerInterface {
 		return false;
 	}
 	
+	public default boolean isRapePlayBannedAtStart(GameCharacter character) {
+		return true;
+	}
+	
 	public default boolean isSlotAvailable(GameCharacter character, SexSlot slot) {
 		return true;
 	}

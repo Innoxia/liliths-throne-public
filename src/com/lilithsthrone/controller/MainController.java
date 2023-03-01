@@ -511,6 +511,22 @@ public class MainController implements Initializable {
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
 							
+							// Testing genetics/inheritance:
+//							Main.game.getPlayer().guaranteePregnancyOnNextRoll();
+//							Main.game.getPlayer().rollForPregnancy(Main.game.getCharactersPresent().get(0), 100, true);
+//							for(OffspringSeed os : Main.game.getPlayer().getPregnantLitter().getOffspringSeed()) {
+//								Covering covering = os.getBody().getCovering(os.getBody().getTorsoType().getBodyCoveringType(os.getBody()), false);
+//								System.out.println(os.getName()+": "+os.getBody().getRaceStage().getName()+" "+os.getRace().getName(os.getBody(), os.isFeral()));
+//								System.out.println("Primary: "+covering.getPrimaryColour().getName());
+//								System.out.println("Secondary: "+covering.getPrimaryColour().getName());
+//								
+//								covering = os.getBody().getCovering(os.getBody().getEyeType().getBodyCoveringType(os.getBody()), false);
+//								System.out.println("Eyes: "+covering.getPrimaryColour().getName());
+//								
+//								covering = os.getBody().getCovering(os.getBody().getHairType().getBodyCoveringType(os.getBody()), false);
+//								System.out.println("Hair: "+covering.getPrimaryColour().getName());
+//							}
+							
 //							Main.game.getCharactersPresent().get(0).incrementAttribute(Attribute.MAJOR_CORRUPTION, 100);
 //							Main.game.getCharactersPresent().get(0).addFetish(Fetish.FETISH_BONDAGE_APPLIER);
 							
@@ -561,11 +577,33 @@ public class MainController implements Initializable {
 //								if(npc.isUnique() && !npc.hasArtwork()
 ////										&& (npc.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION)
 ////										&& npc.isFeminine()
-//										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()!=BodyCoveringCategory.MAIN_SKIN
-//										&& (npc.getClass().getName().contains("dominion.") || npc.getClass().getName().contains("submission."))
+////										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()==BodyCoveringCategory.MAIN_SKIN
+////										&& (npc.getClass().getName().contains("dominion.") || npc.getClass().getName().contains("submission."))
 //										) {
 //									System.out.println(npc.getNameIgnoresPlayerKnowledge() + " "+npc.getClass().getName().split(".npc.")[1]);// + " " + npc.getSurname());
 //								}
+//							}
+							
+//							Map<AbstractSubspecies, Integer> subCountMap = new HashMap<>();
+//							Map<AbstractSubspecies, Integer> subHDCountMap = new HashMap<>();
+//							for(NPC npc : Main.game.getAllNPCs()) {
+//								if(npc.isUnique()) {
+//									if(npc.getSubspecies()==Subspecies.HALF_DEMON) {
+//										AbstractSubspecies ss = npc.getHalfDemonSubspecies();
+//										subHDCountMap.putIfAbsent(ss, 0);
+//										subHDCountMap.put(ss, subHDCountMap.get(ss)+1);
+//										
+//									} else {
+//										AbstractSubspecies ss = npc.getTrueSubspecies();
+//										subCountMap.putIfAbsent(ss, 0);
+//										subCountMap.put(ss, subCountMap.get(ss)+1);
+//									}
+//								}
+//							}
+//							for(AbstractSubspecies ss : Subspecies.getAllSubspecies()) {
+//								subCountMap.putIfAbsent(ss, 0);
+//								subHDCountMap.putIfAbsent(ss, 0);
+//								System.out.println(ss.getName(null)+": "+subCountMap.get(ss)+" "+subHDCountMap.get(ss));
 //							}
 							
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.PHYSICAL, 1);
@@ -1263,12 +1301,15 @@ public class MainController implements Initializable {
 		}
 		
 		DialogueNode currentNode = Main.game.getCurrentDialogueNode();
+		// Init combat listeners separately, as otherwise no menu buttons work
 		if (Main.game.isInCombat()) {
 			MiscController.initCombatListeners();
 			if(currentNode.getDialogueNodeType() == DialogueNodeType.INVENTORY) {
 				InventoryController.initInventoryListeners();
 			}
-		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_ASS)
+		}
+		
+		if (currentNode.equals(BodyChanging.BODY_CHANGING_ASS)
 				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_ASS)) {
 			CreationController.initAnusCapacityListeners();
 			CreationController.initAnusDepthListeners();
@@ -1360,7 +1401,8 @@ public class MainController implements Initializable {
 			CreationController.initEyeTypeListeners();
 		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_HAIR)
 				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR)
-				|| currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_COSMETICS_HAIR)) {
+				|| currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_COSMETICS_HAIR)
+				|| currentNode.equals(RoomPlayer.AUNT_HOME_PLAYERS_ROOM_MAKEUP)) {
 			CoveringController.initHairLengthListeners();
 			CoveringController.initHairStyleListeners();
 			CreationController.initHairTypeListeners();

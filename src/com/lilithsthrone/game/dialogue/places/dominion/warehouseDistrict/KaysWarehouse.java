@@ -1025,7 +1025,7 @@ public class KaysWarehouse {
 				return new Response("Thrown out", "Karl unceremoniously throws you out of the warehouse.", PlaceType.DOMINION_WAREHOUSES.getDialogue(false)) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "DOBERMANNS_COMBAT_PLAYER_LOSS_THROWN_OUT"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "AFTER_SEX_FUCKED_THROWN_OUT"));
 						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_WAREHOUSES, false);
 					}
 				};
@@ -1934,7 +1934,7 @@ public class KaysWarehouse {
 			if(Main.game.getNpc(Kay.class).getClothingInSlot(InventorySlot.ANUS)==null) {
 				UtilText.addSpecialParsingString(
 						Main.game.getNpc(Kay.class).equipClothingFromNowhere(
-								Main.game.getItemGen().generateClothing("innoxia_buttPlugs_butt_plug_jewel", PresetColour.CLOTHING_SILVER, PresetColour.COVERING_BLUE_LIGHT, null, false), true, Main.game.getPlayer()),
+								Main.game.getItemGen().generateClothing("innoxia_buttPlugs_butt_plug_jewel", PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_BLUE_LIGHT, null, false), true, Main.game.getPlayer()),
 						true);
 				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_BUTTPLUG_EQUIP"));
 				

@@ -1771,10 +1771,10 @@ position:relative;
 	border-radius:5px;
 	background: repeating-linear-gradient(
 	  135deg,
-	  rgb(26, 26, 26, 0.8),
-	  rgb(26, 26, 26, 0.8) 10px,
-	  rgb(0, 0, 0, 0.8) 10px,
-	  rgb(0, 0, 0, 0.8) 20px
+	  rgba(26, 26, 26, 0.8),
+	  rgba(26, 26, 26, 0.8) 10px,
+	  rgba(0, 0, 0, 0.8) 10px,
+	  rgba(0, 0, 0, 0.8) 20px
 	);
 }
 .overlay.disabled:hover{
@@ -1791,10 +1791,10 @@ position:relative;
 	border-radius:5px;
 	background: repeating-linear-gradient(
 	  135deg,
-	  rgb(26, 26, 26, 0.8),
-	  rgb(26, 26, 26, 0.8) 10px,
-	  rgb(0, 0, 0, 0.8) 10px,
-	  rgb(0, 0, 0, 0.8) 20px
+	  rgba(26, 26, 26, 0.8),
+	  rgba(26, 26, 26, 0.8) 10px,
+	  rgba(0, 0, 0, 0.8) 10px,
+	  rgba(0, 0, 0, 0.8) 20px
 	);
 }
 .overlay.no-pointer{
@@ -1805,7 +1805,7 @@ position:relative;
 	opacity:1;
 }
 .overlay:hover{
-	background-color:rgb(255, 255, 255, 0.2);
+	background-color:rgba(255, 255, 255, 0.2);
 	border-radius:5px;
 }
 
@@ -1963,10 +1963,10 @@ position:relative;
 	border-radius:5px;
 	background: repeating-linear-gradient(
 	  135deg,
-	  rgb(51, 51, 51, 0.6),
-	  rgb(51, 51, 51, 0.6) 10px,
-	  rgb(34, 34, 34, 0.6) 10px,
-	  rgb(34, 34, 34, 0.6) 20px
+	  rgba(51, 51, 51, 0.6),
+	  rgba(51, 51, 51, 0.6) 10px,
+	  rgba(34, 34, 34, 0.6) 10px,
+	  rgba(34, 34, 34, 0.6) 20px
 	);
 	cursor:default;
 }
@@ -1974,10 +1974,10 @@ position:relative;
 	border-radius:5px;
 	background: repeating-linear-gradient(
 	  135deg,
-	  rgb(51, 51, 51, 0.6),
-	  rgb(51, 51, 51, 0.6) 10px,
-	  rgb(34, 34, 34, 0.6) 10px,
-	  rgb(34, 34, 34, 0.6) 20px
+	  rgba(51, 51, 51, 0.6),
+	  rgba(51, 51, 51, 0.6) 10px,
+	  rgba(34, 34, 34, 0.6) 10px,
+	  rgba(34, 34, 34, 0.6) 20px
 	);
 }
 
@@ -2365,7 +2365,7 @@ position:relative;
 }
 .overlay.map-player {
 	border-radius:5px;
-    background-color:rgb(255, 255, 0, 0);
+    background-color:rgba(255, 255, 0, 0);
     -webkit-animation-name: flashColour;
     -webkit-animation-duration: 3s;
     -webkit-animation-iteration-count: infinite;

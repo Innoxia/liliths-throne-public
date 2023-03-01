@@ -557,7 +557,7 @@
 			[#astrapi.setLocation(pc)]
 			[#astrapi.applySportsBra(false)]
 			[#game.appendToTextEndStringBuilder(astrapi.incrementLust(25, false))]
-			#IF(!astrapi.isVisiblyPregnant())
+			#IF(!astrapi.isVisiblyPregnant() && !flags.hasFlag(FLAG_innoxia_astrapi_impregnation_talk))
 				[#game.appendToTextEndStringBuilder(astrapi.useItem(game.getItemGen().generateItem('innoxia_pills_sterility'), astrapi, false, true))]
 			#ENDIF
 		]]></preParsingEffects>
@@ -789,21 +789,32 @@
 					</ongoingActionsAtStart>
 				</sexVariablesWithManager>
 			</response>
-			<!-- 5: Stop flirting -->
+			<!-- 5: Pregnancy discussion -->
 			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_astrapi_impregnation_talk)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[5]]></index>
-				<responseTitle><![CDATA[Stop flirting]]></responseTitle>
+				<responseTitle><![CDATA[Impregnation]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
-						Having had your fun, decide to stop flirting with Astrapi and stay quiet as you're transported to Elis.
+					#IF(!astrapi.isAffectionAtLeast(pc, AFFECTION_POSITIVE_FOUR_LOVE))
+						As Astrapi doesn't seem too keen on the idea of being impregnated, you think that you'd better wait until the two of you are on better terms before asking her about it.
+						<br/>[style.italicsBad(Requires affection of at least [#AFFECTION_POSITIVE_FOUR_LOVE.getMinimumValue()].)]
+						<br/>Current affection: [#~~astrapi.getAffection(pc)]
 					#ELSE
-						Having had your fun, decide to stop flirting with Astrapi and stay quiet as you're transported to Dominion.
+						Wanting to knock her up, you ask Astrapi if she'd be willing to let you impregnate her.
+						<br/>[style.italicsGood(Requires affection of at least [#AFFECTION_POSITIVE_FOUR_LOVE.getMinimumValue()].)]
+						<br/>Current affection: [#~~astrapi.getAffection(pc)]
 					#ENDIF
 				]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_journey_end]]></nextDialogue>
+				<nextDialogue><![CDATA[
+					#IF(astrapi.isAffectionAtLeast(pc, AFFECTION_POSITIVE_FOUR_LOVE))
+						innoxia_places_fields_centaur_transport_astrapi_impregnation_talk
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'ASTRAPI_FLIRT_BACK_OUT'))]
+					[#flags.setFlag(FLAG_innoxia_astrapi_impregnation_talk, true)]
 				]]></effects>
 			</response>
 			<!-- 6: Service ass -->
@@ -931,7 +942,32 @@
 					</ongoingActionsAtStart>
 				</sexVariablesWithManager>
 			</response>
+			<!-- 0: Stop flirting -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Back out]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_centaur_travel_to_elis))
+						Having had your fun, decide to back out of this situation and tell Astrapi that you don't want to have sex after all, then stay quiet as you're transported to Elis.
+					#ELSE
+						Having had your fun, decide to back out of this situation and tell Astrapi that you don't want to have sex after all, then stay quiet as you're transported to Dominion.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_centaur_transport_astrapi_journey_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/centaur_transport', 'ASTRAPI_FLIRT_BACK_OUT'))]
+				]]></effects>
+			</response>
 		</responses>
+	</scene>
+	
+	<scene id="astrapi_impregnation_talk">
+		<content folderPath="txt/places/fields/centaur_transport">ASTRAPI_IMPREGNATION_TALK</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_centaur_transport_astrapi_journey_flirt_pushed"/>
 	</scene>
 	
 	<scene id="astrapi_post_sex">

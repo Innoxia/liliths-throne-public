@@ -9,6 +9,7 @@
 	<attributeItemId>innoxia_race_cat_felines_fancy</attributeItemId>
 	<transformativeItemId>innoxia_race_cat_kittys_reward</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>CREPUSCULAR</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
 	<applySubspeciesChanges><![CDATA[

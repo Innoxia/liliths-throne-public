@@ -20,6 +20,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -2172,6 +2173,9 @@ public class CharacterInventory implements XMLSaving {
 	public boolean isCoverableAreaExposed(GameCharacter character, CoverableArea area, boolean justVisible) {
 		if(area==CoverableArea.TESTICLES) { // There are no proper checks in clothing for testicle access, so use penis access:
 			return isCoverableAreaExposed(character, CoverableArea.PENIS, justVisible);
+		}
+		if(area==CoverableArea.ANUS && character.getGenitalArrangement()==GenitalArrangement.CLOACA) { // If asshole is within cloace, it's in the vagina position:
+			return isCoverableAreaExposed(character, CoverableArea.VAGINA, justVisible);
 		}
 		
 		if(this.getExtraBlockedParts()!=null && justVisible) {

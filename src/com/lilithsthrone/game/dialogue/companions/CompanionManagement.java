@@ -40,6 +40,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJobFlag;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJobHours;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJobSetting;
 import com.lilithsthrone.game.occupantManagement.slave.SlavePermission;
@@ -195,17 +196,19 @@ public class CompanionManagement {
 		
 		
 		// Permissions:
-		headerSB.append("<div class='container-half-width' style='width:50%; margin:0;'>[style.boldArcane(General Permissions:)]<br/>");
-		int permissionCount=0;
-		for(SlavePermission permission : SlavePermission.values()) {
-			for(SlavePermissionSetting setting : permission.getSettings()) {
-				if(character.getSlavePermissionSettings().get(permission).contains(setting)) {
-					headerSB.append((permissionCount==0?"":", ")+"<span style='color:"+permission.getColour().toWebHexString()+";'>"+setting.getName()+"</span>");
-					permissionCount++;
+		if(characterSelected().isSlave()) {
+			headerSB.append("<div class='container-half-width' style='width:50%; margin:0;'>[style.boldArcane(General Permissions:)]<br/>");
+			int permissionCount=0;
+			for(SlavePermission permission : SlavePermission.values()) {
+				for(SlavePermissionSetting setting : permission.getSettings()) {
+					if(character.getSlavePermissionSettings().get(permission).contains(setting)) {
+						headerSB.append((permissionCount==0?"":", ")+"<span style='color:"+permission.getColour().toWebHexString()+";'>"+setting.getName()+"</span>");
+						permissionCount++;
+					}
 				}
 			}
+			headerSB.append(".</div>");
 		}
-		headerSB.append(".</div>");
 		
 		
 		headerSB.append("</div>");
@@ -242,10 +245,10 @@ public class CompanionManagement {
 				if(Main.game.getCurrentDialogueNode()==SLAVE_MANAGEMENT_JOBS) {
 					return new Response("Job", UtilText.parse(characterSelected(), "You are already setting [npc.namePos] job and work hours!"), null);
 				}
-				if(characterSelected().isSlave()) {
-					return new Response("Job", "Set this slave's job and work hours.", SLAVE_MANAGEMENT_JOBS);
+				if(!characterSelected().hasJob()) {
+					return new Response("Job", "Set this character's job and work hours.", SLAVE_MANAGEMENT_JOBS);
 				}
-				return new Response("Job", "You cannot manage the job of a free-willed companion. This option is only available for slaves.", null);
+				return new Response("Job", "You cannot manage the job of an employed resident. This option is only available for slaves & unemployed residents.", null);
 
 			} else if(index==3) {
 				if(Main.game.getCurrentDialogueNode()==SLAVE_MANAGEMENT_PERMISSIONS) {
@@ -650,8 +653,10 @@ public class CompanionManagement {
 				if(characterSelected() == null) {
 					return new Response("Job", "You haven't selected anyone...", null);
 				}
-				return new Response("Job", "You cannot manage the job of a free-willed occupant. This option is only available for slaves.", null);
-				
+				if(!characterSelected().hasJob()) {
+					return new Response("Job", "Set this occupant's temporary job and work hours.", SLAVE_MANAGEMENT_JOBS);
+				}
+				return new Response("Job", "This occupant already has a permanent job.", null);
 			} else if (index == 3) {
 				if(Main.game.getCurrentDialogueNode()==SLAVE_MANAGEMENT_PERMISSIONS) {
 					return new Response("Permissions", UtilText.parse(characterSelected(), "You are already setting [npc.namePos] permissions!"), null);
@@ -866,9 +871,6 @@ public class CompanionManagement {
 		public String getContent() {
 			NPC character = characterSelected();
 			ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(character.getObedienceValue());
-			float affectionChange = character.getDailyAffectionChange();
-			float obedienceChange = character.getDailyObedienceChange();
-			
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(getSlaveInformationHeader(character));
@@ -881,33 +883,77 @@ public class CompanionManagement {
 							"<div class='container-full-width inner' style='text-align:center;'>"
 							+ "<div style='width:100%;margin-top:8px;'><b>Available Jobs</b></div>");
 								for(SlaveJob job : SlaveJob.values()) {
-									UtilText.nodeContentSB.append(
-											"<div class='normal-button' id='"+job+"_ASSIGN' style='width:16%; margin:2px;color:"
+									if(character.isSlave() || job.hasFlag(SlaveJobFlag.GUEST_CAN_WORK)) {
+										UtilText.nodeContentSB.append(
+												"<div class='normal-button' id='"+job+"_ASSIGN' style='width:16%; margin:2px;color:"
 														+job.getColour().toWebHexString()+";"+(Main.game.getDialogueFlags().getSlaveryManagerJobSelected()==job?"border-color:"+job.getColour().toWebHexString()+";":"")+"'>"
-													+Util.capitaliseSentence(job.getName(character))
-											+"</div>");
+														+Util.capitaliseSentence(job.getName(character))
+														+"</div>");
+									}
 								}
 								
 			UtilText.nodeContentSB.append("<div style='width:100%;margin-top:8px;'><b>Time Slots</b></div>");
+			float stamina = character.getDailySlaveJobStamina();
+			SlaveJob jobSelected = Main.game.getDialogueFlags().getSlaveryManagerJobSelected();
 			for(int i=0 ; i< 24; i++) {
-				Colour c = character.getSlaveJob(i).getColour();
-				boolean jobAvailable = Main.game.getDialogueFlags().getSlaveryManagerJobSelected().isAvailable(i, character);
-				if(!jobAvailable) {
+				Colour colour = character.getSlaveJob(i).getColour();
+				Colour borderColour = colour;
+				Colour backgroundColour = colour;
+				String background = "background:"+backgroundColour.getShades()[0]+";";
+//				if(character.isSleepingAtHour(i)) {
+////					colour = PresetColour.BASE_PURPLE_DARK;
+////					background = "background:"+PresetColour.BASE_PURPLE.getShades()[0]+";";
+////					String c1 = backgroundColour.getShades()[0];
+////					String c2 = PresetColour.BASE_PURPLE_LIGHT.getShades()[0];
+////					background = "background: repeating-linear-gradient(135deg, "+c1+", "+c1+" 10px, "+c2+" 10px, "+c2+" 20px);";
+//				}
+				if(!jobSelected.isAvailable(i, character)
+						|| (!character.isSlave()
+						&& stamina-jobSelected.getHourlyStaminaDrain()+character.getSlaveJob(i).getHourlyStaminaDrain()<0f)
+						&& !jobSelected.equals(SlaveJob.IDLE)) { // Always allow idle job
 					UtilText.nodeContentSB.append(
-							"<div class='normal-button hour disabled' style='background:"+c.getShades()[0]+";border-color:"+c.toWebHexString()+";color:"+c.getShades()[4]+";' id='"+i+"_WORK_DISABLED'>");
+							"<div class='normal-button hour disabled' style='"+background+"border-color:"+borderColour.toWebHexString()+";color:"+colour.getShades()[4]+";' id='"+i+"_WORK_DISABLED'>");
 				} else {
 					UtilText.nodeContentSB.append(
-							"<div class='normal-button hour' style='background:"+c.getShades()[0]+";border-color:"+c.toWebHexString()+";color:"+c.getShades()[4]+";' id='"+i+"_WORK'>");
+							"<div class='normal-button hour' style='"+background+"border-color:"+borderColour.toWebHexString()+";color:"+colour.getShades()[4]+";' id='"+i+"_WORK'>");
 				}
-				UtilText.nodeContentSB.append(String.format("%02d", i)+":00</div>");
+				UtilText.nodeContentSB.append(String.format("%02d", i)+":00");
+				if(character.isSleepingAtHour(i)) { // Sleeping indication via 'zzZ'
+					String stroke = "text-shadow:"
+									+ "1px 1px 0 #000,"
+									+ "-1px -1px 0 #000, "
+									+ "1px -1px 0 #000,"
+									+ "-1px 1px 0 #000,"
+									+ "1px 1px 0 #000;";
+					UtilText.nodeContentSB.append("<b class='hotkey-icon' style='color:"+PresetColour.SLEEP.toWebHexString()+";"+stroke+"'><span style='font-size:0.8em;'>z</span>zZ</b>");
+				}
+				UtilText.nodeContentSB.append("</div>");
 			}
-			float stamina = character.getDailySlaveJobStamina();
 			UtilText.nodeContentSB.append(
 								"<div style='width:100%;margin-top:8px;'>"
 									+"<i>[style.colourStamina(Current daily stamina:)] "+(stamina>=0?"[style.colourGood(":"[style.colourBad(")+stamina+")]/"+SlaveJob.BASE_STAMINA+"</i>"
 								+ "</div>");
 								for(SlaveJobHours preset : SlaveJobHours.values()) {
-									UtilText.nodeContentSB.append("<div class='normal-button' id='"+preset+"_TIME' style='width:16%; margin:2px;'>"+preset.getName()+"</div>");
+									boolean jobDisabled = false;
+									boolean resetI = false;
+									for (int i = preset.getStartHour(); i<preset.getStartHour()+preset.getLength(); i++) {
+										if (i>23) {
+											i = i-24; // Wrap around to 0
+											resetI = true;
+										}
+										if (!jobSelected.isAvailable(i, character)) {
+											jobDisabled = true;
+											break;
+										}
+										if (resetI) {
+											i = i+24; // Reset i to maintain the loop
+										}
+									}
+									if ((!character.isSlave() && jobSelected.getHourlyStaminaDrain()*preset.getLength()>stamina) || jobDisabled) {
+										UtilText.nodeContentSB.append("<div class='normal-button disabled' id='"+preset+"_TIME_DISABLED' style='width:16%; margin:2px;'>"+preset.getName()+"</div>");
+									} else {
+										UtilText.nodeContentSB.append("<div class='normal-button' id='"+preset+"_TIME' style='width:16%; margin:2px;'>"+preset.getName()+"</div>");
+									}
 								}
 			UtilText.nodeContentSB.append(
 							"</div>"
@@ -939,8 +985,11 @@ public class CompanionManagement {
 						+ "</div>");
 			
 			for(SlaveJob job : SlaveJob.values()) {
-				affectionChange = job.getAffectionGain(character);
-				obedienceChange = job.getObedienceGain(character);
+				if(!character.isSlave() && !job.hasFlag(SlaveJobFlag.GUEST_CAN_WORK)) {
+					continue;
+				}
+				float affectionChange = job.getAffectionGain(character);
+				float obedienceChange = job.getObedienceGain(character);
 				int income = job.getFinalHourlyIncomeAfterModifiers(character);
 				boolean isCurrentJob = character.hasSlaveJobAssigned(job);
 				
@@ -955,7 +1004,7 @@ public class CompanionManagement {
 									: "[style.colourDisabled("+Util.capitaliseSentence(job.getName(character))+")]")
 							+ "</div>"
 							+ "<div style='float:left; width:10%; font-weight:bold; margin:0; padding:0;'>"
-								+ Main.game.getPlayer().getTotalSlavesWorkingJob(job)+"/"+(job.getSlaveLimit()<0?"&#8734;":job.getSlaveLimit())
+								+ Main.game.getOccupancyUtil().getTotalCharactersWorkingJob(job)+"/"+(job.getSlaveLimit()<0?"&#8734;":job.getSlaveLimit())
 							+"</div>"
 							+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 								+ (affectionChange>0

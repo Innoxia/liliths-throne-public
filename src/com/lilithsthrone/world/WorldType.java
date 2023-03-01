@@ -982,6 +982,7 @@ public class WorldType {
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 
 					new Value<>(new Color(0x00ff00), PlaceType.BAT_CAVERN_ENTRANCE),
+					new Value<>(new Color(0xffff00), PlaceType.BAT_CAVERN_SHAFT),
 					
 					new Value<>(new Color(0x008080), PlaceType.BAT_CAVERN_DARK),
 					new Value<>(new Color(0x808080), PlaceType.BAT_CAVERN_LIGHT),

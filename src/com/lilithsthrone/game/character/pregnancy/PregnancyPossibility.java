@@ -1,9 +1,10 @@
-package com.lilithsthrone.game.character;
+package com.lilithsthrone.game.character.pregnancy;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;

@@ -104,22 +104,7 @@ public class OptionsController {
 	
 	public static void initFetishListeners() {
 		for (AbstractFetish f : Fetish.getAllFetishes()) {
-			if (!Main.game.isPenetrationLimitationsEnabled() && f == Fetish.FETISH_SIZE_QUEEN) {
-				continue;
-			}
-			if (!Main.game.isNonConEnabled() && (f == Fetish.FETISH_NON_CON_DOM || f == Fetish.FETISH_NON_CON_SUB)) {
-				continue;
-			}
-			if (!Main.game.isIncestEnabled() && f == Fetish.FETISH_INCEST) {
-				continue;
-			}
-			if (!Main.game.isLactationContentEnabled() && (f == Fetish.FETISH_LACTATION_OTHERS || f == Fetish.FETISH_LACTATION_SELF)) {
-				continue;
-			}
-			if (!Main.game.isAnalContentEnabled() && (f == Fetish.FETISH_ANAL_GIVING || f == Fetish.FETISH_ANAL_RECEIVING)) {
-				continue;
-			}
-			if (!Main.game.isFootContentEnabled() && (f == Fetish.FETISH_FOOT_GIVING || f == Fetish.FETISH_FOOT_RECEIVING)) {
+			if (!f.isContentEnabled()) {
 				continue;
 			}
 			for (FetishPreference preference : FetishPreference.values()) {
@@ -498,6 +483,19 @@ public class OptionsController {
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(Properties.bypassSexActionsLabels[i], Properties.getBypassSexActionsDescriptions[i]));
+			}
+		}
+		
+		for (int i=0; i<Main.getProperties().clothingFemininityTitles.length; i++) {
+			id = "CLOTHING_FEMININITY_"+i;
+			int i2 = i; // "Local variable i defined in an enclosing scope must be final or effectively final" ...
+			if (MainController.document.getElementById(id) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					Main.getProperties().setClothingFemininityLevel(i2);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(Main.getProperties().clothingFemininityTitles[i], Main.getProperties().clothingFemininityDescriptions[i]));
 			}
 		}
 		

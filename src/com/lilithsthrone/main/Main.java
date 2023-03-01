@@ -86,7 +86,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4.7";
+	public static final String VERSION_NUMBER = "0.4.7.6";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 
 	public static boolean quickSaved = false;
@@ -180,6 +180,8 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("LemonMuffin", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("AuRah", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("shotgunlo", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Polyfield", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Homero L", "", 0, 0, 0, 0, Subspecies.DEMON));
 		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
@@ -708,11 +710,12 @@ public class Main extends Application {
 		Main.game = new Game();
 		
 		// Generate world:
-		if (!(gen == null))
+		if (!(gen == null)) {
 			if (gen.isRunning()) {
 				gen.cancel();
 			}
-
+		}
+		
 		gen = new Generation();
 
 		gen.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
@@ -1045,7 +1048,8 @@ public class Main extends Application {
 						CharacterImportSetting.CLEAR_KEY_ITEMS,
 						CharacterImportSetting.CLEAR_COMBAT_HISTORY,
 						CharacterImportSetting.CLEAR_SEX_HISTORY,
-						CharacterImportSetting.REMOVE_RACE_CONCEALED));
+						CharacterImportSetting.REMOVE_RACE_CONCEALED,
+						CharacterImportSetting.CLEAR_FAMILY_ID));
 				
 				Main.game.getPlayer().getSlavesOwned().clear();
 				Main.game.getPlayer().endPregnancy(false);

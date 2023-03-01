@@ -421,6 +421,8 @@ public abstract class SexAction implements SexActionInterface {
 							break;
 						case HAIR:
 							break;
+						case EYES:
+							break;
 						case HANDS:
 							break;
 						case FEET:
@@ -489,6 +491,8 @@ public abstract class SexAction implements SexActionInterface {
 							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_OTHERS);
 							break;
 						case HAIR:
+							break;
+						case EYES:
 							break;
 						case HANDS:
 							break;

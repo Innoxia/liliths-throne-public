@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -32,7 +33,7 @@ public class Warehouses {
 			sb.append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/warehouses", "WAREHOUSE_DISTRICT"));
 			
 			boolean businessFound = false;
-			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_B_EXTERIOR_DECORATOR)) {
+			if(Main.game.getPlayer().hasItemType(ItemType.NATALYA_BUSINESS_CARD) || Main.game.getPlayer().hasItemType(ItemType.NATALYA_BUSINESS_CARD_STAMPED)) {
 				sb.append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/dominionExpress", "WAREHOUSE_DISTRICT_DOMINION_EXPRESS"));
 				businessFound = true;
 			}
@@ -51,8 +52,8 @@ public class Warehouses {
 		public Response getResponse(int responseTab, int index) {
 			List<Response> responses = new ArrayList<>();
 			
-			// Helena quest:
-			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_B_EXTERIOR_DECORATOR) && !Main.game.getPlayer().isQuestFailed(QuestLine.ROMANCE_NATALYA)) {
+			if((Main.game.getPlayer().hasItemType(ItemType.NATALYA_BUSINESS_CARD) || Main.game.getPlayer().hasItemType(ItemType.NATALYA_BUSINESS_CARD_STAMPED))
+					&& !Main.game.getPlayer().isQuestFailed(QuestLine.ROMANCE_NATALYA)) {
 				if(!Main.game.isExtendedWorkTime() && !Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA)) {
 					responses.add(new Response("Dominion Express",
 									"Dominion Express is currently closed to visiting members of the public. If you wanted to meet with Natalya again, you'll have to return here between the hours of [unit.time(6)]-[unit.time(22)].",

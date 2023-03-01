@@ -200,7 +200,7 @@ public class Cultist extends NPC {
 		
 		clothingChoices.clear();
 		clothingChoices.add(ClothingType.getClothingTypeFromId("innoxia_chest_lacy_plunge_bra"));
-		clothingChoices.add(ClothingType.CHEST_PLUNGE_BRA);
+		clothingChoices.add(ClothingType.getClothingTypeFromId("innoxia_chest_plunge_bra"));
 		equipClothingFromNowhere(Main.game.getItemGen().generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
 		
 		clothingChoices.clear();

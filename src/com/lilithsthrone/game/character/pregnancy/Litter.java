@@ -1,6 +1,7 @@
-package com.lilithsthrone.game.character;
+package com.lilithsthrone.game.character.pregnancy;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -20,7 +21,7 @@ import java.util.Map.Entry;
 
 /**
  * @since 0.1.62
- * @version 0.4
+ * @version 0.4.7.1
  * @author Innoxia, orvail
  */
 public class Litter implements XMLSaving {
@@ -40,6 +41,8 @@ public class Litter implements XMLSaving {
 	private int sonsFather;
 	private int daughtersFather;
 	
+	private FertilisationType fertilisationType;
+	
 	private List<String> offspring;
 	
 	private String birthedDescription;
@@ -47,12 +50,14 @@ public class Litter implements XMLSaving {
 	private AbstractSubspecies motherRace;
 	private AbstractSubspecies fatherRace;
 
-	public Litter(LocalDateTime conceptionDate, LocalDateTime birthDate, GameCharacter mother, GameCharacter father, List<OffspringSeed> offspring) {
+	public Litter(LocalDateTime conceptionDate, LocalDateTime birthDate, GameCharacter mother, GameCharacter father, FertilisationType fertilisationType, List<OffspringSeed> offspring) {
 		this.id = mother.getId()+mother.getLittersGenerated();
 		
 		this.conceptionDate = LocalDateTime.of(conceptionDate.getYear(), conceptionDate.getMonth(), conceptionDate.getDayOfMonth(), 12, 0);
 		this.birthDate = LocalDateTime.of(birthDate.getYear(), birthDate.getMonth(), birthDate.getDayOfMonth(), 12, 0);
 		this.incubationStartDate = null;
+		
+		this.fertilisationType = fertilisationType;
 		
 		motherId = mother.getId();
 		motherRace = mother.getSubspecies();
@@ -95,6 +100,7 @@ public class Litter implements XMLSaving {
 			LocalDateTime conceptionDate,
 			LocalDateTime birthDate,
 			String motherId, String fatherId,
+			FertilisationType fertilisationType,
 			int sonsMother, int daughtersMother,
 			int sonsFather, int daughtersFather,
 			List<String> offspring,
@@ -109,6 +115,8 @@ public class Litter implements XMLSaving {
 		this.motherId = motherId;
 		this.fatherId = fatherId;
 		incubatorId = "";
+
+		this.fertilisationType = fertilisationType;
 		
 		this.sonsMother = sonsMother;
 		this.daughtersMother = daughtersMother;
@@ -147,7 +155,8 @@ public class Litter implements XMLSaving {
 		XMLUtil.addAttribute(doc, element, "motherId", this.getMotherId());
 		XMLUtil.addAttribute(doc, element, "fatherId", this.getFatherId());
 		XMLUtil.addAttribute(doc, element, "incubatorId", this.getIncubatorId());
-		
+
+		XMLUtil.addAttribute(doc, element, "fertilisationType", this.getFertilisationType().toString());
 		
 		XMLUtil.addAttribute(doc, element, "sonsMother", String.valueOf(this.getSonsFromMother()));
 		XMLUtil.addAttribute(doc, element, "daughtersMother", String.valueOf(this.getDaughtersFromMother()));
@@ -244,6 +253,7 @@ public class Litter implements XMLSaving {
 				loadedBirthDate,
 				parentElement.getAttribute("motherId"),
 				parentElement.getAttribute("fatherId"),
+				FertilisationType.NORMAL,
 				Integer.valueOf(parentElement.getAttribute("sonsMother")),
 				Integer.valueOf(parentElement.getAttribute("daughtersMother")),
 				Integer.valueOf(parentElement.getAttribute("sonsFather")),
@@ -256,7 +266,11 @@ public class Litter implements XMLSaving {
 		if(parentElement.hasAttribute("incubatorId")) {
 			litter.setIncubatorId(parentElement.getAttribute("incubatorId"));
 		}
-		
+
+		if(parentElement.hasAttribute("fertilisationType")) {
+			litter.setFertilisationType(FertilisationType.valueOf(parentElement.getAttribute("fertilisationType")));
+		}
+
 		if(loadedIncubationStartDate!=null) {
 			litter.setIncubationStartDate(loadedIncubationStartDate);
 		}
@@ -354,6 +368,14 @@ public class Litter implements XMLSaving {
 	
 	public boolean isFatherId(String fatherId) {
 		return this.fatherId.equals(fatherId);
+	}
+	
+	public FertilisationType getFertilisationType() {
+		return fertilisationType;
+	}
+
+	public void setFertilisationType(FertilisationType fertilisationType) {
+		this.fertilisationType = fertilisationType;
 	}
 	
 	/**

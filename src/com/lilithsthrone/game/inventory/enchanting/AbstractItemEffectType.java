@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -70,6 +71,8 @@ import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
+import com.lilithsthrone.game.character.effects.EffectBenefit;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
@@ -121,7 +124,37 @@ public abstract class AbstractItemEffectType {
 		return null;
 	}
 	
-	public abstract String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer);
+	public abstract String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer);
+
+	public final String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(itemEffectOverride(primaryModifier, secondaryModifier, potency, limit, user, target, timer));
+		
+		for(Entry<AbstractStatusEffect, Integer> entry : getAppliedStatusEffects().entrySet()) {
+			AbstractStatusEffect se = entry.getKey();
+			int time = entry.getValue();
+			target.addStatusEffect(se, time);
+			String timeDesc = time+" turns";
+			if(!se.isCombatEffect()) {
+				int timeMinutes = (time/60);
+				if(timeMinutes > 3*60) {
+					timeDesc = timeMinutes/60+" hours";
+				} else {
+					timeDesc = timeMinutes+" minutes";
+				}
+			}
+			sb.append(UtilText.parse(target,
+					"<p style='text-align:center; padding-top:0; margin-top:0;'>"
+					+ "[npc.NameIsFull] now "
+					+(se.getBeneficialStatus()==EffectBenefit.DETRIMENTAL?"suffering from [style.italicsBad(":(se.getBeneficialStatus()==EffectBenefit.BENEFICIAL?"benefitting from [style.italicsGood(":"affected by "))
+					+se.getName(target)
+					+(se.getBeneficialStatus()==EffectBenefit.NEUTRAL?"":")]")
+					+ " for "+timeDesc+"!"
+					+ "</p>"));
+		}
+		
+		return sb.toString();
+	}
 	
 	public String getPotionDescriptor() {
 		return "";
@@ -133,6 +166,13 @@ public abstract class AbstractItemEffectType {
 	 */
 	public boolean isBreakOutOfInventory() {
 		return false;
+	}
+	
+	/**
+	 * @return A Map of status effects to be applied to the target, mapped to how long that status effect should be applied for, <b>in seconds</b>.
+	 */
+	public Map<AbstractStatusEffect, Integer> getAppliedStatusEffects() {
+		return new HashMap<>();
 	}
 	
 	public List<TFModifier> getPrimaryModifiers() {
@@ -2711,7 +2751,7 @@ public abstract class AbstractItemEffectType {
 	
 	protected static RacialEffectUtil getRacialEffect(AbstractRace race, TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, GameCharacter user, GameCharacter target) {
 		
-		boolean revealTransformedPart = !user.equals(target);
+		boolean revealTransformedPart = user!=null && target!=null && !user.equals(target);
 		
 		switch(primaryModifier) {
 			case TF_ANTENNA:

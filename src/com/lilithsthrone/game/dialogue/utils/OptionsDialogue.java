@@ -89,6 +89,7 @@ public class OptionsDialogue {
 					+ "</p>"
 					+"<p>"
 						+ "You can visit my blog (https://lilithsthrone.blogspot.co.uk) to check on development progress (use the 'Blog' button below to open the blog in your default browser)."
+						+ " [style.italicsMinorBad(<b>Note:</b> Intrusive age verification is being rolled out on blogspot, so I will likely create a new blog soon.)]"
 					+ "</p>"
 					+ "<p style='text-align:center'>"
 						+ "<b>Please use either my blog or github to get the latest official version of Lilith's Throne!</b>"
@@ -1448,26 +1449,24 @@ public class OptionsDialogue {
 		
 		for(FetishPreference preference : FetishPreference.values()) {
 			String disabledMsg=null;
-			if(!Main.game.isPenetrationLimitationsEnabled() && fetish == Fetish.FETISH_SIZE_QUEEN) {
-				disabledMsg="Penetrative size-difference";
-			}
-			if(!Main.game.isNonConEnabled() && (fetish == Fetish.FETISH_NON_CON_DOM || fetish == Fetish.FETISH_NON_CON_SUB)) {
-				disabledMsg="Non-consent";
-			}
-			if(!Main.game.isIncestEnabled() && fetish == Fetish.FETISH_INCEST) {
-				disabledMsg="Incest";
-			}
-			if(!Main.game.isLactationContentEnabled() && (fetish == Fetish.FETISH_LACTATION_OTHERS || fetish == Fetish.FETISH_LACTATION_SELF)) {
-				disabledMsg="Lactation";
-			}
-			if(!Main.game.isAnalContentEnabled() && (fetish == Fetish.FETISH_ANAL_GIVING || fetish == Fetish.FETISH_ANAL_RECEIVING)) {
-				disabledMsg="Anal Content";
-			}
-			if(!Main.game.isFootContentEnabled() && (fetish == Fetish.FETISH_FOOT_GIVING || fetish == Fetish.FETISH_FOOT_RECEIVING)) {
-				disabledMsg="Foot Content";
-			}
-			if(!Main.game.isArmpitContentEnabled() && (fetish == Fetish.FETISH_ARMPIT_GIVING || fetish == Fetish.FETISH_ARMPIT_RECEIVING)) {
-				disabledMsg="Armpit Content";
+			if(!fetish.isContentEnabled()) {
+				if (Fetish.FETISH_SIZE_QUEEN.equals(fetish)) {
+					disabledMsg = "Penetrative size-difference";
+				} else if (Fetish.FETISH_NON_CON_DOM.equals(fetish) || Fetish.FETISH_NON_CON_SUB.equals(fetish)) {
+					disabledMsg = "Non-consent";
+				} else if (Fetish.FETISH_INCEST.equals(fetish)) {
+					disabledMsg = "Incest";
+				} else if (Fetish.FETISH_LACTATION_SELF.equals(fetish) || Fetish.FETISH_LACTATION_OTHERS.equals(fetish)) {
+					disabledMsg = "Lactation";
+				} else if (Fetish.FETISH_ANAL_RECEIVING.equals(fetish) || Fetish.FETISH_ANAL_GIVING.equals(fetish)) {
+					disabledMsg = "Anal Content";
+				} else if (Fetish.FETISH_FOOT_RECEIVING.equals(fetish) || Fetish.FETISH_FOOT_GIVING.equals(fetish)) {
+					disabledMsg = "Foot Content";
+				} else if (Fetish.FETISH_ARMPIT_RECEIVING.equals(fetish) || Fetish.FETISH_ARMPIT_GIVING.equals(fetish)) {
+					disabledMsg = "Armpit Content";
+				} else {
+					disabledMsg = "Unspecified Content";
+				}
 			}
 			if(disabledMsg!=null) {
 				// Disabled fetishes to default, the fetish won't be a valid option for the generator anyway
@@ -1475,7 +1474,9 @@ public class OptionsDialogue {
 				sb.append("<div style='display:inline-block;'><span class='option-disabled'>Fetish forcibly disabled due to "+disabledMsg+" setting!</span></div>");
 				break;
 			} else {
-				sb.append("<div id='"+preference+"_"+Fetish.getIdFromFetish(fetish)+"' class='preference-button"+(Main.getProperties().fetishPreferencesMap.get(fetish)==preference.getValue()?" selected":"")+"'>"
+				sb.append("<div id='"+preference+"_"+Fetish.getIdFromFetish(fetish)+"' class='preference-button"+(Main.getProperties().fetishPreferencesMap.get(fetish)==preference.getValue()?" selected":"")+"'"
+						+ " style='width:70px;'"
+						+ ">"
 							+Util.capitaliseSentence(preference.getName())
 						+"</div>");
 			}
@@ -2534,6 +2535,20 @@ public class OptionsDialogue {
 					+ "<br/><i>This setting has no effect on the Offspring Map, nor on offspring who you've already met.</i>",
 					Main.game.isOffspringEncountersEnabled()));
 			
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_BLUE_LIGHT, "Clothing Femininity", "This sets the limitations of clothings' femininity values."));
+			for (int i=Main.getProperties().clothingFemininityTitles.length-1; i>=0; i--) {
+				if (Main.getProperties().getClothingFemininityLevel() == i) {
+					UtilText.nodeContentSB.append("<div id='CLOTHING_FEMININITY_"+i
+							+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"
+							+Main.getProperties().clothingFemininityColours[i].toWebHexString()+";'><b>"+Main.getProperties().clothingFemininityTitles[i]+"</b></div>");
+				} else {
+					UtilText.nodeContentSB.append("<div id='CLOTHING_FEMININITY_"+i
+							+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+							+"[style.colourDisabled("+Main.getProperties().clothingFemininityTitles[i]+")]</div>");
+				}
+			}
+			UtilText.nodeContentSB.append("</div></div>");
+			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_PINK, "Sex action bypass", "If this is enabled, sex action corruption requirements may be bypassed."));
 			for (int i = 2; i>=0; i--) {
 				UtilText.nodeContentSB.append("<div id='BYPASS_SEX_ACTIONS_"+i+"' class='normal-button"+(Main.getProperties().bypassSexActions == i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
@@ -2698,7 +2713,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("INCEST",
 					PresetColour.BASE_ROSE,
 					"Incest",
-					"This will enable sexual actions with all of your blood-relatives.",
+					"This will enable sexual actions between characters who are related to one another.",
 					Main.getProperties().hasValue(PropertyValue.incestContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("LACTATION",
@@ -2706,7 +2721,7 @@ public class OptionsDialogue {
 					"Lactation",
 					"This enables lactation content.",
 					Main.getProperties().hasValue(PropertyValue.lactationContent)));
-
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("SEXUAL_UDDERS",
 					PresetColour.BASE_ORANGE_LIGHT,
 					"Crotch-boob & Udder Content",

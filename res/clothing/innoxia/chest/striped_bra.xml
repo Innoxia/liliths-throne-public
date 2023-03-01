@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>150</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[striped bra]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[striped bras]]></namePlural>
+		<description><![CDATA[A cotton bikini-style bra, designed to match with a pair of striped panties..]]></description>
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity>
+		<slot>CHEST</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>striped_bra.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>NIPPLES</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_BREASTS"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="NOT_WHITE"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_WHITE"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(place)] the bra over [npc.her] chest before tying up the strings at [npc.her] back.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(place)] the bra over [npc2.namePos] chest before tying up the strings at [npc2.her] back.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(place)] the bra over [npc2.namePos] chest before roughly tying up the strings at [npc2.her] back.]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(untie)] the strings of [npc.her] bra and [npc.verb(take)] it off.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(untie)] the strings of [npc2.namePos] bra and [npc.verb(take)] it off.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(untie)] the strings of [npc2.namePos] bra and [npc.verb(pull)] it off.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

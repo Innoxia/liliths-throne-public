@@ -92,13 +92,19 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private Set<PenetrationModifier> penetrationOtherModifiers;
 	
 	// Orifice variables:
+	private int orificeSelfLabiaSize;
+	private int orificeSelfClitSize;
+	private int orificeSelfClitGirth;
 	private int orificeSelfDepth;
 	private float orificeSelfCapacity;
 	private int orificeSelfElasticity;
 	private int orificeSelfPlasticity;
 	private int orificeSelfWetness;
 	private Set<OrificeModifier> orificeSelfModifiers;
-	
+
+	private int orificeOtherLabiaSize;
+	private int orificeOtherClitSize;
+	private int orificeOtherClitGirth;
 	private int orificeOtherDepth;
 	private float orificeOtherCapacity;
 	private int orificeOtherElasticity;
@@ -995,7 +1001,25 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							this.itemTags.get(slot).add(ItemTag.ONAHOLE_SELF);
 						}
 					}
-					
+
+					this.orificeSelfLabiaSize = 2;
+					this.orificeSelfClitSize = 0;
+					this.orificeSelfClitGirth = 3;
+					this.orificeSelfDepth = 25;
+					this.orificeSelfCapacity = 2;
+					this.orificeSelfElasticity = 1;
+					this.orificeSelfPlasticity = 0;
+					this.orificeSelfWetness = 0;
+					this.orificeSelfModifiers = new HashSet<>();
+					if(orificeAttributes.getOptionalFirstOf("labiaSize").isPresent()) {
+						this.orificeSelfLabiaSize = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("labiaSize").getTextContent());
+					}
+					if(orificeAttributes.getOptionalFirstOf("clitSize").isPresent()) {
+						this.orificeSelfClitSize = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("clitSize").getTextContent());
+					}
+					if(orificeAttributes.getOptionalFirstOf("clitGirth").isPresent()) {
+						this.orificeSelfClitGirth = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("clitGirth").getTextContent());
+					}
 					if(orificeAttributes.getOptionalFirstOf("depth").isPresent()) {
 						this.orificeSelfDepth = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("depth").getTextContent());
 					}
@@ -1058,6 +1082,24 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						}
 					}
 					
+					this.orificeOtherLabiaSize = 2;
+					this.orificeOtherClitSize = 0;
+					this.orificeOtherClitGirth = 3;
+					this.orificeOtherDepth = 25;
+					this.orificeOtherCapacity = 2;
+					this.orificeOtherElasticity = 1;
+					this.orificeOtherPlasticity = 0;
+					this.orificeOtherWetness = 0;
+					this.orificeOtherModifiers = new HashSet<>();
+					if(orificeAttributes.getOptionalFirstOf("labiaSize").isPresent()) {
+						this.orificeOtherLabiaSize = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("labiaSize").getTextContent());
+					}
+					if(orificeAttributes.getOptionalFirstOf("clitSize").isPresent()) {
+						this.orificeOtherClitSize = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("clitSize").getTextContent());
+					}
+					if(orificeAttributes.getOptionalFirstOf("clitGirth").isPresent()) {
+						this.orificeOtherClitGirth = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("clitGirth").getTextContent());
+					}
 					if(orificeAttributes.getOptionalFirstOf("depth").isPresent()) {
 						this.orificeOtherDepth = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("depth").getTextContent());
 					}
@@ -1260,9 +1302,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				if(((AbstractClothingType)o).getName().equals(getName())
 						&& ((AbstractClothingType)o).getPathName().equals(getPathName())
 						&& ((AbstractClothingType)o).getPhysicalResistance() == getPhysicalResistance()
-						&& ((AbstractClothingType)o).getFemininityMaximum() == getFemininityMaximum()
-						&& ((AbstractClothingType)o).getFemininityMinimum() == getFemininityMinimum()
-						&& ((AbstractClothingType)o).getFemininityRestriction() == getFemininityRestriction()
+						&& ((AbstractClothingType)o).femininityMaximum == femininityMaximum
+						&& ((AbstractClothingType)o).femininityMinimum == femininityMinimum
+						&& ((AbstractClothingType)o).femininityRestriction == femininityRestriction
 						&& ((AbstractClothingType)o).getEquipSlots().equals(getEquipSlots())
 						&& ((AbstractClothingType)o).getEffects().equals(getEffects())
 						&& ((AbstractClothingType)o).getClothingSet() == getClothingSet()
@@ -1281,10 +1323,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		result = 31 * result + getName().hashCode();
 		result = 31 * result + getPathName().hashCode();
 		result = 31 * result + Float.floatToIntBits(getPhysicalResistance());
-		result = 31 * result + getFemininityMaximum();
-		result = 31 * result + getFemininityMinimum();
-		if(getFemininityRestriction()!=null) {
-			result = 31 * result + getFemininityRestriction().hashCode();
+		result = 31 * result + femininityMinimum;
+		result = 31 * result + femininityMinimum;
+		if(femininityRestriction!=null) {
+			result = 31 * result + femininityRestriction.hashCode();
 		}
 		result = 31 * result + getEquipSlots().hashCode();
 		result = 31 * result + getEffects().hashCode();
@@ -1911,14 +1953,25 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 
 	public int getFemininityMinimum() {
+		if(Main.getProperties().getClothingFemininityLevel()==0 || (Main.getProperties().getClothingFemininityLevel()==1 && femininityMinimum>0)) {
+			return 0;
+		}
 		return femininityMinimum;
 	}
 
 	public int getFemininityMaximum() {
+		if(Main.getProperties().getClothingFemininityLevel()==0 || (Main.getProperties().getClothingFemininityLevel()==2 && femininityMinimum<100)) {
+			return 100;
+		}
 		return femininityMaximum;
 	}
 
 	public Femininity getFemininityRestriction() {
+		if(Main.getProperties().getClothingFemininityLevel()==0
+				|| (Main.getProperties().getClothingFemininityLevel()==1 && femininityRestriction == Femininity.FEMININE)
+				|| (Main.getProperties().getClothingFemininityLevel()==2 && femininityRestriction == Femininity.MASCULINE)) {
+			return Femininity.ANDROGYNOUS;
+		}
 		return femininityRestriction;
 	}
 	
@@ -2483,6 +2536,18 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return penetrationOtherModifiers;
 	}
 
+	public int getOrificeSelfLabiaSize() {
+		return orificeSelfLabiaSize;
+	}
+	
+	public int getOrificeSelfClitSize() {
+		return orificeSelfClitSize;
+	}
+	
+	public int getOrificeSelfClitGirth() {
+		return orificeSelfClitGirth;
+	}
+	
 	public int getOrificeSelfDepth() {
 		return orificeSelfDepth;
 	}
@@ -2510,6 +2575,18 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return orificeSelfModifiers;
 	}
 
+	public int getOrificeOtherLabiaSize() {
+		return orificeOtherLabiaSize;
+	}
+	
+	public int getOrificeOtherClitSize() {
+		return orificeOtherClitSize;
+	}
+	
+	public int getOrificeOtherClitGirth() {
+		return orificeOtherClitGirth;
+	}
+	
 	public int getOrificeOtherDepth() {
 		return orificeOtherDepth;
 	}

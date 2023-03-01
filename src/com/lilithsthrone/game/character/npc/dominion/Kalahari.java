@@ -107,6 +107,9 @@ public class Kalahari extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.6")) { // For some reason Kalahari had cat-ears in one save, so added this to convert to panther ears
 			this.setEarType(EarType.getEarTypeFromId("innoxia_panther_ear"));
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.7.2")) {
+			this.equipClothing();
+		}
 	}
 
 	@Override
@@ -223,15 +226,17 @@ public class Kalahari extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_thong", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_TUBE_TOP, PresetColour.CLOTHING_TAN, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_tube_top", PresetColour.CLOTHING_TAN, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_micro_skirt_pleated", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_platform_boots", PresetColour.CLOTHING_TAN, false), true, this);
+//		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_platform_boots", PresetColour.CLOTHING_TAN, false), true, this);
+
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_GOLD, false), true, this);
 		
 		this.setPiercedEar(true);			
 		this.setPiercedNose(true);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_nose_ring", PresetColour.CLOTHING_GOLD, false), true, this);
-
+		
 	}
 
 	@Override

@@ -148,6 +148,8 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue lilayaReactedToPlayerAsDemon = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue lilayaHug = new AbstractDialogueFlagValue(true);
 	public static AbstractDialogueFlagValue obtainedScientistClothing = new AbstractDialogueFlagValue();
+
+	public static AbstractDialogueFlagValue lilayaGardenPickRose = new AbstractDialogueFlagValue(true);
 	
 	public static AbstractDialogueFlagValue readBook1 = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue readBook2 = new AbstractDialogueFlagValue();
@@ -266,6 +268,10 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue natalyaBusy = new AbstractDialogueFlagValue(true);
 	public static AbstractDialogueFlagValue natalyaDailySexAsSub = new AbstractDialogueFlagValue(true);
 	public static AbstractDialogueFlagValue natalyaDailySexAsDom = new AbstractDialogueFlagValue(true);
+
+	public static AbstractDialogueFlagValue natalyaParkEncounter = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue playerSubmittedToNatalyaInPark = new AbstractDialogueFlagValue();
+	
 	
 	// Kay:
 	public static AbstractDialogueFlagValue kayTalkedTo = new AbstractDialogueFlagValue(true);
@@ -296,6 +302,8 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue zaranixKellySubdued = new AbstractDialogueFlagValue();
 
 	public static AbstractDialogueFlagValue zaranixTransformedPlayer = new AbstractDialogueFlagValue();
+	
+	public static AbstractDialogueFlagValue amberSatOnFloor = new AbstractDialogueFlagValue();
 	
 	public static AbstractDialogueFlagValue amberRepeatEncountered = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue katherineRepeatEncountered = new AbstractDialogueFlagValue();
