@@ -46,6 +46,17 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>profile-mac</id>
+			<activation>
+				<os>
+					<family>Mac</family>
+				</os>
+			</activation>
+			<properties>
+				<target.platform>mac</target.platform>
+			</properties>
+		</profile>
+		<profile>
 			<id>jdk8</id>
 			<activation>
 				<jdk>1.8</jdk>
