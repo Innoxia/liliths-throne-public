@@ -9,8 +9,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Contributors:
 		Added ability to let friendly occupants take on some of the more mundane slave jobs (Maid, Security guard, Librarian, Cook, Lab assistant, Office worker, and Waitress). (PR#1560 by Maxis010)
 		Removed the need to add content checks to multiple locations when adding new content controlled fetishes. (PR#1600 by Maxis010)
-	
-	
+		Fixed bug during sex scenes where a background error could be thrown if an NPC who was not involved in the sex scene tried to equip clothing. (by AceXP)
+		Bugfixes for GuestJobs PR after merge. (PR#1755 by Maxis010)
+
+
+
 	[x] PR#1560 - guest jobs
 		[x] check all files
 		[x] testing
@@ -20,9 +23,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] add security & waiter
 			[x] handle interaction/responses
 		[x] slave lounge dialogue
-
 	[x] test journal fetish page
-	
+
+	[] Add spa jobs for friendly occupants
+
 	[] PRs
 		[] #1724
 		[] #1438
@@ -45,7 +49,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1657
 		[] #1658
 		[] #1489
-		[] #1560 - Maxis PR
 		[] #1658 - MintyChip races
 
 	###################
@@ -93,13 +96,25 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] pregnancy reaction
 		[] Add gym map
 		[] Armpit licking
-		
+
 	[] Vicky
-	
+		[] after submitting to her 3 times, she claims you
+		[] subsequent visits lead into one of:
+			[] under desk oral
+			[] anal
+			[] vaginal
+			[] rides you
+			[] bring her lunch
+				[] hugs you while eating
+			[] evening company
+				[] cuddles
+			[] business help
+
+
 	[] Finch
-	
+
 	[] Wynter
-	
+
 	[] Red light district improvements
 		[] Video recorder
 			[] activate during sex

@@ -23366,7 +23366,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if (wasAbleToEquip) {
 			applyEquipClothingEffects(clonedClothing, slotToEquipInto, characterClothingEquipper, Main.game.isStarted() && this.isPlayer());
 			
-			if(Main.game.isInSex()) { // If in sex, add this clothing equip to tracking
+			if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(this)) { // If in sex, add this clothing equip to tracking
 				Main.sex.addClothingEquippedDuringSex(fromCharactersInventory, this, newClothing);
 			}
 			
