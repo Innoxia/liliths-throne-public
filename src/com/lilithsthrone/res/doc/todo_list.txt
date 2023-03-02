@@ -748,7 +748,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 
 	[] enchantment cap reduction upgrades for clothing and weapons (extremely expensive, via Arthur)
 
-	[] Suggestion: Combine the +10% race damage perks into one perk that you recieve when you read all the books instead of one perk per book
+	[] Suggestion: Combine the +10% race damage perks into one perk that you receive when you read all the books instead of one perk per book
 
 	Jaguar subspecies
 		Black big cats should be panthers
@@ -3664,7 +3664,7 @@ It'd be even better if this could be extended to potions as well, allowing us to
 
 	My slave at the public stocks gets pregnant and gives birth zero days later
 
-	Also one of my slaves has retained his penile virginity after being setup as a slave stud for atleast a month and none of the women have been pregnant by him(he's the only one). I also have him as a initiator with plenty of sex toys. I'm not sure if this is a bug or if it just hasn't been implemented yet.
+	Also one of my slaves has retained his penile virginity after being setup as a slave stud for at least a month and none of the women have been pregnant by him(he's the only one). I also have him as a initiator with plenty of sex toys. I'm not sure if this is a bug or if it just hasn't been implemented yet.
 
 	Getting some phantom pregnancies with some of my slaves. One set shows up on the phone, but not on their status screens or anything else, and the other NPC gets pregnant, with all attendant status and dialogue changes, but occasionally doesn't resolve
 
@@ -3681,7 +3681,7 @@ It'd be even better if this could be extended to potions as well, allowing us to
 	-After interacting with either character's inventory during sex, the action menu tabs to Self Actions, which I almost never use. Maybe it could remember the tab you were on and return to that?
 	-More options for things like penetrating someone and sucking them off at the same time, or being penetrated and getting sucked off/doing paizuri, could be nice in certain positions...
 
-	Just wanted to post a problem i have about arthur's secondary quest, Arthur's Experiment, i recieved the quest, i went to the shop to collect the package but then i get stuck when i want to deliver the package to Arthur i go to his room but i have no option to do deliver it to Arthur. There is also another problem with Arthur, after rescuing him he got placed into the bedroom in the mansion and the system now consider him as a slave even if in his page he is not, he does not even appear on my slave overview, i can interact with his in same way as any other slave in their room. But i can't give him his damn package.
+	Just wanted to post a problem i have about arthur's secondary quest, Arthur's Experiment, i received the quest, i went to the shop to collect the package but then i get stuck when i want to deliver the package to Arthur i go to his room but i have no option to do deliver it to Arthur. There is also another problem with Arthur, after rescuing him he got placed into the bedroom in the mansion and the system now consider him as a slave even if in his page he is not, he does not even appear on my slave overview, i can interact with his in same way as any other slave in their room. But i can't give him his damn package.
 
 	-Enslavement piercings work when they don't have the slot available, but then they don't have the item when you check the slave. They don't have any enslavement item at all. Even works with a dick piercing on a character without a dick.
 	-While penetrating you in the Missionary(on back) position, a character can still tease your dick with their pussy.
@@ -5858,14 +5858,14 @@ A girl with the virginity fetish probably shouldn't ask you to fuck her, however
 	There seems to be a bug in the save compatibility, which is manifesting in an error when trying to inspect some slaves. I'll try and figure out what's going wrong as soon as I can! :3
 
 
-	if you edit an npc's preferred body type, it doesn't stick, probably because editting an npc makes the game act like you never met them, so you go through their introduction all over again, and probably resetting their preferred body type to whatever it was previously.
+	if you edit an npc's preferred body type, it doesn't stick, probably because editing an npc makes the game act like you never met them, so you go through their introduction all over again, and probably resetting their preferred body type to whatever it was previously.
 
 	If you're having trouble tracking down the memory leak, repeated load actions and inventory views very rapidly accelerate it. After a while the UI becomes so unresponsive that you'll be waiting up to a second or two for some actions to complete.
 
 	re Succubi bugged at the moment?  They say they wont let you use their pussy when they take their cock out, but during sex they only kiss, masturbate themselves, and do vaginal sex.  They never actually use their cock.  They also only use the back to wall position.
 	I have a Succubus slave and when I let her be the dominant one she always does the same thing over and over. That being the back to wall position and never switch to anything else. I have tried to give her different fetishes to see if that does anything but no luck.
 
-	I've also noticed problems with other npcs. All human male NPCs, for example, only use the same 3 positions: Doggy performing oral, kneeling performing oral, and kneeling recieving oral.  Thats all. :frowning:(edited)
+	I've also noticed problems with other npcs. All human male NPCs, for example, only use the same 3 positions: Doggy performing oral, kneeling performing oral, and kneeling receiving oral.  Thats all. :frowning:(edited)
 		It may be the same with all masculine NPCs but I haven't tested enough
 		I just want an NPC to forcefully break-in my character but no one will do it
 
@@ -6226,7 +6226,7 @@ It's most noticeable with Lilaya an the other succubi, but it can happen with an
 
 	-re:sex partner not responding, not sure what's going on, but it apparently is doing something just not printing the text for it.
 	 it is not uncommon for me to get "x is lubed y" messages when the partner's action is blank, as if they're rubbing their pussy/ass against my cock.
-	  i'd also mentin that it's mostly in doggy style, though i only generally use that and recieving oral.
+	  i'd also mention that it's mostly in doggy style, though i only generally use that and receiving oral.
 
 	-until there's some sort of strap-on, women using anal fetish tease and talking about fucking your ass don't really make sense.
 
@@ -6241,7 +6241,7 @@ It's most noticeable with Lilaya an the other succubi, but it can happen with an
 
 	-can we have some way of seeing the entire current map? i.e. when standing on the street, showing the entire city map but not the maps for the mansion or harpy nests or such. maybe an option in the cellphone? naturally would be limited to what you've explored, unless you've got debug mode on, but still useful.
 
-	Can you be in a submissive role with your children? I've noticed that the player character only takes the role of dominant, theres no alternative to submit to them.
+	Can you be in a submissive role with your children? I've noticed that the player character only takes the role of dominant, there's no alternative to submit to them.
 
 	-might i suggest some tweaking of kate's services? as is it takes money for each step of the process, i.e. 200 for making your iris glow, 200 for making them heterochromatic, 200 for changing the second iris color, and 200 for making that glow, for a total of 800.
 	maybe add a "buy" button on the left side, either under the description, or make it where the price is, make it only clickable after changing the options to the right, and only actually changing your appearance and charging the fee once you hit buy.
@@ -7358,9 +7358,9 @@ When you defeat them you will get the option to "reclaim" giving you back only i
 
 	Non con fetishist NPCs don't seem to rape you...
 		They had the right orientation
-		They put up a resistance and make you rape them if you win even if they have an orientation that likes you. But that makes sense cause of thier fetish they want to be raped/ struggle during sex.
+		They put up a resistance and make you rape them if you win even if they have an orientation that likes you. But that makes sense cause of their fetish they want to be raped/ struggle during sex.
 			But As it is currently they don't seem to be willing to be on the dominant end of a rape scense which contradicts the fetishes's current description text.
-			It might perhaps be a good idea to split up the Non con fetish anyways though. Into giving and recieving versions.
+			It might perhaps be a good idea to split up the Non con fetish anyways though. Into giving and receiving versions.
 
 	the dialogue boxes are not automatically scrolling to the bottom anymore
 	This is sex scene dialogue, it won't scroll down automatically when a new message appears
@@ -7384,9 +7384,9 @@ When you defeat them you will get the option to "reclaim" giving you back only i
 
 	Remove jinxed clothing from slave
 
-	restore the option to acces an NPC's inventory right after sex
+	restore the option to access an NPC's inventory right after sex
 
-	Also I think I pinned it down with that odd feeling. The map doesn't seem to have border, infact almost nothing seems to except the button panel and the event log.
+	Also I think I pinned it down with that odd feeling. The map doesn't seem to have border, in fact almost nothing seems to except the button panel and the event log.
 
 	Sometimes NPCs will ignore an article of clothing during a scene. NPCs seem to not like removing my character's bra for whatever reason.
 
