@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
+import com.lilithsthrone.game.character.body.valueEnums.Affinity;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.effects.PerkCategory;
@@ -65,7 +66,6 @@ public abstract class AbstractSubspecies {
 	
 	private boolean shortStature;
 	private boolean bipedalSubspecies;
-	private boolean aquatic;
 
 	private Map<PersonalityTrait, Float> personalityChanceOverrides;
 	
@@ -96,6 +96,7 @@ public abstract class AbstractSubspecies {
 	private String advancedDescriptionId;
 	
 	private AbstractRace race;
+	private Affinity affinity;
 	private SubspeciesPreference subspeciesPreferenceDefault;
 	private String description;
 
@@ -282,7 +283,6 @@ public abstract class AbstractSubspecies {
 		this.baseSlaveValue = baseSlaveValue;
 		this.subspeciesOverridePriority = 0;
 		
-		this.aquatic = false;
 		this.shortStature = false;
 		this.bipedalSubspecies = true;
 		
@@ -342,6 +342,7 @@ public abstract class AbstractSubspecies {
 		this.tertiaryColour = colour;
 		
 		this.race = race;
+		this.affinity = Affinity.AMPHIBIOUS;
 		this.subspeciesPreferenceDefault = subspeciesPreferenceDefault;
 		this.description = description;
 		
@@ -391,6 +392,7 @@ public abstract class AbstractSubspecies {
 				this.fromExternalFile = true;
 
 				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
+				this.affinity = coreElement.getOptionalFirstOf("affinity").isPresent() ? Affinity.getAffinityFromId(coreElement.getMandatoryFirstOf("affinity").getTextContent()) : Affinity.AMPHIBIOUS;
 				
 				String secondaryColourText = coreElement.getMandatoryFirstOf("secondaryColour").getTextContent();
 				String tertiaryColourText = coreElement.getMandatoryFirstOf("tertiaryColour").getTextContent();
@@ -419,7 +421,6 @@ public abstract class AbstractSubspecies {
 				}
 				this.shortStature = Boolean.valueOf(coreElement.getMandatoryFirstOf("shortStature").getTextContent());
 				this.bipedalSubspecies = Boolean.valueOf(coreElement.getMandatoryFirstOf("bipedalSubspecies").getTextContent());
-				this.aquatic = Boolean.valueOf(coreElement.getMandatoryFirstOf("aquatic").getTextContent());
 				
 				personalityChanceOverrides = new HashMap<>();
 				if(coreElement.getOptionalFirstOf("personalityChances").isPresent()) {
@@ -1403,6 +1404,38 @@ public abstract class AbstractSubspecies {
 		return race;
 	}
 
+	public Affinity getAffinity() {
+		return affinity;
+	}
+
+	public Affinity getAffinity(Body body) {
+		switch (body.getLegConfiguration()) {
+//			case ARACHNID:
+//				return Affinity.TERRESTRIAL;
+			case CEPHALOPOD:
+			case TAIL:
+				return Affinity.AQUATIC;
+			default:
+				return body.getHalfDemonSubspecies() != null
+					? body.getHalfDemonSubspecies().getAffinity()
+					: affinity;
+		}
+	}
+
+	public Affinity getAffinity(GameCharacter character) {
+		switch (character.getLegConfiguration()) {
+//			case ARACHNID:
+//				return Affinity.TERRESTRIAL;
+			case CEPHALOPOD:
+			case TAIL:
+				return Affinity.AQUATIC;
+			default:
+				return character.getHalfDemonSubspecies() != null
+					? character.getHalfDemonSubspecies().getAffinity()
+					: affinity;
+		}
+	}
+
 	public AbstractAttribute getDamageMultiplier() {
 		return getRace().getDefaultDamageMultiplier();
 	}
@@ -1426,16 +1459,25 @@ public abstract class AbstractSubspecies {
 	public String getDescription(GameCharacter character) {
 		return description;
 	}
-	
+
+	public boolean isAquatic() {
+		return getAffinity() == Affinity.AQUATIC;
+	}
+
+	/**
+	 * @param body The body being checked
+	 * @return true if the supplied body has a LegConfiguration of type TAIL, or if its affinity is AQUATIC.
+	 */
+	public boolean isAquatic(Body body) {
+		return getAffinity(body) == Affinity.AQUATIC;
+	}
+
 	/**
 	 * @param character The character being checked
-	 * @return true if the supplied character has a LegConfiguration of type TAIL, or if the aquatic variable is set to true.
+	 * @return true if the supplied body has a LegConfiguration of type TAIL, or if its affinity is AQUATIC.
 	 */
 	public boolean isAquatic(GameCharacter character) {
-		if(character==null) {
-			return aquatic;
-		}
-		return aquatic || character.getLegConfiguration()==LegConfiguration.TAIL;
+		return getAffinity(character) == Affinity.AQUATIC;
 	}
 
 	public String getPathName() {

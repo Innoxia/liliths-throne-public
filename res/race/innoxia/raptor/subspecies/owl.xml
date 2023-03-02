@@ -12,7 +12,6 @@
 	<nocturnality>NOCTURNAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
-	<aquatic>false</aquatic>
 	<applySubspeciesChanges><![CDATA[
 		#IF(targetedBody.getEyeType()==EYE_TYPE_DEMON_COMMON)
 			[#targetedBody.setEyeType(null, EYE_TYPE_DEMON_OWL)]

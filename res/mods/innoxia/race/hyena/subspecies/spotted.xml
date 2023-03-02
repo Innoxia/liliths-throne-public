@@ -47,9 +47,11 @@
 	Set to false for subspecies like centaurs. -->
 	<bipedalSubspecies>true</bipedalSubspecies>
 	
-	<!-- Whether or not this is a subspecies which prefers to live in an aquatic environment.
-	If set to true, then this subspecies will have the positive & negative aquatic status effects applied to it when in a tile with and without access to water, respectively. -->
-	<aquatic>false</aquatic>
+	<!-- The affinity of the subspecies.
+		Optional.
+		Defaults to AMPHIBIOUS.
+		Affinity values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/Affinity.java -->
+	<affinity>AMPHIBIOUS</affinity>
 	
 	<!-- You can leave this section blank if you want to, but if your subspecies should have a non-default chance of having a certain personality type, then you can define it here.
 	These chances are rolled after the base personality chances for this race have been rolled (as defined in the RacialBody.xml file).

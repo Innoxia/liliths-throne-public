@@ -11,7 +11,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Removed the need to add content checks to multiple locations when adding new content controlled fetishes. (PR#1600 by Maxis010)
 		Fixed bug during sex scenes where a background error could be thrown if an NPC who was not involved in the sex scene tried to equip clothing. (by AceXP)
 		Bugfixes for GuestJobs PR after merge. (PR#1755 by Maxis010)
-
+		Added support for separate naming for aquatic subspecies that aren't mer-tailed. (PR#1489 by Stadler76)
 
 
 	[x] PR#1560 - guest jobs
@@ -25,12 +25,16 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] slave lounge dialogue
 	[x] test journal fetish page
 
+	[] PR#1489
+		[] test dragon names
+
+	Character details to PP
+
 	[] Add spa jobs for friendly occupants
 
 	[] PRs
 		[] #1724
 		[] #1438
-		[] #1489
 		[] #1560
 		[] #1591
 	[] PR#1727

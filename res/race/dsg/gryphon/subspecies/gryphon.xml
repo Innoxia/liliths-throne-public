@@ -44,9 +44,8 @@
 	Set to false for subspecies like centaurs. -->
 	<bipedalSubspecies>true</bipedalSubspecies>
 	
-	<!-- Whether or not this is a subspecies which prefers to live in an aquatic environment.
-	If set to true, then this subspecies will have the positive & negative aquatic status effects applied to it when in a tile with and without access to water, respectively. -->
-	<aquatic>false</aquatic>
+	<!-- The affinity of the subspecies. Optional. Defaults to AMPHIBIOUS. -->
+	<!--<affinity>AMPHIBIOUS</affinity>-->
 	
 	<!-- Any special changes which should be applied to a newly-spawned character of this subspecies.
 	This is applied *after* the parent race's 'applyRaceChanges' method.
