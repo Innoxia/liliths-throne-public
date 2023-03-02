@@ -68,16 +68,16 @@
       <![CDATA[You firmly grab [npc.name]'s anal beads and yank it out of [npc.herHis] [npc.ass+].]]>
     </playerNPCRough>
     <NPCSelf>
-      <![CDATA[[npc.Name] pulls out [npc.herHis] anal beads.]]>
+      <![CDATA[[npc.Name] [npc.verb(pull)] out [npc.herHis] anal beads.]]>
     </NPCSelf>
     <NPCPlayer>
-      <![CDATA[[npc.Name] pulls out the anal beads from your [pc.ass+].]]>
+      <![CDATA[[npc.Name] [npc.verb(pull)] out the anal beads from your [pc.ass+].]]>
     </NPCPlayer>
     <NPCPlayerRough>
       <![CDATA[[npc.Name] firmly grabs your anal beads and yanks them out of your [pc.ass+].]]>
     </NPCPlayerRough>
     <NPCOtherNPC>
-      <![CDATA[[npc1.Name] pulls out [npc2.name]'s anal beads.]]>
+      <![CDATA[[npc1.Name] [npc1.verb(pull)] out [npc2.name]'s anal beads.]]>
     </NPCOtherNPC>
     <NPCOtherNPCRough>
       <![CDATA[[npc.Name] firmly grabs [npc2.name]'s anal beads and yanks them out of [npc2.herHis] [npc2.ass+].]]>
