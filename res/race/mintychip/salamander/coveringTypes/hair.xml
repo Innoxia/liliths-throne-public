@@ -31,7 +31,8 @@
 	</extraPatterns>
 	
 	<naturalColoursPrimary>
-		<colour>COVERING_PINK_LIGHT</colour>
+		<colour>COVERING_PINK</colour>
+		<colour>COVERING_RED_LIGHT</colour>
 		<colour>COVERING_RED</colour>
 		<colour>COVERING_RED_DARK</colour>
 		<colour>COVERING_SCARLET</colour>
