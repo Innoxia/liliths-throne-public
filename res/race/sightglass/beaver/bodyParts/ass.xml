@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ass>
+	<race>sightglass_beaver</race>
+	<transformationName><![CDATA[beaver]]></transformationName>
+	<coveringType>sightglass_beaver_fur</coveringType>
+	<anusType>sightglass_beaver_anus</anusType>
+	<names/>
+	<namesPlural/>
+	<descriptorsMasculine/>
+	<descriptorsFeminine/>
+	<transformationDescription><![CDATA[
+		[npc.She] now [npc.has] a [style.bolddarkBrown(beaver-like)], [npc.assholeFullDescription].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] a beaver-like, [npc.anusFullDescription(true)]
+	]]></bodyDescription>
+</ass>

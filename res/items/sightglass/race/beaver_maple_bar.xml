@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[The fine print reads 'S.G.C. Provisions']]></authorTag>
+		<value>250</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Maple Bar]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Maple Bars]]></namePlural>
+		<description><![CDATA[A bar-shaped doughnut with a syrupy sweet maple icing. Beaver-morphs are commonly seen enjoying these as a quicky treat during a break or after work.]]></description>
+		<useDescriptor>eat</useDescriptor>
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		<rarity>RARE</rarity> 
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="90" target1='stroke="#000000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>beavericon_noline.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="80">beaver_maple_bar.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		<colourPrimary>BASE_BROWN_DARK</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		<potionDescriptor><![CDATA[beaver]]></potionDescriptor>
+		<associatedRace>sightglass_beaver</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_MANA_MAXIMUM.getName()])]]]></line>
+		</effectTooltipLines>
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM)/10)]
+		]]></applyEffects>
+		<itemTags>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>FOOD</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(remove)] the paper wrapping and [npc.verb(breathe)] in the maple syrup aroma. Unable to resist the delicious looking snack, [npc.she] eagerly [npc.verb(start)] wolfing it all down in moments.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(remove)] paper wrapping and [npc.verb(hold)] it out to [npc2.name], allowing [npc2.herHim] to [npc2.verb(breathe)] in the maple syrup aroma. Unable to resist the delicious-looking snack, [npc2.she] [npc2.verb(start)] wolfing it all down in moments.
+		]]></otherUse>
+	</useDescriptions>
+</item>
