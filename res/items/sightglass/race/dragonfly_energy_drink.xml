@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[A faint inscription underneath the can reads 'S.G.C. Provisions']]></authorTag>
+		<value>150</value> 
+		<determiner><![CDATA[a can of]]></determiner>
+		<name><![CDATA[Blue Raspberry Energy Drink]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Blue Raspberry Energy Drinks]]></namePlural>
+		<description><![CDATA[A can of TurboFlow, a carbonated fruit flavored energy drink. The label shows a stylized dragonfly-morphs dancing around each other.]]></description> 
+		<useDescriptor>drink</useDescriptor>
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		<rarity>UNCOMMON</rarity> 
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">dragonfly_energy_drink.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		<colourPrimary>ATTRIBUTE_ARCANE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_ARCANE</enchantmentEffectId>
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldMana([#ATTRIBUTE_MANA_MAXIMUM.getName()])]]]></line>
+		</effectTooltipLines>
+		<applyEffects><![CDATA[
+			[##npc.incrementMana(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM)/10)]
+		]]></applyEffects>
+		<itemTags>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>DRINK</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+	<useDescriptions>
+		<selfUse><![CDATA[
+		After opening it, [npc.name] [npc.verb(bring)] the can of energy drink up to [npc.her] [npc.mouth]. The smell of fresh fruit and hint of something metallic rises from the opening, and as [npc.she] [npc.verb(tilt)] [npc.her] head back and [npc.verb(start)] drinking the tingly liquid, [npc.she] [npc.verb(feel)] much more refreshed, but also more than a little antsy.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		After opening it, [npc.name] [npc.verb(bring)] the can of energy drink up to [npc2.namePos] waiting [npc2.lips]. The smell of fresh fruit and hint of something metallic rises from the opening, and as [npc2.she] [npc2.verb(tilt)] [npc2.her] head back and [npc2.verb(start)] drinking the tingly liquid, [npc.she] [npc.verb(feel)] much more refreshed, but more than a little antsy.
+		]]></otherUse>
+	</useDescriptions>
+</item>

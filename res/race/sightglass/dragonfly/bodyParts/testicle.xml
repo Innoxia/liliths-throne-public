@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testicle>
+	<race>sightglass_dragonfly</race>
+	<coveringType>sightglass_dragonfly_chitin</coveringType>
+	<fluidType>sightglass_dragonfly_cum</fluidType>
+	<internal>true</internal>
+	<names/>
+	<namesPlural/>
+	<descriptors/>
+</testicle>
