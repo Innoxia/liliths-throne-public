@@ -278,6 +278,7 @@
 	<!-- - Example: This is the equip text for when socks are equipped to the "SOCK" slot:-->
 	<replacementText slot="SOCK" type="REMOVE_OR_EQUIP">
 		<self>
+			<!-- These lines follow all of the standard parsing rules, which can be found in-game by accessing the debug menu (type 'buggy' during gameplay), and then selecting 'Open parser', then 'Help'/'Targets'/'Commands' -->
 			<![CDATA[[npc.Name] [npc.verb(pull)] the socks on to cover [npc.her] [npc.feet].]]>
 		</self>
 		<other>

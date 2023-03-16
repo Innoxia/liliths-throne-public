@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Map.Entry;
 import java.util.stream.Stream;
 
 import org.w3c.dom.Document;
@@ -12,6 +13,8 @@ import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
+import com.lilithsthrone.game.character.effects.EffectBenefit;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -157,6 +160,31 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		}
 		sb.append(UtilText.parse(target, user, this.getItemType().getSpecialEffect()));
 		
+		if(this.getItemType().getAppliedStatusEffects()!=null) {
+			for(Entry<AbstractStatusEffect, Integer> entry : this.getItemType().getAppliedStatusEffects().entrySet()) {
+				AbstractStatusEffect se = entry.getKey();
+				int time = entry.getValue();
+				target.addStatusEffect(se, time);
+				String timeDesc = time+" turns";
+				if(!se.isCombatEffect()) {
+					int timeMinutes = (time/60);
+					if(timeMinutes > 3*60) {
+						timeDesc = timeMinutes/60+" hours";
+					} else {
+						timeDesc = timeMinutes+" minutes";
+					}
+				}
+				sb.append(UtilText.parse(target,
+						"<p style='text-align:center; padding-top:0; margin-top:0;'>"
+						+ "[npc.NameIsFull] now "
+						+(se.getBeneficialStatus()==EffectBenefit.DETRIMENTAL?"suffering from [style.italicsBad(":(se.getBeneficialStatus()==EffectBenefit.BENEFICIAL?"benefitting from [style.italicsGood(":"affected by "))
+						+se.getName(target)
+						+(se.getBeneficialStatus()==EffectBenefit.NEUTRAL?"":")]")
+						+ " for "+timeDesc+"!"
+						+ "</p>"));
+			}
+		}
+		
 		for(ItemTag tag : this.getItemTags()) {
 			int intoxicationLevel = 0;
 			switch(tag) {
@@ -198,7 +226,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 						"<p style='text-align:center;'>"
 							+ "Due to [npc.her] spider physiology, the caffeine in the "+this.getName()+" acts in a similar manner to alcohol, and as a result [npc.she] [npc.verb(feel)] [npc.herself] getting [style.boldAlcohol(drunk)]..."
 						+ "</p>"));
-				sb.append(user.incrementAlcoholLevel(intoxicationLevel/100f));
+				sb.append(target.incrementAlcoholLevel(intoxicationLevel/100f));
 				break;
 			}
 		}

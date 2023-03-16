@@ -25,12 +25,14 @@
 	<nameFeral>
 		<name legConfiguration="QUADRUPEDAL"><![CDATA[dragon]]></name>
 		<name legConfiguration="TAIL_LONG"><![CDATA[wyrm]]></name>
+		<name legConfiguration="TAIL_LONG" affinity="AQUATIC"><![CDATA[sea serpent]]></name>
 		<name legConfiguration="TAIL"><![CDATA[sea serpent]]></name>
 	</nameFeral>
 	<nameFeralPlural>
 		<name legConfiguration="QUADRUPEDAL"><![CDATA[dragons]]></name>
 		<name legConfiguration="TAIL_LONG"><![CDATA[wyrms]]></name>
-		<name legConfiguration="TAIL"><![CDATA[sea serpent]]></name>
+		<name legConfiguration="TAIL_LONG" affinity="AQUATIC"><![CDATA[sea serpents]]></name>
+		<name legConfiguration="TAIL"><![CDATA[sea serpents]]></name>
 	</nameFeralPlural>
 	
 	<!-- The name that will be used when referring to transformations related to this race (such as when changing body parts in the self-TF menu).

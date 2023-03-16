@@ -9,9 +9,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.Litter;
-import com.lilithsthrone.game.character.PregnancyPossibility;
-import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -48,6 +45,8 @@ import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.pregnancy.Litter;
+import com.lilithsthrone.game.character.pregnancy.PregnancyPossibility;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
@@ -85,7 +84,7 @@ public class ItemEffectType {
 		PresetColour.GENERIC_ARCANE) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return target.incrementMuscle(-25)
 					+ target.incrementBodySize(25)
 					+ target.setUnderarmHair(BodyHair.SIX_BUSHY);
@@ -97,7 +96,7 @@ public class ItemEffectType {
 			PresetColour.GENERIC_ARCANE) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return "<p>"
 					+ "You use the dye brush."
 					+ "</p>";
@@ -109,7 +108,7 @@ public class ItemEffectType {
 			PresetColour.GENERIC_ARCANE) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return "<p>"
 					+ "You use the reforge hammer."
 					+ "</p>";
@@ -121,7 +120,7 @@ public class ItemEffectType {
 			PresetColour.GENERIC_SEX) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return ""; // THIS EFFECT IS NOT USED, AS AbstractFilledCondom OVERRIDES THE USUAL AbstractItem's applyEffects() METHOD!!!
 		}
 	};
@@ -131,7 +130,7 @@ public class ItemEffectType {
 			PresetColour.GENERIC_SEX) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return ""; // THIS EFFECT IS NOT USED, AS AbstractFilledBreastPump OVERRIDES THE USUAL AbstractItem's applyEffects() METHOD!!!
 			// Then why is it here? :thinking:
 		}
@@ -223,7 +222,7 @@ public class ItemEffectType {
 		}
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			
 			if(primaryModifier!=null && primaryModifier!=TFModifier.NONE && primaryModifier!=TFModifier.REMOVAL) {
 				target.incrementAttribute(Attribute.MAJOR_CORRUPTION, 5);
@@ -340,7 +339,7 @@ public class ItemEffectType {
 //			PresetColour.GENERIC_SEX) {
 //		
 //		@Override
-//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 //			target.removeStatusEffect(StatusEffect.PROMISCUITY_PILL);
 //			target.addStatusEffect(StatusEffect.VIXENS_VIRILITY, 60*24*60);
 //			return UtilText.parse(target,
@@ -375,7 +374,7 @@ public class ItemEffectType {
 //			PresetColour.GENERIC_SEX) {
 //		
 //		@Override
-//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 //			target.removeStatusEffect(StatusEffect.VIXENS_VIRILITY);
 //			target.addStatusEffect(StatusEffect.PROMISCUITY_PILL, 60*24*60);
 //			return UtilText.parse(target,
@@ -394,7 +393,7 @@ public class ItemEffectType {
 			PresetColour.GENERIC_SEX) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			int milkPumped = (int) Math.min(target.getBreastRawStoredMilkValue(), ItemType.getMooMilkerMaxMilk());
 			target.incrementBreastStoredMilk(-milkPumped);
 			if(target.isPlayer()) {
@@ -419,7 +418,7 @@ public class ItemEffectType {
 			PresetColour.GENERIC_SEX) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.performImpregnationCheck(false);
 			if(target.isPregnant()) {
 				List <GameCharacter> fathers = new ArrayList<>();
@@ -477,7 +476,7 @@ public class ItemEffectType {
 			PresetColour.GENERIC_SEX) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			StringBuilder sb = new StringBuilder();
 			boolean effectsObserved = false;
 			
@@ -586,7 +585,7 @@ public class ItemEffectType {
 			return effects;
 		}
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			StringBuilder sb = new StringBuilder();
 			List<String> areasTightened = new ArrayList<>();
 			
@@ -661,7 +660,7 @@ public class ItemEffectType {
 			PresetColour.BASE_PURPLE) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return target.addItem(Main.game.getItemGen().generateItem(ItemType.CIGARETTE), 20, false, target.isPlayer());
 		}
 	};
@@ -669,19 +668,16 @@ public class ItemEffectType {
 	public static AbstractItemEffectType CIGARETTE = new AbstractItemEffectType(null,
 			PresetColour.BASE_PURPLE) {
 		@Override
+		public Map<AbstractStatusEffect, Integer> getAppliedStatusEffects() {
+			return Util.newHashMapOfValues(new Value<>(StatusEffect.SMOKING, 60*5));
+		}
+		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
-			AbstractStatusEffect se = StatusEffect.RECENTLY_SMOKED;
-			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
-				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
-			}
 			return list;
 		}
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.removeStatusEffect(StatusEffect.RECENTLY_SMOKED);
-			target.addStatusEffect(StatusEffect.SMOKING, 60*5);
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return UtilText.parse(target,
 					"<p>"
 						+ "[npc.Name] immediately [npc.verb(feel)] the positive effects of the aura-boosting supplements added to the Starr Cigarette."
@@ -699,7 +695,7 @@ public class ItemEffectType {
 			return true;
 		}
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			BodyChanging.setTarget(target);
 			Main.game.setContent(new Response(
 					"",
@@ -719,10 +715,13 @@ public class ItemEffectType {
 			PresetColour.FETISH) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			List<AbstractFetish> fetishesToAdd = new ArrayList<>();
 			List<AbstractFetish> fetishesToRemove = new ArrayList<>();
 			for(AbstractFetish f : Fetish.getAllFetishes()) {
+				if(!f.isContentEnabled()) {
+					continue;
+				}
 				if(f.getFetishesForAutomaticUnlock().isEmpty()) {
 					if(target.hasFetish(f)) {
 						fetishesToRemove.add(f);
@@ -733,42 +732,6 @@ public class ItemEffectType {
 				}
 			}
 			
-			// Remove possible fetish modifications based on user content settings:
-			if(!Main.game.isAnalContentEnabled()) {
-				fetishesToAdd.remove(Fetish.FETISH_ANAL_GIVING);
-				fetishesToAdd.remove(Fetish.FETISH_ANAL_RECEIVING);
-				fetishesToRemove.remove(Fetish.FETISH_ANAL_GIVING);
-				fetishesToRemove.remove(Fetish.FETISH_ANAL_RECEIVING);
-			}
-			if(!Main.game.isLactationContentEnabled()) {
-				fetishesToAdd.remove(Fetish.FETISH_LACTATION_OTHERS);
-				fetishesToAdd.remove(Fetish.FETISH_LACTATION_SELF);
-				fetishesToRemove.remove(Fetish.FETISH_LACTATION_OTHERS);
-				fetishesToRemove.remove(Fetish.FETISH_LACTATION_SELF);
-			}
-			if(!Main.game.isFootContentEnabled()) {
-				fetishesToAdd.remove(Fetish.FETISH_FOOT_GIVING);
-				fetishesToAdd.remove(Fetish.FETISH_FOOT_RECEIVING);
-				fetishesToRemove.remove(Fetish.FETISH_FOOT_GIVING);
-				fetishesToRemove.remove(Fetish.FETISH_FOOT_RECEIVING);
-			}
-			if(!Main.game.isArmpitContentEnabled()) {
-				fetishesToAdd.remove(Fetish.FETISH_ARMPIT_GIVING);
-				fetishesToAdd.remove(Fetish.FETISH_ARMPIT_RECEIVING);
-				fetishesToRemove.remove(Fetish.FETISH_ARMPIT_GIVING);
-				fetishesToRemove.remove(Fetish.FETISH_ARMPIT_RECEIVING);
-			}
-			if(!Main.game.isIncestEnabled()) {
-				fetishesToAdd.remove(Fetish.FETISH_INCEST);
-				fetishesToRemove.remove(Fetish.FETISH_INCEST);
-			}
-			if(!Main.game.isNonConEnabled()) {
-				fetishesToAdd.remove(Fetish.FETISH_NON_CON_DOM);
-				fetishesToRemove.remove(Fetish.FETISH_NON_CON_DOM);
-				fetishesToAdd.remove(Fetish.FETISH_NON_CON_SUB);
-				fetishesToRemove.remove(Fetish.FETISH_NON_CON_SUB);
-			}
-
 			if((Math.random()>0.33f && !fetishesToAdd.isEmpty()) || fetishesToRemove.isEmpty()) {
 				AbstractFetish f = fetishesToAdd.get(Util.random.nextInt(fetishesToAdd.size()));
 				target.addFetish(f);
@@ -803,7 +766,7 @@ public class ItemEffectType {
 			PresetColour.BASE_GOLD) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			boolean hadAddictions = !target.getAddictions().isEmpty();
 			target.clearAddictions();
 			
@@ -836,15 +799,17 @@ public class ItemEffectType {
 	};
 	
 	public static AbstractItemEffectType MUSHROOMS = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldTfGeneric(Makes slime and orifice interiors glow)]",
-			"Causes a [style.boldPsychoactive(psychoactive trip)]"),
+			"[style.boldTfGeneric(Makes slime and orifice interiors glow)]"),
 			PresetColour.ATTRIBUTE_CORRUPTION) {
-		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public Map<AbstractStatusEffect, Integer> getAppliedStatusEffects() {
+			return Util.newHashMapOfValues(new Value<>(StatusEffect.PSYCHOACTIVE, 6*60*60));
+		}
+		@Override
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			StringBuilder sb = new StringBuilder();
 
-			sb.append("<p>");
+			sb.append("<p style='text-align:center;'>");
 				if(target.getBodyMaterial()==BodyMaterial.SLIME) {
 					if(target.isPlayer()) {
 						sb.append("Your slimy body starts [style.boldTfGeneric(glowing)]!");
@@ -856,23 +821,21 @@ public class ItemEffectType {
 						target.getCovering(bct).setPrimaryGlowing(true);
 						target.getCovering(bct).setSecondaryGlowing(true);
 					}
-					
-				} else {
-					if(target.isPlayer()) {
-						sb.append("The interiors of all of your orifices start to [style.boldTfGeneric(glow)]!");
-					} else {
-						sb.append(UtilText.parse(target, "The interiors of all of [npc.namePos] orifices start to [style.boldTfGeneric(glow)]!"));
-					}
-
-					target.getCovering(BodyCoveringType.MOUTH).setSecondaryGlowing(true);
-					target.getCovering(BodyCoveringType.ANUS).setSecondaryGlowing(true);
-					target.getCovering(BodyCoveringType.VAGINA).setSecondaryGlowing(true);
-					target.getCovering(BodyCoveringType.PENIS).setSecondaryGlowing(true);
-					target.getCovering(BodyCoveringType.NIPPLES).setSecondaryGlowing(true);
+					sb.append("<br/>");
 				}
-			sb.append("</p>");
+				if(target.isPlayer()) {
+					sb.append("The interiors of all of your orifices start to [style.boldTfGeneric(glow)]!");
+				} else {
+					sb.append(UtilText.parse(target, "The interiors of all of [npc.namePos] orifices start to [style.boldTfGeneric(glow)]!"));
+				}
 
-			target.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60*60);
+				target.getCovering(BodyCoveringType.MOUTH).setSecondaryGlowing(true);
+				target.getCovering(BodyCoveringType.ANUS).setSecondaryGlowing(true);
+				target.getCovering(BodyCoveringType.VAGINA).setSecondaryGlowing(true);
+				target.getCovering(BodyCoveringType.PENIS).setSecondaryGlowing(true);
+				target.getCovering(BodyCoveringType.NIPPLES).setSecondaryGlowing(true);
+				
+			sb.append("</p>");
 
 			sb.append("<p>");
 				if(target.isPlayer()) {
@@ -892,7 +855,7 @@ public class ItemEffectType {
 			PresetColour.ATTRIBUTE_CORRUPTION) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
 			
@@ -930,7 +893,7 @@ public class ItemEffectType {
 		}
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return getRacialEffect(Race.HUMAN, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
 		}
 	};
@@ -991,7 +954,7 @@ public class ItemEffectType {
 		}
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			if(primaryModifier==TFModifier.CORRUPTION) {
 				String purifyingDescription =
 						"<p style='text-align:center;'>"
@@ -1032,7 +995,7 @@ public class ItemEffectType {
 			PresetColour.ATTRIBUTE_HEALTH) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementHealth((target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/100)*30);
 			
 			if(target.isPlayer()) {
@@ -1050,7 +1013,7 @@ public class ItemEffectType {
 			PresetColour.ATTRIBUTE_LUST) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
 						?"You smell a lot nicer now..."
@@ -1067,7 +1030,7 @@ public class ItemEffectType {
 			PresetColour.GENERIC_EXCELLENT) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			List<AbstractItemType> items = new ArrayList<>();
 			items.add(ItemType.getItemTypeFromId("innoxia_race_reindeer_rudolphs_egg_nog"));
 			items.add(ItemType.getItemTypeFromId("innoxia_race_none_mince_pie"));
@@ -1140,7 +1103,7 @@ public class ItemEffectType {
 		}
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return "You start to feel like this item is just for testing purposes..."
 					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 2)
@@ -1162,7 +1125,7 @@ public class ItemEffectType {
 			return "slime";
 		}
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return Main.game.getItemGen().generateItem(ItemType.getItemTypeFromId("innoxia_race_slime_biojuice_canister")).applyEffect(user, target);
 		}
 	};
@@ -1175,7 +1138,7 @@ public class ItemEffectType {
 //			return "human";
 //		}
 //		@Override
-//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 //			return "<p style='text-align:center;'>"
 //						+UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot healthier...")
 //					+ "</p>"
@@ -1193,7 +1156,7 @@ public class ItemEffectType {
 //		}
 //		
 //		@Override
-//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 //			return "<p style='text-align:center;'>"
 //						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot more energetic...")
 //					+ "</p>"
@@ -1211,7 +1174,7 @@ public class ItemEffectType {
 //		}
 //		
 //		@Override
-//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 //			return "<p style='text-align:center;'>"
 //						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot more energetic...")
 //					+ "</p>"
@@ -1229,7 +1192,7 @@ public class ItemEffectType {
 //		}
 //		
 //		@Override
-//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 //			return "<p style='text-align:center;'>"
 //						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot more energetic...")
 //					+ "</p>"
@@ -1249,7 +1212,7 @@ public class ItemEffectType {
 //		}
 //		
 //		@Override
-//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 //			return "<p style='text-align:center;'>"
 //						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel like [npc.she] needs to breed...")
 //					+ "</p>"
@@ -1269,7 +1232,7 @@ public class ItemEffectType {
 //		}
 //		
 //		@Override
-//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 //			return "<p style='text-align:center;'>"
 //						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel [npc.her] arcane power increasing...")
 //					+ "</p>"
@@ -1287,7 +1250,7 @@ public class ItemEffectType {
 //		}
 //		
 //		@Override
-//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 //			return "<p style='text-align:center;'>"
 //						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel [npc.her] arcane power increasing...")
 //					+ "</p>"
@@ -1305,7 +1268,7 @@ public class ItemEffectType {
 //		}
 //		
 //		@Override
-//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 //			return "<p style='text-align:center;'>"
 //						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel [npc.her] arcane power increasing...")
 //					+ "</p>"
@@ -1323,7 +1286,7 @@ public class ItemEffectType {
 //		}
 //		
 //		@Override
-//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 //			return "<p style='text-align:center;'>"
 //						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot stronger...")
 //					+ "</p>"
@@ -1341,7 +1304,7 @@ public class ItemEffectType {
 //		}
 //		
 //		@Override
-//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 //			return "<p style='text-align:center;'>"
 //						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot stronger...")
 //					+ "</p>"
@@ -1359,7 +1322,7 @@ public class ItemEffectType {
 //		}
 //		
 //		@Override
-//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 //			return "<p style='text-align:center;'>"
 //						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot stronger...")
 //					+ "</p>"
@@ -1377,7 +1340,7 @@ public class ItemEffectType {
 //		}
 //		
 //		@Override
-//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 //			return "<p style='text-align:center;'>"
 //						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot stronger...")
 //					+ "</p>"
@@ -1395,7 +1358,7 @@ public class ItemEffectType {
 //		}
 //		
 //		@Override
-//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 //			return "<p style='text-align:center;'>"
 //						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot stronger...")
 //					+ "</p>"
@@ -1422,7 +1385,7 @@ public class ItemEffectType {
 //			return "harpy";
 //		}
 //		@Override
-//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 //			target.addStatusEffect(StatusEffect.LOLLIPOP_SUCKING, 60*20);
 //			return "<p style='text-align:center;'>"
 //						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel more feminine...")
@@ -1445,7 +1408,7 @@ public class ItemEffectType {
 //		}
 //		
 //		@Override
-//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 //			if(target.getBody().getBodyMaterial()==BodyMaterial.SLIME) {
 //				return "<p style='text-align:center;'>"
 //							+ UtilText.parse(target, "[style.colourDisabled([npc.NameIsFull] already a slime, so nothing happens...)]")
@@ -1468,7 +1431,7 @@ public class ItemEffectType {
 			PresetColour.GENERIC_ARCANE) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.incrementEssenceCount(1, false);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane essence)]!";
 		}
@@ -1483,7 +1446,7 @@ public class ItemEffectType {
 			PresetColour.RACE_HARPY) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.addStatusEffect(StatusEffect.LOLLIPOP_SUCKING, 60*20);
 			
 			StringBuilder sb = new StringBuilder();
@@ -1588,7 +1551,7 @@ public class ItemEffectType {
 			PresetColour.RACE_HARPY) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.addStatusEffect(StatusEffect.LOLLIPOP_SUCKING, 60*20);
 			
 			StringBuilder sb = new StringBuilder();
@@ -1697,7 +1660,7 @@ public class ItemEffectType {
 			PresetColour.RACE_HARPY) {
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			StringBuilder sb = new StringBuilder();
 
 			sb.append("<p>"
@@ -1830,7 +1793,7 @@ public class ItemEffectType {
 		}
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return genericAttributeEffect(ResourceRestoration.HEALTH, primaryModifier, secondaryModifier, potency, limit, user, target);
 		}
 	};
@@ -1868,7 +1831,7 @@ public class ItemEffectType {
 		}
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return genericAttributeEffect(ResourceRestoration.MANA, primaryModifier, secondaryModifier, potency, limit, user, target);
 		}
 	};
@@ -1906,7 +1869,7 @@ public class ItemEffectType {
 		}
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return genericAttributeEffect(ResourceRestoration.MANA, primaryModifier, secondaryModifier, potency, limit, user, target);
 		}
 	};
@@ -1944,7 +1907,7 @@ public class ItemEffectType {
 		}
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return genericAttributeEffect(ResourceRestoration.ALL, primaryModifier, secondaryModifier, potency, limit, user, target);
 		}
 	};
@@ -2016,7 +1979,7 @@ public class ItemEffectType {
 		}
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			List<AbstractFetish> availableFetishes = new ArrayList<>();
 			
 			if(primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR) {
@@ -2169,7 +2132,7 @@ public class ItemEffectType {
 		}
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 //			if(target.isPlayer()) {
 //				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on you...)]</p>";
 //			}
@@ -2366,7 +2329,7 @@ public class ItemEffectType {
 		}
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
 					|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE
 					|| secondaryModifier == TFModifier.CLOTHING_ENSLAVEMENT
@@ -2469,7 +2432,7 @@ public class ItemEffectType {
 		}
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
 					|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
@@ -2518,7 +2481,7 @@ public class ItemEffectType {
 		}
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return "";
 		}
 	};
@@ -2531,7 +2494,7 @@ public class ItemEffectType {
 			return true;
 		}
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			Main.game.setContent(new Response("", "", OffspringMapDialogue.OFFSPRING_CHOICE));
 			return "";
 		}
@@ -2621,7 +2584,7 @@ public class ItemEffectType {
 								return Util.newArrayListOfValues("Changes the target's body material to flesh.");
 							}
 							@Override
-							public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+							public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 								return target.getBodyMaterial() == BodyMaterial.SLIME
 										? target.setBodyMaterial(BodyMaterial.FLESH)
 										: "<p style='margin-bottom:0; padding-bottom:0;'>" +
@@ -2656,7 +2619,7 @@ public class ItemEffectType {
 								return Util.newArrayListOfValues(getRacialEffect(race, primaryModifier, secondaryModifier, potency, user, target).getDescription());
 							}
 							@Override
-							public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+							public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 								return getRacialEffect(race, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
 							}
 						});

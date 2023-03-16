@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>500</value>
+		<determiner><![CDATA[an]]></determiner>
+		<name><![CDATA[insertable onahole]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[insertable onaholes]]></namePlural>
+		<description><![CDATA[An artificial vagina, positioned on the end of a tight, hollow tube. The length of the tube is soft, rubbery, and flexible, enabling it to act like a dildo and be inserted into an orifice.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		
+		<equipSlots>
+			<slot>VAGINA</slot>
+			<slot>ANUS</slot>
+			<slot>MOUTH</slot>
+		</equipSlots>
+		
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>onahole.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<blockedPartsList slot="VAGINA">
+			<blockedParts>
+			  <displacementType>REMOVE_OR_EQUIP</displacementType>
+			  <clothingAccessRequired>
+				<clothingAccess>VAGINA</clothingAccess>
+			  </clothingAccessRequired>
+			  <blockedBodyParts/>
+			  <clothingAccessBlocked/>
+			  <concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+
+		<blockedPartsList slot="ANUS">
+			<blockedParts>
+			  <displacementType>REMOVE_OR_EQUIP</displacementType>
+			  <clothingAccessRequired>
+				<clothingAccess>ANUS</clothingAccess>
+			  </clothingAccessRequired>
+			  <blockedBodyParts/>
+			  <clothingAccessBlocked/>
+			  <concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+
+		<blockedPartsList slot="MOUTH">
+			<blockedParts>
+			  <displacementType>REMOVE_OR_EQUIP</displacementType>
+			  <clothingAccessRequired>
+				<clothingAccess>MOUTH</clothingAccess>
+			  </clothingAccessRequired>
+			  <blockedBodyParts/>
+			  <clothingAccessBlocked/>
+			  <concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots slot="VAGINA"/>
+		<incompatibleSlots slot="ANUS"/>
+		<incompatibleSlots slot="MOUTH"/>
+		
+		<primaryColours>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+			<colour>CLOTHING_PINK</colour>
+			<colour>CLOTHING_PURPLE_LIGHT</colour>
+			<colour>CLOTHING_PURPLE</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+	
+		<itemTags>
+			<tag>ENABLE_SEX_EQUIP</tag>
+			<tag>TRANSPARENT</tag>
+			<!-- Still a test item, so don't add it for sale or in the spawner -->
+			<tag>CHEAT_ITEM</tag>
+			<tag>NOT_FOR_SALE</tag>
+			<tag>NO_RANDOM_SPAWN</tag>
+		</itemTags>
+		<itemTags slot="VAGINA">
+			<tag>PLUGS_VAGINA</tag>
+			<tag>REQUIRES_VAGINA</tag>
+		</itemTags>
+		<itemTags slot="ANUS">
+			<tag>PLUGS_ANUS</tag>
+		</itemTags>
+		<itemTags slot="MOUTH">
+			<tag>MUFFLES_SPEECH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<sexAttributesSelf>
+		<penetration>
+			<length>25</length>
+			<girth>5</girth>
+			<modifiers/>
+		</penetration>
+		<orifice/>
+	</sexAttributesSelf>
+	
+	<!-- These are the sex attributes applicable to someone who is interacting with the wearer (i.e. the penetration/orifice which is available for people other than the wearer. Mainly used for strap-on dildos.) -->
+	<sexAttributesOther>
+		<orifice>
+			<labiaSize>2</labiaSize> <!-- 0-4 corresponding to labia size -->
+			<clitSize>0</clitSize> <!-- cm value -->
+			<clitGirth>3</clitGirth> <!-- 0-7 corresponding to penetration girth values -->
+			<depth>28</depth> <!-- cm value -->
+			<capacity>2</capacity> <!-- cm value corresponding to diameter of orifice -->
+			<elasticity>1</elasticity> <!-- 0-7 corresponding to OrificeElasticity Enum values -->
+			<plasticity>0</plasticity> <!-- 0-7 corresponding to OrificePlasticity Enum values -->
+			<wetness>0</wetness>
+			<modifiers>
+				<mod>PUFFY</mod>
+			</modifiers>
+		</orifice>
+	</sexAttributesOther>
+	
+	
+	
+	<replacementText slot="VAGINA" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the onahole into [npc.her] [npc.vagina+]. Anyone wanting to fuck [npc.her] pussy will just have to make do with the feel of this toy instead...]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(push)] the dildo into [npc2.namePos] [npc2.vagina+]. Anyone wanting to fuck [npc2.namePos] pussy will just have to make do with the feel of this toy instead...]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(force)] the dildo into [npc2.namePos] [npc2.vagina+]. Anyone wanting to fuck [npc2.namePos] pussy will just have to make do with the feel of this toy instead...]]>
+		</otherRough>
+	</replacementText>
+	
+	<displacementText slot="VAGINA" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc.her] [npc.vagina+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc2.namePos] [npc2.vagina+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] dildo and [npc.verb(yank)] it out of [npc2.her] [npc2.vagina+].]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText slot="ANUS" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the dildo into [npc.her] [npc.anus+]. Anyone wanting to fuck [npc.her] ass will just have to make do with the feel of this toy instead...]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(push)] the dildo into [npc2.namePos] [npc2.anus+]. Anyone wanting to fuck [npc2.namePos] ass will just have to make do with the feel of this toy instead...]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(force)] the dildo into [npc2.namePos] [npc2.anus+]. Anyone wanting to fuck [npc2.namePos] ass will just have to make do with the feel of this toy instead...]]>
+		</otherRough>
+	</replacementText>
+	
+	<displacementText slot="ANUS" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc.her] [npc.anus+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc2.namePos] [npc2.anus+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] dildo and [npc.verb(yank)] it out of [npc2.her] [npc2.anus+].]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText slot="MOUTH" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the dildo into [npc.her] [npc.mouth+]. Anyone wanting to fuck [npc.her] throat will just have to make do with the feel of this toy instead...]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(push)] the dildo into [npc2.namePos] [npc2.mouth+]. Anyone wanting to fuck [npc2.namePos] throat will just have to make do with the feel of this toy instead...]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(force)] the dildo into [npc2.namePos] [npc2.mouth+]. Anyone wanting to fuck [npc2.namePos] throat will just have to make do with the feel of this toy instead...]]>
+		</otherRough>
+	</replacementText>
+	
+	<displacementText slot="MOUTH" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc.her] [npc.mouth+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc2.namePos] [npc2.mouth+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] dildo and [npc.verb(yank)] it out of [npc2.her] [npc2.mouth+].]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

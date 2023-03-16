@@ -9,9 +9,9 @@
 	<attributeItemId>innoxia_race_badger_black_stripes_perry</attributeItemId>
 	<transformativeItemId>innoxia_race_badger_berry_trifle</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>NOCTURNAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
-	<aquatic>false</aquatic>
 	<applySubspeciesChanges/>
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_innoxia_badger)

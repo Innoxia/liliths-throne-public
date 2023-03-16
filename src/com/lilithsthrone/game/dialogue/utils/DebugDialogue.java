@@ -1696,11 +1696,14 @@ public class DebugDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Parse!", "Parse the text you've entered.", PARSER){
+				return new ResponseEffectsOnly("Parse!", "Parse the text you've entered."){
 					@Override
 					public void effects() {
 						rawText = (String) Main.mainController.getWebEngine().executeScript("document.getElementById('parseInput').value");
 						parsedText = UtilText.parse(rawText);
+						if(Main.game.getCurrentDialogueNode()==PARSER) {
+							Main.game.setContent(new Response("", "", PARSER));
+						}
 					}
 				};
 				

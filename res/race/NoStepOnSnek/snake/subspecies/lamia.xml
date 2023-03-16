@@ -9,9 +9,9 @@
 	<attributeItemId>NoStepOnSnek_race_snake_oil</attributeItemId>
 	<transformativeItemId>NoStepOnSnek_race_snake_eggs</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>CATHEMERAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>false</bipedalSubspecies>
-	<aquatic>false</aquatic>
 	<applySubspeciesChanges><![CDATA[
 		[#targetedBody.applyLegConfigurationTransformation(LEG_TYPE_NoStepOnSnek_snake_leg, LEG_CONFIGURATION_TAIL_LONG, true)]
 	]]></applySubspeciesChanges>

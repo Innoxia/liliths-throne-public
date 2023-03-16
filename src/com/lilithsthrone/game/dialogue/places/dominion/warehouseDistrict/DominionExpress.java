@@ -850,7 +850,7 @@ public class DominionExpress {
 			if(index==1) {
 				if(Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA)) {
 					if(!wearingFillyCollar()) {
-						return new Response("Enter", "You cannot see Mistress Natalya without wearing your filly collar!", null);
+						return new Response("Enter", "You cannot see Mistress Natalya without wearing your filly choker!", null);
 					} else if(!isPlayerBodyCorrect()) {
 						return new Response("Enter", "You cannot see Mistress Natalya without being a busty [style.shemale]!", null);
 					}

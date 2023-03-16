@@ -30,6 +30,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.nyansApartment.NyanDateFi
 import com.lilithsthrone.game.dialogue.places.dominion.nyansApartment.NyanFirstDate;
 import com.lilithsthrone.game.dialogue.places.dominion.nyansApartment.NyanFirstDoubleDate;
 import com.lilithsthrone.game.dialogue.places.dominion.nyansApartment.NyanRepeatDate;
+import com.lilithsthrone.game.dialogue.places.submission.BatCaverns;
 import com.lilithsthrone.game.dialogue.places.submission.SubmissionGenericPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -97,13 +98,20 @@ public class DominionPlaces {
 				break;
 			}
 			if(Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())) {
-				occupantSB.append(
-						UtilText.parse(npc,
-								"<p>"
-									+ "<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>[npc.NamePos] Apartment:</b><br/>"
-									+ "[npc.Name], the [npc.race] that you rescued from a life of crime, lives in an apartment building nearby."
-									+ " If you wanted to, you could pay [npc.herHim] a visit..."
-								+ "</p>"));
+				occupantSB.append("<p>");
+				occupantSB.append(UtilText.parse(npc,
+								"<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>[npc.NamePos] Apartment:</b><br/>"
+									+ "After moving out from Lilaya's home, [npc.name] has ended up living in an apartment building near to this location."));
+
+				if(npc.isSleepingAtHour(Main.game.getHourOfDay())) {
+					occupantSB.append(UtilText.parse(npc,
+							" If you wanted to, you could pay the [npc.race] a visit, but as [npc.sheIs] currently [style.colourSleep(sleeping)], [npc.she] will likely be annoyed at being woken up..."));
+				} else {
+					occupantSB.append(UtilText.parse(npc, " If you wanted to, you could pay the [npc.race] a visit..."));
+				}
+				occupantSB.append("<br/>");
+				occupantSB.append(UtilText.parse(npc, "<i>[npc.Name] sleeps between the hours of [style.time("+npc.getSleepStartHour()+")]-[style.time("+npc.getSleepEndHour()+")]</i>"));
+				occupantSB.append("</p>");
 				break;
 			}
 			
@@ -346,6 +354,9 @@ public class DominionPlaces {
 					@Override
 					public void effects() {
 						OccupantDialogue.initDialogue(npc, true, false);
+						if(npc.isSleepingAtHour(Main.game.getHourOfDay())) {
+							Main.game.appendToTextEndStringBuilder(npc.incrementAffection(Main.game.getPlayer(), -1));
+						}
 					}
 				});
 			}
@@ -771,92 +782,6 @@ public class DominionPlaces {
 		}
 	};
 	
-	public static final DialogueNode PARK = new DialogueNode("Park", ".", false) {
-
-		@Override
-		public String getAuthor() {
-			return "Kumiko";
-		}
-		
-		@Override
-		public int getSecondsPassed() {
-			return 3*60;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "This area of Dominion is taken up by a gigantic park, filled with a lush amount of foliage, which makes the air here feel very fresh compared to the rest of the city."
-						+ " The park consists of several alternating areas of open lawn and woodland, connected by a series of winding paths."
-						+ " There's a small lake situated in one corner of the park, and adjacent to that, there's a small field of wild flowers."
-						+ " A couple of food stands have been set up in one area for people that didn't come prepared with a picnic."
-					+ "</p>"
-					+ "<p>"
-						+ "The most noteworthy feature is at the very centre of the park, and takes the form of a huge statue of Lilith herself."
-						+ " The sultry smile carved into the white marble almost feels at though it's mocking you, and you can't help but feel as though you don't want to stick around here for long."
-					+ "</p>"
-					+ "<p>"
-						+ "For now, you don't have much reason to wander through this park, but if you had someone else with you, it would be a nice place to spend an afternoon; if you can ignore the statue, that is..."
-					+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Rose Garden", "There's a beautiful rose garden just off to your right. Walk over to it and take a closer look.", PARK_ROSE_GARDEN) {
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("innoxia_hair_rose", false), false));
-					}
-				};
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNode PARK_ROSE_GARDEN = new DialogueNode("Park", ".", false, true) {
-
-		@Override
-		public String getAuthor() {
-			return "Innoxia";
-		}
-		
-		@Override
-		public int getSecondsPassed() {
-			return 30;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-					+ "You find your attention drawn towards a small rose garden that's positioned near the park's entrance."
-					+ " Walking over towards it, you see that someone's placed a little sign just in front of the border, which reads:"
-				+ "</p>"
-				+ "<p style='text-align:center;'>"
-					+ "<i>"
-						+ "<b>William's Rose Garden</b><br/>"
-						+ "Please feel free to help yourself to these roses!"
-						+ " I hope you or your partner gets as much happiness out of them as I do from growing them.<br/>"
-						+ "- William"
-					+ "</i>"
-				+ "</p>"
-				+ "<p>"
-					+ "You look around, but don't see anyone nearby who could be this 'William' character."
-					+ " Focusing your attention back to his rose garden, you decide to do as his sign says, and after [pc.stepping] forwards, you pluck a single rose from the nearest bush."
-				+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Rose Garden", "You've already taken a rose from the garden.", null);
-			} else {
-				return null;
-			}
-		}
-	};
-	
 	public static final DialogueNode HELENAS_HOTEL = new DialogueNode("", "", false) {
 		@Override
 		public int getSecondsPassed() {
@@ -1111,6 +1036,54 @@ public class DominionPlaces {
 			} else {
 				return null;
 			}
+		}
+	};
+	
+	public static final DialogueNode CITY_EXIT_BAT_CAVERNS = new DialogueNode("", "", false) {
+		@Override
+		public int getSecondsPassed() {
+			return TRAVEL_TIME_STREET;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "CITY_EXIT_BAT_CAVERNS");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				if(Main.game.getPlayer().isAbleToFly()) {
+					if(!Main.game.getPlayer().isPartyAbleToFly()) {
+						return new Response("Bat Caverns", "As your party members are unable to fly, you cannot use the shaft to travel down to the Bat Caverns...", null);
+						
+					} else {
+						return new Response("Bat Caverns", "Fly down the shaft to return to the Bat Caverns.", CITY_EXIT_BAT_CAVERNS_FLY_DOWN) {
+							@Override
+							public void effects() {
+								Main.game.getPlayer().setLocation(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_SHAFT, false);
+							}
+						};
+					}
+					
+				} else {
+					return new Response("Bat Caverns", "As you are unable to fly, you cannot use the shaft to travel down to the Bat Caverns...", null);
+				}
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode CITY_EXIT_BAT_CAVERNS_FLY_DOWN = new DialogueNode("", "", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 2*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "CITY_EXIT_BAT_CAVERNS_FLY_DOWN");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return BatCaverns.SHAFT.getResponse(responseTab, index);
 		}
 	};
 	

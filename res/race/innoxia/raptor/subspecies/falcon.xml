@@ -9,9 +9,9 @@
 	<attributeItemId>innoxia_race_raptor_energy_drink</attributeItemId>
 	<transformativeItemId>innoxia_race_raptor_energy_bar</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>DIURNAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
-	<aquatic>false</aquatic>
 	<applySubspeciesChanges/>
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_innoxia_raptor)

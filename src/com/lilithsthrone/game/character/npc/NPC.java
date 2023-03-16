@@ -22,8 +22,6 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.Litter;
-import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -68,6 +66,8 @@ import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
 import com.lilithsthrone.game.character.npc.misc.PrologueMale;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.pregnancy.Litter;
+import com.lilithsthrone.game.character.pregnancy.PregnancyPossibility;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.FurryPreference;
@@ -1579,7 +1579,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				} else {
 					possibleEffects.add(new PossibleItemEffect(
 						new ItemEffect(getItemEnchantmentEffect(genitalsItemType, body.getVagina()), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
-						"Let's give you a nice "+(humanGenitals?"human":body.getVagina().getType().getTransformName())+" "+body.getVagina().getName(target, false)+"!"));
+						"Let's give you a nice "+(humanGenitals?"human":body.getVagina().getType().getTransformName())+" pussy!"));
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 				}
 			}
@@ -1594,7 +1594,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				} else {
 					possibleEffects.add(new PossibleItemEffect(
 						new ItemEffect(getItemEnchantmentEffect(genitalsItemType, body.getPenis()), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
-						"Let's give you a nice "+(humanGenitals?"human":body.getPenis().getType().getTransformName())+" "+body.getPenis().getName(target, false)+"!"));
+						"Let's give you a nice "+(humanGenitals?"human":body.getPenis().getType().getTransformName())+" cock!"));
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 				}
 			}
@@ -2382,45 +2382,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				break;
 		}
 		
-		// map of top -> bottom paired fetishes; NPCs with a paired fetish will greatly favor 
-		// giving the player it's pair, and remove that fetish if there is a match
-		Map<AbstractFetish, AbstractFetish> pairedFetishMap = new HashMap<>();
-
-		pairedFetishMap.put(Fetish.FETISH_PENIS_GIVING, Fetish.FETISH_PENIS_RECEIVING);
-		pairedFetishMap.put(Fetish.FETISH_ANAL_GIVING, Fetish.FETISH_ANAL_RECEIVING);
-		pairedFetishMap.put(Fetish.FETISH_VAGINAL_GIVING, Fetish.FETISH_VAGINAL_RECEIVING);
-		pairedFetishMap.put(Fetish.FETISH_BREASTS_OTHERS, Fetish.FETISH_BREASTS_SELF);
-		pairedFetishMap.put(Fetish.FETISH_ORAL_RECEIVING, Fetish.FETISH_ORAL_GIVING);
-		pairedFetishMap.put(Fetish.FETISH_LEG_LOVER, Fetish.FETISH_STRUTTER);
-		pairedFetishMap.put(Fetish.FETISH_ARMPIT_GIVING, Fetish.FETISH_ARMPIT_RECEIVING);
-		if(Main.game.isFootContentEnabled()) {
-			pairedFetishMap.put(Fetish.FETISH_FOOT_GIVING, Fetish.FETISH_FOOT_RECEIVING);
-		}
-
-		pairedFetishMap.put(Fetish.FETISH_BONDAGE_APPLIER, Fetish.FETISH_BONDAGE_VICTIM);
-		pairedFetishMap.put(Fetish.FETISH_DOMINANT, Fetish.FETISH_SUBMISSIVE);
-		pairedFetishMap.put(Fetish.FETISH_CUM_STUD, Fetish.FETISH_CUM_ADDICT);
-//		pairedFetishMap.put(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_PURE_VIRGIN); // Do not give deflowering if pure virgin fetish...
-		pairedFetishMap.put(Fetish.FETISH_IMPREGNATION, Fetish.FETISH_PREGNANCY);
-		pairedFetishMap.put(Fetish.FETISH_SADIST, Fetish.FETISH_MASOCHIST);
-		if(Main.game.isNonConEnabled()) {
-			pairedFetishMap.put(Fetish.FETISH_NON_CON_DOM, Fetish.FETISH_NON_CON_SUB);
-		}
-		pairedFetishMap.put(Fetish.FETISH_DENIAL, Fetish.FETISH_DENIAL_SELF);
-		pairedFetishMap.put(Fetish.FETISH_VOYEURIST, Fetish.FETISH_EXHIBITIONIST);
-		if(Main.game.isLactationContentEnabled()) {
-			pairedFetishMap.put(Fetish.FETISH_LACTATION_SELF, Fetish.FETISH_LACTATION_OTHERS);
-		}
-		
-		// Do not include these, as NPCs will otherwise always end up forcing them on the player:
-//		if(!pairedFetishesOnly) {
-//			pairedFetishMap.put(Fetish.FETISH_TRANSFORMATION_GIVING, Fetish.FETISH_TRANSFORMATION_RECEIVING);
-//			pairedFetishMap.put(Fetish.FETISH_KINK_GIVING, Fetish.FETISH_KINK_RECEIVING);
-//		}
-		
-		for(Entry<AbstractFetish, AbstractFetish> entry : pairedFetishMap.entrySet()) {
-			currentTopFetish = entry.getKey();
-			currentBottomFetish = entry.getValue();
+		for(AbstractFetish fetish : Fetish.getAllFetishes()) {
+			// Skip bottom & solo fetishes, as well as the TF & Kink giving fetishes
+			// NPCs will otherwise always end up forcing them on the player
+			if (!fetish.isTopFetish() || fetish.equals(Fetish.FETISH_TRANSFORMATION_GIVING) || fetish.equals(Fetish.FETISH_KINK_GIVING)) {
+				continue;
+			}
+			currentTopFetish = fetish;
+			currentBottomFetish = fetish.getOpposite();
 			
 			currentTopModifier = TFModifier.valueOf( "TF_MOD_" + Fetish.getIdFromFetish(currentTopFetish));
 			currentBottomModifier = TFModifier.valueOf( "TF_MOD_" + Fetish.getIdFromFetish(currentBottomFetish));
@@ -3100,7 +3069,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							&& Main.sex.isClothingEquipAvailable(partner, defaultSlot, clothing)
 							&& clothing.isAbleToBeEquippedDuringSex(defaultSlot).getKey()
 							&& partner.getClothingInSlot(defaultSlot)==null
-							&& partner.isAbleToEquip(clothing, true, this)) {
+							&& partner.isAbleToEquip(clothing, inQuickSex, this)) {
 						return new Value<>(clothing, UtilText.parse(this, "[npc.Name] grabs "+clothing.getName(true, true)+" from out of [npc.her] inventory..."));
 					}
 				}

@@ -52,6 +52,7 @@
 		]]></applyEffects>
 		
 		<itemTags>
+			<tag>DRINK</tag>
 			<tag>RACIAL_TF_ITEM</tag>
 		</itemTags>
 	</coreAttributes>

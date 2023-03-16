@@ -2372,7 +2372,7 @@ public class ImpCitadelDialogue {
 		}
 	};
 	
-	public static final DialogueNode KEEP_AFTER_COMBAT_DEFEAT_POST_SEX = new DialogueNode("", "", false) {
+	public static final DialogueNode KEEP_AFTER_COMBAT_DEFEAT_POST_SEX = new DialogueNode("", "", true) {
 
 		@Override
 		public String getContent() {

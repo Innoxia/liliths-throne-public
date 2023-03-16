@@ -9,9 +9,9 @@
 	<attributeItemId>innoxia_race_deer_glade_springs</attributeItemId>
 	<transformativeItemId>innoxia_race_deer_tree_shoots_salad</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>CREPUSCULAR</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
-	<aquatic>false</aquatic>
 	<applySubspeciesChanges/>
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_innoxia_deer)

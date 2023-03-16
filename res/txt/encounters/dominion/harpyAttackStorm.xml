@@ -264,7 +264,7 @@
 		#ENDIF
 	#ENDIF
 	<p>
-		before you can react to [npc.namePos] arousal, [npc.she] darts forwards and wraps [npc.her] [npc.arms] around you, before leaning in to breathlessly pant,
+		Before you can react to [npc.namePos] arousal, [npc.she] darts forwards and wraps [npc.her] [npc.arms] around you, before leaning in to breathlessly pant,
 		#IF(npc.hasVagina())
 			 [npc.speech(Come on, [pc.name]! Fuck my hot little pussy! Fuck, I'm so wet for you!)]
 		#ELSEIF(npc.hasPenis())

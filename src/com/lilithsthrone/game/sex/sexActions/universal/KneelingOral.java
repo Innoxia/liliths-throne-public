@@ -1,9 +1,9 @@
 package com.lilithsthrone.game.sex.sexActions.universal;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -11,6 +11,7 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlotTag;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -66,49 +67,57 @@ public class KneelingOral {
 			
 			if(Main.sex.getCharacterPerformingAction().hasPenis()) {
 				UtilText.nodeContentSB.append("<br/><br/>"
-						+ "As [npc.she] [npc.verb(grind)] [npc.her] [npc.pussy+] down against [npc2.namePos] [npc2.lips], [npc.name] [npc.verb(feel)] [npc.her] other sexual organ start to react to [npc.her] climax.");
-				
-				if(Main.sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)) {
-					UtilText.nodeContentSB.append(" [npc.She] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] the knot at the base of [npc.her] [npc.cock+] swelling up as [npc.she] [npc.verb(prepare)] to cum,");
-					
-				} else if(Main.sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.FLARED)) {
-					UtilText.nodeContentSB.append(" [npc.She] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] the wide, flared head of [npc.her] [npc.cock+] swelling up as [npc.she] [npc.verb(prepare)] to cum,");
-					
-				} else {
-					UtilText.nodeContentSB.append(" [npc.She] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] [npc.her] [npc.cock+] twitch and throb as [npc.she] [npc.verb(prepare)] to cum,");
-				}
-		
-				// Describe cum amount:
-				UtilText.nodeContentSB.append(" and as [npc.her] [npc.balls+] tense up");
-				
-				switch (Main.sex.getCharacterPerformingAction().getPenisOrgasmCumQuantity()) {
-					case ZERO_NONE:
-						UtilText.nodeContentSB.append(", [npc.she] [npc.verb(realise)] that [npc.sheIs] not able to produce even one drop of cum.");
-						break;
-					case ONE_TRICKLE:
-						UtilText.nodeContentSB.append(", a small trickle of [npc.cum+] squirts out onto the floor above [npc2.namePos] head.");
-						break;
-					case TWO_SMALL_AMOUNT:
-						UtilText.nodeContentSB.append(", a small amount of [npc.cum+] squirts out onto the floor above [npc2.namePos] head.");
-						break;
-					case THREE_AVERAGE:
-						UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] squirts out onto the floor above [npc2.namePos] head.");
-						break;
-					case FOUR_LARGE:
-						UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] shoots out onto the floor above [npc2.namePos] head.");
-						break;
-					case FIVE_HUGE:
-						UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] pours out onto the floor above [npc2.namePos] head.");
-						break;
-					case SIX_EXTREME:
-						UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] pours out onto the floor above [npc2.namePos] head.");
-						break;
-					case SEVEN_MONSTROUS:
-						UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] pours out onto the floor above [npc2.namePos] head.");
-						break;
-					default:
-						break;
-				}
+						+ GenericOrgasms.getGenericPenisOrgasmDescription(
+							this,
+							Main.sex.getCharacterPerformingAction(),
+							Main.sex.getCharacterTargetedForSexAction(this),
+							OrgasmCumTarget.HAIR,
+							this.getCondomFailure(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this)),
+							false));
+//				UtilText.nodeContentSB.append("<br/><br/>"
+//						+ "As [npc.she] [npc.verb(grind)] [npc.her] [npc.pussy+] down against [npc2.namePos] [npc2.lips], [npc.name] [npc.verb(feel)] [npc.her] other sexual organ start to react to [npc.her] climax.");
+//				
+//				if(Main.sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)) {
+//					UtilText.nodeContentSB.append(" [npc.She] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] the knot at the base of [npc.her] [npc.cock+] swelling up as [npc.she] [npc.verb(prepare)] to cum,");
+//					
+//				} else if(Main.sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.FLARED)) {
+//					UtilText.nodeContentSB.append(" [npc.She] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] the wide, flared head of [npc.her] [npc.cock+] swelling up as [npc.she] [npc.verb(prepare)] to cum,");
+//					
+//				} else {
+//					UtilText.nodeContentSB.append(" [npc.She] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] [npc.her] [npc.cock+] twitch and throb as [npc.she] [npc.verb(prepare)] to cum,");
+//				}
+//		
+//				// Describe cum amount:
+//				UtilText.nodeContentSB.append(" and as [npc.her] [npc.balls+] tense up");
+//				
+//				switch (Main.sex.getCharacterPerformingAction().getPenisOrgasmCumQuantity()) {
+//					case ZERO_NONE:
+//						UtilText.nodeContentSB.append(", [npc.she] [npc.verb(realise)] that [npc.sheIs] not able to produce even one drop of cum.");
+//						break;
+//					case ONE_TRICKLE:
+//						UtilText.nodeContentSB.append(", a small trickle of [npc.cum+] squirts out onto the floor above [npc2.namePos] head.");
+//						break;
+//					case TWO_SMALL_AMOUNT:
+//						UtilText.nodeContentSB.append(", a small amount of [npc.cum+] squirts out onto the floor above [npc2.namePos] head.");
+//						break;
+//					case THREE_AVERAGE:
+//						UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] squirts out onto the floor above [npc2.namePos] head.");
+//						break;
+//					case FOUR_LARGE:
+//						UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] shoots out onto the floor above [npc2.namePos] head.");
+//						break;
+//					case FIVE_HUGE:
+//						UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] pours out onto the floor above [npc2.namePos] head.");
+//						break;
+//					case SIX_EXTREME:
+//						UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] pours out onto the floor above [npc2.namePos] head.");
+//						break;
+//					case SEVEN_MONSTROUS:
+//						UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] pours out onto the floor above [npc2.namePos] head.");
+//						break;
+//					default:
+//						break;
+//				}
 			}
 			
 			UtilText.nodeContentSB.append("<br/><br/>"

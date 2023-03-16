@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<authorTag><![CDATA[A tag sewn to the inside of the bra reads 'Made by Blue999']]></authorTag>
+		<value>250</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[nursing bra]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[nursing bras]]></namePlural>
+		<description><![CDATA[This nursing bra provides additional support to lactating breasts, and has specially designed cups which can be opened to expose the wearer's nipples.]]></description>
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity>
+		<slot>CHEST</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>nursing_bra.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_DOWN</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>NIPPLES</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_BREASTS"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="LINGERIE"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(clip)] the cups of [npc.her] nursing bra back up to cover [npc.her] [npc.nipples].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(clip)] the cups of [npc2.namePos] nursing bra back up to cover [npc.her] [npc.nipples].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(clip)] the cups of [npc2.namePos] nursing bra back up to cover [npc.her] [npc.nipples].]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unclip)] the cups of [npc.her] nursing bra and pulls them down, exposing [npc.her] [npc.nipples+].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unclip)] the cups of [npc2.namePos] nursing bra and pulls them down, exposing [npc2.her] [npc2.nipples+].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(unclip)] the cups of [npc2.namePos] nursing bra and pulls them down, exposing [npc2.her] [npc2.nipples+].]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

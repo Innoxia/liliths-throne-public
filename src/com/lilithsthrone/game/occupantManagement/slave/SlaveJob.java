@@ -5,10 +5,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Random;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -51,7 +54,7 @@ public enum SlaveJob {
 			-0,
 			"Idle",
 			"Idle",
-			"Do not assign any job to this slave.",
+			"Do not assign any job to this character.",
 			0, 0,
 			0,
 			0, 0,
@@ -61,19 +64,64 @@ public enum SlaveJob {
 			null,
 			Util.newArrayListOfValues(
 					SlaveJobFlag.INTERACTION_SEX,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			null, null) {
 		@Override
 		public boolean isAvailable(int hour, GameCharacter character) {
 			return true;
 		}
+		private Cell getSlaveLoungeCell(GameCharacter slave) {
+			Random rnd = new Random();
+			rnd.setSeed(Main.game.getSecondsPassed()); // Make sure that the seed is consistent based on time so that both sendToWorkLocation() and getWorkDestinationCell() return the same cell during the same turn update
+			
+			if(!slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM) || rnd.nextFloat()<0.25f) { // 75% chance of using the lounge
+				return null;
+			}
+			
+			// If they're sleeping they will only rarely go to the lounge (5% chance)
+			int hour = Main.game.getHourOfDay();
+			if(slave.isSleepingAtHour(hour) || rnd.nextFloat()<0.05f) {
+				return null;
+			}
+			
+			// If they're overworked, they're more likely to be resting in their room
+			if((rnd.nextFloat()<0.25f && slave.hasStatusEffect(StatusEffect.OVERWORKED_1))
+					|| ( rnd.nextFloat()<0.5f && slave.hasStatusEffect(StatusEffect.OVERWORKED_2))
+					|| slave.hasStatusEffect(StatusEffect.OVERWORKED_3)) {
+				return null;
+			}
+			
+			List<Cell> cells = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCells(PlaceUpgrade.LILAYA_SLAVE_LOUNGE);
+			cells.addAll(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCells(PlaceUpgrade.LILAYA_SLAVE_LOUNGE));
+			cells.removeIf(c -> Main.game.getCharactersPresent(c).size() > 8); // If lounge is full then don't use it
+			if(!cells.isEmpty()) {
+				if(slave.isShy() && rnd.nextFloat()<0.8f) { // 4/5 times go to the emptiest lounge if the slave is shy:
+					cells.sort((c1, c2) -> c2.getCharactersPresentIds().size() - c1.getCharactersPresentIds().size());
+				} else { // Return lounge with the most slaves in it:
+					cells.sort((c1, c2) -> c1.getCharactersPresentIds().size() - c2.getCharactersPresentIds().size());
+				}
+				return cells.get(0);
+			}
+			return null;
+		}
 		@Override
 		public void sendToWorkLocation(GameCharacter slave) {
-			slave.returnToHome();
+			Cell lounge = getSlaveLoungeCell(slave);
+			if(lounge==null) {
+				slave.returnToHome();
+			} else {
+				slave.setLocation(lounge);
+			}
 		}
 		@Override
 		public Cell getWorkDestinationCell(GameCharacter slave) {
-			return slave.getHomeCell();
+			Cell lounge = getSlaveLoungeCell(slave);
+			if(lounge==null) {
+				return slave.getHomeCell();
+			} else {
+				return lounge;
+			}
 		}
 	},
 	
@@ -83,7 +131,7 @@ public enum SlaveJob {
 			2f,
 			"maid",
 			"manservant",
-			"Assign this slave to help Rose keep the house clean, deal with visitors, and perform all sorts of menial housework.",
+			"Assign this character to help Rose keep the house clean, deal with visitors, and perform all sorts of menial housework.",
 			0, 0.5f,
 			80,
 			0f, 0.1f,
@@ -94,7 +142,8 @@ public enum SlaveJob {
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
 					SlaveJobFlag.INTERACTION_SEX,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_CORRIDOR) {
 		
 		@Override
@@ -113,6 +162,63 @@ public enum SlaveJob {
 			}
 		}
 	},
+
+	SECURITY(PresetColour.BASE_CRIMSON,
+			0.05f,
+			8,
+			2f,
+			"security guard",
+			"security guard",
+			"Assign this character to act as a security guard. A guard will always be posted at the entrance, with other guards patrolling the corridors.",
+			0, 0.5f,
+			80,
+			0f, 0.1f,
+			Util.newArrayListOfValues(
+					SlaveJobSetting.SECURITY_ENTRANCE_PRIORITY,
+					SlaveJobSetting.SECURITY_ANSWER_DOOR),
+			Util.newArrayListOfValues(
+					SlaveJobSetting.SECURITY_ANSWER_DOOR),
+			null,
+			null,
+			Util.newArrayListOfValues(
+					SlaveJobFlag.EXPERIENCE_GAINS,
+					SlaveJobFlag.INTERACTION_SEX,
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
+			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL) {
+		private void moveToCorridor(GameCharacter slave) {
+			if(slave.getLocationPlace().getPlaceType().equals(PlaceType.LILAYA_HOME_CORRIDOR)) {
+				slave.moveToAdjacentMatchingCellType(false);
+			
+			} else {
+				// 50/50 of being upstairs or downstairs:
+				AbstractWorldType worldTypeToUse = WorldType.LILAYAS_HOUSE_FIRST_FLOOR;
+				if(Math.random()>0.5f) {
+					worldTypeToUse = WorldType.LILAYAS_HOUSE_GROUND_FLOOR;
+				}
+				
+				slave.setRandomLocation(worldTypeToUse, PlaceType.LILAYA_HOME_CORRIDOR, false);
+			}
+		}
+		@Override
+		public void sendToWorkLocation(GameCharacter slave) {
+			Optional<NPC> guardAtEntrance = Main.game.getCharactersPresent(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL).stream().filter(npc->npc.isSlave() && npc.isAtWork()).findFirst();
+			
+			if(slave.getLocationPlaceType()==PlaceType.LILAYA_HOME_ENTRANCE_HALL
+					|| !guardAtEntrance.isPresent()
+					|| (guardAtEntrance.isPresent()
+							&& !guardAtEntrance.get().hasSlaveJobSetting(SlaveJob.SECURITY, SlaveJobSetting.SECURITY_ENTRANCE_PRIORITY)
+							&& slave.hasSlaveJobSetting(SlaveJob.SECURITY, SlaveJobSetting.SECURITY_ENTRANCE_PRIORITY))) {
+				if(guardAtEntrance.isPresent() && slave.getLocationPlaceType()!=PlaceType.LILAYA_HOME_ENTRANCE_HALL) {
+					moveToCorridor(guardAtEntrance.get());
+				}
+				slave.setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
+				
+			} else {
+				moveToCorridor(slave);
+			}
+		}
+	},
 	
 	LIBRARY(PresetColour.BASE_TEAL,
 			0.05f,
@@ -120,7 +226,7 @@ public enum SlaveJob {
 			1.5f,
 			"librarian",
 			"librarian",
-			"Assign this slave to work in Lilaya's library.",
+			"Assign this character to work in Lilaya's library.",
 			0, 0.25f, 
 			80,
 			0, 0.1f,
@@ -131,7 +237,8 @@ public enum SlaveJob {
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
 					SlaveJobFlag.INTERACTION_SEX,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LIBRARY),
 	
 	KITCHEN(PresetColour.BASE_TAN,
@@ -140,7 +247,7 @@ public enum SlaveJob {
 			2,
 			"cook",
 			"cook",
-			"Assign this slave to work in Lilaya's kitchen as a cook.",
+			"Assign this character to work in Lilaya's kitchen as a cook.",
 			0, 0.25f,
 			80,
 			0, 0.05f,
@@ -151,8 +258,30 @@ public enum SlaveJob {
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
 					SlaveJobFlag.INTERACTION_SEX,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_KITCHEN),
+
+	GARDEN(PresetColour.BASE_GREEN,
+			0.05f,
+			4,
+			2,
+			"gardener",
+			"gardener",
+			"Assign this character to work as a gardener in Lilaya's courtyard garden.",
+			0, 0.25f,
+			80,
+			0, 0.05f,
+			null,
+			null,
+			null,
+			null,
+			Util.newArrayListOfValues(
+					SlaveJobFlag.EXPERIENCE_GAINS,
+					SlaveJobFlag.INTERACTION_SEX,
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
+			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_GARDEN),
 	
 	LAB_ASSISTANT(PresetColour.BASE_GREEN_LIME,
 			0.05f,
@@ -160,7 +289,7 @@ public enum SlaveJob {
 			1.5f,
 			"lab assistant",
 			"lab assistant",
-			"Assign this slave to help Lilaya in her lab.",
+			"Assign this character to help Lilaya in her lab.",
 			0, 0.25f,
 			100,
 			0, 0.2f,
@@ -170,7 +299,8 @@ public enum SlaveJob {
 			null,
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB) {
 		@Override
 		public boolean isAvailable(int hour, GameCharacter character) {
@@ -182,7 +312,7 @@ public enum SlaveJob {
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
 			if(hour<6 || hour>=22) {
-				return "Slaves cannot work in Lilaya's lab while she is sleeping!";
+				return "No-one can work in Lilaya's lab while she is sleeping!";
 			}
 			return super.getAvailabilityText(hour, character);
 		}
@@ -225,7 +355,7 @@ public enum SlaveJob {
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
 			if(hour<6 || hour>=22) {
-				return "Slaves cannot work in Lilaya's lab while she is sleeping!";
+				return "No-one can work in Lilaya's lab while she is sleeping!";
 			}
 			return super.getAvailabilityText(hour, character);
 		}
@@ -313,7 +443,7 @@ public enum SlaveJob {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.prostitutionLicenseObtained)) {
 				return "You do not have permission from Angel to send your slaves to work in her brothel!";
 				
-			} else if(character.getOwner().getSlavesWorkingJob(hour, this)>=this.getSlaveLimit()) {
+			} else if(Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, this)>=this.getSlaveLimit()) {
 				return "You have already assigned the maximum number of slaves to this job!";
 				
 			} else if(character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)) {
@@ -379,7 +509,7 @@ public enum SlaveJob {
 		}
 		@Override
 		public boolean isAvailable(int hour, GameCharacter character) {
-			return Main.game.getPlayer().getSlavesWorkingJob(hour, SlaveJob.MILKING)<getSlaveLimit();
+			return !character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) && Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, SlaveJob.MILKING)<getSlaveLimit();
 		}
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
@@ -434,7 +564,7 @@ public enum SlaveJob {
 				boolean equipVaginaPump = false;
 				
 				if(MilkingRoom.getActualMilkPerHour(slave)>0 && slave.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK)) {
-					clothingRemoved.addAll(slave.displaceClothingForAccess(CoverableArea.NIPPLES, null).keySet());
+					clothingRemoved.addAll(slave.displaceClothingForAccess(CoverableArea.NIPPLES, null, true, false).keySet());
 					AbstractClothing clothing = slave.getClothingInSlot(InventorySlot.NIPPLE);
 					if(clothing!=null) {
 						if(!clothing.isMilkingEquipment()) {
@@ -447,7 +577,7 @@ public enum SlaveJob {
 					}
 				}
 				if(MilkingRoom.getActualCrotchMilkPerHour(slave)>0 && slave.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK_CROTCH)) {
-					clothingRemoved.addAll(slave.displaceClothingForAccess(CoverableArea.NIPPLES_CROTCH, null).keySet());
+					clothingRemoved.addAll(slave.displaceClothingForAccess(CoverableArea.NIPPLES_CROTCH, null, true, false).keySet());
 					AbstractClothing clothing = slave.getClothingInSlot(InventorySlot.STOMACH);
 					if(clothing!=null) {
 						if(!clothing.isMilkingEquipment()) {
@@ -460,7 +590,7 @@ public enum SlaveJob {
 					}
 				}
 				if(MilkingRoom.getActualCumPerHour(slave)>0 && slave.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_CUM)) {
-					clothingRemoved.addAll(slave.displaceClothingForAccess(CoverableArea.PENIS, null).keySet());
+					clothingRemoved.addAll(slave.displaceClothingForAccess(CoverableArea.PENIS, null, true, false).keySet());
 					AbstractClothing clothing = slave.getClothingInSlot(InventorySlot.PENIS);
 					if(clothing!=null) {
 						if(!clothing.isMilkingEquipment()) {
@@ -475,7 +605,7 @@ public enum SlaveJob {
 				if(MilkingRoom.getActualGirlcumPerHour(slave)>0
 						&& slave.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_GIRLCUM)
 						&& (!slave.hasHymen() || slave.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_TEAR_HYMEN))) {
-					clothingRemoved.addAll(slave.displaceClothingForAccess(CoverableArea.VAGINA, null).keySet());
+					clothingRemoved.addAll(slave.displaceClothingForAccess(CoverableArea.VAGINA, null, true, false).keySet());
 					AbstractClothing clothing = slave.getClothingInSlot(InventorySlot.VAGINA);
 					if(clothing!=null) {
 						if(!clothing.isMilkingEquipment()) {
@@ -502,7 +632,13 @@ public enum SlaveJob {
 				}
 				
 				MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(c.getType(), c.getLocation());
-
+				
+				for(AbstractClothing cl : clothingRemoved) {
+					if(cl.isMilkingEquipment()) {
+						slave.removeClothing(cl);
+					}
+				}
+				
 				clothingRemoved.removeIf(cl->cl.isMilkingEquipment());
 				
 				for(AbstractClothing clothing : clothingRemoved) {
@@ -565,7 +701,7 @@ public enum SlaveJob {
 			2f,
 			"office worker",
 			"office worker",
-			"Assign this slave to work in the office which you've had outfitted here in Lilaya's house.",
+			"Assign this character to work in the office which you've had outfitted here in Lilaya's house.",
 			0, 0,
 			100,
 			0, 1f,
@@ -576,7 +712,8 @@ public enum SlaveJob {
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
 					SlaveJobFlag.INTERACTION_SEX,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
 		
 		private Cell getOfficeCell() {
@@ -601,7 +738,7 @@ public enum SlaveJob {
 		
 		@Override
 		public boolean isAvailable(int hour, GameCharacter character) {
-			return Main.game.getPlayer().getSlavesWorkingJob(hour, SlaveJob.OFFICE) < getSlaveLimit();
+			return !character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) && Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, SlaveJob.OFFICE) < getSlaveLimit();
 		}
 	
 		public String getAvailabilityText(int hour, GameCharacter character) {
@@ -813,6 +950,91 @@ public enum SlaveJob {
 			}
 		}
 	},
+
+	DINING_HALL(PresetColour.BASE_ORANGE_LIGHT,
+			0.05f,
+			6,
+			2f,
+			"waitress",
+			"waiter",
+			"Assign this character to serve food in a dining hall.",
+			0, 0,
+			50,
+			0, 0.05f,
+			null,
+			null,
+			null,
+			null,
+			Util.newArrayListOfValues(
+					SlaveJobFlag.EXPERIENCE_GAINS,
+					SlaveJobFlag.INTERACTION_SEX,
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
+			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
+		@Override
+		public int getSlaveLimit() {
+			return (Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCells(PlaceUpgrade.LILAYA_DINING_HALL).size()
+					+ Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCells(PlaceUpgrade.LILAYA_DINING_HALL).size())
+					* 6;
+		}
+		private Cell getDiningHallCell() {
+			List<Cell> cells = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCells(PlaceUpgrade.LILAYA_DINING_HALL);
+			cells.addAll(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCells(PlaceUpgrade.LILAYA_DINING_HALL));
+			if(!cells.isEmpty()) {
+				cells.sort((c1, c2) -> Main.game.getCharactersPresent(c1).size() - Main.game.getCharactersPresent(c2).size());
+				return cells.get(0); // Return dining hall with the least amount of workers in it
+			}
+			return null;
+		}
+		@Override
+		public AbstractWorldType getWorldLocation(GameCharacter character) {
+			Cell c = getDiningHallCell();
+			if(c==null) {
+				return null;
+			}
+			return c.getType();
+		}
+		@Override
+		public AbstractPlaceType getPlaceLocation(GameCharacter character) {
+			Cell c = getDiningHallCell();
+			if(c==null) {
+				return null;
+			}
+			return c.getPlace().getPlaceType();
+		}
+		@Override
+		public Cell getWorkDestinationCell(GameCharacter slave) {
+			return getDiningHallCell();
+		}
+		@Override
+		public void sendToWorkLocation(GameCharacter slave) {
+			Cell c = getDiningHallCell();
+			if(c!=null) {
+				if(c.getType()!=slave.getWorldLocation() || c.getLocation()!=slave.getLocation()) {
+					if(Main.game.getCharactersPresent(c).size() < Main.game.getCharactersPresent(slave.getCell()).size() - 1 || !slave.getCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_DINING_HALL)) {
+						slave.setLocation(c.getType(), c.getLocation(), false);
+					}
+				}
+			} else {
+				slave.returnToHome();
+			}
+		}
+		@Override
+		public boolean isAvailable(int hour, GameCharacter character) {
+			if(getDiningHallCell()==null) {
+				return false;
+			}
+			return super.isAvailable(hour, character);
+		}
+		@Override
+		public String getAvailabilityText(int hour, GameCharacter character) {
+			if(getDiningHallCell()==null) {
+				return "The dining hall upgrade must be constructed before this job is available!";
+			}
+			return super.getAvailabilityText(hour, character);
+		}
+	},
+
 	;
 	
 	public static final float BASE_STAMINA = 24f;
@@ -1067,12 +1289,12 @@ public enum SlaveJob {
 	
 	public boolean isAvailable(int hour, GameCharacter character) {
 		return character.getSlaveJob(hour)==this
-				|| (!character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) && character.getOwner().getSlavesWorkingJob(hour, this)<this.getSlaveLimit());
+				|| (!character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) && Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, this)<this.getSlaveLimit());
 	}
 	
 	public String getAvailabilityText(int hour, GameCharacter character) {
-		if(character.getOwner().getSlavesWorkingJob(hour, this)>=this.getSlaveLimit()) {
-			return "You have already assigned the maximum number of slaves to this job!";
+		if(Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, this)>=this.getSlaveLimit()) {
+			return "You have already assigned the maximum number of people to this job!";
 			
 		} else if(character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)) {
 			return "Slaves cannot work out of the cells at slavery administration. Move them into a room first!";
@@ -1088,13 +1310,13 @@ public enum SlaveJob {
 	}
 	
 	/**
-	 * Called immediately before the slave is moved to their new job.
+	 * Called immediately before the character is moved to their new job.
 	 */
 	public void applyJobStartEffects(GameCharacter slave) {
 	}
 
 	/**
-	 * Called immediately after the slave is moved to their new job.
+	 * Called immediately after the character is moved to their new job.
 	 */
 	public void applyJobEndEffects(GameCharacter slave) {
 	}

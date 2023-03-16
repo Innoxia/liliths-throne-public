@@ -9,9 +9,9 @@
 	<attributeItemId>innoxia_race_raptor_energy_drink</attributeItemId>
 	<transformativeItemId>innoxia_race_raptor_energy_bar</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>DIURNAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
-	<aquatic>false</aquatic>
 	<applySubspeciesChanges><![CDATA[
 		#IF(targetedBody.getLegType().getRace()==RACE_innoxia_raptor)
 			[#targetedBody.setLegType(LEG_TYPE_innoxia_raptor_leg_large)]

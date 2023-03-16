@@ -34,7 +34,12 @@ public class Generation extends Task<Boolean> {
 			if (debug) {
 				System.out.println(wt);
 			}
-			Main.game.getWorlds().put(wt, worldGeneration(wt));
+			try {
+				Main.game.getWorlds().put(wt, worldGeneration(wt));
+			} catch (Exception e) {
+				System.err.println("Exception while generating world type! " + wt.getId());
+				e.printStackTrace(System.err);
+			}
 			updateProgress(count.incrementAndGet(), maxSize);
 		});
 		return true;

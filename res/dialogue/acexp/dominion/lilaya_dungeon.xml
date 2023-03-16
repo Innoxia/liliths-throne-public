@@ -147,6 +147,7 @@
                 <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
                 <effects><![CDATA[
                     [#flags.setFlag(FLAG_acexp_dungeon_sex, true)]
+                    [#flags.setFlag(FLAG_acexp_dungeon_sex_revealed, true)]
                     [#rose.equipClothingFromNowhere(itemGen.generateClothing('innoxia_bdsm_penis_strapon', COLOUR_CLOTHING_PINK_HOT, false), true, rose)]
                 ]]></effects>
                 <requiredFetishes>

@@ -12,7 +12,7 @@
    				#IF(!game.isStarted() || flags.hasFlag(FLAG_acexp_shady_dealer_daily_interaction))
 	        		0
         		#ELSE
-        		    #IF(game.getNonCompanionCharactersPresent().length > 0 || game.getPlayer().hasAnyEnforcerStatusEffect())
+        		    #IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM || game.getNonCompanionCharactersPresent().length > 0 || game.getPlayer().hasAnyEnforcerStatusEffect())
         		        0
         		    #ELSE
                         5

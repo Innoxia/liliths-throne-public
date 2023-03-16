@@ -9,9 +9,10 @@
 	<attributeItemId>NoStepOnSnek_race_octopus_ink_vodka</attributeItemId>
 	<transformativeItemId>NoStepOnSnek_race_octopus_shrimp_cocktail</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>NOCTURNAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>false</bipedalSubspecies>
-	<aquatic>false</aquatic>
+	<affinity>AQUATIC</affinity>
 	<applySubspeciesChanges><![CDATA[
 		[#targetedBody.applyLegConfigurationTransformation(LEG_TYPE_NoStepOnSnek_octopus_leg, LEG_CONFIGURATION_CEPHALOPOD, true)]
 		[#targetedBody.getTentacle().setType(null, TENTACLE_TYPE_NoStepOnSnek_octopus_tentacle)]

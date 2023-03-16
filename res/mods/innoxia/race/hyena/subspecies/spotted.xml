@@ -34,6 +34,11 @@
 	This is only used for demons, and should always be left as 0 unless you know what you're doing. -->
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
 	
+	<!-- The nocturnal behaviour of this subspecies.
+	If this value is omitted, then it will default to DIURNAL.
+	Nocturnality values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/Nocturnality.java -->
+	<nocturnality>NOCTURNAL</nocturnality>
+	
 	<!-- Whether this race is of a small stature or not.
 	If set to true, then this race is limited to the game's smallest height categories (as is the case for imps). -->
 	<shortStature>false</shortStature>
@@ -42,9 +47,11 @@
 	Set to false for subspecies like centaurs. -->
 	<bipedalSubspecies>true</bipedalSubspecies>
 	
-	<!-- Whether or not this is a subspecies which prefers to live in an aquatic environment.
-	If set to true, then this subspecies will have the positive & negative aquatic status effects applied to it when in a tile with and without access to water, respectively. -->
-	<aquatic>false</aquatic>
+	<!-- The affinity of the subspecies.
+		Optional.
+		Defaults to AMPHIBIOUS.
+		Affinity values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/Affinity.java -->
+	<affinity>AMPHIBIOUS</affinity>
 	
 	<!-- You can leave this section blank if you want to, but if your subspecies should have a non-default chance of having a certain personality type, then you can define it here.
 	These chances are rolled after the base personality chances for this race have been rolled (as defined in the RacialBody.xml file).
@@ -69,6 +76,7 @@
 	<!-- This conditional statement determines if a body is detected as being an instance of this subspecies.
 	It should return an integer value, with 0 being returned if this subspecies' requirements are not met by the supplied body/race.
 	You should usually return a value of 100 if the requirements are met, or something higher if this subspecies should have a higher priority than other subspecies which may also detect this body as being an instance of their subspecies.
+	Note that slimes have a weighting of 10,000 to ensure that it always takes priority (as slimes are a special case), but your values should really be 100 or maybe slightly higher to take priority over other subspecies of the same race.
 	The body that's being checked can be accessed via using 'targetedBody'.
 	The race of the body that's being checked SHOULD NOT be accessed via targetedBody.getRace(), and should instead be accessed via using 'targetedRace'. -->
 	<subspeciesWeighting><![CDATA[
