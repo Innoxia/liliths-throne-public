@@ -28,6 +28,14 @@
 		#IF(targetedBody.getTorso().getType()==TORSO_TYPE_charisma_spider_torsoFluffy)
 			[#targetedBody.getTorso().setType(null, TORSO_TYPE_charisma_spider_torso)]
 		#ENDIF
+		#IF(targetedBody.hasVagina() && targetedBody.getVagina().isEggLayer())
+    		#IF(targetedBody.hasPenis())
+            	 [#targetedBody.addPenisModifier(PENETRATION_MODIFIER_OVIPOSITOR)]
+    		#ELSE
+            	 [#targetedBody.getVagina().getClitoris().addClitorisModifier(null, PENETRATION_MODIFIER_OVIPOSITOR)]
+            	 [#targetedBody.getVagina().getClitoris().setClitorisSize(null, 20 + RND.nextInt(10))]
+    		#ENDIF
+ 		#ENDIF
 		#IF(targetedBody.getTailType()==TAIL_TYPE_charisma_spider_tailFluffy)
 			[#targetedBody.setTailType(TAIL_TYPE_charisma_spider_tail)]
 		#ENDIF

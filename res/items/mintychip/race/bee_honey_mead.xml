@@ -2,7 +2,7 @@
 <item>
 	<coreAttributes>
 		<value>100</value> 
-		<authorTag><![CDATA[A logo on the side reveals that the honey for the mead was sourced by MintyChip Sweets.]]></authorTag>
+		<authorTag><![CDATA[A logo on the side reveals that the mead was packaged by MintyChip Sweets.]]></authorTag>
 		<determiner><![CDATA[a bottle of]]></determiner>
 		<name><![CDATA[Honey Mead]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Honey Mead]]></namePlural>
@@ -46,6 +46,7 @@
 		
 		<itemTags>
 			<tag>ALCOHOLIC</tag>
+			<tag>DRINK</tag>
 			<tag>ATTRIBUTE_TF_ITEM</tag>
 			<tag>SOLD_BY_RALPH</tag>
 		</itemTags>
