@@ -56,7 +56,17 @@
 		You turn towards Eisek as the crowd shuffles away. The [eisek.race] only scratches his chin. [eisek.speech(Hmm,) he rumbles, [eisek.speech(there are some very strange people in this town.)]
 	</p>
 	<p>
-		For some reason, you don't share his sense of ease. The dungeon that the ringleader mentioned might warrant a visit, just in case, and the faint stench the crowd left behind could very well lead you right to it.
+		For some reason, you don't share his sense of ease.
+		#IF(pc.getRace().equals(RACE_dsg_dragon))
+			 And you're a bit
+			#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_SELFISH))
+				 annoyed
+			#ELSE
+				 confused
+			#ENDIF
+			 that they didn't seem to notice <i>your</i> draconic visage at all.
+		#ENDIF
+		 The dungeon that the ringleader mentioned might warrant a visit, just in case, and the faint stench the crowd left behind could very well lead you right to it.
 	</p>
 	]]>
 	</htmlContent>

@@ -1931,6 +1931,57 @@ public enum Quest {
 		}
 	},
 	
+	EISEK_SILLYMODE_QUEST_STAGE_ONE(QuestType.SIDE,
+			1,
+			10) {
+		@Override
+		public String getName() {
+			return "Strange Crowd";
+		}
+		@Override
+		public String getDescription() {
+			return "You encountered a different sort of mob that was weirdly obsessed with Eisek. It ultimately came to nothing but you've decided to see what these strange people were all about.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You've located some sort of basement where they've gathered."; 			
+		}
+	},
+	
+	EISEK_SILLYMODE_QUEST_STAGE_TWO(QuestType.SIDE,
+			1,
+			10) {
+		@Override
+		public String getName() {
+			return "Darkest Dungeon";
+		}
+		@Override
+		public String getDescription() {
+			return "You've followed the basement dwellers back to their basement and decided to have a look inside. Unfortunately they didn't appreciate your trespassing very much and have blocked off the way you came.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You're nearly at the exit, only one obstacle remains..."; 			
+		}
+	},
+	
+	EISEK_SILLYMODE_QUEST_STAGE_THREE(QuestType.SIDE,
+			1,
+			10) {
+		@Override
+		public String getName() {
+			return "Dungeon Cleared";
+		}
+		@Override
+		public String getDescription() {
+			return "Having defeated the leader of this strange group, all that's left for you to leave.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You've successfully escaped the dungeon and shown a bunch of nerds who is the boss."; 			
+		}
+	},
+	
 	// Fetching beer barrels for Oglix:
 	
 	OGLIX_BEER_BARRELS_1(QuestType.SIDE, 1, 10) {

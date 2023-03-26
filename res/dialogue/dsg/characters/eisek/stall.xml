@@ -187,7 +187,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[8]]></index>
 				<responseTitle><![CDATA[Stall]]></responseTitle>
-				<responseTooltip><![CDATA[Probably don't want to talk about this until you have everything you need.]]></responseTooltip>
+				<responseTooltip><![CDATA[You probably don't want to talk about this until you have everything you need.]]></responseTooltip>
 				<nextDialogue><![CDATA[null]]></nextDialogue>
 				<secondsPassed/>
 				<effects/>
@@ -252,10 +252,34 @@
 				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_ask_about_dragonfall_specific]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
-					#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_asked_about_mob))
+					#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_asked_about_dragonfall_specific))
 						[#flags.setFlag(FLAG_dsg_elis_eisek_asked_about_dragonfall_specific, true)]
 					#ENDIF
 				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#(!flags.hasFlag(FLAG_dsg_elis_eisek_small_talk) && eisek.getAffection(pc) >= 30)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[12]]></index>
+				<responseTitle><![CDATA[Small talk]]></responseTitle>
+				<responseTooltip><![CDATA[Make small talk.]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_small_talk]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_small_talk))
+						[#flags.setFlag(FLAG_dsg_elis_eisek_small_talk, true)]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#(flags.hasFlag(FLAG_dsg_elis_eisek_small_talk) && eisek.getAffection(pc) >= 30)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[11]]></index>
+				<responseTitle><![CDATA[Small talk]]></responseTitle>
+				<responseTooltip><![CDATA[You've already done this today. Much as Eisek likes talking to you, he <i>does</i> have a stall to run.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
 			</response>
 		</responses>
 	</scene>
@@ -440,6 +464,18 @@
 		<tooltip/>
 		<preParsingEffects/>
 		<content folderPath="txt/dsg/characters/eisek/stall">STALL_QUEST_COMPLETE</content>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>
+	</scene>
+	
+	<scene id="small_talk">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/characters/eisek/stall">SMALL_TALK</content>
 		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>

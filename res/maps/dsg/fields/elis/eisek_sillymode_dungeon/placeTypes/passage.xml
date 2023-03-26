@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	
+	<worldRegion>FIELD_CITY</worldRegion>
+	
+	<name><![CDATA[Passage]]></name>
+	
+	<!-- The information displayed to the player in the tooltip when hovering over this place type in the map UI. -->
+	<tooltipDescription><![CDATA[Insurmountable cardboard walls line this passage.]]></tooltipDescription>
+	
+	<!-- The description which is used when describing a character's virginity loss within this place type.
+	It should follow the generic format of "in/at/on X", with no initial capitalisation or ending punctuation. -->
+	<virginityLossDescription><![CDATA[in a passage in a strange basement]]></virginityLossDescription>
+	
+	<sexBlockedFromCharacterPresent>false</sexBlockedFromCharacterPresent>
+	
+	<!-- The file name of the svg image which should be used for this place type's icon.
+	If you leave this blank, or omit it entirely, then the game will look for an svg file of the same name as this file within the same folder (i.e. 'entry_east.svg').
+		Failing to find an svg image of that name, then this place type will not have an image associated with it.
+	This can be useful for if there are several types of place type which all want to use the same svg, but you don't want to copy+paste the same svg and rename it for each place type.
+	This place does not have an svg associated with it, but if you wanted to add one, then define it like so (*without* the '.svg' on the end):
+		<svgName>your_file_name</svgName> -->
+	<svgName/>
+	
+	<!-- The colour which the associated svg icon will be recoloured to.
+	You can define this as either a PresetColour value or a raw colour hex.
+	If defining a raw colour hex, use this format: <colour>#cafe69</colour>
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
+	<colour>BASE_WHITE</colour>
+	
+	<!-- The background colour of this placeType's tile.
+	You can define this as either a PresetColour value or a raw colour hex, although this should most often simply be left as 'MAP_BACKGROUND', which is the game's default value.
+	Changing this colour for too many place types can end up with the map looking like a very odd mix of colours, and so in most cases it's best to leave any recolouring to the svg icon above.
+	If defining a raw colour hex, use this format: <colour>#cafe69</colour>
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
+	<backgroundColour>BASE_GREY</backgroundColour>
+	
+	<!-- The id of the Encounter which can be triggered on this place type.
+	You can omit this entirely or use the value 'null' if there is no associated Encounter.
+	Please note that if a place type has multiple different 'encounterTypes' associated with it (via being set in the encounter file itself), one of those lists will be chosen at random to have an encounter drawn from it. -->
+	<encounterType>null</encounterType>
+	
+	<!-- The id of the DialogueNode which is associated with this place type. -->
+	<dialogue>dsg_places_fields_elis_eisek_sillymode_dungeon_dungeon_passage</dialogue>
+
+	<loiteringEnabled>false</loiteringEnabled>
+	
+	<!-- Whether or not this place type is located on the world map - will usually be false unless you're planning on changing a world map's tile to this place type (via some kind of unique encounter).
+	Use either 'true' or 'false' as values. -->
+	<globalMapTile>false</globalMapTile>
+	
+	<dangerous><![CDATA[true]]></dangerous>
+	
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+
+	<aquatic><![CDATA[LAND]]></aquatic>
+
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+
+	<weatherImmunities immuneToAll="true"/>
+	
+	<!-- You can use this element to initialise the inventory of tiles created with this place type as their type.
+	The 'inventory' target corresponds to the tile's inventory.
+	An example of this in use (to set the tile's inventory as containing 5000 flames) would be:
+		<applyInventoryInit><![CDATA[
+			[#inventory.setMoney(5000)]
+		]]></applyInventoryInit>-->
+	<applyInventoryInit/>
+	
+</placeType>

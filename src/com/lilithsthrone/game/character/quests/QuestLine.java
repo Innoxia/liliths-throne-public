@@ -97,6 +97,10 @@ public enum QuestLine {
 	SIDE_EISEK_MOB("Mob Mentality", "You've convinced the mob that was hounding Eisek to leave him alone.",
 		    QuestType.SIDE,
 		    QuestTree.eisekMobTree),
+	
+	SIDE_EISEK_SILLYMODE("Dragon Enthusiasts", "You encountered a strange group of dragon obssessed weirdos and cleared their dungeon.",
+		    QuestType.SIDE,
+		    QuestTree.eisekSillyModeTree),
 
 	SIDE_OGLIX_BEER_BARRELS("Beer Bitch Bonanza", "You secured more barrels for Oglix, allowing you to send four criminals from the nearby alleyways to her to become new beer-bitches!",
 			QuestType.SIDE,

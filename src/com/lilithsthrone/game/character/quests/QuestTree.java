@@ -34,6 +34,7 @@ public class QuestTree {
 	public static TreeNode<Quest> monicaTree = new TreeNode<Quest>(Quest.ROMANCE_MONICA_1_TO_THE_FARM);
 	public static TreeNode<Quest> eisekStallTree = new TreeNode<Quest>(Quest.EISEK_STALL_QUEST_STAGE_ONE);
 	public static TreeNode<Quest> eisekMobTree = new TreeNode<Quest>(Quest.EISEK_MOB_QUEST_STAGE_ONE);
+	public static TreeNode<Quest> eisekSillyModeTree = new TreeNode<Quest>(Quest.EISEK_SILLYMODE_QUEST_STAGE_ONE);
 	
 	public static TreeNode<Quest> rebelBaseTree = new TreeNode<Quest>(Quest.REBEL_BASE_EXPLORATION);
 	public static TreeNode<Quest> rebelBaseFirebombTree = new TreeNode<Quest>(Quest.REBEL_BASE_FIREBOMBS_START);
@@ -273,8 +274,18 @@ public class QuestTree {
 		node1 = new TreeNode<Quest>(Quest.EISEK_MOB_QUEST_STAGE_THREE);
 		nodeBranchA.addChild(node1);
 		node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
-		node1.addChild(node2);	
+		node1.addChild(node2);
 		
+		// Eisek silly mode quest
+		
+		node1 = new TreeNode<Quest>(Quest.EISEK_SILLYMODE_QUEST_STAGE_ONE);
+		eisekSillyModeTree.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.EISEK_SILLYMODE_QUEST_STAGE_TWO);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.EISEK_SILLYMODE_QUEST_STAGE_THREE);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		node1.addChild(node2);
         
 		// Wes quest:
 

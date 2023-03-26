@@ -35,4 +35,11 @@
 	
 	<flag dailyReset="false">elis_eisek_talk_post_mob_quest</flag>
 	
+	<flag dailyReset="true">elis_eisek_small_talk</flag>
+	<flag dailyReset="false">elis_eisek_small_talk_slime_queen</flag>
+	<flag dailyReset="false">elis_eisek_small_talk_harpy_pacification</flag>
+	<flag dailyReset="false">elis_eisek_small_talk_vengar</flag>
+	
+	<flag dailyReset="false">elis_eisek_sillymode_mob_dispersed</flag>
+	
 </dialogueFlags>

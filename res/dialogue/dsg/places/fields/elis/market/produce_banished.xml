@@ -9,7 +9,7 @@
 		<tooltip/>				
 		<preParsingEffects/>		
 		
-		<content folderPath="txt/dsg/places/fields/market/produce_banished">STALL</content>		
+		<content folderPath="txt/dsg/places/fields/elis/market/produce_banished">STALL</content>		
 		<secondsPassed minutes="false"><![CDATA[2]]></secondsPassed>
 				
 		<continuesDialogue><![CDATA[false]]></continuesDialogue>	

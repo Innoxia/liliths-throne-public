@@ -1,27 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogueNodes>
 
-	<scene id ="start">
-				
+	<scene id ="start">				
 		<author><![CDATA[DSG]]></author>			
-		<title><![CDATA[A gathered mob]]></title>
-		
-		<tooltip/>				
-		<preParsingEffects/>		
-		
+		<title><![CDATA[A gathered mob]]></title>			
 		<content folderPath="txt/dsg/encounters/fields/elis/market/eisek_initial">ENCOUNTER_START</content>		
-		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>
-				
-		<continuesDialogue><![CDATA[false]]></continuesDialogue>	
+		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>	
 		<travelDisabled><![CDATA[true]]></travelDisabled>	
 		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
-		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
-		<responseTabs/>
-		
-		<responses>
-			
-			<response>
-					
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>		
+		<responses>			
+			<response>					
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Approach]]></responseTitle>
@@ -31,12 +20,10 @@
 				<secondsPassed/>
 				<effects><![CDATA[
 					[#flags.setFlag(FLAG_dsg_elis_eisek_introduced, true)]
-				]]></effects>
-				
+				]]></effects>				
 			</response>
 			
 			<response>
-				<availabilityConditional><![CDATA[true]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Back off]]></responseTitle>
@@ -44,28 +31,19 @@
 				<nextDialogue><![CDATA[dsg_encounters_fields_elis_market_eisek_initial_back_off]]></nextDialogue>
 				<secondsPassed/>
 				<effects/>
-			</response>
-			
+			</response>			
 		</responses>
 	</scene>
 	
-	<scene id ="back_off">
-				
+	<scene id ="back_off">				
 		<author><![CDATA[DSG]]></author>			
-		<title><![CDATA[Backing off...]]></title>
-		
-		<tooltip/>				
-		<preParsingEffects/>		
-		
+		<title><![CDATA[Backing off...]]></title>		
 		<content folderPath="txt/dsg/encounters/fields/elis/market/eisek_initial">ENCOUNTER_BACK_OFF</content>		
-		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>
-				
+		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>				
 		<continuesDialogue><![CDATA[true]]></continuesDialogue>	
 		<travelDisabled><![CDATA[true]]></travelDisabled>	
 		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
 		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
-		<responseTabs/>
-		
 		<responses>			
 			<response>				
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
@@ -80,25 +58,15 @@
 		</responses>
 	</scene>
 	
-	<scene id ="approach">
-				
+	<scene id ="approach">				
 		<author><![CDATA[DSG]]></author>			
-		<title><![CDATA[Approach the mob]]></title>
-		
-		<tooltip/>				
-		<preParsingEffects/>		
-		
+		<title><![CDATA[Approach the mob]]></title>		
 		<content folderPath="txt/dsg/encounters/fields/elis/market/eisek_initial">ENCOUNTER_APPROACH</content>		
-		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-				
-		<continuesDialogue><![CDATA[false]]></continuesDialogue>	
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>				
 		<travelDisabled><![CDATA[true]]></travelDisabled>	
 		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
-		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
-		<responseTabs/>
-		
-		<responses>
-			
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>	
+		<responses>			
 			<response>
 				<availabilityConditional><![CDATA[[#!pc.getRace().equals(RACE_dsg_dragon)]]]></availabilityConditional>	
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
@@ -114,7 +82,7 @@
 					[#flags.setFlag(FLAG_dsg_elis_eisek_introduced, true)]
 					[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc, 3))]
 				]]></effects>				
-			</response>
+			</response>	
 			
 			<response>
 				<availabilityConditional><![CDATA[[#pc.getRace().equals(RACE_dsg_dragon)]]]></availabilityConditional>	
@@ -149,30 +117,20 @@
 					[#flags.setFlag(FLAG_dsg_elis_eisek_banished, true)]
 					[#flags.setSavedLong("elis_eisek_banished_date", game.getDayNumber())]
 				]]></effects>
-			</response>
-			
+			</response>			
 		</responses>
 	</scene>
 	
-	<scene id ="side_with_mob">
-				
+	<scene id ="side_with_mob">				
 		<author><![CDATA[DSG]]></author>			
-		<title><![CDATA[Siding with the mob]]></title>
-		
-		<tooltip/>				
-		<preParsingEffects/>		
-		
+		<title><![CDATA[Siding with the mob]]></title>	
 		<content folderPath="txt/dsg/encounters/fields/elis/market/eisek_initial">ENCOUNTER_SIDE_WITH_MOB</content>		
-		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
-				
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>				
 		<continuesDialogue><![CDATA[false]]></continuesDialogue>	
 		<travelDisabled><![CDATA[true]]></travelDisabled>	
 		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
-		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
-		<responseTabs/>
-		
-		<responses>
-			
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>		
+		<responses>			
 			<response>					
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
@@ -182,28 +140,19 @@
 				<nextDialogue><![CDATA[dsg_places_fields_elis_market_produce_banished_stall]]></nextDialogue>
 				<secondsPassed/>
 				<effects/>				
-			</response>
-			
+			</response>			
 		</responses>
 	</scene>
 	
-	<scene id ="play_along">
-				
+	<scene id ="play_along">				
 		<author><![CDATA[DSG]]></author>			
 		<title><![CDATA[Playing along]]></title>
-		
-		<tooltip/>				
-		<preParsingEffects/>		
-		
 		<content folderPath="txt/dsg/encounters/fields/elis/market/eisek_initial">ENCOUNTER_PLAY_ALONG</content>		
-		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-				
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>		
 		<continuesDialogue><![CDATA[false]]></continuesDialogue>	
 		<travelDisabled><![CDATA[true]]></travelDisabled>	
 		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
 		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
-		<responseTabs/>
-		
 		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>
 	</scene>
 	
