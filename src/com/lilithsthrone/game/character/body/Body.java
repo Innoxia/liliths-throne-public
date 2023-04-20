@@ -3373,8 +3373,8 @@ public class Body implements XMLSaving {
 //		}
 		
 		AbstractRace race = Race.HUMAN;
-		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
-			race = Race.SLIME;
+		if(Race.racialBodyMaterialList.contains(this.bodyMaterial)) {
+			race = Race.getRaceFromBodyMaterial(this.bodyMaterial);
 			this.raceStage = RaceStage.GREATER;
 			
 		} else if(target!=null && target.isElemental()) {

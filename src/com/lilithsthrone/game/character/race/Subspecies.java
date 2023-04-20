@@ -4072,6 +4072,8 @@ public class Subspecies {
 			Nocturnality.DIURNAL,
 			"Due to [npc.her] soft, slimy body, [npc.nameIsFull] almost completely immune to physical damage, but [npc.sheIs] also unable to inflict any significant damage while unarmed."
 					+ " [npc.She] can also morph [npc.her] body at will, allowing [npc.herHim] to take on any form that [npc.she] [npc.verb(desire)].",
+                        "Due to [npc.her] soft, slimy body, [npc.nameIsFull] almost completely immune to physical damage, but [npc.she] is also unable to inflict any serious unarmed damage."
+                                        + " [npc.Her] slime core is pulsating with an immense power, revealing the fact that [npc.sheIs] a true demonic slime.",
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MAJOR_PHYSIQUE, 0f),
 					new Value<>(Attribute.MAJOR_ARCANE, 0f),
@@ -4097,40 +4099,22 @@ public class Subspecies {
 					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.TEN)),
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.BAT_CAVERNS, SubspeciesSpawnRarity.TEN)), null, Util.newArrayListOfValues(
-					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
+					SubspeciesFlag.HIDDEN_FROM_PREFERENCES),
+                        true, BodyMaterial.SLIME
+        ) {
+            
 		@Override
-		public AbstractItemType getTransformativeItem(GameCharacter owner) {
-			if(getTransformativeItemId()==null || getTransformativeItemId().isEmpty()) {
-				return null;	
+		public String getSVGString(GameCharacter character) {
+			if(character==null) {
+				return Subspecies.HUMAN.getBodyMaterialSVGString(null, getSubspeciesBodyMaterial());
 			}
-			if(owner!=null && !owner.hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
-				return ItemType.getItemTypeFromId("innoxia_race_slime_slime_quencher");
-			}
-			return ItemType.getItemTypeFromId(getTransformativeItemId());
+                        AbstractSubspecies fleshSubspecies = character.getBody().getFleshSubspecies();
+                        if (fleshSubspecies == Subspecies.HUMAN) {
+                                return Subspecies.SLIME.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial());
+                        }
+			return fleshSubspecies.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial());
 		}
-		@Override
-		public void applySpeciesChanges(Body body) {
-			// Slime subspecies are set in the Main.game.getCharacterUtils().generateBody() method
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-
-		@Override
-		public String getStatusEffectDescription(GameCharacter character) {
-			if(character!=null) {
-				AbstractSubspecies coreSubspecies = character.getBody().getFleshSubspecies();
-				if(character.getSubspeciesOverrideRace()==Race.DEMON) {
-					return UtilText.parse(character,
-							"Due to [npc.her] soft, slimy body, [npc.nameIsFull] almost completely immune to physical damage, but [npc.she] is also unable to inflict any serious unarmed damage."
-							+ " [npc.Her] slime core is pulsating with an immense power, revealing the fact that [npc.sheIs] a true demonic slime.");
-				} else if(coreSubspecies==Subspecies.DEMON) {
-					return UtilText.parse(character,
-							"Due to [npc.her] soft, slimy body, [npc.nameIsFull] almost completely immune to physical damage, but [npc.she] is also unable to inflict any serious unarmed damage."
-							+ " Although [npc.she] [npc.verb(appear)] to be a demon, [npc.sheIs] just mimicking their appearance...");
-				}
-			}
-			return super.getStatusEffectDescription(character);
-		}
-		
+                
 		@Override
 		public String getName(Body body) {
 			if(body == null) {
@@ -4215,13 +4199,6 @@ public class Subspecies {
 			return coreSubspecies.getSingularFemaleName(body)+"-slimes";
 		}
 
-		@Override
-		public String getSVGString(GameCharacter character) {
-			if(character==null) {
-				return Subspecies.HUMAN.getSlimeSVGString(null);
-			}
-			return character.getBody().getFleshSubspecies().getSlimeSVGString(character);
-		}
 
 		@Override
 		public String getSVGStringDesaturated(GameCharacter character) {
@@ -4234,6 +4211,174 @@ public class Subspecies {
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.SLIME) {
 				return 10_000; // Slimes should always be slime, no matter their underlying subspecies
+			}
+			return 0;
+		}
+		public FeralAttributes getFeralAttributes(Body body) {
+			if(body==null) {
+				return super.getFeralAttributes(body);
+			}
+			return body.getFleshSubspecies().getFeralAttributes(body);
+		}
+	};
+        
+        // SLIMES:
+	public static AbstractSubspecies LATEX_CREATURE = new AbstractSubspecies(true,
+			10000,
+			"sightglass_race_latex_liqueur",
+			"sightglass_race_latex_licorice",
+			"statusEffects/race/raceSlime",
+			"statusEffects/race/raceBackgroundSlime",
+			"latex creature",
+			"latex creatures",
+			"rubber-boy",
+			"rubber-girl",
+			"rubber-boys",
+			"rubber-girls",
+			null,
+			Nocturnality.DIURNAL,
+			"Due to [npc.her] body being made of living latex, [npc.nameIsFull] highly resistant to physical damage and generally immune to substances that would be toxic to fleshy creatures."
+                            + " The constant rubbing and roiling of the slick, pliable latex constantly stimulates [npc.himHer], raising [npc.her] lust during the excitement of combat.",
+                        "Due to [npc.her] body being made of living latex, [npc.nameIsFull] highly resistant to physical damage."
+                            + " The slick, glossy latex that makes up [npc.her] body shimmers with an eerie iridescence, hinting at [npc.her] true nature as a latex demon.",
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 0f),
+					new Value<>(Attribute.MAJOR_ARCANE, 0f),
+                                        new Value<>(Attribute.RESISTANCE_POISON, 25f),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 25f),
+                                        new Value<>(Attribute.RESTING_LUST, 15f)),
+			Util.newArrayListOfValues(),
+			"Playing with Latex",
+			"Playing with Latex",
+			"LATEX_BASIC",
+			"LATEX_ADVANCED",
+			Race.LATEX_CREATURE,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 2),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			PresetColour.BASE_BLACK,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"Someone who is made completely of living rubber.",
+			Util.newHashMapOfValues(
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.TEN)),
+			Util.newHashMapOfValues(
+					new Value<>(WorldType.BAT_CAVERNS, SubspeciesSpawnRarity.TEN)), null, Util.newArrayListOfValues(
+					SubspeciesFlag.HIDDEN_FROM_PREFERENCES),
+                        true, BodyMaterial.RUBBER
+        ) {
+            
+		@Override
+		public String getSVGString(GameCharacter character) {
+			if(character==null) {
+				return Subspecies.HUMAN.getBodyMaterialSVGString(null, getSubspeciesBodyMaterial(), 
+                                        "#ffffff", Util.newArrayListOfValues("#404040", "#202020", "#101010"));
+                        }
+                        AbstractSubspecies fleshSubspecies = character.getBody().getFleshSubspecies();
+			return fleshSubspecies.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial(), 
+                                "#ffffff", Util.newArrayListOfValues("#404040", "#202020", "#101010"));
+		}
+                
+		@Override
+		public String getName(Body body) {
+			if(body == null) {
+				return super.getName(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getName(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return "corrupted latex "+coreSubspecies.getName(body);
+			}
+			return "latex "+coreSubspecies.getName(body);
+		}
+		
+		@Override
+		public String getNamePlural(Body body) {
+			if(body ==null) {
+				return super.getNamePlural(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getNamePlural(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return "corrupted latex "+coreSubspecies.getNamePlural(body);
+			}
+			return "latex "+coreSubspecies.getNamePlural(body);
+		}
+
+		@Override
+		public String getSingularMaleName(Body body) {
+			if(body ==null) {
+				return super.getSingularMaleName(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getSingularMaleName(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return "corrupted latex "+coreSubspecies.getSingularMaleName(body);
+			}
+			return "latex "+coreSubspecies.getSingularMaleName(body);
+		}
+
+		@Override
+		public String getSingularFemaleName(Body body) {
+			if(body ==null) {
+				return super.getSingularFemaleName(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getSingularFemaleName(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return "corrupted latex "+coreSubspecies.getSingularFemaleName(body);
+			}
+			return "latex "+coreSubspecies.getSingularFemaleName(body);
+		}
+
+		@Override
+		public String getPluralMaleName(Body body) {
+			if(body ==null) {
+				return super.getPluralMaleName(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getPluralMaleName(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return "corrupted latex "+coreSubspecies.getPluralMaleName(body);
+			}
+			return "latex "+coreSubspecies.getPluralMaleName(body);
+		}
+
+		@Override
+		public String getPluralFemaleName(Body body) {
+			if(body ==null) {
+				return super.getPluralFemaleName(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getPluralFemaleName(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return "corrupted latex "+coreSubspecies.getPluralFemaleName(body);
+			}
+			return "corrupted latex "+coreSubspecies.getPluralFemaleName(body);
+		}
+
+
+		@Override
+		public String getSVGStringDesaturated(GameCharacter character) {
+			if(character==null) {
+				return Subspecies.HUMAN.getSVGStringDesaturated(null);
+			}
+			return character.getBody().getFleshSubspecies().getSVGStringDesaturated(character);
+		}
+		@Override
+		public int getSubspeciesWeighting(Body body, AbstractRace race) {
+			if(race==Race.LATEX_CREATURE) {
+				return 10_000;
 			}
 			return 0;
 		}

@@ -27153,6 +27153,61 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 
+		if(type == BodyMaterial.RUBBER) {
+			AbstractBodyCoveringType baseRubberCoveringType = BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.RUBBER, BodyCoveringCategory.MAIN_SKIN);
+			if(this.isPlayer()) {
+				tfDescription = "<p>"
+							+ "You feel a strange roiling in your body, a feeling of swirling tension through every fiber. While not painful, you have trouble staying upright as your muscles refuse to cooperate, and you find yourself unsteadily falling to the ground."
+							+ " Despite the lack of control over your own body, you feel oddly relaxed. A steadily building feeling of <i>anticipation</i>, as you feel your pulse slow to a low, heavy thump. Under your skin, you feel a strange tingling as you become acutely sensitive to every sensation."
+						+ "</p>"
+						+ "<p>"
+							+ "Suddenly, your vision goes dark as a tangled mass of dark tendrils rapidly engulfs your face! Your eyes are glued shut instantly, followed by nose and mouth. Thankfully, after a brief pause, they periodically part to let you draw a breath. You feel the same webbing overrunning your limbs, binding them in place as they fill out to cover every inch of your body."
+						+ "</p>"
+						+ "<p>"
+							+ "Pulling against the rubbery swaddling proves to be completely fruitless, but you find yourself squirming anyways as the stretch and pull of it against your sensitive body becomes intoxicatingly erogenous. Viscous strands cling to you like honey in the small gaps before it pulls tight again, squeezing itself ever closer and sealing itself into a unbroken sheet."
+							+ " Blindly tugging at the thick goo, you feel the distinction between your skin and the latex less and less each time they pull apart."
+						+ "</p>"
+						+ "<p>"
+							+ "With a slight pop, the slick rubber covering your face gives way, letting you open your eyes and uncovering your mouth."
+							+ " You open your mouth to gasp, but your cry gets cut off with a cute [pc.speechNoEffects(~Squeak!~)], as overwhelming pleasure turns it into a moan halfway."
+							+ " Finally being able to see, you look down to find that your body is entirely covered in smooth, glossy "+this.getCovering(baseRubberCoveringType).getPrimaryColour().getName()+" latex. With some trepidation, you experimentally run your fingers down your new body. Gentle stroking reveals that your skin to be pliable and <i>incredibly</i> sensitive, and you spend a little bit more time than necessary rubbing your nipples and crotch."
+						+ "</p>"
+						+ "<p>"
+							+ "The last of the rubbery tendrils recede into your new latex skin, leaving behind only a mirror-flat surface. You can still feel the same roiling just underneath as your muscles and sinews flex."
+							+ " As you explore your new body, you discover that you can painlessly pull your joints in all directions, or even apart entirely. Letting go, you feel them quickly snap back, so otherwise, your mobility and locomotion are about the same as they were. Tugging at your orifices, you find that they are much more accomodating, and retain their tightness."
+							+ " Your senses of hearing, taste and smell are largely unchanged, but your sense of touch is somewhat heightened. You feel the urge to rub against any interesting texture you can find...."
+						+ "</p>"
+						+ "<p>"
+							+ "Your entire being is now composed of [style.boldBlack(rubber)]!<br/><i>"
+							+ "- Your body is naturally very resilient to physical force!<br/>"
+							+ "- Your orifices are able to accommodate significantly longer penetrations than before!"
+							+ "</i>"
+						+ "</p>";
+				
+			} else {
+				tfDescription = UtilText.parse(this,
+						"<p>"
+							+ "[npc.She] [npc.verb(feel)] a strange roiling in [npc.her] body, a feeling of swirling tension through every fiber. While not painful, [npc.she] [npc.has] trouble staying upright as [npc.her] muscles refuse to cooperate, and [npc.she] [npc.verb(find)] [npc.herself] unsteadily falling to the ground."
+							+ " Despite the lack of control, [npc.she] [npc.verb(seem)] oddly relaxed, even as a tangled mass of dark tendrils rapidly engulfs [npc.her] face. The same webbing overruns [npc.her] limbs, binding them in place as it covers every inch."
+						+ "</p>"
+						+ "<p>"
+							+ "[npc.She] languidly [npc.verb(tug)] at the rubber, and thick, viscous strands of black slime drip down between."
+							+ " With every separation, it becomes smoother and more cohesive, and sticks tigthter and tighter to [npc.her] body until it's skintight."
+						+ "</p>"
+						+ "<p>"
+							+ "With a slight pop, the slick rubber covering [npc.her] face gives way, letting [npc.herHim] open [npc.her] eyes and uncovering [npc.her] mouth."
+							+ " [npc.She] [npc.verb(open)] [npc.her] mouth to gasp, but the cry gets cut off with a cute [pc.speechNoEffects(~Squeak!~)], as overwhelming pleasure turns it into a moan halfway."
+							+ " [npc.Her] body is entirely covered in smooth, glossy "+this.getCovering(baseRubberCoveringType).getPrimaryColour().getName()+" latex!"
+						+ "</p>"
+						+ "<p>"
+							+ "[npc.Her] entire being is now composed of [style.boldBlack(rubber)]!<br/><i>"
+							+ "- [npc.Her] body is naturally very resilient to physical force!<br/>"
+							+ "- [npc.Her] orifices are able to accommodate significantly longer penetrations than before!"
+							+ "</i>"
+						+ "</p>");
+			}
+		}
+
 		body.setBodyMaterial(type);
 		postTransformationCalculation(false);
 		

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<combatMove>
+	<category>SPECIAL</category>
+	<type>DEFEND</type>
+	<equipWeighting>10</equipWeighting>
+	<name><![CDATA[Latex Protection]]></name>
+	<description><![CDATA[
+		Channel [npc.her] lust into [npc.her] latex body to create a healing film around the target. At very high lust, it also grants damage resistances.
+	]]></description>
+	<damageType><![CDATA[
+		PHYSICAL
+	]]></damageType>
+	<baseDamage><![CDATA[
+		0
+	]]></baseDamage>
+	<damageVariance>MEDIUM</damageVariance>
+	<blockAmount><![CDATA[
+		10
+	]]></blockAmount>
+	<cooldown><![CDATA[
+		3
+	]]></cooldown>
+	<APcost><![CDATA[
+		1
+	]]></APcost>
+	<canTargetEnemies>false</canTargetEnemies>
+	<canTargetAllies>true</canTargetAllies>
+	<canTargetSelf>true</canTargetSelf>
+	<imageName>latex_protection.svg</imageName>
+	<colourPrimary>BASE_GREEN</colourPrimary>
+	<colourSecondary/>
+	<colourTertiary/>
+	<statusEffects>
+	</statusEffects>
+	<availabilityCondition><![CDATA[
+		[#npc.getBodyMaterial() == BODY_MATERIAL_RUBBER]
+	]]>
+	</availabilityCondition>
+	<availabilityDescription><![CDATA[
+		Available to latex creatures. More effective at high lust.
+	]]></availabilityDescription>
+	<weighting><![CDATA[
+		1
+	]]></weighting>
+	<criticalCondition><![CDATA[
+		false
+	]]></criticalCondition>
+	<criticalDescription><![CDATA[]]></criticalDescription>
+	<movePredictionDescriptionWithTarget><![CDATA[
+		Use [npc.her] lust to heal!
+		#IF(npc.getLust() > 75)
+			 [style.italicsGood(Gain a defensive buff due to high lust!)]
+		#ENDIF
+	]]></movePredictionDescriptionWithTarget>
+	<movePredictionDescriptionNoTarget><![CDATA[
+		Use [npc.her] lust to heal!
+		#IF(npc.getLust() > 75)
+			 [style.italicsGood(Grants a defensive buff due to high lust!)]
+		#ENDIF
+	]]></movePredictionDescriptionNoTarget>
+	<performMove>
+		<execute><![CDATA[
+			[npc.Name] [npc.verb(focus)] on [npc.her] arousal, releasing a rolling shudder as you release a wave of latex goo. The living rubber carries calming, rejuvenating energy that washes through [npc2.name]. 
+			[##npc2.setHealthPercentage(npc2.getHealthPercentage() + (0.5 * npc.getLust() / 100) + 0.15)]
+			#IF(npc.getLust() >= 75 && !npc2.hasStatusEffect(SE_sightglass_latex_shielding))
+				</br>[npc.Her] expelled lust transmutes into a thin living latex coating over [npc2.name], making [npc2.him] more resistant to further punishment. The lingering skintight rubber amplifies sensual teasing, leaving [npc2.name] more easily aroused! 
+				[##npc.addStatusEffect(SE_sightglass_latex_shielding, 10)]
+				[##npc2.addStatusEffect(SE_sightglass_latex_shielding, 10)]
+			#ENDIF
+		]]></execute>
+		<critDescription/>
+		<critEffectDescription/>
+	</performMove>
+</combatMove>

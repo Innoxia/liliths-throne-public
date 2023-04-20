@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>2500</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Licorice Whip]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Licorice Whips]]></namePlural>
+		<description><![CDATA[A long, coiled rope of licorice candy. It glistens with a strange oily sheen and seems to wriggle and writhe on its own...]]></description>
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/innoxia/slime/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="95">latex_licorice.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>BASE_BLACK</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[latex]]></potionDescriptor>
+		<associatedRace>LATEX_CREATURE</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_CORRUPTION.getFormattedValue(10)]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_CORRUPTION.getFormattedValue(25)] to 'potion effects']]></line>
+			<line><![CDATA[[style.boldSlime(Transforms body into rubber!)]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[#npc.incrementAttribute(ATTRIBUTE_MAJOR_CORRUPTION, 10)]
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_CORRUPTION, 25)]
+			
+			#IF(npc.getBody().getBodyMaterial()==BODY_MATERIAL_RUBBER)
+				<p style='margin-bottom:0; padding-bottom:0;'>
+					[style.colourDisabled([npc.NameIsFull] already a latex creature, so nothing happens...)]
+				</p>
+			#ELSEIF(npc.getBody().getBodyMaterial()==BODY_MATERIAL_SLIME)
+				<p style='margin-bottom:0; padding-bottom:0;'>
+					[style.colourDisabled([npc.NameIsFull] a slime, so nothing happens...)]
+				</p>
+			#ELSEIF(npc.getBody().getBodyMaterial()!=BODY_MATERIAL_FLESH)
+				<p style='margin-bottom:0; padding-bottom:0;'>
+					[style.colourDisabled([npc.NameIsFull] an elemental, so nothing happens...)]
+				</p>
+			#ELSE
+				[#npc.setBodyMaterial(BODY_MATERIAL_RUBBER)]
+			#ENDIF
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>FOOD</tag>
+			<tag>CONTRABAND_LIGHT</tag>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>NOT_FOR_SALE</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(pull)] one end of the coiled licorice rope, struggling a little since it seems to stick to and coil around [npc.her] fingers. When [npc.name] [npc.verb(bite)] down, it squirms and slithers down [npc.her] throat!
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(offer)] one end of the coiled licorice rope to [npc2.name], struggling a little since it seems to stick to and coil around [npc.her] fingers. When [npc2.name] [npc2.verb(reach)] for it, it lashes out and forces itself down [npc2.her] throat!
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

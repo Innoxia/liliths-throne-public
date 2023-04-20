@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<combatMove>
+	<category>SPECIAL</category>
+	<type>ATTACK</type>
+	<equipWeighting>10</equipWeighting>
+	<name><![CDATA[Latex Binding]]></name>
+	<description><![CDATA[
+		Channel [npc.her] lust into [npc.her] latex body to spray [npc.her] sticky latex all over an opponent. Has a chance to stun based on the target's lust, with the possibility of instantly defeating them at very high lust. Drains essences based on user's lust.
+	]]></description>
+	<damageType><![CDATA[
+		LUST
+	]]></damageType>
+	<baseDamage><![CDATA[
+		10
+	]]></baseDamage>
+	<damageVariance>MEDIUM</damageVariance>
+	<blockAmount><![CDATA[
+		10
+	]]></blockAmount>
+	<cooldown><![CDATA[
+		2
+	]]></cooldown>
+	<APcost><![CDATA[
+		2
+	]]></APcost>
+	<canTargetEnemies>true</canTargetEnemies>
+	<canTargetAllies>false</canTargetAllies>
+	<canTargetSelf>false</canTargetSelf>
+	<imageName>latex_binding.svg</imageName>
+	<colourPrimary>BASE_RED</colourPrimary>
+	<colourSecondary/>
+	<colourTertiary/>
+	<statusEffects>
+	</statusEffects>
+	<availabilityCondition><![CDATA[
+		[#npc.getBodyMaterial() == BODY_MATERIAL_RUBBER]
+	]]>
+	</availabilityCondition>
+	<availabilityDescription><![CDATA[
+		Available to latex creatures. More effective at high lust and against targets with high lust.
+	]]></availabilityDescription>
+	<weighting><![CDATA[
+		1
+	]]></weighting>
+	<criticalCondition><![CDATA[
+		false
+	]]></criticalCondition>
+	<criticalDescription><![CDATA[]]></criticalDescription>
+	<movePredictionDescriptionWithTarget><![CDATA[
+		Launch a spray of latex tendrils at [npc2.name]!
+		formattedDamageInflicted
+		#IF(npc.getLust() > 75)
+			 [style.italicsGood(Absorbs some essence!)]
+		#ENDIF
+	]]></movePredictionDescriptionWithTarget>
+	<movePredictionDescriptionNoTarget><![CDATA[
+		Launch a spray of latex tendrils!
+		formattedDamageInflicted
+		#IF(npc.getLust() > 75)
+			 [style.italicsGood(Absorbs some essence!)]
+		#ENDIF
+	]]></movePredictionDescriptionNoTarget>
+	<performMove>
+		<execute><![CDATA[
+			[npc.Name] [npc.verb(focus)] on [npc.her] arousal, releasing a orgasmic shudder as a spray of liquid latex tendrils bursts from [npc.her] body! Rubbery tentacles wrap around [npc2.name] attempt to bind and group them into submission. 
+			#IF(npc2.getLust() > 75 && RND.nextInt(100) < 50)
+				</br>[npc2.Name] [npc2.is] too aroused to resist at all! The tentacles pull [npc2.him] towards [npc.name] and into a squirming cocoon. The writhing tendrils keep [npc2.him] on the edge of orgasm and completely at your mercy!
+				[##npc2.setHealth(0)]
+			#ELSEIF(RND.nextInt(100) < npc2.getLust())
+				</br>[npc2.Name] [npc2.verb(put)] up a struggle, but a well-timed caress breaks [npc2.her] focus! The tentacles bind [npc2.her] limbs but [npc2.name] isn't out of the fight yet! 
+				[##npc2.addStatusEffect(SE_TENTACLE_RESTRAIN_3, 3)]
+			#ELSE
+				</br>Despite being caught off guard by the groping tentacles, [npc2.name] [npc2.verb(manage)] to break free! The tentacles limply retract into [npc.her] body. 
+			#ENDIF
+			#IF(npc.getLust() > 75)
+				</br>[npc.NamePos] latex tendrils managed to absorb some of the ambient essence released by their sensual barrage!
+				[#npc.incrementEssenceCount(10, true)]
+			#ENDIF
+		]]></execute>
+		<critDescription/>
+		<critEffectDescription/>
+	</performMove>
+</combatMove>
