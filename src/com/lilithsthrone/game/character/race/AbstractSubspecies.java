@@ -34,6 +34,7 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.ColourReplacement;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.SvgUtil;
