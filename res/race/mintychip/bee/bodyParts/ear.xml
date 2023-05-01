@@ -36,7 +36,7 @@
 		#ENDIF
 		 and as the transformation finishes, [npc.she] [npc.verb(notice)] [npc.her] hearing hasn't been affected at all.
 		#IF(game.isSillyModeEnabled())
-		 You suddenly feel like listening to jazz music.
+		 Though, you suddenly feel like listening to jazz music.
 		#ENDIF
 		<br/>[npc.Name] now [npc.has] [style.boldBee(internal, bee-like ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].
 	]]></transformationDescription>

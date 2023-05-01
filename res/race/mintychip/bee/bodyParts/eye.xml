@@ -8,7 +8,7 @@
 	
 	<tags/>
 	
-	<defaultPairCount>2</defaultPairCount>
+	<defaultPairCount>1</defaultPairCount>
 	
 	<defaultIrisShape>ROUND</defaultIrisShape>
 	
@@ -26,7 +26,7 @@
 	</descriptorsFeminine>
 	
 	<transformationDescription><![CDATA[
-		By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed and doubled into bee-like eyes, with the two largest located where [npc.her] former eyes were in the centre of [npc.her] face.
+		By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into bee-like eyes, with the two largest located where [npc.her] former eyes were in the centre of [npc.her] face.
 		<br/>[npc.Name] now [npc.has] [style.boldBee(bee-like eyes)] of a solid [npc.irisColour(true)] colour.
 	]]></transformationDescription>
 	

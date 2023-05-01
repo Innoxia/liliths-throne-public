@@ -5,17 +5,10 @@
 		[##npc.getCovering(BODY_COVERING_TYPE_CUM).setPrimaryColour(COLOUR_COVERING_AMBER)]
 		[##npc.getCovering(BODY_COVERING_TYPE_GIRL_CUM).setPrimaryColour(COLOUR_COVERING_AMBER)]
 		[##npc.getCovering(BODY_COVERING_TYPE_MILK).setPrimaryColour(COLOUR_COVERING_AMBER)]
-		#IF(RND.nextInt(100)<10 || targetedBody.getRaceStage()==RACE_STAGE_GREATER)
-			[#targetedBody.getArm().setArmRows(null, 2)]
+		#IF(targetedBody.getRaceStage()==RACE_STAGE_GREATER || RND.nextInt(100)<10)
+			[#targetedBody.setArmRows(2)]
+			[#targetedBody.setEyePairs(2)]
 		#ENDIF
-		#IF(targetedBody.hasVagina() && targetedBody.getVagina().isEggLayer())
-    		#IF(targetedBody.hasPenis())
-            	 [#targetedBody.addPenisModifier(PENETRATION_MODIFIER_OVIPOSITOR)]
-    		#ELSE
-            	 [#targetedBody.getVagina().getClitoris().addClitorisModifier(null, PENETRATION_MODIFIER_OVIPOSITOR)]
-            	 [#targetedBody.getVagina().getClitoris().setClitorisSize(null, 15 + RND.nextInt(12))]
-    		#ENDIF
- 		#ENDIF
 	]]></applyRaceChanges>
 	<name><![CDATA[bee-morph]]></name>
 	<namePlural><![CDATA[bee-morphs]]></namePlural>

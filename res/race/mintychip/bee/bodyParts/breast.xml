@@ -30,7 +30,7 @@
 	
 	
 	<transformationDescription><![CDATA[ [##npc.getCovering(BODY_COVERING_TYPE_MILK).setPrimaryColour(COLOUR_COVERING_AMBER)]
-		[npc.She] now [npc.has] [style.boldBee(surprisingly humanoid)], [npc.nipplesFullDescription], and when lactating, [npc.she] will produce [style.boldBee(bee honey)].
+		[npc.She] now [npc.has] [style.boldBee(surprisingly humanoid)], [npc.nipplesFullDescription], and when lactating, [npc.she] will produce [style.boldBee(bee-like honey)].
 	]]></transformationDescription>
 	
 	<!-- How this breast type is described in a character's description page. -->

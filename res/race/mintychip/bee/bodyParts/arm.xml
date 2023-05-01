@@ -68,7 +68,8 @@
 	<!-- The description which is shown when a character transforms to obtain this arm type.
 	This description immediately follows a brief description of the arm type beginning to transform. -->
 	<transformationDescription><![CDATA[
-		Within a matter of moments, a layer of [npc.armFullDescription] has quickly emerged over them, and, looking down, [npc.she] [npc.verb(see)] new plates growing over the fronts and backs of [npc.her] hands. The plates stop their advance at [npc.her] upper-biceps, [npc.her] chitin abruptly transitioning into the [npc.skin] that's covering the rest of [npc.her] body.
+		Within a matter of moments, a layer of [npc.armFullDescription] has quickly emerged over them, and, looking down, [npc.she] [npc.verb(see)] new plates growing over the fronts and backs of [npc.her] hands. The plates stop their advance at [npc.her] upper-biceps, chitin
+		#IF(npc.getSkinRace()==RACE_mintychip_bee)abruptly#ELSEsmoothly#ENDIF transitioning into the [npc.skin] that's covering the rest of [npc.her] body.
 		<br/>As the transformation comes to an end, [npc.nameIsFull] left with anthropomorphic, [style.boldTfGeneric(bee-like arms and hands)], which are [npc.materialDescriptor] [npc.armFullDescription].
 	]]></transformationDescription>
 	

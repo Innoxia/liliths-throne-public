@@ -73,7 +73,7 @@
 	<!-- The description which is shown when a character transforms to obtain this face type.
 	This description immediately follows a brief description of the face type beginning to transform. -->
 	<transformationDescription><![CDATA[
-		[npc.Her] mouth numbs as its edges widen over [npc.her] cheeks only to be covered by movable chitinous plates. Meanwhile, [npc.her] tongue develops a small hole through it, similar to an insect's probiscus.
+		[npc.Her] mouth numbs as its edges widen over [npc.her] cheeks only to be covered by flexible chitinous plates. Meanwhile, [npc.her] tongue develops a small hole through it, similar to an insect's probiscus.
 		#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)
 			 A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, 
 		#ELSE

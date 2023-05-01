@@ -31,12 +31,12 @@
 	Can be left blank. -->
 	<descriptorsMasculine>
 		<descriptor>insect-like</descriptor>
-		<descriptor>thick</descriptor>
+		<descriptor>thin</descriptor>
 	</descriptorsMasculine>
 	<!-- Same as above, but for feminine characters. -->
 	<descriptorsFeminine>
 		<descriptor>insect-like</descriptor>
-		<descriptor>delicate</descriptor>
+		<descriptor>thin</descriptor>
 	</descriptorsFeminine>
 	
 	<!-- The description which is shown when a character transforms to obtain a this antenna type.
