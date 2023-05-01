@@ -29,6 +29,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
@@ -425,6 +426,7 @@ public class Vicky extends NPC {
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(150);
 		this.fillCumToMaxStorage();
+		this.addCumModifier(FluidModifier.MUSKY); // Wolf penis should give musky automatically, but as it's so crucial for Vicky's content it's added here to make sure
 		
 		// Vagina:
 		this.setVaginaVirgin(false);
@@ -442,19 +444,21 @@ public class Vicky extends NPC {
 	
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-		
 		this.unequipAllClothingIntoVoid(true, true);
-
-		this.setMoney(10);
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_thong", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_CORSET_DRESS, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.HIPS_SUSPENDER_BELT, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_stockings", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_thigh_high_boots", PresetColour.CLOTHING_BLACK, false), true, this);
-
 	}
 
+	public void equipUnderwear() {
+		this.unequipAllClothingIntoVoid(true, true);
+		
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_thong", PresetColour.CLOTHING_BLACK, false), true, this);
+	}
+	
 	@Override
 	public boolean isUnique() {
 		return true;
@@ -556,7 +560,7 @@ public class Vicky extends NPC {
 	@Override
 	public void turnUpdate() {
 		if(!Main.game.getCharactersPresent().contains(this)) {
-			if(Main.game.isExtendedWorkTime()) {
+			if(Main.game.isWorkTime()) {
 				this.returnToHome();
 			} else {
 				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);

@@ -2458,7 +2458,40 @@ public class StatusEffect {
 		}
 	};
 	
-
+	public static AbstractStatusEffect MARKED_BY_MUSK = new AbstractStatusEffect(80,
+			"marked by musk",
+			"marked_by_musk",
+			PresetColour.BASE_YELLOW_LIGHT,
+			PresetColour.BASE_ORANGE_LIGHT,
+			null,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.RESTING_LUST, 5f),
+					new Value<>(Attribute.RESISTANCE_LUST, -1f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			GameCharacter marker = target.getMuskMarkerCharacter();
+			if(marker==null) {
+				return UtilText.parse(target, marker,
+						"[npc.NameHasFull] been marked by a heady musk, and [npc.verb(find)] [npc.herself] getting turned on by the distinctive scent [npc.she] now [npc.verb(carry)]."
+						+ "<br/>Only a bath, a spa soak, or arcane wet wipes will remove this odour.");
+			} else {
+				return UtilText.parse(target, marker,
+						"[npc.NameHasFull] been marked by [npc2.namePos] musk, and [npc.verb(find)] [npc.herself] getting turned on by the distinctive scent [npc.she] now [npc.verb(carry)]."
+						+ "<br/>Only a bath, a spa soak, or arcane wet wipes will remove this odour.");
+			}
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return Main.game.isMuskContentEnabled() && target.getMuskMarker()!=null && !target.getMuskMarker().isEmpty();
+		}
+	};
+	
 	public static AbstractStatusEffect CLOTHING_ENCHANTMENT_OVER_LIMIT = new AbstractStatusEffect(80,
 			"unstable enchantments",
 			"unstable_enchantment_1",
@@ -3084,6 +3117,11 @@ public class StatusEffect {
 			Util.newArrayListOfValues(
 					"[style.boldGood(Triples)] [style.colourHealth(health)] and [style.colourMana(aura)] regeneration rate")) {
 		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.setMuskMarker(null);
+			return "";
+		}
+		@Override
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target,
 					"Having recently taken the time to relax in [npc.her] bath, [npc.name] [npc.verb(feel)] refreshed and rejuvenated.");
@@ -3103,6 +3141,11 @@ public class StatusEffect {
 					new Value<>(Attribute.DAMAGE_LUST, 15f)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Quadruples)] [style.colourHealth(health)] and [style.colourMana(aura)] regeneration rate")) {
+		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.setMuskMarker(null);
+			return "";
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target,
@@ -3185,9 +3228,60 @@ public class StatusEffect {
 			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, 5f)),
 			null) {
 		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.removeStatusEffect(RECENTLY_EATEN_POOR);
+			target.removeStatusEffect(RECENTLY_EATEN_QUALITY);
+			return "";
+		}
+		@Override
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target,
 					"[npc.NameHasFull] recently had something to eat. With [npc.her] hunger temporarily satisfied, [npc.sheIs] feeling contented and full of energy.");
+		}
+	};
+
+	public static AbstractStatusEffect RECENTLY_EATEN_POOR = new AbstractStatusEffect(80,
+			"recently eaten (junk)",
+			"recentlyEaten",
+			PresetColour.BASE_GREEN_LIGHT,
+			PresetColour.BASE_YELLOW_PALE,
+			PresetColour.CLOTHING_WHITE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, 1f)),
+			null) {
+		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.removeStatusEffect(RECENTLY_EATEN);
+			target.removeStatusEffect(RECENTLY_EATEN_QUALITY);
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"[npc.NameHasFull] recently had something to eat which at best would be classified as junk food. With [npc.her] hunger temporarily satisfied, [npc.sheIs] feeling a little more energetic.");
+		}
+	};
+
+	public static AbstractStatusEffect RECENTLY_EATEN_QUALITY = new AbstractStatusEffect(80,
+			"recently eaten (quality)",
+			"recentlyEaten",
+			PresetColour.BASE_GREEN_DARK,
+			PresetColour.BASE_GREEN,
+			PresetColour.CLOTHING_WHITE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, 10f)),
+			null) {
+		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.removeStatusEffect(RECENTLY_EATEN_POOR);
+			target.removeStatusEffect(RECENTLY_EATEN);
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"[npc.NameHasFull] recently had something to eat which was of exceptional quality."
+					+ " With [npc.her] hunger temporarily satisfied, and with the memory of such a fine meal still fresh in [npc.her] mind, [npc.sheIs] feeling contented and full of energy.");
 		}
 	};
 
@@ -3201,9 +3295,60 @@ public class StatusEffect {
 			Util.newHashMapOfValues(new Value<>(Attribute.MANA_MAXIMUM, 5f)),
 			null) {
 		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.removeStatusEffect(THIRST_QUENCHED_POOR);
+			target.removeStatusEffect(THIRST_QUENCHED_QUALITY);
+			return "";
+		}
+		@Override
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target,
 					"[npc.NameHasFull] recently had something to drink. With [npc.her] thirst temporarily quenched, [npc.sheIs] able to focus and concentrate on the task at hand.");
+		}
+	};
+
+	public static AbstractStatusEffect THIRST_QUENCHED_POOR = new AbstractStatusEffect(80,
+			"thirst quenched (basic)",
+			"recentlyDrank",
+			PresetColour.BASE_BLUE_LIGHT,
+			PresetColour.BASE_YELLOW_PALE,
+			PresetColour.CLOTHING_WHITE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.MANA_MAXIMUM, 1f)),
+			null) {
+		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.removeStatusEffect(THIRST_QUENCHED);
+			target.removeStatusEffect(THIRST_QUENCHED_QUALITY);
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"[npc.NameHasFull] recently quenched [npc.her] thirst with something that barely passed as drinkable. With [npc.her] thirst temporarily quenched, [npc.sheIs] able to focus a little more on the task at hand.");
+		}
+	};
+
+	public static AbstractStatusEffect THIRST_QUENCHED_QUALITY = new AbstractStatusEffect(80,
+			"thirst quenched (quality)",
+			"recentlyDrank",
+			PresetColour.BASE_BLUE_DARK,
+			PresetColour.BASE_BLUE,
+			PresetColour.CLOTHING_WHITE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.MANA_MAXIMUM, 10f)),
+			null) {
+		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.removeStatusEffect(THIRST_QUENCHED_POOR);
+			target.removeStatusEffect(THIRST_QUENCHED);
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"[npc.NameHasFull] recently had something to drink which was of exceptional quality."
+					+ " With [npc.her] thirst temporarily quenched, and with the memory of such a fine beverage still fresh in [npc.her] mind, [npc.sheIs] able to focus and concentrate on the task at hand.");
 		}
 	};
 	

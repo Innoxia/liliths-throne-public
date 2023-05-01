@@ -511,6 +511,8 @@ public class MainController implements Initializable {
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
 							
+//							System.out.println(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+							
 							// Testing genetics/inheritance:
 //							Main.game.getPlayer().guaranteePregnancyOnNextRoll();
 //							Main.game.getPlayer().rollForPregnancy(Main.game.getCharactersPresent().get(0), 100, true);
@@ -577,7 +579,9 @@ public class MainController implements Initializable {
 //								if(npc.isUnique() && !npc.hasArtwork()
 ////										&& (npc.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION)
 ////										&& npc.isFeminine()
-////										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()==BodyCoveringCategory.MAIN_SKIN
+//										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()!=BodyCoveringCategory.MAIN_SKIN
+//										&& npc.isAbleToBeImpregnated()
+//										&& npc.isFeminine()
 ////										&& (npc.getClass().getName().contains("dominion.") || npc.getClass().getName().contains("submission."))
 //										) {
 //									System.out.println(npc.getNameIgnoresPlayerKnowledge() + " "+npc.getClass().getName().split(".npc.")[1]);// + " " + npc.getSurname());

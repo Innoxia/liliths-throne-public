@@ -47,6 +47,22 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="OUTSIDE_LIGHTS_OUT"><![CDATA[
+	<p>
+		[style.boldYellow(Lights Out)]
+		<br/>
+		A neon sign reading 'Lights Out' is positioned above a short, steep staircase that leads down to a basement bar. A second neon sign declares that the bar's opening hours are from
+		#IF(game.isHourBetween(18, 4))
+			 [style.colourMinorGood([unit.time(18)]-[unit.time(4)])], and as such the bar is currently [style.colourGood(open)].
+		#ELSE
+			 [style.colourMinorBad([unit.time(18)]-[unit.time(4)])], and as such the bar is currently [style.colourBad(closed)].
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Interior: -->
+	
 	<htmlContent tag="WATERING_HOLE_ENTRANCE"><![CDATA[
 	<p>
 		Walking up to the entrance of the club, you push the front door open and step inside. As it swings shut behind you, you find yourself standing in a large, well-lit entrance hall, and before you, a winding queue leads up to a pair of white doors. The walls have been decorated with savannah-themed murals, which, combined with the club's name 'The Watering Hole', as well as the pair of imposing zebra-boy bouncers standing guard at the front of the queue, gives the club an African theme.

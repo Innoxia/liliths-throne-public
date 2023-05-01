@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA["MFD by DSG Sanitary Supply GmbH" is lightly embossed on one edge of the packaging.]]></authorTag>
+		
+		<value>50</value> 
+		<determiner><![CDATA[an]]></determiner>
+		<name><![CDATA[arcane wet wipe]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[arcane wet wipes]]></namePlural>
+		<description><![CDATA[Some foil wrapped, alcohol soaked cotton wipes. The writing on the rear of the packet declares that these wet wipes have been 'arcane-enhanced to remove all odours'.]]></description> 
+		
+		<useDescriptor>use</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>COMMON</rarity> 
+		
+		<imageName>wetwipes.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_WHITE</colourPrimary>
+		<colourSecondary>CLOTHING_GOLD</colourSecondary>
+		<colourTertiary>CLOTHING_GOLD</colourTertiary>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Cleans all inventory slots)]]]></line>
+			<line><![CDATA[
+				#IF(game.isMuskContentEnabled())
+					[style.boldGood(Removes 'marked by musk')]
+				#ENDIF
+			]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.cleanAllDirtySlots(true)]
+			[##npc.setMuskMarker(null)]
+			<p style='text-align:center; margin-top:0; padding-top:0;'>
+				Just as [npc.she] [npc.verb(start)] looking for a place to toss the soiled wipe, <b>it disappears, conveniently taking the absorbed filth with it</b>!
+			</p>
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(tear)] open the foil packet and [npc.verb(take)] out the wet wipe, before quickly cleaning [npc.herself] with it.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(tear)] open the foil packet and [npc.verb(take)] out the wet wipe, before quickly cleaning [npc2.name] with it.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

@@ -250,10 +250,10 @@ public class Arion extends NPC {
 	}
 
 	@Override
-	public void hourlyUpdate() {
+	public void hourlyUpdate(int hour) {
 		if(!Main.game.getCharactersPresent().contains(this)) {
-			if(Main.game.getHourOfDay()<7 || Main.game.getHourOfDay()>21) {
-				if(Main.game.getHourOfDay()>21) {
+			if(hour<7 || hour>21) {
+				if(hour>21) {
 					this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town_hall_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_hall_f1_minotallys_room"), false);
 				} else {
 					this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town_hall_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_hall_f1_assistant_room"), true);

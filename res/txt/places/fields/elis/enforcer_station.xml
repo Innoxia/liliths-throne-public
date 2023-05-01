@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- Corridor: -->
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		TODO Corridor. Carpeted, beams overhead. Faint musty smell like that found in very old buildings...
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- Entrance/Exit: -->
+	
+	<htmlContent tag="EXIT"><![CDATA[
+	<p>
+		TODO The entrance to the station...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_INITIAL_ENTRY"><![CDATA[
+	<p>
+		TODO You enter the station...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="EXIT_LEAVE"><![CDATA[
+	<p>
+		TODO You exit and return to Elis...
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- Reception area: -->
+	
+	<htmlContent tag="RECEPTION"><![CDATA[
+	<p>
+		TODO Reception area. Desk, two chairs with their padding well worn.
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_sterope_met))
+		<p>
+			Sterope says hello.
+		</p>
+		#IF(sterope.isVisiblyPregnant())
+			<p>
+				Sterope is sporting a visibly [style.colourSex(pregnant belly)].
+			</p>
+		#ENDIF
+		#IF(sterope.getTotalTimesHadSex(pc)>0)
+			<p>
+				She sternly warns you not to mention her private life while she's at work.
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			The receptionist says hello and introduces herself as Sterope. Her stomach is massively swollen, making it clear that she's heavily pregnant and ready to give birth.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="RECEPTION_STEP_BACK"><![CDATA[
+	<p>
+		TODO You tell Sterope that you've got to be going and [pc.step] back towards the exit...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_TALK_WORK"><![CDATA[
+	<p>
+		TODO You ask Sterope about what sort of work the Enforcers do here in Elis...
+	</p>
+	<p>
+		Enforcers are managing with the huge influx of refugees, but after dark the alleyways are dangerous.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_TALK_CAREER"><![CDATA[
+	<p>
+		TODO You ask Sterope about her career...
+	</p>
+	<p>
+		She joined the Enforcers when she was nineteen, and has worked here ever since. She's turned down the offer of going to officer school before as she likes her job and isn't ambitious.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_TALK_LUNETTE"><![CDATA[
+	<p>
+		TODO You ask Sterope about what she thinks of Lunette...
+	</p>
+	<p>
+		She says that her daughters are causing a huge problem, but it's not for her to question an elder lilin's motives.
+		#IF(flags.hasFlag(FLAG_innoxia_sterope_unlocked))
+			 Remembering that she's previously said too much about succutaur's cock-sleeves, she stops herself from saying anything more.
+		#ELSE
+			 Besides, there are worse fates than being turned into a succutaur's cock sleeve...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_FLIRT"><![CDATA[
+	<p>
+		TODO You seize upon what Sterope has just said and ask her if she thinks about the fate of the victims of Lunette's daughters often. She blushes a little but retains her composure. Says that she's not going to flirt while on duty, but you can find her in the Centaur's sword after 21:00.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_SWORD"><![CDATA[
+	<p>
+		TODO You tell Sterope that you've been sent by Minotallys to make contact with the group of SWORD Enforcers who are staioned here. Sterope doesn't believe you, but when you show her your access pass to the town hall, she accepts what you're saying as the truth.
+	</p>
+	<p>
+		You ask her what she knows about the SWORD Enforcers.
+	</p>
+	<p>
+		She says that they don't mix well with the rest of the Enforcers, and that the rumour is that they caused a fuss in Dominion about five years ago and were demoted and sent here.
+	</p>
+	<p>
+		There was talk that a recognised daughter of the elder lilin Lasielle, who'd been given a high-ranking position in the Enforcers, had been arrested. That elder daughter hasn't been seen since, and a week later the group arrived here in Elis.
+	</p>
+	<p>
+		She says that she doesn't know any more, and you can just ask them. Says that you can come and go as you please, and that the SWORD Enforcer office is straight ahead down the corridor.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_SWORD_CONTINUE"><![CDATA[
+	<p>
+		TODO Thanking Sterope for the information, you head on past her desk and into the station's interior.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Locked door: -->
+
+	<htmlContent tag="LOCKED_DOOR"><![CDATA[
+	<p>
+		TODO This door is locked...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="LOCKED_DOOR_STEP_BACK"><![CDATA[
+	<p>
+		TODO You [pc.step] back into the corridor...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Cells: -->
+
+	<htmlContent tag="CELLS"><![CDATA[
+	<p>
+		TODO Four cells are where the town's criminals are held while awaiting trial...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Office: -->
+
+	<htmlContent tag="OFFICE"><![CDATA[
+	<p>
+		TODO In this office Enforcers fill out paperwork and plan their patrols...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SWORD: -->
+
+	<htmlContent tag="SWORD"><![CDATA[
+	<p>
+		TODO A group of dangerous-looking SWORD Enforcers...
+	</p>
+	]]>
+	</htmlContent>
+
+</dialogue>

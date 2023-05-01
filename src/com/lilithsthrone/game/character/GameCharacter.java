@@ -493,7 +493,7 @@ public abstract class GameCharacter implements XMLSaving {
 	protected long lastTimeOrgasmed = DEFAULT_TIME_START_VALUE;
 	protected Map<GameCharacter, SexType> foreplayPreference = new HashMap<>();
 	protected Map<GameCharacter, SexType> mainSexPreference = new HashMap<>();
-	
+	private String muskMarker;
 	
 	// Stats:
 	// Combat stats:
@@ -825,6 +825,9 @@ public abstract class GameCharacter implements XMLSaving {
 		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "combatBehaviour", this.getCombatBehaviour().toString());
 		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "lastTimeHadSex", String.valueOf(lastTimeHadSex));
 		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "lastTimeOrgasmed", String.valueOf(lastTimeOrgasmed));
+		if(muskMarker!=null && !muskMarker.isEmpty()) {
+			XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "muskMarker", String.valueOf(muskMarker));
+		}
 		if(speechColour!=null) {
 			XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "speechColour", speechColour.getId());
 		}
@@ -1704,6 +1707,11 @@ public abstract class GameCharacter implements XMLSaving {
 			} else {
 				character.setLastTimeOrgasmedSeconds(character.getLastTimeHadSex() * secondModifier);
 			}
+		}
+
+		Element muskMarkerElement = (Element)element.getElementsByTagName("muskMarker").item(0);
+		if(muskMarkerElement!=null) {
+			character.setMuskMarker(muskMarkerElement.getAttribute("value"));
 		}
 		
 		if(element.getElementsByTagName("combatBehaviour").getLength()!=0) {
@@ -3409,13 +3417,30 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 
 		if(!folder.isEmpty()) {
-			for(Artist artist : Artwork.allArtists) {
-				File f = new File("res/images/characters/" + folder + "/" + artist.getFolderName());
+			if(!this.isUnique()) {
+				File f = new File("data/images/"+Main.game.getId()+"/characters/" + folder);
 				if(f.exists() && f.isDirectory()) {
-					Artwork art = new Artwork(this, f, artist);
+					Artwork art = new Artwork(this, f, Artwork.customArtist);
 					// Cull empty artwork lists
 					if (art.getTotalArtworkCount() > 0) {
 						artworkList.add(art);
+					}
+				}
+			
+			} else {
+				for(Artist artist : Artwork.allArtists) {
+					File f;
+					if(this.isUnique()) {
+						f = new File("res/images/characters/" + folder + "/" + artist.getFolderName());
+					} else {
+						f = new File("data/images/"+Main.game.getId()+"/characters/" + folder + "/" + artist.getFolderName());
+					}
+					if(f.exists() && f.isDirectory()) {
+						Artwork art = new Artwork(this, f, artist);
+						// Cull empty artwork lists
+						if (art.getTotalArtworkCount() > 0) {
+							artworkList.add(art);
+						}
 					}
 				}
 			}
@@ -3433,7 +3458,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public void importImages(List<File> imageFiles) {
 		try {
 			// Copy files to the character's custom image folder
-			Path destination = Paths.get("res", "images", "characters", getArtworkFolderName(), "custom");
+			Path destination;
+			if(this.isUnique()) {
+				destination = Paths.get("res", "images", "characters", getArtworkFolderName(), "custom");
+			} else {
+				destination = Paths.get("data", "images", String.valueOf(Main.game.getId()), "characters", getArtworkFolderName());
+			}
 			Files.createDirectories(destination);
 			for (File source : imageFiles) {
 				// Copy to temporary file and use atomic move to guarantee that the file is available
@@ -3528,7 +3558,10 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public boolean isImageRevealed() {
-		return isPlayer() || getCurrentArtwork().isCurrentImageClothed() || getTotalTimesHadSex(Main.game.getPlayer()) > 0;
+		return isPlayer()
+				|| getCurrentArtwork().isCurrentImageClothed()
+				|| getTotalTimesHadSex(Main.game.getPlayer()) > 0
+				|| Main.game.isConcealedSlotsReveal();
 	}
 	
 	public String getCharacterInformationScreen(boolean includePerkTree) {
@@ -3755,8 +3788,14 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public String getArtworkFolderName() {
-		// Get folder by class name if unique, character name otherwise
-		return this.isUnique() ? this.getClass().getSimpleName() : "generic/" + this.getNameIgnoresPlayerKnowledge();
+//		return this.isUnique()
+//				? this.getClass().getSimpleName()
+//				: "generic/" + this.getNameIgnoresPlayerKnowledge();
+		
+		// Get folder by class name if unique, character id otherwise
+		return this.isUnique()
+				? this.getClass().getSimpleName()
+				: this.getId();
 	}
 
 	public boolean hasArtwork() {
@@ -4998,7 +5037,8 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		return UtilText.parse(this, character,
 				"<p style='text-align:center'>"
-					+ "[npc.Name] now [npc.has] <b>"+(affection>0?"+":"")+Units.round(affection, 1)+"</b> [style.boldAffection(affection)] towards [npc2.name].<br/>"
+					+ "[npc.Name] now [npc.has] <b>"+(affection>0?"+":"")+Units.round(affection, 1)+"</b> [style.boldAffection(affection)] towards [npc2.name]."
+					+ "<br/>"
 					+ AffectionLevel.getDescription(this, character, true)
 				+ "</p>");
 	}
@@ -7929,6 +7969,24 @@ public abstract class GameCharacter implements XMLSaving {
 		this.lastTimeOrgasmed = lastTimeOrgasmed;
 	}
 	
+	public void setMuskMarker(String markerId) {
+		muskMarker = markerId;
+	}
+
+	public String getMuskMarker() {
+		return muskMarker;
+	}
+	
+	public GameCharacter getMuskMarkerCharacter() {
+		if(muskMarker!=null && !muskMarker.isEmpty()) {
+			try {
+				return Main.game.getNPCById(muskMarker);
+			} catch (Exception e) {
+			}
+		}
+		return null;
+	}
+	
 	public boolean isSatisfiedFromLastSex() {
 		try {
 			return Main.sex.getNumberOfOrgasms(this)>=this.getOrgasmsBeforeSatisfied();
@@ -8815,7 +8873,12 @@ public abstract class GameCharacter implements XMLSaving {
 							slotNames.add(slot.getName());
 						}
 						if(partnerPresent) {
-							ingestFluidSB.append(UtilText.parse(partner, this, "<p class='centre noPad'>[npc.Name] [style.colourCum(came on)] [npc2.namePos] "+Util.stringsToStringList(slotNames, false)+"!</p>"));
+							ingestFluidSB.append(UtilText.parse(partner, this, "<p class='centre noPad'>[npc.Name] [style.colourCum(came on)] [npc2.namePos] "+Util.stringsToStringList(slotNames, false)+"!"));
+							if(Main.game.isMuskContentEnabled() && partner.hasCumModifier(FluidModifier.MUSKY)) {
+								this.setMuskMarker(partner.getId());
+								ingestFluidSB.append(UtilText.parse(partner, this, "<br/>[npc2.NameIsFull] marked by the musky scent of [npc.namePos] cum!"));
+							}
+							ingestFluidSB.append("</p>");
 						} else {
 							ingestFluidSB.append(UtilText.parse(this, "<p class='centre noPad'>[npc.Name] had [npc.her] "+Util.stringsToStringList(slotNames, false)+" [style.colourCum(covered in cum)]!</p>"));
 						}
@@ -9312,7 +9375,12 @@ public abstract class GameCharacter implements XMLSaving {
 								partner.addDirtySlot(slot);
 								slotNames.add(slot.getName());
 							}
-							ingestFluidSB.append(UtilText.parse(this, partner, "<p class='centre noPad'>[npc.Name] [style.colourCum(came on)] [npc2.namePos] "+Util.stringsToStringList(slotNames, false)+"!</p>"));
+							ingestFluidSB.append(UtilText.parse(this, partner, "<p class='centre noPad'>[npc.Name] [style.colourCum(came on)] [npc2.namePos] "+Util.stringsToStringList(slotNames, false)+"!"));
+							if(Main.game.isMuskContentEnabled() && this.hasCumModifier(FluidModifier.MUSKY)) {
+								partner.setMuskMarker(this.getId());
+								ingestFluidSB.append(UtilText.parse(this, partner, "<br/>[npc2.NameIsFull] marked by the musky scent of [npc.namePos] cum!"));
+							}
+							ingestFluidSB.append("</p>");
 						}
 					}
 				}
@@ -19299,7 +19367,7 @@ public abstract class GameCharacter implements XMLSaving {
 			totalDamage *= 0.25f;
 		}
 
-		if(this.hasPerkAnywhereInTree(Perk.UNARMED_TRAINING)) {
+		if(this.hasPerkAnywhereInTree(Perk.MARTIAL_ARTIST)) {
 			totalDamage *= 2;
 		}
 		
@@ -20101,7 +20169,7 @@ public abstract class GameCharacter implements XMLSaving {
 	/**
 	 * A variation for the pregnancy check when the owner of the cum is null.
 	 * @param partnerSubspecies The subspecies of the cum owner (if they were to exist).
-	 * @param partnerSubspecies The half-demon subspecies of the cum owner (if they were to exist).
+	 * @param partnerHalfDemonSubspecies The half-demon subspecies of the cum owner (if they were to exist).
 	 * @param cumQuantity How much cum is in this character's orifice (usually the vagina).
 	 * @param directSexInsemination true if this method is calculated from someone directly cumming inside this character, as opposed to ingesting cum from a container.
 	 * @param fertilisationType The type of fertilisation which is occurring (either NORMAL from cum or TRIBBING from Amazon's Secret effect).
@@ -25802,7 +25870,10 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public String incrementBodySize(int increment) {
-		return setBodySize(getBodySizeValue() + increment);
+		StringBuilder sb = new StringBuilder();
+		sb.append("<p style='text-align:center'>[style.bold"+(increment<0?"Bad":"Good")+"("+(increment>0?"+":"")+increment+")] <b style='color:"+PresetColour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>");
+		sb.append(setBodySize(getBodySizeValue() + increment));
+		return sb.toString();
 	}
 	
 	// Muscle:
@@ -25864,7 +25935,10 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public String incrementMuscle(int increment) {
-		return setMuscle(getMuscleValue() + increment);
+		StringBuilder sb = new StringBuilder();
+		sb.append("<p style='text-align:center'>[style.bold"+(increment<0?"Bad":"Good")+"("+(increment>0?"+":"")+increment+")] <b style='color:"+PresetColour.MUSCLE_THREE.toWebHexString()+";'>Muscle Definition</b></p>");
+		sb.append(setMuscle(getMuscleValue() + increment));
+		return sb.toString();
 	}
 	
 
@@ -27165,6 +27239,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	// Breast rows:
 	public int getBreastRows() {
+		if(Main.getProperties().multiBreasts==0) {
+			return 1;
+		}
 		return body.getBreast().getRows();
 	}
 	public String setBreastRows(int rows) {
