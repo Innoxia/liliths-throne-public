@@ -955,7 +955,24 @@ public class Perk {
 					"[npc.NameIsFull] an Amazon, and as such regularly engages in physical activity and combat training.");
 		}
 	};
-	
+
+	public static AbstractPerk JOB_PUGILIST = new AbstractPerk(20,
+			true,
+			"pugalist",
+			PerkCategory.JOB,
+			"perks/jobs/npc_pugilist",
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_UNARMED, 50),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 25),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 50)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] a professional boxer, and as such is a fearsome opponent in a fight.");
+		}
+	};
 	
 	
 	public static AbstractPerk JOB_SLAVE = new AbstractPerk(20,
@@ -2281,18 +2298,19 @@ public class Perk {
 		}
 	};
 	
-
 	public static AbstractPerk UNARMED_TRAINING = new AbstractPerk(20,
 			false,
-			"martial artist",
+			"brawler",
 			PerkCategory.PHYSICAL,
-			"perks/unarmed_training",
+			"perks/natural_fighter",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<>(Attribute.CRITICAL_DAMAGE, 25)),
-			Util.newArrayListOfValues("[style.colourUnarmed(Base unarmed damage)] [style.colourExcellent(doubled)]")) {
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 5),
+					new Value<>(Attribute.DAMAGE_UNARMED, 10)),
+			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameHasFull] received formal training in martial arts, allowing [npc.herHim] to deal just as much damage in unarmed combat as [npc.her] strongest foe.");
+			return UtilText.parse(owner, "[npc.Name] [npc.verb(love)] a good brawl, and is a fearsome opponent in unarmed combat.");
 		}
 	};
 
@@ -2998,6 +3016,27 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "Having survived multiple intense workout sessions with Dominion's most excitable and motivated physical trainer, you feel noticeably stronger.");
+		}
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+	
+	public static AbstractPerk MARTIAL_ARTIST = new AbstractPerk(20,
+			false,
+			"martial artist",
+			PerkCategory.PHYSICAL,
+			"perks/unarmed_training",
+			PresetColour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(new Value<>(Attribute.CRITICAL_DAMAGE, 25)),
+			Util.newArrayListOfValues("[style.colourUnarmed(Base unarmed damage)] [style.colourExcellent(doubled)]"),
+			null,
+			null,
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] received formal training in martial arts, allowing [npc.herHim] to deal just as much damage in unarmed combat as [npc.her] strongest foe.");
 		}
 		@Override
 		public boolean isHiddenPerk() {

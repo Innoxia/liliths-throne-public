@@ -33,6 +33,7 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
@@ -75,7 +76,8 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	
 	protected List<ItemEffect> effects;
 	
-	protected Map<AbstractStatusEffect, Integer> appliedStatusEffects;
+	/** Maps Status effect -> conditional and time applied*/
+	protected Map<AbstractStatusEffect, Value<String, Integer>> appliedStatusEffects;
 	
 	// For use in enchanting into a different item:
 	protected String potionDescriptor;
@@ -269,16 +271,29 @@ public abstract class AbstractItemType extends AbstractCoreType {
 			this.appliedStatusEffects = new HashMap<>();
 			// Add FOOD & DRINK first:
 			if(this.getItemTags().contains(ItemTag.FOOD)) {
-				appliedStatusEffects.put(StatusEffect.RECENTLY_EATEN, 6*60*60);
+				appliedStatusEffects.put(StatusEffect.RECENTLY_EATEN, new Value<>("true", 6*60*60));
+			}
+			if(this.getItemTags().contains(ItemTag.FOOD_POOR)) {
+				appliedStatusEffects.put(StatusEffect.RECENTLY_EATEN_POOR, new Value<>("true", 6*60*60));
+			}
+			if(this.getItemTags().contains(ItemTag.FOOD_QUALITY)) {
+				appliedStatusEffects.put(StatusEffect.RECENTLY_EATEN_QUALITY, new Value<>("true", 6*60*60));
 			}
 			if(this.getItemTags().contains(ItemTag.DRINK)) {
-				appliedStatusEffects.put(StatusEffect.THIRST_QUENCHED, 6*60*60);
+				appliedStatusEffects.put(StatusEffect.THIRST_QUENCHED, new Value<>("true", 6*60*60));
+			}
+			if(this.getItemTags().contains(ItemTag.DRINK_POOR)) {
+				appliedStatusEffects.put(StatusEffect.THIRST_QUENCHED_POOR, new Value<>("true", 6*60*60));
+			}
+			if(this.getItemTags().contains(ItemTag.DRINK_QUALITY)) {
+				appliedStatusEffects.put(StatusEffect.THIRST_QUENCHED_QUALITY, new Value<>("true", 6*60*60));
 			}
 			if(coreAttributes.getOptionalFirstOf("statusEffects").isPresent()) {
 				for(Element e : coreAttributes.getMandatoryFirstOf("statusEffects").getAllOf("effect")) {
 					int seconds = Integer.valueOf(e.getAttribute("seconds"));
 					AbstractStatusEffect se = StatusEffect.getStatusEffectFromId(e.getTextContent());
-					appliedStatusEffects.put(se, seconds);
+					String conditional = e.getAttribute("conditional");
+					appliedStatusEffects.put(se, new Value<>(conditional.isEmpty()?"true":conditional, seconds));
 				}
 			}
 			
@@ -502,11 +517,25 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		}
 		// Any status effects being applied:
 		if(this.appliedStatusEffects!=null) { // If not null, then from external file
-			for(Entry<AbstractStatusEffect, Integer> entry : this.appliedStatusEffects.entrySet()) {
+			for(Entry<AbstractStatusEffect, Value<String, Integer>> entry : this.appliedStatusEffects.entrySet()) {
 				AbstractStatusEffect se = entry.getKey();
-				parsed.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(null))+"'</i>:");
+//				parsed.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(null))+"'</i>:");
+//				for(Entry<AbstractAttribute, Float> attEntry : se.getAttributeModifiers(null).entrySet()) {
+//					parsed.add("<i>"+attEntry.getKey().getFormattedValue(attEntry.getValue())+"</i>");
+//				}
+				int seconds = entry.getValue().getValue();
+				int timeDisplay = seconds/60; // minutes
+				String timeDesc = "minutes";
+				if(timeDisplay>120) {
+					timeDisplay = timeDisplay/60; // hours
+					timeDesc = "hours";
+				}
+				if(timeDisplay>48) {
+					timeDisplay = timeDisplay/24; // days
+					timeDesc = "days";
+				}
 				for(Entry<AbstractAttribute, Float> attEntry : se.getAttributeModifiers(null).entrySet()) {
-					parsed.add("<i>"+attEntry.getKey().getFormattedValue(attEntry.getValue())+"</i>");
+					parsed.add("<i>"+attEntry.getKey().getFormattedValue(attEntry.getValue())+"</i> for [style.italicsOrange("+timeDisplay+" "+timeDesc+")]");
 				}
 			}
 			
@@ -514,9 +543,23 @@ public abstract class AbstractItemType extends AbstractCoreType {
 			for(ItemEffect ie : this.getEffects()) {
 				for(Entry<AbstractStatusEffect, Integer> entry : ie.getItemEffectType().getAppliedStatusEffects().entrySet()) {
 					AbstractStatusEffect se = entry.getKey();
-					parsed.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(null))+"'</i>:");
+//					parsed.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(null))+"'</i>:");
+//					for(Entry<AbstractAttribute, Float> attEntry : se.getAttributeModifiers(null).entrySet()) {
+//						parsed.add("<i>"+attEntry.getKey().getFormattedValue(attEntry.getValue())+"</i>");
+//					}
+					int seconds = entry.getValue();
+					int timeDisplay = seconds/60; // minutes
+					String timeDesc = "minutes";
+					if(timeDisplay>120) {
+						timeDisplay = timeDisplay/60; // hours
+						timeDesc = "hours";
+					}
+					if(timeDisplay>48) {
+						timeDisplay = timeDisplay/24; // days
+						timeDesc = "days";
+					}
 					for(Entry<AbstractAttribute, Float> attEntry : se.getAttributeModifiers(null).entrySet()) {
-						parsed.add("<i>"+attEntry.getKey().getFormattedValue(attEntry.getValue())+"</i>");
+						parsed.add("<i>"+attEntry.getKey().getFormattedValue(attEntry.getValue())+"</i> for [style.italicsOrange("+timeDisplay+" "+timeDesc+")]");
 					}
 				}
 			}
@@ -700,7 +743,7 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	/**
 	 * @return null if this ItemType is hard-coded, but will return a (potentially empty) Map if it's been generated from an xml file.
 	 */
-	public Map<AbstractStatusEffect, Integer> getAppliedStatusEffects() {
+	public Map<AbstractStatusEffect, Value<String, Integer>> getAppliedStatusEffects() {
 		return appliedStatusEffects;
 	}
 

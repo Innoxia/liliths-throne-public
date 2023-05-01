@@ -576,7 +576,7 @@ public enum PerkManager {
 				deniedPerks.add(Perk.CHUUNI);
 				deniedPerks.add(Perk.BARREN);
 				deniedPerks.add(Perk.FIRING_BLANKS);
-				deniedPerks.add(Perk.UNARMED_TRAINING);
+//				deniedPerks.add(Perk.UNARMED_TRAINING);
 				if(character.isUnique()) {
 					deniedPerks.add(Perk.AHEGAO);
 				}

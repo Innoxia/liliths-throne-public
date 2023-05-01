@@ -264,10 +264,10 @@ public class Jess extends NPC {
 	
 
 	@Override
-	public void hourlyUpdate() {
+	public void hourlyUpdate(int hour) {
 		// Sleeps between 03:00-11:00
 		if(!Main.game.getCharactersPresent().contains(this)) {
-			if((Main.game.getHourOfDay()>=11 || Main.game.getHourOfDay()<3)) {
+			if((hour>=11 || hour<3)) {
 				if(this.getLocationPlace().getPlaceType()!=PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_sex") && Math.random()<=0.5f) {
 					// 50% chance to entertain someone in her room
 					this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_sex"), true);

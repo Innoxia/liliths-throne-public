@@ -334,6 +334,21 @@ public class Silence extends NPC {
 	}
 	
 	@Override
+	public String getArtworkFolderName() {
+		if(this.getBreastRows()>1) {
+			if(this.isVisiblyPregnant()) {
+				return "SilenceMultiBoobPregnant";
+			}
+			return "SilenceMultiBoob";
+		} else {
+			if(this.isVisiblyPregnant()) {
+				return "SilencePregnant";
+			}
+			return "Silence";
+		}
+	}
+	
+	@Override
 	public void changeFurryLevel(){
 	}
 	
@@ -343,7 +358,7 @@ public class Silence extends NPC {
 	}
 
 	@Override
-	public void hourlyUpdate() {
+	public void hourlyUpdate(int hour) {
 		this.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), this, false);
 	}
 

@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishPreference;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.PronounType;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
@@ -643,28 +644,34 @@ public class OptionsController {
 				new Util.Value<>("PENETRATION_LIMITATION_DYNAMIC", PropertyValue.elasticityAffectDepth),
 				new Util.Value<>("FOOT", PropertyValue.footContent),
 				new Util.Value<>("ARMPIT", PropertyValue.armpitContent),
+				new Util.Value<>("MUSK", PropertyValue.muskContent),
 				new Util.Value<>("FURRY_TAIL_PENETRATION", PropertyValue.furryTailPenetrationContent),
 				new Util.Value<>("INFLATION_CONTENT", PropertyValue.inflationContent),
 				new Util.Value<>("AUTO_SEX_CLOTHING_MANAGEMENT", PropertyValue.autoSexClothingManagement),
-				new Util.Value<>("AUTO_SEX_CLOTHING_STRIP", PropertyValue.autoSexStrip)));
+				new Util.Value<>("AUTO_SEX_CLOTHING_STRIP", PropertyValue.autoSexStrip),
+				new Util.Value<>("RAPE_PLAY_BY_DEFAULT", PropertyValue.rapePlayAtSexStart)));
 	}
 	
 	public static void initBodiesListeners() {
 		String id;
-		for (int i = 0; i<3; i++) {
+		for (int i = 0; i<Properties.multiBreastsLabels.length; i++) {
 			id = "MULTI_BREAST_PREFERENCE_"+i;
 			if (MainController.document.getElementById(id) != null) {
 				int finalI = i;
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					Main.getProperties().multiBreasts = finalI;
 					Main.saveProperties();
+					for(NPC npc : Main.game.getAllNPCs()) {
+						npc.loadImages(true); // Reload images for multi-boob versions
+					}
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(
 						Properties.multiBreastsLabels[i],
-						Properties.multiBreastsDescriptions[i]
-								+"<br/><i>Characters can always gain additional breasts via transformations after they've spawned.</i>"));
+						Properties.multiBreastsDescriptions[i]));
 			}
+		}
+		for (int i = 0; i<Properties.uddersLabels.length; i++) {
 			id = "UDDER_PREFERENCE_"+i;
 			if (MainController.document.getElementById(id) != null) {
 				int finalI1 = i;

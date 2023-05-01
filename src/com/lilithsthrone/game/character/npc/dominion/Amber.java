@@ -149,11 +149,15 @@ public class Amber extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1")) {
 			this.setFetishDesire(Fetish.FETISH_BONDAGE_APPLIER, FetishDesire.THREE_LIKE);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.7.11")) {
+			this.addSpecialPerk(Perk.MARTIAL_ARTIST);
+		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
+		this.addSpecialPerk(Perk.MARTIAL_ARTIST);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(

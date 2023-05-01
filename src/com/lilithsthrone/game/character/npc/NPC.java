@@ -107,6 +107,7 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.main.Main;
@@ -425,8 +426,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	/**
 	 * Applies an hourly update to this NPC.
+	 * @param hour The hour (0-23) which is the currently active hour during the game's update loop.
 	 */
-	public void hourlyUpdate() {
+	public void hourlyUpdate(int hour) {
 	}
 	
 	/**
@@ -2991,6 +2993,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 */
 	public Value<AbstractClothing, String> getSexClothingToEquip(GameCharacter partner, boolean inQuickSex) {
 		if(Main.game.isInSex() && (inQuickSex || !Main.sex.getInitialSexManager().isPartnerWantingToStopSex(this))) {
+			if(Main.sex.getSexPositionSlot(partner)==SexSlotGeneric.MISC_WATCHING) {
+				return null; // DO not equip anything on spectators
+			}
 			// Condoms:
 			if(partner.hasPenisIgnoreDildo()
 					&& partner.getClothingInSlot(InventorySlot.PENIS)==null

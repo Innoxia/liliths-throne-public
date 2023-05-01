@@ -770,6 +770,553 @@
 	</htmlContent>
 	
 	
+	<!-- Guest content: -->
+	
+	<htmlContent tag="SPA_GUEST_INVITE"><![CDATA[
+	<p>
+		Wanting to spend some time with [npc.name], you ask [npc.herHim] if [npc.she]'d like to accompany you to the spa you've had built here in Lilaya's mansion.
+		#IF(npc.isMute())
+			 Smiling at you as [npc.she] hears what it is you're proposing, the [npc.race] nods [npc.her] head in a clear sign that [npc.sheIs] ready to go right now.
+		#ELSE
+			#IF(npc.isShy())
+				 Shyly smiling at you as [npc.she] hears what it is you're proposing, the [npc.race] replies, [npc.speech(Thanks, [pc.name], that sounds fun...)]
+			#ELSEIF(npc.isConfident())
+				 Happily smiling at you as [npc.she] hears what it is you're proposing, the [npc.race] confidently replies, [npc.speech(That sounds great, [pc.name]! Come on, let's go!)]
+			#ELSE
+				 Smiling at you as [npc.she] hears what it is you're proposing, the [npc.race] replies, [npc.speech(That sounds fun. Come on then, [pc.name], let's go!)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Leading the way, you [pc.step] over to the door and prepare to take [npc.name] to the spa...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_ARRIVE"><![CDATA[
+	<p>
+		The two of you go to the spa and stop outside the showers. [npc.Name] says that [npc.she] will need to change...
+	</p>
+	<p>
+		[pc.Walking] down the corridor with [npc.name] at your side, you soon arrive at the door to the spa. Heading inside, you pass through the reception and arrive at the door to the changing rooms.
+	</p>
+	<p>
+		#IF(npc.isMute())
+			Tugging on your [pc.arm] to get your attention, the mute [npc.name] gestures to imply that [npc.she] doesn't have any suitable swimwear to change into.
+		#ELSE
+			Pausing beside you, the [npc.name] states, [npc.speech(I don't have any swimwear to change into. You've got some that I could borrow, right?)]
+		#ENDIF
+	</p>
+	<p>
+		Knowing that there are several spare items of swimwear which [npc.she] could use, you wonder which one to offer to [npc.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_ARRIVE_SWIMSUIT"><![CDATA[
+	<p>
+		Deciding to go with the conservative option, you tell [npc.name] that [npc.she] can grab one of the spare swimsuits from out of the nearby lockers. Offering you [npc.her] thanks, [npc.name] retrieves the swimwear and quickly [npc.steps] into a changing room.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_ARRIVE_BIKINI"><![CDATA[
+	<p>
+		Thinking that a swimsuit is a little too modest, you suggest to [npc.name] that [npc.she] could grab one of the spare bikinis from out of the nearby lockers. Offering you [npc.her] thanks, [npc.name] retrieves the swimwear and quickly [npc.steps] into a changing room.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_ARRIVE_MICRO_BIKINI"><![CDATA[
+	<p>
+		Wanting [npc.name] to show off [npc.her] body, you tell [npc.herHim] that [npc.she] can grab one of the spare micro bikinis from out of the nearby lockers.
+	</p>
+	#IF(npc.getFetishDesire(FETISH_EXHIBITIONIST).isNegative())
+		<p>
+			#IF(npc.isMute())
+				[npc.Name] shuffles about on the spot as [npc.she] hears what it is you're offering [npc.herHim], and with an embarrassed look on [npc.her] face, the mute [npc.race] shakes [npc.her] head in a clear sign of rejection.
+			#ELSE
+				[npc.Name] shuffles about on the spot as [npc.she] hears what it is you're offering [npc.herHim], and with an embarrassed look on [npc.her] face, [npc.she] objects, [npc.speech(I don't know about that... A micro bikini? I'd feel so exposed...)]
+			#ENDIF
+		</p>
+		<p>
+			Putting the pressure on, you tell [npc.name] that there's no alternative, and so [npc.she] can either wear the micro bikini or go naked. Letting out a sigh, [npc.she] relents and reluctantly agrees to change into the micro bikini. Grabbing the swimwear from the nearby lockers, [npc.she] flashes you an annoyed look before quickly [npc.stepping] into a changing room.
+		</p>
+	#ELSEIF(npc.hasFetish(FETISH_EXHIBITIONIST))
+		<p>
+			#IF(npc.isMute())
+				With a look of excitement on [npc.her] face, the mute [npc.race] nods [npc.her] head in a clear sign of acceptance.
+			#ELSE
+				With a look of excitement on [npc.her] face, [npc.name] happily states, [npc.speech(A micro bikini sounds great! I'm going to be so exposed wearing something like that...)]
+			#ENDIF
+		</p>
+		<p>
+			Happy to
+			#IF(npc.isMute())
+				 see
+			#ELSE
+				 hear
+			#ENDIF
+			 that [npc.name] enjoys a good bit of exhibitionism, you watch as [npc.she] quickly grabs the swimwear from the nearby lockers and then [npc.steps] into a changing room.
+		</p>
+	#ELSE
+		<p>
+			#IF(npc.isMute())
+				A brief look of surprise crosses [npc.namePos] face as [npc.she] hears what it is you're offering [npc.herHim], but then the mute [npc.race] nods [npc.her] head in a clear sign of acceptance.
+			#ELSE
+				A brief look of surprise crosses [npc.namePos] face as [npc.she] hears what it is you're offering [npc.herHim], but nevertheless agrees to your suggestion by responding, [npc.speech(I'm going to be quite exposed, but I guess it'll be fine...)]
+			#ENDIF
+		</p>
+		<p>
+			Happy to
+			#IF(npc.isMute())
+				 see
+			#ELSE
+				 hear
+			#ENDIF
+			 that [npc.name] isn't going to object to partaking in a little exhibitionism, you watch as [npc.she] quickly grabs the swimwear from the nearby lockers and then [npc.steps] into a changing room.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_ARRIVE_NAKED"><![CDATA[
+	<p>
+		Wanting [npc.name] to fully show off [npc.her] body, you tell [npc.herHim] that there's no need for wearing any kind of swimwear here, and that [npc.she] can simply strip out of [npc.her] clothing and go naked.
+	</p>
+	#IF(npc.getFetishDesire(FETISH_EXHIBITIONIST).isNegative())
+		<p>
+			#IF(npc.isMute())
+				[npc.Name] shuffles about on the spot as [npc.she] hears what it is you're offering [npc.herHim], and with an embarrassed look on [npc.her] face, the mute [npc.race] shakes [npc.her] head in a clear sign of rejection.
+			#ELSE
+				[npc.Name] shuffles about on the spot as [npc.she] hears what it is you're offering [npc.herHim], and with an embarrassed look on [npc.her] face, [npc.she] objects, [npc.speech(I don't know about that...I'd feel so exposed...)]
+			#ENDIF
+		</p>
+		<p>
+			Putting the pressure on, you tell [npc.name] that there's no alternative, and so [npc.she] can either go naked or head back to [npc.her] room. Letting out a sigh, [npc.she] relents and reluctantly agrees to strip. Flashing you an annoyed look, [npc.she] quickly [npc.steps] into a changing room.
+		</p>
+	#ELSEIF(npc.hasFetish(FETISH_EXHIBITIONIST))
+		<p>
+			#IF(npc.isMute())
+				With a look of excitement on [npc.her] face, the mute [npc.race] nods [npc.her] head in a clear sign of acceptance.
+			#ELSE
+				With a look of excitement on [npc.her] face, [npc.name] happily states, [npc.speech(That sounds great! I love being so exposed...)]
+			#ENDIF
+		</p>
+		<p>
+			Happy to
+			#IF(npc.isMute())
+				 see
+			#ELSE
+				 hear
+			#ENDIF
+			 that [npc.name] enjoys a good bit of exhibitionism, you watch as [npc.she] quickly [npc.steps] into a changing room.
+		</p>
+	#ELSE
+		<p>
+			#IF(npc.isMute())
+				A brief look of surprise crosses [npc.namePos] face as [npc.she] hears what it is you're offering [npc.herHim], but then the mute [npc.race] nods [npc.her] head in a clear sign of acceptance.
+			#ELSE
+				A brief look of surprise crosses [npc.namePos] face as [npc.she] hears what it is you're saying, but nevertheless agrees to your suggestion by responding, [npc.speech(Sure, I guess that'll be fine...)]
+			#ENDIF
+		</p>
+		<p>
+			Happy to
+			#IF(npc.isMute())
+				 see
+			#ELSE
+				 hear
+			#ENDIF
+			 that [npc.name] isn't going to object to partaking in a little exhibitionism, you watch as [npc.she] quickly [npc.steps] into a changing room.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_ARRIVE_SWIM_SHORTS"><![CDATA[
+	<p>
+		As there's not much choice for [npc.herHim], you tell [npc.name] that the only option is to grab one of the spare pairs of swimming shorts from out of the nearby lockers. Offering you [npc.her] thanks, [npc.name] retrieves the swimwear and quickly [npc.steps] into a changing room.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_PLAYER_CLOTHING"><![CDATA[
+	<p>
+		As you hear [npc.name] sliding the lock into place, you wonder whether to remain in your current outfit and enter the spa as you are, or to strip naked first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_PLAYER_CLOTHING_CONTINUE"><![CDATA[
+	<p>
+		Deciding against going naked, you remain in your current outfit and wait for [npc.name] to exit the changing rooms. You're not left waiting for long, for after just a couple of minutes [npc.name] unlocks the door and [npc.steps] out. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_PLAYER_CLOTHING_NAKED"><![CDATA[
+	<p>
+		Deciding that you'd like to go naked, you quickly strip out of your clothing and wait for [npc.name] to exit the changing rooms. You're not left waiting for long, for after just a couple of minutes [npc.name] unlocks the door and [npc.steps] out.
+		#IF(npc.isPrude() || npc.isInnocent())
+			 The [npc.race] blushes a little
+		#ELSE
+			 The [npc.race] smiles
+		#ENDIF
+		 as [npc.she] sees that you've stripped out of your clothes, before waiting for you to take the lead and head into the spa's pools.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_PLAYER_CLOTHING_REVEAL"><![CDATA[
+	<p>
+		Taking this opportunity to get a good look at [npc.name],
+		#IF(npc.getClothingInSlot(IS_CHEST)!=null && npc.getClothingInSlot(IS_CHEST).getClothingType()==CT_innoxia_chest_swimsuit)
+			 you cast your gaze over [npc.her] body, noting to yourself how the tight material of [npc.her] swimsuit hugs [npc.her] [npc.hips+] and [npc.breasts+]. Running [npc.her] [npc.hands] down over [npc.her] body to smooth out a few wrinkles in [npc.her] swimwear, [npc.name] turns and shows off [npc.her] [npc.ass+] as [npc.she]
+		#ELSEIF(npc.getClothingInSlot(IS_GROIN)!=null)
+			#IF(npc.getClothingInSlot(IS_GROIN).getClothingType()==CT_innoxia_groin_micro_bikini)
+				 you cast your gaze over [npc.her] body, noting to yourself how the tiny scraps of material which constitute [npc.her] micro bikini struggle to conceal [npc.her]
+				#IF(npc.hasVagina())
+					#IF(npc.hasPenis())
+						 [npc.nipples+], [npc.cock+], and [npc.pussy+].
+					#ELSE
+						 [npc.nipples+] and [npc.pussy+].
+					#ENDIF
+				#ELSEIF(npc.hasPenis())
+					 [npc.nipples+] and [npc.cock+].
+				#ELSE
+					 [npc.nipples+] and smooth, doll-like groin.
+				#ENDIF
+				 Running [npc.her] [npc.hands] down over [npc.her] [npc.breasts+] to readjust the strings of [npc.her] revealing swimwear, [npc.name]
+				#IF(npc.getFetishDesire(FETISH_EXHIBITIONIST).isNegative())
+					 furiously blushes as [npc.she]
+				#ELSEIF(npc.hasFetish(FETISH_EXHIBITIONIST))
+					 flashes you a sly grin as [npc.she]
+				#ELSE
+					 smiles as [npc.she]
+				#ENDIF
+			#ELSEIF(npc.getClothingInSlot(IS_GROIN).getClothingType()==CT_innoxia_groin_bikini)
+				 you cast your gaze over [npc.her] body, noting to yourself how the tight material of [npc.her] bikini hugs [npc.her] groin and [npc.breasts+]. Running [npc.her] [npc.hands] down over [npc.her] body to readjust [npc.her] swimwear, [npc.name] turns and shows off [npc.her] [npc.ass+] as [npc.she]
+			#ELSEIF(npc.getClothingInSlot(IS_GROIN).getClothingType()==CT_innoxia_groin_swim_shorts)
+				 you cast your gaze over [npc.her] body. Turning and showing off [npc.her] [npc.ass+] in the process, [npc.name]
+			#ENDIF
+		#ELSE
+			 you cast your gaze over [npc.her] naked body so as to take in the sight of [npc.her]
+			#IF(npc.hasVagina())
+				#IF(npc.hasPenis())
+					[npc.breasts+], [npc.cock+], and [npc.pussy+].
+				#ELSE
+					[npc.breasts+] and [npc.pussy+].
+				#ENDIF
+			#ELSEIF(npc.hasPenis())
+				 [npc.breasts+] and [npc.cock+].
+			#ELSE
+				 [npc.breasts+] and smooth, doll-like groin.
+			#ENDIF
+			 Running [npc.her] [npc.hands] down over [npc.her] [npc.hips+], [npc.name]
+			#IF(npc.getFetishDesire(FETISH_EXHIBITIONIST).isNegative())
+				 furiously blushes as [npc.she]
+			#ELSEIF(npc.hasFetish(FETISH_EXHIBITIONIST))
+				 flashes you a sly grin as [npc.she]
+			#ELSE
+				 smiles as [npc.she]
+			#ENDIF
+		#ENDIF
+		#IF(npc.isMute())
+			 nods towards the door to the pools and shoots you a questioning look.
+		#ELSE
+			 asks, [npc.speech(Shall we head on in, then?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_PLAYER_CLOTHING_REVEAL_POOLS"><![CDATA[
+	<p>
+		With the two of you now ready for your session in the spa, you tell [npc.name] to follow as you lead [npc.herHim] through the nearby door and into the spa proper.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_CORE"><![CDATA[
+	<p>
+		The huge extension which has been built to house your private spa is nothing less than absolutely breathtaking. Constructed in an architectural style reminiscent of a Roman bath house, the rectangular room is bordered by a series of large marble pillars, which are holding up a narrow, tiled roof that runs around the entire perimeter of the room. Aside from this covering, the rest of the spa is open to the sky, but thanks to an arcane enchantment, the entire area is shielded from both the elements and the sounds of the busy city.
+	</p>
+	<p>
+		The main feature of this room is, of course, the series of bathing pools, which take up the vast majority of the space in the centre of the room. Surrounded by numerous padded loungers, these pools are filled with natural spring water, which has been heated to a very warm temperature by geothermal energy. [npc.Name] smiles at you as [npc.she] waits to hear what it is you'd like to do...
+	</p>
+	#IF(!game.getWorlds().get(WORLD_TYPE_LILAYAS_HOUSE_GROUND_FLOOR).getCells(PLACE_UPGRADE_LILAYA_SPA_BAR).isEmpty())
+		<p>
+			[style.boldOrange(Bar)]<b>:</b>
+			<br/>A sleek bar has been constructed beside the entrance to the spa, and is stocked full of all sorts of soft and hard drinks. If you wanted to, you could take a moment to make use of this bar and pour out a drink either for yourself or [npc.name].
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_CORE_BATHING"><![CDATA[
+	<p>
+		Wanting to make use of your private spa's main feature, you ask [npc.name] to join you as you [pc.step] into the warm water of the nearest bathing pool. Instantly, a deep sense of calm washes over you, and as you sink down to sit in the relatively shallow water, you can't help but let out a long, deep sigh.
+	</p>
+	<p>
+		Slipping down into the water beside you, [npc.name] lets out a relaxed sigh of [npc.her] own. After turning to give you a happy smile, the [npc.race] closes [npc.her] [npc.eyes] and takes this opportunity to relax...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_CORE_BATHING_END"><![CDATA[
+	<p>
+		After half an hour of relaxing in the pool, you feel as though you're completely relaxed and rejuvenated, and are ready to do something else.
+		#IF(npc.isAttractedTo(pc))
+			 Then again, if you wanted to, you could have some fun with [npc.name] before getting out of the water...
+		#ELSE
+			 As [npc.name] isn't attracted to you, there doesn't seem to be anything else to do in the pool, and so you prepare to get out of the water...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_CORE_BATHING_SEX_START"><![CDATA[
+	<p>
+		Wanting to take this opportunity to have a little fun with [npc.name], you suggest that the two of you could take this opportunity to have sex right here in the pool.
+		#IF(npc.isPrude() || npc.isInnocent())
+			 Caught off-guard by your suggestion, [npc.name] blushes a little, before sliding up against you and
+			#IF(npc.isMute())
+				 hungrily staring into your [pc.eyes].
+			#ELSE
+				 [npc.moaning], [npc.speech(Come on then, [pc.name], show me what you have in mind...)]
+			#ENDIF
+		#ELSE
+			 Flashing you a grin as [npc.she] hears your suggestion, [npc.name] slides up against you and
+			#IF(npc.isMute())
+				 hungrily stares into your [pc.eyes].
+			#ELSE
+				 [npc.moansVerb], [npc.speech(Come on then, [pc.name], show me what you have in mind...)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Pulling the [npc.race] into your lap, you plant a quick kiss on [npc.her] [npc.lips+] before preparing to get started...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_CORE_BATHING_SUBMISSIVE_SEX_START"><![CDATA[
+	<p>
+		Wanting to take this opportunity to have a little fun with [npc.name], you submissively suggest that [npc.she] could take this opportunity to have sex with you right here in the pool.
+		#IF(npc.isPrude() || npc.isInnocent())
+			 Caught off-guard by your suggestion, [npc.name] blushes a little, before sliding up against you and
+			#IF(npc.isMute())
+				 hungrily staring into your [pc.eyes].
+			#ELSE
+				 [npc.moaning], [npc.speech(Come on then, [pc.name], let me show you a good time...)]
+			#ENDIF
+		#ELSE
+			 Flashing you a grin as [npc.she] hears your suggestion, [npc.name] slides up against you and
+			#IF(npc.isMute())
+				 hungrily stares into your [pc.eyes].
+			#ELSE
+				 [npc.moansVerb], [npc.speech(Come on then, [pc.name], let me show you a good time...)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Pulling you into [npc.her] lap, the [npc.race] plants a quick kiss on your [pc.lips+] before preparing to get started...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_CORE_BATHING_AFTER_SEX"><![CDATA[
+	<p>
+		Having had your fun with [npc.name], you sink down into the pool and let out a deeply satisfied sigh. A few more minutes of relaxing in the warm water, and both you and the [npc.race] are ready to get out of the water and do something else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_CORE_BATHING_AFTER_SEX_END"><![CDATA[
+	<p>
+		Feeling as though you're completely relaxed and rejuvenated, you lead the way and get out of the pool. As [npc.name] exits the water to return to your side, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_CORE_MASSAGE_GIVE"><![CDATA[
+	<p>
+		Deciding that it would be fun to make use of one of the massage tables which are located in one corner of the spa, you suggest to [npc.name] that you could give [npc.herHim] a massage. Flashing you a happy smile, the
+		#IF(npc.isMute())
+			 mute [npc.race] silently
+		#ELSE
+			 [npc.race]
+		#ENDIF
+		 follows you over to the table, before lying down and waiting for you to get started.
+	</p>
+	<p>
+		Not wanting to keep [npc.her] waiting, you begin by sliding your [pc.hands] over [npc.her] shoulders, before working your touch down [npc.her] back. Letting out a series of satisfied sighs as you work the tension out of [npc.her] muscles, [npc.name]
+		#IF(npc.isMute())
+			 looks back and motions for you to continue with a pleading look on [npc.her] face.
+		#ELSE
+			 [npc.moans], [npc.speech(You're good at this... ~Mmm!~ Keep going...)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(npc.isAttractedTo(pc))
+			From [npc.her] behaviour, you can tell that [npc.name] is getting turned on by this, and as you slide your [pc.hands] down to massage [npc.her] [npc.ass+], [npc.she] bucks [npc.her] [npc.hips+] back and lets out a lewd [npc.moan]. As you continue to massage [npc.her] hot body, you wonder whether or not to take things a step further...
+		#ELSE
+			Although you're most definitely giving [npc.name] a good time, you can tell that there's no sexual element to [npc.her] enjoyment. As such, you continue giving the [npc.race] a massage with no expectation of anything lewd coming from this...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_CORE_MASSAGE_GIVE_END"><![CDATA[
+	<p>
+		Continuing to massage [npc.namePos] body for a little while longer, you eventually finish and declare that you're done. Pushing [npc.herself] up off the table, the [npc.race] stretches and lets out a deeply satisfied sigh. Flashing you another smile, [npc.she]
+		#IF(npc.isMute())
+			 gives you a look of thanks, before waiting to see what it is you want to do next...
+		#ELSE
+			 states, [npc.speech(That was fantastic, thanks [pc.name]! What do you want to do now?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_CORE_MASSAGE_GIVE_SEX_START"><![CDATA[
+	<p>
+		Knowing that it'll only take a little teasing to make [npc.name] desperately hot and horny, you slide your [pc.hands] down
+		#IF(npc.isTaur())
+			 over the back of [npc.her] lower [npc.legRace]'s body, before
+		#ELSE
+			 over [npc.her] back, before gently parting [npc.her] [npc.legs] and 
+		#ENDIF
+		 delicately starting to rub at [npc.her]
+		#IF(npc.hasVagina())
+			 [npc.pussy+].
+		#ELSEIF(npc.hasPenis())
+			 [npc.cock+].
+		#ELSE
+			 smooth, doll-like groin.
+		#ENDIF
+	</p>
+	#IF(npc.isTaur())
+		#IF(npc.isMute())
+			<p>
+				In response, the mute [npc.race] lets out a series of desperate whines, before impatiently bucking [npc.her] [npc.hips+] back in a clear sign that [npc.she] wants you to fuck [npc.herHim]. More than happy to give [npc.herHim] what [npc.she] wants, you climb up onto the massage table so that you're positioned behind the rear end of [npc.her] [npc.legRace]'s body, ready to start having some fun with [npc.herHim]...
+			</p>
+		#ELSE
+			<p>
+				In response, the [npc.race] lets out a series of desperate whines, before impatiently bucking [npc.her] [npc.hips+] back in a clear sign that [npc.she] wants you to fuck [npc.herHim]. Looking back over [npc.her] shoulder, [npc.she] [npc.moansVerb] [npc.speech(Come on, [pc.name]! ~Mmm!~ Fuck me!)]
+			</p>
+			<p>
+				More than happy to give [npc.name] what [npc.she] wants, you climb up onto the massage table so that you're positioned behind the rear end of [npc.her] [npc.legRace]'s body, ready to start having some fun with [npc.herHim]...
+			</p>
+		#ENDIF
+	#ELSE
+		#IF(npc.isMute())
+			<p>
+				In response, the mute [npc.race] lets out a series of desperate whines, before suddenly rolling over onto [npc.her] back and presenting [npc.herself] to you. More than happy to give [npc.herHim] what [npc.she] wants, you climb up onto the massage table so that you're positioned between [npc.namePos] [npc.legs], ready to start having some fun with [npc.herHim]...
+			</p>
+		#ELSE
+			<p>
+				In response, the [npc.race] lets out a series of desperate whines, before suddenly rolling over onto [npc.her] back and presenting [npc.herself] to you. Looking up into your [pc.eyes], [npc.she] [npc.moansVerb] [npc.speech(Come on, [pc.name]! ~Mmm!~ Fuck me!)]
+			</p>
+			<p>
+				More than happy to give [npc.name] what [npc.she] wants, you climb up onto the massage table so that you're positioned between [npc.namePos] [npc.legs], ready to start having some fun with [npc.herHim]...
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_CORE_MASSAGE_RECEIVE"><![CDATA[
+	<p>
+		Deciding that it would be fun to make use of one of the massage tables which are located in one corner of the spa, you suggest to [npc.name] that [npc.she] could give you a massage. Flashing you a happy smile, the
+		#IF(npc.isMute())
+			 mute [npc.race] silently agrees with a nod of [npc.her] head.
+		#ELSE
+			 [npc.race] agrees by replying, [npc.speech(Sure thing, [pc.name]!)]
+		#ENDIF
+	</p>
+	<p>
+		Leading [npc.name] over to the table, you lie down and wait for [npc.herHim] to get started. Not wanting to keep you waiting, the [npc.race] begins by sliding [npc.her] [npc.hands] over your shoulders, before working [npc.her] touch down your back. Letting out a series of satisfied sighs as you feel the tension being worked out of your muscles, you allow yourself to totally relax and enjoy the sensation.
+	</p>
+	<p>
+		#IF(npc.isAttractedTo(pc))
+			It's soon revealed that [npc.name] is getting turned on by all of this physical contact, for [npc.she] suddenly slides [npc.her] [npc.hands] down to massage your [pc.ass+]. Letting out a lewd [npc.moan], the [npc.race]'s massage soon turns into more of a groping session, and as [npc.she] starts to let out lewd noises, you wonder whether or not to submit and let [npc.herHim] take things a step further...
+		#ELSE
+			Although [npc.she] seems to be having a good time giving you a massage, you can tell that there's no sexual element to [npc.namePos] enjoyment. As such, you continue to relax and enjoy the message session with no expectation of anything lewd coming from it...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_CORE_MASSAGE_RECEIVE_END"><![CDATA[
+	<p>
+		Continuing to massage your body for a little while longer, [npc.name] eventually finishes and declares that [npc.sheIs] done. Pushing yourself up off the table, you stretch and let out a deeply satisfied sigh. Flashing you another smile, the [npc.race]
+		#IF(npc.isMute())
+			 silently waits to see what it is you want to do next...
+		#ELSE
+			 states, [npc.speech(That was fun, I hope you enjoyed it too, [pc.name]! What do you want to do now?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_CORE_MASSAGE_RECEIVE_SEX_START"><![CDATA[
+	<p>
+		Knowing that it'll only take a little teasing to make [npc.name] desperately hot and horny, you tell [npc.herHim] that [npc.she] doesn't have to hold back, and can massage absolutely any part of you. Happily [npc.moaning] as [npc.she] hears you say this, [npc.name] quickly moves [npc.her] [npc.hands] down
+		#IF(pc.isTaur())
+			 over the back of your lower [pc.legRace]'s body, before
+		#ELSE
+			 over your back, before gently parting your [pc.legs] and 
+		#ENDIF
+		 delicately starting to rub at your
+		#IF(pc.hasVagina())
+			 [pc.pussy+].
+		#ELSEIF(pc.hasPenis())
+			 [pc.cock+].
+		#ELSE
+			 smooth, doll-like groin.
+		#ENDIF
+	</p>
+	#IF(pc.isTaur())
+		<p>
+			In response, you let out a series of desperate whines, before impatiently bucking your [pc.hips+] back and telling [npc.name] that you want [npc.herHim] to fuck you. More than happy to give you what you want, the [npc.race] climbs up onto the massage table so that [npc.sheIs] positioned behind the rear end of your [pc.legRace]'s body, ready to start having some fun with you...
+		</p>
+	#ELSE
+		<p>
+			In response, you let out a series of desperate whines, before rolling over onto your back and presenting yourself to [npc.name]. More than happy to give you what you want, the [npc.race] climbs up onto the massage table so that [npc.sheIs] positioned between your [pc.legs], ready to start having some fun with you...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_CORE_MASSAGE_AFTER_SEX"><![CDATA[
+	<p>
+		Having had your fun with [npc.name], you [pc.step] away from the massage table and let out a deeply satisfied sigh. After sharing a quick kiss, both you and the [npc.race] are ready to do something else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_CORE_MASSAGE_AFTER_SEX_FINISHED"><![CDATA[
+	<p>
+		Heading back out into the main part of the spa, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_GUEST_END"><![CDATA[
+	<p>
+		Thinking that it's time to end your spa session, you tell [npc.name] that you had a lot of fun with [npc.herHim], but it's now time for you to be going. Giving you another smile, the
+		#IF(npc.isMute())
+			 mute [npc.race] nods to imply that [npc.she] had a lot of fun too.
+		#ELSE
+			 replies, [npc.speech(I had a lot of fun too. Thanks for inviting me here, [pc.name]!)]
+		#ENDIF
+	</p>
+	<p>
+		Heading back to the changing rooms, [npc.name] retrieves [npc.her] clothing and gets dressed, before accompanying you out into the corridor. Saying goodbye, [npc.she] returns to [npc.her] room, leaving you wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
 	
 	
 	<!-- SAUNA UPGRADE -->

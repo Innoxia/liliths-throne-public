@@ -52,6 +52,8 @@ public class PopulationType {
 	public static AbstractPopulationType VIP = new AbstractPopulationType("VIP", "VIPs") {};
 	
 	public static AbstractPopulationType GUARD = new AbstractPopulationType("guard", "guards") {};
+	
+	public static AbstractPopulationType SECURITY_GUARD = new AbstractPopulationType("security guard", "security guards") {};
 
 	public static AbstractPopulationType MAID = new AbstractPopulationType("maid", "maids") {};
 
@@ -74,6 +76,8 @@ public class PopulationType {
 	public static AbstractPopulationType MILKER = new AbstractPopulationType("milker", "milkers") {};
 	
 	public static AbstractPopulationType CASHIER = new AbstractPopulationType("cashier", "cashiers") {};
+	
+	public static AbstractPopulationType CLERK = new AbstractPopulationType("clerk", "clerks") {};
 	
 	public static AbstractPopulationType MASSEUSE = new AbstractPopulationType("masseuse", "masseuses") {};
 	

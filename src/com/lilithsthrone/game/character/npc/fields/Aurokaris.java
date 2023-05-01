@@ -301,11 +301,11 @@ public class Aurokaris extends NPC {
 	}
 
 	@Override
-	public void hourlyUpdate() {
+	public void hourlyUpdate(int hour) {
 		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_3_E_THEMISCYRA_ATTACK)
 				&& !Main.game.getCharactersPresent().contains(this)
-				 && !Main.game.isBadEnd()) {
-			if(Main.game.isHourBetween(8, 18)) {
+				&& !Main.game.isBadEnd()) {
+			if(hour>=8 && hour<18) {
 				this.setLocation("innoxia_fields_elis_amazon_camp", "innoxia_fields_elis_amazon_camp_trader", false);
 			} else {
 				this.setLocation("innoxia_fields_elis_amazon_camp", "innoxia_fields_elis_amazon_camp_aurokaris", true);

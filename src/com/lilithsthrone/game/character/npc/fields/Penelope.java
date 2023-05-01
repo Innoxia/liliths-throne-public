@@ -262,7 +262,7 @@ public class Penelope extends NPC {
 	}
 
 	@Override
-	public void hourlyUpdate() {
+	public void hourlyUpdate(int hour) {
 		if(!Main.game.isInSex()) {
 			this.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), this, false);
 		}

@@ -122,6 +122,8 @@ public class WorldType {
 					new Value<>(new Color(0xff80ff), PlaceType.DOMINION_DEMON_HOME),
 					new Value<>(new Color(0xff9100), PlaceType.DOMINION_DEMON_HOME_ARTHUR),
 					new Value<>(new Color(0x8000ff), PlaceType.DOMINION_CITY_HALL),
+					new Value<>(new Color(0x7f4040), PlaceType.DOMINION_BANK),
+					
 					new Value<>(new Color(0xff00ff), PlaceType.DOMINION_LILITHS_TOWER),
 					
 					new Value<>(new Color(0x8080ff), PlaceType.DOMINION_EXIT_WEST),
